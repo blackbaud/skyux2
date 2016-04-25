@@ -1,0 +1,19 @@
+<sky-alert [alertType]="'danger'" [closeable]="true">
+  My First Angular 2 App
+</sky-alert>
+<sky-card [selectable]="showCheckbox">
+  <sky-card-title *ngIf="showCardTitle">Card title</sky-card-title>
+  <sky-card-content>Card content</sky-card-content>
+</sky-card>
+
+<sky-checkbox [(selected)]="showCardTitle">
+  <sky-checkbox-label>Show title</sky-checkbox-label>
+</sky-checkbox>
+
+<sky-checkbox [(selected)]="showCheckbox">
+  <sky-checkbox-label>Show checkbox</sky-checkbox-label>
+</sky-checkbox>
+
+<sky-radio>
+  <sky-radio-label></sky-radio-label>
+</sky-radio>

@@ -1,0 +1,57 @@
+@import "variables";
+
+html, form, body {
+    font-size: $sky-font-size-base;
+    font-family: $sky-font-family-base;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 100;
+    font-family: $sky-font-family-base;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+h5 {
+    font-size: 12px;
+}
+
+h6 {
+    font-size: 10px;
+}
+
+h3,
+h4,
+h5,
+h6,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-weight: 600;
+}
+
+h1 {
+    font-family: $sky-font-family-narrow;
+    font-size: 32px;
+}

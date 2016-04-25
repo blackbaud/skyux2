@@ -10,6 +10,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
  * Webpack Plugins
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * Webpack Constants
@@ -52,6 +53,10 @@ module.exports = webpackMerge(commonConfig, {
    */
   devtool: 'cheap-module-eval-source-map',
 
+  entry: {
+    'demo': './demo/src/index.ts'
+  },
+
   /**
    * Options affecting the output of the compilation.
    *
@@ -64,7 +69,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-path
      */
-    path: helpers.root('dist'),
+    path: helpers.root('dist/demo'),
 
     /**
      * Specifies the name of each output file on disk.
@@ -111,7 +116,20 @@ module.exports = webpackMerge(commonConfig, {
         'NODE_ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
       }
-    })
+  }),
+
+  /*
+   * Plugin: HtmlWebpackPlugin
+   * Description: Simplifies creation of HTML files to serve your webpack bundles.
+   * This is especially useful for webpack bundles that include a hash in the filename
+   * which changes every compilation.
+   *
+   * See: https://github.com/ampedandwired/html-webpack-plugin
+   */
+  new HtmlWebpackPlugin({
+    template: 'demo/index.html',
+    chunksSortMode: helpers.packageSort(['polyfills', 'vendor', 'demo'])
+  })
   ],
 
   /**

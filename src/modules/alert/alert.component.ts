@@ -4,6 +4,7 @@ declare var require: any;
 
 @Component({
   selector: 'sky-alert',
+  styles: [require('./alert.component.scss')],
   template: require('./alert.component.html')
 })
 export class SkyAlertComponent {
@@ -21,6 +22,16 @@ export class SkyAlertComponent {
   }
 
   getCls() {
-    return 'alert-' + this.alertType;
-  };
+    var cls = 'sky-alert-' + this.alertType;
+
+    if (this.closed) {
+      cls += ' sky-alert-hidden';
+    }
+
+    if (this.closeable) {
+      cls += ' sky-alert-closeable';
+    }
+
+    return cls;
+  }
 }

@@ -1,9 +1,9 @@
 {
-  "name": "angular2-webpack-starter",
-  "version": "5.0.4",
-  "description": "An Angular 2 Webpack Starter kit featuring Angular 2 (Router, Http, Forms, Services, Tests, E2E, Coverage), Karma, Protractor, Jasmine, Istanbul, TypeScript, and Webpack by AngularClass",
-  "author": "Patrick Stapleton <patrick@angularclass.com>",
-  "homepage": "https://github.com/angularclass/angular2-webpack-starter",
+  "name": "blackbaud-skyux2",
+  "version": "2.0.0-alpha.1",
+  "description": "SKY UX built on Angular 2",
+  "author": "Blackbaud, Inc.",
+  "homepage": "https://github.com/blackbaud/skyux2",
   "license": "MIT",
   "scripts": {
     "rimraf": "rimraf",
@@ -14,60 +14,46 @@
     "webpack-dev-server": "webpack-dev-server",
     "webdriver-manager": "webdriver-manager",
     "protractor": "protractor",
-
     "clean": "npm cache clean && npm run rimraf -- node_modules doc typings coverage dist",
-      "clean:dist": "npm run rimraf -- dist",
-        "preclean:install": "npm run clean",
-      "clean:install": "npm set progress=false && npm install",
-        "preclean:start": "npm run clean",
-      "clean:start": "npm start",
-
+    "clean:dist": "npm run rimraf -- dist",
+    "preclean:install": "npm run clean",
+    "clean:install": "npm set progress=false && npm install",
+    "preclean:start": "npm run clean",
+    "clean:start": "npm start",
     "watch": "npm run watch:dev",
-      "watch:dev": "npm run build:dev -- --watch",
-      "watch:dev:hmr": "npm run watch:dev -- --hot",
-      "watch:test": "npm run test -- --auto-watch --no-single-run",
-      "watch:prod": "npm run build:prod -- --watch",
-
+    "watch:dev": "npm run build:dev -- --watch",
+    "watch:dev:hmr": "npm run watch:dev -- --hot",
+    "watch:test": "npm run test -- --auto-watch --no-single-run",
+    "watch:prod": "npm run build:prod -- --watch",
     "build": "npm run build:dev",
-        "prebuild:dev": "npm run clean:dist",
-      "build:dev": "webpack --config config/webpack.dev.js --progress --profile --colors --display-error-details --display-cached",
-        "prebuild:prod": "npm run clean:dist",
-      "build:prod": "webpack --config config/webpack.prod.js  --progress --profile --colors --display-error-details --display-cached --bail",
-
+    "prebuild:dev": "npm run clean:dist",
+    "build:dev": "webpack --config config/webpack.dev.js --progress --profile --colors --display-error-details --display-cached",
+    "prebuild:prod": "npm run clean:dist",
+    "build:prod": "webpack --config config/webpack.prod.js  --progress --profile --colors --display-error-details --display-cached --bail",
     "server": "npm run server:dev",
-      "server:dev": "webpack-dev-server --config config/webpack.dev.js --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
-      "server:dev:hmr": "npm run server:dev -- --hot",
-      "server:prod": "http-server dist --cors",
-
+    "server:dev": "webpack-dev-server --config config/webpack.dev.js --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
+    "server:dev:hmr": "npm run server:dev -- --hot",
+    "server:prod": "http-server dist --cors",
     "webdriver:update": "npm run webdriver-manager update",
     "webdriver:start": "npm run webdriver-manager start",
-
     "lint": "npm run tslint 'src/**/*.ts'",
-
-      "pree2e": "npm run webdriver:update -- --standalone",
+    "pree2e": "npm run webdriver:update -- --standalone",
     "e2e": "npm run protractor",
-      "e2e:live": "npm run e2e -- --elementExplorer",
-
+    "e2e:live": "npm run e2e -- --elementExplorer",
     "test": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
-
     "ci": "npm run e2e && npm run test",
-
     "docs": "npm run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
-
     "start": "npm run server:dev",
-      "start:hmr": "npm run server:dev:hmr",
-
+    "start:hmr": "npm run server:dev:hmr",
     "postinstall": "npm run typings -- install",
-
-      "preversion": "npm test",
+    "preversion": "npm test",
     "version": "npm run build",
-      "postversion": "git push && git push --tags"
-
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.15",
     "core-js": "2.3.0",
-    "normalize.css": "^4.1.1",
+    "normalize-scss": "^4.1.0",
     "rxjs": "5.0.0-beta.2",
     "zone.js": "~0.6.11"
   },
@@ -85,6 +71,8 @@
     "exports-loader": "^0.6.3",
     "expose-loader": "^0.7.1",
     "file-loader": "^0.8.5",
+    "font-awesome": "^4.6.1",
+    "font-awesome-webpack": "0.0.4",
     "html-webpack-plugin": "^2.15.0",
     "http-server": "^0.9.0",
     "imports-loader": "^0.6.5",
@@ -97,11 +85,13 @@
     "karma-mocha-reporter": "^2.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "1.7.0",
+    "node-sass": "^3.5.3",
     "parse5": "^2.1.5",
     "protractor": "^3.2.2",
     "raw-loader": "0.5.1",
     "remap-istanbul": "0.6.3",
     "rimraf": "^2.5.2",
+    "sass-loader": "^3.2.0",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "ts-helpers": "1.1.0",

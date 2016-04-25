@@ -1,0 +1,43 @@
+@import "../../scss/variables";
+
+.sky-alert {
+    padding: $sky-padding;
+    margin-bottom: $sky-margin-double;
+    border: solid 1px transparent;
+    border-radius: 4px;
+}
+
+.sky-alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #ca2a2a;
+}
+
+.sky-alert-close {
+    cursor: pointer;
+    float: right;
+    font-size: 19.5px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    opacity: 0.2;
+    border: none;
+    background-color: transparent;
+    display: none;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.sky-alert-closeable {
+    .sky-alert-close {
+        display: block;
+    }
+}
+
+.sky-alert-hidden {
+    display: none;
+}

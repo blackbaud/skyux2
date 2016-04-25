@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
 
-declare var require: any;
+declare let require: any;
 
 @Component({
   selector: 'sky-checkbox',
+  styles: [require('./checkbox.component.scss')],
   template: require('./checkbox.component.html')
 })
 export class SkyCheckboxComponent {
