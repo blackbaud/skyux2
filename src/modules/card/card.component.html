@@ -1,0 +1,20 @@
+<section class="bb-card" [ngClass]="{'bb-card-small': size === 'small', 'bb-card-selectable': selectable, 'bb-card-selected': selectable &amp;&amp; selected}">
+  <header>
+    <label class="bb-card-header" [hidden]="!selectable &amp;&amp; titleEl.children.length === 0">
+      <div class="bb-card-heading-middle">
+        <h1 class="bb-card-title" #titleEl>
+          <ng-content select="sky-card-title"></ng-content>
+        </h1>
+        <div class="bb-card-check" *ngIf="selectable">
+          <sky-checkbox [(selected)]="selected"></sky-checkbox>
+        </div>
+      </div>
+    </label>
+  </header>
+  <div class="bb-card-content" (click)="contentClick()">
+    <ng-content select="sky-card-content"></ng-content>
+    <div class="bb-card-actions" [hidden]="actionsEl.children.length === 0" #actionsEl>
+      <ng-content select="sky-card-actions"></ng-content>
+    </div>
+  </div>
+</section>
