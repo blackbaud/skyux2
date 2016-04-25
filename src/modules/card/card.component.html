@@ -1,4 +1,4 @@
-<section class="bb-card" [ngClass]="{'bb-card-small': size === 'small', 'bb-card-selectable': selectable, 'bb-card-selected': selectable &amp;&amp; selected}">
+<section class="bb-card" [ngClass]="getCls()">
   <header>
     <label class="bb-card-header" [hidden]="!selectable &amp;&amp; titleEl.children.length === 0">
       <div class="bb-card-heading-middle">

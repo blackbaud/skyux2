@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
 import {SkyCheckboxComponent} from '../checkbox/checkbox.component';
 
-declare let require: any;
-
 @Component({
   selector: 'sky-card',
   template: require('./card.component.html'),
@@ -31,21 +29,12 @@ export class SkyCardComponent {
   };
 
   getCls() {
-    let cls: string[] = [],
-      vm = this;
+    var vm = this;
 
-    if (vm.size === 'small') {
-      cls.push('bb-card-small');
-    }
-
-    if (vm.selectable) {
-      cls.push('bb-card-selectable');
-
-      if (vm.selected) {
-        cls.push('bb-card-selected');
-      }
-    }
-
-    return cls;
+    return {
+      'bb-card-small': vm.size === 'small',
+      'bb-card-selectable': vm.selectable,
+      'bb-card-selected': vm.selectable && vm.selected
+    };
   };
 }
