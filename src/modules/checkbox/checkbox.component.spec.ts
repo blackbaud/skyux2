@@ -16,7 +16,7 @@ import {SkyCheckboxComponent} from './checkbox.component';
 describe('Checkbox component', () => {
     'use strict';
 
-    function testComponent(html, callback) {
+    function testComponent(html: string, callback: Function) {
       return injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
         return tcb.overrideTemplate(TestComponent, html)
           .createAsync(TestComponent)
@@ -34,7 +34,7 @@ describe('Checkbox component', () => {
         tcb = _tcb;
       }));
 
-      it('should emit the selectedChange event when the user clicks the checkbox', (done) => {
+      it('should emit the selectedChange event when the user clicks the checkbox', (done: Function) => {
         let html = `
           <sky-checkbox [selected]="selected" (selectedChange)="updateSelected($event)">
             <sky-checkbox-label>Checkbox</sky-checkbox-label>
@@ -74,7 +74,7 @@ class TestComponent {
   @Output()
   selectedChange = new EventEmitter();
 
-  updateSelected($event) {
+  updateSelected($event: boolean) {
     this.selected = $event;
     this.selectedChange.emit($event);
   }
