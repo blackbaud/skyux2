@@ -4,6 +4,7 @@ $sky-font-family-narrow: 'Oswald', sans-serif !default;
 $sky-padding: 10px !default;
 $sky-padding-half: $sky-padding / 2 !default;
 $sky-padding-double: $sky-padding * 2 !default;
+$sky-padding-3_4: floor(($sky-padding * 0.75));
 
 $sky-margin: 10px !default;
 $sky-margin-half: $sky-margin / 2 !default;
@@ -29,6 +30,22 @@ $sky-font-size-xl: floor(($sky-font-size-base * 1.333)) !default; // ~16px
 $sky-font-size-lg: ceil(($sky-font-size-base * 1.07)) !default; // ~14px
 $sky-font-size-sm: ceil(($sky-font-size-base * 0.833)) !default; // ~10px
 
+
+$sky-alternate-font-size-xxxl: floor(($sky-font-size-base * 4)) !default; // ~48px
+$sky-alternate-font-size-xxl: floor(($sky-font-size-base * 3.5)) !default; // ~42px
+$sky-alternate-font-size-xl: floor(($sky-font-size-base * 2.333)) !default; // ~28px
+$sky-alternate-font-size-lg: ceil(($sky-font-size-base * 2)) !default; // ~24px
+$sky-alternate-font-size-base: ceil(($sky-font-size-base * 1.833)) !default; // ~22px
+$sky-alternate-font-size-sm: ceil(($sky-font-size-base * 1.667)) !default; // ~20px
+
+$sky-selected-color: #eeeffb !default;
+
+// begin transitions
+$sky-transition-time-short: 150ms;
+$sky-transition-time-medium: 250ms;
+$sky-transition-time-long: 500ms;
+// end transitions
+
 //
 //
 // // begin _variables
@@ -48,7 +65,6 @@ $sky-font-size-sm: ceil(($sky-font-size-base * 0.833)) !default; // ~10px
 // $bb-nav-selected-border-width: 4px !default;
 //
 // $bb-error-color: #ca2a2a !default;
-// $bb-selected-color: #eeeffb !default;
 //
 // $font-family-serif: BenchNine, Trebuchet, serif !default;
 //
@@ -57,12 +73,6 @@ $sky-font-size-sm: ceil(($sky-font-size-base * 0.833)) !default; // ~10px
 // $font-size-base: 13px;
 //
 //
-// $bb-alternate-font-size-xxxl: floor(($font-size-base * 4)) !default; // ~48px
-// $bb-alternate-font-size-xxl: floor(($font-size-base * 3.5)) !default; // ~42px
-// $bb-alternate-font-size-xl: floor(($font-size-base * 2.333)) !default; // ~28px
-// $bb-alternate-font-size-lg: ceil(($font-size-base * 2)) !default; // ~24px
-// $bb-alternate-font-size-base: ceil(($font-size-base * 1.833)) !default; // ~22px
-// $bb-alternate-font-size-sm: ceil(($font-size-base * 1.667)) !default; // ~20px
 //
 // $bb-text-color-success: $bb-color-blue !default;
 // $bb-text-color-info: $bb-color-aqua !default;
@@ -289,12 +299,6 @@ $sky-font-size-sm: ceil(($sky-font-size-base * 0.833)) !default; // ~10px
 // $bb-avatar-width: $bb-avatar-height !default;
 // $bb-avatar-border-width: 2px !default;
 // // end avatar
-//
-// // begin transitions
-// $bb-transition-time-short: 150ms;
-// $bb-transition-time-medium: 250ms;
-// $bb-transition-time-long: 500ms;
-// // end transitions
 //
 // // begin context menu
 // $bb-context-menu-size: 24px !default;

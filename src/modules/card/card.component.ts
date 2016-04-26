@@ -3,6 +3,7 @@ import {SkyCheckboxComponent} from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'sky-card',
+  styles: [require('./card.component.scss')],
   template: require('./card.component.html'),
   directives: [SkyCheckboxComponent]
 })
