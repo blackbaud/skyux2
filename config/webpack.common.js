@@ -2,19 +2,19 @@
  * @author: @AngularClass
  */
 
-const webpack = require('webpack');
-const helpers = require('./helpers');
+var webpack = require('webpack');
+var helpers = require('./helpers');
 
 /*
  * Webpack Plugins
  */
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 /*
  * Webpack Constants
  */
-const METADATA = {
+var METADATA = {
   title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
   baseUrl: '/'
 };
@@ -180,12 +180,12 @@ module.exports = {
       // the file-loader emits files.
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
       },
 
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader"
+        loader: 'file-loader'
       },
   ],
 

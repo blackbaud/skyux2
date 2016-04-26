@@ -2,18 +2,18 @@
  * @author: @AngularClass
  */
 
-const helpers = require('./helpers');
+var helpers = require('./helpers');
 
 /**
  * Webpack Plugins
  */
-const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
+var ProvidePlugin = require('webpack/lib/ProvidePlugin');
+var DefinePlugin = require('webpack/lib/DefinePlugin');
 
 /**
  * Webpack Constants
  */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+var ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
 /**
  * Webpack configuration
@@ -86,10 +86,11 @@ module.exports = {
         test: /\.js$/,
         loader: 'source-map-loader',
         exclude: [
-        // these packages have problems with their sourcemaps
-        helpers.root('node_modules/rxjs'),
-        helpers.root('node_modules/@angular2-material')
-      ]}
+          // these packages have problems with their sourcemaps
+          helpers.root('node_modules/rxjs'),
+          helpers.root('node_modules/@angular2-material')
+        ]
+      }
 
     ],
 
@@ -128,7 +129,11 @@ module.exports = {
        *
        * See: https://github.com/webpack/json-loader
        */
-      { test: /\.json$/, loader: 'json-loader', exclude: [helpers.root('src/index.html')] },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+        exclude: [helpers.root('src/index.html')]
+      },
 
       /**
        * Raw loader support for *.css files
@@ -136,7 +141,11 @@ module.exports = {
        *
        * See: https://github.com/webpack/raw-loader
        */
-      { test: /\.css$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] },
+      {
+        test: /\.css$/,
+        loader: 'raw-loader',
+        exclude: [helpers.root('src/index.html')]
+      },
 
       /**
        * Raw loader support for *.html
@@ -144,7 +153,22 @@ module.exports = {
        *
        * See: https://github.com/webpack/raw-loader
        */
-      { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] }
+      {
+        test: /\.html$/,
+        loader: 'raw-loader',
+        exclude: [helpers.root('src/index.html')]
+      },
+
+      /*
+       * Raw loader support for *.css files
+       * Returns file content as string
+       *
+       * See: https://github.com/webpack/raw-loader
+       */
+      {
+        test: /\.scss$/,
+        loader: 'raw-loader!sass-loader'
+      }
 
     ],
 
@@ -162,7 +186,8 @@ module.exports = {
        * See: https://github.com/deepsweet/istanbul-instrumenter-loader
        */
       {
-        test: /\.(js|ts)$/, loader: 'istanbul-instrumenter-loader',
+        test: /\.(js|ts)$/,
+        loader: 'istanbul-instrumenter-loader',
         include: helpers.root('src'),
         exclude: [
           /\.(e2e|spec)\.ts$/,
@@ -199,8 +224,6 @@ module.exports = {
         'HMR': false,
       }
     }),
-
-
   ],
 
   /**

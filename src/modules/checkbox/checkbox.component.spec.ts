@@ -55,7 +55,7 @@ describe('Checkbox component', () => {
               done();
             });
 
-            el.querySelector('.bb-check-wrapper').click();
+            el.querySelector('.sky-checkbox-wrapper').click();
 
             fixture.detectChanges();
           });

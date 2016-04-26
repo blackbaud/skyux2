@@ -2,27 +2,27 @@
  * @author: @AngularClass
  */
 
-const helpers = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+var helpers = require('./helpers');
+var webpackMerge = require('webpack-merge'); // used to merge webpack configs
+var commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
  */
-const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
+var ProvidePlugin = require('webpack/lib/ProvidePlugin');
+var DefinePlugin = require('webpack/lib/DefinePlugin');
+var DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
+var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+var CompressionPlugin = require('compression-webpack-plugin');
+var WebpackMd5Hash = require('webpack-md5-hash');
 
 /**
  * Webpack Constants
  */
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 8080;
-const METADATA = webpackMerge(commonConfig.metadata, {
+var ENV = process.env.NODE_ENV = process.env.ENV = 'production';
+var HOST = process.env.HOST || 'localhost';
+var PORT = process.env.PORT || 8080;
+var METADATA = webpackMerge(commonConfig.metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
@@ -157,7 +157,7 @@ module.exports = webpackMerge(commonConfig, {
       beautify: false, //prod
 
       mangle: {
-        screw_ie8 : true,
+        screw_ie8: true,
         keep_fnames: true
       }, //prod
 

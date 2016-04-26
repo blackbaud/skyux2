@@ -22,13 +22,13 @@ describe('Card component', () => {
 
   it('should place the individual components in their respective placeholders', (done: Function) => {
     let html = `
-<sky-card>
-  <sky-card-title>Title</sky-card-title>
-  <sky-card-content>Content</sky-card-content>
-  <sky-card-actions>
-    <button type="button" class="btn btn-default">Button</button>
-  </sky-card-actions>
-</sky-card>'
+      <sky-card>
+        <sky-card-title>Title</sky-card-title>
+        <sky-card-content>Content</sky-card-content>
+        <sky-card-actions>
+          <button type="button" class="btn btn-default">Button</button>
+        </sky-card-actions>
+      </sky-card>'
     `;
 
     tcb.overrideTemplate(TestComponent, html)
@@ -67,7 +67,7 @@ describe('Card component', () => {
 
   it('should display a checkbox when the selectable attribute is set to true', (done: Function) => {
     let html = `
-      <sky-card [selectable]="true">
+      <sky-card [selectable]="'true'">
       </sky-card>'
     `;
 
@@ -78,7 +78,7 @@ describe('Card component', () => {
 
         fixture.detectChanges();
 
-        let wrapperEl = el.querySelector('.bb-card.bb-card-selectable .bb-card-header .bb-card-check .bb-check-wrapper');
+        let wrapperEl = el.querySelector('.bb-card.bb-card-selectable .bb-card-header .bb-card-check .sky-checkbox-wrapper');
         expect(wrapperEl).not.toBeNull();
 
         done();

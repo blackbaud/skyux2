@@ -27,14 +27,4 @@ export class SkyCardComponent {
       vm.selectedChange.emit(vm.selected);
     }
   };
-
-  getCls() {
-    var vm = this;
-
-    return {
-      'bb-card-small': vm.size === 'small',
-      'bb-card-selectable': vm.selectable,
-      'bb-card-selected': vm.selectable && vm.selected
-    };
-  };
 }

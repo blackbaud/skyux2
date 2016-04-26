@@ -2,22 +2,22 @@
  * @author: @AngularClass
  */
 
-const helpers = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+var helpers = require('./helpers');
+var webpackMerge = require('webpack-merge'); // used to merge webpack configs
+var commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
  */
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var DefinePlugin = require('webpack/lib/DefinePlugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * Webpack Constants
  */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HMR = helpers.hasProcessFlag('hot');
-const METADATA = webpackMerge(commonConfig.metadata, {
+var ENV = process.env.ENV = process.env.NODE_ENV = 'development';
+var HMR = helpers.hasProcessFlag('hot');
+var METADATA = webpackMerge(commonConfig.metadata, {
   host: 'localhost',
   port: 3000,
   ENV: ENV,
@@ -116,20 +116,20 @@ module.exports = webpackMerge(commonConfig, {
         'NODE_ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
       }
-  }),
+    }),
 
-  /*
-   * Plugin: HtmlWebpackPlugin
-   * Description: Simplifies creation of HTML files to serve your webpack bundles.
-   * This is especially useful for webpack bundles that include a hash in the filename
-   * which changes every compilation.
-   *
-   * See: https://github.com/ampedandwired/html-webpack-plugin
-   */
-  new HtmlWebpackPlugin({
-    template: 'demo/index.html',
-    chunksSortMode: helpers.packageSort(['polyfills', 'vendor', 'demo'])
-  })
+    /*
+     * Plugin: HtmlWebpackPlugin
+     * Description: Simplifies creation of HTML files to serve your webpack bundles.
+     * This is especially useful for webpack bundles that include a hash in the filename
+     * which changes every compilation.
+     *
+     * See: https://github.com/ampedandwired/html-webpack-plugin
+     */
+    new HtmlWebpackPlugin({
+      template: 'demo/index.html',
+      chunksSortMode: helpers.packageSort(['polyfills', 'vendor', 'demo'])
+    })
   ],
 
   /**

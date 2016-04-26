@@ -25,9 +25,12 @@ function rootNode(args) {
 
 function prependExt(extensions, args) {
   args = args || [];
-  if (!Array.isArray(args)) { args = [args] }
-  return extensions.reduce(function(memo, val) {
-    return memo.concat(val, args.map(function(prefix) {
+  if (!Array.isArray(args)) {
+    args = [args];
+  }
+
+  return extensions.reduce(function (memo, val) {
+    return memo.concat(val, args.map(function (prefix) {
       return prefix + val;
     }));
   }, ['']);
@@ -43,17 +46,19 @@ function packageSort(packages) {
     if (a.names[0] === first) {
       return -1;
     }
+
     // main always last
     if (a.names[0] === last) {
       return 1;
     }
+
     // vendor before app
     if (a.names[0] !== first && b.names[0] === last) {
       return -1;
     } else {
       return 1;
     }
-  }
+  };
 }
 
 function reverse(arr) {
