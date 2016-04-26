@@ -9,7 +9,8 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {SkyAlertComponent} from './alert.component';
+import {SkyAlertComponent} from './';
+import {SkyResources} from '../resources/resources';
 
 describe('Alert component', () => {
   'use strict';
@@ -44,7 +45,7 @@ describe('Alert component', () => {
   });
 
   it('should be hidden when the close button is clicked', (done: Function) => {
-    return tcb.createAsync(TestComponent)
+    tcb.createAsync(TestComponent)
       .then((fixture: ComponentFixture) => {
         let closeAttrs: NamedNodeMap,
           cmp = fixture.componentInstance as TestComponent,
@@ -67,8 +68,19 @@ describe('Alert component', () => {
       });
   });
 
-  it('should allow the screen reader text for the close button to be localizable', (done: Function) => {
-    done();
+  it('should allow the screen reader text for the close button to be localizable', () => {
+    return tcb.createAsync(TestComponent)
+      .then((fixture: ComponentFixture) => {
+        let closeAttrs: NamedNodeMap,
+          cmp = fixture.componentInstance as TestComponent,
+          el = fixture.nativeElement as HTMLElement;
+
+        cmp.closeable = true;
+
+        fixture.detectChanges();
+
+        expect(el.querySelector('.sky-alert-close').attributes['aria-label'].value).toBe(SkyResources.getString('alert_close'));
+      });
   });
 
   it('should add the appropriate styling when an alert type is specified', (done: Function) => {

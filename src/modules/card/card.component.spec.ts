@@ -9,13 +9,13 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {SkyCardComponent} from './card.component';
+import {SkyCardComponent} from './';
 
 describe('Card component', () => {
   'use strict';
 
   let tcb: TestComponentBuilder;
-  
+
   function testComponent(html: string, callback: (fixture: ComponentFixture) => any) {
     return tcb.overrideTemplate(TestComponent, html)
       .createAsync(TestComponent)

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
-import {SkyCheckboxComponent} from '../checkbox/checkbox.component';
+import {SkyCheckboxComponent} from '../checkbox';
 
 @Component({
   selector: 'sky-card',

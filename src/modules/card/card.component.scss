@@ -1,4 +1,4 @@
-@import "../../scss/variables";
+@import "../../scss/mixins";
 
 .sky-card {
     background-color: #fff;
@@ -13,7 +13,7 @@
     // will attempt to vertically align the cards based on the baselines of the text in each card.
     vertical-align: top;
     width: 300px;
-    //@include shadow();
+    @include sky-shadow();
 }
 
 .sky-card-small {

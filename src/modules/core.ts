@@ -1,3 +1,3 @@
-export {SkyAlertComponent} from './alert/alert.component';
-export {SkyCardComponent} from './card/card.component';
-export {SkyCheckboxComponent} from './checkbox/checkbox.component';
+export {SkyAlertComponent} from './alert';
+export {SkyCardComponent} from './card';
+export {SkyCheckboxComponent} from './checkbox';
