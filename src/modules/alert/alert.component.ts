@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, EventEmitter, Input, Output} from 'angular2/core';
 
 @Component({
   selector: 'sky-alert',
@@ -15,16 +15,16 @@ export class SkyAlertComponent {
   @Input()
   closed: boolean;
 
+  @Output()
+  closedChange = new EventEmitter<boolean>();
+
   close() {
     this.closed = true;
+    this.closedChange.emit(true);
   }
 
   getCls() {
     let cls = 'sky-alert-' + this.alertType;
-
-    if (this.closed) {
-      cls += ' sky-alert-hidden';
-    }
 
     if (this.closeable) {
       cls += ' sky-alert-closeable';

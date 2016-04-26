@@ -7,6 +7,8 @@ import {SkyAlertComponent, SkyCardComponent, SkyCheckboxComponent} from '../../s
   directives: [SkyAlertComponent, SkyCardComponent, SkyCheckboxComponent]
 })
 export class AppComponent {
+  alertCloseable: true;
+
   checkboxSelected = true;
 
   showCardTitle = true;

@@ -7,7 +7,7 @@
       }
 ">
   <header>
-    <label class="sky-card-header" [class.sky-card-hidden]="!selectable &amp;&amp; titleEl.children.length === 0">
+    <label class="sky-card-header" [hidden]="!selectable &amp;&amp; titleEl.children.length === 0">
       <div class="sky-card-heading-middle">
         <h1 class="sky-card-title" #titleEl>
           <ng-content select="sky-card-title"></ng-content>
@@ -20,7 +20,7 @@
   </header>
   <div class="sky-card-content" (click)="contentClick()">
     <ng-content select="sky-card-content"></ng-content>
-    <div class="sky-card-actions" [class.sky-card-hidden]="actionsEl.children.length === 0" #actionsEl>
+    <div class="sky-card-actions" [hidden]="actionsEl.children.length === 0" #actionsEl>
       <ng-content select="sky-card-actions"></ng-content>
     </div>
   </div>

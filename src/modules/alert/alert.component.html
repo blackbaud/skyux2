@@ -1,6 +1,6 @@
 <div class="sky-alert" [ngClass]="getCls()">
   <ng-content></ng-content>
-  <button type="button" class="sky-alert-close" (click)="close()" aria-label="Close">
+  <button type="button" class="sky-alert-close" (click)="close()" aria-label="Close" [hidden]="!closeable">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
