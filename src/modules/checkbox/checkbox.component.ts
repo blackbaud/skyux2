@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
 
-declare var require: any;
-
 @Component({
   selector: 'sky-checkbox',
   styles: [require('./checkbox.component.scss')],

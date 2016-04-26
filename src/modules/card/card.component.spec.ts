@@ -85,9 +85,6 @@ describe('Card component', () => {
       });
   });
 
-  it('should update the bound values the user clicks the checkbox', () => {
-  });
-
   it('should allow the user to click the entire card to select the card', (done: Function) => {
     let html = `
       <sky-card [selectable]="showCheckbox" [selected]="cardSelected" (selectedChange)="updateCardSelected($event)">
@@ -112,10 +109,36 @@ describe('Card component', () => {
         el.querySelector('.bb-card-content').click();
 
         fixture.detectChanges();
+
+        expect(el.querySelector('.bb-card.bb-card-selected')).not.toBe(null);
       });
   });
 
-  it('should dereference child controllers when destroyed', () => {
+  it('should not allow clicking the card to select it when it is not selectable', (done: Function) => {
+    let html = `
+      <sky-card [selectable]="showCheckbox" [selected]="cardSelected" (selectedChange)="updateCardSelected($event)">
+        <sky-card-title>Title</sky-card-title>
+        <sky-card-content>Content</sky-card-content>
+      </sky-card>
+    `;
+
+    tcb.overrideTemplate(TestComponent, html)
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture) => {
+        let cmp = fixture.componentInstance as TestComponent,
+          el = fixture.nativeElement;
+
+        cmp.showCheckbox = false;
+        fixture.detectChanges();
+
+        el.querySelector('.bb-card-content').click();
+
+        fixture.detectChanges();
+
+        expect(el.querySelector('.bb-card.bb-card-selected')).toBe(null);
+
+        done();
+      });
   });
 });
 

@@ -1,7 +1,5 @@
 import {Component, Input} from 'angular2/core';
 
-declare var require: any;
-
 @Component({
   selector: 'sky-alert',
   styles: [require('./alert.component.scss')],
@@ -22,7 +20,7 @@ export class SkyAlertComponent {
   }
 
   getCls() {
-    var cls = 'sky-alert-' + this.alertType;
+    let cls = 'sky-alert-' + this.alertType;
 
     if (this.closed) {
       cls += ' sky-alert-hidden';
