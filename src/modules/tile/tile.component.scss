@@ -1,0 +1,64 @@
+@import "../../scss/variables";
+
+.sky-tile {
+    background-color: #fff;
+    margin-bottom: $sky-margin-double;
+    margin-top: 0;
+    padding: 0;
+}
+
+.sky-tile-header {
+    border-color: $sky-border-color;
+    border-style: solid solid none;
+    border-width: 4px 0 0;
+    display: flex;
+    margin-bottom: 0;
+    height: 48px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.sky-tile-title {
+    flex-grow: 1;
+    font-family: $sky-font-family-narrow;
+    font-size: 22px;
+    font-weight: 100;
+    margin: 0;
+    padding: 9px $sky-tile-header-tool-padding;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sky-tile-content {
+    border-color: $sky-border-color;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
+}
+
+:host /deep/ .sky-tile-tools .sky-chevron {
+    margin: 12px ($sky-tile-header-tool-padding - 6) 12px 0;
+}
+
+.sky-tile-settings {
+    color: #D1DADE;
+    margin: 16px $sky-tile-header-tool-padding 16px 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+
+.sky-tile-grab-handle {
+    color: #E7EAEC;
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    display: none;
+    font-size: 15px;
+    padding: $sky-tile-header-tool-padding $sky-tile-header-tool-padding $sky-tile-header-tool-padding 0;
+}
+
+.sky-tile-grab-handle {
+    display: inline-block;
+}

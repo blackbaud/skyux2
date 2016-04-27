@@ -4,7 +4,8 @@ $sky-font-family-narrow: 'Oswald', sans-serif !default;
 $sky-padding: 10px !default;
 $sky-padding-half: $sky-padding / 2 !default;
 $sky-padding-double: $sky-padding * 2 !default;
-$sky-padding-3_4: floor(($sky-padding * 0.75));
+$sky-padding-plus-half: $sky-padding + $sky-padding-half !default;
+$sky-padding-3_4: floor(($sky-padding * 0.75)) !default;
 
 $sky-margin: 10px !default;
 $sky-margin-half: $sky-margin / 2 !default;
@@ -18,9 +19,11 @@ $sky-color-red: #ed5565 !default;
 $sky-color-white: #fff !default;
 $sky-color-purple: #6533c5 !default;
 
-$sky-color-gray-lighter: lighten(#000, 80%); // #ccc
+$sky-border-color: #e7eaec !default;
 
-$sky-char-check-nostroke: "\e606";
+$sky-color-gray-lighter: lighten(#000, 80%) !default; // #ccc
+
+$sky-char-check-nostroke: "\e606" !default;
 
 $sky-font-size-base: 14px !default;
 
@@ -41,10 +44,19 @@ $sky-alternate-font-size-sm: ceil(($sky-font-size-base * 1.667)) !default; // ~2
 $sky-selected-color: #eeeffb !default;
 
 // begin transitions
-$sky-transition-time-short: 150ms;
-$sky-transition-time-medium: 250ms;
-$sky-transition-time-long: 500ms;
+$sky-transition-time-short: 150ms !default;
+$sky-transition-time-medium: 250ms !default;
+$sky-transition-time-long: 500ms !default;
 // end transitions
+
+//begin tile
+$sky-tile-header-tool-padding: $sky-padding-plus-half !default;
+$sky-tile-form-background: #F2F2F2 !default;
+//end tile
+
+// begin context menu
+$sky-context-menu-size: 24px !default;
+// end context menu
 
 //
 //
@@ -212,10 +224,6 @@ $sky-transition-time-long: 500ms;
 // $margin-double: ceil(($base-margin * 2));
 // $margin-triple: ceil(($base-margin * 3));
 //
-// $padding-half: floor(($base-padding * 0.5));
-// $padding-3_4: floor(($base-padding * 0.75));
-// $padding: $base-padding;
-// $padding-plus-half: ceil(($base-padding * 1.5));
 // $padding-double: ceil(($base-padding * 2));
 // $padding-triple: ceil(($base-padding * 3));
 // // end margin & padding
@@ -300,8 +308,5 @@ $sky-transition-time-long: 500ms;
 // $bb-avatar-border-width: 2px !default;
 // // end avatar
 //
-// // begin context menu
-// $bb-context-menu-size: 24px !default;
-// // end context menu
 //
 // // end _variables
