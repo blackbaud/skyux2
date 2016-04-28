@@ -5,6 +5,7 @@
 var helpers = require('./helpers');
 var webpackMerge = require('webpack-merge'); // used to merge webpack configs
 var commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+var demoConfig = require('./webpack.demo.js');
 
 /**
  * Webpack Plugins
@@ -29,7 +30,7 @@ var METADATA = webpackMerge(commonConfig.metadata, {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = webpackMerge(commonConfig, {
+module.exports = webpackMerge(commonConfig, demoConfig.buildDemoConfig(), {
 
   /**
    * Merged metadata from webpack.common.js for index.html
@@ -52,10 +53,6 @@ module.exports = webpackMerge(commonConfig, {
    * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
    */
   devtool: 'cheap-module-eval-source-map',
-
-  entry: {
-    'demo': './demo/src/index.ts'
-  },
 
   /**
    * Options affecting the output of the compilation.

@@ -60,5 +60,15 @@
 }
 
 .sky-tile-grab-handle {
-    display: inline-block;
+    display: none;
+}
+
+// Hide the grab handle unless the tile's in a sortable column.
+
+.sky-page-content-tile-column-sortable {
+    min-height: 100px;
+
+    .sky-tile-grab-handle {
+        display: inline-block;
+    }
 }

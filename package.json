@@ -88,6 +88,7 @@
     "karma-mocha-reporter": "^2.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "1.7.0",
+    "node-glob": "^1.2.0",
     "node-sass": "^3.5.3",
     "parse5": "^2.1.5",
     "protractor": "^3.2.2",
