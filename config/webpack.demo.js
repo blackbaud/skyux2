@@ -6,7 +6,7 @@ var plugins = [];
 var entry = {};
 
 (function () {
-  var files = glob.sync('./demo/src/*/index.ts');
+  var files = glob.sync('./demo/src/*/app.component.ts');
 
   files.forEach(function (file) {
     var demoName;

@@ -1,0 +1,6 @@
+@import "../../scss/variables";
+
+:host {
+  padding: $sky-padding-plus-half;
+  flex-grow: 1;
+}
