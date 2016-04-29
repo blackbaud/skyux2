@@ -8,7 +8,7 @@ import {Bootstrapper} from '../../bootstrapper';
   directives: [SkyCheckboxComponent]
 })
 export class AppComponent {
-
+  selected = false;
 }
 
 Bootstrapper.bootstrap(AppComponent);
