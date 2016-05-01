@@ -1,6 +1,10 @@
 @import "../../scss/variables";
 
 :host {
-  padding: $sky-padding-plus-half;
+  display: flex;
+  flex-grow: 1;
+}
+
+.sky-tile-dashboard-column {
   flex-grow: 1;
 }
