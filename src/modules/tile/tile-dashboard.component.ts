@@ -1,4 +1,10 @@
-import {Component, EventEmitter, Input, Output} from 'angular2/core';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  Input,
+  Output
+} from 'angular2/core';
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
 
 @Component({

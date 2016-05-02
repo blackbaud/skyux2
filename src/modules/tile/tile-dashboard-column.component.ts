@@ -1,6 +1,18 @@
-import {Component, EventEmitter, Host, Input, Output} from 'angular2/core';
+import {
+  Component,
+  DynamicComponentLoader,
+  EventEmitter,
+  Host,
+  Injector,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange
+} from 'angular2/core';
 import {Dragula, DragulaService} from 'ng2-dragula/ng2-dragula';
 import {SkyTileDashboardComponent} from './tile-dashboard.component';
+
+let columnIdIndex = 0;
 
 @Component({
   selector: 'sky-tile-dashboard-column',
@@ -8,11 +20,38 @@ import {SkyTileDashboardComponent} from './tile-dashboard.component';
   template: require('./tile-dashboard-column.component.html'),
   directives: [Dragula]
 })
-export class SkyTileDashboardColumnComponent {
+export class SkyTileDashboardColumnComponent implements OnChanges {
   bagId: string;
 
-  constructor(private _tileDashboard: SkyTileDashboardComponent) {
+  columnId: string;
+
+  @Input()
+  tiles: any[];
+
+  constructor(
+    private _tileDashboard: SkyTileDashboardComponent,
+    private _dcl: DynamicComponentLoader,
+    private _injector: Injector
+  ) {
+    columnIdIndex++;
+
+    this.columnId = 'tile-dashboard-column-' + columnIdIndex;
+
     this.bagId = _tileDashboard.bagId;
     console.log(this.bagId);
+  }
+
+  ngOnChanges(changes: {[propName: string]: SimpleChange}) {
+    var tilesChange = changes['tiles'];
+
+    if (tilesChange && tilesChange.currentValue) {
+      for (let tile of tilesChange.currentValue) {
+        this._dcl.loadAsRoot(
+          tile,
+          '.sky-tile-dashboard-column[data-column-id="' + this.columnId + '"]',
+          this._injector
+        );
+      }
+    }
   }
 }
