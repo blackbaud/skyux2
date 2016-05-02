@@ -1,8 +1,13 @@
 @import "variables";
+body,
+form,
+html {
+  font-size: $sky-font-size-base;
+  font-family: $sky-font-family-base;
+}
 
-html, form, body {
-    font-size: $sky-font-size-base;
-    font-family: $sky-font-family-base;
+body {
+  background-color: $sky-body-background-color;
 }
 
 h1,
@@ -11,53 +16,53 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 100;
-    font-family: $sky-font-family-base;
-    line-height: 1.1;
+  font-weight: 100;
+  font-family: $sky-font-family-base;
+  line-height: 1.1;
 }
 
 h2 {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 h3 {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 h4 {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 h5 {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 h6 {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 h3,
 h4,
 h5,
 h6 {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 h1 {
-    font-family: $sky-font-family-narrow;
-    font-size: 32px;
+  font-family: $sky-font-family-narrow;
+  font-size: 32px;
 }
 
 [hidden] {
-    display: none !important;
+  display: none !important;
 }
+
 /* Dragula styles */
 .gu-mirror {
   position: fixed !important;
   margin: 0 !important;
   z-index: 9999 !important;
   opacity: 0.8;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   filter: alpha(opacity=80);
 }
 
@@ -73,8 +78,7 @@ h1 {
 }
 
 .gu-transit {
-  opacity: 0.2;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  opacity: 0.5;
   filter: alpha(opacity=20);
 }
 /* End Dragula styles */

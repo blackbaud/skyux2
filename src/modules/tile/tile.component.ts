@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {SkyChevronComponent} from '../chevron';
 import {SkyResourcesPipe} from '../resources';
 

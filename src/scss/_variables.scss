@@ -18,12 +18,11 @@ $sky-color-yellow: #f8ac59 !default;
 $sky-color-red: #ed5565 !default;
 $sky-color-white: #fff !default;
 $sky-color-purple: #6533c5 !default;
+$sky-color-gray-lighter: lighten(#000, 80%) !default; // #ccc
 
 $sky-border-color: #e7eaec !default;
 
-$sky-color-gray-lighter: lighten(#000, 80%) !default; // #ccc
-
-$sky-char-check-nostroke: "\e606" !default;
+$sky-body-background-color: #f3f3f4 !default;
 
 $sky-font-size-base: 14px !default;
 
@@ -95,7 +94,6 @@ $sky-context-menu-size: 24px !default;
 //
 //
 // // Bootstrap overrides
-// $body-bg: #f3f3f4;
 //
 // $gray-darker: lighten(#000, 13.5%); // #222
 // $gray-dark: lighten(#000, 20%); // #333

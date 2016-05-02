@@ -1,10 +1,19 @@
 @import "../../scss/variables";
 
 :host {
+  padding: 0 $sky-padding;
+  // Make all columns within a tile dashboard the same width.
+  flex: 1 0 0;
+
+  // Make the container that holds the tiles take up the entire height of the dashboard.
+  // This height will be determined by the largest total height of the tiles in a given
+  // column.
   display: flex;
-  flex-grow: 1;
+  flex-direction: column;
 }
 
 .sky-tile-dashboard-column {
-  flex-grow: 1;
+  // Ensure at least a 100 pixel drop target in case the column has no tiles and no
+  // other column is tall enough to give it a reasonable drop target.
+  flex: 1 0 100px;
 }
