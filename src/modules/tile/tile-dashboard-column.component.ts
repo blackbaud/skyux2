@@ -3,12 +3,14 @@ import {
   Component,
   ComponentFactory,
   ComponentResolver,
+  EventEmitter,
   Input,
   OnChanges,
   SimpleChange,
   ViewChild
 } from 'angular2/core';
-import {Dragula, DragulaService} from 'ng2-dragula/ng2-dragula';
+import {Dragula} from 'ng2-dragula/ng2-dragula';
+import {SkyTileComponent} from './tile.component';
 import {SkyTileDashboardComponent} from './tile-dashboard.component';
 import {SkyTileDashboardColumnContentComponent} from './tile-dashboard-column-content.component';
 

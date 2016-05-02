@@ -22,6 +22,12 @@ export class AppComponent {
 
   column2Tiles: any[];
 
+  dashboardConfig: string;
+
+  dashboardChanged($event: any) {
+    this.dashboardConfig = JSON.stringify($event);
+  }
+
   constructor() {
     this.column1Tiles = [Tile1Component];
     this.column2Tiles = [Tile2Component];
@@ -31,7 +37,7 @@ export class AppComponent {
 @Component({
   selector: 'div.tile-1',
   template: `
-    <sky-tile>
+    <sky-tile skyTileId="tile1">
       <sky-tile-title>Tile 1</sky-tile-title>
       <sky-tile-content>
         <sky-tile-content-section>Section 1</sky-tile-content-section>
@@ -51,7 +57,7 @@ class Tile1Component {
 @Component({
   selector: 'div.tile-2',
   template: `
-    <sky-tile>
+    <sky-tile skyTileId="tile2">
       <sky-tile-title>Tile 2</sky-tile-title>
       <sky-tile-content>
         <sky-tile-content-section>Section 1</sky-tile-content-section>
