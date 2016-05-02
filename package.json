@@ -51,7 +51,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.15",
+    "angular2": "2.0.0-beta.17",
     "core-js": "2.3.0",
     "dragula": "^3.6.8",
     "font-awesome": "^4.6.1",
@@ -59,7 +59,7 @@
     "ng2-dragula": "^1.1.6",
     "ng2-toastr": "^0.1.10",
     "normalize-scss": "^4.1.0",
-    "rxjs": "5.0.0-beta.2",
+    "rxjs": "5.0.0-beta.6",
     "zone.js": "~0.6.11"
   },
   "devDependencies": {
