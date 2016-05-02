@@ -1,6 +1,7 @@
 import {
   Component,
   DynamicComponentLoader,
+  ElementRef,
   EventEmitter,
   Host,
   Injector,
@@ -31,7 +32,8 @@ export class SkyTileDashboardColumnComponent implements OnChanges {
   constructor(
     private _tileDashboard: SkyTileDashboardComponent,
     private _dcl: DynamicComponentLoader,
-    private _injector: Injector
+    private _injector: Injector,
+    private _elementRef: ElementRef
   ) {
     columnIdIndex++;
 
@@ -46,10 +48,10 @@ export class SkyTileDashboardColumnComponent implements OnChanges {
 
     if (tilesChange && tilesChange.currentValue) {
       for (let tile of tilesChange.currentValue) {
-        this._dcl.loadAsRoot(
+        this._dcl.loadIntoLocation(
           tile,
-          '.sky-tile-dashboard-column[data-column-id="' + this.columnId + '"]',
-          this._injector
+          this._elementRef,
+          'column'
         );
       }
     }
