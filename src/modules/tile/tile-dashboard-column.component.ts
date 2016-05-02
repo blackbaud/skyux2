@@ -51,7 +51,7 @@ export class SkyTileDashboardColumnComponent implements OnChanges {
         this._dcl.loadIntoLocation(
           tile,
           this._elementRef,
-          'column'
+          'columnAnchor'
         );
       }
     }

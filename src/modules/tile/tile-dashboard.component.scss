@@ -1,3 +1,6 @@
+@import "../../scss/variables";
+
 :host {
   display: flex;
+  padding: 0 $sky-padding;
 }

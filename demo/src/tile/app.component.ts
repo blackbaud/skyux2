@@ -29,6 +29,7 @@ export class AppComponent {
 }
 
 @Component({
+  selector: 'div.tile-1',
   template: `
     <sky-tile>
       <sky-tile-title>Tile 1</sky-tile-title>
@@ -48,6 +49,7 @@ class Tile1Component {
 }
 
 @Component({
+  selector: 'div.tile-2',
   template: `
     <sky-tile>
       <sky-tile-title>Tile 2</sky-tile-title>
