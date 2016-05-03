@@ -11,7 +11,6 @@ export class SkyChevronComponent {
   @Output()
   directionChange = new EventEmitter<string>();
 
-  @Input()
   direction = 'up';
 
   chevronClick($event: MouseEvent) {

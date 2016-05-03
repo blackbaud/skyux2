@@ -44,7 +44,7 @@ describe('Checkbox component', () => {
         tcb.overrideTemplate(TestComponent, html)
           .createAsync(TestComponent)
           .then((fixture: ComponentFixture) => {
-            let cmp = fixture.componentInstance as SkyCheckboxComponent,
+            let cmp = fixture.componentInstance as TestComponent,
               el = fixture.nativeElement;
 
             fixture.detectChanges();

@@ -1,7 +1,7 @@
 <button
     type="button"
     class="sky-chevron"
-    [ngClass]="'sky-chevron-flip-' + (direction || 'up')"
+    [ngClass]="['sky-chevron-' + direction]"
     (click)="chevronClick($event)"
     [attr.aria-label]="(isCollapsed ? 'chevron_expand' : 'chevron_collapse') | skyResources"
 >
