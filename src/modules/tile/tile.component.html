@@ -1,9 +1,9 @@
-<section class="sky-tile">
+<section class="sky-tile" [attr.sky-tile-id]="tileId">
   <header class="sky-tile-header">
     <h1 class="sky-tile-title" (click)="titleClick()">
       <ng-content select="sky-tile-title"></ng-content>
     </h1>
-    <div class="sky-tile-header-column-tools" #someEl>
+    <div class="sky-tile-header-column-tools">
         <div class="sky-tile-tools">
             <!-- <button type="button" ng-if="bbTile.hasSettings" class="bb-tile-settings bb-icon bb-icon-config" ng-click="$event.stopPropagation();bbTile.bbTileSettingsClick();"></button> -->
             <sky-chevron [direction]="isCollapsed ? 'down' : 'up'" (directionChange)="chevronDirectionChange($event)"></sky-chevron>

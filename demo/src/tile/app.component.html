@@ -6,11 +6,6 @@
   </sky-tile-content>
 </sky-tile>
 
-<sky-tile-dashboard (dashboardChanged)="dashboardChanged($event)">
-  <sky-tile-dashboard-column [tiles]="column1Tiles">
-  </sky-tile-dashboard-column>
-  <sky-tile-dashboard-column [tiles]="column2Tiles">
-  </sky-tile-dashboard-column>
-</sky-tile-dashboard>
+<sky-tile-dashboard [(dashboardConfig)]="dashboardConfig"></sky-tile-dashboard>
 
-Current dashboard config: {{dashboardConfig}}
+Current dashboard config: {{stringify(dashboardConfig)}}

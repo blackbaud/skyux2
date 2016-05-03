@@ -3,7 +3,8 @@ import {
   SkyTileComponent,
   SkyTileContentSectionComponent,
   SkyTileDashboardComponent,
-  SkyTileDashboardColumnComponent
+  SkyTileDashboardColumnComponent,
+  SkyTileDashboardConfig
 } from '../../../src/modules/core';
 import {Bootstrapper} from '../../bootstrapper';
 
@@ -18,19 +19,33 @@ import {Bootstrapper} from '../../bootstrapper';
   ]
 })
 export class AppComponent {
-  column1Tiles: any[];
+  dashboardConfig: SkyTileDashboardConfig;
 
-  column2Tiles: any[];
-
-  dashboardConfig: string;
-
-  dashboardChanged($event: any) {
-    this.dashboardConfig = JSON.stringify($event);
+  stringify(obj: any) {
+    return JSON.stringify(obj);
   }
 
   constructor() {
-    this.column1Tiles = [Tile1Component];
-    this.column2Tiles = [Tile2Component];
+    this.dashboardConfig = {
+      columns: [
+        {
+          tiles: [
+            {
+              id: 'tile1',
+              component: Tile1Component
+            }
+          ]
+        },
+        {
+          tiles: [
+            {
+              id: 'tile2',
+              component: Tile2Component
+            }
+          ]
+        }
+      ]
+    }
   }
 }
 
@@ -51,7 +66,9 @@ export class AppComponent {
   ]
 })
 class Tile1Component {
-
+  constructor() {
+    console.log('Created tile 1 component');
+  }
 }
 
 @Component({

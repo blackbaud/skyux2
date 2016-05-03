@@ -4,8 +4,12 @@ import {
   ComponentFactory,
   ComponentResolver,
   EventEmitter,
+  forwardRef,
+  Inject,
   Input,
   OnChanges,
+  provide,
+  ReflectiveInjector,
   SimpleChange,
   ViewChild
 } from 'angular2/core';
@@ -13,6 +17,7 @@ import {Dragula} from 'ng2-dragula/ng2-dragula';
 import {SkyTileComponent} from './tile.component';
 import {SkyTileDashboardComponent} from './tile-dashboard.component';
 import {SkyTileDashboardColumnContentComponent} from './tile-dashboard-column-content.component';
+import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
 
 let columnIdIndex = 0;
 
@@ -28,7 +33,7 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   columnId: string;
 
   @Input()
-  tiles: any[];
+  tiles: SkyTileDashboardConfigTile[];
 
   @ViewChild('content')
   private _content: SkyTileDashboardColumnContentComponent
@@ -36,9 +41,10 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   private _viewInitialized = false;
 
   constructor(
-    private _tileDashboard: SkyTileDashboardComponent,
+    @Inject(forwardRef(() => SkyTileDashboardComponent)) private _tileDashboard: SkyTileDashboardComponent,
     private _cmpResolver: ComponentResolver
   ) {
+    console.log('new dashboard column');
     columnIdIndex++;
 
     this.columnId = 'tile-dashboard-column-' + columnIdIndex;
@@ -47,11 +53,12 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   }
 
   updateTiles() {
-    if (this._viewInitialized && this.tiles instanceof Array) {
+    if (this._viewInitialized && this.tiles) {
       for (let tile of this.tiles) {
-        this._cmpResolver.resolveComponent(tile)
+        this._cmpResolver.resolveComponent(tile.component)
           .then((factory: ComponentFactory) => {
-            this._content.viewContainer.createComponent(factory);
+            let componentRef = this._content.viewContainer.createComponent(factory);
+            componentRef.instance.tileId = tile.id;
           });
       }
     }

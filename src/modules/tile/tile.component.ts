@@ -12,6 +12,8 @@ import {SkyResourcesPipe} from '../resources';
 export class SkyTileComponent {
   isCollapsed = false;
 
+  tileId: string;
+
   titleClick() {
     this.isCollapsed = !this.isCollapsed;
   }
