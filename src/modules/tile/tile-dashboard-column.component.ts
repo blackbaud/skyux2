@@ -3,13 +3,8 @@ import {
   Component,
   ComponentFactory,
   ComponentResolver,
-  EventEmitter,
-  forwardRef,
-  Inject,
   Input,
   OnChanges,
-  provide,
-  ReflectiveInjector,
   SimpleChange,
   ViewChild
 } from 'angular2/core';

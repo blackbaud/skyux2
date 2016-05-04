@@ -54,21 +54,6 @@
     cursor: move;
     cursor: -webkit-grab;
     cursor: -moz-grab;
-    display: none;
     font-size: 15px;
     padding: $sky-tile-header-tool-padding $sky-tile-header-tool-padding $sky-tile-header-tool-padding 0;
-}
-
-.sky-tile-grab-handle {
-    display: inline-block;
-}
-
-// Hide the grab handle unless the tile's in a sortable column.
-
-.sky-page-content-tile-column-sortable {
-    min-height: 100px;
-
-    .sky-tile-grab-handle {
-        display: inline-block;
-    }
 }
