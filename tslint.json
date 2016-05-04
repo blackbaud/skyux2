@@ -3,7 +3,7 @@
     "node_modules/codelyzer"
   ],
   "rules": {
-    "member-access": false,
+    "member-access": true,
     "member-ordering": [
       true,
       "public-before-private",
@@ -13,6 +13,7 @@
     "no-any": false,
     "no-inferrable-types": false,
     "no-internal-module": true,
+    "no-reference": true,
     "no-var-requires": false,
     "typedef": false,
     "typedef-whitespace": [
@@ -34,7 +35,7 @@
     ],
 
     "ban": false,
-    "curly": false,
+    "curly": true,
     "forin": true,
     "label-position": true,
     "label-undefined": true,
@@ -57,11 +58,11 @@
     "no-eval": true,
     "no-null-keyword": true,
     "no-shadowed-variable": true,
-    "no-string-literal": true,
+    "no-string-literal": false,
     "no-switch-case-fall-through": true,
     "no-unreachable": true,
     "no-unused-expression": true,
-    "no-unused-variable": false,
+    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "radix": true,
@@ -103,7 +104,7 @@
     ],
     "interface-name": false,
     "jsdoc-format": true,
-    "no-consecutive-blank-lines": false,
+    "no-consecutive-blank-lines": true,
     "no-constructor-vars": false,
     "one-line": [
       true,
@@ -134,18 +135,23 @@
       "check-type"
     ],
 
-    "directive-selector-name": [true, "kebab-case"],
+    "directive-selector-name": [true, "camelCase"],
     "component-selector-name": [true, "kebab-case"],
     "directive-selector-type": [true, "attribute"],
     "component-selector-type": [true, "element"],
-    "directive-selector-prefix": false,
-    "component-selector-prefix": false,
-    "host-parameter-decorator": true,
-    "input-parameter-decorator": true,
-    "output-parameter-decorator": true,
-    "attribute-parameter-decorator": false,
-    "input-property-directive": true,
-    "output-property-directive": true,
-    "call-forward-ref":true
+    "directive-selector-prefix": [true, "sky"],
+    "component-selector-prefix": [true, "sky"],
+    "use-input-property-decorator": true,
+    "use-output-property-decorator": true,
+    "use-host-property-decorator": true,
+    "no-attribute-parameter-decorator": true,
+    "no-input-rename": true,
+    "no-output-rename": true,
+    "no-forward-ref": true,
+    "use-life-cycle-interface": true,
+    "use-pipe-transform-interface": true,
+    "pipe-naming": [true, "camelCase", "sky"],
+    "component-class-suffix": true,
+    "directive-class-suffix": true
   }
 }
