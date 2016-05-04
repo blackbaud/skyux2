@@ -18,6 +18,7 @@ import {SkyTileComponent} from './tile.component';
 import {SkyTileDashboardComponent} from './tile-dashboard.component';
 import {SkyTileDashboardColumnContentComponent} from './tile-dashboard-column-content.component';
 import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
+import {SkyTileDashboardService} from './tile-dashboard.service';
 
 let columnIdIndex = 0;
 
@@ -41,15 +42,14 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   private _viewInitialized = false;
 
   constructor(
-    @Inject(forwardRef(() => SkyTileDashboardComponent)) private _tileDashboard: SkyTileDashboardComponent,
+    private _dashboardService: SkyTileDashboardService,
     private _cmpResolver: ComponentResolver
   ) {
-    console.log('new dashboard column');
     columnIdIndex++;
 
     this.columnId = 'tile-dashboard-column-' + columnIdIndex;
 
-    this.bagId = _tileDashboard.bagId;
+    this.bagId = _dashboardService.bagId;
   }
 
   updateTiles() {
