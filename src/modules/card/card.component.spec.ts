@@ -9,7 +9,7 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {SkyCardComponent} from './';
+import {SkyCardComponent} from './card.component';
 
 describe('Card component', () => {
   'use strict';

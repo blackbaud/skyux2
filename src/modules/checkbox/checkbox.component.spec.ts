@@ -10,7 +10,7 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {SkyCheckboxComponent} from './';
+import {SkyCheckboxComponent} from './checkbox.component';
 
 describe('Checkbox component', () => {
     'use strict';

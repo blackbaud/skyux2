@@ -10,7 +10,7 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {SkyChevronComponent} from './';
+import {SkyChevronComponent} from './chevron.component';
 
 describe('Chevron component', () => {
     let tcb: TestComponentBuilder;

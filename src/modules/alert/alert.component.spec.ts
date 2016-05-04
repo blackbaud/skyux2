@@ -9,7 +9,7 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {SkyAlertComponent} from './';
+import {SkyAlertComponent} from './alert-component';
 import {SkyResources} from '../resources/resources';
 
 describe('Alert component', () => {
