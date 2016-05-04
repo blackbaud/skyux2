@@ -8,7 +8,7 @@ import {
   TestComponentBuilder
 } from 'angular2/testing';
 
-import {Component, EventEmitter, Output} from 'angular2/core';
+import {Component, EventEmitter} from 'angular2/core';
 import {SkyAlertComponent} from './alert.component';
 import {SkyResources} from '../resources/resources';
 
@@ -24,9 +24,9 @@ describe('Alert component', () => {
   it('should hide the close button if it is not cloesable', () => {
     return tcb.createAsync(TestComponent)
       .then((fixture: ComponentFixture) => {
-        let closeAttrs: NamedNodeMap,
-          cmp = fixture.componentInstance as TestComponent,
-          el = fixture.nativeElement as HTMLElement;
+        let closeAttrs: NamedNodeMap;
+        let cmp = fixture.componentInstance as TestComponent;
+        let el = fixture.nativeElement as HTMLElement;
 
         cmp.closeable = true;
 
@@ -47,9 +47,8 @@ describe('Alert component', () => {
   it('should be hidden when the close button is clicked', (done: Function) => {
     tcb.createAsync(TestComponent)
       .then((fixture: ComponentFixture) => {
-        let closeAttrs: NamedNodeMap,
-          cmp = fixture.componentInstance as TestComponent,
-          el = fixture.nativeElement;
+        let cmp = fixture.componentInstance as TestComponent;
+        let el = fixture.nativeElement;
 
         cmp.closeable = true;
 
@@ -71,15 +70,17 @@ describe('Alert component', () => {
   it('should allow the screen reader text for the close button to be localizable', () => {
     return tcb.createAsync(TestComponent)
       .then((fixture: ComponentFixture) => {
-        let closeAttrs: NamedNodeMap,
-          cmp = fixture.componentInstance as TestComponent,
-          el = fixture.nativeElement as HTMLElement;
+        let cmp = fixture.componentInstance as TestComponent;
+        let el = fixture.nativeElement as HTMLElement;
+        let closeEl: Element;
 
         cmp.closeable = true;
 
         fixture.detectChanges();
 
-        expect(el.querySelector('.sky-alert-close').attributes['aria-label'].value).toBe(SkyResources.getString('alert_close'));
+        closeEl = el.querySelector('.sky-alert-close');
+
+        expect(closeEl.attributes['aria-label'].value).toBe(SkyResources.getString('alert_close'));
       });
   });
 
@@ -89,18 +90,22 @@ describe('Alert component', () => {
 });
 
 @Component({
-  selector: 'test-cmp',
+  selector: 'sky-test-cmp',
   directives: [SkyAlertComponent],
-  template: '<sky-alert [closeable]="closeable" [closed]="closed" (closedChange)="onClosedChange($event)">Alert</sky-alert>'
+  template: `
+<sky-alert [closeable]="closeable" [closed]="closed" (closedChange)="onClosedChange($event)">
+  Alert
+</sky-alert>
+  `
 })
 class TestComponent {
-  closeable = false;
+  public closeable = false;
 
-  closed = false;
+  public closed = false;
 
-  closedChange = new EventEmitter<boolean>();
+  public closedChange = new EventEmitter<boolean>();
 
-  onClosedChange = function (closed: boolean) {
+  public onClosedChange = function (closed: boolean) {
     this.closed = closed;
     this.closedChange.emit(closed);
   };

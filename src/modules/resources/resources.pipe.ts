@@ -5,7 +5,7 @@ import {SkyResources} from './resources';
   name: 'skyResources'
 })
 export class SkyResourcesPipe implements PipeTransform {
-  transform(name: string): string {
+  public transform(name: string): string {
     return SkyResources.getString(name);
   }
 }

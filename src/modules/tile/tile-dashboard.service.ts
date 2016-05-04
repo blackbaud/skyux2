@@ -6,7 +6,10 @@ import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
 
 let bagIdIndex = 0;
 
-function findTile(dashboardConfig: SkyTileDashboardConfig, tileId: string): SkyTileDashboardConfigTile {
+function findTile(
+  dashboardConfig: SkyTileDashboardConfig,
+  tileId: string
+): SkyTileDashboardConfigTile {
   if (dashboardConfig && dashboardConfig.columns) {
     for (let column of dashboardConfig.columns) {
       if (column.tiles) {
@@ -24,28 +27,22 @@ function findTile(dashboardConfig: SkyTileDashboardConfig, tileId: string): SkyT
 
 @Injectable()
 export class SkyTileDashboardService {
-  bagId: string;
+  public bagId: string;
 
-  ready = new EventEmitter<SkyTileDashboardConfig>();
+  public ready = new EventEmitter<SkyTileDashboardConfig>();
 
-  configChange = new EventEmitter<SkyTileDashboardConfig>();
+  public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
   private _config: SkyTileDashboardConfig;
 
-  private _checkReady() {
-    if (this._config && this._dragulaService) {
-      this.ready.emit(this._config);
-    }
-  }
-
   private _dragulaService: DragulaService;
 
-  setConfig(config: SkyTileDashboardConfig) {
+  public setConfig(config: SkyTileDashboardConfig) {
     this._config = config;
     this._checkReady();
   }
 
-  setDragulaService(dragulaService: DragulaService) {
+  public setDragulaService(dragulaService: DragulaService) {
     let self = this;
 
     bagIdIndex++;
@@ -93,5 +90,11 @@ export class SkyTileDashboardService {
     });
 
     self._checkReady();
+  }
+
+  private _checkReady() {
+    if (this._config && this._dragulaService) {
+      this.ready.emit(this._config);
+    }
   }
 }

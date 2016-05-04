@@ -1,29 +1,12 @@
 import {
-  beforeEach,
-  ComponentFixture,
   describe,
-  expect,
-  it,
-  inject,
-  injectAsync,
-  TestComponentBuilder
+  it
 } from 'angular2/testing';
 
-import {Component, EventEmitter, Output} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {SkyTileComponent} from './tile.component';
 
 describe('Tile component', () => {
-  function testComponent(html: string, callback: Function) {
-    return injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-      return tcb.overrideTemplate(TestComponent, html)
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture) => {
-          fixture.detectChanges();
-          callback(fixture, fixture.nativeElement);
-        });
-    });
-  }
-
   it('should render the header text in the expected element', function () {
   });
 
@@ -45,11 +28,19 @@ describe('Tile component', () => {
   it('should react when tile display mode changes', function () {
   });
 
-  it('should not update tile state when display mode changed but the tile have not been initialized by the tile dashboard', function () {
-  });
+  it(
+    `should not update tile state when display mode changed but the tile have not
+    been initialized by the tile dashboard`,
+    function () {
+    }
+  );
 
-  it('should not update tile state when display mode changed but the tile have not been initialized by the tile dashboard', function () {
-  });
+  it(
+    `should not update tile state when display mode changed but the tile have not
+    been initialized by the tile dashboard`,
+    function () {
+    }
+  );
 
   describe('settings button', function () {
     it('should be present only if a callback is provided', function () {
@@ -93,28 +84,50 @@ describe('Tile component', () => {
     it('should update the tile collapsed state when the tile is collapsed', function () {
     });
 
-    it('should update the tile collapsed small state when the tile is collapsed on a small screen', function () {
-    });
+    it(
+      'should update the tile collapsed small state when the tile is collapsed on a small screen',
+      function () {
+      }
+    );
 
-    it('should update the all-collapsed state when a tile\'s collapsed state changes', function () {
-    });
+    it(
+      'should update the all-collapsed state when a tile\'s collapsed state changes',
+      function () {
+      }
+    );
 
-    it('should update the tile collapsed state when the tile all-collapsed attribute changes', function () {
-    });
+    it(
+      'should update the tile collapsed state when the tile all-collapsed attribute changes',
+      function () {
+      }
+    );
 
-    it('should not update tile state when display mode changed but the tile collapse state is not changed by tile dashboard', function () {
-    });
+    it(
+      `should not update tile state when display mode changed but the tile collapse
+      state is not changed by tile dashboard`,
+      function () {
+      }
+    );
 
-    it('should not update tile state when display mode changed but the tile collapse state is not changed by tile dashboard and tile intialization occurs after dashboard initialization', function () {
-    });
+    it(
+      `should not update tile state when display mode changed but the tile collapse state
+      is not changed by tile dashboard and tile intialization occurs after dashboard
+      initialization`,
+      function () {
+      }
+    );
 
-    it('should update the tile collapsed small state when the tile all-collapsed attribute changes', function () {
-    });
+    it(
+      `should update the tile collapsed small state when the tile all-collapsed
+      attribute changes`,
+      function () {
+      }
+    );
   });
 });
 
 @Component({
-  selector: 'test-cmp',
+  selector: 'sky-test-cmp',
   directives: [SkyTileComponent],
   template: ''
 })

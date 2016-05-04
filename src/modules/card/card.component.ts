@@ -9,18 +9,18 @@ import {SkyCheckboxComponent} from '../checkbox';
 })
 export class SkyCardComponent {
   @Input()
-  size: string;
+  public size: string;
 
   @Input()
-  selectable: boolean;
+  public selectable: boolean;
 
   @Input()
-  selected: boolean;
+  public selected: boolean;
 
   @Output()
-  selectedChange = new EventEmitter<boolean>();
+  public selectedChange = new EventEmitter<boolean>();
 
-  contentClick() {
+  public contentClick() {
     let vm = this;
 
     if (vm.selectable) {

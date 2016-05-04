@@ -5,11 +5,9 @@ import {
   expect,
   it,
   inject,
-  injectAsync,
   TestComponentBuilder
 } from 'angular2/testing';
 
-import {Component, EventEmitter, Output} from 'angular2/core';
 import {SkyChevronComponent} from './chevron.component';
 
 describe('Chevron component', () => {
@@ -17,7 +15,7 @@ describe('Chevron component', () => {
 
     beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
       tcb = _tcb;
-    }))
+    }));
 
     it('should change direction when the user clicks the chevron', (done: Function) => {
       tcb.createAsync(SkyChevronComponent)
@@ -28,8 +26,10 @@ describe('Chevron component', () => {
             expectedDirection: string;
 
           function validateDirection() {
+            let chevronEl = el.querySelector('.sky-chevron');
+
             expect(cmp.direction).toBe(expectedDirection);
-            expect(el.querySelector('.sky-chevron')).toHaveCssClass('sky-chevron-' + expectedDirection);
+            expect(chevronEl).toHaveCssClass('sky-chevron-' + expectedDirection);
           }
 
           function clickChevron() {

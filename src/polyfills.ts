@@ -16,13 +16,9 @@ import 'ts-helpers';
 
 if ('production' === ENV) {
   // Production
-
-
 } else {
   // Development
-
   (Error as any).stackTraceLimit = Infinity;
 
   require('zone.js/dist/long-stack-trace-zone');
-
 }

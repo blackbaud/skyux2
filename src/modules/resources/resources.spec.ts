@@ -1,8 +1,7 @@
 import {
-  beforeEach,
   describe,
   expect,
-  it,
+  it
 } from 'angular2/testing';
 
 import {SkyResources} from './';

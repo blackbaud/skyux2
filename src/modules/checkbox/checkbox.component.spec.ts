@@ -5,7 +5,6 @@ import {
   expect,
   it,
   inject,
-  injectAsync,
   TestComponentBuilder
 } from 'angular2/testing';
 
@@ -15,17 +14,6 @@ import {SkyCheckboxComponent} from './checkbox.component';
 describe('Checkbox component', () => {
     'use strict';
 
-    function testComponent(html: string, callback: Function) {
-      return injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-        return tcb.overrideTemplate(TestComponent, html)
-          .createAsync(TestComponent)
-          .then((fixture: ComponentFixture) => {
-            fixture.detectChanges();
-            callback(fixture, fixture.nativeElement);
-          });
-      });
-    }
-
     describe('bindings', () => {
       let tcb: TestComponentBuilder;
 
@@ -33,47 +21,50 @@ describe('Checkbox component', () => {
         tcb = _tcb;
       }));
 
-      it('should emit the selectedChange event when the user clicks the checkbox', (done: Function) => {
-        let html = `
-          <sky-checkbox [selected]="selected" (selectedChange)="updateSelected($event)">
-            <sky-checkbox-label>Checkbox</sky-checkbox-label>
-          </sky-checkbox>
-          {{selected}}
-        `;
+      it(
+        'should emit the selectedChange event when the user clicks the checkbox',
+        (done: Function) => {
+          let html = `
+            <sky-checkbox [selected]="selected" (selectedChange)="updateSelected($event)">
+              <sky-checkbox-label>Checkbox</sky-checkbox-label>
+            </sky-checkbox>
+            {{selected}}
+          `;
 
-        tcb.overrideTemplate(TestComponent, html)
-          .createAsync(TestComponent)
-          .then((fixture: ComponentFixture) => {
-            let cmp = fixture.componentInstance as TestComponent,
-              el = fixture.nativeElement;
+          tcb.overrideTemplate(TestComponent, html)
+            .createAsync(TestComponent)
+            .then((fixture: ComponentFixture) => {
+              let cmp = fixture.componentInstance as TestComponent,
+                el = fixture.nativeElement;
 
-            fixture.detectChanges();
+              fixture.detectChanges();
 
-            cmp.selectedChange.subscribe((selected: boolean) => {
-              expect(selected).toBe(true);
-              done();
+              cmp.selectedChange.subscribe((selected: boolean) => {
+                expect(selected).toBe(true);
+                done();
+              });
+
+              el.querySelector('.sky-checkbox-wrapper').click();
+
+              fixture.detectChanges();
             });
-
-            el.querySelector('.sky-checkbox-wrapper').click();
-
-            fixture.detectChanges();
-          });
-      });
+        }
+      );
     });
 });
 
 @Component({
-  selector: 'test-cmp',
+  selector: 'sky-test-cmp',
   directives: [SkyCheckboxComponent],
   template: ''
 })
 class TestComponent {
-  selected = false;
+  public selected = false;
 
   @Output()
-  selectedChange = new EventEmitter();
+  public selectedChange = new EventEmitter();
 
-  updateSelected($event: boolean) {
+  public updateSelected($event: boolean) {
     this.selected = $event;
     this.selectedChange.emit($event);
   }

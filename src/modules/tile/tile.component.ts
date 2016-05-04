@@ -11,21 +11,21 @@ import {SkyTileDashboardColumnComponent} from './tile-dashboard-column.component
   pipes: [SkyResourcesPipe]
 })
 export class SkyTileComponent {
-  isCollapsed = false;
+  public isCollapsed = false;
 
-  tileId: string;
+  public tileId: string;
 
-  isInDashboardColumn = false;
+  public isInDashboardColumn = false;
 
   constructor(@Optional() columnComponent: SkyTileDashboardColumnComponent) {
     this.isInDashboardColumn = !!columnComponent;
   }
 
-  titleClick() {
+  public titleClick() {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  chevronDirectionChange(direction: string) {
+  public chevronDirectionChange(direction: string) {
     this.isCollapsed = direction === 'down';
   }
 }

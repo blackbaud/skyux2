@@ -1,8 +1,8 @@
 export class SkyResources {
-  static resources = require('../../locales/resources_en_US.json');
+  public static resources = require('../../locales/resources_en_US.json');
 
-  static getString(name: string): string {
-    var stringObj: {_description: string, message: string} = this.resources[name];
+  public static getString(name: string): string {
+    let stringObj: {_description: string, message: string} = this.resources[name];
 
     if (stringObj) {
       return stringObj.message;

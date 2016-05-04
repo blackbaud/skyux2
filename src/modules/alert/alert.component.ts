@@ -9,23 +9,23 @@ import {SkyResourcesPipe} from '../resources';
 })
 export class SkyAlertComponent {
   @Input()
-  alertType: string;
+  public alertType: string;
 
   @Input()
-  closeable: boolean;
+  public closeable: boolean;
 
   @Input()
-  closed: boolean;
+  public closed: boolean;
 
   @Output()
-  closedChange = new EventEmitter<boolean>();
+  public closedChange = new EventEmitter<boolean>();
 
-  close() {
+  public close() {
     this.closed = true;
     this.closedChange.emit(true);
   }
 
-  getCls() {
+  public getCls() {
     let cls = 'sky-alert-' + this.alertType;
 
     if (this.closeable) {

@@ -7,12 +7,12 @@ import {Component, EventEmitter, Input, Output} from 'angular2/core';
 })
 export class SkyCheckboxComponent {
   @Input()
-  selected = false;
+  public selected = false;
 
   @Output()
-  selectedChange = new EventEmitter<boolean>();
+  public selectedChange = new EventEmitter<boolean>();
 
-  updateSelected($event: boolean) {
+  public updateSelected($event: boolean) {
     this.selected = $event;
     this.selectedChange.emit($event);
   }

@@ -74,14 +74,19 @@ describe('Card component', () => {
 
       fixture.detectChanges();
 
-      let wrapperEl = el.querySelector('.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper');
+      let wrapperEl = el.querySelector(
+        '.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper');
       expect(wrapperEl).not.toBeNull();
     });
   });
 
   it('should allow the user to click the entire card to select the card', (done: Function) => {
     let html = `
-      <sky-card [selectable]="showCheckbox" [selected]="cardSelected" (selectedChange)="updateCardSelected($event)">
+      <sky-card
+          [selectable]="showCheckbox"
+          [selected]="cardSelected"
+          (selectedChange)="updateCardSelected($event)"
+      >
         <sky-card-title>Title</sky-card-title>
         <sky-card-content>Content</sky-card-content>
       </sky-card>
@@ -102,13 +107,17 @@ describe('Card component', () => {
 
       fixture.detectChanges();
 
-      expect(el.querySelector('.sky-card.sky-card-selected')).not.toBe(null);
+      expect(el.querySelector('.sky-card.sky-card-selected')).not.toBeNull();
     });
   });
 
   it('should not allow clicking the card to select it when it is not selectable', () => {
     let html = `
-      <sky-card [selectable]="showCheckbox" [selected]="cardSelected" (selectedChange)="updateCardSelected($event)">
+      <sky-card
+          [selectable]="showCheckbox"
+          [selected]="cardSelected"
+          (selectedChange)="updateCardSelected($event)"
+      >
         <sky-card-title>Title</sky-card-title>
         <sky-card-content>Content</sky-card-content>
       </sky-card>
@@ -125,26 +134,26 @@ describe('Card component', () => {
 
       fixture.detectChanges();
 
-      expect(el.querySelector('.sky-card.sky-card-selected')).toBe(null);
+      expect(el.querySelector('.sky-card.sky-card-selected')).toBeNull();
     });
   });
 });
 
 @Component({
-  selector: 'test-cmp',
+  selector: 'sky-test-cmp',
   directives: [SkyCardComponent],
   template: ''
 })
 class TestComponent {
   @Output()
-  cardSelectedChange = new EventEmitter();
+  public cardSelectedChange = new EventEmitter();
 
-  updateCardSelected($event: boolean) {
+  public cardSelected = false;
+
+  public showCheckbox = true;
+
+  public updateCardSelected($event: boolean) {
     this.cardSelected = $event;
     this.cardSelectedChange.emit($event);
   }
-
-  cardSelected = false;
-
-  showCheckbox = true;
 }
