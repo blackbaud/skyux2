@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from 'angular2/core';
+import {Component, EventEmitter, Input, Output} from 'angular2/core';
 import {SkyResourcesPipe} from '../resources';
 
 @Component({
@@ -11,6 +11,7 @@ export class SkyChevronComponent {
   @Output()
   public directionChange = new EventEmitter<string>();
 
+  @Input()
   public direction = 'up';
 
   public chevronClick($event: MouseEvent) {
