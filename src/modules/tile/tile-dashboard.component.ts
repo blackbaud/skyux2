@@ -17,24 +17,24 @@ export class SkyTileDashboardComponent  {
   @Output()
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
-  private _configSet = false;
+  private configSet = false;
 
   @Input()
   set config(config: SkyTileDashboardConfig) {
-    if (config && !this._configSet) {
+    if (config && !this.configSet) {
       this.dashboardConfigForBinding = config;
-      this._dashboardService.setConfig(config);
-      this._configSet = true;
+      this.dashboardService.setConfig(config);
+      this.configSet = true;
     }
   }
   constructor(
-    private _dashboardService: SkyTileDashboardService,
+    private dashboardService: SkyTileDashboardService,
     dragulaService: DragulaService
   ) {
-    _dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
+    dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
       this.configChange.emit(config);
     });
 
-    _dashboardService.setDragulaService(dragulaService);
+    dashboardService.setDragulaService(dragulaService);
   }
 }

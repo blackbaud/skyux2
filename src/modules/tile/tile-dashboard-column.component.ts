@@ -30,27 +30,27 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   public tiles: SkyTileDashboardConfigTile[];
 
   @ViewChild('content')
-  private _content: SkyTileDashboardColumnContentComponent;
+  private content: SkyTileDashboardColumnContentComponent;
 
-  private _viewInitialized = false;
+  private viewInitialized = false;
 
   constructor(
-    private _dashboardService: SkyTileDashboardService,
-    private _cmpResolver: ComponentResolver
+    private dashboardService: SkyTileDashboardService,
+    private cmpResolver: ComponentResolver
   ) {
     columnIdIndex++;
 
     this.columnId = 'tile-dashboard-column-' + columnIdIndex;
 
-    this.bagId = _dashboardService.bagId;
+    this.bagId = dashboardService.bagId;
   }
 
   public updateTiles() {
-    if (this._viewInitialized && this.tiles) {
+    if (this.viewInitialized && this.tiles) {
       for (let tile of this.tiles) {
-        this._cmpResolver.resolveComponent(tile.component)
+        this.cmpResolver.resolveComponent(tile.component)
           .then((factory: ComponentFactory) => {
-            let componentRef = this._content.viewContainer.createComponent(factory);
+            let componentRef = this.content.viewContainer.createComponent(factory);
             componentRef.instance.tileId = tile.id;
           });
       }
@@ -58,7 +58,7 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   }
 
   public ngAfterViewInit() {
-    this._viewInitialized = true;
+    this.viewInitialized = true;
     this.updateTiles();
   }
 

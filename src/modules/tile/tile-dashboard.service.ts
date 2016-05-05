@@ -33,13 +33,13 @@ export class SkyTileDashboardService {
 
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
-  private _config: SkyTileDashboardConfig;
+  private config: SkyTileDashboardConfig;
 
-  private _dragulaService: DragulaService;
+  private dragulaService: DragulaService;
 
   public setConfig(config: SkyTileDashboardConfig) {
-    this._config = config;
-    this._checkReady();
+    this.config = config;
+    this.checkReady();
   }
 
   public setDragulaService(dragulaService: DragulaService) {
@@ -47,7 +47,7 @@ export class SkyTileDashboardService {
 
     bagIdIndex++;
 
-    self._dragulaService = dragulaService;
+    self.dragulaService = dragulaService;
     self.bagId = 'sky-tile-dashboard-bag-' + bagIdIndex;
 
     dragulaService.setOptions(this.bagId, {
@@ -70,7 +70,7 @@ export class SkyTileDashboardService {
           if (tiles) {
             for (let tileEl of tiles) {
               let tileId = tileEl.getAttribute('skyTileId');
-              let tile = findTile(self._config, tileId);
+              let tile = findTile(self.config, tileId);
 
               if (tile) {
                 column.tiles.push(tile);
@@ -89,12 +89,12 @@ export class SkyTileDashboardService {
       }
     });
 
-    self._checkReady();
+    self.checkReady();
   }
 
-  private _checkReady() {
-    if (this._config && this._dragulaService) {
-      this.ready.emit(this._config);
+  private checkReady() {
+    if (this.config && this.dragulaService) {
+      this.ready.emit(this.config);
     }
   }
 }
