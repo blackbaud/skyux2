@@ -1,1 +1,1 @@
-export {SkyAlertComponent} from './alert.component';
+export {AlertComponent} from './alert.component';

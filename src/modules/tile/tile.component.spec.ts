@@ -4,7 +4,7 @@ import {
 } from 'angular2/testing';
 
 import {Component} from 'angular2/core';
-import {SkyTileComponent} from './tile.component';
+import {TileComponent} from './tile.component';
 
 describe('Tile component', () => {
   it('should render the header text in the expected element', function () {
@@ -128,7 +128,7 @@ describe('Tile component', () => {
 
 @Component({
   selector: 'sky-test-cmp',
-  directives: [SkyTileComponent],
+  directives: [TileComponent],
   template: ''
 })
 class TestComponent {

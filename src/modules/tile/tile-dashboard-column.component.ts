@@ -9,9 +9,9 @@ import {
   ViewChild
 } from 'angular2/core';
 import {Dragula} from 'ng2-dragula/ng2-dragula';
-import {SkyTileDashboardColumnContentComponent} from './tile-dashboard-column-content.component';
-import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
-import {SkyTileDashboardService} from './tile-dashboard.service';
+import {TileDashboardColumnContentComponent} from './tile-dashboard-column-content.component';
+import {TileDashboardConfigTile} from './tile-dashboard-config-tile';
+import {TileDashboardService} from './tile-dashboard.service';
 
 let columnIdIndex = 0;
 
@@ -19,23 +19,23 @@ let columnIdIndex = 0;
   selector: 'sky-tile-dashboard-column',
   styles: [require('./tile-dashboard-column.component.scss')],
   template: require('./tile-dashboard-column.component.html'),
-  directives: [Dragula, SkyTileDashboardColumnContentComponent]
+  directives: [Dragula, TileDashboardColumnContentComponent]
 })
-export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit {
+export class TileDashboardColumnComponent implements OnChanges, AfterViewInit {
   public bagId: string;
 
   public columnId: string;
 
   @Input()
-  public tiles: SkyTileDashboardConfigTile[];
+  public tiles: TileDashboardConfigTile[];
 
   @ViewChild('content')
-  private content: SkyTileDashboardColumnContentComponent;
+  private content: TileDashboardColumnContentComponent;
 
   private viewInitialized = false;
 
   constructor(
-    private dashboardService: SkyTileDashboardService,
+    private dashboardService: TileDashboardService,
     private cmpResolver: ComponentResolver
   ) {
     columnIdIndex++;

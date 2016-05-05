@@ -5,7 +5,7 @@ import {Component, EventEmitter, Input, Output} from 'angular2/core';
   styles: [require('./checkbox.component.scss')],
   template: require('./checkbox.component.html')
 })
-export class SkyCheckboxComponent {
+export class CheckboxComponent {
   @Input()
   public selected = false;
 

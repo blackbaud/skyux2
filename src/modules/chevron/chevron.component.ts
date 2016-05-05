@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
-import {SkyResourcesPipe} from '../resources';
+import {ResourcesPipe} from '../resources/resources.pipe';
 
 @Component({
   selector: 'sky-chevron',
   styles: [require('./chevron.component.scss')],
   template: require('./chevron.component.html'),
-  pipes: [SkyResourcesPipe]
+  pipes: [ResourcesPipe]
 })
-export class SkyChevronComponent {
+export class ChevronComponent {
   @Output()
   public directionChange = new EventEmitter<string>();
 

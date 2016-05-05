@@ -9,8 +9,8 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter} from 'angular2/core';
-import {SkyAlertComponent} from './alert.component';
-import {SkyResources} from '../resources/resources';
+import {AlertComponent} from './alert.component';
+import {Resources} from '../resources/resources';
 
 describe('Alert component', () => {
   'use strict';
@@ -80,7 +80,7 @@ describe('Alert component', () => {
 
         closeEl = el.querySelector('.sky-alert-close');
 
-        expect(closeEl.attributes['aria-label'].value).toBe(SkyResources.getString('alert_close'));
+        expect(closeEl.attributes['aria-label'].value).toBe(Resources.getString('alert_close'));
       });
   });
 
@@ -91,7 +91,7 @@ describe('Alert component', () => {
 
 @Component({
   selector: 'sky-test-cmp',
-  directives: [SkyAlertComponent],
+  directives: [AlertComponent],
   template: `
 <sky-alert [closeable]="closeable" [closed]="closed" (closedChange)="onClosedChange($event)">
   Alert

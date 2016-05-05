@@ -1,10 +1,10 @@
 import {Component} from 'angular2/core';
 import {
-  SkyTileComponent,
-  SkyTileContentSectionComponent,
-  SkyTileDashboardComponent,
-  SkyTileDashboardColumnComponent,
-  SkyTileDashboardConfig
+  TileComponent,
+  TileContentSectionComponent,
+  TileDashboardComponent,
+  TileDashboardColumnComponent,
+  TileDashboardConfig
 } from '../../../src/modules/core';
 import {Bootstrapper} from '../../bootstrapper';
 
@@ -12,14 +12,14 @@ import {Bootstrapper} from '../../bootstrapper';
   selector: 'my-app',
   template: require('./app.component.html'),
   directives: [
-    SkyTileComponent,
-    SkyTileContentSectionComponent,
-    SkyTileDashboardComponent,
-    SkyTileDashboardColumnComponent
+    TileComponent,
+    TileContentSectionComponent,
+    TileDashboardComponent,
+    TileDashboardColumnComponent
   ]
 })
 export class AppComponent {
-  dashboardConfig: SkyTileDashboardConfig;
+  dashboardConfig: TileDashboardConfig;
 
   stringify(obj: any) {
     return JSON.stringify(obj);
@@ -61,8 +61,8 @@ export class AppComponent {
     </sky-tile>
   `,
   directives: [
-    SkyTileComponent,
-    SkyTileContentSectionComponent
+    TileComponent,
+    TileContentSectionComponent
   ]
 })
 class Tile1Component {
@@ -83,8 +83,8 @@ class Tile1Component {
     </sky-tile>
   `,
   directives: [
-    SkyTileComponent,
-    SkyTileContentSectionComponent
+    TileComponent,
+    TileContentSectionComponent
   ]
 })
 class Tile2Component {

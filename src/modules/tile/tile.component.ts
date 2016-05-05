@@ -1,23 +1,23 @@
 import {Component, Optional} from 'angular2/core';
-import {SkyChevronComponent} from '../chevron';
-import {SkyResourcesPipe} from '../resources';
-import {SkyTileDashboardColumnComponent} from './tile-dashboard-column.component';
+import {ChevronComponent} from '../chevron/chevron.component';
+import {ResourcesPipe} from '../resources/resources.pipe';
+import {TileDashboardColumnComponent} from './tile-dashboard-column.component';
 
 @Component({
   selector: 'sky-tile',
   styles: [require('./tile.component.scss')],
   template: require('./tile.component.html'),
-  directives: [SkyChevronComponent],
-  pipes: [SkyResourcesPipe]
+  directives: [ChevronComponent],
+  pipes: [ResourcesPipe]
 })
-export class SkyTileComponent {
+export class TileComponent {
   public isCollapsed = false;
 
   public tileId: string;
 
   public isInDashboardColumn = false;
 
-  constructor(@Optional() columnComponent: SkyTileDashboardColumnComponent) {
+  constructor(@Optional() columnComponent: TileDashboardColumnComponent) {
     this.isInDashboardColumn = !!columnComponent;
   }
 

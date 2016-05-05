@@ -1,2 +1,2 @@
-export {SkyResources} from './resources';
-export {SkyResourcesPipe} from './resources.pipe';
+export {Resources} from './resources';
+export {ResourcesPipe} from './resources.pipe';

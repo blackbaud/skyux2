@@ -1,26 +1,26 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
-import {SkyTileDashboardColumnComponent} from './tile-dashboard-column.component';
-import {SkyTileDashboardConfig} from './tile-dashboard-config';
-import {SkyTileDashboardService} from './tile-dashboard.service';
+import {TileDashboardColumnComponent} from './tile-dashboard-column.component';
+import {TileDashboardConfig} from './tile-dashboard-config';
+import {TileDashboardService} from './tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile-dashboard',
   styles: [require('./tile-dashboard.component.scss')],
   template: require('./tile-dashboard.component.html'),
-  directives: [SkyTileDashboardColumnComponent],
-  providers: [DragulaService, SkyTileDashboardService]
+  directives: [TileDashboardColumnComponent],
+  providers: [DragulaService, TileDashboardService]
 })
-export class SkyTileDashboardComponent  {
-  public dashboardConfigForBinding: SkyTileDashboardConfig;
+export class TileDashboardComponent  {
+  public dashboardConfigForBinding: TileDashboardConfig;
 
   @Output()
-  public configChange = new EventEmitter<SkyTileDashboardConfig>();
+  public configChange = new EventEmitter<TileDashboardConfig>();
 
   private configSet = false;
 
   @Input()
-  set config(config: SkyTileDashboardConfig) {
+  set config(config: TileDashboardConfig) {
     if (config && !this.configSet) {
       this.dashboardConfigForBinding = config;
       this.dashboardService.setConfig(config);
@@ -28,10 +28,10 @@ export class SkyTileDashboardComponent  {
     }
   }
   constructor(
-    private dashboardService: SkyTileDashboardService,
+    private dashboardService: TileDashboardService,
     dragulaService: DragulaService
   ) {
-    dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
+    dashboardService.configChange.subscribe((config: TileDashboardConfig) => {
       this.configChange.emit(config);
     });
 

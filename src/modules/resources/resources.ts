@@ -1,4 +1,4 @@
-export class SkyResources {
+export class Resources {
   public static resources = require('../../locales/resources_en_US.json');
 
   public static getString(name: string): string {

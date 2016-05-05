@@ -4,7 +4,7 @@ import {Component, ViewContainerRef} from 'angular2/core';
   selector: 'sky-tile-dashboard-column-content',
   template: `<div></div>`
 })
-export class SkyTileDashboardColumnContentComponent {
+export class TileDashboardColumnContentComponent {
   constructor(public viewContainer: ViewContainerRef) {
 
   }

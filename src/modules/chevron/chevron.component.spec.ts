@@ -8,7 +8,7 @@ import {
   TestComponentBuilder
 } from 'angular2/testing';
 
-import {SkyChevronComponent} from './chevron.component';
+import {ChevronComponent} from './chevron.component';
 
 describe('Chevron component', () => {
     let tcb: TestComponentBuilder;
@@ -18,10 +18,10 @@ describe('Chevron component', () => {
     }));
 
     it('should change direction when the user clicks the chevron', (done: Function) => {
-      tcb.createAsync(SkyChevronComponent)
+      tcb.createAsync(ChevronComponent)
         .then((fixture: ComponentFixture) => {
           let clickAgain = true,
-            cmp = fixture.componentInstance as SkyChevronComponent,
+            cmp = fixture.componentInstance as ChevronComponent,
             el = fixture.nativeElement,
             expectedDirection: string;
 
