@@ -25,7 +25,7 @@ export class AppComponent {
     return JSON.stringify(obj);
   }
 
-  constructor(dashboardService: SkyTileDashboardService) {
+  constructor() {
     this.dashboardConfig = {
       columns: [
         {
