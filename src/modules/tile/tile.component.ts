@@ -1,4 +1,4 @@
-import {Component, Optional} from 'angular2/core';
+import {Component, EventEmitter, Optional, Output} from 'angular2/core';
 import {ChevronComponent} from '../chevron/chevron.component';
 import {ResourcesPipe} from '../resources/resources.pipe';
 import {TileDashboardColumnComponent} from './tile-dashboard-column.component';
@@ -16,6 +16,17 @@ export class TileComponent {
   public tileId: string;
 
   public isInDashboardColumn = false;
+
+  @Output()
+  public settingsClick = new EventEmitter();
+
+  public settingsButtonClicked() {
+    this.settingsClick.emit(undefined);
+  }
+
+  public get hasSettings(): boolean {
+    return this.settingsClick.observers.length > 0;
+  }
 
   constructor(@Optional() columnComponent: TileDashboardColumnComponent) {
     this.isInDashboardColumn = !!columnComponent;

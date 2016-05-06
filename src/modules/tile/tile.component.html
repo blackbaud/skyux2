@@ -1,13 +1,39 @@
-<section class="sky-tile" [attr.sky-tile-id]="tileId">
+<section
+    class="sky-tile"
+    [attr.sky-tile-id]="tileId"
+    [ngClass]="{
+      'sky-tile-collapsed': isCollapsed
+    }"
+>
   <header class="sky-tile-header">
-    <h1 class="sky-tile-title" (click)="titleClick()">
-      <ng-content select="sky-tile-title"></ng-content>
-    </h1>
+    <div class="sky-tile-header-content" (click)="titleClick()">
+      <h1 class="sky-tile-title">
+        <ng-content select="sky-tile-title"></ng-content>
+      </h1>
+      <div class="sky-tile-summary">
+        <ng-content select="sky-tile-summary"></ng-content>
+      </div>
+    </div>
     <div class="sky-tile-header-column-tools">
       <div class="sky-tile-tools">
-        <!-- <button type="button" ng-if="bbTile.hasSettings" class="bb-tile-settings bb-icon bb-icon-config" ng-click="$event.stopPropagation();bbTile.bbTileSettingsClick();"></button> -->
-        <sky-chevron [direction]="isCollapsed ? 'down' : 'up'" (directionChange)="chevronDirectionChange($event)"></sky-chevron>
-        <i class="sky-tile-grab-handle fa fa-th" (ngClick)="$event.stopPropagation()" *ngIf="isInDashboardColumn"></i>
+        <sky-chevron
+            [direction]="isCollapsed ? 'down' : 'up'"
+            (directionChange)="chevronDirectionChange($event)"
+        >
+        </sky-chevron>
+        <button
+            type="button"
+            *ngIf="hasSettings"
+            class="sky-tile-settings fa fa-cog"
+            (click)="$event.stopPropagation();settingsButtonClicked();"
+        >
+        </button>
+        <i
+            class="sky-tile-grab-handle fa fa-th"
+            (ngClick)="$event.stopPropagation()"
+            *ngIf="isInDashboardColumn"
+        >
+        </i>
       </div>
     </div>
   </header>

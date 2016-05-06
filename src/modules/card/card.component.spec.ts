@@ -10,17 +10,10 @@ import {
 
 import {Component, EventEmitter, Output} from 'angular2/core';
 import {CardComponent} from './card.component';
+import {TestUtility} from '../testing/testutility';
 
 describe('Card component', () => {
-  'use strict';
-
   let tcb: TestComponentBuilder;
-
-  function testComponent(html: string, callback: (fixture: ComponentFixture) => any) {
-    return tcb.overrideTemplate(TestComponent, html)
-      .createAsync(TestComponent)
-      .then(callback);
-  }
 
   beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
     tcb = _tcb;
@@ -37,7 +30,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return testComponent(html, (fixture: ComponentFixture) => {
+    return TestUtility.testComponent(tcb, TestComponent, html, (fixture: ComponentFixture) => {
         let el = fixture.nativeElement;
 
         fixture.detectChanges();
@@ -54,7 +47,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return testComponent(html, (fixture: ComponentFixture) => {
+    return TestUtility.testComponent(tcb, TestComponent, html, (fixture: ComponentFixture) => {
       let el = fixture.nativeElement;
 
       fixture.detectChanges();
@@ -69,7 +62,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return testComponent(html, (fixture: ComponentFixture) => {
+    return TestUtility.testComponent(tcb, TestComponent, html, (fixture: ComponentFixture) => {
       let el = fixture.nativeElement;
 
       fixture.detectChanges();
@@ -92,7 +85,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    testComponent(html, (fixture: ComponentFixture) => {
+    TestUtility.testComponent(tcb, TestComponent, html, (fixture: ComponentFixture) => {
       let cmp = fixture.componentInstance as TestComponent,
         el = fixture.nativeElement;
 
@@ -123,7 +116,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return testComponent(html, (fixture: ComponentFixture) => {
+    return TestUtility.testComponent(tcb, TestComponent, html, (fixture: ComponentFixture) => {
       let cmp = fixture.componentInstance as TestComponent,
         el = fixture.nativeElement;
 

@@ -19,9 +19,9 @@ import {Bootstrapper} from '../../bootstrapper';
   ]
 })
 export class AppComponent {
-  dashboardConfig: TileDashboardConfig;
+  public dashboardConfig: TileDashboardConfig;
 
-  stringify(obj: any) {
+  public stringify(obj: any) {
     return JSON.stringify(obj);
   }
 
@@ -52,11 +52,22 @@ export class AppComponent {
 @Component({
   selector: 'div.tile-1',
   template: `
-    <sky-tile skyTileId="tile1">
-      <sky-tile-title>Tile 1</sky-tile-title>
+    <sky-tile skyTileId="tile1" (settingsClick)="tileSettingsClick()">
+      <sky-tile-title>
+        Tile 1
+      </sky-tile-title>
+      <sky-tile-summary>
+        $123.4m
+      </sky-tile-summary>
       <sky-tile-content>
         <sky-tile-content-section>Section 1</sky-tile-content-section>
         <sky-tile-content-section>Section 2</sky-tile-content-section>
+        <sky-tile-content-section>
+          asdf asdf asdf sadf sadf asdf asdf sadf asdf asdf asdf asdf asdf asdf
+          asdf asdf asdf sadf sadf asdf asdf sadf asdf asdf asdf asdf asdf asdf
+          asdf asdf asdf sadf sadf asdf asdf sadf asdf asdf asdf asdf asdf asdf
+          asdf asdf asdf sadf sadf asdf asdf sadf asdf asdf asdf asdf asdf asdf
+        </sky-tile-content-section>
       </sky-tile-content>
     </sky-tile>
   `,
@@ -68,6 +79,10 @@ export class AppComponent {
 class Tile1Component {
   constructor() {
     console.log('Created tile 1 component');
+  }
+
+  public tileSettingsClick() {
+    alert('tile settings clicked');
   }
 }
 
