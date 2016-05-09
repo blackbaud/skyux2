@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
-import {CheckboxComponent} from '../checkbox/checkbox.component';
+import {SkyCheckboxComponent} from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'sky-card',
   styles: [require('./card.component.scss')],
   template: require('./card.component.html'),
-  directives: [CheckboxComponent]
+  directives: [SkyCheckboxComponent]
 })
-export class CardComponent {
+export class SkyCardComponent {
   @Input()
   public size: string;
 

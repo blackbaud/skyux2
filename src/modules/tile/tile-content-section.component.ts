@@ -5,6 +5,6 @@ import {Component} from 'angular2/core';
   styles: [require('./tile-content-section.component.scss')],
   template: require('./tile-content-section.component.html')
 })
-export class TileContentSectionComponent {
+export class SkyTileContentSectionComponent {
 
 }

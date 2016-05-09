@@ -1,6 +1,6 @@
 import {Type} from 'angular2/core';
 
-export interface TileDashboardConfigTile {
+export interface SkyTileDashboardConfigTile {
   id: string;
 
   component: Type;

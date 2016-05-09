@@ -1,1 +1,1 @@
-export {ChevronComponent} from './chevron.component';
+export {SkyChevronComponent} from './chevron.component';

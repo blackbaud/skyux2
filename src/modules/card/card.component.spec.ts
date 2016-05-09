@@ -9,7 +9,7 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {CardComponent} from './card.component';
+import {SkyCardComponent} from './card.component';
 import {TestUtility} from '../testing/testutility';
 
 describe('Card component', () => {
@@ -134,7 +134,7 @@ describe('Card component', () => {
 
 @Component({
   selector: 'sky-test-cmp',
-  directives: [CardComponent],
+  directives: [SkyCardComponent],
   template: ''
 })
 class TestComponent {

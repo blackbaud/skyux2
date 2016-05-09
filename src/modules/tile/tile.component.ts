@@ -1,16 +1,16 @@
 import {Component, EventEmitter, Optional, Output} from 'angular2/core';
-import {ChevronComponent} from '../chevron/chevron.component';
-import {ResourcesPipe} from '../resources/resources.pipe';
-import {TileDashboardColumnComponent} from './tile-dashboard-column.component';
+import {SkyChevronComponent} from '../chevron/chevron.component';
+import {SkyResourcesPipe} from '../resources/resources.pipe';
+import {SkyTileDashboardColumnComponent} from './tile-dashboard-column.component';
 
 @Component({
   selector: 'sky-tile',
   styles: [require('./tile.component.scss')],
   template: require('./tile.component.html'),
-  directives: [ChevronComponent],
-  pipes: [ResourcesPipe]
+  directives: [SkyChevronComponent],
+  pipes: [SkyResourcesPipe]
 })
-export class TileComponent {
+export class SkyTileComponent {
   public isCollapsed = false;
 
   public tileId: string;
@@ -28,7 +28,7 @@ export class TileComponent {
     return this.settingsClick.observers.length > 0;
   }
 
-  constructor(@Optional() columnComponent: TileDashboardColumnComponent) {
+  constructor(@Optional() columnComponent: SkyTileDashboardColumnComponent) {
     this.isInDashboardColumn = !!columnComponent;
   }
 

@@ -9,7 +9,7 @@ import {
 } from 'angular2/testing';
 
 import {Component} from 'angular2/core';
-import {TileComponent} from './tile.component';
+import {SkyTileComponent} from './tile.component';
 import {TestUtility} from '../testing/testutility';
 
 describe('Tile component', () => {
@@ -20,7 +20,7 @@ describe('Tile component', () => {
     tcb = _tcb;
   }));
 
-  it('should render the header text in the expected element', function () {
+  it('should render the header text in the expected element', () => {
     let html = `
       <sky-tile>
         <sky-tile-title>Title</sky-tile-title>
@@ -37,7 +37,7 @@ describe('Tile component', () => {
     });
   });
 
-  it('should collapse/expand when the header is clicked', function () {
+  it('should collapse/expand when the header is clicked', () => {
     let html = `
       <sky-tile>
         <sky-tile-title>Title</sky-tile-title>
@@ -66,7 +66,7 @@ describe('Tile component', () => {
     });
   });
 
-  it('should collapse/expand when the chevron is clicked', function () {
+  it('should collapse/expand when the chevron is clicked', () => {
     let html = `
       <sky-tile>
         <sky-tile-title>Title</sky-tile-title>
@@ -97,7 +97,7 @@ describe('Tile component', () => {
     });
   });
 
-  it('should collapse/expand when the bb-tile-collapsed value changes', function () {
+  it('should collapse/expand when the bb-tile-collapsed value changes', () => {
     let html = `
       <sky-tile [isCollapsed]="tileIsCollapsed">
         <sky-tile-title>Title</sky-tile-title>
@@ -121,26 +121,26 @@ describe('Tile component', () => {
     });
   });
 
-  it('should update the tile state when the tile dashboard is initialized', function () {
+  it('should update the tile state when the tile dashboard is initialized', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile dashboard when the tile is collapsed', function () {
+  it('should notify the tile dashboard when the tile is collapsed', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile that repaint is required when the tile is expanded', function () {
+  it('should notify the tile that repaint is required when the tile is expanded', () => {
     expect(false).toBe(true);
   });
 
-  it('should react when tile display mode changes', function () {
+  it('should react when tile display mode changes', () => {
     expect(false).toBe(true);
   });
 
   it(
     `should not update tile state when display mode changed but the tile have not
     been initialized by the tile dashboard`,
-    function () {
+    () => {
       expect(false).toBe(true);
     }
   );
@@ -148,13 +148,13 @@ describe('Tile component', () => {
   it(
     `should not update tile state when display mode changed but the tile have not
     been initialized by the tile dashboard`,
-    function () {
+    () => {
       expect(false).toBe(true);
     }
   );
 
-  describe('settings button', function () {
-    it('should be absent if a callback is not provided', function () {
+  describe('settings button', () => {
+    it('should be absent if a callback is not provided', () => {
       let html = `
         <sky-tile [isCollapsed]="tileIsCollapsed">
           <sky-tile-title>Title</sky-tile-title>
@@ -171,7 +171,7 @@ describe('Tile component', () => {
       });
     });
 
-    it('should be present if a callback is provided', function () {
+    it('should be present if a callback is provided', () => {
       let html = `
         <sky-tile [isCollapsed]="tileIsCollapsed" (settingsClick)="tileSettingsClick()">
           <sky-tile-title>Title</sky-tile-title>
@@ -188,7 +188,7 @@ describe('Tile component', () => {
       });
     });
 
-    it('should call the specified callback when clicked', function () {
+    it('should call the specified callback when clicked', () => {
       let html = `
         <sky-tile [isCollapsed]="tileIsCollapsed" (settingsClick)="tileSettingsClick()">
           <sky-tile-title>Title</sky-tile-title>
@@ -211,7 +211,7 @@ describe('Tile component', () => {
       });
     });
 
-    it('should not collapse the tile when clicked', function () {
+    it('should not collapse the tile when clicked', () => {
       let html = `
         <sky-tile [isCollapsed]="tileIsCollapsed" (settingsClick)="tileSettingsClick()">
           <sky-tile-title>Title</sky-tile-title>
@@ -230,99 +230,15 @@ describe('Tile component', () => {
         let contentAttrs = el.querySelector('.sky-tile-content').attributes;
 
         expect(contentAttrs['hidden']).toBe(undefined);
+      });
     });
   });
 
-  describe('section directive', function () {
-    it('should add the expected CSS class to the element', function () {
-      expect(false).toBe(true);
-    });
-  });
-
-  describe('header content directive', function () {
-    it('should render header content next to the tile header', function () {
-      expect(false).toBe(true);
-    });
-  });
-
-  describe('header check directive', function () {
-    it('should render a check mark next to the tile header', function () {
-      expect(false).toBe(true);
-    });
-  });
-
-  describe('dashboard directive', function () {
-    it('should put the tile in the expected column for each breakpoint', function () {
-      expect(false).toBe(true);
-    });
-
-    it('should remove the media breakpoint listener when destroyed', function () {
-      expect(false).toBe(true);
-    });
-
-    it('should parse tile order when tile moves to another column', function () {
-      expect(false).toBe(true);
-    });
-
-    it('should parse tile order when tile moves within a column', function () {
-      expect(false).toBe(true);
-    });
-
-    it('should update the tile collapsed state when the tile is collapsed', function () {
-      expect(false).toBe(true);
-    });
-
-    it(
-      'should update the tile collapsed small state when the tile is collapsed on a small screen',
-      function () {
-        expect(false).toBe(true);
-      }
-    );
-
-    it(
-      'should update the all-collapsed state when a tile\'s collapsed state changes',
-      function () {
-        expect(false).toBe(true);
-      }
-    );
-
-    it(
-      'should update the tile collapsed state when the tile all-collapsed attribute changes',
-      function () {
-        expect(false).toBe(true);
-      }
-    );
-
-    it(
-      `should not update tile state when display mode changed but the tile collapse
-      state is not changed by tile dashboard`,
-      function () {
-        expect(false).toBe(true);
-      }
-    );
-
-    it(
-      `should not update tile state when display mode changed but the tile collapse state
-      is not changed by tile dashboard and tile intialization occurs after dashboard
-      initialization`,
-      function () {
-        expect(false).toBe(true);
-      }
-    );
-
-    it(
-      `should update the tile collapsed small state when the tile all-collapsed
-      attribute changes`,
-      function () {
-        expect(false).toBe(true);
-      }
-    );
-  });
 });
 
 @Component({
   selector: 'sky-test-cmp',
-  directives: [TileComponent],
+  directives: [SkyTileComponent],
   template: ''
 })
 class TestComponent {

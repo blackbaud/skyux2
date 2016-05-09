@@ -1,11 +1,11 @@
 import {Pipe, PipeTransform} from 'angular2/core';
-import {Resources} from './resources';
+import {SkyResources} from './resources';
 
 @Pipe({
   name: 'skyResources'
 })
-export class ResourcesPipe implements PipeTransform {
+export class SkyResourcesPipe implements PipeTransform {
   public transform(name: string): string {
-    return Resources.getString(name);
+    return SkyResources.getString(name);
   }
 }

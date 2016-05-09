@@ -1,5 +1,5 @@
-import {TileDashboardConfigTile} from './tile-dashboard-config-tile';
+import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
 
-export interface TileDashboardConfigColumn {
-  tiles: TileDashboardConfigTile[];
+export interface SkyTileDashboardConfigColumn {
+  tiles: SkyTileDashboardConfigTile[];
 }

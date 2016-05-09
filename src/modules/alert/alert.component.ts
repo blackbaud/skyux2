@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
-import {ResourcesPipe} from '../resources/resources.pipe';
+import {SkyResourcesPipe} from '../resources/resources.pipe';
 
 @Component({
   selector: 'sky-alert',
-  pipes: [ResourcesPipe],
+  pipes: [SkyResourcesPipe],
   styles: [require('./alert.component.scss')],
   template: require('./alert.component.html')
 })
-export class AlertComponent {
+export class SkyAlertComponent {
   @Input()
   public alertType: string;
 

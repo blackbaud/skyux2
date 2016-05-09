@@ -1,15 +1,15 @@
 import {EventEmitter, Injectable} from 'angular2/core';
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
-import {TileDashboardConfig} from './tile-dashboard-config';
-import {TileDashboardConfigColumn} from './tile-dashboard-config-column';
-import {TileDashboardConfigTile} from './tile-dashboard-config-tile';
+import {SkyTileDashboardConfig} from './tile-dashboard-config';
+import {SkyTileDashboardConfigColumn} from './tile-dashboard-config-column';
+import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
 
 let bagIdIndex = 0;
 
 function findTile(
-  dashboardConfig: TileDashboardConfig,
+  dashboardConfig: SkyTileDashboardConfig,
   tileId: string
-): TileDashboardConfigTile {
+): SkyTileDashboardConfigTile {
   if (dashboardConfig && dashboardConfig.columns) {
     for (let column of dashboardConfig.columns) {
       if (column.tiles) {
@@ -26,18 +26,18 @@ function findTile(
 }
 
 @Injectable()
-export class TileDashboardService {
+export class SkyTileDashboardService {
   public bagId: string;
 
-  public ready = new EventEmitter<TileDashboardConfig>();
+  public ready = new EventEmitter<SkyTileDashboardConfig>();
 
-  public configChange = new EventEmitter<TileDashboardConfig>();
+  public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
-  private config: TileDashboardConfig;
+  private config: SkyTileDashboardConfig;
 
   private dragulaService: DragulaService;
 
-  public setConfig(config: TileDashboardConfig) {
+  public setConfig(config: SkyTileDashboardConfig) {
     this.config = config;
     this.checkReady();
   }
@@ -61,10 +61,10 @@ export class TileDashboardService {
 
       if (bag) {
         let containers: any[] = bag.drake.containers;
-        let columns: TileDashboardConfigColumn[] = [];
+        let columns: SkyTileDashboardConfigColumn[] = [];
 
         for (let container of containers) {
-          let column: TileDashboardConfigColumn = {tiles: []},
+          let column: SkyTileDashboardConfigColumn = {tiles: []},
             tiles = container.querySelectorAll('sky-tile');
 
           if (tiles) {

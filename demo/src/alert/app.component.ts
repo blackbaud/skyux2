@@ -1,11 +1,11 @@
 import {Component} from 'angular2/core';
-import {AlertComponent} from '../../../src/modules/core';
+import {SkyAlertComponent} from '../../../src/modules/core';
 import {Bootstrapper} from '../../bootstrapper';
 
 @Component({
   selector: 'my-app',
   template: require('./app.component.html'),
-  directives: [AlertComponent]
+  directives: [SkyAlertComponent]
 })
 class AppComponent {
   alertCloseable = true;

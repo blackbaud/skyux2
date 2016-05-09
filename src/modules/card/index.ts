@@ -1,1 +1,1 @@
-export {CardComponent} from './card.component';
+export {SkyCardComponent} from './card.component';

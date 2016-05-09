@@ -9,7 +9,7 @@ import {
 } from 'angular2/testing';
 
 import {Component, EventEmitter, Output} from 'angular2/core';
-import {CheckboxComponent} from './checkbox.component';
+import {SkyCheckboxComponent} from './checkbox.component';
 
 describe('Checkbox component', () => {
     'use strict';
@@ -55,7 +55,7 @@ describe('Checkbox component', () => {
 
 @Component({
   selector: 'sky-test-cmp',
-  directives: [CheckboxComponent],
+  directives: [SkyCheckboxComponent],
   template: ''
 })
 class TestComponent {

@@ -4,7 +4,7 @@ import {
   it
 } from 'angular2/testing';
 
-import {Resources} from './resources';
+import {SkyResources} from './resources';
 
 let defaultLocale = require('../../locales/resources_en_US.json');
 
@@ -13,7 +13,7 @@ describe('Resources class', () => {
     it('should return the expected strings', function () {
       for (let p in defaultLocale) {
         if (defaultLocale.hasOwnProperty(p)) {
-          expect(Resources.getString(p)).toBe(defaultLocale[p].message);
+          expect(SkyResources.getString(p)).toBe(defaultLocale[p].message);
         }
       }
     });
@@ -21,7 +21,7 @@ describe('Resources class', () => {
     it('should return provided name if a corresponding string is not found', function () {
       let unknownString = '%W#%@3f3J#%#21435E#Gjgwge32';
 
-      expect(Resources.getString(unknownString)).toBe(unknownString);
+      expect(SkyResources.getString(unknownString)).toBe(unknownString);
     });
   });
 });
