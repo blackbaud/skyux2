@@ -4,4 +4,6 @@ export interface SkyTileDashboardConfigTile {
   id: string;
 
   component: Type;
+
+  isCollapsed?: boolean;
 }

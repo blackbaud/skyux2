@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Optional, Output} from 'angular2/core';
+import {Component, ElementRef, EventEmitter, Optional, Output} from 'angular2/core';
 import {SkyChevronComponent} from '../chevron/chevron.component';
 import {SkyResourcesPipe} from '../resources/resources.pipe';
-import {SkyTileDashboardColumnComponent} from './tile-dashboard-column.component';
+import {SkyTileDashboardService} from './tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile',
@@ -20,6 +20,9 @@ export class SkyTileComponent {
   @Output()
   public settingsClick = new EventEmitter();
 
+  @Output()
+  public collapsedStateChange = new EventEmitter<boolean>();
+
   public settingsButtonClicked() {
     this.settingsClick.emit(undefined);
   }
@@ -28,15 +31,26 @@ export class SkyTileComponent {
     return this.settingsClick.observers.length > 0;
   }
 
-  constructor(@Optional() columnComponent: SkyTileDashboardColumnComponent) {
-    this.isInDashboardColumn = !!columnComponent;
+  constructor(
+    @Optional() private dashboardService: SkyTileDashboardService,
+    public elementRef: ElementRef
+  ) {
+    this.isInDashboardColumn = !!dashboardService;
   }
 
   public titleClick() {
-    this.isCollapsed = !this.isCollapsed;
+    this.updateCollapsedState(!this.isCollapsed);
   }
 
   public chevronDirectionChange(direction: string) {
-    this.isCollapsed = direction === 'down';
+    this.updateCollapsedState(direction === 'down');
+  }
+
+  private updateCollapsedState(isCollapsed: boolean) {
+    this.isCollapsed = isCollapsed;
+
+    if (this.dashboardService) {
+      this.dashboardService.tileCollapsedStateChange(this, isCollapsed);
+    }
   }
 }

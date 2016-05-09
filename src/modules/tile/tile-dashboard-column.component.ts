@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ComponentFactory,
+  ComponentRef,
   ComponentResolver,
   Input,
   OnChanges,
@@ -51,7 +52,8 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
         this.cmpResolver.resolveComponent(tile.component)
           .then((factory: ComponentFactory) => {
             let componentRef = this.content.viewContainer.createComponent(factory);
-            componentRef.instance.tileId = tile.id;
+
+            this.dashboardService.addTileComponent(tile, componentRef);
           });
       }
     }

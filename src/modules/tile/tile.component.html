@@ -25,12 +25,11 @@
             type="button"
             *ngIf="hasSettings"
             class="sky-tile-settings fa fa-cog"
-            (click)="$event.stopPropagation();settingsButtonClicked();"
+            (click)="settingsButtonClicked();"
         >
         </button>
         <i
             class="sky-tile-grab-handle fa fa-th"
-            (ngClick)="$event.stopPropagation()"
             *ngIf="isInDashboardColumn"
         >
         </i>
@@ -39,5 +38,6 @@
   </header>
   <div class="sky-tile-content" [hidden]="isCollapsed">
     <ng-content select="sky-tile-content"></ng-content>
+    {{isCollapsed}}
   </div>
 </section>
