@@ -70,12 +70,10 @@ export class SkyTileDashboardService {
   }
 
   public setDragulaService(dragulaService: DragulaService) {
-    let self = this;
-
     bagIdIndex++;
 
-    self.dragulaService = dragulaService;
-    self.bagId = 'sky-tile-dashboard-bag-' + bagIdIndex;
+    this.dragulaService = dragulaService;
+    this.bagId = 'sky-tile-dashboard-bag-' + bagIdIndex;
 
     dragulaService.setOptions(this.bagId, {
       moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
@@ -84,7 +82,7 @@ export class SkyTileDashboardService {
     });
 
     dragulaService.drop.subscribe((value: any[]) => {
-      let bag = dragulaService.find(self.bagId);
+      let bag = dragulaService.find(this.bagId);
 
       if (bag) {
         let containers: any[] = bag.drake.containers;
@@ -112,11 +110,11 @@ export class SkyTileDashboardService {
           columns: columns
         };
 
-        self.configChange.emit(config);
+        this.configChange.emit(config);
       }
     });
 
-    self.checkReady();
+    this.checkReady();
   }
 
   public tileIsCollapsed(tile: SkyTileComponent): boolean {
