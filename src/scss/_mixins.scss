@@ -1,0 +1,5 @@
+@import "variables";
+
+@mixin sky-shadow ($h-shadow:0px, $v-shadow:0px, $blur:5px, $spread-radius:0, $color:#ddd) {
+  box-shadow: $h-shadow $v-shadow $blur $spread-radius $color;
+}

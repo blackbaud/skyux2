@@ -1,0 +1,27 @@
+<section class="sky-card"
+    [ngClass]="
+      {
+        'sky-card-small': size === 'small',
+        'sky-card-selectable': selectable,
+        'sky-card-selected': selectable &amp;&amp; selected
+      }
+">
+  <header>
+    <label class="sky-card-header" [hidden]="!selectable &amp;&amp; titleEl.children.length === 0">
+      <div class="sky-card-heading-middle">
+        <h1 class="sky-card-title" #titleEl>
+          <ng-content select="sky-card-title"></ng-content>
+        </h1>
+      </div>
+      <div class="sky-card-check" *ngIf="selectable">
+        <sky-checkbox [(selected)]="selected"></sky-checkbox>
+      </div>
+    </label>
+  </header>
+  <div class="sky-card-content" (click)="contentClick()">
+    <ng-content select="sky-card-content"></ng-content>
+    <div class="sky-card-actions" [hidden]="actionsEl.children.length === 0" #actionsEl>
+      <ng-content select="sky-card-actions"></ng-content>
+    </div>
+  </div>
+</section>

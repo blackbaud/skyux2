@@ -1,0 +1,317 @@
+$sky-font-family-base: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$sky-font-family-narrow: 'Oswald', sans-serif !default;
+
+$sky-padding: 10px !default;
+$sky-padding-half: $sky-padding / 2 !default;
+$sky-padding-double: $sky-padding * 2 !default;
+$sky-padding-plus-half: $sky-padding + $sky-padding-half !default;
+$sky-padding-3_4: floor(($sky-padding * 0.75)) !default;
+
+$sky-margin: 10px !default;
+$sky-margin-half: $sky-margin / 2 !default;
+$sky-margin-double: $sky-margin * 2 !default;
+
+$sky-color-green: #1ab394 !default;
+$sky-color-blue: #1c84c6 !default;
+$sky-color-aqua: #23c6c8 !default;
+$sky-color-yellow: #f8ac59 !default;
+$sky-color-red: #ed5565 !default;
+$sky-color-white: #fff !default;
+$sky-color-purple: #6533c5 !default;
+$sky-color-gray-lighter: lighten(#000, 80%) !default; // #ccc
+
+$sky-border-color: #e7eaec !default;
+
+$sky-body-background-color: #f3f3f4 !default;
+
+$sky-font-size-base: 14px !default;
+
+$sky-font-size-xxxl: floor(($sky-font-size-base * 3.5)) !default; // ~42px
+$sky-font-size-xxl: floor(($sky-font-size-base * 2.5)) !default; // ~30px
+$sky-font-size-xl: floor(($sky-font-size-base * 1.333)) !default; // ~16px
+$sky-font-size-lg: ceil(($sky-font-size-base * 1.07)) !default; // ~14px
+$sky-font-size-sm: ceil(($sky-font-size-base * 0.833)) !default; // ~10px
+
+
+$sky-alternate-font-size-xxxl: floor(($sky-font-size-base * 4)) !default; // ~48px
+$sky-alternate-font-size-xxl: floor(($sky-font-size-base * 3.5)) !default; // ~42px
+$sky-alternate-font-size-xl: floor(($sky-font-size-base * 2.333)) !default; // ~28px
+$sky-alternate-font-size-lg: ceil(($sky-font-size-base * 2)) !default; // ~24px
+$sky-alternate-font-size-base: ceil(($sky-font-size-base * 1.833)) !default; // ~22px
+$sky-alternate-font-size-sm: ceil(($sky-font-size-base * 1.667)) !default; // ~20px
+
+$sky-selected-color: #eeeffb !default;
+
+// begin transitions
+$sky-transition-time-short: 150ms !default;
+$sky-transition-time-medium: 250ms !default;
+$sky-transition-time-long: 500ms !default;
+// end transitions
+
+//begin tile
+$sky-tile-header-tool-padding: $sky-padding-plus-half !default;
+$sky-tile-form-background: #F2F2F2 !default;
+//end tile
+
+// begin context menu
+$sky-context-menu-size: 24px !default;
+// end context menu
+
+$sky-screen-sm-min: 768px;
+$sky-screen-md-min: 992px;
+$sky-screen-lg-min: 1200px;
+
+$sky-screen-xs-max: $sky-screen-sm-min - 1;
+$sky-screen-sm-max: $sky-screen-md-min - 1;
+$sky-screen-md-max: $sky-screen-lg-min - 1;
+//
+//
+// // begin _variables
+//
+// $bb-nav-bg-color: #2f4050 !default;
+// $bb-btn-border-radius: 3px !default;
+// $bb-label-badge-color: #5e5e5e !default;
+//
+// $bb-brand-alternate: $bb-color-blue !default;
+// $bb-brand-alternate-light: lighten($bb-brand-alternate, 10%) !default; //#1a80b3
+// $bb-brand-alternate-lighter: lighten($bb-brand-alternate, 20%) !default; //#3399cc
+//
+// $bb-nav-color: #a7b1c2 !default;
+// $bb-nav-selected-color: $bb-color-white !default;
+// $bb-nav-selected-bg-color: #293846 !default;
+// $bb-nav-item-padding: 16px !default;
+// $bb-nav-selected-border-width: 4px !default;
+//
+// $bb-error-color: #ca2a2a !default;
+//
+// $font-family-serif: BenchNine, Trebuchet, serif !default;
+//
+// $bb-font-family-alternate: $font-family-sans-serif !default;
+//
+// $font-size-base: 13px;
+//
+//
+//
+// $bb-text-color-success: $bb-color-blue !default;
+// $bb-text-color-info: $bb-color-aqua !default;
+// $bb-text-color-warning: $bb-color-yellow !default;
+// $bb-text-color-danger: $bb-color-red !default;
+//
+// // End new variables
+//
+//
+// // Bootstrap overrides
+//
+// $gray-darker: lighten(#000, 13.5%); // #222
+// $gray-dark: lighten(#000, 20%); // #333
+// $gray: lighten(#000, 40%); // #666
+// $gray-light: lighten(#000, 60%); // #999
+//
+// $brand-primary: $bb-color-green;
+//
+// $thumbnail-bg: $bb-color-white;
+// $nav-tabs-active-link-hover-bg: $bb-color-white;
+// $nav-tabs-justified-active-link-border-color: $bb-color-white;
+//
+// $pagination-active-bg: #f4f4f4;
+// $pagination-active-border: #ddd;
+//
+// $nav-pills-active-link-hover-bg: $bb-brand-alternate;
+//
+// $panel-primary-border: $bb-brand-alternate;
+//
+// $panel-primary-heading-bg: $bb-brand-alternate;
+//
+// $btn-primary-color: $bb-color-white;
+// $btn-primary-bg: $bb-brand-alternate;
+// $btn-primary-border: $bb-brand-alternate;
+//
+// $state-danger-text: $bb-error-color;
+//
+// //other colors
+// $gray-lightest: lighten(#000, 93.5%); // #eee //used lots of places
+//
+// $gray-dark-text: #ddd;
+//
+// // end colors
+//
+// // begin fonts
+//
+// $font-size-h1: $bb-alternate-font-size-xxxl;
+// $font-size-h2: $bb-alternate-font-size-xxl;
+// $font-size-h3: $bb-alternate-font-size-xl;
+// $font-size-h4: $bb-font-size-lg;
+// $font-size-h5: $font-size-base;
+// $font-size-h6: $bb-font-size-sm;
+//
+// $bbsky-char-add: "\e600";
+// $bbsky-char-add-fill: "\e601";
+// $bbsky-char-add-nostroke: "\e602";
+// $bbsky-char-delete: "\e603";
+// $bbsky-char-close: "\e604";
+// $bbsky-char-check: "\e605";
+// $bbsky-char-arrow: "\e607";
+// $bbsky-char-arrow-angle: "\e608";
+// $bbsky-char-arrow-bub: "\e609";
+// $bbsky-char-back: "\e60a";
+// $bbsky-char-search: "\e60b";
+// $bbsky-char-edit: "\e60c";
+// $bbsky-char-save: "\e60d";
+// $bbsky-char-print: "\e60e";
+// $bbsky-char-folder: "\e60f";
+// $bbsky-char-warning: "\e610";
+// $bbsky-char-gear: "\e611";
+// $bbsky-char-gear-fill: "\e612";
+// $bbsky-char-columns: "\e613";
+// $bbsky-char-filter: "\e614";
+// $bbsky-char-note: "\e615";
+// $bbsky-char-message-bub: "\e616";
+// $bbsky-char-export: "\e617";
+// $bbsky-char-user: "\e618";
+// $bbsky-char-user-face: "\e619";
+// $bbsky-char-present: "\e61a";
+// $bbsky-char-phone: "\e61b";
+// $bbsky-char-calendar: "\e61c";
+// $bbsky-char-new-donor: "\e61d";
+// $bbsky-char-globe: "\e61e";
+// $bbsky-char-cloud: "\e61f";
+// $bbsky-char-key: "\e620";
+// $bbsky-char-key-angle: "\e621";
+// $bbsky-char-share: "\e622";
+// $bbsky-char-lock: "\e623";
+// $bbsky-char-unlock: "\e624";
+// $bbsky-char-copy: "\e625";
+// $bbsky-char-cake: "\e626";
+// $bbsky-char-help: "\e627";
+// $bbsky-char-community: "\e628";
+// $bbsky-char-facebook: "\e629";
+// $bbsky-char-twitter: "\e62a";
+// $bbsky-char-linkedin: "\e62b";
+// $bbsky-char-googleplus: "\e62c";
+// $bbsky-char-youtube: "\e62d";
+// $bbsky-char-arrow-sharp: "\e62e";
+// $bbsky-char-pdf: "\e62f";
+// $bbsky-char-facebook-plain: "\e630";
+// $bbsky-char-twitter-plain: "\e631";
+// $bbsky-char-linkedin-plain: "\e632";
+// $bbsky-char-googleplus-plain: "\e633";
+// $bbsky-char-youtube-plain: "\e634";
+// $bbsky-char-envelope: "\e635";
+// $bbsky-char-envelope-plain: "\e636";
+// $bbsky-char-loading: "\e637";
+// $bbsky-char-trash: "\e638";
+// $bbsky-char-stamp: "\e639";
+// $bbsky-char-bb-icon: "\e63a";
+// $bbsky-char-bb-icon-small: "\e63b";
+// $bbsky-char-cloud-key: "\e63c";
+// $bbsky-char-info: "\e63d";
+// $bbsky-char-adjustment: "\e63e";
+// $bbsky-char-expand: "\e63f";
+// $bbsky-char-collapse: "\e640";
+// $bbsky-char-refresh: "\e641";
+// $bbsky-char-tasks: "\e642";
+// $bbsky-char-nxt: "\e643";
+// $bbsky-char-re: "\e644";
+// $bbsky-char-fe: "\e645";
+// $bbsky-char-multi-action: "\e646";
+// $bbsky-char-database: "\e647";
+// $bbsky-char-rim: "\e900";
+// // end fonts
+//
+// // begin margin & padding
+// $base-margin: 10px;
+// $base-padding: 10px;
+//
+// $margin-half: floor(($base-margin * 0.5));
+// $margin-3_4: floor(($base-margin * 0.75));
+// $margin: $base-margin;
+// $margin-plus-half: ceil(($base-margin * 1.5));
+// $margin-double: ceil(($base-margin * 2));
+// $margin-triple: ceil(($base-margin * 3));
+//
+// $padding-double: ceil(($base-padding * 2));
+// $padding-triple: ceil(($base-padding * 3));
+// // end margin & padding
+//
+// // begin toolbar
+// $toolbar-button-color: #2B7DBA;
+// $toolbar-button-fontsize: $bb-font-size-lg;
+// $toolbar-background-color: $bb-color-white;
+// // end toolbar
+//
+// // begin form
+// $form-gray-light: #DDDDDD;
+// $form-background: $bb-color-white;
+// $form-border-color: #D9D9D9;
+// $form-header-color: #333333;
+// $form-textarea-color: $form-gray-light;
+// $form-cancelbutton-color: $bb-brand-alternate;
+// $form-select-border-color: $form-gray-light;
+// $form-button-color: $bb-color-white;
+// $form-button-border: #CCCCCC;
+// $form-button-gradient-light: #666666;
+// $form-button-gradient-dark: #444444;
+// $invalid-field-color: #b94a48;
+// // end form
+//
+// //begin dialog
+// $z-index-flyout: 1030;
+// $z-index-dialog: 2000;
+// $z-index-control: 10000;
+// //end dialog
+//
+// // begin omnibar/help widget
+// $zindex-modal-background: 1040;
+// $help-widget-zindex: $zindex-modal-background + 1000 !default;
+// $omnibar-zindex: $zindex-modal-background - 1 !default;
+// //end omnibar/help widget
+//
+// //begin tile
+// $tile-header-tool-padding: 15px;
+// $tile-form-background: #F2F2F2;
+// //end tile
+//
+// // begin text color
+// $text-color: #292a2b !default;
+// // end text color
+//
+// // begin omnibar/help widget
+// $omnibar-height: 50px !default;
+// $omnibar-height-small: 30px !default;
+// //end omnibar/help widget
+//
+// // begin color palette
+// $bb-palette-multi: (
+//   scale-color($bb-color-blue, $lightness: 8%),
+//   scale-color($bb-color-yellow, $lightness: 12%),
+//   scale-color($bb-color-green, $lightness: 8%),
+//   scale-color($bb-color-purple, $lightness: 26%, $saturation: -30%),
+//   scale-color($bb-color-aqua, $lightness: 8%),
+//   scale-color($bb-color-red, $lightness: 12%),
+//   scale-color($gray, $lightness: 28%),
+//   scale-color($bb-color-blue, $lightness: 48%),
+//   scale-color($bb-color-yellow, $lightness: 42%),
+//   scale-color($bb-color-green, $lightness: 48%),
+//   scale-color($bb-color-purple, $lightness: 56%, $saturation: -30%),
+//   scale-color($bb-color-aqua, $lightness: 48%),
+//   scale-color($bb-color-red, $lightness: 42%),
+//   scale-color($gray, $lightness: 48%)
+// );
+//
+// $bb-palette-mono: (
+//   scale-color($bb-color-blue, $lightness: -25%),
+//   $bb-color-blue,
+//   scale-color($bb-color-blue, $lightness: 25%),
+//   scale-color($bb-color-blue, $lightness: 50%),
+//   scale-color($bb-color-blue, $lightness: 75%)
+// );
+// // end color palette
+//
+// // begin avatar
+// $bb-avatar-height: 100px !default;
+// $bb-avatar-width: $bb-avatar-height !default;
+// $bb-avatar-border-width: 2px !default;
+// // end avatar
+//
+//
+// // end _variables

@@ -1,0 +1,23 @@
+@import "../../scss/variables";
+
+:host {
+  display: flex;
+  padding: 0 $sky-padding;
+}
+
+@media (max-width: $sky-screen-sm-max) {
+  :host {
+    display: block;
+    padding: 0;
+  }
+
+  :host /deep/ .sky-tile-dashboard-column {
+    padding: 0;
+  }
+}
+
+@media (max-width: $sky-screen-xs-max) {
+  :host /deep/ .sky-tile {
+    margin: 0;
+  }
+}

@@ -1,0 +1,5 @@
+<label class="sky-checkbox-wrapper">
+  <input type="checkbox" [ngModel]="selected" (ngModelChange)="updateSelected($event)" />
+  <span role="checkbox" class="sky-checkbox" tabindex="-1"></span>
+  <ng-content select="sky-checkbox-label"></ng-content>
+</label>

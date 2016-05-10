@@ -1,0 +1,51 @@
+@import "../../scss/variables";
+
+.sky-checkbox-wrapper input {
+    opacity: 0;
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+.sky-checkbox {
+    border: 1px solid $sky-color-gray-lighter;
+    cursor: pointer;
+    display: inline-block;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    width: 22px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.sky-checkbox-wrapper input:checked + .sky-checkbox {
+    background-color: $sky-color-blue;
+    border-color: $sky-color-blue;
+
+    &:before {
+        color: $sky-color-white;
+        content: "\f00c";
+        font-family: FontAwesome;
+        font-size: $sky-font-size-sm;
+    }
+}
+
+
+.sky-checkbox-wrapper input:disabled + .sky-checkbox {
+    background-color: $sky-color-gray-lighter;
+    border: 1px solid $sky-color-gray-lighter;
+    cursor: default;
+}
+
+.sky-checkbox-wrapper input:focus + .sky-checkbox {
+  //default
+  outline: thin dotted;
+
+  //webkit
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: -2px;
+}

@@ -1,0 +1,10 @@
+<button
+    type="button"
+    class="sky-chevron"
+    [ngClass]="['sky-chevron-' + direction]"
+    (click)="chevronClick($event)"
+    [attr.aria-label]="(isCollapsed ? 'chevron_expand' : 'chevron_collapse') | skyResources"
+>
+  <i class="sky-chevron-part sky-chevron-left"></i>
+  <i class="sky-chevron-part sky-chevron-right"></i>
+</button>
