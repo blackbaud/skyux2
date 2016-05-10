@@ -36,7 +36,8 @@
       </div>
     </div>
   </header>
-  <div class="sky-tile-content" [hidden]="isCollapsed">
+  <div class="sky-tile-content">
+  <!-- <div class="sky-tile-content" [hidden]="isCollapsed"> -->
     <ng-content select="sky-tile-content"></ng-content>
     {{isCollapsed}}
   </div>

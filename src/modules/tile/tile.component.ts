@@ -1,4 +1,12 @@
-import {Component, ElementRef, EventEmitter, Optional, Output} from 'angular2/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Optional,
+  Output
+} from 'angular2/core';
+import {SkySlideService} from '../animation/slide.service';
 import {SkyChevronComponent} from '../chevron/chevron.component';
 import {SkyResourcesPipe} from '../resources/resources.pipe';
 import {SkyTileDashboardService} from './tile-dashboard.service';
@@ -8,9 +16,10 @@ import {SkyTileDashboardService} from './tile-dashboard.service';
   styles: [require('./tile.component.scss')],
   template: require('./tile.component.html'),
   directives: [SkyChevronComponent],
-  pipes: [SkyResourcesPipe]
+  pipes: [SkyResourcesPipe],
+  viewProviders: [SkySlideService]
 })
-export class SkyTileComponent {
+export class SkyTileComponent implements AfterViewInit {
   public tileId: string;
 
   public isInDashboardColumn = false;
@@ -24,9 +33,9 @@ export class SkyTileComponent {
   private get isCollapsed(): boolean {
     if (this.dashboardService) {
       return this.dashboardService.tileIsCollapsed(this);
-    } else {
-      return this._isCollapsed;
     }
+
+    return this._isCollapsed;
   }
 
   private set isCollapsed(value: boolean) {
@@ -35,6 +44,8 @@ export class SkyTileComponent {
     } else {
       this._isCollapsed = value;
     }
+
+    this.slideForCollapsed();
   }
 
   private _isCollapsed = false;
@@ -49,6 +60,7 @@ export class SkyTileComponent {
 
   constructor(
     @Optional() private dashboardService: SkyTileDashboardService,
+    private slideService: SkySlideService,
     public elementRef: ElementRef
   ) {
     this.isInDashboardColumn = !!dashboardService;
@@ -60,5 +72,16 @@ export class SkyTileComponent {
 
   public chevronDirectionChange(direction: string) {
     this.isCollapsed = direction === 'down';
+  }
+
+  public ngAfterViewInit() {
+    if (this.isCollapsed) {
+      this.slideForCollapsed(false);
+    }
+  }
+
+  private slideForCollapsed(animate = true) {
+    let direction = this.isCollapsed ? 'up' : 'down';
+    this.slideService.slide(this.elementRef, '.sky-tile-content', direction, animate);
   }
 }
