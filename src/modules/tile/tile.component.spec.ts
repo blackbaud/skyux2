@@ -5,12 +5,19 @@ import {
   expect,
   inject,
   it,
-  TestComponentBuilder
+  TestComponentBuilder,
+  xit
 } from 'angular2/testing';
 
-import {Component} from 'angular2/core';
+import {Component, EventEmitter, provide} from 'angular2/core';
 import {SkyTileComponent} from './tile.component';
+import {SkyTileDashboardService} from './tile-dashboard.service';
 import {TestUtility} from '../testing/testutility';
+
+class MockDashboardService extends SkyTileDashboardService {
+  public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {
+  }
+}
 
 describe('Tile component', () => {
 
@@ -121,23 +128,63 @@ describe('Tile component', () => {
     });
   });
 
-  it('should update the tile state when the tile dashboard is initialized', () => {
+  xit('should update the tile state when the tile dashboard is initialized', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile dashboard when the tile is collapsed', () => {
+  xit('should notify the tile dashboard when the tile is collapsed', (done: Function) => {
+    let html = `
+      <sky-tile>
+        <sky-tile-title>Title</sky-tile-title>
+        <sky-tile-content>Content</sky-tile-content>
+      </sky-tile>
+    `;
+
+    let mockDashboardService = new MockDashboardService();
+
+    return TestUtility.testComponentWithProviders(
+      tcb,
+      TestComponent,
+      html,
+      SkyTileComponent,
+      [
+        provide(
+          SkyTileDashboardService,
+          {
+            useValue: mockDashboardService
+          }
+        )
+      ],
+      (fixture: ComponentFixture) => {
+        let el = fixture.nativeElement;
+        let dashboardSpy = spyOn(mockDashboardService, 'setTileCollapsed');
+
+        fixture.detectChanges();
+
+        let chevronEl = el.querySelector('.sky-chevron');
+
+        chevronEl.click();
+        fixture.detectChanges();
+
+        //  TODO: This is a nasty workaround.  We need to revisit this to see if change detection
+        // has improved in the Angular 2 RC.
+        setTimeout(function() {
+          expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
+          done();
+        }, 100);
+      }
+    );
+  });
+
+  xit('should notify the tile that repaint is required when the tile is expanded', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile that repaint is required when the tile is expanded', () => {
+  xit('should react when tile display mode changes', () => {
     expect(false).toBe(true);
   });
 
-  it('should react when tile display mode changes', () => {
-    expect(false).toBe(true);
-  });
-
-  it(
+  xit(
     `should not update tile state when display mode changed but the tile have not
     been initialized by the tile dashboard`,
     () => {
@@ -145,7 +192,7 @@ describe('Tile component', () => {
     }
   );
 
-  it(
+  xit(
     `should not update tile state when display mode changed but the tile have not
     been initialized by the tile dashboard`,
     () => {
@@ -188,7 +235,7 @@ describe('Tile component', () => {
       });
     });
 
-    it('should call the specified callback when clicked', () => {
+    it('should call the specified callback when clicked', (done: Function) => {
       let html = `
         <sky-tile [isCollapsed]="tileIsCollapsed" (settingsClick)="tileSettingsClick()">
           <sky-tile-title>Title</sky-tile-title>
@@ -202,12 +249,12 @@ describe('Tile component', () => {
 
         fixture.detectChanges();
 
-        expect(cmp.tileSettingsClicked).toBe(false);
+        cmp.tileSettingsClicked.subscribe(() => {
+          done();
+        });
 
         el.querySelector('.sky-tile-settings').click();
         fixture.detectChanges();
-
-        expect(cmp.tileSettingsClicked).toBe(true);
       });
     });
 
@@ -244,9 +291,9 @@ describe('Tile component', () => {
 class TestComponent {
   public tileIsCollapsed = false;
 
-  public tileSettingsClicked = false;
+  public tileSettingsClicked = new EventEmitter();
 
   public tileSettingsClick() {
-    this.tileSettingsClicked = true;
+    this.tileSettingsClicked.emit(undefined);
   }
 }
