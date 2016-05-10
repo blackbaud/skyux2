@@ -121,7 +121,6 @@ export class SkyTileDashboardService {
     let tileConfig = this.findTile(getTileId(tile));
 
     if (tileConfig) {
-      console.log('isCollapsed: ' + tileConfig.isCollapsed);
       return tileConfig.isCollapsed;
     }
 
