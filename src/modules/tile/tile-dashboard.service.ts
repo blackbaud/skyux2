@@ -1,4 +1,4 @@
-import {ComponentRef, ElementRef, EventEmitter, Injectable} from 'angular2/core';
+import {ComponentRef, EventEmitter, Injectable} from 'angular2/core';
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
 import {SkyTileComponent} from './tile.component';
 import {SkyTileDashboardConfig} from './tile-dashboard-config';
@@ -11,13 +11,13 @@ let bagIdIndex = 0;
 
 function getTileId(tile: SkyTileComponent): string {
   let el = tile.elementRef.nativeElement;
-  let tileId: any;
+  let tileId: string;
 
   while (el) {
-    tileId = el.attributes[ATTR_TILE_ID];
+    tileId = el.getAttribute(ATTR_TILE_ID);
 
     if (tileId) {
-      return tileId.value as string;
+      return tileId;
     }
 
     el = el.parentElement;
@@ -119,7 +119,18 @@ export class SkyTileDashboardService {
     self.checkReady();
   }
 
-  public tileCollapsedStateChange(tile: SkyTileComponent, isCollapsed: boolean) {
+  public tileIsCollapsed(tile: SkyTileComponent): boolean {
+    let tileConfig = this.findTile(getTileId(tile));
+
+    if (tileConfig) {
+      console.log('isCollapsed: ' + tileConfig.isCollapsed);
+      return tileConfig.isCollapsed;
+    }
+
+    return undefined;
+  }
+
+  public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {
     let tileConfig = this.findTile(getTileId(tile));
 
     if (tileConfig) {

@@ -11,8 +11,6 @@ import {SkyTileDashboardService} from './tile-dashboard.service';
   pipes: [SkyResourcesPipe]
 })
 export class SkyTileComponent {
-  public isCollapsed = false;
-
   public tileId: string;
 
   public isInDashboardColumn = false;
@@ -22,6 +20,24 @@ export class SkyTileComponent {
 
   @Output()
   public collapsedStateChange = new EventEmitter<boolean>();
+
+  private get isCollapsed(): boolean {
+    if (this.dashboardService) {
+      return this.dashboardService.tileIsCollapsed(this);
+    } else {
+      return this._isCollapsed;
+    }
+  }
+
+  private set isCollapsed(value: boolean) {
+    if (this.dashboardService) {
+      this.dashboardService.setTileCollapsed(this, value);
+    } else {
+      this._isCollapsed = value;
+    }
+  }
+
+  private _isCollapsed = false;
 
   public settingsButtonClicked() {
     this.settingsClick.emit(undefined);
@@ -39,18 +55,10 @@ export class SkyTileComponent {
   }
 
   public titleClick() {
-    this.updateCollapsedState(!this.isCollapsed);
+    this.isCollapsed = !this.isCollapsed;
   }
 
   public chevronDirectionChange(direction: string) {
-    this.updateCollapsedState(direction === 'down');
-  }
-
-  private updateCollapsedState(isCollapsed: boolean) {
-    this.isCollapsed = isCollapsed;
-
-    if (this.dashboardService) {
-      this.dashboardService.tileCollapsedStateChange(this, isCollapsed);
-    }
+    this.isCollapsed = direction === 'down';
   }
 }

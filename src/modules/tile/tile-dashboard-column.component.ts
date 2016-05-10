@@ -2,11 +2,8 @@ import {
   AfterViewInit,
   Component,
   ComponentFactory,
-  ComponentRef,
   ComponentResolver,
   Input,
-  OnChanges,
-  SimpleChange,
   ViewChild
 } from 'angular2/core';
 import {Dragula} from 'ng2-dragula/ng2-dragula';
@@ -22,16 +19,21 @@ let columnIdIndex = 0;
   template: require('./tile-dashboard-column.component.html'),
   directives: [Dragula, SkyTileDashboardColumnContentComponent]
 })
-export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit {
+export class SkyTileDashboardColumnComponent implements AfterViewInit {
   public bagId: string;
 
   public columnId: string;
 
   @Input()
-  public tiles: SkyTileDashboardConfigTile[];
+  public set tiles(value: SkyTileDashboardConfigTile[]) {
+    this._tiles = value;
+    this.updateTiles();
+  }
 
   @ViewChild('content')
   private content: SkyTileDashboardColumnContentComponent;
+
+  private _tiles: SkyTileDashboardConfigTile[];
 
   private viewInitialized = false;
 
@@ -47,8 +49,8 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   }
 
   public updateTiles() {
-    if (this.viewInitialized && this.tiles) {
-      for (let tile of this.tiles) {
+    if (this.viewInitialized && this._tiles) {
+      for (let tile of this._tiles) {
         this.cmpResolver.resolveComponent(tile.component)
           .then((factory: ComponentFactory) => {
             let componentRef = this.content.viewContainer.createComponent(factory);
@@ -62,13 +64,5 @@ export class SkyTileDashboardColumnComponent implements OnChanges, AfterViewInit
   public ngAfterViewInit() {
     this.viewInitialized = true;
     this.updateTiles();
-  }
-
-  public ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-    let tilesChange = changes['tiles'];
-
-    if (tilesChange && tilesChange.currentValue) {
-      this.updateTiles();
-    }
   }
 }
