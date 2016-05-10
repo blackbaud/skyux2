@@ -10,13 +10,13 @@
     border-style: solid solid none;
     border-width: 4px 0 0;
     display: flex;
-    cursor: pointer;
 }
 
 .sky-tile-header-content {
     display: flex;
     flex: 1;
     align-items: baseline;
+    cursor: pointer;
 }
 
 .sky-tile-title {
