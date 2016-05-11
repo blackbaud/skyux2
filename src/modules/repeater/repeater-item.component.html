@@ -1,0 +1,23 @@
+<section
+    class="sky-repeater-item"
+
+>
+  <div class="sky-repeater-item-left">
+    <div class="sky-repeater-item-context-menu" ng-if="bbRepeaterItem.contextMenuCtrl"></div>
+  </div>
+  <div class="sky-repeater-item-right">
+    <header class="sky-repeater-item-header" ng-click="bbRepeaterItem.headerClick()">
+      <h1 class="sky-repeater-item-title" ng-if="bbRepeaterItem.titleCtrl">
+        <ng-content select="sky-repeater-item-title"></ng-content>
+      </h1>
+      <sky-chevron
+          [direction]="isCollapsed ? 'down' : 'up'"
+          (directionChange)="chevronDirectionChange($event)"
+      >
+      </sky-chevron>
+    </header>
+    <div class="sky-repeater-item-content">
+      <ng-content select="sky-repeater-item-content"></ng-content>
+    </div>
+  </div>
+</section>
