@@ -13,11 +13,8 @@ before_install:
 # Run `ci` instead of default of `test`
 script: npm run ci
 
-# Kill any remaining BrowserStack sessions.
-after_script: ./scripts/browserstack-local-stop.sh
-
 # Upload coverage to https://codecov.io/gh/blackbaud/skyux2
-after_success:
+after_script:
   - bash <(curl -s https://codecov.io/bash)
 
 # Display any NPM errors
