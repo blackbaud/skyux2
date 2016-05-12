@@ -1,0 +1,48 @@
+language: node_js
+node_js:
+  - "5"
+
+# https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
+git:
+  depth: 10
+
+# https://github.com/npm/npm/issues/11283
+before_install:
+  - npm set progress=false
+
+# Run `ci` instead of default of `test`
+script: npm run ci
+
+# Kill any remaining BrowserStack sessions.
+after_script: ./scripts/browserstack-local-stop.sh
+
+# Upload coverage to https://codecov.io/gh/blackbaud/skyux2
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+# Display any NPM errors
+after_failure:
+  - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
+
+# When a push, only care about the master, rc-, and savage- branches.
+# Otherwise anytime we commit to internal branches this would run.
+branches:
+  only:
+    - master
+    - /^rc-.*$/
+    - /^savage-.*$/
+
+# Cache a few things
+cache:
+  directories:
+    - node_modules
+    - $BROWSER_STACK_BINARY_BASE_PATH
+
+notifications:
+  slack:
+    secure: X3VK9q9hmAcdzxdf8Ba0OHNThYoKKxvFLaDE09s45/75NM38pWQ9iOBJ8GOxYOA0WePzRNEScPxUAFMVKXK0KDbgtcEZ5DdM7kBe7JMo+fB39VLD3L70MVRLdpXnsPZE283GyXmjrmSVg+5gJrSYLwifnvyoqnnRlexL/Hz2JvxbDxdigbgLv8nvgEm5k62RN6kTVFS8aWI7sY1K1aEQdn8yTMy0u1VhBNA3wcFYVpAD1rbyBoSuFhARDVBujTh/RQamngDFLDThKGdCIvf57ierCgLFv6XLFPsviQP5qBMzEbBwu9u0DmOeevUsXUGUPtBSzQN9hBlMU995/n79PoSrlGGmBjISzqwzvp4JNMSDfCh+ne/PX1kIqeFW8egSTVTfCgavbHN4kJvtJZNmi6eDHhFHagSHSBkRgAc6JGvVHVToA1I/u97rcV1nVInhEvUNE6NZ/gkMj0El841ce3IvSZUsFcz/8IoYANxY1LCTmgnF/9GZ3QkKvBU0qhOjsMNnH2zwih38H1Ppqb0/+e+6mlmHpksnKgYwwAS83ZuKzyZbw7I3wyKUEOBCy7wWq45ZjRc74hnrZn/TngHyQ5UXCIlUBn1SjqjyljIKsp85A0lsZLcIEUIsR+7brnMRtMUW5IUaOSow2b52lr4suHG/ShXnUAe1sj2+uxCiy64=
+
+# Save the browserstack binary to a known location so we can cache it
+env:
+  global:
+    - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
