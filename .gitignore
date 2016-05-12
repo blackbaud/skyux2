@@ -57,3 +57,6 @@ npm-debug.log
 # IDE #
 .idea/
 *.swp
+
+# Allows for quick local testing #
+*.env
