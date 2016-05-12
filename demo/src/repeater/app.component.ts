@@ -10,6 +10,8 @@ import {Bootstrapper} from '../../bootstrapper';
 export class AppComponent {
   public items: any[];
 
+  public expandMode = 'single';
+
   constructor() {
     this.items = [
       {
@@ -25,6 +27,17 @@ export class AppComponent {
         statusType: 'warning'
       }
     ];
+  }
+
+  public addItem() {
+    let next = this.items.length + 1;
+    this.items.push({
+      title: 'New reminder ' + next,
+      note: 'This is a new reminder',
+      expanded: true,
+      status: 'Active',
+      statusType: 'info'
+    });
   }
 }
 

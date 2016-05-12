@@ -10,11 +10,13 @@
       <h1 class="sky-repeater-item-title" ng-if="bbRepeaterItem.titleCtrl">
         <ng-content select="sky-repeater-item-title"></ng-content>
       </h1>
-      <sky-chevron
-          [direction]="isCollapsed ? 'down' : 'up'"
-          (directionChange)="chevronDirectionChange($event)"
-      >
-      </sky-chevron>
+      <div class="sky-repeater-item-chevron">
+        <sky-chevron
+            [direction]="isCollapsed ? 'down' : 'up'"
+            (directionChange)="chevronDirectionChange($event)"
+        >
+        </sky-chevron>
+      </div>
     </header>
     <div class="sky-repeater-item-content">
       <ng-content select="sky-repeater-item-content"></ng-content>
