@@ -4,12 +4,12 @@ import { SkyChevronComponent } from '../../../src/modules/chevron';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
-  selector: 'my-app',
+  selector: 'sky-demo-app',
   template: require('./app.component.html'),
   directives: [SkyChevronComponent]
 })
 export class AppComponent {
-  direction = 'up';
+  public direction = 'up';
 }
 
 Bootstrapper.bootstrap(AppComponent);

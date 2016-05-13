@@ -4,7 +4,7 @@ import {
   it
 } from '@angular/core/testing';
 
-import {SkyResources} from './resources';
+import { SkyResources } from './resources';
 
 let defaultLocale = require('../../locales/resources_en_US.json');
 

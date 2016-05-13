@@ -1,1 +1,1 @@
-export {SkyCheckboxComponent} from './checkbox.component';
+export { SkyCheckboxComponent } from './checkbox.component';

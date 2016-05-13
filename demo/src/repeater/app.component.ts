@@ -4,7 +4,7 @@ import { SkyRepeaterComponent, SkyRepeaterItemComponent } from '../../../src/mod
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
-  selector: 'my-app',
+  selector: 'sky-demo-app',
   template: require('./app.component.html'),
   directives: [SkyRepeaterComponent, SkyRepeaterItemComponent]
 })

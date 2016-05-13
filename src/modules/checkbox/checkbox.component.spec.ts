@@ -8,7 +8,7 @@ import {
   it
 } from '@angular/core/testing';
 
-import {SkyCheckboxComponent} from './checkbox.component';
+import { SkyCheckboxComponent } from './checkbox.component';
 
 describe('Checkbox component', () => {
     'use strict';

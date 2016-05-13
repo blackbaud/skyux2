@@ -7,7 +7,7 @@ import {
   it
 } from '@angular/core/testing';
 
-import {SkyChevronComponent} from './chevron.component';
+import { SkyChevronComponent } from './chevron.component';
 
 describe('Chevron component', () => {
     let tcb: TestComponentBuilder;

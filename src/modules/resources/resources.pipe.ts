@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import {SkyResources} from './resources';
+import { SkyResources } from './resources';
 
 @Pipe({
   name: 'skyResources'
