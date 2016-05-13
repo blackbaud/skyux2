@@ -8,8 +8,8 @@ import {
   it
 } from '@angular/core/testing';
 
-import {SkyCardComponent} from './card.component';
-import {TestUtility} from '../testing/testutility';
+import { SkyCardComponent } from './card.component';
+import { TestUtility } from '../testing/testutility';
 
 describe('Card component', () => {
   let tcb: TestComponentBuilder;

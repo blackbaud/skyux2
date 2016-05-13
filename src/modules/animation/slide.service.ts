@@ -1,5 +1,5 @@
-import {ElementRef, Injectable} from '@angular/core';
-// åimport {AnimationBuilder} from '@angular/animate';
+import { ElementRef, Injectable } from '@angular/core';
+// åimport { AnimationBuilder } from '@angular/animate';
 
 @Injectable()
 export class SkySlideService {
