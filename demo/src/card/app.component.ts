@@ -4,14 +4,14 @@ import { SkyCardComponent } from '../../../src/modules/core';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
-  selector: 'my-app',
+  selector: 'sky-demo-app',
   template: require('./app.component.html'),
   directives: [SkyCardComponent]
 })
 export class AppComponent {
-  showCardTitle = true;
+  public showCardTitle = true;
 
-  showCheckbox = true;
+  public showCheckbox = true;
 }
 
 Bootstrapper.bootstrap(AppComponent);
