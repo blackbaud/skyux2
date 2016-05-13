@@ -13,8 +13,8 @@ import '@angular/common';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-//if ('production' === ENV) {
+// if ('production' === ENV) {
   // Production
-//} else {
+// } else {
   // Development
-//}
+// }
