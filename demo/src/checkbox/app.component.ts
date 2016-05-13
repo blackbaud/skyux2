@@ -1,6 +1,7 @@
-import {Component} from 'angular2/core';
-import {SkyCheckboxComponent} from '../../../src/modules/core';
-import {Bootstrapper} from '../../bootstrapper';
+import { Component } from '@angular/core';
+
+import { SkyCheckboxComponent } from '../../../src/modules/core';
+import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'my-app',

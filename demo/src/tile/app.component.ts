@@ -1,11 +1,12 @@
-import {Component} from 'angular2/core';
+import { Component } from '@angular/core';
+
 import {
   SkyTileDashboardComponent,
   SkyTileDashboardConfig
 } from '../../../src/modules/tile';
-import {Bootstrapper} from '../../bootstrapper';
-import {Tile1Component} from './tile1.component.ts';
-import {Tile2Component} from './tile2.component.ts';
+import { Bootstrapper } from '../../bootstrapper';
+import { Tile1Component } from './tile1.component.ts';
+import { Tile2Component } from './tile2.component.ts';
 
 @Component({
   selector: 'my-app',

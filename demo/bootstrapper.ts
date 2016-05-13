@@ -1,4 +1,4 @@
-import {bootstrap} from 'angular2/platform/browser';
+import { bootstrap } from '@angular/platform-browser-dynamic';
 
 require('style-loader!../src/scss/sky.scss');
 require('font-awesome-webpack');

@@ -1,16 +1,15 @@
+import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
+import { Component, EventEmitter } from '@angular/core';
 import {
   beforeEach,
-  ComponentFixture,
   describe,
   expect,
-  it,
   inject,
-  TestComponentBuilder
-} from 'angular2/testing';
+  it
+} from '@angular/core/testing';
 
-import {Component, EventEmitter} from 'angular2/core';
-import {SkyAlertComponent} from './alert.component';
-import {SkyResources} from '../resources/resources';
+import { SkyAlertComponent } from './alert.component';
+import { SkyResources } from '../resources/resources';
 
 describe('Alert component', () => {
   'use strict';
@@ -23,8 +22,8 @@ describe('Alert component', () => {
 
   it('should hide the close button if it is not cloesable', () => {
     return tcb.createAsync(TestComponent)
-      .then((fixture: ComponentFixture) => {
-        let closeAttrs: NamedNodeMap;
+      .then((fixture: ComponentFixture<TestComponent>) => {
+        let closeAttrs: any;
         let cmp = fixture.componentInstance as TestComponent;
         let el = fixture.nativeElement as HTMLElement;
 
@@ -46,7 +45,7 @@ describe('Alert component', () => {
 
   it('should be hidden when the close button is clicked', (done: Function) => {
     tcb.createAsync(TestComponent)
-      .then((fixture: ComponentFixture) => {
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let cmp = fixture.componentInstance as TestComponent;
         let el = fixture.nativeElement;
 
@@ -69,10 +68,10 @@ describe('Alert component', () => {
 
   it('should allow the screen reader text for the close button to be localizable', () => {
     return tcb.createAsync(TestComponent)
-      .then((fixture: ComponentFixture) => {
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let cmp = fixture.componentInstance as TestComponent;
         let el = fixture.nativeElement as HTMLElement;
-        let closeEl: Element;
+        let closeEl: any;
 
         cmp.closeable = true;
 
