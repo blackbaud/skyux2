@@ -3,3 +3,39 @@
 @mixin sky-shadow ($h-shadow:0px, $v-shadow:0px, $blur:5px, $spread-radius:0, $color:#ddd) {
   box-shadow: $h-shadow $v-shadow $blur $spread-radius $color;
 }
+
+@mixin sky-border($type, $sides...) {
+    @if(length($sides) == 0) {
+        @if($type != "tile") {
+            $sides: "bottom";
+        } @else {
+            $sides: "top";
+        }
+    }
+
+    @each $side in $sides {
+      @if($type == "light") {
+          border-#{$side}: 1px solid $sky-border-color;
+      }
+
+      @if($type == "dark") {
+          border-#{$side}: 1px solid $sky-color-gray-lighter;
+      }
+
+      @if($type == "nav") {
+          border-#{$side}: $sky-nav-selected-border-width solid $sky-color-blue;
+      }
+
+      @if($type == "tab") {
+          border-#{$side}: 2px solid $sky-color-blue;
+      }
+
+      @if($type == "tile") {
+          border-top: 4px solid $sky-border-color;
+      }
+
+      @if($type == "row") {
+          border-#{$side}: 1px dotted $sky-color-gray-lighter;
+      }
+    }
+}
