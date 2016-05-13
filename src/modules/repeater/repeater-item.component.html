@@ -1,16 +1,16 @@
 <section
     class="sky-repeater-item"
-
+    [ngClass]="{'sky-repeater-item-collapsible': isCollapsible}"
 >
-  <div class="sky-repeater-item-left">
+  <!--<div class="sky-repeater-item-left">
     <div class="sky-repeater-item-context-menu" ng-if="bbRepeaterItem.contextMenuCtrl"></div>
-  </div>
+  </div>-->
   <div class="sky-repeater-item-right">
-    <header class="sky-repeater-item-header" ng-click="bbRepeaterItem.headerClick()">
-      <h1 class="sky-repeater-item-title" ng-if="bbRepeaterItem.titleCtrl">
+    <header class="sky-repeater-item-header" [hidden]="titleEl.children.length === 0" (click)="headerClick()">
+      <h1 class="sky-repeater-item-title" #titleEl>
         <ng-content select="sky-repeater-item-title"></ng-content>
       </h1>
-      <div class="sky-repeater-item-chevron">
+      <div class="sky-repeater-item-chevron" [hidden]="!isCollapsible">
         <sky-chevron
             [direction]="isCollapsed ? 'down' : 'up'"
             (directionChange)="chevronDirectionChange($event)"

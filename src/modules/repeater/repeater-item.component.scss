@@ -15,6 +15,10 @@
     display: flex;
 }
 
+.sky-repeater-item-chevron {
+  margin-left: $sky-margin;
+}
+
 .sky-repeater-item-context-menu {
     padding: $sky-padding-half $sky-padding 0 0;
 }
@@ -40,12 +44,5 @@
 .sky-repeater-item-collapsed {
     .sky-repeater-item-content {
         display: none;
-    }
-}
-
-:host /deep/ .sky-repeater-item-collapsible {
-    .sky-chevron {
-        display: block;
-        margin-left: $sky-margin;
     }
 }

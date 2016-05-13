@@ -1,6 +1,13 @@
-import {Component, ContentChildren, Input, QueryList} from 'angular2/core';
-import {SkyRepeaterItemComponent} from './repeater-item.component';
-import {SkyRepeaterService} from './repeater.service';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  Input,
+  QueryList
+} from 'angular2/core';
+
+import { SkyRepeaterItemComponent } from './repeater-item.component';
+import { SkyRepeaterService } from './repeater.service';
 
 @Component({
   selector: 'sky-repeater',
@@ -8,7 +15,7 @@ import {SkyRepeaterService} from './repeater.service';
   template: require('./repeater.component.html'),
   providers: [SkyRepeaterService]
 })
-export class SkyRepeaterComponent {
+export class SkyRepeaterComponent implements AfterContentInit {
   private _expandMode = 'none';
 
   @Input()
@@ -36,13 +43,27 @@ export class SkyRepeaterComponent {
     return this._expandMode !== 'none';
   }
 
+  public ngAfterContentInit() {
+    // HACK: Have to use setTimeout() here to avoid error described in this issue:
+    // https://github.com/angular/angular/issues/6005
+    setTimeout(() => {
+      this.updateForExpandMode();
+    }, 0);
+
+    this.items.changes.subscribe(() => {
+      this.updateForExpandMode();
+    });
+  }
+
   private updateForExpandMode() {
     if (this.items) {
       let foundExpanded = false;
       let isCollapsible = this.isCollapsible();
       let isSingle = this._expandMode === 'single';
 
-      for (let item of this.items.toArray()) {
+      this.items.forEach((item) => {
+        item.isCollapsible = isCollapsible;
+
         if (!isCollapsible && item.isCollapsed) {
           item.isCollapsed = false;
         } else if (isSingle && !item.isCollapsed) {
@@ -52,7 +73,7 @@ export class SkyRepeaterComponent {
 
           foundExpanded = true;
         }
-      }
+      });
     }
   }
 }

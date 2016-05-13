@@ -1,7 +1,8 @@
-import {Component, ElementRef, Input} from 'angular2/core';
-import {SkyChevronComponent} from '../chevron/chevron.component';
-import {SkyRepeaterService} from './repeater.service';
-import {SkySlideService} from '../animation/slide.service';
+import { Component, ElementRef } from 'angular2/core';
+
+import { SkyChevronComponent } from '../chevron/chevron.component';
+import { SkyRepeaterService } from './repeater.service';
+import { SkySlideService } from '../animation/slide.service';
 
 @Component({
   selector: 'sky-repeater-item',
@@ -23,6 +24,8 @@ export class SkyRepeaterItemComponent {
     this.slideForCollapsed();
   }
 
+  public isCollapsible = false;
+
   private _isCollapsed = false;
 
   constructor(
@@ -31,6 +34,12 @@ export class SkyRepeaterItemComponent {
     private slideService: SkySlideService
   ) {
 
+  }
+
+  public headerClick() {
+    if (this.isCollapsible) {
+      this.isCollapsed = !this.isCollapsed;
+    }
   }
 
   public chevronDirectionChange(direction: string) {
