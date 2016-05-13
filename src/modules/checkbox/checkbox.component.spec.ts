@@ -1,14 +1,13 @@
+import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   beforeEach,
-  ComponentFixture,
   describe,
   expect,
-  it,
   inject,
-  TestComponentBuilder
-} from 'angular2/testing';
+  it
+} from '@angular/core/testing';
 
-import {Component, EventEmitter, Output} from 'angular2/core';
 import {SkyCheckboxComponent} from './checkbox.component';
 
 describe('Checkbox component', () => {
@@ -33,7 +32,7 @@ describe('Checkbox component', () => {
 
           tcb.overrideTemplate(TestComponent, html)
             .createAsync(TestComponent)
-            .then((fixture: ComponentFixture) => {
+            .then((fixture: ComponentFixture<TestComponent>) => {
               let cmp = fixture.componentInstance as TestComponent,
                 el = fixture.nativeElement;
 

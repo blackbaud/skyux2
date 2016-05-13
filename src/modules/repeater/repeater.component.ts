@@ -4,7 +4,7 @@ import {
   ContentChildren,
   Input,
   QueryList
-} from 'angular2/core';
+} from '@angular/core';
 
 import { SkyRepeaterItemComponent } from './repeater-item.component';
 import { SkyRepeaterService } from './repeater.service';

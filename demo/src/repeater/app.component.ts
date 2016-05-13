@@ -1,6 +1,7 @@
-import {Component} from 'angular2/core';
-import {SkyRepeaterComponent, SkyRepeaterItemComponent} from '../../../src/modules/repeater';
-import {Bootstrapper} from '../../bootstrapper';
+import { Component } from '@angular/core';
+
+import { SkyRepeaterComponent, SkyRepeaterItemComponent } from '../../../src/modules/repeater';
+import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'my-app',

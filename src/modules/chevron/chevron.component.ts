@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, Output} from 'angular2/core';
-import {SkyResourcesPipe} from '../resources/resources.pipe';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { SkyResourcesPipe } from '../resources/resources.pipe';
 
 @Component({
   selector: 'sky-chevron',

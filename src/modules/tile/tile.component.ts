@@ -5,11 +5,12 @@ import {
   EventEmitter,
   Optional,
   Output
-} from 'angular2/core';
-import {SkySlideService} from '../animation/slide.service';
-import {SkyChevronComponent} from '../chevron/chevron.component';
-import {SkyResourcesPipe} from '../resources/resources.pipe';
-import {SkyTileDashboardService} from './tile-dashboard.service';
+} from '@angular/core';
+
+import { SkySlideService } from '../animation/slide.service';
+import { SkyChevronComponent } from '../chevron/chevron.component';
+import { SkyResourcesPipe } from '../resources/resources.pipe';
+import { SkyTileDashboardService } from './tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile',

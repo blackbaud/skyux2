@@ -1,13 +1,12 @@
-import { Component } from 'angular2/core';
+import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
+import { Component } from '@angular/core';
 import {
   beforeEach,
-  ComponentFixture,
   describe,
   expect,
-  it,
   inject,
-  TestComponentBuilder
-} from 'angular2/testing';
+  it
+} from '@angular/core/testing';
 
 import { SkyRepeaterComponent } from './repeater.component';
 import { SkyRepeaterItemComponent } from './repeater-item.component';
@@ -31,19 +30,24 @@ describe('Repeater item component', () => {
 
   describe('with expand mode of "single"', () => {
     it('should collapse other items when an item is expanded', () => {
-    return TestUtility.testComponent(tcb, TestComponent, undefined, (fixture: ComponentFixture) => {
-        let el = fixture.nativeElement;
+      return TestUtility.testComponent(
+        tcb,
+        TestComponent,
+        undefined,
+        (fixture: ComponentFixture<TestComponent>) => {
+          let el = fixture.nativeElement;
 
-        fixture.componentInstance.expandMode = 'single';
-        fixture.detectChanges();
+          fixture.componentInstance.expandMode = 'single';
+          fixture.detectChanges();
 
-        el.querySelectorAll('.sky-repeater-item-header')[1].click();
+          el.querySelectorAll('.sky-repeater-item-header')[1].click();
 
-        fixture.detectChanges();
+          fixture.detectChanges();
 
-        expect(el.querySelectorAll('.sky-repeater-item-content')[0].offsetHeight).toBe(0);
-        expect(el.querySelectorAll('.sky-repeater-item-content')[1].offsetHeight).not.toBe(0);
-    });
+          expect(el.querySelectorAll('.sky-repeater-item-content')[0].offsetHeight).toBe(0);
+          expect(el.querySelectorAll('.sky-repeater-item-content')[1].offsetHeight).not.toBe(0);
+        }
+      );
     });
   });
 

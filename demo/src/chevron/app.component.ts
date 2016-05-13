@@ -1,6 +1,7 @@
-import {Component} from 'angular2/core';
-import {SkyChevronComponent} from '../../../src/modules/chevron';
-import {Bootstrapper} from '../../bootstrapper';
+import { Component } from '@angular/core';
+
+import { SkyChevronComponent } from '../../../src/modules/chevron';
+import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'my-app',

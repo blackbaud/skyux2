@@ -1,4 +1,4 @@
-import {Type} from 'angular2/core';
+import { Type } from '@angular/core';
 
 export interface SkyTileDashboardConfigTile {
   id: string;

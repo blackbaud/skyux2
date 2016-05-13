@@ -1,9 +1,10 @@
-import {ComponentRef, EventEmitter, Injectable} from 'angular2/core';
-import {DragulaService} from 'ng2-dragula/ng2-dragula';
-import {SkyTileComponent} from './tile.component';
-import {SkyTileDashboardConfig} from './tile-dashboard-config';
-import {SkyTileDashboardConfigColumn} from './tile-dashboard-config-column';
-import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
+import { ComponentRef, EventEmitter, Injectable } from '@angular/core';
+import { DragulaService} from 'ng2-dragula/ng2-dragula';
+
+import { SkyTileComponent } from './tile.component';
+import { SkyTileDashboardConfig } from './tile-dashboard-config';
+import { SkyTileDashboardConfigColumn } from './tile-dashboard-config-column';
+import { SkyTileDashboardConfigTile } from './tile-dashboard-config-tile';
 
 const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 
@@ -34,7 +35,7 @@ export class SkyTileDashboardService {
 
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
-  private tileComponents: ComponentRef[];
+  private tileComponents: ComponentRef<SkyTileComponent>[];
 
   private config: SkyTileDashboardConfig;
 
@@ -61,7 +62,10 @@ export class SkyTileDashboardService {
     this.checkReady();
   }
 
-  public addTileComponent(tile: SkyTileDashboardConfigTile, component: ComponentRef) {
+  public addTileComponent(
+    tile: SkyTileDashboardConfigTile,
+    component: ComponentRef<SkyTileComponent>
+  ) {
     this.tileComponents = this.tileComponents || [];
 
     this.tileComponents.push(component);

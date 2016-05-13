@@ -8,7 +8,7 @@ var helpers = require('./helpers');
 /*
  * Webpack Plugins
  */
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+//var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 /*
@@ -236,10 +236,10 @@ module.exports = {
      *
      * See: https://www.npmjs.com/package/copy-webpack-plugin
      */
-    new CopyWebpackPlugin([{
-      from: 'src/assets',
-      to: 'assets'
-    }])
+    // new CopyWebpackPlugin([{
+    //   from: 'src/assets',
+    //   to: 'assets'
+    // }])
 
   ],
 

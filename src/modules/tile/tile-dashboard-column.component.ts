@@ -5,11 +5,12 @@ import {
   ComponentResolver,
   Input,
   ViewChild
-} from 'angular2/core';
-import {Dragula} from 'ng2-dragula/ng2-dragula';
-import {SkyTileDashboardColumnContentComponent} from './tile-dashboard-column-content.component';
-import {SkyTileDashboardConfigTile} from './tile-dashboard-config-tile';
-import {SkyTileDashboardService} from './tile-dashboard.service';
+} from '@angular/core';
+import { Dragula } from 'ng2-dragula/ng2-dragula';
+
+import { SkyTileDashboardColumnContentComponent } from './tile-dashboard-column-content.component';
+import { SkyTileDashboardConfigTile } from './tile-dashboard-config-tile';
+import { SkyTileDashboardService } from './tile-dashboard.service';
 
 let columnIdIndex = 0;
 
@@ -52,7 +53,7 @@ export class SkyTileDashboardColumnComponent implements AfterViewInit {
     if (this.viewInitialized && this._tiles) {
       for (let tile of this._tiles) {
         this.cmpResolver.resolveComponent(tile.component)
-          .then((factory: ComponentFactory) => {
+          .then((factory: ComponentFactory<any>) => {
             let componentRef = this.content.viewContainer.createComponent(factory);
 
             this.dashboardService.addTileComponent(tile, componentRef);

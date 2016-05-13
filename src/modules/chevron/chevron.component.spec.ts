@@ -1,12 +1,11 @@
+import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import {
   beforeEach,
-  ComponentFixture,
   describe,
   expect,
-  it,
   inject,
-  TestComponentBuilder
-} from 'angular2/testing';
+  it
+} from '@angular/core/testing';
 
 import {SkyChevronComponent} from './chevron.component';
 
@@ -19,7 +18,7 @@ describe('Chevron component', () => {
 
     it('should change direction when the user clicks the chevron', (done: Function) => {
       tcb.createAsync(SkyChevronComponent)
-        .then((fixture: ComponentFixture) => {
+        .then((fixture: ComponentFixture<SkyChevronComponent>) => {
           let clickAgain = true,
             cmp = fixture.componentInstance as SkyChevronComponent,
             el = fixture.nativeElement,
