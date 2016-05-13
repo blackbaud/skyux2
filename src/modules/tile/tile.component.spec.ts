@@ -1,12 +1,13 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, EventEmitter } from '@angular/core';
+import { Component, provide } from '@angular/core';
 import {
   beforeEach,
   describe,
   expect,
+  fakeAsync,
   inject,
   it,
-  provide
+  tick
 } from '@angular/core/testing';
 
 import { SkyTileComponent } from './tile.component';
@@ -151,7 +152,7 @@ describe('Tile component', () => {
     expect(false).toBe(true);
   });
 
-  xit('should notify the tile dashboard when the tile is collapsed', (done: Function) => {
+  xit('should notify the tile dashboard when the tile is collapsed', () => {
     let html = `
       <sky-tile>
         <sky-tile-title>Title</sky-tile-title>
@@ -185,12 +186,7 @@ describe('Tile component', () => {
         chevronEl.click();
         fixture.detectChanges();
 
-        //  TODO: This is a nasty workaround.  We need to revisit this to see if change detection
-        // has improved in the Angular 2 RC.
-        setTimeout(function() {
-          expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
-          done();
-        }, 100);
+        expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
       }
     );
   });
@@ -264,7 +260,7 @@ describe('Tile component', () => {
       );
     });
 
-    it('should call the specified callback when clicked', (done: Function) => {
+    it('should call the specified callback when clicked', fakeAsync(() => {
       let html = `
         <sky-tile [isCollapsed]="tileIsCollapsed" (settingsClick)="tileSettingsClick()">
           <sky-tile-title>Title</sky-tile-title>
@@ -279,18 +275,19 @@ describe('Tile component', () => {
         (fixture: ComponentFixture<TestComponent>) => {
           let el = fixture.nativeElement;
           let cmp = fixture.componentInstance as TestComponent;
+          let tileSettingsClickSpy = spyOn(cmp, 'tileSettingsClick');
 
           fixture.detectChanges();
-
-          cmp.tileSettingsClicked.subscribe(() => {
-            done();
-          });
 
           el.querySelector('.sky-tile-settings').click();
+
           fixture.detectChanges();
+          tick();
+
+          expect(tileSettingsClickSpy).toHaveBeenCalled();
         }
       );
-    });
+    }));
 
     it('should not collapse the tile when clicked', () => {
       let html = `
@@ -330,9 +327,7 @@ describe('Tile component', () => {
 class TestComponent {
   public tileIsCollapsed = false;
 
-  public tileSettingsClicked = new EventEmitter();
-
   public tileSettingsClick() {
-    this.tileSettingsClicked.emit(undefined);
+
   }
 }
