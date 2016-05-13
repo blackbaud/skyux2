@@ -11,8 +11,11 @@ export class TestUtility {
     html: string,
     callback: (fixture: ComponentFixture) => any
   ) {
-    return tcb.overrideTemplate(componentType, html)
-      .createAsync(componentType)
+    if (html) {
+      tcb = tcb.overrideTemplate(componentType, html);
+    }
+
+    return tcb.createAsync(componentType)
       .then(callback);
   }
 

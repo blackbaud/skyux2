@@ -1,3 +1,4 @@
+import { Component } from 'angular2/core';
 import {
   beforeEach,
   ComponentFixture,
@@ -8,9 +9,9 @@ import {
   TestComponentBuilder
 } from 'angular2/testing';
 
-import {Component} from 'angular2/core';
-import {SkyRepeaterComponent} from './repeater.component';
-import {SkyRepeaterItemComponent} from './repeater-item.component';
+import { SkyRepeaterComponent } from './repeater.component';
+import { SkyRepeaterItemComponent } from './repeater-item.component';
+import { TestUtility } from '../testing/testutility';
 
 describe('Repeater item component', () => {
   let tcb: TestComponentBuilder;
@@ -28,8 +29,21 @@ describe('Repeater item component', () => {
   xit('should enable expand/collapse animation only after an item is initially rendered', () => {
   });
 
-  xdescribe('with expand mode of "single"', () => {
+  describe('with expand mode of "single"', () => {
     it('should collapse other items when an item is expanded', () => {
+    return TestUtility.testComponent(tcb, TestComponent, undefined, (fixture: ComponentFixture) => {
+        let el = fixture.nativeElement;
+
+        fixture.componentInstance.expandMode = 'single';
+        fixture.detectChanges();
+
+        el.querySelectorAll('.sky-repeater-item-header')[1].click();
+
+        fixture.detectChanges();
+
+        expect(el.querySelectorAll('.sky-repeater-item-content')[0].offsetHeight).toBe(0);
+        expect(el.querySelectorAll('.sky-repeater-item-content')[1].offsetHeight).not.toBe(0);
+    });
     });
   });
 
@@ -38,7 +52,7 @@ describe('Repeater item component', () => {
     });
   });
 
-  describe('with expand mode of "none"', () => {
+  xdescribe('with expand mode of "none"', () => {
     it('should not allow items to be collapsed', () => {
     });
 
@@ -54,9 +68,9 @@ describe('Repeater item component', () => {
   selector: 'sky-test-cmp',
   directives: [SkyRepeaterComponent, SkyRepeaterItemComponent],
   template: `
-<sky-repeater sky-repeater-expand-mode="{{expandMode}}">
+<sky-repeater [expandMode]="expandMode">
   <sky-repeater-item>
-    <sky-repeater-item-context-menu ng-if="showContextMenu">
+    <sky-repeater-item-context-menu *ngIf="showContextMenu">
       <sky-context-menu>
       </sky-context-menu>
     </sky-repeater-item-context-menu>
@@ -64,15 +78,15 @@ describe('Repeater item component', () => {
     <sky-repeater-item-content>Content 1</sky-repeater-item-content>
   </sky-repeater-item>
   <sky-repeater-item>
-    <sky-repeater-item-context-menu ng-if="showContextMenu">
+    <sky-repeater-item-context-menu *ngIf="showContextMenu">
       <sky-context-menu>
       </sky-context-menu>
     </sky-repeater-item-context-menu>
     <sky-repeater-item-title>Title 2</sky-repeater-item-title>
     <sky-repeater-item-content>Content 2</sky-repeater-item-content>
   </sky-repeater-item>
-  <sky-repeater-item ng-if="!removeLastItem">
-    <sky-repeater-item-context-menu ng-if="showContextMenu">
+  <sky-repeater-item *ngIf="!removeLastItem">
+    <sky-repeater-item-context-menu *ngIf="showContextMenu">
       <sky-context-menu>
       </sky-context-menu>
     </sky-repeater-item-context-menu>
@@ -83,5 +97,6 @@ describe('Repeater item component', () => {
 })
 class TestComponent {
   public showContextMenu: boolean;
+  public removeLastItem: boolean;
   public expandMode: string;
 }
