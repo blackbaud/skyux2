@@ -1,15 +1,29 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   beforeEach,
   describe,
   expect,
+  fakeAsync,
   inject,
-  it
+  it,
+  tick
 } from '@angular/core/testing';
 
 import { SkyCardComponent } from './card.component';
 import { TestUtility } from '../testing/testutility';
+
+function validateCardSelected(cmp: TestComponent, cardEl: any, selected: boolean) {
+  let selectedEl = cardEl.querySelector('.sky-card.sky-card-selected');
+
+  if (selected) {
+    expect(cmp.cardSelected).toBe(true);
+    expect(selectedEl).not.toBeNull();
+  } else {
+    expect(cmp.cardSelected).toBe(false);
+    expect(selectedEl).toBeNull();
+  }
+}
 
 describe('Card component', () => {
   let tcb: TestComponentBuilder;
@@ -87,12 +101,11 @@ describe('Card component', () => {
     );
   });
 
-  it('should allow the user to click the entire card to select the card', (done: Function) => {
+  it('should allow the user to click the entire card to select the card', fakeAsync(() => {
     let html = `
       <sky-card
           [selectable]="showCheckbox"
-          [selected]="cardSelected"
-          (selectedChange)="updateCardSelected($event)"
+          [(selected)]="cardSelected"
       >
         <sky-card-title>Title</sky-card-title>
         <sky-card-content>Content</sky-card-content>
@@ -109,26 +122,23 @@ describe('Card component', () => {
 
         fixture.detectChanges();
 
-        cmp.cardSelectedChange.subscribe((cardSelected: boolean) => {
-          expect(cardSelected).toBe(true);
-          done();
-        });
+        validateCardSelected(cmp, el, false);
 
         el.querySelector('.sky-card-content').click();
 
         fixture.detectChanges();
+        tick();
 
-        expect(el.querySelector('.sky-card.sky-card-selected')).not.toBeNull();
+        validateCardSelected(cmp, el, true);
       }
     );
-  });
+  }));
 
-  it('should not allow clicking the card to select it when it is not selectable', () => {
+  it('should not allow clicking the card to select it when it is not selectable', fakeAsync(() => {
     let html = `
       <sky-card
           [selectable]="showCheckbox"
-          [selected]="cardSelected"
-          (selectedChange)="updateCardSelected($event)"
+          [(selected)]="cardSelected"
       >
         <sky-card-title>Title</sky-card-title>
         <sky-card-content>Content</sky-card-content>
@@ -146,14 +156,17 @@ describe('Card component', () => {
         cmp.showCheckbox = false;
         fixture.detectChanges();
 
+        validateCardSelected(cmp, el, false);
+
         el.querySelector('.sky-card-content').click();
 
         fixture.detectChanges();
+        tick();
 
-        expect(el.querySelector('.sky-card.sky-card-selected')).toBeNull();
+        validateCardSelected(cmp, el, false);
       }
     );
-  });
+  }));
 });
 
 @Component({
@@ -162,15 +175,7 @@ describe('Card component', () => {
   template: ''
 })
 class TestComponent {
-  @Output()
-  public cardSelectedChange = new EventEmitter();
-
   public cardSelected = false;
 
   public showCheckbox = true;
-
-  public updateCardSelected($event: boolean) {
-    this.cardSelected = $event;
-    this.cardSelectedChange.emit($event);
-  }
 }
