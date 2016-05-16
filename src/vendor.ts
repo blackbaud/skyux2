@@ -16,8 +16,8 @@ import 'rxjs/add/operator/mergeMap';
 // Dragula
 import 'ng2-dragula/ng2-dragula';
 
-if ('production' === ENV) {
+// if ('production' === ENV) {
   // Production
-} else {
+// } else {
   // Development
-}
+// }
