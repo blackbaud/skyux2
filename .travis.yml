@@ -6,6 +6,10 @@ node_js:
 git:
   depth: 10
 
+# https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
+sudo: required
+dist: trusty
+
 # https://github.com/npm/npm/issues/11283
 before_install:
   - npm set progress=false
