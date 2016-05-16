@@ -4,12 +4,12 @@ import { SkyCheckboxComponent } from '../../../src/modules/core';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
-  selector: 'my-app',
+  selector: 'sky-demo-app',
   template: require('./app.component.html'),
   directives: [SkyCheckboxComponent]
 })
 export class AppComponent {
-  selected = false;
+  public selected = false;
 }
 
 Bootstrapper.bootstrap(AppComponent);

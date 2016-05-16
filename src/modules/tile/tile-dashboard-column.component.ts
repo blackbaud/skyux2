@@ -1,14 +1,14 @@
 import {
   AfterViewInit,
   Component,
-  ComponentFactory,
-  ComponentResolver,
+  ComponentRef,
+  DynamicComponentLoader,
   Input,
-  ViewChild
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import { Dragula } from 'ng2-dragula/ng2-dragula';
 
-import { SkyTileDashboardColumnContentComponent } from './tile-dashboard-column-content.component';
 import { SkyTileDashboardConfigTile } from './tile-dashboard-config-tile';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 
@@ -18,7 +18,7 @@ let columnIdIndex = 0;
   selector: 'sky-tile-dashboard-column',
   styles: [require('./tile-dashboard-column.component.scss')],
   template: require('./tile-dashboard-column.component.html'),
-  directives: [Dragula, SkyTileDashboardColumnContentComponent]
+  directives: [Dragula]
 })
 export class SkyTileDashboardColumnComponent implements AfterViewInit {
   public bagId: string;
@@ -31,8 +31,8 @@ export class SkyTileDashboardColumnComponent implements AfterViewInit {
     this.updateTiles();
   }
 
-  @ViewChild('content')
-  private content: SkyTileDashboardColumnContentComponent;
+  @ViewChild('content', {read: ViewContainerRef})
+  private content: ViewContainerRef;
 
   private _tiles: SkyTileDashboardConfigTile[];
 
@@ -40,7 +40,7 @@ export class SkyTileDashboardColumnComponent implements AfterViewInit {
 
   constructor(
     private dashboardService: SkyTileDashboardService,
-    private cmpResolver: ComponentResolver
+    private dcl: DynamicComponentLoader
   ) {
     columnIdIndex++;
 
@@ -52,10 +52,8 @@ export class SkyTileDashboardColumnComponent implements AfterViewInit {
   public updateTiles() {
     if (this.viewInitialized && this._tiles) {
       for (let tile of this._tiles) {
-        this.cmpResolver.resolveComponent(tile.component)
-          .then((factory: ComponentFactory<any>) => {
-            let componentRef = this.content.viewContainer.createComponent(factory);
-
+        this.dcl.loadNextToLocation(tile.component, this.content)
+          .then((componentRef: ComponentRef<any>) => {
             this.dashboardService.addTileComponent(tile, componentRef);
           });
       }

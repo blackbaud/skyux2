@@ -1,14 +1,16 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   beforeEach,
   describe,
   expect,
+  fakeAsync,
   inject,
-  it
+  it,
+  tick
 } from '@angular/core/testing';
 
-import {SkyCheckboxComponent} from './checkbox.component';
+import { SkyCheckboxComponent } from './checkbox.component';
 
 describe('Checkbox component', () => {
     'use strict';
@@ -22,9 +24,9 @@ describe('Checkbox component', () => {
 
       it(
         'should emit the selectedChange event when the user clicks the checkbox',
-        (done: Function) => {
+        fakeAsync(() => {
           let html = `
-            <sky-checkbox [selected]="selected" (selectedChange)="updateSelected($event)">
+            <sky-checkbox [(selected)]="selected">
               <sky-checkbox-label>Checkbox</sky-checkbox-label>
             </sky-checkbox>
             {{selected}}
@@ -38,17 +40,15 @@ describe('Checkbox component', () => {
 
               fixture.detectChanges();
 
-              cmp.selectedChange.subscribe((selected: boolean) => {
-                expect(selected).toBe(true);
-                done();
-              });
-
               el.querySelector('.sky-checkbox-wrapper').click();
 
               fixture.detectChanges();
+              tick();
+
+              expect(cmp.selected).toBe(true);
             });
         }
-      );
+      ));
     });
 });
 
@@ -59,12 +59,4 @@ describe('Checkbox component', () => {
 })
 class TestComponent {
   public selected = false;
-
-  @Output()
-  public selectedChange = new EventEmitter();
-
-  public updateSelected($event: boolean) {
-    this.selected = $event;
-    this.selectedChange.emit($event);
-  }
 }

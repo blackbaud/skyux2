@@ -22,11 +22,9 @@ export class SkyCardComponent {
   public selectedChange = new EventEmitter<boolean>();
 
   public contentClick() {
-    let vm = this;
-
-    if (vm.selectable) {
-      vm.selected = !vm.selected;
-      vm.selectedChange.emit(vm.selected);
+    if (this.selectable) {
+      this.selected = !this.selected;
+      this.selectedChange.emit(this.selected);
     }
   };
 }

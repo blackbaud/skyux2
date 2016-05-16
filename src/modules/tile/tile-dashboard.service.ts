@@ -64,7 +64,7 @@ export class SkyTileDashboardService {
 
   public addTileComponent(
     tile: SkyTileDashboardConfigTile,
-    component: ComponentRef<SkyTileComponent>
+    component: ComponentRef<any>
   ) {
     this.tileComponents = this.tileComponents || [];
 
