@@ -29,10 +29,10 @@ export class SkyRepeaterComponent implements AfterContentInit {
 
   constructor(private repeaterService: SkyRepeaterService) {
     repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
-      if (this._expandMode === 'single' && !item.isCollapsed) {
+      if (this._expandMode === 'single' && item.isExpanded) {
         for (let otherItem of this.items.toArray()) {
-          if (otherItem !== item && !otherItem.isCollapsed) {
-            otherItem.isCollapsed = true;
+          if (otherItem !== item && otherItem.isExpanded) {
+            otherItem.isExpanded = false;
           }
         }
       }
@@ -64,11 +64,11 @@ export class SkyRepeaterComponent implements AfterContentInit {
       this.items.forEach((item) => {
         item.isCollapsible = isCollapsible;
 
-        if (!isCollapsible && item.isCollapsed) {
-          item.isCollapsed = false;
-        } else if (isSingle && !item.isCollapsed) {
+        if (!isCollapsible && !item.isExpanded) {
+          item.isExpanded = true;
+        } else if (isSingle && item.isExpanded) {
           if (foundExpanded) {
-            item.isCollapsed = true;
+            item.isExpanded = false;
           }
 
           foundExpanded = true;

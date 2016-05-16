@@ -12,7 +12,7 @@
       </h1>
       <div class="sky-repeater-item-chevron" [hidden]="!isCollapsible">
         <sky-chevron
-            [direction]="isCollapsed ? 'down' : 'up'"
+            [direction]="isExpanded ? 'up' : 'down'"
             (directionChange)="chevronDirectionChange($event)"
         >
         </sky-chevron>
