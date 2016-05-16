@@ -6,7 +6,8 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "noEmitHelpers": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "outDir": "dist"
   },
   "exclude": [
     "node_modules",
