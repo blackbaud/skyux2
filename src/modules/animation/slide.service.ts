@@ -1,54 +1,72 @@
 import { ElementRef, Injectable } from '@angular/core';
+import { Animation } from '@angular/platform-browser/src/animate/animation';
 import { AnimationBuilder } from '@angular/platform-browser/src/animate/animation_builder';
 
 @Injectable()
 export class SkySlideService {
-  private autoHeightTimeoutId: any;
+  private currentAnimation: Animation;
 
   constructor(private animationBuilder: AnimationBuilder) {
 
   }
 
   public slide(el: ElementRef, selector: string, direction: string, animate = false) {
-    clearTimeout(this.autoHeightTimeoutId);
-
     let animateEl = el.nativeElement.querySelector(selector);
-    let animation = this.animationBuilder.css();
-    let duration = animate ? 250 : 0;
 
-    animation.setDuration(duration);
+    animateEl.style.overflow = 'hidden';
 
-    animateEl.removeAttribute('hidden');
-    animateEl.style.height = 'auto';
-    animateEl.style.display = 'block';
+    if (animate) {
+      let animation = this.animationBuilder.css();
 
-    let height = animateEl.offsetHeight;
+      animation.setDuration(250);
 
-    if (direction === 'up') {
+      animateEl.removeAttribute('hidden');
+
+      animateEl.style.height = 'auto';
+      animateEl.style.display = 'block';
+
+      let currentHeight = animateEl.offsetHeight;
+
+      let fromHeight: number;
+      let toHeight: number;
+
+      if (direction === 'up') {
+        fromHeight = currentHeight;
+        toHeight = 0;
+      } else {
+        fromHeight = 0;
+        toHeight = currentHeight;
+      }
+
       animation
         .setFromStyles({
-          height: height + 'px',
-          overflow: 'hidden'
+          height: fromHeight + 'px'
         })
         .setToStyles({
-          height: '0px'
+          height: toHeight + 'px'
+        });
+
+      if (this.currentAnimation) {
+        this.currentAnimation.handleAnimationCompleted();
+      }
+
+      this.currentAnimation = animation
+        .start(animateEl)
+        .onComplete(() => {
+          this.currentAnimation = undefined;
+
+          if (direction === 'up') {
+            animateEl.style.display = 'none';
+          } else {
+            animateEl.style.height = 'auto';
+          }
         });
     } else {
-      animation
-        .setFromStyles({
-          height: '0px'
-        })
-        .setToStyles({
-          height: height + 'px'
-        });
-    }
-
-    animation.start(animateEl);
-
-    if (direction === 'down') {
-      this.autoHeightTimeoutId = setTimeout(function () {
+      if (direction === 'up') {
+        animateEl.style.height = 0;
+      } else {
         animateEl.style.height = 'auto';
-      }, duration + 50);
+      }
     }
   }
 }

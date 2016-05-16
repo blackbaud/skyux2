@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 
 import { SkyChevronComponent } from '../chevron/chevron.component';
 import { SkyRepeaterService } from './repeater.service';
@@ -11,22 +11,27 @@ import { SkySlideService } from '../animation/slide.service';
   directives: [SkyChevronComponent],
   viewProviders: [SkySlideService]
 })
-export class SkyRepeaterItemComponent {
-  public get isCollapsed(): boolean {
-    return this._isCollapsed;
+export class SkyRepeaterItemComponent implements AfterViewInit {
+  public get isExpanded(): boolean {
+    return this._isExpanded;
   }
 
-  public set isCollapsed(value: boolean) {
-    this._isCollapsed = value;
+  @Input()
+  public set isExpanded(value: boolean) {
+    this._isExpanded = value;
 
     this.repeaterService.onItemCollapseStateChange(this);
 
-    this.slideForCollapsed();
+    if (this.viewInitialized) {
+      this.slideForCollapsed();
+    }
   }
 
   public isCollapsible = false;
 
-  private _isCollapsed = false;
+  private viewInitialized = false;
+
+  private _isExpanded = true;
 
   constructor(
     private repeaterService: SkyRepeaterService,
@@ -38,16 +43,21 @@ export class SkyRepeaterItemComponent {
 
   public headerClick() {
     if (this.isCollapsible) {
-      this.isCollapsed = !this.isCollapsed;
+      this.isExpanded = !this.isExpanded;
     }
   }
 
   public chevronDirectionChange(direction: string) {
-    this.isCollapsed = direction === 'down';
+    this.isExpanded = direction === 'up';
+  }
+
+  public ngAfterViewInit() {
+    this.viewInitialized = true;
+    this.slideForCollapsed(false);
   }
 
   private slideForCollapsed(animate = true) {
-    let direction = this.isCollapsed ? 'up' : 'down';
+    let direction = this.isExpanded ? 'down' : 'up';
     this.slideService.slide(this.elementRef, '.sky-repeater-item-content', direction, animate);
   }
 }

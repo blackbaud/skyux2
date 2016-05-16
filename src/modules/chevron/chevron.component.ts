@@ -15,8 +15,7 @@ export class SkyChevronComponent {
   @Input()
   public direction = 'up';
 
-  public chevronClick($event: MouseEvent) {
-    $event.stopPropagation();
+  public chevronClick() {
     this.direction = this.direction === 'up' ? 'down' : 'up';
     this.directionChange.emit(this.direction);
   }
