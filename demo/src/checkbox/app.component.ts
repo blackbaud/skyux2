@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyCheckboxComponent } from '../../../src/modules/core';
+import { SkyCheckboxComponent } from '../../../src/core';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({

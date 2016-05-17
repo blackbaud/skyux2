@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyAlertComponent } from '../../../src/modules/core';
+import { SkyAlertComponent } from '../../../src/core';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({

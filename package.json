@@ -50,7 +50,8 @@
     "preversion": "npm test",
     "version": "npm run build",
     "postinstall": "npm run typings -- install",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "compile": "npm run rimraf -- .srctemp dist && node config/stage-ts.js && cd .srctemp && tsc && npm run rimraf -- .srctemp"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.1",
