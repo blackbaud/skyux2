@@ -61,4 +61,4 @@ npm-debug.log
 # Allows for quick local testing #
 *.env
 
-.srctemp/
+/.srctemp
