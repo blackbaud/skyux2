@@ -5,8 +5,12 @@ git:
   depth: 10
 
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
-sudo: required
-dist: trusty
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 
 # https://github.com/npm/npm/issues/11283
 before_install:
@@ -44,4 +48,5 @@ notifications:
 # Save the browserstack binary to a known location so we can cache it
 env:
   global:
+    - CXX=g++-4.8
     - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
