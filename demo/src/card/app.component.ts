@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyCardComponent } from '../../../src/modules/core';
+import { SkyCardComponent } from '../../../src/core';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({

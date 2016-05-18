@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyRepeaterComponent, SkyRepeaterItemComponent } from '../../../src/modules/repeater';
+import { SkyRepeaterComponent, SkyRepeaterItemComponent } from '../../../src/core';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
