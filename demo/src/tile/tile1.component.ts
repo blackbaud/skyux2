@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {
   SkyTileComponent,
   SkyTileContentSectionComponent
-} from '../../../src/modules/core';
+} from '../../../src/core';
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
