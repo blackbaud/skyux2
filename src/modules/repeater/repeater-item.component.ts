@@ -9,7 +9,8 @@ import { SkySlideService } from '../animation/slide.service';
   styles: [require('./repeater-item.component.scss')],
   template: require('./repeater-item.component.html'),
   directives: [SkyChevronComponent],
-  viewProviders: [SkySlideService]
+  viewProviders: [SkySlideService],
+  providers: [SkyRepeaterService]
 })
 export class SkyRepeaterItemComponent implements AfterViewInit {
   public get isExpanded(): boolean {
