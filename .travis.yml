@@ -38,6 +38,7 @@ branches:
     - master
     - /^rc-.*$/
     - /^savage-.*$/
+    - /^[0-9]+\.[0-9]+\.[0-9]+.*/
 
 # Cache a few things
 cache:
