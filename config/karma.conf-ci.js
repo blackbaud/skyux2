@@ -156,6 +156,7 @@ module.exports = function (config) {
     browserNoActivityTimeout: 3e5,
     captureTimeout: 3e5,
     browserStack: {
+      debug: true,
       port: 9876,
       pollingTimeout: 10000
     }
