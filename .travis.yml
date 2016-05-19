@@ -23,6 +23,10 @@ script: npm run ci
 after_script:
   - bash <(curl -s https://codecov.io/bash)
 
+# Publish a tag to NPM
+after_success:
+  - if [[ -e $TRAVIS_TAG ]]; then npm i ci-npm-publish -g && npm-publish; fi
+
 # Display any NPM errors
 after_failure:
   - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
