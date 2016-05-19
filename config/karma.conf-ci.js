@@ -130,7 +130,7 @@ module.exports = function (config) {
      * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN ||
      * config.LOG_INFO || config.LOG_DEBUG
      */
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
@@ -156,7 +156,6 @@ module.exports = function (config) {
     browserNoActivityTimeout: 3e5,
     captureTimeout: 3e5,
     browserStack: {
-      debug: true,
       port: 9876,
       pollingTimeout: 10000
     }
