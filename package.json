@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux2",
-  "version": "2.0.0-pre-alpha.0",
+  "version": "2.0.0",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
