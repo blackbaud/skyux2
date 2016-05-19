@@ -117,7 +117,7 @@ module.exports = function (config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: ['mocha', 'coverage'],
+    reporters: ['mocha', 'dots', 'coverage'],
 
     // web server port
     port: 9876,
@@ -146,7 +146,7 @@ module.exports = function (config) {
      * if true, Karma captures browsers, runs the tests and exits
      */
     singleRun: true,
-    
+
     /*
      * Specific CI settings
      */
