@@ -15,7 +15,6 @@ addons:
 # https://github.com/npm/npm/issues/11283
 before_install:
   - npm set progress=false
-  - chmod +x ./config/scripts/npm-publish.sh
 
 # Run `ci` instead of default of `test`
 script: npm run ci
@@ -26,7 +25,7 @@ after_script:
 
 # Publish a tag to NPM
 after_success:
-  -  ./config/scripts/npm-publish.sh
+  - if [ -n "$TRAVIS_TAG" ]; then chmod +x ./config/scripts/npm-publish.sh && ./config/scripts/npm-publish.sh; fi
 
 # Display any NPM errors
 after_failure:
