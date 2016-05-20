@@ -25,7 +25,7 @@ after_script:
 
 # Publish a tag to NPM
 after_success:
-  - if [ -n "$TRAVIS_TAG" ]; then chmod +x ./config/scripts/npm-publish.sh && ./config/scripts/npm-publish.sh; fi
+  - if [ -n "$TRAVIS_TAG" ]; then chmod +x ./scripts/npm-publish.sh && ./scripts/npm-publish.sh; fi
 
 # Display any NPM errors
 after_failure:
