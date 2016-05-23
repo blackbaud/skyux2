@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { SkyResourcesPipe } from '../resources/resources.pipe';
 
+const ALERT_TYPE_DEFAULT = 'warning';
+
 @Component({
   selector: 'sky-alert',
   pipes: [SkyResourcesPipe],
@@ -10,7 +12,13 @@ import { SkyResourcesPipe } from '../resources/resources.pipe';
 })
 export class SkyAlertComponent {
   @Input()
-  public alertType: string;
+  public set alertType(value: string) {
+    this._alertType = value;
+  };
+
+  public get alertType() {
+    return this._alertType || ALERT_TYPE_DEFAULT;
+  }
 
   @Input()
   public closeable: boolean;
@@ -21,18 +29,10 @@ export class SkyAlertComponent {
   @Output()
   public closedChange = new EventEmitter<boolean>();
 
+  private _alertType: string;
+
   public close() {
     this.closed = true;
     this.closedChange.emit(true);
-  }
-
-  public getCls() {
-    let cls = 'sky-alert-' + this.alertType;
-
-    if (this.closeable) {
-      cls += ' sky-alert-closeable';
-    }
-
-    return cls;
   }
 }
