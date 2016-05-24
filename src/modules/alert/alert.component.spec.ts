@@ -82,8 +82,36 @@ describe('Alert component', () => {
       });
   });
 
-  xit('should add the appropriate styling when an alert type is specified', () => {
+  it('should add the appropriate styling when an alert type is specified', () => {
+    return tcb.createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
+        let cmp = fixture.componentInstance as TestComponent;
+        let el = fixture.nativeElement as HTMLElement;
 
+        cmp.alertType = 'success';
+
+        fixture.detectChanges();
+
+        let alertEl = el.querySelector('.sky-alert');
+
+        expect(alertEl).toHaveCssClass('sky-alert-success');
+      });
+  });
+
+  it('should default to "warning" when no alert type is specified', () => {
+    return tcb.createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
+        let cmp = fixture.componentInstance as TestComponent;
+        let el = fixture.nativeElement as HTMLElement;
+
+        cmp.alertType = undefined;
+
+        fixture.detectChanges();
+
+        let alertEl = el.querySelector('.sky-alert');
+
+        expect(alertEl).toHaveCssClass('sky-alert-warning');
+      });
   });
 });
 
@@ -91,7 +119,7 @@ describe('Alert component', () => {
   selector: 'sky-test-cmp',
   directives: [SkyAlertComponent],
   template: `
-<sky-alert [closeable]="closeable" [(closed)]="closed">
+<sky-alert [closeable]="closeable" [(closed)]="closed" [alertType]="alertType">
   Alert
 </sky-alert>
   `
@@ -100,4 +128,6 @@ class TestComponent {
   public closeable = false;
 
   public closed = false;
+
+  public alertType = 'info';
 }
