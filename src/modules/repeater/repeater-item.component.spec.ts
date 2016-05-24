@@ -1,11 +1,13 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   beforeEach,
   describe,
   expect,
+  fakeAsync,
   inject,
-  it
+  it,
+  tick
 } from '@angular/core/testing';
 
 import { SkyRepeaterComponent } from './repeater.component';
@@ -29,42 +31,119 @@ describe('Repeater item component', () => {
   });
 
   describe('with expand mode of "single"', () => {
-    xit('should collapse other items when an item is expanded', () => {
+    it('should collapse other items when an item is expanded', fakeAsync(() => {
       return TestUtility.testComponent(
         tcb,
         TestComponent,
         undefined,
         (fixture: ComponentFixture<TestComponent>) => {
-          let el = fixture.nativeElement;
+          let cmp: TestComponent = fixture.componentInstance;
 
           fixture.componentInstance.expandMode = 'single';
           fixture.detectChanges();
 
-          el.querySelectorAll('.sky-repeater-item-header')[1].click();
+          tick();
+
+          let repeaterItems = cmp.repeater.items.toArray();
+
+          expect(repeaterItems[0].isExpanded).toBe(true);
+          expect(repeaterItems[1].isExpanded).toBe(false);
+          expect(repeaterItems[2].isExpanded).toBe(false);
+
+          repeaterItems[1].isExpanded = true;
 
           fixture.detectChanges();
 
-          expect(el.querySelectorAll('.sky-repeater-item-content')[0].offsetHeight).toBe(0);
-          expect(el.querySelectorAll('.sky-repeater-item-content')[1].offsetHeight).not.toBe(0);
+          tick();
+
+          repeaterItems = cmp.repeater.items.toArray();
+
+          expect(repeaterItems[0].isExpanded).toBe(false);
+          expect(repeaterItems[1].isExpanded).toBe(true);
+          expect(repeaterItems[2].isExpanded).toBe(false);
         }
       );
-    });
+    }));
   });
 
-  xdescribe('with expand mode of "multiple"', () => {
-    it('should not collapse other items when an item is expanded', () => {
-    });
+  describe('with expand mode of "multiple"', () => {
+    it('should not collapse other items when an item is expanded', fakeAsync(() => {
+      return TestUtility.testComponent(
+        tcb,
+        TestComponent,
+        undefined,
+        (fixture: ComponentFixture<TestComponent>) => {
+          let cmp: TestComponent = fixture.componentInstance;
+
+          fixture.componentInstance.expandMode = 'multiple';
+          fixture.detectChanges();
+
+          let repeaterItems = cmp.repeater.items.toArray();
+
+          repeaterItems[0].isExpanded = true;
+          repeaterItems[1].isExpanded = false;
+          repeaterItems[2].isExpanded = false;
+
+          fixture.detectChanges();
+
+          repeaterItems[1].isExpanded = true;
+
+          tick();
+
+          repeaterItems = cmp.repeater.items.toArray();
+
+          expect(repeaterItems[0].isExpanded).toBe(true);
+          expect(repeaterItems[1].isExpanded).toBe(true);
+          expect(repeaterItems[2].isExpanded).toBe(false);
+        }
+      );
+    }));
   });
 
-  xdescribe('with expand mode of "none"', () => {
-    it('should not allow items to be collapsed', () => {
+  describe('with expand mode of "none"', () => {
+    xit('should not allow items to be collapsed', () => {
     });
 
-    it('should hide each item\'s chevron button', () => {
+    xit('should hide each item\'s chevron button', () => {
     });
 
-    it('should expand all items when mode was previously set to "single" or "multiple"', () => {
-    });
+    it(
+      'should expand all items when mode was previously set to "single" or "multiple"',
+      fakeAsync(() => {
+        return TestUtility.testComponent(
+          tcb,
+          TestComponent,
+          undefined,
+          (fixture: ComponentFixture<TestComponent>) => {
+            let cmp: TestComponent = fixture.componentInstance;
+
+            fixture.componentInstance.expandMode = 'single';
+            fixture.detectChanges();
+
+            tick();
+
+            let repeaterItems = cmp.repeater.items.toArray();
+
+            expect(repeaterItems[0].isExpanded).toBe(true);
+            expect(repeaterItems[1].isExpanded).toBe(false);
+            expect(repeaterItems[2].isExpanded).toBe(false);
+
+            cmp.expandMode = 'none';
+
+            fixture.detectChanges();
+
+            tick();
+
+            repeaterItems = cmp.repeater.items.toArray();
+
+            for (let repeaterItem of repeaterItems) {
+              expect(repeaterItem.isExpanded).toBe(true);
+              expect(repeaterItem.isCollapsible).toBe(false);
+            }
+          }
+        );
+      })
+    );
   });
 });
 
@@ -100,6 +179,8 @@ describe('Repeater item component', () => {
 </sky-repeater>`
 })
 class TestComponent {
+  @ViewChild(SkyRepeaterComponent)
+  public repeater: SkyRepeaterComponent;
   public showContextMenu: boolean;
   public removeLastItem: boolean;
   public expandMode: string;

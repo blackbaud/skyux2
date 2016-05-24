@@ -16,8 +16,6 @@ import { SkyRepeaterService } from './repeater.service';
   providers: [SkyRepeaterService]
 })
 export class SkyRepeaterComponent implements AfterContentInit {
-  private _expandMode = 'none';
-
   @Input()
   public set expandMode(value: string) {
     this._expandMode = value || 'none';
@@ -25,7 +23,9 @@ export class SkyRepeaterComponent implements AfterContentInit {
   }
 
   @ContentChildren(SkyRepeaterItemComponent)
-  private items: QueryList<SkyRepeaterItemComponent>;
+  public items: QueryList<SkyRepeaterItemComponent>;
+
+  private _expandMode = 'none';
 
   constructor(private repeaterService: SkyRepeaterService) {
     repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
