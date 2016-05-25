@@ -1,5 +1,5 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, ViewChild } from '@angular/core';
+import { Component, provide, ViewChild } from '@angular/core';
 import {
   beforeEach,
   describe,
@@ -12,10 +12,17 @@ import {
 
 import { SkyRepeaterComponent } from './repeater.component';
 import { SkyRepeaterItemComponent } from './repeater-item.component';
+import { SkyLogService } from '../log/log.service';
 import { TestUtility } from '../testing/testutility';
 
 describe('Repeater item component', () => {
   let tcb: TestComponentBuilder;
+
+  class MockLogService {
+    public warn(message: any) {
+      console.error('hi');
+    }
+  }
 
   beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
     tcb = _tcb;
@@ -39,7 +46,7 @@ describe('Repeater item component', () => {
         (fixture: ComponentFixture<TestComponent>) => {
           let cmp: TestComponent = fixture.componentInstance;
 
-          fixture.componentInstance.expandMode = 'single';
+          cmp.expandMode = 'single';
           fixture.detectChanges();
 
           tick();
@@ -75,8 +82,10 @@ describe('Repeater item component', () => {
         (fixture: ComponentFixture<TestComponent>) => {
           let cmp: TestComponent = fixture.componentInstance;
 
-          fixture.componentInstance.expandMode = 'multiple';
+          cmp.expandMode = 'multiple';
+
           fixture.detectChanges();
+          tick();
 
           let repeaterItems = cmp.repeater.items.toArray();
 
@@ -101,44 +110,112 @@ describe('Repeater item component', () => {
   });
 
   describe('with expand mode of "none"', () => {
-    xit('should not allow items to be collapsed', () => {
-    });
+    it('should not allow items to be collapsed', fakeAsync(() => {
+        let mockLogService = new MockLogService();
 
-    xit('should hide each item\'s chevron button', () => {
-    });
+        return TestUtility.testComponentWithProviders(
+          tcb,
+          TestComponent,
+          undefined,
+          SkyRepeaterItemComponent,
+          [
+            provide(SkyLogService, {useValue: mockLogService})
+          ],
+          (fixture: ComponentFixture<TestComponent>) => {
+            let cmp: TestComponent = fixture.componentInstance;
 
-    it(
-      'should expand all items when mode was previously set to "single" or "multiple"',
-      fakeAsync(() => {
+            cmp.expandMode = 'none';
+
+            fixture.detectChanges();
+            tick();
+
+            let item = cmp.repeater.items.first;
+
+            expect(item.isExpanded).toBe(true);
+
+            let warnSpy = spyOn(mockLogService, 'warn');
+
+            item.isExpanded = false;
+
+            fixture.detectChanges();
+            tick();
+
+            item = cmp.repeater.items.first;
+
+            expect(warnSpy).toHaveBeenCalled();
+
+            expect(item.isExpanded).toBe(true);
+          }
+        );
+      })
+    );
+
+    it('should hide each item\'s chevron button', fakeAsync(() => {
         return TestUtility.testComponent(
           tcb,
           TestComponent,
           undefined,
           (fixture: ComponentFixture<TestComponent>) => {
             let cmp: TestComponent = fixture.componentInstance;
+            let el = fixture.nativeElement as Element;
 
-            fixture.componentInstance.expandMode = 'single';
+            cmp.expandMode = 'none';
             fixture.detectChanges();
 
             tick();
 
+            let chevronEls = el.querySelectorAll('.sky-repeater-item-chevron');
+
+            expect(chevronEls.length).toBe(3);
+
+            for (let i = 0, n = chevronEls.length; i < n; i++) {
+              let chevronEl = chevronEls.item(i);
+              expect(getComputedStyle(chevronEl).getPropertyValue('display')).toBe('none');
+            }
+          }
+        );
+      })
+    );
+
+    it(
+      'should expand all items when mode was previously set to "single" or "multiple"',
+      fakeAsync(() => {
+        let mockLogService = new MockLogService();
+
+        return TestUtility.testComponentWithProviders(
+          tcb,
+          TestComponent,
+          undefined,
+          SkyRepeaterItemComponent,
+          [
+            provide(SkyLogService, {useValue: mockLogService})
+          ],
+          (fixture: ComponentFixture<TestComponent>) => {
+            let cmp: TestComponent = fixture.componentInstance;
+
+            cmp.expandMode = 'multiple';
+
+            fixture.detectChanges();
+            tick();
+
             let repeaterItems = cmp.repeater.items.toArray();
 
-            expect(repeaterItems[0].isExpanded).toBe(true);
-            expect(repeaterItems[1].isExpanded).toBe(false);
-            expect(repeaterItems[2].isExpanded).toBe(false);
+            for (let repeaterItem of repeaterItems) {
+              repeaterItem.isExpanded = false;
+            }
+
+            fixture.detectChanges();
+            tick();
 
             cmp.expandMode = 'none';
 
             fixture.detectChanges();
-
             tick();
 
             repeaterItems = cmp.repeater.items.toArray();
 
             for (let repeaterItem of repeaterItems) {
               expect(repeaterItem.isExpanded).toBe(true);
-              expect(repeaterItem.isCollapsible).toBe(false);
             }
           }
         );
