@@ -20,7 +20,6 @@ describe('Repeater item component', () => {
 
   class MockLogService {
     public warn(message: any) {
-      console.error('hi');
     }
   }
 
