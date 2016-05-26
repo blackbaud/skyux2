@@ -63,9 +63,10 @@ export class SkySlideService {
         });
     } else {
       if (direction === 'up') {
-        animateEl.style.height = 0;
+        animateEl.style.display = 'none';
       } else {
         animateEl.style.height = 'auto';
+        animateEl.style.display = 'block';
       }
     }
   }
