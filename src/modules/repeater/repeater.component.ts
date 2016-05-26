@@ -18,8 +18,12 @@ import { SkyRepeaterService } from './repeater.service';
 export class SkyRepeaterComponent implements AfterContentInit {
   @Input()
   public set expandMode(value: string) {
-    this._expandMode = value || 'none';
+    this._expandMode = value;
     this.updateForExpandMode();
+  }
+
+  public get expandMode(): string {
+    return this._expandMode || 'none';
   }
 
   @ContentChildren(SkyRepeaterItemComponent)
@@ -29,7 +33,7 @@ export class SkyRepeaterComponent implements AfterContentInit {
 
   constructor(private repeaterService: SkyRepeaterService) {
     repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
-      if (this._expandMode === 'single' && item.isExpanded) {
+      if (this.expandMode === 'single' && item.isExpanded) {
         for (let otherItem of this.items.toArray()) {
           if (otherItem !== item && otherItem.isExpanded) {
             otherItem.isExpanded = false;
@@ -40,7 +44,7 @@ export class SkyRepeaterComponent implements AfterContentInit {
   }
 
   public isCollapsible(): boolean {
-    return this._expandMode !== 'none';
+    return this.expandMode !== 'none';
   }
 
   public ngAfterContentInit() {
@@ -59,14 +63,14 @@ export class SkyRepeaterComponent implements AfterContentInit {
     if (this.items) {
       let foundExpanded = false;
       let isCollapsible = this.isCollapsible();
-      let isSingle = this._expandMode === 'single';
+      let isSingle = this.expandMode === 'single';
 
       this.items.forEach((item) => {
         item.isCollapsible = isCollapsible;
 
         if (isSingle && item.isExpanded) {
           if (foundExpanded) {
-            item.isExpanded = false;
+            item.updateForExpanded(false, false);
           }
 
           foundExpanded = true;

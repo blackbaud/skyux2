@@ -20,20 +20,7 @@ export class SkyRepeaterItemComponent implements AfterViewInit {
 
   @Input()
   public set isExpanded(value: boolean) {
-    if (!this.isCollapsible && !value) {
-      this.logService.warn(`
-        Setting isExpanded to false when the repeater item is not collapsible
-        will have no effect.
-      `);
-    } else {
-      this._isExpanded = value;
-
-      this.repeaterService.onItemCollapseStateChange(this);
-
-      if (this.viewInitialized) {
-        this.slideForCollapsed();
-      }
-    }
+    this.updateForExpanded(value, true);
   }
 
   public get isCollapsible(): boolean {
@@ -44,7 +31,7 @@ export class SkyRepeaterItemComponent implements AfterViewInit {
     this._isCollapsible = value;
 
     if (!this._isCollapsible) {
-      this.isExpanded = true;
+      this.updateForExpanded(true, false);
     }
   }
 
@@ -65,20 +52,37 @@ export class SkyRepeaterItemComponent implements AfterViewInit {
 
   public headerClick() {
     if (this.isCollapsible) {
-      this.isExpanded = !this.isExpanded;
+      this.updateForExpanded(!this.isExpanded, true);
     }
   }
 
   public chevronDirectionChange(direction: string) {
-    this.isExpanded = direction === 'up';
+    this.updateForExpanded(direction === 'up', true);
   }
 
   public ngAfterViewInit() {
     this.viewInitialized = true;
-    this.slideForCollapsed(false);
+    this.slideForExpanded(false);
   }
 
-  private slideForCollapsed(animate = true) {
+  public updateForExpanded(value: boolean, animate: boolean) {
+    if (this.isCollapsible === false && value === false) {
+      this.logService.warn(
+        `Setting isExpanded to false when the repeater item is not collapsible
+        will have no effect.`
+      );
+    } else {
+      this._isExpanded = value;
+
+      this.repeaterService.onItemCollapseStateChange(this);
+
+      if (this.viewInitialized) {
+        this.slideForExpanded(animate);
+      }
+    }
+  }
+
+  private slideForExpanded(animate: boolean) {
     let direction = this.isExpanded ? 'down' : 'up';
     this.slideService.slide(this.elementRef, '.sky-repeater-item-content', direction, animate);
   }
