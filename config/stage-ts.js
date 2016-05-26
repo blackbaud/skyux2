@@ -6,8 +6,10 @@ var fs = require('fs-extra'),
   sass = require('node-sass'),
   TEMP_PATH = './.srctemp';
 
-function deleteSpecs() {
+function deleteNonDistFiles() {
   var specFiles = glob.sync(TEMP_PATH + '/**/*.spec.ts');
+  specFiles.push(TEMP_PATH + '/polyfills.ts');
+  specFiles.push(TEMP_PATH + '/vendor.ts');
 
   specFiles.forEach(function (file) {
     fs.removeSync(file);
@@ -16,7 +18,8 @@ function deleteSpecs() {
 
 function copySrc() {
   fs.copySync('./src', TEMP_PATH);
-  deleteSpecs();
+
+  deleteNonDistFiles();
 }
 
 function escapeContents(contents) {
