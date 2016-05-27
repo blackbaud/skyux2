@@ -15,7 +15,7 @@
     "no-internal-module": true,
     "no-reference": true,
     "no-var-requires": false,
-    "typedef": false,
+    "typedef": [false],
     "typedef-whitespace": [
       true,
       {
@@ -96,13 +96,15 @@
       }
     ],
 
-    "align": false,
+    "align": [false],
     "class-name": true,
     "comment-format": [
       true,
       "check-space"
     ],
-    "interface-name": false,
+    "interface-name": [
+      true, "never-prefix"
+    ],
     "jsdoc-format": true,
     "no-consecutive-blank-lines": true,
     "no-constructor-vars": false,

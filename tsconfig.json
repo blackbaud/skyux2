@@ -6,16 +6,12 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "noEmitHelpers": true,
-    "noImplicitAny": true,
-    "outDir": "dist"
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules",
     "typings/main.d.ts",
-    "typings/main",
-    "demo",
-    "dist",
-    "src"
+    "typings/main"
   ],
   "awesomeTypescriptLoaderOptions": {
     "resolveGlobs": true,

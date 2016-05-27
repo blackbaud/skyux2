@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noEmitHelpers": true,
+    "noImplicitAny": true,
+    "outDir": "../dist",
+    "inlineSources": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false
+}
