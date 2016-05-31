@@ -9,9 +9,7 @@ import {
   it,
   tick
 } from '@angular/core/testing';
-// import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
-// import { SkySlideService } from '../animation/slide.service';
 import { SkyTileDashboardConfig } from './tile-dashboard-config';
 import { SkyTileComponent } from './tile.component';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
@@ -256,6 +254,4 @@ class MockTileDashboardService {
 
   public tileIsCollapsed() {
   }
-
-
 }
