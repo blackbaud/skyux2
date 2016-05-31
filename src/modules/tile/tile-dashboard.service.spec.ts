@@ -1,5 +1,4 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, EventEmitter, provide } from '@angular/core';
+import { TestComponentBuilder } from '@angular/compiler/testing';
 import {
   beforeEach,
   describe,
@@ -11,14 +10,50 @@ import {
 } from '@angular/core/testing';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SkyTileDashboardConfig } from './tile-dashboard-config';
-import { SkyTileComponent } from './tile.component';
-import { SkyTileDashboardComponent } from './tile-dashboard.component';
+import { SkyTileDashboardService } from './tile-dashboard.service';
 
 describe('Tile dashboard service', () => {
   let tcb: TestComponentBuilder;
 
   class MockDragulaService extends DragulaService {
+    public add() {
 
+    }
+
+    public setOptions() {
+
+    }
+
+    public find() {
+      return {
+        drake: {
+          containers: [
+            {
+              querySelectorAll: () => {
+                return [
+                  {
+                    getAttribute: () => {
+                      return 'tile-2';
+                    }
+                  }
+                ] as any[];
+              }
+            },
+            {
+              querySelectorAll: () => {
+                return [
+                  {
+                    getAttribute: () => {
+                      return 'tile-1';
+                    }
+                  }
+                ] as any[];
+              }
+            }
+          ] as any[]
+        }
+      };
+    }
   }
 
   beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
@@ -27,109 +62,59 @@ describe('Tile dashboard service', () => {
 
   it('should emit the config change event when a tile is moved', fakeAsync(() => {
     let mockDragulaService = new MockDragulaService();
+    let dashboardService = new SkyTileDashboardService(mockDragulaService);
 
-    return tcb
-      .overrideProviders(
-        SkyTileDashboardComponent,
-        [
-          provide(DragulaService, {useValue: mockDragulaService})
-        ]
-      )
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let cmp: TestComponent = fixture.componentInstance;
-        let config = {
-          columns: [] as any[]
-        };
+    dashboardService.setConfig({
+      columns: [
+        {
+          tiles: [
+            {
+              id: 'tile-1',
+              component: undefined
+            }
+          ]
+        },
+        {
+          tiles: [
+            {
+              id: 'tile-2',
+              component: undefined
+            }
+          ]
+        }
+      ]
+    });
 
-        fixture.detectChanges();
+    let configChanged = false;
 
-        let configChangeSpy = spyOn(cmp, 'configChange');
+    dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
+      configChanged = true;
 
-        mockDragulaService.drop.emit({});
-
-        fixture.detectChanges();
-        tick();
-
-        expect(configChangeSpy).toHaveBeenCalled();
-      });
-    })
-  );
-});
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyTileDashboardComponent],
-  template: `
-    <sky-tile-dashboard
-        [config]="dashboardConfig"
-        (configChange)="configChange()">
-    </sky-tile-dashboard>
-  `
-})
-class TestComponent {
-  public dashboardConfig: SkyTileDashboardConfig = {
-    columns: [
-      {
-        tiles: [
+      expect(config).toEqual({
+        columns: [
           {
-            id: 'tile-1',
-            component: Tile1Component
+            tiles: [
+              {
+                id: 'tile-2',
+                component: undefined
+              }
+            ]
           },
           {
-            id: 'tile-2',
-            component: Tile2Component
+            tiles: [
+              {
+                id: 'tile-1',
+                component: undefined
+              }
+            ]
           }
         ]
-      }
-    ]
-  };
+      });
+    });
 
-  public configChange() {
+    mockDragulaService.drop.emit({});
+    tick();
 
-  }
-}
-
-@Component({
-  selector: 'sky-test-tile-1',
-  template: `
-    <sky-tile (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>
-        Tile 1
-      </sky-tile-title>
-      <sky-tile-content>
-        Content 1
-      </sky-tile-content>
-    </sky-tile>
-  `,
-  directives: [
-    SkyTileComponent
-  ]
-})
-class Tile1Component {
-  public tileSettingsClick() {
-
-  }
-}
-
-@Component({
-  selector: 'sky-test-tile-2',
-  template: `
-    <sky-tile (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>
-        Tile 2
-      </sky-tile-title>
-      <sky-tile-content>
-        Content 2
-      </sky-tile-content>
-    </sky-tile>
-  `,
-  directives: [
-    SkyTileComponent
-  ]
-})
-class Tile2Component {
-  public tileSettingsClick() {
-
-  }
-}
+    expect(configChanged).toBe(true);
+  }));
+});
