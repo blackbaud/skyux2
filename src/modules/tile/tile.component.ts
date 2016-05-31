@@ -22,8 +22,6 @@ import { SkyTileDashboardService } from './tile-dashboard.service';
   viewProviders: [SkySlideService]
 })
 export class SkyTileComponent implements AfterViewInit {
-  public tileId: string;
-
   public isInDashboardColumn = false;
 
   @Output()
