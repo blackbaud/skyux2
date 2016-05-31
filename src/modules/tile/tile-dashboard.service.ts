@@ -39,44 +39,9 @@ export class SkyTileDashboardService {
 
   private config: SkyTileDashboardConfig;
 
-  private dragulaService: DragulaService;
-
-  public findTile(tileId: string): SkyTileDashboardConfigTile {
-    if (this.config && this.config.columns) {
-      for (let column of this.config.columns) {
-        if (column.tiles) {
-          for (let tile of column.tiles) {
-            if (tile.id === tileId) {
-              return tile;
-            }
-          }
-        }
-      }
-    }
-
-    return undefined;
-  }
-
-  public setConfig(config: SkyTileDashboardConfig) {
-    this.config = config;
-    this.checkReady();
-  }
-
-  public addTileComponent(
-    tile: SkyTileDashboardConfigTile,
-    component: ComponentRef<any>
-  ) {
-    this.tileComponents = this.tileComponents || [];
-
-    this.tileComponents.push(component);
-
-    component.location.nativeElement.setAttribute(ATTR_TILE_ID, tile.id);
-  }
-
-  public setDragulaService(dragulaService: DragulaService) {
+  constructor(private dragulaService: DragulaService) {
     bagIdIndex++;
 
-    this.dragulaService = dragulaService;
     this.bagId = 'sky-tile-dashboard-bag-' + bagIdIndex;
 
     dragulaService.setOptions(this.bagId, {
@@ -119,6 +84,38 @@ export class SkyTileDashboardService {
     });
 
     this.checkReady();
+  }
+
+  public findTile(tileId: string): SkyTileDashboardConfigTile {
+    if (this.config && this.config.columns) {
+      for (let column of this.config.columns) {
+        if (column.tiles) {
+          for (let tile of column.tiles) {
+            if (tile.id === tileId) {
+              return tile;
+            }
+          }
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  public setConfig(config: SkyTileDashboardConfig) {
+    this.config = config;
+    this.checkReady();
+  }
+
+  public addTileComponent(
+    tile: SkyTileDashboardConfigTile,
+    component: ComponentRef<any>
+  ) {
+    this.tileComponents = this.tileComponents || [];
+
+    this.tileComponents.push(component);
+
+    component.location.nativeElement.setAttribute(ATTR_TILE_ID, tile.id);
   }
 
   public tileIsCollapsed(tile: SkyTileComponent): boolean {

@@ -21,21 +21,18 @@ export class SkyTileDashboardComponent  {
   private configSet = false;
 
   @Input()
-  set config(config: SkyTileDashboardConfig) {
-    if (config && !this.configSet) {
-      this.dashboardConfigForBinding = config;
-      this.dashboardService.setConfig(config);
+  set config(value: SkyTileDashboardConfig) {
+    if (value && !this.configSet) {
+      this.dashboardConfigForBinding = value;
+      this.dashboardService.setConfig(value);
       this.configSet = true;
     }
   }
   constructor(
-    private dashboardService: SkyTileDashboardService,
-    dragulaService: DragulaService
+    private dashboardService: SkyTileDashboardService
   ) {
     dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
       this.configChange.emit(config);
     });
-
-    dashboardService.setDragulaService(dragulaService);
   }
 }
