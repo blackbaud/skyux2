@@ -114,8 +114,7 @@ describe('Repeater item component', () => {
           expect(repeaterItems[0].isExpanded).toBeFalsy();
           expect(repeaterItems[1].isExpanded).toBe(true);
           expect(repeaterItems[2].isExpanded).toBeFalsy();
-        }
-      );
+        });
     }));
 
     it('should collapse other items when a new expanded item is added', fakeAsync(() => {
@@ -148,8 +147,7 @@ describe('Repeater item component', () => {
           expect(repeaterItems[0].isExpanded).toBe(false);
           expect(repeaterItems[1].isExpanded).toBe(false);
           expect(repeaterItems[2].isExpanded).toBe(true);
-        }
-      );
+        });
     }));
 
     it('should toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
@@ -178,8 +176,7 @@ describe('Repeater item component', () => {
           repeaterItems = cmp.repeater.items.toArray();
 
           expect(repeaterItems[0].isExpanded).toBe(false);
-        }
-      );
+        });
     }));
 
     it('should toggle its collapsed state when an item\'s chevron is clicked', fakeAsync(() => {
@@ -208,8 +205,7 @@ describe('Repeater item component', () => {
           repeaterItems = cmp.repeater.items.toArray();
 
           expect(repeaterItems[0].isExpanded).toBe(false);
-        }
-      );
+        });
     }));
   });
 
@@ -242,8 +238,7 @@ describe('Repeater item component', () => {
           expect(repeaterItems[0].isExpanded).toBe(true);
           expect(repeaterItems[1].isExpanded).toBe(true);
           expect(repeaterItems[2].isExpanded).toBe(false);
-        }
-      );
+        });
     }));
 
     it('should toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
@@ -272,8 +267,7 @@ describe('Repeater item component', () => {
           repeaterItems = cmp.repeater.items.toArray();
 
           expect(repeaterItems[0].isExpanded).toBe(false);
-        }
-      );
+        });
     }));
 
     it('should toggle its collapsed state when an item\'s chevron is clicked', fakeAsync(() => {
@@ -302,8 +296,7 @@ describe('Repeater item component', () => {
           repeaterItems = cmp.repeater.items.toArray();
 
           expect(repeaterItems[0].isExpanded).toBe(false);
-        }
-      );
+        });
     }));
   });
 
@@ -343,8 +336,7 @@ describe('Repeater item component', () => {
             expect(warnSpy).toHaveBeenCalled();
 
             expect(item.isExpanded).toBe(true);
-          }
-        );
+          });
       })
     );
 
@@ -368,8 +360,7 @@ describe('Repeater item component', () => {
               let chevronEl = chevronEls.item(i);
               expect(getComputedStyle(chevronEl).getPropertyValue('display')).toBe('none');
             }
-          }
-        );
+          });
       })
     );
 
