@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   Optional,
   Output
 } from '@angular/core';
@@ -31,7 +32,8 @@ export class SkyTileComponent implements AfterViewInit {
   @Output()
   public collapsedStateChange = new EventEmitter<boolean>();
 
-  private get isCollapsed(): boolean {
+  @Input()
+  public get isCollapsed(): boolean {
     if (this.dashboardService) {
       return this.dashboardService.tileIsCollapsed(this);
     }
@@ -39,17 +41,21 @@ export class SkyTileComponent implements AfterViewInit {
     return this._isCollapsed;
   }
 
-  private set isCollapsed(value: boolean) {
+  public set isCollapsed(value: boolean) {
     if (this.dashboardService) {
       this.dashboardService.setTileCollapsed(this, value);
     } else {
       this._isCollapsed = value;
     }
 
-    this.slideForCollapsed();
+    if (this.viewInitialized) {
+      this.slideForCollapsed(true);
+    }
   }
 
   private _isCollapsed = false;
+
+  private viewInitialized = false;
 
   public settingsButtonClicked() {
     this.settingsClick.emit(undefined);
@@ -76,12 +82,14 @@ export class SkyTileComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
+    this.viewInitialized = true;
+
     if (this.isCollapsed) {
       this.slideForCollapsed(false);
     }
   }
 
-  private slideForCollapsed(animate = true) {
+  private slideForCollapsed(animate: boolean) {
     let direction = this.isCollapsed ? 'up' : 'down';
     this.slideService.slide(this.elementRef, '.sky-tile-content', direction, animate);
   }
