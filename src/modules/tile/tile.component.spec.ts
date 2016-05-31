@@ -10,6 +10,7 @@ import {
   tick
 } from '@angular/core/testing';
 
+import { SkySlideService } from '../animation/slide.service';
 import { SkyTileComponent } from './tile.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 
@@ -90,7 +91,39 @@ describe('Tile component', () => {
     );
   });
 
-  it('should collapse/expand when the bb-tile-collapsed value changes', () => {
+  it('should collapse without animation when initialized with isCollapsed = true', () => {
+    let mockSlideService = {
+      slide() {
+
+      }
+    };
+
+    let slideSpy = spyOn(mockSlideService, 'slide');
+
+    return tcb
+      .overrideViewProviders(
+        SkyTileComponent,
+        [
+          provide(SkySlideService, {useValue: mockSlideService})
+        ]
+      )
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
+        fixture.componentInstance.tileIsCollapsed = true;
+
+        fixture.detectChanges();
+
+        expect(slideSpy).toHaveBeenCalledWith(
+          jasmine.any(Object),
+          '.sky-tile-content',
+          'up',
+          false
+        );
+      }
+    );
+  });
+
+  it('should collapse/expand when the isCollapsed value changes', () => {
     return tcb
       .createAsync(TestComponent)
       .then((fixture: ComponentFixture<TestComponent>) => {
