@@ -11,7 +11,6 @@ import {
 } from '@angular/core/testing';
 
 import { SkyCardComponent } from './card.component';
-import { TestUtility } from '../testing/testutility';
 
 function validateCardSelected(cmp: TestComponent, cardEl: any, selected: boolean) {
   let selectedEl = cardEl.querySelector('.sky-card.sky-card-selected');
@@ -43,11 +42,10 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return TestUtility.testComponent(
-      tcb,
-      TestComponent,
-      html,
-      (fixture: ComponentFixture<TestComponent>) => {
+    tcb
+      .overrideTemplate(TestComponent, html)
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let el = fixture.nativeElement;
 
         fixture.detectChanges();
@@ -55,8 +53,7 @@ describe('Card component', () => {
         expect(el.querySelector('.sky-card-title sky-card-title')).toHaveText('Title');
         expect(el.querySelector('.sky-card-content sky-card-content')).toHaveText('Content');
         expect(el.querySelector('.sky-card-actions button')).toHaveText('Button');
-      }
-    );
+      });
   });
 
   it('should add the appropriate CSS class for small cards', () => {
@@ -65,18 +62,16 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return TestUtility.testComponent(
-      tcb,
-      TestComponent,
-      html,
-      (fixture: ComponentFixture<TestComponent>) => {
+    tcb
+      .overrideTemplate(TestComponent, html)
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let el = fixture.nativeElement;
 
         fixture.detectChanges();
 
         expect(el.querySelector('section.sky-card')).toHaveCssClass('sky-card-small');
-      }
-    );
+      });
   });
 
   it('should display a checkbox when the selectable attribute is set to true', () => {
@@ -85,11 +80,10 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return TestUtility.testComponent(
-      tcb,
-      TestComponent,
-      html,
-      (fixture: ComponentFixture<TestComponent>) => {
+    tcb
+      .overrideTemplate(TestComponent, html)
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let el = fixture.nativeElement;
 
         fixture.detectChanges();
@@ -97,8 +91,7 @@ describe('Card component', () => {
         let wrapperEl = el.querySelector(
           '.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper');
         expect(wrapperEl).not.toBeNull();
-      }
-    );
+      });
   });
 
   it('should allow the user to click the entire card to select the card', fakeAsync(() => {
@@ -112,11 +105,10 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return TestUtility.testComponent(
-      tcb,
-      TestComponent,
-      html,
-      (fixture: ComponentFixture<TestComponent>) => {
+    tcb
+      .overrideTemplate(TestComponent, html)
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let cmp = fixture.componentInstance as TestComponent,
           el = fixture.nativeElement;
 
@@ -130,8 +122,7 @@ describe('Card component', () => {
         tick();
 
         validateCardSelected(cmp, el, true);
-      }
-    );
+      });
   }));
 
   it('should not allow clicking the card to select it when it is not selectable', fakeAsync(() => {
@@ -145,11 +136,10 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    return TestUtility.testComponent(
-      tcb,
-      TestComponent,
-      html,
-      (fixture: ComponentFixture<TestComponent>) => {
+    tcb
+      .overrideTemplate(TestComponent, html)
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let cmp = fixture.componentInstance as TestComponent,
           el = fixture.nativeElement;
 
@@ -164,8 +154,7 @@ describe('Card component', () => {
         tick();
 
         validateCardSelected(cmp, el, false);
-      }
-    );
+      });
   }));
 });
 
