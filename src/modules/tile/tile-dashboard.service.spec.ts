@@ -21,47 +21,6 @@ describe('Tile dashboard service', () => {
   let dashboardConfig: SkyTileDashboardConfig;
   let mockDragulaService: DragulaService;
 
-  class MockDragulaService extends DragulaService {
-    public add() {
-
-    }
-
-    public setOptions() {
-
-    }
-
-    public find() {
-      return {
-        drake: {
-          containers: [
-            {
-              querySelectorAll: () => {
-                return [
-                  {
-                    getAttribute: () => {
-                      return 'tile-2';
-                    }
-                  }
-                ] as any[];
-              }
-            },
-            {
-              querySelectorAll: () => {
-                return [
-                  {
-                    getAttribute: () => {
-                      return 'tile-1';
-                    }
-                  }
-                ] as any[];
-              }
-            }
-          ] as any[]
-        }
-      };
-    }
-  }
-
   beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
     tcb = _tcb;
 
@@ -71,7 +30,8 @@ describe('Tile dashboard service', () => {
           tiles: [
             {
               id: 'tile-1',
-              component: undefined
+              component: undefined,
+              isCollapsed: false
             }
           ]
         },
@@ -79,7 +39,8 @@ describe('Tile dashboard service', () => {
           tiles: [
             {
               id: 'tile-2',
-              component: undefined
+              component: undefined,
+              isCollapsed: false
             }
           ]
         }
@@ -104,7 +65,8 @@ describe('Tile dashboard service', () => {
             tiles: [
               {
                 id: 'tile-2',
-                component: undefined
+                component: undefined,
+                isCollapsed: false
               }
             ]
           },
@@ -112,7 +74,8 @@ describe('Tile dashboard service', () => {
             tiles: [
               {
                 id: 'tile-1',
-                component: undefined
+                component: undefined,
+                isCollapsed: false
               }
             ]
           }
@@ -189,6 +152,48 @@ describe('Tile dashboard service', () => {
         expect(configChanged).toBe(true);
       });
   }));
+
+  it('should provide a way for a tile to know whether it is collapsed', fakeAsync(() => {
+    return tcb
+      .overrideProviders(
+        SkyTileComponent,
+        [
+          provide(SkyTileDashboardService, {useValue: dashboardService})
+        ]
+      )
+      .createAsync(TestComponent)
+      .then((fixture: ComponentFixture<TestComponent>) => {
+        let cmp: TestComponent = fixture.componentInstance;
+
+        fixture.detectChanges();
+
+        dashboardService.addTileComponent(
+          {
+            id: 'tile-1',
+            component: TestComponent
+          },
+          fixture.componentRef
+        );
+
+        expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(false);
+
+        dashboardService.setTileCollapsed(
+          cmp.tile,
+          true
+        );
+
+        tick();
+
+        expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
+      });
+  }));
+
+  it(
+    'should sanity check for invalid tile when setting a tile to be collapsed',
+    fakeAsync(() => {
+      dashboardService.setTileCollapsed(undefined, true);
+    })
+  );
 });
 
 @Component({
@@ -204,4 +209,41 @@ describe('Tile dashboard service', () => {
 class TestComponent {
   @ViewChild(SkyTileComponent)
   public tile: SkyTileComponent;
+}
+
+class MockDragulaService extends DragulaService {
+  public add() { }
+
+  public setOptions() { }
+
+  public find() {
+    return {
+      drake: {
+        containers: [
+          {
+            querySelectorAll: () => {
+              return [
+                {
+                  getAttribute: () => {
+                    return 'tile-2';
+                  }
+                }
+              ] as any[];
+            }
+          },
+          {
+            querySelectorAll: () => {
+              return [
+                {
+                  getAttribute: () => {
+                    return 'tile-1';
+                  }
+                }
+              ] as any[];
+            }
+          }
+        ] as any[]
+      }
+    };
+  }
 }

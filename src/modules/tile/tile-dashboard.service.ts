@@ -11,17 +11,19 @@ const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 let bagIdIndex = 0;
 
 function getTileId(tile: SkyTileComponent): string {
-  let el = tile.elementRef.nativeElement;
-  let tileId: string;
+  if (tile) {
+    let el = tile.elementRef.nativeElement;
+    let tileId: string;
 
-  while (el) {
-    tileId = el.getAttribute(ATTR_TILE_ID);
+    while (el) {
+      tileId = el.getAttribute(ATTR_TILE_ID);
 
-    if (tileId) {
-      return tileId;
+      if (tileId) {
+        return tileId;
+      }
+
+      el = el.parentElement;
     }
-
-    el = el.parentElement;
   }
 
   return undefined;
@@ -53,6 +55,7 @@ export class SkyTileDashboardService {
     dragulaService.drop.subscribe((value: any[]) => {
       let bag = dragulaService.find(this.bagId);
 
+      /*istanbul ignore else */
       if (bag) {
         let containers: any[] = bag.drake.containers;
         let columns: SkyTileDashboardConfigColumn[] = [];
@@ -61,11 +64,13 @@ export class SkyTileDashboardService {
           let column: SkyTileDashboardConfigColumn = {tiles: []},
             tiles = container.querySelectorAll('[' + ATTR_TILE_ID + ']');
 
+          /*istanbul ignore else */
           if (tiles) {
             for (let tileEl of tiles) {
               let tileId = tileEl.getAttribute(ATTR_TILE_ID);
               let tile = this.findTile(tileId);
 
+              /*istanbul ignore else */
               if (tile) {
                 column.tiles.push(tile);
               }
@@ -87,8 +92,10 @@ export class SkyTileDashboardService {
   }
 
   public findTile(tileId: string): SkyTileDashboardConfigTile {
+    /*istanbul ignore else */
     if (this.config && this.config.columns) {
       for (let column of this.config.columns) {
+        /*istanbul ignore else */
         if (column.tiles) {
           for (let tile of column.tiles) {
             if (tile.id === tileId) {
