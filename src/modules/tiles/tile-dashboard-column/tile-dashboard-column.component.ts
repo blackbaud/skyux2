@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { Dragula } from 'ng2-dragula/ng2-dragula';
 
-import { SkyTileDashboardConfigTile } from './tile-dashboard-config-tile';
-import { SkyTileDashboardService } from './tile-dashboard.service';
+import { SkyTileDashboardConfigTile } from '../tile-dashboard/tile-dashboard-config-tile';
+import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 let columnIdIndex = 0;
 

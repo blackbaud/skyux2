@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
-import { SkyTileDashboardColumnComponent } from './tile-dashboard-column.component';
+import {
+  SkyTileDashboardColumnComponent
+} from '../tile-dashboard-column/tile-dashboard-column.component';
 import { SkyTileDashboardConfig } from './tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 
