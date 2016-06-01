@@ -1,7 +1,7 @@
 import { ComponentRef, EventEmitter, Injectable } from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
-import { SkyTileComponent } from './tile.component';
+import { SkyTileComponent } from '../tile/tile.component';
 import { SkyTileDashboardConfig } from './tile-dashboard-config';
 import { SkyTileDashboardConfigColumn } from './tile-dashboard-config-column';
 import { SkyTileDashboardConfigTile } from './tile-dashboard-config-tile';

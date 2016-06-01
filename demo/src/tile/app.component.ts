@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {
   SkyTileDashboardComponent,
   SkyTileDashboardConfig
-} from '../../../src/modules/tile';
+} from '../../../src/modules/tiles';
 import { Bootstrapper } from '../../bootstrapper';
 import { Tile1Component } from './tile1.component.ts';
 import { Tile2Component } from './tile2.component.ts';
