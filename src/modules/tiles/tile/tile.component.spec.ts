@@ -10,9 +10,9 @@ import {
   tick
 } from '@angular/core/testing';
 
-import { SkySlideService } from '../animation/slide.service';
+import { SkySlideService } from '../../animation/slide.service';
 import { SkyTileComponent } from './tile.component';
-import { SkyTileDashboardService } from './tile-dashboard.service';
+import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 class MockDashboardService {
   public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {

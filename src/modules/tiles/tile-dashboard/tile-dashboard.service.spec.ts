@@ -13,7 +13,7 @@ import {
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SkyTileDashboardConfig } from './tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
-import { SkyTileComponent } from './tile.component';
+import { SkyTileComponent } from '../tile/tile.component';
 
 describe('Tile dashboard service', () => {
   let tcb: TestComponentBuilder;
