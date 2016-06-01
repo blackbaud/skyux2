@@ -14,8 +14,12 @@ import { SkySlideService } from '../animation/slide.service';
 import { SkyTileComponent } from './tile.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 
-class MockDashboardService extends SkyTileDashboardService {
+class MockDashboardService {
   public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {
+  }
+
+  public tileIsCollapsed() {
+
   }
 }
 

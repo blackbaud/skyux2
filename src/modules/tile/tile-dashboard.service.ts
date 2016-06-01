@@ -11,17 +11,19 @@ const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 let bagIdIndex = 0;
 
 function getTileId(tile: SkyTileComponent): string {
-  let el = tile.elementRef.nativeElement;
-  let tileId: string;
+  if (tile) {
+    let el = tile.elementRef.nativeElement;
+    let tileId: string;
 
-  while (el) {
-    tileId = el.getAttribute(ATTR_TILE_ID);
+    while (el) {
+      tileId = el.getAttribute(ATTR_TILE_ID);
 
-    if (tileId) {
-      return tileId;
+      if (tileId) {
+        return tileId;
+      }
+
+      el = el.parentElement;
     }
-
-    el = el.parentElement;
   }
 
   return undefined;
@@ -39,11 +41,61 @@ export class SkyTileDashboardService {
 
   private config: SkyTileDashboardConfig;
 
-  private dragulaService: DragulaService;
+  constructor(private dragulaService: DragulaService) {
+    bagIdIndex++;
+
+    this.bagId = 'sky-tile-dashboard-bag-' + bagIdIndex;
+
+    dragulaService.setOptions(this.bagId, {
+      moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
+        return handle.matches('.sky-tile-grab-handle');
+      }
+    });
+
+    dragulaService.drop.subscribe((value: any[]) => {
+      let bag = dragulaService.find(this.bagId);
+
+      /*istanbul ignore else */
+      if (bag) {
+        let containers: any[] = bag.drake.containers;
+        let columns: SkyTileDashboardConfigColumn[] = [];
+
+        for (let container of containers) {
+          let column: SkyTileDashboardConfigColumn = {tiles: []},
+            tiles = container.querySelectorAll('[' + ATTR_TILE_ID + ']');
+
+          /*istanbul ignore else */
+          if (tiles) {
+            for (let tileEl of tiles) {
+              let tileId = tileEl.getAttribute(ATTR_TILE_ID);
+              let tile = this.findTile(tileId);
+
+              /*istanbul ignore else */
+              if (tile) {
+                column.tiles.push(tile);
+              }
+            }
+          }
+
+          columns.push(column);
+        }
+
+        let config = {
+          columns: columns
+        };
+
+        this.configChange.emit(config);
+      }
+    });
+
+    this.checkReady();
+  }
 
   public findTile(tileId: string): SkyTileDashboardConfigTile {
+    /*istanbul ignore else */
     if (this.config && this.config.columns) {
       for (let column of this.config.columns) {
+        /*istanbul ignore else */
         if (column.tiles) {
           for (let tile of column.tiles) {
             if (tile.id === tileId) {
@@ -71,54 +123,6 @@ export class SkyTileDashboardService {
     this.tileComponents.push(component);
 
     component.location.nativeElement.setAttribute(ATTR_TILE_ID, tile.id);
-  }
-
-  public setDragulaService(dragulaService: DragulaService) {
-    bagIdIndex++;
-
-    this.dragulaService = dragulaService;
-    this.bagId = 'sky-tile-dashboard-bag-' + bagIdIndex;
-
-    dragulaService.setOptions(this.bagId, {
-      moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
-        return handle.matches('.sky-tile-grab-handle');
-      }
-    });
-
-    dragulaService.drop.subscribe((value: any[]) => {
-      let bag = dragulaService.find(this.bagId);
-
-      if (bag) {
-        let containers: any[] = bag.drake.containers;
-        let columns: SkyTileDashboardConfigColumn[] = [];
-
-        for (let container of containers) {
-          let column: SkyTileDashboardConfigColumn = {tiles: []},
-            tiles = container.querySelectorAll('[' + ATTR_TILE_ID + ']');
-
-          if (tiles) {
-            for (let tileEl of tiles) {
-              let tileId = tileEl.getAttribute(ATTR_TILE_ID);
-              let tile = this.findTile(tileId);
-
-              if (tile) {
-                column.tiles.push(tile);
-              }
-            }
-          }
-
-          columns.push(column);
-        }
-
-        let config = {
-          columns: columns
-        };
-
-        this.configChange.emit(config);
-      }
-    });
-
-    this.checkReady();
   }
 
   public tileIsCollapsed(tile: SkyTileComponent): boolean {
