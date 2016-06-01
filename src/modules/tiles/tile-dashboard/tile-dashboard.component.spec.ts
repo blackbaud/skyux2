@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 
 import { SkyTileDashboardConfig } from './tile-dashboard-config';
-import { SkyTileComponent } from './tile.component';
+import { SkyTileComponent } from '../tile/tile.component';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 
