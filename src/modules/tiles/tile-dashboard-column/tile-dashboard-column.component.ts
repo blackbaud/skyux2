@@ -10,7 +10,7 @@ import {
 import { Dragula } from 'ng2-dragula/ng2-dragula';
 
 import { SkyTileDashboardConfigLayoutTile } from '../tile-dashboard-config';
-import { SkyTileDashboardService } from '../tile-dashboard';
+import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 let columnIdIndex = 0;
 
