@@ -132,21 +132,21 @@ describe('Tile dashboard component', () => {
           }
         };
 
-        let setConfigSpy = spyOn(mockTileDashboardService, 'setConfig');
+        let initSpy = spyOn(mockTileDashboardService, 'init');
 
         fixture.detectChanges();
         tick();
 
-        expect(setConfigSpy).toHaveBeenCalledWith(initialConfig);
+        expect(initSpy).toHaveBeenCalledWith(initialConfig);
 
-        setConfigSpy.calls.reset();
+        initSpy.calls.reset();
 
         cmp.dashboardConfig = newConfig;
 
         fixture.detectChanges();
         tick();
 
-        expect(setConfigSpy).not.toHaveBeenCalled();
+        expect(initSpy).not.toHaveBeenCalled();
       }
     );
   }));
@@ -285,7 +285,7 @@ class MockTileDashboardService {
 
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
-  public setConfig(config: SkyTileDashboardConfig) {
+  public init(config: SkyTileDashboardConfig) {
     this.config = config;
   }
 

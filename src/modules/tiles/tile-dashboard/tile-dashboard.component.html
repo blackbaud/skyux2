@@ -1,6 +1,9 @@
 <sky-tile-dashboard-column
   *ngFor="let column of dashboardConfigForBinding?.layout?.multiColumn"
   [tiles]="column.tiles"
+  class="sky-tile-dashboard-layout-multi"
 >
+</sky-tile-dashboard-column>
+<sky-tile-dashboard-column class="sky-tile-dashboard-layout-single" #singleColumn>
 </sky-tile-dashboard-column>
 <ng-content></ng-content>

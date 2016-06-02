@@ -2,16 +2,21 @@ import {
   ComponentRef,
   EventEmitter,
   Injectable,
+  QueryList,
   Type
 } from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
 import { SkyTileComponent } from '../tile/tile.component';
 import {
+  SkyTileDashboardColumnComponent
+} from '../tile-dashboard-column';
+import {
   SkyTileDashboardConfig,
   SkyTileDashboardConfigLayoutColumn,
   SkyTileDashboardConfigLayoutTile
 } from '../tile-dashboard-config';
+import { SkyMediaQuery } from '../../media-queries/media-query';
 
 const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 
@@ -48,9 +53,18 @@ export class SkyTileDashboardService {
 
   private config: SkyTileDashboardConfig;
 
+  private mql: MediaQueryList;
+
+  private matchMediaHandler: MediaQueryListListener;
+
+  private columns: QueryList<SkyTileDashboardColumnComponent>;
+
+  private singleColumn: SkyTileDashboardColumnComponent;
+
   constructor(private dragulaService: DragulaService) {
     this.bagId = 'sky-tile-dashboard-bag-' + (++bagIdIndex);
 
+    this.initMediaQueries();
     this.initDragula();
     this.checkReady();
   }
@@ -73,12 +87,20 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
-  public setConfig(config: SkyTileDashboardConfig) {
+  public init(config: SkyTileDashboardConfig) {
     this.config = config;
     this.checkReady();
   }
 
-  public addTileComponent(
+  public setColumns(
+    columns: QueryList<SkyTileDashboardColumnComponent>,
+    singleColumn: SkyTileDashboardColumnComponent
+  ) {
+    this.columns = columns;
+    this.singleColumn = singleColumn;
+  }
+
+  public addTileComponentInstance(
     tile: SkyTileDashboardConfigLayoutTile,
     component: ComponentRef<any>
   ) {
@@ -120,8 +142,64 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
+  public changeColumnMode(columnMode: string) {
+    if (this.config && this.config.layout.singleColumn) {
+      if (columnMode === 'single') {
+        this.moveTilesToSingleColumn();
+      } else {
+        this.moveTilesToMultiColumn();
+      }
+    }
+  }
+
+  public destroy() {
+    if (this.mql) {
+      this.mql.removeListener(this.matchMediaHandler);
+    }
+  }
+
+  private moveTilesToSingleColumn() {
+    for (let layoutTile of this.config.layout.singleColumn.tiles) {
+      let tileComponentInstance = this.getTileComponentInstance(layoutTile.id);
+
+      if (tileComponentInstance) {
+        this.singleColumn.content.element.nativeElement.parentNode.appendChild(
+          tileComponentInstance.location.nativeElement
+        );
+      }
+    }
+  }
+
+  private moveTilesToMultiColumn() {
+    let layoutColumns = this.config.layout.multiColumn;
+    let columns = this.columns.toArray();
+
+    for (let i = 0, n = layoutColumns.length; i < n; i++) {
+      let layoutColumn = layoutColumns[i];
+
+      for (let layoutTile of layoutColumn.tiles) {
+        let tileComponentInstance = this.getTileComponentInstance(layoutTile.id);
+
+        if (tileComponentInstance) {
+          columns[i].content.element.nativeElement.parentNode.appendChild(
+            tileComponentInstance.location.nativeElement
+          );
+        }
+      }
+    }
+  }
+
+  private getTileComponentInstance(tileId: string): ComponentRef<SkyTileComponent> {
+    for (let tileComponent of this.tileComponents) {
+      if (tileComponent.location.nativeElement.getAttribute(ATTR_TILE_ID) === tileId) {
+        return tileComponent;
+      }
+    }
+
+    return undefined;
+  }
+
   private getConfigForUIState(): SkyTileDashboardConfig {
-    let config: SkyTileDashboardConfig;
     let bag = this.dragulaService.find(this.bagId);
 
     /*istanbul ignore else */
@@ -149,15 +227,75 @@ export class SkyTileDashboardService {
         columns.push(column);
       }
 
-      config = {
+      this.config = {
         tiles: this.config.tiles,
         layout: {
-          multiColumn: columns
+          singleColumn: this.getSingleColumnLayoutForUIState(bag),
+          multiColumn: this.getMultiColumnLayoutForUIState(bag)
         }
       };
     }
 
-    return config;
+    return this.config;
+  }
+
+  private getSingleColumnLayoutForUIState(bag: any): SkyTileDashboardConfigLayoutColumn {
+    if (this.mql.matches) {
+      return {
+        tiles: this.getTilesInEl(this.singleColumn.content.element.nativeElement)
+      }
+    }
+
+    return this.config.layout.singleColumn;
+  }
+
+  private getTilesInEl(el: Element): SkyTileDashboardConfigLayoutTile[] {
+    let tileEls = el.querySelectorAll('[' + ATTR_TILE_ID + ']');
+    let layoutTiles: SkyTileDashboardConfigLayoutTile[] = [];
+
+        /*istanbul ignore else */
+    if (tileEls) {
+      for (let i = 0, n = tileEls.length; i < n; i++) {
+        let tileEl = tileEls.item(i);
+        let tileId = tileEl.getAttribute(ATTR_TILE_ID);
+        let tile = this.findTile(tileId);
+
+        /*istanbul ignore else */
+        if (tile) {
+          layoutTiles.push(tile);
+        }
+      }
+    }
+
+    return layoutTiles;
+  }
+
+  private getMultiColumnLayoutForUIState(bag: any): SkyTileDashboardConfigLayoutColumn[] {
+    if (!this.mql.matches) {
+      let containers: any[] = bag.drake.containers;
+      let layoutColumns: SkyTileDashboardConfigLayoutColumn[] = [];
+
+      for (let container of containers) {
+        let layoutColumn: SkyTileDashboardConfigLayoutColumn = {
+          tiles: this.getTilesInEl(container)
+        };
+
+        layoutColumns.push(layoutColumn);
+      }
+
+      return layoutColumns;
+    }
+
+    return this.config.layout.multiColumn;
+  }
+
+  private initMediaQueries() {
+    this.matchMediaHandler = (mql: MediaQueryList) => {
+      this.changeColumnMode(mql.matches ? 'single' : 'multi');
+    };
+
+    this.mql = matchMedia(SkyMediaQuery.sm);
+    this.mql.addListener(this.matchMediaHandler);
   }
 
   private initDragula() {

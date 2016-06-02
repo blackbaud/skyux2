@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import {
@@ -14,7 +24,7 @@ import { SkyTileDashboardService } from './tile-dashboard.service';
   directives: [SkyTileDashboardColumnComponent],
   providers: [DragulaService, SkyTileDashboardService]
 })
-export class SkyTileDashboardComponent  {
+export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   public dashboardConfigForBinding: SkyTileDashboardConfig;
 
   @Output()
@@ -26,15 +36,30 @@ export class SkyTileDashboardComponent  {
   set config(value: SkyTileDashboardConfig) {
     if (value && !this.configSet) {
       this.dashboardConfigForBinding = value;
-      this.dashboardService.setConfig(value);
+      this.dashboardService.init(value);
       this.configSet = true;
     }
   }
+
+  @ViewChildren(SkyTileDashboardColumnComponent)
+  private columns: QueryList<SkyTileDashboardColumnComponent>;
+
+  @ViewChild('singleColumn', {read: SkyTileDashboardColumnComponent})
+  private singleColumn: SkyTileDashboardColumnComponent;
+
   constructor(
     private dashboardService: SkyTileDashboardService
   ) {
     dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
       this.configChange.emit(config);
     });
+  }
+
+  public ngAfterViewInit() {
+    this.dashboardService.setColumns(this.columns, this.singleColumn);
+  }
+
+  public ngOnDestroy() {
+    this.dashboardService.destroy();
   }
 }

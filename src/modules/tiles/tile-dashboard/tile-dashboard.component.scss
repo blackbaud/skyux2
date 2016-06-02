@@ -5,10 +5,26 @@
   padding: 0 $sky-padding;
 }
 
+.sky-tile-dashboard-layout-multi {
+  display: block;
+}
+
+.sky-tile-dashboard-layout-single {
+  display: none;
+}
+
 @media (max-width: $sky-screen-sm-max) {
   :host {
     display: block;
     padding: 0;
+  }
+
+  .sky-tile-dashboard-layout-multi {
+    display: none;
+  }
+
+  .sky-tile-dashboard-layout-single {
+    display: block;
   }
 
   :host /deep/ .sky-tile-dashboard-column {

@@ -3,6 +3,7 @@ import {
   Component,
   ComponentRef,
   DynamicComponentLoader,
+  ElementRef,
   Input,
   ViewChild,
   ViewContainerRef
@@ -32,7 +33,7 @@ export class SkyTileDashboardColumnComponent implements AfterViewInit {
   }
 
   @ViewChild('content', {read: ViewContainerRef})
-  private content: ViewContainerRef;
+  public content: ViewContainerRef;
 
   private _tiles: SkyTileDashboardConfigLayoutTile[];
 
@@ -55,7 +56,7 @@ export class SkyTileDashboardColumnComponent implements AfterViewInit {
         let component = this.dashboardService.getTileComponent(tile);
         this.dcl.loadNextToLocation(component, this.content)
           .then((componentRef: ComponentRef<any>) => {
-            this.dashboardService.addTileComponent(tile, componentRef);
+            this.dashboardService.addTileComponentInstance(tile, componentRef);
           });
       }
     }

@@ -60,7 +60,7 @@ describe('Tile dashboard service', () => {
     mockDragulaService = new MockDragulaService();
     dashboardService = new SkyTileDashboardService(mockDragulaService);
 
-    dashboardService.setConfig(dashboardConfig);
+    dashboardService.init(dashboardConfig);
   }));
 
   it('should emit the config change event when a tile is moved', fakeAsync(() => {
@@ -154,7 +154,7 @@ describe('Tile dashboard service', () => {
 
         fixture.detectChanges();
 
-        dashboardService.addTileComponent(
+        dashboardService.addTileComponentInstance(
           {
             id: 'tile-1',
             isCollapsed: false
@@ -187,7 +187,7 @@ describe('Tile dashboard service', () => {
 
         fixture.detectChanges();
 
-        dashboardService.addTileComponent(
+        dashboardService.addTileComponentInstance(
           {
             id: 'tile-1',
             isCollapsed: false

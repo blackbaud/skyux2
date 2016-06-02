@@ -35,6 +35,18 @@ export class AppComponent {
         }
       ],
       layout: {
+        singleColumn: {
+          tiles: [
+            {
+              id: 'tile2',
+              isCollapsed: false
+            },
+            {
+              id: 'tile1',
+              isCollapsed: true
+            }
+          ]
+        },
         multiColumn: [
           {
             tiles: [
