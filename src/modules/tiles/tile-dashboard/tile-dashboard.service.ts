@@ -1,4 +1,9 @@
-import { ComponentRef, EventEmitter, Injectable, Type } from '@angular/core';
+import {
+  ComponentRef,
+  EventEmitter,
+  Injectable,
+  Type
+} from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
 import { SkyTileComponent } from '../tile/tile.component';
@@ -44,55 +49,9 @@ export class SkyTileDashboardService {
   private config: SkyTileDashboardConfig;
 
   constructor(private dragulaService: DragulaService) {
-    bagIdIndex++;
+    this.bagId = 'sky-tile-dashboard-bag-' + (++bagIdIndex);
 
-    this.bagId = 'sky-tile-dashboard-bag-' + bagIdIndex;
-
-    dragulaService.setOptions(this.bagId, {
-      moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
-        return handle.matches('.sky-tile-grab-handle');
-      }
-    });
-
-    dragulaService.drop.subscribe((value: any[]) => {
-      let bag = dragulaService.find(this.bagId);
-
-      /*istanbul ignore else */
-      if (bag) {
-        let containers: any[] = bag.drake.containers;
-        let columns: SkyTileDashboardConfigLayoutColumn[] = [];
-
-        for (let container of containers) {
-          let column: SkyTileDashboardConfigLayoutColumn = {tiles: []},
-            tiles = container.querySelectorAll('[' + ATTR_TILE_ID + ']');
-
-          /*istanbul ignore else */
-          if (tiles) {
-            for (let tileEl of tiles) {
-              let tileId = tileEl.getAttribute(ATTR_TILE_ID);
-              let tile = this.findTile(tileId);
-
-              /*istanbul ignore else */
-              if (tile) {
-                column.tiles.push(tile);
-              }
-            }
-          }
-
-          columns.push(column);
-        }
-
-        let config: SkyTileDashboardConfig = {
-          tiles: this.config.tiles,
-          layout: {
-            multiColumn: columns
-          }
-        };
-
-        this.configChange.emit(config);
-      }
-    });
-
+    this.initDragula();
     this.checkReady();
   }
 
@@ -150,12 +109,72 @@ export class SkyTileDashboardService {
   }
 
   public getTileComponent(layoutTile: SkyTileDashboardConfigLayoutTile): Type {
-    for (let tile of this.config.tiles) {
-      if (tile.id === layoutTile.id) {
-        return tile.component;
+    if (layoutTile) {
+      for (let tile of this.config.tiles) {
+        if (tile.id === layoutTile.id) {
+          return tile.component;
+        }
       }
     }
+
     return undefined;
+  }
+
+  private getConfigForUIState(): SkyTileDashboardConfig {
+    let config: SkyTileDashboardConfig;
+    let bag = this.dragulaService.find(this.bagId);
+
+    /*istanbul ignore else */
+    if (bag) {
+      let containers: any[] = bag.drake.containers;
+      let columns: SkyTileDashboardConfigLayoutColumn[] = [];
+
+      for (let container of containers) {
+        let column: SkyTileDashboardConfigLayoutColumn = {tiles: []},
+          tiles = container.querySelectorAll('[' + ATTR_TILE_ID + ']');
+
+        /*istanbul ignore else */
+        if (tiles) {
+          for (let tileEl of tiles) {
+            let tileId = tileEl.getAttribute(ATTR_TILE_ID);
+            let tile = this.findTile(tileId);
+
+            /*istanbul ignore else */
+            if (tile) {
+              column.tiles.push(tile);
+            }
+          }
+        }
+
+        columns.push(column);
+      }
+
+      config = {
+        tiles: this.config.tiles,
+        layout: {
+          multiColumn: columns
+        }
+      };
+    }
+
+    return config;
+  }
+
+  private initDragula() {
+    this.dragulaService.setOptions(this.bagId, {
+      moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
+        return handle.matches('.sky-tile-grab-handle');
+      }
+    });
+
+    this.dragulaService.drop.subscribe((value: any[]) => {
+      let config = this.getConfigForUIState();
+
+      /*istanbul ignore else */
+      if (config) {
+        this.configChange.emit(config);
+      }
+    });
   }
 
   private checkReady() {

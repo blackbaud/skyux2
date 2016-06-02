@@ -28,11 +28,11 @@ describe('Tile dashboard service', () => {
       tiles: [
         {
           id: 'tile-1',
-          component: undefined
+          component: Test1Component
         },
         {
           id: 'tile-2',
-          component: undefined
+          component: Test2Component
         }
       ],
       layout: {
@@ -73,11 +73,11 @@ describe('Tile dashboard service', () => {
         tiles: [
           {
             id: 'tile-1',
-            component: undefined
+            component: Test1Component
           },
           {
             id: 'tile-2',
-            component: undefined
+            component: Test2Component
           }
         ],
         layout: {
@@ -148,16 +148,16 @@ describe('Tile dashboard service', () => {
           provide(SkyTileDashboardService, {useValue: dashboardService})
         ]
       )
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let cmp: TestComponent = fixture.componentInstance;
+      .createAsync(Test1Component)
+      .then((fixture: ComponentFixture<Test1Component>) => {
+        let cmp: Test1Component = fixture.componentInstance;
 
         fixture.detectChanges();
 
         dashboardService.addTileComponent(
           {
             id: 'tile-1',
-            component: TestComponent
+            isCollapsed: false
           },
           fixture.componentRef
         );
@@ -181,16 +181,16 @@ describe('Tile dashboard service', () => {
           provide(SkyTileDashboardService, {useValue: dashboardService})
         ]
       )
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let cmp: TestComponent = fixture.componentInstance;
+      .createAsync(Test1Component)
+      .then((fixture: ComponentFixture<Test1Component>) => {
+        let cmp: Test1Component = fixture.componentInstance;
 
         fixture.detectChanges();
 
         dashboardService.addTileComponent(
           {
             id: 'tile-1',
-            component: TestComponent
+            isCollapsed: false
           },
           fixture.componentRef
         );
@@ -207,6 +207,19 @@ describe('Tile dashboard service', () => {
         expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
       });
   }));
+
+  it(
+    'should provide a way to retrieve the component for the associated layout tile',
+    () => {
+      let column1 = dashboardConfig.layout.multiColumn[0];
+      let column2 = dashboardConfig.layout.multiColumn[1];
+
+      expect(dashboardService.getTileComponent(column1.tiles[0])).toBe(Test1Component);
+      expect(dashboardService.getTileComponent(column2.tiles[0])).toBe(Test2Component);
+
+      expect(dashboardService.getTileComponent(undefined)).toBe(undefined);
+    }
+  );
 
   it(
     'should sanity check for invalid tile when setting a tile to be collapsed',
@@ -226,7 +239,22 @@ describe('Tile dashboard service', () => {
     </sky-tile>
   `
 })
-class TestComponent {
+class Test1Component {
+  @ViewChild(SkyTileComponent)
+  public tile: SkyTileComponent;
+}
+
+@Component({
+  selector: 'sky-test-cmp',
+  directives: [SkyTileComponent],
+  template: `
+    <sky-tile>
+      <sky-tile-title>Title</sky-tile-title>
+      <sky-tile-content>Content</sky-tile-content>
+    </sky-tile>
+  `
+})
+class Test2Component {
   @ViewChild(SkyTileComponent)
   public tile: SkyTileComponent;
 }

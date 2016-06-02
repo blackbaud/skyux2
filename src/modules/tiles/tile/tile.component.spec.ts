@@ -7,7 +7,8 @@ import {
   fakeAsync,
   inject,
   it,
-  tick
+  tick,
+  xit
 } from '@angular/core/testing';
 
 import { SkySlideService } from '../../animation/slide.service';

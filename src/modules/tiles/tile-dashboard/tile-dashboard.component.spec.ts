@@ -7,10 +7,14 @@ import {
   fakeAsync,
   inject,
   it,
-  tick
+  tick,
+  xit
 } from '@angular/core/testing';
 
-import { SkyTileDashboardConfig } from './tile-dashboard-config';
+import {
+  SkyTileDashboardConfig,
+  SkyTileDashboardConfigTile
+} from '../tile-dashboard-config';
 import { SkyTileComponent } from '../tile/tile.component';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
@@ -44,20 +48,32 @@ describe('Tile dashboard component', () => {
       .createAsync(TestComponent)
       .then((fixture: ComponentFixture<TestComponent>) => {
         let newConfig = {
-          columns: [
+          tiles: [
             {
-              tiles: [
-                {
-                  id: 'tile-2',
-                  component: Tile2Component
-                },
-                {
-                  id: 'tile-1',
-                  component: Tile1Component
-                }
-              ]
+              id: 'tile-1',
+              component: Tile1Component
+            },
+            {
+              id: 'tile-2',
+              component: Tile2Component
             }
-          ]
+          ],
+          layout: {
+            multiColumn: [
+              {
+                tiles: [
+                  {
+                    id: 'tile-2',
+                    isCollapsed: false
+                  },
+                  {
+                    id: 'tile-1',
+                    isCollapsed: false
+                  }
+                ]
+              }
+            ]
+          }
         };
 
         fixture.detectChanges();
@@ -87,21 +103,33 @@ describe('Tile dashboard component', () => {
       .then((fixture: ComponentFixture<TestComponent>) => {
         let cmp: TestComponent = fixture.componentInstance;
         let initialConfig = cmp.dashboardConfig;
-        let newConfig = {
-          columns: [
+        let newConfig: SkyTileDashboardConfig = {
+          tiles: [
             {
-              tiles: [
-                {
-                  id: 'tile-2',
-                  component: Tile2Component
-                },
-                {
-                  id: 'tile-1',
-                  component: Tile1Component
-                }
-              ]
+              id: 'tile-1',
+              component: Tile1Component
+            },
+            {
+              id: 'tile-2',
+              component: Tile2Component
             }
-          ]
+          ],
+          layout: {
+            multiColumn: [
+              {
+                tiles: [
+                  {
+                    id: 'tile-2',
+                    isCollapsed: false
+                  },
+                  {
+                    id: 'tile-1',
+                    isCollapsed: false
+                  }
+                ]
+              }
+            ]
+          }
         };
 
         let setConfigSpy = spyOn(mockTileDashboardService, 'setConfig');
@@ -175,20 +203,32 @@ describe('Tile dashboard component', () => {
 })
 class TestComponent {
   public dashboardConfig: SkyTileDashboardConfig = {
-    multiColumnLayout: [
+    tiles: [
       {
-        tiles: [
-          {
-            id: 'tile-1',
-            component: Tile1Component
-          },
-          {
-            id: 'tile-2',
-            component: Tile2Component
-          }
-        ]
+        id: 'tile-1',
+        component: Tile1Component
+      },
+      {
+        id: 'tile-2',
+        component: Tile2Component
       }
-    ]
+    ],
+    layout: {
+      multiColumn: [
+        {
+          tiles: [
+            {
+              id: 'tile-1',
+              isCollapsed: false
+            },
+            {
+              id: 'tile-2',
+              isCollapsed: false
+            }
+          ]
+        }
+      ]
+    }
   };
 }
 
@@ -253,5 +293,16 @@ class MockTileDashboardService {
   }
 
   public tileIsCollapsed() {
+  }
+
+  public getTileComponent(tile: SkyTileDashboardConfigTile) {
+    switch (tile.id) {
+    case 'tile-1':
+      return Tile1Component;
+    case 'tile-2':
+      return Tile2Component;
+    default:
+      return undefined;
+    }
   }
 }
