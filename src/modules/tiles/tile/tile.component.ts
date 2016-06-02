@@ -11,7 +11,7 @@ import {
 import { SkySlideService } from '../../animation/slide.service';
 import { SkyChevronComponent } from '../../chevron/chevron.component';
 import { SkyResourcesPipe } from '../../resources/resources.pipe';
-import { SkyTileDashboardService } from './../tile-dashboard/tile-dashboard.service';
+import { SkyTileDashboardService } from './../tile-dashboard';
 
 @Component({
   selector: 'sky-tile',

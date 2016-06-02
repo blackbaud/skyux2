@@ -175,7 +175,7 @@ describe('Tile dashboard component', () => {
 })
 class TestComponent {
   public dashboardConfig: SkyTileDashboardConfig = {
-    columns: [
+    multiColumnLayout: [
       {
         tiles: [
           {

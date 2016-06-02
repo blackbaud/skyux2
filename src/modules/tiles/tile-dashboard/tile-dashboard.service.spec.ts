@@ -11,9 +11,9 @@ import {
 } from '@angular/core/testing';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { SkyTileDashboardConfig } from './tile-dashboard-config';
+import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
-import { SkyTileComponent } from '../tile/tile.component';
+import { SkyTileComponent } from '../tile';
 
 describe('Tile dashboard service', () => {
   let tcb: TestComponentBuilder;
@@ -25,26 +25,36 @@ describe('Tile dashboard service', () => {
     tcb = _tcb;
 
     dashboardConfig = {
-      columns: [
+      tiles: [
         {
-          tiles: [
-            {
-              id: 'tile-1',
-              component: undefined,
-              isCollapsed: false
-            }
-          ]
+          id: 'tile-1',
+          component: undefined
         },
         {
-          tiles: [
-            {
-              id: 'tile-2',
-              component: undefined,
-              isCollapsed: false
-            }
-          ]
+          id: 'tile-2',
+          component: undefined
         }
-      ]
+      ],
+      layout: {
+        multiColumn: [
+          {
+            tiles: [
+              {
+                id: 'tile-1',
+                isCollapsed: false
+              }
+            ]
+          },
+          {
+            tiles: [
+              {
+                id: 'tile-2',
+                isCollapsed: false
+              }
+            ]
+          }
+        ]
+      }
     };
 
     mockDragulaService = new MockDragulaService();
@@ -60,26 +70,36 @@ describe('Tile dashboard service', () => {
       configChanged = true;
 
       expect(config).toEqual({
-        columns: [
+        tiles: [
           {
-            tiles: [
-              {
-                id: 'tile-2',
-                component: undefined,
-                isCollapsed: false
-              }
-            ]
+            id: 'tile-1',
+            component: undefined
           },
           {
-            tiles: [
-              {
-                id: 'tile-1',
-                component: undefined,
-                isCollapsed: false
-              }
-            ]
+            id: 'tile-2',
+            component: undefined
           }
-        ]
+        ],
+        layout: {
+          multiColumn: [
+            {
+              tiles: [
+                {
+                  id: 'tile-2',
+                  isCollapsed: false
+                }
+              ]
+            },
+            {
+              tiles: [
+                {
+                  id: 'tile-1',
+                  isCollapsed: false
+                }
+              ]
+            }
+          ]
+        }
       });
     });
 
@@ -112,13 +132,13 @@ describe('Tile dashboard service', () => {
     expect(setOptionsSpy).toHaveBeenCalled();
   }));
 
-  it('should raise a config change even when a tile is collapsed', fakeAsync(() => {
+  it('should raise a config change event when a tile is collapsed', fakeAsync(() => {
     let configChanged = false;
 
     dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
       configChanged = true;
 
-      expect(config.columns[0].tiles[0].isCollapsed).toBe(true);
+      expect(config.layout.multiColumn[0].tiles[0].isCollapsed).toBe(true);
     });
 
     return tcb

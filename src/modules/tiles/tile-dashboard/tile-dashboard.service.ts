@@ -1,10 +1,12 @@
-import { ComponentRef, EventEmitter, Injectable } from '@angular/core';
+import { ComponentRef, EventEmitter, Injectable, Type } from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
 import { SkyTileComponent } from '../tile/tile.component';
-import { SkyTileDashboardConfig } from './tile-dashboard-config';
-import { SkyTileDashboardConfigColumn } from './tile-dashboard-config-column';
-import { SkyTileDashboardConfigTile } from './tile-dashboard-config-tile';
+import {
+  SkyTileDashboardConfig,
+  SkyTileDashboardConfigLayoutColumn,
+  SkyTileDashboardConfigLayoutTile
+} from '../tile-dashboard-config';
 
 const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 
@@ -58,10 +60,10 @@ export class SkyTileDashboardService {
       /*istanbul ignore else */
       if (bag) {
         let containers: any[] = bag.drake.containers;
-        let columns: SkyTileDashboardConfigColumn[] = [];
+        let columns: SkyTileDashboardConfigLayoutColumn[] = [];
 
         for (let container of containers) {
-          let column: SkyTileDashboardConfigColumn = {tiles: []},
+          let column: SkyTileDashboardConfigLayoutColumn = {tiles: []},
             tiles = container.querySelectorAll('[' + ATTR_TILE_ID + ']');
 
           /*istanbul ignore else */
@@ -80,8 +82,11 @@ export class SkyTileDashboardService {
           columns.push(column);
         }
 
-        let config = {
-          columns: columns
+        let config: SkyTileDashboardConfig = {
+          tiles: this.config.tiles,
+          layout: {
+            multiColumn: columns
+          }
         };
 
         this.configChange.emit(config);
@@ -91,10 +96,10 @@ export class SkyTileDashboardService {
     this.checkReady();
   }
 
-  public findTile(tileId: string): SkyTileDashboardConfigTile {
+  public findTile(tileId: string): SkyTileDashboardConfigLayoutTile {
     /*istanbul ignore else */
-    if (this.config && this.config.columns) {
-      for (let column of this.config.columns) {
+    if (this.config && this.config.layout.multiColumn) {
+      for (let column of this.config.layout.multiColumn) {
         /*istanbul ignore else */
         if (column.tiles) {
           for (let tile of column.tiles) {
@@ -115,7 +120,7 @@ export class SkyTileDashboardService {
   }
 
   public addTileComponent(
-    tile: SkyTileDashboardConfigTile,
+    tile: SkyTileDashboardConfigLayoutTile,
     component: ComponentRef<any>
   ) {
     this.tileComponents = this.tileComponents || [];
@@ -142,6 +147,15 @@ export class SkyTileDashboardService {
       tileConfig.isCollapsed = isCollapsed;
       this.configChange.emit(this.config);
     }
+  }
+
+  public getTileComponent(layoutTile: SkyTileDashboardConfigLayoutTile): Type {
+    for (let tile of this.config.tiles) {
+      if (tile.id === layoutTile.id) {
+        return tile.component;
+      }
+    }
+    return undefined;
   }
 
   private checkReady() {

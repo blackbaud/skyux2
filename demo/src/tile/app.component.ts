@@ -24,25 +24,36 @@ export class AppComponent {
 
   constructor() {
     this.dashboardConfig = {
-      columns: [
+      tiles: [
         {
-          tiles: [
-            {
-              id: 'tile1',
-              component: Tile1Component,
-              isCollapsed: true
-            }
-          ]
+          id: 'tile1',
+          component: Tile1Component
         },
         {
-          tiles: [
-            {
-              id: 'tile2',
-              component: Tile2Component
-            }
-          ]
+          id: 'tile2',
+          component: Tile2Component
         }
-      ]
+      ],
+      layout: {
+        multiColumn: [
+          {
+            tiles: [
+              {
+                id: 'tile1',
+                isCollapsed: true
+              }
+            ]
+          },
+          {
+            tiles: [
+              {
+                id: 'tile2',
+                isCollapsed: false
+              }
+            ]
+          }
+        ]
+      }
     };
   }
 }
