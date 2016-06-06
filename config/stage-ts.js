@@ -4,7 +4,6 @@ var fs = require('fs-extra'),
   glob = require('glob'),
   path = require('path'),
   sass = require('node-sass'),
-  remap = require('remap-istanbul'),
   TEMP_PATH = './.srctemp';
 
 function deleteNonDistFiles() {
@@ -94,15 +93,5 @@ function inlineHtmlCss() {
   });
 }
 
-function remapSourceMap() {
-  var files = glob.sync('coverage/**/coverage-final.json');
-  files.forEach(function (file) {
-    remap(file, {
-      json: file
-    })
-  });
-}
-
 copySrc();
 inlineHtmlCss();
-remapSourceMap();

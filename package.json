@@ -53,7 +53,7 @@
       "e2e:live": "npm run e2e -- --elementExplorer",
 
       "pretest": "npm run lint",
-    "test": "npm run test:base -- config/karma.conf.js",
+    "test": "npm run test:base -- config/karma.conf.js && node config/remap-coverage.js",
       "test:ci": "npm run test:base config/karma.conf-ci.js",
       "test:base": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
 

@@ -4,11 +4,10 @@
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "sourceMap": true,
     "noEmitHelpers": true,
     "noImplicitAny": true,
-    "outDir": "../dist",
-    "inlineSources": true,
-    "inlineSourceMap": true
+    "outDir": "../dist"
   },
   "compileOnSave": false,
   "buildOnSave": false
