@@ -27,11 +27,11 @@ export class AppComponent {
       tiles: [
         {
           id: 'tile1',
-          component: Tile1Component
+          componentType: Tile1Component
         },
         {
           id: 'tile2',
-          component: Tile2Component
+          componentType: Tile2Component
         }
       ],
       layout: {

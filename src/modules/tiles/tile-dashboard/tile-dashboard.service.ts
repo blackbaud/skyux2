@@ -7,16 +7,14 @@ import {
 } from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
+import { SkyMediaQuery } from '../../media-queries/media-query';
 import { SkyTileComponent } from '../tile/tile.component';
-import {
-  SkyTileDashboardColumnComponent
-} from '../tile-dashboard-column';
+import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import {
   SkyTileDashboardConfig,
   SkyTileDashboardConfigLayoutColumn,
   SkyTileDashboardConfigLayoutTile
 } from '../tile-dashboard-config';
-import { SkyMediaQuery } from '../../media-queries/media-query';
 
 const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 
@@ -100,7 +98,7 @@ export class SkyTileDashboardService {
     this.singleColumn = singleColumn;
   }
 
-  public addTileComponentInstance(
+  public addTileComponent(
     tile: SkyTileDashboardConfigLayoutTile,
     component: ComponentRef<any>
   ) {
@@ -130,11 +128,11 @@ export class SkyTileDashboardService {
     }
   }
 
-  public getTileComponent(layoutTile: SkyTileDashboardConfigLayoutTile): Type {
+  public getTileComponentType(layoutTile: SkyTileDashboardConfigLayoutTile): Type {
     if (layoutTile) {
       for (let tile of this.config.tiles) {
         if (tile.id === layoutTile.id) {
-          return tile.component;
+          return tile.componentType;
         }
       }
     }
@@ -160,10 +158,10 @@ export class SkyTileDashboardService {
 
   private moveTilesToSingleColumn() {
     for (let layoutTile of this.config.layout.singleColumn.tiles) {
-      let tileComponentInstance = this.getTileComponentInstance(layoutTile.id);
+      let tileComponentInstance = this.getTileComponent(layoutTile.id);
 
       if (tileComponentInstance) {
-        this.singleColumn.content.element.nativeElement.parentNode.appendChild(
+        this.getColumnEl(this.singleColumn).appendChild(
           tileComponentInstance.location.nativeElement
         );
       }
@@ -176,12 +174,13 @@ export class SkyTileDashboardService {
 
     for (let i = 0, n = layoutColumns.length; i < n; i++) {
       let layoutColumn = layoutColumns[i];
+      let columnEl = this.getColumnEl(columns[i]);
 
       for (let layoutTile of layoutColumn.tiles) {
-        let tileComponentInstance = this.getTileComponentInstance(layoutTile.id);
+        let tileComponentInstance = this.getTileComponent(layoutTile.id);
 
         if (tileComponentInstance) {
-          columns[i].content.element.nativeElement.parentNode.appendChild(
+          columnEl.appendChild(
             tileComponentInstance.location.nativeElement
           );
         }
@@ -189,7 +188,7 @@ export class SkyTileDashboardService {
     }
   }
 
-  private getTileComponentInstance(tileId: string): ComponentRef<SkyTileComponent> {
+  private getTileComponent(tileId: string): ComponentRef<SkyTileComponent> {
     for (let tileComponent of this.tileComponents) {
       if (tileComponent.location.nativeElement.getAttribute(ATTR_TILE_ID) === tileId) {
         return tileComponent;
@@ -242,32 +241,11 @@ export class SkyTileDashboardService {
   private getSingleColumnLayoutForUIState(bag: any): SkyTileDashboardConfigLayoutColumn {
     if (this.mql.matches) {
       return {
-        tiles: this.getTilesInEl(this.singleColumn.content.element.nativeElement)
-      }
+        tiles: this.getTilesInEl(this.getColumnEl(this.singleColumn))
+      };
     }
 
     return this.config.layout.singleColumn;
-  }
-
-  private getTilesInEl(el: Element): SkyTileDashboardConfigLayoutTile[] {
-    let tileEls = el.querySelectorAll('[' + ATTR_TILE_ID + ']');
-    let layoutTiles: SkyTileDashboardConfigLayoutTile[] = [];
-
-        /*istanbul ignore else */
-    if (tileEls) {
-      for (let i = 0, n = tileEls.length; i < n; i++) {
-        let tileEl = tileEls.item(i);
-        let tileId = tileEl.getAttribute(ATTR_TILE_ID);
-        let tile = this.findTile(tileId);
-
-        /*istanbul ignore else */
-        if (tile) {
-          layoutTiles.push(tile);
-        }
-      }
-    }
-
-    return layoutTiles;
   }
 
   private getMultiColumnLayoutForUIState(bag: any): SkyTileDashboardConfigLayoutColumn[] {
@@ -287,6 +265,27 @@ export class SkyTileDashboardService {
     }
 
     return this.config.layout.multiColumn;
+  }
+
+  private getTilesInEl(el: Element): SkyTileDashboardConfigLayoutTile[] {
+    let tileEls: any = el.querySelectorAll('[' + ATTR_TILE_ID + ']');
+    let layoutTiles: SkyTileDashboardConfigLayoutTile[] = [];
+
+        /*istanbul ignore else */
+    if (tileEls) {
+      for (let i = 0, n = tileEls.length; i < n; i++) {
+        let tileEl = tileEls[i];
+        let tileId = tileEl.getAttribute(ATTR_TILE_ID);
+        let tile = this.findTile(tileId);
+
+        /*istanbul ignore else */
+        if (tile) {
+          layoutTiles.push(tile);
+        }
+      }
+    }
+
+    return layoutTiles;
   }
 
   private initMediaQueries() {
@@ -319,5 +318,9 @@ export class SkyTileDashboardService {
     if (this.config && this.dragulaService) {
       this.ready.emit(this.config);
     }
+  }
+
+  private getColumnEl(column: SkyTileDashboardColumnComponent): Element {
+    return column.content.element.nativeElement.parentNode;
   }
 }

@@ -51,11 +51,11 @@ describe('Tile dashboard component', () => {
           tiles: [
             {
               id: 'tile-1',
-              component: Tile1Component
+              componentType: Tile1Component
             },
             {
               id: 'tile-2',
-              component: Tile2Component
+              componentType: Tile2Component
             }
           ],
           layout: {
@@ -107,11 +107,11 @@ describe('Tile dashboard component', () => {
           tiles: [
             {
               id: 'tile-1',
-              component: Tile1Component
+              componentType: Tile1Component
             },
             {
               id: 'tile-2',
-              component: Tile2Component
+              componentType: Tile2Component
             }
           ],
           layout: {
@@ -206,11 +206,11 @@ class TestComponent {
     tiles: [
       {
         id: 'tile-1',
-        component: Tile1Component
+        componentType: Tile1Component
       },
       {
         id: 'tile-2',
-        component: Tile2Component
+        componentType: Tile2Component
       }
     ],
     layout: {
@@ -289,13 +289,13 @@ class MockTileDashboardService {
     this.config = config;
   }
 
-  public addTileComponent() {
-  }
+  public addTileComponent() { }
 
-  public tileIsCollapsed() {
-  }
+  public tileIsCollapsed() { }
 
-  public getTileComponent(tile: SkyTileDashboardConfigTile) {
+  public setColumns() { }
+
+  public getTileComponentType(tile: SkyTileDashboardConfigTile) {
     switch (tile.id) {
     case 'tile-1':
       return Tile1Component;

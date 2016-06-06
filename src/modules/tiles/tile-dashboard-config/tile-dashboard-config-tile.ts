@@ -2,5 +2,5 @@ import { Type } from '@angular/core';
 
 export interface SkyTileDashboardConfigTile {
   id: string;
-  component: Type;
+  componentType: Type;
 }

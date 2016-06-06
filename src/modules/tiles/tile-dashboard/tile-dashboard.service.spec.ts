@@ -28,11 +28,11 @@ describe('Tile dashboard service', () => {
       tiles: [
         {
           id: 'tile-1',
-          component: Test1Component
+          componentType: Test1Component
         },
         {
           id: 'tile-2',
-          component: Test2Component
+          componentType: Test2Component
         }
       ],
       layout: {
@@ -53,7 +53,8 @@ describe('Tile dashboard service', () => {
               }
             ]
           }
-        ]
+        ],
+        singleColumn: undefined
       }
     };
 
@@ -69,15 +70,15 @@ describe('Tile dashboard service', () => {
     dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
       configChanged = true;
 
-      expect(config).toEqual({
+      let expectedConfig: SkyTileDashboardConfig = {
         tiles: [
           {
             id: 'tile-1',
-            component: Test1Component
+            componentType: Test1Component
           },
           {
             id: 'tile-2',
-            component: Test2Component
+            componentType: Test2Component
           }
         ],
         layout: {
@@ -98,9 +99,12 @@ describe('Tile dashboard service', () => {
                 }
               ]
             }
-          ]
+          ],
+          singleColumn: undefined
         }
-      });
+      };
+
+      expect(config).toEqual(expectedConfig);
     });
 
     mockDragulaService.drop.emit({});
@@ -154,7 +158,7 @@ describe('Tile dashboard service', () => {
 
         fixture.detectChanges();
 
-        dashboardService.addTileComponentInstance(
+        dashboardService.addTileComponent(
           {
             id: 'tile-1',
             isCollapsed: false
@@ -187,7 +191,7 @@ describe('Tile dashboard service', () => {
 
         fixture.detectChanges();
 
-        dashboardService.addTileComponentInstance(
+        dashboardService.addTileComponent(
           {
             id: 'tile-1',
             isCollapsed: false
@@ -214,10 +218,10 @@ describe('Tile dashboard service', () => {
       let column1 = dashboardConfig.layout.multiColumn[0];
       let column2 = dashboardConfig.layout.multiColumn[1];
 
-      expect(dashboardService.getTileComponent(column1.tiles[0])).toBe(Test1Component);
-      expect(dashboardService.getTileComponent(column2.tiles[0])).toBe(Test2Component);
+      expect(dashboardService.getTileComponentType(column1.tiles[0])).toBe(Test1Component);
+      expect(dashboardService.getTileComponentType(column2.tiles[0])).toBe(Test2Component);
 
-      expect(dashboardService.getTileComponent(undefined)).toBe(undefined);
+      expect(dashboardService.getTileComponentType(undefined)).toBe(undefined);
     }
   );
 
