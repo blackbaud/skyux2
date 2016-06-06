@@ -54,7 +54,7 @@
 
       "pretest": "npm run lint",
     "test": "npm run test:base -- config/karma.conf.js && node config/remap-coverage.js",
-      "test:ci": "npm run test:base config/karma.conf-ci.js",
+      "test:ci": "npm run test:base config/karma.conf-ci.js && node config/remap-coverage.js",
       "test:base": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
 
     "ci": "npm run lint && npm run test:ci && npm run build:prod",
