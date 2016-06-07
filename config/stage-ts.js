@@ -10,6 +10,7 @@ function deleteNonDistFiles() {
   var specFiles = glob.sync(TEMP_PATH + '/**/*.spec.ts');
   specFiles.push(TEMP_PATH + '/polyfills.ts');
   specFiles.push(TEMP_PATH + '/vendor.ts');
+  specFiles.push(TEMP_PATH + '/**/fixtures');
 
   specFiles.forEach(function (file) {
     fs.removeSync(file);

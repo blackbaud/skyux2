@@ -1,5 +1,5 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, provide, ViewChild } from '@angular/core';
+import { provide } from '@angular/core';
 import {
   beforeEach,
   describe,
@@ -11,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+import { MockDragulaService, Test1Component, Test2Component } from './fixtures';
 import { SkyMediaQueryService } from '../../media-queries';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
@@ -223,8 +224,9 @@ describe('Tile dashboard service', () => {
   it(
     'should provide a way to retrieve the component for the associated layout tile',
     () => {
-      let column1 = dashboardConfig.layout.multiColumn[0];
-      let column2 = dashboardConfig.layout.multiColumn[1];
+      let multiColumn = dashboardConfig.layout.multiColumn;
+      let column1 = multiColumn[0];
+      let column2 = multiColumn[1];
 
       expect(dashboardService.getTileComponentType(column1.tiles[0])).toBe(Test1Component);
       expect(dashboardService.getTileComponentType(column2.tiles[0])).toBe(Test2Component);
@@ -240,70 +242,3 @@ describe('Tile dashboard service', () => {
     })
   );
 });
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyTileComponent],
-  template: `
-    <sky-tile>
-      <sky-tile-title>Title</sky-tile-title>
-      <sky-tile-content>Content</sky-tile-content>
-    </sky-tile>
-  `
-})
-class Test1Component {
-  @ViewChild(SkyTileComponent)
-  public tile: SkyTileComponent;
-}
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyTileComponent],
-  template: `
-    <sky-tile>
-      <sky-tile-title>Title</sky-tile-title>
-      <sky-tile-content>Content</sky-tile-content>
-    </sky-tile>
-  `
-})
-class Test2Component {
-  @ViewChild(SkyTileComponent)
-  public tile: SkyTileComponent;
-}
-
-class MockDragulaService extends DragulaService {
-  public add() { }
-
-  public setOptions() { }
-
-  public find() {
-    return {
-      drake: {
-        containers: [
-          {
-            querySelectorAll: () => {
-              return [
-                {
-                  getAttribute: () => {
-                    return 'tile-2';
-                  }
-                }
-              ] as any[];
-            }
-          },
-          {
-            querySelectorAll: () => {
-              return [
-                {
-                  getAttribute: () => {
-                    return 'tile-1';
-                  }
-                }
-              ] as any[];
-            }
-          }
-        ] as any[]
-      }
-    };
-  }
-}

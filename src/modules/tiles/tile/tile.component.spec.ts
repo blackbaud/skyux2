@@ -11,18 +11,11 @@ import {
   xit
 } from '@angular/core/testing';
 
+import { TestComponent } from './fixtures';
 import { SkySlideService } from '../../animation/slide.service';
 import { SkyTileComponent } from './tile.component';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
-
-class MockDashboardService {
-  public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {
-  }
-
-  public tileIsCollapsed() {
-
-  }
-}
+import { MockSkyTileDashboardService } from './fixtures';
 
 describe('Tile component', () => {
   let tcb: TestComponentBuilder;
@@ -153,7 +146,7 @@ describe('Tile component', () => {
   });
 
   it('should notify the tile dashboard when the tile is collapsed', fakeAsync(() => {
-    let mockDashboardService = new MockDashboardService();
+    let mockDashboardService = new MockSkyTileDashboardService();
 
     return tcb
       .overrideProviders(
@@ -285,21 +278,3 @@ describe('Tile component', () => {
   });
 
 });
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyTileComponent],
-  template: `
-    <sky-tile [isCollapsed]="tileIsCollapsed" (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>Title</sky-tile-title>
-      <sky-tile-content>Content</sky-tile-content>
-    </sky-tile>
-  `
-})
-class TestComponent {
-  public tileIsCollapsed = false;
-
-  public tileSettingsClick() {
-
-  }
-}
