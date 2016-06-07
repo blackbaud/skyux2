@@ -9,8 +9,9 @@ import {
   it,
   tick
 } from '@angular/core/testing';
-
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
+import { SkyMediaQueryService } from '../../media-queries';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 import { SkyTileComponent } from '../tile';
@@ -20,49 +21,56 @@ describe('Tile dashboard service', () => {
   let dashboardService: SkyTileDashboardService;
   let dashboardConfig: SkyTileDashboardConfig;
   let mockDragulaService: DragulaService;
+  let mediaQueryService: SkyMediaQueryService;
 
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
+  beforeEach(
+    inject(
+      [TestComponentBuilder],
+      (_tcb: TestComponentBuilder) => {
+        tcb = _tcb;
+        mediaQueryService = new SkyMediaQueryService();
 
-    dashboardConfig = {
-      tiles: [
-        {
-          id: 'tile-1',
-          componentType: Test1Component
-        },
-        {
-          id: 'tile-2',
-          componentType: Test2Component
-        }
-      ],
-      layout: {
-        multiColumn: [
-          {
-            tiles: [
+        dashboardConfig = {
+          tiles: [
+            {
+              id: 'tile-1',
+              componentType: Test1Component
+            },
+            {
+              id: 'tile-2',
+              componentType: Test2Component
+            }
+          ],
+          layout: {
+            multiColumn: [
               {
-                id: 'tile-1',
-                isCollapsed: false
-              }
-            ]
-          },
-          {
-            tiles: [
+                tiles: [
+                  {
+                    id: 'tile-1',
+                    isCollapsed: false
+                  }
+                ]
+              },
               {
-                id: 'tile-2',
-                isCollapsed: false
+                tiles: [
+                  {
+                    id: 'tile-2',
+                    isCollapsed: false
+                  }
+                ]
               }
-            ]
+            ],
+            singleColumn: undefined
           }
-        ],
-        singleColumn: undefined
+        };
+
+        mockDragulaService = new MockDragulaService();
+        dashboardService = new SkyTileDashboardService(mockDragulaService, mediaQueryService);
+
+        dashboardService.init(dashboardConfig);
       }
-    };
-
-    mockDragulaService = new MockDragulaService();
-    dashboardService = new SkyTileDashboardService(mockDragulaService);
-
-    dashboardService.init(dashboardConfig);
-  }));
+    )
+  );
 
   it('should emit the config change event when a tile is moved', fakeAsync(() => {
     let configChanged = false;
@@ -131,7 +139,7 @@ describe('Tile dashboard service', () => {
     );
 
     /* tslint:disable-next-line:no-unused-variable */
-    let testDashboardService = new SkyTileDashboardService(mockDragulaService);
+    let testDashboardService = new SkyTileDashboardService(mockDragulaService, mediaQueryService);
 
     expect(setOptionsSpy).toHaveBeenCalled();
   }));

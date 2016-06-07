@@ -16,13 +16,14 @@ import {
 } from '../tile-dashboard-column/tile-dashboard-column.component';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
+import { SkyMediaQueryService } from '../../media-queries/media-query.service';
 
 @Component({
   selector: 'sky-tile-dashboard',
   styles: [require('./tile-dashboard.component.scss')],
   template: require('./tile-dashboard.component.html'),
   directives: [SkyTileDashboardColumnComponent],
-  providers: [DragulaService, SkyTileDashboardService]
+  providers: [DragulaService, SkyTileDashboardService, SkyMediaQueryService]
 })
 export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   public dashboardConfigForBinding: SkyTileDashboardConfig;

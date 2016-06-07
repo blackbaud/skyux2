@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
-import { SkyMediaQuery } from '../../media-queries/media-query';
+import { SkyMediaQueryListenerArgs, SkyMediaQueryService } from '../../media-queries';
 import { SkyTileComponent } from '../tile/tile.component';
 import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import {
@@ -51,15 +51,14 @@ export class SkyTileDashboardService {
 
   private config: SkyTileDashboardConfig;
 
-  private mql: MediaQueryList;
-
-  private matchMediaHandler: MediaQueryListListener;
-
   private columns: QueryList<SkyTileDashboardColumnComponent>;
 
   private singleColumn: SkyTileDashboardColumnComponent;
 
-  constructor(private dragulaService: DragulaService) {
+  constructor(
+    private dragulaService: DragulaService,
+    private mediaQuery: SkyMediaQueryService
+  ) {
     this.bagId = 'sky-tile-dashboard-bag-' + (++bagIdIndex);
 
     this.initMediaQueries();
@@ -151,8 +150,8 @@ export class SkyTileDashboardService {
   }
 
   public destroy() {
-    if (this.mql) {
-      this.mql.removeListener(this.matchMediaHandler);
+    if (this.mediaQuery) {
+      this.mediaQuery.destroy();
     }
   }
 
@@ -239,7 +238,7 @@ export class SkyTileDashboardService {
   }
 
   private getSingleColumnLayoutForUIState(bag: any): SkyTileDashboardConfigLayoutColumn {
-    if (this.mql.matches) {
+    if (this.mediaQuery.matches) {
       return {
         tiles: this.getTilesInEl(this.getColumnEl(this.singleColumn))
       };
@@ -249,7 +248,7 @@ export class SkyTileDashboardService {
   }
 
   private getMultiColumnLayoutForUIState(bag: any): SkyTileDashboardConfigLayoutColumn[] {
-    if (!this.mql.matches) {
+    if (!this.mediaQuery.matches) {
       let containers: any[] = bag.drake.containers;
       let layoutColumns: SkyTileDashboardConfigLayoutColumn[] = [];
 
@@ -289,12 +288,12 @@ export class SkyTileDashboardService {
   }
 
   private initMediaQueries() {
-    this.matchMediaHandler = (mql: MediaQueryList) => {
-      this.changeColumnMode(mql.matches ? 'single' : 'multi');
-    };
-
-    this.mql = matchMedia(SkyMediaQuery.sm);
-    this.mql.addListener(this.matchMediaHandler);
+    this.mediaQuery.init(
+      SkyMediaQueryService.sm,
+      (args: SkyMediaQueryListenerArgs) => {
+        this.changeColumnMode(this.mediaQuery.matches ? 'single' : 'multi');
+      }
+    );
   }
 
   private initDragula() {
