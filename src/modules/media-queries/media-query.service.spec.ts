@@ -82,6 +82,17 @@ describe('Media query service', () => {
   );
 
   it(
+    'should provide the ability to check if the media query matches the current screen size',
+    inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
+      let mql = matchMedia(SkyMediaQueryService.sm);
+
+      mediaQueryService.init(SkyMediaQueryService.sm, () => {});
+
+      expect(mediaQueryService.matches).toBe(mql.matches);
+    })
+  );
+
+  it(
     'should sanity check the listener when the specified breakpoint is hit',
     inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
       let matchMediaListener: Function;
