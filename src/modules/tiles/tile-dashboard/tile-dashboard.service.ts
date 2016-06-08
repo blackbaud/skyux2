@@ -123,7 +123,8 @@ export class SkyTileDashboardService {
   }
 
   public changeColumnMode(isSingleColumn: boolean) {
-    if (this.config && this.config.layout.singleColumn) {
+    /*istanbul ignore else */
+    if (this.config) {
       if (isSingleColumn) {
         this.moveTilesToSingleColumn();
       } else {
@@ -133,6 +134,7 @@ export class SkyTileDashboardService {
   }
 
   public destroy() {
+    /*istanbul ignore else */
     if (this.mediaQuery) {
       this.mediaQuery.destroy();
     }
@@ -175,15 +177,7 @@ export class SkyTileDashboardService {
   }
 
   private moveTilesToSingleColumn() {
-    for (let layoutTile of this.config.layout.singleColumn.tiles) {
-      let tileComponentInstance = this.getTileComponent(layoutTile.id);
-
-      if (tileComponentInstance) {
-        this.getColumnEl(this.singleColumn).appendChild(
-          tileComponentInstance.location.nativeElement
-        );
-      }
-    }
+    this.moveTilesToColumn(this.singleColumn, this.config.layout.singleColumn.tiles);
   }
 
   private moveTilesToMultiColumn() {
@@ -191,17 +185,23 @@ export class SkyTileDashboardService {
     let columns = this.columns.toArray();
 
     for (let i = 0, n = layoutColumns.length; i < n; i++) {
-      let layoutColumn = layoutColumns[i];
-      let columnEl = this.getColumnEl(columns[i]);
+      this.moveTilesToColumn(columns[i], layoutColumns[i].tiles);
+    }
+  }
 
-      for (let layoutTile of layoutColumn.tiles) {
-        let tileComponentInstance = this.getTileComponent(layoutTile.id);
+  private moveTilesToColumn(
+    column: SkyTileDashboardColumnComponent,
+    layoutTiles: SkyTileDashboardConfigLayoutTile[]
+  ) {
+    let columnEl = this.getColumnEl(column);
 
-        if (tileComponentInstance) {
-          columnEl.appendChild(
-            tileComponentInstance.location.nativeElement
-          );
-        }
+    for (let layoutTile of layoutTiles) {
+      let tileComponentInstance = this.getTileComponent(layoutTile.id);
+
+      if (tileComponentInstance) {
+        columnEl.appendChild(
+          tileComponentInstance.location.nativeElement
+        );
       }
     }
   }
@@ -213,6 +213,7 @@ export class SkyTileDashboardService {
       }
     }
 
+    /*istanbul ignore next */
     return undefined;
   }
 

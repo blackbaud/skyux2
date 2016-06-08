@@ -348,4 +348,15 @@ describe('Tile dashboard service', () => {
       dashboardService.setTileCollapsed(undefined, true);
     })
   );
+
+  it(
+    'should release resources when destroyed',
+    fakeAsync(() => {
+      let destroySpy = spyOn(mockMediaQueryService, 'destroy');
+
+      dashboardService.destroy();
+
+      expect(destroySpy).toHaveBeenCalled();
+    })
+  );
 });

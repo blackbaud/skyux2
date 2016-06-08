@@ -1,5 +1,5 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, EventEmitter, provide } from '@angular/core';
+import { Component, provide } from '@angular/core';
 import {
   beforeEach,
   describe,
@@ -11,13 +11,10 @@ import {
   xit
 } from '@angular/core/testing';
 
-import {
-  SkyTileDashboardConfig,
-  SkyTileDashboardConfigTile
-} from '../tile-dashboard-config';
-import { SkyTileComponent } from '../tile/tile.component';
+import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
+import { MockTileDashboardService, Test1Component, Test2Component } from './fixtures';
 
 describe('Tile dashboard component', () => {
   let tcb: TestComponentBuilder;
@@ -51,11 +48,11 @@ describe('Tile dashboard component', () => {
           tiles: [
             {
               id: 'tile-1',
-              componentType: Tile1Component
+              componentType: Test1Component
             },
             {
               id: 'tile-2',
-              componentType: Tile2Component
+              componentType: Test2Component
             }
           ],
           layout: {
@@ -119,11 +116,11 @@ describe('Tile dashboard component', () => {
           tiles: [
             {
               id: 'tile-1',
-              componentType: Tile1Component
+              componentType: Test1Component
             },
             {
               id: 'tile-2',
-              componentType: Tile2Component
+              componentType: Test2Component
             }
           ],
           layout: {
@@ -216,6 +213,30 @@ describe('Tile dashboard component', () => {
     () => {
     }
   );
+
+  it(
+    `should release resources when the component is destroyed`,
+    fakeAsync(() => {
+      let mockTileDashboardService = new MockTileDashboardService();
+
+      return tcb
+        .overrideProviders(
+          SkyTileDashboardComponent,
+          [
+            provide(SkyTileDashboardService, {useValue: mockTileDashboardService})
+          ]
+        )
+        .createAsync(TestComponent)
+        .then((fixture: ComponentFixture<TestComponent>) => {
+          let destroySpy = spyOn(mockTileDashboardService, 'destroy');
+
+          fixture.destroy();
+
+          expect(destroySpy).toHaveBeenCalled();
+        }
+      );
+    })
+  );
 });
 
 @Component({
@@ -230,11 +251,11 @@ class TestComponent {
     tiles: [
       {
         id: 'tile-1',
-        componentType: Tile1Component
+        componentType: Test1Component
       },
       {
         id: 'tile-2',
-        componentType: Tile2Component
+        componentType: Test2Component
       }
     ],
     layout: {
@@ -266,79 +287,4 @@ class TestComponent {
       }
     }
   };
-}
-
-@Component({
-  selector: 'sky-test-tile-1',
-  template: `
-    <sky-tile (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>
-        Tile 1
-      </sky-tile-title>
-      <sky-tile-content>
-        Content 1
-      </sky-tile-content>
-    </sky-tile>
-  `,
-  directives: [
-    SkyTileComponent
-  ]
-})
-class Tile1Component {
-  public tileSettingsClick() {
-
-  }
-}
-
-@Component({
-  selector: 'sky-test-tile-2',
-  template: `
-    <sky-tile (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>
-        Tile 2
-      </sky-tile-title>
-      <sky-tile-content>
-        Content 2
-      </sky-tile-content>
-    </sky-tile>
-  `,
-  directives: [
-    SkyTileComponent
-  ]
-})
-class Tile2Component {
-  public tileSettingsClick() {
-
-  }
-}
-
-class MockTileDashboardService {
-  public bagId = 'id-1';
-
-  public ready = new EventEmitter<SkyTileDashboardConfig>();
-
-  public config: SkyTileDashboardConfig;
-
-  public configChange = new EventEmitter<SkyTileDashboardConfig>();
-
-  public init(config: SkyTileDashboardConfig) {
-    this.config = config;
-  }
-
-  public addTileComponent() { }
-
-  public tileIsCollapsed() { }
-
-  public setColumns() { }
-
-  public getTileComponentType(tile: SkyTileDashboardConfigTile) {
-    switch (tile.id) {
-    case 'tile-1':
-      return Tile1Component;
-    case 'tile-2':
-      return Tile2Component;
-    default:
-      return undefined;
-    }
-  }
 }

@@ -6,7 +6,7 @@ import { SkyTileComponent } from '../../tile';
   selector: 'sky-test-cmp',
   directives: [SkyTileComponent],
   template: `
-    <sky-tile>
+    <sky-tile (settingsClick)="tileSettingsClick()">
       <sky-tile-title>Title</sky-tile-title>
       <sky-tile-content>Content</sky-tile-content>
     </sky-tile>
@@ -15,4 +15,6 @@ import { SkyTileComponent } from '../../tile';
 export class Test1Component {
   @ViewChild(SkyTileComponent)
   public tile: SkyTileComponent;
+
+  public tileSettingsClick() { }
 }
