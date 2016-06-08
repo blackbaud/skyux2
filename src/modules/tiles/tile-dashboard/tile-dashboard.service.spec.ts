@@ -11,8 +11,15 @@ import {
 } from '@angular/core/testing';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
-import { MockDragulaService, Test1Component, Test2Component } from './fixtures';
+import {
+  MockDragulaService,
+  MockSkyMediaQueryService,
+  Test1Component,
+  Test2Component,
+  TileDashboardTestComponent
+} from './fixtures';
 import { SkyMediaQueryService } from '../../media-queries';
+import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 import { SkyTileComponent } from '../tile';
@@ -22,14 +29,14 @@ describe('Tile dashboard service', () => {
   let dashboardService: SkyTileDashboardService;
   let dashboardConfig: SkyTileDashboardConfig;
   let mockDragulaService: DragulaService;
-  let mediaQueryService: SkyMediaQueryService;
+  let mockMediaQueryService: MockSkyMediaQueryService;
 
   beforeEach(
     inject(
       [TestComponentBuilder],
       (_tcb: TestComponentBuilder) => {
         tcb = _tcb;
-        mediaQueryService = new SkyMediaQueryService();
+        mockMediaQueryService = new MockSkyMediaQueryService();
 
         dashboardConfig = {
           tiles: [
@@ -66,7 +73,7 @@ describe('Tile dashboard service', () => {
         };
 
         mockDragulaService = new MockDragulaService();
-        dashboardService = new SkyTileDashboardService(mockDragulaService, mediaQueryService);
+        dashboardService = new SkyTileDashboardService(mockDragulaService, mockMediaQueryService);
 
         dashboardService.init(dashboardConfig);
       }
@@ -140,7 +147,9 @@ describe('Tile dashboard service', () => {
     );
 
     /* tslint:disable-next-line:no-unused-variable */
-    let testDashboardService = new SkyTileDashboardService(mockDragulaService, mediaQueryService);
+    let testDashboardService = new SkyTileDashboardService(
+      mockDragulaService, mockMediaQueryService
+    );
 
     expect(setOptionsSpy).toHaveBeenCalled();
   }));
@@ -233,6 +242,90 @@ describe('Tile dashboard service', () => {
 
       expect(dashboardService.getTileComponentType(undefined)).toBe(undefined);
     }
+  );
+
+  it(
+    'should move tiles to the appropriate columns for the current screen size on init',
+    fakeAsync(() => {
+      return tcb
+        .overrideProviders(
+          SkyTileDashboardComponent,
+          [
+            provide(SkyMediaQueryService, {useValue: mockMediaQueryService})
+          ]
+        )
+        .createAsync(TileDashboardTestComponent)
+        .then((fixture: ComponentFixture<TileDashboardTestComponent>) => {
+          function getTileCount(columnEl: Element): number {
+            return columnEl.querySelectorAll('sky-tile').length;
+          }
+
+          mockMediaQueryService.matches = true;
+
+          let el = fixture.nativeElement;
+
+          fixture.detectChanges();
+          tick();
+
+          let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
+          let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
+
+          expect(getTileCount(multiColumnEls[0])).toBe(0);
+          expect(getTileCount(multiColumnEls[1])).toBe(0);
+          expect(getTileCount(singleColumnEl)).toBe(2);
+        });
+    })
+  );
+
+  it(
+    'should move tiles to the appropriate columns when the screen size changes',
+    fakeAsync(() => {
+      return tcb
+        .overrideProviders(
+          SkyTileDashboardComponent,
+          [
+            provide(SkyMediaQueryService, {useValue: mockMediaQueryService})
+          ]
+        )
+        .createAsync(TileDashboardTestComponent)
+        .then((fixture: ComponentFixture<TileDashboardTestComponent>) => {
+          function getTileCount(columnEl: Element): number {
+            return columnEl.querySelectorAll('sky-tile').length;
+          }
+
+          let el = fixture.nativeElement;
+
+          fixture.detectChanges();
+          tick();
+
+          let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
+          let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
+
+          expect(getTileCount(multiColumnEls[0])).toBe(1);
+          expect(getTileCount(multiColumnEls[1])).toBe(1);
+          expect(getTileCount(singleColumnEl)).toBe(0);
+
+          mockMediaQueryService.fire({
+            matches: true
+          });
+
+          fixture.detectChanges();
+
+          expect(getTileCount(multiColumnEls[0])).toBe(0);
+          expect(getTileCount(multiColumnEls[1])).toBe(0);
+          expect(getTileCount(singleColumnEl)).toBe(2);
+
+          mockMediaQueryService.fire({
+            matches: false
+          });
+
+          fixture.detectChanges();
+
+          expect(getTileCount(multiColumnEls[0])).toBe(1);
+          expect(getTileCount(multiColumnEls[1])).toBe(1);
+          expect(getTileCount(singleColumnEl)).toBe(0);
+        });
+    })
   );
 
   it(

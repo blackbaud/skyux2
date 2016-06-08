@@ -1,5 +1,5 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, provide } from '@angular/core';
+import { provide } from '@angular/core';
 import {
   beforeEach,
   describe,

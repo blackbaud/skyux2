@@ -43,8 +43,6 @@ function getTileId(tile: SkyTileComponent): string {
 export class SkyTileDashboardService {
   public bagId: string;
 
-  public ready = new EventEmitter<SkyTileDashboardConfig>();
-
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
   private tileComponents: ComponentRef<SkyTileComponent>[];
@@ -55,6 +53,8 @@ export class SkyTileDashboardService {
 
   private singleColumn: SkyTileDashboardColumnComponent;
 
+  private currentUIIsSingleColumn = false;
+
   constructor(
     private dragulaService: DragulaService,
     private mediaQuery: SkyMediaQueryService
@@ -63,7 +63,6 @@ export class SkyTileDashboardService {
 
     this.initMediaQueries();
     this.initDragula();
-    this.checkReady();
   }
 
   public findTile(tileId: string): SkyTileDashboardConfigLayoutTile {
@@ -86,7 +85,6 @@ export class SkyTileDashboardService {
 
   public init(config: SkyTileDashboardConfig) {
     this.config = config;
-    this.checkReady();
   }
 
   public setColumns(
@@ -95,6 +93,8 @@ export class SkyTileDashboardService {
   ) {
     this.columns = columns;
     this.singleColumn = singleColumn;
+
+    this.changeColumnMode(this.mediaQuery.matches);
   }
 
   public addTileComponent(
@@ -139,9 +139,9 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
-  public changeColumnMode(columnMode: string) {
+  public changeColumnMode(isSingleColumn: boolean) {
     if (this.config && this.config.layout.singleColumn) {
-      if (columnMode === 'single') {
+      if (isSingleColumn) {
         this.moveTilesToSingleColumn();
       } else {
         this.moveTilesToMultiColumn();
@@ -156,6 +156,10 @@ export class SkyTileDashboardService {
   }
 
   private moveTilesToSingleColumn() {
+    if (this.currentUIIsSingleColumn) {
+      return;
+    }
+
     for (let layoutTile of this.config.layout.singleColumn.tiles) {
       let tileComponentInstance = this.getTileComponent(layoutTile.id);
 
@@ -165,9 +169,15 @@ export class SkyTileDashboardService {
         );
       }
     }
+
+    this.currentUIIsSingleColumn = true;
   }
 
   private moveTilesToMultiColumn() {
+    if (!this.currentUIIsSingleColumn) {
+      return;
+    }
+
     let layoutColumns = this.config.layout.multiColumn;
     let columns = this.columns.toArray();
 
@@ -185,6 +195,8 @@ export class SkyTileDashboardService {
         }
       }
     }
+
+    this.currentUIIsSingleColumn = false;
   }
 
   private getTileComponent(tileId: string): ComponentRef<SkyTileComponent> {
@@ -291,7 +303,7 @@ export class SkyTileDashboardService {
     this.mediaQuery.init(
       SkyMediaQueryService.sm,
       (args: SkyMediaQueryListenerArgs) => {
-        this.changeColumnMode(this.mediaQuery.matches ? 'single' : 'multi');
+        this.changeColumnMode(this.mediaQuery.matches);
       }
     );
   }
@@ -311,12 +323,6 @@ export class SkyTileDashboardService {
         this.configChange.emit(config);
       }
     });
-  }
-
-  private checkReady() {
-    if (this.config && this.dragulaService) {
-      this.ready.emit(this.config);
-    }
   }
 
   private getColumnEl(column: SkyTileDashboardColumnComponent): Element {
