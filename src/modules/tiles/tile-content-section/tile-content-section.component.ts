@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   styles: [require('./tile-content-section.component.scss')],
   template: require('./tile-content-section.component.html')
 })
-export class SkyTileContentSectionComponent {
-
-}
+export class SkyTileContentSectionComponent { }
