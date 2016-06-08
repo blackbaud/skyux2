@@ -96,4 +96,3 @@ function inlineHtmlCss() {
 
 copySrc();
 inlineHtmlCss();
-
