@@ -1,15 +1,10 @@
 import {
-  AfterViewInit,
   Component,
-  ComponentRef,
-  DynamicComponentLoader,
-  Input,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
 import { Dragula } from 'ng2-dragula/ng2-dragula';
 
-import { SkyTileDashboardConfigLayoutTile } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 let columnIdIndex = 0;
@@ -20,53 +15,21 @@ let columnIdIndex = 0;
   template: require('./tile-dashboard-column.component.html'),
   directives: [Dragula]
 })
-export class SkyTileDashboardColumnComponent implements AfterViewInit {
+export class SkyTileDashboardColumnComponent {
   public bagId: string;
 
   public columnId: string;
 
-  @Input()
-  public set tiles(value: SkyTileDashboardConfigLayoutTile[]) {
-    this._tiles = value;
-    this.updateTiles();
-  }
-
-  public get tiles(): SkyTileDashboardConfigLayoutTile[] {
-    return this._tiles;
-  }
-
   @ViewChild('content', {read: ViewContainerRef})
   public content: ViewContainerRef;
 
-  private _tiles: SkyTileDashboardConfigLayoutTile[];
-
-  private viewInitialized = false;
-
   constructor(
-    private dashboardService: SkyTileDashboardService,
-    private dcl: DynamicComponentLoader
+    private dashboardService: SkyTileDashboardService
   ) {
     columnIdIndex++;
 
     this.columnId = 'tile-dashboard-column-' + columnIdIndex;
 
     this.bagId = dashboardService.bagId;
-  }
-
-  public updateTiles() {
-    if (this.viewInitialized && this.tiles) {
-      for (let tile of this.tiles) {
-        let component = this.dashboardService.getTileComponentType(tile);
-        this.dcl.loadNextToLocation(component, this.content)
-          .then((componentRef: ComponentRef<any>) => {
-            this.dashboardService.addTileComponent(tile, componentRef);
-          });
-      }
-    }
-  }
-
-  public ngAfterViewInit() {
-    this.viewInitialized = true;
-    this.updateTiles();
   }
 }

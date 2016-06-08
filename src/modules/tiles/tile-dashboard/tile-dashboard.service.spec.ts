@@ -1,5 +1,5 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { provide } from '@angular/core';
+import { DynamicComponentLoader, provide } from '@angular/core';
 import {
   beforeEach,
   describe,
@@ -26,6 +26,7 @@ import { SkyTileComponent } from '../tile';
 
 describe('Tile dashboard service', () => {
   let tcb: TestComponentBuilder;
+  let dcl: DynamicComponentLoader;
   let dashboardService: SkyTileDashboardService;
   let dashboardConfig: SkyTileDashboardConfig;
   let mockDragulaService: DragulaService;
@@ -33,9 +34,16 @@ describe('Tile dashboard service', () => {
 
   beforeEach(
     inject(
-      [TestComponentBuilder],
-      (_tcb: TestComponentBuilder) => {
+      [
+        TestComponentBuilder,
+        DynamicComponentLoader
+      ],
+      (
+        _tcb: TestComponentBuilder,
+        _dcl: DynamicComponentLoader
+      ) => {
         tcb = _tcb;
+        dcl = _dcl;
         mockMediaQueryService = new MockSkyMediaQueryService();
 
         dashboardConfig = {
@@ -73,7 +81,11 @@ describe('Tile dashboard service', () => {
         };
 
         mockDragulaService = new MockDragulaService();
-        dashboardService = new SkyTileDashboardService(mockDragulaService, mockMediaQueryService);
+        dashboardService = new SkyTileDashboardService(
+          mockDragulaService,
+          mockMediaQueryService,
+          dcl
+        );
 
         dashboardService.init(dashboardConfig);
       }
@@ -148,7 +160,9 @@ describe('Tile dashboard service', () => {
 
     /* tslint:disable-next-line:no-unused-variable */
     let testDashboardService = new SkyTileDashboardService(
-      mockDragulaService, mockMediaQueryService
+      mockDragulaService,
+      mockMediaQueryService,
+      dcl
     );
 
     expect(setOptionsSpy).toHaveBeenCalled();
@@ -245,7 +259,7 @@ describe('Tile dashboard service', () => {
   );
 
   it(
-    'should move tiles to the appropriate columns for the current screen size on init',
+    'should initialize tiles in the appropriate columns for the current screen size',
     fakeAsync(() => {
       return tcb
         .overrideProviders(

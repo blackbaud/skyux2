@@ -47,7 +47,7 @@ describe('Tile dashboard component', () => {
       )
       .createAsync(TestComponent)
       .then((fixture: ComponentFixture<TestComponent>) => {
-        let newConfig = {
+        let newConfig: SkyTileDashboardConfig = {
           tiles: [
             {
               id: 'tile-1',
@@ -72,7 +72,19 @@ describe('Tile dashboard component', () => {
                   }
                 ]
               }
-            ]
+            ],
+            singleColumn: {
+              tiles: [
+                {
+                  id: 'tile-2',
+                  isCollapsed: false
+                },
+                {
+                  id: 'tile-1',
+                  isCollapsed: false
+                }
+              ]
+            }
           }
         };
 
@@ -128,7 +140,19 @@ describe('Tile dashboard component', () => {
                   }
                 ]
               }
-            ]
+            ],
+            singleColumn: {
+              tiles: [
+                {
+                  id: 'tile-2',
+                  isCollapsed: false
+                },
+                {
+                  id: 'tile-1',
+                  isCollapsed: false
+                }
+              ]
+            }
           }
         };
 
@@ -227,7 +251,19 @@ class TestComponent {
             }
           ]
         }
-      ]
+      ],
+      singleColumn: {
+        tiles: [
+          {
+            id: 'tile-2',
+            isCollapsed: false
+          },
+          {
+            id: 'tile-1',
+            isCollapsed: false
+          }
+        ]
+      }
     }
   };
 }
