@@ -191,7 +191,9 @@ module.exports = {
         include: helpers.root('src'),
         exclude: [
           /\.(e2e|spec)\.ts$/,
-          /node_modules/
+          /node_modules/,
+          /index\.ts/,
+          /fixtures/
         ]
       }
 
