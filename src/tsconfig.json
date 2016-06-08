@@ -7,8 +7,7 @@
     "sourceMap": true,
     "noEmitHelpers": true,
     "noImplicitAny": true,
-    "outDir": "../dist",
-    "inlineSources": true
+    "outDir": "../dist"
   },
   "compileOnSave": false,
   "buildOnSave": false
