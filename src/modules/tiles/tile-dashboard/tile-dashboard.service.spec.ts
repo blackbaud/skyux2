@@ -49,8 +49,7 @@ describe('Tile dashboard service', () => {
     inject(
       [
         TestComponentBuilder,
-        DynamicComponentLoader,
-        SkyTileDashboardService
+        DynamicComponentLoader
       ],
       (
         _tcb: TestComponentBuilder,
