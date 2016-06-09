@@ -1,5 +1,5 @@
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component, EventEmitter, provide } from '@angular/core';
+import { Component, provide } from '@angular/core';
 import {
   beforeEach,
   describe,
@@ -7,13 +7,14 @@ import {
   fakeAsync,
   inject,
   it,
-  tick
+  tick,
+  xit
 } from '@angular/core/testing';
 
-import { SkyTileDashboardConfig } from './tile-dashboard-config';
-import { SkyTileComponent } from '../tile/tile.component';
+import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
+import { MockTileDashboardService, Test1Component, Test2Component } from './fixtures';
 
 describe('Tile dashboard component', () => {
   let tcb: TestComponentBuilder;
@@ -43,21 +44,45 @@ describe('Tile dashboard component', () => {
       )
       .createAsync(TestComponent)
       .then((fixture: ComponentFixture<TestComponent>) => {
-        let newConfig = {
-          columns: [
+        let newConfig: SkyTileDashboardConfig = {
+          tiles: [
             {
+              id: 'tile-1',
+              componentType: Test1Component
+            },
+            {
+              id: 'tile-2',
+              componentType: Test2Component
+            }
+          ],
+          layout: {
+            multiColumn: [
+              {
+                tiles: [
+                  {
+                    id: 'tile-2',
+                    isCollapsed: false
+                  },
+                  {
+                    id: 'tile-1',
+                    isCollapsed: false
+                  }
+                ]
+              }
+            ],
+            singleColumn: {
               tiles: [
                 {
                   id: 'tile-2',
-                  component: Tile2Component
+                  isCollapsed: false
                 },
                 {
                   id: 'tile-1',
-                  component: Tile1Component
+                  isCollapsed: false
                 }
               ]
             }
-          ]
+          }
         };
 
         fixture.detectChanges();
@@ -87,38 +112,62 @@ describe('Tile dashboard component', () => {
       .then((fixture: ComponentFixture<TestComponent>) => {
         let cmp: TestComponent = fixture.componentInstance;
         let initialConfig = cmp.dashboardConfig;
-        let newConfig = {
-          columns: [
+        let newConfig: SkyTileDashboardConfig = {
+          tiles: [
             {
+              id: 'tile-1',
+              componentType: Test1Component
+            },
+            {
+              id: 'tile-2',
+              componentType: Test2Component
+            }
+          ],
+          layout: {
+            multiColumn: [
+              {
+                tiles: [
+                  {
+                    id: 'tile-2',
+                    isCollapsed: false
+                  },
+                  {
+                    id: 'tile-1',
+                    isCollapsed: false
+                  }
+                ]
+              }
+            ],
+            singleColumn: {
               tiles: [
                 {
                   id: 'tile-2',
-                  component: Tile2Component
+                  isCollapsed: false
                 },
                 {
                   id: 'tile-1',
-                  component: Tile1Component
+                  isCollapsed: false
                 }
               ]
             }
-          ]
+          }
         };
 
-        let setConfigSpy = spyOn(mockTileDashboardService, 'setConfig');
+        let initSpy = spyOn(mockTileDashboardService, 'init');
 
         fixture.detectChanges();
         tick();
 
-        expect(setConfigSpy).toHaveBeenCalledWith(initialConfig);
+        expect(initSpy).toHaveBeenCalledWith(initialConfig);
 
-        setConfigSpy.calls.reset();
+        initSpy.calls.reset();
 
         cmp.dashboardConfig = newConfig;
 
         fixture.detectChanges();
         tick();
 
-        expect(setConfigSpy).not.toHaveBeenCalled();
+        expect(initSpy).not.toHaveBeenCalled();
       }
     );
   }));
@@ -164,6 +213,30 @@ describe('Tile dashboard component', () => {
     () => {
     }
   );
+
+  it(
+    `should release resources when the component is destroyed`,
+    fakeAsync(() => {
+      let mockTileDashboardService = new MockTileDashboardService();
+
+      return tcb
+        .overrideProviders(
+          SkyTileDashboardComponent,
+          [
+            provide(SkyTileDashboardService, {useValue: mockTileDashboardService})
+          ]
+        )
+        .createAsync(TestComponent)
+        .then((fixture: ComponentFixture<TestComponent>) => {
+          let destroySpy = spyOn(mockTileDashboardService, 'destroy');
+
+          fixture.destroy();
+
+          expect(destroySpy).toHaveBeenCalled();
+        }
+      );
+    })
+  );
 });
 
 @Component({
@@ -175,83 +248,43 @@ describe('Tile dashboard component', () => {
 })
 class TestComponent {
   public dashboardConfig: SkyTileDashboardConfig = {
-    columns: [
+    tiles: [
       {
+        id: 'tile-1',
+        componentType: Test1Component
+      },
+      {
+        id: 'tile-2',
+        componentType: Test2Component
+      }
+    ],
+    layout: {
+      multiColumn: [
+        {
+          tiles: [
+            {
+              id: 'tile-1',
+              isCollapsed: false
+            },
+            {
+              id: 'tile-2',
+              isCollapsed: false
+            }
+          ]
+        }
+      ],
+      singleColumn: {
         tiles: [
           {
-            id: 'tile-1',
-            component: Tile1Component
+            id: 'tile-2',
+            isCollapsed: false
           },
           {
-            id: 'tile-2',
-            component: Tile2Component
+            id: 'tile-1',
+            isCollapsed: false
           }
         ]
       }
-    ]
+    }
   };
-}
-
-@Component({
-  selector: 'sky-test-tile-1',
-  template: `
-    <sky-tile (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>
-        Tile 1
-      </sky-tile-title>
-      <sky-tile-content>
-        Content 1
-      </sky-tile-content>
-    </sky-tile>
-  `,
-  directives: [
-    SkyTileComponent
-  ]
-})
-class Tile1Component {
-  public tileSettingsClick() {
-
-  }
-}
-
-@Component({
-  selector: 'sky-test-tile-2',
-  template: `
-    <sky-tile (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>
-        Tile 2
-      </sky-tile-title>
-      <sky-tile-content>
-        Content 2
-      </sky-tile-content>
-    </sky-tile>
-  `,
-  directives: [
-    SkyTileComponent
-  ]
-})
-class Tile2Component {
-  public tileSettingsClick() {
-
-  }
-}
-
-class MockTileDashboardService {
-  public bagId = 'id-1';
-
-  public ready = new EventEmitter<SkyTileDashboardConfig>();
-
-  public config: SkyTileDashboardConfig;
-
-  public configChange = new EventEmitter<SkyTileDashboardConfig>();
-
-  public setConfig(config: SkyTileDashboardConfig) {
-    this.config = config;
-  }
-
-  public addTileComponent() {
-  }
-
-  public tileIsCollapsed() {
-  }
 }

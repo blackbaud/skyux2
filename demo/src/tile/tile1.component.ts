@@ -4,7 +4,6 @@ import {
   SkyTileComponent,
   SkyTileContentSectionComponent
 } from '../../../src/core';
-import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'div.tile-1',

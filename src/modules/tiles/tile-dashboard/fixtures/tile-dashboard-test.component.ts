@@ -3,35 +3,32 @@ import { Component } from '@angular/core';
 import {
   SkyTileDashboardComponent,
   SkyTileDashboardConfig
-} from '../../../src/modules/tiles';
-import { Bootstrapper } from '../../bootstrapper';
-import { Tile1Component } from './tile1.component.ts';
-import { Tile2Component } from './tile2.component.ts';
+} from '../../../tiles';
+import { Test1Component } from './tile1-test.component.ts';
+import { Test2Component } from './tile2-test.component.ts';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html'),
+  template: `
+    <sky-tile-dashboard [(config)]="dashboardConfig"></sky-tile-dashboard>
+  `,
   directives: [
     SkyTileDashboardComponent
   ]
 })
-export class AppComponent {
+export class TileDashboardTestComponent {
   public dashboardConfig: SkyTileDashboardConfig;
-
-  public stringify(obj: any) {
-    return JSON.stringify(obj);
-  }
 
   constructor() {
     this.dashboardConfig = {
       tiles: [
         {
           id: 'tile1',
-          componentType: Tile1Component
+          componentType: Test1Component
         },
         {
           id: 'tile2',
-          componentType: Tile2Component
+          componentType: Test2Component
         }
       ],
       layout: {
@@ -69,5 +66,3 @@ export class AppComponent {
     };
   }
 }
-
-Bootstrapper.bootstrap(AppComponent);
