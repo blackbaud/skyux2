@@ -20,7 +20,7 @@ describe('Media query service', () => {
   beforeEach(() => {
     // Safari doesn't put MediaQueryList on the global window object so we
     // have to pick it off here.
-    mediaQueryListPrototype = Object.getPrototypeOf(matchMedia(''));
+    mediaQueryListPrototype = Object.getPrototypeOf(matchMedia(SkyMediaQueryService.sm));
   });
 
   it(
