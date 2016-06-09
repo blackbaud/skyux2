@@ -19,10 +19,6 @@ import { Test2Component } from './tile2-test.component.ts';
 export class TileDashboardTestComponent {
   public dashboardConfig: SkyTileDashboardConfig;
 
-  public stringify(obj: any) {
-    return JSON.stringify(obj);
-  }
-
   constructor() {
     this.dashboardConfig = {
       tiles: [

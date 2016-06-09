@@ -2,6 +2,7 @@ import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testin
 import { DynamicComponentLoader, provide } from '@angular/core';
 import {
   beforeEach,
+  beforeEachProviders,
   describe,
   expect,
   fakeAsync,
@@ -27,16 +28,29 @@ import { SkyTileComponent } from '../tile';
 describe('Tile dashboard service', () => {
   let tcb: TestComponentBuilder;
   let dcl: DynamicComponentLoader;
-  let dashboardService: SkyTileDashboardService;
   let dashboardConfig: SkyTileDashboardConfig;
   let mockDragulaService: DragulaService;
   let mockMediaQueryService: MockSkyMediaQueryService;
+
+  beforeEachProviders(
+    () => {
+      mockDragulaService = new MockDragulaService();
+      mockMediaQueryService = new MockSkyMediaQueryService();
+
+      return [
+        provide(DragulaService, {useValue: mockDragulaService}),
+        provide(SkyMediaQueryService, {useValue: mockMediaQueryService}),
+        provide(SkyTileDashboardService, {useClass: SkyTileDashboardService})
+      ];
+    }
+  );
 
   beforeEach(
     inject(
       [
         TestComponentBuilder,
-        DynamicComponentLoader
+        DynamicComponentLoader,
+        SkyTileDashboardService
       ],
       (
         _tcb: TestComponentBuilder,
@@ -44,7 +58,6 @@ describe('Tile dashboard service', () => {
       ) => {
         tcb = _tcb;
         dcl = _dcl;
-        mockMediaQueryService = new MockSkyMediaQueryService();
 
         dashboardConfig = {
           tiles: [
@@ -76,70 +89,112 @@ describe('Tile dashboard service', () => {
                 ]
               }
             ],
-            singleColumn: undefined
+            singleColumn: {
+              tiles: [
+                {
+                  id: 'tile-2',
+                  isCollapsed: true
+                },
+                {
+                  id: 'tile-1',
+                  isCollapsed: true
+                }
+              ]
+            }
           }
         };
-
-        mockDragulaService = new MockDragulaService();
-        dashboardService = new SkyTileDashboardService(
-          mockDragulaService,
-          mockMediaQueryService,
-          dcl
-        );
-
-        dashboardService.init(dashboardConfig);
       }
     )
   );
 
-  it('should emit the config change event when a tile is moved', fakeAsync(() => {
-    let configChanged = false;
-
-    dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
-      configChanged = true;
-
-      let expectedConfig: SkyTileDashboardConfig = {
-        tiles: [
-          {
-            id: 'tile-1',
-            componentType: Test1Component
-          },
-          {
-            id: 'tile-2',
-            componentType: Test2Component
-          }
+  it('should emit the config change event when a tile is moved',
+    fakeAsync(
+      inject(
+        [
+          SkyTileDashboardService
         ],
-        layout: {
-          multiColumn: [
-            {
-              tiles: [
-                {
-                  id: 'tile-2',
-                  isCollapsed: false
-                }
+        ((dashboardService: SkyTileDashboardService) => {
+          return tcb
+            .overrideProviders(
+              SkyTileDashboardComponent,
+              [
+                provide(SkyTileDashboardService, {useValue: dashboardService})
               ]
-            },
-            {
-              tiles: [
-                {
-                  id: 'tile-1',
-                  isCollapsed: false
+            )
+            .createAsync(TileDashboardTestComponent)
+            .then((fixture: ComponentFixture<TileDashboardTestComponent>) => {
+              let configChanged = false;
+
+              dashboardService.configChange.subscribe(
+                (config: SkyTileDashboardConfig) => {
+                  configChanged = true;
+
+                  let expectedConfig: SkyTileDashboardConfig = {
+                    tiles: [
+                      {
+                        id: 'tile1',
+                        componentType: Test1Component
+                      },
+                      {
+                        id: 'tile2',
+                        componentType: Test2Component
+                      }
+                    ],
+                    layout: {
+                      singleColumn: {
+                        tiles: [
+                          {
+                            id: 'tile2',
+                            isCollapsed: false
+                          },
+                          {
+                            id: 'tile1',
+                            isCollapsed: true
+                          }
+                        ]
+                      },
+                      multiColumn: [
+                        {
+                          tiles: []
+                        },
+                        {
+                          tiles: [
+                            {
+                              id: 'tile2',
+                              isCollapsed: false
+                            },
+                            {
+                              id: 'tile1',
+                              isCollapsed: true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  };
+
+                  expect(config).toEqual(expectedConfig);
                 }
-              ]
-            }
-          ],
-          singleColumn: undefined
-        }
-      };
+              );
 
-      expect(config).toEqual(expectedConfig);
-    });
+              fixture.detectChanges();
+              tick();
 
-    mockDragulaService.drop.emit({});
-    tick();
+              let el = fixture.nativeElement;
 
-    expect(configChanged).toBe(true);
-  }));
+              let columnEls = el.querySelectorAll('.sky-tile-dashboard-column');
+
+              columnEls[1].appendChild(columnEls[0].querySelector('sky-test-cmp'));
+
+              mockDragulaService.drop.emit({});
+              tick();
+
+              expect(configChanged).toBe(true);
+            });
+        })
+      )
+    )
+  );
 
   it('should set the tile\'s grab handle as the drag handle', fakeAsync(() => {
     let setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and.callFake(
@@ -168,85 +223,107 @@ describe('Tile dashboard service', () => {
     expect(setOptionsSpy).toHaveBeenCalled();
   }));
 
-  it('should raise a config change event when a tile is collapsed', fakeAsync(() => {
-    let configChanged = false;
+  it(
+    'should raise a config change event when a tile is collapsed',
+    fakeAsync(
+      inject(
+        [SkyTileDashboardService],
+        (dashboardService: SkyTileDashboardService) => {
+          let configChanged = false;
 
-    dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
-      configChanged = true;
+          dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
+            configChanged = true;
 
-      expect(config.layout.multiColumn[0].tiles[0].isCollapsed).toBe(true);
-    });
+            expect(config.layout.multiColumn[0].tiles[0].isCollapsed).toBe(true);
+          });
 
-    return tcb
-      .overrideProviders(
-        SkyTileComponent,
-        [
-          provide(SkyTileDashboardService, {useValue: dashboardService})
-        ]
+          dashboardService.init(dashboardConfig);
+
+          return tcb
+            .overrideProviders(
+              SkyTileComponent,
+              [
+                provide(SkyTileDashboardService, {useValue: dashboardService})
+              ]
+            )
+            .createAsync(Test1Component)
+            .then((fixture: ComponentFixture<Test1Component>) => {
+              let cmp: Test1Component = fixture.componentInstance;
+
+              fixture.detectChanges();
+
+              dashboardService.addTileComponent(
+                {
+                  id: 'tile-1',
+                  isCollapsed: false
+                },
+                fixture.componentRef
+              );
+
+              dashboardService.setTileCollapsed(
+                cmp.tile,
+                true
+              );
+
+              tick();
+
+              expect(configChanged).toBe(true);
+            });
+        }
       )
-      .createAsync(Test1Component)
-      .then((fixture: ComponentFixture<Test1Component>) => {
-        let cmp: Test1Component = fixture.componentInstance;
+    )
+  );
 
-        fixture.detectChanges();
+  it(
+    'should provide a way for a tile to know whether it is collapsed',
+    fakeAsync(
+      inject(
+        [SkyTileDashboardService],
+        (dashboardService: SkyTileDashboardService) => {
+          dashboardService.init(dashboardConfig);
 
-        dashboardService.addTileComponent(
-          {
-            id: 'tile-1',
-            isCollapsed: false
-          },
-          fixture.componentRef
-        );
+          return tcb
+            .overrideProviders(
+              SkyTileComponent,
+              [
+                provide(SkyTileDashboardService, {useValue: dashboardService})
+              ]
+            )
+            .createAsync(Test1Component)
+            .then((fixture: ComponentFixture<Test1Component>) => {
+              let cmp: Test1Component = fixture.componentInstance;
 
-        dashboardService.setTileCollapsed(
-          cmp.tile,
-          true
-        );
+              fixture.detectChanges();
 
-        tick();
+              dashboardService.addTileComponent(
+                {
+                  id: 'tile-1',
+                  isCollapsed: false
+                },
+                fixture.componentRef
+              );
 
-        expect(configChanged).toBe(true);
-      });
-  }));
+              expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(false);
 
-  it('should provide a way for a tile to know whether it is collapsed', fakeAsync(() => {
-    return tcb
-      .overrideProviders(
-        SkyTileComponent,
-        [
-          provide(SkyTileDashboardService, {useValue: dashboardService})
-        ]
+              dashboardService.setTileCollapsed(
+                cmp.tile,
+                true
+              );
+
+              tick();
+
+              expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
+            });
+        }
       )
-      .createAsync(Test1Component)
-      .then((fixture: ComponentFixture<Test1Component>) => {
-        let cmp: Test1Component = fixture.componentInstance;
-
-        fixture.detectChanges();
-
-        dashboardService.addTileComponent(
-          {
-            id: 'tile-1',
-            isCollapsed: false
-          },
-          fixture.componentRef
-        );
-
-        expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(false);
-
-        dashboardService.setTileCollapsed(
-          cmp.tile,
-          true
-        );
-
-        tick();
-
-        expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
-      });
-  }));
+    )
+  );
 
   it(
     'should provide a way to retrieve the component for the associated layout tile',
-    () => {
+    inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
+      dashboardService.init(dashboardConfig);
+
       let multiColumn = dashboardConfig.layout.multiColumn;
       let column1 = multiColumn[0];
       let column2 = multiColumn[1];
@@ -255,7 +332,7 @@ describe('Tile dashboard service', () => {
       expect(dashboardService.getTileComponentType(column2.tiles[0])).toBe(Test2Component);
 
       expect(dashboardService.getTileComponentType(undefined)).toBe(undefined);
-    }
+    })
   );
 
   it(
@@ -343,15 +420,63 @@ describe('Tile dashboard service', () => {
   );
 
   it(
-    'should sanity check for invalid tile when setting a tile to be collapsed',
+    'should return the expected config regardless of which column mode is active',
     fakeAsync(() => {
+      let localMockMediaQueryService = new MockSkyMediaQueryService();
+      let localMockDragulaService = new MockDragulaService();
+
+      return tcb
+        .overrideProviders(
+          SkyTileDashboardComponent,
+          [
+            provide(DragulaService, {useValue: localMockDragulaService}),
+            provide(SkyMediaQueryService, {useValue: localMockMediaQueryService})
+          ]
+        )
+        .createAsync(TileDashboardTestComponent)
+        .then((fixture: ComponentFixture<TileDashboardTestComponent>) => {
+          let cmp = fixture.componentInstance as TileDashboardTestComponent;
+
+          let expectedDashboardConfig = cmp.dashboardConfig;
+
+          fixture.detectChanges();
+          tick();
+
+          localMockMediaQueryService.fire({
+            matches: true
+          });
+
+          localMockDragulaService.drop.emit({});
+
+          fixture.detectChanges();
+          tick();
+
+          expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
+
+          localMockMediaQueryService.fire({
+            matches: false
+          });
+
+          localMockDragulaService.drop.emit({});
+
+          fixture.detectChanges();
+          tick();
+
+          expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
+        });
+    })
+  );
+
+  it(
+    'should sanity check for invalid tile when setting a tile to be collapsed',
+    inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
       dashboardService.setTileCollapsed(undefined, true);
     })
   );
 
   it(
     'should release resources when destroyed',
-    fakeAsync(() => {
+    inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
       let destroySpy = spyOn(mockMediaQueryService, 'destroy');
 
       dashboardService.destroy();

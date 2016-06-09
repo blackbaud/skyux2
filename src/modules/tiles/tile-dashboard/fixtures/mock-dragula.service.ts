@@ -31,7 +31,7 @@ export class MockDragulaService extends DragulaService {
               ] as any[];
             }
           }
-        ] as any[]
+        ]
       }
     };
   }
