@@ -29,7 +29,6 @@ export class SkyMediaQueryService {
   public init(query: string, listener: SkyMediaQueryListener) {
     this.listener = listener;
     this.mql = matchMedia(query);
-
     this.mql.addListener(this.matchMediaListener);
   }
 

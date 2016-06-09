@@ -1,4 +1,5 @@
 import {
+  beforeEach,
   beforeEachProviders,
   describe,
   expect,
@@ -10,15 +11,23 @@ import { SkyMediaQueryListenerArgs } from './media-query-listener-args';
 import { SkyMediaQueryService } from './media-query.service';
 
 describe('Media query service', () => {
+  let mediaQueryListPrototype: any;
+
   beforeEachProviders(() => [
     SkyMediaQueryService
   ]);
+
+  beforeEach(() => {
+    // Safari doesn't put MediaQueryList on the global window object so we
+    // have to pick it off here.
+    mediaQueryListPrototype = Object.getPrototypeOf(matchMedia(''));
+  });
 
   it(
     'should listen for media query breakpoints on init',
     inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
       let matchMediaSpy = spyOn(window, 'matchMedia').and.callThrough();
-      let addListenerSpy = spyOn(MediaQueryList.prototype, 'addListener');
+      let addListenerSpy = spyOn(mediaQueryListPrototype, 'addListener');
 
       mediaQueryService.init(
         SkyMediaQueryService.sm,
@@ -35,7 +44,7 @@ describe('Media query service', () => {
   it(
     'should stop listening for media query breakpoints on destroy',
     inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
-      let removeListenerSpy = spyOn(MediaQueryList.prototype, 'removeListener');
+      let removeListenerSpy = spyOn(mediaQueryListPrototype, 'removeListener');
 
       mediaQueryService.init(
         SkyMediaQueryService.sm,
@@ -62,7 +71,7 @@ describe('Media query service', () => {
 
       let matchMediaListener: Function;
 
-      spyOn(MediaQueryList.prototype, 'addListener')
+      spyOn(mediaQueryListPrototype, 'addListener')
         .and.callFake((serviceListener: Function) => {
           matchMediaListener = serviceListener;
         }
@@ -97,7 +106,7 @@ describe('Media query service', () => {
     inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
       let matchMediaListener: Function;
 
-      spyOn(MediaQueryList.prototype, 'addListener')
+      spyOn(mediaQueryListPrototype, 'addListener')
         .and.callFake((serviceListener: Function) => {
           matchMediaListener = serviceListener;
         }
