@@ -4,9 +4,7 @@
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
-    "inlineSources": true,
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "noEmitHelpers": true,
     "noImplicitAny": true
   },
