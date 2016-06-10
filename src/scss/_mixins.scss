@@ -39,3 +39,13 @@
       }
     }
 }
+
+@mixin sky-headline {
+  font: 400 $sky-alternate-font-size-sm $sky-font-family-narrow;
+  color: $sky-text-color;
+}
+
+@mixin sky-field-label {
+  font: 400 $sky-font-size-base $sky-font-family-base;
+  color: $sky-text-deemphasized-color;
+}

@@ -14,8 +14,6 @@ import { SkyAlertComponent } from './alert.component';
 import { SkyResources } from '../resources/resources';
 
 describe('Alert component', () => {
-  'use strict';
-
   let tcb: TestComponentBuilder;
 
   beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {

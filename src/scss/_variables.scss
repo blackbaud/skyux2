@@ -10,6 +10,7 @@ $sky-padding-3_4: floor(($sky-padding * 0.75)) !default;
 $sky-margin: 10px !default;
 $sky-margin-half: $sky-margin / 2 !default;
 $sky-margin-double: $sky-margin * 2 !default;
+$sky-margin-triple: $sky-margin * 3 !default;
 
 $sky-color-green: #1ab394 !default;
 $sky-color-blue: #1c84c6 !default;
@@ -32,7 +33,6 @@ $sky-font-size-xl: floor(($sky-font-size-base * 1.333)) !default; // ~16px
 $sky-font-size-lg: ceil(($sky-font-size-base * 1.07)) !default; // ~14px
 $sky-font-size-sm: ceil(($sky-font-size-base * 0.833)) !default; // ~10px
 
-
 $sky-alternate-font-size-xxxl: floor(($sky-font-size-base * 4)) !default; // ~48px
 $sky-alternate-font-size-xxl: floor(($sky-font-size-base * 3.5)) !default; // ~42px
 $sky-alternate-font-size-xl: floor(($sky-font-size-base * 2.333)) !default; // ~28px
@@ -40,7 +40,9 @@ $sky-alternate-font-size-lg: ceil(($sky-font-size-base * 2)) !default; // ~24px
 $sky-alternate-font-size-base: ceil(($sky-font-size-base * 1.833)) !default; // ~22px
 $sky-alternate-font-size-sm: ceil(($sky-font-size-base * 1.667)) !default; // ~20px
 
+$sky-text-color: #292a2b !default;
 $sky-selected-color: #eeeffb !default;
+$sky-text-deemphasized-color: #707374 !default;
 
 // begin transitions
 $sky-transition-time-short: 150ms !default;
