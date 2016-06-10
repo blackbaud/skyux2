@@ -1,0 +1,25 @@
+@import '../../scss/mixins';
+
+.sky-key-info {
+  display: inline-block;
+  margin-right: $sky-margin-triple;
+}
+
+.sky-key-info-value {
+  @include sky-headline();
+}
+
+.sky-key-info-label {
+  @include sky-field-label();
+}
+
+.sky-key-info-horizontal {
+  .sky-key-info-value,
+  .sky-key-info-label {
+      display: inline-block;
+  }
+
+  .sky-key-info-label {
+      margin-left: $sky-margin-half;
+  }
+}
