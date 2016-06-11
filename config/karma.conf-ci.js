@@ -4,6 +4,7 @@
 
 module.exports = function (config) {
   var testWebpackConfig = require('./webpack.test.js'),
+    remapIstanbul = require('remap-istanbul'),
     customLaunchers = {
       bs_windows_ie_11: {
         base: 'BrowserStack',
