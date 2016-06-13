@@ -140,7 +140,7 @@
     "webpack-dev-server": "1.14.1",
     "webpack-md5-hash": "0.0.5",
     "webpack-merge": "0.13.0",
-    "webpack-sourcemap-inline": "blackbaud-bobbyearl/webpack-sourcemap-inline"
+    "webpack-sourcemap-inline": "blackbaud-bobbyearl/source-map-inline-loader"
   },
   "repository": {
     "type": "git",

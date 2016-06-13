@@ -187,7 +187,7 @@ module.exports = {
        */
       {
         test: /\.(js|ts)$/,
-        loader: 'istanbul-instrumenter-loader!webpack-sourcemap-inline',
+        loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
         include: helpers.root('src'),
         exclude: [
           /\.(e2e|spec)\.ts$/,
