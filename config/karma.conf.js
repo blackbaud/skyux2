@@ -4,6 +4,7 @@
 
 module.exports = function (config) {
   var testWebpackConfig = require('./webpack.test.js');
+  var remapIstanbul = require('remap-istanbul');
 
   config.set({
 
@@ -44,12 +45,11 @@ module.exports = function (config) {
     coverageReporter: {
       dir: '../coverage/',
       reporters: [{
-        type: 'text-summary'
-      }, {
-        type: 'json'
-      }, {
         type: 'html'
-      }]
+      }],
+      _onWriteReport: function (collector) {
+        return remapIstanbul.remap(collector.getFinalCoverage());
+      }
     },
 
     // Webpack please don't spam the console when running in karma!
