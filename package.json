@@ -127,6 +127,7 @@
     "rimraf": "2.5.2",
     "sass-loader": "3.2.0",
     "source-map-loader": "0.1.5",
+    "source-map-inline-loader": "blackbaud-bobbyearl/source-map-inline-loader",
     "style-loader": "0.13.1",
     "ts-helpers": "1.1.1",
     "ts-node": "0.7.3",
@@ -139,8 +140,7 @@
     "webpack": "1.13.1",
     "webpack-dev-server": "1.14.1",
     "webpack-md5-hash": "0.0.5",
-    "webpack-merge": "0.13.0",
-    "webpack-sourcemap-inline": "blackbaud-bobbyearl/source-map-inline-loader"
+    "webpack-merge": "0.13.0"
   },
   "repository": {
     "type": "git",
