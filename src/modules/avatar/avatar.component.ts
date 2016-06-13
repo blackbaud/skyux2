@@ -1,13 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+
+import { SkyAvatarImageService } from './avatar-image.service';
 
 @Component({
   selector: 'sky-avatar',
   template: require('./avatar.component.html'),
-  styles: [require('./avatar.component.scss')]
+  styles: [require('./avatar.component.scss')],
+  providers: [SkyAvatarImageService]
 })
-export class SkyAvatarComponent {
+export class SkyAvatarComponent implements AfterViewInit {
   @Input()
-  public src: string;
+  public set src(value: string) {
+    this._src = value;
+    this.updateImage();
+  }
+
+  public get src(): string {
+    return this._src;
+  }
 
   public get name(): string {
     return this._name;
@@ -17,6 +27,14 @@ export class SkyAvatarComponent {
   public set name(value: string) {
     this._name = value;
   }
+
+  private viewInitialized: boolean;
+
+  private _src: string;
+
+  private _name: string;
+
+  constructor(private elementRef: ElementRef, private imageService: SkyAvatarImageService) { }
 
   public get initials(): string {
     let initials: string;
@@ -51,7 +69,16 @@ export class SkyAvatarComponent {
     return colorIndex;
   }
 
-  private _name: string;
+  public ngAfterViewInit() {
+    this.viewInitialized = true;
+    this.updateImage();
+  }
+
+  private updateImage() {
+    if (this.viewInitialized) {
+      this.imageService.updateImage(this.elementRef, this.src);
+    }
+  }
 }
 
 function getInitial(name: string): string {
