@@ -1,5 +1,13 @@
 <label class="sky-checkbox-wrapper">
-  <input type="checkbox" [ngModel]="selected" (ngModelChange)="updateSelected($event)" />
-  <span role="checkbox" class="sky-checkbox" tabindex="-1"></span>
+  <input type="checkbox" 
+        [id]="inputId"
+        [checked]="checked"
+        [disabled]="disabled"
+        [name]="name"
+        [tabIndex]="tabindex"
+        [attr.aria-label]="ariaLabel"
+        [attr.aria-labelledby]="ariaLabelledby"
+        (change)="onInteractionEvent($event)" />
+  <span class="sky-checkbox"></span>
   <ng-content select="sky-checkbox-label"></ng-content>
 </label>
