@@ -20,11 +20,13 @@ let nextId = 0;
  * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and ngControl.
  */
+// tslint:disable no-forward-ref
 const SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR = new Provider(
     NG_VALUE_ACCESSOR, {
       useExisting: forwardRef(() => SkyCheckboxComponent),
       multi: true
     });
+// tslint:enable
 
 // A simple change event emitted by the SkyCheckbox component.
 export class SkyCheckboxChange {
@@ -41,11 +43,17 @@ export class SkyCheckboxChange {
 })
 export class SkyCheckboxComponent implements AfterContentInit, ControlValueAccessor {
 
+  /**
+   * Hidden label for screen readers.
+   */
   @Input()
-  public ['aria-label']: string = '';
+  public label: string = '';
 
-  @Input('aria-labelledby')
-  public ariaLabelledby: string = undefined;
+  /**
+   * Id of label for the checkbox.
+   */
+  @Input()
+  public labelledBy: string;
 
   @Input()
   public id: string = `sky-checkbox-${++nextId}`;
@@ -110,7 +118,9 @@ export class SkyCheckboxComponent implements AfterContentInit, ControlValueAcces
   /**
    * Implemented as part of ControlValueAccessor.
    */
-  public registerOnTouched(fn: any) { }
+  public registerOnTouched(fn: any) {
+    this.onTouched = fn;
+  }
 
   /**
    * Event handler for checkbox input element.
@@ -125,6 +135,10 @@ export class SkyCheckboxComponent implements AfterContentInit, ControlValueAcces
     if (!this.disabled) {
       this._toggle();
     }
+  }
+
+  public onInputBlur() {
+    this.onTouched();
   }
 
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};

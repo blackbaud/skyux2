@@ -1,5 +1,20 @@
-<sky-checkbox [(ngModel)]="selected">
-  <sky-checkbox-label>Checkbox</sky-checkbox-label>
-</sky-checkbox>
-<br />
-Selected: {{selected}}
+<form #checkForm="ngForm">
+  <div>
+    <sky-checkbox ngControl="cb" [(ngModel)]="selected" #cb="ngForm">
+      <sky-checkbox-label>Checkbox</sky-checkbox-label>
+    </sky-checkbox>
+    <br />
+    Selected: {{selected}}
+    Touched: {{cb.touched}}
+    Pristine: {{cb.pristine}}
+  </div>
+
+  <div>
+
+    <sky-checkbox [checked]="selected2" (change)="selected2 = $event.checked">
+      <sky-checkbox-label>Checkbox 2</sky-checkbox-label>
+    </sky-checkbox>
+    <br />
+    Selected: {{selected2}}
+  </div>
+</form>

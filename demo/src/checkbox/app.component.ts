@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { SkyCheckboxComponent } from '../../../src/core';
 import { Bootstrapper } from '../../bootstrapper';
 
+import {NgForm} from '@angular/common';
+
 @Component({
   selector: 'sky-demo-app',
   template: require('./app.component.html'),
@@ -10,6 +12,7 @@ import { Bootstrapper } from '../../bootstrapper';
 })
 export class AppComponent {
   public selected = false;
+  public selected2 = false;
 }
 
 Bootstrapper.bootstrap(AppComponent);
