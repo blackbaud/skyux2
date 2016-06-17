@@ -18,7 +18,7 @@
     "lint": "tslint 'src/**/*.ts'",
     "test": "npm run test:base -- config/karma/local.karma.conf.js",
     "test:base": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
-    "test:ci": "npm run test:base -- config/karma/ci.karma.conf-ci.js",
+    "test:ci": "npm run test:base -- config/karma/ci.karma.conf.js",
     "postinstall": "typings -- install",
     "postversion": "git push && git push --tags",
     "prebuild": "npm run clean",
