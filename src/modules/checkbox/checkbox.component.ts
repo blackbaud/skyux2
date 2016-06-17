@@ -6,8 +6,7 @@ import {
     Input,
     Output,
     Provider,
-    forwardRef,
-    AfterContentInit
+    forwardRef
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 
