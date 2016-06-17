@@ -71,7 +71,6 @@ describe('Checkbox component', () => {
 
       fixture.whenStable().then(() => {
         fixture.detectChanges();
-        console.log('checking stuff');
         expect(checkboxInstance.checked).toBe(true);
         expect(testComponent.isChecked).toBe(true);
 
@@ -79,7 +78,6 @@ describe('Checkbox component', () => {
 
         fixture.whenStable().then(() => {
           fixture.detectChanges();
-          console.log('checking stuff 2');
 
           expect(checkboxInstance.checked).toBe(false);
           expect(testComponent.isChecked).toBe(false);
@@ -110,10 +108,9 @@ describe('Checkbox component', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      inputElement.dispatchEvent(new Event('change'));
+      inputElement.dispatchEvent(new CustomEvent('change'));
       fixture.detectChanges();
       expect(checkboxInstance.checked).toBe(false);
-
       labelElement.click();
       expect(checkboxInstance.checked).toBe(false);
     });
@@ -320,14 +317,13 @@ describe('Checkbox component', () => {
 
       fixture.whenStable().then(() => {
         fixture.detectChanges();
-        console.log(fixture.isStable());
 
         expect(ngControl.valid).toBe(true);
         expect(ngControl.pristine).toBe(false);
         expect(ngControl.touched).toBe(false);
         expect(testComponent.isGood).toBe(true);
 
-        inputElement.blur();
+        inputElement.dispatchEvent(new CustomEvent('blur'));
         expect(ngControl.touched).toBe(true);
       });
 
@@ -372,7 +368,6 @@ class SingleCheckboxComponent {
   public isDisabled: boolean = false;
 
   public checkboxChange($event: any) {
-    console.log('in change');
     this.isChecked = $event.checked;
   }
 }
