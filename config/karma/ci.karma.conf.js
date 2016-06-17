@@ -1,7 +1,7 @@
 module.exports = function (config) {
   'use strict';
 
-  require('shared.karma.conf')(config);
+  require('./shared.karma.conf')(config);
 
   let customLaunchers = {
       bs_windows_ie_11: {

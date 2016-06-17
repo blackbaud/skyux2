@@ -9,7 +9,7 @@ module.exports = function (config) {
 
   config.set({
     basePath: '',
-    frameworks: ['jasmine', 'vision'],
+    frameworks: ['jasmine'],
     exclude: [],
     files: [{
       pattern: '../utils/spec-bundle.js',
