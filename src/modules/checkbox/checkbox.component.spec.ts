@@ -22,6 +22,12 @@ describe('Checkbox component', () => {
     builder = tcb;
   }));
 
+  function createEvent(eventName: string) {
+    let evt = document.createEvent('CustomEvent');
+    evt.initEvent(eventName, false, false);
+    return evt;
+  }
+
   describe('basic behaviors', () => {
     let checkboxDebugElement: DebugElement;
     let checkboxNativeElement: HTMLElement;
@@ -108,7 +114,7 @@ describe('Checkbox component', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      inputElement.dispatchEvent(new CustomEvent('change'));
+      inputElement.dispatchEvent(createEvent('change'));
       fixture.detectChanges();
       expect(checkboxInstance.checked).toBe(false);
       labelElement.click();
@@ -323,7 +329,7 @@ describe('Checkbox component', () => {
         expect(ngControl.touched).toBe(false);
         expect(testComponent.isGood).toBe(true);
 
-        inputElement.dispatchEvent(new CustomEvent('blur'));
+        inputElement.dispatchEvent(createEvent('blur'));
         expect(ngControl.touched).toBe(true);
       });
 
