@@ -6,7 +6,6 @@ import {
     inject,
     async,
     fakeAsync,
-    flushMicrotasks,
     tick
 } from '@angular/core/testing';
 import {FORM_DIRECTIVES, NgModel, NgControl} from '@angular/common';
