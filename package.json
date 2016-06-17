@@ -69,7 +69,6 @@
     "remap-istanbul": "devCrossNet/remap-istanbul",
     "rimraf": "2.5.2",
     "sass-loader": "3.2.0",
-    "selenium-webdriver": "2.53.2",
     "source-map-inline-loader": "blackbaud-bobbyearl/source-map-inline-loader",
     "source-map-loader": "0.1.5",
     "style-loader": "0.13.1",
