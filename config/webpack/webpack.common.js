@@ -3,7 +3,7 @@
  */
 
 var webpack = require('webpack');
-var helpers = require('./helpers');
+var helpers = require('../utils/helpers');
 
 /*
  * Webpack Plugins
