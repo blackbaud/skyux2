@@ -41,7 +41,7 @@ export class SkyCheckboxChange {
   providers: [SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyCheckboxComponent implements AfterContentInit, ControlValueAccessor {
+export class SkyCheckboxComponent implements ControlValueAccessor {
 
   /**
    * Hidden label for screen readers.
@@ -70,8 +70,6 @@ export class SkyCheckboxComponent implements AfterContentInit, ControlValueAcces
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
-  private _isInitialized: boolean = false;
-
   private _checked: boolean = false;
 
   public get inputId(): string {
@@ -90,15 +88,8 @@ export class SkyCheckboxComponent implements AfterContentInit, ControlValueAcces
     if (checked !== this.checked) {
       this._checked = checked;
 
-      // Only fire a change event if this isn't the first time the checked property is ever set.
-      if (this._isInitialized) {
-        this._emitChangeEvent();
-      }
+      this._emitChangeEvent();
     }
-  }
-
-  public ngAfterContentInit() {
-    this._isInitialized = true;
   }
 
   /**

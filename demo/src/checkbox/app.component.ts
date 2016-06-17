@@ -12,7 +12,7 @@ import {NgForm} from '@angular/common';
 })
 export class AppComponent {
   public selected = false;
-  public selected2 = false;
+  public selected2 = true;
 }
 
 Bootstrapper.bootstrap(AppComponent);
