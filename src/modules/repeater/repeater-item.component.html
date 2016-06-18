@@ -28,7 +28,7 @@
         </sky-chevron>
       </div>
     </header>
-    <div class="sky-repeater-item-content">
+    <div class="sky-repeater-item-content" @slide="isExpanded ? 'down' : 'up'">
       <ng-content select="sky-repeater-item-content"></ng-content>
     </div>
   </div>

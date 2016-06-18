@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 
-import { SkySlideService } from '../animation/slide.service';
+import slideAnimation from '../animation/slide';
 import { SkyChevronComponent } from '../chevron/chevron.component';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
@@ -11,7 +11,7 @@ import { SkyLogService } from '../log/log.service';
   template: require('./repeater-item.component.html'),
   directives: [SkyChevronComponent],
   providers: [SkyLogService],
-  viewProviders: [SkySlideService]
+  animations: [slideAnimation]
 })
 export class SkyRepeaterItemComponent implements AfterViewInit {
   public get isExpanded(): boolean {
@@ -44,7 +44,6 @@ export class SkyRepeaterItemComponent implements AfterViewInit {
   constructor(
     private repeaterService: SkyRepeaterService,
     private elementRef: ElementRef,
-    private slideService: SkySlideService,
     private logService: SkyLogService
   ) {
 
@@ -83,8 +82,8 @@ export class SkyRepeaterItemComponent implements AfterViewInit {
   }
 
   private slideForExpanded(animate: boolean) {
-    let direction = this.isExpanded ? 'down' : 'up';
-    this.slideService.slide(this.elementRef, '.sky-repeater-item-content', direction, animate);
+    // let direction = this.isExpanded ? 'down' : 'up';
+    // this.slideService.slide(this.elementRef, '.sky-repeater-item-content', direction, animate);
   }
 }
 
