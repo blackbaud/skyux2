@@ -41,6 +41,8 @@ export class SkyRepeaterComponent implements AfterContentInit {
         }
       }
     });
+
+    this.updateForExpandMode();
   }
 
   public isCollapsible(): boolean {
@@ -48,12 +50,6 @@ export class SkyRepeaterComponent implements AfterContentInit {
   }
 
   public ngAfterContentInit() {
-    // HACK: Have to use setTimeout() here to avoid error described in this issue:
-    // https://github.com/angular/angular/issues/6005
-    setTimeout(() => {
-      this.updateForExpandMode();
-    }, 0);
-
     this.items.changes.subscribe(() => {
       this.updateForExpandMode();
     });
