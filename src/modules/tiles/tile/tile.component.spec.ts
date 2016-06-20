@@ -4,10 +4,8 @@ import {
   beforeEach,
   describe,
   expect,
-  fakeAsync,
   inject,
   it,
-  tick,
   xit
 } from '@angular/core/testing';
 
@@ -112,7 +110,7 @@ describe('Tile component', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile dashboard when the tile is collapsed', fakeAsync(() => {
+  it('should notify the tile dashboard when the tile is collapsed', () => {
     let mockDashboardService = new MockSkyTileDashboardService();
 
     return tcb
@@ -139,12 +137,11 @@ describe('Tile component', () => {
         chevronEl.click();
 
         fixture.detectChanges();
-        tick();
 
         expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
       }
     );
-  }));
+  });
 
   xit('should notify the tile that repaint is required when the tile is expanded', () => {
     expect(false).toBe(true);
@@ -205,7 +202,7 @@ describe('Tile component', () => {
       );
     });
 
-    it('should call the specified callback when clicked', fakeAsync(() => {
+    it('should call the specified callback when clicked', () => {
       return tcb
         .createAsync(TestComponent)
         .then((fixture: ComponentFixture<TestComponent>) => {
@@ -217,13 +214,10 @@ describe('Tile component', () => {
 
           el.querySelector('.sky-tile-settings').click();
 
-          fixture.detectChanges();
-          tick();
-
           expect(tileSettingsClickSpy).toHaveBeenCalled();
         }
       );
-    }));
+    });
 
     it('should not collapse the tile when clicked', () => {
       return tcb
