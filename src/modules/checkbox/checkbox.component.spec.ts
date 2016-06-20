@@ -4,10 +4,8 @@ import {
   beforeEach,
   describe,
   expect,
-  fakeAsync,
   inject,
-  it,
-  tick
+  it
 } from '@angular/core/testing';
 
 import { SkyCheckboxComponent } from './checkbox.component';
@@ -24,7 +22,7 @@ describe('Checkbox component', () => {
 
       it(
         'should emit the selectedChange event when the user clicks the checkbox',
-        fakeAsync(() => {
+        () => {
           let html = `
             <sky-checkbox [(selected)]="selected">
               <sky-checkbox-label>Checkbox</sky-checkbox-label>
@@ -43,12 +41,11 @@ describe('Checkbox component', () => {
               el.querySelector('.sky-checkbox-wrapper').click();
 
               fixture.detectChanges();
-              tick();
 
               expect(cmp.selected).toBe(true);
             });
         }
-      ));
+      );
     });
 });
 

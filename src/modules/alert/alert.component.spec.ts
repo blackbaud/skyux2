@@ -4,10 +4,8 @@ import {
   beforeEach,
   describe,
   expect,
-  fakeAsync,
   inject,
-  it,
-  tick
+  it
 } from '@angular/core/testing';
 
 import { SkyAlertComponent } from './alert.component';
@@ -43,7 +41,7 @@ describe('Alert component', () => {
       });
   });
 
-  it('should be hidden when the close button is clicked', fakeAsync(() => {
+  it('should be hidden when the close button is clicked', () => {
     tcb.createAsync(TestComponent)
       .then((fixture: ComponentFixture<TestComponent>) => {
         let cmp = fixture.componentInstance as TestComponent;
@@ -55,13 +53,10 @@ describe('Alert component', () => {
 
         el.querySelector('.sky-alert-close').click();
 
-        fixture.detectChanges();
-        tick();
-
         expect(el.querySelector('.sky-alert').attributes.hidden).not.toBeNull();
         expect(cmp.closed).toBe(true);
       });
-  }));
+  });
 
   it('should allow the screen reader text for the close button to be localizable', () => {
     return tcb.createAsync(TestComponent)
