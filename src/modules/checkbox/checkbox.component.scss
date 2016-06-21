@@ -22,9 +22,14 @@
     font-size: 14px;
 }
 
+.sky-checkbox-wrapper input:hover + .sky-checkbox {
+    border: 2px solid $sky-color-blue;
+}
+
 .sky-checkbox-wrapper input:checked + .sky-checkbox {
     background-color: $sky-color-blue;
     border-color: $sky-color-blue;
+    border-width: 1px;
 
     &:before {
         color: $sky-color-white;
