@@ -2,7 +2,7 @@
  * @author: @AngularClass
  */
 
-var helpers = require('./helpers');
+var helpers = require('../utils/helpers');
 var webpackMerge = require('webpack-merge'); // used to merge webpack configs
 var commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 var demoConfig = require('./webpack.demo.js');
