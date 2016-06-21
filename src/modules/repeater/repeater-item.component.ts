@@ -30,10 +30,12 @@ export class SkyRepeaterItemComponent {
   }
 
   public set isCollapsible(value: boolean) {
-    this._isCollapsible = value;
+    if (this._isCollapsible !== value) {
+      this._isCollapsible = value;
 
-    if (!this._isCollapsible) {
-      this.updateForExpanded(true, false);
+      if (!this._isCollapsible) {
+        this.updateForExpanded(true, false);
+      }
     }
   }
 
@@ -66,10 +68,12 @@ export class SkyRepeaterItemComponent {
         will have no effect.`
       );
     } else {
-      this._isExpanded = value;
+      if (this._isExpanded !== value) {
+        this._isExpanded = value;
 
-      this.repeaterService.onItemCollapseStateChange(this);
-      this.slideForExpanded(animate);
+        this.repeaterService.onItemCollapseStateChange(this);
+        this.slideForExpanded(animate);
+      }
     }
   }
 
