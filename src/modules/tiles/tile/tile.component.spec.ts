@@ -4,15 +4,12 @@ import {
   beforeEach,
   describe,
   expect,
-  fakeAsync,
   inject,
   it,
-  tick,
   xit
 } from '@angular/core/testing';
 
 import { TestComponent } from './fixtures';
-import { SkySlideService } from '../../animation/slide.service';
 import { SkyTileComponent } from './tile.component';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 import { MockSkyTileDashboardService } from './fixtures';
@@ -89,38 +86,6 @@ describe('Tile component', () => {
     );
   });
 
-  it('should collapse without animation when initialized with isCollapsed = true', () => {
-    let mockSlideService = {
-      slide() {
-
-      }
-    };
-
-    let slideSpy = spyOn(mockSlideService, 'slide');
-
-    return tcb
-      .overrideViewProviders(
-        SkyTileComponent,
-        [
-          provide(SkySlideService, {useValue: mockSlideService})
-        ]
-      )
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        fixture.componentInstance.tileIsCollapsed = true;
-
-        fixture.detectChanges();
-
-        expect(slideSpy).toHaveBeenCalledWith(
-          jasmine.any(Object),
-          '.sky-tile-content',
-          'up',
-          false
-        );
-      }
-    );
-  });
-
   it('should collapse/expand when the isCollapsed value changes', () => {
     return tcb
       .createAsync(TestComponent)
@@ -145,7 +110,7 @@ describe('Tile component', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile dashboard when the tile is collapsed', fakeAsync(() => {
+  it('should notify the tile dashboard when the tile is collapsed', () => {
     let mockDashboardService = new MockSkyTileDashboardService();
 
     return tcb
@@ -172,12 +137,11 @@ describe('Tile component', () => {
         chevronEl.click();
 
         fixture.detectChanges();
-        tick();
 
         expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
       }
     );
-  }));
+  });
 
   xit('should notify the tile that repaint is required when the tile is expanded', () => {
     expect(false).toBe(true);
@@ -238,7 +202,7 @@ describe('Tile component', () => {
       );
     });
 
-    it('should call the specified callback when clicked', fakeAsync(() => {
+    it('should call the specified callback when clicked', () => {
       return tcb
         .createAsync(TestComponent)
         .then((fixture: ComponentFixture<TestComponent>) => {
@@ -250,13 +214,10 @@ describe('Tile component', () => {
 
           el.querySelector('.sky-tile-settings').click();
 
-          fixture.detectChanges();
-          tick();
-
           expect(tileSettingsClickSpy).toHaveBeenCalled();
         }
       );
-    }));
+    });
 
     it('should not collapse the tile when clicked', () => {
       return tcb

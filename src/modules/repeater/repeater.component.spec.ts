@@ -10,7 +10,6 @@ import {
   tick
 } from '@angular/core/testing';
 
-import { SkySlideService } from '../animation/slide.service';
 import { SkyRepeaterComponent } from './repeater.component';
 import { SkyRepeaterItemComponent } from './repeater-item.component';
 import { SkyLogService } from '../log/log.service';
@@ -26,46 +25,6 @@ describe('Repeater item component', () => {
   beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
     tcb = _tcb;
   }));
-
-  it(
-    'should enable expand/collapse animation only after an item is initially rendered',
-    fakeAsync(() => {
-      let mockSlideService = {
-        slide: function () {}
-      };
-
-      let slideSpy = spyOn(mockSlideService, 'slide');
-
-      return tcb
-        .overrideViewProviders(
-          SkyRepeaterItemComponent,
-          [
-            provide(SkySlideService, {useValue: mockSlideService})
-          ]
-        )
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
-          let expectedArgs = [
-            jasmine.any(Object),
-            jasmine.any(String),
-            jasmine.any(String),
-            false
-          ];
-
-          cmp.removeLastItem = true;
-
-          fixture.detectChanges();
-
-          tick();
-
-          let slideSpyCallCount = slideSpy.calls.count();
-
-          expect(slideSpy.calls.argsFor(slideSpyCallCount - 1)).toEqual(expectedArgs);
-          expect(slideSpy.calls.argsFor(slideSpyCallCount - 2)).toEqual(expectedArgs);
-        });
-    })
-  );
 
   it(
     'should default expand mode to "none" when no expand mode is specified',

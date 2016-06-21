@@ -1,12 +1,12 @@
 import {
-    it,
-    describe,
-    expect,
-    beforeEach,
-    inject,
-    async,
-    fakeAsync,
-    tick
+  it,
+  describe,
+  expect,
+  beforeEach,
+  inject,
+  async,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 import {FORM_DIRECTIVES, NgModel, NgControl} from '@angular/common';
 import {TestComponentBuilder, ComponentFixture} from '@angular/compiler/testing';

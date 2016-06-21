@@ -16,16 +16,17 @@ describe('Chevron component', () => {
       tcb = _tcb;
     }));
 
-    it('should change direction when the user clicks the chevron', (done: Function) => {
+    it('should change direction when the user clicks the chevron', () => {
       tcb.createAsync(SkyChevronComponent)
         .then((fixture: ComponentFixture<SkyChevronComponent>) => {
-          let clickAgain = true,
-            cmp = fixture.componentInstance as SkyChevronComponent,
-            el = fixture.nativeElement,
-            expectedDirection: string;
+          let cmp = fixture.componentInstance as SkyChevronComponent;
+          let el = fixture.nativeElement;
+          let expectedDirection: string;
 
           function validateDirection() {
             let chevronEl = el.querySelector('.sky-chevron');
+
+            fixture.detectChanges();
 
             expect(cmp.direction).toBe(expectedDirection);
             expect(chevronEl).toHaveCssClass('sky-chevron-' + expectedDirection);
@@ -33,7 +34,6 @@ describe('Chevron component', () => {
 
           function clickChevron() {
             el.querySelector('.sky-chevron').click();
-            fixture.detectChanges();
           }
 
           fixture.detectChanges();
@@ -43,15 +43,6 @@ describe('Chevron component', () => {
 
           cmp.directionChange.subscribe((direction: string) => {
             validateDirection();
-
-            if (clickAgain) {
-              expectedDirection = 'up';
-              clickChevron();
-
-              clickAgain = false;
-            } else {
-              done();
-            }
           });
 
           expectedDirection = 'down';

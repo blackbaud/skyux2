@@ -4,10 +4,8 @@ import {
   beforeEach,
   describe,
   expect,
-  fakeAsync,
   inject,
-  it,
-  tick
+  it
 } from '@angular/core/testing';
 
 import { SkyCardComponent } from './card.component';
@@ -94,7 +92,7 @@ describe('Card component', () => {
       });
   });
 
-  it('should allow the user to click the entire card to select the card', fakeAsync(() => {
+  it('should allow the user to click the entire card to select the card', () => {
     let html = `
       <sky-card
           [selectable]="showCheckbox"
@@ -119,13 +117,12 @@ describe('Card component', () => {
         el.querySelector('.sky-card-content').click();
 
         fixture.detectChanges();
-        tick();
 
         validateCardSelected(cmp, el, true);
       });
-  }));
+  });
 
-  it('should not allow clicking the card to select it when it is not selectable', fakeAsync(() => {
+  it('should not allow clicking the card to select it when it is not selectable', () => {
     let html = `
       <sky-card
           [selectable]="showCheckbox"
@@ -151,11 +148,10 @@ describe('Card component', () => {
         el.querySelector('.sky-card-content').click();
 
         fixture.detectChanges();
-        tick();
 
         validateCardSelected(cmp, el, false);
       });
-  }));
+  });
 });
 
 @Component({
