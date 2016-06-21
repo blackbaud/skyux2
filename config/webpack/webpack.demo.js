@@ -1,5 +1,5 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var helpers = require('./helpers');
+var helpers = require('../utils/helpers');
 var glob = require('glob');
 var path = require('path');
 var plugins = [];

@@ -2,7 +2,7 @@
  * @author: @AngularClass
  */
 
-var helpers = require('./helpers');
+var helpers = require('../utils/helpers');
 
 /**
  * Webpack Plugins
