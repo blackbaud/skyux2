@@ -9,7 +9,7 @@
 
   module.exports = {
     specs: [
-        'src/modules/**/*.visual-spec.ts'
+        'src/modules/**/*.visual-spec.js'
     ],
     baseUrl: 'http://localhost:3000/',
     framework: 'jasmine',

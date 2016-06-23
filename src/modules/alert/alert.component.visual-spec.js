@@ -3,7 +3,7 @@ describe('Alert', () => {
 
   it('should match previous alert screenshot', (done) => {
 
-    const url = '/alert/fixtures/alert.component.visual-fixture.html';
+    const url = 'alert/fixtures/alert.component.visual-fixture.html';
     let result = browser.url(url);
 
     browser.options.compare({

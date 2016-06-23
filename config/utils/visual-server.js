@@ -25,6 +25,8 @@
     let content = layout.replace('{# PAGE_HTML #}', html);
     content = content.replace('{# PAGE_JS #}', js);
 
+    console.log(page, clean(page));
+
     return new WebpackHtmlPlugin({
       hash: true,
       filename:  clean(page),
@@ -47,12 +49,6 @@
 
   // Create express server expose a landing page
   let app = express();
-  app.use('/', (req, res) => {
-    fixtures.forEach((path) => {
-      const url = clean(path);
-      res.send('<a href="' + url + '">' + url + '</a>');
-    });
-  });
 
   // Start the webserver
   const start = () => {
@@ -60,6 +56,13 @@
     const deferred = Promise.defer();
 
     app.use(webpackMiddleware(webpackCompiler, {}));
+    app.use(express.static('dist'));
+    app.use('/', (req, res) => {
+      fixtures.forEach((path) => {
+        const url = clean(path);
+        res.send('<a href="' + url + '">' + url + '</a>');
+      });
+    });
     app.listen(3000, () => {
       selenium.install({}, (errInstall) => {
         if (hasNoError(errInstall)) {
@@ -83,6 +86,13 @@
       selenium.child.kill();
     }
   };
+
+  // Support running the server for debugging
+  process.argv.forEach(arg => {
+    if (arg === 'start') {
+      start();
+    }
+  });
 
   module.exports = {
     start: start,
