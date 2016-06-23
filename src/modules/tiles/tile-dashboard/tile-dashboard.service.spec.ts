@@ -195,7 +195,7 @@ describe('Tile dashboard service', () => {
     )
   );
 
-  it('should set the tile\'s grab handle as the drag handle', fakeAsync(() => {
+  it('should set the tile\'s grab handle as the drag handle', () => {
     let setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and.callFake(
       (bagId: any, options: any) => {
         let result = options.moves(
@@ -220,101 +220,93 @@ describe('Tile dashboard service', () => {
     );
 
     expect(setOptionsSpy).toHaveBeenCalled();
-  }));
+  });
 
   it(
     'should raise a config change event when a tile is collapsed',
-    fakeAsync(
-      inject(
-        [SkyTileDashboardService],
-        (dashboardService: SkyTileDashboardService) => {
-          let configChanged = false;
+    inject(
+      [SkyTileDashboardService],
+      (dashboardService: SkyTileDashboardService) => {
+        let configChanged = false;
 
-          dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
-            configChanged = true;
+        dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
+          configChanged = true;
 
-            expect(config.layout.multiColumn[0].tiles[0].isCollapsed).toBe(true);
+          expect(config.layout.multiColumn[0].tiles[0].isCollapsed).toBe(true);
+        });
+
+        dashboardService.init(dashboardConfig);
+
+        return tcb
+          .overrideProviders(
+            SkyTileComponent,
+            [
+              provide(SkyTileDashboardService, {useValue: dashboardService})
+            ]
+          )
+          .createAsync(Test1Component)
+          .then((fixture: ComponentFixture<Test1Component>) => {
+            let cmp: Test1Component = fixture.componentInstance;
+
+            fixture.detectChanges();
+
+            dashboardService.addTileComponent(
+              {
+                id: 'tile-1',
+                isCollapsed: false
+              },
+              fixture.componentRef
+            );
+
+            dashboardService.setTileCollapsed(
+              cmp.tile,
+              true
+            );
+
+            expect(configChanged).toBe(true);
           });
-
-          dashboardService.init(dashboardConfig);
-
-          return tcb
-            .overrideProviders(
-              SkyTileComponent,
-              [
-                provide(SkyTileDashboardService, {useValue: dashboardService})
-              ]
-            )
-            .createAsync(Test1Component)
-            .then((fixture: ComponentFixture<Test1Component>) => {
-              let cmp: Test1Component = fixture.componentInstance;
-
-              fixture.detectChanges();
-
-              dashboardService.addTileComponent(
-                {
-                  id: 'tile-1',
-                  isCollapsed: false
-                },
-                fixture.componentRef
-              );
-
-              dashboardService.setTileCollapsed(
-                cmp.tile,
-                true
-              );
-
-              tick();
-
-              expect(configChanged).toBe(true);
-            });
-        }
-      )
+      }
     )
   );
 
   it(
     'should provide a way for a tile to know whether it is collapsed',
-    fakeAsync(
-      inject(
-        [SkyTileDashboardService],
-        (dashboardService: SkyTileDashboardService) => {
-          dashboardService.init(dashboardConfig);
+    inject(
+      [SkyTileDashboardService],
+      (dashboardService: SkyTileDashboardService) => {
+        dashboardService.init(dashboardConfig);
 
-          return tcb
-            .overrideProviders(
-              SkyTileComponent,
-              [
-                provide(SkyTileDashboardService, {useValue: dashboardService})
-              ]
-            )
-            .createAsync(Test1Component)
-            .then((fixture: ComponentFixture<Test1Component>) => {
-              let cmp: Test1Component = fixture.componentInstance;
+        return tcb
+          .overrideProviders(
+            SkyTileComponent,
+            [
+              provide(SkyTileDashboardService, {useValue: dashboardService})
+            ]
+          )
+          .createAsync(Test1Component)
+          .then((fixture: ComponentFixture<Test1Component>) => {
+            let cmp: Test1Component = fixture.componentInstance;
 
-              fixture.detectChanges();
+            fixture.detectChanges();
 
-              dashboardService.addTileComponent(
-                {
-                  id: 'tile-1',
-                  isCollapsed: false
-                },
-                fixture.componentRef
-              );
+            dashboardService.addTileComponent(
+              {
+                id: 'tile-1',
+                isCollapsed: false
+              },
+              fixture.componentRef
+            );
 
-              expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(false);
+            expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(false);
 
-              dashboardService.setTileCollapsed(
-                cmp.tile,
-                true
-              );
+            dashboardService.setTileCollapsed(
+              cmp.tile,
+              true
+            );
 
-              tick();
-
-              expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
-            });
-        }
-      )
+            expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
+          });
+      }
     )
   );
 

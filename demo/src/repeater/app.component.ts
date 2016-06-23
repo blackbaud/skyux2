@@ -40,6 +40,10 @@ export class AppComponent {
       statusType: 'info'
     });
   }
+
+  public removeItem() {
+    this.items.pop();
+  }
 }
 
 Bootstrapper.bootstrap(AppComponent);

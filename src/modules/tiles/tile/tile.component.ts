@@ -8,7 +8,7 @@ import {
   Output
 } from '@angular/core';
 
-import { SkySlideService } from '../../animation/slide.service';
+import slideAnimation from '../../animation/slide';
 import { SkyChevronComponent } from '../../chevron/chevron.component';
 import { SkyResourcesPipe } from '../../resources/resources.pipe';
 import { SkyTileDashboardService } from './../tile-dashboard';
@@ -19,7 +19,7 @@ import { SkyTileDashboardService } from './../tile-dashboard';
   template: require('./tile.component.html'),
   directives: [SkyChevronComponent],
   pipes: [SkyResourcesPipe],
-  viewProviders: [SkySlideService]
+  animations: [slideAnimation]
 })
 export class SkyTileComponent implements AfterViewInit {
   public isInDashboardColumn = false;
@@ -65,7 +65,6 @@ export class SkyTileComponent implements AfterViewInit {
 
   constructor(
     @Optional() private dashboardService: SkyTileDashboardService,
-    private slideService: SkySlideService,
     public elementRef: ElementRef
   ) {
     this.isInDashboardColumn = !!dashboardService;
@@ -88,7 +87,7 @@ export class SkyTileComponent implements AfterViewInit {
   }
 
   private slideForCollapsed(animate: boolean) {
-    let direction = this.isCollapsed ? 'up' : 'down';
-    this.slideService.slide(this.elementRef, '.sky-tile-content', direction, animate);
+    // let direction = this.isCollapsed ? 'up' : 'down';
+    // this.slideService.slide(this.elementRef, '.sky-tile-content', direction, animate);
   }
 }
