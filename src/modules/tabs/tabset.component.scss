@@ -1,0 +1,8 @@
+@import "../../scss/mixins";
+
+.sky-tabset {
+  border-bottom: solid 2px $sky-color-blue;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

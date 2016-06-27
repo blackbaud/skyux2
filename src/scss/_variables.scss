@@ -19,6 +19,9 @@ $sky-color-yellow: #f8ac59 !default;
 $sky-color-red: #ed5565 !default;
 $sky-color-white: #fff !default;
 $sky-color-purple: #6533c5 !default;
+
+$sky-color-gray: lighten(#000, 40%) !default; // #666
+$sky-color-gray-light: lighten(#000, 60%) !default; // #999
 $sky-color-gray-lighter: lighten(#000, 80%) !default; // #ccc
 
 $sky-border-color: #e7eaec !default;

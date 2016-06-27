@@ -1,0 +1,13 @@
+<sky-tabset>
+  <sky-tab
+      *ngFor="let tab of tabs; let i = index"
+      [tabHeading]="tab.heading"
+      [active]="i === 0"
+      (close)="closeClick(i)"
+  >
+    {{tab.content}}
+  </sky-tab>
+  <sky-tab tabHeading="Permanent tab">
+    This tab cannot be closed
+  </sky-tab>
+</sky-tabset>

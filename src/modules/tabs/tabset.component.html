@@ -1,0 +1,14 @@
+<div class="sky-tabset" role="tablist">
+  <sky-tab-button
+      *ngFor="let tab of tabs; let i = index"
+      [ngClass]="{
+        'sky-tabset-tab-selected': tab.active
+      }"
+      [tabHeading]="tab.tabHeading"
+      [active]="tab.active"
+      [allowClose]="tab.allowClose"
+      (tabClick)="selectTab(tab)"
+      (closeClick)="tabCloseClick(tab)"
+  ></sky-tab-button>
+</div>
+<ng-content></ng-content>
