@@ -1,8 +1,7 @@
 import {
   Component,
   QueryList,
-  ContentChildren,
-  forwardRef
+  ContentChildren
 } from '@angular/core';
 
 import { SkyTabButtonComponent } from './tab-button.component';
