@@ -7,16 +7,24 @@ import {
 
 import { SkyTabButtonComponent } from './tab-button.component';
 import { SkyTabComponent } from './tab.component';
+import { SkyTabsetService } from './tabset.service';
 
 @Component({
   selector: 'sky-tabset',
   directives: [SkyTabButtonComponent],
   styles: [require('./tabset.component.scss')],
-  template: require('./tabset.component.html')
+  template: require('./tabset.component.html'),
+  providers: [SkyTabsetService]
 })
 export class SkyTabsetComponent {
-  @ContentChildren(forwardRef(() => SkyTabComponent))
+  @ContentChildren(SkyTabComponent)
   private tabs: QueryList<SkyTabComponent>;
+
+  constructor(tabsetService: SkyTabsetService) {
+    tabsetService.tabDestroy.subscribe((tab: SkyTabComponent) => {
+      this.removeTab(tab);
+    });
+  }
 
   public selectTab(tab: SkyTabComponent) {
     this.tabs.forEach((existingTab) => {
@@ -30,7 +38,7 @@ export class SkyTabsetComponent {
     tab.close.emit(undefined);
   }
 
-  public removeTab(tab: SkyTabComponent) {
+  private removeTab(tab: SkyTabComponent) {
     let tabs = this.tabs.toArray();
     let active = tab.active;
     let tabIndex = tabs.indexOf(tab);

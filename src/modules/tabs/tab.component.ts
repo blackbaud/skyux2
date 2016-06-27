@@ -6,7 +6,7 @@ import {
   Output
 } from '@angular/core';
 
-import { SkyTabsetComponent } from './tabset.component';
+import { SkyTabsetService } from './tabset.service';
 
 @Component({
   selector: 'sky-tab',
@@ -26,9 +26,9 @@ export class SkyTabComponent implements OnDestroy {
   @Output()
   public close = new EventEmitter<any>();
 
-  constructor(private tabset: SkyTabsetComponent) { }
+  constructor(private tabsetService: SkyTabsetService) { }
 
   public ngOnDestroy() {
-    this.tabset.removeTab(this);
+    this.tabsetService.destroyTab(this);
   }
 }
