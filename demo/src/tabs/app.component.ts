@@ -15,7 +15,8 @@ export class AppComponent {
     this.tabs = [
       {
         heading: 'Tab 1',
-        content: 'Content 1'
+        content: 'Content 1',
+        active: true
       },
       {
         heading: 'Tab 2',
@@ -30,6 +31,20 @@ export class AppComponent {
 
   public closeClick(tabIndex: number) {
     this.tabs.splice(tabIndex, 1);
+  }
+
+  public newTabClick() {
+    let nextTab = this.tabs.length + 1;
+
+    this.tabs.push({
+      heading: 'Tab ' + nextTab,
+      content: 'Content ' + nextTab,
+      active: true
+    });
+  }
+
+  public openTabClick() {
+
   }
 }
 

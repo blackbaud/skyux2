@@ -1,8 +1,8 @@
-<sky-tabset>
+<sky-tabset (newTab)="newTabClick()" (openTab)="openTabClick()">
   <sky-tab
       *ngFor="let tab of tabs; let i = index"
       [tabHeading]="tab.heading"
-      [active]="i === 0"
+      [active]="tab.active"
       (close)="closeClick(i)"
   >
     {{tab.content}}

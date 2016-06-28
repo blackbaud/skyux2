@@ -17,7 +17,19 @@ export class SkyTabComponent implements OnDestroy {
   public tabHeading: string;
 
   @Input()
-  public active: boolean;
+  public set active(value: boolean) {
+    let wasActive = this._active;
+
+    this._active = value;
+
+    if (!wasActive && this._active) {
+      this.tabsetService.activateTab(this);
+    }
+  }
+
+  public get active(): boolean {
+    return this._active;
+  }
 
   public get allowClose(): boolean {
     return this.close.observers.length > 0;
@@ -25,6 +37,8 @@ export class SkyTabComponent implements OnDestroy {
 
   @Output()
   public close = new EventEmitter<any>();
+
+  private _active = false;
 
   constructor(private tabsetService: SkyTabsetService) { }
 

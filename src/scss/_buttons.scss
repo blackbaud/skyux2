@@ -1,0 +1,14 @@
+@import "mixins";
+
+.sky-btn {
+  background-color: #fff;
+  border: 1px solid $sky-color-gray-lightest;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  outline-offset: -2px;
+
+  &:hover {
+    border: 1px solid $sky-color-gray-lighter;
+  }
+}

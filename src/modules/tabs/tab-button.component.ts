@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   Output,
-  state,
   style,
   transition,
   trigger
@@ -13,7 +12,7 @@ import {
 @Component({
   selector: 'sky-tab-button',
   template: require('./tab-button.component.html'),
-  styles: [require('./tab-button.component.scss')],
+  styles: [require('./tab-shared.scss'), require('./tab-button.component.scss')],
   animations: [
     trigger('tabClose', [
       transition('* => void', [
