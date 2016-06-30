@@ -55,7 +55,9 @@
   const stopCI = (exitCode) => {
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(px|regression).png', {});
-    bsLocal.stop();
+    if (bsLocal.isRunning()) {
+      bsLocal.stop();  
+    }
   };
 
   process.on('SIGINT', () => {
