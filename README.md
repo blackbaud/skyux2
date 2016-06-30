@@ -14,4 +14,5 @@ test        | Run unit tests and visual regression tests.
 test:unit   | Run Karma unit tests.
 test:visual | Run Webdriver visual regression tests.
 start       | Serves the components at [http://localhost:3000](http://localhost:3000) for debugging.
+start:visual| Serves the visual fixtures at [http://localhost:3000](http://localhost:3000) for debugging.
 watch       | Run Karma unit tests and watch for file changes.

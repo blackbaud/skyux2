@@ -1,0 +1,36 @@
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var helpers = require('../utils/helpers');
+var glob = require('glob');
+var path = require('path');
+var plugins = [];
+var entry = {};
+
+(function () {
+  var files = glob.sync('./src/modules/*/fixtures/*.component.visual-fixture.ts');
+
+  files.forEach(function (file) {
+    var demoName;
+    var dirname;
+    var parts;
+
+    dirname = path.dirname(file);
+    parts = dirname.split(path.sep);
+    demoName = parts[parts.length - 2];
+
+    entry[demoName] = file;
+
+    plugins.push(new HtmlWebpackPlugin({
+      template: 'src/modules/visual-fixture-template.html',
+      chunks: ['polyfills', 'vendor', demoName],
+      chunksSortMode: helpers.packageSort(['polyfills', 'vendor', demoName]),
+      filename: demoName + '.html'
+    }));
+  });
+}());
+
+exports.buildVisualConfig = function () {
+  return {
+    entry: entry,
+    plugins: plugins
+  };
+};

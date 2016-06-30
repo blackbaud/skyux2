@@ -1,41 +1,16 @@
 <!DOCTYPE html>
-<html ng-app="screenshots" lang="en">
+<html>
   <head>
-    <meta charset="utf-8"></meta>
-    <title>Visual tests</title>
-    <link rel="stylesheet" href="/css/sky.css" />
+    <title>Angular 2 QuickStart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-      .bb-screenshot-noanim * {
-        /*CSS transitions*/
-        -o-transition-property: none !important;
-        -moz-transition-property: none !important;
-        -ms-transition-property: none !important;
-        -webkit-transition-property: none !important;
-        transition-property: none !important;
-        /*CSS transforms*/
-        -o-transform: none !important;
-        -moz-transform: none !important;
-        -ms-transform: none !important;
-        -webkit-transform: none !important;
-        transform: none !important;
-        /*CSS animations*/
-        -webkit-animation: none !important;
-        -moz-animation: none !important;
-        -o-animation: none !important;
-        -ms-animation: none !important;
-        animation: none !important;
-      }
-
-      .bb-screenshot-noscroll .bb-grid-table-wrapper-overflow, .bb-screenshot-noscroll .ui-select-choices.dropdown-menu {
-        overflow: hidden !important;
+      [hidden] {
+        display: none !important;
       }
     </style>
   </head>
+
   <body>
-
-    {# PAGE_HTML #}
-
-    <script src="/core.js"></script>
-    <script>{# PAGE_JS #}</script>
+    <sky-demo-app>Loading...</sky-demo-app>
   </body>
 </html>

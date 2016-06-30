@@ -72,7 +72,6 @@
     }];
 
     const handleCompare = (err, res) => {
-      expect(true).toBe(false);
       expect(err).toBe(undefined);
       for (let suite in res) {
         res[suite].forEach((fixture) => {

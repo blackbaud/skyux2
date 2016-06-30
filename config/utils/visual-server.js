@@ -1,91 +1,51 @@
 (() => {
   'use strict';
 
-  const express = require('express');
-  const fs = require('fs');
-  const glob = require('glob');
   const rimraf = require('rimraf');
   const selenium = require('selenium-standalone');
   const webpack = require('webpack');
-  const WebpackHtmlPlugin = require('html-webpack-plugin');
-  const webpackMiddleware = require('webpack-dev-middleware');
+  const WebpackDevServer = require('webpack-dev-server');
+  const webpackConfig = require('../webpack/webpack.visual');
 
-  // Load the layout template
-  const src = 'src/modules/';
-  const layout = fs.readFileSync(src + 'visual-fixture-template.html', { encoding: 'utf8' });
+  // Remove ForkCheckerPlugin as it hangs the server
+  const webpackCompiler = webpack(webpackConfig);
+  webpackCompiler.options.plugins.shift();
 
-  // Create the pages array
-  const fixtures = glob.sync(src + '**/*.visual-fixture.html');
-  const clean = dirty => dirty.replace(src, '');
-  const pages = fixtures.map((page) => {
-
-    const html = fs.readFileSync(page, { encoding: 'utf8' });
-    const js = fs.readFileSync(page.replace('.html', '.ts'), { encoding: 'utf8' });
-
-    let content = layout.replace('{# PAGE_HTML #}', html);
-    content = content.replace('{# PAGE_JS #}', js);
-
-    console.log(page, clean(page));
-
-    return new WebpackHtmlPlugin({
-      hash: true,
-      filename:  clean(page),
-      templateContent: content
-    });
+  const server = new WebpackDevServer(webpackCompiler, {
+    noInfo: true,
+    'content-base': 'src/'
   });
 
-  const hasNoError = (err) => {
-    if (err) throw err;
-    return true;
-  };
-
-  // Create webpack compiler
-  const webpackCompiler = webpack({
-    plugins: pages,
-    output: {
-      path: '/'
-    }
-  });
-
-  // Create express server expose a landing page
-  let app = express();
+  // Save a reference to kill selenium later
+  let seleniumChild;
 
   // Start the webserver
-  const start = () => {
-
-    const deferred = Promise.defer();
-
-    app.use(webpackMiddleware(webpackCompiler, {}));
-    app.use(express.static('dist'));
-    app.use('/', (req, res) => {
-      fixtures.forEach((path) => {
-        const url = clean(path);
-        res.send('<a href="' + url + '">' + url + '</a>');
+  const start = () => new Promise((resolve, reject) => {
+    server.listen(3000, () => {
+      selenium.install({ logger: console.log }, () => {
+        selenium.start((err, child) => {
+          seleniumChild = child;
+          resolve();
+        });
       });
     });
-    app.listen(3000, () => {
-      selenium.install({}, (errInstall) => {
-        if (hasNoError(errInstall)) {
-          selenium.start((errStart, child) => {
-            if (hasNoError(errStart)) {
-              selenium.child = child;
-              deferred.resolve();
-            }
-          });
-        }
-      });
-    });
+  });
 
-    return deferred.promise;
-  };
-
-  // Stop the server
+  // Stop the server and remove unused screenshots
   const stop = (exitCode) => {
+    console.log('Stopping server.');
+    server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(px|regression).png', {});
-    if (selenium.child) {
-      selenium.child.kill();
+    if (seleniumChild) {
+      console.log('Killing Selenium child');
+      seleniumChild.kill();
     }
   };
+
+  process.on('SIGINT', () => {
+    stop();
+    process.exit(1);
+  });
 
   // Support running the server for debugging
   process.argv.forEach(arg => {
