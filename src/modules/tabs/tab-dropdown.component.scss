@@ -4,12 +4,12 @@
   max-width: 300px;
 }
 
-.sky-tab-dropdown-menu-item {
+.sky-tab-dropdown-item {
   display: flex;
   width: 300px;
 }
 
-.sky-tab-dropdown-menu-item-btn {
+.sky-tab-dropdown-item-btn {
   border: none;
   background-color: transparent;
   flex-grow: 1;
@@ -17,8 +17,17 @@
   text-align: left;
 }
 
-.sky-tab-dropdown-menu-item-close {
+.sky-tab-dropdown-item-close {
   background-color: transparent;
   border: none;
   padding: $sky-padding;
+}
+
+.sky-tab-dropdown-item-selected {
+  background-color: $sky-color-blue;
+
+  .sky-tab-dropdown-item-btn,
+  .sky-tab-dropdown-item-close {
+    color: #fff;
+  }
 }

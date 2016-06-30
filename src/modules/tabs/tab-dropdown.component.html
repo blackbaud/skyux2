@@ -6,19 +6,22 @@
   </sky-dropdown-button>
   <sky-dropdown-menu>
     <div
-        class="sky-tab-dropdown-menu-item"
+        class="sky-tab-dropdown-item"
+        [ngClass]="{
+          'sky-tab-dropdown-item-selected': tab.active
+        }"
         *ngFor="let tab of tabs"
     >
       <button
           type="button"
-          class="sky-tab-dropdown-menu-item-btn"
+          class="sky-tab-dropdown-item-btn"
           (click)="selectTab(tab)"
       >
         {{tab.tabHeading}}
       </button>
       <button
           type="button"
-          class="sky-tab-dropdown-menu-item-close"
+          class="sky-tab-dropdown-item-close"
           *ngIf="tab.allowClose"
       >
         <i class="fa fa-remove"></i>
