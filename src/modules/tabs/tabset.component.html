@@ -7,6 +7,7 @@
     <sky-tab-dropdown
         *ngIf="tabDisplayMode === 'dropdown'"
         [tabs]="tabs"
+        (tabClick)="selectTab($event)"
     >
     </sky-tab-dropdown>
   </span>

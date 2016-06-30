@@ -1,7 +1,7 @@
 <a
-    class="sky-tab-button"
+    class="sky-btn-tab"
     [ngClass]="{
-      'sky-tab-button-selected': active
+      'sky-btn-tab-selected': active
     }"
     (click)="tabClick.emit()"
     @tabClose="tabState"
@@ -10,11 +10,10 @@
   {{tabHeading}}
   <button
       type="button"
-      class="sky-tab-button-close"
+      class="sky-btn-tab-close"
       *ngIf="allowClose"
       (click)="doCloseClick();$event.stopPropagation()"
   >
     <i class="fa fa-remove"></i>
   </button>
 </a>
-<!--*ngIf="close.observers.length > 0"-->

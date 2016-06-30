@@ -49,3 +49,21 @@
   font: 400 $sky-font-size-base $sky-font-family-base;
   color: $sky-text-deemphasized-color;
 }
+
+@mixin sky-btn-tab ($selected: false) {
+  background-color: transparent;
+  border: none;
+  border-radius: 4px 4px 0 0;
+  color: $sky-color-gray;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  line-height: 1.8;
+  padding: $sky-padding-3_4 $sky-padding-plus-half;
+}
+
+@mixin sky-btn-tab-selected {
+  background-color: $sky-color-blue;
+  color: #fff;
+  cursor: default;
+}

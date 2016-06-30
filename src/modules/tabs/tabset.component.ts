@@ -98,6 +98,10 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
     this.adapterService.overflowChange.subscribe((currentOverflow: boolean) => {
       this.updateDisplayMode();
     });
+
+    setTimeout(() => {
+      this.updateDisplayMode();
+    }, 0);
   }
 
   public ngDoCheck() {
@@ -105,6 +109,7 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
   }
 
   private updateDisplayMode() {
-    this.tabDisplayMode = this.adapterService.currentOverflow ? 'dropdown' : 'tabs';
+    // this.tabDisplayMode = this.adapterService.currentOverflow ? 'dropdown' : 'tabs';
+    this.tabDisplayMode = 'dropdown';
   }
 }
