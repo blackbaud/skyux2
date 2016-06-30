@@ -11,6 +11,8 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+      - graphicsmagick
+      - libcairo2-dev
 
 # https://github.com/npm/npm/issues/11283
 before_install:
