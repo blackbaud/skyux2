@@ -20,7 +20,7 @@ var entry = {};
     entry[demoName] = file;
 
     plugins.push(new HtmlWebpackPlugin({
-      template: 'src/modules/visual-fixture-template.html',
+      template: 'visual/index.html',
       chunks: ['polyfills', 'vendor', demoName],
       chunksSortMode: helpers.packageSort(['polyfills', 'vendor', demoName]),
       filename: demoName + '.html'
