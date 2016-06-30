@@ -22,6 +22,9 @@ export class SkyTabDropdownComponent {
   @Output()
   public tabClick = new EventEmitter<SkyTabComponent>();
 
+  @Output()
+  public closeClick = new EventEmitter<SkyTabComponent>();
+
   public get activeTabHeading(): string {
     let activeTab = this.tabs.filter((item) => {
       return item.active;
@@ -34,5 +37,9 @@ export class SkyTabDropdownComponent {
 
   public selectTab(tab: SkyTabComponent) {
     this.tabClick.emit(tab);
+  }
+
+  public closeTab(tab: SkyTabComponent) {
+    this.closeClick.emit(tab);
   }
 }

@@ -109,7 +109,6 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
   }
 
   private updateDisplayMode() {
-    // this.tabDisplayMode = this.adapterService.currentOverflow ? 'dropdown' : 'tabs';
-    this.tabDisplayMode = 'dropdown';
+    this.tabDisplayMode = this.adapterService.currentOverflow ? 'dropdown' : 'tabs';
   }
 }

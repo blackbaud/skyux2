@@ -8,6 +8,7 @@
         *ngIf="tabDisplayMode === 'dropdown'"
         [tabs]="tabs"
         (tabClick)="selectTab($event)"
+        (closeClick)="tabCloseClick($event)"
     >
     </sky-tab-dropdown>
   </span>
@@ -27,7 +28,7 @@
   <span class="sky-tabset-btns">
     <button
         type="button"
-        class="sky-btn sky-tabset-btn-new"
+        class="sky-btn sky-btn-default sky-tabset-btn-new"
         (click)="newTabClick()"
         *ngIf="newTab.observers.length > 0"
     >
@@ -35,7 +36,7 @@
     </button>
     <button
         type="button"
-        class="sky-btn sky-tabset-btn-open"
+        class="sky-btn sky-btn-default sky-tabset-btn-open"
         (click)="openTabClick()"
         *ngIf="openTab.observers.length > 0"
     >

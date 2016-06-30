@@ -14,15 +14,16 @@
     >
       <button
           type="button"
-          class="sky-tab-dropdown-item-btn"
+          class="sky-btn sky-tab-dropdown-item-btn"
           (click)="selectTab(tab)"
       >
         {{tab.tabHeading}}
       </button>
       <button
           type="button"
-          class="sky-tab-dropdown-item-close"
+          class="sky-btn sky-tab-dropdown-item-close"
           *ngIf="tab.allowClose"
+          (click)="closeTab(tab)"
       >
         <i class="fa fa-remove"></i>
       </button>

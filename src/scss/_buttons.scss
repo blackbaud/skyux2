@@ -1,7 +1,7 @@
 @import "mixins";
 
 .sky-btn {
-  background-color: #fff;
+  background-color: transparent;
   border: 1px solid $sky-color-gray-lightest;
   border-radius: 3px;
   cursor: pointer;
@@ -11,6 +11,10 @@
   &:hover {
     border: 1px solid $sky-color-gray-lighter;
   }
+}
+
+.sky-btn-default {
+  background-color: #fff;
 }
 
 .sky-btn-tab {
