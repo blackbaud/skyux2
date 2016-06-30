@@ -4,7 +4,6 @@
 (() => {
   'use strict';
 
-  const server = require('../utils/visual-server');
   const utils = require('../utils/visual-utils');
 
   module.exports = {
@@ -24,9 +23,7 @@
         mismatchTolerance: 0.05,
         screenWidth: [1280]
       }
-    },
-    onPrepare: server.start,
-    onComplete: server.stop
+    }
   };
 
 })();

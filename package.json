@@ -26,7 +26,6 @@
     "test:visual:base": "./node_modules/.bin/wdio",
     "postinstall": "typings -- install",
     "postversion": "git push && git push --tags",
-    "pretest:visual:ci": "chmod +x ./scripts/browserstack-local-dev.sh && ./scripts/browserstack-local-dev.sh",
     "prebuild": "npm run clean",
     "pretest": "npm run lint",
     "preversion": "npm test",
@@ -52,6 +51,7 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "1.1.1",
+    "browserstack-local": "^0.2.0",
     "codelyzer": "0.0.23",
     "css-loader": "0.23.1",
     "express": "4.14.0",

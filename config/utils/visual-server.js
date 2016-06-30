@@ -1,6 +1,7 @@
 (() => {
   'use strict';
 
+  const browserstack = require('browserstack-local');
   const rimraf = require('rimraf');
   const selenium = require('selenium-standalone');
   const webpack = require('webpack');
@@ -16,7 +17,7 @@
     'content-base': 'src/'
   });
 
-  // Save a reference to kill selenium later
+  let bsLocal;
   let seleniumChild;
 
   // Start the webserver
@@ -32,8 +33,11 @@
   });
 
   const startCI = () => new Promise((resolve, reject) => {
+    bsLocal = new browserstack.Local();
     server.listen(webpackCompiler.options.metadata.port, () => {
-      resolve();
+      bsLocal.start({ key: process.env.BROWSER_STACK_ACCESS_KEY }, () => {
+        resolve();
+      });
     });
   });
 
@@ -46,22 +50,35 @@
     }
   };
 
+  // Stop the server and remove unused screenshots
+  const stopCI = (exitCode) => {
+    server.close();
+    rimraf.sync('webdriver-screenshots*/**/*+(px|regression).png', {});
+    bsLocal.stop();
+  };
+
   process.on('SIGINT', () => {
     stop();
     process.exit(1);
   });
 
-  // Support running the server for debugging
-  process.argv.forEach(arg => {
-    if (arg === 'start') {
-      start();
-    }
-  });
-
-  module.exports = {
+  const exports = {
     start: start,
     startCI: startCI,
-    stop: stop
+    stop: stop,
+    stopCI: stopCI
   };
+
+  // Support running running commands from arguments
+  process.argv.forEach(arg => {
+    Object.keys(exports).forEach((key) => {
+      if (arg === key) {
+        exports[key]();
+      }
+    });
+  });
+
+  // Support being required in config
+  module.exports = exports;
 
 })();

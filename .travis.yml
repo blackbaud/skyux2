@@ -22,7 +22,7 @@ script: npm run ci
 # Upload coverage to https://codecov.io/gh/blackbaud/skyux2
 after_script:
   - bash <(curl -s https://codecov.io/bash)
-  - chmod +x ./scripts/browserstack-local-stop.sh && ./scripts/browserstack-local-stop.sh
+  - chmod +x ./scripts/browserstack-cleanup.sh && ./scripts/browserstack-cleanup.sh
 
 # Publish a tag to NPM
 after_success:

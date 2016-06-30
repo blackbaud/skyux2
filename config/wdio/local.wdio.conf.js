@@ -3,6 +3,7 @@
 (() => {
   'use strict';
 
+  const server = require('../utils/visual-server');
   let config = require('./shared.wdio.conf');
 
   config.capabilities = [
@@ -14,6 +15,8 @@
 
   config.plugins.webdrivercss.screenshotRoot = 'webdriver-screenshotslocal';
   config.plugins.webdrivercss.failedComparisonsRoot = 'webdriver-screenshotslocal-diffs';
+  config.onPrepare = server.start;
+  config.onComplete = server.stop;
 
   exports.config = config;
 })();
