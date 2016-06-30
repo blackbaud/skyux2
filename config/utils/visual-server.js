@@ -21,7 +21,7 @@
 
   // Start the webserver
   const start = () => new Promise((resolve, reject) => {
-    server.listen(3000, () => {
+    server.listen(webpackCompiler.options.metadata.port, () => {
       selenium.install({ logger: console.log }, () => {
         selenium.start((err, child) => {
           seleniumChild = child;
@@ -31,13 +31,17 @@
     });
   });
 
+  const startCI = () => new Promise((resolve, reject) => {
+    server.listen(webpackCompiler.options.metadata.port, () => {
+      resolve();
+    });
+  });
+
   // Stop the server and remove unused screenshots
   const stop = (exitCode) => {
-    console.log('Stopping server.');
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(px|regression).png', {});
     if (seleniumChild) {
-      console.log('Killing Selenium child');
       seleniumChild.kill();
     }
   };
@@ -56,6 +60,7 @@
 
   module.exports = {
     start: start,
+    startCI: startCI,
     stop: stop
   };
 

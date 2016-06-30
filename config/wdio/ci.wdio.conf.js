@@ -3,6 +3,7 @@
 (() =>  {
   'use strict';
 
+  const server = require('../utils/visual-server');
   let config = require('./shared.wdio.conf');
 
   config.user = process.env.BROWSER_STACK_USERNAME;
@@ -37,6 +38,7 @@
   config.port = 80;
   config.plugins.webdrivercss.screenshotRoot = 'webdriver-screenshots';
   config.plugins.webdrivercss.failedComparisonsRoot = 'webdriver-screenshots-diffs';
+  config.onPrepare = server.startCI;
 
   exports.config = config;
 
