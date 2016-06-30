@@ -66,7 +66,7 @@ describe('Tabset component', () => {
 
           fixture.detectChanges();
 
-          el.querySelectorAll('.sky-tab-button')[1].click();
+          el.querySelectorAll('.sky-btn-tab')[1].click();
 
           fixture.detectChanges();
 
