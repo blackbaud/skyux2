@@ -35,9 +35,10 @@
   const startCI = () => new Promise((resolve, reject) => {
     bsLocal = new browserstack.Local();
     server.listen(webpackCompiler.options.metadata.port, () => {
-      bsLocal.start({ key: process.env.BROWSER_STACK_ACCESS_KEY }, () => {
-        resolve();
-      });
+      bsLocal.start({
+        key: process.env.BROWSER_STACK_ACCESS_KEY,
+        binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
+      }, resolve);
     });
   });
 
