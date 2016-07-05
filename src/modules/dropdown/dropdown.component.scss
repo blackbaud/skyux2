@@ -13,6 +13,7 @@
   background-color: #fff;
   display: none;
   position: absolute;
+  @include sky-shadow;
 
   &.sky-dropdown-open {
     display: block;

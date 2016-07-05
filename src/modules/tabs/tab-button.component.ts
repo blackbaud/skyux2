@@ -1,25 +1,14 @@
 import {
-  animate,
   Component,
   EventEmitter,
   Input,
-  Output,
-  style,
-  transition,
-  trigger
+  Output
 } from '@angular/core';
 
 @Component({
   selector: 'sky-tab-button',
   template: require('./tab-button.component.html'),
-  styles: [require('./tab-button.component.scss')],
-  animations: [
-    trigger('tabClose', [
-      transition('* => void', [
-        animate(150, style({transform: 'scale(0)'}))
-      ])
-    ])
-  ]
+  styles: [require('./tab-button.component.scss')]
 })
 export class SkyTabButtonComponent {
   @Input()
@@ -37,10 +26,7 @@ export class SkyTabButtonComponent {
   @Output()
   public closeClick = new EventEmitter<any>();
 
-  public tabState = 'in';
-
   public doCloseClick() {
-    this.tabState = 'out';
     this.closeClick.emit(undefined);
   }
 }
