@@ -1,0 +1,2 @@
+export { SkyTabComponent } from './tab.component';
+export { SkyTabsetComponent } from './tabset.component';

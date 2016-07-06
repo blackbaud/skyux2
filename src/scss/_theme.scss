@@ -60,3 +60,10 @@ h1 {
 [hidden] {
   display: none !important;
 }
+
+button {
+  &:active {
+    outline: 0;
+    background-image: none;
+  }
+}
