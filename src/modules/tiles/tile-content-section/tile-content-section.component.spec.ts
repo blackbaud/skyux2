@@ -1,10 +1,7 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   inject,
-  it
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { TestComponent } from './fixtures';

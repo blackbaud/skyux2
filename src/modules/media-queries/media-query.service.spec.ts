@@ -1,10 +1,6 @@
 import {
-  beforeEach,
-  beforeEachProviders,
-  describe,
-  expect,
-  inject,
-  it
+  addProviders,
+  inject
 } from '@angular/core/testing';
 
 import { SkyMediaQueryListenerArgs } from './media-query-listener-args';
@@ -13,11 +9,9 @@ import { SkyMediaQueryService } from './media-query.service';
 describe('Media query service', () => {
   let mediaQueryListPrototype: any;
 
-  beforeEachProviders(() => [
-    SkyMediaQueryService
-  ]);
-
   beforeEach(() => {
+    addProviders([SkyMediaQueryService]);
+
     // Safari doesn't put MediaQueryList on the global window object so we
     // have to pick it off here.
     mediaQueryListPrototype = Object.getPrototypeOf(matchMedia(SkyMediaQueryService.sm));

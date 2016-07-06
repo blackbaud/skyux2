@@ -1,13 +1,10 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component, provide, ViewChild } from '@angular/core';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   fakeAsync,
   inject,
-  it,
-  tick
+  tick,
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { SkyRepeaterComponent } from './repeater.component';
