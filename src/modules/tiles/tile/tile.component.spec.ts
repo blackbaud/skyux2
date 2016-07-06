@@ -1,12 +1,8 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { provide } from '@angular/core';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   inject,
-  it,
-  xit
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { TestComponent } from './fixtures';
@@ -29,7 +25,7 @@ describe('Tile component', () => {
 
         fixture.detectChanges();
 
-        expect(el.querySelector('.sky-tile-title sky-tile-title')).toHaveText('Title');
+        expect(el.querySelector('.sky-tile-title sky-tile-title').innerText).toBe('Title');
       }
     );
   });

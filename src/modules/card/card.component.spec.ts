@@ -1,11 +1,8 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   inject,
-  it
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { SkyCardComponent } from './card.component';
@@ -48,9 +45,9 @@ describe('Card component', () => {
 
         fixture.detectChanges();
 
-        expect(el.querySelector('.sky-card-title sky-card-title')).toHaveText('Title');
-        expect(el.querySelector('.sky-card-content sky-card-content')).toHaveText('Content');
-        expect(el.querySelector('.sky-card-actions button')).toHaveText('Button');
+        expect(el.querySelector('.sky-card-title sky-card-title').innerText).toBe('Title');
+        expect(el.querySelector('.sky-card-content sky-card-content').innerText).toBe('Content');
+        expect(el.querySelector('.sky-card-actions button').innerText).toBe('Button');
       });
   });
 
@@ -68,7 +65,9 @@ describe('Card component', () => {
 
         fixture.detectChanges();
 
-        expect(el.querySelector('section.sky-card')).toHaveCssClass('sky-card-small');
+        let cardEl = el.querySelector('section.sky-card');
+
+        expect(cardEl.classList.contains('sky-card-small')).toBe(true);
       });
   });
 

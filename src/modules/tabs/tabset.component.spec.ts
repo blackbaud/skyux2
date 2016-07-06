@@ -1,15 +1,7 @@
 import {
   ComponentFixture,
-  TestComponentBuilder
-} from '@angular/compiler/testing';
-
-import {
-  beforeEach,
-  describe,
-  expect,
   inject,
-  it,
-  xit
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { TabsetTestComponent } from './fixtures/tabset.component.fixture';
@@ -25,14 +17,19 @@ describe('Tabset component', () => {
     for (let i = 0, n = buttonEls.length; i < n; i++) {
       let buttonEl = buttonEls[i];
       let panelDisplay = getComputedStyle(contentEls[i]).display;
+      let expectedHasClass: boolean;
+      let expectedDisplay: string;
 
       if (i === tabIndex) {
-        expect(buttonEl).toHaveCssClass(selectedCls);
-        expect(panelDisplay).toBe('block');
+        expectedHasClass = true;
+        expectedDisplay = 'block';
       } else {
-        expect(buttonEl).not.toHaveCssClass(selectedCls);
-        expect(panelDisplay).toBe('none');
+        expectedHasClass = false;
+        expectedDisplay = 'none';
       }
+
+      expect(buttonEl.classList.contains(selectedCls)).toBe(expectedHasClass);
+      expect(panelDisplay).toBe(expectedDisplay);
     }
   }
 
@@ -41,7 +38,7 @@ describe('Tabset component', () => {
   }));
 
   describe('tabs with active attribute', () => {
-    it('should change the tab when tab active is set to true', () => {
+    it('should change the active tab when tab active is set to true', () => {
       return tcb
         .createAsync(TabsetTestComponent)
         .then((fixture: ComponentFixture<TabsetTestComponent>) => {
@@ -58,7 +55,7 @@ describe('Tabset component', () => {
         });
     });
 
-    it('should change the active when the tab is clicked manually', () => {
+    it('should change the active tab when the tab is clicked manually', () => {
       return tcb
         .createAsync(TabsetTestComponent)
         .then((fixture: ComponentFixture<TabsetTestComponent>) => {

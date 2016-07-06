@@ -1,10 +1,7 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   inject,
-  it
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { TestComponent } from './fixtures/test.component';
@@ -29,7 +26,7 @@ describe('Key info component', () => {
 
         let keyInfoEl = el.querySelector('.sky-key-info');
 
-        expect(keyInfoEl).toHaveCssClass(horizontalCls);
+        expect(keyInfoEl.classList.contains(horizontalCls)).toBe(true);
 
         // Should treat any other value as vertical
         // (enforced by the default .sky-key-info class).
@@ -37,7 +34,7 @@ describe('Key info component', () => {
 
         fixture.detectChanges();
 
-        expect(keyInfoEl).not.toHaveCssClass(horizontalCls);
+        expect(keyInfoEl.classList.contains(horizontalCls)).toBe(false);
       });
   });
 
