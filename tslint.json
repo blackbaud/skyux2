@@ -13,7 +13,7 @@
     "no-any": false,
     "no-inferrable-types": false,
     "no-internal-module": true,
-    "no-reference": false,
+    "no-reference": true,
     "no-var-requires": false,
     "typedef": [false],
     "typedef-whitespace": [
