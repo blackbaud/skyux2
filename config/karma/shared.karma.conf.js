@@ -21,6 +21,10 @@ module.exports = function (config) {
     webpack: testWebpackConfig,
     coverageReporter: {
       dir: '../../coverage/',
+      reporters: [
+        { type: 'json' },
+        { type: 'html' }
+      ],
       _onWriteReport: function (collector) {
         return remapIstanbul.remap(collector.getFinalCoverage());
       }
