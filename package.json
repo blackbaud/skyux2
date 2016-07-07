@@ -30,8 +30,7 @@
     "pretest": "npm run lint",
     "preversion": "npm test",
     "start": "webpack-dev-server --config config/webpack/webpack.dev.js --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
-    "start:visual": "webpack-dev-server --config config/webpack/webpack.visual.js --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
-    "start:visual2": "node ./config/utils/visual-server.js start",
+    "start:visual": "node ./config/utils/visual-server.js start",
     "version": "npm run build",
     "watch": "npm run test -- --auto-watch --no-single-run"
   },
@@ -92,6 +91,7 @@
     "url-loader": "0.5.7",
     "wdio-jasmine-framework": "0.1.7",
     "wdio-selenium-standalone-service": "0.0.5",
+    "wdio-spec-reporter": "0.0.2",
     "webdrivercss": "v2.0.0beta-rc1",
     "webdriverio": "3.2.6",
     "webpack": "1.13.1",
