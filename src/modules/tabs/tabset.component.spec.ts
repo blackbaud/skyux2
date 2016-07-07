@@ -1,7 +1,6 @@
 import { provide } from '@angular/core';
 import {
   addProviders,
-  ComponentFixture,
   inject,
   TestComponentBuilder
 } from '@angular/core/testing';
