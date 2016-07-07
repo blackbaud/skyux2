@@ -49,6 +49,7 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
         // try selecting the previous one.
         let newActiveTab = tabs[tabIndex + 1] || tabs[tabIndex - 1];
 
+        /*istanbul ignore else */
         if (newActiveTab) {
           this.selectTab(newActiveTab);
         }

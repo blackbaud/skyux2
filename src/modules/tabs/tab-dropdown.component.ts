@@ -30,6 +30,7 @@ export class SkyTabDropdownComponent {
       return item.active;
     });
 
+    /*istanbul ignore else */
     if (activeTab.length > 0) {
       return activeTab[0].tabHeading;
     }
