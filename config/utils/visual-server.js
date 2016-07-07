@@ -38,7 +38,13 @@
       bsLocal.start({
         key: process.env.BROWSER_STACK_ACCESS_KEY,
         //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
-      }, resolve);
+      }, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
     });
   });
 
@@ -56,7 +62,7 @@
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(px|regression).png', {});
     if (bsLocal.isRunning()) {
-      bsLocal.stop();  
+      bsLocal.stop();
     }
   };
 

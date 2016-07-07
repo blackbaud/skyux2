@@ -20,7 +20,7 @@ before_install:
   - npm set progress=false
 
   - export SAVAGE_BRANCH="^savage-"
-  
+
   - chmod +x ./scripts/browserstack-cleanup.sh
   - chmod +x ./scripts/npm-publish.sh
   - chmod +x ./scripts/visual-baseline.sh
@@ -38,10 +38,11 @@ after_script:
 after_success:
   - if [ -n "$TRAVIS_TAG" ]; then ./scripts/npm-publish.sh; fi
 
-# Display any NPM errors
+# Display any NPM / BrowserStack errors
 after_failure:
   - ./scripts/visual-baseline.sh
   - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
+  - if [ -e ./browserstack.err ]; then cat ./browserstack.err; fi
 
 # When a push, only care about the master, rc-, and savage- branches.
 # Otherwise anytime we commit to internal branches this would run.
