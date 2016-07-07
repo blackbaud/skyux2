@@ -1,5 +1,4 @@
 import {
-  ComponentFixture,
   inject,
   TestComponentBuilder
 } from '@angular/core/testing';
@@ -14,39 +13,35 @@ describe('Key info component', () => {
   }));
 
   it('should support vertical and horizontal layouts', () => {
-    return tcb.createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let cmp = fixture.componentInstance as TestComponent;
-        let el = fixture.nativeElement as Element;
-        let horizontalCls = 'sky-key-info-horizontal';
+    let fixture = tcb.createSync(TestComponent);
+    let cmp = fixture.componentInstance as TestComponent;
+    let el = fixture.nativeElement as Element;
+    let horizontalCls = 'sky-key-info-horizontal';
 
-        cmp.layout = 'horizontal';
+    cmp.layout = 'horizontal';
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        let keyInfoEl = el.querySelector('.sky-key-info');
+    let keyInfoEl = el.querySelector('.sky-key-info');
 
-        expect(keyInfoEl.classList.contains(horizontalCls)).toBe(true);
+    expect(keyInfoEl.classList.contains(horizontalCls)).toBe(true);
 
-        // Should treat any other value as vertical
-        // (enforced by the default .sky-key-info class).
-        cmp.layout = undefined;
+    // Should treat any other value as vertical
+    // (enforced by the default .sky-key-info class).
+    cmp.layout = undefined;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(keyInfoEl.classList.contains(horizontalCls)).toBe(false);
-      });
+    expect(keyInfoEl.classList.contains(horizontalCls)).toBe(false);
   });
 
   it('should have the appropriate content in expected areas', () => {
-    return tcb.createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement as Element;
+    let fixture = tcb.createSync(TestComponent);
+    let el = fixture.nativeElement as Element;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(el.querySelectorAll('.sky-key-info-value sky-key-info-value').length).toBe(1);
-        expect(el.querySelectorAll('.sky-key-info-label sky-key-info-label').length).toBe(1);
-      });
+    expect(el.querySelectorAll('.sky-key-info-value sky-key-info-value').length).toBe(1);
+    expect(el.querySelectorAll('.sky-key-info-label sky-key-info-label').length).toBe(1);
   });
 });

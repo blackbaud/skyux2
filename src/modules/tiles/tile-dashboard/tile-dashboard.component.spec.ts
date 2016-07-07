@@ -212,26 +212,24 @@ describe('Tile dashboard component', () => {
 
   it(
     `should release resources when the component is destroyed`,
-    fakeAsync(() => {
+    () => {
       let mockTileDashboardService = new MockTileDashboardService();
 
-      return tcb
+      let fixture = tcb
         .overrideProviders(
           SkyTileDashboardComponent,
           [
             provide(SkyTileDashboardService, {useValue: mockTileDashboardService})
           ]
         )
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let destroySpy = spyOn(mockTileDashboardService, 'destroy');
+        .createSync(TestComponent);
 
-          fixture.destroy();
+      let destroySpy = spyOn(mockTileDashboardService, 'destroy');
 
-          expect(destroySpy).toHaveBeenCalled();
-        }
-      );
-    })
+      fixture.destroy();
+
+      expect(destroySpy).toHaveBeenCalled();
+    }
   );
 });
 

@@ -2,9 +2,7 @@ import {
   ComponentFixture,
   inject,
   async,
-  fakeAsync,
-  TestComponentBuilder,
-  tick
+  TestComponentBuilder
 } from '@angular/core/testing';
 import {FORM_DIRECTIVES, NgModel, NgControl} from '@angular/common';
 import {Component, DebugElement} from '@angular/core';
@@ -159,16 +157,16 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should call the change event on first change after initialization', fakeAsync(() => {
+    it('should call the change event on first change after initialization', async(() => {
       fixture.detectChanges();
       expect(testComponent.lastEvent).toBeUndefined();
 
       checkboxInstance.checked = true;
       fixture.detectChanges();
 
-      tick();
-
-      expect(testComponent.lastEvent.checked).toBe(true);
+      fixture.whenStable().then(() => {
+        expect(testComponent.lastEvent.checked).toBe(true);
+      });
     }));
 
     it('should not emit a DOM event to the change output', async(() => {
@@ -342,12 +340,12 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should forward name value to input element', fakeAsync(() => {
+    it('should forward name value to input element', () => {
       let checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
       let inputElement = <HTMLInputElement> checkboxElement.nativeElement.querySelector('input');
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
-    }));
+    });
   });
 });
 

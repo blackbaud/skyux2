@@ -1,5 +1,4 @@
 import {
-  ComponentFixture,
   inject,
   it,
   TestComponentBuilder
@@ -15,36 +14,34 @@ describe('Chevron component', () => {
     }));
 
     it('should change direction when the user clicks the chevron', () => {
-      tcb.createAsync(SkyChevronComponent)
-        .then((fixture: ComponentFixture<SkyChevronComponent>) => {
-          let cmp = fixture.componentInstance as SkyChevronComponent;
-          let el = fixture.nativeElement;
-          let expectedDirection: string;
+      let fixture = tcb.createSync(SkyChevronComponent);
+      let cmp = fixture.componentInstance as SkyChevronComponent;
+      let el = fixture.nativeElement;
+      let expectedDirection: string;
 
-          function validateDirection() {
-            let chevronEl = el.querySelector('.sky-chevron');
+      function validateDirection() {
+        let chevronEl = el.querySelector('.sky-chevron');
 
-            fixture.detectChanges();
+        fixture.detectChanges();
 
-            expect(cmp.direction).toBe(expectedDirection);
-            expect(chevronEl.classList.contains('sky-chevron-' + expectedDirection)).toBe(true);
-          }
+        expect(cmp.direction).toBe(expectedDirection);
+        expect(chevronEl.classList.contains('sky-chevron-' + expectedDirection)).toBe(true);
+      }
 
-          function clickChevron() {
-            el.querySelector('.sky-chevron').click();
-          }
+      function clickChevron() {
+        el.querySelector('.sky-chevron').click();
+      }
 
-          fixture.detectChanges();
+      fixture.detectChanges();
 
-          expectedDirection = 'up';
-          validateDirection();
+      expectedDirection = 'up';
+      validateDirection();
 
-          cmp.directionChange.subscribe((direction: string) => {
-            validateDirection();
-          });
+      cmp.directionChange.subscribe((direction: string) => {
+        validateDirection();
+      });
 
-          expectedDirection = 'down';
-          clickChevron();
-        });
+      expectedDirection = 'down';
+      clickChevron();
     });
 });
