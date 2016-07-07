@@ -37,11 +37,6 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    singleRun: true,
-    customHeaders: [{
-      match: '.*html',
-      name: 'X-UA-Compatible',
-      value: 'IE=Edge'
-    }]
+    singleRun: true
   });
 };

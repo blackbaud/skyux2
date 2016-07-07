@@ -230,14 +230,23 @@ describe('Tabset component', () => {
     () => {
       let fixture = tcb.createSync(TabsetTestComponent);
 
+      function fireResizeEvent() {
+        if (window.dispatchEvent) {
+          window.dispatchEvent(new Event('resize'));
+        } else {
+          (<any>window).fireEvent('resize');
+        }
+
+        fixture.detectChanges();
+      }
+
       let el = fixture.nativeElement;
 
       fixture.detectChanges();
 
       el.style.width = (el.querySelector('.sky-tabset-tabs').offsetWidth - 1) + 'px';
 
-      window.dispatchEvent(new Event('resize'));
-      fixture.detectChanges();
+      fireResizeEvent();
 
       let tabEl = el.querySelector('.sky-dropdown-button-type-tab');
 
@@ -245,8 +254,7 @@ describe('Tabset component', () => {
 
       el.style.width = 'auto';
 
-      window.dispatchEvent(new Event('resize'));
-      fixture.detectChanges();
+      fireResizeEvent();
 
       tabEl = el.querySelector('.sky-dropdown-button-type-tab');
 
