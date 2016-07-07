@@ -11,6 +11,8 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+      - graphicsmagick
+      - libcairo2-dev
 
 # https://github.com/npm/npm/issues/11283
 before_install:
@@ -22,6 +24,7 @@ script: npm run ci
 # Upload coverage to https://codecov.io/gh/blackbaud/skyux2
 after_script:
   - bash <(curl -s https://codecov.io/bash)
+  - chmod +x ./scripts/browserstack-cleanup.sh && ./scripts/browserstack-cleanup.sh
 
 # Publish a tag to NPM
 after_success:
@@ -29,6 +32,7 @@ after_success:
 
 # Display any NPM errors
 after_failure:
+  - chmod +x ./scripts/update-skyux-visualtest-results.sh && ./scripts/update-skyux-visualtest-results.sh
   - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
 
 # When a push, only care about the master, rc-, and savage- branches.

@@ -62,3 +62,5 @@ npm-debug.log
 *.env
 
 /.srctemp
+webdriver-screenshotslocal*
+browserstack.err
