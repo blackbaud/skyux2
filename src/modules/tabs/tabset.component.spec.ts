@@ -9,6 +9,7 @@ import { SkyTabsetComponent } from './tabset.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { TabsetTestComponent } from './fixtures/tabset.component.fixture';
 import { MockTabsetAdapterService } from './fixtures/tabset-adapter.service.mock';
+import { TestUtility } from '../testing/testutility';
 
 describe('Tabset component', () => {
   let tcb: TestComponentBuilder;
@@ -231,12 +232,7 @@ describe('Tabset component', () => {
       let fixture = tcb.createSync(TabsetTestComponent);
 
       function fireResizeEvent() {
-        if (window.dispatchEvent) {
-          window.dispatchEvent(new Event('resize'));
-        } else {
-          (<any>window).fireEvent('resize');
-        }
-
+        TestUtility.fireDomEvent(window, 'resize');
         fixture.detectChanges();
       }
 
