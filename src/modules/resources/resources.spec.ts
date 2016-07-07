@@ -1,6 +1,5 @@
 import {
   describe,
-  expect,
   it
 } from '@angular/core/testing';
 

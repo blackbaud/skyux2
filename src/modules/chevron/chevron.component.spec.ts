@@ -1,10 +1,8 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   inject,
-  it
+  it,
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { SkyChevronComponent } from './chevron.component';
@@ -29,7 +27,7 @@ describe('Chevron component', () => {
             fixture.detectChanges();
 
             expect(cmp.direction).toBe(expectedDirection);
-            expect(chevronEl).toHaveCssClass('sky-chevron-' + expectedDirection);
+            expect(chevronEl.classList.contains('sky-chevron-' + expectedDirection)).toBe(true);
           }
 
           function clickChevron() {

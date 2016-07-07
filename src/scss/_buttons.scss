@@ -1,0 +1,44 @@
+@import "mixins";
+
+.sky-btn {
+  background-color: transparent;
+  border: 1px solid $sky-color-gray-lightest;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  outline-offset: -2px;
+
+  &:hover {
+    border: 1px solid $sky-color-gray-lighter;
+  }
+}
+
+.sky-btn-default {
+  background-color: #fff;
+}
+
+.sky-btn-tab {
+  @include sky-btn-tab();
+}
+
+.sky-btn-tab-close {
+  background-color: transparent;
+  border: none;
+  color: $sky-color-gray-light;
+  cursor: pointer;
+  line-height: 1.4;
+  margin-left: $sky-margin-half;
+
+  &:hover {
+    color: $sky-color-gray;
+    transition: color $sky-transition-time-short;
+  }
+}
+
+.sky-btn-tab-selected {
+  @include sky-btn-tab-selected;
+
+  .sky-btn-tab-close {
+    color: #fff;
+  }
+}

@@ -1,17 +1,15 @@
 import {
-  it,
-  describe,
-  expect,
-  beforeEach,
+  ComponentFixture,
   inject,
   async,
   fakeAsync,
+  TestComponentBuilder,
   tick
 } from '@angular/core/testing';
 import {FORM_DIRECTIVES, NgModel, NgControl} from '@angular/common';
-import {TestComponentBuilder, ComponentFixture} from '@angular/compiler/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
+
 import {SkyCheckboxComponent, SkyCheckboxChange} from './checkbox.component';
 
 describe('Checkbox component', () => {

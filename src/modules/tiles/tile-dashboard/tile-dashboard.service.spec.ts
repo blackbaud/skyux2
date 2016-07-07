@@ -1,13 +1,10 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { DynamicComponentLoader, provide } from '@angular/core';
 import {
-  beforeEach,
-  beforeEachProviders,
-  describe,
-  expect,
+  addProviders,
+  ComponentFixture,
   fakeAsync,
   inject,
-  it,
+  TestComponentBuilder,
   tick
 } from '@angular/core/testing';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -32,18 +29,16 @@ describe('Tile dashboard service', () => {
   let mockDragulaService: DragulaService;
   let mockMediaQueryService: MockSkyMediaQueryService;
 
-  beforeEachProviders(
-    () => {
-      mockDragulaService = new MockDragulaService();
-      mockMediaQueryService = new MockSkyMediaQueryService();
+  beforeEach(() => {
+    mockDragulaService = new MockDragulaService();
+    mockMediaQueryService = new MockSkyMediaQueryService();
 
-      return [
-        provide(DragulaService, {useValue: mockDragulaService}),
-        provide(SkyMediaQueryService, {useValue: mockMediaQueryService}),
-        provide(SkyTileDashboardService, {useClass: SkyTileDashboardService})
-      ];
-    }
-  );
+    addProviders([
+      provide(DragulaService, {useValue: mockDragulaService}),
+      provide(SkyMediaQueryService, {useValue: mockMediaQueryService}),
+      provide(SkyTileDashboardService, {useClass: SkyTileDashboardService})
+    ]);
+  });
 
   beforeEach(
     inject(

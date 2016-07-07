@@ -50,11 +50,6 @@ module.exports = function (config) {
     };
 
   config.set({
-    coverageReporter: {
-      reporters: [{
-        type: 'json'
-      }]
-    },
     browsers: Object.keys(customLaunchers),
     customLaunchers: customLaunchers,
     browserDisconnectTimeout: 3e5,

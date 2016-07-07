@@ -81,4 +81,3 @@ export class SkyRepeaterItemComponent {
     this.slideDirection = this.isExpanded ? 'down' : 'up';
   }
 }
-
