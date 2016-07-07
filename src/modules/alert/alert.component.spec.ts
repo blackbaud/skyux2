@@ -1,11 +1,8 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   inject,
-  it
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { SkyAlertComponent } from './alert.component';
@@ -87,7 +84,7 @@ describe('Alert component', () => {
 
         let alertEl = el.querySelector('.sky-alert');
 
-        expect(alertEl).toHaveCssClass('sky-alert-success');
+        expect(alertEl.classList.contains('sky-alert-success')).toBe(true);
       });
   });
 
@@ -103,7 +100,7 @@ describe('Alert component', () => {
 
         let alertEl = el.querySelector('.sky-alert');
 
-        expect(alertEl).toHaveCssClass('sky-alert-warning');
+        expect(alertEl.classList.contains('sky-alert-warning')).toBe(true);
       });
   });
 });

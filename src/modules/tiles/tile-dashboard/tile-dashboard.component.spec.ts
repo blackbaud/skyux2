@@ -1,14 +1,10 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component, provide } from '@angular/core';
 import {
-  beforeEach,
-  describe,
-  expect,
+  ComponentFixture,
   fakeAsync,
   inject,
-  it,
   tick,
-  xit
+  TestComponentBuilder
 } from '@angular/core/testing';
 
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
