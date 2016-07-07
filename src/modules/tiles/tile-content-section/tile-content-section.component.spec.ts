@@ -1,5 +1,4 @@
 import {
-  ComponentFixture,
   inject,
   TestComponentBuilder
 } from '@angular/core/testing';
@@ -14,17 +13,13 @@ describe('Tile content section component', () => {
   }));
 
   it('should render the section content in the expected element', () => {
-    return tcb
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+    let fixture = tcb.createSync(TestComponent);
+    let el = fixture.nativeElement;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(
-          el.querySelectorAll('.sky-tile-content-section .test-content').length
-        ).toBe(1);
-      }
-    );
+    expect(
+      el.querySelectorAll('.sky-tile-content-section .test-content').length
+    ).toBe(1);
   });
 });

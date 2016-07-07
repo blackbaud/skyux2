@@ -232,34 +232,33 @@ describe('Tile dashboard service', () => {
 
         dashboardService.init(dashboardConfig);
 
-        return tcb
+        let fixture = tcb
           .overrideProviders(
             SkyTileComponent,
             [
               provide(SkyTileDashboardService, {useValue: dashboardService})
             ]
           )
-          .createAsync(Test1Component)
-          .then((fixture: ComponentFixture<Test1Component>) => {
-            let cmp: Test1Component = fixture.componentInstance;
+          .createSync(Test1Component);
 
-            fixture.detectChanges();
+        let cmp: Test1Component = fixture.componentInstance;
 
-            dashboardService.addTileComponent(
-              {
-                id: 'tile-1',
-                isCollapsed: false
-              },
-              fixture.componentRef
-            );
+        fixture.detectChanges();
 
-            dashboardService.setTileCollapsed(
-              cmp.tile,
-              true
-            );
+        dashboardService.addTileComponent(
+          {
+            id: 'tile-1',
+            isCollapsed: false
+          },
+          fixture.componentRef
+        );
 
-            expect(configChanged).toBe(true);
-          });
+        dashboardService.setTileCollapsed(
+          cmp.tile,
+          true
+        );
+
+        expect(configChanged).toBe(true);
       }
     )
   );
@@ -271,36 +270,35 @@ describe('Tile dashboard service', () => {
       (dashboardService: SkyTileDashboardService) => {
         dashboardService.init(dashboardConfig);
 
-        return tcb
+        let fixture = tcb
           .overrideProviders(
             SkyTileComponent,
             [
               provide(SkyTileDashboardService, {useValue: dashboardService})
             ]
           )
-          .createAsync(Test1Component)
-          .then((fixture: ComponentFixture<Test1Component>) => {
-            let cmp: Test1Component = fixture.componentInstance;
+          .createSync(Test1Component);
 
-            fixture.detectChanges();
+        let cmp: Test1Component = fixture.componentInstance;
 
-            dashboardService.addTileComponent(
-              {
-                id: 'tile-1',
-                isCollapsed: false
-              },
-              fixture.componentRef
-            );
+        fixture.detectChanges();
 
-            expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(false);
+        dashboardService.addTileComponent(
+          {
+            id: 'tile-1',
+            isCollapsed: false
+          },
+          fixture.componentRef
+        );
 
-            dashboardService.setTileCollapsed(
-              cmp.tile,
-              true
-            );
+        expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(false);
 
-            expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
-          });
+        dashboardService.setTileCollapsed(
+          cmp.tile,
+          true
+        );
+
+        expect(dashboardService.tileIsCollapsed(cmp.tile)).toBe(true);
       }
     )
   );
@@ -324,84 +322,82 @@ describe('Tile dashboard service', () => {
   it(
     'should initialize tiles in the appropriate columns for the current screen size',
     fakeAsync(() => {
-      return tcb
+      function getTileCount(columnEl: Element): number {
+        return columnEl.querySelectorAll('sky-tile').length;
+      }
+
+      let fixture = tcb
         .overrideProviders(
           SkyTileDashboardComponent,
           [
             provide(SkyMediaQueryService, {useValue: mockMediaQueryService})
           ]
         )
-        .createAsync(TileDashboardTestComponent)
-        .then((fixture: ComponentFixture<TileDashboardTestComponent>) => {
-          function getTileCount(columnEl: Element): number {
-            return columnEl.querySelectorAll('sky-tile').length;
-          }
+        .createSync(TileDashboardTestComponent);
 
-          mockMediaQueryService.matches = true;
+      mockMediaQueryService.matches = true;
 
-          let el = fixture.nativeElement;
+      let el = fixture.nativeElement;
 
-          fixture.detectChanges();
-          tick();
+      fixture.detectChanges();
+      tick();
 
-          let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
-          let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
+      let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
+      let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
 
-          expect(getTileCount(multiColumnEls[0])).toBe(0);
-          expect(getTileCount(multiColumnEls[1])).toBe(0);
-          expect(getTileCount(singleColumnEl)).toBe(2);
-        });
+      expect(getTileCount(multiColumnEls[0])).toBe(0);
+      expect(getTileCount(multiColumnEls[1])).toBe(0);
+      expect(getTileCount(singleColumnEl)).toBe(2);
     })
   );
 
   it(
     'should move tiles to the appropriate columns when the screen size changes',
     fakeAsync(() => {
-      return tcb
+      let fixture = tcb
         .overrideProviders(
           SkyTileDashboardComponent,
           [
             provide(SkyMediaQueryService, {useValue: mockMediaQueryService})
           ]
         )
-        .createAsync(TileDashboardTestComponent)
-        .then((fixture: ComponentFixture<TileDashboardTestComponent>) => {
-          function getTileCount(columnEl: Element): number {
-            return columnEl.querySelectorAll('sky-tile').length;
-          }
+        .createSync(TileDashboardTestComponent);
 
-          let el = fixture.nativeElement;
+        function getTileCount(columnEl: Element): number {
+          return columnEl.querySelectorAll('sky-tile').length;
+        }
 
-          fixture.detectChanges();
-          tick();
+        let el = fixture.nativeElement;
 
-          let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
-          let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
+        fixture.detectChanges();
+        tick();
 
-          expect(getTileCount(multiColumnEls[0])).toBe(1);
-          expect(getTileCount(multiColumnEls[1])).toBe(1);
-          expect(getTileCount(singleColumnEl)).toBe(0);
+        let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
+        let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
 
-          mockMediaQueryService.fire({
-            matches: true
-          });
+        expect(getTileCount(multiColumnEls[0])).toBe(1);
+        expect(getTileCount(multiColumnEls[1])).toBe(1);
+        expect(getTileCount(singleColumnEl)).toBe(0);
 
-          fixture.detectChanges();
-
-          expect(getTileCount(multiColumnEls[0])).toBe(0);
-          expect(getTileCount(multiColumnEls[1])).toBe(0);
-          expect(getTileCount(singleColumnEl)).toBe(2);
-
-          mockMediaQueryService.fire({
-            matches: false
-          });
-
-          fixture.detectChanges();
-
-          expect(getTileCount(multiColumnEls[0])).toBe(1);
-          expect(getTileCount(multiColumnEls[1])).toBe(1);
-          expect(getTileCount(singleColumnEl)).toBe(0);
+        mockMediaQueryService.fire({
+          matches: true
         });
+
+        fixture.detectChanges();
+
+        expect(getTileCount(multiColumnEls[0])).toBe(0);
+        expect(getTileCount(multiColumnEls[1])).toBe(0);
+        expect(getTileCount(singleColumnEl)).toBe(2);
+
+        mockMediaQueryService.fire({
+          matches: false
+        });
+
+        fixture.detectChanges();
+
+        expect(getTileCount(multiColumnEls[0])).toBe(1);
+        expect(getTileCount(multiColumnEls[1])).toBe(1);
+        expect(getTileCount(singleColumnEl)).toBe(0);
     })
   );
 
@@ -411,7 +407,7 @@ describe('Tile dashboard service', () => {
       let localMockMediaQueryService = new MockSkyMediaQueryService();
       let localMockDragulaService = new MockDragulaService();
 
-      return tcb
+      let fixture = tcb
         .overrideProviders(
           SkyTileDashboardComponent,
           [
@@ -419,37 +415,36 @@ describe('Tile dashboard service', () => {
             provide(SkyMediaQueryService, {useValue: localMockMediaQueryService})
           ]
         )
-        .createAsync(TileDashboardTestComponent)
-        .then((fixture: ComponentFixture<TileDashboardTestComponent>) => {
-          let cmp = fixture.componentInstance as TileDashboardTestComponent;
+        .createSync(TileDashboardTestComponent);
 
-          let expectedDashboardConfig = cmp.dashboardConfig;
+      let cmp = fixture.componentInstance as TileDashboardTestComponent;
 
-          fixture.detectChanges();
-          tick();
+      let expectedDashboardConfig = cmp.dashboardConfig;
 
-          localMockMediaQueryService.fire({
-            matches: true
-          });
+      fixture.detectChanges();
+      tick();
 
-          localMockDragulaService.drop.emit({});
+      localMockMediaQueryService.fire({
+        matches: true
+      });
 
-          fixture.detectChanges();
-          tick();
+      localMockDragulaService.drop.emit({});
 
-          expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
+      fixture.detectChanges();
+      tick();
 
-          localMockMediaQueryService.fire({
-            matches: false
-          });
+      expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
 
-          localMockDragulaService.drop.emit({});
+      localMockMediaQueryService.fire({
+        matches: false
+      });
 
-          fixture.detectChanges();
-          tick();
+      localMockDragulaService.drop.emit({});
 
-          expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
-        });
+      fixture.detectChanges();
+      tick();
+
+      expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
     })
   );
 
