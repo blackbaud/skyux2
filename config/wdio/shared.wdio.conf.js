@@ -23,7 +23,12 @@
         mismatchTolerance: 0.05,
         screenWidth: [1280]
       }
-    }
+    },
+    reporters: [
+      'dot',
+      'spec'
+    ],
+    sync: false
   };
 
 })();
