@@ -32,7 +32,7 @@
     "start": "webpack-dev-server --config config/webpack/webpack.dev.js --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
     "start:visual": "node ./config/utils/visual-server.js start",
     "version": "npm run build",
-    "watch": "npm run test -- --auto-watch --no-single-run"
+    "watch": "npm run test:unit -- --auto-watch --no-single-run"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "1.1.1",
-    "browserstack-local": "^0.2.0",
+    "browserstack-local": "0.2.0",
     "codelyzer": "0.0.25",
     "css-loader": "0.23.1",
     "express": "4.14.0",
@@ -66,7 +66,7 @@
     "karma": "1.1.0",
     "karma-browserstack-launcher": "1.0.1",
     "karma-chrome-launcher": "1.0.1",
-    "karma-coverage": "karma-runner/karma-coverage",
+    "karma-coverage": "1.1.0",
     "karma-jasmine": "1.0.2",
     "karma-mocha-reporter": "2.0.4",
     "karma-sourcemap-loader": "0.3.7",
