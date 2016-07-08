@@ -14,26 +14,35 @@ addons:
       - graphicsmagick
       - libcairo2-dev
 
-# https://github.com/npm/npm/issues/11283
 before_install:
+
+  # https://github.com/npm/npm/issues/11283
   - npm set progress=false
 
+  - export SAVAGE_BRANCH="^savage-"
+
+  - chmod +x ./scripts/browserstack-cleanup.sh
+  - chmod +x ./scripts/npm-publish.sh
+  - chmod +x ./scripts/visual-baseline.sh
+  - chmod +x ./scripts/visual-failures.sh
+
 # Run `ci` instead of default of `test`
-script: npm run ci
+script: npm run ci && ./scripts/visual-baseline.sh
 
 # Upload coverage to https://codecov.io/gh/blackbaud/skyux2
 after_script:
   - bash <(curl -s https://codecov.io/bash)
-  - chmod +x ./scripts/browserstack-cleanup.sh && ./scripts/browserstack-cleanup.sh
+  - ./scripts/browserstack-cleanup.sh
 
 # Publish a tag to NPM
 after_success:
-  - if [ -n "$TRAVIS_TAG" ]; then chmod +x ./scripts/npm-publish.sh && ./scripts/npm-publish.sh; fi
+  - if [ -n "$TRAVIS_TAG" ]; then ./scripts/npm-publish.sh; fi
 
-# Display any NPM errors
+# Display any NPM / BrowserStack errors
 after_failure:
-  - chmod +x ./scripts/update-skyux-visualtest-results.sh && ./scripts/update-skyux-visualtest-results.sh
+  - ./scripts/visual-baseline.sh
   - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
+  - if [ -e ./browserstack.err ]; then cat ./browserstack.err; fi
 
 # When a push, only care about the master, rc-, and savage- branches.
 # Otherwise anytime we commit to internal branches this would run.
