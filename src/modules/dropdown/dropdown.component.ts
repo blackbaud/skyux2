@@ -14,9 +14,19 @@ import { SkyDropdownAdapterService } from './dropdown-adapter.service';
 })
 export class SkyDropdownComponent {
   @Input()
-  public buttonType = 'select';
+  public set buttonType(value: string) {
+    this._buttonType = value;
+  }
+
+  public get buttonType(): string {
+    return this._buttonType || 'select';
+  }
 
   private open = false;
+
+  private opening = false;
+
+  private _buttonType: string;
 
   constructor(
     private elRef: ElementRef,
@@ -30,7 +40,19 @@ export class SkyDropdownComponent {
   public click() {
     if (!this.open) {
       this.adapterService.showDropdown(this.elRef);
+
+      // Notify the window click handler that the menu was just opened so it doesn't try to
+      // close it.
+      this.opening = true;
+    }
+  }
+
+  public windowClick() {
+    if (this.opening) {
+      this.opening = false;
       this.open = true;
+    } else {
+      this.adapterService.hideDropdown(this.elRef);
     }
   }
 }
