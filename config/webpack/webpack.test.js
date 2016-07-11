@@ -193,7 +193,8 @@ module.exports = {
           /\.(e2e|spec)\.ts$/,
           /node_modules/,
           /index\.ts/,
-          /fixtures/
+          /fixtures/,
+          /testing/
         ]
       }
 

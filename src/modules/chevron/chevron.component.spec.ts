@@ -1,6 +1,5 @@
 import {
   inject,
-  it,
   TestComponentBuilder
 } from '@angular/core/testing';
 

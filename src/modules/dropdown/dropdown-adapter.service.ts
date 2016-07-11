@@ -17,7 +17,7 @@ export class SkyDropdownAdapterService {
     let nativeEl = dropdownEl.nativeElement;
 
     let buttonEl = nativeEl.querySelector('.sky-dropdown-button');
-    let menuEl = nativeEl.querySelector('.sky-dropdown-menu');
+    let menuEl = this.getMenuEl(dropdownEl);
 
     let rect = buttonEl.getBoundingClientRect();
 
@@ -27,16 +27,16 @@ export class SkyDropdownAdapterService {
     this.renderer.setElementProperty(menuEl, 'top', top + 'px');
     this.renderer.setElementProperty(menuEl, 'left', left + 'px');
     this.renderer.setElementClass(menuEl, CLS_OPEN, true);
+  }
 
-    let bodyClickHandler = () => {
-      this.renderer.setElementClass(menuEl, CLS_OPEN, false);
-      document.removeEventListener('click', bodyClickHandler);
+  public hideDropdown(dropdownEl: ElementRef) {
+    let menuEl = this.getMenuEl(dropdownEl);
 
-      this.dropdownClose.emit(undefined);
-    };
+    this.renderer.setElementClass(menuEl, CLS_OPEN, false);
+    this.dropdownClose.emit(undefined);
+  }
 
-    setTimeout(() => {
-      document.addEventListener('click', bodyClickHandler);
-    }, 0);
+  private getMenuEl(dropdownEl: ElementRef) {
+    return dropdownEl.nativeElement.querySelector('.sky-dropdown-menu');
   }
 }

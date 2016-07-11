@@ -5,6 +5,11 @@
   @include sky-btn-tab-selected;
 }
 
+.sky-dropdown-button-type-context-menu {
+  background-color: #fff;
+  border-radius: 50%;
+}
+
 .sky-dropdown-caret {
   margin-left: $sky-margin;
 }
