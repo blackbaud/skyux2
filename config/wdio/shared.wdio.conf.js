@@ -4,20 +4,16 @@
 (() => {
   'use strict';
 
-  const utils = require('../utils/visual-utils');
-
   module.exports = {
     specs: [
         'src/modules/**/*.visual-spec.js'
     ],
-    baseUrl: 'http://localhost:3000/',
+    baseUrl: 'http://localhost:3000',
     framework: 'jasmine',
     jasmineNodeOpts: {
       defaultTimeoutInterval: 200000,
     },
     waitforTimeout: 3000,
-    compare: utils.compare,
-    moveCursorOffScreen: utils.moveCursorOffScreen,
     plugins: {
       webdrivercss: {
         mismatchTolerance: 0.05,
@@ -28,7 +24,12 @@
       'dot',
       'spec'
     ],
-    sync: false
+    sync: false,
+    before: () => {
+      const commands = require('../utils/visual-browser-commands');
+      Object.keys(commands).forEach(command =>
+        browser.addCommand(command, commands[command]));
+    }
   };
 
 })();
