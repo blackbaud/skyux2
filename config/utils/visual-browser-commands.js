@@ -29,8 +29,8 @@
       const pageName = prefix + path.sep + prefix + '_' + options.screenshotName + '_full';
 
       const test = [{
-        name: options.screenshotName + '.' + width + 'px',
-        selector: options.selector
+        name: options.screenshotName,
+        elem: options.selector
       }];
 
       const handler = (err, res) => {
@@ -66,11 +66,8 @@
     });
   };
 
-  const getPrefix = (browser) => {
-    const browserName = browser.desiredCapabilities.browserName;
-    const platform = browser.desiredCapabilities.os === 'OS X' ? 'MAC' : 'WIN';
-    return platform + '_' + browserName;
-  };
+  const getPrefix = (browser) =>
+    browser.desiredCapabilities.os + '_' + browser.desiredCapabilities.browserName;
 
   const log = (message) => {
     console.log('\x1b[31m', message);
