@@ -5,7 +5,7 @@ describe('Chevron', () => {
     browser
       .setupTest('/chevron.html')
       .compareScreenshot({
-        screenshotName: 'checkron',
+        screenshotName: 'chevron',
         selector: '#screenshot-chevron',
         checkAccessibility: true
       })
