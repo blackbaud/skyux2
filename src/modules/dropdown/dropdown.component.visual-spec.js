@@ -14,7 +14,7 @@ describe('Dropdown', () => {
   it('should match dropdown button screenshot when open', (done) => {
     browser
       .setupTest('/dropdown.html')
-      .click('#screenshot-contextmenu button.sky-dropdown-btn')
+      .click('#screenshot-dropdown-button .sky-dropdown-button')
       .compareScreenshot({
         screenshotName: 'dropdown-button-open',
         selector: '#screenshot-dropdown-button'
@@ -35,7 +35,7 @@ describe('Dropdown', () => {
   it('should match dropdown context menu screenshot when open', (done) => {
     browser
       .setupTest('/dropdown.html')
-      .click('#screenshot-contextmenu button.sky-dropdown-btn')
+      .click('#screenshot-dropdown-context-menu .sky-dropdown-button')
       .compareScreenshot({
         screenshotName: 'dropdown-context-menu-open',
         selector: '#screenshot-dropdown-context-menu'

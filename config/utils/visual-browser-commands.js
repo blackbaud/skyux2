@@ -28,6 +28,8 @@
       const prefix = getPrefix(browser);
       const pageName = prefix + path.sep + prefix + '_' + options.screenshotName + '_full';
 
+      options.screenshotName += '.' + width + 'px';
+
       const test = [{
         name: options.screenshotName,
         elem: options.selector

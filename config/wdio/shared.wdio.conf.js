@@ -17,8 +17,7 @@
     waitforTimeout: 3000,
     plugins: {
       webdrivercss: {
-        mismatchTolerance: 0.05,
-        screenWidth: [1280]
+        mismatchTolerance: 0.05
       }
     },
     reporters: [
