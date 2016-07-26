@@ -303,6 +303,8 @@ describe('Repeater item component', () => {
             let cmp: TestComponent = fixture.componentInstance;
             let el = fixture.nativeElement as Element;
 
+            fixture.detectChanges();
+
             cmp.expandMode = 'none';
             fixture.detectChanges();
 
