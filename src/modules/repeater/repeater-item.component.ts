@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 
 import slideAnimation from '../animation/slide';
 import { SkyChevronComponent } from '../chevron/chevron.component';
@@ -13,7 +13,7 @@ import { SkyLogService } from '../log/log.service';
   providers: [SkyLogService],
   animations: [slideAnimation]
 })
-export class SkyRepeaterItemComponent implements OnInit {
+export class SkyRepeaterItemComponent {
   public get isExpanded(): boolean {
     return this._isExpanded;
   }
@@ -39,8 +39,6 @@ export class SkyRepeaterItemComponent implements OnInit {
       }
     }
   }
-
-  private isInitialized = false;
 
   private _isCollapsible = true;
 
@@ -78,10 +76,6 @@ export class SkyRepeaterItemComponent implements OnInit {
         this.slideForExpanded(animate);
       }
     }
-  }
-
-  public ngOnInit() {
-    this.isInitialized = true;
   }
 
   private slideForExpanded(animate: boolean) {
