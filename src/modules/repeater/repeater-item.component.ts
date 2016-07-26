@@ -33,13 +33,14 @@ export class SkyRepeaterItemComponent {
     if (this._isCollapsible !== value) {
       this._isCollapsible = value;
 
+      /*istanbul ignore else */
       if (!this._isCollapsible) {
         this.updateForExpanded(true, false);
       }
     }
   }
 
-  private _isCollapsible = false;
+  private _isCollapsible = true;
 
   private _isExpanded = true;
 
