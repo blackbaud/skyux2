@@ -49,9 +49,9 @@
       return browser
         .webdrivercss(pageName, test, handler)
         .then(() => {
-          if (options.checkAccessibility) {
-            checkAccessibility(options);
-          }
+          // if (options.checkAccessibility) {
+          //   checkAccessibility(options);
+          // }
         });
     });
 
