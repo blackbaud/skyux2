@@ -3,6 +3,7 @@
 
   const fs = require('fs');
   const path = require('path');
+  const util = require('util');
 
   const checkAccessibility = (options) =>
     browser.executeAsync((done) => {
@@ -76,7 +77,10 @@
   };
 
   const logViolations = (name, violations) => {
-    log('\nThe following accessibility issues exist in %s:\n', name);
+    log(util.format(
+      '\nThe following accessibility issues exist in %s:\n',
+      name
+    ));
     violations.forEach((violation) => {
       log(violation.help, ' violation at: ');
       violation.nodes.forEach((line) => {

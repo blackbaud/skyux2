@@ -24,7 +24,6 @@
       'dot',
       'spec'
     ],
-    sync: false,
     before: () => {
       timestamp = new Date().getTime();
       const commands = require('../utils/visual-browser-commands');
