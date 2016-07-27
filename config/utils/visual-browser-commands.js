@@ -104,8 +104,6 @@
           height: size.height,
           width: screenWidth
         });
-      } else {
-        return;
       }
     });
 
