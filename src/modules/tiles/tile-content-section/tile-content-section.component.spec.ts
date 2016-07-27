@@ -3,7 +3,7 @@ import {
   TestComponentBuilder
 } from '@angular/core/testing';
 
-import { TestComponent } from './fixtures';
+import { TileContentSectionTestComponent } from './fixtures';
 
 describe('Tile content section component', () => {
   let tcb: TestComponentBuilder;
@@ -13,7 +13,7 @@ describe('Tile content section component', () => {
   }));
 
   it('should render the section content in the expected element', () => {
-    let fixture = tcb.createSync(TestComponent);
+    let fixture = tcb.createSync(TileContentSectionTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();

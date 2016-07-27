@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
 import {
   inject,
   TestComponentBuilder
 } from '@angular/core/testing';
 
-import { SkyAlertComponent } from './alert.component';
+import { AlertTestComponent } from './fixtures/alert.component.fixture';
 import { SkyResources } from '../resources/resources';
 
 describe('Alert component', () => {
@@ -15,8 +14,8 @@ describe('Alert component', () => {
   }));
 
   it('should hide the close button if it is not cloesable', () => {
-    let fixture = tcb.createSync(TestComponent);
-    let cmp = fixture.componentInstance as TestComponent;
+    let fixture = tcb.createSync(AlertTestComponent);
+    let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
 
     cmp.closeable = true;
@@ -35,8 +34,8 @@ describe('Alert component', () => {
   });
 
   it('should be hidden when the close button is clicked', () => {
-    let fixture = tcb.createSync(TestComponent);
-    let cmp = fixture.componentInstance as TestComponent;
+    let fixture = tcb.createSync(AlertTestComponent);
+    let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement;
 
     cmp.closeable = true;
@@ -50,8 +49,8 @@ describe('Alert component', () => {
   });
 
   it('should allow the screen reader text for the close button to be localizable', () => {
-    let fixture = tcb.createSync(TestComponent);
-    let cmp = fixture.componentInstance as TestComponent;
+    let fixture = tcb.createSync(AlertTestComponent);
+    let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
     let closeEl: any;
 
@@ -65,8 +64,8 @@ describe('Alert component', () => {
   });
 
   it('should add the appropriate styling when an alert type is specified', () => {
-    let fixture = tcb.createSync(TestComponent);
-    let cmp = fixture.componentInstance as TestComponent;
+    let fixture = tcb.createSync(AlertTestComponent);
+    let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
 
     cmp.alertType = 'success';
@@ -79,8 +78,8 @@ describe('Alert component', () => {
   });
 
   it('should default to "warning" when no alert type is specified', () => {
-    let fixture = tcb.createSync(TestComponent);
-    let cmp = fixture.componentInstance as TestComponent;
+    let fixture = tcb.createSync(AlertTestComponent);
+    let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
 
     cmp.alertType = undefined;
@@ -92,20 +91,3 @@ describe('Alert component', () => {
     expect(alertEl.classList.contains('sky-alert-warning')).toBe(true);
   });
 });
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyAlertComponent],
-  template: `
-<sky-alert [closeable]="closeable" [(closed)]="closed" [alertType]="alertType">
-  Alert
-</sky-alert>
-  `
-})
-class TestComponent {
-  public closeable = false;
-
-  public closed = false;
-
-  public alertType = 'info';
-}

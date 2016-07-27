@@ -1,4 +1,4 @@
-import { Component, provide, ViewChild } from '@angular/core';
+import { provide } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -7,9 +7,9 @@ import {
   TestComponentBuilder
 } from '@angular/core/testing';
 
-import { SkyRepeaterComponent } from './repeater.component';
-import { SkyRepeaterItemComponent } from './repeater-item.component';
 import { SkyLogService } from '../log/log.service';
+import { SkyRepeaterItemComponent } from './repeater-item.component';
+import { RepeaterTestComponent } from './fixtures/repeater.component.fixture';
 
 describe('Repeater item component', () => {
   let tcb: TestComponentBuilder;
@@ -27,9 +27,9 @@ describe('Repeater item component', () => {
     'should default expand mode to "none" when no expand mode is specified',
     fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
           cmp.expandMode = undefined;
 
           fixture.detectChanges();
@@ -44,9 +44,9 @@ describe('Repeater item component', () => {
   describe('with expand mode of "single"', () => {
     it('should collapse other items when an item is expanded', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
 
           cmp.expandMode = 'single';
           fixture.detectChanges();
@@ -75,9 +75,9 @@ describe('Repeater item component', () => {
 
     it('should collapse other items when a new expanded item is added', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
 
           cmp.expandMode = 'single';
           cmp.removeLastItem = true;
@@ -108,9 +108,9 @@ describe('Repeater item component', () => {
 
     it('should toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
           let el = fixture.nativeElement;
 
           cmp.expandMode = 'single';
@@ -137,9 +137,9 @@ describe('Repeater item component', () => {
 
     it('should toggle its collapsed state when an item\'s chevron is clicked', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
           let el = fixture.nativeElement;
 
           cmp.expandMode = 'single';
@@ -168,9 +168,9 @@ describe('Repeater item component', () => {
   describe('with expand mode of "multiple"', () => {
     it('should not collapse other items when an item is expanded', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
 
           cmp.expandMode = 'multiple';
 
@@ -199,9 +199,9 @@ describe('Repeater item component', () => {
 
     it('should toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
           let el = fixture.nativeElement;
 
           cmp.expandMode = 'multiple';
@@ -228,9 +228,9 @@ describe('Repeater item component', () => {
 
     it('should toggle its collapsed state when an item\'s chevron is clicked', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
           let el = fixture.nativeElement;
 
           cmp.expandMode = 'multiple';
@@ -267,9 +267,9 @@ describe('Repeater item component', () => {
             provide(SkyLogService, {useValue: mockLogService})
           ]
         )
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-            let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+            let cmp: RepeaterTestComponent = fixture.componentInstance;
 
             cmp.expandMode = 'none';
 
@@ -298,9 +298,9 @@ describe('Repeater item component', () => {
 
     it('should hide each item\'s chevron button', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-            let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+            let cmp: RepeaterTestComponent = fixture.componentInstance;
             let el = fixture.nativeElement as Element;
 
             fixture.detectChanges();
@@ -334,9 +334,9 @@ describe('Repeater item component', () => {
               provide(SkyLogService, {useValue: mockLogService})
             ]
           )
-          .createAsync(TestComponent)
-          .then((fixture: ComponentFixture<TestComponent>) => {
-            let cmp: TestComponent = fixture.componentInstance;
+          .createAsync(RepeaterTestComponent)
+          .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+            let cmp: RepeaterTestComponent = fixture.componentInstance;
 
             cmp.expandMode = 'multiple';
 
@@ -369,9 +369,9 @@ describe('Repeater item component', () => {
 
     it('should not toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
       return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let cmp: TestComponent = fixture.componentInstance;
+        .createAsync(RepeaterTestComponent)
+        .then((fixture: ComponentFixture<RepeaterTestComponent>) => {
+          let cmp: RepeaterTestComponent = fixture.componentInstance;
           let el = fixture.nativeElement;
 
           cmp.expandMode = 'none';
@@ -398,43 +398,3 @@ describe('Repeater item component', () => {
     }));
   });
 });
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyRepeaterComponent, SkyRepeaterItemComponent],
-  template:
-`<sky-repeater [expandMode]="expandMode">
-  <sky-repeater-item>
-    <sky-repeater-item-context-menu *ngIf="showContextMenu">
-      <sky-context-menu>
-      </sky-context-menu>
-    </sky-repeater-item-context-menu>
-    <sky-repeater-item-title>Title 1</sky-repeater-item-title>
-    <sky-repeater-item-content>Content 1</sky-repeater-item-content>
-  </sky-repeater-item>
-  <sky-repeater-item>
-    <sky-repeater-item-context-menu *ngIf="showContextMenu">
-      <sky-context-menu>
-      </sky-context-menu>
-    </sky-repeater-item-context-menu>
-    <sky-repeater-item-title>Title 2</sky-repeater-item-title>
-    <sky-repeater-item-content>Content 2</sky-repeater-item-content>
-  </sky-repeater-item>
-  <sky-repeater-item *ngIf="!removeLastItem" [isExpanded]="lastItemExpanded">
-    <sky-repeater-item-context-menu *ngIf="showContextMenu">
-      <sky-context-menu>
-      </sky-context-menu>
-    </sky-repeater-item-context-menu>
-    <sky-repeater-item-title>Title 3</sky-repeater-item-title>
-    <sky-repeater-item-content>Content 3</sky-repeater-item-content>
-  </sky-repeater-item>
-</sky-repeater>`
-})
-class TestComponent {
-  @ViewChild(SkyRepeaterComponent)
-  public repeater: SkyRepeaterComponent;
-  public showContextMenu: boolean;
-  public removeLastItem: boolean;
-  public expandMode = 'single';
-  public lastItemExpanded: boolean;
-}

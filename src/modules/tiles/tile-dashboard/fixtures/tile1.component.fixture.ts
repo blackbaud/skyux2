@@ -5,14 +5,9 @@ import { SkyTileComponent } from '../../tile';
 @Component({
   selector: 'sky-test-cmp',
   directives: [SkyTileComponent],
-  template: `
-    <sky-tile (settingsClick)="tileSettingsClick()">
-      <sky-tile-title>Title</sky-tile-title>
-      <sky-tile-content>Content</sky-tile-content>
-    </sky-tile>
-  `
+  template: require('./tile1.component.fixture.html')
 })
-export class Test1Component {
+export class Tile1TestComponent {
   @ViewChild(SkyTileComponent)
   public tile: SkyTileComponent;
 
