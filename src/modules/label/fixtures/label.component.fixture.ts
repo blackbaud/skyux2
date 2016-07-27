@@ -4,9 +4,7 @@ import { SkyLabelComponent } from '../label.component';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: `
-<sky-label [labelType]="labelType">Test label</sky-label>
-  `,
+  template: require('./label.component.fixture.html'),
   directives: [SkyLabelComponent]
 })
 export class LabelTestComponent {

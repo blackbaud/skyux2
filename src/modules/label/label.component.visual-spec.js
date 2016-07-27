@@ -5,7 +5,7 @@ describe('Label', () => {
     browser
       .setupTest('/label.html')
       .compareScreenshot({
-        screenshotName: 'label',
+        screenshotName: 'labels-all',
         selector: '#screenshot-label',
         checkAccessibility: true
       })
