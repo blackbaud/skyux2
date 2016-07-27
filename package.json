@@ -49,7 +49,7 @@
     "zone.js": "0.6.12"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "2.1.1",
+    "awesome-typescript-loader": "1.1.1",
     "browserstack-local": "1.0.0",
     "codelyzer": "0.0.26",
     "css-loader": "0.23.1",
