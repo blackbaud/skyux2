@@ -6,7 +6,7 @@ var plugins = [];
 var entry = {};
 
 (function () {
-  var files = glob.sync('./src/modules/*/fixtures/*.component.visual-fixture.ts');
+  var files = glob.sync('./src/modules/**/fixtures/*.component.visual-fixture.ts');
 
   files.forEach(function (file) {
     var demoName;
