@@ -1,8 +1,8 @@
 import { EventEmitter } from '@angular/core';
 
 import { SkyTileDashboardConfig, SkyTileDashboardConfigTile } from '../../tile-dashboard-config';
-import { Test1Component } from './tile1-test.component';
-import { Test2Component } from './tile2-test.component';
+import { Tile1TestComponent } from './tile1.component.fixture';
+import { Tile2TestComponent } from './tile2.component.fixture';
 
 export class MockTileDashboardService {
   public bagId = 'id-1';
@@ -20,9 +20,9 @@ export class MockTileDashboardService {
   public getTileComponentType(tile: SkyTileDashboardConfigTile) {
     switch (tile.id) {
     case 'tile-1':
-      return Test1Component;
+      return Tile1TestComponent;
     case 'tile-2':
-      return Test2Component;
+      return Tile2TestComponent;
     default:
       return undefined;
     }

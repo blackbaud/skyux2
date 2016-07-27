@@ -10,7 +10,7 @@ import {
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
-import { MockTileDashboardService, Test1Component, Test2Component } from './fixtures';
+import { MockTileDashboardService, Tile1TestComponent, Tile2TestComponent } from './fixtures';
 
 describe('Tile dashboard component', () => {
   let tcb: TestComponentBuilder;
@@ -44,11 +44,11 @@ describe('Tile dashboard component', () => {
           tiles: [
             {
               id: 'tile-1',
-              componentType: Test1Component
+              componentType: Tile1TestComponent
             },
             {
               id: 'tile-2',
-              componentType: Test2Component
+              componentType: Tile2TestComponent
             }
           ],
           layout: {
@@ -112,11 +112,11 @@ describe('Tile dashboard component', () => {
           tiles: [
             {
               id: 'tile-1',
-              componentType: Test1Component
+              componentType: Tile1TestComponent
             },
             {
               id: 'tile-2',
-              componentType: Test2Component
+              componentType: Tile2TestComponent
             }
           ],
           layout: {
@@ -245,11 +245,11 @@ class TestComponent {
     tiles: [
       {
         id: 'tile-1',
-        componentType: Test1Component
+        componentType: Tile1TestComponent
       },
       {
         id: 'tile-2',
-        componentType: Test2Component
+        componentType: Tile2TestComponent
       }
     ],
     layout: {

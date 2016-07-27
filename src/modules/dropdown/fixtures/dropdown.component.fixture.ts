@@ -4,18 +4,7 @@ import { SkyDropdownComponent, SkyDropdownItemComponent } from '../';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: `
-<sky-dropdown [buttonType]="buttonType">
-  <sky-dropdown-button>
-    Show dropdown
-  </sky-dropdown-button>
-  <sky-dropdown-menu>
-    <sky-dropdown-item>
-      test
-    </sky-dropdown-item>
-  </sky-dropdown-menu>
-</sky-dropdown>
-  `,
+  template: require('./dropdown.component.fixture.html'),
   directives: [SkyDropdownComponent, SkyDropdownItemComponent]
 })
 export class DropdownTestComponent {

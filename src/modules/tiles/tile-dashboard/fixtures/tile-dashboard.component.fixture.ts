@@ -4,14 +4,12 @@ import {
   SkyTileDashboardComponent,
   SkyTileDashboardConfig
 } from '../../../tiles';
-import { Test1Component } from './tile1-test.component.ts';
-import { Test2Component } from './tile2-test.component.ts';
+import { Tile1TestComponent } from './tile1.component.fixture';
+import { Tile2TestComponent } from './tile2.component.fixture';
 
 @Component({
   selector: 'sky-demo-app',
-  template: `
-    <sky-tile-dashboard [(config)]="dashboardConfig"></sky-tile-dashboard>
-  `,
+  template: require('./tile-dashboard.component.fixture.html'),
   directives: [
     SkyTileDashboardComponent
   ]
@@ -24,11 +22,11 @@ export class TileDashboardTestComponent {
       tiles: [
         {
           id: 'tile1',
-          componentType: Test1Component
+          componentType: Tile1TestComponent
         },
         {
           id: 'tile2',
-          componentType: Test2Component
+          componentType: Tile2TestComponent
         }
       ],
       layout: {

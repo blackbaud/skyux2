@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
 import {
   inject,
   TestComponentBuilder
 } from '@angular/core/testing';
 
-import { SkyCardComponent } from './card.component';
+import { CardTestComponent } from './fixtures/card.component.fixture';
+import { expect } from '../testing';
 
-function validateCardSelected(cmp: TestComponent, cardEl: any, selected: boolean) {
+function validateCardSelected(cmp: CardTestComponent, cardEl: any, selected: boolean) {
   let selectedEl = cardEl.querySelector('.sky-card.sky-card-selected');
 
   if (selected) {
@@ -37,16 +37,16 @@ describe('Card component', () => {
     `;
 
     let fixture = tcb
-      .overrideTemplate(TestComponent, html)
-      .createSync(TestComponent);
+      .overrideTemplate(CardTestComponent, html)
+      .createSync(CardTestComponent);
 
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    expect(el.querySelector('.sky-card-title sky-card-title').innerText).toBe('Title');
-    expect(el.querySelector('.sky-card-content sky-card-content').innerText).toBe('Content');
-    expect(el.querySelector('.sky-card-actions button').innerText).toBe('Button');
+    expect(el.querySelector('.sky-card-title sky-card-title')).toHaveText('Title');
+    expect(el.querySelector('.sky-card-content sky-card-content')).toHaveText('Content');
+    expect(el.querySelector('.sky-card-actions button')).toHaveText('Button');
   });
 
   it('should add the appropriate CSS class for small cards', () => {
@@ -56,16 +56,14 @@ describe('Card component', () => {
     `;
 
     let fixture = tcb
-      .overrideTemplate(TestComponent, html)
-      .createSync(TestComponent);
+      .overrideTemplate(CardTestComponent, html)
+      .createSync(CardTestComponent);
 
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let cardEl = el.querySelector('section.sky-card');
-
-    expect(cardEl.classList.contains('sky-card-small')).toBe(true);
+    expect(el.querySelector('section.sky-card')).toHaveCssClass('sky-card-small');
   });
 
   it('should display a checkbox when the selectable attribute is set to true', () => {
@@ -75,15 +73,17 @@ describe('Card component', () => {
     `;
 
     let fixture = tcb
-      .overrideTemplate(TestComponent, html)
-      .createSync(TestComponent);
+      .overrideTemplate(CardTestComponent, html)
+      .createSync(CardTestComponent);
 
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
 
     let wrapperEl = el.querySelector(
-      '.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper');
+      '.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper'
+    );
+
     expect(wrapperEl).not.toBeNull();
   });
 
@@ -99,10 +99,10 @@ describe('Card component', () => {
     `;
 
     let fixture = tcb
-      .overrideTemplate(TestComponent, html)
-      .createSync(TestComponent);
+      .overrideTemplate(CardTestComponent, html)
+      .createSync(CardTestComponent);
 
-    let cmp = fixture.componentInstance as TestComponent,
+    let cmp = fixture.componentInstance as CardTestComponent,
       el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -128,10 +128,10 @@ describe('Card component', () => {
     `;
 
     let fixture = tcb
-      .overrideTemplate(TestComponent, html)
-      .createSync(TestComponent);
+      .overrideTemplate(CardTestComponent, html)
+      .createSync(CardTestComponent);
 
-    let cmp = fixture.componentInstance as TestComponent,
+    let cmp = fixture.componentInstance as CardTestComponent,
       el = fixture.nativeElement;
 
     cmp.showCheckbox = false;
@@ -146,14 +146,3 @@ describe('Card component', () => {
     validateCardSelected(cmp, el, false);
   });
 });
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyCardComponent],
-  template: ''
-})
-class TestComponent {
-  public cardSelected = false;
-
-  public showCheckbox = true;
-}
