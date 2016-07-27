@@ -8,4 +8,9 @@ export class Bootstrapper {
 
     bootstrap(componentType);
   }
+
+  static bootstrapDependencies(componentType: any, dependencies: any): void {
+
+    bootstrap(componentType, dependencies);
+  }
 }

@@ -5,10 +5,10 @@ import {
     EventEmitter,
     Input,
     Output,
-    Provider,
-    forwardRef
+    forwardRef,
 } from '@angular/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 /**
  * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
@@ -17,14 +17,14 @@ let nextId = 0;
 
 /**
  * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)] and ngControl.
+ * This allows it to support [(ngModel)].
  */
 // tslint:disable no-forward-ref
-const SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR = new Provider(
-    NG_VALUE_ACCESSOR, {
-      useExisting: forwardRef(() => SkyCheckboxComponent),
-      multi: true
-    });
+const SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SkyCheckboxComponent),
+  multi: true
+};
 // tslint:enable
 
 // A simple change event emitted by the SkyCheckbox component.
