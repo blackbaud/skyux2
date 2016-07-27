@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "1.1.1",
+    "axe-core": "2.0.5",
     "browserstack-local": "1.0.0",
     "codelyzer": "0.0.25",
     "css-loader": "0.23.1",
