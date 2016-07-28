@@ -1,0 +1,22 @@
+<div id="screenshot-tabset" style="height: 200px;">
+  <sky-tabset (newTab)="newTabClick()" (openTab)="openTabClick()">
+    <sky-tab [tabHeading]="'Tab 1'" (close)="closeTab()">
+      Tab 1 Content
+    </sky-tab>
+    <sky-tab [tabHeading]="'Tab 2'" [active]="'true'" (close)="closeTab()">
+      Tab 2 Content
+    </sky-tab>
+    <sky-tab [tabHeading]="'Tab 3'" (close)="closeTab()">
+      Tab 3 Content
+    </sky-tab>
+    <sky-tab [tabHeading]="'Tab 4'" (close)="closeTab()">
+      Tab 4 Content
+    </sky-tab>
+    <sky-tab tabHeading="Permanent tab">
+      This tab cannot be closed
+    </sky-tab>
+    <sky-tab [tabHeading]="'Tab 3'" (close)="closeTab()">
+      Tab 3 Content
+    </sky-tab>
+  </sky-tabset>
+</div>

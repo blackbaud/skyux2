@@ -6,7 +6,7 @@ var plugins = [];
 var entry = {};
 
 (function () {
-  var files = glob.sync('./src/modules/*/fixtures/*.component.visual-fixture.ts');
+  var files = glob.sync('./src/modules/**/fixtures/*.component.visual-fixture.ts');
 
   files.forEach(function (file) {
     var demoName;
@@ -16,7 +16,6 @@ var entry = {};
     dirname = path.dirname(file);
     parts = dirname.split(path.sep);
     demoName = parts[parts.length - 2];
-
     entry[demoName] = file;
 
     plugins.push(new HtmlWebpackPlugin({
@@ -26,6 +25,15 @@ var entry = {};
       filename: demoName + '.html'
     }));
   });
+
+  // Create landing page for easier debugging
+  plugins.push(new HtmlWebpackPlugin({
+    inject: false,
+    entry: entry,
+    template: 'visual/index.ejs',
+    filename: 'index.html'
+  }));
+
 }());
 
 exports.buildVisualConfig = function () {
