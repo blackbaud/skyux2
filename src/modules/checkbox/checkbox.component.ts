@@ -86,8 +86,6 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   public set checked(checked: boolean) {
     if (checked !== this.checked) {
       this._checked = checked;
-
-      this._emitChangeEvent();
     }
   }
 
@@ -124,6 +122,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
 
     if (!this.disabled) {
       this._toggle();
+      this._emitChangeEvent();
     }
   }
 
