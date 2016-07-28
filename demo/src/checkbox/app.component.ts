@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { SkyCheckboxComponent } from '../../../src/core';
 import { Bootstrapper } from '../../bootstrapper';
 
-import {NgForm} from '@angular/common';
+import {NgForm, disableDeprecatedForms, provideForms} from '@angular/forms';
 
 @Component({
   selector: 'sky-demo-app',
@@ -15,4 +15,7 @@ export class AppComponent {
   public selected2 = true;
 }
 
-Bootstrapper.bootstrap(AppComponent);
+Bootstrapper.bootstrapDependencies(AppComponent, [
+  disableDeprecatedForms(),
+  provideForms()
+]);
