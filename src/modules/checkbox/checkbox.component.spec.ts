@@ -20,7 +20,7 @@ describe('Checkbox component', () => {
   beforeEachProviders(() => [
     disableDeprecatedForms(),
     provideForms()
-  ])
+  ]);
 
   beforeEach(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
     builder = tcb;
@@ -165,7 +165,8 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should call not call the change event when the checkbox is not interacted with', async(() => {
+    it('should call not call the change event when the checkbox is not interacted with',
+      async(() => {
       fixture.detectChanges();
       expect(testComponent.lastEvent).toBeUndefined();
 
