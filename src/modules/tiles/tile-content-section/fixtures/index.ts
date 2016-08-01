@@ -1,1 +1,1 @@
-export { TestComponent } from './test.component';
+export { TileContentSectionTestComponent } from './tile-content-section.component.fixture';

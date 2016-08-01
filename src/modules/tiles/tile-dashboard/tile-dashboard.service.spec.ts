@@ -12,8 +12,8 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import {
   MockDragulaService,
   MockSkyMediaQueryService,
-  Test1Component,
-  Test2Component,
+  Tile1TestComponent,
+  Tile2TestComponent,
   TileDashboardTestComponent
 } from './fixtures';
 import { SkyMediaQueryService } from '../../media-queries';
@@ -57,11 +57,11 @@ describe('Tile dashboard service', () => {
           tiles: [
             {
               id: 'tile-1',
-              componentType: Test1Component
+              componentType: Tile1TestComponent
             },
             {
               id: 'tile-2',
-              componentType: Test2Component
+              componentType: Tile2TestComponent
             }
           ],
           layout: {
@@ -127,11 +127,11 @@ describe('Tile dashboard service', () => {
                     tiles: [
                       {
                         id: 'tile1',
-                        componentType: Test1Component
+                        componentType: Tile1TestComponent
                       },
                       {
                         id: 'tile2',
-                        componentType: Test2Component
+                        componentType: Tile2TestComponent
                       }
                     ],
                     layout: {
@@ -239,9 +239,9 @@ describe('Tile dashboard service', () => {
               provide(SkyTileDashboardService, {useValue: dashboardService})
             ]
           )
-          .createSync(Test1Component);
+          .createSync(Tile1TestComponent);
 
-        let cmp: Test1Component = fixture.componentInstance;
+        let cmp: Tile1TestComponent = fixture.componentInstance;
 
         fixture.detectChanges();
 
@@ -277,9 +277,9 @@ describe('Tile dashboard service', () => {
               provide(SkyTileDashboardService, {useValue: dashboardService})
             ]
           )
-          .createSync(Test1Component);
+          .createSync(Tile1TestComponent);
 
-        let cmp: Test1Component = fixture.componentInstance;
+        let cmp: Tile1TestComponent = fixture.componentInstance;
 
         fixture.detectChanges();
 
@@ -312,8 +312,8 @@ describe('Tile dashboard service', () => {
       let column1 = multiColumn[0];
       let column2 = multiColumn[1];
 
-      expect(dashboardService.getTileComponentType(column1.tiles[0])).toBe(Test1Component);
-      expect(dashboardService.getTileComponentType(column2.tiles[0])).toBe(Test2Component);
+      expect(dashboardService.getTileComponentType(column1.tiles[0])).toBe(Tile1TestComponent);
+      expect(dashboardService.getTileComponentType(column2.tiles[0])).toBe(Tile2TestComponent);
 
       expect(dashboardService.getTileComponentType(undefined)).toBe(undefined);
     })

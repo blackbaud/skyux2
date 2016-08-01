@@ -4,7 +4,7 @@ import {
   TestComponentBuilder
 } from '@angular/core/testing';
 
-import { TestComponent } from './fixtures';
+import { TileTestComponent } from './fixtures';
 import { SkyTileComponent } from './tile.component';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 import { MockSkyTileDashboardService } from './fixtures';
@@ -17,7 +17,7 @@ describe('Tile component', () => {
   }));
 
   it('should render the header text in the expected element', () => {
-    let fixture = tcb.createSync(TestComponent);
+    let fixture = tcb.createSync(TileTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -26,7 +26,7 @@ describe('Tile component', () => {
   });
 
   it('should collapse/expand when the header is clicked', () => {
-    let fixture = tcb.createSync(TestComponent);
+    let fixture = tcb.createSync(TileTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -47,7 +47,7 @@ describe('Tile component', () => {
   });
 
   it('should collapse/expand when the chevron is clicked', () => {
-    let fixture = tcb.createSync(TestComponent);
+    let fixture = tcb.createSync(TileTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -70,7 +70,7 @@ describe('Tile component', () => {
   });
 
   it('should collapse/expand when the isCollapsed value changes', () => {
-    let fixture = tcb.createSync(TestComponent);
+    let fixture = tcb.createSync(TileTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -104,7 +104,7 @@ describe('Tile component', () => {
           )
         ]
       )
-      .createSync(TestComponent);
+      .createSync(TileTestComponent);
 
     let el = fixture.nativeElement;
     let dashboardSpy = spyOn(mockDashboardService, 'setTileCollapsed');
@@ -154,8 +154,8 @@ describe('Tile component', () => {
       `;
 
       let fixture = tcb
-        .overrideTemplate(TestComponent, html)
-        .createSync(TestComponent);
+        .overrideTemplate(TileTestComponent, html)
+        .createSync(TileTestComponent);
 
       let el = fixture.nativeElement;
 
@@ -165,7 +165,7 @@ describe('Tile component', () => {
     });
 
     it('should be present if a callback is provided', () => {
-      let fixture = tcb.createSync(TestComponent);
+      let fixture = tcb.createSync(TileTestComponent);
       let el = fixture.nativeElement;
 
       fixture.detectChanges();
@@ -174,9 +174,9 @@ describe('Tile component', () => {
     });
 
     it('should call the specified callback when clicked', () => {
-      let fixture = tcb.createSync(TestComponent);
+      let fixture = tcb.createSync(TileTestComponent);
       let el = fixture.nativeElement;
-      let cmp = fixture.componentInstance as TestComponent;
+      let cmp = fixture.componentInstance as TileTestComponent;
       let tileSettingsClickSpy = spyOn(cmp, 'tileSettingsClick');
 
       fixture.detectChanges();
@@ -187,7 +187,7 @@ describe('Tile component', () => {
     });
 
     it('should not collapse the tile when clicked', () => {
-      let fixture = tcb.createSync(TestComponent);
+      let fixture = tcb.createSync(TileTestComponent);
       let el = fixture.nativeElement;
 
       fixture.detectChanges();

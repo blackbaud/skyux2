@@ -1,10 +1,13 @@
 import {
   ComponentFixture,
+  beforeEach,
+  it,
+  beforeEachProviders,
   inject,
   async,
   TestComponentBuilder
 } from '@angular/core/testing';
-import {FORM_DIRECTIVES, NgModel, NgControl} from '@angular/common';
+import {FORM_DIRECTIVES, NgModel, disableDeprecatedForms, provideForms} from '@angular/forms';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 
@@ -13,6 +16,11 @@ import {SkyCheckboxComponent, SkyCheckboxChange} from './checkbox.component';
 describe('Checkbox component', () => {
   let builder: TestComponentBuilder;
   let fixture: ComponentFixture<any>;
+
+  beforeEachProviders(() => [
+    disableDeprecatedForms(),
+    provideForms()
+  ]);
 
   beforeEach(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
     builder = tcb;
@@ -157,7 +165,8 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should call the change event on first change after initialization', async(() => {
+    it('should call not call the change event when the checkbox is not interacted with',
+      async(() => {
       fixture.detectChanges();
       expect(testComponent.lastEvent).toBeUndefined();
 
@@ -165,11 +174,11 @@ describe('Checkbox component', () => {
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {
-        expect(testComponent.lastEvent.checked).toBe(true);
+        expect(testComponent.lastEvent).toBeUndefined();
       });
     }));
 
-    it('should not emit a DOM event to the change output', async(() => {
+    it('should call the change event and not emit a DOM event to the change output', async(() => {
       fixture.detectChanges();
       expect(testComponent.lastEvent).toBeUndefined();
 
@@ -293,7 +302,7 @@ describe('Checkbox component', () => {
     });
   });
 
-  describe('with ngModel and ngControl', () => {
+  describe('with ngModel', () => {
     beforeEach(async(() => {
       builder.createAsync(CheckboxWithFormDirectivesComponent).then(f => {
         f.detectChanges();
@@ -304,29 +313,29 @@ describe('Checkbox component', () => {
     it('should be in pristine, untouched, and valid states initially', async(() => {
 
       let checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-      let ngControl = <NgControl> checkboxElement.injector.get(NgControl);
+      let ngModel = <NgModel> checkboxElement.injector.get(NgModel);
       let labelElement =
           <HTMLLabelElement>checkboxElement
             .nativeElement.querySelector('label.sky-checkbox-wrapper');
       let inputElement = checkboxElement.nativeElement.querySelector('input');
       let testComponent = fixture.debugElement.componentInstance;
 
-      expect(ngControl.valid).toBe(true);
-      expect(ngControl.pristine).toBe(true);
-      expect(ngControl.touched).toBe(false);
+      expect(ngModel.valid).toBe(true);
+      expect(ngModel.pristine).toBe(true);
+      expect(ngModel.touched).toBe(false);
 
       labelElement.click();
 
       fixture.whenStable().then(() => {
         fixture.detectChanges();
 
-        expect(ngControl.valid).toBe(true);
-        expect(ngControl.pristine).toBe(false);
-        expect(ngControl.touched).toBe(false);
+        expect(ngModel.valid).toBe(true);
+        expect(ngModel.pristine).toBe(false);
+        expect(ngModel.touched).toBe(false);
         expect(testComponent.isGood).toBe(true);
 
         inputElement.dispatchEvent(createEvent('blur'));
-        expect(ngControl.touched).toBe(true);
+        expect(ngModel.touched).toBe(true);
       });
 
     }));
@@ -374,12 +383,12 @@ class SingleCheckboxComponent {
   }
 }
 
-/** Simple component for testing an MdCheckbox with ngModel and ngControl. */
+/** Simple component for testing an MdCheckbox with ngModel. */
 @Component({
   directives: [SkyCheckboxComponent, FORM_DIRECTIVES, NgModel],
   template: `
     <form>
-      <sky-checkbox ngControl="cb" [(ngModel)]="isGood">
+      <sky-checkbox name="cb" [(ngModel)]="isGood">
         <sky-checkbox-label>
           Be good
         </sky-checkbox-label>

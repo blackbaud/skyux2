@@ -1,6 +1,6 @@
 export { MockDragulaService } from './mock-dragula.service';
-export { Test1Component } from './tile1-test.component';
-export { Test2Component } from './tile2-test.component';
-export { TileDashboardTestComponent } from './tile-dashboard-test.component';
+export { Tile1TestComponent } from './tile1.component.fixture';
+export { Tile2TestComponent } from './tile2.component.fixture';
+export { TileDashboardTestComponent } from './tile-dashboard.component.fixture';
 export { MockSkyMediaQueryService } from './mock-media-query.service';
 export { MockTileDashboardService } from './mock-tile-dashboard.service';

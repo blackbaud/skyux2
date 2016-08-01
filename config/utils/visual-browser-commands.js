@@ -3,6 +3,7 @@
 
   const fs = require('fs');
   const path = require('path');
+  const util = require('util');
 
   const checkAccessibility = (options) =>
     browser.executeAsync((done) => {
@@ -28,9 +29,11 @@
       const prefix = getPrefix(browser);
       const pageName = prefix + path.sep + prefix + '_' + options.screenshotName + '_full';
 
+      options.screenshotName += '.' + width + 'px';
+
       const test = [{
-        name: options.screenshotName + '.' + width + 'px',
-        selector: options.selector
+        name: options.screenshotName,
+        elem: options.selector
       }];
 
       const handler = (err, res) => {
@@ -46,9 +49,9 @@
       return browser
         .webdrivercss(pageName, test, handler)
         .then(() => {
-          if (options.checkAccessibility) {
-            checkAccessibility(options);
-          }
+          // if (options.checkAccessibility) {
+          //   checkAccessibility(options);
+          // }
         });
     });
 
@@ -66,18 +69,18 @@
     });
   };
 
-  const getPrefix = (browser) => {
-    const browserName = browser.desiredCapabilities.browserName;
-    const platform = browser.desiredCapabilities.os === 'OS X' ? 'MAC' : 'WIN';
-    return platform + '_' + browserName;
-  };
+  const getPrefix = (browser) =>
+    browser.desiredCapabilities.os + '_' + browser.desiredCapabilities.browserName;
 
   const log = (message) => {
     console.log('\x1b[31m', message);
   };
 
   const logViolations = (name, violations) => {
-    log('\nThe following accessibility issues exist in %s:\n', name);
+    log(util.format(
+      '\nThe following accessibility issues exist in %s:\n',
+      name
+    ));
     violations.forEach((violation) => {
       log(violation.help, ' violation at: ');
       violation.nodes.forEach((line) => {

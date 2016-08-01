@@ -51,7 +51,7 @@
   // Stop the server and remove unused screenshots
   const stop = (exitCode) => {
     server.close();
-    rimraf.sync('webdriver-screenshots*/**/*+(px|regression).png', {});
+    rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
     if (seleniumChild) {
       seleniumChild.kill();
     }
@@ -60,7 +60,7 @@
   // Stop the server and remove unused screenshots
   const stopCI = (exitCode) => {
     server.close();
-    rimraf.sync('webdriver-screenshots*/**/*+(px|regression).png', {});
+    rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
     if (bsLocal.isRunning()) {
       bsLocal.stop();
     }
