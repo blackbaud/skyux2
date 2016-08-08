@@ -8,10 +8,6 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
   template: require('./repeater.component.visual-fixture.html'),
   directives: [SkyRepeaterComponent, SkyRepeaterItemComponent]
 })
-export class AppComponent {
-  public isCustomExpanded = false;
-  public isCustomCollapsible = true;
-  public customExpandMode = 'multiple';
-}
+export class AppComponent { }
 
 Bootstrapper.bootstrap(AppComponent);
