@@ -1,0 +1,45 @@
+@import '../../scss/mixins';
+
+.sky-modal {
+  border: solid 1px $sky-color-gray-lightest;
+  @include sky-shadow();
+  position: absolute;
+  max-width: 600px;
+  left: 0;
+  right: 0;
+  top: 20px;
+  margin: 0 auto;
+}
+
+.sky-modal-header,
+.sky-modal-content,
+.sky-modal-footer {
+  background-color: #fff;
+  padding: $sky-padding;
+}
+
+.sky-modal-header {
+  align-items: baseline;
+  border-bottom: solid 1px $sky-color-gray-lightest;
+  display: flex;
+}
+
+.sky-modal-header-content {
+  flex-grow: 1;
+}
+
+.sky-modal-header-buttons {
+  .sky-btn {
+    border: none;
+    color: $sky-color-gray-lighter;
+
+    &:hover {
+      color: $sky-color-gray;
+      transition: color $sky-transition-time-short;
+    }
+  }
+}
+
+.sky-modal-footer {
+  border-top: solid 1px $sky-color-gray-lightest;
+}
