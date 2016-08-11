@@ -12,6 +12,7 @@ import {
 
 import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalComponent } from './modal.component';
+import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
 
 @Component({
@@ -44,27 +45,37 @@ export class SkyModalHostComponent {
     this.adapter.appendToBody(this.viewContainer.element);
   }
 
-  public show(component: Type) {
+  public open(modalInstance: SkyModalInstance, component: Type, providers?: any[]) {
     this.resolver.resolveComponent(component)
       .then((factory: ComponentFactory<any>) => {
         let hostService = new SkyModalHostService();
 
-        let resolvedProviders = ReflectiveInjector.resolve(
-          [
-            {
-              provide: SkyModalHostService,
-              useValue: hostService
-            }
-          ]
-        );
+        providers = providers || [];
+
+        providers.push({
+          provide: SkyModalHostService,
+          useValue: hostService
+        });
+
+        let resolvedProviders = ReflectiveInjector.resolve(providers);
 
         let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
 
         let modalComponentRef = this.target.createComponent(factory, undefined, injector);
 
-        hostService.close.subscribe((modalComponent: SkyModalComponent) => {
+        modalInstance.componentInstance = modalComponentRef.instance;
+
+        function closeModal() {
           hostService.destroy();
           modalComponentRef.destroy();
+        }
+
+        hostService.close.subscribe((modalComponent: SkyModalComponent) => {
+          closeModal();
+        });
+
+        modalInstance.setCloseCallback(() => {
+          closeModal();
         });
       });
   }

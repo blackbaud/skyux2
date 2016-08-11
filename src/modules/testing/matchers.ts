@@ -67,6 +67,25 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
         return result;
       }
     };
+  },
+
+  toExist: () => {
+    return {
+      compare: (el: any): SkyMatchResult => {
+        let result = {
+          pass: false,
+          message: ''
+        };
+
+        result.pass = !!el;
+
+        result.message = result.pass ?
+          'Expected element not to exist' :
+          'Expected element to exist';
+
+        return result;
+      }
+    };
   }
 };
 

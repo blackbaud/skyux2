@@ -31,9 +31,9 @@ export class MockApplicationRef extends ApplicationRef {
   public get componentTypes(): Type[] { return undefined; };
 
   public _loadComponent(componentRef: ComponentRef<any>): void {
-      this._changeDetectorRefs.push(componentRef.changeDetectorRef);
-      this.tick();
-      this._rootComponents.push(componentRef);
-      this._bootstrapListeners.forEach((listener: any) => listener(componentRef));
-    }
+    // super._changeDetectorRefs.push(componentRef.changeDetectorRef);
+    // this.tick();
+    // super._rootComponents.push(componentRef);
+    // super._bootstrapListeners.forEach((listener: any) => listener(componentRef));
+  }
 }

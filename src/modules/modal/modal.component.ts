@@ -37,6 +37,6 @@ export class SkyModalComponent {
   constructor(private hostService: SkyModalHostService) { }
 
   public closeButtonClick() {
-    this.hostService.close.emit(this);
+    this.hostService.onClose(this);
   }
 }

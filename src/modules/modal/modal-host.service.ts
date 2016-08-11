@@ -7,15 +7,15 @@ import { SkyModalComponent } from './modal.component';
 
 @Injectable()
 export class SkyModalHostService {
-  public static get openModalCount() {
+  public static get openModalCount(): number {
     return SkyModalHostService.modalHosts.length;
   }
 
-  private static get BASE_Z_INDEX() {
+  private static get BASE_Z_INDEX(): number {
     return 1040;
   }
 
-  public static get backdropZIndex() {
+  public static get backdropZIndex(): number {
     return SkyModalHostService.BASE_Z_INDEX + SkyModalHostService.modalHosts.length * 10;
   }
 
@@ -27,7 +27,7 @@ export class SkyModalHostService {
     SkyModalHostService.modalHosts.push(this);
   }
 
-  public getModalZIndex() {
+  public getModalZIndex(): number {
     let zIndex = SkyModalHostService.BASE_Z_INDEX + 1;
 
     zIndex += (SkyModalHostService.modalHosts.indexOf(this) + 1) * 10;
@@ -35,7 +35,11 @@ export class SkyModalHostService {
     return zIndex;
   }
 
-  public destroy() {
+  public onClose(modalComponent: SkyModalComponent): void {
+    this.close.emit(modalComponent);
+  }
+
+  public destroy(): void {
     SkyModalHostService.modalHosts.splice(SkyModalHostService.modalHosts.indexOf(this));
   }
 }

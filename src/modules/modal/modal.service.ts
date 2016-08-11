@@ -9,6 +9,7 @@ import {
 
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostComponent } from './modal-host.component';
+import { SkyModalAdapterService } from './modal-adapter.service';
 
 @Injectable()
 export class SkyModalService {
@@ -17,30 +18,31 @@ export class SkyModalService {
   constructor(
     private resolver: ComponentResolver,
     private injector: Injector,
-    private appRef: ApplicationRef
+    private appRef: ApplicationRef,
+    private adapter: SkyModalAdapterService
   ) { }
 
-  public open(component: Type) {
-    function showComponent() {
-      SkyModalService.hostComponent.show(component);
-    }
-
+  public open(component: Type, providers?: any[]): SkyModalInstance {
     let modalInstance = new SkyModalInstance();
 
+    function openModal() {
+      SkyModalService.hostComponent.open(modalInstance, component, providers);
+    }
+
     if (SkyModalService.hostComponent) {
-      showComponent();
+      openModal();
     } else {
+      let appViewContainerRef = this.adapter.getModalHostViewContainer(this.injector);
+
       this.resolver.resolveComponent(SkyModalHostComponent)
         .then((factory: ComponentFactory<SkyModalHostComponent>) => {
-          let cmpRef = factory.create(this.injector);
+          let cmpRef = appViewContainerRef.createComponent(factory, undefined, this.injector);
 
           SkyModalService.hostComponent = cmpRef.instance;
 
-          (<any>this.appRef)._loadComponent(cmpRef);
-
           SkyModalService.hostComponent.init();
 
-          showComponent();
+          openModal();
         });
     }
 

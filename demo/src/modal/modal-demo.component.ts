@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { SkyModalComponent, SkyModalService } from '../../../src/core';
 
+import { ModalDemoValues } from './modal-values';
+
 @Component({
   moduleId: module.id,
   selector: 'sky-test-cmp-modal',
@@ -12,13 +14,18 @@ import { SkyModalComponent, SkyModalService } from '../../../src/core';
 export class ModalDemoComponent implements OnInit {
   public title = 'Hello world';
 
-  constructor(private modalService: SkyModalService) { }
+  constructor(private modalService: SkyModalService, public values: ModalDemoValues) { }
 
   public ngOnInit() {
     console.log('init happened');
   }
 
   public openAnother() {
-    this.modalService.open(ModalDemoComponent);
+    this.modalService.open(ModalDemoComponent, [
+      {
+        provide: ModalDemoValues,
+        useValue: this.values
+      }
+    ]);
   }
 }
