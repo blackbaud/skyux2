@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 
-import { SkyDropdownComponent, SkyDropdownItemComponent } from '../';
-
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./dropdown.component.fixture.html'),
-  directives: [SkyDropdownComponent, SkyDropdownItemComponent]
+  template: require('./dropdown.component.fixture.html')
 })
 export class DropdownTestComponent {
   public buttonType: String;

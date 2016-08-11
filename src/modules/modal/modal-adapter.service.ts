@@ -16,8 +16,7 @@ export class SkyModalAdapterService {
   ) { }
 
   public getModalHostViewContainer(injector: Injector): ViewContainerRef {
-    let appViewContainerRef: ViewContainerRef =
-        injector.get(this.appRef.componentTypes[0]).viewContainerRef;
+    let appViewContainerRef: ViewContainerRef = this.getRootComponent(injector).viewContainerRef;
 
     if (!appViewContainerRef) {
       throw new Error('The root application must expose a viewContainerRef property');
@@ -33,5 +32,9 @@ export class SkyModalAdapterService {
 
   public remove(el: ElementRef): void {
     el.nativeElement.remove();
+  }
+
+  private getRootComponent(injector: Injector) {
+    return injector.get(this.appRef.componentTypes[0]);
   }
 }

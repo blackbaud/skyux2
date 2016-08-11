@@ -1,7 +1,7 @@
 import {
   ApplicationRef,
   ComponentFactory,
-  ComponentResolver,
+  ComponentFactoryResolver,
   Injectable,
   Injector,
   Type
@@ -16,7 +16,7 @@ export class SkyModalService {
   private static hostComponent: SkyModalHostComponent;
 
   constructor(
-    private resolver: ComponentResolver,
+    private resolver: ComponentFactoryResolver,
     private injector: Injector,
     private appRef: ApplicationRef,
     private adapter: SkyModalAdapterService
@@ -34,16 +34,14 @@ export class SkyModalService {
     } else {
       let appViewContainerRef = this.adapter.getModalHostViewContainer(this.injector);
 
-      this.resolver.resolveComponent(SkyModalHostComponent)
-        .then((factory: ComponentFactory<SkyModalHostComponent>) => {
-          let cmpRef = appViewContainerRef.createComponent(factory, undefined, this.injector);
+      let factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
+      let cmpRef = appViewContainerRef.createComponent(factory, undefined, this.injector);
 
-          SkyModalService.hostComponent = cmpRef.instance;
+      SkyModalService.hostComponent = cmpRef.instance;
 
-          SkyModalService.hostComponent.init();
+      SkyModalService.hostComponent.init();
 
-          openModal();
-        });
+      openModal();
     }
 
     return modalInstance;

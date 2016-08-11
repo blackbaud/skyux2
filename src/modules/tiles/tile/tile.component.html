@@ -36,7 +36,7 @@
       </div>
     </div>
   </header>
-  <div class="sky-tile-content" @slide="isCollapsed ? 'up' : 'down'">
+  <div class="sky-tile-content" [@slide]="isCollapsed ? 'up' : 'down'">
     <ng-content select="sky-tile-content"></ng-content>
   </div>
 </section>

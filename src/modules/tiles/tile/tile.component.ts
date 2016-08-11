@@ -30,7 +30,6 @@ export class SkyTileComponent implements AfterViewInit {
   @Output()
   public collapsedStateChange = new EventEmitter<boolean>();
 
-  @Input()
   public get isCollapsed(): boolean {
     if (this.dashboardService) {
       return this.dashboardService.tileIsCollapsed(this);
@@ -39,6 +38,7 @@ export class SkyTileComponent implements AfterViewInit {
     return this._isCollapsed;
   }
 
+  @Input()
   public set isCollapsed(value: boolean) {
     if (this.dashboardService) {
       this.dashboardService.setTileCollapsed(this, value);

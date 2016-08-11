@@ -1,7 +1,6 @@
-import { provide } from '@angular/core';
 import {
-  inject,
-  TestComponentBuilder
+  async,
+  TestBed
 } from '@angular/core/testing';
 
 import { TileTestComponent } from './fixtures';
@@ -10,44 +9,48 @@ import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.servic
 import { MockSkyTileDashboardService } from './fixtures';
 
 describe('Tile component', () => {
-  let tcb: TestComponentBuilder;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        SkyTileComponent,
+        TileTestComponent
+      ]
+    });
+  });
 
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
+  it('should render the header text in the expected element', async(() => {
+    let fixture = TestBed.createComponent(TileTestComponent);
+    let el = fixture.nativeElement;
+
+    fixture.whenStable().then(() => {
+      expect(el.querySelector('.sky-tile-title sky-tile-title').innerText).toBe('Title');
+    });
   }));
 
-  it('should render the header text in the expected element', () => {
-    let fixture = tcb.createSync(TileTestComponent);
+  it('should collapse/expand when the header is clicked', async(() => {
+    let fixture = TestBed.createComponent(TileTestComponent);
     let el = fixture.nativeElement;
 
-    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      let titleEl = el.querySelector('.sky-tile-title');
 
-    expect(el.querySelector('.sky-tile-title sky-tile-title').innerText).toBe('Title');
-  });
+      titleEl.click();
+      fixture.detectChanges();
 
-  it('should collapse/expand when the header is clicked', () => {
-    let fixture = tcb.createSync(TileTestComponent);
-    let el = fixture.nativeElement;
+      let contentAttrs = el.querySelector('.sky-tile-content').attributes;
 
-    fixture.detectChanges();
+      expect(contentAttrs['hidden']).not.toBeNull();
 
-    let titleEl = el.querySelector('.sky-tile-title');
+      titleEl.click();
 
-    titleEl.click();
-    fixture.detectChanges();
-
-    let contentAttrs = el.querySelector('.sky-tile-content').attributes;
-
-    expect(contentAttrs['hidden']).not.toBeNull();
-
-    titleEl.click();
-    fixture.detectChanges();
-
-    expect(contentAttrs['hidden']).toBe(undefined);
-  });
+      fixture.whenStable().then(() => {
+        expect(contentAttrs['hidden']).toBe(undefined);
+      });
+    });
+  }));
 
   it('should collapse/expand when the chevron is clicked', () => {
-    let fixture = tcb.createSync(TileTestComponent);
+    let fixture = TestBed.createComponent(TileTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -70,7 +73,7 @@ describe('Tile component', () => {
   });
 
   it('should collapse/expand when the isCollapsed value changes', () => {
-    let fixture = tcb.createSync(TileTestComponent);
+    let fixture = TestBed.createComponent(TileTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -92,22 +95,23 @@ describe('Tile component', () => {
   it('should notify the tile dashboard when the tile is collapsed', () => {
     let mockDashboardService = new MockSkyTileDashboardService();
 
-    let fixture = tcb
-      .overrideProviders(
+    let fixture = TestBed
+      .overrideComponent(
         SkyTileComponent,
-        [
-          provide(
-            SkyTileDashboardService,
-            {
-              useValue: mockDashboardService
-            }
-          )
-        ]
-      )
-      .createSync(TileTestComponent);
+        {
+          add: {
+            providers: [
+              {
+                provide: SkyTileDashboardService,
+                useValue: mockDashboardService
+              }
+            ]
+          }
+        }
+      ).createComponent(TileTestComponent);
 
     let el = fixture.nativeElement;
-    let dashboardSpy = spyOn(mockDashboardService, 'setTileCollapsed');
+    let dashboardSpy = spyOn(mockDashboardService, 'setTileCollapsed').and.callThrough();
 
     fixture.detectChanges();
 
@@ -153,9 +157,16 @@ describe('Tile component', () => {
         </sky-tile>
       `;
 
-      let fixture = tcb
-        .overrideTemplate(TileTestComponent, html)
-        .createSync(TileTestComponent);
+      let fixture = TestBed
+        .overrideComponent(
+          TileTestComponent,
+          {
+            set: {
+              template: html
+            }
+          }
+        )
+        .createComponent(TileTestComponent);
 
       let el = fixture.nativeElement;
 
@@ -165,7 +176,7 @@ describe('Tile component', () => {
     });
 
     it('should be present if a callback is provided', () => {
-      let fixture = tcb.createSync(TileTestComponent);
+      let fixture = TestBed.createComponent(TileTestComponent);
       let el = fixture.nativeElement;
 
       fixture.detectChanges();
@@ -174,7 +185,7 @@ describe('Tile component', () => {
     });
 
     it('should call the specified callback when clicked', () => {
-      let fixture = tcb.createSync(TileTestComponent);
+      let fixture = TestBed.createComponent(TileTestComponent);
       let el = fixture.nativeElement;
       let cmp = fixture.componentInstance as TileTestComponent;
       let tileSettingsClickSpy = spyOn(cmp, 'tileSettingsClick');
@@ -187,7 +198,7 @@ describe('Tile component', () => {
     });
 
     it('should not collapse the tile when clicked', () => {
-      let fixture = tcb.createSync(TileTestComponent);
+      let fixture = TestBed.createComponent(TileTestComponent);
       let el = fixture.nativeElement;
 
       fixture.detectChanges();

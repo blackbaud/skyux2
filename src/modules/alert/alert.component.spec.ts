@@ -1,20 +1,21 @@
 import {
-  inject,
-  TestComponentBuilder
+  TestBed
 } from '@angular/core/testing';
 
 import { AlertTestComponent } from './fixtures/alert.component.fixture';
 import { SkyResources } from '../resources/resources';
 
 describe('Alert component', () => {
-  let tcb: TestComponentBuilder;
-
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        AlertTestComponent
+      ]
+    });
+  });
 
   it('should hide the close button if it is not cloesable', () => {
-    let fixture = tcb.createSync(AlertTestComponent);
+    let fixture = TestBed.createComponent(AlertTestComponent);
     let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
 
@@ -34,7 +35,7 @@ describe('Alert component', () => {
   });
 
   it('should be hidden when the close button is clicked', () => {
-    let fixture = tcb.createSync(AlertTestComponent);
+    let fixture = TestBed.createComponent(AlertTestComponent);
     let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement;
 
@@ -49,7 +50,7 @@ describe('Alert component', () => {
   });
 
   it('should allow the screen reader text for the close button to be localizable', () => {
-    let fixture = tcb.createSync(AlertTestComponent);
+    let fixture = TestBed.createComponent(AlertTestComponent);
     let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
     let closeEl: any;
@@ -64,7 +65,7 @@ describe('Alert component', () => {
   });
 
   it('should add the appropriate styling when an alert type is specified', () => {
-    let fixture = tcb.createSync(AlertTestComponent);
+    let fixture = TestBed.createComponent(AlertTestComponent);
     let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
 
@@ -78,7 +79,7 @@ describe('Alert component', () => {
   });
 
   it('should default to "warning" when no alert type is specified', () => {
-    let fixture = tcb.createSync(AlertTestComponent);
+    let fixture = TestBed.createComponent(AlertTestComponent);
     let cmp = fixture.componentInstance as AlertTestComponent;
     let el = fixture.nativeElement as HTMLElement;
 

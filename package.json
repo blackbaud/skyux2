@@ -35,12 +35,12 @@
     "watch": "npm run test:unit -- --auto-watch --no-single-run"
   },
   "dependencies": {
-    "@angular/common": "2.0.0-rc.4",
+    "@angular/common": "2.0.0-rc.5",
     "@angular/forms": "0.2.0",
-    "@angular/compiler": "2.0.0-rc.4",
-    "@angular/core": "2.0.0-rc.4",
-    "@angular/platform-browser": "2.0.0-rc.4",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.4",
+    "@angular/compiler": "2.0.0-rc.5",
+    "@angular/core": "2.0.0-rc.5",
+    "@angular/platform-browser": "2.0.0-rc.5",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.5",
     "core-js": "2.4.1",
     "dragula": "3.7.1",
     "font-awesome": "4.6.3",

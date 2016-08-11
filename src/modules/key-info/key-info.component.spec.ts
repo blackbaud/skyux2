@@ -1,19 +1,22 @@
 import {
-  inject,
-  TestComponentBuilder
+  TestBed
 } from '@angular/core/testing';
 
+import { SkyKeyInfoComponent } from './key-info.component';
 import { KeyInfoTestComponent } from './fixtures/key-info.component.fixture';
 
 describe('Key info component', () => {
-  let tcb: TestComponentBuilder;
-
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        SkyKeyInfoComponent,
+        KeyInfoTestComponent
+      ]
+    });
+  });
 
   it('should support vertical and horizontal layouts', () => {
-    let fixture = tcb.createSync(KeyInfoTestComponent);
+    let fixture = TestBed.createComponent(KeyInfoTestComponent);
     let cmp = fixture.componentInstance as KeyInfoTestComponent;
     let el = fixture.nativeElement as Element;
     let horizontalCls = 'sky-key-info-horizontal';
@@ -36,7 +39,7 @@ describe('Key info component', () => {
   });
 
   it('should have the appropriate content in expected areas', () => {
-    let fixture = tcb.createSync(KeyInfoTestComponent);
+    let fixture = TestBed.createComponent(KeyInfoTestComponent);
     let el = fixture.nativeElement as Element;
 
     fixture.detectChanges();
