@@ -2,7 +2,10 @@ import {
   TestBed
 } from '@angular/core/testing';
 
+import { BrowserModule } from '@angular/platform-browser';
+
 import { AlertTestComponent } from './fixtures/alert.component.fixture';
+import { SkyAlertModule } from '../alert/alert.module';
 import { SkyResources } from '../resources/resources';
 
 describe('Alert component', () => {
@@ -10,6 +13,10 @@ describe('Alert component', () => {
     TestBed.configureTestingModule({
       declarations: [
         AlertTestComponent
+      ],
+      imports: [
+        BrowserModule,
+        SkyAlertModule
       ]
     });
   });

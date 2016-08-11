@@ -1,4 +1,23 @@
+import { NgModule } from '@angular/core';
+
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
+import { SkyAlertModule } from './modules/alert';
+import { SkyCardModule } from './modules/card';
+import { SkyCheckboxModule } from './modules/checkbox';
+
+@NgModule({
+  imports: [
+    SkyAlertModule,
+    SkyCardModule,
+    SkyCheckboxModule
+  ],
+  exports: [
+    SkyAlertModule,
+    SkyCardModule,
+    SkyCheckboxModule
+  ]
+})
+export class SkyModule { }
 
 export * from './modules/alert';
 export * from './modules/card';

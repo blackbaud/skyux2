@@ -11,7 +11,7 @@
 
   <div>
 
-    <sky-checkbox [checked]="selected2" (change)="selected2 = $event.checked">
+    <sky-checkbox name="cb2" [ngModel]="selected2" (ngModelChange)="selected2 = $event.checked">
       <sky-checkbox-label>Checkbox 2</sky-checkbox-label>
     </sky-checkbox>
     <br />
