@@ -9,16 +9,12 @@ import {
 } from '@angular/core';
 
 import slideAnimation from '../../animation/slide';
-import { SkyChevronComponent } from '../../chevron/chevron.component';
-import { SkyResourcesPipe } from '../../resources/resources.pipe';
 import { SkyTileDashboardService } from './../tile-dashboard';
 
 @Component({
   selector: 'sky-tile',
   styles: [require('./tile.component.scss')],
   template: require('./tile.component.html'),
-  directives: [SkyChevronComponent],
-  pipes: [SkyResourcesPipe],
   animations: [slideAnimation]
 })
 export class SkyTileComponent implements AfterViewInit {

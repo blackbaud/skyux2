@@ -4,17 +4,14 @@ import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SkyAlertModule } from './modules/alert';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
+import { SkyTilesModule } from './modules/tiles';
 
 @NgModule({
-  imports: [
-    SkyAlertModule,
-    SkyCardModule,
-    SkyCheckboxModule
-  ],
   exports: [
     SkyAlertModule,
     SkyCardModule,
-    SkyCheckboxModule
+    SkyCheckboxModule,
+    SkyTilesModule
   ]
 })
 export class SkyModule { }
