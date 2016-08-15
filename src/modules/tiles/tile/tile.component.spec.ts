@@ -5,6 +5,7 @@ import {
 
 import { TileTestComponent } from './fixtures';
 import { SkyTileComponent } from './tile.component';
+import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 import { MockSkyTileDashboardService } from './fixtures';
 
@@ -12,8 +13,10 @@ describe('Tile component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SkyTileComponent,
         TileTestComponent
+      ],
+      imports: [
+        SkyTilesModule
       ]
     });
   });

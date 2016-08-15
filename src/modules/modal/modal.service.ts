@@ -24,24 +24,17 @@ export class SkyModalService {
   public open(component: Type, providers?: any[]): SkyModalInstance {
     let modalInstance = new SkyModalInstance();
 
-    function openModal() {
-      SkyModalService.hostComponent.open(modalInstance, component, providers);
-    }
-
-    if (SkyModalService.hostComponent) {
-      openModal();
-    } else {
-      let appViewContainerRef = this.adapter.getModalHostViewContainer(this.injector);
-
+    if (!SkyModalService.hostComponent) {
       let factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
-      let cmpRef = appViewContainerRef.createComponent(factory, undefined, this.injector);
+
+      this.adapter.addHostEl();
+
+      let cmpRef = this.appRef.bootstrap(factory);
 
       SkyModalService.hostComponent = cmpRef.instance;
-
-      SkyModalService.hostComponent.init();
-
-      openModal();
     }
+
+    SkyModalService.hostComponent.open(modalInstance, component, providers);
 
     return modalInstance;
   }

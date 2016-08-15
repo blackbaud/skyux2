@@ -1,5 +1,4 @@
-import { ApplicationRef, Type } from '@angular/core';
-
+import { Type } from '@angular/core';
 import {
   addProviders,
   ComponentFixture,
@@ -10,14 +9,15 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect,
-  MockApplicationRef
+  expect
 } from '../testing';
 
-import { SkyModalComponent } from './modal.component';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalService } from './modal.service';
 import { SkyModalAdapterService } from './modal-adapter.service';
+import { SkyModalModule } from './modal.module';
 
 import { ModalTestValues } from './fixtures/modal-values.fixture';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
@@ -49,10 +49,6 @@ describe('Modal service', () => {
     addProviders([
       SkyModalService,
       {
-        provide: ApplicationRef,
-        useClass: MockApplicationRef
-      },
-      {
         provide: SkyModalAdapterService,
         useClass: MockSkyModalAdapterService
       }
@@ -61,8 +57,11 @@ describe('Modal service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        BrowserModule,
+        SkyModalModule
+      ],
       declarations: [
-        SkyModalComponent,
         ModalWithValuesTestComponent,
         ModalHostContainerTestComponent
       ]
@@ -87,7 +86,7 @@ describe('Modal service', () => {
 
     hostFixture.detectChanges();
 
-    modalAdapter.hostViewContainer = hostFixture.componentInstance.viewContainerRef;
+    // modalAdapter.hostViewContainer = hostFixture.componentInstance.viewContainerRef;
   });
 
   beforeEach(

@@ -5,7 +5,6 @@ import { SkyModalComponent, SkyModalService } from '../../../src/core';
 import { ModalDemoValues } from './modal-values';
 
 @Component({
-  moduleId: module.id,
   selector: 'sky-test-cmp-modal',
   template: require('./modal-demo.component.html'),
   directives: [SkyModalComponent],

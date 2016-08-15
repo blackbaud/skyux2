@@ -9,21 +9,15 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
-import {
-  SkyTileDashboardColumnComponent
-} from '../tile-dashboard-column/tile-dashboard-column.component';
+import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
-import { SkyMediaQueryService } from '../../media-queries/media-query.service';
 
 @Component({
   selector: 'sky-tile-dashboard',
   styles: [require('./tile-dashboard.component.scss')],
-  template: require('./tile-dashboard.component.html'),
-  directives: [SkyTileDashboardColumnComponent],
-  providers: [DragulaService, SkyTileDashboardService, SkyMediaQueryService]
+  template: require('./tile-dashboard.component.html')
 })
 export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   public dashboardConfigForBinding: SkyTileDashboardConfig;

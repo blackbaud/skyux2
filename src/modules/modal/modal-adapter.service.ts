@@ -6,8 +6,6 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { DOCUMENT } from '@angular/platform-browser';
-
 @Injectable()
 export class SkyModalAdapterService {
   constructor(
@@ -25,9 +23,8 @@ export class SkyModalAdapterService {
     return appViewContainerRef;
   }
 
-  public appendToBody(el: ElementRef): void {
-    let document = this.injector.get(DOCUMENT);
-    document.body.appendChild(el.nativeElement);
+  public addHostEl(): void {
+    document.body.appendChild(document.createElement('sky-modal-host'));
   }
 
   public remove(el: ElementRef): void {

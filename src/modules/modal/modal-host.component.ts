@@ -41,10 +41,6 @@ export class SkyModalHostComponent {
     private injector: Injector
   ) { }
 
-  public init() {
-    this.adapter.appendToBody(this.viewContainer.element);
-  }
-
   public open(modalInstance: SkyModalInstance, component: Type, providers?: any[]) {
     this.resolver.resolveComponent(component)
       .then((factory: ComponentFactory<any>) => {

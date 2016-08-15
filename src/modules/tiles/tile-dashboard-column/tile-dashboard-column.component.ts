@@ -1,5 +1,7 @@
 import {
   Component,
+  ComponentResolver,
+  Injector,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -24,6 +26,8 @@ export class SkyTileDashboardColumnComponent {
   public content: ViewContainerRef;
 
   constructor(
+    public resolver: ComponentResolver,
+    public injector: Injector,
     private dashboardService: SkyTileDashboardService
   ) {
     columnIdIndex++;

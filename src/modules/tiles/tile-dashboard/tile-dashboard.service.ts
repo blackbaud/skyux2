@@ -1,6 +1,6 @@
 import {
+  ComponentFactory,
   ComponentRef,
-  DynamicComponentLoader,
   EventEmitter,
   Injectable,
   QueryList,
@@ -56,8 +56,7 @@ export class SkyTileDashboardService {
 
   constructor(
     private dragulaService: DragulaService,
-    private mediaQuery: SkyMediaQueryService,
-    private dcl: DynamicComponentLoader
+    private mediaQuery: SkyMediaQueryService
   ) {
     this.bagId = 'sky-tile-dashboard-bag-' + (++bagIdIndex);
 
@@ -170,8 +169,10 @@ export class SkyTileDashboardService {
     column: SkyTileDashboardColumnComponent, tile: SkyTileDashboardConfigLayoutTile
   ) {
     let component = this.getTileComponentType(tile);
-    this.dcl.loadNextToLocation(component, column.content)
-      .then((componentRef: ComponentRef<any>) => {
+
+    column.resolver.resolveComponent(component)
+      .then((factory: ComponentFactory<any>) => {
+        let componentRef = column.content.createComponent(factory, undefined, column.injector);
         this.addTileComponent(tile, componentRef);
       });
   }
