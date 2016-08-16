@@ -1,18 +1,12 @@
 import { Component } from '@angular/core';
 
-import {
-  SkyTileDashboardComponent,
-  SkyTileDashboardConfig
-} from '../../../tiles';
+import { SkyTileDashboardConfig } from '../../../tiles';
 import { Tile1TestComponent } from './tile1.component.fixture';
 import { Tile2TestComponent } from './tile2.component.fixture';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./tile-dashboard.component.fixture.html'),
-  directives: [
-    SkyTileDashboardComponent
-  ]
+  template: require('./tile-dashboard.component.fixture.html')
 })
 export class TileDashboardTestComponent {
   public dashboardConfig: SkyTileDashboardConfig;

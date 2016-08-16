@@ -29,9 +29,9 @@ describe('Tile dashboard service', () => {
 
     TestBed.configureTestingModule({
       declarations: [
+        TileDashboardTestComponent,
         Tile1TestComponent,
-        Tile2TestComponent,
-        TileDashboardTestComponent
+        Tile2TestComponent
       ],
       imports: [
         SkyTilesModule
@@ -312,52 +312,49 @@ describe('Tile dashboard service', () => {
   it(
     'should move tiles to the appropriate columns when the screen size changes',
     fakeAsync(() => {
+      function getTileCount(columnEl: Element): number {
+        return columnEl.querySelectorAll('sky-tile').length;
+      }
+
       let fixture = TestBed.createComponent(TileDashboardTestComponent);
 
-        function getTileCount(columnEl: Element): number {
-          return columnEl.querySelectorAll('sky-tile').length;
-        }
+      let el = fixture.nativeElement;
 
-        let el = fixture.nativeElement;
+      fixture.detectChanges();
+      tick();
 
-        fixture.detectChanges();
-        tick();
+      let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
+      let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
 
-        let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
-        let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
+      expect(getTileCount(multiColumnEls[0])).toBe(1);
+      expect(getTileCount(multiColumnEls[1])).toBe(1);
+      expect(getTileCount(singleColumnEl)).toBe(0);
 
-        expect(getTileCount(multiColumnEls[0])).toBe(1);
-        expect(getTileCount(multiColumnEls[1])).toBe(1);
-        expect(getTileCount(singleColumnEl)).toBe(0);
+      mockMediaQueryService.fire({
+        matches: true
+      });
 
-        mockMediaQueryService.fire({
-          matches: true
-        });
+      fixture.detectChanges();
 
-        fixture.detectChanges();
+      expect(getTileCount(multiColumnEls[0])).toBe(0);
+      expect(getTileCount(multiColumnEls[1])).toBe(0);
+      expect(getTileCount(singleColumnEl)).toBe(2);
 
-        expect(getTileCount(multiColumnEls[0])).toBe(0);
-        expect(getTileCount(multiColumnEls[1])).toBe(0);
-        expect(getTileCount(singleColumnEl)).toBe(2);
+      mockMediaQueryService.fire({
+        matches: false
+      });
 
-        mockMediaQueryService.fire({
-          matches: false
-        });
+      fixture.detectChanges();
 
-        fixture.detectChanges();
-
-        expect(getTileCount(multiColumnEls[0])).toBe(1);
-        expect(getTileCount(multiColumnEls[1])).toBe(1);
-        expect(getTileCount(singleColumnEl)).toBe(0);
+      expect(getTileCount(multiColumnEls[0])).toBe(1);
+      expect(getTileCount(multiColumnEls[1])).toBe(1);
+      expect(getTileCount(singleColumnEl)).toBe(0);
     })
   );
 
   it(
     'should return the expected config regardless of which column mode is active',
     fakeAsync(() => {
-      let localMockMediaQueryService = new MockSkyMediaQueryService();
-      let localMockDragulaService = new MockDragulaService();
-
       let fixture = TestBed.createComponent(TileDashboardTestComponent);
 
       let cmp = fixture.componentInstance as TileDashboardTestComponent;
@@ -367,22 +364,22 @@ describe('Tile dashboard service', () => {
       fixture.detectChanges();
       tick();
 
-      localMockMediaQueryService.fire({
+      mockMediaQueryService.fire({
         matches: true
       });
 
-      localMockDragulaService.drop.emit({});
+      mockDragulaService.drop.emit({});
 
       fixture.detectChanges();
       tick();
 
       expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
 
-      localMockMediaQueryService.fire({
+      mockMediaQueryService.fire({
         matches: false
       });
 
-      localMockDragulaService.drop.emit({});
+      mockDragulaService.drop.emit({});
 
       fixture.detectChanges();
       tick();

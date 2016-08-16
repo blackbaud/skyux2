@@ -20,21 +20,25 @@ import { SkyTileDashboardService } from './tile-dashboard.service';
   template: require('./tile-dashboard.component.html')
 })
 export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
-  public dashboardConfigForBinding: SkyTileDashboardConfig;
-
-  @Output()
-  public configChange = new EventEmitter<SkyTileDashboardConfig>();
-
-  private configSet = false;
-
   @Input()
-  set config(value: SkyTileDashboardConfig) {
+  public set config(value: SkyTileDashboardConfig) {
     if (value && !this.configSet) {
-      this.dashboardConfigForBinding = value;
+      this._config = value;
       this.dashboardService.init(value);
       this.configSet = true;
     }
   }
+
+  public get config(): SkyTileDashboardConfig {
+    return this._config;
+  }
+
+  @Output()
+  public configChange = new EventEmitter<SkyTileDashboardConfig>();
+
+  private _config: SkyTileDashboardConfig;
+
+  private configSet = false;
 
   @ViewChildren(SkyTileDashboardColumnComponent)
   private columns: QueryList<SkyTileDashboardColumnComponent>;

@@ -1,5 +1,6 @@
 import {
   async,
+  inject,
   TestBed
 } from '@angular/core/testing';
 
@@ -7,7 +8,6 @@ import { TileTestComponent } from './fixtures';
 import { SkyTileComponent } from './tile.component';
 import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
-import { MockSkyTileDashboardService } from './fixtures';
 
 describe('Tile component', () => {
   beforeEach(() => {
@@ -95,37 +95,24 @@ describe('Tile component', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile dashboard when the tile is collapsed', () => {
-    let mockDashboardService = new MockSkyTileDashboardService();
+  it('should notify the tile dashboard when the tile is collapsed',
+    inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
+      let fixture = TestBed.createComponent(TileTestComponent);
 
-    let fixture = TestBed
-      .overrideComponent(
-        SkyTileComponent,
-        {
-          add: {
-            providers: [
-              {
-                provide: SkyTileDashboardService,
-                useValue: mockDashboardService
-              }
-            ]
-          }
-        }
-      ).createComponent(TileTestComponent);
+      let el = fixture.nativeElement;
+      let dashboardSpy = spyOn(dashboardService, 'setTileCollapsed').and.callThrough();
 
-    let el = fixture.nativeElement;
-    let dashboardSpy = spyOn(mockDashboardService, 'setTileCollapsed').and.callThrough();
+      fixture.detectChanges();
 
-    fixture.detectChanges();
+      let chevronEl = el.querySelector('.sky-chevron');
 
-    let chevronEl = el.querySelector('.sky-chevron');
+      chevronEl.click();
 
-    chevronEl.click();
+      fixture.detectChanges();
 
-    fixture.detectChanges();
-
-    expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
-  });
+      expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
+    })
+  );
 
   xit('should notify the tile that repaint is required when the tile is expanded', () => {
     expect(false).toBe(true);

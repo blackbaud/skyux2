@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
 
-import {
-  SkyTileComponent,
-  SkyTileContentSectionComponent
-} from '../../../src/core';
-
 @Component({
   selector: 'div.tile-1',
   template: `
@@ -26,11 +21,7 @@ import {
         </sky-tile-content-section>
       </sky-tile-content>
     </sky-tile>
-  `,
-  directives: [
-    SkyTileComponent,
-    SkyTileContentSectionComponent
-  ]
+  `
 })
 export class Tile1Component {
   constructor() {
