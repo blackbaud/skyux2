@@ -3,12 +3,13 @@ import {
 } from '@angular/core/testing';
 
 import { SkyChevronComponent } from './chevron.component';
+import { SkyChevronModule } from './chevron.module';
 
 describe('Chevron component', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        declarations: [
-          SkyChevronComponent
+        imports: [
+          SkyChevronModule
         ]
       });
     });

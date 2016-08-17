@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
 
 import slideAnimation from '../animation/slide';
-import { SkyChevronComponent } from '../chevron/chevron.component';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
 
@@ -9,8 +8,6 @@ import { SkyLogService } from '../log/log.service';
   selector: 'sky-repeater-item',
   styles: [require('./repeater-item.component.scss')],
   template: require('./repeater-item.component.html'),
-  directives: [SkyChevronComponent],
-  providers: [SkyLogService],
   animations: [slideAnimation]
 })
 export class SkyRepeaterItemComponent {

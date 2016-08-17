@@ -1,12 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { SkyResourcesPipe } from '../resources/resources.pipe';
-
 @Component({
   selector: 'sky-chevron',
   styles: [require('./chevron.component.scss')],
-  template: require('./chevron.component.html'),
-  pipes: [SkyResourcesPipe]
+  template: require('./chevron.component.html')
 })
 export class SkyChevronComponent {
   @Output()

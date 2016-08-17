@@ -12,8 +12,7 @@ import { SkyRepeaterService } from './repeater.service';
 @Component({
   selector: 'sky-repeater',
   styles: [require('./repeater.component.scss')],
-  template: require('./repeater.component.html'),
-  providers: [SkyRepeaterService]
+  template: require('./repeater.component.html')
 })
 export class SkyRepeaterComponent implements AfterContentInit {
   @Input()

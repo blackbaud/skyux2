@@ -8,6 +8,7 @@ import { SkyDropdownModule } from './modules/dropdown';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyModalModule } from './modules/modal';
+import { SkyRepeaterModule } from './modules/repeater';
 import { SkyTilesModule } from './modules/tiles';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SkyTilesModule } from './modules/tiles';
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyModalModule,
+    SkyRepeaterModule,
     SkyTilesModule
   ]
 })
