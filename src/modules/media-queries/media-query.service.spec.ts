@@ -1,6 +1,6 @@
 import {
-  addProviders,
-  inject
+  inject,
+  TestBed
 } from '@angular/core/testing';
 
 import { SkyMediaQueryListenerArgs } from './media-query-listener-args';
@@ -10,7 +10,11 @@ describe('Media query service', () => {
   let mediaQueryListPrototype: any;
 
   beforeEach(() => {
-    addProviders([SkyMediaQueryService]);
+    TestBed.configureTestingModule({
+      providers: [
+        SkyMediaQueryService
+      ]
+    });
 
     // Safari doesn't put MediaQueryList on the global window object so we
     // have to pick it off here.

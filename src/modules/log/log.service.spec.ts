@@ -1,13 +1,17 @@
 import {
-  addProviders,
-  inject
+  inject,
+  TestBed
 } from '@angular/core/testing';
 
 import { SkyLogService } from './log.service';
 
 describe('Log service', () => {
   beforeEach(() => {
-    addProviders([SkyLogService]);
+    TestBed.configureTestingModule({
+      providers: [
+        SkyLogService
+      ]
+    });
   });
 
   it(
