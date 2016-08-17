@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SkyModule } from '../../../src/core';
 
 import { SkyModalService } from '../../../src/core';
-// import { SkyModalHostComponent } from '../../../src/modules/modal/modal-host.component';
 import { ModalDemoComponent } from './modal-demo.component';
 import { ModalDemoValues } from './modal-values';
 import { Bootstrapper } from '../../bootstrapper';
@@ -38,6 +37,9 @@ class AppComponent {
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    ModalDemoComponent
   ]
 })
 class AppModule { }

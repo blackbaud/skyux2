@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { QueryList } from '@angular/core';
 import {
   fakeAsync,
   TestBed,
@@ -7,10 +7,17 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyTileDashboardModule } from './tile-dashboard.module';
-
+import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
-import { MockTileDashboardService, Tile1TestComponent, Tile2TestComponent } from './fixtures';
+
+import {
+  MockTileDashboardService,
+  SkyTileDashboardFixturesModule,
+  Tile1TestComponent,
+  Tile2TestComponent,
+  TileDashboardTestComponent
+} from './fixtures';
 
 describe('Tile dashboard component', () => {
   let mockTileDashboardService: MockTileDashboardService;
@@ -19,11 +26,6 @@ describe('Tile dashboard component', () => {
     mockTileDashboardService = new MockTileDashboardService();
 
     TestBed.configureTestingModule({
-      declarations: [
-        Tile1TestComponent,
-        Tile2TestComponent,
-        TestComponent
-      ],
       providers: [
         {
           provide: SkyTileDashboardService,
@@ -32,7 +34,8 @@ describe('Tile dashboard component', () => {
       ],
       imports: [
         BrowserModule,
-        SkyTileDashboardModule
+        SkyTileDashboardModule,
+        SkyTileDashboardFixturesModule
       ]
     });
   });
@@ -47,7 +50,7 @@ describe('Tile dashboard component', () => {
   });
 
   it('should update tile order when tile moves within a column', fakeAsync(() => {
-    let fixture = TestBed.createComponent(TestComponent);
+    let fixture = TestBed.createComponent(TileDashboardTestComponent);
     let newConfig: SkyTileDashboardConfig = {
       tiles: [
         {
@@ -101,8 +104,8 @@ describe('Tile dashboard component', () => {
   }));
 
   it('should not allow a new config to be set by the parent once initialized', fakeAsync(() => {
-    let fixture = TestBed.createComponent(TestComponent);
-    let cmp: TestComponent = fixture.componentInstance;
+    let fixture = TestBed.createComponent(TileDashboardTestComponent);
+    let cmp: TileDashboardTestComponent = fixture.componentInstance;
     let initialConfig = cmp.dashboardConfig;
     let newConfig: SkyTileDashboardConfig = {
       tiles: [
@@ -150,7 +153,11 @@ describe('Tile dashboard component', () => {
     fixture.detectChanges();
     tick();
 
-    expect(initSpy).toHaveBeenCalledWith(initialConfig);
+    expect(initSpy).toHaveBeenCalledWith(
+      initialConfig,
+      jasmine.any(QueryList),
+      jasmine.any(SkyTileDashboardColumnComponent)
+    );
 
     initSpy.calls.reset();
 
@@ -207,7 +214,7 @@ describe('Tile dashboard component', () => {
   it(
     `should release resources when the component is destroyed`,
     () => {
-      let fixture = TestBed.createComponent(TestComponent);
+      let fixture = TestBed.createComponent(TileDashboardTestComponent);
       let destroySpy = spyOn(mockTileDashboardService, 'destroy');
 
       fixture.destroy();
@@ -216,52 +223,3 @@ describe('Tile dashboard component', () => {
     }
   );
 });
-
-@Component({
-  selector: 'sky-test-cmp',
-  template: `
-    <sky-tile-dashboard [(config)]="dashboardConfig"></sky-tile-dashboard>
-  `
-})
-class TestComponent {
-  public dashboardConfig: SkyTileDashboardConfig = {
-    tiles: [
-      {
-        id: 'tile-1',
-        componentType: Tile1TestComponent
-      },
-      {
-        id: 'tile-2',
-        componentType: Tile2TestComponent
-      }
-    ],
-    layout: {
-      multiColumn: [
-        {
-          tiles: [
-            {
-              id: 'tile-1',
-              isCollapsed: false
-            },
-            {
-              id: 'tile-2',
-              isCollapsed: false
-            }
-          ]
-        }
-      ],
-      singleColumn: {
-        tiles: [
-          {
-            id: 'tile-2',
-            isCollapsed: false
-          },
-          {
-            id: 'tile-1',
-            isCollapsed: false
-          }
-        ]
-      }
-    }
-  };
-}

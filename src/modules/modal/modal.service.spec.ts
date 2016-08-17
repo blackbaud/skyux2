@@ -1,7 +1,5 @@
 import { Type } from '@angular/core';
 import {
-  addProviders,
-  ComponentFixture,
   fakeAsync,
   inject,
   TestBed,
@@ -16,24 +14,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalService } from './modal.service';
-import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalModule } from './modal.module';
 
+import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestValues } from './fixtures/modal-values.fixture';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 import { ModalWithValuesTestComponent } from './fixtures/modal-with-values.component.fixture';
-import { MockSkyModalAdapterService } from './fixtures/mock-modal-adapter.service';
-import { ModalHostContainerTestComponent } from './fixtures/modal-host-container.component.fixture';
 
 describe('Modal service', () => {
   let modalService: SkyModalService;
-  let modalAdapter: MockSkyModalAdapterService;
-  let hostFixture: ComponentFixture<ModalHostContainerTestComponent>;
 
   function openModal(modalType: Type, providers?: any[]) {
     let modalInstance = modalService.open(modalType, providers);
-
-    hostFixture.detectChanges();
 
     tick();
 
@@ -42,65 +34,27 @@ describe('Modal service', () => {
 
   function closeModal(modalInstance: SkyModalInstance) {
     modalInstance.close();
-    hostFixture.detectChanges();
   }
-
-  beforeEach(() => {
-    addProviders([
-      SkyModalService,
-      {
-        provide: SkyModalAdapterService,
-        useClass: MockSkyModalAdapterService
-      }
-    ]);
-  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
-        SkyModalModule
-      ],
-      declarations: [
-        ModalWithValuesTestComponent,
-        ModalHostContainerTestComponent
+        SkyModalModule,
+        SkyModalFixturesModule
       ]
     });
-  });
-
-  beforeEach(() => {
-    hostFixture = TestBed
-      .overrideComponent(
-        ModalHostContainerTestComponent,
-        {
-          set: {
-            providers: [
-              {
-                provide: SkyModalAdapterService,
-                useValue: modalAdapter
-              }
-            ]
-          }
-        })
-      .createComponent(ModalHostContainerTestComponent);
-
-    hostFixture.detectChanges();
-
-    // modalAdapter.hostViewContainer = hostFixture.componentInstance.viewContainerRef;
   });
 
   beforeEach(
     inject(
       [
-        SkyModalService,
-        SkyModalAdapterService
+        SkyModalService
       ],
       (
-        _modalService: SkyModalService,
-        _modalAdapter: MockSkyModalAdapterService
+        _modalService: SkyModalService
       ) => {
         modalService = _modalService;
-        modalAdapter = _modalAdapter;
       }
     )
   );

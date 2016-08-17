@@ -17,6 +17,7 @@ import { SkyMediaQueryService } from '../../media-queries';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 import { SkyTilesModule } from '../tiles.module';
+import { SkyTileDashboardFixturesModule } from './fixtures/tile-dashboard-fixtures.module';
 
 describe('Tile dashboard service', () => {
   let dashboardConfig: SkyTileDashboardConfig;
@@ -28,12 +29,8 @@ describe('Tile dashboard service', () => {
     mockMediaQueryService = new MockSkyMediaQueryService();
 
     TestBed.configureTestingModule({
-      declarations: [
-        TileDashboardTestComponent,
-        Tile1TestComponent,
-        Tile2TestComponent
-      ],
       imports: [
+        SkyTileDashboardFixturesModule,
         SkyTilesModule
       ],
       providers: [

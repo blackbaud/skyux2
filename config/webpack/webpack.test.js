@@ -185,19 +185,19 @@ module.exports = {
        *
        * See: https://github.com/deepsweet/istanbul-instrumenter-loader
        */
-      {
-        test: /\.(js|ts)$/,
-        loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
-        include: helpers.root('src'),
-        exclude: [
-          /\.(e2e|spec)\.ts$/,
-          /node_modules/,
-          /index\.ts/,
-          /fixtures/,
-          /testing/,
-          /modal/
-        ]
-      }
+      // {
+      //   test: /\.(js|ts)$/,
+      //   loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
+      //   include: helpers.root('src'),
+      //   exclude: [
+      //     /\.(e2e|spec)\.ts$/,
+      //     /node_modules/,
+      //     /index\.ts/,
+      //     /fixtures/,
+      //     /testing/,
+      //     /modal/
+      //   ]
+      // }
 
     ]
   },

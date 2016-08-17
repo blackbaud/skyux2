@@ -1,6 +1,6 @@
 import {
   Component,
-  ComponentResolver,
+  ComponentFactoryResolver,
   Injector,
   ViewChild,
   ViewContainerRef
@@ -24,7 +24,7 @@ export class SkyTileDashboardColumnComponent {
   public content: ViewContainerRef;
 
   constructor(
-    public resolver: ComponentResolver,
+    public resolver: ComponentFactoryResolver,
     public injector: Injector,
     private dashboardService: SkyTileDashboardService
   ) {

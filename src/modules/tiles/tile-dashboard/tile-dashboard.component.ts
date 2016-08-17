@@ -24,8 +24,8 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   public set config(value: SkyTileDashboardConfig) {
     if (value && !this.configSet) {
       this._config = value;
-      this.dashboardService.init(value);
       this.configSet = true;
+      this.checkReady();
     }
   }
 
@@ -39,6 +39,8 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   private _config: SkyTileDashboardConfig;
 
   private configSet = false;
+
+  private viewReady = false;
 
   @ViewChildren(SkyTileDashboardColumnComponent)
   private columns: QueryList<SkyTileDashboardColumnComponent>;
@@ -55,10 +57,19 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit() {
-    this.dashboardService.setColumns(this.columns, this.singleColumn);
+    this.viewReady = true;
+    this.checkReady();
   }
 
   public ngOnDestroy() {
     this.dashboardService.destroy();
+  }
+
+  private checkReady() {
+    if (this.viewReady && this.config) {
+      setTimeout(() => {
+        this.dashboardService.init(this.config, this.columns, this.singleColumn);
+      }, 0);
+    }
   }
 }

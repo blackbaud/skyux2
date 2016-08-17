@@ -76,6 +76,10 @@ export class AppComponent {
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    Tile1Component,
+    Tile2Component
   ]
 })
 class AppModule { }
