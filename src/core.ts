@@ -4,6 +4,7 @@ import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SkyAlertModule } from './modules/alert';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
+import { SkyDropdownModule } from './modules/dropdown';
 import { SkyModalModule } from './modules/modal';
 import { SkyTilesModule } from './modules/tiles';
 
@@ -12,6 +13,7 @@ import { SkyTilesModule } from './modules/tiles';
     SkyAlertModule,
     SkyCardModule,
     SkyCheckboxModule,
+    SkyDropdownModule,
     SkyModalModule,
     SkyTilesModule
   ]

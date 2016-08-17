@@ -3,19 +3,17 @@ import {
   TestBed
 } from '@angular/core/testing';
 
-import { SkyDropdownComponent } from './dropdown.component';
-import { SkyDropdownItemComponent } from './dropdown-item.component';
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
+import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
+
 import { TestUtility } from '../testing/testutility';
 import { expect } from '../testing';
 
 describe('Dropdown component', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        declarations: [
-          SkyDropdownComponent,
-          SkyDropdownItemComponent,
-          DropdownTestComponent
+        imports: [
+          SkyDropdownFixturesModule
         ]
       });
     });
