@@ -1,17 +1,15 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+
+import { SkyTabsetAdapterService } from '../tabset-adapter.service';
 
 @Injectable()
-export class MockTabsetAdapterService {
-  public currentOverflow = false;
-
-  public overflowChange = new EventEmitter<boolean>();
-
-  public init() {
-
-  }
+export class MockTabsetAdapterService extends SkyTabsetAdapterService {
+  public disableDetectOverflow = false;
 
   public detectOverflow() {
-
+    if (!this.disableDetectOverflow) {
+      super.detectOverflow();
+    }
   }
 
   public fakeOverflowChange(overflow: boolean) {

@@ -10,18 +10,14 @@ import {
   QueryList
 } from '@angular/core';
 
-import { SkyTabButtonComponent } from './tab-button.component';
 import { SkyTabComponent } from './tab.component';
-import { SkyTabDropdownComponent } from './tab-dropdown.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetService } from './tabset.service';
 
 @Component({
   selector: 'sky-tabset',
-  directives: [SkyTabButtonComponent, SkyTabDropdownComponent],
   styles: [require('./tabset.component.scss')],
-  template: require('./tabset.component.html'),
-  providers: [SkyTabsetAdapterService, SkyTabsetService]
+  template: require('./tabset.component.html')
 })
 export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCheck {
   @Output()
