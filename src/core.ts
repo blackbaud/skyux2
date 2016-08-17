@@ -6,6 +6,7 @@ import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyDropdownModule } from './modules/dropdown';
 import { SkyKeyInfoModule } from './modules/key-info';
+import { SkyLabelModule } from './modules/label';
 import { SkyModalModule } from './modules/modal';
 import { SkyTilesModule } from './modules/tiles';
 
@@ -16,6 +17,7 @@ import { SkyTilesModule } from './modules/tiles';
     SkyCheckboxModule,
     SkyDropdownModule,
     SkyKeyInfoModule,
+    SkyLabelModule,
     SkyModalModule,
     SkyTilesModule
   ]

@@ -1,14 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyLabelComponent } from '../../../src/core';
+import { SkyModule } from '../../../src/core';
+
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html'),
-  directives: [SkyLabelComponent]
+  template: require('./app.component.html')
 })
 class AppComponent {
 }
 
-Bootstrapper.bootstrap(AppComponent);
+@NgModule({
+  imports: [
+    BrowserModule,
+    SkyModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ]
+})
+class AppModule { }
+
+Bootstrapper.bootstrapModule(AppModule);

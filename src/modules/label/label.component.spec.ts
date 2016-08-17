@@ -2,16 +2,15 @@ import {
   TestBed
 } from '@angular/core/testing';
 
-import { SkyLabelComponent } from './label.component';
+import { SkyLabelFixturesModule } from './fixtures/label-fixtures.module';
 import { LabelTestComponent } from './fixtures/label.component.fixture';
 import { expect } from '../testing';
 
 describe('Label component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        SkyLabelComponent,
-        LabelTestComponent
+      imports: [
+        SkyLabelFixturesModule
       ]
     });
   });
