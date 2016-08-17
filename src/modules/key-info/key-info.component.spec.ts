@@ -2,15 +2,14 @@ import {
   TestBed
 } from '@angular/core/testing';
 
-import { SkyKeyInfoComponent } from './key-info.component';
+import { SkyKeyInfoFixturesModule } from './fixtures/key-info-fixtures.module';
 import { KeyInfoTestComponent } from './fixtures/key-info.component.fixture';
 
 describe('Key info component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        SkyKeyInfoComponent,
-        KeyInfoTestComponent
+      imports: [
+        SkyKeyInfoFixturesModule
       ]
     });
   });
