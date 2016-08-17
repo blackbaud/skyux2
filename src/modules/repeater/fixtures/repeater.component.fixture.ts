@@ -9,8 +9,12 @@ import { SkyRepeaterComponent } from '../repeater.component';
 export class RepeaterTestComponent {
   @ViewChild(SkyRepeaterComponent)
   public repeater: SkyRepeaterComponent;
+
   public showContextMenu: boolean;
+
   public removeLastItem: boolean;
+
   public expandMode = 'single';
+
   public lastItemExpanded: boolean;
 }
