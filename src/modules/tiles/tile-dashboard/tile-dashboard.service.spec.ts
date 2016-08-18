@@ -36,7 +36,7 @@ describe('Tile dashboard service', () => {
       providers: [
         {provide: DragulaService, useValue: mockDragulaService},
         {provide: SkyMediaQueryService, useValue: mockMediaQueryService},
-        {provide: SkyTileDashboardService, useClass: SkyTileDashboardService}
+        SkyTileDashboardService
       ]
     });
 
@@ -88,32 +88,44 @@ describe('Tile dashboard service', () => {
 
   it('should emit the config change event when a tile is moved',
     fakeAsync(
-      inject(
-        [
-          SkyTileDashboardService
-        ],
-        ((dashboardService: SkyTileDashboardService) => {
-          let fixture = TestBed.createComponent(TileDashboardTestComponent);
+      () => {
+        let fixture = TestBed.createComponent(TileDashboardTestComponent);
+        let dashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
+        let configChanged = false;
 
-          let configChanged = false;
+        dashboardService.configChange.subscribe(
+          (config: SkyTileDashboardConfig) => {
+            configChanged = true;
 
-          dashboardService.configChange.subscribe(
-            (config: SkyTileDashboardConfig) => {
-              configChanged = true;
-
-              let expectedConfig: SkyTileDashboardConfig = {
-                tiles: [
+            let expectedConfig: SkyTileDashboardConfig = {
+              tiles: [
+                {
+                  id: 'tile1',
+                  componentType: Tile1TestComponent
+                },
+                {
+                  id: 'tile2',
+                  componentType: Tile2TestComponent
+                }
+              ],
+              layout: {
+                singleColumn: {
+                  tiles: [
+                    {
+                      id: 'tile2',
+                      isCollapsed: false
+                    },
+                    {
+                      id: 'tile1',
+                      isCollapsed: true
+                    }
+                  ]
+                },
+                multiColumn: [
                   {
-                    id: 'tile1',
-                    componentType: Tile1TestComponent
+                    tiles: []
                   },
                   {
-                    id: 'tile2',
-                    componentType: Tile2TestComponent
-                  }
-                ],
-                layout: {
-                  singleColumn: {
                     tiles: [
                       {
                         id: 'tile2',
@@ -124,47 +136,29 @@ describe('Tile dashboard service', () => {
                         isCollapsed: true
                       }
                     ]
-                  },
-                  multiColumn: [
-                    {
-                      tiles: []
-                    },
-                    {
-                      tiles: [
-                        {
-                          id: 'tile2',
-                          isCollapsed: false
-                        },
-                        {
-                          id: 'tile1',
-                          isCollapsed: true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              };
+                  }
+                ]
+              }
+            };
 
-              expect(config).toEqual(expectedConfig);
-            }
-          );
+            expect(config).toEqual(expectedConfig);
+          }
+        );
 
-          fixture.detectChanges();
-          tick();
+        fixture.detectChanges();
+        tick();
 
-          let el = fixture.nativeElement;
+        let el = fixture.nativeElement;
 
-          let columnEls = el.querySelectorAll('.sky-tile-dashboard-column');
+        let columnEls = el.querySelectorAll('.sky-tile-dashboard-column');
 
-          columnEls[1].appendChild(columnEls[0].querySelector('sky-test-cmp'));
+        columnEls[1].appendChild(columnEls[0].querySelector('sky-test-cmp'));
 
-          mockDragulaService.drop.emit({});
-          tick();
+        mockDragulaService.drop.emit({});
+        tick();
 
-          expect(configChanged).toBe(true);
-        })
-      )
-    )
+        expect(configChanged).toBe(true);
+      })
   );
 
   it('should set the tile\'s grab handle as the drag handle', () => {

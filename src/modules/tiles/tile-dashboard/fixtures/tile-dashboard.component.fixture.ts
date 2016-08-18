@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { SkyTileDashboardConfig } from '../../../tiles';
+import { SkyTileDashboardComponent, SkyTileDashboardConfig } from '../../../tiles';
 import { Tile1TestComponent } from './tile1.component.fixture';
 import { Tile2TestComponent } from './tile2.component.fixture';
 
@@ -9,6 +9,9 @@ import { Tile2TestComponent } from './tile2.component.fixture';
   template: require('./tile-dashboard.component.fixture.html')
 })
 export class TileDashboardTestComponent {
+  @ViewChild(SkyTileDashboardComponent)
+  public dashboardComponent: SkyTileDashboardComponent;
+
   public dashboardConfig: SkyTileDashboardConfig;
 
   constructor() {

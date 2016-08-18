@@ -6,7 +6,6 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SkyMediaQueriesModule } from '../../media-queries';
 
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
-import { SkyTileDashboardService } from './tile-dashboard.service';
 import { SkyTileDashboardColumnModule } from '../tile-dashboard-column';
 
 @NgModule({
@@ -14,8 +13,7 @@ import { SkyTileDashboardColumnModule } from '../tile-dashboard-column';
     SkyTileDashboardComponent
   ],
   providers: [
-    DragulaService,
-    SkyTileDashboardService
+    DragulaService
   ],
   imports: [
     CommonModule,

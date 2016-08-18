@@ -218,13 +218,15 @@ export class SkyTileDashboardService {
   }
 
   private getConfigForUIState(): SkyTileDashboardConfig {
-    this.config = {
-      tiles: this.config.tiles,
-      layout: {
-        singleColumn: this.getSingleColumnLayoutForUIState(),
-        multiColumn: this.getMultiColumnLayoutForUIState()
-      }
-    };
+    if (this.config) {
+      this.config = {
+        tiles: this.config.tiles,
+        layout: {
+          singleColumn: this.getSingleColumnLayoutForUIState(),
+          multiColumn: this.getMultiColumnLayoutForUIState()
+        }
+      };
+    }
 
     return this.config;
   }

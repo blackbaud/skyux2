@@ -17,6 +17,9 @@ describe('Tile component', () => {
       ],
       imports: [
         SkyTilesModule
+      ],
+      providers: [
+        SkyTileDashboardService
       ]
     });
   });
