@@ -1,11 +1,9 @@
 import {
   Component,
-  ComponentFactory,
-  ComponentResolver,
+  ComponentFactoryResolver,
   ElementRef,
   Injector,
   ReflectiveInjector,
-  Type,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -34,49 +32,43 @@ export class SkyModalHostComponent {
   private target: ViewContainerRef;
 
   constructor(
-    private resolver: ComponentResolver,
+    private resolver: ComponentFactoryResolver,
     private elRef: ElementRef,
     private viewContainer: ViewContainerRef,
     private adapter: SkyModalAdapterService,
     private injector: Injector
   ) { }
 
-  public init() {
-    this.adapter.appendToBody(this.viewContainer.element);
-  }
+  public open(modalInstance: SkyModalInstance, component: any, providers?: any[]) {
+    let factory = this.resolver.resolveComponentFactory(component);
+    let hostService = new SkyModalHostService();
 
-  public open(modalInstance: SkyModalInstance, component: Type, providers?: any[]) {
-    this.resolver.resolveComponent(component)
-      .then((factory: ComponentFactory<any>) => {
-        let hostService = new SkyModalHostService();
+    providers = providers || [];
 
-        providers = providers || [];
+    providers.push({
+      provide: SkyModalHostService,
+      useValue: hostService
+    });
 
-        providers.push({
-          provide: SkyModalHostService,
-          useValue: hostService
-        });
+    let resolvedProviders = ReflectiveInjector.resolve(providers);
 
-        let resolvedProviders = ReflectiveInjector.resolve(providers);
+    let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
 
-        let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
+    let modalComponentRef = this.target.createComponent(factory, undefined, injector);
 
-        let modalComponentRef = this.target.createComponent(factory, undefined, injector);
+    modalInstance.componentInstance = modalComponentRef.instance;
 
-        modalInstance.componentInstance = modalComponentRef.instance;
+    function closeModal() {
+      hostService.destroy();
+      modalComponentRef.destroy();
+    }
 
-        function closeModal() {
-          hostService.destroy();
-          modalComponentRef.destroy();
-        }
+    hostService.close.subscribe((modalComponent: SkyModalComponent) => {
+      closeModal();
+    });
 
-        hostService.close.subscribe((modalComponent: SkyModalComponent) => {
-          closeModal();
-        });
-
-        modalInstance.setCloseCallback(() => {
-          closeModal();
-        });
-      });
+    modalInstance.setCloseCallback(() => {
+      closeModal();
+    });
   }
 }

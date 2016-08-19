@@ -1,19 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {
-  SkyTileDashboardComponent,
-  SkyTileDashboardConfig
-} from '../../../src/modules/tiles';
+import { SkyModule, SkyTileDashboardConfig } from '../../../src/core';
+
 import { Bootstrapper } from '../../bootstrapper';
 import { Tile1Component } from './tile1.component.ts';
 import { Tile2Component } from './tile2.component.ts';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html'),
-  directives: [
-    SkyTileDashboardComponent
-  ]
+  template: require('./app.component.html')
 })
 export class AppComponent {
   public dashboardConfig: SkyTileDashboardConfig;
@@ -70,4 +66,22 @@ export class AppComponent {
   }
 }
 
-Bootstrapper.bootstrap(AppComponent);
+@NgModule({
+  imports: [
+    BrowserModule,
+    SkyModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    Tile1Component,
+    Tile2Component
+  ]
+})
+class AppModule { }
+
+Bootstrapper.bootstrapModule(AppModule);

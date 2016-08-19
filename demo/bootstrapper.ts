@@ -1,3 +1,4 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { SKY_PROVIDERS } from '../src/core';
 
@@ -14,5 +15,9 @@ export class Bootstrapper {
     ];
 
     bootstrap(componentType, dependencies);
+  }
+
+  public static bootstrapModule(moduleType: any) {
+    platformBrowserDynamic().bootstrapModule(moduleType);
   }
 }

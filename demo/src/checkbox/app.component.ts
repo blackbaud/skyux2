@@ -1,21 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyCheckboxComponent } from '../../../src/core';
+import { SkyModule } from '../../../src/core';
+
 import { Bootstrapper } from '../../bootstrapper';
 
-import {NgForm, disableDeprecatedForms, provideForms} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html'),
-  directives: [SkyCheckboxComponent]
+  template: require('./app.component.html')
 })
 export class AppComponent {
   public selected = false;
   public selected2 = true;
 }
 
-Bootstrapper.bootstrapDependencies(AppComponent, [
-  disableDeprecatedForms(),
-  provideForms()
-]);
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    SkyModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ]
+})
+class AppModule { }
+
+Bootstrapper.bootstrapModule(AppModule);
+

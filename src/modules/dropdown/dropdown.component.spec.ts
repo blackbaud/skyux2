@@ -1,26 +1,29 @@
 import {
   async,
-  inject,
-  TestComponentBuilder
+  TestBed
 } from '@angular/core/testing';
 
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
+import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
+
 import { TestUtility } from '../testing/testutility';
 import { expect } from '../testing';
 
 describe('Dropdown component', () => {
-    let tcb: TestComponentBuilder;
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          SkyDropdownFixturesModule
+        ]
+      });
+    });
 
     function getDropdownBtnEl(el: Element) {
       return <HTMLElement>el.querySelector('.sky-dropdown-button');
     }
 
-    beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-      tcb = _tcb;
-    }));
-
     it('should have a default button type of "select"', () => {
-      let fixture = tcb.createSync(DropdownTestComponent);
+      let fixture = TestBed.createComponent(DropdownTestComponent);
       let el: Element = fixture.nativeElement;
 
       fixture.detectChanges();
@@ -29,7 +32,7 @@ describe('Dropdown component', () => {
     });
 
     it('should set the correct button type CSS class', () => {
-      let fixture = tcb.createSync(DropdownTestComponent);
+      let fixture = TestBed.createComponent(DropdownTestComponent);
       let cmp: DropdownTestComponent = fixture.componentInstance;
       let el: Element = fixture.nativeElement;
 
@@ -41,7 +44,7 @@ describe('Dropdown component', () => {
     });
 
     it('should open the dropdown menu when clicking the dropdown button', () => {
-      let fixture = tcb.createSync(DropdownTestComponent);
+      let fixture = TestBed.createComponent(DropdownTestComponent);
       let cmp: DropdownTestComponent = fixture.componentInstance;
       let el = fixture.nativeElement;
 
@@ -59,7 +62,7 @@ describe('Dropdown component', () => {
     it(
       `should close the dropdown menu when clicking outside it`,
       async(() => {
-        let fixture = tcb.createSync(DropdownTestComponent);
+        let fixture = TestBed.createComponent(DropdownTestComponent);
         let cmp: DropdownTestComponent = fixture.componentInstance;
         let el = fixture.nativeElement;
 
@@ -89,7 +92,7 @@ describe('Dropdown component', () => {
     it(
       `should close the dropdown menu when clicking the button a second time`,
       async(() => {
-        let fixture = tcb.createSync(DropdownTestComponent);
+        let fixture = TestBed.createComponent(DropdownTestComponent);
         let cmp: DropdownTestComponent = fixture.componentInstance;
         let el = fixture.nativeElement;
 
@@ -118,7 +121,7 @@ describe('Dropdown component', () => {
 
     describe('of type "select"', () => {
       it('should display an ellipsis instead of the specified button content', () => {
-        let fixture = tcb.createSync(DropdownTestComponent);
+        let fixture = TestBed.createComponent(DropdownTestComponent);
         let el = fixture.nativeElement;
 
         fixture.detectChanges();
@@ -132,7 +135,7 @@ describe('Dropdown component', () => {
 
     describe('of type "context-menu"', () => {
       it('should display an ellipsis instead of the specified button content', () => {
-        let fixture = tcb.createSync(DropdownTestComponent);
+        let fixture = TestBed.createComponent(DropdownTestComponent);
         let cmp: DropdownTestComponent = fixture.componentInstance;
         let el = fixture.nativeElement;
 

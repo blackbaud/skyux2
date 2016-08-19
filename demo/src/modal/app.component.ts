@@ -1,4 +1,7 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component, NgModule, ViewContainerRef } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { SkyModule } from '../../../src/core';
 
 import { SkyModalService } from '../../../src/core';
 import { ModalDemoComponent } from './modal-demo.component';
@@ -7,8 +10,7 @@ import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html'),
-  providers: [SkyModalService]
+  template: require('./app.component.html')
 })
 class AppComponent {
   constructor(public viewContainerRef: ViewContainerRef, private modal: SkyModalService) { }
@@ -25,4 +27,21 @@ class AppComponent {
   }
 }
 
-Bootstrapper.bootstrap(AppComponent);
+@NgModule({
+  imports: [
+    BrowserModule,
+    SkyModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    ModalDemoComponent
+  ]
+})
+class AppModule { }
+
+Bootstrapper.bootstrapModule(AppModule);

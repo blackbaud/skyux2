@@ -1,39 +1,31 @@
-import { ApplicationRef, Type } from '@angular/core';
-
+import { Type } from '@angular/core';
 import {
-  addProviders,
-  ComponentFixture,
   fakeAsync,
   inject,
-  TestComponentBuilder,
+  TestBed,
   tick
 } from '@angular/core/testing';
 
 import {
-  expect,
-  MockApplicationRef
+  expect
 } from '../testing';
+
+import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalService } from './modal.service';
-import { SkyModalAdapterService } from './modal-adapter.service';
+import { SkyModalModule } from './modal.module';
 
+import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestValues } from './fixtures/modal-values.fixture';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 import { ModalWithValuesTestComponent } from './fixtures/modal-with-values.component.fixture';
-import { MockSkyModalAdapterService } from './fixtures/mock-modal-adapter.service';
-import { ModalHostContainerTestComponent } from './fixtures/modal-host-container.component.fixture';
 
 describe('Modal service', () => {
   let modalService: SkyModalService;
-  let tcb: TestComponentBuilder;
-  let modalAdapter: MockSkyModalAdapterService;
-  let hostFixture: ComponentFixture<ModalHostContainerTestComponent>;
 
   function openModal(modalType: Type, providers?: any[]) {
     let modalInstance = modalService.open(modalType, providers);
-
-    hostFixture.detectChanges();
 
     tick();
 
@@ -42,56 +34,30 @@ describe('Modal service', () => {
 
   function closeModal(modalInstance: SkyModalInstance) {
     modalInstance.close();
-    hostFixture.detectChanges();
   }
 
   beforeEach(() => {
-    addProviders([
-      SkyModalService,
-      {
-        provide: ApplicationRef,
-        useClass: MockApplicationRef
-      },
-      {
-        provide: SkyModalAdapterService,
-        useClass: MockSkyModalAdapterService
-      }
-    ]);
+    TestBed.configureTestingModule({
+      imports: [
+        BrowserModule,
+        SkyModalModule,
+        SkyModalFixturesModule
+      ]
+    });
   });
 
   beforeEach(
     inject(
       [
-        TestComponentBuilder,
-        SkyModalService,
-        SkyModalAdapterService
+        SkyModalService
       ],
       (
-        _tcb: TestComponentBuilder,
-        _modalService: SkyModalService,
-        _modalAdapter: MockSkyModalAdapterService
+        _modalService: SkyModalService
       ) => {
-        tcb = _tcb;
         modalService = _modalService;
-        modalAdapter = _modalAdapter;
       }
     )
   );
-
-  beforeEach(() => {
-    hostFixture = tcb
-      .overrideProviders(ModalHostContainerTestComponent, [
-        {
-          provide: SkyModalAdapterService,
-          useValue: modalAdapter
-        }
-      ])
-      .createSync(ModalHostContainerTestComponent);
-
-    hostFixture.detectChanges();
-
-    modalAdapter.hostViewContainer = hostFixture.componentInstance.viewContainerRef;
-  });
 
   it('should show a modal and return an instance that can then be closed', fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent);

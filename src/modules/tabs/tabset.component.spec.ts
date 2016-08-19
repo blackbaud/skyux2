@@ -1,19 +1,22 @@
-import { provide } from '@angular/core';
 import {
-  addProviders,
   inject,
-  TestComponentBuilder
+  TestBed
 } from '@angular/core/testing';
 
-import { SkyTabsetComponent } from './tabset.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
+import { SkyTabsFixturesModule } from './fixtures/tabs-fixtures.module';
 import { TabsetTestComponent } from './fixtures/tabset.component.fixture';
 import { MockTabsetAdapterService } from './fixtures/tabset-adapter.service.mock';
 import { TestUtility } from '../testing/testutility';
 
 describe('Tabset component', () => {
-  let tcb: TestComponentBuilder;
-  let mockAdapterService: MockTabsetAdapterService;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyTabsFixturesModule
+      ]
+    });
+  });
 
   function validateTabSelected(el: Element, tabIndex: number) {
     let selectedCls: string;
@@ -48,28 +51,9 @@ describe('Tabset component', () => {
     }
   }
 
-  beforeEach(() => {
-    addProviders([
-      provide(SkyTabsetAdapterService, {useClass: MockTabsetAdapterService})
-    ]);
-  });
-
-  beforeEach(
-    inject(
-      [
-        TestComponentBuilder,
-        SkyTabsetAdapterService
-      ],
-      (_tcb: TestComponentBuilder, _mockAdapterService: MockTabsetAdapterService) => {
-        tcb = _tcb;
-        mockAdapterService = _mockAdapterService;
-      }
-    )
-  );
-
   describe('tabs with active attribute', () => {
     it('should change the active tab when tab active is set to true', () => {
-      let fixture = tcb.createSync(TabsetTestComponent);
+      let fixture = TestBed.createComponent(TabsetTestComponent);
       let cmp: TabsetTestComponent = fixture.componentInstance;
       let el = fixture.nativeElement;
 
@@ -83,7 +67,7 @@ describe('Tabset component', () => {
     });
 
     it('should change the active tab when the tab is clicked manually', () => {
-      let fixture = tcb.createSync(TabsetTestComponent);
+      let fixture = TestBed.createComponent(TabsetTestComponent);
       let el = fixture.nativeElement;
 
       fixture.detectChanges();
@@ -96,7 +80,7 @@ describe('Tabset component', () => {
     });
 
     it('should initialize the tabs properly when active is set to true', () => {
-      let fixture = tcb.createSync(TabsetTestComponent);
+      let fixture = TestBed.createComponent(TabsetTestComponent);
       let cmp: TabsetTestComponent = fixture.componentInstance;
       let el = fixture.nativeElement;
 
@@ -116,9 +100,16 @@ describe('Tabset component', () => {
   it('should notify the consumer when the add tab button is clicked', () => {
     let template = `<sky-tabset (newTab)="newTab()"></sky-tabset>`;
 
-    let fixture = tcb
-      .overrideTemplate(TabsetTestComponent, template)
-      .createSync(TabsetTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        TabsetTestComponent,
+        {
+          set: {
+            template: template
+          }
+        }
+      )
+      .createComponent(TabsetTestComponent);
 
     let cmp: TabsetTestComponent = fixture.componentInstance;
     let el = fixture.nativeElement;
@@ -135,9 +126,16 @@ describe('Tabset component', () => {
   it('should notify the consumer when the new tab button is clicked', () => {
     let template = `<sky-tabset (openTab)="openTab()"></sky-tabset>`;
 
-    let fixture = tcb
-      .overrideTemplate(TabsetTestComponent, template)
-      .createSync(TabsetTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        TabsetTestComponent,
+        {
+          set: {
+            template: template
+          }
+        }
+      )
+      .createComponent(TabsetTestComponent);
 
     let cmp: TabsetTestComponent = fixture.componentInstance;
     let el = fixture.nativeElement;
@@ -152,7 +150,7 @@ describe('Tabset component', () => {
   });
 
   it('should notify the consumer when a tab\'s close button is clicked', () => {
-    let fixture = tcb.createSync(TabsetTestComponent);
+    let fixture = TestBed.createComponent(TabsetTestComponent);
     let cmp: TabsetTestComponent = fixture.componentInstance;
     let el = fixture.nativeElement;
 
@@ -166,7 +164,7 @@ describe('Tabset component', () => {
   });
 
   it('should select the next tab when the active tab is closed', () => {
-    let fixture = tcb.createSync(TabsetTestComponent);
+    let fixture = TestBed.createComponent(TabsetTestComponent);
     let cmp: TabsetTestComponent = fixture.componentInstance;
     let el = fixture.nativeElement;
 
@@ -183,7 +181,7 @@ describe('Tabset component', () => {
   it(
     'should select the previous tab when the last tab is closed and the last tab was active',
     () => {
-      let fixture = tcb.createSync(TabsetTestComponent);
+      let fixture = TestBed.createComponent(TabsetTestComponent);
       let cmp: TabsetTestComponent = fixture.componentInstance;
       let el = fixture.nativeElement;
 
@@ -201,7 +199,7 @@ describe('Tabset component', () => {
   it(
     'should maintain the currently active tab when a non-active tab is closed',
     () => {
-      let fixture = tcb.createSync(TabsetTestComponent);
+      let fixture = TestBed.createComponent(TabsetTestComponent);
       let cmp: TabsetTestComponent = fixture.componentInstance;
       let el = fixture.nativeElement;
 
@@ -217,7 +215,7 @@ describe('Tabset component', () => {
   );
 
   it('should add no buttons if add and open are not defined', () => {
-    let fixture = tcb.createSync(TabsetTestComponent);
+    let fixture = TestBed.createComponent(TabsetTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -229,7 +227,7 @@ describe('Tabset component', () => {
   it(
     'should collapse into a dropdown when the width of the tabs is greater than its container',
     () => {
-      let fixture = tcb.createSync(TabsetTestComponent);
+      let fixture = TestBed.createComponent(TabsetTestComponent);
 
       function fireResizeEvent() {
         TestUtility.fireDomEvent(window, 'resize');
@@ -259,17 +257,19 @@ describe('Tabset component', () => {
   );
 
   describe('when collapsed', () => {
+    let mockAdapterService: MockTabsetAdapterService;
+
+    beforeEach(
+      inject([SkyTabsetAdapterService], (_mockAdapterService: MockTabsetAdapterService) => {
+        mockAdapterService = _mockAdapterService;
+        mockAdapterService.disableDetectOverflow = true;
+      })
+    );
+
     it(
       'should display the selected tab in the collapsed tab dropdown button',
       () => {
-        let fixture = tcb
-          .overrideProviders(
-            SkyTabsetComponent,
-            [
-              provide(SkyTabsetAdapterService, {useValue: mockAdapterService})
-            ]
-          )
-          .createSync(TabsetTestComponent);
+        let fixture = TestBed.createComponent(TabsetTestComponent);
 
         let el = fixture.nativeElement;
         let cmp: TabsetTestComponent = fixture.componentInstance;
@@ -294,14 +294,9 @@ describe('Tabset component', () => {
     it(
       'should allow another tab to be selected from the dropdown',
       () => {
-        let fixture = tcb
-          .overrideProviders(
-            SkyTabsetComponent,
-            [
-              provide(SkyTabsetAdapterService, {useValue: mockAdapterService})
-            ]
-          )
-          .createSync(TabsetTestComponent);
+        mockAdapterService.disableDetectOverflow = true;
+
+        let fixture = TestBed.createComponent(TabsetTestComponent);
 
         let el = fixture.nativeElement;
 
@@ -325,14 +320,7 @@ describe('Tabset component', () => {
     it(
       'should notify the consumer when a tab\'s close button is clicked',
       () => {
-        let fixture = tcb
-          .overrideProviders(
-            SkyTabsetComponent,
-            [
-              provide(SkyTabsetAdapterService, {useValue: mockAdapterService})
-            ]
-          )
-          .createSync(TabsetTestComponent);
+        let fixture = TestBed.createComponent(TabsetTestComponent);
 
         let el = fixture.nativeElement;
 

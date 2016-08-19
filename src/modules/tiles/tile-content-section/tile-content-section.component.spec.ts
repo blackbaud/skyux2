@@ -1,19 +1,25 @@
-import {
-  inject,
-  TestComponentBuilder
-} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { SkyTileContentSectionModule } from './tile-content-section.module';
 
 import { TileContentSectionTestComponent } from './fixtures';
 
 describe('Tile content section component', () => {
-  let tcb: TestComponentBuilder;
-
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        TileContentSectionTestComponent
+      ],
+      imports: [
+        BrowserModule,
+        SkyTileContentSectionModule
+      ]
+    });
+  });
 
   it('should render the section content in the expected element', () => {
-    let fixture = tcb.createSync(TileContentSectionTestComponent);
+    let fixture = TestBed.createComponent(TileContentSectionTestComponent);
     let el = fixture.nativeElement;
 
     fixture.detectChanges();

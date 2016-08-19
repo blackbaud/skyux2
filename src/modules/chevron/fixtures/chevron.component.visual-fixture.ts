@@ -1,16 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyChevronComponent } from '../../../../src/modules/chevron';
+import { SkyModule } from '../../../../src/core';
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./chevron.component.visual-fixture.html'),
-  directives: [SkyChevronComponent]
+  template: require('./chevron.component.visual-fixture.html')
 })
 class AppComponent {
   public directionUp = 'up';
   public directionDown = 'down';
 }
 
-Bootstrapper.bootstrap(AppComponent);
+@NgModule({
+  imports: [
+    BrowserModule,
+    SkyModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ]
+})
+class AppModule { }
+
+Bootstrapper.bootstrapModule(AppModule);

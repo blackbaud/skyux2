@@ -1,8 +1,9 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, QueryList } from '@angular/core';
 
 import { SkyTileDashboardConfig, SkyTileDashboardConfigTile } from '../../tile-dashboard-config';
 import { Tile1TestComponent } from './tile1.component.fixture';
 import { Tile2TestComponent } from './tile2.component.fixture';
+import { SkyTileDashboardColumnComponent } from '../../tile-dashboard-column';
 
 export class MockTileDashboardService {
   public bagId = 'id-1';
@@ -13,7 +14,11 @@ export class MockTileDashboardService {
 
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
-  public init(config: SkyTileDashboardConfig) {
+  public init(
+    config: SkyTileDashboardConfig,
+    columns?: QueryList<SkyTileDashboardColumnComponent>,
+    singleColumn?: SkyTileDashboardColumnComponent
+  ) {
     this.config = config;
   }
 

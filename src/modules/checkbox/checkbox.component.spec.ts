@@ -1,36 +1,46 @@
 import {
   ComponentFixture,
-  beforeEach,
-  it,
-  beforeEachProviders,
-  inject,
   async,
-  TestComponentBuilder
+  TestBed
 } from '@angular/core/testing';
-import {FORM_DIRECTIVES, NgModel, disableDeprecatedForms, provideForms} from '@angular/forms';
+
+import { BrowserModule } from '@angular/platform-browser';
+
+import { FormsModule, NgModel } from '@angular/forms';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 
 import {SkyCheckboxComponent, SkyCheckboxChange} from './checkbox.component';
+import { SkyCheckboxModule } from './checkbox.module';
 
 describe('Checkbox component', () => {
-  let builder: TestComponentBuilder;
   let fixture: ComponentFixture<any>;
-
-  beforeEachProviders(() => [
-    disableDeprecatedForms(),
-    provideForms()
-  ]);
-
-  beforeEach(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-    builder = tcb;
-  }));
 
   function createEvent(eventName: string) {
     let evt = document.createEvent('CustomEvent');
     evt.initEvent(eventName, false, false);
     return evt;
   }
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        CheckboxWithAriaLabelComponent,
+        CheckboxWithAriaLabelledbyComponent,
+        CheckboxWithChangeEventComponent,
+        CheckboxWithFormDirectivesComponent,
+        CheckboxWithNameAttributeComponent,
+        CheckboxWithTabIndexComponent,
+        MultipleCheckboxesComponent,
+        SingleCheckboxComponent
+      ],
+      imports: [
+        BrowserModule,
+        FormsModule,
+        SkyCheckboxModule
+      ]
+    });
+  });
 
   describe('basic behaviors', () => {
     let checkboxDebugElement: DebugElement;
@@ -41,10 +51,9 @@ describe('Checkbox component', () => {
     let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
-      builder.createAsync(SingleCheckboxComponent).then(f => {
-        fixture = f;
-        fixture.detectChanges();
+      fixture = TestBed.createComponent(SingleCheckboxComponent);
 
+      fixture.whenStable().then(() => {
         checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         checkboxInstance = checkboxDebugElement.componentInstance;
@@ -151,10 +160,11 @@ describe('Checkbox component', () => {
     let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
-      builder.createAsync(CheckboxWithChangeEventComponent).then(f => {
-        fixture = f;
-        fixture.detectChanges();
+      fixture = TestBed.createComponent(CheckboxWithChangeEventComponent);
 
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
         checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         checkboxInstance = checkboxDebugElement.componentInstance;
@@ -203,13 +213,15 @@ describe('Checkbox component', () => {
     let inputElement: HTMLInputElement;
 
     it('should use the provided label as the input aria-label', async(() => {
-      builder.createAsync(CheckboxWithAriaLabelComponent).then(f => {
-        fixture = f;
-        checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-        checkboxNativeElement = checkboxDebugElement.nativeElement;
-        inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+      fixture = TestBed.createComponent(CheckboxWithAriaLabelComponent);
 
-        fixture.detectChanges();
+      checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+      checkboxNativeElement = checkboxDebugElement.nativeElement;
+      inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
         expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
       });
     }));
@@ -221,25 +233,29 @@ describe('Checkbox component', () => {
     let inputElement: HTMLInputElement;
 
     it('should use the provided labeledBy as the input aria-labelledby', async(() => {
-      builder.createAsync(CheckboxWithAriaLabelledbyComponent).then(f => {
-        fixture = f;
-        checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-        checkboxNativeElement = checkboxDebugElement.nativeElement;
-        inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+      fixture = TestBed.createComponent(CheckboxWithAriaLabelledbyComponent);
 
-        fixture.detectChanges();
+      checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+      checkboxNativeElement = checkboxDebugElement.nativeElement;
+      inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
         expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
       });
     }));
 
     it('should not assign aria-labelledby if no labeledBy is provided', async(() => {
-      builder.createAsync(SingleCheckboxComponent).then(f => {
-        fixture = f;
-        checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-        checkboxNativeElement = checkboxDebugElement.nativeElement;
-        inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+      fixture = TestBed.createComponent(SingleCheckboxComponent);
 
-        fixture.detectChanges();
+      checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+      checkboxNativeElement = checkboxDebugElement.nativeElement;
+      inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
         expect(inputElement.getAttribute('aria-labelledby')).toBeNull();
       });
     }));
@@ -253,10 +269,11 @@ describe('Checkbox component', () => {
     let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
-      builder.createAsync(CheckboxWithTabIndexComponent).then(f => {
-        fixture = f;
-        fixture.detectChanges();
+      fixture = TestBed.createComponent(CheckboxWithTabIndexComponent);
 
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
         testComponent = fixture.debugElement.componentInstance;
         checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
@@ -285,10 +302,9 @@ describe('Checkbox component', () => {
 
   describe('with multiple checkboxes', () => {
     beforeEach(async(() => {
-      builder.createAsync(MultipleCheckboxesComponent).then(f => {
-        fixture = f;
-        fixture.detectChanges();
-      });
+      fixture = TestBed.createComponent(MultipleCheckboxesComponent);
+
+      fixture.detectChanges();
     }));
 
     it('should assign a unique id to each checkbox', () => {
@@ -304,10 +320,9 @@ describe('Checkbox component', () => {
 
   describe('with ngModel', () => {
     beforeEach(async(() => {
-      builder.createAsync(CheckboxWithFormDirectivesComponent).then(f => {
-        f.detectChanges();
-        fixture = f;
-      });
+      fixture = TestBed.createComponent(CheckboxWithFormDirectivesComponent);
+
+      fixture.detectChanges();
     }));
 
     it('should be in pristine, untouched, and valid states initially', async(() => {
@@ -343,10 +358,9 @@ describe('Checkbox component', () => {
 
   describe('with name attribute', () => {
     beforeEach(async(() => {
-      builder.createAsync(CheckboxWithNameAttributeComponent).then(f => {
-        f.detectChanges();
-        fixture = f;
-      });
+      fixture = TestBed.createComponent(CheckboxWithNameAttributeComponent);
+
+      fixture.detectChanges();
     }));
 
     it('should forward name value to input element', () => {
@@ -385,7 +399,7 @@ class SingleCheckboxComponent {
 
 /** Simple component for testing an MdCheckbox with ngModel. */
 @Component({
-  directives: [SkyCheckboxComponent, FORM_DIRECTIVES, NgModel],
+  directives: [SkyCheckboxComponent],
   template: `
     <form>
       <sky-checkbox name="cb" [(ngModel)]="isGood">

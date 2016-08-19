@@ -1,15 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyAlertComponent } from '../../../src/core';
+import { SkyModule } from '../../../src/core';
+
 import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html'),
-  directives: [SkyAlertComponent]
+  template: require('./app.component.html')
 })
 class AppComponent {
   public alertCloseable = true;
 }
 
-Bootstrapper.bootstrap(AppComponent);
+@NgModule({
+  imports: [
+    BrowserModule,
+    SkyModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ]
+})
+class AppModule { }
+
+Bootstrapper.bootstrapModule(AppModule);

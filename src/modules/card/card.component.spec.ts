@@ -1,7 +1,9 @@
 import {
-  inject,
-  TestComponentBuilder
+  TestBed
 } from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { SkyCardModule } from './card.module';
 
 import { CardTestComponent } from './fixtures/card.component.fixture';
 import { expect } from '../testing';
@@ -19,11 +21,17 @@ function validateCardSelected(cmp: CardTestComponent, cardEl: any, selected: boo
 }
 
 describe('Card component', () => {
-  let tcb: TestComponentBuilder;
-
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        CardTestComponent
+      ],
+      imports: [
+        BrowserModule,
+        SkyCardModule
+      ]
+    });
+  });
 
   it('should place the individual components in their respective placeholders', () => {
     let html = `
@@ -36,9 +44,16 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = tcb
-      .overrideTemplate(CardTestComponent, html)
-      .createSync(CardTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
     let el = fixture.nativeElement;
 
@@ -55,9 +70,16 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = tcb
-      .overrideTemplate(CardTestComponent, html)
-      .createSync(CardTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
     let el = fixture.nativeElement;
 
@@ -72,9 +94,16 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = tcb
-      .overrideTemplate(CardTestComponent, html)
-      .createSync(CardTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
     let el = fixture.nativeElement;
 
@@ -98,9 +127,16 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = tcb
-      .overrideTemplate(CardTestComponent, html)
-      .createSync(CardTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
     let cmp = fixture.componentInstance as CardTestComponent,
       el = fixture.nativeElement;
@@ -127,9 +163,16 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = tcb
-      .overrideTemplate(CardTestComponent, html)
-      .createSync(CardTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
     let cmp = fixture.componentInstance as CardTestComponent,
       el = fixture.nativeElement;
