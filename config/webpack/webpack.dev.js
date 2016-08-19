@@ -113,19 +113,6 @@ module.exports = webpackMerge(commonConfig, demoConfig.buildDemoConfig(), {
         'NODE_ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
       }
-    }),
-
-    /*
-     * Plugin: HtmlWebpackPlugin
-     * Description: Simplifies creation of HTML files to serve your webpack bundles.
-     * This is especially useful for webpack bundles that include a hash in the filename
-     * which changes every compilation.
-     *
-     * See: https://github.com/ampedandwired/html-webpack-plugin
-     */
-    new HtmlWebpackPlugin({
-      template: 'demo/index.html',
-      chunksSortMode: helpers.packageSort(['polyfills', 'vendor', 'demo'])
     })
   ],
 

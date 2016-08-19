@@ -26,6 +26,15 @@ var entry = {};
       filename: demoName + '.html'
     }));
   });
+
+  // Create landing page for easier debugging
+  plugins.push(new HtmlWebpackPlugin({
+    inject: false,
+    entry: entry,
+    template: 'demo/index.ejs',
+    filename: 'index.html'
+  }));
+
 }());
 
 exports.buildDemoConfig = function () {
