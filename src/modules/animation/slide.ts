@@ -19,4 +19,4 @@ export default trigger('slide', [
     'up <=> down',
     animate('150ms ease-in')
   )
-]);
+]) as any;
