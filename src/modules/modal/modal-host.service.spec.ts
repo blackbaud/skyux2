@@ -1,5 +1,6 @@
 import { expect } from '../testing';
 
+import { SkyModalComponent } from './modal.component';
 import { SkyModalHostService } from './modal-host.service';
 
 describe('Modal host service', () => {
@@ -46,5 +47,20 @@ describe('Modal host service', () => {
     expect(SkyModalHostService.openModalCount).toBe(1);
 
     service1.destroy();
+  });
+
+  it('should notify subscribers when a modal is closed', () => {
+    let service = new SkyModalHostService();
+    let component = new SkyModalComponent(service);
+    let closeEmitted = false;
+
+    service.close.subscribe((closedComponent: SkyModalComponent) => {
+      expect(closedComponent).toBe(component);
+      closeEmitted = true;
+    });
+
+    service.onClose(component);
+
+    expect(closeEmitted).toBe(true);
   });
 });

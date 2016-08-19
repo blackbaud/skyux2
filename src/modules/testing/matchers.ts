@@ -69,6 +69,35 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
     };
   },
 
+  toHaveStyle: () => {
+    return {
+      compare: (el: any, expectedStyle: any): SkyMatchResult => {
+        let result = {
+          pass: false,
+          message: ''
+        };
+
+        for (let p in expectedStyle) {
+          if (expectedStyle.hasOwnProperty(p)) {
+            let actualStyle = (getComputedStyle(el) as any)[p];
+
+            if (actualStyle !== expectedStyle[p]) {
+              if (result.message) {
+                result.message += '\n';
+              }
+
+              result.message += result.pass ?
+                'Expected element not to have CSS style ' + p + ': ' + expectedStyle :
+                'Expected element to have CSS style ' + p + ': ' + expectedStyle;
+            }
+          }
+        }
+
+        return result;
+      }
+    };
+  },
+
   toExist: () => {
     return {
       compare: (el: any): SkyMatchResult => {
