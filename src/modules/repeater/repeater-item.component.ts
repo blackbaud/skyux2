@@ -65,13 +65,11 @@ export class SkyRepeaterItemComponent {
         `Setting isExpanded to false when the repeater item is not collapsible
         will have no effect.`
       );
-    } else {
-      if (this._isExpanded !== value) {
-        this._isExpanded = value;
+    } else if (this._isExpanded !== value) {
+      this._isExpanded = value;
 
-        this.repeaterService.onItemCollapseStateChange(this);
-        this.slideForExpanded(animate);
-      }
+      this.repeaterService.onItemCollapseStateChange(this);
+      this.slideForExpanded(animate);
     }
   }
 

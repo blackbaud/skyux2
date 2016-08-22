@@ -44,10 +44,6 @@ export class SkyRepeaterComponent implements AfterContentInit {
     this.updateForExpandMode();
   }
 
-  public isCollapsible(): boolean {
-    return this.expandMode !== 'none';
-  }
-
   public ngAfterContentInit() {
     // HACK: Not updating for expand mode in a timeout causes an error.
     // https://github.com/angular/angular/issues/6005
@@ -62,10 +58,10 @@ export class SkyRepeaterComponent implements AfterContentInit {
     }, 0);
   }
 
-  private updateForExpandMode(itemAdded: SkyRepeaterItemComponent = undefined) {
+  private updateForExpandMode(itemAdded?: SkyRepeaterItemComponent) {
     if (this.items) {
       let foundExpanded = false;
-      let isCollapsible = this.isCollapsible();
+      let isCollapsible = this.expandMode !== 'none';
       let isSingle = this.expandMode === 'single';
 
       // Keep any newly-added expanded item expanded and collapse the rest.
