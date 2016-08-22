@@ -1,9 +1,8 @@
-import { Type } from '@angular/core';
+import { ApplicationRef, Type } from '@angular/core';
 import {
   fakeAsync,
   inject,
-  TestBed,
-  tick
+  TestBed
 } from '@angular/core/testing';
 
 import {
@@ -16,13 +15,14 @@ import { SkyModalService } from './modal.service';
 import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 
-fdescribe('Modal component', () => {
+describe('Modal component', () => {
+  let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
 
   function openModal(modalType: Type, providers?: any[]) {
     let modalInstance = modalService.open(modalType, providers);
 
-    tick();
+    applicationRef.tick();
 
     return modalInstance;
   }
@@ -42,11 +42,14 @@ fdescribe('Modal component', () => {
   beforeEach(
     inject(
       [
+        ApplicationRef,
         SkyModalService
       ],
       (
+        _applicationRef: ApplicationRef,
         _modalService: SkyModalService
       ) => {
+        applicationRef = _applicationRef;
         modalService = _modalService;
       }
     )
@@ -65,7 +68,17 @@ fdescribe('Modal component', () => {
 
     expect(zIndex2).toBeGreaterThan(zIndex1);
 
-    // closeModal(modalInstance2);
-    // closeModal(modalInstance1);
+    closeModal(modalInstance2);
+    closeModal(modalInstance1);
+  }));
+
+  it('should close when the close button is clicked', fakeAsync(() => {
+    openModal(ModalTestComponent);
+
+    expect(document.querySelector('.sky-modal')).toExist();
+
+    (<any>document.querySelector('.sky-modal-btn-close')).click();
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
   }));
 });
