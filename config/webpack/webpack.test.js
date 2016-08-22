@@ -194,8 +194,7 @@ module.exports = {
           /node_modules/,
           /index\.ts/,
           /fixtures/,
-          /testing/,
-          /modal/
+          /testing/
         ]
       }
 

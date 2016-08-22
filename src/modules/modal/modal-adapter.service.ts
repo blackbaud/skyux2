@@ -1,6 +1,5 @@
 import {
   ApplicationRef,
-  ElementRef,
   Injectable,
   Injector
 } from '@angular/core';
@@ -14,9 +13,5 @@ export class SkyModalAdapterService {
 
   public addHostEl(): void {
     document.body.appendChild(document.createElement('sky-modal-host'));
-  }
-
-  public remove(el: ElementRef): void {
-    el.nativeElement.remove();
   }
 }

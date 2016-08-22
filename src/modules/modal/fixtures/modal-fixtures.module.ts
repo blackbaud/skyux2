@@ -10,7 +10,10 @@ import { ModalWithValuesTestComponent } from './modal-with-values.component.fixt
     ModalTestComponent,
     ModalWithValuesTestComponent
   ],
-  imports: [CommonModule, SkyModalModule],
+  imports: [
+    CommonModule,
+    SkyModalModule
+  ],
   entryComponents: [
     ModalTestComponent,
     ModalWithValuesTestComponent

@@ -1,10 +1,11 @@
 import {
-  Component,
   animate,
-  transition,
-  trigger,
+  Component,
+  OnInit,
   state,
-  style
+  style,
+  transition,
+  trigger
 } from '@angular/core';
 
 import { SkyModalHostService } from './modal-host.service';
@@ -27,7 +28,7 @@ import { SkyModalHostService } from './modal-host.service';
     ])
   ]
 })
-export class SkyModalComponent {
+export class SkyModalComponent implements OnInit {
   public modalState = 'in';
 
   public get modalZIndex() {
@@ -38,5 +39,9 @@ export class SkyModalComponent {
 
   public closeButtonClick() {
     this.hostService.onClose(this);
+  }
+
+  public ngOnInit() {
+    console.log('on init');
   }
 }
