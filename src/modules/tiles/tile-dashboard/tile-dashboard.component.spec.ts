@@ -120,7 +120,7 @@ xdescribe('Tile dashboard component', () => {
 
   it('should not allow a new config to be set by the parent once initialized', fakeAsync(() => {
     let fixture = TestBed.createComponent(TileDashboardTestComponent);
-    let cmp: TileDashboardTestComponent = fixture.componentInstance;
+    let cmp = fixture.componentInstance;
     let initialConfig = cmp.dashboardConfig;
     let newConfig: SkyTileDashboardConfig = {
       tiles: [
@@ -236,5 +236,29 @@ xdescribe('Tile dashboard component', () => {
 
       expect(destroySpy).toHaveBeenCalled();
     }
+  );
+
+  it(
+    `should display columns with equal widths despite a tile's contents`,
+    fakeAsync(() => {
+      let fixture = TestBed.createComponent(TileDashboardTestComponent);
+
+      fixture.detectChanges();
+      tick();
+
+      let el = fixture.elementRef.nativeElement;
+
+      let firstTileContentEl = el.querySelectorAll('sky-tile-content')[0];
+      let wideEl = document.createElement('div');
+
+      // Force the first tile's contents to be wider than the second tile's.
+      wideEl.style.width = window.innerWidth + 'px';
+
+      firstTileContentEl.appendChild(wideEl);
+
+      let tileEls = el.querySelectorAll('.sky-tile-dashboard-column');
+
+      expect(tileEls[0].offsetWidth).toEqual(tileEls[1].offsetWidth);
+    })
   );
 });
