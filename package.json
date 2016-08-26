@@ -32,6 +32,7 @@
     "preversion": "npm test",
     "start": "webpack-dev-server --config config/webpack/webpack.dev.js --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
     "start:visual": "node ./config/utils/visual-server.js start",
+    "typings": "./node_modules/.bin/typings",
     "version": "npm run build",
     "watch": "npm run test:unit -- --auto-watch --no-single-run"
   },
