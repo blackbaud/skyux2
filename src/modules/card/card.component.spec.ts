@@ -1,18 +1,14 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component } from '@angular/core';
 import {
-  beforeEach,
-  describe,
-  expect,
-  fakeAsync,
-  inject,
-  it,
-  tick
+  TestBed
 } from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyCardComponent } from './card.component';
+import { SkyCardModule } from './card.module';
 
-function validateCardSelected(cmp: TestComponent, cardEl: any, selected: boolean) {
+import { CardTestComponent } from './fixtures/card.component.fixture';
+import { expect } from '../testing';
+
+function validateCardSelected(cmp: CardTestComponent, cardEl: any, selected: boolean) {
   let selectedEl = cardEl.querySelector('.sky-card.sky-card-selected');
 
   if (selected) {
@@ -25,11 +21,17 @@ function validateCardSelected(cmp: TestComponent, cardEl: any, selected: boolean
 }
 
 describe('Card component', () => {
-  let tcb: TestComponentBuilder;
-
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        CardTestComponent
+      ],
+      imports: [
+        BrowserModule,
+        SkyCardModule
+      ]
+    });
+  });
 
   it('should place the individual components in their respective placeholders', () => {
     let html = `
@@ -42,18 +44,24 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    tcb
-      .overrideTemplate(TestComponent, html)
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
-        fixture.detectChanges();
+    let el = fixture.nativeElement;
 
-        expect(el.querySelector('.sky-card-title sky-card-title')).toHaveText('Title');
-        expect(el.querySelector('.sky-card-content sky-card-content')).toHaveText('Content');
-        expect(el.querySelector('.sky-card-actions button')).toHaveText('Button');
-      });
+    fixture.detectChanges();
+
+    expect(el.querySelector('.sky-card-title sky-card-title')).toHaveText('Title');
+    expect(el.querySelector('.sky-card-content sky-card-content')).toHaveText('Content');
+    expect(el.querySelector('.sky-card-actions button')).toHaveText('Button');
   });
 
   it('should add the appropriate CSS class for small cards', () => {
@@ -62,16 +70,22 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    tcb
-      .overrideTemplate(TestComponent, html)
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
-        fixture.detectChanges();
+    let el = fixture.nativeElement;
 
-        expect(el.querySelector('section.sky-card')).toHaveCssClass('sky-card-small');
-      });
+    fixture.detectChanges();
+
+    expect(el.querySelector('section.sky-card')).toHaveCssClass('sky-card-small');
   });
 
   it('should display a checkbox when the selectable attribute is set to true', () => {
@@ -80,21 +94,29 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    tcb
-      .overrideTemplate(TestComponent, html)
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
-        fixture.detectChanges();
+    let el = fixture.nativeElement;
 
-        let wrapperEl = el.querySelector(
-          '.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper');
-        expect(wrapperEl).not.toBeNull();
-      });
+    fixture.detectChanges();
+
+    let wrapperEl = el.querySelector(
+      '.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper'
+    );
+
+    expect(wrapperEl).not.toBeNull();
   });
 
-  it('should allow the user to click the entire card to select the card', fakeAsync(() => {
+  it('should allow the user to click the entire card to select the card', () => {
     let html = `
       <sky-card
           [selectable]="showCheckbox"
@@ -105,27 +127,32 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    tcb
-      .overrideTemplate(TestComponent, html)
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let cmp = fixture.componentInstance as TestComponent,
-          el = fixture.nativeElement;
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
-        fixture.detectChanges();
+    let cmp = fixture.componentInstance as CardTestComponent,
+      el = fixture.nativeElement;
 
-        validateCardSelected(cmp, el, false);
+    fixture.detectChanges();
 
-        el.querySelector('.sky-card-content').click();
+    validateCardSelected(cmp, el, false);
 
-        fixture.detectChanges();
-        tick();
+    el.querySelector('.sky-card-content').click();
 
-        validateCardSelected(cmp, el, true);
-      });
-  }));
+    fixture.detectChanges();
 
-  it('should not allow clicking the card to select it when it is not selectable', fakeAsync(() => {
+    validateCardSelected(cmp, el, true);
+  });
+
+  it('should not allow clicking the card to select it when it is not selectable', () => {
     let html = `
       <sky-card
           [selectable]="showCheckbox"
@@ -136,35 +163,29 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    tcb
-      .overrideTemplate(TestComponent, html)
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let cmp = fixture.componentInstance as TestComponent,
-          el = fixture.nativeElement;
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
 
-        cmp.showCheckbox = false;
-        fixture.detectChanges();
+    let cmp = fixture.componentInstance as CardTestComponent,
+      el = fixture.nativeElement;
 
-        validateCardSelected(cmp, el, false);
+    cmp.showCheckbox = false;
+    fixture.detectChanges();
 
-        el.querySelector('.sky-card-content').click();
+    validateCardSelected(cmp, el, false);
 
-        fixture.detectChanges();
-        tick();
+    el.querySelector('.sky-card-content').click();
 
-        validateCardSelected(cmp, el, false);
-      });
-  }));
+    fixture.detectChanges();
+
+    validateCardSelected(cmp, el, false);
+  });
 });
-
-@Component({
-  selector: 'sky-test-cmp',
-  directives: [SkyCardComponent],
-  template: ''
-})
-class TestComponent {
-  public cardSelected = false;
-
-  public showCheckbox = true;
-}

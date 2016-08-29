@@ -1,0 +1,34 @@
+<!--
+  Animations are broken in Chrome v52. Angular 2 RC5 will fix it.
+  https://github.com/angular/angular/issues/10245
+-->
+<!--<div @modalState="modalState">-->
+<div>
+  <div
+      class="sky-modal"
+      [ngStyle]="{
+        zIndex: modalZIndex
+      }"
+  >
+    <div class="sky-modal-header">
+      <div class="sky-modal-header-content">
+        <ng-content select="sky-modal-header"></ng-content>
+      </div>
+      <div class="sky-modal-header-buttons">
+        <button
+            type="button"
+            class="sky-btn sky-modal-btn-close"
+            (click)="closeButtonClick()"
+        >
+          <i class="fa fa-close"></i>
+        </button>
+      </div>
+    </div>
+    <div class="sky-modal-content">
+      <ng-content select="sky-modal-content"></ng-content>
+    </div>
+    <div class="sky-modal-footer">
+      <ng-content select="sky-modal-footer"></ng-content>
+    </div>
+  </div>
+</div>

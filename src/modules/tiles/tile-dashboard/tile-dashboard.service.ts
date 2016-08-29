@@ -1,10 +1,8 @@
 import {
   ComponentRef,
-  DynamicComponentLoader,
   EventEmitter,
   Injectable,
-  QueryList,
-  Type
+  QueryList
 } from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
@@ -56,8 +54,7 @@ export class SkyTileDashboardService {
 
   constructor(
     private dragulaService: DragulaService,
-    private mediaQuery: SkyMediaQueryService,
-    private dcl: DynamicComponentLoader
+    private mediaQuery: SkyMediaQueryService
   ) {
     this.bagId = 'sky-tile-dashboard-bag-' + (++bagIdIndex);
 
@@ -65,15 +62,12 @@ export class SkyTileDashboardService {
     this.initDragula();
   }
 
-  public init(config: SkyTileDashboardConfig) {
-    this.config = config;
-    this.checkReady();
-  }
-
-  public setColumns(
-    columns: QueryList<SkyTileDashboardColumnComponent>,
-    singleColumn: SkyTileDashboardColumnComponent
+  public init(
+    config: SkyTileDashboardConfig,
+    columns?: QueryList<SkyTileDashboardColumnComponent>,
+    singleColumn?: SkyTileDashboardColumnComponent
   ) {
+    this.config = config;
     this.columns = columns;
     this.singleColumn = singleColumn;
 
@@ -110,7 +104,7 @@ export class SkyTileDashboardService {
     }
   }
 
-  public getTileComponentType(layoutTile: SkyTileDashboardConfigLayoutTile): Type {
+  public getTileComponentType(layoutTile: SkyTileDashboardConfigLayoutTile): any {
     if (layoutTile) {
       for (let tile of this.config.tiles) {
         if (tile.id === layoutTile.id) {
@@ -141,9 +135,14 @@ export class SkyTileDashboardService {
   }
 
   private checkReady() {
-    if (this.config && this.columns) {
-      this.loadTiles();
-    }
+    // The columns list is determined by the config options, so make sure that the columns
+    // and config are synced up before loading the tiles by waiting until change detection
+    // completes.
+    // setTimeout(() => {
+      if (this.config && this.columns) {
+        this.loadTiles();
+      }
+    // }, 0);
   }
 
   private loadTiles() {
@@ -170,10 +169,10 @@ export class SkyTileDashboardService {
     column: SkyTileDashboardColumnComponent, tile: SkyTileDashboardConfigLayoutTile
   ) {
     let component = this.getTileComponentType(tile);
-    this.dcl.loadNextToLocation(component, column.content)
-      .then((componentRef: ComponentRef<any>) => {
-        this.addTileComponent(tile, componentRef);
-      });
+    let factory = column.resolver.resolveComponentFactory(component);
+    let componentRef = column.content.createComponent(factory, undefined, column.injector);
+
+    this.addTileComponent(tile, componentRef);
   }
 
   private moveTilesToSingleColumn() {
@@ -219,13 +218,15 @@ export class SkyTileDashboardService {
   }
 
   private getConfigForUIState(): SkyTileDashboardConfig {
-    this.config = {
-      tiles: this.config.tiles,
-      layout: {
-        singleColumn: this.getSingleColumnLayoutForUIState(),
-        multiColumn: this.getMultiColumnLayoutForUIState()
-      }
-    };
+    if (this.config) {
+      this.config = {
+        tiles: this.config.tiles,
+        layout: {
+          singleColumn: this.getSingleColumnLayoutForUIState(),
+          multiColumn: this.getMultiColumnLayoutForUIState()
+        }
+      };
+    }
 
     return this.config;
   }

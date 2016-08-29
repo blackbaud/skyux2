@@ -1,183 +1,121 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { provide } from '@angular/core';
 import {
-  beforeEach,
-  describe,
-  expect,
-  fakeAsync,
+  async,
   inject,
-  it,
-  tick,
-  xit
+  TestBed
 } from '@angular/core/testing';
 
-import { TestComponent } from './fixtures';
-import { SkySlideService } from '../../animation/slide.service';
+import { TileTestComponent } from './fixtures';
 import { SkyTileComponent } from './tile.component';
+import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
-import { MockSkyTileDashboardService } from './fixtures';
 
 describe('Tile component', () => {
-  let tcb: TestComponentBuilder;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        TileTestComponent
+      ],
+      imports: [
+        SkyTilesModule
+      ],
+      providers: [
+        SkyTileDashboardService
+      ]
+    });
+  });
 
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
+  it('should render the header text in the expected element', async(() => {
+    let fixture = TestBed.createComponent(TileTestComponent);
+    let el = fixture.nativeElement;
+
+    fixture.whenStable().then(() => {
+      expect(el.querySelector('.sky-tile-title sky-tile-title').innerText).toBe('Title');
+    });
   }));
 
-  it('should render the header text in the expected element', () => {
-    return tcb
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+  it('should collapse/expand when the header is clicked', async(() => {
+    let fixture = TestBed.createComponent(TileTestComponent);
+    let el = fixture.nativeElement;
 
-        fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      let titleEl = el.querySelector('.sky-tile-title');
 
-        expect(el.querySelector('.sky-tile-title sky-tile-title')).toHaveText('Title');
-      }
-    );
-  });
+      titleEl.click();
+      fixture.detectChanges();
 
-  it('should collapse/expand when the header is clicked', () => {
-    return tcb
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+      let contentAttrs = el.querySelector('.sky-tile-content').attributes;
 
-        fixture.detectChanges();
+      expect(contentAttrs['hidden']).not.toBeNull();
 
-        let titleEl = el.querySelector('.sky-tile-title');
+      titleEl.click();
 
-        titleEl.click();
-        fixture.detectChanges();
-
-        let contentAttrs = el.querySelector('.sky-tile-content').attributes;
-
-        expect(contentAttrs['hidden']).not.toBeNull();
-
-        titleEl.click();
-        fixture.detectChanges();
-
+      fixture.whenStable().then(() => {
         expect(contentAttrs['hidden']).toBe(undefined);
-      }
-    );
-  });
+      });
+    });
+  }));
 
   it('should collapse/expand when the chevron is clicked', () => {
-    return tcb
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+    let fixture = TestBed.createComponent(TileTestComponent);
+    let el = fixture.nativeElement;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        let chevronEl = el.querySelector('.sky-chevron');
+    let chevronEl = el.querySelector('.sky-chevron');
 
-        chevronEl.click();
-        fixture.detectChanges();
+    chevronEl.click();
+    fixture.detectChanges();
 
-        let contentAttrs = el.querySelector('.sky-tile-content').attributes;
+    let contentAttrs = el.querySelector('.sky-tile-content').attributes;
 
-        expect(contentAttrs['hidden']).not.toBeNull();
+    expect(contentAttrs['hidden']).not.toBeNull();
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        chevronEl.click();
-        fixture.detectChanges();
+    chevronEl.click();
+    fixture.detectChanges();
 
-        expect(contentAttrs['hidden']).toBe(undefined);
-      }
-    );
-  });
-
-  it('should collapse without animation when initialized with isCollapsed = true', () => {
-    let mockSlideService = {
-      slide() {
-
-      }
-    };
-
-    let slideSpy = spyOn(mockSlideService, 'slide');
-
-    return tcb
-      .overrideViewProviders(
-        SkyTileComponent,
-        [
-          provide(SkySlideService, {useValue: mockSlideService})
-        ]
-      )
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        fixture.componentInstance.tileIsCollapsed = true;
-
-        fixture.detectChanges();
-
-        expect(slideSpy).toHaveBeenCalledWith(
-          jasmine.any(Object),
-          '.sky-tile-content',
-          'up',
-          false
-        );
-      }
-    );
+    expect(contentAttrs['hidden']).toBe(undefined);
   });
 
   it('should collapse/expand when the isCollapsed value changes', () => {
-    return tcb
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
+    let fixture = TestBed.createComponent(TileTestComponent);
+    let el = fixture.nativeElement;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        let contentAttrs = el.querySelector('.sky-tile-content').attributes;
+    let contentAttrs = el.querySelector('.sky-tile-content').attributes;
 
-        expect(contentAttrs['hidden']).toBe(undefined);
+    expect(contentAttrs['hidden']).toBe(undefined);
 
-        fixture.componentInstance.tileIsCollapsed = true;
-        fixture.detectChanges();
+    fixture.componentInstance.tileIsCollapsed = true;
+    fixture.detectChanges();
 
-        expect(contentAttrs['hidden']).not.toBeNull();
-      }
-    );
+    expect(contentAttrs['hidden']).not.toBeNull();
   });
 
   xit('should update the tile state when the tile dashboard is initialized', () => {
     expect(false).toBe(true);
   });
 
-  it('should notify the tile dashboard when the tile is collapsed', fakeAsync(() => {
-    let mockDashboardService = new MockSkyTileDashboardService();
+  it('should notify the tile dashboard when the tile is collapsed',
+    inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
+      let fixture = TestBed.createComponent(TileTestComponent);
 
-    return tcb
-      .overrideProviders(
-        SkyTileComponent,
-        [
-          provide(
-            SkyTileDashboardService,
-            {
-              useValue: mockDashboardService
-            }
-          )
-        ]
-      )
-      .createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement;
-        let dashboardSpy = spyOn(mockDashboardService, 'setTileCollapsed');
+      let el = fixture.nativeElement;
+      let dashboardSpy = spyOn(dashboardService, 'setTileCollapsed').and.callThrough();
 
-        fixture.detectChanges();
+      fixture.detectChanges();
 
-        let chevronEl = el.querySelector('.sky-chevron');
+      let chevronEl = el.querySelector('.sky-chevron');
 
-        chevronEl.click();
+      chevronEl.click();
 
-        fixture.detectChanges();
-        tick();
+      fixture.detectChanges();
 
-        expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
-      }
-    );
-  }));
+      expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
+    })
+  );
 
   xit('should notify the tile that repaint is required when the tile is expanded', () => {
     expect(false).toBe(true);
@@ -212,69 +150,58 @@ describe('Tile component', () => {
         </sky-tile>
       `;
 
-      return tcb
-        .overrideTemplate(TestComponent, html)
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let el = fixture.nativeElement;
+      let fixture = TestBed
+        .overrideComponent(
+          TileTestComponent,
+          {
+            set: {
+              template: html
+            }
+          }
+        )
+        .createComponent(TileTestComponent);
 
-          fixture.detectChanges();
+      let el = fixture.nativeElement;
 
-          expect(el.querySelector('.sky-tile-settings')).toBeNull();
-        }
-      );
+      fixture.detectChanges();
+
+      expect(el.querySelector('.sky-tile-settings')).toBeNull();
     });
 
     it('should be present if a callback is provided', () => {
-      return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let el = fixture.nativeElement;
+      let fixture = TestBed.createComponent(TileTestComponent);
+      let el = fixture.nativeElement;
 
-          fixture.detectChanges();
+      fixture.detectChanges();
 
-          expect(el.querySelector('.sky-tile-settings')).not.toBeNull();
-        }
-      );
+      expect(el.querySelector('.sky-tile-settings')).not.toBeNull();
     });
 
-    it('should call the specified callback when clicked', fakeAsync(() => {
-      return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let el = fixture.nativeElement;
-          let cmp = fixture.componentInstance as TestComponent;
-          let tileSettingsClickSpy = spyOn(cmp, 'tileSettingsClick');
+    it('should call the specified callback when clicked', () => {
+      let fixture = TestBed.createComponent(TileTestComponent);
+      let el = fixture.nativeElement;
+      let cmp = fixture.componentInstance as TileTestComponent;
+      let tileSettingsClickSpy = spyOn(cmp, 'tileSettingsClick');
 
-          fixture.detectChanges();
+      fixture.detectChanges();
 
-          el.querySelector('.sky-tile-settings').click();
+      el.querySelector('.sky-tile-settings').click();
 
-          fixture.detectChanges();
-          tick();
-
-          expect(tileSettingsClickSpy).toHaveBeenCalled();
-        }
-      );
-    }));
+      expect(tileSettingsClickSpy).toHaveBeenCalled();
+    });
 
     it('should not collapse the tile when clicked', () => {
-      return tcb
-        .createAsync(TestComponent)
-        .then((fixture: ComponentFixture<TestComponent>) => {
-          let el = fixture.nativeElement;
+      let fixture = TestBed.createComponent(TileTestComponent);
+      let el = fixture.nativeElement;
 
-          fixture.detectChanges();
+      fixture.detectChanges();
 
-          el.querySelector('.sky-tile-settings').click();
-          fixture.detectChanges();
+      el.querySelector('.sky-tile-settings').click();
+      fixture.detectChanges();
 
-          let contentAttrs = el.querySelector('.sky-tile-content').attributes;
+      let contentAttrs = el.querySelector('.sky-tile-content').attributes;
 
-          expect(contentAttrs['hidden']).toBe(undefined);
-        }
-      );
+      expect(contentAttrs['hidden']).toBe(undefined);
     });
   });
-
 });

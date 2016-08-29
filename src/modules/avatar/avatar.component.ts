@@ -1,22 +1,29 @@
-import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy
+} from '@angular/core';
 
-import { SkyAvatarImageService } from './avatar-image.service';
+import { SkyAvatarAdapterService } from './avatar-adapter.service';
+import { SkyAvatarSrc } from './avatar-src';
 
 @Component({
   selector: 'sky-avatar',
   template: require('./avatar.component.html'),
   styles: [require('./avatar.component.scss')],
-  providers: [SkyAvatarImageService]
+  providers: [SkyAvatarAdapterService]
 })
-export class SkyAvatarComponent implements AfterViewInit {
-  @Input()
-  public set src(value: string) {
-    this._src = value;
-    this.updateImage();
+export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
+  public get src(): SkyAvatarSrc {
+    return this._src;
   }
 
-  public get src(): string {
-    return this._src;
+  @Input()
+  public set src(value: SkyAvatarSrc) {
+    this._src = value;
+    this.updateImage();
   }
 
   public get name(): string {
@@ -30,11 +37,14 @@ export class SkyAvatarComponent implements AfterViewInit {
 
   private viewInitialized: boolean;
 
-  private _src: string;
+  private _src: SkyAvatarSrc;
 
   private _name: string;
 
-  constructor(private elementRef: ElementRef, private imageService: SkyAvatarImageService) { }
+  constructor(
+    private elementRef: ElementRef,
+    private adapter: SkyAvatarAdapterService
+  ) { }
 
   public get initials(): string {
     let initials: string;
@@ -43,8 +53,6 @@ export class SkyAvatarComponent implements AfterViewInit {
       let nameSplit = this.name.split(' ');
       initials = getInitial(nameSplit[0]);
 
-      /* istanbul ignore else */
-      /* this is tested through a visual regression test */
       if (nameSplit.length > 1) {
         initials += getInitial(nameSplit[nameSplit.length - 1]);
       }
@@ -74,9 +82,13 @@ export class SkyAvatarComponent implements AfterViewInit {
     this.updateImage();
   }
 
+  public ngOnDestroy() {
+    this.adapter.destroy();
+  }
+
   private updateImage() {
     if (this.viewInitialized) {
-      this.imageService.updateImage(this.elementRef, this.src);
+      this.adapter.updateImage(this.elementRef, this.src);
     }
   }
 }

@@ -1,12 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { SkyResourcesPipe } from '../resources/resources.pipe';
-
 const ALERT_TYPE_DEFAULT = 'warning';
 
 @Component({
   selector: 'sky-alert',
-  pipes: [SkyResourcesPipe],
   styles: [require('./alert.component.scss')],
   template: require('./alert.component.html')
 })

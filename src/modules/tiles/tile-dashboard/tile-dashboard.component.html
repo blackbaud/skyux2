@@ -1,7 +1,9 @@
 <sky-tile-dashboard-column
-  *ngFor="let column of dashboardConfigForBinding?.layout?.multiColumn"
-  [tiles]="column.tiles"
+  *ngFor="let column of config?.layout?.multiColumn"
   class="sky-tile-dashboard-layout-multi"
+  [ngStyle]="{
+    'flex-basis': (100 / config?.layout?.multiColumn.length) + '%'
+  }"
 >
 </sky-tile-dashboard-column>
 <sky-tile-dashboard-column class="sky-tile-dashboard-layout-single" #singleColumn>

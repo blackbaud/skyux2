@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 
-import { SkySlideService } from '../animation/slide.service';
-import { SkyChevronComponent } from '../chevron/chevron.component';
+import slideAnimation from '../animation/slide';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
 
@@ -9,11 +8,9 @@ import { SkyLogService } from '../log/log.service';
   selector: 'sky-repeater-item',
   styles: [require('./repeater-item.component.scss')],
   template: require('./repeater-item.component.html'),
-  directives: [SkyChevronComponent],
-  providers: [SkyLogService],
-  viewProviders: [SkySlideService]
+  animations: [slideAnimation]
 })
-export class SkyRepeaterItemComponent implements AfterViewInit {
+export class SkyRepeaterItemComponent {
   public get isExpanded(): boolean {
     return this._isExpanded;
   }
@@ -23,31 +20,33 @@ export class SkyRepeaterItemComponent implements AfterViewInit {
     this.updateForExpanded(value, true);
   }
 
+  public slideDirection: string;
+
   public get isCollapsible(): boolean {
     return this._isCollapsible;
   }
 
   public set isCollapsible(value: boolean) {
-    this._isCollapsible = value;
+    if (this._isCollapsible !== value) {
+      this._isCollapsible = value;
 
-    if (!this._isCollapsible) {
-      this.updateForExpanded(true, false);
+      /*istanbul ignore else */
+      if (!this._isCollapsible) {
+        this.updateForExpanded(true, false);
+      }
     }
   }
 
-  private viewInitialized = false;
-
-  private _isCollapsible = false;
+  private _isCollapsible = true;
 
   private _isExpanded = true;
 
   constructor(
     private repeaterService: SkyRepeaterService,
     private elementRef: ElementRef,
-    private slideService: SkySlideService,
     private logService: SkyLogService
   ) {
-
+    this.slideForExpanded(false);
   }
 
   public headerClick() {
@@ -60,31 +59,21 @@ export class SkyRepeaterItemComponent implements AfterViewInit {
     this.updateForExpanded(direction === 'up', true);
   }
 
-  public ngAfterViewInit() {
-    this.viewInitialized = true;
-    this.slideForExpanded(false);
-  }
-
   public updateForExpanded(value: boolean, animate: boolean) {
     if (this.isCollapsible === false && value === false) {
       this.logService.warn(
         `Setting isExpanded to false when the repeater item is not collapsible
         will have no effect.`
       );
-    } else {
+    } else if (this._isExpanded !== value) {
       this._isExpanded = value;
 
       this.repeaterService.onItemCollapseStateChange(this);
-
-      if (this.viewInitialized) {
-        this.slideForExpanded(animate);
-      }
+      this.slideForExpanded(animate);
     }
   }
 
   private slideForExpanded(animate: boolean) {
-    let direction = this.isExpanded ? 'down' : 'up';
-    this.slideService.slide(this.elementRef, '.sky-repeater-item-content', direction, animate);
+    this.slideDirection = this.isExpanded ? 'down' : 'up';
   }
 }
-

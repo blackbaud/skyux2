@@ -1,17 +1,18 @@
 import {
-  beforeEachProviders,
-  describe,
-  expect,
   inject,
-  it
+  TestBed
 } from '@angular/core/testing';
 
 import { SkyLogService } from './log.service';
 
 describe('Log service', () => {
-  beforeEachProviders(() => [
-    SkyLogService
-  ]);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        SkyLogService
+      ]
+    });
+  });
 
   it(
     'should log warnings to the console',

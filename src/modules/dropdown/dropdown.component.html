@@ -1,0 +1,22 @@
+<div class="sky-dropdown">
+  <button
+      type="button"
+      (click)="click()"
+      class="sky-btn sky-dropdown-button"
+      [ngClass]="'sky-dropdown-button-type-' + buttonType"
+      (document:click)="windowClick()"
+  >
+    <div [ngSwitch]="buttonType">
+      <template ngSwitchCase="context-menu">
+        <i class="fa fa-ellipsis-h"></i>
+      </template>
+      <template ngSwitchDefault>
+        <ng-content select="sky-dropdown-button"></ng-content>
+        <i class="fa fa-caret-down sky-dropdown-caret"></i>
+      </template>
+    </div>
+  </button>
+  <div class="sky-dropdown-menu">
+    <ng-content select="sky-dropdown-menu"></ng-content>
+  </div>
+</div>

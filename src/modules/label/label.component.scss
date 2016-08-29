@@ -1,0 +1,28 @@
+@import '../../scss/mixins';
+
+.sky-label {
+  color: white;
+  display: inline;
+  border-radius: 10rem;
+  font-weight: 600;
+  line-height: 2.2;
+  margin: 0 3px;
+  padding: .2em .6em .3em .6em;
+  white-space: nowrap;
+}
+
+.sky-label-success {
+  background-color: $sky-color-green;
+}
+
+.sky-label-info {
+  background-color: $sky-color-aqua;
+}
+
+.sky-label-warning {
+  background-color: $sky-color-yellow;
+}
+
+.sky-label-danger {
+  background-color: $sky-color-red;
+}

@@ -1,55 +1,49 @@
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import {
-  beforeEach,
-  describe,
-  expect,
-  inject,
-  it
+  TestBed
 } from '@angular/core/testing';
 
-import { TestComponent } from './fixtures/test.component';
+import { SkyKeyInfoFixturesModule } from './fixtures/key-info-fixtures.module';
+import { KeyInfoTestComponent } from './fixtures/key-info.component.fixture';
 
 describe('Key info component', () => {
-  let tcb: TestComponentBuilder;
-
-  beforeEach(inject([TestComponentBuilder], (_tcb: TestComponentBuilder) => {
-    tcb = _tcb;
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyKeyInfoFixturesModule
+      ]
+    });
+  });
 
   it('should support vertical and horizontal layouts', () => {
-    return tcb.createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let cmp = fixture.componentInstance as TestComponent;
-        let el = fixture.nativeElement as Element;
-        let horizontalCls = 'sky-key-info-horizontal';
+    let fixture = TestBed.createComponent(KeyInfoTestComponent);
+    let cmp = fixture.componentInstance as KeyInfoTestComponent;
+    let el = fixture.nativeElement as Element;
+    let horizontalCls = 'sky-key-info-horizontal';
 
-        cmp.layout = 'horizontal';
+    cmp.layout = 'horizontal';
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        let keyInfoEl = el.querySelector('.sky-key-info');
+    let keyInfoEl = el.querySelector('.sky-key-info');
 
-        expect(keyInfoEl).toHaveCssClass(horizontalCls);
+    expect(keyInfoEl.classList.contains(horizontalCls)).toBe(true);
 
-        // Should treat any other value as vertical
-        // (enforced by the default .sky-key-info class).
-        cmp.layout = undefined;
+    // Should treat any other value as vertical
+    // (enforced by the default .sky-key-info class).
+    cmp.layout = undefined;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(keyInfoEl).not.toHaveCssClass(horizontalCls);
-      });
+    expect(keyInfoEl.classList.contains(horizontalCls)).toBe(false);
   });
 
   it('should have the appropriate content in expected areas', () => {
-    return tcb.createAsync(TestComponent)
-      .then((fixture: ComponentFixture<TestComponent>) => {
-        let el = fixture.nativeElement as Element;
+    let fixture = TestBed.createComponent(KeyInfoTestComponent);
+    let el = fixture.nativeElement as Element;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(el.querySelectorAll('.sky-key-info-value sky-key-info-value').length).toBe(1);
-        expect(el.querySelectorAll('.sky-key-info-label sky-key-info-label').length).toBe(1);
-      });
+    expect(el.querySelectorAll('.sky-key-info-value sky-key-info-value').length).toBe(1);
+    expect(el.querySelectorAll('.sky-key-info-label sky-key-info-label').length).toBe(1);
   });
 });

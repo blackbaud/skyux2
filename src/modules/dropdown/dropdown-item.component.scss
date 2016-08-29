@@ -1,0 +1,14 @@
+@import "../../scss/mixins";
+
+.sky-dropdown-item-btn {
+  border: none;
+  margin: 2px;
+  min-width: 160px;
+  padding: $sky-padding-half $sky-padding-double;
+  text-align: left;
+  transition: background-color $sky-transition-time-short;
+
+  &:hover {
+    background-color: $sky-color-gray-lightest;
+  }
+}

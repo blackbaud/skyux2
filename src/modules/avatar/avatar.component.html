@@ -3,7 +3,7 @@
   <div
     class="sky-avatar-initials"
     [ngClass]="'sky-palette-multi-' + (colorIndex + 1)"
-    [hidden]="src"
+    [hidden]="src || !name"
   >
     <div class="sky-avatar-initials-inner">
       {{initials}}

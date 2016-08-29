@@ -12,8 +12,7 @@ import { SkyRepeaterService } from './repeater.service';
 @Component({
   selector: 'sky-repeater',
   styles: [require('./repeater.component.scss')],
-  template: require('./repeater.component.html'),
-  providers: [SkyRepeaterService]
+  template: require('./repeater.component.html')
 })
 export class SkyRepeaterComponent implements AfterContentInit {
   @Input()
@@ -34,41 +33,46 @@ export class SkyRepeaterComponent implements AfterContentInit {
   constructor(private repeaterService: SkyRepeaterService) {
     repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
       if (this.expandMode === 'single' && item.isExpanded) {
-        for (let otherItem of this.items.toArray()) {
+        this.items.forEach((otherItem) => {
           if (otherItem !== item && otherItem.isExpanded) {
             otherItem.isExpanded = false;
           }
-        }
+        });
       }
     });
-  }
 
-  public isCollapsible(): boolean {
-    return this.expandMode !== 'none';
+    this.updateForExpandMode();
   }
 
   public ngAfterContentInit() {
-    // HACK: Have to use setTimeout() here to avoid error described in this issue:
+    // HACK: Not updating for expand mode in a timeout causes an error.
     // https://github.com/angular/angular/issues/6005
+    this.items.changes.subscribe(() => {
+      setTimeout(() => {
+        this.updateForExpandMode(this.items.last);
+      }, 0);
+    });
+
     setTimeout(() => {
       this.updateForExpandMode();
     }, 0);
-
-    this.items.changes.subscribe(() => {
-      this.updateForExpandMode();
-    });
   }
 
-  private updateForExpandMode() {
+  private updateForExpandMode(itemAdded?: SkyRepeaterItemComponent) {
     if (this.items) {
       let foundExpanded = false;
-      let isCollapsible = this.isCollapsible();
+      let isCollapsible = this.expandMode !== 'none';
       let isSingle = this.expandMode === 'single';
+
+      // Keep any newly-added expanded item expanded and collapse the rest.
+      if (itemAdded && itemAdded.isExpanded) {
+        foundExpanded = true;
+      }
 
       this.items.forEach((item) => {
         item.isCollapsible = isCollapsible;
 
-        if (isSingle && item.isExpanded) {
+        if (item !== itemAdded && isSingle && item.isExpanded) {
           if (foundExpanded) {
             item.updateForExpanded(false, false);
           }
