@@ -22,6 +22,7 @@ before_install:
   - export SAVAGE_BRANCH="^savage-"
 
   - chmod +x ./scripts/browserstack-cleanup.sh
+  - chmod +x ./scripts/prod-release.sh
   - chmod +x ./scripts/npm-publish.sh
   - chmod +x ./scripts/visual-baseline.sh
   - chmod +x ./scripts/visual-failures.sh
@@ -34,9 +35,10 @@ after_script:
   - bash <(curl -s https://codecov.io/bash)
   - ./scripts/browserstack-cleanup.sh
 
-# Publish a tag to NPM
+# Always publish to skyux-releases on push; Publish a tag to NPM
 after_success:
   - if [ -n "$TRAVIS_TAG" ]; then ./scripts/npm-publish.sh; fi
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then ./scripts/prod-release.sh; fi
 
 # Display any NPM / BrowserStack errors
 after_failure:
