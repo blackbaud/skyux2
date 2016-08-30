@@ -18,7 +18,7 @@ describe('Avatar component', () => {
     return el.querySelector('.sky-avatar-initials');
   }
 
-  function getImgFile(): File {
+  function getImgBlob() {
     let n = imgBase64.length;
     let u8arr = new Uint8Array(n);
 
@@ -27,9 +27,8 @@ describe('Avatar component', () => {
     }
 
     let testBlob = new Blob([u8arr]);
-    let testFile = new File([testBlob], 'img.png');
 
-    return testFile;
+    return testBlob;
   }
 
   function getBackgroundImageUrl(el: Element): string {
@@ -112,10 +111,10 @@ describe('Avatar component', () => {
     expect(getPlaceholderEl(el)).not.toBeVisible();
   });
 
-  it('should show the avatar when the specified source is a File object', function () {
+  it('should show the avatar when the specified source is a Blob object', function () {
       let fixture = TestBed.createComponent(AvatarTestComponent);
 
-      fixture.componentInstance.src = getImgFile();
+      fixture.componentInstance.src = getImgBlob();
 
       fixture.detectChanges();
 
@@ -125,12 +124,12 @@ describe('Avatar component', () => {
   });
 
   it(
-    `should clean up the current object URL created when the specified source is a File object
+    `should clean up the current object URL created when the specified source is a Blbo object
     and the scope is destroyed`,
     () => {
       let fixture = TestBed.createComponent(AvatarTestComponent);
 
-      fixture.componentInstance.src = getImgFile();
+      fixture.componentInstance.src = getImgBlob();
 
       fixture.detectChanges();
 

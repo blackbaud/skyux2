@@ -20,7 +20,7 @@ export class SkyAvatarAdapterService {
         let url: string;
 
         if (src) {
-          if (src instanceof File) {
+          if (src instanceof Blob) {
             url = URL.createObjectURL(src);
 
             // Keep the last blob URL around so we can revoke it later.
