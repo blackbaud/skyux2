@@ -22,7 +22,8 @@ git add -f .
 if [ -z "$(git status --porcelain)" ]; then
   echo -e "No changes to commit to skyux2-releases."
 else
-  git commit -m "Travis committed $version to skyux2-releases."
-  git push -fq origin master > /dev/null
+  git commit -m "Release $version [skip ci]"
+  git tag $version
+  git push -fq origin master --tags > /dev/null
   echo -e "skyux2-releases successfully updated.\n"
 fi
