@@ -1,7 +1,7 @@
 # Read the version from package.json
 version=$(node -p -e "require('../package.json').version")
 src=../releases/.
-destination=skyux2/$version/
+destination=releases/skyux2/$version/
 checkout=skyux2-releases-repo
 
 # What user will be committing to the sky-docs repo
