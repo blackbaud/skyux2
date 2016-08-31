@@ -38,7 +38,7 @@ after_script:
 # Always publish to skyux-releases on push; Publish a tag to NPM
 after_success:
   - if [ -n "$TRAVIS_TAG" ]; then ./scripts/npm-publish.sh; fi
-  - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then ./scripts/prod-release.sh; fi
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then npm run releases && ./scripts/prod-release.sh; fi
 
 # Display any NPM / BrowserStack errors
 after_failure:

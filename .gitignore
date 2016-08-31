@@ -43,7 +43,7 @@ npm-debug.log
 
 # Dist #
 /dist
-/dist-prod
+/releases
 /public/__build__/
 /src/*/__build__/
 /__build__/**
