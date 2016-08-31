@@ -35,12 +35,13 @@ after_script:
   - bash <(curl -s https://codecov.io/bash)
   - ./scripts/browserstack-cleanup.sh
 
-# Always publish to skyux-releases on push; Publish a tag to NPM
+# Publish a tag to NPM & skyux2-releases repo
 after_success:
+  - if [ -n "$TRAVIS_TAG" ]; then npm run releases; fi
   - if [ -n "$TRAVIS_TAG" ]; then ./scripts/npm-publish.sh; fi
-  - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then npm run releases && ./scripts/releases-publish.sh; fi
+  - if [ -n "$TRAVIS_TAG" ]; then ./scripts/releases-publish.sh; fi
 
-# Display any NPM / BrowserStack errors
+# Display any NPM / BrowserStack errorsc
 after_failure:
   - ./scripts/visual-baseline.sh
   - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
