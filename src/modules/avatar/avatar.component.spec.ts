@@ -6,7 +6,7 @@
 // import { SkyAvatarFixturesModule } from './fixtures/avatar-fixtures.module';
 
 // describe('Avatar component', () => {
-//   /* tslint:disable-next-line max-line-length */
+   /* tslint:disable-next-line max-line-length */
 //   let imgBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAFElEQVR42gEJAPb/AP//////////I+UH+Rtap+gAAAAASUVORK5CYII=';
 //   let imgUrl = 'data:image/png;base64,' + imgBase64;
 
