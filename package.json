@@ -10,14 +10,14 @@
     "dist"
   ],
   "scripts": {
-    "ci": "npm run lint && npm run test:ci && npm run build",
+    "ci": "npm run lint && npm run test:visual:ci && npm run build",
     "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && tsc && npm run compile:sass && npm run clean:srctemp",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc typings coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs",
     "clean:srctemp": "rimraf -- .srctemp",
     "compile:sass": "./node_modules/node-sass/bin/node-sass src/scss/sky.scss dist/css/sky.css",
     "lint": "tslint 'src/**/*.ts'",
-    "test": "npm run test:visual",
+    "test": "npm run test:unit && npm run test:visual",
     "test:ci": "npm run test:unit:ci && npm run test:visual:ci",
     "test:unit": "npm run test:unit:base -- config/karma/local.karma.conf.js",
     "test:unit:ci": "npm run test:unit:base -- config/karma/ci.karma.conf.js",
