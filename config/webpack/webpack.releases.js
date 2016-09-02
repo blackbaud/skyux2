@@ -8,7 +8,7 @@ const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
 
 const PrepareFallback = function () {
-  const formatName = 'SKY_PAGES_%s_READY';
+  const formatName = 'SKYUX_READY_%s';
   const formatDeclare = 'var %s = true;\n%s';
   const metadata = {};
 
