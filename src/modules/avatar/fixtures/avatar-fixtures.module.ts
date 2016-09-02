@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+// import { NgModule } from '@angular/core';
+// import { CommonModule } from '@angular/common';
 
-import { SkyAvatarModule } from '../';
-import { AvatarTestComponent } from './avatar.component.fixture';
+// import { SkyAvatarModule } from '../';
+// import { AvatarTestComponent } from './avatar.component.fixture';
 
-@NgModule({
-  declarations: [
-    AvatarTestComponent
-  ],
-  imports: [
-    CommonModule,
-    SkyAvatarModule
-  ],
-  exports: [
-    AvatarTestComponent
-  ]
-})
-export class SkyAvatarFixturesModule { }
+// @NgModule({
+//   declarations: [
+//     AvatarTestComponent
+//   ],
+//   imports: [
+//     CommonModule,
+//     SkyAvatarModule
+//   ],
+//   exports: [
+//     AvatarTestComponent
+//   ]
+// })
+// export class SkyAvatarFixturesModule { }
