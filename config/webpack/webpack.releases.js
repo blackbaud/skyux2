@@ -8,8 +8,8 @@ const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
 
 const PrepareFallback = function () {
-  const formatName = 'SKYUX_READY_%s';
-  const formatDeclare = 'var %s = true;\n%s';
+  const formatName = 'SKYUX_READY_%s  ';
+  const formatDeclare = '%s\nvar %s = true;\n';
   const metadata = {};
 
   // Add variable + order to file + metadata
@@ -19,7 +19,7 @@ const PrepareFallback = function () {
       const source = asset.source();
       const name = path.parse(key).name.toUpperCase();
       const ready = util.format(formatName, name);
-      asset.source = () => util.format(formatDeclare, ready, source);
+      asset.source = () => util.format(formatDeclare, source, ready);
       metadata[key] = {
         ready: ready,
         order: index
