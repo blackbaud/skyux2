@@ -70,6 +70,37 @@ $sky-screen-lg-min: 1200px;
 $sky-screen-xs-max: $sky-screen-sm-min - 1;
 $sky-screen-sm-max: $sky-screen-md-min - 1;
 $sky-screen-md-max: $sky-screen-lg-min - 1;
+
+$sky-palette-multi: (
+   scale-color($sky-color-blue, $lightness: 8%),
+   scale-color($sky-color-yellow, $lightness: 12%),
+   scale-color($sky-color-green, $lightness: 8%),
+   scale-color($sky-color-purple, $lightness: 26%, $saturation: -30%),
+   scale-color($sky-color-aqua, $lightness: 8%),
+   scale-color($sky-color-red, $lightness: 12%),
+   scale-color($sky-color-gray, $lightness: 28%),
+   scale-color($sky-color-blue, $lightness: 48%),
+   scale-color($sky-color-yellow, $lightness: 42%),
+   scale-color($sky-color-green, $lightness: 48%),
+   scale-color($sky-color-purple, $lightness: 56%, $saturation: -30%),
+   scale-color($sky-color-aqua, $lightness: 48%),
+   scale-color($sky-color-red, $lightness: 42%),
+   scale-color($sky-color-gray, $lightness: 48%)
+ );
+
+ $sky-palette-mono: (
+   scale-color($sky-color-blue, $lightness: -25%),
+   $sky-color-blue,
+   scale-color($sky-color-blue, $lightness: 25%),
+   scale-color($sky-color-blue, $lightness: 50%),
+   scale-color($sky-color-blue, $lightness: 75%)
+ );
+ // end color palette
+
+ // begin avatar
+ $sky-avatar-height: 100px !default;
+ $sky-avatar-width: $sky-avatar-height !default;
+ $sky-avatar-border-width: 2px !default;
 //
 //
 // // begin _variables
@@ -285,39 +316,5 @@ $sky-screen-md-max: $sky-screen-lg-min - 1;
 // $omnibar-height: 50px !default;
 // $omnibar-height-small: 30px !default;
 // //end omnibar/help widget
-//
-// // begin color palette
-// $bb-palette-multi: (
-//   scale-color($bb-color-blue, $lightness: 8%),
-//   scale-color($bb-color-yellow, $lightness: 12%),
-//   scale-color($bb-color-green, $lightness: 8%),
-//   scale-color($bb-color-purple, $lightness: 26%, $saturation: -30%),
-//   scale-color($bb-color-aqua, $lightness: 8%),
-//   scale-color($bb-color-red, $lightness: 12%),
-//   scale-color($gray, $lightness: 28%),
-//   scale-color($bb-color-blue, $lightness: 48%),
-//   scale-color($bb-color-yellow, $lightness: 42%),
-//   scale-color($bb-color-green, $lightness: 48%),
-//   scale-color($bb-color-purple, $lightness: 56%, $saturation: -30%),
-//   scale-color($bb-color-aqua, $lightness: 48%),
-//   scale-color($bb-color-red, $lightness: 42%),
-//   scale-color($gray, $lightness: 48%)
-// );
-//
-// $bb-palette-mono: (
-//   scale-color($bb-color-blue, $lightness: -25%),
-//   $bb-color-blue,
-//   scale-color($bb-color-blue, $lightness: 25%),
-//   scale-color($bb-color-blue, $lightness: 50%),
-//   scale-color($bb-color-blue, $lightness: 75%)
-// );
-// // end color palette
-//
-// // begin avatar
-// $bb-avatar-height: 100px !default;
-// $bb-avatar-width: $bb-avatar-height !default;
-// $bb-avatar-border-width: 2px !default;
-// // end avatar
-//
 //
 // // end _variables
