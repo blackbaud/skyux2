@@ -33,7 +33,7 @@ import { SkyTilesModule } from './modules/tiles';
 export class SkyModule { }
 
 export * from './modules/alert';
-export * from './modules/avatar';
+// export * from './modules/avatar';
 export * from './modules/card';
 export * from './modules/checkbox';
 export * from './modules/dropdown';
