@@ -187,6 +187,11 @@ module.exports = {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
       },
+
+      {
+        test: /\.png$/,
+        loader: 'base64-image-loader'
+      }
   ],
 
   },

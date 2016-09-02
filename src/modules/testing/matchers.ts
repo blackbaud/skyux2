@@ -58,6 +58,10 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
           message: ''
         };
 
+        if (expectedCls.indexOf('.') === 0) {
+          throw new Error('Please remove the leading dot from your class name.');
+        }
+
         result.pass = el.classList.contains(expectedCls);
 
         result.message = result.pass ?
