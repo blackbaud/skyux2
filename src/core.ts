@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SkyAlertModule } from './modules/alert';
-// import { SkyAvatarModule } from './modules/avatar';
+import { SkyAvatarModule } from './modules/avatar';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
@@ -17,7 +17,7 @@ import { SkyTilesModule } from './modules/tiles';
 @NgModule({
   exports: [
     SkyAlertModule,
-    // SkyAvatarModule,
+    SkyAvatarModule,
     SkyCardModule,
     SkyCheckboxModule,
     SkyChevronModule,
@@ -33,7 +33,7 @@ import { SkyTilesModule } from './modules/tiles';
 export class SkyModule { }
 
 export * from './modules/alert';
-// export * from './modules/avatar';
+export * from './modules/avatar';
 export * from './modules/card';
 export * from './modules/checkbox';
 export * from './modules/dropdown';
