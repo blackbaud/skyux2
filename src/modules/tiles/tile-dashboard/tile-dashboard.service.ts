@@ -218,6 +218,7 @@ export class SkyTileDashboardService {
   }
 
   private getConfigForUIState(): SkyTileDashboardConfig {
+    /*istanbul ignore else */
     if (this.config) {
       this.config = {
         tiles: this.config.tiles,

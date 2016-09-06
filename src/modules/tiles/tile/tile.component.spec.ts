@@ -1,10 +1,12 @@
 import {
   async,
-  inject,
   TestBed
 } from '@angular/core/testing';
 
-import { TileTestComponent } from './fixtures';
+import {
+  MockSkyTileDashboardService,
+  TileTestComponent
+} from './fixtures';
 import { SkyTileComponent } from './tile.component';
 import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
@@ -17,9 +19,6 @@ describe('Tile component', () => {
       ],
       imports: [
         SkyTilesModule
-      ],
-      providers: [
-        SkyTileDashboardService
       ]
     });
   });
@@ -99,11 +98,27 @@ describe('Tile component', () => {
   });
 
   it('should notify the tile dashboard when the tile is collapsed',
-    inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
-      let fixture = TestBed.createComponent(TileTestComponent);
+    () => {
+      let mockTileDashboardService = new MockSkyTileDashboardService();
+
+      let fixture = TestBed
+        .overrideComponent(
+          TileTestComponent,
+          {
+            add: {
+              providers: [
+                {
+                  provide: SkyTileDashboardService,
+                  useValue: mockTileDashboardService
+                }
+              ]
+            }
+          }
+        )
+        .createComponent(TileTestComponent);
 
       let el = fixture.nativeElement;
-      let dashboardSpy = spyOn(dashboardService, 'setTileCollapsed').and.callThrough();
+      let dashboardSpy = spyOn(mockTileDashboardService, 'setTileCollapsed').and.callThrough();
 
       fixture.detectChanges();
 
@@ -114,7 +129,7 @@ describe('Tile component', () => {
       fixture.detectChanges();
 
       expect(dashboardSpy).toHaveBeenCalledWith(jasmine.any(SkyTileComponent), true);
-    })
+    }
   );
 
   xit('should notify the tile that repaint is required when the tile is expanded', () => {
