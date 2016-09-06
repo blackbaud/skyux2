@@ -3,6 +3,8 @@ import {
   TestBed
 } from '@angular/core/testing';
 
+import { expect } from '../../testing';
+
 import {
   MockSkyTileDashboardService,
   TileTestComponent
@@ -28,7 +30,7 @@ describe('Tile component', () => {
     let el = fixture.nativeElement;
 
     fixture.whenStable().then(() => {
-      expect(el.querySelector('.sky-tile-title sky-tile-title').innerText).toBe('Title');
+      expect(el.querySelector('.sky-tile-title sky-tile-title')).toHaveText('Title');
     });
   }));
 
