@@ -1,4 +1,3 @@
-import { Type } from '@angular/core';
 import {
   fakeAsync,
   inject,
@@ -24,7 +23,7 @@ import { ModalWithValuesTestComponent } from './fixtures/modal-with-values.compo
 describe('Modal service', () => {
   let modalService: SkyModalService;
 
-  function openModal(modalType: Type, providers?: any[]) {
+  function openModal(modalType: any, providers?: any[]) {
     let modalInstance = modalService.open(modalType, providers);
 
     tick();

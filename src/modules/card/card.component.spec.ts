@@ -1,10 +1,8 @@
 import {
   TestBed
 } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyCardModule } from './card.module';
-
+import { SkyCardFixturesModule } from './fixtures/card-fixtures.module';
 import { CardTestComponent } from './fixtures/card.component.fixture';
 import { expect } from '../testing';
 
@@ -23,12 +21,8 @@ function validateCardSelected(cmp: CardTestComponent, cardEl: any, selected: boo
 describe('Card component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        CardTestComponent
-      ],
       imports: [
-        BrowserModule,
-        SkyCardModule
+        SkyCardFixturesModule
       ]
     });
   });

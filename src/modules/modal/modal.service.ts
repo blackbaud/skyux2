@@ -2,8 +2,7 @@ import {
   ApplicationRef,
   ComponentFactoryResolver,
   Injectable,
-  Injector,
-  Type
+  Injector
 } from '@angular/core';
 
 import { SkyModalInstance } from './modal-instance';
@@ -21,7 +20,7 @@ export class SkyModalService {
     private adapter: SkyModalAdapterService
   ) { }
 
-  public open(component: Type, providers?: any[]): SkyModalInstance {
+  public open(component: any, providers?: any[]): SkyModalInstance {
     let modalInstance = new SkyModalInstance();
 
     if (!SkyModalService.hostComponent) {

@@ -33,7 +33,8 @@ class AppComponent {
     SkyModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    ModalDemoComponent
   ],
   bootstrap: [
     AppComponent

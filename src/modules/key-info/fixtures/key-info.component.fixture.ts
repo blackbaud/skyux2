@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 
-import { SkyKeyInfoComponent } from '../key-info.component';
-
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./key-info.component.fixture.html'),
-  directives: [SkyKeyInfoComponent]
+  template: require('./key-info.component.fixture.html')
 })
 export class KeyInfoTestComponent {
   public layout = 'vertical';

@@ -5,10 +5,14 @@ import { SkyChevronModule } from '../../chevron';
 import { SkyResourcesModule } from '../../resources';
 
 import { SkyTileComponent } from './tile.component';
+import { SkyTileSummaryComponent } from './tile-summary.component';
+import { SkyTileTitleComponent } from './tile-title.component';
 
 @NgModule({
   declarations: [
-    SkyTileComponent
+    SkyTileComponent,
+    SkyTileSummaryComponent,
+    SkyTileTitleComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +20,9 @@ import { SkyTileComponent } from './tile.component';
     SkyResourcesModule
   ],
   exports: [
-    SkyTileComponent
+    SkyTileComponent,
+    SkyTileSummaryComponent,
+    SkyTileTitleComponent
   ]
 })
 export class SkyTileModule { }
