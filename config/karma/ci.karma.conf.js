@@ -26,7 +26,6 @@ module.exports = function (config) {
       bs_windows_firefox_latest: {
         base: 'BrowserStack',
         browser: 'firefox',
-        browser_version: '47.0',
         os: 'Windows',
         os_version: '8.1'
       },
