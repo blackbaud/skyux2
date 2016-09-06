@@ -374,7 +374,6 @@ describe('Checkbox component', () => {
 
 /** Simple component for testing a single checkbox. */
 @Component({
-  directives: [SkyCheckboxComponent],
   template: `
   <div>
     <sky-checkbox
@@ -399,7 +398,6 @@ class SingleCheckboxComponent {
 
 /** Simple component for testing an MdCheckbox with ngModel. */
 @Component({
-  directives: [SkyCheckboxComponent],
   template: `
     <form>
       <sky-checkbox name="cb" [(ngModel)]="isGood">
@@ -416,7 +414,6 @@ class CheckboxWithFormDirectivesComponent {
 
 /** Simple test component with multiple checkboxes. */
 @Component(({
-  directives: [SkyCheckboxComponent],
   template: `
     <sky-checkbox>
       <sky-checkbox-label>
@@ -430,7 +427,6 @@ class MultipleCheckboxesComponent { }
 
 /** Simple test component with tabIndex */
 @Component({
-  directives: [SkyCheckboxComponent],
   template: `
     <sky-checkbox [tabindex]="customTabIndex" [disabled]="isDisabled">
     </sky-checkbox>`
@@ -442,28 +438,24 @@ class CheckboxWithTabIndexComponent {
 
 /** Simple test component with an aria-label set. */
 @Component({
-  directives: [SkyCheckboxComponent],
   template: `<sky-checkbox label="Super effective"></sky-checkbox>`
 })
 class CheckboxWithAriaLabelComponent { }
 
 /** Simple test component with an aria-label set. */
 @Component({
-  directives: [SkyCheckboxComponent],
   template: `<sky-checkbox labelledBy="some-id"></sky-checkbox>`
 })
 class CheckboxWithAriaLabelledbyComponent {}
 
 /** Simple test component with name attribute */
 @Component({
-  directives: [SkyCheckboxComponent],
   template: `<sky-checkbox name="test-name"></sky-checkbox>`
 })
 class CheckboxWithNameAttributeComponent {}
 
 /** Simple test component with change event */
 @Component({
-  directives: [SkyCheckboxComponent],
   template: `<sky-checkbox (change)="lastEvent = $event"></sky-checkbox>`
 })
 class CheckboxWithChangeEventComponent {

@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 
-import { SkyTabComponent, SkyTabsetComponent } from '../';
-
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./tabset.component.fixture.html'),
-  directives: [SkyTabComponent, SkyTabsetComponent]
+  template: require('./tabset.component.fixture.html')
 })
 export class TabsetTestComponent {
   public tab1Heading = 'Tab 1';

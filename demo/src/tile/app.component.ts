@@ -72,7 +72,9 @@ export class AppComponent {
     SkyModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    Tile1Component,
+    Tile2Component
   ],
   bootstrap: [
     AppComponent

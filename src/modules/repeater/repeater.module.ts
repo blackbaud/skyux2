@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { SkyChevronModule } from '../chevron';
 import { SkyLogModule } from '../log';
 
+import { SkyRepeaterItemContentComponent } from './repeater-item-content.component';
+import { SkyRepeaterItemContextMenuComponent } from './repeater-item-context-menu.component';
+import { SkyRepeaterItemTitleComponent } from './repeater-item-title.component';
 import { SkyRepeaterItemComponent } from './repeater-item.component';
 import { SkyRepeaterComponent } from './repeater.component';
 import { SkyRepeaterService } from './repeater.service';
@@ -11,7 +14,10 @@ import { SkyRepeaterService } from './repeater.service';
 @NgModule({
   declarations: [
     SkyRepeaterComponent,
-    SkyRepeaterItemComponent
+    SkyRepeaterItemComponent,
+    SkyRepeaterItemContentComponent,
+    SkyRepeaterItemContextMenuComponent,
+    SkyRepeaterItemTitleComponent
   ],
   providers: [
     SkyRepeaterService
@@ -23,7 +29,10 @@ import { SkyRepeaterService } from './repeater.service';
   ],
   exports: [
     SkyRepeaterComponent,
-    SkyRepeaterItemComponent
+    SkyRepeaterItemComponent,
+    SkyRepeaterItemContentComponent,
+    SkyRepeaterItemContextMenuComponent,
+    SkyRepeaterItemTitleComponent
   ]
 })
 export class SkyRepeaterModule { }

@@ -11,6 +11,10 @@ var helpers = require('../utils/helpers');
 //var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var extractScss = new ExtractTextPlugin('sky.css');
+
 /*
  * Webpack Constants
  */
@@ -106,7 +110,7 @@ module.exports = {
         exclude: [
           // these packages have problems with their sourcemaps
           helpers.root('node_modules/rxjs'),
-          helpers.root('node_modules/@angular2-material')
+          helpers.root('node_modules/@angular/compiler/bundles')
         ]
       }
 
@@ -162,7 +166,15 @@ module.exports = {
        */
       {
         test: /\.scss$/,
-        loader: 'raw-loader!sass-loader'
+        loader: 'raw-loader!sass-loader',
+        exclude: [
+          helpers.root('src/scss/sky.scss')
+        ]
+      },
+
+      {
+        test: /sky.scss$/,
+        loader: extractScss.extract(['css', 'sass'])
       },
 
       /* Raw loader support for *.html
@@ -202,6 +214,8 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#plugins
    */
   plugins: [
+
+    extractScss,
 
     /*
      * Plugin: ForkCheckerPlugin
