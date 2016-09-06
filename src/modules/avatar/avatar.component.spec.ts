@@ -98,6 +98,12 @@ describe('Avatar component', () => {
     expect(getPlaceholderEl(el)).toBeVisible();
 
     expect(el.querySelector('.sky-avatar-initials-inner')).toHaveText('RH');
+
+    fixture.componentInstance.name = 'Example';
+
+    fixture.detectChanges();
+
+    expect(el.querySelector('.sky-avatar-initials-inner')).toHaveText('E');
   });
 
   it('should display nothing when no image or name is specified', () => {
