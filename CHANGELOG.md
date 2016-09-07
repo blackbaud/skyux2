@@ -1,3 +1,9 @@
+# 2.0.0-alpha.2 (2016-09-06)
+
+- Updated to Angular 2 RC 6
+- Added avatar component (sans upload capabilities)
+- Fixed tile width issue when contents expanded past the width of the tile (#93)
+
 # 2.0.0-alpha.1 (2016-08-19)
 
 - Updated to Angular 2 RC 5
