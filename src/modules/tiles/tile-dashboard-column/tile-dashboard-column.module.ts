@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Dragula, DragulaService } from 'ng2-dragula/ng2-dragula';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import { SkyMediaQueriesModule } from '../../media-queries';
 import { SkyResourcesModule } from '../../resources';
@@ -10,14 +10,11 @@ import { SkyTileDashboardColumnComponent } from './tile-dashboard-column.compone
 
 @NgModule({
   declarations: [
-    Dragula,
     SkyTileDashboardColumnComponent
-  ],
-  providers: [
-    DragulaService
   ],
   imports: [
     CommonModule,
+    DragulaModule,
     SkyMediaQueriesModule,
     SkyResourcesModule
   ],
