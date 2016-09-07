@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SkyModalComponent, SkyModalService } from '../../../src/core';
+import { SkyModalService } from '../../../src/core';
 
 import { ModalDemoValues } from './modal-values';
 
 @Component({
   selector: 'sky-test-cmp-modal',
   template: require('./modal-demo.component.html'),
-  directives: [SkyModalComponent],
   providers: [SkyModalService]
 })
 export class ModalDemoComponent implements OnInit {

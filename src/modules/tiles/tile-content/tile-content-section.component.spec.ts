@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyTileContentSectionModule } from './tile-content-section.module';
+import { SkyTilesModule } from '../tiles.module';
 
 import { TileContentSectionTestComponent } from './fixtures';
 
@@ -13,7 +13,7 @@ describe('Tile content section component', () => {
       ],
       imports: [
         BrowserModule,
-        SkyTileContentSectionModule
+        SkyTilesModule
       ]
     });
   });

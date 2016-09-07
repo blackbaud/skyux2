@@ -18,8 +18,7 @@ import {
   TileDashboardTestComponent
 } from './fixtures';
 
-// TODO: Revisit after RC6.
-xdescribe('Tile dashboard component', () => {
+describe('Tile dashboard component', () => {
   let mockTileDashboardService: MockTileDashboardService;
 
   beforeEach(() => {
@@ -48,8 +47,6 @@ xdescribe('Tile dashboard component', () => {
   });
 
   it('should update tile order when tile moves within a column', fakeAsync(() => {
-    // TODO: This should work but doesn't.  Revisit for Angular 2 RC6.
-    // https://github.com/angular/angular/issues/10854
     let fixture = TestBed
       .overrideComponent(
         SkyTileDashboardComponent,
@@ -119,7 +116,22 @@ xdescribe('Tile dashboard component', () => {
   }));
 
   it('should not allow a new config to be set by the parent once initialized', fakeAsync(() => {
-    let fixture = TestBed.createComponent(TileDashboardTestComponent);
+    let fixture = TestBed
+      .overrideComponent(
+        SkyTileDashboardComponent,
+        {
+          add: {
+            providers: [
+              {
+                provide: SkyTileDashboardService,
+                useValue: mockTileDashboardService
+              }
+            ]
+          }
+        }
+      )
+      .createComponent(TileDashboardTestComponent);
+
     let cmp = fixture.componentInstance;
     let initialConfig = cmp.dashboardConfig;
     let newConfig: SkyTileDashboardConfig = {
@@ -229,7 +241,22 @@ xdescribe('Tile dashboard component', () => {
   it(
     `should release resources when the component is destroyed`,
     () => {
-      let fixture = TestBed.createComponent(TileDashboardTestComponent);
+      let fixture = TestBed
+        .overrideComponent(
+          SkyTileDashboardComponent,
+          {
+            add: {
+              providers: [
+                {
+                  provide: SkyTileDashboardService,
+                  useValue: mockTileDashboardService
+                }
+              ]
+            }
+          }
+        )
+        .createComponent(TileDashboardTestComponent);
+
       let destroySpy = spyOn(mockTileDashboardService, 'destroy');
 
       fixture.destroy();

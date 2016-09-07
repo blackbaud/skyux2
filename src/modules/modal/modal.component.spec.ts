@@ -1,4 +1,4 @@
-import { ApplicationRef, Type } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
   inject,
@@ -19,7 +19,7 @@ describe('Modal component', () => {
   let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
 
-  function openModal(modalType: Type, providers?: any[]) {
+  function openModal(modalType: any, providers?: any[]) {
     let modalInstance = modalService.open(modalType, providers);
 
     applicationRef.tick();
@@ -63,8 +63,6 @@ describe('Modal component', () => {
 
     let zIndex1 = parseInt(getComputedStyle(modalEls[0]).zIndex, 10);
     let zIndex2 = parseInt(getComputedStyle(modalEls[1]).zIndex, 10);
-
-    console.log(getComputedStyle(modalEls[0]).zIndex);
 
     expect(zIndex2).toBeGreaterThan(zIndex1);
 
