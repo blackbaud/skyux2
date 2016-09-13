@@ -9,7 +9,15 @@
     "noImplicitAny": true,
     "outDir": "../dist",
     "inlineSources": true,
-    "declaration": true
+    "declaration": true,
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ]
   },
   "compileOnSave": false,
   "buildOnSave": false
