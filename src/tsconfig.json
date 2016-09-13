@@ -1,16 +1,28 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "stripInternal": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "noEmitHelpers": true,
-    "noImplicitAny": true,
+    "module": "es2015",
+    "moduleResolution": "node",
     "outDir": "../dist",
+    "paths": {
+      "@angular/*": ["../node_modules/@angular/*"],
+      "rxjs/*": ["../node_modules/rxjs/*"]
+    },
+    "rootDir": ".",
+    "sourceMap": true,
     "inlineSources": true,
-    "declaration": true
+    "target": "es5",
+    "lib": ["es2015", "dom"],
+    "skipLibCheck": true
   },
-  "compileOnSave": false,
-  "buildOnSave": false
+  "files": [
+    "core.ts",
+    "../node_modules/ng2-dragula/ng2-dragula.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true
+  }
 }
