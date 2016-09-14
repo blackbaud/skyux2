@@ -1,3 +1,8 @@
+# 2.0.0-alpha.3 (2016-09-14)
+
+- Updated to Angular 2 RC 7 (#115)
+- Updated various other NPM packages (#108)
+
 # 2.0.0-alpha.2 (2016-09-06)
 
 - Updated to Angular 2 RC 6
