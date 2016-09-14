@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "ci": "npm run lint && npm run test:ci && npm run build",
-    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && tsc && npm run compile:sass && npm run clean:srctemp",
+    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ../node_modules/.bin/tsc && npm run compile:sass && npm run clean:srctemp",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs",
     "clean:releases": "rimraf -- releases",
