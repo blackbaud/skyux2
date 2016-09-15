@@ -19,6 +19,9 @@
       "node"
     ]
   },
+  "files": [
+    "core.ts"
+  ],
   "compileOnSave": false,
   "buildOnSave": false
 }
