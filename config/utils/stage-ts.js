@@ -17,10 +17,45 @@ function deleteNonDistFiles() {
   });
 }
 
+function writeTSConfig() {
+  var config = {
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "noEmitHelpers": true,
+      "noImplicitAny": true,
+      "outDir": "../dist",
+      "inlineSources": true,
+      "declaration": true,
+      "lib": [
+        "dom",
+        "es6"
+      ],
+      "types": [
+        "jasmine",
+        "node"
+      ]
+    },
+    "files": [
+      "core.ts"
+    ],
+    "compileOnSave": false,
+    "buildOnSave": false
+  };
+
+  fs.writeJSONSync(TEMP_PATH + '/tsconfig.json', config);
+}
+
 function copySrc() {
   fs.copySync('./src', TEMP_PATH);
 
   deleteNonDistFiles();
+
+  writeTSConfig();
 }
 
 function escapeContents(contents) {
