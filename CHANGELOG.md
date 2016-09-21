@@ -1,3 +1,8 @@
+# 2.0.0-alpha.5 (2016-09-21)
+
+- Fixed an issue where code editors could not resolve type references after upgrading to TypeScript 2.0 (#121)
+- Updated Angular 2 Dragula and other NPM packages (#123) 
+
 # 2.0.0-alpha.4 (2016-09-15)
 
 - Updated to Angular 2 final release (#119)
