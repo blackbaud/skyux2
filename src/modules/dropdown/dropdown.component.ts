@@ -22,11 +22,22 @@ export class SkyDropdownComponent {
     return this._buttonType || 'select';
   }
 
+  @Input()
+  public set trigger(value: string) {
+    this._trigger = value;
+  }
+
+  public get trigger(): string {
+    return this._trigger || 'click';
+  }
+
   private open = false;
 
   private opening = false;
 
   private _buttonType: string;
+
+  private _trigger: string;
 
   constructor(
     private elRef: ElementRef,
@@ -38,12 +49,16 @@ export class SkyDropdownComponent {
   }
 
   public click() {
-    if (!this.open) {
-      this.adapterService.showDropdown(this.elRef);
+    if (this.trigger === 'click') {
+      this.openMenu();
+    }
+  }
 
-      // Notify the window click handler that the menu was just opened so it doesn't try to
-      // close it.
-      this.opening = true;
+  public hover() {
+    if (this.trigger === 'hover') {
+      this.openMenu();
+      this.opening = false;
+      this.open = true;
     }
   }
 
@@ -53,6 +68,22 @@ export class SkyDropdownComponent {
       this.open = true;
     } else {
       this.adapterService.hideDropdown(this.elRef);
+    }
+  }
+
+  public windowMouseMove(e: any) {
+    if (this.trigger === 'hover') {
+      this.adapterService.hideDropdownIfMouseOut(this.elRef, e);
+    }
+  }
+
+  private openMenu() {
+    if (!this.open) {
+      this.adapterService.showDropdown(this.elRef);
+
+      // Notify the window click handler that the menu was just opened so it doesn't try to
+      // close it.
+      this.opening = true;
     }
   }
 }

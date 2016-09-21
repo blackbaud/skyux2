@@ -1,0 +1,44 @@
+@import '../../scss/mixins';
+
+.sky-navbar-item, {
+  display: inline-block;
+  font-weight: 600;
+  margin-right: $sky-margin-half;
+
+  /deep/ a,
+  /deep/ .sky-dropdown-button {
+    border: none;
+    color: $sky-nav-color;
+    display: block;
+    padding: 16px 12px;
+    text-decoration: none;
+  }
+
+  /deep/ .sky-dropdown-menu {
+    background-color: $sky-nav-background-color;
+  }
+
+  /deep/ .sky-dropdown-item-btn {
+    color: $sky-nav-color;
+    display: block;
+    font-weight: normal;
+    padding: 10px 12px;
+
+    &:hover {
+      background-color: $sky-nav-selected-background-color;
+      color: $sky-nav-selected-color;
+    }
+  }
+
+  &:hover,
+  &.sky-navbar-item-active {
+    background-color: $sky-nav-selected-background-color;
+
+    /deep/ a,
+    /deep/ .sky-dropdown-button {
+      color: $sky-nav-selected-color;
+      @include sky-border(nav);
+      padding-bottom: $sky-nav-item-padding - $sky-nav-selected-border-width;
+    }
+  }
+}
