@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  HostListener,
   Input
 } from '@angular/core';
 
@@ -62,8 +61,7 @@ export class SkyDropdownComponent {
     }
   }
 
-  @HostListener('mouseenter')
-  public onMouseEnter() {
+  public mouseEnter() {
     if (this.trigger === 'hover') {
       this.openMenu();
       this.opening = false;
@@ -71,10 +69,9 @@ export class SkyDropdownComponent {
     }
   }
 
-  @HostListener('mouseleave')
-  public onMouseLeave() {
+  public mouseLeave() {
     if (this.trigger === 'hover') {
-      // this.adapterService.hideDropdown(this.elRef);
+      this.adapterService.hideDropdown(this.elRef);
     }
   }
 

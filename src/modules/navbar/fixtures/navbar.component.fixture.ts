@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   selector: 'sky-test-cmp',
   template: require('./navbar.component.fixture.html')
 })
-export class NavbarTestComponent { }
+export class SkyNavbarTestComponent { }

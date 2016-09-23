@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { SkyNavbarModule } from '../';
 
-import { NavbarTestComponent } from './navbar.component.fixture';
+import { SkyNavbarTestComponent } from './navbar.component.fixture';
 
 @NgModule({
   declarations: [
-    NavbarTestComponent
+    SkyNavbarTestComponent
   ],
   imports: [
     CommonModule,
     SkyNavbarModule
   ],
   exports: [
-    NavbarTestComponent
+    SkyNavbarTestComponent
   ]
 })
 export class SkyNavbarFixturesModule { }
