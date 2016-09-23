@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   Input
 } from '@angular/core';
 
@@ -49,17 +50,7 @@ export class SkyDropdownComponent {
   }
 
   public click() {
-    if (this.trigger === 'click') {
-      this.openMenu();
-    }
-  }
-
-  public hover() {
-    if (this.trigger === 'hover') {
-      this.openMenu();
-      this.opening = false;
-      this.open = true;
-    }
+    this.openMenu();
   }
 
   public windowClick() {
@@ -71,9 +62,19 @@ export class SkyDropdownComponent {
     }
   }
 
-  public windowMouseMove(e: any) {
+  @HostListener('mouseenter')
+  public onMouseEnter() {
     if (this.trigger === 'hover') {
-      this.adapterService.hideDropdownIfMouseOut(this.elRef, e);
+      this.openMenu();
+      this.opening = false;
+      this.open = true;
+    }
+  }
+
+  @HostListener('mouseleave')
+  public onMouseLeave() {
+    if (this.trigger === 'hover') {
+      // this.adapterService.hideDropdown(this.elRef);
     }
   }
 

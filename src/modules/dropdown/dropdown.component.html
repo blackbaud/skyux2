@@ -2,11 +2,9 @@
   <button
       type="button"
       (click)="click()"
-      (mouseover)="hover()"
       class="sky-btn sky-dropdown-button"
       [ngClass]="'sky-dropdown-button-type-' + buttonType"
       (document:click)="windowClick()"
-      (document:mousemove)="windowMouseMove($event)"
   >
     <div [ngSwitch]="buttonType">
       <template ngSwitchCase="context-menu">

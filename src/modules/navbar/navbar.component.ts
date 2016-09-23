@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   template: require('./navbar.component.html'),
   styles: [require('./navbar.component.scss')]
 })
-export class SkyNavbarComponent {
-
-}
+export class SkyNavbarComponent { }

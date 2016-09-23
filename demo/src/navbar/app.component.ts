@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { SkyModule } from '../../../src/core';
 
@@ -14,6 +15,7 @@ export class AppComponent { }
 @NgModule({
   imports: [
     BrowserModule,
+    RouterModule,
     SkyModule
   ],
   declarations: [
