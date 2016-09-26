@@ -71,7 +71,7 @@ export class SkyDropdownComponent {
 
   public mouseLeave() {
     if (this.trigger === 'hover') {
-      this.adapterService.hideDropdown(this.elRef);
+      // this.adapterService.hideDropdown(this.elRef);
     }
   }
 

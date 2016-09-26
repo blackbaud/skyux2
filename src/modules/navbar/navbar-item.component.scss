@@ -22,7 +22,9 @@
     .sky-dropdown-item {
       color: $sky-nav-color;
       display: block;
+      font-size: 12px;
       font-weight: normal;
+      margin: 0;
 
       &:hover {
         background-color: $sky-nav-selected-background-color;
