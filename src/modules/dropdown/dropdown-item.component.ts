@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   template: require('./dropdown-item.component.html'),
   styles: [require('./dropdown-item.component.scss')]
 })
-export class SkyDropdownItemComponent {
-
-}
+export class SkyDropdownItemComponent { }

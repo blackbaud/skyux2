@@ -6,8 +6,9 @@
 
 .sky-tab-dropdown-item {
   display: flex;
-  width: 300px;
+  padding: 0;
   transition: background-color $sky-transition-time-short;
+  width: 300px;
 
   &:hover:not(.sky-tab-dropdown-item-selected) {
     background-color: $sky-color-gray-lightest;
@@ -31,6 +32,10 @@
 
 .sky-tab-dropdown-item-selected {
   background-color: $sky-color-blue;
+
+  &:hover {
+    background-color: $sky-color-blue;
+  }
 
   .sky-tab-dropdown-item-btn,
   .sky-tab-dropdown-item-close {

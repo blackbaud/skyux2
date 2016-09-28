@@ -10,6 +10,7 @@ import { SkyDropdownModule } from './modules/dropdown';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyModalModule } from './modules/modal';
+import { SkyNavbarModule } from './modules/navbar';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTilesModule } from './modules/tiles';
@@ -25,6 +26,7 @@ import { SkyTilesModule } from './modules/tiles';
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyModalModule,
+    SkyNavbarModule,
     SkyRepeaterModule,
     SkyTabsModule,
     SkyTilesModule
@@ -40,6 +42,7 @@ export * from './modules/dropdown';
 export * from './modules/key-info';
 export * from './modules/label';
 export * from './modules/modal';
+export * from './modules/navbar';
 export * from './modules/repeater';
 export * from './modules/tabs';
 export * from './modules/tiles';
