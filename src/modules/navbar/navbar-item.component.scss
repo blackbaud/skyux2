@@ -29,20 +29,24 @@
       &:hover {
         background-color: $sky-nav-selected-background-color;
         color: $sky-nav-selected-color;
+
+        > /deep/ a,
+        /deep/ .sky-dropdown-button {
+          color: $sky-nav-selected-color;
+        }
       }
     }
   }
 
-
-  &:hover,
-  &.sky-navbar-item-active {
+  /deep/ > *:hover,
+  /deep/ .sky-dropdown:hover .sky-dropdown-button,
+  /deep/ .sky-navbar-item-active,
+  &.sky-navbar-item-active /deep/ > *,
+  &.sky-navbar-item-active /deep/ .sky-dropdown-button
+  {
     background-color: $sky-nav-selected-background-color;
-
-    > /deep/ a,
-    /deep/ .sky-dropdown-button {
-      color: $sky-nav-selected-color;
-      @include sky-border(nav);
-      padding-bottom: $sky-nav-item-padding - $sky-nav-selected-border-width;
-    }
+    color: $sky-nav-selected-color;
+    @include sky-border(nav);
+    padding-bottom: $sky-nav-item-padding - $sky-nav-selected-border-width;
   }
 }
