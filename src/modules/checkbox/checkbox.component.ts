@@ -64,7 +64,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   public tabindex: number = 0;
 
   @Input()
-  public name: string = undefined;
+  public name: string = `sky-checkbox-${++nextId}`;
 
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();

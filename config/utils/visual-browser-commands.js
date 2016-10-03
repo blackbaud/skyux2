@@ -14,11 +14,13 @@
           'color-contrast': { enabled: false }
         }
       };
-      axe.a11yCheck(document, config, done);
+      axe.a11yCheck(document, config, function (results) {
+        done(results);
+      });
 
     }).then((ret) => {
       if (ret.value.violations && ret.value.violations.length !== 0) {
-        logViolations(options.screenshotName, ret.value.valuations);
+        logViolations(options.screenshotName, ret.value.violations);
         expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
       }
     });
@@ -49,9 +51,9 @@
       return browser
         .webdrivercss(pageName, test, handler)
         .then(() => {
-          // if (options.checkAccessibility) {
-          //   checkAccessibility(options);
-          // }
+          if (options.checkAccessibility) {
+            checkAccessibility(options);
+          }
         });
     });
 
@@ -81,12 +83,13 @@
       '\nThe following accessibility issues exist in %s:\n',
       name
     ));
+
     violations.forEach((violation) => {
-      log(violation.help, ' violation at: ');
+      log(' violation at: ' + violation.help);
       violation.nodes.forEach((line) => {
         log(line.target);
       });
-      log('More Information: ', violation.helpUrl);
+      log('More Information: ' + violation.helpUrl);
     });
   };
 

@@ -10,6 +10,7 @@
   <button
       type="button"
       class="sky-btn-tab-close"
+      [attr.aria-label]="'tab_close' | skyResources"
       *ngIf="allowClose"
       (click)="doCloseClick();$event.stopPropagation()"
   >
