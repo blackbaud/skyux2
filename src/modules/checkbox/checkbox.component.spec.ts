@@ -326,7 +326,6 @@ describe('Checkbox component', () => {
     let ngModel: NgModel;
     let labelElement: HTMLLabelElement;
 
-
     beforeEach(async(() => {
       fixture = TestBed.createComponent(CheckboxWithFormDirectivesComponent);
       fixture.detectChanges();
@@ -380,7 +379,7 @@ describe('Checkbox component', () => {
           fixture.detectChanges();
           expect(inputElement.checked).toBe(true);
         });
-      })
+      });
     }));
   });
 

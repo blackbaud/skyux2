@@ -1,6 +1,5 @@
 import {
-  TestBed,
-  async
+  TestBed
 } from '@angular/core/testing';
 
 import { SkyCardFixturesModule } from './fixtures/card-fixtures.module';
