@@ -1,0 +1,7 @@
+@import '../../../scss/mixins';
+
+@media (max-width: $sky-screen-xs-max) {
+    .sky-page-summary-key-info {
+        margin-top: $sky-margin-double;
+    }
+}

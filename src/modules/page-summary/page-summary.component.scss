@@ -1,0 +1,13 @@
+@import '../../scss/mixins';
+
+.sky-page-summary {
+  background-color: #fff;
+  padding: $sky-padding-double $sky-padding-plus-half;
+}
+
+@media (min-width: $sky-screen-sm-min) {
+    .sky-page-summary-left {
+        display: flex;
+        align-items: stretch;
+    }
+}
