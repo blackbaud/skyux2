@@ -45,7 +45,7 @@ after_success:
 
 # Display any NPM / BrowserStack errorsc
 after_failure:
-  - ./scripts/visual-baseline.sh
+  - ./scripts/visual-failures.sh
   - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
   - if [ -e ./browserstack.err ]; then cat ./browserstack.err; fi
 

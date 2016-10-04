@@ -35,6 +35,10 @@
         "_description": "Message title displayed when the user attempts to upload an avatar image with a file size that is too large",
         "message": "File is too large."
     },
+    "card_checkbox_label": {
+      "_description": "Label for the multiselect checkbox for the card component",
+      "message": "Select card"
+    },
     "checklist_select_all": {
         "_description": "Text for the link in a checklist to select all items.",
         "message": "Select all"
@@ -534,5 +538,18 @@
     "reorder_top": {
       "_description": "Text displayed to indicate that a row can be pushed to the top of the list",
       "message": "Top"
+    },
+    "tab_close": {
+      "_description": "Label for the tab close button",
+      "message": "Close tab"
+    },
+    "tab_open": {
+      "_description": "Label for the tab open button",
+      "message": "Open tab"
+    },
+    "tab_add": {
+      "_description": "Label for the tab add button",
+      "message": "Add tab"
     }
+
 }
