@@ -319,27 +319,40 @@ describe('Checkbox component', () => {
   });
 
   describe('with ngModel', () => {
+    let checkboxElement: DebugElement;
+    let testComponent: CheckboxWithFormDirectivesComponent;
+    let inputElement: HTMLInputElement;
+    let checkboxNativeElement: HTMLElement;
+    let ngModel: NgModel;
+    let labelElement: HTMLLabelElement;
+
+
     beforeEach(async(() => {
       fixture = TestBed.createComponent(CheckboxWithFormDirectivesComponent);
-
       fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+        checkboxNativeElement = checkboxElement.nativeElement;
+
+        testComponent = fixture.debugElement.componentInstance;
+        inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+        ngModel = <NgModel> checkboxElement.injector.get(NgModel);
+        labelElement =
+          <HTMLLabelElement>checkboxElement
+            .nativeElement.querySelector('label.sky-checkbox-wrapper');
+      });
     }));
 
     it('should be in pristine, untouched, and valid states initially', async(() => {
-
-      let checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-      let ngModel = <NgModel> checkboxElement.injector.get(NgModel);
-      let labelElement =
-          <HTMLLabelElement>checkboxElement
-            .nativeElement.querySelector('label.sky-checkbox-wrapper');
-      let inputElement = checkboxElement.nativeElement.querySelector('input');
-      let testComponent = fixture.debugElement.componentInstance;
-
+      fixture.detectChanges();
       expect(ngModel.valid).toBe(true);
       expect(ngModel.pristine).toBe(true);
       expect(ngModel.touched).toBe(false);
 
       labelElement.click();
+
+      fixture.detectChanges();
 
       fixture.whenStable().then(() => {
         fixture.detectChanges();
@@ -352,6 +365,23 @@ describe('Checkbox component', () => {
         inputElement.dispatchEvent(createEvent('blur'));
         expect(ngModel.touched).toBe(true);
       });
+    }));
+
+    it('should change check state through ngModel programmatically', async(() => {
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(inputElement.checked).toBe(false);
+        expect(testComponent.isGood).toBe(false);
+        fixture.detectChanges();
+        testComponent.isGood = true;
+
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          expect(inputElement.checked).toBe(true);
+        });
+      })
+
 
     }));
   });
@@ -399,13 +429,15 @@ class SingleCheckboxComponent {
 /** Simple component for testing an MdCheckbox with ngModel. */
 @Component({
   template: `
+  <div>
     <form>
-      <sky-checkbox name="cb" [(ngModel)]="isGood">
+      <sky-checkbox name="cb" [(ngModel)]="isGood" #wut>
         <sky-checkbox-label>
           Be good
         </sky-checkbox-label>
       </sky-checkbox>
     </form>
+  </div>
   `
 })
 class CheckboxWithFormDirectivesComponent {
