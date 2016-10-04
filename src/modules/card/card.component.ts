@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Input, Output, AfterContentInit, ContentChild } from '@angular/core';
-import { SkyCardTitleComponent} from './card-title.component.ts';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  AfterContentInit,
+  ContentChild
+} from '@angular/core';
+
+import { SkyCardTitleComponent} from './card-title.component';
 
 @Component({
   selector: 'sky-card',
@@ -24,10 +32,9 @@ export class SkyCardComponent implements AfterContentInit {
 
   private _showTitle: boolean = true;
 
-  ngAfterContentInit() {
+  public ngAfterContentInit() {
     this._showTitle = this.titleComponent !== undefined;
   }
-
 
   public contentClick() {
     if (this.selectable) {
