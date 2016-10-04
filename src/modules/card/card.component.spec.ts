@@ -1,5 +1,6 @@
 import {
-  TestBed
+  TestBed,
+  async
 } from '@angular/core/testing';
 
 import { SkyCardFixturesModule } from './fixtures/card-fixtures.module';
@@ -144,6 +145,13 @@ describe('Card component', () => {
     fixture.detectChanges();
 
     validateCardSelected(cmp, el, true);
+
+    el.querySelector('.sky-card-header').click();
+
+    fixture.detectChanges();
+
+    validateCardSelected(cmp, el, false);
+
   });
 
   it('should not allow clicking the card to select it when it is not selectable', () => {

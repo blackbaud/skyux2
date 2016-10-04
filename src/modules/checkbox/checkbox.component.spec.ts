@@ -381,8 +381,6 @@ describe('Checkbox component', () => {
           expect(inputElement.checked).toBe(true);
         });
       })
-
-
     }));
   });
 

@@ -8,7 +8,7 @@
 ">
   <header>
 
-    <div class="sky-card-header" *ngIf="selectable || _showTitle">
+    <div (click)="contentClick()" class="sky-card-header" *ngIf="selectable || _showTitle">
       <div class="sky-card-heading-middle">
         <h1 class="sky-card-title" *ngIf="_showTitle">
           <ng-content select="sky-card-title"></ng-content>
@@ -16,6 +16,7 @@
       </div>
       <div class="sky-card-check" *ngIf="selectable">
         <sky-checkbox
+          (click)="$event.stopPropagation()"
           [(ngModel)]="selected"
           [label]="'card_checkbox_label' | skyResources"
           ></sky-checkbox>
