@@ -1,46 +1,24 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule } from '../../../src/core';
+import { SkyModule, SkyFileItem } from '../../../src/core';
 
 import { Bootstrapper } from '../../bootstrapper';
-
-class FileItem extends File {
-  public url: string;
-}
 
 @Component({
   selector: 'sky-demo-app',
   template: require('./app.component.html')
 })
 class AppComponent {
-  public filesToUpload: Array<FileItem>;
+  public filesToUpload: Array<SkyFileItem>;
 
   constructor() {
     this.filesToUpload = [];
   }
 
-
-  fileChangeEvent(fileInput: any){
-    this.filesToUpload = <Array<FileItem>> fileInput.target.files;
-    console.log('hey: ', this.filesToUpload);
-
-    for (let file of this.filesToUpload) {
-      var reader = new FileReader();
-
-      reader.onload = function (event: any) {
-        console.log(event.target);
-
-        file.url = event.target.result;
-
-      }
-
-      reader.readAsDataURL(file);
-    }
-
+  public filesUpdated(newFiles: Array<SkyFileItem>) {
+    this.filesToUpload = this.filesToUpload.concat(newFiles);
   }
-
-
 }
 
 @NgModule({
