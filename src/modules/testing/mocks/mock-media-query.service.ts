@@ -3,7 +3,7 @@ import {
   SkyMediaQueryListener,
   SkyMediaQueryListenerArgs,
   SkyMediaQueryService
-} from '../../../media-queries';
+} from '../../media-queries';
 
 @Injectable()
 export class MockSkyMediaQueryService extends SkyMediaQueryService {
