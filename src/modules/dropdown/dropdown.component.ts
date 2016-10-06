@@ -31,6 +31,9 @@ export class SkyDropdownComponent {
     return this._trigger || 'click';
   }
 
+  @Input()
+  public label: string;
+
   private open = false;
 
   private opening = false;

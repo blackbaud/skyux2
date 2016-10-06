@@ -9,6 +9,7 @@ import { SkyTabComponent } from './tab.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetComponent } from './tabset.component';
 import { SkyTabsetService } from './tabset.service';
+import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SkyTabsetService } from './tabset.service';
   ],
   imports: [
     CommonModule,
-    SkyDropdownModule
+    SkyDropdownModule,
+    SkyResourcesModule
   ],
   exports: [
     SkyTabComponent,

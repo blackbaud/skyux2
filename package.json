@@ -57,7 +57,7 @@
     "@types/jasmine": "2.2.34",
     "@types/node": "6.0.41",
     "@types/webpack": "1.12.34",
-    "axe-core": "2.0.5",
+    "axe-core": "1.1.1",
     "base64-image-loader": "1.0.0",
     "browserstack-local": "1.1.0",
     "codelyzer": "0.0.28",

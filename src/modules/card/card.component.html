@@ -7,16 +7,21 @@
       }
 ">
   <header>
-    <label class="sky-card-header" [hidden]="!selectable &amp;&amp; titleEl.children.length === 0">
+
+    <div (click)="contentClick()" class="sky-card-header" *ngIf="selectable || _showTitle">
       <div class="sky-card-heading-middle">
-        <h1 class="sky-card-title" #titleEl>
+        <h1 class="sky-card-title" *ngIf="_showTitle">
           <ng-content select="sky-card-title"></ng-content>
         </h1>
       </div>
       <div class="sky-card-check" *ngIf="selectable">
-        <sky-checkbox [(ngModel)]="selected"></sky-checkbox>
+        <sky-checkbox
+          (click)="$event.stopPropagation()"
+          [(ngModel)]="selected"
+          [label]="'card_checkbox_label' | skyResources"
+          ></sky-checkbox>
       </div>
-    </label>
+    </div>
   </header>
   <div class="sky-card-content" (click)="contentClick()">
     <ng-content select="sky-card-content"></ng-content>
