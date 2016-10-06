@@ -1,6 +1,5 @@
 
 import {
-    ChangeDetectionStrategy,
     Component,
     EventEmitter,
     Input,
@@ -20,7 +19,7 @@ let nextId = 0;
  * This allows it to support [(ngModel)].
  */
 // tslint:disable no-forward-ref
-const SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
+export const SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyCheckboxComponent),
   multi: true
@@ -37,8 +36,7 @@ export class SkyCheckboxChange {
   selector: 'sky-checkbox',
   template: require('./checkbox.component.html'),
   styles: [require('./checkbox.component.scss')],
-  providers: [SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyCheckboxComponent implements ControlValueAccessor {
 
@@ -64,7 +62,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   public tabindex: number = 0;
 
   @Input()
-  public name: string = undefined;
+  public name: string = `sky-checkbox-${++nextId}`;
 
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
@@ -136,9 +134,9 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   private _emitChangeEvent() {
     let event = new SkyCheckboxChange();
     event.source = this;
-    event.checked = this.checked;
+    event.checked = this._checked;
 
-    this._controlValueAccessorChangeFn(this.checked);
+    this._controlValueAccessorChangeFn(this._checked);
     this.change.emit(event);
   }
 
