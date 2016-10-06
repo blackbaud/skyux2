@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SkyLabelComponent {
   @Input()
-  public labelType = 'info';
+  public labelType: string;
 }

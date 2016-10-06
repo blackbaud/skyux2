@@ -1,7 +1,8 @@
 @import '../../scss/mixins';
 
 .sky-label {
-  color: white;
+  background-color: $sky-color-gray-lightest;
+  color: $sky-color-gray;
   display: inline;
   border-radius: 10rem;
   font-weight: 600;
@@ -12,17 +13,21 @@
 }
 
 .sky-label-success {
+  color: white;
   background-color: $sky-color-green;
 }
 
 .sky-label-info {
+  color: white;
   background-color: $sky-color-aqua;
 }
 
 .sky-label-warning {
+  color: white;
   background-color: $sky-color-yellow;
 }
 
 .sky-label-danger {
+  color: white;
   background-color: $sky-color-red;
 }
