@@ -5,3 +5,7 @@
         margin-top: $sky-margin-double;
     }
 }
+
+.sky-page-summary-key-info /deep/ .sky-key-info {
+  display: block;
+}
