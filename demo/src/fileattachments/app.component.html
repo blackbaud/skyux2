@@ -1,6 +1,16 @@
 <div>
 
-  <sky-file-drop (filesChanged)="filesUpdated($event)"></sky-file-drop>
+  <sky-file-drop
+    (filesChanged)="filesUpdated($event)"
+    [maxFileSize]="maxFileSize"></sky-file-drop>
+   <sky-alert
+    [alertType]="'danger'"
+    [closeable]="true"
+    *ngIf="rejectedFiles.length > 0">
+        The file <strong>{{rejectedFiles[rejectedFiles.length - 1].name}}</strong> is invalid.
+              Reason: {{rejectedFiles[rejectedFiles.length - 1].errorType}} violation.
+              Error param: {{rejectedFiles[rejectedFiles.length - 1].errorParam}}
+  </sky-alert>
 
   <div *ngFor="let file of filesToUpload">
     <img [src]="file.url"/>

@@ -2,8 +2,7 @@
 @import "../../scss/mixins";
 
 .sky-file-drop-row {
-    margin-left: -$sky-margin-half;
-    margin-right: -$sky-margin-half;
+    display: flex;
 }
 
 .sky-file-drop-col {
@@ -22,10 +21,10 @@
 .sky-file-drop-contents {
     color: $sky-color-gray;
     cursor: pointer;
-    display: table;
+    display: flex;
     height: 120px;
     width: 100%;
-    text-align: center;
+    justify-content: center;
 
     .sky-file-input-hidden {
       visibility: hidden;
@@ -68,14 +67,6 @@
     }
 }
 
-.sky-file-drop-contents-not-over,
-.sky-file-drop-contents-accept,
-.sky-file-drop-contents-reject,
-.sky-file-drop-link {
-    display: table-cell;
-    vertical-align: middle;
-}
-
 .sky-file-drop-accept,
 .sky-file-drop-reject {
     .sky-file-drop-contents {
@@ -105,18 +96,6 @@
 .sky-file-drop-contents-accept,
 .sky-file-drop-contents-reject {
     display: none;
-}
-
-.sky-file-drop-accept {
-    .sky-file-drop-contents-accept {
-        display: table-cell;
-    }
-}
-
-.sky-file-drop-reject {
-    .sky-file-drop-contents-reject {
-        display: table-cell;
-    }
 }
 
 .sky-file-upload-icon {
