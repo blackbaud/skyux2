@@ -26,9 +26,6 @@ class AppComponent {
   public filesUpdated(result: SkyFileDropChange) {
     this.filesToUpload = this.filesToUpload.concat(result.files);
     this.rejectedFiles = this.rejectedFiles.concat(result.rejectedFiles);
-
-    console.log('files: ', this.filesToUpload);
-
   }
 
   public validateFile(file: SkyFileItem) {
