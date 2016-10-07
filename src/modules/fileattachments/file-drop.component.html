@@ -1,25 +1,32 @@
-<div class="bb-file-drop-row">
-    <div class="bb-file-drop-col">
+<div class="sky-file-drop-row">
+    <div class="sky-file-drop-col">
       <button
         type="button"
-        class="bb-file-drop bb-file-drop-target"
+        class="sky-file-drop sky-file-drop-target"
         (click)="fileInput.click()">
-         <div class="bb-file-drop-contents">
-           <input type="file" style="visibility: hidden; height: 0; width: 0; overflow: hidden; border: none; padding: 0; margin: 0" multiple (change)="fileChangeEvent($event)" placeholder="Upload file..." #fileInput/>
-            <div class="bb-file-drop-contents-not-over">
+         <div class="sky-file-drop-contents">
+           <input
+            tabindex="-1"
+            aria-hidden="true"
+            type="file"
+            class="sky-file-input-hidden"
+            multiple
+            (change)="fileChangeEvent($event)"
+            #fileInput/>
+            <div class="sky-file-drop-contents-not-over">
               <h4>Drag a file here</h4>
               <h5>or click to browse</h5>
-              <i class="fa fa-cloud-upload bb-file-upload-icon"></i>
+              <i class="fa fa-cloud-upload sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is valid -->
-            <div class="bb-file-drop-contents-accept" style="display: none">
+            <div class="sky-file-drop-contents-accept" style="display: none">
               <h4>Drop files here</h4>
-              <i class="fa fa-bullseye bb-file-upload-icon"></i>
+              <i class="fa fa-bullseye sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is invalid -->
-            <div class="bb-file-drop-contents-reject" style="display: none">
+            <div class="sky-file-drop-contents-reject" style="display: none">
               <h4>This file type is invalid</h4>
-              <i class="fa fa-times-circle bb-file-upload-icon"></i>
+              <i class="fa fa-times-circle sky-file-upload-icon"></i>
             </div>
         </div>
       </button>
