@@ -31,6 +31,9 @@ export class SkyFileDropComponent {
   @Input()
   public maxFileSize: number = 500000;
 
+  @Input()
+  public multiple: boolean = true;
+
 
   @ViewChild('fileInput')
   private inputEl: ElementRef;

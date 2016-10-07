@@ -10,7 +10,7 @@
             aria-hidden="true"
             type="file"
             class="sky-file-input-hidden"
-            multiple
+            [attr.multiple]="multiple ? multiple: null"
             (change)="fileChangeEvent($event)"
             #fileInput/>
             <div class="sky-file-drop-contents-not-over">
