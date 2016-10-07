@@ -94,17 +94,15 @@ export class SkyFileDropComponent {
     reader.readAsDataURL(file);
   }
 
-
-  private fileChangeEvent(fileInput: any) {
-    let filesToUpload: FileList = fileInput.target.files;
+  private handleFiles(files: FileList) {
     let validFileArray: Array<SkyFileItem> = [];
     let rejectedFileArray: Array<SkyFileItem> = [];
-    let totalFiles = filesToUpload.length;
+    let totalFiles = files.length;
 
     let fileDrop = this;
 
-    for (var index = 0; index < filesToUpload.length; index++) {
-      let file = <SkyFileItem>filesToUpload.item(index);
+    for (var index = 0; index < files.length; index++) {
+      let file = <SkyFileItem>files.item(index);
 
       if (file.size < this.minFileSize) {
         file.errorType = 'minFileSize';
@@ -137,6 +135,26 @@ export class SkyFileDropComponent {
         this.loadFile(fileDrop, file, validFileArray, rejectedFileArray, totalFiles);
       }
     }
+  }
+
+  private fileChangeEvent(fileChangeEvent: any) {
+    this.handleFiles(fileChangeEvent.target.files);
+  }
+
+  private fileDragEnter(this: SkyFileDropComponent, dragEnterEvent: any) {
+    dragEnterEvent.stopPropagation();
+    dragEnterEvent.preventDefault();
+  }
+
+  private fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
+    dragOverEvent.stopPropagation();
+    dragOverEvent.preventDefault();
+  }
+
+  private fileDrop(this: SkyFileDropComponent, dropEvent: any) {
+    dropEvent.stopPropagation();
+    dropEvent.preventDefault();
+    this.handleFiles(dropEvent.dataTransfer.files);
   }
 
 }

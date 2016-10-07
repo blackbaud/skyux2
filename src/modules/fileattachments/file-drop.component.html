@@ -3,7 +3,10 @@
       <button
         type="button"
         class="sky-file-drop sky-file-drop-target"
-        (click)="fileInput.click()">
+        (click)="fileInput.click()"
+        (dragover)="fileDragOver($event)"
+        (dragenter)="fileDragEnter($event)"
+        (drop)="fileDrop($event)">
          <div class="sky-file-drop-contents">
            <input
             tabindex="-1"
