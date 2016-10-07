@@ -34,6 +34,9 @@ export class SkyFileDropComponent {
   @Input()
   public multiple: boolean = true;
 
+  @Input()
+  public validateFn: Function;
+
 
   @ViewChild('fileInput')
   private inputEl: ElementRef;
@@ -51,6 +54,43 @@ export class SkyFileDropComponent {
     }
   }
 
+  private filesRejected(
+    this: SkyFileDropComponent,
+    file: SkyFileItem,
+    validFileArray: Array<SkyFileItem>,
+    rejectedFileArray: Array<SkyFileItem>,
+    totalFiles: number
+  ) {
+    rejectedFileArray.push(file);
+    this.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
+  }
+
+  private loadFile(
+    fileDrop: SkyFileDropComponent,
+    file: SkyFileItem,
+    validFileArray: Array<SkyFileItem>,
+    rejectedFileArray: Array<SkyFileItem>,
+    totalFiles: number) {
+
+    let reader = new FileReader();
+
+    reader.onload = function (this: FileReader, event: any) {
+      file.url = event.target.result;
+      validFileArray.push(file);
+      fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
+    }
+
+    reader.onerror = function (this: FileReader, event: any) {
+      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+    }
+
+    reader.onabort = function (this: FileReader, event: any) {
+      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+    }
+
+    reader.readAsDataURL(file);
+  }
+
   private fileChangeEvent(fileInput: any) {
     let filesToUpload: FileList = fileInput.target.files;
     let validFileArray: Array<SkyFileItem> = [];
@@ -62,36 +102,26 @@ export class SkyFileDropComponent {
     for (var index = 0; index < filesToUpload.length; index++) {
       let file = <SkyFileItem>filesToUpload.item(index);
 
-      console.log('actual file size: ', file.size);
-      console.log('min file size: ', this.minFileSize);
-      console.log('max file size: ', this.maxFileSize);
-
       if (file.size < this.minFileSize) {
         file.errorType = 'minFileSize';
         file.errorParam = this.minFileSize.toString();
-        rejectedFileArray.push(file);
-        fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray)
+        this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
       } else if (file.size > this.maxFileSize) {
         file.errorType = 'maxFileSize';
         file.errorParam = this.maxFileSize.toString();
-        rejectedFileArray.push(file);
-        fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray)
+        this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+      } else if (this.validateFn) {
+        let errorParam = this.validateFn(file);
+        if (!!errorParam) {
+          file.errorType = 'validate';
+          file.errorParam = errorParam;
+          this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+        } else {
+          this.loadFile(fileDrop, file, validFileArray, rejectedFileArray, totalFiles);
+        }
+
       } else {
-        let reader = new FileReader();
-
-        reader.onload = function (this: FileReader, event: any) {
-
-          file.url = event.target.result;
-          validFileArray.push(file);
-          fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
-        }
-
-        reader.onerror = function (this: FileReader, event: any) {
-          rejectedFileArray.push(file);
-          fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
-        }
-
-        reader.readAsDataURL(file);
+        this.loadFile(fileDrop, file, validFileArray, rejectedFileArray, totalFiles);
       }
     }
   }

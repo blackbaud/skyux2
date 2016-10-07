@@ -2,7 +2,8 @@
 
   <sky-file-drop
     (filesChanged)="filesUpdated($event)"
-    [maxFileSize]="maxFileSize">
+    [maxFileSize]="maxFileSize"
+    [validateFn]="validateFile">
   </sky-file-drop>
    <sky-alert
     [alertType]="'danger'"
