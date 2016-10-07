@@ -16,6 +16,8 @@ class AppComponent {
 
   public maxFileSize: number = 4000000;
 
+  public acceptedTypes: Array<String>;
+
   constructor() {
     this.filesToUpload = [];
     this.rejectedFiles = [];
@@ -24,6 +26,8 @@ class AppComponent {
   public filesUpdated(result: SkyFileDropChange) {
     this.filesToUpload = this.filesToUpload.concat(result.files);
     this.rejectedFiles = this.rejectedFiles.concat(result.rejectedFiles);
+
+    console.log('files: ', this.filesToUpload);
 
   }
 

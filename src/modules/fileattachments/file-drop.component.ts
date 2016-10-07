@@ -37,6 +37,9 @@ export class SkyFileDropComponent {
   @Input()
   public validateFn: Function;
 
+  @Input()
+  public acceptedTypes: string;
+
 
   @ViewChild('fileInput')
   private inputEl: ElementRef;
@@ -91,6 +94,7 @@ export class SkyFileDropComponent {
     reader.readAsDataURL(file);
   }
 
+
   private fileChangeEvent(fileInput: any) {
     let filesToUpload: FileList = fileInput.target.files;
     let validFileArray: Array<SkyFileItem> = [];
@@ -110,6 +114,15 @@ export class SkyFileDropComponent {
         file.errorType = 'maxFileSize';
         file.errorParam = this.maxFileSize.toString();
         this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+      } else if (file.type && this.acceptedTypes) {
+        let typeArray = this.acceptedTypes.split(',');
+        if (typeArray.indexOf(file.type) > -1) {
+          this.loadFile(fileDrop, file, validFileArray, rejectedFileArray, totalFiles);
+        } else {
+          file.errorType = 'fileType';
+          file.errorParam = this.acceptedTypes;
+          this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+        }
       } else if (this.validateFn) {
         let errorParam = this.validateFn(file);
         if (!!errorParam) {
