@@ -85,12 +85,18 @@
         border-color: $sky-color-green;
         color: $sky-color-green;
     }
+    .sky-file-drop-contents-accept {
+      display: block;
+    }
 }
 
 .sky-file-drop-reject {
     .sky-file-drop-contents {
         border-color: $sky-color-red;
         color: $sky-color-red;
+    }
+    .sky-file-drop-contents-reject {
+      display: block;
     }
 }
 

@@ -6,7 +6,9 @@
         (click)="fileInput.click()"
         (dragover)="fileDragOver($event)"
         (dragenter)="fileDragEnter($event)"
-        (drop)="fileDrop($event)">
+        (dragleave)="fileDragLeave($event)"
+        (drop)="fileDrop($event)"
+        [ngClass]="{'sky-file-drop-accept': acceptedOver, 'sky-file-drop-reject': rejectedOver}">
          <div class="sky-file-drop-contents">
            <input
             tabindex="-1"
@@ -22,12 +24,12 @@
               <i class="fa fa-cloud-upload sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is valid -->
-            <div class="sky-file-drop-contents-accept" style="display: none">
+            <div class="sky-file-drop-contents-accept" >
               <h4>Drop files here</h4>
               <i class="fa fa-bullseye sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is invalid -->
-            <div class="sky-file-drop-contents-reject" style="display: none">
+            <div class="sky-file-drop-contents-reject" >
               <h4>This file type is invalid</h4>
               <i class="fa fa-times-circle sky-file-upload-icon"></i>
             </div>

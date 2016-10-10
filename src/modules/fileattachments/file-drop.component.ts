@@ -44,6 +44,9 @@ export class SkyFileDropComponent {
   @ViewChild('fileInput')
   private inputEl: ElementRef;
 
+  private rejectedOver: boolean = false;
+  private acceptedOver: boolean = false;
+
 
   private emitFileChangeEvent(
     this: SkyFileDropComponent,
@@ -94,6 +97,14 @@ export class SkyFileDropComponent {
     reader.readAsDataURL(file);
   }
 
+  private fileRejected(fileType: string) {
+    if (!this.acceptedTypes) {
+      return false;
+    }
+    let typeArray = this.acceptedTypes.split(',');
+    return typeArray.indexOf(fileType) === -1;
+  }
+
   private handleFiles(files: FileList) {
     let validFileArray: Array<SkyFileItem> = [];
     let rejectedFileArray: Array<SkyFileItem> = [];
@@ -112,15 +123,10 @@ export class SkyFileDropComponent {
         file.errorType = 'maxFileSize';
         file.errorParam = this.maxFileSize.toString();
         this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-      } else if (file.type && this.acceptedTypes) {
-        let typeArray = this.acceptedTypes.split(',');
-        if (typeArray.indexOf(file.type) > -1) {
-          this.loadFile(fileDrop, file, validFileArray, rejectedFileArray, totalFiles);
-        } else {
-          file.errorType = 'fileType';
-          file.errorParam = this.acceptedTypes;
-          this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-        }
+      } else if (file.type && this.fileRejected(file.type)) {
+        file.errorType = 'fileType';
+        file.errorParam = this.acceptedTypes;
+        this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
       } else if (this.validateFn) {
         let errorParam = this.validateFn(file);
         if (!!errorParam) {
@@ -149,12 +155,42 @@ export class SkyFileDropComponent {
   private fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
     dragOverEvent.stopPropagation();
     dragOverEvent.preventDefault();
+    if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.files) {
+
+      let files = dragOverEvent.dataTransfer.items;
+
+      for (var index = 0; index < files.length; index++) {
+        let file: any = files[index];
+        if (file.type && this.fileRejected(file.type)) {
+          this.rejectedOver = true;
+          this.acceptedOver = false;
+          return;
+        }
+
+      }
+      if (files.length > 0) {
+        this.rejectedOver = false;
+        this.acceptedOver = true;
+
+      }
+
+    }
+
   }
 
   private fileDrop(this: SkyFileDropComponent, dropEvent: any) {
     dropEvent.stopPropagation();
     dropEvent.preventDefault();
-    this.handleFiles(dropEvent.dataTransfer.files);
+    this.rejectedOver = false;
+    this.acceptedOver = false;
+    if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
+      this.handleFiles(dropEvent.dataTransfer.files);
+    }
+  }
+
+  private fileDragLeave(this: SkyFileDropComponent, dragLeaveEvent: any) {
+    this.rejectedOver = false;
+    this.acceptedOver = false;
   }
 
 }
