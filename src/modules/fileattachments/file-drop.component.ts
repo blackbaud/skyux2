@@ -12,6 +12,10 @@ import {
 } from './file-item.class';
 
 import {
+  SkyFileLink
+} from './file-link.class';
+
+import {
   SkyFileDropChange
 } from './file-drop-change.class';
 
@@ -24,6 +28,9 @@ export class SkyFileDropComponent {
 
   @Output()
   public filesChanged = new EventEmitter<SkyFileDropChange>();
+
+  @Output()
+  public linkChanged = new EventEmitter<SkyFileLink>();
 
   @Input()
   public minFileSize: number = 0;
@@ -43,11 +50,17 @@ export class SkyFileDropComponent {
   @Input()
   public noClick: boolean = false;
 
+  @Input()
+  public allowLinks: boolean = false;
+
   @ViewChild('fileInput')
   private inputEl: ElementRef;
 
   private rejectedOver: boolean = false;
   private acceptedOver: boolean = false;
+  private linkUrl: string;
+
+  private enterEventTarget: any;
 
   private dropClicked() {
     if (!this.noClick) {
@@ -155,30 +168,35 @@ export class SkyFileDropComponent {
   }
 
   private fileDragEnter(this: SkyFileDropComponent, dragEnterEvent: any) {
+    // Save this target to know when the drag event leaves
+    this.enterEventTarget = dragEnterEvent.target;
     dragEnterEvent.stopPropagation();
     dragEnterEvent.preventDefault();
+
   }
 
   private fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
     dragOverEvent.stopPropagation();
     dragOverEvent.preventDefault();
-    if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
+
+     if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
 
       let files = dragOverEvent.dataTransfer.items;
 
       for (var index = 0; index < files.length; index++) {
         let file: any = files[index];
-        if (file.type && this.fileRejected(file.type)) {
+        if (file.type && this.fileRejected(file.type) && !this.rejectedOver) {
           this.rejectedOver = true;
           this.acceptedOver = false;
           return;
         }
       }
-      if (files.length > 0) {
+      if (files.length > 0 && !this.acceptedOver) {
         this.rejectedOver = false;
         this.acceptedOver = true;
       }
     }
+
   }
 
   private verifyDropFiles(this: SkyFileDropComponent, items: any) {
@@ -197,6 +215,7 @@ export class SkyFileDropComponent {
   }
 
   private fileDrop(this: SkyFileDropComponent, dropEvent: any) {
+    this.enterEventTarget = null;
     dropEvent.stopPropagation();
     dropEvent.preventDefault();
     this.rejectedOver = false;
@@ -209,8 +228,17 @@ export class SkyFileDropComponent {
   }
 
   private fileDragLeave(this: SkyFileDropComponent, dragLeaveEvent: any) {
-    this.rejectedOver = false;
-    this.acceptedOver = false;
+    if(this.enterEventTarget === dragLeaveEvent.target) {
+      this.rejectedOver = false;
+      this.acceptedOver = false;
+    }
+  }
+
+  private addLink(event: Event) {
+    event.preventDefault();
+    this.linkChanged.emit(new SkyFileLink(this.linkUrl));
+
+    this.linkUrl = null;
   }
 
 }

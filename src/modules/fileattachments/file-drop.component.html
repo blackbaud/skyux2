@@ -8,7 +8,8 @@
         (dragenter)="fileDragEnter($event)"
         (dragleave)="fileDragLeave($event)"
         (drop)="fileDrop($event)"
-        [ngClass]="{'sky-file-drop-accept': acceptedOver, 'sky-file-drop-reject': rejectedOver}">
+        [ngClass]="{'sky-file-drop-accept': acceptedOver, 'sky-file-drop-reject': rejectedOver}"
+        [attr.aria-label]="'file_upload_drag_or_click' | skyResources">
 
           <input
           tabindex="-1"
@@ -20,18 +21,18 @@
           #fileInput/>
           <div class="sky-file-drop-contents" *ngIf="customEl.children.length === 0">
             <div class="sky-file-drop-contents-not-over">
-              <h4>Drag a file here</h4>
-              <h5>or click to browse</h5>
+              <h4>{{'file_upload_drag_file_here' | skyResources}}</h4>
+              <h5>{{'file_upload_or_click_to_browse' | skyResources}}</h5>
               <i class="fa fa-cloud-upload sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is valid -->
             <div class="sky-file-drop-contents-accept" >
-              <h4>Drop files here</h4>
+              <h4>{{'file_upload_drop_files_here' | skyResources}}</h4>
               <i class="fa fa-bullseye sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is invalid -->
             <div class="sky-file-drop-contents-reject" >
-              <h4>This file type is invalid</h4>
+              <h4>{{'file_upload_invalid_file' | skyResources}}</h4>
               <i class="fa fa-times-circle sky-file-upload-icon"></i>
             </div>
           </div>
@@ -41,21 +42,21 @@
       </button>
     </div>
     <div class="sky-file-drop-col" *ngIf="allowLinks">
-        <div class="bb-file-drop-contents">
-            <div class="bb-file-drop-link">
-                <h4 class="bb-file-drop-link-header">{{'file_upload_paste_link' | bbResources}}</h4>
-                <div class="form-group">
+        <div class="sky-file-drop-contents">
+            <div class="sky-file-drop-link">
+                <h4 class="sky-file-drop-link-header">{{'file_upload_paste_link' | skyResources}}</h4>
+                <div class="sky-form-group">
                     <input
-                           type="text"
-                           class="form-control"
-                           placeholder="{{'file_upload_link_placeholder' | bbResources}}"
-                           ng-model="bbFileDrop.url"
-                           ng-keypress="$event.keyCode === 13 &amp;&amp; bbFileDrop.addLink($event)"
-                           ng-attr-aria-label="{{'file_upload_link_input' | bbResources}}"
-                           />
+                      type="text"
+                      class="sky-form-control"
+                      [attr.placeholder]="'file_upload_link_placeholder' | skyResources"
+                      [(ngModel)]="linkUrl"
+                      (keyup.enter)="addLink($event)"
+                      [attr.aria-label]="'file_upload_link_input' | skyResources"
+                      />
                 </div>
-                <button type="button" class="btn btn-primary" ng-disabled="!bbFileDrop.url" ng-click="bbFileDrop.addLink($event)">
-                    {{'file_upload_paste_link_done' | bbResources}}
+                <button type="button" class="sky-btn sky-btn-default" [disabled]="!linkUrl" (click)="addLink($event)">
+                    {{'file_upload_paste_link_done' | skyResources}}
                 </button>
             </div>
         </div>

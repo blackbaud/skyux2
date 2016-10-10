@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule, SkyFileItem, SkyFileDropChange } from '../../../src/core';
+import { SkyModule, SkyFileItem, SkyFileDropChange, SkyFileLink } from '../../../src/core';
 
 import { Bootstrapper } from '../../bootstrapper';
 
@@ -12,6 +12,10 @@ import { Bootstrapper } from '../../bootstrapper';
 class AppComponent {
   public filesToUpload: Array<SkyFileItem>;
 
+  public allItems: Array<SkyFileItem | SkyFileLink>;
+
+  public linksToUpload: Array<SkyFileLink>;
+
   public rejectedFiles: Array<SkyFileItem>;
 
   public maxFileSize: number = 4000000;
@@ -21,11 +25,19 @@ class AppComponent {
   constructor() {
     this.filesToUpload = [];
     this.rejectedFiles = [];
+    this.allItems = [];
+    this.linksToUpload = [];
   }
 
   public filesUpdated(result: SkyFileDropChange) {
     this.filesToUpload = this.filesToUpload.concat(result.files);
     this.rejectedFiles = this.rejectedFiles.concat(result.rejectedFiles);
+    this.allItems = this.allItems.concat(result.files);
+  }
+
+  public linkAdded(result: SkyFileLink) {
+    this.linksToUpload = this.linksToUpload.concat(result);
+    this.allItems = this.allItems.concat(result);
   }
 
   public validateFile(file: SkyFileItem) {

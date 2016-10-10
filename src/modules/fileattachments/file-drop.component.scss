@@ -9,7 +9,7 @@
     margin-bottom: $sky-margin;
     padding-left: $sky-margin-half;
     padding-right: $sky-margin-half;
-    flex-grow: 1;
+    flex-basis: 50%;
 }
 
 .sky-file-drop-contents,
@@ -22,10 +22,9 @@
 .sky-file-drop-contents {
     color: $sky-color-gray;
     cursor: pointer;
-    display: flex;
     height: 120px;
     width: 100%;
-    justify-content: center;
+    text-align: center;
 
     h4,
     h5 {

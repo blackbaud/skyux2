@@ -1,0 +1,11 @@
+@import "variables";
+
+.sky-form-control {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid $sky-border-color;
+}
+
+.sky-form-group {
+  margin-bottom: $sky-margin-half;
+}
