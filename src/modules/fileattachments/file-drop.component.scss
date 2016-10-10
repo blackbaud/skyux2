@@ -27,17 +27,6 @@
     width: 100%;
     justify-content: center;
 
-    .sky-file-input-hidden {
-      visibility: hidden;
-      height: 0;
-      width: 0;
-      overflow:
-      hidden;
-      border: none;
-      padding: 0;
-      margin: 0;
-    }
-
     h4,
     h5 {
         font-style: italic;
@@ -144,4 +133,8 @@
     -webkit-appearance: none;
     width: 100%;
     padding: 0;
+
+    .sky-file-input-hidden {
+      display: none;
+    }
 }

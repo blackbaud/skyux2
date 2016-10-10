@@ -9,15 +9,16 @@
         (dragleave)="fileDragLeave($event)"
         (drop)="fileDrop($event)"
         [ngClass]="{'sky-file-drop-accept': acceptedOver, 'sky-file-drop-reject': rejectedOver}">
-         <div class="sky-file-drop-contents">
-           <input
-            tabindex="-1"
-            aria-hidden="true"
-            type="file"
-            class="sky-file-input-hidden"
-            [attr.multiple]="multiple ? multiple: null"
-            (change)="fileChangeEvent($event)"
-            #fileInput/>
+
+          <input
+          tabindex="-1"
+          aria-hidden="true"
+          type="file"
+          class="sky-file-input-hidden"
+          [attr.multiple]="multiple ? multiple: null"
+          (change)="fileChangeEvent($event)"
+          #fileInput/>
+          <div class="sky-file-drop-contents" *ngIf="customEl.children.length === 0">
             <div class="sky-file-drop-contents-not-over">
               <h4>Drag a file here</h4>
               <h5>or click to browse</h5>
@@ -33,7 +34,10 @@
               <h4>This file type is invalid</h4>
               <i class="fa fa-times-circle sky-file-upload-icon"></i>
             </div>
-        </div>
+          </div>
+          <div class="sky-file-drop-contents-custom" #customEl>
+            <ng-content></ng-content>
+          </div>
       </button>
     </div>
   </div>
