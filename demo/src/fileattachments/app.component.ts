@@ -29,6 +29,20 @@ class AppComponent {
     this.linksToUpload = [];
   }
 
+  private removeFromArray(items:Array<any>, obj: SkyFileItem | SkyFileLink) {
+      let i: number,
+          n: number;
+
+      if (items) {
+          for (i = 0, n = items.length; i < n; i++) {
+              if (items[i] === obj) {
+                  items.splice(i, 1);
+                  break;
+              }
+          }
+      }
+  }
+
   public filesUpdated(result: SkyFileDropChange) {
     this.filesToUpload = this.filesToUpload.concat(result.files);
     this.rejectedFiles = this.rejectedFiles.concat(result.rejectedFiles);
@@ -44,6 +58,12 @@ class AppComponent {
     if (file.name.indexOf('a') === 0) {
         return 'You may not upload a file that begins with the letter "a."';
     }
+  }
+
+  public deleteFile(file: SkyFileItem | SkyFileLink) {
+    this.removeFromArray(this.allItems, file);
+    this.removeFromArray(this.filesToUpload, file);
+    this.removeFromArray(this.linksToUpload, file);
   }
 }
 

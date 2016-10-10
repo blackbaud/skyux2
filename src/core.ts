@@ -49,6 +49,7 @@ export * from './modules/navbar';
 export * from './modules/repeater';
 export * from './modules/tabs';
 export * from './modules/tiles';
+export * from './modules/format';
 
 export const SKY_PROVIDERS: any[] = [
   ...SKY_MODAL_PROVIDERS

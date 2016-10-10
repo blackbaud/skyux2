@@ -12,8 +12,7 @@
     flex-basis: 50%;
 }
 
-.sky-file-drop-contents,
-.sky-file-item {
+.sky-file-drop-contents {
     border: solid 1px $sky-color-gray-lighter;
     background-color: $sky-color-gray-lightest;
     padding: $sky-padding;
@@ -101,28 +100,6 @@
 
 .sky-file-drop-link {
     cursor: default;
-}
-
-.sky-file-item-name {
-    @include sky-ellipsis();
-}
-
-.sky-file-item-title {
-    margin-bottom: $sky-margin;
-}
-
-.sky-file-item-preview-img {
-    max-width: 100%;
-    height: auto;
-    box-shadow: 0 0 5px #666;
-}
-
-.sky-file-item-preview-other {
-    color: $sky-color-gray-light;
-    font-size: 100px;
-    line-height: 1;
-    text-align: center;
-    width: 100%;
 }
 
 .sky-file-drop {

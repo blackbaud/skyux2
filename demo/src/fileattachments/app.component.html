@@ -17,6 +17,6 @@
   </sky-alert>
 
   <div *ngFor="let file of allItems">
-    <img [src]="file.url"/>
+    <sky-file-item [fileItem]="file" (deleteFile)="deleteFile($event)"></sky-file-item>
   </div>
 </div>
