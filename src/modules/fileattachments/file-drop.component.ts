@@ -40,12 +40,20 @@ export class SkyFileDropComponent {
   @Input()
   public acceptedTypes: string;
 
+  @Input()
+  public noClick: boolean = false;
+
   @ViewChild('fileInput')
   private inputEl: ElementRef;
 
   private rejectedOver: boolean = false;
   private acceptedOver: boolean = false;
 
+  private dropClicked() {
+    if (!this.noClick) {
+      this.inputEl.nativeElement.click();
+    }
+  }
 
   private emitFileChangeEvent(
     this: SkyFileDropComponent,
