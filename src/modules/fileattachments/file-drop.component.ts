@@ -40,7 +40,6 @@ export class SkyFileDropComponent {
   @Input()
   public acceptedTypes: string;
 
-
   @ViewChild('fileInput')
   private inputEl: ElementRef;
 
@@ -155,7 +154,7 @@ export class SkyFileDropComponent {
   private fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
     dragOverEvent.stopPropagation();
     dragOverEvent.preventDefault();
-    if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.files) {
+    if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
 
       let files = dragOverEvent.dataTransfer.items;
 
@@ -166,16 +165,27 @@ export class SkyFileDropComponent {
           this.acceptedOver = false;
           return;
         }
-
       }
       if (files.length > 0) {
         this.rejectedOver = false;
         this.acceptedOver = true;
-
       }
+    }
+  }
 
+  private verifyDropFiles(this: SkyFileDropComponent, items: any) {
+    if (!this.multiple && items.length > 1) {
+      return false;
     }
 
+    for (var index = 0; index < items.length; index++) {
+      let file = items[index];
+      if (file.webkitGetAsEntry && file.webkitGetAsEntry() && file.webkitGetAsEntry().isDirectory) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   private fileDrop(this: SkyFileDropComponent, dropEvent: any) {
@@ -184,7 +194,9 @@ export class SkyFileDropComponent {
     this.rejectedOver = false;
     this.acceptedOver = false;
     if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
-      this.handleFiles(dropEvent.dataTransfer.files);
+      if(this.verifyDropFiles(dropEvent.dataTransfer.items)) {
+        this.handleFiles(dropEvent.dataTransfer.files);
+      }
     }
   }
 
