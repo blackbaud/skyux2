@@ -1,7 +1,12 @@
 import {
   TestBed,
   ComponentFixture
+
 } from '@angular/core/testing';
+
+import {
+  DebugElement
+} from '@angular/core';
 
 import {
   By
@@ -47,6 +52,15 @@ describe('File drop component', () => {
     return el.querySelector('.sky-file-drop');
   }
 
+  function getDropDebugEl() {
+    return fixture.debugElement.query(By.css('.sky-file-drop'));
+  }
+
+  function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any) {
+    expect(dropEl.classList.contains('sky-file-drop-accept')).toBe(hasAccept);
+    expect(dropEl.classList.contains('sky-file-drop-reject')).toBe(hasReject);
+  }
+
   it('should create the file drop control', () => {
 
     fixture.detectChanges();
@@ -54,9 +68,7 @@ describe('File drop component', () => {
     let dropEl = getDropEl();
 
     expect(dropEl).toBeTruthy();
-
-    expect(dropEl.classList.contains('sky-file-drop-accept')).toBe(false);
-    expect(dropEl.classList.contains('sky-file-drop-reject')).toBe(false);
+    validateDropClasses(false, false, dropEl)
 
     let inputEl = getInputDebugEl();
     expect((<any>inputEl.references).fileInput).toBeTruthy();
@@ -349,7 +361,170 @@ describe('File drop component', () => {
     expect(filesChangedActual.files[0].size).toBe(1000);
   });
 
+  function triggerDragEnter(enterTarget: any, dropDebugEl: DebugElement) {
+    let dragEnterPropStopped = false;
+    let dragEnterPreventDefault = false;
+
+    let dragEnterEvent = {
+      target: enterTarget,
+      stopPropagation: function () {
+        dragEnterPropStopped = true;
+      },
+      preventDefault: function () {
+        dragEnterPreventDefault = true;
+      }
+    };
+
+    dropDebugEl.triggerEventHandler('dragenter', dragEnterEvent);
+    fixture.detectChanges();
+    expect(dragEnterPreventDefault).toBe(true);
+    expect(dragEnterPropStopped).toBe(true);
+  }
+
+  function triggerDragOver(files: any, dropDebugEl: DebugElement) {
+    let dragOverPropStopped = false;
+    let dragOverPreventDefault = false;
+
+    let dragOverEvent = {
+      dataTransfer: {
+        items: files
+      },
+      stopPropagation: function () {
+        dragOverPropStopped = true;
+      },
+      preventDefault: function () {
+        dragOverPreventDefault = true;
+      }
+    }
+
+    dropDebugEl.triggerEventHandler('dragover', dragOverEvent);
+    fixture.detectChanges();
+    expect(dragOverPreventDefault).toBe(true);
+    expect(dragOverPropStopped).toBe(true);
+  }
+
+  function triggerDrop(files: any, dropDebugEl: DebugElement) {
+    let dropPropStopped = false;
+    let dropPreventDefault = false;
+    let fileLength = files ? files.length: 0;
+
+    let dropEvent = {
+      dataTransfer: {
+        files:
+          {
+            length: fileLength,
+            item: function (index: number) {
+              return files[index]
+            }
+          },
+          items: files
+      },
+      stopPropagation: function () {
+        dropPropStopped = true;
+      },
+      preventDefault: function () {
+        dropPreventDefault = true;
+      }
+    }
+
+    dropDebugEl.triggerEventHandler('drop', dropEvent);
+    fixture.detectChanges();
+    expect(dropPreventDefault).toBe(true);
+    expect(dropPropStopped).toBe(true);
+  }
+
+  function triggerDragLeave(leaveTarget: any, dropDebugEl: DebugElement) {
+
+    let dragLeaveEvent = {
+      target: leaveTarget,
+    };
+
+    dropDebugEl.triggerEventHandler('dragleave', dragLeaveEvent);
+    fixture.detectChanges();
+  }
+
   it('should load files and set classes on drag and drop', () => {
+    let filesChangedActual: SkyFileDropChange;
+
+    componentInstance.filesChanged.subscribe((filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+    let fileReaderSpy = setupFileReaderSpy();
+
+    componentInstance.acceptedTypes = 'image/png, image/tiff';
+
+    fixture.detectChanges();
+
+    let dropDebugEl = getDropDebugEl();
+
+    let files = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        }
+      ];
+
+    let invalidFiles = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/jpeg'
+        }
+      ];
+
+    triggerDragEnter('sky-drop', dropDebugEl);
+    triggerDragOver(files, dropDebugEl);
+    let dropEl = getDropEl();
+
+    validateDropClasses(true, false, dropEl);
+
+    triggerDrop(files, dropDebugEl);
+
+    validateDropClasses(false, false, dropEl);
+    fileReaderSpy.loadCallbacks[0]({
+      target: {
+        result: 'url'
+      }
+    });
+
+    fixture.detectChanges();
+
+    expect(filesChangedActual.rejectedFiles.length).toBe(0);
+
+    expect(filesChangedActual.files.length).toBe(1);
+    expect(filesChangedActual.files[0].url).toBe('url');
+    expect(filesChangedActual.files[0].name).toBe('foo.txt');
+    expect(filesChangedActual.files[0].size).toBe(1000);
+
+    //Verify reject classes when appropriate
+    triggerDragEnter('sky-drop', dropDebugEl);
+    triggerDragOver(invalidFiles, dropDebugEl);
+    validateDropClasses(false, true, dropEl);
+    triggerDragLeave('something', dropDebugEl);
+    validateDropClasses(false, true, dropEl);
+    triggerDragLeave('sky-drop', dropDebugEl);
+    validateDropClasses(false, false, dropEl);
+
+    //Verify empty file array
+    triggerDragEnter('sky-drop', dropDebugEl);
+    triggerDragOver([], dropDebugEl);
+    validateDropClasses(false, false, dropEl);
+
+    let emptyEvent = {
+      stopPropagation: function (){},
+      preventDefault: function () {}
+    };
+
+    //Verify no dataTransfer drag
+    dropDebugEl.triggerEventHandler('dragover', emptyEvent);
+    fixture.detectChanges();
+    validateDropClasses(false, false, dropEl);
+
+    //Verify no dataTransfer drop
+    fileReaderSpy.loadCallbacks = [];
+    dropDebugEl.triggerEventHandler('drop', emptyEvent);
+    fixture.detectChanges();
+    expect(fileReaderSpy.loadCallbacks.length).toBe(0);
 
   });
 
