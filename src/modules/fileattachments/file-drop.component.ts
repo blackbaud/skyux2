@@ -22,7 +22,7 @@ import {
 @Component({
   selector: 'sky-file-drop',
   template: require('./file-drop.component.html'),
-  styles: [require('./file-drop.component.scss')],
+  styles: [require('./file-drop.component.scss')]
 })
 export class SkyFileDropComponent {
 
@@ -62,10 +62,71 @@ export class SkyFileDropComponent {
 
   private enterEventTarget: any;
 
-  private dropClicked() {
+  public dropClicked() {
     if (!this.noClick) {
       this.inputEl.nativeElement.click();
     }
+  }
+
+  public fileChangeEvent(fileChangeEvent: any) {
+    this.handleFiles(fileChangeEvent.target.files);
+  }
+
+  public fileDragEnter(this: SkyFileDropComponent, dragEnterEvent: any) {
+    // Save this target to know when the drag event leaves
+    this.enterEventTarget = dragEnterEvent.target;
+    dragEnterEvent.stopPropagation();
+    dragEnterEvent.preventDefault();
+
+  }
+
+  public fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
+    dragOverEvent.stopPropagation();
+    dragOverEvent.preventDefault();
+
+     if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
+
+      let files = dragOverEvent.dataTransfer.items;
+
+      for (let index = 0; index < files.length; index++) {
+        let file: any = files[index];
+        if (file.type && this.fileRejected(file.type) && !this.rejectedOver) {
+          this.rejectedOver = true;
+          this.acceptedOver = false;
+          return;
+        }
+      }
+      if (files.length > 0 && !this.acceptedOver) {
+        this.rejectedOver = false;
+        this.acceptedOver = true;
+      }
+    }
+  }
+
+  public fileDrop(this: SkyFileDropComponent, dropEvent: any) {
+    this.enterEventTarget = undefined;
+    dropEvent.stopPropagation();
+    dropEvent.preventDefault();
+    this.rejectedOver = false;
+    this.acceptedOver = false;
+    if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
+      if (this.verifyDropFiles(dropEvent.dataTransfer.items)) {
+        this.handleFiles(dropEvent.dataTransfer.files);
+      }
+    }
+  }
+
+  public fileDragLeave(this: SkyFileDropComponent, dragLeaveEvent: any) {
+    if (this.enterEventTarget === dragLeaveEvent.target) {
+      this.rejectedOver = false;
+      this.acceptedOver = false;
+    }
+  }
+
+  public addLink(event: Event) {
+    event.preventDefault();
+    this.linkChanged.emit(new SkyFileLink(this.linkUrl));
+    this.linkUrl = undefined;
   }
 
   private emitFileChangeEvent(
@@ -76,7 +137,7 @@ export class SkyFileDropComponent {
 
     if (totalFiles === rejectedFileArray.length + validFileArray.length) {
       this.filesChanged.emit(new SkyFileDropChange(validFileArray, rejectedFileArray));
-      this.inputEl.nativeElement.value = null;
+      this.inputEl.nativeElement.value = '';
     }
   }
 
@@ -104,15 +165,15 @@ export class SkyFileDropComponent {
       file.url = event.target.result;
       validFileArray.push(file);
       fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
-    }
+    };
 
     reader.onerror = function (this: FileReader, event: any) {
       fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-    }
+    };
 
     reader.onabort = function (this: FileReader, event: any) {
       fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-    }
+    };
 
     reader.readAsDataURL(file);
   }
@@ -132,7 +193,7 @@ export class SkyFileDropComponent {
 
     let fileDrop = this;
 
-    for (var index = 0; index < files.length; index++) {
+    for (let index = 0; index < files.length; index++) {
       let file = <SkyFileItem>files.item(index);
 
       if (file.size < this.minFileSize) {
@@ -163,48 +224,12 @@ export class SkyFileDropComponent {
     }
   }
 
-  private fileChangeEvent(fileChangeEvent: any) {
-    this.handleFiles(fileChangeEvent.target.files);
-  }
-
-  private fileDragEnter(this: SkyFileDropComponent, dragEnterEvent: any) {
-    // Save this target to know when the drag event leaves
-    this.enterEventTarget = dragEnterEvent.target;
-    dragEnterEvent.stopPropagation();
-    dragEnterEvent.preventDefault();
-
-  }
-
-  private fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
-    dragOverEvent.stopPropagation();
-    dragOverEvent.preventDefault();
-
-     if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
-
-      let files = dragOverEvent.dataTransfer.items;
-
-      for (var index = 0; index < files.length; index++) {
-        let file: any = files[index];
-        if (file.type && this.fileRejected(file.type) && !this.rejectedOver) {
-          this.rejectedOver = true;
-          this.acceptedOver = false;
-          return;
-        }
-      }
-      if (files.length > 0 && !this.acceptedOver) {
-        this.rejectedOver = false;
-        this.acceptedOver = true;
-      }
-    }
-
-  }
-
   private verifyDropFiles(this: SkyFileDropComponent, items: any) {
     if (!this.multiple && items.length > 1) {
       return false;
     }
 
-    for (var index = 0; index < items.length; index++) {
+    for (let index = 0; index < items.length; index++) {
       let file = items[index];
       if (file.webkitGetAsEntry && file.webkitGetAsEntry() && file.webkitGetAsEntry().isDirectory) {
         return false;
@@ -212,33 +237,6 @@ export class SkyFileDropComponent {
     }
 
     return true;
-  }
-
-  private fileDrop(this: SkyFileDropComponent, dropEvent: any) {
-    this.enterEventTarget = null;
-    dropEvent.stopPropagation();
-    dropEvent.preventDefault();
-    this.rejectedOver = false;
-    this.acceptedOver = false;
-    if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
-      if(this.verifyDropFiles(dropEvent.dataTransfer.items)) {
-        this.handleFiles(dropEvent.dataTransfer.files);
-      }
-    }
-  }
-
-  private fileDragLeave(this: SkyFileDropComponent, dragLeaveEvent: any) {
-    if(this.enterEventTarget === dragLeaveEvent.target) {
-      this.rejectedOver = false;
-      this.acceptedOver = false;
-    }
-  }
-
-  private addLink(event: Event) {
-    event.preventDefault();
-    this.linkChanged.emit(new SkyFileLink(this.linkUrl));
-
-    this.linkUrl = null;
   }
 
 }

@@ -5,4 +5,3 @@ export { SkyFileSizePipe } from './file-size.pipe';
 export { SkyFileItem } from './file-item.class';
 export { SkyFileLink } from './file-link.class';
 export { SkyFileAttachmentsModule } from './fileattachments.module';
-

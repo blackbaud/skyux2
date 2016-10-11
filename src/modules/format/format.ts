@@ -1,9 +1,5 @@
 export class SkyFormat {
 
-  private static isEmpty(str: string) {
-      return str === null || str === undefined;
-  }
-
   public static formatText(format: string, ...args: any[]): string {
 
     if (this.isEmpty(format)) {
@@ -18,5 +14,11 @@ export class SkyFormat {
   /*istanbul ignore next */
   constructor() {
 
+  }
+
+  private static isEmpty(str: string) {
+    /* tslint:disable */
+    return str === null || str === undefined;
+    /* tslint:enable */
   }
 }
