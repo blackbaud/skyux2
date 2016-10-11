@@ -90,7 +90,7 @@ export class SkyFileDropComponent {
 
       for (let index = 0; index < files.length; index++) {
         let file: any = files[index];
-        if (file.type && this.fileRejected(file.type) && !this.rejectedOver) {
+        if (file.type && this.fileTypeRejected(file.type) && !this.rejectedOver) {
           this.rejectedOver = true;
           this.acceptedOver = false;
           return;
@@ -161,24 +161,32 @@ export class SkyFileDropComponent {
 
     let reader = new FileReader();
 
-    reader.onload = function (this: FileReader, event: any) {
-      file.url = event.target.result;
-      validFileArray.push(file);
-      fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
-    };
+    reader.addEventListener('load',
+      function (this: FileReader, event: any) {
+        console.log('wut load');
+        file.url = event.target.result;
+        validFileArray.push(file);
+        fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
+      }
+    );
 
-    reader.onerror = function (this: FileReader, event: any) {
-      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-    };
+    reader.addEventListener('error',
+      function (this: FileReader, event: any) {
+        fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+      }
+    );
 
-    reader.onabort = function (this: FileReader, event: any) {
-      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-    };
+    reader.addEventListener('abort',
+      function (this: FileReader, event: any) {
+        fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+      }
+    );
+    console.log('do stuff');
 
     reader.readAsDataURL(file);
   }
 
-  private fileRejected(fileType: string) {
+  private fileTypeRejected(fileType: string) {
     if (!this.acceptedTypes) {
       return false;
     }
@@ -204,7 +212,7 @@ export class SkyFileDropComponent {
         file.errorType = 'maxFileSize';
         file.errorParam = this.maxFileSize.toString();
         this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-      } else if (file.type && this.fileRejected(file.type)) {
+      } else if (file.type && this.fileTypeRejected(file.type)) {
         file.errorType = 'fileType';
         file.errorParam = this.acceptedTypes;
         this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
