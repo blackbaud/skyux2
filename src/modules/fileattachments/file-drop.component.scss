@@ -1,116 +1,121 @@
 @import "../../scss/variables";
 @import "../../scss/mixins";
 
-.sky-file-drop-row {
-    display: flex;
-}
-
 .sky-file-drop-col {
-    margin-bottom: $sky-margin;
-    padding-left: $sky-margin-half;
-    padding-right: $sky-margin-half;
+  margin-bottom: $sky-margin;
+  padding-left: $sky-margin-half;
+  padding-right: $sky-margin-half;
+}
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-file-drop-row {
+    display: flex;
+  }
+
+  .sky-file-drop-col {
     flex-basis: 50%;
+  }
 }
 
 .sky-file-drop-contents {
-    border: solid 1px $sky-color-gray-lighter;
-    background-color: $sky-color-gray-lightest;
-    padding: $sky-padding;
+  border: solid 1px $sky-color-gray-lighter;
+  background-color: $sky-color-gray-lightest;
+  padding: $sky-padding;
 }
 
 .sky-file-drop-contents {
-    color: $sky-color-gray;
-    cursor: pointer;
-    height: 120px;
-    width: 100%;
-    text-align: center;
+  color: $sky-color-gray;
+  cursor: pointer;
+  height: 120px;
+  width: 100%;
+  text-align: center;
 
-    h4,
-    h5 {
-        font-style: italic;
-    }
+  h4,
+  h5 {
+    font-style: italic;
+  }
 
-    h4 {
-        font-size: $sky-font-size-xl;
-        margin: 0;
-    }
+  h4 {
+    font-size: $sky-font-size-xl;
+    margin: 0;
+  }
 
-    h5 {
-        font-size: $sky-font-size-lg;
-        margin-top: $sky-margin-half;
-    }
+  h5 {
+    font-size: $sky-font-size-lg;
+    margin-top: $sky-margin-half;
+  }
 
-    .sky-file-drop-link-header {
-        margin-bottom: $sky-margin-half;
-    }
+  .sky-file-drop-link-header {
+    margin-bottom: $sky-margin-half;
+  }
 }
 
 .sky-file-drop-noclick {
-    .sky-file-drop-contents {
-        cursor: default;
+  .sky-file-drop-contents {
+    cursor: default;
 
-        h5 {
-            display: none;
-        }
+    h5 {
+      display: none;
     }
+  }
 }
 
 .sky-file-drop-accept,
 .sky-file-drop-reject {
-    .sky-file-drop-contents {
-        border-style: dashed;
-        border-width: 1px;
-    }
+  .sky-file-drop-contents {
+    border-style: dashed;
+    border-width: 1px;
+  }
 
-    .sky-file-drop-contents-not-over {
-        display: none;
-    }
+  .sky-file-drop-contents-not-over {
+    display: none;
+  }
 }
 
 .sky-file-drop-accept {
-    .sky-file-drop-contents {
-        border-color: $sky-color-green;
-        color: $sky-color-green;
-    }
-    .sky-file-drop-contents-accept {
-      display: block;
-    }
+  .sky-file-drop-contents {
+    border-color: $sky-color-green;
+    color: $sky-color-green;
+  }
+  .sky-file-drop-contents-accept {
+    display: block;
+  }
 }
 
 .sky-file-drop-reject {
-    .sky-file-drop-contents {
-        border-color: $sky-color-red;
-        color: $sky-color-red;
-    }
-    .sky-file-drop-contents-reject {
-      display: block;
-    }
+  .sky-file-drop-contents {
+    border-color: $sky-color-red;
+    color: $sky-color-red;
+  }
+  .sky-file-drop-contents-reject {
+    display: block;
+  }
 }
 
 .sky-file-drop-contents-accept,
 .sky-file-drop-contents-reject {
-    display: none;
+  display: none;
 }
 
 .sky-file-upload-icon {
-    display: block;
-    font-size: 40px;
-    margin-top: $sky-margin;
+  display: block;
+  font-size: 40px;
+  margin-top: $sky-margin;
 }
 
 .sky-file-drop-link {
-    cursor: default;
+  cursor: default;
 }
 
 .sky-file-drop {
-    background-color: transparent;
-    border: none;
-    display: block;
-    -webkit-appearance: none;
-    width: 100%;
-    padding: 0;
+  background-color: transparent;
+  border: none;
+  display: block;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 0;
 
-    .sky-file-input-hidden {
-      display: none;
-    }
+  .sky-file-input-hidden {
+    display: none;
+  }
 }

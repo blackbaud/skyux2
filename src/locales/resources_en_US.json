@@ -483,6 +483,10 @@
         "_description": "",
         "message": "Done"
     },
+    "file_item_delete": {
+      "_description": "Label for the button that deletes a file",
+      "message": "Delete file"
+    },
     "searchfield_searching": {
         "_description": "text for ui-select search control while performing a remote search",
         "message": "Searching..."

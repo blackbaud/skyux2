@@ -8,24 +8,22 @@
                 ({{fileItem.size | skyFileSize}})
             </div>
         </div>
-        <div>
-            <div class="sky-pull-right">
-                <button type="button" class="sky-btn sky-btn-default sky-file-item-btn-delete" [attr.aria-label]="'file_item_delete' | skyResources" (click)="itemDelete()">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </div>
+        <div class="sky-pull-right">
+          <button type="button" class="sky-btn sky-btn-default sky-file-item-btn-delete" [attr.aria-label]="'file_item_delete' | skyResources" (click)="itemDelete()">
+              <i class="fa fa-lg fa-trash-o"></i>
+          </button>
         </div>
     </div>
-    <div>
-        <div>
-            <div *ngIf="isImg()">
+    <div class="sky-file-item-content">
+        <div class="sky-file-item-preview">
+            <div *ngIf="isImg()" class="sky-file-item-preview-img-container">
               <img class="sky-file-item-preview-img" [src]="fileItem.url" />
             </div>
             <div *ngIf="!isImg()" class="sky-file-item-preview-other">
                 <i class="fa" [ngClass]="otherCls"></i>
             </div>
         </div>
-        <div>
+        <div class="sky-file-item-content-custom">
           <ng-content></ng-content>
         </div>
     </div>

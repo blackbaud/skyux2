@@ -5,10 +5,12 @@
   border: solid 1px $sky-color-gray-lighter;
   background-color: $sky-color-gray-lightest;
   padding: $sky-padding;
+  margin-bottom: $sky-margin;
 }
 
 .sky-file-item-name-container {
-  flex-grow: 1;
+  display: inline-block;
+  width: 85%;
 }
 
 .sky-file-item-name {
@@ -17,7 +19,22 @@
 
 .sky-file-item-title {
   margin-bottom: $sky-margin;
+}
+
+.sky-file-item-content {
   display: flex;
+}
+
+.sky-file-item-preview {
+  flex-basis: 25%;
+}
+
+.sky-file-item-content-custom {
+  flex-basis: 75%;
+}
+
+.sky-file-item-preview-img-container {
+  text-align: center;
 }
 
 .sky-file-item-preview-img {
