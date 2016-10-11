@@ -8,7 +8,6 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import {
   MockDragulaService,
-  MockSkyMediaQueryService,
   Tile1TestComponent,
   Tile2TestComponent,
   TileDashboardTestComponent
@@ -18,6 +17,7 @@ import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardFixturesModule } from './fixtures/tile-dashboard-fixtures.module';
+import { MockSkyMediaQueryService } from '../../testing/mocks';
 
 describe('Tile dashboard service', () => {
   let dashboardConfig: SkyTileDashboardConfig;

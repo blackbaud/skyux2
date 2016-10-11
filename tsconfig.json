@@ -9,6 +9,7 @@
     "sourceMap": true,
     "noEmitHelpers": true,
     "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
     "lib": [
       "dom",
       "es6"

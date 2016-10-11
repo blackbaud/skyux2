@@ -1,3 +1,14 @@
+# 2.0.0-alpha.7 (2016-10-06)
+
+- Fixed issue where the checked state of a checkbox was not properly reflected in the UI (#129)
+- Added page summary component (#130)
+- Upgraded to Angular 2.0.2 (#131)
+
+# 2.0.0-alpha.6 (2016-09-28)
+
+- Added basic navbar component
+- Upgraded to Angular 2.0.1
+
 # 2.0.0-alpha.5 (2016-09-21)
 
 - Fixed an issue where code editors could not resolve type references after upgrading to TypeScript 2.0 (#121)
