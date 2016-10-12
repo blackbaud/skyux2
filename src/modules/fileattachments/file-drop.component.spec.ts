@@ -5,6 +5,7 @@ import {
 } from '@angular/core/testing';
 
 import {
+  Component,
   DebugElement
 } from '@angular/core';
 
@@ -24,6 +25,10 @@ import {
   SkyFileDropChange
 } from './file-drop-change.class';
 
+import {
+  SkyFileLink
+} from './file-link.class';
+
 describe('File drop component', () => {
 
   let fixture: ComponentFixture<SkyFileDropComponent>;
@@ -34,6 +39,9 @@ describe('File drop component', () => {
     TestBed.configureTestingModule({
       imports: [
         SkyFileAttachmentsModule
+      ],
+      declarations: [
+        FileDropContentComponent
       ]
     });
   });
@@ -59,6 +67,14 @@ describe('File drop component', () => {
   function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any) {
     expect(dropEl.classList.contains('sky-file-drop-accept')).toBe(hasAccept);
     expect(dropEl.classList.contains('sky-file-drop-reject')).toBe(hasReject);
+  }
+
+  function getLinkInput() {
+    return fixture.debugElement.query(By.css('.sky-file-drop-link input'));
+  }
+
+  function getLinkButton() {
+    return fixture.debugElement.query(By.css('.sky-file-drop-link button'));
   }
 
   it('should create the file drop control', () => {
@@ -528,28 +544,133 @@ describe('File drop component', () => {
 
   });
 
-  it('should prevent loading directories on drag and drop', () => {
+  it('should prevent loading multiple files on drag and drop when multiple is false', () => {
+    let files = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        },
+        {
+          name: 'goo.txt',
+          size: 1000,
+          type: 'image/png'
+        }
+      ];
 
+      let filesChangedActual: SkyFileDropChange;
+
+      componentInstance.filesChanged.subscribe((filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+      let fileReaderSpy = setupFileReaderSpy();
+
+      componentInstance.multiple = false;
+      fixture.detectChanges();
+
+      let dropDebugEl = getDropDebugEl();
+
+      triggerDragEnter('sky-drop', dropDebugEl);
+      triggerDragOver(files, dropDebugEl);
+      triggerDrop(files, dropDebugEl);
+      expect(fileReaderSpy.loadCallbacks.length).toBe(0);
   });
 
-  it('should prevent loading multiple files on drag and drop when multiple is false', () => {
+  it('should prevent loading directories on drag and drop', () => {
+    let files = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png',
+          webkitGetAsEntry: function () {
+            return {
+              isDirectory: true
+            };
+          }
+        }
+      ];
 
+      let filesChangedActual: SkyFileDropChange;
+
+      componentInstance.filesChanged.subscribe((filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+      let fileReaderSpy = setupFileReaderSpy();
+      fixture.detectChanges();
+
+      let dropDebugEl = getDropDebugEl();
+
+      triggerDragEnter('sky-drop', dropDebugEl);
+      triggerDragOver(files, dropDebugEl);
+      triggerDrop(files, dropDebugEl);
   });
 
   it('should show link section when allowLinks is true', () => {
+    componentInstance.allowLinks = true;
+    fixture.detectChanges();
 
+    let linkInput = getLinkInput();
+
+    expect(linkInput).toBeTruthy();
   });
 
-  it('should emit link event when link is added on click', () => {
+  function triggerInputChange(value: string, linkInput: DebugElement) {
+    linkInput.triggerEventHandler('input', {target: {value: value}});
+    fixture.detectChanges();
+  }
 
+  it('should emit link event when link is added on click', () => {
+    let fileLinkActual: SkyFileLink;
+
+    componentInstance.linkChanged.subscribe((newLink: SkyFileLink) => fileLinkActual = newLink );
+
+    componentInstance.allowLinks = true;
+    fixture.detectChanges();
+
+    let linkInput = getLinkInput();
+
+    triggerInputChange('link.com', linkInput);
+
+    let linkButton = getLinkButton();
+    linkButton.nativeElement.click();
+    fixture.detectChanges();
+
+    expect(fileLinkActual.url).toBe('link.com');
   });
 
   it('should emit link event when link is added on enter press', () => {
+    let fileLinkActual: SkyFileLink;
 
+    componentInstance.linkChanged.subscribe((newLink: SkyFileLink) => fileLinkActual = newLink );
+
+    componentInstance.allowLinks = true;
+    fixture.detectChanges();
+
+    let linkInput = getLinkInput();
+
+    triggerInputChange('link.com', linkInput);
+
+    linkInput.triggerEventHandler('keyup.enter', new Event('keyup.enter'));
+    fixture.detectChanges();
+
+    expect(fileLinkActual.url).toBe('link.com');
   });
 
   it('should allow custom content inside of the file drop component', () => {
+    let contentFixture = TestBed.createComponent(FileDropContentComponent);
+    let contentEl = contentFixture.nativeElement;
 
+    contentFixture.detectChanges();
+
+    expect(contentFixture.debugElement.query(By.css('.sky-file-drop-contents'))).toBeFalsy();
+    expect(contentFixture.debugElement.query(By.css('.sky-file-drop-contents-custom .sky-custom-drop'))).toBeTruthy();
   });
+
+  /** Simple test component with tabIndex */
+  @Component({
+    template: `
+      <sky-file-drop>
+        <div class="sky-custom-drop"></div>
+      </sky-file-drop>`
+  })
+  class FileDropContentComponent {}
 
 });
