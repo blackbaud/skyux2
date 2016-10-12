@@ -14,6 +14,9 @@ require('zone.js/dist/zone');
 // Typescript emit helpers polyfill
 import 'ts-helpers';
 
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+
 // if ('production' === ENV) {
   // Production
 // } else {
