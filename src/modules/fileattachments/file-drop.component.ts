@@ -163,7 +163,6 @@ export class SkyFileDropComponent {
 
     reader.addEventListener('load',
       function (this: FileReader, event: any) {
-        console.log('wut load');
         file.url = event.target.result;
         validFileArray.push(file);
         fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
@@ -181,7 +180,6 @@ export class SkyFileDropComponent {
         fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
       }
     );
-    console.log('do stuff');
 
     reader.readAsDataURL(file);
   }
