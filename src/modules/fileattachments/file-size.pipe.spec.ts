@@ -1,7 +1,3 @@
-
-import {
-  inject
-} from '@angular/core/testing';
 import {
   DecimalPipe
 } from '@angular/common';
@@ -11,8 +7,8 @@ describe('File size pipe', () => {
   let fileSizePipe: SkyFileSizePipe,
     decimalPipe: DecimalPipe;
 
-  function validateFormatted(value: number, expected: string, fileSizePipe: SkyFileSizePipe) {
-    let result = fileSizePipe.transform(value);
+  function validateFormatted(value: number, expected: string, newFileSizePipe: SkyFileSizePipe) {
+    let result = newFileSizePipe.transform(value);
 
     expect(result).toBe(expected);
   }
@@ -54,7 +50,9 @@ describe('File size pipe', () => {
 
   it('should return an empty string when the input is null or undefined', function () {
     validateFormatted(undefined, '', fileSizePipe);
+    /* tslint:disable */
     validateFormatted(null, '', fileSizePipe);
+    /* tslint:enable */
   });
 
 });

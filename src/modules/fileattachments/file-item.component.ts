@@ -142,6 +142,8 @@ export class SkyFileItemComponent implements DoCheck {
     let extension = '',
         name: string;
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (this.fileItem) {
       name = (<SkyFileItem>this.fileItem).name || '';
 
@@ -153,7 +155,8 @@ export class SkyFileItemComponent implements DoCheck {
 
   private getFileTypeUpper() {
     let fileType = '';
-
+    /* istanbul ignore else */
+    /* sanity check */
     if (this.fileItem) {
       fileType = (<SkyFileItem>this.fileItem).type || '';
     }
