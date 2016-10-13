@@ -4,6 +4,7 @@ var fs = require('fs-extra'),
   glob = require('glob'),
   path = require('path'),
   sass = require('node-sass'),
+  demoHtmlBuilder = require('./demo-html-builder'),
   TEMP_PATH = './.srctemp';
 
 function deleteNonDistFiles() {
@@ -41,7 +42,8 @@ function writeTSConfig() {
       ]
     },
     "files": [
-      "core.ts"
+      "core.ts",
+      "docs.ts"
     ],
     "compileOnSave": false,
     "buildOnSave": false
@@ -71,6 +73,22 @@ function compileSass(file) {
   return contents;
 }
 
+function getHtmlContents(requireFile) {
+  var encodedHtml,
+    encodedTs,
+    fileContents,
+    fileSuffix = '.demo.html',
+    tsFileContents;
+
+  fileContents = fs.readFileSync(requireFile).toString();
+
+  if (demoHtmlBuilder.isDemo(requireFile)) {
+    fileContents = demoHtmlBuilder.buildHtml(requireFile, fileContents);
+  }
+
+  return fileContents;
+}
+
 function inlineContents(file, fileContents, requireMatch, requireFile) {
   var dirname = path.dirname(file),
     quote = true,
@@ -83,7 +101,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile) {
       requireContents = compileSass(requireFile);
       break;
     case '.html':
-      requireContents = fs.readFileSync(requireFile);
+      requireContents = getHtmlContents(requireFile);
       break;
     case '.json':
       requireContents = fs.readFileSync(requireFile);
