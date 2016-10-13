@@ -92,6 +92,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile) {
   }
 
   if (quote) {
+    requireContents = requireContents.toString().replace(/\\f/g, '\\\\f');
     requireContents = '`' + requireContents.toString().replace(/`/g, '\\`') + '`';
   }
 
