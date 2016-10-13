@@ -660,9 +660,12 @@ describe('File drop component', () => {
 
     triggerInputChange('link.com', linkInput);
 
-    let event = new KeyboardEvent('keyup',
-    <KeyboardEventInit>{ keyCode: 13, which: 13, key: 'Enter', code: 'Enter' });
-    linkInput.triggerEventHandler('keyup.enter', event);
+    linkInput.triggerEventHandler('keyup', { which: 23, preventDefault: function () {} });
+    fixture.detectChanges();
+
+    expect(fileLinkActual).toBeFalsy();
+
+    linkInput.triggerEventHandler('keyup', { which: 13, preventDefault: function () {} });
     fixture.detectChanges();
 
     expect(fileLinkActual.url).toBe('link.com');

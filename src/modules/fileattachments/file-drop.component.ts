@@ -123,6 +123,12 @@ export class SkyFileDropComponent {
     }
   }
 
+  public addLinkEnter(event: KeyboardEvent) {
+    if (event.which === 13) {
+      this.addLink(event);
+    }
+  }
+
   public addLink(event: Event) {
     event.preventDefault();
     this.linkChanged.emit(new SkyFileLink(this.linkUrl));

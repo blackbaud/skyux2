@@ -51,7 +51,7 @@
                       class="sky-form-control"
                       [attr.placeholder]="'file_upload_link_placeholder' | skyResources"
                       [(ngModel)]="linkUrl"
-                      (keyup.enter)="addLink($event)"
+                      (keyup)="addLinkEnter($event)"
                       [attr.aria-label]="'file_upload_link_input' | skyResources"
                       />
                 </div>
