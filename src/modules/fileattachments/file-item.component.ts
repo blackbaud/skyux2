@@ -112,7 +112,7 @@ export class SkyFileItemComponent implements DoCheck {
   }
 
   public isFile() {
-    var file = (<SkyFileItem>this.fileItem).file;
+    let file = (<SkyFileItem>this.fileItem).file;
 
     /* tslint:disable */
     return file && file !== undefined && file !== null && file.size !== undefined

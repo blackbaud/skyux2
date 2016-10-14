@@ -137,7 +137,7 @@ describe('File item component', () => {
         type: 'image/' + extension,
         size: 1000
       },
-      url: 'myFile.' + extension,
+      url: 'myFile.' + extension
     };
 
     fixture.detectChanges();
@@ -163,7 +163,7 @@ describe('File item component', () => {
         type:  type + '/' + extension,
         size: 1000
       },
-      url: 'myFile.' + extension,
+      url: 'myFile.' + extension
     };
     fixture.detectChanges();
     let otherEl = getOtherPreview();
