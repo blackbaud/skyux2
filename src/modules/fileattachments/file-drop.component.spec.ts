@@ -338,7 +338,7 @@ describe('File drop component', () => {
     let errorMessage = 'You may not upload a file that begins with the letter "w."';
 
     componentInstance.validateFn = function(file: any) {
-      if (file.name.indexOf('w') === 0) {
+      if (file.file.name.indexOf('w') === 0) {
           return errorMessage;
       }
     };

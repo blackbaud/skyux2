@@ -2,7 +2,8 @@
     <div class="sky-file-item-title">
         <div class="sky-file-item-name-container">
             <div class="sky-file-item-name">
-                <strong>{{fileItem.file.name || fileItem.url}}</strong>
+                <strong *ngIf="isFile()">{{fileItem.file.name || fileItem.url}}</strong>
+                <strong *ngIf="!isFile()">{{fileItem.url}}</strong>
             </div>
             <div class="sky-file-item-size" *ngIf="isFile()">
                 ({{fileItem.file.size | skyFileSize}})
