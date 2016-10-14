@@ -118,6 +118,11 @@ function inlineHtmlCss() {
 
     while (matches = regex.exec(fileContents)) {
       fileContents = inlineContents(file, fileContents, matches[0], matches[1]);
+
+      // Since we're changing the file contents in each iteration and since the regex is stateful
+      // we need to reset the regex; otherwise it might not be able to locate subsequent matches
+      // after the first replacement.
+      regex.lastIndex = 0;
     }
 
     fs.writeFileSync(

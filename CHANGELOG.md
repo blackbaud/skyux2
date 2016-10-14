@@ -1,3 +1,7 @@
+# 2.0.0-alpha.8 (2016-10-11)
+
+- Fixed missing file reference (#132)
+
 # 2.0.0-alpha.7 (2016-10-06)
 
 - Fixed issue where the checked state of a checkbox was not properly reflected in the UI (#129)
