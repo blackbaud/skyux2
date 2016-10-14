@@ -11,7 +11,7 @@
     [alertType]="'danger'"
     [closeable]="true"
     *ngIf="rejectedFiles.length > 0">
-        The file <strong>{{rejectedFiles[rejectedFiles.length - 1].name}}</strong> is invalid.
+        The file <strong>{{rejectedFiles[rejectedFiles.length - 1].file.name}}</strong> is invalid.
               Reason: {{rejectedFiles[rejectedFiles.length - 1].errorType}} violation.
               Error param: {{rejectedFiles[rejectedFiles.length - 1].errorParam}}
   </sky-alert>

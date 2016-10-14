@@ -9,15 +9,15 @@ import {
 
 import {
   SkyFileItem
-} from './file-item.class';
+} from './file-item';
 
 import {
   SkyFileLink
-} from './file-link.class';
+} from './file-link';
 
 import {
   SkyFileDropChange
-} from './file-drop-change.class';
+} from './file-drop-change';
 
 @Component({
   selector: 'sky-file-drop',
@@ -131,7 +131,7 @@ export class SkyFileDropComponent {
 
   public addLink(event: Event) {
     event.preventDefault();
-    this.linkChanged.emit(new SkyFileLink(this.linkUrl));
+    this.linkChanged.emit({ url: this.linkUrl });
     this.linkUrl = undefined;
   }
 
@@ -142,7 +142,7 @@ export class SkyFileDropComponent {
     validFileArray: Array<SkyFileItem>) {
 
     if (totalFiles === rejectedFileArray.length + validFileArray.length) {
-      this.filesChanged.emit(new SkyFileDropChange(validFileArray, rejectedFileArray));
+      this.filesChanged.emit({ files: validFileArray, rejectedFiles: rejectedFileArray });
       this.inputEl.nativeElement.value = '';
     }
   }
@@ -187,7 +187,7 @@ export class SkyFileDropComponent {
       }
     );
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file.file);
   }
 
   private fileTypeRejected(fileType: string) {
@@ -206,32 +206,32 @@ export class SkyFileDropComponent {
     let fileDrop = this;
 
     for (let index = 0; index < files.length; index++) {
-      let file = <SkyFileItem>files.item(index);
+      let fileItem =  <SkyFileItem> { file: files.item(index) };
 
-      if (file.size < this.minFileSize) {
-        file.errorType = 'minFileSize';
-        file.errorParam = this.minFileSize.toString();
-        this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-      } else if (file.size > this.maxFileSize) {
-        file.errorType = 'maxFileSize';
-        file.errorParam = this.maxFileSize.toString();
-        this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-      } else if (file.type && this.fileTypeRejected(file.type)) {
-        file.errorType = 'fileType';
-        file.errorParam = this.acceptedTypes;
-        this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+      if (fileItem.file.size < this.minFileSize) {
+        fileItem.errorType = 'minFileSize';
+        fileItem.errorParam = this.minFileSize.toString();
+        this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+      } else if (fileItem.file.size > this.maxFileSize) {
+        fileItem.errorType = 'maxFileSize';
+        fileItem.errorParam = this.maxFileSize.toString();
+        this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+      } else if (fileItem.file.type && this.fileTypeRejected(fileItem.file.type)) {
+        fileItem.errorType = 'fileType';
+        fileItem.errorParam = this.acceptedTypes;
+        this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
       } else if (this.validateFn) {
-        let errorParam = this.validateFn(file);
+        let errorParam = this.validateFn(fileItem);
         if (!!errorParam) {
-          file.errorType = 'validate';
-          file.errorParam = errorParam;
-          this.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+          fileItem.errorType = 'validate';
+          fileItem.errorParam = errorParam;
+          this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
         } else {
-          this.loadFile(fileDrop, file, validFileArray, rejectedFileArray, totalFiles);
+          this.loadFile(fileDrop, fileItem, validFileArray, rejectedFileArray, totalFiles);
         }
 
       } else {
-        this.loadFile(fileDrop, file, validFileArray, rejectedFileArray, totalFiles);
+        this.loadFile(fileDrop, fileItem, validFileArray, rejectedFileArray, totalFiles);
       }
     }
   }

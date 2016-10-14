@@ -23,11 +23,11 @@ import {
 
 import {
   SkyFileDropChange
-} from './file-drop-change.class';
+} from './file-drop-change';
 
 import {
   SkyFileLink
-} from './file-link.class';
+} from './file-link';
 
 describe('File drop component', () => {
 
@@ -211,12 +211,12 @@ describe('File drop component', () => {
 
     expect(filesChangedActual.files.length).toBe(2);
     expect(filesChangedActual.files[0].url).toBe('url');
-    expect(filesChangedActual.files[0].name).toBe('foo.txt');
-    expect(filesChangedActual.files[0].size).toBe(1000);
+    expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(1000);
 
     expect(filesChangedActual.files[1].url).toBe('newurl');
-    expect(filesChangedActual.files[1].name).toBe('woo.txt');
-    expect(filesChangedActual.files[1].size).toBe(2000);
+    expect(filesChangedActual.files[1].file.name).toBe('woo.txt');
+    expect(filesChangedActual.files[1].file.size).toBe(2000);
   });
 
   it('should load and emit files on file change event when file reader has an error and aborts',
@@ -259,16 +259,16 @@ describe('File drop component', () => {
 
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('anotherurl');
-    expect(filesChangedActual.files[0].name).toBe('woo.txt');
-    expect(filesChangedActual.files[0].size).toBe(2000);
+    expect(filesChangedActual.files[0].file.name).toBe('woo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(2000);
 
     expect(filesChangedActual.rejectedFiles.length).toBe(2);
 
-    expect(filesChangedActual.rejectedFiles[0].name).toBe('foo.txt');
-    expect(filesChangedActual.rejectedFiles[0].size).toBe(1000);
+    expect(filesChangedActual.rejectedFiles[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.rejectedFiles[0].file.size).toBe(1000);
 
-    expect(filesChangedActual.rejectedFiles[1].name).toBe('goo.txt');
-    expect(filesChangedActual.rejectedFiles[1].size).toBe(3000);
+    expect(filesChangedActual.rejectedFiles[1].file.name).toBe('goo.txt');
+    expect(filesChangedActual.rejectedFiles[1].file.size).toBe(3000);
   });
 
   it('should allow the user to specify to not allow multiple files', () => {
@@ -295,15 +295,15 @@ describe('File drop component', () => {
     setupStandardFileChangeEvent();
 
     expect(filesChangedActual.rejectedFiles.length).toBe(1);
-    expect(filesChangedActual.rejectedFiles[0].name).toBe('foo.txt');
-    expect(filesChangedActual.rejectedFiles[0].size).toBe(1000);
+    expect(filesChangedActual.rejectedFiles[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.rejectedFiles[0].file.size).toBe(1000);
     expect(filesChangedActual.rejectedFiles[0].errorType).toBe('minFileSize');
     expect(filesChangedActual.rejectedFiles[0].errorParam).toBe('1500');
 
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('url');
-    expect(filesChangedActual.files[0].name).toBe('woo.txt');
-    expect(filesChangedActual.files[0].size).toBe(2000);
+    expect(filesChangedActual.files[0].file.name).toBe('woo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(2000);
   });
 
   it('should allow the user to specify a max file size', () => {
@@ -318,15 +318,15 @@ describe('File drop component', () => {
     setupStandardFileChangeEvent();
 
     expect(filesChangedActual.rejectedFiles.length).toBe(1);
-    expect(filesChangedActual.rejectedFiles[0].name).toBe('woo.txt');
-    expect(filesChangedActual.rejectedFiles[0].size).toBe(2000);
+    expect(filesChangedActual.rejectedFiles[0].file.name).toBe('woo.txt');
+    expect(filesChangedActual.rejectedFiles[0].file.size).toBe(2000);
     expect(filesChangedActual.rejectedFiles[0].errorType).toBe('maxFileSize');
     expect(filesChangedActual.rejectedFiles[0].errorParam).toBe('1500');
 
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('url');
-    expect(filesChangedActual.files[0].name).toBe('foo.txt');
-    expect(filesChangedActual.files[0].size).toBe(1000);
+    expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(1000);
   });
 
   it('should allow the user to specify a validation function', () => {
@@ -348,15 +348,15 @@ describe('File drop component', () => {
     setupStandardFileChangeEvent();
 
     expect(filesChangedActual.rejectedFiles.length).toBe(1);
-    expect(filesChangedActual.rejectedFiles[0].name).toBe('woo.txt');
-    expect(filesChangedActual.rejectedFiles[0].size).toBe(2000);
+    expect(filesChangedActual.rejectedFiles[0].file.name).toBe('woo.txt');
+    expect(filesChangedActual.rejectedFiles[0].file.size).toBe(2000);
     expect(filesChangedActual.rejectedFiles[0].errorType).toBe('validate');
     expect(filesChangedActual.rejectedFiles[0].errorParam).toBe(errorMessage);
 
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('url');
-    expect(filesChangedActual.files[0].name).toBe('foo.txt');
-    expect(filesChangedActual.files[0].size).toBe(1000);
+    expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(1000);
   });
 
   it('should allow the user to specify accepted types', () => {
@@ -372,15 +372,15 @@ describe('File drop component', () => {
     setupStandardFileChangeEvent();
 
     expect(filesChangedActual.rejectedFiles.length).toBe(1);
-    expect(filesChangedActual.rejectedFiles[0].name).toBe('woo.txt');
-    expect(filesChangedActual.rejectedFiles[0].size).toBe(2000);
+    expect(filesChangedActual.rejectedFiles[0].file.name).toBe('woo.txt');
+    expect(filesChangedActual.rejectedFiles[0].file.size).toBe(2000);
     expect(filesChangedActual.rejectedFiles[0].errorType).toBe('fileType');
     expect(filesChangedActual.rejectedFiles[0].errorParam).toBe(componentInstance.acceptedTypes);
 
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('url');
-    expect(filesChangedActual.files[0].name).toBe('foo.txt');
-    expect(filesChangedActual.files[0].size).toBe(1000);
+    expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(1000);
   });
 
   function triggerDragEnter(enterTarget: any, dropDebugEl: DebugElement) {
@@ -516,8 +516,8 @@ describe('File drop component', () => {
 
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('url');
-    expect(filesChangedActual.files[0].name).toBe('foo.txt');
-    expect(filesChangedActual.files[0].size).toBe(1000);
+    expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(1000);
 
     // Verify reject classes when appropriate
     triggerDragEnter('sky-drop', dropDebugEl);

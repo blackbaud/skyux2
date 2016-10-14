@@ -13,11 +13,11 @@ import {
 
 import {
   SkyFileItem
-} from './file-item.class';
+} from './file-item';
 
 import {
   SkyFileLink
-} from './file-link.class';
+} from './file-link';
 
 import {
   By
@@ -51,8 +51,10 @@ describe('File item component', () => {
   it('shows the name and size if the item is a file', () => {
 
     componentInstance.fileItem = <SkyFileItem>{
-      name: 'myFile.txt',
-      size: 1000
+      file: {
+        name: 'myFile.txt',
+        size: 1000
+      }
     };
     fixture.detectChanges();
 
@@ -101,9 +103,11 @@ describe('File item component', () => {
     expect(deletedItem.url).toBe('myFile.txt');
 
     componentInstance.fileItem = <SkyFileItem>{
-      name: 'myFile.txt',
-      size: 1000,
-      type: 'file/txt'
+      file: {
+        name: 'myFile.txt',
+        size: 1000,
+        type: 'file/txt'
+      }
     };
 
     let deletedFile: SkyFileItem;
@@ -114,8 +118,8 @@ describe('File item component', () => {
 
     triggerDelete();
 
-    expect(deletedFile.name).toBe('myFile.txt');
-    expect(deletedFile.size).toBe(1000);
+    expect(deletedFile.file.name).toBe('myFile.txt');
+    expect(deletedFile.file.size).toBe(1000);
   });
 
   function getImage() {
@@ -128,10 +132,12 @@ describe('File item component', () => {
 
   function testImage(extension: string) {
     componentInstance.fileItem = <SkyFileItem> {
-      name: 'myFile.' + extension,
+      file: {
+        name: 'myFile.' + extension,
+        type: 'image/' + extension,
+        size: 1000
+      },
       url: 'myFile.' + extension,
-      type: 'image/' + extension,
-      size: 1000
     };
 
     fixture.detectChanges();
@@ -152,10 +158,12 @@ describe('File item component', () => {
 
   function testOtherPreview(extension: string, type: string) {
     componentInstance.fileItem = <SkyFileItem> {
-      name: 'myFile.' + extension,
+      file: {
+        name: 'myFile.' + extension,
+        type:  type + '/' + extension,
+        size: 1000
+      },
       url: 'myFile.' + extension,
-      type:  type + '/' + extension,
-      size: 1000
     };
     fixture.detectChanges();
     let otherEl = getOtherPreview();

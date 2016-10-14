@@ -31,9 +31,11 @@ class AppComponent {
     this.filesToUpload = [];
     this.rejectedFiles = [];
     this.allItems = [<SkyFileItem>{
-      name: 'myfile.pdf',
-      size: 50,
-      type: 'pdf'
+      file: {
+        name: 'myfile.pdf',
+        size: 50,
+        type: 'pdf'
+      }
     }];
     this.linksToUpload = [];
   }
@@ -50,7 +52,7 @@ class AppComponent {
   }
 
   public validateFile(file: SkyFileItem) {
-    if (file.name.indexOf('a') === 0) {
+    if (file.file.name.indexOf('a') === 0) {
         return 'You may not upload a file that begins with the letter "a."';
     }
   }

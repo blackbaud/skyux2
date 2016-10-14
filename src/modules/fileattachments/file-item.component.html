@@ -2,10 +2,10 @@
     <div class="sky-file-item-title">
         <div class="sky-file-item-name-container">
             <div class="sky-file-item-name">
-                <strong>{{fileItem.name || fileItem.url}}</strong>
+                <strong>{{fileItem.file.name || fileItem.url}}</strong>
             </div>
             <div class="sky-file-item-size" *ngIf="isFile()">
-                ({{fileItem.size | skyFileSize}})
+                ({{fileItem.file.size | skyFileSize}})
             </div>
         </div>
         <div class="sky-pull-right">

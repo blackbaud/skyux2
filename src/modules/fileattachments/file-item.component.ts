@@ -10,11 +10,11 @@ import {
 
 import {
   SkyFileItem
-} from './file-item.class';
+} from './file-item';
 
 import {
   SkyFileLink
-} from './file-link.class';
+} from './file-link';
 
 @Component({
   selector: 'sky-file-item',
@@ -112,8 +112,11 @@ export class SkyFileItemComponent implements DoCheck {
   }
 
   public isFile() {
+    var file = (<SkyFileItem>this.fileItem).file;
+
     /* tslint:disable */
-    return this.fileItem && (<SkyFileItem>this.fileItem).size !== undefined && (<SkyFileItem>this.fileItem).size !== null;
+    return file && file !== undefined && file !== null && file.size !== undefined
+      && file.size !== null;
     /* tslint:enable */
   }
 
@@ -145,9 +148,14 @@ export class SkyFileItemComponent implements DoCheck {
     /* istanbul ignore else */
     /* sanity check */
     if (this.fileItem) {
-      name = (<SkyFileItem>this.fileItem).name || '';
+      let file = (<SkyFileItem>this.fileItem).file;
+      if (file) {
+        name = file.name || '';
+        extension = name.substr(name.lastIndexOf('.')) || '';
+      } else {
+        extension = '';
+      }
 
-      extension = name.substr(name.lastIndexOf('.')) || '';
     }
 
     return extension.toUpperCase();
@@ -158,7 +166,12 @@ export class SkyFileItemComponent implements DoCheck {
     /* istanbul ignore else */
     /* sanity check */
     if (this.fileItem) {
-      fileType = (<SkyFileItem>this.fileItem).type || '';
+      let file = (<SkyFileItem>this.fileItem).file;
+      if (file) {
+        fileType = file.type || '';
+      } else {
+        fileType = '';
+      }
     }
 
     return fileType.toUpperCase();
