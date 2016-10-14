@@ -1,0 +1,8 @@
+{
+  "blackbaud-sky-pages-out-skyux2": {
+    "mode": "easy",
+    "skyux": {
+      "importPath": "blackbaud-skyux2/dist"
+    }
+  }
+}

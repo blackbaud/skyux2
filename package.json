@@ -59,6 +59,8 @@
     "@types/webpack": "1.12.35",
     "axe-core": "1.1.1",
     "base64-image-loader": "1.0.0",
+    "blackbaud-sky-pages-in-fs": "github:blackbaud/sky-pages-in-fs",
+    "blackbaud-sky-pages-out-skyux2": "github:blackbaud/sky-pages-out-skyux2",
     "browserstack-local": "1.1.0",
     "codelyzer": "0.0.28",
     "css-loader": "0.25.0",
