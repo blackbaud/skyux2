@@ -26,6 +26,9 @@ require('zone.js/dist/sync-test');
 require('zone.js/dist/proxy');
 require('zone.js/dist/jasmine-patch');
 
+require('intl');
+require('intl/locale-data/jsonp/en');
+
 // RxJS
 require('rxjs/Rx');
 

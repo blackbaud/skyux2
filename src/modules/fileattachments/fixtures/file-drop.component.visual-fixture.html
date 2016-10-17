@@ -1,0 +1,15 @@
+<div style="width: 60%; margin-left: auto; margin-right: auto;">
+  <div id="screenshot-file-drop">
+    <sky-file-drop
+      (filesChanged)="filesUpdated($event)"
+      (linkChanged)="linkAdded($event)"
+      [maxFileSize]="maxFileSize"
+      [validateFn]="validateFile"
+      [allowLinks]="true">
+    </sky-file-drop>
+
+    <div *ngFor="let file of allItems">
+      <sky-file-item [fileItem]="file" (deleteFile)="deleteFile($event)"></sky-file-item>
+    </div>
+  </div>
+</div>

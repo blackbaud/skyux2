@@ -455,6 +455,10 @@
         "_description": "",
         "message": "Drag a file here"
     },
+    "file_upload_drag_or_click" : {
+      "_description": "Label for file drop",
+      "message": "Drag a file here or click to browse"
+    },
     "file_upload_drop_files_here": {
         "_description": "",
         "message": "Drop files here"
@@ -467,6 +471,10 @@
         "_description": "",
         "message": "http://www.something.com/file"
     },
+    "file_upload_link_input": {
+      "_description": "Label for input to upload file",
+      "message": "Add a link to a file"
+    },
     "file_upload_or_click_to_browse": {
         "_description": "",
         "message": "or click to browse"
@@ -478,6 +486,10 @@
     "file_upload_paste_link_done": {
         "_description": "",
         "message": "Done"
+    },
+    "file_item_delete": {
+      "_description": "Label for the button that deletes a file",
+      "message": "Delete file"
     },
     "searchfield_searching": {
         "_description": "text for ui-select search control while performing a remote search",
