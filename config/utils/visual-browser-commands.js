@@ -60,8 +60,9 @@
     });
   }
 
-  const getPrefix = (browser) =>
-    browser.desiredCapabilities.os + '_' + browser.desiredCapabilities.browserName;
+  const getPrefix = (desiredCapabilities) => {
+    return desiredCapabilities.os + '_' + desiredCapabilities.browserName;
+  };
 
   const log = (message) => {
     console.log('\x1b[31m', message);
