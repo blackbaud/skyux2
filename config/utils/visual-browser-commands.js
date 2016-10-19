@@ -60,20 +60,6 @@
     });
   }
 
-  const createPaths = (browser, prefix) => {
-    const css = browser.options.plugins.webdrivercss;
-    const structure = [
-      path.resolve(css.screenshotRoot, prefix),
-      path.resolve(css.failedComparisonsRoot, prefix)
-    ];
-
-    structure.forEach((path) => {
-      if (!fs.existsSync(path)) {
-        fs.mkdirSync(path);
-      }
-    });
-  };
-
   const getPrefix = (browser) =>
     browser.desiredCapabilities.os + '_' + browser.desiredCapabilities.browserName;
 
