@@ -71,9 +71,7 @@ export class SkyRadioComponent implements ControlValueAccessor {
    * Implemented as part of ControlValueAccessor.
    */
   public writeValue(value: any) {
-    if (value !== undefined) {
-      this.selectedValue = value;
-    }
+    this.selectedValue = value;
   }
 
    /**
@@ -99,15 +97,18 @@ export class SkyRadioComponent implements ControlValueAccessor {
    * Toggles checked state if element is not disabled.
    */
   public onRadioChanged(newValue: any) {
-
+    /* istanbul ignore else */
+    /* sanity check */
     if (!this.disabled) {
-      if (newValue !== this.selectedValue && newValue !== undefined) {
+      /* istanbul ignore else */
+      /* sanity check */
+      if (newValue !== this.selectedValue) {
         this.selectedValue = newValue;
         this._controlValueAccessorChangeFn(newValue);
       }
     }
   }
-
+  /* istanbul ignore next */
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
 
 }

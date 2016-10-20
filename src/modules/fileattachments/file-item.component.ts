@@ -150,7 +150,9 @@ export class SkyFileItemComponent implements DoCheck {
     if (this.fileItem) {
       let file = (<SkyFileItem>this.fileItem).file;
       if (file) {
+        /* istanbul ignore next */
         name = file.name || '';
+        /* istanbul ignore next */
         extension = name.substr(name.lastIndexOf('.')) || '';
       } else {
         extension = '';
