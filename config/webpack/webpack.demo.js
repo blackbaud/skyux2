@@ -14,7 +14,7 @@ var entry = {};
     var parts;
 
     dirname = path.dirname(file);
-    parts = dirname.split(path.sep);
+    parts = dirname.split('/'); // glob always returns '/' as separator
     demoName = parts[parts.length - 1];
 
     entry[demoName] = './demo/src/' + demoName + '/app.component.ts';

@@ -23,7 +23,16 @@
   // Start the webserver
   const start = () => new Promise((resolve, reject) => {
     server.listen(webpackCompiler.options.metadata.port, () => {
-      selenium.install({ logger: console.log }, () => {
+      selenium.install({
+        logger: console.log,
+        drivers: {
+          chrome: {
+            version: '2.24',
+            arch: process.arch,
+            baseURL: 'https://chromedriver.storage.googleapis.com'
+          }
+        }
+      }, () => {
         selenium.start((err, child) => {
           seleniumChild = child;
           resolve();

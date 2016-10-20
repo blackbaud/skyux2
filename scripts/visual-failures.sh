@@ -17,6 +17,8 @@ if [[ "$(ls -A webdriver-screenshots-diffs)" ]]; then
     fi
     git checkout -b $branch
 
+    cp -rf ../webdriver-screenshots-screen created-screenshots/
+
     mkdir -p failures
 
     cp -rf ../webdriver-screenshots-diffs/ failures/
