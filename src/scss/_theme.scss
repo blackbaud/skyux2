@@ -67,3 +67,13 @@ button {
     background-image: none;
   }
 }
+
+select {
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid $sky-color-gray-lighter;
+  border-radius: 1px;
+  font-size: $sky-font-size-base;
+  height: 34px;
+  padding: $sky-padding-half $sky-padding;
+}

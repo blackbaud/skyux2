@@ -1,7 +1,11 @@
-<sky-demo-page title="Alert">
+<sky-demo-page title="Tiles">
   <sky-demo-page-summary>
-    The alert component displays a SKY UX-themed alert. It includes an option to let
-    users dismiss the alert with a close button.
+    <p>
+      The <code>sky-tile</code> directive creates a collapsible container and is the bulding block for pages and forms in a Sky UX application. The sky-tile-section directive is used to create padded sections inside a sky-tile element. Additionally, the sky-tile-header-content directive may be placed inside the sky-tile directive to add summary information to the tile. If you simply need to show a check mark indicating the tile has data, you can add a sky-tile-header-check element to the sky-tile-header-content element.
+    </p>
+    <p>
+      When used on forms, it automatically adjusts the background color on the form and shrinks the tile header.
+    </p>
   </sky-demo-page-summary>
 
   <sky-demo-page-properties>
@@ -38,8 +42,10 @@
   </sky-demo-page-properties>
 
   <sky-demo-page-example>
-    <sky-alert-demo></sky-alert-demo>
-    <sky-alert-demo-code></sky-alert-demo-code>
+    <div class="sky-demo-bg-gray">
+      <sky-tiles-demo></sky-tiles-demo>
+    </div>
+    <sky-tiles-demo-code></sky-tiles-demo-code>
   </sky-demo-page-example>
 
 </sky-demo-page>

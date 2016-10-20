@@ -1,0 +1,14 @@
+<section class="sky-demo-page-code">
+  <h2>Code</h2>
+  <sky-tabset>
+    <sky-tab
+        *ngFor="let codeFile of codeFiles; let i = index;"
+        [tabHeading]="codeFile.name"
+        [active]="i === 0"
+    >
+      <div class="sky-demo-page-code-sample">
+        <pre><code [innerHTML]="codeFile.codeFormatted"></code></pre>
+      </div>
+    </sky-tab>
+  </sky-tabset>
+</section>

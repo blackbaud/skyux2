@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-alert-demo',
-  template: require('./alert-demo.component.html'),
-  styles: [require('../../../scss/docs.scss')]
+  templateUrl: './alert-demo.component.html'
 })
 export class SkyAlertDemoComponent {
   public closeable = true;

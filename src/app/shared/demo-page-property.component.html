@@ -1,0 +1,10 @@
+<li>
+  <code>{{propertyName}}</code> &mdash;
+  <i *ngIf="isOptional">
+    (Optional.)
+  </i>
+  <ng-content></ng-content>
+  <i *ngIf="defaultValue">
+    (Default: {{defaultValue}})
+  </i>
+</li>

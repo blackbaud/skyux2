@@ -89,6 +89,7 @@
     "node-resemble-js": "0.0.5",
     "node-sass": "3.10.1",
     "normalize-scss": "5.0.3",
+    "prismjs": "1.5.1",
     "raw-loader": "0.5.1",
     "remap-istanbul": "devCrossNet/remap-istanbul",
     "rimraf": "2.5.4",
