@@ -15,11 +15,9 @@
       defaultTimeoutInterval: 200000,
     },
     waitforTimeout: 3000,
-    plugins: {
-      webdrivercss: {
-        mismatchTolerance: 0.05
-      }
-    },
+    services: [
+      'visual-regression'
+    ],
     reporters: [
       'dot',
       'spec'
@@ -36,7 +34,9 @@
       console.log('Visual Regression Completed');
       console.log('Run time: ' + (new Date().getTime() - timestamp) + 'ms');
       console.log('---------------------------');
-    }
+    },
+
+    sync: false
   };
 
 })();

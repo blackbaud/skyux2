@@ -1,4 +1,5 @@
 @import "mixins";
+@import "variables";
 
 .sky-btn {
   background-color: transparent;
@@ -7,15 +8,28 @@
   cursor: pointer;
   white-space: nowrap;
   outline-offset: -2px;
+  padding: 6px 12px;
 
   &:hover {
     border: 1px solid $sky-color-gray-lighter;
+  }
+
+  &.disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: .65;
+    box-shadow: none;
   }
 }
 
 .sky-btn-default {
   background-color: #fff;
 }
+
+.sky-btn-primary {
+  @include button-variant(#fff, $sky-color-blue, $sky-color-blue);
+  }
 
 .sky-btn-tab {
   @include sky-btn-tab();

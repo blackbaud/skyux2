@@ -1,3 +1,10 @@
+# 2.0.0-alpha.9 (2016-10-18)
+
+- Fixed issue where two tabsets on one page interfered with each other
+- Escaped scss characters properly (#139, #136)
+- Upgraded to Angular 2.1.0
+- Added the file attachments module (#109)
+
 # 2.0.0-alpha.8 (2016-10-11)
 
 - Fixed missing file reference (#132)

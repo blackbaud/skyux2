@@ -13,10 +13,15 @@
     }
   ];
 
-  config.plugins.webdrivercss.screenshotRoot = 'webdriver-screenshotslocal';
-  config.plugins.webdrivercss.failedComparisonsRoot = 'webdriver-screenshotslocal-diffs';
+  config.visualRegression = require('../utils/visual-browser-commands')
+  .getVisualRegression(
+    'webdriver-screenshotslocal',
+    'webdriver-screenshotslocal-screen',
+    'webdriver-screenshotslocal-diffs');
   config.onPrepare = server.start;
   config.onComplete = server.stop;
+
+  config.maxInstances = 1;
 
   exports.config = config;
 })();
