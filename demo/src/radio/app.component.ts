@@ -12,8 +12,8 @@ import { FormsModule } from '@angular/forms';
   template: require('./app.component.html')
 })
 export class AppComponent {
-  public selected: true;
-  public selected2: false;
+  public selectedValue: '3';
+  public value2: '2';
 }
 
 @NgModule({
