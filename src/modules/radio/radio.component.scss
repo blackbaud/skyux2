@@ -1,0 +1,62 @@
+@import "../../scss/variables";
+
+.sky-radio-wrapper {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.sky-radio-wrapper input {
+    opacity: 0;
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+.sky-radio {
+    border: 1px solid $sky-color-gray-lighter;
+    cursor: pointer;
+    display: inline-block;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    width: 22px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 50%;
+}
+
+.sky-radio-wrapper input:hover + .sky-radio {
+    border: 2px solid $sky-color-blue;
+}
+
+.sky-radio-wrapper input:checked + .sky-radio {
+    background-color: $sky-color-blue;
+    border-color: $sky-color-blue;
+    border-width: 1px;
+
+    &:before {
+        color: $sky-color-white;
+        content: "\f00c";
+        font-family: FontAwesome;
+        font-size: $sky-font-size-sm;
+    }
+}
+
+
+.sky-radio-wrapper input:disabled + .sky-radio {
+    background-color: $sky-color-gray-lighter;
+    border: 1px solid $sky-color-gray-lighter;
+    cursor: default;
+}
+
+.sky-radio-wrapper input:focus + .sky-radio {
+  //default
+  outline: thin dotted;
+
+  //webkit
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: -2px;
+}
