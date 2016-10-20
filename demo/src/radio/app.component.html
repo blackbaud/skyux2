@@ -1,0 +1,21 @@
+
+<form #checkForm="ngForm">
+  <div>
+    <sky-radio name="cb" [(ngModel)]="selected" #cb="ngModel">
+      <sky-radio-label>Checkbox</sky-radio-label>
+    </sky-radio>
+    <br />
+    Selected: {{selected}}
+    Touched: {{cb.touched}}
+    Pristine: {{cb.pristine}}
+  </div>
+
+  <div>
+
+    <sky-radio name="cb2" [ngModel]="selected2" (ngModelChange)="selected2 = $event">
+      <sky-radio-label>Checkbox 2</sky-radio-label>
+    </sky-radio>
+    <br />
+    Selected: {{selected2}}
+  </div>
+</form>
