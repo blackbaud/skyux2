@@ -4,7 +4,6 @@ var fs = require('fs-extra'),
   glob = require('glob'),
   path = require('path'),
   sass = require('node-sass'),
-  demoHtmlBuilder = require('./demo-html-builder'),
   TEMP_PATH = './.srctemp';
 
 function deleteNonDistFiles() {
@@ -12,6 +11,7 @@ function deleteNonDistFiles() {
   specFiles.push(TEMP_PATH + '/polyfills.ts');
   specFiles.push(TEMP_PATH + '/vendor.ts');
   specFiles.push(TEMP_PATH + '/**/fixtures');
+  specFiles.push(TEMP_PATH + '/app');
 
   specFiles.forEach(function (file) {
     fs.removeSync(file);
@@ -42,8 +42,7 @@ function writeTSConfig() {
       ]
     },
     "files": [
-      "core.ts",
-      "docs.ts"
+      "core.ts"
     ],
     "compileOnSave": false,
     "buildOnSave": false
@@ -81,10 +80,6 @@ function getHtmlContents(requireFile) {
     tsFileContents;
 
   fileContents = fs.readFileSync(requireFile).toString();
-
-  if (demoHtmlBuilder.isDemo(requireFile)) {
-    fileContents = demoHtmlBuilder.buildHtml(requireFile, fileContents);
-  }
 
   return fileContents;
 }
