@@ -1,14 +1,13 @@
 describe('KeyInfo', () => {
   'use strict';
 
-  it('should match previous key-info screenshot', (done) => {
-    browser
+  it('should match previous key-info screenshot', () => {
+    return browser
       .setupTest('/key-info.html')
       .compareScreenshot({
         screenshotName: 'key-info',
         selector: '#screenshot-key-info'
-      })
-      .call(done);
+      });
   });
 
 });

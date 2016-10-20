@@ -39,8 +39,15 @@
   ];
   config.host = 'hub-cloud-us.browserstack.com';
   config.port = 80;
-  config.plugins.webdrivercss.screenshotRoot = 'webdriver-screenshots';
-  config.plugins.webdrivercss.failedComparisonsRoot = 'webdriver-screenshots-diffs';
+
+  config.maxInstances = 6;
+
+  config.visualRegression = require('../utils/visual-browser-commands')
+    .getVisualRegression(
+      'webdriver-screenshots',
+      'webdriver-screenshots-screen',
+      'webdriver-screenshots-diffs');
+
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
 
