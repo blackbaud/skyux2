@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyDemoPageCodeFile } from '../../shared/demo-page-code-file';
+import { SkyDemoPageCodeFile } from '../shared/demo-page-code-file';
 
 @Component({
   selector: 'sky-alert-demo-code',

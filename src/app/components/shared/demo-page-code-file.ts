@@ -20,7 +20,7 @@ export class SkyDemoPageCodeFile {
         this.language = 'markup';
     }
 
-    this.code = require(`!!raw!../components/${folder}/${name}`);
+    this.code = require(`!!raw!../${folder}/${name}`);
 
     this.codeFormatted = Prism.highlight(
       this.code,
