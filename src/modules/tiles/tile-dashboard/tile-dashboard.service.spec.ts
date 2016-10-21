@@ -14,6 +14,7 @@ import {
 } from './fixtures';
 import { SkyMediaQueryService } from '../../media-queries';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
+import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
 import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardFixturesModule } from './fixtures/tile-dashboard-fixtures.module';
@@ -23,6 +24,18 @@ describe('Tile dashboard service', () => {
   let dashboardConfig: SkyTileDashboardConfig;
   let mockDragulaService: DragulaService;
   let mockMediaQueryService: MockSkyMediaQueryService;
+
+  function createDashboardTestComponent() {
+    return TestBed
+      .overrideComponent(SkyTileDashboardComponent, {
+        add: {
+          providers: [
+            {provide: SkyMediaQueryService, useValue: mockMediaQueryService}
+          ]
+        }
+      })
+      .createComponent(TileDashboardTestComponent);
+  }
 
   beforeEach(() => {
     mockDragulaService = new MockDragulaService();
@@ -89,7 +102,7 @@ describe('Tile dashboard service', () => {
   it('should emit the config change event when a tile is moved',
     fakeAsync(
       () => {
-        let fixture = TestBed.createComponent(TileDashboardTestComponent);
+        let fixture = createDashboardTestComponent();
         let dashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
         let configChanged = false;
 
@@ -282,7 +295,7 @@ describe('Tile dashboard service', () => {
         return columnEl.querySelectorAll('sky-tile').length;
       }
 
-      let fixture = TestBed.createComponent(TileDashboardTestComponent);
+      let fixture = createDashboardTestComponent();
 
       mockMediaQueryService.matches = true;
 
@@ -307,7 +320,7 @@ describe('Tile dashboard service', () => {
         return columnEl.querySelectorAll('sky-tile').length;
       }
 
-      let fixture = TestBed.createComponent(TileDashboardTestComponent);
+      let fixture = createDashboardTestComponent();
 
       let el = fixture.nativeElement;
 
@@ -346,9 +359,9 @@ describe('Tile dashboard service', () => {
   it(
     'should return the expected config regardless of which column mode is active',
     fakeAsync(() => {
-      let fixture = TestBed.createComponent(TileDashboardTestComponent);
+      let fixture = createDashboardTestComponent();
 
-      let cmp = fixture.componentInstance as TileDashboardTestComponent;
+      let cmp = fixture.componentInstance;
 
       let expectedDashboardConfig = cmp.dashboardConfig;
 
