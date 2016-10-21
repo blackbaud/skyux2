@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
-import { SkyMediaQueriesModule } from '../../media-queries';
 import { SkyResourcesModule } from '../../resources';
 
 import { SkyTileDashboardColumnComponent } from './tile-dashboard-column.component';
@@ -15,7 +14,6 @@ import { SkyTileDashboardColumnComponent } from './tile-dashboard-column.compone
   imports: [
     CommonModule,
     DragulaModule,
-    SkyMediaQueriesModule,
     SkyResourcesModule
   ],
   exports: [
