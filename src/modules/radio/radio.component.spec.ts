@@ -82,6 +82,7 @@ describe('Radio component', function () {
 
   it('should update the radio buttons properly when ngModel is changed', fakeAsync(function () {
     componentInstance.selectedValue = '2';
+
     fixture.detectChanges();
     tick();
     fixture.detectChanges();
