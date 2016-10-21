@@ -39,7 +39,7 @@ describe('Radio component', function () {
       declarations: [
         RadioTestComponent
       ]
-    })
+    });
   });
 
   beforeEach(fakeAsync(function () {
@@ -147,7 +147,6 @@ describe('Radio component', function () {
     let radio1El = fixture.debugElement.query(By.css('#hey input'));
     expect(radio1El.nativeElement.getAttribute('tabindex')).toBe('3');
   }));
-
 
   @Component({
     template: `

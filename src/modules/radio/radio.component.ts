@@ -75,8 +75,8 @@ export class SkyRadioComponent implements ControlValueAccessor {
   }
 
    /**
-   * Implemented as part of ControlValueAccessor.
-   */
+    * Implemented as part of ControlValueAccessor.
+    */
   public registerOnChange(fn: (value: any) => void) {
     this._controlValueAccessorChangeFn = fn;
   }
