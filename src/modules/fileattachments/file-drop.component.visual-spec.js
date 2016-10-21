@@ -1,7 +1,7 @@
-describe('File drop', () => {
+describe('File drop', function () {
   'use strict';
 
-  it('should match the file drop control', () => {
+  it('should match the file drop control', function () {
     return browser
       .setupTest('/fileattachments.html')
       .compareScreenshot({
