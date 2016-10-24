@@ -1,0 +1,15 @@
+<label class="sky-radio-wrapper">
+  <input type="radio"
+        [id]="inputId"
+        [ngModel]="selectedValue"
+        [disabled]="disabled"
+        [name]="name"
+        [value]="value"
+        [tabIndex]="tabindex"
+        [attr.aria-label]="label"
+        [attr.aria-labelledby]="labelledBy"
+        (blur)="onInputBlur()"
+        (ngModelChange)="onRadioChanged($event)"/>
+  <span class="sky-radio"></span>
+  <ng-content select="sky-radio-label"></ng-content>
+</label>
