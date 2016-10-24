@@ -15,12 +15,14 @@ export class SkyDemoComponentsService {
       {
         name: 'Avatar',
         icon: 'user',
+        // tslint:disable-next-line
         summary: `The avatar component displays an image with an option to let users change the image.`,
         url: '/components/avatar'
       },
       {
         name: 'Tiles',
         icon: 'th-large',
+        // tslint:disable-next-line
         summary: `Tiles provides a collapsible container that is the building block for pages and forms in SKY UX applications.`,
         url: '/components/tiles'
       }
