@@ -18,22 +18,5 @@ import { SkyDemoPageCodeFile } from './demo-page-code-file';
 })
 export class SkyDemoPageCodeComponent {
   @Input()
-  public set codeFiles(value: SkyDemoPageCodeFile[]) {
-    if (value) {
-      for (let codeFile of value) {
-        codeFile.codeFormatted = Prism.highlight(
-          codeFile.code,
-          Prism.languages[codeFile.language]
-        );
-      }
-    }
-
-    this._codeFiles = value;
-  }
-
-  public get codeFiles(): SkyDemoPageCodeFile[] {
-    return this._codeFiles;
-  }
-
-  private _codeFiles: SkyDemoPageCodeFile[];
+  public codeFiles: SkyDemoPageCodeFile[];
 }

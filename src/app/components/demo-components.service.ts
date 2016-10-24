@@ -20,6 +20,13 @@ export class SkyDemoComponentsService {
         url: '/components/avatar'
       },
       {
+        name: 'Card',
+        icon: 'th-large',
+        // tslint:disable-next-line
+        summary: `The card component creates a small container to highlight important information.`,
+        url: '/components/card'
+      },
+      {
         name: 'Tiles',
         icon: 'th-large',
         // tslint:disable-next-line
