@@ -1,0 +1,51 @@
+@import '../../../scss/mixins';
+
+.sky-demo-button-wrapper {
+  float: left;
+  padding: $sky-padding;
+  width: 33%;
+}
+
+@media (max-width: $sky-screen-md-max) {
+  .sky-demo-button-wrapper {
+    width: 50%;
+  }
+}
+
+@media (max-width: $sky-screen-xs-max) {
+  .sky-demo-button-wrapper {
+    width: 100%;
+  }
+}
+
+.sky-demo-button {
+  color: #000;
+  display: block;
+  text-decoration: none;
+  min-height: 200px;
+  border: solid 1px $sky-color-gray-lightest;
+
+  h3 {
+    background-color: scale-color($color: $sky-color-gray-lightest, $lightness: 50%);
+    border-bottom: solid 1px $sky-color-gray-lightest;
+    font-size: $sky-font-size-lg;
+    margin: 0;
+    padding: $sky-padding;
+  }
+
+  p {
+    margin: $sky-margin-double;
+  }
+}
+
+.sky-demo-button-content {
+  display: flex;
+}
+
+.sky-demo-button-icon {
+  color: $sky-color-gray;
+  display: block;
+  flex-grow: 0;
+  padding: $sky-padding-double;
+  padding-right: 0;
+}

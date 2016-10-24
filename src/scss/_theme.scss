@@ -61,6 +61,15 @@ h1 {
   display: none !important;
 }
 
+a {
+  color: $sky-link-color;
+  text-decoration: none;
+
+  &:hover {
+    color: scale-color($color: $sky-link-color, $lightness: -20%);
+  }
+}
+
 button {
   &:active {
     outline: 0;

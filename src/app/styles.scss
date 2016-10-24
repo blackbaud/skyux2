@@ -4,10 +4,17 @@ body {
   background-color: #fff;
 }
 
+p {
+  line-height: 1.6em;
+}
+
 code {
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  color: scale-color($color: $sky-color-red, $lightness: -20%);
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
   background-color: scale-color($color: $sky-color-red, $lightness: 90%);
+  border-radius: 4px;
+  color: scale-color($color: $sky-color-red, $lightness: -20%);
+  padding: 2px 4px;
 }
 
 /* Prism overrides */

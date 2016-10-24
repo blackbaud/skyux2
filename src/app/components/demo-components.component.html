@@ -1,0 +1,15 @@
+<sky-demo-page title="Components">
+  <sky-demo-page-summary>
+    <p>
+      SKY UX components, available as Angular 2 components, services, and modules, allow developers to easily create user interfaces that incorporate our styles and patterns. <a href="https://angular.io">Angular 2</a> is at the heart of SKY UX, so it is important you are familiar with it before you get started.
+    </p>
+    <sky-demo-button
+        *ngFor="let component of components"
+        [url]="component.url"
+        [componentName]="component.name"
+        [icon]="component.icon"
+    >
+      {{ component.summary }}
+    </sky-demo-button>
+  </sky-demo-page-summary>
+</sky-demo-page>
