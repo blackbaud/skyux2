@@ -18,5 +18,12 @@ import { SkyDemoPageCodeFile } from './demo-page-code-file';
 })
 export class SkyDemoPageCodeComponent {
   @Input()
-  public codeFiles: SkyDemoPageCodeFile[];
+  public codeFilesForBinding: SkyDemoPageCodeFile[];
+
+  @Input()
+  public set codeFiles(value: {folder: string, name: string}[]) {
+    this.codeFilesForBinding = value.map((item) => {
+      return new SkyDemoPageCodeFile(item.folder, item.name);
+    });
+  };
 }
