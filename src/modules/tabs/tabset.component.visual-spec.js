@@ -22,6 +22,7 @@ describe('TabSet', function () {
   it('should match previous mobile dropdown tabset screenshot', function () {
     return browser
       .setupTest('/tabs.html', 480)
+      .waitForVisible('#screenshot-tabset button.sky-dropdown-button-type-tab')
       .click('#screenshot-tabset button.sky-dropdown-button-type-tab')
       .compareScreenshot({
         screenshotName: 'tabset-collapsed-dropdown',
