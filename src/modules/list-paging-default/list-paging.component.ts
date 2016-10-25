@@ -1,3 +1,10 @@
+import {
+  ListPagingConfigSetItemsPerPageAction, ListPagingConfigSetMaxPagesAction
+} from './state/config/actions';
+import {
+  ListPagingCurrentSetDisplayedPagesAction, ListPagingCurrentSetPageNumberAction,
+  ListPagingCurrentSetPageCountAction
+} from './state/current/actions';
 import { Component, Input, ChangeDetectionStrategy, forwardRef } from '@angular/core';
 import { getValue } from 'microedge-rxstate/helpers';
 import { ListPagingComponent } from '../list/list-paging.component';
@@ -6,13 +13,6 @@ import { ListDisplayedItemsLoadAction } from '../list/state/displayed-items/acti
 import { PagingStateDispatcher, PagingState, PagingStateModel } from './state';
 import { Observable } from 'rxjs';
 import { ListState } from '../list/state';
-import {
-  ListPagingConfigSetItemsPerPageAction, ListPagingConfigSetMaxPagesAction
-} from './state/config/actions';
-import {
-  ListPagingCurrentSetDisplayedPagesAction, ListPagingCurrentSetPageNumberAction,
-  ListPagingCurrentSetPageCountAction
-} from './state/current/actions';
 
 @Component({
   selector: 'sky-list-paging',

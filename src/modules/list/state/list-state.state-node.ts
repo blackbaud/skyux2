@@ -9,6 +9,7 @@ import { ListViewsOrchestrator } from './views/views.orchestrator';
 import { ListSearchOrchestrator } from './search/search.orchestrator';
 import { ListSortOrchestrator } from './sort/sort.orchestrator';
 import { ListFiltersOrchestrator } from './filters/filters.orchestrator';
+import { ListToolbarOrchestrator } from './toolbar/toolbar.orchestrator';
 
 @Injectable()
 export class ListState extends StateNode<ListStateModel> {
@@ -22,6 +23,7 @@ export class ListState extends StateNode<ListStateModel> {
       .register('search', ListSearchOrchestrator)
       .register('sort', ListSortOrchestrator)
       .register('filters', ListFiltersOrchestrator)
+      .register('toolbar', ListToolbarOrchestrator)
       .begin();
   }
 }

@@ -15,8 +15,8 @@ import { ListViewGridColumnModel } from './state/columns/column.model';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
 import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
-import { ListToolbarItemsLoadAction } from '../list-toolbar/state/items/actions';
-import { ListToolbarItemModel } from '../list-toolbar/state/items/item.model';
+import { ListToolbarItemsLoadAction } from '../list/state/toolbar/actions';
+import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { ListSortLabelModel } from '../list/state/sort/label.model';
 import { Observable } from 'rxjs';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -148,13 +148,11 @@ export class SkyListViewGridComponent
   }
 
   public ngAfterViewInit() {
-    if (this.list !== undefined && this.list.toolbarDispatcher !== undefined) {
-      setTimeout(() => this.list.toolbarDispatcher.next(new ListToolbarItemsLoadAction([
-        new ListToolbarItemModel(
-          { template: this.chooseColumnsTemplate, location: 'center', index: 0, view: this.id }
-        )
-      ])));
-    }
+    setTimeout(() => this.dispatcher.next(new ListToolbarItemsLoadAction([
+      new ListToolbarItemModel(
+        { template: this.chooseColumnsTemplate, location: 'center', index: 0, view: this.id }
+      )
+    ])));
   }
 
   public onViewActive() {

@@ -1,30 +1,27 @@
 import {
-  Component, ContentChildren, QueryList, AfterContentInit, ChangeDetectionStrategy,
-  Input, OnInit
+  Component, ContentChildren, QueryList, AfterContentInit, ChangeDetectionStrategy, Input
 } from '@angular/core';
-import { ListState, ListStateDispatcher, ListStateModel } from './state';
-import { Observable } from 'rxjs/Observable';
-import { ListViewComponent } from './list-view.component';
-import { ListPagingComponent } from './list-paging.component';
-import { SkyListToolbarComponent } from '../list-toolbar/list-toolbar.component';
-import { SkyListFiltersComponent } from '../list-filters/list-filters.component';
-import { ListSortModel } from './state/sort/sort.model';
-import { ListSearchModel } from './state/search/search.model';
-import { ListFilterModel } from './state/filters/filter.model';
-import { getData, compare } from './helpers';
-import { getValue } from 'microedge-rxstate/helpers';
-const moment = require('moment');
-
 import {
   ListItemsLoadAction, ListItemsSetLoadingAction, ListItemsSetItemsSelectedAction
 } from './state/items/actions';
 import {
   ListDisplayedItemsLoadAction, ListDisplayedItemsSetLoadingAction
 } from './state/displayed-items/actions';
+import { ListState, ListStateDispatcher, ListStateModel } from './state';
+import { Observable } from 'rxjs/Observable';
+import { ListViewComponent } from './list-view.component';
+import { ListPagingComponent } from './list-paging.component';
+import { ListSortModel } from './state/sort/sort.model';
+import { ListSearchModel } from './state/search/search.model';
+import { ListFilterModel } from './state/filters/filter.model';
+import { getData, compare } from './helpers';
+import { getValue } from 'microedge-rxstate/helpers';
 import { ListViewsLoadAction, ListViewsSetActiveAction } from './state/views/actions';
 import { ListViewModel } from './state/views/view.model';
 import { ListItemModel } from './state/items/item.model';
 import { ListSortSetFieldSelectorsAction } from './state/sort/actions';
+import { ListToolbarSetExistsAction } from './state/toolbar/actions';
+const moment = require('moment');
 
 @Component({
   selector: 'sky-list',
@@ -33,9 +30,9 @@ import { ListSortSetFieldSelectorsAction } from './state/sort/actions';
   providers: [ListState, ListStateDispatcher, ListStateModel],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyListComponent implements AfterContentInit, OnInit {
+export class SkyListComponent implements AfterContentInit {
   public id: string = moment().toDate().getTime();
-  @Input() public data: Array<any> | Observable<Array<any>>;
+  @Input() public data: Array<any> | Observable<Array<any>> = [];
   @Input() public defaultView?: ListViewComponent;
   @Input() public selectedIds: Array<string> | Observable<Array<string>>;
   @Input()
@@ -52,20 +49,11 @@ export class SkyListComponent implements AfterContentInit, OnInit {
 
   @ContentChildren(ListViewComponent) private listViews: QueryList<ListViewComponent>;
   @ContentChildren(ListPagingComponent) private listPaging: QueryList<ListPagingComponent>;
-  @ContentChildren(SkyListToolbarComponent) private listToolbar: QueryList<SkyListToolbarComponent>;
-  @ContentChildren(SkyListFiltersComponent) private listFilters: QueryList<SkyListFiltersComponent>;
 
   constructor(
     private state: ListState,
     private dispatcher: ListStateDispatcher
   ) {
-  }
-
-  public ngOnInit() {
-    // transform provided data into ListItemModels
-    if (this.data === undefined) {
-      throw new Error('You must supply the [data] attribute with a value for the list to function');
-    }
   }
 
   public ngAfterContentInit() {
@@ -76,24 +64,8 @@ export class SkyListComponent implements AfterContentInit, OnInit {
         this.dispatcher.next(
           new ListViewsLoadAction(this.listViews.map(v => new ListViewModel(v.id, v.label)))
         );
-      } else {
-        throw new Error('sky-list requires at least one list view component to render');
       }
     }
-
-    if (this.listPaging.length > 1) {
-      throw new Error('sky-list only allows for a single paging component at once');
-    }
-
-    if (this.listToolbar.length > 1) {
-      throw new Error('sky-list only allows for a single toolbar component at once');
-    }
-
-    // pass list reference into child controls
-    this.listViews.forEach(listView => listView.onListInit(this));
-    this.listToolbar.forEach(listToolbar => listToolbar.onListInit(this));
-    this.listFilters.forEach(listFilter => listFilter.onListInit(this));
-    this.listPaging.forEach(listPaging => listPaging.onListInit(this));
 
     // activate the default view
     this.dispatcher.next(new ListViewsSetActiveAction(defaultView.id));
@@ -220,10 +192,6 @@ export class SkyListComponent implements AfterContentInit, OnInit {
     .subscribe();
   }
 
-  get hasToolbar() {
-    return this.listToolbar.length > 0;
-  }
-
   get items(): Observable<Array<ListItemModel>> {
     let data: any = this.data;
     if (!(this.data instanceof Observable)) {
@@ -308,14 +276,6 @@ export class SkyListComponent implements AfterContentInit, OnInit {
     return this.state.map(s =>
       s.items.lastUpdate ? moment(s.items.lastUpdate).toDate() : undefined
     );
-  }
-
-  get toolbarDispatcher() {
-    if (this.listToolbar.length > 0) {
-      return this.listToolbar.first.toolbarDispatcher;
-    }
-
-    return undefined;
   }
 
   public clearSelections() {

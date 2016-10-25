@@ -1,5 +1,5 @@
 <div *ngIf="active | async" [style.height.px]="height | async" [style.width.px]="width | async">
-  <table [ngClass]="{ 'no-top-border': hasToolbar, fit: fit !== 'scroll' }">
+  <table [ngClass]="{ 'no-top-border': (hasToolbar | async), fit: fit !== 'scroll' }">
     <thead>
       <tr dragula="heading">
         <th class="heading" *ngFor="let column of columns | async; let last = last" (click)="sortByColumn(column)" [style.width.px]="last ? null : column.width" [attr.cmp-id]="column.id || column.field" [ngClass]="{ locked: column.locked }">

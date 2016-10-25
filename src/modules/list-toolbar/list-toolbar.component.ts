@@ -2,27 +2,29 @@ import {
   Component, ContentChildren, QueryList, ViewChild, TemplateRef, Input,
   OnInit, AfterContentInit, ChangeDetectionStrategy
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AsyncList } from 'microedge-rxstate/core';
-import { ListToolbarState, ListToolbarStateDispatcher, ListToolbarStateModel } from './state';
-import { ListToolbarItemModel } from './state/items/item.model';
-import { ListToolbarItemsLoadAction } from './state/items/actions';
-import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
-import { ListState, ListStateDispatcher } from '../list/state';
 import {
   ListSortSetAvailableAction, ListSortSetGlobalAction, ListSortSetFieldSelectorsAction
 } from '../list/state/sort/actions';
-import { ListSearchSetSearchTextAction } from '../list/state/search/actions';
-import { SkyListComponent } from '../list/list.component';
-import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
-import { ListSortLabelModel } from '../list/state/sort/label.model';
-import { getValue } from 'microedge-rxstate/helpers';
-import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
-import { ListViewsSetActiveAction } from '../list/state/views/actions';
+import {
+  ListSearchSetSearchTextAction, ListSearchSetFunctionsAction
+} from '../list/state/search/actions';
 import {
   ListToolbarConfigSetFilterEnabledAction, ListToolbarConfigSetSearchEnabledAction,
   ListToolbarConfigSetSortSelectorEnabledAction, ListToolbarConfigSetViewSelectorEnabledAction
 } from './state/config/actions';
+import {
+  ListToolbarItemsLoadAction, ListToolbarSetExistsAction
+} from '../list/state/toolbar/actions';
+import { Observable } from 'rxjs';
+import { ListToolbarState, ListToolbarStateDispatcher, ListToolbarStateModel } from './state';
+import { ListToolbarModel } from '../list/state/toolbar/toolbar.model';
+import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
+import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
+import { ListState, ListStateDispatcher } from '../list/state';
+import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
+import { ListSortLabelModel } from '../list/state/sort/label.model';
+import { getValue } from 'microedge-rxstate/helpers';
+import { ListViewsSetActiveAction } from '../list/state/views/actions';
 
 @Component({
   selector: 'sky-list-toolbar',
@@ -44,7 +46,6 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @Input() public sortSelectorEnabled: boolean | Observable<boolean>;
   /* tslint:disable */
   @Input('searchText') private searchTextInput: string | Observable<string>;
-  protected list: SkyListComponent;
   /* tslint:enable */
 
   @ContentChildren(SkyListToolbarItemComponent)
@@ -63,11 +64,8 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   ) {
   }
 
-  public onListInit(list: SkyListComponent) {
-    this.list = list;
-  }
-
   public ngOnInit() {
+    this.dispatcher.next(new ListToolbarSetExistsAction(true));
     getValue(this.searchTextInput, (searchText: string) => this.updateSearchText(searchText));
     getValue(this.searchEnabled, (searchEnabled: any) =>
       this.toolbarDispatcher.next(
@@ -98,7 +96,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       )
     );
 
-    this.toolbarDispatcher.next(new ListToolbarItemsLoadAction([
+    this.dispatcher.next(new ListToolbarItemsLoadAction([
       this.type !== 'search' ?
         new ListToolbarItemModel({ template: this.searchTemplate, location: 'center' }) :
         undefined,
@@ -108,7 +106,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   }
 
   public ngAfterContentInit() {
-    this.toolbarItems.forEach(toolbarItem => this.toolbarDispatcher.next(
+    this.toolbarItems.forEach(toolbarItem => this.dispatcher.next(
       new ListToolbarItemsLoadAction(
         [new ListToolbarItemModel(toolbarItem)],
         toolbarItem.index
@@ -133,9 +131,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   get leftTemplates() {
     return Observable.combineLatest(
-      this.toolbarState.map(s => s.items).distinctUntilChanged(),
+      this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view,
-      (items: AsyncList<ListToolbarItemModel>, view: string) => items.items.filter(
+      (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
         (i: ListToolbarItemModel) =>
           i.location === 'left' && (i.view === undefined || i.view === view)
       )
@@ -144,9 +142,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   get centerTemplates() {
     return Observable.combineLatest(
-      this.toolbarState.map(s => s.items).distinctUntilChanged(),
+      this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view,
-      (items: AsyncList<ListToolbarItemModel>, view: string) => items.items.filter(
+      (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
         (i: ListToolbarItemModel) =>
           i.location === 'center' && (i.view === undefined || i.view === view)
       )
@@ -155,9 +153,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   get rightTemplates() {
     return Observable.combineLatest(
-      this.toolbarState.map(s => s.items).distinctUntilChanged(),
+      this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view.distinctUntilChanged(),
-      (items: AsyncList<ListToolbarItemModel>, view: string) => items.items.filter(
+      (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
         (i: ListToolbarItemModel) =>
           i.location === 'right' && (i.view === undefined || i.view === view)
       )

@@ -8,7 +8,6 @@ export abstract class ListViewComponent implements OnDestroy {
   protected viewName: string;
   protected state: ListState;
   protected list: SkyListComponent;
-  protected hasToolbar: boolean = true;
   protected subscriptions: Array<any> = [];
   /* tslint:disable */
   private initialized: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -31,12 +30,12 @@ export abstract class ListViewComponent implements OnDestroy {
     return this.viewName;
   }
 
-  get active() {
-    return this.state.map(s => s.views.active === this.viewId);
+  get hasToolbar() {
+    return this.state.map(s => s.toolbar.exists);
   }
 
-  public onListInit(list: SkyListComponent) {
-    this.list = list;
+  get active() {
+    return this.state.map(s => s.views.active === this.viewId);
   }
 
   public onViewActive() {

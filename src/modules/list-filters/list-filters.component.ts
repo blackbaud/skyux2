@@ -4,11 +4,10 @@ import {
 } from '@angular/core';
 import { SkyModalService } from '../modal';
 import { SkyListFilterComponent } from './list-filter.component';
-import { SkyListComponent } from '../list';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { ListFiltersLoadAction, ListFiltersUpdateAction } from '../list/state/filters/actions';
-import { ListToolbarItemsLoadAction } from '../list-toolbar/state/items/actions';
-import { ListToolbarItemModel } from '../list-toolbar/state/items/item.model';
+import { ListToolbarItemsLoadAction } from '../list/state/toolbar/actions';
+import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { ListFilterModel } from '../list/state/filters/filter.model';
 import { SkyListFiltersModalComponent } from './list-filters-modal.component';
 
@@ -21,8 +20,6 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
   @Input() public modalTitle: string = 'Filters';
   @ContentChildren(SkyListFilterComponent) private filters: QueryList<SkyListFilterComponent>;
   @ViewChild('filterButton') private filterButtonTemplate: TemplateRef<any>;
-  private list: SkyListComponent;
-  private hasToolbar: boolean;
   private inlineBarExpanded: boolean = false;
 
   constructor(
@@ -30,11 +27,6 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
     private dispatcher: ListStateDispatcher,
     private modalService: SkyModalService
   ) {
-  }
-
-  public onListInit(list: SkyListComponent) {
-    this.list = list;
-    this.hasToolbar = list.hasToolbar;
   }
 
   public ngAfterContentInit() {
@@ -52,15 +44,9 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
   }
 
   public ngAfterViewInit() {
-    if (
-      this.list !== undefined &&
-      this.list.toolbarDispatcher !== undefined &&
-      this.filters.length > 0
-    ) {
-      setTimeout(() => this.list.toolbarDispatcher.next(new ListToolbarItemsLoadAction([
-        new ListToolbarItemModel({ template: this.filterButtonTemplate, location: 'right' })
-      ])));
-    }
+    setTimeout(() => this.dispatcher.next(new ListToolbarItemsLoadAction([
+      new ListToolbarItemModel({ template: this.filterButtonTemplate, location: 'right' })
+    ])));
   }
 
   public applyFilters() {

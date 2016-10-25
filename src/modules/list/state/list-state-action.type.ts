@@ -9,6 +9,7 @@ import {
   ListSortSetFieldSelectorsAction, ListSortSetAvailableAction, ListSortSetGlobalAction
 } from './sort/actions';
 import { ListFiltersLoadAction, ListFiltersUpdateAction } from './filters/actions';
+import { ListToolbarItemsLoadAction, ListToolbarSetExistsAction } from './toolbar/actions';
 
 export type ListStateAction =
   ListItemsSetLoadingAction | ListItemsLoadAction | ListItemsSetItemSelectedAction |
@@ -17,4 +18,5 @@ export type ListStateAction =
   ListViewsLoadAction | ListViewsSetActiveAction |
   ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
   ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction |
-  ListFiltersLoadAction | ListFiltersUpdateAction;
+  ListFiltersLoadAction | ListFiltersUpdateAction |
+  ListToolbarItemsLoadAction | ListToolbarSetExistsAction;

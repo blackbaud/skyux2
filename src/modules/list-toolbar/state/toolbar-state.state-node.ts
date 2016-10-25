@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { StateNode } from 'microedge-rxstate/core';
 import { ListToolbarStateModel } from './toolbar-state.model';
 import { ListToolbarStateDispatcher } from './toolbar-state.rxstate';
-import { ListToolbarItemsOrchestrator } from './items/items.orchestrator';
 import { ListToolbarConfigOrchestrator } from './config/config.orchestrator';
 
 @Injectable()
@@ -12,7 +11,6 @@ export class ListToolbarState extends StateNode<ListToolbarStateModel> {
 
     this
       .register('config', ListToolbarConfigOrchestrator)
-      .register('items', ListToolbarItemsOrchestrator)
       .begin();
   }
 }

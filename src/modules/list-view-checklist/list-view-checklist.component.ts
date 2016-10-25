@@ -11,8 +11,8 @@ import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
 import { ChecklistState, ChecklistStateDispatcher, ChecklistStateModel } from './state';
 import { ListViewChecklistItemsLoadAction } from './state/items/actions';
 import { ListViewChecklistItemModel } from './state/items/item.model';
-import { ListToolbarItemsLoadAction } from '../list-toolbar/state/items/actions';
-import { ListToolbarItemModel } from '../list-toolbar/state/items/item.model';
+import { ListToolbarItemsLoadAction } from '../list/state/toolbar/actions';
+import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { Observable } from 'rxjs';
 import { getData } from '../list/helpers';
 
@@ -88,16 +88,14 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   }
 
   public ngAfterViewInit() {
-    if (this.list !== undefined && this.list.toolbarDispatcher !== undefined) {
-      setTimeout(() => this.list.toolbarDispatcher.next(new ListToolbarItemsLoadAction([
-        new ListToolbarItemModel(
-          { template: this.selectAllTemplate, location: 'right', index: 500, view: this.id }
-        ),
-        new ListToolbarItemModel(
-          { template: this.clearSelectionsTemplate, location: 'right', index: 500, view: this.id }
-        )
-      ])));
-    }
+    setTimeout(() => this.dispatcher.next(new ListToolbarItemsLoadAction([
+      new ListToolbarItemModel(
+        { template: this.selectAllTemplate, location: 'right', index: 500, view: this.id }
+      ),
+      new ListToolbarItemModel(
+        { template: this.clearSelectionsTemplate, location: 'right', index: 500, view: this.id }
+      )
+    ])));
   }
 
   get items() {
