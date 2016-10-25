@@ -1,0 +1,24 @@
+@import '../../../scss/mixins';
+
+.sky-demo-page-code {
+  margin: $sky-margin 0;
+}
+
+.sky-demo-page-code-sample {
+  border: solid 1px $sky-color-gray-lighter;
+  border-top: none;
+  overflow: auto;
+  padding: $sky-padding;
+
+  pre {
+    margin: 0;
+    padding: 0;
+  }
+
+  code {
+    background-color: transparent;
+    color: #000;
+    line-height: 1.6em;
+    padding: 0;
+  }
+}

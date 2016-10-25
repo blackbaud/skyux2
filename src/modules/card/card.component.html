@@ -25,8 +25,8 @@
   </header>
   <div class="sky-card-content" (click)="contentClick()">
     <ng-content select="sky-card-content"></ng-content>
-    <div class="sky-card-actions" [hidden]="actionsEl.children.length === 0" #actionsEl>
-      <ng-content select="sky-card-actions"></ng-content>
-    </div>
+  </div>
+  <div class="sky-card-actions" [hidden]="actionsEl.children.length === 0" #actionsEl>
+    <ng-content select="sky-card-actions"></ng-content>
   </div>
 </section>

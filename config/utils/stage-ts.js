@@ -11,6 +11,7 @@ function deleteNonDistFiles() {
   specFiles.push(TEMP_PATH + '/polyfills.ts');
   specFiles.push(TEMP_PATH + '/vendor.ts');
   specFiles.push(TEMP_PATH + '/**/fixtures');
+  specFiles.push(TEMP_PATH + '/app');
 
   specFiles.forEach(function (file) {
     fs.removeSync(file);
@@ -71,6 +72,18 @@ function compileSass(file) {
   return contents;
 }
 
+function getHtmlContents(requireFile) {
+  var encodedHtml,
+    encodedTs,
+    fileContents,
+    fileSuffix = '.demo.html',
+    tsFileContents;
+
+  fileContents = fs.readFileSync(requireFile).toString();
+
+  return fileContents;
+}
+
 function inlineContents(file, fileContents, requireMatch, requireFile) {
   var dirname = path.dirname(file),
     quote = true,
@@ -83,7 +96,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile) {
       requireContents = compileSass(requireFile);
       break;
     case '.html':
-      requireContents = fs.readFileSync(requireFile);
+      requireContents = getHtmlContents(requireFile);
       break;
     case '.json':
       requireContents = fs.readFileSync(requireFile);
