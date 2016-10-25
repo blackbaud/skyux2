@@ -1,3 +1,9 @@
+# 2.0.0-alpha.10 (2016-10-24)
+
+- Updates to visual tests
+- Fixed issue where page summary and tile dashboard on same page causes tile dashboard to not be responsive (#152)
+- Added the radio component (#111)
+
 # 2.0.0-alpha.9 (2016-10-18)
 
 - Fixed issue where two tabsets on one page interfered with each other
