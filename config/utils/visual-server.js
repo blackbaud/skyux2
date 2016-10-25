@@ -37,47 +37,40 @@
   }
 
   function startCI() {
-    return function () {
-      return new Promise(function (resolve, reject) {
-        return function () {
-          bsLocal = new browserstack.Local();
-          return server.listen(webpackCompiler.options.metadata.port, function () {
-            return bsLocal.start({
-              key: process.env.BROWSER_STACK_ACCESS_KEY,
-              //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
-            }, function (err) {
-              if (err) {
-                reject(err);
-              } else {
-                resolve();
-              }
-            });
-          });
-        };
+    return new Promise(function (resolve, reject) {
+      bsLocal = new browserstack.Local();
+      return server.listen(webpackCompiler.options.metadata.port, function () {
+        return bsLocal.start({
+          key: process.env.BROWSER_STACK_ACCESS_KEY,
+          //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
+        }, function (err) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
       });
-    };
+    });
   }
 
   // Stop the server and remove unused screenshots
   function stop(exitCode) {
-    return function () {
-      server.close();
-      rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
-      if (seleniumChild) {
-        seleniumChild.kill();
-      }
-    };
+    server.close();
+    rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
+    if (seleniumChild) {
+      seleniumChild.kill();
+    }
   }
 
   // Stop the server and remove unused screenshots
   function stopCI(exitCode) {
-    return function () {
-      server.close();
-      rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
-      if (bsLocal.isRunning()) {
-        bsLocal.stop();
-      }
-    };
+    server.close();
+    rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
+    if (bsLocal.isRunning()) {
+      bsLocal.stop();
+    }
+
   }
 
   process.on('SIGINT', function () {
