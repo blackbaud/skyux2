@@ -1,7 +1,7 @@
-describe('Checkbox', () => {
+describe('Checkbox', function () {
   'use strict';
 
-  it('should match previous checkbox screenshot', () => {
+  it('should match previous checkbox screenshot', function () {
     return browser
       .setupTest('/checkbox.html')
       .compareScreenshot({

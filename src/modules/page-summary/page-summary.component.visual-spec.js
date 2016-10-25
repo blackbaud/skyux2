@@ -5,6 +5,7 @@ describe('Page summary', function () {
     return browser
       .setupTest('/page-summary.html', screenWidth)
       .setValue('#screenshots-page-summary-items', visibleComponents.join(','))
+      .pause(1000)
       .compareScreenshot({
         screenshotName: ('pagesummary_' + screenshotName),
         selector: '#screenshots-page-summary',
@@ -31,7 +32,8 @@ describe('Page summary', function () {
   );
 
   it(
-    'should match previous pagesummary screenshot when all components are present on small screens',function () {
+    'should match previous pagesummary screenshot when all components are present on small screens',
+    function () {
       return clickTest(
         'all',
         [
@@ -150,7 +152,8 @@ describe('Page summary', function () {
   );
 
   it(
-    'should match previous pagesummary screenshot when only image, title, and subtitle are present', function () {
+    'should match previous pagesummary screenshot when only image, title, and subtitle are present',
+    function () {
       return clickTest(
         'image_title_subtitle',
         [

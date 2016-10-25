@@ -1,14 +1,14 @@
-(() => {
+(function () {
   'use strict';
 
-  const fs = require('fs');
-  const path = require('path');
-  const util = require('util');
+  var fs = require('fs');
+  var path = require('path');
+  var util = require('util');
 
-  const checkAccessibility = (options) => {
-    return browser.executeAsync((done) => {
+  function checkAccessibility(browser, options) {
+    return browser.executeAsync(function (done) {
 
-      const config = {
+      var config = {
         rules: {
           'bypass': { enabled: false },
           'color-contrast': { enabled: false }
@@ -18,14 +18,15 @@
         done(results);
       });
 
-    }).then((ret) => {
+    }).then(function (ret) {
       if (ret.value.violations && ret.value.violations.length !== 0) {
         logViolations(options.screenshotName, ret.value.violations);
         expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
       }
+
       return;
     });
-  };
+  }
 
   function checkVisualResult(results, options, browser) {
     results.forEach(function (element) {
@@ -54,46 +55,46 @@
       });
   }
 
-  function compareScreenshot(options) {
+  function compareScreenshot(browser, options) {
     return browser.getViewportSize('width').then(function (width) {
       return getViewSizeHandler(width, this, options);
     });
   }
 
-  const getPrefix = (desiredCapabilities) => {
+  function getPrefix(desiredCapabilities) {
     return desiredCapabilities.os + '_' + desiredCapabilities.browserName;
-  };
+  }
 
-  const log = (message) => {
+  function log(message) {
     console.log('\x1b[31m', message);
-  };
+  }
 
-  const logViolations = (name, violations) => {
+  function logViolations(name, violations) {
     log(util.format(
       '\nThe following accessibility issues exist in %s:\n',
       name
     ));
 
-    violations.forEach((violation) => {
+    violations.forEach(function (violation)  {
       log(' violation at: ' + violation.help);
-      violation.nodes.forEach((line) => {
+      violation.nodes.forEach(function (line) {
         log(line.target);
       });
+
       log('More Information: ' + violation.helpUrl);
     });
-  };
+  }
 
-  const focusElement = (browser, selector) => {
+  function focusElement(browser, selector) {
     return browser.execute('document.querySelector("' + selector + '").focus()');
-  };
+  }
 
-  const moveCursorOffScreen = (browser) => {
+  function moveCursorOffScreen(browser) {
     return browser.moveToObject('body', 0, 0);
-  };
+  }
 
-  const setupTest = (url, screenWidth) => {
-    return browser.url(url).getViewportSize().then((size) => {
-      screenWidth = screenWidth || 1280;
+  function setupTest(browser, url, screenWidth) {
+    return browser.url(url).getViewportSize().then(function (size) {
       if (size.width !== screenWidth) {
         return browser.setViewportSize({
           height: size.height,
@@ -103,9 +104,9 @@
         return;
       }
     });
-  };
+  }
 
-  const getScreenshotName = (basePath) => {
+  function getScreenshotName(basePath) {
     return function (context) {
       var prefix = getPrefix(context.desiredCapabilities);
       var screenshotName = context.options.screenshotName;
@@ -114,9 +115,9 @@
 
       return path.join(basePath, prefix, screenshotName);
     };
-  };
+  }
 
-  const getVisualRegression = (referenceFolder, screenshotFolder, diffsFolder) => {
+  function getVisualRegression(referenceFolder, screenshotFolder, diffsFolder) {
     var VisualRegressionCompare = require('wdio-visual-regression-service/compare');
     return {
       compare: new VisualRegressionCompare.LocalCompare({
@@ -127,7 +128,7 @@
       }),
       viewportChangePause: 300
     };
-  };
+  }
 
   module.exports = {
     compareScreenshot: compareScreenshot,

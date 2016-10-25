@@ -1,10 +1,10 @@
 /* global require, exports, process */
 
-(() =>  {
+(function ()  {
   'use strict';
 
-  const server = require('../utils/visual-server');
-  let config = require('./shared.wdio.conf');
+  var server = require('../utils/visual-server');
+  var config = require('./shared.wdio.conf');
 
   config.user = process.env.BROWSER_STACK_USERNAME;
   config.key = process.env.BROWSER_STACK_ACCESS_KEY;

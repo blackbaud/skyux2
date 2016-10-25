@@ -1,4 +1,4 @@
-describe('Repeater', () => {
+describe('Repeater', function () {
   'use strict';
 
   it('should match previous repeater screenshot', function () {

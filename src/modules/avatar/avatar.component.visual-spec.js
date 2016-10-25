@@ -1,7 +1,7 @@
-describe('Avatar', () => {
+describe('Avatar', function () {
   'use strict';
 
-  it('should match previous screenshot when image is present', () => {
+  it('should match previous screenshot when image is present', function () {
     return browser
       .setupTest('/avatar.html')
       .compareScreenshot({
@@ -11,7 +11,7 @@ describe('Avatar', () => {
       });
   });
 
-  it('should match previous screenshot when initials are present', () => {
+  it('should match previous screenshot when initials are present', function () {
     return browser
       .setupTest('/avatar.html')
       .compareScreenshot({

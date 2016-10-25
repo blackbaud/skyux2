@@ -1,7 +1,7 @@
-describe('Dropdown', () => {
+describe('Dropdown', function () {
   'use strict';
 
-  it('should match dropdown button screenshot when closed', () => {
+  it('should match dropdown button screenshot when closed', function () {
     return browser
       .setupTest('/dropdown.html')
       .compareScreenshot({
@@ -10,7 +10,7 @@ describe('Dropdown', () => {
       });
   });
 
-  it('should match dropdown button screenshot when open', () => {
+  it('should match dropdown button screenshot when open', function () {
     return browser
       .setupTest('/dropdown.html')
       .click('#screenshot-dropdown-button .sky-dropdown-button')
@@ -20,7 +20,7 @@ describe('Dropdown', () => {
       });
   });
 
-  it('should match dropdown context menu screenshot when closed', () => {
+  it('should match dropdown context menu screenshot when closed', function () {
     return browser
       .setupTest('/dropdown.html')
       .compareScreenshot({
@@ -29,7 +29,7 @@ describe('Dropdown', () => {
       });
   });
 
-  it('should match dropdown context menu screenshot when open', () => {
+  it('should match dropdown context menu screenshot when open', function () {
     return browser
       .setupTest('/dropdown.html')
       .click('#screenshot-dropdown-context-menu .sky-dropdown-button')
