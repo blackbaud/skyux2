@@ -1,7 +1,7 @@
-describe('Alert', () => {
+describe('Alert', function () {
   'use strict';
 
-  it('should match previous alert screenshot', () => {
+  it('should match previous alert screenshot', function () {
     return browser
       .setupTest('/alert.html')
       .compareScreenshot({

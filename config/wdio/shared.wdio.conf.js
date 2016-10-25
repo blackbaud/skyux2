@@ -28,8 +28,9 @@
       var commands = require('../utils/visual-browser-commands');
       Object.keys(commands).forEach(function (command) {
         browser.addCommand(command, function async() {
-          arguments.unshift(this);
-          commands[command].apply(this, arguments);
+          var args = Array.from(arguments);
+          args.unshift(this);
+          commands[command].apply(this, args);
         });
       });
     },
