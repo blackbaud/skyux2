@@ -31,7 +31,8 @@ describe('Page summary', function () {
   );
 
   it(
-    'should match previous pagesummary screenshot when all components are present on small screens',function () {
+    'should match previous pagesummary screenshot when all components are present on small screens',
+    function () {
       return clickTest(
         'all',
         [
@@ -150,7 +151,8 @@ describe('Page summary', function () {
   );
 
   it(
-    'should match previous pagesummary screenshot when only image, title, and subtitle are present', function () {
+    'should match previous pagesummary screenshot when only image, title, and subtitle are present',
+    function () {
       return clickTest(
         'image_title_subtitle',
         [

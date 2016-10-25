@@ -1,86 +1,89 @@
-(() => {
+(function () {
   'use strict';
 
-  const browserstack = require('browserstack-local');
-  const rimraf = require('rimraf');
-  const selenium = require('selenium-standalone');
-  const webpack = require('webpack');
-  const WebpackDevServer = require('webpack-dev-server');
-  const webpackConfig = require('../webpack/webpack.visual');
+  var browserstack = require('browserstack-local');
+  var rimraf = require('rimraf');
+  var selenium = require('selenium-standalone');
+  var webpack = require('webpack');
+  var WebpackDevServer = require('webpack-dev-server');
+  var webpackConfig = require('../webpack/webpack.visual');
 
   // Remove ForkCheckerPlugin as it hangs the server
-  const webpackCompiler = webpack(webpackConfig);
+  var webpackCompiler = webpack(webpackConfig);
   webpackCompiler.options.plugins.shift();
 
-  const server = new WebpackDevServer(webpackCompiler, {
+  var server = new WebpackDevServer(webpackCompiler, {
     noInfo: true,
     'content-base': 'src/'
   });
 
-  let bsLocal;
-  let seleniumChild;
+  var bsLocal;
+  var seleniumChild;
 
   // Start the webserver
-  const start = () => new Promise((resolve, reject) => {
-    server.listen(webpackCompiler.options.metadata.port, () => {
-      selenium.install({
-        logger: console.log,
-        drivers: {
-          chrome: {
-            version: '2.24',
-            arch: process.arch,
-            baseURL: 'https://chromedriver.storage.googleapis.com'
-          }
-        }
-      }, () => {
-        selenium.start((err, child) => {
-          seleniumChild = child;
-          resolve();
+  function start() {
+    return new Promise(function (resolve, reject) {
+      server.listen(webpackCompiler.options.metadata.port, function () {
+        selenium.install({
+          logger: console.log
+        }, function () {
+          selenium.start(function (err, child) {
+            seleniumChild = child;
+            resolve();
+          });
         });
       });
     });
-  });
+  }
 
-  const startCI = () => new Promise((resolve, reject) => {
-    bsLocal = new browserstack.Local();
-    server.listen(webpackCompiler.options.metadata.port, () => {
-      bsLocal.start({
-        key: process.env.BROWSER_STACK_ACCESS_KEY,
-        //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
-      }, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
+  function startCI() {
+    return function () {
+      return new Promise(function (resolve, reject) {
+        bsLocal = new browserstack.Local();
+        server.listen(webpackCompiler.options.metadata.port, function () {
+          bsLocal.start({
+            key: process.env.BROWSER_STACK_ACCESS_KEY,
+            //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
+          }, function (err) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          });
+        });
       });
-    });
-  });
+    };
+  }
 
   // Stop the server and remove unused screenshots
-  const stop = (exitCode) => {
-    server.close();
-    rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
-    if (seleniumChild) {
-      seleniumChild.kill();
-    }
-  };
+  function stop(exitCode) {
+    return function () {
+      server.close();
+      rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
+      if (seleniumChild) {
+        seleniumChild.kill();
+      }
+    };
+  }
 
   // Stop the server and remove unused screenshots
-  const stopCI = (exitCode) => {
-    server.close();
-    rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
-    if (bsLocal.isRunning()) {
-      bsLocal.stop();
-    }
-  };
+  function stopCI(exitCode) {
+    return function () {
+      server.close();
+      rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
+      if (bsLocal.isRunning()) {
+        bsLocal.stop();
+      }
+    };
+  }
 
-  process.on('SIGINT', () => {
+  process.on('SIGINT', function () {
     stop();
     process.exit(1);
   });
 
-  const exports = {
+  var exports = {
     start: start,
     startCI: startCI,
     stop: stop,
@@ -88,8 +91,8 @@
   };
 
   // Support running running commands from arguments
-  process.argv.forEach(arg => {
-    Object.keys(exports).forEach((key) => {
+  process.argv.forEach(function (arg) {
+    Object.keys(exports).forEach(function (key) {
       if (arg === key) {
         exports[key]();
       }

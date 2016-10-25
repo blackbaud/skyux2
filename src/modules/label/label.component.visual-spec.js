@@ -1,7 +1,7 @@
-describe('Label', () => {
+describe('Label', function () {
   'use strict';
 
-  it('should match previous label screenshot', () => {
+  it('should match previous label screenshot', function () {
     return browser
       .setupTest('/label.html')
       .compareScreenshot({

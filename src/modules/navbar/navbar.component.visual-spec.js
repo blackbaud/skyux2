@@ -1,7 +1,7 @@
-describe('Navbar', () => {
+describe('Navbar', function () {
   'use strict';
 
-  it('should match previous navbar screenshot', () => {
+  it('should match previous navbar screenshot', function () {
     return browser
       .setupTest('/navbar.html')
       .compareScreenshot({
@@ -10,7 +10,7 @@ describe('Navbar', () => {
       });
   });
 
-  it('should match previous navbar screenshot when the user mouses over an item', () => {
+  it('should match previous navbar screenshot when the user mouses over an item', function () {
     return browser
       .setupTest('/navbar.html')
       .moveToObject('#screenshot-navbar .first-item')
@@ -20,7 +20,7 @@ describe('Navbar', () => {
       });
   });
 
-  it('should match previous navbar screenshot when a dropdown is open', () => {
+  it('should match previous navbar screenshot when a dropdown is open', function () {
     return browser
       .setupTest('/navbar.html')
       .moveToObject('#screenshot-navbar .sky-dropdown-button')
@@ -30,7 +30,7 @@ describe('Navbar', () => {
       });
   });
 
-  it('should match previous navbar screenshot when the user is over a dropdown item', () => {
+  it('should match previous navbar screenshot when the user is over a dropdown item', function () {
     return browser
       .setupTest('/navbar.html')
       .moveToObject('#screenshot-navbar .sky-dropdown-button')
@@ -43,7 +43,7 @@ describe('Navbar', () => {
 
   it(
     'should match previous navbar screenshot when an item is active via the item CSS class',
-    () => {
+    function () {
       return browser
         .setupTest('/navbar.html')
         .compareScreenshot({
@@ -55,7 +55,7 @@ describe('Navbar', () => {
 
   it(
     'should match previous navbar screenshot when an item is active via a child CSS class',
-    () => {
+    function () {
       return browser
         .setupTest('/navbar.html')
         .compareScreenshot({
@@ -67,7 +67,7 @@ describe('Navbar', () => {
 
   it(
     'should match previous navbar screenshot when a dropdown is active',
-    () => {
+    function () {
       return browser
         .setupTest('/navbar.html')
         .compareScreenshot({

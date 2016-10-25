@@ -1,4 +1,4 @@
-describe('Card', () => {
+describe('Card', function () {
   'use strict';
 
   it('should match previous screenshot when all components are present', function () {
