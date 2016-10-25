@@ -34,7 +34,7 @@
         });
       });*/
       browser.addCommand('setupTest', function async(url, screenWidth) {
-        return common.setupTest(this, url, screenWidth);
+        return commands.setupTest(this, url, screenWidth);
       });
 
       browser.addCommand('compareScreenshot', function async(options) {
