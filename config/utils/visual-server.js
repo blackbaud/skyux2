@@ -39,19 +39,21 @@
   function startCI() {
     return function () {
       return new Promise(function (resolve, reject) {
-        bsLocal = new browserstack.Local();
-        return server.listen(webpackCompiler.options.metadata.port, function () {
-          return bsLocal.start({
-            key: process.env.BROWSER_STACK_ACCESS_KEY,
-            //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
-          }, function (err) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
+        return function () {
+          bsLocal = new browserstack.Local();
+          return server.listen(webpackCompiler.options.metadata.port, function () {
+            return bsLocal.start({
+              key: process.env.BROWSER_STACK_ACCESS_KEY,
+              //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
+            }, function (err) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve();
+              }
+            });
           });
-        });
+        };
       });
     };
   }
