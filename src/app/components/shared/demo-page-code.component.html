@@ -2,7 +2,7 @@
   <h2>Code</h2>
   <sky-tabset>
     <sky-tab
-        *ngFor="let codeFile of codeFiles; let i = index;"
+        *ngFor="let codeFile of codeFilesForBinding; let i = index;"
         [tabHeading]="codeFile.name"
         [active]="i === 0"
     >

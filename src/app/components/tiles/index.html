@@ -9,7 +9,35 @@
     <div class="sky-demo-bg-gray">
       <sky-tiles-demo></sky-tiles-demo>
     </div>
-    <sky-tiles-demo-code></sky-tiles-demo-code>
+    <sky-demo-page-code
+        [codeFiles]="[
+          {
+            folder: 'tiles',
+            name: 'tiles-demo.component.html'
+          },
+          {
+            folder: 'tiles',
+            name: 'tiles-demo.component.ts'
+          },
+          {
+            folder: 'tiles',
+            name: 'tiles-demo-tile1.component.html'
+          },
+          {
+            folder: 'tiles',
+            name: 'tiles-demo-tile1.component.ts'
+          },
+          {
+            folder: 'tiles',
+            name: 'tiles-demo-tile2.component.html'
+          },
+          {
+            folder: 'tiles',
+            name: 'tiles-demo-tile2.component.ts'
+          }
+        ]"
+    >
+    </sky-demo-page-code>
   </sky-demo-page-example>
 
 </sky-demo-page>

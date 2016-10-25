@@ -39,7 +39,19 @@
 
   <sky-demo-page-example>
     <sky-alert-demo></sky-alert-demo>
-    <sky-alert-demo-code></sky-alert-demo-code>
+    <sky-demo-page-code
+        [codeFiles]="[
+          {
+            folder: 'alert',
+            name: 'alert-demo.component.html'
+          },
+          {
+            folder: 'alert',
+            name: 'alert-demo.component.ts'
+          }
+        ]"
+    >
+    </sky-demo-page-code>
   </sky-demo-page-example>
 
 </sky-demo-page>
