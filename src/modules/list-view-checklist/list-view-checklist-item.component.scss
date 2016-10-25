@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  border-bottom: 1px dotted #ccc;
+
+  &:last-child {
+    border-bottom-width: 0;
+  }
+
+  /deep/ sky-checkbox {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  /deep/ sky-checkbox-label {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    padding-left: 10px;
+  }
+}

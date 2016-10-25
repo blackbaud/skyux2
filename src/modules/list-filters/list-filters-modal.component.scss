@@ -1,0 +1,24 @@
+:host {
+  /deep/ sky-modal-header {
+    font-weight: 600;
+  }
+
+  /deep/ sky-modal-footer button {
+    border-radius: 3px;
+    padding: 7px 12px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 13px;
+    background-color: transparent;
+    margin-right: 10px;
+
+    &.primary {
+      background-color: #1c84c6;
+      color: #fff;
+    }
+
+    &.link {
+      color: #1c84c6;
+    }
+  }
+}
