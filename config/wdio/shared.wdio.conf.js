@@ -1,10 +1,11 @@
 /**
  * WebDriver configuration options shared between CI and local versions.
  */
-(() => {
+
+(function () {
   'use strict';
 
-  let timestamp;
+  var timestamp;
   module.exports = {
     specs: [
         'src/modules/**/*.visual-spec.js'
@@ -22,14 +23,18 @@
       'dot',
       'spec'
     ],
-    before: () => {
+    before: function () {
       timestamp = new Date().getTime();
-      const commands = require('../utils/visual-browser-commands');
-      Object.keys(commands).forEach(command =>
-        browser.addCommand(command, commands[command]));
+      var commands = require('../utils/visual-browser-commands');
+      Object.keys(commands).forEach(function (command) {
+        browser.addCommand(command, function async() {
+          arguments.unshift(this);
+          commands[command].apply(this, arguments);
+        });
+      });
     },
 
-    after: () => {
+    after: function () {
       console.log('\n---------------------------');
       console.log('Visual Regression Completed');
       console.log('Run time: ' + (new Date().getTime() - timestamp) + 'ms');
