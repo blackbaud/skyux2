@@ -27,6 +27,13 @@ export class SkyDemoComponentsService {
         url: '/components/card'
       },
       {
+        name: 'Checkbox',
+        icon: 'check-square',
+        // tslint:disable-next-line
+        summary: `The checkbox component renders a SKY UX-themed checkbox.`,
+        url: '/components/checkbox'
+      },
+      {
         name: 'Tiles',
         icon: 'th-large',
         // tslint:disable-next-line
