@@ -54,6 +54,7 @@ $sky-alternate-font-size-sm: ceil(($sky-font-size-base * 1.667)) !default; // ~2
 $sky-text-color: #292a2b !default;
 $sky-selected-color: #eeeffb !default;
 $sky-text-deemphasized-color: #707374 !default;
+$sky-link-color: $sky-color-blue !default;
 
 // begin transitions
 $sky-transition-time-short: 150ms !default;

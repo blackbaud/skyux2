@@ -1,0 +1,61 @@
+@import '../scss/_mixins.scss';
+
+body {
+  background-color: #fff;
+}
+
+p {
+  line-height: 1.6em;
+}
+
+code {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
+  background-color: scale-color($color: $sky-color-red, $lightness: 90%);
+  border-radius: 4px;
+  color: scale-color($color: $sky-color-red, $lightness: -20%);
+  padding: 2px 4px;
+}
+
+/* Prism overrides */
+/* All colors were chosen to meet accessibility contrast ratio requirements */
+.token {
+  &.atrule,
+  &.attr-value,
+  &.keyword {
+    color: scale-color($color: $sky-color-blue, $lightness: -20%);
+  }
+
+  &.selector,
+  &.attr-name,
+  &.string,
+  &.char,
+  &.builtin,
+  &.inserted {
+    color: scale-color($color: $sky-color-green, $lightness: -30%);
+  }
+
+  &.property,
+  &.tag,
+  &.boolean,
+  &.number,
+  &.constant,
+  &.symbol,
+  &.deleted {
+    color: scale-color($color: $sky-color-red, $lightness: -20%);
+  }
+
+  &.function {
+    color: scale-color($color: $sky-color-purple, $lightness: -20%);
+  }
+
+  &.punctuation,
+  &.operator {
+    color: scale-color($color: $sky-color-gray, $lightness: -20%);
+  }
+}
+
+.sky-demo-bg-gray {
+  background-color: $sky-body-background-color;
+  padding: $sky-padding;
+}

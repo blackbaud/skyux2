@@ -1,0 +1,11 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-demo-page">
+  <sky-page-summary>
+    <sky-page-summary-title>{{title}}</sky-page-summary-title>
+    <sky-page-summary-content>
+      <ng-content select="sky-demo-page-summary"></ng-content>
+      <ng-content select="sky-demo-page-properties"></ng-content>
+    </sky-page-summary-content>
+  </sky-page-summary>
+  <ng-content select="sky-demo-page-example"></ng-content>
+</div>
