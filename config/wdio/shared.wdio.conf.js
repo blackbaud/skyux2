@@ -38,8 +38,7 @@
       });
 
       browser.addCommand('compareScreenshot', function async(options) {
-        options.browserResult = this;
-        return commands.compareScreenshot(options);
+        return commands.compareScreenshot(this, options);
       });
 
       browser.addCommand('moveCursorOffScreen', function async() {
