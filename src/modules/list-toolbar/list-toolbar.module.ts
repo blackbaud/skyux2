@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyDropdownModule } from 'blackbaud-skyux2/dist/core';
+import { SkyDropdownModule } from '../dropdown';
 import { SkyListToolbarComponent } from './list-toolbar.component';
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { SkyListToolbarItemRendererComponent } from './list-toolbar-item-renderer.component';

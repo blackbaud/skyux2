@@ -13,7 +13,9 @@ export class ListToolbarItemsOrchestrator
       .register(ListToolbarItemsLoadAction, this.load);
   }
 
-  private load(state, action: ListToolbarItemsLoadAction): AsyncList<ListToolbarItemModel> {
+  private load(
+    state: AsyncList<ListToolbarItemModel>,
+    action: ListToolbarItemsLoadAction): AsyncList<ListToolbarItemModel> {
     const newListItems = action.items.map(g => new ListToolbarItemModel(g));
 
     let resultItems = [...state.items];

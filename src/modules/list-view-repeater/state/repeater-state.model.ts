@@ -1,4 +1,6 @@
+export type HashTable = { [key: string]: boolean };
+
 export class RepeaterStateModel {
-  public expanded: any = {};
-  public editing: any = {};
+  public expanded: HashTable = {};
+  public editing: HashTable = {};
 }

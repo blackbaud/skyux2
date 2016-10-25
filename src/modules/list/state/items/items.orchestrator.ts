@@ -18,11 +18,15 @@ export class ListItemsOrchestrator extends ListStateOrchestrator<AsyncList<ListI
       .register(ListItemsLoadAction, this.load);
   }
 
-  private setLoading(state, action: ListItemsSetLoadingAction): AsyncList<ListItemModel> {
+  private setLoading(
+    state: AsyncList<ListItemModel>,
+    action: ListItemsSetLoadingAction): AsyncList<ListItemModel> {
     return new AsyncList<ListItemModel>(state.items, state.lastUpdate, action.loading, state.count);
   }
 
-  private load(state, action: ListItemsLoadAction): AsyncList<ListItemModel> {
+  private load(
+    state: AsyncList<ListItemModel>,
+    action: ListItemsLoadAction): AsyncList<ListItemModel> {
     const newListItems = action.items.map(g => new ListItemModel(g.id, g.selected, g.data));
 
     if (action.refresh) {
@@ -42,7 +46,9 @@ export class ListItemsOrchestrator extends ListStateOrchestrator<AsyncList<ListI
     );
   }
 
-  private setItemSelected(state, action: ListItemsSetItemSelectedAction): AsyncList<ListItemModel> {
+  private setItemSelected(
+    state: AsyncList<ListItemModel>,
+    action: ListItemsSetItemSelectedAction): AsyncList<ListItemModel> {
     const newItems = [...state.items];
     const itemIndex = newItems.findIndex(t => t.id === action.id);
 
@@ -56,7 +62,7 @@ export class ListItemsOrchestrator extends ListStateOrchestrator<AsyncList<ListI
   }
 
   private setItemsSelected(
-    state,
+    state: AsyncList<ListItemModel> ,
     action: ListItemsSetItemsSelectedAction): AsyncList<ListItemModel> {
     const newItems = state.items.map(g =>
       new ListItemModel(g.id,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyModalModule } from 'blackbaud-skyux2/dist/core';
+import { SkyModalModule } from '../modal';
 import { SkyListFilterComponent } from './list-filter.component';
 import { SkyListFiltersComponent } from './list-filters.component';
 import { SkyListFilterRendererComponent } from './list-filter-renderer.component';

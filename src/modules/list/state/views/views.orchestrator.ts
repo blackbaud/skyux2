@@ -12,11 +12,11 @@ export class ListViewsOrchestrator extends ListStateOrchestrator<ListViewsModel>
       .register(ListViewsLoadAction, this.load);
   }
 
-  private setActive(state, action: ListViewsSetActiveAction): ListViewsModel {
+  private setActive(state: ListViewsModel, action: ListViewsSetActiveAction): ListViewsModel {
     return new ListViewsModel(Object.assign({}, state, { active: action.view }));
   }
 
-  private load(state, action: ListViewsLoadAction): ListViewsModel {
+  private load(state: ListViewsModel, action: ListViewsLoadAction): ListViewsModel {
     return new ListViewsModel(Object.assign({}, state, { views: action.views }));
   }
 }

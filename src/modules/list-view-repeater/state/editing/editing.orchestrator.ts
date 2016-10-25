@@ -1,7 +1,8 @@
 import { RepeaterStateOrchestrator } from '../repeater-state.rxstate';
+import { HashTable } from '../repeater-state.model';
 import { ListViewRepeaterSetEditingAction } from './actions';
 
-export class ListViewRepeaterEditingOrchestrator extends RepeaterStateOrchestrator<{}> {
+export class ListViewRepeaterEditingOrchestrator extends RepeaterStateOrchestrator<HashTable> {
   constructor() {
     super();
 
@@ -9,7 +10,7 @@ export class ListViewRepeaterEditingOrchestrator extends RepeaterStateOrchestrat
       .register(ListViewRepeaterSetEditingAction, this.setEditing);
   }
 
-  private setEditing(state, action: ListViewRepeaterSetEditingAction): {} {
+  private setEditing(state: HashTable, action: ListViewRepeaterSetEditingAction): HashTable {
     state[action.id] = action.editing;
     return state;
   }

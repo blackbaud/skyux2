@@ -8,6 +8,9 @@ import { ListViewComponent } from './list-view.component';
 import { ListPagingComponent } from './list-paging.component';
 import { SkyListToolbarComponent } from '../list-toolbar/list-toolbar.component';
 import { SkyListFiltersComponent } from '../list-filters/list-filters.component';
+import { ListSortModel } from './state/sort/sort.model';
+import { ListSearchModel } from './state/search/search.model';
+import { ListFilterModel } from './state/filters/filter.model';
 import { getData, compare } from './helpers';
 import { getValue } from 'microedge-rxstate/helpers';
 const moment = require('moment');
@@ -96,23 +99,24 @@ export class SkyListComponent implements AfterContentInit, OnInit {
     this.dispatcher.next(new ListViewsSetActiveAction(defaultView.id));
 
     // set sort fields
-    getValue(this.sortFields, sortFields =>
+    getValue(this.sortFields, (sortFields: string[]) =>
       this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortFields || []))
     );
 
     // load the data
-    let lastItems;
-    let lastSearch;
-    let lastFilters;
-    let lastFilterResults;
-    let lastSearchResults;
+    let lastItems: ListItemModel[];
+    let lastSearch: ListSearchModel;
+    let lastFilters: ListFilterModel[];
+    let lastFilterResults: ListItemModel[];
+    let lastSearchResults: ListItemModel[];
     this.dispatcher.next(new ListItemsSetLoadingAction());
     Observable.combineLatest(
       this.items.distinctUntilChanged(),
       this.state.map(s => s.sort).distinctUntilChanged(),
       this.state.map(s => s.search).distinctUntilChanged(),
       this.state.map(s => s.filters).distinctUntilChanged(),
-      (items: Array<any>, sort, search, filters: Array<any>) => {
+      (items: ListItemModel[], sort: ListSortModel,
+       search: ListSearchModel, filters: ListFilterModel[]) => {
         let dataChanged = false;
         if (lastItems === undefined || lastItems !== items) {
           dataChanged = true;
@@ -158,7 +162,7 @@ export class SkyListComponent implements AfterContentInit, OnInit {
           (search.searchText !== undefined && search.searchText.length > 0)
         ) {
           let searchText = search.searchText.toLowerCase();
-          let searchFunctions;
+          let searchFunctions: any[];
           if (this.searchFunction !== undefined) {
             searchFunctions = [this.searchFunction];
           } else {
@@ -220,7 +224,7 @@ export class SkyListComponent implements AfterContentInit, OnInit {
     return this.listToolbar.length > 0;
   }
 
-  get items(): Observable<Array<any>> {
+  get items(): Observable<Array<ListItemModel>> {
     let data: any = this.data;
     if (!(this.data instanceof Observable)) {
       data = Observable.of(this.data);
@@ -256,23 +260,23 @@ export class SkyListComponent implements AfterContentInit, OnInit {
         return Observable.of(undefined);
       });
 
-    let lastItems;
-    let lastDataItems;
-    let lastDate;
+    let lastItems: ListItemModel[];
+    let lastDataItems: any[];
+    let lastDate: any;
     return Observable.combineLatest(
       data.distinctUntilChanged(),
       searchResults.distinctUntilChanged(),
       selectedIds.distinctUntilChanged(),
-      (dataItems, asyncSearchResults, selected: Array<string>) => {
+      (dataItems: any[], asyncSearchResults: any[], selected: Array<string>) => {
         this.dispatcher.next(new ListDisplayedItemsSetLoadingAction(false));
-        let inputItems =
+        let inputItems: any[] =
           asyncSearchResults !== undefined &&
           searchText !== undefined &&
           searchText.length > 0 ?
             asyncSearchResults :
             dataItems;
 
-        let items = [];
+        let items: ListItemModel[] = [];
 
         inputItems.forEach(item => {
           let id = this.dataIdGenerator(item);

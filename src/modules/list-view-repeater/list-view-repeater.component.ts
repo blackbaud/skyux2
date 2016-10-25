@@ -4,6 +4,7 @@ import {
 import { Observable } from 'rxjs';
 import { ListViewComponent } from '../list/list-view.component';
 import { ListState, ListStateDispatcher } from '../list/state';
+import { ListItemModel } from '../list/state/items/item.model';
 import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
 import { RepeaterState, RepeaterStateDispatcher, RepeaterStateModel } from './state';
 import { ListViewRepeaterSetExpandedAction } from './state/expanded/actions';
@@ -64,7 +65,7 @@ export class SkyListViewRepeaterComponent extends ListViewComponent {
     }
   }
 
-  public toggleContent(item) {
+  public toggleContent(item: ListItemModel) {
     this.repeaterState.map(s => s.expanded)
       .take(1)
       .subscribe(expanded => {
@@ -74,7 +75,7 @@ export class SkyListViewRepeaterComponent extends ListViewComponent {
       });
   }
 
-  public beginEditing(item) {
+  public beginEditing(item: ListItemModel) {
     this.repeaterState.map(s => s.editing)
       .take(1)
       .subscribe(editing => {
@@ -82,7 +83,7 @@ export class SkyListViewRepeaterComponent extends ListViewComponent {
       });
   }
 
-  public stopEditing(item) {
+  public stopEditing(item: ListItemModel) {
     this.repeaterState.map(s => s.editing)
       .take(1)
       .subscribe(editing => {
@@ -90,15 +91,15 @@ export class SkyListViewRepeaterComponent extends ListViewComponent {
       });
   }
 
-  public showReadOnly(item) {
+  public showReadOnly(item: ListItemModel) {
     return Observable.of(true);
   }
 
-  public showEditor(item) {
+  public showEditor(item: ListItemModel) {
     return Observable.of(false);
   }
 
-  public showContent(item) {
+  public showContent(item: ListItemModel) {
     return this.repeaterState.map(s => s.expanded[item.id]);
   }
 

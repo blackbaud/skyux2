@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyChevronModule } from 'blackbaud-skyux2/dist/modules/chevron';
+import { SkyChevronModule } from '../chevron';
 import { SkyListViewRepeaterComponent } from './list-view-repeater.component';
 import { SkyListViewRepeaterRendererComponent } from './list-view-repeater-renderer.component';
 import { SkyListViewRepeaterLeftComponent } from './list-view-repeater-left.component';

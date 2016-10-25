@@ -3,6 +3,8 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { ListViewComponent } from '../list/list-view.component';
+import { AsyncList } from 'microedge-rxstate/core';
+import { ListItemModel } from '../list/state/items/item.model';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { ListItemsSetItemSelectedAction } from '../list/state/items/actions';
 import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
@@ -50,12 +52,13 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   ) {
     super(state, 'Checklist View');
 
-    let lastLastUpdate;
+    let lastLastUpdate: any;
     Observable.combineLatest(
       this.state.map(s => s.items.lastUpdate).distinctUntilChanged(),
       this.state.map(s => s.displayedItems).distinctUntilChanged(),
-      (lastUpdate, displayedItems) => {
+      (lastUpdate: any, displayedItems: AsyncList<ListItemModel>) => {
         let dataChanged = lastLastUpdate === undefined || lastUpdate !== lastLastUpdate;
+        lastLastUpdate = lastUpdate;
         let items = displayedItems.items.map(item => {
           return new ListViewChecklistItemModel(item.id, item.selected, {
             label:

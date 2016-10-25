@@ -20,7 +20,7 @@ import { ListToolbarItemModel } from '../list-toolbar/state/items/item.model';
 import { ListSortLabelModel } from '../list/state/sort/label.model';
 import { Observable } from 'rxjs';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { SkyModalService } from 'blackbaud-skyux2/dist/core';
+import { SkyModalService } from '../modal';
 import { getValue } from 'microedge-rxstate/helpers';
 import { getData } from '../list/helpers';
 
@@ -88,7 +88,7 @@ export class SkyListViewGridComponent
       .distinctUntilChanged()
       .subscribe(columns => {
         if (this.hiddenColumns) {
-          getValue(this.hiddenColumns, hiddenColumns => {
+          getValue(this.hiddenColumns, (hiddenColumns: string[]) => {
             this.gridDispatcher.next(
               new ListViewDisplayedGridColumnsLoadAction(
                 columns.filter(x => hiddenColumns.indexOf(x.id || x.field) === -1)
@@ -96,7 +96,7 @@ export class SkyListViewGridComponent
             );
           });
         } else if (this.displayedColumns) {
-          getValue(this.displayedColumns, displayedColumns => {
+          getValue(this.displayedColumns, (displayedColumns: string[]) => {
             this.gridDispatcher.next(
               new ListViewDisplayedGridColumnsLoadAction(
                 columns.filter(x => displayedColumns.indexOf(x.id || x.field) !== -1)
@@ -113,14 +113,14 @@ export class SkyListViewGridComponent
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels));
 
     /* tslint:disable */
-    this.dragulaService.drag.subscribe(([_, el]) =>
+    this.dragulaService.drag.subscribe(([, el]: any) =>
       el.classList.add('dragging')
     );
-    this.dragulaService.dragend.subscribe(([_, el]) =>
+    this.dragulaService.dragend.subscribe(([, el]: any) =>
       el.classList.remove('dragging')
     );
-    this.dragulaService.drop.subscribe(([e, element, container]) => {
-      let columnIds = [];
+    this.dragulaService.drop.subscribe(([,, container]: any) => {
+      let columnIds: string[] = [];
       let nodes = container.getElementsByTagName('th');
       for (let i = 0; i < nodes.length; i++) {
         let el = nodes[i];
@@ -141,8 +141,8 @@ export class SkyListViewGridComponent
     });
 
     this.dragulaService.setOptions('heading', {
-      moves: (el, source, handle, sibling) => !el.classList.contains('locked'),
-      accepts: (el, target, source, sibling) => !sibling.classList.contains('locked')
+      moves: (el: any) => !el.classList.contains('locked'),
+      accepts: ([,,, sibling]: any) => !sibling.classList.contains('locked')
     });
     /* tslint:enable */
   }
@@ -164,7 +164,7 @@ export class SkyListViewGridComponent
         let setFunctions =
           this.searchFunction !== undefined ? [this.searchFunction] :
           displayedColumns
-            .map(cmp => (data, searchText) =>
+            .map(cmp => (data: any, searchText: string) =>
               cmp.searchFunction(getData(data, cmp.field), searchText)
             )
             .filter(c => c !== undefined);
@@ -216,7 +216,7 @@ export class SkyListViewGridComponent
     ];
 
     let modalInstance = this.modalService.open(SkyListViewGridColumnSelectorComponent, providers);
-    modalInstance.componentInstance.columnsChanged.subscribe(columnIds => {
+    modalInstance.componentInstance.columnsChanged.subscribe((columnIds: string[]) => {
       this.gridState.map(s => s.columns.items)
         .take(1)
         .subscribe(columns => {

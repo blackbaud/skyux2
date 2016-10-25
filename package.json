@@ -48,7 +48,7 @@
     "dragula": "3.7.2",
     "font-awesome": "4.6.3",
     "intl": "1.2.5",
-    "microedge-rxstate": "~1.0.0",
+    "microedge-rxstate": "~1.0.2",
     "moment": "^2.15.2",
     "ng2-dragula": "1.2.1",
     "ng2-toastr": "0.3.1",

@@ -15,7 +15,7 @@ export class ListViewDisplayedGridColumnsOrchestrator
   }
 
   private load(
-    state,
+    state: AsyncList<ListViewGridColumnModel>,
     action: ListViewDisplayedGridColumnsLoadAction): AsyncList<ListViewGridColumnModel> {
     const newColumns = action.columns.map(g => new ListViewGridColumnModel(g.template, g));
 

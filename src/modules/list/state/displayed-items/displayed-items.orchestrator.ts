@@ -14,11 +14,15 @@ export class ListDisplayedItemsOrchestrator
       .register(ListDisplayedItemsLoadAction, this.load);
   }
 
-  private setLoading(state, action: ListDisplayedItemsSetLoadingAction): AsyncList<ListItemModel> {
+  private setLoading(
+    state: AsyncList<ListItemModel>,
+    action: ListDisplayedItemsSetLoadingAction): AsyncList<ListItemModel> {
     return new AsyncList<ListItemModel>(state.items, state.lastUpdate, action.loading, state.count);
   }
 
-  private load(state, action: ListDisplayedItemsLoadAction): AsyncList<ListItemModel> {
+  private load(
+    state: AsyncList<ListItemModel>,
+    action: ListDisplayedItemsLoadAction): AsyncList<ListItemModel> {
     const newListItems = action.items.map(g => new ListItemModel(g.id, g.selected, g.data));
     return new AsyncList<ListItemModel>(
       [...newListItems],

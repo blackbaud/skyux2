@@ -1,11 +1,11 @@
 export class ListViewChecklistItemModel {
-  public id: any;
+  public id: string;
   public selected: boolean = false;
   public label: string;
   public description: string;
   public category: string;
 
-  constructor(id, selected, data?: any) {
+  constructor(id: string, selected: boolean, data?: any) {
     this.id = id;
     this.selected = selected;
 

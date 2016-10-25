@@ -2,7 +2,7 @@ import {
   Component, Input, ContentChildren, QueryList, ChangeDetectionStrategy, AfterContentInit
 } from '@angular/core';
 import { ListViewChecklistItemModel } from './state/items/item.model';
-import { SkyCheckboxComponent } from 'blackbaud-skyux2/dist/core';
+import { SkyCheckboxComponent } from '../checkbox';
 
 @Component({
   selector: 'sky-list-view-checklist-item',

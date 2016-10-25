@@ -16,7 +16,9 @@ export class ListSortOrchestrator extends ListStateOrchestrator<ListSortModel> {
       .register(ListSortSetGlobalAction, this.setGlobal);
   }
 
-  private setFieldSelectors(state, action: ListSortSetFieldSelectorsAction): ListSortModel {
+  private setFieldSelectors(
+    state: ListSortModel,
+    action: ListSortSetFieldSelectorsAction): ListSortModel {
     let fieldSelectors = action.fieldSelectors;
     if (typeof fieldSelectors === 'string') {
       fieldSelectors = [fieldSelectors];
@@ -37,12 +39,12 @@ export class ListSortOrchestrator extends ListStateOrchestrator<ListSortModel> {
     return new ListSortModel(Object.assign({}, state, { fieldSelectors: selectors }));
   }
 
-  private setAvailable(state, action: ListSortSetAvailableAction): ListSortModel {
+  private setAvailable(state: ListSortModel, action: ListSortSetAvailableAction): ListSortModel {
     const newAvailable = action.available.map(a => new ListSortLabelModel(a));
     return new ListSortModel(Object.assign({}, state, { available: newAvailable }));
   }
 
-  private setGlobal(state, action: ListSortSetGlobalAction): ListSortModel {
+  private setGlobal(state: ListSortModel, action: ListSortSetGlobalAction): ListSortModel {
     const newGlobal = action.global.map(a => new ListSortLabelModel(a));
     return new ListSortModel(Object.assign({}, state, { global: newGlobal }));
   }

@@ -4,7 +4,7 @@ export class ListFilterDataModel {
   public value: any = ''; // we use an empty string instead of null to simplify ngModel bindings
   public onChange: EventEmitter<any> = new EventEmitter<any>();
 
-  public changed(value) {
+  public changed(value: any) {
     this.value = value;
     this.onChange.emit(value);
   }

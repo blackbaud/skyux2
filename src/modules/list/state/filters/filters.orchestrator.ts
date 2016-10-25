@@ -1,9 +1,8 @@
 import { ListStateOrchestrator } from '../list-state.rxstate';
-import { AsyncList } from 'microedge-rxstate/core';
 import { ListFilterModel } from './filter.model';
 import { ListFiltersLoadAction, ListFiltersUpdateAction } from './actions';
 
-export class ListFiltersOrchestrator extends ListStateOrchestrator<AsyncList<ListFilterModel>> {
+export class ListFiltersOrchestrator extends ListStateOrchestrator<ListFilterModel[]> {
   constructor() {
     super();
 
@@ -12,11 +11,11 @@ export class ListFiltersOrchestrator extends ListStateOrchestrator<AsyncList<Lis
       .register(ListFiltersLoadAction, this.load);
   }
 
-  private update(state, action: ListFiltersUpdateAction): ListFilterModel[] {
+  private update(state: ListFilterModel[], action: ListFiltersUpdateAction): ListFilterModel[] {
     return [...action.filters];
   }
 
-  private load(state, action: ListFiltersLoadAction): ListFilterModel[] {
+  private load(state: ListFilterModel[], action: ListFiltersLoadAction): ListFilterModel[] {
     const newListItems = action.filters.map(f => new ListFilterModel(f, f.view));
     return [...newListItems];
   }

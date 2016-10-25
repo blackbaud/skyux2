@@ -12,13 +12,17 @@ export class ListSearchOrchestrator extends ListStateOrchestrator<ListSearchMode
       .register(ListSearchSetFunctionsAction, this.setFunctions);
   }
 
-  private setSearchText(state, action: ListSearchSetSearchTextAction): ListSearchModel {
+  private setSearchText(
+    state: ListSearchModel,
+    action: ListSearchSetSearchTextAction): ListSearchModel {
     return new ListSearchModel(
       Object.assign({}, state, { searchText: action.searchText ? action.searchText : '' })
     );
   }
 
-  private setFunctions(state, action: ListSearchSetFunctionsAction): ListSearchModel {
+  private setFunctions(
+    state: ListSearchModel,
+    action: ListSearchSetFunctionsAction): ListSearchModel {
     return new ListSearchModel(Object.assign({}, state, { functions: [...action.functions] }));
   }
 }
