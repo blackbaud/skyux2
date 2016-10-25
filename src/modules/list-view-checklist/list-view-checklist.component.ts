@@ -6,12 +6,9 @@ import { ListViewComponent } from '../list/list-view.component';
 import { AsyncList } from 'microedge-rxstate/core';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListState, ListStateDispatcher } from '../list/state';
-import { ListItemsSetItemSelectedAction } from '../list/state/items/actions';
-import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
 import { ChecklistState, ChecklistStateDispatcher, ChecklistStateModel } from './state';
 import { ListViewChecklistItemsLoadAction } from './state/items/actions';
 import { ListViewChecklistItemModel } from './state/items/item.model';
-import { ListToolbarItemsLoadAction } from '../list/state/toolbar/actions';
 import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { Observable } from 'rxjs';
 import { getData } from '../list/helpers';
@@ -83,19 +80,19 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
 
   public onViewActive() {
     if (this.searchFunction !== undefined) {
-      this.dispatcher.next(new ListSearchSetFunctionsAction([this.searchFunction]));
+      this.dispatcher.searchSetFunctions([this.searchFunction]);
     }
   }
 
   public ngAfterViewInit() {
-    setTimeout(() => this.dispatcher.next(new ListToolbarItemsLoadAction([
+    this.dispatcher.toolbarAddItems([
       new ListToolbarItemModel(
         { template: this.selectAllTemplate, location: 'right', index: 500, view: this.id }
       ),
       new ListToolbarItemModel(
         { template: this.clearSelectionsTemplate, location: 'right', index: 500, view: this.id }
       )
-    ])));
+    ]);
   }
 
   get items() {
@@ -134,6 +131,6 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   }
 
   public setItemSelection(item: any, selected: boolean) {
-    this.dispatcher.next(new ListItemsSetItemSelectedAction(item.id, selected));
+    this.dispatcher.itemsSetSelected(item, selected);
   }
 }

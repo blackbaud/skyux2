@@ -2,7 +2,7 @@ import { ListState } from './state';
 import { OnDestroy } from '@angular/core';
 import { SkyListComponent } from '../list/list.component';
 import { BehaviorSubject } from 'rxjs';
-const moment = require('moment');
+import * as moment from 'moment';
 
 export abstract class ListViewComponent implements OnDestroy {
   protected viewName: string;
@@ -12,7 +12,7 @@ export abstract class ListViewComponent implements OnDestroy {
   /* tslint:disable */
   private initialized: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /* tslint:enable */
-  private viewId: string = moment().toDate().getTime();
+  private viewId: string = moment().toDate().getTime().toString();
 
   constructor(state: ListState, defaultName: string) {
     this.state = state;

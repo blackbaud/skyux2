@@ -1,6 +1,4 @@
 import { ListStateOrchestrator } from '../list-state.rxstate';
-import { AsyncList } from 'microedge-rxstate/core';
-import * as moment from 'moment';
 import { ListToolbarModel } from './toolbar.model';
 import { ListToolbarItemModel } from './toolbar-item.model';
 import { ListToolbarItemsLoadAction, ListToolbarSetExistsAction } from './actions';

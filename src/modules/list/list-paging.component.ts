@@ -1,5 +1,4 @@
 import { ListState } from './state';
-import { SkyListComponent } from '../list/list.component';
 import { BehaviorSubject } from 'rxjs';
 
 export abstract class ListPagingComponent {

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { ListViewComponent } from '../list/list-view.component';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { ListItemModel } from '../list/state/items/item.model';
-import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
 import { RepeaterState, RepeaterStateDispatcher, RepeaterStateModel } from './state';
 import { ListViewRepeaterSetExpandedAction } from './state/expanded/actions';
 import { ListViewRepeaterSetEditingAction } from './state/editing/actions';
@@ -61,7 +60,7 @@ export class SkyListViewRepeaterComponent extends ListViewComponent {
 
   public onViewActive() {
     if (this.searchFunction !== undefined) {
-      this.dispatcher.next(new ListSearchSetFunctionsAction([this.searchFunction]));
+      this.dispatcher.searchSetFunctions([this.searchFunction]);
     }
   }
 

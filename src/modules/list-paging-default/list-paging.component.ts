@@ -9,7 +9,6 @@ import { Component, Input, ChangeDetectionStrategy, forwardRef } from '@angular/
 import { getValue } from 'microedge-rxstate/helpers';
 import { ListPagingComponent } from '../list/list-paging.component';
 import { ListStateDispatcher } from '../list/state';
-import { ListDisplayedItemsLoadAction } from '../list/state/displayed-items/actions';
 import { PagingStateDispatcher, PagingState, PagingStateModel } from './state';
 import { Observable } from 'rxjs';
 import { ListState } from '../list/state';
@@ -49,7 +48,7 @@ export class SkyListPagingComponent extends ListPagingComponent {
         let items = itemsList.items;
         let itemCount = items.length > itemsList.count ? items.length : itemsList.count;
         if (itemCount === 0) {
-          this.dispatcher.next(new ListDisplayedItemsLoadAction([]));
+          this.dispatcher.itemsSetDisplayed([]);
           this.pagingStateDispatcher.next(new ListPagingCurrentSetDisplayedPagesAction([]));
           this.pagingStateDispatcher.next(new ListPagingCurrentSetPageCountAction(0));
           return;
@@ -100,7 +99,7 @@ export class SkyListPagingComponent extends ListPagingComponent {
 
         let itemStart = (pageNumber - 1) * config.itemsPerPage;
         let displayedItems = items.slice(itemStart, itemStart + config.itemsPerPage);
-        this.dispatcher.next(new ListDisplayedItemsLoadAction(displayedItems, itemCount));
+        this.dispatcher.itemsSetDisplayed(displayedItems, itemCount);
       })
       .subscribe();
 

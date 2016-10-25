@@ -8,14 +8,9 @@ import { GridState, GridStateDispatcher, GridStateModel } from './state';
 import { SkyListViewGridColumnComponent } from './list-view-grid-column.component';
 import { SkyListViewGridColumnSelectorComponent } from './list-view-grid-column-selector.component';
 import { ListStateDispatcher } from '../list/state';
-import {
-  ListSortSetFieldSelectorsAction, ListSortSetAvailableAction
-} from '../list/state/sort/actions';
 import { ListViewGridColumnModel } from './state/columns/column.model';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
-import { ListSearchSetFunctionsAction } from '../list/state/search/actions';
-import { ListToolbarItemsLoadAction } from '../list/state/toolbar/actions';
 import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { ListSortLabelModel } from '../list/state/sort/label.model';
 import { Observable } from 'rxjs';
@@ -148,11 +143,11 @@ export class SkyListViewGridComponent
   }
 
   public ngAfterViewInit() {
-    setTimeout(() => this.dispatcher.next(new ListToolbarItemsLoadAction([
+    this.dispatcher.toolbarAddItems([
       new ListToolbarItemModel(
         { template: this.chooseColumnsTemplate, location: 'center', index: 0, view: this.id }
       )
-    ])));
+    ]);
   }
 
   public onViewActive() {
@@ -167,11 +162,10 @@ export class SkyListViewGridComponent
             )
             .filter(c => c !== undefined);
 
-        this.dispatcher.next(new ListSearchSetFunctionsAction(setFunctions));
-        let viewSorts = displayedColumns.map(cmp =>
+        this.dispatcher.searchSetFunctions(setFunctions);
+        this.dispatcher.sortSetAvailable(displayedColumns.map(cmp =>
           new ListSortLabelModel({ text: cmp.heading, fieldSelector: cmp.field })
-        );
-        this.dispatcher.next(new ListSortSetAvailableAction(viewSorts));
+        ));
       });
 
     this.subscriptions.push(sub);
@@ -202,7 +196,7 @@ export class SkyListViewGridComponent
           selectors = [`${column.field}:ASC`];
         }
 
-        this.dispatcher.next(new ListSortSetFieldSelectorsAction(selectors));
+        this.dispatcher.sortSetFieldSelectors(selectors);
       })
       .subscribe();
   }

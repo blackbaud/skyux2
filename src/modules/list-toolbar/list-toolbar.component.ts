@@ -3,18 +3,9 @@ import {
   OnInit, AfterContentInit, ChangeDetectionStrategy
 } from '@angular/core';
 import {
-  ListSortSetAvailableAction, ListSortSetGlobalAction, ListSortSetFieldSelectorsAction
-} from '../list/state/sort/actions';
-import {
-  ListSearchSetSearchTextAction, ListSearchSetFunctionsAction
-} from '../list/state/search/actions';
-import {
   ListToolbarConfigSetFilterEnabledAction, ListToolbarConfigSetSearchEnabledAction,
   ListToolbarConfigSetSortSelectorEnabledAction, ListToolbarConfigSetViewSelectorEnabledAction
 } from './state/config/actions';
-import {
-  ListToolbarItemsLoadAction, ListToolbarSetExistsAction
-} from '../list/state/toolbar/actions';
 import { Observable } from 'rxjs';
 import { ListToolbarState, ListToolbarStateDispatcher, ListToolbarStateModel } from './state';
 import { ListToolbarModel } from '../list/state/toolbar/toolbar.model';
@@ -24,7 +15,6 @@ import { ListState, ListStateDispatcher } from '../list/state';
 import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
 import { ListSortLabelModel } from '../list/state/sort/label.model';
 import { getValue } from 'microedge-rxstate/helpers';
-import { ListViewsSetActiveAction } from '../list/state/views/actions';
 
 @Component({
   selector: 'sky-list-toolbar',
@@ -65,7 +55,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   }
 
   public ngOnInit() {
-    this.dispatcher.next(new ListToolbarSetExistsAction(true));
+    this.dispatcher.toolbarExists(true);
     getValue(this.searchTextInput, (searchText: string) => this.updateSearchText(searchText));
     getValue(this.searchEnabled, (searchEnabled: any) =>
       this.toolbarDispatcher.next(
@@ -96,29 +86,30 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       )
     );
 
-    this.dispatcher.next(new ListToolbarItemsLoadAction([
+    this.dispatcher.toolbarAddItems([
       this.type !== 'search' ?
         new ListToolbarItemModel({ template: this.searchTemplate, location: 'center' }) :
         undefined,
       new ListToolbarItemModel({ template: this.sortSelectorTemplate, location: 'right' }),
       new ListToolbarItemModel({ template: this.viewSelectorTemplate, location: 'right' })
-    ].filter(s => s !== undefined)));
+    ].filter(s => s !== undefined));
   }
 
   public ngAfterContentInit() {
-    this.toolbarItems.forEach(toolbarItem => this.dispatcher.next(
-      new ListToolbarItemsLoadAction(
+    this.toolbarItems.forEach(toolbarItem =>
+      this.dispatcher.toolbarAddItems(
         [new ListToolbarItemModel(toolbarItem)],
         toolbarItem.index
       )
-    ));
+    );
 
     let sortModels = this.toolbarSorts.map(sort =>
       new ListSortLabelModel(
         { text: sort.label, fieldSelector: sort.field, fieldType: sort.type, global: true }
       )
     );
-    this.dispatcher.next(new ListSortSetGlobalAction(sortModels));
+
+    this.dispatcher.sortSetGlobal(sortModels);
   }
 
   get view() {
@@ -163,19 +154,19 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   }
 
   public setActiveView(view: any): void {
-    this.dispatcher.next(new ListSearchSetFunctionsAction([]));
-    this.dispatcher.next(new ListSortSetAvailableAction([]));
-    this.dispatcher.next(new ListViewsSetActiveAction(view.id));
+    this.dispatcher.searchSetFunctions([]);
+    this.dispatcher.sortSetAvailable([]);
+    this.dispatcher.viewsSetActive(view.id);
   }
 
   public setSort(sort: any, descending: any): void {
-    this.dispatcher.next(
-      new ListSortSetFieldSelectorsAction([`${sort.fieldSelector}:${descending ? 'DESC' : 'ASC'}`])
+    this.dispatcher.sortSetFieldSelectors(
+      [`${sort.fieldSelector}:${descending ? 'DESC' : 'ASC'}`]
     );
   }
 
   private updateSearchText(searchText: string) {
-    this.dispatcher.next(new ListSearchSetSearchTextAction(searchText));
+    this.dispatcher.searchSetText(searchText);
   }
 
   private get isSearchEnabled() {

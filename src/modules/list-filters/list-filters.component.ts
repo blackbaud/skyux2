@@ -5,8 +5,6 @@ import {
 import { SkyModalService } from '../modal';
 import { SkyListFilterComponent } from './list-filter.component';
 import { ListState, ListStateDispatcher } from '../list/state';
-import { ListFiltersLoadAction, ListFiltersUpdateAction } from '../list/state/filters/actions';
-import { ListToolbarItemsLoadAction } from '../list/state/toolbar/actions';
 import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { ListFilterModel } from '../list/state/filters/filter.model';
 import { SkyListFiltersModalComponent } from './list-filters-modal.component';
@@ -40,19 +38,19 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
         undefined
       );
 
-    this.dispatcher.next(new ListFiltersLoadAction(filterModels));
+    this.dispatcher.filtersLoad(filterModels);
   }
 
   public ngAfterViewInit() {
-    setTimeout(() => this.dispatcher.next(new ListToolbarItemsLoadAction([
+    this.dispatcher.toolbarAddItems([
       new ListToolbarItemModel({ template: this.filterButtonTemplate, location: 'right' })
-    ])));
+    ]);
   }
 
   public applyFilters() {
     this.state.map(s => s.filters)
       .take(1)
-      .subscribe(filters => this.dispatcher.next(new ListFiltersUpdateAction(filters)));
+      .subscribe(filters => this.dispatcher.filtersUpdate(filters));
   }
 
   public openFiltersModal() {
@@ -82,7 +80,7 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
     this.state.map(s => s.filters)
       .take(1)
       .subscribe(filters => {
-        this.dispatcher.next(new ListFiltersUpdateAction(filters));
+        this.dispatcher.filtersUpdate(filters);
       });
   }
 

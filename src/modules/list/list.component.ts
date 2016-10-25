@@ -20,8 +20,7 @@ import { ListViewsLoadAction, ListViewsSetActiveAction } from './state/views/act
 import { ListViewModel } from './state/views/view.model';
 import { ListItemModel } from './state/items/item.model';
 import { ListSortSetFieldSelectorsAction } from './state/sort/actions';
-import { ListToolbarSetExistsAction } from './state/toolbar/actions';
-const moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
   selector: 'sky-list',
@@ -31,7 +30,7 @@ const moment = require('moment');
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyListComponent implements AfterContentInit {
-  public id: string = moment().toDate().getTime();
+  public id: string = moment().toDate().getTime().toString();
   @Input() public data: Array<any> | Observable<Array<any>> = [];
   @Input() public defaultView?: ListViewComponent;
   @Input() public selectedIds: Array<string> | Observable<Array<string>>;
@@ -249,7 +248,7 @@ export class SkyListComponent implements AfterContentInit {
         inputItems.forEach(item => {
           let id = this.dataIdGenerator(item);
           if (id === undefined) {
-            id = moment().toDate().getTime();
+            id = moment().toDate().getTime().toString();
           }
 
           items.push(new ListItemModel(id, selected.indexOf(id) !== -1, item));
