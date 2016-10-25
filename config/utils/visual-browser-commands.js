@@ -95,6 +95,7 @@
 
   function setupTest(browser, url, screenWidth) {
     return browser.url(url).getViewportSize().then(function (size) {
+      log('size request: ', size);
       screenWidth = screenWidth || 1280;
       if (size.width !== screenWidth) {
         return browser.setViewportSize({
