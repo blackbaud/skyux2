@@ -23,11 +23,11 @@
   // Start the webserver
   function start() {
     return new Promise(function (resolve, reject) {
-      server.listen(webpackCompiler.options.metadata.port, function () {
-        selenium.install({
+      return server.listen(webpackCompiler.options.metadata.port, function () {
+        return selenium.install({
           logger: console.log
         }, function () {
-          selenium.start(function (err, child) {
+          return selenium.start(function (err, child) {
             seleniumChild = child;
             resolve();
           });
@@ -40,8 +40,8 @@
     return function () {
       return new Promise(function (resolve, reject) {
         bsLocal = new browserstack.Local();
-        server.listen(webpackCompiler.options.metadata.port, function () {
-          bsLocal.start({
+        return server.listen(webpackCompiler.options.metadata.port, function () {
+          return bsLocal.start({
             key: process.env.BROWSER_STACK_ACCESS_KEY,
             //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
           }, function (err) {
