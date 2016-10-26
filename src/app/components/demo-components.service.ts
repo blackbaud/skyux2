@@ -34,6 +34,12 @@ export class SkyDemoComponentsService {
         url: '/components/checkbox'
       },
       {
+        name: 'Tabs',
+        icon: 'folder-open-o',
+        summary: `The tabs module contains components to render a tabset.`,
+        url: '/components/tabs'
+      },
+      {
         name: 'Tiles',
         icon: 'th-large',
         // tslint:disable-next-line
