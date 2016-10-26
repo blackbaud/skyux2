@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'div.tile-1',
+  selector: 'sky-tile-1',
   template: `
     <sky-tile (settingsClick)="tileSettingsClick()">
       <sky-tile-title>

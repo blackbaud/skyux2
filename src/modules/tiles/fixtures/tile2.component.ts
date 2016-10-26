@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'div.tile-2',
+  selector: 'sky-tile-2',
   template: `
     <sky-tile>
       <sky-tile-title>
