@@ -1,10 +1,15 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-require('style-loader!../src/scss/sky.scss');
-require('font-awesome-webpack');
+const styleLoader = require('../config/utils/sky-style-loader');
+
+(window as any).stylesAreLoaded = function () {
+  return styleLoader.stylesAreLoaded();
+};
 
 export class Bootstrapper {
   public static bootstrapModule(moduleType: any) {
-    platformBrowserDynamic().bootstrapModule(moduleType);
+    styleLoader.loadStyles().then(() => {
+      platformBrowserDynamic().bootstrapModule(moduleType);
+    });
   }
 }
