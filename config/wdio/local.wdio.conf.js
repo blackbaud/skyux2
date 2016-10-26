@@ -8,7 +8,7 @@
 
   config.capabilities = [
     {
-      browserName: 'chrome',
+      browserName: 'firefox',
       os: process.platform === 'win32' ? 'WIN' : 'MAC'
     }
   ];

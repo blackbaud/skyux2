@@ -94,16 +94,32 @@
   }
 
   function setupTest(browser, url, screenWidth) {
-    return browser.url(url).getViewportSize().then(function (size) {
-      if (size.width !== screenWidth) {
-        return browser.setViewportSize({
-          height: size.height,
-          width: screenWidth
-        });
-      } else {
-        return;
-      }
-    });
+    return browser
+      .url(url)
+      .executeAsync(function (done) {
+        var intervalId;
+
+        function checkComponentLoaded() {
+          if (stylesAreLoaded()) {
+            done();
+          } else {
+            setTimeout(checkComponentLoaded, 100);
+          }
+        }
+
+        checkComponentLoaded();
+      })
+      .getViewportSize()
+      .then(function (size) {
+        if (size.width !== screenWidth) {
+          return browser.setViewportSize({
+            height: size.height,
+            width: screenWidth
+          });
+        } else {
+          return;
+        }
+      });
   }
 
   function getScreenshotName(basePath) {
