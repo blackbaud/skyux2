@@ -13,7 +13,7 @@ module.exports = {
 
     promise = Promise.all(
       [
-        fontAwesome.load(),
+        fontAwesome.load('\uf0fc'),
         openSans.load(),
         oswald.load()
       ]
