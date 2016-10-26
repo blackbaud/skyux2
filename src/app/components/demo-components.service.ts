@@ -34,6 +34,13 @@ export class SkyDemoComponentsService {
         url: '/components/checkbox'
       },
       {
+        name: 'Dropdown',
+        icon: 'caret-down',
+        // tslint:disable-next-line
+        summary: `The dropdown component renders a button that when clicked will display a dropdown menu.`,
+        url: '/components/dropdown'
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,
