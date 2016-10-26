@@ -1,15 +1,15 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule, SkyTileDashboardConfig } from '../../../src/core';
+import { SkyModule, SkyTileDashboardConfig } from '../../../../src/core';
 
-import { Bootstrapper } from '../../bootstrapper';
+import { Bootstrapper } from '../../../../visual/bootstrapper';
 import { Tile1Component } from './tile1.component';
 import { Tile2Component } from './tile2.component';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html')
+  template: require('./tile.component.visual-fixture.html')
 })
 export class AppComponent {
   public dashboardConfig: SkyTileDashboardConfig;

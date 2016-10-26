@@ -25,6 +25,7 @@
             type="button"
             *ngIf="hasSettings"
             class="sky-tile-settings fa fa-cog"
+            [attr.aria-label]="'tile_settings' | skyResources"
             (click)="settingsButtonClicked();"
         >
         </button>
