@@ -87,6 +87,30 @@ select {
   padding: $sky-padding-half $sky-padding;
 }
 
+.sky-container {
+  width: $sky-screen-xs-max - 30;
+  margin: 0 auto;
+  padding: 0 $sky-padding-plus-half;
+}
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-container {
+    width: $sky-screen-sm-min - 10;
+  }
+}
+
+@media (min-width: $sky-screen-md-min) {
+  .sky-container {
+    width: $sky-screen-md-min - 20;
+  }
+}
+
+@media (min-width: $sky-screen-lg-min) {
+  .sky-container {
+    width: $sky-screen-lg-min - 10;
+  }
+}
+
 .sky-pull-right {
   float: right;
 }
