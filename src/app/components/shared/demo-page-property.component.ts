@@ -7,6 +7,7 @@ import {
 @Component({
   selector: 'sky-demo-page-property',
   templateUrl: './demo-page-property.component.html',
+  styleUrls: ['./demo-page-property.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyDemoPagePropertyComponent {

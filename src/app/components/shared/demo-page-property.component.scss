@@ -1,0 +1,10 @@
+@import '../../../scss/mixins';
+
+li {
+  line-height: 1.6em;
+  padding-bottom: $sky-padding-half;
+
+  /deep/ code {
+    white-space: nowrap;
+  }
+}
