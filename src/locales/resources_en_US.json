@@ -131,6 +131,10 @@
         "_description": "Displays when no columns are found for the specified search text.",
         "message": "No columns found"
     },
+    "modal_close": {
+      "_description": "Text for modal close button",
+      "message": "Close modal"
+    },
     "modal_footer_cancel_button": {
         "_description": "Default lable text for modal cancel button",
         "message": "Cancel"
@@ -562,6 +566,10 @@
     "tab_add": {
       "_description": "Label for the tab add button",
       "message": "Add tab"
+    },
+    "tile_settings": {
+      "_description": "Label for settings button in the tile",
+      "message": "Settings"
     }
 
 }

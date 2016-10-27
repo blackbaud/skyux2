@@ -17,6 +17,7 @@
       <div class="sky-modal-header-buttons">
         <button
             type="button"
+            [attr.aria-label]="'modal_close' | skyResources"
             class="sky-btn sky-modal-btn-close"
             (click)="closeButtonClick()"
         >
