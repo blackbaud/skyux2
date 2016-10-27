@@ -98,17 +98,7 @@
       .url(url)
       .timeouts('script', 30000)
       .executeAsync(function (done) {
-        var intervalId;
-
-        function checkComponentLoaded() {
-          if (window.stylesAreLoaded && window.stylesAreLoaded()) {
-            done();
-          } else {
-            setTimeout(checkComponentLoaded, 100);
-          }
-        }
-
-        checkComponentLoaded();
+        window.styleLoader.loadStyles().then(done);
       })
       .getViewportSize()
       .then(function (size) {
