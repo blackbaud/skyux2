@@ -4,6 +4,8 @@ var FontFaceObserver = require('fontfaceobserver');
 
 var stylesAreLoaded = false;
 
+var LOAD_TIMEOUT = 30000;
+
 module.exports = {
   loadStyles: function (callback) {
     var fontAwesome = new FontFaceObserver('FontAwesome'),
@@ -16,9 +18,9 @@ module.exports = {
         // Specify a character for FontAwesome since some browsers will fail to detect
         // when the font is loaded unless a known character with a different width
         // than the default is not specified.
-        fontAwesome.load('\uf0fc'),
-        openSans.load(),
-        oswald.load()
+        fontAwesome.load('\uf0fc', LOAD_TIMEOUT),
+        openSans.load(null, LOAD_TIMEOUT),
+        oswald.load(null, LOAD_TIMEOUT)
       ]
     );
 
