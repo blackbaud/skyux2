@@ -41,6 +41,13 @@ export class SkyDemoComponentsService {
         url: '/components/dropdown'
       },
       {
+        name: 'File attachments',
+        icon: 'cloud-upload',
+        // tslint:disable-next-line
+        summary: `The file attachment components provide the ability to add multiple files to forms and then display information about the files.`,
+        url: '/components/fileattachments'
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,
