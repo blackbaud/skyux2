@@ -2,14 +2,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 const styleLoader = require('../config/utils/sky-style-loader');
 
-(window as any).stylesAreLoaded = function () {
-  return styleLoader.stylesAreLoaded();
-};
+(window as any).styleLoader = styleLoader;
 
 export class Bootstrapper {
   public static bootstrapModule(moduleType: any) {
-    styleLoader.loadStyles().then(() => {
-      platformBrowserDynamic().bootstrapModule(moduleType);
-    });
+    platformBrowserDynamic().bootstrapModule(moduleType);
   }
 }
