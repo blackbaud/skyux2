@@ -1,20 +1,19 @@
 @import '../../../scss/mixins';
 
-.sky-demo-button-wrapper {
-  float: left;
+:host {
+  flex: 0 0 33.33333%;
   padding: $sky-padding;
-  width: 33%;
 }
 
 @media (max-width: $sky-screen-md-max) {
-  .sky-demo-button-wrapper {
-    width: 50%;
+  :host {
+    flex-basis: 50%;
   }
 }
 
 @media (max-width: $sky-screen-xs-max) {
-  .sky-demo-button-wrapper {
-    width: 100%;
+  :host {
+    flex-basis: 100%;
   }
 }
 
