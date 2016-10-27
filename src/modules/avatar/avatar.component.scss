@@ -1,4 +1,25 @@
 @import '../../scss/mixins';
+@import '../../scss/variables';
+
+.sky-avatar {
+  /deep/ .sky-file-drop-accept {
+    .sky-avatar-wrapper {
+      border: dashed $sky-avatar-border-width $sky-color-green;
+    }
+  }
+
+  /deep/ .sky-file-drop-reject {
+    .sky-avatar-wrapper {
+      border: dashed $sky-avatar-border-width $sky-color-red;
+    }
+  }
+
+  /deep/ .sky-file-drop {
+    .sky-avatar-wrapper {
+      cursor: pointer;
+    }
+  }
+}
 
 .sky-avatar-wrapper {
   height: $sky-avatar-height + ($sky-avatar-border-width * 2);

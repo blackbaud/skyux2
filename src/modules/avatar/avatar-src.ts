@@ -1,1 +1,1 @@
-export type SkyAvatarSrc = string | Blob;
+export type SkyAvatarSrc = string | Blob | File;

@@ -73,6 +73,7 @@ export class SkyFileDropComponent {
   }
 
   public fileDragEnter(this: SkyFileDropComponent, dragEnterEvent: any) {
+    console.log('in drag enter');
     // Save this target to know when the drag event leaves
     this.enterEventTarget = dragEnterEvent.target;
     dragEnterEvent.stopPropagation();
@@ -83,6 +84,7 @@ export class SkyFileDropComponent {
   public fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
     dragOverEvent.stopPropagation();
     dragOverEvent.preventDefault();
+    console.log('in drag over');
 
      if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
 
@@ -90,7 +92,7 @@ export class SkyFileDropComponent {
 
       for (let index = 0; index < files.length; index++) {
         let file: any = files[index];
-        if (file.type && this.fileTypeRejected(file.type) && !this.rejectedOver) {
+        if (file.type && this.fileTypeRejected(file.type)) {
           this.rejectedOver = true;
           this.acceptedOver = false;
           return;
@@ -118,6 +120,7 @@ export class SkyFileDropComponent {
 
   public fileDragLeave(this: SkyFileDropComponent, dragLeaveEvent: any) {
     if (this.enterEventTarget === dragLeaveEvent.target) {
+      console.log('in drag leave');
       this.rejectedOver = false;
       this.acceptedOver = false;
     }
@@ -190,12 +193,42 @@ export class SkyFileDropComponent {
     reader.readAsDataURL(file.file);
   }
 
+  private getMimeSubtype(type: string) {
+    console.log('get ', type);
+    return type.substr(type.indexOf('/') + 1, type.length);
+  }
+
+  private getMimeMainType(type: string) {
+    return type.substr(0, type.indexOf('/'));
+  }
+
+  private fileTypeInArray(typeArray: string[], fileType: string) {
+    console.log('array: ', typeArray);
+    console.log('file type: ', fileType);
+    if (typeArray.indexOf(fileType) !== -1) {
+      return true;
+    }
+    for (let index = 0; index < typeArray.length; index++) {
+      let type = typeArray[index];
+      let validSubtype = this.getMimeSubtype(type);
+      console.log('valid subType: ', validSubtype);
+      if (validSubtype === '*') {
+        if (this.getMimeMainType(type) === this.getMimeMainType(fileType)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   private fileTypeRejected(fileType: string) {
     if (!this.acceptedTypes) {
       return false;
     }
-    let typeArray = this.acceptedTypes.split(',');
-    return typeArray.indexOf(fileType) === -1;
+
+    let acceptedTypesUpper = this.acceptedTypes.toUpperCase();
+    let typeArray = acceptedTypesUpper.split(',');
+    return !this.fileTypeInArray(typeArray, fileType.toUpperCase());
   }
 
   private handleFiles(files: FileList) {

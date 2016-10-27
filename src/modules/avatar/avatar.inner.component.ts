@@ -3,23 +3,17 @@ import {
   Component,
   ElementRef,
   Input,
-  Output,
-  EventEmitter,
   OnDestroy
 } from '@angular/core';
 
-import {
-  SkyFileDropChange,
-  SkyFileItem
-} from '../fileattachments';
 
 import { SkyAvatarAdapterService } from './avatar-adapter.service';
 import { SkyAvatarSrc } from './avatar-src';
 
 @Component({
-  selector: 'sky-avatar',
-  template: require('./avatar.component.html'),
-  styles: [require('./avatar.component.scss')],
+  selector: 'sky-avatar-inner',
+  template: require('./avatar.inner.component.html'),
+  styles: [require('./avatar.inner.component.scss')],
   providers: [SkyAvatarAdapterService]
 })
 export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
@@ -41,20 +35,6 @@ export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
   public set name(value: string) {
     this._name = value;
   }
-
-  public get canChange(): boolean {
-    return this._canChange;
-  }
-
-  @Input()
-  public set canChange(value: boolean) {
-    this._canChange = value;
-  }
-
-  @Output()
-  public avatarChanged = new EventEmitter<SkyFileItem>();
-
-  private _canChange: boolean;
 
   private viewInitialized: boolean;
 
@@ -97,13 +77,6 @@ export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
 
     return colorIndex;
   }
-
-  public photoDrop(result: SkyFileDropChange) {
-    if (result.files && result.files.length > 0) {
-      this.avatarChanged.emit(result.files[0]);
-    }
-  }
-
 
   public ngAfterViewInit() {
     this.viewInitialized = true;

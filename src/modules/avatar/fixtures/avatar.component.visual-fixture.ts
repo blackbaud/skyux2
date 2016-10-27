@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule } from '../../../../src/core';
+import { SkyModule, SkyFileItem, SkyAvatarSrc } from '../../../../src/core';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -12,8 +12,12 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 class AppComponent {
   public name = 'Robert C. Hernandez';
 
-  public get src(): string {
-    return require('./avatar.png');
+  public src: SkyAvatarSrc = require('./avatar.png');
+
+  public avatarUpdated(file: SkyFileItem) {
+    if (file !== undefined) {
+      this.src = file.file;
+    }
   }
 }
 
