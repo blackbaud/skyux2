@@ -182,13 +182,13 @@ describe('Avatar component', () => {
     let instance = fixture.componentInstance;
     let expectedFile: SkyFileItem;
     let actualFile = <SkyFileItem> {
-         file: <File> {
-           name: 'foo.png',
-           type: 'image/png',
-           size: 1000
-         }
+      file: <File> {
+        name: 'foo.png',
+        type: 'image/png',
+        size: 1000
+      }
+    };
 
-        }
     instance.canChange = true;
     instance.avatarChanged.subscribe(
       (newFile: SkyFileItem) => expectedFile = newFile );

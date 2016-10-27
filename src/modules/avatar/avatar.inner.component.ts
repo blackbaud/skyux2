@@ -6,7 +6,6 @@ import {
   OnDestroy
 } from '@angular/core';
 
-
 import { SkyAvatarAdapterService } from './avatar-adapter.service';
 import { SkyAvatarSrc } from './avatar-src';
 

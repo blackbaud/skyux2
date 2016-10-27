@@ -54,7 +54,6 @@ export class SkyAvatarComponent {
 
   private _name: string;
 
-
   public photoDrop(result: SkyFileDropChange) {
     if (result.files && result.files.length > 0) {
       this.avatarChanged.emit(result.files[0]);

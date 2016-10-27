@@ -397,7 +397,6 @@ describe('File drop component', () => {
 
     expect(filesChangedActual.rejectedFiles.length).toBe(0);
 
-
     expect(filesChangedActual.files.length).toBe(2);
     expect(filesChangedActual.files[0].url).toBe('url');
     expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
