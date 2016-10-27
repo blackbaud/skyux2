@@ -4,6 +4,8 @@ var FontFaceObserver = require('fontfaceobserver');
 
 var stylesAreLoaded = false;
 
+var LOAD_TIMEOUT = 30000;
+
 module.exports = {
   loadStyles: function (callback) {
     var openSans = new FontFaceObserver('Open Sans'),
@@ -12,8 +14,8 @@ module.exports = {
 
     promise = Promise.all(
       [
-        openSans.load(),
-        oswald.load()
+        openSans.load(null, LOAD_TIMEOUT),
+        oswald.load(null, LOAD_TIMEOUT)
       ]
     );
 
