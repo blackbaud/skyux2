@@ -16,7 +16,7 @@ import { SkyAvatarSrc } from './avatar-src';
   styles: [require('./avatar.inner.component.scss')],
   providers: [SkyAvatarAdapterService]
 })
-export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
+export class SkyAvatarInnerComponent implements AfterViewInit, OnDestroy {
   public get src(): SkyAvatarSrc {
     return this._src;
   }
