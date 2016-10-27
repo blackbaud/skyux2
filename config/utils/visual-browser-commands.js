@@ -100,7 +100,7 @@
         var intervalId;
 
         function checkComponentLoaded() {
-          if (stylesAreLoaded()) {
+          if (window.stylesAreLoaded && window.stylesAreLoaded()) {
             done();
           } else {
             setTimeout(checkComponentLoaded, 100);
