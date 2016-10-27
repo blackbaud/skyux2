@@ -96,10 +96,6 @@
   function setupTest(browser, url, screenWidth) {
     return browser
       .url(url)
-      .timeouts('script', 30000)
-      .executeAsync(function (done) {
-        window.styleLoader.loadStyles().then(done);
-      })
       .getViewportSize()
       .then(function (size) {
         if (size.width !== screenWidth) {

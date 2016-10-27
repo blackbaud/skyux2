@@ -6,8 +6,6 @@ const styleLoader = require('../config/utils/sky-style-loader');
 
 export class Bootstrapper {
   public static bootstrapModule(moduleType: any) {
-    styleLoader.loadStyles().then(() => {
-      platformBrowserDynamic().bootstrapModule(moduleType);
-    });
+    platformBrowserDynamic().bootstrapModule(moduleType);
   }
 }
