@@ -96,11 +96,12 @@
   function setupTest(browser, url, screenWidth) {
     return browser
       .url(url)
+      .timeouts('script', 10000)
       .executeAsync(function (done) {
         var intervalId;
 
         function checkComponentLoaded() {
-          if (stylesAreLoaded()) {
+          if (window.stylesAreLoaded && window.stylesAreLoaded()) {
             done();
           } else {
             setTimeout(checkComponentLoaded, 100);
