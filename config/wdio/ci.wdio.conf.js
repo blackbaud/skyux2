@@ -11,7 +11,6 @@
   config.capabilities = [
     {
       browserName: 'chrome',
-      browser_version: '53',
       'browserstack.local': 'true',
       'browserstack.debug': 'true',
       os: 'OS X',
@@ -25,7 +24,6 @@
     },
     {
       browserName: 'firefox',
-      browser_version: '47',
       'browserstack.local': 'true',
       'browserstack.debug': 'true',
       os: 'OS X',
