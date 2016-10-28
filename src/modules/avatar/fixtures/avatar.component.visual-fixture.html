@@ -1,6 +1,11 @@
-<div id="screenshot-avatar-img">
-  <sky-avatar [name]="name" [src]="src"></sky-avatar>
+<div id="screenshot-avatar-img" style="display: inline-block;">
+  <sky-avatar
+    [name]="name"
+    [src]="src"
+    [canChange]="true"
+    (avatarChanged)="avatarUpdated($event)">
+  </sky-avatar>
 </div>
-<div id="screenshot-avatar-initials">
+<div id="screenshot-avatar-initials" style="display: inline-block;">
   <sky-avatar [name]="name"></sky-avatar>
 </div>

@@ -3,7 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { expect } from '../testing';
 
 import { AvatarTestComponent } from './fixtures/avatar.component.fixture';
+import { SkyAvatarComponent } from './avatar.component';
 import { SkyAvatarFixturesModule } from './fixtures/avatar-fixtures.module';
+import { SkyFileItem, SkyFileDropChange } from '../fileattachments';
 
 describe('Avatar component', () => {
   /* tslint:disable-next-line max-line-length */
@@ -148,4 +150,59 @@ describe('Avatar component', () => {
       expect(revokeSpy).toHaveBeenCalledWith(objectUrl);
     }
   );
+
+  it('should notify the consumer when the user chooses a new image', function () {
+    let fixture = TestBed.createComponent(SkyAvatarComponent);
+    let instance = fixture.componentInstance;
+    let expectedFile: SkyFileItem;
+    let actualFile = <SkyFileItem> {
+         file: <File> {
+           name: 'foo.png',
+           type: 'image/png',
+           size: 1000
+         }
+      };
+    instance.canChange = true;
+    instance.avatarChanged.subscribe(
+      (newFile: SkyFileItem) => expectedFile = newFile );
+
+    instance.photoDrop(<SkyFileDropChange>{
+      files: [
+        actualFile
+      ],
+      rejectedFiles: []
+    });
+
+    fixture.detectChanges();
+    expect(expectedFile).toEqual(actualFile);
+  });
+
+  it('should not notify the consumer when the new image is rejected', function () {
+    let fixture = TestBed.createComponent(SkyAvatarComponent);
+    let instance = fixture.componentInstance;
+    let expectedFile: SkyFileItem;
+    let actualFile = <SkyFileItem> {
+      file: <File> {
+        name: 'foo.png',
+        type: 'image/png',
+        size: 1000
+      }
+    };
+
+    instance.canChange = true;
+    instance.avatarChanged.subscribe(
+      (newFile: SkyFileItem) => expectedFile = newFile );
+
+    instance.photoDrop(<SkyFileDropChange>{
+      files: [
+
+      ],
+      rejectedFiles: [
+        actualFile
+      ]
+    });
+
+    fixture.detectChanges();
+    expect(expectedFile).not.toEqual(actualFile);
+  });
 });

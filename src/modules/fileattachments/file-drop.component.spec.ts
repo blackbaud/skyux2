@@ -365,7 +365,7 @@ describe('File drop component', () => {
     componentInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    componentInstance.acceptedTypes = 'image/png, image/tiff';
+    componentInstance.acceptedTypes = 'image/png,image/tiff';
 
     fixture.detectChanges();
 
@@ -381,6 +381,29 @@ describe('File drop component', () => {
     expect(filesChangedActual.files[0].url).toBe('url');
     expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
     expect(filesChangedActual.files[0].file.size).toBe(1000);
+  });
+
+  it('should allow the user to specify accepted type with wildcards', () => {
+    let filesChangedActual: SkyFileDropChange;
+
+    componentInstance.filesChanged.subscribe(
+      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+    componentInstance.acceptedTypes = 'application/*,image/*';
+
+    fixture.detectChanges();
+
+    setupStandardFileChangeEvent();
+
+    expect(filesChangedActual.rejectedFiles.length).toBe(0);
+
+    expect(filesChangedActual.files.length).toBe(2);
+    expect(filesChangedActual.files[0].url).toBe('url');
+    expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.files[0].file.size).toBe(1000);
+    expect(filesChangedActual.files[1].url).toBe('newurl');
+    expect(filesChangedActual.files[1].file.name).toBe('woo.txt');
+    expect(filesChangedActual.files[1].file.size).toBe(2000);
   });
 
   function triggerDragEnter(enterTarget: any, dropDebugEl: DebugElement) {

@@ -20,12 +20,8 @@ export class SkyAvatarAdapterService {
         let url: string;
 
         if (src) {
-          if (src instanceof Blob) {
-            url = URL.createObjectURL(src);
-
-            // Keep the last blob URL around so we can revoke it later.
-            // https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL
-            this.blobUrl = url;
+          if (src instanceof File || src instanceof Blob) {
+            url = this.createBlobUrl(src);
           } else {
             url = src;
           }
@@ -38,6 +34,15 @@ export class SkyAvatarAdapterService {
 
   public destroy() {
     this.revokeBlobUrl();
+  }
+
+  private createBlobUrl(src: Blob | File) {
+     let url = URL.createObjectURL(src);
+
+      // Keep the last blob URL around so we can revoke it later.
+      // https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL
+      this.blobUrl = url;
+      return url;
   }
 
   private revokeBlobUrl() {

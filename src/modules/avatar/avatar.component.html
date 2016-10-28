@@ -1,12 +1,15 @@
-<div class="sky-avatar-wrapper">
-  <div class="sky-avatar-image" [hidden]="!src"></div>
-  <div
-    class="sky-avatar-initials"
-    [ngClass]="'sky-palette-multi-' + (colorIndex + 1)"
-    [hidden]="src || !name"
-  >
-    <div class="sky-avatar-initials-inner">
-      {{initials}}
+<div class="sky-avatar">
+  <div *ngIf="canChange">
+    <div class="sky-avatar-file-drop">
+      <sky-file-drop
+        [multiple]="false"
+        [acceptedTypes]="'image/*'"
+        (filesChanged)="photoDrop($event)">
+        <sky-avatar-inner [src]="src" [name]="name"></sky-avatar-inner>
+      </sky-file-drop>
     </div>
+  </div>
+  <div *ngIf="!canChange">
+    <sky-avatar-inner [src]="src" [name]="name"></sky-avatar-inner>
   </div>
 </div>

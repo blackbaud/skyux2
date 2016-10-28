@@ -42,6 +42,9 @@
       return server.listen(webpackCompiler.options.metadata.port, function () {
         return bsLocal.start({
           key: process.env.BROWSER_STACK_ACCESS_KEY,
+          onlyAutomate: true,
+          forcelocal: true,
+          force: true
           //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
         }, function (err) {
           if (err) {
@@ -75,6 +78,10 @@
 
   process.on('SIGINT', function () {
     stop();
+    if (bsLocal.isRunning()) {
+      bsLocal.stop();
+    }
+
     process.exit(1);
   });
 
