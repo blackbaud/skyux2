@@ -12,6 +12,7 @@ var demoConfig = require('./webpack.demo.js');
  */
 var DefinePlugin = require('webpack/lib/DefinePlugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 /**
  * Webpack Constants
@@ -31,20 +32,6 @@ var METADATA = webpackMerge(commonConfig.metadata, {
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
 module.exports = webpackMerge(commonConfig, demoConfig.buildDemoConfig(), {
-
-  /**
-   * Merged metadata from webpack.common.js for index.html
-   *
-   * See: (custom attribute)
-   */
-  metadata: METADATA,
-
-  /**
-   * Switch loaders to debug mode.
-   *
-   * See: http://webpack.github.io/docs/configuration.html#debug
-   */
-  debug: true,
 
   /**
    * Developer tool to enhance debugging
@@ -113,20 +100,19 @@ module.exports = webpackMerge(commonConfig, demoConfig.buildDemoConfig(), {
         'NODE_ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
       }
+    }),
+
+    new LoaderOptionsPlugin({
+      debug: true,
+      options: {
+      tslint: {
+          emitErrors: false,
+          failOnHint: false,
+          resourcePath: 'src'
+        }
+      }
     })
   ],
-
-  /**
-   * Static analysis linter for TypeScript advanced options configuration
-   * Description: An extensible linter for the TypeScript language.
-   *
-   * See: https://github.com/wbuchwalter/tslint-loader
-   */
-  tslint: {
-    emitErrors: false,
-    failOnHint: false,
-    resourcePath: 'src'
-  },
 
   /**
    * Webpack Development Server configuration
@@ -153,7 +139,7 @@ module.exports = webpackMerge(commonConfig, demoConfig.buildDemoConfig(), {
    * See: https://webpack.github.io/docs/configuration.html#node
    */
   node: {
-    global: 'window',
+    global: true,
     crypto: 'empty',
     process: true,
     module: false,

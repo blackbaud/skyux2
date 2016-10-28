@@ -1,27 +1,31 @@
-var helpers = require('../utils/helpers');
+const helpers = require('../utils/helpers');
 
-var ProvidePlugin = require('webpack/lib/ProvidePlugin');
-var DefinePlugin = require('webpack/lib/DefinePlugin');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 
-var ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
 module.exports = {
 
   devtool: 'inline-source-map',
 
   resolve: {
-    extensions: ['', '.ts', '.js'],
-    root: helpers.root('src'),
+    extensions: ['.ts', '.js'],
+    modules: [helpers.root('src'), 'node_modules'],
   },
 
   module: {
-    preLoaders: [
+    rules: [
       {
+        enforce: 'pre',
         test: /\.ts$/,
         loader: 'tslint-loader',
         exclude: [helpers.root('node_modules')]
       },
       {
+        enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
         exclude: [
@@ -29,14 +33,11 @@ module.exports = {
           helpers.root('node_modules/rxjs'),
           helpers.root('node_modules/@angular/compiler')
         ]
-      }
+      },
 
-    ],
-
-    loaders: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader',
+        loader: 'awesome-typescript-loader',
         exclude: [/\.e2e\.ts$/]
       },
       {
@@ -57,12 +58,10 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: 'raw-loader!sass-loader'
-      }
+      },
 
-    ],
-
-    postLoaders: [
       {
+        enforce: 'post',
         test: /\.(js|ts)$/,
         loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
         include: helpers.root('src'),
@@ -87,16 +86,27 @@ module.exports = {
         'HMR': false,
       }
     }),
+
+    new LoaderOptionsPlugin({
+      debug: true,
+      options: {
+      tslint: {
+          emitErrors: false,
+          failOnHint: false,
+          resourcePath: 'src'
+        }
+      }
+    }),
+
+    new ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      helpers.root('src') // location of your src
+    )
   ],
 
-  tslint: {
-    emitErrors: false,
-    failOnHint: false,
-    resourcePath: 'src'
-  },
-
   node: {
-    global: 'window',
+    global: true,
     process: false,
     crypto: 'empty',
     module: false,
