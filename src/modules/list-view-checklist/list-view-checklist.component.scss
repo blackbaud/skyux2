@@ -1,0 +1,11 @@
+:host {
+  /deep/ .sky-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+
+    > .sky-checkbox, > input {
+      flex: 1;
+      max-width: 22px;
+    }
+  }
+}

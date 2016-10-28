@@ -1,0 +1,110 @@
+$transform-size: -12px;
+
+:host /deep/ {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .sky-spinner-container {
+    padding: 15px;
+    background-color: #eee;
+    box-shadow: 0 0 50px #999;
+    cursor: wait;
+    border-radius: 10px;
+    width: 65px;
+    height: 65px;
+    position: absolute;
+    margin-left: -32px;
+    left: 50%;
+    margin-top: -32px;
+    top: 50%;
+  }
+
+  .sky-spinner-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: #333;
+    opacity: 0.1;
+  }
+
+  .sky-spinner {
+    width: 35px;
+    height: 35px;
+    position: relative;
+    -webkit-animation: rotateit 1.3s linear infinite;
+    animation: rotateit 1.3s linear infinite;
+
+    > div {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: black;
+      position: absolute;
+      top: 12px;
+      left: 15px;
+
+      &:nth-child(1){
+      	-webkit-transform: rotate(0deg) translate(0, -4px) scale(1.4);
+      	transform: rotate(0deg) translate(0, $transform-size) scale(1.4);
+      }
+
+      &:nth-child(2){
+      	-webkit-transform: rotate(-45deg) translate(0, $transform-size) scale(1.2);
+      	transform: rotate(-45deg) translate(0, $transform-size) scale(1.2);
+      	opacity:0.7;
+      }
+
+      &:nth-child(3){
+      	-webkit-transform: rotate(-90deg) translate(0, $transform-size) scale(1.1);
+      	transform: rotate(-90deg) translate(0, $transform-size) scale(1.1);
+      	opacity:0.6;
+      }
+
+      &:nth-child(4){
+      	-webkit-transform: rotate(-135deg) translate(0, $transform-size) scale(0.9);
+      	transform: rotate(-135deg) translate(0, $transform-size) scale(0.9);
+      	opacity:0.5;
+      }
+
+      &:nth-child(5){
+      	-webkit-transform: rotate(-180deg) translate(0, $transform-size) scale(0.7);
+      	transform: rotate(-180deg) translate(0, $transform-size) scale(0.7);
+      	opacity:0.4;
+      }
+
+      &:nth-child(6){
+      	-webkit-transform: rotate(-225deg) translate(0, $transform-size) scale(0.5);
+      	transform: rotate(-225deg) translate(0, $transform-size) scale(0.5);
+      	opacity:0.3;
+      }
+
+      &:nth-child(7){
+      	-webkit-transform: rotate(-270deg) translate(0, $transform-size) scale(0.3);
+      	transform: rotate(-270deg) translate(0, $transform-size) scale(0.3);
+      	opacity:0.2;
+      }
+
+      &:nth-child(8){
+      	-webkit-transform: rotate(-315deg) translate(0, $transform-size) scale(0.1);
+      	transform: rotate(-315deg) translate(0, $transform-size) scale(0.1);
+      	opacity:0.1;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes rotateit {
+  to { -webkit-transform: rotate(360deg); }
+  from { -webkit-transform: rotate(0deg); }
+}
+
+@keyframes rotateit {
+  to { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+}
