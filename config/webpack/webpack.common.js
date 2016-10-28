@@ -1,18 +1,18 @@
-var webpack = require('webpack');
-var helpers = require('../utils/helpers');
+const webpack = require('webpack');
+const helpers = require('../utils/helpers');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
-var extractScss = new ExtractTextPlugin('sky.css');
+const extractScss = new ExtractTextPlugin('sky.css');
 
-var METADATA = {
+const METADATA = {
   title: 'SKY UX 2',
   baseUrl: '/'
 };
 
 module.exports = {
-
-  metadata: METADATA,
 
   entry: {
     'polyfills': './src/polyfills.ts',
@@ -21,35 +21,29 @@ module.exports = {
 
   resolve: {
 
-    extensions: ['', '.ts', '.js'],
+    extensions: ['.ts', '.js'],
 
-    root: helpers.root('src'),
-
-    modulesDirectories: ['node_modules']
+    modules: [helpers.root('src'), 'node_modules']
 
   },
 
   module: {
 
-    preLoaders: [
-
+    rules: [
       {
         test: /\.js$/,
+        enforce: 'pre',
         loader: 'source-map-loader',
         exclude: [
           // these packages have problems with their sourcemaps
           helpers.root('node_modules/rxjs'),
           helpers.root('node_modules/@angular/compiler/bundles')
         ]
-      }
-
-    ],
-
-    loaders: [
+      },
 
       {
         test: /\.ts$/,
-        loader: 'ts-loader',
+        loader: 'awesome-typescript-loader',
         exclude: [/\.(spec|e2e)\.ts$/]
       },
 
@@ -104,16 +98,22 @@ module.exports = {
 
     extractScss,
 
-    new webpack.optimize.OccurenceOrderPlugin(true),
+    new ForkCheckerPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: helpers.reverse(['polyfills', 'vendor'])
     }),
 
+    new ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      helpers.root('src') // location of your src
+    )
+
   ],
 
   node: {
-    global: 'window',
+    global: true,
     crypto: 'empty',
     module: false,
     clearImmediate: false,

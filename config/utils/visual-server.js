@@ -23,7 +23,7 @@
   // Start the webserver
   function start() {
     return new Promise(function (resolve, reject) {
-      return server.listen(webpackCompiler.options.metadata.port, function () {
+      return server.listen(webpackCompiler.options.devServer.port, function () {
         return selenium.install({
           logger: console.log
         }, function () {
@@ -39,7 +39,7 @@
   function startCI() {
     return new Promise(function (resolve, reject) {
       bsLocal = new browserstack.Local();
-      return server.listen(webpackCompiler.options.metadata.port, function () {
+      return server.listen(webpackCompiler.options.devServer.port, function () {
         return bsLocal.start({
           key: process.env.BROWSER_STACK_ACCESS_KEY,
           onlyAutomate: true,
