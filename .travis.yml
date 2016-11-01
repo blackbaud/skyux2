@@ -22,32 +22,22 @@ before_install:
   - npm set progress=false
 
   - export SAVAGE_BRANCH="^savage-"
+  - if [[ $TRAVIS_REPO_SLUG" == "blackbaud/skyux2" || "$TRAVIS_REPO_SLUG" == "blackbaud-sky-savage/skyux2" ]]; then export IS_FORK_PR=true; fi
 
+  - chmod +x ./scripts/travis-script.sh
+  - chmod +x ./scripts/travis-after-failure.sh
+  - chmod +x ./scripts/travis-after-script.sh
+  - chmod +x ./scripts/travis-after-success.sh
   - chmod +x ./scripts/browserstack-cleanup.sh
   - chmod +x ./scripts/npm-publish.sh
   - chmod +x ./scripts/releases-publish.sh
   - chmod +x ./scripts/visual-baseline.sh
   - chmod +x ./scripts/visual-failures.sh
 
-# Run `ci` instead of default of `test`
-script: npm run ci && ./scripts/visual-baseline.sh
-
-# Upload coverage to https://codecov.io/gh/blackbaud/skyux2
-after_script:
-  - bash <(curl -s https://codecov.io/bash)
-  - ./scripts/browserstack-cleanup.sh
-
-# Publish a tag to NPM & skyux2-releases repo
-after_success:
-  - if [ -n "$TRAVIS_TAG" ]; then npm run releases; fi
-  - if [ -n "$TRAVIS_TAG" ]; then ./scripts/npm-publish.sh; fi
-  - if [ -n "$TRAVIS_TAG" ]; then ./scripts/releases-publish.sh; fi
-
-# Display any NPM / BrowserStack errorsc
-after_failure:
-  - ./scripts/visual-failures.sh
-  - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
-  - if [ -e ./browserstack.err ]; then cat ./browserstack.err; fi
+script: ./scripts/travis-script.sh
+after_script: ./scripts/travis-after-script.sh
+after_success: ./scripts/travis-after-success.sh
+after_failure: ./scripts/travis-after-failure.sh
 
 # When a push, only care about the master, rc-, and savage- branches.
 # Otherwise anytime we commit to internal branches this would run.
