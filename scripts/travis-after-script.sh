@@ -5,5 +5,5 @@ set -e
 # Upload coverage to https://codecov.io/gh/blackbaud/skyux2
 if [ "$IS_FORK_PR" == "false" ]; then
   bash <(curl -s https://codecov.io/bash)
-  ./browserstack-cleanup.sh
+  ./scripts/browserstack-cleanup.sh
 fi

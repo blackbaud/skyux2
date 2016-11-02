@@ -5,6 +5,6 @@ set -e
 # Publish a tag to NPM & skyux2-releases repo
 if [ "$IS_FORK_PR" == "false" && -n "$TRAVIS_TAG" ]; then
   npm run releases
-  ./npm-publish.sh
-  ./releases-publish.sh
+  ./scripts/npm-publish.sh
+  ./scripts/releases-publish.sh
 fi
