@@ -23,7 +23,10 @@ before_install:
 
   - export SAVAGE_BRANCH="^savage-"
   - echo "$TRAVIS_REPO_SLUG"
-  - if [[ "$TRAVIS_REPO_SLUG" != "blackbaud/skyux2" && "$TRAVIS_REPO_SLUG" != "blackbaud-sky-savage/skyux2" ]]; then export IS_FORK_PR=true; fi
+  - if [[
+      "$TRAVIS_REPO_SLUG" == "blackbaud/skyux2" ||
+      "$TRAVIS_REPO_SLUG" == "blackbaud-sky-savage/skyux2"
+    ]]; then export IS_FORK_PR=false; else export IS_FORK_PR=true; fi
 
   - chmod +x ./scripts/travis-script.sh
   - chmod +x ./scripts/travis-after-failure.sh
