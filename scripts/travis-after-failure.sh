@@ -2,14 +2,14 @@
 set -e
 
 # Store visual errors
-./visual-failures.sh
+./scripts/visual-failures.sh
 
 # Display any npm errors
-if [ -e ../npm-debug.log ]; then
-  cat ../npm-debug.log
+if [ -e ./npm-debug.log ]; then
+  cat ./npm-debug.log
 fi
 
 # Display any browserstack errors
-if [ -e ../browserstack.err ]; then
-  cat ../browserstack.err
+if [ -e ./browserstack.err ]; then
+  cat ./browserstack.err
 fi
