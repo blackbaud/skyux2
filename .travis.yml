@@ -35,7 +35,9 @@ before_install:
 script: ./scripts/travis-script.sh
 after_script: ./scripts/travis-after-script.sh
 after_success: ./scripts/travis-after-success.sh
-after_failure: ./scripts/travis-after-failure.sh
+after_failure:
+  - ./scripts/travis-after-failure.sh
+  - ./scripts/visual-failures.sh
 
 # When a push, only care about the master, rc-, and savage- branches.
 # Otherwise anytime we commit to internal branches this would run.
