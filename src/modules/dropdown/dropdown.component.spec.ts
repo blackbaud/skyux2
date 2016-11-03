@@ -1,5 +1,4 @@
 import {
-  async,
   TestBed
 } from '@angular/core/testing';
 
@@ -18,8 +17,16 @@ describe('Dropdown component', () => {
       });
     });
 
+    function getDropdownEl(el: Element) {
+      return <HTMLElement>el.querySelector('.sky-dropdown');
+    }
+
     function getDropdownBtnEl(el: Element) {
       return <HTMLElement>el.querySelector('.sky-dropdown-button');
+    }
+
+    function getDropdownMenuEl(el: Element) {
+      return <HTMLElement>el.querySelector('.sky-dropdown-menu');
     }
 
     it('should have a default button type of "select"', () => {
@@ -33,7 +40,7 @@ describe('Dropdown component', () => {
 
     it('should set the correct button type CSS class', () => {
       let fixture = TestBed.createComponent(DropdownTestComponent);
-      let cmp: DropdownTestComponent = fixture.componentInstance;
+      let cmp = fixture.componentInstance;
       let el: Element = fixture.nativeElement;
 
       cmp.buttonType = 'context-menu';
@@ -43,81 +50,176 @@ describe('Dropdown component', () => {
       expect(getDropdownBtnEl(el)).toHaveCssClass('sky-dropdown-button-type-context-menu');
     });
 
-    it('should open the dropdown menu when clicking the dropdown button', () => {
-      let fixture = TestBed.createComponent(DropdownTestComponent);
-      let cmp: DropdownTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement;
+    describe('with trigger type "click"', () => {
+      it('should open the dropdown menu when clicking the dropdown button', () => {
+        let fixture = TestBed.createComponent(DropdownTestComponent);
+        let cmp = fixture.componentInstance;
+        let el = fixture.nativeElement;
 
-      cmp.buttonType = 'context-menu';
+        cmp.buttonType = 'context-menu';
 
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      let dropdownBtnEl = getDropdownBtnEl(el);
+        let dropdownBtnEl = getDropdownBtnEl(el);
 
-      dropdownBtnEl.click();
+        dropdownBtnEl.click();
 
-      expect(el.querySelector('.sky-dropdown-menu')).not.toBeNull();
+        expect(getDropdownMenuEl(el)).toBeVisible();
+      });
+
+      it('should close the dropdown menu when clicking outside it', () => {
+        let fixture = TestBed.createComponent(DropdownTestComponent);
+        let cmp = fixture.componentInstance;
+        let el = fixture.nativeElement;
+
+        cmp.buttonType = 'context-menu';
+
+        fixture.detectChanges();
+
+        let dropdownBtnEl = getDropdownBtnEl(el);
+
+        dropdownBtnEl.click();
+
+        let dropdownMenuEl = getDropdownMenuEl(el);
+        expect(dropdownMenuEl).toBeVisible();
+
+        TestUtility.fireDomEvent(document, 'click');
+
+        fixture.detectChanges();
+
+        expect(dropdownMenuEl).not.toBeVisible();
+      });
+
+      it('should close the dropdown menu when clicking the button a second time', () => {
+        let fixture = TestBed.createComponent(DropdownTestComponent);
+        let cmp = fixture.componentInstance;
+        let el = fixture.nativeElement;
+
+        cmp.buttonType = 'context-menu';
+
+        fixture.detectChanges();
+
+        let dropdownBtnEl = getDropdownBtnEl(el);
+        dropdownBtnEl.click();
+
+        let dropdownMenuEl = getDropdownMenuEl(el);
+        expect(dropdownMenuEl).toBeVisible();
+
+        dropdownBtnEl.click();
+
+        fixture.detectChanges();
+
+        expect(dropdownMenuEl).not.toBeVisible();
+      });
+
+      it('should not open the dropdown menu when the mouse enters the dropdown button', () => {
+        let fixture = TestBed.createComponent(DropdownTestComponent);
+        let cmp = fixture.componentInstance;
+        let el = fixture.nativeElement;
+
+        cmp.buttonType = 'context-menu';
+
+        fixture.detectChanges();
+
+        let dropdownEl = getDropdownEl(el);
+        TestUtility.fireDomEvent(dropdownEl, 'mouseenter');
+
+        fixture.detectChanges();
+
+        expect(getDropdownMenuEl(el)).not.toBeVisible();
+      });
+
+      it('should close the dropdown menu when moving the mouse outside the menu', () => {
+        let fixture = TestBed.createComponent(DropdownTestComponent);
+        let cmp = fixture.componentInstance;
+        let el = fixture.nativeElement;
+
+        cmp.buttonType = 'context-menu';
+
+        fixture.detectChanges();
+
+        let dropdownBtnEl = getDropdownBtnEl(el);
+        dropdownBtnEl.click();
+
+        let dropdownMenuEl = getDropdownMenuEl(el);
+        expect(dropdownMenuEl).toBeVisible();
+
+        let dropdownEl = getDropdownEl(el);
+        TestUtility.fireDomEvent(dropdownEl, 'mouseleave');
+
+        fixture.detectChanges();
+
+        expect(dropdownMenuEl).toBeVisible();
+      });
     });
 
-    it(
-      `should close the dropdown menu when clicking outside it`,
-      async(() => {
+    describe('with trigger type "hover"', () => {
+      it('should open the dropdown menu when the mouse enters the dropdown button', () => {
         let fixture = TestBed.createComponent(DropdownTestComponent);
-        let cmp: DropdownTestComponent = fixture.componentInstance;
+        let cmp = fixture.componentInstance;
         let el = fixture.nativeElement;
 
         cmp.buttonType = 'context-menu';
+        cmp.trigger = 'hover';
 
         fixture.detectChanges();
 
-        let dropdownBtnEl = getDropdownBtnEl(el);
+        let dropdownEl = getDropdownEl(el);
+        TestUtility.fireDomEvent(dropdownEl, 'mouseenter');
 
-        dropdownBtnEl.click();
+        fixture.detectChanges();
 
-        fixture.whenStable().then(() => {
-          let dropdownEl = el.querySelector('.sky-dropdown-menu');
-          expect(dropdownEl).toBeVisible();
+        expect(getDropdownMenuEl(el)).toBeVisible();
+      });
 
-          TestUtility.fireDomEvent(document, 'click');
-
-          fixture.detectChanges();
-
-          fixture.whenStable().then(() => {
-            expect(dropdownEl).not.toBeVisible();
-          });
-        });
-      })
-    );
-
-    it(
-      `should close the dropdown menu when clicking the button a second time`,
-      async(() => {
+      it('should close the dropdown menu when moving the mouse outside the menu', () => {
         let fixture = TestBed.createComponent(DropdownTestComponent);
-        let cmp: DropdownTestComponent = fixture.componentInstance;
+        let cmp = fixture.componentInstance;
         let el = fixture.nativeElement;
 
         cmp.buttonType = 'context-menu';
+        cmp.trigger = 'hover';
 
         fixture.detectChanges();
 
-        let dropdownBtnEl = getDropdownBtnEl(el);
+        let dropdownEl = getDropdownEl(el);
+        TestUtility.fireDomEvent(dropdownEl, 'mouseenter');
 
+        let dropdownMenuEl = getDropdownMenuEl(el);
+        expect(dropdownMenuEl).toBeVisible();
+
+        TestUtility.fireDomEvent(dropdownEl, 'mouseleave');
+
+        fixture.detectChanges();
+
+        expect(dropdownMenuEl).not.toBeVisible();
+      });
+
+      it('should close the dropdown menu when clicking the button', () => {
+        let fixture = TestBed.createComponent(DropdownTestComponent);
+        let cmp = fixture.componentInstance;
+        let el = fixture.nativeElement;
+
+        cmp.buttonType = 'context-menu';
+        cmp.trigger = 'hover';
+
+        fixture.detectChanges();
+
+        let dropdownEl = getDropdownEl(el);
+
+        TestUtility.fireDomEvent(dropdownEl, 'mouseenter');
+
+        let dropdownMenuEl = getDropdownMenuEl(el);
+        expect(dropdownMenuEl).toBeVisible();
+
+        let dropdownBtnEl = getDropdownBtnEl(el);
         dropdownBtnEl.click();
 
-        fixture.whenStable().then(() => {
-          let dropdownEl = el.querySelector('.sky-dropdown-menu');
-          expect(dropdownEl).toBeVisible();
+        fixture.detectChanges();
 
-          dropdownBtnEl.click();
-
-          fixture.detectChanges();
-
-          fixture.whenStable().then(() => {
-            expect(dropdownEl).not.toBeVisible();
-          });
-        });
-      })
-    );
+        expect(dropdownMenuEl).not.toBeVisible();
+      });
+    });
 
     describe('of type "select"', () => {
       it('should display an ellipsis instead of the specified button content', () => {
@@ -136,7 +238,7 @@ describe('Dropdown component', () => {
     describe('of type "context-menu"', () => {
       it('should display an ellipsis instead of the specified button content', () => {
         let fixture = TestBed.createComponent(DropdownTestComponent);
-        let cmp: DropdownTestComponent = fixture.componentInstance;
+        let cmp = fixture.componentInstance;
         let el = fixture.nativeElement;
 
         cmp.buttonType = 'context-menu';

@@ -30,6 +30,7 @@
         type="button"
         class="sky-btn sky-btn-default sky-tabset-btn-new"
         (click)="newTabClick()"
+        [attr.aria-label]="'tab_add' | skyResources"
         *ngIf="newTab.observers.length > 0"
     >
       <i class="fa fa-lg fa-plus-circle"></i>
@@ -38,6 +39,7 @@
         type="button"
         class="sky-btn sky-btn-default sky-tabset-btn-open"
         (click)="openTabClick()"
+        [attr.aria-label]="'tab_open' | skyResources"
         *ngIf="openTab.observers.length > 0"
     >
       <i class="fa fa-lg fa-folder-open-o"></i>

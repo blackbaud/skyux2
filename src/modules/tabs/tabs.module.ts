@@ -6,9 +6,8 @@ import { SkyDropdownModule } from '../dropdown';
 import { SkyTabButtonComponent } from './tab-button.component';
 import { SkyTabDropdownComponent } from './tab-dropdown.component';
 import { SkyTabComponent } from './tab.component';
-import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetComponent } from './tabset.component';
-import { SkyTabsetService } from './tabset.service';
+import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
@@ -17,13 +16,10 @@ import { SkyTabsetService } from './tabset.service';
     SkyTabDropdownComponent,
     SkyTabsetComponent
   ],
-  providers: [
-    SkyTabsetService,
-    SkyTabsetAdapterService
-  ],
   imports: [
     CommonModule,
-    SkyDropdownModule
+    SkyDropdownModule,
+    SkyResourcesModule
   ],
   exports: [
     SkyTabComponent,

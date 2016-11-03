@@ -1,0 +1,8 @@
+@import '../../../scss/mixins';
+
+.sky-demo-page {
+  /deep/ .sky-page-summary {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

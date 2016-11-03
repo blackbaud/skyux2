@@ -1,5 +1,8 @@
+// Font Awesome
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+
 // Google Fonts
-@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,400italic|Oswald:300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,400italic|Oswald:300,400,700");
 
 @import '../../node_modules/normalize-scss/sass/normalize/import-now';
 
@@ -7,3 +10,4 @@
 @import 'palette';
 @import 'buttons';
 @import 'dragdrop';
+@import 'forms';

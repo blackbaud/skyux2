@@ -35,6 +35,10 @@
         "_description": "Message title displayed when the user attempts to upload an avatar image with a file size that is too large",
         "message": "File is too large."
     },
+    "card_checkbox_label": {
+      "_description": "Label for the multiselect checkbox for the card component",
+      "message": "Select card"
+    },
     "checklist_select_all": {
         "_description": "Text for the link in a checklist to select all items.",
         "message": "Select all"
@@ -126,6 +130,10 @@
     "grid_column_picker_search_no_columns": {
         "_description": "Displays when no columns are found for the specified search text.",
         "message": "No columns found"
+    },
+    "modal_close": {
+      "_description": "Text for modal close button",
+      "message": "Close modal"
     },
     "modal_footer_cancel_button": {
         "_description": "Default lable text for modal cancel button",
@@ -451,6 +459,10 @@
         "_description": "",
         "message": "Drag a file here"
     },
+    "file_upload_drag_or_click" : {
+      "_description": "Label for file drop",
+      "message": "Drag a file here or click to browse"
+    },
     "file_upload_drop_files_here": {
         "_description": "",
         "message": "Drop files here"
@@ -463,6 +475,10 @@
         "_description": "",
         "message": "http://www.something.com/file"
     },
+    "file_upload_link_input": {
+      "_description": "Label for input to upload file",
+      "message": "Add a link to a file"
+    },
     "file_upload_or_click_to_browse": {
         "_description": "",
         "message": "or click to browse"
@@ -474,6 +490,10 @@
     "file_upload_paste_link_done": {
         "_description": "",
         "message": "Done"
+    },
+    "file_item_delete": {
+      "_description": "Label for the button that deletes a file",
+      "message": "Delete file"
     },
     "searchfield_searching": {
         "_description": "text for ui-select search control while performing a remote search",
@@ -534,5 +554,22 @@
     "reorder_top": {
       "_description": "Text displayed to indicate that a row can be pushed to the top of the list",
       "message": "Top"
+    },
+    "tab_close": {
+      "_description": "Label for the tab close button",
+      "message": "Close tab"
+    },
+    "tab_open": {
+      "_description": "Label for the tab open button",
+      "message": "Open tab"
+    },
+    "tab_add": {
+      "_description": "Label for the tab add button",
+      "message": "Add tab"
+    },
+    "tile_settings": {
+      "_description": "Label for settings button in the tile",
+      "message": "Settings"
     }
+
 }

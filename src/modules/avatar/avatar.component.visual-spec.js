@@ -1,25 +1,23 @@
-describe('Avatar', () => {
+describe('Avatar', function () {
   'use strict';
 
-  it('should match previous screenshot when image is present', (done) => {
-    browser
+  it('should match previous screenshot when image is present', function () {
+    return browser
       .setupTest('/avatar.html')
       .compareScreenshot({
         screenshotName: 'avatar-image',
         selector: '#screenshot-avatar-img',
         checkAccessibility: true
-      })
-      .call(done);
+      });
   });
 
-  it('should match previous screenshot when initials are present', (done) => {
-    browser
+  it('should match previous screenshot when initials are present', function () {
+    return browser
       .setupTest('/avatar.html')
       .compareScreenshot({
         screenshotName: 'avatar-initials',
         selector: '#screenshot-avatar-initials',
         checkAccessibility: true
-      })
-      .call(done);
+      });
   });
 });

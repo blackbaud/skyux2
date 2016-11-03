@@ -1,10 +1,10 @@
 /* global require, exports, process */
 
-(() =>  {
+(function ()  {
   'use strict';
 
-  const server = require('../utils/visual-server');
-  let config = require('./shared.wdio.conf');
+  var server = require('../utils/visual-server');
+  var config = require('./shared.wdio.conf');
 
   config.user = process.env.BROWSER_STACK_USERNAME;
   config.key = process.env.BROWSER_STACK_ACCESS_KEY;
@@ -39,8 +39,15 @@
   ];
   config.host = 'hub-cloud-us.browserstack.com';
   config.port = 80;
-  config.plugins.webdrivercss.screenshotRoot = 'webdriver-screenshots';
-  config.plugins.webdrivercss.failedComparisonsRoot = 'webdriver-screenshots-diffs';
+
+  config.maxInstances = 6;
+
+  config.visualRegression = require('../utils/visual-browser-commands')
+    .getVisualRegression(
+      'webdriver-screenshots',
+      'webdriver-screenshots-screen',
+      'webdriver-screenshots-diffs');
+
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
 

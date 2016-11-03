@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SkyModule, SkyTileDashboardConfig } from '../../../src/core';
 
 import { Bootstrapper } from '../../bootstrapper';
-import { Tile1Component } from './tile1.component.ts';
-import { Tile2Component } from './tile2.component.ts';
+import { Tile1Component } from './tile1.component';
+import { Tile2Component } from './tile2.component';
 
 @Component({
   selector: 'sky-demo-app',

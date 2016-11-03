@@ -26,6 +26,9 @@ require('zone.js/dist/sync-test');
 require('zone.js/dist/proxy');
 require('zone.js/dist/jasmine-patch');
 
+require('intl');
+require('intl/locale-data/jsonp/en');
+
 // RxJS
 require('rxjs/Rx');
 
@@ -48,7 +51,7 @@ Object.assign(global, testing);
  * any file that ends with spec.js and get its path. By passing in true
  * we say do this recursively
  */
-var testContext = require.context('../../src', true, /\.spec\.ts/);
+var testContext = require.context('../../src/modules', true, /\.spec\.ts/);
 
 /*
  * get all the files, for each file, call the context function

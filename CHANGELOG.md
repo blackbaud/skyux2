@@ -1,3 +1,36 @@
+# 2.0.0-alpha.10 (2016-10-24)
+
+- Updates to visual tests
+- Fixed issue where page summary and tile dashboard on same page causes tile dashboard to not be responsive (#152)
+- Added the radio component (#111)
+
+# 2.0.0-alpha.9 (2016-10-18)
+
+- Fixed issue where two tabsets on one page interfered with each other
+- Escaped scss characters properly (#139, #136)
+- Upgraded to Angular 2.1.0
+- Added the file attachments module (#109)
+
+# 2.0.0-alpha.8 (2016-10-11)
+
+- Fixed missing file reference (#132)
+
+# 2.0.0-alpha.7 (2016-10-06)
+
+- Fixed issue where the checked state of a checkbox was not properly reflected in the UI (#129)
+- Added page summary component (#130)
+- Upgraded to Angular 2.0.2 (#131)
+
+# 2.0.0-alpha.6 (2016-09-28)
+
+- Added basic navbar component
+- Upgraded to Angular 2.0.1
+
+# 2.0.0-alpha.5 (2016-09-21)
+
+- Fixed an issue where code editors could not resolve type references after upgrading to TypeScript 2.0 (#121)
+- Updated Angular 2 Dragula and other NPM packages (#123) 
+
 # 2.0.0-alpha.4 (2016-09-15)
 
 - Updated to Angular 2 final release (#119)

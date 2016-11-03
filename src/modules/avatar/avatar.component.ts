@@ -1,21 +1,23 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   Input,
-  OnDestroy
+  Output,
+  EventEmitter
 } from '@angular/core';
 
-import { SkyAvatarAdapterService } from './avatar-adapter.service';
+import {
+  SkyFileDropChange,
+  SkyFileItem
+} from '../fileattachments';
+
 import { SkyAvatarSrc } from './avatar-src';
 
 @Component({
   selector: 'sky-avatar',
   template: require('./avatar.component.html'),
-  styles: [require('./avatar.component.scss')],
-  providers: [SkyAvatarAdapterService]
+  styles: [require('./avatar.component.scss')]
 })
-export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
+export class SkyAvatarComponent {
   public get src(): SkyAvatarSrc {
     return this._src;
   }
@@ -23,7 +25,6 @@ export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
   @Input()
   public set src(value: SkyAvatarSrc) {
     this._src = value;
-    this.updateImage();
   }
 
   public get name(): string {
@@ -35,64 +36,27 @@ export class SkyAvatarComponent implements AfterViewInit, OnDestroy {
     this._name = value;
   }
 
-  private viewInitialized: boolean;
+  public get canChange(): boolean {
+    return this._canChange;
+  }
+
+  @Input()
+  public set canChange(value: boolean) {
+    this._canChange = value;
+  }
+
+  @Output()
+  public avatarChanged = new EventEmitter<SkyFileItem>();
+
+  private _canChange: boolean;
 
   private _src: SkyAvatarSrc;
 
   private _name: string;
 
-  constructor(
-    private elementRef: ElementRef,
-    private adapter: SkyAvatarAdapterService
-  ) { }
-
-  public get initials(): string {
-    let initials: string;
-
-    if (this.name) {
-      let nameSplit = this.name.split(' ');
-      initials = getInitial(nameSplit[0]);
-
-      if (nameSplit.length > 1) {
-        initials += getInitial(nameSplit[nameSplit.length - 1]);
-      }
-    }
-
-    return initials;
-  }
-
-  public get colorIndex(): number {
-    let name = this.name;
-    let colorIndex: number;
-
-    if (name) {
-        // Generate a unique-ish color based on the record name.  This is deterministic
-        // so that a given name will always generate the same color.
-        let seed = name.charCodeAt(0) + name.charCodeAt(name.length - 1) + name.length;
-        colorIndex = Math.abs(seed % 6);
-    } else {
-        colorIndex = 0;
-    }
-
-    return colorIndex;
-  }
-
-  public ngAfterViewInit() {
-    this.viewInitialized = true;
-    this.updateImage();
-  }
-
-  public ngOnDestroy() {
-    this.adapter.destroy();
-  }
-
-  private updateImage() {
-    if (this.viewInitialized) {
-      this.adapter.updateImage(this.elementRef, this.src);
+  public photoDrop(result: SkyFileDropChange) {
+    if (result.files && result.files.length > 0) {
+      this.avatarChanged.emit(result.files[0]);
     }
   }
-}
-
-function getInitial(name: string): string {
-  return name.charAt(0).toUpperCase();
 }

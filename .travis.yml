@@ -22,32 +22,22 @@ before_install:
   - npm set progress=false
 
   - export SAVAGE_BRANCH="^savage-"
-
+  - chmod +x ./scripts/travis-script.sh
+  - chmod +x ./scripts/travis-after-failure.sh
+  - chmod +x ./scripts/travis-after-script.sh
+  - chmod +x ./scripts/travis-after-success.sh
   - chmod +x ./scripts/browserstack-cleanup.sh
   - chmod +x ./scripts/npm-publish.sh
   - chmod +x ./scripts/releases-publish.sh
   - chmod +x ./scripts/visual-baseline.sh
   - chmod +x ./scripts/visual-failures.sh
 
-# Run `ci` instead of default of `test`
-script: npm run ci && ./scripts/visual-baseline.sh
-
-# Upload coverage to https://codecov.io/gh/blackbaud/skyux2
-after_script:
-  - bash <(curl -s https://codecov.io/bash)
-  - ./scripts/browserstack-cleanup.sh
-
-# Publish a tag to NPM & skyux2-releases repo
-after_success:
-  - if [ -n "$TRAVIS_TAG" ]; then npm run releases; fi
-  - if [ -n "$TRAVIS_TAG" ]; then ./scripts/npm-publish.sh; fi
-  - if [ -n "$TRAVIS_TAG" ]; then ./scripts/releases-publish.sh; fi
-
-# Display any NPM / BrowserStack errorsc
+script: ./scripts/travis-script.sh
+after_script: ./scripts/travis-after-script.sh
+after_success: ./scripts/travis-after-success.sh
 after_failure:
-  - ./scripts/visual-baseline.sh
-  - if [ -e ./npm-debug.log ]; then cat ./npm-debug.log; fi
-  - if [ -e ./browserstack.err ]; then cat ./browserstack.err; fi
+  - ./scripts/travis-after-failure.sh
+  - ./scripts/visual-failures.sh
 
 # When a push, only care about the master, rc-, and savage- branches.
 # Otherwise anytime we commit to internal branches this would run.
@@ -67,6 +57,8 @@ cache:
 notifications:
   slack:
     secure: X3VK9q9hmAcdzxdf8Ba0OHNThYoKKxvFLaDE09s45/75NM38pWQ9iOBJ8GOxYOA0WePzRNEScPxUAFMVKXK0KDbgtcEZ5DdM7kBe7JMo+fB39VLD3L70MVRLdpXnsPZE283GyXmjrmSVg+5gJrSYLwifnvyoqnnRlexL/Hz2JvxbDxdigbgLv8nvgEm5k62RN6kTVFS8aWI7sY1K1aEQdn8yTMy0u1VhBNA3wcFYVpAD1rbyBoSuFhARDVBujTh/RQamngDFLDThKGdCIvf57ierCgLFv6XLFPsviQP5qBMzEbBwu9u0DmOeevUsXUGUPtBSzQN9hBlMU995/n79PoSrlGGmBjISzqwzvp4JNMSDfCh+ne/PX1kIqeFW8egSTVTfCgavbHN4kJvtJZNmi6eDHhFHagSHSBkRgAc6JGvVHVToA1I/u97rcV1nVInhEvUNE6NZ/gkMj0El841ce3IvSZUsFcz/8IoYANxY1LCTmgnF/9GZ3QkKvBU0qhOjsMNnH2zwih38H1Ppqb0/+e+6mlmHpksnKgYwwAS83ZuKzyZbw7I3wyKUEOBCy7wWq45ZjRc74hnrZn/TngHyQ5UXCIlUBn1SjqjyljIKsp85A0lsZLcIEUIsR+7brnMRtMUW5IUaOSow2b52lr4suHG/ShXnUAe1sj2+uxCiy64=
+  webhooks:
+    - http://sky-savage.cloudapp.net:6262/savage/travis
 
 # Save the browserstack binary to a known location so we can cache it
 env:
