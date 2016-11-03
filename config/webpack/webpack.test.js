@@ -43,11 +43,13 @@ module.exports = {
             query: {
               sourceMap: false,
               inlineSourceMap: true,
-              compilerOptions: {
-                removeComments: true
-              }
+              useForkChecker: true,
+              // compilerOptions: {
+              //   removeComments: true
+              // }
             }
-          }
+          },
+          'angular2-template-loader'
         ],
         exclude: [/\.e2e\.ts$/]
       },
