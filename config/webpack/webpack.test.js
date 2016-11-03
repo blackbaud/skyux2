@@ -38,17 +38,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loaders: [
-          {
-            loader: 'awesome-typescript-loader',
-            query: {
-              sourceMap: false,
-              inlineSourceMap: true,
-              useForkChecker: true,
-              // compilerOptions: {
-              //   removeComments: true
-              // }
-            }
-          },
+          'awesome-typescript-loader',
           'angular2-template-loader'
         ],
         exclude: [/\.e2e\.ts$/]
@@ -76,7 +66,7 @@ module.exports = {
       {
         enforce: 'post',
         test: /\.(js|ts)$/,
-        loader: 'istanbul-instrumenter-loader',
+        loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
         include: helpers.root('src'),
         exclude: [
           /\.(e2e|spec)\.ts$/,

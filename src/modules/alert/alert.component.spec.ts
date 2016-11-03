@@ -8,7 +8,7 @@ import { AlertTestComponent } from './fixtures/alert.component.fixture';
 import { SkyAlertModule } from '../alert/alert.module';
 import { SkyResources } from '../resources/resources';
 
-fdescribe('Alert component', () => {
+describe('Alert component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
