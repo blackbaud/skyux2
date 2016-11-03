@@ -27,7 +27,6 @@ function writeTSConfig() {
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "sourceMap": true,
-      "noEmitHelpers": true,
       "noImplicitAny": true,
       "outDir": "../dist",
       "inlineSources": true,
@@ -42,21 +41,11 @@ function writeTSConfig() {
         "node"
       ],
       "rootDir": ".",
-      "paths": {
-        "@angular/*": ["../node_modules/@angular/*"],
-        "rxjs/*": ["../node_modules/rxjs/*"]
-      },
-      "stripInternal": true,
       "baseUrl": "."
-
     },
     "files": [
-      "core.ts",
-      "../node_modules/ng2-dragula/ng2-dragula.d.ts"
+      "core.ts"
     ],
-    "angularCompilerOptions": {
-      "strictMetadataEmit": true
-    },
     "compileOnSave": false,
     "buildOnSave": false
   };

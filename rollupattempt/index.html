@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SKY UX use bundle</title>
+
+    <!-- Load common libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/2.0.3/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.6.25/zone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.38/system.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+    <!-- Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+
+    <script>
+      System
+        .import('main.ts')
+        .catch(console.error.bind(console));
+    </script>
+
+    <!-- Load the Angular Material 2 stylesheet -->
+    <link href="https://unpkg.com/@angular/material/core/theming/prebuilt/indigo-pink.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <sky-demo-app>Loading the Angular 2 Material App...</sky-demo-app>
+  </body>
+
+</html>

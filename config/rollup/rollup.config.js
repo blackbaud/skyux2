@@ -13,7 +13,8 @@ export default {
     '@angular/compiler': 'ng.compiler',
     '@angular/core': 'ng.core',
     '@angular/forms': 'ng.forms',
-    "@angular/router": 'ng.router',
+    '@angular/router': 'ng.router',
+    'ng2-dragula/ng2-dragula': 'ng2.dragula',
     '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic'
   },
   external: [
