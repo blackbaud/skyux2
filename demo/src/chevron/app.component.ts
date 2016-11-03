@@ -7,7 +7,7 @@ import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html')
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   public direction = 'up';

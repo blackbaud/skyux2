@@ -11,8 +11,8 @@ import { SkyModalHostService } from './modal-host.service';
 
 @Component({
   selector: 'sky-modal',
-  template: require('./modal.component.html'),
-  styles: [require('./modal.component.scss')],
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss'],
   animations: [
     trigger('modalState', [
       state('in', style({opacity: '1.0'})),

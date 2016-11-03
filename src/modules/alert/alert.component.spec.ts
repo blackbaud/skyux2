@@ -1,4 +1,5 @@
 import {
+  async,
   TestBed
 } from '@angular/core/testing';
 
@@ -8,8 +9,8 @@ import { AlertTestComponent } from './fixtures/alert.component.fixture';
 import { SkyAlertModule } from '../alert/alert.module';
 import { SkyResources } from '../resources/resources';
 
-describe('Alert component', () => {
-  beforeEach(() => {
+fdescribe('Alert component', () => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AlertTestComponent
@@ -18,8 +19,9 @@ describe('Alert component', () => {
         BrowserModule,
         SkyAlertModule
       ]
-    });
-  });
+    })
+    .compileComponents();
+  }));
 
   it('should hide the close button if it is not cloesable', () => {
     let fixture = TestBed.createComponent(AlertTestComponent);

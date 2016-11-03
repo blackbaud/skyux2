@@ -16,8 +16,8 @@ import { SkyTabsetService } from './tabset.service';
 
 @Component({
   selector: 'sky-tabset',
-  styles: [require('./tabset.component.scss')],
-  template: require('./tabset.component.html'),
+  styleUrls: ['./tabset.component.scss'],
+  templateUrl: './tabset.component.html',
   providers: [SkyTabsetAdapterService, SkyTabsetService]
 })
 export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCheck {

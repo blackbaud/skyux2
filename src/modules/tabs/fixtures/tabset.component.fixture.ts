@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./tabset.component.fixture.html')
+  templateUrl: './tabset.component.fixture.html'
 })
 export class TabsetTestComponent {
   public tab1Heading = 'Tab 1';

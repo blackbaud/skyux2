@@ -21,8 +21,8 @@ import {
 
 @Component({
   selector: 'sky-file-drop',
-  template: require('./file-drop.component.html'),
-  styles: [require('./file-drop.component.scss')]
+  templateUrl: './file-drop.component.html',
+  styleUrls: ['./file-drop.component.scss']
 })
 export class SkyFileDropComponent {
 

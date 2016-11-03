@@ -44,6 +44,9 @@ function writeTSConfig() {
     "files": [
       "core.ts"
     ],
+    "exclude": [
+      "../node_modules"
+    ],
     "compileOnSave": false,
     "buildOnSave": false
   };
@@ -53,6 +56,7 @@ function writeTSConfig() {
 
 function copySrc() {
   fs.copySync('./src', TEMP_PATH);
+  // fs.copySync('package.json', TEMP_PATH + '/package.json');
 
   deleteNonDistFiles();
 
@@ -84,7 +88,7 @@ function getHtmlContents(requireFile) {
   return fileContents;
 }
 
-function inlineContents(file, fileContents, requireMatch, requireFile) {
+function inlineContents(file, fileContents, requireMatch, requireFile, processFn) {
   var dirname = path.dirname(file),
     quote = true,
     requireContents;
@@ -107,6 +111,10 @@ function inlineContents(file, fileContents, requireMatch, requireFile) {
   if (quote) {
     requireContents = requireContents.toString().replace(/\\f/g, '\\\\f');
     requireContents = '`' + requireContents.toString().replace(/`/g, '\\`') + '`';
+  }
+
+  if (processFn) {
+    requireContents = processFn(requireContents);
   }
 
   fileContents = fileContents.replace(requireMatch, requireContents);
@@ -135,6 +143,32 @@ function inlineHtmlCss() {
       // Since we're changing the file contents in each iteration and since the regex is stateful
       // we need to reset the regex; otherwise it might not be able to locate subsequent matches
       // after the first replacement.
+      regex.lastIndex = 0;
+    }
+
+    while (matches = /templateUrl\:\s*'(.+?\.html)'/gi.exec(fileContents)) {
+      fileContents = inlineContents(
+        file,
+        fileContents,
+        matches[0],
+        matches[1],
+        (requireContents) => {
+          return `template: ${requireContents}`
+        }
+      );
+      regex.lastIndex = 0;
+    }
+
+    while (matches = /styleUrls\:\s*\[\s*'(.+?\.scss)']/gi.exec(fileContents)) {
+      fileContents = inlineContents(
+        file,
+        fileContents,
+        matches[0],
+        matches[1],
+        (requireContents) => {
+          return `styles: [${requireContents}]`
+        }
+      );
       regex.lastIndex = 0;
     }
 

@@ -5,7 +5,6 @@ module.exports = function (config) {
   'use strict';
 
   let testWebpackConfig = require('../webpack/webpack.test');
-  let remapIstanbul = require('remap-istanbul');
 
   config.set({
     basePath: '',
@@ -24,19 +23,18 @@ module.exports = function (config) {
     },
     webpack: testWebpackConfig,
     coverageReporter: {
-      dir: '../../coverage/',
-      reporters: [
-        { type: 'json' },
-        { type: 'html' }
-      ],
-      _onWriteReport: function (collector) {
-        return remapIstanbul.remap(collector.getFinalCoverage());
-      }
+      type: 'in-memory'
     },
-    webpackServer: {
-      noInfo: true
-    },
-    reporters: ['mocha', 'coverage'],
+    // remapCoverageReporter: {
+    //   'text-summary': null,
+    //   json: './coverage/coverage.json',
+    //   html: './coverage/html'
+    // },
+    webpackMiddleware: { stats: 'errors-only'},
+    // webpackServer: {
+    //   noInfo: true
+    // },
+    reporters: ['mocha', 'coverage', 'remap-coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

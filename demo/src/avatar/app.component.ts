@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html')
+  templateUrl: './app.component.html'
 })
 class AppComponent {
   public name = 'Robert C. Hernandez';

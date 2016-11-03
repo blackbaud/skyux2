@@ -17,8 +17,8 @@ import { SkyTileDashboardService } from './tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile-dashboard',
-  styles: [require('./tile-dashboard.component.scss')],
-  template: require('./tile-dashboard.component.html'),
+  styleUrls: ['./tile-dashboard.component.scss'],
+  templateUrl: './tile-dashboard.component.html',
   providers: [SkyMediaQueryService, SkyTileDashboardService]
 })
 export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
@@ -38,17 +38,17 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   @Output()
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
+  @ViewChildren(SkyTileDashboardColumnComponent)
+  public columns: QueryList<SkyTileDashboardColumnComponent>;
+
+  @ViewChild('singleColumn', {read: SkyTileDashboardColumnComponent})
+  public singleColumn: SkyTileDashboardColumnComponent;
+
   private _config: SkyTileDashboardConfig;
 
   private configSet = false;
 
   private viewReady = false;
-
-  @ViewChildren(SkyTileDashboardColumnComponent)
-  private columns: QueryList<SkyTileDashboardColumnComponent>;
-
-  @ViewChild('singleColumn', {read: SkyTileDashboardColumnComponent})
-  private singleColumn: SkyTileDashboardColumnComponent;
 
   constructor(
     // HACK: This is public so it can be accessed via a unit test due to breaking changes

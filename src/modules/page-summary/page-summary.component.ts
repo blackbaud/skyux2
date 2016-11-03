@@ -5,8 +5,8 @@ import { SkyMediaQueryListenerArgs, SkyMediaQueryService } from '../media-querie
 
 @Component({
   selector: 'sky-page-summary',
-  template: require('./page-summary.component.html'),
-  styles: [require('./page-summary.component.scss')],
+  templateUrl: './page-summary.component.html',
+  styleUrls: ['./page-summary.component.scss'],
   providers: [SkyMediaQueryService, SkyPageSummaryAdapterService]
 })
 export class SkyPageSummaryComponent implements OnDestroy, AfterViewInit {

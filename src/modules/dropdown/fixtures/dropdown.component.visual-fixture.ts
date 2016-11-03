@@ -7,7 +7,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./dropdown.component.visual-fixture.html')
+  templateUrl: './dropdown.component.visual-fixture.html'
 })
 class AppComponent {
   public dropdownOpen = false;

@@ -4,8 +4,8 @@ const ALERT_TYPE_DEFAULT = 'warning';
 
 @Component({
   selector: 'sky-alert',
-  styles: [require('./alert.component.scss')],
-  template: require('./alert.component.html')
+  styleUrls: ['./alert.component.scss'],
+  templateUrl: './alert.component.html'
 })
 export class SkyAlertComponent {
   @Input()

@@ -4,7 +4,7 @@ import { SkyAvatarSrc } from '../';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./avatar.component.fixture.html')
+  templateUrl: './avatar.component.fixture.html'
 })
 export class AvatarTestComponent {
   public src: SkyAvatarSrc;

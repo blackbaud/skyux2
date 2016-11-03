@@ -9,7 +9,7 @@ import { Tile2Component } from './tile2.component';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./tile.component.visual-fixture.html')
+  templateUrl: './tile.component.visual-fixture.html'
 })
 export class AppComponent {
   public dashboardConfig: SkyTileDashboardConfig;

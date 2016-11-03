@@ -10,7 +10,7 @@ import { SkyTabsetService } from './tabset.service';
 
 @Component({
   selector: 'sky-tab',
-  template: require('./tab.component.html')
+  templateUrl: './tab.component.html'
 })
 export class SkyTabComponent implements OnDestroy {
   @Input()
