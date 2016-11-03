@@ -56,7 +56,6 @@ function writeTSConfig() {
 
 function copySrc() {
   fs.copySync('./src', TEMP_PATH);
-  // fs.copySync('package.json', TEMP_PATH + '/package.json');
 
   deleteNonDistFiles();
 
