@@ -13,14 +13,15 @@ export default {
     '@angular/compiler': 'ng.compiler',
     '@angular/core': 'ng.core',
     '@angular/forms': 'ng.forms',
+    "@angular/router": 'ng.router',
     '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic'
   },
-    external: [
+  external: [
     '@angular/core',
     '@angular/common',
     '@angular/compiler',
-    '@angular/core',
     '@angular/forms',
+    '@angular/router',
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     'ng2-dragula/ng2-dragula'
@@ -28,4 +29,4 @@ export default {
   plugins: [
     nodeResolve()
   ]
-}
+};

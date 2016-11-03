@@ -22,7 +22,7 @@ function writeTSConfig() {
   var config = {
     "compilerOptions": {
       "target": "es5",
-      "module": "commonjs",
+      "module": "es2015",
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
@@ -34,16 +34,29 @@ function writeTSConfig() {
       "declaration": true,
       "lib": [
         "dom",
-        "es6"
+        "es2015"
       ],
+      "skipLibCheck": true,
       "types": [
         "jasmine",
         "node"
-      ]
+      ],
+      "rootDir": ".",
+      "paths": {
+        "@angular/*": ["../node_modules/@angular/*"],
+        "rxjs/*": ["../node_modules/rxjs/*"]
+      },
+      "stripInternal": true,
+      "baseUrl": "."
+
     },
     "files": [
-      "core.ts"
+      "core.ts",
+      "../node_modules/ng2-dragula/ng2-dragula.d.ts"
     ],
+    "angularCompilerOptions": {
+      "strictMetadataEmit": true
+    },
     "compileOnSave": false,
     "buildOnSave": false
   };
