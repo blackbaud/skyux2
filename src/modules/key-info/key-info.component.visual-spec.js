@@ -6,7 +6,8 @@ describe('KeyInfo', function () {
       .setupTest('/key-info.html')
       .compareScreenshot({
         screenshotName: 'key-info',
-        selector: '#screenshot-key-info'
+        selector: '#screenshot-key-info',
+        checkAccessibility: true
       });
   });
 
