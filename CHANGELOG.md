@@ -1,3 +1,7 @@
+# 2.0.0-alpha.12 (2016-11-04)
+
+- Bundle SKY UX files using rollup and release in dist folder.
+
 # 2.0.0-alpha.11 (2016-11-04)
 
 - Import Font Awesome from SKY UX CSS so it doesn't need to be added by the host page
