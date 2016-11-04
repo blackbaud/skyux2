@@ -1,10 +1,8 @@
-import path from 'path';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import alias from 'rollup-plugin-alias';
 
 export default {
   entry: '../../dist/core.js',
-  dest: '../../dist/packages-dist/core/bundles/core.umd.js',
+  dest: '../../dist/bundles/core.umd.js',
   format: 'umd',
   moduleName: 'skyux.core',
   context: 'this',
