@@ -22,24 +22,26 @@ function writeTSConfig() {
   var config = {
     "compilerOptions": {
       "target": "es5",
-      "module": "commonjs",
+      "module": "es2015",
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "sourceMap": true,
-      "noEmitHelpers": true,
       "noImplicitAny": true,
       "outDir": "../dist",
       "inlineSources": true,
       "declaration": true,
       "lib": [
         "dom",
-        "es6"
+        "es2015"
       ],
+      "skipLibCheck": true,
       "types": [
         "jasmine",
         "node"
-      ]
+      ],
+      "rootDir": ".",
+      "baseUrl": "."
     },
     "files": [
       "core.ts"
