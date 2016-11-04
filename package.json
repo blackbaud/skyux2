@@ -5,7 +5,7 @@
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
   "license": "MIT",
-  "main": "dist/core.js",
+  "main": "dist/bundles/core.umd.js",
   "files": [
     "dist"
   ],
