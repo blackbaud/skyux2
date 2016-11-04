@@ -1,3 +1,9 @@
+# 2.0.0-alpha.11 (2016-11-04)
+
+- Import Font Awesome from SKY UX CSS so it doesn't need to be added by the host page
+- Added ability to upload a file from the avatar component (#202)
+- Upgraded to Angular 2.1.2
+
 # 2.0.0-alpha.10 (2016-10-24)
 
 - Updates to visual tests
