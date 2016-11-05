@@ -1,18 +1,17 @@
 {
   "name": "blackbaud-skyux2",
-  "version": "2.0.0-alpha.10",
+  "version": "2.0.0-alpha.12",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
   "license": "MIT",
-  "main": "dist/core.js",
+  "main": "dist/bundles/core.umd.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "ci": "npm run lint && npm run test:ci && npm run build",
-    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ../node_modules/.bin/ngc && cd ../ && npm run compile:sass && npm run clean:srctemp",
-    "build_compiled": "node_modules/.bin/ngc -p tsconfig.build.json",
+    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ../node_modules/.bin/ngc && cd ../ && npm run compile:sass && cd config/rollup && ../../node_modules/.bin/rollup -c && ../../node_modules/.bin/rollup -c rollup.min.config.js && npm run clean:srctemp",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs",
     "clean:releases": "rimraf -- releases",
@@ -98,6 +97,9 @@
     "raw-loader": "0.5.1",
     "remap-istanbul": "devCrossNet/remap-istanbul",
     "rimraf": "2.5.4",
+    "rollup": "0.35.9",
+    "rollup-plugin-uglify": "1.0.1",
+    "rollup-plugin-node-resolve": "2.0.0",
     "sass-loader": "4.0.2",
     "selenium-standalone": "5.8.0",
     "source-map-inline-loader": "blackbaud-bobbyearl/source-map-inline-loader",

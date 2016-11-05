@@ -1,6 +1,6 @@
 # Read the version from package.json
 version=$(node -p -e "require('../package.json').version")
-src=../releases/.
+src=./releases/.
 destination=releases/skyux2/$version/
 checkout=skyux2-releases-repo
 
