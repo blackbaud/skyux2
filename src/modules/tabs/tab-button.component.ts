@@ -7,8 +7,8 @@ import {
 
 @Component({
   selector: 'sky-tab-button',
-  template: require('./tab-button.component.html'),
-  styles: [require('./tab-button.component.scss')]
+  templateUrl: './tab-button.component.html',
+  styleUrls: ['./tab-button.component.scss']
 })
 export class SkyTabButtonComponent {
   @Input()

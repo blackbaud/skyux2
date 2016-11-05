@@ -11,8 +11,8 @@ import { SkyCardTitleComponent} from './card-title.component';
 
 @Component({
   selector: 'sky-card',
-  styles: [require('./card.component.scss')],
-  template: require('./card.component.html')
+  styleUrls: ['./card.component.scss'],
+  templateUrl: './card.component.html'
 })
 export class SkyCardComponent implements AfterContentInit {
   @Input()

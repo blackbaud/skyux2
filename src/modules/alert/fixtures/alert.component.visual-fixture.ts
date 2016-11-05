@@ -7,7 +7,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./alert.component.visual-fixture.html')
+  templateUrl: './alert.component.visual-fixture.html'
 })
 class AppComponent {
   public alertCloseable = true;

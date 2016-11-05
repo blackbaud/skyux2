@@ -11,8 +11,8 @@ import { SkyAvatarSrc } from './avatar-src';
 
 @Component({
   selector: 'sky-avatar-inner',
-  template: require('./avatar.inner.component.html'),
-  styles: [require('./avatar.inner.component.scss')],
+  templateUrl: './avatar.inner.component.html',
+  styleUrls: ['./avatar.inner.component.scss'],
   providers: [SkyAvatarAdapterService]
 })
 export class SkyAvatarInnerComponent implements AfterViewInit, OnDestroy {

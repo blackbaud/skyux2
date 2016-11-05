@@ -7,7 +7,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./repeater.component.visual-fixture.html')
+  templateUrl: './repeater.component.visual-fixture.html'
 })
 export class AppComponent { }
 

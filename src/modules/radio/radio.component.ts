@@ -25,8 +25,8 @@ export const SKY_RADIO_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'sky-radio',
-  template: require('./radio.component.html'),
-  styles: [require('./radio.component.scss')],
+  templateUrl: './radio.component.html',
+  styleUrls: ['./radio.component.scss'],
   providers: [SKY_RADIO_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyRadioComponent implements ControlValueAccessor {

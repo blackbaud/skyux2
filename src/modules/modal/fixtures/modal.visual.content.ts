@@ -4,7 +4,7 @@ import { SkyModalService } from '../../../../src/core';
 
 @Component({
   selector: 'sky-test-cmp-modal',
-  template: require('./modal.visual.content.html'),
+  templateUrl: './modal.visual.content.html',
   providers: [SkyModalService]
 })
 export class ModalDemoComponent implements OnInit {

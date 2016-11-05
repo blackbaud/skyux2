@@ -10,8 +10,8 @@ import { SkyTabComponent } from './tab.component';
 
 @Component({
   selector: 'sky-tab-dropdown',
-  template: require('./tab-dropdown.component.html'),
-  styles: [require('./tab-dropdown.component.scss')]
+  templateUrl: './tab-dropdown.component.html',
+  styleUrls: ['./tab-dropdown.component.scss']
 })
 export class SkyTabDropdownComponent {
   @Input()

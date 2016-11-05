@@ -34,8 +34,8 @@ export class SkyCheckboxChange {
 
 @Component({
   selector: 'sky-checkbox',
-  template: require('./checkbox.component.html'),
-  styles: [require('./checkbox.component.scss')],
+  templateUrl: './checkbox.component.html',
+  styleUrls: ['./checkbox.component.scss'],
   providers: [SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyCheckboxComponent implements ControlValueAccessor {

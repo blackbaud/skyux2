@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./radio.component.visual-fixture.html')
+  templateUrl: './radio.component.visual-fixture.html'
 })
 export class AppComponent {
   public selectedValue = '3';

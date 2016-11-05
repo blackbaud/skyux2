@@ -9,7 +9,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./modal.component.visual-fixture.html')
+  templateUrl: './modal.component.visual-fixture.html'
 })
 class AppComponent {
   constructor(public viewContainerRef: ViewContainerRef, private modal: SkyModalService) { }

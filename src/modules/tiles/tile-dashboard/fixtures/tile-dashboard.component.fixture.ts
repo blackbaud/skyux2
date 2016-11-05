@@ -6,7 +6,7 @@ import { Tile2TestComponent } from './tile2.component.fixture';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./tile-dashboard.component.fixture.html')
+  templateUrl: './tile-dashboard.component.fixture.html'
 })
 export class TileDashboardTestComponent {
   @ViewChild(SkyTileDashboardComponent)

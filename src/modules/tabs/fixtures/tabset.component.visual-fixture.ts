@@ -7,7 +7,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./tabset.component.visual-fixture.html')
+  templateUrl: './tabset.component.visual-fixture.html'
 })
 export class AppComponent {
   public newTabClick() { }

@@ -7,7 +7,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./avatar.component.visual-fixture.html')
+  templateUrl: './avatar.component.visual-fixture.html'
 })
 class AppComponent {
   public name = 'Robert C. Hernandez';

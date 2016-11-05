@@ -7,7 +7,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./chevron.component.visual-fixture.html')
+  templateUrl: './chevron.component.visual-fixture.html'
 })
 class AppComponent {
   public directionUp = 'up';

@@ -10,7 +10,7 @@ import { Bootstrapper } from '../../bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./app.component.html')
+  templateUrl: './app.component.html'
 })
 class AppComponent {
   constructor(public viewContainerRef: ViewContainerRef, private modal: SkyModalService) { }

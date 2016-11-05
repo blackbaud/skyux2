@@ -14,8 +14,8 @@ import { SkyAvatarSrc } from './avatar-src';
 
 @Component({
   selector: 'sky-avatar',
-  template: require('./avatar.component.html'),
-  styles: [require('./avatar.component.scss')]
+  templateUrl: './avatar.component.html',
+  styleUrls: ['./avatar.component.scss']
 })
 export class SkyAvatarComponent {
   public get src(): SkyAvatarSrc {

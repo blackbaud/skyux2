@@ -12,7 +12,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./page-summary.component.visual-fixture.html')
+  templateUrl: './page-summary.component.visual-fixture.html'
 })
 export class AppComponent {
   public name = 'Robert C. Hernandez';

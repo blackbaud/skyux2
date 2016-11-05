@@ -8,8 +8,8 @@ import { SkyDropdownAdapterService } from './dropdown-adapter.service';
 
 @Component({
   selector: 'sky-dropdown',
-  template: require('./dropdown.component.html'),
-  styles: [require('./dropdown.component.scss')],
+  templateUrl: './dropdown.component.html',
+  styleUrls: ['./dropdown.component.scss'],
   providers: [SkyDropdownAdapterService]
 })
 export class SkyDropdownComponent {

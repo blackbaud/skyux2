@@ -4,7 +4,7 @@ import { SkyRepeaterComponent } from '../repeater.component';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./repeater.component.fixture.html')
+  templateUrl: './repeater.component.fixture.html'
 })
 export class RepeaterTestComponent {
   @ViewChild(SkyRepeaterComponent)

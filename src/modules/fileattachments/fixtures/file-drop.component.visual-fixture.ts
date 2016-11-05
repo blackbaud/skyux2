@@ -12,7 +12,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  template: require('./file-drop.component.visual-fixture.html')
+  templateUrl: './file-drop.component.visual-fixture.html'
 })
 class AppComponent {
   public filesToUpload: Array<SkyFileItem>;

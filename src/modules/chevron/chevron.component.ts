@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'sky-chevron',
-  styles: [require('./chevron.component.scss')],
-  template: require('./chevron.component.html')
+  styleUrls: ['./chevron.component.scss'],
+  templateUrl: './chevron.component.html'
 })
 export class SkyChevronComponent {
   @Output()

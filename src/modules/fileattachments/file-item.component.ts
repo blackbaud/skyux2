@@ -18,8 +18,8 @@ import {
 
 @Component({
   selector: 'sky-file-item',
-  template: require('./file-item.component.html'),
-  styles: [require('./file-item.component.scss')]
+  templateUrl: './file-item.component.html',
+  styleUrls: ['./file-item.component.scss']
 
 })
 export class SkyFileItemComponent implements DoCheck {
