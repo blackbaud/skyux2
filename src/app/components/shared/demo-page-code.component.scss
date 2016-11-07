@@ -4,6 +4,15 @@
   margin: $sky-margin 0;
 }
 
+.sky-demo-page-code-header {
+  align-items: baseline;
+  display: flex;
+
+  h2 {
+    flex-grow: 1;
+  }
+}
+
 .sky-demo-page-code-sample {
   border: solid 1px $sky-color-gray-lighter;
   border-top: none;
