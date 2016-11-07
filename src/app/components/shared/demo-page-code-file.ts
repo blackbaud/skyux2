@@ -9,7 +9,12 @@ export class SkyDemoPageCodeFile {
 
   public codeFormatted: string;
 
-  constructor(folder: string, public readonly name: string) {
+  constructor(
+    folder: string,
+    public readonly name: string,
+    public readonly componentName: string,
+    public readonly bootstrapSelector: string
+  ) {
     let fileNameParts = name.split('.');
 
     switch (fileNameParts[fileNameParts.length - 1]) {

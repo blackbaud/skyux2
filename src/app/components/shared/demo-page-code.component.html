@@ -1,5 +1,21 @@
 <section class="sky-demo-page-code">
-  <h2>Code</h2>
+  <div class="sky-demo-page-code-header">
+    <h2>Code</h2>
+    <div class="sky-demo-page-code-plunker">
+      <form ngNoForm action="https://plnkr.co/edit/?p=preview" method="POST" target="_blank">
+        <input
+          type="hidden"
+          *ngFor="let plunkerFile of plunkerFiles;"
+          [name]="'files[' + plunkerFile.name + ']'"
+          [value]="plunkerFile.content"
+        >
+        <button type="submit" class="sky-btn sky-btn-primary">
+          <i class="fa fa-pencil"></i>
+          Edit in Plunker
+        </button>
+      </form>
+    </div>
+  </div>
   <sky-tabset>
     <sky-tab
         *ngFor="let codeFile of codeFilesForBinding; let i = index;"
