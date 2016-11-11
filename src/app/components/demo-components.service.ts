@@ -23,7 +23,7 @@ export class SkyDemoComponentsService {
               componentName: 'SkyAlertDemoComponent',
               bootstrapSelector: 'sky-alert-demo'
             }
-          ]
+          ];
         }
       },
       {
@@ -44,7 +44,7 @@ export class SkyDemoComponentsService {
               componentName: 'SkyAvatarDemoComponent',
               bootstrapSelector: 'sky-avatar-demo'
             }
-          ]
+          ];
         }
       },
       {
@@ -65,7 +65,7 @@ export class SkyDemoComponentsService {
               componentName: 'SkyCardDemoComponent',
               bootstrapSelector: 'sky-card-demo'
             }
-          ]
+          ];
         }
       },
       {
@@ -86,7 +86,7 @@ export class SkyDemoComponentsService {
               componentName: 'SkyCheckboxDemoComponent',
               bootstrapSelector: 'sky-checkbox-demo'
             }
-          ]
+          ];
         }
       },
       {
@@ -107,7 +107,7 @@ export class SkyDemoComponentsService {
               componentName: 'SkyDropdownDemoComponent',
               bootstrapSelector: 'sky-dropdown-demo'
             }
-          ]
+          ];
         }
       },
       {
@@ -128,7 +128,7 @@ export class SkyDemoComponentsService {
               componentName: 'SkyFileattachmentsDemoComponent',
               bootstrapSelector: 'sky-fileattachments-demo'
             }
-          ]
+          ];
         }
       },
       {
@@ -148,7 +148,7 @@ export class SkyDemoComponentsService {
               componentName: 'SkyTabsDemoComponent',
               bootstrapSelector: 'sky-tabs-demo'
             }
-          ]
+          ];
         }
       },
       {
@@ -189,7 +189,7 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./tiles/tiles-demo-tile2.component.ts'),
               componentName: 'SkyTilesDemoTile2Component'
             }
-          ]
+          ];
         }
       }
     ];
