@@ -3,4 +3,5 @@ export interface SkyDemoComponent {
   icon: string;
   summary: string;
   url: string;
+  getCodeFiles: () => any[];
 }

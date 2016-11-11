@@ -1,11 +1,11 @@
 @import '../scss/mixins';
 
 body {
-  background-color: #fff;
+  background-color: #fff !important;
 }
 
 p {
-  line-height: 1.6em;
+  line-height: 1.6em !important;
 }
 
 code {
@@ -56,6 +56,6 @@ code {
 }
 
 .sky-demo-bg-gray {
-  background-color: $sky-body-background-color;
-  padding: $sky-padding;
+  background-color: $sky-body-background-color !important;
+  padding: $sky-padding !important;
 }

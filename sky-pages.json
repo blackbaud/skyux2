@@ -5,9 +5,13 @@
     "skyux": {
       "importPath": "src",
       "cssPath": "src/scss/sky.scss"
-    }
+    },
+    "compileMode": "aot"
   },
   "blackbaud-sky-pages-in-fs": {
-    "indexPattern": "src/docs/**/index.html"
+    "indexPattern": "src/docs/**/index.html",
+    "assets": {
+      "appComponentStyles": "src/app/app.component.scss"
+    }
   }
 }
