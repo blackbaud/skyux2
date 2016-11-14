@@ -54,7 +54,7 @@ export class SkyFileDropComponent {
   public allowLinks: boolean = false;
 
   @ViewChild('fileInput')
-  private inputEl: ElementRef;
+  public inputEl: ElementRef;
 
   private rejectedOver: boolean = false;
   private acceptedOver: boolean = false;

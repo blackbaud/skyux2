@@ -8,7 +8,7 @@
 ">
   <header>
 
-    <div (click)="contentClick()" class="sky-card-header" *ngIf="selectable || _showTitle">
+    <div (click)="contentClick()" class="sky-card-header" *ngIf="selectable || showTitle">
       <div class="sky-card-heading-middle">
         <h1 class="sky-card-title" *ngIf="_showTitle">
           <ng-content select="sky-card-title"></ng-content>

@@ -30,10 +30,10 @@ export class SkyCardComponent implements AfterContentInit {
   @ContentChild(SkyCardTitleComponent)
   public titleComponent: SkyCardTitleComponent;
 
-  private _showTitle: boolean = true;
+  public showTitle: boolean = true;
 
   public ngAfterContentInit() {
-    this._showTitle = this.titleComponent !== undefined;
+    this.showTitle = this.titleComponent !== undefined;
   }
 
   public contentClick() {
