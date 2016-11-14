@@ -29,7 +29,7 @@ export class SkyModalHostComponent {
   }
 
   @ViewChild('target', {read: ViewContainerRef})
-  private target: ViewContainerRef;
+  public target: ViewContainerRef;
 
   constructor(
     private resolver: ComponentFactoryResolver,
