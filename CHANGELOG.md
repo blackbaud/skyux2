@@ -1,3 +1,7 @@
+# 2.0.0-alpha.13 (2016-11-14)
+
+- Added metadata files to dist to support AoT compilation. (#219)
+
 # 2.0.0-alpha.12 (2016-11-04)
 
 - Bundle SKY UX files using rollup and release in dist folder.
