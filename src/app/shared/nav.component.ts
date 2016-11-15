@@ -5,4 +5,15 @@ import { Component } from '@angular/core';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class SkyDemoNavComponent { }
+export class SkyDemoNavComponent {
+  public navItems: any[] = [
+    {
+      title: 'Home',
+      url: '/'
+    },
+    {
+      title: 'Components',
+      url: '/components'
+    }
+  ];
+}
