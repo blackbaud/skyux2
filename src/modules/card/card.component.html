@@ -10,7 +10,7 @@
 
     <div (click)="contentClick()" class="sky-card-header" *ngIf="selectable || showTitle">
       <div class="sky-card-heading-middle">
-        <h1 class="sky-card-title" *ngIf="_showTitle">
+        <h1 class="sky-card-title" *ngIf="showTitle">
           <ng-content select="sky-card-title"></ng-content>
         </h1>
       </div>
