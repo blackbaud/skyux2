@@ -6,7 +6,7 @@
           [routerLink]="navItem.url"
           routerLinkActive="sky-navbar-item-active"
           [routerLinkActiveOptions]="{
-            exact: true
+            exact: navItem.exact
           }"
         >
           {{navItem.title}}

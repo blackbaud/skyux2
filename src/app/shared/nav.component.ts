@@ -9,7 +9,8 @@ export class SkyDemoNavComponent {
   public navItems: any[] = [
     {
       title: 'Home',
-      url: '/'
+      url: '/',
+      exact: true
     },
     {
       title: 'Components',
