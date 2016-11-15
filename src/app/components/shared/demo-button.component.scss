@@ -21,7 +21,6 @@
   color: #000;
   display: block;
   text-decoration: none;
-  min-height: 200px;
   border: solid 1px $sky-color-gray-lightest;
 
   h3 {
@@ -34,6 +33,12 @@
 
   p {
     margin: $sky-margin-double;
+  }
+}
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-demo-button {
+    min-height: 200px;
   }
 }
 
