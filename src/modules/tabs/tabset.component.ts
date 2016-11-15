@@ -30,7 +30,7 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
   public tabDisplayMode = 'tabs';
 
   @ContentChildren(SkyTabComponent)
-  private tabs: QueryList<SkyTabComponent>;
+  public tabs: QueryList<SkyTabComponent>;
 
   constructor(
     private tabsetService: SkyTabsetService,

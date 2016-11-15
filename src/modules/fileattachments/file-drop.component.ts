@@ -54,11 +54,13 @@ export class SkyFileDropComponent {
   public allowLinks: boolean = false;
 
   @ViewChild('fileInput')
-  private inputEl: ElementRef;
+  public inputEl: ElementRef;
 
-  private rejectedOver: boolean = false;
-  private acceptedOver: boolean = false;
-  private linkUrl: string;
+  public rejectedOver: boolean = false;
+
+  public  acceptedOver: boolean = false;
+
+  public linkUrl: string;
 
   private enterEventTarget: any;
 
