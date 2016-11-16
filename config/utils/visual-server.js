@@ -50,6 +50,7 @@
           //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
         }, function (err) {
           if (err) {
+            console.log('browserstack start error: ' + err);
             reject(err);
           } else {
             resolve();
@@ -73,6 +74,7 @@
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
     if (bsLocal.isRunning()) {
+      console.log('stopping browserstack tunnel');
       bsLocal.stop();
     }
 
@@ -81,6 +83,7 @@
   process.on('SIGINT', function () {
     stop();
     if (bsLocal.isRunning()) {
+      console.log('stopping browserstack tunnel');
       bsLocal.stop();
     }
 
