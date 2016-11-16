@@ -20,6 +20,8 @@
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
       build: 'mac-chrome-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
+      name: 'SKYUX2BROWSERSTACK',
+      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
       resolution: '1280x960'
     },
     {
@@ -34,10 +36,12 @@
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
       build: 'mac-firefox-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
+      name: 'SKYUX2BROWSERSTACK',
+      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
       resolution: '1280x960'
     }
   ];
-  config.host = 'hub-cloud-us.browserstack.com';
+  config.host = 'hub.browserstack.com';
   config.port = 80;
 
   config.maxInstances = 6;

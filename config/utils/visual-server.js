@@ -44,7 +44,9 @@
           key: process.env.BROWSER_STACK_ACCESS_KEY,
           onlyAutomate: true,
           forcelocal: true,
-          force: true
+          force: true,
+          localIdentifier: 'SKYUX2BROWSERSTACK',
+          parallelRuns: 6
           //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
         }, function (err) {
           if (err) {
