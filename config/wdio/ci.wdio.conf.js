@@ -36,8 +36,8 @@
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
       build: 'mac-firefox-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
-      name: 'SKYUX2BROWSERSTACK',
-      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
+      /*name: 'SKYUX2BROWSERSTACK',
+      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',*/
       resolution: '1280x960'
     }
   ];
