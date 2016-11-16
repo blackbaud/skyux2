@@ -153,6 +153,60 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Labels',
+        icon: 'tags',
+        // tslint:disable-next-line
+        summary: `The label component is used to call out important status information.`,
+        url: '/components/label',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'label-demo.component.html',
+              fileContents: require('!!raw!./label/label-demo.component.html')
+            },
+            {
+              name: 'label-demo.component.ts',
+              fileContents: require('!!raw!./label/label-demo.component.ts'),
+              componentName: 'SkyLabelDemoComponent',
+              bootstrapSelector: 'sky-label-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Modal',
+        icon: 'list-alt',
+        // tslint:disable-next-line
+        summary: `The modal component launches modals in a consistent way in SKY UX applications.`,
+        url: '/components/modal',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'modal-demo.component.html',
+              fileContents: require('!!raw!./modal/modal-demo.component.html')
+            },
+            {
+              name: 'modal-demo.component.ts',
+              fileContents: require('!!raw!./modal/modal-demo.component.ts'),
+              componentName: 'SkyModalDemoComponent',
+              bootstrapSelector: 'sky-modal-demo'
+            },
+            {
+              name: 'modal-demo-form.component.html',
+              fileContents: require('!!raw!./modal/modal-demo-form.component.html')
+            },
+            {
+              name: 'modal-demo-form.component.ts',
+              fileContents: require('!!raw!./modal/modal-demo-form.component.ts')
+            },
+            {
+              name: 'modal-demo-context.ts',
+              fileContents: require('!!raw!./modal/modal-demo-context.ts')
+            }
+          ];
+        }
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { SkyModalDemoFormComponent } from './components/modal/modal-demo-form.component';
 import { SkyTilesDemoTile1Component } from './components/tiles/tiles-demo-tile1.component';
 import { SkyTilesDemoTile2Component } from './components/tiles/tiles-demo-tile2.component';
 
@@ -9,6 +10,7 @@ require('style!./styles.scss');
 
 @NgModule({
   entryComponents: [
+    SkyModalDemoFormComponent,
     SkyTilesDemoTile1Component,
     SkyTilesDemoTile2Component
   ],
