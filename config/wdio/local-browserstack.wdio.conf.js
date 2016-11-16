@@ -44,7 +44,7 @@
   ];
   shared.host = 'hub.browserstack.com';
   shared.port = 80;
-  shared.maxInstances = 10;
+  shared.maxInstances = 5;
 
   shared.visualRegression = require('../utils/visual-browser-commands')
     .getVisualRegression(

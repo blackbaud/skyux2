@@ -46,7 +46,7 @@
           forceLocal: true,
           force: true,
           localIdentifier: 'SKYUX2BROWSERSTACK',
-          parallelRuns: 30
+          parallelRuns: '10'
           //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
         }, function (err) {
           if (err) {
