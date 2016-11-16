@@ -1,8 +1,23 @@
 @import '../../../scss/mixins';
 
 .sky-demo-page {
-  /deep/ .sky-page-summary {
-    padding-left: 0;
-    padding-right: 0;
+  /deep/ {
+    .sky-page-summary {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .sky-page-summary-content {
+      margin-top: 0;
+    }
+  }
+}
+
+.sky-demo-page-header {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    flex-grow: 1;
   }
 }

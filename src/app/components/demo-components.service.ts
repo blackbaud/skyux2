@@ -132,6 +132,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Key info',
+        icon: 'key',
+        // tslint:disable-next-line
+        summary: `The key info component highlights important information such as summary numbers.`,
+        url: '/components/key-info',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'key-info-demo.component.html',
+              fileContents: require('!!raw!./key-info/key-info-demo.component.html')
+            },
+            {
+              name: 'key-info-demo.component.ts',
+              fileContents: require('!!raw!./key-info/key-info-demo.component.ts'),
+              componentName: 'SkyKeyInfoDemoComponent',
+              bootstrapSelector: 'sky-key-info-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,

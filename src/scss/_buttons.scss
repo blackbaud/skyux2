@@ -5,6 +5,7 @@
   background-color: transparent;
   border: 1px solid $sky-color-gray-lightest;
   border-radius: 3px;
+  color: $sky-text-color;
   cursor: pointer;
   white-space: nowrap;
   outline-offset: -2px;
@@ -12,6 +13,7 @@
 
   &:hover {
     border: 1px solid $sky-color-gray-lighter;
+    color: $sky-text-color;
   }
 
   &.disabled,
