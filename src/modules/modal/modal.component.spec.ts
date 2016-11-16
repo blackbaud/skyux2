@@ -29,6 +29,8 @@ describe('Modal component', () => {
 
   function closeModal(modalInstance: SkyModalInstance) {
     modalInstance.close();
+
+    applicationRef.tick();
   }
 
   beforeEach(() => {
@@ -78,5 +80,7 @@ describe('Modal component', () => {
     (<any>document.querySelector('.sky-modal-btn-close')).click();
 
     expect(document.querySelector('.sky-modal')).not.toExist();
+
+    applicationRef.tick();
   }));
 });
