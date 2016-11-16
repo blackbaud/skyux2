@@ -1,13 +1,21 @@
 <sky-demo-nav></sky-demo-nav>
 <div class="sky-container">
   <div class="sky-demo-page">
-    <sky-page-summary>
-      <sky-page-summary-title>{{title}}</sky-page-summary-title>
-      <sky-page-summary-content>
-        <ng-content select="sky-demo-page-summary"></ng-content>
-        <ng-content select="sky-demo-page-properties"></ng-content>
-      </sky-page-summary-content>
-    </sky-page-summary>
+
+    <div class="sky-demo-page-header">
+      <h1>
+        {{title}}
+      </h1>
+      <a
+        *ngIf="showBackBtn"
+        class="sky-btn sky-demo-page-back-btn"
+        routerLink="/components"
+      >
+        <i class="fa fa-long-arrow-left"></i> Return to Components
+      </a>
+    </div>
+    <ng-content select="sky-demo-page-summary"></ng-content>
+    <ng-content select="sky-demo-page-properties"></ng-content>
     <ng-content select="sky-demo-page-example"></ng-content>
   </div>
 </div>

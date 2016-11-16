@@ -16,4 +16,7 @@ export class SkyDemoPageComponent {
 
   @Input()
   public summary: string;
+
+  @Input()
+  public showBackBtn = true;
 }
