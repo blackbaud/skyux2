@@ -11,6 +11,7 @@
   config.capabilities = [
     {
       browserName: 'chrome',
+      browser_version: '53',
       'browserstack.local': 'true',
       'browserstack.debug': 'true',
       os: 'OS X',
@@ -44,7 +45,7 @@
   config.host = 'hub.browserstack.com';
   config.port = 80;
 
-  config.maxInstances = 5;
+  config.maxInstances = 6;
 
   config.visualRegression = require('../utils/visual-browser-commands')
     .getVisualRegression(
