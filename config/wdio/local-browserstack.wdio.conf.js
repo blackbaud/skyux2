@@ -22,8 +22,8 @@
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
       build: 'mac-chrome-webdriver-local-' + timestamp,
-      name: 'SKYUX2BROWSERSTACK',
-      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
+      //name: 'SKYUX2BROWSERSTACK',
+      //'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
       resolution: '1280x960'
     },
     {
@@ -37,8 +37,8 @@
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
-      name: 'SKYUX2BROWSERSTACK',
-      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
+      //name: 'SKYUX2BROWSERSTACK',
+      //'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
       build: 'mac-firefox-webdriver-local' + timestamp,
       resolution: '1280x960'
     }
