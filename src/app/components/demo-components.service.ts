@@ -207,6 +207,48 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Navbar',
+        icon: 'compass',
+        // tslint:disable-next-line
+        summary: `The navbar component displays a list of top-level navigation items.`,
+        url: '/components/navbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'navbar-demo.component.html',
+              fileContents: require('!!raw!./navbar/navbar-demo.component.html')
+            },
+            {
+              name: 'navbar-demo.component.ts',
+              fileContents: require('!!raw!./navbar/navbar-demo.component.ts'),
+              componentName: 'SkyNavbarDemoComponent',
+              bootstrapSelector: 'sky-navbar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Page summary',
+        icon: 'newspaper-o',
+        // tslint:disable-next-line
+        summary: `The page summary displays critical information and actions for users to access quickly and frequently.`,
+        url: '/components/page-summary',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'page-summary-demo.component.html',
+              fileContents: require('!!raw!./page-summary/page-summary-demo.component.html')
+            },
+            {
+              name: 'page-summary-demo.component.ts',
+              fileContents: require('!!raw!./page-summary/page-summary-demo.component.ts'),
+              componentName: 'SkyPageSummaryDemoComponent',
+              bootstrapSelector: 'sky-page-summary-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,
