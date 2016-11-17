@@ -249,6 +249,48 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Radio button',
+        icon: 'circle-o',
+        // tslint:disable-next-line
+        summary: `The radio button component renders a SKY UX-themed radio button.`,
+        url: '/components/radio',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'radio-demo.component.html',
+              fileContents: require('!!raw!./radio/radio-demo.component.html')
+            },
+            {
+              name: 'radio-demo.component.ts',
+              fileContents: require('!!raw!./radio/radio-demo.component.ts'),
+              componentName: 'SkyRadioDemoComponent',
+              bootstrapSelector: 'sky-radio-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Repeater',
+        icon: 'check-square',
+        // tslint:disable-next-line
+        summary: `The repeater component creates a container to display formatted information for a list of objects.`,
+        url: '/components/repeater',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'repeater-demo.component.html',
+              fileContents: require('!!raw!./repeater/repeater-demo.component.html')
+            },
+            {
+              name: 'repeater-demo.component.ts',
+              fileContents: require('!!raw!./repeater/repeater-demo.component.ts'),
+              componentName: 'SkyRepeaterDemoComponent',
+              bootstrapSelector: 'sky-repeater-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,
