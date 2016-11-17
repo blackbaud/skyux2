@@ -1,0 +1,38 @@
+<sky-demo-page title="Modal">
+  <sky-demo-page-summary>
+    The modal directive and service allow you to launch modals in a consistent way in SKY UX applications. The <code>SkyModalService</code> provider lauches the modals, while the <code>sky-modal</code> directive provides a common look-and-feel for modal content. Within the <code>sky-modal</code> directive, you have options to display a common modal header, specify the body content, and display a common modal footer and buttons.
+  </sky-demo-page-summary>
+
+
+  <sky-demo-page-properties sectionHeading="Modal service methods">
+    <sky-demo-page-property
+        propertyName="open(component, providers?)"
+    >
+      Opens a modal using the specified component.  The optional `providers` parameter specifies one or more providers to be passed to the component's constructor.  This can be used to pass context values from the component launching the modal to the modal component.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Modal component properties">
+    <sky-demo-page-property
+        propertyName="sky-modal-header"
+    >
+      Specifies a header for the modal.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="sky-modal-content"
+    >
+      Specifies content to display in the modal's body.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="sky-modal-footer"
+    >
+      Specifies content to display in the modal's footer.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <sky-modal-demo></sky-modal-demo>
+    <sky-demo-page-code demoName="Modal"></sky-demo-page-code>
+  </sky-demo-page-example>
+
+</sky-demo-page>
