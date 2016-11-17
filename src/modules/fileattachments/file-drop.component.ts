@@ -75,7 +75,6 @@ export class SkyFileDropComponent {
   }
 
   public fileDragEnter(this: SkyFileDropComponent, dragEnterEvent: any) {
-    console.log('in drag enter');
     // Save this target to know when the drag event leaves
     this.enterEventTarget = dragEnterEvent.target;
     dragEnterEvent.stopPropagation();
@@ -86,7 +85,6 @@ export class SkyFileDropComponent {
   public fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
     dragOverEvent.stopPropagation();
     dragOverEvent.preventDefault();
-    console.log('in drag over');
 
      if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
 
@@ -122,7 +120,6 @@ export class SkyFileDropComponent {
 
   public fileDragLeave(this: SkyFileDropComponent, dragLeaveEvent: any) {
     if (this.enterEventTarget === dragLeaveEvent.target) {
-      console.log('in drag leave');
       this.rejectedOver = false;
       this.acceptedOver = false;
     }
@@ -196,7 +193,6 @@ export class SkyFileDropComponent {
   }
 
   private getMimeSubtype(type: string) {
-    console.log('get ', type);
     return type.substr(type.indexOf('/') + 1, type.length);
   }
 
@@ -205,15 +201,12 @@ export class SkyFileDropComponent {
   }
 
   private fileTypeInArray(typeArray: string[], fileType: string) {
-    console.log('array: ', typeArray);
-    console.log('file type: ', fileType);
     if (typeArray.indexOf(fileType) !== -1) {
       return true;
     }
     for (let index = 0; index < typeArray.length; index++) {
       let type = typeArray[index];
       let validSubtype = this.getMimeSubtype(type);
-      console.log('valid subType: ', validSubtype);
       if (validSubtype === '*') {
         if (this.getMimeMainType(type) === this.getMimeMainType(fileType)) {
           return true;

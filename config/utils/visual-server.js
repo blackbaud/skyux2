@@ -43,15 +43,17 @@
         return bsLocal.start({
           key: process.env.BROWSER_STACK_ACCESS_KEY,
           onlyAutomate: true,
-          forcelocal: true,
+          forceLocal: true,
           force: true,
           localIdentifier: 'SKYUX2BROWSERSTACK',
-          parallelRuns: 6
+          parallelRuns: '10'
           //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
         }, function (err) {
           if (err) {
+            console.log('browserstack tunnel start error: ' + err);
             reject(err);
           } else {
+            console.log('browserstack tunnel start success');
             resolve();
           }
         });
@@ -73,6 +75,7 @@
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
     if (bsLocal.isRunning()) {
+      console.log('stopping browserstack tunnel');
       bsLocal.stop();
     }
 
@@ -81,6 +84,7 @@
   process.on('SIGINT', function () {
     stop();
     if (bsLocal.isRunning()) {
+      console.log('stopping browserstack tunnel');
       bsLocal.stop();
     }
 
