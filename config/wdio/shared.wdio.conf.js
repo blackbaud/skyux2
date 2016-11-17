@@ -10,19 +10,20 @@
     specs: [
         'src/modules/**/*.visual-spec.js'
     ],
+    logLevel: 'silent',
     baseUrl: 'http://localhost:3000',
     framework: 'jasmine',
     jasmineNodeOpts: {
       defaultTimeoutInterval: 200000,
+      expectationResultHandler: function () {
+
+      }
     },
     waitforTimeout: 3000,
     services: [
       'visual-regression'
     ],
-    reporters: [
-      'dot',
-      'spec'
-    ],
+
     before: function () {
       timestamp = new Date().getTime();
       var commands = require('../utils/visual-browser-commands');
@@ -51,11 +52,12 @@
 
     },
 
+    beforeTest: function () {
+
+    },
+
     after: function () {
-      console.log('\n---------------------------');
-      console.log('Visual Regression Completed');
-      console.log('Run time: ' + (new Date().getTime() - timestamp) + 'ms');
-      console.log('---------------------------');
+
     },
 
     sync: false
