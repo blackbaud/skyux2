@@ -207,6 +207,90 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Navbar',
+        icon: 'compass',
+        // tslint:disable-next-line
+        summary: `The navbar component displays a list of top-level navigation items.`,
+        url: '/components/navbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'navbar-demo.component.html',
+              fileContents: require('!!raw!./navbar/navbar-demo.component.html')
+            },
+            {
+              name: 'navbar-demo.component.ts',
+              fileContents: require('!!raw!./navbar/navbar-demo.component.ts'),
+              componentName: 'SkyNavbarDemoComponent',
+              bootstrapSelector: 'sky-navbar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Page summary',
+        icon: 'newspaper-o',
+        // tslint:disable-next-line
+        summary: `The page summary displays critical information and actions for users to access quickly and frequently.`,
+        url: '/components/page-summary',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'page-summary-demo.component.html',
+              fileContents: require('!!raw!./page-summary/page-summary-demo.component.html')
+            },
+            {
+              name: 'page-summary-demo.component.ts',
+              fileContents: require('!!raw!./page-summary/page-summary-demo.component.ts'),
+              componentName: 'SkyPageSummaryDemoComponent',
+              bootstrapSelector: 'sky-page-summary-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Radio button',
+        icon: 'circle-o',
+        // tslint:disable-next-line
+        summary: `The radio button component renders a SKY UX-themed radio button.`,
+        url: '/components/radio',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'radio-demo.component.html',
+              fileContents: require('!!raw!./radio/radio-demo.component.html')
+            },
+            {
+              name: 'radio-demo.component.ts',
+              fileContents: require('!!raw!./radio/radio-demo.component.ts'),
+              componentName: 'SkyRadioDemoComponent',
+              bootstrapSelector: 'sky-radio-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Repeater',
+        icon: 'check-square',
+        // tslint:disable-next-line
+        summary: `The repeater component creates a container to display formatted information for a list of objects.`,
+        url: '/components/repeater',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'repeater-demo.component.html',
+              fileContents: require('!!raw!./repeater/repeater-demo.component.html')
+            },
+            {
+              name: 'repeater-demo.component.ts',
+              fileContents: require('!!raw!./repeater/repeater-demo.component.ts'),
+              componentName: 'SkyRepeaterDemoComponent',
+              bootstrapSelector: 'sky-repeater-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,
