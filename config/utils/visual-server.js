@@ -43,7 +43,7 @@
         return bsLocal.start({
           key: process.env.BROWSER_STACK_ACCESS_KEY,
           onlyAutomate: true,
-          forceLocal: true,
+          forcelocal: true,
           force: true
           //localIdentifier: 'SKYUX2BROWSERSTACK',
           //parallelRuns: '30'
