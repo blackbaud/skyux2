@@ -66,7 +66,7 @@
     "base64-image-loader": "1.0.0",
     "blackbaud-sky-pages-in-fs": "github:blackbaud/sky-pages-in-fs",
     "blackbaud-sky-pages-out-skyux2": "github:blackbaud/sky-pages-out-skyux2",
-    "browserstack-local": "github:blackbaud-PatrickOFriel/browserstack-local-nodejs#update-tunnel-flags",
+    "browserstack-local": "1.2.0",
     "codelyzer": "1.0.0-beta.3",
     "css-loader": "0.25.0",
     "express": "4.14.0",
