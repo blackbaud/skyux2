@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
-  Component
+  Component,
+  OnInit
 } from '@angular/core';
 
 import { SkyDemoComponent } from './demo-component';
 import { SkyDemoComponentsService } from './demo-components.service';
+import { SkyDemoTitleService } from '../shared/title.service';
 
 @Component({
   selector: 'sky-demo-components',
@@ -12,10 +14,17 @@ import { SkyDemoComponentsService } from './demo-components.service';
   styleUrls: ['./demo-components.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDemoComponentsComponent {
+export class SkyDemoComponentsComponent implements OnInit {
   public get components(): SkyDemoComponent[] {
     return this.componentService.getComponents();
   }
 
-  constructor(private componentService: SkyDemoComponentsService) { }
+  constructor(
+    private titleService: SkyDemoTitleService,
+    private componentService: SkyDemoComponentsService
+  ) { }
+
+  public ngOnInit() {
+    this.titleService.setTitle('Components');
+  }
 }
