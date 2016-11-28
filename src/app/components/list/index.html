@@ -1,0 +1,92 @@
+<sky-demo-page title="List">
+  <sky-demo-page-summary>
+    This list component displays a SKY UX-themed list of data.  It includes options for adding
+    searching, filtering, paging, and multiple view types.
+
+    <h4>Related Components</h4>
+    <p>Here is a list of related components that can be used within the list component.</p>
+    <ul>
+      <li><a href="/skyux2/components/list-filters">List Filters (sky-list-filters)</a></li>
+      <li><a href="/skyux2/components/list-filters">List Paging Default (sky-list-paging)</a></li>
+      <li><a href="/skyux2/components/list-filters">List Toolbar (sky-list-toolbar)</a></li>
+      <li><a href="/skyux2/components/list-filters">List View Checklist (sky-list-view-checklist)</a></li>
+      <li><a href="/skyux2/components/list-filters">List View Grid (sky-list-view-grid)</a></li>
+      <li><a href="/skyux2/components/list-filters">List View Repeater (sky-list-view-repeater)</a></li>
+    </ul>
+  </sky-demo-page-summary>
+
+  <sky-demo-page-properties>
+    <sky-demo-page-property
+        propertyName="data"
+        defaultValue="[]"
+        isOptional="false"
+    >
+      Specifies the data to display.
+      Acceptable values: <code>Observable Array or Array</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="dataIdGenerator"
+        defaultValue="item.id"
+        isOptional="true"
+    >
+      Specific a function to generate the list item unique ids.
+      Acceptable values: <code>(item: any) => string</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="defaultView"
+        defaultValue=""
+        isOptional="true"
+    >
+      Specifies a reference to the <code>ListViewComponent</code> to display when initialized.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="forceClientSideSearch"
+        defaultValue="false"
+        isOptional="true"
+    >
+      Specific whether list search should be forced to use the client-side function.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="search"
+        defaultValue=""
+        isOptional="true"
+    >
+      Specific a function to apply as a global sort on the list.
+      Acceptable value: <code>(searchText: string) => Observable Array or Promise Array</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="searchAsync"
+        defaultValue=""
+        isOptional="true"
+    >
+     Specific a function to apply as a global sort on the list.
+     Acceptable values: <code>Array of strings or Observable Array of strings</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="selectedIds"
+        defaultValue=""
+        isOptional="true"
+    >
+      Specific a set of selected ids to used with a checklist view.
+      Acceptable values: <code>Observable Array of strings or Array of strings</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="sortFields"
+        defaultValue=""
+        isOptional="true"
+    >
+      Specific a set of views to sort by. If array of fields then sorted by order of array.
+      Acceptable values: <code>string, Observable string, Array of strings, or Observable Array of strings</code>.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <h3>List with multiple views</h3>
+    <sky-list-demo></sky-list-demo>
+
+    <h3>List with custom view</h3>
+    <sky-list-demo-custom></sky-list-demo-custom>
+
+    <sky-demo-page-code demoName="List"></sky-demo-page-code>
+  </sky-demo-page-example>
+</sky-demo-page>
