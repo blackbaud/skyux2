@@ -1,0 +1,15 @@
+<sky-modal>
+  <sky-modal-header>{{title}}</sky-modal-header>
+  <sky-modal-content>
+    <div class="sky-list-filters-modal-bar">
+      <div *ngFor="let filter of modalFilters">
+        <sky-list-filter-renderer [template]="filter.template" [filter]="filter.filterModel"></sky-list-filter-renderer>
+      </div>
+    </div>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button cmp-id="apply-filters" class="primary" (click)="applyFilters()">Apply filters</button>
+    <button cmp-id="clear-filters" class="link" (click)="clearFilters()">Clear all filters</button>
+    <button cmp-id="cancel" class="link" (click)="modal.closeButtonClick()">Cancel</button>
+  </sky-modal-footer>
+</sky-modal>
