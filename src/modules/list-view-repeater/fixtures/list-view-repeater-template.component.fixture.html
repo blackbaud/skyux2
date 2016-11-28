@@ -1,0 +1,13 @@
+<sky-list-view-repeater name="TestRepeaterTemplate">
+  <sky-list-view-repeater-title [template]="title"></sky-list-view-repeater-title>
+  <sky-list-view-repeater-description [template]="description"></sky-list-view-repeater-description>
+  <sky-list-view-repeater-content [template]="content"></sky-list-view-repeater-content>
+  <sky-list-view-repeater-left [template]="left"></sky-list-view-repeater-left>
+  <sky-list-view-repeater-right [template]="right"></sky-list-view-repeater-right>
+</sky-list-view-repeater>
+
+<template let-row="row" #title>temp {{row.column2}}</template>
+<template let-row="row" #description>temp {{row.column3}}</template>
+<template #content>temp content</template>
+<template #left>temp left</template>
+<template #right>temp right</template>

@@ -1,0 +1,63 @@
+@import '../../scss/variables';
+
+:host {
+  .sky-repeater-item {
+    border-bottom: 1px solid $sky-color-border-gray;
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 12px;
+    padding: 10px;
+
+    .sky-list-view-repeater-title-area {
+      flex-grow: 1;
+      flex-basis: 80%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    sky-list-view-repeater-renderer {
+      &.sky-list-view-repeater-left {
+        flex-grow: 0;
+        margin: 0 10px 0 0;
+      }
+
+      &.sky-list-view-repeater-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        * {
+          min-width: 0;
+        }
+      }
+
+      &.sky-list-view-repeater-right {
+        flex-grow: 0;
+        margin: 0 0 0 10px;
+      }
+
+      &.sky-list-view-repeater-content {
+        display: block;
+        flex-basis: 100%;
+
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px;
+      }
+
+      &.sky-list-view-repeater-editor {
+        display: block;
+        flex-basis: 100%;
+      }
+    }
+
+    /deep/ p {
+      margin: 0;
+    }
+
+    /deep/ .sky-chevron {
+      cursor: pointer;
+    }
+  }
+}
