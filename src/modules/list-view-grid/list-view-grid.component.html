@@ -1,0 +1,28 @@
+<div *ngIf="active | async" [style.height.px]="height | async" [style.width.px]="width | async">
+  <table [ngClass]="{ 'no-top-border': (hasToolbar | async), fit: fit !== 'scroll' }">
+    <thead>
+      <tr dragula="heading">
+        <th class="heading" *ngFor="let column of columns | async; let last = last" (click)="sortByColumn(column)" [style.width.px]="last ? null : column.width" [attr.cmp-id]="column.id || column.field" [ngClass]="{ locked: column.locked }">
+          {{column.heading}}
+          <i class="fa" [hidden]="!(getSortDirection(column.field) | async)" [ngClass]="{ 'fa-caret-up': (getSortDirection(column.field) | async) === 'asc', 'fa-caret-down': (getSortDirection(column.field) | async) === 'desc' }"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="sky-list-view-grid-row" *ngFor="let item of items | async" [attr.cmp-id]="item.id">
+        <td *ngFor="let column of columns | async; let last = last">
+          <sky-list-view-grid-cell [template]="column.template || defaultCellTemplate" [fieldSelector]="column.field" [item]="item" [columnId]="column.id" [attr.cmp-id]="column.id || column.field" [style.width.px]="last ? null : column.width"></sky-list-view-grid-cell>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <sky-spinner *ngIf="loading | async"></sky-spinner>
+</div>
+
+<template #defaultCellTemplate let-row="row" let-value="value">{{value}}</template>
+<template #chooseColumnsTemplate>
+  <button (click)="openColumnSelector()" title="Choose Columns">
+    <span class="fa fa-lg fa-columns"></span>
+  </button>
+</template>

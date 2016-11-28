@@ -46,6 +46,7 @@ import { SkySpinnerModule } from './modules/spinner';
     SkyListPagingDefaultModule,
     SkyListToolbarModule,
     SkyListViewChecklistModule,
+    SkyListViewGridModule,
     SkyListViewRepeaterModule,
     SkySpinnerModule
   ]
@@ -72,6 +73,7 @@ export * from './modules/list-filters';
 export * from './modules/list-paging-default';
 export * from './modules/list-toolbar';
 export * from './modules/list-view-checklist';
+export * from './modules/list-view-grid';
 export * from './modules/list-view-repeater';
 export * from './modules/spinner';
 
