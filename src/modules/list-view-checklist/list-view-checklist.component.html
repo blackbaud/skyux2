@@ -1,0 +1,13 @@
+<div *ngIf="active | async">
+  <sky-list-view-checklist-item *ngFor="let item of items | async" [item]="item" [attr.cmp-id]="item.id">
+    <sky-checkbox [checked]="itemSelected(item.id) | async" (change)="setItemSelection(item, $event)">
+      <sky-checkbox-label>
+        <strong *ngIf="item.label">{{item.label}}</strong>
+        <div *ngIf="item.description">{{item.description}}</div>
+      </sky-checkbox-label>
+    </sky-checkbox>
+  </sky-list-view-checklist-item>
+</div>
+
+<template #selectAllTemplate><a href (click)="selectAll(); false">Select all</a></template>
+<template #clearSelectionsTemplate><a href (click)="clearSelections(); false">Clear all</a></template>
