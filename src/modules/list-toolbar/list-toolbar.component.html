@@ -1,0 +1,73 @@
+<ng-content></ng-content>
+
+<div>
+  <div class="standard" *ngIf="type === 'standard'">
+    <sky-list-toolbar-item-renderer *ngFor="let item of leftTemplates | async" [template]="item.template" [attr.cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+    <sky-list-toolbar-item-renderer *ngFor="let item of centerTemplates | async" [template]="item.template" [attr.cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+    <sky-list-toolbar-item-renderer *ngFor="let item of rightTemplates | async" [template]="item.template" [attr.cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+  </div>
+  <div class="search" *ngIf="type === 'search'">
+    <div class="primary-bar">
+      <sky-list-toolbar-item-renderer [template]="search" cmp-id="search"></sky-list-toolbar-item-renderer>
+    </div>
+    <div class="secondary-bar">
+      <sky-list-toolbar-item-renderer *ngFor="let item of leftTemplates | async" [template]="item.template" [attr.cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+      <sky-list-toolbar-item-renderer *ngFor="let item of centerTemplates | async" [template]="item.template" [attr.cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+      <sky-list-toolbar-item-renderer *ngFor="let item of rightTemplates | async" [template]="item.template" [attr.cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+    </div>
+  </div>
+</div>
+
+<template #search>
+  <div *ngIf="isSearchEnabled | async" class="toolbar-item-container">
+    <input #searchBox (keyup.enter)="updateSearchText(searchBox.value)" type="text" value="{{searchText | async}}" placeholder="{{placeholder}}" />
+    <button cmp-id="search" type="button">
+      <i class="fa fa-lg fa-search" (click)="updateSearchText(searchBox.value)"></i>
+    </button>
+  </div>
+</template>
+<template #sortSelector>
+  <sky-dropdown *ngIf="(isSortSelectorEnabled | async) && (sortSelectors | async).length > 0">
+    <sky-dropdown-button buttonType="select">
+      <i class="fa fa-lg fa-sort"></i>
+    </sky-dropdown-button>
+    <sky-dropdown-menu>
+      <div *ngFor="let item of sortSelectors | async">
+        <sky-dropdown-item [class.selected]="item.selected" [attr.cmp-id]="item.sort.fieldSelector + '_asc'">
+          <button type="button" (click)="setSort(item.sort, false)">
+            {{item.sort.text}} ({{
+              item.sort.fieldType == 'string' ? 'A-Z' :
+              item.sort.fieldType == 'date' ? 'newest first' :
+              item.sort.fieldType == 'number' ? 'lowest first' :
+              'ascending'
+            }})
+          </button>
+        </sky-dropdown-item>
+        <sky-dropdown-item [class.selected]="item.selectedDesc" [attr.cmp-id]="item.sort.fieldSelector + '_desc'">
+          <button type="button" (click)="setSort(item.sort, true)">
+            {{item.sort.text}} ({{
+              item.sort.fieldType == 'string' ? 'Z-A' :
+              item.sort.fieldType == 'date' ? 'oldest first' :
+              item.sort.fieldType == 'number' ? 'highest first' :
+              'descending'
+            }})
+          </button>
+        </sky-dropdown-item>
+      </div>
+    </sky-dropdown-menu>
+  </sky-dropdown>
+</template>
+<template #viewSelector>
+  <sky-dropdown *ngIf="(isViewSelectorEnabled | async) && (views | async).length > 1">
+    <sky-dropdown-button buttonType="select">
+      <i class="fa fa-lg fa-table"></i>
+    </sky-dropdown-button>
+    <sky-dropdown-menu>
+      <sky-dropdown-item *ngFor="let item of views | async" [ngClass]="{ selected: (view | async) == item.id }" [attr.cmp-id]="item.id">
+        <button type="button" (click)="setActiveView(item)">
+          {{item.name}}
+        </button>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
+</template>
