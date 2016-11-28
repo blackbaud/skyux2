@@ -17,6 +17,7 @@ import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTilesModule } from './modules/tiles';
+import { SkySpinnerModule } from './modules/spinner';
 
 @NgModule({
   exports: [
@@ -36,6 +37,7 @@ import { SkyTilesModule } from './modules/tiles';
     SkyRepeaterModule,
     SkyTabsModule,
     SkyTilesModule
+    SkySpinnerModule
   ]
 })
 export class SkyModule { }
@@ -56,6 +58,7 @@ export * from './modules/radio';
 export * from './modules/repeater';
 export * from './modules/tabs';
 export * from './modules/tiles';
+export * from './modules/spinner';
 
 export const SKY_PROVIDERS: any[] = [
   ...SKY_MODAL_PROVIDERS
