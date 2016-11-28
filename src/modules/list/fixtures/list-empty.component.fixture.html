@@ -1,0 +1,12 @@
+<sky-list [data]="items">
+  <sky-list-filters>
+    <sky-list-filter [filter]="filterOnStatus" [view]="default">
+      <template let-filter="filter">
+        <select [(ngModel)]="filter.value" (ngModelChange)="filter.changed($event)">
+          <option value="">Column2</option>
+          <option *ngFor="let option of options | async" [value]="option">{{ option.toUpperCase() }}</option>
+        </select>
+      </template>
+    </sky-list-filter>
+  </sky-list-filters>
+</sky-list>
