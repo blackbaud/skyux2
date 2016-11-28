@@ -17,6 +17,7 @@ import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTilesModule } from './modules/tiles';
+import { SkyListPagingDefaultModule } from './modules/list-paging-default';
 import { SkyListToolbarModule } from './modules/list-toolbar';
 import { SkyListViewChecklistModule } from './modules/list-view-checklist';
 import { SkyListViewRepeaterModule } from './modules/list-view-repeater';
@@ -40,6 +41,7 @@ import { SkySpinnerModule } from './modules/spinner';
     SkyRepeaterModule,
     SkyTabsModule,
     SkyTilesModule
+    SkyListPagingDefaultModule,
     SkyListToolbarModule,
     SkyListViewChecklistModule,
     SkyListViewRepeaterModule,
@@ -64,6 +66,7 @@ export * from './modules/repeater';
 export * from './modules/tabs';
 export * from './modules/tiles';
 export * from './modules/format';
+export * from './modules/list-paging-default';
 export * from './modules/list-toolbar';
 export * from './modules/list-view-checklist';
 export * from './modules/list-view-repeater';

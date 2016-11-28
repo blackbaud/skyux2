@@ -1,0 +1,11 @@
+<ul *ngIf="(pageCount | async) > 1">
+  <li>
+    <a href (click)="previousPage(); false" class="fa fa-caret-left sky-paging-caret" cmp-id="previous" [ngClass]="{ disabled: (currentPageNumber | async) == 1 }"></a>
+  </li>
+  <li *ngFor="let pageNumber of (displayedPages | async)" [attr.cmp-id]="pageNumber" class="sky-list-paging-link">
+    <a href (click)="setPage(pageNumber); false" [ngClass]="{ current: (currentPageNumber | async) == pageNumber }">{{pageNumber}}</a>
+  </li>
+  <li>
+    <a href (click)="nextPage(); false" class="fa fa-caret-right sky-paging-caret" cmp-id="next" [ngClass]="{ disabled: (pageCount | async) == (currentPageNumber | async) }"></a>
+  </li>
+</ul>
