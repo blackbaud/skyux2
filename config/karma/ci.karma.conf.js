@@ -32,19 +32,19 @@ module.exports = function (config) {
       bs_osx_safari_latest: {
         base: 'BrowserStack',
         browser: 'safari',
-        os: 'macOS',
+        os: 'OS X',
         os_version: 'Sierra'
       },
       bs_osx_chrome_latest: {
         base: 'BrowserStack',
         browser: 'chrome',
-        os: 'macOS',
+        os: 'OS X',
         os_version: 'Sierra'
       },
       bs_osx_firefox_latest: {
         base: 'BrowserStack',
         browser: 'firefox',
-        os: 'macOS',
+        os: 'OS X',
         os_version: 'Sierra'
       }
     };
