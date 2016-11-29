@@ -14,4 +14,8 @@ export class SkyModalAdapterService {
   public addHostEl(): void {
     document.body.appendChild(document.createElement('sky-modal-host'));
   }
+
+  public removeHostEl(): void {
+    document.body.removeChild(document.querySelector('sky-modal-host'));
+  }
 }

@@ -37,4 +37,11 @@ export class SkyModalService {
 
     return modalInstance;
   }
+
+  public dispose() {
+    if (SkyModalService.hostComponent) {
+      SkyModalService.hostComponent = undefined;
+      this.adapter.removeHostEl();
+    }
+  }
 }
