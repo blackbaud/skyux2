@@ -39,7 +39,9 @@ export class SkyModalService {
   }
 
   public dispose() {
-    SkyModalService.hostComponent = undefined;
-    this.adapter.removeHostEl();
+    if (SkyModalService.hostComponent) {
+      SkyModalService.hostComponent = undefined;
+      this.adapter.removeHostEl();
+    }
   }
 }
