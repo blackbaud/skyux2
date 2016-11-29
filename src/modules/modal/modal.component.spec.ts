@@ -53,6 +53,7 @@ describe('Modal component', () => {
       ) => {
         applicationRef = _applicationRef;
         modalService = _modalService;
+        modalService.dispose();
       }
     )
   );

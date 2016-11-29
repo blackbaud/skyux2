@@ -54,6 +54,7 @@ describe('Modal service', () => {
         _modalService: SkyModalService
       ) => {
         modalService = _modalService;
+        modalService.dispose();
       }
     )
   );
