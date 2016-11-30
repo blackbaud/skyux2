@@ -12,11 +12,11 @@
   shared.capabilities = [
     {
       browserName: 'chrome',
-      browser_version: '53',
+      browser_version: '54',
       'browserstack.local': 'true',
       'browserstack.debug': 'true',
       os: 'OS X',
-      os_version: 'Yosemite',
+      os_version: 'Sierra',
       browserDisconnectTimeout: 3e5,
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
@@ -28,11 +28,11 @@
     },
     {
       browserName: 'firefox',
-      browser_version: '47',
+      browser_version: '50',
       'browserstack.local': 'true',
       'browserstack.debug': 'true',
       os: 'OS X',
-      os_version: 'Yosemite',
+      os_version: 'Sierra',
       browserDisconnectTimeout: 3e5,
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
