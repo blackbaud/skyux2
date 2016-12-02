@@ -33,19 +33,19 @@ module.exports = function (config) {
         base: 'BrowserStack',
         browser: 'safari',
         os: 'OS X',
-        os_version: 'Yosemite'
+        os_version: 'Sierra'
       },
       bs_osx_chrome_latest: {
         base: 'BrowserStack',
         browser: 'chrome',
         os: 'OS X',
-        os_version: 'Yosemite'
+        os_version: 'Sierra'
       },
       bs_osx_firefox_latest: {
         base: 'BrowserStack',
         browser: 'firefox',
         os: 'OS X',
-        os_version: 'Yosemite'
+        os_version: 'Sierra'
       }
     };
 
