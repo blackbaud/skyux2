@@ -6,6 +6,7 @@ import { SkyAvatarModule } from './modules/avatar';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
+import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyKeyInfoModule } from './modules/key-info';
@@ -25,6 +26,7 @@ import { SkyTilesModule } from './modules/tiles';
     SkyCardModule,
     SkyCheckboxModule,
     SkyChevronModule,
+    SkyDefinitionListModule,
     SkyDropdownModule,
     SkyFileAttachmentsModule,
     SkyKeyInfoModule,
@@ -44,6 +46,7 @@ export * from './modules/alert';
 export * from './modules/avatar';
 export * from './modules/card';
 export * from './modules/checkbox';
+export * from './modules/definition-list';
 export * from './modules/dropdown';
 export * from './modules/fileattachments';
 export * from './modules/key-info';
