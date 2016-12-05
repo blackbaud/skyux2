@@ -9,8 +9,8 @@
 
 <div class="sky-list-filters-modal-active" *ngIf="(activeModalFilters | async).length > 0">
   <span class="filter-label">Filter:</span>
-  <span class="filter-button" *ngFor="let filter of activeModalFilters | async" (click)="openFiltersModal()">
-    <span *ngIf="filter.label">{{ filter.label }}: </span>{{ filter.value }} <i class="fa fa-times close ng-scope" (click)="clearFilter(filter); false"></i>
+  <span class="filter-button" *ngFor="let filter of activeModalFilters | async">
+    <span (click)="openFiltersModal()"><span *ngIf="filter.label">{{ filter.label }}: </span>{{ filter.value }}</span> <i class="fa fa-times close ng-scope" (click)="clearFilter(filter.id); false"></i>
   </span>
 </div>
 

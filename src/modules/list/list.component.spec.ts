@@ -113,7 +113,9 @@ describe('List Component', () => {
           By.css('.toolbar-item-container input[type="text"]')
         ).nativeElement;
         searchInputElement.value = text;
-        searchInputElement.dispatchEvent(new Event('input'));
+        var event = document.createEvent('Event');
+        event.initEvent('input', true, true);
+        searchInputElement.dispatchEvent(event);
         fixture.detectChanges();
         return fixture.whenStable();
       }
@@ -123,7 +125,9 @@ describe('List Component', () => {
           document.querySelector('.sky-list-filters-modal-bar select') :
           element.query(By.css('.sky-list-filters-inline-bar select')).nativeElement;
         filterSelect.value = text;
-        filterSelect.dispatchEvent(new Event('change'));
+        var event = document.createEvent('Event');
+        event.initEvent('change', true, true);
+        filterSelect.dispatchEvent(event);
         fixture.detectChanges();
         return fixture.whenStable();
       }
@@ -167,7 +171,7 @@ describe('List Component', () => {
           fixture.detectChanges();
           element.query(
             By.css('button[cmp-id="search"] i')
-          ).triggerEventHandler('click', undefined);
+          ).nativeElement.click();
           fixture.detectChanges();
           expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(2);
         });
@@ -262,18 +266,18 @@ describe('List Component', () => {
           fixture.detectChanges();
           element.query(
             By.css('.sky-list-filters-inline-bar button[cmp-id="filter-show-more"]')
-          ).triggerEventHandler('click', undefined);
+          ).nativeElement.click();
           fixture.detectChanges();
-          document.querySelector('sky-modal-footer button[cmp-id="clear-filters"]')
-            .dispatchEvent(new Event('click'));
+          (<HTMLButtonElement><any>document
+            .querySelector('sky-modal-footer button[cmp-id="clear-filters"]')).click();
           fixture.detectChanges();
 
           return fixture.whenStable();
         })
         .then(() => setFilterSelect('banana', true))
         .then(() => {
-            document.querySelector('sky-modal-footer button[cmp-id="apply-filters"]')
-              .dispatchEvent(new Event('click'));
+            (<HTMLButtonElement><any>document
+              .querySelector('sky-modal-footer button[cmp-id="apply-filters"]')).click();
             fixture.detectChanges();
 
             expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(2);
@@ -287,8 +291,8 @@ describe('List Component', () => {
               By.css('sky-list-view-grid-cell[cmp-id="column2"]')
             ).nativeElement.textContent.trim()).toBe('Banana');
 
-            document.querySelector('.sky-list-filters-modal-active span.filter-button i')
-              .dispatchEvent(new Event('click'));
+            (<HTMLButtonElement><any>document
+              .querySelector('.sky-list-filters-modal-active span.filter-button i')).click();
             fixture.detectChanges();
 
             expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(7);
@@ -455,7 +459,9 @@ describe('List Component', () => {
           By.css('.toolbar-item-container input[type="text"]')
         ).nativeElement;
         searchInputElement.value = text;
-        searchInputElement.dispatchEvent(new Event('input'));
+        var event = document.createEvent('Event');
+        event.initEvent('input', true, true);
+        searchInputElement.dispatchEvent(event);
         fixture.detectChanges();
         return fixture.whenStable();
       }
@@ -515,15 +521,14 @@ describe('List Component', () => {
       it('should open filter modal when filter button clicked', async(() => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-          element.query(By.css('button[cmp-id="filter"]'))
-            .triggerEventHandler('click', undefined);
+          element.query(By.css('button[cmp-id="filter"]')).nativeElement.click();
           fixture.detectChanges();
           fixture.whenStable().then(() => {
               expect(element.queryAll(By.css('.sky-list-filters-inline-bar')).length).toBe(0);
               expect(document.querySelectorAll('.sky-modal').length).toBe(1);
 
-              document.querySelector('button.sky-modal-btn-close')
-                .dispatchEvent(new Event('click'));
+              (<HTMLButtonElement><any>document.querySelector('button.sky-modal-btn-close'))
+                .click();
           });
         });
       }));

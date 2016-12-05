@@ -124,8 +124,7 @@ describe('List View Repeater Component', () => {
       expect(element.queryAll(By.css('.sky-list-view-repeater-content')).length).toBe(0);
 
       let repeaterItem = element.query(By.css('.sky-repeater-item'));
-      repeaterItem.query(By.css('button.sky-chevron'))
-        .triggerEventHandler('click', new Event('click'));
+      repeaterItem.query(By.css('button.sky-chevron')).nativeElement.click();
       fixture.detectChanges();
 
       expect(element.queryAll(By.css('.sky-list-view-repeater-content')).length).toBe(1);
@@ -133,8 +132,7 @@ describe('List View Repeater Component', () => {
         By.css('.sky-list-view-repeater-content')).nativeElement.textContent.trim()
       ).toBe('content');
 
-      repeaterItem.query(By.css('button.sky-chevron'))
-        .triggerEventHandler('click', new Event('click'));
+      repeaterItem.query(By.css('button.sky-chevron')).nativeElement.click();
       fixture.detectChanges();
 
       expect(element.queryAll(By.css('.sky-list-view-repeater-content')).length).toBe(0);
@@ -213,8 +211,7 @@ describe('List View Repeater Component', () => {
       ).nativeElement.textContent.trim()).toBe('');
 
       let repeaterItem = element.query(By.css('.sky-repeater-item'));
-      repeaterItem.query(By.css('button.sky-chevron'))
-        .triggerEventHandler('click', new Event('click'));
+      repeaterItem.query(By.css('button.sky-chevron')).nativeElement.click();
       fixture.detectChanges();
 
       expect(element.queryAll(By.css('.sky-list-view-repeater-content')).length).toBe(1);
@@ -309,8 +306,7 @@ describe('List View Repeater Component', () => {
       ).toBe('temp right');
 
       let repeaterItem = element.query(By.css('.sky-repeater-item'));
-      repeaterItem.query(By.css('button.sky-chevron'))
-        .triggerEventHandler('click', new Event('click'));
+      repeaterItem.query(By.css('button.sky-chevron')).nativeElement.click();
       fixture.detectChanges();
 
       expect(element.queryAll(By.css('.sky-list-view-repeater-content')).length).toBe(1);

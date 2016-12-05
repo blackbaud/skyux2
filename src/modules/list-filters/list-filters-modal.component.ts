@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { SkyModalComponent } from '../modal';
-import { ListFiltersUpdateAction } from '../list/state/filters/actions';
 import { ListFilterModel } from '../list/state/filters/filter.model';
 import { ListFilterDataModel } from '../list/state/filters/filter-data.model';
 
@@ -33,7 +32,7 @@ export class SkyListFiltersModalComponent {
   }
 
   public applyFilters() {
-    this.dispatcher.next(new ListFiltersUpdateAction(this.filters));
+    this.dispatcher.filtersUpdate(this.filters);
     this.modal.closeButtonClick();
   }
 

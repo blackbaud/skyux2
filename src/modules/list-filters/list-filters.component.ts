@@ -7,6 +7,7 @@ import { SkyListFilterComponent } from './list-filter.component';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { ListFilterModel } from '../list/state/filters/filter.model';
+import { ListFilterDataModel } from '../list/state/filters/filter-data.model';
 import { SkyListFiltersModalComponent } from './list-filters-modal.component';
 
 @Component({
@@ -75,12 +76,20 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
       });
   }
 
-  public clearFilter(filter: any) {
-    filter.value = '';
+  public clearFilter(filterId: string) {
     this.state.map(s => s.filters)
       .take(1)
       .subscribe(filters => {
-        this.dispatcher.filtersUpdate(filters);
+        let updatedFilters: ListFilterModel[] = [];
+        filters.forEach((f) => {
+          let model = new ListFilterModel(f, f.view);
+          model.filterModel = new ListFilterDataModel(f.filterModel);
+          model.filterModel.value = (model.filterModel.id === filterId) ?
+            '' : model.filterModel.value;
+          updatedFilters.push(model);
+        });
+
+        this.dispatcher.filtersUpdate(updatedFilters);
       });
   }
 
@@ -96,18 +105,16 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
 
   get activeModalFilters() {
     return this.modalFilters.map(s =>
-        /* tslint:disable */
+        /* tslint:disable-next-line */
         s.filter(f => f.filterModel.value != '' && f.filterModel.value != null)
-        /* tslint:enable */
-      )
+    )
       .map(f => f.map(x => x.filterModel));
   }
 
   get filtered() {
     return this.state.map(s =>
-        /* tslint:disable */
+        /* tslint:disable-next-line */
         s.filters.filter(f => f.filterModel.value != '' && f.filterModel.value != null).length > 0
-        /* tslint:enable */
       );
   }
 }
