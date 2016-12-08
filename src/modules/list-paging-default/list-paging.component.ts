@@ -105,18 +105,18 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
       })
       .subscribe();
 
-      // subscribe to or use inputs
-      getValue(this.pageSize, (pageSize: number) =>
-        this.pagingStateDispatcher.next(
-          new ListPagingConfigSetItemsPerPageAction(Number(pageSize))
-        )
-      );
-      getValue(this.maxPages, (maxPages: number) =>
-        this.pagingStateDispatcher.next(
-          new ListPagingConfigSetMaxPagesAction(Number(maxPages))
-        )
-      );
-      getValue(this.pageNumber, (pageNumber: number) => this.setPage(Number(pageNumber)));
+    // subscribe to or use inputs
+    getValue(this.pageSize, (pageSize: number) =>
+      this.pagingStateDispatcher.next(
+        new ListPagingConfigSetItemsPerPageAction(Number(pageSize))
+      )
+    );
+    getValue(this.maxPages, (maxPages: number) =>
+      this.pagingStateDispatcher.next(
+        new ListPagingConfigSetMaxPagesAction(Number(maxPages))
+      )
+    );
+    getValue(this.pageNumber, (pageNumber: number) => this.setPage(Number(pageNumber)));
   }
 
   get currentPageNumber() {

@@ -95,8 +95,11 @@ describe('List View Grid Component', () => {
       fixture.detectChanges();
     }));
 
-    it('should show 5 columns', () => {
-      expect(element.queryAll(By.css('th.heading')).length).toBe(5);
+    it('should show 6 columns', () => {
+      expect(element.queryAll(By.css('th.heading')).length).toBe(6);
+      expect(element.query(
+        By.css('th[cmp-id="select-header"]')
+      )).not.toBeNull();
       expect(element.query(
         By.css('th[cmp-id="column1"]')
       ).nativeElement.textContent.trim()).toBe('Column1');
@@ -231,6 +234,57 @@ describe('List View Grid Component', () => {
         expect(model.hidden).toBeUndefined();
         expect(model.type).toBeUndefined();
         expect(model.width).toBeUndefined();
+      });
+    });
+
+    describe('Selector column', () => {
+      it('all checkboxes start unchecked by default', () => {
+        let checkboxes = document.querySelectorAll('[class="select-checkbox"] input');
+
+        for (let i = 0; i < checkboxes.length; i++) {
+          let el = checkboxes[i] as HTMLInputElement;
+          expect(el.checked).toBe(false);
+        }
+      });
+
+      it('Select all header functionality', () => {
+        let headerCheckbox = element.query(
+          By.css('[cmp-id="select-header"] input')
+        ).nativeElement as HTMLInputElement;
+        headerCheckbox.click();
+        fixture.detectChanges();
+
+        let checkboxes = document.querySelectorAll('[class="select-checkbox"] input');
+
+        for (let i = 0; i < checkboxes.length; i++) {
+          let el = checkboxes[i] as HTMLInputElement;
+          expect(el.checked).toBe(true);
+        }
+
+        // deselect
+        headerCheckbox.click();
+        fixture.detectChanges();
+
+        for (let i = 0; i < checkboxes.length; i++) {
+          let el = checkboxes[i] as HTMLInputElement;
+          expect(el.checked).toBe(false);
+        }
+      });
+
+      it('Select checkbox functionality', () => {
+        let checkbox = element.query(
+          By.css('[cmp-id="select-1"] input')
+        ).nativeElement as HTMLInputElement;
+        checkbox.click();
+        fixture.detectChanges();
+
+        expect(checkbox.checked).toBe(true);
+
+        // deselect
+        checkbox.click();
+        fixture.detectChanges();
+
+        expect(checkbox.checked).toBe(false);
       });
     });
   });

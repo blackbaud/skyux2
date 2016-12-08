@@ -11,6 +11,9 @@ import { ListStateDispatcher } from '../list/state';
 import { ListViewGridColumnModel } from './state/columns/column.model';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
+import {
+  ListSelectedSetItemsSelectedAction, ListSelectedSetItemSelectedAction
+} from '../list/state/selected/actions';
 import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
 import { ListSortLabelModel } from '../list/state/sort/label.model';
 import { Observable } from 'rxjs';
@@ -42,6 +45,7 @@ export class SkyListViewGridComponent
   @Input() public fit: string = 'width';
   @Input() public width: number | Observable<number>;
   @Input() public height: number | Observable<number>;
+  @Input() public selectionEnabled: boolean | Observable<boolean>;
 
   /* tslint:disable */
   @Input('search') private searchFunction: (data: any, searchText: string) => boolean;
@@ -70,6 +74,10 @@ export class SkyListViewGridComponent
     let columnModels = this.columnComponents.map(columnComponent => {
       return new ListViewGridColumnModel(columnComponent.template, columnComponent);
     });
+
+    if (this.selectionEnabled && !(this.selectionEnabled instanceof Observable)) {
+      this.selectionEnabled = Observable.of(this.selectionEnabled);
+    }
 
     if (this.width && !(this.width instanceof Observable)) {
       this.width = Observable.of(this.width);
@@ -184,8 +192,11 @@ export class SkyListViewGridComponent
   }
 
   get items() {
-    return this.state.map(s => s.displayedItems.items)
-      .distinctUntilChanged();
+    return Observable.combineLatest(
+      this.state.map(s => s.displayedItems.items).distinctUntilChanged(),
+      this.state.map(s => s.selected.item).distinctUntilChanged(),
+      (items, selected) => items
+    );
   }
 
   get columns() {
@@ -238,5 +249,33 @@ export class SkyListViewGridComponent
   private get loading() {
     return this.state.map(s => s.displayedItems.loading)
       .distinctUntilChanged();
+  }
+
+  public toggleSelectAllDisplayed(event: any) {
+    this.items
+      .take(1)
+      .subscribe(items => {
+        this.dispatcher.next(
+          new ListSelectedSetItemsSelectedAction(items.map((i: any) => i.id), event.checked, false)
+        );
+      });
+  }
+
+  public toggleSelected(event: any, id: string) {
+    this.dispatcher.next(new ListSelectedSetItemSelectedAction(id, event.checked));
+  }
+
+  public isSelected(id: string): Observable<boolean> {
+    return this.state.map(s => {
+      return s.selected.item[id] === true;
+    }).distinctUntilChanged();
+  }
+
+  public isAllDisplayedSelected(): Observable<boolean> {
+    return Observable.combineLatest(
+      this.items.distinctUntilChanged(),
+      this.state.map(s => s.selected.item).distinctUntilChanged(),
+      (items, selected) => items.every((i: any) => selected[i.id] === true)
+    ).distinctUntilChanged();
   }
 }

@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { ListItemModel } from '../list/state/items/item.model';
+import { ListState } from '../list/state';
 import { getData } from '../list/helpers';
 
 @Component({
@@ -14,9 +15,13 @@ import { getData } from '../list/helpers';
 export class SkyListViewGridCellComponent implements OnInit {
   @Input() public item: ListItemModel;
   @Input() public columnId: string;
+  @Input() public isSelected: boolean;
   @Input() private template: TemplateRef<any>;
   @Input() private fieldSelector: string;
   @ViewChild('cell', { read: ViewContainerRef }) private container: ViewContainerRef;
+
+  constructor(private state: ListState) {
+  }
 
   public ngOnInit() {
     this.container.createEmbeddedView(this.template, this);

@@ -51,7 +51,8 @@ export class ListSelectedOrchestrator extends ListStateOrchestrator<AsyncItem<Li
   private setItemsSelected(
     state: AsyncItem<ListSelectedModel>,
     action: ListSelectedSetItemsSelectedAction): AsyncItem<ListSelectedModel> {
-    const newSelected = new ListSelectedModel();
+    const newSelected = action.refresh ? new ListSelectedModel() : Object.assign({}, state.item);
+
     action.items.map(s => newSelected[s] = action.selected);
 
     return new AsyncItem<ListSelectedModel>(newSelected, state.lastUpdate, state.loading);

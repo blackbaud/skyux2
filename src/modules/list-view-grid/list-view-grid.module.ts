@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkyModalModule } from '../modal';
 import { SkySpinnerModule } from '../spinner';
+import { SkyCheckboxModule } from '../checkbox';
 import { SkyListModule } from '../list';
 import { SkyListViewChecklistModule } from '../list-view-checklist';
 import { SkyListViewGridComponent } from './list-view-grid.component';
@@ -22,6 +23,7 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula';
   imports: [
     CommonModule,
     SkySpinnerModule,
+    SkyCheckboxModule,
     SkyModalModule,
     SkyListModule,
     SkyListViewChecklistModule,
