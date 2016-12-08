@@ -43,7 +43,7 @@ export class SkyModalHostComponent {
     let factory = this.resolver.resolveComponentFactory(component);
     let hostService = new SkyModalHostService();
 
-    providers = providers || [];
+    providers = providers /* istanbul ignore next */ || [];
 
     providers.push({
       provide: SkyModalHostService,

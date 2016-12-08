@@ -81,6 +81,21 @@ describe('Tabset component', () => {
       validateTabSelected(el, 1);
     });
 
+    it('should not change the active tab when a disabled tab is clicked', () => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+      let el = fixture.nativeElement;
+
+      fixture.componentInstance.tab2Disabled = true;
+
+      fixture.detectChanges();
+
+      el.querySelectorAll('.sky-btn-tab')[1].click();
+
+      fixture.detectChanges();
+
+      validateTabSelected(el, 0);
+    });
+
     it('should initialize the tabs properly when active is set to true', () => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
       let cmp: TabsetTestComponent = fixture.componentInstance;

@@ -1,0 +1,45 @@
+<sky-modal>
+  <sky-modal-header>
+    {{title}}
+  </sky-modal-header>
+  <sky-modal-content>
+    <sky-tabset tabStyle="wizard" #wizardDemo>
+      <sky-tab
+        tabHeading="Step 1"
+        active="true"
+      >
+        <label>
+          Enter text here to continue.
+          <input type="text" [(ngModel)]="requiredValue1" />
+        </label>
+      </sky-tab>
+      <sky-tab
+        tabHeading="Step 2"
+        [disabled]="step2Disabled"
+      >
+        <sky-checkbox [(ngModel)]="requiredValue2">
+          <sky-checkbox-label>
+            Check this box to enable step 3.
+          </sky-checkbox-label>
+        </sky-checkbox>
+      </sky-tab>
+      <sky-tab
+        tabHeading="Step 3"
+        [disabled]="step3Disabled"
+      >
+        Some other content
+      </sky-tab>
+    </sky-tabset>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <sky-tabset-nav-button buttonType="previous" [tabset]="wizardDemo"></sky-tabset-nav-button>
+    <sky-tabset-nav-button buttonType="next" [tabset]="wizardDemo"></sky-tabset-nav-button>
+    <button
+      type="button"
+      class="sky-btn sky-btn-primary"
+      (click)="instance.close()"
+    >
+      Save and Close
+    </button>
+  </sky-modal-footer>
+</sky-modal>

@@ -1,9 +1,11 @@
 <a
     class="sky-btn-tab"
     [ngClass]="{
-      'sky-btn-tab-selected': active
+      'sky-btn-tab-wizard': tabStyle === 'wizard',
+      'sky-btn-tab-selected': active,
+      'sky-btn-tab-disabled': disabled
     }"
-    (click)="tabClick.emit()"
+    (click)="doTabClick()"
     role="tab"
 >
   {{tabHeading}}

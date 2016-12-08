@@ -11,6 +11,7 @@
       *ngIf="tab2Available"
       [tabHeading]="tab2Heading"
       [active]="activeTab === 1"
+      [disabled]="tab2Disabled"
       (close)="closeTab2()"
   >
     <div class="tabset-test-content-2">

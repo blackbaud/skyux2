@@ -7,6 +7,8 @@ import { SkyTabButtonComponent } from './tab-button.component';
 import { SkyTabDropdownComponent } from './tab-dropdown.component';
 import { SkyTabComponent } from './tab.component';
 import { SkyTabsetComponent } from './tabset.component';
+import { SkyTabsetNavButtonComponent } from './tabset-nav-button.component';
+
 import { SkyResourcesModule } from '../resources';
 
 @NgModule({
@@ -14,7 +16,8 @@ import { SkyResourcesModule } from '../resources';
     SkyTabButtonComponent,
     SkyTabComponent,
     SkyTabDropdownComponent,
-    SkyTabsetComponent
+    SkyTabsetComponent,
+    SkyTabsetNavButtonComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +26,8 @@ import { SkyResourcesModule } from '../resources';
   ],
   exports: [
     SkyTabComponent,
-    SkyTabsetComponent
+    SkyTabsetComponent,
+    SkyTabsetNavButtonComponent
   ]
 })
 export class SkyTabsModule { }
