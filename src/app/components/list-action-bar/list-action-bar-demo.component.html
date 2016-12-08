@@ -1,0 +1,26 @@
+<sky-list [data]="items" [defaultView]="grid">
+  <sky-list-toolbar></sky-list-toolbar>
+
+  <sky-list-view-grid fit="scroll" selectionEnabled="true" #grid>
+    <sky-list-view-grid-column field="column1" heading="Column1"></sky-list-view-grid-column>
+    <sky-list-view-grid-column field="column2" heading="Column2"></sky-list-view-grid-column>
+    <sky-list-view-grid-column field="column3" heading="Column3"></sky-list-view-grid-column>
+  </sky-list-view-grid>
+
+  <sky-list-paging pageSize="4" maxPages="3" pageNumber="1"></sky-list-paging>
+
+  <sky-list-action-bar #bar>
+    <sky-list-action-bar-item id="item1-button">
+      <template><button id="btn" (click)="bar.selectAll()">Select all</button></template>
+    </sky-list-action-bar-item>
+    <sky-list-action-bar-item id="item2-link">
+      <template><a id="link" href (click)="bar.clearAll(); false;">Clear all</a></template>
+    </sky-list-action-bar-item>
+    <sky-list-action-bar-item id="item3-input-template" [template]="reusableTemplate">
+    </sky-list-action-bar-item>
+  </sky-list-action-bar>
+</sky-list>
+
+<template #reusableTemplate>
+  Selected: {{ bar.selectedItemCount | async }}
+</template>

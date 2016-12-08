@@ -28,14 +28,16 @@ import { SkyListComponent, SkyListModule } from './';
 import { SkyListToolbarModule } from '../list-toolbar';
 import { SkyListViewGridModule, SkyListViewGridComponent } from '../list-view-grid';
 import { SkyListFiltersModule } from '../list-filters';
+import { SkyListFiltersComponent } from '../list-filters/list-filters.component';
 import { ListFilterModel } from './state/filters/filter.model';
-import { ListFiltersClearAction } from './state/filters/actions';
+import { ListFiltersClearAction, ListFiltersLoadAction } from './state/filters/actions';
 import { ListSearchSetFunctionsAction } from './state/search/actions';
 import { ListSortFieldSelectorModel } from './state/sort/field-selector.model';
 import { ListSortLabelModel } from './state/sort/label.model';
 import { ListSortSetFieldSelectorsAction } from './state/sort/actions';
 import { ListToolbarItemModel } from './state/toolbar/toolbar-item.model';
 import { ListToolbarItemsLoadAction } from './state/toolbar/actions';
+import { ListFilterDataModel } from './state/filters/filter-data.model';
 
 describe('List Component', () => {
   describe('List Fixture', () => {
@@ -780,6 +782,26 @@ describe('List Component', () => {
       expect(model.location).toBeUndefined();
       expect(model.view).toBeUndefined();
       expect(model.id).toBeUndefined();
+    });
+
+    it('filter should be able to call clearFilter with invalid id', () => {
+      let dispatcher = new ListStateDispatcher();
+      let state = new ListState(dispatcher);
+      dispatcher.next(new ListFiltersLoadAction([new ListFilterModel()]));
+
+      let filter = new SkyListFiltersComponent(state, dispatcher, null);
+      filter.clearFilter('test');
+      expect(filter).not.toBeUndefined();
+    });
+
+    it('create ListFilterDataModel without passing in an id', () => {
+      let filterDataModel = new ListFilterDataModel({
+        id: null,
+        value: 'value',
+        onChange: null
+      });
+
+      expect(filterDataModel.id).not.toBeNull();
     });
 
     it('should construct ListToolbarItemsLoadAction action', async(() => {

@@ -1,0 +1,65 @@
+<sky-demo-page title="List Action Bar">
+  <sky-demo-page-summary>
+    The list action bar component displays a customizable bar with hooks to the list component
+    that give it access to the number of selected items, as well as the ability to select or clear
+    all item selections.
+  </sky-demo-page-summary>
+
+  <sky-demo-page-properties>
+    <sky-demo-page-property
+        propertyName="alwaysOn"
+        defaultValue="false"
+        isOptional="true"
+    >
+      Specify whether the action bar will always be on, or only on selection.
+      Acceptable values: <code>boolean or Observable boolean</code>.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="List Action Bar Functions">
+    <sky-demo-page-property
+        propertyName="selectedItemCount"
+    >
+      Getter function that returns the number of items currently selected.
+      Return Type: <code>number</code>.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="selectAll()"
+    >
+      Function that selects all items on the grid. This includes items not shown
+      on the page in a paged grid.
+      Return Type: <code>void</code>.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="clearAll()"
+    >
+      Function that deselects all items on the grid. This includes items not shown
+      on the page in a paged grid.
+      Return Type: <code>void</code>.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Child Components">
+    <sky-demo-page-property
+        propertyName="sky-list-action-bar-item"
+    >
+      This list action bar item component defines a given action bar item. It is used in conjunction with the list action bar component.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="List Action Bar Item Properties">
+    <sky-demo-page-property
+        propertyName="template"
+        isOptional="false"
+    >
+      Specifies the template to be used to render the action bar item. Note: You must either define a template property, or define an inline template.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <sky-list-action-bar-demo></sky-list-action-bar-demo>
+    <sky-demo-page-code demoName="List Action Bar"></sky-demo-page-code>
+  </sky-demo-page-example>
+</sky-demo-page>

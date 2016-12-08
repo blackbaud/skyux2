@@ -21,6 +21,7 @@ import { SkyListModule } from './modules/list';
 import { SkyListFiltersModule } from './modules/list-filters';
 import { SkyListPagingDefaultModule } from './modules/list-paging-default';
 import { SkyListToolbarModule } from './modules/list-toolbar';
+import { SkyListActionBarModule } from './modules/list-action-bar';
 import { SkyListViewChecklistModule } from './modules/list-view-checklist';
 import { SkyListViewGridModule } from './modules/list-view-grid';
 import { SkyListViewRepeaterModule } from './modules/list-view-repeater';
@@ -48,6 +49,7 @@ import { SkySpinnerModule } from './modules/spinner';
     SkyListFiltersModule,
     SkyListPagingDefaultModule,
     SkyListToolbarModule,
+    SkyListActionBarModule,
     SkyListViewChecklistModule,
     SkyListViewGridModule,
     SkyListViewRepeaterModule,
@@ -76,6 +78,7 @@ export * from './modules/list';
 export * from './modules/list-filters';
 export * from './modules/list-paging-default';
 export * from './modules/list-toolbar';
+export * from './modules/list-action-bar';
 export * from './modules/list-view-checklist';
 export * from './modules/list-view-grid';
 export * from './modules/list-view-repeater';

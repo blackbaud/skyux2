@@ -1,0 +1,11 @@
+@import '../../../scss/mixins';
+
+:host {
+  #btn {
+    @include sky-button-primary;
+  }
+
+  #link {
+    @include sky-link;
+  }
+}

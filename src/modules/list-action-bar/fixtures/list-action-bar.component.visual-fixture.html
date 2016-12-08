@@ -1,0 +1,24 @@
+<div id="screenshot-list-action-bar">
+  <sky-list [data]="items" [defaultView]="grid">
+    <sky-list-view-grid fit="scroll" selectionEnabled="true" #grid>
+      <sky-list-view-grid-column field="column1" heading="Column1"></sky-list-view-grid-column>
+      <sky-list-view-grid-column field="column2" heading="Column2"></sky-list-view-grid-column>
+      <sky-list-view-grid-column field="column3" heading="Column3"></sky-list-view-grid-column>
+    </sky-list-view-grid>
+
+    <sky-list-action-bar #bar>
+      <sky-list-action-bar-item id="item1-button">
+        <template><button id="btn">Button</button></template>
+      </sky-list-action-bar-item>
+      <sky-list-action-bar-item id="item2-link">
+        <template><a href id="link">link</a></template>
+      </sky-list-action-bar-item>
+      <sky-list-action-bar-item id="item3-no-template" [template]="reusableTemplate">
+      </sky-list-action-bar-item>
+    </sky-list-action-bar>
+  </sky-list>
+
+  <template #reusableTemplate>
+    Text
+  </template>
+</div>

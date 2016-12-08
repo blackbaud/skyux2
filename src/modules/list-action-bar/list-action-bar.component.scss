@@ -1,0 +1,17 @@
+@import '../../scss/variables';
+
+:host {
+  div {
+    display: flex;
+    align-items: center;
+    background-color: $sky-color-gray-lighter-er;
+    min-height: 50px;
+    width: 100%;
+
+    /deep/ sky-list-action-bar-item {
+      flex-basis: 1;
+      flex-grow: 0;
+      padding: 10px;
+    }
+  }
+}

@@ -215,6 +215,28 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List Action Bar',
+        icon: 'bolt',
+        // tslint:disable-next-line
+        summary: `The action bar component is used to take actions on selected items
+        in the list component.`,
+        url: '/components/list-action-bar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-action-bar-demo.component.html',
+              fileContents: require('!!raw!./list-action-bar/list-action-bar-demo.component.html')
+            },
+            {
+              name: 'list-action-bar-demo.component.ts',
+              fileContents: require('!!raw!./list-action-bar/list-action-bar-demo.component.ts'),
+              componentName: 'SkyListActionBarDemoComponent',
+              bootstrapSelector: 'sky-list-action-bar-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'List Filters',
         icon: 'filter',
         // tslint:disable-next-line

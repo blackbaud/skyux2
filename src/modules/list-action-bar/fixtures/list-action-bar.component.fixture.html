@@ -1,0 +1,16 @@
+<sky-list-action-bar alwaysOn="true" #bar>
+  <sky-list-action-bar-item id="item1-button">
+    <template><button id="btn" (click)="bar.selectAll()">Select all</button></template>
+  </sky-list-action-bar-item>
+  <sky-list-action-bar-item id="item2-link">
+    <template><a id="link" href (click)="bar.clearAll(); false;">Clear all</a></template>
+  </sky-list-action-bar-item>
+  <sky-list-action-bar-item id="item3-input-template" [template]="reusableTemplate">
+  </sky-list-action-bar-item>
+  <sky-list-action-bar-item id="item4-no-template">
+  </sky-list-action-bar-item>
+</sky-list-action-bar>
+
+<template #reusableTemplate>
+  {{ bar.selectedItemCount | async }}
+</template>
