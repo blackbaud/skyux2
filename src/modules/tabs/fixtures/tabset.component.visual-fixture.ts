@@ -5,6 +5,8 @@ import { SkyModule } from '../../../../src/core';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'sky-demo-app',
   templateUrl: './tabset.component.visual-fixture.html',
@@ -37,7 +39,8 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyModule,
+    FormsModule
   ],
   declarations: [
     AppComponent

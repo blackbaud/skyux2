@@ -30,4 +30,14 @@ describe('TabSet', function () {
       });
   });
 
+  it('should match the tabset screenshot with wizard styling', function () {
+    return browser
+      .setupTest('/tabs.html')
+      .click('.sky-test-show-wizard')
+      .compareScreenshot({
+        screenshotName: 'tabset-wizard',
+        selector: '#screenshot-tabset'
+      });
+  });
+
 });
