@@ -276,8 +276,8 @@ describe('Tabset component', () => {
   );
 
   it(
-    'should collapse into a dropdown when the width of the tabs is greater than its container on initialization',
-     fakeAsync(() => {
+  'should collapse into a dropdown  on initialization',
+    fakeAsync(() => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
 
       fixture.componentInstance.tabMaxWidth = 20;
