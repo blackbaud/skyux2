@@ -27,7 +27,7 @@ describe('Modal instance', () => {
     expect(expectedResult.reason).toBe('cancel');
 
     instance.save('My data');
-    expect(expectedResult.data).toBe('My result');
+    expect(expectedResult.data).toBe('My data');
     expect(expectedResult.reason).toBe('save');
 
   });
