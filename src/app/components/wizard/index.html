@@ -1,26 +1,26 @@
 <sky-demo-page title="Wizard">
   <sky-demo-page-summary>
-    A wizard modifies a modal component with tabs to guide users through a set of pre-defined steps. A wizard is useful when users need to perform steps in a particular order. To display a series of tabs as a wizard, set <code>tabStyle=”wizard”</code> on the <code>sky-tabset</code> component. For more information about tabs, see the <a routerLink="/components/tabs">tabs module</a>.
+    A wizard uses tabs to guide users through a set of pre-defined steps. A wizard is useful when users need to perform steps in a particular order. To display a series of tabs as a wizard, set <code>tabStyle=”wizard”</code> on the <code>sky-tabset</code> component. To add buttons to navigate through wizard tabs, use the <code>sky-tabset-nav-button</code> component. For more information about tabs, see the <a routerLink="/components/tabs">tabs module</a>.
   </sky-demo-page-summary>
 
-  <sky-demo-page-properties>
+  <sky-demo-page-properties sectionHeading="Wizard tabset properties">
     <sky-demo-page-property
         propertyName="tabStyle"
     >
       Specifies the behavior for a series of tabs. To display tabs as steps in a wizard, set <code>tabStyle="wizard"</code>.
     </sky-demo-page-property>
-    <sky-demo-page-property
-        propertyName="placeholderPropertyName"
-    >
-      Placeholder text placeholder text placeholder text.
-    </sky-demo-page-property>
   </sky-demo-page-properties>
 
-  <sky-demo-page-properties sectionHeading="Events">
+  <sky-demo-page-properties sectionHeading="Tabset nav button properties">
     <sky-demo-page-property
-        propertyName="placeholderPropertyName"
+        propertyName="buttonType"
     >
-      Placeholder text placeholder text placeholder text.
+      Specifies the button type for the tabset nav button. To create a previous tabset nav button, set <code>buttonType="previous"</code>. To create a next tabset nav button, set <code>buttonType="next"</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="tabset"
+    >
+      Specifies the tabset component that the nav buttons control.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

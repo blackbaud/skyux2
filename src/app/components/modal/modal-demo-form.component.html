@@ -9,6 +9,12 @@
     </label>
   </sky-modal-content>
   <sky-modal-footer>
-    Footer
+    <button
+      type="button"
+      class="sky-btn sky-btn-primary"
+      (click)="instance.close('Something cool')"
+    >
+      Close
+    </button>
   </sky-modal-footer>
 </sky-modal>

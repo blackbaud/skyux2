@@ -16,11 +16,15 @@ export class SkyModalDemoComponent {
     let context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
-    this.modal.open(SkyModalDemoFormComponent, [
+    let modalInstance = this.modal.open(SkyModalDemoFormComponent, [
       {
         provide: SkyModalDemoContext,
         useValue: context
       }
     ]);
+
+    modalInstance.instanceClose.subscribe((modalResult: any) => {
+      console.log('Result was: ', modalResult);
+    });
   }
 }
