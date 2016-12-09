@@ -8,4 +8,18 @@ describe('Modal instance', () => {
 
     instance.close();
   });
+
+  it('should allow users to subscribe to the instanceClose event', function () {
+    let instance = new SkyModalInstance();
+    let expectedResult:string;
+
+    instance.instanceClose.subscribe((result: any) => {
+      expectedResult = result;
+    });
+
+    instance.close('My result');
+
+    expect(expectedResult).toBe('My result');
+
+  });
 });

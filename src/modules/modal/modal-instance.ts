@@ -5,9 +5,9 @@ import {
 export class SkyModalInstance {
   public componentInstance: any;
 
-  private closeCallback: Function;
-
   public instanceClose = new EventEmitter<any>();
+
+  private closeCallback: Function;
 
   constructor() {}
 
