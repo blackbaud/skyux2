@@ -34,6 +34,7 @@ describe('TabSet', function () {
       .setupTest('/tabs.html', 480)
       .waitForVisible('#screenshot-tabset button.sky-dropdown-button-type-tab')
       .click('#screenshot-tabset button.sky-dropdown-button-type-tab')
+      .moveCursorOffScreen()
       .compareScreenshot({
         screenshotName: 'tabset-collapsed-dropdown',
         selector: '#screenshot-tabset'
