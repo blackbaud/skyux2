@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyModalService } from '../../../core';
+import { SkyModalService, SkyModalCloseArgs } from '../../../core';
 
 import { SkyModalDemoContext } from './modal-demo-context';
 import { SkyModalDemoFormComponent } from './modal-demo-form.component';
@@ -23,8 +23,8 @@ export class SkyModalDemoComponent {
       }
     ]);
 
-    modalInstance.instanceClose.subscribe((modalResult: any) => {
-      console.log('Result was: ', modalResult);
+    modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
+      console.log('Modal closed with reason: ' + result.reason + ' and data: ' + result.data);
     });
   }
 }
