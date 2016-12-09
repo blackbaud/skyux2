@@ -19,13 +19,6 @@ export class SkyModalInstance {
     this.closeCallback = closeCallback;
   }
 
-  private closeModal(type: string, result?:any) {
-    if (this.closeCallback) {
-      this.closeCallback();
-    }
-    this.closed.emit({ reason: type, data: result});
-  }
-
   public close(result?: any) {
     this.closeModal('cancel', result);
   }
@@ -33,4 +26,12 @@ export class SkyModalInstance {
   public save(result?: any) {
     this.closeModal('save', result);
   }
+
+  private closeModal(type: string, result?: any) {
+    if (this.closeCallback) {
+      this.closeCallback();
+    }
+    this.closed.emit({ reason: type, data: result});
+  }
+
 }
