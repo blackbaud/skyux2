@@ -1,39 +1,26 @@
 <sky-demo-page title="Wizard">
   <sky-demo-page-summary>
-    The alert component displays a SKY UX-themed alert. It includes an option to let
-    users dismiss the alert with a close button.
+    A wizard modifies a modal component with tabs to guide users through a set of pre-defined steps. A wizard is useful when users need to perform steps in a particular order. To display a series of tabs as a wizard, set <code>tabStyle=”wizard”</code> on the <code>sky-tabset</code> component. For more information about tabs, see the <a routerLink="/components/tabs">tabs module</a>.
   </sky-demo-page-summary>
 
   <sky-demo-page-properties>
     <sky-demo-page-property
-        propertyName="alertType"
-        defaultValue="warning"
-        isOptional="true"
+        propertyName="tabStyle"
     >
-      Specifies a style for the alert. The valid options are <code>success</code>,
-      <code>info</code>, <code>warning</code>, and <code>danger</code>.
+      Specifies the behavior for a series of tabs. To display tabs as steps in a wizard, set <code>tabStyle="wizard"</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
-        propertyName="closeable"
-        defaultValue="false"
-        isOptional="true"
+        propertyName="placeholderPropertyName"
     >
-      Specifies a Boolean value to indicate whether users can dismiss the alert.
-    </sky-demo-page-property>
-    <sky-demo-page-property
-        propertyName="closed"
-        defaultValue="false"
-        isOptional="true"
-    >
-      For alerts that are closeable, indicates whether the alert is closed.
+      Placeholder text placeholder text placeholder text.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-properties sectionHeading="Events">
     <sky-demo-page-property
-        propertyName="closedChange"
+        propertyName="placeholderPropertyName"
     >
-      Fires when the user closes the alert.
+      Placeholder text placeholder text placeholder text.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
