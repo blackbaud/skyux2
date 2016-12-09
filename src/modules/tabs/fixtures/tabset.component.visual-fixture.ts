@@ -13,15 +13,18 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public newTabClick() { }
-  public openTabClick() { }
-  public closeTab() { }
 
   public showWizard = false;
 
   public requiredValue1: string;
 
   public requiredValue2: boolean;
+
+  public newTabClick() { }
+
+  public openTabClick() { }
+
+  public closeTab() { }
 
   public get step2Disabled(): boolean {
     return !this.requiredValue1;
