@@ -80,7 +80,7 @@
 
   process.on('SIGINT', function () {
     stop();
-    if (bsLocal.isRunning()) {
+    if (bsLocal && bsLocal.isRunning()) {
       bsLocal.stop();
     }
 

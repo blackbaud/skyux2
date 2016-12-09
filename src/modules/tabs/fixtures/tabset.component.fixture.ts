@@ -25,6 +25,8 @@ export class TabsetTestComponent {
 
   public activeTab = 0;
 
+  public tabMaxWidth = 2000;
+
   public newTab() { }
 
   public openTab() { }

@@ -1,6 +1,8 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import { SkyTabsetComponent } from './tabset.component';
@@ -272,6 +274,25 @@ describe('Tabset component', () => {
       expect(tabEl).toBeNull();
     }
   );
+
+  it(
+    'should collapse into a dropdown when the width of the tabs is greater than its container on initialization',
+     fakeAsync(() => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+
+      fixture.componentInstance.tabMaxWidth = 20;
+
+      let el = fixture.nativeElement;
+
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      let tabEl = el.querySelector('.sky-dropdown-button-type-tab');
+
+      expect(tabEl).not.toBeNull();
+    }
+  ));
 
   describe('when collapsed', () => {
     let fixture: ComponentFixture<TabsetTestComponent>;

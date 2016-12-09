@@ -9,7 +9,8 @@ import {
   Input,
   OnDestroy,
   Output,
-  QueryList
+  QueryList,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import { SkyTabComponent } from './tab.component';
@@ -42,7 +43,8 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
   constructor(
     private tabsetService: SkyTabsetService,
     private adapterService: SkyTabsetAdapterService,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private changeRef: ChangeDetectorRef
   ) {
     tabsetService.tabDestroy.subscribe((tab: SkyTabComponent) => {
       if (!this.isDestroyed && tab.active) {
@@ -105,11 +107,13 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
     this.adapterService.init(this.elRef);
 
     this.adapterService.overflowChange.subscribe((currentOverflow: boolean) => {
-      this.updateDisplayMode();
+      this.updateDisplayMode(currentOverflow);
     });
 
     setTimeout(() => {
-      this.updateDisplayMode();
+      this.adapterService.detectOverflow();
+      this.updateDisplayMode(this.adapterService.currentOverflow);
+      this.changeRef.detectChanges();
     }, 0);
   }
 
@@ -122,7 +126,7 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
     this.isDestroyed = true;
   }
 
-  private updateDisplayMode() {
-    this.tabDisplayMode = this.adapterService.currentOverflow ? 'dropdown' : 'tabs';
+  private updateDisplayMode(currentOverflow: boolean) {
+    this.tabDisplayMode = currentOverflow ? 'dropdown' : 'tabs';
   }
 }
