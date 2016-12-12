@@ -8,7 +8,7 @@
   var timestamp;
   module.exports = {
     specs: [
-        'src/modules/**/tabset.component.visual-spec.js'
+        'src/modules/**/*.visual-spec.js'
     ],
     logLevel: 'silent',
     baseUrl: 'http://localhost:3000',
