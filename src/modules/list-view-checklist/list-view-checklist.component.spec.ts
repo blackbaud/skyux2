@@ -13,7 +13,6 @@ import { ListViewsLoadAction } from '../list/state/views/actions';
 import { ListViewModel } from '../list/state/views/view.model';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListItemsLoadAction } from '../list/state/items/actions';
-import { ListDisplayedItemsLoadAction } from '../list/state/displayed-items/actions';
 import {
   ListViewChecklistTestComponent
 } from './fixtures/list-view-checklist.component.fixture';
@@ -76,7 +75,6 @@ describe('List View Checklist Component', () => {
       ];
 
       dispatcher.next(new ListItemsLoadAction(items, true));
-      dispatcher.next(new ListDisplayedItemsLoadAction(items));
       dispatcher.next(new ListViewsLoadAction([
         new ListViewModel(component.checklist.id, component.checklist.label)
       ]));
@@ -101,17 +99,17 @@ describe('List View Checklist Component', () => {
 
     it('should search based on input text', async(() => {
       let searchItems = items.filter(item => component.checklist.search()(item.data, '12'));
-      dispatcher.next(new ListDisplayedItemsLoadAction(searchItems));
+      dispatcher.next(new ListItemsLoadAction(searchItems, true));
       fixture.detectChanges();
       expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(1);
 
       searchItems = items.filter(item => component.checklist.search()(item.data, 'banana'));
-      dispatcher.next(new ListDisplayedItemsLoadAction(searchItems));
+      dispatcher.next(new ListItemsLoadAction(searchItems, true));
       fixture.detectChanges();
       expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(2);
 
       searchItems = items.filter(item => component.checklist.search()(item.data, 'bb'));
-      dispatcher.next(new ListDisplayedItemsLoadAction(searchItems));
+      dispatcher.next(new ListItemsLoadAction(searchItems, true));
       fixture.detectChanges();
       expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(1);
     }));
@@ -155,7 +153,6 @@ describe('List View Checklist Component', () => {
       ];
 
       dispatcher.next(new ListItemsLoadAction(items, true));
-      dispatcher.next(new ListDisplayedItemsLoadAction(items));
       dispatcher.next(new ListViewsLoadAction([
         new ListViewModel(component.checklist.id, component.checklist.label)
       ]));
@@ -177,7 +174,7 @@ describe('List View Checklist Component', () => {
 
     it('should search based on input text', async(() => {
       let searchItems = items.filter(item => component.checklist.search()(item.data, 'banana'));
-      dispatcher.next(new ListDisplayedItemsLoadAction(searchItems));
+      dispatcher.next(new ListItemsLoadAction(searchItems, true));
       fixture.detectChanges();
       expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(0);
     }));

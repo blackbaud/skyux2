@@ -1,4 +1,4 @@
-import { Component, Input, ContentChildren, TemplateRef, QueryList } from '@angular/core';
+import { Component, Input, ContentChildren, TemplateRef, QueryList, OnInit } from '@angular/core';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListViewComponent } from '../list/list-view.component';
 
@@ -6,7 +6,8 @@ import { ListViewComponent } from '../list/list-view.component';
   selector: 'sky-list-filter',
   template: '<ng-content></ng-content>'
 })
-export class SkyListFilterComponent {
+export class SkyListFilterComponent implements OnInit {
+  @Input() public name: string;
   @Input() public label: string;
   @Input() public type: string;
   @Input() public view: ListViewComponent;
@@ -15,6 +16,12 @@ export class SkyListFilterComponent {
   @Input('template') public templateInput: TemplateRef<any>;
   @ContentChildren(TemplateRef) private templates: QueryList<TemplateRef<any>>;
   /* tslint:enable */
+
+  public ngOnInit() {
+    if (this.name === undefined || this.name.length === 0) {
+      throw new Error('Sky List Filter requires a name.');
+    }
+  }
 
   public get template(): TemplateRef<any> {
     return this.templates.length > 0 ? this.templates.first : this.templateInput;

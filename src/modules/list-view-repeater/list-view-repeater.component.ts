@@ -57,6 +57,7 @@ export class SkyListViewRepeaterComponent extends ListViewComponent {
     if (this.searchFunction !== undefined) {
       this.dispatcher.searchSetFunctions([this.searchFunction]);
     }
+    this.dispatcher.searchSetFieldSelectors([]);
   }
 
   public toggleContent(item: ListItemModel) {
@@ -74,7 +75,7 @@ export class SkyListViewRepeaterComponent extends ListViewComponent {
   }
 
   get items() {
-    return this.state.map(s => s.displayedItems.items);
+    return this.state.map(s => s.items.items);
   }
 
   get leftTemplate() {

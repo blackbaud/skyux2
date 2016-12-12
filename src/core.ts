@@ -19,7 +19,7 @@ import { SkyTabsModule } from './modules/tabs';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyListModule } from './modules/list';
 import { SkyListFiltersModule } from './modules/list-filters';
-import { SkyListPagingDefaultModule } from './modules/list-paging-default';
+import { SkyListPagingModule } from './modules/list-paging';
 import { SkyListToolbarModule } from './modules/list-toolbar';
 import { SkyListActionBarModule } from './modules/list-action-bar';
 import { SkyListViewChecklistModule } from './modules/list-view-checklist';
@@ -47,7 +47,7 @@ import { SkySpinnerModule } from './modules/spinner';
     SkyTilesModule,
     SkyListModule,
     SkyListFiltersModule,
-    SkyListPagingDefaultModule,
+    SkyListPagingModule,
     SkyListToolbarModule,
     SkyListActionBarModule,
     SkyListViewChecklistModule,
@@ -76,13 +76,14 @@ export * from './modules/tiles';
 export * from './modules/format';
 export * from './modules/list';
 export * from './modules/list-filters';
-export * from './modules/list-paging-default';
+export * from './modules/list-paging';
 export * from './modules/list-toolbar';
 export * from './modules/list-action-bar';
 export * from './modules/list-view-checklist';
 export * from './modules/list-view-grid';
 export * from './modules/list-view-repeater';
 export * from './modules/spinner';
+export * from './modules/list-data-provider-in-memory';
 
 export const SKY_PROVIDERS: any[] = [
   ...SKY_MODAL_PROVIDERS

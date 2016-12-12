@@ -9,7 +9,7 @@ import { SkyListViewGridComponent } from './list-view-grid.component';
 import { SkyListViewGridColumnComponent } from './list-view-grid-column.component';
 import { SkyListViewGridCellComponent } from './list-view-grid-cell.component';
 import { SkyListViewGridColumnSelectorComponent } from './list-view-grid-column-selector.component';
-import { SkyListPagingDefaultModule } from '../list-paging-default';
+import { SkyListPagingModule } from '../list-paging';
 import { SkyListToolbarModule } from '../list-toolbar';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
@@ -27,7 +27,7 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula';
     SkyModalModule,
     SkyListModule,
     SkyListViewChecklistModule,
-    SkyListPagingDefaultModule,
+    SkyListPagingModule,
     SkyListToolbarModule,
     DragulaModule
   ],

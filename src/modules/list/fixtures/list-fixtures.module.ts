@@ -8,7 +8,6 @@ import { SkyListViewGridModule } from '../../list-view-grid';
 import { SkyListFiltersModule } from '../../list-filters';
 
 import { ListTestComponent } from './list.component.fixture';
-import { ListAsyncTestComponent } from './list-async.component.fixture';
 import { ListDualTestComponent } from './list-dual.component.fixture';
 import { ListEmptyTestComponent } from './list-empty.component.fixture';
 import { ListPromiseTestComponent } from './list-promise.component.fixture';
@@ -16,7 +15,6 @@ import { ListPromiseTestComponent } from './list-promise.component.fixture';
 @NgModule({
   declarations: [
     ListTestComponent,
-    ListAsyncTestComponent,
     ListDualTestComponent,
     ListEmptyTestComponent,
     ListPromiseTestComponent
@@ -31,7 +29,6 @@ import { ListPromiseTestComponent } from './list-promise.component.fixture';
   ],
   exports: [
     ListTestComponent,
-    ListAsyncTestComponent,
     ListDualTestComponent,
     ListEmptyTestComponent,
     ListPromiseTestComponent

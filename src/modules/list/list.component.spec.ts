@@ -21,23 +21,29 @@ import {
 } from '../list/state/selected/actions';
 import { ListFixturesModule } from './fixtures/list-fixtures.module';
 import { ListTestComponent } from './fixtures/list.component.fixture';
-import { ListAsyncTestComponent } from './fixtures/list-async.component.fixture';
 import { ListDualTestComponent } from './fixtures/list-dual.component.fixture';
 import { ListEmptyTestComponent } from './fixtures/list-empty.component.fixture';
-import { SkyListComponent, SkyListModule } from './';
+import { SkyListComponent, SkyListModule, ListDataRequestModel, ListDataResponseModel } from './';
 import { SkyListToolbarModule } from '../list-toolbar';
 import { SkyListViewGridModule, SkyListViewGridComponent } from '../list-view-grid';
 import { SkyListFiltersModule } from '../list-filters';
 import { SkyListFiltersComponent } from '../list-filters/list-filters.component';
 import { ListFilterModel } from './state/filters/filter.model';
 import { ListFiltersClearAction, ListFiltersLoadAction } from './state/filters/actions';
-import { ListSearchSetFunctionsAction } from './state/search/actions';
+import {
+  ListSearchSetFunctionsAction,
+  ListSearchSetFieldSelectorsAction
+} from './state/search/actions';
 import { ListSortFieldSelectorModel } from './state/sort/field-selector.model';
 import { ListSortLabelModel } from './state/sort/label.model';
 import { ListSortSetFieldSelectorsAction } from './state/sort/actions';
 import { ListToolbarItemModel } from './state/toolbar/toolbar-item.model';
 import { ListToolbarItemsLoadAction } from './state/toolbar/actions';
 import { ListFilterDataModel } from './state/filters/filter-data.model';
+import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
+import { ListPagingModel } from './state/paging/paging.model';
+import { ListSearchModel } from './state/search/search.model';
+import { ListSortModel } from './state/sort/sort.model';
 
 describe('List Component', () => {
   describe('List Fixture', () => {
@@ -302,12 +308,22 @@ describe('List Component', () => {
         });
       }));
 
-      describe('itemCount', () => {
-        it('should return count', async(() => {
-          component.list.itemCount.subscribe(c => {
-            expect(c).toBe(7);
-          });
+      describe('refreshDisplayedItems', () => {
+        it('should refresh items', async(() => {
+          component.list.refreshDisplayedItems();
+          fixture.detectChanges();
+          expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(7);
         }));
+      });
+
+      describe('itemCount', () => {
+        it('should return item count', () => {
+          component.list.itemCount.take(1).subscribe(u => {
+            state.take(1).subscribe((s) => {
+              expect(u).toBe(s.items.count);
+            });
+          });
+        });
       });
 
       describe('lastUpdate', () => {
@@ -397,153 +413,13 @@ describe('List Component', () => {
     });
   });
 
-  describe('Async List Fixture', () => {
-    describe('List Component with Observable', () => {
-      let state: ListState,
-          dispatcher: ListStateDispatcher,
-          component: ListTestComponent,
-          fixture: any,
-          nativeElement: HTMLElement,
-          element: DebugElement,
-          items: Observable<any>,
-          bs: BehaviorSubject<any>;
-
-      beforeEach(async(() => {
-        dispatcher = new ListStateDispatcher();
-        state = new ListState(dispatcher);
-
-        let itemsArray = [
-          { id: '1', column1: '1', column2: 'Apple',
-            column3: 1, column4: moment().add(1, 'minute') },
-          { id: '2', column1: '01', column2: 'Banana',
-            column3: 1, column4: moment().add(6, 'minute') }
-        ];
-
-        bs = new BehaviorSubject<Array<any>>(itemsArray);
-        items = bs.asObservable();
-
-        TestBed.configureTestingModule({
-          imports: [
-            ListFixturesModule,
-            SkyListModule,
-            SkyListToolbarModule,
-            SkyListViewGridModule,
-            SkyListFiltersModule,
-            FormsModule
-          ],
-          providers: [
-            { provide: 'items', useValue: items }
-          ]
-        })
-        .overrideComponent(SkyListComponent, {
-          set: {
-            providers: [
-              { provide: ListState, useValue: state },
-              { provide: ListStateDispatcher, useValue: dispatcher }
-            ]
-          }
-        });
-
-        fixture = TestBed.createComponent(ListAsyncTestComponent);
-        nativeElement = fixture.nativeElement as HTMLElement;
-        element = fixture.debugElement as DebugElement;
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        // always skip the first update to ListState, when state is ready
-        // run detectChanges once more then begin tests
-        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
-        fixture.detectChanges();
-      }));
-
-      function setSearchInput(text: string) {
-        let searchInputElement = element.query(
-          By.css('.toolbar-item-container input[type="text"]')
-        ).nativeElement;
-        searchInputElement.value = text;
-        var event = document.createEvent('Event');
-        event.initEvent('input', true, true);
-        searchInputElement.dispatchEvent(event);
-        fixture.detectChanges();
-        return fixture.whenStable();
-      }
-
-      it('should load array data', () => {
-        expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(2);
-      });
-
-      it('should search based on input text', async(() => {
-        setSearchInput('banana')
-        .then(() => {
-          fixture.detectChanges();
-          element.query(By.css('button[cmp-id="search"] i'))
-            .triggerEventHandler('click', undefined);
-          fixture.detectChanges();
-          expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(3);
-        });
-      }));
-
-      it('should sort search results', async(() => {
-        setSearchInput('banana')
-        .then(() => {
-          fixture.detectChanges();
-          element.query(By.css('button[cmp-id="search"] i'))
-            .triggerEventHandler('click', undefined);
-          fixture.detectChanges();
-          expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(3);
-
-          element.query(By.css('th.heading')).triggerEventHandler('click', undefined);
-          fixture.detectChanges();
-          expect(element.query(
-            By.css('sky-list-view-grid-cell[cmp-id="column1"]')).nativeElement.textContent.trim()
-          ).toBe('301');
-        });
-      }));
-
-      it('should return last results based on same search', async(() => {
-        setSearchInput('banana')
-        .then(() => {
-          fixture.detectChanges();
-          element.query(By.css('button[cmp-id="search"] i'))
-            .triggerEventHandler('click', undefined);
-          fixture.detectChanges();
-          expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(3);
-
-          setSearchInput('banana')
-          .then(() => {
-            fixture.detectChanges();
-            element.query(By.css('button[cmp-id="search"] i'))
-              .triggerEventHandler('click', undefined);
-            fixture.detectChanges();
-            expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(3);
-          });
-        });
-      }));
-
-      it('should open filter modal when filter button clicked', async(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          element.query(By.css('button[cmp-id="filter"]')).nativeElement.click();
-          fixture.detectChanges();
-          fixture.whenStable().then(() => {
-              expect(element.queryAll(By.css('.sky-list-filters-inline-bar')).length).toBe(0);
-              expect(document.querySelectorAll('.sky-modal').length).toBe(1);
-
-              (<HTMLButtonElement><any>document.querySelector('button.sky-modal-btn-close'))
-                .click();
-          });
-        });
-      }));
-
-    });
-  });
-
   describe('Empty List Fixture', () => {
     describe('List Component with Observable', () => {
       let state: ListState,
           dispatcher: ListStateDispatcher,
           component: ListTestComponent,
           fixture: any,
+          dataProvider: SkyListInMemoryDataProvider,
           nativeElement: HTMLElement,
           element: DebugElement,
           items: Observable<any>,
@@ -562,6 +438,7 @@ describe('List Component', () => {
 
         bs = new BehaviorSubject<Array<any>>(itemsArray);
         items = bs.asObservable();
+        dataProvider = new SkyListInMemoryDataProvider(items);
 
         TestBed.configureTestingModule({
           imports: [
@@ -573,7 +450,8 @@ describe('List Component', () => {
             FormsModule
           ],
           providers: [
-            { provide: 'items', useValue: items }
+            { provide: 'items', useValue: items },
+            { provide: SkyListInMemoryDataProvider, useValue: dataProvider }
           ]
         })
         .overrideComponent(SkyListComponent, {
@@ -599,6 +477,165 @@ describe('List Component', () => {
 
       it('should be empty', () => {
         expect(element.queryAll(By.css('tr.sky-list-view-grid-row')).length).toBe(0);
+      });
+
+      it('displayed items returns without error', () => {
+        let list = fixture.componentInstance.list;
+
+        expect(list.displayedItems).not.toBe(null);
+      });
+
+      it('data provider filteredItems with no search function', () => {
+        let provider = fixture.componentInstance.list.dataProvider;
+        let request = new ListDataRequestModel({
+          filters: [new ListFilterModel()],
+          paging: new ListPagingModel(),
+          search: new ListSearchModel(),
+          sort: new ListSortModel()
+        });
+
+        let response = provider.get(request);
+        response.take(1).subscribe();
+        response.take(1).subscribe((r: any) => expect(r.count).toBe(2));
+
+      });
+
+      it('data provider filteredItems with defined search function', () => {
+        let provider = fixture.componentInstance.list.dataProvider;
+        provider.searchFunction = (data: any, searchText: string) => { return 'search'; }
+
+        let request = new ListDataRequestModel({
+          filters: [new ListFilterModel()],
+          paging: new ListPagingModel(),
+          search: new ListSearchModel({ searchText: 'search', functions: [() => {}] }),
+          sort: new ListSortModel()
+        });
+
+        let response = provider.get(request);
+        response.take(1).subscribe((r: any) => expect(r.count).toBe(2));
+
+      });
+    });
+
+    describe('List Component with no data', () => {
+      let state: ListState,
+          dispatcher: ListStateDispatcher,
+          component: ListTestComponent,
+          fixture: any,
+          dataProvider: SkyListInMemoryDataProvider,
+          nativeElement: HTMLElement,
+          element: DebugElement,
+          bs: BehaviorSubject<any>;
+
+      beforeEach(async(() => {
+        dispatcher = new ListStateDispatcher();
+        state = new ListState(dispatcher);
+        dataProvider = new SkyListInMemoryDataProvider();
+
+        TestBed.configureTestingModule({
+          imports: [
+            ListFixturesModule,
+            SkyListModule,
+            SkyListToolbarModule,
+            SkyListViewGridModule,
+            SkyListFiltersModule,
+            FormsModule
+          ],
+          providers: [
+            { provide: 'items', useValue: null },
+            { provide: SkyListInMemoryDataProvider, useValue: dataProvider }
+          ]
+        })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              { provide: ListState, useValue: state },
+              { provide: ListStateDispatcher, useValue: dispatcher }
+            ]
+          }
+        });
+
+        fixture = TestBed.createComponent(ListEmptyTestComponent);
+        nativeElement = fixture.nativeElement as HTMLElement;
+        element = fixture.debugElement as DebugElement;
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        // always skip the first update to ListState, when state is ready
+        // run detectChanges once more then begin tests
+        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+        fixture.detectChanges();
+      }));
+
+      it('data provider should not be null even with no data', () => {
+        let list = fixture.componentInstance.list;
+
+        expect(list.data).toBe(null);
+        expect(list.dataProvider).not.toBe(null);
+
+        list.dataProvider.count()
+          .take(1)
+          .subscribe((count: any) => {
+            expect(count).toBe(0);
+        });
+      });
+    });
+
+    describe('List Component with no data and no data provider', () => {
+      let state: ListState,
+          dispatcher: ListStateDispatcher,
+          component: ListTestComponent,
+          fixture: any,
+          nativeElement: HTMLElement,
+          element: DebugElement,
+          bs: BehaviorSubject<any>;
+
+      beforeEach(async(() => {
+        dispatcher = new ListStateDispatcher();
+        state = new ListState(dispatcher);
+
+        TestBed.configureTestingModule({
+          imports: [
+            ListFixturesModule,
+            SkyListModule,
+            SkyListToolbarModule,
+            SkyListViewGridModule,
+            SkyListFiltersModule,
+            FormsModule
+          ],
+          providers: [
+            { provide: 'items', useValue: null },
+            { provide: SkyListInMemoryDataProvider, useValue: null }
+          ]
+        })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              { provide: ListState, useValue: state },
+              { provide: ListStateDispatcher, useValue: dispatcher }
+            ]
+          }
+        });
+
+        fixture = TestBed.createComponent(ListEmptyTestComponent);
+        nativeElement = fixture.nativeElement as HTMLElement;
+        element = fixture.debugElement as DebugElement;
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        // always skip the first update to ListState, when state is ready
+        // run detectChanges once more then begin tests
+        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+        fixture.detectChanges();
+      }));
+
+      it('displayed items should throw error', () => {
+        let list = fixture.componentInstance.list;
+        try {
+          list.displayedItems;
+        } catch (error) {
+          expect(error.message).toBe('List requires data or dataProvider to be set.');
+        }
       });
     });
   });
@@ -742,7 +779,7 @@ describe('List Component', () => {
         new ListItemModel('2', false)
       ];
 
-      listDispatcher.next(new ListItemsLoadAction(items));
+      listDispatcher.itemsSet(items);
       listState.take(1).subscribe(s => {
         expect(s.items.count).toBe(2);
       });
@@ -762,6 +799,11 @@ describe('List Component', () => {
       expect(action).not.toBeUndefined();
     });
 
+    it('should construct ListSearchSetFieldSelectorsAction', () => {
+      let action = new ListSearchSetFieldSelectorsAction();
+      expect(action).not.toBeUndefined();
+    });
+
     it('should construct ListSortFieldSelectorModel without data', () => {
       let model = new ListSortFieldSelectorModel();
       expect(model.descending).toBeFalsy();
@@ -774,6 +816,20 @@ describe('List Component', () => {
       expect(model.text).toBeUndefined();
       expect(model.fieldSelector).toBeUndefined();
       expect(model.fieldType).toBeUndefined();
+    });
+
+    it('should construct ListDataResponseModel without data', () => {
+      let model = new ListDataResponseModel();
+      expect(model.count).toBeFalsy();
+      expect(model.items).toBeUndefined();
+    });
+
+    it('should construct ListDataRequestModel without data', () => {
+      let model = new ListDataRequestModel();
+      expect(model.filters).toBeUndefined();
+      expect(model.paging).toBeUndefined();
+      expect(model.search).toBeUndefined();
+      expect(model.sort).toBeUndefined();
     });
 
     it('should construct ListToolbarItemModel without data', () => {
@@ -794,6 +850,33 @@ describe('List Component', () => {
       expect(filter).not.toBeUndefined();
     });
 
+    it('filter should be able to call filterButtonClick with no filters', () => {
+      let dispatcher = new ListStateDispatcher();
+      let state = new ListState(dispatcher);
+      TestBed.configureTestingModule({
+        imports: [
+          SkyListFiltersModule
+        ]
+      })
+      .overrideComponent(SkyListFiltersComponent, {
+        set: {
+          providers: [
+            { provide: ListState, useValue: state },
+            { provide: ListStateDispatcher, useValue: dispatcher }
+          ]
+        }
+      });
+
+      let fixture = TestBed.createComponent(SkyListFiltersComponent);
+      dispatcher.next(new ListFiltersLoadAction([new ListFilterModel()]));
+      fixture.detectChanges();
+
+      let filter = fixture.componentInstance;
+
+      filter.filterButtonClick();
+      expect(filter).not.toBeUndefined();
+    });
+
     it('create ListFilterDataModel without passing in an id', () => {
       let filterDataModel = new ListFilterDataModel({
         id: null,
@@ -803,6 +886,11 @@ describe('List Component', () => {
 
       expect(filterDataModel.id).not.toBeNull();
     });
+
+    it('should construct ListToolbarItemsLoadAction action', async(() => {
+      let action = new ListToolbarItemsLoadAction([new ListToolbarItemModel()]);
+      expect(action).not.toBeUndefined();
+    }));
 
     it('should construct ListToolbarItemsLoadAction action', async(() => {
       let action = new ListToolbarItemsLoadAction([new ListToolbarItemModel()]);

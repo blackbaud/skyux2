@@ -1,9 +1,12 @@
 import {
   ListItemsSetLoadingAction, ListItemsLoadAction
 } from './items/actions';
-import { ListDisplayedItemsLoadAction } from './displayed-items/actions';
 import { ListViewsLoadAction, ListViewsSetActiveAction } from './views/actions';
-import { ListSearchSetSearchTextAction, ListSearchSetFunctionsAction } from './search/actions';
+import {
+  ListSearchSetSearchTextAction,
+  ListSearchSetFunctionsAction,
+  ListSearchSetFieldSelectorsAction
+} from './search/actions';
 import {
   ListSortSetFieldSelectorsAction, ListSortSetAvailableAction, ListSortSetGlobalAction
 } from './sort/actions';
@@ -15,14 +18,24 @@ import {
   ListSelectedSetItemSelectedAction,
   ListSelectedSetItemsSelectedAction
 } from './selected/actions';
+import {
+  ListPagingSetMaxPagesAction,
+  ListPagingSetItemsPerPageAction,
+  ListPagingSetPageCountAction,
+  ListPagingSetPageNumberAction,
+  ListPagingSetDisplayedPagesAction
+} from './paging/actions';
 
 export type ListStateAction =
   ListSelectedSetLoadingAction | ListSelectedLoadAction | ListSelectedSetItemSelectedAction |
   ListSelectedSetItemsSelectedAction |
   ListItemsSetLoadingAction | ListItemsLoadAction |
-  ListDisplayedItemsLoadAction |
   ListViewsLoadAction | ListViewsSetActiveAction |
   ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
+  ListSearchSetFieldSelectorsAction |
   ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction |
   ListFiltersLoadAction | ListFiltersUpdateAction |
-  ListToolbarItemsLoadAction | ListToolbarSetExistsAction;
+  ListToolbarItemsLoadAction | ListToolbarSetExistsAction |
+  ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction |
+  ListPagingSetPageCountAction | ListPagingSetPageNumberAction |
+  ListPagingSetDisplayedPagesAction;

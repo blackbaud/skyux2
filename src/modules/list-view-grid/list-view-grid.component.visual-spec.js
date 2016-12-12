@@ -10,10 +10,20 @@ describe('list-view-grid component', function () {
       });
   });
 
+  it('should display grid view checked', function () {
+    return browser
+      .setupTest('/list-view-grid.html')
+      .click('th[cmp-id="select-header"] sky-checkbox')
+      .compareScreenshot({
+        screenshotName: 'list-view-grid-checked',
+        selector: '#screenshot-list-view-grid'
+      });
+  });
+
   it('should display sort asc icon for column', function () {
     return browser
       .setupTest('/list-view-grid.html')
-      .click('th.heading')
+      .click('th[cmp-id="column1"]')
       .compareScreenshot({
         screenshotName: 'list-view-grid-asc',
         selector: '#screenshot-list-view-grid'
@@ -23,8 +33,8 @@ describe('list-view-grid component', function () {
   it('should display sort desc icon for column', function () {
     return browser
       .setupTest('/list-view-grid.html')
-      .click('th.heading')
-      .click('th.heading')
+      .click('th[cmp-id="column1"]')
+      .click('th[cmp-id="column1"]')
       .compareScreenshot({
         screenshotName: 'list-view-grid-desc',
         selector: '#screenshot-list-view-grid'

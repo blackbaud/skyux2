@@ -3,6 +3,7 @@ import { ListFilterDataModel } from './filter-data.model';
 import { TemplateRef } from '@angular/core';
 
 export class ListFilterModel {
+  public name: string;
   public label: string;
   public view: string;
   public type: string;
@@ -14,6 +15,7 @@ export class ListFilterModel {
     this.view = view;
 
     if (data) {
+      this.name = data.name;
       this.label = data.label;
       this.type = data.type;
       this.filterFunction = data.filterFunction;

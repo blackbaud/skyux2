@@ -2,6 +2,7 @@ import { Component, ViewChild, Inject } from '@angular/core';
 import { SkyListComponent } from '../list.component';
 import { ListFilterDataModel } from '../state/filters/filter-data.model';
 import { BehaviorSubject } from 'rxjs';
+import { SkyListInMemoryDataProvider } from '../../list-data-provider-in-memory';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -10,7 +11,10 @@ import { BehaviorSubject } from 'rxjs';
 export class ListEmptyTestComponent {
   @ViewChild(SkyListComponent) public list: SkyListComponent;
 
-  constructor(@Inject('items') public items: any) {
+  constructor(
+    @Inject('items') public items: any,
+    public dataProvider: SkyListInMemoryDataProvider
+  ) {
   }
 
   public get options() {

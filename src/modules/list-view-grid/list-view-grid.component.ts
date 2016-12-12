@@ -182,6 +182,7 @@ export class SkyListViewGridComponent
             )
             .filter(c => c !== undefined);
 
+        this.dispatcher.searchSetFieldSelectors(displayedColumns.map(d => d.field));
         this.dispatcher.searchSetFunctions(setFunctions);
         this.dispatcher.sortSetAvailable(displayedColumns.map(cmp =>
           new ListSortLabelModel({ text: cmp.heading, fieldSelector: cmp.field })
@@ -193,7 +194,7 @@ export class SkyListViewGridComponent
 
   get items() {
     return Observable.combineLatest(
-      this.state.map(s => s.displayedItems.items).distinctUntilChanged(),
+      this.state.map(s => s.items.items).distinctUntilChanged(),
       this.state.map(s => s.selected.item).distinctUntilChanged(),
       (items, selected) => items
     );
@@ -247,7 +248,7 @@ export class SkyListViewGridComponent
   }
 
   private get loading() {
-    return this.state.map(s => s.displayedItems.loading)
+    return this.state.map(s => s.items.loading)
       .distinctUntilChanged();
   }
 
