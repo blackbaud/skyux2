@@ -39,7 +39,8 @@
   function startCI() {
     return new Promise(function (resolve, reject) {
       //bsLocal = new browserstack.Local();
-      return server.listen(webpackCompiler.options.devServer.port, function () {
+      return server.listen(webpackCompiler.options.devServer.port);
+      /*, function () {
         /*return bsLocal.start({
           key: process.env.BROWSER_STACK_ACCESS_KEY,
           onlyAutomate: true,
@@ -54,9 +55,9 @@
           } else {
             resolve();
           }
-        });*/
+        });
         return;
-      });
+      });*/
     });
   }
 
@@ -73,7 +74,7 @@
   function stopCI(exitCode) {
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
-    if (bsLocal.isRunning()) {
+    if (bsLocal && bsLocal.isRunning()) {
       bsLocal.stop();
     }
 
