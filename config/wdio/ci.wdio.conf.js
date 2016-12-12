@@ -40,6 +40,7 @@
       resolution: '1280x960',
       name: 'SKYUX2BROWSERSTACKCI',
       'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
+
     }
   ];
   config.host = 'hub.browserstack.com';

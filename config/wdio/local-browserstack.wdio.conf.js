@@ -21,10 +21,10 @@
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
-      build: 'mac-chrome-webdriver-local-' + timestamp,
+      build: 'skyux2-mac-chrome-webdriver-local-' + timestamp,
+      resolution: '1280x960',
       name: 'SKYUX2BROWSERSTACKCI',
-      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI',
-      resolution: '1280x960'
+      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
     },
     {
       browserName: 'firefox',
@@ -37,10 +37,10 @@
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
+      build: 'skyux2-mac-firefox-webdriver-local' + timestamp,
+      resolution: '1280x960',
       name: 'SKYUX2BROWSERSTACKCI',
       'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI',
-      build: 'mac-firefox-webdriver-local' + timestamp,
-      resolution: '1280x960'
     }
   ];
   shared.host = 'hub.browserstack.com';
