@@ -21,7 +21,7 @@ describe('Modal instance', () => {
       expectedResult = result;
     });
 
-    instance.close('My result');
+    instance.cancel('My result');
 
     expect(expectedResult.data).toBe('My result');
     expect(expectedResult.reason).toBe('cancel');
@@ -29,6 +29,10 @@ describe('Modal instance', () => {
     instance.save('My data');
     expect(expectedResult.data).toBe('My data');
     expect(expectedResult.reason).toBe('save');
+
+    instance.close('My close', 'reason');
+    expect(expectedResult.data).toBe('My close');
+    expect(expectedResult.reason).toBe('reason');
 
   });
 });

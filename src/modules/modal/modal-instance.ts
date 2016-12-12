@@ -19,7 +19,11 @@ export class SkyModalInstance {
     this.closeCallback = closeCallback;
   }
 
-  public close(result?: any) {
+  public close(result?: any, reason?: any) {
+    this.closeModal(reason, result);
+  }
+
+  public cancel(result?: any) {
     this.closeModal('cancel', result);
   }
 

@@ -32,15 +32,23 @@
 
   <sky-demo-page-properties sectionHeading="Modal instance properties">
     <sky-demo-page-property
-      propertyName="close(result?)">
-      Closes the modal instance. The optional <code>result</code> parameter specifies an object that will be emitted to subscribers of the <code>instanceClose</code> event of the modal instance. The <code>SkyModalInstance</code> provider can be injected into a component's constructor so that this <code>close</code> function can be called from a button in the <code>sky-modal-footer</code>.
+      propertyName="save(result?)">
+      Closes the modal instance with <code>reason=save</code>. The optional <code>result</code> parameter specifies an object that will be emitted to subscribers of the <code>closed</code> event of the modal instance. The <code>SkyModalInstance</code> provider can be injected into a component's constructor so that this <code>save</code> function can be called from a button in the <code>sky-modal-footer</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="cancel(result?)">
+      Closes the modal instance with <code>reason=cancel</code>. The optional <code>result</code> parameter specifies an object that will be emitted to subscribers of the <code>closed</code> event of the modal instance. The <code>SkyModalInstance</code> provider can be injected into a component's constructor so that this <code>close</code> function can be called from a button in the <code>sky-modal-footer</code>.
+    </sky-demo-page-property>
+     <sky-demo-page-property
+      propertyName="close(result?, reason?)">
+      Closes the modal instance. The optional <code>result</code> parameter specifies an object that will be emitted to subscribers of the <code>closed</code> event of the modal instance. The optional <code>reason</code> parameter specifies a string indicatinng the reason for the modal closing. The <code>SkyModalInstance</code> provider can be injected into a component's constructor so that this <code>close</code> function can be called from a button in the <code>sky-modal-footer</code>.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-properties sectionHeading="Modal instance events">
     <sky-demo-page-property
-      propertyName="instanceClose">
-      An event that is emitted by the modal instance when it is closed.
+      propertyName="closed">
+      An event that is emitted by the modal instance when it is closed. It emits a <code>SkyCloseModalArgs</code> object that has a <code>data</code> property with data passed from the user on close or save and a <code>reason</code> property which indicates whether the modal was saved or closed without saving.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
