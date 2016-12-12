@@ -24,7 +24,7 @@
     "test:unit:ci": "npm run test:unit:base -- config/karma/ci.karma.conf.js",
     "test:unit:base": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
     "test:visual": "npm run test:visual:base -- config/wdio/local.wdio.conf.js",
-    "test:visual:ci": "./scripts/browserstack-cleanup.sh && ./scripts/browserstack-local-start.sh && npm run start:visual && npm run test:visual:base -- config/wdio/ci.wdio.conf.js",
+    "test:visual:ci": "./scripts/browserstack-cleanup.sh && ./scripts/browserstack-local-start.sh && npm run start:visual:ci && npm run test:visual:base -- config/wdio/ci.wdio.conf.js",
     "test:visual:local-browserstack": "npm run test:visual:base -- config/wdio/local-browserstack.wdio.conf.js",
     "test:visual:base": "./node_modules/.bin/wdio",
     "postversion": "git push && git push --tags",
@@ -34,6 +34,7 @@
     "releases": "npm run clean:releases && ./node_modules/.bin/webpack --progress --config config/webpack/webpack.releases.js",
     "start": "webpack-dev-server --config config/webpack/webpack.dev.js --inline --progress --profile --watch --content-base src/",
     "start:visual": "node ./config/utils/visual-server.js start",
+    "start:visual:ci": "webpack-dev-server --config config/webpack/webpack.visual.js --no-info --content-base src/ &",
     "version": "npm run build",
     "watch": "npm run test:unit -- --auto-watch --no-single-run"
   },
