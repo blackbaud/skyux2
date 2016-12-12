@@ -39,6 +39,7 @@
   function startCI() {
     return new Promise(function (resolve, reject) {
       return server.listen(webpackCompiler.options.devServer.port, function () {
+        console.log('starting server');
         return resolve();
       });
     });
