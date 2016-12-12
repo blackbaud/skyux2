@@ -38,9 +38,9 @@
 
   function startCI() {
     return new Promise(function (resolve, reject) {
-      bsLocal = new browserstack.Local();
+      //bsLocal = new browserstack.Local();
       return server.listen(webpackCompiler.options.devServer.port, function () {
-        return bsLocal.start({
+        /*return bsLocal.start({
           key: process.env.BROWSER_STACK_ACCESS_KEY,
           onlyAutomate: true,
           forcelocal: true,
@@ -54,7 +54,8 @@
           } else {
             resolve();
           }
-        });
+        });*/
+        return;
       });
     });
   }
