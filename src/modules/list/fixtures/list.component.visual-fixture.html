@@ -3,7 +3,7 @@
     <sky-list-toolbar></sky-list-toolbar>
 
     <sky-list-filters>
-      <sky-list-filter type="inline" [filter]="filterOnStatus" [view]="default">
+      <sky-list-filter type="inline" [filter]="filterOnStatus" [view]="default" [name]="'columnFilter'">
         <template let-filter="filter">
           <select [(ngModel)]="filter.value" (ngModelChange)="filter.changed($event)">
             <option value="">Column2</option>
@@ -12,7 +12,7 @@
         </template>
       </sky-list-filter>
 
-      <sky-list-filter [filter]="filterOnStatus" [view]="default">
+      <sky-list-filter [filter]="filterOnStatus" [view]="default" [name]="'columnFilter2'">
         <template let-filter="filter">
           <select [(ngModel)]="filter.value" (ngModelChange)="filter.changed($event)">
             <option value="">Column2</option>
@@ -21,7 +21,7 @@
         </template>
       </sky-list-filter>
 
-      <sky-list-filter [filter]="filterOnStatus" [view]="default"></sky-list-filter>
+      <sky-list-filter [filter]="filterOnStatus" [view]="default" [name]="'columnFilter3'"></sky-list-filter>
     </sky-list-filters>
 
     <sky-list-view-grid fit="scroll" #first [name]="'First'">

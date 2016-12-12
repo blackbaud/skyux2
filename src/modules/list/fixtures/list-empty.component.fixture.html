@@ -1,6 +1,6 @@
-<sky-list [data]="items">
+<sky-list [data]="items" [dataProvider]="dataProvider" [initialTotal]="itemsCount">
   <sky-list-filters>
-    <sky-list-filter [filter]="filterOnStatus" [view]="default">
+    <sky-list-filter [filter]="filterOnStatus" [view]="default" [name]="'columnFilter'">
       <template let-filter="filter">
         <select [(ngModel)]="filter.value" (ngModelChange)="filter.changed($event)">
           <option value="">Column2</option>

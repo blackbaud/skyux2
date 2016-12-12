@@ -9,9 +9,6 @@ import {
 import { ListItemModel } from '../../../../src/modules/list/state/items/item.model';
 import { ListViewModel } from '../../../../src/modules/list/state/views/view.model';
 import { ListItemsLoadAction } from '../../../../src/modules/list/state/items/actions';
-import {
-  ListDisplayedItemsLoadAction
-} from '../../../../src/modules/list/state/displayed-items/actions';
 import { ListViewsLoadAction } from '../../../../src/modules/list/state/views/actions';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
@@ -45,7 +42,6 @@ export class AppComponent implements AfterViewInit {
       ];
 
       this.dispatcher.next(new ListItemsLoadAction(items, true));
-      this.dispatcher.next(new ListDisplayedItemsLoadAction(items));
       this.dispatcher.next(new ListViewsLoadAction([
         new ListViewModel(this.viewrepeater.id, 'Test View')
       ]));

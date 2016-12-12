@@ -279,24 +279,24 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'List Paging Default',
+        name: 'List Paging',
         icon: 'files-o',
         // tslint:disable-next-line
         summary: `The list component is used to display data in a consistent and flexible way.`,
-        url: '/components/list-paging-default',
+        url: '/components/list-paging',
         getCodeFiles: function () {
           return [
             {
-              name: 'list-paging-default-demo.component.html',
+              name: 'list-paging-demo.component.html',
               fileContents:
-              require('!!raw!./list-paging-default/list-paging-default-demo.component.html')
+              require('!!raw!./list-paging/list-paging-demo.component.html')
             },
             {
-              name: 'list-paging-default-demo.component.ts',
+              name: 'list-paging-demo.component.ts',
               fileContents:
-              require('!!raw!./list-paging-default/list-paging-default-demo.component.ts'),
-              componentName: 'SkyListPagingDefaultDemoComponent',
-              bootstrapSelector: 'sky-list-paging-default-demo'
+              require('!!raw!./list-paging/list-paging-demo.component.ts'),
+              componentName: 'SkyListPagingDemoComponent',
+              bootstrapSelector: 'sky-list-paging-demo'
             }
           ];
         }

@@ -55,12 +55,11 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
 
     let lastLastUpdate: any;
     Observable.combineLatest(
-      this.state.map(s => s.items.lastUpdate).distinctUntilChanged(),
-      this.state.map(s => s.displayedItems).distinctUntilChanged(),
-      (lastUpdate: any, displayedItems: AsyncList<ListItemModel>) => {
-        let dataChanged = lastLastUpdate === undefined || lastUpdate !== lastLastUpdate;
-        lastLastUpdate = lastUpdate;
-        let items = displayedItems.items.map(item => {
+      this.state.map(s => s.items).distinctUntilChanged(),
+      (items: AsyncList<ListItemModel>) => {
+        let dataChanged = lastLastUpdate === undefined || items.lastUpdate !== lastLastUpdate;
+        lastLastUpdate = items.lastUpdate;
+        let newItems = items.items.map(item => {
           return new ListViewChecklistItemModel(item.id, {
             label:
               this.labelFieldSelector ? getData(item.data, this.labelFieldSelector) :
@@ -75,7 +74,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         });
 
         this.checklistDispatcher.next(
-          new ListViewChecklistItemsLoadAction(items, true, dataChanged, displayedItems.count)
+          new ListViewChecklistItemsLoadAction(newItems, true, dataChanged, items.count)
         );
       }
     )
@@ -86,6 +85,18 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     if (this.searchFunction !== undefined) {
       this.dispatcher.searchSetFunctions([this.searchFunction]);
     }
+
+    let fieldSelectors: Array<string> = [];
+    if (this.labelFieldSelector) {
+      fieldSelectors.push(this.labelFieldSelector);
+    }
+    if (this.descriptionFieldSelector) {
+      fieldSelectors.push(this.descriptionFieldSelector);
+    }
+    if (this.categoryFieldSelector) {
+      fieldSelectors.push(this.categoryFieldSelector);
+    }
+    this.dispatcher.searchSetFieldSelectors(fieldSelectors);
   }
 
   public ngAfterViewInit() {

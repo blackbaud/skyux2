@@ -2,7 +2,7 @@
   <sky-list-toolbar></sky-list-toolbar>
 
   <sky-list-filters>
-    <sky-list-filter type="inline" [filter]="filterOnColumn2" [view]="default">
+    <sky-list-filter type="inline" [filter]="filterOnColumn2" [view]="default" [name]="'filterOnColumn2'">
       <template let-filter="filter">
         <select [(ngModel)]="filter.value" (ngModelChange)="filter.changed($event)">
           <option value="">Column2</option>

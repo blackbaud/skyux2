@@ -16,7 +16,6 @@ import {
 import { ListViewModel } from '../list/state/views/view.model';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListItemsLoadAction } from '../list/state/items/actions';
-import { ListDisplayedItemsLoadAction } from '../list/state/displayed-items/actions';
 import { ListViewGridFixturesModule } from './fixtures/list-view-grid-fixtures.module';
 import { ListViewGridTestComponent } from './fixtures/list-view-grid.component.fixture';
 import {
@@ -82,7 +81,6 @@ describe('List View Grid Component', () => {
       ];
 
       dispatcher.next(new ListItemsLoadAction(items, true));
-      dispatcher.next(new ListDisplayedItemsLoadAction(items));
       dispatcher.next(new ListViewsLoadAction([
         new ListViewModel(component.grid.id, component.grid.label)
       ]));
@@ -337,7 +335,6 @@ describe('List View Grid Component', () => {
       ];
 
       dispatcher.next(new ListItemsLoadAction(items, true));
-      dispatcher.next(new ListDisplayedItemsLoadAction(items));
       dispatcher.next(new ListViewsLoadAction([
         new ListViewModel(component.grid.id, component.grid.label)
       ]));

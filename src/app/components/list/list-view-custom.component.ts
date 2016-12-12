@@ -21,7 +21,7 @@ export class SkyListViewCustomComponent extends ListViewComponent {
   }
 
   get items() {
-    return this.state.map(s => s.displayedItems.items);
+    return this.state.map(s => s.items.items);
   }
 }
 /* tslint: enable */
