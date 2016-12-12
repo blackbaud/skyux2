@@ -53,8 +53,8 @@
       'webdriver-screenshots-screen',
       'webdriver-screenshots-diffs');
 
-  config.onPrepare = server.startCI;
-  config.onComplete = server.stopCI;
+  //config.onPrepare = server.startCI;
+  //config.onComplete = server.stopCI;
 
   exports.config = config;
 
