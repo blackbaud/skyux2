@@ -34,5 +34,8 @@ describe('Modal instance', () => {
     expect(expectedResult.data).toBe('My close');
     expect(expectedResult.reason).toBe('reason');
 
+    instance.close('close data');
+    expect(expectedResult.data).toBe('close data');
+    expect(expectedResult.reason).toBe('close');
   });
 });
