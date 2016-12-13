@@ -33,6 +33,13 @@ export class SkyModalService {
       SkyModalService.hostComponent = cmpRef.instance;
     }
 
+    providers = providers || [];
+
+    providers.push({
+      provide: SkyModalInstance,
+      useValue: modalInstance
+    });
+
     SkyModalService.hostComponent.open(modalInstance, component, providers);
 
     return modalInstance;

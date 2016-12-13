@@ -15,6 +15,8 @@ export class TabsetTestComponent {
 
   public tab2Available = true;
 
+  public tab2Disabled = false;
+
   public tab3Heading = 'Tab 3';
 
   public tab3Content: string;
@@ -22,6 +24,8 @@ export class TabsetTestComponent {
   public tab3Available = true;
 
   public activeTab = 0;
+
+  public tabMaxWidth = 2000;
 
   public newTab() { }
 

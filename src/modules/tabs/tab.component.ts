@@ -17,6 +17,9 @@ export class SkyTabComponent implements OnDestroy {
   public tabHeading: string;
 
   @Input()
+  public disabled: boolean;
+
+  @Input()
   public set active(value: boolean) {
     let wasActive = this._active;
 

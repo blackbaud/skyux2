@@ -39,7 +39,7 @@
       build: 'skyux2-mac-firefox-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
       resolution: '1280x960',
       name: 'SKYUX2BROWSERSTACKCI',
-      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI',
+      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
 
     }
   ];

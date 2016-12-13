@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { SkyModalInstance } from '../../../core';
+
 import { SkyModalDemoContext } from './modal-demo-context';
 
 @Component({
@@ -9,5 +11,5 @@ import { SkyModalDemoContext } from './modal-demo-context';
 export class SkyModalDemoFormComponent {
   public title = 'Hello world';
 
-  constructor(public context: SkyModalDemoContext) { }
+  constructor(public context: SkyModalDemoContext, public instance: SkyModalInstance) { }
 }

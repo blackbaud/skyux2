@@ -46,6 +46,7 @@ export * from './modules/card';
 export * from './modules/checkbox';
 export * from './modules/dropdown';
 export * from './modules/fileattachments';
+export * from './modules/format';
 export * from './modules/key-info';
 export * from './modules/label';
 export * from './modules/modal';
@@ -55,7 +56,6 @@ export * from './modules/radio';
 export * from './modules/repeater';
 export * from './modules/tabs';
 export * from './modules/tiles';
-export * from './modules/format';
 
 export const SKY_PROVIDERS: any[] = [
   ...SKY_MODAL_PROVIDERS
