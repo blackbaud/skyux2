@@ -23,7 +23,7 @@ export class SkyWaitService {
   public beginViewWait(viewRef: ViewContainerRef) {
 
     if(!this.waitElements.has(viewRef.element)) {
-      let waitComponent = viewRef.createComponent(this.resolver.resolveComponentFactory(SkyWaitComponent));
+      let waitComponent = viewRef.createComponent(this.resolver.resolveComponentFactory(SkyWaitComponent), viewRef.length);
 
       this.waitElements.set(viewRef.element, {count: 1, componentRef: waitComponent})
     } else {
