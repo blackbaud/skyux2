@@ -44,6 +44,9 @@ export class SkyWaitComponent {
     return this._isFullPage;
   }
 
+  @Input()
+  public isNonBlocking: boolean;
+
   private _isWaiting: boolean;
 
   private _isFullPage: boolean;

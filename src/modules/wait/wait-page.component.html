@@ -1,4 +1,6 @@
 <div>
-  <sky-wait [isWaiting]="isWaiting" isFullPage="true">
+  <sky-wait  [isWaiting]="hasNonBlockingWait" isFullPage="true" isNonBlocking="true">
+  </sky-wait>
+  <sky-wait [isWaiting]="hasBlockingWait" isFullPage="true">
   </sky-wait>
 </div>

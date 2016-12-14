@@ -13,10 +13,10 @@ export class SkyWaitDemoComponent {
 
   public isWaiting = false;
 
-  public showPageWait() {
-    this.waitSvc.beginPageWait();
+  public showPageWait(isBlocking: boolean) {
+    this.waitSvc.beginPageWait(isBlocking);
     setTimeout(()=> {
-      this.waitSvc.endPageWait();
+      this.waitSvc.endPageWait(isBlocking);
     }, 2000);
   }
 }

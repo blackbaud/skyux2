@@ -1,6 +1,6 @@
 @import "../../scss/mixins";
 
-.sky-wait-mask-loading {
+.sky-wait-mask-loading-blocking {
   margin: auto;
   position: absolute;
   top: 0;
@@ -22,6 +22,18 @@
   position: absolute;
   top: 50%;
   left: 50%;
+}
+
+.sky-wait-mask-loading-non-blocking {
+  bottom: 0;
+  .sky-wait {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .sky-wait-double-bounce1, .sky-wait-double-bounce2 {

@@ -10,5 +10,8 @@ import {
 export class SkyWaitPageComponent {
 
   @Input()
-  public isWaiting: boolean;
+  public hasBlockingWait: boolean;
+
+  @Input()
+  public hasNonBlockingWait: boolean;
 }
