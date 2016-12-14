@@ -15,6 +15,12 @@ export class SkyWaitAdapterService {
   }
 
   public removeWaitBounds(waitEl: ElementRef) {
-    this.renderer.setElementStyle(waitEl.nativeElement.parentElement, 'position', '');
+    this.renderer.setElementStyle(waitEl.nativeElement.parentElement, 'position', null);
+  }
+
+  public setBusyState(waitEl: ElementRef, isFullPage: boolean, isWaiting: boolean) {
+    let busyEl = isFullPage ? document.body : waitEl.nativeElement.parentElement;
+    let state = isWaiting ? 'true' : null;
+    this.renderer.setElementAttribute(busyEl, 'aria-busy', state);
   }
 }

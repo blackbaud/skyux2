@@ -23,6 +23,7 @@ export class SkyWaitComponent {
     } else if (!value && !this._isFullPage) {
       this.adapterService.removeWaitBounds(this.elRef);
     }
+    this.adapterService.setBusyState(this.elRef, this._isFullPage, value);
     this._isWaiting = value;
   }
 
@@ -37,6 +38,7 @@ export class SkyWaitComponent {
     } else if (!value && this._isWaiting) {
       this.adapterService.setWaitBounds(this.elRef);
     }
+
     this._isFullPage = value;
   }
 
