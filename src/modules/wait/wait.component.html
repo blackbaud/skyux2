@@ -1,5 +1,5 @@
 <div class="sky-wait-container">
-  <div *ngIf="isWaiting" class="sky-wait-mask-loading">
+  <div *ngIf="isWaiting" [ngClass]="{'sky-wait-mask-loading-fixed': isFullPage}" class="sky-wait-mask-loading">
     <div class="sky-wait">
       <div class="sky-wait-double-bounce1"></div>
       <div class="sky-wait-double-bounce2"></div>
