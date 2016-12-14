@@ -3,6 +3,7 @@
 - Added wizard functionality to tabs module. (#165)
 - Made modal instance injectable and added the save, cancel, and close methods.
 - Added the dispose method to modal service for testing purposes.
+- Adjusted npm package name to `@blackbaud/skyux`.  Please note this will require you to update your references.
 
 # 2.0.0-alpha.13 (2016-11-14)
 
