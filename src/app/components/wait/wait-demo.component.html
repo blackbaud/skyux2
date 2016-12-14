@@ -1,10 +1,12 @@
-<button type="button" class="sky-btn sky-btn-primary" (click)="isWaiting = !isWaiting">Toggle wait</button>
+<button type="button" class="sky-btn sky-btn-primary" (click)="isWaiting = !isWaiting">Toggle element wait</button>
 
 
-  <div style="height: 200px; width: 200px" #waitContainer>
-    A large area that can be waited with the <code>sky-wait</code> directive.
-    <sky-wait [isWaiting]="isWaiting">
-    </sky-wait>
-  </div>
+<div style="height: 200px; width: 200px; margin-top: 10px;">
+  A large area that can be waited with the <code>sky-wait</code> directive.
+  <sky-wait [isWaiting]="isWaiting">
+  </sky-wait>
+</div>
+
+<button type="button" class="sky-btn sky-btn-primary" (click)="showPageWait()">Show page wait</button>
 
 

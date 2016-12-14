@@ -1,52 +1,53 @@
 import {
-  ViewContainerRef,
   ComponentFactoryResolver,
-  Injectable,
-  ElementRef,
-  ComponentRef
+  ApplicationRef,
+  Injectable
 } from '@angular/core';
 
 import {
-  SkyWaitComponent
-} from './wait.component';
-
-class SkyWaitEntry {
-  public count: number;
-  public componentRef: ComponentRef<SkyWaitComponent>;
-}
+  SkyWaitPageComponent
+} from './wait-page.component';
 
 @Injectable()
 export class SkyWaitService {
 
-  private waitElements: Map<ElementRef, SkyWaitEntry>;
+  private static waitComponent: SkyWaitPageComponent;
+  private static pageWaitCount: number = 0;
 
-  public beginViewWait(viewRef: ViewContainerRef) {
+  constructor(private resolver: ComponentFactoryResolver, private appRef: ApplicationRef){}
 
-    if(!this.waitElements.has(viewRef.element)) {
-      let waitComponent = viewRef.createComponent(this.resolver.resolveComponentFactory(SkyWaitComponent), viewRef.length);
+  public beginPageWait() {
+    if (!SkyWaitService.waitComponent) {
+      let factory = this.resolver.resolveComponentFactory(SkyWaitPageComponent);
 
-      this.waitElements.set(viewRef.element, {count: 1, componentRef: waitComponent})
-    } else {
-      let waitElement = this.waitElements.get(viewRef.element);
-      waitElement.count++;
+      document.body.appendChild(document.createElement('sky-wait-page'));
+
+      let cmpRef = this.appRef.bootstrap(factory);
+
+      SkyWaitService.waitComponent = cmpRef.instance;
+    }
+
+    SkyWaitService.waitComponent.isWaiting = true;
+    SkyWaitService.pageWaitCount++;
+
+  }
+
+  public endPageWait() {
+    if(SkyWaitService.pageWaitCount > 0) {
+      SkyWaitService.pageWaitCount--;
+    }
+
+    if(SkyWaitService.pageWaitCount < 1) {
+      SkyWaitService.waitComponent.isWaiting = false;
     }
 
   }
 
-  public endViewWait(viewRef: ViewContainerRef) {
-    if (this.waitElements.has(viewRef.element)) {
-      let waitElement = this.waitElements.get(viewRef.element);
-      if (waitElement.count > 0) {
-        waitElement.count--;
-        if (waitElement.count === 0) {
-          waitElement.componentRef.destroy();
-          this.waitElements.delete(viewRef.element);
-        }
-      }
+  public dispose() {
+    if (SkyWaitService.waitComponent) {
+      SkyWaitService.waitComponent = undefined;
+      document.body.removeChild(document.querySelector('sky-wait-page'));
     }
   }
 
-  constructor(private resolver: ComponentFactoryResolver){
-    this.waitElements = new Map<ElementRef, SkyWaitEntry>();
-  }
 }
