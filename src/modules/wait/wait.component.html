@@ -1,13 +1,9 @@
-<div class="sky-spinner-overlay"></div>
-<div class="sky-spinner-container">
-  <div class="sky-spinner">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+<div class="sky-wait-container">
+  <div *ngIf="isWaiting" class="sky-wait-mask-loading">
+    <div class="sky-wait">
+      <div class="sky-wait-double-bounce1"></div>
+      <div class="sky-wait-double-bounce2"></div>
+    </div>
   </div>
 </div>
+
