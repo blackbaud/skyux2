@@ -8,6 +8,10 @@ import {
   SkyWaitPageComponent
 } from './wait-page.component';
 
+import {
+  SkyWaitPageAdapterService
+} from './wait-page-adapter.service';
+
 @Injectable()
 export class SkyWaitService {
 
@@ -15,13 +19,17 @@ export class SkyWaitService {
   private static pageWaitBlockingCount: number = 0;
   private static pageWaitNonBlockingCount: number = 0;
 
-  constructor(private resolver: ComponentFactoryResolver, private appRef: ApplicationRef){}
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private waitAdapter: SkyWaitPageAdapterService
+    ){}
 
   public beginPageWait(isBlocking: boolean) {
     if (!SkyWaitService.waitComponent) {
       let factory = this.resolver.resolveComponentFactory(SkyWaitPageComponent);
 
-      document.body.appendChild(document.createElement('sky-wait-page'));
+      this.waitAdapter.addPageWaitEl();
 
       let cmpRef = this.appRef.bootstrap(factory);
 
@@ -61,7 +69,7 @@ export class SkyWaitService {
   public dispose() {
     if (SkyWaitService.waitComponent) {
       SkyWaitService.waitComponent = undefined;
-      document.body.removeChild(document.querySelector('sky-wait-page'));
+      this.waitAdapter.removePageWaitEl();
     }
   }
 

@@ -4,7 +4,6 @@ import {
   Renderer
 } from '@angular/core';
 
-
 @Injectable()
 export class SkyWaitAdapterService {
 

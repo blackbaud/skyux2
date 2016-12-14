@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkyWaitComponent } from './wait.component';
 import { SkyWaitService } from './wait.service';
+import { SkyWaitPageAdapterService } from './wait-page-adapter.service';
 import { SkyWaitPageComponent } from './wait-page.component';
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SkyWaitPageComponent } from './wait-page.component';
     SkyWaitPageComponent
   ],
   providers: [
-    SkyWaitService
+    SkyWaitService,
+    SkyWaitPageAdapterService
   ],
   entryComponents: [
     SkyWaitPageComponent
