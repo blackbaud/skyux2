@@ -23,7 +23,7 @@ export class SkyWaitService {
     private resolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private waitAdapter: SkyWaitPageAdapterService
-    ){}
+    ) {}
 
   public beginPageWait(isBlocking: boolean) {
     if (!SkyWaitService.waitComponent) {
@@ -45,24 +45,16 @@ export class SkyWaitService {
   }
 
   public endPageWait(isBlocking: boolean) {
-    if (isBlocking) {
-      if(SkyWaitService.pageWaitBlockingCount > 0) {
-        SkyWaitService.pageWaitBlockingCount--;
-      }
+    let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
+    let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
 
-      if(SkyWaitService.pageWaitBlockingCount < 1) {
-        SkyWaitService.waitComponent.hasBlockingWait = false;
-      }
-    } else {
-      if(SkyWaitService.pageWaitNonBlockingCount > 0) {
-        SkyWaitService.pageWaitNonBlockingCount--;
-      }
-
-      if(SkyWaitService.pageWaitNonBlockingCount < 1) {
-        SkyWaitService.waitComponent.hasNonBlockingWait = false;
-      }
+    if (SkyWaitService[countType] > 0) {
+      SkyWaitService[countType]--;
     }
 
+    if (SkyWaitService[countType] < 1) {
+      SkyWaitService.waitComponent[isWaitingType] = false;
+    }
 
   }
 

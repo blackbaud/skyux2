@@ -400,8 +400,7 @@ export class SkyDemoComponentsService {
             }
           ];
         }
-      },
-
+      }
     ];
   }
 }

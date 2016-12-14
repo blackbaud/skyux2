@@ -53,5 +53,5 @@ export class SkyWaitComponent {
 
   private _isFullPage: boolean;
 
-  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService){}
+  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService) { }
 }

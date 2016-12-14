@@ -7,4 +7,3 @@ export { SkyWaitModule } from './wait.module';
 export const SKY_WAIT_PROVIDERS: any[] = [
   SkyWaitPageAdapterService
 ];
-
