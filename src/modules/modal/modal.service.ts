@@ -18,11 +18,7 @@ export class SkyModalService {
     private injector: Injector,
     private appRef: ApplicationRef,
     private adapter: SkyModalAdapterService
-  ) { }
-
-  public open(component: any, providers?: any[]): SkyModalInstance {
-    let modalInstance = new SkyModalInstance();
-
+  ) {
     if (!SkyModalService.hostComponent) {
       let factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
 
@@ -32,6 +28,10 @@ export class SkyModalService {
 
       SkyModalService.hostComponent = cmpRef.instance;
     }
+   }
+
+  public open(component: any, providers?: any[]): SkyModalInstance {
+    let modalInstance = new SkyModalInstance();
 
     providers = providers || [];
 

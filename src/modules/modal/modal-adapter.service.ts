@@ -21,7 +21,7 @@ export class SkyModalAdapterService {
 
   public setPageScroll(isAdd: boolean): void {
     const modalClass = 'sky-modal-body-open';
-    if(isAdd) {
+    if (isAdd) {
       document.body.classList.add(modalClass);
     } else {
       document.body.classList.remove(modalClass);
