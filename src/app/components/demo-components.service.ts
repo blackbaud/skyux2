@@ -174,6 +174,232 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List',
+        icon: 'list',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-demo.component.html',
+              fileContents: require('!!raw!./list/list-demo.component.html')
+            },
+            {
+              name: 'list-demo.component.ts',
+              fileContents: require('!!raw!./list/list-demo.component.ts'),
+              componentName: 'SkyListDemoComponent',
+              bootstrapSelector: 'sky-list-demo'
+            },
+            {
+              name: 'list-demo-custom.component.html',
+              fileContents: require('!!raw!./list/list-demo-custom.component.html')
+            },
+            {
+              name: 'list-demo-custom.component.ts',
+              fileContents: require('!!raw!./list/list-demo-custom.component.ts'),
+              componentName: 'SkyListDemoCustomComponent',
+              bootstrapSelector: 'sky-list-demo-custom'
+            },
+            {
+              name: 'list-view-custom.component.html',
+              fileContents: require('!!raw!./list/list-view-custom.component.html')
+            },
+            {
+              name: 'list-view-custom.component.ts',
+              fileContents: require('!!raw!./list/list-view-custom.component.ts'),
+              componentName: 'SkyListViewCustomComponent',
+              bootstrapSelector: 'sky-list-view-custom'
+            }
+          ];
+        }
+      },
+      {
+        name: 'List Action Bar',
+        icon: 'bolt',
+        // tslint:disable-next-line
+        summary: `The action bar component is used to take actions on selected items
+        in the list component.`,
+        url: '/components/list-action-bar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-action-bar-demo.component.html',
+              fileContents: require('!!raw!./list-action-bar/list-action-bar-demo.component.html')
+            },
+            {
+              name: 'list-action-bar-demo.component.ts',
+              fileContents: require('!!raw!./list-action-bar/list-action-bar-demo.component.ts'),
+              componentName: 'SkyListActionBarDemoComponent',
+              bootstrapSelector: 'sky-list-action-bar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'List Filters',
+        icon: 'filter',
+        // tslint:disable-next-line
+        summary: `The list filters component is used to filter data displayed
+        in the list component.`,
+        url: '/components/list-filters',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-filters-demo.component.html',
+              fileContents: require('!!raw!./list-filters/list-filters-demo.component.html')
+            },
+            {
+              name: 'list-filters-demo.component.ts',
+              fileContents: require('!!raw!./list-filters/list-filters-demo.component.ts'),
+              componentName: 'SkyListFiltersDemoComponent',
+              bootstrapSelector: 'sky-list-filters-demo'
+            },
+            {
+              name: 'list-filters-demo-modal.component.html',
+              fileContents: require('!!raw!./list-filters/list-filters-demo-modal.component.html')
+            },
+            {
+              name: 'list-filters-demo-modal.component.ts',
+              fileContents: require('!!raw!./list-filters/list-filters-demo-modal.component.ts'),
+              componentName: 'SkyListFiltersDemoModalComponent',
+              bootstrapSelector: 'sky-list-filters-demo-modal'
+            },
+            {
+              name: 'list-filters-demo-combo.component.html',
+              fileContents: require('!!raw!./list-filters/list-filters-demo-combo.component.html')
+            },
+            {
+              name: 'list-filters-demo-combo.component.ts',
+              fileContents: require('!!raw!./list-filters/list-filters-demo-combo.component.ts'),
+              componentName: 'SkyListFiltersDemoComboComponent',
+              bootstrapSelector: 'sky-list-filters-demo-combo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'List Paging',
+        icon: 'files-o',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list-paging',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-paging-demo.component.html',
+              fileContents:
+              require('!!raw!./list-paging/list-paging-demo.component.html')
+            },
+            {
+              name: 'list-paging-demo.component.ts',
+              fileContents:
+              require('!!raw!./list-paging/list-paging-demo.component.ts'),
+              componentName: 'SkyListPagingDemoComponent',
+              bootstrapSelector: 'sky-list-paging-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'List Toolbar',
+        icon: 'wrench',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list-toolbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-toolbar-demo.component.html',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo.component.html')
+            },
+            {
+              name: 'list-toolbar-demo.component.ts',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo.component.ts'),
+              componentName: 'SkyListToolbarDemoComponent',
+              bootstrapSelector: 'sky-list-toolbar-demo'
+            },
+            {
+              name: 'list-toolbar-demo-custom.component.html',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo-custom.component.html')
+            },
+            {
+              name: 'list-toolbar-demo-custom.component.ts',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo-custom.component.ts'),
+              componentName: 'SkyListToolbarDemoCustomComponent',
+              bootstrapSelector: 'sky-list-toolbar-demo-custom'
+            }
+          ];
+        }
+      },
+      {
+        name: 'List View Checklist',
+        icon: 'list-ul',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list-view-checklist',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-view-checklist-demo.component.html',
+              fileContents:
+              require('!!raw!./list-view-checklist/list-view-checklist-demo.component.html')
+            },
+            {
+              name: 'list-view-checklist-demo.component.ts',
+              fileContents:
+              require('!!raw!./list-view-checklist/list-view-checklist-demo.component.ts'),
+              componentName: 'SkyListViewChecklistDemoComponent',
+              bootstrapSelector: 'sky-list-view-checklist-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'List View Grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list-view-grid',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-view-grid-demo.component.html',
+              fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.html')
+            },
+            {
+              name: 'list-view-grid-demo.component.ts',
+              fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.ts'),
+              componentName: 'SkyListViewGridDemoComponent',
+              bootstrapSelector: 'sky-list-view-grid-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'List View Repeater',
+        icon: 'bars',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list-view-repeater',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-view-repeater-demo.component.html',
+              fileContents:
+              require('!!raw!./list-view-repeater/list-view-repeater-demo.component.html')
+            },
+            {
+              name: 'list-view-repeater-demo.component.ts',
+              fileContents:
+              require('!!raw!./list-view-repeater/list-view-repeater-demo.component.ts'),
+              componentName: 'SkyListViewRepeaterDemoComponent',
+              bootstrapSelector: 'sky-list-view-repeater-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Modal',
         icon: 'list-alt',
         // tslint:disable-next-line
@@ -231,7 +457,8 @@ export class SkyDemoComponentsService {
         name: 'Page summary',
         icon: 'newspaper-o',
         // tslint:disable-next-line
-        summary: `The page summary displays critical information and actions for users to access quickly and frequently.`,
+        summary: `The page summary displays critical information
+        and actions for users to access quickly and frequently.`,
         url: '/components/page-summary',
         getCodeFiles: function () {
           return [
@@ -273,7 +500,8 @@ export class SkyDemoComponentsService {
         name: 'Repeater',
         icon: 'check-square',
         // tslint:disable-next-line
-        summary: `The repeater component creates a container to display formatted information for a list of objects.`,
+        summary: `The repeater component creates a container
+        to display formatted information for a list of objects.`,
         url: '/components/repeater',
         getCodeFiles: function () {
           return [
@@ -286,6 +514,27 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./repeater/repeater-demo.component.ts'),
               componentName: 'SkyRepeaterDemoComponent',
               bootstrapSelector: 'sky-repeater-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Spinner',
+        icon: 'spinner',
+        // tslint:disable-next-line
+        summary: `This spinner component displays a loading animation.`,
+        url: '/components/spinner',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'spinner-demo.component.html',
+              fileContents: require('!!raw!./spinner/spinner-demo.component.html')
+            },
+            {
+              name: 'spinner-demo.component.ts',
+              fileContents: require('!!raw!./spinner/spinner-demo.component.ts'),
+              componentName: 'SkySpinnerDemoComponent',
+              bootstrapSelector: 'sky-spinner-demo'
             }
           ];
         }
@@ -314,7 +563,8 @@ export class SkyDemoComponentsService {
         name: 'Tiles',
         icon: 'th-large',
         // tslint:disable-next-line
-        summary: `Tiles provides a collapsible container that is the building block for pages and forms in SKY UX applications.`,
+        summary: `Tiles provides a collapsible container that is the
+        building block for pages and forms in SKY UX applications.`,
         url: '/components/tiles',
         getCodeFiles: function () {
           return [

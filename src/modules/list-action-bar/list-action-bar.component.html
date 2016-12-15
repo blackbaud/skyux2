@@ -1,0 +1,3 @@
+<div *ngIf="(alwaysOn | async) || (!(alwaysOn | async) && (selectedItemCount | async) > 0)">
+  <ng-content select="sky-list-action-bar-item"></ng-content>
+</div>

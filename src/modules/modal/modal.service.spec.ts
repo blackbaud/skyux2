@@ -93,13 +93,14 @@ describe('Modal service', () => {
   }));
 
   it('should allow data to be passed to the modal component when opened', fakeAsync(() => {
-    let modalInstance = openModal(ModalWithValuesTestComponent, [
-      {
-        provide: ModalTestValues,
-        useValue: {
-          valueA: 'A'
+      modalService.dispose();
+      let modalInstance = openModal(ModalWithValuesTestComponent, [
+        {
+          provide: ModalTestValues,
+          useValue: {
+            valueA: 'A'
+          }
         }
-      }
     ]);
 
     expect(modalInstance.componentInstance.values.valueA).toBe('A');

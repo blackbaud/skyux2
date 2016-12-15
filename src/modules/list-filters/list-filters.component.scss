@@ -1,0 +1,61 @@
+:host {
+  .sky-list-filters-inline-bar {
+    background-color: #e9f4fc;
+    padding: 7px;
+    padding-bottom: 8px;
+
+    > button {
+      background-color: #eee;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: bold;
+      padding: 3px 7px;
+      border-radius: 10px;
+    }
+
+    sky-list-filter-renderer {
+      margin-right: 6px;
+    }
+
+    & + .sky-list-filters-modal-active {
+      border-top: 1px solid #ccc;
+    }
+  }
+
+  .sky-list-filters-modal-active {
+    padding: 7px;
+    border-bottom: 1px solid #ccc;
+    font-size: 13px;
+
+    .filter-label {
+      font-weight: 600;
+    }
+
+    .filter-button {
+      display: inline-block;
+      background-color: #fcf8e3;
+      border: 1px solid #faebcc;
+      border-radius: 4px;
+      padding: 3px;
+      color: #8a6d3b;
+      margin-right: 5px;
+      cursor: pointer;
+
+      .close {
+        margin-left: 5px;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .2;
+
+        &:hover {
+          opacity: .5;
+        }
+      }
+    }
+  }
+}
+
+.filtered {
+  border-color: #1ab394;
+  color: #1ab394;
+}

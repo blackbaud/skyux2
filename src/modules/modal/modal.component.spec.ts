@@ -61,9 +61,7 @@ describe('Modal component', () => {
   it('should render on top of previously-opened modals', fakeAsync(() => {
     let modalInstance1 = openModal(ModalTestComponent);
     let modalInstance2 = openModal(ModalTestComponent);
-
     let modalEls = document.querySelectorAll('.sky-modal');
-
     let zIndex1 = parseInt(getComputedStyle(modalEls[0]).zIndex, 10);
     let zIndex2 = parseInt(getComputedStyle(modalEls[1]).zIndex, 10);
 

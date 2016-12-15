@@ -1,0 +1,70 @@
+@import '../../scss/variables';
+
+:host {
+  display: block;
+  width: 100%;
+
+  /deep/ sky-dropdown-button + i.fa-caret-down {
+    display: none;
+  }
+
+  // TODO - fix this in sky-dropdown-menu
+  /deep/ .sky-dropdown-menu.sky-dropdown-open {
+    z-index: 100;
+  }
+
+  /deep/ sky-dropdown-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipse;
+
+    &.selected .sky-dropdown-item {
+      background-color: #eeeffb;
+    }
+  }
+
+  /deep/ .standard, /deep/ .search {
+    min-height: 46px;
+  }
+
+  /deep/ .standard {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 46px;
+    padding: 6px;
+
+    sky-list-toolbar-item-renderer > a {
+      display: inline-block;
+      padding-top: 6px;
+    }
+  }
+
+  /deep/ .search {
+    background-color: #eee;
+
+    .primary-bar {
+      width: 100%;
+      display: block;
+      min-height: 46px;
+      padding: 7px;
+
+      sky-list-toolbar-item-renderer {
+        width: 100%;
+
+        .toolbar-item-container {
+          > input {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .secondary-bar {
+      width: 100%;
+      display: inline-block;
+      border-top: 1px solid #ccc;
+      padding: 6px 10px;
+      padding-bottom: 2px;
+    }
+  }
+}

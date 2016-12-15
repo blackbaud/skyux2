@@ -1,0 +1,15 @@
+<sky-list [data]="items" [defaultView]="grid">
+  <sky-list-toolbar></sky-list-toolbar>
+
+  <sky-list-view-repeater>
+    <sky-list-view-repeater-title>
+      <template let-row="row">{{row.column1}}</template>
+    </sky-list-view-repeater-title>
+    <sky-list-view-repeater-description>
+      <template let-row="row">{{row.column2}}</template>
+    </sky-list-view-repeater-description>
+    <sky-list-view-repeater-content>
+      <template let-row="row">{{row.column3}}</template>
+    </sky-list-view-repeater-content>
+  </sky-list-view-repeater>
+</sky-list>

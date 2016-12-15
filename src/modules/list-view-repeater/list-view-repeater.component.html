@@ -1,0 +1,13 @@
+<div *ngIf="active | async">
+  <div class="sky-repeater-item" *ngFor="let item of items | async">
+    <sky-list-view-repeater-renderer class="sky-list-view-repeater-left" [template]="leftTemplate" [item]="item"></sky-list-view-repeater-renderer>
+    <div class="sky-list-view-repeater-title-area">
+      <sky-list-view-repeater-renderer class="sky-list-view-repeater-title" [template]="titleTemplate" [item]="item"></sky-list-view-repeater-renderer>
+      <sky-list-view-repeater-renderer class="sky-list-view-repeater-description" [template]="descriptionTemplate" [item]="item"></sky-list-view-repeater-renderer>
+    </div>
+    <sky-chevron [direction]="'up'" (directionChange)="toggleContent(item)"></sky-chevron>
+    <sky-list-view-repeater-renderer class="sky-list-view-repeater-right" [template]="rightTemplate" [item]="item"></sky-list-view-repeater-renderer>
+    <sky-list-view-repeater-renderer class="sky-list-view-repeater-content" [template]="contentTemplate" [item]="item" *ngIf="showContent(item) | async"></sky-list-view-repeater-renderer>
+  </div>
+  <ng-content></ng-content>
+</div>

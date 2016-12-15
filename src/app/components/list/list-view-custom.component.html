@@ -1,0 +1,9 @@
+<div *ngIf="active | async">
+  <sky-card *ngFor="let item of items | async" [attr.cmp-id]="item.id">
+    <sky-card-title>{{ item.data.column2 }}</sky-card-title>
+    <sky-card-content>{{ item.data.column3 }}</sky-card-content>
+    <sky-card-actions>
+      <button class="sky-btn sky-btn-default">Click me</button>
+    </sky-card-actions>
+  </sky-card>
+</div>

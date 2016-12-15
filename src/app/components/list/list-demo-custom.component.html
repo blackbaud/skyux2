@@ -1,0 +1,12 @@
+<sky-list [data]="items" [defaultView]="custom">
+  <sky-list-toolbar></sky-list-toolbar>
+
+  <sky-list-view-grid fit="scroll" #default>
+    <sky-list-view-grid-column field="column1" heading="Column1"></sky-list-view-grid-column>
+    <sky-list-view-grid-column field="column2" heading="Column2"></sky-list-view-grid-column>
+  </sky-list-view-grid>
+
+  <sky-list-view-custom #custom></sky-list-view-custom>
+
+  <sky-list-paging pageSize="3"></sky-list-paging>
+</sky-list>
