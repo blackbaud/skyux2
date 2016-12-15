@@ -9,11 +9,11 @@ import {
 })
 export class SkyWaitTestComponent {
   @Input()
-  public isWaiting : boolean;
+  public isWaiting: boolean;
 
   @Input()
-  public isFullPage : boolean;
+  public isFullPage: boolean;
 
   @Input()
-  public isNonBlocking : boolean;
+  public isNonBlocking: boolean;
 }

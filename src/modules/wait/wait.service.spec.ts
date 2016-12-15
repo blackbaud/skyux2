@@ -1,8 +1,7 @@
 import {
   TestBed,
   inject,
-  fakeAsync,
-  tick
+  fakeAsync
 } from '@angular/core/testing';
 
 import {
@@ -21,8 +20,10 @@ describe('Wait service', () => {
   let waitService: SkyWaitService;
   let applicationRef: ApplicationRef;
 
-  let pageBlockingSelector = '.sky-wait-page .sky-wait-mask-loading-fixed.sky-wait-mask-loading-blocking';
-  let pageNonBlockingSelector = '.sky-wait-page .sky-wait-mask-loading-fixed.sky-wait-mask-loading-non-blocking'
+  let pageBlockingSelector =
+    '.sky-wait-page .sky-wait-mask-loading-fixed.sky-wait-mask-loading-blocking';
+  let pageNonBlockingSelector =
+    '.sky-wait-page .sky-wait-mask-loading-fixed.sky-wait-mask-loading-non-blocking';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -67,7 +68,8 @@ describe('Wait service', () => {
     }
   }
 
-  it('should add a blocking page wait when beginPageWait is called with isBlocking true', fakeAsync(() => {
+  it('should add a blocking page wait when beginPageWait is called with isBlocking true',
+    fakeAsync(() => {
     waitService.beginBlockingPageWait();
     applicationRef.tick();
 
@@ -87,8 +89,8 @@ describe('Wait service', () => {
 
   }));
 
-
-  it('should add a nonblocking page wait when beginPageWait is called with isBlocking false', () => {
+  it('should add a nonblocking page wait when beginPageWait is called with isBlocking false',
+    () => {
     waitService.beginNonBlockingPageWait();
     applicationRef.tick();
 

@@ -104,7 +104,6 @@ describe('Wait component', () => {
 
     fixture.detectChanges();
 
-    let el = fixture.nativeElement;
     fixture.componentInstance.isFullPage = true;
     fixture.componentInstance.isWaiting = true;
     fixture.detectChanges();

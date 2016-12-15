@@ -46,6 +46,15 @@ export class SkyWaitService {
     this.clearPageWait(false);
   }
 
+  public dispose() {
+    if (SkyWaitService.waitComponent) {
+      SkyWaitService.waitComponent = undefined;
+      SkyWaitService.pageWaitBlockingCount = 0;
+      SkyWaitService.pageWaitNonBlockingCount = 0;
+      this.waitAdapter.removePageWaitEl();
+    }
+  }
+
   private beginPageWait(isBlocking: boolean) {
     if (!SkyWaitService.waitComponent) {
       let factory = this.resolver.resolveComponentFactory(SkyWaitPageComponent);
@@ -89,14 +98,4 @@ export class SkyWaitService {
       SkyWaitService.waitComponent[isWaitingType] = false;
     }
   }
-
-  public dispose() {
-    if (SkyWaitService.waitComponent) {
-      SkyWaitService.waitComponent = undefined;
-      SkyWaitService.pageWaitBlockingCount = 0;
-      SkyWaitService.pageWaitNonBlockingCount = 0;
-      this.waitAdapter.removePageWaitEl();
-    }
-  }
-
 }
