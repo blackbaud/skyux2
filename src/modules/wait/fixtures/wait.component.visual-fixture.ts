@@ -7,10 +7,13 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  templateUrl: './spinner.component.visual-fixture.html',
-  styleUrls: ['./spinner.component.visual-fixture.scss']
+  templateUrl: './wait.component.visual-fixture.html',
+  styleUrls: ['./wait.component.visual-fixture.scss']
 })
 export class AppComponent {
+  public isWaiting: boolean;
+  public isFullPage: boolean;
+  public isNonBlocking: boolean;
 }
 
 @NgModule({
