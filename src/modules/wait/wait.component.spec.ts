@@ -1,6 +1,5 @@
 import {
-  TestBed,
-  fakeAsync
+  TestBed
 } from '@angular/core/testing';
 
 import {

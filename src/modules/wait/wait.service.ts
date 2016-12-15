@@ -25,7 +25,28 @@ export class SkyWaitService {
     private waitAdapter: SkyWaitPageAdapterService
     ) {}
 
-  public beginPageWait(isBlocking: boolean) {
+  public beginBlockingPageWait() {
+    this.beginPageWait(true);
+  }
+
+  public beginNonBlockingPageWait() {
+    this.beginPageWait(false);
+  }
+
+  public endBlockingPageWait() {
+    this.endPageWait(true);
+  }
+
+  public endNonBlockingPageWait() {
+    this.endPageWait(false);
+  }
+
+  public clearAllPageWaits() {
+    this.clearPageWait(true);
+    this.clearPageWait(false);
+  }
+
+  private beginPageWait(isBlocking: boolean) {
     if (!SkyWaitService.waitComponent) {
       let factory = this.resolver.resolveComponentFactory(SkyWaitPageComponent);
 
@@ -44,25 +65,29 @@ export class SkyWaitService {
     }
   }
 
-  public endPageWait(isBlocking: boolean) {
-    let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
-    let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
+  private endPageWait(isBlocking: boolean) {
+    if (SkyWaitService.waitComponent) {
+      let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
+      let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
 
-    if (SkyWaitService[countType] > 0) {
-      SkyWaitService[countType]--;
-    }
+      if (SkyWaitService[countType] > 0) {
+        SkyWaitService[countType]--;
+      }
 
-    if (SkyWaitService[countType] < 1) {
-      SkyWaitService.waitComponent[isWaitingType] = false;
+      if (SkyWaitService[countType] < 1) {
+        SkyWaitService.waitComponent[isWaitingType] = false;
+      }
     }
   }
 
-  public clearPageWait(isBlocking: boolean) {
-    let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
-    let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
+  private clearPageWait(isBlocking: boolean) {
+    if (SkyWaitService.waitComponent) {
+      let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
+      let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
 
-    SkyWaitService[countType] = 0;
-    SkyWaitService[isWaitingType] = false;
+      SkyWaitService[countType] = 0;
+      SkyWaitService.waitComponent[isWaitingType] = false;
+    }
   }
 
   public dispose() {
