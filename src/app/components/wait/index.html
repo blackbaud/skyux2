@@ -11,6 +11,54 @@
     >
       When set to true, wait indication appears on the parent element of the <code>sky-wait</code> component.
     </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="isNonBlocking"
+      defaultValue="false"
+      isOptional="true"
+    >
+      When set to true, wait indication appears in the bottom left corner of the element instead of hiding the entire parent element.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="isFullPage"
+      defaultValue="false"
+      isOptional="true"
+    >
+      When set to true, wait indication appears on the page level instead of the parent element level. It is recommended that you use the <code>beginBlockingPageWait</code> or <code>beginNonBlockingPageWait</code> functions of the <code>SkyWaitService</code> instead of setting this on the component level.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Wait service methods">
+    <sky-demo-page-property
+        propertyName="beginBlockingPageWait()"
+    >
+      Starts a blocking page wait on the page.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="endBlockingPageWait()"
+    >
+      Ends a blocking page wait on the page. Blocking page wait indication will be removed when all running blocking page waits are ended.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="beginNonBlockingPageWait()"
+    >
+      Starts a non-blocking page wait on the page.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="endBlockingPageWait()"
+    >
+      Ends a non-blocking page wait on the page. Non-blocking page wait indication will be removed when all running non-blocking page waits are ended.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="clearAllPageWaits()"
+    >
+      Clears all blocking and non-blocking page waits on the page.
+    </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-example>
