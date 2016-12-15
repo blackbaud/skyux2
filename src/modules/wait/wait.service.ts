@@ -55,12 +55,21 @@ export class SkyWaitService {
     if (SkyWaitService[countType] < 1) {
       SkyWaitService.waitComponent[isWaitingType] = false;
     }
+  }
 
+  public clearPageWait(isBlocking: boolean) {
+    let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
+    let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
+
+    SkyWaitService[countType] = 0;
+    SkyWaitService[isWaitingType] = false;
   }
 
   public dispose() {
     if (SkyWaitService.waitComponent) {
       SkyWaitService.waitComponent = undefined;
+      SkyWaitService.pageWaitBlockingCount = 0;
+      SkyWaitService.pageWaitNonBlockingCount = 0;
       this.waitAdapter.removePageWaitEl();
     }
   }
