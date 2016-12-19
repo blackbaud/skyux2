@@ -76,26 +76,35 @@ export class SkyWaitService {
 
   private endPageWait(isBlocking: boolean) {
     if (SkyWaitService.waitComponent) {
-      let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
-      let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
+      if (isBlocking) {
+        if (SkyWaitService.pageWaitBlockingCount > 0) {
+          SkyWaitService.pageWaitBlockingCount--;
+        }
 
-      if (SkyWaitService[countType] > 0) {
-        SkyWaitService[countType]--;
-      }
+        if (SkyWaitService.pageWaitBlockingCount < 1) {
+          SkyWaitService.waitComponent.hasBlockingWait = false;
+        }
+      } else {
+        if (SkyWaitService.pageWaitNonBlockingCount > 0) {
+          SkyWaitService.pageWaitNonBlockingCount--;
+        }
 
-      if (SkyWaitService[countType] < 1) {
-        SkyWaitService.waitComponent[isWaitingType] = false;
+        if (SkyWaitService.pageWaitNonBlockingCount < 1) {
+          SkyWaitService.waitComponent.hasNonBlockingWait = false;
+        }
       }
     }
   }
 
   private clearPageWait(isBlocking: boolean) {
     if (SkyWaitService.waitComponent) {
-      let countType = isBlocking ? 'pageWaitBlockingCount' : 'pageWaitNonBlockingCount';
-      let isWaitingType = isBlocking ? 'hasBlockingWait' : 'hasNonBlockingWait';
-
-      SkyWaitService[countType] = 0;
-      SkyWaitService.waitComponent[isWaitingType] = false;
+      if (isBlocking) {
+        SkyWaitService.pageWaitBlockingCount = 0;
+        SkyWaitService.waitComponent.hasBlockingWait = false;
+      } else {
+        SkyWaitService.pageWaitNonBlockingCount = 0;
+        SkyWaitService.waitComponent.hasNonBlockingWait = false;
+      }
     }
   }
 }

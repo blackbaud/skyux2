@@ -133,6 +133,14 @@ describe('Wait service', () => {
     applicationRef.tick();
 
     verifyNonBlockingPageWaitExists(true);
+
+    waitService.endBlockingPageWait();
+    applicationRef.tick();
+    verifyBlockingPageWaitExists(false);
+
+    waitService.beginBlockingPageWait();
+    applicationRef.tick();
+    verifyBlockingPageWaitExists(true);
   });
 
   it('should clear appropriate waits when clearPageWait is called', () => {
