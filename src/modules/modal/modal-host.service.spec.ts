@@ -62,5 +62,6 @@ describe('Modal host service', () => {
     service.onClose(component);
 
     expect(closeEmitted).toBe(true);
+    service.destroy();
   });
 });
