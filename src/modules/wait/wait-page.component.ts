@@ -5,7 +5,7 @@ import {
 
 @Component({
   selector: 'sky-wait-page',
-  template: require('./wait-page.component.html')
+  templateUrl: './wait-page.component.html'
 })
 export class SkyWaitPageComponent {
 
