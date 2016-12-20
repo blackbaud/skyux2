@@ -13,8 +13,8 @@ import {
 
 @Component({
   selector: 'sky-list-paging',
-  template: require('./list-paging.component.html'),
-  styles: [require('./list-paging.component.scss')],
+  templateUrl: './list-paging.component.html',
+  styleUrls: ['./list-paging.component.scss'],
   providers: [
     /* tslint:disable */
     { provide: ListPagingComponent, useExisting: forwardRef(() => SkyListPagingComponent)}
