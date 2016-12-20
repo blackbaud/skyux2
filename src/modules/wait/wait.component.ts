@@ -10,8 +10,8 @@ import {
 
 @Component({
   selector: 'sky-wait',
-  template: require('./wait.component.html'),
-  styles: [require('./wait.component.scss')],
+  templateUrl: './wait.component.html',
+  styleUrls: ['./wait.component.scss'],
   providers: [SkyWaitAdapterService]
 })
 export class SkyWaitComponent {
