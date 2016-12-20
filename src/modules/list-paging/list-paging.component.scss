@@ -1,0 +1,44 @@
+@import '../../scss/variables';
+
+:host {
+  display: block;
+  margin-top: 15px;
+
+  ul {
+    margin: 0;
+    display: inline-block;
+    padding-left: 0;
+    border-radius: 4px;
+  }
+
+  li {
+    display: inline;
+
+    a {
+      background-color: $sky-color-white;
+      color: inherit;
+      border: 1px solid #ddd;
+      float: left;
+      margin-left: -1px;
+      padding: 4px 10px;
+      text-decoration: none;
+      line-height: 1.42857;
+      font-size: 13px;
+      cursor: pointer;
+
+      &.sky-paging-caret {
+        padding-left: 8.5px;
+        padding-right: 8.5px;
+        transform: none;
+      }
+
+      &.current {
+        background-color: #f4f4f4;
+      }
+
+      &.disabled {
+        color: #999;
+      }
+    }
+  }
+}
