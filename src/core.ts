@@ -15,6 +15,7 @@ import { SkyListPagingModule } from './modules/list-paging';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
 import { SkyPageSummaryModule } from './modules/page-summary';
+import { SkyPagingModule } from './modules/paging';
 import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkyTabsModule } from './modules/tabs';
@@ -36,6 +37,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyModalModule,
     SkyNavbarModule,
     SkyPageSummaryModule,
+    SkyPagingModule,
     SkyRadioModule,
     SkyRepeaterModule,
     SkyTabsModule,
@@ -58,6 +60,7 @@ export * from './modules/list-paging';
 export * from './modules/modal';
 export * from './modules/navbar';
 export * from './modules/page-summary';
+export * from './modules/paging';
 export * from './modules/radio';
 export * from './modules/repeater';
 export * from './modules/tabs';
