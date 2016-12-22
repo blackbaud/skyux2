@@ -17,7 +17,6 @@
         isOptional="true"
     >
       Specifies the page size.
-      Acceptable values: <code>Observable number or number</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="maxPages"
@@ -25,7 +24,28 @@
         isOptional="true"
     >
       Specifies the maximum pages displayed.
-      Acceptable values: <code>Observable number or number</code>.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="itemCount">
+
+      Specifies the total number of items in the pages.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="pagingLabel"
+      defaultValue="Pagination"
+      isOptional="true">
+      Specifies an accessibility label for the pagination control
+    </sky-demo-page-property>
+
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Paging events">
+    <sky-demo-page-property
+        propertyName="currentPageChange"
+    >
+      Fires when the current page is changed. The new current page is emitted.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
