@@ -182,20 +182,49 @@ describe('Paging component', () => {
     });
 
     describe('binding changes', () => {
-      it('should react properly when page size is changed', () => {
-
-      });
-
-      it('should react properly when maxPages is changed', () => {
-
-      });
-
       it('should react properly when currentPage is changed', () => {
+        component.currentPage = 2;
+        fixture.detectChanges();
+
+        expect(element.query(
+          By.css('.sky-list-paging-link[cmp-id="2"] a')
+        ).nativeElement.classList.contains('sky-paging-current')).toBe(true);
+
+        expect(element.query(
+          By.css('.sky-paging-caret[cmp-id="previous"]')
+        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+
+        expect(element.query(
+          By.css('.sky-paging-caret[cmp-id="next"]')
+        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
 
       });
 
       it('should react properly when itemCount is changed', () => {
+        component.itemCount = 3;
+        fixture.detectChanges();
 
+        expect(element.query(
+          By.css('.sky-list-paging-link[cmp-id="3"]')
+        )).toBeNull();
+      });
+
+      it('should react properly when pageSize is changed', () => {
+        component.pageSize = 4;
+        fixture.detectChanges();
+
+        expect(element.query(
+          By.css('.sky-list-paging-link[cmp-id="3"]')
+        )).toBeNull();
+      });
+
+      it('should react properly when maxPages is changed', () => {
+        component.maxPages = 4;
+        fixture.detectChanges();
+
+        expect(element.query(
+          By.css('.sky-list-paging-link[cmp-id="4"]')
+        )).not.toBeNull();
       });
     });
 
