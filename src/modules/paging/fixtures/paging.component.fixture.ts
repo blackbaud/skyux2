@@ -5,7 +5,7 @@ import { SkyPagingComponent } from '../paging.component';
   selector: 'sky-test-cmp',
   template: require('./paging.component.fixture.html')
 })
-export class ListPagingTestComponent {
+export class PagingTestComponent {
   @ViewChild(SkyPagingComponent) public pagingComponent: SkyPagingComponent;
 
   public pageSize: number = 2;
