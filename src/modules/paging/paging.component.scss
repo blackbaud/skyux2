@@ -1,8 +1,8 @@
-@import '../../scss/variables';
+@import '../../scss/mixins';
 
 :host {
   display: block;
-  margin-top: 15px;
+  margin-top: $sky-margin-plus-half;
 
   ul {
     margin: 0;
@@ -15,9 +15,9 @@
     display: inline;
 
     a {
-      background-color: $sky-color-white;
+      background-color: $sky-paging-background-color;
       color: inherit;
-      border: 1px solid #ddd;
+      border: 1px solid $sky-paging-border-color;
       float: left;
       margin-left: -1px;
       padding: 4px 10px;
@@ -33,11 +33,11 @@
       }
 
       &.sky-paging-current {
-        background-color: #f4f4f4;
+        background-color: $sky-paging-current-color;
       }
 
       &.sky-paging-disabled {
-        color: #999;
+        color: $sky-paging-disabled-color;
       }
     }
   }
