@@ -1,11 +1,37 @@
-<ul role="navigation" *ngIf="pageCount > 1" [attr.aria-label]="pagingLabel">
+<ul
+  role="navigation"
+  *ngIf="pageCount > 1"
+  [attr.aria-label]="pagingLabel || 'paging_label' | skyResources"
+  >
   <li>
-    <a href (click)="previousPage(); false" class="fa fa-caret-left sky-paging-caret" cmp-id="previous" [ngClass]="{ 'sky-paging-disabled': currentPage === 1 }"></a>
+    <a
+      href
+      (click)="previousPage(); false"
+      class="fa fa-caret-left sky-paging-caret"
+      cmp-id="previous"
+      [ngClass]="{ 'sky-paging-disabled': currentPage === 1 }"
+      [attr.aria-label]="'paging_previous' | skyResources"></a>
   </li>
-  <li *ngFor="let pageNumber of displayedPages" [attr.cmp-id]="pageNumber" class="sky-list-paging-link">
-    <a href (click)="setPage(pageNumber); false" [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }">{{pageNumber}}</a>
+  <li
+    *ngFor="let pageNumber of displayedPages"
+    [attr.cmp-id]="pageNumber"
+    class="sky-list-paging-link">
+    <a
+      href
+      (click)="setPage(pageNumber); false"
+      [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }"
+      >{{pageNumber}}
+    </a>
   </li>
   <li>
-    <a href (click)="nextPage(); false" class="fa fa-caret-right sky-paging-caret" cmp-id="next" [ngClass]="{ 'sky-paging-disabled': pageCount === currentPage }"></a>
+    <a
+      href
+      (click)="nextPage(); false"
+      class="fa fa-caret-right sky-paging-caret"
+      cmp-id="next"
+      [ngClass]="{ 'sky-paging-disabled': pageCount === currentPage }"
+      [attr.aria-label]="'paging_next' | skyResources"
+      >
+    </a>
   </li>
 </ul>

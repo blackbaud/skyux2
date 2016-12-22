@@ -12,6 +12,7 @@ export class PagingTestComponent {
   public maxPages: number = 3;
   public currentPage: number = 1;
   public itemCount: number = 8;
+  public label: string;
   public currentPageChanged(currentPage: number) {
     this.currentPage = currentPage;
   }

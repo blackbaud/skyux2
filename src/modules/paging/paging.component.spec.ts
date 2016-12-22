@@ -229,14 +229,42 @@ describe('Paging component', () => {
     });
 
     describe('accessibility', () => {
-      it('should have a nav role on the parent element with a configurable aria-label', () => {
+      it('should have a nav role on the parent element with a given aria-label', () => {
+        component.label = 'My label';
+        fixture.detectChanges();
 
+        let navElement = element.query(
+          By.css('ul')
+        ).nativeElement;
+
+        expect(navElement.getAttribute('role')).toBe('navigation');
+
+        expect(navElement.getAttribute('aria-label')).toBe('My label');
       });
 
-      it('should have aria-label on each of the pagination numbers and next and previous buttons',
-      () => {
+      it('should have a nav role on the parent element with a default aria-label', () => {
 
-      })
+        let navElement = element.query(
+          By.css('ul')
+        ).nativeElement;
+
+        expect(navElement.getAttribute('aria-label')).toBe('Pagination');
+      });
+
+      it('should have aria-label on each of the next and previous buttons',
+      () => {
+        let prevElement = element.query(
+          By.css('.sky-paging-caret[cmp-id="previous"]')
+        ).nativeElement;
+
+        expect(prevElement.getAttribute('aria-label')).toBe('Previous');
+
+        let nextElement = element.query(
+          By.css('.sky-paging-caret[cmp-id="next"]')
+        ).nativeElement;
+
+        expect(nextElement.getAttribute('aria-label')).toBe('Next');
+      });
     });
   });
 });

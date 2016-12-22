@@ -27,6 +27,9 @@ export class SkyPagingComponent implements OnChanges {
   @Input()
   public itemCount: number = 0;
 
+  @Input()
+  public pagingLabel: string;
+
   @Output()
   public currentPageChange: EventEmitter<number> = new EventEmitter<number>();
 
