@@ -56,6 +56,7 @@ export * from './modules/fileattachments';
 export * from './modules/format';
 export * from './modules/key-info';
 export * from './modules/label';
+export * from './modules/list/state';
 export * from './modules/list-paging';
 export * from './modules/modal';
 export * from './modules/navbar';
