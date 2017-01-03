@@ -1,3 +1,7 @@
+# 2.0.0-beta.0 (2017-01-03)
+
+- Adjusted npm package name to `@blackbaud/skyux`.  Please note this will require you to update your references.
+
 # 2.0.0-alpha.14 (2016-12-19)
 
 - Added wizard functionality to tabs module. (#165)

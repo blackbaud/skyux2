@@ -2,9 +2,9 @@
 
 An alpha version of SKY UX 2 built on Angular 2 is now available.  It can be installed via NPM (we recommend NPM version 3 for its flat dependency structure):
 
-`npm install blackbaud-skyux2`
+`npm install @blackbaud/skyux`
 
-Alpha component documentation for SKY UX 2 can be found at https://developer.blackbaud.com/skyux2/. 
+Our component documentation currently exists at [https://developer.blackbaud.com/skyux2](https://developer.blackbaud.com/skyux2).
 
 ## Contributing
 
