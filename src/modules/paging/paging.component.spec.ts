@@ -157,7 +157,7 @@ describe('Paging component', () => {
         it('should have disabled previous button', () => {
            expect(element.query(
             By.css('.sky-paging-caret[cmp-id="previous"]')
-          ).nativeElement.classList.contains('sky-pages-disabled')).toBe(true);
+          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
         });
 
         it('should have enabled next button', () => {
