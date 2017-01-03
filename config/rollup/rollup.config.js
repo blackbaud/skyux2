@@ -1,4 +1,5 @@
 import nodeResolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 
 export default {
   entry: '../../dist/core.js',
@@ -26,6 +27,7 @@ export default {
     'ng2-dragula/ng2-dragula'
   ],
   plugins: [
-    nodeResolve()
+    nodeResolve(),
+    commonjs()
   ]
 };

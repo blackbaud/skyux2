@@ -54,7 +54,7 @@
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.26",
     "microedge-rxstate": "1.0.3",
-    "moment": "2.16.0"
+    "moment": "2.17.1"
   },
   "devDependencies": {
     "@angular/compiler-cli": "2.1.2",
@@ -101,6 +101,7 @@
     "rollup": "0.35.9",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-uglify": "1.0.1",
+    "rollup-plugin-commonjs": "7.0.0",
     "sass-loader": "4.0.2",
     "selenium-standalone": "5.8.0",
     "source-map-inline-loader": "blackbaud-bobbyearl/source-map-inline-loader",
