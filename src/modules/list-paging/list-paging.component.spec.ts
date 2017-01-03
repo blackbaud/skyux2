@@ -3,18 +3,15 @@ import {
   async
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
+
 import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-import { ListItemModel } from '../list/state/items/item.model';
-import { ListItemsLoadAction } from '../list/state/items/actions';
 import { SkyListPagingModule } from './';
 import {
   ListPagingTestComponent
 } from './fixtures/list-paging.component.fixture';
-import { ListPagingSetPageNumberAction } from '../list/state/paging/actions';
 
 describe('List Paging Component', () => {
   let state: ListState,
@@ -53,7 +50,6 @@ describe('List Paging Component', () => {
   }));
 
   describe('Only test state changes and expected result here', () => {
-
 
   });
 });

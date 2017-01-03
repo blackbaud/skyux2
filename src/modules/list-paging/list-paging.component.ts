@@ -13,9 +13,7 @@ import { ListState, ListStateDispatcher } from '../list/state';
 import {
   ListPagingSetMaxPagesAction,
   ListPagingSetItemsPerPageAction,
-  ListPagingSetPageCountAction,
-  ListPagingSetPageNumberAction,
-  ListPagingSetDisplayedPagesAction
+  ListPagingSetPageNumberAction
 } from '../list/state/paging/actions';
 
 @Component({
@@ -44,11 +42,11 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
   public ngOnInit() {
 
       // subscribe to or use inputs
-      getValue(this.pageSize, (pageSize: number) => {
+      getValue(this.pageSize, (pageSize: number) =>
         this.dispatcher.next(
           new ListPagingSetItemsPerPageAction(Number(pageSize))
         )
-      });
+      );
       getValue(this.maxPages, (maxPages: number) =>
         this.dispatcher.next(
           new ListPagingSetMaxPagesAction(Number(maxPages))
