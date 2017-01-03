@@ -9,6 +9,10 @@ import {
   expect
 } from '../testing';
 
+import {
+  ApplicationRef
+} from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyModalInstance } from './modal-instance';
@@ -22,6 +26,7 @@ import { ModalWithValuesTestComponent } from './fixtures/modal-with-values.compo
 
 describe('Modal service', () => {
   let modalService: SkyModalService;
+  let applicationRef: ApplicationRef;
 
   function openModal(modalType: any, providers?: any[]) {
     let modalInstance = modalService.open(modalType, providers);
@@ -33,6 +38,8 @@ describe('Modal service', () => {
 
   function closeModal(modalInstance: SkyModalInstance) {
     modalInstance.close();
+    tick();
+    applicationRef.tick();
   }
 
   beforeEach(() => {
@@ -48,25 +55,32 @@ describe('Modal service', () => {
   beforeEach(
     inject(
       [
-        SkyModalService
+        SkyModalService,
+        ApplicationRef
       ],
       (
-        _modalService: SkyModalService
+        _modalService: SkyModalService,
+        _applicationRef: ApplicationRef
       ) => {
         modalService = _modalService;
         modalService.dispose();
+        applicationRef = _applicationRef;
       }
     )
   );
 
   it('should show a modal and return an instance that can then be closed', fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent);
+    applicationRef.tick();
 
     expect(document.body.querySelector('.sky-modal')).toExist();
-
+    expect(document.body).toHaveCssClass('sky-modal-body-open');
     closeModal(modalInstance);
+    tick();
+    applicationRef.tick();
 
     expect(document.body.querySelector('.sky-modal')).not.toExist();
+    expect(document.body).not.toHaveCssClass('sky-modal-body-open');
   }));
 
   it('should reuse the same modal host container for all modals', fakeAsync(() => {

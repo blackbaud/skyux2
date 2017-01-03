@@ -2,6 +2,7 @@ import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
   inject,
+  tick,
   TestBed
 } from '@angular/core/testing';
 
@@ -23,13 +24,14 @@ describe('Modal component', () => {
     let modalInstance = modalService.open(modalType, providers);
 
     applicationRef.tick();
+    tick();
 
     return modalInstance;
   }
 
   function closeModal(modalInstance: SkyModalInstance) {
     modalInstance.close();
-
+    tick();
     applicationRef.tick();
   }
 

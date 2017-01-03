@@ -352,6 +352,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Wait',
+        icon: 'spinner',
+        // tslint:disable-next-line
+        summary: `The wait directive and service show wait indication on elements.`,
+        url: '/components/wait',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'wait-demo.component.html',
+              fileContents: require('!!raw!./wait/wait-demo.component.html')
+            },
+            {
+              name: 'wait-demo.component.ts',
+              fileContents: require('!!raw!./wait/wait-demo.component.ts'),
+              componentName: 'SkyWaitDemoComponent',
+              bootstrapSelector: 'sky-wait-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Wizard',
         icon: 'magic',
         // tslint:disable-next-line
