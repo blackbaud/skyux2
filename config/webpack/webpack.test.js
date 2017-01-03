@@ -14,6 +14,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
     modules: [helpers.root('src'), 'node_modules'],
+    alias: {
+      moment: 'moment/src/moment.js'
+    }
   },
 
   module: {
@@ -36,6 +39,13 @@ module.exports = {
       },
 
       {
+        include: [
+          helpers.root('node_modules/moment')
+        ],
+        loader: 'babel-loader'
+      },
+
+      {
         test: /\.ts$/,
         loaders: [
           'awesome-typescript-loader',
@@ -43,6 +53,7 @@ module.exports = {
         ],
         exclude: [/\.e2e\.ts$/]
       },
+
       {
         test: /\.json$/,
         loader: 'json-loader',
@@ -105,7 +116,9 @@ module.exports = {
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       helpers.root('src') // location of your src
-    )
+  ),
+
+    new ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
   ],
 
   node: {

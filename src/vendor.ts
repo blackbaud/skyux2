@@ -16,6 +16,9 @@ import 'rxjs/add/operator/mergeMap';
 // Dragula
 import 'ng2-dragula/ng2-dragula';
 
+// moment
+import 'moment/src/moment';
+
 // if ('production' === ENV) {
   // Production
 // } else {

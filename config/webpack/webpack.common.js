@@ -23,7 +23,10 @@ module.exports = {
 
     extensions: ['.ts', '.js'],
 
-    modules: [helpers.root('src'), 'node_modules']
+    modules: [helpers.root('src'), 'node_modules'],
+    alias: {
+      moment: 'moment/src/moment.js'
+    }
 
   },
 
@@ -48,6 +51,13 @@ module.exports = {
           'angular2-template-loader'
         ],
         exclude: [/\.(spec|e2e)\.ts$/]
+      },
+
+       {
+        include: [
+          helpers.root('node_modules/moment')
+        ],
+        loader: 'babel-loader'
       },
 
       {
@@ -111,7 +121,9 @@ module.exports = {
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       helpers.root('src') // location of your src
-    )
+    ),
+
+    new ContextReplacementPlugin(/\.\/locale$/, null, false, /js$/)
 
   ],
 
