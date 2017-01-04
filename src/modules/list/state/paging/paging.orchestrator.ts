@@ -3,9 +3,7 @@ import { ListPagingModel } from './paging.model';
 import {
   ListPagingSetMaxPagesAction,
   ListPagingSetItemsPerPageAction,
-  ListPagingSetPageCountAction,
-  ListPagingSetPageNumberAction,
-  ListPagingSetDisplayedPagesAction
+  ListPagingSetPageNumberAction
 } from './actions';
 
 export class ListPagingOrchestrator extends ListStateOrchestrator<ListPagingModel> {
@@ -15,9 +13,7 @@ export class ListPagingOrchestrator extends ListStateOrchestrator<ListPagingMode
     this
       .register(ListPagingSetMaxPagesAction, this.setMaxPages)
       .register(ListPagingSetItemsPerPageAction, this.setItemsPerPage)
-      .register(ListPagingSetPageCountAction, this.setPageCount)
-      .register(ListPagingSetPageNumberAction, this.setPageNumber)
-      .register(ListPagingSetDisplayedPagesAction, this.setDisplayedPages);
+      .register(ListPagingSetPageNumberAction, this.setPageNumber);
   }
 
   private setMaxPages(
@@ -36,27 +32,11 @@ export class ListPagingOrchestrator extends ListStateOrchestrator<ListPagingMode
     );
   }
 
-  private setPageCount(
-    state: ListPagingModel,
-    action: ListPagingSetPageCountAction): ListPagingModel {
-    return new ListPagingModel(
-      Object.assign({}, state, { pageCount: Number(action.pageCount) })
-    );
-  }
-
   private setPageNumber(
     state: ListPagingModel,
     action: ListPagingSetPageNumberAction): ListPagingModel {
     return new ListPagingModel(
       Object.assign({}, state, { pageNumber: Number(action.pageNumber) })
-    );
-  }
-
-  private setDisplayedPages(
-    state: ListPagingModel,
-    action: ListPagingSetDisplayedPagesAction): ListPagingModel {
-    return new ListPagingModel(
-      Object.assign({}, state, { displayedPages: action.displayedPages.map(n => Number(n)) })
     );
   }
 }

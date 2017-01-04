@@ -5,13 +5,9 @@ import {
 import {
   ListPagingSetMaxPagesAction,
   ListPagingSetItemsPerPageAction,
-  ListPagingSetPageCountAction,
   ListPagingSetPageNumberAction,
-  ListPagingSetDisplayedPagesAction
 } from './paging/actions';
 
 export type ListStateAction =
   ListItemsSetLoadingAction | ListItemsLoadAction |
-  ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction |
-  ListPagingSetPageCountAction | ListPagingSetPageNumberAction |
-  ListPagingSetDisplayedPagesAction;
+  ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction;
