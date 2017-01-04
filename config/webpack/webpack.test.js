@@ -13,14 +13,12 @@ module.exports = {
 
   resolve: {
     extensions: ['.ts', '.js'],
-    modules: [helpers.root('src'), 'node_modules'],
-    alias: {
-      moment: 'moment/src/moment.js'
-    }
+    modules: [helpers.root('src'), 'node_modules']
   },
 
   module: {
     rules: [
+
       {
         enforce: 'pre',
         test: /\.ts$/,
@@ -36,13 +34,6 @@ module.exports = {
           helpers.root('node_modules/rxjs'),
           helpers.root('node_modules/@angular/compiler')
         ]
-      },
-
-      {
-        include: [
-          helpers.root('node_modules/moment')
-        ],
-        loader: 'babel-loader'
       },
 
       {
@@ -116,9 +107,7 @@ module.exports = {
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       helpers.root('src') // location of your src
-  ),
-
-    new ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
+    ),
   ],
 
   node: {

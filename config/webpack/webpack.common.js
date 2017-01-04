@@ -23,10 +23,7 @@ module.exports = {
 
     extensions: ['.ts', '.js'],
 
-    modules: [helpers.root('src'), 'node_modules'],
-    alias: {
-      moment: 'moment/src/moment.js'
-    }
+    modules: [helpers.root('src'), 'node_modules']
 
   },
 
@@ -51,13 +48,6 @@ module.exports = {
           'angular2-template-loader'
         ],
         exclude: [/\.(spec|e2e)\.ts$/]
-      },
-
-       {
-        include: [
-          helpers.root('node_modules/moment')
-        ],
-        loader: 'babel-loader'
       },
 
       {
@@ -123,7 +113,7 @@ module.exports = {
       helpers.root('src') // location of your src
     ),
 
-    new ContextReplacementPlugin(/\.\/locale$/, null, false, /js$/)
+    new ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
 
   ],
 
