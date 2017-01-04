@@ -84,7 +84,8 @@ export class SkyPagingComponent implements OnChanges {
     } else {
       if (upperBound > pageCount - 1) {
         upperBound = pageCount - 1;
-
+        /* istanbul ignore else */
+        /* sanity check */
         if (upperBound - lowerBound < maxDisplayedPages) {
           lowerBound = upperBound - maxDisplayedPages + 1;
         }

@@ -19,6 +19,9 @@ import 'ng2-dragula/ng2-dragula';
 // moment
 import 'moment/src/moment';
 
+// microedge rxstate
+import 'microedge-rxstate';
+
 // if ('production' === ENV) {
   // Production
 // } else {
