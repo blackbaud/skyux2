@@ -5,7 +5,7 @@ import {
 import {
   ListPagingSetMaxPagesAction,
   ListPagingSetItemsPerPageAction,
-  ListPagingSetPageNumberAction,
+  ListPagingSetPageNumberAction
 } from './paging/actions';
 
 export type ListStateAction =
