@@ -291,6 +291,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Search',
+        icon: 'search',
+        // tslint:disable-next-line
+        summary: `The search component creates a mobile-responsive input control for users to enter search criteria.`,
+        url: '/components/search',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'search-demo.component.html',
+              fileContents: require('!!raw!./search/search-demo.component.html')
+            },
+            {
+              name: 'search-demo.component.ts',
+              fileContents: require('!!raw!./search/search-demo.component.ts'),
+              componentName: 'SkySearchDemoComponent',
+              bootstrapSelector: 'sky-search-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,
