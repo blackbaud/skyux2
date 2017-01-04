@@ -14,7 +14,7 @@ if [[ "$TRAVIS_PULL_REQUEST" == "false" && ! $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]
 
   git add webdriver-screenshots/
 
-  if [ -z "$(git status --porcelain)" ]; then
+  if [ -z "$(git ls-files --others --exclude-standard)" ]; then
     echo -e "No changes to commit to skyux2."
   else
     git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to skyux2 [ci skip]"
