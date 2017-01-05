@@ -1,6 +1,8 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import { SkyTabsetComponent } from './tabset.component';
@@ -79,6 +81,21 @@ describe('Tabset component', () => {
       fixture.detectChanges();
 
       validateTabSelected(el, 1);
+    });
+
+    it('should not change the active tab when a disabled tab is clicked', () => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+      let el = fixture.nativeElement;
+
+      fixture.componentInstance.tab2Disabled = true;
+
+      fixture.detectChanges();
+
+      el.querySelectorAll('.sky-btn-tab')[1].click();
+
+      fixture.detectChanges();
+
+      validateTabSelected(el, 0);
     });
 
     it('should initialize the tabs properly when active is set to true', () => {
@@ -257,6 +274,25 @@ describe('Tabset component', () => {
       expect(tabEl).toBeNull();
     }
   );
+
+  it(
+  'should collapse into a dropdown  on initialization',
+    fakeAsync(() => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+
+      fixture.componentInstance.tabMaxWidth = 20;
+
+      let el = fixture.nativeElement;
+
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      let tabEl = el.querySelector('.sky-dropdown-button-type-tab');
+
+      expect(tabEl).not.toBeNull();
+    }
+  ));
 
   describe('when collapsed', () => {
     let fixture: ComponentFixture<TabsetTestComponent>;

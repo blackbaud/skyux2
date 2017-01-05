@@ -112,6 +112,11 @@ $sky-avatar-width: $sky-avatar-height !default;
 $sky-avatar-border-width: 2px !default;
 // end avatar
 
+// begin wait
+$sky-wait-color: $sky-color-blue !default;
+$sky-wait-mask-color: $sky-color-white !default;
+// end wait
+
 // Support for mozilla in experimental css3 properties (-moz).
 $sky-experimental-support-for-mozilla      : true !default;
 // Support for webkit in experimental css3 properties (-webkit).

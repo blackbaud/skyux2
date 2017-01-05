@@ -18,11 +18,37 @@ export class SkyModalService {
     private injector: Injector,
     private appRef: ApplicationRef,
     private adapter: SkyModalAdapterService
-  ) { }
+  ) {
+    this.createHostComponent();
+   }
 
   public open(component: any, providers?: any[]): SkyModalInstance {
     let modalInstance = new SkyModalInstance();
 
+    this.createHostComponent();
+
+    providers = providers || [];
+
+    providers.push({
+      provide: SkyModalInstance,
+      useValue: modalInstance
+    });
+
+    SkyModalService.hostComponent.open(modalInstance, component, providers);
+
+    return modalInstance;
+  }
+
+  public dispose() {
+    /* istanbul ignore else */
+    /* sanity check */
+    if (SkyModalService.hostComponent) {
+      SkyModalService.hostComponent = undefined;
+      this.adapter.removeHostEl();
+    }
+  }
+
+  private createHostComponent() {
     if (!SkyModalService.hostComponent) {
       let factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
 
@@ -31,17 +57,6 @@ export class SkyModalService {
       let cmpRef = this.appRef.bootstrap(factory);
 
       SkyModalService.hostComponent = cmpRef.instance;
-    }
-
-    SkyModalService.hostComponent.open(modalInstance, component, providers);
-
-    return modalInstance;
-  }
-
-  public dispose() {
-    if (SkyModalService.hostComponent) {
-      SkyModalService.hostComponent = undefined;
-      this.adapter.removeHostEl();
     }
   }
 }

@@ -350,6 +350,56 @@ export class SkyDemoComponentsService {
             }
           ];
         }
+      },
+      {
+        name: 'Wait',
+        icon: 'spinner',
+        // tslint:disable-next-line
+        summary: `The wait directive and service show wait indication on elements.`,
+        url: '/components/wait',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'wait-demo.component.html',
+              fileContents: require('!!raw!./wait/wait-demo.component.html')
+            },
+            {
+              name: 'wait-demo.component.ts',
+              fileContents: require('!!raw!./wait/wait-demo.component.ts'),
+              componentName: 'SkyWaitDemoComponent',
+              bootstrapSelector: 'sky-wait-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Wizard',
+        icon: 'magic',
+        // tslint:disable-next-line
+        summary: `The wizard adjusts a modal form to guide users through a set of pre-defined steps in a particular order.`,
+        url: '/components/wizard',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'wizard-demo.component.html',
+              fileContents: require('!!raw!./wizard/wizard-demo.component.html')
+            },
+            {
+              name: 'wizard-demo.component.ts',
+              fileContents: require('!!raw!./wizard/wizard-demo.component.ts'),
+              componentName: 'SkyWizardDemoComponent',
+              bootstrapSelector: 'sky-wizard-demo'
+            },
+            {
+              name: 'wizard-demo-form.component.html',
+              fileContents: require('!!raw!./wizard/wizard-demo-form.component.html')
+            },
+            {
+              name: 'wizard-demo-form.component.ts',
+              fileContents: require('!!raw!./wizard/wizard-demo-form.component.ts')
+            }
+          ];
+        }
       }
     ];
   }

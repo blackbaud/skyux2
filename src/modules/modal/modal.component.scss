@@ -3,7 +3,7 @@
 .sky-modal {
   border: solid 1px $sky-color-gray-lightest;
   @include sky-shadow();
-  position: absolute;
+  position: fixed;
   max-width: 600px;
   left: 0;
   right: 0;

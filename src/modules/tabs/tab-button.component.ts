@@ -15,16 +15,28 @@ export class SkyTabButtonComponent {
   public tabHeading: string;
 
   @Input()
+  public tabStyle: string;
+
+  @Input()
   public active: boolean;
 
   @Input()
   public allowClose: boolean;
+
+  @Input()
+  public disabled: boolean;
 
   @Output()
   public tabClick = new EventEmitter<any>();
 
   @Output()
   public closeClick = new EventEmitter<any>();
+
+  public doTabClick() {
+    if (!this.disabled) {
+      this.tabClick.emit(undefined);
+    }
+  }
 
   public doCloseClick() {
     this.closeClick.emit(undefined);

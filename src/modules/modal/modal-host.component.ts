@@ -42,8 +42,11 @@ export class SkyModalHostComponent {
   public open(modalInstance: SkyModalInstance, component: any, providers?: any[]) {
     let factory = this.resolver.resolveComponentFactory(component);
     let hostService = new SkyModalHostService();
+    let adapter = this.adapter;
 
-    providers = providers || [];
+    adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+
+    providers = providers /* istanbul ignore next */ || [];
 
     providers.push({
       provide: SkyModalHostService,
@@ -60,6 +63,7 @@ export class SkyModalHostComponent {
 
     function closeModal() {
       hostService.destroy();
+      adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
       modalComponentRef.destroy();
     }
 

@@ -31,7 +31,7 @@
 
 .sky-btn-primary {
   @include button-variant(#fff, $sky-color-blue, $sky-color-blue);
-  }
+}
 
 .sky-btn-tab {
   @include sky-btn-tab();
@@ -56,5 +56,25 @@
 
   .sky-btn-tab-close {
     color: #fff;
+  }
+}
+
+.sky-btn-tab-wizard {
+  background-color: $sky-color-gray-lightest;
+  border-radius: 4px;
+  color: $sky-color-blue;
+  line-height: 1.6em;
+  margin-right: $sky-margin-half;
+  padding-bottom: $sky-padding-half;
+  padding-top: $sky-padding-half;
+
+  &.sky-btn-tab-selected {
+    background-color: $sky-color-green;
+    color: #fff;
+  }
+
+  &.sky-btn-tab-disabled {
+    color: $sky-color-gray;
+    cursor: not-allowed;
   }
 }
