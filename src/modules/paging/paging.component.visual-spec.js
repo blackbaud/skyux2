@@ -13,7 +13,7 @@ describe('paging component', function () {
   it('should display middle page selected', function () {
     return browser
       .setupTest('/paging.html')
-      .click('a[cmp-id="next"]')
+      .click('a[sky-cmp-id="next"]')
       .compareScreenshot({
         screenshotName: 'paging-middle',
         selector: '#screenshot-paging'
@@ -23,8 +23,8 @@ describe('paging component', function () {
   it('should display middle next page selected', function () {
     return browser
       .setupTest('/paging.html')
-      .click('a[cmp-id="next"]')
-      .click('a[cmp-id="next"]')
+      .click('a[sky-cmp-id="next"]')
+      .click('a[sky-cmp-id="next"]')
       .compareScreenshot({
         screenshotName: 'paging-middle-next',
         selector: '#screenshot-paging'
@@ -34,9 +34,9 @@ describe('paging component', function () {
   it('should display last page selected', function () {
     return browser
       .setupTest('/paging.html')
-      .click('a[cmp-id="next"]')
-      .click('a[cmp-id="next"]')
-      .click('a[cmp-id="next"]')
+      .click('a[sky-cmp-id="next"]')
+      .click('a[sky-cmp-id="next"]')
+      .click('a[sky-cmp-id="next"]')
       .compareScreenshot({
         screenshotName: 'paging-last',
         selector: '#screenshot-paging'
