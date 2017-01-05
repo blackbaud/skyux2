@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
+import { SKY_MEDIA_QUERY_PROVIDERS } from './modules/media-queries';
 import { SkyAlertModule } from './modules/alert';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyCardModule } from './modules/card';
@@ -62,5 +63,5 @@ export * from './modules/tiles';
 export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
-  ...SKY_MODAL_PROVIDERS, SKY_WAIT_PROVIDERS
+  ...SKY_MODAL_PROVIDERS, SKY_WAIT_PROVIDERS, SKY_MEDIA_QUERY_PROVIDERS
 ];

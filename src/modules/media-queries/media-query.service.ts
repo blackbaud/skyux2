@@ -1,40 +1,113 @@
 import { Injectable } from '@angular/core';
 import { SkyMediaQueryListener } from './media-query-listener';
+import { SkyMediaBreakpoints } from './media-breakpoints';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class SkyMediaQueryService {
   public static xs = '(max-width: 767px)';
-  public static sm = '(max-width: 991px)';
+  public static sm = '(min-width: 768px) and (max-width: 991px)';
+  public static md = '(min-width: 992px) and (max-width: 1199px)';
+  public static lg = '(min-width: 1200px)';
 
-  public get matches(): boolean {
-    return this.mql.matches;
-  }
+  public current: SkyMediaBreakpoints;
 
-  private mql: MediaQueryList;
+  private xsMql: MediaQueryList;
+  private smMql: MediaQueryList;
+  private mdMql: MediaQueryList;
+  private lgMql: MediaQueryList;
 
-  private matchMediaListener: MediaQueryListListener;
+  private xsListener: MediaQueryListListener;
+  private smListener: MediaQueryListListener;
+  private mdListener: MediaQueryListListener;
+  private lgListener: MediaQueryListListener;
 
-  private listener: SkyMediaQueryListener;
+  private currentSubject: Subject<SkyMediaBreakpoints> = new Subject<SkyMediaBreakpoints>();
+
 
   constructor() {
-    this.matchMediaListener = (mql: MediaQueryList) => {
-      if (this.listener) {
-        this.listener({
-          matches: mql.matches
+    this.xsListener = (mql: MediaQueryList) => {
+      this.setupListener(mql, {
+          xs: true,
+          sm: false,
+          md: false,
+          lg: false
         });
-      }
-    };
+    }
+
+    this.smListener = (mql: MediaQueryList) => {
+      this.setupListener(mql, {
+          xs: false,
+          sm: true,
+          md: false,
+          lg: false
+        });
+    }
+
+    this.mdListener = (mql: MediaQueryList) => {
+      this.setupListener(mql, {
+          xs: false,
+          sm: false,
+          md: true,
+          lg: false
+        });
+    }
+
+    this.lgListener = (mql: MediaQueryList) => {
+      this.setupListener(mql, {
+          xs: false,
+          sm: false,
+          md: false,
+          lg: true
+        });
+    }
+
+    this.xsMql = matchMedia(SkyMediaQueryService.xs);
+    this.xsMql.addListener(this.xsListener);
+
+    this.smMql = matchMedia(SkyMediaQueryService.sm);
+    this.smMql.addListener(this.mdListener);
+
+    this.mdMql = matchMedia(SkyMediaQueryService.md);
+    this.mdMql.addListener(this.mdListener);
+
+    this.lgMql = matchMedia(SkyMediaQueryService.lg);
+    this.lgMql.addListener(this.lgListener);
   }
 
-  public init(query: string, listener: SkyMediaQueryListener) {
-    this.listener = listener;
-    this.mql = matchMedia(query);
-    this.mql.addListener(this.matchMediaListener);
+  public subscribe(listener: SkyMediaQueryListener) : Subscription {
+    return this.currentSubject.subscribe(
+      {
+        next: (breakpoints: SkyMediaBreakpoints) => {
+          listener(breakpoints);
+        }
+      }
+    )
   }
 
   public destroy() {
-    this.mql.removeListener(this.matchMediaListener);
-    this.mql = undefined;
-    this.matchMediaListener = undefined;
+    this.xsMql.removeListener(this.xsListener);
+    this.xsMql = undefined;
+    this.xsListener = undefined;
+
+    this.smMql.removeListener(this.smListener);
+    this.smMql = undefined;
+    this.smListener = undefined;
+
+    this.mdMql.removeListener(this.mdListener);
+    this.mdMql = undefined;
+    this.mdListener = undefined;
+
+    this.lgMql.removeListener(this.lgListener);
+    this.lgMql = undefined;
+    this.lgListener = undefined;
+  }
+
+  private setupListener(mql: MediaQueryList, breakpoints: SkyMediaBreakpoints) {
+    if (mql.matches) {
+      this.current = breakpoints;
+      this.currentSubject.next(breakpoints);
+    }
   }
 }
