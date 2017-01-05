@@ -4,40 +4,42 @@
 
     <button
         type="button"
+        [hidden]="true"
         class="sky-btn sky-btn-secondary sky-search-btn-open"
-        [attr.title]="{{'search_open' | skyResources}}"
+        [attr.title]="'search_open' | skyResources"
         (click)="toggleSearchInput(true)">
         <i class="fa fa-search fa-lg"></i>
     </button>
   </div>
   <div class="sky-search-dismiss-container">
-    <div class="bb-search-item-input">
+    <div class="sky-search-item-input">
       <div class="sky-search-input-container sky-input-group">
         <input
           type="text"
           class="sky-form-control sky-search-input"
-          [ngModel]="searchText"
+          [(ngModel)]="searchText"
           (change)="searchTextChanged(searchText)"
           (keyup)="$event.keyCode == 13 && applySearchText(searchText)"
           (focus)="inputFocused(true)"
-          (blur)="$ctrl.inputFocused(false)"
+          (blur)="inputFocused(false)"
           [attr.aria-label]="'search_label' | skyResources"
           [attr.placeholder]="placeholderText" />
         <span class="sky-input-group-btn">
           <button
-              tabindex="-1"
-              aria-hidden="true"
-              type="button"
-              class="sky-btn sky-search-btn-input-group sky-search-btn-clear"
-              (click)="clearSearchText()">
-              <i class="fa fa-times"></i>
+            tabindex="-1"
+            aria-hidden="true"
+            type="button"
+            class="sky-btn sky-btn-default sky-search-btn-clear"
+            (click)="clearSearchText()">
+            <i class="fa fa-times"></i>
           </button>
-
+        </span>
+        <span class="sky-input-group-btn">
           <button
             type="button"
-            class="sky-btn sky-search-btn-input-group sky-search-btn-apply"
+            class="sky-btn sky-btn-default sky-search-btn-apply"
             (click)="applySearchText(searchText)"
-            [attr.aria-label]="'search_label' | bbResources" >
+            [attr.aria-label]="'search_label' | skyResources" >
             <i class="fa fa-search fa-lg"></i>
           </button>
         </span>
@@ -46,8 +48,9 @@
     <div
       class="sky-search-item-dismiss">
       <button
+        [hidden]="true"
         type="button"
-        [attr.title]="'search_dismiss' | bbResources"
+        [attr.title]="'search_dismiss' | skyResources"
         class="sky-btn sky-btn-secondary sky-search-btn-dismiss"
         (click)="dismissSearchInput()">
         <i class="fa fa-chevron-circle-left fa-lg">

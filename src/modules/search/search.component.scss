@@ -16,17 +16,9 @@
 }
 
 .sky-search-input {
-    @include sky-border(light, top, bottom, left);
-    border-right: none;
-    transition: none;
-    box-shadow: none;
     border-radius: 6px;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    -webkit-appearance: none;
-
+    border-right: none;
 }
-
 /*  Prevents the IE clear icon from displaying in the input
     because our search control already includes a clear icon
 */
@@ -35,44 +27,31 @@
 }
 
 .sky-input-group.sky-search-input-container .sky-input-group-btn {
-    .btn.bb-search-btn-input-group {
-        background-color: $bb-color-white;
-        border: none;
-        height: 32px;
-    }
     .sky-btn.sky-search-btn-apply {
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
         border-left: none;
-        @include bb-border(light, top, bottom, right);
+        border-bottom-right-radius: 6px;
+        border-top-right-radius: 6px;
+        @include sky-border(light, top, bottom, right);
     }
     .sky-btn.sky-search-btn-clear {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
         border-right: none;
         border-left: none;
-        @include bb-border(light, top, bottom);
+        @include sky-border(light, top, bottom);
     }
 }
 
-
+/*
 .sky-search-input:focus + .sky-input-group-btn button:hover.sky-search-btn-input-group  {
     z-index: auto;
 }
+*/
 
-.sky-search-btn-dismiss, .sky-search-btn-dismiss:hover {
+/*.sky-search-btn-dismiss, .sky-search-btn-dismiss:hover {
     border: 1px transparent solid;
     background-color: transparent;
-}
+}*/
 
-.sky-search-btn-dismiss-hidden {
-    display: none;
-}
-
-.sky-search-input-container-hidden {
-    display: none;
-}
-
+/*
 .sky-search-and-dismiss {
     display: flex;
 }
@@ -84,20 +63,22 @@
 .sky-search-item-input {
     flex-grow: 1;
 }
-
+*/
 /*  This is needed or else the input will be tiny
     on Safari
-*/
-@media (min-width: $screen-sm-min) {
-    .bb-search-item-input {
+
+@media (min-width: $sky-screen-sm-min) {
+    .sky-search-item-input {
         flex-shrink: 0;
     }
 }
-
+*/
+/*
 .sky-search-input-container {
     width: 100%;
     border: 1px transparent solid;
 }
+*/
 
 .sky-search-btn-clear {
     padding-right: 6px;
@@ -108,21 +89,23 @@
     padding-left: 6px;
 }
 
+/*
 .sky-search-and-dismiss-absolute {
     position: absolute;
-    background-color: $bb-color-white;
+    background-color: $sky-color-white;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     visibility: visible;
-    padding: $padding-half;
+    padding: $sky-padding-half;
 }
-
+*/
+/*
 .sky-input-group.sky-search-input-container.sky-search-input-focused {
 
-    border: 1px solid $bb-focus-border-color;
-    box-shadow: 0 0 8px $bb-focus-shadow-color;
+    border: 1px solid $sky-focus-border-color;
+    box-shadow: 0 0 8px $sky-focus-shadow-color;
     border-radius: 6px;
 
     .sky-btn.sky-search-btn-apply {
@@ -137,31 +120,31 @@
     }
 
 }
-
-.sky-form-control.sky-search-input:focus {
+*/
+/*.sky-form-control.sky-search-input:focus {
     border-top: 1px transparent solid;
     border-bottom: 1px transparent solid;
     border-left: 1px transparent solid;
     border-right: none;
     box-shadow: none;
-}
+}*/
 
-.sky-search-button-container {
+/*.sky-search-button-container {
     border: 1px transparent solid;
-}
-
+}*/
+/*
 .sky-search-open-applied {
     border: none;
     .sky-search-btn-open {
-        color: $bb-color-green;
-        border: 2px solid $bb-color-green;
+        color: $sky-color-green;
+        border: 2px solid $sky-color-green;
     }
 }
 
 .sky-search-open-applied {
     .sky-search-btn-open:hover {
-        color: $text-color;
-        border: 2px solid $bb-color-green;
+        color: $sky-text-color;
+        border: 2px solid $sky-color-green;
     }
 }
 
@@ -176,8 +159,9 @@
 .sky-search-input-component-container-hidden > * {
     visibility: hidden;
 }
+*/
 
-.sky-search-input-inline {
+.sky-search-container {
     display: inline-block;
     vertical-align: middle;
     margin-bottom: 0;

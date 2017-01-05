@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SkySearchComponent } from './search.component';
 
@@ -11,7 +12,8 @@ import { SkyResourcesModule } from '../resources';
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    FormsModule
   ],
   exports: [
     SkySearchComponent

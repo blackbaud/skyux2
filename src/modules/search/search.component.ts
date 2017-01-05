@@ -9,4 +9,19 @@ import {
 })
 export class SkySearchComponent {
 
+  public inputFocused(isFocused: boolean) {
+
+  }
+
+  public clearSearchText() {
+
+  }
+
+  public applySearchText(searchText: string) {
+
+  }
+
+  public searchTextChanged(searchText: string) {
+
+  }
 }
