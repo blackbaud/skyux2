@@ -56,6 +56,14 @@ describe('List Paging Component', () => {
     state.skip(1).take(1).subscribe(() => fixture.detectChanges());
   }));
 
+  function getPagingSelector(type: string) {
+    if (type === 'next' || type === 'previous') {
+      return '.sky-paging-caret[sky-cmp-id="' + type + '"]';
+    } else {
+      return '.sky-list-paging-link a[sky-cmp-id="' + type + '"]';
+    }
+  }
+
   describe('with 8 items', () => {
     beforeEach(async(() => {
       // add some base items to be paged
@@ -78,11 +86,11 @@ describe('List Paging Component', () => {
         fixture.detectChanges();
 
         expect(element.query(
-          By.css('.sky-list-paging-link[cmp-id="2"]')
+          By.css(getPagingSelector('2'))
         )).not.toBeNull();
 
         expect(element.query(
-          By.css('.sky-list-paging-link[cmp-id="3"]')
+          By.css(getPagingSelector('3'))
         )).toBeNull();
       });
 
@@ -91,7 +99,7 @@ describe('List Paging Component', () => {
         fixture.detectChanges();
 
          expect(element.query(
-          By.css('.sky-list-paging-link[cmp-id="4"]')
+          By.css(getPagingSelector('4'))
         )).not.toBeNull();
       });
 
@@ -100,15 +108,15 @@ describe('List Paging Component', () => {
         fixture.detectChanges();
 
          expect(element.query(
-          By.css('.sky-list-paging-link[cmp-id="2"] a')
+          By.css(getPagingSelector('2'))
         ).nativeElement.classList.contains('sky-paging-current')).toBe(true);
 
         expect(element.query(
-          By.css('.sky-paging-caret[cmp-id="previous"]')
+          By.css(getPagingSelector('previous'))
         ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
 
         expect(element.query(
-          By.css('.sky-paging-caret[cmp-id="next"]')
+          By.css(getPagingSelector('next'))
         ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
       });
     });
@@ -116,7 +124,7 @@ describe('List Paging Component', () => {
     describe('component changes', () => {
       it('dispatches set page number action when page changes from component', () => {
         element.query(
-          By.css('.sky-list-paging-link[cmp-id="3"] a')
+          By.css(getPagingSelector('3'))
         ).triggerEventHandler('click', undefined);
         fixture.detectChanges();
 

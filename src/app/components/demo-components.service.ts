@@ -174,10 +174,10 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'List Paging',
+        name: 'List paging',
         icon: 'files-o',
         // tslint:disable-next-line
-        summary: `The list component is used to display data in a consistent and flexible way.`,
+        summary: `This list paging component displays a SKY UX-themed pagination control for a list of data.`,
         url: '/components/list-paging',
         getCodeFiles: function () {
           return [

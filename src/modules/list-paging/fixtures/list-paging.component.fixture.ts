@@ -6,5 +6,6 @@ import { SkyListPagingComponent } from '../list-paging.component';
   template: require('./list-paging.component.fixture.html')
 })
 export class ListPagingTestComponent {
-  @ViewChild(SkyListPagingComponent) public pagingComponent: SkyListPagingComponent;
+  @ViewChild(SkyListPagingComponent)
+  public pagingComponent: SkyListPagingComponent;
 }

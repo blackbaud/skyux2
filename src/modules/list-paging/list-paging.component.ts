@@ -27,9 +27,14 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyListPagingComponent extends ListPagingComponent implements OnInit {
-  @Input() public pageSize: Observable<number> | number = 10;
-  @Input() public maxPages: Observable<number> | number = 5;
-  @Input() public pageNumber: Observable<number> | number = 1;
+  @Input()
+  public pageSize: Observable<number> | number = 10;
+
+  @Input()
+  public maxPages: Observable<number> | number = 5;
+
+  @Input()
+  public pageNumber: Observable<number> | number = 1;
 
   constructor(
     state: ListState,

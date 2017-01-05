@@ -8,16 +8,16 @@
       href
       (click)="previousPage(); false"
       class="fa fa-caret-left sky-paging-caret"
-      cmp-id="previous"
+      sky-cmp-id="previous"
       [ngClass]="{ 'sky-paging-disabled': currentPage === 1 }"
       [attr.aria-label]="'paging_previous' | skyResources"></a>
   </li>
   <li
     *ngFor="let pageNumber of displayedPages"
-    [attr.cmp-id]="pageNumber"
     class="sky-list-paging-link">
     <a
       href
+      [attr.sky-cmp-id]="pageNumber"
       (click)="setPage(pageNumber); false"
       [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }"
       >{{pageNumber}}
@@ -28,7 +28,7 @@
       href
       (click)="nextPage(); false"
       class="fa fa-caret-right sky-paging-caret"
-      cmp-id="next"
+      sky-cmp-id="next"
       [ngClass]="{ 'sky-paging-disabled': pageCount === currentPage }"
       [attr.aria-label]="'paging_next' | skyResources"
       >
