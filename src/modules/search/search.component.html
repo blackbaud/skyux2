@@ -4,10 +4,9 @@
 
     <button
         type="button"
-        [hidden]="true"
         class="sky-btn sky-btn-secondary sky-search-btn-open"
         [attr.title]="'search_open' | skyResources"
-        (click)="toggleSearchInput(true)">
+        (click)="toggleSearchInput(false)">
         <i class="fa fa-search fa-lg"></i>
     </button>
   </div>
@@ -15,6 +14,7 @@
     <div class="sky-search-item-input">
       <div class="sky-search-input-container sky-input-group">
         <input
+          [@inputState]="inputAnimate"
           type="text"
           class="sky-form-control sky-search-input"
           [(ngModel)]="searchText"

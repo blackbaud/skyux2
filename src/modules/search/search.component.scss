@@ -10,7 +10,7 @@
     setting the font-size to 16px prevents this
 */
 @media (max-width: $sky-screen-xs-max) {
-    .sky-search-input {
+    .sky-search-input, .sky-search-btn-apply, .sky-search-btn-clear {
         font-size: 16px;
     }
 }
