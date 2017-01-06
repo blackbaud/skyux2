@@ -3,6 +3,7 @@ const helpers = require('../utils/helpers');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
@@ -107,7 +108,9 @@ module.exports = {
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       helpers.root('src') // location of your src
-    )
+    ),
+
+    new IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
 
   node: {
