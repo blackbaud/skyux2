@@ -195,6 +195,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List paging',
+        icon: 'files-o',
+        // tslint:disable-next-line
+        summary: `This list paging component displays a SKY UX-themed pagination control for a list of data.`,
+        url: '/components/list-paging',
+        getCodeFiles: function () {
+          return [
+          {
+            name: 'list-paging-demo.component.html',
+            fileContents:
+              require('!!raw!./list-paging/list-paging-demo.component.html')
+            },
+            {
+              name: 'list-paging-demo.component.ts',
+              fileContents:
+                require('!!raw!./list-paging/list-paging-demo.component.ts'),
+              componentName: 'SkyListPagingDemoComponent',
+              bootstrapSelector: 'sky-list-paging-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Modal',
         icon: 'list-alt',
         // tslint:disable-next-line
@@ -265,6 +288,27 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./page-summary/page-summary-demo.component.ts'),
               componentName: 'SkyPageSummaryDemoComponent',
               bootstrapSelector: 'sky-page-summary-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Paging',
+        icon: 'files-o',
+        // tslint:disable-next-line
+        summary: `The paging component is used to display a pagination control.`,
+        url: '/components/paging',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'paging-demo.component.html',
+              fileContents: require('!!raw!./paging/paging-demo.component.html')
+            },
+            {
+              name: 'paging-demo.component.ts',
+              fileContents: require('!!raw!./paging/paging-demo.component.ts'),
+              componentName: 'SkyPagingDemoComponent',
+              bootstrapSelector: 'sky-paging-demo'
             }
           ];
         }

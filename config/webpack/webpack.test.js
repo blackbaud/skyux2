@@ -13,11 +13,12 @@ module.exports = {
 
   resolve: {
     extensions: ['.ts', '.js'],
-    modules: [helpers.root('src'), 'node_modules'],
+    modules: [helpers.root('src'), 'node_modules']
   },
 
   module: {
     rules: [
+
       {
         enforce: 'pre',
         test: /\.ts$/,
@@ -43,6 +44,7 @@ module.exports = {
         ],
         exclude: [/\.e2e\.ts$/]
       },
+
       {
         test: /\.json$/,
         loader: 'json-loader',

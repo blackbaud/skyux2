@@ -12,7 +12,7 @@ import {
   Tile2TestComponent,
   TileDashboardTestComponent
 } from './fixtures';
-import { SkyMediaQueryService } from '../../media-queries';
+import { SkyMediaQueryService, SkyMediaBreakpoints } from '../../media-queries';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardService } from './tile-dashboard.service';
@@ -297,7 +297,7 @@ describe('Tile dashboard service', () => {
 
       let fixture = createDashboardTestComponent();
 
-      mockMediaQueryService.matches = true;
+      mockMediaQueryService.current = SkyMediaBreakpoints.sm;
 
       let el = fixture.nativeElement;
 
@@ -334,9 +334,7 @@ describe('Tile dashboard service', () => {
       expect(getTileCount(multiColumnEls[1])).toBe(1);
       expect(getTileCount(singleColumnEl)).toBe(0);
 
-      mockMediaQueryService.fire({
-        matches: true
-      });
+      mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
 
       fixture.detectChanges();
 
@@ -344,9 +342,7 @@ describe('Tile dashboard service', () => {
       expect(getTileCount(multiColumnEls[1])).toBe(0);
       expect(getTileCount(singleColumnEl)).toBe(2);
 
-      mockMediaQueryService.fire({
-        matches: false
-      });
+      mockMediaQueryService.fire(SkyMediaBreakpoints.md);
 
       fixture.detectChanges();
 
@@ -368,9 +364,7 @@ describe('Tile dashboard service', () => {
       fixture.detectChanges();
       tick();
 
-      mockMediaQueryService.fire({
-        matches: true
-      });
+      mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
 
       mockDragulaService.drop.emit({});
 
@@ -379,9 +373,7 @@ describe('Tile dashboard service', () => {
 
       expect(cmp.dashboardConfig).toEqual(expectedDashboardConfig);
 
-      mockMediaQueryService.fire({
-        matches: false
-      });
+      mockMediaQueryService.fire(SkyMediaBreakpoints.lg);
 
       mockDragulaService.drop.emit({});
 

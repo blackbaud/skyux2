@@ -1,15 +1,18 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
 
 import { SkyPageSummaryAdapterService } from './page-summary-adapter.service';
-import { SkyMediaQueryListenerArgs, SkyMediaQueryService } from '../media-queries';
+import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'sky-page-summary',
   templateUrl: './page-summary.component.html',
   styleUrls: ['./page-summary.component.scss'],
-  providers: [SkyMediaQueryService, SkyPageSummaryAdapterService]
+  providers: [SkyPageSummaryAdapterService]
 })
 export class SkyPageSummaryComponent implements OnDestroy, AfterViewInit {
+  private breakpointSubscription: Subscription;
+
   constructor(
     private elRef: ElementRef,
     private adapter: SkyPageSummaryAdapterService,
@@ -17,17 +20,14 @@ export class SkyPageSummaryComponent implements OnDestroy, AfterViewInit {
   ) { }
 
   public ngAfterViewInit() {
-    this.mediaQueryService.init(
-      SkyMediaQueryService.xs,
-      (args: SkyMediaQueryListenerArgs) => {
-        this.adapter.updateKeyInfoLocation(this.elRef, args.matches);
+    this.breakpointSubscription = this.mediaQueryService.subscribe(
+      (args: SkyMediaBreakpoints) => {
+        this.adapter.updateKeyInfoLocation(this.elRef, args === SkyMediaBreakpoints.xs);
       }
     );
-
-    this.adapter.updateKeyInfoLocation(this.elRef, this.mediaQueryService.matches);
   }
 
   public ngOnDestroy() {
-    this.mediaQueryService.destroy();
+    this.breakpointSubscription.unsubscribe();
   }
 }

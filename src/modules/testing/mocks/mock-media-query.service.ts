@@ -1,38 +1,46 @@
 import { Injectable } from '@angular/core';
 import {
   SkyMediaQueryListener,
-  SkyMediaQueryListenerArgs,
+  SkyMediaBreakpoints,
   SkyMediaQueryService
 } from '../../media-queries';
+
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class MockSkyMediaQueryService extends SkyMediaQueryService {
   public static xs = '(max-width: 767px)';
-  public static sm = '(max-width: 991px)';
+  public static sm = '(min-width: 768px) and (max-width: 991px)';
+  public static md = '(min-width: 992px) and (max-width: 1199px)';
+  public static lg = '(min-width: 1200px)';
 
-  public set matches(value: boolean) {
-    this._matches = value;
+  public get current(): SkyMediaBreakpoints {
+    return this._currentBreakpoints;
   }
 
-  public get matches(): boolean {
-    return this._matches;
+  public set current(breakpoints: SkyMediaBreakpoints) {
+    this._currentBreakpoints = breakpoints;
   }
 
-  private _matches = false;
+  private _currentBreakpoints: SkyMediaBreakpoints = SkyMediaBreakpoints.md;
 
-  private mockListener: SkyMediaQueryListener;
+  private currentMockSubject: BehaviorSubject<SkyMediaBreakpoints>
+    = new BehaviorSubject<SkyMediaBreakpoints>(this.current);
 
-  constructor() {
-    super();
+  public subscribe(listener: SkyMediaQueryListener): Subscription {
+    return this.currentMockSubject.subscribe(
+      {
+        next: (breakpoints: SkyMediaBreakpoints) => {
+          listener(breakpoints);
+        }
+      }
+    );
   }
 
-  public init(query: string, listener: SkyMediaQueryListener) {
-    this.mockListener = listener;
-  }
-
-  public fire(args: SkyMediaQueryListenerArgs) {
-    this._matches = args.matches;
-    this.mockListener(args);
+  public fire(args: SkyMediaBreakpoints) {
+    this._currentBreakpoints = args;
+    this.currentMockSubject.next(this._currentBreakpoints);
   }
 
   public destroy() {}

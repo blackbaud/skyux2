@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SkyMediaQueryService } from '../media-queries';
+
 import { SkyPageSummaryAlertComponent } from './page-summary-alert';
 import { SkyPageSummaryContentComponent } from './page-summary-content';
 import { SkyPageSummaryImageComponent } from './page-summary-image';
@@ -33,6 +35,9 @@ import { SkyPageSummaryComponent } from './page-summary.component';
     SkyPageSummaryStatusComponent,
     SkyPageSummarySubtitleComponent,
     SkyPageSummaryTitleComponent
+  ],
+  providers: [
+    SkyMediaQueryService
   ]
 })
 export class SkyPageSummaryModule { }

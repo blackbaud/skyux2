@@ -1,0 +1,37 @@
+<ul
+  role="navigation"
+  *ngIf="pageCount > 1"
+  [attr.aria-label]="pagingLabel || 'paging_label' | skyResources"
+  >
+  <li>
+    <a
+      href
+      (click)="previousPage(); false"
+      class="fa fa-caret-left sky-paging-caret"
+      sky-cmp-id="previous"
+      [ngClass]="{ 'sky-paging-disabled': currentPage === 1 }"
+      [attr.aria-label]="'paging_previous' | skyResources"></a>
+  </li>
+  <li
+    *ngFor="let pageNumber of displayedPages"
+    class="sky-list-paging-link">
+    <a
+      href
+      [attr.sky-cmp-id]="pageNumber"
+      (click)="setPage(pageNumber); false"
+      [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }"
+      >{{pageNumber}}
+    </a>
+  </li>
+  <li>
+    <a
+      href
+      (click)="nextPage(); false"
+      class="fa fa-caret-right sky-paging-caret"
+      sky-cmp-id="next"
+      [ngClass]="{ 'sky-paging-disabled': pageCount === currentPage }"
+      [attr.aria-label]="'paging_next' | skyResources"
+      >
+    </a>
+  </li>
+</ul>

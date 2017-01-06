@@ -1,5 +1,5 @@
-import { SkyMediaQueryListenerArgs } from './media-query-listener-args';
+import { SkyMediaBreakpoints } from './media-breakpoints';
 
 export interface SkyMediaQueryListener {
-  (args: SkyMediaQueryListenerArgs): void;
+  (args: SkyMediaBreakpoints): void;
 }
