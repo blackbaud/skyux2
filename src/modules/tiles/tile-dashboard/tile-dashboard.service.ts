@@ -6,7 +6,11 @@ import {
 } from '@angular/core';
 import { DragulaService} from 'ng2-dragula/ng2-dragula';
 
-import { SkyMediaQueryListenerArgs, SkyMediaQueryService } from '../../media-queries';
+import {
+  SkyMediaBreakpoints,
+  SkyMediaQueryService
+} from '../../media-queries';
+
 import { SkyTileComponent } from '../tile/tile.component';
 import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import {
@@ -148,7 +152,9 @@ export class SkyTileDashboardService {
   private loadTiles() {
     let layout = this.config.layout;
 
-    if (this.mediaQuery.matches) {
+    if (
+        this.mediaQuery.current === SkyMediaBreakpoints.xs
+        || this.mediaQuery.current === SkyMediaBreakpoints.sm) {
       for (let tile of layout.singleColumn.tiles) {
         this.loadTileIntoColumn(this.singleColumn, tile);
       }
@@ -233,7 +239,8 @@ export class SkyTileDashboardService {
   }
 
   private getSingleColumnLayoutForUIState(): SkyTileDashboardConfigLayoutColumn {
-    if (this.mediaQuery.matches) {
+    if (this.mediaQuery.current === SkyMediaBreakpoints.xs
+        || this.mediaQuery.current === SkyMediaBreakpoints.sm) {
       return {
         tiles: this.getTilesInEl(this.getColumnEl(this.singleColumn))
       };
@@ -243,7 +250,8 @@ export class SkyTileDashboardService {
   }
 
   private getMultiColumnLayoutForUIState(): SkyTileDashboardConfigLayoutColumn[] {
-    if (!this.mediaQuery.matches) {
+    if (!(this.mediaQuery.current === SkyMediaBreakpoints.xs
+    || this.mediaQuery.current === SkyMediaBreakpoints.sm)) {
       let layoutColumns: SkyTileDashboardConfigLayoutColumn[] = [];
       let columns = this.columns.toArray();
 
@@ -285,10 +293,9 @@ export class SkyTileDashboardService {
   }
 
   private initMediaQueries() {
-    this.mediaQuery.init(
-      SkyMediaQueryService.sm,
-      (args: SkyMediaQueryListenerArgs) => {
-        this.changeColumnMode(this.mediaQuery.matches);
+    this.mediaQuery.subscribe(
+      (args: SkyMediaBreakpoints) => {
+        this.changeColumnMode(args === SkyMediaBreakpoints.xs || args === SkyMediaBreakpoints.sm);
       }
     );
   }
