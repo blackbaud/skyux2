@@ -1,0 +1,28 @@
+@import "mixins";
+
+.sky-section-heading {
+  color: $sky-text-color;
+  font: 300 22px $sky-font-family-narrow;
+}
+
+.sky-subsection-heading {
+  color: $sky-text-deemphasized-color;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.sky-emphasized {
+  color: $sky-text-color;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sky-deemphasized {
+  color: $sky-text-deemphasized-color;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.sky-field-label {
+  @include sky-field-label();
+}

@@ -1,0 +1,8 @@
+<div class="sky-definition-list-value">
+  <span #valueEl>
+    <ng-content></ng-content>
+  </span>
+  <span class="sky-deemphasized" *ngIf="!valueEl.innerText.trim()">
+    {{ (service.defaultValue | async) || ('definition_list_none_found' | skyResources) }}
+  </span>
+</div>

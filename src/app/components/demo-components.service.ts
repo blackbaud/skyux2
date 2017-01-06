@@ -90,6 +90,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Definition list',
+        icon: 'list-alt',
+        // tslint:disable-next-line
+        summary: `The definition list component displays a list of label-value pairs.`,
+        url: '/components/definition-list',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'definition-list-demo.component.html',
+              fileContents: require('!!raw!./definition-list/definition-list-demo.component.html')
+            },
+            {
+              name: 'definition-list-demo.component.ts',
+              fileContents: require('!!raw!./definition-list/definition-list-demo.component.ts'),
+              componentName: 'SkyDefinitionListDemoComponent',
+              bootstrapSelector: 'sky-definition-list-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Dropdown',
         icon: 'caret-down',
         // tslint:disable-next-line
@@ -377,17 +398,14 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.html')
             },
             {
-              folder: 'tiles',
               name: 'tiles-demo-tile1.component.ts',
               fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.ts')
             },
             {
-              folder: 'tiles',
               name: 'tiles-demo-tile2.component.html',
               fileContents: require('!!raw!./tiles/tiles-demo-tile2.component.html')
             },
             {
-              folder: 'tiles',
               name: 'tiles-demo-tile2.component.ts',
               fileContents: require('!!raw!./tiles/tiles-demo-tile2.component.ts'),
               componentName: 'SkyTilesDemoTile2Component'
