@@ -11,14 +11,15 @@ import { SkyDropdownModule } from './modules/dropdown';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
+import { SkyListPagingModule } from './modules/list-paging';
 import { SkyModalModule } from './modules/modal';
-import { SkyWaitModule } from './modules/wait';
 import { SkyNavbarModule } from './modules/navbar';
 import { SkyPageSummaryModule } from './modules/page-summary';
 import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTilesModule } from './modules/tiles';
+import { SkyWaitModule } from './modules/wait';
 
 @NgModule({
   exports: [
@@ -31,6 +32,7 @@ import { SkyTilesModule } from './modules/tiles';
     SkyFileAttachmentsModule,
     SkyKeyInfoModule,
     SkyLabelModule,
+    SkyListPagingModule,
     SkyModalModule,
     SkyNavbarModule,
     SkyPageSummaryModule,
@@ -52,6 +54,7 @@ export * from './modules/fileattachments';
 export * from './modules/format';
 export * from './modules/key-info';
 export * from './modules/label';
+export * from './modules/list-paging';
 export * from './modules/modal';
 export * from './modules/navbar';
 export * from './modules/page-summary';
