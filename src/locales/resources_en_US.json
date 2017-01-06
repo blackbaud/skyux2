@@ -203,6 +203,18 @@
         "_description": "",
         "message": "Move along, there's nothing to see here"
     },
+    "paging_label": {
+      "_description": "Default text for the label for the pagination component",
+      "message": "Pagination"
+    },
+    "paging_next": {
+      "_description": "Text for the label for the next button on the pagination component",
+      "message": "Next"
+    },
+    "paging_previous": {
+      "_description": "Text for the label for the previous button on the pagination component",
+      "message": "Previous"
+    },
     "text_expand_see_less": {
         "_description": "Display less text content",
         "message": "See less"
