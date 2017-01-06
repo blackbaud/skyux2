@@ -1,8 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input
+  Input,
+  OnInit
 } from '@angular/core';
+
+import { SkyDemoTitleService } from '../../shared/title.service';
 
 @Component({
   selector: 'sky-demo-page',
@@ -10,13 +13,30 @@ import {
   styleUrls: ['./demo-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDemoPageComponent {
+export class SkyDemoPageComponent implements OnInit {
   @Input()
-  public title: string;
+  public set title(value: string) {
+    this._title = value;
+  }
+
+  public get title(): string {
+    return this._title;
+  }
 
   @Input()
   public summary: string;
 
-  @Input()
-  public showBackBtn = true;
+  private _title: string;
+
+  constructor(private titleService: SkyDemoTitleService) { }
+
+  public ngOnInit() {
+    this.updateTitle();
+  }
+
+  private updateTitle() {
+    if (this.title) {
+      this.titleService.setTitle(this.title, 'Components');
+    }
+  }
 }

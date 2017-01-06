@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
+import { SKY_WAIT_PROVIDERS } from './modules/wait';
 import { SkyAlertModule } from './modules/alert';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyCardModule } from './modules/card';
@@ -12,6 +13,7 @@ import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyModalModule } from './modules/modal';
+import { SkyWaitModule } from './modules/wait';
 import { SkyNavbarModule } from './modules/navbar';
 import { SkyPageSummaryModule } from './modules/page-summary';
 import { SkyRadioModule } from './modules/radio';
@@ -37,7 +39,8 @@ import { SkyTilesModule } from './modules/tiles';
     SkyRadioModule,
     SkyRepeaterModule,
     SkyTabsModule,
-    SkyTilesModule
+    SkyTilesModule,
+    SkyWaitModule
   ]
 })
 export class SkyModule { }
@@ -49,6 +52,7 @@ export * from './modules/checkbox';
 export * from './modules/definition-list';
 export * from './modules/dropdown';
 export * from './modules/fileattachments';
+export * from './modules/format';
 export * from './modules/key-info';
 export * from './modules/label';
 export * from './modules/modal';
@@ -58,8 +62,8 @@ export * from './modules/radio';
 export * from './modules/repeater';
 export * from './modules/tabs';
 export * from './modules/tiles';
-export * from './modules/format';
+export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
-  ...SKY_MODAL_PROVIDERS
+  ...SKY_MODAL_PROVIDERS, SKY_WAIT_PROVIDERS
 ];

@@ -14,4 +14,9 @@ export class SkyTabsetService {
   public destroyTab(tab: SkyTabComponent) {
     this.tabDestroy.emit(tab);
   }
+
+  public destroy() {
+    this.tabActivate.complete();
+    this.tabDestroy.complete();
+  }
 }

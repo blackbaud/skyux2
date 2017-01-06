@@ -20,10 +20,10 @@
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
-      build: 'mac-chrome-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
-      //name: 'SKYUX2BROWSERSTACK',
-      //'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
-      resolution: '1280x960'
+      build: 'skyux2-mac-chrome-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
+      resolution: '1280x960',
+      name: 'SKYUX2BROWSERSTACKCI',
+      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
     },
     {
       browserName: 'firefox',
@@ -36,16 +36,17 @@
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
       captureTimeout: 3e5,
-      build: 'mac-firefox-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
-      //name: 'SKYUX2BROWSERSTACK',
-      //'browserstack.localIdentifier': 'SKYUX2BROWSERSTACK',
-      resolution: '1280x960'
+      build: 'skyux2-mac-firefox-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
+      resolution: '1280x960',
+      name: 'SKYUX2BROWSERSTACKCI',
+      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
+
     }
   ];
   config.host = 'hub.browserstack.com';
   config.port = 80;
 
-  config.maxInstances = 6;
+  config.maxInstances = 4;
 
   config.visualRegression = require('../utils/visual-browser-commands')
     .getVisualRegression(

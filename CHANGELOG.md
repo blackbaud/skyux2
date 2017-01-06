@@ -1,3 +1,16 @@
+# 2.0.0-beta.0 (2017-01-03)
+
+- Adjusted npm package name to `@blackbaud/skyux`.  Please note this will require you to update your references.
+
+# 2.0.0-alpha.14 (2016-12-19)
+
+- Added wizard functionality to tabs module. (#165)
+- Added wait component and wait service. (#164)
+- Made modal instance injectable and added the save, cancel, and close methods.
+- Fixed modal issue where background was scrollable when modals were open, and modals automatically scrolled to the top of the page when first opened. (#142)
+- Fixed tabset issue where responsive behavior did not occur on initial load. (#183)
+- Added the dispose method to modal service for testing purposes.
+
 # 2.0.0-alpha.13 (2016-11-14)
 
 - Added metadata files to dist to support AoT compilation. (#219)
