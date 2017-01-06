@@ -11,22 +11,20 @@ import { Subscription } from 'rxjs/Subscription';
   providers: [SkyPageSummaryAdapterService]
 })
 export class SkyPageSummaryComponent implements OnDestroy, AfterViewInit {
+  private breakpointSubscription: Subscription;
+
   constructor(
     private elRef: ElementRef,
     private adapter: SkyPageSummaryAdapterService,
     private mediaQueryService: SkyMediaQueryService
   ) { }
 
-  private breakpointSubscription: Subscription;
-
   public ngAfterViewInit() {
     this.breakpointSubscription = this.mediaQueryService.subscribe(
       (args: SkyMediaBreakpoints) => {
-        this.adapter.updateKeyInfoLocation(this.elRef, args.xs);
+        this.adapter.updateKeyInfoLocation(this.elRef, args === SkyMediaBreakpoints.xs);
       }
     );
-
-    this.adapter.updateKeyInfoLocation(this.elRef, this.mediaQueryService.current.xs);
   }
 
   public ngOnDestroy() {

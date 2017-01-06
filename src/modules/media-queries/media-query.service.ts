@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SkyMediaQueryListener } from './media-query-listener';
 import { SkyMediaBreakpoints } from './media-breakpoints';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
@@ -11,7 +11,11 @@ export class SkyMediaQueryService {
   public static md = '(min-width: 992px) and (max-width: 1199px)';
   public static lg = '(min-width: 1200px)';
 
-  public current: SkyMediaBreakpoints;
+  public get current(): SkyMediaBreakpoints {
+    return this._current;
+  }
+
+  private _current: SkyMediaBreakpoints = SkyMediaBreakpoints.md;
 
   private xsMql: MediaQueryList;
   private smMql: MediaQueryList;
@@ -23,51 +27,31 @@ export class SkyMediaQueryService {
   private mdListener: MediaQueryListListener;
   private lgListener: MediaQueryListListener;
 
-  private currentSubject: Subject<SkyMediaBreakpoints> = new Subject<SkyMediaBreakpoints>();
-
+  private currentSubject: BehaviorSubject<SkyMediaBreakpoints>
+    = new BehaviorSubject<SkyMediaBreakpoints>(this.current);
 
   constructor() {
     this.xsListener = (mql: MediaQueryList) => {
-      this.setupListener(mql, {
-          xs: true,
-          sm: false,
-          md: false,
-          lg: false
-        });
-    }
+      this.setupListener(mql, SkyMediaBreakpoints.xs);
+    };
 
     this.smListener = (mql: MediaQueryList) => {
-      this.setupListener(mql, {
-          xs: false,
-          sm: true,
-          md: false,
-          lg: false
-        });
-    }
+      this.setupListener(mql, SkyMediaBreakpoints.sm);
+    };
 
     this.mdListener = (mql: MediaQueryList) => {
-      this.setupListener(mql, {
-          xs: false,
-          sm: false,
-          md: true,
-          lg: false
-        });
-    }
+      this.setupListener(mql, SkyMediaBreakpoints.md);
+    };
 
     this.lgListener = (mql: MediaQueryList) => {
-      this.setupListener(mql, {
-          xs: false,
-          sm: false,
-          md: false,
-          lg: true
-        });
-    }
+      this.setupListener(mql, SkyMediaBreakpoints.lg);
+    };
 
     this.xsMql = matchMedia(SkyMediaQueryService.xs);
     this.xsMql.addListener(this.xsListener);
 
     this.smMql = matchMedia(SkyMediaQueryService.sm);
-    this.smMql.addListener(this.mdListener);
+    this.smMql.addListener(this.smListener);
 
     this.mdMql = matchMedia(SkyMediaQueryService.md);
     this.mdMql.addListener(this.mdListener);
@@ -76,14 +60,14 @@ export class SkyMediaQueryService {
     this.lgMql.addListener(this.lgListener);
   }
 
-  public subscribe(listener: SkyMediaQueryListener) : Subscription {
+  public subscribe(listener: SkyMediaQueryListener): Subscription {
     return this.currentSubject.subscribe(
       {
         next: (breakpoints: SkyMediaBreakpoints) => {
           listener(breakpoints);
         }
       }
-    )
+    );
   }
 
   public destroy() {
@@ -102,11 +86,13 @@ export class SkyMediaQueryService {
     this.lgMql.removeListener(this.lgListener);
     this.lgMql = undefined;
     this.lgListener = undefined;
+
+    this.currentSubject.complete();
   }
 
   private setupListener(mql: MediaQueryList, breakpoints: SkyMediaBreakpoints) {
     if (mql.matches) {
-      this.current = breakpoints;
+      this._current = breakpoints;
       this.currentSubject.next(breakpoints);
     }
   }

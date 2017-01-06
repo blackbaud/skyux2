@@ -1,6 +1,6 @@
-export interface SkyMediaBreakpoints {
-  xs: boolean;
-  sm: boolean;
-  md: boolean;
-  lg: boolean
+export enum SkyMediaBreakpoints {
+  xs =  1,
+  sm,
+  md,
+  lg
 }
