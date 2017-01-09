@@ -10,7 +10,8 @@ import {
   MockDragulaService,
   Tile1TestComponent,
   Tile2TestComponent,
-  TileDashboardTestComponent
+  TileDashboardTestComponent,
+  TileTestContext
 } from './fixtures';
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../../media-queries';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
@@ -113,23 +114,31 @@ describe('Tile dashboard service', () => {
             let expectedConfig: SkyTileDashboardConfig = {
               tiles: [
                 {
-                  id: 'tile1',
+                  id: 'sky-test-tile-1',
                   componentType: Tile1TestComponent
                 },
                 {
-                  id: 'tile2',
-                  componentType: Tile2TestComponent
+                  id: 'sky-test-tile-2',
+                  componentType: Tile2TestComponent,
+                  providers: [
+                    {
+                      provide: TileTestContext,
+                      useValue: {
+                        id: 3
+                      }
+                    }
+                  ]
                 }
               ],
               layout: {
                 singleColumn: {
                   tiles: [
                     {
-                      id: 'tile2',
+                      id: 'sky-test-tile-2',
                       isCollapsed: false
                     },
                     {
-                      id: 'tile1',
+                      id: 'sky-test-tile-1',
                       isCollapsed: true
                     }
                   ]
@@ -141,11 +150,11 @@ describe('Tile dashboard service', () => {
                   {
                     tiles: [
                       {
-                        id: 'tile2',
+                        id: 'sky-test-tile-2',
                         isCollapsed: false
                       },
                       {
-                        id: 'tile1',
+                        id: 'sky-test-tile-1',
                         isCollapsed: true
                       }
                     ]
@@ -165,7 +174,7 @@ describe('Tile dashboard service', () => {
 
         let columnEls = el.querySelectorAll('.sky-tile-dashboard-column');
 
-        columnEls[1].appendChild(columnEls[0].querySelector('sky-test-cmp'));
+        columnEls[1].appendChild(columnEls[0].querySelector('div.sky-test-tile-1'));
 
         mockDragulaService.drop.emit({});
         tick();
