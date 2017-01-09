@@ -63,6 +63,10 @@
         "_description": "The label on the context menu button used for screen readers when the consumer has not specified a label",
         "message": "Context menu"
     },
+    "definition_list_none_found": {
+        "_description": "The default text to show when a definition list item has no value",
+        "message": "None found"
+    },
     "grid_back_to_top": {
         "_description": "Text for link in grid to scroll back to the top.",
         "message": "Back to top"
@@ -202,6 +206,18 @@
     "page_noaccess_header": {
         "_description": "",
         "message": "Move along, there's nothing to see here"
+    },
+    "paging_label": {
+      "_description": "Default text for the label for the pagination component",
+      "message": "Pagination"
+    },
+    "paging_next": {
+      "_description": "Text for the label for the next button on the pagination component",
+      "message": "Next"
+    },
+    "paging_previous": {
+      "_description": "Text for the label for the previous button on the pagination component",
+      "message": "Previous"
     },
     "text_expand_see_less": {
         "_description": "Display less text content",

@@ -26,6 +26,7 @@ function writeTSConfig() {
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
       "sourceMap": true,
       "noImplicitAny": true,
       "outDir": "../dist",
