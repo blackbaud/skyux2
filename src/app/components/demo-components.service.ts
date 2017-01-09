@@ -376,7 +376,7 @@ export class SkyDemoComponentsService {
         name: 'Wizard',
         icon: 'magic',
         // tslint:disable-next-line
-        summary: `The wizard adjusts a modal form to guide users through a set of pre-defined steps in a particular order.`,
+        summary: `The wizard guides users through a set of pre-defined steps in a particular order.`,
         url: '/components/wizard',
         getCodeFiles: function () {
           return [
