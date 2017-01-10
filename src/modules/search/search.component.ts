@@ -46,6 +46,7 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
   public searchButtonShown: boolean = false;
   public mobileSearchShown: boolean = false;
   public dismissButtonShown: boolean = false;
+  public clearButtonShown: boolean = false;
 
   constructor(
     private mediaQueryService: SkyMediaQueryService,
@@ -73,11 +74,12 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
   }
 
   public clearSearchText() {
-
+    this.searchText = '';
+    this.clearButtonShown = false;
   }
 
   public applySearchText(searchText: string) {
-
+    this.clearButtonShown = searchText && searchText !== '';
   }
 
   public searchTextChanged(searchText: string) {

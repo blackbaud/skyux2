@@ -1,9 +1,9 @@
 <div class="sky-search-container">
   <div
     class="sky-search-button-container">
-
     <button
         type="button"
+        [ngClass]="{'sky-search-btn-open-applied': clearButtonShown}"
         [hidden]="!searchButtonShown"
         class="sky-btn sky-btn-secondary sky-search-btn-open"
         [attr.title]="'search_open' | skyResources"
@@ -26,13 +26,14 @@
           class="sky-form-control sky-search-input"
           [(ngModel)]="searchText"
           (change)="searchTextChanged(searchText)"
-          (keyup)="$event.keyCode == 13 && applySearchText(searchText)"
+          (keyup.enter)="applySearchText(searchText)"
           (focus)="inputFocused(true)"
           (blur)="inputFocused(false)"
           [attr.aria-label]="'search_label' | skyResources"
           [attr.placeholder]="placeholderText" />
         <span class="sky-input-group-btn">
           <button
+            [hidden]="!clearButtonShown"
             tabindex="-1"
             aria-hidden="true"
             type="button"

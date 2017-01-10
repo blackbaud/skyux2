@@ -121,29 +121,15 @@
     outline: none;
 }
 
-/*.sky-search-button-container {
-    border: 1px transparent solid;
-}*/
+
+.sky-search-btn-open-applied.sky-search-btn-open,
+.sky-search-btn-open-applied.sky-search-btn-open:hover {
+      color: $sky-color-green;
+      border: 2px solid $sky-color-green;
+      padding: 5px 11px;
+}
+
 /*
-.sky-search-open-applied {
-    border: none;
-    .sky-search-btn-open {
-        color: $sky-color-green;
-        border: 2px solid $sky-color-green;
-    }
-}
-
-.sky-search-open-applied {
-    .sky-search-btn-open:hover {
-        color: $sky-text-color;
-        border: 2px solid $sky-color-green;
-    }
-}
-
-.sky-search-open-hidden {
-    visibility: hidden;
-}
-
 .sky-search-input-component-container {
     position: relative;
 }
