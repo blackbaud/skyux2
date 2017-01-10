@@ -62,6 +62,13 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
   }
 
   public inputFocused(isFocused: boolean) {
+    if (isFocused) {
+      this.elRef.nativeElement.querySelector('.sky-search-input-container')
+        .classList.add('sky-search-input-focused');
+    } else {
+      this.elRef.nativeElement.querySelector('.sky-search-input-container')
+        .classList.remove('sky-search-input-focused');
+    }
 
   }
 

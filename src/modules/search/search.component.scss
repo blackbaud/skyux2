@@ -40,12 +40,6 @@
     }
 }
 
-/*
-.sky-search-input:focus + .sky-input-group-btn button:hover.sky-search-btn-input-group  {
-    z-index: auto;
-}
-*/
-
 .sky-search-btn-dismiss, .sky-search-btn-dismiss:hover {
     border: 1px transparent solid;
     background-color: transparent;
@@ -66,19 +60,12 @@
 
 /*  This is needed or else the input will be tiny
     on Safari
-
+*/
 @media (min-width: $sky-screen-sm-min) {
     .sky-search-item-input {
         flex-shrink: 0;
     }
 }
-*/
-/*
-.sky-search-input-container {
-    width: 100%;
-    border: 1px transparent solid;
-}
-*/
 
 .sky-search-btn-clear {
     padding-right: 6px;
@@ -100,33 +87,39 @@
     padding: $sky-padding-half;
 }
 
-/*
+.sky-search-input-container {
+    width: 100%;
+    border: 1px transparent solid;
+}
+
 .sky-input-group.sky-search-input-container.sky-search-input-focused {
 
     border: 1px solid $sky-focus-border-color;
     box-shadow: 0 0 8px $sky-focus-shadow-color;
     border-radius: 6px;
 
-    .sky-btn.sky-search-btn-apply {
+    .sky-input-group-btn {
+      .sky-btn.sky-search-btn-apply {
         border-right: 1px transparent solid;
         border-top: 1px transparent solid;
         border-bottom: 1px transparent solid;
-    }
+      }
 
-    .sky-btn.sky-search-btn-clear {
-        border-top: 1px transparent solid;
-        border-bottom: 1px transparent solid;
+      .sky-btn.sky-search-btn-clear {
+          border-top: 1px transparent solid;
+          border-bottom: 1px transparent solid;
+      }
     }
-
 }
-*/
-/*.sky-form-control.sky-search-input:focus {
+
+.sky-form-control.sky-search-input:focus {
     border-top: 1px transparent solid;
     border-bottom: 1px transparent solid;
     border-left: 1px transparent solid;
     border-right: none;
     box-shadow: none;
-}*/
+    outline: none;
+}
 
 /*.sky-search-button-container {
     border: 1px transparent solid;
