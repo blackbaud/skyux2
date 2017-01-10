@@ -3,7 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { SkyTileComponent } from '../../tile';
 
 @Component({
-  selector: 'sky-test-cmp',
+  // tslint:disable-next-line
+  selector: 'div.sky-test-tile-1',
   templateUrl: './tile1.component.fixture.html'
 })
 export class Tile1TestComponent {
