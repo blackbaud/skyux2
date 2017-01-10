@@ -4,17 +4,24 @@
 
     <button
         type="button"
+        [hidden]="!searchButtonShown"
         class="sky-btn sky-btn-secondary sky-search-btn-open"
         [attr.title]="'search_open' | skyResources"
-        (click)="toggleSearchInput(false)">
+        (click)="toggleSearchInput(true)">
         <i class="fa fa-search fa-lg"></i>
     </button>
   </div>
-  <div class="sky-search-dismiss-container">
+  <div
+    [hidden]="searchButtonShown"
+    [ngClass]="{'sky-search-dismiss-absolute': mobileSearchShown}"
+    class="sky-search-dismiss-container">
     <div class="sky-search-item-input">
-      <div class="sky-search-input-container sky-input-group">
+      <div
+        [@inputState]="inputAnimate"
+        (@inputState.start)="inputAnimationStart($event)"
+        (@inputState.done)="inputAnimationEnd($event)"
+        class="sky-search-input-container sky-input-group">
         <input
-          [@inputState]="inputAnimate"
           type="text"
           class="sky-form-control sky-search-input"
           [(ngModel)]="searchText"
@@ -48,11 +55,11 @@
     <div
       class="sky-search-item-dismiss">
       <button
-        [hidden]="true"
+        *ngIf="mobileSearchShown"
         type="button"
         [attr.title]="'search_dismiss' | skyResources"
         class="sky-btn sky-btn-secondary sky-search-btn-dismiss"
-        (click)="dismissSearchInput()">
+        (click)="toggleSearchInput(false)">
         <i class="fa fa-chevron-circle-left fa-lg">
         </i>
       </button>

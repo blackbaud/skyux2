@@ -46,13 +46,13 @@
 }
 */
 
-/*.sky-search-btn-dismiss, .sky-search-btn-dismiss:hover {
+.sky-search-btn-dismiss, .sky-search-btn-dismiss:hover {
     border: 1px transparent solid;
     background-color: transparent;
-}*/
+}
 
-/*
-.sky-search-and-dismiss {
+
+.sky-search-dismiss-container {
     display: flex;
 }
 
@@ -63,7 +63,7 @@
 .sky-search-item-input {
     flex-grow: 1;
 }
-*/
+
 /*  This is needed or else the input will be tiny
     on Safari
 
@@ -89,18 +89,17 @@
     padding-left: 6px;
 }
 
-/*
-.sky-search-and-dismiss-absolute {
+
+.sky-search-dismiss-absolute {
     position: absolute;
     background-color: $sky-color-white;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    visibility: visible;
     padding: $sky-padding-half;
 }
-*/
+
 /*
 .sky-input-group.sky-search-input-container.sky-search-input-focused {
 

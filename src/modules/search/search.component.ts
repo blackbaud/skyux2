@@ -6,10 +6,14 @@ import {
   transition,
   animate,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  AnimationTransitionEvent,
+  ElementRef
 } from '@angular/core';
 
-import { SkyMediaQueryListenerArgs, SkyMediaQueryService } from '../media-queries';
+import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'sky-search',
@@ -20,7 +24,7 @@ import { SkyMediaQueryListenerArgs, SkyMediaQueryService } from '../media-querie
       state('inputHidden',
         style({
           opacity: 0,
-          width: '20px'
+          width: 0
       })),
       state('inputShown',
         style({
@@ -38,14 +42,19 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
 
   public searchText: string;
   public inputAnimate: string = 'inputShown';
+  public breakpointSubscription: Subscription;
+  public searchButtonShown: boolean = false;
+  public mobileSearchShown: boolean = false;
+  public dismissButtonShown: boolean = false;
 
   constructor(
-    private mediaQueryService: SkyMediaQueryService
+    private mediaQueryService: SkyMediaQueryService,
+    private elRef: ElementRef
   ) { }
 
   public ngAfterViewInit() {
-    this.mediaQueryService.init(
-      SkyMediaQueryService.xs,(args: SkyMediaQueryListenerArgs) => {
+    this.breakpointSubscription = this.mediaQueryService.subscribe(
+      (args: SkyMediaBreakpoints) => {
         this.mediaQueryCallback(args);
       }
 
@@ -76,15 +85,51 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  public ngOnDestroy() {
-    this.mediaQueryService.destroy();
+  public inputAnimationStart(event: AnimationTransitionEvent) {
+    let buttonWidth = this.elRef.nativeElement.querySelector('.sky-search-btn-open').clientWidth;
+      let offsetWidth = this.elRef.nativeElement.querySelector('.sky-search-container').offsetLeft;
+      let minWidth = buttonWidth + offsetWidth;
+
+      this.elRef.nativeElement.querySelector('.sky-search-input-container').style.minWidth
+        = minWidth.toString() + 'px';
+
+    if (event.toState === 'inputShown'
+      && SkyMediaBreakpoints.xs === this.mediaQueryService.current) {
+      this.mobileSearchShown = true;
+      this.searchButtonShown = false;
+    }
   }
 
-  private mediaQueryCallback(args: SkyMediaQueryListenerArgs) {
-    if (args.matches) {
+  public inputAnimationEnd(event: AnimationTransitionEvent) {
+
+    this.elRef.nativeElement.querySelector('.sky-search-input-container').style.minWidth
+        = '';
+
+    this.searchButtonShown = event.toState === 'inputHidden'
+      && this.mediaQueryService.current === SkyMediaBreakpoints.xs;
+
+    if ((event.toState === 'inputHidden'
+    && SkyMediaBreakpoints.xs === this.mediaQueryService.current)
+      || this.mediaQueryService.current !== SkyMediaBreakpoints.xs) {
+      this.mobileSearchShown = false;
+    }
+
+    console.log('event toState: ', event.toState);
+    console.log('breakpoints: ', this.mediaQueryService.current);
+  }
+
+  public ngOnDestroy() {
+    this.breakpointSubscription.unsubscribe();
+  }
+
+  private mediaQueryCallback(args: SkyMediaBreakpoints) {
+    console.log('whaddup', args);
+    if (args === SkyMediaBreakpoints.xs) {
       this.inputAnimate = 'inputHidden';
-    } else {
+    } else if (this.inputAnimate !== 'inputShown') {
       this.inputAnimate = 'inputShown';
+    } else {
+      this.mobileSearchShown = false;
     }
   }
 }

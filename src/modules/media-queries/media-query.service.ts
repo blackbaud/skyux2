@@ -58,6 +58,11 @@ export class SkyMediaQueryService {
 
     this.lgMql = matchMedia(SkyMediaQueryService.lg);
     this.lgMql.addListener(this.lgListener);
+
+    this.setupListener(this.xsMql, SkyMediaBreakpoints.xs);
+    this.setupListener(this.smMql, SkyMediaBreakpoints.sm);
+    this.setupListener(this.mdMql, SkyMediaBreakpoints.md);
+    this.setupListener(this.lgMql, SkyMediaBreakpoints.lg);
   }
 
   public subscribe(listener: SkyMediaQueryListener): Subscription {
