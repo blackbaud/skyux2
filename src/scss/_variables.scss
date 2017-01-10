@@ -10,6 +10,7 @@ $sky-padding-3_4: floor(($sky-padding * 0.75)) !default;
 $sky-margin: 10px !default;
 $sky-margin-half: $sky-margin / 2 !default;
 $sky-margin-double: $sky-margin * 2 !default;
+$sky-margin-plus-half: $sky-margin + $sky-margin-half !default;
 $sky-margin-triple: $sky-margin * 3 !default;
 
 $sky-color-green: #1ab394 !default;
@@ -123,6 +124,13 @@ $sky-avatar-border-width: 2px !default;
 $sky-wait-color: $sky-color-blue !default;
 $sky-wait-mask-color: $sky-color-white !default;
 // end wait
+
+// begin wait
+$sky-paging-disabled-color: $sky-color-gray-light !default;
+$sky-paging-current-color: #f4f4f4 !default;
+$sky-paging-border-color: #ddd !default;
+$sky-paging-background-color: $sky-color-white !default;
+//end wait
 
 // Support for mozilla in experimental css3 properties (-moz).
 $sky-experimental-support-for-mozilla      : true !default;

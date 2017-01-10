@@ -1,3 +1,14 @@
+# 2.0.0-beta.1 (2017-01-06)
+
+- Use skyux-builder for documentation instead of sky-pages-out-skyux2.
+- Created the paging component for pagingation. (#140)
+- Created the list-paging component for pagination in the context of a list (more list functionality coming soon, thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes). 
+- Created the definition list component. (#274)
+- Updated the media query service to work more like SKY UX 1 while using Observables. (#268)
+- Added the sky- prefix for the button variant mixin.
+- Added a dependency on [moment](https://github.com/moment/moment).
+- Added a dependency on [microedge-rxstate](https://github.com/blackbaud/microedge-rxstate). 
+
 # 2.0.0-beta.0 (2017-01-03)
 
 - Adjusted npm package name to `@blackbaud/skyux`.  Please note this will require you to update your references.

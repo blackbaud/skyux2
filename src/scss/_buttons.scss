@@ -32,7 +32,7 @@
 }
 
 .sky-btn-primary {
-  @include button-variant(#fff, $sky-color-blue, $sky-color-blue);
+  @include sky-button-variant(#fff, $sky-color-blue, $sky-color-blue);
 }
 
 .sky-btn-tab {

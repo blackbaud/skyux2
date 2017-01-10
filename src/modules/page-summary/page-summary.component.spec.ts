@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { expect } from '../testing';
 
-import { SkyMediaQueryService } from '../media-queries';
+import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
 import { MockSkyMediaQueryService } from '../testing/mocks';
 
@@ -52,9 +52,7 @@ describe('Page summary component', () => {
       expect(el.querySelector(xsSelector)).not.toExist();
       expect(el.querySelector(smSelector)).toExist();
 
-      mockQueryService.fire({
-        matches: true
-      });
+      mockQueryService.fire(SkyMediaBreakpoints.xs);
 
       expect(el.querySelector(xsSelector)).toExist();
       expect(el.querySelector(smSelector)).not.toExist();
