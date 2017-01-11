@@ -511,6 +511,22 @@
       "_description": "Label for the button that deletes a file",
       "message": "Delete file"
     },
+    "search_dismiss": {
+        "_description": "Label for dismissing search input",
+        "message": "Dismiss search"
+    },
+    "search_label": {
+        "_description": "Label for search component functionality",
+        "message": "Search items"
+    },
+    "search_open": {
+        "_description": "Label for opening search input",
+        "message": "Open search"
+    },
+    "search_placeholder": {
+      "_description": "Placeholder text for search input component",
+      "message": "Find in this list"
+    },
     "searchfield_searching": {
         "_description": "text for ui-select search control while performing a remote search",
         "message": "Searching..."

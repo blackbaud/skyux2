@@ -32,9 +32,11 @@
           (blur)="inputFocused(false)"
           [attr.aria-label]="'search_label' | skyResources"
           [attr.placeholder]="placeholderText" />
-        <span class="sky-input-group-btn">
+        <span
+        class="sky-input-group-btn"
+        [hidden]="!clearButtonShown"
+        >
           <button
-            [hidden]="!clearButtonShown"
             tabindex="-1"
             aria-hidden="true"
             type="button"

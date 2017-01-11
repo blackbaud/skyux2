@@ -8,14 +8,26 @@ import {
   AfterViewInit,
   OnDestroy,
   AnimationTransitionEvent,
-  ElementRef
+  ElementRef,
+  Output,
+  Input,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 
 import {
   SkySearchAdapterService
 } from './search-adapter.service';
 
-import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
+import {
+  SkyMediaBreakpoints,
+  SkyMediaQueryService
+} from '../media-queries';
+
+import {
+  SkyResourcesService
+} from '../resources';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -28,7 +40,7 @@ const INPUT_HIDDEN_STATE: string = 'inputHidden';
   styleUrls: ['./search.component.scss'],
   animations: [
     trigger('inputState', [
-      state('inputHidden',
+      state(INPUT_HIDDEN_STATE,
         style({
           opacity: 0,
           width: 0
@@ -43,12 +55,24 @@ const INPUT_HIDDEN_STATE: string = 'inputHidden';
   ],
   providers: [
     SkyMediaQueryService,
-    SkySearchAdapterService
+    SkySearchAdapterService,
+    SkyResourcesService
   ]
 })
-export class SkySearchComponent implements OnDestroy, AfterViewInit {
+export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
 
+  @Output()
+  public searchApply = new EventEmitter<string>();
+
+  @Output()
+  public searchChange = new EventEmitter<string>();
+
+  @Input()
   public searchText: string;
+
+  @Input()
+  public placeholderText: string;
+
   public inputAnimate: string = INPUT_SHOWN_STATE;
   public breakpointSubscription: Subscription;
   public searchButtonShown: boolean = false;
@@ -60,8 +84,13 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
   constructor(
     private mediaQueryService: SkyMediaQueryService,
     private elRef: ElementRef,
-    private searchAdapter: SkySearchAdapterService
-  ) { }
+    private searchAdapter: SkySearchAdapterService,
+    resources: SkyResourcesService
+  ) {
+    if (this.placeholderText === undefined) {
+      this.placeholderText = resources.getString('search_placeholder');
+    }
+  }
 
   public ngAfterViewInit() {
     this.breakpointSubscription = this.mediaQueryService.subscribe(
@@ -69,6 +98,15 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
         this.mediaQueryCallback(args);
       }
     );
+
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchText'].previousValue !== changes['searchText'].currentValue) {
+      if (this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
+        this.inputAnimate = INPUT_SHOWN_STATE;
+      }
+    }
   }
 
   public inputFocused(isFocused: boolean) {
@@ -78,14 +116,26 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
   public clearSearchText() {
     this.searchText = '';
     this.clearButtonShown = false;
+
+    this.searchAdapter.focusInput(this.elRef);
+
+    this.searchApply.emit(this.searchText);
   }
 
   public applySearchText(searchText: string) {
+    if (searchText !== this.searchText) {
+      this.searchText = searchText;
+    }
     this.clearButtonShown = searchText && searchText !== '';
+    if (searchText && searchText !== '') {
+      this.searchAdapter.selectInput(this.elRef);
+    }
+
+    this.searchApply.emit(searchText);
   }
 
   public searchTextChanged(searchText: string) {
-
+    this.searchChange.emit(searchText);
   }
 
   public toggleSearchInput(showInput: boolean) {
@@ -100,7 +150,7 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
     this.searchAdapter.startInputAnimation(this.elRef);
 
     if (event.toState === INPUT_SHOWN_STATE
-      && SkyMediaBreakpoints.xs === this.mediaQueryService.current) {
+      && this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
       this.mobileSearchShown = true;
       this.searchButtonShown = false;
     }
@@ -114,7 +164,7 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit {
       && this.mediaQueryService.current === SkyMediaBreakpoints.xs;
 
     if ((event.toState === INPUT_HIDDEN_STATE
-    && SkyMediaBreakpoints.xs === this.mediaQueryService.current)
+      && this.mediaQueryService.current === SkyMediaBreakpoints.xs)
       || this.mediaQueryService.current !== SkyMediaBreakpoints.xs) {
       this.mobileSearchShown = false;
     }
