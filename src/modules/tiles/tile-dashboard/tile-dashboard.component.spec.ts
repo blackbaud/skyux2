@@ -5,6 +5,8 @@ import {
   tick
 } from '@angular/core/testing';
 
+import { expect } from '../../testing';
+
 import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
@@ -286,6 +288,25 @@ describe('Tile dashboard component', () => {
       let tileEls = el.querySelectorAll('.sky-tile-dashboard-column');
 
       expect(tileEls[0].offsetWidth).toEqual(tileEls[1].offsetWidth);
+    })
+  );
+
+  it(
+    `should allow context to be provided to a tile`,
+    fakeAsync(() => {
+      let fixture = TestBed.createComponent(TileDashboardTestComponent);
+
+      fixture.detectChanges();
+      tick();
+
+      let cmp = fixture.componentInstance;
+
+      let tileComponentRef = cmp
+        .dashboardComponent
+        .dashboardService
+        .getTileComponent('sky-test-tile-2');
+
+      expect(tileComponentRef.instance.context.id).toBe(3);
     })
   );
 });

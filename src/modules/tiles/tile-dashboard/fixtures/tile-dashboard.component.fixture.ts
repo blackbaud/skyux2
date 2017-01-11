@@ -4,6 +4,8 @@ import { SkyTileDashboardComponent, SkyTileDashboardConfig } from '../../../tile
 import { Tile1TestComponent } from './tile1.component.fixture';
 import { Tile2TestComponent } from './tile2.component.fixture';
 
+import { TileTestContext } from './tile-context.fixture';
+
 @Component({
   selector: 'sky-demo-app',
   templateUrl: './tile-dashboard.component.fixture.html'
@@ -18,23 +20,31 @@ export class TileDashboardTestComponent {
     this.dashboardConfig = {
       tiles: [
         {
-          id: 'tile1',
+          id: 'sky-test-tile-1',
           componentType: Tile1TestComponent
         },
         {
-          id: 'tile2',
-          componentType: Tile2TestComponent
+          id: 'sky-test-tile-2',
+          componentType: Tile2TestComponent,
+          providers: [
+            {
+              provide: TileTestContext,
+              useValue: {
+                id: 3
+              }
+            }
+          ]
         }
       ],
       layout: {
         singleColumn: {
           tiles: [
             {
-              id: 'tile2',
+              id: 'sky-test-tile-2',
               isCollapsed: false
             },
             {
-              id: 'tile1',
+              id: 'sky-test-tile-1',
               isCollapsed: true
             }
           ]
@@ -43,7 +53,7 @@ export class TileDashboardTestComponent {
           {
             tiles: [
               {
-                id: 'tile1',
+                id: 'sky-test-tile-1',
                 isCollapsed: true
               }
             ]
@@ -51,7 +61,7 @@ export class TileDashboardTestComponent {
           {
             tiles: [
               {
-                id: 'tile2',
+                id: 'sky-test-tile-2',
                 isCollapsed: false
               }
             ]
