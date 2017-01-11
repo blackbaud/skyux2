@@ -9,7 +9,7 @@
         active="true"
       >
         <label>
-          Enter text here to continue.
+          Enter text to continue:
           <input type="text" [(ngModel)]="requiredValue1" />
         </label>
       </sky-tab>
@@ -19,7 +19,7 @@
       >
         <sky-checkbox [(ngModel)]="requiredValue2">
           <sky-checkbox-label>
-            Check this box to enable step 3.
+            Select this checkbox to enable step 3.
           </sky-checkbox-label>
         </sky-checkbox>
       </sky-tab>
@@ -27,7 +27,7 @@
         tabHeading="Step 3"
         [disabled]="step3Disabled"
       >
-        Some other content
+        Some other content.
       </sky-tab>
     </sky-tabset>
   </sky-modal-content>
@@ -39,7 +39,7 @@
       class="sky-btn sky-btn-primary"
       (click)="instance.close()"
     >
-      Save and Close
+      Save and close
     </button>
   </sky-modal-footer>
 </sky-modal>
