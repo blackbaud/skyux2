@@ -71,7 +71,15 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
   public searchText: string;
 
   @Input()
-  public placeholderText: string;
+  public get placeholderText(): string {
+    if (this._placeholderText === undefined) {
+      return this.resources.getString('search_placeholder');
+    }
+  }
+
+  public set placeholderText(value: string) {
+    this._placeholderText = value;
+  }
 
   public inputAnimate: string = INPUT_SHOWN_STATE;
   public breakpointSubscription: Subscription;
@@ -81,18 +89,17 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
   public clearButtonShown: boolean = false;
   public searchInputFocused: boolean = false;
 
+  private _placeholderText: string;
+
   constructor(
     private mediaQueryService: SkyMediaQueryService,
     private elRef: ElementRef,
     private searchAdapter: SkySearchAdapterService,
-    resources: SkyResourcesService
-  ) {
-    if (this.placeholderText === undefined) {
-      this.placeholderText = resources.getString('search_placeholder');
-    }
-  }
+    private resources: SkyResourcesService
+  ) {}
 
   public ngAfterViewInit() {
+
     this.breakpointSubscription = this.mediaQueryService.subscribe(
       (args: SkyMediaBreakpoints) => {
         this.mediaQueryCallback(args);
@@ -102,10 +109,8 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['searchText'].previousValue !== changes['searchText'].currentValue) {
-      if (this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
-        this.inputAnimate = INPUT_SHOWN_STATE;
-      }
+    if (this.searchTextChangedSmallScreen(changes)) {
+      this.inputAnimate = INPUT_SHOWN_STATE;
     }
   }
 
@@ -121,7 +126,6 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
 
     this.searchApply.emit(this.searchText);
   }
-
 
   public enterPress(event: KeyboardEvent, searchText: string) {
     if (event.which === 13) {
@@ -180,6 +184,13 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
 
   public ngOnDestroy() {
     this.breakpointSubscription.unsubscribe();
+  }
+
+  private searchTextChangedSmallScreen(changes: SimpleChanges) {
+    return changes['searchText'] &&
+      changes['searchText'].previousValue !== changes['searchText'].currentValue &&
+      this.searchText !== '' &&
+      this.mediaQueryService.current === SkyMediaBreakpoints.xs;
   }
 
   private mediaQueryCallback(args: SkyMediaBreakpoints) {

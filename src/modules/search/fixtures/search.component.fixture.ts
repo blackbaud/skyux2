@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SkySearchComponent } from '../search.component';
 
 @Component({
   selector: 'sky-test-cmp',

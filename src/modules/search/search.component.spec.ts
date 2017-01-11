@@ -12,6 +12,10 @@ import {
 } from '@angular/platform-browser';
 
 import {
+  expect
+} from '../testing';
+
+import {
   SkySearchModule
 } from './search.module';
 
@@ -24,6 +28,7 @@ describe('Search component', () => {
   let nativeElement: HTMLElement;
   let component: SearchTestComponent;
   let element: DebugElement;
+
   beforeEach(() => {
 
     TestBed.configureTestingModule({
@@ -42,11 +47,18 @@ describe('Search component', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   function setInput(text: string) {
     let inputEl = element.query(By.css('input'));
-    inputEl.nativeElement.value = 'my search text';
-    inputEl.nativeElement.dispatchEvent(new Event('change'));
+    inputEl.nativeElement.value = text;
+
     inputEl.nativeElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    inputEl.nativeElement.dispatchEvent(new Event('change'));
     fixture.detectChanges();
   }
 
@@ -74,15 +86,12 @@ describe('Search component', () => {
     triggerInputEnter();
 
     expect(component.lastSearchTextApplied).toBe('my search text');
-
   });
 
   it('should apply search text on apply button press', () => {
     setInput('applied text');
-
     triggerApplyButton();
     expect(component.lastSearchTextApplied).toBe('applied text');
-
   });
 
   it('should emit search change event on input change', () => {
@@ -92,15 +101,24 @@ describe('Search component', () => {
   });
 
   it('should set default placeholder text when none is specified', () => {
+    fixture.detectChanges();
 
+    expect(element.query(By.css('input')).attributes['placeholder']).toBe('Find in this list');
   });
 
   it('should override default placeholder text when placeholder text is provided', () => {
-
+    component.placeholderText = '';
+    fixture.detectChanges();
+    /*tslint:disable */
+    expect(element.query(By.css('input')).attributes['placeholder']).toBe(null);
+    /*tslint:enable */
   });
 
   it('should show the clear button when search is applied', () => {
+    setInput('applied text');
+    triggerApplyButton();
 
+    expect(element.query(By.css('.sky-search-btn-clear')).nativeElement).toBeVisible();
   });
 
   it('should emit the apply event when clear button is clicked', () => {
@@ -115,29 +133,38 @@ describe('Search component', () => {
 
   });
 
+  it('should update search text when applySearchText is called with new search text', () => {
+
+  });
+
   describe('animations', () => {
-     it('should animate the mobile search input closed and show a button when screen is xsmall', () => {
 
+    describe('should animate the mobile search input open', () => {
+      it('when the open button is pressed', () => {
+
+      });
+
+      it('when the screen changes from xsmall to large and the input is hidden', () => {
+
+      });
+
+      it('when the screen changes from xsmall to large and the input is shown', () => {
+
+      });
+
+      it('when searchtext binding is changed and screen is xsmall', () => {
+
+      });
     });
 
-    it('should animate the mobile search input open when the open button is pressed', () => {
+    describe('should animate the mobile search input closed', () => {
+      it('and show a button when screen is xsmall', () => {
 
-    });
+      });
 
-    it('should animate the mobile search input closed when the dismiss button is pressed', () => {
+      it('when the dismiss button is pressed', () => {
 
-    });
-
-    it('should animate the search input open when the screen changes from xsmall to large and the input is hidden', () => {
-
-    });
-
-    it('should animate the search input open when the screen changes from xsmall to large and the input is shown', () => {
-
-    });
-
-    it('should animate the search input open when searchtext binding is changed and screen is xsmall', () => {
-
+      });
     });
   });
 });
