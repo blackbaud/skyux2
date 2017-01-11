@@ -79,7 +79,7 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
   public mobileSearchShown: boolean = false;
   public dismissButtonShown: boolean = false;
   public clearButtonShown: boolean = false;
-  public searchInputFocused: boolean = false
+  public searchInputFocused: boolean = false;
 
   constructor(
     private mediaQueryService: SkyMediaQueryService,
@@ -139,7 +139,7 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
   }
 
   public toggleSearchInput(showInput: boolean) {
-    if(showInput) {
+    if (showInput) {
       this.inputAnimate = INPUT_SHOWN_STATE;
     } else {
       this.inputAnimate = INPUT_HIDDEN_STATE;

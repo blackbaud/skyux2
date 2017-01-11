@@ -1,6 +1,5 @@
 import {
   ElementRef,
-  EventEmitter,
   Injectable,
   Renderer
 } from '@angular/core';
@@ -35,7 +34,7 @@ export class SkySearchAdapterService {
   }
 
   private getInputContainerEl(searchEl: ElementRef) {
-    return searchEl.nativeElement.querySelector('.sky-search-input-container')
+    return searchEl.nativeElement.querySelector('.sky-search-input-container');
   }
 
   private getSearchOpenButtonEl(searchEl: ElementRef) {
