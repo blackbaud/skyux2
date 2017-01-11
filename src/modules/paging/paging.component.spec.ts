@@ -1,6 +1,5 @@
 import {
-  TestBed,
-  async
+  TestBed
 } from '@angular/core/testing';
 
 import {
@@ -24,7 +23,7 @@ describe('Paging component', () => {
       fixture: any,
       nativeElement: HTMLElement,
       element: DebugElement;
-  beforeEach(async(() => {
+  beforeEach(() => {
 
     TestBed.configureTestingModule({
       declarations: [
@@ -41,7 +40,7 @@ describe('Paging component', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-  }));
+  });
 
   function getPagingSelector(type: string) {
     if (type === 'next' || type === 'previous') {
