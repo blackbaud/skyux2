@@ -4,6 +4,14 @@ import {
 } from '@angular/core/testing';
 
 import {
+  DebugElement
+} from '@angular/core';
+
+import {
+  By
+} from '@angular/platform-browser';
+
+import {
   SkySearchModule
 } from './search.module';
 
@@ -15,6 +23,7 @@ describe('Search component', () => {
   let fixture: ComponentFixture<SearchTestComponent>;
   let nativeElement: HTMLElement;
   let component: SearchTestComponent;
+  let element: DebugElement;
   beforeEach(() => {
 
     TestBed.configureTestingModule({
@@ -29,19 +38,57 @@ describe('Search component', () => {
     fixture = TestBed.createComponent(SearchTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
+    element = fixture.debugElement as DebugElement;
     fixture.detectChanges();
   });
 
+  function setInput(text: string) {
+    let inputEl = element.query(By.css('input'));
+    inputEl.nativeElement.value = 'my search text';
+    inputEl.nativeElement.dispatchEvent(new Event('change'));
+    inputEl.nativeElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+  }
+
+  function triggerInputEnter() {
+    let inputEl = element.query(By.css('input'));
+    inputEl.triggerEventHandler('keyup', { which: 13});
+    fixture.detectChanges();
+  }
+
+  function triggerApplyButton() {
+    let applyEl = element.query(By.css('.sky-search-btn-apply'));
+    applyEl.triggerEventHandler('click', undefined);
+    fixture.detectChanges();
+  }
+
   it('should apply search text on enter press', () => {
+
+    setInput('my search text');
+    let inputEl = element.query(By.css('input'));
+
+    inputEl.triggerEventHandler('keyup', { which: 23});
+    fixture.detectChanges();
+    expect(component.lastSearchTextApplied).not.toBe('my search text');
+
+    triggerInputEnter();
+
+    expect(component.lastSearchTextApplied).toBe('my search text');
 
   });
 
   it('should apply search text on apply button press', () => {
+    setInput('applied text');
+
+    triggerApplyButton();
+    expect(component.lastSearchTextApplied).toBe('applied text');
 
   });
 
   it('should emit search change event on input change', () => {
-
+    setInput('change text');
+    expect(component.lastSearchTextChanged).toBe('change text');
+    expect(component.lastSearchTextApplied).not.toBe('change text');
   });
 
   it('should set default placeholder text when none is specified', () => {

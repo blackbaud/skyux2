@@ -27,7 +27,7 @@
           class="sky-form-control sky-search-input"
           [(ngModel)]="searchText"
           (change)="searchTextChanged(searchText)"
-          (keyup.enter)="applySearchText(searchText)"
+          (keyup)="enterPress($event, searchText)"
           (focus)="inputFocused(true)"
           (blur)="inputFocused(false)"
           [attr.aria-label]="'search_label' | skyResources"

@@ -122,6 +122,13 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
     this.searchApply.emit(this.searchText);
   }
 
+
+  public enterPress(event: KeyboardEvent, searchText: string) {
+    if (event.which === 13) {
+      this.applySearchText(searchText);
+    }
+  }
+
   public applySearchText(searchText: string) {
     if (searchText !== this.searchText) {
       this.searchText = searchText;

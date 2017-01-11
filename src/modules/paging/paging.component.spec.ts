@@ -93,12 +93,12 @@ describe('Paging component', () => {
     });
 
     describe('after clicking page 3', () => {
-      beforeEach(async(() => {
+      beforeEach(() => {
         element.query(
           By.css(getPagingSelector('3'))
         ).triggerEventHandler('click', undefined);
         fixture.detectChanges();
-      }));
+      });
 
       it('should have an enabled previous button', () => {
         expect(element.query(
@@ -131,11 +131,11 @@ describe('Paging component', () => {
       });
 
       describe('and clicking next', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
           element.query(By.css(getPagingSelector('next')))
             .triggerEventHandler('click', undefined);
           fixture.detectChanges();
-        }));
+        });
 
         it('should have enabled previous button', () => {
           expect(element.query(
@@ -151,7 +151,7 @@ describe('Paging component', () => {
       });
 
       describe('and clicking previous twice', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
           element.query(
             By.css(getPagingSelector('previous'))
           ).triggerEventHandler('click', undefined);
@@ -159,7 +159,7 @@ describe('Paging component', () => {
             By.css(getPagingSelector('previous'))
           ).triggerEventHandler('click', undefined);
           fixture.detectChanges();
-        }));
+        });
 
         it('should have disabled previous button', () => {
            expect(element.query(
