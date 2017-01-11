@@ -17,6 +17,7 @@
     class="sky-search-dismiss-container">
     <div class="sky-search-item-input">
       <div
+        [ngClass]="{'sky-search-input-focused': searchInputFocused}"
         [@inputState]="inputAnimate"
         (@inputState.start)="inputAnimationStart($event)"
         (@inputState.done)="inputAnimationEnd($event)"
