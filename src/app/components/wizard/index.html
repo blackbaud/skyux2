@@ -1,13 +1,13 @@
 <sky-demo-page title="Wizard">
   <sky-demo-page-summary>
-    A wizard uses tabs to guide users through a set of pre-defined steps. A wizard is useful when users need to perform steps in a particular order. To display a series of tabs as a wizard, set <code>tabStyle=”wizard”</code> on the <code>sky-tabset</code> component. To add buttons to navigate through wizard tabs, use the <code>sky-tabset-nav-button</code> component. For more information about tabs, see the <a routerLink="/components/tabs">tabs module</a>.
+    A wizard uses tabs to guide users through a set of pre-defined steps. A wizard is useful when users need to perform steps in a particular order. To display a series of tabs as a wizard, set <code>tabStyle="wizard"</code> on the <code>sky-tabset</code> component. To include buttons for users to navigate through the wizard, use the <code>sky-tabset-nav-button</code> component. For more information about tabs, see the <a routerLink="/components/tabs">tabs module</a>.
   </sky-demo-page-summary>
 
   <sky-demo-page-properties sectionHeading="Wizard tabset properties">
     <sky-demo-page-property
         propertyName="tabStyle"
     >
-      Specifies the behavior for a series of tabs. To display tabs as steps in a wizard, set <code>tabStyle="wizard"</code>.
+      Specifies the behavior for a series of tabs. To display tabs as steps in a wizard, set <code>tabStyle="wizard"</code> on the <code>sky-tabset</code> component.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -15,12 +15,12 @@
     <sky-demo-page-property
         propertyName="buttonType"
     >
-      Specifies the button type for the tabset nav button. To create a previous tabset nav button, set <code>buttonType="previous"</code>. To create a next tabset nav button, set <code>buttonType="next"</code>.
+      Specifies the button type for a tabset nav button. To create a <strong>Previous</strong> button, set <code>buttonType="previous"</code> on the <code>sky-tabset-nav-button</code> component. To create a <strong>Next</strong> button, set <code>buttonType="next"</code> on the <code>sky-tabset-nav-button</code> component.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="tabset"
     >
-      Specifies the tabset component that the nav buttons control.
+      Specifies the <code>sky-tabset</code> component that the tabset nav button controls.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
