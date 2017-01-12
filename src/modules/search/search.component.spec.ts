@@ -55,10 +55,10 @@ describe('Search component', () => {
     let inputEl = element.query(By.css('input'));
     inputEl.nativeElement.value = text;
 
-    inputEl.nativeElement.dispatchEvent(new CustomEvent('input'));
+    inputEl.nativeElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    inputEl.nativeElement.dispatchEvent(new CustomEvent('change'));
+    inputEl.nativeElement.dispatchEvent(new Event('change'));
     fixture.detectChanges();
   }
 
