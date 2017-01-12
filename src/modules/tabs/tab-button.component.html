@@ -7,6 +7,7 @@
     }"
     (click)="doTabClick()"
     role="tab"
+    [attr.aria-selected]="active"
 >
   {{tabHeading}}
   <button
