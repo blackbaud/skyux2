@@ -38,6 +38,15 @@ describe('Dropdown component', () => {
       expect(getDropdownBtnEl(el)).toHaveCssClass('sky-dropdown-button-type-select');
     });
 
+    it('should have an aria-haspopup role on the button', () => {
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let el: Element = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      expect(getDropdownBtnEl(el).getAttribute('aria-haspopup')).toBe('true');
+    });
+
     it('should set the correct button type CSS class', () => {
       let fixture = TestBed.createComponent(DropdownTestComponent);
       let cmp = fixture.componentInstance;
