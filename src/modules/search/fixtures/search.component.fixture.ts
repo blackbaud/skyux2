@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild
+} from '@angular/core';
+
+import {
+  SkySearchComponent
+} from '../search.component';
 
 @Component({
   selector: 'sky-test-cmp',
   template: require('./search.component.fixture.html')
 })
 export class SearchTestComponent {
+  @ViewChild(SkySearchComponent)
+  public searchComponent: SkySearchComponent;
 
   public searchText: string;
   public placeholderText: string;

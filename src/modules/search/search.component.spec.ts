@@ -74,6 +74,24 @@ describe('Search component', () => {
     fixture.detectChanges();
   }
 
+  function triggerClearButton() {
+    let clearEl = element.query(By.css('.sky-search-btn-clear'));
+    clearEl.triggerEventHandler('click', undefined);
+    fixture.detectChanges();
+  }
+
+  function triggerFocus() {
+    let inputEl = element.query(By.css('input'));
+    inputEl.triggerEventHandler('focus', undefined);
+    fixture.detectChanges();
+  }
+
+  function triggerBlur() {
+    let inputEl = element.query(By.css('input'));
+    inputEl.triggerEventHandler('blur', undefined);
+    fixture.detectChanges();
+  }
+
   it('should apply search text on enter press', () => {
 
     setInput('my search text');
@@ -115,14 +133,20 @@ describe('Search component', () => {
   });
 
   it('should show the clear button when search is applied', () => {
+    expect(element.query(By.css('.sky-input-group-clear')).nativeElement).not.toBeVisible();
     setInput('applied text');
     triggerApplyButton();
 
-    expect(element.query(By.css('.sky-search-btn-clear')).nativeElement).toBeVisible();
+    expect(element.query(By.css('.sky-input-group-clear')).nativeElement).toBeVisible();
   });
 
   it('should emit the apply event when clear button is clicked', () => {
+    setInput('applied text');
+    triggerApplyButton();
+    triggerClearButton();
 
+    expect(element.query(By.css('.sky-input-group-clear')).nativeElement).not.toBeVisible();
+    expect(component.lastSearchTextApplied).toBe('');
   });
 
   it('should show applied indication when search is applied and open button is shown', () => {
@@ -130,11 +154,22 @@ describe('Search component', () => {
   });
 
   it('should apply the correct focus class', () => {
-
+    triggerFocus();
+    let containerEl = element.query(By.css('.sky-search-input-container.sky-search-input-focused'));
+    expect(containerEl).not.toBeNull();
+    triggerBlur();
+    containerEl = element.query(By.css('.sky-search-input-container.sky-search-input-focused'));
+    expect(containerEl).toBeNull();
   });
 
   it('should update search text when applySearchText is called with new search text', () => {
+    component.searchComponent.applySearchText('new search text');
+    fixture.detectChanges();
+    expect(component.lastSearchTextApplied).toBe('new search text');
 
+    component.searchComponent.applySearchText('');
+    fixture.detectChanges();
+    expect(component.lastSearchTextApplied).toBe('');
   });
 
   describe('animations', () => {
