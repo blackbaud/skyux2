@@ -264,7 +264,9 @@ describe('Search component', () => {
   });
 
   it('should set the clear button visibility when search binding changed', () => {
-
+    component.searchText = 'whaddup';
+    fixture.detectChanges();
+    expect(element.query(By.css('.sky-input-group-clear')).nativeElement).toBeVisible();
   });
 
   describe('animations', () => {

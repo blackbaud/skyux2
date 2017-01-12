@@ -8,29 +8,6 @@ export class SkySearchDemoComponent {
   public displayedItems: any;
   public searchText: string;
 
-  constructor() {
-    this.displayedItems = this.items;
-  }
-
-  public searchApplied(searchText: string) {
-    let filteredItems = this.items;
-    this.searchText = searchText;
-    if (searchText) {
-      filteredItems = this.items.filter(function (item) {
-          let property: any;
-          for (property in item) {
-              if (item.hasOwnProperty(property) && (property === 'title' || property === 'note')) {
-                  if (item[property].indexOf(searchText) > -1) {
-                      return true;
-                  }
-              }
-          }
-          return false;
-      });
-    }
-    this.displayedItems = filteredItems;
-  }
-
   private items = [
     {
       title: 'Call Robert Hernandez',
@@ -53,4 +30,27 @@ export class SkySearchDemoComponent {
       note: 'Send a thank you note to Timothy for his donation.'
     }
   ];
+
+  constructor() {
+    this.displayedItems = this.items;
+  }
+
+  public searchApplied(searchText: string) {
+    let filteredItems = this.items;
+    this.searchText = searchText;
+    if (searchText) {
+      filteredItems = this.items.filter(function (item) {
+          let property: any;
+          for (property in item) {
+              if (item.hasOwnProperty(property) && (property === 'title' || property === 'note')) {
+                  if (item[property].indexOf(searchText) > -1) {
+                      return true;
+                  }
+              }
+          }
+          return false;
+      });
+    }
+    this.displayedItems = filteredItems;
+  }
 }
