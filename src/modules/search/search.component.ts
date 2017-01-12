@@ -109,8 +109,11 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (this.searchTextChangedSmallScreen(changes)) {
-      this.inputAnimate = INPUT_SHOWN_STATE;
+    if (this.searchBindingChanged(changes)) {
+      this.clearButtonShown = this.searchText && this.searchText !== '';
+      if (this.shouldOpenInput) {
+        this.inputAnimate = INPUT_SHOWN_STATE;
+      }
     }
   }
 
@@ -186,10 +189,13 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
     this.breakpointSubscription.unsubscribe();
   }
 
-  private searchTextChangedSmallScreen(changes: SimpleChanges) {
+  private searchBindingChanged(changes: SimpleChanges) {
     return changes['searchText'] &&
-      changes['searchText'].previousValue !== changes['searchText'].currentValue &&
-      this.searchText !== '' &&
+      changes['searchText'].previousValue !== changes['searchText'].currentValue;
+  }
+
+  private shouldOpenInput() {
+    return this.searchText !== '' &&
       this.mediaQueryService.current === SkyMediaBreakpoints.xs;
   }
 

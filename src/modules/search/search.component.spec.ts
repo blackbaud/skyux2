@@ -263,6 +263,10 @@ describe('Search component', () => {
     expect(component.lastSearchTextApplied).toBe('');
   });
 
+  it('should set the clear button visibility when search binding changed', () => {
+
+  });
+
   describe('animations', () => {
 
     describe('should animate the mobile search input open', () => {
