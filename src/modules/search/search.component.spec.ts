@@ -138,13 +138,26 @@ describe('Search component', () => {
     return fixture.whenStable();
   }
 
+  function triggerDismissButton() {
+    let dismissEl = element.query(By.css('.sky-search-btn-dismiss'));
+    dismissEl.triggerEventHandler('click', undefined);
+    fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
   function triggerXsBreakpoint() {
     mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
     fixture.detectChanges();
     return fixture.whenStable();
   }
 
-  function verifySearchOpen() {
+  function triggerLgBreakpoint() {
+    mockMediaQueryService.fire(SkyMediaBreakpoints.lg);
+    fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
+  function verifySearchOpenMobile() {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
     expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
@@ -152,6 +165,16 @@ describe('Search component', () => {
     expect(searchDismissContainer.nativeElement)
       .toHaveCssClass('sky-search-dismiss-absolute');
     expect(element.query(By.css('.sky-search-btn-dismiss'))).not.toBeNull();
+  }
+
+  function verifySearchOpenFullScreen() {
+    fixture.detectChanges();
+    let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
+    expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
+    expect(searchDismissContainer.nativeElement).toBeVisible();
+    expect(searchDismissContainer.nativeElement).not
+      .toHaveCssClass('sky-search-dismiss-absolute');
+    expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
   }
 
   function verifySearchClosed() {
@@ -162,8 +185,6 @@ describe('Search component', () => {
     expect(searchDismissContainer.nativeElement).not.toBeVisible();
     expect(searchDismissContainer.nativeElement).not
       .toHaveCssClass('sky-search-dismiss-absolute');
-    expect(element.query(By.css('.sky-search-input-container')).styles['min-width'])
-      .toBe(undefined);
   }
 
   it('should apply search text on enter press', () => {
@@ -249,22 +270,43 @@ describe('Search component', () => {
         triggerXsBreakpoint().then(() => {
           fixture.detectChanges();
           triggerOpenButton().then(() => {
-            verifySearchOpen();
+            verifySearchOpenMobile();
           });
         });
       }));
 
-      it('when the screen changes from xsmall to large and the input is hidden', () => {
+      it('when the screen changes from xsmall to large and the input is hidden', async(() => {
+        triggerXsBreakpoint().then(() => {
+          fixture.detectChanges();
+          triggerLgBreakpoint().then(() => {
+            verifySearchOpenFullScreen();
+          });
+        });
+      }));
 
-      });
+      it('when the screen changes from xsmall to large and the input is shown', async(() => {
+        triggerXsBreakpoint().then(() => {
+          fixture.detectChanges();
+          triggerOpenButton().then(() => {
+            fixture.detectChanges();
+            triggerLgBreakpoint().then(() => {
+              verifySearchOpenFullScreen();
+            });
+          });
+        });
+      }));
 
-      it('when the screen changes from xsmall to large and the input is shown', () => {
-
-      });
-
-      it('when searchtext binding is changed and screen is xsmall', () => {
-
-      });
+      it('when searchtext binding is changed and screen is xsmall', async(() => {
+        triggerXsBreakpoint().then(() => {
+          fixture.detectChanges();
+          component.searchText = 'my search text';
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            verifySearchOpenMobile();
+            expect(element.query(By.css('input')).properties['value']).toBe('my search text');
+          });
+        });
+      }));
     });
 
     describe('should animate the mobile search input closed', () => {
@@ -275,13 +317,28 @@ describe('Search component', () => {
         });
       }));
 
-      it('when the dismiss button is pressed', () => {
+      it('when the dismiss button is pressed', async(() => {
+        triggerXsBreakpoint().then(() => {
+          fixture.detectChanges();
+          triggerOpenButton().then(() => {
+            fixture.detectChanges();
+            triggerDismissButton().then(() => {
+              verifySearchClosed();
+            });
+          });
+        });
+      }));
 
-      });
+      it('should show applied indication when search is applied', async(() => {
+        setInput('applied stuff');
+        triggerApplyButton();
+        triggerXsBreakpoint().then(() => {
+          fixture.detectChanges();
+          expect(element.query(By.css('.sky-search-btn-open')).nativeElement)
+            .toHaveCssClass('sky-search-btn-open-applied');
+        });
 
-      it('should show applied indication when search is applied', () => {
-
-      });
+      }));
     });
   });
 });
