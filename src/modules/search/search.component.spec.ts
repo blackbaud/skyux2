@@ -1,8 +1,7 @@
 import {
   TestBed,
   ComponentFixture,
-  async,
-  tick
+  async
 } from '@angular/core/testing';
 
 import {
@@ -20,7 +19,6 @@ import {
 import {
   SkySearchModule
 } from './search.module';
-
 
 import {
   SkySearchComponent
@@ -84,13 +82,22 @@ describe('Search component', () => {
   });
 
   function setInput(text: string) {
+    let inputEvent = document.createEvent('Event');
+    let params = {
+      bubbles: false,
+      cancelable: false
+    };
+    inputEvent.initEvent('input', params.bubbles, params.cancelable);
+
+    let changeEvent = document.createEvent('Event');
+    changeEvent.initEvent('change', params.bubbles, params.cancelable);
     let inputEl = element.query(By.css('input'));
     inputEl.nativeElement.value = text;
 
-    inputEl.nativeElement.dispatchEvent(new Event('input'));
+    inputEl.nativeElement.dispatchEvent(inputEvent);
     fixture.detectChanges();
 
-    inputEl.nativeElement.dispatchEvent(new Event('change'));
+    inputEl.nativeElement.dispatchEvent(changeEvent);
     fixture.detectChanges();
   }
 
@@ -128,6 +135,35 @@ describe('Search component', () => {
     let openEl = element.query(By.css('.sky-search-btn-open'));
     openEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
+  function triggerXsBreakpoint() {
+    mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
+    fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
+  function verifySearchOpen() {
+    fixture.detectChanges();
+    let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
+    expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
+    expect(searchDismissContainer.nativeElement).toBeVisible();
+    expect(searchDismissContainer.nativeElement)
+      .toHaveCssClass('sky-search-dismiss-absolute');
+    expect(element.query(By.css('.sky-search-btn-dismiss'))).not.toBeNull();
+  }
+
+  function verifySearchClosed() {
+    fixture.detectChanges();
+    let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
+
+    expect(element.query(By.css('.sky-search-btn-open')).nativeElement).toBeVisible();
+    expect(searchDismissContainer.nativeElement).not.toBeVisible();
+    expect(searchDismissContainer.nativeElement).not
+      .toHaveCssClass('sky-search-dismiss-absolute');
+    expect(element.query(By.css('.sky-search-input-container')).styles['min-width'])
+      .toBe(undefined);
   }
 
   it('should apply search text on enter press', () => {
@@ -210,20 +246,11 @@ describe('Search component', () => {
 
     describe('should animate the mobile search input open', () => {
       it('when the open button is pressed', async(() => {
-        mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
+        triggerXsBreakpoint().then(() => {
           fixture.detectChanges();
-          triggerOpenButton();
-          fixture.detectChanges();
-          fixture.whenStable().then(() => {
-            fixture.detectChanges();
-            let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
-            expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
-            expect(searchDismissContainer.nativeElement).toBeVisible();
-            expect(searchDismissContainer.nativeElement)
-              .toHaveCssClass('sky-search-dismiss-absolute');
-          })
+          triggerOpenButton().then(() => {
+            verifySearchOpen();
+          });
         });
       }));
 
@@ -242,18 +269,9 @@ describe('Search component', () => {
 
     describe('should animate the mobile search input closed', () => {
       it('and show a button when screen is xsmall', async(() => {
-        mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
-
-          expect(element.query(By.css('.sky-search-btn-open')).nativeElement).toBeVisible();
-          expect(searchDismissContainer.nativeElement).not.toBeVisible();
-          expect(searchDismissContainer.nativeElement).not
-            .toHaveCssClass('sky-search-dismiss-absolute');
-          expect(element.query(By.css('.sky-search-input-container')).styles['min-width'])
-            .toBe(undefined);
+        expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
+        triggerXsBreakpoint().then(() => {
+          verifySearchClosed();
         });
       }));
 
@@ -263,7 +281,7 @@ describe('Search component', () => {
 
       it('should show applied indication when search is applied', () => {
 
-    });
+      });
     });
   });
 });
