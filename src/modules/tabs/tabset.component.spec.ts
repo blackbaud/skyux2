@@ -25,8 +25,9 @@ describe('Tabset component', () => {
   function validateTabSelected(el: Element, tabIndex: number) {
     let selectedCls: string;
     let buttonEls: NodeListOf<Element>;
+    let inDropDownMode = el.querySelector('.sky-tabset-mode-dropdown');
 
-    if (el.querySelector('.sky-tabset-mode-dropdown')) {
+    if (inDropDownMode) {
       selectedCls = 'sky-tab-dropdown-item-selected';
       buttonEls = el.querySelectorAll('.sky-tab-dropdown-item');
     } else {
@@ -52,6 +53,10 @@ describe('Tabset component', () => {
 
       expect(buttonEl.classList.contains(selectedCls)).toBe(expectedHasClass);
       expect(panelDisplay).toBe(expectedDisplay);
+
+      if (!inDropDownMode) {
+        expect(buttonEl.getAttribute('aria-selected')).toBe(expectedHasClass.toString());
+      }
     }
   }
 
