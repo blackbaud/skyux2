@@ -5,7 +5,7 @@
     },
     "alert_close": {
         "_description": "Screen reader text for the close button on alerts",
-        "message": "Close"
+        "message": "Close the alert"
     },
     "autonumeric_abbr_billions": {
         "_description": "The suffix to show after an abbreviated value in the billions (e.g. $1.2b)",
