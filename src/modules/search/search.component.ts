@@ -111,7 +111,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public ngOnChanges(changes: SimpleChanges) {
     if (this.searchBindingChanged(changes)) {
       this.clearButtonShown = this.searchText && this.searchText !== '';
-      if (this.shouldOpenInput) {
+      if (this.shouldOpenInput()) {
         this.inputAnimate = INPUT_SHOWN_STATE;
       }
     }
