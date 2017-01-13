@@ -1,3 +1,8 @@
+# 2.0.0-beta.2 (2017-01-11)
+
+- Added ability to specify providers to tiles used in a tile dashboard (#285)
+- Update Angular to 2.4.2 (#286)
+
 # 2.0.0-beta.1 (2017-01-06)
 
 - Use skyux-builder for documentation instead of sky-pages-out-skyux2.
