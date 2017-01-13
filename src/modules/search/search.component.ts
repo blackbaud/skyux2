@@ -5,7 +5,7 @@ import {
   style,
   transition,
   animate,
-  AfterViewInit,
+  OnInit,
   OnDestroy,
   AnimationTransitionEvent,
   ElementRef,
@@ -59,7 +59,7 @@ const INPUT_HIDDEN_STATE: string = 'inputHidden';
     SkyResourcesService
   ]
 })
-export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
+export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   @Output()
   public searchApply = new EventEmitter<string>();
@@ -98,7 +98,7 @@ export class SkySearchComponent implements OnDestroy, AfterViewInit, OnChanges {
     private resources: SkyResourcesService
   ) {}
 
-  public ngAfterViewInit() {
+  public ngOnInit() {
 
     this.breakpointSubscription = this.mediaQueryService.subscribe(
       (args: SkyMediaBreakpoints) => {

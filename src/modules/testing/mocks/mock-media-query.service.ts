@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  NgZone
+} from '@angular/core';
 import {
   SkyMediaQueryListener,
   SkyMediaBreakpoints,
@@ -27,6 +30,10 @@ export class MockSkyMediaQueryService extends SkyMediaQueryService {
 
   private currentMockSubject: BehaviorSubject<SkyMediaBreakpoints>
     = new BehaviorSubject<SkyMediaBreakpoints>(this.current);
+
+  constructor() {
+    super(new NgZone({enableLongStackTrace: true}));
+  }
 
   public subscribe(listener: SkyMediaQueryListener): Subscription {
     return this.currentMockSubject.subscribe(

@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  NgZone
+} from '@angular/core';
 import { SkyMediaQueryListener } from './media-query-listener';
 import { SkyMediaBreakpoints } from './media-breakpoints';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -30,7 +33,7 @@ export class SkyMediaQueryService {
   private currentSubject: BehaviorSubject<SkyMediaBreakpoints>
     = new BehaviorSubject<SkyMediaBreakpoints>(this.current);
 
-  constructor() {
+  constructor(private zone: NgZone) {
     this.xsListener = (mql: MediaQueryList) => {
       this.setupListener(mql, SkyMediaBreakpoints.xs);
     };
@@ -96,9 +99,11 @@ export class SkyMediaQueryService {
   }
 
   private setupListener(mql: MediaQueryList, breakpoints: SkyMediaBreakpoints) {
-    if (mql.matches) {
-      this._current = breakpoints;
-      this.currentSubject.next(breakpoints);
-    }
+    this.zone.run(() => {
+      if (mql.matches) {
+        this._current = breakpoints;
+        this.currentSubject.next(breakpoints);
+      }
+    });
   }
 }
