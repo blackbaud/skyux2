@@ -5,6 +5,7 @@ import {
   ListItemsLoadAction, ListItemsSetLoadingAction
 } from './state/items/actions';
 
+import { ListDataRequestModel } from './list-data-request.model';
 import { ListDataResponseModel } from './list-data-response.model';
 import { ListDataProvider } from './list-data.provider';
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
@@ -133,8 +134,9 @@ export class SkyListComponent implements AfterContentInit {
         }
 
         return response;
-      })
-      .flatMap((o: any[], index: number) => o);
+      }).flatMap((value: Observable<ListDataResponseModel>, index: number) => {
+        return value;
+      });
   }
 
   public get lastUpdate() {
