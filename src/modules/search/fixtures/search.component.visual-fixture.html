@@ -1,0 +1,36 @@
+<style type="text/css">
+  .sky-search-docs-inline {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  input.sky-form-control.sky-search-input {
+    color: transparent;
+    text-shadow: 0px 0px 0px #000;
+  }
+
+  .sky-search-docs-toolbar {
+    padding: 5px;
+    position: relative;
+  }
+
+</style>
+
+<div style="background-color: #fff;">
+  <div id="screenshot-search-full">
+    <div class="sky-search-docs-toolbar">
+      <div class="sky-search-docs-inline">
+          <button
+            type="button"
+            (click)="applySearchText('Robert')"
+            class="sky-btn sky-btn-secondary">
+            Set search text
+          </button>
+      </div>
+      <sky-search
+          [searchText]="searchText"
+          (searchApply)="applySearchText(searchText)">
+      </sky-search>
+    </div>
+  </div>
+</div>

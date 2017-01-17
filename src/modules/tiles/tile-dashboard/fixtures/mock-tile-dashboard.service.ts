@@ -22,7 +22,7 @@ export class MockTileDashboardService {
     this.config = config;
   }
 
-  public getTileComponentType(tile: SkyTileDashboardConfigTile) {
+  public getTileComponentType(tile: SkyTileDashboardConfigTile): any {
     switch (tile.id) {
     case 'tile-1':
       return Tile1TestComponent;
