@@ -31,10 +31,6 @@ export abstract class ListViewComponent implements OnDestroy {
     return this.viewName;
   }
 
-  get hasToolbar() {
-    return this.state.map(s => s.toolbar.exists);
-  }
-
   get active() {
     return this.state.map(s => s.views.active === this.viewId);
   }
