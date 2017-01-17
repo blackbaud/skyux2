@@ -196,16 +196,16 @@ export class SkyDemoComponentsService {
       },
       {
         name: 'List paging',
-        icon: 'files-o',
+        icon: 'file-o',
         // tslint:disable-next-line
-        summary: `This list paging component displays a SKY UX-themed pagination control for a list of data.`,
+        summary: `The list paging component displays a SKY UX-themed pagination control for a list of data.`,
         url: '/components/list-paging',
         getCodeFiles: function () {
           return [
-          {
-            name: 'list-paging-demo.component.html',
-            fileContents:
-              require('!!raw!./list-paging/list-paging-demo.component.html')
+            {
+              name: 'list-paging-demo.component.html',
+              fileContents:
+                require('!!raw!./list-paging/list-paging-demo.component.html')
             },
             {
               name: 'list-paging-demo.component.ts',

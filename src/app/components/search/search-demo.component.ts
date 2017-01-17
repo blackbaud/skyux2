@@ -8,7 +8,7 @@ export class SkySearchDemoComponent {
   public displayedItems: any;
   public searchText: string;
 
-  private items = [
+  private items: any[] = [
     {
       title: 'Call Robert Hernandez',
       note: 'Robert recently gave a very generous gift. We should call to thank him.'
@@ -39,7 +39,7 @@ export class SkySearchDemoComponent {
     let filteredItems = this.items;
     this.searchText = searchText;
     if (searchText) {
-      filteredItems = this.items.filter(function (item) {
+      filteredItems = this.items.filter(function (item: any) {
           let property: any;
           for (property in item) {
               if (item.hasOwnProperty(property) && (property === 'title' || property === 'note')) {
