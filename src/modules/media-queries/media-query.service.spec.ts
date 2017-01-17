@@ -17,22 +17,6 @@ describe('Media query service', () => {
   let lgListener: Function;
   let matchMediaSpy: jasmine.Spy;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        SkyMediaQueryService
-      ]
-    });
-
-    // Safari doesn't put MediaQueryList on the global window object so we
-    // have to pick it off here.
-    mediaQueryListPrototype = Object.getPrototypeOf(matchMedia(SkyMediaQueryService.sm));
-
-    matchMediaSpy = spyOn(window, 'matchMedia').and.callThrough();
-    listenerCount = 0;
-    setUpListeners();
-  });
-
   function setUpListeners() {
 
     spyOn(mediaQueryListPrototype, 'addListener')
@@ -69,7 +53,81 @@ describe('Media query service', () => {
     });
   }
 
-  it(
+   describe('initialization test', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          SkyMediaQueryService
+        ]
+      });
+
+      // Safari doesn't put MediaQueryList on the global window object so we
+      // have to pick it off here.
+      mediaQueryListPrototype = Object.getPrototypeOf(matchMedia(SkyMediaQueryService.sm));
+
+      matchMediaSpy = spyOn(window, 'matchMedia').and.callFake((args: string) => {
+        if (args === '(max-width: 767px)') {
+          return {
+            matches: true,
+            addListener: () => {
+              return;
+            },
+            removeListener: () => {
+              return;
+            }
+          };
+        } else {
+          return {
+            matches: false,
+            addListener: () => {
+
+            },
+            removeListener: () => {
+              return;
+            }
+          };
+        }
+
+      });
+      setUpListeners();
+    });
+
+    it('should handle initialization properly',
+      inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
+      let result: SkyMediaBreakpoints;
+      let subscription: Subscription;
+
+      subscription = mediaQueryService.subscribe(
+        (args: SkyMediaBreakpoints) => {
+          result = args;
+        }
+      );
+
+      expect(result).toEqual(SkyMediaBreakpoints.xs);
+
+      subscription.unsubscribe();
+      mediaQueryService.destroy();
+    }));
+   });
+
+  describe('query tests', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          SkyMediaQueryService
+        ]
+      });
+
+      // Safari doesn't put MediaQueryList on the global window object so we
+      // have to pick it off here.
+      mediaQueryListPrototype = Object.getPrototypeOf(matchMedia(SkyMediaQueryService.sm));
+
+      matchMediaSpy = spyOn(window, 'matchMedia').and.callThrough();
+      listenerCount = 0;
+      setUpListeners();
+    });
+
+    it(
     'should listen for media query breakpoints on init',
     inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
 
@@ -155,27 +213,5 @@ describe('Media query service', () => {
       mediaQueryService.destroy();
     })
   );
-
-  /*it(
-    'should sanity check the listener when the specified breakpoint is hit',
-    inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
-      let matchMediaListener: Function;
-
-      spyOn(mediaQueryListPrototype, 'addListener')
-        .and.callFake((serviceListener: Function) => {
-          matchMediaListener = serviceListener;
-        }
-      );
-
-      mediaQueryService.init(
-        SkyMediaQueryService.sm,
-        undefined
-      );
-
-      // This shouldn't throw an error.
-      matchMediaListener({
-        matches: true
-      });
-    })
-  );*/
+});
 });
