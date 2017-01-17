@@ -117,7 +117,6 @@ export class SkyListComponent implements AfterContentInit {
     let selectedChanged: boolean = false;
 
     return Observable.combineLatest(
-
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
       data.distinctUntilChanged(),
