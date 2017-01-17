@@ -33,7 +33,7 @@ export class ListItemsOrchestrator extends ListStateOrchestrator<AsyncList<ListI
       resultItems,
       action.dataChanged ? moment() : state.lastUpdate,
       false,
-      resultItems.length
+      state.count || resultItems.length
     );
   }
 }

@@ -5,11 +5,18 @@ import {
   ListItemsLoadAction, ListItemsSetLoadingAction
 } from './state/items/actions';
 
+import { ListDataResponseModel } from './list-data-response.model';
+import { ListDataProvider } from './list-data.provider';
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
 import { AsyncItem } from 'microedge-rxstate/dist';
 import { ListState, ListStateDispatcher } from './state';
 import { Observable } from 'rxjs/Observable';
 import { ListViewComponent } from './list-view.component';
+
+import {
+  ListViewsLoadAction,
+  ListViewsSetActiveAction
+} from './state/views/actions';
 
 import { getValue } from 'microedge-rxstate/dist/helpers';
 import { ListViewModel } from './state/views/view.model';
@@ -25,17 +32,30 @@ let moment = require('moment');
 })
 export class SkyListComponent implements AfterContentInit {
   public id: string = moment().toDate().getTime().toString();
-  @Input() public data?: Array<any> | Observable<Array<any>> = [];
-  @Input() public defaultView?: ListViewComponent;
-  @Input() public initialTotal?: number;
-  @Input() public selectedIds: Array<string> | Observable<Array<string>>;
+  @Input()
+  public data?: Array<any> | Observable<Array<any>> = [];
+
+  @Input()
+  public dataProvider?: ListDataProvider;
+
+  @Input()
+  public defaultView?: ListViewComponent;
+
+  @Input()
+  public initialTotal?: number;
+
+  @Input()
+  public selectedIds: Array<string> | Observable<Array<string>>;
   @Input()
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
+
   /* tslint:disable-next-line */
-  @Input('search') private searchFunction: (data: any, searchText: string) => boolean;
+  @Input('search')
+  private searchFunction: (data: any, searchText: string) => boolean;
   private dataFirstLoad: boolean = false;
 
-  @ContentChildren(ListViewComponent) private listViews: QueryList<ListViewComponent>;
+  @ContentChildren(ListViewComponent)
+  private listViews: QueryList<ListViewComponent>;
 
   constructor(
     private state: ListState,
@@ -60,11 +80,6 @@ export class SkyListComponent implements AfterContentInit {
     } else {
       return;
     }
-
-    // set sort fields
-    getValue(this.sortFields, (sortFields: string[]) =>
-      this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortFields || []))
-    );
 
     this.displayedItems.subscribe(result => {
       this.dispatcher.next(new ListItemsSetLoadingAction());
@@ -102,25 +117,15 @@ export class SkyListComponent implements AfterContentInit {
     let selectedChanged: boolean = false;
 
     return Observable.combineLatest(
-      this.state.map(s => s.filters).distinctUntilChanged(),
-      this.state.map(s => s.search).distinctUntilChanged(),
-      this.state.map(s => s.sort).distinctUntilChanged(),
+
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
-      selectedIds.distinctUntilChanged().map((s: any) => {
-        selectedChanged = true;
-        return s;
-      }),
       data.distinctUntilChanged(),
-      (filters: ListFilterModel[], search: ListSearchModel,
-      sort: ListSortModel, itemsPerPage: number, pageNumber: number,
-      selected: Array<string>, itemsData: Array<any>) => {
-        if (selectedChanged) {
-          this.dispatcher.next(new ListSelectedSetLoadingAction());
-          this.dispatcher.next(new ListSelectedLoadAction(selected));
-          this.dispatcher.next(new ListSelectedSetLoadingAction(false));
-          selectedChanged = false;
-        }
+      (
+        itemsPerPage: number,
+        pageNumber: number,
+        itemsData: Array<any>
+      ) => {
 
         let response: Observable<ListDataResponseModel>;
         if (this.dataFirstLoad) {
@@ -133,11 +138,8 @@ export class SkyListComponent implements AfterContentInit {
           }));
         } else {
           response = this.dataProvider.get(new ListDataRequestModel({
-            filters: filters,
             pageSize: itemsPerPage,
-            pageNumber: pageNumber,
-            search: search,
-            sort: sort
+            pageNumber: pageNumber
           }));
         }
 
