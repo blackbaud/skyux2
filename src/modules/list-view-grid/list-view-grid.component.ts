@@ -6,16 +6,13 @@ import { ListViewComponent } from '../list/list-view.component';
 import { ListState } from '../list/state';
 import { GridState, GridStateDispatcher, GridStateModel } from './state';
 import { SkyListViewGridColumnComponent } from './list-view-grid-column.component';
-import { SkyListViewGridColumnSelectorComponent } from './list-view-grid-column-selector.component';
 import { ListStateDispatcher } from '../list/state';
 import { ListViewGridColumnModel } from './state/columns/column.model';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
 import { Observable } from 'rxjs';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { SkyModalService } from '../modal';
 import { getValue } from 'microedge-rxstate/dist/helpers';
-import { getData } from '../list/helpers';
 
 @Component({
   selector: 'sky-list-view-grid',
@@ -63,7 +60,6 @@ export class SkyListViewGridComponent
     private dispatcher: ListStateDispatcher,
     private gridState: GridState,
     private gridDispatcher: GridStateDispatcher,
-    private modalService: SkyModalService,
     private dragulaService: DragulaService
   ) {
     super(state, 'Grid View');
