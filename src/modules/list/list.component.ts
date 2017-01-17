@@ -46,12 +46,10 @@ export class SkyListComponent implements AfterContentInit {
 
   @Input()
   public selectedIds: Array<string> | Observable<Array<string>>;
+
   @Input()
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
 
-  /* tslint:disable-next-line */
-  @Input('search')
-  private searchFunction: (data: any, searchText: string) => boolean;
   private dataFirstLoad: boolean = false;
 
   @ContentChildren(ListViewComponent)
@@ -105,16 +103,8 @@ export class SkyListComponent implements AfterContentInit {
     }
 
     if (!this.dataProvider) {
-      this.dataProvider = new SkyListInMemoryDataProvider(data, this.searchFunction);
+      this.dataProvider = new SkyListInMemoryDataProvider(data);
     }
-
-    // deal with selected items
-    let selectedIds: any = this.selectedIds || Observable.of([]);
-  if (!(selectedIds instanceof Observable)) {
-      selectedIds = Observable.of(selectedIds);
-    }
-
-    let selectedChanged: boolean = false;
 
     return Observable.combineLatest(
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
@@ -145,15 +135,6 @@ export class SkyListComponent implements AfterContentInit {
         return response;
       })
       .flatMap((o: any[], index: number) => o);
-  }
-
-public get selectedItems(): Observable<Array<ListItemModel>> {
-    return Observable.combineLatest(
-    this.state.map(s => s.items.items).distinctUntilChanged(),
-    this.state.map(s => s.selected).distinctUntilChanged(),
-    (items: Array<ListItemModel>, selected: AsyncItem<ListSelectedModel>) => {
-        return items.filter(i => selected.item[i.id]);
-      });
   }
 
   public get lastUpdate() {

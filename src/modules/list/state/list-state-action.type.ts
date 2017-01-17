@@ -8,6 +8,12 @@ import {
   ListPagingSetPageNumberAction
 } from './paging/actions';
 
+import {
+  ListViewsLoadAction,
+  ListViewsSetActiveAction
+} from './views/actions';
+
 export type ListStateAction =
   ListItemsSetLoadingAction | ListItemsLoadAction |
-  ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction;
+  ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction |
+  ListViewsLoadAction | ListViewsSetActiveAction;
