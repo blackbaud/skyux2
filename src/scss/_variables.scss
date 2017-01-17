@@ -37,6 +37,8 @@ $sky-border-color: #e7eaec !default;
 
 $sky-body-background-color: #f3f3f4 !default;
 
+$sky-line-height-base: 1.428571429 !default;
+
 $sky-font-size-base: 14px !default;
 
 $sky-font-size-xxxl: floor(($sky-font-size-base * 3.5)) !default; // ~42px
@@ -79,6 +81,11 @@ $sky-screen-lg-min: 1200px;
 $sky-screen-xs-max: $sky-screen-sm-min - 1;
 $sky-screen-sm-max: $sky-screen-md-min - 1;
 $sky-screen-md-max: $sky-screen-lg-min - 1;
+
+// begin focus
+$sky-focus-border-color: #1f90d8 !default;
+$sky-focus-shadow-color: rgba(28, 132, 198, 0.6) !default;
+// end focus
 
 // begin color palette
 $sky-palette-multi: (
