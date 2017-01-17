@@ -1,3 +1,10 @@
+# 2.0.0-beta.3 (2017-01-17)
+
+  - Added the alert role to the alert component. (Thanks @realistschuckle)
+  - Added the aria-selected attribute to tab. (Thanks @realistschuckle)
+  - Added the search component. (#168)
+  - Added badges for npm and travis.
+
 # 2.0.0-beta.2 (2017-01-11)
 
 - Added ability to specify providers to tiles used in a tile dashboard (#285)
