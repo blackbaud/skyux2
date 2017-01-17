@@ -1,0 +1,19 @@
+<sky-modal>
+  <sky-modal-header>
+    Choose columns to show in the list
+  </sky-modal-header>
+  <sky-modal-content>
+    <sky-list #list [data]="columns" [selectedIds]="displayedColumnIds | async">
+      <sky-list-toolbar [filterEnabled]="false" type="search" placeholder="Search for columns"></sky-list-toolbar>
+
+      <sky-list-view-checklist label="heading">
+      </sky-list-view-checklist>
+
+      <sky-list-paging></sky-list-paging>
+    </sky-list>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button cmp-id="apply-changes" class="primary" (click)="applyChanges()">Apply changes</button>
+    <button cmp-id="cancel" class="link" (click)="modal.closeButtonClick()">Cancel</button>
+  </sky-modal-footer>
+</sky-modal>
