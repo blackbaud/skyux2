@@ -218,6 +218,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+         name: 'List view grid',
+         icon: 'table',
+         // tslint:disable-next-line
+         summary: `The list component is used to display data in a consistent and flexible way.`,
+         url: '/components/list-view-grid',
+        getCodeFiles: function () {
+           return [
+             {
+               name: 'list-view-grid-demo.component.html',
+               fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.html')
+             },
+             {
+               name: 'list-view-grid-demo.component.ts',
+               fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.ts'),
+               componentName: 'SkyListViewGridDemoComponent',
+               bootstrapSelector: 'sky-list-view-grid-demo'
+             }
+           ];
+         }
+       },
+      {
         name: 'Modal',
         icon: 'list-alt',
         // tslint:disable-next-line

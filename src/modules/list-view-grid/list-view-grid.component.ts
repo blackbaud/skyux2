@@ -144,6 +144,11 @@ export class SkyListViewGridComponent
     });
 
     /* istanbul ignore next */
+    let bag = this.dragulaService.find('heading');
+    if (bag !== undefined) {
+      this.dragulaService.destroy('heading');
+    }
+    console.log('setting options');
     this.dragulaService.setOptions('heading', {
       moves: (el: any) => !el.classList.contains('locked'),
       accepts: ([,,, sibling]: any) => sibling === undefined || !sibling.classList.contains('locked')

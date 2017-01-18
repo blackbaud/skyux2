@@ -27,7 +27,6 @@ let moment = require('moment');
 @Component({
   selector: 'sky-list',
   template: '<ng-content></ng-content>',
-  styles: [require('./list.component.scss')],
   providers: [ListState, ListStateDispatcher],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
