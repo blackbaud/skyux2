@@ -19,9 +19,3 @@
 </div>
 
 <template #defaultCellTemplate let-row="row" let-value="value">{{value}}</template>
-<template #selectTemplate let-itemId="item.id" let-selected="isSelected"><sky-checkbox id="{{itemId}}" class="select-checkbox" [checked]="selected" (change)="toggleSelected($event, itemId)"></sky-checkbox></template>
-<template #chooseColumnsTemplate>
-  <button (click)="openColumnSelector()" title="Choose Columns">
-    <span class="fa fa-lg fa-columns"></span>
-  </button>
-</template>

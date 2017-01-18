@@ -121,17 +121,23 @@ $sky-avatar-width: $sky-avatar-height !default;
 $sky-avatar-border-width: 2px !default;
 // end avatar
 
-// begin wait
-$sky-wait-color: $sky-color-blue !default;
-$sky-wait-mask-color: $sky-color-white !default;
-// end wait
+// begin grid
+$sky-grid-odd-background-color: $sky-body-background-color !default;
+$sky-grid-even-background-color: $sky-color-white !default;
 
-// begin wait
+// end grid
+
+// begin paging
 $sky-paging-disabled-color: $sky-color-gray-light !default;
 $sky-paging-current-color: #f4f4f4 !default;
 $sky-paging-border-color: #ddd !default;
 $sky-paging-background-color: $sky-color-white !default;
-//end wait
+// end paging
+
+// begin wait
+$sky-wait-color: $sky-color-blue !default;
+$sky-wait-mask-color: $sky-color-white !default;
+// end wait
 
 // Support for mozilla in experimental css3 properties (-moz).
 $sky-experimental-support-for-mozilla      : true !default;

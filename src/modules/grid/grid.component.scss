@@ -1,0 +1,69 @@
+@import '../../scss/mixins';
+
+:host {
+  position: relative;
+  display: block;
+
+  > div {
+    overflow: scroll;
+  }
+
+  table {
+    position: relative;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: $sky-font-size-base;
+    min-width: 100%;
+
+    &.sky-grid-fit {
+      width: 100%;
+    }
+  }
+
+  tbody {
+    background-color: $sky-grid-even-background-color;
+  }
+
+  tr.sky-grid-row {
+    @include sky-border(dark, bottom);
+
+    &:nth-child(odd) {
+      background-color: $sky-grid-odd-background-color;
+    }
+
+    td {
+      padding: 0;
+    }
+  }
+
+  th {
+    @include sky-border(dark, top, bottom, left, right);
+    @include sky-field-label();
+    border-right-width: 0px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 8px;
+    text-align: left;
+
+    &:first-child {
+      border-left: 1px solid transparent;
+    }
+
+    &.sky-grid-header-dragging {
+      padding: 8px;
+      background-color: $sky-color-gray-lighter;
+      color: $sky-color-black;
+    }
+
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
