@@ -9,7 +9,6 @@ import { ListDataRequestModel } from './list-data-request.model';
 import { ListDataResponseModel } from './list-data-response.model';
 import { ListDataProvider } from './list-data.provider';
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
-import { AsyncItem } from 'microedge-rxstate/dist';
 import { ListState, ListStateDispatcher } from './state';
 import { Observable } from 'rxjs/Observable';
 import { ListViewComponent } from './list-view.component';
@@ -19,7 +18,6 @@ import {
   ListViewsSetActiveAction
 } from './state/views/actions';
 
-import { getValue } from 'microedge-rxstate/dist/helpers';
 import { ListViewModel } from './state/views/view.model';
 import { ListItemModel } from './state/items/item.model';
 let moment = require('moment');

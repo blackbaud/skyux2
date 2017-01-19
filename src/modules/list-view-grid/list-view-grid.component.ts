@@ -1,15 +1,12 @@
 import {
   Component,
   Input,
-  TemplateRef,
   ContentChildren,
   QueryList,
   forwardRef,
   ChangeDetectionStrategy,
-  OnInit,
   ViewChild,
-  AfterContentInit,
-  AfterViewInit
+  AfterContentInit
 } from '@angular/core';
 import { ListViewComponent } from '../list/list-view.component';
 import { ListState } from '../list/state';
@@ -125,7 +122,6 @@ export class SkyListViewGridComponent
   }
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
-    console.log('column ids', selectedColumnIds);
     this.gridState.map(s => s.columns.items)
         .take(1)
         .subscribe(columns => {
@@ -152,9 +148,7 @@ export class SkyListViewGridComponent
 
   get selectedColumnIds() {
     return this.gridState.map(s => s.displayedColumns.items.map(column => {
-      console.log('column id', column.id);
-      return column.id || column.field
-
+      return column.id || column.field;
     })).distinctUntilChanged();
   }
 

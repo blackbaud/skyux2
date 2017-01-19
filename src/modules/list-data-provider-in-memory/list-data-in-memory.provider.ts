@@ -8,7 +8,6 @@ import { ListItemModel } from '../list/state/items/item.model';
 export class SkyListInMemoryDataProvider extends ListDataProvider {
   private items: BehaviorSubject<Array<ListItemModel>> =
     new BehaviorSubject<Array<ListItemModel>>([]);
-  private lastItems: ListItemModel[];
 
   constructor(
     data?: Observable<Array<any>>

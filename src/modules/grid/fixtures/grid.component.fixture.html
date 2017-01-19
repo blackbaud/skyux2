@@ -9,7 +9,7 @@
     field="column1"
     heading="Column1"
     [locked]="true">
-  </sky-list-view-grid-column>
+  </sky-grid-column>
   <sky-grid-column
     field="column2"
     heading="Column2"
@@ -33,6 +33,7 @@
     [hidden]="true">
   </sky-grid-column>
   <sky-grid-column
+    field="column5"
     heading="Column5"
     [hidden]="true">
   </sky-grid-column>
@@ -49,5 +50,7 @@
 </sky-grid>
 
 <template let-value="value" #template1>
+  <div class="sky-test-custom-template">
   {{value}}
+  </div>
 </template>

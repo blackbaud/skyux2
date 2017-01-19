@@ -2,7 +2,7 @@ import {
   Component, ViewChild, TemplateRef, ContentChildren, QueryList, ViewChildren
 } from '@angular/core';
 import { SkyGridComponent } from '../grid.component';
-import { ListItemModel } from '../../list/state'
+import { ListItemModel } from '../../list/state';
 
 let moment = require('moment');
 
@@ -34,7 +34,10 @@ export class GridTestComponent {
         new ListItemModel('7', { column1: '21', column2: 'Grape',
           column3: 21, column4: moment().add(7, 'minute') })
       ];
-  @ViewChild(SkyGridComponent) public grid: SkyGridComponent;
-  @ContentChildren(TemplateRef) public templates: QueryList<TemplateRef<any>>;
-  @ViewChildren(TemplateRef) public viewtemplates: QueryList<TemplateRef<any>>;
+  @ViewChild(SkyGridComponent)
+  public grid: SkyGridComponent;
+  @ContentChildren(TemplateRef)
+  public templates: QueryList<TemplateRef<any>>;
+  @ViewChildren(TemplateRef)
+  public viewtemplates: QueryList<TemplateRef<any>>;
 }

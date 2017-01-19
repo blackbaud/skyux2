@@ -2,24 +2,16 @@ import {
   Component,
   Input,
   Output,
-  TemplateRef,
   ContentChildren,
   QueryList,
-  ViewChild,
-  forwardRef,
   ChangeDetectionStrategy,
   AfterContentInit,
-  OnInit,
   ChangeDetectorRef,
-  AfterViewInit,
   SimpleChanges,
   EventEmitter,
   OnChanges
 } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { getValue } from 'microedge-rxstate/dist/helpers';
-
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridColumnModel } from './grid-column.model';
 import { ListItemModel } from '../list/state';
@@ -49,22 +41,21 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public data: Array<any>;
 
   @Input()
-  public columns: SkyGridColumnModel[];
+  public columns: Array<SkyGridColumnModel>;
 
   @Output()
   public selectedColumnChange = new EventEmitter<Array<string>>();
 
+  public displayedColumns: Array<SkyGridColumnModel> = new Array<SkyGridColumnModel>();
+
+  public items: Array<any> = new Array<any>();
+
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
-
-  public displayedColumns: SkyGridColumnModel[];
-
-  public items: Array<any>;
 
   constructor(private dragulaService: DragulaService, private ref: ChangeDetectorRef) {}
 
   public ngAfterContentInit() {
-
     if (this.columnComponents.length !== 0 || this.columns !== undefined) {
       if (this.columnComponents.length > 0) {
         this.columns = this.columnComponents.map(columnComponent => {
@@ -74,7 +65,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
       this.transformData();
 
-      this.setDisplayedColumns();
+      this.setDisplayedColumns(true);
 
       /* tslint:disable */
       /* istanbul ignore next */
@@ -137,16 +128,18 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     }
   }
 
-  private setDisplayedColumns() {
+  private setDisplayedColumns(initialLoad: boolean = false) {
     if (this.selectedColumnIds !== undefined) {
-      //setup displayed columns
+      // setup displayed columns
       this.displayedColumns = this.selectedColumnIds.map(
         columnId => this.columns.filter(column => column.id === columnId)[0]
       );
-    } else {
+    } else if (initialLoad) {
       this.displayedColumns = this.columns.filter(column => {
         return !column.hidden;
       });
+    } else {
+      this.displayedColumns = this.columns;
     }
   }
 

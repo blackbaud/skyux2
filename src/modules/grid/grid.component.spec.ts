@@ -6,8 +6,6 @@ import {
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-
-import { ListItemModel } from '../list/state/items/item.model';
 import { GridFixturesModule } from './fixtures/grid-fixtures.module';
 import { GridTestComponent } from './fixtures/grid.component.fixture';
 
@@ -16,8 +14,6 @@ import {
 } from './fixtures/grid-empty.component.fixture';
 import { SkyGridModule } from './';
 import { SkyGridColumnModel } from './';
-
-let moment = require('moment');
 
 describe('Grid Component', () => {
   describe('Basic Fixture', () => {
@@ -41,6 +37,7 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
 
       fixture.detectChanges();
+      fixture.detectChanges();
     }));
 
     function getColumnHeader(id: string) {
@@ -49,8 +46,14 @@ describe('Grid Component', () => {
       );
     }
 
+    function getCell(rowId: string, columnId: string) {
+      return element.query(
+        By.css('tr[sky-cmp-id="' + rowId + '"] sky-grid-cell[sky-cmp-id="' + columnId + '"]')
+      );
+    }
+
     it('should show 5 columns', () => {
-      expect(element.queryAll(By.css('th.heading')).length).toBe(6);
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(5);
       expect(getColumnHeader('column1').nativeElement.textContent.trim()).toBe('Column1');
       expect(getColumnHeader('column2').nativeElement.textContent.trim()).toBe('Column2');
       expect(getColumnHeader('column3').nativeElement.textContent.trim()).toBe('Column3');
@@ -59,7 +62,21 @@ describe('Grid Component', () => {
     });
 
     it('should show the table cells', () => {
-
+      for (let i = 0; i < component.data.length; i ++) {
+        let row = component.data[i];
+        expect(getCell(row.id, 'column1').nativeElement.textContent.trim())
+          .toBe(row.data.column1);
+        expect(getCell(row.id, 'column2').nativeElement.textContent.trim())
+          .toBe(row.data.column2);
+        expect(getCell(row.id, 'column3').nativeElement.textContent.trim())
+          .toBe(row.data.column3.toString());
+        expect(getCell(row.id, 'column3')
+          .query(By.css('div.sky-test-custom-template'))).not.toBeNull();
+        expect(getCell(row.id, 'column4').nativeElement.textContent.trim())
+          .toBe(row.data.column4.toString());
+        expect(getCell(row.id, 'column5').nativeElement.textContent.trim())
+          .toBe(row.data.column5 || '');
+      }
     });
 
     it('should transform data properly', () => {
