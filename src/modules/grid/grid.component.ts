@@ -34,7 +34,7 @@ import { ListItemModel } from '../list/state';
 export class SkyGridComponent implements AfterContentInit, OnChanges {
 
   @Input()
-  public selectedColumnIds: Array<string> = new Array<string>();
+  public selectedColumnIds: Array<string>;
 
   @Input()
   public fit: string = 'width';
@@ -138,7 +138,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   }
 
   private setDisplayedColumns() {
-    if (this.selectedColumnIds.length > 0) {
+    if (this.selectedColumnIds !== undefined) {
       //setup displayed columns
       this.displayedColumns = this.selectedColumnIds.map(
         columnId => this.columns.filter(column => column.id === columnId)[0]
