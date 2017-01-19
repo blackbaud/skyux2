@@ -1,8 +1,8 @@
 import { AsyncList } from 'microedge-rxstate/dist';
-import { ListViewGridColumnModel } from './columns/column.model';
+import { SkyGridColumnModel } from '../../grid';
 
 export class GridStateModel {
-  public columns: AsyncList<ListViewGridColumnModel> = new AsyncList<ListViewGridColumnModel>();
-  public displayedColumns: AsyncList<ListViewGridColumnModel> =
-    new AsyncList<ListViewGridColumnModel>();
+  public columns: AsyncList<SkyGridColumnModel> = new AsyncList<SkyGridColumnModel>();
+  public displayedColumns: AsyncList<SkyGridColumnModel> =
+    new AsyncList<SkyGridColumnModel>();
 }

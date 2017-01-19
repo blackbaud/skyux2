@@ -1,23 +1,33 @@
 import {
-  Component, Input, TemplateRef, ContentChildren, QueryList, ViewChild,
-  forwardRef, ChangeDetectionStrategy, AfterContentInit, AfterViewInit
+  Component,
+  Input,
+  TemplateRef,
+  ContentChildren,
+  QueryList,
+  forwardRef,
+  ChangeDetectionStrategy,
+  OnInit,
+  ViewChild,
+  AfterContentInit,
+  AfterViewInit
 } from '@angular/core';
 import { ListViewComponent } from '../list/list-view.component';
 import { ListState } from '../list/state';
 import { GridState, GridStateDispatcher, GridStateModel } from './state';
-import { SkyListViewGridColumnComponent } from './list-view-grid-column.component';
 import { ListStateDispatcher } from '../list/state';
-import { ListViewGridColumnModel } from './state/columns/column.model';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
 import { Observable } from 'rxjs';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { getValue } from 'microedge-rxstate/dist/helpers';
+import {
+  SkyGridComponent,
+  SkyGridColumnComponent,
+  SkyGridColumnModel
+} from '../grid';
 
 @Component({
   selector: 'sky-list-view-grid',
   template: require('./list-view-grid.component.html'),
-  styles: [require('./list-view-grid.component.scss')],
   providers: [
     /* tslint:disable */
     { provide: ListViewComponent, useExisting: forwardRef(() => SkyListViewGridComponent)},
@@ -26,7 +36,6 @@ import { getValue } from 'microedge-rxstate/dist/helpers';
     GridStateDispatcher,
     GridStateModel
   ],
-  viewProviders: [ DragulaService ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyListViewGridComponent
@@ -52,15 +61,17 @@ export class SkyListViewGridComponent
   @Input()
   public height: number | Observable<number>;
 
-  @ContentChildren(SkyListViewGridColumnComponent)
-  private columnComponents: QueryList<SkyListViewGridColumnComponent>;
+  @ViewChild(SkyGridComponent)
+  public gridComponent: SkyGridComponent;
+
+  @ContentChildren(SkyGridColumnComponent, {descendants: true})
+  private columnComponents: QueryList<SkyGridColumnComponent>;
 
   constructor(
     state: ListState,
     private dispatcher: ListStateDispatcher,
     private gridState: GridState,
-    private gridDispatcher: GridStateDispatcher,
-    private dragulaService: DragulaService
+    private gridDispatcher: GridStateDispatcher
   ) {
     super(state, 'Grid View');
   }
@@ -71,7 +82,7 @@ export class SkyListViewGridComponent
     }
 
     let columnModels = this.columnComponents.map(columnComponent => {
-      return new ListViewGridColumnModel(columnComponent.template, columnComponent);
+      return new SkyGridColumnModel(columnComponent.template, columnComponent);
     });
 
     if (this.width && !(this.width instanceof Observable)) {
@@ -93,6 +104,7 @@ export class SkyListViewGridComponent
               )
             );
           });
+
         } else if (this.displayedColumns) {
           getValue(this.displayedColumns, (displayedColumns: string[]) => {
             this.gridDispatcher.next(
@@ -101,6 +113,7 @@ export class SkyListViewGridComponent
               )
             );
           });
+
         } else {
           this.gridDispatcher.next(
             new ListViewDisplayedGridColumnsLoadAction(columns.filter(x => !x.hidden))
@@ -109,51 +122,20 @@ export class SkyListViewGridComponent
       });
 
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+  }
 
-    /* tslint:disable */
-    /* istanbul ignore next */
-    this.dragulaService.drag.subscribe(([, el]: any) =>
-      el.classList.add('dragging')
-    );
-
-    /* istanbul ignore next */
-    this.dragulaService.dragend.subscribe(([, el]: any) =>
-      el.classList.remove('dragging')
-    );
-
-    /* istanbul ignore next */
-    this.dragulaService.drop.subscribe(([,, container]: any) => {
-      let columnIds: string[] = [];
-      let nodes = container.getElementsByTagName('th');
-      for (let i = 0; i < nodes.length; i++) {
-        let el = nodes[i];
-        let id = el.getAttribute('cmp-id');
-        columnIds.push(id);
-      }
-
-      this.gridState.map(s => s.columns.items)
+  public columnIdsChanged(selectedColumnIds: Array<string>) {
+    console.log('column ids', selectedColumnIds);
+    this.gridState.map(s => s.columns.items)
         .take(1)
         .subscribe(columns => {
-          let displayedColumns = columnIds.map(
+          let displayedColumns = selectedColumnIds.map(
             columnId => columns.filter(c => c.id === columnId)[0]
           );
           this.gridDispatcher.next(
             new ListViewDisplayedGridColumnsLoadAction(displayedColumns, true)
           );
         });
-    });
-
-    /* istanbul ignore next */
-    let bag = this.dragulaService.find('heading');
-    if (bag !== undefined) {
-      this.dragulaService.destroy('heading');
-    }
-
-    this.dragulaService.setOptions('heading', {
-      moves: (el: any) => !el.classList.contains('locked'),
-      accepts: ([,,, sibling]: any) => sibling === undefined || !sibling.classList.contains('locked')
-    });
-    /* tslint:enable */
   }
 
   get items() {
@@ -164,8 +146,16 @@ export class SkyListViewGridComponent
   }
 
   get columns() {
-    return this.gridState.map(s => s.displayedColumns.items)
+    return this.gridState.map(s => s.columns.items)
       .distinctUntilChanged();
+  }
+
+  get selectedColumnIds() {
+    return this.gridState.map(s => s.displayedColumns.items.map(column => {
+      console.log('column id', column.id);
+      return column.id || column.field
+
+    })).distinctUntilChanged();
   }
 
   private get loading() {

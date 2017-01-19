@@ -1,8 +1,8 @@
-import { ListViewGridColumnModel } from './column.model';
+import { SkyGridColumnModel } from '../../../grid';
 
 export class ListViewGridColumnsLoadAction {
   constructor(
-    public columns: Array<ListViewGridColumnModel>,
+    public columns: Array<SkyGridColumnModel>,
     public refresh: boolean = false
   ) {
   }

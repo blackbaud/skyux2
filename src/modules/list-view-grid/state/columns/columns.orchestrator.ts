@@ -2,11 +2,11 @@ import { GridStateOrchestrator } from '../grid-state.rxstate';
 import { AsyncList } from 'microedge-rxstate/dist';
 import * as moment from 'moment';
 
-import { ListViewGridColumnModel } from './column.model';
+import { SkyGridColumnModel } from '../../../grid';
 import { ListViewGridColumnsLoadAction } from './actions';
 
 export class ListViewGridColumnsOrchestrator
-  extends GridStateOrchestrator<AsyncList<ListViewGridColumnModel>> {
+  extends GridStateOrchestrator<AsyncList<SkyGridColumnModel>> {
   constructor() {
     super();
 
@@ -15,14 +15,14 @@ export class ListViewGridColumnsOrchestrator
   }
 
   private load(
-    state: AsyncList<ListViewGridColumnModel>,
-    action: ListViewGridColumnsLoadAction): AsyncList<ListViewGridColumnModel> {
-    const newColumns = action.columns.map(g => new ListViewGridColumnModel(g.template, g));
+    state: AsyncList<SkyGridColumnModel>,
+    action: ListViewGridColumnsLoadAction): AsyncList<SkyGridColumnModel> {
+    const newColumns = action.columns.map(g => new SkyGridColumnModel(g.template, g));
 
     if (action.refresh) {
-      return new AsyncList<ListViewGridColumnModel>([...newColumns], moment());
+      return new AsyncList<SkyGridColumnModel>([...newColumns], moment());
     }
 
-    return new AsyncList<ListViewGridColumnModel>([...state.items, ...newColumns], moment());
+    return new AsyncList<SkyGridColumnModel>([...state.items, ...newColumns], moment());
   }
 }
