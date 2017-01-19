@@ -18,7 +18,7 @@ export class GridTestComponent {
     'column4',
     'column5'
   ];
-  public data = [
+  public data: any[] = [
         new ListItemModel('1', { column1: '1', column2: 'Apple',
           column3: 1, column4: moment().add(1, 'minute') }),
         new ListItemModel('2', { column1: '01', column2: 'Banana',

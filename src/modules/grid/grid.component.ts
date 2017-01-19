@@ -103,11 +103,6 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       });
 
       /* istanbul ignore next */
-      let bag = this.dragulaService.find('sky-grid-heading');
-      if (bag !== undefined) {
-        this.dragulaService.destroy('sky-grid-heading');
-      }
-
       this.dragulaService.setOptions('sky-grid-heading', {
         moves: (el: any) => !el.classList.contains('sky-grid-header-locked'),
         accepts: ([,,, sibling]: any) => sibling === undefined || !sibling.classList.contains('sky-grid-header-locked')

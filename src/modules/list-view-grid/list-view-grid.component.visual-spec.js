@@ -1,7 +1,7 @@
 describe('list-view-grid component', function () {
   'use strict';
 
-  it('should display grid view', function () {
+  /*it('should display grid view', function () {
     return browser
       .setupTest('/list-view-grid.html')
       .compareScreenshot({
@@ -39,5 +39,5 @@ describe('list-view-grid component', function () {
         screenshotName: 'list-view-grid-desc',
         selector: '#screenshot-list-view-grid'
       });
-  });
+  });*/
 });
