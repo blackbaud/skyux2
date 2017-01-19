@@ -1,9 +1,9 @@
 <div [style.height.px]="height" [style.width.px]="width">
   <table [ngClass]="{ 'sky-grid-fit': fit !== 'scroll' }">
     <thead>
-      <tr dragula="heading">
+      <tr dragula="sky-grid-heading">
         <th
-          class="heading"
+          class="sky-grid-heading"
           *ngFor="let column of displayedColumns; let last = last"
           [style.width.px]="last ? null : column.width"
           [attr.sky-cmp-id]="column.id || column.field"

@@ -4,12 +4,14 @@ import {
   TemplateRef,
   ContentChildren,
   QueryList,
-   ViewChild,
+  ViewChild,
   forwardRef,
   ChangeDetectionStrategy,
   AfterContentInit,
   ChangeDetectorRef,
-  AfterViewInit
+  AfterViewInit,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -26,7 +28,7 @@ import { ListItemModel } from '../list/state';
   viewProviders: [ DragulaService ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyGridComponent implements AfterContentInit {
+export class SkyGridComponent implements AfterContentInit, OnChanges {
 
   @Input()
   public selectedColumnIds: Array<string>;
@@ -63,18 +65,9 @@ export class SkyGridComponent implements AfterContentInit {
       return new SkyGridColumnModel(columnComponent.template, columnComponent);
     });
 
-    this.items = this.data.map(item => new ListItemModel(item.id, item));
+   this.transformData();
 
-    if (this.selectedColumnIds !== undefined) {
-      //setup displayed columns
-      this.displayedColumns = this.columns.filter(column => {
-        return this.selectedColumnIds.indexOf(column.id || column.field) !== -1;
-      });
-    } else {
-      this.displayedColumns = this.columns;
-    }
-
-    //Deal with hidden columns
+    this.setDisplayedColumns();
 
     /* tslint:disable */
     /* istanbul ignore next */
@@ -106,17 +99,45 @@ export class SkyGridComponent implements AfterContentInit {
     });
 
     /* istanbul ignore next */
-    let bag = this.dragulaService.find('heading');
+    let bag = this.dragulaService.find('sky-grid-heading');
     if (bag !== undefined) {
-      this.dragulaService.destroy('heading');
+      this.dragulaService.destroy('sky-grid-heading');
     }
 
-    this.dragulaService.setOptions('heading', {
+    this.dragulaService.setOptions('sky-grid-heading', {
       moves: (el: any) => !el.classList.contains('sky-grid-header-locked'),
       accepts: ([,,, sibling]: any) => sibling === undefined || !sibling.classList.contains('sky-grid-header-locked')
     });
     /* tslint:enable */
   }
 
-  // Do an ngOnChanges where changes to selectedColumnIds are watched
+  // Do an ngOnChanges where changes to selectedColumnIds and data are watched
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedColumnIds']) {
+      this.setDisplayedColumns();
+    }
+
+    if (changes['data']) {
+      this.transformData();
+    }
+  }
+
+  private setDisplayedColumns() {
+
+    if (this.selectedColumnIds !== undefined) {
+      //setup displayed columns
+      this.displayedColumns = this.columns.filter(column => {
+        return this.selectedColumnIds.indexOf(column.id || column.field) !== -1;
+      });
+    } else {
+      this.displayedColumns = this.columns.filter(column => {
+        return !column.hidden;
+      });
+    }
+  }
+
+  private transformData() {
+    // Transform data into object with id and data properties
+    this.items = this.data.map(item => new ListItemModel(item.id, item));
+  }
 }
