@@ -1,6 +1,6 @@
 @import '../../scss/mixins';
 
-:host {
+sky-grid {
   position: relative;
   display: block;
 
@@ -36,35 +36,33 @@
       padding: 0;
     }
   }
+}
+th.sky-grid-heading {
+  @include sky-border(dark, top, bottom, left, right);
+  @include sky-field-label();
+  border-right-width: 0px;
 
-  th {
-    @include sky-border(dark, top, bottom, left, right);
-    @include sky-field-label();
-    border-right-width: 0px;
+  cursor: pointer;
+  background-color: $sky-grid-header-background-color;
 
-    cursor: pointer;
-    background-color: $sky-grid-header-background-color;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 8px;
+  text-align: left;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 8px;
-    text-align: left;
-
-    &:first-child {
-      border-left: 1px solid transparent;
-    }
-
-    &.sky-grid-header-dragging {
-      padding: 8px;
-      background-color: $sky-grid-header-dragging-background-color;
-      color: $sky-grid-header-dragging-color;
-    }
-
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  &:first-child {
+    border-left: 1px solid transparent;
   }
+
+  &.sky-grid-header-dragging {
+    padding: 8px;
+    background-color: $sky-grid-header-dragging-background-color;
+  }
+
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

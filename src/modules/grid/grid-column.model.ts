@@ -4,9 +4,8 @@ export class SkyGridColumnModel {
   public template: TemplateRef<any>;
   public id: string;
   public field: string;
-  public type: string;
   public heading: string;
-  public description: string;
+  public type: string;
   public width: number;
   public hidden: boolean;
   public locked: boolean;
@@ -16,10 +15,9 @@ export class SkyGridColumnModel {
 
     if (data) {
       this.id = data.id || data.field;
-      this.field = data.field;
       this.type = data.type;
+      this.field = data.field;
       this.heading = data.heading;
-      this.description = data.description;
       this.width = data.width ? Number(data.width) : undefined;
       this.hidden = data.hidden;
       this.locked = data.locked;

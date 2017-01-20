@@ -13,14 +13,20 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyGridColumnComponent {
-  @Input() public id: string;
-  @Input() public heading: string;
-  @Input() public description: string;
-  @Input() public width: number;
-  @Input() public hidden: boolean;
-  @Input() public locked: boolean;
-  @Input() public field: string;
-  @Input() public type: string = 'string';
+  @Input()
+  public id: string;
+  @Input()
+  public heading: string;
+  @Input()
+  public width: number;
+  @Input()
+  public hidden: boolean;
+  @Input()
+  public locked: boolean;
+  @Input()
+  public field: string;
+  @Input()
+  public type: string;
 
   /* tslint:disable */
   @Input('template')

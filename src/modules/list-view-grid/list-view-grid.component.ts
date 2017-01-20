@@ -21,10 +21,13 @@ import {
   SkyGridColumnComponent,
   SkyGridColumnModel
 } from '../grid';
+import {
+  ListItemModel
+} from '../list/state';
 
 @Component({
   selector: 'sky-list-view-grid',
-  template: require('./list-view-grid.component.html'),
+  templateUrl: './list-view-grid.component.html',
   providers: [
     /* tslint:disable */
     { provide: ListViewComponent, useExisting: forwardRef(() => SkyListViewGridComponent)},
@@ -134,7 +137,7 @@ export class SkyListViewGridComponent
         });
   }
 
-  get items() {
+  get items(): Observable<ListItemModel[]> {
     return Observable.combineLatest(
       this.state.map(s => s.items.items).distinctUntilChanged(),
       (items) => items

@@ -4,6 +4,9 @@ import {
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+const GRID_HEADER_DRAGGING_CLASS = 'sky-grid-header-dragging';
+const GRID_HEADER_LOCKED_CLASS = 'sky-grid-header-locked';
+
 @Injectable()
 export class SkyGridAdapterService {
 
@@ -11,11 +14,11 @@ export class SkyGridAdapterService {
     dragulaService: DragulaService,
     dropCallback: (newColumnIds: Array<string>) => void) {
     dragulaService.drag.subscribe(([, source]: Array<HTMLElement>) =>
-      source.classList.add('sky-grid-header-dragging')
+      source.classList.add(GRID_HEADER_DRAGGING_CLASS)
     );
 
     dragulaService.dragend.subscribe(([, source]: Array<HTMLElement>) =>
-      source.classList.remove('sky-grid-header-dragging')
+      source.classList.remove(GRID_HEADER_DRAGGING_CLASS)
     );
 
     dragulaService.drop.subscribe(([, , container]: Array<HTMLElement>) => {
@@ -31,13 +34,16 @@ export class SkyGridAdapterService {
     });
 
     dragulaService.setOptions('sky-grid-heading', {
-      moves: (el: HTMLElement) => !el.matches('sky-grid-header-locked'),
+      moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
+        return !handle.matches(GRID_HEADER_LOCKED_CLASS);
+      },
       accepts: (
         el: HTMLElement,
         target: HTMLElement,
         source: HTMLElement,
-        sibling: HTMLElement) =>
-        sibling === undefined || !sibling.matches('sky-grid-header-locked')
+        sibling: HTMLElement) => {
+          return sibling === undefined || !sibling || !sibling.matches(GRID_HEADER_LOCKED_CLASS);
+        }
     });
   }
 }

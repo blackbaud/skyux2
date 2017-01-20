@@ -1,7 +1,7 @@
 import { ListState } from './state';
 import { OnDestroy } from '@angular/core';
 import { SkyListComponent } from '../list/list.component';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 let moment = require('moment');
 
@@ -31,7 +31,7 @@ export abstract class ListViewComponent implements OnDestroy {
     return this.viewName;
   }
 
-  get active() {
+  get active(): Observable<boolean> {
     return this.state.map(s => s.views.active === this.viewId);
   }
 

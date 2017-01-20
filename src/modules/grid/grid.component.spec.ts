@@ -223,7 +223,6 @@ describe('Grid Component', () => {
         it('should construct ListViewGridColumnModel without data', () => {
           let model = new SkyGridColumnModel(component.viewtemplates.first);
           expect(model.template).not.toBeUndefined();
-          expect(model.description).toBeUndefined();
           expect(model.field).toBeUndefined();
           expect(model.heading).toBeUndefined();
           expect(model.id).toBeUndefined();
@@ -363,7 +362,7 @@ describe('Grid Component', () => {
       fixture.detectChanges();
       fixture.detectChanges();
 
-      component.grid.selectedColumnChange.subscribe(() => {
+      component.grid.selectedColumnIdsChange.subscribe(() => {
         newSelectedColumnIds = [
           'column2',
           'column1',
@@ -435,13 +434,13 @@ describe('Grid Component', () => {
       let setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and.callFake(
         (bagId: any, options: any) => {
           let moveOption = options.moves(
+            undefined,
+            undefined,
             {
               matches: (cls: string) => {
                 return cls === 'sky-grid-header-locked';
               }
-            },
-            undefined,
-            undefined
+            }
           );
 
           let acceptsOption = options.accepts(

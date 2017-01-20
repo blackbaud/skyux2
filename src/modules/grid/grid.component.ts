@@ -9,6 +9,7 @@ import {
   ChangeDetectorRef,
   SimpleChanges,
   EventEmitter,
+  ViewEncapsulation,
   OnChanges
 } from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -19,12 +20,13 @@ import { SkyGridAdapterService } from './grid-adapter.service';
 
 @Component({
   selector: 'sky-grid',
-  template: require('./grid.component.html'),
-  styles: [require('./grid.component.scss')],
+  templateUrl: './grid.component.html',
+  styleUrls: ['./grid.component.scss'],
   viewProviders: [ DragulaService ],
   providers: [
     SkyGridAdapterService
   ],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyGridComponent implements AfterContentInit, OnChanges {
@@ -48,7 +50,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public columns: Array<SkyGridColumnModel>;
 
   @Output()
-  public selectedColumnChange = new EventEmitter<Array<string>>();
+  public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 
   public displayedColumns: Array<SkyGridColumnModel> = new Array<SkyGridColumnModel>();
 
@@ -101,7 +103,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   private onHeaderDrop(newColumnIds: Array<string>) {
      // update selected columnIds
       this.selectedColumnIds = newColumnIds;
-      this.selectedColumnChange.emit(newColumnIds);
+      this.selectedColumnIdsChange.emit(newColumnIds);
 
       // set new displayed columns
       this.displayedColumns = this.selectedColumnIds.map(
