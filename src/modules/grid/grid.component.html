@@ -3,6 +3,7 @@
     <thead>
       <tr dragula="sky-grid-heading">
         <th
+          scope="col"
           class="sky-grid-heading"
           *ngFor="let column of displayedColumns; let last = last"
           [style.width.px]="last ? null : column.width"

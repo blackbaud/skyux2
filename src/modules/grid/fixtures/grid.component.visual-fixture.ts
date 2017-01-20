@@ -1,30 +1,23 @@
 import { Component, NgModule, ViewChild, AfterViewInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule, SkyListViewGridComponent } from '../../../../src/core';
 import {
-  ListState,
-  ListStateDispatcher
-} from '../../../../src/modules/list/state';
+  SkyModule,
+  SkyGridComponent
+} from '../../../../src/core';
+
 import { ListItemModel } from '../../../../src/modules/list/state/items/item.model';
-import { ListViewModel } from '../../../../src/modules/list/state/views/view.model';
-import { ListItemsLoadAction } from '../../../../src/modules/list/state/items/actions';
-import { ListViewsLoadAction } from '../../../../src/modules/list/state/views/actions';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  templateUrl: './list-view-grid.component.visual-fixture.html'
+  templateUrl: './grid.component.visual-fixture.html'
 })
-export class AppComponent implements AfterViewInit {
-  @ViewChild(SkyListViewGridComponent) public viewgrid: SkyListViewGridComponent;
+export class AppComponent {
+  @ViewChild(SkyGridComponent) public viewgrid: SkyGridComponent;
 
-  constructor(private state: ListState, private dispatcher: ListStateDispatcher) {
-  }
-
-  public ngAfterViewInit() {
-    let items = [
+  public items = [
         new ListItemModel('1', { column1: '1', column2: 'Apple',
           column3: 'aa' }),
         new ListItemModel('2', { column1: '01', column2: 'Banana',
@@ -40,13 +33,6 @@ export class AppComponent implements AfterViewInit {
         new ListItemModel('7', { column1: '21', column2: 'Grape',
           column3: 'gg' })
       ];
-
-      this.dispatcher.next(new ListItemsLoadAction(items, true));
-      this.dispatcher.next(new ListViewsLoadAction([
-        new ListViewModel(this.viewgrid.id, 'Test View')
-      ]));
-      this.dispatcher.viewsSetActive(this.viewgrid.id);
-  }
 }
 
 @NgModule({
@@ -59,10 +45,6 @@ export class AppComponent implements AfterViewInit {
   ],
   bootstrap: [
     AppComponent
-  ],
-  providers: [
-    ListState,
-    ListStateDispatcher
   ]
 })
 class AppModule { }

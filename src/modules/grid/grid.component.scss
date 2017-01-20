@@ -43,6 +43,7 @@
     border-right-width: 0px;
 
     cursor: pointer;
+    background-color: $sky-grid-header-background-color;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -56,8 +57,8 @@
 
     &.sky-grid-header-dragging {
       padding: 8px;
-      background-color: $sky-color-gray-lighter;
-      color: $sky-color-black;
+      background-color: $sky-grid-header-dragging-background-color;
+      color: $sky-grid-header-dragging-color;
     }
 
     -webkit-user-select: none;
