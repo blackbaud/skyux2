@@ -67,18 +67,14 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
       this.setDisplayedColumns(true);
 
-      /* tslint:disable */
-      /* istanbul ignore next */
-      this.dragulaService.drag.subscribe(([, el]: any) =>
-        el.classList.add('sky-grid-header-dragging')
+      this.dragulaService.drag.subscribe(([el, source]: Array<HTMLElement>) =>
+        source.classList.add('sky-grid-header-dragging')
       );
 
-      /* istanbul ignore next */
-      this.dragulaService.dragend.subscribe(([, el]: any) =>
-        el.classList.remove('sky-grid-header-dragging')
+      this.dragulaService.dragend.subscribe(([el, source]: Array<HTMLElement>) =>
+        source.classList.remove('sky-grid-header-dragging')
       );
 
-      /* istanbul ignore next */
       this.dragulaService.drop.subscribe(([,, container]: any) => {
         let columnIds: string[] = [];
         let nodes = container.getElementsByTagName('th');
@@ -102,12 +98,17 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
       });
 
-      /* istanbul ignore next */
+
       this.dragulaService.setOptions('sky-grid-heading', {
-        moves: (el: any) => !el.classList.contains('sky-grid-header-locked'),
-        accepts: ([,,, sibling]: any) => sibling === undefined || !sibling.classList.contains('sky-grid-header-locked')
+        moves: (el: HTMLElement) => !el.matches('sky-grid-header-locked'),
+        accepts: (
+          el: HTMLElement,
+          target: HTMLElement,
+          source: HTMLElement,
+          sibling: HTMLElement) =>
+          sibling === undefined || !sibling.matches('sky-grid-header-locked')
       });
-      /* tslint:enable */
+
     }
 
   }
