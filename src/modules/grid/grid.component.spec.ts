@@ -471,11 +471,12 @@ describe('Grid Component', () => {
     it('should be able to set columns without using sky-grid-column component', () => {
 
     });
-     it(
-      'should hide columns based on the hidden property when columns property changed',
-      () => {
 
-      });
+    it(
+    'should hide columns based on the hidden property when columns property changed',
+    () => {
+
+    });
   });
 
 });

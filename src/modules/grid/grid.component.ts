@@ -15,12 +15,16 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridColumnModel } from './grid-column.model';
 import { ListItemModel } from '../list/state';
+import { SkyGridAdapterService } from './grid-adapter.service';
 
 @Component({
   selector: 'sky-grid',
   template: require('./grid.component.html'),
   styles: [require('./grid.component.scss')],
   viewProviders: [ DragulaService ],
+  providers: [
+    SkyGridAdapterService
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyGridComponent implements AfterContentInit, OnChanges {
@@ -53,7 +57,11 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
 
-  constructor(private dragulaService: DragulaService, private ref: ChangeDetectorRef) {}
+  constructor(
+    private dragulaService: DragulaService,
+    private ref: ChangeDetectorRef,
+    private gridAdapter: SkyGridAdapterService
+  ) {}
 
   public ngAfterContentInit() {
     if (this.columnComponents.length !== 0 || this.columns !== undefined) {
@@ -67,50 +75,13 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
       this.setDisplayedColumns(true);
 
-      this.dragulaService.drag.subscribe(([, source]: Array<HTMLElement>) =>
-        source.classList.add('sky-grid-header-dragging')
-      );
-
-      this.dragulaService.dragend.subscribe(([, source]: Array<HTMLElement>) =>
-        source.classList.remove('sky-grid-header-dragging')
-      );
-
-      this.dragulaService.drop.subscribe(([,, container]: Array<HTMLElement>) => {
-        let columnIds: string[] = [];
-        let nodes = container.getElementsByTagName('th');
-        for (let i = 0; i < nodes.length; i++) {
-          let el = nodes[i];
-          let id = el.getAttribute('sky-cmp-id');
-          columnIds.push(id);
+      this.gridAdapter.initializeDragAndDrop(
+        this.dragulaService,
+        (selectedColumnIds: Array<string>) => {
+          this.onHeaderDrop(selectedColumnIds);
         }
-
-        // update selected columnIds
-        this.selectedColumnIds = columnIds;
-        this.selectedColumnChange.emit(columnIds);
-
-        // set new displayed columns
-        this.displayedColumns = this.selectedColumnIds.map(
-          columnId => this.columns.filter(column => column.id === columnId)[0]
-        );
-
-        // mark for check because we are using ChangeDetectionStrategy.onPush
-        this.ref.markForCheck();
-
-      });
-
-
-      this.dragulaService.setOptions('sky-grid-heading', {
-        moves: (el: HTMLElement) => !el.matches('sky-grid-header-locked'),
-        accepts: (
-          el: HTMLElement,
-          target: HTMLElement,
-          source: HTMLElement,
-          sibling: HTMLElement) =>
-          sibling === undefined || !sibling.matches('sky-grid-header-locked')
-      });
-
+      );
     }
-
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -122,6 +93,20 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     if (changes['data'] && this.data) {
       this.transformData();
     }
+  }
+
+  private onHeaderDrop(newColumnIds: Array<string>) {
+     // update selected columnIds
+      this.selectedColumnIds = newColumnIds;
+      this.selectedColumnChange.emit(newColumnIds);
+
+      // set new displayed columns
+      this.displayedColumns = this.selectedColumnIds.map(
+        columnId => this.columns.filter(column => column.id === columnId)[0]
+      );
+
+      // mark for check because we are using ChangeDetectionStrategy.onPush
+      this.ref.markForCheck();
   }
 
   private setDisplayedColumns(initialLoad: boolean = false) {
