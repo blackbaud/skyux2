@@ -65,6 +65,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
   public ngAfterContentInit() {
     if (this.columnComponents.length !== 0 || this.columns !== undefined) {
+      /* istanbul ignore else */
+      /* sanity check */
       if (this.columnComponents.length > 0) {
         this.columns = this.columnComponents.map(columnComponent => {
           return new SkyGridColumnModel(columnComponent.template, columnComponent);
@@ -74,20 +76,21 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       this.transformData();
 
       this.setDisplayedColumns(true);
-
-      this.gridAdapter.initializeDragAndDrop(
+    }
+    this.gridAdapter.initializeDragAndDrop(
         this.dragulaService,
         (selectedColumnIds: Array<string>) => {
           this.onHeaderDrop(selectedColumnIds);
         }
       );
-    }
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
   public ngOnChanges(changes: SimpleChanges) {
-    if ((changes['selectedColumnIds'] || changes['columns']) && this.columns) {
+    if (changes['selectedColumnIds'] && this.columns) {
       this.setDisplayedColumns();
+    } else if (changes['columns'] && this.columns) {
+      this.setDisplayedColumns(true);
     }
 
     if (changes['data'] && this.data) {
@@ -109,13 +112,13 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       this.ref.markForCheck();
   }
 
-  private setDisplayedColumns(initialLoad: boolean = false) {
+  private setDisplayedColumns(respectHidden: boolean = false) {
     if (this.selectedColumnIds !== undefined) {
       // setup displayed columns
       this.displayedColumns = this.selectedColumnIds.map(
         columnId => this.columns.filter(column => column.id === columnId)[0]
       );
-    } else if (initialLoad) {
+    } else if (respectHidden) {
       this.displayedColumns = this.columns.filter(column => {
         return !column.hidden;
       });
@@ -126,7 +129,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
   private transformData() {
     // Transform data into object with id and data properties
-    if (this.data.length > 0 && (!this.data[0].id || !this.data[0].data)) {
+    if (this.data.length > 0 && this.data[0].id && !this.data[0].data) {
       this.items = this.data.map(item => new ListItemModel(item.id, item));
     } else {
       this.items = this.data;
