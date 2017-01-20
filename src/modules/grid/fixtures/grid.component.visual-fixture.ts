@@ -1,9 +1,12 @@
-import { Component, NgModule, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  NgModule
+} from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import {
-  SkyModule,
-  SkyGridComponent
+  SkyModule
 } from '../../../../src/core';
 
 import { ListItemModel } from '../../../../src/modules/list/state/items/item.model';
@@ -15,7 +18,6 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
   templateUrl: './grid.component.visual-fixture.html'
 })
 export class AppComponent {
-  @ViewChild(SkyGridComponent) public viewgrid: SkyGridComponent;
 
   public items = [
         new ListItemModel('1', { column1: '1', column2: 'Apple',

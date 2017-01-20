@@ -18,7 +18,7 @@ export class SkyGridAdapterService {
       source.classList.remove('sky-grid-header-dragging')
     );
 
-    dragulaService.drop.subscribe(([,, container]: Array<HTMLElement>) => {
+    dragulaService.drop.subscribe(([, , container]: Array<HTMLElement>) => {
       let columnIds: string[] = [];
       let nodes = container.getElementsByTagName('th');
       for (let i = 0; i < nodes.length; i++) {

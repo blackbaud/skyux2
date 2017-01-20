@@ -6,8 +6,7 @@ import {
   tick
 } from '@angular/core/testing';
 import {
-  DebugElement,
-  TemplateRef
+  DebugElement
 } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -303,8 +302,6 @@ describe('Grid Component', () => {
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
-
-
     });
     it('should the dragging class to the header on dragula drag', fakeAsync(() => {
       fixture.detectChanges();
@@ -373,7 +370,7 @@ describe('Grid Component', () => {
           'column3',
           'column4',
           'column5'
-        ]
+        ];
       });
 
       mockDragulaService.drop.emit(
@@ -423,7 +420,7 @@ describe('Grid Component', () => {
       expect(component.grid.selectedColumnIds).toEqual(expectedColumnIds);
 
       let headerAttribute = element.nativeElement
-      .getElementsByTagName('th')[0].getAttribute('sky-cmp-id')
+        .getElementsByTagName('th')[0].getAttribute('sky-cmp-id');
 
       expect(headerAttribute).toBe('column2');
       let cellAttribute = element.nativeElement
@@ -530,7 +527,8 @@ describe('Grid Component', () => {
           id: 'column2',
           heading: 'Column 2'
         })
-      ]
+      ];
+
       fixture.detectChanges();
 
       verifyHeaders();
@@ -551,7 +549,7 @@ describe('Grid Component', () => {
           heading: 'Column 2',
           hidden: true
         })
-      ]
+      ];
       fixture.detectChanges();
 
       verifyHeaders(true);
