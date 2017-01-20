@@ -67,15 +67,15 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
       this.setDisplayedColumns(true);
 
-      this.dragulaService.drag.subscribe(([el, source]: Array<HTMLElement>) =>
+      this.dragulaService.drag.subscribe(([, source]: Array<HTMLElement>) =>
         source.classList.add('sky-grid-header-dragging')
       );
 
-      this.dragulaService.dragend.subscribe(([el, source]: Array<HTMLElement>) =>
+      this.dragulaService.dragend.subscribe(([, source]: Array<HTMLElement>) =>
         source.classList.remove('sky-grid-header-dragging')
       );
 
-      this.dragulaService.drop.subscribe(([,, container]: any) => {
+      this.dragulaService.drop.subscribe(([,, container]: Array<HTMLElement>) => {
         let columnIds: string[] = [];
         let nodes = container.getElementsByTagName('th');
         for (let i = 0; i < nodes.length; i++) {

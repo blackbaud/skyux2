@@ -326,9 +326,87 @@ describe('Grid Component', () => {
       }));
 
       it('should set selectedColumnIds to the new column order on drop and update headers and data',
-        () => {
+        fakeAsync(() => {
+        let newSelectedColumnIds: Array<string>;
+        let expectedColumnIds = [
+            'column2',
+            'column1',
+            'column3',
+            'column4',
+            'column5'
+          ];
 
-      });
+        fixture.detectChanges();
+        fixture.detectChanges();
+
+
+        component.grid.selectedColumnChange.subscribe(() => {
+          newSelectedColumnIds = [
+            'column2',
+            'column1',
+            'column3',
+            'column4',
+            'column5'
+          ]
+        });
+
+        mockDragulaService.drop.emit(
+          [
+            undefined,
+            undefined,
+            {
+              getElementsByTagName: function (elementSelector: string) {
+                expect(elementSelector).toBe('th');
+                return [
+                  {
+                    getAttribute: function (idSelector: string) {
+                      expect(idSelector).toBe('sky-cmp-id');
+                      return 'column2';
+                    }
+                  },
+                  {
+                    getAttribute: function (idSelector: string) {
+                      return 'column1';
+                    }
+                  },
+                  {
+                    getAttribute: function (idSelector: string) {
+                      return 'column3';
+                    }
+                  },
+                  {
+                    getAttribute: function (idSelector: string) {
+                      return 'column4';
+                    }
+                  },
+                  {
+                    getAttribute: function (idSelector: string) {
+                      return 'column5';
+                    }
+                  }
+
+                ];
+              }
+            }
+          ]
+        );
+        tick();
+        fixture.detectChanges();
+
+        expect(newSelectedColumnIds).toEqual(expectedColumnIds);
+        expect(component.grid.selectedColumnIds).toEqual(expectedColumnIds);
+
+        let headerAttribute = element.nativeElement
+        .getElementsByTagName('th')[0].getAttribute('sky-cmp-id')
+
+        expect(headerAttribute).toBe('column2');
+        let cellAttribute = element.nativeElement
+          .getElementsByTagName('sky-grid-cell')[0].getAttribute('sky-cmp-id');
+
+        expect(cellAttribute)
+          .toBe('column2');
+
+      }));
 
       it('should set dragula options for locked columns', () => {
         let setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and.callFake(
