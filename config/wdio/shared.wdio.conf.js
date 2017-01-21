@@ -8,7 +8,7 @@
   var timestamp;
   module.exports = {
     specs: [
-        'src/modules/**/*.visual-spec.js'
+        'src/modules/**/grid.component.visual-spec.js'
     ],
     logLevel: 'silent',
     baseUrl: 'http://localhost:3000',

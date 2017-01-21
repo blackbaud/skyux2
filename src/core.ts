@@ -11,6 +11,7 @@ import { SkyChevronModule } from './modules/chevron';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
+import { SkyGridModule } from './modules/grid';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyListPagingModule } from './modules/list-paging';
@@ -35,6 +36,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyDefinitionListModule,
     SkyDropdownModule,
     SkyFileAttachmentsModule,
+    SkyGridModule,
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyListPagingModule,
@@ -60,6 +62,7 @@ export * from './modules/definition-list';
 export * from './modules/dropdown';
 export * from './modules/fileattachments';
 export * from './modules/format';
+export * from './modules/grid';
 export * from './modules/key-info';
 export * from './modules/label';
 export * from './modules/list/state';

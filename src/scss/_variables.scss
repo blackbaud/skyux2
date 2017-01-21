@@ -20,6 +20,7 @@ $sky-color-yellow: #f8ac59 !default;
 $sky-color-red: #ed5565 !default;
 $sky-color-white: #fff !default;
 $sky-color-purple: #6533c5 !default;
+$sky-color-black: #292a2b;
 
 $sky-color-gray: lighten(#000, 40%) !default; // #666
 $sky-color-gray-light: lighten(#000, 60%) !default; // #999
@@ -54,7 +55,7 @@ $sky-alternate-font-size-lg: ceil(($sky-font-size-base * 2)) !default; // ~24px
 $sky-alternate-font-size-base: ceil(($sky-font-size-base * 1.833)) !default; // ~22px
 $sky-alternate-font-size-sm: ceil(($sky-font-size-base * 1.667)) !default; // ~20px
 
-$sky-text-color: #292a2b !default;
+$sky-text-color: $sky-color-black !default;
 $sky-selected-color: #eeeffb !default;
 $sky-text-deemphasized-color: #707374 !default;
 $sky-link-color: $sky-color-blue !default;
@@ -120,17 +121,24 @@ $sky-avatar-width: $sky-avatar-height !default;
 $sky-avatar-border-width: 2px !default;
 // end avatar
 
-// begin wait
-$sky-wait-color: $sky-color-blue !default;
-$sky-wait-mask-color: $sky-color-white !default;
-// end wait
+// begin grid
+$sky-grid-odd-background-color: $sky-body-background-color !default;
+$sky-grid-even-background-color: $sky-color-white !default;
+$sky-grid-header-background-color: $sky-color-white !default;
+$sky-grid-header-dragging-background-color: $sky-color-gray-lightest !default;
+// end grid
 
-// begin wait
+// begin paging
 $sky-paging-disabled-color: $sky-color-gray-light !default;
 $sky-paging-current-color: #f4f4f4 !default;
 $sky-paging-border-color: #ddd !default;
 $sky-paging-background-color: $sky-color-white !default;
-//end wait
+// end paging
+
+// begin wait
+$sky-wait-color: $sky-color-blue !default;
+$sky-wait-mask-color: $sky-color-white !default;
+// end wait
 
 // Support for mozilla in experimental css3 properties (-moz).
 $sky-experimental-support-for-mozilla      : true !default;
