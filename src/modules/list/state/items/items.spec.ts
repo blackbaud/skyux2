@@ -132,6 +132,33 @@ describe('list items', () => {
       tick();
     }));
 
+    it('should allow manually setting count', fakeAsync (() => {
+
+      state.take(1).subscribe(stateModel => {
+        expect(stateModel.items.count).toBe(7);
+      });
+
+      tick();
+
+      // add some base items to be paged
+      dispatcher.next(new ListItemsLoadAction([
+        new ListItemModel('8', {}),
+        new ListItemModel('12', {}),
+        new ListItemModel('34', {}),
+        new ListItemModel('22', {}),
+        new ListItemModel('11', {}),
+        new ListItemModel('67', {})
+      ], false, true, 3));
+
+      tick();
+
+      state.take(1).subscribe(stateModel => {
+        expect(stateModel.items.count).toBe(3);
+      });
+
+      tick();
+    }));
+
     it('should update lastUpdate appropriately', fakeAsync(() => {
       let lastUpdate: any;
       state.take(1).subscribe(stateModel => {
