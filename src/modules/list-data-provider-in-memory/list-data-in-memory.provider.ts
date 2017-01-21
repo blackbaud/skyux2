@@ -1,9 +1,10 @@
 import { Observable, BehaviorSubject } from 'rxjs';
-import * as moment from 'moment';
 import { ListDataProvider } from '../list/list-data.provider';
 import { ListDataRequestModel } from '../list/list-data-request.model';
 import { ListDataResponseModel } from '../list/list-data-response.model';
 import { ListItemModel } from '../list/state/items/item.model';
+
+let moment = require('moment');
 
 export class SkyListInMemoryDataProvider extends ListDataProvider {
   private items: BehaviorSubject<Array<ListItemModel>> =

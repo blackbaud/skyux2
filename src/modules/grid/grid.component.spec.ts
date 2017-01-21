@@ -437,8 +437,8 @@ describe('Grid Component', () => {
             undefined,
             undefined,
             {
-              matches: (cls: string) => {
-                return cls === 'sky-grid-header-locked';
+              matches: (selector: string) => {
+                return selector === '.sky-grid-header-locked';
               }
             }
           );
@@ -448,8 +448,8 @@ describe('Grid Component', () => {
             undefined,
             undefined,
             {
-              matches: (cls: string) => {
-                return cls === 'sky-grid-header-locked';
+              matches: (selector: string) => {
+                return selector === '.sky-grid-header-locked';
               }
             }
           );

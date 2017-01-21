@@ -1,9 +1,10 @@
 import { GridStateOrchestrator } from '../grid-state.rxstate';
 import { AsyncList } from 'microedge-rxstate/dist';
-import * as moment from 'moment';
 
 import { SkyGridColumnModel } from '../../../grid';
 import { ListViewGridColumnsLoadAction } from './actions';
+
+let moment = require('moment');
 
 export class ListViewGridColumnsOrchestrator
   extends GridStateOrchestrator<AsyncList<SkyGridColumnModel>> {

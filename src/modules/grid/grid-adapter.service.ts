@@ -5,7 +5,7 @@ import {
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 const GRID_HEADER_DRAGGING_CLASS = 'sky-grid-header-dragging';
-const GRID_HEADER_LOCKED_CLASS = 'sky-grid-header-locked';
+const GRID_HEADER_LOCKED_SELECTOR = '.sky-grid-header-locked';
 
 @Injectable()
 export class SkyGridAdapterService {
@@ -35,14 +35,14 @@ export class SkyGridAdapterService {
 
     dragulaService.setOptions('sky-grid-heading', {
       moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
-        return !handle.matches(GRID_HEADER_LOCKED_CLASS);
+        return !handle.matches(GRID_HEADER_LOCKED_SELECTOR);
       },
       accepts: (
         el: HTMLElement,
         target: HTMLElement,
         source: HTMLElement,
         sibling: HTMLElement) => {
-          return sibling === undefined || !sibling || !sibling.matches(GRID_HEADER_LOCKED_CLASS);
+          return sibling === undefined || !sibling || !sibling.matches(GRID_HEADER_LOCKED_SELECTOR);
         }
     });
   }
