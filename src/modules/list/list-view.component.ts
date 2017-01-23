@@ -1,15 +1,13 @@
 import { ListState } from './state';
-import { OnDestroy } from '@angular/core';
 import { SkyListComponent } from '../list/list.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 let moment = require('moment');
 
-export abstract class ListViewComponent implements OnDestroy {
+export abstract class ListViewComponent {
   protected viewName: string;
   protected state: ListState;
   protected list: SkyListComponent;
-  protected subscriptions: Array<any> = [];
   /* tslint:disable */
   private initialized: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /* tslint:enable */
@@ -40,9 +38,5 @@ export abstract class ListViewComponent implements OnDestroy {
   }
 
   public onViewInactive() {
-  }
-
-  public ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
   }
 }

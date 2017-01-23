@@ -104,7 +104,7 @@ export class SkyListViewGridComponent
                   /* istanbul ignore next */
                   /* sanity check */
                   let id = x.id || x.field;
-                  return hiddenColumns.indexOf(id) === -1
+                  return hiddenColumns.indexOf(id) === -1;
                 })
               )
             );
