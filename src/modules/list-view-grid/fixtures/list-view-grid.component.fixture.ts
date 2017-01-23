@@ -9,7 +9,10 @@ import { SkyListViewGridComponent } from '../list-view-grid.component';
 })
 export class ListViewGridTestComponent {
   public hiddenColumns: Array<string> = ['hiddenCol1', 'hiddenCol2'];
-  @ViewChild(SkyListViewGridComponent) public grid: SkyListViewGridComponent;
-  @ContentChildren(TemplateRef) public templates: QueryList<TemplateRef<any>>;
-  @ViewChildren(TemplateRef) public viewtemplates: QueryList<TemplateRef<any>>;
+  @ViewChild(SkyListViewGridComponent)
+  public grid: SkyListViewGridComponent;
+  @ContentChildren(TemplateRef)
+  public templates: QueryList<TemplateRef<any>>;
+  @ViewChildren(TemplateRef)
+  public viewtemplates: QueryList<TemplateRef<any>>;
 }

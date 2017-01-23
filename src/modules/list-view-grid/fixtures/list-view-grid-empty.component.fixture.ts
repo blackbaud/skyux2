@@ -6,5 +6,6 @@ import { SkyListViewGridComponent } from '../list-view-grid.component';
   template: require('./list-view-grid-empty.component.fixture.html')
 })
 export class ListViewGridEmptyTestComponent {
-  @ViewChild(SkyListViewGridComponent) public grid: SkyListViewGridComponent;
+  @ViewChild(SkyListViewGridComponent)
+  public grid: SkyListViewGridComponent;
 }

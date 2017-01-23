@@ -8,7 +8,8 @@ import { ListItemModel } from '../../list/state/items/item.model';
 })
 export class ListViewGridDisplayTestComponent {
   public displayedColumns: Array<string> = ['column3', 'column4'];
-  @ViewChild(SkyListViewGridComponent) public grid: SkyListViewGridComponent;
+  @ViewChild(SkyListViewGridComponent)
+  public grid: SkyListViewGridComponent;
 
   public itemSearch(item: ListItemModel, searchText: string) {
     return false;

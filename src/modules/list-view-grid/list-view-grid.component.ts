@@ -100,7 +100,12 @@ export class SkyListViewGridComponent
           getValue(this.hiddenColumns, (hiddenColumns: string[]) => {
             this.gridDispatcher.next(
               new ListViewDisplayedGridColumnsLoadAction(
-                columns.filter(x => hiddenColumns.indexOf(x.id || x.field) === -1)
+                columns.filter(x => {
+                  /* istanbul ignore next */
+                  /* sanity check */
+                  let id = x.id || x.field;
+                  return hiddenColumns.indexOf(id) === -1
+                })
               )
             );
           });
@@ -151,6 +156,8 @@ export class SkyListViewGridComponent
 
   get selectedColumnIds() {
     return this.gridState.map(s => s.displayedColumns.items.map(column => {
+      /* istanbul ignore next */
+      /* sanity check */
       return column.id || column.field;
     })).distinctUntilChanged();
   }
