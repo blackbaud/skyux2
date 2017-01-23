@@ -21,6 +21,7 @@ before_install:
   # https://github.com/npm/npm/issues/11283
   - npm set progress=false
 
+  - npm install -g @blackbaud/skyux-cli
   - export SAVAGE_BRANCH="^savage-"
   - chmod +x ./scripts/travis-script.sh
   - chmod +x ./scripts/travis-after-failure.sh
