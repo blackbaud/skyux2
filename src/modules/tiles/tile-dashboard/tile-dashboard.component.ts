@@ -19,7 +19,7 @@ import { SkyTileDashboardService } from './tile-dashboard.service';
   selector: 'sky-tile-dashboard',
   styleUrls: ['./tile-dashboard.component.scss'],
   templateUrl: './tile-dashboard.component.html',
-  providers: [SkyMediaQueryService, SkyTileDashboardService]
+  providers: [SkyTileDashboardService]
 })
 export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   @Input()
