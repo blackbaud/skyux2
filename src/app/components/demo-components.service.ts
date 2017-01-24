@@ -221,7 +221,7 @@ export class SkyDemoComponentsService {
         name: 'Media queries',
         icon: 'mobile',
         // tslint:disable-next-line
-        summary: `The media query service allows users to subscribe to screen size changes at different breakpoints.`,
+        summary: `The media queries service allows users to subscribe to screen size changes at different breakpoints.`,
         url: '/components/media-queries',
         getCodeFiles: function () {
           return [
