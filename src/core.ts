@@ -38,6 +38,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyListPagingModule,
+    SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
     SkyPageSummaryModule,
