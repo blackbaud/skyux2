@@ -218,6 +218,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Media queries',
+        icon: 'mobile',
+        // tslint:disable-next-line
+        summary: `The media queries service allows users to subscribe to screen size changes at different breakpoints.`,
+        url: '/components/media-queries',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'media-query-demo.component.html',
+              fileContents:
+                require('!!raw!./media-queries/media-query-demo.component.html')
+            },
+            {
+              name: 'media-query-demo.component.ts',
+              fileContents:
+                require('!!raw!./media-queries/media-query-demo.component.ts'),
+              componentName: 'SkyMediaQueryDemoComponent',
+              bootstrapSelector: 'sky-media-query-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Modal',
         icon: 'list-alt',
         // tslint:disable-next-line
