@@ -26,7 +26,6 @@ import { SkyGridAdapterService } from './grid-adapter.service';
   providers: [
     SkyGridAdapterService
   ],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyGridComponent implements AfterContentInit, OnChanges {
