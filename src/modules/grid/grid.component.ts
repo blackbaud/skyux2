@@ -9,7 +9,6 @@ import {
   ChangeDetectorRef,
   SimpleChanges,
   EventEmitter,
-  ViewEncapsulation,
   OnChanges
 } from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
