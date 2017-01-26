@@ -264,7 +264,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'modal-demo-form.component.ts',
-              fileContents: require('!!raw!./modal/modal-demo-form.component.ts')
+              fileContents: require('!!raw!./modal/modal-demo-form.component.ts'),
+              componentName: 'SkyModalDemoFormComponent'
             },
             {
               name: 'modal-demo-context.ts',
@@ -443,7 +444,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'tiles-demo-tile1.component.ts',
-              fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.ts')
+              fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.ts'),
+              componentName: 'SkyTilesDemoTile1Component'
             },
             {
               name: 'tiles-demo-tile2.component.html',
