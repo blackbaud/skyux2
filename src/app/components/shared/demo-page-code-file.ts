@@ -7,6 +7,8 @@ export class SkyDemoPageCodeFile {
 
   public codeFormatted: string;
 
+  public codeImports: string;
+
   constructor(
     public readonly name: string,
     public readonly code: string,
@@ -22,9 +24,10 @@ export class SkyDemoPageCodeFile {
       default:
         this.language = 'markup';
     }
+    this.codeImports = this.code.replace(/\.\.\/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
 
     this.codeFormatted = Prism.highlight(
-      this.code,
+      this.codeImports,
       Prism.languages[this.language]
     );
   }
