@@ -1,0 +1,30 @@
+@import '../../scss/mixins';
+
+.sky-button-large {
+  @include sky-button-variant($sky-text-color, $sky-color-white, $sky-color-gray-lighter);
+  @include sky-border(dark, top, bottom, left, right);
+  max-width: 236px;
+  border-radius: 3px;
+  margin-top: $sky-margin-double;
+  margin-right: $sky-margin-double;
+  cursor: pointer;
+  display: inline-block;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-button-large {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: $sky-screen-xs-max) {
+  .sky-button-large-icon-header-container {
+    margin-bottom: $sky-margin-double;
+  }
+}
+

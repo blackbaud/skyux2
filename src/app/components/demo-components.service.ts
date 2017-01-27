@@ -48,6 +48,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Button large',
+        icon: 'square-o',
+        // tslint:disable-next-line
+        summary: `The button large component certainly does something.`,
+        url: '/components/button-large',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'button-large-demo.component.html',
+              fileContents: require('!!raw!./button-large/button-large-demo.component.html')
+            },
+            {
+              name: 'button-large-demo.component.ts',
+              fileContents: require('!!raw!./button-large/button-large-demo.component.ts'),
+              componentName: 'SkyButtonLargeDemoComponent',
+              bootstrapSelector: 'sky-button-large-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Card',
         icon: 'th-large',
         // tslint:disable-next-line
