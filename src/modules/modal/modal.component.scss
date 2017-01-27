@@ -4,11 +4,18 @@
   border: solid 1px $sky-color-gray-lightest;
   @include sky-shadow();
   position: fixed;
-  max-width: 600px;
+  width: auto;
   left: 0;
   right: 0;
   top: 20px;
-  margin: 0 auto;
+  margin: $sky-margin;
+}
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-modal {
+    width: 600px;
+    margin: 0 auto;
+  }
 }
 
 .sky-modal-header,
