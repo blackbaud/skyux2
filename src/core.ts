@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
-import { SKY_MEDIA_QUERY_PROVIDERS } from './modules/media-queries';
 import { SkyAlertModule } from './modules/alert';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyCardModule } from './modules/card';
@@ -17,6 +16,7 @@ import { SkyLabelModule } from './modules/label';
 import { SkyListModule } from './modules/list';
 import { SkyListPagingModule } from './modules/list-paging';
 import { SkyListViewGridModule } from './modules/list-view-grid';
+import { SkyMediaQueryModule } from './modules/media-queries';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
 import { SkyPageSummaryModule } from './modules/page-summary';
@@ -44,6 +44,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyListModule,
     SkyListPagingModule,
     SkyListViewGridModule,
+    SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
     SkyPageSummaryModule,
@@ -74,6 +75,7 @@ export * from './modules/list/state';
 export * from './modules/list-paging';
 export * from './modules/list-view-grid';
 export * from './modules/modal';
+export * from './modules/media-queries';
 export * from './modules/navbar';
 export * from './modules/page-summary';
 export * from './modules/paging';
@@ -85,5 +87,5 @@ export * from './modules/tiles';
 export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
-  ...SKY_MODAL_PROVIDERS, SKY_WAIT_PROVIDERS, SKY_MEDIA_QUERY_PROVIDERS
+  ...SKY_MODAL_PROVIDERS, SKY_WAIT_PROVIDERS
 ];

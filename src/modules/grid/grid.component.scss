@@ -1,43 +1,44 @@
 @import '../../scss/mixins';
 
-sky-grid {
+.sky-grid {
   position: relative;
   display: block;
+}
 
-  > div {
-    overflow: scroll;
-  }
+.sky-grid-table-container {
+  overflow: scroll;
+}
 
-  table {
-    position: relative;
-    table-layout: fixed;
-    border-collapse: collapse;
-    margin: 0;
-    font-size: $sky-font-size-base;
-    min-width: 100%;
+.sky-grid-table {
+  position: relative;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: $sky-font-size-base;
+  min-width: 100%;
 
-    &.sky-grid-fit {
-      width: 100%;
-    }
-  }
-
-  tbody {
-    background-color: $sky-grid-even-background-color;
-  }
-
-  tr.sky-grid-row {
-    @include sky-border(dark, bottom);
-
-    &:nth-child(odd) {
-      background-color: $sky-grid-odd-background-color;
-    }
-
-    td {
-      padding: 0;
-    }
+  &.sky-grid-fit {
+    width: 100%;
   }
 }
-th.sky-grid-heading {
+
+.sky-grid-tbody {
+  background-color: $sky-grid-even-background-color;
+}
+
+.sky-grid-row {
+  @include sky-border(dark, bottom);
+
+  &:nth-child(odd) {
+    background-color: $sky-grid-odd-background-color;
+  }
+
+  .sky-grid-cell {
+    padding: 0;
+  }
+}
+
+.sky-grid-heading {
   @include sky-border(dark, top, bottom, left, right);
   @include sky-field-label();
   border-right-width: 0px;

@@ -153,26 +153,26 @@ export class SkyDemoComponentsService {
         }
       },
       {
-         name: 'Grid',
-         icon: 'table',
-         // tslint:disable-next-line
-         summary: `The grid component is used to display data in a consistent and flexible way.`,
-         url: '/components/grid',
+        name: 'Grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `The grid component is used to display data in a consistent and flexible way.`,
+        url: '/components/grid',
         getCodeFiles: function () {
-           return [
-             {
-               name: 'grid-demo.component.html',
-               fileContents: require('!!raw!./grid/grid-demo.component.html')
-             },
-             {
-               name: 'grid-demo.component.ts',
-               fileContents: require('!!raw!./grid/grid-demo.component.ts'),
-               componentName: 'SkyGridDemoComponent',
-               bootstrapSelector: 'sky-grid-demo'
-             }
-           ];
-         }
-       },
+          return [
+            {
+              name: 'grid-demo.component.html',
+              fileContents: require('!!raw!./grid/grid-demo.component.html')
+            },
+            {
+              name: 'grid-demo.component.ts',
+              fileContents: require('!!raw!./grid/grid-demo.component.ts'),
+              componentName: 'SkyGridDemoComponent',
+              bootstrapSelector: 'sky-grid-demo'
+            }
+          ];
+        }
+      },
       {
         name: 'Key info',
         icon: 'key',
@@ -259,6 +259,29 @@ export class SkyDemoComponentsService {
            ];
          }
        },
+       {
+        name: 'Media queries',
+        icon: 'mobile',
+        // tslint:disable-next-line
+        summary: `The media queries service allows users to subscribe to screen size changes at different breakpoints.`,
+        url: '/components/media-queries',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'media-query-demo.component.html',
+              fileContents:
+                require('!!raw!./media-queries/media-query-demo.component.html')
+            },
+            {
+              name: 'media-query-demo.component.ts',
+              fileContents:
+                require('!!raw!./media-queries/media-query-demo.component.ts'),
+              componentName: 'SkyMediaQueryDemoComponent',
+              bootstrapSelector: 'sky-media-query-demo'
+            }
+          ];
+        }
+      },
       {
         name: 'Modal',
         icon: 'list-alt',
@@ -283,7 +306,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'modal-demo-form.component.ts',
-              fileContents: require('!!raw!./modal/modal-demo-form.component.ts')
+              fileContents: require('!!raw!./modal/modal-demo-form.component.ts'),
+              componentName: 'SkyModalDemoFormComponent'
             },
             {
               name: 'modal-demo-context.ts',
@@ -462,7 +486,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'tiles-demo-tile1.component.ts',
-              fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.ts')
+              fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.ts'),
+              componentName: 'SkyTilesDemoTile1Component'
             },
             {
               name: 'tiles-demo-tile2.component.html',
