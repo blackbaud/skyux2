@@ -153,6 +153,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `The grid component is used to display data in a consistent and flexible way.`,
+        url: '/components/grid',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'grid-demo.component.html',
+              fileContents: require('!!raw!./grid/grid-demo.component.html')
+            },
+            {
+              name: 'grid-demo.component.ts',
+              fileContents: require('!!raw!./grid/grid-demo.component.ts'),
+              componentName: 'SkyGridDemoComponent',
+              bootstrapSelector: 'sky-grid-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Key info',
         icon: 'key',
         // tslint:disable-next-line
