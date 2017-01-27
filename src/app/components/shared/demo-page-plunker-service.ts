@@ -16,7 +16,7 @@ export class SkyDemoPagePlunkerService {
     for (let codeFile of codeFiles) {
       files.push({
         name: codeFile.name,
-        content: codeFile.code
+        content: codeFile.codeImports
       });
 
       let componentName = codeFile.componentName;
@@ -67,7 +67,11 @@ export class SkyDemoPagePlunkerService {
 
     'rxjs': 'npm:rxjs',
     'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
-    'skyux/core': 'npm:blackbaud-skyux2/dist/bundles/core.umd.min.js',
+    '@blackbaud/skyux/dist/core': 'npm:@blackbaud/skyux/dist/bundles/core.umd.min.js',
+
+    'moment': 'npm:moment/moment.js',
+
+    'microedge-rxstate/dist': 'npm:microedge-rxstate/dist/index.js',
 
     //dragula packages
     'ng2-dragula/ng2-dragula': 'npm:ng2-dragula',
@@ -87,7 +91,7 @@ export class SkyDemoPagePlunkerService {
     rxjs: {
       defaultExtension: 'js'
     },
-    'skyux/core': {
+    '@blackbaud/skyux/dist/core': {
        format: 'cjs'
      },
     'ng2-dragula/ng2-dragula': {
@@ -157,7 +161,7 @@ export class AppComponent() { }`
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { SkyModule } from 'skyux/core';
+import { SkyModule } from '@blackbaud/skyux/dist/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 ${imports.join('\n')}
