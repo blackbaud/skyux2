@@ -51,7 +51,8 @@ export class SkyDemoComponentsService {
         name: 'Action button',
         icon: 'square-o',
         // tslint:disable-next-line
-        summary: `The action button component certainly does something.`,
+        summary:
+          `The action button component creates a large button with an icon, heading, and details.`,
         url: '/components/action-button',
         getCodeFiles: function () {
           return [
