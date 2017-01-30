@@ -48,22 +48,22 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Button large',
+        name: 'Action button',
         icon: 'square-o',
         // tslint:disable-next-line
-        summary: `The button large component certainly does something.`,
-        url: '/components/button-large',
+        summary: `The action button component certainly does something.`,
+        url: '/components/action-button',
         getCodeFiles: function () {
           return [
             {
-              name: 'button-large-demo.component.html',
-              fileContents: require('!!raw!./button-large/button-large-demo.component.html')
+              name: 'action-button-demo.component.html',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.html')
             },
             {
-              name: 'button-large-demo.component.ts',
-              fileContents: require('!!raw!./button-large/button-large-demo.component.ts'),
-              componentName: 'SkyButtonLargeDemoComponent',
-              bootstrapSelector: 'sky-button-large-demo'
+              name: 'action-button-demo.component.ts',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.ts'),
+              componentName: 'SkyActionButtonDemoComponent',
+              bootstrapSelector: 'sky-action-button-demo'
             }
           ];
         }

@@ -1,6 +1,6 @@
 @import '../../scss/mixins';
 
-.sky-button-large {
+.sky-action-button {
   @include sky-button-variant($sky-text-color, $sky-color-white, $sky-color-gray-lighter);
   @include sky-border(dark, top, bottom, left, right);
   max-width: 236px;
@@ -17,13 +17,13 @@
 }
 
 @media (min-width: $sky-screen-sm-min) {
-  .sky-button-large {
+  .sky-action-button {
     padding: 30px 20px;
   }
 }
 
 @media (max-width: $sky-screen-xs-max) {
-  .sky-button-large-icon-header-container {
+  .sky-action-button-icon-header-container {
     margin-bottom: $sky-margin-double;
   }
 }

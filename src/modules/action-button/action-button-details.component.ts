@@ -3,8 +3,8 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'sky-button-large-details',
+  selector: 'sky-action-button-details',
   templateUrl: '../shared/simple-content.html'
 })
-export class SkyButtonLargeDetailsComponent {
+export class SkyActionButtonDetailsComponent {
 }

@@ -14,11 +14,11 @@ import {
 } from 'rxjs';
 
 @Component({
-  selector: 'sky-button-large-icon',
-  styleUrls: ['./button-large-icon.component.scss'],
-  templateUrl: './button-large-icon.component.html'
+  selector: 'sky-action-button-icon',
+  styleUrls: ['./action-button-icon.component.scss'],
+  templateUrl: './action-button-icon.component.html'
 })
-export class SkyButtonLargeIconComponent implements OnDestroy {
+export class SkyActionButtonIconComponent implements OnDestroy {
 
   @Input()
   public iconType: string;

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-test-cmp',
-  templateUrl: './button-large.component.fixture.html'
+  templateUrl: './action-button.component.fixture.html'
 })
-export class ButtonLargeTestComponent {
+export class ActionButtonTestComponent {
 
   public buttonIsClicked: boolean = false;
 

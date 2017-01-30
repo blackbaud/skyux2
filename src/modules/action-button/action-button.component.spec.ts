@@ -9,22 +9,25 @@ import {
 
 import { BrowserModule, By } from '@angular/platform-browser';
 
-import { SkyButtonLargeComponent } from '.';
+import {
+  SkyActionButtonComponent,
+  SkyActionButtonModule
+
+} from '.';
 import {
   SkyMediaQueryService,
   SkyMediaBreakpoints
 } from '../media-queries';
 
-import { ButtonLargeTestComponent } from './fixtures/button-large.component.fixture';
-import { SkyButtonLargeModule } from './button-large.module';
+import { ActionButtonTestComponent } from './fixtures/action-button.component.fixture';
 
 import {
   MockSkyMediaQueryService
 } from '../testing/mocks';
 
-describe('Button large component', () => {
-  let fixture: ComponentFixture<ButtonLargeTestComponent>;
-  let cmp: ButtonLargeTestComponent;
+describe('Action button component', () => {
+  let fixture: ComponentFixture<ActionButtonTestComponent>;
+  let cmp: ActionButtonTestComponent;
   let el: HTMLElement;
   let debugElement: DebugElement;
   let mockMediaQueryService: MockSkyMediaQueryService;
@@ -34,15 +37,15 @@ describe('Button large component', () => {
     mockMediaQueryService = new MockSkyMediaQueryService();
     TestBed.configureTestingModule({
       declarations: [
-        ButtonLargeTestComponent
+        ActionButtonTestComponent
       ],
       imports: [
         BrowserModule,
-        SkyButtonLargeModule
+        SkyActionButtonModule
       ]
     });
 
-    fixture = TestBed.overrideComponent(SkyButtonLargeComponent, {
+    fixture = TestBed.overrideComponent(SkyActionButtonComponent, {
       add: {
         providers: [
           {
@@ -52,10 +55,10 @@ describe('Button large component', () => {
         ]
       }
     })
-    .createComponent(ButtonLargeTestComponent);
+    .createComponent(ActionButtonTestComponent);
 
-    fixture = TestBed.createComponent(ButtonLargeTestComponent);
-    cmp = fixture.componentInstance as ButtonLargeTestComponent;
+    fixture = TestBed.createComponent(ActionButtonTestComponent);
+    cmp = fixture.componentInstance as ActionButtonTestComponent;
     el = fixture.nativeElement as HTMLElement;
     debugElement = fixture.debugElement;
 
@@ -63,40 +66,39 @@ describe('Button large component', () => {
   });
 
   it('should transclude icon, header, and detail sections', () => {
+    let iconContainer
+      = '.sky-action-button-icon-header-container .sky-action-button-icon-container';
+    let headerContainer = '.sky-action-button-icon-header-container .sky-action-button-header';
+    let detailsContainer = '.sky-action-button sky-action-button-details'
 
-    expect(
-      el.querySelector('.sky-button-large-icon-header-container .sky-button-large-icon-container'))
-      .not.toBeNull();
+    expect(el.querySelector(iconContainer)).not.toBeNull();
 
-    expect(
-      el.querySelector('.sky-button-large-icon-header-container .sky-button-large-header'))
-      .not.toBeNull();
+    expect(el.querySelector(headerContainer)).not.toBeNull();
 
-    expect(
-      el.querySelector('.sky-button-large sky-button-large-details')).not.toBeNull();
+    expect(el.querySelector(detailsContainer)).not.toBeNull();
   });
 
   it('should emit a click event on button click', () => {
-    debugElement.query(By.css('.sky-button-large')).triggerEventHandler('click', undefined);
+    debugElement.query(By.css('.sky-action-button')).triggerEventHandler('click', undefined);
     fixture.detectChanges();
     expect(cmp.buttonIsClicked).toBe(true);
   });
 
   it('should have a role of button on the clickable area', () => {
-    expect(debugElement.query(By.css('.sky-button-large')).attributes['role']).toBe('button');
+    expect(debugElement.query(By.css('.sky-action-button')).attributes['role']).toBe('button');
   });
 
   it('should display an icon based on iconType', () => {
     let iconSelector =
-      '.sky-button-large-icon-header-container .sky-button-large-icon-container i.fa-filter';
+      '.sky-action-button-icon-header-container .sky-action-button-icon-container i.fa-filter';
     expect(debugElement.query(By.css(iconSelector))).not.toBeNull();
   });
 
   it('should change icon size based on media breakpoints query', () => {
     let smallIconSelector =
-      '.sky-button-large-icon-header-container .sky-button-large-icon-container i.fa-2x';
+      '.sky-action-button-icon-header-container .sky-action-button-icon-container i.fa-2x';
     let largeIconSelector =
-      '.sky-button-large-icon-header-container .sky-button-large-icon-container i.fa-3x';
+      '.sky-action-button-icon-header-container .sky-action-button-icon-container i.fa-3x';
     mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
     fixture.detectChanges();
     expect(debugElement.query(By.css(smallIconSelector))).not.toBeNull();

@@ -1,23 +1,19 @@
 @import '../../scss/mixins';
 
-.sky-button-large-icon-container {
+.sky-action-button-header {
   display: inline-block;
 }
 
 @media (max-width: $sky-screen-xs-max) {
-  .sky-button-large-icon-container {
+  .sky-action-button-header {
     margin-left: $sky-margin-half;
     margin-right: $sky-margin-half;
   }
 }
 
 @media (min-width: $sky-screen-sm-min) {
-  .sky-button-large-icon-container {
+  .sky-action-button-header {
     display: block;
     margin-bottom: $sky-margin-double;
   }
-}
-
-.sky-button-large-icon {
-  color: $sky-color-blue;
 }
