@@ -69,7 +69,7 @@ describe('Action button component', () => {
     let iconContainer
       = '.sky-action-button-icon-header-container .sky-action-button-icon-container';
     let headerContainer = '.sky-action-button-icon-header-container .sky-action-button-header';
-    let detailsContainer = '.sky-action-button sky-action-button-details'
+    let detailsContainer = '.sky-action-button sky-action-button-details';
 
     expect(el.querySelector(iconContainer)).not.toBeNull();
 
