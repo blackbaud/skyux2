@@ -11,7 +11,7 @@ import {
 })
 export class SkyButtonLargeComponent {
   @Output()
-  buttonClick = new EventEmitter<any>();
+  public buttonClick = new EventEmitter<any>();
 
   public buttonClicked() {
     this.buttonClick.emit();

@@ -54,7 +54,6 @@ const INPUT_HIDDEN_STATE: string = 'inputHidden';
     ])
   ],
   providers: [
-    SkyMediaQueryService,
     SkySearchAdapterService,
     SkyResourcesService
   ]
