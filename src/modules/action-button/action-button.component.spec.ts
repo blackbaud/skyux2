@@ -84,8 +84,15 @@ describe('Action button component', () => {
     expect(cmp.buttonIsClicked).toBe(true);
   });
 
-  it('should have a role of button on the clickable area', () => {
+  it('should emit a click event on enter press', () => {
+    debugElement.query(By.css('.sky-action-button')).triggerEventHandler('keyup', { which: 13});
+    fixture.detectChanges();
+    expect(cmp.buttonIsClicked).toBe(true);
+  });
+
+  it('should have a role of button and tabindex on the clickable area', () => {
     expect(debugElement.query(By.css('.sky-action-button')).attributes['role']).toBe('button');
+    expect(debugElement.query(By.css('.sky-action-button')).attributes['tabindex']).toBe('0');
   });
 
   it('should display an icon based on iconType', () => {
