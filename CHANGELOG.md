@@ -1,3 +1,12 @@
+# 2.0.0-beta.4 (2017-01-27)
+
+  - Expose and document SkyMediaQueryService. (#288)
+  - Fix plunkers for modal and tile documentation. (#307)
+  - Updated skyux paths in component documentation. (#310)
+  - Updated tile documentation to include entryComponent information. (#309)
+  - Added standalone grid component (thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes). (#171)
+  - Fixed modal margin issues in IE11. (#301)
+
 # 2.0.0-beta.3 (2017-01-17)
 
   - Added the alert role to the alert component. (Thanks @realistschuckle)
