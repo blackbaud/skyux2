@@ -1,3 +1,4 @@
+/*
 import {
   Component,
   ContentChildren,
@@ -41,9 +42,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @Input() public searchEnabled: boolean | Observable<boolean>;
 
   /* tslint:disable */
-  @Input('searchText') private searchTextInput: string | Observable<string>;
+  //@Input('searchText') private searchTextInput: string | Observable<string>;
   /* tslint:enable */
-
+/*
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
 
@@ -138,3 +139,4 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       .map(c => c.searchEnabled);
   }
 }
+*/
