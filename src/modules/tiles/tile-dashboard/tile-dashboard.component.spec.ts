@@ -17,7 +17,8 @@ import {
   SkyTileDashboardFixturesModule,
   Tile1TestComponent,
   Tile2TestComponent,
-  TileDashboardTestComponent
+  TileDashboardTestComponent,
+  TileDashboardOnPushTestComponent
 } from './fixtures';
 
 describe('Tile dashboard component', () => {
@@ -307,6 +308,31 @@ describe('Tile dashboard component', () => {
         .getTileComponent('sky-test-tile-2');
 
       expect(tileComponentRef.instance.context.id).toBe(3);
+    })
+  );
+
+  fit(
+    `should render tiles properly when the parent component's change detection strategy is OnPush`,
+    fakeAsync(() => {
+      let fixture = TestBed.createComponent(TileDashboardOnPushTestComponent);
+
+      fixture.detectChanges();
+      tick();
+
+      // For some reason we have to run change detection twice for the tile to actually render.
+      fixture.detectChanges();
+      tick();
+
+      let cmp = fixture.componentInstance;
+
+      let tileComponentRef = cmp
+        .dashboardComponent
+        .dashboardService
+        .getTileComponent('sky-test-tile-1');
+
+      let tileEl = tileComponentRef.location.nativeElement;
+
+      expect(tileEl.querySelector('.sky-tile-title').innerText).toBe('Tile 1');
     })
   );
 });
