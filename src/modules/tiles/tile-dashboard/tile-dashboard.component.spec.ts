@@ -311,7 +311,7 @@ describe('Tile dashboard component', () => {
     })
   );
 
-  fit(
+  it(
     `should render tiles properly when the parent component's change detection strategy is OnPush`,
     fakeAsync(() => {
       let fixture = TestBed.createComponent(TileDashboardOnPushTestComponent);
@@ -332,7 +332,7 @@ describe('Tile dashboard component', () => {
 
       let tileEl = tileComponentRef.location.nativeElement;
 
-      expect(tileEl.querySelector('.sky-tile-title').innerText).toBe('Tile 1');
+      expect(tileEl.querySelector('.sky-tile-title')).toHaveText('Tile 1');
     })
   );
 });
