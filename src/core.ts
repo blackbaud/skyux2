@@ -14,7 +14,9 @@ import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyGridModule } from './modules/grid';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
+import { SkyListModule } from './modules/list';
 import { SkyListPagingModule } from './modules/list-paging';
+import { SkyListViewGridModule } from './modules/list-view-grid';
 import { SkyMediaQueryModule } from './modules/media-queries';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
@@ -41,7 +43,9 @@ import { SkyWaitModule } from './modules/wait';
     SkyGridModule,
     SkyKeyInfoModule,
     SkyLabelModule,
+    SkyListModule,
     SkyListPagingModule,
+    SkyListViewGridModule,
     SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
@@ -69,8 +73,10 @@ export * from './modules/format';
 export * from './modules/grid';
 export * from './modules/key-info';
 export * from './modules/label';
+export * from './modules/list';
 export * from './modules/list/state';
 export * from './modules/list-paging';
+export * from './modules/list-view-grid';
 export * from './modules/modal';
 export * from './modules/media-queries';
 export * from './modules/navbar';
