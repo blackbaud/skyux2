@@ -215,6 +215,10 @@ export class SkyTileDashboardService {
     let componentRef = column.content.createComponent(factory, undefined, injector);
 
     this.addTileComponent(layoutTile, componentRef);
+
+    // Make sure the component is marked for changes in case the parent component uses
+    // the OnPush change detection strategy.
+    componentRef.changeDetectorRef.markForCheck();
   }
 
   private moveTilesToSingleColumn() {

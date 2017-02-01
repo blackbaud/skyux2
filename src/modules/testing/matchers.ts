@@ -17,8 +17,8 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
         result.pass = getComputedStyle(el).display !== 'none';
 
         result.message = result.pass ?
-          'Expected element to not be visible' :
-          'Expected element to be visible';
+          'Expected element to not be visible.' :
+          'Expected element to be visible.';
 
         return result;
       }
@@ -42,8 +42,8 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
         result.pass = actualText === expectedText;
 
         result.message = result.pass ?
-          'Expected element\'s inner text not to be ' + expectedText :
-          'Expected element\'s inner text to be ' + expectedText;
+          `Expected element's inner text not to be '${expectedText}'.` :
+          `Expected element's inner text '${actualText}' to be '${expectedText}'.`;
 
         return result;
       }
@@ -65,8 +65,8 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
         result.pass = el.classList.contains(expectedCls);
 
         result.message = result.pass ?
-          'Expected element not to have CSS class ' + expectedCls :
-          'Expected element to have CSS class ' + expectedCls;
+          `Expected element not to have CSS class ${expectedCls}.` :
+          `Expected element to have CSS class ${expectedCls}.`;
 
         return result;
       }
@@ -91,8 +91,8 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
               }
 
               result.message += result.pass ?
-                'Expected element not to have CSS style ' + p + ': ' + expectedStyle :
-                'Expected element to have CSS style ' + p + ': ' + expectedStyle;
+                `Expected element not to have CSS style '${p}: ${expectedStyle}'.` :
+                `Expected element to have CSS style '${p}: ${expectedStyle}'.`;
             }
           }
         }
@@ -113,8 +113,8 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
         result.pass = !!el;
 
         result.message = result.pass ?
-          'Expected element not to exist' :
-          'Expected element to exist';
+          'Expected element not to exist.' :
+          'Expected element to exist.';
 
         return result;
       }
