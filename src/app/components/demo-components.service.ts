@@ -48,6 +48,28 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Action button',
+        icon: 'square-o',
+        // tslint:disable-next-line
+        summary:
+          `The action button component creates a large button with an icon, heading, and details.`,
+        url: '/components/action-button',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'action-button-demo.component.html',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.html')
+            },
+            {
+              name: 'action-button-demo.component.ts',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.ts'),
+              componentName: 'SkyActionButtonDemoComponent',
+              bootstrapSelector: 'sky-action-button-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Card',
         icon: 'th-large',
         // tslint:disable-next-line
