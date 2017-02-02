@@ -36,12 +36,14 @@ import { getValue } from 'microedge-rxstate/dist/helpers';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyListToolbarComponent implements OnInit, AfterContentInit {
-  @Input() public type: string = 'standard';
-  @Input() public placeholder: string = 'Find in this list';
-  @Input() public searchEnabled: boolean | Observable<boolean>;
+  @Input()
+  public placeholder: string;
+  @Input()
+  public searchEnabled: boolean | Observable<boolean>;
 
   /* tslint:disable */
-  //@Input('searchText') private searchTextInput: string | Observable<string>;
+  @Input('searchText')
+  private searchTextInput: string | Observable<string>;
   /* tslint:enable */
 
   @ContentChildren(SkyListToolbarItemComponent)
@@ -70,14 +72,12 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     );
 
     this.dispatcher.toolbarAddItems([
-      this.type !== 'search' ?
-        new ListToolbarItemModel({
-          id: 'search',
-          template: this.searchTemplate,
-          location: 'center'
-        }) :
-        undefined
-    ].filter(s => s !== undefined));
+      new ListToolbarItemModel({
+        id: 'search',
+        template: this.searchTemplate,
+        location: 'center'
+      })
+    ]);
   }
 
   public ngAfterContentInit() {
@@ -91,6 +91,10 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   get searchText() {
     return this.state.map(s => s.search.searchText).distinctUntilChanged();
+  }
+
+  get view() {
+    return this.state.map(s => s.views.active).distinctUntilChanged();
   }
 
   get leftTemplates() {

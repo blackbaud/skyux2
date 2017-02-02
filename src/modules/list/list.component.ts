@@ -13,6 +13,8 @@ import { ListState, ListStateDispatcher } from './state';
 import { Observable } from 'rxjs/Observable';
 import { ListViewComponent } from './list-view.component';
 
+import { ListSearchModel } from './state/search/search.model';
+
 import {
   ListViewsLoadAction,
   ListViewsSetActiveAction
@@ -47,6 +49,9 @@ export class SkyListComponent implements AfterContentInit {
 
   @Input()
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
+
+  /* tslint:disable-next-line */
+  @Input('search') private searchFunction: (data: any, searchText: string) => boolean;
 
   private dataFirstLoad: boolean = false;
 
@@ -101,14 +106,16 @@ export class SkyListComponent implements AfterContentInit {
     }
 
     if (!this.dataProvider) {
-      this.dataProvider = new SkyListInMemoryDataProvider(data);
+      this.dataProvider = new SkyListInMemoryDataProvider(data, this.searchFunction);
     }
 
     return Observable.combineLatest(
+      this.state.map(s => s.search).distinctUntilChanged(),
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
       data.distinctUntilChanged(),
       (
+        search: ListSearchModel,
         itemsPerPage: number,
         pageNumber: number,
         itemsData: Array<any>
@@ -126,7 +133,8 @@ export class SkyListComponent implements AfterContentInit {
         } else {
           response = this.dataProvider.get(new ListDataRequestModel({
             pageSize: itemsPerPage,
-            pageNumber: pageNumber
+            pageNumber: pageNumber,
+            search: search
           }));
         }
 

@@ -1,5 +1,5 @@
 <div class="sky-list-toolbar-container">
-  <sky-toolbar *ngIf="type === 'standard'">
+  <sky-toolbar>
     <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
       <sky-list-toolbar-item-renderer
         [template]="item.template"
