@@ -25,7 +25,6 @@ describe('toolbar component', () => {
 
   it('should create a toolbar with transcluded items', () => {
     let fixture = TestBed.createComponent(ToolbarTestComponent);
-    let cmp = fixture.componentInstance as ToolbarTestComponent;
     let el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
