@@ -27,7 +27,6 @@ import { getValue } from 'microedge-rxstate/dist/helpers';
 @Component({
   selector: 'sky-list-toolbar',
   templateUrl: './list-toolbar.component.html',
-  styleUrls: ['./list-toolbar.component.scss'],
   providers: [
     ListToolbarState,
     ListToolbarStateDispatcher,
@@ -131,7 +130,6 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       });
   }
 
-
   private updateSearchText(searchText: string) {
     this.dispatcher.searchSetText(searchText);
   }
@@ -142,4 +140,3 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       .map(c => c.searchEnabled);
   }
 }
-

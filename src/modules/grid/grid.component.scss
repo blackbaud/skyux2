@@ -67,3 +67,9 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+.sky-grid-has-toolbar {
+  .sky-grid-heading {
+    border-top-width: 0px;
+  }
+}

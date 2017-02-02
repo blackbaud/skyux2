@@ -13,7 +13,8 @@ import {
   Input,
   EventEmitter,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -94,7 +95,8 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     private mediaQueryService: SkyMediaQueryService,
     private elRef: ElementRef,
     private searchAdapter: SkySearchAdapterService,
-    private resources: SkyResourcesService
+    private resources: SkyResourcesService,
+    private changeRef: ChangeDetectorRef
   ) {}
 
   public ngOnInit() {
@@ -206,5 +208,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     } else {
       this.mobileSearchShown = false;
     }
+    this.changeRef.markForCheck();
   }
 }

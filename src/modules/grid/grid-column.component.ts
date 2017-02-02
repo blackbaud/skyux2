@@ -29,6 +29,9 @@ export class SkyGridColumnComponent {
   public type: string;
 
   /* tslint:disable */
+  @Input('search')
+  private searchFunction: (value: any, searchText: string) => boolean = this.search;
+
   @Input('template')
   private templateInput: TemplateRef<any>;
   /* tslint:enable */
@@ -38,5 +41,15 @@ export class SkyGridColumnComponent {
 
   public get template(): TemplateRef<any> {
     return (this.templates.length > 0 ? this.templates.first : undefined) || this.templateInput;
-  };
+  }
+
+  private search(value: any, searchText: string): boolean {
+    /* tslint:disable */
+    if (value !== undefined && value !== null) {
+      return value.toString().toLowerCase().indexOf(searchText) !== -1;
+    }
+    /* tslint:enable */
+
+    return false;
+  }
 }

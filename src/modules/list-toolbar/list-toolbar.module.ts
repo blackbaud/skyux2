@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyDropdownModule } from '../dropdown';
+import { SkyToolbarModule } from '../toolbar';
+import { SkySearchModule } from '../search';
 import { SkyListToolbarComponent } from './list-toolbar.component';
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { SkyListToolbarItemRendererComponent } from './list-toolbar-item-renderer.component';
@@ -13,7 +14,8 @@ import { SkyListToolbarItemRendererComponent } from './list-toolbar-item-rendere
   ],
   imports: [
     CommonModule,
-    SkyDropdownModule
+    SkyToolbarModule,
+    SkySearchModule
   ],
   exports: [
     SkyListToolbarComponent,

@@ -1,6 +1,8 @@
 <div class="sky-grid">
   <div class="sky-grid-table-container" [style.height.px]="height" [style.width.px]="width">
-    <table class="sky-grid-table" [ngClass]="{ 'sky-grid-fit': fit !== 'scroll' }">
+    <table
+      class="sky-grid-table"
+      [ngClass]="{ 'sky-grid-fit': fit !== 'scroll', 'sky-grid-has-toolbar': hasToolbar }">
       <thead>
         <tr dragula="sky-grid-heading">
           <th

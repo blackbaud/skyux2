@@ -7,6 +7,7 @@
     [data]="items | async"
     [selectedColumnIds]="selectedColumnIds | async"
     [columns]="columns | async"
+    [hasToolbar]="hasToolbar | async"
     (selectedColumnIdsChange)="columnIdsChanged($event)">
   </sky-grid>
   <sky-wait [isWaiting]="loading | async"></sky-wait>
