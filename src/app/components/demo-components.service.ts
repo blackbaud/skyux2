@@ -48,6 +48,28 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Action button',
+        icon: 'square-o',
+        // tslint:disable-next-line
+        summary:
+          `The action button component creates a large button with an icon, heading, and details.`,
+        url: '/components/action-button',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'action-button-demo.component.html',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.html')
+            },
+            {
+              name: 'action-button-demo.component.ts',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.ts'),
+              componentName: 'SkyActionButtonDemoComponent',
+              bootstrapSelector: 'sky-action-button-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Card',
         icon: 'th-large',
         // tslint:disable-next-line
@@ -497,6 +519,27 @@ export class SkyDemoComponentsService {
               name: 'tiles-demo-tile2.component.ts',
               fileContents: require('!!raw!./tiles/tiles-demo-tile2.component.ts'),
               componentName: 'SkyTilesDemoTile2Component'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Toolbar',
+        icon: 'bars',
+        // tslint:disable-next-line
+        summary: `The toolbar component displays a SKY UX-themed toolbar.`,
+        url: '/components/toolbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'toolbar-demo.component.html',
+              fileContents: require('!!raw!./toolbar/toolbar-demo.component.html')
+            },
+            {
+              name: 'toolbar-demo.component.ts',
+              fileContents: require('!!raw!./toolbar/toolbar-demo.component.ts'),
+              componentName: 'SkyToolbarDemoComponent',
+              bootstrapSelector: 'sky-toolbar-demo'
             }
           ];
         }
