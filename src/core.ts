@@ -4,6 +4,7 @@ import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 import { SkyAlertModule } from './modules/alert';
 import { SkyAvatarModule } from './modules/avatar';
+import { SkyActionButtonModule } from './modules/action-button';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
@@ -32,6 +33,7 @@ import { SkyWaitModule } from './modules/wait';
   exports: [
     SkyAlertModule,
     SkyAvatarModule,
+    SkyActionButtonModule,
     SkyCardModule,
     SkyCheckboxModule,
     SkyChevronModule,
@@ -61,6 +63,7 @@ export class SkyModule { }
 
 export * from './modules/alert';
 export * from './modules/avatar';
+export * from './modules/action-button';
 export * from './modules/card';
 export * from './modules/checkbox';
 export * from './modules/definition-list';

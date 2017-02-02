@@ -1,0 +1,13 @@
+<div
+  class="sky-action-button"
+  role="button"
+  (click)="buttonClicked()"
+  (keyup)="enterPress($event)"
+  tabindex="0"
+  >
+  <div class="sky-action-button-icon-header-container">
+    <ng-content select="sky-action-button-icon"></ng-content>
+    <ng-content select="sky-action-button-header"></ng-content>
+  </div>
+  <ng-content select="sky-action-button-details"></ng-content>
+</div>
