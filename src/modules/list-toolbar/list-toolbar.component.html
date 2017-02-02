@@ -1,28 +1,30 @@
-<ng-content></ng-content>
-
-<div>
-  <div class="sky-toolbar-standard" *ngIf="type === 'standard'">
-    <sky-list-toolbar-item-renderer *ngFor="let item of leftTemplates | async" [template]="item.template" [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
-    <sky-list-toolbar-item-renderer *ngFor="let item of centerTemplates | async" [template]="item.template" [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
-    <sky-list-toolbar-item-renderer *ngFor="let item of rightTemplates | async" [template]="item.template" [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
-  </div>
-  <div class="sky-toolbar-search" *ngIf="type === 'search'">
-    <div class="primary-bar">
-      <sky-list-toolbar-item-renderer [template]="search" sky-cmp-id="search"></sky-list-toolbar-item-renderer>
-    </div>
-    <div class="secondary-bar">
-      <sky-list-toolbar-item-renderer *ngFor="let item of leftTemplates | async" [template]="item.template" [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
-      <sky-list-toolbar-item-renderer *ngFor="let item of centerTemplates | async" [template]="item.template" [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
-      <sky-list-toolbar-item-renderer *ngFor="let item of rightTemplates | async" [template]="item.template" [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
-    </div>
-  </div>
+<div class="sky-list-toolbar-container">
+  <sky-toolbar *ngIf="type === 'standard'">
+    <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
+      <sky-list-toolbar-item-renderer
+        [template]="item.template"
+        [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+    </sky-toolbar-item>
+    <sky-toolbar-item *ngFor="let item of centerTemplates | async">
+      <sky-list-toolbar-item-renderer
+        [template]="item.template"
+        [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+    </sky-toolbar-item>
+    <sky-toolbar-item *ngFor="let item of rightTemplates | async">
+      <sky-list-toolbar-item-renderer
+        [template]="item.template"
+        [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+    </sky-toolbar-item>
+    <ng-content></ng-content>
+  </sky-toolbar>
 </div>
 
 <template #search>
-  <div *ngIf="isSearchEnabled | async" class="toolbar-item-container">
-    <input #searchBox (keyup.enter)="updateSearchText(searchBox.value)" type="text" value="{{searchText | async}}" placeholder="{{placeholder}}" />
-    <button cmp-id="search" type="button">
-      <i class="fa fa-lg fa-search" (click)="updateSearchText(searchBox.value)"></i>
-    </button>
+  <div *ngIf="isSearchEnabled | async">
+    <sky-search
+      [searchText]="searchText | async"
+      (searchApply)="updateSearchText($event)"
+      [placeholderText]="placeholder">
+    </sky-search>
   </div>
 </template>
