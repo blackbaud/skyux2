@@ -1,0 +1,11 @@
+@import '../../scss/mixins';
+
+.sky-toolbar-container {
+    min-height: $sky-toolbar-min-height;
+    background-color: $sky-toolbar-background-color;
+    padding: $sky-padding-half $sky-padding;
+    @include sky-border(dark, top, bottom);
+    display: flex;
+    align-items: center;
+    position: relative;
+}

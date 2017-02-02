@@ -2,7 +2,7 @@
 
 @media (min-width: $sky-screen-sm-min) {
     .sky-search-input-container {
-        max-width: 300px;
+        min-width: 300px;
     }
 }
 
@@ -52,10 +52,12 @@
 
 .sky-search-item-dismiss {
     flex-shrink: 0;
+    display: flex;
 }
 
 .sky-search-item-input {
     flex-grow: 1;
+    display: flex;
 }
 
 /*  This is needed or else the input will be tiny
@@ -127,10 +129,4 @@
       color: $sky-color-green;
       border: 2px solid $sky-color-green;
       padding: 5px 11px;
-}
-
-.sky-search-container {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 0;
 }
