@@ -524,6 +524,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Toolbar',
+        icon: 'bars',
+        // tslint:disable-next-line
+        summary: `The toolbar component displays a SKY UX-themed toolbar.`,
+        url: '/components/toolbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'toolbar-demo.component.html',
+              fileContents: require('!!raw!./toolbar/toolbar-demo.component.html')
+            },
+            {
+              name: 'toolbar-demo.component.ts',
+              fileContents: require('!!raw!./toolbar/toolbar-demo.component.ts'),
+              componentName: 'SkyToolbarDemoComponent',
+              bootstrapSelector: 'sky-toolbar-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Wait',
         icon: 'spinner',
         // tslint:disable-next-line

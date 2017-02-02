@@ -26,6 +26,7 @@ import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkySearchModule } from './modules/search';
 import { SkyTabsModule } from './modules/tabs';
+import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyWaitModule } from './modules/wait';
 
@@ -56,6 +57,7 @@ import { SkyWaitModule } from './modules/wait';
     SkySearchModule,
     SkyTabsModule,
     SkyTilesModule,
+    SkyToolbarModule,
     SkyWaitModule
   ]
 })
@@ -87,6 +89,7 @@ export * from './modules/repeater';
 export * from './modules/search';
 export * from './modules/tabs';
 export * from './modules/tiles';
+export * from './modules/toolbar';
 export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
