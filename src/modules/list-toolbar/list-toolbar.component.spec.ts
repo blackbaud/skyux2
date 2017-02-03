@@ -97,8 +97,8 @@ describe('List Toolbar Component', () => {
 
           component.toolbar.searchComponent.applySearchText('something');
           fixture.detectChanges();
-          state.take(1).subscribe((state) => {
-            expect(state.search.searchText).toBe('something');
+          state.take(1).subscribe((s) => {
+            expect(s.search.searchText).toBe('something');
             stateChecked = true;
           });
           fixture.detectChanges();
@@ -168,7 +168,6 @@ describe('List Toolbar Component', () => {
         expect(items[2].query(By.css('span')).nativeElement).toHaveCssClass('sky-test-toolbar');
         expect(items[3].nativeElement).toHaveText('Custom Item');
         expect(items[4].nativeElement).toHaveText('Custom Item 2');
-
 
       });
     }));
