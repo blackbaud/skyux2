@@ -233,7 +233,7 @@ describe('Grid Component', () => {
 
       it('should allow the access of search function on displayed columns', () => {
         let searchFunctions = component.grid.displayedColumns.map(column => {
-          return column.searchFunction
+          return column.searchFunction;
         });
 
         expect(searchFunctions.length).toBe(5);

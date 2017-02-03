@@ -6,6 +6,7 @@ import {
   TemplateRef,
   Input,
   OnInit,
+  SimpleChanges,
   AfterContentInit,
   ChangeDetectionStrategy
 } from '@angular/core';
@@ -24,6 +25,8 @@ import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { getValue } from 'microedge-rxstate/dist/helpers';
 
+import { SkySearchComponent } from '../search';
+
 @Component({
   selector: 'sky-list-toolbar',
   templateUrl: './list-toolbar.component.html',
@@ -40,16 +43,17 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @Input()
   public searchEnabled: boolean | Observable<boolean>;
 
-  /* tslint:disable */
-  @Input('searchText')
-  private searchTextInput: string | Observable<string>;
-  /* tslint:enable */
+  @Input()
+  private searchText: string | Observable<string>;
 
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
 
   @ViewChild('search')
   private searchTemplate: TemplateRef<any>;
+
+  @ViewChild('searchComponent')
+  public searchComponent: SkySearchComponent;
 
   constructor(
     private state: ListState,
@@ -61,8 +65,8 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   public ngOnInit() {
     this.dispatcher.toolbarExists(true);
-    getValue(this.searchTextInput, (searchText: string) => this.updateSearchText(searchText));
-    getValue(this.searchEnabled, (searchEnabled: any) =>
+    getValue(this.searchText, (searchText: string) => this.updateSearchText(searchText));
+    getValue(this.searchEnabled, (searchEnabled: boolean) =>
       this.toolbarDispatcher.next(
         new ListToolbarConfigSetSearchEnabledAction(
           searchEnabled === undefined ? true : searchEnabled
@@ -88,7 +92,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     );
   }
 
-  get searchText() {
+  get searchTextInput() {
     return this.state.map(s => s.search.searchText).distinctUntilChanged();
   }
 

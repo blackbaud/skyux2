@@ -22,7 +22,8 @@
 <template #search>
   <div *ngIf="isSearchEnabled | async">
     <sky-search
-      [searchText]="searchText | async"
+      #searchComponent
+      [searchText]="searchTextInput | async"
       (searchApply)="updateSearchText($event)"
       [placeholderText]="placeholder">
     </sky-search>

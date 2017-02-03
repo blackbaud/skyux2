@@ -1,3 +1,3 @@
 export class ListToolbarConfigSetSearchEnabledAction {
-  constructor(public enabled: true) {}
+  constructor(public enabled: boolean) {}
 }
