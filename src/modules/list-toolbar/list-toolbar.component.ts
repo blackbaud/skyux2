@@ -6,7 +6,6 @@ import {
   TemplateRef,
   Input,
   OnInit,
-  SimpleChanges,
   AfterContentInit,
   ChangeDetectionStrategy
 } from '@angular/core';
@@ -43,6 +42,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @Input()
   public searchEnabled: boolean | Observable<boolean>;
 
+  @ViewChild('searchComponent')
+  public searchComponent: SkySearchComponent;
+
   @Input()
   private searchText: string | Observable<string>;
 
@@ -51,9 +53,6 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   @ViewChild('search')
   private searchTemplate: TemplateRef<any>;
-
-  @ViewChild('searchComponent')
-  public searchComponent: SkySearchComponent;
 
   constructor(
     private state: ListState,
@@ -116,8 +115,11 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view,
       (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
-        (i: ListToolbarItemModel) =>
-          i.location === 'center' && (i.view === undefined || i.view === view)
+        (i: ListToolbarItemModel) => {
+          console.log('view: ', view);
+          return i.location === 'center' && (i.view === undefined || i.view === view)
+        }
+
       )
     );
   }

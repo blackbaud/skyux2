@@ -10,3 +10,6 @@ export * from './toolbar/toolbar.model';
 export * from './toolbar/toolbar-item.model';
 export * from './search/actions';
 export * from './search/search.model';
+export * from './views/actions';
+export * from './views/view.model';
+export * from './views/views.model';

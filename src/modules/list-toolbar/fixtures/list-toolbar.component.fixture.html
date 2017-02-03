@@ -1,4 +1,7 @@
-<sky-list-toolbar [searchEnabled]="searchEnabled" #toolbar>
+<sky-list-toolbar
+[searchEnabled]="searchEnabled"
+[searchText]="searchText"
+#toolbar>
   <sky-list-toolbar-item id="custom-item" location="right" [index]="2">
     <template>Custom Item</template>
   </sky-list-toolbar-item>
@@ -7,3 +10,5 @@
   </sky-list-toolbar-item>
   <sky-list-toolbar-item id="custom-item-no-template" location="left" [index]="5000"></sky-list-toolbar-item>
 </sky-list-toolbar>
+
+<template #default><span class="sky-test-toolbar"></span></template>

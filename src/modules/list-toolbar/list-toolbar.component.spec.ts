@@ -13,13 +13,14 @@ import { SkyListToolbarModule } from './';
 import {
   ListToolbarTestComponent
 } from './fixtures/list-toolbar.component.fixture';
+import { expect } from '../testing';
 
 import {
+  ListViewsLoadAction,
+  ListViewsSetActiveAction,
+  ListViewModel,
   ListToolbarItemModel
 } from '../list/state';
-
-
-import { expect } from '../testing';
 
 describe('List Toolbar Component', () => {
   describe('List Toolbar Fixture', () => {
@@ -69,12 +70,21 @@ describe('List Toolbar Component', () => {
         });
       }));
 
-      it('should be able to disable search', async(() => {
+      it('should be able to disable search on initialization', async(() => {
         component.searchEnabled = false;
         initializeToolbar();
         fixture.whenStable().then(() => {
           fixture.detectChanges();
           expect(element.query(By.css('input'))).toBeNull();
+        });
+      }));
+
+      it('should set search text on initialization', async(() => {
+        component.searchText = 'searchText';
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          expect(component.toolbar.searchComponent.searchText).toBe('searchText');
         });
       }));
     });
@@ -92,8 +102,44 @@ describe('List Toolbar Component', () => {
 
     }));
 
-    it('should display an empty render for a custom item without template', () => {
+    it('should not display items not in the current view', async(() => {
 
-    });
+
+      initializeToolbar();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+         dispatcher.next(
+          new ListViewsLoadAction([new ListViewModel('myview', 'view label')])
+        );
+        fixture.detectChanges();
+
+        // activate the default view
+        dispatcher.next(new ListViewsSetActiveAction('myview'));
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          dispatcher.toolbarAddItems([
+            new ListToolbarItemModel({
+              id: 'newitem',
+              location: 'center',
+              view: 'myview'
+            })
+          ]);
+
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            let items = element.queryAll(By.css('.sky-toolbar-item'));
+            console.log(items.length);
+            expect(items[0].nativeElement).toHaveText('');
+            expect(items[1].query(By.css('input'))).not.toBeNull();
+            expect(items[2].nativeElement).toHaveText('Custom Item');
+            expect(items[3].nativeElement).toHaveText('Custom Item 2');
+          });
+        });
+      });
+    }));
   });
 });

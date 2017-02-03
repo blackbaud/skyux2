@@ -1,6 +1,7 @@
 import {
   Component,
-  ViewChild
+  ViewChild,
+  TemplateRef
 } from '@angular/core';
 
 import {
@@ -13,8 +14,11 @@ import {
  })
  export class ListToolbarTestComponent {
 
-   public searchEnabled: boolean;
+  public searchEnabled: boolean;
+  public searchText: string;
+  @ViewChild(SkyListToolbarComponent)
+  public toolbar: SkyListToolbarComponent;
 
-   @ViewChild(SkyListToolbarComponent)
-    public toolbar: SkyListToolbarComponent;
+  @ViewChild('default')
+  public default: TemplateRef<any>;
  }
