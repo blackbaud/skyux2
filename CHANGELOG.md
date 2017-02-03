@@ -1,3 +1,7 @@
+# 2.0.0-beta.6 (2017-02-03)
+
+  - Fixed bug in tile dashboard where SkyMediaQueryService was being destroyed. (#330)
+
 # 2.0.0-beta.5 (2017-02-02)
 
   - Added list grid view for displaying a grid in a SKY list. (#171)
