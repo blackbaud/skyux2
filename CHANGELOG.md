@@ -1,3 +1,12 @@
+# 2.0.0-beta.5 (2017-02-02)
+
+  - Added list grid view for displaying a grid in a SKY list. (#171)
+  - Added action button component to allow users to pick an action during a branching point in the system. (#319)
+  - Fixed bug where tiles were not properly rendered if hosted on a tile dashboard whose parent's change detection strategy was `OnPush`. (#324)
+  - Added standalone toolbar component. (#326)
+  - Updated Angular to 2.4.5 and updated various other NPM dependencies (#327)
+
+
 # 2.0.0-beta.4 (2017-01-27)
 
   - Expose and document SkyMediaQueryService. (#288)
