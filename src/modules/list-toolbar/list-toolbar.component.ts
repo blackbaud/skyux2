@@ -105,7 +105,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       this.view,
       (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
         (i: ListToolbarItemModel) =>
-          i.location === 'left' && (i.view === undefined || i.view === view)
+          i.location === 'left' && this.itemIsInView(i.view, view)
       )
     );
   }
@@ -116,10 +116,8 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       this.view,
       (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
         (i: ListToolbarItemModel) => {
-          console.log('view: ', view);
-          return i.location === 'center' && (i.view === undefined || i.view === view)
+          return i.location === 'center' && this.itemIsInView(i.view, view);
         }
-
       )
     );
   }
@@ -131,9 +129,13 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       (toolbar: ListToolbarModel, view: string) => {
         return toolbar.items.filter(
         (i: ListToolbarItemModel) =>
-          i.location === 'right' && (i.view === undefined || i.view === view)
-      );
+          i.location === 'right' && this.itemIsInView(i.view, view)
+        );
       });
+  }
+
+  private itemIsInView(itemView: string, activeView: string) {
+    return (itemView === undefined || itemView === activeView);
   }
 
   private updateSearchText(searchText: string) {
