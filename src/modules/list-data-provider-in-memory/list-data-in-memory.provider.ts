@@ -67,6 +67,8 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
 
       let result = items;
 
+      /* ignore if until multiple different types of filtering can occur */
+      /* istanbul ignore next */
       if (!dataChanged && !searchChanged && this.lastSearchResults !== undefined) {
         result = this.lastSearchResults;
       } else if (search.searchText !== undefined && search.searchText.length > 0) {

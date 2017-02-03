@@ -18,6 +18,14 @@ import { ListDualTestComponent } from './fixtures/list-dual.component.fixture';
 import { ListEmptyTestComponent } from './fixtures/list-empty.component.fixture';
 import { SkyListComponent, SkyListModule, ListDataRequestModel, ListDataResponseModel } from './';
 import { SkyListViewGridModule, SkyListViewGridComponent } from '../list-view-grid';
+import { SkyListToolbarModule } from '../list-toolbar';
+import {
+  ListSearchModel,
+  ListSearchSetFunctionsAction,
+  ListSearchSetFieldSelectorsAction,
+  ListToolbarItemModel,
+  ListToolbarItemsLoadAction
+} from './state';
 
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
 
@@ -63,6 +71,7 @@ describe('List Component', () => {
             ListFixturesModule,
             SkyListModule,
             SkyListViewGridModule,
+            SkyListToolbarModule,
             FormsModule
           ],
           providers: [
@@ -89,6 +98,12 @@ describe('List Component', () => {
         state.skip(1).take(1).subscribe(() => fixture.detectChanges());
         fixture.detectChanges();
       }));
+
+      function applySearch(value: string) {
+        component.toolbar.searchComponent.applySearchText(value);
+        fixture.detectChanges();
+        return fixture.whenStable();
+      }
 
       it('should load data', () => {
         expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
@@ -122,6 +137,19 @@ describe('List Component', () => {
 
         expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
       });
+
+      it('should search based on input text', async(() => {
+        applySearch('banana').then(() => {
+
+          fixture.detectChanges();
+          expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
+
+          applySearch('banana').then(() => {
+            fixture.detectChanges();
+            expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
+          });
+        });
+      }));
 
       describe('refreshDisplayedItems', () => {
         it('should refresh items', async(() => {
@@ -193,6 +221,7 @@ describe('List Component', () => {
             ListFixturesModule,
             SkyListModule,
             SkyListViewGridModule,
+            SkyListToolbarModule,
             FormsModule
           ],
           providers: [
@@ -258,6 +287,7 @@ describe('List Component', () => {
             ListFixturesModule,
             SkyListModule,
             SkyListViewGridModule,
+            SkyListToolbarModule,
             FormsModule
           ],
           providers: [
@@ -321,6 +351,36 @@ describe('List Component', () => {
 
         expect(list.displayedItems).not.toBe(null);
       }));
+
+      it('data provider filteredItems with no search function', () => {
+        let provider = fixture.componentInstance.list.dataProvider;
+        let request = new ListDataRequestModel({
+          pageSize: 10,
+          pageNumber: 1,
+          search: new ListSearchModel(),
+
+        });
+
+        let response = provider.get(request);
+        response.take(1).subscribe();
+        response.take(1).subscribe((r: any) => expect(r.count).toBe(2));
+
+      });
+
+      it('data provider filteredItems with defined search function', () => {
+        let provider = fixture.componentInstance.list.dataProvider;
+        provider.searchFunction = (data: any, searchText: string) => { return 'search'; }
+
+        let request = new ListDataRequestModel({
+          pageSize: 10,
+         pageNumber: 1,
+         search: new ListSearchModel({ searchText: 'search', functions: [() => {}] }),
+        });
+
+        let response = provider.get(request);
+        response.take(1).subscribe((r: any) => expect(r.count).toBe(2));
+
+      });
     });
 
     describe('List Component with no data', () => {
@@ -343,6 +403,7 @@ describe('List Component', () => {
             ListFixturesModule,
             SkyListModule,
             SkyListViewGridModule,
+            SkyListToolbarModule,
             FormsModule
           ],
           providers: [
@@ -403,6 +464,7 @@ describe('List Component', () => {
             ListFixturesModule,
             SkyListModule,
             SkyListViewGridModule,
+            SkyListToolbarModule,
             FormsModule
           ],
           providers: [
@@ -483,6 +545,7 @@ describe('List Component', () => {
             ListFixturesModule,
             SkyListModule,
             SkyListViewGridModule,
+            SkyListToolbarModule,
             FormsModule
           ],
           providers: [
@@ -510,7 +573,7 @@ describe('List Component', () => {
         fixture.detectChanges();
       }));
 
-      it('should switch views when clicking view selector', () => {
+      it('should switch views when setting view active', () => {
         fixture.detectChanges();
         expect(element.queryAll(
           By.css('sky-list-view-grid[ng-reflect-name="First"] th.sky-grid-heading')
@@ -546,6 +609,43 @@ describe('List Component', () => {
       let model = new ListDataResponseModel();
       expect(model.count).toBe(undefined);
       expect(model.items).toBe(undefined);
+    });
+
+     it('should construct ListSearchSetFunctionsAction', () => {
+      let action = new ListSearchSetFunctionsAction();
+      expect(action).not.toBeUndefined();
+    });
+
+    it('should construct ListSearchSetFieldSelectorsAction', () => {
+      let action = new ListSearchSetFieldSelectorsAction();
+      expect(action).not.toBeUndefined();
+    });
+
+    it('should construct ListToolbarItemModel without data', () => {
+      let model = new ListToolbarItemModel();
+      expect(model.template).toBeUndefined();
+      expect(model.location).toBeUndefined();
+      expect(model.view).toBeUndefined();
+      expect(model.id).toBeUndefined();
+    });
+
+    it('should construct ListToolbarItemsLoadAction action', async(() => {
+      let action = new ListToolbarItemsLoadAction([new ListToolbarItemModel()]);
+      expect(action).not.toBeUndefined();
+    }));
+
+    describe('toolbar load action', () => {
+      it('should handle index of -1 or greater than current length', () => {
+
+      });
+
+      it('should handle index of 0', () => {
+
+      });
+
+      it('should handle index of less than current length', () => {
+
+      });
     });
   });
 
