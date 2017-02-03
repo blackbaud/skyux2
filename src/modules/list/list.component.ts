@@ -50,8 +50,10 @@ export class SkyListComponent implements AfterContentInit {
   @Input()
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
 
-  /* tslint:disable-next-line */
-  @Input('search') private searchFunction: (data: any, searchText: string) => boolean;
+  /* tslint:disable */
+  @Input('search')
+  private searchFunction: (data: any, searchText: string) => boolean;
+  /* tslint:enable */
 
   private dataFirstLoad: boolean = false;
 

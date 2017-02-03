@@ -11,6 +11,18 @@ let moment = require('moment');
   template: require('./grid.component.fixture.html')
 })
 export class GridTestComponent {
+  public hasToolbar: boolean = false;
+
+  public searchedData: any;
+  public searchText: string;
+
+  public searchFunction: (data: any, searchText: string) => boolean =
+    (data: any, searchText: string) => {
+    this.searchedData = data;
+    this.searchText = searchText;
+    return true
+  };
+
   public selectedColumnIds: Array<string> = [
     'column1',
     'column2',
