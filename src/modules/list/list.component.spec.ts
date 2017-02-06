@@ -1,6 +1,8 @@
 import {
   TestBed,
-  async
+  async,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -635,17 +637,120 @@ describe('List Component', () => {
     }));
 
     describe('toolbar load action', () => {
-      it('should handle index of -1 or greater than current length', () => {
+      it('should handle index of -1 or greater than current length', fakeAsync(() => {
+        let dispatcher = new ListStateDispatcher();
+        let state = new ListState(dispatcher);
 
-      });
+        state.skip(1).take(1).subscribe(() => tick());
+        tick();
 
-      it('should handle index of 0', () => {
+        let newItems: ListToolbarItemModel[] = [
+          new ListToolbarItemModel({
+            id: '0'
+          }),
+          new ListToolbarItemModel({
+            id: '2'
+          })
+        ];
+        dispatcher.toolbarAddItems(newItems, -1);
 
-      });
+        tick();
 
-      it('should handle index of less than current length', () => {
+        state.take(1).subscribe((current) => {
+          expect(current.toolbar.items.length).toBe(2);
+        });
 
-      });
+        tick();
+
+        newItems = [
+          new ListToolbarItemModel({
+            id: 'blue'
+          })
+        ];
+
+        dispatcher.toolbarAddItems(newItems, 6);
+
+        tick();
+
+        state.take(1).subscribe((current) => {
+          expect(current.toolbar.items[2].id).toBe('blue');
+        });
+
+        tick();
+
+      }));
+
+      it('should handle index of 0', fakeAsync(() => {
+        let dispatcher = new ListStateDispatcher();
+        let state = new ListState(dispatcher);
+
+        state.skip(1).take(1).subscribe(() => tick());
+        tick();
+
+        let newItems: ListToolbarItemModel[] = [
+          new ListToolbarItemModel({
+            id: '0'
+          }),
+          new ListToolbarItemModel({
+            id: '2'
+          })
+        ];
+        dispatcher.toolbarAddItems(newItems, -1);
+
+        tick();
+
+        newItems = [
+          new ListToolbarItemModel({
+            id: 'blue'
+          })
+        ];
+
+        dispatcher.toolbarAddItems(newItems, 0);
+
+        tick();
+
+        state.take(1).subscribe((current) => {
+          expect(current.toolbar.items[0].id).toBe('blue');
+        });
+
+        tick();
+      }));
+
+      it('should handle index of less than current length', fakeAsync(() => {
+         let dispatcher = new ListStateDispatcher();
+        let state = new ListState(dispatcher);
+
+        state.skip(1).take(1).subscribe(() => tick());
+        tick();
+
+        let newItems: ListToolbarItemModel[] = [
+          new ListToolbarItemModel({
+            id: '0'
+          }),
+          new ListToolbarItemModel({
+            id: '2'
+          })
+        ];
+        dispatcher.toolbarAddItems(newItems, -1);
+
+        tick();
+
+        newItems = [
+          new ListToolbarItemModel({
+            id: 'blue'
+          })
+        ];
+
+        dispatcher.toolbarAddItems(newItems, 1);
+
+        tick();
+
+        state.take(1).subscribe((current) => {
+          expect(current.toolbar.items[1].id).toBe('blue');
+        });
+
+        tick();
+      }));
     });
   });
 
