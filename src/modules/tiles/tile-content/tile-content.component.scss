@@ -1,0 +1,5 @@
+@import "../../../scss/mixins";
+
+:host /deep/ sky-tile-content-section:not(:last-child) .sky-tile-content-section {
+  @include sky-border(light);
+}
