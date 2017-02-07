@@ -1,3 +1,12 @@
+# 2.0.0-beta.7 (2017-02-07)
+
+  - Fixed bug around navbar item hit target. (#329)
+  - Added styles for tile content section border. (#321)
+  - Added correct overflow styles to card header area. (#323)
+  - Updated the padding for tab buttons to use an even amount of padding. (#336)
+  - Added the list toolbar with search functionality. (#312)
+  - Added the `isCollapsible` option to search component. (#337) 
+
 # 2.0.0-beta.6 (2017-02-03)
 
   - Fixed bug in tile dashboard where SkyMediaQueryService was being destroyed. (#330)
