@@ -71,6 +71,9 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public searchText: string;
 
   @Input()
+  public isCollapsible: boolean = true;
+
+  @Input()
   public get placeholderText(): string {
     if (this._placeholderText === undefined) {
       return this.resources.getString('search_placeholder');
@@ -100,13 +103,13 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   ) {}
 
   public ngOnInit() {
-
-    this.breakpointSubscription = this.mediaQueryService.subscribe(
-      (args: SkyMediaBreakpoints) => {
-        this.mediaQueryCallback(args);
-      }
-    );
-
+    if (this.searchShouldCollapse()) {
+      this.breakpointSubscription = this.mediaQueryService.subscribe(
+        (args: SkyMediaBreakpoints) => {
+          this.mediaQueryCallback(args);
+        }
+      );
+    }
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -154,40 +157,46 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   }
 
   public toggleSearchInput(showInput: boolean) {
-    if (showInput) {
-      this.inputAnimate = INPUT_SHOWN_STATE;
-    } else {
-      this.inputAnimate = INPUT_HIDDEN_STATE;
+    if (this.searchShouldCollapse()) {
+      if (showInput) {
+        this.inputAnimate = INPUT_SHOWN_STATE;
+      } else {
+        this.inputAnimate = INPUT_HIDDEN_STATE;
+      }
     }
   }
 
   public inputAnimationStart(event: AnimationTransitionEvent) {
-    this.searchAdapter.startInputAnimation(this.elRef);
+    if (this.searchShouldCollapse()) {
+      this.searchAdapter.startInputAnimation(this.elRef);
 
-    if (event.toState === INPUT_SHOWN_STATE
-      && this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
-      this.mobileSearchShown = true;
-      this.searchButtonShown = false;
+      if (event.toState === INPUT_SHOWN_STATE
+        && this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
+        this.mobileSearchShown = true;
+        this.searchButtonShown = false;
+      }
     }
   }
 
   public inputAnimationEnd(event: AnimationTransitionEvent) {
+    if (this.searchShouldCollapse()) {
+      this.searchAdapter.endInputAnimation(this.elRef);
 
-    this.searchAdapter.endInputAnimation(this.elRef);
+      this.searchButtonShown = event.toState === INPUT_HIDDEN_STATE
+        && this.mediaQueryService.current === SkyMediaBreakpoints.xs;
 
-    this.searchButtonShown = event.toState === INPUT_HIDDEN_STATE
-      && this.mediaQueryService.current === SkyMediaBreakpoints.xs;
-
-    if ((event.toState === INPUT_HIDDEN_STATE
-      && this.mediaQueryService.current === SkyMediaBreakpoints.xs)
-      || this.mediaQueryService.current !== SkyMediaBreakpoints.xs) {
-      this.mobileSearchShown = false;
+      if ((event.toState === INPUT_HIDDEN_STATE
+        && this.mediaQueryService.current === SkyMediaBreakpoints.xs)
+        || this.mediaQueryService.current !== SkyMediaBreakpoints.xs) {
+        this.mobileSearchShown = false;
+      }
     }
-
   }
 
   public ngOnDestroy() {
-    this.breakpointSubscription.unsubscribe();
+    if (this.breakpointSubscription) {
+      this.breakpointSubscription.unsubscribe();
+    }
   }
 
   private searchBindingChanged(changes: SimpleChanges) {
@@ -197,17 +206,23 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   private shouldOpenInput() {
     return this.searchText !== '' &&
-      this.mediaQueryService.current === SkyMediaBreakpoints.xs;
+      this.mediaQueryService.current === SkyMediaBreakpoints.xs && this.searchShouldCollapse();
   }
 
   private mediaQueryCallback(args: SkyMediaBreakpoints) {
-    if (args === SkyMediaBreakpoints.xs) {
-      this.inputAnimate = INPUT_HIDDEN_STATE;
-    } else if (this.inputAnimate !== INPUT_SHOWN_STATE) {
-      this.inputAnimate = INPUT_SHOWN_STATE;
-    } else {
-      this.mobileSearchShown = false;
+    if (this.searchShouldCollapse()) {
+      if (args === SkyMediaBreakpoints.xs) {
+        this.inputAnimate = INPUT_HIDDEN_STATE;
+      } else if (this.inputAnimate !== INPUT_SHOWN_STATE) {
+        this.inputAnimate = INPUT_SHOWN_STATE;
+      } else {
+        this.mobileSearchShown = false;
+      }
     }
     this.changeRef.markForCheck();
+  }
+
+  private searchShouldCollapse() {
+    return this.isCollapsible || this.isCollapsible === undefined;
   }
 }
