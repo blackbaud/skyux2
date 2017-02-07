@@ -8,19 +8,19 @@ import { ListItemModel } from '../state';
   selector: 'sky-test-cmp',
   template: require('./list.component.fixture.html')
 })
-export class ListTestComponent {
+export class ListSelectedTestComponent {
   @ViewChild(SkyListComponent)
   public list: SkyListComponent;
 
-  @ViewChild('toolbar')
-  public toolbar: SkyListToolbarComponent;
+  public selectedItems: ListItemModel[];
+
+  public selectedIds: string[] = ['1', '2'];
 
   constructor(@Inject('items') public items: any) {
   }
 
-  public get options() {
-    let bs = new BehaviorSubject<Array<any>>(['banana', 'apple']);
-    return bs.asObservable();
+  public selectedChangeFunction(selectedItems: ListItemModel[]) {
+    this.selectedItems = selectedItems;
   }
 
 }

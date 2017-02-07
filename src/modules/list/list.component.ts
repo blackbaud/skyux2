@@ -1,5 +1,12 @@
 import {
-  Component, ContentChildren, QueryList, AfterContentInit, ChangeDetectionStrategy, Input
+  Component,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter
 } from '@angular/core';
 
 import {
@@ -69,6 +76,9 @@ export class SkyListComponent implements AfterContentInit {
   private searchFunction: (data: any, searchText: string) => boolean;
   /* tslint:enable */
 
+  @Output()
+  public selectedItemsChange = new EventEmitter<Array<ListItemModel>>();
+
   private dataFirstLoad: boolean = false;
 
   @ContentChildren(ListViewComponent)
@@ -102,6 +112,20 @@ export class SkyListComponent implements AfterContentInit {
       this.dispatcher.next(new ListItemsSetLoadingAction());
       this.dispatcher.next(new ListItemsLoadAction(result.items, true, true, result.count));
     });
+
+    // Emit new selected items when they change if there is an observer.
+    if (this.selectedItemsChange.observers.length > 0) {
+      Observable.combineLatest(
+        this.state.map(current => current.items.items).distinctUntilChanged(),
+        this.state.map(current => current.selected).distinctUntilChanged(),
+        (items: Array<ListItemModel>, selected: AsyncItem<ListSelectedModel>) => {
+          return items.filter(i => selected.item[i.id]);
+        }
+      ).skip(1).subscribe((selectedItems) => {
+        this.selectedItemsChange.emit(selectedItems);
+      });
+    }
+
   }
 
   public refreshDisplayedItems(): void {
@@ -125,6 +149,7 @@ export class SkyListComponent implements AfterContentInit {
       this.dataProvider = new SkyListInMemoryDataProvider(data, this.searchFunction);
     }
 
+    console.log('selected ids', this.selectedIds);
     let selectedIds: any = this.selectedIds || Observable.of([]);
     if (!(selectedIds instanceof Observable)) {
       selectedIds = Observable.of(selectedIds);
