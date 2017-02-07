@@ -2,7 +2,8 @@ import {
   TestBed,
   async,
   fakeAsync,
-  tick
+  tick,
+  ComponentFixture
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -196,7 +197,7 @@ describe('List Component', () => {
       let state: ListState,
           dispatcher: ListStateDispatcher,
           component: ListSelectedTestComponent,
-          fixture: any,
+          fixture: ComponentFixture<ListSelectedTestComponent>,
           nativeElement: HTMLElement,
           element: DebugElement,
           items: Observable<any>,
@@ -248,16 +249,18 @@ describe('List Component', () => {
           }
         });
 
-        fixture = TestBed.createComponent(ListTestComponent);
+        fixture = TestBed.createComponent(ListSelectedTestComponent);
         nativeElement = fixture.nativeElement as HTMLElement;
         element = fixture.debugElement as DebugElement;
         component = fixture.componentInstance;
+
         fixture.detectChanges();
 
         // always skip the first update to ListState, when state is ready
         // run detectChanges once more then begin tests
         state.skip(1).take(1).subscribe(() => fixture.detectChanges());
         fixture.detectChanges();
+
       }));
 
       describe('models and actions', () => {
@@ -334,8 +337,8 @@ describe('List Component', () => {
 
       it('should allow users to initialize selectedIds', fakeAsync(() => {
 
-        fixture.detectChanges();
         tick();
+        fixture.detectChanges();
         state.take(1).subscribe((current) => {
           expect(current.selected.item['2']).toBe(true);
           expect(current.selected.item['1']).toBe(true);
@@ -345,13 +348,31 @@ describe('List Component', () => {
         tick();
       }));
 
-      it('should allow users to access selectedItems', () => {
+      it('should allow users to access selectedItems', fakeAsync(() => {
+        tick();
+        fixture.detectChanges();
+        component.list.selectedItems.subscribe((items)=> {
+          expect(items[0].data.column2).toBe('Apple');
+          expect(items[1].data.column2).toBe('Banana');
+        });
 
-      });
+        fixture.detectChanges();
+        tick();
+      }));
 
-      it('should allow users to listen for selectedItem changes on an event', () => {
+      it('should allow users to listen for selectedItem changes on an event', fakeAsync(() => {
+        tick();
+        fixture.detectChanges();
 
-      });
+        dispatcher.next(new ListSelectedSetItemsSelectedAction(['1', '2'], true));
+
+        tick();
+
+        fixture.detectChanges();
+
+        expect(component.selectedItems[0].data.column2).toBe('Apple');
+        expect(component.selectedItems[1].data.column2).toBe('Banana');
+      }));
     });
 
     describe('List Component with Array', () => {

@@ -6,7 +6,7 @@ import { ListItemModel } from '../state';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./list.component.fixture.html')
+  template: require('./list-selected.component.fixture.html')
 })
 export class ListSelectedTestComponent {
   @ViewChild(SkyListComponent)
@@ -14,7 +14,7 @@ export class ListSelectedTestComponent {
 
   public selectedItems: ListItemModel[];
 
-  public selectedIds: string[] = ['1', '2'];
+  public selectedIds: Array<string> = ['1', '2'];
 
   constructor(@Inject('items') public items: any) {
   }

@@ -66,7 +66,7 @@ export class SkyListComponent implements AfterContentInit {
   public initialTotal?: number;
 
   @Input()
-  public selectedIds: Array<string> | Observable<Array<string>>;
+  public selectedIds?: Array<string> | Observable<Array<string>>;
 
   @Input()
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
@@ -149,7 +149,6 @@ export class SkyListComponent implements AfterContentInit {
       this.dataProvider = new SkyListInMemoryDataProvider(data, this.searchFunction);
     }
 
-    console.log('selected ids', this.selectedIds);
     let selectedIds: any = this.selectedIds || Observable.of([]);
     if (!(selectedIds instanceof Observable)) {
       selectedIds = Observable.of(selectedIds);
