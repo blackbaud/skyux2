@@ -1,4 +1,12 @@
-<sky-list-view-grid fit="scroll" [name]="gridview" [hiddenColumns]="hiddenColumns" [width]="600" [height]="400" selectionEnabled="true">
+<sky-list-view-grid
+  fit="scroll"
+  [name]="gridview"
+  [hiddenColumns]="hiddenColumns"
+  [width]="600"
+  [height]="400"
+  selectionEnabled="true"
+  [search]="searchFn"
+  >
   <sky-grid-column field="column1" heading="Column1" [locked]="true"></sky-grid-column>
   <sky-grid-column field="column2" heading="Column2" [width]="150">
     <template let-row="row">{{row.column2}}</template>
