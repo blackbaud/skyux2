@@ -1,9 +1,23 @@
 import {
   Component, ContentChildren, QueryList, AfterContentInit, ChangeDetectionStrategy, Input
 } from '@angular/core';
+
 import {
   ListItemsLoadAction, ListItemsSetLoadingAction
 } from './state/items/actions';
+
+import {
+  ListSelectedLoadAction,
+  ListSelectedSetLoadingAction
+} from './state/selected/actions';
+
+import {
+  ListSelectedModel
+} from './state/selected/selected.model';
+
+import {
+  AsyncItem
+} from 'microedge-rxstate/dist';
 
 import { ListDataRequestModel } from './list-data-request.model';
 import { ListDataResponseModel } from './list-data-response.model';
@@ -111,17 +125,36 @@ export class SkyListComponent implements AfterContentInit {
       this.dataProvider = new SkyListInMemoryDataProvider(data, this.searchFunction);
     }
 
+    let selectedIds: any = this.selectedIds || Observable.of([]);
+    if (!(selectedIds instanceof Observable)) {
+      selectedIds = Observable.of(selectedIds);
+    }
+
+    let selectedChanged: boolean = false;
+
     return Observable.combineLatest(
       this.state.map(s => s.search).distinctUntilChanged(),
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
+      selectedIds.distinctUntilChanged().map((selectedId: any) => {
+        selectedChanged = true;
+        return selectedId
+      }),
       data.distinctUntilChanged(),
       (
         search: ListSearchModel,
         itemsPerPage: number,
         pageNumber: number,
+        selected: Array<string>,
         itemsData: Array<any>
       ) => {
+
+        if (selectedChanged) {
+          this.dispatcher.next(new ListSelectedSetLoadingAction());
+          this.dispatcher.next(new ListSelectedLoadAction(selected));
+          this.dispatcher.next(new ListSelectedSetLoadingAction(false));
+          selectedChanged = false;
+        }
 
         let response: Observable<ListDataResponseModel>;
         if (this.dataFirstLoad) {
@@ -144,6 +177,16 @@ export class SkyListComponent implements AfterContentInit {
       }).flatMap((value: Observable<ListDataResponseModel>, index: number) => {
         return value;
       });
+  }
+
+  public get selectedItems(): Observable<Array<ListItemModel>> {
+    return Observable.combineLatest(
+      this.state.map(current => current.items.items).distinctUntilChanged(),
+      this.state.map(current => current.selected).distinctUntilChanged(),
+      (items: Array<ListItemModel>, selected: AsyncItem<ListSelectedModel>) => {
+        return items.filter(i => selected.item[i.id]);
+      }
+    )
   }
 
   public get lastUpdate() {
