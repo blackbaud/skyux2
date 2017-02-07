@@ -1,13 +1,17 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { SkyListComponent } from '../list.component';
 import { BehaviorSubject } from 'rxjs';
+import { SkyListToolbarComponent } from '../../list-toolbar';
 
 @Component({
   selector: 'sky-test-cmp',
   template: require('./list.component.fixture.html')
 })
 export class ListTestComponent {
-  @ViewChild(SkyListComponent) public list: SkyListComponent;
+  @ViewChild(SkyListComponent)
+  public list: SkyListComponent;
+  @ViewChild('toolbar')
+  public toolbar: SkyListToolbarComponent;
 
   constructor(@Inject('items') public items: any) {
   }

@@ -23,6 +23,10 @@ import {
   SkyGridColumnModel
 } from './';
 
+import {
+  expect
+} from '../testing';
+
 let moment = require('moment');
 
 describe('Grid Component', () => {
@@ -216,6 +220,56 @@ describe('Grid Component', () => {
 
         verifyHeaders(true);
         verifyData(false, true);
+      });
+
+      it('should change styles based on hasToolbar input', () => {
+        expect(element.query(By.css('.sky-grid-table')).nativeElement)
+          .not.toHaveCssClass('sky-grid-has-toolbar');
+        component.hasToolbar = true;
+        fixture.detectChanges();
+        expect(element.query(By.css('.sky-grid-table')).nativeElement)
+          .toHaveCssClass('sky-grid-has-toolbar');
+      });
+
+      it('should allow the access of search function on displayed columns', () => {
+        let searchFunctions = component.grid.displayedColumns.map(column => {
+          return column.searchFunction;
+        });
+
+        expect(searchFunctions.length).toBe(5);
+        for (let i = 0; i < searchFunctions.length; i++) {
+          let result = searchFunctions[i]('Something', 'something');
+          expect(result).toBe(true);
+        }
+
+        expect(component.searchText).toBe('something');
+        expect(component.searchedData).toBe('Something');
+
+        component.searchText = '';
+        component.searchedData = '';
+
+        for (let i = 0; i < searchFunctions.length; i++) {
+          let result = searchFunctions[i]('blaah', 'something');
+          if (component.searchText !== '') {
+            expect(result).toBe(true);
+          } else {
+            expect(result).toBe(false);
+          }
+          component.searchText = '';
+          component.searchedData = '';
+
+        }
+
+         for (let i = 0; i < searchFunctions.length; i++) {
+          let result = searchFunctions[i](undefined, 'something');
+          if (component.searchText !== '') {
+            expect(result).toBe(true);
+          } else {
+            expect(result).toBe(false);
+          }
+          component.searchText = '';
+          component.searchedData = '';
+        }
       });
 
       describe('Models and State', () => {

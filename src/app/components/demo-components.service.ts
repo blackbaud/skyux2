@@ -261,6 +261,38 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List toolbar',
+        icon: 'wrench',
+        // tslint:disable-next-line
+        summary:
+          `The list toolbar component displays a SKY UX-themed toolbar for the list component.`,
+        url: '/components/list-toolbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-toolbar-demo.component.html',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo.component.html')
+            },
+            {
+              name: 'list-toolbar-demo.component.ts',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo.component.ts'),
+              componentName: 'SkyListToolbarDemoComponent',
+              bootstrapSelector: 'sky-list-toolbar-demo'
+            },
+            {
+              name: 'list-toolbar-demo-custom.component.html',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo-custom.component.html')
+            },
+            {
+              name: 'list-toolbar-demo-custom.component.ts',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo-custom.component.ts'),
+              componentName: 'SkyListToolbarDemoCustomComponent',
+              bootstrapSelector: 'sky-list-toolbar-demo-custom'
+            }
+          ];
+        }
+      },
+      {
          name: 'List view grid',
          icon: 'table',
          // tslint:disable-next-line

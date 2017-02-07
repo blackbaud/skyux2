@@ -15,4 +15,6 @@ export class ListViewGridTestComponent {
   public templates: QueryList<TemplateRef<any>>;
   @ViewChildren(TemplateRef)
   public viewtemplates: QueryList<TemplateRef<any>>;
+
+  public searchFn: (data: any, searchText: string) => boolean;
 }

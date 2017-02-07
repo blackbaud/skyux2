@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { ListViewComponent } from '../list/list-view.component';
 import { ListState } from '../list/state';
-import { GridState, GridStateDispatcher, GridStateModel } from './state';
+import {
+  GridState,
+  GridStateDispatcher,
+  GridStateModel
+} from './state';
 import { ListStateDispatcher } from '../list/state';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
@@ -24,6 +28,7 @@ import {
 import {
   ListItemModel
 } from '../list/state';
+import { getData } from '../list/helpers';
 
 @Component({
   selector: 'sky-list-view-grid',
@@ -63,6 +68,11 @@ export class SkyListViewGridComponent
 
   @ViewChild(SkyGridComponent)
   public gridComponent: SkyGridComponent;
+
+  /* tslint:disable */
+  @Input('search')
+  private searchFunction: (data: any, searchText: string) => boolean;
+  /* tslint:enable */
 
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
@@ -140,6 +150,24 @@ export class SkyListViewGridComponent
             new ListViewDisplayedGridColumnsLoadAction(displayedColumns, true)
           );
         });
+  }
+
+  public onViewActive() {
+    let sub = this.gridState.map(s => s.displayedColumns.items)
+      .distinctUntilChanged()
+      .subscribe(displayedColumns => {
+        let setFunctions =
+          this.searchFunction !== undefined ? [this.searchFunction] :
+            displayedColumns
+              .map(column => (data: any, searchText: string) =>
+                column.searchFunction(getData(data, column.field), searchText)
+              )
+              .filter(c => c !== undefined);
+
+        this.dispatcher.searchSetFieldSelectors(displayedColumns.map(d => d.field));
+        this.dispatcher.searchSetFunctions(setFunctions);
+      });
+    this.subscriptions.push(sub);
   }
 
   get items(): Observable<ListItemModel[]> {
