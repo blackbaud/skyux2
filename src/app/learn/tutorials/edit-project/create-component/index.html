@@ -1,0 +1,37 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-container">
+    <h1>Create a component</h1>
+    <p>This tutorial walks through the process to create a component in a single-page application.</p>
+    <ol>
+        <li><p>Return to the project in a local editor, and right-click the <code>demo</code> folder we created in <a routerLink="/learn/tutorials/edit-project/create-page">the previous tutorial</a>.</p></li>
+        <li><p>Click <strong>New File</strong>, and then rename the file "demo.component.ts." This file is where we will define the component and its functionality.</p>
+            <p>If the <code>skyux serve</code> command is running, it detects the new file and attempts to update the SPA. However, errors occur when trying to serve the empty file, and the SPA fails to compile. If you return to the command prompt, you can see the errors.</p></li>
+        <li><p>Click <strong>New File</strong> again, and then rename the file "demo.component.html." This file is the template for the newly created component to use.</p></li>
+        <li><p>In the demo.component.ts file, add the following code for a component to display a message on the Demo page.</p>
+            <pre><code>
+            import &#123;
+                Component,
+                Input
+            &#125; from '@angular/core';
+            
+            @Component(&#123;
+                selector: 'my-demo',
+                templateUrl: 'demo.component.html'
+            &#125;)
+            export class MyDemoComponent &#123;
+                @Input()
+                public message: string;
+            &#125;</code></pre>
+            <p>The <code>import</code> portion imports the <code>Component</code> and <code>Input</code> classes from Angular to provide that functionality to the component that you are defining here. The <code>@Component</code> section is a decorator for the component, and it defines our selector and template. The decorator takes normal JavaScript classes and  extends the JavaScript functionality to convert them into Angular components. And finally, the <code>export</code> portion is where we define the component class. In this case, we also define a public input variable called <code>message</code>.</p></li>
+        <li><p>In the demo.component.html file, enter <code>{{'{{'}} message &#125;&#125;</code> to display the message. This provides the <code>message</code> variable to the template. The curly braces are the syntax to reference properties of the component class.</p></li>
+        <li><p>Open the index.html file in the <code>demo</code> folder, and then add the new <code>my-demo</code> component and set the value of the <code>message</code> variable to "Hello!".</p>
+            <pre><code>&#60;my-demo message="Hello!"&#62;&#60;&#47;my-demo&#62;</code></pre></li>
+        <li><p>Save all three files.</p></li>
+        <li><p>Return to the command prompt. If the <code>skyux serve</code> command is running, it detects the changes and updates the SPA. If not, run <code>skyux serve</code> to launch the SPA in your default browser.</p></li>
+        <li><p>Return to the Demo page in the SPA. It now renders the text from the component after the header.</p></li>
+    </ol>
+    
+    <p><strong>Previous step »</strong> <a routerLink="/learn/tutorials/edit-project/create-page">Create a page</a></p>
+
+</div> 
+

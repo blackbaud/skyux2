@@ -1,0 +1,36 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-container">
+    <h1>Install SKY UX</h1>
+    <p>This section provides guidance on prerequisites and how to install SKY UX 2.</p>
+    
+    <h2>Prerequisites</h2>
+    <p>Before you install SKY UX 2, you must have the following prerequsites in place:</p>
+    <ul>
+        <li><p><a href="https://nodejs.org/en/">Node.js version 6+</a> &mdash; To check your version, run <code>node –v</code> from the command line.</p></li>
+        <li><p>NPM version 3+ &mdash; NPM is the default JavaScript package manager for Node.js, and as of Node.js version 0.6.3, it is bundled and installed automatically with the environment. To check your version, run <code>npm –v</code> from the command line.</p></li>
+        <li><p><a href="https://git-scm.com/">Git</a> &mdash; You can install the SKY UX Builder without Git in place, but the continuous integration layer requires a Git-style repo to follow the processes built into SKY UX.</p>
+    </ul>
+
+    <h2>SSL certificate</h2>
+    <p>To load your local SPA in to the SKY UX Host, you must install the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt</a> root certificate to your computer's Trusted Roots list.</p>
+    <ul>
+        <li><p>To install the SSL certificate on a Mac, <a routerLink="/learn/tutorials//install///certificate-mac">follow these instructions</a>.</p></li>
+        <li><p>To install the SSL certificate in Windows, <a routerLink="/learn/tutorials//install///certificate-windows">follow these instructions</a>.</p></li>
+    </ul>
+
+    
+    <h2>Install SKY UX CLI</h2>
+    <p>From the command line, run <code>npm install -g @blackbaud/skyux-cli</code>.</p>
+<sky-alert alertType="info">
+  <strong>Note:</strong> For Mac OS X, we recommend that you use <a href="https://github.com/creationix/nvm">Node Version Manager (nvm)</a> to wrap your NodeJS installation so that it installs in your user directory and avoids permission-related issues.
+</sky-alert>
+    
+    <h2>Update SKY UX CLI</h2>
+    <p>To update the SKY UX CLI with the latest version, run <code>npm install -g @blackbaud/skyux-cli@latest</code>.</p>
+<sky-alert alertType="info">
+  <strong>Note:</strong> The CLI notifies users when a new version is released. When users run <code>skyux serve</code>, a message appears in the command prompt if a new version is available.</sky-alert>
+
+    <p><strong>Next step »</strong> <a routerLink="/learn/tutorials">Get started tutorials</a></p>
+    <p><strong>Previous step »</strong> <a routerLink="/learn">Get started</a></p>
+
+</div>
