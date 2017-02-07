@@ -47,6 +47,9 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   @Input()
   public columns: Array<SkyGridColumnModel>;
 
+  @Input()
+  public hasToolbar: boolean = false;
+
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 

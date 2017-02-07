@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { SkyListModule } from '../';
 import { SkyListViewGridModule } from '../../list-view-grid';
+import { SkyListToolbarModule } from '../../list-toolbar';
 import { SkyGridModule } from '../../grid';
 
 import { ListTestComponent } from './list.component.fixture';
@@ -20,6 +21,7 @@ import { ListEmptyTestComponent } from './list-empty.component.fixture';
     CommonModule,
     SkyListModule,
     SkyListViewGridModule,
+    SkyListToolbarModule,
     SkyGridModule,
     FormsModule
   ],

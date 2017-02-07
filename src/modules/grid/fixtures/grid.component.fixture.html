@@ -2,6 +2,7 @@
 <sky-grid
   fit="scroll"
   [selectedColumnIds]="selectedColumnIds"
+  [hasToolbar]="hasToolbar"
   [data]="data"
   [width]="600"
   [height]="400">
@@ -13,7 +14,8 @@
   <sky-grid-column
     field="column2"
     heading="Column2"
-    [width]="150">
+    [width]="150"
+    [search]="searchFunction">
     <template
       let-row="row">
       {{row?.column2}}

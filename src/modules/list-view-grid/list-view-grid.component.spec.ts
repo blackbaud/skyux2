@@ -1,6 +1,8 @@
 import {
   TestBed,
-  async
+  async,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -148,7 +150,7 @@ describe('List View Grid Component', () => {
       });
     });
 
-    describe('hidden column property', () => {
+    describe('nonstandard setup', () => {
       it('should respect the hidden property when not hidden columns and displayed columns', () => {
         component.hiddenColumns = undefined;
         setupTest();
@@ -170,6 +172,28 @@ describe('List View Grid Component', () => {
           By.css('th[sky-cmp-id="hiddenCol2"]')
         ).nativeElement.textContent.trim()).toBe('Column7');
       });
+
+      it('should handle setting a searchFunction', fakeAsync(() => {
+        let appliedData: any;
+        let appliedSearch: string;
+        component.searchFn = (data: any, searchText: string) => {
+          appliedData = data;
+          appliedSearch = searchText;
+          return true;
+        };
+
+        setupTest();
+
+        tick();
+
+        state.take(1).subscribe((current) => {
+          current.search.functions[0]('something', 'searchText');
+          expect(appliedData).toBe('something');
+          expect(appliedSearch).toBe('searchText');
+        });
+
+        tick();
+      }));
     });
 
   });

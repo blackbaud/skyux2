@@ -85,6 +85,10 @@ describe('Action button component', () => {
   });
 
   it('should emit a click event on enter press', () => {
+
+    debugElement.query(By.css('.sky-action-button')).triggerEventHandler('keyup', { which: 15});
+    fixture.detectChanges();
+    expect(cmp.buttonIsClicked).toBe(false);
     debugElement.query(By.css('.sky-action-button')).triggerEventHandler('keyup', { which: 13});
     fixture.detectChanges();
     expect(cmp.buttonIsClicked).toBe(true);

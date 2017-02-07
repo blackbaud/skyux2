@@ -11,6 +11,11 @@ let moment = require('moment');
   template: require('./grid.component.fixture.html')
 })
 export class GridTestComponent {
+  public hasToolbar: boolean = false;
+
+  public searchedData: any;
+  public searchText: string;
+
   public selectedColumnIds: Array<string> = [
     'column1',
     'column2',
@@ -41,4 +46,11 @@ export class GridTestComponent {
   public templates: QueryList<TemplateRef<any>>;
   @ViewChildren(TemplateRef)
   public viewtemplates: QueryList<TemplateRef<any>>;
+
+  public searchFunction: (data: any, searchText: string) => boolean =
+    (data: any, searchText: string) => {
+    this.searchedData = data;
+    this.searchText = searchText;
+    return true;
+  };
 }
