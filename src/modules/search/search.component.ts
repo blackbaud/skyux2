@@ -80,7 +80,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   public isCollapsible: boolean = true;
 
-
   @Input()
   public get placeholderText(): string {
     if (this._placeholderText === undefined) {
@@ -122,7 +121,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges) {
     if (this.expandModeBindingChanged(changes)) {
-      switch(this.expandMode) {
+      switch (this.expandMode) {
         case EXPAND_MODE_NONE:
           this.isCollapsible = false;
           this.isFullWidth = false;
@@ -131,7 +130,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
           this.isCollapsible = false;
           this.isFullWidth = true;
           break;
-        case EXPAND_MODE_RESPONSIVE:
         default:
           this.isCollapsible = true;
           this.isFullWidth = false;
