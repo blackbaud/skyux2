@@ -1,6 +1,6 @@
 import { ListStateOrchestrator } from '../list-state.rxstate';
 import { AsyncItem } from 'microedge-rxstate/dist';
-import * as moment from 'moment';
+
 import { ListSelectedModel } from './selected.model';
 import {
   ListSelectedLoadAction,
@@ -8,6 +8,8 @@ import {
   ListSelectedSetItemSelectedAction,
   ListSelectedSetItemsSelectedAction
 } from './actions';
+
+let moment = require('moment');
 
 export class ListSelectedOrchestrator extends ListStateOrchestrator<AsyncItem<ListSelectedModel>> {
   constructor() {

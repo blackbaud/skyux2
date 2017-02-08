@@ -10,7 +10,7 @@ import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-import * as moment from 'moment';
+let moment = require('moment');
 
 import {
   ListViewsLoadAction
