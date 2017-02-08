@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './toolbar.component.fixture.html'
 })
 export class ToolbarTestComponent {
+  public hasDarkTheme: boolean;
 }

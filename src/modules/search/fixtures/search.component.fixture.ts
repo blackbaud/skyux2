@@ -20,6 +20,10 @@ export class SearchTestComponent {
 
   public isCollapsible: boolean;
 
+  public isFullWidth: boolean;
+
+  public hasDarkTheme: boolean;
+
   public lastSearchTextApplied: string;
   public lastSearchTextChanged: string;
 

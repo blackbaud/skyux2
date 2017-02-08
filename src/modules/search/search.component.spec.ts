@@ -176,6 +176,16 @@ describe('Search component', () => {
     expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
   }
 
+  function verifySearchOpenFullScreenFullWidth() {
+    fixture.detectChanges();
+    let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
+    expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
+    expect(searchDismissContainer.nativeElement).toBeVisible();
+    expect(searchDismissContainer.nativeElement)
+      .toHaveCssClass('sky-search-dismiss-absolute');
+    expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
+  }
+
   function verifySearchClosed() {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
@@ -365,6 +375,31 @@ describe('Search component', () => {
         });
       });
     }));
+  });
+
+  describe('isFullWidth true', () => {
+    it('do nothing when open button pressed', async(() => {
+      component.isFullWidth = true;
+      fixture.detectChanges();
+      triggerXsBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifySearchOpenFullScreenFullWidth();
+        triggerOpenButton().then(() => {
+          fixture.detectChanges();
+          verifySearchOpenFullScreenFullWidth();
+        });
+      });
+    }));
+  });
+
+  describe('hasDarkTheme', () => {
+    it('should apply the dark theme class when hasDarkTheme is true', () => {
+      component.hasDarkTheme = true;
+      component.isFullWidth = true;
+      fixture.detectChanges();
+      expect(element.query(By.css('.sky-search-dismiss-absolute')).nativeElement)
+        .toHaveCssClass('sky-search-dismiss-dark');
+    });
   });
  });
 

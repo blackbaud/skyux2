@@ -11,28 +11,42 @@ import { SkyToolbarModule } from '.';
 import { expect } from '../testing';
 
 describe('toolbar component', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        ToolbarTestComponent
-      ],
-      imports: [
-        BrowserModule,
-        SkyToolbarModule
-      ]
+  describe('standard', () => {
+     beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          ToolbarTestComponent
+        ],
+        imports: [
+          BrowserModule,
+          SkyToolbarModule
+        ]
+      });
+    });
+
+    it('should create a toolbar with transcluded items', () => {
+      let fixture = TestBed.createComponent(ToolbarTestComponent);
+      let el = fixture.nativeElement as HTMLElement;
+
+      fixture.detectChanges();
+
+      let buttonEls = el.querySelectorAll('.sky-toolbar-container .sky-toolbar-item .sky-btn');
+
+      expect(buttonEls.item(0)).toHaveText('Button 1');
+      expect(buttonEls.item(1)).toHaveText('Button 2');
+
+    });
+
+    it('should allow use of dark theme', () => {
+      let fixture = TestBed.createComponent(ToolbarTestComponent);
+      let el = fixture.nativeElement as HTMLElement;
+
+      fixture.componentInstance.hasDarkTheme = true;
+
+      fixture.detectChanges();
+
+      expect(el.querySelector('.sky-toolbar-container')).toHaveCssClass('sky-toolbar-dark');
     });
   });
 
-  it('should create a toolbar with transcluded items', () => {
-    let fixture = TestBed.createComponent(ToolbarTestComponent);
-    let el = fixture.nativeElement as HTMLElement;
-
-    fixture.detectChanges();
-
-    let buttonEls = el.querySelectorAll('.sky-toolbar-container .sky-toolbar-item .sky-btn');
-
-    expect(buttonEls.item(0)).toHaveText('Button 1');
-    expect(buttonEls.item(1)).toHaveText('Button 2');
-
-  });
 });
