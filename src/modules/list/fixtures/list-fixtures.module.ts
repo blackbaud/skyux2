@@ -10,12 +10,14 @@ import { SkyGridModule } from '../../grid';
 import { ListTestComponent } from './list.component.fixture';
 import { ListDualTestComponent } from './list-dual.component.fixture';
 import { ListEmptyTestComponent } from './list-empty.component.fixture';
+import { ListSelectedTestComponent } from './list-selected.component.fixture';
 
 @NgModule({
   declarations: [
     ListTestComponent,
     ListDualTestComponent,
-    ListEmptyTestComponent
+    ListEmptyTestComponent,
+    ListSelectedTestComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { ListEmptyTestComponent } from './list-empty.component.fixture';
   exports: [
     ListTestComponent,
     ListDualTestComponent,
-    ListEmptyTestComponent
+    ListEmptyTestComponent,
+    ListSelectedTestComponent
   ]
 })
 export class ListFixturesModule { }

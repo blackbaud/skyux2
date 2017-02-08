@@ -2,7 +2,8 @@ import {
   TestBed,
   async,
   fakeAsync,
-  tick
+  tick,
+  ComponentFixture
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -11,13 +12,14 @@ import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-import * as moment from 'moment';
+let moment = require('moment');
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { ListFixturesModule } from './fixtures/list-fixtures.module';
 import { ListTestComponent } from './fixtures/list.component.fixture';
 import { ListDualTestComponent } from './fixtures/list-dual.component.fixture';
 import { ListEmptyTestComponent } from './fixtures/list-empty.component.fixture';
+import { ListSelectedTestComponent } from './fixtures/list-selected.component.fixture';
 import { SkyListComponent, SkyListModule, ListDataRequestModel, ListDataResponseModel } from './';
 import { SkyListViewGridModule, SkyListViewGridComponent } from '../list-view-grid';
 import { SkyListToolbarModule } from '../list-toolbar';
@@ -25,6 +27,8 @@ import {
   ListSearchModel,
   ListSearchSetFunctionsAction,
   ListSearchSetFieldSelectorsAction,
+  ListSelectedSetItemsSelectedAction,
+  ListSelectedSetItemSelectedAction,
   ListToolbarItemModel,
   ListToolbarItemsLoadAction
 } from './state';
@@ -187,6 +191,188 @@ describe('List Component', () => {
           });
         }));
       });
+    });
+
+    describe('selected items', () => {
+      let state: ListState,
+          dispatcher: ListStateDispatcher,
+          component: ListSelectedTestComponent,
+          fixture: ComponentFixture<ListSelectedTestComponent>,
+          nativeElement: HTMLElement,
+          element: DebugElement,
+          items: Observable<any>,
+          bs: BehaviorSubject<any>;
+
+      beforeEach(async(() => {
+        dispatcher = new ListStateDispatcher();
+        state = new ListState(dispatcher);
+
+        /* tslint:disable */
+        let itemsArray = [
+          { id: '1', column1: '30', column2: 'Apple',
+            column3: 1, column4: moment().add(1, 'minute') },
+          { id: '2', column1: '01', column2: 'Banana',
+            column3: 3, column4: moment().add(6, 'minute') },
+          { id: '3', column1: '11', column2: 'Banana',
+            column3: 11, column4: moment().add(4, 'minute') },
+          { id: '4', column1: '12', column2: 'Carrot',
+            column3: 12, column4: moment().add(2, 'minute') },
+          { id: '5', column1: '12', column2: 'Edamame',
+            column3: 12, column4: moment().add(5, 'minute') },
+          { id: '6', column1: null, column2: null,
+            column3: 20, column4: moment().add(3, 'minute') },
+          { id: '7', column1: '22', column2: 'Grape',
+            column3: 21, column4: moment().add(7, 'minute') }
+        ];
+
+        bs = new BehaviorSubject<Array<any>>(itemsArray);
+        items = bs.asObservable();
+
+        TestBed.configureTestingModule({
+          imports: [
+            ListFixturesModule,
+            SkyListModule,
+            SkyListViewGridModule,
+            SkyListToolbarModule,
+            FormsModule
+          ],
+          providers: [
+            { provide: 'items', useValue: items }
+          ]
+        })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              { provide: ListState, useValue: state },
+              { provide: ListStateDispatcher, useValue: dispatcher }
+            ]
+          }
+        });
+
+        fixture = TestBed.createComponent(ListSelectedTestComponent);
+        nativeElement = fixture.nativeElement as HTMLElement;
+        element = fixture.debugElement as DebugElement;
+        component = fixture.componentInstance;
+
+        fixture.detectChanges();
+
+        // always skip the first update to ListState, when state is ready
+        // run detectChanges once more then begin tests
+        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+        fixture.detectChanges();
+
+      }));
+
+      describe('models and actions', () => {
+        it('should set items properly', fakeAsync(() => {
+          dispatcher.next(new ListSelectedSetItemsSelectedAction(['1', '2'], true));
+
+          tick();
+
+          state.take(1).subscribe((current) => {
+            expect(current.selected.item['2']).toBe(true);
+            expect(current.selected.item['1']).toBe(true);
+          });
+
+          tick();
+
+          dispatcher.next(new ListSelectedSetItemsSelectedAction(['1'], false, false));
+
+          tick();
+
+          state.take(1).subscribe((current) => {
+            expect(current.selected.item['2']).toBe(true);
+            expect(current.selected.item['1']).toBe(false);
+          });
+
+          tick();
+
+          dispatcher.next(new ListSelectedSetItemsSelectedAction(['3'], true, true));
+
+          tick();
+
+          state.take(1).subscribe((current) => {
+            expect(current.selected.item['2']).toBe(undefined);
+            expect(current.selected.item['3']).toBe(true);
+          });
+
+          tick();
+
+        }));
+
+        it('should set item properly', fakeAsync(() => {
+          dispatcher.next(new ListSelectedSetItemSelectedAction('1', true));
+
+          tick();
+
+          state.take(1).subscribe((current) => {
+            expect(current.selected.item['1']).toBe(true);
+          });
+
+          tick();
+
+          dispatcher.next(new ListSelectedSetItemSelectedAction('2', true));
+
+          tick();
+
+          state.take(1).subscribe((current) => {
+            expect(current.selected.item['2']).toBe(true);
+            expect(current.selected.item['1']).toBe(true);
+          });
+
+          tick();
+
+          dispatcher.next(new ListSelectedSetItemSelectedAction('1', false));
+
+          tick();
+
+          state.take(1).subscribe((current) => {
+            expect(current.selected.item['2']).toBe(true);
+            expect(current.selected.item['1']).toBe(false);
+          });
+
+          tick();
+        }));
+      });
+
+      it('should allow users to initialize selectedIds', fakeAsync(() => {
+
+        tick();
+        fixture.detectChanges();
+        state.take(1).subscribe((current) => {
+          expect(current.selected.item['2']).toBe(true);
+          expect(current.selected.item['1']).toBe(true);
+        });
+
+        fixture.detectChanges();
+        tick();
+      }));
+
+      it('should allow users to access selectedItems', fakeAsync(() => {
+        tick();
+        fixture.detectChanges();
+        component.list.selectedItems.subscribe((items)=> {
+          expect(items[0].data.column2).toBe('Apple');
+          expect(items[1].data.column2).toBe('Banana');
+        });
+
+        fixture.detectChanges();
+        tick();
+      }));
+
+      it('should allow users to listen for selectedItem changes on an event', fakeAsync(() => {
+        tick();
+        fixture.detectChanges();
+
+        dispatcher.next(new ListSelectedSetItemsSelectedAction(['1', '2'], true));
+
+        tick();
+
+        fixture.detectChanges();
+
+        expect(component.selectedItems[0].data.column2).toBe('Apple');
+        expect(component.selectedItems[1].data.column2).toBe('Banana');
+      }));
     });
 
     describe('List Component with Array', () => {
@@ -600,7 +786,7 @@ describe('List Component', () => {
     });
   });
 
-  describe('models', () => {
+  describe('models and actions', () => {
     it('should handle undefined data for request model', () => {
       let model = new ListDataRequestModel();
       expect(model.pageNumber).toBe(1);
@@ -637,12 +823,19 @@ describe('List Component', () => {
     }));
 
     describe('toolbar load action', () => {
-      it('should handle index of -1 or greater than current length', fakeAsync(() => {
-        let dispatcher = new ListStateDispatcher();
-        let state = new ListState(dispatcher);
+      let dispatcher: ListStateDispatcher;
+      let state: ListState;
+
+      beforeEach(fakeAsync(() => {
+        dispatcher = new ListStateDispatcher();
+        state = new ListState(dispatcher);
 
         state.skip(1).take(1).subscribe(() => tick());
         tick();
+      }));
+
+      it('should handle index of -1 or greater than current length', fakeAsync(() => {
+
 
         let newItems: ListToolbarItemModel[] = [
           new ListToolbarItemModel({
@@ -681,11 +874,6 @@ describe('List Component', () => {
       }));
 
       it('should handle index of 0', fakeAsync(() => {
-        let dispatcher = new ListStateDispatcher();
-        let state = new ListState(dispatcher);
-
-        state.skip(1).take(1).subscribe(() => tick());
-        tick();
 
         let newItems: ListToolbarItemModel[] = [
           new ListToolbarItemModel({
@@ -717,11 +905,6 @@ describe('List Component', () => {
       }));
 
       it('should handle index of less than current length', fakeAsync(() => {
-         let dispatcher = new ListStateDispatcher();
-        let state = new ListState(dispatcher);
-
-        state.skip(1).take(1).subscribe(() => tick());
-        tick();
 
         let newItems: ListToolbarItemModel[] = [
           new ListToolbarItemModel({
@@ -751,6 +934,11 @@ describe('List Component', () => {
 
         tick();
       }));
+    });
+
+    it('should construct ListSelectedSetItemsSelectedAction', () => {
+      let action = new ListSelectedSetItemsSelectedAction(['1']);
+      expect(action).not.toBeUndefined();
     });
   });
 
