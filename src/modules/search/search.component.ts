@@ -74,14 +74,12 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public searchText: string;
 
   @Input()
-  public isCollapsible: boolean = true;
-
-  @Input()
   public expandMode: string = EXPAND_MODE_RESPONSIVE;
 
   public isFullWidth: boolean = false;
 
-  public hasDarkTheme: boolean = false;
+  public isCollapsible: boolean = true;
+
 
   @Input()
   public get placeholderText(): string {
