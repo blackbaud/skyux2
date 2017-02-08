@@ -9,6 +9,7 @@ import { ListPagingOrchestrator } from './paging/paging.orchestrator';
 import { ListViewsOrchestrator } from './views/views.orchestrator';
 import { ListToolbarOrchestrator } from './toolbar/toolbar.orchestrator';
 import { ListSearchOrchestrator } from './search/search.orchestrator';
+import { ListSelectedOrchestrator } from './selected/selected.orchestrator';
 
 @Injectable()
 export class ListState extends StateNode<ListStateModel> {
@@ -21,6 +22,7 @@ export class ListState extends StateNode<ListStateModel> {
       .register('search', ListSearchOrchestrator)
       .register('toolbar', ListToolbarOrchestrator)
       .register('views', ListViewsOrchestrator)
+      .register('selected', ListSelectedOrchestrator)
       .begin();
   }
 }

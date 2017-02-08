@@ -24,9 +24,17 @@ import {
   ListSearchSetFieldSelectorsAction
 } from './search/actions';
 
+import {
+  ListSelectedSetLoadingAction,
+  ListSelectedLoadAction,
+  ListSelectedSetItemSelectedAction,
+  ListSelectedSetItemsSelectedAction
+} from './selected/actions';
+
 export type ListStateAction =
   ListItemsSetLoadingAction | ListItemsLoadAction |
   ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction |
   ListViewsLoadAction | ListViewsSetActiveAction | ListToolbarItemsLoadAction |
   ListToolbarSetExistsAction | ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
-  ListSearchSetFieldSelectorsAction;
+  ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
+  ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction;

@@ -10,6 +10,7 @@ import { SkyListToolbarComponent } from '../../list-toolbar';
 export class ListTestComponent {
   @ViewChild(SkyListComponent)
   public list: SkyListComponent;
+
   @ViewChild('toolbar')
   public toolbar: SkyListToolbarComponent;
 

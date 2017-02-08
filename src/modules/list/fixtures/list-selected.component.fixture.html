@@ -1,8 +1,9 @@
 <sky-list
   [data]="items"
   [defaultView]="default"
+  (selectedItemsChange)="selectedChangeFunction($event)"
+  [selectedIds]="selectedIds"
 >
-  <sky-list-toolbar #toolbar></sky-list-toolbar>
   <sky-list-view-grid fit="scroll" #default>
     <sky-grid-column field="column1" heading="Column1">
       <template let-row="row">{{row.column1}}</template>
