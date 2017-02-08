@@ -8,4 +8,20 @@
     display: flex;
     align-items: center;
     position: relative;
+    /deep/ sky-toolbar-section:not(:last-child) .sky-toolbar-section {
+      @include sky-border(dark, bottom);
+    }
+}
+
+.sky-toolbar-dark {
+  background-color: $sky-toolbar-background-color-dark;
+
+  /deep/ .sky-search-dismiss-absolute {
+    background-color: $sky-toolbar-background-color-dark;
+  }
+}
+
+.sky-toolbar-has-sections {
+  display: block;
+  padding: 0;
 }

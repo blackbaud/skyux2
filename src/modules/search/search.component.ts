@@ -74,6 +74,12 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public isCollapsible: boolean = true;
 
   @Input()
+  public isFullWidth: boolean = false;
+
+  @Input()
+  public hasDarkTheme: boolean = false;
+
+  @Input()
   public get placeholderText(): string {
     if (this._placeholderText === undefined) {
       return this.resources.getString('search_placeholder');
@@ -223,6 +229,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   }
 
   private searchShouldCollapse() {
-    return this.isCollapsible || this.isCollapsible === undefined;
+    return (this.isCollapsible || this.isCollapsible === undefined) && this.isFullWidth !== true;
   }
 }

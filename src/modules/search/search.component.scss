@@ -81,12 +81,16 @@
 
 .sky-search-dismiss-absolute {
     position: absolute;
-    background-color: $sky-color-white;
+    background-color: $sky-search-background-color;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     padding: $sky-padding-half;
+}
+
+.sky-search-dismiss-dark {
+  background-color: $sky-search-background-color-dark;
 }
 
 .sky-search-input-container {
