@@ -71,13 +71,13 @@ export class SkyListComponent implements AfterContentInit {
   @Input()
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
 
+  @Output()
+  public selectedItemsChange = new EventEmitter<Array<ListItemModel>>();
+
   /* tslint:disable */
   @Input('search')
   private searchFunction: (data: any, searchText: string) => boolean;
   /* tslint:enable */
-
-  @Output()
-  public selectedItemsChange = new EventEmitter<Array<ListItemModel>>();
 
   private dataFirstLoad: boolean = false;
 
@@ -162,7 +162,7 @@ export class SkyListComponent implements AfterContentInit {
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
       selectedIds.distinctUntilChanged().map((selectedId: any) => {
         selectedChanged = true;
-        return selectedId
+        return selectedId;
       }),
       data.distinctUntilChanged(),
       (
@@ -210,7 +210,7 @@ export class SkyListComponent implements AfterContentInit {
       (items: Array<ListItemModel>, selected: AsyncItem<ListSelectedModel>) => {
         return items.filter(i => selected.item[i.id]);
       }
-    )
+    );
   }
 
   public get lastUpdate() {
