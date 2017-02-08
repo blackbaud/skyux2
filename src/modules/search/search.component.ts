@@ -34,6 +34,9 @@ import { Subscription } from 'rxjs/Subscription';
 
 const INPUT_SHOWN_STATE: string = 'inputShown';
 const INPUT_HIDDEN_STATE: string = 'inputHidden';
+const EXPAND_MODE_RESPONSIVE: string = 'responsive';
+const EXPAND_MODE_FIT: string = 'fit';
+const EXPAND_MODE_NONE: string = 'none';
 
 @Component({
   selector: 'sky-search',
@@ -74,9 +77,10 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public isCollapsible: boolean = true;
 
   @Input()
+  public expandMode: string = EXPAND_MODE_RESPONSIVE;
+
   public isFullWidth: boolean = false;
 
-  @Input()
   public hasDarkTheme: boolean = false;
 
   @Input()
@@ -119,6 +123,24 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges) {
+    if (this.expandModeBindingChanged(changes)) {
+      switch(this.expandMode) {
+        case EXPAND_MODE_NONE:
+          this.isCollapsible = false;
+          this.isFullWidth = false;
+          break;
+        case EXPAND_MODE_FIT:
+          this.isCollapsible = false;
+          this.isFullWidth = true;
+          break;
+        case EXPAND_MODE_RESPONSIVE:
+        default:
+          this.isCollapsible = true;
+          this.isFullWidth = false;
+          break;
+      }
+    }
+
     if (this.searchBindingChanged(changes)) {
       this.clearButtonShown = this.searchText && this.searchText !== '';
       if (this.shouldOpenInput()) {
@@ -208,6 +230,11 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   private searchBindingChanged(changes: SimpleChanges) {
     return changes['searchText'] &&
       changes['searchText'].previousValue !== changes['searchText'].currentValue;
+  }
+
+  private expandModeBindingChanged(changes: SimpleChanges) {
+    return changes['expandMode'] &&
+      changes['expandMode'].previousValue !== changes['expandMode'].currentValue;
   }
 
   private shouldOpenInput() {

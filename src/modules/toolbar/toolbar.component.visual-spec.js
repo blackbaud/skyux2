@@ -11,12 +11,12 @@ describe('Toolbar', function () {
       });
   });
 
-  it('should match previous toolbar screenshot with dark theme and sections', function () {
+  it('should match previous toolbar screenshot with sections', function () {
     return browser
       .setupTest('/toolbar.html')
       .compareScreenshot({
-        screenshotName: 'toolbar_dark',
-        selector: '#screenshot-toolbar-dark',
+        screenshotName: 'toolbar_section',
+        selector: '#screenshot-toolbar-sectioned',
         checkAccessibility: true
       });
   });

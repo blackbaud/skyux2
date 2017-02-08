@@ -37,17 +37,6 @@ describe('toolbar component', () => {
       expect(buttonEls.item(1)).toHaveText('Button 2');
 
     });
-
-    it('should allow use of dark theme', () => {
-      let fixture = TestBed.createComponent(ToolbarTestComponent);
-      let el = fixture.nativeElement as HTMLElement;
-
-      fixture.componentInstance.hasDarkTheme = true;
-
-      fixture.detectChanges();
-
-      expect(el.querySelector('.sky-toolbar-container')).toHaveCssClass('sky-toolbar-dark');
-    });
   });
 
   describe('sectioned', () => {

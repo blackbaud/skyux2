@@ -362,9 +362,9 @@ describe('Search component', () => {
     });
   });
 
-  describe('isCollapsible false', () => {
+  describe('expandMode none', () => {
     it('do nothing when open button pressed', async(() => {
-      component.isCollapsible = false;
+      component.expandMode = 'none';
       fixture.detectChanges();
       triggerXsBreakpoint().then(() => {
         fixture.detectChanges();
@@ -377,9 +377,9 @@ describe('Search component', () => {
     }));
   });
 
-  describe('isFullWidth true', () => {
+  describe('expandMode fit', () => {
     it('do nothing when open button pressed', async(() => {
-      component.isFullWidth = true;
+      component.expandMode = 'fit';
       fixture.detectChanges();
       triggerXsBreakpoint().then(() => {
         fixture.detectChanges();
@@ -391,21 +391,11 @@ describe('Search component', () => {
       });
     }));
   });
-
-  describe('hasDarkTheme', () => {
-    it('should apply the dark theme class when hasDarkTheme is true', () => {
-      component.hasDarkTheme = true;
-      component.isFullWidth = true;
-      fixture.detectChanges();
-      expect(element.query(By.css('.sky-search-dismiss-absolute')).nativeElement)
-        .toHaveCssClass('sky-search-dismiss-dark');
-    });
-  });
  });
 
- describe('initialize to isCollapsible false', () => {
+ describe('initialize expandMode none', () => {
    it('should do nothing when open button pressed', async(() => {
-     component.isCollapsible = false;
+     component.expandMode = 'none';
       fixture.detectChanges();
       triggerXsBreakpoint().then(() => {
         fixture.detectChanges();

@@ -18,11 +18,7 @@ export class SearchTestComponent {
   public searchText: string;
   public placeholderText: string;
 
-  public isCollapsible: boolean;
-
-  public isFullWidth: boolean;
-
-  public hasDarkTheme: boolean;
+  public expandMode: string;
 
   public lastSearchTextApplied: string;
   public lastSearchTextChanged: string;

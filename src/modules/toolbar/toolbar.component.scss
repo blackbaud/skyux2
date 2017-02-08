@@ -13,14 +13,6 @@
     }
 }
 
-.sky-toolbar-dark {
-  background-color: $sky-toolbar-background-color-dark;
-
-  /deep/ .sky-search-dismiss-absolute {
-    background-color: $sky-toolbar-background-color-dark;
-  }
-}
-
 .sky-toolbar-sectioned {
   display: block;
   padding: 0;

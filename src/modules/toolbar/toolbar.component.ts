@@ -1,6 +1,5 @@
 import {
   Component,
-  Input,
   AfterContentInit,
   ContentChildren,
   QueryList
@@ -16,8 +15,6 @@ import {
   templateUrl: './toolbar.component.html'
 })
 export class SkyToolbarComponent implements AfterContentInit {
-  @Input()
-  public hasDarkTheme: boolean = false;
 
   public hasSections: boolean = false;
 
