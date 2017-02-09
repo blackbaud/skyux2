@@ -15,9 +15,13 @@
 </div>
 
 <template #selectAllTemplate>
-  <a href (click)="selectAll(); false">Select all</a>
+  <button class="sky-btn sky-btn-link" (click)="selectAll(); false">
+    {{'checklist_select_all' | skyResources}}
+  </button>
 </template>
 
 <template #clearSelectionsTemplate>
-  <a href (click)="clearSelections(); false">Clear all</a>
+  <button class="sky-btn sky-btn-link" (click)="clearSelections(); false">
+    {{'checklist_clear_all' | skyResources}}
+  </button>
 </template>

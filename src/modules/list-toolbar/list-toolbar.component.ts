@@ -18,8 +18,11 @@ import {
   ListToolbarStateDispatcher,
   ListToolbarStateModel
 } from './state';
-import { ListToolbarModel } from '../list/state/toolbar/toolbar.model';
-import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
+import {
+  ListToolbarModel,
+  ListToolbarItemModel,
+  ListToolbarSetTypeAction
+} from '../list/state';
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { getValue } from 'microedge-rxstate/dist/helpers';
@@ -76,9 +79,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         )
       )
     );
-    getValue(this.searchEnabled, (searchEnabled: any) => {
-
-    })
+    getValue(this.toolbarType, (type: string) => {
+      this.dispatcher.next(new ListToolbarSetTypeAction(this.toolbarType));
+    });
     this.dispatcher.toolbarAddItems([
       this.toolbarType !== 'search' ?
         new ListToolbarItemModel({
@@ -147,6 +150,12 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   private updateSearchText(searchText: string) {
     this.dispatcher.searchSetText(searchText);
+  }
+
+  get type() {
+    return this.state.map((state) => {
+      return state.toolbar.type
+    }).distinctUntilChanged();
   }
 
   private get isSearchEnabled() {

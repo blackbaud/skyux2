@@ -45,6 +45,10 @@ import {
 } from '../list/state/toolbar/toolbar-item.model';
 
 import {
+  ListToolbarSetTypeAction
+} from '../list/state/toolbar/actions';
+
+import {
   Observable
 } from 'rxjs';
 
@@ -80,9 +84,6 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   @Input()
   public search: (data: any, searchText: string) => boolean = this.searchFunction();
 
-  @Input()
-  public category: string = 'category';
-
   /* tslint:disable */
   @Input('label')
   public labelFieldSelector: string = 'label';
@@ -117,9 +118,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
             label:
               this.labelFieldSelector ? getData(item.data, this.labelFieldSelector) : undefined,
             description:
-              this.description ? getData(item.data, this.description) : undefined,
-            category:
-              this.category ? getData(item.data, this.category) : undefined
+              this.description ? getData(item.data, this.description) : undefined
           });
         });
 
@@ -145,11 +144,9 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       fieldSelectors.push(this.description);
     }
 
-    if (this.category) {
-      fieldSelectors.push(this.category);
-    }
-
     this.dispatcher.searchSetFieldSelectors(fieldSelectors);
+
+    this.dispatcher.next(new ListToolbarSetTypeAction('search'));
   }
 
   public ngAfterViewInit() {
@@ -192,16 +189,6 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
           if (
             description !== undefined &&
             description.toString().toLowerCase().indexOf(searchText) !== -1
-          ) {
-            return true;
-          }
-        }
-
-        if (this.category !== undefined) {
-          let category = getData(data, this.category);
-          if (
-            category !== undefined &&
-            category.toString().toLowerCase().indexOf(searchText) !== -1
           ) {
             return true;
           }

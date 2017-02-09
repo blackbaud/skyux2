@@ -22,6 +22,10 @@ import {
   SkyListViewChecklistItemComponent
 } from './list-view-checklist-item.component';
 
+import {
+  SkyResourcesModule
+} from '../resources';
+
 @NgModule({
   declarations: [
     SkyListViewChecklistComponent,
@@ -34,7 +38,8 @@ import {
   imports: [
     CommonModule,
     FormsModule,
-    SkyCheckboxModule
+    SkyCheckboxModule,
+    SkyResourcesModule
   ]
 })
 export class SkyListViewChecklistModule {
