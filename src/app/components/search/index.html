@@ -1,6 +1,6 @@
 <sky-demo-page title="Search">
   <sky-demo-page-summary>
-    Creates an input control for users to enter search criteria. On mobile devices, the component displays a search button that users can click to display the input control.
+    Creates an input control for users to enter search criteria.
   </sky-demo-page-summary>
 
   <sky-demo-page-properties sectionHeading="Search properties">
@@ -17,12 +17,19 @@
       Specifies placeholder text for the search input.
     </sky-demo-page-property>
     <sky-demo-page-property
-      propertyName="isCollapsible"
+      propertyName="expandMode"
       isOptional="true"
-      defaultValue="true"
+      defaultValue="responsive"
     >
-      Specifies whether the search input should collapse into a search button on small screens.
+      Specifies the expand mode for the search input. The valid options are <code>responsive</code>, <code>none</code>, and <code>fit</code>.
+      <ul>
+            <li><code>responsive</code> The search input collapses into a button on mobile devices.</li>
+            <li><code>none</code> The search input does not collapse into a button on mobile devices.</li>
+            <li><code>fit</code> The search input fits the width of its container.</li>
+      </ul>
+
     </sky-demo-page-property>
+
   </sky-demo-page-properties>
 
   <sky-demo-page-properties sectionHeading="Search events">

@@ -10,4 +10,14 @@ describe('Toolbar', function () {
         checkAccessibility: true
       });
   });
+
+  it('should match previous toolbar screenshot with sections', function () {
+    return browser
+      .setupTest('/toolbar.html')
+      .compareScreenshot({
+        screenshotName: 'toolbar_section',
+        selector: '#screenshot-toolbar-sectioned',
+        checkAccessibility: true
+      });
+  });
 });

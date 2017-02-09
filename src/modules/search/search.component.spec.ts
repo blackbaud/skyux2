@@ -176,6 +176,16 @@ describe('Search component', () => {
     expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
   }
 
+  function verifySearchOpenFullScreenFullWidth() {
+    fixture.detectChanges();
+    let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
+    expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
+    expect(searchDismissContainer.nativeElement).toBeVisible();
+    expect(searchDismissContainer.nativeElement)
+      .toHaveCssClass('sky-search-dismiss-absolute');
+    expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
+  }
+
   function verifySearchClosed() {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
@@ -352,9 +362,9 @@ describe('Search component', () => {
     });
   });
 
-  describe('isCollapsible false', () => {
+  describe('expandMode none', () => {
     it('do nothing when open button pressed', async(() => {
-      component.isCollapsible = false;
+      component.expandMode = 'none';
       fixture.detectChanges();
       triggerXsBreakpoint().then(() => {
         fixture.detectChanges();
@@ -366,11 +376,26 @@ describe('Search component', () => {
       });
     }));
   });
+
+  describe('expandMode fit', () => {
+    it('do nothing when open button pressed', async(() => {
+      component.expandMode = 'fit';
+      fixture.detectChanges();
+      triggerXsBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifySearchOpenFullScreenFullWidth();
+        triggerOpenButton().then(() => {
+          fixture.detectChanges();
+          verifySearchOpenFullScreenFullWidth();
+        });
+      });
+    }));
+  });
  });
 
- describe('initialize to isCollapsible false', () => {
+ describe('initialize expandMode none', () => {
    it('should do nothing when open button pressed', async(() => {
-     component.isCollapsible = false;
+     component.expandMode = 'none';
       fixture.detectChanges();
       triggerXsBreakpoint().then(() => {
         fixture.detectChanges();

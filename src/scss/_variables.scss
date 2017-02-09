@@ -37,6 +37,7 @@ $sky-nav-selected-border-width: 4px !default;
 $sky-border-color: #e7eaec !default;
 
 $sky-body-background-color: #f3f3f4 !default;
+$sky-background-color-neutral-light: #eeeeef !default;
 
 $sky-line-height-base: 1.428571429 !default;
 
@@ -135,10 +136,14 @@ $sky-paging-border-color: #ddd !default;
 $sky-paging-background-color: $sky-color-white !default;
 // end paging
 
-//begin tabs
+// begin search
+$sky-search-background-color: $sky-color-white !default;
+// end search
+
+// begin tabs
 $sky-tab-btn-padding-top-bottom: 8px !default;
 $sky-tab-btn-padding-left-right: 16px !default;
-//end tabs
+// end tabs
 
 // begin toolbar
 $sky-toolbar-background-color: $sky-color-white !default;
