@@ -1,27 +1,29 @@
 <sky-demo-nav></sky-demo-nav>
 <div class="sky-container">
     <h1>SKY UX 2 Overview</h1>
-    <p>The SKY UX framework provides a consistent, cohesive user experience for Blackbaud products and for third-party developers. SKY UX 2 continues to provide the components, services, and modules that allow developers to incorporate Blackbaud styles and patterns. In addition, SKY UX 2 also provides a developer tool called the SKY UX Builder to abstract many of the complexities of modern web development. And SKY UX 2 also includes a continuous integration layer for testing and a hosting solution for Blackbaud applications.</p>
+    <p>The SKY UX framework provides a consistent, cohesive user experience for Blackbaud products and for third-party developers. SKY UX provides the components, services, and modules that developers need to incorporate Blackbaud styles and patterns.</p>
+    <p>And with SKY UX 2, the provides additional benefits. First, the SKY UX Builder developer tool now abstracts many of the complexities of modern web development. SKY UX Builder takes the application-building aspects of Angular 2 and wraps them up. We still expect developers to write JavaScript/Typescript and build features, but we don’t expect them to handle all the underlying details. In addition, SKY UX 2 includes a continuous integration layer for testing and validation, and SKY UX Host provides as a hosting solution for Blackbaud applications.</p>
+    <!--
     <p>SKY UX 2 enables developers to focus on features instead of infrastructure. It creates user experience interactions and allows feature engineers to consume them.</p>
-    <p>Since Angular 2 was a complete rewrite of AngularJS, we used it as an opportunity to expand SKY UX. SKY UX Builder takes the application building aspects of Angular 2 and wraps them  up. We still expect developers to write JavaScript/Typescript and build features, but we don’t expect them to do all the underlying work such as handling Webpack. Instead, SKY UX Builder abstracts that layer from developers.</p> 
+    -->
     
     <h2>SKY UX vs. SKY UX 2</h2>
-    <p>SKY UX 2 continues to provide many of the same benefits as the first version of SKY UX. It continues to provide design patterns that implement a consistent, cohesive user experience along with guidance on how to apply components and the context for when to use them. And it continues to provide Angular components, services, and modules that allow developers to create user interfaces that incorporate SKY UX styles and patterns.</p>
-    <p>In addition, SKY UX 2 includes several improvements and new capabilities, including the following benefits:</p>
+    <p>SKY UX 2 continues to provide many of the same benefits as the first version of SKY UX. It continues to provide design patterns to implement a consistent, cohesive user experience, as well as guidance on how to apply components and the context for when to use them. It continues to provide Angular components, services, and modules to create user interfaces that incorporate SKY UX styles and patterns.</p>
+    <p>In addition, SKY UX 2 includes the following improvements and new capabilities:</p>
     <ul>
         <li><p>SKY UX 2 takes advantage of <a href="https://angular.io/">Angular 2</a> to keep SKY UX modern while increasing the tooling, testing, and performance available.</p></li>
         <li><p>SKY UX Builder provides for a rapid development process with minimal developer setup. It creates single-page applications and handles details such as transpilation, linting, unit testing, and bundling/chunking/minifying.</p></li>
-        <li><p>A continuous integration layer runs unit tests, visual regression tests, and end-to-end tests in multiple platforms and browsers when a SPA's code changes or when an SPA dependency releases a new version. This layer also stages the SPA for additional testing and validation.</p></li>
+        <li><p>A continuous integration layer runs unit tests, visual regression tests, and end-to-end tests in multiple platforms and browsers when an SPA's code changes or when an SPA dependency releases a new version. This layer also stages the SPA for additional testing and validation.</p></li>
         <li><p>SKY UX Host acts as a gateway for all requests to SKY UX SPAs. When serving locally, it pulls files locally. And for production, it pulls files from a registry that stores static files when SKY UX Builder runs in the continuous integration layer.</p></li>
     </ul>
     
     <h2>SKY UX Builder</h2>
-    <p>SKY UX Builder is cross-platform command line developer tool to create, test, and run SPAs locally. It abstracts most of the tedious complexities of modern web development, including bundling configuration, unit test configuration, and routing/module configuration. This allows developers to focus on features, not infrastructure. And it allows SPAs to be developed, tested, deployed, and hosted in a consistent way across an entire application.</p>
-    <p>SKY UX Builder provides for a rapid development process with minimal developer setup. It handles details such as transpilation, linting, unit testing, and bundling/chunking/minifying. In addition, SKY UX Builder also handles the following details:</p>
+    <p>SKY UX Builder is cross-platform command line developer tool to create, test, and run SPAs. It abstracts most of the tedious complexities of modern web development, including bundling configuration, unit test configuration, and routing/module configuration. This allows developers to focus on features, not infrastructure. And it allows SPAs to be developed, tested, deployed, and hosted in a consistent way across an entire application.</p>
     <ul>
-        <li><p>By default, SKY UX Builder uses automatic route configuration based on the project's folder structure. This means that you must place files in specific locations to make sure that they are recognized. For example, to create a page, you add a folder in the existing <code>\src\app</code> folder and add an index.html file to that new folder.</p></li>
+        <li><p>Handles details such as transpilation, linting, unit testing, and bundling/chunking/minifying.</p></li>
+        <li><p>By default, uses automatic route configuration based on a project's folder structure. This means that you must place files in specific locations to make sure that they are recognized. For example, to create a page, you add a folder in the existing <code>\src\app</code> folder and add an index.html file to that new folder.</p></li>
         <li><p>Provides build and testing configurations. This includes settings to use Webpack to handle minification and build JavaScript assets, Karma unit tests, and Protractor end-to-end tests.</p></li>
-        <li><p>Allows easy implementation of Blackbaud Authentication.</p></li>
+        <li><p>Allows for easy implementation of Blackbaud Authentication.</p></li>
     </ul>
     
     <h2>Continuous integration layer</h2>
@@ -30,12 +32,10 @@
     <p><strong>Placeholder to flesh out build and deploy information for developers.</strong></p>
 
     <h2>SKY UX Host</h2>
-    <p>The SKY UX Registry serves as the mechanism where the status of builds and SPAs is shared from the continuous integration layer to SKY UX Host. When running SKY UX Builder in the continuous integration layer, the static files that it produces (JavaScript files, JSON files, etc.) are stored in the SKY UX Registry, and the SKY UX Host looks for them there to serve them when the files are requested.</p>
-    <p></p>
-    <p>SKY UX Host acts as a gateway for all requests to SKY UX SPAs. When serving locally, it pulls files locally. And for production, it pulls files from a registry that stores static files when SKY UX Builder runs in the continuous integration layer.</p>
-    <p>In addition, SKY UX Host also creates a web service to handle the following details:</p>
+    <p>SKY UX Host is the gateway for requests to SKY UX SPAs. When serving locally, SKY UX Host pulls files locally. And for production, SKY UX Host pulls files from a registry where SKY UX Builder stores them. When SKY UX Builder runs in the continuous integration layer, it stores the static files that it produces (JavaScript, JSON, etc.) in the registry for SKY UX Host to serve them.</p>
+    <p>SKY UX Host creates a web service to handle the following details:</p>
     <ul>
-        <li><p>Serve up an HTML page that hosts the SPA.</p></li>
+        <li><p>Serve up an HTML page to host the SPA.</p></li>
         <li><p>Set the appropriate cache headers for the HTML page and static files.</p></li>
         <li><p>Set the appropriate handlers to support HTML 5-style routing.</p></li>
         <li><p>Serve as an origin for a content delivery network (CDN).</p></li>
