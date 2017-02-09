@@ -72,7 +72,7 @@ export class SkyListComponent implements AfterContentInit {
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
 
   @Output()
-  public selectedItemsChange = new EventEmitter<Array<ListItemModel>>();
+  public selectedIdsChange = new EventEmitter<ListSelectedModel>();
 
   /* tslint:disable */
   @Input('search')
@@ -114,16 +114,13 @@ export class SkyListComponent implements AfterContentInit {
     });
 
     // Emit new selected items when they change if there is an observer.
-    if (this.selectedItemsChange.observers.length > 0) {
-      Observable.combineLatest(
-        this.state.map(current => current.items.items).distinctUntilChanged(),
-        this.state.map(current => current.selected).distinctUntilChanged(),
-        (items: Array<ListItemModel>, selected: AsyncItem<ListSelectedModel>) => {
-          return items.filter(i => selected.item[i.id]);
-        }
-      ).skip(1).subscribe((selectedItems) => {
-        this.selectedItemsChange.emit(selectedItems);
-      });
+    if (this.selectedIdsChange.observers.length > 0) {
+
+      this.state.map(current => current.selected).distinctUntilChanged()
+        .skip(1)
+        .subscribe((selected) => {
+          this.selectedIdsChange.emit(selected.item);
+        });
     }
 
   }

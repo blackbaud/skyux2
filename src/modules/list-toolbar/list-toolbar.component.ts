@@ -29,6 +29,7 @@ import { SkySearchComponent } from '../search';
 @Component({
   selector: 'sky-list-toolbar',
   templateUrl: './list-toolbar.component.html',
+  styleUrls: ['./list-toolbar.component.scss'],
   providers: [
     ListToolbarState,
     ListToolbarStateDispatcher,
@@ -46,7 +47,10 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   public searchComponent: SkySearchComponent;
 
   @Input()
-  private searchText: string | Observable<string>;
+  public toolbarType: string = 'standard';
+
+  @Input()
+  public searchText: string | Observable<string>;
 
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
@@ -72,14 +76,17 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         )
       )
     );
+    getValue(this.searchEnabled, (searchEnabled: any) => {
 
+    })
     this.dispatcher.toolbarAddItems([
-      new ListToolbarItemModel({
-        id: 'search',
-        template: this.searchTemplate,
-        location: 'center'
-      })
-    ]);
+      this.toolbarType !== 'search' ?
+        new ListToolbarItemModel({
+          id: 'search',
+          template: this.searchTemplate,
+          location: 'center'
+       }) : undefined
+    ].filter(item => item !== undefined));
   }
 
   public ngAfterContentInit() {

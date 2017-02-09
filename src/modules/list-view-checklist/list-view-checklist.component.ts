@@ -59,7 +59,7 @@ import {
 
 @Component({
   selector: 'sky-list-view-checklist',
-  templateUrl: './list-view.checklist.component.html',
+  templateUrl: './list-view-checklist.component.html',
   styleUrls: ['./list-view-checklist.component.scss'],
   providers: [
     /* tslint:disable */
@@ -83,8 +83,10 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   @Input()
   public category: string = 'category';
 
-  @Input()
-  public label: string = 'label';
+  /* tslint:disable */
+  @Input('label')
+  public labelFieldSelector: string = 'label';
+  /* tslint:enable */
 
   @Input()
   public description: string = 'description';
@@ -113,7 +115,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         let newItems = items.items.map(item => {
           return new ListViewChecklistItemModel(item.id, {
             label:
-              this.label ? getData(item.data, this.label) : undefined,
+              this.labelFieldSelector ? getData(item.data, this.labelFieldSelector) : undefined,
             description:
               this.description ? getData(item.data, this.description) : undefined,
             category:
@@ -135,8 +137,8 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     }
 
     let fieldSelectors: Array<string> = [];
-    if (this.label) {
-      fieldSelectors.push(this.label);
+    if (this.labelFieldSelector) {
+      fieldSelectors.push(this.labelFieldSelector);
     }
 
     if (this.description) {
@@ -179,8 +181,8 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
 
   public searchFunction() {
     return (data: any, searchText: string) => {
-      if (this.label !== undefined) {
-        let label = getData(data, this.label);
+      if (this.labelFieldSelector !== undefined) {
+        let label = getData(data, this.labelFieldSelector);
         if (label !== undefined && label.toString().toLowerCase().indexOf(searchText) !== -1) {
           return true;
         }
@@ -221,8 +223,8 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       .take(1)
       .subscribe(items => {
         this.dispatcher
-          .next(new ListSelectedSetItemsSelectedAction(items.map(item => item.id), false));
-      })
+          .next(new ListSelectedSetItemsSelectedAction(items.map(item => item.id), false, false));
+      });
   }
 
   public selectAll() {
@@ -230,8 +232,8 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       .take(1)
       .subscribe(items => {
         this.dispatcher
-          .next(new ListSelectedSetItemsSelectedAction(items.map(item => item.id, true)));
-      })
+          .next(new ListSelectedSetItemsSelectedAction(items.map(item => item.id), true, false));
+      });
   }
 
 }

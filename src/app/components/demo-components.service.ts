@@ -293,6 +293,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List view checklist',
+        icon: 'list-ul',
+        // tslint:disable-next-line
+        summary: `The checklist builds a filterable checkbox list of data.`,
+        url: '/components/list-view-checklist',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-view-checklist-demo.component.html',
+              fileContents:
+              require('!!raw!./list-view-checklist/list-view-checklist-demo.component.html')
+            },
+            {
+              name: 'list-view-checklist-demo.component.ts',
+              fileContents:
+              require('!!raw!./list-view-checklist/list-view-checklist-demo.component.ts'),
+              componentName: 'SkyListViewChecklistDemoComponent',
+              bootstrapSelector: 'sky-list-view-checklist-demo'
+            }
+          ];
+        }
+      },
+      {
          name: 'List view grid',
          icon: 'table',
          // tslint:disable-next-line
