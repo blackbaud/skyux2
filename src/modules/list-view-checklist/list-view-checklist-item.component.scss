@@ -1,8 +1,10 @@
-:host {
+@import '../../scss/mixins';
+
+.sky-list-view-checklist-item {
   display: block;
   width: 100%;
   cursor: pointer;
-  border-bottom: 1px dotted #ccc;
+  border-bottom: 1px dotted $sky-color-gray-lighter;
 
   &:last-child {
     border-bottom-width: 0;
@@ -12,7 +14,7 @@
     display: block;
     position: relative;
     width: 100%;
-    padding: 10px;
+    padding: $sky-padding;
     cursor: pointer;
   }
 
@@ -23,6 +25,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
-    padding-left: 10px;
+    padding-left: $sky-padding;
   }
 }

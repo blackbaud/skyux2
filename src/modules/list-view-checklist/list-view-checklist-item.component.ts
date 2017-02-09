@@ -10,7 +10,7 @@ import {
 
 @Component({
   selector: 'sky-list-view-checklist-item',
-  template: '<ng-content></ng-content>',
+  templateUrl: './list-view-checklist-item.component.html',
   styleUrls: ['./list-view-checklist-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
