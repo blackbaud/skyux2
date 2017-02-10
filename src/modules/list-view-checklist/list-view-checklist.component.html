@@ -15,13 +15,13 @@
 </div>
 
 <template #selectAllTemplate>
-  <button class="sky-btn sky-btn-link" (click)="selectAll(); false">
+  <button class="sky-btn sky-btn-link sky-list-view-checklist-select-all" (click)="selectAll(); false">
     {{'checklist_select_all' | skyResources}}
   </button>
 </template>
 
 <template #clearSelectionsTemplate>
-  <button class="sky-btn sky-btn-link" (click)="clearSelections(); false">
+  <button class="sky-btn sky-btn-link sky-list-view-checklist-clear-all" (click)="clearSelections(); false">
     {{'checklist_clear_all' | skyResources}}
   </button>
 </template>

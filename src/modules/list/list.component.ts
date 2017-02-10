@@ -72,7 +72,7 @@ export class SkyListComponent implements AfterContentInit {
   public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
 
   @Output()
-  public selectedIdsChange = new EventEmitter<ListSelectedModel>();
+  public selectedIdsChange = new EventEmitter<Map<string, boolean>>();
 
   /* tslint:disable */
   @Input('search')
@@ -119,7 +119,7 @@ export class SkyListComponent implements AfterContentInit {
       this.state.map(current => current.selected).distinctUntilChanged()
         .skip(1)
         .subscribe((selected) => {
-          this.selectedIdsChange.emit(selected.item);
+          this.selectedIdsChange.emit(selected.item.selectedIdMap);
         });
     }
 
@@ -205,7 +205,7 @@ export class SkyListComponent implements AfterContentInit {
       this.state.map(current => current.items.items).distinctUntilChanged(),
       this.state.map(current => current.selected).distinctUntilChanged(),
       (items: Array<ListItemModel>, selected: AsyncItem<ListSelectedModel>) => {
-        return items.filter(i => selected.item[i.id]);
+        return items.filter(i => selected.item.selectedIdMap.get(i.id));
       }
     );
   }

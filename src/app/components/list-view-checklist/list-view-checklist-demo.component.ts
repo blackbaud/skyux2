@@ -6,10 +6,6 @@ import {
   Observable
 } from 'rxjs';
 
-import {
-  ListSelectedModel
-} from '../../../core';
-
 @Component({
   selector: 'sky-list-view-checklist-demo',
   templateUrl: './list-view-checklist-demo.component.html'
@@ -27,10 +23,10 @@ export class SkyListViewChecklistDemoComponent {
 
   public selectedItems: Array<any> = [];
 
-  public selectedItemsChange(selectedModel: Array<ListSelectedModel>) {
+  public selectedItemsChange(selectedMap: Map<string, boolean>) {
     this.items.take(1).subscribe((items) => {
       this.selectedItems = items.filter((item) => {
-        return selectedModel[item.id];
+        return selectedMap.get(item.id);
       });
     });
   }

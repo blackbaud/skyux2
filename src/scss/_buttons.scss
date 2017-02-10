@@ -28,7 +28,7 @@
 }
 
 .sky-btn-default {
-  @include sky-button-variant($sky-text-color, $sky-color-white, $sky-color-gray-lighter);
+  @include sky-button-variant($sky-text-color, $sky-color-white, $sky-color-gray-lighter, $sky-color-gray-10);
 }
 
 .sky-btn-primary {

@@ -20,7 +20,8 @@ import {
   ListViewsSetActiveAction,
   ListViewModel,
   ListToolbarItemModel,
-  ListToolbarItemsLoadAction
+  ListToolbarItemsLoadAction,
+  ListToolbarSetTypeAction
 } from '../list/state';
 
 describe('List Toolbar Component', () => {
@@ -116,6 +117,37 @@ describe('List Toolbar Component', () => {
         expect(items[1].query(By.css('input'))).not.toBeNull();
         expect(items[2].nativeElement).toHaveText('Custom Item');
         expect(items[3].nativeElement).toHaveText('Custom Item 2');
+      });
+
+    }));
+
+    function verifySearchTypeToolbar() {
+      fixture.detectChanges();
+      let sections = element.queryAll(By.css('.sky-list-toolbar-search .sky-toolbar-section'));
+      expect(sections.length).toBe(2);
+      expect(sections[0].query(By.css('input'))).not.toBeNull();
+      expect(component.toolbar.searchComponent.expandMode).toBe('fit');
+      let items = sections[1].queryAll(By.css('.sky-toolbar-item sky-list-toolbar-item-renderer'));
+      expect(items[0].nativeElement).toHaveText('');
+      expect(items[1].nativeElement).toHaveText('Custom Item');
+      expect(items[2].nativeElement).toHaveText('Custom Item 2');
+    }
+
+    it('should load custom items with toolbarType = search initialized', async(() => {
+      component.toolbarType = 'search';
+      initializeToolbar();
+      fixture.whenStable().then(() => {
+        verifySearchTypeToolbar();
+      });
+
+    }));
+
+    it('should load custom items with toolbarType = search set by the state', async(() => {
+      initializeToolbar();
+
+      dispatcher.next(new ListToolbarSetTypeAction('search'));
+      fixture.whenStable().then(() => {
+        verifySearchTypeToolbar();
       });
 
     }));

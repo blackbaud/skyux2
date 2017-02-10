@@ -1,7 +1,6 @@
 @import '../../scss/mixins';
 
 .sky-action-button {
-  @include sky-button-variant($sky-text-color, $sky-color-white, $sky-color-gray-lighter);
   @include sky-border(dark, top, bottom, left, right);
   max-width: 236px;
   border-radius: 3px;

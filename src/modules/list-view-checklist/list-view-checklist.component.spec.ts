@@ -1,6 +1,9 @@
 import {
   TestBed,
-  async
+  async,
+  ComponentFixture,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -8,7 +11,7 @@ import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-import * as moment from 'moment';
+let moment = require('moment');
 import { ListViewsLoadAction } from '../list/state/views/actions';
 import { ListViewModel } from '../list/state/views/view.model';
 import { ListItemModel } from '../list/state/items/item.model';
@@ -19,10 +22,19 @@ import {
 import {
   ListViewChecklistEmptyTestComponent
 } from './fixtures/list-view-checklist-empty.component.fixture';
+import {
+  ListViewChecklistToolbarTestComponent
+} from './fixtures/list-view-checklist-toolbar.component.fixture';
 import { SkyListViewChecklistModule } from './';
 import { ListViewChecklistItemsLoadAction } from './state/items/actions';
 import { ListViewChecklistItemModel } from './state/items/item.model';
 import { ChecklistState, ChecklistStateDispatcher, ChecklistStateModel } from './state';
+
+import { SkyListModule, SkyListComponent } from '../list';
+
+import { SkyListToolbarModule } from '../list-toolbar';
+
+import { Observable, BehaviorSubject } from 'rxjs';
 
 describe('List View Checklist Component', () => {
   describe('Basic Fixture', () => {
@@ -59,19 +71,19 @@ describe('List View Checklist Component', () => {
 
       items = [
         new ListItemModel('1', { column1: '1', column2: 'Apple',
-          column3: 'aa', column4: moment().add(1, 'minute') }),
+        column4: moment().add(1, 'minute') }),
         new ListItemModel('2', { column1: '01', column2: 'Banana',
-          column3: 'bb', column4: moment().add(6, 'minute'), column5: 'test' }),
+         column4: moment().add(6, 'minute'), column5: 'test' }),
         new ListItemModel('3', { column1: '11', column2: 'Banana',
-          column3: 'cc', column4: moment().add(4, 'minute') }),
+         column4: moment().add(4, 'minute') }),
         new ListItemModel('4', { column1: '12', column2: 'Daikon',
-          column3: 'dd', column4: moment().add(2, 'minute') }),
+          column4: moment().add(2, 'minute') }),
         new ListItemModel('5', { column1: '13', column2: 'Edamame',
-          column3: 'ee', column4: moment().add(5, 'minute') }),
+          column4: moment().add(5, 'minute') }),
         new ListItemModel('6', { column1: '20', column2: 'Fig',
-          column3: 'ff', column4: moment().add(3, 'minute') }),
+          column4: moment().add(3, 'minute') }),
         new ListItemModel('7', { column1: '21', column2: 'Grape',
-          column3: 'gg', column4: moment().add(7, 'minute') })
+          column4: moment().add(7, 'minute') })
       ];
 
       dispatcher.next(new ListItemsLoadAction(items, true));
@@ -111,7 +123,7 @@ describe('List View Checklist Component', () => {
       searchItems = items.filter(item => component.checklist.searchFunction()(item.data, 'bb'));
       dispatcher.next(new ListItemsLoadAction(searchItems, true));
       fixture.detectChanges();
-      expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(1);
+      expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(0);
     }));
   });
 
@@ -180,6 +192,164 @@ describe('List View Checklist Component', () => {
       fixture.detectChanges();
       expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(0);
     }));
+  });
+
+  describe('Checklist with toolbar', () => {
+    let dispatcher: ListStateDispatcher,
+      state: ListState,
+      bs: BehaviorSubject<Array<any>>,
+      items: Observable<Array<any>>,
+      fixture: ComponentFixture<ListViewChecklistToolbarTestComponent>,
+      nativeElement: HTMLElement,
+      element: DebugElement,
+      component: ListViewChecklistToolbarTestComponent,
+      itemsArray: Array<ListItemModel>;
+
+    beforeEach(async(() => {
+      dispatcher = new ListStateDispatcher();
+      state = new ListState(dispatcher);
+
+        /* tslint:disable */
+        itemsArray  = [
+          new ListItemModel('1', { column1: '1', column2: 'Apple',
+          column4: moment().add(1, 'minute') }),
+          new ListItemModel('2', { column1: '01', column2: 'Banana',
+          column4: moment().add(6, 'minute'), column5: 'test' }),
+          new ListItemModel('3', { column1: '11', column2: 'Banana',
+          column4: moment().add(4, 'minute') }),
+          new ListItemModel('4', { column1: '12', column2: 'Daikon',
+            column4: moment().add(2, 'minute') }),
+          new ListItemModel('5', { column1: '13', column2: 'Edamame',
+            column4: moment().add(5, 'minute') }),
+          new ListItemModel('6', { column1: '20', column2: 'Fig',
+            column4: moment().add(3, 'minute') }),
+          new ListItemModel('7', { column1: '21', column2: 'Grape',
+            column4: moment().add(7, 'minute') })
+        ];
+
+        bs = new BehaviorSubject<Array<any>>(itemsArray);
+        items = bs.asObservable();
+
+        TestBed.configureTestingModule({
+          declarations: [
+            ListViewChecklistToolbarTestComponent
+          ],
+          imports: [
+            SkyListModule,
+            SkyListToolbarModule,
+            SkyListViewChecklistModule
+          ],
+          providers: [
+            { provide: 'items', useValue: items }
+          ]
+        })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              { provide: ListState, useValue: state },
+              { provide: ListStateDispatcher, useValue: dispatcher }
+            ]
+          }
+        });;
+
+        fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
+        nativeElement = fixture.nativeElement as HTMLElement;
+        element = fixture.debugElement as DebugElement;
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        // always skip the first update to ListState, when state is ready
+        // run detectChanges once more then begin tests
+        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+        fixture.detectChanges();
+    }));
+
+    it('should set selections on click properly', fakeAsync(() => {
+      let labelEl = <HTMLLabelElement>nativeElement
+        .querySelectorAll('label.sky-checkbox-wrapper')[0];
+
+      labelEl.click();
+      tick();
+      fixture.detectChanges();
+
+      expect(component.selectedItems.get('1')).toBe(true);
+
+      labelEl.click();
+      tick();
+      fixture.detectChanges();
+
+      expect(component.selectedItems.get('1')).toBe(false);
+
+    }));
+
+    it('should select all and clear all properly', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let selectAllEl = <HTMLButtonElement>nativeElement
+        .querySelector('.sky-list-view-checklist-select-all');
+
+      let clearAllEl = <HTMLButtonElement>nativeElement
+        .querySelector('.sky-list-view-checklist-clear-all');
+
+      selectAllEl.click();
+      tick();
+      fixture.detectChanges();
+
+      expect(component.selectedItems.get('1')).toBe(true);
+      expect(component.selectedItems.get('2')).toBe(true);
+      expect(component.selectedItems.get('3')).toBe(true);
+      expect(component.selectedItems.get('4')).toBe(true);
+      expect(component.selectedItems.get('5')).toBe(true);
+      expect(component.selectedItems.get('6')).toBe(true);
+      expect(component.selectedItems.get('7')).toBe(true);
+
+      tick();
+      fixture.detectChanges();
+      let newItems = itemsArray.filter(item => item.id === '6' || item.id === '7');
+      dispatcher.next(new ListItemsLoadAction(newItems, true));
+      tick();
+      fixture.detectChanges();
+
+      tick();
+      fixture.detectChanges();
+
+      clearAllEl.click();
+      tick();
+      fixture.detectChanges();
+
+      expect(component.selectedItems.get('1')).toBe(true);
+      expect(component.selectedItems.get('2')).toBe(true);
+      expect(component.selectedItems.get('3')).toBe(true);
+      expect(component.selectedItems.get('4')).toBe(true);
+      expect(component.selectedItems.get('5')).toBe(true);
+      expect(component.selectedItems.get('6')).toBe(false);
+      expect(component.selectedItems.get('7')).toBe(false);
+
+      selectAllEl.click();
+      tick();
+      fixture.detectChanges();
+
+      expect(component.selectedItems.get('1')).toBe(true);
+      expect(component.selectedItems.get('2')).toBe(true);
+      expect(component.selectedItems.get('3')).toBe(true);
+      expect(component.selectedItems.get('4')).toBe(true);
+      expect(component.selectedItems.get('5')).toBe(true);
+      expect(component.selectedItems.get('6')).toBe(true);
+      expect(component.selectedItems.get('7')).toBe(true);
+
+    }));
+
+    it('sets toolbar type to search', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
+      state.take(1).subscribe((current) => {
+        expect(current.toolbar.type).toBe('search');
+      });
+      tick();
+      fixture.detectChanges();
+    }));
+
   });
 
   describe('Models and State', () => {

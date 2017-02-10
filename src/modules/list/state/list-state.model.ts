@@ -16,4 +16,8 @@ export class ListStateModel {
   public toolbar: ListToolbarModel = new ListToolbarModel();
   public views: ListViewsModel = new ListViewsModel();
 
+  constructor() {
+    this.selected.item = new ListSelectedModel();
+  }
+
 }

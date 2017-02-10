@@ -183,22 +183,22 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         if (label !== undefined && label.toString().toLowerCase().indexOf(searchText) !== -1) {
           return true;
         }
+      }
 
-        if (this.description !== undefined) {
-          let description = getData(data, this.description);
-          if (
-            description !== undefined &&
-            description.toString().toLowerCase().indexOf(searchText) !== -1
-          ) {
-            return true;
-          }
+      if (this.description !== undefined) {
+        let description = getData(data, this.description);
+        if (
+          description !== undefined &&
+          description.toString().toLowerCase().indexOf(searchText) !== -1
+        ) {
+          return true;
         }
       }
     };
   }
 
-  public itemSelected(id: string) {
-    return this.state.map(state => state.selected.item[id]);
+  public itemSelected(id: string): Observable<boolean> {
+    return this.state.map(state => state.selected.item.selectedIdMap.get(id));
   }
 
   public setItemSelection(item: ListItemModel, event: any) {
