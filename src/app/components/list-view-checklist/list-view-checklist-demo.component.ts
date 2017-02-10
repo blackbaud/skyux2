@@ -25,6 +25,8 @@ export class SkyListViewChecklistDemoComponent {
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
 
+  public selectedItems: Array<any> = [];
+
   public selectedItemsChange(selectedModel: Array<ListSelectedModel>) {
     this.items.take(1).subscribe((items) => {
       this.selectedItems = items.filter((item) => {
@@ -32,6 +34,4 @@ export class SkyListViewChecklistDemoComponent {
       });
     });
   }
-
-  public selectedItems: Array<any> = [];
 }

@@ -124,7 +124,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
 
         this.checklistDispatcher.next(
           new ListViewChecklistItemsLoadAction(newItems, true, dataChanged, items.count)
-        )
+        );
       }
     )
     .subscribe();

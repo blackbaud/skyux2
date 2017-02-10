@@ -44,7 +44,5 @@ export class ListViewChecklistItemsOrchestrator
       false,
       action.itemCount
     );
-
-
   }
 }

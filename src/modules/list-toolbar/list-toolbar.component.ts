@@ -154,7 +154,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   get type() {
     return this.state.map((state) => {
-      return state.toolbar.type
+      return state.toolbar.type;
     }).distinctUntilChanged();
   }
 
