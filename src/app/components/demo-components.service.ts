@@ -238,6 +238,37 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List',
+        icon: 'list',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-demo.component.html',
+              fileContents: require('!!raw!./list/list-demo.component.html')
+            },
+            {
+              name: 'list-demo.component.ts',
+              fileContents: require('!!raw!./list/list-demo.component.ts'),
+              componentName: 'SkyListDemoComponent',
+              bootstrapSelector: 'sky-list-demo'
+            },
+            {
+              name: 'list-provider-demo.component.html',
+              fileContents: require('!!raw!./list/list-provider-demo.component.html')
+            },
+            {
+              name: 'list-provider-demo.component.ts',
+              fileContents: require('!!raw!./list/list-provider-demo.component.ts'),
+              componentName: 'SkyListProviderDemoComponent',
+              bootstrapSelector: 'sky-list-provider-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'List paging',
         icon: 'file-o',
         // tslint:disable-next-line

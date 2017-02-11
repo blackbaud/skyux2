@@ -4,7 +4,6 @@
   display: block;
   width: 100%;
   cursor: pointer;
-  border-bottom: 1px dotted $sky-color-gray-lighter;
 
   &:last-child {
     border-bottom-width: 0;
@@ -16,6 +15,7 @@
     width: 100%;
     padding: $sky-padding;
     cursor: pointer;
+    border-bottom: 1px dotted $sky-color-gray-lighter;
   }
 
   /deep/ sky-checkbox-label {
