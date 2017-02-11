@@ -78,6 +78,11 @@
     padding-left: 6px;
 }
 
+.sky-search-btn-apply:hover, .sky-search-btn-apply:focus,
+.sky-search-btn-clear:hover, .sky-search-btn-clear:focus {
+  background-color: $sky-color-white;
+}
+
 
 .sky-search-dismiss-absolute {
     position: absolute;

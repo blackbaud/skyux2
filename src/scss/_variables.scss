@@ -13,6 +13,12 @@ $sky-margin-double: $sky-margin * 2 !default;
 $sky-margin-plus-half: $sky-margin + $sky-margin-half !default;
 $sky-margin-triple: $sky-margin * 3 !default;
 
+// start of new colors
+$sky-color-gray-05: #eeeeef !default;
+$sky-color-gray-10: #e2e3e4 !default;
+
+// end of new colors
+
 $sky-color-green: #1ab394 !default;
 $sky-color-blue: #1c84c6 !default;
 $sky-color-aqua: #23c6c8 !default;
@@ -27,6 +33,7 @@ $sky-color-gray-light: lighten(#000, 60%) !default; // #999
 $sky-color-gray-lighter: lighten(#000, 80%) !default; // #ccc
 $sky-color-gray-lightest: lighten(#000, 90%) !default; // #e6e6e6
 
+
 $sky-nav-background-color: #2f4050 !default;
 $sky-nav-color: #a7b1c2 !default;
 $sky-nav-selected-color: $sky-color-white !default;
@@ -37,7 +44,7 @@ $sky-nav-selected-border-width: 4px !default;
 $sky-border-color: #e7eaec !default;
 
 $sky-body-background-color: #f3f3f4 !default;
-$sky-background-color-neutral-light: #eeeeef !default;
+$sky-background-color-neutral-light: $sky-color-gray-05;
 
 $sky-line-height-base: 1.428571429 !default;
 
@@ -60,6 +67,7 @@ $sky-text-color: $sky-color-black !default;
 $sky-selected-color: #eeeffb !default;
 $sky-text-deemphasized-color: #707374 !default;
 $sky-link-color: $sky-color-blue !default;
+$sky-link-hover-color: #135783;
 
 // begin transitions
 $sky-transition-time-short: 150ms !default;
