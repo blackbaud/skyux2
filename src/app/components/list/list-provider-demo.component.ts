@@ -72,7 +72,8 @@ class DemoListProvider extends ListDataProvider {
 
   public get(request: ListDataRequestModel): Observable<ListDataResponseModel> {
     /*
-      In get() you get data based on a given ListDataRequestModel. You can fetch data remotely using Http.
+      In get() you get data based on a given ListDataRequestModel.
+      You can fetch data remotely here and return an Observable<ListDataResponseModel>.
     */
     return this.fakeHttpRequest(request);
   }
@@ -88,7 +89,7 @@ class DemoListProvider extends ListDataProvider {
         let searchText = request.search.searchText.toLowerCase();
         searchedList = items.filter((item) => {
           return item.data.column2.toLowerCase().indexOf(searchText) > -1 ||
-            item.data.column3.toLowerCase().indexOf(searchText) > -1
+            item.data.column3.toLowerCase().indexOf(searchText) > -1;
         });
       }
 

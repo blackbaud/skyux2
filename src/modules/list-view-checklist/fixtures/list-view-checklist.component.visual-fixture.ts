@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 
 import { SkyModule } from '../../../../src/core';
 
-import { ListItemModel } from '../../../../src/modules/list/state/items/item.model';
-
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
