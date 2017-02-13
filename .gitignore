@@ -68,3 +68,39 @@ webdriver-screenshotslocal*
 browserstack.err
 
 browserstack-binary/BrowserStackLocal
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_card_title_overflow_full.card_title_overflow.1280px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_search_small_full.search_small.480px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_file-drop_full.file-drop.1280px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_tabset_full.tabset.1280px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_tabset-collapsed_full.tabset-collapsed.480px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_tabset-collapsed-dropdown_full.tabset-collapsed-dropdown.480px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_tabset-wizard_full.tabset-wizard.1280px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_toolbar_full.toolbar.1280px.baseline.png
+
+webdriver-screenshots/OS X_chrome/OS X_chrome_toolbar_section_full.toolbar_section.1280px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_card_title_overflow_full.card_title_overflow.1280px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_file-drop_full.file-drop.1280px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_search_small_full.search_small.480px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_tabset_full.tabset.1280px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_tabset-collapsed_full.tabset-collapsed.480px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_tabset-collapsed-dropdown_full.tabset-collapsed-dropdown.480px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_tabset-wizard_full.tabset-wizard.1280px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_toolbar_full.toolbar.1280px.baseline.png
+
+webdriver-screenshots/OS X_firefox/OS X_firefox_toolbar_section_full.toolbar_section.1280px.baseline.png
