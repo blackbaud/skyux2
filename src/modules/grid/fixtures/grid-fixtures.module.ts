@@ -5,11 +5,13 @@ import { SkyGridModule } from '../';
 
 import { GridTestComponent } from './grid.component.fixture';
 import { GridEmptyTestComponent } from './grid-empty.component.fixture';
+import { GridDynamicTestComponent } from './grid-dynamic.component.fixture';
 
 @NgModule({
   declarations: [
     GridTestComponent,
-    GridEmptyTestComponent
+    GridEmptyTestComponent,
+    GridDynamicTestComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { GridEmptyTestComponent } from './grid-empty.component.fixture';
   ],
   exports: [
     GridTestComponent,
-    GridEmptyTestComponent
+    GridEmptyTestComponent,
+    GridDynamicTestComponent
   ]
 })
 export class GridFixturesModule { }

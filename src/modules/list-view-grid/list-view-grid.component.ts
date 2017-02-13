@@ -88,7 +88,7 @@ export class SkyListViewGridComponent
 
   public ngAfterContentInit() {
     if (this.columnComponents.length === 0) {
-      throw new Error('Grid view requires at least one sky-list-view-grid-column to render.');
+      throw new Error('Grid view requires at least one sky-grid-column to render.');
     }
 
     let columnModels = this.columnComponents.map(columnComponent => {
@@ -140,13 +140,7 @@ export class SkyListViewGridComponent
 
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
 
-    // watch for changes in column components
-    this.columnComponents.changes.subscribe((columnComponents) => {
-      let columnModels = this.columnComponents.map(columnComponent => {
-        return new SkyGridColumnModel(columnComponent.template, columnComponent);
-      });
-      this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
-    });
+    this.handleColumnChange();
   }
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
@@ -203,5 +197,14 @@ export class SkyListViewGridComponent
   private get loading() {
     return this.state.map(s => s.items.loading)
       .distinctUntilChanged();
+  }
+  private handleColumnChange() {
+     // watch for changes in column components
+    this.columnComponents.changes.subscribe((columnComponents) => {
+      let columnModels = this.columnComponents.map(column => {
+        return new SkyGridColumnModel(column.template, column);
+      });
+      this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+    });
   }
 }
