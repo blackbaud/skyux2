@@ -11,5 +11,7 @@ export class Tile1TestComponent {
   @ViewChild(SkyTileComponent)
   public tile: SkyTileComponent;
 
+  public title = 'Tile 1';
+
   public tileSettingsClick() { }
 }

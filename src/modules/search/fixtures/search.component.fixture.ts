@@ -18,6 +18,8 @@ export class SearchTestComponent {
   public searchText: string;
   public placeholderText: string;
 
+  public expandMode: string;
+
   public lastSearchTextApplied: string;
   public lastSearchTextChanged: string;
 

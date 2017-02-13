@@ -403,11 +403,9 @@ describe('Tile dashboard service', () => {
   it(
     'should release resources when destroyed',
     inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
-      let destroySpy = spyOn(mockMediaQueryService, 'destroy');
-
       dashboardService.destroy();
 
-      expect(destroySpy).toHaveBeenCalled();
+      expect(mockMediaQueryService.currentMockSubject.observers.length).toBe(0);
     })
   );
 });

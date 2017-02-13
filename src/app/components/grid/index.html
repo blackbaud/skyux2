@@ -1,0 +1,97 @@
+<sky-demo-page title="Grid">
+  <sky-demo-page-summary>
+    This grid component displays a SKY UX-themed grid of data. The grid should contain <code>sky-grid-column</code> components which specify column information.
+  </sky-demo-page-summary>
+
+  <sky-demo-page-properties
+    sectionHeading="Grid component properties">
+
+    <sky-demo-page-property
+      propertyName="data">
+      Specifies an array of data for the grid. Each item in the array should have an id property as well as properties that map to each columns <code>field</code> or <code>id</code> of the grid.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="selectedColumnIds"
+        isOptional="true"
+    >
+      Specifies the columns to be displayed by the grid. Will match the <code>id</code> or <code>field</code> of the column. If no array is provided, then all columns are shown.
+      Acceptable values: <code>Array of strings</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="fit"
+        defaultValue="width"
+        isOptional="true"
+    >
+      Specifies how the grid should fit to its parent.
+      Acceptable values: <code>'width' or 'scroll'</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="height"
+        isOptional="true"
+    >
+      Specifies the height of the grid.
+      Acceptable values: <code>number</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="width"
+        isOptional="true"
+    >
+      Specifies the width of the grid.
+      Acceptable values: <code>number</code>.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="Grid component events">
+    <sky-demo-page-property
+      propertyName="selectedColumnIdsChange">
+      Fires when columns are changed in the grid. Emits an array of column ids.
+    </sky-demo-page-property>
+
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="Grid column component properties">
+    <sky-demo-page-property
+      propertyName="id">
+      Specifies a unique id for the column. If no <code>field</code> property exists on the column, then this will be used as the property to retreive cell information from an entry on the grid <code>data</code> array.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="field">
+      Specifies the property to retreive cell information from an entry on the grid <code>data</code> array. If no <code>id</code> property exists on the column, then this will be used as the entry for the grid <code>selectedColumnIds</code> array.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="heading">
+      Specifies text for the column header.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="width"
+      isOptional="true">
+      Specifies the width of the column.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="locked"
+      isOptional="true"
+      defaultValue="false">
+      Specifies whether the column is locked. If set to <code>true</code>, then the column cannot be dragged to another position, and other columns cannot be dragged before the locked column.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="hidden"
+      isOptional="true"
+      defaultValue="false">
+      Specifies whether the column is initially hidden when grid <code>selectedColumnIds</code> are not provided.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="search"
+      isOptional="true">
+      Specifies a search function to apply for the specific column. By default, the column will execute a string compare on the column data.
+      Acceptable values: <code>(data: any, searchText: string) => boolean</code>
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <sky-grid-demo></sky-grid-demo>
+    <sky-demo-page-code demoName="Grid"></sky-demo-page-code>
+  </sky-demo-page-example>
+
+</sky-demo-page>

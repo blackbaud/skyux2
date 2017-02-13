@@ -52,4 +52,14 @@ describe('Card', function () {
       });
   });
 
+  it('should match previous screenshot when the card has title overflow', function () {
+    return browser
+      .setupTest('/card.html')
+      .compareScreenshot({
+        screenshotName: 'card_title_overflow',
+        selector: '#screenshot-card-overflow',
+        checkAccessibility: true
+      });
+  });
+
 });

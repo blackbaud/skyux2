@@ -8,6 +8,33 @@ import {
   ListPagingSetPageNumberAction
 } from './paging/actions';
 
+import {
+  ListViewsLoadAction,
+  ListViewsSetActiveAction
+} from './views/actions';
+
+import {
+  ListToolbarItemsLoadAction,
+  ListToolbarSetExistsAction
+} from './toolbar/actions';
+
+import {
+  ListSearchSetSearchTextAction,
+  ListSearchSetFunctionsAction,
+  ListSearchSetFieldSelectorsAction
+} from './search/actions';
+
+import {
+  ListSelectedSetLoadingAction,
+  ListSelectedLoadAction,
+  ListSelectedSetItemSelectedAction,
+  ListSelectedSetItemsSelectedAction
+} from './selected/actions';
+
 export type ListStateAction =
   ListItemsSetLoadingAction | ListItemsLoadAction |
-  ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction;
+  ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction |
+  ListViewsLoadAction | ListViewsSetActiveAction | ListToolbarItemsLoadAction |
+  ListToolbarSetExistsAction | ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
+  ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
+  ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction;

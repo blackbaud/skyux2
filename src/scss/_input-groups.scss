@@ -2,8 +2,7 @@
 
 .sky-input-group {
   position: relative; // For dropdowns
-  display: table;
-  border-collapse: separate; // prevent input groups from inheriting border styles from table cells when placed within a table
+  display: flex;
 
   .sky-form-control {
     // Ensure that the input is always above the *appended* addon button for
@@ -16,21 +15,12 @@
   }
 }
 
-// Display as table-cell
 .sky-input-group-btn,
 .sky-input-group .sky-form-control {
-  display: table-cell;
 
   &:not(:first-child):not(:last-child) {
     border-radius: 0;
   }
-}
-
-// Addon and addon wrapper for buttons
-.sky-input-group-btn {
-  width: 1%;
-  white-space: nowrap;
-  vertical-align: middle; // Match the inputs
 }
 
 // Reset rounded corners
@@ -42,12 +32,14 @@
 
 .sky-input-group .sky-form-control:last-child,
 .sky-input-group-btn:last-child > .sky-btn,
-.sky-input-group-btn:first-child > .sky-btn:not(:first-child) {
+.sky-input-group-btn:first-child > .sky-btn:not(:first-child),
+.sky-input-group-btn:not(:first-child) > .sky-btn {
   @include sky-border-left-radius(0);
 }
 
 // Button input groups
 .sky-input-group-btn {
+  display: flex;
   position: relative;
   // Jankily prevent input button groups from wrapping with `white-space` and
   // `font-size` in combination with `inline-block` on buttons.
@@ -57,6 +49,8 @@
   // Negative margin for spacing, position for bringing hovered/focused/actived
   // element above the siblings.
   > .sky-btn {
+    padding-top: 0;
+    padding-bottom: 0;
     position: relative;
     + .sky-btn {
       margin-left: -1px;

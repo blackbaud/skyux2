@@ -74,7 +74,6 @@ describe('Search component', () => {
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
     element = fixture.debugElement as DebugElement;
-    fixture.detectChanges();
   });
 
   afterEach(() => {
@@ -177,6 +176,16 @@ describe('Search component', () => {
     expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
   }
 
+  function verifySearchOpenFullScreenFullWidth() {
+    fixture.detectChanges();
+    let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
+    expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
+    expect(searchDismissContainer.nativeElement).toBeVisible();
+    expect(searchDismissContainer.nativeElement)
+      .toHaveCssClass('sky-search-dismiss-absolute');
+    expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
+  }
+
   function verifySearchClosed() {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
@@ -187,7 +196,12 @@ describe('Search component', () => {
       .toHaveCssClass('sky-search-dismiss-absolute');
   }
 
-  it('should apply search text on enter press', () => {
+  describe('standard search', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+       it('should apply search text on enter press', () => {
 
     setInput('my search text');
     let inputEl = element.query(By.css('input'));
@@ -347,4 +361,50 @@ describe('Search component', () => {
       }));
     });
   });
+
+  describe('expandMode none', () => {
+    it('do nothing when open button pressed', async(() => {
+      component.expandMode = 'none';
+      fixture.detectChanges();
+      triggerXsBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifySearchOpenFullScreen();
+        triggerOpenButton().then(() => {
+          fixture.detectChanges();
+          verifySearchOpenFullScreen();
+        });
+      });
+    }));
+  });
+
+  describe('expandMode fit', () => {
+    it('do nothing when open button pressed', async(() => {
+      component.expandMode = 'fit';
+      fixture.detectChanges();
+      triggerXsBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifySearchOpenFullScreenFullWidth();
+        triggerOpenButton().then(() => {
+          fixture.detectChanges();
+          verifySearchOpenFullScreenFullWidth();
+        });
+      });
+    }));
+  });
+ });
+
+ describe('initialize expandMode none', () => {
+   it('should do nothing when open button pressed', async(() => {
+     component.expandMode = 'none';
+      fixture.detectChanges();
+      triggerXsBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifySearchOpenFullScreen();
+        triggerOpenButton().then(() => {
+          fixture.detectChanges();
+          verifySearchOpenFullScreen();
+        });
+      });
+   }));
+ });
 });

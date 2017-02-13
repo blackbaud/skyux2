@@ -1,3 +1,34 @@
+# 2.0.0-beta.7 (2017-02-07)
+
+  - Fixed bug around navbar item hit target. (#329)
+  - Added styles for tile content section border. (#321)
+  - Added correct overflow styles to card header area. (#323)
+  - Updated the padding for tab buttons to use an even amount of padding. (#336)
+  - Added the list toolbar with search functionality. (#312)
+  - Added the `isCollapsible` option to search component. (#337) 
+
+# 2.0.0-beta.6 (2017-02-03)
+
+  - Fixed bug in tile dashboard where SkyMediaQueryService was being destroyed. (#330)
+
+# 2.0.0-beta.5 (2017-02-02)
+
+  - Added list grid view for displaying a grid in a SKY list. (#171)
+  - Added action button component to allow users to pick an action during a branching point in the system. (#319)
+  - Fixed bug where tiles were not properly rendered if hosted on a tile dashboard whose parent's change detection strategy was `OnPush`. (#324)
+  - Added standalone toolbar component. (#326)
+  - Updated Angular to 2.4.5 and updated various other NPM dependencies (#327)
+
+
+# 2.0.0-beta.4 (2017-01-27)
+
+  - Expose and document SkyMediaQueryService. (#288)
+  - Fix plunkers for modal and tile documentation. (#307)
+  - Updated skyux paths in component documentation. (#310)
+  - Updated tile documentation to include entryComponent information. (#309)
+  - Added standalone grid component (thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes). (#171)
+  - Fixed modal margin issues in IE11. (#301)
+
 # 2.0.0-beta.3 (2017-01-17)
 
   - Added the alert role to the alert component. (Thanks @realistschuckle)

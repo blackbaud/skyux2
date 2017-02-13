@@ -1,0 +1,9 @@
+@import '../../scss/mixins';
+
+.sky-toolbar-section {
+  padding: $sky-padding-half $sky-padding;
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: $sky-toolbar-min-height;
+}

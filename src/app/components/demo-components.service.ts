@@ -48,6 +48,28 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Action button',
+        icon: 'square-o',
+        // tslint:disable-next-line
+        summary:
+          `The action button component creates a large button with an icon, heading, and details.`,
+        url: '/components/action-button',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'action-button-demo.component.html',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.html')
+            },
+            {
+              name: 'action-button-demo.component.ts',
+              fileContents: require('!!raw!./action-button/action-button-demo.component.ts'),
+              componentName: 'SkyActionButtonDemoComponent',
+              bootstrapSelector: 'sky-action-button-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Card',
         icon: 'th-large',
         // tslint:disable-next-line
@@ -153,6 +175,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `The grid component is used to display data in a consistent and flexible way.`,
+        url: '/components/grid',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'grid-demo.component.html',
+              fileContents: require('!!raw!./grid/grid-demo.component.html')
+            },
+            {
+              name: 'grid-demo.component.ts',
+              fileContents: require('!!raw!./grid/grid-demo.component.ts'),
+              componentName: 'SkyGridDemoComponent',
+              bootstrapSelector: 'sky-grid-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Key info',
         icon: 'key',
         // tslint:disable-next-line
@@ -218,6 +261,82 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List toolbar',
+        icon: 'wrench',
+        // tslint:disable-next-line
+        summary:
+          `The list toolbar component displays a SKY UX-themed toolbar for the list component.`,
+        url: '/components/list-toolbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-toolbar-demo.component.html',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo.component.html')
+            },
+            {
+              name: 'list-toolbar-demo.component.ts',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo.component.ts'),
+              componentName: 'SkyListToolbarDemoComponent',
+              bootstrapSelector: 'sky-list-toolbar-demo'
+            },
+            {
+              name: 'list-toolbar-demo-custom.component.html',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo-custom.component.html')
+            },
+            {
+              name: 'list-toolbar-demo-custom.component.ts',
+              fileContents: require('!!raw!./list-toolbar/list-toolbar-demo-custom.component.ts'),
+              componentName: 'SkyListToolbarDemoCustomComponent',
+              bootstrapSelector: 'sky-list-toolbar-demo-custom'
+            }
+          ];
+        }
+      },
+      {
+         name: 'List view grid',
+         icon: 'table',
+         // tslint:disable-next-line
+         summary: `The list component is used to display data in a consistent and flexible way.`,
+         url: '/components/list-view-grid',
+        getCodeFiles: function () {
+           return [
+             {
+               name: 'list-view-grid-demo.component.html',
+               fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.html')
+             },
+             {
+               name: 'list-view-grid-demo.component.ts',
+               fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.ts'),
+               componentName: 'SkyListViewGridDemoComponent',
+               bootstrapSelector: 'sky-list-view-grid-demo'
+             }
+           ];
+         }
+       },
+       {
+        name: 'Media queries',
+        icon: 'mobile',
+        // tslint:disable-next-line
+        summary: `The media queries service allows users to subscribe to screen size changes at different breakpoints.`,
+        url: '/components/media-queries',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'media-query-demo.component.html',
+              fileContents:
+                require('!!raw!./media-queries/media-query-demo.component.html')
+            },
+            {
+              name: 'media-query-demo.component.ts',
+              fileContents:
+                require('!!raw!./media-queries/media-query-demo.component.ts'),
+              componentName: 'SkyMediaQueryDemoComponent',
+              bootstrapSelector: 'sky-media-query-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Modal',
         icon: 'list-alt',
         // tslint:disable-next-line
@@ -241,7 +360,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'modal-demo-form.component.ts',
-              fileContents: require('!!raw!./modal/modal-demo-form.component.ts')
+              fileContents: require('!!raw!./modal/modal-demo-form.component.ts'),
+              componentName: 'SkyModalDemoFormComponent'
             },
             {
               name: 'modal-demo-context.ts',
@@ -420,7 +540,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'tiles-demo-tile1.component.ts',
-              fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.ts')
+              fileContents: require('!!raw!./tiles/tiles-demo-tile1.component.ts'),
+              componentName: 'SkyTilesDemoTile1Component'
             },
             {
               name: 'tiles-demo-tile2.component.html',
@@ -430,6 +551,27 @@ export class SkyDemoComponentsService {
               name: 'tiles-demo-tile2.component.ts',
               fileContents: require('!!raw!./tiles/tiles-demo-tile2.component.ts'),
               componentName: 'SkyTilesDemoTile2Component'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Toolbar',
+        icon: 'bars',
+        // tslint:disable-next-line
+        summary: `The toolbar component displays a SKY UX-themed toolbar.`,
+        url: '/components/toolbar',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'toolbar-demo.component.html',
+              fileContents: require('!!raw!./toolbar/toolbar-demo.component.html')
+            },
+            {
+              name: 'toolbar-demo.component.ts',
+              fileContents: require('!!raw!./toolbar/toolbar-demo.component.ts'),
+              componentName: 'SkyToolbarDemoComponent',
+              bootstrapSelector: 'sky-toolbar-demo'
             }
           ];
         }

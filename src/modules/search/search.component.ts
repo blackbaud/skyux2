@@ -13,7 +13,8 @@ import {
   Input,
   EventEmitter,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -33,6 +34,9 @@ import { Subscription } from 'rxjs/Subscription';
 
 const INPUT_SHOWN_STATE: string = 'inputShown';
 const INPUT_HIDDEN_STATE: string = 'inputHidden';
+const EXPAND_MODE_RESPONSIVE: string = 'responsive';
+const EXPAND_MODE_FIT: string = 'fit';
+const EXPAND_MODE_NONE: string = 'none';
 
 @Component({
   selector: 'sky-search',
@@ -54,7 +58,6 @@ const INPUT_HIDDEN_STATE: string = 'inputHidden';
     ])
   ],
   providers: [
-    SkyMediaQueryService,
     SkySearchAdapterService,
     SkyResourcesService
   ]
@@ -69,6 +72,13 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   @Input()
   public searchText: string;
+
+  @Input()
+  public expandMode: string = EXPAND_MODE_RESPONSIVE;
+
+  public isFullWidth: boolean = false;
+
+  public isCollapsible: boolean = true;
 
   @Input()
   public get placeholderText(): string {
@@ -95,20 +105,38 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     private mediaQueryService: SkyMediaQueryService,
     private elRef: ElementRef,
     private searchAdapter: SkySearchAdapterService,
-    private resources: SkyResourcesService
+    private resources: SkyResourcesService,
+    private changeRef: ChangeDetectorRef
   ) {}
 
   public ngOnInit() {
-
-    this.breakpointSubscription = this.mediaQueryService.subscribe(
-      (args: SkyMediaBreakpoints) => {
-        this.mediaQueryCallback(args);
-      }
-    );
-
+    if (this.searchShouldCollapse()) {
+      this.breakpointSubscription = this.mediaQueryService.subscribe(
+        (args: SkyMediaBreakpoints) => {
+          this.mediaQueryCallback(args);
+        }
+      );
+    }
   }
 
   public ngOnChanges(changes: SimpleChanges) {
+    if (this.expandModeBindingChanged(changes)) {
+      switch (this.expandMode) {
+        case EXPAND_MODE_NONE:
+          this.isCollapsible = false;
+          this.isFullWidth = false;
+          break;
+        case EXPAND_MODE_FIT:
+          this.isCollapsible = false;
+          this.isFullWidth = true;
+          break;
+        default:
+          this.isCollapsible = true;
+          this.isFullWidth = false;
+          break;
+      }
+    }
+
     if (this.searchBindingChanged(changes)) {
       this.clearButtonShown = this.searchText && this.searchText !== '';
       if (this.shouldOpenInput()) {
@@ -153,40 +181,46 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   }
 
   public toggleSearchInput(showInput: boolean) {
-    if (showInput) {
-      this.inputAnimate = INPUT_SHOWN_STATE;
-    } else {
-      this.inputAnimate = INPUT_HIDDEN_STATE;
+    if (this.searchShouldCollapse()) {
+      if (showInput) {
+        this.inputAnimate = INPUT_SHOWN_STATE;
+      } else {
+        this.inputAnimate = INPUT_HIDDEN_STATE;
+      }
     }
   }
 
   public inputAnimationStart(event: AnimationTransitionEvent) {
-    this.searchAdapter.startInputAnimation(this.elRef);
+    if (this.searchShouldCollapse()) {
+      this.searchAdapter.startInputAnimation(this.elRef);
 
-    if (event.toState === INPUT_SHOWN_STATE
-      && this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
-      this.mobileSearchShown = true;
-      this.searchButtonShown = false;
+      if (event.toState === INPUT_SHOWN_STATE
+        && this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
+        this.mobileSearchShown = true;
+        this.searchButtonShown = false;
+      }
     }
   }
 
   public inputAnimationEnd(event: AnimationTransitionEvent) {
+    if (this.searchShouldCollapse()) {
+      this.searchAdapter.endInputAnimation(this.elRef);
 
-    this.searchAdapter.endInputAnimation(this.elRef);
+      this.searchButtonShown = event.toState === INPUT_HIDDEN_STATE
+        && this.mediaQueryService.current === SkyMediaBreakpoints.xs;
 
-    this.searchButtonShown = event.toState === INPUT_HIDDEN_STATE
-      && this.mediaQueryService.current === SkyMediaBreakpoints.xs;
-
-    if ((event.toState === INPUT_HIDDEN_STATE
-      && this.mediaQueryService.current === SkyMediaBreakpoints.xs)
-      || this.mediaQueryService.current !== SkyMediaBreakpoints.xs) {
-      this.mobileSearchShown = false;
+      if ((event.toState === INPUT_HIDDEN_STATE
+        && this.mediaQueryService.current === SkyMediaBreakpoints.xs)
+        || this.mediaQueryService.current !== SkyMediaBreakpoints.xs) {
+        this.mobileSearchShown = false;
+      }
     }
-
   }
 
   public ngOnDestroy() {
-    this.breakpointSubscription.unsubscribe();
+    if (this.breakpointSubscription) {
+      this.breakpointSubscription.unsubscribe();
+    }
   }
 
   private searchBindingChanged(changes: SimpleChanges) {
@@ -194,18 +228,30 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
       changes['searchText'].previousValue !== changes['searchText'].currentValue;
   }
 
+  private expandModeBindingChanged(changes: SimpleChanges) {
+    return changes['expandMode'] &&
+      changes['expandMode'].previousValue !== changes['expandMode'].currentValue;
+  }
+
   private shouldOpenInput() {
     return this.searchText !== '' &&
-      this.mediaQueryService.current === SkyMediaBreakpoints.xs;
+      this.mediaQueryService.current === SkyMediaBreakpoints.xs && this.searchShouldCollapse();
   }
 
   private mediaQueryCallback(args: SkyMediaBreakpoints) {
-    if (args === SkyMediaBreakpoints.xs) {
-      this.inputAnimate = INPUT_HIDDEN_STATE;
-    } else if (this.inputAnimate !== INPUT_SHOWN_STATE) {
-      this.inputAnimate = INPUT_SHOWN_STATE;
-    } else {
-      this.mobileSearchShown = false;
+    if (this.searchShouldCollapse()) {
+      if (args === SkyMediaBreakpoints.xs) {
+        this.inputAnimate = INPUT_HIDDEN_STATE;
+      } else if (this.inputAnimate !== INPUT_SHOWN_STATE) {
+        this.inputAnimate = INPUT_SHOWN_STATE;
+      } else {
+        this.mobileSearchShown = false;
+      }
     }
+    this.changeRef.markForCheck();
+  }
+
+  private searchShouldCollapse() {
+    return (this.isCollapsible || this.isCollapsible === undefined) && this.isFullWidth !== true;
   }
 }
