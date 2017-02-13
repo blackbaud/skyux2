@@ -115,7 +115,8 @@ export class SkyListViewGridComponent
                   /* sanity check */
                   let id = x.id || x.field;
                   return hiddenColumns.indexOf(id) === -1;
-                })
+                }),
+                true
               )
             );
           });
@@ -124,19 +125,28 @@ export class SkyListViewGridComponent
           getValue(this.displayedColumns, (displayedColumns: string[]) => {
             this.gridDispatcher.next(
               new ListViewDisplayedGridColumnsLoadAction(
-                columns.filter(x => displayedColumns.indexOf(x.id || x.field) !== -1)
+                columns.filter(x => displayedColumns.indexOf(x.id || x.field) !== -1),
+                true
               )
             );
           });
 
         } else {
           this.gridDispatcher.next(
-            new ListViewDisplayedGridColumnsLoadAction(columns.filter(x => !x.hidden))
+            new ListViewDisplayedGridColumnsLoadAction(columns.filter(x => !x.hidden), true)
           );
         }
       });
 
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+
+    // watch for changes in column components
+    this.columnComponents.changes.subscribe((columnComponents) => {
+      let columnModels = this.columnComponents.map(columnComponent => {
+        return new SkyGridColumnModel(columnComponent.template, columnComponent);
+      });
+      this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+    });
   }
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
