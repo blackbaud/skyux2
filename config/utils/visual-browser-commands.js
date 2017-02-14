@@ -30,7 +30,7 @@
 
   function checkVisualResult(results, options, browser) {
     results.forEach(function (element) {
-      expect(element.isExactSameImage).toBe(true);
+      expect(element.isWithinMisMatchTolerance).toBe(true);
     });
 
     if (options.checkAccessibility) {
