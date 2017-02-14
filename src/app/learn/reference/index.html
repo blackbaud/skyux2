@@ -1,0 +1,28 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-container">
+    <h1>Technical reference</h1>
+    <p>This technical reference describes the commands and options that are available in the SKY UX CLI.</p>
+    
+    <h2>Commands</h2>
+    <ul>
+        <li><code>skyux new</code> — Initializes a new local SKY UX project by pulling down the latest version of the template and installing the necessary dependencies.</li>
+        <li><code>skyux serve</code> — Serves the current single-page application locally. This command also opens the <code>host</code> endpoint with the necessary query string to pull your local files. It tacks on <code>local=true</code> in the query string to instruct SKY UX Host to pull files from the local machine instead of the hosted location. The SPA automatically opens in the default browser, but you can add the <code>--launch none</code> option to the command to prevent the SPA from opening. The <code>serve</code> command basically updates the production location rather than creating a duplicate local instance, so to view the production version alongside a local version, you need to open a separate incognito tab. The <code>serve</code> command sets a cookie to apply local dev mode.</li>
+        <li><code>skyux build</code> — Builds the current SPA into dist/. The <code>build</code> and <code>serve</code> commands are largely the same command under the hood, but <code>serve</code> works in memory and launches a web server for the user, while <code>build</code> performs the same operations by writing and storing files to disk. The <code>build</code> command produces the static assets for an SPA.</li>
+        <li><code>skyux version</code> or <code>skyux -v</code> — Returns the version of the SKY UX CLI that is currently in place.</li>
+        <li><code>skyux test</code> — Runs unit tests tests. The Karma unit test is configured under the hood to look for specific file names, similar to how SKY UX Builder looks for index.html files. The Karma unit test looks for any files with a name that ends in ".component.spec.ts." Users should write separate tests to confirm that the components work.</li>
+        <li><code>skyux watch</code> — Runs the <code>test</code> command and watches the file system for changes. The <code>watch</code> command monitors watches for changes in much the same way as the <code>serve</code> command, but for testing, the <code>watch</code> command is always running, much like debug mode in Visual Studio. If you change a test, the window is watching that and runs the test. This command is useful when writing a bunch of tests.</li>
+        <li><code>skyux e2e</code> — Runs end-to-end tests that test your SPA running in a real browser, interacting with it as users would. This command uses a tool called Protractor to look for files that end in ".e2e-spec.ts." End-to-end tests supplement the Karma unit test, but end-to-end files are written slightly differently. Both test files use a syntax called Jasmine.</li>
+        <li><code>skyux</code>, <code>skyux help</code>, or <code>skyux -h</code> — Displays a list of the commands and options that are available in the SKY UX CLI and provides descriptions.</li>
+    </ul>
+    
+    <h2>Options</h2>
+    <ul>
+        <li><code>-l</code> or <code>--launch</code> — Specifies the URL to launch when <code>skyux serve</code> runs. For example, <code>skyux serve --launch local</code> launches the local URL. The available options are <code>none</code>, which stops any URL from launching, <code>local</code>, and <code>host</code>, which launches the host URL and is the default value.</li>
+        <li><code>--noServe</code> — Stops the <code>serve</code> command from automatically running when calling <code>skyux e2e</code>.</li>
+    </ul>
+
+    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
+    <p><strong>Previous step »</strong> <a routerLink="/learn">Get started</a></p>
+
+</div>
+
