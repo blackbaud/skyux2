@@ -1,0 +1,5 @@
+@import "../../scss/mixins";
+
+.sky-wait-page /deep/ .sky-wait-mask-loading-fixed {
+  z-index: $sky-page-wait-z-index;
+}

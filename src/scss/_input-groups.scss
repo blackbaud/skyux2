@@ -8,7 +8,6 @@
     // Ensure that the input is always above the *appended* addon button for
     // proper border colors.
     position: relative;
-    z-index: 2;
 
     width: 100%;
     margin-bottom: 0;
@@ -54,10 +53,6 @@
     position: relative;
     + .sky-btn {
       margin-left: -1px;
-    }
-    // Bring the "active" button to the front
-    &:focus {
-      z-index: 2;
     }
   }
 
