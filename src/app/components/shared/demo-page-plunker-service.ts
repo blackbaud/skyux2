@@ -117,7 +117,7 @@ export class SkyDemoPagePlunkerService {
   <head>
     <base href="." />
     <title>SKY UX 2 Demo</title>
-    <link rel="stylesheet" href="https://unpkg.com/blackbaud-skyux2/dist/css/sky.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@blackbaud/skyux/dist/css/sky.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/zone.js/dist/zone.js"></script>
     <script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js"></script>
