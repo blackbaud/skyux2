@@ -2,18 +2,19 @@ import {
   Component,
   TemplateRef,
   ViewChild,
-  OnInit
+  AfterContentInit
 } from '@angular/core';
 
 import {
-  ListStateDispatcher
+  ListStateDispatcher,
+  ListToolbarItemModel
 } from '../list/state';
 
 @Component({
   selector: 'sky-list-toolbar-secondary-actions',
   templateUrl: './list-toolbar-secondary-actions.component.html'
 })
-export class SkyListToolbarSecondaryActions implements OnInit{
+export class SkyListToolbarSecondaryActionsComponent implements AfterContentInit{
 
   @ViewChild('secondaryActions')
   private secondaryActionsTemplate: TemplateRef<any>;
@@ -23,7 +24,16 @@ export class SkyListToolbarSecondaryActions implements OnInit{
   ) {
   }
 
-  public ngOnInit() {
-
+  public ngAfterContentInit() {
+    let secondaryActionItem = new ListToolbarItemModel(
+      {
+        id: 'secondary-actions',
+        template: this.secondaryActionsTemplate,
+        location: 'center'
+      }
+    )
+    this.dispatcher.toolbarAddItems([
+      secondaryActionItem
+    ]);
   }
 }
