@@ -14,6 +14,7 @@ import {
  })
  export class ListToolbarTestComponent {
 
+  public toolbarType: string;
   public searchEnabled: boolean;
   public searchText: string;
   @ViewChild(SkyListToolbarComponent)

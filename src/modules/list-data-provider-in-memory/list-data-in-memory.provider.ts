@@ -8,7 +8,7 @@ import { ListSearchModel } from '../list/state/search/search.model';
 let moment = require('moment');
 
 export class SkyListInMemoryDataProvider extends ListDataProvider {
-  private items: BehaviorSubject<Array<ListItemModel>> =
+  public items: BehaviorSubject<Array<ListItemModel>> =
     new BehaviorSubject<Array<ListItemModel>>([]);
 
   private lastItems: ListItemModel[];
