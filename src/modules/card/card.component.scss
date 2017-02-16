@@ -68,7 +68,7 @@
     font-family: $sky-font-family-narrow;
     font-size: $sky-alternate-font-size-sm;
     margin: 0;
-    line-height: 1.5;
+    line-height: $sky-line-height-base;
 }
 
 .sky-card-check {
