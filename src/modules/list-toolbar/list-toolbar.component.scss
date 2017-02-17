@@ -1,0 +1,7 @@
+@import '../../scss/mixins';
+
+.sky-list-toolbar-search {
+  /deep/ .sky-toolbar-container, /deep/ .sky-search-dismiss-absolute {
+    background-color: $sky-background-color-neutral-light;
+  }
+}
