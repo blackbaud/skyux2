@@ -68,13 +68,3 @@ webdriver-screenshotslocal*
 browserstack.err
 
 browserstack-binary/BrowserStackLocal
-
-webdriver-screenshots/OS X_firefox/OS X_firefox_card_title_overflow_full.card_title_overflow.1280px.baseline.png
-
-webdriver-screenshots/OS X_firefox/OS X_firefox_card-all_full.card-all.1280px.baseline.png
-
-webdriver-screenshots/OS X_firefox/OS X_firefox_card-noactions_full.card-noactions.1280px.baseline.png
-
-webdriver-screenshots/OS X_firefox/OS X_firefox_card-selectable_full.card-selectable.1280px.baseline.png
-
-webdriver-screenshots/OS X_firefox/OS X_firefox_card-selected_full.card-selected.1280px.baseline.png
