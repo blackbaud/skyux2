@@ -100,7 +100,9 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         });
 
         this.lastSearchResults = result;
-      }
+      }// else {
+      //  this.lastSearchResults = undefined;
+     // }
 
       return result;
     });
