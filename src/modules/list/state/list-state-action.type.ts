@@ -15,7 +15,8 @@ import {
 
 import {
   ListToolbarItemsLoadAction,
-  ListToolbarSetExistsAction
+  ListToolbarSetExistsAction,
+  ListToolbarSetTypeAction
 } from './toolbar/actions';
 
 import {
@@ -37,4 +38,4 @@ export type ListStateAction =
   ListViewsLoadAction | ListViewsSetActiveAction | ListToolbarItemsLoadAction |
   ListToolbarSetExistsAction | ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
   ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
-  ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction;
+  ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction | ListToolbarSetTypeAction;
