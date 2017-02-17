@@ -71,15 +71,20 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       /* istanbul ignore else */
       /* sanity check */
       if (this.columnComponents.length > 0) {
-        this.columns = this.columnComponents.map(columnComponent => {
-          return new SkyGridColumnModel(columnComponent.template, columnComponent);
-        });
+        this.getColumnsFromComponent();
       }
 
       this.transformData();
 
       this.setDisplayedColumns(true);
     }
+
+    this.columnComponents.changes.subscribe((columnComponents) => {
+      this.getColumnsFromComponent();
+      this.setDisplayedColumns(true);
+      this.ref.markForCheck();
+    });
+
     this.gridAdapter.initializeDragAndDrop(
         this.dragulaService,
         (selectedColumnIds: Array<string>) => {
@@ -137,5 +142,11 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     } else {
       this.items = this.data;
     }
+  }
+
+  private getColumnsFromComponent() {
+     this.columns = this.columnComponents.map(columnComponent => {
+        return new SkyGridColumnModel(columnComponent.template, columnComponent);
+      });
   }
 }

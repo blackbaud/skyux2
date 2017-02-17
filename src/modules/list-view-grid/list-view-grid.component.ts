@@ -88,7 +88,7 @@ export class SkyListViewGridComponent
 
   public ngAfterContentInit() {
     if (this.columnComponents.length === 0) {
-      throw new Error('Grid view requires at least one sky-list-view-grid-column to render.');
+      throw new Error('Grid view requires at least one sky-grid-column to render.');
     }
 
     let columnModels = this.columnComponents.map(columnComponent => {
@@ -115,7 +115,8 @@ export class SkyListViewGridComponent
                   /* sanity check */
                   let id = x.id || x.field;
                   return hiddenColumns.indexOf(id) === -1;
-                })
+                }),
+                true
               )
             );
           });
@@ -124,19 +125,22 @@ export class SkyListViewGridComponent
           getValue(this.displayedColumns, (displayedColumns: string[]) => {
             this.gridDispatcher.next(
               new ListViewDisplayedGridColumnsLoadAction(
-                columns.filter(x => displayedColumns.indexOf(x.id || x.field) !== -1)
+                columns.filter(x => displayedColumns.indexOf(x.id || x.field) !== -1),
+                true
               )
             );
           });
 
         } else {
           this.gridDispatcher.next(
-            new ListViewDisplayedGridColumnsLoadAction(columns.filter(x => !x.hidden))
+            new ListViewDisplayedGridColumnsLoadAction(columns.filter(x => !x.hidden), true)
           );
         }
       });
 
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+
+    this.handleColumnChange();
   }
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
@@ -193,5 +197,14 @@ export class SkyListViewGridComponent
   private get loading() {
     return this.state.map(s => s.items.loading)
       .distinctUntilChanged();
+  }
+  private handleColumnChange() {
+     // watch for changes in column components
+    this.columnComponents.changes.subscribe((columnComponents) => {
+      let columnModels = this.columnComponents.map(column => {
+        return new SkyGridColumnModel(column.template, column);
+      });
+      this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+    });
   }
 }

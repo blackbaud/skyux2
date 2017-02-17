@@ -21,6 +21,9 @@ import { ListItemsLoadAction } from '../list/state/items/actions';
 import { ListViewGridFixturesModule } from './fixtures/list-view-grid-fixtures.module';
 import { ListViewGridTestComponent } from './fixtures/list-view-grid.component.fixture';
 import {
+  ListViewGridDynamicTestComponent
+} from './fixtures/list-view-grid-dynamic.component.fixture';
+import {
   ListViewGridDisplayTestComponent
 } from './fixtures/list-view-grid-display.component.fixture';
 import {
@@ -29,8 +32,15 @@ import {
 import { SkyListViewGridModule } from './';
 
 import { SkyGridColumnModel } from '../grid';
-import { ListViewGridColumnsLoadAction } from './state/columns/actions';
+import {
+  ListViewGridColumnsLoadAction
+} from './state/columns/actions';
+import {
+  ListViewDisplayedGridColumnsLoadAction
+} from './state/displayed-columns/actions';
 import { GridState, GridStateDispatcher, GridStateModel } from './state';
+
+import { SkyListComponent } from '../list';
 
 describe('List View Grid Component', () => {
   describe('Basic Fixture', () => {
@@ -145,6 +155,37 @@ describe('List View Grid Component', () => {
           gridDispatcher.next(new ListViewGridColumnsLoadAction(columns));
           gridState.take(1).subscribe(s => {
             expect(s.columns.count).toBe(2);
+          });
+        }));
+
+         it('should run ListViewDisplayedGridColumnsLoadAction action with no refresh',
+          async(() => {
+          let gridDispatcher = new GridStateDispatcher();
+          let gridState = new GridState(new GridStateModel(), gridDispatcher);
+
+          let columns = [
+            new SkyGridColumnModel(component.viewtemplates.first),
+            new SkyGridColumnModel(component.viewtemplates.first)
+          ];
+          gridDispatcher.next(new ListViewGridColumnsLoadAction(columns));
+          gridState.take(1).subscribe(s => {
+            expect(s.columns.count).toBe(2);
+          });
+
+          gridDispatcher.next(new ListViewDisplayedGridColumnsLoadAction([
+            new SkyGridColumnModel(component.viewtemplates.first)
+          ]));
+
+          gridState.take(1).subscribe(s => {
+            expect(s.displayedColumns.count).toBe(1);
+          });
+
+          gridDispatcher.next(new ListViewDisplayedGridColumnsLoadAction([
+            new SkyGridColumnModel(component.viewtemplates.first)
+          ]));
+
+          gridState.take(1).subscribe(s => {
+            expect(s.displayedColumns.count).toBe(2);
           });
         }));
       });
@@ -299,7 +340,68 @@ describe('List View Grid Component', () => {
 
     it('should throw columns require error', () => {
       expect(() => { fixture.detectChanges(); })
-        .toThrowError(/Grid view requires at least one sky-list-view-grid-column to render./);
+        .toThrowError(/Grid view requires at least one sky-grid-column to render./);
+    });
+  });
+
+  describe('Grid view with dynamic columns', () => {
+     let state: ListState,
+        dispatcher: ListStateDispatcher,
+        component: ListViewGridDynamicTestComponent,
+        fixture: any,
+        nativeElement: HTMLElement,
+        element: DebugElement;
+
+    beforeEach(async(() => {
+      dispatcher = new ListStateDispatcher();
+      state = new ListState(dispatcher);
+
+      TestBed.configureTestingModule({
+        imports: [
+          ListViewGridFixturesModule,
+          SkyListViewGridModule
+        ]
+      })
+      .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              { provide: ListState, useValue: state },
+              { provide: ListStateDispatcher, useValue: dispatcher }
+            ]
+          }
+        });
+
+      fixture = TestBed.createComponent(ListViewGridDynamicTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      // always skip the first update to ListState, when state is ready
+      // run detectChanges once more then begin tests
+      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+      fixture.detectChanges();
+    }));
+
+    it('should handle grid columns changing', () => {
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
+      expect(element.query(
+        By.css('th[sky-cmp-id="name"]')).nativeElement.textContent.trim()
+      ).toBe('Name Initial');
+      expect(element.query(
+        By.css('th[sky-cmp-id="email"]')
+      ).nativeElement.textContent.trim()).toBe('Email Initial');
+
+      component.changeColumns();
+      fixture.detectChanges();
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
+      expect(element.query(
+        By.css('th[sky-cmp-id="name"]')).nativeElement.textContent.trim()
+      ).toBe('Name');
+      expect(element.query(
+        By.css('th[sky-cmp-id="email"]')
+      ).nativeElement.textContent.trim()).toBe('Email');
+
     });
   });
 
