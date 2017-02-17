@@ -16,7 +16,7 @@ export class SkyListProviderDemoComponent {
   public listDataProvider: DemoListProvider = new DemoListProvider();
 }
 
-class DemoListProvider extends ListDataProvider {
+export class DemoListProvider extends ListDataProvider {
 
   public items: Observable<Array<ListItemModel>>;
   public remoteCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
