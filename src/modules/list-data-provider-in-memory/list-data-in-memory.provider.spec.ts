@@ -27,35 +27,39 @@ describe('in memory data provider', () => {
     ]);
     let provider = new SkyListInMemoryDataProvider(items);
 
-    let request = new ListDataRequestModel({
-      search: {
+    let searchObject = {
         searchText: 'z',
         functions: [searchFunction]
-      },
-      pageSize: 5
+      };
+
+    let request = new ListDataRequestModel({
+      search: searchObject,
+      pageSize: 5,
+      pageNumber: 1
     });
 
     tick();
 
-    provider.get(request).takeLast(1).subscribe((result) => {
+    provider.get(request).take(1).subscribe((result) => {
       expect(result.items.length).toBe(0);
       expect(result.count).toBe(0);
     });
 
     tick();
-    let searchObject = {
-        searchText: '',
-        functions: [searchFunction]
-      };
 
+    searchObject = {
+      searchText: '',
+      functions: [searchFunction]
+    };
     request = new ListDataRequestModel({
       search: searchObject,
-      pageSize: 5
+      pageSize: 5,
+      pageNumber: 1
     });
 
     tick();
 
-    provider.get(request).takeLast(1).subscribe((result) => {
+    provider.get(request).take(1).subscribe((result) => {
       expect(result.items.length).toBe(5);
       expect(result.count).toBe(7);
     });
@@ -70,7 +74,7 @@ describe('in memory data provider', () => {
 
     tick();
 
-    provider.get(request).takeLast(1).subscribe((result) => {
+    provider.get(request).take(1).subscribe((result) => {
       expect(result.items.length).toBe(2);
       expect(result.count).toBe(7);
     });
