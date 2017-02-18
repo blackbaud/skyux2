@@ -8,7 +8,6 @@ import {
 
 describe('in memory data provider', () => {
 
-
   it('should handle searching with no results, clearing search, and then having a paging change',
     fakeAsync(() => {
 

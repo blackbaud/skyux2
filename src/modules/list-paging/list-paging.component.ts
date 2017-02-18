@@ -80,7 +80,6 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
   }
 
   public pageChange(currentPage: number) {
-    debugger;
     this.dispatcher.next(
       new ListPagingSetPageNumberAction(Number(currentPage))
     );
