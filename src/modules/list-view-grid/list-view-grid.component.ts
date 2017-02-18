@@ -175,10 +175,10 @@ export class SkyListViewGridComponent
   }
 
   get items(): Observable<ListItemModel[]> {
-    return Observable.combineLatest(
-      this.state.map(s => s.items.items).distinctUntilChanged(),
-      (items) => items
-    );
+
+    return this.state.map((s) => {
+      return s.items.items;
+    }).distinctUntilChanged();
   }
 
   get columns() {
