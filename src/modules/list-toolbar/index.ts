@@ -6,4 +6,3 @@ export { SkyListToolbarSecondaryActionsComponent }
   from './list-toolbar-secondary-actions.component';
 export { SkyListToolbarSecondaryActionComponent }
   from './list-toolbar-secondary-action.component';
-

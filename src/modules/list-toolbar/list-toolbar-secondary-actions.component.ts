@@ -44,7 +44,7 @@ export class SkyListToolbarSecondaryActionsComponent implements AfterContentInit
         location: 'right',
         index: -1
       }
-    )
+    );
     this.dispatcher.toolbarAddItems([
       secondaryActionItem
     ]);
