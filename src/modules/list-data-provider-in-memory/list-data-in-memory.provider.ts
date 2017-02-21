@@ -8,7 +8,7 @@ import { ListSearchModel } from '../list/state/search/search.model';
 let moment = require('moment');
 
 export class SkyListInMemoryDataProvider extends ListDataProvider {
-  private items: BehaviorSubject<Array<ListItemModel>> =
+  public items: BehaviorSubject<Array<ListItemModel>> =
     new BehaviorSubject<Array<ListItemModel>>([]);
 
   private lastItems: ListItemModel[];
@@ -41,7 +41,6 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
     return this.filteredItems(request).map((result: Array<ListItemModel>) => {
         let itemStart = (request.pageNumber - 1) * request.pageSize;
         let pagedResult = result.slice(itemStart, itemStart + request.pageSize);
-
         return new ListDataResponseModel({
           count: result.length,
           items: pagedResult
@@ -100,8 +99,9 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         });
 
         this.lastSearchResults = result;
+      } else {
+        this.lastSearchResults = undefined;
       }
-
       return result;
     });
   }

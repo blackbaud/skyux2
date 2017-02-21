@@ -270,8 +270,8 @@ describe('List Component', () => {
           tick();
 
           state.take(1).subscribe((current) => {
-            expect(current.selected.item['2']).toBe(true);
-            expect(current.selected.item['1']).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('2')).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('1')).toBe(true);
           });
 
           tick();
@@ -281,8 +281,8 @@ describe('List Component', () => {
           tick();
 
           state.take(1).subscribe((current) => {
-            expect(current.selected.item['2']).toBe(true);
-            expect(current.selected.item['1']).toBe(false);
+            expect(current.selected.item.selectedIdMap.get('2')).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('1')).toBe(false);
           });
 
           tick();
@@ -292,8 +292,8 @@ describe('List Component', () => {
           tick();
 
           state.take(1).subscribe((current) => {
-            expect(current.selected.item['2']).toBe(undefined);
-            expect(current.selected.item['3']).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('2')).toBe(undefined);
+            expect(current.selected.item.selectedIdMap.get('3')).toBe(true);
           });
 
           tick();
@@ -306,7 +306,7 @@ describe('List Component', () => {
           tick();
 
           state.take(1).subscribe((current) => {
-            expect(current.selected.item['1']).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('1')).toBe(true);
           });
 
           tick();
@@ -316,8 +316,8 @@ describe('List Component', () => {
           tick();
 
           state.take(1).subscribe((current) => {
-            expect(current.selected.item['2']).toBe(true);
-            expect(current.selected.item['1']).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('2')).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('1')).toBe(true);
           });
 
           tick();
@@ -327,8 +327,8 @@ describe('List Component', () => {
           tick();
 
           state.take(1).subscribe((current) => {
-            expect(current.selected.item['2']).toBe(true);
-            expect(current.selected.item['1']).toBe(false);
+            expect(current.selected.item.selectedIdMap.get('2')).toBe(true);
+            expect(current.selected.item.selectedIdMap.get('1')).toBe(false);
           });
 
           tick();
@@ -340,15 +340,15 @@ describe('List Component', () => {
         tick();
         fixture.detectChanges();
         state.take(1).subscribe((current) => {
-          expect(current.selected.item['2']).toBe(true);
-          expect(current.selected.item['1']).toBe(true);
+          expect(current.selected.item.selectedIdMap.get('2')).toBe(true);
+          expect(current.selected.item.selectedIdMap.get('1')).toBe(true);
         });
 
         fixture.detectChanges();
         tick();
       }));
 
-      it('should allow users to access selectedItems', fakeAsync(() => {
+      it('should allow users to access displayed selectedItems', fakeAsync(() => {
         tick();
         fixture.detectChanges();
         component.list.selectedItems.subscribe((items)=> {
@@ -360,7 +360,7 @@ describe('List Component', () => {
         tick();
       }));
 
-      it('should allow users to listen for selectedItem changes on an event', fakeAsync(() => {
+      it('should allow users to listen for selectedId changes on an event', fakeAsync(() => {
         tick();
         fixture.detectChanges();
 
@@ -369,9 +369,12 @@ describe('List Component', () => {
         tick();
 
         fixture.detectChanges();
+        let selectedIds: Array<string> = Array.from(component.selectedItems.entries())
+          .filter((item) => item[1])
+          .map((item) => item[0]);
 
-        expect(component.selectedItems[0].data.column2).toBe('Apple');
-        expect(component.selectedItems[1].data.column2).toBe('Banana');
+        expect(selectedIds[0]).toBe('1');
+        expect(selectedIds[1]).toBe('2');
       }));
     });
 

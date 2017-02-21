@@ -3,7 +3,8 @@ import { ListToolbarModel } from './toolbar.model';
 import { ListToolbarItemModel } from './toolbar-item.model';
 import {
   ListToolbarItemsLoadAction,
-  ListToolbarSetExistsAction
+  ListToolbarSetExistsAction,
+  ListToolbarSetTypeAction
 } from './actions';
 
 export class ListToolbarOrchestrator
@@ -14,7 +15,8 @@ export class ListToolbarOrchestrator
 
     this
       .register(ListToolbarSetExistsAction, this.setExists)
-      .register(ListToolbarItemsLoadAction, this.load);
+      .register(ListToolbarItemsLoadAction, this.load)
+      .register(ListToolbarSetTypeAction, this.setType);
   }
 
   private setExists(
@@ -23,6 +25,15 @@ export class ListToolbarOrchestrator
   ): ListToolbarModel {
     const newModel = new ListToolbarModel(state);
     newModel.exists = action.exists;
+    return newModel;
+  }
+
+  private setType(
+    state: ListToolbarModel,
+    action: ListToolbarSetTypeAction
+  ): ListToolbarModel {
+    const newModel = new ListToolbarModel(state);
+    newModel.type = action.type;
     return newModel;
   }
 

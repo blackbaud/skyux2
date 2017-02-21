@@ -1,6 +1,5 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { SkyListComponent } from '../list.component';
-import { ListItemModel } from '../state';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -10,14 +9,14 @@ export class ListSelectedTestComponent {
   @ViewChild(SkyListComponent)
   public list: SkyListComponent;
 
-  public selectedItems: ListItemModel[];
+  public selectedItems: Map<string, boolean>;
 
   public selectedIds: Array<string> = ['1', '2'];
 
   constructor(@Inject('items') public items: any) {
   }
 
-  public selectedChangeFunction(selectedItems: ListItemModel[]) {
+  public selectedChangeFunction(selectedItems: Map<string, boolean>) {
     this.selectedItems = selectedItems;
   }
 

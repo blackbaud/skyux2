@@ -161,6 +161,7 @@ $sky-toolbar-min-height: 49px;
 // begin wait
 $sky-wait-color: $sky-color-blue !default;
 $sky-wait-mask-color: $sky-color-white !default;
+$sky-page-wait-z-index: 2000 !default;
 // end wait
 
 // Support for mozilla in experimental css3 properties (-moz).

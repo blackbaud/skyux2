@@ -18,6 +18,9 @@ import {
   GridEmptyTestComponent
 } from './fixtures/grid-empty.component.fixture';
 import {
+  GridDynamicTestComponent
+} from './fixtures/grid-dynamic.component.fixture';
+import {
   SkyGridModule,
   SkyGridComponent,
   SkyGridColumnModel
@@ -607,6 +610,44 @@ describe('Grid Component', () => {
 
       verifyHeaders(true);
       verifyData(true);
+    });
+  });
+
+  describe('Dynamic columns', () => {
+    it('should handle columns changing after initialization', () => {
+      let component: GridDynamicTestComponent,
+        fixture: ComponentFixture<GridDynamicTestComponent>,
+        nativeElement: HTMLElement,
+        element: DebugElement;
+
+      TestBed.configureTestingModule({
+        imports: [
+          GridFixturesModule,
+          SkyGridModule
+        ]
+      });
+
+      fixture = TestBed.createComponent(GridDynamicTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
+
+      fixture.detectChanges();
+
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
+      expect(getColumnHeader('name', element).nativeElement.textContent.trim())
+        .toBe('Name Initial');
+      expect(getColumnHeader('email', element).nativeElement.textContent.trim())
+        .toBe('Email Initial');
+
+      component.changeColumns();
+      fixture.detectChanges();
+
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
+      expect(getColumnHeader('name', element).nativeElement.textContent.trim())
+        .toBe('Name');
+      expect(getColumnHeader('email', element).nativeElement.textContent.trim())
+        .toBe('Email');
     });
   });
 
