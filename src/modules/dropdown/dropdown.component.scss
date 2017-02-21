@@ -23,6 +23,7 @@
   display: none;
   position: absolute;
   @include sky-shadow;
+  z-index: $sky-dropdown-z-index;
 
   &.sky-dropdown-open {
     display: block;
