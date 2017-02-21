@@ -2,7 +2,9 @@ import {
   Component,
   TemplateRef,
   ViewChild,
-  AfterContentInit
+  AfterContentInit,
+  ContentChildren,
+  QueryList
 } from '@angular/core';
 
 import {
@@ -10,14 +12,24 @@ import {
   ListToolbarItemModel
 } from '../list/state';
 
+import {
+  SkyListToolbarSecondaryActionComponent
+} from './list-toolbar-secondary-action.component';
+
 @Component({
   selector: 'sky-list-toolbar-secondary-actions',
-  templateUrl: './list-toolbar-secondary-actions.component.html'
+  templateUrl: './list-toolbar-secondary-actions.component.html',
+  styleUrls: ['./list-toolbar-secondary-actions.component.scss']
 })
-export class SkyListToolbarSecondaryActionsComponent implements AfterContentInit{
+export class SkyListToolbarSecondaryActionsComponent implements AfterContentInit {
+
+  public dropdownHidden: boolean = false;
 
   @ViewChild('secondaryActions')
   private secondaryActionsTemplate: TemplateRef<any>;
+
+  @ContentChildren(SkyListToolbarSecondaryActionComponent)
+  private secondaryActions: QueryList<SkyListToolbarSecondaryActionComponent>;
 
   constructor(
     private dispatcher: ListStateDispatcher
@@ -29,11 +41,17 @@ export class SkyListToolbarSecondaryActionsComponent implements AfterContentInit
       {
         id: 'secondary-actions',
         template: this.secondaryActionsTemplate,
-        location: 'center'
+        location: 'right',
+        index: -1
       }
     )
     this.dispatcher.toolbarAddItems([
       secondaryActionItem
     ]);
+
+    this.dropdownHidden = this.secondaryActions.length < 1;
+    this.secondaryActions.changes.subscribe(() => {
+      this.dropdownHidden = this.secondaryActions.length < 1;
+    });
   }
 }

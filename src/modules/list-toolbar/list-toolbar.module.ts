@@ -9,25 +9,32 @@ import { SkyListToolbarItemRendererComponent } from './list-toolbar-item-rendere
 import {
   SkyListToolbarSecondaryActionsComponent
 } from './list-toolbar-secondary-actions.component';
+import {
+  SkyListToolbarSecondaryActionComponent
+} from './list-toolbar-secondary-action.component';
+import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
     SkyListToolbarComponent,
     SkyListToolbarItemComponent,
     SkyListToolbarItemRendererComponent,
-    SkyListToolbarSecondaryActionsComponent
+    SkyListToolbarSecondaryActionsComponent,
+    SkyListToolbarSecondaryActionComponent
   ],
   imports: [
     CommonModule,
     SkyToolbarModule,
     SkySearchModule,
-    SkyDropdownModule
+    SkyDropdownModule,
+    SkyResourcesModule
   ],
   exports: [
     SkyListToolbarComponent,
     SkyListToolbarItemComponent,
     SkyListToolbarItemRendererComponent,
-    SkyListToolbarSecondaryActionsComponent
+    SkyListToolbarSecondaryActionsComponent,
+    SkyListToolbarSecondaryActionComponent
   ],
   providers: [
   ]
