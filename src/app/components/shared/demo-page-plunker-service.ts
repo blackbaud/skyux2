@@ -65,7 +65,7 @@ export class SkyDemoPagePlunkerService {
     '@angular/common': 'npm:@angular/common@2.4.5/bundles/common.umd.js',
     '@angular/compiler': 'npm:@angular/compiler@2.4.5/bundles/compiler.umd.js',
     '@angular/platform-browser': 'npm:@angular/platform-browser@2.4.5/bundles/platform-browser.umd.js',
-    '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles@2.4.5/platform-browser-dynamic.umd.js',
+    '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic@2.4.5/bundles/platform-browser-dynamic.umd.js',
     '@angular/http': 'npm:@angular/http@2.4.5/bundles/http.umd.js',
     '@angular/router': 'npm:@angular/router@3.4.5/bundles/router.umd.js',
     '@angular/forms': 'npm:@angular/forms@2.4.5/bundles/forms.umd.js',
