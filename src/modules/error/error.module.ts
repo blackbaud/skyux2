@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ErrorComponent } from './error.component';
+import { SkyErrorComponent } from './error.component';
 
 @NgModule({
-  declarations: [ErrorComponent],
+  declarations: [SkyErrorComponent],
   imports: [CommonModule],
-  exports: [ErrorComponent]
+  exports: [SkyErrorComponent]
 })
-export class ErrorModule { }
+export class SkyErrorModule { }

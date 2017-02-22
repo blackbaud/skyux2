@@ -10,6 +10,7 @@ import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
+import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyGridModule } from './modules/grid';
 import { SkyKeyInfoModule } from './modules/key-info';
@@ -42,6 +43,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyChevronModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
+    SkyErrorModule,
     SkyFileAttachmentsModule,
     SkyGridModule,
     SkyKeyInfoModule,
@@ -74,6 +76,7 @@ export * from './modules/card';
 export * from './modules/checkbox';
 export * from './modules/definition-list';
 export * from './modules/dropdown';
+export * from './modules/error';
 export * from './modules/fileattachments';
 export * from './modules/format';
 export * from './modules/grid';

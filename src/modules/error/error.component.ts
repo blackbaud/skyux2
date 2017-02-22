@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./error.component.scss'],
   templateUrl: './error.component.html'
 })
-export class ErrorComponent {
+export class SkyErrorComponent {
 }

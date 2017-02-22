@@ -1,2 +1,2 @@
-export { ErrorComponent } from './error.component';
-export { ErrorModule } from './error.module';
+export { SkyErrorComponent } from './error.component';
+export { SkyErrorModule } from './error.module';
