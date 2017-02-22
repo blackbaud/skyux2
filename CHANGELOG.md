@@ -1,3 +1,10 @@
+# 2.0.0-beta.9 (2017-02-22)
+
+  - Add appropriate z-index for dropdown menu. (#355)
+  - Remove unnecessary demo folder. (#364)
+  - Add documentation around grid column template. (#349)
+  - Fix plunkers for sky-list and add example of using Observables to change data in view. (#370)
+
 # 2.0.0-beta.8 (2017-02-18)
 
   - Added appropriate styles for `sky-btn-default`, `sky-btn-link`, and `sky-btn-link-inline` classes. (#302)
