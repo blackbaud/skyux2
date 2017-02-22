@@ -8,7 +8,7 @@ import { SkyDemoPageCodeFile } from './demo-page-code-file';
 export class SkyDemoPagePlunkerService {
   public getFiles(codeFiles: SkyDemoPageCodeFile[]): any[] {
     let declarations: string[] = [];
-    let bootstrapSelector: string;
+    let bootstrapSelectors: string[] = [];
     let entryComponents: string[] = [];
     let files: any[] = [];
     let imports: string[] = [];
@@ -29,12 +29,17 @@ export class SkyDemoPagePlunkerService {
         declarations.push(componentName);
 
         if (codeFile.bootstrapSelector) {
-          bootstrapSelector = codeFile.bootstrapSelector;
+          bootstrapSelectors.push(codeFile.bootstrapSelector);
         } else {
           entryComponents.push(componentName);
         }
       }
     }
+
+    let combinedSelectors = '';
+    bootstrapSelectors.forEach((item) => {
+      combinedSelectors += '<' + item + '></' + item + '>';
+    });
 
     return [
       ...files,
@@ -67,7 +72,7 @@ export class SkyDemoPagePlunkerService {
 
     'rxjs': 'npm:rxjs',
     'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
-    '@blackbaud/skyux/dist/core': 'npm:@blackbaud/skyux/dist/bundles/core.umd.min.js',
+    '@blackbaud/skyux/dist/core': 'npm:@blackbaud/skyux/dist/bundles/core.umd.js',
 
     'moment': 'npm:moment/moment.js',
 
@@ -150,7 +155,7 @@ export class SkyDemoPagePlunkerService {
 
 @Component({
   selector: 'sky-demo-app',
-  template: '<${bootstrapSelector}></${bootstrapSelector}>'
+  template: '${combinedSelectors}'
 })
 export class AppComponent() { }`
       },

@@ -6,9 +6,11 @@ import { ListState } from './state';
 
 import { SkyListComponent } from '../list/list.component';
 import {
-  BehaviorSubject,
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
+import {
   Observable
-} from 'rxjs';
+} from 'rxjs/Observable';
 
 let moment = require('moment');
 

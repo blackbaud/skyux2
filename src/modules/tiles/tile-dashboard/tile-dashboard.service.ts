@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 import {
   SkyMediaBreakpoints,

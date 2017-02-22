@@ -1,5 +1,5 @@
 import { ListState, ListStateDispatcher } from './state';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export abstract class ListPagingComponent {
   protected initialized: BehaviorSubject<boolean> = new BehaviorSubject(false);

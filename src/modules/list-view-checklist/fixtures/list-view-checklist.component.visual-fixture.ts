@@ -1,7 +1,7 @@
 import { Component, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 import { SkyModule } from '../../../../src/core';
 

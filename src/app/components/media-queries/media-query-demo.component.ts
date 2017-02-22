@@ -1,3 +1,4 @@
+import 'rxjs/Rx';
 import {
   Component,
   OnDestroy
@@ -5,7 +6,7 @@ import {
 
 import {
   Subscription
-} from 'rxjs';
+} from 'rxjs/Subscription';
 
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../../../core';
 

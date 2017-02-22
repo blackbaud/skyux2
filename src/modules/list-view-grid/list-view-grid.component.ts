@@ -18,7 +18,7 @@ import {
 import { ListStateDispatcher } from '../list/state';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { getValue } from 'microedge-rxstate/dist/helpers';
 import {
   SkyGridComponent,
