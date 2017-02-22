@@ -44,7 +44,7 @@ import {
 import { ListViewModel } from './state/views/view.model';
 import { ListItemModel } from './state/items/item.model';
 
-import { isObservable } from './helpers';{ }
+import { isObservable } from './helpers';
 let moment = require('moment');
 
 @Component({
