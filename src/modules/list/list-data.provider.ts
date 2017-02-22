@@ -1,6 +1,6 @@
 import { ListDataRequestModel } from './list-data-request.model';
 import { ListDataResponseModel } from '../list/list-data-response.model';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 export abstract class ListDataProvider {
   constructor(data?: Observable<Array<any>>) {}

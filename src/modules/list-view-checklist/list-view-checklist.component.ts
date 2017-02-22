@@ -50,7 +50,7 @@ import {
 
 import {
   Observable
-} from 'rxjs';
+} from 'rxjs/Observable';
 
 import {
   getData
