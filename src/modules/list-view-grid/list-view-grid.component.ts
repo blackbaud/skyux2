@@ -28,7 +28,10 @@ import {
 import {
   ListItemModel
 } from '../list/state';
-import { getData } from '../list/helpers';
+import {
+  getData,
+  isObservable
+} from '../list/helpers';
 
 @Component({
   selector: 'sky-list-view-grid',
@@ -95,11 +98,11 @@ export class SkyListViewGridComponent
       return new SkyGridColumnModel(columnComponent.template, columnComponent);
     });
 
-    if (this.width && !(this.width instanceof Observable)) {
+    if (this.width && !isObservable(this.width)) {
       this.width = Observable.of(this.width);
     }
 
-    if (this.height && !(this.height instanceof Observable)) {
+    if (this.height && !isObservable(this.height)) {
       this.height = Observable.of(this.height);
     }
 

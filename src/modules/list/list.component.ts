@@ -43,6 +43,8 @@ import {
 
 import { ListViewModel } from './state/views/view.model';
 import { ListItemModel } from './state/items/item.model';
+
+import { isObservable } from './helpers';{ }
 let moment = require('moment');
 
 @Component({
@@ -138,7 +140,7 @@ export class SkyListComponent implements AfterContentInit {
     }
 
     let data: any = this.data;
-    if (!(this.data instanceof Observable)) {
+    if (!isObservable(data)) {
       data = Observable.of(this.data);
     }
 
@@ -147,7 +149,7 @@ export class SkyListComponent implements AfterContentInit {
     }
 
     let selectedIds: any = this.selectedIds || Observable.of([]);
-    if (!(selectedIds instanceof Observable)) {
+    if (!isObservable(selectedIds)) {
       selectedIds = Observable.of(selectedIds);
     }
 
