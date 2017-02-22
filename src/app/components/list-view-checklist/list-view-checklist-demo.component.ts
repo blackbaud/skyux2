@@ -1,10 +1,11 @@
+import 'rxjs/Rx';
 import {
   Component
 } from '@angular/core';
 
 import {
   Observable
-} from 'rxjs';
+} from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-list-view-checklist-demo',

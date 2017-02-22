@@ -1,6 +1,6 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { SkyListComponent } from '../list.component';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SkyListInMemoryDataProvider } from '../../list-data-provider-in-memory';
 
 @Component({

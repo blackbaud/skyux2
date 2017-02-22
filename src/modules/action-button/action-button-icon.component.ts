@@ -11,7 +11,7 @@ import {
 
 import {
   Subscription
-} from 'rxjs';
+} from 'rxjs/Subscription';
 
 @Component({
   selector: 'sky-action-button-icon',

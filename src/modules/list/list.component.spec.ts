@@ -13,7 +13,8 @@ import {
   ListStateDispatcher
 } from '../list/state';
 let moment = require('moment');
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ListFixturesModule } from './fixtures/list-fixtures.module';
 import { ListTestComponent } from './fixtures/list.component.fixture';
