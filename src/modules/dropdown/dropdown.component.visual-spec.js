@@ -39,4 +39,13 @@ describe('Dropdown', function () {
       });
   });
 
+  it('should match dropdown screenshot when before a relative element', function () {
+    return browser
+      .setupTest('/dropdown.html')
+      .click('#screenshot-dropdown-z-index .sky-dropdown-button')
+      .compareScreenshot({
+        screenshotName: 'dropdown_z_index',
+        selector: '#screenshot-dropdown-z-index'
+      });
+  });
 });
