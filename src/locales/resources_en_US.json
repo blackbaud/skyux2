@@ -515,6 +515,10 @@
       "_description": "Label for the button that deletes a file",
       "message": "Delete file"
     },
+    "list_show_secondary_actions": {
+      "_description": "Label for the button that opens the secondary actions menu in the list toolbar",
+      "message": "Show secondary actions"
+    },
     "search_dismiss": {
         "_description": "Label for dismissing search input",
         "message": "Dismiss search"

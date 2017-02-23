@@ -1,0 +1,11 @@
+.sky-list-toolbar-secondary-actions {
+  /deep/ .sky-dropdown-button-type-context-menu {
+    border-radius: 3px;
+    padding: 6px 12px;
+    .fa-ellipsis-h { /* add styles for fa-lg */
+      font-size: 1.33333em;
+      line-height: .75em;
+      vertical-align: -15%;
+    }
+  }
+}
