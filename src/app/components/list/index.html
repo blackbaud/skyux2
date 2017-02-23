@@ -31,7 +31,7 @@
         defaultValue="SkyListInMemoryDataProvider"
         isOptional="true"
     >
-      Specific a data provider used to obtain data to display.
+      Specifies a data provider used to obtain data to display.
       Must provide <code>data</code> or <code>dataProvider</code>.
       Acceptable values: <code>extends ListDataProvider</code>. To extend ListDataProvider, provide a <code>get</code> function that accepts a <code>ListDataRequestModel</code> as an argument and returns a <code>Observable ListDataResponseMode </code>, and a <code>count</code> function that returns a <code>Observable number</code> that indicates how many total records are in the list.
     </sky-demo-page-property>
@@ -49,7 +49,7 @@
         defaultValue=""
         isOptional="true"
     >
-      Specific a function to apply as a global sort on the list.
+      Specifies a function to apply as a global sort on the list.
       Acceptable value: <code>(searchText: string) => Observable Array or Promise Array</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
@@ -57,7 +57,7 @@
         defaultValue=""
         isOptional="true"
     >
-      Specific a set of selected ids to used with a checklist view.
+      Specifies a set of selected ids to used with a checklist view.
       Acceptable values: <code>Observable Array of strings or Array of strings</code>.
     </sky-demo-page-property>
   </sky-demo-page-properties>

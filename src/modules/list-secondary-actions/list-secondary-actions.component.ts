@@ -1,0 +1,58 @@
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+  AfterContentInit
+} from '@angular/core';
+
+import {
+  ListStateDispatcher,
+  ListToolbarItemModel
+} from '../list/state';
+
+import {
+  SkyListSecondaryActionComponent
+} from './list-secondary-action.component';
+import {
+  SkyListSecondaryActionsService
+} from './list-secondary-actions.service';
+
+@Component({
+  selector: 'sky-list-secondary-actions',
+  templateUrl: './list-secondary-actions.component.html',
+  styleUrls: ['./list-secondary-actions.component.scss'],
+  providers: [
+    SkyListSecondaryActionsService
+  ]
+})
+export class SkyListSecondaryActionsComponent implements AfterContentInit {
+
+  public dropdownHidden: boolean = false;
+
+  @ViewChild('secondaryActions')
+  private secondaryActionsTemplate: TemplateRef<any>;
+
+  constructor(
+    private dispatcher: ListStateDispatcher,
+    private actionService: SkyListSecondaryActionsService
+  ) {
+  }
+
+  public ngAfterContentInit() {
+    let secondaryActionItem = new ListToolbarItemModel(
+      {
+        id: 'secondary-actions',
+        template: this.secondaryActionsTemplate,
+        location: 'right',
+        index: -1
+      }
+    );
+    this.dispatcher.toolbarAddItems([
+      secondaryActionItem
+    ]);
+
+    this.actionService.secondaryActionsSubject.subscribe((count) => {
+      this.dropdownHidden = count < 1;
+    });
+  }
+}

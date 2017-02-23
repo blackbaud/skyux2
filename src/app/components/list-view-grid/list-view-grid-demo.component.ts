@@ -25,41 +25,4 @@ export class SkyListViewGridDemoComponent {
   ]);
 
   constructor(private modal: SkyModalService) {}
-
-  public openColumnSelector() {
-    let columns: Array<any> = [
-      {
-        id: 'column1',
-        heading: 'Column1',
-        description: 'A column with numbers'
-      },
-      {
-        id: 'column2',
-        heading: 'Column2',
-        description: 'A column with fruits'
-      },
-      {
-        id: 'column3',
-        heading: 'Column3',
-        description: 'A column with eating fruits'
-      }
-    ];
-
-    let selectedColumnIds = [
-      'column1',
-      'column2',
-      'column3'
-    ];
-
-    let modalInstance = this.modal.open(SkyColumnSelectorComponent, [
-      {
-        provide: SkyColumnSelectorContext,
-        useValue: {
-          columns: columns,
-          selectedColumnIds: selectedColumnIds
-        }
-      }
-    ])
-
-  }
 }

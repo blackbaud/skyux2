@@ -1,4 +1,4 @@
-import { Component, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { SkyModalComponent } from '../modal';
 import { SkyListComponent } from '../list';
 import { SkyModalInstance } from '../modal';

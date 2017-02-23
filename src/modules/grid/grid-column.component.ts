@@ -27,6 +27,8 @@ export class SkyGridColumnComponent {
   public field: string;
   @Input()
   public type: string;
+  @Input()
+  public description: string;
 
   /* tslint:disable */
   @Input('search')

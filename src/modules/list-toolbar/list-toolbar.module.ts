@@ -6,35 +6,23 @@ import { SkyDropdownModule } from '../dropdown';
 import { SkyListToolbarComponent } from './list-toolbar.component';
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { SkyListToolbarItemRendererComponent } from './list-toolbar-item-renderer.component';
-import {
-  SkyListToolbarSecondaryActionsComponent
-} from './list-toolbar-secondary-actions.component';
-import {
-  SkyListToolbarSecondaryActionComponent
-} from './list-toolbar-secondary-action.component';
-import { SkyResourcesModule } from '../resources';
+
 
 @NgModule({
   declarations: [
     SkyListToolbarComponent,
     SkyListToolbarItemComponent,
-    SkyListToolbarItemRendererComponent,
-    SkyListToolbarSecondaryActionsComponent,
-    SkyListToolbarSecondaryActionComponent
+    SkyListToolbarItemRendererComponent
   ],
   imports: [
     CommonModule,
     SkyToolbarModule,
-    SkySearchModule,
-    SkyDropdownModule,
-    SkyResourcesModule
+    SkySearchModule
   ],
   exports: [
     SkyListToolbarComponent,
     SkyListToolbarItemComponent,
-    SkyListToolbarItemRendererComponent,
-    SkyListToolbarSecondaryActionsComponent,
-    SkyListToolbarSecondaryActionComponent
+    SkyListToolbarItemRendererComponent
   ],
   providers: [
   ]
