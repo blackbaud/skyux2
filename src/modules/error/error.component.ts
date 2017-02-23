@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { SkyResourcesService } from '../resources/resources.service';
 
 @Component({
   selector: 'sky-error',
@@ -8,13 +9,13 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 export class SkyErrorComponent implements OnInit {
 
   @Input()
-  public title: string = '';
+  public title: string;
 
   @Input()
-  public description: string = '';
+  public description: string;
 
   @Input()
-  public actionText: string = '';
+  public actionText: string;
 
   @Input()
   public action: any;
@@ -34,6 +35,8 @@ export class SkyErrorComponent implements OnInit {
 
   private _errorType: string;
 
+  constructor(private resources: SkyResourcesService) { }
+
   public ngOnInit() {
     if (this.errorType && this.errorType !== '') {
       this.setErrorTypeFields();
@@ -42,20 +45,19 @@ export class SkyErrorComponent implements OnInit {
 
   public setErrorTypeFields() {
     if (this.errorType.toLowerCase() === 'broken') {
-      this.title = 'Sorry, something went wrong.';
-      this.description = 'Try to refresh this page or come back later.';
-      this.actionText = 'Refresh';
+      this.title = this.resources.getString('error_component_broken_title');
+      this.description = this.resources.getString('error_component_broken_description');
+      this.actionText = this.resources.getString('error_component_action');
 
     } else if (this.errorType.toLowerCase() === 'notfound') {
-      this.title = 'Sorry, we can\'t reach that page.';
-      this.description = '';
-      this.actionText = 'Refresh';
+      this.title = this.resources.getString('error_component_not_found_title');
+      this.description = undefined;
+      this.actionText = this.resources.getString('error_component_action');
 
     } else if (this.errorType.toLowerCase() === 'construction') {
-      this.title = 'This page will return soon.';
-      this.description = `Thanks for your patience while improvements are made!
-Please check back in a little while.`;
-      this.actionText = 'Refresh';
+      this.title = this.resources.getString('error_component_construction_title');
+      this.description = this.resources.getString('error_component_construction_description');
+      this.actionText = this.resources.getString('error_component_action');
     }
   }
 
