@@ -2,6 +2,7 @@ import { Component, Output, ViewChild, EventEmitter } from '@angular/core';
 import { SkyModalComponent } from '../modal';
 import { SkyListComponent } from '../list';
 import { SkyGridColumnModel } from './grid-column.model';
+import { SkyModalInstance } from '../modal';
 
 @Component({
   selector: 'sky-column-selector',
@@ -12,7 +13,8 @@ export class SkyColumnSelectorComponent {
 
   constructor(
     public columns: Array<SkyGridColumnModel>,
-    private selectedColumnIds: Array<string>
+    public selectedColumnIds: Array<string>,
+    public instance: SkyModalInstance
   ) {
     this.newSelectedColumnIds = selectedColumnIds;
   }
@@ -27,10 +29,10 @@ export class SkyColumnSelectorComponent {
   }
 
   public cancelChanges() {
-    //stub for cancelling changes to column chooser
+    this.instance.cancel();
   }
 
   public applyChanges() {
-    //stub for submitting newSelectedColumnIds
+    this.instance.save(this.newSelectedColumnIds);
   }
 }

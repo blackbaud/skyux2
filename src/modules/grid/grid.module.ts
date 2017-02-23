@@ -4,6 +4,7 @@ import { SkyGridComponent } from './grid.component';
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridCellComponent } from './grid-cell.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { SkyColumnSelectorComponent } from './column-selector-modal.component';
 
 @NgModule({
   declarations: [
@@ -13,12 +14,17 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula';
   ],
   imports: [
     CommonModule,
-    DragulaModule
+    DragulaModule,
+    SkyColumnSelectorComponent
   ],
   exports: [
     SkyGridComponent,
     SkyGridColumnComponent,
-    SkyGridCellComponent
+    SkyGridCellComponent,
+    SkyColumnSelectorComponent
+  ],
+  entryComponents: [
+    SkyColumnSelectorComponent
   ]
 })
 export class SkyGridModule {
