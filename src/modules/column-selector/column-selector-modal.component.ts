@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { SkyModalComponent } from '../modal';
-import { SkyListComponent } from '../list';
 import { SkyModalInstance } from '../modal';
 import { SkyColumnSelectorContext } from './column-selector-context';
 
@@ -9,7 +7,7 @@ import { SkyColumnSelectorContext } from './column-selector-context';
   templateUrl: './column-selector-modal.component.html'
 })
 export class SkyColumnSelectorComponent {
-  public newSelectedColumnIds: Array<string>
+  public newSelectedColumnIds: Array<string> = [];
 
   constructor(
     public context: SkyColumnSelectorContext,

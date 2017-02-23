@@ -11,9 +11,6 @@ import {
 } from '../list/state';
 
 import {
-  SkyListSecondaryActionComponent
-} from './list-secondary-action.component';
-import {
   SkyListSecondaryActionsService
 } from './list-secondary-actions.service';
 

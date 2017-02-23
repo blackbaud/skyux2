@@ -3,12 +3,6 @@ import 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import {
-  SkyColumnSelectorComponent,
-  SkyColumnSelectorContext,
-  SkyModalService
-} from '../../../core';
-
 @Component({
   selector: 'sky-list-view-grid-demo',
   templateUrl: './list-view-grid-demo.component.html'
@@ -23,6 +17,4 @@ export class SkyListViewGridDemoComponent {
     { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
-
-  constructor(private modal: SkyModalService) {}
 }
