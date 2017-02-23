@@ -30,15 +30,18 @@ export class SkyListViewGridDemoComponent {
     let columns: Array<any> = [
       {
         id: 'column1',
-        heading: 'Column1'
+        heading: 'Column1',
+        description: 'A column with numbers'
       },
       {
         id: 'column2',
-        heading: 'Column2'
+        heading: 'Column2',
+        description: 'A column with fruits'
       },
       {
         id: 'column3',
-        heading: 'Column3'
+        heading: 'Column3',
+        description: 'A column with eating fruits'
       }
     ];
 

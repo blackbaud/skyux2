@@ -1,7 +1,6 @@
 import { Component, Output, ViewChild, EventEmitter } from '@angular/core';
 import { SkyModalComponent } from '../modal';
 import { SkyListComponent } from '../list';
-import { SkyGridColumnModel } from './grid-column.model';
 import { SkyModalInstance } from '../modal';
 import { SkyColumnSelectorContext } from './column-selector-context';
 
