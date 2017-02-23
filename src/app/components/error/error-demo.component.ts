@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './error-demo.component.html'
 })
 export class ErrorDemoComponent {
+  public errorType: string = 'broken';
 }

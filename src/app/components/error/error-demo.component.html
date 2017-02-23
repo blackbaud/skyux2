@@ -1,1 +1,10 @@
-<sky-error></sky-error>
+<div>
+  <h3>Pre-defined error types</h3>
+  <select [(ngModel)]="errorType">
+    <option value="broken">Broken</option>
+    <option value="notfound">NotFound</option>
+    <option value="construction">Construction</option>
+  </select>
+</div>
+
+<sky-error [errorType]="errorType"></sky-error>
