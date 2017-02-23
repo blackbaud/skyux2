@@ -1,1 +1,17 @@
-@import "../../scss/mixins";
+.sky-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sky-error-content {
+  text-align: center;
+}
+
+.sky-error-title {
+  font-weight: bold;
+}
+
+.sky-error-action {
+  margin-top: 10px;
+}
