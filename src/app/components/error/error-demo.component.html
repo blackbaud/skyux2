@@ -1,10 +1,24 @@
-<div>
+<div style="border-bottom: 1px solid #ccc; padding-bottom: 20px;">
   <h3>Pre-defined error types</h3>
   <select [(ngModel)]="errorType">
     <option value="broken">Broken</option>
     <option value="notfound">NotFound</option>
     <option value="construction">Construction</option>
   </select>
+
+  <sky-error [errorType]="errorType" (actionClicked)="customAction()"></sky-error>
 </div>
 
-<sky-error [errorType]="errorType"></sky-error>
+<div style="border-bottom: solid 1px #ccc; padding-bottom: 20px;">
+  <div>
+    <h3>Custom error content</h3>
+  </div>
+
+  <sky-error
+    [title]="customTitle"
+    [description]="customDescription"
+    [actionText]="customActionText"
+    (actionClicked)="customAction()"
+  >
+  </sky-error>
+</div>

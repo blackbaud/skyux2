@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-const ERROR_TYPE_DEFAULT = 'broken';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'sky-error',
@@ -19,13 +17,19 @@ export class SkyErrorComponent implements OnInit {
   public actionText: string = '';
 
   @Input()
+  public action: any;
+
+  @Input()
   public set errorType(value: string) {
     this._errorType = value;
     this.setErrorTypeFields();
   };
 
+  @Output()
+  public actionClicked: EventEmitter<any> = new EventEmitter();
+
   public get errorType() {
-    return this._errorType || ERROR_TYPE_DEFAULT;
+    return this._errorType;
   }
 
   private _errorType: string;
@@ -53,5 +57,9 @@ export class SkyErrorComponent implements OnInit {
 Please check back in a little while.`;
       this.actionText = 'Refresh';
     }
+  }
+
+  public buttonClicked() {
+    this.actionClicked.emit();
   }
 }
