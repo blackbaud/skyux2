@@ -4,17 +4,15 @@
   </sky-modal-header>
   <sky-modal-content>
     <sky-list #list
-      [data]="columns"
-      [selectedIds]="selectedColumnIds"
+      [data]="context.columns"
+      [selectedIds]="context.selectedColumnIds"
       (selectedIdsChange)="selectedColumnsChange($event)">
       <sky-list-toolbar
-        [placeholder]="'grid_column_picker_search_placeholder' | skyResources'">
+        [placeholder]="'grid_column_picker_search_placeholder' | skyResources">
       </sky-list-toolbar>
 
       <sky-list-view-checklist label="heading">
       </sky-list-view-checklist>
-
-      <sky-list-paging></sky-list-paging>
     </sky-list>
   </sky-modal-content>
   <sky-modal-footer>

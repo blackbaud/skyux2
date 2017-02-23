@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import {
   SkyColumnSelectorComponent,
+  SkyColumnSelectorContext,
   SkyModalService
 } from '../../../core';
 
@@ -47,7 +48,15 @@ export class SkyListViewGridDemoComponent {
       'column3'
     ];
 
-
+    let modalInstance = this.modal.open(SkyColumnSelectorComponent, [
+      {
+        provide: SkyColumnSelectorContext,
+        useValue: {
+          columns: columns,
+          selectedColumnIds: selectedColumnIds
+        }
+      }
+    ])
 
   }
 }

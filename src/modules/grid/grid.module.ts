@@ -5,17 +5,27 @@ import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridCellComponent } from './grid-cell.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { SkyColumnSelectorComponent } from './column-selector-modal.component';
+import { SkyResourcesModule } from '../resources';
+import { SkyModalModule } from '../modal';
+import { SkyListModule } from '../list';
+import { SkyListToolbarModule } from '../list-toolbar';
+import { SkyListViewChecklistModule } from '../list-view-checklist';
 
 @NgModule({
   declarations: [
     SkyGridComponent,
     SkyGridColumnComponent,
-    SkyGridCellComponent
+    SkyGridCellComponent,
+    SkyColumnSelectorComponent
   ],
   imports: [
     CommonModule,
     DragulaModule,
-    SkyColumnSelectorComponent
+    SkyResourcesModule,
+    SkyModalModule,
+    SkyListModule,
+    SkyListToolbarModule,
+    SkyListViewChecklistModule
   ],
   exports: [
     SkyGridComponent,

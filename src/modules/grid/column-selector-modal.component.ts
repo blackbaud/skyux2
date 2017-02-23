@@ -3,6 +3,7 @@ import { SkyModalComponent } from '../modal';
 import { SkyListComponent } from '../list';
 import { SkyGridColumnModel } from './grid-column.model';
 import { SkyModalInstance } from '../modal';
+import { SkyColumnSelectorContext } from './column-selector-context';
 
 @Component({
   selector: 'sky-column-selector',
@@ -12,11 +13,10 @@ export class SkyColumnSelectorComponent {
   public newSelectedColumnIds: Array<string>
 
   constructor(
-    public columns: Array<SkyGridColumnModel>,
-    public selectedColumnIds: Array<string>,
+    public context: SkyColumnSelectorContext,
     public instance: SkyModalInstance
   ) {
-    this.newSelectedColumnIds = selectedColumnIds;
+    this.newSelectedColumnIds = context.selectedColumnIds;
   }
 
   public selectedColumnsChange(selectedMap: Map<string, boolean>) {
