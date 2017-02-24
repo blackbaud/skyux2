@@ -1,4 +1,3 @@
-import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
   inject,
@@ -44,11 +43,9 @@ describe('Column selector component', () => {
   beforeEach(
     inject(
       [
-        ApplicationRef,
         SkyModalService
       ],
       (
-        _applicationRef: ApplicationRef,
         _modalService: SkyModalService
       ) => {
         _modalService.dispose();

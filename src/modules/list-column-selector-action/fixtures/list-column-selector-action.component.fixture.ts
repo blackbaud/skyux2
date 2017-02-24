@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'sky-list-view-grid-demo',
-  templateUrl: './list-view-grid-demo.component.html'
+  selector: 'sky-test-cmp',
+  templateUrl: './list-column-selector-action.component.fixture.html'
 })
 export class ListColumnSelectorActionTestComponent {
   public items: Observable<Array<any>> = Observable.of([
