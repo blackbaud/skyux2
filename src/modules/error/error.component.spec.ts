@@ -143,4 +143,30 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-description')).toHaveText('test description');
     expect(el.querySelector('.sky-error-action button')).toHaveText('test action text');
   });
+
+  it('custom action method is called with action button is clicked', () => {
+    let html = `<sky-error errorType="broken" (actionClicked)="customAction()"></sky-error>`;
+
+    let fixture = TestBed
+      .overrideComponent(
+        ErrorTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(ErrorTestComponent);
+
+    let el = fixture.nativeElement;
+    let component = fixture.componentInstance;
+
+    spyOn(component, 'customAction');
+
+    let actionButton = el.querySelector('.sky-error-action button');
+    actionButton.click();
+    fixture.detectChanges();
+
+    expect(component.customAction).toHaveBeenCalled();
+  });
 });
