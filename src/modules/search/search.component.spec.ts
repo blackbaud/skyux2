@@ -234,10 +234,10 @@ describe('Search component', () => {
   });
 
   it('should override default placeholder text when placeholder text is provided', () => {
-    component.placeholderText = '';
+    component.placeholderText = 'hey ya';
     fixture.detectChanges();
     /*tslint:disable */
-    expect(element.query(By.css('input')).attributes['placeholder']).toBe(null);
+    expect(element.query(By.css('input')).attributes['placeholder']).toBe('hey ya');
     /*tslint:enable */
   });
 
