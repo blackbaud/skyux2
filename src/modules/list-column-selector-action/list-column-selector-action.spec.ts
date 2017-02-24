@@ -112,26 +112,6 @@ describe('List column selector action', () => {
     )
   );
 
-    // it('should handle grid columns changing', () => {
-    //   expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
-    //   expect(element.query(
-    //     By.css('th[sky-cmp-id="name"]')).nativeElement.textContent.trim()
-    //   ).toBe('Name Initial');
-    //   expect(element.query(
-    //     By.css('th[sky-cmp-id="email"]')
-    //   ).nativeElement.textContent.trim()).toBe('Email Initial');
-
-    //   component.changeColumns();
-    //   fixture.detectChanges();
-    //   expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
-    //   expect(element.query(
-    //     By.css('th[sky-cmp-id="name"]')).nativeElement.textContent.trim()
-    //   ).toBe('Name');
-    //   expect(element.query(
-    //     By.css('th[sky-cmp-id="email"]')
-    //   ).nativeElement.textContent.trim()).toBe('Email');
-
-    // });
   it('should show an action in the secondary actions dropdown', fakeAsync(() => {
     tick();
     fixture.detectChanges();
