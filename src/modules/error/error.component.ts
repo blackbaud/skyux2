@@ -64,4 +64,17 @@ export class SkyErrorComponent implements OnInit {
   public buttonClicked() {
     this.actionClicked.emit();
   }
+
+  public showBrokenImage() {
+    return !this.showNotFoundImage() && !this.showConstructionImage();
+  }
+
+  public showNotFoundImage() {
+    return this.errorType && this.errorType.toLowerCase() === 'notfound';
+  }
+
+  public showConstructionImage() {
+    return this.errorType && this.errorType.toLowerCase() === 'construction';
+  }
+
 }

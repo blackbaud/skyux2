@@ -1,5 +1,13 @@
 <div class="sky-error">
   <div>
+    <div class="sky-error-image-container">
+      <div *ngIf="showBrokenImage()" class="sky-error-broken-image">
+      </div>
+      <div *ngIf="showNotFoundImage()" class="sky-error-notfound-image">
+      </div>
+      <div *ngIf="showConstructionImage()" class="sky-error-construction-image">
+      </div>
+    </div>
     <div class="sky-error-content sky-error-title">
       <span>{{ title }}</span>
     </div>
