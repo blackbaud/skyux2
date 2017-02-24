@@ -40,7 +40,15 @@ export class SkyListColumnSelectorActionComponent {
     private modalService: SkyModalService
   ) {}
 
+  get isInGridView() {
+    return this.listState.map(s => s.views.active).map((activeView) => {
+      return this.gridView && (activeView === this.gridView.id) ;
+    }).distinctUntilChanged();
+  }
+
   public openColumnSelector() {
+    /* istanbul ignore else */
+    /* sanity check */
     if (this.gridView) {
       let columns: Array<SkyColumnSelectorModel> = [];
       let selectedColumnIds: Array<string> = [];

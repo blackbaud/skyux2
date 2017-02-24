@@ -1,7 +1,9 @@
 import 'rxjs/Rx';
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
+import { SkyListViewGridComponent } from '../../list-view-grid';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -17,4 +19,7 @@ export class ListColumnSelectorActionTestComponent {
     { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
+
+  @ViewChild(SkyListViewGridComponent)
+  public grid: SkyListViewGridComponent;
 }

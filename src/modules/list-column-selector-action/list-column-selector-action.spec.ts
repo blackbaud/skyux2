@@ -49,6 +49,10 @@ import {
   SkyModalService
 } from '../modal';
 
+import {
+  SkyColumnSelectorModule
+} from '../column-selector';
+
 describe('List column selector action', () => {
   let state: ListState,
     dispatcher: ListStateDispatcher,
@@ -63,6 +67,7 @@ describe('List column selector action', () => {
     TestBed.configureTestingModule({
       declarations: [
         ListColumnSelectorActionTestComponent
+
       ],
       imports: [
         SkyListColumnSelectorActionModule,
@@ -70,8 +75,8 @@ describe('List column selector action', () => {
         SkyListToolbarModule,
         SkyListSecondaryActionsModule,
         SkyGridModule,
-        SkyListViewGridModule
-
+        SkyListViewGridModule,
+        SkyColumnSelectorModule
       ]
     })
     .overrideComponent(SkyListComponent, {
@@ -144,7 +149,8 @@ describe('List column selector action', () => {
     /* tslint:enable */
   }
 
-  it('should open the appropriate modal on click and apply column changes on save', () => {
+  it('should open the appropriate modal on click and apply column changes on save',
+    fakeAsync(() => {
     tick();
     fixture.detectChanges();
     tick();
@@ -153,15 +159,73 @@ describe('List column selector action', () => {
     tick();
     fixture.detectChanges();
 
-    nativeElement.querySelector(query)
-    expect(nativeElement.querySelector(query)).toHaveText('Choose columns');
-  });
+    let checkboxLabelEl =
+      document.querySelector('.sky-modal .sky-list-view-checklist-item input') as HTMLElement;
+    checkboxLabelEl.click();
 
-  it('should keep previous columns on cancel', () => {
+    tick();
+    fixture.detectChanges();
 
-  });
+    let submitButtonEl =
+      document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
 
-  it('should not appear if not in grid view', () => {
+    submitButtonEl.click();
+    fixture.detectChanges();
+    tick();
 
-  });
+    component.grid.gridState.take(1).subscribe((gridState) => {
+      expect(gridState.displayedColumns.items.length).toBe(2);
+    });
+    fixture.detectChanges();
+    tick();
+
+  }));
+
+  it('should keep previous columns on cancel', fakeAsync(() => {
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    getChooseColumnsAction().click();
+    tick();
+    fixture.detectChanges();
+
+    let checkboxLabelEl =
+      document.querySelector('.sky-modal .sky-list-view-checklist-item input') as HTMLElement;
+    checkboxLabelEl.click();
+
+    tick();
+    fixture.detectChanges();
+
+    let cancelButtonEl =
+      document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
+
+    cancelButtonEl.click();
+
+    fixture.detectChanges();
+    tick();
+
+    component.grid.gridState.take(1).subscribe((gridState) => {
+      expect(gridState.displayedColumns.items.length).toBe(3);
+    });
+    fixture.detectChanges();
+    tick();
+
+  }));
+
+  it('should not appear if not in grid view', fakeAsync(() => {
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    dispatcher.viewsSetActive('other');
+    tick();
+    fixture.detectChanges();
+    tick();
+    /* tslint:disable */
+    let query =
+      '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-secondary-action';
+    /* tslint:enable */
+    expect(nativeElement.querySelector(query)).toBeNull();
+  }));
 });
