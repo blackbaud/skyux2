@@ -71,7 +71,7 @@ export class SkyListColumnSelectorActionComponent {
       );
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-        if (result.data) {
+        if (result.reason === 'save' && result.data) {
           let newSelectedIds = result.data;
           let newDisplayedColumns: Array<SkyGridColumnModel> = [];
           this.gridView.gridState.take(1)
