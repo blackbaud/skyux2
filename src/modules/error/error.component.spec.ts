@@ -15,7 +15,7 @@ describe('Error component', () => {
     });
   });
 
-  it('error type broken displays correct title, description, and action text', () => {
+  it('error type broken displays correct image, title, description, and action text', () => {
     let html = `<sky-error errorType="broken" (actionClicked)="customAction()"></sky-error>`;
 
     let fixture = TestBed
@@ -36,12 +36,17 @@ describe('Error component', () => {
     let title = 'Sorry, something went wrong.';
     let description = 'Try to refresh this page or come back later.';
 
+    // check image
+    expect(el.querySelector('.sky-error-broken-image')).toExist();
+    expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
+    expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
     expect(el.querySelector('.sky-error-description')).toHaveText(description);
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
-  it('error type notfound displays correct title, description, and action text', () => {
+  it('error type notfound displays correct image, title, description, and action text', () => {
     let html = `<sky-error errorType="notfound" (actionClicked)="customAction()"></sky-error>`;
 
     let fixture = TestBed
@@ -61,12 +66,17 @@ describe('Error component', () => {
 
     let title = 'Sorry, we can\'t reach that page.';
 
+    // check image
+    expect(el.querySelector('.sky-error-broken-image')).not.toExist();
+    expect(el.querySelector('.sky-error-notfound-image')).toExist();
+    expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
     expect(el.querySelector('.sky-error-description')).not.toExist();
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
-  it('error type construction displays correct title, description, and action text', () => {
+  it('error type construction displays correct image, title, description, and action text', () => {
     let html = `<sky-error errorType="construction" (actionClicked)="customAction()"></sky-error>`;
 
     let fixture = TestBed
@@ -90,12 +100,17 @@ describe('Error component', () => {
 
     let actualDescription: string = el.querySelector('.sky-error-description').innerText;
 
+    // check image
+    expect(el.querySelector('.sky-error-broken-image')).not.toExist();
+    expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
+    expect(el.querySelector('.sky-error-construction-image')).toExist();
+
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
     expect(actualDescription.replace('\n', '')).toBe(description);
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
-  it('error type custom displays correct title, description, and action text', () => {
+  it('error type custom displays correct image, title, description, and action text', () => {
     let html = `
     <sky-error
       title="test title"
@@ -118,6 +133,11 @@ describe('Error component', () => {
     let el = fixture.nativeElement;
 
     fixture.detectChanges();
+
+    // check image
+    expect(el.querySelector('.sky-error-broken-image')).toExist();
+    expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
+    expect(el.querySelector('.sky-error-construction-image')).not.toExist();
 
     expect(el.querySelector('.sky-error-title')).toHaveText('test title');
     expect(el.querySelector('.sky-error-description')).toHaveText('test description');
