@@ -1,0 +1,126 @@
+import { TestBed } from '@angular/core/testing';
+
+import { SkyResourcesService } from '../resources/resources.service';
+import { SkyErrorFixturesModule } from './fixtures/error-fixtures.module';
+import { ErrorTestComponent } from './fixtures/error.component.fixture';
+import { expect } from '../testing';
+
+describe('Error component', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyErrorFixturesModule
+      ],
+      providers: [ { provide: SkyResourcesService, useClass: SkyResourcesService } ]
+    });
+  });
+
+  it('error type broken displays correct title, description, and action text', () => {
+    let html = `<sky-error errorType="broken" (actionClicked)="customAction()"></sky-error>`;
+
+    let fixture = TestBed
+      .overrideComponent(
+        ErrorTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(ErrorTestComponent);
+
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    let title = 'Sorry, something went wrong.';
+    let description = 'Try to refresh this page or come back later.';
+
+    expect(el.querySelector('.sky-error-title')).toHaveText(title);
+    expect(el.querySelector('.sky-error-description')).toHaveText(description);
+    expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
+  });
+
+  it('error type notfound displays correct title, description, and action text', () => {
+    let html = `<sky-error errorType="notfound" (actionClicked)="customAction()"></sky-error>`;
+
+    let fixture = TestBed
+      .overrideComponent(
+        ErrorTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(ErrorTestComponent);
+
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    let title = 'Sorry, we can\'t reach that page.';
+
+    expect(el.querySelector('.sky-error-title')).toHaveText(title);
+    expect(el.querySelector('.sky-error-description')).not.toExist();
+    expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
+  });
+
+  it('error type construction displays correct title, description, and action text', () => {
+    let html = `<sky-error errorType="construction" (actionClicked)="customAction()"></sky-error>`;
+
+    let fixture = TestBed
+      .overrideComponent(
+        ErrorTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(ErrorTestComponent);
+
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    let title = 'This page will return soon.';
+    let description =
+    `Thanks for your patience while improvements are made!  Please check back in a little while.`;
+
+    let actualDescription: string = el.querySelector('.sky-error-description').innerText;
+
+    expect(el.querySelector('.sky-error-title')).toHaveText(title);
+    expect(actualDescription.replace('\n', '')).toBe(description);
+    expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
+  });
+
+  it('error type custom displays correct title, description, and action text', () => {
+    let html = `
+    <sky-error
+      title="test title"
+      description="test description"
+      actionText="test action text"
+      (actionClicked)="customAction()">
+    </sky-error>`;
+
+    let fixture = TestBed
+      .overrideComponent(
+        ErrorTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(ErrorTestComponent);
+
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    expect(el.querySelector('.sky-error-title')).toHaveText('test title');
+    expect(el.querySelector('.sky-error-description')).toHaveText('test description');
+    expect(el.querySelector('.sky-error-action button')).toHaveText('test action text');
+  });
+});
