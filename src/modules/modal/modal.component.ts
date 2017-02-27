@@ -39,4 +39,8 @@ export class SkyModalComponent {
   public closeButtonClick() {
     this.hostService.onClose(this);
   }
+
+  public windowResize() {
+
+  }
 }
