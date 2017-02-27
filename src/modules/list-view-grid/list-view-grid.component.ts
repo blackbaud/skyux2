@@ -83,8 +83,8 @@ export class SkyListViewGridComponent
   constructor(
     state: ListState,
     private dispatcher: ListStateDispatcher,
-    private gridState: GridState,
-    private gridDispatcher: GridStateDispatcher
+    public gridState: GridState,
+    public gridDispatcher: GridStateDispatcher
   ) {
     super(state, 'Grid View');
   }
