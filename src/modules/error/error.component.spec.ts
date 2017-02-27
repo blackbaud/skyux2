@@ -108,7 +108,7 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-construction-image')).toExist();
 
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
-    expect(actualDescription.replace(/\n/g, '')).toBe(description);
+    expect(actualDescription.replace(/\n/g, '').trim()).toBe(description);
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
