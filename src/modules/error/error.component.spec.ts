@@ -100,13 +100,15 @@ describe('Error component', () => {
 
     let actualDescription: string = el.querySelector('.sky-error-description').innerText;
 
+    console.log(actualDescription);
+
     // check image
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
     expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
     expect(el.querySelector('.sky-error-construction-image')).toExist();
 
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
-    expect(actualDescription.replace('\n', '').trim()).toBe(description);
+    expect(actualDescription.replace(/\n/g, '')).toBe(description);
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
