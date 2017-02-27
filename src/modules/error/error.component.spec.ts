@@ -98,9 +98,15 @@ describe('Error component', () => {
     let description =
     `Thanks for your patience while improvements are made!  Please check back in a little while.`;
 
-    let actualDescription: string = el.querySelector('.sky-error-description').innerText;
+    let actualDescription: string = el.querySelector('.sky-error-description').innerText.trim();
+    let trimmedDescription = '';
 
-    console.log(actualDescription);
+    if (actualDescription.indexOf('\r\n') >= 0) {
+      // IE inserts \r\n instead of \n
+      trimmedDescription = actualDescription.replace(/(\r\n)/g, '');
+    } else {
+      trimmedDescription = actualDescription.replace(/(\n)/g, '');
+    }
 
     // check image
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
@@ -108,7 +114,7 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-construction-image')).toExist();
 
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
-    expect(actualDescription.replace(/\n/g, '').trim()).toBe(description);
+    expect(trimmedDescription).toBe(description);
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
