@@ -1,7 +1,8 @@
 import {
   Component,
   Input,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 
 import {
@@ -13,26 +14,31 @@ import {
   Subscription
 } from 'rxjs/Subscription';
 
+const FONTSIZECLASS_SMALL = 'fa-2x';
+const FONTSIZECLASS_LARGE = 'fa-3x';
+
 @Component({
   selector: 'sky-action-button-icon',
   styleUrls: ['./action-button-icon.component.scss'],
   templateUrl: './action-button-icon.component.html'
 })
-export class SkyActionButtonIconComponent implements OnDestroy {
+export class SkyActionButtonIconComponent implements OnDestroy, OnInit {
 
   @Input()
-  public iconType: string;
+  public iconType: string = '';
 
-  public fontSizeClass: string;
+  public fontSizeClass: string = FONTSIZECLASS_LARGE;
 
   private subscription: Subscription;
 
-  constructor(private mediaQueryService: SkyMediaQueryService) {
+  constructor(private mediaQueryService: SkyMediaQueryService) {}
+
+  public ngOnInit() {
     this.subscription = this.mediaQueryService.subscribe((args: SkyMediaBreakpoints) => {
       if (args === SkyMediaBreakpoints.xs) {
-        this.fontSizeClass = 'fa-2x';
+        this.fontSizeClass = FONTSIZECLASS_SMALL;
       } else {
-        this.fontSizeClass = 'fa-3x';
+        this.fontSizeClass = FONTSIZECLASS_LARGE;
       }
     });
   }
