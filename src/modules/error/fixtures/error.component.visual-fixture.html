@@ -1,0 +1,15 @@
+<div id="screenshot-error-img" style="display: inline-block;">
+  <sky-error errorType="broken" (actionClicked)="customAction()"></sky-error>
+
+  <sky-error errorType="notfound" (actionClicked)="customAction()"></sky-error>
+
+  <sky-error errorType="construction" (actionClicked)="customAction()"></sky-error>
+
+  <sky-error
+    title="custom title"
+    description="custom description"
+    actionText="custom button"
+    (actionClicked)="customAction()"
+  >
+  </sky-error>
+</div>
