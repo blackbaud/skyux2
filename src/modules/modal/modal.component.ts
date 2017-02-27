@@ -4,10 +4,14 @@ import {
   state,
   style,
   transition,
-  trigger
+  trigger,
+  ElementRef,
+  AfterViewInit
 } from '@angular/core';
 
 import { SkyModalHostService } from './modal-host.service';
+
+import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
 @Component({
   selector: 'sky-modal',
@@ -25,22 +29,32 @@ import { SkyModalHostService } from './modal-host.service';
         animate(150, style({opacity: '0.0'}))
       ])
     ])
+  ],
+  providers: [
+    SkyModalComponentAdapterService
   ]
 })
-export class SkyModalComponent {
+export class SkyModalComponent implements AfterViewInit{
   public modalState = 'in';
 
   public get modalZIndex() {
     return this.hostService.getModalZIndex();
   }
 
-  constructor(private hostService: SkyModalHostService) { }
+  constructor(
+    private hostService: SkyModalHostService,
+    private elRef: ElementRef,
+    private componentAdapter: SkyModalComponentAdapterService) { }
+
+  public ngAfterViewInit() {
+    this.componentAdapter.handleWindowChange(this.elRef);
+  }
 
   public closeButtonClick() {
     this.hostService.onClose(this);
   }
 
   public windowResize() {
-
+    this.componentAdapter.handleWindowChange(this.elRef);
   }
 }

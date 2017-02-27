@@ -9,11 +9,13 @@ export class SkyModalComponentAdapterService {
   ) { }
 
   public handleWindowChange(modalEl: ElementRef): void {
-    const modalClass = 'sky-modal-body-open';
-    if (isAdd) {
-      document.body.classList.add(modalClass);
-    } else {
-      document.body.classList.remove(modalClass);
-    }
+    let boundedHeightEl = modalEl.nativeElement.querySelector('.sky-modal');
+
+    /*
+      Set modal height equal to max height of window (accounting for padding above and below modal)
+    */
+    let newHeight = window.innerHeight - 40;
+
+    boundedHeightEl.style.maxHeight = newHeight.toString() + 'px';
   }
 }
