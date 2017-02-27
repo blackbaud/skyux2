@@ -1,72 +1,70 @@
 <sky-demo-nav></sky-demo-nav>
 <div class="sky-container">
-    <h1>Configuration</h1>
-    <p>This reference describes configuration options for the SKY UX process.</p>
+    <h1>Configuration options</h1>
+    <p>This reference describes SKY UX configuration options that are available in the <code>skyuxconfig.json</code> file.</p>
     
-    <h2>Commands</h2>
-    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, you can use the <code>skyuxconfig.json</code> file in the project directory to configure certain aspects of the SKY UX process. Some configuration options are defined by SKY UX Builder and are included in <code>skyuxconfig.json</code> that comes from running <code>skyux new</code>.</p>
+    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, the <code>skyuxconfig.json</code> file in your project's directory allows you to configure settings for SKY UX. All properties in <code>skyuxconfig.json</code> are optional, and by default, the file only specifies values for the <code>mode</code> and <code>compileMode</code> settings.</p>
+    <!-- <p>After you run <code>skyux new</code> to <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, you can configure certain aspects of the SKY UX process in the <code>skyuxconfig.json</code> file in your project's directory.</p>-->
+    <sky-alert alertType="info">The <code>skyuxconfig.json</code> does not include all SKY UX configuration options. SKY UX Builder defines some configuration options that are not included in this file.</sky-alert>
     <p>The configuration options that are available in the <code>skyuxconfig.json</code> file include:</p>
     <ul>
-        <li><code>name</code> — The name of your project when running in SKY UX Host. For example, if the name is "demo," then your SPA is accessible from https://sky.blackbaud-dev.com/demo. The default behavior is to read the <code>name</code> property in your `skyuxconfig.json` file, automatically removing "skyux-spa-".</li>
-        <li><code>mode</code> — </li>
-        <li><code>compileMode</code> — </li>
-        <li><code>host</code> — </li>
-        <li><code>app</code> — </li>
-        <li><code>auth</code> — </li>
-        <li><code>omnibar</code> — </li>
-        <li><code>help</code> — </li>
-        <li><code>externals</code> — </li>
-        <li><code></code> — </li>
- +
- +- `name`: 
- +- `mode`: Allows you to control how much boilerplate code is automatically generated. This property will eventually become obsolete as the CLI continues to be built, where individual steps are overridable without having to switch completely into advanced mode.  Possible values are `easy` (default) or `advanced`.
- +- `compileMode`: Configure ahead-of-time or just-in-time compilation.  Possible values are `aot` (default) or  `jit`.
- +- `host`: Configuration options related to communication with SKY UX Host.
- +  - `url`: Base URL used when passing information from `skyux serve` to the SKY UX Host.  It would be very uncommon to change this.  Default is `https://sky.blackbaud-dev.com`
- +- `app`: Configuration options related to the local app when running `skyux serve`.
- +  - `title`: Prior to having Angular2 set the page title, this property is used at the template level to control the title.  Default is `Blackbaud - SKY UX Application`  You can also control the title via the [title service](https://angular.io/docs/ts/latest/cookbook/set-document-title.html).
- +- `auth`: Enables your project to require authenticated Blackbaud ID.  Possible values are `false` (default) or `true`.  Checkout the `auth-client` section in helpers to learn about making authenticated http requests.
- +- `omnibar`: An object that's passed to Omnibar's `load` method. Learn more about available options for passing to the [Omnibar](http://authsvc.docs.blackbaudhosting.com/components/omnibar/configuration_options/).
- +- `help`: Automatically includes the Help Widget in your project.  Possible values are `false` (default) or `true`.
- +- `externals`: Use this object to dynamically inject CSS and JS files into the host.  There should be a specific use-case for using an external, such as how Office Addins require their library to be loaded via CDN in the head.
+        <li><p><code>name</code> — Specifies the name of the project when running in SKY UX Host. For example, if you specify "demo," then your SPA will  accessible from https://sky.blackbaud-dev.com/demo. By default, SKY UX Builder reads the name from the <code>name</code> property in the <code>package.json</code> file, minus the "blackbaud-skyux-spa-" prefix. This is based on the root directory name that you specify when you create the project. You can overwrite the default name if you do not want the root directory name in your public-facing URL.</p></li>
+        <li><p><code>mode</code> — Controls how much boilerplate code to generate automatically. By default, the <code>skyuxconfig.json</code> file sets this property to <code>easy</code>. In easy mode, SKY UX uses automatic route configuration based on the project's folder structure. To override automatic route configuration, you can change this property to <code>advanced</code>. In advanced mode, you can adjust URLs and point to specific components in your SPA. This property will eventually become obsolete as the SKY UX team builds out the CLI to allow users to override individual steps without switching to advanced mode.</p></li>
+        <li><p><code>compileMode</code> — Specifies how to compile the project's code. By default, the <code>skyuxconfig.json</code> file sets this property to <code>aot</code> to specify ahead-of-time compilation, which compiles high-level language into machine code and executes the resulting binary file natively. You can change this setting to <code>jit</code> to specify just-in-time compilation, which compiles code during run time.</p></li>
+        <li><p><code>host</code> — Specifies configuration options for communication with SKY UX Host.</p>
+            <ul>
+                <li><p><code>url</code> — Specifies a base URL for passing information from <code>skyux serve</code> to the SKY UX Host. It would be very uncommon to change this. The default value is <code>https://sky.blackbaud-dev.com</code>.</p></li>
+            </ul>
+        </li>
+        <li><p><code>app</code> — Specifies configuration options for the local app when running <code>skyux serve</code>.</p>
+            <ul>
+                <li><p><code>title</code> — Controls the page title. Before Angular2 sets the page title, this property controls the title at the template level. The default is <code>Blackbaud - SKY UX Application</code>. You can also control the title with <a href="https://angular.io/docs/ts/latest/cookbook/set-document-title.html">the title service</a>.</p></li>
+                <li><p><code>externals</code> — Dynamically injects CSS and JS files into SKY UX Host. You should have a specific use-case for an external. For example, Office Addins require their library to load through CDN in the head. The <code>before</code> and <code>after</code> sections of an external indicate whether to include the external resource before or after the default SKY UX Builder resources. The <code>head</code> property, which only applies to JS resources, indicates whether to inject elements within the HTML <code>head</code> element or just before the closing <code>body</code> tag.</p>
+                    <p>The following example shows an external with all the configuration options:</p>
+                    <pre><code>externals: &#123;
+    css: &#123;
+        before: [
+            &#123;
+                url: 'f1.css',
+                integrity: 'ic1'
+            &#125;
+        ],
+        after: [
+            &#123;
+                url: 'f2.css'
+            &#125;
+        ]
+    &#125;,
+    js: &#123;
+        before: [
+            &#123;
+                url: 'f1.js',
+                integrity: 'ic2',
+                head: true
+            &#125;,
+            &#123;
+                url: 'f2.js',
+                integrity: 'ic3'
+            &#125;
+        ],
+        after: [
+            &#123;
+                url: 'f3.js'
+            &#125;
+        ]
+    &#125;
+&#125;
+</code></pre>
+        </li>
+                <li></li>
+            </ul>
+        </li>
+        <li><p><code>auth</code> — Indicates whether the project requires an authenticated Blackbaud ID. By default, this property is set to <code>false</code>. To require authentication, set this property to <code>true</code>. For information about how to make authenticated HTTP requests, see <a routerLink="/learn/reference/helpers">the helpers reference</a>.</p></li>
+        <li><p><code>omnibar</code> — Specifies an object to pass to the omnibar's <code>load</code> method. This property is for Blackbaud internal use only. For information about available options to pass to the omnibar, see <a href="http://authsvc.docs.blackbaudhosting.com/components/omnibar/configuration_options/">the omnibar configuration options</a>.</p></li>
+        <li><p><code>help</code> — Indicates whether to automatically include the help widget in the project. This property is for Blackbaud internal use only. By default, this property is set to <code>false</code>. To include the help widget, set this property to <code>true</code>.</p></li>
     </ul>
-        
-        Below is an example showing all the configuration options:
- +
- +```
- +externals: {
- +  css: {
- +    before: [
- +      {
- +        url: 'f1.css',
- +        integrity: 'ic1'
- +      }
- +    ],
- +    after: [
- +      {
- +        url: 'f2.css'
- +      }
- +    ]
- +  },
- +  js: {
- +    before: [
- +      {
- +        url: 'f1.js',
- +        integrity: 'ic2',
- +        head: true
- +      },
- +      {
- +        url: 'f2.js',
- +        integrity: 'ic3'
- +      }
- +    ],
- +    after: [
- +      {
- +        url: 'f3.js'
- +      }
- +    ]
- +  }
- +```
-    
-    
+
+    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
+    <p><strong>Previous step »</strong> <a routerLink="/learn/reference">Technical reference</a></p>
+
 </div>

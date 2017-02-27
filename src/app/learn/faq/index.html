@@ -1,7 +1,7 @@
 <sky-demo-nav></sky-demo-nav>
 <div class="sky-container">
     <h1>Frequently asked questions</h1>
-    <p>This section provides answers to frequently asked questions about SKY UX 2. These questions and answers are taken from on the <a href="https://blackbaud.slack.com/messages/1bb-skyux-apps/">1bb-skyux-apps Slack channel</a>.</p>
+    <p>This section provides answers to frequently asked questions about SKY UX 2. These questions and answers are taken from the <a href="https://blackbaud.slack.com/messages/1bb-skyux-apps/">1bb-skyux-apps Slack channel</a>.</p>
     
     <h3>What is the recommended best practice for getting the latest?</h3>
     <p>The command to get the latest is <code>npm install -g @blackbaud/skyux-cli@latest</code>. The SKY UX CLI notifies users when a new version is released. If a new version is available when users run <code>skyux serve</code>, then a message appears in the command prompt.</p>
@@ -10,7 +10,9 @@
     <p>SKY UX components are production-ready now. We are still in beta because not every component has been moved over and because we still need to create documentation.</p>
 
     <h3>What is the timeline to be able to deploy SKY SPAs for use in production?</h3>
-    <p>The SKY UX Host, Builder, and CLI pieces can be used to build a production app. Blue Steel is doing this now with a release target of February. It just requires some manual steps and patience with some suboptimal workflow while we automate more and add more user-friendly features.</p>
+    <p>The SKY UX Host, Builder, and CLI pieces can be used to build a production app. The Blue Steel team has done this. It just requires some manual steps and patience with some suboptimal workflow while we automate more and add more user-friendly features.</p>
+        <p>The only special requirement to host internal Blackbaud implementations is web hooks in the Git repo to the SKY UX continuous integration layer. For now, this must be set up manually by the SKY UX team. Contact the SKY UX team on the <a href="https://blackbaud.slack.com/messages/1bb-skyux-apps/">1bb-skyux-apps Slack channel</a>.</p>
+
 
     <h3>Will deployment of SKY UX SPAs be automated through https://github.com/blackbaud/skyux-deploy?</h3>
     <p>Yes. Currently, any merge to your master branch triggers a release to production. We plan to change that to state a release with an endpoint or a user interface where you can flag staged releases as production releases.</p>
