@@ -1,0 +1,19 @@
+<sky-list
+  [data]="items"
+  [defaultView]="default"
+>
+  <sky-list-toolbar #toolbar></sky-list-toolbar>
+  <sky-list-view-grid fit="scroll" #default>
+    <sky-grid-column field="column1" heading="Column1">
+      <template let-row="row">{{row.column1}}</template>
+    </sky-grid-column>
+    <sky-grid-column field="column2" heading="Column2">
+      <template let-row="row">{{row.column2}}</template>
+    </sky-grid-column>
+    <sky-grid-column field=".column3" heading="Column3">
+      <template let-row="row">{{row.column3}}</template>
+    </sky-grid-column>
+    <sky-grid-column field="" heading="None">
+    </sky-grid-column>
+  </sky-list-view-grid>
+</sky-list>

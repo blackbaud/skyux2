@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import {
   SkyMediaBreakpoints,
   SkyMediaQueryService
@@ -57,6 +59,8 @@ export class SkyTileDashboardService {
   private columns: QueryList<SkyTileDashboardColumnComponent>;
 
   private singleColumn: SkyTileDashboardColumnComponent;
+
+  private mediaSubscription: Subscription;
 
   constructor(
     private dragulaService: DragulaService,
@@ -146,8 +150,8 @@ export class SkyTileDashboardService {
 
   public destroy() {
     /*istanbul ignore else */
-    if (this.mediaQuery) {
-      this.mediaQuery.destroy();
+    if (this.mediaSubscription) {
+      this.mediaSubscription.unsubscribe();
     }
   }
 
@@ -215,6 +219,10 @@ export class SkyTileDashboardService {
     let componentRef = column.content.createComponent(factory, undefined, injector);
 
     this.addTileComponent(layoutTile, componentRef);
+
+    // Make sure the component is marked for changes in case the parent component uses
+    // the OnPush change detection strategy.
+    componentRef.changeDetectorRef.markForCheck();
   }
 
   private moveTilesToSingleColumn() {
@@ -318,7 +326,7 @@ export class SkyTileDashboardService {
   }
 
   private initMediaQueries() {
-    this.mediaQuery.subscribe(
+    this.mediaSubscription = this.mediaQuery.subscribe(
       (args: SkyMediaBreakpoints) => {
         this.changeColumnMode(args === SkyMediaBreakpoints.xs || args === SkyMediaBreakpoints.sm);
       }

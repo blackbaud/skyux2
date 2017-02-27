@@ -65,7 +65,7 @@
   display: inline-block;
   font-weight: 600;
   line-height: 1.8;
-  padding: $sky-padding-3_4 $sky-padding-plus-half;
+  padding: $sky-tab-btn-padding-top-bottom $sky-tab-btn-padding-left-right;
 
   &:hover {
     background-color: $sky-color-gray-lightest;
@@ -112,7 +112,7 @@
   );
 }
 
-@mixin sky-button-variant($color, $background, $border) {
+@mixin sky-button-variant($color, $background, $border, $hoverbackground:darken($background, 10%)) {
   color: $color;
   background-color: $background;
   border-color: $border;
@@ -123,7 +123,7 @@
   &:active,
   &.active {
     color: $color;
-    background-color: darken($background, 10%);
+    background-color: $hoverbackground;
         border-color: darken($border, 12%);
   }
   &:active,

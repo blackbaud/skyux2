@@ -13,6 +13,10 @@ export class SkyDemoNavComponent {
       exact: true
     },
     {
+     title: 'Learn',
+     url: '/learn'
+    },
+    {
       title: 'Components',
       url: '/components'
     }

@@ -12,4 +12,16 @@ describe('Modal', function () {
         checkAccessibility: true
       });
   });
+
+  it('should match previous modal screenshot on small screens', function () {
+    return browser
+      .setupTest('/modal.html', 480)
+      .click('.sky-btn-primary')
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'modal_small',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      });
+  });
 });

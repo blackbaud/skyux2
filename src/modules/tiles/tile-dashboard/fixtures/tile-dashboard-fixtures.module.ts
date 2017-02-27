@@ -5,12 +5,14 @@ import { SkyTilesModule } from '../..';
 import { Tile1TestComponent } from './tile1.component.fixture';
 import { Tile2TestComponent } from './tile2.component.fixture';
 import { TileDashboardTestComponent } from './tile-dashboard.component.fixture';
+import { TileDashboardOnPushTestComponent } from './tile-dashboard-on-push.component.fixture';
 
 @NgModule({
   declarations: [
     Tile1TestComponent,
     Tile2TestComponent,
-    TileDashboardTestComponent
+    TileDashboardTestComponent,
+    TileDashboardOnPushTestComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { TileDashboardTestComponent } from './tile-dashboard.component.fixture';
   exports: [
     Tile1TestComponent,
     Tile2TestComponent,
-    TileDashboardTestComponent
+    TileDashboardTestComponent,
+    TileDashboardOnPushTestComponent
   ],
   entryComponents: [
     Tile1TestComponent,

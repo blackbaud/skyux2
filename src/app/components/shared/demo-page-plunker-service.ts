@@ -8,7 +8,7 @@ import { SkyDemoPageCodeFile } from './demo-page-code-file';
 export class SkyDemoPagePlunkerService {
   public getFiles(codeFiles: SkyDemoPageCodeFile[]): any[] {
     let declarations: string[] = [];
-    let bootstrapSelector: string;
+    let bootstrapSelectors: string[] = [];
     let entryComponents: string[] = [];
     let files: any[] = [];
     let imports: string[] = [];
@@ -16,7 +16,7 @@ export class SkyDemoPagePlunkerService {
     for (let codeFile of codeFiles) {
       files.push({
         name: codeFile.name,
-        content: codeFile.code
+        content: codeFile.codeImports
       });
 
       let componentName = codeFile.componentName;
@@ -29,12 +29,17 @@ export class SkyDemoPagePlunkerService {
         declarations.push(componentName);
 
         if (codeFile.bootstrapSelector) {
-          bootstrapSelector = codeFile.bootstrapSelector;
+          bootstrapSelectors.push(codeFile.bootstrapSelector);
         } else {
           entryComponents.push(componentName);
         }
       }
     }
+
+    let combinedSelectors = '';
+    bootstrapSelectors.forEach((item) => {
+      combinedSelectors += '<' + item + '></' + item + '>';
+    });
 
     return [
       ...files,
@@ -56,18 +61,22 @@ export class SkyDemoPagePlunkerService {
 
     'app': '.',
 
-    '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
-    '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
-    '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
-    '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
-    '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-    '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
-    '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
-    '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+    '@angular/core': 'npm:@angular/core@2.4.5/bundles/core.umd.js',
+    '@angular/common': 'npm:@angular/common@2.4.5/bundles/common.umd.js',
+    '@angular/compiler': 'npm:@angular/compiler@2.4.5/bundles/compiler.umd.js',
+    '@angular/platform-browser': 'npm:@angular/platform-browser@2.4.5/bundles/platform-browser.umd.js',
+    '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic@2.4.5/bundles/platform-browser-dynamic.umd.js',
+    '@angular/http': 'npm:@angular/http@2.4.5/bundles/http.umd.js',
+    '@angular/router': 'npm:@angular/router@3.4.5/bundles/router.umd.js',
+    '@angular/forms': 'npm:@angular/forms@2.4.5/bundles/forms.umd.js',
 
-    'rxjs': 'npm:rxjs',
+    'rxjs': 'npm:rxjs@5.1.0',
     'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
-    'skyux/core': 'npm:blackbaud-skyux2/dist/bundles/core.umd.min.js',
+    '@blackbaud/skyux/dist/core': 'npm:@blackbaud/skyux/dist/bundles/core.umd.js',
+
+    'moment': 'npm:moment/moment.js',
+
+    'microedge-rxstate/dist': 'npm:microedge-rxstate/dist/index.js',
 
     //dragula packages
     'ng2-dragula/ng2-dragula': 'npm:ng2-dragula',
@@ -87,7 +96,7 @@ export class SkyDemoPagePlunkerService {
     rxjs: {
       defaultExtension: 'js'
     },
-    'skyux/core': {
+    '@blackbaud/skyux/dist/core': {
        format: 'cjs'
      },
     'ng2-dragula/ng2-dragula': {
@@ -113,7 +122,7 @@ export class SkyDemoPagePlunkerService {
   <head>
     <base href="." />
     <title>SKY UX 2 Demo</title>
-    <link rel="stylesheet" href="https://unpkg.com/blackbaud-skyux2/dist/css/sky.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@blackbaud/skyux/dist/css/sky.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/zone.js/dist/zone.js"></script>
     <script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js"></script>
@@ -146,7 +155,7 @@ export class SkyDemoPagePlunkerService {
 
 @Component({
   selector: 'sky-demo-app',
-  template: '<${bootstrapSelector}></${bootstrapSelector}>'
+  template: '${combinedSelectors}'
 })
 export class AppComponent() { }`
       },
@@ -157,7 +166,7 @@ export class AppComponent() { }`
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { SkyModule } from 'skyux/core';
+import { SkyModule } from '@blackbaud/skyux/dist/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 ${imports.join('\n')}

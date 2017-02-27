@@ -13,6 +13,12 @@ $sky-margin-double: $sky-margin * 2 !default;
 $sky-margin-plus-half: $sky-margin + $sky-margin-half !default;
 $sky-margin-triple: $sky-margin * 3 !default;
 
+// start of new colors
+$sky-color-gray-05: #eeeeef !default;
+$sky-color-gray-10: #e2e3e4 !default;
+
+// end of new colors
+
 $sky-color-green: #1ab394 !default;
 $sky-color-blue: #1c84c6 !default;
 $sky-color-aqua: #23c6c8 !default;
@@ -20,11 +26,13 @@ $sky-color-yellow: #f8ac59 !default;
 $sky-color-red: #ed5565 !default;
 $sky-color-white: #fff !default;
 $sky-color-purple: #6533c5 !default;
+$sky-color-black: #292a2b;
 
 $sky-color-gray: lighten(#000, 40%) !default; // #666
 $sky-color-gray-light: lighten(#000, 60%) !default; // #999
 $sky-color-gray-lighter: lighten(#000, 80%) !default; // #ccc
 $sky-color-gray-lightest: lighten(#000, 90%) !default; // #e6e6e6
+
 
 $sky-nav-background-color: #2f4050 !default;
 $sky-nav-color: #a7b1c2 !default;
@@ -36,6 +44,7 @@ $sky-nav-selected-border-width: 4px !default;
 $sky-border-color: #e7eaec !default;
 
 $sky-body-background-color: #f3f3f4 !default;
+$sky-background-color-neutral-light: $sky-color-gray-05 !default;
 
 $sky-line-height-base: 1.428571429 !default;
 
@@ -54,10 +63,11 @@ $sky-alternate-font-size-lg: ceil(($sky-font-size-base * 2)) !default; // ~24px
 $sky-alternate-font-size-base: ceil(($sky-font-size-base * 1.833)) !default; // ~22px
 $sky-alternate-font-size-sm: ceil(($sky-font-size-base * 1.667)) !default; // ~20px
 
-$sky-text-color: #292a2b !default;
+$sky-text-color: $sky-color-black !default;
 $sky-selected-color: #eeeffb !default;
 $sky-text-deemphasized-color: #707374 !default;
 $sky-link-color: $sky-color-blue !default;
+$sky-link-hover-color: #135783;
 
 // begin transitions
 $sky-transition-time-short: 150ms !default;
@@ -120,17 +130,43 @@ $sky-avatar-width: $sky-avatar-height !default;
 $sky-avatar-border-width: 2px !default;
 // end avatar
 
-// begin wait
-$sky-wait-color: $sky-color-blue !default;
-$sky-wait-mask-color: $sky-color-white !default;
-// end wait
+// begin dropdown
+$sky-dropdown-z-index: 1000 !default;
+// end dropdown
 
-// begin wait
+// begin grid
+$sky-grid-odd-background-color: $sky-body-background-color !default;
+$sky-grid-even-background-color: $sky-color-white !default;
+$sky-grid-header-background-color: $sky-color-white !default;
+$sky-grid-header-dragging-background-color: $sky-color-gray-lightest !default;
+// end grid
+
+// begin paging
 $sky-paging-disabled-color: $sky-color-gray-light !default;
 $sky-paging-current-color: #f4f4f4 !default;
 $sky-paging-border-color: #ddd !default;
 $sky-paging-background-color: $sky-color-white !default;
-//end wait
+// end paging
+
+// begin search
+$sky-search-background-color: $sky-color-white !default;
+// end search
+
+// begin tabs
+$sky-tab-btn-padding-top-bottom: 8px !default;
+$sky-tab-btn-padding-left-right: 16px !default;
+// end tabs
+
+// begin toolbar
+$sky-toolbar-background-color: $sky-color-white !default;
+$sky-toolbar-min-height: 49px;
+// end toolbar
+
+// begin wait
+$sky-wait-color: $sky-color-blue !default;
+$sky-wait-mask-color: $sky-color-white !default;
+$sky-page-wait-z-index: 2000 !default;
+// end wait
 
 // Support for mozilla in experimental css3 properties (-moz).
 $sky-experimental-support-for-mozilla      : true !default;

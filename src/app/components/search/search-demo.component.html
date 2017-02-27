@@ -1,29 +1,20 @@
-<style>
-  .sky-demo-search-bar {
-    position: relative;
-    padding: 5px;
-  }
-  .sky-demo-search-bar-item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 0;
-
-  }
-</style>
-
-<div class="sky-demo-search-bar">
-  <button
-    class="sky-btn sky-btn-default sky-demo-search-bar-item"
-    (click)="searchApplied('Robert')"
-  >
-    Predefined search text
-  </button>
-  <sky-search
-    [searchText]="searchText"
-    (searchApply)="searchApplied($event)"
+<sky-toolbar>
+  <sky-toolbar-item>
+    <button
+      class="sky-btn sky-btn-default sky-demo-search-bar-item"
+      (click)="searchApplied('Robert')"
     >
-  </sky-search>
-</div>
+      Predefined search text
+    </button>
+  </sky-toolbar-item>
+  <sky-toolbar-item>
+    <sky-search
+      [searchText]="searchText"
+      (searchApply)="searchApplied($event)"
+      >
+    </sky-search>
+  </sky-toolbar-item>
+</sky-toolbar>
 <div>
   <sky-repeater expandMode="none">
     <sky-repeater-item *ngFor="let item of displayedItems">

@@ -1,0 +1,75 @@
+@import '../../scss/mixins';
+
+.sky-grid {
+  position: relative;
+  display: block;
+}
+
+.sky-grid-table-container {
+  overflow: scroll;
+}
+
+.sky-grid-table {
+  position: relative;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: $sky-font-size-base;
+  min-width: 100%;
+
+  &.sky-grid-fit {
+    width: 100%;
+  }
+}
+
+.sky-grid-tbody {
+  background-color: $sky-grid-even-background-color;
+}
+
+.sky-grid-row {
+  @include sky-border(dark, bottom);
+
+  &:nth-child(odd) {
+    background-color: $sky-grid-odd-background-color;
+  }
+
+  .sky-grid-cell {
+    padding: 0;
+  }
+}
+
+.sky-grid-heading {
+  @include sky-border(dark, top, bottom, left, right);
+  @include sky-field-label();
+  border-right-width: 0px;
+
+  cursor: pointer;
+  background-color: $sky-grid-header-background-color;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 8px;
+  text-align: left;
+
+  &:first-child {
+    border-left: 1px solid transparent;
+  }
+
+  &.sky-grid-header-dragging {
+    padding: 8px;
+    background-color: $sky-grid-header-dragging-background-color;
+  }
+
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.sky-grid-has-toolbar {
+  .sky-grid-heading {
+    border-top-width: 0px;
+  }
+}
