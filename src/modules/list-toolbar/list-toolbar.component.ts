@@ -12,7 +12,7 @@ import {
 import {
   ListToolbarConfigSetSearchEnabledAction
 } from './state/config/actions';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import {
   ListToolbarState,
   ListToolbarStateDispatcher,

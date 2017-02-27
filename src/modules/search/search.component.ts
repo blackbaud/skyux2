@@ -84,6 +84,8 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public get placeholderText(): string {
     if (this._placeholderText === undefined) {
       return this.resources.getString('search_placeholder');
+    } else {
+      return this._placeholderText;
     }
   }
 

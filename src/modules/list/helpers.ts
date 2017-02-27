@@ -28,3 +28,7 @@ export function getData(item: any, selector: string): any {
 
   return result;
 }
+
+export function isObservable(item: any) {
+  return item && typeof item.subscribe === 'function';
+}
