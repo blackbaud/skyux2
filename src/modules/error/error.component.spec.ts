@@ -98,7 +98,7 @@ describe('Error component', () => {
     let description =
     `Thanks for your patience while improvements are made!  Please check back in a little while.`;
 
-    let actualDescription: string = el.querySelector('.sky-error-description').innerText;
+    let actualDescription: string = el.querySelector('.sky-error-description').innerText.trim();
 
     // check image
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
