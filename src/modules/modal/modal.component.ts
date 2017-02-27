@@ -34,7 +34,7 @@ import { SkyModalComponentAdapterService } from './modal-component-adapter.servi
     SkyModalComponentAdapterService
   ]
 })
-export class SkyModalComponent implements AfterViewInit{
+export class SkyModalComponent implements AfterViewInit {
   public modalState = 'in';
 
   public get modalZIndex() {

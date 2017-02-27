@@ -97,7 +97,6 @@ describe('Modal component', () => {
 
     expect(maxHeight).toEqual(windowHeight - 40);
 
-
     TestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
     maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
