@@ -16,6 +16,8 @@ import { SkyModalService } from './modal.service';
 import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 
+import { TestUtility } from '../testing/testutility';
+
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
@@ -86,4 +88,22 @@ describe('Modal component', () => {
 
     applicationRef.tick();
   }));
+
+  it('should set max height based on window and change when window resizes', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent);
+    let modalEl = document.querySelector('.sky-modal');
+    let maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
+    let windowHeight = window.innerHeight;
+
+    expect(maxHeight).toEqual(windowHeight - 40);
+
+
+    TestUtility.fireDomEvent(window, 'resize');
+    applicationRef.tick();
+    maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
+    expect(maxHeight).toEqual(window.innerHeight - 40);
+
+    closeModal(modalInstance);
+  }));
+
 });
