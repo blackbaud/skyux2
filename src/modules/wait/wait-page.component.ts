@@ -5,7 +5,8 @@ import {
 
 @Component({
   selector: 'sky-wait-page',
-  templateUrl: './wait-page.component.html'
+  templateUrl: './wait-page.component.html',
+  styleUrls: ['./wait-page.component.scss']
 })
 export class SkyWaitPageComponent {
 

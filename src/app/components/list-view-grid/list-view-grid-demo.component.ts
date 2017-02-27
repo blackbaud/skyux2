@@ -1,5 +1,7 @@
+import 'rxjs/Rx';
+
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-list-view-grid-demo',

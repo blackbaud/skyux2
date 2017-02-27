@@ -4,7 +4,7 @@ describe('search component', function () {
   it('should match the baseline search screenshot', function () {
     return browser
       .setupTest('/search.html')
-      .pause(1000)
+      .pause(2000)
       .compareScreenshot({
         screenshotName: 'search',
         selector: '#screenshot-search-full',

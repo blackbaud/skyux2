@@ -1,7 +1,9 @@
 import {
   TestBed,
   async,
-  ComponentFixture
+  ComponentFixture,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -13,6 +15,10 @@ import { SkyListToolbarModule } from './';
 import {
   ListToolbarTestComponent
 } from './fixtures/list-toolbar.component.fixture';
+
+import {
+  ListToolbarSecondaryActionsTestComponent
+} from './fixtures/list-toolbar-secondary-actions.component.fixture';
 import { expect } from '../testing';
 
 import {
@@ -20,7 +26,8 @@ import {
   ListViewsSetActiveAction,
   ListViewModel,
   ListToolbarItemModel,
-  ListToolbarItemsLoadAction
+  ListToolbarItemsLoadAction,
+  ListToolbarSetTypeAction
 } from '../list/state';
 
 describe('List Toolbar Component', () => {
@@ -120,6 +127,37 @@ describe('List Toolbar Component', () => {
 
     }));
 
+    function verifySearchTypeToolbar() {
+      fixture.detectChanges();
+      let sections = element.queryAll(By.css('.sky-list-toolbar-search .sky-toolbar-section'));
+      expect(sections.length).toBe(2);
+      expect(sections[0].query(By.css('input'))).not.toBeNull();
+      expect(component.toolbar.searchComponent.expandMode).toBe('fit');
+      let items = sections[1].queryAll(By.css('.sky-toolbar-item sky-list-toolbar-item-renderer'));
+      expect(items[0].nativeElement).toHaveText('');
+      expect(items[1].nativeElement).toHaveText('Custom Item');
+      expect(items[2].nativeElement).toHaveText('Custom Item 2');
+    }
+
+    it('should load custom items with toolbarType = search initialized', async(() => {
+      component.toolbarType = 'search';
+      initializeToolbar();
+      fixture.whenStable().then(() => {
+        verifySearchTypeToolbar();
+      });
+
+    }));
+
+    it('should load custom items with toolbarType = search set by the state', async(() => {
+      initializeToolbar();
+
+      dispatcher.next(new ListToolbarSetTypeAction('search'));
+      fixture.whenStable().then(() => {
+        verifySearchTypeToolbar();
+      });
+
+    }));
+
     it('should not display items not in the current view', async(() => {
 
       initializeToolbar();
@@ -172,4 +210,81 @@ describe('List Toolbar Component', () => {
       });
     }));
   });
+
+  describe('secondary actions', () => {
+     let state: ListState,
+        dispatcher: ListStateDispatcher,
+        fixture: ComponentFixture<ListToolbarSecondaryActionsTestComponent>,
+        nativeElement: HTMLElement,
+        component: ListToolbarSecondaryActionsTestComponent,
+        element: DebugElement;
+
+    beforeEach(async(() => {
+      dispatcher = new ListStateDispatcher();
+      state = new ListState(dispatcher);
+
+      TestBed.configureTestingModule({
+        declarations: [
+          ListToolbarSecondaryActionsTestComponent
+        ],
+        imports: [
+          SkyListToolbarModule
+        ],
+        providers: [
+          { provide: ListState, useValue: state },
+          { provide: ListStateDispatcher, useValue: dispatcher }
+        ]
+      });
+
+      fixture = TestBed.createComponent(ListToolbarSecondaryActionsTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
+    }));
+
+    function initializeToolbar() {
+      fixture.detectChanges();
+      // always skip the first update to ListState, when state is ready
+      // run detectChanges once more then begin tests
+      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+    }
+      it('should show secondary actions when specified', async(() => {
+        initializeToolbar();
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          let myquery =
+          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-toolbar-secondary-actions';
+          console.log(element.query(By.css(myquery)).properties);
+
+          /* tslint:disable */
+          let query =
+            '.sky-list-toolbar-container .sky-toolbar-item .sky-list-toolbar-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-toolbar-secondary-action';
+          /* tslint:enable */
+          expect(nativeElement.querySelector(query)).not.toBeNull();
+        });
+
+      }));
+
+      it('should hide secondary actions when no child actions available', fakeAsync(() => {
+        component.showOption = false;
+        initializeToolbar();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        /* tslint:disable */
+        let query =
+          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-toolbar-secondary-actions';
+        /* tslint:enable */
+
+        expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(true);
+
+        component.showOption = true;
+        fixture.detectChanges();
+        tick();
+        expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(false);
+
+      }));
+
+    });
 });

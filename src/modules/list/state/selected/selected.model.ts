@@ -1,7 +1,7 @@
 export class ListSelectedModel {
-  [key: string]: boolean;
+  public selectedIdMap: Map<string, boolean>;
 
   constructor() {
-
+    this.selectedIdMap = new Map<string, boolean>();
   }
 }

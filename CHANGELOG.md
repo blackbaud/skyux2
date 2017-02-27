@@ -1,3 +1,22 @@
+# 2.0.0-beta.9 (2017-02-22)
+
+  - Add appropriate z-index for dropdown menu. (#355)
+  - Remove unnecessary demo folder. (#364)
+  - Add documentation around grid column template. (#349)
+  - Fix plunkers for sky-list and add example of using Observables to change data in view. (#370)
+
+# 2.0.0-beta.8 (2017-02-18)
+
+  - Added appropriate styles for `sky-btn-default`, `sky-btn-link`, and `sky-btn-link-inline` classes. (#302)
+  - Added getting started documentation to docs site. 
+  - Fixed stylesheets for plunker examples. (#352)
+  - Added checklist view for `sky-list`. (#112)
+  - Added documentation and example around data providers for `sky-list` (#340)
+  - Added correct line height for card title. (#358)
+  - Fixed z-index of search input in relation to page wait. (#353)
+  - Allowed the use of dynamic columns in grids. (#339)
+  - Fixed bug in `sky-list` in-memory data provider when search results return nothing and paging is activated.
+
 # 2.0.0-beta.7 (2017-02-07)
 
   - Fixed bug around navbar item hit target. (#329)

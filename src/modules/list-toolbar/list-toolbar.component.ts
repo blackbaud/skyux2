@@ -12,14 +12,17 @@ import {
 import {
   ListToolbarConfigSetSearchEnabledAction
 } from './state/config/actions';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import {
   ListToolbarState,
   ListToolbarStateDispatcher,
   ListToolbarStateModel
 } from './state';
-import { ListToolbarModel } from '../list/state/toolbar/toolbar.model';
-import { ListToolbarItemModel } from '../list/state/toolbar/toolbar-item.model';
+import {
+  ListToolbarModel,
+  ListToolbarItemModel,
+  ListToolbarSetTypeAction
+} from '../list/state';
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { ListState, ListStateDispatcher } from '../list/state';
 import { getValue } from 'microedge-rxstate/dist/helpers';
@@ -29,6 +32,7 @@ import { SkySearchComponent } from '../search';
 @Component({
   selector: 'sky-list-toolbar',
   templateUrl: './list-toolbar.component.html',
+  styleUrls: ['./list-toolbar.component.scss'],
   providers: [
     ListToolbarState,
     ListToolbarStateDispatcher,
@@ -46,7 +50,10 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   public searchComponent: SkySearchComponent;
 
   @Input()
-  private searchText: string | Observable<string>;
+  public toolbarType: string = 'standard';
+
+  @Input()
+  public searchText: string | Observable<string>;
 
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
@@ -72,14 +79,17 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         )
       )
     );
-
+    getValue(this.toolbarType, (type: string) => {
+      this.dispatcher.next(new ListToolbarSetTypeAction(this.toolbarType));
+    });
     this.dispatcher.toolbarAddItems([
-      new ListToolbarItemModel({
-        id: 'search',
-        template: this.searchTemplate,
-        location: 'center'
-      })
-    ]);
+      this.toolbarType !== 'search' ?
+        new ListToolbarItemModel({
+          id: 'search',
+          template: this.searchTemplate,
+          location: 'center'
+       }) : undefined
+    ].filter(item => item !== undefined));
   }
 
   public ngAfterContentInit() {
@@ -140,6 +150,12 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   private updateSearchText(searchText: string) {
     this.dispatcher.searchSetText(searchText);
+  }
+
+  get type() {
+    return this.state.map((state) => {
+      return state.toolbar.type;
+    }).distinctUntilChanged();
   }
 
   private get isSearchEnabled() {

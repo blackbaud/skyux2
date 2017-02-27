@@ -18,7 +18,7 @@ import {
 import { ListStateDispatcher } from '../list/state';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { getValue } from 'microedge-rxstate/dist/helpers';
 import {
   SkyGridComponent,
@@ -28,7 +28,10 @@ import {
 import {
   ListItemModel
 } from '../list/state';
-import { getData } from '../list/helpers';
+import {
+  getData,
+  isObservable
+} from '../list/helpers';
 
 @Component({
   selector: 'sky-list-view-grid',
@@ -88,18 +91,18 @@ export class SkyListViewGridComponent
 
   public ngAfterContentInit() {
     if (this.columnComponents.length === 0) {
-      throw new Error('Grid view requires at least one sky-list-view-grid-column to render.');
+      throw new Error('Grid view requires at least one sky-grid-column to render.');
     }
 
     let columnModels = this.columnComponents.map(columnComponent => {
       return new SkyGridColumnModel(columnComponent.template, columnComponent);
     });
 
-    if (this.width && !(this.width instanceof Observable)) {
+    if (this.width && !isObservable(this.width)) {
       this.width = Observable.of(this.width);
     }
 
-    if (this.height && !(this.height instanceof Observable)) {
+    if (this.height && !isObservable(this.height)) {
       this.height = Observable.of(this.height);
     }
 
@@ -115,7 +118,8 @@ export class SkyListViewGridComponent
                   /* sanity check */
                   let id = x.id || x.field;
                   return hiddenColumns.indexOf(id) === -1;
-                })
+                }),
+                true
               )
             );
           });
@@ -124,19 +128,22 @@ export class SkyListViewGridComponent
           getValue(this.displayedColumns, (displayedColumns: string[]) => {
             this.gridDispatcher.next(
               new ListViewDisplayedGridColumnsLoadAction(
-                columns.filter(x => displayedColumns.indexOf(x.id || x.field) !== -1)
+                columns.filter(x => displayedColumns.indexOf(x.id || x.field) !== -1),
+                true
               )
             );
           });
 
         } else {
           this.gridDispatcher.next(
-            new ListViewDisplayedGridColumnsLoadAction(columns.filter(x => !x.hidden))
+            new ListViewDisplayedGridColumnsLoadAction(columns.filter(x => !x.hidden), true)
           );
         }
       });
 
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+
+    this.handleColumnChange();
   }
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
@@ -171,10 +178,10 @@ export class SkyListViewGridComponent
   }
 
   get items(): Observable<ListItemModel[]> {
-    return Observable.combineLatest(
-      this.state.map(s => s.items.items).distinctUntilChanged(),
-      (items) => items
-    );
+
+    return this.state.map((s) => {
+      return s.items.items;
+    }).distinctUntilChanged();
   }
 
   get columns() {
@@ -193,5 +200,14 @@ export class SkyListViewGridComponent
   private get loading() {
     return this.state.map(s => s.items.loading)
       .distinctUntilChanged();
+  }
+  private handleColumnChange() {
+     // watch for changes in column components
+    this.columnComponents.changes.subscribe((columnComponents) => {
+      let columnModels = this.columnComponents.map(column => {
+        return new SkyGridColumnModel(column.template, column);
+      });
+      this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+    });
   }
 }
