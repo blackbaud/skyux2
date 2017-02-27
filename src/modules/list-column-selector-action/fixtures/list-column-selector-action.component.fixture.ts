@@ -1,13 +1,15 @@
 import 'rxjs/Rx';
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { SkyListViewGridComponent } from '../../list-view-grid';
+
 @Component({
-  selector: 'sky-list-view-grid-demo',
-  templateUrl: './list-view-grid-demo.component.html'
+  selector: 'sky-test-cmp',
+  templateUrl: './list-column-selector-action.component.fixture.html'
 })
-export class SkyListViewGridDemoComponent {
+export class ListColumnSelectorActionTestComponent {
   public items: Observable<Array<any>> = Observable.of([
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
@@ -17,4 +19,7 @@ export class SkyListViewGridDemoComponent {
     { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
+
+  @ViewChild(SkyListViewGridComponent)
+  public grid: SkyListViewGridComponent;
 }
