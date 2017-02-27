@@ -27,6 +27,8 @@ import {
   SkyColumnSelectorComponent
 } from '../column-selector';
 
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'sky-list-column-selector-action',
   templateUrl: './list-column-selector-action.component.html'
@@ -40,7 +42,7 @@ export class SkyListColumnSelectorActionComponent {
     private modalService: SkyModalService
   ) {}
 
-  get isInGridView() {
+  get isInGridView(): Observable<boolean> {
     return this.listState.map(s => s.views.active).map((activeView) => {
       return this.gridView && (activeView === this.gridView.id) ;
     }).distinctUntilChanged();
