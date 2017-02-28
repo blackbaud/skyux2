@@ -13,6 +13,7 @@ import { SkyListToolbarModule } from './';
 import {
   ListToolbarTestComponent
 } from './fixtures/list-toolbar.component.fixture';
+
 import { expect } from '../testing';
 
 import {

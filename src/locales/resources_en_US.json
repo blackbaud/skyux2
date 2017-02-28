@@ -109,11 +109,15 @@
     },
     "grid_column_picker_search_placeholder": {
         "_description": "Search text placeholder for the search box on the grid column picker",
-        "message": "Search by name"
+        "message": "Search for columns"
     },
     "grid_column_picker_submit": {
         "_description": "Button text for applying changes made in the grid column picker",
         "message": "Apply changes"
+    },
+    "grid_column_picker_cancel": {
+        "_description": "Button text for cancelling changes made in the grid column picker",
+        "message": "Cancel"
     },
     "grid_columns_button": {
         "_description": "Label for button to select columns to display in a grid.",
@@ -530,6 +534,10 @@
     "file_item_delete": {
       "_description": "Label for the button that deletes a file",
       "message": "Delete file"
+    },
+    "list_show_secondary_actions": {
+      "_description": "Label for the button that opens the secondary actions menu in the list toolbar",
+      "message": "Show secondary actions"
     },
     "search_dismiss": {
         "_description": "Label for dismissing search input",

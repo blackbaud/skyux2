@@ -34,7 +34,8 @@ import { SkyListModule, SkyListComponent } from '../list';
 
 import { SkyListToolbarModule } from '../list-toolbar';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 describe('List View Checklist Component', () => {
   describe('Basic Fixture', () => {
