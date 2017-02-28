@@ -11,9 +11,19 @@
       <template ngSwitchCase="context-menu">
         <i class="fa fa-ellipsis-h"></i>
       </template>
+
       <template ngSwitchDefault>
-        <ng-content select="sky-dropdown-button"></ng-content>
-        <i class="fa fa-caret-down sky-dropdown-caret"></i>
+        <div *ngIf="buttonType === 'select' || !buttonType">
+          <ng-content select="sky-dropdown-button"></ng-content>
+          <i class="fa fa-caret-down sky-dropdown-caret"></i>
+        </div>
+        <div *ngIf="buttonType !== 'select' &amp;&amp; buttonType">
+          <i
+            class="fa fa-lg"
+            [ngClass]="['fa-' + buttonType]"
+            ></i>
+        </div>
+
       </template>
     </div>
   </button>
