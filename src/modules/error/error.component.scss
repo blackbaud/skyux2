@@ -1,3 +1,5 @@
+@import "../../scss/mixins";
+
 .sky-error {
   display: flex;
   align-items: center;
@@ -13,7 +15,7 @@
 }
 
 .sky-error-action {
-  margin-top: 10px;
+  margin-top: $sky-margin;
 }
 
 .sky-error-description span {
