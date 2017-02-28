@@ -8,20 +8,20 @@
       <div *ngIf="showConstructionImage()" class="sky-error-construction-image">
       </div>
 
-      <ng-content select=".sky-error-image"></ng-content>
+      <ng-content select="sky-error-image"></ng-content>
     </div>
     <div class="sky-error-content sky-error-title">
       <span *ngIf="title">{{ title }}</span>
 
-      <ng-content select=".sky-error-title"></ng-content>
+      <ng-content select="sky-error-title"></ng-content>
     </div>
     <div class="sky-error-content sky-error-description">
       <span *ngIf="description">{{ description }}</span>
 
-      <ng-content select=".sky-error-description"></ng-content>
+      <ng-content select="sky-error-description"></ng-content>
     </div>
     <div class="sky-error-content sky-error-action">
-      <ng-content select=".sky-error-action"></ng-content>
+      <ng-content select="sky-error-action"></ng-content>
     </div>
   </div>
 </div>
