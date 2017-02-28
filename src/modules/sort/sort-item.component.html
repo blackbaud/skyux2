@@ -1,0 +1,10 @@
+<div
+    class="sky-sort-item"
+    [ngClass]="{'sky-sort-item-selected': isSelected }">
+    <button
+      type="button"
+      [ngClass]="{'sky-emphasized': isSelected }"
+      (click)="itemClicked()">
+        <ng-content></ng-content>
+    </button>
+</div>

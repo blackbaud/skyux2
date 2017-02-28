@@ -1,12 +1,13 @@
 <div class="sky-sort">
-  <sky-dropdown>
-    <sky-dropdown-button
-      [label]="sort_button_label | skyResources"
-      [showArrow]="false"
-      >
-      <i class="fa fa-lg fa-sort"></i>
-    </sky-dropdown-button>
+  <sky-dropdown
+    buttonType="sort"
+    [label]="sort_button_label | skyResources">
     <sky-dropdown-menu>
+      <div class="sky-sort-menu-heading sky-subsection-heading">
+        {{'sort_menu_heading' | skyResources}}
+      </div>
+      <div class="sky-sort-heading-divider">
+      </div>
       <ng-content></ng-content>
     </sky-dropdown-menu>
   </sky-dropdown>

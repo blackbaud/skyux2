@@ -551,6 +551,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Sort',
+        icon: 'sort',
+        // tslint:disable-next-line
+        summary: `The sort component allows users to select sorting criteria.`,
+        url: '/components/sort',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'sort-demo.component.html',
+              fileContents: require('!!raw!./sort/sort-demo.component.html')
+            },
+            {
+              name: 'sort-demo.component.ts',
+              fileContents: require('!!raw!./sort/sort-demo.component.ts'),
+              componentName: 'SkySortDemoComponent',
+              bootstrapSelector: 'sky-sort-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Tabs',
         icon: 'folder-open-o',
         summary: `The tabs module contains components to render a tabset.`,

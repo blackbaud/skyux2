@@ -567,6 +567,14 @@
       "_description": "Text displayed on the button in single select mode to clear selection and close form",
       "message": "Clear selection"
     },
+    "sort_menu_heading": {
+        "_description": "Text for the heading in the sort dropdown",
+        "message": "Sort by"
+    },
+    "sort_button_label": {
+        "_description": "Text for the sort button",
+        "message": "Sort"
+    },
     "wizard_navigator_finish": {
         "_description": "Text displayed on the next button when a wizard is ready for completion.",
         "message": "Finish"
