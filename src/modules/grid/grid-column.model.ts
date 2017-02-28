@@ -9,6 +9,7 @@ export class SkyGridColumnModel {
   public width: number;
   public hidden: boolean;
   public locked: boolean;
+  public description: string;
   public searchFunction: (data: any, searchText: string) => boolean;
 
   constructor(template: TemplateRef<any>, data?: any) {
@@ -22,6 +23,7 @@ export class SkyGridColumnModel {
       this.width = data.width ? Number(data.width) : undefined;
       this.hidden = data.hidden;
       this.locked = data.locked;
+      this.description = data.description;
       this.searchFunction = data.searchFunction;
     }
   }

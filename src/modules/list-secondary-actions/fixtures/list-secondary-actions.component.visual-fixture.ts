@@ -9,7 +9,7 @@ import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
   selector: 'sky-demo-app',
-  templateUrl: './list-toolbar.component.visual-fixture.html'
+  templateUrl: './list-secondary-actions.component.visual-fixture.html'
 })
 export class AppComponent {
 

@@ -1,9 +1,7 @@
 import {
   TestBed,
   async,
-  ComponentFixture,
-  fakeAsync,
-  tick
+  ComponentFixture
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -16,9 +14,6 @@ import {
   ListToolbarTestComponent
 } from './fixtures/list-toolbar.component.fixture';
 
-import {
-  ListToolbarSecondaryActionsTestComponent
-} from './fixtures/list-toolbar-secondary-actions.component.fixture';
 import { expect } from '../testing';
 
 import {
@@ -210,81 +205,4 @@ describe('List Toolbar Component', () => {
       });
     }));
   });
-
-  describe('secondary actions', () => {
-     let state: ListState,
-        dispatcher: ListStateDispatcher,
-        fixture: ComponentFixture<ListToolbarSecondaryActionsTestComponent>,
-        nativeElement: HTMLElement,
-        component: ListToolbarSecondaryActionsTestComponent,
-        element: DebugElement;
-
-    beforeEach(async(() => {
-      dispatcher = new ListStateDispatcher();
-      state = new ListState(dispatcher);
-
-      TestBed.configureTestingModule({
-        declarations: [
-          ListToolbarSecondaryActionsTestComponent
-        ],
-        imports: [
-          SkyListToolbarModule
-        ],
-        providers: [
-          { provide: ListState, useValue: state },
-          { provide: ListStateDispatcher, useValue: dispatcher }
-        ]
-      });
-
-      fixture = TestBed.createComponent(ListToolbarSecondaryActionsTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
-      element = fixture.debugElement as DebugElement;
-      component = fixture.componentInstance;
-    }));
-
-    function initializeToolbar() {
-      fixture.detectChanges();
-      // always skip the first update to ListState, when state is ready
-      // run detectChanges once more then begin tests
-      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
-    }
-      it('should show secondary actions when specified', async(() => {
-        initializeToolbar();
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          let myquery =
-          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-toolbar-secondary-actions';
-          console.log(element.query(By.css(myquery)).properties);
-
-          /* tslint:disable */
-          let query =
-            '.sky-list-toolbar-container .sky-toolbar-item .sky-list-toolbar-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-toolbar-secondary-action';
-          /* tslint:enable */
-          expect(nativeElement.querySelector(query)).not.toBeNull();
-        });
-
-      }));
-
-      it('should hide secondary actions when no child actions available', fakeAsync(() => {
-        component.showOption = false;
-        initializeToolbar();
-        fixture.detectChanges();
-        tick();
-        fixture.detectChanges();
-        /* tslint:disable */
-        let query =
-          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-toolbar-secondary-actions';
-        /* tslint:enable */
-
-        expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(true);
-
-        component.showOption = true;
-        fixture.detectChanges();
-        tick();
-        expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(false);
-
-      }));
-
-    });
 });
