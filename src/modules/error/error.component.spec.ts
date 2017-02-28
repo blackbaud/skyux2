@@ -16,7 +16,14 @@ describe('Error component', () => {
   });
 
   it('error type broken displays correct image, title, description, and action text', () => {
-    let html = `<sky-error errorType="broken" (actionClicked)="customAction()"></sky-error>`;
+    let html = `
+    <sky-error errorType="broken">
+      <div class="sky-error-action">
+        <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
+          Refresh
+        </button>
+      </div>
+    </sky-error>`;
 
     let fixture = TestBed
       .overrideComponent(
@@ -47,7 +54,14 @@ describe('Error component', () => {
   });
 
   it('error type notfound displays correct image, title, description, and action text', () => {
-    let html = `<sky-error errorType="notfound" (actionClicked)="customAction()"></sky-error>`;
+    let html = `
+    <sky-error errorType="notfound">
+      <div class="sky-error-action">
+        <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
+          Refresh
+        </button>
+      </div>
+    </sky-error>`;
 
     let fixture = TestBed
       .overrideComponent(
@@ -72,12 +86,18 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-construction-image')).not.toExist();
 
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
-    expect(el.querySelector('.sky-error-description')).not.toExist();
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
   it('error type construction displays correct image, title, description, and action text', () => {
-    let html = `<sky-error errorType="construction" (actionClicked)="customAction()"></sky-error>`;
+    let html = `
+    <sky-error errorType="construction">
+      <div class="sky-error-action">
+        <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
+          Refresh
+        </button>
+      </div>
+    </sky-error>`;
 
     let fixture = TestBed
       .overrideComponent(
@@ -120,11 +140,15 @@ describe('Error component', () => {
 
   it('error type custom displays correct image, title, description, and action text', () => {
     let html = `
-    <sky-error
-      title="test title"
-      description="test description"
-      actionText="test action text"
-      (actionClicked)="customAction()">
+    <sky-error>
+      <div class="sky-error-image">test image</div>
+      <div class="sky-error-title">test title</div>
+      <div class="sky-error-description">test description</div>
+      <div class="sky-error-action">
+        <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
+          test action text
+        </button>
+      </div>
     </sky-error>`;
 
     let fixture = TestBed
@@ -143,17 +167,25 @@ describe('Error component', () => {
     fixture.detectChanges();
 
     // check image
-    expect(el.querySelector('.sky-error-broken-image')).toExist();
+    expect(el.querySelector('.sky-error-broken-image')).not.toExist();
     expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
     expect(el.querySelector('.sky-error-construction-image')).not.toExist();
 
+    expect(el.querySelector('.sky-error-image')).toHaveText('test image');
     expect(el.querySelector('.sky-error-title')).toHaveText('test title');
     expect(el.querySelector('.sky-error-description')).toHaveText('test description');
     expect(el.querySelector('.sky-error-action button')).toHaveText('test action text');
   });
 
   it('custom action method is called with action button is clicked', () => {
-    let html = `<sky-error errorType="broken" (actionClicked)="customAction()"></sky-error>`;
+    let html = `
+    <sky-error errorType="broken">
+      <div class="sky-error-action">
+        <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
+          Refresh
+        </button>
+      </div>
+    </sky-error>`;
 
     let fixture = TestBed
       .overrideComponent(
@@ -167,6 +199,9 @@ describe('Error component', () => {
       .createComponent(ErrorTestComponent);
 
     let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
     let component = fixture.componentInstance;
 
     spyOn(component, 'customAction');

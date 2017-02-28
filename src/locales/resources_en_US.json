@@ -67,10 +67,6 @@
         "_description": "The default text to show when a definition list item has no value",
         "message": "None found"
     },
-    "error_component_action": {
-        "_description": "The button caption for the pre defined error types",
-        "message": "Refresh"
-    },
     "error_component_broken_description": {
         "_description": "The error component description message for the broken error type",
         "message": "Try to refresh this page or come back later."

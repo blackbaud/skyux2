@@ -7,17 +7,21 @@
       </div>
       <div *ngIf="showConstructionImage()" class="sky-error-construction-image">
       </div>
+
+      <ng-content select=".sky-error-image"></ng-content>
     </div>
     <div class="sky-error-content sky-error-title">
-      <span>{{ title }}</span>
+      <span *ngIf="title">{{ title }}</span>
+
+      <ng-content select=".sky-error-title"></ng-content>
     </div>
-    <div class="sky-error-content sky-error-description" *ngIf="description">
-      <span>{{ description }}</span>
+    <div class="sky-error-content sky-error-description">
+      <span *ngIf="description">{{ description }}</span>
+
+      <ng-content select=".sky-error-description"></ng-content>
     </div>
     <div class="sky-error-content sky-error-action">
-        <button type="submit" class="sky-btn sky-btn-primary" (click)="buttonClicked()">
-          {{ actionText }}
-        </button>
+      <ng-content select=".sky-error-action"></ng-content>
     </div>
   </div>
 </div>
