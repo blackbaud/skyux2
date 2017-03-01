@@ -37,8 +37,8 @@ export class SkyModalService {
 
     // Object Literal Lookup for backwards compatability.
     let method = {
-      'providers?': Object.assign(defaultParams, { 'providers': providersOrConfig }),
-      'config': Object.assign(defaultParams, providersOrConfig)
+      'providers?': Object.assign({}, defaultParams, { 'providers': providersOrConfig }),
+      'config': Object.assign({}, defaultParams, providersOrConfig)
     };
 
     let params = ((p: any = providersOrConfig) => {

@@ -17,12 +17,11 @@ class AppComponent {
 
   public openModal() {
 
-    this.modal.open(ModalDemoComponent, [
-    ]);
+    this.modal.open(ModalDemoComponent, {'providers': [] });
   }
 
   public openLargeModal() {
-    this.modal.open(ModalLargeDemoComponent, []);
+    this.modal.open(ModalLargeDemoComponent, {'providers': [] });
   }
 }
 

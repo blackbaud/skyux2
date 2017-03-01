@@ -22,8 +22,8 @@ describe('Modal component', () => {
   let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
 
-  function openModal(modalType: any, providers?: any[]) {
-    let modalInstance = modalService.open(modalType, providers);
+  function openModal(modalType: any, config?: Object) {
+    let modalInstance = modalService.open(modalType, config);
 
     applicationRef.tick();
     tick();
@@ -101,6 +101,23 @@ describe('Modal component', () => {
     applicationRef.tick();
     maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
     expect(maxHeight).toEqual(window.innerHeight - 40);
+
+    closeModal(modalInstance);
+  }));
+
+
+  it('should be a full screen modal and scale when window resizes', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {'fullPage': true});
+    let modalEl = document.querySelector('.sky-modal-full-page');
+    let height = parseInt(getComputedStyle(modalEl).maxHeight, 10);
+    let windowHeight = window.innerHeight;
+
+    expect(height).toEqual(windowHeight);
+
+    TestUtility.fireDomEvent(window, 'resize');
+    applicationRef.tick();
+    height = parseInt(getComputedStyle(modalEl).height, 10);
+    expect(height).toEqual(window.innerHeight);
 
     closeModal(modalInstance);
   }));
