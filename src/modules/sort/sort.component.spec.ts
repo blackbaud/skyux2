@@ -3,7 +3,6 @@ import {
   ComponentFixture
 } from '@angular/core/testing';
 
-
 import {
   SortTestComponent
 } from './fixtures/sort.component.fixture';

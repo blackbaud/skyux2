@@ -44,6 +44,6 @@ export class SkySortItemComponent implements OnInit, OnChanges {
 
   public itemClicked() {
     this.sortService.selectItem(this);
-    this.itemSelect.emit(null);
+    this.itemSelect.emit();
   }
 }
