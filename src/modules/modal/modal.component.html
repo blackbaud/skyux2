@@ -3,7 +3,9 @@
   https://github.com/angular/angular/issues/10245
 -->
 <!--<div @modalState="modalState">-->
-<div>
+<div
+  (window:resize)="windowResize()"
+>
   <div
       class="sky-modal"
       [ngStyle]="{
