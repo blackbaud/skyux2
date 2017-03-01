@@ -212,4 +212,43 @@ describe('Error component', () => {
 
     expect(component.customAction).toHaveBeenCalled();
   });
+
+  it('Invalid error type text is ignored', () => {
+    let html = `
+    <sky-error errorType="invalid-xx">
+      <sky-error-image>test image</sky-error-image>
+      <sky-error-title>test title</sky-error-title>
+      <sky-error-description>test description</sky-error-description>
+      <sky-error-action>
+        <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
+          test action text
+        </button>
+      </sky-error-action>
+    </sky-error>`;
+
+    let fixture = TestBed
+      .overrideComponent(
+        ErrorTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(ErrorTestComponent);
+
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // check image
+    expect(el.querySelector('.sky-error-broken-image')).not.toExist();
+    expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
+    expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+
+    expect(el.querySelector('.sky-error-image-container')).toHaveText('test image');
+    expect(el.querySelector('.sky-error-title')).toHaveText('test title');
+    expect(el.querySelector('.sky-error-description')).toHaveText('test description');
+    expect(el.querySelector('.sky-error-action button')).toHaveText('test action text');
+  });
 });
