@@ -5,6 +5,7 @@ import { SkyModule } from '../../../../src/core';
 
 import { SkyModalService } from '../../../../src/core';
 import { ModalDemoComponent } from './modal.visual.content';
+import { ModalLargeDemoComponent } from './modal-large.visual.content';
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -19,6 +20,10 @@ class AppComponent {
     this.modal.open(ModalDemoComponent, [
     ]);
   }
+
+  public openLargeModal() {
+    this.modal.open(ModalLargeDemoComponent, []);
+  }
 }
 
 @NgModule({
@@ -28,13 +33,15 @@ class AppComponent {
   ],
   declarations: [
     AppComponent,
-    ModalDemoComponent
+    ModalDemoComponent,
+    ModalLargeDemoComponent
   ],
   bootstrap: [
     AppComponent
   ],
   entryComponents: [
-    ModalDemoComponent
+    ModalDemoComponent,
+    ModalLargeDemoComponent
   ]
 })
 class AppModule { }
