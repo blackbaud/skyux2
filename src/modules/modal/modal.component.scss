@@ -9,6 +9,8 @@
   right: 0;
   top: 20px;
   margin: $sky-margin;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: $sky-screen-sm-min) {
@@ -29,10 +31,12 @@
   align-items: baseline;
   border-bottom: solid 1px $sky-color-gray-lightest;
   display: flex;
+  flex-shrink: 0;
 }
 
 .sky-modal-header-content {
   flex-grow: 1;
+  font-weight: 600;
 }
 
 .sky-modal-header-buttons {
@@ -47,6 +51,11 @@
   }
 }
 
+.sky-modal-content {
+  overflow-y: auto;
+}
+
 .sky-modal-footer {
   border-top: solid 1px $sky-color-gray-lightest;
+  flex-shrink: 0;
 }

@@ -24,4 +24,16 @@ describe('Modal', function () {
         checkAccessibility: true
       });
   });
+
+  it('should match previous large modal screenshot', function () {
+    return browser
+      .setupTest('/modal.html')
+      .click('.sky-test-large-modal')
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'modal_large',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      });
+  });
 });
