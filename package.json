@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.0.0-beta.9",
+  "version": "2.0.0-beta.10",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -38,13 +38,13 @@
     "watch": "npm run test:unit -- --auto-watch --no-single-run"
   },
   "dependencies": {
-    "@angular/common": "2.4.5",
-    "@angular/compiler": "2.4.5",
-    "@angular/core": "2.4.5",
-    "@angular/forms": "2.4.5",
-    "@angular/platform-browser": "2.4.5",
-    "@angular/platform-browser-dynamic": "2.4.5",
-    "@angular/router": "3.4.5",
+    "@angular/common": "2.4.8",
+    "@angular/compiler": "2.4.8",
+    "@angular/core": "2.4.8",
+    "@angular/forms": "2.4.8",
+    "@angular/platform-browser": "2.4.8",
+    "@angular/platform-browser-dynamic": "2.4.8",
+    "@angular/router": "3.4.8",
     "core-js": "2.4.1",
     "dragula": "3.7.2",
     "font-awesome": "4.7.0",
@@ -57,7 +57,7 @@
     "moment": "2.17.1"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "2.4.5",
+    "@angular/compiler-cli": "2.4.8",
     "@blackbaud/skyux-builder": "1.0.0-beta.10",
     "@types/core-js": "0.9.35",
     "@types/jasmine": "2.5.41",
