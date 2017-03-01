@@ -13,11 +13,12 @@
       </template>
 
       <template ngSwitchDefault>
-        <div *ngIf="buttonType === 'select' || !buttonType">
+        <div *ngIf="buttonType === 'select' || buttonType === 'tab' || !buttonType">
           <ng-content select="sky-dropdown-button"></ng-content>
           <i class="fa fa-caret-down sky-dropdown-caret"></i>
         </div>
-        <div *ngIf="buttonType !== 'select' &amp;&amp; buttonType">
+        <div
+          *ngIf="buttonType !== 'select' &amp;&amp; buttonType !== 'tab' &amp;&amp; buttonType">
           <i
             class="fa fa-lg"
             [ngClass]="['fa-' + buttonType]"

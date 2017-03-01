@@ -9,7 +9,7 @@ import {
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./search.component.fixture.html')
+  templateUrl: './search.component.fixture.html'
 })
 export class SearchTestComponent {
   @ViewChild(SkySearchComponent)
