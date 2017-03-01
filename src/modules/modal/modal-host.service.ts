@@ -29,11 +29,10 @@ export class SkyModalHostService {
 
   public getModalZIndex(): number {
     let zIndex = SkyModalHostService.BASE_Z_INDEX + 1;
-
     zIndex += (SkyModalHostService.modalHosts.indexOf(this) + 1) * 10;
-
     return zIndex;
   }
+
 
   public onClose(modalComponent: SkyModalComponent): void {
     this.close.emit(modalComponent);

@@ -8,11 +8,12 @@ import {
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalAdapterService } from './modal-adapter.service';
+import { SkyModalConfiguationInterface as IConfig }  from './modal.interface';
+import { SkyModalConfiguation } from './modal-configuration';
 
 @Injectable()
 export class SkyModalService {
   private static hostComponent: SkyModalHostComponent;
-
   constructor(
     private resolver: ComponentFactoryResolver,
     private injector: Injector,
@@ -20,21 +21,45 @@ export class SkyModalService {
     private adapter: SkyModalAdapterService
   ) {
     this.createHostComponent();
-   }
+  }
 
-  public open(component: any, providers?: any[]): SkyModalInstance {
+  // Open Overloads
+  public open(component: any, providers?: any[]): SkyModalInstance;
+  public open(component: any, config?: IConfig): SkyModalInstance
+
+  // Open Method
+  public open(): SkyModalInstance {
     let modalInstance = new SkyModalInstance();
-
     this.createHostComponent();
+    let defaultParams: IConfig = { 'providers': [], 'fullPage': false };
+    let component = arguments[0];
+    let providersOrConfig: IConfig = arguments[1];
 
-    providers = providers || [];
+    // Object Literal Lookup for backwards compatability.
+    let method = {
+      'providers?': Object.assign(defaultParams, { 'providers': providersOrConfig }),
+      'config': Object.assign(defaultParams, providersOrConfig)
+    };
 
-    providers.push({
+    let params = ((p: any = providersOrConfig) => {
+      if (Array.isArray(p) === true) {
+        return method['providers?'];
+      } else {
+        return method['config'];
+      }
+    })();
+
+    params.providers.push({
       provide: SkyModalInstance,
       useValue: modalInstance
     });
+    params.providers.push({
+      provide: SkyModalConfiguation,
+      useValue: params
+    });
 
-    SkyModalService.hostComponent.open(modalInstance, component, providers);
+
+    SkyModalService.hostComponent.open(modalInstance, component, params);
 
     return modalInstance;
   }
@@ -47,6 +72,7 @@ export class SkyModalService {
       this.adapter.removeHostEl();
     }
   }
+
 
   private createHostComponent() {
     if (!SkyModalService.hostComponent) {

@@ -12,6 +12,8 @@ import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalComponent } from './modal.component';
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
+import { SkyModalConfiguationInterface as IConfig }  from './modal.interface';
+import { SkyModalConfiguation } from './modal-configuration';
 
 @Component({
   selector: 'sky-modal-host',
@@ -19,6 +21,7 @@ import { SkyModalHostService } from './modal-host.service';
   styleUrls: ['./modal-host.component.scss'],
   viewProviders: [SkyModalAdapterService]
 })
+
 export class SkyModalHostComponent {
   public get modalOpen() {
     return SkyModalHostService.openModalCount > 0;
@@ -28,7 +31,8 @@ export class SkyModalHostComponent {
     return SkyModalHostService.backdropZIndex;
   }
 
-  @ViewChild('target', {read: ViewContainerRef})
+
+  @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
   constructor(
@@ -39,24 +43,27 @@ export class SkyModalHostComponent {
     private injector: Injector
   ) { }
 
-  public open(modalInstance: SkyModalInstance, component: any, providers?: any[]) {
+
+  public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
+    let params: IConfig = Object.assign({}, arguments[2]);
     let factory = this.resolver.resolveComponentFactory(component);
     let hostService = new SkyModalHostService();
     let adapter = this.adapter;
 
-    adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
-
-    providers = providers /* istanbul ignore next */ || [];
-
-    providers.push({
+    params.providers.push({
       provide: SkyModalHostService,
       useValue: hostService
     });
+    params.providers.push({
+      provide: SkyModalConfiguation,
+      useValue: params
+    });
 
+    adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+
+    let providers = params.providers /* istanbul ignore next */ || [];
     let resolvedProviders = ReflectiveInjector.resolve(providers);
-
     let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
-
     let modalComponentRef = this.target.createComponent(factory, undefined, injector);
 
     modalInstance.componentInstance = modalComponentRef.instance;

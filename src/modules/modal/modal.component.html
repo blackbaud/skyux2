@@ -4,23 +4,20 @@
 -->
 <!--<div @modalState="modalState">-->
 <div>
-  <div
-      class="sky-modal"
-      [ngStyle]="{
-        zIndex: modalZIndex
-      }"
-  >
+  <div class="sky-modal"
+      [ngClass]="{ 'sky-modal-full-page': modalFullPage }"
+      [ngStyle]="{ zIndex: modalZIndex }">
     <div class="sky-modal-header">
       <div class="sky-modal-header-content">
         <ng-content select="sky-modal-header"></ng-content>
       </div>
       <div class="sky-modal-header-buttons">
-        <button
-            type="button"
-            [attr.aria-label]="'modal_close' | skyResources"
-            class="sky-btn sky-modal-btn-close"
-            (click)="closeButtonClick()"
-        >
+
+        <button type="button"
+         class="sky-btn sky-modal-btn-close"
+         [attr.aria-label]="'modal_close' | skyResources"
+         (click)="closeButtonClick()">
+
           <i class="fa fa-close"></i>
         </button>
       </div>

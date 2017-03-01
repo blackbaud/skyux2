@@ -8,6 +8,7 @@ import { SkyModalHeaderComponent } from './modal-header.component';
 import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalComponent } from './modal.component';
 import { SkyModalService } from './modal.service';
+import { SkyModalConfiguation } from './modal-configuration';
 
 import { SkyResourcesModule } from '../resources';
 
@@ -20,6 +21,7 @@ import { SkyResourcesModule } from '../resources';
     SkyModalHostComponent
   ],
   providers: [
+    SkyModalConfiguation,
     SkyModalAdapterService,
     SkyModalService
   ],
