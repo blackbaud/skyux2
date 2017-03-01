@@ -154,6 +154,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Error',
+        icon: 'exclamation',
+        // tslint:disable-next-line
+        summary: `The error component provides a template that allows other components to display error messages when errors occur.`,
+        url: '/components/error',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'error-demo.component.html',
+              fileContents: require('!!raw!./error/error-demo.component.html')
+            },
+            {
+              name: 'error-demo.component.ts',
+              fileContents: require('!!raw!./error/error-demo.component.ts'),
+              componentName: 'ErrorDemoComponent',
+              bootstrapSelector: 'sky-error-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'File attachments',
         icon: 'cloud-upload',
         // tslint:disable-next-line

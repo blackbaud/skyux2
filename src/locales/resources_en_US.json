@@ -67,6 +67,26 @@
         "_description": "The default text to show when a definition list item has no value",
         "message": "None found"
     },
+    "error_component_broken_description": {
+        "_description": "The error component description message for the broken error type",
+        "message": "Try to refresh this page or come back later."
+    },
+    "error_component_broken_title": {
+        "_description": "The error component title message for the broken error type",
+        "message": "Sorry, something went wrong."
+    },
+    "error_component_construction_description": {
+        "_description": "The error component description message for the construction error type",
+        "message": "Thanks for your patience while improvements are made! \n Please check back in a little while."
+    },
+    "error_component_construction_title": {
+        "_description": "The error component title message for the construction error type",
+        "message": "This page will return soon."
+    },
+    "error_component_not_found_title": {
+        "_description": "The error component title message for the not found error type",
+        "message": "Sorry, we can't reach that page."
+    },
     "grid_back_to_top": {
         "_description": "Text for link in grid to scroll back to the top.",
         "message": "Back to top"
