@@ -20,6 +20,13 @@ import {
   ListSearchSetFieldSelectorsAction
 } from './search/actions';
 
+import {
+  ListSortSetAvailableAction,
+  ListSortSetFieldSelectorsAction,
+  ListSortSetGlobalAction
+} from './sort/actions';
+import { ListSortLabelModel } from './sort/label.model';
+
 export class ListStateOrchestrator<T> extends StateOrchestrator<T, ListStateAction> {
 }
 
@@ -48,5 +55,17 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
 
   public searchSetText(searchText: string) {
     this.next(new ListSearchSetSearchTextAction(searchText));
+  }
+
+  public sortSetAvailable(sortLabels: ListSortLabelModel[]): void {
+    this.next(new ListSortSetAvailableAction(sortLabels));
+  }
+
+  public sortSetFieldSelectors(fieldSelectors: any[]): void {
+    this.next(new ListSortSetFieldSelectorsAction(fieldSelectors));
+  }
+
+  public sortSetGlobal(sortLabels: ListSortLabelModel[]): void {
+    this.next(new ListSortSetGlobalAction(sortLabels));
   }
 }
