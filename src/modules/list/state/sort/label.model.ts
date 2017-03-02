@@ -3,6 +3,7 @@ export class ListSortLabelModel {
   public fieldType: string;
   public fieldSelector: string;
   public global: boolean = false;
+  public descending: boolean = false;
 
   constructor(data?: any) {
     if (data) {
@@ -10,6 +11,7 @@ export class ListSortLabelModel {
       this.fieldType = data.fieldType;
       this.fieldSelector = data.fieldSelector;
       this.global = data.global;
+      this.descending = data.descending;
     }
   }
 }

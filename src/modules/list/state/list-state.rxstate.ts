@@ -26,6 +26,7 @@ import {
   ListSortSetGlobalAction
 } from './sort/actions';
 import { ListSortLabelModel } from './sort/label.model';
+import { ListSortFieldSelectorModel } from './sort/field-selector.model';
 
 export class ListStateOrchestrator<T> extends StateOrchestrator<T, ListStateAction> {
 }
@@ -61,7 +62,7 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
     this.next(new ListSortSetAvailableAction(sortLabels));
   }
 
-  public sortSetFieldSelectors(fieldSelectors: any[]): void {
+  public sortSetFieldSelectors(fieldSelectors: ListSortFieldSelectorModel[]): void {
     this.next(new ListSortSetFieldSelectorsAction(fieldSelectors));
   }
 

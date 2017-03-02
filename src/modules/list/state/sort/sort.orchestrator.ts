@@ -22,20 +22,7 @@ export class ListSortOrchestrator extends ListStateOrchestrator<ListSortModel> {
     state: ListSortModel,
     action: ListSortSetFieldSelectorsAction
   ) : ListSortModel {
-    let fieldSelectors = action.fieldSelectors;
-    let selectors = fieldSelectors.map(selector => {
-      let fieldSelector: string = selector;
-      let descending: boolean = false;
-      let colonIndex = fieldSelector.indexOf(':');
-      if (colonIndex > -1) {
-        descending = fieldSelector.substr(colonIndex + 1).toLowerCase() === 'desc';
-        fieldSelector = fieldSelector.substr(0, colonIndex);
-      }
-
-      return new ListSortFieldSelectorModel({ fieldSelector, descending });
-    });
-
-    return new ListSortModel(Object.assign({}, state, { fieldSelectors: selectors }));
+    return new ListSortModel(Object.assign({}, state, { fieldSelectors: action.fieldSelectors }));
   }
 
   private setAvailable(state: ListSortModel, action: ListSortSetAvailableAction): ListSortModel {

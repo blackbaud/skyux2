@@ -31,6 +31,10 @@ import {
 } from './state/sort/actions';
 
 import {
+  ListSortFieldSelectorModel
+} from './state/sort/field-selector.model';
+
+import {
   AsyncItem
 } from 'microedge-rxstate/dist';
 
@@ -85,7 +89,10 @@ export class SkyListComponent implements AfterContentInit {
   public selectedIds?: Array<string> | Observable<Array<string>>;
 
   @Input()
-  public sortFields?: string | Array<string> | Observable<Array<string>> | Observable<string>;
+  public sortFields?: ListSortFieldSelectorModel |
+  Array<ListSortFieldSelectorModel> |
+  Observable<Array<ListSortFieldSelectorModel>> |
+  Observable<ListSortFieldSelectorModel>;
 
   @Output()
   public selectedIdsChange = new EventEmitter<Map<string, boolean>>();
@@ -125,7 +132,7 @@ export class SkyListComponent implements AfterContentInit {
     }
 
     // set sort fields
-    getValue(this.sortFields, (sortFields: string[]) =>
+    getValue(this.sortFields, (sortFields: ListSortFieldSelectorModel[]) =>
       this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortFields || []))
     );
 

@@ -10,7 +10,8 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import {
-  ListToolbarConfigSetSearchEnabledAction
+  ListToolbarConfigSetSearchEnabledAction,
+  ListToolbarConfigSetSortSelectorEnabledAction
 } from './state/config/actions';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -25,6 +26,9 @@ import {
 } from '../list/state';
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { ListState, ListStateDispatcher } from '../list/state';
+import { ListSortLabelModel } from '../list/state/sort/label.model';
+import { ListSortFieldSelectorModel } from '../list/state/sort/field-selector.model';
+import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
 import { getValue } from 'microedge-rxstate/dist/helpers';
 
 import { SkySearchComponent } from '../search';
@@ -50,6 +54,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   public searchComponent: SkySearchComponent;
 
   @Input()
+  public sortSelectorEnabled: boolean | Observable<boolean>;
+
+  @Input()
   public toolbarType: string = 'standard';
 
   @Input()
@@ -58,8 +65,16 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
 
+  @ContentChildren(SkyListToolbarSortComponent)
+  private toolbarSorts: QueryList<SkyListToolbarSortComponent>;
+
   @ViewChild('search')
   private searchTemplate: TemplateRef<any>;
+
+  @ViewChild('sortSelector')
+  private sortSelectorTemplate: TemplateRef<any>;
+
+  public sortSelectors: Observable<Array<any>>;
 
   constructor(
     private state: ListState,
@@ -72,6 +87,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   public ngOnInit() {
     this.dispatcher.toolbarExists(true);
     getValue(this.searchText, (searchText: string) => this.updateSearchText(searchText));
+
     getValue(this.searchEnabled, (searchEnabled: boolean) =>
       this.toolbarDispatcher.next(
         new ListToolbarConfigSetSearchEnabledAction(
@@ -79,17 +95,63 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         )
       )
     );
+
     getValue(this.toolbarType, (type: string) => {
       this.dispatcher.next(new ListToolbarSetTypeAction(this.toolbarType));
     });
+
+    getValue(this.sortSelectorEnabled, (sortSelectorEnabled: any) =>
+      this.toolbarDispatcher.next(
+        new ListToolbarConfigSetSortSelectorEnabledAction(
+          sortSelectorEnabled === undefined ? true : sortSelectorEnabled
+        )
+      )
+     );
+
     this.dispatcher.toolbarAddItems([
       this.toolbarType !== 'search' ?
         new ListToolbarItemModel({
           id: 'search',
           template: this.searchTemplate,
           location: 'center'
-       }) : undefined
+        }) : undefined,
+        new ListToolbarItemModel({
+          id: 'sort-selector',
+          template: this.sortSelectorTemplate,
+          location: 'right'
+        })
     ].filter(item => item !== undefined));
+
+    this.sortSelectors = Observable.combineLatest(
+      this.state.map(s => s.sort.available).distinctUntilChanged(),
+      this.state.map(s => s.sort.global).distinctUntilChanged(),
+      this.state.map(s => s.sort.fieldSelectors).distinctUntilChanged(),
+      (
+        available: Array<ListSortLabelModel>,
+        global: Array<ListSortLabelModel>,
+        fieldSelectors: Array<ListSortFieldSelectorModel>
+      ) => {
+        // Get sorts that are in the global that are not in the available
+        let sorts = global.filter(
+          g => available.filter(a => a.fieldSelector === g.fieldSelector).length === 0
+        );
+
+        return [...sorts, ...available].map(sortLabels => {
+          let fs = fieldSelectors.filter(f => {
+            return f.fieldSelector === sortLabels.fieldSelector
+              && f.descending === sortLabels.descending
+          });
+          let selected = false;
+          if (fs.length > 0) {
+            selected = true;
+          }
+
+          return {
+            sort: sortLabels,
+            selected: selected,
+          };
+        });
+      });
   }
 
   public ngAfterContentInit() {
@@ -99,6 +161,20 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         toolbarItem.index
       )
     );
+
+    let sortModels = this.toolbarSorts.map(sort =>
+      new ListSortLabelModel(
+        {
+          text: sort.label,
+          fieldSelector: sort.field,
+          fieldType: sort.type,
+          global: true,
+          descending: sort.descending
+        }
+      )
+    );
+
+    this.dispatcher.sortSetGlobal(sortModels);
   }
 
   get searchTextInput() {
@@ -148,6 +224,12 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     return (itemView === undefined || itemView === activeView);
   }
 
+  public setSort(sort: ListSortLabelModel): void {
+    this.dispatcher.sortSetFieldSelectors(
+      [{fieldSelector: sort.fieldSelector, descending: sort.descending}]
+    );
+  }
+
   private updateSearchText(searchText: string) {
     this.dispatcher.searchSetText(searchText);
   }
@@ -163,4 +245,11 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       .distinctUntilChanged()
       .map(c => c.searchEnabled);
   }
+
+  private get isSortSelectorEnabled() {
+    return this.toolbarState.map(s => s.config)
+      .distinctUntilChanged()
+      .map(c => c.sortSelectorEnabled);
+  }
+
 }

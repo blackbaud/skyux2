@@ -111,24 +111,24 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
 
       if (sort.fieldSelectors.length > 0) {
         result = result.slice().sort((item1: ListItemModel, item2: ListItemModel) => {
-          let r = 0;
+          let compareResult = 0;
           for (let i = 0; i < sort.fieldSelectors.length; i++) {
             let selector = sort.fieldSelectors[i];
             let value1 = getData(item1.data, selector.fieldSelector);
             let value2 = getData(item2.data, selector.fieldSelector);
 
-            r = compare(value1, value2);
+            compareResult = compare(value1, value2);
 
-            if (selector.descending && r !== 0) {
-              r *= -1;
+            if (selector.descending && compareResult !== 0) {
+              compareResult *= -1;
             }
 
-            if (r !== 0) {
+            if (compareResult !== 0) {
               break;
             }
           }
 
-          return r;
+          return compareResult;
         });
       }
       return result;
