@@ -106,17 +106,19 @@ describe('Modal component', () => {
   }));
 
   it('should be a full screen modal and scale when window resizes', fakeAsync(() => {
+
     let modalInstance = openModal(ModalTestComponent, {'fullPage': true});
     let modalEl = document.querySelector('.sky-modal-full-page');
-    let height = parseInt(getComputedStyle(modalEl).maxHeight, 10);
-    let windowHeight = window.innerHeight;
-
-    expect(height).toEqual(windowHeight);
+    let height = parseInt(getComputedStyle(modalEl).height, 10);
+    // OR -2 is for IE Box Model Fix
+    expect((window.innerHeight - 2) || window.innerHeight ).toEqual(height);
 
     TestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
+    modalEl = document.querySelector('.sky-modal-full-page');
     height = parseInt(getComputedStyle(modalEl).height, 10);
-    expect(height).toEqual(window.innerHeight);
+    // OR -2 is for IE Box Model Fix
+    expect((window.innerHeight - 2) || window.innerHeight ).toEqual(height);
 
     closeModal(modalInstance);
   }));
