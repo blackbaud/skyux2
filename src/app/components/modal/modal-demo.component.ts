@@ -16,7 +16,7 @@ export class SkyModalDemoComponent {
     let context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
-    let windowMode = {
+    let windowMode: any = {
 
       'defaultModal': [{ provide: SkyModalDemoContext, useValue: context }],
 
