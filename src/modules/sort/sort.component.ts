@@ -1,5 +1,6 @@
 import {
-  Component
+  Component,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -12,7 +13,8 @@ import {
   templateUrl: './sort.component.html',
   providers: [
     SkySortService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkySortComponent {
 
