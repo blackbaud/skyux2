@@ -58,7 +58,6 @@ export class SkyModalService {
       useValue: params
     });
 
-
     SkyModalService.hostComponent.open(modalInstance, component, params);
 
     return modalInstance;
@@ -72,7 +71,6 @@ export class SkyModalService {
       this.adapter.removeHostEl();
     }
   }
-
 
   private createHostComponent() {
     if (!SkyModalService.hostComponent) {

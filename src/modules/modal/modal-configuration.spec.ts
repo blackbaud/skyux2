@@ -12,7 +12,6 @@ describe('Modal configuration', () => {
       expect(this.testService.fullPage).toBe(true);
     });
 
-
   });
 
 });

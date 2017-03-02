@@ -9,7 +9,6 @@ import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalComponent } from './modal.component';
 import { SkyModalService } from './modal.service';
 
-
 import { SkyResourcesModule } from '../resources';
 
 @NgModule({

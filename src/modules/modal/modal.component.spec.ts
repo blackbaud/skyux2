@@ -105,7 +105,6 @@ describe('Modal component', () => {
     closeModal(modalInstance);
   }));
 
-
   it('should be a full screen modal and scale when window resizes', fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent, {'fullPage': true});
     let modalEl = document.querySelector('.sky-modal-full-page');

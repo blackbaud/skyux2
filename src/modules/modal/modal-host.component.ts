@@ -31,7 +31,6 @@ export class SkyModalHostComponent {
     return SkyModalHostService.backdropZIndex;
   }
 
-
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
@@ -42,7 +41,6 @@ export class SkyModalHostComponent {
     private adapter: SkyModalAdapterService,
     private injector: Injector
   ) { }
-
 
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
     let params: IConfig = Object.assign({}, arguments[2]);

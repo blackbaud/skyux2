@@ -33,7 +33,6 @@ export class SkyModalHostService {
     return zIndex;
   }
 
-
   public onClose(modalComponent: SkyModalComponent): void {
     this.close.emit(modalComponent);
   }
