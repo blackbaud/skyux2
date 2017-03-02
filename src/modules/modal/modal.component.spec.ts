@@ -110,15 +110,14 @@ describe('Modal component', () => {
     let modalInstance = openModal(ModalTestComponent, {'fullPage': true});
     let modalEl = document.querySelector('.sky-modal-full-page');
     let height = parseInt(getComputedStyle(modalEl).height, 10);
-    // OR -2 is for IE Box Model Fix
-    expect((window.innerHeight - 2) || window.innerHeight ).toEqual(height);
-
+    // innerHeight -2 is for IE Box Model Fix
+    expect([window.innerHeight - 2, window.innerHeight]).toContain(height);
     TestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
     modalEl = document.querySelector('.sky-modal-full-page');
     height = parseInt(getComputedStyle(modalEl).height, 10);
-    // OR -2 is for IE Box Model Fix
-    expect((window.innerHeight - 2) || window.innerHeight ).toEqual(height);
+    // innerHeight -2 is for IE Box Model Fix
+    expect([window.innerHeight - 2, window.innerHeight]).toContain(height);
 
     closeModal(modalInstance);
   }));
