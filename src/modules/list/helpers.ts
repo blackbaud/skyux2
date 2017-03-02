@@ -29,6 +29,29 @@ export function getData(item: any, selector: string): any {
   return result;
 }
 
+export function compare(value1: any, value2: any) {
+  /* tslint:disable */
+  if (value1 === null) {
+    return 1;
+  } else if (value2 === null) {
+    return -1;
+  }
+  /* tslint:enable */
+
+  if (value1 && typeof value1 === 'string') {
+    value1 = value1.toLowerCase();
+  }
+
+  if (value2 && typeof value2 === 'string') {
+    value2 = value2.toLowerCase();
+  }
+  if (value1 === value2) {
+    return 0;
+  }
+
+  return value1 > value2 ? 1 : -1;
+}
+
 export function isObservable(item: any) {
   return item && typeof item.subscribe === 'function';
 }

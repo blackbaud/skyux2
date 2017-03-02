@@ -23,8 +23,20 @@ import {
 } from './state/selected/selected.model';
 
 import {
+  ListSortModel
+} from './state/sort/sort.model';
+
+import {
+  ListSortSetFieldSelectorsAction
+} from './state/sort/actions';
+
+import {
   AsyncItem
 } from 'microedge-rxstate/dist';
+
+import {
+  getValue
+} from 'microedge-rxstate/dist/helpers';
 
 import { ListDataRequestModel } from './list-data-request.model';
 import { ListDataResponseModel } from './list-data-response.model';
@@ -44,7 +56,9 @@ import {
 import { ListViewModel } from './state/views/view.model';
 import { ListItemModel } from './state/items/item.model';
 
-import { isObservable } from './helpers';
+import {
+  isObservable
+} from './helpers';
 let moment = require('moment');
 
 @Component({
@@ -110,6 +124,11 @@ export class SkyListComponent implements AfterContentInit {
       return;
     }
 
+    // set sort fields
+    getValue(this.sortFields, (sortFields: string[]) =>
+      this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortFields || []))
+    );
+
     this.displayedItems.subscribe(result => {
       this.dispatcher.next(new ListItemsSetLoadingAction());
       this.dispatcher.next(new ListItemsLoadAction(result.items, true, true, result.count));
@@ -157,6 +176,7 @@ export class SkyListComponent implements AfterContentInit {
 
     return Observable.combineLatest(
       this.state.map(s => s.search).distinctUntilChanged(),
+      this.state.map(s => s.sort).distinctUntilChanged(),
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
       selectedIds.distinctUntilChanged().map((selectedId: any) => {
@@ -166,6 +186,7 @@ export class SkyListComponent implements AfterContentInit {
       data.distinctUntilChanged(),
       (
         search: ListSearchModel,
+        sort: ListSortModel,
         itemsPerPage: number,
         pageNumber: number,
         selected: Array<string>,
@@ -192,7 +213,8 @@ export class SkyListComponent implements AfterContentInit {
           response = this.dataProvider.get(new ListDataRequestModel({
             pageSize: itemsPerPage,
             pageNumber: pageNumber,
-            search: search
+            search: search,
+            sort: sort
           }));
         }
 

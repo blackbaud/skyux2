@@ -5,6 +5,10 @@ import { ListDataRequestModel } from '../list/list-data-request.model';
 import { ListDataResponseModel } from '../list/list-data-response.model';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListSearchModel } from '../list/state/search/search.model';
+import {
+  compare,
+  getData
+} from '../list/helpers';
 
 let moment = require('moment');
 
@@ -53,6 +57,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
     return this.items.map(items => {
       let dataChanged = false;
       let search = request.search;
+      let sort = request.sort;
 
       if (this.lastItems === undefined || this.lastItems !== items) {
         dataChanged = true;
@@ -102,6 +107,29 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         this.lastSearchResults = result;
       } else {
         this.lastSearchResults = undefined;
+      }
+
+      if (sort.fieldSelectors.length > 0) {
+        result = result.slice().sort((item1: ListItemModel, item2: ListItemModel) => {
+          let r = 0;
+          for (let i = 0; i < sort.fieldSelectors.length; i++) {
+            let selector = sort.fieldSelectors[i];
+            let value1 = getData(item1.data, selector.fieldSelector);
+            let value2 = getData(item2.data, selector.fieldSelector);
+
+            r = compare(value1, value2);
+
+            if (selector.descending && r !== 0) {
+              r *= -1;
+            }
+
+            if (r !== 0) {
+              break;
+            }
+          }
+
+          return r;
+        });
       }
       return result;
     });
