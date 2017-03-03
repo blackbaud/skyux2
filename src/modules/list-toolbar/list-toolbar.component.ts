@@ -76,6 +76,22 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   public sortSelectors: Observable<Array<any>>;
 
+  public searchTextInput: Observable<string>;
+
+  public view: Observable<string>;
+
+  public leftTemplates: Observable<any>;
+
+  public centerTemplates: Observable<any>;
+
+  public rightTemplates: Observable<any>;
+
+  public type: Observable<string>;
+
+  public isSearchEnabled: Observable<boolean>;
+
+  public isSortSelectorEnabled: Observable<boolean>;
+
   constructor(
     private state: ListState,
     private dispatcher: ListStateDispatcher,
@@ -122,7 +138,66 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         })
     ].filter(item => item !== undefined));
 
-    this.sortSelectors = Observable.combineLatest(
+    this.sortSelectors = this.getSortSelectors();
+
+    this.searchTextInput = this.state.map(s => s.search.searchText).distinctUntilChanged();
+
+    this.view = this.state.map(s => s.views.active).distinctUntilChanged();
+
+    this.leftTemplates = this.getLeftTemplates();
+
+    this.centerTemplates = this.getCenterTemplates();
+
+    this.rightTemplates = this.getRightTemplates();
+
+    this.type = this.state.map((state) => state.toolbar.type).distinctUntilChanged();
+
+    this.isSearchEnabled = this.toolbarState.map(s => s.config)
+      .distinctUntilChanged().map(c => c.searchEnabled);
+
+    this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)
+      .distinctUntilChanged().map(c => c.sortSelectorEnabled);
+  }
+
+  public ngAfterContentInit() {
+    this.toolbarItems.forEach(toolbarItem =>
+      this.dispatcher.toolbarAddItems(
+        [new ListToolbarItemModel(toolbarItem)],
+        toolbarItem.index
+      )
+    );
+
+    let sortModels = this.toolbarSorts.map(sort =>
+      new ListSortLabelModel(
+        {
+          text: sort.label,
+          fieldSelector: sort.field,
+          fieldType: sort.type,
+          global: true,
+          descending: sort.descending
+        }
+      )
+    );
+
+    this.dispatcher.sortSetGlobal(sortModels);
+  }
+
+  private itemIsInView(itemView: string, activeView: string) {
+    return (itemView === undefined || itemView === activeView);
+  }
+
+  public setSort(sort: ListSortLabelModel): void {
+    this.dispatcher.sortSetFieldSelectors(
+      [{fieldSelector: sort.fieldSelector, descending: sort.descending}]
+    );
+  }
+
+  private updateSearchText(searchText: string) {
+    this.dispatcher.searchSetText(searchText);
+  }
+
+  private getSortSelectors() {
+    return Observable.combineLatest(
       this.state.map(s => s.sort.available).distinctUntilChanged(),
       this.state.map(s => s.sort.global).distinctUntilChanged(),
       this.state.map(s => s.sort.fieldSelectors).distinctUntilChanged(),
@@ -154,38 +229,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       });
   }
 
-  public ngAfterContentInit() {
-    this.toolbarItems.forEach(toolbarItem =>
-      this.dispatcher.toolbarAddItems(
-        [new ListToolbarItemModel(toolbarItem)],
-        toolbarItem.index
-      )
-    );
-
-    let sortModels = this.toolbarSorts.map(sort =>
-      new ListSortLabelModel(
-        {
-          text: sort.label,
-          fieldSelector: sort.field,
-          fieldType: sort.type,
-          global: true,
-          descending: sort.descending
-        }
-      )
-    );
-
-    this.dispatcher.sortSetGlobal(sortModels);
-  }
-
-  get searchTextInput() {
-    return this.state.map(s => s.search.searchText).distinctUntilChanged();
-  }
-
-  get view() {
-    return this.state.map(s => s.views.active).distinctUntilChanged();
-  }
-
-  get leftTemplates() {
+  private getLeftTemplates() {
     return Observable.combineLatest(
       this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view,
@@ -196,7 +240,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     );
   }
 
-  get centerTemplates() {
+  private getCenterTemplates() {
     return Observable.combineLatest(
       this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view,
@@ -208,7 +252,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     );
   }
 
-  get rightTemplates() {
+  private getRightTemplates() {
     return Observable.combineLatest(
       this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view.distinctUntilChanged(),
@@ -218,38 +262,6 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
           i.location === 'right' && this.itemIsInView(i.view, view)
         );
       });
-  }
-
-  private itemIsInView(itemView: string, activeView: string) {
-    return (itemView === undefined || itemView === activeView);
-  }
-
-  public setSort(sort: ListSortLabelModel): void {
-    this.dispatcher.sortSetFieldSelectors(
-      [{fieldSelector: sort.fieldSelector, descending: sort.descending}]
-    );
-  }
-
-  private updateSearchText(searchText: string) {
-    this.dispatcher.searchSetText(searchText);
-  }
-
-  get type() {
-    return this.state.map((state) => {
-      return state.toolbar.type;
-    }).distinctUntilChanged();
-  }
-
-  private get isSearchEnabled() {
-    return this.toolbarState.map(s => s.config)
-      .distinctUntilChanged()
-      .map(c => c.searchEnabled);
-  }
-
-  private get isSortSelectorEnabled() {
-    return this.toolbarState.map(s => s.config)
-      .distinctUntilChanged()
-      .map(c => c.sortSelectorEnabled);
   }
 
 }
