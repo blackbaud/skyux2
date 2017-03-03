@@ -1,3 +1,11 @@
+# 2.0.0-beta.11 (2017-03-03)
+
+  - Add a max-height to modal so that content overflows properly. (#361)
+  - Documentation updates for getting started guide.
+  - Added the error component. (thanks @Blackbaud-AdamHickey) (#156)
+  - Added the standalone sort component. (#169)
+  - Added the full screen modal option. (#160)
+
 # 2.0.0-beta.10 (2017-02-28)
 
   - Added support for secondary action dropdown in list. (#313)
