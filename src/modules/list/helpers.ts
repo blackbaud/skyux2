@@ -1,3 +1,6 @@
+import {Observable} from 'rxjs/Observable';
+import {$$observable as symbolObservable} from 'rxjs/symbol/observable';
+
 export function getData(item: any, selector: string): any {
   let resultFieldParts = selector.split('.');
   if (resultFieldParts.length > 0 && resultFieldParts[0] === '') {
@@ -52,6 +55,10 @@ export function compare(value1: any, value2: any) {
   return value1 > value2 ? 1 : -1;
 }
 
-export function isObservable(item: any) {
-  return item && typeof item.subscribe === 'function';
+/*
+  Taken from @angular's internal library to determine whether an object is an Obserable.
+  https://github.com/angular/angular/commit/109f0d1
+*/
+export function isObservable(obj: any | Observable<any>): obj is Observable<any> {
+  return !!(obj && obj[symbolObservable]);
 }
