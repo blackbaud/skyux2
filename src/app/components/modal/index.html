@@ -6,9 +6,24 @@
 
   <sky-demo-page-properties sectionHeading="Modal service methods">
     <sky-demo-page-property
-        propertyName="open(component, providers?)"
+        propertyName="open(component, config?)"
     >
-      Opens a modal using the specified component.  The optional <code>providers</code> parameter specifies one or more providers to be passed to the component's constructor.  This can be used to pass context values from the component launching the modal to the modal component. This method returns the modal instance.
+      Opens a modal using the specified component.  The optional <code>config</code> parameter is an object literal to be passed to the component's constructor.This method returns the modal instance.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Modal service config properties">
+    <sky-demo-page-property
+        propertyName="fullPage?"
+    >
+      A Boolean property of <code>config</code> with a default of false. When set to true, the modal will become full screen.
+    </sky-demo-page-property>
+
+        <sky-demo-page-property
+        propertyName="providers?"
+    >
+      A array property of <code>providers</code> This can be used to pass context values from the component launching the modal to the modal component.
+
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

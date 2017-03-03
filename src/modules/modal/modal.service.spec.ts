@@ -28,8 +28,8 @@ describe('Modal service', () => {
   let modalService: SkyModalService;
   let applicationRef: ApplicationRef;
 
-  function openModal(modalType: any, providers?: any[]) {
-    let modalInstance = modalService.open(modalType, providers);
+  function openModal(modalType: any, config?: Object) {
+    let modalInstance = modalService.open(modalType, config);
 
     tick();
 
