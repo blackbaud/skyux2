@@ -167,38 +167,47 @@ describe('List Toolbar Component', () => {
       });
 
       it('should create ascending and descending items for each sort label', async(() => {
-        let sortItems = nativeElement.querySelectorAll('.sky-sort .sky-sort-item');
-        expect(sortItems.length).toBe(7);
-        expect(sortItems.item(0)).toHaveText('Status (A - Z)');
-        expect(sortItems.item(1)).toHaveText('Status (Z - A)');
-        expect(sortItems.item(2)).toHaveText('Date (Most recent first)');
-        expect(sortItems.item(3)).toHaveText('Date (Most recent last)');
-        expect(sortItems.item(4)).toHaveText('Number (Highest first)');
-        expect(sortItems.item(5)).toHaveText('Number (Lowest first)');
-        expect(sortItems.item(6)).toHaveText('Custom');
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          let sortItems = nativeElement.querySelectorAll('.sky-sort .sky-sort-item');
+          expect(sortItems.length).toBe(8);
+          expect(sortItems.item(2)).toHaveText('Status (A - Z)');
+          expect(sortItems.item(3)).toHaveText('Status (Z - A)');
+          expect(sortItems.item(4)).toHaveText('Date (Most recent first)');
+          expect(sortItems.item(5)).toHaveText('Date (Most recent last)');
+          expect(sortItems.item(6)).toHaveText('Number (Highest first)');
+          expect(sortItems.item(7)).toHaveText('Number (Lowest first)');
+          expect(sortItems.item(0)).toHaveText('Custom');
+          expect(sortItems.item(1)).toHaveText('Custom');
+        });
 
       }));
 
       it('should handle sort item click', async(() => {
-        let sortSelectorDropdownButtonEl = nativeElement
-          .querySelector('.sky-sort .sky-dropdown-button') as HTMLButtonElement;
-        sortSelectorDropdownButtonEl.click();
+        initializeToolbar();
+         fixture.whenStable().then(() => {
+           fixture.detectChanges();
+          let sortSelectorDropdownButtonEl = nativeElement
+            .querySelector('.sky-sort .sky-dropdown-button') as HTMLButtonElement;
+          sortSelectorDropdownButtonEl.click();
 
-        let sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+          let sortItems = nativeElement.querySelectorAll('.sky-sort-item');
 
-        let clickItem = sortItems.item(1).querySelector('button') as HTMLButtonElement;
+          let clickItem = sortItems.item(1).querySelector('button') as HTMLButtonElement;
 
-        clickItem.click();
-        fixture.detectChanges();
-        sortItems = nativeElement.querySelectorAll('.sky-sort-item');
-        expect(sortItems.item(1)).toHaveClass('.sky-sort-item-selected');
+          clickItem.click();
+          fixture.detectChanges();
+          sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+          expect(sortItems.item(1)).toHaveCssClass('sky-sort-item-selected');
 
-        clickItem = sortItems.item(0).querySelector('button') as HTMLButtonElement;
+          clickItem = sortItems.item(0).querySelector('button') as HTMLButtonElement;
 
-        clickItem.click();
-        fixture.detectChanges();
-        sortItems = nativeElement.querySelectorAll('.sky-sort-item');
-        expect(sortItems.item(0)).toHaveClass('.sky-sort-item-selected');
+          clickItem.click();
+          fixture.detectChanges();
+          sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+          expect(sortItems.item(0)).toHaveCssClass('sky-sort-item-selected');
+         });
 
       }));
     });
@@ -210,8 +219,9 @@ describe('List Toolbar Component', () => {
         let items = element.queryAll(By.css('.sky-toolbar-item'));
         expect(items[0].nativeElement).toHaveText('');
         expect(items[1].query(By.css('input'))).not.toBeNull();
-        expect(items[2].nativeElement).toHaveText('Custom Item');
-        expect(items[3].nativeElement).toHaveText('Custom Item 2');
+        expect(items[2].query(By.css('.sky-sort'))).not.toBeNull();
+        expect(items[3].nativeElement).toHaveText('Custom Item');
+        expect(items[4].nativeElement).toHaveText('Custom Item 2');
       });
 
     }));
@@ -224,8 +234,9 @@ describe('List Toolbar Component', () => {
       expect(component.toolbar.searchComponent.expandMode).toBe('fit');
       let items = sections[1].queryAll(By.css('.sky-toolbar-item sky-list-toolbar-item-renderer'));
       expect(items[0].nativeElement).toHaveText('');
-      expect(items[1].nativeElement).toHaveText('Custom Item');
-      expect(items[2].nativeElement).toHaveText('Custom Item 2');
+      expect(items[1].query(By.css('.sky-sort'))).not.toBeNull();
+      expect(items[2].nativeElement).toHaveText('Custom Item');
+      expect(items[3].nativeElement).toHaveText('Custom Item 2');
     }
 
     it('should load custom items with toolbarType = search initialized', async(() => {
@@ -276,8 +287,9 @@ describe('List Toolbar Component', () => {
         expect(items[0].nativeElement).toHaveText('');
         expect(items[1].query(By.css('input'))).not.toBeNull();
         expect(items[2].query(By.css('span')).nativeElement).toHaveCssClass('sky-test-toolbar');
-        expect(items[3].nativeElement).toHaveText('Custom Item');
-        expect(items[4].nativeElement).toHaveText('Custom Item 2');
+        expect(items[3].query(By.css('.sky-sort'))).not.toBeNull();
+        expect(items[4].nativeElement).toHaveText('Custom Item');
+        expect(items[5].nativeElement).toHaveText('Custom Item 2');
 
          dispatcher.next(new ListToolbarItemsLoadAction([
           new ListToolbarItemModel({
@@ -293,8 +305,9 @@ describe('List Toolbar Component', () => {
         expect(items[0].nativeElement).toHaveText('');
         expect(items[1].query(By.css('input'))).not.toBeNull();
         expect(items[2].query(By.css('span')).nativeElement).toHaveCssClass('sky-test-toolbar');
-        expect(items[3].nativeElement).toHaveText('Custom Item');
-        expect(items[4].nativeElement).toHaveText('Custom Item 2');
+        expect(items[3].query(By.css('.sky-sort'))).not.toBeNull();
+        expect(items[4].nativeElement).toHaveText('Custom Item');
+        expect(items[5].nativeElement).toHaveText('Custom Item 2');
 
       });
     }));
