@@ -8,8 +8,7 @@ import {
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalAdapterService } from './modal-adapter.service';
-import { SkyModalConfiguationInterface as IConfig }  from './modal.interface';
-import { SkyModalConfiguation } from './modal-configuration';
+import { SkyModalConfiguationInterface as IConfig } from './modal.interface';
 
 @Injectable()
 export class SkyModalService {
@@ -31,31 +30,14 @@ export class SkyModalService {
   public open(): SkyModalInstance {
     let modalInstance = new SkyModalInstance();
     this.createHostComponent();
-    let defaultParams: IConfig = { 'providers': [], 'fullPage': false };
-    let component = arguments[0];
     let providersOrConfig: IConfig = arguments[1];
+    let params = this.getConfigFromParameter(providersOrConfig);
+    let component = arguments[0];
 
-    // Object Literal Lookup for backwards compatability.
-    let method = {
-      'providers?': Object.assign({}, defaultParams, { 'providers': providersOrConfig }),
-      'config': Object.assign({}, defaultParams, providersOrConfig)
-    };
-
-    let params = ((p: any = providersOrConfig) => {
-      if (Array.isArray(p) === true) {
-        return method['providers?'];
-      } else {
-        return method['config'];
-      }
-    })();
 
     params.providers.push({
       provide: SkyModalInstance,
       useValue: modalInstance
-    });
-    params.providers.push({
-      provide: SkyModalConfiguation,
-      useValue: params
     });
 
     SkyModalService.hostComponent.open(modalInstance, component, params);
@@ -71,6 +53,29 @@ export class SkyModalService {
       this.adapter.removeHostEl();
     }
   }
+
+  private getConfigFromParameter(providersOrConfig: any) {
+    let defaultParams: IConfig = { 'providers': [], 'fullPage': false };
+    let params: any = undefined;
+    let method: Object = undefined;;
+
+    // Object Literal Lookup for backwards compatability.
+    method = {
+      'providers?': Object.assign({}, defaultParams, { 'providers': providersOrConfig }),
+      'config': Object.assign({}, defaultParams, providersOrConfig)
+    };
+
+
+    if (Array.isArray(providersOrConfig) === true) {
+      params = method['providers?'];
+    } else {
+      params = method['config'];
+    }
+
+
+    return params;
+  }
+
 
   private createHostComponent() {
     if (!SkyModalService.hostComponent) {

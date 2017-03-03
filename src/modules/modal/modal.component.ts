@@ -42,7 +42,7 @@ export class SkyModalComponent implements AfterViewInit {
     return this.hostService.getModalZIndex();
   }
 
-    public get modalFullPage(){
+  public get modalFullPage() {
     return this.config.fullPage;
   }
 

@@ -43,7 +43,7 @@ export class SkyModalHostComponent {
   ) { }
 
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
-    let params: IConfig = Object.assign({}, arguments[2]);
+    let params: IConfig = Object.assign({}, config);
     let factory = this.resolver.resolveComponentFactory(component);
     let hostService = new SkyModalHostService();
     let adapter = this.adapter;

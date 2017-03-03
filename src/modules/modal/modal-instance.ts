@@ -13,7 +13,7 @@ export class SkyModalInstance {
 
   private closeCallback: Function;
 
-  constructor() {}
+  constructor() { }
 
   public setCloseCallback(closeCallback: Function) {
     this.closeCallback = closeCallback;
@@ -38,7 +38,7 @@ export class SkyModalInstance {
     if (this.closeCallback) {
       this.closeCallback();
     }
-    this.closed.emit({ reason: type, data: result});
+    this.closed.emit({ reason: type, data: result });
   }
 
 }

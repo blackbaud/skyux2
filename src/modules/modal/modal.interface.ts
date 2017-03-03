@@ -1,4 +1,4 @@
 export interface SkyModalConfiguationInterface {
-fullPage?: boolean;
-providers?: any[];
+  fullPage?: boolean;
+  providers?: any[];
 }
