@@ -2,6 +2,7 @@ import { expect } from '../testing';
 
 import { SkyModalComponent } from './modal.component';
 import { SkyModalHostService } from './modal-host.service';
+import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
 describe('Modal host service', () => {
   it('should return a modal z-index that is 1 greater than the backdrop z-index', () => {
@@ -51,7 +52,8 @@ describe('Modal host service', () => {
 
   it('should notify subscribers when a modal is closed', () => {
     let service = new SkyModalHostService();
-    let component = new SkyModalComponent(service);
+    let componentService = new SkyModalComponentAdapterService();
+    let component = new SkyModalComponent(service, { nativeElement: {} }, componentService);
     let closeEmitted = false;
 
     service.close.subscribe((closedComponent: SkyModalComponent) => {
