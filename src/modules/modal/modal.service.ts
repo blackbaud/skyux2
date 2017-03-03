@@ -34,7 +34,6 @@ export class SkyModalService {
     let params = this.getConfigFromParameter(providersOrConfig);
     let component = arguments[0];
 
-
     params.providers.push({
       provide: SkyModalInstance,
       useValue: modalInstance
@@ -57,7 +56,7 @@ export class SkyModalService {
   private getConfigFromParameter(providersOrConfig: any) {
     let defaultParams: IConfig = { 'providers': [], 'fullPage': false };
     let params: any = undefined;
-    let method: Object = undefined;;
+    let method: any = undefined;
 
     // Object Literal Lookup for backwards compatability.
     method = {
@@ -65,17 +64,14 @@ export class SkyModalService {
       'config': Object.assign({}, defaultParams, providersOrConfig)
     };
 
-
     if (Array.isArray(providersOrConfig) === true) {
       params = method['providers?'];
     } else {
       params = method['config'];
     }
 
-
     return params;
   }
-
 
   private createHostComponent() {
     if (!SkyModalService.hostComponent) {
