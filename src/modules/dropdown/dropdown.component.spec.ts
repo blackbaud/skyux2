@@ -251,4 +251,21 @@ describe('Dropdown component', () => {
         expect(dropdownBtnEl.querySelector('.sky-dropdown-caret')).toBeNull();
       });
     });
+
+    describe('of other types', () => {
+      it('should display an filter icon when that type is specified', () => {
+        let fixture = TestBed.createComponent(DropdownTestComponent);
+        let cmp = fixture.componentInstance;
+        let el = fixture.nativeElement;
+
+        cmp.buttonType = 'filter';
+
+        fixture.detectChanges();
+
+        let dropdownBtnEl = getDropdownBtnEl(el);
+
+        expect(dropdownBtnEl).toHaveText('');
+        expect(dropdownBtnEl.querySelector('.fa-filter')).not.toBeNull();
+      });
+    });
 });

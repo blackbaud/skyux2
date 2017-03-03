@@ -3,7 +3,7 @@
   - Added support for secondary action dropdown in list. (#313)
   - Added column chooser service and component that works with sky-list-view-grid. (#314)
   - Set action button icon default properties. (#382)
-  - Add appropriate font-weight to modal header. (#389)
+  - Add appropriate font-weight to modal header. (thanks @Blackbaud-TrevorBurch) (#389)
   - Update angular version to 2.4.8. (#386)
 
 # 2.0.0-beta.9 (2017-02-22)
