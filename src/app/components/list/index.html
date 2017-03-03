@@ -7,7 +7,7 @@
     <p>Here is a list of related components that can be used within the list component.</p>
     <ul>
       <li><a href="/skyux2/components/list-paging">List Paging (sky-list-paging)</a></li>
-      <li><a href="/skyux2/components/list-toolbar">List Toolbar (sky-list-toolbar)</a></li>
+      <li><a href="/skyux2/components/list-toolbar">List Toolbar (includes sorting) (sky-list-toolbar)</a></li>
       <li><a href="/skyux2/components/list-view-checklist">
         List View Checklist (sky-list-view-checklist)
       </a></li>
@@ -24,7 +24,7 @@
     >
       Specifies the data to display.
       Must provide <code>data</code> or <code>dataProvider</code>.
-      Acceptable values: <code>Observable Array or Array</code> (to update data in your view outside of a dataProvider you must use an Observable instead of a static array).
+      Acceptable values: <code>Observable Array</code> or <code>Array</code> (to update data in your view outside of a dataProvider you must use an Observable instead of a static array).
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="dataProvider"
@@ -37,7 +37,6 @@
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="initialTotal"
-        defaultValue=""
         isOptional="true"
     >
       Specifies the total number of items for the initial data set when initialized.
@@ -46,15 +45,21 @@
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="search"
-        defaultValue=""
         isOptional="true"
     >
       Specifies a function to apply as a global sort on the list.
-      Acceptable value: <code>(searchText: string) => Observable Array or Promise Array</code>.
+      Acceptable value: <code>(searchText: string) => Observable Array</code> or <code>Promise Array</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+        propertyName="sortFields"
+        isOptional="true"
+    >
+      Specifies a set of fields to sort by. If array of fields then sorted by order of array.
+      Acceptable values: <code>string</code>, <code>Observable string</code>, <code>Array of strings</code>,
+      or <code>Observable Array of strings</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="selectedIds"
-        defaultValue=""
         isOptional="true"
     >
       Specifies a set of selected IDs to use with a checklist view.
