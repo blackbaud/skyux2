@@ -21,7 +21,6 @@ describe('in memory data provider', () => {
     ]);
   });
 
-
   it('should handle searching with no results, clearing search, and then having a paging change',
     fakeAsync(() => {
 
@@ -143,7 +142,8 @@ describe('in memory data provider', () => {
     }));
 
     it('should handle sorting with null values', fakeAsync(() => {
-       items = Observable.of([
+      /* tslint:disable */
+      items = Observable.of([
         { id: '1', column1: 101, column2: null, column3: 'Anne eats apples' },
         { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
         { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears' },
@@ -152,6 +152,7 @@ describe('in memory data provider', () => {
         { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
         { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
       ]);
+      /* tslint:enable */
 
       let provider = new SkyListInMemoryDataProvider(items);
 

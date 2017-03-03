@@ -62,18 +62,6 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @Input()
   public searchText: string | Observable<string>;
 
-  @ContentChildren(SkyListToolbarItemComponent)
-  private toolbarItems: QueryList<SkyListToolbarItemComponent>;
-
-  @ContentChildren(SkyListToolbarSortComponent)
-  private toolbarSorts: QueryList<SkyListToolbarSortComponent>;
-
-  @ViewChild('search')
-  private searchTemplate: TemplateRef<any>;
-
-  @ViewChild('sortSelector')
-  private sortSelectorTemplate: TemplateRef<any>;
-
   public sortSelectors: Observable<Array<any>>;
 
   public searchTextInput: Observable<string>;
@@ -91,6 +79,18 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   public isSearchEnabled: Observable<boolean>;
 
   public isSortSelectorEnabled: Observable<boolean>;
+
+  @ContentChildren(SkyListToolbarItemComponent)
+  private toolbarItems: QueryList<SkyListToolbarItemComponent>;
+
+  @ContentChildren(SkyListToolbarSortComponent)
+  private toolbarSorts: QueryList<SkyListToolbarSortComponent>;
+
+  @ViewChild('search')
+  private searchTemplate: TemplateRef<any>;
+
+  @ViewChild('sortSelector')
+  private sortSelectorTemplate: TemplateRef<any>;
 
   constructor(
     private state: ListState,
