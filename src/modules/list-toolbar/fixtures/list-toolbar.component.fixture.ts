@@ -16,6 +16,7 @@ import {
 
   public toolbarType: string;
   public searchEnabled: boolean;
+  public sortEnabled: boolean;
   public searchText: string;
   @ViewChild(SkyListToolbarComponent)
   public toolbar: SkyListToolbarComponent;
