@@ -12,6 +12,8 @@ export * from './selected/selected.model';
 export * from './sort/actions';
 export * from './sort/label.model';
 export * from './sort/sort.model';
+export * from './sort/field-selector.model';
+export * from './sort/label.model';
 export * from './toolbar/actions';
 export * from './toolbar/toolbar.model';
 export * from './toolbar/toolbar-item.model';
