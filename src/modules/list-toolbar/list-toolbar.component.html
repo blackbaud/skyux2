@@ -65,6 +65,7 @@
   <div *ngIf="(isSortSelectorEnabled | async) && (sortSelectors | async).length > 0">
     <sky-sort>
       <sky-sort-item
+        *ngFor="let item of sortSelectors | async"
         [active]="item.selected"
         (itemSelect)="setSort(item.sort)">
         {{item.sort.text}}

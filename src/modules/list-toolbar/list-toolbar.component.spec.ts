@@ -167,7 +167,7 @@ describe('List Toolbar Component', () => {
       });
 
       it('should create ascending and descending items for each sort label', async(() => {
-        let sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+        let sortItems = nativeElement.querySelectorAll('.sky-sort .sky-sort-item');
         expect(sortItems.length).toBe(7);
         expect(sortItems.item(0)).toHaveText('Status (A - Z)');
         expect(sortItems.item(1)).toHaveText('Status (Z - A)');

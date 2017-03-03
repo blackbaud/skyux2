@@ -109,7 +109,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         this.lastSearchResults = undefined;
       }
 
-      if (sort.fieldSelectors.length > 0) {
+      if (sort && sort.fieldSelectors.length > 0) {
         result = result.slice().sort((item1: ListItemModel, item2: ListItemModel) => {
           let compareResult = 0;
           for (let i = 0; i < sort.fieldSelectors.length; i++) {
