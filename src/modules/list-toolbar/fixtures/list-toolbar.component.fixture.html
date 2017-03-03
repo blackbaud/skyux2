@@ -10,6 +10,18 @@
     <template>Custom Item 2</template>
   </sky-list-toolbar-item>
   <sky-list-toolbar-item id="custom-item-no-template" location="left" [index]="5000"></sky-list-toolbar-item>
+  <sky-list-toolbar-sort
+    label="Custom"
+    field="custom"
+    type="string"
+    [descending]="true">
+  </sky-list-toolbar-sort>
+   <sky-list-toolbar-sort
+    label="Custom"
+    field="custom"
+    type="string"
+    [descending]="false">
+  </sky-list-toolbar-sort>
 </sky-list-toolbar>
 
 <template #default><span class="sky-test-toolbar"></span></template>

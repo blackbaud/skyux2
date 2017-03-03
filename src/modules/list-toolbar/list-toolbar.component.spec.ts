@@ -22,7 +22,8 @@ import {
   ListViewModel,
   ListToolbarItemModel,
   ListToolbarItemsLoadAction,
-  ListToolbarSetTypeAction
+  ListToolbarSetTypeAction,
+  ListSortLabelModel
 } from '../list/state';
 
 describe('List Toolbar Component', () => {
@@ -107,6 +108,99 @@ describe('List Toolbar Component', () => {
           expect(stateChecked).toBe(true);
         });
       });
+    });
+
+     describe('sort selector', () => {
+      beforeEach(async(() => {
+        dispatcher.sortSetAvailable([
+          new ListSortLabelModel({
+            text: 'Status (A - Z)',
+            fieldType: 'string',
+            fieldSelector: 'status',
+            global: true,
+            descending: false
+          }),
+           new ListSortLabelModel({
+            text: 'Status (Z - A)',
+            fieldType: 'string',
+            fieldSelector: 'status',
+            global: true,
+            descending: true
+          }),
+          new ListSortLabelModel({
+            text: 'Date (Most recent first)',
+            fieldType: 'date',
+            fieldSelector: 'date',
+            global: true,
+            descending: true
+          }),
+          new ListSortLabelModel({
+            text: 'Date (Most recent last)',
+            fieldType: 'date',
+            fieldSelector: 'date',
+            global: true,
+            descending: false
+          }),
+          new ListSortLabelModel({
+            text: 'Number (Highest first)',
+            fieldType: 'number',
+            fieldSelector: 'number',
+            global: true,
+            descending: true
+          }),
+           new ListSortLabelModel({
+            text: 'Number (Lowest first)',
+            fieldType: 'number',
+            fieldSelector: 'number',
+            global: true,
+            descending: false
+          })
+        ]);
+
+        fixture.detectChanges();
+      }));
+
+      it('should display when sort provided', () => {
+        expect(element.query(
+          By.css("sky-list-toolbar-item-renderer[sky-cmp-id='sort-selector']")
+        )).not.toBeNull();
+      });
+
+      it('should create ascending and descending items for each sort label', async(() => {
+        let sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+        expect(sortItems.length).toBe(7);
+        expect(sortItems.item(0)).toHaveText('Status (A - Z)');
+        expect(sortItems.item(1)).toHaveText('Status (Z - A)');
+        expect(sortItems.item(2)).toHaveText('Date (Most recent first)');
+        expect(sortItems.item(3)).toHaveText('Date (Most recent last)');
+        expect(sortItems.item(4)).toHaveText('Number (Highest first)');
+        expect(sortItems.item(5)).toHaveText('Number (Lowest first)');
+        expect(sortItems.item(6)).toHaveText('Custom');
+
+      }));
+
+      it('should handle sort item click', async(() => {
+        let sortSelectorDropdownButtonEl = nativeElement
+          .querySelector('.sky-sort .sky-dropdown-button') as HTMLButtonElement;
+        sortSelectorDropdownButtonEl.click();
+
+        let sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+
+        let clickItem = sortItems.item(1).querySelector('button') as HTMLButtonElement;
+
+        clickItem.click();
+        fixture.detectChanges();
+        sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+        expect(sortItems.item(1)).toHaveClass('.sky-sort-item-selected');
+
+        clickItem = sortItems.item(0).querySelector('button') as HTMLButtonElement;
+
+        clickItem.click();
+        fixture.detectChanges();
+        sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+        expect(sortItems.item(0)).toHaveClass('.sky-sort-item-selected');
+
+      }));
     });
 
     it('should load custom items', async(() => {
