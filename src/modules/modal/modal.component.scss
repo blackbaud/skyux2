@@ -59,3 +59,12 @@
   border-top: solid 1px $sky-color-gray-lightest;
   flex-shrink: 0;
 }
+
+.sky-modal-full-page {
+  width:100%;
+  top:0;
+
+}
+.sky-modal-full-page .sky-modal-content {
+    flex-grow: 1;
+}

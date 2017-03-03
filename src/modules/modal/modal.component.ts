@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import { SkyModalHostService } from './modal-host.service';
+import { SkyModalConfiguation } from './modal-configuration';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
@@ -19,14 +20,14 @@ import { SkyModalComponentAdapterService } from './modal-component-adapter.servi
   styleUrls: ['./modal.component.scss'],
   animations: [
     trigger('modalState', [
-      state('in', style({opacity: '1.0'})),
-      state('out', style({opacity: '0.0'})),
+      state('in', style({ opacity: '1.0' })),
+      state('out', style({ opacity: '0.0' })),
       transition('void => *', [
-        style({opacity: '0.0'}),
+        style({ opacity: '0.0' }),
         animate(150)
       ]),
       transition('* => void', [
-        animate(150, style({opacity: '0.0'}))
+        animate(150, style({ opacity: '0.0' }))
       ])
     ])
   ],
@@ -41,8 +42,13 @@ export class SkyModalComponent implements AfterViewInit {
     return this.hostService.getModalZIndex();
   }
 
+  public get modalFullPage() {
+    return this.config.fullPage;
+  }
+
   constructor(
     private hostService: SkyModalHostService,
+    private config: SkyModalConfiguation,
     private elRef: ElementRef,
     private componentAdapter: SkyModalComponentAdapterService) { }
 
