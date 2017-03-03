@@ -24,7 +24,7 @@ export class ListToolbarConfigOrchestrator
 
   private setSortSelectorEnabled(
     state: ListToolbarConfigModel,
-    action: ListToolbarConfigSetSortSelectorEnabledAction) : ListToolbarConfigModel {
+    action: ListToolbarConfigSetSortSelectorEnabledAction): ListToolbarConfigModel {
 
     return new ListToolbarConfigModel(
       Object.assign({}, state, { sortSelectorEnabled: action.enabled })

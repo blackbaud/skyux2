@@ -1,7 +1,6 @@
 import { ListStateOrchestrator } from '../list-state.rxstate';
 import { ListSortModel } from './sort.model';
 import { ListSortLabelModel } from './label.model';
-import { ListSortFieldSelectorModel } from './field-selector.model';
 import {
   ListSortSetFieldSelectorsAction,
   ListSortSetAvailableAction,
@@ -21,7 +20,7 @@ export class ListSortOrchestrator extends ListStateOrchestrator<ListSortModel> {
   private setFieldSelectors(
     state: ListSortModel,
     action: ListSortSetFieldSelectorsAction
-  ) : ListSortModel {
+  ): ListSortModel {
     return new ListSortModel(Object.assign({}, state, { fieldSelectors: action.fieldSelectors }));
   }
 

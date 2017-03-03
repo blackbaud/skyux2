@@ -182,14 +182,14 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     this.dispatcher.sortSetGlobal(sortModels);
   }
 
-  private itemIsInView(itemView: string, activeView: string) {
-    return (itemView === undefined || itemView === activeView);
-  }
-
   public setSort(sort: ListSortLabelModel): void {
     this.dispatcher.sortSetFieldSelectors(
       [{fieldSelector: sort.fieldSelector, descending: sort.descending}]
     );
+  }
+
+  private itemIsInView(itemView: string, activeView: string) {
+    return (itemView === undefined || itemView === activeView);
   }
 
   private updateSearchText(searchText: string) {
@@ -214,7 +214,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         return [...sorts, ...available].map(sortLabels => {
           let fs = fieldSelectors.filter(f => {
             return f.fieldSelector === sortLabels.fieldSelector
-              && f.descending === sortLabels.descending
+              && f.descending === sortLabels.descending;
           });
           let selected = false;
           if (fs.length > 0) {
@@ -223,7 +223,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
           return {
             sort: sortLabels,
-            selected: selected,
+            selected: selected
           };
         });
       });
