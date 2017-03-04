@@ -3,17 +3,22 @@
     <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
       <sky-list-toolbar-item-renderer
         [template]="item.template"
-        [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+        [attr.sky-cmp-id]="item.id">
+      </sky-list-toolbar-item-renderer>
     </sky-toolbar-item>
     <sky-toolbar-item *ngFor="let item of centerTemplates | async">
       <sky-list-toolbar-item-renderer
         [template]="item.template"
-        [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+        [attr.sky-cmp-id]="item.id">
+      </sky-list-toolbar-item-renderer>
     </sky-toolbar-item>
-    <sky-toolbar-item *ngFor="let item of rightTemplates | async">
+    <sky-toolbar-item
+      *ngFor="let item of rightTemplates | async"
+      [attr.sky-toolbar-id]="item.id">
       <sky-list-toolbar-item-renderer
         [template]="item.template"
-        [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+        [attr.sky-cmp-id]="item.id">
+      </sky-list-toolbar-item-renderer>
     </sky-toolbar-item>
     <ng-content></ng-content>
   </sky-toolbar>
@@ -62,7 +67,9 @@
 </template>
 
 <template #sortSelector>
-  <div *ngIf="(isSortSelectorEnabled | async) && (sortSelectors | async).length > 0">
+  <div
+    class="sky-toolbar-item-sort-container"
+    *ngIf="(isSortSelectorEnabled | async) && (sortSelectors | async).length > 0">
     <sky-sort>
       <sky-sort-item
         *ngFor="let item of sortSelectors | async"
