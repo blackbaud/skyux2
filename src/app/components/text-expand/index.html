@@ -1,0 +1,41 @@
+<sky-demo-page title="Text Expand">
+  <sky-demo-page-summary>
+    <p>
+      The text expand component truncates long text with an ellipsis and a link that allows the user to fully expand the text.
+      If the text length falls below the specified threshold then no action is taken. The 'See more' link will expand the
+      text inline if the length of the text is below the specified expanded length limit and if the number of newlines in
+      the text is below the specified expanded newline limit, otherwise the link will open the text in a modal view.
+    </p>
+    <p>
+      Note that collapsed text will have newlines removed. Also, if one or more newlines are detected, the text is automatically
+      collapsed regardless of the total length of the text.
+    </p>
+  </sky-demo-page-summary>
+
+  <sky-demo-page-properties sectionHeading="Text expand properties">
+    <sky-demo-page-property propertyName="text">
+      The text to truncate
+    </sky-demo-page-property>
+    <sky-demo-page-property propertyName="maxLength" defaultValue="200" isOptional="true">
+      The number of characters to show before truncating the text. The directive will attempt to look back up to 10 characters
+      for a space and truncate there in order to avoid truncating in the middle of a word.
+    </sky-demo-page-property>
+    <sky-demo-page-property propertyName="maxExpandedLength" defaultValue="600" isOptional="true">
+      The maximum number of characters to show in the inline expanded view. If there are more characters in the content, then a
+      modal view with the content will be displayed when the 'See more' link is clicked
+    </sky-demo-page-property>
+    <sky-demo-page-property propertyName="maxExpandedNewlines" defaultValue="2" isOptional="true">
+      The maximum number of newline characters to show in the inline expanded view. If there are more newline characters in the
+      content, then a modal view with the content will be displayed when the 'See more' link is clicked.
+    </sky-demo-page-property>
+    <sky-demo-page-property propertyName="expandModalTitle" defaultValue="Expanded View" isOptional="true">
+      The title to display in the modal expanded view.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <sky-text-expand-demo></sky-text-expand-demo>
+    <sky-demo-page-code demoName="Text Expand"></sky-demo-page-code>
+  </sky-demo-page-example>
+
+</sky-demo-page>

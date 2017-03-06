@@ -52,7 +52,7 @@ export class SkyDemoComponentsService {
         icon: 'square-o',
         // tslint:disable-next-line
         summary:
-          `The action button component creates a large button with an icon, heading, and details.`,
+        `The action button component creates a large button with an icon, heading, and details.`,
         url: '/components/action-button',
         getCodeFiles: function () {
           return [
@@ -300,12 +300,12 @@ export class SkyDemoComponentsService {
             {
               name: 'list-paging-demo.component.html',
               fileContents:
-                require('!!raw!./list-paging/list-paging-demo.component.html')
+              require('!!raw!./list-paging/list-paging-demo.component.html')
             },
             {
               name: 'list-paging-demo.component.ts',
               fileContents:
-                require('!!raw!./list-paging/list-paging-demo.component.ts'),
+              require('!!raw!./list-paging/list-paging-demo.component.ts'),
               componentName: 'SkyListPagingDemoComponent',
               bootstrapSelector: 'sky-list-paging-demo'
             }
@@ -317,7 +317,7 @@ export class SkyDemoComponentsService {
         icon: 'wrench',
         // tslint:disable-next-line
         summary:
-          `The list toolbar component displays a SKY UX-themed toolbar for the list component.`,
+        `The list toolbar component displays a SKY UX-themed toolbar for the list component.`,
         url: '/components/list-toolbar',
         getCodeFiles: function () {
           return [
@@ -368,27 +368,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
-         name: 'List view grid',
-         icon: 'table',
-         // tslint:disable-next-line
-         summary: `The list component is used to display data in a consistent and flexible way.`,
-         url: '/components/list-view-grid',
+        name: 'List view grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list-view-grid',
         getCodeFiles: function () {
-           return [
-             {
-               name: 'list-view-grid-demo.component.html',
-               fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.html')
-             },
-             {
-               name: 'list-view-grid-demo.component.ts',
-               fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.ts'),
-               componentName: 'SkyListViewGridDemoComponent',
-               bootstrapSelector: 'sky-list-view-grid-demo'
-             }
-           ];
-         }
-       },
-       {
+          return [
+            {
+              name: 'list-view-grid-demo.component.html',
+              fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.html')
+            },
+            {
+              name: 'list-view-grid-demo.component.ts',
+              fileContents: require('!!raw!./list-view-grid/list-view-grid-demo.component.ts'),
+              componentName: 'SkyListViewGridDemoComponent',
+              bootstrapSelector: 'sky-list-view-grid-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Media queries',
         icon: 'mobile',
         // tslint:disable-next-line
@@ -399,12 +399,12 @@ export class SkyDemoComponentsService {
             {
               name: 'media-query-demo.component.html',
               fileContents:
-                require('!!raw!./media-queries/media-query-demo.component.html')
+              require('!!raw!./media-queries/media-query-demo.component.html')
             },
             {
               name: 'media-query-demo.component.ts',
               fileContents:
-                require('!!raw!./media-queries/media-query-demo.component.ts'),
+              require('!!raw!./media-queries/media-query-demo.component.ts'),
               componentName: 'SkyMediaQueryDemoComponent',
               bootstrapSelector: 'sky-media-query-demo'
             }
@@ -608,6 +608,27 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./tabs/tabs-demo.component.ts'),
               componentName: 'SkyTabsDemoComponent',
               bootstrapSelector: 'sky-tabs-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Text Expand',
+        icon: 'text-height',
+        // tslint:disable-next-line
+        summary: `The text expand component truncates long text with an ellipsis and a link that users can click to expand the text.`,
+        url: '/components/text-expand',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'text-expand-demo.component.html',
+              fileContents: require('!!raw!./text-expand/text-expand-demo.component.html')
+            },
+            {
+              name: 'tabs-demo.component.ts',
+              fileContents: require('!!raw!./text-expand/text-expand-demo.component.ts'),
+              componentName: 'SkyTextExpandDemoComponent',
+              bootstrapSelector: 'sky-text-expand-demo'
             }
           ];
         }
