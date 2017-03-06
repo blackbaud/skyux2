@@ -282,16 +282,16 @@ describe('Grid Component', () => {
           fixture.detectChanges();
 
           headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
-          expect(component.activeSortSelectors)
-            .toEqual([{ fieldSelector: 'column1', descending: true}]);
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: true});
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-down');
 
           headerEl.click();
           fixture.detectChanges();
 
           headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
-          expect(component.activeSortSelectors)
-            .toEqual([{ fieldSelector: 'column1', descending: false}]);
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: false});
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
         });
 
@@ -301,18 +301,16 @@ describe('Grid Component', () => {
           fixture.detectChanges();
 
           headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
-          expect(component.activeSortSelectors)
+          expect(component.activeSortSelector)
             .toEqual(undefined);
           expect(headerEl.querySelector('i')).not.toHaveCssClass('fa-caret-down');
         });
 
         it('responds to sort selector input change', () => {
-          component.sortFields = [
-            {
-              fieldSelector: 'column1',
-              descending: false
-            }
-          ];
+          component.sortField = {
+            fieldSelector: 'column1',
+            descending: false
+          };
           fixture.detectChanges();
 
           let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;

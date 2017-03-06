@@ -55,20 +55,20 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public hasToolbar: boolean = false;
 
   @Input()
-  public sortFields: Array<ListSortFieldSelectorModel>;
+  public sortField: ListSortFieldSelectorModel;
 
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 
   @Output()
-  public sortFieldsChange = new EventEmitter<Array<ListSortFieldSelectorModel>>();
+  public sortFieldChange = new EventEmitter<ListSortFieldSelectorModel>();
 
   public displayedColumns: Array<SkyGridColumnModel> = new Array<SkyGridColumnModel>();
 
   public items: Array<any> = new Array<any>();
 
-  public currentSortField: BehaviorSubject<Array<ListSortFieldSelectorModel>>
-    = new BehaviorSubject<Array<ListSortFieldSelectorModel>>([]);
+  public currentSortField: BehaviorSubject<ListSortFieldSelectorModel>
+    = new BehaviorSubject<ListSortFieldSelectorModel>({ fieldSelector: '', descending: false });
 
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
@@ -118,9 +118,41 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       this.transformData();
     }
 
-    if (changes['sortFields']) {
+    if (changes['sortField']) {
       this.setSortHeaders();
     }
+  }
+
+  public sortByColumn(column: SkyGridColumnModel) {
+    if (column.isSortable) {
+      this.currentSortField
+      .take(1)
+      .map(field => {
+        let selector = {
+          fieldSelector: column.field,
+          descending: true
+        };
+
+        if (field && field.fieldSelector === column.field && field.descending) {
+          selector = {
+            fieldSelector: column.field,
+            descending: false
+          };
+        }
+        this.sortFieldChange.emit(selector);
+        this.currentSortField.next(selector);
+      })
+      .subscribe();
+    }
+  }
+
+  public getSortDirection(columnField: string) {
+    return this.currentSortField
+      .distinctUntilChanged()
+      .map(field => {
+        return field.fieldSelector === columnField ?
+          (field.descending ? 'desc' : 'asc') : undefined;
+      });
   }
 
   private onHeaderDrop(newColumnIds: Array<string>) {
@@ -152,37 +184,6 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     }
   }
 
-  public sortByColumn(column: SkyGridColumnModel) {
-    if (column.isSortable) {
-      this.currentSortField
-      .map(s => s.filter(f => f.fieldSelector === column.field)[0])
-      .take(1)
-      .map(field => {
-        let selectors = [{
-          fieldSelector: column.field,
-          descending: true
-        }];
-
-        if (field && field.descending) {
-          selectors = [{
-            fieldSelector: column.field,
-            descending: false
-          }];
-        }
-        this.sortFieldsChange.emit(selectors);
-        this.currentSortField.next(selectors);
-      })
-      .subscribe();
-    }
-  }
-
-  public getSortDirection(field: string) {
-    return this.currentSortField
-      .distinctUntilChanged()
-      .map(sort => sort.filter(f => f.fieldSelector === field)[0])
-      .map(field => field ? (field.descending ? 'desc' : 'asc') : undefined)
-  }
-
   private transformData() {
     // Transform data into object with id and data properties
     if (this.data.length > 0 && this.data[0].id && !this.data[0].data) {
@@ -193,7 +194,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   }
 
   private setSortHeaders() {
-    this.currentSortField.next(this.sortFields || []);
+    this.currentSortField.next(this.sortField || { fieldSelector: '', descending: false });
   }
 
   private getColumnsFromComponent() {

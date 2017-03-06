@@ -50,12 +50,12 @@ export class GridTestComponent {
   @ViewChildren(TemplateRef)
   public viewtemplates: QueryList<TemplateRef<any>>;
 
-  public activeSortSelectors: Array<ListSortFieldSelectorModel>;
+  public activeSortSelector: ListSortFieldSelectorModel;
 
-  public sortFields: Array<ListSortFieldSelectorModel>;
+  public sortField: ListSortFieldSelectorModel;
 
-  public onSort(sortSelectors: Array<ListSortFieldSelectorModel>) {
-    this.activeSortSelectors = sortSelectors;
+  public onSort(sortSelector: ListSortFieldSelectorModel) {
+    this.activeSortSelector = sortSelector;
   }
 
   public searchFunction: (data: any, searchText: string) => boolean =

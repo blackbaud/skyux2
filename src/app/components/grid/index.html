@@ -40,12 +40,12 @@
       Acceptable values: <code>number</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
-      propertyName="sortFields"
+      propertyName="sortField"
       [isOptional]="true"
     >
-      Specifies the currently sorted fields of the grid.
+      Specifies the currently sorted field of the grid.
 
-      Acceptable values <code>Array of ListSortFieldSelectorModel</code>. <code>ListSortFieldSelectorModel</code> contains the <code>fieldSelector</code> property, which is a string representing the currently sorted field, and the <code>descending</code> property, which is a boolean indicating whether the current sort is a descending sort.
+      Acceptable values <code>ListSortFieldSelectorModel</code>. <code>ListSortFieldSelectorModel</code> contains the <code>fieldSelector</code> property, which is a string representing the currently sorted field, and the <code>descending</code> property, which is a boolean indicating whether the current sort is a descending sort.
     </sky-demo-page-property>
 
   </sky-demo-page-properties>
@@ -58,9 +58,9 @@
     </sky-demo-page-property>
 
     <sky-demo-page-property
-      propertyName="sortFieldsChange"
+      propertyName="sortFieldChange"
     >
-      Fires when the active sort fields change. Emits an array of <code>ListSortFieldSelectorModel</code>.
+      Fires when the active sort field changes. Emits a <code>ListSortFieldSelectorModel</code>.
     </sky-demo-page-property>
 
   </sky-demo-page-properties>

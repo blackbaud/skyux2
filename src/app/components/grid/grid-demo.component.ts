@@ -18,9 +18,9 @@ export class SkyGridDemoComponent {
       composite: 'Comp G' }
   ];
 
-  public sortChanged(activeSort: Array<ListSortFieldSelectorModel>) {
-    let sortField = activeSort[0].fieldSelector;
-    let descending = activeSort[0].descending;
+  public sortChanged(activeSort: ListSortFieldSelectorModel) {
+    let sortField = activeSort.fieldSelector;
+    let descending = activeSort.descending;
     this.items = this.items.sort((a: any, b: any) => {
       let value1 = a[sortField];
       let value2 = b[sortField];
