@@ -197,6 +197,30 @@ export class SkyListViewGridComponent
     })).distinctUntilChanged();
   }
 
+
+  /*public getSortDirection(sortField: string) {
+    return this.state.map(s => s.sort)
+      .distinctUntilChanged()
+      .map(sort => sort.fieldSelectors.filter(f => f.fieldSelector === sortField)[0])
+      .map(field => field ? (field.descending ? 'desc' : 'asc') : undefined);
+  }
+
+  public sortByColumn(column: any) {
+    this.state
+      .map(s => s.sort.fieldSelectors.filter(f => f.fieldSelector === column.field)[0])
+      .take(1)
+      .map(field => {
+        let selectors = [`${column.field}:DESC`];
+        if (!field) {
+        } else if (field.descending) {
+          selectors = [`${column.field}:ASC`];
+        }
+
+        this.dispatcher.sortSetFieldSelectors(selectors);
+      })
+      .subscribe();
+  }*/
+
   private get loading() {
     return this.state.map(s => s.items.loading)
       .distinctUntilChanged();

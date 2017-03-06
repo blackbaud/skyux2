@@ -73,3 +73,9 @@
     border-top-width: 0px;
   }
 }
+/*
+  This prevents grid header width from changing when sort indication changes
+*/
+.sky-grid-heading-sort {
+  min-width: 8px;
+}
