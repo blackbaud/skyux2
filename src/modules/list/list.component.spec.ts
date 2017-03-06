@@ -149,6 +149,7 @@ describe('List Component', () => {
       });
 
       it('should search based on input text', async(() => {
+        fixture.detectChanges();
         applySearch('banana').then(() => {
 
           fixture.detectChanges();

@@ -6,16 +6,15 @@ import {
   forwardRef,
   ChangeDetectionStrategy,
   ViewChild,
-  AfterContentInit
+  AfterContentInit,
+  NgZone
 } from '@angular/core';
 import { ListViewComponent } from '../list/list-view.component';
-import { ListState } from '../list/state';
 import {
   GridState,
   GridStateDispatcher,
   GridStateModel
 } from './state';
-import { ListStateDispatcher } from '../list/state';
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
 import { Observable } from 'rxjs/Observable';
@@ -26,7 +25,10 @@ import {
   SkyGridColumnModel
 } from '../grid';
 import {
-  ListItemModel
+  ListItemModel,
+  ListSortFieldSelectorModel,
+  ListStateDispatcher,
+  ListState
 } from '../list/state';
 import {
   getData,
@@ -72,6 +74,16 @@ export class SkyListViewGridComponent
   @ViewChild(SkyGridComponent)
   public gridComponent: SkyGridComponent;
 
+  public columns: Observable<Array<SkyGridColumnModel>>;
+
+  public selectedColumnIds: Observable<Array<string>>;
+
+  public items: Observable<ListItemModel[]>;
+
+  public loading: Observable<boolean>;
+
+  public sortField: Observable<ListSortFieldSelectorModel>;
+
   /* tslint:disable */
   @Input('search')
   private searchFunction: (data: any, searchText: string) => boolean;
@@ -84,9 +96,12 @@ export class SkyListViewGridComponent
     state: ListState,
     private dispatcher: ListStateDispatcher,
     public gridState: GridState,
-    public gridDispatcher: GridStateDispatcher
+    public gridDispatcher: GridStateDispatcher,
+    private zone: NgZone
   ) {
+
     super(state, 'Grid View');
+
   }
 
   public ngAfterContentInit() {
@@ -105,6 +120,32 @@ export class SkyListViewGridComponent
     if (this.height && !isObservable(this.height)) {
       this.height = Observable.of(this.height);
     }
+
+    // Setup Observables for template
+    this.columns = this.gridState.map(s => s.columns.items).distinctUntilChanged();
+
+    this.selectedColumnIds = this.gridState.map(s => s.displayedColumns.items.map(column => {
+      /* istanbul ignore next */
+      /* sanity check */
+      return column.id || column.field;
+    })).distinctUntilChanged();
+
+    this.items = this.state.map((s) => {
+        console.log(s);
+        return s.items.items;
+    })
+    .distinctUntilChanged();
+
+    this.loading = this.state.map((s) => {
+      return s.items.loading;
+    }).distinctUntilChanged();
+
+    this.sortField = this.state.map((s) => {
+      if (s.sort && s.sort.fieldSelectors) {
+        return s.sort.fieldSelectors[0];
+      }
+      return;
+    }).distinctUntilChanged();
 
     this.gridState.map(s => s.columns.items)
       .distinctUntilChanged()
@@ -159,6 +200,10 @@ export class SkyListViewGridComponent
         });
   }
 
+  public sortFieldChanged(sortField: ListSortFieldSelectorModel) {
+    this.dispatcher.sortSetFieldSelectors([sortField]);
+  }
+
   public onViewActive() {
     let sub = this.gridState.map(s => s.displayedColumns.items)
       .distinctUntilChanged()
@@ -177,30 +222,13 @@ export class SkyListViewGridComponent
     this.subscriptions.push(sub);
   }
 
-  get items(): Observable<ListItemModel[]> {
+  /*get items(): Observable<ListItemModel[]> {
 
     return this.state.map((s) => {
       return s.items.items;
     }).distinctUntilChanged();
-  }
+  }*/
 
-  get columns() {
-    return this.gridState.map(s => s.columns.items)
-      .distinctUntilChanged();
-  }
-
-  get selectedColumnIds() {
-    return this.gridState.map(s => s.displayedColumns.items.map(column => {
-      /* istanbul ignore next */
-      /* sanity check */
-      return column.id || column.field;
-    })).distinctUntilChanged();
-  }
-
-  private get loading() {
-    return this.state.map(s => s.items.loading)
-      .distinctUntilChanged();
-  }
   private handleColumnChange() {
      // watch for changes in column components
     this.columnComponents.changes.subscribe((columnComponents) => {
