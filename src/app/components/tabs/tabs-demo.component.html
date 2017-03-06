@@ -11,3 +11,15 @@
     This tab cannot be closed.
   </sky-tab>
 </sky-tabset>
+
+<h3>Tabs example with counter</h3>
+<sky-tabset>
+  <sky-tab
+      *ngFor="let tab of tabsWithCounts; let i = index"
+      [tabHeading]="tab.heading"
+      [tabHeaderCount]="tab.headerCount"
+      [active]="tab.active"
+  >
+    {{tab.content}}
+  </sky-tab>
+</sky-tabset>
