@@ -8,11 +8,11 @@ import {
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalAdapterService } from './modal-adapter.service';
+import { SkyModalConfiguationInterface as IConfig } from './modal.interface';
 
 @Injectable()
 export class SkyModalService {
   private static hostComponent: SkyModalHostComponent;
-
   constructor(
     private resolver: ComponentFactoryResolver,
     private injector: Injector,
@@ -20,21 +20,26 @@ export class SkyModalService {
     private adapter: SkyModalAdapterService
   ) {
     this.createHostComponent();
-   }
+  }
 
-  public open(component: any, providers?: any[]): SkyModalInstance {
+  // Open Overloads
+  public open(component: any, providers?: any[]): SkyModalInstance;
+  public open(component: any, config?: IConfig): SkyModalInstance
+
+  // Open Method
+  public open(): SkyModalInstance {
     let modalInstance = new SkyModalInstance();
-
     this.createHostComponent();
+    let providersOrConfig: IConfig = arguments[1];
+    let params = this.getConfigFromParameter(providersOrConfig);
+    let component = arguments[0];
 
-    providers = providers || [];
-
-    providers.push({
+    params.providers.push({
       provide: SkyModalInstance,
       useValue: modalInstance
     });
 
-    SkyModalService.hostComponent.open(modalInstance, component, providers);
+    SkyModalService.hostComponent.open(modalInstance, component, params);
 
     return modalInstance;
   }
@@ -46,6 +51,26 @@ export class SkyModalService {
       SkyModalService.hostComponent = undefined;
       this.adapter.removeHostEl();
     }
+  }
+
+  private getConfigFromParameter(providersOrConfig: any) {
+    let defaultParams: IConfig = { 'providers': [], 'fullPage': false };
+    let params: any = undefined;
+    let method: any = undefined;
+
+    // Object Literal Lookup for backwards compatability.
+    method = {
+      'providers?': Object.assign({}, defaultParams, { 'providers': providersOrConfig }),
+      'config': Object.assign({}, defaultParams, providersOrConfig)
+    };
+
+    if (Array.isArray(providersOrConfig) === true) {
+      params = method['providers?'];
+    } else {
+      params = method['config'];
+    }
+
+    return params;
   }
 
   private createHostComponent() {

@@ -9,6 +9,8 @@
   right: 0;
   top: 20px;
   margin: $sky-margin;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: $sky-screen-sm-min) {
@@ -29,6 +31,7 @@
   align-items: baseline;
   border-bottom: solid 1px $sky-color-gray-lightest;
   display: flex;
+  flex-shrink: 0;
 }
 
 .sky-modal-header-content {
@@ -48,6 +51,20 @@
   }
 }
 
+.sky-modal-content {
+  overflow-y: auto;
+}
+
 .sky-modal-footer {
   border-top: solid 1px $sky-color-gray-lightest;
+  flex-shrink: 0;
+}
+
+.sky-modal-full-page {
+  width:100%;
+  top:0;
+
+}
+.sky-modal-full-page .sky-modal-content {
+    flex-grow: 1;
 }

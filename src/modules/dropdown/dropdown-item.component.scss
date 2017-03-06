@@ -1,25 +1,5 @@
 @import "../../scss/mixins";
 
 .sky-dropdown-item {
-  background-color: transparent;
-  border: none;
-  display: block;
-  margin: 4px;
-  min-width: 160px;
-  text-align: left;
-  transition: background-color $sky-transition-time-short;
-
-  &:hover {
-    background-color: $sky-color-gray-lightest;
-  }
-
-  /deep/ > button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    display: block;
-    padding: 3px $sky-padding-double;
-    text-align: left;
-    width: 100%;
-  }
+  @include sky-dropdown-item();
 }

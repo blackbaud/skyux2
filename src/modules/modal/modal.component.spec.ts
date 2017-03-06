@@ -16,12 +16,14 @@ import { SkyModalService } from './modal.service';
 import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 
+import { TestUtility } from '../testing/testutility';
+
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
 
-  function openModal(modalType: any, providers?: any[]) {
-    let modalInstance = modalService.open(modalType, providers);
+  function openModal(modalType: any, config?: Object) {
+    let modalInstance = modalService.open(modalType, config);
 
     applicationRef.tick();
     tick();
@@ -86,4 +88,38 @@ describe('Modal component', () => {
 
     applicationRef.tick();
   }));
+
+  it('should set max height based on window and change when window resizes', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent);
+    let modalEl = document.querySelector('.sky-modal');
+    let maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
+    let windowHeight = window.innerHeight;
+
+    expect(maxHeight).toEqual(windowHeight - 40);
+
+    TestUtility.fireDomEvent(window, 'resize');
+    applicationRef.tick();
+    maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
+    expect(maxHeight).toEqual(window.innerHeight - 40);
+
+    closeModal(modalInstance);
+  }));
+
+  it('should be a full screen modal and scale when window resizes', fakeAsync(() => {
+
+    let modalInstance = openModal(ModalTestComponent, {'fullPage': true});
+    let modalEl = document.querySelector('.sky-modal-full-page');
+    let height = parseInt(getComputedStyle(modalEl).height, 10);
+    // innerHeight -2 is for IE Box Model Fix
+    expect([window.innerHeight - 2, window.innerHeight]).toContain(height);
+    TestUtility.fireDomEvent(window, 'resize');
+    applicationRef.tick();
+    modalEl = document.querySelector('.sky-modal-full-page');
+    height = parseInt(getComputedStyle(modalEl).height, 10);
+    // innerHeight -2 is for IE Box Model Fix
+    expect([window.innerHeight - 2, window.innerHeight]).toContain(height);
+
+    closeModal(modalInstance);
+  }));
+
 });

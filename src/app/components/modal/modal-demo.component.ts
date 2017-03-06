@@ -12,16 +12,20 @@ import { SkyModalDemoFormComponent } from './modal-demo-form.component';
 export class SkyModalDemoComponent {
   constructor(private modal: SkyModalService) { }
 
-  public openModal() {
+  public openModal(type: string) {
     let context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
-    let modalInstance = this.modal.open(SkyModalDemoFormComponent, [
-      {
-        provide: SkyModalDemoContext,
-        useValue: context
+    let windowMode: any = {
+
+      'defaultModal': [{ provide: SkyModalDemoContext, useValue: context }],
+
+      'fullScreenModal': {
+        'fullPage': true,
+        'providers': [{ provide: SkyModalDemoContext, useValue: context }]
       }
-    ]);
+    };
+    let modalInstance = this.modal.open(SkyModalDemoFormComponent, windowMode[type]);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
       console.log('Modal closed with reason: ' + result.reason + ' and data: ' + result.data);

@@ -154,6 +154,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Error',
+        icon: 'exclamation',
+        // tslint:disable-next-line
+        summary: `The error component provides a template that allows other components to display error messages when errors occur.`,
+        url: '/components/error',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'error-demo.component.html',
+              fileContents: require('!!raw!./error/error-demo.component.html')
+            },
+            {
+              name: 'error-demo.component.ts',
+              fileContents: require('!!raw!./error/error-demo.component.ts'),
+              componentName: 'ErrorDemoComponent',
+              bootstrapSelector: 'sky-error-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'File attachments',
         icon: 'cloud-upload',
         // tslint:disable-next-line
@@ -546,6 +567,27 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./search/search-demo.component.ts'),
               componentName: 'SkySearchDemoComponent',
               bootstrapSelector: 'sky-search-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Sort',
+        icon: 'sort',
+        // tslint:disable-next-line
+        summary: `The sort component allows users to select sorting criteria.`,
+        url: '/components/sort',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'sort-demo.component.html',
+              fileContents: require('!!raw!./sort/sort-demo.component.html')
+            },
+            {
+              name: 'sort-demo.component.ts',
+              fileContents: require('!!raw!./sort/sort-demo.component.ts'),
+              componentName: 'SkySortDemoComponent',
+              bootstrapSelector: 'sky-sort-demo'
             }
           ];
         }

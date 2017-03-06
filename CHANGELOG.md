@@ -1,3 +1,19 @@
+# 2.0.0-beta.11 (2017-03-03)
+
+  - Add a max-height to modal so that content overflows properly. (#361)
+  - Documentation updates for getting started guide.
+  - Added the error component. (thanks @Blackbaud-AdamHickey) (#156)
+  - Added the standalone sort component. (#169)
+  - Added the full screen modal option. (#160)
+
+# 2.0.0-beta.10 (2017-02-28)
+
+  - Added support for secondary action dropdown in list. (#313)
+  - Added column chooser service and component that works with sky-list-view-grid. (#314)
+  - Set action button icon default properties. (#382)
+  - Add appropriate font-weight to modal header. (thanks @Blackbaud-TrevorBurch) (#389)
+  - Update angular version to 2.4.8. (#386)
+
 # 2.0.0-beta.9 (2017-02-22)
 
   - Add appropriate z-index for dropdown menu. (#355)
