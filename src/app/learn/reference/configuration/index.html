@@ -19,6 +19,7 @@
         <li><p><code>app</code> — Specifies configuration options for the local app when running <code>skyux serve</code>.</p>
             <ul>
                 <li><p><code>title</code> — Controls the page title. Before Angular2 sets the page title, this property controls the title at the template level. The default is <code>Blackbaud - SKY UX Application</code>. You can also control the title with <a href="https://angular.io/docs/ts/latest/cookbook/set-document-title.html">the title service</a>.</p></li>
+                <li><p><code>port</code> — Configures a port for the <code>skyux serve</code> command to use. If no port is specified, <code>skyux serve</code> dynamically finds an available port.</p></li>
                 <li><p><code>externals</code> — Dynamically injects CSS and JS files into SKY UX Host. You should have a specific use-case for an external. For example, Office Addins require their library to load through CDN in the head. The <code>before</code> and <code>after</code> sections of an external indicate whether to include the external resource before or after the default SKY UX Builder resources. The <code>head</code> property, which only applies to JS resources, indicates whether to inject elements within the HTML <code>head</code> element or just before the closing <code>body</code> tag.</p>
                     <p>The following example shows an external with all the configuration options:</p>
                     <pre><code>externals: &#123;
