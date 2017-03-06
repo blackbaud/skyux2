@@ -153,7 +153,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   }
 
   public sortByColumn(column: SkyGridColumnModel) {
-    this.currentSortField
+    if (column.isSortable) {
+      this.currentSortField
       .map(s => s.filter(f => f.fieldSelector === column.field)[0])
       .take(1)
       .map(field => {
@@ -172,6 +173,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
         this.currentSortField.next(selectors);
       })
       .subscribe();
+    }
   }
 
   public getSortDirection(field: string) {
@@ -191,7 +193,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   }
 
   private setSortHeaders() {
-    this.currentSortField.next(this.sortFields);
+    this.currentSortField.next(this.sortFields || []);
   }
 
   private getColumnsFromComponent() {

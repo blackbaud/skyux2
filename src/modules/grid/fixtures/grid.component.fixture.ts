@@ -2,7 +2,10 @@ import {
   Component, ViewChild, TemplateRef, ContentChildren, QueryList, ViewChildren
 } from '@angular/core';
 import { SkyGridComponent } from '../grid.component';
-import { ListItemModel } from '../../list/state';
+import {
+  ListItemModel,
+  ListSortFieldSelectorModel
+} from '../../list/state';
 
 let moment = require('moment');
 
@@ -46,6 +49,14 @@ export class GridTestComponent {
   public templates: QueryList<TemplateRef<any>>;
   @ViewChildren(TemplateRef)
   public viewtemplates: QueryList<TemplateRef<any>>;
+
+  public activeSortSelectors: Array<ListSortFieldSelectorModel>;
+
+  public sortFields: Array<ListSortFieldSelectorModel>;
+
+  public onSort(sortSelectors: Array<ListSortFieldSelectorModel>) {
+    this.activeSortSelectors = sortSelectors;
+  }
 
   public searchFunction: (data: any, searchText: string) => boolean =
     (data: any, searchText: string) => {
