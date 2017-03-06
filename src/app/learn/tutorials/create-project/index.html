@@ -5,8 +5,8 @@
     <ol>
         <li><p>From the command prompt, <code>cd</code> into the directory where you want to create the project.</p></li>
         <li><p>Enter <code>skyux new</code>. A series of prompts appears.</p></li>
-        <li><p>In the first prompt, specify a root directory for your project.</p>
-            <p>The SKY UX CLI will create a folder with this name in the directory. The root directory will also determine how to access the SPA because the URL for the home page will include the root directory after the base URL.</p>
+        <li><p>In the first prompt, specify a root directory for your project. The SKY UX CLI will create a folder with this name and prefix it with "skyux-spa."</p>
+            <p>The root directory determines how to access the SPA because the URL for the home page will include the root directory after the base URL.</p>
         </li>
         <li><p>In the second prompt, specify the URL for your Git repo. You can use a GitHub repo or Visual Studio Team System Git repo. The URL indicates where to store the source files for your project. The SKY UX CLI will clone the repo and automatically pull in the SKY UX template.</p>
             <p>The only special requirement for the Git repo to host internal Blackbaud implementations is web hooks to the SKY UX continuous integration layer. For now, this must be set up manually by the SKY UX team. Contact the SKY UX team on the <a href="https://blackbaud.slack.com/messages/1bb-skyux-apps/">1bb-skyux-apps Slack channel</a>. For more information, see the overview of the continuous integration layer in <a routerLink="/learn/overview">the overview documentation</a>.</p>
