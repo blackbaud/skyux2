@@ -8,6 +8,20 @@
         </button>
       </sky-list-secondary-action>
     </sky-list-secondary-actions>
+    <sky-list-toolbar-sort
+      label="Fruit name (A - Z)"
+      field="column2"
+      [descending]="false"
+      type="string"
+    >
+    </sky-list-toolbar-sort>
+    <sky-list-toolbar-sort
+      label="Fruit name (Z - A)"
+      field="column2"
+      [descending]="true"
+      type="string"
+    >
+    </sky-list-toolbar-sort>
   </sky-list-toolbar>
 
   <sky-list-view-grid fit="scroll" #grid>

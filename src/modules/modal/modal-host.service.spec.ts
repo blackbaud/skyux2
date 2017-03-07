@@ -53,7 +53,12 @@ describe('Modal host service', () => {
   it('should notify subscribers when a modal is closed', () => {
     let service = new SkyModalHostService();
     let componentService = new SkyModalComponentAdapterService();
-    let component = new SkyModalComponent(service, { nativeElement: {} }, componentService);
+    let component = new SkyModalComponent(
+        service,
+        { fullPage: false },
+        { nativeElement: {} },
+        componentService
+      );
     let closeEmitted = false;
 
     service.close.subscribe((closedComponent: SkyModalComponent) => {

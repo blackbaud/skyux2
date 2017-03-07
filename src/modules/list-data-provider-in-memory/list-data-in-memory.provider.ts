@@ -5,6 +5,10 @@ import { ListDataRequestModel } from '../list/list-data-request.model';
 import { ListDataResponseModel } from '../list/list-data-response.model';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListSearchModel } from '../list/state/search/search.model';
+import {
+  compare,
+  getData
+} from '../list/helpers';
 
 let moment = require('moment');
 
@@ -53,6 +57,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
     return this.items.map(items => {
       let dataChanged = false;
       let search = request.search;
+      let sort = request.sort;
 
       if (this.lastItems === undefined || this.lastItems !== items) {
         dataChanged = true;
@@ -71,7 +76,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
       /* istanbul ignore next */
       if (!dataChanged && !searchChanged && this.lastSearchResults !== undefined) {
         result = this.lastSearchResults;
-      } else if (search.searchText !== undefined && search.searchText.length > 0) {
+      } else if (search && search.searchText !== undefined && search.searchText.length > 0) {
         let searchText = search.searchText.toLowerCase();
         let searchFunctions: any[];
         if (this.searchFunction !== undefined) {
@@ -102,6 +107,29 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         this.lastSearchResults = result;
       } else {
         this.lastSearchResults = undefined;
+      }
+
+      if (sort && sort.fieldSelectors.length > 0) {
+        result = result.slice().sort((item1: ListItemModel, item2: ListItemModel) => {
+          let compareResult = 0;
+          for (let i = 0; i < sort.fieldSelectors.length; i++) {
+            let selector = sort.fieldSelectors[i];
+            let value1 = getData(item1.data, selector.fieldSelector);
+            let value2 = getData(item2.data, selector.fieldSelector);
+
+            compareResult = compare(value1, value2);
+
+            if (selector.descending && compareResult !== 0) {
+              compareResult *= -1;
+            }
+
+            if (compareResult !== 0) {
+              break;
+            }
+          }
+
+          return compareResult;
+        });
       }
       return result;
     });

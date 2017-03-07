@@ -32,10 +32,15 @@ import {
   ListSelectedSetItemsSelectedAction
 } from './selected/actions';
 
+import {
+   ListSortSetFieldSelectorsAction, ListSortSetAvailableAction, ListSortSetGlobalAction
+ } from './sort/actions';
+
 export type ListStateAction =
   ListItemsSetLoadingAction | ListItemsLoadAction |
   ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction |
   ListViewsLoadAction | ListViewsSetActiveAction | ListToolbarItemsLoadAction |
   ListToolbarSetExistsAction | ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
   ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
-  ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction | ListToolbarSetTypeAction;
+  ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction | ListToolbarSetTypeAction
+  | ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction;
