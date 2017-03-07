@@ -18,7 +18,12 @@ import {
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
 import { Observable } from 'rxjs/Observable';
-import { getValue } from 'microedge-rxstate/dist/helpers';
+import {
+  getValue
+} from 'microedge-rxstate/dist/helpers';
+import {
+  AsyncList
+} from 'microedge-rxstate/dist';
 import {
   SkyGridComponent,
   SkyGridColumnComponent,
@@ -130,21 +135,18 @@ export class SkyListViewGridComponent
       return column.id || column.field;
     })).distinctUntilChanged();
 
-    this.items = this.state.map((s) => {
-        console.log(s);
-        return s.items.items;
-    })
-    .distinctUntilChanged();
+    this.items = this.getGridItems();
 
     this.loading = this.state.map((s) => {
       return s.items.loading;
     }).distinctUntilChanged();
 
     this.sortField = this.state.map((s) => {
+      /* istanbul ignore else */
+      /* sanity check */
       if (s.sort && s.sort.fieldSelectors) {
         return s.sort.fieldSelectors[0];
       }
-      return;
     }).distinctUntilChanged();
 
     this.gridState.map(s => s.columns.items)
@@ -222,13 +224,6 @@ export class SkyListViewGridComponent
     this.subscriptions.push(sub);
   }
 
-  /*get items(): Observable<ListItemModel[]> {
-
-    return this.state.map((s) => {
-      return s.items.items;
-    }).distinctUntilChanged();
-  }*/
-
   private handleColumnChange() {
      // watch for changes in column components
     this.columnComponents.changes.subscribe((columnComponents) => {
@@ -237,5 +232,27 @@ export class SkyListViewGridComponent
       });
       this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
     });
+  }
+
+  private getGridItems(): Observable<Array<ListItemModel>> {
+    /*
+      Ran into problem where state updates were consumed out of order. For example, on search text
+      update, the searchText update was consumed after the resulting list item update. Scanning the
+      previous value of items lastUpdate ensures that we only receive the latest items.
+    */
+    return this.state.map((s) => {
+        return s.items;
+    })
+    .scan((previousValue: AsyncList<ListItemModel>, newValue: AsyncList<ListItemModel>) => {
+      if (previousValue.lastUpdate > newValue.lastUpdate) {
+        return previousValue;
+      } else {
+        return newValue;
+      }
+    })
+    .map((result: AsyncList<ListItemModel>) => {
+      return result.items;
+    })
+    .distinctUntilChanged();
   }
 }
