@@ -1,6 +1,6 @@
 <sky-demo-page title="Grid">
   <sky-demo-page-summary>
-    This grid component displays a SKY UX-themed grid of data. The grid should contain <code>sky-grid-column</code> components which specify column information. The <code>sky-grid</code> component can be used as a view of a searchable, paginated list component when used within the <a routerLink="../list-view-grid">sky-list</a> component.
+    This grid component displays a SKY UX-themed grid of data. The grid should contain <code>sky-grid-column</code> components that specify column information. The <code>sky-grid</code> component can provide a view of a searchable, paginated list component when used within the <a routerLink="../list-view-grid">sky-list</a> component.
   </sky-demo-page-summary>
 
   <sky-demo-page-properties
@@ -8,13 +8,13 @@
 
     <sky-demo-page-property
       propertyName="data">
-      Specifies an array of data for the grid. Each item in the array should have an id property as well as properties that map to each columns <code>field</code> or <code>id</code> of the grid.
+      Specifies an array of data for the grid. Each item in the array should have an ID and a property that maps to either the <code>field</code> or <code>id</code> property of each column in the grid.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="selectedColumnIds"
         isOptional="true"
     >
-      Specifies the columns to be displayed by the grid. Will match the <code>id</code> or <code>field</code> of the column. If no array is provided, then all columns are shown.
+      Specifies an array of columns to display in the grid. Will match the <code>id</code> or <code>field</code> properties of the columns. If no array is provided, then the grid displays all columns.
       Acceptable values: <code>Array of strings</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
@@ -23,7 +23,7 @@
         isOptional="true"
     >
       Specifies how the grid should fit to its parent.
-      Acceptable values: <code>'width' or 'scroll'</code>.
+      Acceptable values: <code>'width'</code> or <code>'scroll'</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="height"
@@ -43,9 +43,9 @@
       propertyName="sortField"
       [isOptional]="true"
     >
-      Specifies the currently sorted field of the grid.
+      Specifies the field to use to sort the grid.
 
-      Acceptable values <code>ListSortFieldSelectorModel</code>. <code>ListSortFieldSelectorModel</code> contains the <code>fieldSelector</code> property, which is a string representing the currently sorted field, and the <code>descending</code> property, which is a boolean indicating whether the current sort is a descending sort.
+      Acceptable values: <code>ListSortFieldSelectorModel</code>. <code>ListSortFieldSelectorModel</code> contains the <code>fieldSelector</code> string that represents the current sort field and the <code>descending</code> boolean that indicates whether to sort in descending order.
     </sky-demo-page-property>
 
   </sky-demo-page-properties>
@@ -54,7 +54,7 @@
     sectionHeading="Grid component events">
     <sky-demo-page-property
       propertyName="selectedColumnIdsChange">
-      Fires when columns are changed in the grid. Emits an array of column ids.
+      Fires when the columns to display in the grid change. Emits an array of column IDs.
     </sky-demo-page-property>
 
     <sky-demo-page-property
@@ -69,7 +69,7 @@
     sectionHeading="Grid column component properties">
     <sky-demo-page-property
       propertyName="id">
-      Specifies a unique id for the column. If no <code>field</code> property exists on the column, then this will be used as the property to retreive cell information from an entry on the grid <code>data</code> array.
+      Specifies a unique ID for the column. If no <code>field</code> property exists on the column, then this is used as the property to retreive cell information from an entry on the grid <code>data</code> array.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="field">
@@ -77,7 +77,7 @@
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="heading">
-      Specifies text for the column header.
+      Specifies text to display in the column header.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="description">
@@ -92,30 +92,30 @@
       propertyName="locked"
       isOptional="true"
       defaultValue="false">
-      Specifies whether the column is locked. If set to <code>true</code>, then the column cannot be dragged to another position, and other columns cannot be dragged before the locked column.
+      Indicates whether the column is locked. If set to <code>true</code>, then users cannot drag the column to another position and or drag other columns before the locked column.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="isSortable"
       [isOptional]="true"
       defaultValue="true">
-      Specifies whether the column header sorts on click.
+      Indicates whether the column sorts the grid when users click the column header.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="hidden"
       isOptional="true"
       defaultValue="false">
-      Specifies whether the column is initially hidden when grid <code>selectedColumnIds</code> are not provided.
+      Indicates whether the column is initially hidden when grid <code>selectedColumnIds</code> are not provided.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="search"
       isOptional="true">
-      Specifies a search function to apply for the specific column. By default, the column will execute a string compare on the column data.
+      Specifies a search function to apply for the specific column. By default, the column executes a string compare on the column data.
       Acceptable values: <code>(data: any, searchText: string) => boolean</code>
     </sky-demo-page-property>
      <sky-demo-page-property
       propertyName="template"
       isOptional="true">
-      Specifies a template for a column. This can be assigned as a reference to the <code>template</code> attribute, or it can be as a child of the <code>template</code> element inside of the <code>sky-grid-column</code> component. This template has access to the <code>value</code> variable, which contains the value passed to the column, and the <code>row</code> variable, which contains the entire row data.
+      Specifies a template for a column. This can be assigned as a reference to the <code>template</code> attribute, or it can be assigned as a child of the <code>template</code> element inside the <code>sky-grid-column</code> component. The template has access to the <code>value</code> variable, which contains the value passed to the column, and the <code>row</code> variable, which contains the entire row data.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
