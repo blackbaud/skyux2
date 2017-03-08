@@ -31,7 +31,7 @@ describe('Tabset component', () => {
       selectedCls = 'sky-tab-dropdown-item-selected';
       buttonEls = el.querySelectorAll('.sky-tab-dropdown-item');
     } else {
-      selectedCls = 'sky-tab-button-selected';
+      selectedCls = 'sky-btn-tab-selected';
       buttonEls = el.querySelectorAll('.sky-tab-button');
     }
 
