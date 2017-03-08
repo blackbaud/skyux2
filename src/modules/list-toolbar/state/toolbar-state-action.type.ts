@@ -1,6 +1,7 @@
 import {
-  ListToolbarConfigSetSearchEnabledAction
+  ListToolbarConfigSetSearchEnabledAction,
+  ListToolbarConfigSetSortSelectorEnabledAction
 } from './config/actions';
 
 export type ListToolbarStateAction =
-  ListToolbarConfigSetSearchEnabledAction;
+  ListToolbarConfigSetSearchEnabledAction | ListToolbarConfigSetSortSelectorEnabledAction;

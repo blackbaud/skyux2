@@ -67,6 +67,8 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnDestroy() {
+    /* istanbul ignore else */
+    /* sanity check */
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
