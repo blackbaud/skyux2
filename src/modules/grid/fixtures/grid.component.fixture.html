@@ -5,7 +5,9 @@
   [hasToolbar]="hasToolbar"
   [data]="data"
   [width]="600"
-  [height]="400">
+  [height]="400"
+  [sortField]="sortField"
+  (sortFieldChange)="onSort($event)">
   <sky-grid-column
     field="column1"
     heading="Column1"
@@ -15,6 +17,7 @@
     field="column2"
     heading="Column2"
     [width]="150"
+    [isSortable]="false"
     [search]="searchFunction">
     <template
       let-row="row">

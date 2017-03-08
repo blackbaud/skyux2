@@ -8,7 +8,10 @@
     [selectedColumnIds]="selectedColumnIds | async"
     [columns]="columns | async"
     [hasToolbar]="hasToolbar | async"
-    (selectedColumnIdsChange)="columnIdsChanged($event)">
+    (selectedColumnIdsChange)="columnIdsChanged($event)"
+    [sortField]="sortField | async"
+    (sortFieldChange)="sortFieldChanged($event)"
+    >
   </sky-grid>
   <sky-wait [isWaiting]="loading | async"></sky-wait>
 </div>

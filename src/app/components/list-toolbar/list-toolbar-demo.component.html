@@ -25,7 +25,12 @@
   </sky-list-toolbar>
 
   <sky-list-view-grid fit="scroll" #grid>
-    <sky-grid-column field="column1" heading="Column1"></sky-grid-column>
-    <sky-grid-column field="column2" heading="Column2"></sky-grid-column>
+    <sky-grid-column
+      field="column1"
+      heading="Column1"
+      [isSortable]="false">
+    </sky-grid-column>
+    <sky-grid-column field="column2" heading="Column2">
+    </sky-grid-column>
   </sky-list-view-grid>
  </sky-list>

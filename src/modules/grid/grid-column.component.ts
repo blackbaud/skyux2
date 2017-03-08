@@ -29,6 +29,8 @@ export class SkyGridColumnComponent {
   public type: string;
   @Input()
   public description: string;
+  @Input()
+  public isSortable: boolean = true;
 
   /* tslint:disable */
   @Input('search')
