@@ -21,6 +21,8 @@ import { ListSortFieldSelectorModel } from '../list/state';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'sky-grid',
   templateUrl: './grid.component.html',
@@ -146,7 +148,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     }
   }
 
-  public getSortDirection(columnField: string) {
+  public getSortDirection(columnField: string): Observable<string> {
     return this.currentSortField
       .distinctUntilChanged()
       .map(field => {
