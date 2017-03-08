@@ -41,6 +41,9 @@ import {
 import { GridState, GridStateDispatcher, GridStateModel } from './state';
 
 import { SkyListComponent } from '../list';
+import {
+  expect
+} from '../testing';
 
 describe('List View Grid Component', () => {
   describe('Basic Fixture', () => {
@@ -142,6 +145,29 @@ describe('List View Grid Component', () => {
           By.css('th[sky-cmp-id="column2"]')
         ).nativeElement.textContent.trim()).toBe('Column2');
       });
+
+      it('should listen for the sortFieldChange event', fakeAsync(() => {
+        let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+        headerEl.click();
+        fixture.detectChanges();
+
+        tick();
+
+        state.take(1).subscribe((s) => {
+          expect(s.sort.fieldSelectors[0].fieldSelector).toBe('column1');
+          expect(s.sort.fieldSelectors[0].descending).toBe(true);
+        });
+        tick();
+      }));
+
+      it('should update grid header sort on state change', fakeAsync(() => {
+        dispatcher.sortSetFieldSelectors([{ fieldSelector: 'column1', descending: false }]);
+        fixture.detectChanges();
+        tick();
+
+        let headerIconEl = nativeElement.querySelectorAll('th i').item(0) as HTMLElement;
+        expect(headerIconEl).toHaveCssClass('fa-caret-up');
+      }));
 
       describe('Models and State', () => {
         it('should run ListViewGridColumnsLoadAction action', async(() => {
