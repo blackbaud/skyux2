@@ -20,5 +20,10 @@
 .sky-text-expand-container {
   word-break: break-word;
   word-wrap: break-word;
-  max-width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.sky-text-expand-modal-content {
+  white-space: pre-line;
 }
