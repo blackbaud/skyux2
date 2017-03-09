@@ -36,6 +36,14 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
   @Input()
   public pageNumber: Observable<number> | number = 1;
 
+  public currentPageNumber: Observable<number>;
+
+  public maxDisplayedPages: Observable<number>;
+
+  public itemsPerPage: Observable<number>;
+
+  public itemCount: Observable<number>;
+
   constructor(
     state: ListState,
     dispatcher: ListStateDispatcher,
@@ -46,37 +54,29 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
 
   public ngOnInit() {
 
-      // subscribe to or use inputs
-      getValue(this.pageSize, (pageSize: number) =>
-        this.dispatcher.next(
-          new ListPagingSetItemsPerPageAction(Number(pageSize))
-        )
-      );
-      getValue(this.maxPages, (maxPages: number) =>
-        this.dispatcher.next(
-          new ListPagingSetMaxPagesAction(Number(maxPages))
-        )
-      );
-      getValue(this.pageNumber, (pageNumber: number) =>
-        this.dispatcher.next(
-          new ListPagingSetPageNumberAction(Number(pageNumber))
-        ));
-  }
+    this.currentPageNumber = this.state.map(s => s.paging.pageNumber);
 
-  get currentPageNumber() {
-    return this.state.map(s => s.paging.pageNumber);
-  }
+    this.maxDisplayedPages = this.state.map(s => s.paging.maxDisplayedPages);
 
-  get maxDisplayedPages() {
-    return this.state.map(s => s.paging.maxDisplayedPages);
-  }
+    this.itemsPerPage = this.state.map(s => s.paging.itemsPerPage);
 
-  get itemsPerPage() {
-    return this.state.map(s => s.paging.itemsPerPage);
-  }
+    this.itemCount = this.state.map(s => s.items.count);
 
-  get itemCount() {
-    return this.state.map(s => s.items.count);
+    // subscribe to or use inputs
+    getValue(this.pageSize, (pageSize: number) =>
+      this.dispatcher.next(
+        new ListPagingSetItemsPerPageAction(Number(pageSize))
+      )
+    );
+    getValue(this.maxPages, (maxPages: number) =>
+      this.dispatcher.next(
+        new ListPagingSetMaxPagesAction(Number(maxPages))
+      )
+    );
+    getValue(this.pageNumber, (pageNumber: number) =>
+      this.dispatcher.next(
+        new ListPagingSetPageNumberAction(Number(pageNumber))
+      ));
   }
 
   public pageChange(currentPage: number) {

@@ -11,8 +11,15 @@
             *ngFor="let column of displayedColumns; let last = last"
             [style.width.px]="last ? null : column.width"
             [attr.sky-cmp-id]="column.id || column.field"
-            [ngClass]="{ 'sky-grid-header-locked': column.locked }">
+            [ngClass]="{ 'sky-grid-header-locked': column.locked }"
+            (click)="sortByColumn(column)">
             {{column.heading}}
+            <i
+              class="fa sky-grid-heading-sort"
+              [ngStyle]="{'visibility: hidden': (getSortDirection(column.field) | async)}"
+              [ngClass]="{ 'fa-caret-up': (getSortDirection(column.field) | async) === 'asc', 'fa-caret-down': (getSortDirection(column.field) | async) === 'desc' }"
+            >
+            </i>
           </th>
         </tr>
       </thead>

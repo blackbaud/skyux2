@@ -275,6 +275,50 @@ describe('Grid Component', () => {
         }
       });
 
+      describe('sorting', () => {
+        it('adds appropriate icons and emits event on click to headers', () => {
+          let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          headerEl.click();
+          fixture.detectChanges();
+
+          headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: true});
+          expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-down');
+
+          headerEl.click();
+          fixture.detectChanges();
+
+          headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: false});
+          expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
+        });
+
+        it('should not respond to click when the appropriate column option is set', () => {
+          let headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
+          headerEl.click();
+          fixture.detectChanges();
+
+          headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
+          expect(component.activeSortSelector)
+            .toEqual(undefined);
+          expect(headerEl.querySelector('i')).not.toHaveCssClass('fa-caret-down');
+        });
+
+        it('responds to sort selector input change', () => {
+          component.sortField = {
+            fieldSelector: 'column1',
+            descending: false
+          };
+          fixture.detectChanges();
+
+          let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+
+          expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
+        });
+      });
+
       describe('Models and State', () => {
 
         it('should construct ListViewGridColumnModel without data', () => {

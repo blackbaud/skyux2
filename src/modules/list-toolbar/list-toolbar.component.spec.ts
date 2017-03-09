@@ -22,7 +22,8 @@ import {
   ListViewModel,
   ListToolbarItemModel,
   ListToolbarItemsLoadAction,
-  ListToolbarSetTypeAction
+  ListToolbarSetTypeAction,
+  ListSortLabelModel
 } from '../list/state';
 
 describe('List Toolbar Component', () => {
@@ -109,6 +110,117 @@ describe('List Toolbar Component', () => {
       });
     });
 
+     describe('sort selector', () => {
+      beforeEach(async(() => {
+        dispatcher.sortSetAvailable([
+          new ListSortLabelModel({
+            text: 'Status (A - Z)',
+            fieldType: 'string',
+            fieldSelector: 'status',
+            global: true,
+            descending: false
+          }),
+           new ListSortLabelModel({
+            text: 'Status (Z - A)',
+            fieldType: 'string',
+            fieldSelector: 'status',
+            global: true,
+            descending: true
+          }),
+          new ListSortLabelModel({
+            text: 'Date (Most recent first)',
+            fieldType: 'date',
+            fieldSelector: 'date',
+            global: true,
+            descending: true
+          }),
+          new ListSortLabelModel({
+            text: 'Date (Most recent last)',
+            fieldType: 'date',
+            fieldSelector: 'date',
+            global: true,
+            descending: false
+          }),
+          new ListSortLabelModel({
+            text: 'Number (Highest first)',
+            fieldType: 'number',
+            fieldSelector: 'number',
+            global: true,
+            descending: true
+          }),
+           new ListSortLabelModel({
+            text: 'Number (Lowest first)',
+            fieldType: 'number',
+            fieldSelector: 'number',
+            global: true,
+            descending: false
+          })
+        ]);
+
+      }));
+
+      it('should display when sort provided', () => {
+        fixture.detectChanges();
+        expect(element.query(
+          By.css("sky-list-toolbar-item-renderer[sky-cmp-id='sort-selector']")
+        )).not.toBeNull();
+      });
+
+      it('should not display when sortSelectorEnabled is false', () => {
+        component.sortEnabled = false;
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          expect(element.query(By.css('.sky-sort'))).toBeNull();
+        });
+      });
+
+      it('should create ascending and descending items for each sort label', async(() => {
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          let sortItems = nativeElement.querySelectorAll('.sky-sort .sky-sort-item');
+          expect(sortItems.length).toBe(8);
+          expect(sortItems.item(2)).toHaveText('Status (A - Z)');
+          expect(sortItems.item(3)).toHaveText('Status (Z - A)');
+          expect(sortItems.item(4)).toHaveText('Date (Most recent first)');
+          expect(sortItems.item(5)).toHaveText('Date (Most recent last)');
+          expect(sortItems.item(6)).toHaveText('Number (Highest first)');
+          expect(sortItems.item(7)).toHaveText('Number (Lowest first)');
+          expect(sortItems.item(0)).toHaveText('Custom');
+          expect(sortItems.item(1)).toHaveText('Custom');
+        });
+
+      }));
+
+      it('should handle sort item click', async(() => {
+        initializeToolbar();
+         fixture.whenStable().then(() => {
+           fixture.detectChanges();
+          let sortSelectorDropdownButtonEl = nativeElement
+            .querySelector('.sky-sort .sky-dropdown-button') as HTMLButtonElement;
+          sortSelectorDropdownButtonEl.click();
+
+          let sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+
+          let clickItem = sortItems.item(1).querySelector('button') as HTMLButtonElement;
+
+          clickItem.click();
+          fixture.detectChanges();
+          sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+          expect(sortItems.item(1)).toHaveCssClass('sky-sort-item-selected');
+
+          clickItem = sortItems.item(0).querySelector('button') as HTMLButtonElement;
+
+          clickItem.click();
+          fixture.detectChanges();
+          sortItems = nativeElement.querySelectorAll('.sky-sort-item');
+          expect(sortItems.item(0)).toHaveCssClass('sky-sort-item-selected');
+         });
+
+      }));
+    });
+
     it('should load custom items', async(() => {
       initializeToolbar();
       fixture.whenStable().then(() => {
@@ -116,8 +228,9 @@ describe('List Toolbar Component', () => {
         let items = element.queryAll(By.css('.sky-toolbar-item'));
         expect(items[0].nativeElement).toHaveText('');
         expect(items[1].query(By.css('input'))).not.toBeNull();
-        expect(items[2].nativeElement).toHaveText('Custom Item');
-        expect(items[3].nativeElement).toHaveText('Custom Item 2');
+        expect(items[2].query(By.css('.sky-sort'))).not.toBeNull();
+        expect(items[3].nativeElement).toHaveText('Custom Item');
+        expect(items[4].nativeElement).toHaveText('Custom Item 2');
       });
 
     }));
@@ -130,8 +243,9 @@ describe('List Toolbar Component', () => {
       expect(component.toolbar.searchComponent.expandMode).toBe('fit');
       let items = sections[1].queryAll(By.css('.sky-toolbar-item sky-list-toolbar-item-renderer'));
       expect(items[0].nativeElement).toHaveText('');
-      expect(items[1].nativeElement).toHaveText('Custom Item');
-      expect(items[2].nativeElement).toHaveText('Custom Item 2');
+      expect(items[1].query(By.css('.sky-sort'))).not.toBeNull();
+      expect(items[2].nativeElement).toHaveText('Custom Item');
+      expect(items[3].nativeElement).toHaveText('Custom Item 2');
     }
 
     it('should load custom items with toolbarType = search initialized', async(() => {
@@ -182,8 +296,9 @@ describe('List Toolbar Component', () => {
         expect(items[0].nativeElement).toHaveText('');
         expect(items[1].query(By.css('input'))).not.toBeNull();
         expect(items[2].query(By.css('span')).nativeElement).toHaveCssClass('sky-test-toolbar');
-        expect(items[3].nativeElement).toHaveText('Custom Item');
-        expect(items[4].nativeElement).toHaveText('Custom Item 2');
+        expect(items[3].query(By.css('.sky-sort'))).not.toBeNull();
+        expect(items[4].nativeElement).toHaveText('Custom Item');
+        expect(items[5].nativeElement).toHaveText('Custom Item 2');
 
          dispatcher.next(new ListToolbarItemsLoadAction([
           new ListToolbarItemModel({
@@ -199,8 +314,9 @@ describe('List Toolbar Component', () => {
         expect(items[0].nativeElement).toHaveText('');
         expect(items[1].query(By.css('input'))).not.toBeNull();
         expect(items[2].query(By.css('span')).nativeElement).toHaveCssClass('sky-test-toolbar');
-        expect(items[3].nativeElement).toHaveText('Custom Item');
-        expect(items[4].nativeElement).toHaveText('Custom Item 2');
+        expect(items[3].query(By.css('.sky-sort'))).not.toBeNull();
+        expect(items[4].nativeElement).toHaveText('Custom Item');
+        expect(items[5].nativeElement).toHaveText('Custom Item 2');
 
       });
     }));

@@ -19,6 +19,8 @@ export class TabsetTestComponent {
 
   public tab3Heading = 'Tab 3';
 
+  public tab3HeaderCount: number;
+
   public tab3Content: string;
 
   public tab3Available = true;

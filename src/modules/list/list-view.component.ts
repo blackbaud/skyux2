@@ -19,6 +19,9 @@ export abstract class ListViewComponent implements OnDestroy {
   protected state: ListState;
   protected list: SkyListComponent;
   protected subscriptions: Array<any> = [];
+  protected active: Observable<boolean>;
+  protected hasToolbar: Observable<boolean>;
+
   /* tslint:disable */
   private initialized: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /* tslint:enable */
@@ -27,6 +30,11 @@ export abstract class ListViewComponent implements OnDestroy {
   constructor(state: ListState, defaultName: string) {
     this.state = state;
     this.viewName = defaultName;
+
+    this.hasToolbar = this.state.map(s => s.toolbar.exists);
+
+    this.active = this.state.map(s => s.views.active === this.viewId);
+
     this.active.distinctUntilChanged().subscribe(
       isActive => isActive ? this.onViewActive() : this.onViewInactive()
     );
@@ -38,14 +46,6 @@ export abstract class ListViewComponent implements OnDestroy {
 
   get label() {
     return this.viewName;
-  }
-
-  get hasToolbar() {
-    return this.state.map(s => s.toolbar.exists);
-  }
-
-  get active(): Observable<boolean> {
-    return this.state.map(s => s.views.active === this.viewId);
   }
 
   /* istanbul ignore next */

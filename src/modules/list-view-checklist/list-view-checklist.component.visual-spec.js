@@ -14,6 +14,7 @@ describe('list-view-checklist component', function () {
   it('should display checklist view with checked', function () {
     return browser
       .setupTest('/list-view-checklist.html')
+      .pause(1000)
       .click('sky-checkbox')
       .pause(1000)
       .compareScreenshot({

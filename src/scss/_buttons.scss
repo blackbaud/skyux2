@@ -77,10 +77,17 @@
   }
 }
 
+.sky-tab-header-count {
+    font-family: $sky-font-family-narrow;
+    font-weight: normal;
+    color: $sky-color-blue;
+    margin-left: $sky-margin-half;
+}
+
 .sky-btn-tab-selected {
   @include sky-btn-tab-selected;
 
-  .sky-btn-tab-close {
+  .sky-btn-tab-close, .sky-tab-header-count {
     color: #fff;
   }
 }
