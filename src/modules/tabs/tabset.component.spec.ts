@@ -31,7 +31,7 @@ describe('Tabset component', () => {
       selectedCls = 'sky-tab-dropdown-item-selected';
       buttonEls = el.querySelectorAll('.sky-tab-dropdown-item');
     } else {
-      selectedCls = 'sky-tab-button-selected';
+      selectedCls = 'sky-btn-tab-selected';
       buttonEls = el.querySelectorAll('.sky-tab-button');
     }
 
@@ -235,6 +235,54 @@ describe('Tabset component', () => {
 
       expect(el.querySelectorAll('.sky-btn-tab').length).toBe(2);
       validateTabSelected(el, 2);
+    }
+  );
+
+  it(
+    'should display count in tab when tabHeaderCount is defined',
+    () => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+      let cmp: TabsetTestComponent = fixture.componentInstance;
+      let el = fixture.nativeElement;
+
+      let count = 99;
+      cmp.tab3HeaderCount = count;
+      fixture.detectChanges();
+      let tabEl = el.querySelectorAll('.sky-btn-tab')[2].querySelector('.sky-tab-header-count');
+
+      expect(tabEl.innerText.trim()).toBe(count.toString());
+    }
+  );
+
+  it(
+    'tabHeaderCount span element should not exist when tabHeaderCount is undefined',
+    () => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+      let cmp: TabsetTestComponent = fixture.componentInstance;
+      let el = fixture.nativeElement;
+
+      let count: number = undefined;
+      cmp.tab3HeaderCount = count;
+      fixture.detectChanges();
+      let tabEl = el.querySelectorAll('.sky-btn-tab')[2].querySelector('.sky-tab-header-count');
+
+      expect(!tabEl);
+    }
+  );
+
+  it(
+    'should display zero in tab when tabHeaderCount is set to zero',
+    () => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+      let cmp: TabsetTestComponent = fixture.componentInstance;
+      let el = fixture.nativeElement;
+
+      let count = 0;
+      cmp.tab3HeaderCount = count;
+      fixture.detectChanges();
+      let tabEl = el.querySelectorAll('.sky-btn-tab')[2].querySelector('.sky-tab-header-count');
+
+      expect(tabEl.innerText.trim()).toBe(count.toString());
     }
   );
 

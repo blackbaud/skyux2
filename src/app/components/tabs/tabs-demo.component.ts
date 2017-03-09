@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 })
 export class SkyTabsDemoComponent {
   public tabs: any[];
+  public tabsWithCounts: any[];
 
   constructor() {
     this.tabs = [
@@ -21,6 +22,24 @@ export class SkyTabsDemoComponent {
       {
         heading: 'Tab 3',
         content: 'Content 3'
+      }
+    ];
+    this.tabsWithCounts = [
+      {
+        heading: 'Records',
+        content: 'Placeholder content for records',
+        headerCount: 10,
+        active: true
+      },
+      {
+        heading: 'Gifts',
+        content: 'Placeholder content for gifts',
+        headerCount: 14
+      },
+      {
+        heading: 'Users',
+        content: 'Placeholder content for users',
+        headerCount: 144
       }
     ];
   }

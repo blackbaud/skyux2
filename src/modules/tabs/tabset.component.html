@@ -16,6 +16,7 @@
     <sky-tab-button
         *ngFor="let tab of tabs; let i = index"
         [tabHeading]="tab.tabHeading"
+        [tabHeaderCount]="tab.tabHeaderCount"
         [tabStyle]="tabStyle"
         [active]="tab.active"
         [allowClose]="tab.allowClose"
