@@ -270,6 +270,22 @@ describe('Tabset component', () => {
     }
   );
 
+  it(
+    'should display zero in tab when tabHeaderCount is set to zero',
+    () => {
+      let fixture = TestBed.createComponent(TabsetTestComponent);
+      let cmp: TabsetTestComponent = fixture.componentInstance;
+      let el = fixture.nativeElement;
+
+      let count = 0;
+      cmp.tab3HeaderCount = count;
+      fixture.detectChanges();
+      let tabEl = el.querySelectorAll('.sky-btn-tab')[2].querySelector('.sky-tab-header-count');
+
+      expect(tabEl.innerText.trim()).toBe(count.toString());
+    }
+  );
+
   it('should add no buttons if add and open are not defined', () => {
     let fixture = TestBed.createComponent(TabsetTestComponent);
     let el = fixture.nativeElement;

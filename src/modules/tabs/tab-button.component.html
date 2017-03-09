@@ -12,7 +12,7 @@
   {{tabHeading}}
   <span
     class="sky-tab-header-count"
-    *ngIf="tabHeaderCount"
+    *ngIf="tabHeaderCount || tabHeaderCount === 0"
   >
     {{tabHeaderCount}}
   </span>
