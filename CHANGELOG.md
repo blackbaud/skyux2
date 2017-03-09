@@ -1,3 +1,12 @@
+# 2.0.0-beta.12 (2017-03-09)
+
+  - Added initial documentation around testing, serving, and host.
+  - Added sorting support to sky-list and sky-list-toolbar. (#169)
+  - Added sort integration to list headers. (#315) 
+  - Fixed typo in Learn documentation. (thanks @don-noonan)
+  - Ensured that select change event for card is emitted properly. (#396)
+  - Added a property to tab for header counts. (thanks @Blackbaud-AlexKingman) (#388)
+
 # 2.0.0-beta.11 (2017-03-03)
 
   - Add a max-height to modal so that content overflows properly. (#361)
