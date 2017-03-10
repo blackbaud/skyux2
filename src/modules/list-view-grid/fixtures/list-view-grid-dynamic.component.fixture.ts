@@ -8,7 +8,8 @@ export class ListViewGridDynamicTestComponent {
   public data: Array<any>;
   public gridColumns: Array<any>;
   constructor() {
-    this.data = [{ 'id': 1, 'name': 'Windstorm', 'email': 'windstorm@gmail.com', 'other': 'something' },
+    this.data = [
+    { 'id': 1, 'name': 'Windstorm', 'email': 'windstorm@gmail.com', 'other': 'something' },
     { 'id': 2, 'name': 'Bombasto', 'email': 'bombasto@gmail.com' },
     { 'id': 3, 'name': 'Magneta', 'email': 'magenta@gmail.com' },
     { 'id': 4, 'name': 'Tornado', 'email': 'tornado@gmail.com' }];
