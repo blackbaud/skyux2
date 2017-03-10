@@ -1,8 +1,8 @@
-<div class="sky-text-expand-container" [@expansionChanged]="isExpanded.toString()" (@expansionChanged.done)="animationEnd()" #container>
+<div class="sky-text-expand-container" #container>
   <span class="sky-text-expand-text" #text></span>
   <span class="sky-text-expand-ellipsis" *ngIf='!isExpanded && expandable'>...</span>
   <span class="sky-text-expand-space" *ngIf='!isExpanded && expandable'> </span>
   <button type="button" class="sky-btn sky-btn-link-inline bb-text-expand-see-more" *ngIf='expandable' (click)="textExpand()">
-    {{seeMore}}
+    {{buttonText}}
   </button>
 </div>

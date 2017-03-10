@@ -2,12 +2,9 @@ import {
   Component,
   Input,
   ElementRef,
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-  ViewChild
+  ViewChild,
+  AfterViewInit,
+  ApplicationRef
 } from '@angular/core';
 
 import {
@@ -28,17 +25,9 @@ import {
   styleUrls: ['./text-expand.component.scss'],
   providers: [
     SkyResourcesService
-  ],
-  animations: [
-    trigger('expansionChanged', [
-      state('false', style({ 'height': '*' })),
-      state('true', style({ 'height': '*' })),
-      transition('* <=> *', [style({ 'height': '*' }),
-        animate('250ms', style({ 'height': 'auto' }))])
-    ])
   ]
 })
-export class SkyTextExpandComponent {
+export class SkyTextExpandComponent implements AfterViewInit {
   @Input()
   public set text(value: string) {
     this.setup(value);
@@ -51,30 +40,39 @@ export class SkyTextExpandComponent {
   @Input()
   public maxExpandedNewlines: number = 2;
   @Input()
-  public expandModalTitle: string = 'Expanded text';
+  public expandModalTitle: string = this.resources.getString('text_expand_modal_title');
   @Input()
   public expandRepeaterMax: number;
   @Input()
   public expandRepeaterData: number;
-  public seeMore: string;
+  public buttonText: string;
+  private seeMoreText: string = this.resources.getString('text_expand_see_more');
+  private seeLessText: string = this.resources.getString('text_expand_see_less');
   private textToShow: string;
   private collapsedText: string;
   private expandedText: string;
   private newlineCount: number;
   private isExpanded: boolean = false;
   private expandable: boolean;
-  private elementHeight: string;
   @ViewChild('container')
   private containerEl: ElementRef;
   @ViewChild('text')
   private textEl: ElementRef;
 
   constructor(private resources: SkyResourcesService, private elRef: ElementRef,
-    private modalService: SkyModalService) { }
+    private modalService: SkyModalService, private appRef: ApplicationRef) { }
+
+  public ngAfterViewInit() {
+    let component = this;
+    let container = <HTMLElement>this.containerEl.nativeElement;
+    container.addEventListener('transitionend',
+      function () { component.animationEnd(); });
+  }
 
   public textExpand() {
     if (this.newlineCount > this.maxExpandedNewlines
       || this.expandedText.length > this.maxExpandedLength) {
+      // Modal View
       if (!this.isExpanded) {
         this.modalService.open(
           SkyTextExpandModalComponent,
@@ -90,20 +88,24 @@ export class SkyTextExpandComponent {
         );
       }
     } else {
+      // Normal View
       if (!this.isExpanded) {
         this
-          .animateText(this.collapsedText, this.expandedText, 'See less');
+          .animateText(this.collapsedText, this.expandedText, true);
         this.isExpanded = true;
       } else {
         this
-          .animateText(this.expandedText, this.collapsedText, 'See more');
+          .animateText(this.expandedText, this.collapsedText, false);
         this.isExpanded = false;
       }
     }
   }
 
   public animationEnd() {
+    // Ensure the correct text is displayed
     this.textEl.nativeElement.textContent = this.textToShow;
+    // Set height back to auto so the browser can change the height as needed with window changes
+    this.containerEl.nativeElement.style.height = 'auto';
   }
 
   private setup(value: string) {
@@ -112,9 +114,9 @@ export class SkyTextExpandComponent {
       this.collapsedText = this.getTruncatedText(value, this.maxLength, this.maxNewlines);
       this.expandedText = value.length > this.maxExpandedLength ||
         this.newlineCount > this.maxExpandedNewlines ?
-          value : this.getTruncatedText(value, this.maxExpandedLength, this.maxExpandedNewlines);
+        value : this.getTruncatedText(value, this.maxExpandedLength, this.maxExpandedNewlines);
       if (this.collapsedText !== value) {
-        this.seeMore = 'See more';
+        this.buttonText = this.seeMoreText;
         this.isExpanded = false;
         this.expandable = true;
       } else {
@@ -158,36 +160,25 @@ export class SkyTextExpandComponent {
   }
 
   private animateText(previousText: string, newText: string,
-    newExpandText: string) {
+    expanding: boolean) {
+    let container = this.containerEl.nativeElement;
     // Measure the current height so we can animate from it.
-    // let currentHeight = this.elementHeight;
-    let currentHeight = this.containerEl.nativeElement.offsetHeight;
+    let currentHeight = container.offsetHeight;
     this.textToShow = newText;
     this.textEl.nativeElement.textContent = this.textToShow;
-    this.seeMore = newExpandText;
-    let newHeight = this.containerEl.nativeElement.offsetHeight;
+    this.buttonText = expanding ? this.seeLessText : this.seeMoreText;
+    // Measure the new height so we can animate to it.
+    let newHeight = container.offsetHeight;
 
     if (newHeight < currentHeight) {
       // The new text is smaller than the old text, so put the old text back before doing
       // the collapse animation to avoid showing a big chunk of whitespace.
       this.textEl.nativeElement.textContent = previousText;
     }
-    this.elementHeight = `${currentHeight}px`;
-    // this.elementHeight = currentHeight;
-    // this.elRef.nativeElement
-    //   .height(currentHeight)
-    //   .animate(
-    //   {
-    //     height: newHeight
-    //   },
-    //   250,
-    //   function () {
-    //     if (newHeight < currentHeight) {
-    //       this.textToShow = newText;
-    //     }
-    //     this.elRef.nativeElement.style.height = 'auto';
-    //   }
-    //   );
+    container.style.height = `${currentHeight}px`;
+    // This timeout is necessary due to the browser needing to pick up the non-auto height being set
+    // in order to do the transtion in height correctly. Without it the transition does not fire.
+    setTimeout(function () { container.style.height = `${newHeight}px`; }, 5);
   }
 
 }

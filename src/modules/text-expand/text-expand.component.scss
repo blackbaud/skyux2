@@ -20,8 +20,8 @@
 .sky-text-expand-container {
   word-break: break-word;
   word-wrap: break-word;
-  height: auto;
   overflow: hidden;
+  transition: height 250ms;
 }
 
 .sky-text-expand-modal-content {
