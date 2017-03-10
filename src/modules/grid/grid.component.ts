@@ -110,10 +110,10 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedColumnIds'] && this.columns) {
-      this.setDisplayedColumns();
-    } else if (changes['columns'] && this.columns) {
+    if (changes['columns'] && this.columns) {
       this.setDisplayedColumns(true);
+    } else if (changes['selectedColumnIds'] && this.columns) {
+      this.setDisplayedColumns();
     }
 
     if (changes['data'] && this.data) {
