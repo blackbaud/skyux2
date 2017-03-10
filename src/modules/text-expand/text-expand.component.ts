@@ -3,8 +3,7 @@ import {
   Input,
   ElementRef,
   ViewChild,
-  AfterViewInit,
-  ApplicationRef
+  AfterViewInit
 } from '@angular/core';
 
 import {
@@ -60,7 +59,7 @@ export class SkyTextExpandComponent implements AfterViewInit {
   private textEl: ElementRef;
 
   constructor(private resources: SkyResourcesService, private elRef: ElementRef,
-    private modalService: SkyModalService, private appRef: ApplicationRef) { }
+    private modalService: SkyModalService) { }
 
   public ngAfterViewInit() {
     let component = this;
@@ -139,12 +138,10 @@ export class SkyTextExpandComponent implements AfterViewInit {
     return 0;
   }
   private getTruncatedText(value: string, length: number, newlines: number) {
-    let i;
-
+    let i: number;
     if (newlines && this.newlineCount >= newlines) {
       value = value.replace(/\s+/gi, ' ');
     }
-
     // Jump ahead one character and see if it's a space, and if it isn't,
     // back up to the first space and break there so a word doesn't get cut
     // in half.

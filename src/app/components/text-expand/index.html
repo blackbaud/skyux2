@@ -1,7 +1,7 @@
 <sky-demo-page title="Text Expand">
   <sky-demo-page-summary>
     <p>
-      The text expand component truncates long text with an ellipsis and a link that allows the user to fully expand the text.
+      The Text Expand component truncates long text with an ellipsis and a link that allows the user to fully expand the text.
       If the text length falls below the specified threshold then no action is taken. The 'See more' link will expand the
       text inline if the length of the text is below the specified expanded length limit and if the number of newlines in
       the text is below the specified expanded newline limit, otherwise the link will open the text in a modal view.
@@ -9,6 +9,9 @@
     <p>
       Note that collapsed text will have newlines removed. Also, if one or more newlines are detected, the text is automatically
       collapsed regardless of the total length of the text.
+    </p>
+    <p>
+      The Text Expand Repeater directive truncates a list of repeater items and will initially display a set number of items. Any items over the set maximum limit are hidden until the user elects to expand the list.
     </p>
   </sky-demo-page-summary>
 
@@ -30,6 +33,15 @@
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="expandModalTitle" defaultValue="Expanded View" isOptional="true">
       The title to display in the modal expanded view.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Text expand repeater properties">
+    <sky-demo-page-property propertyName="data">
+      The data to truncate
+    </sky-demo-page-property>
+    <sky-demo-page-property propertyName="maxItems">
+      The number of items from the data to display before truncating
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

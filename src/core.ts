@@ -34,6 +34,7 @@ import { SkySearchModule } from './modules/search';
 import { SkySortModule } from './modules/sort';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
+import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyWaitModule } from './modules/wait';
@@ -72,6 +73,7 @@ import { SkyWaitModule } from './modules/wait';
     SkySortModule,
     SkyTabsModule,
     SkyTextExpandModule,
+    SkyTextExpandRepeaterModule,
     SkyTilesModule,
     SkyToolbarModule,
     SkyWaitModule
