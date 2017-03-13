@@ -429,6 +429,24 @@ describe('List View Grid Component', () => {
       ).nativeElement.textContent.trim()).toBe('Email');
 
     });
+
+    it('should handle grid columns changing to completely different ids', () => {
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
+      expect(element.query(
+        By.css('th[sky-cmp-id="name"]')).nativeElement.textContent.trim()
+      ).toBe('Name Initial');
+      expect(element.query(
+        By.css('th[sky-cmp-id="email"]')
+      ).nativeElement.textContent.trim()).toBe('Email Initial');
+
+      component.changeColumnsDifferent();
+      fixture.detectChanges();
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(1);
+      expect(element.query(
+        By.css('th[sky-cmp-id="other"]')).nativeElement.textContent.trim()
+      ).toBe('Other');
+
+    });
   });
 
 });
