@@ -4,6 +4,7 @@ describe('grid component', function () {
   it('should display grid', function () {
     return browser
       .setupTest('/grid.html')
+      .pause(1000)
       .compareScreenshot({
         screenshotName: 'grid',
         selector: '#screenshot-grid',
@@ -14,7 +15,9 @@ describe('grid component', function () {
   it('should display grid with descending sort indication', function () {
     return browser
       .setupTest('/grid.html')
+      .pause(1000)
       .click('th')
+      .pause(1000)
       .compareScreenshot({
         screenshotName: 'grid_sort_desc',
         selector: '#screenshot-grid',
@@ -25,8 +28,11 @@ describe('grid component', function () {
   it('should display grid with ascending sort indication', function () {
     return browser
       .setupTest('/grid.html')
+      .pause(1000)
       .click('th')
+      .pause(1000)
       .click('th')
+      .pause(1000)
       .compareScreenshot({
         screenshotName: 'grid_sort_asc',
         selector: '#screenshot-grid',

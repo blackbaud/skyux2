@@ -129,11 +129,7 @@ export class SkyListViewGridComponent
     // Setup Observables for template
     this.columns = this.gridState.map(s => s.columns.items).distinctUntilChanged();
 
-    this.selectedColumnIds = this.gridState.map(s => s.displayedColumns.items.map(column => {
-      /* istanbul ignore next */
-      /* sanity check */
-      return column.id || column.field;
-    })).distinctUntilChanged();
+    this.selectedColumnIds = this.getSelectedIds();
 
     this.items = this.getGridItems();
 
@@ -254,5 +250,30 @@ export class SkyListViewGridComponent
       return result.items;
     })
     .distinctUntilChanged();
+  }
+
+  private getSelectedIds(): Observable<Array<string>> {
+    /*
+      Same problem as above. We should move from having a state object observable with a bunch of
+      static properties to a static state object with observable properties that you can subscribe
+      to.
+    */
+    return this.gridState
+      .map(s => s.displayedColumns)
+      .scan(
+        (previousValue: AsyncList<SkyGridColumnModel>, newValue: AsyncList<SkyGridColumnModel>) => {
+        if (previousValue.lastUpdate > newValue.lastUpdate) {
+          return previousValue;
+        } else {
+          return newValue;
+        }
+      })
+      .map((result: AsyncList<SkyGridColumnModel>) => {
+        /* istanbul ignore next */
+        /* sanity check */
+        return result.items.map((column: SkyGridColumnModel) => {
+          return column.id || column.field;
+        });
+      }).distinctUntilChanged();
   }
 }
