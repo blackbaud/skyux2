@@ -27,11 +27,17 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
   @Input()
   public tabStyle = 'tabs';
 
+  @Input()
+  public active: number;
+
   @Output()
   public newTab = new EventEmitter<any>();
 
   @Output()
   public openTab = new EventEmitter<any>();
+
+  @Output()
+  public tabActiveChange = new EventEmitter<any>();
 
   public tabDisplayMode = 'tabs';
 
@@ -39,6 +45,8 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
   public tabs: QueryList<SkyTabComponent>;
 
   private isDestroyed: boolean;
+
+  private activeTabIndex: number;
 
   constructor(
     private tabsetService: SkyTabsetService,
@@ -71,6 +79,8 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
 
       if (tab !== existingTab) {
         existingTab.active = false;
+      } else {
+        this.activeTabIndex = i;
       }
     }
 
@@ -99,6 +109,7 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
       // https://github.com/angular/angular/issues/6005
       setTimeout(() => {
         this.selectTab(tab);
+        this.tabActiveChange.emit({ activeIndex: this.activeTabIndex });
       }, 0);
     });
   }

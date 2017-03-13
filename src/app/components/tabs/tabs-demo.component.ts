@@ -8,6 +8,8 @@ export class SkyTabsDemoComponent {
   public tabs: any[];
   public tabsWithCounts: any[];
 
+  public activeTabIndex = 0;
+
   constructor() {
     this.tabs = [
       {
@@ -60,5 +62,22 @@ export class SkyTabsDemoComponent {
 
   public openTabClick() {
     alert('You clicked the open tab button');
+  }
+
+  public tabChanged(activeChangeArgs: any) {
+    this.activeTabIndex = activeChangeArgs.activeIndex;
+  }
+
+  public goToNextTab() {
+    if (this.tabs.length !== this.activeTabIndex + 1) {
+      this.tabs[this.activeTabIndex + 1].active = true;
+    }
+  }
+
+  public goToPreviousTab() {
+    debugger;
+    if (this.activeTabIndex !== 0) {
+      this.tabs[this.activeTabIndex - 1].active = true;
+    }
   }
 }

@@ -1,4 +1,10 @@
-<sky-tabset (newTab)="newTabClick()" (openTab)="openTabClick()">
+<button type="button" class="sky-btn sky-btn-default" (click)="goToNextTab()">Next tab</button>
+<button type="button" class="sky-btn sky-btn-default" (click)="goToPreviousTab()">Previous tab</button>
+
+<sky-tabset
+  (newTab)="newTabClick()"
+  (openTab)="openTabClick()"
+  (tabActiveChange)="tabChanged($event)">
   <sky-tab
       *ngFor="let tab of tabs; let i = index"
       [tabHeading]="tab.heading"
