@@ -4,6 +4,7 @@ describe('Page summary', function () {
   function clickTest(screenshotName, visibleComponents, screenWidth) {
     return browser
       .setupTest('/page-summary.html', screenWidth)
+      .pause(1000)
       .setValue('#screenshots-page-summary-items', visibleComponents.join(','))
       .pause(1000)
       .compareScreenshot({
