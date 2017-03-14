@@ -17,6 +17,12 @@ import { SkyGridColumnModel } from './grid-column.model';
 import { ListItemModel } from '../list/state';
 import { SkyGridAdapterService } from './grid-adapter.service';
 
+import { ListSortFieldSelectorModel } from '../list/state';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'sky-grid',
   templateUrl: './grid.component.html',
@@ -50,12 +56,21 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   @Input()
   public hasToolbar: boolean = false;
 
+  @Input()
+  public sortField: ListSortFieldSelectorModel;
+
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
+
+  @Output()
+  public sortFieldChange = new EventEmitter<ListSortFieldSelectorModel>();
 
   public displayedColumns: Array<SkyGridColumnModel> = new Array<SkyGridColumnModel>();
 
   public items: Array<any> = new Array<any>();
+
+  public currentSortField: BehaviorSubject<ListSortFieldSelectorModel>
+    = new BehaviorSubject<ListSortFieldSelectorModel>({ fieldSelector: '', descending: false });
 
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
@@ -95,15 +110,51 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedColumnIds'] && this.columns) {
-      this.setDisplayedColumns();
-    } else if (changes['columns'] && this.columns) {
+    if (changes['columns'] && this.columns) {
       this.setDisplayedColumns(true);
+    } else if (changes['selectedColumnIds'] && this.columns) {
+      this.setDisplayedColumns();
     }
 
     if (changes['data'] && this.data) {
       this.transformData();
     }
+
+    if (changes['sortField']) {
+      this.setSortHeaders();
+    }
+  }
+
+  public sortByColumn(column: SkyGridColumnModel) {
+    if (column.isSortable) {
+      this.currentSortField
+      .take(1)
+      .map(field => {
+        let selector = {
+          fieldSelector: column.field,
+          descending: true
+        };
+
+        if (field && field.fieldSelector === column.field && field.descending) {
+          selector = {
+            fieldSelector: column.field,
+            descending: false
+          };
+        }
+        this.sortFieldChange.emit(selector);
+        this.currentSortField.next(selector);
+      })
+      .subscribe();
+    }
+  }
+
+  public getSortDirection(columnField: string): Observable<string> {
+    return this.currentSortField
+      .distinctUntilChanged()
+      .map(field => {
+        return field.fieldSelector === columnField ?
+          (field.descending ? 'desc' : 'asc') : undefined;
+      });
   }
 
   private onHeaderDrop(newColumnIds: Array<string>) {
@@ -142,6 +193,10 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     } else {
       this.items = this.data;
     }
+  }
+
+  private setSortHeaders() {
+    this.currentSortField.next(this.sortField || { fieldSelector: '', descending: false });
   }
 
   private getColumnsFromComponent() {

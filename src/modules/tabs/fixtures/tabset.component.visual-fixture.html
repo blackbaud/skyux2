@@ -20,10 +20,10 @@
     <sky-tab [tabHeading]="'Tab 4'" (close)="closeTab()">
       Tab 4 Content
     </sky-tab>
-    <sky-tab tabHeading="Permanent tab">
+    <sky-tab tabHeading="Permanent tab" [tabHeaderCount]="9">
       This tab cannot be closed
     </sky-tab>
-    <sky-tab [tabHeading]="'Tab 3'" (close)="closeTab()">
+    <sky-tab [tabHeading]="'Tab 3'" (close)="closeTab()" [tabHeaderCount]="144">
       Tab 3 Content
     </sky-tab>
   </sky-tabset>

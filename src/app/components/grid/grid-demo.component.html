@@ -1,4 +1,7 @@
-<sky-grid fit="scroll" [data]="items">
+<sky-grid
+  fit="scroll"
+  [data]="items"
+  (sortFieldChange)="sortChanged($event)">
   <sky-grid-column
     id="column1"
     field="column1"
@@ -20,7 +23,7 @@
   </sky-grid-column>
   <sky-grid-column
     id="composite"
-    field="column3"
+    field="composite"
     heading="Composite column"
     [template]="customColumnTemplate"
     >

@@ -17,6 +17,9 @@ export class SkyTabComponent implements OnDestroy {
   public tabHeading: string;
 
   @Input()
+  public tabHeaderCount: string;
+
+  @Input()
   public disabled: boolean;
 
   @Input()

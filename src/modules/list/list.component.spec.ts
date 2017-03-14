@@ -31,7 +31,10 @@ import {
   ListSelectedSetItemsSelectedAction,
   ListSelectedSetItemSelectedAction,
   ListToolbarItemModel,
-  ListToolbarItemsLoadAction
+  ListToolbarItemsLoadAction,
+  ListSortSetFieldSelectorsAction,
+  ListSortFieldSelectorModel,
+  ListSortLabelModel
 } from './state';
 
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
@@ -146,6 +149,7 @@ describe('List Component', () => {
       });
 
       it('should search based on input text', async(() => {
+        fixture.detectChanges();
         applySearch('banana').then(() => {
 
           fixture.detectChanges();
@@ -157,6 +161,70 @@ describe('List Component', () => {
           });
         });
       }));
+
+      describe('sorting', () => {
+        it('should sort', () => {
+          expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
+          dispatcher.next(new ListSortSetFieldSelectorsAction([
+            {
+              fieldSelector: 'column1',
+              descending: true
+            }
+          ]));
+
+          expect(element.query(
+            By.css('sky-grid-cell[sky-cmp-id="column1"]')
+          ).nativeElement.textContent.trim()).toBe('30');
+          fixture.detectChanges();
+
+
+          dispatcher.next(new ListSortSetFieldSelectorsAction([
+            {
+              fieldSelector: 'column1',
+              descending: false
+            }
+          ]));
+          fixture.detectChanges();
+          expect(element.query(
+            By.css('sky-grid-cell[sky-cmp-id="column1"]')
+          ).nativeElement.textContent.trim()).toBe('01');
+          fixture.detectChanges();
+          dispatcher.next(new ListSortSetFieldSelectorsAction([
+            {
+              fieldSelector: 'column3',
+              descending: true
+            }
+          ]));
+          fixture.detectChanges();
+          expect(element.query(
+            By.css('sky-grid-cell[sky-cmp-id=".column3"]')
+          ).nativeElement.textContent.trim()).toBe('21');
+        });
+
+        it('should sort based on column using cached search', async(() => {
+          applySearch('banana')
+          .then(() => {
+            fixture.detectChanges();
+            expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
+            expect(element.query(
+              By.css('sky-grid-cell[sky-cmp-id="column1"]')
+            ).nativeElement.textContent.trim()).toBe('01');
+
+            dispatcher.next(new ListSortSetFieldSelectorsAction([
+              {
+                fieldSelector: 'column1',
+                descending: true
+              }
+            ]));
+
+            fixture.detectChanges();
+            expect(element.query(
+              By.css('sky-grid-cell[sky-cmp-id="column1"]')
+            ).nativeElement.textContent.trim()).toBe('11');
+          });
+        }));
+
+      });
 
       describe('refreshDisplayedItems', () => {
         it('should refresh items', async(() => {
@@ -944,6 +1012,29 @@ describe('List Component', () => {
       let action = new ListSelectedSetItemsSelectedAction(['1']);
       expect(action).not.toBeUndefined();
     });
+
+    it('should construct ListSortFieldSelectorModel without data', () => {
+      let model = new ListSortFieldSelectorModel();
+      expect(model.descending).toBeFalsy();
+      expect(model.fieldSelector).toBeUndefined();
+    });
+
+    it('should construct ListSortFieldSelectorModel without data', () => {
+      let model = new ListSortFieldSelectorModel({
+        fieldSelector: 'hey',
+        descending: true
+      });
+      expect(model.descending).toBe(true);
+      expect(model.fieldSelector).toBe('hey');
+    });
+
+    it('should construct ListSortLabelModel without data', () => {
+      let model = new ListSortLabelModel();
+      expect(model.global).toBeFalsy();
+      expect(model.text).toBeUndefined();
+      expect(model.fieldSelector).toBeUndefined();
+      expect(model.fieldType).toBeUndefined();
+   });
   });
 
 });

@@ -151,6 +151,15 @@ describe('Card component', () => {
 
     validateCardSelected(cmp, el, false);
 
+    let labelEl = <HTMLLabelElement>el
+        .querySelector('label.sky-checkbox-wrapper');
+
+    labelEl.click();
+
+    fixture.detectChanges();
+
+    validateCardSelected(cmp, el, true);
+
   });
 
   it('should not allow clicking the card to select it when it is not selectable', () => {

@@ -15,6 +15,9 @@ export class SkyTabButtonComponent {
   public tabHeading: string;
 
   @Input()
+  public tabHeaderCount: string;
+
+  @Input()
   public tabStyle: string;
 
   @Input()
