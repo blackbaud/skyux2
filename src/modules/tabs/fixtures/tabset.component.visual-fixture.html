@@ -11,7 +11,7 @@
     *ngIf="!showWizard"
     (newTab)="newTabClick()"
     (openTab)="openTabClick()"
-    active="1"
+    [active]="1"
     >
     <sky-tab [tabHeading]="'Tab 1'" (close)="closeTab()">
       Tab 1 Content
@@ -36,7 +36,7 @@
   <div *ngIf="showWizard">
     <sky-tabset
       tabStyle="wizard"
-      active="0"
+      [active]="0"
 
       #wizardDemo>
       <sky-tab

@@ -565,6 +565,18 @@ describe('Tabset component', () => {
       validateTabSelected(el, 0);
     }));
 
+    it('handles initialized tabs', fakeAsync(() => {
+      let fixture = TestBed.createComponent(TabsetActiveTestComponent);
+      let cmp: TabsetActiveTestComponent = fixture.componentInstance;
+      let el = fixture.nativeElement;
+      cmp.activeIndex = 1;
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      tick();
+      validateTabSelected(el, 1);
+    }));
+
   });
 
   describe('collapsible tabs', () => {

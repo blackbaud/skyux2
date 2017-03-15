@@ -22,8 +22,11 @@ export class SkyTabsetService {
 
     this.tabs.take(1).subscribe((currentTabs) => {
       let newSelectedTab = this.getTabFromIndex(tabIndex, currentTabs);
+
       if (newSelectedTab) {
         this.activeIndex.next(newSelectedTab.tabIndex);
+      } else {
+        this.activeIndex.next(tabIndex);
       }
     });
   }

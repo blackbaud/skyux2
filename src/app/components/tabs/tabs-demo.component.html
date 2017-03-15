@@ -19,7 +19,7 @@
 
 <h3>Tabs example with counter</h3>
 <sky-tabset
-  active="0">
+  [active]="0">
   <sky-tab
       *ngFor="let tab of tabsWithCounts"
       [tabHeading]="tab.heading"
