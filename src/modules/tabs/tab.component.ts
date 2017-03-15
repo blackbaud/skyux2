@@ -4,7 +4,6 @@ import {
   Input,
   OnDestroy,
   Output,
-  ChangeDetectionStrategy,
   AfterViewInit,
   ChangeDetectorRef,
   OnChanges,
@@ -13,12 +12,9 @@ import {
 
 import { SkyTabsetService } from './tabset.service';
 
-import { Observable } from 'rxjs/Observable';
-
 @Component({
   selector: 'sky-tab',
-  templateUrl: './tab.component.html',
-
+  templateUrl: './tab.component.html'
 })
 export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
   @Input()

@@ -12,8 +12,7 @@ import {
   QueryList,
   ChangeDetectorRef,
   SimpleChanges,
-  OnChanges,
-  ChangeDetectionStrategy
+  OnChanges
 } from '@angular/core';
 
 import { SkyTabComponent } from './tab.component';

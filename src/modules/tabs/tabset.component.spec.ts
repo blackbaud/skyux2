@@ -2,8 +2,7 @@ import {
   ComponentFixture,
   TestBed,
   fakeAsync,
-  tick,
-  async
+  tick
 } from '@angular/core/testing';
 
 import { SkyTabsetComponent } from './tabset.component';
@@ -422,7 +421,7 @@ describe('Tabset component', () => {
         mockAdapterService.fakeOverflowChange(true);
 
         fixture.detectChanges();
-        tick()
+        tick();
 
         let tabEl = el.querySelector('.sky-dropdown-button-type-tab');
 
@@ -468,7 +467,6 @@ describe('Tabset component', () => {
   describe('active state on tabset', () => {
     it('should initialize active state based on active', fakeAsync(() => {
       let fixture = TestBed.createComponent(TabsetActiveTestComponent);
-      let cmp: TabsetActiveTestComponent = fixture.componentInstance;
       let el = fixture.nativeElement;
 
       fixture.detectChanges();
@@ -550,7 +548,7 @@ describe('Tabset component', () => {
       tick();
       fixture.detectChanges();
       tick();
-      cmp.tab2Available = false
+      cmp.tab2Available = false;
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
