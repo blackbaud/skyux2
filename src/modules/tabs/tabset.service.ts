@@ -14,8 +14,7 @@ export class SkyTabsetService {
 
   public activateTab(tab: SkyTabComponent) {
     this.tabs.take(1).subscribe((currentTabs) => {
-      let newTabs = this.getSelectTabs(tab, currentTabs);
-      this.tabs.next(newTabs);
+      this.activeIndex.next(tab.tabIndex);
     });
   }
 
@@ -24,10 +23,8 @@ export class SkyTabsetService {
     this.tabs.take(1).subscribe((currentTabs) => {
       let newSelectedTab = this.getTabFromIndex(tabIndex, currentTabs);
       if (newSelectedTab) {
-        let newTabs = this.getSelectTabs(newSelectedTab, currentTabs);
-        this.tabs.next(newTabs);
+        this.activeIndex.next(newSelectedTab.tabIndex);
       }
-
     });
   }
 
@@ -52,22 +49,18 @@ export class SkyTabsetService {
 
       let tabIndex = currentTabs.indexOf(tab);
       if (tab.active) {
-        if (currentTabs) {
+        // Try selecting the next tab first, and if there's no next tab then
+        // try selecting the previous one.
+        let newActiveTab = currentTabs[tabIndex + 1] || currentTabs[tabIndex - 1];
 
-          // Try selecting the next tab first, and if there's no next tab then
-          // try selecting the previous one.
-          let newActiveTab = currentTabs[tabIndex + 1] || currentTabs[tabIndex - 1];
-
-          /*istanbul ignore else */
-          if (newActiveTab) {
-            currentTabs = this.getSelectTabs(newActiveTab, currentTabs);
-          }
+        /*istanbul ignore else */
+        if (newActiveTab) {
+          this.activeIndex.next(newActiveTab.tabIndex);
         }
-
       }
 
       if (tabIndex > -1) {
-        currentTabs.splice(tabIndex);
+        currentTabs.splice(tabIndex, 1);
       }
       this.tabs.next(currentTabs);
     });
@@ -82,10 +75,9 @@ export class SkyTabsetService {
   private getLastTabIndex(tabs: Array<SkyTabComponent>) {
     let result: any = undefined;
     for (let i = 0; i < tabs.length; i++) {
-      if (typeof tabs[i].tabIndex === 'number') {
-        if (!result || result < tabs[i].tabIndex) {
-          result = tabs[i].tabIndex;
-        }
+      if (typeof tabs[i].tabIndex === 'number' &&
+        (result === undefined || result < tabs[i].tabIndex)) {
+        result = tabs[i].tabIndex;
       }
     }
     return result;
@@ -99,20 +91,5 @@ export class SkyTabsetService {
         return existingTab;
       }
     }
-  }
-
-  private getSelectTabs(tab: SkyTabComponent, currentTabs: Array<SkyTabComponent>) {
-    for (let i = 0, n = currentTabs.length; i < n; i++) {
-      let existingTab = currentTabs[i];
-
-      if (tab !== existingTab) {
-        existingTab.active = false;
-      } else {
-        this.activeIndex.next(tab.tabIndex);
-      }
-    }
-
-    tab.active = true;
-    return currentTabs;
   }
 }

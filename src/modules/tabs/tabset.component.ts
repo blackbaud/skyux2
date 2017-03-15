@@ -12,7 +12,8 @@ import {
   QueryList,
   ChangeDetectorRef,
   SimpleChanges,
-  OnChanges
+  OnChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { SkyTabComponent } from './tab.component';
@@ -86,14 +87,14 @@ export class SkyTabsetComponent
     if (this.active || this.active === 0) {
       this.tabsetService.activateTabIndex(this.active);
     }
-    this.tabsetService.activeIndex.subscribe((newActiveIndex) => {
+    this.tabsetService.activeIndex.distinctUntilChanged().subscribe((newActiveIndex) => {
 
          // HACK: Not selecting the active tab in a timeout causes an error.
         // https://github.com/angular/angular/issues/6005
         setTimeout(() => {
           if (newActiveIndex !== this.active) {
-            this.activeChange.emit(newActiveIndex);
             this.active = newActiveIndex;
+            this.activeChange.emit(newActiveIndex);
           }
         });
     });

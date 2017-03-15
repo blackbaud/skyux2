@@ -65,22 +65,6 @@ export class SkyTabsDemoComponent {
   }
 
   public tabChanged(newIndex: any) {
-    this.activeTabIndex = newIndex;
-  }
-
-  public goToNextTab() {
-    if (this.tabs.length !== this.activeTabIndex + 1 && this.activeTabIndex !== 'permanent') {
-      this.activeTabIndex += 1;
-    } else if (this.tabs.length === this.activeTabIndex + 1) {
-      this.activeTabIndex = 'permanent';
-    }
-  }
-
-  public goToPreviousTab() {
-    if (this.activeTabIndex === 'permanent') {
-      this.activeTabIndex = this.tabs.length - 1;
-    } else if (this.activeTabIndex !== 0) {
-      this.activeTabIndex -= 1;
-    }
+    console.log('new active', this.activeTabIndex);
   }
 }

@@ -1,6 +1,3 @@
-<button type="button" class="sky-btn sky-btn-default" (click)="goToNextTab()">Next tab</button>
-<button type="button" class="sky-btn sky-btn-default" (click)="goToPreviousTab()">Previous tab</button>
-
 <sky-tabset
   (newTab)="newTabClick()"
   (openTab)="openTabClick()"
@@ -21,13 +18,13 @@
 </sky-tabset>
 
 <h3>Tabs example with counter</h3>
-<!--<sky-tabset
+<sky-tabset
   active="0">
   <sky-tab
-      *ngFor="let tab of tabsWithCounts; let i = index"
+      *ngFor="let tab of tabsWithCounts"
       [tabHeading]="tab.heading"
       [tabHeaderCount]="tab.headerCount"
   >
     {{tab.content}}
   </sky-tab>
-</sky-tabset>-->
+</sky-tabset>

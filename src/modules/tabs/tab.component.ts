@@ -5,17 +5,22 @@ import {
   OnDestroy,
   Output,
   ChangeDetectionStrategy,
-  AfterViewInit
+  AfterViewInit,
+  ChangeDetectorRef,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 
 import { SkyTabsetService } from './tabset.service';
 
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'sky-tab',
   templateUrl: './tab.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
-export class SkyTabComponent implements OnDestroy, AfterViewInit {
+export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
   @Input()
   public tabHeading: string;
 
@@ -29,19 +34,7 @@ export class SkyTabComponent implements OnDestroy, AfterViewInit {
   public tabIndex: string | number;
 
   @Input()
-  public set active(value: boolean) {
-    let wasActive = this._active;
-
-    this._active = value;
-
-    if (!wasActive && this._active) {
-      this.tabsetService.activateTab(this);
-    }
-  }
-
-  public get active(): boolean {
-    return this._active;
-  }
+  public active: boolean;
 
   public get allowClose(): boolean {
     return this.close.observers.length > 0;
@@ -50,13 +43,36 @@ export class SkyTabComponent implements OnDestroy, AfterViewInit {
   @Output()
   public close = new EventEmitter<any>();
 
-  private _active = false;
+  constructor(private tabsetService: SkyTabsetService, private ref: ChangeDetectorRef) {}
 
-  constructor(private tabsetService: SkyTabsetService) {
+  public ngAfterViewInit() {
+    setTimeout(() => {
+      this.tabsetService.addTab(this);
+
+      this.tabsetService.activeIndex.subscribe((activeIndex: any) => {
+        this.active = this.tabIndex === activeIndex;
+        this.ref.markForCheck();
+      });
+
+      if (this.active) {
+        this.tabsetService.activateTab(this);
+      }
+    });
 
   }
-  public ngAfterViewInit() {
-    this.tabsetService.addTab(this);
+
+  public ngOnChanges(changes: SimpleChanges) {
+    /* istanbul ignore else */
+    /* sanity check */
+    if (changes) {
+      let activeChange = changes['active'];
+      if (activeChange
+        && this.tabIndex !== undefined
+        && activeChange.previousValue !== activeChange.currentValue
+        && this.active) {
+        this.tabsetService.activateTab(this);
+      }
+    }
   }
 
   public ngOnDestroy() {
