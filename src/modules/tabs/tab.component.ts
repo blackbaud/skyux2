@@ -3,16 +3,19 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  Output
+  Output,
+  ChangeDetectionStrategy,
+  AfterViewInit
 } from '@angular/core';
 
 import { SkyTabsetService } from './tabset.service';
 
 @Component({
   selector: 'sky-tab',
-  templateUrl: './tab.component.html'
+  templateUrl: './tab.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTabComponent implements OnDestroy {
+export class SkyTabComponent implements OnDestroy, AfterViewInit {
   @Input()
   public tabHeading: string;
 
@@ -21,6 +24,9 @@ export class SkyTabComponent implements OnDestroy {
 
   @Input()
   public disabled: boolean;
+
+  @Input()
+  public tabIndex: string | number;
 
   @Input()
   public set active(value: boolean) {
@@ -46,7 +52,12 @@ export class SkyTabComponent implements OnDestroy {
 
   private _active = false;
 
-  constructor(private tabsetService: SkyTabsetService) { }
+  constructor(private tabsetService: SkyTabsetService) {
+
+  }
+  public ngAfterViewInit() {
+    this.tabsetService.addTab(this);
+  }
 
   public ngOnDestroy() {
     this.tabsetService.destroyTab(this);

@@ -10,7 +10,9 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 
 import { SkyTabComponent } from './tab.component';
@@ -23,12 +25,13 @@ import { SkyTabsetService } from './tabset.service';
   templateUrl: './tabset.component.html',
   providers: [SkyTabsetAdapterService, SkyTabsetService]
 })
-export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCheck, OnDestroy {
+export class SkyTabsetComponent
+  implements AfterContentInit, AfterViewInit, DoCheck, OnDestroy, OnChanges {
   @Input()
   public tabStyle = 'tabs';
 
   @Input()
-  public active: number;
+  public active: number | string;
 
   @Output()
   public newTab = new EventEmitter<any>();
@@ -37,16 +40,12 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
   public openTab = new EventEmitter<any>();
 
   @Output()
-  public tabActiveChange = new EventEmitter<any>();
+  public activeChange = new EventEmitter<any>();
 
   public tabDisplayMode = 'tabs';
 
   @ContentChildren(SkyTabComponent)
   public tabs: QueryList<SkyTabComponent>;
-
-  private isDestroyed: boolean;
-
-  private activeTabIndex: number;
 
   constructor(
     private tabsetService: SkyTabsetService,
@@ -54,37 +53,6 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
     private elRef: ElementRef,
     private changeRef: ChangeDetectorRef
   ) {
-    tabsetService.tabDestroy.subscribe((tab: SkyTabComponent) => {
-      if (!this.isDestroyed && tab.active) {
-        let tabs = this.tabs.toArray();
-        let tabIndex = tabs.indexOf(tab);
-
-        // Try selecting the next tab first, and if there's no next tab then
-        // try selecting the previous one.
-        let newActiveTab = tabs[tabIndex + 1] || tabs[tabIndex - 1];
-
-        /*istanbul ignore else */
-        if (newActiveTab) {
-          this.selectTab(newActiveTab);
-        }
-      }
-    });
-  }
-
-  public selectTab(tab: SkyTabComponent) {
-    let tabs = this.tabs.toArray();
-
-    for (let i = 0, n = tabs.length; i < n; i++) {
-      let existingTab = tabs[i];
-
-      if (tab !== existingTab) {
-        existingTab.active = false;
-      } else {
-        this.activeTabIndex = i;
-      }
-    }
-
-    tab.active = true;
   }
 
   public tabCloseClick(tab: SkyTabComponent) {
@@ -103,14 +71,31 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
     this.adapterService.detectOverflow();
   }
 
+  public selectTab(newTab: SkyTabComponent) {
+    this.tabsetService.activateTab(newTab);
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['active'] && changes['active'].currentValue !== changes['active'].previousValue) {
+      this.tabsetService.activateTabIndex(this.active);
+    }
+
+  }
+
   public ngAfterContentInit() {
-    this.tabsetService.tabActivate.subscribe((tab: SkyTabComponent) => {
-      // HACK: Not selecting the active tab in a timeout causes an error.
-      // https://github.com/angular/angular/issues/6005
-      setTimeout(() => {
-        this.selectTab(tab);
-        this.tabActiveChange.emit({ activeIndex: this.activeTabIndex });
-      }, 0);
+    if (this.active || this.active === 0) {
+      this.tabsetService.activateTabIndex(this.active);
+    }
+    this.tabsetService.activeIndex.subscribe((newActiveIndex) => {
+
+         // HACK: Not selecting the active tab in a timeout causes an error.
+        // https://github.com/angular/angular/issues/6005
+        setTimeout(() => {
+          if (newActiveIndex !== this.active) {
+            this.activeChange.emit(newActiveIndex);
+            this.active = newActiveIndex;
+          }
+        });
     });
   }
 
@@ -134,7 +119,6 @@ export class SkyTabsetComponent implements AfterContentInit, AfterViewInit, DoCh
 
   public ngOnDestroy() {
     this.tabsetService.destroy();
-    this.isDestroyed = true;
   }
 
   private updateDisplayMode(currentOverflow: boolean) {

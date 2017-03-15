@@ -8,7 +8,7 @@ export class SkyTabsDemoComponent {
   public tabs: any[];
   public tabsWithCounts: any[];
 
-  public activeTabIndex = 0;
+  public activeTabIndex: any = 0;
 
   constructor() {
     this.tabs = [
@@ -51,7 +51,7 @@ export class SkyTabsDemoComponent {
   }
 
   public newTabClick() {
-    let nextTab = this.tabs.length + 1;
+    let nextTab = this.tabs && this.tabs.length + 1;
 
     this.tabs.push({
       heading: 'Tab ' + nextTab,
@@ -64,20 +64,23 @@ export class SkyTabsDemoComponent {
     alert('You clicked the open tab button');
   }
 
-  public tabChanged(activeChangeArgs: any) {
-    this.activeTabIndex = activeChangeArgs.activeIndex;
+  public tabChanged(newIndex: any) {
+    this.activeTabIndex = newIndex;
   }
 
   public goToNextTab() {
-    if (this.tabs.length !== this.activeTabIndex + 1) {
-      this.tabs[this.activeTabIndex + 1].active = true;
+    if (this.tabs.length !== this.activeTabIndex + 1 && this.activeTabIndex !== 'permanent') {
+      this.activeTabIndex += 1;
+    } else if (this.tabs.length === this.activeTabIndex + 1) {
+      this.activeTabIndex = 'permanent';
     }
   }
 
   public goToPreviousTab() {
-    debugger;
-    if (this.activeTabIndex !== 0) {
-      this.tabs[this.activeTabIndex - 1].active = true;
+    if (this.activeTabIndex === 'permanent') {
+      this.activeTabIndex = this.tabs.length - 1;
+    } else if (this.activeTabIndex !== 0) {
+      this.activeTabIndex -= 1;
     }
   }
 }
