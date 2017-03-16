@@ -9,6 +9,13 @@ import { SkyTextExpandRepeaterModule } from './text-expand-repeater.module';
 import { SkyResources } from '../resources/resources';
 
 describe('Text expand repeater component', () => {
+
+  function createTransition(){
+    let evt = document.createEvent('TransitionEvent');
+    evt.initEvent('transitionend', true, true);
+    return evt;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -72,7 +79,7 @@ describe('Text expand repeater component', () => {
       expect(hiddenItems.length).toBe(1);
 
       seeMoreButton.click();
-      container.dispatchEvent(new Event('transitionend'));
+      container.dispatchEvent(createTransition());
       fixture.detectChanges();
 
       shownItems =
@@ -85,7 +92,7 @@ describe('Text expand repeater component', () => {
       expect(hiddenItems.length).toBe(0);
 
       seeMoreButton.click();
-      container.dispatchEvent(new Event('transitionend'));
+      container.dispatchEvent(createTransition());
       fixture.detectChanges();
 
       shownItems =

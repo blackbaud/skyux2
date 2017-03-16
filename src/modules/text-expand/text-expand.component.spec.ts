@@ -15,6 +15,13 @@ import {
 } from '../modal';
 
 describe('Text expand component', () => {
+
+  function createTransition() {
+    let evt = document.createEvent('TransitionEvent');
+    evt.initEvent('transitionend', true, true);
+    return evt;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -131,7 +138,7 @@ describe('Text expand component', () => {
 
       seeMoreButton.click();
       document.querySelector('.sky-text-expand-container')
-        .dispatchEvent(new Event('transitionend'));
+        .dispatchEvent(createTransition());
       fixture.detectChanges();
       ellipsis = el.querySelector('.sky-text-expand-ellipsis');
       textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
@@ -143,7 +150,7 @@ describe('Text expand component', () => {
 
       seeMoreButton.click();
       document.querySelector('.sky-text-expand-container')
-        .dispatchEvent(new Event('transitionend'));
+        .dispatchEvent(createTransition());
       fixture.detectChanges();
 
       ellipsis = el.querySelector('.sky-text-expand-ellipsis');
