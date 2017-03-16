@@ -10,7 +10,7 @@ import { SkyResources } from '../resources/resources';
 
 describe('Text expand repeater component', () => {
 
-  function createTransition(){
+  function createTransition() {
     let evt = document.createEvent('TransitionEvent');
     evt.initEvent('transitionend', true, true);
     return evt;
