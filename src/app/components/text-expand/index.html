@@ -1,35 +1,32 @@
 <sky-demo-page title="Text Expand">
   <sky-demo-page-summary>
     <p>
-      The Text Expand component truncates long text with an ellipsis and a link that allows the user to fully expand the text.
-      If the text length falls below the specified threshold then no action is taken. The 'See more' link will expand the
-      text inline if the length of the text is below the specified expanded length limit and if the number of newlines in
-      the text is below the specified expanded newline limit, otherwise the link will open the text in a modal view.
+      The text expand component truncates long text with an ellipsis and a link that allows the user to fully expand the text.
+      If the text length falls below the specified threshold, then no action is taken. The 'See more' link will expand the
+      text inline if it does not exceed the limits on text characters or newline characters for the inline expanded view. Otherwise, the link will open the text in a modal view.
     </p>
     <p>
-      Note that collapsed text will have newlines removed. Also, if one or more newlines are detected, the text is automatically
-      collapsed regardless of the total length of the text.
+      Note that collapsed text will have newlines removed. Also, if newlines are detected, the text is automatically
+      collapsed regardless of the total length.
     </p>
     <p>
-      The Text Expand Repeater directive truncates a list of repeater items and will initially display a set number of items. Any items over the set maximum limit are hidden until the user elects to expand the list.
+      The text expand repeater component truncates a list of repeater items and will initially display a set number of items. Any items over the set maximum limit are hidden until the user expands the list.
     </p>
   </sky-demo-page-summary>
 
   <sky-demo-page-properties sectionHeading="Text expand properties">
     <sky-demo-page-property propertyName="text">
-      The text to truncate
+      The text to truncate.
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="maxLength" defaultValue="200" isOptional="true">
-      The number of characters to show before truncating the text. The directive will attempt to look back up to 10 characters
-      for a space and truncate there in order to avoid truncating in the middle of a word.
+      The number of characters to show before truncating the text. To avoid truncating text in the middle of a word, the directive looks for a space in the 10 characters before the last character.
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="maxExpandedLength" defaultValue="600" isOptional="true">
-      The maximum number of characters to show in the inline expanded view. If there are more characters in the content, then a
+      The maximum number of characters to show in the inline expanded view. If the text includes more characters, then a
       modal view with the content will be displayed when the 'See more' link is clicked
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="maxExpandedNewlines" defaultValue="2" isOptional="true">
-      The maximum number of newline characters to show in the inline expanded view. If there are more newline characters in the
-      content, then a modal view with the content will be displayed when the 'See more' link is clicked.
+      The maximum number of newline characters to show in the inline expanded view. If the text includes more newline characters, then a modal view with the content will be displayed when the 'See more' link is clicked.
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="expandModalTitle" defaultValue="Expanded View" isOptional="true">
       The title to display in the modal expanded view.
@@ -38,10 +35,10 @@
 
   <sky-demo-page-properties sectionHeading="Text expand repeater properties">
     <sky-demo-page-property propertyName="data">
-      The data to truncate
+      The data to truncate.
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="maxItems">
-      The number of items from the data to display before truncating
+      The number of items from the data to display before truncating.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

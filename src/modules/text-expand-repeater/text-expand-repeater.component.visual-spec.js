@@ -1,4 +1,4 @@
-describe('TextExpand', function () {
+describe('TextExpandRepeater', function () {
   'use strict';
 
   it('should match previous text expand repeater when not expanded', function () {
@@ -12,7 +12,7 @@ describe('TextExpand', function () {
 
   it('should match the previous text expand repeater when expanded', function () {
     return browser
-      .setupTest('/text-expand.html')
+      .setupTest('/text-expand-repeater.html')
       .click('.sky-text-expand-see-more')
       .compareScreenshot({
         screenshotName: 'text-expand-repeater-expanded',
