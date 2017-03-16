@@ -168,8 +168,6 @@ export class SkyTextExpandComponent implements AfterViewInit {
     this.buttonText = expanding ? this.seeLessText : this.seeMoreText;
     // Measure the new height so we can animate to it.
     let newHeight = container.offsetHeight;
-    console.log(newHeight);
-    console.log(currentHeight);
     if (newHeight < currentHeight) {
       // The new text is smaller than the old text, so put the old text back before doing
       // the collapse animation to avoid showing a big chunk of whitespace.
