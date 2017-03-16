@@ -17,8 +17,8 @@ import {
 describe('Text expand component', () => {
 
   function createTransition() {
-    let evt = document.createEvent('TransitionEvent');
-    evt.initEvent('transitionend', true, true);
+    let evt = document.createEvent('CustomEvent');
+    evt.initEvent('transitionend', false, false);
     return evt;
   }
 
