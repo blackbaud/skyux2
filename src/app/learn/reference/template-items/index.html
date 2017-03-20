@@ -1,0 +1,42 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-container">
+    <h1>Template items</h1>
+    <p>This reference describes the default items that the template includes in a SKY UX single-page applicatoin after you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>.</p>
+    
+    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, the <code>skyuxconfig.json</code> file in your project's directory allows you to configure settings for SKY UX. All properties in <code>skyuxconfig.json</code> are optional, and by default, the file only specifies values for the <code>mode</code> and <code>compileMode</code> settings.</p>
+    <sky-alert alertType="info">The <code>skyuxconfig.json</code> does not include all SKY UX configuration options. SKY UX Builder defines some configuration options that are not included in this file.</sky-alert>
+    <p>The default items that the template creates in a SKY UX SPA include:</p>
+    <ul>
+        <li><p><code>vscode</code> folder — Contains 2 .json files to configure settings that are included for the developer's convenience.</p>
+            <ul>
+                <li><p><code>launch.json</code> file — A launch configuration file that provides settings for how to debug the build process for the SPA.</p></li>
+                <li><p><code>settings.json</code> file — A file that controls editor settings for VSCode.</p></li>
+            </ul>
+        </li>
+        <li><p><code>coverage</code> folder — Stores code coverage results for unit tests. This folder is generated when you run <code>skyux test</code> or <code>skyux watch</code> and provides a convenient way for developers to see what code their tests did and did not reach. We recommend that all new code should have 100 percent unit test code coverage. For information about the code coverage requirements to contribute to SKY UX, see the <a href="https://github.com/blackbaud/skyux2/blob/master/CONTRIBUTING.md">SKY UX 2 contribution guidelines</a>.</p></li>
+        <li><p><code>dist</code> folder — Contains files that are deployed through the continuous integration pipeline. This folder is generated when you run <code>skyux build</code>. The CI layer of SKY UX runs unit tests, visual regression tests, and end-to-end tests and handles staging for additional testing and validation.</p></li>
+        <li><p><code>e2e</code> folder — The required location to store end-to-end tests. As a convenience, this folder contains sample tests.</p></li>
+        <li><p><code>node_modules</code> folder — Stores the external dependencies for SKY UX components and SKY UX Builder. This includes system files to build the single-page application. The folder is listed in the <code>.gitignore</code> file. Do not place it into source code control.</p></li>
+        <li><p><code>src</code> folder — Contains files for the SPA.</p>
+            <li><p><code>app</code> folder — XXXXXX.</p>
+                <ul>
+                    <li><p><code>about</code> folder — The page, component, and unit test for the About page in the template. The index.html file is needed to generate a route. The .ts and .html files are used to create the AboutComponent that is referenced in index.html. … The .spec file is the unit testing file. We suggest that they be stored in the same location as the component .ts file. I have that in the docs somewhere. Make sure I really do and/or link to it..</p></li>
+                    <li><p><code>shared</code> folder — XXXXXX.</p></li>
+                    <li><p><code>app-extras.module.ts</code> — XXXXXX.</p></li>
+                    <li><p><code>nome.component.html</code>, <code>nome.component.ts</code>, <code>nome.component.spec.ts</code>, and <code>index.html</code> — XXXXXX.</p></li>
+                </ul>
+            </li>
+        </li>
+        <li><p><code>.editorconfig</code> — XXX.</p></li>
+        <li><p><code>.gitignore</code> — XXX.</p></li>
+        <li><p><code>package.json</code> — XXX.</p></li>
+        <li><p><code>README.md</code> — XXX.</p></li>
+        <li><p><code>skyuxconfig.json</code> — XXX.</p></li>
+        <li><p><code>tsconfig.json</code> — XXX.</p></li>
+        <li><p><code>tslint.json</code> — XXX.</p></li>
+    </ul>
+
+    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
+    <p><strong>Previous step »</strong> <a routerLink="/learn/reference">Technical reference</a></p>
+    
+</div>
