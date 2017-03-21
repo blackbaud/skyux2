@@ -1,4 +1,4 @@
-#Contributing
+# Contributing
 
 We highly encourage contributions from all SKY UX 2 users. We just ask you to follow the coding conventions in the existing code and to write the appropriate documentation and unit tests for your feature.
 
