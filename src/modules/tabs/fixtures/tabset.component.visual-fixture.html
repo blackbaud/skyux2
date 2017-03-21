@@ -7,11 +7,16 @@
 </button>
 
 <div id="screenshot-tabset" style="height: 200px;">
-  <sky-tabset *ngIf="!showWizard" (newTab)="newTabClick()" (openTab)="openTabClick()">
+  <sky-tabset
+    *ngIf="!showWizard"
+    (newTab)="newTabClick()"
+    (openTab)="openTabClick()"
+    [active]="1"
+    >
     <sky-tab [tabHeading]="'Tab 1'" (close)="closeTab()">
       Tab 1 Content
     </sky-tab>
-    <sky-tab [tabHeading]="'Tab 2'" [active]="'true'" (close)="closeTab()">
+    <sky-tab [tabHeading]="'Tab 2'" (close)="closeTab()">
       Tab 2 Content
     </sky-tab>
     <sky-tab [tabHeading]="'Tab 3'" (close)="closeTab()">
@@ -29,10 +34,13 @@
   </sky-tabset>
 
   <div *ngIf="showWizard">
-    <sky-tabset  tabStyle="wizard" #wizardDemo>
+    <sky-tabset
+      tabStyle="wizard"
+      [active]="0"
+
+      #wizardDemo>
       <sky-tab
         tabHeading="Step 1"
-        active="true"
       >
         <label>
           Enter text here to continue.

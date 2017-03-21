@@ -1,5 +1,7 @@
 import {
-  TestBed
+  TestBed,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import { expect } from '../testing';
@@ -56,12 +58,16 @@ describe('Tabset navigation button', () => {
   });
 
   describe('previous button', () => {
-    it('should navigate to the previous tab when clicked', () => {
+    it('should navigate to the previous tab when clicked', fakeAsync(() => {
       let fixture = TestBed.createComponent(SkyWizardTestFormComponent);
+
+      fixture.detectChanges();
+      tick();
 
       fixture.componentInstance.selectedTab = 1;
 
       fixture.detectChanges();
+      tick();
 
       let tabBtns = document.querySelectorAll('.sky-btn-tab-wizard');
 
@@ -71,9 +77,10 @@ describe('Tabset navigation button', () => {
 
       previousBtn.click();
       fixture.detectChanges();
+      tick();
 
       expect(tabBtns[0]).toHaveCssClass('sky-btn-tab-selected');
-    });
+    }));
 
     it('should be disabled if the first tab is selected', () => {
       let fixture = TestBed.createComponent(SkyWizardTestFormComponent);
@@ -87,10 +94,11 @@ describe('Tabset navigation button', () => {
   });
 
   describe('next button', () => {
-    it('should navigate to the next tab when clicked', () => {
+    it('should navigate to the next tab when clicked', fakeAsync(() => {
       let fixture = TestBed.createComponent(SkyWizardTestFormComponent);
 
       fixture.detectChanges();
+      tick();
 
       let tabBtns = document.querySelectorAll('.sky-btn-tab-wizard');
 
@@ -100,9 +108,10 @@ describe('Tabset navigation button', () => {
 
       nextBtn.click();
       fixture.detectChanges();
+      tick();
 
       expect(tabBtns[1]).toHaveCssClass('sky-btn-tab-selected');
-    });
+    }));
 
     it('should be disabled if the next tab is disabled', () => {
       let fixture = TestBed.createComponent(SkyWizardTestFormComponent);
