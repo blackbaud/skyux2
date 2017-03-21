@@ -64,17 +64,13 @@ class AppComponent {
   }
 
   private removeFromArray(items: Array<any>, obj: SkyFileItem | SkyFileLink) {
-      let i: number,
-          n: number;
+    if (items) {
+      const index = items.indexOf(obj);
 
-      if (items) {
-          for (i = 0, n = items.length; i < n; i++) {
-              if (items[i] === obj) {
-                  items.splice(i, 1);
-                  break;
-              }
-          }
+      if (index !== -1) {
+        items.splice(index, 1);
       }
+    }
   }
 }
 

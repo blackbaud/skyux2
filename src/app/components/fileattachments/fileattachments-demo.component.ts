@@ -54,15 +54,11 @@ export class SkyFileattachmentsDemoComponent {
   }
 
   private removeFromArray(items: any[], obj: SkyFileItem | SkyFileLink) {
-    let i: number,
-      n: number;
-
     if (items) {
-      for (i = 0, n = items.length; i < n; i++) {
-        if (items[i] === obj) {
-          items.splice(i, 1);
-          break;
-        }
+      const index = items.indexOf(obj);
+
+      if (index !== -1) {
+        items.splice(index, 1);
       }
     }
   }
