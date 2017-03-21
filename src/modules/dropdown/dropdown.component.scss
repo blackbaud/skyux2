@@ -1,12 +1,15 @@
 @import "../../scss/mixins";
 
+.sky-dropdown-button {
+  background-color: #fff;
+}
+
 .sky-dropdown-button-type-tab {
   @include sky-btn-tab;
   @include sky-btn-tab-selected;
 }
 
 .sky-dropdown-button-type-context-menu {
-  background-color: #fff;
   border-radius: 50%;
   padding-bottom: 3px;
   padding-left: 6px;
