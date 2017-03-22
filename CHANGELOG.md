@@ -1,3 +1,13 @@
+# 2.0.0-beta.14 (2017-03-22)
+
+  - Changed tabs to have `active` state on tabset level instead of individual tab. (#433)
+  - Added additional documentation to README.
+  - Added additional documentation around configuration options.
+  - Added additional documentation around items in the template.
+  - Added white background-color to dropdown buttons. (Thanks @Blackbaud-TrevorBurch) (#486)
+  - Fixed documentation examples to use `indexOf` instead of a loop. (Thanks @Blackbaud-ScottFreeman) 
+  - Updated the default padding for modals. (#483)
+
 # 2.0.0-beta.13 (2017-03-13)
 
   - Added documentation for help configuration.
