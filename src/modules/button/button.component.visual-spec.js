@@ -17,7 +17,7 @@ describe('Button', function () {
       .setupTest('/button.html')
       .moveToObject('#screenshot-button-link-inline .sky-btn')
       .compareScreenshot({
-        screenshotName: 'button_link_hover',
+        screenshotName: 'button_link_inline_hover',
         selector: '#screenshot-button-link-inline',
         checkAccessibility: true
       });
