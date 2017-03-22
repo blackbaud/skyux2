@@ -1,6 +1,7 @@
 # 2.0.0-beta.14 (2017-03-22)
 
   - Changed tabs to have `active` state on tabset level instead of individual tab. (#433)
+  - Added the text expand component. (Thanks @Blackbaud-TrevorBurch) (#162)
   - Added additional documentation to README.
   - Added additional documentation around configuration options.
   - Added additional documentation around items in the template.
