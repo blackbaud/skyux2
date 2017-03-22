@@ -9,27 +9,27 @@
 
 // These alerts have the default Bootstrap colors.  We need to change them at some point.
 .sky-alert-info {
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    color: #31708f;
+    background-color: $sky-info-background-color;
+    border-color: $sky-info-border-color;
+    color: $sky-info-text-color;
 }
 
 .sky-alert-success {
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    color: #3c763d;
+    background-color: $sky-success-background-color;
+    border-color:$sky-success-border-color;
+    color: $sky-success-text-color;
 }
 
 .sky-alert-warning {
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    color: #8a6d3b;
+    background-color: $sky-warning-background-color;
+    border-color: $sky-warning-border-color;
+    color: $sky-warning-text-color;
 }
 
 .sky-alert-danger {
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    color: #ca2a2a;
+    background-color: $sky-danger-background-color;
+    border-color: $sky-danger-border-color;
+    color: $sky-danger-text-color;
 }
 
 .sky-alert-close {

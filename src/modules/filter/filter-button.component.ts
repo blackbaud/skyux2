@@ -17,7 +17,7 @@ export class SkyFilterButtonComponent {
   public active: boolean = false;
 
   @Output()
-  filterButtonClick: EventEmitter<any> = new EventEmitter();
+  public filterButtonClick: EventEmitter<any> = new EventEmitter();
 
   public filterButtonOnClick() {
     this.filterButtonClick.emit(undefined);

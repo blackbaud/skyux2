@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SkyFilterButtonComponent} from './filter-button.component';
+import { SkyFilterSummaryComponent } from './filter-summary.component';
 import { SkyResourcesModule } from '../resources';
 
 @NgModule({
