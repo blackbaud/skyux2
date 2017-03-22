@@ -1,0 +1,27 @@
+<sky-demo-page title="Filter">
+  <sky-demo-page-summary>
+    The filter module provides components that allow users to select filter criteria. These components create a button to expose filtering options, a summary to indicate which filters have been applied, and a area for filtering inline.
+  </sky-demo-page-summary>
+
+  <sky-demo-page-properties sectionHeading="Filter button properties">
+     <sky-demo-page-property
+      propertyName="active"
+      isOptional="true"
+    >
+      Indicates whether the filter button should be given active indication. This property should be set when indication of filtering is not visible to the user, such as when a filter summary is not shown.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+  <sky-demo-page-properties sectionHeading="Filter button events">
+     <sky-demo-page-property
+      propertyName="filterButtonClick"
+    >
+      An event that is emitted when the filter button is clicked.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <sky-filter-demo></sky-filter-demo>
+    <sky-demo-page-code demoName="Filter"></sky-demo-page-code>
+  </sky-demo-page-example>
+
+</sky-demo-page>
