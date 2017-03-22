@@ -47,7 +47,6 @@
   border-color: transparent;
   text-decoration: underline;
   outline: none;
-  border: none;
 }
 
 .sky-btn-link-inline {
@@ -58,6 +57,10 @@
   padding: 0;
   border: none;
   vertical-align: top;
+}
+
+.sky-btn-link-inline:hover, .sky-btn-link-inline:focus {
+  border: none;
 }
 
 .sky-btn-tab {
