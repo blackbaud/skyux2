@@ -4,7 +4,7 @@
     <p>This reference describes the commands and options that are available in the SKY UX CLI.</p>
     
     <ul>
-        <li><p><code>skyux new</code> — Initializes a new local SKY UX project by pulling down the latest version of the template and installing the necessary dependencies.</p></li>
+        <li><p><code>skyux new</code> — Initializes a new local SKY UX project by pulling down the latest version of the template and installing the necessary dependencies. For information about the default items that the template provides in a SKY UX single-page application, see <a routerLink="/learn/reference/template-items">the template items reference</a>.</p></li>
         <li><p><code>skyux serve</code> — Serves the current SKY UX single-page application locally. This command also opens the <code>host</code> endpoint with the necessary query string to pull your local files. It tacks on <code>local=true</code> in the query string to instruct SKY UX Host to pull files from the local machine instead of the hosted location. The SPA automatically opens in the default browser, but you can add the <code>--launch none</code> option to the command to prevent the SPA from opening. The <code>serve</code> command basically updates the production location rather than creating a duplicate local instance, so to view the production version alongside a local version, you need to open a separate incognito tab. The <code>serve</code> command sets a cookie to apply local dev mode.</p></li>
         <li><p><code>skyux build</code> — Builds the current SPA into dist/. The <code>build</code> and <code>serve</code> commands are largely the same command under the hood, but <code>serve</code> works in memory and launches a web server for the user, while <code>build</code> performs the same operations by writing and storing files to disk. The <code>build</code> command produces the static assets for an SPA.</p></li>
         <li><p><code>skyux test</code> — Runs unit tests. The Karma unit test is configured under the hood to look for specific file names, similar to how SKY UX Builder looks for <code>index.html</code> files. The Karma unit test looks for any files with a name that ends in <code>.component.spec.ts</code>. Users should write separate tests to confirm that the components work. For more information about unit tests, see <a routerLink="/learn/reference/tests/unit-tests">the unit test reference</a>.</p></li>
@@ -13,10 +13,6 @@
         <li><p><code>skyux version</code> or <code>skyux -v</code> — Returns the version of SKY UX CLI.</p></li>
         <li><p><code>skyux</code>, <code>skyux help</code>, or <code>skyux -h</code> — Displays help information for SKY UX CLI arguments. This lists the commands and options that are available in the SKY UX CLI and provides descriptions.</p></li>
     </ul>
-
-            <li><p></p></li>
-        <li><p></p></li>
-
     
     <h2>Options</h2>
     <ul>
