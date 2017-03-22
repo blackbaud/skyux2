@@ -59,6 +59,10 @@
   vertical-align: top;
 }
 
+.sky-btn-link-inline:hover, .sky-btn-link-inline:focus {
+  border: none;
+}
+
 .sky-btn-tab {
   @include sky-btn-tab();
 }
