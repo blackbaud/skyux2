@@ -634,6 +634,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Text Expand',
+        icon: 'text-height',
+        // tslint:disable-next-line
+        summary: `The text expand component truncates long text with an ellipsis and a link that users can click to expand the text.`,
+        url: '/components/text-expand',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'text-expand-demo.component.html',
+              fileContents: require('!!raw!./text-expand/text-expand-demo.component.html')
+            },
+            {
+              name: 'tabs-demo.component.ts',
+              fileContents: require('!!raw!./text-expand/text-expand-demo.component.ts'),
+              componentName: 'SkyTextExpandDemoComponent',
+              bootstrapSelector: 'sky-text-expand-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Tiles',
         icon: 'th-large',
         // tslint:disable-next-line
