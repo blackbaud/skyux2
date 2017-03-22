@@ -5,7 +5,21 @@
     </p>
   </sky-demo-page-summary>
 
+  <sky-demo-page-properties sectionHeading="Tabset properties">
+    <sky-demo-page-property
+        propertyName="active"
+    >
+      The index of the active tab.
+    </sky-demo-page-property>
+
+  </sky-demo-page-properties>
+
   <sky-demo-page-properties sectionHeading="Tabset events">
+    <sky-demo-page-property
+      propertyName="activeChange"
+    >
+      Fires when the active tab changes. Emits the index of the active tab.
+    </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="newTab"
     >
@@ -31,9 +45,10 @@
       Displays a counter alongside the tab header.
     </sky-demo-page-property>
     <sky-demo-page-property
-        propertyName="active"
+        propertyName="tabIndex"
+        isOptional="true"
     >
-      Determines whether the tab is the currently selected tab.
+      The index of the tab. If not defined, it will be set to the position of the tab on load.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="disabled"

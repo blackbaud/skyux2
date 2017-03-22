@@ -16,11 +16,11 @@
       </form>
     </div>
   </div>
-  <sky-tabset>
+  <sky-tabset
+    [active]="0">
     <sky-tab
-        *ngFor="let codeFile of codeFilesForBinding; let i = index;"
+        *ngFor="let codeFile of codeFilesForBinding"
         [tabHeading]="codeFile.name"
-        [active]="i === 0"
     >
       <div class="sky-demo-page-code-sample">
         <pre><code [innerHTML]="codeFile.codeFormatted"></code></pre>
