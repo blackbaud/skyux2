@@ -1,0 +1,43 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-container">
+    <h1>Template items</h1>
+    <p>This reference describes the default items that the template provides in a SKY UX single-page application.</p>
+    
+    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, a variety of files and folders are already in place, and some SKY UX CLI commands create additional items in the project. This topic explains the purpose of these files and folders to provide guidance to developers on which items to edit and which items to ignore.</p>
+    <p>The default items that the SKY UX template provides in a SPA include:</p>
+    <ul>
+        <li><p><code>.vscode</code> folder — Contains 2 <code>.json</code> files to configure settings that are included for the developer's convenience.</p>
+            <ul>
+                <li><p><code>launch.json</code> — A launch configuration file that provides settings on how to debug the build process for the SPA.</p></li>
+                <li><p><code>settings.json</code> — A file that controls editor settings for VSCode.</p></li>
+            </ul>
+        </li>
+        <li><p><code>coverage</code> folder — Stores code coverage results for unit tests. This folder is generated when you run <code>skyux test</code> or <code>skyux watch</code>, and it provides a convenient way for developers to see what code the tests reached and what code they did not reach. We recommend that all new code should have 100 percent unit test code coverage. For information about the code coverage requirements to contribute to SKY UX, see the <a href="https://github.com/blackbaud/skyux2/blob/master/CONTRIBUTING.md">SKY UX 2 contribution guidelines</a>.</p></li>
+        <li><p><code>dist</code> folder — Contains files that are deployed through the continuous integration pipeline. This folder is generated when you run <code>skyux build</code>.</p></li>
+        <li><p><code>e2e</code> folder — The required location <a routerLink="/learn/reference/tests/e2e-tests">to store end-to-end tests</a>. As a convenience, this folder contains sample tests.</p></li>
+        <li><p><code>node_modules</code> folder — Stores the external dependencies for SKY UX components and SKY UX Builder. This includes system files to build the single-page application. The folder is listed in the <code>.gitignore</code> file. Do not place it into source code control.</p></li>
+        <li><p><code>src</code> folder — Contains the source files for the SPA.</p>
+            <ul>
+                <li><p><code>app</code> folder — Contains the files and folders for pages, components, and unit tests.</p>
+                    <ul>
+                        <li><p><code>about</code> folder — Contains the page, component, and unit test for the sample About page in the template SPA. The <code>index.html</code> file is required to generate a route, while the other <code>.html</code> file and the <code>.ts</code> file create the AboutComponent that <code>index.html</code> references. The <code>.spec.ts</code> file is the unit test for the component, and <a routerLink="/learn/reference/tests/unit-tests">we recommend storing the unit test</a> in the same location as the <code>.ts</code> file.</p></li>
+                        <li><p><code>shared</code> folder — The recommended location for components and services that are shared across an application. In the template project, the AppNavComponent creates the navigation menu.</p></li>
+                        <li><p><code>app-extras.module.ts</code> — Handles tasks such as registering providers and entry components. When this file exists, SKY UX Builder automatically imports it into the build process.</p></li>
+                        <li><p><code>home.component.html</code>, <code>home.component.ts</code>, <code>home.component.spec.ts</code>, and <code>index.html</code> — The page, component, and unit test for the sample Home page in the template SPA. The <code>index.html</code> file is required to generate a route, while the other <code>.html</code> file and the <code>.ts</code> file create the HomeComponent that <code>index.html</code> references. The <code>.spec.ts</code> file is the unit test for the component, and <a routerLink="/learn/reference/tests/unit-tests">we recommend storing the unit test</a> in the same location as the <code>.ts</code> file.</p></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    <li><p><code>.editorconfig</code> — A configuration file to specify settings for editors that support an EditorConfig file to define and maintain consistent coding styles between editors and IDEs. For information about EditorConfig files, see <a href="http://editorconfig.org/">the EditorConfig website</a>.</p></li>
+        <li><p><code>.gitignore</code> — A standard file for Git repositories that lists untracked files to intentionally ignore in the working directory. For information about gitignore files, see <a href="https://git-scm.com/docs/gitignore">the Git documentation</a>.</p></li>
+        <li><p><code>package.json</code> — A configuration file for NPM to specify dependencies that are stored in the <code>node_modules</code> folder. For information about <code>package.json</code> files, see <a href="https://docs.npmjs.com/files/package.json">the NPM documentation</a>.</p></li>
+        <li><p><code>README.md</code> — A Markdown file for the repo to describe the SKY UX application.</p></li>
+        <li><p><code>skyuxconfig.json</code> — A configuration file to specify settings for SKY UX applications. For information about these options, see <a routerLink="/learn/reference/configuration">the configuration options reference</a>.</p></li>
+        <li><p><code>tsconfig.json</code> — A configuration file for the TypeScript compiler. For information about <code>tsconfig.json</code> files, see <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">the TypeScript documentation</a>.</p></li>
+        <li><p><code>tslint.json</code> — A configuration file for TSLint. For information about <code>tslint.json</code> files, see <a href="https://palantir.github.io/tslint/usage/tslint-json/">the TSLint documentation</a>.</p></li>
+    </ul>
+
+    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
+    <p><strong>Previous step »</strong> <a routerLink="/learn/reference">Technical reference</a></p>
+    
+</div>
