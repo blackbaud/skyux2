@@ -1,10 +1,10 @@
-<ul class="sky-text-expand-repeater">
-  <div class="sky-text-expand-repeater-container" #container>
+<div class="sky-text-expand-repeater">
+  <ul class="sky-text-expand-repeater-container" (transitionend)="animationEnd()" #container>
     <li *ngFor="let data of _data" class="sky-text-expand-repeater-item">
       {{data}}
     </li>
-  </div>
-  <button type="button" class="sky-btn sky-btn-link-inline sky-text-expand-see-more" *ngIf='expandable' (click)="repeaterExpand()">
+  </ul>
+  <button type="button" class="sky-btn sky-btn-link-inline sky-text-expand-repeater-see-more" *ngIf="expandable" (click)="repeaterExpand()">
     {{buttonText}}
   </button>
-</ul>
+</div>

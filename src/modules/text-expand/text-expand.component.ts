@@ -2,8 +2,7 @@ import {
   Component,
   Input,
   ElementRef,
-  ViewChild,
-  AfterViewInit
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -18,15 +17,19 @@ import {
 import {
   SkyTextExpandModalContext
 } from './text-expand-modal-context';
+import {
+  SkyTextExpandAdapterService
+} from './text-expand-adapter.service';
 @Component({
   selector: 'sky-text-expand',
   templateUrl: './text-expand.component.html',
   styleUrls: ['./text-expand.component.scss'],
   providers: [
+    SkyTextExpandAdapterService,
     SkyResourcesService
   ]
 })
-export class SkyTextExpandComponent implements AfterViewInit {
+export class SkyTextExpandComponent {
   @Input()
   public set text(value: string) {
     this.setup(value);
@@ -58,15 +61,8 @@ export class SkyTextExpandComponent implements AfterViewInit {
   @ViewChild('text')
   private textEl: ElementRef;
 
-  constructor(private resources: SkyResourcesService, private elRef: ElementRef,
-    private modalService: SkyModalService) { }
-
-  public ngAfterViewInit() {
-    let component = this;
-    let container = <HTMLElement>this.containerEl.nativeElement;
-    container.addEventListener('transitionend',
-      function () { component.animationEnd(); });
-  }
+  constructor(private resources: SkyResourcesService, private modalService: SkyModalService,
+    private elRef: ElementRef, private textExpandAdapter: SkyTextExpandAdapterService) { }
 
   public textExpand() {
     if (this.newlineCount > this.maxExpandedNewlines
@@ -104,9 +100,9 @@ export class SkyTextExpandComponent implements AfterViewInit {
 
   public animationEnd() {
     // Ensure the correct text is displayed
-    this.textEl.nativeElement.textContent = this.textToShow;
+    this.textExpandAdapter.setText(this.textEl, this.textToShow);
     // Set height back to auto so the browser can change the height as needed with window changes
-    this.containerEl.nativeElement.style.height = 'auto';
+    this.textExpandAdapter.setContainerHeight(this.containerEl, 'auto');
   }
 
   private setup(value: string) {
@@ -127,7 +123,7 @@ export class SkyTextExpandComponent implements AfterViewInit {
     } else {
       this.textToShow = '';
     }
-    this.textEl.nativeElement.textContent = this.textToShow;
+    this.textExpandAdapter.setText(this.textEl, this.textToShow);
   }
 
   private getNewlineCount(value: string) {
@@ -160,23 +156,26 @@ export class SkyTextExpandComponent implements AfterViewInit {
 
   private animateText(previousText: string, newText: string,
     expanding: boolean) {
-    let container = this.containerEl.nativeElement;
+    let adapter = this.textExpandAdapter;
+    let container = this.containerEl;
     // Measure the current height so we can animate from it.
-    let currentHeight = container.offsetHeight;
+    let currentHeight = adapter.getContainerHeight(container);
     this.textToShow = newText;
-    this.textEl.nativeElement.textContent = this.textToShow;
+    adapter.setText(this.textEl, this.textToShow);
     this.buttonText = expanding ? this.seeLessText : this.seeMoreText;
     // Measure the new height so we can animate to it.
-    let newHeight = container.offsetHeight;
+    let newHeight = adapter.getContainerHeight(container);
     if (newHeight < currentHeight) {
       // The new text is smaller than the old text, so put the old text back before doing
       // the collapse animation to avoid showing a big chunk of whitespace.
-      this.textEl.nativeElement.textContent = previousText;
+      adapter.setText(this.textEl, previousText);
     }
-    container.style.height = `${currentHeight}px`;
+    adapter.setContainerHeight(container, `${currentHeight}px`);
     // This timeout is necessary due to the browser needing to pick up the non-auto height being set
     // in order to do the transtion in height correctly. Without it the transition does not fire.
-    setTimeout(function () { container.style.height = `${newHeight}px`; }, 5);
+    setTimeout(function () {
+      adapter.setContainerHeight(container, `${newHeight}px`);
+    }, 5);
   }
 
 }

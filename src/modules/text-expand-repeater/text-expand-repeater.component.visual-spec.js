@@ -5,6 +5,7 @@ describe('TextExpandRepeater', function () {
     return browser
       .setupTest('/text-expand-repeater.html')
       .compareScreenshot({
+        checkAccessibility: true,
         screenshotName: 'text-expand-repeater-not-expanded',
         selector: '#text-expand-repeater'
       });
@@ -15,6 +16,7 @@ describe('TextExpandRepeater', function () {
       .setupTest('/text-expand-repeater.html')
       .click('.sky-text-expand-see-more')
       .compareScreenshot({
+        checkAccessibility: true,
         screenshotName: 'text-expand-repeater-expanded',
         selector: '#text-expand-repeater'
       });

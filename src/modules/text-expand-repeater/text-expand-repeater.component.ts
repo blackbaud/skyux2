@@ -5,7 +5,9 @@ import {
   ViewChild,
   AfterViewInit
 } from '@angular/core';
-
+import {
+  SkyTextExpandRepeaterAdapterService
+} from './text-expand-repeater-adapter.service';
 import {
   SkyResourcesService
 } from '../resources';
@@ -14,6 +16,7 @@ import {
   templateUrl: './text-expand-repeater.component.html',
   styleUrls: ['./text-expand-repeater.component.scss'],
   providers: [
+    SkyTextExpandRepeaterAdapterService,
     SkyResourcesService
   ]
 })
@@ -34,43 +37,41 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
   private containerEl: ElementRef;
   private items: Array<HTMLElement>;
 
-  constructor(private resources: SkyResourcesService, private elRef: ElementRef) { }
+  constructor(private resources: SkyResourcesService, private elRef: ElementRef,
+    private textExpandRepeaterAdapter: SkyTextExpandRepeaterAdapterService) { }
 
   public ngAfterViewInit() {
     if (this._data) {
-      this.items = this.elRef.nativeElement.querySelectorAll('.sky-text-expand-repeater-item');
+      this.items = this.textExpandRepeaterAdapter.getItems(this.elRef);
       for (let i = this.maxItems; i < this._data.length; i++) {
-        this.items[i].style.display = 'none';
+        this.textExpandRepeaterAdapter.hideItem(this.items[i]);
       }
     }
-    let component = this;
-    let container = <HTMLElement>this.containerEl.nativeElement;
-    container.addEventListener('transitionend',
-      function () { component.animationEnd(); });
   }
 
   public animationEnd() {
     // Ensure the correct items are displayed
     if (!this.isExpanded) {
       for (let i = this.maxItems; i < this._data.length; i++) {
-        this.items[i].style.display = 'none';
+        this.textExpandRepeaterAdapter.hideItem(this.items[i]);
       }
     }
     // Set height back to auto so the browser can change the height as needed with window changes
-    this.containerEl.nativeElement.style.height = 'auto';
+    this.textExpandRepeaterAdapter.setContainerHeight(this.containerEl, 'auto');
   }
 
   public repeaterExpand() {
-    let container = this.containerEl.nativeElement;
-    let currentHeight = container.offsetHeight;
+    let adapter = this.textExpandRepeaterAdapter;
+    let container = this.containerEl;
+    let currentHeight = adapter.getContainerHeight(container);
     for (let i = this.maxItems; i < this._data.length; i++) {
       if (this.isExpanded) {
-        this.items[i].style.display = 'none';
+        adapter.hideItem(this.items[i]);
       } else {
-        this.items[i].style.display = 'list-item';
+        adapter.showItem(this.items[i]);
       }
     }
-    let newHeight = container.offsetHeight;
+    let newHeight = adapter.getContainerHeight(container);
     if (this.isExpanded) {
       this.buttonText = this.seeMoreText;
     } else {
@@ -80,13 +81,15 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
       // The new text is smaller than the old text, so put the old text back before doing
       // the collapse animation to avoid showing a big chunk of whitespace.
       for (let i = this.maxItems; i < this._data.length; i++) {
-        this.items[i].style.display = 'list-item';
+        adapter.showItem(this.items[i]);
       }
     }
-    container.style.height = `${currentHeight}px`;
+    adapter.setContainerHeight(container, `${currentHeight}px`);
     // This timeout is necessary due to the browser needing to pick up the non-auto height being set
     // in order to do the transtion in height correctly. Without it the transition does not fire.
-    setTimeout(function () { container.style.height = `${newHeight}px`; }, 5);
+    setTimeout(function () {
+      adapter.setContainerHeight(container, `${newHeight}px`);
+    }, 5);
     this.isExpanded = !this.isExpanded;
   }
 
