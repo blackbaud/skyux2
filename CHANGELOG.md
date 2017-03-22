@@ -7,6 +7,7 @@
   - Added white background-color to dropdown buttons. (Thanks @Blackbaud-TrevorBurch) (#486)
   - Fixed documentation examples to use `indexOf` instead of a loop. (Thanks @Blackbaud-ScottFreeman) 
   - Updated the default padding for modals. (#483)
+  - Removed border for hover state of `btn-link-inline` class. (#488)
 
 # 2.0.0-beta.13 (2017-03-13)
 
