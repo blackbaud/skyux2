@@ -1,13 +1,34 @@
 import { Component } from '@angular/core';
 
+import {
+  SkyModalService,
+  SkyModalCloseArgs
+} from '../../../core';
+
+import { SkyFilterDemoModalComponent } from './filter-demo-modal.component';
+import { SkyFilterDemoModalContext } from './filter-demo-modal-context';
+
 @Component({
   selector: 'sky-filter-demo',
   templateUrl: './filter-demo.component.html'
 })
 export class SkyFilterDemoComponent {
-  public filtersActive: boolean = false;
+  constructor(private modal: SkyModalService) { }
+
+  public appliedFilters: Array<any> = [];
 
   public filterButtonClicked() {
-    this.filtersActive = !this.filtersActive;
+    let modalInstance = this.modal.open(
+        SkyFilterDemoModalComponent,
+        [{
+          provide: SkyFilterDemoModalContext,
+          useValue: this.appliedFilters
+        }]);
+
+    modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
+      if (result.reason === 'save') {
+        this.appliedFilters = result.data.slice();
+      }
+    });
   }
 }
