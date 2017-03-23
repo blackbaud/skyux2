@@ -22,7 +22,9 @@ export class SkyFilterDemoComponent {
         SkyFilterDemoModalComponent,
         [{
           provide: SkyFilterDemoModalContext,
-          useValue: this.appliedFilters
+          useValue: {
+            appliedFilters: this.appliedFilters
+          }
         }]);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
@@ -30,5 +32,9 @@ export class SkyFilterDemoComponent {
         this.appliedFilters = result.data.slice();
       }
     });
+  }
+
+  public onDismiss(index: number) {
+    this.appliedFilters.splice(index, 1);
   }
 }

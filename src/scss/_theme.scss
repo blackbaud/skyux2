@@ -122,3 +122,7 @@ select {
     padding-bottom: $sky-padding-half;
   }
 }
+
+[role="button"] {
+  cursor: pointer;
+}

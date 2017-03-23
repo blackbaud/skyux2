@@ -12,5 +12,12 @@
   .sky-filter-summary-item-close {
     color: $sky-warning-text-color;
     padding-left: $sky-padding-half;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+  }
+
+  .sky-filter-summary-item-close:hover {
+    text-decoration: none;
+    opacity: .5;
   }
 }

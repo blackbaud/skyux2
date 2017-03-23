@@ -1,14 +1,23 @@
 <div>
-  <sky-filter-button
-    [active]="filtersActive"
-    (filterButtonClick)="filterButtonClicked()">
-  </sky-filter-button>
-  <sky-filter-summary [hidden]="!appliedFilters || appliedFilters.length < 1">
-    <sky-filter-summary-item
-      *ngFor="let item of appliedFilters; let i = index"
-      (dismiss)="onDismiss(i)"
-      (itemClick)="filterButtonClicked()">
-      {{item.label}}
-    </sky-filter-summary-item>
-  </sky-filter-summary>
+  <sky-toolbar>
+    <sky-toolbar-section>
+      <sky-toolbar-item>
+        <sky-filter-button
+          [active]="filtersActive"
+          (filterButtonClick)="filterButtonClicked()">
+        </sky-filter-button>
+      </sky-toolbar-item>
+    </sky-toolbar-section>
+    <sky-toolbar-section *ngIf="appliedFilters && appliedFilters.length > 0">
+      <sky-filter-summary>
+        <sky-filter-summary-item
+          *ngFor="let item of appliedFilters; let i = index"
+          (dismiss)="onDismiss(i)"
+          (itemClick)="filterButtonClicked()">
+          {{item.label}}
+        </sky-filter-summary-item>
+      </sky-filter-summary>
+    </sky-toolbar-section>
+  </sky-toolbar>
+
 </div>

@@ -212,6 +212,19 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./filter/filter-demo.component.ts'),
               componentName: 'SkyFilterDemoComponent',
               bootstrapSelector: 'sky-filter-demo'
+            },
+            {
+              name: 'filter-demo-modal.component.html',
+              fileContents: require('!!raw!./filter/filter-demo-modal.component.html')
+            },
+            {
+              name: 'filter-demo-modal.component.ts',
+              fileContents: require('!!raw!./filter/filter-demo-modal.component.ts'),
+              componentName: 'SkyFilterDemoModalComponent'
+            },
+            {
+              name: 'filter-demo-modal-context.ts',
+              fileContents: require('!!raw!./filter/filter-demo-modal-context.ts')
             }
           ];
         }
