@@ -1,3 +1,3 @@
 export class SkyFilterDemoModalContext {
-  public appliedFilters: Array<any>
+  public appliedFilters: Array<any>;
 }

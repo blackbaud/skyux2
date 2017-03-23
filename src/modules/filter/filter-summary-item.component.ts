@@ -28,8 +28,8 @@ export class SkyFilterSummaryItemComponent {
 
   }
 
-  public onItemDismissKeypress(event: any) {
-    if (event.keyCode === 13) {
+  public onItemDismissKeypress(event: KeyboardEvent) {
+    if (event.which === 13) {
       this.onItemDismiss(event);
     }
   }
@@ -38,8 +38,8 @@ export class SkyFilterSummaryItemComponent {
     this.itemClick.emit(undefined);
   }
 
-  public onItemKeypress(event: any) {
-    if (event.keyCode === 13) {
+  public onItemKeypress(event: KeyboardEvent) {
+    if (event.which === 13) {
       this.itemClick.emit(undefined);
     }
   }

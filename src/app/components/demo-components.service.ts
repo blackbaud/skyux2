@@ -235,7 +235,7 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./filter/filter-inline-demo.component.ts'),
               componentName: 'SkyFilterInlineDemoComponent',
               bootstrapSelector: 'sky-filter-inline-demo'
-            },
+            }
           ];
         }
       },

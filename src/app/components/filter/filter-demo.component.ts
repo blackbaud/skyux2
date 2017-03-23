@@ -13,9 +13,10 @@ import { SkyFilterDemoModalContext } from './filter-demo-modal-context';
   templateUrl: './filter-demo.component.html'
 })
 export class SkyFilterDemoComponent {
-  constructor(private modal: SkyModalService) { }
 
   public appliedFilters: Array<any> = [];
+
+  constructor(private modal: SkyModalService) { }
 
   public filterButtonClicked() {
     let modalInstance = this.modal.open(
