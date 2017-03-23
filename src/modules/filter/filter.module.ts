@@ -4,13 +4,17 @@ import { CommonModule } from '@angular/common';
 import { SkyFilterButtonComponent} from './filter-button.component';
 import { SkyFilterSummaryComponent } from './filter-summary.component';
 import { SkyFilterSummaryItemComponent } from './filter-summary-item.component';
+import { SkyFilterInlineComponent } from './filter-inline.component';
+import { SkyFilterInlineItemComponent } from './filter-inline-item.component';
 import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
     SkyFilterButtonComponent,
     SkyFilterSummaryComponent,
-    SkyFilterSummaryItemComponent
+    SkyFilterSummaryItemComponent,
+    SkyFilterInlineComponent,
+    SkyFilterInlineItemComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +23,9 @@ import { SkyResourcesModule } from '../resources';
   exports: [
     SkyFilterButtonComponent,
     SkyFilterSummaryComponent,
-    SkyFilterSummaryItemComponent
+    SkyFilterSummaryItemComponent,
+    SkyFilterInlineComponent,
+    SkyFilterInlineItemComponent
   ]
 })
 export class SkyFilterModule { }

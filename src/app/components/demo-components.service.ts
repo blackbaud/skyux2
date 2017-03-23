@@ -225,7 +225,17 @@ export class SkyDemoComponentsService {
             {
               name: 'filter-demo-modal-context.ts',
               fileContents: require('!!raw!./filter/filter-demo-modal-context.ts')
-            }
+            },
+            {
+              name: 'filter-inline-demo.component.html',
+              fileContents: require('!!raw!./filter/filter-inline-demo.component.html')
+            },
+            {
+              name: 'filter-inline-demo.component.ts',
+              fileContents: require('!!raw!./filter/filter-inline-demo.component.ts'),
+              componentName: 'SkyFilterInlineDemoComponent',
+              bootstrapSelector: 'sky-filter-inline-demo'
+            },
           ];
         }
       },

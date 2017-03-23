@@ -7,12 +7,9 @@
 
 .sky-filter-summary {
   background-color: $sky-color-white;
-  min-height: 39px;
   overflow-x: auto;
   display: flex;
   align-items: center;
-  @include sky-border(dark, top, bottom);
-  padding: $sky-padding-half $sky-padding;
 }
 
 .sky-filter-summary-items {
