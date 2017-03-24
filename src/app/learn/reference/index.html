@@ -1,19 +1,34 @@
 <sky-demo-nav></sky-demo-nav>
-<div class="sky-container">
-    <h1>Technical reference</h1>
-    <p>The technical reference includes resources to describe the commands and options that are available in the SKY UX CLI and configuration options for the SKY UX process.</p>
-    <sky-alert alertType="info">Keep in mind that <a href="https://angular.io/">Angular 2</a> is at the heart of SKY UX 2, so you need to be familiar with this technology to build with SKY UX. For learning resources for Angular2 and other SKY UX tools and technologies, see <a routerLink="/learn/overview/resources">the training resources.</a></sky-alert>
+<stache 
+  pageTitle="Technical Reference"
+  layout="sidebar"
+  showBreadcrumbs="true"
+  [sidebarRoutes]="[{ name: 'Overview', path: '/learn/reference' }, { name: 'CLI Commands', path: '/learn/reference/cli-commands' }, { name: 'Template Items', path: '/learn/reference/template-items' }, { name: 'Configuration', path: '/learn/reference/configuration' }, { name: 'Helpers', path: '/learn/reference/helpers' }, { name: 'Testing', path: '/learn/reference/tests' }]"
+  [breadcrumbsRoutes]="[{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }, { name: 'Technical Reference', path: '/learn/reference' }]">
 
-    
-    <ul>
-        <li><p>For commands and options in the SKY UX CLI, see <a routerLink="/learn/reference/cli-commands">the CLI commands reference</a>.</p></li>
-        <li><p>For a description of the default items that the template provides in a SKY UX single-page application, see <a routerLink="/learn/reference/template-items">the template items reference</a>.</p></li>
-        <li><p>For settings that are available in the <code>skyuxconfig.json</code> file in your project's directory, see <a routerLink="/learn/reference/configuration">the configuration options reference</a>.</p></li>
-        <li><p>For helpers to make authenticated HTTP requests, see <a routerLink="/learn/reference/helpers">the helpers reference</a>.</p></li>
-        <li><p>For information about unit tests and end-to-end tests in SKY UX projects, see <a routerLink="/learn/reference/tests">the testing reference</a>.</p></li>
-    </ul>
+  <p>
+    The technical reference includes resources to describe the commands and options that are available in the SKY UX CLI and configuration options for the SKY UX process.
+  </p>
 
-    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
-    <p><strong>Previous step »</strong> <a routerLink="/learn">Get started</a></p>
+  <sky-alert alertType="info">
+    Keep in mind that <a href="https://angular.io/">Angular 2</a> is at the heart of SKY UX 2, so you need to be familiar with this technology to build with SKY UX. For learning resources for Angular2 and other SKY UX tools and technologies, see <a routerLink="/learn/overview/resources">the training resources.</a>
+  </sky-alert>
 
-</div>
+  <ul>
+    <li>
+      For commands and options in the SKY UX CLI, see <a routerLink="/learn/reference/cli-commands">the CLI commands reference</a>.
+    </li>
+    <li>
+      For a description of the default items that the template provides in a SKY UX single-page application, see <a routerLink="/learn/reference/template-items">the template items reference</a>.
+    </li>
+    <li>
+      For settings that are available in the <code>skyuxconfig.json</code> file in your project's directory, see <a routerLink="/learn/reference/configuration">the configuration options reference</a>.
+    </li>
+    <li>
+      For helpers to make authenticated HTTP requests, see <a  routerLink="/learn/reference/helpers">the helpers reference</a>.
+    </li>
+    <li>
+      For information about unit tests and end-to-end tests in SKY UX projects, see <a routerLink="/learn/reference/tests">the testing reference</a>.
+    </li>
+  </ul>
+</stache>

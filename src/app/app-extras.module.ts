@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { StacheModule } from '@blackbaud/stache';
 
 import { SkyDemoTitleService } from './shared/title.service';
 import { SkyModalDemoFormComponent } from './components/modal/modal-demo-form.component';
@@ -9,6 +10,7 @@ import { SkyWizardDemoFormComponent } from './components/wizard/wizard-demo-form
 import { SkyDemoComponentsModule } from './components/demo-components.module';
 
 require('style!./styles.scss');
+require('style!@blackbaud/stache/src/styles/stache.scss');
 
 @NgModule({
   entryComponents: [
@@ -18,7 +20,11 @@ require('style!./styles.scss');
     SkyWizardDemoFormComponent
   ],
   imports: [
+    StacheModule,
     SkyDemoComponentsModule
+  ],
+  exports: [
+    StacheModule
   ],
   providers: [
     SkyDemoTitleService
