@@ -217,8 +217,5 @@ describe('in memory data provider', () => {
       tick();
     }));
 
-    it('should handle searching and then sorting', () => {
-
-    });
   });
 });

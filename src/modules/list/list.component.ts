@@ -35,6 +35,10 @@ import {
 } from './state/sort/field-selector.model';
 
 import {
+  ListFilterModel
+} from './state/filters/filter.model';
+
+import {
   AsyncItem
 } from 'microedge-rxstate/dist';
 
@@ -182,6 +186,7 @@ export class SkyListComponent implements AfterContentInit {
     let selectedChanged: boolean = false;
 
     return Observable.combineLatest(
+      this.state.map(s => s.filters).distinctUntilChanged(),
       this.state.map(s => s.search).distinctUntilChanged(),
       this.state.map(s => s.sort).distinctUntilChanged(),
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
@@ -192,6 +197,7 @@ export class SkyListComponent implements AfterContentInit {
       }),
       data.distinctUntilChanged(),
       (
+        filters: ListFilterModel[],
         search: ListSearchModel,
         sort: ListSortModel,
         itemsPerPage: number,
@@ -218,6 +224,7 @@ export class SkyListComponent implements AfterContentInit {
           }));
         } else {
           response = this.dataProvider.get(new ListDataRequestModel({
+            filters: filters,
             pageSize: itemsPerPage,
             pageNumber: pageNumber,
             search: search,
