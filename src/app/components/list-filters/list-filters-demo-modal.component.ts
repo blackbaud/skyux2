@@ -6,7 +6,7 @@ import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-contex
 
 @Component({
   selector: 'sky-demo-filter-modal-form',
-  templateUrl: './filter-demo-modal.component.html'
+  templateUrl: './list-filters-demo-modal.component.html'
 })
 export class SkyListFiltersModalDemoComponent {
 

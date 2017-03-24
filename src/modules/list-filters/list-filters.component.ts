@@ -25,23 +25,17 @@ import {
 } from '../list/state';
 
 import {
-  SkyListFiltersModalComponent
-} from './list-filters-modal.component';
-
-import {
   Observable
 } from 'rxjs/Observable';
 
+
+// This should probably be inline filters
 @Component({
   selector: 'sky-list-filters',
   templateUrl: './list-filters.component.html',
   styleUrls: ['./list-filters.component.scss']
 })
 export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit {
-
-  // Change this to use resource service.
-  @Input()
-  public modalTitle: string = 'Filters';
 
   @ContentChildren(SkyListFilterComponent)
   private filters: QueryList<SkyListFilterComponent>;
@@ -103,32 +97,12 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
     ]);
   }
 
-  public openFiltersModal() {
-    let providers = [
-      {
-        provide: ListState,
-        useValue: this.state
-      },
-      {
-        provide: ListStateDispatcher,
-        useValue: this.dispatcher
-      },
-      {
-        provide: String,
-        useValue: this.modalTitle
-      }
-    ];
-    this.modalService.open(SkyListFiltersModalComponent, providers);
-  }
-
   public filterButtonClick() {
     this.inlineFilters
       .take(1)
       .subscribe(filters => {
         if (filters.length > 0) {
           this.inlineBarExpanded = !this.inlineBarExpanded;
-        } else {
-          this.openFiltersModal();
         }
       });
   }

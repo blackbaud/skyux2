@@ -10,10 +10,10 @@ import { SkyListFiltersModalDemoComponent } from './list-filters-demo-modal.comp
 import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-context';
 
 @Component({
-  selector: 'sky-list-toolbar-demo',
-  templateUrl: './list-toolbar-demo.component.html'
+  selector: 'sky-list-filters-demo',
+  templateUrl: './list-filters-demo.component.html'
 })
-export class SkyListToolbarDemoComponent {
+export class SkyListFiltersDemoComponent {
 
   public appliedFilters: Array<any> = [];
 

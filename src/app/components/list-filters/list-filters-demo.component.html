@@ -21,9 +21,11 @@
       type="string"
     >
     </sky-list-toolbar-sort>
-    <sky-filter-button
-      (filterButtonClick)="openFilterModal()">
-    </sky-filter-button>
+    <sky-list-filter-button>
+      <sky-filter-button
+        (filterButtonClick)="openFilterModal()">
+      </sky-filter-button>
+    </sky-list-filter-button>
   </sky-list-toolbar>
 
   <sky-list-view-grid fit="scroll" #grid>

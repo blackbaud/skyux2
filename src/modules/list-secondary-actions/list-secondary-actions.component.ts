@@ -40,8 +40,7 @@ export class SkyListSecondaryActionsComponent implements AfterContentInit {
       {
         id: 'secondary-actions',
         template: this.secondaryActionsTemplate,
-        location: 'right',
-        index: -1
+        location: 'right'
       }
     );
     this.dispatcher.toolbarAddItems([

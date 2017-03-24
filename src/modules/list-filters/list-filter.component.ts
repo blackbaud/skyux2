@@ -10,6 +10,8 @@ import {
 import { ListItemModel } from '../list/state';
 import { ListViewComponent } from '../list/list-view.component';
 
+
+// This should change to inline filter probably
 @Component({
   selector: 'sky-list-filter',
   template: '<ng-content></ng-content>'
