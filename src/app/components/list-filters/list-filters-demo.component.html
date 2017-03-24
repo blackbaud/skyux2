@@ -1,0 +1,39 @@
+<sky-list [data]="items" [defaultView]="grid">
+  <sky-list-toolbar>
+    <sky-list-secondary-actions>
+      <sky-list-secondary-action>
+        <button type="button">
+          Option
+        </button>
+      </sky-list-secondary-action>
+    </sky-list-secondary-actions>
+    <sky-list-toolbar-sort
+      label="Fruit name (A - Z)"
+      field="column2"
+      [descending]="false"
+      type="string"
+    >
+    </sky-list-toolbar-sort>
+    <sky-list-toolbar-sort
+      label="Fruit name (Z - A)"
+      field="column2"
+      [descending]="true"
+      type="string"
+    >
+    </sky-list-toolbar-sort>
+    <sky-filter-button
+      (filterButtonClick)="openFilterModal()">
+    </sky-filter-button>
+  </sky-list-toolbar>
+
+  <sky-list-view-grid fit="scroll" #grid>
+    <sky-grid-column
+      field="name"
+      heading="Name">
+    </sky-grid-column>
+    <sky-grid-column
+      field="description"
+      heading="Description">
+    </sky-grid-column>
+  </sky-list-view-grid>
+ </sky-list>
