@@ -6,7 +6,9 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 
 import {
@@ -75,7 +77,7 @@ let moment = require('moment');
   providers: [ListState, ListStateDispatcher],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyListComponent implements AfterContentInit {
+export class SkyListComponent implements AfterContentInit, OnChanges {
   public id: string = moment().toDate().getTime().toString();
   @Input()
   public data?: Array<any> | Observable<Array<any>> = [];
@@ -98,8 +100,14 @@ export class SkyListComponent implements AfterContentInit {
   Observable<Array<ListSortFieldSelectorModel>> |
   Observable<ListSortFieldSelectorModel>;
 
+  @Input()
+  public appliedFilters: Array<ListFilterModel> = [];
+
   @Output()
   public selectedIdsChange = new EventEmitter<Map<string, boolean>>();
+
+  @Output()
+  public appliedFiltersChange = new EventEmitter<Array<ListFilterModel>>();
 
   /* tslint:disable */
   @Input('search')
@@ -155,6 +163,21 @@ export class SkyListComponent implements AfterContentInit {
         });
     }
 
+    if (this.appliedFiltersChange.observers.length > 0) {
+      this.state.map(current => current.filters).distinctUntilChanged()
+        .skip(1)
+        .subscribe((filters) => {
+          this.appliedFiltersChange.emit(filters);
+        });
+    }
+
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['appliedFilters'] &&
+      changes['appliedFilters'].currentValue !== changes['appliedFilters'].previousValue) {
+      this.dispatcher.filtersUpdate(this.appliedFilters);
+    }
   }
 
   public refreshDisplayedItems(): void {

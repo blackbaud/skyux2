@@ -1,26 +1,32 @@
 <div class="sky-list-toolbar-container">
   <sky-toolbar *ngIf="(type | async) !== 'search'">
-    <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
-      <sky-list-toolbar-item-renderer
-        [template]="item.template"
-        [attr.sky-cmp-id]="item.id">
-      </sky-list-toolbar-item-renderer>
-    </sky-toolbar-item>
-    <sky-toolbar-item *ngFor="let item of centerTemplates | async">
-      <sky-list-toolbar-item-renderer
-        [template]="item.template"
-        [attr.sky-cmp-id]="item.id">
-      </sky-list-toolbar-item-renderer>
-    </sky-toolbar-item>
-    <sky-toolbar-item
-      *ngFor="let item of rightTemplates | async"
-      [attr.sky-toolbar-id]="item.id">
-      <sky-list-toolbar-item-renderer
-        [template]="item.template"
-        [attr.sky-cmp-id]="item.id">
-      </sky-list-toolbar-item-renderer>
-    </sky-toolbar-item>
-    <ng-content></ng-content>
+    <sky-toolbar-section>
+      <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
+        <sky-list-toolbar-item-renderer
+          [template]="item.template"
+          [attr.sky-cmp-id]="item.id">
+        </sky-list-toolbar-item-renderer>
+      </sky-toolbar-item>
+      <sky-toolbar-item *ngFor="let item of centerTemplates | async">
+        <sky-list-toolbar-item-renderer
+          [template]="item.template"
+          [attr.sky-cmp-id]="item.id">
+        </sky-list-toolbar-item-renderer>
+      </sky-toolbar-item>
+      <sky-toolbar-item
+        *ngFor="let item of rightTemplates | async"
+        [attr.sky-toolbar-id]="item.id">
+        <sky-list-toolbar-item-renderer
+          [template]="item.template"
+          [attr.sky-cmp-id]="item.id">
+        </sky-list-toolbar-item-renderer>
+      </sky-toolbar-item>
+      <ng-content></ng-content>
+    </sky-toolbar-section>
+    <sky-toolbar-section
+    *ngIf="showFilterSummary && (hasAppliedFilters | async)">
+      <ng-content select="sky-list-filter-summary"></ng-content>
+    </sky-toolbar-section>
   </sky-toolbar>
   <div class="sky-list-toolbar-search" *ngIf="(type | async) === 'search'">
     <sky-toolbar>

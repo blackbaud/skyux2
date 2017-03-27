@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 
-import { SkyModalInstance } from '../../../core';
+import {
+  SkyModalInstance,
+  ListFilterModel,
+  ListItemModel
+} from '../../../core';
 
 import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-context';
 
@@ -13,6 +17,8 @@ export class SkyListFiltersModalDemoComponent {
   public fruitType: string = 'any';
 
   public hideOrange: boolean;
+
+  public headerText: string = 'Filters';
 
   constructor(public context: SkyListFiltersModalDemoContext, public instance: SkyModalInstance) {
     if (this.context && this.context.appliedFilters && this.context.appliedFilters.length > 0) {
@@ -36,22 +42,33 @@ export class SkyListFiltersModalDemoComponent {
     this.instance.cancel();
   }
 
+  private fruitTypeFilterFunction(item: ListItemModel, filterValue: any): boolean {
+    return filterValue === item.data.type;
+  }
+
+  private hideOrangeFilterFunction(item: ListItemModel, filterValue: any): boolean {
+    return !filterValue || (filterValue && item.data.color !== 'orange');
+  }
+
   private getAppliedFiltersArray() {
-    let appliedFilters: Array<any> = [];
+    let appliedFilters: Array<ListFilterModel> = [];
     if (this.fruitType !== 'any') {
-      appliedFilters.push({
+
+      appliedFilters.push(new ListFilterModel({
         name: 'fruitType',
         value: this.fruitType,
-        label: this.fruitType
-      });
+        label: this.fruitType,
+        filterFunction: this.fruitTypeFilterFunction
+      }));
     }
 
     if (this.hideOrange) {
-      appliedFilters.push({
+      appliedFilters.push(new ListFilterModel({
         name: 'hideOrange',
         value: true,
-        label: 'hide orange fruits'
-      });
+        label: 'hide orange fruits',
+        filterFunction: this.hideOrangeFilterFunction
+      }));
     }
 
     return appliedFilters;

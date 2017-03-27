@@ -20,7 +20,7 @@ export class ListFiltersOrchestrator extends ListStateOrchestrator<ListFilterMod
   }
 
   private load(state: ListFilterModel[], action: ListFiltersLoadAction): ListFilterModel[] {
-    const newListItems = action.filters.map(f => new ListFilterModel(f, f.view));
+    const newListItems = action.filters.map(f => new ListFilterModel(f));
     return [...newListItems];
   }
 }

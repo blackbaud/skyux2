@@ -19,16 +19,23 @@ import {
   ListToolbarStateDispatcher,
   ListToolbarStateModel
 } from './state';
+
 import {
   ListToolbarModel,
   ListToolbarItemModel,
-  ListToolbarSetTypeAction
+  ListToolbarSetTypeAction,
+  ListState,
+  ListStateDispatcher,
+  ListSortLabelModel,
+  ListSortFieldSelectorModel,
+  ListFilterModel
 } from '../list/state';
+
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
-import { ListState, ListStateDispatcher } from '../list/state';
-import { ListSortLabelModel } from '../list/state/sort/label.model';
-import { ListSortFieldSelectorModel } from '../list/state/sort/field-selector.model';
+
 import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
+
+import { SkyListFilterSummaryComponent } from '../list-filters/list-filter-summary.component';
 import { getValue } from 'microedge-rxstate/dist/helpers';
 
 import { SkySearchComponent } from '../search';
@@ -80,11 +87,20 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   public isSortSelectorEnabled: Observable<boolean>;
 
+  public appliedFilters: Observable<Array<ListFilterModel>>;
+
+  public hasAppliedFilters: Observable<boolean>;
+
+  public showFilterSummary: boolean;
+
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
 
   @ContentChildren(SkyListToolbarSortComponent)
   private toolbarSorts: QueryList<SkyListToolbarSortComponent>;
+
+  @ContentChildren(SkyListFilterSummaryComponent)
+  private filterSummary: QueryList<SkyListFilterSummaryComponent>;
 
   @ViewChild('search')
   private searchTemplate: TemplateRef<any>;
@@ -157,6 +173,14 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
     this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.sortSelectorEnabled);
+
+    this.appliedFilters = this.state.map((state) => {
+      return state.filters;
+    });
+
+    this.hasAppliedFilters = this.appliedFilters.map((filters) => {
+      return filters && filters.length > 0;
+    });
   }
 
   public ngAfterContentInit() {
@@ -180,6 +204,8 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     );
 
     this.dispatcher.sortSetGlobal(sortModels);
+
+    this.showFilterSummary = this.filterSummary.length > 0;
   }
 
   public setSort(sort: ListSortLabelModel): void {

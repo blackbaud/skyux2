@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SkyListFilterButtonComponent } from './list-filter-button.component';
+import { SkyFilterModule } from '../filter';
 
+import { SkyListFilterButtonComponent } from './list-filter-button.component';
+import { SkyListFilterSummaryComponent } from './list-filter-summary.component';
 
 @NgModule({
   declarations: [
-    SkyListFilterButtonComponent
+    SkyListFilterButtonComponent,
+    SkyListFilterSummaryComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SkyFilterModule
   ],
   exports: [
-    SkyListFilterButtonComponent
+    SkyListFilterButtonComponent,
+    SkyListFilterSummaryComponent
   ]
 })
 export class SkyListFiltersModule { }

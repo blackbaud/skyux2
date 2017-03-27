@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import {
   SkyModalService,
-  SkyModalCloseArgs
+  SkyModalCloseArgs,
+  ListFilterModel
 } from '../../../core';
 import { SkyListFiltersModalDemoComponent } from './list-filters-demo-modal.component';
 import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-context';
@@ -15,7 +16,8 @@ import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-contex
 })
 export class SkyListFiltersDemoComponent {
 
-  public appliedFilters: Array<any> = [];
+  public listFilters: Array<ListFilterModel> = [];
+  public modalFilters: Array<ListFilterModel> = [];
 
   public items: Observable<any> = Observable.of([
     {
@@ -62,14 +64,14 @@ export class SkyListFiltersDemoComponent {
       {
         provide: SkyListFiltersModalDemoContext,
           useValue: {
-            appliedFilters: this.appliedFilters
+            appliedFilters: this.modalFilters
           }
       }
     ]);
 
     instance.closed.subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'save') {
-        this.appliedFilters = result.data.slice();
+        this.listFilters = result.data.slice();
       }
     });
   }

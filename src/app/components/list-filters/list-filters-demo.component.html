@@ -1,4 +1,8 @@
-<sky-list [data]="items" [defaultView]="grid">
+<sky-list
+  [data]="items"
+  [defaultView]="grid"
+  [appliedFilters]="listFilters"
+  (appliedFiltersChange)="modalFilters = $event">
   <sky-list-toolbar>
     <sky-list-secondary-actions>
       <sky-list-secondary-action>
@@ -26,6 +30,9 @@
         (filterButtonClick)="openFilterModal()">
       </sky-filter-button>
     </sky-list-filter-button>
+    <sky-list-filter-summary
+      (summaryItemClick)="openFilterModal()">
+    </sky-list-filter-summary>
   </sky-list-toolbar>
 
   <sky-list-view-grid fit="scroll" #grid>
