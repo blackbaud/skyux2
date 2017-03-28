@@ -1,4 +1,4 @@
-import {
+/*import {
   Component,
   Input,
   ContentChildren,
@@ -9,7 +9,6 @@ import {
 
 import { ListItemModel } from '../list/state';
 import { ListViewComponent } from '../list/list-view.component';
-
 
 // This should change to inline filter probably
 @Component({
@@ -30,14 +29,14 @@ export class SkyListFilterComponent implements OnInit {
   public view: ListViewComponent;
 
   /* tslint:disable */
-  @Input('filter')
+/*  @Input('filter')
   public filterFunction: (item: ListItemModel, filter: any) => boolean;
 
   @Input('template')
   public templateInput: TemplateRef<any>;
   /* tslint:enable */
 
-  @ContentChildren(TemplateRef)
+ /* @ContentChildren(TemplateRef)
   private templates: QueryList<TemplateRef<any>>;
 
   public ngOnInit() {
@@ -49,4 +48,4 @@ export class SkyListFilterComponent implements OnInit {
   public get template(): TemplateRef<any> {
     return this.templates.length > 0 ? this.templates.first : this.templateInput;
   }
-}
+}*/

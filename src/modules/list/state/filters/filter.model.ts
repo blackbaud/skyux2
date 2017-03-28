@@ -8,13 +8,12 @@ export class ListFilterModel {
 
   public filterFunction: (item: ListItemModel, filter: any) => boolean;
 
-
   constructor(data?: any, view?: string) {
     if (data) {
       this.name = data.name;
       this.label = data.label;
       this.filterFunction = data.filterFunction;
-      this.value = data.value
+      this.value = data.value;
       this.dismissible = data.dismissible;
     }
   }

@@ -1,32 +1,17 @@
 import {
   Component,
-  Input,
-  ContentChildren,
-  QueryList,
   ViewChild,
   TemplateRef,
-  AfterContentInit,
   AfterViewInit
 } from '@angular/core';
 
-import { SkyModalService } from '../modal';
-
-import { SkyListFilterComponent } from './list-filter.component';
-
 import {
-  ListState,
   ListStateDispatcher
 } from '../list/state';
 
 import {
-  ListFilterModel,
-  ListToolbarItemModel,
-  ListFilterDataModel
+  ListToolbarItemModel
 } from '../list/state';
-
-import {
-  Observable
-} from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-list-filter-button',

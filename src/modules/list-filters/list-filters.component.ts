@@ -1,4 +1,4 @@
-import {
+/*import {
   Component,
   Input,
   ContentChildren,
@@ -27,7 +27,6 @@ import {
 import {
   Observable
 } from 'rxjs/Observable';
-
 
 // This should probably be inline filters
 @Component({
@@ -123,4 +122,4 @@ export class SkyListFiltersComponent implements AfterContentInit, AfterViewInit 
         this.dispatcher.filtersUpdate(updatedFilters);
       });
   }
-}
+}*/

@@ -1,18 +1,9 @@
 import {
   Component,
-  Input,
-  ContentChildren,
-  QueryList,
-  ViewChild,
-  TemplateRef,
   AfterContentInit,
   Output,
   EventEmitter
 } from '@angular/core';
-
-import { SkyModalService } from '../modal';
-
-import { SkyListFilterComponent } from './list-filter.component';
 
 import {
   ListState,
@@ -20,9 +11,7 @@ import {
 } from '../list/state';
 
 import {
-  ListFilterModel,
-  ListToolbarItemModel,
-  ListFilterDataModel
+  ListFilterModel
 } from '../list/state';
 
 import {

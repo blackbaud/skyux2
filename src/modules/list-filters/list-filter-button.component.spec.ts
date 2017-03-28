@@ -52,7 +52,6 @@ describe('List filter button', () => {
     state.skip(1).take(1).subscribe(() => fixture.detectChanges());
   }));
 
-
   it('should place content in the appropriate area for the filter button', async(() => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
