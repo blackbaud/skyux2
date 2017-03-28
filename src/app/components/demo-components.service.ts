@@ -359,7 +359,17 @@ export class SkyDemoComponentsService {
               name: 'list-filters-demo-modal.component.ts',
               fileContents: require('!!raw!./list-filters/list-filters-demo-modal.component.ts'),
               componentName: 'SkyListFiltersModalDemoComponent'
-            }
+            },
+            {
+              name: 'list-filters-inline-demo.component.html',
+              fileContents: require('!!raw!./list-filters/list-filters-inline-demo.component.html')
+            },
+            {
+              name: 'list-filters-inline-demo.component.ts',
+              fileContents: require('!!raw!./list-filters/list-filters-inline-demo.component.ts'),
+              componentName: 'SkyListFiltersInlineDemoComponent',
+              bootstrapSelector: 'sky-list-filters-inline-demo'
+            },
           ];
         }
       },
