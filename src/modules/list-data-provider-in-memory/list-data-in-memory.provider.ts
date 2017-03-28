@@ -87,7 +87,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
 
       if (!dataChanged && !filtersChanged && this.lastFilterResults !== undefined) {
         result = this.lastFilterResults;
-      } else if (filters.length > 0) {
+      } else if (filters && filters.length > 0) {
         result = result.filter(item => {
           for (let i = 0; i < filters.length; i++) {
             let filter = filters[i];
