@@ -4,7 +4,7 @@ import {
 
  @Component({
    selector: 'sky-test-cmp',
-   template: require('./list-filter-button.component.fixture.html')
+   templateUrl: './list-filter-button.component.fixture.html'
  })
  export class ListFilterButtonTestComponent {
  }
