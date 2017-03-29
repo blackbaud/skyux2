@@ -62,6 +62,9 @@
       </sky-toolbar-section>
     </sky-toolbar>
   </div>
+  <div *ngIf="hasInlineFilters && inlineFilterBarExpanded">
+    <ng-content select="sky-list-filter-inline"></ng-content>
+  </div>
 </div>
 
 <template #search>
@@ -89,4 +92,11 @@
       </sky-sort-item>
     </sky-sort>
   </div>
+</template>
+
+<template #inlineFilterButton>
+  <sky-filter-button
+    (filterButtonClick)="inlineFilterButtonClick()"
+    [active]="hasAppliedFilters | async">
+  </sky-filter-button>
 </template>

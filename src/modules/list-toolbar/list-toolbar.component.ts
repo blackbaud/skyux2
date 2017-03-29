@@ -6,7 +6,8 @@ import {
   TemplateRef,
   Input,
   OnInit,
-  AfterContentInit
+  AfterContentInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   ListToolbarConfigSetSearchEnabledAction,
@@ -34,7 +35,11 @@ import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 
 import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
 
-import { SkyListFilterSummaryComponent } from '../list-filters/list-filter-summary.component';
+import {
+  SkyListFilterSummaryComponent,
+  SkyListFilterInlineComponent
+} from '../list-filters';
+
 import { getValue } from 'microedge-rxstate/dist/helpers';
 
 import { SkySearchComponent } from '../search';
@@ -47,7 +52,8 @@ import { SkySearchComponent } from '../search';
     ListToolbarState,
     ListToolbarStateDispatcher,
     ListToolbarStateModel
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @Input()
@@ -91,6 +97,10 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   public showFilterSummary: boolean;
 
+  public hasInlineFilters: boolean;
+
+  public inlineFilterBarExpanded: boolean = false;
+
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
 
@@ -100,11 +110,17 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @ContentChildren(SkyListFilterSummaryComponent)
   private filterSummary: QueryList<SkyListFilterSummaryComponent>;
 
+  @ContentChildren(SkyListFilterInlineComponent)
+  private inlineFilter: QueryList<SkyListFilterInlineComponent>;
+
   @ViewChild('search')
   private searchTemplate: TemplateRef<any>;
 
   @ViewChild('sortSelector')
   private sortSelectorTemplate: TemplateRef<any>;
+
+  @ViewChild('inlineFilterButton')
+  private inlineFilterButtonTemplate: TemplateRef<any>;
 
   constructor(
     private state: ListState,
@@ -176,8 +192,19 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       return state.filters;
     });
 
-    this.hasAppliedFilters = this.appliedFilters.map((filters) => {
-      return filters && filters.length > 0;
+    this.hasAppliedFilters = this.state.map(s => {
+      return s.filters;
+    })
+    .distinctUntilChanged()
+    .map((filters) => {
+      let activeFilters = filters
+        .filter((f) => {
+          return f.value !== '' &&
+            f.value !== undefined &&
+            f.value !== false &&
+            f.value !== f.defaultValue;
+        });
+      return activeFilters.length > 0;
     });
   }
 
@@ -204,12 +231,23 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     this.dispatcher.sortSetGlobal(sortModels);
 
     this.showFilterSummary = this.filterSummary.length > 0;
+    this.hasInlineFilters = this.inlineFilter.length > 0;
+    if (this.hasInlineFilters) {
+       this.dispatcher.toolbarAddItems([
+        new ListToolbarItemModel({ template: this.inlineFilterButtonTemplate, location: 'right'})
+      ],
+      0);
+    }
   }
 
   public setSort(sort: ListSortLabelModel): void {
     this.dispatcher.sortSetFieldSelectors(
       [{fieldSelector: sort.fieldSelector, descending: sort.descending}]
     );
+  }
+
+  public inlineFilterButtonClick() {
+    this.inlineFilterBarExpanded = !this.inlineFilterBarExpanded;
   }
 
   private itemIsInView(itemView: string, activeView: string) {

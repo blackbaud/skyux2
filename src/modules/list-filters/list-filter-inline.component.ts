@@ -5,7 +5,8 @@ import {
   ViewChild,
   TemplateRef,
   AfterContentInit,
-  AfterViewInit
+  AfterViewInit,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import { SkyListFilterInlineItemComponent } from './list-filter-inline-item.component';
@@ -32,7 +33,7 @@ import {
   selector: 'sky-list-filter-inline',
   templateUrl: './list-filter-inline.component.html'
 })
-export class SkyListFilterInlineComponent implements AfterContentInit, AfterViewInit {
+export class SkyListFilterInlineComponent implements AfterContentInit {
 
   @ContentChildren(SkyListFilterInlineItemComponent)
   private filters: QueryList<SkyListFilterInlineItemComponent>;
@@ -47,6 +48,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
   private isFiltered: Observable<boolean>;
 
   constructor(
+    private ref: ChangeDetectorRef,
     private state: ListState,
     private dispatcher: ListStateDispatcher
   ) {}
@@ -69,38 +71,10 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
     });
 
     this.dispatcher.filtersLoad(this.getFilterModelFromInline(this.inlineFilters));
-
-    this.isFiltered = this.state.map(s => {
-      return s.filters;
-    })
-    .distinctUntilChanged()
-    .map((filters) => {
-      let activeFilters = filters
-        .filter((f) => {
-          return f.value !== '' &&
-            f.value !== undefined &&
-            f.value !== false &&
-            f.value !== f.defaultValue;
-        });
-      return activeFilters.length > 0;
-    });
   }
 
   public applyFilters() {
     this.dispatcher.filtersUpdate(this.getFilterModelFromInline(this.inlineFilters));
-  }
-
-  public ngAfterViewInit() {
-    this.dispatcher.toolbarAddItems([
-      new ListToolbarItemModel({ template: this.filterButtonTemplate, location: 'right'})
-    ],
-    0);
-  }
-
-  public filterButtonClick() {
-    if (this.inlineFilters.length > 0) {
-      this.inlineBarExpanded = !this.inlineBarExpanded;
-    }
   }
 
   private getFilterModelFromInline(inlineFilters: Array<SkyListFilterInlineModel>) {
