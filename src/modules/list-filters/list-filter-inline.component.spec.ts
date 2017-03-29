@@ -33,8 +33,10 @@ import { FormsModule } from '@angular/forms';
 import {
   SkyCheckboxModule
 } from '../checkbox';
-import { By } from '@angular/platform-browser';
 
+import {
+  TestUtility
+} from '../testing/testutility';
 describe('List inline filters', () => {
 
   let state: ListState,
@@ -95,15 +97,23 @@ describe('List inline filters', () => {
     expect(getInlineFilters().length).toBe(2);
   }));
 
-  it('should filter appropriately when change function is called', () => {
+  it('should filter appropriately when change function is called', fakeAsync(() => {
     fixture.detectChanges();
     tick();
     state.take(1).subscribe((current) => {
       expect(current.filters.length).toBe(0);
     });
     tick();
-    let selectEl = fixture.debugElement.query(By.css('select'));
-  });
+    let selectEl = nativeElement.querySelector('select') as HTMLSelectElement;
+    selectEl.value = 'berry';
+    TestUtility.fireDomEvent(selectEl, 'change');
+    tick();
+    fixture.detectChanges();
+    tick();
+    state.take(1).subscribe((current) => {
+
+    })
+  }));
 
   it('should set active state on filter button when filters are active', () => {
 
