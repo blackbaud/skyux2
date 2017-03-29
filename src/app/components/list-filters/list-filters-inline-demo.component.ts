@@ -50,8 +50,6 @@ export class SkyListFiltersInlineDemoComponent {
     }
   ]);
 
-  public isActive: boolean = false;
-
   public fruitTypeFilterFunction(item: ListItemModel, filterValue: any): boolean {
     return filterValue === 'any' || filterValue === item.data.type;
   }

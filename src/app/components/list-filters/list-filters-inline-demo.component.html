@@ -24,22 +24,22 @@
     >
     </sky-list-toolbar-sort>
     <sky-list-filter-inline>
-    <sky-list-filter-inline-item
-      name="fruitType"
-      [filter]="fruitTypeFilterFunction"
-      value="any"
-      defaultValue="any">
-      <template let-filter="filter">
-        <label for="sky-demo-select-type">Fruit type</label>
-        <select
-          id="sky-demo-select-type"
-          [ngModel]="filter.value"
-          (ngModelChange)="filter.changed($event)">
-          <option value="any">Any fruit</option>
-          <option value="citrus">Citrus</option>
-          <option value="berry">Berry</option>
-        </select>
-      </template>
+      <sky-list-filter-inline-item
+        name="fruitType"
+        [filter]="fruitTypeFilterFunction"
+        value="any"
+        defaultValue="any">
+        <template let-filter="filter">
+          <label for="sky-demo-select-type">Fruit type</label>
+          <select
+            id="sky-demo-select-type"
+            [ngModel]="filter.value"
+            (ngModelChange)="filter.changed($event)">
+            <option value="any">Any fruit</option>
+            <option value="citrus">Citrus</option>
+            <option value="berry">Berry</option>
+          </select>
+        </template>
       </sky-list-filter-inline-item>
       <sky-list-filter-inline-item
         name="hideOrange"
