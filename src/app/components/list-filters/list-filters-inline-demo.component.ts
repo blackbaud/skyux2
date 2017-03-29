@@ -61,9 +61,4 @@ export class SkyListFiltersInlineDemoComponent {
     return !filterValue || (filterValue && item.data.color !== 'orange');
   }
 
-  public hideOrangeModelChanged(value: any, filter: ListFilterModel) {
-    filter.changed(value);
-    this.isActive = !this.isActive;
-  }
-
 }

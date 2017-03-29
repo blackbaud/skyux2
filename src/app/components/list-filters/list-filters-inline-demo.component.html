@@ -24,7 +24,7 @@
     >
     </sky-list-toolbar-sort>
   </sky-list-toolbar>
-  <sky-list-filter-inline [filtersActive]="isActive">
+  <sky-list-filter-inline>
     <sky-list-filter-inline-item
       name="fruitType"
       [filter]="fruitTypeFilterFunction"
@@ -48,7 +48,7 @@
       <template let-filter="filter">
         <sky-checkbox
           [ngModel]="filter.value"
-          (ngModelChange)="hideOrangeModelChanged($event, filter)">
+          (ngModelChange)="filter.changed($event)">
           <sky-checkbox-label>
             Hide orange fruits
           </sky-checkbox-label>

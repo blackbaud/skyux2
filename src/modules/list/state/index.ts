@@ -2,7 +2,6 @@ export * from './list-state.rxstate';
 export * from './list-state.state-node';
 export * from './list-state.model';
 export * from './filters/actions';
-export * from './filters/filter-data.model';
 export * from './filters/filter.model';
 export * from './items/actions';
 export * from './items/item.model';

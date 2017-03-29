@@ -90,7 +90,10 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         result = result.filter(item => {
           for (let i = 0; i < filters.length; i++) {
             let filter = filters[i];
-            if (filter.value === undefined || filter.value === '' || filter.value === false) {
+            if (filter.value === undefined ||
+              filter.value === '' ||
+              filter.value === false ||
+              filter.value === filter.defaultValue) {
               continue;
             }
 

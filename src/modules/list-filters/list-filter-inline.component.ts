@@ -18,22 +18,22 @@ import {
 
 import {
   ListFilterModel,
-  ListToolbarItemModel,
-  ListFilterDataModel
+  ListToolbarItemModel
 } from '../list/state';
 
 import {
   Observable
 } from 'rxjs/Observable';
 
+import {
+  SkyListFilterInlineModel
+} from './list-filter-inline.model';
+
 @Component({
   selector: 'sky-list-filter-inline',
   templateUrl: './list-filter-inline.component.html'
 })
 export class SkyListFilterInlineComponent implements AfterContentInit, AfterViewInit {
-
-  @Input()
-  filtersActive: boolean = false;
 
   @ContentChildren(SkyListFilterInlineItemComponent)
   private filters: QueryList<SkyListFilterInlineItemComponent>;
@@ -43,7 +43,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
 
   private inlineBarExpanded: boolean = false;
 
-  private inlineFilters: Array<ListFilterModel> = [];
+  private inlineFilters: Array<SkyListFilterInlineModel> = [];
 
   private isFiltered: Observable<boolean>;
 
@@ -54,7 +54,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
 
   public ngAfterContentInit() {
     this.inlineFilters = this.filters.map(filter => {
-      return new ListFilterModel({
+      return new SkyListFilterInlineModel({
         name: filter.name,
         filterFunction: filter.filterFunction,
         template: filter.template,
@@ -69,7 +69,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
       });
     });
 
-    this.dispatcher.filtersLoad(this.inlineFilters);
+    this.dispatcher.filtersLoad(this.getFilterModelFromInline(this.inlineFilters));
 
     this.isFiltered = this.state.map(s => {
       return s.filters
@@ -87,7 +87,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
   }
 
   public applyFilters() {
-    this.dispatcher.filtersUpdate(this.inlineFilters);
+    this.dispatcher.filtersUpdate(this.getFilterModelFromInline(this.inlineFilters));
   }
 
   public ngAfterViewInit() {
@@ -101,6 +101,17 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
     if (this.inlineFilters.length > 0) {
       this.inlineBarExpanded = !this.inlineBarExpanded;
     }
+  }
+
+  private getFilterModelFromInline(inlineFilters: Array<SkyListFilterInlineModel>) {
+    return inlineFilters.map((filter) => {
+      return new ListFilterModel({
+        name: filter.name,
+        value: filter.value,
+        filterFunction: filter.filterFunction,
+        defaultValue: filter.defaultValue
+      })
+    });
   }
 
 }
