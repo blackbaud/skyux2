@@ -1,0 +1,23 @@
+@import "../../scss/mixins";
+
+.sky-filter-summary-item {
+  display: inline-block;
+  background-color: $sky-warning-background-color;
+  border: 1px solid $sky-warning-border-color;
+  border-radius: 4px;
+  padding: 3px;
+  color: $sky-warning-text-color;
+  margin-right: $sky-margin-half;
+
+  .sky-filter-summary-item-close {
+    color: $sky-warning-text-color;
+    padding-left: $sky-padding-half;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+  }
+
+  .sky-filter-summary-item-close:hover {
+    text-decoration: none;
+    opacity: .5;
+  }
+}

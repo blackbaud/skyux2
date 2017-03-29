@@ -1,0 +1,48 @@
+<div>
+  <sky-toolbar>
+    <sky-toolbar-section>
+      <sky-toolbar-item>
+        <sky-filter-button
+          [active]="filtersActive"
+          (filterButtonClick)="filterButtonClicked()">
+        </sky-filter-button>
+      </sky-toolbar-item>
+    </sky-toolbar-section>
+  </sky-toolbar>
+  <sky-filter-inline [hidden]="!showInlineFilters">
+    <sky-filter-inline-item>
+      <label for="sky-demo-select-type">Fruit type</label>
+      <select
+        id="sky-demo-select-type"
+        [ngModel]="fruitType"
+        (ngModelChange)="fruitTypeChange($event)">
+        <option value="any">Any fruit</option>
+        <option value="citrus">Citrus</option>
+        <option value="berry">Berry</option>
+      </select>
+    </sky-filter-inline-item>
+    <sky-filter-inline-item>
+      <sky-checkbox
+        [ngModel]="hideOrange"
+        (ngModelChange)="hideOrangeChange($event)"
+        >
+        <sky-checkbox-label>
+          Hide orange fruits
+        </sky-checkbox-label>
+      </sky-checkbox>
+    </sky-filter-inline-item>
+  </sky-filter-inline>
+  <sky-repeater expandMode="none">
+    <sky-repeater-item *ngFor="let item of filteredItems">
+      <sky-repeater-item-title>
+        {{item.name}}
+      </sky-repeater-item-title>
+      <sky-repeater-item-content>
+        <div>
+          {{item.description}}
+        </div>
+      </sky-repeater-item-content>
+    </sky-repeater-item>
+  </sky-repeater>
+
+</div>

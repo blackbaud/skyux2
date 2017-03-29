@@ -196,6 +196,50 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Filter',
+        icon: 'filter',
+        // tslint:disable-next-line
+        summary: `The filter module provides components that allow users to select filter criteria.`,
+        url: '/components/filter',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'filter-demo.component.html',
+              fileContents: require('!!raw!./filter/filter-demo.component.html')
+            },
+            {
+              name: 'filter-demo.component.ts',
+              fileContents: require('!!raw!./filter/filter-demo.component.ts'),
+              componentName: 'SkyFilterDemoComponent',
+              bootstrapSelector: 'sky-filter-demo'
+            },
+            {
+              name: 'filter-demo-modal.component.html',
+              fileContents: require('!!raw!./filter/filter-demo-modal.component.html')
+            },
+            {
+              name: 'filter-demo-modal.component.ts',
+              fileContents: require('!!raw!./filter/filter-demo-modal.component.ts'),
+              componentName: 'SkyFilterDemoModalComponent'
+            },
+            {
+              name: 'filter-demo-modal-context.ts',
+              fileContents: require('!!raw!./filter/filter-demo-modal-context.ts')
+            },
+            {
+              name: 'filter-inline-demo.component.html',
+              fileContents: require('!!raw!./filter/filter-inline-demo.component.html')
+            },
+            {
+              name: 'filter-inline-demo.component.ts',
+              fileContents: require('!!raw!./filter/filter-inline-demo.component.ts'),
+              componentName: 'SkyFilterInlineDemoComponent',
+              bootstrapSelector: 'sky-filter-inline-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Grid',
         icon: 'table',
         // tslint:disable-next-line
