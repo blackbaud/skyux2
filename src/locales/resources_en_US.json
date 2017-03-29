@@ -92,8 +92,8 @@
         "message": "Filters"
     },
     "filter_summary_header": {
-      "_description": "Text for the filter summary component",
-      "message": "Filter"
+        "_description": "Text for the filter summary component",
+        "message": "Filter"
     },
     "grid_back_to_top": {
         "_description": "Text for link in grid to scroll back to the top.",

@@ -17,36 +17,36 @@ export class SkyFilterDemoComponent {
   public appliedFilters: Array<any> = [];
 
   public items: Array<any> = [
-      {
-          name: 'Orange',
-          description: 'A round, orange fruit.',
-          type: 'citrus',
-          color: 'orange'
-      },
-      {
-          name: 'Mango',
-          description: 'Delicious in smoothies, but don\'t eat the skin.',
-          type: 'other',
-          color: 'orange'
-      },
-      {
-          name: 'Lime',
-          description: 'A sour, green fruit used in many drinks.',
-          type: 'citrus',
-          color: 'green'
-      },
-      {
-          name: 'Strawberry',
-          description: 'A red fruit that goes well with shortcake.',
-          type: 'berry',
-          color: 'red'
-      },
-      {
-          name: 'Blueberry',
-          description: 'A small, blue fruit often found in muffins.',
-          type: 'berry',
-          color: 'blue'
-      }
+    {
+      name: 'Orange',
+      description: 'A round, orange fruit.',
+      type: 'citrus',
+      color: 'orange'
+    },
+    {
+      name: 'Mango',
+      description: 'Delicious in smoothies, but don\'t eat the skin.',
+      type: 'other',
+      color: 'orange'
+    },
+    {
+      name: 'Lime',
+      description: 'A sour, green fruit used in many drinks.',
+      type: 'citrus',
+      color: 'green'
+    },
+    {
+      name: 'Strawberry',
+      description: 'A red fruit that goes well with shortcake.',
+      type: 'berry',
+      color: 'red'
+    },
+    {
+      name: 'Blueberry',
+      description: 'A small, blue fruit often found in muffins.',
+      type: 'berry',
+      color: 'blue'
+    }
 
   ];
 
@@ -58,13 +58,13 @@ export class SkyFilterDemoComponent {
 
   public filterButtonClicked() {
     let modalInstance = this.modal.open(
-        SkyFilterDemoModalComponent,
-        [{
-          provide: SkyFilterDemoModalContext,
-          useValue: {
-            appliedFilters: this.appliedFilters
-          }
-        }]);
+      SkyFilterDemoModalComponent,
+      [{
+        provide: SkyFilterDemoModalContext,
+        useValue: {
+          appliedFilters: this.appliedFilters
+        }
+      }]);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'save') {
@@ -103,17 +103,17 @@ export class SkyFilterDemoComponent {
   }
 
   private filterItems(items: Array<any>, filters: Array<any>) {
-      let i: number,
-          passesFilter: boolean,
-          result: Array<any> = [];
+    let i: number,
+      passesFilter: boolean,
+      result: Array<any> = [];
 
-      for (i = 0; i < items.length; i++) {
-        passesFilter = this.itemIsShown(filters, items[i]);
-        if (passesFilter) {
-          result.push(items[i]);
-        }
+    for (i = 0; i < items.length; i++) {
+      passesFilter = this.itemIsShown(filters, items[i]);
+      if (passesFilter) {
+        result.push(items[i]);
       }
+    }
 
-      return result;
+    return result;
   }
 }
