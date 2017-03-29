@@ -81,6 +81,89 @@ describe('Text expand component', () => {
       expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
     });
 
+    it('should not have a see more button if changed from long text to undefined', () => {
+      let fixture = TestBed.createComponent(TextExpandTestComponent);
+      let cmp = fixture.componentInstance as TextExpandTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.';
+
+      fixture.detectChanges();
+      let ellipsis: any = el.querySelector('.sky-text-expand-ellipsis');
+      let seeMoreButton: any = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).not.toBeNull();
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+
+      cmp.text = undefined;
+
+      fixture.detectChanges();
+      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+      seeMoreButton = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).toBeNull();
+      expect(seeMoreButton).toBeNull();
+    });
+
+    it('should have a see more button if changed from long text to undefined and back', () => {
+      let fixture = TestBed.createComponent(TextExpandTestComponent);
+      let cmp = fixture.componentInstance as TextExpandTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.';
+
+      fixture.detectChanges();
+      let ellipsis: any = el.querySelector('.sky-text-expand-ellipsis');
+      let seeMoreButton: any = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).not.toBeNull();
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+
+      cmp.text = undefined;
+
+      fixture.detectChanges();
+      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+      seeMoreButton = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).toBeNull();
+      expect(seeMoreButton).toBeNull();
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.';
+
+      fixture.detectChanges();
+      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+      seeMoreButton = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).not.toBeNull();
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+    });
+
+    it('should not have a see more button if changed from long text to short text', () => {
+      let fixture = TestBed.createComponent(TextExpandTestComponent);
+      let cmp = fixture.componentInstance as TextExpandTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.';
+
+      fixture.detectChanges();
+      let ellipsis: any = el.querySelector('.sky-text-expand-ellipsis');
+      let seeMoreButton: any = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).not.toBeNull();
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu';
+
+      fixture.detectChanges();
+      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+      seeMoreButton = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).toBeNull();
+      expect(seeMoreButton).toBeNull();
+    });
+
     it('should not display anything if no value is given for the text', () => {
       let fixture = TestBed.createComponent(TextExpandTestComponent);
       let cmp = fixture.componentInstance as TextExpandTestComponent;
