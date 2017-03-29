@@ -122,6 +122,7 @@ export class SkyTextExpandComponent {
       this.textToShow = this.collapsedText;
     } else {
       this.textToShow = '';
+      this.expandable = false;
     }
     this.textExpandAdapter.setText(this.textEl, this.textToShow);
   }

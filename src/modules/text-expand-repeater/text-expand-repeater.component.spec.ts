@@ -43,7 +43,7 @@ describe('Text expand repeater component', () => {
       expect(seeMoreButton).toBeNull();
     });
 
-    it('should not have see more button if data is less than or equal to max items', () => {
+    it('should have see more button if data is more than max items', () => {
       let fixture = TestBed.createComponent(TextExpandRepeaterTestComponent);
       let cmp = fixture.componentInstance as TextExpandRepeaterTestComponent;
       let el = fixture.nativeElement as HTMLElement;
@@ -55,6 +55,90 @@ describe('Text expand repeater component', () => {
       let seeMoreButton: any = el.querySelector('.sky-text-expand-repeater-see-more');
       expect(seeMoreButton).not.toBeNull();
       expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+    });
+
+    it('should not have see more button or data if long data is changed to undefined', () => {
+      let fixture = TestBed.createComponent(TextExpandRepeaterTestComponent);
+      let cmp = fixture.componentInstance as TextExpandRepeaterTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      cmp.data = ['john', 'bob', 'hank'];
+      cmp.numItems = 2;
+
+      fixture.detectChanges();
+      let seeMoreButton: any = el.querySelector('.sky-text-expand-repeater-see-more');
+      let displayedItems: NodeListOf<Element>
+        = el.querySelectorAll('.sky-text-expand-repeater-item');
+      expect(displayedItems.length).toBe(3);
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+
+      cmp.data = undefined;
+
+      fixture.detectChanges();
+      displayedItems = el.querySelectorAll('.sky-text-expand-repeater-item');
+      expect(displayedItems.length).toBe(0);
+      seeMoreButton = el.querySelector('.sky-text-expand-repeater-see-more');
+      expect(seeMoreButton).toBeNull();
+    });
+
+    it('should have see more button or data if long data is changed to undefined and back', () => {
+      let fixture = TestBed.createComponent(TextExpandRepeaterTestComponent);
+      let cmp = fixture.componentInstance as TextExpandRepeaterTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      cmp.data = ['john', 'bob', 'hank'];
+      cmp.numItems = 2;
+
+      fixture.detectChanges();
+      let seeMoreButton: any = el.querySelector('.sky-text-expand-repeater-see-more');
+      let displayedItems: NodeListOf<Element>
+        = el.querySelectorAll('.sky-text-expand-repeater-item');
+      expect(displayedItems.length).toBe(3);
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+
+      cmp.data = undefined;
+
+      fixture.detectChanges();
+      displayedItems = el.querySelectorAll('.sky-text-expand-repeater-item');
+      expect(displayedItems.length).toBe(0);
+      seeMoreButton = el.querySelector('.sky-text-expand-repeater-see-more');
+      expect(seeMoreButton).toBeNull();
+
+       cmp.data = ['john', 'bob', 'hank'];
+
+      fixture.detectChanges();
+      seeMoreButton = el.querySelector('.sky-text-expand-repeater-see-more');
+      displayedItems = el.querySelectorAll('.sky-text-expand-repeater-item');
+      expect(displayedItems.length).toBe(3);
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+    });
+
+    it('should not have see more button or data if long data is changed to shorter data', () => {
+      let fixture = TestBed.createComponent(TextExpandRepeaterTestComponent);
+      let cmp = fixture.componentInstance as TextExpandRepeaterTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      cmp.data = ['john', 'bob', 'hank'];
+      cmp.numItems = 2;
+
+      fixture.detectChanges();
+      let seeMoreButton: any = el.querySelector('.sky-text-expand-repeater-see-more');
+      let displayedItems: NodeListOf<Element>
+        = el.querySelectorAll('.sky-text-expand-repeater-item');
+      expect(displayedItems.length).toBe(3);
+      expect(seeMoreButton).not.toBeNull();
+      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+
+      cmp.data = ['john', 'bob'];
+
+      fixture.detectChanges();
+      displayedItems = el.querySelectorAll('.sky-text-expand-repeater-item');
+      expect(displayedItems.length).toBe(2);
+      seeMoreButton = el.querySelector('.sky-text-expand-repeater-see-more');
+      expect(seeMoreButton).toBeNull();
     });
 
     it('should expand and collapse correctly', () => {
