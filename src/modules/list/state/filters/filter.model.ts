@@ -10,6 +10,7 @@ export class ListFilterModel {
   public label: string;
   public dismissible: boolean = true;
   public value: any;
+  public defaultValue: any;
 
   public filterFunction: (item: ListItemModel, filter: any) => boolean;
 
@@ -30,6 +31,7 @@ export class ListFilterModel {
       this.value = data.value;
       this.dismissible = data.dismissible;
       this.template = data.template;
+      this.defaultValue = data.defaultValue;
     }
   }
 }

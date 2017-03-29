@@ -51,12 +51,19 @@ export class SkyListFiltersInlineDemoComponent {
     }
   ]);
 
+  public isActive: boolean = false;
+
   public fruitTypeFilterFunction(item: ListItemModel, filterValue: any): boolean {
     return filterValue === 'any' || filterValue === item.data.type;
   }
 
   public hideOrangeFilterFunction(item: ListItemModel, filterValue: any): boolean {
     return !filterValue || (filterValue && item.data.color !== 'orange');
+  }
+
+  public hideOrangeModelChanged(value: any, filter: ListFilterModel) {
+    filter.changed(value);
+    this.isActive = !this.isActive;
   }
 
 }

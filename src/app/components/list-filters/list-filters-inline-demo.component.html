@@ -24,11 +24,12 @@
     >
     </sky-list-toolbar-sort>
   </sky-list-toolbar>
-  <sky-list-filters-inline>
-    <sky-list-filter-inline
+  <sky-list-filter-inline [filtersActive]="isActive">
+    <sky-list-filter-inline-item
       name="fruitType"
       [filter]="fruitTypeFilterFunction"
-      value="any">
+      value="any"
+      defaultValue="any">
       <template let-filter="filter">
         <label for="sky-demo-select-type">Fruit type</label>
         <select
@@ -40,21 +41,21 @@
           <option value="berry">Berry</option>
         </select>
       </template>
-    </sky-list-filter-inline>
-    <sky-list-filter-inline
+    </sky-list-filter-inline-item>
+    <sky-list-filter-inline-item
       name="hideOrange"
       [filter]="hideOrangeFilterFunction">
       <template let-filter="filter">
         <sky-checkbox
           [ngModel]="filter.value"
-          (ngModelChange)="filter.changed($event)">
+          (ngModelChange)="hideOrangeModelChanged($event, filter)">
           <sky-checkbox-label>
             Hide orange fruits
           </sky-checkbox-label>
         </sky-checkbox>
       </template>
-    </sky-list-filter-inline>
-  </sky-list-filters-inline>
+    </sky-list-filter-inline-item>
+  </sky-list-filter-inline>
 
   <sky-list-view-grid fit="scroll" #grid>
     <sky-grid-column

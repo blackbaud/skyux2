@@ -6,8 +6,7 @@ import {
   TemplateRef,
   Input,
   OnInit,
-  AfterContentInit,
-  ChangeDetectionStrategy
+  AfterContentInit
 } from '@angular/core';
 import {
   ListToolbarConfigSetSearchEnabledAction,
@@ -48,8 +47,7 @@ import { SkySearchComponent } from '../search';
     ListToolbarState,
     ListToolbarStateDispatcher,
     ListToolbarStateModel
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
 export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   @Input()

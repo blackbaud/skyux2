@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'sky-list-filter-inline-renderer',
+  selector: 'sky-list-filter-inline-item-renderer',
   template: '<template #container></template>'
 })
-export class SkyListFilterInlineRendererComponent implements OnInit {
+export class SkyListFilterInlineItemRendererComponent implements OnInit {
   @Input()
   public template: TemplateRef<any>;
   @Input()
@@ -19,7 +19,6 @@ export class SkyListFilterInlineRendererComponent implements OnInit {
   @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
 
   public ngOnInit() {
-    console.log('another', this.template);
     if (this.template !== undefined) {
       this.container.createEmbeddedView(this.template, this);
     }

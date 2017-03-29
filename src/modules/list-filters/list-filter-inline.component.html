@@ -4,16 +4,16 @@
   *ngIf="inlineFilters.length > 0 && inlineBarExpanded">
   <sky-filter-inline-item
     *ngFor="let filter of inlineFilters">
-    <sky-list-filter-inline-renderer
+    <sky-list-filter-inline-item-renderer
       [template]="filter.template"
       [filter]="filter">
-    </sky-list-filter-inline-renderer>
+    </sky-list-filter-inline-item-renderer>
   </sky-filter-inline-item>
 </sky-filter-inline>
 
 <template #filterButton>
   <sky-filter-button
     (filterButtonClick)="filterButtonClick()"
-    [active]="filtered | async">
+    [active]="isFiltered | async">
   </sky-filter-button>
 </template>

@@ -2,46 +2,107 @@ import {
   Component,
   Input,
   ContentChildren,
-  TemplateRef,
   QueryList,
-  OnInit,
-  EventEmitter
+  ViewChild,
+  TemplateRef,
+  AfterContentInit,
+  AfterViewInit
 } from '@angular/core';
 
-import { ListItemModel } from '../list/state';
-import { ListViewComponent } from '../list/list-view.component';
+import { SkyListFilterInlineItemComponent } from './list-filter-inline-item.component';
+
+import {
+  ListState,
+  ListStateDispatcher
+} from '../list/state';
+
+import {
+  ListFilterModel,
+  ListToolbarItemModel,
+  ListFilterDataModel
+} from '../list/state';
+
+import {
+  Observable
+} from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-list-filter-inline',
-  template: '<ng-content></ng-content>'
+  templateUrl: './list-filter-inline.component.html'
 })
-export class SkyListFilterInlineComponent implements OnInit {
-  @Input()
-  public name: string;
+export class SkyListFilterInlineComponent implements AfterContentInit, AfterViewInit {
 
   @Input()
-  public value: any;
+  filtersActive: boolean = false;
 
-  /* tslint:disable */
-  @Input('filter')
-  public filterFunction: (item: ListItemModel, filter: any) => boolean;
+  @ContentChildren(SkyListFilterInlineItemComponent)
+  private filters: QueryList<SkyListFilterInlineItemComponent>;
 
-  @Input('template')
-  public templateInput: TemplateRef<any>;
-  /* tslint:enable */
+  @ViewChild('filterButton')
+  private filterButtonTemplate: TemplateRef<any>;
 
-  public onChange: EventEmitter<any> = new EventEmitter<any>();
+  private inlineBarExpanded: boolean = false;
 
-  @ContentChildren(TemplateRef)
-  private templates: QueryList<TemplateRef<any>>;
+  private inlineFilters: Array<ListFilterModel> = [];
 
-  public ngOnInit() {
-    if (this.name === undefined || this.name.length === 0) {
-      throw new Error('Inline filter requires a name.');
+  private isFiltered: Observable<boolean>;
+
+  constructor(
+    private state: ListState,
+    private dispatcher: ListStateDispatcher
+  ) {}
+
+  public ngAfterContentInit() {
+    this.inlineFilters = this.filters.map(filter => {
+      console.log('default', filter.defaultValue);
+      return new ListFilterModel({
+        name: filter.name,
+        filterFunction: filter.filterFunction,
+        template: filter.template,
+        value: filter.value,
+        defaultValue: filter.defaultValue
+      });
+    });
+
+    this.inlineFilters.forEach(filter => {
+      filter.onChange.subscribe((value: any) => {
+        this.applyFilters();
+      });
+    });
+
+    this.dispatcher.filtersLoad(this.inlineFilters);
+
+    this.isFiltered = this.state.map(s => {
+      return s.filters
+    }).distinctUntilChanged()
+    .map((filters) => {
+      let activeFilters = filters
+        .filter((f) => {
+          console.log('value', f.value, 'default', f.defaultValue);
+          return f.value !== '' &&
+            f.value !== undefined &&
+            f.value !== false &&
+            f.value !== f.defaultValue;
+        });
+      return activeFilters.length > 0;
+    });
+  }
+
+  public applyFilters() {
+    this.dispatcher.filtersUpdate(this.inlineFilters);
+  }
+
+  public ngAfterViewInit() {
+    this.dispatcher.toolbarAddItems([
+      new ListToolbarItemModel({ template: this.filterButtonTemplate, location: 'right'})
+    ],
+    0);
+  }
+
+  public filterButtonClick() {
+    if (this.inlineFilters.length > 0) {
+      this.inlineBarExpanded = !this.inlineBarExpanded;
     }
   }
 
-  public get template(): TemplateRef<any> {
-      return this.templates.length > 0 ? this.templates.first : this.templateInput;
-  }
 }
