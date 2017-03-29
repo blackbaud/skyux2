@@ -1,3 +1,8 @@
+# 2.0.0-beta.15 (2017-03-29)
+
+  - Fixed issues around blank and undefined text in text expand. (Thanks @Blackbaud-Trevor-Burch) (#524)
+  - Added standalone components for filter button, filter summary, and inline filters. (#170)
+
 # 2.0.0-beta.14 (2017-03-22)
 
   - Changed tabs to have `active` state on tabset level instead of individual tab. (#433)
