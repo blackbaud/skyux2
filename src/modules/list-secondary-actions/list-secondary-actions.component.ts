@@ -45,7 +45,8 @@ export class SkyListSecondaryActionsComponent implements AfterContentInit {
     );
     this.dispatcher.toolbarAddItems([
       secondaryActionItem
-    ]);
+    ],
+    -1);
 
     this.actionService.secondaryActionsSubject.subscribe((count) => {
       this.dropdownHidden = count < 1;

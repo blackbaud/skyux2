@@ -54,7 +54,6 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
 
   public ngAfterContentInit() {
     this.inlineFilters = this.filters.map(filter => {
-      console.log('default', filter.defaultValue);
       return new ListFilterModel({
         name: filter.name,
         filterFunction: filter.filterFunction,
@@ -78,7 +77,6 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
     .map((filters) => {
       let activeFilters = filters
         .filter((f) => {
-          console.log('value', f.value, 'default', f.defaultValue);
           return f.value !== '' &&
             f.value !== undefined &&
             f.value !== false &&

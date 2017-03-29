@@ -6,6 +6,7 @@
       [ngClass]="'sky-dropdown-button-type-' + buttonType"
       (document:click)="windowClick()"
       [attr.aria-label]="label"
+      [attr.title]="title"
   >
     <div [ngSwitch]="buttonType">
       <template ngSwitchCase="context-menu">
