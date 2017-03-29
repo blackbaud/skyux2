@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 
 import { ListItemModel } from '../list/state';
-import { ListViewComponent } from '../list/list-view.component';
 
 @Component({
   selector: 'sky-list-filter-inline-item',

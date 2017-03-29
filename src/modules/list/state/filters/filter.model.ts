@@ -1,10 +1,5 @@
 import { ListItemModel } from '../../../list/state/items/item.model';
 
-import {
-  EventEmitter,
-  TemplateRef
-} from '@angular/core';
-
 export class ListFilterModel {
   public name: string;
   public label: string;

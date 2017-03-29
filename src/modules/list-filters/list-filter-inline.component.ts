@@ -1,6 +1,5 @@
 import {
   Component,
-  Input,
   ContentChildren,
   QueryList,
   ViewChild,
@@ -72,8 +71,9 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
     this.dispatcher.filtersLoad(this.getFilterModelFromInline(this.inlineFilters));
 
     this.isFiltered = this.state.map(s => {
-      return s.filters
-    }).distinctUntilChanged()
+      return s.filters;
+    })
+    .distinctUntilChanged()
     .map((filters) => {
       let activeFilters = filters
         .filter((f) => {
@@ -110,7 +110,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit, AfterView
         value: filter.value,
         filterFunction: filter.filterFunction,
         defaultValue: filter.defaultValue
-      })
+      });
     });
   }
 

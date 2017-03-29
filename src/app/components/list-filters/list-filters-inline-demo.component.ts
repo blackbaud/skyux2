@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import {
-  ListFilterModel,
   ListItemModel
 } from '../../../core';
 

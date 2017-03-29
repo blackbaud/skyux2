@@ -369,7 +369,7 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw!./list-filters/list-filters-inline-demo.component.ts'),
               componentName: 'SkyListFiltersInlineDemoComponent',
               bootstrapSelector: 'sky-list-filters-inline-demo'
-            },
+            }
           ];
         }
       },
