@@ -104,6 +104,9 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
         this.expandable = false;
       }
       this._data = value;
+    } else {
+      this._data = undefined;
+      this.expandable = false;
     }
   }
 }
