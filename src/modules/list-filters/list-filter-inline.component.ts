@@ -55,7 +55,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit {
       });
     });
 
-    this.dispatcher.filtersLoad(this.getFilterModelFromInline(this.inlineFilters));
+    this.dispatcher.filtersUpdate(this.getFilterModelFromInline(this.inlineFilters));
   }
 
   public applyFilters() {

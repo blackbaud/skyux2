@@ -39,7 +39,6 @@ import {
  } from './sort/actions';
 
 import {
-  ListFiltersLoadAction,
   ListFiltersUpdateAction
 } from './filters/actions';
 
@@ -51,4 +50,4 @@ export type ListStateAction =
   ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
   ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction | ListToolbarSetTypeAction
   | ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction |
-  ListFiltersLoadAction | ListFiltersUpdateAction;
+  ListFiltersUpdateAction;

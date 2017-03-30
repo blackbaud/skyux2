@@ -29,8 +29,7 @@ import { ListSortLabelModel } from './sort/label.model';
 import { ListSortFieldSelectorModel } from './sort/field-selector.model';
 import { ListFilterModel } from './filters/filter.model';
 import {
-  ListFiltersUpdateAction,
-  ListFiltersLoadAction
+  ListFiltersUpdateAction
 } from './filters/actions';
 
 export class ListStateOrchestrator<T> extends StateOrchestrator<T, ListStateAction> {
@@ -77,9 +76,5 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
 
   public filtersUpdate(filters: ListFilterModel[]): void {
     this.next(new ListFiltersUpdateAction(filters));
-  }
-
-  public filtersLoad(filters: ListFilterModel[]): void {
-    this.next(new ListFiltersLoadAction(filters));
   }
 }

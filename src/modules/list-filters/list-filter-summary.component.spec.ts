@@ -75,7 +75,7 @@ describe('List filter summary', () => {
     fixture.detectChanges();
     state.skip(1).take(1).subscribe(() => fixture.detectChanges());
 
-    dispatcher.filtersLoad(filters);
+    dispatcher.filtersUpdate(filters);
   }));
 
   function getSummaryItems() {
