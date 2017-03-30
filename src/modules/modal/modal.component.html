@@ -15,8 +15,8 @@
         zIndex: modalZIndex
       }">
 
-    <div class="sky-modal-header">
-      <div class="sky-modal-header-content">
+    <div class="sky-modal-header" [hidden]="!headerContent || !headerContent.children || headerContent.children.length < 1">
+      <div class="sky-modal-header-content"  #headerContent>
         <ng-content select="sky-modal-header"></ng-content>
       </div>
       <div class="sky-modal-header-buttons">
@@ -26,6 +26,7 @@
           <i class="fa fa-close"></i>
         </button>
       </div>
+
     </div>
     <div class="sky-modal-content">
       <ng-content select="sky-modal-content"></ng-content>

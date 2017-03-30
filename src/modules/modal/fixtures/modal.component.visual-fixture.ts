@@ -8,6 +8,7 @@ import { ModalDemoComponent } from './modal.visual.content';
 import { ModalLargeDemoComponent } from './modal-large.visual.content';
 import { ModalFullPageDemoComponent } from './modal-fullpage.visual.content';
 import { Bootstrapper } from '../../../../visual/bootstrapper';
+import { ModalContentDemoComponent } from './modal-content.visual.content';
 
 @Component({
   selector: 'sky-demo-app',
@@ -27,6 +28,10 @@ class AppComponent {
   public openFullScreenModal() {
     this.modal.open(ModalFullPageDemoComponent, { 'providers': [], 'fullPage': true });
   }
+
+  public openContentModal() {
+    this.modal.open(ModalContentDemoComponent);
+  }
 }
 
 @NgModule({
@@ -38,7 +43,8 @@ class AppComponent {
     AppComponent,
     ModalDemoComponent,
     ModalLargeDemoComponent,
-    ModalFullPageDemoComponent
+    ModalFullPageDemoComponent,
+    ModalContentDemoComponent
   ],
   bootstrap: [
     AppComponent
@@ -46,7 +52,8 @@ class AppComponent {
   entryComponents: [
     ModalDemoComponent,
     ModalLargeDemoComponent,
-    ModalFullPageDemoComponent
+    ModalFullPageDemoComponent,
+    ModalContentDemoComponent
   ]
 })
 class AppModule { }

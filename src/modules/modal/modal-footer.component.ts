@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-modal-footer',
-  templateUrl: '../shared/simple-content.html'
+  templateUrl: './modal-footer.component.html',
+  styleUrls: ['./modal-footer.component.scss']
 })
-export class SkyModalFooterComponent { }
+export class SkyModalFooterComponent {
+}
