@@ -1,7 +1,6 @@
 import {
   ListState,
-  ListStateDispatcher,
-  ListFilterModel
+  ListStateDispatcher
 } from '../list/state';
 
 import {
@@ -141,13 +140,14 @@ describe('List inline filters', () => {
 
     it('should handle a model without data properly', () => {
       let inlineFilter = new SkyListFilterInlineModel();
+      expect(inlineFilter).not.toBeNull();
     });
 
   });
 
   it('should throw an error if inline filter does not have a name', () => {
     component.hideOrangeName = '';
-    expect(() => {fixture.detectChanges()}).toThrowError();
+    expect(() => { fixture.detectChanges(); }).toThrowError();
 
   });
 

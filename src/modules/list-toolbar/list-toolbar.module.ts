@@ -22,7 +22,8 @@ import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
     SkyToolbarModule,
     SkySearchModule,
     SkySortModule,
-    SkyFilterModule
+    SkyFilterModule,
+    SkyListFiltersModule
   ],
   exports: [
     SkyListToolbarComponent,

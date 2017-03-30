@@ -3,7 +3,6 @@ import {
 } from '@angular/core';
 
 import {
-  ListFilterModel,
   ListItemModel
 } from '../../list/state';
 

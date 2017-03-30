@@ -2,10 +2,7 @@ import {
   Component,
   ContentChildren,
   QueryList,
-  ViewChild,
-  TemplateRef,
   AfterContentInit,
-  AfterViewInit,
   ChangeDetectorRef
 } from '@angular/core';
 
@@ -17,13 +14,8 @@ import {
 } from '../list/state';
 
 import {
-  ListFilterModel,
-  ListToolbarItemModel
+  ListFilterModel
 } from '../list/state';
-
-import {
-  Observable
-} from 'rxjs/Observable';
 
 import {
   SkyListFilterInlineModel
@@ -38,14 +30,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit {
   @ContentChildren(SkyListFilterInlineItemComponent)
   private filters: QueryList<SkyListFilterInlineItemComponent>;
 
-  @ViewChild('filterButton')
-  private filterButtonTemplate: TemplateRef<any>;
-
-  private inlineBarExpanded: boolean = false;
-
   private inlineFilters: Array<SkyListFilterInlineModel> = [];
-
-  private isFiltered: Observable<boolean>;
 
   constructor(
     private ref: ChangeDetectorRef,
