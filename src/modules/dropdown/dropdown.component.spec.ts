@@ -50,6 +50,19 @@ describe('Dropdown component', () => {
       expect(getDropdownBtnEl(el)).toHaveCssClass('sky-dropdown-button-type-context-menu');
     });
 
+    it('should set the correct title when specified', () => {
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let cmp = fixture.componentInstance;
+      let el: Element = fixture.nativeElement;
+
+      cmp.myTitle = 'dropdown title'
+
+      fixture.detectChanges();
+
+      expect(getDropdownBtnEl(el).getAttribute('title')).toBe('dropdown title');
+    });
+
+
     describe('with trigger type "click"', () => {
       it('should open the dropdown menu when clicking the dropdown button', () => {
         let fixture = TestBed.createComponent(DropdownTestComponent);

@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 export class DropdownTestComponent {
   public trigger: String;
   public buttonType: String;
+  public myTitle: string;
 }
