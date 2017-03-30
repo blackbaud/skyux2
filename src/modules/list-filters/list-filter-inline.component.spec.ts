@@ -101,18 +101,33 @@ describe('List inline filters', () => {
     fixture.detectChanges();
     tick();
     state.take(1).subscribe((current) => {
-      expect(current.filters.length).toBe(0);
+      expect(current.filters.length).toBe(2);
+      expect(current.filters[0].value).toBe('any');
+      expect(current.filters[0].defaultValue).toBe('any');
     });
+    let filterButton = getFilterButton() as HTMLButtonElement;
+
+    expect(filterButton).not.toHaveCssClass('sky-filter-btn-active');
     tick();
-    let selectEl = nativeElement.querySelector('select') as HTMLSelectElement;
+    filterButton.click();
+    tick();
+    fixture.detectChanges();
+    let selectEl = nativeElement.querySelector('#sky-demo-select-type') as HTMLSelectElement;
+    console.log('select', selectEl);
     selectEl.value = 'berry';
     TestUtility.fireDomEvent(selectEl, 'change');
     tick();
     fixture.detectChanges();
     tick();
     state.take(1).subscribe((current) => {
+      expect(current.filters.length).toBe(2);
+      expect(current.filters[0].value).toBe('berry');
+      expect(current.filters[0].defaultValue).toBe('any');
+    });
 
-    })
+    filterButton = getFilterButton() as HTMLButtonElement;
+
+    expect(filterButton).toHaveCssClass('sky-filter-btn-active');
   }));
 
   it('should set active state on filter button when filters are active', () => {

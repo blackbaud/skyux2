@@ -9,7 +9,7 @@ import {
 
  @Component({
    selector: 'sky-test-cmp',
-   templateUrl: './list-filter-inline.component.fixture.html'
+   template: require('./list-filter-inline.component.fixture.html')
  })
  export class ListFilterInlineTestComponent {
   public fruitTypeFilterFunction(item: ListItemModel, filterValue: any): boolean {
