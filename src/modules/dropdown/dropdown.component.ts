@@ -34,6 +34,9 @@ export class SkyDropdownComponent {
   @Input()
   public label: string;
 
+  @Input()
+  public title: string;
+
   private open = false;
 
   private opening = false;

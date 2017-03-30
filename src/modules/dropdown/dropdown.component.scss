@@ -1,9 +1,5 @@
 @import "../../scss/mixins";
 
-.sky-dropdown-button {
-  background-color: #fff;
-}
-
 .sky-dropdown-button-type-tab {
   @include sky-btn-tab;
   @include sky-btn-tab-selected;
