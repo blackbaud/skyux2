@@ -188,10 +188,6 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.sortSelectorEnabled);
 
-    this.appliedFilters = this.state.map((state) => {
-      return state.filters;
-    });
-
     this.hasAppliedFilters = this.state.map(s => {
       return s.filters;
     })

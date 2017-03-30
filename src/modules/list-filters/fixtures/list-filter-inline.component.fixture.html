@@ -18,17 +18,19 @@
       </template>
     </sky-list-filter-inline-item>
     <sky-list-filter-inline-item
-      name="hideOrange"
-      [filter]="hideOrangeFilterFunction">
-      <template let-filter="filter">
-        <sky-checkbox
-          [ngModel]="filter.value"
-          (ngModelChange)="filter.changed($event)">
-          <sky-checkbox-label>
-            Hide orange fruits
-          </sky-checkbox-label>
-        </sky-checkbox>
-      </template>
+      [name]="hideOrangeName"
+      [filter]="hideOrangeFilterFunction"
+      [template]="hideOrangeTemplate">
     </sky-list-filter-inline-item>
   </sky-list-filter-inline>
  </sky-list-toolbar>
+
+ <template let-filter="filter" #hideOrangeTemplate>
+   <sky-checkbox
+      [ngModel]="filter.value"
+      (ngModelChange)="filter.changed($event)">
+      <sky-checkbox-label>
+        Hide orange fruits
+      </sky-checkbox-label>
+    </sky-checkbox>
+ </template>

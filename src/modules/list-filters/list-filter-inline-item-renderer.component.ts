@@ -19,6 +19,8 @@ export class SkyListFilterInlineItemRendererComponent implements OnInit {
   @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
 
   public ngOnInit() {
+    /* istanbul ignore else */
+    /* sanity check */
     if (this.template !== undefined) {
       this.container.createEmbeddedView(this.template, this);
     }

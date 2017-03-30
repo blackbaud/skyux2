@@ -12,6 +12,9 @@ import {
    template: require('./list-filter-inline.component.fixture.html')
  })
  export class ListFilterInlineTestComponent {
+
+  public hideOrangeName = 'hideOrange';
+
   public fruitTypeFilterFunction(item: ListItemModel, filterValue: any): boolean {
     return filterValue === 'any' || filterValue === item.data.type;
   }
