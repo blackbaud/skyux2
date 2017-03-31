@@ -2,10 +2,11 @@
   <button
       type="button"
       (click)="click()"
-      class="sky-btn sky-dropdown-button"
+      class="sky-btn sky-dropdown-button sky-btn-default"
       [ngClass]="'sky-dropdown-button-type-' + buttonType"
       (document:click)="windowClick()"
       [attr.aria-label]="label"
+      [attr.title]="title"
   >
     <div [ngSwitch]="buttonType">
       <template ngSwitchCase="context-menu">
