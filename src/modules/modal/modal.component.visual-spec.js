@@ -5,6 +5,7 @@ describe('Modal', function () {
     return browser
       .setupTest('/modal.html')
       .click('.sky-btn-primary')
+      .moveCursorOffScreen()
       .pause(1000)
       .compareScreenshot({
         screenshotName: 'modal',
@@ -17,6 +18,7 @@ describe('Modal', function () {
     return browser
       .setupTest('/modal.html', 480)
       .click('.sky-btn-primary')
+      .moveCursorOffScreen()
       .pause(1000)
       .compareScreenshot({
         screenshotName: 'modal_small',
@@ -29,6 +31,7 @@ describe('Modal', function () {
     return browser
       .setupTest('/modal.html')
       .click('.sky-test-large-modal')
+      .moveCursorOffScreen()
       .pause(1000)
       .compareScreenshot({
         screenshotName: 'modal_large',
@@ -41,6 +44,7 @@ describe('Modal', function () {
     return browser
       .setupTest('/modal.html', 480)
       .click('.sky-test-large-modal')
+      .moveCursorOffScreen()
       .pause(1000)
       .compareScreenshot({
         screenshotName: 'modal_large_mobile',
@@ -53,6 +57,7 @@ describe('Modal', function () {
     return browser
       .setupTest('/modal.html')
       .click('.sky-test-content-only')
+      .moveCursorOffScreen()
       .pause(1000)
       .compareScreenshot({
         screenshotName: 'modal_content_only',
