@@ -1,3 +1,11 @@
+# 2.0.0-beta.16 (2017-03-31)
+
+  - Updated dropdown styles to be consistent with sky-btn-default on hover. (#534)
+  - Updated modal header padding to account for padding of close button. (#512)
+  - Updated margin-left of sky-btn-link when it is the first child in the modal footer. (#512)
+  - Updated the padding and border of modal header and footer to not display when those components are not included. (#512)
+  - Added correct cursor pointer styles for checkbox and radio inputs. (#502)
+
 # 2.0.0-beta.15 (2017-03-29)
 
   - Fixed issues around blank and undefined text in text expand. (Thanks @Blackbaud-Trevor-Burch) (#524)

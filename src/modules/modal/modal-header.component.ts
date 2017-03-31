@@ -4,4 +4,5 @@ import { Component } from '@angular/core';
   selector: 'sky-modal-header',
   templateUrl: '../shared/simple-content.html'
 })
-export class SkyModalHeaderComponent { }
+export class SkyModalHeaderComponent {
+}
