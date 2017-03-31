@@ -20,24 +20,25 @@
   }
 }
 
-.sky-modal-header,
-.sky-modal-content,
-.sky-modal-footer {
+.sky-modal-content {
   background-color: #fff;
   padding: $sky-padding-plus-half;
 }
 
 .sky-modal-header {
+  /* Need less padding because of the close button padding */
+  padding-left: $sky-padding-plus-half;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-right: 3px;
+
+  background-color: #fff;
+
+  display: flex;
   align-items: baseline;
   border-bottom: solid 1px $sky-color-gray-lightest;
-  display: flex;
-  flex-shrink: 0;
 }
 
-.sky-modal-header-content {
-  flex-grow: 1;
-  font-weight: 600;
-}
 
 .sky-modal-header-buttons {
   .sky-btn {
@@ -51,12 +52,20 @@
   }
 }
 
+.sky-modal-header-content {
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+.sky-modal-header {
+  flex-shrink: 0;
+}
+
 .sky-modal-content {
   overflow-y: auto;
 }
 
 .sky-modal-footer {
-  border-top: solid 1px $sky-color-gray-lightest;
   flex-shrink: 0;
 }
 
