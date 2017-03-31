@@ -40,13 +40,13 @@ export class SkyListSecondaryActionsComponent implements AfterContentInit {
       {
         id: 'secondary-actions',
         template: this.secondaryActionsTemplate,
-        location: 'right',
-        index: -1
+        location: 'right'
       }
     );
     this.dispatcher.toolbarAddItems([
       secondaryActionItem
-    ]);
+    ],
+    -1);
 
     this.actionService.secondaryActionsSubject.subscribe((count) => {
       this.dropdownHidden = count < 1;
