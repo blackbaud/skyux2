@@ -10,7 +10,6 @@ import { SkyWizardDemoFormComponent } from './components/wizard/wizard-demo-form
 import { SkyDemoComponentsModule } from './components/demo-components.module';
 
 require('style!./styles.scss');
-require('style!@blackbaud/stache/src/styles/stache.scss');
 
 @NgModule({
   entryComponents: [
