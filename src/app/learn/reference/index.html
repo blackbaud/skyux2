@@ -1,9 +1,9 @@
 <sky-demo-nav></sky-demo-nav>
-<stache 
+<stache
   pageTitle="Technical Reference"
   layout="sidebar"
   showBreadcrumbs="true"
-  [sidebarRoutes]="[{ name: 'Overview', path: '/learn/reference' }, { name: 'CLI Commands', path: '/learn/reference/cli-commands' }, { name: 'Template Items', path: '/learn/reference/template-items' }, { name: 'Configuration', path: '/learn/reference/configuration' }, { name: 'Helpers', path: '/learn/reference/helpers' }, { name: 'Testing', path: '/learn/reference/tests' }]"
+  [sidebarRoutes]="[{ name: 'Technical Reference', path: '/learn/reference' }, { name: 'CLI Commands', path: '/learn/reference/cli-commands' }, { name: 'Template Items', path: '/learn/reference/template-items' }, { name: 'Configuration', path: '/learn/reference/configuration' }, { name: 'Helpers', path: '/learn/reference/helpers' }, { name: 'Testing', path: '/learn/reference/tests' }]"
   [breadcrumbsRoutes]="[{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }, { name: 'Technical Reference', path: '/learn/reference' }]">
 
   <p>
@@ -11,7 +11,7 @@
   </p>
 
   <sky-alert alertType="info">
-    Keep in mind that <a href="https://angular.io/">Angular 2</a> is at the heart of SKY UX 2, so you need to be familiar with this technology to build with SKY UX. For learning resources for Angular2 and other SKY UX tools and technologies, see <a routerLink="/learn/overview/resources">the training resources.</a>
+    Keep in mind that <a href="https://angular.io/">Angular 2</a> is at the heart of SKY UX 2, so you need to be familiar with this technology to build with SKY UX. For learning resources for Angular2 and other SKY UX tools and technologies, see <a routerLink="/learn/resources">the training resources.</a>
   </sky-alert>
 
   <ul>
@@ -22,7 +22,7 @@
       For a description of the default items that the template provides in a SKY UX single-page application, see <a routerLink="/learn/reference/template-items">the template items reference</a>.
     </li>
     <li>
-      For settings that are available in the <code>skyuxconfig.json</code> file in your project's directory, see <a routerLink="/learn/reference/configuration">the configuration options reference</a>.
+      For settings that are available in the <stache-code>skyuxconfig.json</stache-code> file in your project's directory, see <a routerLink="/learn/reference/configuration">the configuration options reference</a>.
     </li>
     <li>
       For helpers to make authenticated HTTP requests, see <a  routerLink="/learn/reference/helpers">the helpers reference</a>.

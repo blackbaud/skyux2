@@ -1,10 +1,10 @@
 <sky-demo-nav></sky-demo-nav>
-<stache 
+<stache
   pageTitle="Learn"
   layout="sidebar"
   showBreadcrumbs="true"
   showTableOfContents="true"
-  [sidebarRoutes]="[{ name: 'Overview', path: '/learn' }, { name: 'Tutorials', path: '/learn/tutorials' }, { name: 'Technical Reference', path: '/learn/reference' }, { name: 'Resources', path: '/learn/resources' }, { name: 'FAQ', path: '/learn/faq' }]"
+  [sidebarRoutes]="[{ name: 'Learn', path: '/learn' }, { name: 'Tutorials', path: '/learn/tutorials' }, { name: 'Technical Reference', path: '/learn/reference' }, { name: 'Resources', path: '/learn/resources' }, { name: 'FAQ', path: '/learn/faq' }]"
   [breadcrumbsRoutes]="[{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }]">
 
   <stache-page-summary>
@@ -22,7 +22,7 @@
   <sky-alert alertType="info">
     Keep in mind that <a href="https://angular.io/">Angular 2</a> is at the heart of SKY UX 2, so you need to be familiar with this technology to build with SKY UX. For learning resources for Angular2 and other SKY UX tools and technologies, see <a routerLink="/learn/overview/resources">the training resources.</a>
   </sky-alert>
-  
+
   <stache-page-anchor>
     What's new in SKY UX 2
   </stache-page-anchor>
@@ -49,7 +49,7 @@
       SKY UX Host acts as a gateway for all requests to SKY UX SPAs. When serving locally, it pulls files locally. And for production, it pulls files from a registry that stores static files.
     </li>
   </ul>
-  
+
   <stache-page-anchor>
     SKY UX Builder
   </stache-page-anchor>
@@ -76,7 +76,7 @@
       Allows for easy implementation of Blackbaud Authentication.
     </li>
   </ul>
-  
+
   <stache-page-anchor>
     Continuous integration layer
   </stache-page-anchor>
@@ -84,7 +84,7 @@
   <p>
     The continuous integration layer of SKY UX runs unit tests, visual regression tests, and end-to-end tests in multiple platforms and browsers when the SPA code changes or when an SPA dependency releases a new version. It also handles staging the SPA for additional testing and validation.
   </p>
-  
+
   <stache-page-anchor>
     SKY UX Host
   </stache-page-anchor>
@@ -92,7 +92,7 @@
   <p>
     SKY UX Host is the gateway for requests to SKY UX SPAs. During local development, SKY UX Host loads local files. And for production, SKY UX Host loads bundled files from a CDN where SKY UX Builder stores them.
   </p>
-  
+
   <p>
     SKY UX Host also creates a web service that:
   </p>
