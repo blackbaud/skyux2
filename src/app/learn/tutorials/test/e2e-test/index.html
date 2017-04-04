@@ -5,7 +5,8 @@
     <sky-alert alertType="info">For information about end-to-end tests in SKY UX, see <a routerLink="/learn/reference/tests/e2e-tests">end-to-end tests</a>. And for tips and techniques on testing Angular applications, see the <a href="https://angular.io/docs/ts/latest/testing/">Angular 2 testing guidelines</a>.</sky-alert>
 
     <ol>
-        <li><p>To view the end-to-end test spec file in a local editor, open the project's <code>about.component.e2e-spec.ts</code> file in the <code>\e2e</code> folder at the root of the project.</p></li>
+        <li><p>To view the end-to-end test spec file in a local editor, open the project's <code>about.component.e2e-spec.ts</code> file in the <code>\e2e</code> folder at the root of the project.</p>
+            <sky-alert alertType="info">SKY UX end-to-end tests should use the same name as the components or services that they test, but they should end with <code>.e2e-spec.ts.</code> Place spec files for end-to-end tests in the <code>e2e</code> folder in the root of your project.</sky-alert></li>
         <li><p>In the command prompt, if <code>skyux serve</code> is still running, enter Ctrl-C to stop serving the project.</p></li>
         <li><p>Enter <code>skyux e2e</code> to run the end-to-end test.</p></li>
         <li><p>The test runs, and the command prompt displays the results.</p></li>

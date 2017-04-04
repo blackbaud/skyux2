@@ -5,10 +5,12 @@
     <sky-alert alertType="info">For information about unit tests in SKY UX, see <a routerLink="/learn/reference/tests/unit-tests">unit tests</a>. And for tips and techniques on testing Angular applications, see the <a href="https://angular.io/docs/ts/latest/testing/">Angular 2 testing guidelines</a>.</sky-alert>
 
     <ol>
-        <li><p>To view the unit test spec files in a local editor, open the project's <code>about.component.spec.ts</code> file in the <code>\src\app\about</code> folder and the <code>home.component.spec.ts</code> file in the <code>\src\app</code> folder.</p></li>
+        <li><p>To view the unit test spec files in a local editor, open the project's <code>about.component.spec.ts</code> file in the <code>\src\app\about</code> folder and the <code>home.component.spec.ts</code> file in the <code>\src\app</code> folder.</p>
+            <sky-alert alertType="info">SKY UX unit tests should use the same name as the components or services that they test, but they should end with <code>.spec.ts.</code> The spec files should also be in the same folder as the components or services that they test.</sky-alert></li>
         <li><p>In the command prompt, if <code>skyux serve</code> is still running, enter Ctrl-C to stop serving the project.</p></li>
         <li><p>Enter <code>skyux test</code> to run the unit tests.</p></li>
-        <li><p>The tests run, and the command prompt displays the results.</p></li>
+        <li><p>The tests run, and the command prompt displays the results.</p>
+            <sky-alert alertType="info">When you run <code>skyux test</code> or <code>skyux watch</code>, code coverage results are stored in the <code>coverage</code> folder.</sky-alert></li>
     </ol>
 
     <p><strong>Next step »</strong> <a routerLink="/learn/tutorials/test/e2e-test">Run an end-to-end test for a project</a></p>
