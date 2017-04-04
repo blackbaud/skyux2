@@ -1,14 +1,22 @@
 <sky-demo-nav></sky-demo-nav>
-<div class="sky-container">
-    <h1>Helpers</h1>
-    <p>This reference describes the helpers that are available to make authenticated HTTP requests.</p>
-    
-    <ul>
-        <li><p><code>import &#123; SkyAuthHttp &#125; from '@blackbaud/skyux-builder/runtime</code> — In conjunction with <a routerLink="/learn/reference/configuration">the <code>auth: true</code> configuration setting in the <code>skyuxconfig.json</code> file</a>, we provide a wrapper to the <code>http</code> utility class. Use <code>SkyAuthHttp.get()</code> to automatically add the necessary Authorization header containing the bearer token received from authentication.</p></li>
-        <li><p><code>import &#123; SkyHostBrowser &#125; from '@blackbaud/skyux-builder/runtime/testing</code> — Particularly useful when running <a routerLink="/learn/reference/cli-commands">the <code>skyux e2e</code> command in the SKY UX CLI</a>. Use <code>SkyHostBrowser.get()</code> to automatically add the SKY UX Host base URL, as well as the necessary configuration object to enable local development mode. For example, <code>SkyHostBrowser.get(/my-page?my-qs=1');</code>.</p></li>
-    </ul>
+<stache
+  pageTitle="Helpers"
+  layout="sidebar"
+  showBreadcrumbs="true"
+  showTableOfContents="false"
+  [sidebarRoutes]="[{ name: 'Technical Reference', path: '/learn/reference' }, { name: 'CLI Commands', path: '/learn/reference/cli-commands' }, { name: 'Template Items', path: '/learn/reference/template-items' }, { name: 'Configuration', path: '/learn/reference/configuration' }, { name: 'Helpers', path: '/learn/reference/helpers' }, { name: 'Testing', path: '/learn/reference/tests' }]"
+  [breadcrumbsRoutes]="[{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }, { name: 'Technical Reference', path: '/learn/reference' }, { name: 'Helpers', path: '/learn/reference/helpers' }]">
 
-    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
-    <p><strong>Previous step »</strong> <a routerLink="/learn/reference">Technical reference</a></p>
+  <stache-page-summary>
+    This reference describes the helpers that are available to make authenticated HTTP requests.
+  </stache-page-summary>
+  <ul>
+    <li>
+      <p><code>import &#123; SkyAuthHttp &#125; from '@blackbaud/skyux-builder/runtime</code> — In conjunction with <a routerLink="/learn/reference/configuration">the <code>auth: true</code> configuration setting in the <code>skyuxconfig.json</code> file</a>, we provide a wrapper to the <code>http</code> utility class. Use <code>SkyAuthHttp.get()</code> to automatically add the necessary Authorization header containing the bearer token received from authentication.</p>
+    </li>
+    <li>
+      <p><code>import &#123; SkyHostBrowser &#125; from '@blackbaud/skyux-builder/runtime/testing</code> — Particularly useful when running <a routerLink="/learn/reference/cli-commands">the <code>skyux e2e</code> command in the SKY UX CLI</a>. Use <code>SkyHostBrowser.get()</code> to automatically add the SKY UX Host base URL, as well as the necessary configuration object to enable local development mode. For example, <code>SkyHostBrowser.get(/my-page?my-qs=1');</code>.</p>
+    </li>
+  </ul>
+</stache>
 
-</div>

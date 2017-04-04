@@ -1,9 +1,17 @@
 <sky-demo-nav></sky-demo-nav>
-<div class="sky-container">
-    <h1>Template items</h1>
-    <p>This reference describes the default items that the template provides in a SKY UX single-page application.</p>
-    
-    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, a variety of files and folders are already in place, and some SKY UX CLI commands create additional items in the project. This topic explains the purpose of these files and folders to provide guidance to developers on which items to edit and which items to ignore.</p>
+<stache
+  pageTitle="Template Items"
+  layout="sidebar"
+  showBreadcrumbs="true"
+  showTableOfContents="false"
+  [sidebarRoutes]="[{ name: 'Technical Reference', path: '/learn/reference' }, { name: 'CLI Commands', path: '/learn/reference/cli-commands' }, { name: 'Template Items', path: '/learn/reference/template-items' }, { name: 'Configuration', path: '/learn/reference/configuration' }, { name: 'Helpers', path: '/learn/reference/helpers' }, { name: 'Testing', path: '/learn/reference/tests' }]"
+  [breadcrumbsRoutes]="[{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }, { name: 'Technical Reference', path: '/learn/reference' }, { name: 'Template Items', path: '/learn/reference/template-items' }]">
+
+  <stache-page-summary>
+    This reference describes the default items that the template provides in a SKY UX single-page application.
+  </stache-page-summary>
+
+  <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, a variety of files and folders are already in place, and some SKY UX CLI commands create additional items in the project. This topic explains the purpose of these files and folders to provide guidance to developers on which items to edit and which items to ignore.</p>
     <p>The default items that the SKY UX template provides in a SPA include:</p>
     <ul>
         <li><p><code>.vscode</code> folder — Contains 2 <code>.json</code> files to configure settings that are included for the developer's convenience.</p>
@@ -36,8 +44,4 @@
         <li><p><code>tsconfig.json</code> — A configuration file for the TypeScript compiler. For information about <code>tsconfig.json</code> files, see <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">the TypeScript documentation</a>.</p></li>
         <li><p><code>tslint.json</code> — A configuration file for TSLint. For information about <code>tslint.json</code> files, see <a href="https://palantir.github.io/tslint/usage/tslint-json/">the TSLint documentation</a>.</p></li>
     </ul>
-
-    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
-    <p><strong>Previous step »</strong> <a routerLink="/learn/reference">Technical reference</a></p>
-    
-</div>
+</stache>
