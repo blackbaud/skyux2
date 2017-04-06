@@ -1,0 +1,27 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-container">
+    <h1>Naming and file placement conventions</h1>
+    <p>This reference describes naming conventions for files in SKY UX projects and rules and recommendations on where to place those. For a more information about the items that the template provides by default in SKY UX single-page applications, see <a routerLink="/learn/reference/template-items">the template items reference</a>.</p>
+    
+    <ul>
+        <li><p>Root directory — There are no special requirements for the name of the root directory that you specify when <a routerLink="/learn/tutorials/create-project">you create a project</a>. However, you should be aware that the CLI creates a folder for the project with this name and the <code>skyux-spa</code> prefix. Also, it includes the root directory name in the URL for the home page of the SPA after the base URL. (If you do not want the root directory in the public-facing URL, you can overwrite it with the <code>name</code> property of the <code>skyuxconfig.json</code> file.</p></li>
+        <li><p>Git repo — There are no special requirements for the name of the Visual Studio Team System Git repo or GitHub repo where you store source files for the project. However, you may want to include the <code>skyux-spa</code> prefix so that the repo name matches the root directory name.</p></li>
+        <li><p><code>src</code> folder — This working folder for the SPA contains source files for the SKY UX project. You place most files and folders for the project within this folder. The main exception is files for end-to-end tests, which you place in the <code>e2e</code> folder.</p></li>
+        <li><p><code>src/app</code> folder — This folder contains files and folders for pages, components, and unit tests. You create subfolders within the <code>src/app</code> folder to create items.</p></li>
+        <li><p><code>\src\app\shared</code> folder — This folder is the recommended location for components and services that are shared across an application.</p></li>
+        <li><p><code>e2e</code> folder — This folder is the required location to store end-to-end tests.</p></li>
+        <li><p>Pages — SKY UX uses automatic route configuration based on a project’s folder structure. So to <a routerLink="/learn/tutorials/edit-project/create-page">create a page</a>, you create a subfolder in <code>\src\app</code> and then create an <code>index.html</code> file for the page in that folder.</p></li>
+        <li><p>Components — To <a routerLink="/learn/tutorials/edit-project/create-component">create a component</a>, you create two files: a <code>.component.ts</code> file to define the component and its functionality and a <code>.component.html</code> file to provide a template for the component. You can also create a matching <code>.scss</code> file to extend the CSS for the component. If a component is shared across an application, place the files in the <code>\src\app\shared</code> folder. Otherwise, place them in the same folder as its page’s <code>index.html</code> file.</p></li>
+        <li><p>Unit tests — We recommend that you follow the <a href="https://angular.io/styleguide#!#naming">Angular 2 naming guidelines</a> on how to name spec files and where to store them. SKY UX unit tests should use the same name as the components or services that they test, but they should end with <code>.spec.ts.</code> Place the spec files in the same folder as the components or services that they test. SKY UX automatically configures Karma to run unit tests in the <code>src</code> folder that match the <code>.spec.ts</code> pattern. When you run <code>skyux test</code> or <code>skyux watch</code>, code coverage results are stored in the <code>coverage</code> folder.</p></li>
+        <li><p>End-to-end tests — We recommend that you follow the <a href="https://angular.io/styleguide#!#naming">Angular 2 naming guidelines</a> on how to name spec files and where to store them. SKY UX end-to-end tests should use the same name as the components or services that they test, but they should end with <code>.e2e-spec.ts.</code> Place spec files for end-to-end tests in the <code>e2e</code> folder in the root of your project. SKY UX automatically configures Protractor to run end-to-end tests in the <code>e2e</code> folder that match the <code>.e2e-spec.ts</code> pattern.</p></li>
+        <li><p>Modules — If a module is shared across an application, place it in the <code>\src\app\shared</code> folder. Otherwise, place it in the same folder as its page’s <code>index.html</code> file.</p></li>
+        <li><p>Services — If a service is shared across an application, place it in the <code>\src\app\shared</code> folder. Otherwise, place it in the same folder as its page’s <code>index.html</code> file.</p></li>
+        <!--
+        <li><p><code>dist</code> folder – Contains files that are deployed through the continuous integration pipeline.</p></li>
+        <li><p><code>node_modules</code> folder – Contains external dependencies for SKY UX components and SKY UX Builder (including system files to build the SPA). We recommend against placing this folder in source control.</p></li>-->
+    </ul>
+    
+    <p><strong>Next step »</strong> <a routerLink="/learn/faq">Frequently asked questions</a></p>
+    <p><strong>Previous step »</strong> <a routerLink="/learn/reference">Technical reference</a></p>
+    
+</div>

@@ -27,7 +27,20 @@
     <h2>Update SKY UX CLI</h2>
     <p>To update the SKY UX CLI with the latest version, run <code>npm install -g @blackbaud/skyux-cli@latest</code>.</p>
 <sky-alert alertType="info">The SKY UX CLI notifies users when a new version is released. If a new version is available when users run <code>skyux serve</code>, then a message appears in the command prompt.</sky-alert>
-
+    
+    <h2>Update SKY UX components and SKY UX Builder</h2>
+    <p>After you install the SKY UX CLI and <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, the project includes a <code>package.json</code> configuration file for NPM to specify dependencies that are stored in the <code>node_modules</code> folder. The <code>package.json</code> file includes properties to specify versions for SKY UX components and for SKY UX Builder.</p>
+    <ul>
+        <li><p>Under the <code>dependencies</code> property, <code>@blackbaud/skyux</code> specifies the version of SKY UX components for the project.</p></li>
+        <li><p>Under the <code>devDependencies</code> property, <code>@blackbaud/skyux-builder</code> specifies the version of SKY UX Builder for the project.</p></li>
+    </ul>
+    <p>To update the version of the components or Builder, you manually update the version in <code>package.json</code> and then run <code>npm install</code>.</p>
+    <ul>
+        <li><p>To find the latest version of the SKY UX components, check the <a href="https://github.com/blackbaud/skyux2/blob/master/CHANGELOG.md">changelog in the SKY UX 2 repo</a> or the <a href="https://www.npmjs.com/package/@blackbaud/skyux">NPM page for the SKY UX 2 package</a>.</p></li>
+        <li><p>To find the latest version of SKY UX Builder, check the <a href="https://github.com/blackbaud/skyux-builder/blob/master/CHANGELOG.md">changelog in the SKY UX Builder repo</a> or the <a href="https://www.npmjs.com/package/@blackbaud/skyux-builder">NPM page for the SKY UX Builder package</a>.</p></li>
+    </ul>
+<sky-alert alertType="info">If you use VSCode or another editor with code-editing functionality, you can also open a prompt that displays the latest version by placing the cursor in the property and pressing Ctrl-Space.</sky-alert>
+    
     <p><strong>Next step »</strong> <a routerLink="/learn/tutorials">Tutorials</a></p>
     <p><strong>Previous step »</strong> <a routerLink="/learn">Get started</a></p>
 
