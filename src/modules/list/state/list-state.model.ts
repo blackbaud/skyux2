@@ -1,5 +1,6 @@
 import { AsyncList, AsyncItem } from 'microedge-rxstate/dist';
 
+import { ListFilterModel } from './filters/filter.model';
 import { ListItemModel } from './items/item.model';
 import { ListPagingModel } from './paging/paging.model';
 import { ListSearchModel } from './search/search.model';
@@ -10,6 +11,7 @@ import { ListViewsModel } from './views/views.model';
 
 export class ListStateModel {
 
+  public filters: ListFilterModel[] = [];
   public items: AsyncList<ListItemModel> = new AsyncList<ListItemModel>();
   public paging: ListPagingModel = new ListPagingModel();
   public search: ListSearchModel = new ListSearchModel();

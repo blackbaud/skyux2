@@ -18,6 +18,7 @@ import { SkyGridModule } from './modules/grid';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyListColumnSelectorActionModule } from './modules/list-column-selector-action';
+import { SkyListFiltersModule } from './modules/list-filters';
 import { SkyListModule } from './modules/list';
 import { SkyListPagingModule } from './modules/list-paging';
 import { SkyListSecondaryActionsModule } from './modules/list-secondary-actions';
@@ -58,6 +59,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyListColumnSelectorActionModule,
+    SkyListFiltersModule,
     SkyListModule,
     SkyListPagingModule,
     SkyListSecondaryActionsModule,
@@ -101,6 +103,7 @@ export * from './modules/label';
 export * from './modules/list-column-selector-action';
 export * from './modules/list';
 export * from './modules/list/state';
+export * from './modules/list-filters';
 export * from './modules/list-paging';
 export * from './modules/list-secondary-actions';
 export * from './modules/list-toolbar';

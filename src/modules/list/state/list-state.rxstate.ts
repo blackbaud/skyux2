@@ -27,6 +27,10 @@ import {
 } from './sort/actions';
 import { ListSortLabelModel } from './sort/label.model';
 import { ListSortFieldSelectorModel } from './sort/field-selector.model';
+import { ListFilterModel } from './filters/filter.model';
+import {
+  ListFiltersUpdateAction
+} from './filters/actions';
 
 export class ListStateOrchestrator<T> extends StateOrchestrator<T, ListStateAction> {
 }
@@ -68,5 +72,9 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
 
   public sortSetGlobal(sortLabels: ListSortLabelModel[]): void {
     this.next(new ListSortSetGlobalAction(sortLabels));
+  }
+
+  public filtersUpdate(filters: ListFilterModel[]): void {
+    this.next(new ListFiltersUpdateAction(filters));
   }
 }

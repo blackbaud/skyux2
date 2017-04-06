@@ -6,12 +6,13 @@
     <h4>Related components</h4>
     <p>Here is a list of related components that can be used within the list component.</p>
     <ul>
-      <li><a href="/skyux2/components/list-paging">List Paging (sky-list-paging)</a></li>
-      <li><a href="/skyux2/components/list-toolbar">List Toolbar (includes sorting) (sky-list-toolbar)</a></li>
+      <li><a href="/skyux2/components/list-paging">List paging (sky-list-paging)</a></li>
+      <li><a href="/skyux2/components/list-filters">List filters</a></li>
+      <li><a href="/skyux2/components/list-toolbar">List toolbar (includes sorting) (sky-list-toolbar)</a></li>
       <li><a href="/skyux2/components/list-view-checklist">
-        List View Checklist (sky-list-view-checklist)
+        List view checklist (sky-list-view-checklist)
       </a></li>
-      <li><a href="/skyux2/components/list-view-grid">List View Grid (sky-list-view-grid)</a></li>
+      <li><a href="/skyux2/components/list-view-grid">List view grid (sky-list-view-grid)</a></li>
 
     </ul>
   </sky-demo-page-summary>
@@ -33,7 +34,7 @@
     >
       Specifies a data provider used to obtain data to display.
       Must provide <code>data</code> or <code>dataProvider</code>.
-      Acceptable values: <code>extends ListDataProvider</code>. To extend ListDataProvider, provide a <code>get</code> function that accepts a <code>ListDataRequestModel</code> as an argument and returns an <code>Observable ListDataResponseMode </code>, and a <code>count</code> function that returns an <code>Observable number</code> that indicates how many total records are in the list.
+      Acceptable values: <code>extends ListDataProvider</code>. To extend ListDataProvider, provide a <code>get</code> function that accepts a <code>ListDataRequestModel</code> as an argument and returns an <code>Observable ListDataResponseModel </code>, and a <code>count</code> function that returns an <code>Observable number</code> that indicates how many total records are in the list.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="initialTotal"
@@ -65,6 +66,13 @@
       Specifies a set of selected IDs to use with a checklist view.
       Acceptable values: <code>Observable Array of strings or Array of strings</code>.
     </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="appliedFilters"
+      isOptional="true"
+    >
+      Specifies a set of filters to apply to list data. These filters will also create a filter summary if the <a routerLink="../list-filters">sky-list-filter-summary</a> component is included.
+      Acceptable values: <code>Array of ListFilterModel</code>.
+    </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-properties sectionHeading="List events">
@@ -72,7 +80,13 @@
         propertyName="selectedIdsChange"
         isOptional="true"
     >
-      When using a list view that supports item selection, this list emits this event with a <code>Map string, boolean</code> object that indicates which data entries are selected.
+      When using a list view that supports item selection, the list emits this event with a <code>Map string, boolean</code> object that indicates which data entries are selected.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="appliedFiltersChange"
+      isOptional="true"
+    >
+      The list emits this event with a <code>Array of ListFilterModel</code> with the new filters applied to the list.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

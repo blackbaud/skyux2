@@ -11,13 +11,15 @@ import { ListTestComponent } from './list.component.fixture';
 import { ListDualTestComponent } from './list-dual.component.fixture';
 import { ListEmptyTestComponent } from './list-empty.component.fixture';
 import { ListSelectedTestComponent } from './list-selected.component.fixture';
+import { ListFilteredTestComponent } from './list-filtered.component.fixture';
 
 @NgModule({
   declarations: [
     ListTestComponent,
     ListDualTestComponent,
     ListEmptyTestComponent,
-    ListSelectedTestComponent
+    ListSelectedTestComponent,
+    ListFilteredTestComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { ListSelectedTestComponent } from './list-selected.component.fixture';
     ListTestComponent,
     ListDualTestComponent,
     ListEmptyTestComponent,
-    ListSelectedTestComponent
+    ListSelectedTestComponent,
+    ListFilteredTestComponent
   ]
 })
 export class ListFixturesModule { }
