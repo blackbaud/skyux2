@@ -94,8 +94,12 @@ describe('Modal component', () => {
     let modalEl = document.querySelector('.sky-modal');
     let maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
     let windowHeight = window.innerHeight;
+    let contentEl = modalEl.querySelector('.sky-modal-content');
+
+    let contentHeight = parseInt(getComputedStyle(contentEl).maxHeight, 10);
 
     expect(maxHeight).toEqual(windowHeight - 40);
+    expect(contentHeight).toEqual(windowHeight - 40 - 114);
 
     TestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
