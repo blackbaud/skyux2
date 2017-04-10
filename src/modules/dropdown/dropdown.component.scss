@@ -3,6 +3,7 @@
 .sky-dropdown-button-type-tab {
   @include sky-btn-tab;
   @include sky-btn-tab-selected;
+  max-width: 100%;
 }
 
 .sky-dropdown-button-type-context-menu {
@@ -27,4 +28,18 @@
   &.sky-dropdown-open {
     display: block;
   }
+}
+
+.sky-dropdown-button-container {
+  display: flex;
+}
+
+.sky-dropdown-button-content-container {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sky-dropdown-button-icon-container {
+  flex-grow: 1;
 }
