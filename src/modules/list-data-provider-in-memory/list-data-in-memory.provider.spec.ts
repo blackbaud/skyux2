@@ -5,6 +5,10 @@ import {
   fakeAsync,
   tick
 } from '@angular/core/testing';
+import {
+  ListFilterModel,
+  ListItemModel
+} from '../list/state';
 
 describe('in memory data provider', () => {
   let items: Observable<Array<any>>;
@@ -217,8 +221,50 @@ describe('in memory data provider', () => {
       tick();
     }));
 
-    it('should handle searching and then sorting', () => {
+  });
 
-    });
+  describe('filtering', () => {
+
+    function filterByColor(item: ListItemModel, filterValue: any): boolean {
+      return !filterValue ||
+      (filterValue === 'yellow' && item.data.column2 === 'Banana') ||
+      (filterValue === 'yellow' && item.data.column2 === 'Lemon');
+    }
+    it('should handle a simple filter', fakeAsync(() => {
+      let provider = new SkyListInMemoryDataProvider(items);
+
+      let request = new ListDataRequestModel({
+        filters: [
+          new ListFilterModel({
+            name: 'fruitColor',
+            value: 'yellow',
+            filterFunction: filterByColor
+          }),
+          new ListFilterModel({
+            name: 'blank',
+            filterFunction: function(item: ListItemModel, filterValue: any): boolean {
+              return false;
+            }
+          })
+        ],
+        pageSize: 5,
+        pageNumber: 1
+      });
+
+      tick();
+
+      provider.get(request).take(1).subscribe((result) => {
+        expect(result.count).toBe(3);
+
+      });
+
+      tick();
+
+      provider.get(request).take(1).subscribe((result) => {
+        expect(result.count).toBe(3);
+      });
+
+      tick();
+    }));
   });
 });

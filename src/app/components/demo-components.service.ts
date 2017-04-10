@@ -334,6 +334,46 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List filters',
+        icon: 'filter',
+        // tslint:disable-next-line
+        summary: `The list filter module provides components that allow users to select filter criteria.`,
+        url: '/components/list-filters',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-filters-demo.component.html',
+              fileContents: require('!!raw!./list-filters/list-filters-demo.component.html')
+            },
+            {
+              name: 'list-filters-demo.component.ts',
+              fileContents: require('!!raw!./list-filters/list-filters-demo.component.ts'),
+              componentName: 'SkyListFiltersDemoComponent',
+              bootstrapSelector: 'sky-list-filters-demo'
+            },
+            {
+              name: 'list-filters-demo-modal.component.html',
+              fileContents: require('!!raw!./list-filters/list-filters-demo-modal.component.html')
+            },
+            {
+              name: 'list-filters-demo-modal.component.ts',
+              fileContents: require('!!raw!./list-filters/list-filters-demo-modal.component.ts'),
+              componentName: 'SkyListFiltersModalDemoComponent'
+            },
+            {
+              name: 'list-filters-inline-demo.component.html',
+              fileContents: require('!!raw!./list-filters/list-filters-inline-demo.component.html')
+            },
+            {
+              name: 'list-filters-inline-demo.component.ts',
+              fileContents: require('!!raw!./list-filters/list-filters-inline-demo.component.ts'),
+              componentName: 'SkyListFiltersInlineDemoComponent',
+              bootstrapSelector: 'sky-list-filters-inline-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'List paging',
         icon: 'file-o',
         // tslint:disable-next-line

@@ -1,3 +1,8 @@
+# 2.0.0-beta.17 (2017-04-07)
+
+  - Added the ability to use filters within lists. (#170)
+  - Added documentation for styling components in builder. (#558)
+
 # 2.0.0-beta.16 (2017-03-31)
 
   - Updated dropdown styles to be consistent with sky-btn-default on hover. (#534)

@@ -159,21 +159,25 @@ describe('List Toolbar Component', () => {
 
       }));
 
-      it('should display when sort provided', () => {
-        fixture.detectChanges();
-        expect(element.query(
-          By.css("sky-list-toolbar-item-renderer[sky-cmp-id='sort-selector']")
-        )).not.toBeNull();
-      });
+      it('should display when sort provided', async(() => {
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          expect(element.query(
+            By.css("sky-list-toolbar-item-renderer[sky-cmp-id='sort-selector']")
+          )).not.toBeNull();
+        });
 
-      it('should not display when sortSelectorEnabled is false', () => {
+      }));
+
+      it('should not display when sortSelectorEnabled is false', async(() => {
         component.sortEnabled = false;
         initializeToolbar();
         fixture.whenStable().then(() => {
           fixture.detectChanges();
           expect(element.query(By.css('.sky-sort'))).toBeNull();
         });
-      });
+      }));
 
       it('should create ascending and descending items for each sort label', async(() => {
         initializeToolbar();

@@ -19,16 +19,27 @@ import {
   ListToolbarStateDispatcher,
   ListToolbarStateModel
 } from './state';
+
 import {
   ListToolbarModel,
   ListToolbarItemModel,
-  ListToolbarSetTypeAction
+  ListToolbarSetTypeAction,
+  ListState,
+  ListStateDispatcher,
+  ListSortLabelModel,
+  ListSortFieldSelectorModel,
+  ListFilterModel
 } from '../list/state';
+
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
-import { ListState, ListStateDispatcher } from '../list/state';
-import { ListSortLabelModel } from '../list/state/sort/label.model';
-import { ListSortFieldSelectorModel } from '../list/state/sort/field-selector.model';
+
 import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
+
+import {
+  SkyListFilterSummaryComponent,
+  SkyListFilterInlineComponent
+} from '../list-filters';
+
 import { getValue } from 'microedge-rxstate/dist/helpers';
 
 import { SkySearchComponent } from '../search';
@@ -80,17 +91,36 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   public isSortSelectorEnabled: Observable<boolean>;
 
+  public appliedFilters: Observable<Array<ListFilterModel>>;
+
+  public hasAppliedFilters: Observable<boolean>;
+
+  public showFilterSummary: boolean;
+
+  public hasInlineFilters: boolean;
+
+  public inlineFilterBarExpanded: boolean = false;
+
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
 
   @ContentChildren(SkyListToolbarSortComponent)
   private toolbarSorts: QueryList<SkyListToolbarSortComponent>;
 
+  @ContentChildren(SkyListFilterSummaryComponent)
+  private filterSummary: QueryList<SkyListFilterSummaryComponent>;
+
+  @ContentChildren(SkyListFilterInlineComponent)
+  private inlineFilter: QueryList<SkyListFilterInlineComponent>;
+
   @ViewChild('search')
   private searchTemplate: TemplateRef<any>;
 
   @ViewChild('sortSelector')
   private sortSelectorTemplate: TemplateRef<any>;
+
+  @ViewChild('inlineFilterButton')
+  private inlineFilterButtonTemplate: TemplateRef<any>;
 
   constructor(
     private state: ListState,
@@ -157,6 +187,21 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
     this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.sortSelectorEnabled);
+
+    this.hasAppliedFilters = this.state.map(s => {
+      return s.filters;
+    })
+    .distinctUntilChanged()
+    .map((filters) => {
+      let activeFilters = filters
+        .filter((f) => {
+          return f.value !== '' &&
+            f.value !== undefined &&
+            f.value !== false &&
+            f.value !== f.defaultValue;
+        });
+      return activeFilters.length > 0;
+    });
   }
 
   public ngAfterContentInit() {
@@ -180,12 +225,25 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     );
 
     this.dispatcher.sortSetGlobal(sortModels);
+
+    this.showFilterSummary = this.filterSummary.length > 0;
+    this.hasInlineFilters = this.inlineFilter.length > 0;
+    if (this.hasInlineFilters) {
+       this.dispatcher.toolbarAddItems([
+        new ListToolbarItemModel({ template: this.inlineFilterButtonTemplate, location: 'right'})
+      ],
+      0);
+    }
   }
 
   public setSort(sort: ListSortLabelModel): void {
     this.dispatcher.sortSetFieldSelectors(
       [{fieldSelector: sort.fieldSelector, descending: sort.descending}]
     );
+  }
+
+  public inlineFilterButtonClick() {
+    this.inlineFilterBarExpanded = !this.inlineFilterBarExpanded;
   }
 
   private itemIsInView(itemView: string, activeView: string) {

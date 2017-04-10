@@ -21,6 +21,7 @@ import { ListTestComponent } from './fixtures/list.component.fixture';
 import { ListDualTestComponent } from './fixtures/list-dual.component.fixture';
 import { ListEmptyTestComponent } from './fixtures/list-empty.component.fixture';
 import { ListSelectedTestComponent } from './fixtures/list-selected.component.fixture';
+import { ListFilteredTestComponent } from './fixtures/list-filtered.component.fixture';
 import { SkyListComponent, SkyListModule, ListDataRequestModel, ListDataResponseModel } from './';
 import { SkyListViewGridModule, SkyListViewGridComponent } from '../list-view-grid';
 import { SkyListToolbarModule } from '../list-toolbar';
@@ -34,7 +35,9 @@ import {
   ListToolbarItemsLoadAction,
   ListSortSetFieldSelectorsAction,
   ListSortFieldSelectorModel,
-  ListSortLabelModel
+  ListSortLabelModel,
+  ListFilterModel,
+  ListItemModel
 } from './state';
 
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
@@ -445,6 +448,121 @@ describe('List Component', () => {
         expect(selectedIds[0]).toBe('1');
         expect(selectedIds[1]).toBe('2');
       }));
+    });
+
+    describe('filtering', () => {
+       let state: ListState,
+          dispatcher: ListStateDispatcher,
+          component: ListFilteredTestComponent,
+          fixture: ComponentFixture<ListFilteredTestComponent>,
+          nativeElement: HTMLElement,
+          items: Observable<any>,
+          bs: BehaviorSubject<any>;
+
+      beforeEach(async(() => {
+        dispatcher = new ListStateDispatcher();
+        state = new ListState(dispatcher);
+
+        /* tslint:disable */
+        let itemsArray = [
+          { id: '1', column1: '30', column2: 'Apple',
+            column3: 1, column4: moment().add(1, 'minute') },
+          { id: '2', column1: '01', column2: 'Banana',
+            column3: 3, column4: moment().add(6, 'minute') },
+          { id: '3', column1: '11', column2: 'Banana',
+            column3: 11, column4: moment().add(4, 'minute') },
+          { id: '4', column1: '12', column2: 'Carrot',
+            column3: 12, column4: moment().add(2, 'minute') },
+          { id: '5', column1: '12', column2: 'Edamame',
+            column3: 12, column4: moment().add(5, 'minute') },
+          { id: '6', column1: null, column2: null,
+            column3: 20, column4: moment().add(3, 'minute') },
+          { id: '7', column1: '22', column2: 'Grape',
+            column3: 21, column4: moment().add(7, 'minute') }
+        ];
+
+        bs = new BehaviorSubject<Array<any>>(itemsArray);
+        items = bs.asObservable();
+
+        TestBed.configureTestingModule({
+          imports: [
+            ListFixturesModule,
+            SkyListModule,
+            SkyListViewGridModule,
+            SkyListToolbarModule,
+            FormsModule
+          ],
+          providers: [
+            { provide: 'items', useValue: items }
+          ]
+        })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              { provide: ListState, useValue: state },
+              { provide: ListStateDispatcher, useValue: dispatcher }
+            ]
+          }
+        });
+
+        fixture = TestBed.createComponent(ListFilteredTestComponent);
+        nativeElement = fixture.nativeElement as HTMLElement;
+        component = fixture.componentInstance;
+
+        fixture.detectChanges();
+
+        // always skip the first update to ListState, when state is ready
+        // run detectChanges once more then begin tests
+        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+        fixture.detectChanges();
+
+      }));
+
+      function appleFilterFunction(item: ListItemModel, filterValue: any) {
+        return item.data.column2 === filterValue;
+      }
+
+      it('should filter when input is changed', fakeAsync(() => {
+        let appliedFilters = [
+          new ListFilterModel({
+            name: 'filter1',
+            value: 'Apple',
+            filterFunction: appleFilterFunction
+          })
+        ];
+
+        component.listFilters = appliedFilters;
+        fixture.detectChanges();
+        tick();
+        state.take(1).subscribe((current) => {
+          expect(current.filters.length).toBe(1);
+          expect(current.items.items.length).toBe(1);
+        });
+        tick();
+      }));
+
+      it('should output event when filters are changed and output listener exists', fakeAsync(() => {
+        let appliedFilters = [
+          new ListFilterModel({
+            name: 'filter1',
+            value: 'Apple',
+            filterFunction: appleFilterFunction
+          })
+        ];
+
+        dispatcher.filtersUpdate(appliedFilters);
+        fixture.detectChanges()
+        tick();
+        fixture.detectChanges();
+
+        expect(component.appliedFilters).toEqual(appliedFilters);
+      }));
+
+      describe('models and state', () => {
+        it('should handle no data passed to constructor', () => {
+          let item = new ListFilterModel();
+        });
+      });
     });
 
     describe('List Component with Array', () => {

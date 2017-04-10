@@ -5,6 +5,7 @@ import { ListDataRequestModel } from '../list/list-data-request.model';
 import { ListDataResponseModel } from '../list/list-data-response.model';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListSearchModel } from '../list/state/search/search.model';
+import { ListFilterModel } from '../list/state/filters/filter.model';
 import {
   compare,
   getData
@@ -20,6 +21,9 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
   private lastSearch: ListSearchModel;
   private lastSearchResults: ListItemModel[];
   private searchFunction: (data: any, searchText: string) => boolean;
+
+  private lastFilters: ListFilterModel[];
+  private lastFilterResults: ListItemModel[];
 
   constructor(
     data?: Observable<Array<any>>,
@@ -58,6 +62,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
       let dataChanged = false;
       let search = request.search;
       let sort = request.sort;
+      let filters = request.filters;
 
       if (this.lastItems === undefined || this.lastItems !== items) {
         dataChanged = true;
@@ -70,10 +75,40 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         this.lastSearch = search;
       }
 
+      let filtersChanged = false;
+
+      if (this.lastFilters === undefined || this.lastFilters !== filters) {
+        filtersChanged = true;
+        this.lastFilters = filters;
+      }
+
       let result = items;
 
-      /* ignore if until multiple different types of filtering can occur */
-      /* istanbul ignore next */
+      if (!dataChanged && !filtersChanged && this.lastFilterResults !== undefined) {
+        result = this.lastFilterResults;
+      } else if (filters && filters.length > 0) {
+        result = result.filter(item => {
+          for (let i = 0; i < filters.length; i++) {
+            let filter = filters[i];
+            if (filter.value === undefined ||
+              filter.value === '' ||
+              filter.value === false ||
+              filter.value === filter.defaultValue) {
+              continue;
+            }
+
+            if (!filter.filterFunction(item, filter.value)) {
+              return false;
+            }
+          }
+          return true;
+        });
+
+        this.lastFilterResults = result;
+      } else {
+        this.lastFilterResults = undefined;
+      }
+
       if (!dataChanged && !searchChanged && this.lastSearchResults !== undefined) {
         result = this.lastSearchResults;
       } else if (search && search.searchText !== undefined && search.searchText.length > 0) {

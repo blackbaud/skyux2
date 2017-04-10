@@ -33,8 +33,14 @@ import {
 } from './selected/actions';
 
 import {
-   ListSortSetFieldSelectorsAction, ListSortSetAvailableAction, ListSortSetGlobalAction
+   ListSortSetFieldSelectorsAction,
+   ListSortSetAvailableAction,
+   ListSortSetGlobalAction
  } from './sort/actions';
+
+import {
+  ListFiltersUpdateAction
+} from './filters/actions';
 
 export type ListStateAction =
   ListItemsSetLoadingAction | ListItemsLoadAction |
@@ -43,4 +49,5 @@ export type ListStateAction =
   ListToolbarSetExistsAction | ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
   ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
   ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction | ListToolbarSetTypeAction
-  | ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction;
+  | ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction |
+  ListFiltersUpdateAction;
