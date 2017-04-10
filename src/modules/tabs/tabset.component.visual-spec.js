@@ -41,4 +41,15 @@ describe('TabSet', function () {
       });
   });
 
+  it('should match previous mobile dropdown tabset screenshot with long tab', function () {
+    return browser
+      .setupTest('/tabs.html', 480)
+      .waitForVisible('#screenshot-tabset-long button.sky-dropdown-button-type-tab')
+      .moveCursorOffScreen()
+      .compareScreenshot({
+        screenshotName: 'tabset_collapsed_dropdown_long',
+        selector: '#screenshot-tabset-long'
+      });
+  });
+
 });

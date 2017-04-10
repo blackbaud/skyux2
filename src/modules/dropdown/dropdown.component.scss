@@ -43,3 +43,10 @@
 .sky-dropdown-button-icon-container {
   flex-grow: 1;
 }
+
+.sky-dropdown-menu {
+  /deep/ button {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
