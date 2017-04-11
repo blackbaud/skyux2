@@ -19,6 +19,8 @@ export class SkyDemoComponentsComponent implements OnInit {
     return this.componentService.getComponents();
   }
 
+  public actionButtonRoutes: any[] = [];
+
   constructor(
     private titleService: SkyDemoTitleService,
     private componentService: SkyDemoComponentsService
@@ -26,5 +28,13 @@ export class SkyDemoComponentsComponent implements OnInit {
 
   public ngOnInit() {
     this.titleService.setTitle('Components');
+    this.components.forEach((component) => {
+      this.actionButtonRoutes.push({
+        path: [component.url],
+        name: component.name,
+        icon: component.icon,
+        summary: component.summary
+      });
+    });
   }
 }
