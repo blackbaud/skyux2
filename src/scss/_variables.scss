@@ -180,7 +180,7 @@ $sky-toolbar-min-height: 49px;
 
 // begin wait
 $sky-wait-color: $sky-color-blue !default;
-$sky-wait-mask-color: $sky-color-white !default;
+$sky-wait-mask-color: rgba(255, 255, 255, 0.7) !default;
 $sky-page-wait-z-index: 2000 !default;
 // end wait
 
