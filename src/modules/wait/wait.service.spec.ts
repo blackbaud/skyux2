@@ -1,7 +1,8 @@
 import {
   TestBed,
   inject,
-  fakeAsync
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import {
@@ -71,97 +72,116 @@ describe('Wait service', () => {
   it('should add a blocking page wait when beginPageWait is called with isBlocking true',
     fakeAsync(() => {
     waitService.beginBlockingPageWait();
+    tick();
     applicationRef.tick();
 
     verifyBlockingPageWaitExists(true);
 
     waitService.beginBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyBlockingPageWaitExists(true);
 
     waitService.endBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyBlockingPageWaitExists(true);
 
     waitService.endBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyBlockingPageWaitExists(false);
 
   }));
 
   it('should add a nonblocking page wait when beginPageWait is called with isBlocking false',
-    () => {
+    fakeAsync(() => {
     waitService.beginNonBlockingPageWait();
+    tick();
     applicationRef.tick();
 
     verifyNonBlockingPageWaitExists(true);
 
     waitService.beginNonBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyNonBlockingPageWaitExists(true);
 
     waitService.endNonBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyNonBlockingPageWaitExists(true);
 
     waitService.endNonBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyNonBlockingPageWaitExists(false);
-  });
+  }));
 
-  it('do nothing if wait component not created and endPageWait is called', () => {
+  it('do nothing if wait component not created and endPageWait is called', fakeAsync(() => {
     waitService.endNonBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyNonBlockingPageWaitExists(false);
-  });
+  }));
 
-  it('not drop counts below zero', () => {
+  it('not drop counts below zero', fakeAsync(() => {
     waitService.beginNonBlockingPageWait();
+    tick();
     applicationRef.tick();
 
     verifyNonBlockingPageWaitExists(true);
 
     waitService.endNonBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyNonBlockingPageWaitExists(false);
 
     waitService.endNonBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyNonBlockingPageWaitExists(false);
 
     waitService.beginNonBlockingPageWait();
+    tick();
     applicationRef.tick();
 
     verifyNonBlockingPageWaitExists(true);
 
     waitService.endBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyBlockingPageWaitExists(false);
 
     waitService.beginBlockingPageWait();
+    tick();
     applicationRef.tick();
     verifyBlockingPageWaitExists(true);
-  });
+  }));
 
-  it('should clear appropriate waits when clearPageWait is called', () => {
+  it('should clear appropriate waits when clearPageWait is called', fakeAsync(() => {
     waitService.beginNonBlockingPageWait();
+    tick();
     applicationRef.tick();
 
     waitService.beginBlockingPageWait();
+    tick();
     applicationRef.tick();
 
     waitService.clearAllPageWaits();
+    tick();
     applicationRef.tick();
 
     verifyNonBlockingPageWaitExists(false);
     verifyBlockingPageWaitExists(false);
-  });
+  }));
 
-  it('should only clear waits if waitcomponent not created', () => {
+  it('should only clear waits if waitcomponent not created', fakeAsync(() => {
     waitService.clearAllPageWaits();
+    tick();
     applicationRef.tick();
 
     verifyNonBlockingPageWaitExists(false);
     verifyBlockingPageWaitExists(false);
-  });
+  }));
 });
