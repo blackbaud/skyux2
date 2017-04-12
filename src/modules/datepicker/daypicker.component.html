@@ -1,0 +1,56 @@
+<table
+  *ngIf="datepicker.datepickerMode==='day'"
+  role="grid"
+  [attr.aria-labelledby]="datepicker.uniqueId+'-title'"
+  aria-activedescendant="activeDateId">
+  <thead>
+    <tr>
+      <th>
+        <button type="button"
+                class="btn btn-default btn-secondary btn-sm pull-left"
+                (click)="datepicker.move(-1)"
+                tabindex="-1">
+          <i class="fa fa-chevron-left"></i>
+        </button>
+      </th>
+      <th [attr.colspan]="5 + (datepicker.showWeeks ? 1 : 0)">
+        <button [id]="datepicker.uniqueId + '-title'"
+                type="button" class="btn btn-default btn-secondary btn-sm"
+                (click)="datepicker.toggleMode()"
+                [disabled]="datepicker.datepickerMode === datepicker.maxMode"
+                [ngClass]="{disabled: datepicker.datepickerMode === datepicker.maxMode}" tabindex="-1" style="width:100%;">
+          <strong>{{title}}</strong>
+        </button>
+      </th>
+      <th>
+        <button type="button"
+                class="btn btn-default btn-secondary btn-sm pull-right"
+                (click)="datepicker.move(1)"
+                tabindex="-1">
+          <i class="fa fa-chevron-right"></i>
+        </button>
+      </th>
+    </tr>
+    <tr>
+      <th *ngIf="datepicker.showWeeks"></th>
+      <th *ngFor="let labelz of labels" class="text-center">
+        <small aria-label="labelz.full"><b>{{labelz.abbr}}</b></small>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <template ngFor [ngForOf]="rows" let-rowz="$implicit" let-index="index">
+      <tr *ngIf="!(datepicker.onlyCurrentMonth && rowz[0].secondary && rowz[6].secondary)">
+        <td *ngFor="let dtz of rowz" class="text-center" role="gridcell" [id]="dtz.uid">
+          <button type="button" style="min-width:100%;" class="btn btn-sm {{dtz.customClass}}"
+                  *ngIf="!(datepicker.onlyCurrentMonth && dtz.secondary)"
+                  [ngClass]="{'btn-secondary': isBs4 && !dtz.selected && !datepicker.isActive(dtz), 'btn-info': dtz.selected, disabled: dtz.disabled, active: !isBs4 && datepicker.isActive(dtz), 'btn-default': !isBs4}"
+                  [disabled]="dtz.disabled"
+                  (click)="datepicker.select(dtz.date)" tabindex="-1">
+            <span [ngClass]="{'text-muted': dtz.secondary || dtz.current, 'text-info': !isBs4 && dtz.current}">{{dtz.label}}</span>
+          </button>
+        </td>
+      </tr>
+    </template>
+  </tbody>
+</table>

@@ -1,0 +1,38 @@
+<table *ngIf="datepicker.datepickerMode==='month'" role="grid">
+  <thead>
+    <tr>
+      <th>
+        <button type="button" class="btn btn-default btn-sm pull-left"
+                (click)="datepicker.move(-1)" tabindex="-1">
+          <i class="fa fa-chevron-left"></i>
+        </button></th>
+      <th [attr.colspan]="((datepicker.monthColLimit - 2) <= 0) ? 1 : datepicker.monthColLimit - 2">
+        <button [id]="datepicker.uniqueId + '-title'"
+                type="button" class="btn btn-default btn-sm"
+                (click)="datepicker.toggleMode()"
+                [disabled]="datepicker.datepickerMode === maxMode"
+                [ngClass]="{disabled: datepicker.datepickerMode === maxMode}" tabindex="-1" style="width:100%;">
+          <strong>{{title}}</strong>
+        </button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-default btn-sm pull-right"
+                (click)="datepicker.move(1)" tabindex="-1">
+          <i class="fa fa-chevron-right"></i>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rowz of rows">
+      <td *ngFor="let dtz of rowz" class="text-center" role="gridcell" id="{{dtz.uid}}" [ngClass]="dtz.customClass">
+        <button type="button" style="min-width:100%;" class="btn btn-default"
+                [ngClass]="{'btn-link': isBs4 && !dtz.selected && !datepicker.isActive(dtz), 'btn-info': dtz.selected || (isBs4 && !dtz.selected && datepicker.isActive(dtz)), disabled: dtz.disabled, active: !isBs4 && datepicker.isActive(dtz)}"
+                [disabled]="dtz.disabled"
+                (click)="datepicker.select(dtz.date)" tabindex="-1">
+          <span [ngClass]="{'text-success': isBs4 && dtz.current, 'text-info': !isBs4 && dtz.current}">{{dtz.label}}</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

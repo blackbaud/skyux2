@@ -9,6 +9,7 @@ import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
 import { SkyColumnSelectorModule } from './modules/column-selector';
+import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
 import { SkyErrorModule } from './modules/error';
@@ -80,7 +81,8 @@ import { SkyWaitModule } from './modules/wait';
     SkyTextExpandRepeaterModule,
     SkyTilesModule,
     SkyToolbarModule,
-    SkyWaitModule
+    SkyWaitModule,
+    SkyDatepickerModule
   ]
 })
 export class SkyModule { }
@@ -91,6 +93,7 @@ export * from './modules/action-button';
 export * from './modules/card';
 export * from './modules/checkbox';
 export * from './modules/column-selector';
+export * from './modules/datepicker';
 export * from './modules/definition-list';
 export * from './modules/dropdown';
 export * from './modules/error';

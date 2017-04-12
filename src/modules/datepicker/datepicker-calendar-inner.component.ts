@@ -29,46 +29,48 @@ import { SkyDateFormatter } from './date-formatter';
  };
  */
 
+/**
+ * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
+ */
+let nextDatepickerId = 0;
+
 @Component({
   selector: 'sky-datepicker-inner',
   templateUrl: './datepicker-calendar-inner.component.html'
 })
 export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
   @Input()
-  public datepickerMode: string;
-  @Input()
   public startingDay: number;
-  @Input()
-  public yearRange: number;
 
   @Input()
   public minDate: Date;
+
   @Input()
   public maxDate: Date;
-  @Input()
-  public minMode: string;
-  @Input()
-  public maxMode: string;
 
   @Input()
-  public monthColLimit: number;
-  @Input()
-  public yearColLimit: number;
-
-  @Input()
-  public formatDay: string;
-  @Input()
-  public formatMonth: string;
-  @Input()
-  public formatYear: string;
-
-  @Input()
-  public dateDisabled: { date: Date, mode: string }[];
-  @Input()
-  public initDate: Date;
+  public selectedDate: Date;
 
   @Output()
-  public activeDateChange: EventEmitter<Date> = new EventEmitter<Date>(undefined);
+  public selectedDateChange: EventEmitter<Date> = new EventEmitter<Date>(undefined);
+
+  public activeDate: Date;
+
+  public minMode: string = 'day';
+  public maxMode: string = 'year';
+  public monthColLimit: number = 3;
+  public yearColLimit: number = 5;
+  public datepickerMode: string = 'day';
+  public yearRange: number = 20;
+
+  public formatDay: string = 'DD';
+  public formatMonth: string = 'MMMM';
+  public formatYear: string = 'YYYY';
+  public formatDayHeader: string = 'dd';
+  public formatDayTitle: string = 'MMMM YYYY';
+  public formatMonthTitle: string = 'YYYY';
+
+  public datepickerId: string = `sky-datepicker-${++nextDatepickerId}`;
 
   public stepDay: any = {};
   public stepMonth: any = {};
@@ -76,37 +78,20 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
 
   protected modes: string[] = ['day', 'month', 'year'];
   protected dateFormatter: SkyDateFormatter = new SkyDateFormatter();
-  protected uniqueId: string;
-  protected _activeDate: Date;
-  protected selectedDate: Date;
   protected activeDateId: string;
 
   protected refreshViewHandlerDay: Function;
-  protected compareHandlerDay: Function;
+  public compareHandlerDay: Function;
   protected refreshViewHandlerMonth: Function;
   protected compareHandlerMonth: Function;
   protected refreshViewHandlerYear: Function;
   protected compareHandlerYear: Function;
 
-  @Input()
-  public get activeDate(): Date {
-    return this._activeDate;
-  }
-
-  public set activeDate(value: Date) {
-    this._activeDate = value;
-  }
-
-  // todo: add formatter value to Date object
   public ngOnInit(): void {
-    // todo: use date for unique value
-    this.uniqueId = 'datepicker-' + '-' + Math.floor(Math.random() * 10000);
 
-    if (this.initDate) {
-      this.activeDate = this.initDate;
-      this.selectedDate = new Date(this.activeDate.valueOf() as number);
-      this.activeDateChange.emit(this.activeDate);
-    } else if (this.activeDate === undefined) {
+    if (this.selectedDate) {
+      this.activeDate = new Date(this.selectedDate);
+    } else {
       this.activeDate = new Date();
     }
   }
@@ -190,12 +175,13 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     return false;
   }
 
+  // dateObject should probably be it's own class. split, dateFilter, and isActive might be good to have in some sort of utils service
+
   public createDateObject(date: Date, format: string): any {
     let dateObject: any = {};
     dateObject.date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     dateObject.label = this.dateFilter(date, format);
     dateObject.selected = this.compare(date, this.selectedDate) === 0;
-    dateObject.disabled = this.isDisabled(date);
     dateObject.current = this.compare(date, new Date()) === 0;
     return dateObject;
   }
@@ -208,33 +194,38 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     return arrays;
   }
 
-  // Fix a hard-reproducible bug with timezones
-  // The bug depends on OS, browser, current timezone and current date
-  // i.e.
-  // var date = new Date(2014, 0, 1);
-  // console.log(date.getFullYear(), date.getMonth(), date.getDate(),
-  // date.getHours()); can result in "2013 11 31 23" because of the bug.
+  /*
+    This is ensures that no strangeness happens when converting a date to local time.
+  */
   public fixTimeZone(date: Date): Date {
-    let hours = date.getHours();
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours === 23 ? hours + 2 : 0);
+    let newDate = new Date(date);
+    newDate.setFullYear(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate());
+
+    return newDate;
   }
 
-  public select(date: Date): void {
+  public select(date: Date, isManual: boolean = true): void {
+
+
+    this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    /*
+        Only actually select date if in minmode (day picker mode). Otherwise, just change the active
+        view for the datepicker.
+    */
     if (this.datepickerMode === this.minMode) {
-      if (!this.activeDate) {
-        this.activeDate = new Date(0, 0, 0, 0, 0, 0, 0);
+      this.selectedDate = new Date(this.activeDate);
+      if (isManual) {
+        this.selectedDateChange.emit(this.selectedDate);
       }
 
-      this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
     } else {
-
-      this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) - 1];
     }
 
-    this.selectedDate = new Date(this.activeDate.valueOf() as number);
-    this.activeDateChange.emit(this.activeDate);
     this.refreshView();
   }
 
@@ -253,12 +244,12 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     }
 
     if (expectedStep) {
-      let year = this.activeDate.getFullYear() + direction * (expectedStep.years || 0);
-      let month = this.activeDate.getMonth() + direction * (expectedStep.months || 0);
+      let year = this.activeDate.getFullYear() + (direction * (expectedStep.years || 0));
+      let month = this.activeDate.getMonth() + (direction * (expectedStep.months || 0));
+
       this.activeDate = new Date(year, month, 1);
 
       this.refreshView();
-      this.activeDateChange.emit(this.activeDate);
     }
   }
 
@@ -272,40 +263,5 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
 
     this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) + direction];
     this.refreshView();
-  }
-
-
-  protected compareDateDisabled(date1Disabled: { date: Date, mode: string }, date2: Date): number {
-    if (date1Disabled === undefined || date2 === undefined) {
-      return undefined;
-    }
-
-    if (date1Disabled.mode === 'day' && this.compareHandlerDay) {
-      return this.compareHandlerDay(date1Disabled.date, date2);
-    }
-
-    if (date1Disabled.mode === 'month' && this.compareHandlerMonth) {
-      return this.compareHandlerMonth(date1Disabled.date, date2);
-    }
-
-    if (date1Disabled.mode === 'year' && this.compareHandlerYear) {
-      return this.compareHandlerYear(date1Disabled.date, date2);
-    }
-
-    return undefined;
-  }
-
-  protected isDisabled(date: Date): boolean {
-    let isDateDisabled: boolean = false;
-    if (this.dateDisabled) {
-      this.dateDisabled.forEach((disabledDate: { date: Date, mode: string }) => {
-        if (this.compareDateDisabled(disabledDate, date) === 0) {
-          isDateDisabled = true;
-        }
-      });
-    }
-
-    return (isDateDisabled || (this.minDate && this.compare(date, this.minDate) < 0) ||
-      (this.maxDate && this.compare(date, this.maxDate) > 0));
   }
 }

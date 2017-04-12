@@ -19,8 +19,8 @@ export class SkyDayPickerComponent implements OnInit {
   public datepicker: SkyDatepickerCalendarInnerComponent;
   public CURRENT_THEME_TEMPLATE: any;
 
-  public constructor(datePicker: SkyDatepickerCalendarInnerComponent) {
-    this.datepicker = datePicker;
+  public constructor(datepicker: SkyDatepickerCalendarInnerComponent) {
+    this.datepicker = datepicker;
   }
 
   public ngOnInit(): void {

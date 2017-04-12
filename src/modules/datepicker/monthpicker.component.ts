@@ -16,8 +16,8 @@ export class SkyMonthPickerComponent implements OnInit {
   public datepicker: SkyDatepickerCalendarInnerComponent;
   public maxMode:string;
 
-  public constructor(datePicker: SkyDatepickerCalendarInnerComponent) {
-    this.datepicker = datePicker;
+  public constructor(datepicker: SkyDatepickerCalendarInnerComponent) {
+    this.datepicker = datepicker;
   }
 
   public ngOnInit():void {

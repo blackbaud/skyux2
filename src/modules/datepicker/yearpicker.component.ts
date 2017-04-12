@@ -16,8 +16,8 @@ export class SkyYearPickerComponent implements OnInit {
   public title:string;
   public rows:any[] = [];
 
-  public constructor(datePicker: SkyDatepickerCalendarInnerComponent) {
-    this.datepicker = datePicker;
+  public constructor(datepicker: SkyDatepickerCalendarInnerComponent) {
+    this.datepicker = datepicker;
   }
 
   public ngOnInit():void {
