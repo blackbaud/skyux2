@@ -1,0 +1,23 @@
+.sky-datepicker-calendar-inner {
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+
+  /deep/ .sky-btn-default {
+    border-color: #fff;
+  }
+
+  /deep/ .sky-datepicker-center {
+    text-align: center;
+  }
+
+  /deep/ .sky-datepicker-btn-selected {
+    color: #fff;
+    background-color: #1c84c6;
+    border-color: #ccc;
+  }
+
+  /deep/ .sky-datepicker-secondary {
+    color: #999;
+  }
+}

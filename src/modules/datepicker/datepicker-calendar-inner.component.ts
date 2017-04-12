@@ -36,7 +36,8 @@ let nextDatepickerId = 0;
 
 @Component({
   selector: 'sky-datepicker-inner',
-  templateUrl: './datepicker-calendar-inner.component.html'
+  templateUrl: './datepicker-calendar-inner.component.html',
+  styleUrls: ['./datepicker-calendar-inner.component.scss']
 })
 export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
   @Input()

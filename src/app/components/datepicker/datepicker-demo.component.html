@@ -1,5 +1,9 @@
-<sky-datepicker-calendar
-  (selectedDateChange)="selectedDate = $event">
-</sky-datepicker-calendar>
 
-Selected date is {{selectedDate}}
+<div style="display: inline-block">
+  <sky-datepicker-calendar
+    (selectedDateChange)="selectedDate = $event">
+  </sky-datepicker-calendar>
+</div>
+<div>
+  Selected date is {{selectedDate}}
+</div>

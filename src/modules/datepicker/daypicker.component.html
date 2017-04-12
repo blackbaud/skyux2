@@ -6,48 +6,76 @@
   <thead>
     <tr>
       <th>
-        <button type="button"
-                class="btn btn-default btn-secondary btn-sm pull-left"
-                (click)="datepicker.move(-1)"
-                tabindex="-1">
+        <button
+          type="button"
+          class="sky-btn sky-btn-default sky-btn-sm"
+          (click)="datepicker.move(-1)"
+          tabindex="-1"
+          >
           <i class="fa fa-chevron-left"></i>
         </button>
       </th>
       <th [attr.colspan]="5 + (datepicker.showWeeks ? 1 : 0)">
-        <button [id]="datepicker.uniqueId + '-title'"
-                type="button" class="btn btn-default btn-secondary btn-sm"
-                (click)="datepicker.toggleMode()"
-                [disabled]="datepicker.datepickerMode === datepicker.maxMode"
-                [ngClass]="{disabled: datepicker.datepickerMode === datepicker.maxMode}" tabindex="-1" style="width:100%;">
+        <button
+          [id]="datepicker.uniqueId + '-title'"
+          type="button"
+          class="sky-btn sky-btn-default sky-btn-sm"
+          (click)="datepicker.toggleMode()"
+          [disabled]="datepicker.datepickerMode === datepicker.maxMode"
+          [ngClass]="{'sky-btn-disabled': datepicker.datepickerMode === datepicker.maxMode}"
+          tabindex="-1"
+          style="width:100%;"
+          >
           <strong>{{title}}</strong>
         </button>
       </th>
       <th>
-        <button type="button"
-                class="btn btn-default btn-secondary btn-sm pull-right"
-                (click)="datepicker.move(1)"
-                tabindex="-1">
+        <button
+          type="button"
+          class="sky-btn sky-btn-default sky-btn-sm"
+          (click)="datepicker.move(1)"
+          tabindex="-1"
+          >
           <i class="fa fa-chevron-right"></i>
         </button>
       </th>
     </tr>
-    <tr>
-      <th *ngIf="datepicker.showWeeks"></th>
-      <th *ngFor="let labelz of labels" class="text-center">
-        <small aria-label="labelz.full"><b>{{labelz.abbr}}</b></small>
+     <tr>
+      <th
+        *ngFor="let label of labels"
+        class="sky-datepicker-center">
+        <small aria-label="label.full">
+          <b>{{label.abbr}}</b>
+        </small>
       </th>
     </tr>
   </thead>
   <tbody>
-    <template ngFor [ngForOf]="rows" let-rowz="$implicit" let-index="index">
-      <tr *ngIf="!(datepicker.onlyCurrentMonth && rowz[0].secondary && rowz[6].secondary)">
-        <td *ngFor="let dtz of rowz" class="text-center" role="gridcell" [id]="dtz.uid">
-          <button type="button" style="min-width:100%;" class="btn btn-sm {{dtz.customClass}}"
-                  *ngIf="!(datepicker.onlyCurrentMonth && dtz.secondary)"
-                  [ngClass]="{'btn-secondary': isBs4 && !dtz.selected && !datepicker.isActive(dtz), 'btn-info': dtz.selected, disabled: dtz.disabled, active: !isBs4 && datepicker.isActive(dtz), 'btn-default': !isBs4}"
-                  [disabled]="dtz.disabled"
-                  (click)="datepicker.select(dtz.date)" tabindex="-1">
-            <span [ngClass]="{'text-muted': dtz.secondary || dtz.current, 'text-info': !isBs4 && dtz.current}">{{dtz.label}}</span>
+    <template
+      ngFor
+      [ngForOf]="rows"
+      let-row="$implicit"
+      let-index="index"
+      >
+      <tr>
+        <td
+          *ngFor="let date of row"
+          class="sky-datepicker-center"
+          role="gridcell"
+          [id]="date.uid"
+          >
+          <button
+            type="button"
+            style="min-width:100%;"
+            class="sky-btn sky-btn-sm sky-btn-default"
+            [ngClass]="{ 'sky-datepicker-btn-selected': date.selected, 'sky-btn-disabled': date.disabled, 'sky-btn-active': datepicker.isActive(date)}"
+            [disabled]="date.disabled"
+            (click)="datepicker.select(date.date)"
+            tabindex="-1"
+            >
+            <span
+              [ngClass]="{'sky-datepicker-secondary': date.secondary }"
+              >{{date.label}}</span>
           </button>
         </td>
       </tr>
