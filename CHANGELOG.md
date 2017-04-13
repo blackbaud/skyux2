@@ -1,3 +1,11 @@
+# 2.0.0-beta.18 (2017-04-13)
+
+  - Made background for wait semi-transparent. (#545)
+  - Handle modal overflow properly with IE11. (#564)
+  - Make tabset dropdown handle overflow gracefully. (#505)
+  - Make sky-wait component hide absolutely poisitioned elements. (#546)
+  - Make sky-wait service work in ngOnInit. (#529)
+
 # 2.0.0-beta.17 (2017-04-07)
 
   - Added the ability to use filters within lists. (#170)
