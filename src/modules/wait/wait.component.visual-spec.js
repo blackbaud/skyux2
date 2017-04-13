@@ -12,6 +12,17 @@ describe('wait component', function () {
       });
   });
 
+  it('should display wait on parent to block absolute item', function () {
+    return browser
+      .setupTest('/wait.html')
+      .click('.sky-test-wait')
+      .compareScreenshot({
+        screenshotName: 'wait_component_absolute',
+        selector: '#screenshot-wait-absolute',
+        checkAccessibility: true
+      });
+  });
+
   it('should display nonblocking wait on parent', function () {
     return browser
       .setupTest('/wait.html')
