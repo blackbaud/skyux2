@@ -81,7 +81,7 @@ export class SkyDemoUnitTestModalComponent {
               }
             ]
           });
-        });`
+        });`;
 
   public mockLaunchTest: string =
 `it('should mock opening and saving a modal', () => {
