@@ -13,7 +13,7 @@ import { SkyModalComponent } from './modal.component';
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfiguationInterface as IConfig }  from './modal.interface';
-import { SkyModalConfiguation } from './modal-configuration';
+import { SkyModalConfiguration } from './modal-configuration';
 
 @Component({
   selector: 'sky-modal-host',
@@ -53,7 +53,7 @@ export class SkyModalHostComponent {
       useValue: hostService
     });
     params.providers.push({
-      provide: SkyModalConfiguation,
+      provide: SkyModalConfiguration,
       useValue: params
     });
 
