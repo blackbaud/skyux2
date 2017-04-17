@@ -183,6 +183,7 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     dateObject.date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     dateObject.label = this.dateFilter(date, format);
     dateObject.selected = this.compare(date, this.selectedDate) === 0;
+    dateObject.disabled = this.isDisabled(date);
     dateObject.current = this.compare(date, new Date()) === 0;
     return dateObject;
   }
@@ -264,5 +265,11 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
 
     this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) + direction];
     this.refreshView();
+  }
+
+  protected isDisabled(date: Date): boolean {
+
+    return ((this.minDate && this.compare(date, this.minDate) < 0)
+      || (this.maxDate && this.compare(date, this.maxDate) > 0));
   }
 }
