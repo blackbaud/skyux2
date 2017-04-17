@@ -1,10 +1,12 @@
+@import "../../scss/mixins";
+
 .sky-datepicker-calendar-inner {
   border-radius: 5px;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: $sky-color-white;
+  @include sky-border(light, top, bottom, left, right);
 
   /deep/ .sky-btn-default {
-    border-color: #fff;
+    border-color: $sky-color-white;
   }
 
   /deep/ .sky-datepicker-center {
@@ -12,12 +14,12 @@
   }
 
   /deep/ .sky-datepicker-btn-selected {
-    color: #fff;
-    background-color: #1c84c6;
-    border-color: #ccc;
+    color: $sky-color-white;
+    background-color: $sky-color-blue;
+    @include sky-border(dark, top, bottom, left, right);
   }
 
   /deep/ .sky-datepicker-secondary {
-    color: #999;
+    color: $sky-color-gray-light;
   }
 }
