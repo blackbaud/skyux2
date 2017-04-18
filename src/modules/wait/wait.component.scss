@@ -8,6 +8,7 @@
   left: 0;
   bottom: 0;
   background-color: $sky-wait-mask-color;
+  z-index: $sky-page-wait-z-index;
 }
 
 .sky-wait-mask-loading-fixed {

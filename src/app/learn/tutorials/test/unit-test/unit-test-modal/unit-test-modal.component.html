@@ -1,0 +1,78 @@
+<sky-demo-nav></sky-demo-nav>
+<div class="sky-container">
+    <h1>Write unit tests for modals</h1>
+    <p>The SKY UX <a routerLink="/components/modal">modal service</a> allows users to create and launch modals in a consistent way. Several techniques are available to create unit tests for the portions of your application that use modals.</p>
+
+    <h2>Test without mocking the modal service</h2>
+    <p>
+      The first way to unit test components that use the modal service is to create tests that launch modals and interacts with them. This allows you to create tests that ensure data is passed properly to the launched modal and then passed back to the caller of the modal service when the modal is saved. The following code shows the setup necessary for this sort of test:
+    </p>
+
+    <code class="sky-demo-code-newline">
+      {{noMockSetup}}
+    </code>
+    <p>
+      The first <code>beforeEach</code> function configures the testing module with our standard <code>SkyAppTestModule</code>. The second <code>beforeEach</code> function injects the <code>SkyModalService</code> and disposes it to ensure that previous test modals are destroyed. It also saves a reference to <code>applicationRef</code>, which must be used to detect changes when interacting with the launched modal because the modal content lives outside of the currently tested component.
+    </p>
+
+    <p>
+      After this setup, a component that contains logic to launch a modal can be tested with something like the following test:
+    </p>
+    <code class="sky-demo-code-newline">
+      {{noMockTest}}
+    </code>
+    <p>
+      In this test example, the <code>ModalLaunchingComponent</code> is created, a button within the component is clicked to launch the modal, and a button within the modal is clicked to save the modal. (In an actual test, you might use <code>expect</code> statements to confirm that certain component properties are set after saving the modal.)
+    </p>
+
+    <h2>Test launching a component by mocking the modal service</h2>
+    <p>
+      Another way to unit test components that launch modals is to mock the <code>SkyModalService</code>. This is usually the preferred methodology because it allows you to unit test components that launch modals in isolation. The following code shows the setup necessary for this sort of test:
+    </p>
+
+    <code class="sky-demo-code-newline">
+      {{mockLaunchSetup}}
+    </code>
+
+    <p>
+      In this example, we create a class that mocks the necessary modal service functionality. It provides an open function and saves the callback for the modal <code>closed</code> subscription. In the <code>beforeEach</code> function, we configure our testing module and override the <code>SkyModalService</code> provider with an instance of the <code>MockModalService</code> that we define.
+    </p>
+
+    <p>
+      After this setup, a component that contains logic to launch a modal can be tested by our <code>MockModalService</code> with something like the following test:
+    </p>
+
+    <code class="sky-demo-code-newline">
+      {{mockLaunchTest}}
+    </code>
+
+    <p>
+      In this test example, the <code>ModalLaunchingComponent</code> is created, a button within the component is clicked to launch the modal, and our <code>MockModalService</code> is called to simulate the modal saving. (In an actual test, you might use <code>expect</code> statements to confirm that certain component properties are set after saving the modal.)
+    </p>
+
+    <h2> Test a modal component in isolation</h2>
+
+    <p>
+      You can also test a modal component that launches the modal service in isolation. To do this, you must mock <code>SkyModalInstance</code>, <code>SkyModalHostService</code>, and <code>SkyModalConfiguration</code>. The following code shows the setup necessary for this sort of test:
+    </p>
+
+    <code class="sky-demo-code-newline">
+      {{mockModalComponentSetup}}
+
+    </code>
+
+    <p>
+      In this example, we create classes that mock the necessary functionality for modal components. After this setup, you can test your modal component in isolation with something like the following test:
+    </p>
+
+    <code class="sky-demo-code-newline">
+      {{mockModalComponentTest}}
+    </code>
+
+    <p>
+      In this test example, we create a modal component and test it like any other standalone component. Then we can use our <code>MockModalInstance</code> to verify results of specific actions such as saving the modal. 
+    </p>
+
+    <p><strong>Next step »</strong> <a routerLink="/learn/tutorials/test/e2e-test">Run an end-to-end test for a project</a></p>
+    <p><strong>Previous step »</strong> <a routerLink="/learn/tutorials/test/unit-test">Run a unit test</a></p>
+</div>

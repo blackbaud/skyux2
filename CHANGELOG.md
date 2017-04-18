@@ -1,3 +1,11 @@
+# 2.0.0-beta.18 (2017-04-13)
+
+  - Made background for wait semi-transparent. (#545)
+  - Handled modal overflow properly with IE11. (#564)
+  - Made tabset dropdown handle overflow gracefully. (#505)
+  - Made wait component hide absolutely positioned elements. (#546)
+  - Made wait service work in ngOnInit. (#529)
+
 # 2.0.0-beta.17 (2017-04-07)
 
   - Added the ability to use filters within lists. (#170)

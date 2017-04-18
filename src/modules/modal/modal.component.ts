@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { SkyModalHostService } from './modal-host.service';
-import { SkyModalConfiguation } from './modal-configuration';
+import { SkyModalConfiguration } from './modal-configuration';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
@@ -48,7 +48,7 @@ export class SkyModalComponent implements AfterViewInit {
 
   constructor(
     private hostService: SkyModalHostService,
-    private config: SkyModalConfiguation,
+    private config: SkyModalConfiguration,
     private elRef: ElementRef,
     private componentAdapter: SkyModalComponentAdapterService) { }
 

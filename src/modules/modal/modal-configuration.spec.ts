@@ -1,10 +1,10 @@
-import { SkyModalConfiguation } from './modal-configuration';
+import { SkyModalConfiguration } from './modal-configuration';
 
 describe('Modal configuration', () => {
   it('shout work initilize the configuration class', () => {
 
     beforeEach(function () {
-      this.testService = new SkyModalConfiguation();
+      this.testService = new SkyModalConfiguration();
       this.testService.fullPage = true;
     });
 
