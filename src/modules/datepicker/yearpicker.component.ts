@@ -13,44 +13,48 @@ import {
 })
 export class SkyYearPickerComponent implements OnInit {
   public datepicker: SkyDatepickerCalendarInnerComponent;
-  public title:string;
-  public rows:any[] = [];
+  public title: string;
+  public rows: any[] = [];
 
   public constructor(datepicker: SkyDatepickerCalendarInnerComponent) {
     this.datepicker = datepicker;
   }
 
-  public ngOnInit():void {
-    let self = this;
+  public ngOnInit(): void {
 
     this.datepicker.stepYear = {years: this.datepicker.yearRange};
 
-    this.datepicker.setRefreshViewHandler(function ():void {
-      let years:any[] = new Array(this.yearRange);
-      let date:Date;
-      let start = self.getStartingYear(this.activeDate.getFullYear());
-
-      for (let i = 0; i < this.yearRange; i++) {
-        date = new Date(start + i, 0, 1);
-        date = this.fixTimeZone(date);
-        years[i] = this.createDateObject(date, this.formatYear);
-        years[i].uid = this.uniqueId + '-' + i;
-      }
-
-      self.title = [years[0].label,
-        years[this.yearRange - 1].label].join(' - ');
-      self.rows = this.split(years, self.datepicker.yearColLimit);
+    this.datepicker.setRefreshViewHandler(() => {
+      this.refreshYearView();
     }, 'year');
 
-    this.datepicker.setCompareHandler(function (date1:Date, date2:Date):number {
-      return date1.getFullYear() - date2.getFullYear();
-    }, 'year');
+    this.datepicker.setCompareHandler(this.compareYears, 'year');
 
     this.datepicker.refreshView();
   }
 
-  protected getStartingYear(year:number):number {
-    // todo: parseInt
+  protected getStartingYear(year: number): number {
     return ((year - 1) / this.datepicker.yearRange) * this.datepicker.yearRange + 1;
+  }
+
+  private compareYears(date1: Date, date2: Date): number {
+    return date1.getFullYear() - date2.getFullYear();
+  }
+
+  private refreshYearView() {
+    let years: any[] = new Array(this.datepicker.yearRange);
+    let date: Date;
+    let start = this.getStartingYear(this.datepicker.activeDate.getFullYear());
+
+    for (let i = 0; i < this.datepicker.yearRange; i++) {
+      date = new Date(start + i, 0, 1);
+      date = this.datepicker.fixTimeZone(date);
+      years[i] = this.datepicker.createDateObject(date, this.datepicker.formatYear);
+      years[i].uid = this.datepicker.datepickerId + '-' + i;
+    }
+
+    this.title = [years[0].label,
+      years[this.datepicker.yearRange - 1].label].join(' - ');
+    this.rows = this.datepicker.split(years, this.datepicker.yearColLimit);
   }
 }

@@ -4,34 +4,11 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output,
-  SimpleChanges
+  Output
 } from '@angular/core';
 
 import { SkyDateFormatter } from './date-formatter';
 
-// const MIN_DATE:Date = void 0;
-// const MAX_DATE:Date = void 0;
-// const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-/*
- const KEYS = {
- 13: 'enter',
- 32: 'space',
- 33: 'pageup',
- 34: 'pagedown',
- 35: 'end',
- 36: 'home',
- 37: 'left',
- 38: 'up',
- 39: 'right',
- 40: 'down'
- };
- */
-
-/**
- * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
- */
 let nextDatepickerId = 0;
 
 @Component({
@@ -176,7 +153,10 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     return false;
   }
 
-  // dateObject should probably be it's own class. split, dateFilter, and isActive might be good to have in some sort of utils service
+  /*
+      dateObject should probably be it's own class. split, dateFilter, and isActive might be
+      good to have in some sort of utils service
+  */
 
   public createDateObject(date: Date, format: string): any {
     let dateObject: any = {};
@@ -211,12 +191,11 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
 
   public select(date: Date, isManual: boolean = true): void {
 
-
     this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
     /*
-        Only actually select date if in minmode (day picker mode). Otherwise, just change the active
-        view for the datepicker.
+        Only actually select date if in minmode (day picker mode).
+        Otherwise, just change the active view for the datepicker.
     */
     if (this.datepickerMode === this.minMode) {
       this.selectedDate = new Date(this.activeDate);
