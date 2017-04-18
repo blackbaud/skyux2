@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class SkyModalConfiguation {
+export class SkyModalConfiguration {
 
   public fullPage: boolean;
 
