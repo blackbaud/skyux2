@@ -7,6 +7,10 @@ import {
   SkyDatepickerCalendarInnerComponent
 } from './datepicker-calendar-inner.component';
 
+import {
+  SkyDatepickerDate
+} from './datepicker-date';
+
 @Component({
   selector: 'sky-yearpicker',
   templateUrl: 'yearpicker.component.html'
@@ -14,7 +18,7 @@ import {
 export class SkyYearPickerComponent implements OnInit {
   public datepicker: SkyDatepickerCalendarInnerComponent;
   public title: string;
-  public rows: any[] = [];
+  public rows: Array<Array<SkyDatepickerDate>> = [];
 
   public constructor(datepicker: SkyDatepickerCalendarInnerComponent) {
     this.datepicker = datepicker;
@@ -42,19 +46,24 @@ export class SkyYearPickerComponent implements OnInit {
   }
 
   private refreshYearView() {
-    let years: any[] = new Array(this.datepicker.yearRange);
+    let years: Array<SkyDatepickerDate> = new Array(this.datepicker.yearRange);
     let date: Date;
     let start = this.getStartingYear(this.datepicker.activeDate.getFullYear());
 
     for (let i = 0; i < this.datepicker.yearRange; i++) {
       date = new Date(start + i, 0, 1);
       date = this.datepicker.fixTimeZone(date);
-      years[i] = this.datepicker.createDateObject(date, this.datepicker.formatYear);
-      years[i].uid = this.datepicker.datepickerId + '-' + i;
+      years[i] =
+        this.datepicker.createDateObject(
+          date,
+          this.datepicker.formatYear,
+          false,
+          this.datepicker.datepickerId + '-' + i
+        );
     }
 
     this.title = [years[0].label,
       years[this.datepicker.yearRange - 1].label].join(' - ');
-    this.rows = this.datepicker.split(years, this.datepicker.yearColLimit);
+    this.rows = this.datepicker.createCalendarRows(years, this.datepicker.yearColLimit);
   }
 }

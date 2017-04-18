@@ -9,6 +9,10 @@ import {
 
 import { SkyDateFormatter } from './date-formatter';
 
+import {
+  SkyDatepickerDate
+} from './datepicker-date';
+
 let nextDatepickerId = 0;
 
 @Component({
@@ -158,22 +162,34 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
       good to have in some sort of utils service
   */
 
-  public createDateObject(date: Date, format: string): any {
-    let dateObject: any = {};
-    dateObject.date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    dateObject.label = this.dateFilter(date, format);
-    dateObject.selected = this.compare(date, this.selectedDate) === 0;
-    dateObject.disabled = this.isDisabled(date);
-    dateObject.current = this.compare(date, new Date()) === 0;
+  public createDateObject(
+    date: Date,
+    format: string,
+    isSecondary: boolean,
+    id: string): SkyDatepickerDate {
+
+    let dateObject: SkyDatepickerDate = {
+      date: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+      label: this.dateFilter(date, format),
+      selected: this.compare(date, this.selectedDate) === 0,
+      disabled: this.isDisabled(date),
+      current: this.compare(date, new Date()) === 0,
+      secondary: isSecondary,
+      uid: id
+    };
+
     return dateObject;
   }
 
-  public split(arr: any[], size: number): any[] {
-    let arrays: any[] = [];
-    while (arr.length > 0) {
-      arrays.push(arr.splice(0, size));
+  public createCalendarRows(
+    dates: Array<SkyDatepickerDate>,
+    size: number): Array<Array<SkyDatepickerDate>> {
+
+    let rows: Array<Array<SkyDatepickerDate>> = [];
+    while (dates.length > 0) {
+      rows.push(dates.splice(0, size));
     }
-    return arrays;
+    return rows;
   }
 
   /*

@@ -47,7 +47,7 @@
           type="button"
           style="min-width:100%;"
           class="sky-btn sky-btn-default"
-          [ngClass]="{'sky-datepicker-btn-selected': date.selected, 'sky-btn-disabled': date.disabled, 'sky-datepicker-btn-active': datepicker.isActive(date)}"
+          [ngClass]="{'sky-datepicker-btn-selected': date.selected, 'sky-btn-disabled': date.disabled, 'sky-datepicker-btn-active': isActive(date)}"
           (click)="datepicker.select(date.date)"
           tabindex="-1"
           >

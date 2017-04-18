@@ -6,6 +6,10 @@ import {
   SkyDatepickerCalendarInnerComponent
 } from './datepicker-calendar-inner.component';
 
+import {
+  SkyDatepickerDate
+} from './datepicker-date';
+
 @Component({
   selector: 'sky-daypicker',
   templateUrl: 'daypicker.component.html'
@@ -14,7 +18,7 @@ export class SkyDayPickerComponent implements OnInit {
 
   public labels: any[] = [];
   public title: string;
-  public rows: any[] = [];
+  public rows: Array<Array<SkyDatepickerDate>> = [];
   public weekNumbers: number[] = [];
   public datepicker: SkyDatepickerCalendarInnerComponent;
   public CURRENT_THEME_TEMPLATE: any;
@@ -71,26 +75,29 @@ export class SkyDayPickerComponent implements OnInit {
     }
 
     // 42 is the number of days on a six-week calendar
-    let _days: Date[] = this.getDates(firstDate, 42);
-    let days: any[] = [];
+    let days: Date[] = this.getDates(firstDate, 42);
+    let pickerDates: Array<SkyDatepickerDate> = [];
     for (let i = 0; i < 42; i++) {
-      let _dateObject = this.datepicker.createDateObject(_days[i], this.datepicker.formatDay);
-      _dateObject.secondary = _days[i].getMonth() !== month;
-      _dateObject.uid = this.datepicker.datepickerId + '-' + i;
-      days[i] = _dateObject;
+      let _dateObject = this.datepicker.createDateObject(
+        days[i],
+        this.datepicker.formatDay,
+        days[i].getMonth() !== month,
+        this.datepicker.datepickerId + '-' + i
+      );
+      pickerDates[i] = _dateObject;
     }
 
     this.labels = [];
     for (let j = 0; j < 7; j++) {
       this.labels[j] = {};
       this.labels[j].abbr =
-        this.datepicker.dateFilter(days[j].date, this.datepicker.formatDayHeader);
-      this.labels[j].full = this.datepicker.dateFilter(days[j].date, 'EEEE');
+        this.datepicker.dateFilter(pickerDates[j].date, this.datepicker.formatDayHeader);
+      this.labels[j].full = this.datepicker.dateFilter(pickerDates[j].date, 'EEEE');
     }
 
     this.title =
       this.datepicker.dateFilter(this.datepicker.activeDate, this.datepicker.formatDayTitle);
-    this.rows = this.datepicker.split(days, 7);
+    this.rows = this.datepicker.createCalendarRows(pickerDates, 7);
   }
 
 }

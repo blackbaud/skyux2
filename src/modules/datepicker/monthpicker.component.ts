@@ -6,13 +6,17 @@ import {
   SkyDatepickerCalendarInnerComponent
 } from './datepicker-calendar-inner.component';
 
+import {
+  SkyDatepickerDate
+} from './datepicker-date';
+
 @Component({
   selector: 'sky-monthpicker',
   templateUrl: 'monthpicker.component.html'
 })
 export class SkyMonthPickerComponent implements OnInit {
   public title: string;
-  public rows: any[] = [];
+  public rows: Array<Array<SkyDatepickerDate>> = [];
   public datepicker: SkyDatepickerCalendarInnerComponent;
   public maxMode: string;
 
@@ -42,19 +46,24 @@ export class SkyMonthPickerComponent implements OnInit {
   }
 
   private refreshMonthView(): void {
-    let months: any[] = new Array(12);
+    let months: Array<SkyDatepickerDate> = new Array(12);
     let year: number = this.datepicker.activeDate.getFullYear();
     let date: Date;
 
     for (let i = 0; i < 12; i++) {
       date = new Date(year, i, 1);
       date = this.datepicker.fixTimeZone(date);
-      months[i] = this.datepicker.createDateObject(date, this.datepicker.formatMonth);
-      months[i].uid = this.datepicker.datepickerId + '-' + i;
+      months[i] =
+        this.datepicker.createDateObject(
+          date,
+          this.datepicker.formatMonth,
+          false,
+          this.datepicker.datepickerId + '-' + i
+        );
     }
 
     this.title =
       this.datepicker.dateFilter(this.datepicker.activeDate, this.datepicker.formatMonthTitle);
-    this.rows = this.datepicker.split(months, this.datepicker.monthColLimit);
+    this.rows = this.datepicker.createCalendarRows(months, this.datepicker.monthColLimit);
   }
 }
