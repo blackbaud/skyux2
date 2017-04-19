@@ -8,7 +8,9 @@ export class SkyDatepickerDemoComponent {
 
   public minDate: Date;
 
-  public maxDate: Date = new Date('4/15/2017');
+  public maxDate: Date;
 
-  public selectedDate: Date = new Date('4/4/2017');
+  public selectedDate: Date = new Date('5/4/2017');
+
+  public startingDay: number = 3
 }

@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild
+} from '@angular/core';
+
+import {
+  SkyDatepickerCalendarComponent
+} from '../datepicker-calendar.component';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -13,4 +20,7 @@ export class DatepickerTestComponent {
   public selectedDate: Date;
 
   public startingDay: number = 0;
+
+   @ViewChild(SkyDatepickerCalendarComponent) 
+   public datepicker: SkyDatepickerCalendarComponent;
 }

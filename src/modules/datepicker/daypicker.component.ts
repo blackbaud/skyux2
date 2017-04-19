@@ -70,6 +70,8 @@ export class SkyDayPickerComponent implements OnInit {
       : -difference;
     let firstDate = new Date(firstDayOfMonth.getTime());
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (numDisplayedFromPreviousMonth > 0) {
       firstDate.setDate(-numDisplayedFromPreviousMonth + 1);
     }

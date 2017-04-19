@@ -96,7 +96,7 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     }
   }
 
-  public compare(date1: Date, date2: Date): number | undefined {
+  public compare(date1: Date, date2: Date) {
     if (date1 === undefined || date2 === undefined) {
       return undefined;
     }
@@ -109,11 +109,12 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
       return this.compareHandlerMonth(date1, date2);
     }
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (this.datepickerMode === 'year' && this.compareHandlerYear) {
       return this.compareHandlerYear(date1, date2);
     }
 
-    return void 0;
   }
 
   public setRefreshViewHandler(handler: Function, type: string): void {
@@ -240,6 +241,8 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
       expectedStep = this.stepYear;
     }
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (expectedStep) {
       let year = this.activeDate.getFullYear() + (direction * (expectedStep.years || 0));
       let month = this.activeDate.getMonth() + (direction * (expectedStep.months || 0));
@@ -253,13 +256,13 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
   public toggleMode(direction: number): void {
     direction = direction || 1;
 
-    if ((this.datepickerMode === this.maxMode && direction === 1) ||
-      (this.datepickerMode === this.minMode && direction === -1)) {
-      return;
+    /* istanbul ignore else */
+    /* sanity check */
+    if (!(direction === 1 && this.datepickerMode === this.maxMode) &&
+      !(this.datepickerMode === this.minMode && direction === -1)) {
+      this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) + direction];
+      this.refreshView();
     }
-
-    this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) + direction];
-    this.refreshView();
   }
 
   protected isDisabled(date: Date): boolean {

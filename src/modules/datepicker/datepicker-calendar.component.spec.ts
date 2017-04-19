@@ -342,9 +342,7 @@ describe('datepicker calendar', () => {
     verifyNthDateDisabled(nativeElement, 1, '2017 - 2036', '2017', '2017', '');
   });
 
-  it('should open current month in daypicker when no selected date is provided', () => {
-    fixture.detectChanges();
-
+  function verifyTodayDayPicker(element: HTMLElement) {
     let today = new Date();
 
     let monthLabel = moment(today.getTime()).format('MMMM');
@@ -355,7 +353,13 @@ describe('datepicker calendar', () => {
 
     let dayPickerLabel = monthLabel + ' ' + yearLabel;
 
-    verifyDatepicker(nativeElement, dayPickerLabel, '', dayLabel, '');
+    verifyDatepicker(element, dayPickerLabel, '', dayLabel, '');
+  }
+
+  it('should open current month in daypicker when no selected date is provided', () => {
+    fixture.detectChanges();
+
+    verifyTodayDayPicker(nativeElement);
   });
 
   it('should handle a different startingDay input', () => {
@@ -373,7 +377,37 @@ describe('datepicker calendar', () => {
     expect(dayLabels.item(5)).toHaveText('Sa');
   });
 
+  it('should handle a different startingDay input', () => {
+    component.startingDay = 3;
+    component.selectedDate = new Date('5/4/2017');
+
+    fixture.detectChanges();
+
+    let dayLabels = nativeElement.querySelectorAll('.sky-datepicker-weekdays');
+    expect(dayLabels.item(4)).toHaveText('Su');
+    expect(dayLabels.item(5)).toHaveText('Mo');
+    expect(dayLabels.item(6)).toHaveText('Tu');
+    expect(dayLabels.item(0)).toHaveText('We');
+    expect(dayLabels.item(1)).toHaveText('Th');
+    expect(dayLabels.item(2)).toHaveText('Fr');
+    expect(dayLabels.item(3)).toHaveText('Sa');
+
+    verifyDatepicker(nativeElement, 'May 2017', '04', '04', '26');
+  });
+
   it('should allow users to set selected date using the writeValue function', () => {
+    fixture.detectChanges();
+    component.datepicker.writeValue(new Date('4/4/2017'));
+    fixture.detectChanges();
+    verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
+
+    component.datepicker.writeValue(new Date('4/4/2017'));
+    fixture.detectChanges();
+    verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
+
+    component.datepicker.writeValue(undefined);
+    fixture.detectChanges();
+    verifyTodayDayPicker
 
   });
 });

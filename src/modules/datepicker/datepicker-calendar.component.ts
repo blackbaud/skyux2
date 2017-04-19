@@ -54,16 +54,20 @@ export class SkyDatepickerCalendarComponent {
     this.selectedDateChange.emit(event);
   }
 
-  public writeValue(value: any): void {
-    if (this._datepicker.compareHandlerDay(value, this.selectedDate) === 0) {
-      return;
-    }
-    if (value && value instanceof Date) {
-      this.selectedDate = value;
-      this._datepicker.select(value, false);
+  public writeValue(value: Date): void {
+    if (value !== undefined
+      && this.selectedDate !== undefined
+      && this._datepicker.compareHandlerDay(value, this.selectedDate) === 0) {
       return;
     }
 
-    this.selectedDate = value ? new Date(value) : new Date();
+    if (value) {
+      this.selectedDate = value;
+      this._datepicker.select(value, false);
+    } else {
+      this.selectedDate = new Date();
+      this._datepicker.select(new Date(), false);
+    }
+
   }
 }
