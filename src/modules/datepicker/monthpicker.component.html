@@ -19,7 +19,6 @@
           [disabled]="datepicker.datepickerMode === maxMode"
           [ngClass]="{'sky-btn-disabled': datepicker.datepickerMode === maxMode}"
           tabindex="-1"
-          style="width:100%;"
           >
           <strong>{{title}}</strong>
         </button>
@@ -45,8 +44,7 @@
         id="{{date.uid}}">
         <button
           type="button"
-          style="min-width:100%;"
-          class="sky-btn sky-btn-default"
+          class="sky-btn sky-btn-default sky-datepicker-btn-date"
           [ngClass]="{'sky-datepicker-btn-selected': date.selected, 'sky-btn-disabled': date.disabled, 'sky-btn-active': datepicker.isActive(date)}"
           [disabled]="date.disabled"
           (click)="datepicker.select(date.date)"

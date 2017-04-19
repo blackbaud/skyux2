@@ -22,4 +22,12 @@
   /deep/ .sky-datepicker-secondary {
     color: $sky-color-gray-light;
   }
+
+  /deep/ .sky-datepicker-btn-date {
+    min-width: 100%;
+  }
+
+  /deep/ .sky-datepicker-calendar-title {
+    width: 100%;
+  }
 }
