@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
 })
 export class SkyDatepickerDemoComponent {
 
-  public minDate: Date = new Date('4/3/2017');
+  public minDate: Date;
 
-  public maxDate: Date = new Date('4/28/2017');
+  public maxDate: Date = new Date('4/15/2017');
 
-  public selectedDate: Date = new Date('4/1/2017');
+  public selectedDate: Date = new Date('4/4/2017');
 }
