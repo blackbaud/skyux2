@@ -21,7 +21,7 @@ export class SkyFileattachmentsDemoComponent {
 
   public maxFileSize: number = 4000000;
 
-  public acceptedTypes: string[];
+  public acceptedTypes: string = 'image/png,image/jpeg';
 
   constructor() {
     this.filesToUpload = [];
