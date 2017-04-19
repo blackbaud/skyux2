@@ -2,7 +2,7 @@
   *ngIf="datepicker.datepickerMode==='day'"
   role="grid"
   [attr.aria-labelledby]="datepicker.datepickerId+'-title'"
-  aria-activedescendant="activeDateId">
+  [attr.aria-activedescendant]="datepicker.activeDateId">
   <thead>
     <tr>
       <th>
@@ -11,6 +11,7 @@
           class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-previous"
           (click)="datepicker.move(-1)"
           tabindex="-1"
+          aria-hidden="true"
           >
           <i class="fa fa-chevron-left"></i>
         </button>
@@ -24,6 +25,7 @@
           [disabled]="datepicker.datepickerMode === datepicker.maxMode"
           [ngClass]="{'sky-btn-disabled': datepicker.datepickerMode === datepicker.maxMode}"
           tabindex="-1"
+          aria-hidden="true"
           >
           <strong>{{title}}</strong>
         </button>
@@ -34,6 +36,7 @@
           class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-next"
           (click)="datepicker.move(1)"
           tabindex="-1"
+          aria-hidden="true"
           >
           <i class="fa fa-chevron-right"></i>
         </button>
@@ -56,7 +59,7 @@
       let-row="$implicit"
       let-index="index"
       >
-      <tr>
+      <tr role="row">
         <td
           *ngFor="let date of row"
           class="sky-datepicker-center"

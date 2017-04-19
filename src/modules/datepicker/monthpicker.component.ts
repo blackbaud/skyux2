@@ -37,6 +37,10 @@ export class SkyMonthPickerComponent implements OnInit {
     this.datepicker.setCompareHandler(this.compareMonth, 'month');
 
     this.datepicker.refreshView();
+
+    this.datepicker.setKeydownHandler((key: string, event: KeyboardEvent) => {
+      this.keydownMonths(key, event);
+    }, 'month');
   }
 
   private compareMonth(date1: Date, date2: Date): number {
@@ -65,5 +69,27 @@ export class SkyMonthPickerComponent implements OnInit {
     this.title =
       this.datepicker.dateFilter(this.datepicker.activeDate, this.datepicker.formatMonthTitle);
     this.rows = this.datepicker.createCalendarRows(months, this.datepicker.monthColLimit);
+  }
+
+  private keydownMonths(key: string, event: KeyboardEvent) {
+    var date = this.datepicker.activeDate.getMonth();
+
+    if (key === 'left') {
+      date = date - 1;
+    } else if (key === 'up') {
+      date = date - this.datepicker.monthColLimit;
+    } else if (key === 'right') {
+      date = date + 1;
+    } else if (key === 'down') {
+      date = date + this.datepicker.monthColLimit;
+    } else if (key === 'pageup' || key === 'pagedown') {
+      var year = this.datepicker.activeDate.getFullYear() + (key === 'pageup' ? - 1 : 1);
+      this.datepicker.activeDate.setFullYear(year);
+    } else if (key === 'home') {
+      date = 0;
+    } else if (key === 'end') {
+      date = 11;
+    }
+    this.datepicker.activeDate.setMonth(date);
   }
 }

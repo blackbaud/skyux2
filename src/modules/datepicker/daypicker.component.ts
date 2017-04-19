@@ -23,6 +23,8 @@ export class SkyDayPickerComponent implements OnInit {
   public datepicker: SkyDatepickerCalendarInnerComponent;
   public CURRENT_THEME_TEMPLATE: any;
 
+  private daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
   public constructor(datepicker: SkyDatepickerCalendarInnerComponent) {
     this.datepicker = datepicker;
   }
@@ -36,6 +38,10 @@ export class SkyDayPickerComponent implements OnInit {
     }, 'day');
 
     this.datepicker.setCompareHandler(this.compareDays, 'day');
+
+    this.datepicker.setKeydownHandler((key: string, event: KeyboardEvent) => {
+      this.keydownDays(key, event);
+    }, 'day');
 
     this.datepicker.refreshView();
   }
@@ -100,6 +106,43 @@ export class SkyDayPickerComponent implements OnInit {
     this.title =
       this.datepicker.dateFilter(this.datepicker.activeDate, this.datepicker.formatDayTitle);
     this.rows = this.datepicker.createCalendarRows(pickerDates, 7);
+  }
+
+  private keydownDays(key: string, event: KeyboardEvent) {
+    let date = this.datepicker.activeDate.getDate();
+
+    if (key === 'left') {
+      date = date - 1;
+    } else if (key === 'up') {
+      date = date - 7;
+    } else if (key === 'right') {
+      date = date + 1;
+    } else if (key === 'down') {
+      date = date + 7;
+    } else if (key === 'pageup' || key === 'pagedown') {
+      let month = this.datepicker.activeDate.getMonth() + (key === 'pageup' ? - 1 : 1);
+      this.datepicker.activeDate.setMonth(month, 1);
+      date =
+      Math.min(
+        this.getDaysInMonth(
+          this.datepicker.activeDate.getFullYear(),
+          this.datepicker.activeDate.getMonth()
+        ),
+        date);
+    } else if (key === 'home') {
+      date = 1;
+    } else if (key === 'end') {
+      date = this.getDaysInMonth(
+        this.datepicker.activeDate.getFullYear(),
+        this.datepicker.activeDate.getMonth()
+      );
+    }
+    this.datepicker.activeDate.setDate(date);
+  }
+
+  private getDaysInMonth(year: number, month: number) {
+    return month === 1 && year % 4 === 0 &&
+      (year % 100 !== 0 || year % 400 === 0) ? 29 : this.daysInMonth[month];
   }
 
 }

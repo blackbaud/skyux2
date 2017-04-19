@@ -1,6 +1,6 @@
 <div
   *ngIf="datepickerMode"
   class="sky-datepicker-calendar-inner"
-  role="application" >
+  (keydown)="onKeydown($event)">
   <ng-content></ng-content>
 </div>

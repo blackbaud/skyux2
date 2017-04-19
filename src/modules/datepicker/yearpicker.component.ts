@@ -34,11 +34,15 @@ export class SkyYearPickerComponent implements OnInit {
 
     this.datepicker.setCompareHandler(this.compareYears, 'year');
 
+    this.datepicker.setKeydownHandler((key: string, event: KeyboardEvent) => {
+      this.keydownYears(key, event);
+    }, 'year');
+
     this.datepicker.refreshView();
   }
 
   protected getStartingYear(year: number): number {
-    return ((year - 1) / this.datepicker.yearRange) * this.datepicker.yearRange + 1;
+    return Math.floor((year - 1) / this.datepicker.yearRange) * this.datepicker.yearRange + 1;
   }
 
   private compareYears(date1: Date, date2: Date): number {
@@ -51,8 +55,9 @@ export class SkyYearPickerComponent implements OnInit {
     let start = this.getStartingYear(this.datepicker.activeDate.getFullYear());
 
     for (let i = 0; i < this.datepicker.yearRange; i++) {
-      date = new Date(start + i, 0, 1);
-      date = this.datepicker.fixTimeZone(date);
+      date = new Date(this.datepicker.activeDate);
+      date.setFullYear(start + i, 0, 1);
+
       years[i] =
         this.datepicker.createDateObject(
           date,
@@ -65,5 +70,30 @@ export class SkyYearPickerComponent implements OnInit {
     this.title = [years[0].label,
       years[this.datepicker.yearRange - 1].label].join(' - ');
     this.rows = this.datepicker.createCalendarRows(years, this.datepicker.yearColLimit);
+  }
+
+  private keydownYears(key: string, event: KeyboardEvent) {
+    var date = this.datepicker.activeDate.getFullYear();
+
+    if (key === 'left') {
+      date = date - 1;
+    } else if (key === 'up') {
+      date = date - this.datepicker.yearColLimit;
+    } else if (key === 'right') {
+      date = date + 1;
+    } else if (key === 'down') {
+      date = date + this.datepicker.yearColLimit;
+    } else if (key === 'pageup' || key === 'pagedown') {
+      date += (key === 'pageup' ? - 1 : 1) * this.datepicker.yearRange;
+    } else if (key === 'home') {
+      date = this.getStartingYear(this.datepicker.activeDate.getFullYear());
+    } else if (key === 'end') {
+      date
+        = this.getStartingYear(
+          this.datepicker.activeDate.getFullYear()
+          ) + this.datepicker.yearRange - 1;
+    }
+    this.datepicker.activeDate.setFullYear(date);
+
   }
 }

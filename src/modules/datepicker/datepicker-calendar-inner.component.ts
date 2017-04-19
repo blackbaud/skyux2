@@ -62,12 +62,29 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
   protected dateFormatter: SkyDateFormatter = new SkyDateFormatter();
   protected activeDateId: string;
 
-  protected refreshViewHandlerDay: Function;
+  public refreshViewHandlerDay: Function;
   public compareHandlerDay: Function;
-  protected refreshViewHandlerMonth: Function;
-  protected compareHandlerMonth: Function;
-  protected refreshViewHandlerYear: Function;
-  protected compareHandlerYear: Function;
+  public refreshViewHandlerMonth: Function;
+  public compareHandlerMonth: Function;
+  public refreshViewHandlerYear: Function;
+  public compareHandlerYear: Function;
+
+  public handleKeydownDay: Function;
+  public handleKeydownMonth: Function;
+  public handleKeydownYear: Function;
+
+  public keys: any = {
+    13: 'enter',
+    32: 'space',
+    33: 'pageup',
+    34: 'pagedown',
+    35: 'end',
+    36: 'home',
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down'
+  };
 
   public ngOnInit(): void {
 
@@ -145,6 +162,34 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     }
   }
 
+  public setKeydownHandler(handler: Function, type: string) {
+    if (type === 'day') {
+      this.handleKeydownDay = handler;
+    }
+
+    if (type === 'month') {
+      this.handleKeydownMonth = handler;
+    }
+
+    if (type === 'year') {
+      this.handleKeydownYear = handler;
+    }
+  }
+
+  public handleKeydown(key: string, event: KeyboardEvent): void {
+    if (this.datepickerMode === 'day' && this.handleKeydownDay) {
+      this.handleKeydownDay(key, event);
+    }
+
+    if (this.datepickerMode === 'month' && this.handleKeydownMonth) {
+      this.handleKeydownMonth(key, event);
+    }
+
+    if (this.datepickerMode === 'year' && this.handleKeydownYear) {
+      this.handleKeydownYear(key, event);
+    }
+  }
+
   public dateFilter(date: Date, format: string): string {
     return this.dateFormatter.format(date, format);
   }
@@ -158,10 +203,29 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     return false;
   }
 
-  /*
-      dateObject should probably be it's own class. split, dateFilter, and isActive might be
-      good to have in some sort of utils service
-  */
+  public onKeydown(event: KeyboardEvent) {
+    console.log('hey', event);
+    let key = this.keys[event.which];
+
+    if (!key || event.shiftKey || event.altKey) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (key === 'enter' || key === 'space') {
+      if (this.isDisabled(this.activeDate)) {
+        return;
+      }
+      this.select(this.activeDate);
+    } else if (event.ctrlKey && (key === 'up' || key === 'down')) {
+      this.toggleMode(key === 'up' ? 1 : -1);
+    } else {
+      this.handleKeydown(key, event);
+      this.refreshView();
+    }
+  }
 
   public createDateObject(
     date: Date,
