@@ -1,14 +1,14 @@
 <table
   *ngIf="datepicker.datepickerMode==='day'"
   role="grid"
-  [attr.aria-labelledby]="datepicker.uniqueId+'-title'"
+  [attr.aria-labelledby]="datepicker.datepickerId+'-title'"
   aria-activedescendant="activeDateId">
   <thead>
     <tr>
       <th>
         <button
           type="button"
-          class="sky-btn sky-btn-default sky-btn-sm"
+          class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-previous"
           (click)="datepicker.move(-1)"
           tabindex="-1"
           >
@@ -17,9 +17,9 @@
       </th>
       <th [attr.colspan]="5 + (datepicker.showWeeks ? 1 : 0)">
         <button
-          [id]="datepicker.uniqueId + '-title'"
+          [id]="datepicker.datepickerId + '-title'"
           type="button"
-          class="sky-btn sky-btn-default sky-btn-sm"
+          class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-calendar-title"
           (click)="datepicker.toggleMode()"
           [disabled]="datepicker.datepickerMode === datepicker.maxMode"
           [ngClass]="{'sky-btn-disabled': datepicker.datepickerMode === datepicker.maxMode}"
@@ -32,7 +32,7 @@
       <th>
         <button
           type="button"
-          class="sky-btn sky-btn-default sky-btn-sm"
+          class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-next"
           (click)="datepicker.move(1)"
           tabindex="-1"
           >
@@ -43,8 +43,8 @@
      <tr>
       <th
         *ngFor="let label of labels"
-        class="sky-datepicker-center">
-        <small aria-label="label.full">
+        class="sky-datepicker-center sky-datepicker-weekdays">
+        <small [attr.aria-label]="label.full">
           <b>{{label.abbr}}</b>
         </small>
       </th>
