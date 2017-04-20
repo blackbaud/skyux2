@@ -344,7 +344,7 @@ describe('datepicker calendar', () => {
     verifyNthDateDisabled(nativeElement, 19, '2001 - 2020', '2017', '2017', '');
   });
 
-  function verifyTodayDayPicker(element: HTMLElement) {
+  function verifyTodayDayPicker(element: HTMLElement, todaySelected: boolean = false) {
     let today = new Date();
 
     let monthLabel = moment(today.getTime()).format('MMMM');
@@ -355,7 +355,12 @@ describe('datepicker calendar', () => {
 
     let dayPickerLabel = monthLabel + ' ' + yearLabel;
 
-    verifyDatepicker(element, dayPickerLabel, '', dayLabel, '');
+    let selectedLabel = '';
+    if (todaySelected) {
+      selectedLabel = dayLabel;
+    }
+
+    verifyDatepicker(element, dayPickerLabel, selectedLabel, dayLabel, '');
   }
 
   it('should open current month in daypicker when no selected date is provided', () => {
@@ -399,17 +404,18 @@ describe('datepicker calendar', () => {
 
   it('should allow users to set selected date using the writeValue function', () => {
     fixture.detectChanges();
-    component.datepicker.writeValue(new Date('4/4/2017'));
-    fixture.detectChanges();
-    verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
-
-    component.datepicker.writeValue(new Date('4/4/2017'));
-    fixture.detectChanges();
-    verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
 
     component.datepicker.writeValue(undefined);
     fixture.detectChanges();
-    verifyTodayDayPicker(nativeElement);
+    verifyTodayDayPicker(nativeElement, true);
+
+    component.datepicker.writeValue(new Date('4/4/2017'));
+    fixture.detectChanges();
+    verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
+
+    component.datepicker.writeValue(new Date('4/4/2017'));
+    fixture.detectChanges();
+    verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
 
   });
 
