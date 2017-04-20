@@ -198,4 +198,38 @@ describe('Card component', () => {
 
     validateCardSelected(cmp, el, false);
   });
+
+  it('should hide the header properly when title is removed', () => {
+    let html = `
+      <sky-card
+          [selectable]="showCheckbox"
+          [(selected)]="cardSelected"
+      >
+        <sky-card-title *ngIf="showTitle">Title</sky-card-title>
+        <sky-card-content>Content</sky-card-content>
+      </sky-card>
+    `;
+
+    let fixture = TestBed
+      .overrideComponent(
+        CardTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(CardTestComponent);
+
+    let cmp = fixture.componentInstance as CardTestComponent,
+      el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    cmp.showTitle = false;
+    cmp.showCheckbox = false;
+    fixture.detectChanges();
+
+    expect(el.querySelector('.sky-card-header')).toBeNull();
+  });
 });
