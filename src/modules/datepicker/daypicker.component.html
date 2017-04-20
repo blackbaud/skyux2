@@ -5,7 +5,7 @@
   [attr.aria-activedescendant]="datepicker.activeDateId">
   <thead>
     <tr>
-      <th>
+      <th scope="col">
         <button
           type="button"
           class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-previous"
@@ -16,7 +16,7 @@
           <i class="fa fa-chevron-left"></i>
         </button>
       </th>
-      <th [attr.colspan]="5 + (datepicker.showWeeks ? 1 : 0)">
+      <th [attr.colspan]="5 + (datepicker.showWeeks ? 1 : 0)" scope="col">
         <button
           [id]="datepicker.datepickerId + '-title'"
           type="button"
@@ -30,7 +30,7 @@
           <strong>{{title}}</strong>
         </button>
       </th>
-      <th>
+      <th scope="col">
         <button
           type="button"
           class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-next"
@@ -44,6 +44,7 @@
     </tr>
      <tr>
       <th
+        scope="col"
         *ngFor="let label of labels"
         class="sky-datepicker-center sky-datepicker-weekdays">
         <small [attr.aria-label]="label.full">

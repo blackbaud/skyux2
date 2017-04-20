@@ -409,7 +409,7 @@ describe('datepicker calendar', () => {
 
     component.datepicker.writeValue(undefined);
     fixture.detectChanges();
-    verifyTodayDayPicker
+    verifyTodayDayPicker(nativeElement);
 
   });
 
@@ -547,7 +547,7 @@ describe('datepicker calendar', () => {
         fixture.detectChanges();
         triggerKeydown(fixture, { which: 35 });
         verifyDatepicker(nativeElement, 'February 2016', '04', '29', '');
-      })
+      });
     });
 
     describe('monthpicker accessibility', () => {

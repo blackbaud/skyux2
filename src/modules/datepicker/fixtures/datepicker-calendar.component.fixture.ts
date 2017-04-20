@@ -21,6 +21,6 @@ export class DatepickerTestComponent {
 
   public startingDay: number = 0;
 
-   @ViewChild(SkyDatepickerCalendarComponent) 
+   @ViewChild(SkyDatepickerCalendarComponent)
    public datepicker: SkyDatepickerCalendarComponent;
 }
