@@ -1,3 +1,9 @@
+# 2.0.0-beta.19 (2017-04-20)
+
+  - Added documentation around unit testing modals. (#507)
+  - Corrected spelling of `SkyModalConfiguration` class.
+  - Updated file drop documentation to have correct input type. (Thanks @Blackbaud-JeffDye)
+
 # 2.0.0-beta.18 (2017-04-13)
 
   - Made background for wait semi-transparent. (#545)
