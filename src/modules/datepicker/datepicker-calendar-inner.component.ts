@@ -204,7 +204,6 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
   }
 
   public onKeydown(event: KeyboardEvent) {
-    console.log('hey', event);
     let key = this.keys[event.which];
 
     if (!key || event.shiftKey || event.altKey) {

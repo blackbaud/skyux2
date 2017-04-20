@@ -72,8 +72,10 @@ export class SkyMonthPickerComponent implements OnInit {
   }
 
   private keydownMonths(key: string, event: KeyboardEvent) {
-    var date = this.datepicker.activeDate.getMonth();
+    let date = this.datepicker.activeDate.getMonth();
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (key === 'left') {
       date = date - 1;
     } else if (key === 'up') {
@@ -83,7 +85,7 @@ export class SkyMonthPickerComponent implements OnInit {
     } else if (key === 'down') {
       date = date + this.datepicker.monthColLimit;
     } else if (key === 'pageup' || key === 'pagedown') {
-      var year = this.datepicker.activeDate.getFullYear() + (key === 'pageup' ? - 1 : 1);
+      let year = this.datepicker.activeDate.getFullYear() + (key === 'pageup' ? - 1 : 1);
       this.datepicker.activeDate.setFullYear(year);
     } else if (key === 'home') {
       date = 0;

@@ -73,8 +73,10 @@ export class SkyYearPickerComponent implements OnInit {
   }
 
   private keydownYears(key: string, event: KeyboardEvent) {
-    var date = this.datepicker.activeDate.getFullYear();
+    let date = this.datepicker.activeDate.getFullYear();
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (key === 'left') {
       date = date - 1;
     } else if (key === 'up') {

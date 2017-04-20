@@ -15,6 +15,8 @@ import {
   expect
 } from '../testing';
 
+import { By } from '@angular/platform-browser';
+
 let moment = require('moment');
 
 describe('datepicker calendar', () => {
@@ -159,7 +161,7 @@ describe('datepicker calendar', () => {
     clickDatepickerTitle(nativeElement);
     clickDatepickerTitle(nativeElement);
 
-    verifyDatepicker(nativeElement, '2017 - 2036', '2017', '2017', '');
+    verifyDatepicker(nativeElement, '2001 - 2020', '2017', '2017', '');
   });
 
   it('should move to another day within the current month in daypicker', () => {
@@ -249,7 +251,7 @@ describe('datepicker calendar', () => {
 
     clickNthDate(nativeElement, 3);
 
-    verifyDatepicker(nativeElement, '2020', '', 'January', '');
+    verifyDatepicker(nativeElement, '2004', '', 'January', '');
 
   });
 
@@ -262,7 +264,7 @@ describe('datepicker calendar', () => {
 
     clickNextArrow(nativeElement);
 
-    verifyDatepicker(nativeElement, '2037 - 2056', '', '2037', '');
+    verifyDatepicker(nativeElement, '2021 - 2040', '', '2037', '');
   });
 
   it('should move to the previous set of years when clicking arrows in yearpicker', () => {
@@ -274,7 +276,7 @@ describe('datepicker calendar', () => {
 
     clickPreviousArrow(nativeElement);
 
-    verifyDatepicker(nativeElement, '1997 - 2016', '', '1997', '');
+    verifyDatepicker(nativeElement, '1981 - 2000', '', '1997', '');
   });
 
   it('should handle minDate in daypicker', () => {
@@ -324,11 +326,11 @@ describe('datepicker calendar', () => {
     clickDatepickerTitle(nativeElement);
     clickPreviousArrow(nativeElement);
 
-    verifyNthDateDisabled(nativeElement, 19, '1997 - 2016', '', '1997', '');
+    verifyNthDateDisabled(nativeElement, 2, '1981 - 2000', '', '1997', '');
 
     clickNextArrow(nativeElement);
 
-    verifyDatepicker(nativeElement, '2017 - 2036', '2017', '2017', '');
+    verifyDatepicker(nativeElement, '2001 - 2020', '2017', '2017', '');
 
   });
 
@@ -339,7 +341,7 @@ describe('datepicker calendar', () => {
 
     clickDatepickerTitle(nativeElement);
     clickDatepickerTitle(nativeElement);
-    verifyNthDateDisabled(nativeElement, 1, '2017 - 2036', '2017', '2017', '');
+    verifyNthDateDisabled(nativeElement, 19, '2001 - 2020', '2017', '2017', '');
   });
 
   function verifyTodayDayPicker(element: HTMLElement) {
@@ -409,5 +411,287 @@ describe('datepicker calendar', () => {
     fixture.detectChanges();
     verifyTodayDayPicker
 
+  });
+
+  describe('keyboard behaviors', () => {
+
+    function triggerKeydown(
+      componentFixture: ComponentFixture<DatepickerTestComponent>,
+      eventObj: any
+    ) {
+      Object.assign(eventObj, {
+        stopPropagation: function () {
+
+        },
+        preventDefault: function () {
+
+        }
+      });
+
+      componentFixture.debugElement.query(By.css('.sky-datepicker-calendar-inner'))
+        .triggerEventHandler('keydown', eventObj);
+      componentFixture.detectChanges();
+    }
+    it('should do nothing on shift or alt', () => {
+
+      component.selectedDate = new Date('4/4/2017');
+      fixture.detectChanges();
+      triggerKeydown(fixture, { which: 13, shiftKey: true });
+      verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
+
+      triggerKeydown(fixture, { which: 13, altKey: true});
+      verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
+    });
+
+    it('should select active date on enter or space', () => {
+      component.selectedDate = new Date('4/4/2017');
+      fixture.detectChanges();
+
+      clickNextArrow(nativeElement);
+      triggerKeydown(fixture, { which: 13 });
+      verifyDatepicker(nativeElement, 'May 2017', '01', '01', '');
+      expect(component.selectedDate).toEqual(new Date('5/1/2017'));
+
+      clickPreviousArrow(nativeElement);
+      triggerKeydown(fixture, { which: 32 });
+      verifyDatepicker(nativeElement, 'April 2017', '01', '01', '');
+      expect(component.selectedDate).toEqual(new Date('4/1/2017'));
+
+    });
+
+    it('should not select active date when active date is disabled', () => {
+      component.selectedDate = new Date('4/4/2017');
+      component.maxDate = new Date('4/5/2017');
+      fixture.detectChanges();
+      clickNextArrow(nativeElement);
+      triggerKeydown(fixture, { which: 13 });
+      verifyDatepicker(nativeElement, 'May 2017', '', '01', '');
+      expect(component.selectedDate).toEqual(new Date('4/4/2017'));
+    });
+
+    it('should toggle mode up when doing ctrl + up', () => {
+      component.selectedDate = new Date('4/4/2017');
+      fixture.detectChanges();
+      triggerKeydown(fixture, { which: 38, ctrlKey: true });
+      verifyDatepicker(nativeElement, '2017', 'April', 'April', '');
+
+    });
+
+    it('should toggle mode down when doing ctrl + down', () => {
+      component.selectedDate = new Date('4/4/2017');
+      fixture.detectChanges();
+      clickDatepickerTitle(nativeElement);
+      triggerKeydown(fixture, { which: 40, ctrlKey: true });
+      verifyDatepicker(nativeElement, 'April 2017', '04', '04', '');
+    });
+
+    describe('daypicker accessibility', () => {
+      it('should move to the previous day when hitting left arrow key', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 37 });
+        verifyDatepicker(nativeElement, 'April 2017', '04', '03', '');
+      });
+
+      it('should move to the next day when hitting the right arrow key', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 39 });
+        verifyDatepicker(nativeElement, 'April 2017', '04', '05', '');
+      });
+
+      it('should move to the next week when hitting the down arrrow key', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 40 });
+        verifyDatepicker(nativeElement, 'April 2017', '04', '11', '');
+      });
+
+      it('should move to the previous week when hitting the up arrow key', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 38 });
+        verifyDatepicker(nativeElement, 'March 2017', '04', '28', '');
+      });
+
+      it('should move to the next month when using pagedown', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 34 });
+        verifyDatepicker(nativeElement, 'May 2017', '', '04', '');
+      });
+
+      it('should move to the previous month when using pageup', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 33 });
+        verifyDatepicker(nativeElement, 'March 2017', '04', '04', '');
+      });
+
+      it('should move to the first day of the month when using home', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 36 });
+        verifyDatepicker(nativeElement, 'April 2017', '04', '01', '');
+      });
+
+      it('should move to the last day of the month when using end', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 35 });
+        verifyDatepicker(nativeElement, 'April 2017', '04', '30', '');
+      });
+
+      it('handles pressing end button on leap years', () => {
+        component.selectedDate = new Date('2/4/2016');
+        fixture.detectChanges();
+        triggerKeydown(fixture, { which: 35 });
+        verifyDatepicker(nativeElement, 'February 2016', '04', '29', '');
+      })
+    });
+
+    describe('monthpicker accessibility', () => {
+      it('should move to the previous month with left arrow', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 37 });
+        verifyDatepicker(nativeElement, '2017', 'April', 'March', '');
+      });
+
+      it('should move to the next month with right arrow', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 39 });
+        verifyDatepicker(nativeElement, '2017', 'April', 'May', '');
+      });
+
+      it('should move back appropriately when up arrow is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 38 });
+        verifyDatepicker(nativeElement, '2017', 'April', 'January', '');
+      });
+
+      it('should move forward appropriately when down arrow is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 40 });
+        verifyDatepicker(nativeElement, '2017', 'April', 'July', '');
+      });
+
+      it('should move to previous year with pageup', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 33 });
+        verifyDatepicker(nativeElement, '2016', '', 'April', '');
+      });
+
+      it('should move to the next year with pagedown', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 34 });
+        verifyDatepicker(nativeElement, '2018', '', 'April', '');
+      });
+
+      it('should move to January when home button is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 36 });
+        verifyDatepicker(nativeElement, '2017', 'April', 'January', '');
+      });
+
+      it('should move to December when end button is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 35 });
+        verifyDatepicker(nativeElement, '2017', 'April', 'December', '');
+      });
+
+    });
+
+    describe('year accessibility', () => {
+      it('should move to the previous year with left arrow', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 37 });
+        verifyDatepicker(nativeElement, '2001 - 2020', '2017', '2016', '');
+      });
+
+      it('should move to the next year with right arrow', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 39 });
+        verifyDatepicker(nativeElement, '2001 - 2020', '2017', '2018', '');
+      });
+
+      it('should move back appropriately when up arrow is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 38 });
+        verifyDatepicker(nativeElement, '2001 - 2020', '2017', '2012', '');
+      });
+
+      it('should move forward appropriately when down arrow is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 40 });
+        verifyDatepicker(nativeElement, '2021 - 2040', '', '2022', '');
+      });
+
+      it('should move to next set of year with pagedown', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 34 });
+        verifyDatepicker(nativeElement, '2021 - 2040', '', '2037', '');
+
+      });
+
+      it('should move to the previous set of year with pageup', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 33 });
+        verifyDatepicker(nativeElement, '1981 - 2000', '', '1997', '');
+
+      });
+
+      it('should move to first year in grid when home button is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 36 });
+        verifyDatepicker(nativeElement, '2001 - 2020', '2017', '2001', '');
+      });
+
+      it('should move to last year in grid when end button is pressed', () => {
+        component.selectedDate = new Date('4/4/2017');
+        fixture.detectChanges();
+        clickDatepickerTitle(nativeElement);
+        clickDatepickerTitle(nativeElement);
+        triggerKeydown(fixture, { which: 35 });
+        verifyDatepicker(nativeElement, '2001 - 2020', '2017', '2020', '');
+      });
+
+    });
   });
 });

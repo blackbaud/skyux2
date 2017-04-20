@@ -110,7 +110,8 @@ export class SkyDayPickerComponent implements OnInit {
 
   private keydownDays(key: string, event: KeyboardEvent) {
     let date = this.datepicker.activeDate.getDate();
-
+    /* istanbul ignore else */
+    /* sanity check */
     if (key === 'left') {
       date = date - 1;
     } else if (key === 'up') {
@@ -142,7 +143,7 @@ export class SkyDayPickerComponent implements OnInit {
 
   private getDaysInMonth(year: number, month: number) {
     return month === 1 && year % 4 === 0 &&
-      (year % 100 !== 0 || year % 400 === 0) ? 29 : this.daysInMonth[month];
+      (year % 400 === 0 || year % 100 !== 0) ? 29 : this.daysInMonth[month];
   }
 
 }
