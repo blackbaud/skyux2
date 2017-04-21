@@ -14,6 +14,8 @@ export class ListTestComponent {
   @ViewChild('toolbar')
   public toolbar: SkyListToolbarComponent;
 
+  public sortFields: any;
+
   constructor(@Inject('items') public items: any) {
   }
 

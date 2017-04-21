@@ -4,8 +4,8 @@ import { ListSortModel } from './state/sort/sort.model';
 
 export class ListDataRequestModel {
   public filters: ListFilterModel[];
-  public pageSize: number = 10;
-  public pageNumber: number = 1;
+  public pageSize: number;
+  public pageNumber: number;
   public search: ListSearchModel;
   public sort: ListSortModel;
 
