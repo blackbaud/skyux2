@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SkyChevronModule } from '../chevron';
 import { SkyLogModule } from '../log';
 
@@ -23,6 +25,7 @@ import { SkyRepeaterService } from './repeater.service';
     SkyRepeaterService
   ],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     SkyChevronModule,
     SkyLogModule
