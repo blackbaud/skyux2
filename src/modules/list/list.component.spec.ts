@@ -37,7 +37,8 @@ import {
   ListSortFieldSelectorModel,
   ListSortLabelModel,
   ListFilterModel,
-  ListItemModel
+  ListItemModel,
+  ListPagingModel
 } from './state';
 
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
@@ -1030,8 +1031,14 @@ describe('List Component', () => {
   describe('models and actions', () => {
     it('should handle undefined data for request model', () => {
       let model = new ListDataRequestModel();
+      expect(model.pageNumber).toBeUndefined();
+      expect(model.pageSize).toBeUndefined();
+    });
+
+    it('should handle missing data for paging model', () => {
+      let model = new ListPagingModel({});
       expect(model.pageNumber).toBe(1);
-      expect(model.pageSize).toBe(10);
+      expect(model.itemsPerPage).toBe(10);
     });
 
     it('should handle undefined data for response model', () => {

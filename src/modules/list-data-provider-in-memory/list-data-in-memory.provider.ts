@@ -59,7 +59,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
           return new ListDataResponseModel({
             count: result.length,
             items: result
-          })
+          });
         }
 
     });

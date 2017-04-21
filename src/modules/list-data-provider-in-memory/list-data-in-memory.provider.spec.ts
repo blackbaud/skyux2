@@ -89,6 +89,33 @@ describe('in memory data provider', () => {
     tick();
   }));
 
+  it('should handle more than 10 data entries when paging is undefined', fakeAsync(() => {
+
+    let provider = new SkyListInMemoryDataProvider(Observable.of([
+      { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
+      { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
+      { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears' },
+      { id: '4', column1: 404, column2: 'Grape', column3: 'George eats grapes' },
+      { id: '5', column1: 505, column2: 'Banana', column3: 'Becky eats bananas' },
+      { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
+      { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' },
+      { id: '8', column1: 404, column2: 'Grape', column3: 'George eats grapes' },
+      { id: '9', column1: 505, column2: 'Banana', column3: 'Becky eats bananas' },
+      { id: '10', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
+      { id: '11', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
+    ]));
+    let request = new ListDataRequestModel({});
+
+    tick();
+
+    provider.get(request).take(1).subscribe((result) => {
+      expect(result.items.length).toBe(11);
+      expect(result.count).toBe(11);
+    });
+    tick();
+
+  }));
+
   describe('sorting', () => {
     it('should handle an ascending sort', fakeAsync(() => {
       let provider = new SkyListInMemoryDataProvider(items);
