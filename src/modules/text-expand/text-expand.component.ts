@@ -38,7 +38,6 @@ export class SkyTextExpandComponent {
   public maxLength: number = 200;
   @Input()
   public maxExpandedLength: number = 600;
-  public maxNewlines: number = 1;
   @Input()
   public maxExpandedNewlines: number = 2;
   @Input()
@@ -47,6 +46,13 @@ export class SkyTextExpandComponent {
   public expandRepeaterMax: number;
   @Input()
   public expandRepeaterData: number;
+  @ViewChild('container')
+  public containerEl: ElementRef;
+  @ViewChild('text')
+  public textEl: ElementRef;
+  public maxNewlines: number = 1;
+  public isExpanded: boolean = false;
+  public expandable: boolean;
   public buttonText: string;
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
@@ -54,12 +60,6 @@ export class SkyTextExpandComponent {
   private collapsedText: string;
   private expandedText: string;
   private newlineCount: number;
-  private isExpanded: boolean = false;
-  private expandable: boolean;
-  @ViewChild('container')
-  private containerEl: ElementRef;
-  @ViewChild('text')
-  private textEl: ElementRef;
 
   constructor(private resources: SkyResourcesService, private modalService: SkyModalService,
     private elRef: ElementRef, private textExpandAdapter: SkyTextExpandAdapterService) { }
