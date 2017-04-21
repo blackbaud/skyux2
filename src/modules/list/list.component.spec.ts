@@ -104,13 +104,17 @@ describe('List Component', () => {
         nativeElement = fixture.nativeElement as HTMLElement;
         element = fixture.debugElement as DebugElement;
         component = fixture.componentInstance;
+
+      }));
+
+      function initializeList() {
         fixture.detectChanges();
 
         // always skip the first update to ListState, when state is ready
         // run detectChanges once more then begin tests
         state.skip(1).take(1).subscribe(() => fixture.detectChanges());
         fixture.detectChanges();
-      }));
+      }
 
       function applySearch(value: string) {
         component.toolbar.searchComponent.applySearchText(value);
@@ -118,55 +122,64 @@ describe('List Component', () => {
         return fixture.whenStable();
       }
 
-      it('should load data', () => {
-        expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
-      });
+      describe('basic actions', () => {
+        beforeEach(async(() => {
+          initializeList();
+        }));
 
-      it('should load new data', () => {
-        expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
-        fixture.detectChanges();
-        bs.next([
-          { id: '1', column1: '1', column2: 'Large',
-            column3: 2, column4: moment().add(15, 'minute') },
-          { id: '2', column1: '22', column2: 'Small',
-            column3: 3, column4: moment().add(60, 'minute') },
-          { id: '3', column1: '33', column2: 'Medium',
-            column3: 4, column4: moment().add(45, 'minute') }
-        ]);
-        fixture.detectChanges();
-        expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(3);
-      });
+        it('should load data', () => {
 
-      it('should update displayed items when data is updated', () => {
-        let newItems = [
-          { id: '11', column1: '11', column2: 'Coffee',
-            column3: 11, column4: moment().add(11, 'minute') },
-          { id: '12', column1: '12', column2: 'Tea',
-            column3: 12, column4: moment().add(12, 'minute') }
-        ];
+          expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
+        });
 
-        bs.next(newItems);
-        fixture.detectChanges();
-
-        expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
-      });
-
-      it('should search based on input text', async(() => {
-        fixture.detectChanges();
-        applySearch('banana').then(() => {
-
+        it('should load new data', () => {
+          expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
           fixture.detectChanges();
-          expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
+          bs.next([
+            { id: '1', column1: '1', column2: 'Large',
+              column3: 2, column4: moment().add(15, 'minute') },
+            { id: '2', column1: '22', column2: 'Small',
+              column3: 3, column4: moment().add(60, 'minute') },
+            { id: '3', column1: '33', column2: 'Medium',
+              column3: 4, column4: moment().add(45, 'minute') }
+          ]);
+          fixture.detectChanges();
+          expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(3);
+        });
 
+        it('should update displayed items when data is updated', () => {
+          let newItems = [
+            { id: '11', column1: '11', column2: 'Coffee',
+              column3: 11, column4: moment().add(11, 'minute') },
+            { id: '12', column1: '12', column2: 'Tea',
+              column3: 12, column4: moment().add(12, 'minute') }
+          ];
+
+          bs.next(newItems);
+          fixture.detectChanges();
+
+          expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
+        });
+
+        it('should search based on input text', async(() => {
+          fixture.detectChanges();
           applySearch('banana').then(() => {
+
             fixture.detectChanges();
             expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
+
+            applySearch('banana').then(() => {
+              fixture.detectChanges();
+              expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(2);
+            });
           });
-        });
-      }));
+        }));
+      });
 
       describe('sorting', () => {
-        it('should sort', () => {
+        it('should sort', fakeAsync(() => {
+          initializeList();
+          tick();
           expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
           dispatcher.next(new ListSortSetFieldSelectorsAction([
             {
@@ -202,9 +215,11 @@ describe('List Component', () => {
           expect(element.query(
             By.css('sky-grid-cell[sky-cmp-id=".column3"]')
           ).nativeElement.textContent.trim()).toBe('21');
-        });
+        }));
 
-        it('should sort based on column using cached search', async(() => {
+        it('should sort based on column using cached search', fakeAsync(() => {
+          initializeList();
+          tick();
           applySearch('banana')
           .then(() => {
             fixture.detectChanges();
@@ -227,10 +242,40 @@ describe('List Component', () => {
           });
         }));
 
+        it('should set initial sort with non-array', fakeAsync(() => {
+          component.sortFields = {
+              fieldSelector: 'column3',
+              descending: true
+            };
+
+          initializeList();
+          tick();
+
+          expect(element.query(
+            By.css('sky-grid-cell[sky-cmp-id=".column3"]')
+          ).nativeElement.textContent.trim()).toBe('21');
+        }));
+
+        it('should set initial sort with array', fakeAsync(() => {
+          component.sortFields = [{
+              fieldSelector: 'column3',
+              descending: true
+            }];
+
+          initializeList();
+          tick();
+
+          expect(element.query(
+            By.css('sky-grid-cell[sky-cmp-id=".column3"]')
+          ).nativeElement.textContent.trim()).toBe('21');
+        }));
+
       });
 
       describe('refreshDisplayedItems', () => {
-        it('should refresh items', async(() => {
+        it('should refresh items', fakeAsync(() => {
+          initializeList();
+          tick();
           component.list.refreshDisplayedItems();
           fixture.detectChanges();
           expect(element.queryAll(By.css('tr.sky-grid-row')).length).toBe(7);
@@ -238,17 +283,21 @@ describe('List Component', () => {
       });
 
       describe('itemCount', () => {
-        it('should return item count', () => {
+        it('should return item count', fakeAsync(() => {
+          initializeList();
+          tick();
           component.list.itemCount.take(1).subscribe(u => {
             state.take(1).subscribe((s) => {
               expect(u).toBe(s.items.count);
             });
           });
-        });
+        }));
       });
 
       describe('lastUpdate', () => {
-        it('should return last updated date', async(() => {
+        it('should return last updated date', fakeAsync(() => {
+          initializeList();
+          tick();
           component.list.lastUpdate.take(1).subscribe(u => {
             state.take(1).subscribe((s) => {
               expect(moment(u).isSame(s.items.lastUpdate)).toBeTruthy();
@@ -256,7 +305,9 @@ describe('List Component', () => {
           });
         }));
 
-        it('should return undefined if not defined', async(() => {
+        it('should return undefined if not defined', fakeAsync(() => {
+          initializeList();
+          tick();
           state.map((s) => s.items.lastUpdate = undefined).take(1).subscribe();
           component.list.lastUpdate.take(1).subscribe((u) => {
             expect(u).toBeUndefined();
