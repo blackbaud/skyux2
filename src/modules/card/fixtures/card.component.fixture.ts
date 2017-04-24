@@ -8,4 +8,6 @@ export class CardTestComponent {
   public cardSelected = false;
 
   public showCheckbox = true;
+
+  public showTitle = true;
 }
