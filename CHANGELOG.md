@@ -1,3 +1,10 @@
+# 2.0.0-beta.20 (2017-04-24)
+  
+  - Fixed text expand AOT compilation. (#613) (Thanks @Blackbaud-JoshGerdes)
+  - Fixed bug where lists did not display all entries when pagination was undefined. (#583)
+  - Fixed bug where initial sort state for lists only accepted array. (#586)
+  - Made card hide header when title existence changes. (#611)
+
 # 2.0.0-beta.19 (2017-04-20)
 
   - Added documentation around unit testing modals. (#507)
