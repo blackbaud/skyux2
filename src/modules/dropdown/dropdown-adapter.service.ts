@@ -6,32 +6,49 @@ import {
 } from '@angular/core';
 
 const CLS_OPEN = 'sky-dropdown-open';
+const CLS_NO_SCROLL = 'sky-dropdown-no-scroll';
 
 @Injectable()
 export class SkyDropdownAdapterService {
   public dropdownClose = new EventEmitter<any>();
+  private activeDropdownCount: number = 0;
 
-  constructor(private renderer: Renderer) { }
+  constructor() {
+  }
 
-  public showDropdown(dropdownEl: ElementRef) {
+  public showDropdown(dropdownEl: ElementRef, renderer: Renderer) {
     let buttonEl = this.getButtonEl(dropdownEl);
     let menuEl = this.getMenuEl(dropdownEl);
 
-    let rect = buttonEl.getBoundingClientRect();
+    if (!menuEl.classList.contains(CLS_OPEN)) {
+      let rect = buttonEl.getBoundingClientRect();
+      let top = rect.top + buttonEl.offsetHeight;
+      let left = rect.left;
 
-    let top = rect.top + document.body.scrollTop + buttonEl.offsetHeight;
-    let left = rect.left + document.body.scrollLeft;
+      renderer.setElementStyle(menuEl, 'top', top + 'px');
+      renderer.setElementStyle(menuEl, 'left', left + 'px');
+      renderer.setElementClass(menuEl, CLS_OPEN, true);
+      this.activeDropdownCount++;
+      if (this.activeDropdownCount === 1) {
+        document.body.classList.add(CLS_NO_SCROLL);
+      }
+    }
 
-    this.renderer.setElementProperty(menuEl, 'top', top + 'px');
-    this.renderer.setElementProperty(menuEl, 'left', left + 'px');
-    this.renderer.setElementClass(menuEl, CLS_OPEN, true);
   }
 
-  public hideDropdown(dropdownEl: ElementRef) {
+  public hideDropdown(dropdownEl: ElementRef, renderer: Renderer) {
     let menuEl = this.getMenuEl(dropdownEl);
 
-    this.renderer.setElementClass(menuEl, CLS_OPEN, false);
-    this.dropdownClose.emit(undefined);
+    if (menuEl.classList.contains(CLS_OPEN)) {
+      renderer.setElementClass(menuEl, CLS_OPEN, false);
+      this.dropdownClose.emit(undefined);
+      this.activeDropdownCount--;
+      if (this.activeDropdownCount === 0) {
+        document.body.classList.remove(CLS_NO_SCROLL);
+      }
+    }
+
+
   }
 
   private getMenuEl(dropdownEl: ElementRef) {
