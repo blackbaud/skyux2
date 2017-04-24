@@ -1,0 +1,15 @@
+<label class="sky-time-picker-wrapper">
+  <input type="time"
+        [id]="inputId"
+        [ngModel]="selectedValue"
+        [disabled]="disabled"
+        [name]="name"
+        [value]="value"
+        [tabIndex]="tabindex"
+        [attr.aria-label]="label"
+        [attr.aria-labelledby]="labelledBy"
+        (blur)="onInputBlur()"
+        (ngModelChange)="onTimePickerChanged($event)"/>
+  <span class="sky-time-picker"></span>
+  <ng-content select="sky-time-picker-label"></ng-content>
+</label>
