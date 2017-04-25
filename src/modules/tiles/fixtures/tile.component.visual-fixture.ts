@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyTileModule, SkyTileDashboardConfig } from '../';
+import { SkyTilesModule, SkyTileDashboardConfig } from '../';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 import { Tile1Component } from './tile1.component';
@@ -69,7 +69,7 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyTileModule
+    SkyTilesModule
   ],
   declarations: [
     AppComponent,

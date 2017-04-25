@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyNavbarModule } from '../navbar.module';
 
+import { SkyDropdownModule } from '../../dropdown';
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -14,7 +16,8 @@ export class AppComponent { }
 @NgModule({
   imports: [
     BrowserModule,
-    SkyNavbarModule
+    SkyNavbarModule,
+    SkyDropdownModule
   ],
   declarations: [
     AppComponent

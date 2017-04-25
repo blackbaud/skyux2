@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyTabsModule } from '../tabs.module';
 
+import { SkyCheckboxModule } from '../../checkbox'
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 import { FormsModule } from '@angular/forms';
@@ -42,6 +44,7 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
+    SkyCheckboxModule,
     SkyTabsModule,
     FormsModule
   ],

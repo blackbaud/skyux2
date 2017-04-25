@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyFilterModule } from '../filter.module';
 
+import { SkyToolbarModule } from '../../toolbar';
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -27,7 +29,8 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyFilterModule
+    SkyFilterModule,
+    SkyToolbarModule
   ],
   declarations: [
     AppComponent

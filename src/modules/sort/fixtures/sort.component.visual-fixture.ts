@@ -8,6 +8,10 @@ import {
   SkySortModule
 } from '../sort.module';
 
+import {
+  SkyToolbarModule
+} from '../../toolbar';
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -65,7 +69,8 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkySortModule
+    SkySortModule,
+    SkyToolbarModule
   ],
   declarations: [
     AppComponent

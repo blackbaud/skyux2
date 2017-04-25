@@ -8,6 +8,10 @@ import {
   SkySearchModule
 } from '../search.module';
 
+import {
+  SkyToolbarModule
+} from '../../toolbar';
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -68,7 +72,8 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkySearchModule
+    SkySearchModule,
+    SkyToolbarModule
   ],
   declarations: [
     AppComponent

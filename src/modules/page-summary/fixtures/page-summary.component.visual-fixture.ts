@@ -8,6 +8,14 @@ import { FormsModule } from '@angular/forms';
 
 import { SkyPageSummaryModule } from '../page-summary.module';
 
+import { SkyAlertModule } from '../../alert';
+
+import { SkyAvatarModule } from '../../avatar';
+
+import { SkyLabelModule } from '../../label';
+
+import { SkyKeyInfoModule } from '../../key-info';
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -52,7 +60,11 @@ export class AppComponent {
   imports: [
     BrowserModule,
     FormsModule,
-    SkyPageSummaryModule
+    SkyPageSummaryModule,
+    SkyAlertModule,
+    SkyAvatarModule,
+    SkyLabelModule,
+    SkyKeyInfoModule
   ],
   declarations: [
     AppComponent

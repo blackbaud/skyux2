@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyCardModule } from '../card.module';
 
+import { SkyKeyInfoModule } from '../../key-info';
+
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -14,7 +16,8 @@ class AppComponent { }
 @NgModule({
   imports: [
     BrowserModule,
-    SkyCardModule
+    SkyCardModule,
+    SkyKeyInfoModule
   ],
   declarations: [
     AppComponent
