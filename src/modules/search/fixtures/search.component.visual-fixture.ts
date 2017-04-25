@@ -5,8 +5,12 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 
 import {
-  SkyModule
-} from '../../../../src/core';
+  SkySearchModule
+} from '../search.module';
+
+import {
+  SkyToolbarModule
+} from '../../toolbar';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -68,7 +72,8 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkySearchModule,
+    SkyToolbarModule
   ],
   declarations: [
     AppComponent

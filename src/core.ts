@@ -120,6 +120,7 @@ export * from './modules/search';
 export * from './modules/sort';
 export * from './modules/tabs';
 export * from './modules/text-expand';
+export * from './modules/text-expand-repeater';
 export * from './modules/tiles';
 export * from './modules/toolbar';
 export * from './modules/wait';

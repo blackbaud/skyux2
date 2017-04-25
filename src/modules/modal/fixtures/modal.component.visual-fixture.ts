@@ -1,9 +1,8 @@
 import { Component, NgModule, ViewContainerRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule } from '../../../../src/core';
+import { SkyModalModule, SkyModalService } from '../';
 
-import { SkyModalService } from '../../../../src/core';
 import { ModalDemoComponent } from './modal.visual.content';
 import { ModalLargeDemoComponent } from './modal-large.visual.content';
 import { ModalFullPageDemoComponent } from './modal-fullpage.visual.content';
@@ -37,7 +36,7 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyModalModule
   ],
   declarations: [
     AppComponent,
