@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule } from '../../../../src/core';
+import { SkyFilterModule } from '../filter.module';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -27,7 +27,7 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyFilterModule
   ],
   declarations: [
     AppComponent

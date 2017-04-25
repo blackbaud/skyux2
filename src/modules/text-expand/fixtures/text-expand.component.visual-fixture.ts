@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule } from '../../../../src/core';
+import { SkyTextExpandModule } from '../text-expand.module';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -20,7 +20,7 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyTextExpandModule
   ],
   declarations: [
     AppComponent

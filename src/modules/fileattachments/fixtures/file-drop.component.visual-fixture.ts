@@ -2,11 +2,11 @@ import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {
-  SkyModule,
+  SkyFileAttachmentsModule,
   SkyFileItem,
   SkyFileLink,
   SkyFileDropChange
-} from '../../../../src/core';
+} from '../';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -77,7 +77,7 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyFileAttachmentsModule
   ],
   declarations: [
     AppComponent

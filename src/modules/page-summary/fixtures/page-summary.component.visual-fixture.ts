@@ -6,7 +6,7 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { SkyModule } from '../../../../src/core';
+import { SkyPageSummaryModule } from '../page-summary.module';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -52,7 +52,7 @@ export class AppComponent {
   imports: [
     BrowserModule,
     FormsModule,
-    SkyModule
+    SkyPageSummaryModule
   ],
   declarations: [
     AppComponent
