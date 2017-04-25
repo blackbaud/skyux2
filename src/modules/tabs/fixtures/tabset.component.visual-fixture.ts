@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { SkyTabsModule } from '../tabs.module';
 
-import { SkyCheckboxModule } from '../../checkbox'
+import { SkyCheckboxModule } from '../../checkbox';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
