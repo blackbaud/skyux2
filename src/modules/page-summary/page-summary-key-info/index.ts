@@ -1,1 +1,1 @@
-export * from './page-summary-key-info.component';
+export { SkyPageSummaryKeyInfoComponent } from './page-summary-key-info.component';
