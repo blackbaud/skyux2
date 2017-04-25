@@ -1,1 +1,3 @@
-export * from './list-data-in-memory.provider';
+export {
+  SkyListInMemoryDataProvider
+} from './list-data-in-memory.provider';
