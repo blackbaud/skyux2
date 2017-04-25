@@ -113,7 +113,8 @@ export {
 export {
   SkyColumnSelectorComponent,
   SkyColumnSelectorContext,
-  SkyColumnSelectorModule
+  SkyColumnSelectorModule,
+  SkyColumnSelectorModel
 } from './modules/column-selector';
 export {
   SkyDefinitionListComponent,
