@@ -1,3 +1,8 @@
+# 2.0.0-beta.21 (2017-04-25)
+
+  - Added documentation around entry components and modals.
+  - Fixed problem around exporting SKY UX classes for AOT. (#607)
+
 # 2.0.0-beta.20 (2017-04-24)
   
   - Fixed text expand AOT compilation. (#613) (Thanks @Blackbaud-JoshGerdes)
