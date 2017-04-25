@@ -1,1 +1,1 @@
-export * from './page-summary-alert.component';
+export { SkyPageSummaryAlertComponent } from './page-summary-alert.component';
