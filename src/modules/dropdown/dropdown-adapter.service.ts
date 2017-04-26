@@ -30,7 +30,11 @@ export class SkyDropdownAdapterService {
       renderer.setElementClass(menuEl, CLS_OPEN, true);
       this.activeDropdownCount++;
       if (this.activeDropdownCount === 1) {
-        document.body.classList.add(CLS_NO_SCROLL);
+        let parentEl = this.getScrollableParentEl(dropdownEl);
+        if (parentEl) {
+          parentEl.classList.add(CLS_NO_SCROLL);
+        }
+
       }
     }
 
@@ -44,11 +48,39 @@ export class SkyDropdownAdapterService {
       this.dropdownClose.emit(undefined);
       this.activeDropdownCount--;
       if (this.activeDropdownCount === 0) {
-        document.body.classList.remove(CLS_NO_SCROLL);
+        let parentEl = this.getScrollableParentEl(dropdownEl);
+        if (parentEl) {
+          parentEl.classList.remove(CLS_NO_SCROLL);
+        }
+
       }
     }
+  }
 
+  private getScrollableParentEl(el: ElementRef): HTMLElement {
+    let overflowY: string,
+      parentEl = el.nativeElement.parentNode;
 
+    while (parentEl !== undefined) {
+      if (parentEl === document.body) {
+        return parentEl;
+      }
+
+      overflowY = window.getComputedStyle(parentEl, null).overflowY;
+
+      /*istanbul ignore else */
+      /* sanity check (the computed overflow property will likely never return a non-string value) */
+      if (overflowY) {
+        switch (overflowY.toUpperCase()) {
+        case 'AUTO':
+        case 'HIDDEN':
+        case 'SCROLL':
+          return parentEl;
+        }
+      }
+
+      parentEl = parentEl.parentNode;
+    }
   }
 
   private getMenuEl(dropdownEl: ElementRef) {
