@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs/Observable';
 
-import { SkyModule } from '../../../../src/core';
+import { SkyListModule } from '../../list';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -27,7 +27,7 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyListModule
   ],
   declarations: [
     AppComponent

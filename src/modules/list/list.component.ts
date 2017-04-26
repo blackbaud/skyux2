@@ -144,9 +144,16 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
     }
 
     // set sort fields
-    getValue(this.sortFields, (sortFields: ListSortFieldSelectorModel[]) =>
-      this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortFields || []))
-    );
+    getValue(this.sortFields,
+    (sortFields: ListSortFieldSelectorModel[] | ListSortFieldSelectorModel) => {
+      let sortArray: any;
+      if (!Array.isArray(sortFields) && sortFields) {
+        sortArray = [sortFields];
+      } else {
+        sortArray = sortFields;
+      }
+      this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortArray || []));
+    });
 
     this.displayedItems.subscribe(result => {
       this.dispatcher.next(new ListItemsSetLoadingAction());

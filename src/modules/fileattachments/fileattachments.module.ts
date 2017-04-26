@@ -8,9 +8,23 @@ import { SkyResourcesModule } from '../resources';
 import { SkyFileSizePipe } from './file-size.pipe';
 
 @NgModule({
-  declarations: [SkyFileDropComponent, SkyFileItemComponent, SkyFileSizePipe],
-  imports: [CommonModule, SkyResourcesModule, FormsModule],
-  exports: [SkyFileDropComponent, SkyFileItemComponent, SkyFileSizePipe],
-  providers: [DecimalPipe]
+  declarations: [
+    SkyFileDropComponent,
+    SkyFileItemComponent,
+    SkyFileSizePipe
+  ],
+  imports: [
+    CommonModule,
+    SkyResourcesModule,
+    FormsModule
+  ],
+  exports: [
+    SkyFileDropComponent,
+    SkyFileItemComponent,
+    SkyFileSizePipe
+  ],
+  providers: [
+    DecimalPipe
+  ]
 })
 export class SkyFileAttachmentsModule { }

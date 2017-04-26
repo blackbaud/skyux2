@@ -1,5 +1,5 @@
-export * from './grid.module';
-export * from './grid.component';
-export * from './grid-column.component';
-export * from './grid-cell.component';
-export * from './grid-column.model';
+export { SkyGridModule } from './grid.module';
+export { SkyGridComponent } from './grid.component';
+export { SkyGridColumnComponent } from './grid-column.component';
+export { SkyGridCellComponent } from './grid-cell.component';
+export { SkyGridColumnModel } from './grid-column.model';
