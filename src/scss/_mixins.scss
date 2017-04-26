@@ -121,10 +121,10 @@
   &:focus,
   &.sky-btn-focus,
   &:active,
-  &.sky-btnactive {
+  &.sky-btn-active {
     color: $color;
     background-color: $hoverbackground;
-        border-color: darken($border, 12%);
+    border-color: darken($border, 12%);
   }
   &:active,
   &.sky-btn-active {

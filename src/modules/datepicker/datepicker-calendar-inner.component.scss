@@ -9,6 +9,10 @@
     border-color: $sky-color-white;
   }
 
+  /deep/ .sky-btn-default:hover, /deep/ .sky-btn-active {
+    border-color: darken($sky-color-gray-lighter, 12%);
+  }
+
   /deep/ .sky-datepicker-center {
     text-align: center;
   }
