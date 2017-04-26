@@ -2,17 +2,20 @@ import {
   Component,
   ElementRef,
   Input,
-  Renderer
+  Renderer,
+  OnDestroy
 } from '@angular/core';
 
 import { SkyDropdownAdapterService } from './dropdown-adapter.service';
+
+import { SkyWindowRefService } from '../window';
 
 @Component({
   selector: 'sky-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class SkyDropdownComponent {
+export class SkyDropdownComponent implements OnDestroy {
   @Input()
   public set buttonType(value: string) {
     this._buttonType = value;
@@ -48,7 +51,8 @@ export class SkyDropdownComponent {
   constructor(
     private renderer: Renderer,
     private elRef: ElementRef,
-    private adapterService: SkyDropdownAdapterService
+    private adapterService: SkyDropdownAdapterService,
+    private windowObj: SkyWindowRefService
   ) {
     this.adapterService.dropdownClose.subscribe(() => {
       this.open = false;
@@ -64,7 +68,7 @@ export class SkyDropdownComponent {
       this.opening = false;
       this.open = true;
     } else {
-      this.adapterService.hideDropdown(this.elRef, this.renderer);
+      this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
     }
   }
 
@@ -78,17 +82,21 @@ export class SkyDropdownComponent {
 
   public mouseLeave() {
     if (this.trigger === 'hover') {
-      this.adapterService.hideDropdown(this.elRef, this.renderer);
+      this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
     }
   }
 
   private openMenu() {
     if (!this.open) {
-      this.adapterService.showDropdown(this.elRef, this.renderer);
+      this.adapterService.showDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
 
       // Notify the window click handler that the menu was just opened so it doesn't try to
       // close it.
       this.opening = true;
     }
+  }
+
+  public ngOnDestroy() {
+    this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
   }
 }

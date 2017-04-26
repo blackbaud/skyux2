@@ -8,7 +8,69 @@ import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
 import { TestUtility } from '../testing/testutility';
 import { expect } from '../testing';
 
+import { SkyWindowRefService } from '../window';
+
 describe('Dropdown component', () => {
+
+
+  function getDropdownEl(el: Element) {
+    return <HTMLElement>el.querySelector('.sky-dropdown');
+  }
+
+  function getDropdownBtnEl(el: Element) {
+    return <HTMLElement>el.querySelector('.sky-dropdown-button');
+  }
+
+  function getDropdownMenuEl(el: Element) {
+    return <HTMLElement>el.querySelector('.sky-dropdown-menu');
+  }
+
+  describe('postition tests', () => {
+
+    class MockWindowService {
+
+      public innerHeight: number = 100;
+      public innerWidth: number = 500;
+      public getWindow() {
+        return {
+          innerHeight: this.innerHeight,
+          innerWidth: this.innerWidth,
+          getComputedStyle(element: HTMLElement, obj: any) {
+            return {
+              overflowY: 'auto'
+            }
+          }
+        }
+      }
+    }
+    it('should display dropdown above when necessary', () => {
+      TestBed.configureTestingModule({
+        imports: [
+          SkyDropdownFixturesModule
+        ],
+        providers: [
+          {
+            provide: SkyWindowRefService,
+            useValue: new MockWindowService()
+          }
+        ]
+      });
+
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.detectChanges();
+      let dropdownBtnEl = getDropdownBtnEl(el);
+
+      dropdownBtnEl.click();
+
+      fixture.detectChanges();
+
+
+    });
+  });
+
+  describe('vanilla setup', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -16,18 +78,6 @@ describe('Dropdown component', () => {
         ]
       });
     });
-
-    function getDropdownEl(el: Element) {
-      return <HTMLElement>el.querySelector('.sky-dropdown');
-    }
-
-    function getDropdownBtnEl(el: Element) {
-      return <HTMLElement>el.querySelector('.sky-dropdown-button');
-    }
-
-    function getDropdownMenuEl(el: Element) {
-      return <HTMLElement>el.querySelector('.sky-dropdown-menu');
-    }
 
     it('should have a default button type of "select"', () => {
       let fixture = TestBed.createComponent(DropdownTestComponent);
@@ -280,4 +330,5 @@ describe('Dropdown component', () => {
         expect(dropdownBtnEl.querySelector('.fa-filter')).not.toBeNull();
       });
     });
+  });
 });
