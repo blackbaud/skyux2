@@ -112,6 +112,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Datepicker',
+        icon: 'calendar',
+        // tslint:disable-next-line
+        summary: `The datepicker module contains directives for selecting dates.`,
+        url: '/components/datepicker',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'datepicker-demo.component.html',
+              fileContents: require('!!raw!./datepicker/datepicker-demo.component.html')
+            },
+            {
+              name: 'datepicker-demo.component.ts',
+              fileContents: require('!!raw!./datepicker/datepicker-demo.component.ts'),
+              componentName: 'SkyDatepickerDemoComponent',
+              bootstrapSelector: 'sky-datepicker-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Definition list',
         icon: 'list-alt',
         // tslint:disable-next-line

@@ -119,26 +119,26 @@
 
   &:hover,
   &:focus,
-  &.focus,
+  &.sky-btn-focus,
   &:active,
-  &.active {
+  &.sky-btn-active {
     color: $color;
     background-color: $hoverbackground;
-        border-color: darken($border, 12%);
+    border-color: darken($border, 12%);
   }
   &:active,
-  &.active {
+  &.sky-btn-active {
     background-image: none;
   }
-  &.disabled,
+  &.sky-btn-disabled,
   &[disabled],
   fieldset[disabled] & {
     &,
     &:hover,
     &:focus,
-    &.focus,
+    &.sky-btn-focus,
     &:active,
-    &.active {
+    &.sky-btn-active {
       background-color: $background;
           border-color: $border;
     }

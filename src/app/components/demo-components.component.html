@@ -9,6 +9,7 @@
         *ngFor="let component of components"
         [url]="component.url"
         [componentName]="component.name"
+        [hidden]="component.name === 'Datepicker'"
         [icon]="component.icon"
     >
       {{ component.summary }}

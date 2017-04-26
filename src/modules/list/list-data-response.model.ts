@@ -1,4 +1,4 @@
-import { ListItemModel } from '../list/state/items/item.model';
+import { ListItemModel } from './state/items/item.model';
 
  export class ListDataResponseModel {
    public count: number;
