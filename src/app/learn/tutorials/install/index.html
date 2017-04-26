@@ -9,12 +9,12 @@
         <li><p><a href="https://nodejs.org/en/">Node.js version 6+</a> &mdash; To check your version, run <code>node –v</code> from the command line.</p>
             <sky-alert alertType="danger">Do not use Node.js version 7+.</sky-alert>
         </li>
-        <li><p>NPM version 3+ &mdash; NPM is the default JavaScript package manager for Node.js, and as of Node.js version 0.6.3, it is bundled and installed automatically with the environment. We recommend version 3+ for its flat dependency structure. To check your version, run <code>npm –v</code> from the command line.</p></li>
+        <li><p>NPM version 3+ &mdash; NPM is the default JavaScript package manager for Node.js. As of Node.js version 0.6.3, it is bundled and installed automatically with the environment. We recommend version 3+ for its flat dependency structure. To check your version, run <code>npm –v</code> from the command line.</p></li>
         <li><p><a href="https://git-scm.com/">Git</a> &mdash; To confirm that you have Git in place, run <code>git version</code> from the command line.</p>
     </ul>
 
     <h2>SSL certificate</h2>
-    <p>During local development with SKY UX, your local files are loaded into SKY UX Host. To load your local single-page application into SKY UX Host, you must install the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt</a> root certificate.</p>
+    <p>During local development with SKY UX, local files are loaded into SKY UX Host. To load your local single-page application into SKY UX Host, you must install the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt</a> root certificate.</p>
     <ul>
         <li><p>To install the SSL certificate on a Mac, <a routerLink="/learn/tutorials//install///certificate-mac">follow these instructions</a>.</p></li>
         <li><p>To install the SSL certificate in Windows, <a routerLink="/learn/tutorials//install///certificate-windows">follow these instructions</a>.</p></li>
@@ -29,17 +29,17 @@
 <sky-alert alertType="info">The SKY UX CLI notifies users when a new version is released. If a new version is available when users run <code>skyux serve</code>, then a message appears in the command prompt.</sky-alert>
     
     <h2>Update SKY UX components and SKY UX Builder</h2>
-    <p>After you install the SKY UX CLI and <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, the project includes a <code>package.json</code> configuration file for NPM to specify dependencies that are stored in the <code>node_modules</code> folder. The <code>package.json</code> file includes properties to specify versions for SKY UX components and for SKY UX Builder.</p>
+    <p>After you install the SKY UX CLI and <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, the project includes a <code>package.json</code> configuration file for NPM to specify dependencies that are stored in the <code>node_modules</code> folder. The <code>package.json</code> file includes properties to specify versions for SKY UX components and SKY UX Builder.</p>
     <ul>
         <li><p>Under the <code>dependencies</code> property, <code>@blackbaud/skyux</code> specifies the version of SKY UX components for the project.</p></li>
         <li><p>Under the <code>devDependencies</code> property, <code>@blackbaud/skyux-builder</code> specifies the version of SKY UX Builder for the project.</p></li>
     </ul>
-    <p>To update the version of the components or Builder, you manually update the version in <code>package.json</code> and then run <code>npm install</code>.</p>
+    <p>To update the version of the components or Builder, manually update the version in <code>package.json</code> and then run <code>npm install</code>.</p>
     <ul>
         <li><p>To find the latest version of the SKY UX components, check the <a href="https://github.com/blackbaud/skyux2/blob/master/CHANGELOG.md">changelog in the SKY UX 2 repo</a> or the <a href="https://www.npmjs.com/package/@blackbaud/skyux">NPM page for the SKY UX 2 package</a>.</p></li>
         <li><p>To find the latest version of SKY UX Builder, check the <a href="https://github.com/blackbaud/skyux-builder/blob/master/CHANGELOG.md">changelog in the SKY UX Builder repo</a> or the <a href="https://www.npmjs.com/package/@blackbaud/skyux-builder">NPM page for the SKY UX Builder package</a>.</p></li>
     </ul>
-<sky-alert alertType="info">If you use VSCode or another editor with code-editing functionality, you can also open a prompt that displays the latest version by placing the cursor in the property and pressing Ctrl-Space.</sky-alert>
+<sky-alert alertType="info">If you use VSCode or another editor with code-editing functionality, you can also place the cursor in the <code>dependencies</code> or <code>devDependencies</code> property and press Ctrl-Space to open a prompt that displays the latest version.</sky-alert>
     
     <p><strong>Next step »</strong> <a routerLink="/learn/tutorials">Tutorials</a></p>
     <p><strong>Previous step »</strong> <a routerLink="/learn">Get started</a></p>

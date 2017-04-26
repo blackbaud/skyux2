@@ -1,8 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule } from '../../../../src/core';
-
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
 @Component({
@@ -13,8 +11,7 @@ class AppComponent { }
 
 @NgModule({
   imports: [
-    BrowserModule,
-    SkyModule
+    BrowserModule
   ],
   declarations: [
     AppComponent

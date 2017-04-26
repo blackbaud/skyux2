@@ -1,14 +1,14 @@
 <sky-demo-nav></sky-demo-nav>
 <div class="sky-container">
     <h1>Serve a project</h1>
-    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, you can follow these steps to serve the default single-page application. For more information about <code>skyux serve</code> and other commands and options in the SKY UX CLI, see <a routerLink="/learn/reference/cli-commands">the CLI commands reference</a>.</p>
+    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, you can serve the default single-page application. For more information about <code>skyux serve</code> and other SKY UX CLI commands, see <a routerLink="/learn/reference/cli-commands">the CLI commands reference</a>.</p>
 
     <ol>
         <li><p>From the command prompt, <code>cd</code> into the root directory for the SKY UX project from <a routerLink="/learn/tutorials/create-project">the previous tutorial</a>.</p></li>
         <li><p>Enter <code>skyux serve</code> to launch the SPA in your default browser. This opens the <code>host</code> endpoint and instructs SKY UX Host to pull files from the local machine instead of the CDN.</p>
             <p>By default, <code>skyux serve</code> launches the Host URL, which means that it reaches out to SKY UX Host for an HTML page to host your local files. However, you can use the <code>-l</code> or <code>--launch</code> options to specify the URL to launch.</p>
             <ul>
-                <li><p><code>skyux serve --launch local</code> — Launches the local URL. This creates a local HTML page that is roughly the same as the HTML file that SKY UX Host builds for production. This option is useful for serving the SPA if you don't have Internet access.</p></li>
+                <li><p><code>skyux serve --launch local</code> — Launches the local URL. This creates a local HTML page that is roughly the same as the HTML file that SKY UX Host builds for production. This option is useful for serving the SPA when you don't have Internet access.</p></li>
                 <li><p><code>skyux serve --launch none</code> — Stops any URL from launching. This option is useful if you want to serve the SPA but do not want it to automatically open in the web browser.</p></li>
                 <li><p><code>skyux serve --launch host</code> — <em>(Default.)</em> Launches the Host URL. This option provides the closest test to production because when <code>skyux serve</code> creates a local web server to launch the SPA, it reaches out to SKY UX Host for an HTML page to host your local files.</p></li>
             </ul>
