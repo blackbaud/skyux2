@@ -2,6 +2,8 @@ import {
   TestBed
 } from '@angular/core/testing';
 
+import { By } from '@angular/platform-browser';
+
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
 import { DropdownParentTestComponent } from './fixtures/dropdown-parent.component.fixture';
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
@@ -34,12 +36,14 @@ describe('Dropdown component', () => {
       });
     });
 
-    it('should have appropriate class on parent when two dropdowns are in the same parent', () => {
+    it('should prevent wheel events on parent when two dropdowns are in the same parent', () => {
 
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
 
       fixture.detectChanges();
+
+      let parent1El = fixture.debugElement.query(By.css('#parent-1'));
 
       let dropdown1BtnEl = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLElement;
 
@@ -47,18 +51,47 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-      expect(el.querySelector('#parent-1')).toHaveCssClass('sky-dropdown-no-scroll');
+      let defaultPrevented: boolean;
+      let propagationStopped: boolean;
+
+      parent1El.triggerEventHandler('wheel', {
+        preventDefault: function () {
+          defaultPrevented = true;
+        },
+        stopPropagation: function () {
+          propagationStopped = true;
+        }
+      });
+
+      expect(defaultPrevented).toBe(true);
+      expect(propagationStopped).toBe(true);
+
+      defaultPrevented = false;
+      propagationStopped = false;
 
       let dropdown2BtnEl = el.querySelector('#dropdown-2 .sky-dropdown-button') as HTMLElement;
       dropdown2BtnEl.click();
       fixture.detectChanges();
 
-      expect(el.querySelector('#parent-1')).toHaveCssClass('sky-dropdown-no-scroll');
+      parent1El.triggerEventHandler('wheel', {
+        preventDefault: function () {
+          defaultPrevented = true;
+        },
+        stopPropagation: function () {
+          propagationStopped = true;
+        }
+      });
 
-      dropdown2BtnEl.click();
+      expect(defaultPrevented).toBe(true);
+      expect(propagationStopped).toBe(true);
+
+      defaultPrevented = false;
+      propagationStopped = false;
+
+      TestUtility.fireDomEvent(document, 'click');
+
       fixture.detectChanges();
 
-      expect(el.querySelector('#parent-1')).not.toHaveCssClass('sky-dropdown-no-scroll');
     });
 
     it('should have appropriate class when  two dropdowns are in different same parent', () => {
@@ -68,25 +101,53 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
+      let parent1El = fixture.debugElement.query(By.css('#parent-1'));
+
       let dropdown1BtnEl = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLElement;
 
       dropdown1BtnEl.click();
-
       fixture.detectChanges();
 
-      expect(el.querySelector('#parent-1')).toHaveCssClass('sky-dropdown-no-scroll');
-
-      let dropdown2BtnEl = el.querySelector('#dropdown-3 .sky-dropdown-button') as HTMLElement;
-      dropdown2BtnEl.click();
+      let dropdown3BtnEl = el.querySelector('#dropdown-3 .sky-dropdown-button') as HTMLElement;
+      dropdown3BtnEl.click();
       fixture.detectChanges();
 
-      expect(el.querySelector('#parent-1')).not.toHaveCssClass('sky-dropdown-no-scroll');
-      expect(document.body).toHaveCssClass('sky-dropdown-no-scroll');
+      let defaultPrevented: boolean;
+      let propagationStopped: boolean;
 
-      dropdown2BtnEl.click();
+      let windowScrollEvt = document.createEvent('CustomEvent');
+      windowScrollEvt.initEvent('wheel', false, false);
+      windowScrollEvt.preventDefault = function () {
+        defaultPrevented = true
+      };
+      windowScrollEvt.stopPropagation = function () {
+        propagationStopped = true;
+      };
+
+      window.dispatchEvent(windowScrollEvt);
+
+      expect(defaultPrevented).toBe(true);
+      expect(propagationStopped).toBe(true);
+
+      defaultPrevented = false;
+      propagationStopped = false;
+
+      dropdown3BtnEl.click();
       fixture.detectChanges();
 
-      expect(document.body).not.toHaveCssClass('sky-dropdown-no-scroll');
+      windowScrollEvt = document.createEvent('CustomEvent');
+      windowScrollEvt.initEvent('wheel', false, false);
+      windowScrollEvt.preventDefault = function () {
+        defaultPrevented = true
+      };
+      windowScrollEvt.stopPropagation = function () {
+        propagationStopped = true;
+      };
+
+      window.dispatchEvent(windowScrollEvt);
+
+      expect(defaultPrevented).toBe(false);
+      expect(propagationStopped).toBe(false);
     });
   });
 
@@ -173,8 +234,8 @@ describe('Dropdown component', () => {
       expect(parseInt(leftValue, 10) < 50).toBe(true);
     });
 
-    it('should fallback to position 0, 0 and take screen width when nothing else works', () => {
-      mockWindowService.innerHeight = 20;
+    it('should fallback to position 10, 10 and take screen width when nothing else works', () => {
+      mockWindowService.innerHeight = 30;
       mockWindowService.innerWidth = 500;
 
       let fixture = TestBed.createComponent(DropdownTestComponent);
@@ -199,12 +260,14 @@ describe('Dropdown component', () => {
       let maxWidth = menuEl.style.maxWidth;
       let maxHeight = menuEl.style.maxHeight;
 
-      expect(parseInt(leftValue, 10)).toBe(0);
-      expect(parseInt(topValue, 10)).toBe(0);
-      expect(parseInt(width, 10)).toBe(500);
-      expect(parseInt(height, 10)).toBe(20);
-      expect(parseInt(maxWidth, 10)).toBe(500);
-      expect(parseInt(maxHeight, 10)).toBe(20);
+      expect(parseInt(leftValue, 10)).toBe(10);
+      expect(parseInt(topValue, 10)).toBe(10);
+      expect(parseInt(width, 10)).toBe(480);
+      expect(parseInt(height, 10)).toBe(10);
+      expect(parseInt(maxWidth, 10)).toBe(480);
+      expect(parseInt(maxHeight, 10)).toBe(10);
+
+      expect(document.body).toHaveCssClass('sky-dropdown-no-scroll');
     });
   });
 

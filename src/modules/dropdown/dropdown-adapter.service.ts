@@ -24,12 +24,13 @@ export class SkyDropdownAdapterService {
     /* sanity check */
     if (!menuEl.classList.contains(CLS_OPEN)) {
       renderer.setElementClass(menuEl, CLS_OPEN, true);
-      this.setMenuLocation(menuEl, buttonEl, renderer, windowObj);
-      let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
-      let parentCount = this.updateActiveParentEl(parentEl, true);
-      if (parentEl && parentCount === 1) {
-        parentEl.classList.add(CLS_NO_SCROLL);
+      let isFullScreen = this.setMenuLocation(menuEl, buttonEl, renderer, windowObj);
+
+      // Do not need to disable scroll when in full screen dropdown mode
+      if (!isFullScreen) {
+        this.setupParentScrollHandler(dropdownEl, windowObj, renderer);
       }
+
     }
   }
 
@@ -38,48 +39,77 @@ export class SkyDropdownAdapterService {
 
     if (menuEl.classList.contains(CLS_OPEN)) {
 
-      renderer.setElementClass(menuEl, CLS_OPEN, false);
-      this.setMenuStyles(
-        renderer,
-        menuEl,
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        ''
-      );
+      this.setDropdownDefaults(menuEl, renderer, windowObj, false);
       this.dropdownClose.emit(undefined);
       let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
-      let parentCount = this.updateActiveParentEl(parentEl, false);
-      if (parentEl && parentCount === 0) {
-        parentEl.classList.remove(CLS_NO_SCROLL);
-      }
+      this.updateActiveParentEl(parentEl, false);
     }
+  }
+
+  private setupParentScrollHandler(dropdownEl: ElementRef, windowObj: Window, renderer: Renderer) {
+    let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
+    let currentIndex = this.updateActiveParentEl(parentEl, true);
+    if (parentEl && this.activeParentEls[currentIndex].count === 1) {
+      let listener: any;
+      if (parentEl === document.body) {
+        listener = renderer.listenGlobal('window', 'wheel', (evt: any) => {
+          /* istanbul ignore next */
+          /* sanity check */
+          evt = evt || windowObj.event;
+          evt.preventDefault();
+          evt.stopPropagation();
+          evt.returnValue = false;
+        });
+
+      } else {
+        listener = renderer.listen(parentEl, 'wheel', (evt: any) => {
+          evt.preventDefault();
+          evt.stopPropagation();
+          evt.returnValue = false;
+        });
+      }
+
+      this.activeParentEls[currentIndex].listener = listener;
+    }
+  }
+
+  private setDropdownDefaults(
+    menuEl: HTMLElement,
+    renderer: Renderer,
+    windowObj: Window,
+    isOpen: boolean) {
+    renderer.setElementClass(menuEl, CLS_OPEN, isOpen);
+    renderer.setElementClass(document.body, CLS_NO_SCROLL, isOpen);
+    let topLeftVal = isOpen ? '10px' : '';
+    let heightVal = isOpen ? (windowObj.innerHeight - 20) + 'px' : '';
+    let widthVal = isOpen ? (windowObj.innerWidth - 20) + 'px' : '';
+    let overflowVal = isOpen ? 'auto': '';
+    this.setMenuStyles(
+      renderer,
+      menuEl,
+      topLeftVal,
+      heightVal,
+      widthVal,
+      overflowVal,
+    );
   }
 
   private setMenuStyles(
     renderer: Renderer,
     menuEl: HTMLElement,
-    top: string,
-    left: string,
-    maxHeight: string,
-    maxWidth: string,
-    height: string,
-    width: string,
-    overflowX: string,
-    overflowY: string) {
+    topLeftVal: string,
+    heightVal: string,
+    widthVal: string,
+    overflowVal: string) {
 
-    renderer.setElementStyle(menuEl, 'top', top);
-    renderer.setElementStyle(menuEl, 'left', left);
-    renderer.setElementStyle(menuEl, 'max-height', maxHeight);
-    renderer.setElementStyle(menuEl, 'max-width', maxWidth);
-    renderer.setElementStyle(menuEl, 'height', height);
-    renderer.setElementStyle(menuEl, 'width', width);
-    renderer.setElementStyle(menuEl, 'overflow-y', overflowY);
-    renderer.setElementStyle(menuEl, 'overflow-x', overflowX);
+    renderer.setElementStyle(menuEl, 'top', topLeftVal);
+    renderer.setElementStyle(menuEl, 'left', topLeftVal);
+    renderer.setElementStyle(menuEl, 'max-height', heightVal);
+    renderer.setElementStyle(menuEl, 'max-width', widthVal);
+    renderer.setElementStyle(menuEl, 'height', heightVal);
+    renderer.setElementStyle(menuEl, 'width', widthVal);
+    renderer.setElementStyle(menuEl, 'overflow-y', overflowVal);
+    renderer.setElementStyle(menuEl, 'overflow-x', overflowVal);
   }
 
   private updateActiveParentEl(parentEl: HTMLElement, isAdd: boolean) {
@@ -88,13 +118,14 @@ export class SkyDropdownAdapterService {
       if (this.activeParentEls[i].el === parentEl) {
         if (isAdd) {
           this.activeParentEls[i].count++;
-          return this.activeParentEls[i].count;
+          return i;
         } else if (this.activeParentEls[i].count > 1) {
           this.activeParentEls[i].count--;
-          return this.activeParentEls[i].count;
+          return i;
         } else {
+          this.activeParentEls[i].listener();
           this.activeParentEls.splice(i, 1);
-          return 0;
+          return -1;
         }
       }
     }
@@ -104,7 +135,7 @@ export class SkyDropdownAdapterService {
         el: parentEl,
         count: 1
       });
-      return 1;
+      return this.activeParentEls.length - 1;
     }
 
   }
@@ -130,7 +161,7 @@ export class SkyDropdownAdapterService {
       if (elementVisibility.fitsInViewPort) {
         renderer.setElementStyle(menuEl, 'top', menuCoordinates.top + 'px');
         renderer.setElementStyle(menuEl, 'left', menuCoordinates.left + 'px');
-        return;
+        return false;
       }
     }
 
@@ -138,20 +169,9 @@ export class SkyDropdownAdapterService {
       None of the positions allowed the menu to be fully visible.
       In this case we put it in the upper left corner and set the max-height and width.
     */
-    this.setMenuStyles(
-      renderer,
-      menuEl,
-      '0px',
-      '0px',
-      windowObj.innerHeight + 'px',
-      windowObj.innerWidth + 'px',
-      windowObj.innerHeight + 'px',
-      windowObj.innerWidth + 'px',
-      'auto',
-      'auto'
-    );
+    this.setDropdownDefaults(menuEl, renderer, windowObj, true);
 
-    return;
+    return true;
   }
 
   private getElementCoordinates(
