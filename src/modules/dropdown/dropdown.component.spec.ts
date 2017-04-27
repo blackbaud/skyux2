@@ -3,6 +3,7 @@ import {
 } from '@angular/core/testing';
 
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
+import { DropdownParentTestComponent } from './fixtures/dropdown-parent.component.fixture';
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
 
 import { TestUtility } from '../testing/testutility';
@@ -11,7 +12,6 @@ import { expect } from '../testing';
 import { SkyWindowRefService } from '../window';
 
 describe('Dropdown component', () => {
-
 
   function getDropdownEl(el: Element) {
     return <HTMLElement>el.querySelector('.sky-dropdown');
@@ -24,6 +24,71 @@ describe('Dropdown component', () => {
   function getDropdownMenuEl(el: Element) {
     return <HTMLElement>el.querySelector('.sky-dropdown-menu');
   }
+
+  describe('parent element tests', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          SkyDropdownFixturesModule
+        ]
+      });
+    });
+
+    it('should have appropriate class on parent when two dropdowns are in the same parent', () => {
+
+      let fixture = TestBed.createComponent(DropdownParentTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      let dropdown1BtnEl = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLElement;
+
+      dropdown1BtnEl.click();
+
+      fixture.detectChanges();
+
+      expect(el.querySelector('#parent-1')).toHaveCssClass('sky-dropdown-no-scroll');
+
+      let dropdown2BtnEl = el.querySelector('#dropdown-2 .sky-dropdown-button') as HTMLElement;
+      dropdown2BtnEl.click();
+      fixture.detectChanges();
+
+      expect(el.querySelector('#parent-1')).toHaveCssClass('sky-dropdown-no-scroll');
+
+      dropdown2BtnEl.click();
+      fixture.detectChanges();
+
+      expect(el.querySelector('#parent-1')).not.toHaveCssClass('sky-dropdown-no-scroll');
+    });
+
+    it('should have appropriate class when  two dropdowns are in different same parent', () => {
+
+      let fixture = TestBed.createComponent(DropdownParentTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      let dropdown1BtnEl = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLElement;
+
+      dropdown1BtnEl.click();
+
+      fixture.detectChanges();
+
+      expect(el.querySelector('#parent-1')).toHaveCssClass('sky-dropdown-no-scroll');
+
+      let dropdown2BtnEl = el.querySelector('#dropdown-3 .sky-dropdown-button') as HTMLElement;
+      dropdown2BtnEl.click();
+      fixture.detectChanges();
+
+      expect(el.querySelector('#parent-1')).not.toHaveCssClass('sky-dropdown-no-scroll');
+      expect(document.body).toHaveCssClass('sky-dropdown-no-scroll');
+
+      dropdown2BtnEl.click();
+      fixture.detectChanges();
+
+      expect(document.body).not.toHaveCssClass('sky-dropdown-no-scroll');
+    });
+  });
 
   describe('postition tests', () => {
 
@@ -38,12 +103,14 @@ describe('Dropdown component', () => {
           getComputedStyle(element: HTMLElement, obj: any) {
             return {
               overflowY: 'auto'
-            }
+            };
           }
-        }
+        };
       }
     }
-    it('should display dropdown above when necessary', () => {
+    let mockWindowService = new MockWindowService();
+
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           SkyDropdownFixturesModule
@@ -51,13 +118,22 @@ describe('Dropdown component', () => {
         providers: [
           {
             provide: SkyWindowRefService,
-            useValue: new MockWindowService()
+            useValue: mockWindowService
           }
         ]
       });
+    });
+
+    it('should display dropdown above when necessary', () => {
+
+      mockWindowService.innerHeight = 100;
+      mockWindowService.innerWidth = 500;
 
       let fixture = TestBed.createComponent(DropdownTestComponent);
       let el: HTMLElement = fixture.nativeElement;
+
+      el.style.position = 'absolute';
+      el.style.top = '100px';
 
       fixture.detectChanges();
       let dropdownBtnEl = getDropdownBtnEl(el);
@@ -66,7 +142,69 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
+      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+      let topValue = menuEl.style.top;
 
+      expect(parseInt(topValue, 10) < 100).toBe(true);
+    });
+
+    it('should display dropdown center when necessary', () => {
+
+      mockWindowService.innerHeight = 40;
+      mockWindowService.innerWidth = 500;
+
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      el.style.position = 'absolute';
+      el.style.top = '10px';
+      el.style.left = '50px';
+
+      fixture.detectChanges();
+      let dropdownBtnEl = getDropdownBtnEl(el);
+
+      dropdownBtnEl.click();
+
+      fixture.detectChanges();
+
+      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+      let leftValue = menuEl.style.left;
+
+      expect(parseInt(leftValue, 10) < 50).toBe(true);
+    });
+
+    it('should fallback to position 0, 0 and take screen width when nothing else works', () => {
+      mockWindowService.innerHeight = 20;
+      mockWindowService.innerWidth = 500;
+
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      el.style.position = 'absolute';
+      el.style.top = '10px';
+      el.style.left = '50px';
+
+      fixture.detectChanges();
+      let dropdownBtnEl = getDropdownBtnEl(el);
+
+      dropdownBtnEl.click();
+
+      fixture.detectChanges();
+
+      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+      let leftValue = menuEl.style.left;
+      let topValue = menuEl.style.top;
+      let width = menuEl.style.width;
+      let height = menuEl.style.height;
+      let maxWidth = menuEl.style.maxWidth;
+      let maxHeight = menuEl.style.maxHeight;
+
+      expect(parseInt(leftValue, 10)).toBe(0);
+      expect(parseInt(topValue, 10)).toBe(0);
+      expect(parseInt(width, 10)).toBe(500);
+      expect(parseInt(height, 10)).toBe(20);
+      expect(parseInt(maxWidth, 10)).toBe(500);
+      expect(parseInt(maxHeight, 10)).toBe(20);
     });
   });
 

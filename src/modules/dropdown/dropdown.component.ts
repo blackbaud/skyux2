@@ -86,6 +86,10 @@ export class SkyDropdownComponent implements OnDestroy {
     }
   }
 
+  public ngOnDestroy() {
+    this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
+  }
+
   private openMenu() {
     if (!this.open) {
       this.adapterService.showDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
@@ -96,7 +100,4 @@ export class SkyDropdownComponent implements OnDestroy {
     }
   }
 
-  public ngOnDestroy() {
-    this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
-  }
 }

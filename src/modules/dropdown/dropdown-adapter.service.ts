@@ -11,7 +11,7 @@ const CLS_NO_SCROLL = 'sky-dropdown-no-scroll';
 @Injectable()
 export class SkyDropdownAdapterService {
   public dropdownClose = new EventEmitter<any>();
-  private activeDropdownCount: number = 0;
+  private activeParentEls: Array<any> = [];
 
   constructor() {
   }
@@ -20,15 +20,15 @@ export class SkyDropdownAdapterService {
     let buttonEl = this.getButtonEl(dropdownEl);
     let menuEl = this.getMenuEl(dropdownEl);
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (!menuEl.classList.contains(CLS_OPEN)) {
       renderer.setElementClass(menuEl, CLS_OPEN, true);
       this.setMenuLocation(menuEl, buttonEl, renderer, windowObj);
-      this.activeDropdownCount++;
-      if (this.activeDropdownCount === 1) {
-        let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
-        if (parentEl) {
-          parentEl.classList.add(CLS_NO_SCROLL);
-        }
+      let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
+      let parentCount = this.updateActiveParentEl(parentEl, true);
+      if (parentEl && parentCount === 1) {
+        parentEl.classList.add(CLS_NO_SCROLL);
       }
     }
   }
@@ -38,17 +38,46 @@ export class SkyDropdownAdapterService {
 
     if (menuEl.classList.contains(CLS_OPEN)) {
       renderer.setElementClass(menuEl, CLS_OPEN, false);
+      renderer.setElementStyle(menuEl, 'top', '');
+      renderer.setElementStyle(menuEl, 'left', '');
       renderer.setElementStyle(menuEl, 'max-height', '');
       renderer.setElementStyle(menuEl, 'max-width', '');
+      renderer.setElementStyle(menuEl, 'height', '');
+      renderer.setElementStyle(menuEl, 'width', '');
       this.dropdownClose.emit(undefined);
-      this.activeDropdownCount--;
-      if (this.activeDropdownCount === 0) {
-        let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
-        if (parentEl) {
-          parentEl.classList.remove(CLS_NO_SCROLL);
+      let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
+      let parentCount = this.updateActiveParentEl(parentEl, false);
+      if (parentEl && parentCount === 0) {
+        parentEl.classList.remove(CLS_NO_SCROLL);
+      }
+    }
+  }
+
+  private updateActiveParentEl(parentEl: HTMLElement, isAdd: boolean) {
+    let i: number;
+    for (i = 0; i < this.activeParentEls.length; i++) {
+      if (this.activeParentEls[i].el === parentEl) {
+        if (isAdd) {
+          this.activeParentEls[i].count++;
+          return this.activeParentEls[i].count;
+        } else if (this.activeParentEls[i].count > 1) {
+          this.activeParentEls[i].count--;
+          return this.activeParentEls[i].count;
+        } else {
+          this.activeParentEls.splice(i, 1);
+          return 0;
         }
       }
     }
+
+    if (isAdd) {
+      this.activeParentEls.push({
+        el: parentEl,
+        count: 1
+      });
+      return 1;
+    }
+
   }
 
   private setMenuLocation(
@@ -81,9 +110,11 @@ export class SkyDropdownAdapterService {
       In this case we put it in the upper left corner and set the max-height and width.
     */
     renderer.setElementStyle(menuEl, 'top', '0px');
-    renderer.setElementStyle(menuEl, 'left','0px');
+    renderer.setElementStyle(menuEl, 'left', '0px');
     renderer.setElementStyle(menuEl, 'max-height', windowObj.innerHeight + 'px');
     renderer.setElementStyle(menuEl, 'max-width', windowObj.innerWidth + 'px');
+    renderer.setElementStyle(menuEl, 'height', windowObj.innerHeight + 'px');
+    renderer.setElementStyle(menuEl, 'width', windowObj.innerWidth + 'px');
 
     return;
   }
@@ -157,7 +188,7 @@ export class SkyDropdownAdapterService {
         return parentEl;
       }
 
-      overflowY = windowObj.getComputedStyle(parentEl, null).overflowY;
+      overflowY = windowObj.getComputedStyle(parentEl, undefined).overflowY;
 
       /*istanbul ignore else */
       /* sanity check  */
@@ -167,6 +198,8 @@ export class SkyDropdownAdapterService {
         case 'HIDDEN':
         case 'SCROLL':
           return parentEl;
+        default:
+          break;
         }
       }
 
