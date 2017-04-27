@@ -101,8 +101,6 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-      let parent1El = fixture.debugElement.query(By.css('#parent-1'));
-
       let dropdown1BtnEl = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLElement;
 
       dropdown1BtnEl.click();
@@ -118,7 +116,7 @@ describe('Dropdown component', () => {
       let windowScrollEvt = document.createEvent('CustomEvent');
       windowScrollEvt.initEvent('wheel', false, false);
       windowScrollEvt.preventDefault = function () {
-        defaultPrevented = true
+        defaultPrevented = true;
       };
       windowScrollEvt.stopPropagation = function () {
         propagationStopped = true;
@@ -138,7 +136,7 @@ describe('Dropdown component', () => {
       windowScrollEvt = document.createEvent('CustomEvent');
       windowScrollEvt.initEvent('wheel', false, false);
       windowScrollEvt.preventDefault = function () {
-        defaultPrevented = true
+        defaultPrevented = true;
       };
       windowScrollEvt.stopPropagation = function () {
         propagationStopped = true;

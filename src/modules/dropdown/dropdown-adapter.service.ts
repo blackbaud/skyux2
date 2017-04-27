@@ -83,7 +83,7 @@ export class SkyDropdownAdapterService {
     let topLeftVal = isOpen ? '10px' : '';
     let heightVal = isOpen ? (windowObj.innerHeight - 20) + 'px' : '';
     let widthVal = isOpen ? (windowObj.innerWidth - 20) + 'px' : '';
-    let overflowVal = isOpen ? 'auto': '';
+    let overflowVal = isOpen ? 'auto' : '';
     this.setMenuStyles(
       renderer,
       menuEl,
