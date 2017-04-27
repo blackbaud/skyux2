@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { StacheModule } from'@blackbaud/stache'
+
 import { SkyDemoTitleService } from './shared/title.service';
 import { SkyFilterDemoModalComponent } from './components/filter/filter-demo-modal.component';
 import { SkyListFiltersModalDemoComponent }
@@ -24,7 +26,11 @@ require('style!./styles.scss');
     SkyListFiltersModalDemoComponent
   ],
   imports: [
-    SkyDemoComponentsModule
+    SkyDemoComponentsModule,
+    StacheModule
+  ],
+  exports: [
+    StacheModule
   ],
   providers: [
     SkyDemoTitleService

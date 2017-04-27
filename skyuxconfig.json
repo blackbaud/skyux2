@@ -3,5 +3,8 @@
   "mode": "easy",
   "importPath": "src",
   "cssPath": "src/scss/sky.scss",
-  "compileMode": "aot"
+  "compileMode": "aot",
+  "plugins": [
+    "@blackbaud/skyux-builder-plugin-stache-code-block"
+  ]
 }

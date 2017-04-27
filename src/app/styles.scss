@@ -59,3 +59,12 @@ code {
   background-color: $sky-body-background-color !important;
   padding: $sky-padding !important;
 }
+
+.stache-hero {
+  @media(min-width: 1000px) {
+    background-position-y: -200px !important;
+  }
+  @media(min-width: 1300px) {
+    background-position-y: -300px !important;
+  }
+}
