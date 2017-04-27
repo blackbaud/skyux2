@@ -24,8 +24,6 @@
   position: fixed;
   @include sky-shadow;
   z-index: $sky-dropdown-z-index;
-  overflow-x: auto;
-  overflow-y: auto;
 
   &.sky-dropdown-open {
     display: block;

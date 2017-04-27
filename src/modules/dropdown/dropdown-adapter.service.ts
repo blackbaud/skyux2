@@ -37,13 +37,20 @@ export class SkyDropdownAdapterService {
     let menuEl = this.getMenuEl(dropdownEl);
 
     if (menuEl.classList.contains(CLS_OPEN)) {
+
       renderer.setElementClass(menuEl, CLS_OPEN, false);
-      renderer.setElementStyle(menuEl, 'top', '');
-      renderer.setElementStyle(menuEl, 'left', '');
-      renderer.setElementStyle(menuEl, 'max-height', '');
-      renderer.setElementStyle(menuEl, 'max-width', '');
-      renderer.setElementStyle(menuEl, 'height', '');
-      renderer.setElementStyle(menuEl, 'width', '');
+      this.setMenuStyles(
+        renderer,
+        menuEl,
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
+      );
       this.dropdownClose.emit(undefined);
       let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
       let parentCount = this.updateActiveParentEl(parentEl, false);
@@ -51,6 +58,28 @@ export class SkyDropdownAdapterService {
         parentEl.classList.remove(CLS_NO_SCROLL);
       }
     }
+  }
+
+  private setMenuStyles(
+    renderer: Renderer,
+    menuEl: HTMLElement,
+    top: string,
+    left: string,
+    maxHeight: string,
+    maxWidth: string,
+    height: string,
+    width: string,
+    overflowX: string,
+    overflowY: string) {
+
+    renderer.setElementStyle(menuEl, 'top', top);
+    renderer.setElementStyle(menuEl, 'left', left);
+    renderer.setElementStyle(menuEl, 'max-height', maxHeight);
+    renderer.setElementStyle(menuEl, 'max-width', maxWidth);
+    renderer.setElementStyle(menuEl, 'height', height);
+    renderer.setElementStyle(menuEl, 'width', width);
+    renderer.setElementStyle(menuEl, 'overflow-y', overflowY);
+    renderer.setElementStyle(menuEl, 'overflow-x', overflowX);
   }
 
   private updateActiveParentEl(parentEl: HTMLElement, isAdd: boolean) {
@@ -109,12 +138,18 @@ export class SkyDropdownAdapterService {
       None of the positions allowed the menu to be fully visible.
       In this case we put it in the upper left corner and set the max-height and width.
     */
-    renderer.setElementStyle(menuEl, 'top', '0px');
-    renderer.setElementStyle(menuEl, 'left', '0px');
-    renderer.setElementStyle(menuEl, 'max-height', windowObj.innerHeight + 'px');
-    renderer.setElementStyle(menuEl, 'max-width', windowObj.innerWidth + 'px');
-    renderer.setElementStyle(menuEl, 'height', windowObj.innerHeight + 'px');
-    renderer.setElementStyle(menuEl, 'width', windowObj.innerWidth + 'px');
+    this.setMenuStyles(
+      renderer,
+      menuEl,
+      '0px',
+      '0px',
+      windowObj.innerHeight + 'px',
+      windowObj.innerWidth + 'px',
+      windowObj.innerHeight + 'px',
+      windowObj.innerWidth + 'px',
+      'auto',
+      'auto'
+    );
 
     return;
   }
