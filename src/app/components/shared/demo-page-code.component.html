@@ -19,8 +19,8 @@
   <sky-tabset
     [active]="0">
     <sky-tab
-        *ngFor="let codeFile of codeFilesForBinding"
-        [tabHeading]="codeFile.name">
+      *ngFor="let codeFile of codeFilesForBinding"
+      [tabHeading]="codeFile.name">
       <stache-code-block 
         [code]="codeFile.code"
         [languageType]="codeFile.language">
