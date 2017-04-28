@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-datepicker-demo',
-  templateUrl: './datepicker-demo.component.html'
+  templateUrl: './datepicker-demo.component.html',
+  styleUrls: ['./datepicker-demo.component.scss']
 })
 export class SkyDatepickerDemoComponent {
 
