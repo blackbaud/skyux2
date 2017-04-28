@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule } from '../../../../src/core';
+import { SkyTabsModule } from '../tabs.module';
+
+import { SkyCheckboxModule } from '../../checkbox';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -42,7 +44,8 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule,
+    SkyCheckboxModule,
+    SkyTabsModule,
     FormsModule
   ],
   declarations: [

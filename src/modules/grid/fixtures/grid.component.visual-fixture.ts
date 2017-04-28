@@ -6,8 +6,8 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 
 import {
-  SkyModule
-} from '../../../../src/core';
+  SkyGridModule
+} from '../grid.module';
 
 import { ListItemModel } from '../../../../src/modules/list/state/items/item.model';
 
@@ -40,7 +40,7 @@ export class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyGridModule
   ],
   declarations: [
     AppComponent
