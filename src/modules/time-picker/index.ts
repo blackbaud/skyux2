@@ -1,2 +1,2 @@
-export { SkyTimePickerComponent } from './time-picker.component';
-export { SkyTimePickerModule } from './time-picker.module';
+export { SkyTimePickerComponent } from './timepicker.component';
+export { SkyTimePickerModule } from './timepicker.module';

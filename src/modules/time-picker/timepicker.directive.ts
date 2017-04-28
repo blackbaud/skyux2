@@ -7,6 +7,6 @@ export class SkyTimePickerDirective implements OnInit {
     target.nativeElement.style.backgroundColor = 'yellow';
   }
   public ngOnInit() {
-    this._renderer.createElement(this.target.nativeElement.parentNode, 'sky-time-picker');
+    this._renderer.createElement(this.target.nativeElement.parentNode, 'sky-timepicker');
   }
 }

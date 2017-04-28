@@ -12,9 +12,9 @@ import * as moment from 'moment';
 
 
 @Component({
-  selector: 'sky-time-picker',
-  templateUrl: './time-picker.component.html',
-  styleUrls: ['./time-picker.component.scss'],
+  selector: 'sky-timepicker',
+  templateUrl: './timepicker.component.html',
+  styleUrls: ['./timepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyTimePickerComponent implements OnChanges {
@@ -102,10 +102,10 @@ export class SkyTimePickerComponent implements OnChanges {
     let target = <HTMLElement>event.target;
     let timePicker: Element;
 
-    if (target.className === 'sky-time-picker') {
+    if (target.className === 'sky-timepicker') {
       timePicker = target.parentElement.nextElementSibling;
     }
-    if (target.className === 'sky-time-picker-button-done') {
+    if (target.className === 'sky-timepicker-button-done') {
       timePicker = target.offsetParent.parentElement;
     }
     timePicker.classList.toggle('hidden');

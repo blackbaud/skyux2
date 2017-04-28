@@ -1,6 +1,6 @@
 @import "../../scss/variables";
 
-.sky-time-picker-container {
+.sky-timepicker-container {
   display: flex;
   flex-flow: wrap;
   height:240px;
@@ -8,7 +8,7 @@
   width:280px;
   background-color: $sky-color-gray-10;
 }
-.sky-time-picker-container button {
+.sky-timepicker-container button {
   background-color: #FFF;
   border-color:#DDD;
   border-style: solid;
@@ -18,11 +18,11 @@
   margin: 10px;
   width: 240px;
 }
-.sky-time-picker-column {
+.sky-timepicker-column {
   height:170px;
   margin-right:10px;
   }
-.sky-time-picker-column ol {
+.sky-timepicker-column ol {
   -moz-column-gap:1px;
   -moz-columns: 2;
   -webkit-column-gap: 1px;
@@ -36,7 +36,7 @@
   margin:0px;
   padding:0px;
 }
-.sky-time-picker-column ol li {
+.sky-timepicker-column ol li {
   background-color:#FFF;
   height: 28px;
   line-height: 28px;
@@ -44,33 +44,33 @@
   width: 47px;
   cursor: pointer;
 }
-.sky-time-picker-column ol li:hover {
+.sky-timepicker-column ol li:hover {
   background-color: #EBEBEB;
 }
-.sky-time-picker-column ol li:active {
+.sky-timepicker-column ol li:active {
   background-color: $sky-color-gray-10;
 }
-.sky-time-picker-period {
+.sky-timepicker-period {
     width:40px;
     margin:0px;
 }
-.sky-time-picker-period ol{
+.sky-timepicker-period ol{
   columns: 1;
   -webkit-columns: 1;
   -moz-columns: 1;
 }
-.sky-time-picker-period ol li {
+.sky-timepicker-period ol li {
   height: 84px;
   width:38px;
   line-height: 84px;
 }
-.sky-time-picker-period ol li:nth-child(1){
+.sky-timepicker-period ol li:nth-child(1){
   border: 0px;
   border-bottom: 1px;
   border-style: solid;
   border-color: #DDD;
 }
-.sky-time-picker-column ol .active {
+.sky-timepicker-column ol .active {
   background-color: $sky-color-blue;
   color:#fff;
 }

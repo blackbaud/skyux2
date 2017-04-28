@@ -1,26 +1,26 @@
 <sky-dropdown buttonType="clock-o">
   <sky-dropdown-menu>
     <sky-dropdown-item>
-      <div class="sky-time-picker-container">
+      <div class="sky-timepicker-container">
 
-        <section class="sky-time-picker-column">
+        <section class="sky-timepicker-column">
           <ol>
             <li *ngFor="let hour of hours;" (click)="setHour($event)">{{hour}}</li>
           </ol>
         </section>
-        <section class="sky-time-picker-column">
+        <section class="sky-timepicker-column">
           <ol>
             <li *ngFor="let minute of minutes;" (click)="setMinute(minute)">{{minute}}</li>
           </ol>
         </section>
-        <section *ngIf="this.format === 'hh'" class="sky-time-picker-column sky-time-picker-period">
+        <section *ngIf="this.format === 'hh'" class="sky-timepicker-column sky-timepicker-period">
           <ol>
             <li (click)="setPeriod('AM')">AM</li>
             <li (click)="setPeriod('PM')">PM</li>
           </ol>
         </section>
         <section>
-          <button class="sky-time-picker-button-done">Done</button>
+          <button class="sky-timepicker-button-done">Done</button>
         </section>
       </div>
     </sky-dropdown-item>

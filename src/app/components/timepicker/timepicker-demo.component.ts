@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'sky-time-picker-demo',
-  templateUrl: './time-picker-demo.component.html'
+  selector: 'sky-timepicker-demo',
+  templateUrl: './timepicker-demo.component.html'
 })
 export class SkyTimePickerDemoComponent {
   // tslint:disable-next-line
