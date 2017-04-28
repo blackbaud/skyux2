@@ -1,0 +1,62 @@
+<sky-demo-nav></sky-demo-nav>
+<stache
+    pageTitle="SSL certification"
+    showTableOfContents="true">
+    <stache-page-summary>
+    <p>During local development with SKY UX, local files are loaded into SKY UX Host. To load your local single-page application into SKY UX Host, you must install the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt</a> root certificate.</p>  
+    <p>
+        Follow the installation instructions appropriate for your machine.
+    </p>
+    </stache-page-summary>
+    <stache-page-anchor>
+        Installation for Mac
+    </stache-page-anchor>
+    <ol>
+        <li>Download the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt</a>.</li>
+        <li>Open the Keychain Access application.</li>
+        <li>Under the Keychains list on the left, select "login."</li>
+        <li>Under the Category list, select "Certificates."</li>
+        <li>Drag <code>skyux-ca.crt</code> into the list of certificates.</li>
+        <li>Double-click the new "SKY UX" item in the list to open the certificate's info window.</li>
+        <li>Expand the Trust section near the top of the info window, and select the "Always Trust" option for "Secure Sockets Layer (SSL)."</li>
+        <li>Close the info window.</li>
+    </ol>
+
+    <stache-page-anchor>
+        Installation for Windows
+    </stache-page-anchor>
+    <ol>
+        <li>Right-click the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt URL</a>, and select Save As.</li>
+        <li>Open the file.</li>
+        <li>On the security warning prompt, click <strong>Open</strong>.</li>
+        <li>On the Certificate screen, click <strong>Install Certificate</strong>.</li>
+        <li>On the Certificate Import Wizard, click <strong>Next</strong>.</li>
+        <li>Select <strong>Place all certificates in the following store</strong>, and then click <strong>Browse</strong>.</li>
+        <li>On the Select Certificate Store screen, select <strong>Trusted Root Certification Authorities</strong>, and then click <strong>OK</strong>.</li>
+        <li>On the Certificate Import Wizard, click <strong>Next</strong>.</li>
+        <li>Click <strong>Finish</strong>.</li>
+        <li>On the security warning prompt, click <strong>Yes</strong>.</li>
+        <li>On the Certificate Import Wizard confirmation prompt, click <strong>OK</strong>.</li>
+        <li>After you return to the Certificate screen, click <strong>OK</strong>.</li>
+    </ol>
+
+    <stache-row>
+        <stache-column screenSmall="6">
+            <div class="tutorial-previous-button">
+                <a routerLink="/learn/get-started">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Get started
+                </a>
+            </div>
+        </stache-column>
+        <stache-column screenSmall="6">
+            <div class="tutorial-next-button">
+                <a routerLink="/learn/get-started/2.-initial-setup">
+                    Initial setup
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </stache-column>
+    </stache-row>
+
+</stache>
