@@ -5,3 +5,9 @@
 .sky-input-group /deep/ .sky-form-control {
   border-right: none;
 }
+
+.sky-input-group-datepicker-btn /deep/ .sky-dropdown-menu {
+  box-shadow: none;
+  background-color: transparent;
+  text-align: center;
+}

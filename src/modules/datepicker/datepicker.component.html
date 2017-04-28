@@ -1,0 +1,15 @@
+<div class="sky-input-group">
+  <ng-content></ng-content>
+
+  <div class="sky-input-group-btn sky-input-group-datepicker-btn">
+    <sky-dropdown
+      buttonType="calendar"
+      alignment="right">
+      <sky-dropdown-menu>
+        <sky-datepicker-calendar
+          (selectedDateChange)="dateSelected($event)">
+        </sky-datepicker-calendar>
+      </sky-dropdown-menu>
+    </sky-dropdown>
+  </div>
+</div>

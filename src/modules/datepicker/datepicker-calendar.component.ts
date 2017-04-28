@@ -14,7 +14,8 @@ import {
 
 @Component({
   selector: 'sky-datepicker-calendar',
-  templateUrl: './datepicker-calendar.component.html'
+  templateUrl: './datepicker-calendar.component.html',
+  styleUrls: ['./datepicker-calendar.component.scss']
 })
 export class SkyDatepickerCalendarComponent {
 
@@ -56,6 +57,7 @@ export class SkyDatepickerCalendarComponent {
 
   public writeValue(value: Date): void {
     if (value !== undefined
+      && value
       && this.selectedDate !== undefined
       && this._datepicker.compareHandlerDay(value, this.selectedDate) === 0) {
       return;

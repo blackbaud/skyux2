@@ -7,8 +7,14 @@ import { SkyDayPickerComponent } from './daypicker.component';
 import { SkyMonthPickerComponent } from './monthpicker.component';
 import { SkyYearPickerComponent } from './yearpicker.component';
 
+import { SkyDatepickerComponent } from './datepicker.component';
+
 import { SkyDatepickerConfigService } from './datepicker-config.service';
 import { SkyResourcesModule } from '../resources';
+
+import { SkyDropdownModule } from '../dropdown';
+
+import { SkyDatepickerInputDirective } from './datepicker-input.directive';
 
 @NgModule({
   declarations: [
@@ -16,18 +22,23 @@ import { SkyResourcesModule } from '../resources';
     SkyDatepickerCalendarInnerComponent,
     SkyDayPickerComponent,
     SkyMonthPickerComponent,
-    SkyYearPickerComponent
+    SkyYearPickerComponent,
+    SkyDatepickerComponent,
+    SkyDatepickerInputDirective
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyDropdownModule
   ],
   exports: [
     SkyDatepickerCalendarComponent,
     SkyDatepickerCalendarInnerComponent,
     SkyDayPickerComponent,
     SkyMonthPickerComponent,
-    SkyYearPickerComponent
+    SkyYearPickerComponent,
+    SkyDatepickerComponent,
+    SkyDatepickerInputDirective
   ],
   providers: [
     SkyDatepickerConfigService

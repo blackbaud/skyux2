@@ -1,10 +1,12 @@
-<sky-datepicker-inner
-    [selectedDate]="selectedDate"
-    [minDate]="minDate"
-    [maxDate]="maxDate"
-    [startingDay]="startingDay"
-    (selectedDateChange)="onSelectedDateChange($event)">
-  <sky-daypicker tabindex="0"></sky-daypicker>
-  <sky-monthpicker tabindex="0"></sky-monthpicker>
-  <sky-yearpicker tabindex="0"></sky-yearpicker>
-</sky-datepicker-inner>
+<div class="sky-datepicker-calendar">
+  <sky-datepicker-inner
+      [selectedDate]="selectedDate"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      [startingDay]="startingDay"
+      (selectedDateChange)="onSelectedDateChange($event)">
+    <sky-daypicker tabindex="0"></sky-daypicker>
+    <sky-monthpicker tabindex="0"></sky-monthpicker>
+    <sky-yearpicker tabindex="0"></sky-yearpicker>
+  </sky-datepicker-inner>
+</div>
