@@ -41,6 +41,10 @@ export class SkyActionButtonIconComponent implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscription.unsubscribe();
+    /* istanbul ignore else */
+    /* sanity check */
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
