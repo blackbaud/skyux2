@@ -164,7 +164,6 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-
       let leftValue = menuEl.style.left;
 
       expect(parseInt(leftValue, 10) < 50).toBe(true);
@@ -191,7 +190,6 @@ describe('Dropdown component', () => {
       dropdownBtnEl.click();
 
       fixture.detectChanges();
-
 
       let leftValue = menuEl.style.left;
       let topValue = menuEl.style.top;
