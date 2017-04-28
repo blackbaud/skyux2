@@ -110,9 +110,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
     if (value) {
       this.newlineCount = this.getNewlineCount(value);
       this.collapsedText = this.getTruncatedText(value, this.maxLength, this.maxNewlines);
-      this.expandedText = value.length > this.maxExpandedLength ||
-        this.newlineCount > this.maxExpandedNewlines ?
-        value : this.getTruncatedText(value, this.maxExpandedLength, this.maxExpandedNewlines);
+      this.expandedText = value;
       if (this.collapsedText !== value) {
         this.buttonText = this.seeMoreText;
         this.isExpanded = false;
