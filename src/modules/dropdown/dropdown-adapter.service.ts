@@ -11,12 +11,17 @@ const CLS_NO_SCROLL = 'sky-dropdown-no-scroll';
 @Injectable()
 export class SkyDropdownAdapterService {
   public dropdownClose = new EventEmitter<any>();
-  private activeParentEls: Array<any> = [];
+  private scrollListener: Function;
 
   constructor() {
   }
 
-  public showDropdown(dropdownEl: ElementRef, renderer: Renderer, windowObj: Window) {
+  public showDropdown(
+    dropdownEl: ElementRef,
+    renderer: Renderer,
+    windowObj: Window,
+    alignment: string) {
+
     let buttonEl = this.getButtonEl(dropdownEl);
     let menuEl = this.getMenuEl(dropdownEl);
 
@@ -24,11 +29,11 @@ export class SkyDropdownAdapterService {
     /* sanity check */
     if (!menuEl.classList.contains(CLS_OPEN)) {
       renderer.setElementClass(menuEl, CLS_OPEN, true);
-      let isFullScreen = this.setMenuLocation(menuEl, buttonEl, renderer, windowObj);
+      let isFullScreen = this.setMenuLocation(menuEl, buttonEl, renderer, windowObj, alignment);
 
       // Do not need to disable scroll when in full screen dropdown mode
       if (!isFullScreen) {
-        this.setupParentScrollHandler(dropdownEl, windowObj, renderer);
+        this.scrollListener = this.setupParentScrollHandler(dropdownEl, windowObj, renderer);
       }
 
     }
@@ -41,35 +46,37 @@ export class SkyDropdownAdapterService {
 
       this.setDropdownDefaults(menuEl, renderer, windowObj, false);
       this.dropdownClose.emit(undefined);
-      let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
-      this.updateActiveParentEl(parentEl, false);
+
+      if (this.scrollListener) {
+        this.scrollListener();
+      }
     }
   }
 
-  private setupParentScrollHandler(dropdownEl: ElementRef, windowObj: Window, renderer: Renderer) {
+  private setupParentScrollHandler(
+    dropdownEl: ElementRef,
+    windowObj: Window,
+    renderer: Renderer): Function {
+
     let parentEl = this.getScrollableParentEl(dropdownEl, windowObj);
-    let currentIndex = this.updateActiveParentEl(parentEl, true);
-    if (parentEl && this.activeParentEls[currentIndex].count === 1) {
+    /* istanbul ignore else */
+    /* sanity check */
+    if (parentEl) {
       let listener: any;
       if (parentEl === document.body) {
-        listener = renderer.listenGlobal('window', 'wheel', (evt: any) => {
-          /* istanbul ignore next */
-          /* sanity check */
-          evt = evt || windowObj.event;
-          evt.preventDefault();
-          evt.stopPropagation();
-          evt.returnValue = false;
+        listener = renderer.listenGlobal('window', 'wheel', () => {
+          this.dropdownClose.emit(undefined);
+          this.hideDropdown(dropdownEl, renderer, windowObj);
         });
 
       } else {
-        listener = renderer.listen(parentEl, 'wheel', (evt: any) => {
-          evt.preventDefault();
-          evt.stopPropagation();
-          evt.returnValue = false;
+        listener = renderer.listen(parentEl, 'wheel', () => {
+          this.dropdownClose.emit(undefined);
+          this.hideDropdown(dropdownEl, renderer, windowObj);
         });
       }
 
-      this.activeParentEls[currentIndex].listener = listener;
+      return listener;
     }
   }
 
@@ -112,44 +119,21 @@ export class SkyDropdownAdapterService {
     renderer.setElementStyle(menuEl, 'overflow-x', overflowVal);
   }
 
-  private updateActiveParentEl(parentEl: HTMLElement, isAdd: boolean) {
-    let i: number;
-    for (i = 0; i < this.activeParentEls.length; i++) {
-      if (this.activeParentEls[i].el === parentEl) {
-        if (isAdd) {
-          this.activeParentEls[i].count++;
-          return i;
-        } else if (this.activeParentEls[i].count > 1) {
-          this.activeParentEls[i].count--;
-          return i;
-        } else {
-          this.activeParentEls[i].listener();
-          this.activeParentEls.splice(i, 1);
-          return -1;
-        }
-      }
-    }
-
-    if (isAdd) {
-      this.activeParentEls.push({
-        el: parentEl,
-        count: 1
-      });
-      return this.activeParentEls.length - 1;
-    }
-
-  }
-
   private setMenuLocation(
     menuEl: HTMLElement,
     buttonEl: HTMLElement,
     renderer: Renderer,
-    windowObj: Window) {
+    windowObj: Window,
+    alignment: string) {
     let possiblePositions = ['below', 'above', 'center'];
     let i: number;
 
     for (i = 0; i < possiblePositions.length; i++) {
-      let menuCoordinates = this.getElementCoordinates(buttonEl, menuEl, possiblePositions[i]);
+      let menuCoordinates = this.getElementCoordinates(
+        buttonEl,
+        menuEl,
+        possiblePositions[i],
+        alignment);
 
       // Check if visible in viewport
       let elementVisibility = this.getElementVisibility(
@@ -177,7 +161,8 @@ export class SkyDropdownAdapterService {
   private getElementCoordinates(
     originEl: HTMLElement,
     fixedEl: HTMLElement,
-    position: string) {
+    position: string,
+    alignment: string) {
 
     let fixedRect = fixedEl.getBoundingClientRect();
     let originRect = originEl.getBoundingClientRect();
@@ -185,19 +170,32 @@ export class SkyDropdownAdapterService {
     let leftPos: number;
     let topPos: number;
 
-    if (position === 'below') {
+    if (position === 'center') {
+      leftPos = originRect.left + (originRect.width / 2) - (fixedRect.width / 2);
+      topPos = originRect.top + (originRect.height / 2) - (fixedRect.height / 2);
+
+      return {
+        left: leftPos,
+        top: topPos
+      };
+    }
+
+    if (alignment === 'right') {
+      if (fixedRect.width > originRect.width) {
+        leftPos = originRect.left - (fixedRect.width - originRect.width);
+      } else {
+        leftPos = originRect.left + (originRect.width - fixedRect.width);
+      }
+    } else {
       leftPos = originRect.left;
+    }
+
+    if (position === 'below') {
       topPos = originRect.top + originEl.offsetHeight;
     }
 
     if (position === 'above') {
-      leftPos = originRect.left;
       topPos = originRect.top - fixedRect.height;
-    }
-
-    if (position === 'center') {
-      leftPos = originRect.left + (originRect.width / 2) - (fixedRect.width / 2);
-      topPos = originRect.top + (originRect.height / 2) - (fixedRect.height / 2);
     }
 
     return {

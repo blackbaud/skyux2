@@ -36,7 +36,7 @@ describe('Dropdown component', () => {
       });
     });
 
-    it('should prevent wheel events on parent when two dropdowns are in the same parent', () => {
+    it('should close dropdown on wheelevents', () => {
 
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
@@ -51,46 +51,10 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-      let defaultPrevented: boolean;
-      let propagationStopped: boolean;
+      parent1El.triggerEventHandler('wheel', {});
+      let dropdownMenu1 = el.querySelector('#dropdown-1 .sky-dropdown-menu') as HTMLElement;
 
-      parent1El.triggerEventHandler('wheel', {
-        preventDefault: function () {
-          defaultPrevented = true;
-        },
-        stopPropagation: function () {
-          propagationStopped = true;
-        }
-      });
-
-      expect(defaultPrevented).toBe(true);
-      expect(propagationStopped).toBe(true);
-
-      defaultPrevented = false;
-      propagationStopped = false;
-
-      let dropdown2BtnEl = el.querySelector('#dropdown-2 .sky-dropdown-button') as HTMLElement;
-      dropdown2BtnEl.click();
-      fixture.detectChanges();
-
-      parent1El.triggerEventHandler('wheel', {
-        preventDefault: function () {
-          defaultPrevented = true;
-        },
-        stopPropagation: function () {
-          propagationStopped = true;
-        }
-      });
-
-      expect(defaultPrevented).toBe(true);
-      expect(propagationStopped).toBe(true);
-
-      defaultPrevented = false;
-      propagationStopped = false;
-
-      TestUtility.fireDomEvent(document, 'click');
-
-      fixture.detectChanges();
+      expect(dropdownMenu1).not.toBeVisible();
 
     });
 
@@ -110,42 +74,14 @@ describe('Dropdown component', () => {
       dropdown3BtnEl.click();
       fixture.detectChanges();
 
-      let defaultPrevented: boolean;
-      let propagationStopped: boolean;
-
       let windowScrollEvt = document.createEvent('CustomEvent');
       windowScrollEvt.initEvent('wheel', false, false);
-      windowScrollEvt.preventDefault = function () {
-        defaultPrevented = true;
-      };
-      windowScrollEvt.stopPropagation = function () {
-        propagationStopped = true;
-      };
 
       window.dispatchEvent(windowScrollEvt);
 
-      expect(defaultPrevented).toBe(true);
-      expect(propagationStopped).toBe(true);
+      let dropdownMenu3 = el.querySelector('#dropdown-3 .sky-dropdown-menu') as HTMLElement;
 
-      defaultPrevented = false;
-      propagationStopped = false;
-
-      dropdown3BtnEl.click();
-      fixture.detectChanges();
-
-      windowScrollEvt = document.createEvent('CustomEvent');
-      windowScrollEvt.initEvent('wheel', false, false);
-      windowScrollEvt.preventDefault = function () {
-        defaultPrevented = true;
-      };
-      windowScrollEvt.stopPropagation = function () {
-        propagationStopped = true;
-      };
-
-      window.dispatchEvent(windowScrollEvt);
-
-      expect(defaultPrevented).toBe(false);
-      expect(propagationStopped).toBe(false);
+      expect(dropdownMenu3).not.toBeVisible();
     });
   });
 
@@ -276,6 +212,46 @@ describe('Dropdown component', () => {
           SkyDropdownFixturesModule
         ]
       });
+    });
+
+    it('should handle right alignment when width of menu is larger than trigger', () => {
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.componentInstance.alignment = 'right';
+      el.style.position = 'absolute';
+      el.style.left = '100px';
+
+      fixture.detectChanges();
+
+      let dropdownButton = getDropdownBtnEl(el);
+      dropdownButton.click();
+      fixture.detectChanges();
+
+      let menuEl = getDropdownMenuEl(el);
+
+      expect(parseInt(menuEl.style.left, 10) < 100).toBe(true);
+    });
+
+    it('should handle right alignment when width of menu is smaller than trigger', () => {
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.componentInstance.alignment = 'right';
+      el.style.position = 'absolute';
+      el.style.left = '100px';
+
+      fixture.detectChanges();
+
+      let dropdownButton = getDropdownBtnEl(el);
+
+      dropdownButton.style.minWidth = '300px';
+      dropdownButton.click();
+      fixture.detectChanges();
+
+      let menuEl = getDropdownMenuEl(el);
+
+      expect(parseInt(menuEl.style.left, 10) > 100).toBe(true);
     });
 
     it('should have a default button type of "select"', () => {

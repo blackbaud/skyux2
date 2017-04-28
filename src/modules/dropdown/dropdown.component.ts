@@ -13,7 +13,10 @@ import { SkyWindowRefService } from '../window';
 @Component({
   selector: 'sky-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss']
+  styleUrls: ['./dropdown.component.scss'],
+  providers: [
+    SkyDropdownAdapterService
+  ]
 })
 export class SkyDropdownComponent implements OnDestroy {
   @Input()
@@ -39,6 +42,9 @@ export class SkyDropdownComponent implements OnDestroy {
 
   @Input()
   public title: string;
+
+  @Input()
+  public alignment: string = 'left';
 
   private open = false;
 
@@ -92,7 +98,12 @@ export class SkyDropdownComponent implements OnDestroy {
 
   private openMenu() {
     if (!this.open) {
-      this.adapterService.showDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
+      this.adapterService.showDropdown(
+        this.elRef,
+        this.renderer,
+        this.windowObj.getWindow(),
+        this.alignment
+      );
 
       // Notify the window click handler that the menu was just opened so it doesn't try to
       // close it.

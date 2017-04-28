@@ -8,4 +8,5 @@ export class DropdownTestComponent {
   public trigger: String;
   public buttonType: String;
   public myTitle: string;
+  public alignment: string = 'left';
 }
