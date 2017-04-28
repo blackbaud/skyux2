@@ -1,12 +1,21 @@
 
-<div style="display: inline-block">
-  <sky-datepicker-calendar
-    [minDate]="minDate"
-    [maxDate]="maxDate"
-    [selectedDate]="selectedDate"
-    (selectedDateChange)="selectedDate = $event"
-    [startingDay]="startingDay">
-  </sky-datepicker-calendar>
+<div class="sky-input-group">
+  <input class="sky-form-control" [(ngModel)]="myDate"/>
+  <div class="sky-input-group-btn">
+    <sky-dropdown
+      buttonType="calendar"
+      alignment="right">
+      <sky-dropdown-menu>
+        <sky-datepicker-calendar
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          [selectedDate]="selectedDate"
+          (selectedDateChange)="selectedDate = $event"
+          [startingDay]="startingDay">
+        </sky-datepicker-calendar>
+      </sky-dropdown-menu>
+    </sky-dropdown>
+  </div>
 </div>
 <div>
   Selected date is {{selectedDate}}

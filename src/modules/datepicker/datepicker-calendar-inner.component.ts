@@ -269,6 +269,14 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     return newDate;
   }
 
+  public selectCalendar(event: Event, date: Date, keepOpen: boolean = false) {
+    if (keepOpen) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.select(date);
+  }
+
   public select(date: Date, isManual: boolean = true): void {
 
     this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -290,7 +298,14 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     this.refreshView();
   }
 
+  public moveCalendar(event: Event, direction: number) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.move(direction);
+  }
+
   public move(direction: number): void {
+
     let expectedStep: any;
     if (this.datepickerMode === 'day') {
       expectedStep = this.stepDay;
@@ -314,6 +329,12 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
 
       this.refreshView();
     }
+  }
+
+  public toggleModeCalendar(event: Event, direction: number) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.toggleMode(direction);
   }
 
   public toggleMode(direction: number): void {
