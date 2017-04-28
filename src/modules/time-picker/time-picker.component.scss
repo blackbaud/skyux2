@@ -1,0 +1,76 @@
+@import "../../scss/variables";
+
+.sky-time-picker-container {
+  display: flex;
+  flex-flow: wrap;
+  height:240px;
+  padding:10px;
+  width:280px;
+  background-color: $sky-color-gray-10;
+}
+.sky-time-picker-container button {
+  background-color: #FFF;
+  border-color:#DDD;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 10px;
+  height: 40px;
+  margin: 10px;
+  width: 240px;
+}
+.sky-time-picker-column {
+  height:170px;
+  margin-right:10px;
+  }
+.sky-time-picker-column ol {
+  -moz-column-gap:1px;
+  -moz-columns: 2;
+  -webkit-column-gap: 1px;
+  -webkit-columns: 2;
+  border-color: #DDD;
+  border-style: solid;
+  border-width: 1px;
+  column-gap: 1px;
+  columns: 2;
+  list-style-type: none;
+  margin:0px;
+  padding:0px;
+}
+.sky-time-picker-column ol li {
+  background-color:#FFF;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  width: 47px;
+  cursor: pointer;
+}
+.sky-time-picker-column ol li:hover {
+  background-color: #EBEBEB;
+}
+.sky-time-picker-column ol li:active {
+  background-color: $sky-color-gray-10;
+}
+.sky-time-picker-period {
+    width:40px;
+    margin:0px;
+}
+.sky-time-picker-period ol{
+  columns: 1;
+  -webkit-columns: 1;
+  -moz-columns: 1;
+}
+.sky-time-picker-period ol li {
+  height: 84px;
+  width:38px;
+  line-height: 84px;
+}
+.sky-time-picker-period ol li:nth-child(1){
+  border: 0px;
+  border-bottom: 1px;
+  border-style: solid;
+  border-color: #DDD;
+}
+.sky-time-picker-column ol .active {
+  background-color: $sky-color-blue;
+  color:#fff;
+}

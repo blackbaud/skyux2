@@ -39,6 +39,7 @@ import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
+import { SkyTimePickerModule } from './modules/time-picker'
 import { SkyWaitModule } from './modules/wait';
 
 @NgModule({
@@ -79,6 +80,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTextExpandModule,
     SkyTextExpandRepeaterModule,
     SkyTilesModule,
+    SkyTimePickerModule,
     SkyToolbarModule,
     SkyWaitModule
   ]
@@ -121,6 +123,7 @@ export * from './modules/sort';
 export * from './modules/tabs';
 export * from './modules/text-expand';
 export * from './modules/tiles';
+export * from './modules/time-picker'
 export * from './modules/toolbar';
 export * from './modules/wait';
 

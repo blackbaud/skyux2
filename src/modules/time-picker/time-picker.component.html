@@ -1,15 +1,30 @@
-<label class="sky-time-picker-wrapper">
-  <input type="time"
-        [id]="inputId"
-        [ngModel]="selectedValue"
-        [disabled]="disabled"
-        [name]="name"
-        [value]="value"
-        [tabIndex]="tabindex"
-        [attr.aria-label]="label"
-        [attr.aria-labelledby]="labelledBy"
-        (blur)="onInputBlur()"
-        (ngModelChange)="onTimePickerChanged($event)"/>
-  <span class="sky-time-picker"></span>
-  <ng-content select="sky-time-picker-label"></ng-content>
-</label>
+<sky-dropdown buttonType="clock-o">
+  <sky-dropdown-menu>
+    <sky-dropdown-item>
+      <div class="sky-time-picker-container">
+
+        <section class="sky-time-picker-column">
+          <ol>
+            <li *ngFor="let hour of hours;" (click)="setHour($event)">{{hour}}</li>
+          </ol>
+        </section>
+        <section class="sky-time-picker-column">
+          <ol>
+            <li *ngFor="let minute of minutes;" (click)="setMinute(minute)">{{minute}}</li>
+          </ol>
+        </section>
+        <section *ngIf="this.format === 'hh'" class="sky-time-picker-column sky-time-picker-period">
+          <ol>
+            <li (click)="setPeriod('AM')">AM</li>
+            <li (click)="setPeriod('PM')">PM</li>
+          </ol>
+        </section>
+        <section>
+          <button class="sky-time-picker-button-done">Done</button>
+        </section>
+      </div>
+    </sky-dropdown-item>
+    <sky-dropdown-item>
+    </sky-dropdown-item>
+  </sky-dropdown-menu>
+</sky-dropdown>
