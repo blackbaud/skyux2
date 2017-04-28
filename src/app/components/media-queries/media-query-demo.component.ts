@@ -41,6 +41,10 @@ export class SkyMediaQueryDemoComponent implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.querySubscription.unsubscribe();
+    /* istanbul ignore else */
+    /* sanity check */
+    if (this.querySubscription) {
+      this.querySubscription.unsubscribe();
+    }
   }
 }
