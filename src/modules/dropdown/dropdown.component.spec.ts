@@ -36,7 +36,7 @@ describe('Dropdown component', () => {
       });
     });
 
-    it('should close dropdown on wheelevents', () => {
+    it('should close dropdown on scroll events', () => {
 
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
@@ -51,14 +51,13 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-      parent1El.triggerEventHandler('wheel', {});
+      parent1El.triggerEventHandler('scroll', {});
       let dropdownMenu1 = el.querySelector('#dropdown-1 .sky-dropdown-menu') as HTMLElement;
 
       expect(dropdownMenu1).not.toBeVisible();
-
     });
 
-    it('should have appropriate class when  two dropdowns are in different same parent', () => {
+    it('should close dropdown on window scroll', () => {
 
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
@@ -75,7 +74,7 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
 
       let windowScrollEvt = document.createEvent('CustomEvent');
-      windowScrollEvt.initEvent('wheel', false, false);
+      windowScrollEvt.initEvent('scroll', false, false);
 
       window.dispatchEvent(windowScrollEvt);
 
@@ -146,7 +145,7 @@ describe('Dropdown component', () => {
     it('should display dropdown center when necessary', () => {
 
       mockWindowService.innerHeight = 40;
-      mockWindowService.innerWidth = 500;
+      mockWindowService.innerWidth = 100;
 
       let fixture = TestBed.createComponent(DropdownTestComponent);
       let el: HTMLElement = fixture.nativeElement;
@@ -154,6 +153,9 @@ describe('Dropdown component', () => {
       el.style.position = 'absolute';
       el.style.top = '10px';
       el.style.left = '50px';
+      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+
+      menuEl.style.width = '98px';
 
       fixture.detectChanges();
       let dropdownBtnEl = getDropdownBtnEl(el);
@@ -162,7 +164,7 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+
       let leftValue = menuEl.style.left;
 
       expect(parseInt(leftValue, 10) < 50).toBe(true);
@@ -170,7 +172,7 @@ describe('Dropdown component', () => {
 
     it('should fallback to position 10, 10 and take screen width when nothing else works', () => {
       mockWindowService.innerHeight = 30;
-      mockWindowService.innerWidth = 500;
+      mockWindowService.innerWidth = 100;
 
       let fixture = TestBed.createComponent(DropdownTestComponent);
       let el: HTMLElement = fixture.nativeElement;
@@ -179,6 +181,10 @@ describe('Dropdown component', () => {
       el.style.top = '10px';
       el.style.left = '50px';
 
+      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+
+      menuEl.style.width = '101px';
+
       fixture.detectChanges();
       let dropdownBtnEl = getDropdownBtnEl(el);
 
@@ -186,20 +192,24 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+
       let leftValue = menuEl.style.left;
       let topValue = menuEl.style.top;
       let width = menuEl.style.width;
       let height = menuEl.style.height;
       let maxWidth = menuEl.style.maxWidth;
       let maxHeight = menuEl.style.maxHeight;
+      let overflowY = menuEl.style.overflowY;
+      let overflowX = menuEl.style.overflowX;
 
       expect(parseInt(leftValue, 10)).toBe(10);
       expect(parseInt(topValue, 10)).toBe(10);
-      expect(parseInt(width, 10)).toBe(480);
+      expect(parseInt(width, 10)).toBe(80);
       expect(parseInt(height, 10)).toBe(10);
-      expect(parseInt(maxWidth, 10)).toBe(480);
+      expect(parseInt(maxWidth, 10)).toBe(80);
       expect(parseInt(maxHeight, 10)).toBe(10);
+      expect(overflowY).toBe('auto');
+      expect(overflowX).toBe('auto');
 
       expect(document.body).toHaveCssClass('sky-dropdown-no-scroll');
     });

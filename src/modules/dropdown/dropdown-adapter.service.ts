@@ -64,13 +64,13 @@ export class SkyDropdownAdapterService {
     if (parentEl) {
       let listener: any;
       if (parentEl === document.body) {
-        listener = renderer.listenGlobal('window', 'wheel', () => {
+        listener = renderer.listenGlobal('window', 'scroll', () => {
           this.dropdownClose.emit(undefined);
           this.hideDropdown(dropdownEl, renderer, windowObj);
         });
 
       } else {
-        listener = renderer.listen(parentEl, 'wheel', () => {
+        listener = renderer.listen(parentEl, 'scroll', () => {
           this.dropdownClose.emit(undefined);
           this.hideDropdown(dropdownEl, renderer, windowObj);
         });
@@ -125,7 +125,7 @@ export class SkyDropdownAdapterService {
     renderer: Renderer,
     windowObj: Window,
     alignment: string) {
-    let possiblePositions = ['below', 'above', 'ycenter', 'center'];
+    let possiblePositions = ['below', 'above', 'ycenter', 'center', 'ybottom', 'ytop'];
     let i: number;
 
     for (i = 0; i < possiblePositions.length; i++) {
@@ -200,6 +200,14 @@ export class SkyDropdownAdapterService {
 
     if (position === 'ycenter') {
       topPos = originRect.top + (originRect.height / 2) - (fixedRect.height / 2);
+    }
+
+    if (position === 'ybottom') {
+      topPos = fixedRect.height;
+    }
+
+    if (position === 'ytop') {
+      topPos = 0;
     }
 
     return {
