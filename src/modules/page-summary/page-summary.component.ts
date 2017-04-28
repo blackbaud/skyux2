@@ -28,6 +28,10 @@ export class SkyPageSummaryComponent implements OnDestroy, AfterViewInit {
   }
 
   public ngOnDestroy() {
-    this.breakpointSubscription.unsubscribe();
+    /* istanbul ignore else */
+    /* sanity check */
+    if (this.breakpointSubscription) {
+      this.breakpointSubscription.unsubscribe();
+    }
   }
 }
