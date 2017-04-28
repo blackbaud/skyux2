@@ -125,7 +125,7 @@ export class SkyDropdownAdapterService {
     renderer: Renderer,
     windowObj: Window,
     alignment: string) {
-    let possiblePositions = ['below', 'above', 'ycenter', 'center'];
+    let possiblePositions = ['below', 'above', 'ycenter', 'center', 'ybottom', 'ytop'];
     let i: number;
 
     for (i = 0; i < possiblePositions.length; i++) {
@@ -200,6 +200,14 @@ export class SkyDropdownAdapterService {
 
     if (position === 'ycenter') {
       topPos = originRect.top + (originRect.height / 2) - (fixedRect.height / 2);
+    }
+
+    if (position === 'ybottom') {
+      topPos = fixedRect.height;
+    }
+
+    if (position === 'ytop') {
+      topPos = 0;
     }
 
     return {

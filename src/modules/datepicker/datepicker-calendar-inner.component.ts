@@ -269,8 +269,8 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     return newDate;
   }
 
-  public selectCalendar(event: Event, date: Date, keepOpen: boolean = false) {
-    if (keepOpen) {
+  public selectCalendar(event: Event, date: Date, closePicker: boolean = false) {
+    if (!closePicker) {
       event.preventDefault();
       event.stopPropagation();
     }
