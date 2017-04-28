@@ -64,13 +64,13 @@ export class SkyDropdownAdapterService {
     if (parentEl) {
       let listener: any;
       if (parentEl === document.body) {
-        listener = renderer.listenGlobal('window', 'wheel', () => {
+        listener = renderer.listenGlobal('window', 'scroll', () => {
           this.dropdownClose.emit(undefined);
           this.hideDropdown(dropdownEl, renderer, windowObj);
         });
 
       } else {
-        listener = renderer.listen(parentEl, 'wheel', () => {
+        listener = renderer.listen(parentEl, 'scroll', () => {
           this.dropdownClose.emit(undefined);
           this.hideDropdown(dropdownEl, renderer, windowObj);
         });
