@@ -2,7 +2,8 @@ import {
   Component,
   Input,
   ElementRef,
-  ViewChild
+  ViewChild,
+  AfterContentInit
 } from '@angular/core';
 
 import {
@@ -29,7 +30,7 @@ import {
     SkyResourcesService
   ]
 })
-export class SkyTextExpandComponent {
+export class SkyTextExpandComponent implements AfterContentInit {
   @Input()
   public set text(value: string) {
     this.setup(value);
@@ -42,10 +43,6 @@ export class SkyTextExpandComponent {
   public maxExpandedNewlines: number = 2;
   @Input()
   public expandModalTitle: string = this.resources.getString('text_expand_modal_title');
-  @Input()
-  public expandRepeaterMax: number;
-  @Input()
-  public expandRepeaterData: number;
   @ViewChild('container')
   public containerEl: ElementRef;
   @ViewChild('text')
@@ -103,6 +100,10 @@ export class SkyTextExpandComponent {
     this.textExpandAdapter.setText(this.textEl, this.textToShow);
     // Set height back to auto so the browser can change the height as needed with window changes
     this.textExpandAdapter.setContainerHeight(this.containerEl, 'auto');
+  }
+
+  public ngAfterContentInit() {
+    this.setup(this.expandedText);
   }
 
   private setup(value: string) {
