@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 export class TextExpandTestComponent {
   // tslint:disable-next-line
   public text: string;
+  public maxLength: number;
 }

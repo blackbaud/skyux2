@@ -2,7 +2,8 @@ import {
   Component,
   Input,
   ElementRef,
-  ViewChild
+  ViewChild,
+  AfterContentInit
 } from '@angular/core';
 
 import {
@@ -29,7 +30,7 @@ import {
     SkyResourcesService
   ]
 })
-export class SkyTextExpandComponent {
+export class SkyTextExpandComponent implements AfterContentInit {
   @Input()
   public set text(value: string) {
     this.setup(value);
@@ -42,10 +43,6 @@ export class SkyTextExpandComponent {
   public maxExpandedNewlines: number = 2;
   @Input()
   public expandModalTitle: string = this.resources.getString('text_expand_modal_title');
-  @Input()
-  public expandRepeaterMax: number;
-  @Input()
-  public expandRepeaterData: number;
   @ViewChild('container')
   public containerEl: ElementRef;
   @ViewChild('text')
@@ -105,13 +102,15 @@ export class SkyTextExpandComponent {
     this.textExpandAdapter.setContainerHeight(this.containerEl, 'auto');
   }
 
+  public ngAfterContentInit() {
+    this.setup(this.expandedText);
+  }
+
   private setup(value: string) {
     if (value) {
       this.newlineCount = this.getNewlineCount(value);
       this.collapsedText = this.getTruncatedText(value, this.maxLength, this.maxNewlines);
-      this.expandedText = value.length > this.maxExpandedLength ||
-        this.newlineCount > this.maxExpandedNewlines ?
-        value : this.getTruncatedText(value, this.maxExpandedLength, this.maxExpandedNewlines);
+      this.expandedText = value;
       if (this.collapsedText !== value) {
         this.buttonText = this.seeMoreText;
         this.isExpanded = false;
