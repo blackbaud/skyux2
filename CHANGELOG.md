@@ -1,3 +1,9 @@
+# 2.0.0-beta.22 (2017-04-29)
+
+  - Added sanity checks for unsubscribes. (Thanks @Blackbaud-TrevorBurch)
+  - Fixed bug around text-expand maxLength property. (#617) (Thanks @Blackbaud-TrevorBurch)
+  - Added intelligent positioning and close on scroll to dropdown component. (#531)
+
 # 2.0.0-beta.21 (2017-04-25)
 
   - Added documentation around entry components and modals.
