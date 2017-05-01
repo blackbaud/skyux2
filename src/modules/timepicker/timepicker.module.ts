@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyTimePickerDirective } from './timepicker.directive';
-import { SkyTimePickerComponent } from './timepicker.component';
+import { SkyTimepickerInputDirective } from './timepicker.directive';
+import { SkyTimepickerComponent } from './timepicker.component';
 import { SkyDropdownModule } from '../dropdown/dropdown.module';
 import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
-    SkyTimePickerDirective,
-    SkyTimePickerComponent
+    SkyTimepickerInputDirective,
+    SkyTimepickerComponent
   ],
   imports: [
     CommonModule,
@@ -16,8 +16,8 @@ import { SkyResourcesModule } from '../resources';
     SkyDropdownModule
   ],
   exports: [
-    SkyTimePickerDirective,
-    SkyTimePickerComponent
+    SkyTimepickerInputDirective,
+    SkyTimepickerComponent
   ]
 })
-export class SkyTimePickerModule { }
+export class SkyTimepickerModule { }

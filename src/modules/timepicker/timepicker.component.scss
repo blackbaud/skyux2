@@ -1,4 +1,17 @@
 @import "../../scss/variables";
+.sky-input-group-timepicker-btn /deep/ .sky-btn {
+  border-radius: 0;
+}
+
+.sky-input-group /deep/ .sky-form-control {
+  border-right: none;
+}
+
+.sky-input-group-timepicker-btn /deep/ .sky-dropdown-menu {
+  box-shadow: none;
+  background-color: transparent;
+  text-align: center;
+}
 
 .sky-timepicker-container {
   display: flex;
@@ -43,6 +56,7 @@
   text-align: center;
   width: 47px;
   cursor: pointer;
+  font-size: 14px;
 }
 .sky-timepicker-column ol li:hover {
   background-color: #EBEBEB;
@@ -63,6 +77,7 @@
   height: 84px;
   width:38px;
   line-height: 84px;
+  font-size: 14px;
 }
 .sky-timepicker-period ol li:nth-child(1){
   border: 0px;
@@ -73,4 +88,7 @@
 .sky-timepicker-column ol .active {
   background-color: $sky-color-blue;
   color:#fff;
+}
+.sky-timepicker-button-done{
+    font-size: 14px;
 }

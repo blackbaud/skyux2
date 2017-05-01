@@ -40,7 +40,7 @@ import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
-import { SkyTimePickerModule } from './modules/timepicker';
+import { SkyTimepickerModule } from './modules/timepicker';
 import { SkyWaitModule } from './modules/wait';
 
 @NgModule({
@@ -81,7 +81,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTextExpandModule,
     SkyTextExpandRepeaterModule,
     SkyTilesModule,
-    SkyTimePickerModule,
+    SkyTimepickerModule,
     SkyToolbarModule,
     SkyWaitModule,
     SkyDatepickerModule
@@ -357,7 +357,7 @@ export {
   SkyTilesModule
 } from './modules/tiles';
 export {
-  SkyTimePickerComponent
+  SkyTimepickerComponent
 } from './modules/timepicker'
 export {
   SkyToolbarComponent,

@@ -3,9 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectionStrategy,
-  OnChanges,
-  SimpleChanges
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { SkyDropdownModule } from '../dropdown';
 import * as moment from 'moment';
@@ -17,23 +15,26 @@ import * as moment from 'moment';
   styleUrls: ['./timepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTimePickerComponent implements OnChanges {
+export class SkyTimepickerComponent {
 
   @Input()
-  public time: string;
+  public selectedTime: string;
 
   @Input()
   public format: string = 'hh';
 
   @Output()
-  public currentPageChange: EventEmitter<number> = new EventEmitter<number>();
+  public selectedTimeChanged: EventEmitter<String> = new EventEmitter<String>();
+  public activeTime: String;
 
   private hours: Array<number> = this.setFormat(this.format).hours;
   private minutes: Array<string> = this.setFormat(this.format).minutes;
   private localeFormat: string = this.setFormat(this.format).localeFormat;
 
-  public ngOnChanges(changes: SimpleChanges) {
-    this.onTimePickerChanged(changes);
+  public setSelectedTime(newTime: String) {
+    this.activeTime = newTime;
+    console.log(this.selectedTime)
+    debugger
   }
 
   private setFormat(format: string) {
@@ -55,39 +56,31 @@ export class SkyTimePickerComponent implements OnChanges {
     };
   }
 
-  private setHour(event: MouseEvent) {
-    let target: HTMLLIElement = <HTMLLIElement>event.currentTarget;
+  private setHour(hour: string) {
+    let target = <HTMLElement>event.currentTarget;
     this.setActive(target);
-    let source: HTMLInputElement = <HTMLInputElement>
-      target.offsetParent.parentElement.previousElementSibling.firstElementChild;
-    let sourceMinute: number = moment(source.value, this.localeFormat).get('minute') || 0;
-    let targetHour: number = parseInt(target.innerHTML, 0);
-    let newTime: string = moment({
-      'hour': targetHour,
-      'minute': sourceMinute
+
+    let activeTime = moment({
+      'hour': parseInt(hour, 0),
+      'minute': moment(this.activeTime, this.localeFormat).get('minute') || 0
     }).format(this.localeFormat);
-    source.value = newTime;
+    this.selectedTimeChanged.emit(activeTime);
   }
   private setMinute(minute: string) {
     let target = <HTMLElement>event.currentTarget;
     this.setActive(target);
-    let source: HTMLInputElement = <HTMLInputElement>
-      target.offsetParent.parentElement.previousElementSibling.firstElementChild;
-    let sourceHour: number = moment(source.value, this.localeFormat).get('hour') || 1;
-    let targetMinute: number = parseInt(target.innerHTML, 0);
-    let newTime: string = moment({
-      'hour': sourceHour,
-      'minute': targetMinute
+    let activeTime = moment({
+      'hour': moment(this.activeTime, this.localeFormat).get('hour') || 1,
+      'minute': parseInt(minute, 0)
     }).format(this.localeFormat);
-    source.value = newTime;
+    this.selectedTimeChanged.emit(activeTime);
   }
 
   private setPeriod(period: string) {
     let target = <HTMLElement>event.currentTarget;
     this.setActive(target);
-    let source: HTMLInputElement = <HTMLInputElement>
-      target.offsetParent.parentElement.previousElementSibling.firstElementChild;
-    source.value = `${source.value.split(' ')[0]} ${target.innerHTML}`;
+    let activeTime = `${this.activeTime.split(' ')[0]} ${period}`;
+    this.selectedTimeChanged.emit(activeTime);
   }
 
   private setActive(target: HTMLElement) {
@@ -98,29 +91,5 @@ export class SkyTimePickerComponent implements OnChanges {
     });
     target.classList.add('active');
   }
-  private toggleTimePicker(event: MouseEvent) {
-    let target = <HTMLElement>event.target;
-    let timePicker: Element;
-
-    if (target.className === 'sky-timepicker') {
-      timePicker = target.parentElement.nextElementSibling;
-    }
-    if (target.className === 'sky-timepicker-button-done') {
-      timePicker = target.offsetParent.parentElement;
-    }
-    timePicker.classList.toggle('hidden');
-  }
-
-
-  private onTimePickerChanged(event: any) {
-      /* istanbul ignore else */
-      /* sanity check */
-      if (event !== event) {
-        this.currentPageChange.emit(event);
-      }
-
-  }
-
-
 }
 
