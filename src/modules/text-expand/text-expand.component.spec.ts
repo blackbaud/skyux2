@@ -65,6 +65,24 @@ describe('Text expand component', () => {
       expect(seeMoreButton).toBeNull();
     });
 
+    // tslint:disable-next-line
+    it('should not have see more button or ellipsis if text is long but less than the set max length', () => {
+      let fixture = TestBed.createComponent(TextExpandTestComponent);
+      let cmp = fixture.componentInstance as TextExpandTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec foo bar.';
+      cmp.maxLength = 400;
+
+      fixture.detectChanges();
+
+      let ellipsis: any = el.querySelector('.sky-text-expand-ellipsis');
+      let seeMoreButton: any = el.querySelector('.sky-text-expand-see-more');
+      expect(ellipsis).toBeNull();
+      expect(seeMoreButton).toBeNull();
+    });
+
     it('should have the see more button and ellipsis if text is longer', () => {
       let fixture = TestBed.createComponent(TextExpandTestComponent);
       let cmp = fixture.componentInstance as TextExpandTestComponent;

@@ -21,7 +21,7 @@
 .sky-dropdown-menu {
   background-color: #fff;
   display: none;
-  position: absolute;
+  position: fixed;
   @include sky-shadow;
   z-index: $sky-dropdown-z-index;
 
