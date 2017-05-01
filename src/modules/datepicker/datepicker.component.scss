@@ -2,7 +2,7 @@
   border-radius: 0;
 }
 
-.sky-input-group /deep/ .sky-form-control {
+.sky-input-group /deep/ .sky-form-control:not(.ng-invalid) {
   border-right: none;
 }
 

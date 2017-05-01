@@ -2,8 +2,14 @@
   <sky-datepicker #picker>
     <input
       [(ngModel)]="selectedDate"
-      [skyDatepickerInput]="picker" />
+      [skyDatepickerInput]="picker"
+      #date="ngModel"/>
   </sky-datepicker>
+  <div class="sky-error-label" *ngIf="date.errors && date.errors.skyDate && (date.dirty || date.touched)">
+    <div [hidden]="!date.errors.skyDate.invalid">
+      Please enter a valid date.
+    </div>
+  </div>
 </div>
 
 <div>

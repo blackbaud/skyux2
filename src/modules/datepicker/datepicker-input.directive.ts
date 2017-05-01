@@ -17,7 +17,10 @@ import {
 
 import {
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
+  Validator,
+  NG_VALIDATORS,
+  AbstractControl
 } from '@angular/forms';
 
 import {
@@ -38,13 +41,23 @@ const SKY_DATEPICKER_VALUE_ACCESSOR = {
   multi: true
 };
 
+const SKY_DATEPICKER_VALIDATOR = {
+  provide: NG_VALIDATORS,
+  useExisting: forwardRef(() => SkyDatepickerInputDirective),
+  multi: true
+};
+
 let moment = require('moment');
 
 @Directive({
   selector: '[skyDatepickerInput]',
-  providers: [SKY_DATEPICKER_VALUE_ACCESSOR]
+  providers: [
+    SKY_DATEPICKER_VALUE_ACCESSOR,
+    SKY_DATEPICKER_VALIDATOR
+  ]
 })
-export class SkyDatepickerInputDirective implements OnInit, OnDestroy, ControlValueAccessor {
+export class SkyDatepickerInputDirective implements
+  OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   public pickerChangedSubscription: Subscription;
 
@@ -53,6 +66,9 @@ export class SkyDatepickerInputDirective implements OnInit, OnDestroy, ControlVa
 
   @Input()
   public dateFormat: string;
+
+  @Input()
+  public skyDatepickerNoValidate: boolean = false;
 
   private dateFormatter = new SkyDateFormatter();
 
@@ -98,14 +114,39 @@ export class SkyDatepickerInputDirective implements OnInit, OnDestroy, ControlVa
     }
   }
 
+  @HostListener('blur')
+  public onBlur() {
+    this._onTouched();
+  }
+
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
 
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
+
+  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; };
 
   public writeValue(value: any) {
     this.modelValue = value ? new Date(value) : null;
     if (this.dateFormatter.dateIsValid(this.modelValue)) {
       this.writeModelValue(this.modelValue);
+    }
+  }
+
+  public validate(control: AbstractControl): {[key: string]: any} {
+    let value = control.value;
+
+    if (!value || this.skyDatepickerNoValidate) {
+      return;
+    }
+
+    let dateValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
+
+    if (!this.dateFormatter.dateIsValid(dateValue)) {
+      return {
+        'skyDate': {
+          invalid: control.value
+        }
+      };
     }
   }
 
