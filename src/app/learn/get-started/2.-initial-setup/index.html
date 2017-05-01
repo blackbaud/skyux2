@@ -11,7 +11,7 @@
         Install SKY UX CLI
     </stache-page-anchor>
     <p>
-      From the command line, run <code>npm install -g @blackbaud/skyux-cli</code>.
+      From the command line, run <stache-code>npm install -g @blackbaud/skyux-cli</stache-code>.
     </p>
     <sky-alert alertType="info">For Mac OS X, we recommend that you use <a href="https://github.com/creationix/nvm">Node Version Manager (nvm)</a> to wrap your NodeJS installation so that it installs in your user directory and avoids permissions-related issues.</sky-alert>
 
@@ -19,24 +19,24 @@
         Update SKY UX CLI
     </stache-page-anchor>
     <p>
-      To update the SKY UX CLI with the latest version, run <code>npm install -g @blackbaud/skyux-cli@latest</code>.
+      To update the SKY UX CLI with the latest version, run <stache-code>npm install -g @blackbaud/skyux-cli@latest</stache-code>.
     </p>
-    <sky-alert alertType="info">The SKY UX CLI notifies users when a new version is released. If a new version is available when users run <code>skyux serve</code>, then a message appears in the command prompt.</sky-alert>
+    <sky-alert alertType="info">The SKY UX CLI notifies users when a new version is released. If a new version is available when users run <stache-code>skyux serve</stache-code>, then a message appears in the command prompt.</sky-alert>
 
     <stache-page-anchor>
         Update SKY UX components and SKY UX Builder
     </stache-page-anchor>
-    <p>After you install the SKY UX CLI and <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, the project includes a <code>package.json</code> configuration file for NPM to specify dependencies that are stored in the <code>node_modules</code> folder. The <code>package.json</code> file includes properties to specify versions for SKY UX components and SKY UX Builder.</p>
+    <p>After you install the SKY UX CLI and <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, the project includes a <stache-code>package.json</stache-code> configuration file for NPM to specify dependencies that are stored in the <stache-code>node_modules</stache-code> folder. The <stache-code>package.json</stache-code> file includes properties to specify versions for SKY UX components and SKY UX Builder.</p>
     <ul>
-        <li><p>Under the <code>dependencies</code> property, <code>@blackbaud/skyux</code> specifies the version of SKY UX components for the project.</p></li>
-        <li><p>Under the <code>devDependencies</code> property, <code>@blackbaud/skyux-builder</code> specifies the version of SKY UX Builder for the project.</p></li>
+        <li><p>Under the <stache-code>dependencies</stache-code> property, <stache-code>@blackbaud/skyux</stache-code> specifies the version of SKY UX components for the project.</p></li>
+        <li><p>Under the <stache-code>devDependencies</stache-code> property, <stache-code>@blackbaud/skyux-builder</stache-code> specifies the version of SKY UX Builder for the project.</p></li>
     </ul>
-    <p>To update the version of the components or Builder, manually update the version in <code>package.json</code> and then run <code>npm install</code>.</p>
+    <p>To update the version of the components or Builder, manually update the version in <stache-code>package.json</stache-code> and then run <stache-code>npm install</stache-code>.</p>
     <ul>
         <li><p>To find the latest version of the SKY UX components, check the <a href="https://github.com/blackbaud/skyux2/blob/master/CHANGELOG.md">changelog in the SKY UX 2 repo</a> or the <a href="https://www.npmjs.com/package/@blackbaud/skyux">NPM page for the SKY UX 2 package</a>.</p></li>
         <li><p>To find the latest version of SKY UX Builder, check the <a href="https://github.com/blackbaud/skyux-builder/blob/master/CHANGELOG.md">changelog in the SKY UX Builder repo</a> or the <a href="https://www.npmjs.com/package/@blackbaud/skyux-builder">NPM page for the SKY UX Builder package</a>.</p></li>
     </ul>
-    <sky-alert alertType="info">If you use VSCode or another editor with code-editing functionality, you can also place the cursor in the <code>dependencies</code> or <code>devDependencies</code> property and press Ctrl-Space to open a prompt that displays the latest version.</sky-alert>
+    <sky-alert alertType="info">If you use VSCode or another editor with code-editing functionality, you can also place the cursor in the <stache-code>dependencies</stache-code> or <stache-code>devDependencies</stache-code> property and press Ctrl-Space to open a prompt that displays the latest version.</sky-alert>
 
     <stache-row>
         <stache-column screenSmall="6">
