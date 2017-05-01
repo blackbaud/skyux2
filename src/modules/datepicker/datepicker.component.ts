@@ -28,6 +28,10 @@ export class SkyDatepickerComponent {
 
   public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
 
+  public maxDate: Date;
+
+  public minDate: Date;
+
   @ViewChild(SkyDatepickerCalendarComponent)
   public calendar: SkyDatepickerCalendarComponent;
 
@@ -40,6 +44,14 @@ export class SkyDatepickerComponent {
 
   public setSelectedDate(newDate: Date) {
     this.calendar.writeValue(newDate);
+  }
+
+  public setMinDate(_minDate: Date) {
+    this.minDate = _minDate;
+  }
+
+  public setMaxDate(_maxDate: Date) {
+    this.maxDate = _maxDate;
   }
 
   public onCalendarModeChange() {

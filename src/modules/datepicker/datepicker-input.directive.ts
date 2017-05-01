@@ -8,7 +8,9 @@ import {
   EventEmitter,
   HostListener,
   Renderer,
-  ElementRef
+  ElementRef,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 
 import {
@@ -57,7 +59,7 @@ let moment = require('moment');
   ]
 })
 export class SkyDatepickerInputDirective implements
-  OnInit, OnDestroy, ControlValueAccessor, Validator {
+  OnInit, OnDestroy, ControlValueAccessor, Validator, OnChanges {
 
   public pickerChangedSubscription: Subscription;
 
@@ -104,6 +106,18 @@ export class SkyDatepickerInputDirective implements
   public ngOnDestroy() {
     if (this.pickerChangedSubscription) {
       this.pickerChangedSubscription.unsubscribe();
+    }
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['minDate']) {
+      this._validatorChange();
+      this.skyDatepickerInput.setMinDate(this.minDate);
+    }
+
+    if (changes['maxDate']) {
+      this._validatorChange();
+      this.skyDatepickerInput.setMaxDate(this.maxDate)
     }
   }
 

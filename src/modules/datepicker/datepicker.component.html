@@ -8,7 +8,9 @@
       <sky-dropdown-menu>
         <sky-datepicker-calendar
           (selectedDateChange)="dateSelected($event)"
-          (calendarModeChange)="onCalendarModeChange()">
+          (calendarModeChange)="onCalendarModeChange()"
+          [maxDate]="maxDate"
+          [minDate]="minDate">
         </sky-datepicker-calendar>
       </sky-dropdown-menu>
     </sky-dropdown>
