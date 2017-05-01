@@ -126,7 +126,16 @@ export class SkyDatepickerInputDirective implements
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; };
 
   public writeValue(value: any) {
-    this.modelValue = value ? new Date(value) : null;
+
+    if (value && this.dateFormatter.dateIsValid(value)) {
+      this.modelValue = value;
+    } else if (value) {
+      this.modelValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
+      if (value !== this.modelValue && this.dateFormatter.dateIsValid(this.modelValue)) {
+        this._onChange(this.modelValue);
+      }
+    }
+
     if (this.dateFormatter.dateIsValid(this.modelValue)) {
       this.writeModelValue(this.modelValue);
     }

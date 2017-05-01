@@ -10,5 +10,5 @@ export class SkyDatepickerDemoComponent {
 
   public maxDate: Date;
 
-  public selectedDate: Date; /*= '1994-11-05T13:15:30Z';*/
+  public selectedDate: Date;
 }
