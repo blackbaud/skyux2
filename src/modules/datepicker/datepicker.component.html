@@ -7,7 +7,8 @@
       alignment="right">
       <sky-dropdown-menu>
         <sky-datepicker-calendar
-          (selectedDateChange)="dateSelected($event)">
+          (selectedDateChange)="dateSelected($event)"
+          (calendarModeChange)="onCalendarModeChange()">
         </sky-datepicker-calendar>
       </sky-dropdown-menu>
     </sky-dropdown>

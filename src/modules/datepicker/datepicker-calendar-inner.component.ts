@@ -36,6 +36,9 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
   @Output()
   public selectedDateChange: EventEmitter<Date> = new EventEmitter<Date>(undefined);
 
+  @Output()
+  public calendarModeChange: EventEmitter<string> = new EventEmitter<string>();
+
   public activeDate: Date;
 
   public minMode: string = 'day';
@@ -293,6 +296,7 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
 
     } else {
       this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) - 1];
+      this.calendarModeChange.emit(this.datepickerMode);
     }
 
     this.refreshView();
@@ -345,6 +349,7 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     if (!(direction === 1 && this.datepickerMode === this.maxMode) &&
       !(this.datepickerMode === this.minMode && direction === -1)) {
       this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) + direction];
+      this.calendarModeChange.emit(this.datepickerMode);
       this.refreshView();
     }
   }

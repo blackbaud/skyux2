@@ -14,6 +14,11 @@ import {
 import {
   SkyDatepickerCalendarComponent
 } from './datepicker-calendar.component';
+
+import {
+  SkyDropdownComponent
+} from '../dropdown';
+
 @Component({
   selector: 'sky-datepicker',
   templateUrl: './datepicker.component.html',
@@ -26,12 +31,21 @@ export class SkyDatepickerComponent {
   @ViewChild(SkyDatepickerCalendarComponent)
   public calendar: SkyDatepickerCalendarComponent;
 
+  @ViewChild(SkyDropdownComponent)
+  public dropdown: SkyDropdownComponent;
+
   public dateSelected(newDate: Date) {
     this.dateChanged.emit(newDate);
   }
 
   public setSelectedDate(newDate: Date) {
     this.calendar.writeValue(newDate);
+  }
+
+  public onCalendarModeChange() {
+    setTimeout(() => {
+      this.dropdown.resetDropdownPosition();
+    });
   }
 
 }

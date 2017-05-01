@@ -40,6 +40,9 @@ export class SkyDatepickerCalendarComponent {
   @Output()
   public selectedDateChange: EventEmitter<Date> = new EventEmitter<Date>(undefined);
 
+  @Output()
+  public calendarModeChange: EventEmitter<string> = new EventEmitter<string>();
+
   @ViewChild(SkyDatepickerCalendarInnerComponent)
   public _datepicker: SkyDatepickerCalendarInnerComponent;
 
@@ -55,6 +58,10 @@ export class SkyDatepickerCalendarComponent {
 
   public configureOptions(): void {
     Object.assign(this, this.config);
+  }
+
+  public onCalendarModeChange(event: string): void {
+    this.calendarModeChange.emit(event);
   }
 
   public onSelectedDateChange(event: Date): void {

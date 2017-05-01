@@ -29,7 +29,7 @@ export class SkyDropdownAdapterService {
     /* sanity check */
     if (!menuEl.classList.contains(CLS_OPEN)) {
       renderer.setElementClass(menuEl, CLS_OPEN, true);
-      let isFullScreen = this.setMenuLocation(menuEl, buttonEl, renderer, windowObj, alignment);
+      let isFullScreen = this.setMenuLocation(dropdownEl, renderer, windowObj, alignment);
 
       // Do not need to disable scroll when in full screen dropdown mode
       if (!isFullScreen) {
@@ -51,6 +51,48 @@ export class SkyDropdownAdapterService {
         this.scrollListener();
       }
     }
+  }
+
+  public setMenuLocation(
+    dropdownEl: ElementRef,
+    renderer: Renderer,
+    windowObj: Window,
+    alignment: string) {
+
+    let buttonEl = this.getButtonEl(dropdownEl);
+    let menuEl = this.getMenuEl(dropdownEl);
+
+    let possiblePositions = ['below', 'above', 'ycenter', 'center', 'ybottom', 'ytop'];
+    let i: number;
+
+    for (i = 0; i < possiblePositions.length; i++) {
+      let menuCoordinates = this.getElementCoordinates(
+        buttonEl,
+        menuEl,
+        possiblePositions[i],
+        alignment);
+
+      // Check if visible in viewport
+      let elementVisibility = this.getElementVisibility(
+        menuCoordinates.left,
+        menuCoordinates.top,
+        menuEl,
+        windowObj);
+
+      if (elementVisibility.fitsInViewPort) {
+        renderer.setElementStyle(menuEl, 'top', menuCoordinates.top + 'px');
+        renderer.setElementStyle(menuEl, 'left', menuCoordinates.left + 'px');
+        return false;
+      }
+    }
+
+    /*
+      None of the positions allowed the menu to be fully visible.
+      In this case we put it in the upper left corner and set the max-height and width.
+    */
+    this.setDropdownDefaults(menuEl, renderer, windowObj, true);
+
+    return true;
   }
 
   private setupParentScrollHandler(
@@ -117,45 +159,6 @@ export class SkyDropdownAdapterService {
     renderer.setElementStyle(menuEl, 'width', widthVal);
     renderer.setElementStyle(menuEl, 'overflow-y', overflowVal);
     renderer.setElementStyle(menuEl, 'overflow-x', overflowVal);
-  }
-
-  private setMenuLocation(
-    menuEl: HTMLElement,
-    buttonEl: HTMLElement,
-    renderer: Renderer,
-    windowObj: Window,
-    alignment: string) {
-    let possiblePositions = ['below', 'above', 'ycenter', 'center', 'ybottom', 'ytop'];
-    let i: number;
-
-    for (i = 0; i < possiblePositions.length; i++) {
-      let menuCoordinates = this.getElementCoordinates(
-        buttonEl,
-        menuEl,
-        possiblePositions[i],
-        alignment);
-
-      // Check if visible in viewport
-      let elementVisibility = this.getElementVisibility(
-        menuCoordinates.left,
-        menuCoordinates.top,
-        menuEl,
-        windowObj);
-
-      if (elementVisibility.fitsInViewPort) {
-        renderer.setElementStyle(menuEl, 'top', menuCoordinates.top + 'px');
-        renderer.setElementStyle(menuEl, 'left', menuCoordinates.left + 'px');
-        return false;
-      }
-    }
-
-    /*
-      None of the positions allowed the menu to be fully visible.
-      In this case we put it in the upper left corner and set the max-height and width.
-    */
-    this.setDropdownDefaults(menuEl, renderer, windowObj, true);
-
-    return true;
   }
 
   private getElementCoordinates(
