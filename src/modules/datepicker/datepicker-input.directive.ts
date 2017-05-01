@@ -70,6 +70,12 @@ export class SkyDatepickerInputDirective implements
   @Input()
   public skyDatepickerNoValidate: boolean = false;
 
+  @Input()
+  public minDate: Date;
+
+  @Input()
+  public maxDate: Date;
+
   private dateFormatter = new SkyDateFormatter();
 
   public constructor(
@@ -144,19 +150,42 @@ export class SkyDatepickerInputDirective implements
   public validate(control: AbstractControl): {[key: string]: any} {
     let value = control.value;
 
-    if (!value || this.skyDatepickerNoValidate) {
+    if (!value) {
       return;
     }
 
     let dateValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
 
-    if (!this.dateFormatter.dateIsValid(dateValue)) {
+    if (!this.dateFormatter.dateIsValid(dateValue) && !this.skyDatepickerNoValidate) {
       return {
         'skyDate': {
           invalid: control.value
         }
       };
     }
+
+    if (this.minDate &&
+      this.dateFormatter.dateIsValid(this.minDate) &&
+      this.dateFormatter.dateIsValid(value) &&
+      value < this.minDate) {
+
+      return {
+        'skyDate': {
+          minDate: this.minDate
+        }
+      };
+    }
+
+    if (this.maxDate &&
+      this.dateFormatter.dateIsValid(this.maxDate) &&
+      this.dateFormatter.dateIsValid(value) &&
+      value > this.maxDate) {
+        return {
+          'skyDate': {
+            maxDate: this.maxDate
+          }
+        };
+      }
   }
 
   private writeModelValue(model: Date) {
