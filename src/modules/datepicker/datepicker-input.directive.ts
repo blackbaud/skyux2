@@ -24,11 +24,21 @@ import {
   Subscription
 } from 'rxjs/Subscription';
 
+import {
+  SkyDateFormatter
+} from './date-formatter';
+
+import {
+  SkyDatepickerConfigService
+} from './datepicker-config.service';
+
 const SKY_DATEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyDatepickerInputDirective),
   multi: true
 };
+
+let moment = require('moment');
 
 @Directive({
   selector: '[skyDatepickerInput]',
@@ -41,7 +51,22 @@ export class SkyDatepickerInputDirective implements OnInit, OnDestroy, ControlVa
   @Input()
   public skyDatepickerInput: SkyDatepickerComponent;
 
-  public constructor(private renderer: Renderer, private elRef: ElementRef) {
+  @Input()
+  public dateFormat: string;
+
+  private dateFormatter = new SkyDateFormatter();
+
+  public constructor(
+    private renderer: Renderer,
+    private elRef: ElementRef,
+    private config: SkyDatepickerConfigService) {
+
+    this.config = config;
+    this.configureOptions();
+  }
+
+  public configureOptions(): void {
+    Object.assign(this, this.config);
   }
 
   public ngOnInit() {
@@ -64,10 +89,13 @@ export class SkyDatepickerInputDirective implements OnInit, OnDestroy, ControlVa
   public onChange(event: any) {
     let newValue = event.target.value;
     // need to parse date here:
-    this.modelValue = new Date(newValue);
-
-    this._onChange(this.modelValue);
-    this.writeModelValue(this.modelValue);
+    this.modelValue = this.dateFormatter.getDateFromString(newValue, this.dateFormat);
+    if (this.dateFormatter.dateIsValid(this.modelValue)) {
+      this._onChange(this.modelValue);
+      this.writeModelValue(this.modelValue);
+    } else {
+      this._onChange(newValue);
+    }
   }
 
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
@@ -76,13 +104,17 @@ export class SkyDatepickerInputDirective implements OnInit, OnDestroy, ControlVa
 
   public writeValue(value: any) {
     this.modelValue = value ? new Date(value) : null;
-    this.writeModelValue(this.modelValue);
+    if (this.dateFormatter.dateIsValid(this.modelValue)) {
+      this.writeModelValue(this.modelValue);
+    }
   }
 
   private writeModelValue(model: Date) {
-    if (model) {
-      this.renderer.setElementProperty(this.elRef.nativeElement, 'value', model.toISOString());
-    }
+
+    this.renderer.setElementProperty(
+      this.elRef.nativeElement,
+      'value',
+      this.dateFormatter.format(model, this.dateFormat));
 
     this.skyDatepickerInput.setSelectedDate(model);
   }

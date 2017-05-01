@@ -12,6 +12,10 @@ import {
   SkyDatepickerConfigService
 } from './datepicker-config.service';
 
+import {
+  SkyDateFormatter
+} from './date-formatter';
+
 @Component({
   selector: 'sky-datepicker-calendar',
   templateUrl: './datepicker-calendar.component.html',
@@ -42,6 +46,8 @@ export class SkyDatepickerCalendarComponent {
   protected _now: Date = new Date();
   protected config: SkyDatepickerConfigService;
 
+  private formatter = new SkyDateFormatter();
+
   public constructor(config: SkyDatepickerConfigService) {
     this.config = config;
     this.configureOptions();
@@ -57,13 +63,13 @@ export class SkyDatepickerCalendarComponent {
 
   public writeValue(value: Date): void {
     if (value !== undefined
-      && value
+      && this.formatter.dateIsValid(value)
       && this.selectedDate !== undefined
       && this._datepicker.compareHandlerDay(value, this.selectedDate) === 0) {
       return;
     }
 
-    if (value) {
+    if (this.formatter.dateIsValid(value)) {
       this.selectedDate = value;
       this._datepicker.select(value, false);
     } else {
