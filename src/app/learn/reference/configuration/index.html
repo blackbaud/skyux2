@@ -5,11 +5,11 @@
 
     <p>This reference describes SKY UX configuration options that are available in the <stache-code>skyuxconfig.json</stache-code> file.</p>
     
-    <p>After you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>, the <stache-code>skyuxconfig.json</stache-code> file in your project's directory allows you to configure settings for SKY UX. All properties in <stache-code>skyuxconfig.json</stache-code> are optional, and by default, the file only specifies values for the <stache-code>mode</stache-code> and <stache-code>compileMode</stache-code> settings.</p>
+    <p>After you <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, the <stache-code>skyuxconfig.json</stache-code> file in your project's directory allows you to configure settings for SKY UX. All properties in <stache-code>skyuxconfig.json</stache-code> are optional, and by default, the file only specifies values for the <stache-code>mode</stache-code> and <stache-code>compileMode</stache-code> settings.</p>
     <sky-alert alertType="info">The <stache-code>skyuxconfig.json</stache-code> does not include all SKY UX configuration options. SKY UX Builder defines some configuration options that are not included in this file.</sky-alert>
     <p>The configuration options that are available in the <stache-code>skyuxconfig.json</stache-code> file include:</p>
     <ul>
-        <li><p><stache-code>name</stache-code> — Specifies the name of the project when running in SKY UX Host. For example, if you specify "demo" as the name, then your SPA is accessible from https://host.nxt.blackbaud.com/demo. By default, SKY UX Builder uses the <stache-code>name</stache-code> property in the <stache-code>package.json</stache-code> file, minus the "blackbaud-skyux-spa-" prefix. That value is based on the root directory name that you specify when you <a routerLink="/learn/tutorials/create-project">create a SKY UX project</a>. You can use the <stache-code>name</stache-code> property in <stache-code>skyuxconfig.json</stache-code> to overwrite the default name if you do not want the root directory name in your public-facing URL. For example, if you publish the SPA to NPM, you use the <stache-code>name</stache-code> property in <stache-code>package.json</stache-code>, so you may want to use a different name for the project in SKY UX Host.</p></li>
+        <li><p><stache-code>name</stache-code> — Specifies the name of the project when running in SKY UX Host. For example, if you specify "demo" as the name, then your SPA is accessible from https://host.nxt.blackbaud.com/demo. By default, SKY UX Builder uses the <stache-code>name</stache-code> property in the <stache-code>package.json</stache-code> file, minus the "blackbaud-skyux-spa-" prefix. That value is based on the root directory name that you specify when you <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>. You can use the <stache-code>name</stache-code> property in <stache-code>skyuxconfig.json</stache-code> to overwrite the default name if you do not want the root directory name in your public-facing URL. For example, if you publish the SPA to NPM, you use the <stache-code>name</stache-code> property in <stache-code>package.json</stache-code>, so you may want to use a different name for the project in SKY UX Host.</p></li>
         <li><p><stache-code>mode</stache-code> — Controls how much boilerplate code to generate automatically. By default, the <stache-code>skyuxconfig.json</stache-code> file sets this property to <stache-code>easy</stache-code>. In easy mode, SKY UX  automatically generates routes based the project's folder structure, provides bootstrapping to initialize the application, and supplies SKY UX components to the application. To override these options, change the <stache-code>mode</stache-code> property to <stache-code>advanced</stache-code>. Since advanced mode does not provide automatic route configuration, you can adjust URLs and point to specific components in your SPA. This property will eventually become obsolete as the SKY UX team builds out the CLI to allow users to override individual steps without switching to advanced mode.</p></li>
         <li><p><stache-code>compileMode</stache-code> — Specifies how to compile the project's code. By default, the <stache-code>skyuxconfig.json</stache-code> file sets this property to <stache-code>aot</stache-code> to specify ahead-of-time compilation, which runs the compiler once at build time using one set of libraries. You can change this setting to <stache-code>jit</stache-code> to specify just-in-time compilation, which runs the compiler at run time for every user using a different set of libraries. SKY UX uses ahead-of-time compilation by default because it is typically more performant and has less to handle at run-time. For more information about the difference, see the <a href="https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#aot-jit">Angular documentation</a></p></li>
         <li><p><stache-code>host</stache-code> — Specifies configuration options for communication with SKY UX Host.</p>
@@ -23,39 +23,39 @@
                 <li><p><stache-code>port</stache-code> — Configures a port for the <stache-code>skyux serve</stache-code> command to use. If no port is specified, <stache-code>skyux serve</stache-code> dynamically finds an available port.</p></li>
                 <li><p><stache-code>externals</stache-code> — Dynamically injects CSS and JavaScript files into SKY UX Host. You should have a specific use-case for an external. For example, Office Addins require their library to load through CDN in the head. The <stache-code>before</stache-code> and <stache-code>after</stache-code> sections of an external indicate whether to include the external resource before or after the default SKY UX Builder resources. The <stache-code>head</stache-code> property, which only applies to JS resources, indicates whether to inject elements within the HTML <stache-code>head</stache-code> element or just before the closing <stache-code>body</stache-code> tag.</p>
                     <p>The following example shows an external with all the configuration options:</p>
-                    <stache-code-block languageType="js">externals: &#123;
-    css: &#123;
+                    <stache-code-block languageType="js">externals: {
+    css: {
         before: [
-            &#123;
+            {
                 url: 'f1.css',
                 integrity: 'ic1'
-            &#125;
+            }
         ],
         after: [
-            &#123;
+            {}
                 url: 'f2.css'
-            &#125;
+            }
         ]
-    &#125;,
-    js: &#123;
+    },
+    js: {
         before: [
-            &#123;
+            {
                 url: 'f1.js',
                 integrity: 'ic2',
                 head: true
-            &#125;,
-            &#123;
+            },
+            {
                 url: 'f2.js',
                 integrity: 'ic3'
-            &#125;
+            }
         ],
         after: [
-            &#123;
+            {
                 url: 'f3.js'
-            &#125;
+            }
         ]
-    &#125;
-&#125;
+    }
+}
 </stache-code-block>
         </li>
             </ul>
