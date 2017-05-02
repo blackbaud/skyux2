@@ -21,6 +21,8 @@ import {
   expect
 } from '../testing';
 
+let moment = require('moment');
+
 describe('datepicker', () => {
   let fixture: ComponentFixture<DatepickerTestComponent>;
   let component: DatepickerTestComponent;
@@ -101,29 +103,70 @@ describe('datepicker', () => {
   }));
 
   describe('initialization', () => {
-    it('should handle initializing with a Date object', () => {
+    it('should handle initializing with a Date object', fakeAsync(() => {
+      component.selectedDate = new Date('5/12/2017');
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-    });
+      expect(nativeElement.querySelector('input').value).toBe('05/12/2017');
+    }));
 
-    it('should handle initializing with a string with the expected format', () => {
+    it('should handle initializing with a string with the expected format', fakeAsync(() => {
+      component.selectedDate = '5/12/2017';
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-    });
+      expect(nativeElement.querySelector('input').value).toBe('05/12/2017');
 
-    it('should handle initializing with a ISO string', () => {
+      expect(component.selectedDate).toEqual(new Date('05/12/2017'));
+    }));
 
-    });
+    it('should handle initializing with a ISO string', fakeAsync(() => {
+      component.selectedDate = '2009-06-15T00:00:01';
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-    it('should handle initializing with an ISO string with offset', () => {
+      expect(nativeElement.querySelector('input').value).toBe('06/15/2009');
 
-    });
+      expect(component.selectedDate)
+        .toEqual(moment('2009-06-15T00:00:01', 'YYYY-MM-DDTHH:mm:ss').toDate());
+    }));
 
-    it('should handle two digit years', () => {
+    it('should handle initializing with an ISO string with offset', fakeAsync(() => {
+      component.selectedDate = '1994-11-05T08:15:30-05:00';
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-    });
+      expect(nativeElement.querySelector('input').value).toBe('11/05/1994');
 
-    it('should handle undefined initialization', () => {
+       expect(component.selectedDate)
+        .toEqual(moment('1994-11-05T08:15:30-05:00', 'YYYY-MM-DDThh:mm:ss.sssZ').toDate());
+    }));
 
-    });
+    it('should handle two digit years', fakeAsync(() => {
+      component.selectedDate = '5/12/17';
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(nativeElement.querySelector('input').value).toBe('05/12/2017');
+
+      expect(component.selectedDate).toEqual(new Date('05/12/2017'));
+    }));
+
+    it('should handle undefined initialization', fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(nativeElement.querySelector('input').value).toBe('');
+
+      expect(nativeElement.querySelector('input')).not.toHaveCssClass('ng-invalid');
+    }));
 
   });
 
@@ -207,6 +250,10 @@ describe('datepicker', () => {
     });
 
     it('should handle calendar date on invalid date', () => {
+
+    });
+
+    it('should handle noValidate property', () => {
 
     });
   });

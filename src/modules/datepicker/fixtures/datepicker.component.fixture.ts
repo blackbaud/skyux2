@@ -10,5 +10,5 @@ export class DatepickerTestComponent {
 
   public maxDate: Date;
 
-  public selectedDate: Date;
+  public selectedDate: any;
 }

@@ -7,13 +7,11 @@ export class SkyDateFormatter {
 
   public getDateFromString(dateString: string, format: string): Date {
     let momentValue = moment(dateString, format);
-    if (!momentValue.isValid()) {
-      momentValue = moment(dateString, 'YYYY-MM-DDTHH:mm:ss');
-    }
 
     if (!momentValue.isValid()) {
       momentValue = moment(dateString, 'YYYY-MM-DDThh:mm:ss.sssZ');
     }
+
     return momentValue.toDate();
   }
 

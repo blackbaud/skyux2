@@ -17,7 +17,7 @@ export class DatepickerCalendarTestComponent {
 
   public maxDate: Date;
 
-  public selectedDate: Date;
+  public selectedDate: any;
 
   public startingDay: number = 0;
 
