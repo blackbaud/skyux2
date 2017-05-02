@@ -5,7 +5,9 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { SkyDropdownModule } from '../dropdown';
 import * as moment from 'moment';
+
 
 @Component({
   selector: 'sky-timepicker',
@@ -15,8 +17,12 @@ import * as moment from 'moment';
 })
 export class SkyTimepickerComponent {
 
+  /*@Input()
+  public selectedTime: string;
+*/
   @Input()
   public format: string = 'hh';
+
 
   @Output()
   public selectedTimeChanged: EventEmitter<String> = new EventEmitter<String>();
@@ -63,6 +69,18 @@ export class SkyTimepickerComponent {
     event.preventDefault();
     let element: HTMLButtonElement = <HTMLButtonElement>event.target;
     let hour: number = parseInt(element.value, 0);
+    if (this.format === 'hh') {
+      if (this.selectedMeridies === 'PM') {
+        if (hour !== 12) {
+          hour = moment({ 'hour': hour }).add(12, 'hours').hour();
+        }
+      }
+      if (this.selectedMeridies === 'AM') {
+        if (hour === 12) {
+          hour = moment({ 'hour': 0 }).hour();
+        }
+      }
+    }
     this.activeTime = moment({
       'hour': hour,
       'minute': moment(this.activeTime).get('minute') || 0
@@ -114,3 +132,4 @@ export class SkyTimepickerComponent {
     }
   }
 }
+
