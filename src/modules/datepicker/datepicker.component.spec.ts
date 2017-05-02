@@ -1,7 +1,13 @@
 import {
   TestBed,
-  ComponentFixture
+  ComponentFixture,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
+
+import {
+  FormsModule
+} from '@angular/forms';
 
 import {
   SkyDatepickerModule
@@ -16,24 +22,33 @@ import {
 } from '../testing';
 
 describe('datepicker', () => {
+  let fixture: ComponentFixture<DatepickerTestComponent>;
+  let component: DatepickerTestComponent;
+  let nativeElement: HTMLElement;
 
-  it('should create the component with the appropriate styles', () => {
-    let fixture: ComponentFixture<DatepickerTestComponent>;
-    let component: DatepickerTestComponent;
-    let nativeElement: HTMLElement;
+  function openDatepicker(element: HTMLElement) {
+    let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
+    dropdownButtonEl.click();
+    fixture.detectChanges();
+  }
 
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         DatepickerTestComponent
       ],
       imports: [
-        SkyDatepickerModule
+        SkyDatepickerModule,
+        FormsModule
       ]
     });
 
     fixture = TestBed.createComponent(DatepickerTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
+  });
+
+  it('should create the component with the appropriate styles', () => {
 
     fixture.detectChanges();
     expect(nativeElement.querySelector('input')).toHaveCssClass('sky-form-control');
@@ -43,8 +58,47 @@ describe('datepicker', () => {
   });
 
   it('should keep the calendar open on mode change', () => {
+    fixture.detectChanges();
+    openDatepicker(nativeElement);
 
+    let dropdownMenuEl = nativeElement.querySelector('.sky-dropdown-menu');
+    expect(dropdownMenuEl).toHaveCssClass('sky-dropdown-open');
+
+    let titleEl
+      = nativeElement.querySelector('.sky-datepicker-calendar-title') as HTMLButtonElement;
+
+    titleEl.click();
+    fixture.detectChanges();
+
+    dropdownMenuEl = nativeElement.querySelector('.sky-dropdown-menu');
+    expect(dropdownMenuEl).toHaveCssClass('sky-dropdown-open');
   });
+
+  it('should pass date back when date is selected in calendar', fakeAsync(() => {
+    component.selectedDate = new Date('5/12/2017');
+    fixture.detectChanges();
+    openDatepicker(nativeElement);
+    tick();
+    fixture.detectChanges();
+
+    expect(nativeElement.querySelector('td .sky-datepicker-btn-selected'))
+      .toHaveText('12');
+
+    expect(nativeElement.querySelector('.sky-datepicker-calendar-title'))
+      .toHaveText('May 2017');
+
+    // Click May 2nd
+    let dateButtonEl
+      = nativeElement.querySelectorAll('tbody tr td .sky-btn-default').item(2) as HTMLButtonElement;
+
+    dateButtonEl.click();
+    fixture.detectChanges();
+
+    expect(component.selectedDate).toEqual(new Date('5/2/2017'));
+
+    expect(nativeElement.querySelector('input').value).toBe('05/02/2017');
+
+  }));
 
   describe('initialization', () => {
     it('should handle initializing with a Date object', () => {
