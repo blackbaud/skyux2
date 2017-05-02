@@ -11,4 +11,6 @@ export class DatepickerTestComponent {
   public maxDate: Date;
 
   public selectedDate: any;
+
+  public format: string = 'MM/DD/YYYY';
 }
