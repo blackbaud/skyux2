@@ -9,16 +9,9 @@
               <ol>
                 <li *ngFor="let hour of hours;">
                   <button
-                  (click)="selectedHour = $event"
-                  value="{{hour}}" *ngIf="format === 'hh'"
+                  (click)="selectedHour = hour"
                   [ngClass]="{active: selectedHour === hour}">
                     {{hour}}
-                  </button>
-                  <button
-                  (click)="selectedHour = $event"
-                  value="{{hour}}" *ngIf="format === 'HH'"
-                  [ngClass]="{active: selectedHour === hour}">
-                   {{'00'.substring(0, 2 - (hour).toString().length) + (hour)}}
                   </button>
                 </li>
               </ol>
@@ -27,28 +20,25 @@
               <ol>
                 <li *ngFor="let minute of minutes;">
                   <button
-                  (click)="selectedMinute = $event"
-                  value="{{minute}}"
+                  (click)="selectedMinute = minute"
                   [ngClass]="{active: selectedMinute === minute}">
                     {{ '00' .substring(0, 2 - (minute) .toString() .length) + (minute) }}
                   </button>
                 </li>
               </ol>
             </section>
-            <section *ngIf="this.format === 'hh'" class="sky-timepicker-column sky-timepicker-meridies">
+            <section *ngIf="format === 'hh'" class="sky-timepicker-column sky-timepicker-meridies">
               <ol>
                 <li>
                   <button
-                  (click)="selectedMeridies = $event"
-                  value="AM"
+                  (click)="selectedMeridies = 'AM'"
                   [ngClass]="{active: selectedMeridies === 'AM'}">
                   AM
                   </button>
                 </li>
                 <li>
                   <button
-                  (click)="selectedMeridies = $event"
-                  value="PM"
+                  (click)="selectedMeridies = 'PM'"
                   [ngClass]="{active: selectedMeridies === 'PM'}">
                   PM
                   </button>

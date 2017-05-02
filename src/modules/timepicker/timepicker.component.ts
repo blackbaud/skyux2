@@ -64,11 +64,9 @@ export class SkyTimepickerComponent {
     };
   }
 
-  private set selectedHour(event: any) {
+  private set selectedHour(hour: number) {
     event.stopPropagation();
     event.preventDefault();
-    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    let hour: number = parseInt(element.value, 0);
     if (this.format === 'hh') {
       if (this.selectedMeridies === 'PM') {
         if (hour !== 12) {
@@ -88,11 +86,9 @@ export class SkyTimepickerComponent {
     this.selectedTimeChanged.emit(this.selectedTime);
   }
 
-  private set selectedMinute(event: any) {
+  private set selectedMinute(minute: number) {
     event.stopPropagation();
     event.preventDefault();
-    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    let minute: number = parseInt(element.value, 0);
     this.activeTime = moment({
       'hour': moment(this.activeTime).get('hour') || 0,
       'minute': minute
@@ -100,11 +96,9 @@ export class SkyTimepickerComponent {
     this.selectedTimeChanged.emit(this.selectedTime);
   }
 
-  private set selectedMeridies(event: any) {
+  private set selectedMeridies(meridies: string) {
     event.stopPropagation();
     event.preventDefault();
-    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    let meridies: string = element.value;
     if (this.format === 'hh') {
       if (meridies !== this.selectedMeridies) {
         this.activeTime = moment(this.activeTime).add(12, 'hours').format();
