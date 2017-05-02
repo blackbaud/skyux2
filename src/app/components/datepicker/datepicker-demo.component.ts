@@ -10,5 +10,5 @@ export class SkyDatepickerDemoComponent {
 
   public maxDate: Date;
 
-  public selectedDate: Date;
+  public selectedDate: any ='abcdebf';
 }

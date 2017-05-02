@@ -103,6 +103,8 @@ export class SkyDatepickerInputDirective implements
   }
 
   public ngOnDestroy() {
+    /* istanbul ignore else */
+    /* sanity check */
     if (this.pickerChangedSubscription) {
       this.pickerChangedSubscription.unsubscribe();
     }
@@ -157,6 +159,11 @@ export class SkyDatepickerInputDirective implements
 
     if (this.dateFormatter.dateIsValid(this.modelValue)) {
       this.writeModelValue(this.modelValue);
+    } else if (value) {
+      this.renderer.setElementProperty(
+        this.elRef.nativeElement,
+        'value',
+        value);
     }
   }
 
@@ -210,8 +217,9 @@ export class SkyDatepickerInputDirective implements
 
     this.skyDatepickerInput.setSelectedDate(model);
   }
-
+  /*istanbul ignore next */
   private _onChange = (_: any) => {};
+  /*istanbul ignore next */
   private _onTouched = () => {};
   private _validatorChange = () => {};
 

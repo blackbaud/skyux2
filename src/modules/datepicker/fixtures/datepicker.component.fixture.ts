@@ -13,4 +13,5 @@ export class DatepickerTestComponent {
   public selectedDate: any;
 
   public format: string = 'MM/DD/YYYY';
+  public noValidate: boolean = false;
 }
