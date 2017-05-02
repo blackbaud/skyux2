@@ -31,7 +31,6 @@ export class SkyTimepickerComponent {
 
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
-
     if (event.target.className === 'active') {
       event.stopPropagation();
     }

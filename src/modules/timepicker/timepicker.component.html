@@ -7,7 +7,7 @@
           <div class="sky-timepicker-container">
             <section class="sky-timepicker-column">
               <ol>
-                <li *ngFor="let hour of hours;">
+                <li *ngFor="let hour: number of hours;">
                   <button
                   (click)="selectedHour = hour"
                   [ngClass]="{active: selectedHour === hour}">
@@ -18,7 +18,7 @@
             </section>
             <section class="sky-timepicker-column">
               <ol>
-                <li *ngFor="let minute of minutes;">
+                <li *ngFor="let minute: number of minutes;">
                   <button
                   (click)="selectedMinute = minute"
                   [ngClass]="{active: selectedMinute === minute}">
