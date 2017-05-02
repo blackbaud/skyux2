@@ -1,16 +1,9 @@
 import {
   Component,
   EventEmitter,
-  Input,
-  Output,
   ViewChild
 } from '@angular/core';
-import {
-  SkyDatepickerCalendarInnerComponent
-} from './datepicker-calendar-inner.component';
-import {
-  SkyDatepickerConfigService
-} from './datepicker-config.service';
+
 import {
   SkyDatepickerCalendarComponent
 } from './datepicker-calendar.component';

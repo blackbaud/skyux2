@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SkyDatepickerCalendarComponent } from './datepicker-calendar.component';
 import { SkyDatepickerCalendarInnerComponent } from './datepicker-calendar-inner.component';
@@ -29,7 +30,8 @@ import { SkyDatepickerInputDirective } from './datepicker-input.directive';
   imports: [
     CommonModule,
     SkyResourcesModule,
-    SkyDropdownModule
+    SkyDropdownModule,
+    FormsModule
   ],
   exports: [
     SkyDatepickerCalendarComponent,

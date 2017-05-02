@@ -1,7 +1,45 @@
+import {
+  TestBed,
+  ComponentFixture
+} from '@angular/core/testing';
+
+import {
+  SkyDatepickerModule
+} from './datepicker.module';
+
+import {
+  DatepickerTestComponent
+} from './fixtures/datepicker.component.fixture';
+
+import {
+  expect
+} from '../testing';
+
 describe('datepicker', () => {
 
   it('should create the component with the appropriate styles', () => {
+    let fixture: ComponentFixture<DatepickerTestComponent>;
+    let component: DatepickerTestComponent;
+    let nativeElement: HTMLElement;
 
+    TestBed.configureTestingModule({
+      declarations: [
+        DatepickerTestComponent
+      ],
+      imports: [
+        SkyDatepickerModule
+      ]
+    });
+
+    fixture = TestBed.createComponent(DatepickerTestComponent);
+    nativeElement = fixture.nativeElement as HTMLElement;
+    component = fixture.componentInstance;
+
+    fixture.detectChanges();
+    expect(nativeElement.querySelector('input')).toHaveCssClass('sky-form-control');
+    expect(nativeElement
+      .querySelector('.sky-input-group .sky-input-group-btn .sky-dropdown-button'))
+      .not.toBeNull();
   });
 
   it('should keep the calendar open on mode change', () => {
@@ -136,6 +174,5 @@ describe('datepicker', () => {
 
     });
   });
-
 
 });

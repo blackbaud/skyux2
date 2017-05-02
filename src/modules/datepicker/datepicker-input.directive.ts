@@ -4,8 +4,6 @@ import {
   OnInit,
   OnDestroy,
   forwardRef,
-  Output,
-  EventEmitter,
   HostListener,
   Renderer,
   ElementRef,
@@ -37,6 +35,7 @@ import {
   SkyDatepickerConfigService
 } from './datepicker-config.service';
 
+// tslint:disable no-forward-ref
 const SKY_DATEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyDatepickerInputDirective),
@@ -48,8 +47,7 @@ const SKY_DATEPICKER_VALIDATOR = {
   useExisting: forwardRef(() => SkyDatepickerInputDirective),
   multi: true
 };
-
-let moment = require('moment');
+// tslint:enable
 
 @Directive({
   selector: '[skyDatepickerInput]',
@@ -80,6 +78,8 @@ export class SkyDatepickerInputDirective implements
 
   private dateFormatter = new SkyDateFormatter();
 
+  private modelValue: Date;
+
   public constructor(
     private renderer: Renderer,
     private elRef: ElementRef,
@@ -102,7 +102,6 @@ export class SkyDatepickerInputDirective implements
       });
   }
 
-
   public ngOnDestroy() {
     if (this.pickerChangedSubscription) {
       this.pickerChangedSubscription.unsubscribe();
@@ -117,7 +116,7 @@ export class SkyDatepickerInputDirective implements
 
     if (changes['maxDate']) {
       this._validatorChange();
-      this.skyDatepickerInput.setMaxDate(this.maxDate)
+      this.skyDatepickerInput.setMaxDate(this.maxDate);
     }
   }
 
@@ -211,8 +210,6 @@ export class SkyDatepickerInputDirective implements
 
     this.skyDatepickerInput.setSelectedDate(model);
   }
-
-  private modelValue: Date;
 
   private _onChange = (_: any) => {};
   private _onTouched = () => {};

@@ -22,7 +22,6 @@ export class SkyDropdownAdapterService {
     windowObj: Window,
     alignment: string) {
 
-    let buttonEl = this.getButtonEl(dropdownEl);
     let menuEl = this.getMenuEl(dropdownEl);
 
     /* istanbul ignore else */

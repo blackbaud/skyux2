@@ -11,7 +11,7 @@ import {
   selector: 'sky-test-cmp',
   template: require('./datepicker-calendar.component.fixture.html')
 })
-export class DatepickerTestComponent {
+export class DatepickerCalendarTestComponent {
 
   public minDate: Date;
 
