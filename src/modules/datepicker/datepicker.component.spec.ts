@@ -2,7 +2,6 @@ import {
   TestBed,
   ComponentFixture,
   fakeAsync,
-  async,
   tick
 } from '@angular/core/testing';
 
@@ -40,20 +39,17 @@ import {By} from '@angular/platform-browser';
 let moment = require('moment');
 
 describe('datepicker', () => {
-  let fixture: ComponentFixture<DatepickerTestComponent>;
-  let component: DatepickerTestComponent;
-  let nativeElement: HTMLElement;
 
-  function openDatepicker(element: HTMLElement, fixture: ComponentFixture<any>) {
+  function openDatepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
-    fixture.detectChanges();
+    compFixture.detectChanges();
   }
 
   function setInput(
       element: HTMLElement,
       text: string,
-      fixture: ComponentFixture<any>) {
+      compFixture: ComponentFixture<any>) {
     let inputEvent = document.createEvent('Event');
     let params = {
       bubbles: false,
@@ -67,17 +63,17 @@ describe('datepicker', () => {
     inputEl.value = text;
 
     inputEl.dispatchEvent(inputEvent);
-    fixture.detectChanges();
+    compFixture.detectChanges();
 
     inputEl.dispatchEvent(changeEvent);
-    fixture.detectChanges();
+    compFixture.detectChanges();
     tick();
 
   }
 
   function blurInput(
     element: HTMLElement,
-    fixture: ComponentFixture<any>) {
+    compFixture: ComponentFixture<any>) {
 
     let inputEvent = document.createEvent('Event');
     let params = {
@@ -88,10 +84,9 @@ describe('datepicker', () => {
     let inputEl = element.querySelector('input');
 
     inputEl.dispatchEvent(inputEvent);
-    fixture.detectChanges();
+    compFixture.detectChanges();
     tick();
   }
-
 
   describe('nonstandard configuration', () => {
     let fixture: ComponentFixture<DatepickerNoFormatTestComponent>;
@@ -134,6 +129,9 @@ describe('datepicker', () => {
     }));
   });
   describe('standard configuration', () => {
+    let fixture: ComponentFixture<DatepickerTestComponent>;
+    let component: DatepickerTestComponent;
+    let nativeElement: HTMLElement;
     beforeEach(() => {
       TestBed.configureTestingModule({
         declarations: [
@@ -191,7 +189,8 @@ describe('datepicker', () => {
 
       // Click May 2nd
       let dateButtonEl
-        = nativeElement.querySelectorAll('tbody tr td .sky-btn-default').item(2) as HTMLButtonElement;
+        = nativeElement
+          .querySelectorAll('tbody tr td .sky-btn-default').item(2) as HTMLButtonElement;
 
       dateButtonEl.click();
       fixture.detectChanges();
