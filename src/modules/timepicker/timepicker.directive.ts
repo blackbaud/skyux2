@@ -4,8 +4,6 @@ import {
   OnInit,
   OnDestroy,
   forwardRef,
-  Output,
-  EventEmitter,
   HostListener,
   Renderer,
   ElementRef
@@ -53,13 +51,11 @@ export class SkyTimepickerInputDirective implements OnInit, OnDestroy, ControlVa
       });
   }
 
-
   public ngOnDestroy() {
     if (this.pickerChangedSubscription) {
       this.pickerChangedSubscription.unsubscribe();
     }
   }
-
   @HostListener('change', ['$event'])
   public onChange(event: any) {
     let newValue = event.target.value;
@@ -83,15 +79,12 @@ export class SkyTimepickerInputDirective implements OnInit, OnDestroy, ControlVa
     if (model) {
       this.renderer.setElementProperty(this.elRef.nativeElement, 'value', model);
     }
-    console.log(this.elRef)
-    debugger
-    this.skyTimepickerInput.setSelectedTime(model);
+    this.skyTimepickerInput.selectedTime = model;
   }
 
   private modelValue: String;
-
-  private _onChange = (_: any) => {};
-  private _onTouched = () => {};
-  private _validatorChange = () => {};
+  private _onChange = (_: any) => { };
+  private _onTouched = () => { };
+  // private _validatorChange = () => { };
 
 }

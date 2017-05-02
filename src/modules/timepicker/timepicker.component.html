@@ -7,24 +7,52 @@
           <div class="sky-timepicker-container">
             <section class="sky-timepicker-column">
               <ol>
-                <li
-                *ngFor="let hour of hours;"
-                (click)="setHour(hour)"
-                >{{hour}}</li>
+                <li *ngFor="let hour of hours;">
+                  <button
+                  (click)="selectedHour = $event"
+                  value="{{hour}}" *ngIf="format === 'hh'"
+                  [ngClass]="{active: selectedHour === hour}">
+                    {{hour}}
+                  </button>
+                  <button
+                  (click)="selectedHour = $event"
+                  value="{{hour}}" *ngIf="format === 'HH'"
+                  [ngClass]="{active: selectedHour === hour}">
+                   {{'00'.substring(0, 2 - (hour).toString().length) + (hour)}}
+                  </button>
+                </li>
               </ol>
             </section>
             <section class="sky-timepicker-column">
               <ol>
-                <li
-                *ngFor="let minute of minutes;"
-                (click)="setMinute(minute)"
-                >{{minute}}</li>
+                <li *ngFor="let minute of minutes;">
+                  <button
+                  (click)="selectedMinute = $event"
+                  value="{{minute}}"
+                  [ngClass]="{active: selectedMinute === minute}">
+                    {{ '00' .substring(0, 2 - (minute) .toString() .length) + (minute) }}
+                  </button>
+                </li>
               </ol>
             </section>
-            <section *ngIf="this.format === 'hh'" class="sky-timepicker-column sky-timepicker-period">
+            <section *ngIf="this.format === 'hh'" class="sky-timepicker-column sky-timepicker-meridies">
               <ol>
-                <li (click)="setPeriod('AM')">AM</li>
-                <li (click)="setPeriod('PM')">PM</li>
+                <li>
+                  <button
+                  (click)="selectedMeridies = $event"
+                  value="AM"
+                  [ngClass]="{active: selectedMeridies === 'AM'}">
+                  AM
+                  </button>
+                </li>
+                <li>
+                  <button
+                  (click)="selectedMeridies = $event"
+                  value="PM"
+                  [ngClass]="{active: selectedMeridies === 'PM'}">
+                  PM
+                  </button>
+                </li>
               </ol>
             </section>
             <section>
