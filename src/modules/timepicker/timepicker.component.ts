@@ -25,7 +25,7 @@ export class SkyTimepickerComponent {
   public activeTime: String;
 
   private hours: Array<number> = this.setFormat(this.format).hours;
-  private minutes: Array<string> = this.setFormat(this.format).minutes;
+  private minutes: Array<number> = this.setFormat(this.format).minutes;
   private localeFormat: string = this.setFormat(this.format).localeFormat;
   private minuteMultiplier: number = this.setFormat(this.format).minuteMultiplier;
 

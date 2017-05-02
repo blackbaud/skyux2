@@ -7,10 +7,11 @@
           <div class="sky-timepicker-container">
             <section class="sky-timepicker-column">
               <ol>
-                <li *ngFor="let hour: number of hours;">
+                <li *ngFor="let hour of hours;">
                   <button
-                  (click)="selectedHour = hour"
-                  [ngClass]="{active: selectedHour === hour}">
+                   type="button"
+                   (click)="selectedHour = hour"
+                   [ngClass]="{active: selectedHour === hour}">
                     {{hour}}
                   </button>
                 </li>
@@ -20,8 +21,9 @@
               <ol>
                 <li *ngFor="let minute: number of minutes;">
                   <button
-                  (click)="selectedMinute = minute"
-                  [ngClass]="{active: selectedMinute === minute}">
+                   type="button"
+                   (click)="selectedMinute = minute"
+                   [ngClass]="{active: selectedMinute === minute}">
                     {{ '00' .substring(0, 2 - (minute) .toString() .length) + (minute) }}
                   </button>
                 </li>
@@ -31,22 +33,24 @@
               <ol>
                 <li>
                   <button
-                  (click)="selectedMeridies = 'AM'"
-                  [ngClass]="{active: selectedMeridies === 'AM'}">
+                   type="button"
+                   (click)="selectedMeridies = 'AM'"
+                   [ngClass]="{active: selectedMeridies === 'AM'}">
                   AM
                   </button>
                 </li>
                 <li>
                   <button
-                  (click)="selectedMeridies = 'PM'"
-                  [ngClass]="{active: selectedMeridies === 'PM'}">
+                   type="button"
+                   (click)="selectedMeridies = 'PM'"
+                   [ngClass]="{active: selectedMeridies === 'PM'}">
                   PM
                   </button>
                 </li>
               </ol>
             </section>
             <section>
-              <button class="sky-timepicker-button-done">Done</button>
+              <button class="sky-timepicker-button-done" type="button">Done</button>
             </section>
           </div>
         </sky-dropdown-item>
