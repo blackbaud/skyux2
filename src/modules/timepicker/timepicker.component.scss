@@ -1,11 +1,26 @@
 @import "../../scss/variables";
+.sky-input-group-timepicker-btn /deep/ .sky-btn {
+  border-radius: 0;
+}
+
+.sky-input-group /deep/ .sky-form-control {
+  border-right: none;
+}
+
+.sky-input-group-timepicker-btn /deep/ .sky-dropdown-menu {
+  box-shadow: none;
+  background-color: transparent;
+  text-align: center;
+}
+
 .sky-timepicker-container {
   display: flex;
   flex-flow: wrap;
   height:240px;
   padding:10px;
   width:280px;
-  background-color: $sky-color-gray-10;
+  background-color: #DDD;
+  box-shadow: 0 0 3px 0;
 }
 .sky-timepicker-container button {
   background-color: #FFF;
