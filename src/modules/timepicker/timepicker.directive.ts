@@ -56,6 +56,7 @@ export class SkyTimepickerInputDirective implements OnInit, OnDestroy, ControlVa
       this.pickerChangedSubscription.unsubscribe();
     }
   }
+
   @HostListener('change', ['$event'])
   public onChange(event: any) {
     let newValue = event.target.value;

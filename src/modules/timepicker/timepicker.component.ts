@@ -3,11 +3,11 @@ import {
   Input,
   Output,
   EventEmitter,
+  HostListener,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { SkyDropdownModule } from '../dropdown';
 import * as moment from 'moment';
-
 
 @Component({
   selector: 'sky-timepicker',
@@ -17,12 +17,8 @@ import * as moment from 'moment';
 })
 export class SkyTimepickerComponent {
 
-  /*@Input()
-  public selectedTime: string;
-*/
   @Input()
   public format: string = 'hh';
-
 
   @Output()
   public selectedTimeChanged: EventEmitter<String> = new EventEmitter<String>();
@@ -33,15 +29,23 @@ export class SkyTimepickerComponent {
   private localeFormat: string = this.setFormat(this.format).localeFormat;
   private minuteMultiplier: number = this.setFormat(this.format).minuteMultiplier;
 
+  @HostListener('click', ['$event'])
+  public onClick(event: any): void {
+
+    if (event.target.className === 'active') {
+      event.stopPropagation();
+    }
+  }
+
   public set selectedTime(newTime: String) {
     if (typeof newTime !== 'undefined') {
       this.activeTime = moment(newTime, this.localeFormat).format();
     }
   }
-
   public get selectedTime() {
     return moment(this.activeTime).format(this.localeFormat);
   }
+
   private setFormat(format: string) {
     let h: number = 12;
     let m: number = 12;
@@ -65,8 +69,6 @@ export class SkyTimepickerComponent {
   }
 
   private set selectedHour(hour: number) {
-    event.stopPropagation();
-    event.preventDefault();
     if (this.format === 'hh') {
       if (this.selectedMeridies === 'PM') {
         if (hour !== 12) {
@@ -87,8 +89,6 @@ export class SkyTimepickerComponent {
   }
 
   private set selectedMinute(minute: number) {
-    event.stopPropagation();
-    event.preventDefault();
     this.activeTime = moment({
       'hour': moment(this.activeTime).get('hour') || 0,
       'minute': minute
@@ -97,8 +97,6 @@ export class SkyTimepickerComponent {
   }
 
   private set selectedMeridies(meridies: string) {
-    event.stopPropagation();
-    event.preventDefault();
     if (this.format === 'hh') {
       if (meridies !== this.selectedMeridies) {
         this.activeTime = moment(this.activeTime).add(12, 'hours').format();
