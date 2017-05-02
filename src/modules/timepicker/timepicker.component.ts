@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { SkyDropdownModule } from '../dropdown';
-import * as moment from 'moment';
+let moment = require('moment');
 
 @Component({
   selector: 'sky-timepicker',
@@ -19,6 +19,9 @@ export class SkyTimepickerComponent {
 
   @Input()
   public format: string = 'hh';
+
+  @Input()
+  public returnFormat: string;
 
   @Output()
   public selectedTimeChanged: EventEmitter<String> = new EventEmitter<String>();
@@ -42,7 +45,11 @@ export class SkyTimepickerComponent {
     }
   }
   public get selectedTime() {
-    return moment(this.activeTime).format(this.localeFormat);
+    if (typeof this.returnFormat !== 'undefined') {
+      return moment(this.activeTime).format(this.returnFormat);
+    } else {
+      return moment(this.activeTime).format(this.localeFormat);
+    }
   }
 
   private setFormat(format: string) {

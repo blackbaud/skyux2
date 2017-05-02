@@ -19,7 +19,7 @@
             </section>
             <section class="sky-timepicker-column">
               <ol>
-                <li *ngFor="let minute: number of minutes;">
+                <li *ngFor="let minute of minutes;">
                   <button
                    type="button"
                    (click)="selectedMinute = minute"
