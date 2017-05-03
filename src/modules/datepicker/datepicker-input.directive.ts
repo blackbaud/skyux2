@@ -84,8 +84,6 @@ export class SkyDatepickerInputDirective implements
     private renderer: Renderer,
     private elRef: ElementRef,
     private config: SkyDatepickerConfigService) {
-
-    this.config = config;
     this.configureOptions();
   }
 
