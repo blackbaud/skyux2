@@ -25,7 +25,7 @@ describe('Datepicker', function () {
       });
   });
 
-  it('should match previous monthpicker screenshot', function () {
+  it('should match previous yearpicker screenshot', function () {
     return browser
       .setupTest('/datepicker.html')
       .pause(1000)
