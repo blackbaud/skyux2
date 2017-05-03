@@ -5,13 +5,10 @@
       <sky-dropdown-menu>
         <sky-dropdown-item>
           <div class="sky-timepicker-container">
-            <section class="sky-timepicker-column">
+            <section class="sky-timepicker-column" [ngClass]="{hours24:format === 'HH'}">
               <ol>
                 <li *ngFor="let hour of hours;">
-                  <button
-                   type="button"
-                   (click)="selectedHour = hour"
-                   [ngClass]="{active: selectedHour === hour}">
+                  <button type="button" (click)="selectedHour = hour" [ngClass]="{active: selectedHour === hour}">
                     {{hour}}
                   </button>
                 </li>
@@ -20,37 +17,30 @@
             <section class="sky-timepicker-column">
               <ol>
                 <li *ngFor="let minute of minutes;">
-                  <button
-                   type="button"
-                   (click)="selectedMinute = minute"
-                   [ngClass]="{active: selectedMinute === minute}">
+                  <button type="button" (click)="selectedMinute = minute" [ngClass]="{active: selectedMinute === minute}">
                     {{ '00' .substring(0, 2 - (minute) .toString() .length) + (minute) }}
                   </button>
                 </li>
               </ol>
             </section>
-            <section *ngIf="format === 'hh'" class="sky-timepicker-column sky-timepicker-meridies">
+            <section *ngIf="format === 'hh'" class="sky-timepicker-column">
               <ol>
                 <li>
-                  <button
-                   type="button"
-                   (click)="selectedMeridies = 'AM'"
-                   [ngClass]="{active: selectedMeridies === 'AM'}">
+                  <button type="button" (click)="selectedMeridies = 'AM'" [ngClass]="{active: selectedMeridies === 'AM'}">
                   AM
                   </button>
                 </li>
                 <li>
-                  <button
-                   type="button"
-                   (click)="selectedMeridies = 'PM'"
-                   [ngClass]="{active: selectedMeridies === 'PM'}">
+                  <button type="button" (click)="selectedMeridies = 'PM'" [ngClass]="{active: selectedMeridies === 'PM'}">
                   PM
                   </button>
                 </li>
               </ol>
             </section>
-            <section>
-              <button class="sky-timepicker-button-done" type="button">Done</button>
+          </div>
+          <div class="sky-timepicker-container sky-timepicker-footer">
+            <section class="sky-timepicker-column">
+              <button type="button">Done</button>
             </section>
           </div>
         </sky-dropdown-item>

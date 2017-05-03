@@ -12,47 +12,43 @@
   background-color: transparent;
   text-align: center;
 }
+.sky-input-group /deep/ .sky-dropdown-item{ box-shadow: 0 0 3px 0; }
 
 .sky-timepicker-container {
+  font-size: 14px;
   display: flex;
-  flex-flow: wrap;
-  height:240px;
-  padding:10px;
-  width:280px;
-  background-color: $sky-color-gray-10;
-  box-shadow: 0 0 3px 0;
+  padding: $sky-padding-half;
+  background-color: $sky-color-gray-05;
 }
 .sky-timepicker-container button {
   background-color: $sky-color-white;
-  border-color: $sky-paging-border-color;
-  border-style: solid;
+  border-width: 0px;
+  flex:1;
+  padding: $sky-padding-plus-half;
+  padding-top: $sky-padding-half;
+  padding-bottom: $sky-padding-half;
+}
+.sky-timepicker-container :last-child ol{
+  display: flex;
+  flex-direction: column;
+}
+.sky-timepicker-container :last-child ol li{
   border-width: 1px;
-  bottom: 10px;
-  height: 40px;
-  margin: 10px;
-  width: 240px;
+  border-style: solid;
+  border-color: $sky-color-gray-05;
 }
 .sky-timepicker-column {
-  height:170px;
-  margin-right:10px;
+  margin: $sky-margin-half;
+  display: flex;
+  flex: 1;
   }
-.sky-timepicker-container.HH :nth-child(1) ol{
-  width:200px;
-  -moz-columns: 4;
-  -webkit-columns: 4;
+.sky-timepicker-column.hours24 ol{
   columns: 4;
 }
-.sky-timepicker-container.HH :nth-child(2) ol{
-  width:50px;
-  -moz-columns: 1;
-  -webkit-columns: 1;
-  columns: 1;
+.sky-timepicker-column.hours24 ol li{
+  border-width: 0px;
 }
 .sky-timepicker-column ol {
-  -moz-column-gap:1px;
-  -moz-columns: 2;
-  -webkit-column-gap: 1px;
-  -webkit-columns: 2;
   border-color: $sky-paging-border-color;
   border-style: solid;
   border-width: 1px;
@@ -62,60 +58,31 @@
   margin:0px;
   padding:0px;
 }
-
 .sky-timepicker-column ol li {
-  background-color: $sky-color-white;
-  height: 28px;
-  line-height: 28px;
   text-align: center;
-  width: 47px;
   cursor: pointer;
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  flex:1;
 }
-.sky-timepicker-column ol li button{
-  width:100%;
-  height: 100%;
-  margin:0px;
-  border:0px;
-  }
 .sky-timepicker-column ol li button:hover {
   background-color: $sky-color-gray-05;
 }
 .sky-timepicker-column ol li button:active {
   background-color: $sky-color-gray-10;
-  color: $sky-color-white;
-}
-.sky-timepicker-meridies {
-    width:40px;
-    margin:0px;
-}
-.sky-timepicker-meridies ol{
-  columns: 1;
-  -webkit-columns: 1;
-  -moz-columns: 1;
-}
-.sky-timepicker-meridies ol li {
-  height: 84px;
-  width:38px;
-  line-height: 84px;
-  font-size: 14px;
-}
-.sky-timepicker-meridies ol li button{
-  width:100%;
-  height: 100%;
-  margin:0px;
-  border:0px;
-  }
-.sky-timepicker-meridies ol li:nth-child(1){
-  border: 0px;
-  border-bottom: 1px;
-  border-style: solid;
-  border-color: $sky-paging-border-color;
 }
 .sky-timepicker-column ol .active {
   background-color: $sky-color-blue;
   color: $sky-color-white;
 }
-.sky-timepicker-button-done{
-    font-size: 14px;
+.sky-timepicker-footer{
+  margin:0px;
+  padding: $sky-padding;
+  padding-top:0px;
+}
+.sky-timepicker-footer button{
+  border-style: solid;
+  border-width: 1px;
+  border-color: $sky-color-gray-10;
+  padding: $sky-padding
 }
