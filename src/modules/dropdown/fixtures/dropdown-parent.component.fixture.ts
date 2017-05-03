@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-test-cmp',
-  templateUrl: './dropdown.component.fixture.html'
+  templateUrl: './dropdown-parent.component.fixture.html'
 })
-export class DropdownTestComponent {
+export class DropdownParentTestComponent {
   public trigger: String;
   public buttonType: String;
   public myTitle: string;
-  public alignment: string = 'left';
 }

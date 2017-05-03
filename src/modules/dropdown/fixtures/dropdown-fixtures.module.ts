@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { SkyDropdownModule } from '../';
 import { DropdownTestComponent } from './dropdown.component.fixture';
+import { DropdownParentTestComponent } from './dropdown-parent.component.fixture';
 
 @NgModule({
   declarations: [
-    DropdownTestComponent
+    DropdownTestComponent,
+    DropdownParentTestComponent
   ],
   imports: [
     CommonModule,
