@@ -164,21 +164,24 @@ describe('File drop component', () => {
     };
   }
 
-  function setupStandardFileChangeEvent() {
+  function setupStandardFileChangeEvent(files?: Array<any>) {
     let fileReaderSpy = setupFileReaderSpy();
 
-    triggerChangeEvent([
-      {
-        name: 'foo.txt',
-        size: 1000,
-        type: 'image/png'
-      },
-      {
-        name: 'woo.txt',
-        size: 2000,
-        type: 'image/jpeg'
-      }
-    ]);
+    if (!files) {
+      files = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        },
+        {
+          name: 'woo.txt',
+          size: 2000,
+          type: 'image/jpeg'
+        }
+      ];
+    }
+    triggerChangeEvent(files);
 
     fixture.detectChanges();
 
@@ -283,6 +286,15 @@ describe('File drop component', () => {
     expect(inputEl.nativeElement.hasAttribute('multiple')).toBe(true);
   });
 
+  it('should set accepted types on the file input html', () => {
+    componentInstance.acceptedTypes = 'image/png';
+    fixture.detectChanges();
+    let inputEl = getInputDebugEl();
+
+    expect(inputEl.nativeElement.getAttribute('accept')).toBe('image/png');
+
+  });
+
   it('should allow the user to specify a min file size', () => {
     let filesChangedActual: SkyFileDropChange;
 
@@ -381,6 +393,43 @@ describe('File drop component', () => {
     expect(filesChangedActual.files[0].url).toBe('url');
     expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
     expect(filesChangedActual.files[0].file.size).toBe(1000);
+  });
+
+   it('should reject a file with no type when accepted types are defined', () => {
+    let filesChangedActual: SkyFileDropChange;
+
+    componentInstance.filesChanged.subscribe(
+      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+    componentInstance.acceptedTypes = 'image/png,image/tiff';
+
+    fixture.detectChanges();
+
+    let files = [
+        {
+          name: 'foo.txt',
+          size: 1000
+        },
+        {
+          name: 'woo.txt',
+          size: 2000,
+          type: 'image/jpeg'
+        }
+      ];
+
+    setupStandardFileChangeEvent(files);
+
+    expect(filesChangedActual.rejectedFiles.length).toBe(2);
+    expect(filesChangedActual.rejectedFiles[1].file.name).toBe('woo.txt');
+    expect(filesChangedActual.rejectedFiles[1].file.size).toBe(2000);
+    expect(filesChangedActual.rejectedFiles[1].errorType).toBe('fileType');
+    expect(filesChangedActual.rejectedFiles[1].errorParam).toBe(componentInstance.acceptedTypes);
+
+    expect(filesChangedActual.rejectedFiles[0].file.name).toBe('foo.txt');
+    expect(filesChangedActual.rejectedFiles[0].file.size).toBe(1000);
+    expect(filesChangedActual.rejectedFiles[0].errorType).toBe('fileType');
+    expect(filesChangedActual.rejectedFiles[0].errorParam).toBe(componentInstance.acceptedTypes);
+
   });
 
   it('should allow the user to specify accepted type with wildcards', () => {

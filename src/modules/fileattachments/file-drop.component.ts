@@ -221,6 +221,10 @@ export class SkyFileDropComponent {
       return false;
     }
 
+    if (!fileType) {
+      return true;
+    }
+
     let acceptedTypesUpper = this.acceptedTypes.toUpperCase();
     let typeArray = acceptedTypesUpper.split(',');
     return !this.fileTypeInArray(typeArray, fileType.toUpperCase());
@@ -244,7 +248,7 @@ export class SkyFileDropComponent {
         fileItem.errorType = 'maxFileSize';
         fileItem.errorParam = this.maxFileSize.toString();
         this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
-      } else if (fileItem.file.type && this.fileTypeRejected(fileItem.file.type)) {
+      } else if (this.fileTypeRejected(fileItem.file.type)) {
         fileItem.errorType = 'fileType';
         fileItem.errorParam = this.acceptedTypes;
         this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
