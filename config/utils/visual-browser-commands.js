@@ -30,6 +30,10 @@
 
   function checkVisualResult(results, options, browser) {
     results.forEach(function (element) {
+      if (!element.isWithinMisMatchTolerance) {
+        log('Screenshot has mismatch percentage of ' + element.misMatchPercentage);
+      }
+
       expect(element.isWithinMisMatchTolerance).toBe(true);
     });
 
@@ -127,7 +131,7 @@
         referenceName: getScreenshotName(path.join(process.cwd(), referenceFolder)),
         screenshotName: getScreenshotName(path.join(process.cwd(), screenshotFolder)),
         diffName: getScreenshotName(path.join(process.cwd(), diffsFolder)),
-        misMatchTolerance: 0.03
+        misMatchTolerance: 0.05
       }),
       viewportChangePause: 300
     };
