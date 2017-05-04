@@ -17,6 +17,7 @@
           type="file"
           class="sky-file-input-hidden"
           [attr.multiple]="multiple ? multiple: null"
+          [attr.accept]="acceptedTypes ? acceptedTypes: null"
           (change)="fileChangeEvent($event)"
           #fileInput/>
           <div class="sky-file-drop-contents" *ngIf="customEl.children.length === 0">
