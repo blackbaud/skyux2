@@ -1,3 +1,10 @@
+# 2.0.0-beta.23 (2017-05-05)
+
+  - Added accepted attribute for file input in file drop component. (#594)
+  - Made file drop component reject empty file types when `acceptedTypes` attribute is specified. (#592)
+  - Updated font size variables to match font sizes in SKY UX 1. (#537)
+  - Added the datepicker module. (#141)
+
 # 2.0.0-beta.22 (2017-04-29)
 
   - Added sanity checks for unsubscribes. (Thanks @Blackbaud-TrevorBurch)
