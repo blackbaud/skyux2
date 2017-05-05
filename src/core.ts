@@ -126,7 +126,9 @@ export {
   SkyDatepickerModule,
   SkyDayPickerComponent,
   SkyMonthPickerComponent,
-  SkyYearPickerComponent
+  SkyYearPickerComponent,
+  SkyDatepickerComponent,
+  SkyDatepickerInputDirective
 } from './modules/datepicker';
 export {
   SkyDefinitionListComponent,

@@ -7,3 +7,11 @@
     (selectedDateChange)="selectedDate = $event">
   </sky-datepicker-calendar>
 </div>
+
+<div style="max-width: 50%; height: 500px;" id="screenshot-datepicker">
+  <sky-datepicker #picker>
+    <input
+      [(ngModel)]="selectedDate"
+      [skyDatepickerInput]="picker" />
+  </sky-datepicker>
+</div>

@@ -36,6 +36,9 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
   @Output()
   public selectedDateChange: EventEmitter<Date> = new EventEmitter<Date>(undefined);
 
+  @Output()
+  public calendarModeChange: EventEmitter<string> = new EventEmitter<string>();
+
   public activeDate: Date;
 
   public minMode: string = 'day';
@@ -269,6 +272,14 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     return newDate;
   }
 
+  public selectCalendar(event: Event, date: Date, closePicker: boolean = false) {
+    if (!closePicker) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.select(date);
+  }
+
   public select(date: Date, isManual: boolean = true): void {
 
     this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -285,12 +296,20 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
 
     } else {
       this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) - 1];
+      this.calendarModeChange.emit(this.datepickerMode);
     }
 
     this.refreshView();
   }
 
+  public moveCalendar(event: Event, direction: number) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.move(direction);
+  }
+
   public move(direction: number): void {
+
     let expectedStep: any;
     if (this.datepickerMode === 'day') {
       expectedStep = this.stepDay;
@@ -316,6 +335,12 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     }
   }
 
+  public toggleModeCalendar(event: Event, direction: number) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.toggleMode(direction);
+  }
+
   public toggleMode(direction: number): void {
     direction = direction || 1;
 
@@ -324,6 +349,7 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     if (!(direction === 1 && this.datepickerMode === this.maxMode) &&
       !(this.datepickerMode === this.minMode && direction === -1)) {
       this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) + direction];
+      this.calendarModeChange.emit(this.datepickerMode);
       this.refreshView();
     }
   }

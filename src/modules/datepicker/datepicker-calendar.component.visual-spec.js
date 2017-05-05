@@ -39,4 +39,29 @@ describe('Datepicker', function () {
         selector: '#screenshot-datepicker-calendar'
       });
   });
+
+  it('should match previous datepicker input screenshot', function () {
+    return browser
+      .setupTest('/datepicker.html')
+      .pause(1000)
+      .moveCursorOffScreen()
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'datepicker_input',
+        selector: '#screenshot-datepicker'
+      });
+  });
+
+  it('should match previous datepicker input screenshot when open', function () {
+    return browser
+      .setupTest('/datepicker.html')
+      .pause(1000)
+      .click('.sky-dropdown-button')
+      .moveCursorOffScreen()
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'datepicker_input_open',
+        selector: '#screenshot-datepicker'
+      });
+  });
 });

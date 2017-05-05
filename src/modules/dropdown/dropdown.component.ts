@@ -69,6 +69,15 @@ export class SkyDropdownComponent implements OnDestroy {
     this.openMenu();
   }
 
+  public resetDropdownPosition() {
+    this.adapterService.setMenuLocation(
+      this.elRef,
+      this.renderer,
+      this.windowObj.getWindow(),
+      this.alignment
+    );
+  }
+
   public windowClick() {
     if (this.opening) {
       this.opening = false;

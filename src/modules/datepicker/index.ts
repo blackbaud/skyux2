@@ -1,8 +1,10 @@
-export * from './date-formatter';
-export * from './datepicker-calendar-inner.component';
-export * from './datepicker-calendar.component';
-export * from './datepicker-config.service';
-export * from './datepicker.module';
-export * from './daypicker.component';
-export * from './monthpicker.component';
-export * from './yearpicker.component';
+export { SkyDateFormatter } from './date-formatter';
+export { SkyDatepickerCalendarInnerComponent } from './datepicker-calendar-inner.component';
+export { SkyDatepickerCalendarComponent } from './datepicker-calendar.component';
+export { SkyDatepickerConfigService } from './datepicker-config.service';
+export { SkyDatepickerModule } from './datepicker.module';
+export { SkyDayPickerComponent } from './daypicker.component';
+export { SkyMonthPickerComponent } from './monthpicker.component';
+export { SkyYearPickerComponent } from './yearpicker.component';
+export { SkyDatepickerComponent } from './datepicker.component';
+export { SkyDatepickerInputDirective } from './datepicker-input.directive';
