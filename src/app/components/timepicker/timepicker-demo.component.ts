@@ -5,10 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './timepicker-demo.component.html'
 })
 export class SkyTimePickerDemoComponent {
-  // tslint:disable-next-line
-  public shortText: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu';
-  // tslint:disable-next-line
-  public longText: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.\nAenean massa.\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\nDonec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.\nNulla consequat massa quis enim.\nDonec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.\nInteger tincidunt.\nCras dapibu'
-  public repeaterData: Array<string> = ['Repeater item 1', 'Repeater item 2', 'Repeater item 3',
-    'Repeater item 4', 'Repeater item 5'];
+  public format12 = 'hh';
+  public format24 = 'HH';
+  public selectedTime1 = '8:30 PM';
+  public selectedTime2 = '20:30';
 }

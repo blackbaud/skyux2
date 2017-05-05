@@ -6,7 +6,9 @@ import {
   forwardRef,
   HostListener,
   Renderer,
-  ElementRef
+  ElementRef,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 
 import {
@@ -32,18 +34,25 @@ const SKY_TIMEPICKER_VALUE_ACCESSOR = {
   selector: '[skyTimepickerInput]',
   providers: [SKY_TIMEPICKER_VALUE_ACCESSOR]
 })
-export class SkyTimepickerInputDirective implements OnInit, OnDestroy, ControlValueAccessor {
+export class SkyTimepickerInputDirective implements
+  OnInit, OnDestroy, ControlValueAccessor, OnChanges {
 
   public pickerChangedSubscription: Subscription;
 
   @Input()
   public skyTimepickerInput: SkyTimepickerComponent;
 
+  @Input()
+  public format: string;
+
   public constructor(private renderer: Renderer, private elRef: ElementRef) {
   }
 
   public ngOnInit() {
     this.renderer.setElementClass(this.elRef.nativeElement, 'sky-form-control', true);
+
+    //this.skyTimepickerInput.setFormat(this.format);
+
     this.pickerChangedSubscription =
       this.skyTimepickerInput.selectedTimeChanged.subscribe((newTime: String) => {
         this.writeValue(newTime);
@@ -51,6 +60,11 @@ export class SkyTimepickerInputDirective implements OnInit, OnDestroy, ControlVa
       });
   }
 
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['format']) {
+      this.skyTimepickerInput.setFormat(this.format);
+    }
+  }
   public ngOnDestroy() {
     if (this.pickerChangedSubscription) {
       this.pickerChangedSubscription.unsubscribe();

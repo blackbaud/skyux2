@@ -5,7 +5,7 @@
       <sky-dropdown-menu>
         <sky-dropdown-item>
           <div class="sky-timepicker-container">
-            <section class="sky-timepicker-column" [ngClass]="{hours24:format === 'HH'}">
+            <section class="sky-timepicker-column" [ngClass]="{hours24:is8601}">
               <ol>
                 <li *ngFor="let hour of hours;">
                   <button type="button" (click)="selectedHour = hour" [ngClass]="{active: selectedHour === hour}">
@@ -23,7 +23,7 @@
                 </li>
               </ol>
             </section>
-            <section *ngIf="format === 'hh'" class="sky-timepicker-column">
+            <section *ngIf="!is8601" class="sky-timepicker-column">
               <ol>
                 <li>
                   <button type="button" (click)="selectedMeridies = 'AM'" [ngClass]="{active: selectedMeridies === 'AM'}">

@@ -4,7 +4,8 @@ import {
   Output,
   EventEmitter,
   HostListener,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnInit
 } from '@angular/core';
 import { SkyDropdownModule } from '../dropdown';
 let moment = require('moment');
@@ -15,22 +16,25 @@ let moment = require('moment');
   styleUrls: ['./timepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTimepickerComponent {
+export class SkyTimepickerComponent implements OnInit {
 
   @Input()
-  public format: string = 'hh';
+  public format: string;
 
   @Input()
   public returnFormat: string;
 
   @Output()
   public selectedTimeChanged: EventEmitter<String> = new EventEmitter<String>();
+
+  @Output()
   public activeTime: String;
 
-  private hours: Array<number> = this.setFormat(this.format).hours;
-  private minutes: Array<number> = this.setFormat(this.format).minutes;
-  private localeFormat: string = this.setFormat(this.format).localeFormat;
-  private minuteMultiplier: number = this.setFormat(this.format).minuteMultiplier;
+  public hours: Array<number>;
+  public minutes: Array<number>;
+  public localeFormat: string;
+  public minuteMultiplier: number;
+  private is8601: boolean = false;
 
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
@@ -38,6 +42,51 @@ export class SkyTimepickerComponent {
       event.stopPropagation();
     }
   }
+
+  public ngOnInit() {
+    this.setFormat(this.format);
+  }
+
+  public setFormat(format: string) {
+    let h: number = 12;
+    let m: number = 12;
+    let minuteMultiplier: number = 5;
+    let localeFormat: string = 'h:mm A';
+    if (format === 'hh') { h = 12; m = 12; minuteMultiplier = 5; localeFormat = 'h:mm A'; }
+    if (format === 'HH') {
+      h = 24;
+      m = 4;
+      minuteMultiplier = 15;
+      localeFormat = 'HH:mm';
+      this.is8601 = true;
+    }
+    let data: {
+      'hours': Array<number>,
+      'minutes': Array<number>,
+      'localeFormat': string,
+      'minuteMultiplier': number
+    };
+
+    data = {
+      'hours': Array.apply(undefined, Array(h))
+        .map(function (x: number, i: number) {
+          if (format === 'hh') { return ++i; }
+          if (format === 'HH') { return i; }
+        }),
+      'minutes': Array.apply(undefined, Array(m))
+        .map(function (x: number, i: number) {
+          return i * minuteMultiplier;
+        }),
+      'localeFormat': localeFormat,
+      'minuteMultiplier': minuteMultiplier
+    };
+
+    this.hours = data.hours;
+    this.minutes = data.minutes;
+    this.localeFormat = data.localeFormat;
+    this.minuteMultiplier = data.minuteMultiplier;
+  }
+
 
   public set selectedTime(newTime: String) {
     if (typeof newTime !== 'undefined') {
@@ -52,30 +101,11 @@ export class SkyTimepickerComponent {
     }
   }
 
-  private setFormat(format: string) {
-    let h: number = 12;
-    let m: number = 12;
-    let minuteMultiplier: number = 5;
-    let localeFormat: string = 'h:mm A';
-    if (format === 'hh') { h = 12; m = 12; minuteMultiplier = 5; localeFormat = 'h:mm A'; }
-    if (format === 'HH') { h = 24; m = 4; minuteMultiplier = 15; localeFormat = 'HH:mm'; }
-    return {
-      'hours': Array.apply(undefined, Array(h))
-        .map(function (x: number, i: number) {
-          if (format === 'hh') { return ++i; }
-          if (format === 'HH') { return i; }
-        }),
-      'minutes': Array.apply(undefined, Array(m))
-        .map(function (x: number, i: number) {
-          return i * minuteMultiplier;
-        }),
-      'localeFormat': localeFormat,
-      'minuteMultiplier': minuteMultiplier
-    };
-  }
+
+
 
   private set selectedHour(hour: number) {
-    if (this.format === 'hh') {
+    if (!this.is8601) {
       if (this.selectedMeridies === 'PM') {
         if (hour !== 12) {
           hour = moment({ 'hour': hour }).add(12, 'hours').hour();
@@ -103,7 +133,7 @@ export class SkyTimepickerComponent {
   }
 
   private set selectedMeridies(meridies: string) {
-    if (this.format === 'hh') {
+    if (!this.is8601) {
       if (meridies !== this.selectedMeridies) {
         this.activeTime = moment(this.activeTime).add(12, 'hours').format();
         this.selectedTimeChanged.emit(this.selectedTime);
@@ -112,10 +142,10 @@ export class SkyTimepickerComponent {
   }
 
   private get selectedHour() {
-    if (this.format === 'hh') {
+    if (!this.is8601) {
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
     }
-    if (this.format === 'HH') {
+    if (this.is8601) {
       return moment(this.activeTime).hour() || 0;
     }
 
