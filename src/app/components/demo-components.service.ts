@@ -843,7 +843,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'wizard-demo-form.component.ts',
-              fileContents: require('!!raw!./wizard/wizard-demo-form.component.ts')
+              fileContents: require('!!raw!./wizard/wizard-demo-form.component.ts'),
+              componentName: 'SkyWizardDemoFormComponent'
             }
           ];
         }
