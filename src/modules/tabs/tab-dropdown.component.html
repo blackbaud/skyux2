@@ -15,6 +15,7 @@
       <button
           type="button"
           class="sky-btn sky-tab-dropdown-item-btn"
+          [ngClass]="{'sky-btn-disabled': tab.disabled }"
           (click)="selectTab(tab)"
       >
         {{tab.tabHeading}}

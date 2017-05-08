@@ -438,6 +438,48 @@ describe('Tabset component', () => {
     ));
 
     it(
+      'should allow another not allow tab to be selected from the dropdown when disabled',
+      fakeAsync(() => {
+        let el = fixture.nativeElement;
+
+        fixture.componentInstance.tab2Disabled = true;
+
+        fixture.detectChanges();
+        tick();
+
+        mockAdapterService.fakeOverflowChange(true);
+
+        fixture.detectChanges();
+        tick();
+
+        let tabEl = el.querySelector('.sky-dropdown-button-type-tab');
+
+        tabEl.click();
+        let dropdownTabButtons = el.querySelectorAll('.sky-tab-dropdown-item-btn');
+
+        dropdownTabButtons[0].click();
+
+        fixture.detectChanges();
+        tick();
+
+        tabEl.click();
+
+        fixture.detectChanges();
+        tick();
+
+        expect(dropdownTabButtons[1]).toHaveText('Tab 2');
+        expect(dropdownTabButtons[1]).toHaveCssClass('sky-btn-disabled');
+        dropdownTabButtons[1].click();
+
+        fixture.detectChanges();
+        tick();
+
+        validateTabSelected(el, 0);
+
+      }
+    ));
+
+    it(
       'should notify the consumer when a tab\'s close button is clicked',
       () => {
         let el = fixture.nativeElement;
