@@ -82,6 +82,28 @@ describe('Dropdown component', () => {
 
       expect(dropdownMenu3).not.toBeVisible();
     });
+
+     it('should close dropdown on multiple parent scroll', () => {
+
+      let fixture = TestBed.createComponent(DropdownParentTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      let dropdown1BtnEl = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLElement;
+
+      dropdown1BtnEl.click();
+      fixture.detectChanges();
+
+      let windowScrollEvt = document.createEvent('CustomEvent');
+      windowScrollEvt.initEvent('scroll', false, false);
+
+      window.dispatchEvent(windowScrollEvt);
+
+      let dropdownMenu1 = el.querySelector('#dropdown-1 .sky-dropdown-menu') as HTMLElement;
+
+      expect(dropdownMenu1).not.toBeVisible();
+    });
   });
 
   describe('postition tests', () => {

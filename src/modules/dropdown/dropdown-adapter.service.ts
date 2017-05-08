@@ -11,7 +11,7 @@ const CLS_NO_SCROLL = 'sky-dropdown-no-scroll';
 @Injectable()
 export class SkyDropdownAdapterService {
   public dropdownClose = new EventEmitter<any>();
-  private scrollListeners: Array<Function>;
+  private scrollListeners: Array<Function> = [];
 
   constructor() {
   }
@@ -50,6 +50,8 @@ export class SkyDropdownAdapterService {
         for (let i = 0; i < this.scrollListeners.length; i++) {
           this.scrollListeners[i]();
         }
+
+        this.scrollListeners = [];
       }
     }
   }
