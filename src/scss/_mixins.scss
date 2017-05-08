@@ -52,7 +52,7 @@
 }
 
 @mixin sky-field-label {
-  font: 400 $sky-font-size-base $sky-font-family-base;
+  font: 400 $sky-font-size-base $sky-alternate-font-size-lg; // ~24px;
   color: $sky-text-deemphasized-color;
 }
 
