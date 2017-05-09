@@ -9,7 +9,7 @@
         <button
           type="button"
           class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-previous"
-          (click)="datepicker.move(-1)"
+          (click)="datepicker.moveCalendar($event, -1)"
           tabindex="-1"
           aria-hidden="true"
           >
@@ -21,7 +21,7 @@
           [id]="datepicker.datepickerId + '-title'"
           type="button"
           class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-calendar-title"
-          (click)="datepicker.toggleMode()"
+          (click)="datepicker.toggleModeCalendar($event)"
           [disabled]="datepicker.datepickerMode === datepicker.maxMode"
           [ngClass]="{'sky-btn-disabled': datepicker.datepickerMode === datepicker.maxMode}"
           tabindex="-1"
@@ -34,7 +34,7 @@
         <button
           type="button"
           class="sky-btn sky-btn-default sky-btn-sm sky-datepicker-btn-next"
-          (click)="datepicker.move(1)"
+          (click)="datepicker.moveCalendar($event, 1)"
           tabindex="-1"
           aria-hidden="true"
           >
@@ -42,7 +42,7 @@
         </button>
       </th>
     </tr>
-     <tr>
+    <tr>
       <th
         scope="col"
         *ngFor="let label of labels"
@@ -72,7 +72,7 @@
             class="sky-btn sky-btn-sm sky-btn-default sky-datepicker-btn-date"
             [ngClass]="{ 'sky-datepicker-btn-selected': date.selected, 'sky-btn-disabled': date.disabled, 'sky-btn-active': datepicker.isActive(date)}"
             [disabled]="date.disabled"
-            (click)="datepicker.select(date.date)"
+            (click)="datepicker.selectCalendar($event, date.date, true)"
             tabindex="-1"
             >
             <span

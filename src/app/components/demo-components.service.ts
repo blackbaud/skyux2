@@ -115,7 +115,7 @@ export class SkyDemoComponentsService {
         name: 'Datepicker',
         icon: 'calendar',
         // tslint:disable-next-line
-        summary: `The datepicker module contains directives for selecting dates.`,
+        summary: `The datepicker module allows users to use an input and calendar to select dates.`,
         url: '/components/datepicker',
         getCodeFiles: function () {
           return [
@@ -864,7 +864,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'wizard-demo-form.component.ts',
-              fileContents: require('!!raw!./wizard/wizard-demo-form.component.ts')
+              fileContents: require('!!raw!./wizard/wizard-demo-form.component.ts'),
+              componentName: 'SkyWizardDemoFormComponent'
             }
           ];
         }

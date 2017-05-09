@@ -5,6 +5,8 @@ import { SkyDatepickerModule } from '../../datepicker';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'sky-demo-app',
   templateUrl: './datepicker-calendar.component.visual-fixture.html'
@@ -16,7 +18,8 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyDatepickerModule
+    SkyDatepickerModule,
+    FormsModule
   ],
   declarations: [
     AppComponent
