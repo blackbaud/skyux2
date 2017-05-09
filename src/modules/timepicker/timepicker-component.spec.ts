@@ -279,6 +279,11 @@ describe('Timepicker', () => {
         By.css('.sky-timepicker-container')
       );
       sections[0].triggerEventHandler('click', undefined);
+      openTimepicker(nativeElement, fixture);
+      hours = fixture.debugElement.queryAll(
+        By.css('.sky-timepicker-container .sky-timepicker-column button')
+      );
+      hours[0].triggerEventHandler('click', undefined);
       fixture.detectChanges();
       expect(nativeElement.querySelector('input').value).toBe('1:30 AM');
     }));
