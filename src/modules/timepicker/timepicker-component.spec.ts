@@ -265,5 +265,23 @@ describe('Timepicker', () => {
       expect(component.selectedTime).toEqual('12:30 PM');
     }));
 
+    it('should trigger event handler to stopPropagation', fakeAsync(() => {
+      component.format = 'hh';
+      setInput(nativeElement, '12:30 AM', fixture);
+      openTimepicker(nativeElement, fixture);
+      fixture.detectChanges();
+      tick();
+      let hours = fixture.debugElement.queryAll(
+        By.css('.sky-timepicker-container .sky-timepicker-column button')
+      );
+      hours[0].triggerEventHandler('click', undefined);
+      let sections = fixture.debugElement.queryAll(
+        By.css('.sky-timepicker-container')
+      );
+      sections[0].triggerEventHandler('click', undefined);
+      fixture.detectChanges();
+      expect(nativeElement.querySelector('input').value).toBe('1:30 AM');
+    }));
+
   });
 });
