@@ -7,7 +7,6 @@ import {
   ChangeDetectionStrategy,
   OnInit
 } from '@angular/core';
-import { SkyDropdownModule } from '../dropdown';
 let moment = require('moment');
 
 @Component({
@@ -19,7 +18,7 @@ let moment = require('moment');
 export class SkyTimepickerComponent implements OnInit {
 
   @Input()
-  public format: string;
+  public format: string = 'hh';
 
   @Input()
   public returnFormat: string;
@@ -87,10 +86,13 @@ export class SkyTimepickerComponent implements OnInit {
     this.minuteMultiplier = data.minuteMultiplier;
   }
 
-
   public set selectedTime(newTime: String) {
     if (typeof newTime !== 'undefined') {
-      this.activeTime = moment(newTime, this.localeFormat).format();
+      if (typeof this.returnFormat !== 'undefined') {
+        this.activeTime = moment(newTime, this.returnFormat).format();
+      } else {
+        this.activeTime = moment(newTime, this.localeFormat).format();
+      }
     }
   }
   public get selectedTime() {
@@ -100,9 +102,6 @@ export class SkyTimepickerComponent implements OnInit {
       return moment(this.activeTime).format(this.localeFormat);
     }
   }
-
-
-
 
   private set selectedHour(hour: number) {
     if (!this.is8601) {
@@ -160,4 +159,3 @@ export class SkyTimepickerComponent implements OnInit {
     }
   }
 }
-

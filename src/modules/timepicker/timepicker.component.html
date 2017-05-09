@@ -8,39 +8,31 @@
             <section class="sky-timepicker-column" [ngClass]="{hours24:is8601}">
               <ol>
                 <li *ngFor="let hour of hours;">
-                  <button type="button" (click)="selectedHour = hour" [ngClass]="{active: selectedHour === hour}">
-                    {{hour}}
-                  </button>
+                  <button type="button" (click)="selectedHour = hour" [ngClass]="{active: selectedHour === hour}">{{hour}}</button>
                 </li>
               </ol>
             </section>
             <section class="sky-timepicker-column">
               <ol>
                 <li *ngFor="let minute of minutes;">
-                  <button type="button" (click)="selectedMinute = minute" [ngClass]="{active: selectedMinute === minute}">
-                    {{ '00' .substring(0, 2 - (minute) .toString() .length) + (minute) }}
-                  </button>
+                  <button type="button" (click)="selectedMinute = minute" [ngClass]="{active: selectedMinute === minute}">{{ '00' .substring(0, 2 - (minute) .toString() .length) + (minute) }}</button>
                 </li>
               </ol>
             </section>
             <section *ngIf="!is8601" class="sky-timepicker-column">
               <ol>
                 <li>
-                  <button type="button" (click)="selectedMeridies = 'AM'" [ngClass]="{active: selectedMeridies === 'AM'}">
-                  AM
-                  </button>
+                  <button type="button" (click)="selectedMeridies = 'AM'" [ngClass]="{active: selectedMeridies === 'AM'}">AM</button>
                 </li>
                 <li>
-                  <button type="button" (click)="selectedMeridies = 'PM'" [ngClass]="{active: selectedMeridies === 'PM'}">
-                  PM
-                  </button>
+                  <button type="button" (click)="selectedMeridies = 'PM'" [ngClass]="{active: selectedMeridies === 'PM'}">PM</button>
                 </li>
               </ol>
             </section>
           </div>
           <div class="sky-timepicker-container sky-timepicker-footer">
             <section class="sky-timepicker-column">
-              <button type="button">Done</button>
+              <button type="button">{{'timepicker_close' | skyResources}}</button>
             </section>
           </div>
         </sky-dropdown-item>

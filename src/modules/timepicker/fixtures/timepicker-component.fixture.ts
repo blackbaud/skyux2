@@ -4,17 +4,18 @@ import {
 } from '@angular/core';
 
 import {
-  SkyTimepickerComponent
-} from '../timepicker.component';
+  SkyTimepickerInputDirective
+} from '../timepicker.directive';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./timepicker.component.fixture.html')
+  template: require('./timepicker-component.fixture.html')
 })
 export class TimepickerTestComponent {
-  public format12 = 'hh';
-  public format24 = 'HH';
+  public format: string = 'hh';
+  public returnFormat: string = undefined;
+  public selectedTime: string;
 
-  @ViewChild(SkyTimepickerComponent)
-  public timepicker: SkyTimepickerComponent;
+  @ViewChild(SkyTimepickerInputDirective)
+  public timepicker: SkyTimepickerInputDirective;
 }

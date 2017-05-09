@@ -23,13 +23,13 @@ import {
 import {
   Subscription
 } from 'rxjs/Subscription';
-
+/* tslint:disable */
 const SKY_TIMEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyTimepickerInputDirective),
   multi: true
 };
-
+/* tslint:enable */
 @Directive({
   selector: '[skyTimepickerInput]',
   providers: [SKY_TIMEPICKER_VALUE_ACCESSOR]
@@ -45,14 +45,14 @@ export class SkyTimepickerInputDirective implements
   @Input()
   public format: string;
 
+  @Input()
+  public returnFormat: string;
+  private modelValue: String;
   public constructor(private renderer: Renderer, private elRef: ElementRef) {
   }
 
   public ngOnInit() {
     this.renderer.setElementClass(this.elRef.nativeElement, 'sky-form-control', true);
-
-    //this.skyTimepickerInput.setFormat(this.format);
-
     this.pickerChangedSubscription =
       this.skyTimepickerInput.selectedTimeChanged.subscribe((newTime: String) => {
         this.writeValue(newTime);
@@ -63,6 +63,9 @@ export class SkyTimepickerInputDirective implements
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['format']) {
       this.skyTimepickerInput.setFormat(this.format);
+    }
+    if (changes['returnFormat']) {
+      this.skyTimepickerInput.returnFormat = this.returnFormat;
     }
   }
   public ngOnDestroy() {
@@ -82,9 +85,7 @@ export class SkyTimepickerInputDirective implements
   }
 
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
-
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
-
   public writeValue(value: any) {
     this.modelValue = value ? value : undefined;
     this.writeModelValue(this.modelValue);
@@ -97,7 +98,6 @@ export class SkyTimepickerInputDirective implements
     this.skyTimepickerInput.selectedTime = model;
   }
 
-  private modelValue: String;
   private _onChange = (_: any) => { };
   private _onTouched = () => { };
   // private _validatorChange = () => { };

@@ -1,7 +1,7 @@
 <h3>12 Hour Time Picker</h3>
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample1>
-    <input [skyTimepickerInput]="timePickerExample1"
+    <input type="text" [skyTimepickerInput]="timePickerExample1"
     [format]="format12"
     [(ngModel)]="selectedTime1"/>
   </sky-timepicker>
@@ -13,12 +13,23 @@
 <h3>24 Hour Time Picker</h3>
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample2>
-    <input [skyTimepickerInput]="timePickerExample2"
+    <input  type="text" [skyTimepickerInput]="timePickerExample2"
     [format]="format24"
     [(ngModel)]="selectedTime2"/>
   </sky-timepicker>
 </div>
 <div>
   Selected time is {{selectedTime2}}
+</div>
+<br/>
+<h3>Custom Time Picker</h3>
+<div style="max-width: 400px">
+  <sky-timepicker #timePickerExample3>
+    <input type="hidden" [skyTimepickerInput]="timePickerExample3"
+    [format]="format24"
+    [returnFormat]="returnFormat"
+    [(ngModel)]="selectedTime3"/>
+  </sky-timepicker>
+  Selected time is {{selectedTime3}}
 </div>
 <br/>

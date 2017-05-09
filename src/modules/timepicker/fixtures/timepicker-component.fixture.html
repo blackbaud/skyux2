@@ -1,5 +1,9 @@
 <div>
 <sky-timepicker #timePicker >
-  <input [skyTimepickerInput]="timePicker" [(ngModel)]="selectedTime" />
+  <input type="text"
+  [skyTimepickerInput]="timePicker"
+  [(ngModel)]="selectedTime"
+  [format]="format"
+  [returnFormat]="returnFormat"   />
 </sky-timepicker>
 </div>
