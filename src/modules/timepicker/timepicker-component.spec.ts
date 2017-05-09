@@ -15,7 +15,6 @@ import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture
 
 import { expect } from '../testing';
 import { By } from '@angular/platform-browser';
-let moment = require('moment');
 
 describe('Timepicker', () => {
 
@@ -29,7 +28,7 @@ describe('Timepicker', () => {
     element: HTMLElement,
     text: string,
     compFixture: ComponentFixture<any>) {
-    fixture.detectChanges();
+    compFixture.detectChanges();
     let inputEvent = document.createEvent('Event');
     let params = {
       bubbles: false,
@@ -84,6 +83,8 @@ describe('Timepicker', () => {
       expect(minutes.item(0)).toHaveText('00');
       expect(minutes.item(11)).toHaveText('55');
       expect(minutes.length).toBe(12);
+      expect(meridies.item(0)).toHaveText('AM');
+      expect(meridies.length).toBe(2);
     }
     if (component.format === 'HH') {
       expect(hours.item(0)).toHaveText('0');
