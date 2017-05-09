@@ -1,3 +1,11 @@
+# 2.0.0-beta.24 (2017-05-09)
+
+  - Ensured mobile tabs respect disabled state. (#599)
+  - Added file drop capabilities to avatar. (#525)
+  - Ensured dropdowns close when any parent is scrolled. (#667)
+  - Fixed documentation plunker examples on IE11. (#565)
+  - Prevented unneeded scrollbars from appearing in grids. (#600)
+
 # 2.0.0-beta.23 (2017-05-05)
 
   - Added accepted attribute for file input in file drop component. (#594)
