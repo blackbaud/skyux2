@@ -249,5 +249,21 @@ describe('Timepicker', () => {
         expect(nativeElement.querySelector('input').value).toBe('16:45:00' + tz);
       }));
 
+    it('should handle toggling between noon and midnight', fakeAsync(() => {
+      component.format = 'hh';
+      openTimepicker(nativeElement, fixture);
+      fixture.detectChanges();
+      tick();
+      let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+      let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+      let meridies = units.item(2).querySelectorAll('button');
+      setInput(nativeElement, '12:30 AM', fixture);
+      fixture.detectChanges();
+      tick();
+      meridies.item(1).click();
+      expect(nativeElement.querySelector('input').value).toBe('12:30 PM');
+      expect(component.selectedTime).toEqual('12:30 PM');
+    }));
+
   });
 });
