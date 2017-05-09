@@ -12,11 +12,11 @@
   shared.capabilities = [
     {
       browserName: 'chrome',
-      browser_version: '53',
+      browser_version: '57',
       'browserstack.local': 'true',
       'browserstack.debug': 'true',
       os: 'OS X',
-      os_version: 'Yosemite',
+      os_version: 'El Capitan',
       browserDisconnectTimeout: 3e5,
       browserDisconnectTolerance: 3,
       browserNoActivityTimeout: 3e5,
@@ -26,22 +26,23 @@
       name: 'SKYUX2BROWSERSTACKCI',
       'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
     },
-    {
-      browserName: 'firefox',
-      browser_version: '47',
-      'browserstack.local': 'true',
-      'browserstack.debug': 'true',
-      os: 'OS X',
-      os_version: 'Yosemite',
-      browserDisconnectTimeout: 3e5,
-      browserDisconnectTolerance: 3,
-      browserNoActivityTimeout: 3e5,
-      captureTimeout: 3e5,
-      build: 'skyux2-mac-firefox-webdriver-local' + timestamp,
-      resolution: '1280x960',
-      name: 'SKYUX2BROWSERSTACKCI',
-      'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI',
-    }
+    // {
+    //   browserName: 'firefox',
+    //   browser_version: '49',
+    //   'browserstack.selenium_version': '3.2.0',
+    //   'browserstack.local': 'true',
+    //   'browserstack.debug': 'true',
+    //   os: 'OS X',
+    //   os_version: 'El Capitan',
+    //   browserDisconnectTimeout: 3e5,
+    //   browserDisconnectTolerance: 3,
+    //   browserNoActivityTimeout: 3e5,
+    //   captureTimeout: 3e5,
+    //   build: 'skyux2-mac-firefox-webdriver-local' + timestamp,
+    //   resolution: '1280x960',
+    //   name: 'SKYUX2BROWSERSTACKCI',
+    //   'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI',
+    // }
   ];
   shared.host = 'hub.browserstack.com';
   shared.port = 80;
