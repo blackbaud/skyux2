@@ -34,8 +34,8 @@ Before you begin to contribute to SKY UX 2, please consider these general guidel
 ### Write the code
 
 1. Launch a command prompt, `cd` to the folder where you cloned your branch, and run `npm run watch`.
-2. Launch a second command prompt, ensure the current working directory is the folder where you cloned your branch, and run `sky-pages serve`. This launches the SKY UX 2 documentation where you can write demo components to test your code.  
-    - SKY UX 2 documentation is authored using [SKY UX Builder](https://github.com/blackbaud/sky-pages-cli). If this is your first time using SKY UX Builder, you must install the CLI as a global NPM package before you run the `skyux serve` command:
+2. Launch a second command prompt, ensure the current working directory is the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX 2 documentation where you can write demo components to test your code.  
+    - SKY UX 2 documentation is authored using [SKY UX Builder](https://github.com/blackbaud/skyux-cli). If this is your first time using SKY UX Builder, you must install the CLI as a global NPM package before you run the `skyux serve` command:
 ```sh
 $ npm install @blackbaud/skyux-cli -g
 ```

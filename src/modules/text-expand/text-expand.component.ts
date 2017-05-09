@@ -2,7 +2,8 @@ import {
   Component,
   Input,
   ElementRef,
-  ViewChild
+  ViewChild,
+  AfterContentInit
 } from '@angular/core';
 
 import {
@@ -29,7 +30,7 @@ import {
     SkyResourcesService
   ]
 })
-export class SkyTextExpandComponent {
+export class SkyTextExpandComponent implements AfterContentInit {
   @Input()
   public set text(value: string) {
     this.setup(value);
@@ -38,15 +39,17 @@ export class SkyTextExpandComponent {
   public maxLength: number = 200;
   @Input()
   public maxExpandedLength: number = 600;
-  public maxNewlines: number = 1;
   @Input()
   public maxExpandedNewlines: number = 2;
   @Input()
   public expandModalTitle: string = this.resources.getString('text_expand_modal_title');
-  @Input()
-  public expandRepeaterMax: number;
-  @Input()
-  public expandRepeaterData: number;
+  @ViewChild('container')
+  public containerEl: ElementRef;
+  @ViewChild('text')
+  public textEl: ElementRef;
+  public maxNewlines: number = 1;
+  public isExpanded: boolean = false;
+  public expandable: boolean;
   public buttonText: string;
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
@@ -54,12 +57,6 @@ export class SkyTextExpandComponent {
   private collapsedText: string;
   private expandedText: string;
   private newlineCount: number;
-  private isExpanded: boolean = false;
-  private expandable: boolean;
-  @ViewChild('container')
-  private containerEl: ElementRef;
-  @ViewChild('text')
-  private textEl: ElementRef;
 
   constructor(private resources: SkyResourcesService, private modalService: SkyModalService,
     private elRef: ElementRef, private textExpandAdapter: SkyTextExpandAdapterService) { }
@@ -105,13 +102,15 @@ export class SkyTextExpandComponent {
     this.textExpandAdapter.setContainerHeight(this.containerEl, 'auto');
   }
 
+  public ngAfterContentInit() {
+    this.setup(this.expandedText);
+  }
+
   private setup(value: string) {
     if (value) {
       this.newlineCount = this.getNewlineCount(value);
       this.collapsedText = this.getTruncatedText(value, this.maxLength, this.maxNewlines);
-      this.expandedText = value.length > this.maxExpandedLength ||
-        this.newlineCount > this.maxExpandedNewlines ?
-        value : this.getTruncatedText(value, this.maxExpandedLength, this.maxExpandedNewlines);
+      this.expandedText = value;
       if (this.collapsedText !== value) {
         this.buttonText = this.seeMoreText;
         this.isExpanded = false;

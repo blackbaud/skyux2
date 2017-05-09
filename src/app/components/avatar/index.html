@@ -19,6 +19,48 @@
     >
       Specifies the name of the record that the avatar represents. If bb-avatar-src does not specify an image, the component extracts initials from the first and last words of this name and displays them in place of the missing image. To ensure that the component extracts the correct initials, specify a name with no prefix (e.g. "Dr.", "Mrs.") or suffix (e.g. "Jr.", "Esq."). You can also provide the initials with a space between them (e.g. "R H").
     </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="canChange"
+      [defaultValue]="false"
+    >
+      Indicates whether users can select a new image, much like the [file drop](../fileattachments) component.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="Avatar events"
+  >
+    <sky-demo-page-property
+      propertyName="avatarChanged"
+    >
+      This event emits a <code>SkyFileItem</code> object when a new photo is updated.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="SkyFileItem properties"
+  >
+    <sky-demo-page-property
+      propertyName="file"
+    >
+    The <code>File</code> object associated with the <code>SkyFileItem</code> object.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="url"
+    >
+    The URL of the file item.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="errorType"
+    >
+    The type of error resulting from the file.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="errorParam"
+    >
+    The details of the error.
+    </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-example>

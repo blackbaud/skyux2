@@ -1,1 +1,1 @@
-export * from './page-summary-subtitle.component';
+export { SkyPageSummarySubtitleComponent } from './page-summary-subtitle.component';

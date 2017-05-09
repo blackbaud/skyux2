@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { SkyFileItem } from '../../../core';
+
 @Component({
   selector: 'sky-avatar-demo',
   templateUrl: './avatar-demo.component.html'
@@ -9,7 +11,18 @@ export class SkyAvatarDemoComponent {
 
   public showImage = true;
 
-  public get src(): string {
-    return this.showImage ? 'https://imgur.com/tBiGElW.png' : undefined;
+  public avatarUrl: string | File = 'https://imgur.com/tBiGElW.png';
+
+  public get src(): string | File {
+    return this.showImage ?  this.avatarUrl : undefined;
+  }
+
+  public updateSrc(fileItem: SkyFileItem) {
+    /*
+      This is where you might upload the new avatar, but for this demo we'll just update it locally.
+    */
+    if (fileItem) {
+      this.avatarUrl = fileItem.file;
+    }
   }
 }

@@ -1,0 +1,13 @@
+.sky-input-group-datepicker-btn /deep/ .sky-dropdown-button.sky-btn {
+  border-radius: 0;
+}
+
+.sky-input-group /deep/ .sky-form-control:not(.ng-invalid) {
+  border-right: none;
+}
+
+.sky-input-group-datepicker-btn /deep/ .sky-dropdown-menu {
+  box-shadow: none;
+  background-color: transparent;
+  text-align: center;
+}

@@ -112,6 +112,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Datepicker',
+        icon: 'calendar',
+        // tslint:disable-next-line
+        summary: `The datepicker module allows users to use an input and calendar to select dates.`,
+        url: '/components/datepicker',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'datepicker-demo.component.html',
+              fileContents: require('!!raw!./datepicker/datepicker-demo.component.html')
+            },
+            {
+              name: 'datepicker-demo.component.ts',
+              fileContents: require('!!raw!./datepicker/datepicker-demo.component.ts'),
+              componentName: 'SkyDatepickerDemoComponent',
+              bootstrapSelector: 'sky-datepicker-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Definition list',
         icon: 'list-alt',
         // tslint:disable-next-line
@@ -822,7 +843,8 @@ export class SkyDemoComponentsService {
             },
             {
               name: 'wizard-demo-form.component.ts',
-              fileContents: require('!!raw!./wizard/wizard-demo-form.component.ts')
+              fileContents: require('!!raw!./wizard/wizard-demo-form.component.ts'),
+              componentName: 'SkyWizardDemoFormComponent'
             }
           ];
         }

@@ -56,6 +56,12 @@
   color: $sky-text-deemphasized-color;
 }
 
+@mixin sky-field-invalid {
+  box-shadow: 0 0 8px rgba(237, 85, 101, 0.6);
+  border: 1px solid #ed5565;
+  outline: none;
+}
+
 @mixin sky-btn-tab {
   background-color: transparent;
   border: none;
@@ -119,26 +125,26 @@
 
   &:hover,
   &:focus,
-  &.focus,
+  &.sky-btn-focus,
   &:active,
-  &.active {
+  &.sky-btn-active {
     color: $color;
     background-color: $hoverbackground;
-        border-color: darken($border, 12%);
+    border-color: darken($border, 12%);
   }
   &:active,
-  &.active {
+  &.sky-btn-active {
     background-image: none;
   }
-  &.disabled,
+  &.sky-btn-disabled,
   &[disabled],
   fieldset[disabled] & {
     &,
     &:hover,
     &:focus,
-    &.focus,
+    &.sky-btn-focus,
     &:active,
-    &.active {
+    &.sky-btn-active {
       background-color: $background;
           border-color: $border;
     }

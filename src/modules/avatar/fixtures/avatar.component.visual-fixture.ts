@@ -1,7 +1,9 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyModule, SkyFileItem, SkyAvatarSrc } from '../../../../src/core';
+import { SkyAvatarModule,  SkyAvatarSrc } from '../';
+
+import { SkyFileItem } from '../../fileattachments';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
 
@@ -24,7 +26,7 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyModule
+    SkyAvatarModule
   ],
   declarations: [
     AppComponent

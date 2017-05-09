@@ -1,3 +1,42 @@
+# 2.0.0-beta.24 (2017-05-09)
+
+  - Ensured mobile tabs respect disabled state. (#599)
+  - Added file drop capabilities to avatar. (#525)
+  - Ensured dropdowns close when any parent is scrolled. (#667)
+  - Fixed documentation plunker examples on IE11. (#565)
+  - Prevented unneeded scrollbars from appearing in grids. (#600)
+
+# 2.0.0-beta.23 (2017-05-05)
+
+  - Added accepted attribute for file input in file drop component. (#594)
+  - Made file drop component reject empty file types when `acceptedTypes` attribute is specified. (#592)
+  - Updated font size variables to match font sizes in SKY UX 1. (#537)
+  - Added the datepicker module. (#141)
+
+# 2.0.0-beta.22 (2017-04-29)
+
+  - Added sanity checks for unsubscribes. (Thanks @Blackbaud-TrevorBurch)
+  - Fixed bug around text-expand maxLength property. (#617) (Thanks @Blackbaud-TrevorBurch)
+  - Added intelligent positioning and close on scroll to dropdown component. (#531)
+
+# 2.0.0-beta.21 (2017-04-25)
+
+  - Added documentation around entry components and modals.
+  - Fixed problem around exporting SKY UX classes for AOT. (#607)
+
+# 2.0.0-beta.20 (2017-04-24)
+  
+  - Fixed text expand AOT compilation. (#613) (Thanks @Blackbaud-JoshGerdes)
+  - Fixed bug where lists did not display all entries when pagination was undefined. (#583)
+  - Fixed bug where initial sort state for lists only accepted array. (#586)
+  - Made card hide header when title existence changes. (#611)
+
+# 2.0.0-beta.19 (2017-04-20)
+
+  - Added documentation around unit testing modals. (#507)
+  - Corrected spelling of `SkyModalConfiguration` class.
+  - Updated file drop documentation to have correct input type. (Thanks @Blackbaud-JeffDye)
+
 # 2.0.0-beta.18 (2017-04-13)
 
   - Made background for wait semi-transparent. (#545)
