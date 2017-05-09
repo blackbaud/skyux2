@@ -26,19 +26,19 @@
   padding: $sky-padding-plus-half;
   padding-top: $sky-padding-half;
   padding-bottom: $sky-padding-half;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 }
 .sky-timepicker-container :last-child ol{
   display: flex;
   flex-direction: column;
-  height:100%;
+  height: 100%;
 }
 .sky-timepicker-container :last-child ol li{
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: $sky-color-gray-05;
-  flex:1;
+  flex: 1;
 }
 .sky-timepicker-column {
   margin: $sky-margin-half;
@@ -51,8 +51,8 @@
   column-gap: 1px;
   columns: 2;
   list-style-type: none;
-  margin:0px;
-  padding:0px;
+  margin: 0px;
+  padding: 0px;
 }
 .sky-timepicker-column ol li {
   text-align: center;
@@ -75,9 +75,9 @@
   border-bottom-width: 0px;
 }
 .sky-timepicker-footer{
-  margin:0px;
+  margin: 0px;
   padding: $sky-padding;
-  padding-top:0px;
+  padding-top: 0px;
 }
 .sky-timepicker-footer .sky-timepicker-column{
   width:100%;

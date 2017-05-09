@@ -17,18 +17,12 @@ let moment = require('moment');
 })
 export class SkyTimepickerComponent implements OnInit {
 
-  @Input()
-  public format: string = 'hh';
-
-  @Input()
-  public returnFormat: string;
-
   @Output()
   public selectedTimeChanged: EventEmitter<String> = new EventEmitter<String>();
 
-  @Output()
-  public activeTime: String;
-
+  public activeTime: Date;
+  public returnFormat: string;
+  public format: string = 'hh';
   public hours: Array<number>;
   public minutes: Array<number>;
   public localeFormat: string;
