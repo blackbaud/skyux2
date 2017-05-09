@@ -15,6 +15,7 @@ import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture
 
 import { expect } from '../testing';
 import { By } from '@angular/platform-browser';
+let moment = require('moment');
 
 describe('Timepicker', () => {
 
@@ -226,6 +227,26 @@ describe('Timepicker', () => {
         hours.item(16).click();
         minutes.item(3).click();
         expect(nativeElement.querySelector('input').value).toBe('16:45');
+      }));
+
+    it('should return a custom time format',
+      fakeAsync(() => {
+        component.format = 'HH';
+        component.returnFormat = 'HH:mm:ssZ';
+        openTimepicker(nativeElement, fixture);
+        fixture.detectChanges();
+        tick();
+        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        let hours = units.item(0).querySelectorAll('button');
+        let minutes = units.item(1).querySelectorAll('button');
+        let tz = moment(new Date()).format('Z');
+        // Test 4:45 PM
+        fixture.detectChanges();
+        openTimepicker(nativeElement, fixture);
+        hours.item(16).click();
+        minutes.item(3).click();
+        expect(nativeElement.querySelector('input').value).toBe('16:45:00' + tz);
       }));
 
   });

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class SkyTimePickerDemoComponent {
   public format12 = 'hh';
   public format24 = 'HH';
-  public returnFormat = 'HH:MM:SSZ';
+  public returnFormat = 'HH:mm:ssZ';
   public selectedTime1 = '8:30 PM';
   public selectedTime2 = '20:30';
 }
