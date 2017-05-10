@@ -13,6 +13,5 @@ export class SkyResources {
 
   /*istanbul ignore next */
   constructor() {
-
   }
 }

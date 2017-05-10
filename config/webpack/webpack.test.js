@@ -45,12 +45,6 @@ module.exports = {
         ],
         exclude: [/\.e2e\.ts$/]
       },
-
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-        exclude: [helpers.root('src/index.html')]
-      },
       {
         test: /\.css$/,
         loader: 'raw-loader',

@@ -41,6 +41,10 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    singleRun: true
+    singleRun: true,
+    browserDisconnectTimeout: 3e5,
+    browserDisconnectTolerance: 3,
+    browserNoActivityTimeout: 3e5,
+    captureTimeout: 3e5
   });
 };
