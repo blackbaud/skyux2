@@ -149,6 +149,9 @@ module.exports = webpackMerge(commonConfig, visualConfig.buildVisualConfig(), {
     module: false,
     clearImmediate: false,
     setImmediate: false
+  },
+  performance: {
+    hints: false
   }
 
 });
