@@ -1,3 +1,7 @@
+# 2.0.0-beta.25 (2017-05-10)
+
+  - Updated broken npm packages.
+
 # 2.0.0-beta.24 (2017-05-09)
 
   - Ensured mobile tabs respect disabled state. (#599)

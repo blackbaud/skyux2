@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.0.0-beta.24",
+  "version": "2.0.0-beta.25",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "2.4.8",
-    "@blackbaud/skyux-builder": "1.0.0-beta.21",
+    "@blackbaud/skyux-builder": "1.0.0-beta.23",
     "@types/core-js": "0.9.35",
     "@types/jasmine": "2.5.41",
     "@types/node": "6.0.45",
@@ -96,7 +96,7 @@
     "normalize-scss": "5.0.3",
     "prismjs": "1.5.1",
     "raw-loader": "0.5.1",
-    "remap-istanbul": "devCrossNet/remap-istanbul",
+    "remap-istanbul": "0.9.5",
     "rimraf": "2.5.4",
     "rollup": "0.35.9",
     "rollup-plugin-commonjs": "7.0.0",
