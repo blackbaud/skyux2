@@ -83,7 +83,7 @@ describe('Sort component', () => {
     expect(itemsEl.item(1)).toHaveCssClass('sky-sort-item-selected');
   });
 
-  it('can set active input programmatically', () => {
+  fit('can set active input programmatically', () => {
     component.initialState = 4;
 
     fixture.detectChanges();
