@@ -85,6 +85,7 @@ describe('Sort component', () => {
 
   it('can set active input programmatically', () => {
     component.initialState = 4;
+
     fixture.detectChanges();
 
     let itemsEl = getSortItems();
