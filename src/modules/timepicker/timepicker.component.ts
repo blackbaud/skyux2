@@ -109,7 +109,7 @@ export class SkyTimepickerComponent implements OnInit {
     let hour: number;
     let hourOffset: number = 0;
     if (this.selectedMeridies === 'AM' && setHour === 12) { hourOffset = -12; }
-    if (this.selectedMeridies === 'PM' && setHour !== 12) { hourOffset = 12; console.log('hourOffset 12') }
+    if (this.selectedMeridies === 'PM' && setHour !== 12) { hourOffset = 12; }
     if (this.is8601) { hourOffset = 0; }
     hour = moment({ 'hour': setHour }).add(hourOffset, 'hours').hour();
 
