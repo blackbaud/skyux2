@@ -39,7 +39,7 @@ module.exports = {
 
       {
         test: /\.ts$/,
-        loaders: [
+        use: [
           'awesome-typescript-loader',
           'angular2-template-loader'
         ],
@@ -57,7 +57,10 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: 'raw-loader!sass-loader'
+        use: [
+          'raw-loader',
+          'sass-loader'
+        ]
       },
 
       {
