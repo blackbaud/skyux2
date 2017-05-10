@@ -1,3 +1,7 @@
+# 2.0.0-beta.26 (2017-05-11)
+
+  - Added appropriate loaders to work with new version of builder.
+
 # 2.0.0-beta.25 (2017-05-10)
 
   - Updated broken npm packages.
