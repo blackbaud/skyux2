@@ -2,7 +2,6 @@ import {
   Component,
   Output,
   EventEmitter,
-  HostListener,
   ChangeDetectionStrategy,
   OnInit
 } from '@angular/core';
@@ -27,13 +26,6 @@ export class SkyTimepickerComponent implements OnInit {
   public localeFormat: string;
   public minuteMultiplier: number;
   private is8601: boolean = false;
-
-  @HostListener('click', ['$event'])
-  public onClick(event: any): void {
-    if (event.target.className === 'active') {
-      event.stopPropagation();
-    }
-  }
 
   public ngOnInit() {
     this.setFormat(this.format);
@@ -93,6 +85,19 @@ export class SkyTimepickerComponent implements OnInit {
       return moment(this.activeTime).format(this.returnFormat);
     } else {
       return moment(this.activeTime).format(this.localeFormat);
+    }
+  }
+
+  public setTime(event: any) {
+    event.stopPropagation();
+    if (event.target.name === 'hour') {
+      this.selectedHour = event.target.innerText;
+    }
+    if (event.target.name === 'minute') {
+      this.selectedMinute = event.target.innerText;
+    }
+    if (event.target.name === 'meridie') {
+      this.selectedMeridies = event.target.innerText;
     }
   }
 

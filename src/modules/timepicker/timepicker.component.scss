@@ -64,14 +64,14 @@
 .sky-timepicker-column ol li button:active {
   background-color: $sky-color-gray-10;
 }
-.sky-timepicker-column ol .active {
+.sky-timepicker-column ol .sky-btn-active {
   background-color: $sky-color-blue;
   color: $sky-color-white;
 }
-.sky-timepicker-column.hours24 ol{
+.sky-timepicker-column.sky-timepicker-24hour ol{
   columns: 4;
 }
-.sky-timepicker-column.hours24 ol li{
+.sky-timepicker-column.sky-timepicker-24hour ol li{
   border-bottom-width: 0px;
 }
 .sky-timepicker-footer{
