@@ -98,8 +98,8 @@ export class SkyTimepickerInputDirective implements
     this.skyTimepickerInput.selectedTime = model;
   }
 
-  private _onChange = (_: any) => { };
-  private _onTouched = () => { };
+   private _onChange = (_: any) => { };
+   private _onTouched = () => { };
   // private _validatorChange = () => { };
 
 }

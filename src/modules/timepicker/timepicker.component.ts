@@ -89,41 +89,40 @@ export class SkyTimepickerComponent implements OnInit {
   }
 
   public setTime(event: any) {
-    event.stopPropagation();
-    if (event.target.name === 'hour') {
-      this.selectedHour = event.target.innerText;
-    }
-    if (event.target.name === 'minute') {
-      this.selectedMinute = event.target.innerText;
-    }
-    if (event.target.name === 'meridie') {
-      this.selectedMeridies = event.target.innerText;
+    if (typeof event !== 'undefined') {
+      if (event.type === 'click') {
+        event.stopPropagation();
+        if (event.target.name === 'hour') {
+          this.selectedHour = parseInt(event.target.innerHTML, 0);
+        }
+        if (event.target.name === 'minute') {
+          this.selectedMinute = parseInt(event.target.innerHTML, 0);
+        }
+        if (event.target.name === 'meridie') {
+          this.selectedMeridies = event.target.innerHTML;
+        }
+      }
     }
   }
 
-  private set selectedHour(hour: number) {
-    if (!this.is8601) {
-      if (this.selectedMeridies === 'PM') {
-        if (hour !== 12) {
-          hour = moment({ 'hour': hour }).add(12, 'hours').hour();
-        }
-      }
-      if (this.selectedMeridies === 'AM') {
-        if (hour === 12) {
-          hour = moment({ 'hour': 0 }).hour();
-        }
-      }
-    }
+  private set selectedHour(setHour: number) {
+    let hour: number;
+    let hourOffset: number = 0;
+    if (this.selectedMeridies === 'AM' && setHour === 12) { hourOffset = -12; }
+    if (this.selectedMeridies === 'PM' && setHour !== 12) { hourOffset = 12; console.log('hourOffset 12') }
+    if (this.is8601) { hourOffset = 0; }
+    hour = moment({ 'hour': setHour }).add(hourOffset, 'hours').hour();
+
     this.activeTime = moment({
       'hour': hour,
-      'minute': moment(this.activeTime).get('minute') || 0
+      'minute': moment(this.activeTime).get('minute') + 0
     }).format();
     this.selectedTimeChanged.emit(this.selectedTime);
   }
 
   private set selectedMinute(minute: number) {
     this.activeTime = moment({
-      'hour': moment(this.activeTime).get('hour') || 0,
+      'hour': moment(this.activeTime).get('hour') + 0,
       'minute': minute
     }).format();
     this.selectedTimeChanged.emit(this.selectedTime);
@@ -143,12 +142,12 @@ export class SkyTimepickerComponent implements OnInit {
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
     }
     if (this.is8601) {
-      return moment(this.activeTime).hour() || 0;
+      return moment(this.activeTime).hour() + 0;
     }
 
   }
   private get selectedMinute() {
-    return moment(this.activeTime).minute() || 0;
+    return moment(this.activeTime).minute() + 0;
   }
 
   private get selectedMeridies() {
