@@ -11,8 +11,14 @@ export class SkyDemoUnitTestModalComponent {
 
         beforeEach(() => {
           TestBed.configureTestingModule({
+            declarations: [
+              ModalLaunchingComponent,
+              ModalDemoComponent
+            ],
             imports: [
-              SkyAppTestModule
+              SkyAppTestModule,
+              AppExtrasModule,
+              SkyModalModule
             ]
           });
         });
@@ -71,8 +77,14 @@ export class SkyDemoUnitTestModalComponent {
           modalServiceInstance = new MockModalService();
 
           TestBed.configureTestingModule({
+            declarations: [
+              ModalLaunchingComponent,
+              ModalDemoComponent
+            ],
             imports: [
-              SkyAppTestModule
+              SkyAppTestModule,
+              SkyModalModule,
+              AppExtrasModule
             ],
             providers: [
               {
@@ -146,8 +158,13 @@ export class SkyDemoUnitTestModalComponent {
         beforeEach(() => {
           modalInstance = new MockModalInstance();
           TestBed.configureTestingModule({
+            declarations: [
+              ModalDemoComponent
+            ],
             imports: [
-              SkyAppTestModule
+              SkyAppTestModule,
+              SkyModalModule,
+              AppExtrasModule
             ],
             providers: [
               {

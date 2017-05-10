@@ -12,7 +12,7 @@
       {{noMockSetup}}
     </code>
     <p>
-      The first <code>beforeEach</code> function configures the testing module with our standard <code>SkyAppTestModule</code>. The second <code>beforeEach</code> function injects the <code>SkyModalService</code> and disposes it to ensure that previous test modals are destroyed. It also saves a reference to <code>applicationRef</code>, which must be used to detect changes when interacting with the launched modal because the modal content lives outside of the currently tested component.
+      The first <code>beforeEach</code> function configures the testing module with the required imports. The second <code>beforeEach</code> function injects the <code>SkyModalService</code> and disposes it to ensure that previous test modals are destroyed. It also saves a reference to <code>applicationRef</code>, which must be used to detect changes when interacting with the launched modal because the modal content lives outside of the currently tested component.
     </p>
 
     <p>
@@ -70,7 +70,7 @@
     </code>
 
     <p>
-      In this test example, we create a modal component and test it like any other standalone component. Then we can use our <code>MockModalInstance</code> to verify results of specific actions such as saving the modal. 
+      In this test example, we create a modal component and test it like any other standalone component. Then we can use our <code>MockModalInstance</code> to verify results of specific actions such as saving the modal.
     </p>
 
     <p><strong>Next step »</strong> <a routerLink="/learn/tutorials/test/e2e-test">Run an end-to-end test for a project</a></p>
