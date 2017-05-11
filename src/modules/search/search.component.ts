@@ -27,7 +27,6 @@ import {
 
 import { Subscription } from 'rxjs/Subscription';
 
-
 import {
   style,
   state,
@@ -220,7 +219,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
       this.searchButtonShown = event.toState === INPUT_HIDDEN_STATE
         && this.mediaQueryService.current === SkyMediaBreakpoints.xs;
 
-
       if ((event.toState === INPUT_HIDDEN_STATE
         && this.mediaQueryService.current === SkyMediaBreakpoints.xs)
         || this.mediaQueryService.current !== SkyMediaBreakpoints.xs) {
@@ -233,9 +231,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     if (this.breakpointSubscription) {
       this.breakpointSubscription.unsubscribe();
     }
-
   }
-
   private searchBindingChanged(changes: SimpleChanges) {
     return changes['searchText'] &&
       changes['searchText'].previousValue !== changes['searchText'].currentValue;

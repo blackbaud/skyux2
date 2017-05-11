@@ -36,7 +36,7 @@ import {
   SkyMediaQueryService,
   SkyMediaBreakpoints
 } from '../media-queries';
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Search component', () => {
   let fixture: ComponentFixture<SearchTestComponent>;
