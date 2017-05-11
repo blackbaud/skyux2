@@ -39,17 +39,11 @@ module.exports = {
 
       {
         test: /\.ts$/,
-        loaders: [
+        use: [
           'awesome-typescript-loader',
           'angular2-template-loader'
         ],
         exclude: [/\.e2e\.ts$/]
-      },
-
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-        exclude: [helpers.root('src/index.html')]
       },
       {
         test: /\.css$/,
@@ -63,7 +57,10 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: 'raw-loader!sass-loader'
+        use: [
+          'raw-loader',
+          'sass-loader'
+        ]
       },
 
       {
@@ -120,6 +117,9 @@ module.exports = {
     module: false,
     clearImmediate: false,
     setImmediate: false
+  },
+  performance: {
+    hints: false
   }
 
 };

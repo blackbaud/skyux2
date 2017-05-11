@@ -90,6 +90,24 @@ function getHtmlContents(requireFile) {
   return fileContents;
 }
 
+function getJsonContents(requireFile) {
+  var fileContents,
+    newFileFirst,
+    newFileLast,
+    loaderIndex = requireFile.indexOf('json-loader!'),
+    newFileName = requireFile;
+
+  if (loaderIndex > -1) {
+    newFileFirst = requireFile.substring(0, loaderIndex);
+    newFileLast = requireFile.substring(loaderIndex + 12, requireFile.length);
+    newFileName = newFileFirst + newFileLast;
+  }
+
+  fileContents = fs.readFileSync(newFileName);
+
+  return fileContents;
+}
+
 function inlineContents(file, fileContents, requireMatch, requireFile, processFn) {
   var dirname = path.dirname(file),
     quote = true,
@@ -105,7 +123,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
       requireContents = getHtmlContents(requireFile);
       break;
     case '.json':
-      requireContents = fs.readFileSync(requireFile);
+      requireContents = getJsonContents(requireFile);
       quote = false;
       break;
   }

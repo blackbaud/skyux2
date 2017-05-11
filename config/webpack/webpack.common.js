@@ -48,16 +48,11 @@ module.exports = {
 
       {
         test: /\.ts$/,
-        loaders: [
+        use: [
           'awesome-typescript-loader',
           'angular2-template-loader'
         ],
         exclude: [/\.(spec|e2e)\.ts$/]
-      },
-
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
       },
 
       {
@@ -67,7 +62,10 @@ module.exports = {
 
       {
         test: /\.scss$/,
-        loader: 'raw-loader!sass-loader',
+        use: [
+          'raw-loader',
+          'sass-loader'
+        ],
         exclude: [
           helpers.root('src/scss/sky.scss')
         ]
@@ -125,6 +123,9 @@ module.exports = {
     module: false,
     clearImmediate: false,
     setImmediate: false
+  },
+  performance: {
+    hints: false
   }
 
 };
