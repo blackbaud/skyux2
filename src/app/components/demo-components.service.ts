@@ -778,10 +778,10 @@ export class SkyDemoComponentsService {
         }
       },
        {
-        name: 'Time Picker',
+        name: 'Timepicker',
         icon: 'clock-o',
         // tslint:disable-next-line
-        summary: `Time Picker`,
+        summary: `The timepicker module allows users to use an input to select times.`,
         url: '/components/timepicker',
         getCodeFiles: function () {
           return [
