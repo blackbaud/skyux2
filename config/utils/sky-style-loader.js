@@ -1,4 +1,4 @@
-require('style-loader!../../src/scss/sky.scss');
+require('!!style-loader!css-loader!sass-loader!../../src/scss/sky.scss');
 
 var FontFaceObserver = require('fontfaceobserver');
 
