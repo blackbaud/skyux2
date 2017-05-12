@@ -9,7 +9,8 @@ import {
 export class ListToolbarConfigOrchestrator
   extends ListToolbarStateOrchestrator<ListToolbarConfigModel> {
   constructor() {
-    super();
+
+    super()/* istanbul ignore next */;
 
     this
       .register(ListToolbarConfigSetSearchEnabledAction, this.setSearchEnabled)

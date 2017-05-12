@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './page-summary-status.component.html',
   styleUrls: ['./page-summary-status.component.scss']
 })
+/* istanbul ignore next */
+/* Code coverage having problems with no statements in classes */
 export class SkyPageSummaryStatusComponent { }
