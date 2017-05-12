@@ -1,8 +1,7 @@
 @import "mixins";
 
 .sky-section-heading {
-  color: $sky-text-color;
-  font: 300 22px $sky-font-family-narrow;
+  @include sky-section-heading();
 }
 
 .sky-subsection-heading {
