@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { StacheModule } from'@blackbaud/stache'
+import { StacheModule, StacheConfigService } from'@blackbaud/stache';
 
+import { SkyAppConfig } from '@blackbaud/skyux-builder/runtime';
 import { SkyDemoTitleService } from './shared/title.service';
 import { SkyFilterDemoModalComponent } from './components/filter/filter-demo-modal.component';
 import { SkyListFiltersModalDemoComponent }
@@ -14,7 +15,7 @@ import { SkyWizardDemoFormComponent } from './components/wizard/wizard-demo-form
 
 import { SkyDemoComponentsModule } from './components/demo-components.module';
 
-require('style!./styles.scss');
+require('style-loader!./styles.scss');
 
 @NgModule({
   entryComponents: [
@@ -33,7 +34,11 @@ require('style!./styles.scss');
     StacheModule
   ],
   providers: [
-    SkyDemoTitleService
+    SkyDemoTitleService,
+    {
+      provide: StacheConfigService,
+      useExisting: SkyAppConfig
+    }
   ]
 })
 export class AppExtrasModule { }

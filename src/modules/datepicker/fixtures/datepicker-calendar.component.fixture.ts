@@ -11,13 +11,13 @@ import {
   selector: 'sky-test-cmp',
   template: require('./datepicker-calendar.component.fixture.html')
 })
-export class DatepickerTestComponent {
+export class DatepickerCalendarTestComponent {
 
   public minDate: Date;
 
   public maxDate: Date;
 
-  public selectedDate: Date;
+  public selectedDate: any;
 
   public startingDay: number = 0;
 

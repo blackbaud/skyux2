@@ -8,7 +8,7 @@ import {
 } from './datepicker.module';
 
 import {
-  DatepickerTestComponent
+  DatepickerCalendarTestComponent
 } from './fixtures/datepicker-calendar.component.fixture';
 
 import {
@@ -21,8 +21,8 @@ let moment = require('moment');
 
 describe('datepicker calendar', () => {
 
-  let fixture: ComponentFixture<DatepickerTestComponent>;
-  let component: DatepickerTestComponent;
+  let fixture: ComponentFixture<DatepickerCalendarTestComponent>;
+  let component: DatepickerCalendarTestComponent;
   let nativeElement: HTMLElement;
 
   function verifyDatepicker(
@@ -114,14 +114,14 @@ describe('datepicker calendar', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DatepickerTestComponent
+        DatepickerCalendarTestComponent
       ],
       imports: [
         SkyDatepickerModule
       ]
     });
 
-    fixture = TestBed.createComponent(DatepickerTestComponent);
+    fixture = TestBed.createComponent(DatepickerCalendarTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
   });
@@ -422,7 +422,7 @@ describe('datepicker calendar', () => {
   describe('keyboard behaviors', () => {
 
     function triggerKeydown(
-      componentFixture: ComponentFixture<DatepickerTestComponent>,
+      componentFixture: ComponentFixture<DatepickerCalendarTestComponent>,
       eventObj: any
     ) {
       Object.assign(eventObj, {

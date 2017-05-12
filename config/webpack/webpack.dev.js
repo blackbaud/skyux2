@@ -145,6 +145,9 @@ module.exports = webpackMerge(commonConfig, demoConfig.buildDemoConfig(), {
     module: false,
     clearImmediate: false,
     setImmediate: false
+  },
+  performance: {
+    hints: false
   }
 
 });
