@@ -126,3 +126,22 @@ select {
 [role="button"] {
   cursor: pointer;
 }
+
+/* Placeholder Text */
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    font-style: italic;
+    opacity: 1; // See https://github.com/twbs/bootstrap/pull/11526
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
+}
+
+:-ms-input-placeholder { /* IE */
+    font-style: italic;
+}
+/* End Placeholder Text */
