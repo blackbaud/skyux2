@@ -23,6 +23,18 @@ describe('wait component', function () {
       });
   });
 
+  it('should display wait behind parent with modal z-index', function () {
+    return browser
+      .setupTest('/wait.html')
+      .click('.sky-test-wait')
+      .compareScreenshot({
+        screenshotName: 'wait_component_absolute_behind',
+        selector: '#screenshot-wait-behind',
+        checkAccessibility: true
+      });
+  });
+
+
   it('should display nonblocking wait on parent', function () {
     return browser
       .setupTest('/wait.html')
