@@ -6,7 +6,6 @@ import {
 
 import { SkyDemoComponent } from './demo-component';
 import { SkyDemoComponentsService } from './demo-components.service';
-import { SkyDemoTitleService } from '../shared/title.service';
 
 @Component({
   selector: 'sky-demo-components',
@@ -15,16 +14,18 @@ import { SkyDemoTitleService } from '../shared/title.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyDemoComponentsComponent implements OnInit {
-  public get components(): SkyDemoComponent[] {
-    return this.componentService.getComponents();
-  }
+  public actionButtonComponents: SkyDemoComponent[];
 
-  constructor(
-    private titleService: SkyDemoTitleService,
-    private componentService: SkyDemoComponentsService
-  ) { }
+  constructor(private componentService: SkyDemoComponentsService) { }
 
   public ngOnInit() {
-    this.titleService.setTitle('Components');
+    this.actionButtonComponents = this.componentService.getComponents().map(component => {
+      return {
+        path: [component.url],
+        name: component.name,
+        icon: component.icon,
+        summary: component.summary
+      };
+    });
   }
 }
