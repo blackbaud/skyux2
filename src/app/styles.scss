@@ -59,3 +59,22 @@ code {
   background-color: $sky-body-background-color !important;
   padding: $sky-padding !important;
 }
+
+.stache-hero {
+  @media(min-width: 1000px) {
+    background-position-y: -200px !important;
+  }
+  @media(min-width: 1300px) {
+    background-position-y: -300px !important;
+  }
+}
+
+.tutorial-previous-button {
+  text-align: left;
+  padding: 10px;
+}
+
+.tutorial-next-button {
+  text-align: right;
+  padding: 10px;
+}
