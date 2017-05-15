@@ -3,7 +3,8 @@
     [ngClass]="{
       'sky-btn-tab-wizard': tabStyle === 'wizard',
       'sky-btn-tab-selected': active,
-      'sky-btn-tab-disabled': disabled
+      'sky-btn-tab-disabled': disabled,
+      'sky-tab-btn-closeable': allowClose
     }"
     (click)="doTabClick()"
     role="tab"
