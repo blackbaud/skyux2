@@ -24,11 +24,5 @@ export class SkyDemoPageCodeFile {
       default:
         this.language = 'markup';
     }
-    this.codeImports = this.code.replace(/\.\.\/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
-
-    this.codeFormatted = Prism.highlight(
-      this.codeImports,
-      Prism.languages[this.language]
-    );
   }
 }
