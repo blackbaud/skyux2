@@ -790,6 +790,27 @@ export class SkyDemoComponentsService {
           ];
         }
       },
+       {
+        name: 'Time Picker',
+        icon: 'clock-o',
+        // tslint:disable-next-line
+        summary: `Time Picker`,
+        url: '/components/timepicker',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'timepicker-demo.component.html',
+              fileContents: require('!!raw!./timepicker/timepicker-demo.component.html')
+            },
+            {
+              name: 'tabs-demo.component.ts',
+              fileContents: require('!!raw!./timepicker/timepicker-demo.component.ts'),
+              componentName: 'SkyTimePickerDemoComponent',
+              bootstrapSelector: 'sky-timepicker-demo'
+            }
+          ];
+        }
+      },
       {
         name: 'Toolbar',
         icon: 'bars',

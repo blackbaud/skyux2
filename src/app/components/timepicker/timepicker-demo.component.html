@@ -1,0 +1,9 @@
+<h3>Time Picker</h3>
+<div style="max-width: 400px">
+<sky-timepicker #timePicker>
+  <input [skyTimepickerInput]="timePicker" [(ngModel)]="selectedTime" />
+</sky-timepicker>
+</div>
+<div>
+  Selected time is {{selectedTime}}
+</div>

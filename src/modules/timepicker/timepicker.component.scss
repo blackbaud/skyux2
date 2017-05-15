@@ -1,0 +1,88 @@
+@import "../../scss/variables";
+.sky-input-group-timepicker-btn /deep/ .sky-btn {
+  border-radius: 0;
+}
+
+.sky-input-group /deep/ .sky-form-control {
+  border-right: none;
+}
+
+.sky-input-group-timepicker-btn /deep/ .sky-dropdown-menu {
+  box-shadow: none;
+  background-color: transparent;
+  text-align: center;
+}
+.sky-input-group /deep/ .sky-dropdown-item{ box-shadow: 0 0 3px 0; }
+
+.sky-timepicker-container {
+  font-size: 14px;
+  display: flex;
+  padding: $sky-padding-half;
+  background-color: $sky-color-gray-05;
+}
+.sky-timepicker-container button {
+  background-color: $sky-color-white;
+  border-width: 0px;
+  flex:1;
+  padding: $sky-padding-plus-half;
+  padding-top: $sky-padding-half;
+  padding-bottom: $sky-padding-half;
+}
+.sky-timepicker-container :last-child ol{
+  display: flex;
+  flex-direction: column;
+}
+.sky-timepicker-container :last-child ol li{
+  border-width: 1px;
+  border-style: solid;
+  border-color: $sky-color-gray-05;
+}
+.sky-timepicker-column {
+  margin: $sky-margin-half;
+  display: flex;
+  flex: 1;
+  }
+.sky-timepicker-column.hours24 ol{
+  columns: 4;
+}
+.sky-timepicker-column.hours24 ol li{
+  border-width: 0px;
+}
+.sky-timepicker-column ol {
+  border-color: $sky-paging-border-color;
+  border-style: solid;
+  border-width: 1px;
+  column-gap: 1px;
+  columns: 2;
+  list-style-type: none;
+  margin:0px;
+  padding:0px;
+}
+.sky-timepicker-column ol li {
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex:1;
+}
+.sky-timepicker-column ol li button:hover {
+  background-color: $sky-color-gray-05;
+}
+.sky-timepicker-column ol li button:active {
+  background-color: $sky-color-gray-10;
+}
+.sky-timepicker-column ol .active {
+  background-color: $sky-color-blue;
+  color: $sky-color-white;
+}
+.sky-timepicker-footer{
+  margin:0px;
+  padding: $sky-padding;
+  padding-top:0px;
+}
+.sky-timepicker-footer button{
+  border-style: solid;
+  border-width: 1px;
+  border-color: $sky-color-gray-10;
+  padding: $sky-padding
+}
