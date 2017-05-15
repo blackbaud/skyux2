@@ -10,4 +10,5 @@ export class SkyTimePickerDemoComponent {
   public returnFormat = 'HH:mm:ssZ';
   public selectedTime1 = '8:30 PM';
   public selectedTime2 = '20:30';
+  public selectedTime3 = '02:00:00-0400';
 }

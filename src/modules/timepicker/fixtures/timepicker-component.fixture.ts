@@ -6,7 +6,7 @@ import {
 import {
   SkyTimepickerInputDirective
 } from '../timepicker.directive';
-
+import { SkyTimepickerTimeOutput } from '../timepicker.interface';
 @Component({
   selector: 'sky-test-cmp',
   template: require('./timepicker-component.fixture.html')
@@ -14,7 +14,7 @@ import {
 export class TimepickerTestComponent {
   public format: string = 'hh';
   public returnFormat: string = undefined;
-  public selectedTime: string;
+  public selectedTime: SkyTimepickerTimeOutput;
 
   @ViewChild(SkyTimepickerInputDirective)
   public timepicker: SkyTimepickerInputDirective;

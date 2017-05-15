@@ -7,7 +7,7 @@
   </sky-timepicker>
 </div>
 <div>
-  Selected time is {{selectedTime1}}
+  Selected time is {{selectedTime1.local}}
 </div>
 <br/>
 <h3>24-hour timepicker.</h3>
@@ -19,7 +19,7 @@
   </sky-timepicker>
 </div>
 <div>
-  Selected time is {{selectedTime2}}
+  Selected time is {{selectedTime2.hour}}:{{selectedTime2.minute}}
 </div>
 <br/>
 <h3>Custom timepicker.</h3>
@@ -28,8 +28,9 @@
     <input type="hidden" [skyTimepickerInput]="timePickerExample3"
     [format]="format24"
     [returnFormat]="returnFormat"
+    (activeTime)="alert($event)"
     [(ngModel)]="selectedTime3"/>
   </sky-timepicker>
-  Selected time is {{selectedTime3}}
+  Selected time is {{selectedTime3.local}}
 </div>
 <br/>

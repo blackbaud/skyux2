@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   OnInit
 } from '@angular/core';
+import { SkyTimepickerTimeOutput } from './timepicker.interface';
 let moment = require('moment');
 
 @Component({
@@ -16,7 +17,8 @@ let moment = require('moment');
 export class SkyTimepickerComponent implements OnInit {
 
   @Output()
-  public selectedTimeChanged: EventEmitter<String> = new EventEmitter<String>();
+  public selectedTimeChanged: EventEmitter<SkyTimepickerTimeOutput> =
+  new EventEmitter<SkyTimepickerTimeOutput>();
 
   public activeTime: Date;
   public returnFormat: string;
@@ -71,22 +73,34 @@ export class SkyTimepickerComponent implements OnInit {
     this.minuteMultiplier = data.minuteMultiplier;
   }
 
-  public set selectedTime(newTime: String) {
+  public set selectedTime(newTime: SkyTimepickerTimeOutput) {
     if (typeof newTime !== 'undefined') {
-      if (typeof this.returnFormat !== 'undefined') {
-        this.activeTime = moment(newTime, this.returnFormat).format();
-      } else {
-        this.activeTime = moment(newTime, this.localeFormat).format();
-      }
+      this.activeTime = newTime.ios8601;
+      debugger
     }
   }
+
   public get selectedTime() {
+    let setReturn: string;
+    let returnTime: SkyTimepickerTimeOutput;
     if (typeof this.returnFormat !== 'undefined') {
-      return moment(this.activeTime).format(this.returnFormat);
+      setReturn = moment(this.activeTime).format(this.returnFormat);
     } else {
-      return moment(this.activeTime).format(this.localeFormat);
+      setReturn = moment(this.activeTime).format(this.localeFormat);
     }
+    returnTime = {
+      hour: moment(this.activeTime).hour(),
+      minute: moment(this.activeTime).minute(),
+      meridie: moment(this.activeTime).format('A'),
+      timezone: moment(this.activeTime).format('Z'),
+      ios8601: this.activeTime,
+      local: moment(this.activeTime).format(this.localeFormat),
+      customFormat: (typeof this.returnFormat !== 'undefined')
+        ? this.returnFormat : this.localeFormat
+    };
+    return returnTime;
   }
+
 
   public setTime(event: any) {
     if (typeof event !== 'undefined') {

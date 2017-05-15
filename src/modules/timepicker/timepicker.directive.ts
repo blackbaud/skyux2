@@ -10,7 +10,7 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-
+let moment = require('moment');
 import {
   SkyTimepickerComponent
 } from './timepicker.component';
@@ -23,13 +23,15 @@ import {
 import {
   Subscription
 } from 'rxjs/Subscription';
-/* tslint:disable */
+import { SkyTimepickerTimeOutput } from './timepicker.interface';
+
+// tslint:disable no-forward-ref
 const SKY_TIMEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyTimepickerInputDirective),
   multi: true
 };
-/* tslint:enable */
+// tslint:enable
 @Directive({
   selector: '[skyTimepickerInput]',
   providers: [SKY_TIMEPICKER_VALUE_ACCESSOR]
@@ -47,7 +49,7 @@ export class SkyTimepickerInputDirective implements
 
   @Input()
   public returnFormat: string;
-  private modelValue: String;
+  private modelValue: SkyTimepickerTimeOutput;
   public constructor(private renderer: Renderer, private elRef: ElementRef) {
   }
 
@@ -55,7 +57,7 @@ export class SkyTimepickerInputDirective implements
     this.renderer.setElementClass(this.elRef.nativeElement, 'sky-form-control', true);
     this.pickerChangedSubscription =
       this.skyTimepickerInput.selectedTimeChanged.subscribe((newTime: String) => {
-        this.writeValue(newTime);
+        this.writeValue(this.formatter(newTime));
         this._onChange(newTime);
       });
   }
@@ -77,9 +79,7 @@ export class SkyTimepickerInputDirective implements
   @HostListener('change', ['$event'])
   public onChange(event: any) {
     let newValue = event.target.value;
-    // need to parse time here:
-    this.modelValue = newValue;
-
+    this.modelValue = this.formatter(newValue);
     this._onChange(this.modelValue);
     this.writeModelValue(this.modelValue);
   }
@@ -87,19 +87,47 @@ export class SkyTimepickerInputDirective implements
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
   public writeValue(value: any) {
-    this.modelValue = value ? value : undefined;
+    this.modelValue = this.formatter(value);
     this.writeModelValue(this.modelValue);
   }
 
-  private writeModelValue(model: String) {
+  private writeModelValue(model: SkyTimepickerTimeOutput) {
     if (model) {
-      this.renderer.setElementProperty(this.elRef.nativeElement, 'value', model);
+      debugger
+      this.renderer.setElementProperty(this.elRef.nativeElement, 'value',
+        moment(model).format(model.customFormat)
+      );
     }
     this.skyTimepickerInput.selectedTime = model;
   }
 
-   private _onChange = (_: any) => { };
-   private _onTouched = () => { };
+  private formatter(time: any) {
+    if (time && typeof time !== 'string' && 'local' in time) { return time; }
+    if (typeof time === 'string') {
+      let currentFormat: string;
+      let formatTime: SkyTimepickerTimeOutput;
+      if (this.format === 'hh') {
+        currentFormat = 'h:mm A';
+      }
+      if (this.format === 'HH') {
+        currentFormat = 'H:mm';
+      }
+      debugger
+      if (typeof this.returnFormat === 'undefined') { this.returnFormat = currentFormat; }
+      formatTime = {
+        'hour': moment(time, currentFormat).hour(),
+        'minute': moment(time, currentFormat).minute(),
+        'meridie': moment(time, currentFormat).format('A'),
+        'timezone': moment(time, currentFormat).format('Z'),
+        'ios8601': moment(time, currentFormat).format(),
+        'local': moment(time, currentFormat).format(currentFormat),
+        'customFormat': this.returnFormat
+      };
+      return formatTime;
+    }
+  }
+  private _onChange = (_: any) => { };
+  private _onTouched = () => { };
   // private _validatorChange = () => { };
 
 }

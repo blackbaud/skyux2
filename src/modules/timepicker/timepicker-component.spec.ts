@@ -114,7 +114,7 @@ fdescribe('Timepicker', () => {
     component.format = 'hh';
     setInput(nativeElement, '2:55 AM', fixture);
     expect(nativeElement.querySelector('input').value).toBe('2:55 AM');
-    expect(component.selectedTime).toEqual('2:55 AM');
+    expect(component.selectedTime.local).toEqual('2:55 AM');
   }));
   describe('validation', () => {
     let ngModel: NgModel;
@@ -265,7 +265,7 @@ fdescribe('Timepicker', () => {
         meridies.item(0).click();
         fixture.detectChanges();
         expect(nativeElement.querySelector('input').value).toBe('12:30 AM');
-        expect(component.selectedTime).toEqual('12:30 AM');
+        expect(component.selectedTime.local).toEqual('12:30 AM');
         expect(meridies.item(0)).toHaveCssClass('sky-btn-active');
       }));
 
@@ -286,7 +286,7 @@ fdescribe('Timepicker', () => {
         meridies.item(1).click();
         fixture.detectChanges();
         expect(nativeElement.querySelector('input').value).toBe('12:30 PM');
-        expect(component.selectedTime).toEqual('12:30 PM');
+        expect(component.selectedTime.local).toEqual('12:30 PM');
         expect(meridies.item(1)).toHaveCssClass('sky-btn-active');
          fixture.detectChanges();
         // Test 1:30 PM
@@ -295,7 +295,7 @@ fdescribe('Timepicker', () => {
         meridies.item(1).click();
         fixture.detectChanges();
         expect(nativeElement.querySelector('input').value).toBe('1:30 PM');
-        expect(component.selectedTime).toEqual('1:30 PM');
+        expect(component.selectedTime.local).toEqual('1:30 PM');
         expect(meridies.item(1)).toHaveCssClass('sky-btn-active');
       }));
 
