@@ -27,6 +27,8 @@ class AppComponent {
 
   public acceptedTypes: Array<String>;
 
+  public allowLinks: boolean = true;
+
   constructor() {
     this.filesToUpload = [];
     this.rejectedFiles = [];

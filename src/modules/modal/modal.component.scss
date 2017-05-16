@@ -67,12 +67,34 @@
 
 .sky-modal-footer {
   flex-shrink: 0;
+  /deep/ sky-tabset-nav-button + sky-tabset-nav-button {
+    margin-left: $sky-margin;
+  }
+   /deep/ sky-tabset-nav-button + .sky-btn {
+    margin-left: $sky-margin;
+  }
+
+  /deep/ .sky-btn + .sky-btn {
+    margin-left: $sky-margin;
+  }
+
+  /deep/ .sky-btn + .sky-btn-link {
+    margin-left: -2px; /* offset the padding of the btn-link */
+  }
 }
 
 .sky-modal-full-page {
   width:100%;
   top:0;
   margin:0;
+
+  .sky-modal-header-content {
+    @include sky-section-heading();
+  }
+
+  .sky-modal-header-buttons .fa-close {
+    font-size: 20px;
+  }
 
 }
 .sky-modal-full-page .sky-modal-content {
