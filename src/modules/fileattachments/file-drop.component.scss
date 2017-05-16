@@ -13,6 +13,10 @@
   }
 
   .sky-file-drop-col {
+    flex-basis: 100%;
+  }
+
+  .sky-file-drop-allow-links.sky-file-drop-col {
     flex-basis: 50%;
   }
 }
