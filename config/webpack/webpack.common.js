@@ -41,8 +41,9 @@ module.exports = {
         loader: 'source-map-loader',
         exclude: [
           // these packages have problems with their sourcemaps
+          // https://github.com/angular-redux/store/issues/64
           helpers.root('node_modules/rxjs'),
-          helpers.root('node_modules/@angular/compiler/bundles')
+          helpers.root('node_modules/@angular/compiler')
         ]
       },
 
