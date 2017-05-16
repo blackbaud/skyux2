@@ -22,7 +22,7 @@ export class SkyTimepickerComponent implements OnInit {
 
   public activeTime: Date;
   public returnFormat: string;
-  public format: string = 'hh';
+  public timeFormat: string = 'hh';
   public hours: Array<number>;
   public minutes: Array<number>;
   public localeFormat: string;
@@ -30,7 +30,7 @@ export class SkyTimepickerComponent implements OnInit {
   private is8601: boolean = false;
 
   public ngOnInit() {
-    this.setFormat(this.format);
+    this.setFormat(this.timeFormat);
   }
 
   public setFormat(format: string) {
@@ -76,7 +76,6 @@ export class SkyTimepickerComponent implements OnInit {
   public set selectedTime(newTime: SkyTimepickerTimeOutput) {
     if (typeof newTime !== 'undefined') {
       this.activeTime = newTime.ios8601;
-      debugger
     }
   }
 

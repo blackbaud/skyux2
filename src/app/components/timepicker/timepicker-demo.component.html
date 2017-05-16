@@ -14,7 +14,7 @@
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample2>
     <input  type="text" [skyTimepickerInput]="timePickerExample2"
-    [format]="format24"
+    [timeFormat]="format24"
     [(ngModel)]="selectedTime2"/>
   </sky-timepicker>
 </div>
@@ -26,7 +26,7 @@
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample3>
     <input type="hidden" [skyTimepickerInput]="timePickerExample3"
-    [format]="format24"
+    [timeFormat]="format24"
     [returnFormat]="returnFormat"
     (activeTime)="alert($event)"
     [(ngModel)]="selectedTime3"/>

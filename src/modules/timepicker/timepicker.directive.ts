@@ -45,7 +45,7 @@ export class SkyTimepickerInputDirective implements
   public skyTimepickerInput: SkyTimepickerComponent;
 
   @Input()
-  public format: string;
+  public timeFormat: string;
 
   @Input()
   public returnFormat: string;
@@ -63,8 +63,8 @@ export class SkyTimepickerInputDirective implements
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['format']) {
-      this.skyTimepickerInput.setFormat(this.format);
+    if (changes['timeFormat']) {
+      this.skyTimepickerInput.setFormat(this.timeFormat);
     }
     if (changes['returnFormat']) {
       this.skyTimepickerInput.returnFormat = this.returnFormat;
@@ -93,7 +93,6 @@ export class SkyTimepickerInputDirective implements
 
   private writeModelValue(model: SkyTimepickerTimeOutput) {
     if (model) {
-      debugger
       this.renderer.setElementProperty(this.elRef.nativeElement, 'value',
         moment(model).format(model.customFormat)
       );
@@ -106,13 +105,12 @@ export class SkyTimepickerInputDirective implements
     if (typeof time === 'string') {
       let currentFormat: string;
       let formatTime: SkyTimepickerTimeOutput;
-      if (this.format === 'hh') {
+      if (this.timeFormat === 'hh') {
         currentFormat = 'h:mm A';
       }
-      if (this.format === 'HH') {
+      if (this.timeFormat === 'HH') {
         currentFormat = 'H:mm';
       }
-      debugger
       if (typeof this.returnFormat === 'undefined') { this.returnFormat = currentFormat; }
       formatTime = {
         'hour': moment(time, currentFormat).hour(),
