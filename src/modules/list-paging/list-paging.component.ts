@@ -9,12 +9,16 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { getValue } from 'microedge-rxstate/dist/helpers';
 import { ListPagingComponent } from '../list/list-paging.component';
-import { ListState, ListStateDispatcher } from '../list/state';
+import { ListState, ListStateDispatcher, ListItemModel } from '../list/state';
 import {
   ListPagingSetMaxPagesAction,
   ListPagingSetItemsPerPageAction,
   ListPagingSetPageNumberAction
 } from '../list/state/paging/actions';
+
+import {
+  AsyncList
+} from 'microedge-rxstate/dist';
 
 @Component({
   selector: 'sky-list-paging',
@@ -60,7 +64,20 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
 
     this.itemsPerPage = this.state.map(s => s.paging.itemsPerPage);
 
-    this.itemCount = this.state.map(s => s.items.count);
+    this.itemCount = this.state.map((s) => {
+      return s.items;
+    })
+    .scan((previousValue: AsyncList<ListItemModel>, newValue: AsyncList<ListItemModel>) => {
+      if (previousValue.lastUpdate > newValue.lastUpdate) {
+        return previousValue;
+      } else {
+        return newValue;
+      }
+    })
+    .map((result: AsyncList<ListItemModel>) => {
+      return result.count;
+    })
+    .distinctUntilChanged();
 
     // subscribe to or use inputs
     getValue(this.pageSize, (pageSize: number) =>
