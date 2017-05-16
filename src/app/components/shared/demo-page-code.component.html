@@ -21,8 +21,8 @@
     <sky-tab
       *ngFor="let codeFile of codeFilesForBinding"
       [tabHeading]="codeFile.name">
-      <stache-code-block 
-        [code]="codeFile.code"
+      <stache-code-block
+        [code]="codeFile.codeImports"
         [languageType]="codeFile.language">
       </stache-code-block>
     </sky-tab>
