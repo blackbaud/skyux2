@@ -58,11 +58,18 @@
   text-align: center;
   cursor: pointer;
 }
+.sky-timepicker-column ol li button {
+  cursor: pointer;
+  outline: none;
+}
 .sky-timepicker-column ol li button:hover {
   background-color: $sky-color-gray-05;
 }
 .sky-timepicker-column ol li button:active {
   background-color: $sky-color-gray-10;
+}
+.sky-timepicker-column ol li button.sky-btn-active:hover {
+    background-color: $sky-color-blue;
 }
 .sky-timepicker-column ol .sky-btn-active {
   background-color: $sky-color-blue;
@@ -86,5 +93,6 @@
   border-style: solid;
   border-width: 1px;
   border-color: $sky-color-gray-10;
-  padding: $sky-padding
+  padding: $sky-padding;
+  cursor: pointer;
 }
