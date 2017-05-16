@@ -100,7 +100,6 @@ export class SkyTimepickerComponent implements OnInit {
     return returnTime;
   }
 
-
   public setTime(event: any) {
     if (typeof event !== 'undefined') {
       if (event.type === 'click') {

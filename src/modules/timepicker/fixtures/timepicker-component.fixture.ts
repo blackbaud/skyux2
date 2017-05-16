@@ -12,7 +12,7 @@ import { SkyTimepickerTimeOutput } from '../timepicker.interface';
   template: require('./timepicker-component.fixture.html')
 })
 export class TimepickerTestComponent {
-  public format: string = 'hh';
+  public timeFormat: string = 'hh';
   public returnFormat: string = undefined;
   public selectedTime: SkyTimepickerTimeOutput;
 

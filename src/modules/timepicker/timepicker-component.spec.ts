@@ -239,7 +239,7 @@ describe('Timepicker', () => {
         let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
         let hours = units.item(0).querySelectorAll('button');
         let minutes = units.item(1).querySelectorAll('button');
-        let tz = moment(new Date()).timeFormat('Z');
+        let tz = moment(new Date()).format('Z');
         // Test 4:45 PM
         fixture.detectChanges();
         openTimepicker(nativeElement, fixture);
