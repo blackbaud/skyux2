@@ -5,7 +5,7 @@
       (linkChanged)="linkAdded($event)"
       [maxFileSize]="maxFileSize"
       [validateFn]="validateFile"
-      [allowLinks]="true">
+      [allowLinks]="allowLinks">
     </sky-file-drop>
 
     <div *ngFor="let file of allItems">
@@ -13,3 +13,10 @@
     </div>
   </div>
 </div>
+
+<button
+  type="button"
+  class="sky-btn sky-btn-primary sky-test-allow-links"
+  (click)="allowLinks = !allowLinks">
+  Toggle allowLinks
+</button>
