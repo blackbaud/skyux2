@@ -17,7 +17,10 @@ import {
 
 import {
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
+  Validator,
+  NG_VALIDATORS,
+  AbstractControl
 } from '@angular/forms';
 
 import {
@@ -31,13 +34,22 @@ const SKY_TIMEPICKER_VALUE_ACCESSOR = {
   useExisting: forwardRef(() => SkyTimepickerInputDirective),
   multi: true
 };
+
+const SKY_TIMEPICKER_VALIDATOR = {
+  provide: NG_VALIDATORS,
+  useExisting: forwardRef(() => SkyTimepickerInputDirective),
+  multi: true
+};
 // tslint:enable
 @Directive({
   selector: '[skyTimepickerInput]',
-  providers: [SKY_TIMEPICKER_VALUE_ACCESSOR]
+  providers: [
+    SKY_TIMEPICKER_VALUE_ACCESSOR,
+    SKY_TIMEPICKER_VALIDATOR
+  ]
 })
 export class SkyTimepickerInputDirective implements
-  OnInit, OnDestroy, ControlValueAccessor, OnChanges {
+  OnInit, OnDestroy, ControlValueAccessor, Validator, OnChanges {
 
   public pickerChangedSubscription: Subscription;
 
@@ -61,18 +73,20 @@ export class SkyTimepickerInputDirective implements
         this._onChange(newTime);
       });
   }
-
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['timeFormat']) {
-      this.skyTimepickerInput.setFormat(this.timeFormat);
-    }
-    if (changes['returnFormat']) {
-      this.skyTimepickerInput.returnFormat = this.returnFormat;
-    }
-  }
   public ngOnDestroy() {
     if (this.pickerChangedSubscription) {
       this.pickerChangedSubscription.unsubscribe();
+    }
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['timeFormat']) {
+      this._validatorChange();
+      this.skyTimepickerInput.setFormat(this.timeFormat);
+    }
+    if (changes['returnFormat']) {
+      this._validatorChange();
+      this.skyTimepickerInput.returnFormat = this.returnFormat;
     }
   }
 
@@ -80,22 +94,47 @@ export class SkyTimepickerInputDirective implements
   public onChange(event: any) {
     let newValue = event.target.value;
     this.modelValue = this.formatter(newValue);
+    this._validatorChange();
     this._onChange(this.modelValue);
     this.writeModelValue(this.modelValue);
   }
 
+  @HostListener('blur')
+  public onBlur() {
+    this._onTouched();
+  }
+
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
+  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; };
+
   public writeValue(value: any) {
     this.modelValue = this.formatter(value);
     this.writeModelValue(this.modelValue);
   }
+  public validate(control: AbstractControl): { [key: string]: any } {
+    let value = control.value;
+    if (!value) {
+      return;
+    }
 
+    if (value.local === 'Invalid date') {
+      return {
+        'skyTime': {
+          invalid: control.value
+        }
+      };
+    }
+  }
   private writeModelValue(model: SkyTimepickerTimeOutput) {
+    let setElementValue: string;
     if (model) {
-      this.renderer.setElementProperty(this.elRef.nativeElement, 'value',
-        moment(model).format(model.customFormat)
-      );
+      if (moment(model).format(model.customFormat) === 'Invalid date') {
+        setElementValue = '';
+      } else {
+        setElementValue = moment(model).format(model.customFormat);
+      }
+      this.renderer.setElementProperty(this.elRef.nativeElement, 'value', setElementValue);
     }
     this.skyTimepickerInput.selectedTime = model;
   }
@@ -124,8 +163,10 @@ export class SkyTimepickerInputDirective implements
       return formatTime;
     }
   }
+  /*istanbul ignore next */
   private _onChange = (_: any) => { };
+  /*istanbul ignore next */
   private _onTouched = () => { };
-  // private _validatorChange = () => { };
+  private _validatorChange = () => { };
 
 }
