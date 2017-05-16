@@ -11,11 +11,9 @@ export function getData(item: any, selector: string): any {
   if (resultFieldParts.length > 0) {
     for (let index = 0; index < resultFieldParts.length; index++) {
     let part = resultFieldParts[index];
-      if (result[part] === undefined) {
-        break;
-      }
       /* tslint:disable */
-      else if (result[part] === null) {
+      /* istanbul ignore else */
+      if (result[part] === null || result[part] === undefined) {
         result = null;
         break;
       }
@@ -27,7 +25,7 @@ export function getData(item: any, selector: string): any {
 
   if (result === item) {
     return undefined;
-  };
+  }
 
   return result;
 }

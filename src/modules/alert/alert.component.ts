@@ -11,7 +11,7 @@ export class SkyAlertComponent {
   @Input()
   public set alertType(value: string) {
     this._alertType = value;
-  };
+  }
 
   public get alertType() {
     return this._alertType || ALERT_TYPE_DEFAULT;

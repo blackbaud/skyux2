@@ -51,7 +51,7 @@ export class SkyCardComponent implements AfterContentInit, OnDestroy {
       this.selected = !this.selected;
       this.selectedChange.emit(this.selected);
     }
-  };
+  }
 
   public ngOnDestroy() {
     /* istanbul ignore else */
