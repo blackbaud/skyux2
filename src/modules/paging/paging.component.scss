@@ -36,8 +36,14 @@
         background-color: $sky-paging-current-color;
       }
 
-      &.sky-paging-disabled {
+      &:hover {
+        background-color: darken($sky-paging-background-color, 10%);
+      }
+
+       &.sky-paging-disabled {
         color: $sky-paging-disabled-color;
+        cursor: not-allowed;
+        pointer-events: none;
       }
     }
   }
