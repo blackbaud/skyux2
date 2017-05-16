@@ -184,10 +184,8 @@ describe('List column selector action', () => {
   }));
 
   it('should not appear if not in grid view', fakeAsync(() => {
-    // fixture.detectChanges();
     tick();
     dispatcher.viewsSetActive('other');
-    // fixture.detectChanges();
     tick();
 
     /* tslint:disable */
