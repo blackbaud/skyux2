@@ -27,7 +27,7 @@
 }
 
 .sky-grid-row {
-  @include sky-border(dark, bottom);
+  @include sky-border(row, bottom);
 
   &:nth-child(odd) {
     background-color: $sky-grid-odd-background-color;
