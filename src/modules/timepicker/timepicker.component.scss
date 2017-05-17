@@ -1,0 +1,98 @@
+@import "../../scss/variables";
+.sky-input-group-timepicker-btn /deep/ .sky-btn {
+  border-radius: 0;
+}
+
+.sky-input-group /deep/ .sky-form-control {
+  border-right: none;
+}
+
+.sky-input-group-timepicker-btn /deep/ .sky-dropdown-menu {
+  box-shadow: none;
+  background-color: transparent;
+  text-align: center;
+}
+.sky-input-group /deep/ .sky-dropdown-item{ box-shadow: 0 0 3px 0; }
+
+.sky-timepicker-container {
+  font-size: 14px;
+  display: flex;
+  padding: $sky-padding-half;
+  background-color: $sky-color-gray-05;
+}
+.sky-timepicker-container button {
+  background-color: $sky-color-white;
+  border-width: 0px;
+  padding: $sky-padding-plus-half;
+  padding-top: $sky-padding-half;
+  padding-bottom: $sky-padding-half;
+  width: 100%;
+  height: 100%;
+}
+.sky-timepicker-container :last-child ol{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.sky-timepicker-container :last-child ol li{
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: $sky-color-gray-05;
+  flex: 1;
+}
+.sky-timepicker-column {
+  margin: $sky-margin-half;
+  }
+
+.sky-timepicker-column ol {
+  border-color: $sky-paging-border-color;
+  border-style: solid;
+  border-width: 1px;
+  column-gap: 1px;
+  columns: 2;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+.sky-timepicker-column ol li {
+  text-align: center;
+  cursor: pointer;
+}
+.sky-timepicker-column ol li button {
+  cursor: pointer;
+  outline: none;
+}
+.sky-timepicker-column ol li button:hover {
+  background-color: $sky-color-gray-05;
+}
+.sky-timepicker-column ol li button:active {
+  background-color: $sky-color-gray-10;
+}
+.sky-timepicker-column ol li button.sky-btn-active:hover {
+    background-color: $sky-color-blue;
+}
+.sky-timepicker-column ol .sky-btn-active {
+  background-color: $sky-color-blue;
+  color: $sky-color-white;
+}
+.sky-timepicker-column.sky-timepicker-24hour ol{
+  columns: 4;
+}
+.sky-timepicker-column.sky-timepicker-24hour ol li{
+  border-bottom-width: 0px;
+}
+.sky-timepicker-footer{
+  margin: 0px;
+  padding: $sky-padding;
+  padding-top: 0px;
+}
+.sky-timepicker-footer .sky-timepicker-column{
+  width:100%;
+  }
+.sky-timepicker-footer button{
+  border-style: solid;
+  border-width: 1px;
+  border-color: $sky-color-gray-10;
+  padding: $sky-padding;
+  cursor: pointer;
+}
