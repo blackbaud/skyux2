@@ -1,12 +1,14 @@
 import {
   TestBed,
-  async
+  async,
+  fakeAsync
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import {
   ListState,
-  ListStateDispatcher
+  ListStateDispatcher,
+  ListStateModel
 } from '../list/state';
 import { SkyListPagingModule } from './';
 import {
@@ -19,6 +21,10 @@ import {
   ListPagingSetPageNumberAction
 } from '../list/state/paging/actions';
 import { ListItemModel } from '../list/state/items/item.model';
+
+import { AsyncList } from 'microedge-rxstate/dist';
+
+let moment = require('moment');
 
 describe('List Paging Component', () => {
   let state: ListState,
@@ -119,6 +125,25 @@ describe('List Paging Component', () => {
           By.css(getPagingSelector('next'))
         ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
       });
+
+      it('does not respond to old item count changes from state', fakeAsync(() => {
+        let newState = new ListStateModel();
+        newState.items = new AsyncList<ListItemModel>(
+          [
+            new ListItemModel('1', {}),
+            new ListItemModel('2', {})
+          ],
+          moment(new Date('3/25/2016')),
+          false,
+          2
+        );
+
+        state.next(newState);
+
+        expect(element.query(
+          By.css(getPagingSelector('1'))
+        )).not.toBeNull();
+      }));
     });
 
     describe('component changes', () => {
