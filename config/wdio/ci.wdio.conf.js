@@ -34,7 +34,7 @@
       resolution: '1280x960',
       name: 'SKYUX2BROWSERSTACKCI',
       'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
-    },
+    }
     // {
     //   browserName: 'firefox',
     //   browser_version: '52',
@@ -56,7 +56,7 @@
   config.host = 'hub.browserstack.com';
   config.port = 80;
 
-  config.maxInstances = 1;
+  config.maxInstances = 4;
 
   config.visualRegression = require('../utils/visual-browser-commands')
     .getVisualRegression(
