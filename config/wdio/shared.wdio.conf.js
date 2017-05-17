@@ -10,7 +10,7 @@
     specs: [
         'src/modules/**/*.visual-spec.js'
     ],
-    logLevel: 'silent',
+    logLevel: 'error',
     baseUrl: 'http://localhost:3000',
     framework: 'jasmine',
     jasmineNodeOpts: {
