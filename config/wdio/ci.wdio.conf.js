@@ -4,7 +4,7 @@
   'use strict';
 
   var server = require('../utils/visual-server');
-  var config = require('./shared.wdio.conf');
+  var config = require('./shared.wdio.conf.js');
 
   config.services.push('browserstack');
   config.browserstackLocal = true;
