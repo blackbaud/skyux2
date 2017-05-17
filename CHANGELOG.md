@@ -1,3 +1,18 @@
+# 2.0.0-beta.27 (2017-05-16)
+
+  - Added proper nesting for `getData` in grids. (Thanks @Blackbaud-TrevorBurch)
+  - Updated styles for full page modal header. (#548)
+  - Ensured component wait mask appears behind modal. (#637)
+  - Fixed padding for tab close button. (#542)
+  - Fixed styles for file drop when links are not allowed. (#645)
+  - Added space between modal footer buttons and added cancel button to wizard demo. (#541)
+  - Updated styles for placeholder text for inputs. (#538)
+  - Fixed bug around search and paging for lists. (#696)
+  - Updated disabled and hover styles for paging. (#539)
+  - Added documentation around editing skyuxconfig. (#700)
+  - Updated border and striped background for grids. (#536)
+  - Updated text color for body. (#533)
+
 # 2.0.0-beta.26 (2017-05-11)
 
   - Added appropriate loaders to work with new version of builder.

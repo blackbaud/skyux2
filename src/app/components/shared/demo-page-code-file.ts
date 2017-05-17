@@ -24,5 +24,8 @@ export class SkyDemoPageCodeFile {
       default:
         this.language = 'markup';
     }
+
+    // This changes the imports from using the relative path to displaying the SKY UX 2 npm path
+    this.codeImports = this.code.replace(/\.\.\/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
   }
 }

@@ -4,8 +4,9 @@ describe('paging component', function () {
   it('should display first page selected', function () {
     return browser
       .setupTest('/paging.html')
+      .pause(1000)
       .compareScreenshot({
-        screenshotName: 'paging-first',
+        screenshotName: 'paging_first',
         selector: '#screenshot-paging'
       });
   });
@@ -13,32 +14,11 @@ describe('paging component', function () {
   it('should display middle page selected', function () {
     return browser
       .setupTest('/paging.html')
+      .pause(1000)
       .click('a[sky-cmp-id="next"]')
+      .pause(1000)
       .compareScreenshot({
-        screenshotName: 'paging-middle',
-        selector: '#screenshot-paging'
-      });
-  });
-
-  it('should display middle next page selected', function () {
-    return browser
-      .setupTest('/paging.html')
-      .click('a[sky-cmp-id="next"]')
-      .click('a[sky-cmp-id="next"]')
-      .compareScreenshot({
-        screenshotName: 'paging-middle-next',
-        selector: '#screenshot-paging'
-      });
-  });
-
-  it('should display last page selected', function () {
-    return browser
-      .setupTest('/paging.html')
-      .click('a[sky-cmp-id="next"]')
-      .click('a[sky-cmp-id="next"]')
-      .click('a[sky-cmp-id="next"]')
-      .compareScreenshot({
-        screenshotName: 'paging-last',
+        screenshotName: 'paging_middle',
         selector: '#screenshot-paging'
       });
   });
