@@ -98,7 +98,7 @@ export class SkyTimepickerComponent implements OnInit {
       local: moment(this.activeTime).format(this.localeFormat),
       customFormat: (typeof this.returnFormat !== 'undefined')
         ? this.returnFormat : this.localeFormat
-    }; debugger
+    };
     return returnTime;
   }
 
