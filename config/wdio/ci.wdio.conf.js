@@ -6,6 +6,16 @@
   var server = require('../utils/visual-server');
   var config = require('./shared.wdio.conf');
 
+  shared.services.push('browserstack');
+  shared.browserstackLocal = true;
+
+  shared.browserstackOpts = {
+    force: true,
+    forceLocal: true,
+    localIdentifier: 'SKYUX2BROWSERSTACKCI',
+    parallelRuns: 10
+  };
+
   config.user = process.env.BROWSER_STACK_USERNAME;
   config.key = process.env.BROWSER_STACK_ACCESS_KEY;
   config.capabilities = [

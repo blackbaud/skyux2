@@ -27,8 +27,6 @@ before_install:
   - chmod +x ./scripts/travis-after-failure.sh
   - chmod +x ./scripts/travis-after-script.sh
   - chmod +x ./scripts/travis-after-success.sh
-  - chmod +x ./scripts/browserstack-cleanup.sh
-  - chmod +x ./scripts/browserstack-local-start.sh
   - chmod +x ./scripts/visual-baseline.sh
   - chmod +x ./scripts/visual-failures.sh
 

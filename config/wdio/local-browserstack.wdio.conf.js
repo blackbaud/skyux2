@@ -7,6 +7,16 @@
   var shared = require('./shared.wdio.conf.js');
   var timestamp = new Date().toString();
 
+  shared.services.push('browserstack');
+  shared.browserstackLocal = true;
+
+  shared.browserstackOpts = {
+    force: true,
+    forceLocal: true,
+    localIdentifier: 'SKYUX2BROWSERSTACKCI',
+    parallelRuns: 10
+  };
+
   shared.user = process.env.BROWSER_STACK_USERNAME;
   shared.key = process.env.BROWSER_STACK_ACCESS_KEY;
   shared.capabilities = [
