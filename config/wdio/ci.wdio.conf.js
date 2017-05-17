@@ -6,10 +6,10 @@
   var server = require('../utils/visual-server');
   var config = require('./shared.wdio.conf');
 
-  shared.services.push('browserstack');
-  shared.browserstackLocal = true;
+  config.services.push('browserstack');
+  config.browserstackLocal = true;
 
-  shared.browserstackOpts = {
+  config.browserstackOpts = {
     force: true,
     forceLocal: true,
     localIdentifier: 'SKYUX2BROWSERSTACKCI',
