@@ -10,6 +10,7 @@
     specs: [
         'src/modules/**/alert.component.visual-spec.js'
     ],
+    logLevel: 'silent',
     coloredLogs: true,
     baseUrl: 'http://localhost:3000',
     connectionRetryTimeout: 90000,
