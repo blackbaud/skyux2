@@ -13,7 +13,7 @@
   webpackCompiler.options.plugins.shift();
 
   var server = new WebpackDevServer(webpackCompiler, {
-    noInfo: false,
+    noInfo: true,
     contentBase: 'src/',
     clientLogLevel: 'info',
     overlay: {
@@ -26,10 +26,15 @@
   var bsLocal;
   var seleniumChild;
 
+  console.log('port', webpackCompiler.options.devServer.port);
+  console.log('host', webpackCompiler.options.devServer.host);
+
   // Start the webserver
   function start() {
     return new Promise(function (resolve, reject) {
-      return server.listen(webpackCompiler.options.devServer.port, function () {
+      return server.listen(
+        webpackCompiler.options.devServer.port,
+        webpackCompiler.options.devServer.host, function () {
         return selenium.install({
           logger: console.log
         }, function () {
@@ -45,7 +50,10 @@
   function startCI() {
     return new Promise(function (resolve, reject) {
       //bsLocal = new browserstack.Local();
-      return server.listen(webpackCompiler.options.devServer.port, function () {
+      return server.listen(
+        webpackCompiler.options.devServer.port,
+        webpackCompiler.options.devServer.host,
+        function () {
         /*return bsLocal.start({
           key: process.env.BROWSER_STACK_ACCESS_KEY,
           onlyAutomate: true,
