@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  var browserstack = require('browserstack-local');
   var rimraf = require('rimraf');
   var selenium = require('selenium-standalone');
   var webpack = require('webpack');
