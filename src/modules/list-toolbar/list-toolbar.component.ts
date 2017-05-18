@@ -246,12 +246,12 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     this.inlineFilterBarExpanded = !this.inlineFilterBarExpanded;
   }
 
-  private itemIsInView(itemView: string, activeView: string) {
-    return (itemView === undefined || itemView === activeView);
+  public updateSearchText(searchText: string) {
+    this.dispatcher.searchSetText(searchText);
   }
 
-  private updateSearchText(searchText: string) {
-    this.dispatcher.searchSetText(searchText);
+  private itemIsInView(itemView: string, activeView: string) {
+    return (itemView === undefined || itemView === activeView);
   }
 
   private getSortSelectors() {
