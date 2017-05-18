@@ -58,5 +58,4 @@
   config.onComplete = server.stopCI;
 
   exports.config = config;
-
 })();
