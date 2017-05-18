@@ -69,8 +69,10 @@
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
 
-  config.beforeSession = function () {
+  config.beforeSession = function (config, capabilities, specs) {
     console.log('before session');
+    console.log('caps', capabilities);
+    console.log('specs', specs);
   };
 
   config.beforeHook = function () {
