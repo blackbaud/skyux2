@@ -9,8 +9,10 @@ git:
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
 addons:
   browserstack:
-    username: $BROWSER_STACK_USERNAME
-    access_key: $BROWSER_STACK_ACCESS_KEY
+    username:
+      secure: $BROWSER_STACK_USERNAME
+    access_key:
+      secure: $BROWSER_STACK_ACCESS_KEY
   apt:
     sources:
       - ubuntu-toolchain-r-test
