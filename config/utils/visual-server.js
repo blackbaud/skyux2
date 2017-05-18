@@ -14,7 +14,8 @@
 
   var server = new WebpackDevServer(webpackCompiler, {
     noInfo: true,
-    contentBase: 'src/'
+    contentBase: 'src/',
+    clientLogLevel: 'info'
   });
 
   var bsLocal;

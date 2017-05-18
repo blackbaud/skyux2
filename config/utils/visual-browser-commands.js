@@ -126,6 +126,7 @@
 
   function getVisualRegression(referenceFolder, screenshotFolder, diffsFolder) {
     var VisualRegressionCompare = require('wdio-visual-regression-service/compare');
+    console.log('in get visual regression');
     return {
       compare: new VisualRegressionCompare.LocalCompare({
         referenceName: getScreenshotName(path.join(process.cwd(), referenceFolder)),

@@ -1,6 +1,6 @@
 /* global require, exports, process */
 
-(function ()  {
+(function () {
   'use strict';
 
   var server = require('../utils/visual-server');
