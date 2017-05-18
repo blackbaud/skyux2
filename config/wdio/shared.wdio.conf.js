@@ -8,7 +8,7 @@
   var timestamp;
   module.exports = {
     specs: [
-        'src/modules/**/alert.component.visual-spec.js'
+        'src/modules/**/*.visual-spec.js'
     ],
     logLevel: 'silent',
     coloredLogs: true,
