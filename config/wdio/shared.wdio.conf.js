@@ -13,8 +13,8 @@
     logLevel: 'silent',
     coloredLogs: true,
     baseUrl: 'http://localhost:3000',
-    connectionRetryTimeout: 90000,
-    connectionRetryCount: 3,
+    /*connectionRetryTimeout: 90000,
+    connectionRetryCount: 3,*/
     framework: 'jasmine',
     jasmineNodeOpts: {
       defaultTimeoutInterval: 200000,

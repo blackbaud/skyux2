@@ -6,8 +6,6 @@
   var server = require('../utils/visual-server');
   var config = require('./shared.wdio.conf.js');
 
-  console.log('build: ', process.env.TRAVIS_BUILD_NUMBER);
-
   config.user = process.env.BROWSER_STACK_USERNAME;
   config.key = process.env.BROWSER_STACK_ACCESS_KEY;
   config.capabilities = [
