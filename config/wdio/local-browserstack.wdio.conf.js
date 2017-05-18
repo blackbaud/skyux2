@@ -7,17 +7,6 @@
   var shared = require('./shared.wdio.conf.js');
   var timestamp = new Date().toString();
 
-  shared.services.push('browserstack');
-  shared.browserstackLocal = true;
-
-  shared.browserstackOpts = {
-    force: true,
-    forceLocal: true,
-    localIdentifier: 'SKYUX2BROWSERSTACKCI',
-    parallelRuns: 10
-  };
-
-  console.log('in config file');
   shared.user = process.env.BROWSER_STACK_USERNAME;
   shared.key = process.env.BROWSER_STACK_ACCESS_KEY;
   shared.capabilities = [
@@ -68,27 +57,6 @@
 
   shared.onPrepare = server.startCI;
   shared.onComplete = server.stopCI;
-
-  shared.beforeSession = function () {
-    console.log('before session');
-  };
-
-  shared.beforeHook = function () {
-    console.log('before hook');
-  };
-
-  shared.beforeTest = function () {
-    console.log('before test');
-  };
-
-  shared.beforeCommand = function (commandName) {
-    console.log('before command', commandName);
-  };
-
-  shared.afterCommand = function (commandName, args, result, error) {
-    console.log('after command');
-    console.log('command error', error);
-  };
 
   exports.config = shared;
 

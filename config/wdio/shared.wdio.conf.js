@@ -10,7 +10,6 @@
     specs: [
         'src/modules/**/alert.component.visual-spec.js'
     ],
-    logLevel: 'verbose',
     coloredLogs: true,
     baseUrl: 'http://localhost:3000',
     connectionRetryTimeout: 90000,
@@ -28,7 +27,6 @@
     ],
 
     before: function () {
-      console.log('in before');
       timestamp = new Date().getTime();
       var commands = require('../utils/visual-browser-commands');
       /*Object.keys(commands).forEach(function (command) {
@@ -54,8 +52,6 @@
       browser.addCommand('focusElement', function async(selector) {
         return commands.focusElement(this, selector);
       });
-
-      console.log('end of before');
 
     },
 

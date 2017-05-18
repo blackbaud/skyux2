@@ -25,7 +25,7 @@
     "test:unit:base": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
     "test:visual": "npm run test:visual:base -- config/wdio/local.wdio.conf.js",
     "test:visual:ci": "./scripts/browserstack-local-start.sh && npm run test:visual:base -- config/wdio/ci.wdio.conf.js",
-    "test:visual:local-browserstack": "npm run test:visual:base -- config/wdio/local-browserstack.wdio.conf.js",
+    "test:visual:local-browserstack": "./scripts/browserstack-local-start.sh && npm run test:visual:base -- config/wdio/local-browserstack.wdio.conf.js",
     "test:visual:base": "./node_modules/.bin/wdio",
     "postversion": "git push && git push --tags",
     "prebuild": "npm run clean",

@@ -6,16 +6,6 @@
   var server = require('../utils/visual-server');
   var config = require('./shared.wdio.conf.js');
 
-  // config.services.push('browserstack');
-  // config.browserstackLocal = true;
-
-  // config.browserstackOpts = {
-  //   force: true,
-  //   forceLocal: true,
-  //   localIdentifier: 'SKYUX2BROWSERSTACKCI',
-  //   parallelRuns: 10
-  // };
-
   console.log('build: ', process.env.TRAVIS_BUILD_NUMBER);
 
   config.user = process.env.BROWSER_STACK_USERNAME;
@@ -68,29 +58,6 @@
 
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
-
-  config.beforeSession = function (config, capabilities, specs) {
-    console.log('before session');
-    console.log('caps', capabilities);
-    console.log('specs', specs);
-  };
-
-  config.beforeHook = function () {
-    console.log('before hook');
-  };
-
-  config.beforeTest = function () {
-    console.log('before test');
-  };
-
-  config.beforeCommand = function (commandName) {
-    console.log('before command', commandName);
-  };
-
-  config.afterCommand = function (commandName, args, result, error) {
-    console.log('after command');
-    console.log('command error', error);
-  };
 
   exports.config = config;
 
