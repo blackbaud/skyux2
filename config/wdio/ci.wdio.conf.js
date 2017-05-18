@@ -69,6 +69,27 @@
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
 
+  config.beforeSession = function () {
+    console.log('before session');
+  };
+
+  config.beforeHook = function () {
+    console.log('before hook');
+  };
+
+  config.beforeTest = function () {
+    console.log('before test');
+  };
+
+  config.beforeCommand = function (commandName) {
+    console.log('before command', commandName);
+  };
+
+  config.afterCommand = function (commandName, args, result, error) {
+    console.log('after command');
+    console.log('command error', error);
+  };
+
   exports.config = config;
 
 })();
