@@ -5,7 +5,7 @@ import { SkyModalInstance } from '../modal/modal-instance';
 @Component({
   selector: 'sky-error-modal-form',
   templateUrl: './error-modal-form.component.html',
-  styles: ['./error-modal-form.component.scss']
+  styleUrls: ['./error-modal-form.component.scss']
 })
 export class SkyErrorModalFormComponent {
   constructor(
