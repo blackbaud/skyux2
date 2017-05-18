@@ -13,7 +13,7 @@
   webpackCompiler.options.plugins.shift();
 
   var server = new WebpackDevServer(webpackCompiler, {
-    noInfo: true,
+    noInfo: false,
     contentBase: 'src/',
     clientLogLevel: 'info',
     overlay: {
