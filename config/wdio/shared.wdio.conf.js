@@ -10,8 +10,11 @@
     specs: [
         'src/modules/**/alert.component.visual-spec.js'
     ],
-    logLevel: 'error',
+    logLevel: 'verbose',
+    coloredLogs: true,
     baseUrl: 'http://localhost:3000',
+    connectionRetryTimeout: 90000,
+    connectionRetryCount: 3,
     framework: 'jasmine',
     jasmineNodeOpts: {
       defaultTimeoutInterval: 200000,
