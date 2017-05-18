@@ -16,6 +16,8 @@
     parallelRuns: 10
   };
 
+  console.log('build: ', process.env.TRAVIS_BUILD_NUMBER);
+
   config.user = process.env.BROWSER_STACK_USERNAME;
   config.key = process.env.BROWSER_STACK_ACCESS_KEY;
   config.capabilities = [

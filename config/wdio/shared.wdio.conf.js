@@ -8,7 +8,7 @@
   var timestamp;
   module.exports = {
     specs: [
-        'src/modules/**/*.visual-spec.js'
+        'src/modules/**/alert.component.visual-spec.js'
     ],
     logLevel: 'error',
     baseUrl: 'http://localhost:3000',
