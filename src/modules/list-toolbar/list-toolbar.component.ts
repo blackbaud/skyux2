@@ -28,7 +28,10 @@ import {
   ListStateDispatcher,
   ListSortLabelModel,
   ListSortFieldSelectorModel,
-  ListFilterModel
+  ListFilterModel,
+  ListSearchModel,
+  ListPagingModel,
+  ListPagingSetPageNumberAction
 } from '../list/state';
 
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
@@ -247,7 +250,11 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   }
 
   public updateSearchText(searchText: string) {
+
     this.dispatcher.searchSetText(searchText);
+    this.dispatcher.next(
+        new ListPagingSetPageNumberAction(Number(1))
+      );
   }
 
   private itemIsInView(itemView: string, activeView: string) {
