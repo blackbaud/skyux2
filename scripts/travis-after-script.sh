@@ -5,4 +5,5 @@ set -e
 # Upload coverage to https://codecov.io/gh/blackbaud/skyux2
 if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   bash <(curl -s https://codecov.io/bash)
+  ./scripts/browserstack-cleanup.sh
 fi

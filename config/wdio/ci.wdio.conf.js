@@ -6,15 +6,15 @@
   var server = require('../utils/visual-server');
   var config = require('./shared.wdio.conf.js');
 
-  config.services.push('browserstack');
-  config.browserstackLocal = true;
+  // config.services.push('browserstack');
+  // config.browserstackLocal = true;
 
-  config.browserstackOpts = {
-    force: true,
-    forceLocal: true,
-    localIdentifier: 'SKYUX2BROWSERSTACKCI',
-    parallelRuns: 10
-  };
+  // config.browserstackOpts = {
+  //   force: true,
+  //   forceLocal: true,
+  //   localIdentifier: 'SKYUX2BROWSERSTACKCI',
+  //   parallelRuns: 10
+  // };
 
   console.log('build: ', process.env.TRAVIS_BUILD_NUMBER);
 
