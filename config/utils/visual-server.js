@@ -14,20 +14,12 @@
 
   var server = new WebpackDevServer(webpackCompiler, {
     noInfo: true,
-    contentBase: 'src/',
-    clientLogLevel: 'info',
-    overlay: {
-      errors: true,
-      warnings: true
-    },
-    disableHostCheck: true
+    contentBase: 'src/'
+
   });
 
   var bsLocal;
   var seleniumChild;
-
-  console.log('port', webpackCompiler.options.devServer.port);
-  console.log('host', webpackCompiler.options.devServer.host);
 
   // Start the webserver
   function start() {
