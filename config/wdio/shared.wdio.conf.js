@@ -25,6 +25,7 @@
     ],
 
     before: function () {
+      console.log('in before');
       timestamp = new Date().getTime();
       var commands = require('../utils/visual-browser-commands');
       /*Object.keys(commands).forEach(function (command) {
@@ -34,6 +35,7 @@
           commands[command].apply(this, args);
         });
       });*/
+
       browser.addCommand('setupTest', function async(url, screenWidth) {
         return commands.setupTest(this, url, screenWidth || 1280);
       });
@@ -50,10 +52,11 @@
         return commands.focusElement(this, selector);
       });
 
+      console.log('end of before');
+
     },
 
     beforeTest: function () {
-
     },
 
     after: function () {
