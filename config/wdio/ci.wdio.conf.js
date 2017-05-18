@@ -46,7 +46,7 @@
   config.host = 'hub.browserstack.com';
   config.port = 80;
 
-  config.maxInstances = 25;
+  config.maxInstances = 3;
 
   config.visualRegression = require('../utils/visual-browser-commands')
     .getVisualRegression(
