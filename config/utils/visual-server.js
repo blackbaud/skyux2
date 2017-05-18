@@ -72,19 +72,14 @@
 
   // Stop the server and remove unused screenshots
   function stopCI(exitCode) {
+    console.log('ending server');
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
-    if (bsLocal && bsLocal.isRunning()) {
-      bsLocal.stop();
-    }
 
   }
 
   process.on('SIGINT', function () {
     stop();
-    if (bsLocal && bsLocal.isRunning()) {
-      bsLocal.stop();
-    }
 
     process.exit(1);
   });
