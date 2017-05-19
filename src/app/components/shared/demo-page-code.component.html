@@ -19,12 +19,12 @@
   <sky-tabset
     [active]="0">
     <sky-tab
-        *ngFor="let codeFile of codeFilesForBinding"
-        [tabHeading]="codeFile.name"
-    >
-      <div class="sky-demo-page-code-sample">
-        <pre><code [innerHTML]="codeFile.codeFormatted"></code></pre>
-      </div>
+      *ngFor="let codeFile of codeFilesForBinding"
+      [tabHeading]="codeFile.name">
+      <stache-code-block
+        [code]="codeFile.codeImports"
+        [languageType]="codeFile.language">
+      </stache-code-block>
     </sky-tab>
   </sky-tabset>
 </section>

@@ -32,6 +32,33 @@ describe('list helpers', () => {
     expect(result).toBeNull();
   });
 
+  it('returns property when selector is a nested selector', () => {
+    let data: any = {
+      myResults: { nestedValue: 'expected'},
+      otherResult: 'nothing'
+    };
+    let result = getData(data, 'myResults.nestedValue');
+    expect(result).toBe('expected');
+  });
+
+  it('returns property when selector is a nested selector that does not exits', () => {
+    let data: any = {
+      myResults: {},
+      otherResult: 'nothing'
+    };
+    let result = getData(data, 'myResults.nestedValue');
+    expect(result).toBeNull();
+  });
+
+  it('returns property when selector is a nested selector that is undefined', () => {
+    let data: any = {
+      myResults: { nestedValue: undefined },
+      otherResult: 'nothing'
+    };
+    let result = getData(data, 'myResults.nestedValue');
+    expect(result).toBeNull();
+  });
+
   it('returns null when empty string selector defined', () => {
     let data = {
       myResult: 'something',

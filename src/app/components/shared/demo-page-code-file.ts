@@ -24,11 +24,8 @@ export class SkyDemoPageCodeFile {
       default:
         this.language = 'markup';
     }
-    this.codeImports = this.code.replace(/\.\.\/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
 
-    this.codeFormatted = Prism.highlight(
-      this.codeImports,
-      Prism.languages[this.language]
-    );
+    // This changes the imports from using the relative path to displaying the SKY UX 2 npm path
+    this.codeImports = this.code.replace(/\.\.\/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
   }
 }
