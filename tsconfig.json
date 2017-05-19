@@ -14,9 +14,8 @@
       "dom",
       "es6"
     ],
-    "types": [
-      "jasmine",
-      "node"
+    "typeRoots": [
+      "./node_modules/@types"
     ]
   },
   "exclude": [

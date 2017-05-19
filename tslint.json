@@ -100,7 +100,7 @@
     ],
     "jsdoc-format": true,
     "no-consecutive-blank-lines": true,
-    "no-constructor-vars": false,
+    "no-parameter-properties": false,
     "one-line": [
       true,
       "check-open-brace",
