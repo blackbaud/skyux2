@@ -4,7 +4,6 @@ const helpers = require('../utils/helpers');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const IgnorePlugin = require('webpack/lib/IgnorePlugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 const extractScss = new ExtractTextPlugin('sky.css');
 
@@ -99,8 +98,6 @@ module.exports = {
   plugins: [
 
     extractScss,
-
-    new ForkCheckerPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: helpers.reverse(['polyfills', 'vendor'])
