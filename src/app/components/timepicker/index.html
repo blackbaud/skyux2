@@ -1,0 +1,33 @@
+<sky-demo-page title="Timepicker">
+  <sky-demo-page-summary>
+    The timepicker module contains directives for selecting times. To use as a SKY UX-themed replacement for the HTML <code>input</code> element with <code>type="time"</code>.
+    The value that is selected is driven through the <code>ngModel</code> attribute
+    specified on the <code>input</code> element.
+  </sky-demo-page-summary>
+
+  <sky-demo-page-properties>
+    <sky-demo-page-property
+      propertyName="timeFormat"
+      isOptional="true"
+      defaultValue="hh">
+      Specifies 12-hour <code>hh</code> or 24-hour <code>HH</code> format.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="returnFormat"
+      isOptional="true">
+      Specifies a custom time format. See the <a href="https://momentjs.com/docs/#/displaying/format/">momentjs docs</a> for examples.
+    </sky-demo-page-property>
+      </sky-demo-page-properties>
+<sky-demo-page-properties sectionHeading="Timepicker input directive properties">
+    <sky-demo-page-property
+        propertyName="skyTimepickerInput"
+    >
+      When this attribute is placed on an input element and wrapped in a <code>sky-timepicker</code> component, the input and time dropdown are created. This attribute must be set to the instance of the <code>sky-timepicker</code>. This directive will use <code>NgModel</code> for binding data.
+    </sky-demo-page-property>
+
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <sky-timepicker-demo></sky-timepicker-demo>
+  </sky-demo-page-example>
+</sky-demo-page>
