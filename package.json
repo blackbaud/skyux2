@@ -38,14 +38,14 @@
     "watch": "npm run test:unit -- --auto-watch --no-single-run"
   },
   "dependencies": {
-    "@angular/animations": "4.1.1",
-    "@angular/common": "4.1.1",
-    "@angular/compiler": "4.1.1",
-    "@angular/core": "4.1.1",
-    "@angular/forms": "4.1.1",
-    "@angular/platform-browser": "4.1.1",
-    "@angular/platform-browser-dynamic": "4.1.1",
-    "@angular/router": "4.1.1",
+    "@angular/animations": "4.1.2",
+    "@angular/common": "4.1.2",
+    "@angular/compiler": "4.1.2",
+    "@angular/core": "4.1.2",
+    "@angular/forms": "4.1.2",
+    "@angular/platform-browser": "4.1.2",
+    "@angular/platform-browser-dynamic": "4.1.2",
+    "@angular/router": "4.1.2",
     "@blackbaud/stache": "2.0.0-beta.0",
     "core-js": "2.4.1",
     "dragula": "3.7.2",
@@ -59,8 +59,8 @@
     "zone.js": "0.8.5"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "4.1.1",
-    "@blackbaud/skyux-builder": "1.0.0-beta.25",
+    "@angular/compiler-cli": "4.1.2",
+    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#update-angular",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.13",
