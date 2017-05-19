@@ -8,7 +8,7 @@ export class SkyErrorModalService {
   constructor(private modal: SkyModalService) {}
 
   public open(config: ErrorModalConfig) {
-    const providers = [{ provide: ErrorModalConfig, useValue: config }]
+    const providers = [{ provide: ErrorModalConfig, useValue: config }];
 
     this.modal.open(SkyErrorModalFormComponent, providers);
   }
