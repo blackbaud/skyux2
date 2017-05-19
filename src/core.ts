@@ -360,7 +360,7 @@ export {
 } from './modules/tiles';
 export {
   SkyTimepickerComponent
-} from './modules/timepicker'
+} from './modules/timepicker';
 export {
   SkyToolbarComponent,
   SkyToolbarItemComponent,

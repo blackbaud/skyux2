@@ -12,7 +12,7 @@ export class SkyErrorComponent implements OnInit {
   public set errorType(value: string) {
     this._errorType = value;
     this.setErrorTypeFields();
-  };
+  }
 
   public get errorType() {
     return this._errorType;

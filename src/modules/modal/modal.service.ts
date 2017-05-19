@@ -24,7 +24,7 @@ export class SkyModalService {
 
   // Open Overloads
   public open(component: any, providers?: any[]): SkyModalInstance;
-  public open(component: any, config?: IConfig): SkyModalInstance
+  public open(component: any, config?: IConfig): SkyModalInstance;
 
   // Open Method
   public open(): SkyModalInstance {

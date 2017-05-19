@@ -146,7 +146,7 @@ export class SkyDropdownAdapterService {
       topLeftVal,
       heightVal,
       widthVal,
-      overflowVal,
+      overflowVal
     );
   }
 

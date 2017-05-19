@@ -25,7 +25,7 @@ export function getData(item: any, selector: string): any {
 
   if (result === item) {
     return undefined;
-  };
+  }
 
   return result;
 }
