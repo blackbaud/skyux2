@@ -66,25 +66,14 @@ module.exports = {
       {
         enforce: 'post',
         test: /\.(js|ts)$/,
-        use: [
-          {
-            loader: 'istanbul-instrumenter-loader',
-            options: {
-              esModules: true
-            }
-          },
-          {
-            loader: 'source-map-inline-loader'
-          }
-        ],
+        loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
         include: helpers.root('src'),
         exclude: [
           /\.(e2e|spec)\.ts$/,
           /node_modules/,
           /index\.ts/,
           /fixtures/,
-          /testing/,
-          /src(\\|\/)app(\\|\/)lib/
+          /testing/
         ]
       }
     ]
