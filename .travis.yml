@@ -54,7 +54,6 @@ branches:
 cache:
   directories:
     - node_modules
-    - $BROWSER_STACK_BINARY_BASE_PATH
 
 notifications:
   slack:
