@@ -111,7 +111,6 @@ module.exports = {
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       helpers.root('src') // location of your src
     ),
-
     new IgnorePlugin(/^\.\/locale$/, /moment$/)
 
   ],
