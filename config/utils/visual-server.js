@@ -7,10 +7,7 @@
   var WebpackDevServer = require('webpack-dev-server');
   var webpackConfig = require('../webpack/webpack.visual');
 
-  // Remove ForkCheckerPlugin as it hangs the server
   var webpackCompiler = webpack(webpackConfig);
-  webpackCompiler.options.plugins.shift();
-
   var server = new WebpackDevServer(webpackCompiler, {
     noInfo: true,
     contentBase: 'src/'
