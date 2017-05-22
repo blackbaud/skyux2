@@ -59,13 +59,14 @@
     console.log('getViewSizehandler()', options.screenshotName);
 
     return browser
-      .checkElement(options.selector, { screenshotName: options.screenshotName })
+      .checkElement(options.selector)
       .then(function (results) {
         console.log('Element checked!', options.screenshotName);
         return checkVisualResult(results, options, this);
       })
       .catch(function (err) {
-        console.log('checkElement() ERROR!', err);
+        log('checkElement() ERROR!', err);
+        throw err;
       });
   }
 
