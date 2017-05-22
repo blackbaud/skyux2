@@ -6,29 +6,35 @@
   var util = require('util');
 
   function checkAccessibility(browser, options) {
-    return browser.executeAsync(function (done) {
+    console.log('checkAccessibility()', options.screenshotName);
+    return browser
+      .executeAsync(function (done) {
 
-      var config = {
-        rules: {
-          'bypass': { enabled: false },
-          'color-contrast': { enabled: false }
+        var config = {
+          rules: {
+            'bypass': { enabled: false },
+            'color-contrast': { enabled: false }
+          }
+        };
+
+        axe.a11yCheck(document, config, function (results) {
+          done(results);
+        });
+
+      })
+      .then(function (ret) {
+        if (ret.value.violations && ret.value.violations.length !== 0) {
+          console.log('Accessibility checks complete.', options.screenshotName);
+          logViolations(options.screenshotName, ret.value.violations);
+          expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
         }
-      };
-      axe.a11yCheck(document, config, function (results) {
-        done(results);
+
+        return;
       });
-
-    }).then(function (ret) {
-      if (ret.value.violations && ret.value.violations.length !== 0) {
-        logViolations(options.screenshotName, ret.value.violations);
-        expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
-      }
-
-      return;
-    });
   }
 
   function checkVisualResult(results, options, browser) {
+    console.log('checkVisualResult()', options.screenshotName, results.length);
     results.forEach(function (element) {
       if (!element.isWithinMisMatchTolerance) {
         log('Screenshot has mismatch percentage of ' + element.misMatchPercentage);
@@ -50,12 +56,11 @@
     options.screenshotName =
       options.screenshotName + '_full' + '.' + options.screenshotName + widthString;
 
-    console.log('getViewSizehandler', width, options);
+    console.log('getViewSizehandler()', options.screenshotName);
 
     return browser
       .checkElement(options.selector, { screenshotName: options.screenshotName })
       .then(function (results) {
-        console.log('Results', results);
         return checkVisualResult(results, options, this);
       });
   }
