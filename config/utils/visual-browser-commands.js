@@ -61,11 +61,16 @@
     return browser
       .checkElement(options.selector, { screenshotName: options.screenshotName })
       .then(function (results) {
+        console.log('Element checked!', options.screenshotName);
         return checkVisualResult(results, options, this);
+      })
+      .catch(function (err) {
+        console.log('checkElement() ERROR!', err);
       });
   }
 
   function compareScreenshot(browser, options) {
+    console.log('Comparing screenshot for', options.screenshotName);
     return browser
       .getViewportSize('width')
       .then(function (width) {
@@ -106,6 +111,7 @@
   }
 
   function setupTest(browser, url, screenWidth) {
+    console.log('Setting up test for ', url, '...');
     return browser
       .url(url)
       .getViewportSize()
