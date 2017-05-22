@@ -5,7 +5,7 @@ describe('Action button', function () {
     return browser
       .setupTest('/action-button.html')
       .compareScreenshot({
-        screenshotName: 'action_button',
+        screenshotName: 'action-button',
         selector: '#screenshot-action-button',
         checkAccessibility: true
       });
@@ -15,7 +15,7 @@ describe('Action button', function () {
     return browser
       .setupTest('/action-button.html', 480)
       .compareScreenshot({
-        screenshotName: 'action_button_small',
+        screenshotName: 'action-button-small',
         selector: '#screenshot-action-button',
         checkAccessibility: true
       });

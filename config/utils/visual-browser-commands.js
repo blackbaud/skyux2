@@ -50,19 +50,22 @@
     options.screenshotName =
       options.screenshotName + '_full' + '.' + options.screenshotName + widthString;
 
-    return browser.checkElement(
-      options.selector,
-      {
-        screenshotName: options.screenshotName
-      }).then(function (results) {
+    console.log('getViewSizehandler', width, options);
+
+    return browser
+      .checkElement(options.selector, { screenshotName: options.screenshotName })
+      .then(function (results) {
+        console.log('Results', results);
         return checkVisualResult(results, options, this);
       });
   }
 
   function compareScreenshot(browser, options) {
-    return browser.getViewportSize('width').then(function (width) {
-      return getViewSizeHandler(width, this, options);
-    });
+    return browser
+      .getViewportSize('width')
+      .then(function (width) {
+        return getViewSizeHandler(width, this, options);
+      });
   }
 
   function getPrefix(desiredCapabilities) {

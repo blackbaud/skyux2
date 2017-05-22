@@ -52,7 +52,8 @@
     .getVisualRegression(
       'webdriver-screenshots',
       'webdriver-screenshots-screen',
-      'webdriver-screenshots-diffs');
+      'webdriver-screenshots-diffs'
+    );
 
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;

@@ -30,13 +30,6 @@
     before: function () {
       timestamp = new Date().getTime();
       var commands = require('../utils/visual-browser-commands');
-      /*Object.keys(commands).forEach(function (command) {
-        browser.addCommand(command, function async() {
-          var args = Array.from(arguments);
-          args.unshift(this);
-          commands[command].apply(this, args);
-        });
-      });*/
 
       browser.addCommand('setupTest', function async(url, screenWidth) {
         return commands.setupTest(this, url, screenWidth || 1280);
