@@ -15,11 +15,12 @@ import {
 let moment = require('moment');
 
 export abstract class ListViewComponent implements OnDestroy {
+  public active: Observable<boolean>;
+
   protected viewName: string;
   protected state: ListState;
   protected list: SkyListComponent;
   protected subscriptions: Array<any> = [];
-  protected active: Observable<boolean>;
   protected hasToolbar: Observable<boolean>;
 
   /* tslint:disable */

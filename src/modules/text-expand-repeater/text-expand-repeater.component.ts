@@ -28,11 +28,12 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     this.setup(value);
   }
   public buttonText: string;
-  private _data: Array<any>;
+  public contentItems: Array<any>;
+  public expandable: boolean;
+
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
   private isExpanded: boolean = false;
-  private expandable: boolean;
   @ViewChild('container')
   private containerEl: ElementRef;
   private items: Array<HTMLElement>;
@@ -41,9 +42,9 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     private textExpandRepeaterAdapter: SkyTextExpandRepeaterAdapterService) { }
 
   public ngAfterViewInit() {
-    if (this._data) {
+    if (this.contentItems) {
       this.items = this.textExpandRepeaterAdapter.getItems(this.elRef);
-      for (let i = this.maxItems; i < this._data.length; i++) {
+      for (let i = this.maxItems; i < this.contentItems.length; i++) {
         this.textExpandRepeaterAdapter.hideItem(this.items[i]);
       }
     }
@@ -52,7 +53,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
   public animationEnd() {
     // Ensure the correct items are displayed
     if (!this.isExpanded) {
-      for (let i = this.maxItems; i < this._data.length; i++) {
+      for (let i = this.maxItems; i < this.contentItems.length; i++) {
         this.textExpandRepeaterAdapter.hideItem(this.items[i]);
       }
     }
@@ -64,7 +65,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     let adapter = this.textExpandRepeaterAdapter;
     let container = this.containerEl;
     let currentHeight = adapter.getContainerHeight(container);
-    for (let i = this.maxItems; i < this._data.length; i++) {
+    for (let i = this.maxItems; i < this.contentItems.length; i++) {
       if (this.isExpanded) {
         adapter.hideItem(this.items[i]);
       } else {
@@ -80,7 +81,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     if (newHeight < currentHeight) {
       // The new text is smaller than the old text, so put the old text back before doing
       // the collapse animation to avoid showing a big chunk of whitespace.
-      for (let i = this.maxItems; i < this._data.length; i++) {
+      for (let i = this.maxItems; i < this.contentItems.length; i++) {
         adapter.showItem(this.items[i]);
       }
     }
@@ -103,9 +104,9 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
       } else {
         this.expandable = false;
       }
-      this._data = value;
+      this.contentItems = value;
     } else {
-      this._data = undefined;
+      this.contentItems = undefined;
       this.expandable = false;
     }
   }
