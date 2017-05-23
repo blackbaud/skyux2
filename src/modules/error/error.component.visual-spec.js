@@ -10,4 +10,17 @@ describe('Error', function () {
         checkAccessibility: true
       });
   });
+
+  it('should match previous error modal form screenshot', function () {
+    return browser
+      .setupTest('/error.html')
+      .click('.sky-test-error-modal')
+      .moveCursorOffScreen()
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'error-modal-form',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      });
+  });
 });
