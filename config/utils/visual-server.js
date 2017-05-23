@@ -49,7 +49,7 @@
   }
 
   // Stop the server and remove unused screenshots
-  function stop(exitCode) {
+  function stop() {
     server.close();
     rimraf.sync('webdriver-screenshots*/**/*+(full|regression).png', {});
     if (seleniumChild) {
@@ -67,7 +67,7 @@
 
   process.on('SIGINT', function () {
     stop();
-    stopCI();
+    stopCI(1);
     process.exit(1);
   });
 

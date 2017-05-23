@@ -21,17 +21,16 @@
       })
       .then(function (ret) {
         if (ret.value.violations && ret.value.violations.length !== 0) {
-          console.log('Accessibility checks complete.', options.screenshotName);
           logViolations(options.screenshotName, ret.value.violations);
           expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
         }
 
-        return;
+        console.log('Accessibility checks complete.', options.screenshotName);
+        return Promise.resolve();
       });
   }
 
   function checkVisualResult(results, options, browser) {
-    console.log('checkVisualResult()', options.screenshotName, results.length);
     results.forEach(function (element) {
       if (!element.isWithinMisMatchTolerance) {
         log('Screenshot has mismatch percentage of ' + element.misMatchPercentage);
@@ -43,7 +42,7 @@
     if (options.checkAccessibility) {
       return checkAccessibility(browser, options);
     } else {
-      return;
+      return Promise.resolve();
     }
   }
 
@@ -53,11 +52,8 @@
     options.screenshotName =
       options.screenshotName + '_full' + '.' + options.screenshotName + widthString;
 
-    console.log('getViewSizehandler()', options.screenshotName);
-
-    console.log('browser.checkElement', options.selector)
     return browser
-      .checkElement(options.selector)
+      .checkElement(options.selector, { screenshotName: options.screenshotName })
       .then(function (results) {
         return checkVisualResult(results, options, this);
       })
@@ -68,7 +64,6 @@
   }
 
   function compareScreenshot(browser, options) {
-    console.log('Comparing screenshot for', options.screenshotName);
     return browser
       .getViewportSize('width')
       .then(function (width) {
@@ -109,7 +104,7 @@
   }
 
   function setupTest(browser, url, screenWidth) {
-    console.log('Setting up test for ', url, '...');
+    console.log('Setting up test for ' + url + '...');
     return browser
       .url(url)
       .getViewportSize()

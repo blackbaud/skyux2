@@ -18,13 +18,13 @@
     framework: 'jasmine',
     jasmineNodeOpts: {
       defaultTimeoutInterval: 200000,
-      expectationResultHandler: function (passed, assertion) {
-        if (passed) {
-          return;
-        }
+      // expectationResultHandler: function (passed, assertion) {
+      //   if (passed) {
+      //     return;
+      //   }
 
-        console.log('jasmine expectationResultHandler', assertion);
-      }
+      //   console.log('jasmine expectationResultHandler', assertion);
+      // }
     },
     sync: false,
     waitforTimeout: 10000,

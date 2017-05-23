@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "ci": "npm run test:ci && npm run build",
+    "ci": "npm run lint && npm run test:ci && npm run build",
     "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ../node_modules/.bin/ngc && cd ../ && npm run compile:sass && cd config/rollup && ../../node_modules/.bin/rollup -c rollup.config.js && ../../node_modules/.bin/rollup -c rollup.min.config.js && npm run clean:srctemp",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs",
@@ -19,7 +19,7 @@
     "compile:sass": "./node_modules/node-sass/bin/node-sass src/scss/sky.scss dist/css/sky.css",
     "lint": "tslint 'src/**/*.ts'",
     "test": "npm run test:unit && npm run test:visual",
-    "test:ci": "npm run test:unit:ci && npm run test:visual:ci",
+    "test:ci": "npm run test:visual:ci",
     "test:unit": "npm run test:unit:base -- config/karma/local.karma.conf.js",
     "test:unit:ci": "npm run test:unit:base -- config/karma/ci.karma.conf.js",
     "test:unit:base": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
