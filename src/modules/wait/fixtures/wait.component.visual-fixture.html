@@ -26,13 +26,13 @@
 
 </div>
 
-<div id="screenshot-wait-behind" class="screenshot-wait-behind-wrapper">
+<div id="screenshot-wait-behind" style="height: 200px; width: 200px; margin-top: 10px;">
   <sky-wait [isWaiting]="isWaiting">
   </sky-wait>
 
-  <div class="screenshot-wait-behind-target">
-    <p>
-      A paragraph that will display above the wait indicator.
+  <div>
+    <p style="position:absolute; background-color: red; z-index: 1040; color: #000;">
+    A large area that can be waited with the <code>sky-wait</code> directive.
     </p>
   </div>
 </div>
