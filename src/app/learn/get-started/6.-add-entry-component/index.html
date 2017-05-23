@@ -12,7 +12,7 @@
     <p>After you create a component in the default single-page application, you can create another page and add a SKY UX modal component to learn how to register entry components.</p>
 
     <ol>
-        <li><p>Return to the project in a local editor, and create a new folder within the <stache-code>src\app</stache-code> folder.</p></li>
+        <li><p>Return to the project in a local editor, and create a new folder within the <stache-code>src/app</stache-code> folder.</p></li>
         <li><p>Rename the folder. The folder name appears in the route for the page. For this tutorial, use "modal" for the folder name.</p></li>
         <li><p>In the new <stache-code>modal</stache-code> folder, add a new file and name it <stache-code>index.html</stache-code>. Place the shared <stache-code>app-nav</stache-code> component at the top and then add hello world content. 
             <stache-code-block languageType="markup">
@@ -25,7 +25,7 @@
         </sky-alert>
         </li>
         <li><p>Save the <stache-code>index.html</stache-code> file.</p></li>
-        <li><p>Go to the <stache-code>src\app\shared</stache-code> folder, and open the <stache-code>app-nav.component.ts</stache-code> file.</p></li>
+        <li><p>Go to the <stache-code>src/app/shared</stache-code> folder, and open the <stache-code>app-nav.component.ts</stache-code> file.</p></li>
         <li><p>Add a path for the new page with <stache-code>name</stache-code> set to "Modal" and <stache-code>path</stache-code> set to "/modal." The <stache-code>name</stache-code> provides the label for the menu, and the <stache-code>path</stache-code> specifies the name of the folder.</p>
         
         <stache-code-block languageType="typescript">
@@ -176,7 +176,7 @@
             </sky-modal>
         </stache-code-block>
         </li>
-        <li><p>Go to the <stache-code>src\app</stache-code> folder, and open the <stache-code>app-extras.module.ts</stache-code> file. At the top of the file, import the <stache-code>SkyModalDemoFormComponent</stache-code>.</p>
+        <li><p>Go to the <stache-code>src/app</stache-code> folder, and open the <stache-code>app-extras.module.ts</stache-code> file. At the top of the file, import the <stache-code>SkyModalDemoFormComponent</stache-code>.</p>
         <p>In the <stache-code>entryComponents</stache-code> property, add an entry to register the modal as an entry component.</p>
         <stache-code-block languageType="typescript">
             import { NgModule } from '@angular/core';
