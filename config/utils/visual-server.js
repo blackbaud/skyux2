@@ -18,7 +18,7 @@
 
   // Start the webserver
   function start() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
       server.listen(
         webpackCompiler.options.devServer.port,
         webpackCompiler.options.devServer.host, function () {
@@ -35,28 +35,13 @@
   }
 
   function startCI() {
-    return new Promise(function (resolve, reject) {
-      //bsLocal = new browserstack.Local();
-      return server.listen(
+    console.log('Starting CI visual server...');
+    return new Promise(function (resolve) {
+      server.listen(
         webpackCompiler.options.devServer.port,
         webpackCompiler.options.devServer.host,
         function () {
-          /*return bsLocal.start({
-            key: process.env.BROWSER_STACK_ACCESS_KEY,
-            onlyAutomate: true,
-            forcelocal: true,
-            force: true
-            //localIdentifier: 'SKYUX2BROWSERSTACK',
-            //parallelRuns: '30'
-            //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
-          }, function (err) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
-          });*/
-          console.log('starting server');
+          console.log('Server started.');
           resolve();
         }
       );

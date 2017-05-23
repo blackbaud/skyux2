@@ -25,23 +25,6 @@
       name: 'SKYUX2BROWSERSTACKCI',
       'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
     }
-    // {
-    //   browserName: 'firefox',
-    //   browser_version: '52',
-    //   'browserstack.local': 'true',
-    //   'browserstack.debug': 'true',
-    //   os: 'OS X',
-    //   os_version: 'El Capitan',
-    //   browserDisconnectTimeout: 3e5,
-    //   browserDisconnectTolerance: 3,
-    //   browserNoActivityTimeout: 3e5,
-    //   captureTimeout: 3e5,
-    //   build: 'skyux2-mac-firefox-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
-    //   resolution: '1280x960',
-    //   name: 'SKYUX2BROWSERSTACKCI',
-    //   'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
-
-    // }
   ];
   config.host = 'hub.browserstack.com';
   config.port = 80;
@@ -57,6 +40,54 @@
 
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
+
+  config.beforeSession = function (config, capabilities, specs) {
+    log('beforeSession');
+  };
+
+  config.before = function (capabilities, specs) {
+    log('before');
+  };
+
+  config.beforeSuite = function (suite) {
+    log('beforeSuite');
+  };
+
+  config.beforeHook = function () {
+    log('beforeHook');
+  };
+
+  config.afterHook = function () {
+    log('afterHook');
+  };
+
+  config.beforeTest = function (test) {
+    log('beforeTest');
+  };
+
+  config.beforeCommand = function (commandName, args) {
+    log('beforeCommand');
+  };
+
+  config.afterCommand = function (commandName, args, result, error) {
+    log('afterCommand');
+  };
+
+  config.afterTest = function (test) {
+    log('afterTest');
+  };
+
+  config.afterSuite = function (suite) {
+    log('afterSuite');
+  };
+
+  config.after = function (result, capabilities, specs) {
+    log('after');
+  };
+
+  config.afterSession = function (config, capabilities, specs) {
+    log('afterSession');
+  };
 
   exports.config = config;
 })();
