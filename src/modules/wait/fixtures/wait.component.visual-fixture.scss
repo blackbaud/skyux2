@@ -3,3 +3,24 @@
     animation-play-state: paused !important;
   }
 }
+
+.screenshot-wait-behind-wrapper {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  margin-top: 10px;
+  overflow: hidden;
+  display: block;
+}
+
+.screenshot-wait-behind-target {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background-color: red;
+  z-index: 9999;
+}
