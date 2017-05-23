@@ -41,12 +41,13 @@
   config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
 
-  config.beforeSession = function (config, capabilities, specs) {
-    console.log('beforeSession');
+  config.onPrepare = function () {
+    console.log('config.onPrepare');
+    return server.startCI();
   };
 
-  config.before = function (capabilities, specs) {
-    console.log('before');
+  config.beforeSession = function (config, capabilities, specs) {
+    console.log('beforeSession');
   };
 
   config.beforeSuite = function (suite) {

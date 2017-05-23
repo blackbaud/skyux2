@@ -33,6 +33,8 @@
     ],
 
     before: function () {
+      console.log('config.before');
+
       timestamp = new Date().getTime();
 
       var commands = require('../utils/visual-browser-commands');
@@ -52,10 +54,6 @@
       browser.addCommand('focusElement', function async(selector) {
         return commands.focusElement(this, selector);
       });
-    },
-
-    beforeTest: function () { },
-
-    after: function () { }
+    }
   };
 })();
