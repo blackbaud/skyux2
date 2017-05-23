@@ -11,7 +11,6 @@
   var server = new WebpackDevServer(webpackCompiler, {
     noInfo: true,
     contentBase: 'src/'
-
   });
 
   var bsLocal;
@@ -20,13 +19,13 @@
   // Start the webserver
   function start() {
     return new Promise(function (resolve, reject) {
-      return server.listen(
+      server.listen(
         webpackCompiler.options.devServer.port,
         webpackCompiler.options.devServer.host, function () {
-        return selenium.install({
+        selenium.install({
           logger: console.log
         }, function () {
-          return selenium.start(function (err, child) {
+          selenium.start(function (err, child) {
             seleniumChild = child;
             resolve();
           });
@@ -42,24 +41,25 @@
         webpackCompiler.options.devServer.port,
         webpackCompiler.options.devServer.host,
         function () {
-        /*return bsLocal.start({
-          key: process.env.BROWSER_STACK_ACCESS_KEY,
-          onlyAutomate: true,
-          forcelocal: true,
-          force: true
-          //localIdentifier: 'SKYUX2BROWSERSTACK',
-          //parallelRuns: '30'
-          //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
-        }, function (err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });*/
-        console.log('starting server');
-        return resolve();
-      });
+          /*return bsLocal.start({
+            key: process.env.BROWSER_STACK_ACCESS_KEY,
+            onlyAutomate: true,
+            forcelocal: true,
+            force: true
+            //localIdentifier: 'SKYUX2BROWSERSTACK',
+            //parallelRuns: '30'
+            //binarypath: process.env.BROWSER_STACK_BINARY_BASE_PATH
+          }, function (err) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          });*/
+          console.log('starting server');
+          resolve();
+        }
+      );
     });
   }
 
@@ -82,7 +82,7 @@
 
   process.on('SIGINT', function () {
     stop();
-
+    stopCI();
     process.exit(1);
   });
 

@@ -6,10 +6,8 @@
   var util = require('util');
 
   function checkAccessibility(browser, options) {
-    console.log('checkAccessibility()', options.screenshotName);
     return browser
       .executeAsync(function (done) {
-
         var config = {
           rules: {
             'bypass': { enabled: false },
@@ -20,7 +18,6 @@
         axe.a11yCheck(document, config, function (results) {
           done(results);
         });
-
       })
       .then(function (ret) {
         if (ret.value.violations && ret.value.violations.length !== 0) {
@@ -62,14 +59,10 @@
     return browser
       .checkElement(options.selector)
       .then(function (results) {
-        console.log('Element checked!', options.screenshotName);
-        return checkVisualResult(results, options, this).catch((err) => {
-          log('checkVisualResult() ERROR:' + err.message);
-          return Promise.reject(err);
-        });
+        return checkVisualResult(results, options, this);
       })
       .catch(function (err) {
-        log('checkElement() ERROR! ' + err.message);
+        log('checkElement() ERROR! ' + options.selector + ' // ' + err.message);
         throw err;
       });
   }

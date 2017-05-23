@@ -8,9 +8,9 @@
   var timestamp;
   module.exports = {
     specs: [
-        'src/modules/**/*.visual-spec.js'
+      'src/modules/**/*.visual-spec.js'
     ],
-    logLevel: 'silent',
+    logLevel: 'error',
     coloredLogs: true,
     baseUrl: 'http://localhost:3000',
     connectionRetryTimeout: 90000,
@@ -18,17 +18,21 @@
     framework: 'jasmine',
     jasmineNodeOpts: {
       defaultTimeoutInterval: 200000,
-      expectationResultHandler: function () {
-
+      expectationResultHandler: function (passed, assertion) {
+        if (!passed) {
+          console.log('jasmine expectationResultHandler', assertion);
+        }
       }
     },
-    waitforTimeout: 3000,
+    sync: false,
+    waitforTimeout: 10000,
     services: [
       'visual-regression'
     ],
 
     before: function () {
       timestamp = new Date().getTime();
+
       var commands = require('../utils/visual-browser-commands');
 
       browser.addCommand('setupTest', function async(url, screenWidth) {
@@ -46,17 +50,10 @@
       browser.addCommand('focusElement', function async(selector) {
         return commands.focusElement(this, selector);
       });
-
     },
 
-    beforeTest: function () {
-    },
+    beforeTest: function () { },
 
-    after: function () {
-
-    },
-
-    sync: false
+    after: function () { }
   };
-
 })();
