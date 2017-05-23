@@ -26,12 +26,12 @@
 
 </div>
 
-<div id="screenshot-wait-behind" style="height: 200px; width: 200px; margin-top: 10px;">
+<div id="screenshot-wait-behind" style="height: 200px; width: 200px; margin-top: 10px; position: relative;">
   <sky-wait [isWaiting]="isWaiting">
   </sky-wait>
 
   <div>
-    <p style="position:absolute; background-color: red; z-index: 1040;">
+    <p style="width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; position: absolute; background-color: red; z-index: 9999;">
     A large area that can be waited with the <code>sky-wait</code> directive.
     </p>
   </div>

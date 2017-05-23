@@ -38,56 +38,10 @@
       'webdriver-screenshots-diffs'
     );
 
-  config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
 
   config.onPrepare = function () {
-    console.log('config.onPrepare');
     return server.startCI();
-  };
-
-  config.beforeSession = function (config, capabilities, specs) {
-    console.log('beforeSession');
-  };
-
-  config.beforeSuite = function (suite) {
-    console.log('beforeSuite');
-  };
-
-  config.beforeHook = function () {
-    console.log('beforeHook');
-  };
-
-  config.afterHook = function () {
-    console.log('afterHook');
-  };
-
-  config.beforeTest = function (test) {
-    console.log('beforeTest');
-  };
-
-  config.beforeCommand = function (commandName, args) {
-    console.log('beforeCommand');
-  };
-
-  config.afterCommand = function (commandName, args, result, error) {
-    console.log('afterCommand');
-  };
-
-  config.afterTest = function (test) {
-    console.log('afterTest');
-  };
-
-  config.afterSuite = function (suite) {
-    console.log('afterSuite');
-  };
-
-  config.after = function (result, capabilities, specs) {
-    console.log('after');
-  };
-
-  config.afterSession = function (config, capabilities, specs) {
-    console.log('afterSession');
   };
 
   exports.config = config;

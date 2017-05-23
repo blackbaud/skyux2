@@ -25,7 +25,6 @@
           expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
         }
 
-        console.log('Accessibility checks complete.', options.screenshotName);
         return Promise.resolve();
       });
   }
@@ -124,9 +123,7 @@
     return function (context) {
       var prefix = getPrefix(context.desiredCapabilities);
       var screenshotName = context.options.screenshotName;
-
       screenshotName = prefix + '_' + screenshotName + '.baseline.png';
-
       return path.join(basePath, prefix, screenshotName);
     };
   }

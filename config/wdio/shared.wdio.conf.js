@@ -17,14 +17,7 @@
     connectionRetryCount: 3,
     framework: 'jasmine',
     jasmineNodeOpts: {
-      defaultTimeoutInterval: 200000,
-      // expectationResultHandler: function (passed, assertion) {
-      //   if (passed) {
-      //     return;
-      //   }
-
-      //   console.log('jasmine expectationResultHandler', assertion);
-      // }
+      defaultTimeoutInterval: 200000
     },
     sync: false,
     waitforTimeout: 10000,
@@ -33,8 +26,6 @@
     ],
 
     before: function () {
-      console.log('config.before');
-
       timestamp = new Date().getTime();
 
       var commands = require('../utils/visual-browser-commands');
