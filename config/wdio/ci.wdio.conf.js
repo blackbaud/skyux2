@@ -42,51 +42,51 @@
   config.onComplete = server.stopCI;
 
   config.beforeSession = function (config, capabilities, specs) {
-    log('beforeSession');
+    console.log('beforeSession');
   };
 
   config.before = function (capabilities, specs) {
-    log('before');
+    console.log('before');
   };
 
   config.beforeSuite = function (suite) {
-    log('beforeSuite');
+    console.log('beforeSuite');
   };
 
   config.beforeHook = function () {
-    log('beforeHook');
+    console.log('beforeHook');
   };
 
   config.afterHook = function () {
-    log('afterHook');
+    console.log('afterHook');
   };
 
   config.beforeTest = function (test) {
-    log('beforeTest');
+    console.log('beforeTest');
   };
 
   config.beforeCommand = function (commandName, args) {
-    log('beforeCommand');
+    console.log('beforeCommand');
   };
 
   config.afterCommand = function (commandName, args, result, error) {
-    log('afterCommand');
+    console.log('afterCommand');
   };
 
   config.afterTest = function (test) {
-    log('afterTest');
+    console.log('afterTest');
   };
 
   config.afterSuite = function (suite) {
-    log('afterSuite');
+    console.log('afterSuite');
   };
 
   config.after = function (result, capabilities, specs) {
-    log('after');
+    console.log('after');
   };
 
   config.afterSession = function (config, capabilities, specs) {
-    log('afterSession');
+    console.log('afterSession');
   };
 
   exports.config = config;
