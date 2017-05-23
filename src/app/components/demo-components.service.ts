@@ -74,7 +74,7 @@ export class SkyDemoComponentsService {
         name: 'Button',
         icon: 'square-o',
         // tslint:disable-next-line
-        summary: `The button classes create buttons to trigger actions.`,
+        summary: `The button classes create buttons to trigger actions from within an interface.`,
         url: '/components/button'
       },
       {
