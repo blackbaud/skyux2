@@ -27,19 +27,19 @@ export class DesignActionButtonsComponent {
         {
             name: 'Motion',
             path: '/design/motion',
-            icon: 'header',
+            icon: 'film',
             summary: 'The motion guidelines explain the principles and physics of how to use motion in SKY UX animations.'
         },
         {
             name: 'Spacing',
             path: '/design/spacing',
-            icon: 'table',
+            icon: 'th',
             summary: 'SKY UX specifies margins and padding to separate items and ensure that page content flows together.'
         },
         {
             name: 'Typography',
             path: '/design/typography',
-            icon: 'header',
+            icon: 'font',
             summary: 'Semantically defined font classes ensure consistency and enforce visual hierarchy for text.'
         }
     ];
