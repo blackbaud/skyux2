@@ -35,6 +35,14 @@
     "_description": "Message title displayed when the user attempts to upload an avatar image with a file size that is too large",
     "message": "File is too large."
   },
+  "avatar_file_upload_error_title": {
+    "_description": "Title displayed when there is an error uploading an avatar file.",
+    "message": "File upload error."
+  },
+  "avatar_file_upload_error_description": {
+    "_description": "Description displayed when there is an error uploading an avatar file.",
+    "message": "The file failed to upload, choose a file of the correct type."
+  },
   "card_checkbox_label": {
     "_description": "Label for the multiselect checkbox for the card component",
     "message": "Select card"
