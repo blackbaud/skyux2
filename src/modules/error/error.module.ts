@@ -8,6 +8,7 @@ import { SkyErrorDescriptionComponent } from './error-description.component';
 import { SkyErrorActionComponent } from './error-action.component';
 
 import { SkyResourcesModule } from '../resources';
+import { SkyErrorModalService } from './error-modal.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,9 @@ import { SkyResourcesModule } from '../resources';
     SkyErrorTitleComponent,
     SkyErrorDescriptionComponent,
     SkyErrorActionComponent
+  ],
+  providers: [
+    SkyErrorModalService
   ]
 })
 export class SkyErrorModule { }

@@ -10,6 +10,7 @@ import { SkyModalComponent } from './modal.component';
 import { SkyModalService } from './modal.service';
 
 import { SkyResourcesModule } from '../resources';
+import { SkyErrorModalFormComponent } from '../error/error-modal-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SkyResourcesModule } from '../resources';
     SkyModalContentComponent,
     SkyModalFooterComponent,
     SkyModalHeaderComponent,
-    SkyModalHostComponent
+    SkyModalHostComponent,
+    SkyErrorModalFormComponent
   ],
   providers: [
     SkyModalAdapterService,
@@ -34,7 +36,8 @@ import { SkyResourcesModule } from '../resources';
     SkyModalHeaderComponent
   ],
   entryComponents: [
-    SkyModalHostComponent
+    SkyModalHostComponent,
+    SkyErrorModalFormComponent
   ]
 })
 export class SkyModalModule { }

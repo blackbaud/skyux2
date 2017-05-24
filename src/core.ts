@@ -151,7 +151,8 @@ export {
   SkyErrorDescriptionComponent,
   SkyErrorImageComponent,
   SkyErrorModule,
-  SkyErrorTitleComponent
+  SkyErrorTitleComponent,
+  SkyErrorModalService
 } from './modules/error';
 export {
   SkyFileAttachmentsModule,
