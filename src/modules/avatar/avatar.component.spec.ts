@@ -232,8 +232,8 @@ describe('Avatar component', () => {
     });
 
     const config: ErrorModalConfig = {
-      errorTitle: 'File upload error.',
-      errorDescription: 'The file failed to upload, choose a file of the correct type.',
+      errorTitle: 'File is not an image.',
+      errorDescription: 'Please choose a file that is a valid image.',
       errorCloseText: 'OK'
     };
 

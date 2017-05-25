@@ -69,8 +69,8 @@ export class SkyAvatarComponent {
 
   private openErrorModal() {
     const config: ErrorModalConfig = {
-      errorTitle: SkyResources.getString('avatar_file_upload_error_title'),
-      errorDescription: SkyResources.getString('avatar_file_upload_error_description'),
+      errorTitle: SkyResources.getString('avatar_error_not_image_title'),
+      errorDescription: SkyResources.getString('avatar_error_not_image_description'),
       errorCloseText: SkyResources.getString('errormodal_ok')
     };
 
