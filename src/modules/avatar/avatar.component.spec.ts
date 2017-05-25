@@ -216,19 +216,20 @@ describe('Avatar component', () => {
     let fixture = TestBed.createComponent(SkyAvatarComponent);
     let instance = fixture.componentInstance;
 
-    let badFile = <SkyFileItem> {
+    let badFileType = <SkyFileItem> {
          file: <File> {
            name: 'foo.txt',
            type: 'text',
            size: 1
-         }
+         },
+         errorType: 'fileType'
       };
 
     spyOn(mockErrorModalService, 'open');
 
     instance.photoDrop(<SkyFileDropChange>{
       files: [],
-      rejectedFiles: [badFile]
+      rejectedFiles: [badFileType]
     });
 
     const config: ErrorModalConfig = {

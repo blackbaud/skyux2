@@ -51,6 +51,8 @@ export class SkyAvatarComponent {
   @Output()
   public avatarChanged = new EventEmitter<SkyFileItem>();
 
+  public maxFileSize = 500000;
+
   private _canChange: boolean;
 
   private _src: SkyAvatarSrc;
@@ -62,15 +64,37 @@ export class SkyAvatarComponent {
   public photoDrop(result: SkyFileDropChange) {
     if (result.files && result.files.length > 0) {
       this.avatarChanged.emit(result.files[0]);
-    } else {
-      this.openErrorModal();
+    } else if (result.rejectedFiles && result.rejectedFiles.length > 0) {
+      this.handleError(result.rejectedFiles);
     }
   }
 
-  private openErrorModal() {
+  private handleError(rejectedFiles: Array<SkyFileItem>) {
+    const rejectedFile = rejectedFiles[0];
+
+    if (rejectedFile.errorType === 'maxFileSize') {
+      const title = SkyResources.getString('avatar_error_too_large_title');
+      const descriptionResource = SkyResources.getString('avatar_error_too_large_description');
+      const description = descriptionResource.replace('{0}', this.maxFileSizeText());
+
+      this.openErrorModal(title, description);
+
+    } else if (rejectedFile.errorType === 'fileType') {
+      const title = SkyResources.getString('avatar_error_not_image_title');
+      const description = SkyResources.getString('avatar_error_not_image_description');
+
+      this.openErrorModal(title, description);
+    }
+  }
+
+  private maxFileSizeText() {
+    return `${(this.maxFileSize / 1000)} KB`;
+  }
+
+  private openErrorModal(title: string, description: string) {
     const config: ErrorModalConfig = {
-      errorTitle: SkyResources.getString('avatar_error_not_image_title'),
-      errorDescription: SkyResources.getString('avatar_error_not_image_description'),
+      errorTitle: title,
+      errorDescription: description,
       errorCloseText: SkyResources.getString('errormodal_ok')
     };
 
