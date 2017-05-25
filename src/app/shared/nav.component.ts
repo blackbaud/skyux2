@@ -19,6 +19,10 @@ export class SkyDemoNavComponent {
     {
       title: 'Components',
       url: '/components'
+    },
+    {
+      title: 'Design' ,
+      url: '/design'
     }
   ];
 }
