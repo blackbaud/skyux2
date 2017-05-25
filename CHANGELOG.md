@@ -1,4 +1,9 @@
+# 2.0.0-beta.29 (2017-05-24)
+
+  - Added the error modal service. (Thanks @Blackbaud-AdamHickey)
+
 # 2.0.0-beta.28 (2017-05-17)
+
   - Added the timepicker component. (Thanks @Blackbaud-JaminQuimby)
 
 # 2.0.0-beta.27 (2017-05-16)
