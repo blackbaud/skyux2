@@ -23,7 +23,13 @@
         webpackCompiler.options.devServer.port,
         webpackCompiler.options.devServer.host, function () {
         selenium.install({
-          logger: console.log
+          version: '3.0.1',
+          logger: console.log,
+          drivers: {
+            chrome: {
+              version: '2.29',
+            }
+          }
         }, function () {
           selenium.start(function (err, child) {
             seleniumChild = child;
