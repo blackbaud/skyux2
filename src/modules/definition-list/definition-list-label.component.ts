@@ -15,5 +15,5 @@ export class SkyDefinitionListLabelComponent {
   public labelWidth: number;
 
   constructor(
-    service: SkyDefinitionListService) { }
+    public service: SkyDefinitionListService) { }
 }

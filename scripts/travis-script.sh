@@ -7,7 +7,7 @@ if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   ./scripts/browserstack-cleanup.sh && npm run ci
 
   # Remove this line after stache and builder update to ng4:
-  rimraf ./node_modules/@blackbaud/skyux
+  rimraf ./node_modules/@blackbaud/skyux/node_modules
 
   skyux build && ./scripts/visual-baseline.sh
 else
