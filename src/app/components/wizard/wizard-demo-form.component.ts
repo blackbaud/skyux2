@@ -25,7 +25,8 @@ export class SkyWizardDemoFormComponent {
     return this.step2Disabled || !this.requiredValue2;
   }
 
-  constructor(private instance: SkyModalInstance) { }
+  constructor(
+    public instance: SkyModalInstance) { }
 
   public validateStep1() {
     return true;
