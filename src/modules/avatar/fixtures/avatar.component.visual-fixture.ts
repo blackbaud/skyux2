@@ -6,6 +6,8 @@ import { SkyAvatarModule,  SkyAvatarSrc } from '../';
 import { SkyFileItem } from '../../fileattachments';
 
 import { Bootstrapper } from '../../../../visual/bootstrapper';
+import { SkyErrorModalService } from '../../error/error-modal.service';
+import { SkyModalModule } from '../../modal/modal.module';
 
 @Component({
   selector: 'sky-demo-app',
@@ -26,13 +28,17 @@ class AppComponent {
 @NgModule({
   imports: [
     BrowserModule,
-    SkyAvatarModule
+    SkyAvatarModule,
+    SkyModalModule
   ],
   declarations: [
     AppComponent
   ],
   bootstrap: [
     AppComponent
+  ],
+  providers: [
+    SkyErrorModalService
   ]
 })
 class AppModule { }
