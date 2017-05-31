@@ -27,7 +27,7 @@ export class SkyTimepickerComponent implements OnInit {
   public minutes: Array<number>;
   public localeFormat: string;
   public minuteMultiplier: number;
-  private is8601: boolean = false;
+  public is8601: boolean = false;
 
   public ngOnInit() {
     this.setFormat(this.timeFormat);
