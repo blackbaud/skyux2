@@ -74,20 +74,13 @@ export class SkyTimepickerInputDirective implements
       });
   }
   public ngOnDestroy() {
-    if (this.pickerChangedSubscription) {
-      this.pickerChangedSubscription.unsubscribe();
-    }
+    this.pickerChangedSubscription.unsubscribe();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['timeFormat']) {
-      this._validatorChange();
-      this.skyTimepickerInput.setFormat(this.timeFormat);
-    }
-    if (changes['returnFormat']) {
-      this._validatorChange();
-      this.skyTimepickerInput.returnFormat = this.returnFormat;
-    }
+    this._validatorChange();
+    this.skyTimepickerInput.setFormat(this.timeFormat);
+    this.skyTimepickerInput.returnFormat = this.returnFormat;
   }
 
   @HostListener('change', ['$event'])
@@ -106,7 +99,7 @@ export class SkyTimepickerInputDirective implements
 
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
-  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; };
+  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
     this.modelValue = this.formatter(value);

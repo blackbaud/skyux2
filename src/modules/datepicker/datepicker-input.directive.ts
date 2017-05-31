@@ -142,7 +142,7 @@ export class SkyDatepickerInputDirective implements
 
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
 
-  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; };
+  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
 
