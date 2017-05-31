@@ -14,10 +14,11 @@
   ];
 
   config.visualRegression = require('../utils/visual-browser-commands')
-  .getVisualRegression(
-    'webdriver-screenshotslocal',
-    'webdriver-screenshotslocal-screen',
-    'webdriver-screenshotslocal-diffs');
+    .getVisualRegression(
+      'webdriver-screenshotslocal',
+      'webdriver-screenshotslocal-screen',
+      'webdriver-screenshotslocal-diffs'
+    );
   config.onPrepare = server.start;
   config.onComplete = server.stop;
 

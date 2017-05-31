@@ -1,8 +1,7 @@
-<h3>12hour timepicker.</h3>
+<h3>12-hour timepicker</h3>
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample1>
-    <input type="text" [skyTimepickerInput]="timePickerExample1" [timeFormat]="format12" [(ngModel)]="selectedTime1" #time="ngModel"
-    />
+    <input type="text" [skyTimepickerInput]="timePickerExample1" [timeFormat]="format12" [(ngModel)]="selectedTime1" #time="ngModel" />
   </sky-timepicker>
   <div class="sky-error-label" *ngIf="time.errors && time.errors.skyTime && (time.dirty || time.touched)">
     <div [hidden]="!time.errors.skyTime.invalid" >
@@ -11,8 +10,7 @@
   </div>
 </div>
 <div>
-
-  Selected time is {{selectedTime1.local}}
+  Selected time is {{selectedTime1?.local}}
 </div>
 <br/>
 <h3>24-hour timepicker.</h3>
@@ -28,7 +26,7 @@
   </div>
 </div>
 <div>
-  Selected time is {{selectedTime2.hour}}:{{selectedTime2.minute}}
+  Selected time is {{selectedTime2?.hour}}:{{selectedTime2?.minute}}
 </div>
 <br/>
 <h3>Custom timepicker.</h3>
@@ -42,6 +40,6 @@
       Please enter a valid time.
     </div>
   </div>
-  Selected time is {{selectedTime3.local}}
+  Selected time is {{selectedTime3?.local}}
 </div>
 <br/>
