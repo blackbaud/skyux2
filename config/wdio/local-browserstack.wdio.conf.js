@@ -50,10 +50,10 @@
 
   shared.visualRegression = require('../utils/visual-browser-commands')
     .getVisualRegression(
-    'webdriver-screenshotslocal',
-    'webdriver-screenshotslocal-screen',
-    'webdriver-screenshotslocal-diffs'
-  );
+      'webdriver-screenshotslocal',
+      'webdriver-screenshotslocal-screen',
+      'webdriver-screenshotslocal-diffs'
+    );
 
   shared.onPrepare = server.startCI;
   shared.onComplete = server.stopCI;
