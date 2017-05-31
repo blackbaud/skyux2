@@ -26,11 +26,10 @@ import {
   templateUrl: './list-filter-inline.component.html'
 })
 export class SkyListFilterInlineComponent implements AfterContentInit {
+  public inlineFilters: Array<SkyListFilterInlineModel> = [];
 
   @ContentChildren(SkyListFilterInlineItemComponent)
   private filters: QueryList<SkyListFilterInlineItemComponent>;
-
-  private inlineFilters: Array<SkyListFilterInlineModel> = [];
 
   constructor(
     private ref: ChangeDetectorRef,
