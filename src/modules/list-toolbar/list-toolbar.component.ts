@@ -29,8 +29,6 @@ import {
   ListSortLabelModel,
   ListSortFieldSelectorModel,
   ListFilterModel,
-  ListSearchModel,
-  ListPagingModel,
   ListPagingSetPageNumberAction
 } from '../list/state';
 
