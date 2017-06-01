@@ -11,6 +11,9 @@ import {
 } from '../fileattachments';
 
 import { SkyAvatarSrc } from './avatar-src';
+import { SkyErrorModalService } from '../error/error-modal.service';
+import { ErrorModalConfig } from '../error/error-modal-config';
+import { SkyResources } from '../resources/resources';
 
 @Component({
   selector: 'sky-avatar',
@@ -54,9 +57,23 @@ export class SkyAvatarComponent {
 
   private _name: string;
 
+  constructor(private errorService: SkyErrorModalService) {}
+
   public photoDrop(result: SkyFileDropChange) {
     if (result.files && result.files.length > 0) {
       this.avatarChanged.emit(result.files[0]);
+    } else {
+      this.openErrorModal();
     }
+  }
+
+  private openErrorModal() {
+    const config: ErrorModalConfig = {
+      errorTitle: SkyResources.getString('avatar_error_not_image_title'),
+      errorDescription: SkyResources.getString('avatar_error_not_image_description'),
+      errorCloseText: SkyResources.getString('errormodal_ok')
+    };
+
+    this.errorService.open(config);
   }
 }
