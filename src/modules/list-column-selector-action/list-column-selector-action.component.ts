@@ -71,9 +71,7 @@ export class SkyListColumnSelectorActionComponent {
             return !item.locked;
           })
           .map((item: SkyGridColumnModel) => {
-            if (!item.locked) {
-              return item.id;
-            }
+            return item.id;
           });
       });
 
