@@ -4,7 +4,7 @@
   'use strict';
 
   var server = require('../utils/visual-server');
-  var config = require('./shared.wdio.conf.js');
+  var config = require('./shared.wdio.conf');
 
   config.user = process.env.BROWSER_STACK_USERNAME;
   config.key = process.env.BROWSER_STACK_ACCESS_KEY;
@@ -38,11 +38,8 @@
       'webdriver-screenshots-diffs'
     );
 
+  config.onPrepare = server.startCI;
   config.onComplete = server.stopCI;
-
-  config.onPrepare = function () {
-    return server.startCI();
-  };
 
   exports.config = config;
 })();

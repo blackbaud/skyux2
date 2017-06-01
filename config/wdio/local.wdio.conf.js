@@ -1,5 +1,3 @@
-/* global require, exports, process */
-
 (function () {
   'use strict';
 
@@ -21,10 +19,7 @@
       'webdriver-screenshotslocal-diffs'
     );
 
-  config.onPrepare = function () {
-    return server.start();
-  };
-
+  config.onPrepare = server.start;
   config.onComplete = server.stop;
 
   exports.config = config;
