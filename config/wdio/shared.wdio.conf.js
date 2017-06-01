@@ -20,7 +20,7 @@
       defaultTimeoutInterval: 200000
     },
     sync: false,
-    waitforTimeout: 10000,
+    waitforTimeout: 25000,
     services: [
       'visual-regression'
     ],
