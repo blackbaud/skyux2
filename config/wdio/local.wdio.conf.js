@@ -20,11 +20,7 @@
       'webdriver-screenshotslocal-screen',
       'webdriver-screenshotslocal-diffs'
     );
-
-  config.onPrepare = function () {
-    return server.start();
-  };
-
+  config.onPrepare = server.start;
   config.onComplete = server.stop;
 
   exports.config = config;
