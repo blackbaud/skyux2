@@ -4,6 +4,7 @@ describe('Alert', function () {
   it('should match previous alert screenshot', function () {
     return browser
       .setupTest('/alert.html')
+      .waitForVisible('.sky-alert')
       .compareScreenshot({
         screenshotName: 'alert',
         selector: '#screenshot-alert',
