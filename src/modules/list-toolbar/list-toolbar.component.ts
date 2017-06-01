@@ -251,8 +251,8 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
     this.dispatcher.searchSetText(searchText);
     this.dispatcher.next(
-        new ListPagingSetPageNumberAction(Number(1))
-      );
+      new ListPagingSetPageNumberAction(Number(1))
+    );
   }
 
   private itemIsInView(itemView: string, activeView: string) {
