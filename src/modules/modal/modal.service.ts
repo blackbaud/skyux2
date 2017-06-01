@@ -19,7 +19,13 @@ export class SkyModalService {
     private appRef: ApplicationRef,
     private adapter: SkyModalAdapterService
   ) {
-    this.createHostComponent();
+    /*
+      This timeout is needed because you can run into errors like 'ApplicationRef.tick is called
+      recursively' when the modal service is injected into a component hidden by an *ngIf.
+    */
+    setTimeout(() => {
+      this.createHostComponent();
+    });
   }
 
   // Open Overloads
