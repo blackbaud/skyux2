@@ -13,7 +13,12 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "sky-pages-spa/src/*": ["./src/*"],
+      "sky-pages-internal/*": ["./node_modules/@blackbaud/skyux-builder/*"]
+    }
   },
   "exclude": [
     "node_modules"
