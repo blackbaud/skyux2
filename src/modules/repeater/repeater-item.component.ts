@@ -42,8 +42,8 @@ export class SkyRepeaterItemComponent {
     this.updateForExpanded(value, true);
   }
 
-  public get isChecked(): boolean {
-    return this._isChecked;
+  public get isSelected(): boolean {
+    return this._isSelected;
   }
 
   @Input()
@@ -70,7 +70,7 @@ export class SkyRepeaterItemComponent {
 
   private _isExpanded = true;
 
-  private _isChecked = false;
+  private _isSelected = false;
 
   constructor(
     private repeaterService: SkyRepeaterService,
@@ -104,8 +104,8 @@ export class SkyRepeaterItemComponent {
     }
   }
 
-  public updateIsChecked(value: SkyCheckboxChange) {
-    this._isChecked = value.checked;
+  public updateIsSelected(value: SkyCheckboxChange) {
+    this._isSelected = value.checked;
   }
 
   private slideForExpanded(animate: boolean) {

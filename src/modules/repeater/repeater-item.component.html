@@ -1,14 +1,14 @@
 <section
     class="sky-repeater-item"
-    [ngClass]="{'sky-repeater-item-collapsible': isCollapsible, 'sky-repeater-item-selected': isChecked}"
+    [ngClass]="{'sky-repeater-item-collapsible': isCollapsible, 'sky-repeater-item-selected': isSelected}"
 >
 
   <div class="sky-repeater-item-left">
     <sky-checkbox 
       *ngIf="selectable" 
       class="sky-repeater-item-checkbox"
-      [checked]="isChecked" 
-      (change)="updateIsChecked($event)"
+      [checked]="isSelected" 
+      (change)="updateIsSelected($event)"
     >
     </sky-checkbox>
     <div
