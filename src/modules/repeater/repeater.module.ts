@@ -11,6 +11,7 @@ import { SkyRepeaterItemComponent } from './repeater-item.component';
 import { SkyRepeaterComponent } from './repeater.component';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyCheckboxModule } from '../checkbox';
+import { SkyResourcesModule } from '../resources/resources.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SkyCheckboxModule } from '../checkbox';
     CommonModule,
     SkyChevronModule,
     SkyLogModule,
-    SkyCheckboxModule
+    SkyCheckboxModule,
+    SkyResourcesModule
   ],
   exports: [
     SkyRepeaterComponent,
