@@ -1,3 +1,3 @@
 export class ListToolbarConfigSetSortSelectorEnabledAction {
-  constructor(public enabled: true) {}
+  constructor(public enabled: boolean = true) {}
 }

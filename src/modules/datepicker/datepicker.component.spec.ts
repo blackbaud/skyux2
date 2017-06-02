@@ -36,6 +36,8 @@ import {
 
 import {By} from '@angular/platform-browser';
 
+import { SkyWindowRefService } from '../window';
+
 let moment = require('moment');
 
 describe('datepicker', () => {
@@ -128,6 +130,7 @@ describe('datepicker', () => {
       expect(component.selectedDate).toEqual(new Date('12/05/2017'));
     }));
   });
+
   describe('standard configuration', () => {
     let fixture: ComponentFixture<DatepickerTestComponent>;
     let component: DatepickerTestComponent;
@@ -266,7 +269,6 @@ describe('datepicker', () => {
 
         expect(nativeElement.querySelector('input')).not.toHaveCssClass('ng-invalid');
       }));
-
     });
 
     describe('input change', () => {
@@ -589,4 +591,51 @@ describe('datepicker', () => {
     });
   });
 
+  describe('default locale configuration', () => {
+    let fixture: ComponentFixture<DatepickerNoFormatTestComponent>;
+    let component: DatepickerNoFormatTestComponent;
+    let nativeElement: HTMLElement;
+
+    class MockWindowService {
+      public getWindow() {
+        return {
+          navigator: {
+            languages: ['es']
+          }
+        };
+      }
+    }
+
+    let mockWindowService = new MockWindowService();
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          DatepickerNoFormatTestComponent
+        ],
+        imports: [
+          SkyDatepickerModule,
+          FormsModule
+        ],
+        providers: [
+            { provide: SkyWindowRefService, useValue: mockWindowService }
+        ]
+      });
+
+      fixture = TestBed.createComponent(DatepickerNoFormatTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      component = fixture.componentInstance;
+
+      fixture.detectChanges();
+    });
+
+    it('should display formatted date based on locale by default', fakeAsync(() => {
+      component.selectedDate = new Date('10/24/2017');
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(nativeElement.querySelector('input').value).toBe('24/10/2017');
+    }));
+  });
 });

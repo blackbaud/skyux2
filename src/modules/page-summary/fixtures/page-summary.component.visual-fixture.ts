@@ -41,7 +41,7 @@ export class AppComponent {
 
   public get itemsToShow(): string {
     return this._itemsToShow;
-  };
+  }
 
   public set itemsToShow(value: string) {
     let itemsToShow = value.split(',');
