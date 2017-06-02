@@ -25,22 +25,10 @@ export class SkyRepeaterComponent implements AfterContentInit {
     return this._expandMode || 'none';
   }
 
-  @Input()
-  public set selectable(value: boolean) {
-    this._selectable = value;
-    this.updateForSelectable(value);
-  }
-
-  public get selectable(): boolean {
-    return this._selectable || false;
-  }
-
   @ContentChildren(SkyRepeaterItemComponent)
   public items: QueryList<SkyRepeaterItemComponent>;
 
   private _expandMode = 'none';
-
-  private _selectable = false;
 
   constructor(private repeaterService: SkyRepeaterService) {
     repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
@@ -92,14 +80,6 @@ export class SkyRepeaterComponent implements AfterContentInit {
           foundExpanded = true;
         }
       });
-    }
-  }
-
-  private updateForSelectable(value: boolean) {
-    this._selectable = value;
-
-    if (this.items) {
-      this.items.forEach((item) => item.selectable = this._selectable);
     }
   }
 }
