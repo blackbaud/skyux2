@@ -4,7 +4,11 @@
 >
 
   <div class="sky-repeater-item-left">
-    <sky-checkbox *ngIf="selectable" [checked]="isChecked()" (change)="updateIsChecked($event)">
+    <sky-checkbox 
+      *ngIf="selectable" 
+      [checked]="isChecked" 
+      (change)="updateIsChecked($event)"
+    >
     </sky-checkbox>
     <div
         class="sky-repeater-item-context-menu"

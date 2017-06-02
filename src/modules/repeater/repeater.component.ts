@@ -28,7 +28,7 @@ export class SkyRepeaterComponent implements AfterContentInit {
   @Input()
   public set selectable(value: boolean) {
     this._selectable = value;
-    this.updateForSelectable();
+    this.updateForSelectable(value);
   }
 
   public get selectable(): boolean {
@@ -97,5 +97,9 @@ export class SkyRepeaterComponent implements AfterContentInit {
 
   private updateForSelectable(value: boolean) {
     this._selectable = value;
+
+    if (this.items) {
+      this.items.forEach((item) => item.selectable = this._selectable);
+    }
   }
 }
