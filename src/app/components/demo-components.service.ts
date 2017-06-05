@@ -52,14 +52,14 @@ export class SkyDemoComponentsService {
         icon: 'square-o',
         // tslint:disable-next-line
         summary:
-          `The action button component creates a large button with an icon, heading, and details.`,
+        `The action button component creates a large button with an icon, heading, and details.`,
         url: '/components/action-button',
         getCodeFiles: function () {
           return [
             {
               name: 'action-button-demo.component.html',
               fileContents:
-                require('!!raw-loader!./action-button/action-button-demo.component.html')
+              require('!!raw-loader!./action-button/action-button-demo.component.html')
             },
             {
               name: 'action-button-demo.component.ts',
@@ -120,6 +120,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Colorpicker',
+        icon: 'eyedropper',
+        // tslint:disable-next-line
+        summary: `The colorpicker module allows users to use an input to select colors.`,
+        url: '/components/colorpicker',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'colorpicker-demo.component.html',
+              fileContents: require('!!raw-loader!./colorpicker/colorpicker-demo.component.html')
+            },
+            {
+              name: 'colorpicker-demo.component.ts',
+              fileContents: require('!!raw-loader!./colorpicker/colorpicker-demo.component.ts'),
+              componentName: 'SkyColorPickerDemoComponent',
+              bootstrapSelector: 'sky-colorpicker-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Datepicker',
         icon: 'calendar',
         // tslint:disable-next-line
@@ -151,12 +172,12 @@ export class SkyDemoComponentsService {
             {
               name: 'definition-list-demo.component.html',
               fileContents:
-                require('!!raw-loader!./definition-list/definition-list-demo.component.html')
+              require('!!raw-loader!./definition-list/definition-list-demo.component.html')
             },
             {
               name: 'definition-list-demo.component.ts',
               fileContents:
-                require('!!raw-loader!./definition-list/definition-list-demo.component.ts'),
+              require('!!raw-loader!./definition-list/definition-list-demo.component.ts'),
               componentName: 'SkyDefinitionListDemoComponent',
               bootstrapSelector: 'sky-definition-list-demo'
             }
@@ -216,12 +237,12 @@ export class SkyDemoComponentsService {
             {
               name: 'fileattachments-demo.component.html',
               fileContents:
-                require('!!raw-loader!./fileattachments/fileattachments-demo.component.html')
+              require('!!raw-loader!./fileattachments/fileattachments-demo.component.html')
             },
             {
               name: 'fileattachments-demo.component.ts',
               fileContents:
-                require('!!raw-loader!./fileattachments/fileattachments-demo.component.ts'),
+              require('!!raw-loader!./fileattachments/fileattachments-demo.component.ts'),
               componentName: 'SkyFileattachmentsDemoComponent',
               bootstrapSelector: 'sky-fileattachments-demo'
             }
@@ -387,23 +408,23 @@ export class SkyDemoComponentsService {
             {
               name: 'list-filters-demo-modal.component.html',
               fileContents:
-                require('!!raw-loader!./list-filters/list-filters-demo-modal.component.html')
+              require('!!raw-loader!./list-filters/list-filters-demo-modal.component.html')
             },
             {
               name: 'list-filters-demo-modal.component.ts',
               fileContents:
-                require('!!raw-loader!./list-filters/list-filters-demo-modal.component.ts'),
+              require('!!raw-loader!./list-filters/list-filters-demo-modal.component.ts'),
               componentName: 'SkyListFiltersModalDemoComponent'
             },
             {
               name: 'list-filters-inline-demo.component.html',
               fileContents:
-                require('!!raw-loader!./list-filters/list-filters-inline-demo.component.html')
+              require('!!raw-loader!./list-filters/list-filters-inline-demo.component.html')
             },
             {
               name: 'list-filters-inline-demo.component.ts',
               fileContents:
-                require('!!raw-loader!./list-filters/list-filters-inline-demo.component.ts'),
+              require('!!raw-loader!./list-filters/list-filters-inline-demo.component.ts'),
               componentName: 'SkyListFiltersInlineDemoComponent',
               bootstrapSelector: 'sky-list-filters-inline-demo'
             }
@@ -421,12 +442,12 @@ export class SkyDemoComponentsService {
             {
               name: 'list-paging-demo.component.html',
               fileContents:
-                require('!!raw-loader!./list-paging/list-paging-demo.component.html')
+              require('!!raw-loader!./list-paging/list-paging-demo.component.html')
             },
             {
               name: 'list-paging-demo.component.ts',
               fileContents:
-                require('!!raw-loader!./list-paging/list-paging-demo.component.ts'),
+              require('!!raw-loader!./list-paging/list-paging-demo.component.ts'),
               componentName: 'SkyListPagingDemoComponent',
               bootstrapSelector: 'sky-list-paging-demo'
             }
@@ -438,7 +459,7 @@ export class SkyDemoComponentsService {
         icon: 'wrench',
         // tslint:disable-next-line
         summary:
-          `The list toolbar component displays a SKY UX-themed toolbar for the list component.`,
+        `The list toolbar component displays a SKY UX-themed toolbar for the list component.`,
         url: '/components/list-toolbar',
         getCodeFiles: function () {
           return [
@@ -455,12 +476,12 @@ export class SkyDemoComponentsService {
             {
               name: 'list-toolbar-demo-custom.component.html',
               fileContents:
-                require('!!raw-loader!./list-toolbar/list-toolbar-demo-custom.component.html')
+              require('!!raw-loader!./list-toolbar/list-toolbar-demo-custom.component.html')
             },
             {
               name: 'list-toolbar-demo-custom.component.ts',
               fileContents:
-                require('!!raw-loader!./list-toolbar/list-toolbar-demo-custom.component.ts'),
+              require('!!raw-loader!./list-toolbar/list-toolbar-demo-custom.component.ts'),
               componentName: 'SkyListToolbarDemoCustomComponent',
               bootstrapSelector: 'sky-list-toolbar-demo-custom'
             }
@@ -491,29 +512,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
-         name: 'List view grid',
-         icon: 'table',
-         // tslint:disable-next-line
-         summary: `The list component is used to display data in a consistent and flexible way.`,
-         url: '/components/list-view-grid',
+        name: 'List view grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `The list component is used to display data in a consistent and flexible way.`,
+        url: '/components/list-view-grid',
         getCodeFiles: function () {
-           return [
-             {
-               name: 'list-view-grid-demo.component.html',
-               fileContents:
-                require('!!raw-loader!./list-view-grid/list-view-grid-demo.component.html')
-             },
-             {
-               name: 'list-view-grid-demo.component.ts',
-               fileContents:
-                require('!!raw-loader!./list-view-grid/list-view-grid-demo.component.ts'),
-               componentName: 'SkyListViewGridDemoComponent',
-               bootstrapSelector: 'sky-list-view-grid-demo'
-             }
-           ];
-         }
-       },
-       {
+          return [
+            {
+              name: 'list-view-grid-demo.component.html',
+              fileContents:
+              require('!!raw-loader!./list-view-grid/list-view-grid-demo.component.html')
+            },
+            {
+              name: 'list-view-grid-demo.component.ts',
+              fileContents:
+              require('!!raw-loader!./list-view-grid/list-view-grid-demo.component.ts'),
+              componentName: 'SkyListViewGridDemoComponent',
+              bootstrapSelector: 'sky-list-view-grid-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Media queries',
         icon: 'mobile',
         // tslint:disable-next-line
@@ -524,12 +545,12 @@ export class SkyDemoComponentsService {
             {
               name: 'media-query-demo.component.html',
               fileContents:
-                require('!!raw-loader!./media-queries/media-query-demo.component.html')
+              require('!!raw-loader!./media-queries/media-query-demo.component.html')
             },
             {
               name: 'media-query-demo.component.ts',
               fileContents:
-                require('!!raw-loader!./media-queries/media-query-demo.component.ts'),
+              require('!!raw-loader!./media-queries/media-query-demo.component.ts'),
               componentName: 'SkyMediaQueryDemoComponent',
               bootstrapSelector: 'sky-media-query-demo'
             }
@@ -797,7 +818,7 @@ export class SkyDemoComponentsService {
           ];
         }
       },
-       {
+      {
         name: 'Timepicker',
         icon: 'clock-o',
         // tslint:disable-next-line
