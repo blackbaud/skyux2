@@ -4,6 +4,14 @@
     [isExpanded]="item.expanded"
     [selectable]="selectable"
   >
+    <!--<sky-repeater-item-context-menu ng-if="repeaterCtrl.showContextMenu">
+      <bb-context-menu>
+        <bb-context-menu-item>Mark completed</bb-context-menu-item>
+        <bb-context-menu-item>Edit</bb-context-menu-item>
+        <li class="divider"></li>
+        <bb-context-menu-item>Delete</bb-context-menu-item>
+      </bb-context-menu>
+    </sky-repeater-item-context-menu>-->
     <sky-repeater-item-title ng-if="repeaterCtrl.showTitle">
       <div class="pull-left">
         {{item.title}}
