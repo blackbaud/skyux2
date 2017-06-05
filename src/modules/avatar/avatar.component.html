@@ -4,6 +4,7 @@
       <sky-file-drop
         [multiple]="false"
         [acceptedTypes]="'image/*'"
+        [maxFileSize]="maxFileSize"
         (filesChanged)="photoDrop($event)">
         <sky-avatar-inner [src]="src" [name]="name"></sky-avatar-inner>
       </sky-file-drop>
