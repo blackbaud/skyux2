@@ -1,6 +1,4 @@
 {
   "mode": "easy",
-  "compileMode": "aot",
-  "importPath": "../src",
-  "cssPath": "../src/scss/sky.scss"
+  "compileMode": "aot"
 }
