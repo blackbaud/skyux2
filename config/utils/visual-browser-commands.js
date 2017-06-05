@@ -14,7 +14,7 @@
           'color-contrast': { enabled: false }
         }
       };
-      axe.a11yCheck(document, config, function (results) {
+      axe.run(document, config, function (results) {
         done(results);
       });
 

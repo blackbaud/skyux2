@@ -4,7 +4,6 @@ const helpers = require('../utils/helpers');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const IgnorePlugin = require('webpack/lib/IgnorePlugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 const extractScss = new ExtractTextPlugin('sky.css');
 
@@ -26,6 +25,11 @@ module.exports = {
 
     modules: [helpers.root('src'), 'node_modules']
 
+  },
+  resolveLoader: {
+    modules: [
+      helpers.root('node_modules')
+    ]
   },
 
   module: {
@@ -100,15 +104,13 @@ module.exports = {
 
     extractScss,
 
-    new ForkCheckerPlugin(),
-
     new webpack.optimize.CommonsChunkPlugin({
       name: helpers.reverse(['polyfills', 'vendor'])
     }),
 
     new ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      /angular(\\|\/)core(\\|\/)@angular/,
       helpers.root('src') // location of your src
     ),
     new IgnorePlugin(/^\.\/locale$/, /moment$/)

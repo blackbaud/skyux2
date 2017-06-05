@@ -10,7 +10,7 @@ import {
 
 export class ListItemsOrchestrator extends ListStateOrchestrator<AsyncList<ListItemModel>> {
   constructor() {
-    super();
+    super()/* istanbul ignore next */;
 
     this
       .register(ListItemsSetLoadingAction, this.setLoading)
