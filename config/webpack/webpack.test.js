@@ -19,7 +19,6 @@ module.exports = {
 
   module: {
     rules: [
-
       {
         enforce: 'pre',
         test: /\.ts$/,
@@ -62,11 +61,20 @@ module.exports = {
           'sass-loader'
         ]
       },
-
       {
         enforce: 'post',
         test: /\.(js|ts)$/,
-        loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
+        use: [
+          {
+            loader: 'istanbul-instrumenter-loader',
+            options: {
+              esModules: true
+            }
+          },
+          {
+            loader: 'source-map-inline-loader'
+          }
+        ],
         include: helpers.root('src'),
         exclude: [
           /\.(e2e|spec)\.ts$/,
