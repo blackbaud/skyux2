@@ -9,8 +9,7 @@
   "scripts": {
     "skyux": "skyux",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "buildvisual": "npm install && rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular && rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular",
-    "servevisual": "../ && npm run build"
+    "buildvisual": "npm install && cd .. && npm run build && node skyux-spa-visual-tests/scripts/setup-skyux-dist.js && cd skyux-spa-visual-tests && rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular && rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular"
   },
   "keywords": [],
   "author": "Blackbaud",
