@@ -16,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@blackbaud/skyux-builder": "blackbaud/skyux-builder#update-angular",
-    "@blackbaud/skyux": "blackbaud/skyux#builder-visual",
+    "@blackbaud/skyux": "blackbaud/skyux2#builder-visual",
     "codelyzer": "3.0.1",
     "moment": "2.18.1",
     "dragula": "3.7.2",
