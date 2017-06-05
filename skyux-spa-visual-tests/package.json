@@ -9,13 +9,14 @@
   "scripts": {
     "skyux": "skyux",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "buildvisual": "npm install && rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular && rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular"
+    "buildvisual": "npm install && rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular && rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular && skyux build"
   },
   "keywords": [],
   "author": "Blackbaud",
   "license": "ISC",
   "devDependencies": {
     "@blackbaud/skyux-builder": "blackbaud/skyux-builder#update-angular",
+    "@blackbaud/skyux": "blackbaud/skyux#builder-visual",
     "codelyzer": "3.0.1",
     "moment": "2.18.1",
     "dragula": "3.7.2",
