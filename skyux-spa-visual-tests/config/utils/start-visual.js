@@ -1,13 +1,42 @@
 /*jslint node: true */
 'use strict';
 
+const config = require('skyux-builder/config/sky-pages/sky-pages.config');
+const webpack = require('webpack');
 const path = require('path');
 const spawn = require('cross-spawn');
 const logger = require('winston');
 const portfinder = require('portfinder');
 const HttpServer = require('http-server');
 const selenium = require('selenium-standalone');
-const build = require('./build');
+const build = require('skyux-builder/cli/build');
+
+// Later this will change to visualtest if we do a separate command
+const skyPagesConfig = config.getSkyPagesConfig('e2e');
+
+visualtest(skyPagesConfig, webpack);
+
+/**
+ * Spawns the necessary commands for visualtest.
+ * Assumes build was ran.
+ * @name visualtest
+ */
+function visualtest(skyPagesConfig, webpack) {
+  start = new Date().getTime();
+  process.on('SIGINT', killServers);
+
+  Promise.all([
+    spawnBuild(skyPagesConfig, webpack),
+    spawnServer(),
+    spawnSelenium()
+  ]).then(values => {
+    spawnProtractor(
+      values[0],
+      values[1],
+      skyPagesConfig
+    );
+  });
+}
 
 // Disable this to quiet the output
 const spawnOptions = { stdio: 'inherit' };
@@ -23,11 +52,7 @@ let start;
  */
 function getProtractorConfigPath() {
   return path.resolve(
-    __dirname,
-    '..',
-    'config',
-    'protractor',
-    'protractor.conf.js'
+    '../visual.conf.js'
   );
 }
 
@@ -151,36 +176,13 @@ function spawnServer() {
 /**
  * Spawns the build process.  Captures the config used.
  */
-function spawnBuild(argv, skyPagesConfig, webpack) {
+function spawnBuild(skyPagesConfig, webpack) {
   return new Promise(resolve => {
     logger.info('Running build');
-    build(argv, skyPagesConfig, webpack).then(stats => {
+    build([], skyPagesConfig, webpack).then(stats => {
       logger.info('Completed build');
       resolve(stats.toJson().chunks);
     });
   });
 }
 
-/**
- * Spawns the necessary commands for e2e.
- * Assumes build was ran.
- * @name e2e
- */
-function e2e(argv, skyPagesConfig, webpack) {
-  start = new Date().getTime();
-  process.on('SIGINT', killServers);
-
-  Promise.all([
-    spawnBuild(argv, skyPagesConfig, webpack),
-    spawnServer(),
-    spawnSelenium()
-  ]).then(values => {
-    spawnProtractor(
-      values[0],
-      values[1],
-      skyPagesConfig
-    );
-  });
-}
-
-e2e();
