@@ -1,8 +1,17 @@
 <section
     class="sky-repeater-item"
-    [ngClass]="{'sky-repeater-item-collapsible': isCollapsible}"
+    [ngClass]="{'sky-repeater-item-collapsible': isCollapsible, 'sky-repeater-item-selected': isSelected}"
 >
+
   <div class="sky-repeater-item-left">
+    <sky-checkbox 
+      *ngIf="selectable" 
+      class="sky-repeater-item-checkbox"
+      [checked]="isSelected"
+      [label]="'repeater_item_checkbox_label' | skyResources"
+      (change)="updateIsSelected($event)"
+    >
+    </sky-checkbox>
     <div
         class="sky-repeater-item-context-menu"
         [hidden]="contextMenuEl.children.length === 0"
