@@ -110,7 +110,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
 
   private hasSelectToolbarItems = false;
 
-  private _selectMode = 'single';
+  private _selectMode = 'multiple';
 
   constructor(
     state: ListState,

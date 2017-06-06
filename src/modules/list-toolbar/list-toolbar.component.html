@@ -37,7 +37,7 @@
           </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
       </sky-toolbar-section>
-      <sky-toolbar-section>
+      <sky-toolbar-section [hidden]="!(hasAdditionalToolbarSection | async)">
         <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
           <sky-list-toolbar-item-renderer
             [template]="item.template"

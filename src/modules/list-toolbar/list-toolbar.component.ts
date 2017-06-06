@@ -101,6 +101,8 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
   public inlineFilterBarExpanded: boolean = false;
 
+  public hasAdditionalToolbarSection: Observable<boolean>;
+
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
 
@@ -201,6 +203,26 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
             f.value !== f.defaultValue;
         });
       return activeFilters.length > 0;
+    });
+
+    this.hasAdditionalToolbarSection = Observable.combineLatest(
+      this.state.map(s => s.toolbar),
+      this.sortSelectors,
+      this.isSortSelectorEnabled,
+      (
+        toolbar,
+        sortSelectors,
+        isSortSelectorEnabled
+      ) => {
+        // console.log(sortSelectors.length);
+        // console.log(isSortSelectorEnabled);
+        console.log(toolbar.items);
+        return sortSelectors.length > 0 && isSortSelectorEnabled && toolbar.items.length > 2;
+      }
+    );
+
+    this.hasAdditionalToolbarSection.subscribe((item) => {
+      console.log('Thing changed ' + item);
     });
   }
 
