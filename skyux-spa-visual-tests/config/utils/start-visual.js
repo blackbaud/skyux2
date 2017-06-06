@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-const config = require('skyux-builder/config/sky-pages/sky-pages.config');
+const config = require('@blackbaud/skyux-builder/config/sky-pages/sky-pages.config');
 const webpack = require('webpack');
 const path = require('path');
 const spawn = require('cross-spawn');
@@ -9,10 +9,17 @@ const logger = require('winston');
 const portfinder = require('portfinder');
 const HttpServer = require('http-server');
 const selenium = require('selenium-standalone');
-const build = require('skyux-builder/cli/build');
+const build = require('@blackbaud/skyux-builder/cli/build');
 
 // Later this will change to visualtest if we do a separate command
 const skyPagesConfig = config.getSkyPagesConfig('e2e');
+
+// Disable this to quiet the output
+const spawnOptions = { stdio: 'inherit' };
+
+let httpServer;
+let seleniumServer;
+let start;
 
 visualtest(skyPagesConfig, webpack);
 
@@ -38,13 +45,6 @@ function visualtest(skyPagesConfig, webpack) {
   });
 }
 
-// Disable this to quiet the output
-const spawnOptions = { stdio: 'inherit' };
-
-let httpServer;
-let seleniumServer;
-let start;
-
 /**
  * Function to get the protractorConfigPath
  * @name getProtractorConfigPath
@@ -52,7 +52,7 @@ let start;
  */
 function getProtractorConfigPath() {
   return path.resolve(
-    '../visual.conf.js'
+    'config/visual.conf.js'
   );
 }
 
@@ -158,8 +158,10 @@ function spawnServer() {
       root: 'dist/',
       cors: true,
       https: {
-        cert: path.resolve(__dirname, '../', 'ssl', 'server.crt'),
-        key: path.resolve(__dirname, '../', 'ssl', 'server.key')
+        cert:
+        path.resolve(__dirname, '../../node_modules/@blackbaud/skyux-builder', 'ssl', 'server.crt'),
+        key:
+        path.resolve(__dirname, '../../node_modules/@blackbaud/skyux-builder', 'ssl', 'server.key')
       }
     });
     portfinder.getPortPromise().then(port => {
