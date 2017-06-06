@@ -1,4 +1,5 @@
 /*jshint jasmine: true, node: true */
+/* global browser */
 'use strict';
 
 const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
@@ -11,6 +12,15 @@ exports.config = {
 
   onPrepare: function () {
     jasmine.getEnv().addReporter(new SpecReporter());
+    const PixDiff = require('pix-diff');
+    browser.pixDiff = new PixDiff(
+      {
+        basePath: 'baseline-screenshots-local/',
+        diffPath: 'screenshot-diff-local/',
+        baseline: true,
+
+      }
+    );
   },
 
   capabilities: {

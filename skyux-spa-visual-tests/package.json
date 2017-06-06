@@ -29,7 +29,8 @@
     "webpack": "2.5.1",
     "portfinder": "1.0.13",
     "http-server": "0.10.0",
-    "selenium-standalone": "6.4.1"
+    "selenium-standalone": "6.4.1",
+    "pix-diff": "2.0.0"
 
   },
   "repository": {
