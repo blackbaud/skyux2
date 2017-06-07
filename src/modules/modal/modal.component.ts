@@ -47,15 +47,15 @@ export class SkyModalComponent implements AfterViewInit {
   }
 
   public get isSmallSize() {
-    return this.config.size.toLowerCase() === 'small';
+    return !this.modalFullPage && this.isSizeEqual(this.config.size, 'small');
   }
 
   public get isMediumSize() {
-    return !(this.isSmallSize || this.isLargeSize);
+    return !this.modalFullPage && !(this.isSmallSize || this.isLargeSize);
   }
 
   public get isLargeSize() {
-    return this.config.size.toLowerCase() === 'large';
+    return !this.modalFullPage && this.isSizeEqual(this.config.size, 'large');
   }
 
   constructor(
@@ -74,5 +74,9 @@ export class SkyModalComponent implements AfterViewInit {
 
   public windowResize() {
     this.componentAdapter.handleWindowChange(this.elRef);
+  }
+
+  private isSizeEqual(actualSize: string, size: string) {
+    return actualSize && actualSize.toLowerCase() === size;
   }
 }
