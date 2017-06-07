@@ -35,6 +35,13 @@ export class LearnActionButtonsComponent {
       summary: 'Review the technical references for help to manage and configure SKY UX projects.'
     },
     {
+      name: 'Accessibility',
+      path: '/learn/accessibility',
+      icon: 'universal-access',
+      // tslint:disable-next-line
+      summary: 'Learn about accessibility testing in SKY UX and why we care about accessibility.'
+    },
+    {
       name: 'Resources',
       path: '/learn/resources',
       icon: 'search',
