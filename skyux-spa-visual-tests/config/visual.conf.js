@@ -15,11 +15,11 @@ exports.config = {
     const PixDiff = require('pix-diff');
     browser.pixDiff = new PixDiff(
       {
-        basePath: 'baseline-screenshots-local/',
-        diffPath: 'screenshot-diff-local/',
+        basePath: 'screenshots-baseline-local/',
+        diffPath: 'screenshots-diff-local/',
         baseline: true,
-        width: 1280,
-        height: 960
+        width: 1000,
+        height: 600
       }
     );
   },

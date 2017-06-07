@@ -7,6 +7,7 @@ describe('Alert', () => {
   it('should match previous alert screenshot', (done) => {
     let PixDiff = require('pix-diff');
     SkyHostBrowser.get('/alert');
+    browser.sleep(1000);
     (browser as any).pixDiff.checkRegion(
       element(by.id('screenshot-alert')),
       'alert',
@@ -16,10 +17,20 @@ describe('Alert', () => {
       })
       .then((result: any) => {
         console.log('result', result);
-        if (result.code !== PixDiff.RESULT_SIMILAR) {
-
+        if (result.code !== PixDiff.RESULT_SIMILAR && result.code !== PixDiff.RESULT_IDENTICAL) {
+          let createdPixDiff = new PixDiff({
+            basePath: 'screenshots-created-local/',
+            diffPath: 'screenshot-created-diff-local/',
+            baseline: true,
+            width: 1000,
+            height: 600
+          });
+          createdPixDiff.saveRegion(
+            element(by.id('screenshot-alert')),
+            'alert');
         }
-        expect(result.code).toEqual(PixDiff.RESULT_SIMILAR)
+        expect(result.code === PixDiff.RESULT_SIMILAR ||
+          result.code === PixDiff.RESULT_IDENTICAL).toBe(true)
 
         done();
       })
