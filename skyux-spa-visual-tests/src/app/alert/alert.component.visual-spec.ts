@@ -7,11 +7,19 @@ describe('Alert', () => {
   it('should match previous alert screenshot', (done) => {
     let PixDiff = require('pix-diff');
     SkyHostBrowser.get('/alert');
-    (browser as any).pixDiff.checkRegion(element(by.id('screenshot-alert')), 'alert')
+    (browser as any).pixDiff.checkRegion(
+      element(by.id('screenshot-alert')),
+      'alert',
+      {
+        thresholdType: PixDiff.THRESHOLD_PERCENT,
+        threshold: .02
+      })
       .then((result: any) => {
         console.log('result', result);
-        console.log('threshold', PixDiff.THRESHOLD_PERCENT)
-        expect(result.code).toEqual(PixDiff.RESULT_IDENTICAL)
+        if (result.code !== PixDiff.RESULT_SIMILAR) {
+
+        }
+        expect(result.code).toEqual(PixDiff.RESULT_SIMILAR)
 
         done();
       })
