@@ -18,7 +18,8 @@ exports.config = {
         basePath: 'baseline-screenshots-local/',
         diffPath: 'screenshot-diff-local/',
         baseline: true,
-
+        width: 1280,
+        height: 960
       }
     );
   },

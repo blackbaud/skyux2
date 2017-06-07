@@ -69,3 +69,9 @@ webdriver-screenshotslocal*
 browserstack.err
 
 browserstack-binary/BrowserStackLocal
+
+skyux-spa-visual-tests/dist
+skyux-spa-visual-tests/node_modules
+skyux-spa-visual-tests/baseline-screenshots-local
+skyux-spa-visual-tests/screenshot-diff-local
+
