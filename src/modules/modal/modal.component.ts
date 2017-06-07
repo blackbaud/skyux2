@@ -46,6 +46,18 @@ export class SkyModalComponent implements AfterViewInit {
     return this.config.fullPage;
   }
 
+  public get isSmallSize() {
+    return this.config.size.toLowerCase() === 'small';
+  }
+
+  public get isMediumSize() {
+    return !(this.isSmallSize || this.isLargeSize);
+  }
+
+  public get isLargeSize() {
+    return this.config.size.toLowerCase() === 'large';
+  }
+
   constructor(
     private hostService: SkyModalHostService,
     private config: SkyModalConfiguration,
