@@ -42,7 +42,6 @@ import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
 import { SkyWaitModule } from './modules/wait';
-import { BackgroundColorModule } from './modules/background-color';
 
 @NgModule({
   exports: [
@@ -85,8 +84,7 @@ import { BackgroundColorModule } from './modules/background-color';
     SkyTimepickerModule,
     SkyToolbarModule,
     SkyWaitModule,
-    SkyDatepickerModule,
-    BackgroundColorModule
+    SkyDatepickerModule
   ]
 })
 export class SkyModule { }
