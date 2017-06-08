@@ -1,5 +1,9 @@
 <sky-repeater [expandMode]="expandMode">
-  <sky-repeater-item *ngFor="let item of items" [isExpanded]="item.expanded">
+  <sky-repeater-item 
+    *ngFor="let item of items" 
+    [isExpanded]="item.expanded"
+    [selectable]="selectable"
+  >
     <!--<sky-repeater-item-context-menu ng-if="repeaterCtrl.showContextMenu">
       <bb-context-menu>
         <bb-context-menu-item>Mark completed</bb-context-menu-item>
@@ -40,4 +44,9 @@
   </label>
   <button class="sky-btn" (click)="addItem()">Add item</button>
   <button class="sky-btn" (click)="removeItem()">Remove last item</button>
+  <sky-checkbox [(ngModel)]="selectable">
+    <sky-checkbox-label>
+      Show checkbox
+    </sky-checkbox-label>
+  </sky-checkbox>
 </p>
