@@ -21,6 +21,8 @@ let httpServer;
 let seleniumServer;
 let start;
 
+let buildType = process.argv[2];
+
 visualtest(skyPagesConfig, webpack);
 
 /**
@@ -52,7 +54,7 @@ function visualtest(skyPagesConfig, webpack) {
  */
 function getProtractorConfigPath() {
   return path.resolve(
-    'config/local.visual.conf.js'
+    'config/' + buildType + '.visual.conf.js'
   );
 }
 
