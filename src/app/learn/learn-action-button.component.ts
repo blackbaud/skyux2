@@ -18,7 +18,14 @@ export class LearnActionButtonsComponent {
       path: '/learn/get-started',
       icon: 'road',
       // tslint:disable-next-line
-      summary: 'Use the get-started tutorials to get up and running with SKY UX.'
+      summary: 'Follow along with our get-started tutorials to get up and running with SKY UX.'
+    },
+    {
+      name: 'Contribute',
+      path: '/learn/contribute',
+      icon: 'exchange',
+      // tslint:disable-next-line
+      summary: 'We encourage contributions from all SKY UX users. Learn about our coding conventions.'
     },
     {
       name: 'FAQ',
