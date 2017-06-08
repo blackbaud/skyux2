@@ -7,7 +7,6 @@ module.exports = {
     require('ts-node').register({ ignore: false });
   },
 
-  directConnect: true,
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 30000

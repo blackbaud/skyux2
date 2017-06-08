@@ -121,33 +121,39 @@ function spawnProtractor(chunks, port, skyPagesConfig) {
  * @name spawnSelenium
  */
 function spawnSelenium() {
+  if (buildType === 'local') {
+    const config = require(getProtractorConfigPath()).config;
+    return new Promise(resolve => {
+      logger.info('Spawning Selenium');
 
-  const config = require(getProtractorConfigPath()).config;
-  return new Promise(resolve => {
-    logger.info('Spawning Selenium');
-
-    // Assumes we're running selenium oursevles, so we should prep it
-    if (config.seleniumAddress) {
-      selenium.install({ logger: logger.info }, () => {
-        selenium.start((err, child) => {
-          seleniumServer = child;
-          logger.info('Selenium server is ready.');
-          resolve();
+      // Assumes we're running selenium oursevles, so we should prep it
+      if (config.seleniumAddress) {
+        selenium.install({ logger: logger.info }, () => {
+          selenium.start((err, child) => {
+            seleniumServer = child;
+            logger.info('Selenium server is ready.');
+            resolve();
+          });
         });
-      });
 
-    // Otherwise we need to prep protractor's selenium
-    } else {
-      const webdriverManagerPath = path.resolve(
-        'node_modules',
-        '.bin',
-        'webdriver-manager'
-      );
-      spawn.sync(webdriverManagerPath, ['update'], spawnOptions);
-      logger.info('Selenium server is ready.');
+      // Otherwise we need to prep protractor's selenium
+      } else {
+        const webdriverManagerPath = path.resolve(
+          'node_modules',
+          '.bin',
+          'webdriver-manager'
+        );
+        spawn.sync(webdriverManagerPath, ['update'], spawnOptions);
+        logger.info('Selenium server is ready.');
+        resolve();
+      }
+    });
+  } else {
+    return new Promise(resolve => {
       resolve();
-    }
-  });
+    });
+  }
+
 }
 
 /**

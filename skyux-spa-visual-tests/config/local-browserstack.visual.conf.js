@@ -8,13 +8,15 @@ var config = require('./shared.visual.conf.js');
 
 var browserstack = require('browserstack-local');
 
+var timestamp = new Date().toString();
+
 config.onPrepare = function () {
   jasmine.getEnv().addReporter(new SpecReporter());
   const PixDiff = require('pix-diff');
   browser.pixDiff = new PixDiff(
     {
-      basePath: 'screenshots-baseline/',
-      diffPath: 'screenshots-diff/',
+      basePath: 'screenshots-baseline-local/',
+      diffPath: 'screenshots-diff-local/',
       baseline: true,
       width: 1000,
       height: 600
@@ -22,8 +24,8 @@ config.onPrepare = function () {
   );
 
   browser.skyVisualTestOptions = {
-    createdPath: 'screenshots-created/',
-    createdPathDiff: 'screenshots-created-diff/'
+    createdPath: 'screenshots-created-local/',
+    createdPathDiff: 'screenshots-created-diff-local/'
   };
 };
 
@@ -43,7 +45,7 @@ config.capabilities =  {
   browserDisconnectTolerance: 3,
   browserNoActivityTimeout: 3e5,
   captureTimeout: 3e5,
-  build: 'skyux2-mac-chrome-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
+  build: 'skyux2-mac-chrome-webdriver-local-' + timestamp,
   resolution: '1280x960',
   name: 'SKYUX2BROWSERSTACKCI',
   'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI',
@@ -55,7 +57,7 @@ config.seleniumAddress = 'http://hub-cloud.browserstack.com/wd/hub';
 config.beforeLaunch = function () {
   require('ts-node').register({ ignore: false });
   console.log('Connecting local');
-  return new Promise(function (resolve, reject){
+  return new Promise(function (resolve, reject) {
     exports.bs_local = new browserstack.Local();
     exports.bs_local.start(
       {

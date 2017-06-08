@@ -31,5 +31,7 @@ config.capabilities =  {
   }
 };
 
+config.directConnect = true;
+
 exports.config = config;
 
