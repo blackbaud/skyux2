@@ -140,8 +140,12 @@ describe('List column selector action', () => {
     fixture.detectChanges();
 
     let checkboxLabelEl =
-      document.querySelector('.sky-modal .sky-list-view-checklist-item input') as HTMLElement;
-    checkboxLabelEl.click();
+      document
+        .querySelectorAll('.sky-modal .sky-list-view-checklist-item input') as
+        NodeListOf<HTMLElement>;
+
+    expect(checkboxLabelEl.length).toBe(2);
+    checkboxLabelEl.item(0).click();
 
     tick();
     fixture.detectChanges();
