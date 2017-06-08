@@ -112,20 +112,7 @@ code {
 .text-center {
     align-items: center;
     text-align: center;
-}
-
-.text-center-padding {
-    align-items: center;
-    text-align: center;
-    padding: 0px 50px;
-}
-
-.background-color {
-  background: rgb(114, 191, 68);
-}
-
-.stacked-white {
-  color: #FFF;
+    padding: 0px 10px;
 }
 
 @media (min-width: 479px) {
