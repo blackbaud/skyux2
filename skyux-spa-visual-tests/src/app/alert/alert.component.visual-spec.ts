@@ -5,12 +5,12 @@ import { element, by, browser} from 'protractor';
 
 describe('Alert', () => {
 
-  it('should match previous alert screenshot', (done) => {
-    SkyHostBrowser.get('/alert');
-    SkyVisualTest.compareScreenshot({
+  it('should match previous alert screenshot', () => {
+    SkyVisualTest.setupTest('/alert');
+    return SkyVisualTest.compareScreenshot({
       screenshotName: 'alert',
       elementId: 'screenshot-alert',
-      done: done
+      checkAccessibility: true
     });
   });
 });

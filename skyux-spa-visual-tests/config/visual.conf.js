@@ -22,6 +22,11 @@ exports.config = {
         height: 600
       }
     );
+
+    browser.skyVisualTestOptions = {
+      createdPath: 'screenshots-created-local/',
+      createdPathDiff: 'screenshots-created-diff-local'
+    };
   },
 
   capabilities: {

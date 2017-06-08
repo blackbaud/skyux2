@@ -30,8 +30,9 @@
     "portfinder": "1.0.13",
     "http-server": "0.10.0",
     "selenium-standalone": "6.4.1",
-    "pix-diff": "2.0.0"
-
+    "pix-diff": "2.0.0",
+    "axe-core": "2.2.1",
+    "axe-webdriverjs": "1.1.1"
   },
   "repository": {
     "type": "git",
