@@ -1,0 +1,28 @@
+@import "../../scss/mixins";
+
+.background-color{
+    height: 350px;
+    width: 300px;
+    @include sky-shadow();
+}
+
+.background-color-red {
+    background-color: red
+}
+
+.background-color-blue {
+    background-color: blue
+}
+
+.background-color-green {
+    background-color: green
+}
+
+.background-color-lavender {
+    background-color: lavender
+}
+
+
+.background-color-magenta {
+    background-color: magenta
+}

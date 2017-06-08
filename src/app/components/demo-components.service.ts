@@ -71,6 +71,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Background Color',
+        icon: 'th-large',
+        // tslint:disable-next-line
+        summary: `[Sandhya Component] change background color of box based on input`,
+        url: '/components/background-color',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'background-color-demo.component.html',
+              fileContents: require('!!raw-loader!./background-color/background-color-demo.component.html')
+            },
+            {
+              name: 'background-color-demo.component.ts',
+              fileContents: require('!!raw-loader!./background-color/background-color-demo.component.ts'),
+              componentName: 'BackgroundColorDemoComponent',
+              bootstrapSelector: 'background-color-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Buttons',
         icon: 'square-o',
         // tslint:disable-next-line
