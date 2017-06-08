@@ -11,6 +11,6 @@ module.exports = {
     showColors: true,
     defaultTimeoutInterval: 30000
   },
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: 30000,
   specs: ['../src/app/**/*.visual-spec.ts']
 };
