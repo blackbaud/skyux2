@@ -20,7 +20,7 @@ config.onPrepare = function () {
 
   browser.skyVisualTestOptions = {
     createdPath: 'screenshots-created-local/',
-    createdPathDiff: 'screenshots-created-diff-local'
+    createdPathDiff: 'screenshots-created-diff-local/'
   };
 };
 
