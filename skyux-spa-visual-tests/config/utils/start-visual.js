@@ -52,7 +52,7 @@ function visualtest(skyPagesConfig, webpack) {
  */
 function getProtractorConfigPath() {
   return path.resolve(
-    'config/visual.conf.js'
+    'config/local.visual.conf.js'
   );
 }
 
