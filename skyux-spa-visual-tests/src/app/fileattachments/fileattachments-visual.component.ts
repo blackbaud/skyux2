@@ -53,6 +53,8 @@ export class FileAttachmentsVisualComponent {
   public validateFile(file: SkyFileItem) {
     if (file.file.name.indexOf('a') === 0) {
         return 'You may not upload a file that begins with the letter "a."';
+    } else {
+      return '';
     }
   }
 

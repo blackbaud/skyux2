@@ -17,7 +17,7 @@ config.onPrepare = function () {
       diffPath: 'screenshots-diff/',
       baseline: true,
       width: 1000,
-      height: 600
+      height: 800
     }
   );
 

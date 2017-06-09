@@ -21,9 +21,9 @@ export class SkyVisualTest {
   public static setupTest(url: string, screenWidth?: number) {
     SkyHostBrowser.get(url);
     if (!screenWidth) {
-      browser.driver.manage().window().setSize(1000, 600);
+      browser.driver.manage().window().setSize(1000, 800);
     } else {
-      browser.driver.manage().window().setSize(screenWidth, 600);
+      browser.driver.manage().window().setSize(screenWidth, 800);
     }
   }
 
@@ -47,7 +47,7 @@ export class SkyVisualTest {
             element(by.id(options.elementId)),
             options.screenshotName);
         }
-        browser.driver.manage().window().setSize(1000, 600);
+        browser.driver.manage().window().setSize(1000, 800);
         let differencePercent = ((result.differences / result.dimension) * 100).toFixed(2);
         let mismatchMessage
           = 'screenshots have mismatch percentage of ' + differencePercent + ' percent'
@@ -61,7 +61,7 @@ export class SkyVisualTest {
 
       })
       .catch((error: any) => {
-        browser.driver.manage().window().setSize(1000, 600);
+        browser.driver.manage().window().setSize(1000, 800);
         if (error.message.indexOf('saving current image') === -1) {
           throw error;
         } else {
