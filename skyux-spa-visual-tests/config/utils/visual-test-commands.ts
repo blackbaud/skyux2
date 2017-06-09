@@ -12,6 +12,12 @@ export class SkyVisualTest {
     browser.executeScript('arguments[0].scrollIntoView();', scrollEl.getWebElement());
   }
 
+  public static moveCursorOffScreen() {
+    browser.actions()
+      .mouseMove(element(by.css('body')), { x: 0, y: 0})
+      .perform();
+  }
+
   public static setupTest(url: string, screenWidth?: number) {
     SkyHostBrowser.get(url);
     if (!screenWidth) {
