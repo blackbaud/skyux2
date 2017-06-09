@@ -5,7 +5,7 @@ describe('Action button', () => {
     SkyVisualTest.setupTest('/action-button')
     return SkyVisualTest.compareScreenshot({
         screenshotName: 'action-button',
-        elementId: 'screenshot-action-button',
+        selector: '#screenshot-action-button',
         checkAccessibility: true
       });
   });
@@ -14,7 +14,7 @@ describe('Action button', () => {
     SkyVisualTest.setupTest('/action-button', 480)
     return SkyVisualTest.compareScreenshot({
       screenshotName: 'action-button-small',
-      elementId: 'screenshot-action-button',
+      selector: '#screenshot-action-button',
       checkAccessibility: true
     });
   });

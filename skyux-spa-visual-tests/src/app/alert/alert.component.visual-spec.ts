@@ -6,7 +6,7 @@ describe('Alert', () => {
     SkyVisualTest.setupTest('/alert');
     return SkyVisualTest.compareScreenshot({
       screenshotName: 'alert',
-      elementId: 'screenshot-alert',
+      selector: '#screenshot-alert',
       checkAccessibility: true
     });
   });

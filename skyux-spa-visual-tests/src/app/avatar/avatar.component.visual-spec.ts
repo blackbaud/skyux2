@@ -6,7 +6,7 @@ describe('Avatar', () => {
     SkyVisualTest.setupTest('/avatar');
     return SkyVisualTest.compareScreenshot({
       screenshotName: 'avatar-image',
-      elementId: 'screenshot-avatar-img',
+      selector: '#screenshot-avatar-img',
       checkAccessibility: true
     });
   });
@@ -15,7 +15,7 @@ describe('Avatar', () => {
     SkyVisualTest.setupTest('/avatar');
     return SkyVisualTest.compareScreenshot({
       screenshotName: 'avatar-initials',
-      elementId: 'screenshot-avatar-initials',
+      selector: '#screenshot-avatar-initials',
       checkAccessibility: true
     });
   });

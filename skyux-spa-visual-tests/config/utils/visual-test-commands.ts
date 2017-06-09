@@ -19,7 +19,7 @@ export class SkyVisualTest {
   public static compareScreenshot(options: any) {
     browser.sleep(1000);
     return (browser as any).pixDiff.checkRegion(
-      element(by.id(options.elementId)),
+      element(by.css(options.selector)),
       options.screenshotName,
       {
         thresholdType: PixDiff.THRESHOLD_PERCENT,
@@ -28,8 +28,8 @@ export class SkyVisualTest {
       .then((result: any) => {
         if (result.code !== PixDiff.RESULT_SIMILAR && result.code !== PixDiff.RESULT_IDENTICAL) {
           let createdPixDiff = new PixDiff({
-            basePath: browser.skyVisualTestOptions.createdPath,
-            diffPath: browser.skyVisualTestOptions.createdPathDiff,
+            basePath: (browser as any).skyVisualTestOptions.createdPath,
+            diffPath: (browser as any).skyVisualTestOptions.createdPathDiff,
             baseline: true
           });
           createdPixDiff.saveRegion(
