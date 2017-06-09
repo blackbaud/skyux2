@@ -1,7 +1,4 @@
-import { SkyHostBrowser } from '@blackbaud/skyux-builder/runtime/testing/e2e';
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
-
-import { element, by, browser} from 'protractor';
 
 describe('Action button', () => {
   it('should match previous action button screenshot', () => {
