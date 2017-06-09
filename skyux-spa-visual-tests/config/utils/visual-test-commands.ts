@@ -7,6 +7,11 @@ let PixDiff = require('pix-diff');
 
 export class SkyVisualTest {
 
+  public static scrollElementIntoView(selector: string) {
+    let scrollEl = element(by.css(selector))
+    browser.executeScript('arguments[0].scrollIntoView();', scrollEl.getWebElement());
+  }
+
   public static setupTest(url: string, screenWidth?: number) {
     SkyHostBrowser.get(url);
     if (!screenWidth) {
