@@ -5,6 +5,10 @@ import { ModalLargeDemoComponent } from './modal/modal-large-demo.component';
 import { ModalFullPageDemoComponent } from './modal/modal-fullpage-demo.component';
 import { ModalContentDemoComponent } from './modal/modal-content-demo.component';
 
+import { Tile1Component } from './tiles/tile1.component';
+
+import { Tile2Component } from './tiles/tile2.component';
+
 // Specify entry components, module-level providers, etc. here.
 @NgModule({
   providers: [],
@@ -12,7 +16,9 @@ import { ModalContentDemoComponent } from './modal/modal-content-demo.component'
     ModalDemoComponent,
     ModalLargeDemoComponent,
     ModalFullPageDemoComponent,
-    ModalContentDemoComponent
+    ModalContentDemoComponent,
+    Tile1Component,
+    Tile2Component
   ]
 })
 export class AppExtrasModule { }
