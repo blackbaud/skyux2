@@ -15,7 +15,7 @@ describe('Sort component', () => {
 
   it('should match the baseline sort screenshot when dropdown is open', () => {
     SkyVisualTest.setupTest('/sort');
-    element(by.css('button')).click();
+    element(by.css('.sky-btn-default')).click();
     return SkyVisualTest.compareScreenshot({
       screenshotName: 'sort-open',
       selector: '#screenshot-sort-full',

@@ -44,7 +44,7 @@ export class SkyVisualTest {
             baseline: true
           });
           createdPixDiff.saveRegion(
-            element(by.id(options.elementId)),
+            element(by.css(options.selector)),
             options.screenshotName);
         }
         browser.driver.manage().window().setSize(1000, 800);
