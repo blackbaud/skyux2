@@ -126,4 +126,53 @@ describe('Modal component', () => {
     closeModal(modalInstance);
   }));
 
+  it('should not contain small,medium, or large classes in full size mode', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {'fullPage': true});
+
+    expect(document.querySelector('.sky-modal-small')).not.toExist();
+    expect(document.querySelector('.sky-modal-medium')).not.toExist();
+    expect(document.querySelector('.sky-modal-large')).not.toExist();
+
+    closeModal(modalInstance);
+  }));
+
+  it('should default to medium size', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {'fullPage': false});
+
+    expect(document.querySelector('.sky-modal-small')).not.toExist();
+    expect(document.querySelector('.sky-modal-medium')).toExist();
+    expect(document.querySelector('.sky-modal-large')).not.toExist();
+
+    closeModal(modalInstance);
+  }));
+
+  it('should respect medium config setting size', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {'fullPage': false, 'size': 'medium'});
+
+    expect(document.querySelector('.sky-modal-small')).not.toExist();
+    expect(document.querySelector('.sky-modal-medium')).toExist();
+    expect(document.querySelector('.sky-modal-large')).not.toExist();
+
+    closeModal(modalInstance);
+  }));
+
+  it('should respect small config setting size', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {'fullPage': false, 'size': 'small'});
+
+    expect(document.querySelector('.sky-modal-small')).toExist();
+    expect(document.querySelector('.sky-modal-medium')).not.toExist();
+    expect(document.querySelector('.sky-modal-large')).not.toExist();
+
+    closeModal(modalInstance);
+  }));
+
+  it('should respect large config setting size', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {'fullPage': false, 'size': 'large'});
+
+    expect(document.querySelector('.sky-modal-small')).not.toExist();
+    expect(document.querySelector('.sky-modal-medium')).not.toExist();
+    expect(document.querySelector('.sky-modal-large')).toExist();
+
+    closeModal(modalInstance);
+  }));
 });
