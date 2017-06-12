@@ -10,6 +10,8 @@ var config = require('./shared.visual.conf.js');
 
 var browserstack = require('browserstack-local');
 
+require('./utils/fast-selenium.js');
+
 config.onPrepare = function () {
   jasmine.getEnv().addReporter(new SpecReporter());
   const PixDiff = require('pix-diff');
