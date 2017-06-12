@@ -54,7 +54,7 @@ export class SkyDropdownComponent implements OnDestroy {
   public set isPrimary(flag: boolean) {
     this._isPrimary = flag;
   }
-  
+
   private open = false;
 
   private opening = false;
