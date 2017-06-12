@@ -7,7 +7,9 @@
     <p>
       SKY UX components, available as Angular 2 components, services, and modules, allow developers to easily create user interfaces that incorporate our styles and patterns. <a href="https://angular.io">Angular 2</a> is at the heart of SKY UX, so it is important you are familiar with it before you get started.
     </p>
+    <sky-search [expandMode]="fit" (searchApply)="searchApplied($event)"></sky-search>
   </stache-page-summary>
-    <stache-action-buttons [routes]="actionButtonComponents">
+    <stache-action-buttons [routes]="displayedItems">
     </stache-action-buttons>
 </stache>
+

@@ -14,7 +14,22 @@
             <li><code>none</code> loads all repeater items in an expanded state and does not allow users to collapse them. This standard layout provides the quickest access to the details in the repeater items. It is best-suited to repeater items with concise content that users need to view frequently.</li>
             <li><code>multiple</code> loads all repeater items in a collapsed state and allow users to expand and collapse them. This layout provides a more compact view but still allows users to expand as many repeater items as necessary. It is best-suited to repeater items where the most important information is in the titles and users only occasionally need to view body content.</li>
             <li><code>single</code> loads all repeater items in a collapsed state and allow users to expand one item at a time. This layout provides the most compact view because users can only expand one repeater item at a time. It is best-suited to repeater items where the most important information is in the titles and users only occasionally need to view body content of one repeater item at a time.</li>
-            </ul>
+        </ul>
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="selectable"
+        defaultValue="false"
+        isOptional="true"
+    >
+      Indicates whether to display a checkbox in the left of the repeater item.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="isSelected"
+        isOptional="true"
+    >
+      Specifies whether the repeater item is selected (i.e. its checkbox is checked). When the user selects the repeater item the specified property on your model will be updated accordingly.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

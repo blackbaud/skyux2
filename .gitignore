@@ -67,7 +67,8 @@ yarn.lock
 /.skypagestmp
 webdriver-screenshotslocal*
 browserstack.err
-
+/skyux-spa-visual-tests/dist/
+/skyux-spa-visual-tests/node_modules/
 browserstack-binary/BrowserStackLocal
 
 skyux-spa-visual-tests/dist
