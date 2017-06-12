@@ -305,6 +305,27 @@ describe('Dropdown component', () => {
       expect(getDropdownBtnEl(el)).toHaveCssClass('sky-dropdown-button-type-context-menu');
     });
 
+   fit('should have a default button background of "sky-btn-default" aka isPrimary is false', () => {
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let el: Element = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      expect(getDropdownBtnEl(el)).toHaveCssClass('sky-btn-default');
+    });
+
+    fit('should set the CSS class to primary when isPrimary is true', () => {
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      let cmp = fixture.componentInstance;
+      let el: Element = fixture.nativeElement;
+
+      cmp.isPrimary = true;
+
+      fixture.detectChanges();
+
+      expect(getDropdownBtnEl(el)).toHaveCssClass('sky-btn-primary');
+    });
+
     it('should set the correct title when specified', () => {
       let fixture = TestBed.createComponent(DropdownTestComponent);
       let cmp = fixture.componentInstance;
