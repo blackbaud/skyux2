@@ -2,6 +2,8 @@
 /* global browser */
 'use strict';
 
+let builderUtils =  require('@blackbaud/skyux-builder/utils/host-utils');
+
 const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 var config = require('./shared.visual.conf.js');
@@ -25,6 +27,15 @@ config.onPrepare = function () {
     createdPath: 'screenshots-created/',
     createdPathDiff: 'screenshots-created-diff/'
   };
+
+  var destination = builderUtils.resolve(
+    '/',
+    browser.params.localUrl,
+    JSON.parse(browser.params.chunks),
+    JSON.parse(browser.params.skyPagesConfig)
+  );
+
+  return browser.get(destination);
 };
 
 config.capabilities =  {
@@ -63,8 +74,7 @@ config.beforeLaunch = function () {
         onlyAutomate: true,
         forceLocal: true,
         force: true,
-        localIdentifier: 'SKYUX2BROWSERSTACKCI',
-        parallelRuns: 25
+        localIdentifier: 'SKYUX2BROWSERSTACKCI'
       }, function (error) {
         if (error) {
           return reject(error);

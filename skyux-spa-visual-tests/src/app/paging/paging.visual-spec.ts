@@ -5,19 +5,25 @@ import { element, by } from 'protractor';
 describe('paging component', () => {
 
   it('should display first page selected', () => {
-    SkyVisualTest.setupTest('/paging');
-    return SkyVisualTest.compareScreenshot({
-      screenshotName: 'paging-first',
-      selector: '#screenshot-paging'
+    return SkyVisualTest.setupTest('paging')
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'paging-first',
+        selector: '#screenshot-paging'
+      });
     });
+
   });
 
   it('should display middle page selected', () => {
-    SkyVisualTest.setupTest('/paging');
-    element(by.css('a[sky-cmp-id="next"]')).click();
-    return SkyVisualTest.compareScreenshot({
-      screenshotName: 'paging-middle',
-      selector: '#screenshot-paging'
+    return SkyVisualTest.setupTest('paging')
+    .then(() => {
+      element(by.css('a[sky-cmp-id="next"]')).click();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'paging-middle',
+        selector: '#screenshot-paging'
+      });
     });
+
   });
 });

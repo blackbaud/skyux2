@@ -2,6 +2,8 @@
 /* global browser */
 'use strict';
 
+let builderUtils =  require('@blackbaud/skyux-builder/utils/host-utils');
+
 const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 var config = require('./shared.visual.conf.js');
@@ -27,6 +29,16 @@ config.onPrepare = function () {
     createdPath: 'screenshots-created-local/',
     createdPathDiff: 'screenshots-created-diff-local/'
   };
+
+  var destination = builderUtils.resolve(
+    '/',
+    browser.params.localUrl,
+    JSON.parse(browser.params.chunks),
+    JSON.parse(browser.params.skyPagesConfig)
+  );
+
+  return browser.get(destination);
+
 };
 
 config.capabilities =  {
@@ -38,7 +50,7 @@ config.capabilities =  {
   'browserstack.key': process.env.BROWSER_STACK_ACCESS_KEY,
   browser_version: '57',
   'browserstack.local': 'true',
-  'browserstack.debug': 'true',
+  'browserstack.debug': 'false',
   os: 'OS X',
   os_version: 'El Capitan',
   browserDisconnectTimeout: 3e5,
@@ -47,9 +59,10 @@ config.capabilities =  {
   captureTimeout: 3e5,
   build: 'skyux2-mac-chrome-webdriver-local-' + timestamp,
   resolution: '1280x960',
-  name: 'SKYUX2BROWSERSTACKCI',
-  'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI',
-  'acceptSslCerts': true
+  name: 'SKYUX2BROWSERSTACKLOCAL',
+  'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKLOCAL',
+  'acceptSslCerts': true,
+  'browserstack.video': 'false'
 };
 
 config.seleniumAddress = 'http://hub-cloud.browserstack.com/wd/hub';
@@ -65,8 +78,7 @@ config.beforeLaunch = function () {
         onlyAutomate: true,
         forceLocal: true,
         force: true,
-        localIdentifier: 'SKYUX2BROWSERSTACKCI',
-        parallelRuns: 25
+        localIdentifier: 'SKYUX2BROWSERSTACKLOCAL'
       }, function (error) {
         if (error) {
           return reject(error);

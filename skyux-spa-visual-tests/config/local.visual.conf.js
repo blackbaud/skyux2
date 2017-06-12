@@ -2,6 +2,8 @@
 /* global browser */
 'use strict';
 
+let builderUtils =  require('@blackbaud/skyux-builder/utils/host-utils');
+
 const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 var config = require('./shared.visual.conf.js');
@@ -22,6 +24,16 @@ config.onPrepare = function () {
     createdPath: 'screenshots-created-local/',
     createdPathDiff: 'screenshots-created-diff-local/'
   };
+
+  var destination = builderUtils.resolve(
+    '/',
+    browser.params.localUrl,
+    JSON.parse(browser.params.chunks),
+    JSON.parse(browser.params.skyPagesConfig)
+  );
+
+  return browser.get(destination);
+
 };
 
 config.capabilities =  {

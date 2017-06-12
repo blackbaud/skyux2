@@ -19,12 +19,21 @@ export class SkyVisualTest {
   }
 
   public static setupTest(url: string, screenWidth?: number) {
-    SkyHostBrowser.get(url);
-    if (!screenWidth) {
-      browser.driver.manage().window().setSize(1000, 800);
-    } else {
-      browser.driver.manage().window().setSize(screenWidth, 800);
-    }
+
+    return browser.getCurrentUrl().then((currentUrl) => {
+      if (currentUrl !== 'https://host.nxt.blackbaud.com/visual-tests/') {
+        SkyHostBrowser.get('/');
+      }
+
+      element(by.css('a.sky-visual-test-' + url)).click();
+      if (!screenWidth) {
+        browser.driver.manage().window().setSize(1000, 800);
+      } else {
+        browser.driver.manage().window().setSize(screenWidth, 800);
+      }
+    });
+
+
   }
 
   public static compareScreenshot(options: any) {
@@ -45,17 +54,24 @@ export class SkyVisualTest {
           });
           createdPixDiff.saveRegion(
             element(by.css(options.selector)),
-            options.screenshotName);
+            options.screenshotName).then(() => {
+              browser.driver.manage().window().setSize(1000, 800);
+              let differencePercent = ((result.differences / result.dimension) * 100).toFixed(2);
+              let mismatchMessage
+                = 'screenshots have mismatch percentage of ' + differencePercent + ' percent'
+              expect(result.code === PixDiff.RESULT_SIMILAR ||
+                result.code === PixDiff.RESULT_IDENTICAL).toBe(true, mismatchMessage);
+            });
         }
+
         browser.driver.manage().window().setSize(1000, 800);
-        let differencePercent = ((result.differences / result.dimension) * 100).toFixed(2);
-        let mismatchMessage
-          = 'screenshots have mismatch percentage of ' + differencePercent + ' percent'
-        expect(result.code === PixDiff.RESULT_SIMILAR ||
-          result.code === PixDiff.RESULT_IDENTICAL).toBe(true, mismatchMessage);
+
         if (options.checkAccessibility) {
           return this.checkAccessibility();
         } else {
+          browser.executeScript(function () {
+            window.history.go(-1);
+          });
           return Promise.resolve();
         }
 
@@ -68,6 +84,9 @@ export class SkyVisualTest {
            if (options.checkAccessibility) {
             return this.checkAccessibility();
           } else {
+            browser.executeScript(function () {
+              window.history.go(-1);
+            });
             return Promise.resolve();
           }
         }
@@ -87,8 +106,15 @@ export class SkyVisualTest {
           const violations = results.violations.length;
           if (violations) {
             this.logAccessibilityResults(results);
+            browser.executeScript(function () {
+              window.history.go(-1);
+            });
             expect(violations).toBe(0, ' number of accessiblity violations');
           }
+
+          browser.executeScript(function () {
+            window.history.go(-1);
+          });
 
           resolve();
         })

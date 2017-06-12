@@ -6,13 +6,16 @@ describe('Page summary', () => {
 
   function clickTest(
     screenshotName: string, visibleComponents: Array<string>, screenWidth?: number) {
-    SkyVisualTest.setupTest('/page-summary', screenWidth);
-    element(by.css('#screenshots-page-summary-items')).sendKeys(visibleComponents.join(','));
-    return SkyVisualTest.compareScreenshot({
-      screenshotName: ('pagesummary-' + screenshotName),
-      selector: '#screenshots-page-summary',
-      checkAccessibility: true
+    return SkyVisualTest.setupTest('page-summary', screenWidth)
+    .then(() => {
+      element(by.css('#screenshots-page-summary-items')).sendKeys(visibleComponents.join(','));
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: ('pagesummary-' + screenshotName),
+        selector: '#screenshots-page-summary',
+        checkAccessibility: true
+      });
     });
+
   }
 
   it(

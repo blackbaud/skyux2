@@ -9,7 +9,7 @@ module.exports = {
 
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 90000
   },
   allScriptsTimeout: 30000,
   specs: ['../src/app/**/*.visual-spec.ts']

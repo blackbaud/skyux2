@@ -2,3 +2,11 @@
 
 <p>This is the home page for SKY UX visual tests.</p>
 
+<a
+  *ngFor="let test of tests"
+  [ngClass]="'sky-visual-test-' + test"
+  routerLink="{{ '/' + test}}">
+  {{test}}
+</a>
+
+
