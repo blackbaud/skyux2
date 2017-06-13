@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
 })
 export class SkyColorpickerDemoComponent {
 
-  public color: string;
-
-
+  public color: string = '#2889e5';
 }

@@ -118,6 +118,7 @@ export {
 } from './modules/checkbox';
 export {
   SkyColorpickerComponent,
+  SkyColorpickerWidgetComponent,
   SkyColorpickerModule
 }
   from './modules/colorpicker'

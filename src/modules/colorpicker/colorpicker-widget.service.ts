@@ -1,0 +1,272 @@
+// spell-checker:ignore hsva, hsla, denormalize, colorpicker
+import { Injectable } from '@angular/core';
+import { Rgba, Hsla, Hsva } from './colorpicker-classes';
+
+@Injectable()
+export class SkyColorpickerWidgetService {
+  private red: number;
+  private green: number;
+  private blue: number;
+  private alpha: number;
+  private max: number;
+  private min: number;
+  private hue: number;
+  private saturation: number;
+  private lightness: number;
+  private value: number;
+
+  constructor() { }
+
+  public hsla2hsva(hsla: Hsla): Hsva {
+    this.hue = Math.min(hsla.hue, 1);
+    this.saturation = Math.min(hsla.saturation, 1);
+    this.lightness = Math.min(hsla.lightness, 1);
+    this.alpha = Math.min(hsla.alpha, 1);
+    if (this.lightness === 0) {
+      return new Hsva(this.hue, 0, 0, this.alpha);
+    } else {
+      let v = this.lightness + this.saturation * (1 - Math.abs(2 * this.lightness - 1)) / 2;
+      return new Hsva(this.hue, 2 * (v - this.lightness) / v, v, this.alpha);
+    }
+  }
+
+  public hsva2hsla(hsva: Hsva): Hsla {
+    this.hue = hsva.hue;
+    this.saturation = hsva.saturation;
+    this.value = hsva.value;
+    this.alpha = hsva.alpha;
+    if (this.value === 0) {
+      return new Hsla(this.hue, 0, 0, this.alpha);
+    } else if (this.saturation === 0 && this.value === 1) {
+      return new Hsla(this.hue, 1, 1, this.alpha);
+    } else {
+      this.lightness = this.value * (2 - this.saturation) / 2;
+      return new Hsla(
+        this.hue, this.value * this.saturation / (1 - Math.abs(2 * this.lightness - 1)),
+        this.lightness,
+        this.alpha
+      );
+    }
+  }
+
+  public rgbaToHsva(rgba: Rgba): Hsva {
+    this.red = Math.min(rgba.red, 1);
+    this.green = Math.min(rgba.green, 1);
+    this.blue = Math.min(rgba.blue, 1);
+    this.alpha = Math.min(rgba.alpha, 1);
+    this.max = Math.max(this.red, this.green, this.blue);
+    this.min = Math.min(this.red, this.green, this.blue);
+    this.value = this.max;
+
+    let d = this.max - this.min;
+    this.saturation = this.max === 0 ? 0 : d / this.max;
+
+    if (this.max === this.min) {
+      this.hue = 0;
+    } else {
+      switch (this.max) {
+        case this.red:
+          this.hue = (this.green - this.blue) / d + (this.green < this.blue ? 6 : 0);
+          break;
+        case this.green:
+          this.hue = (this.blue - this.red) / d + 2;
+          break;
+        case this.blue:
+          this.hue = (this.red - this.green) / d + 4;
+          break;
+      }
+      this.hue /= 6;
+    }
+
+    return new Hsva(this.hue, this.saturation, this.value, this.alpha);
+  }
+
+  public hsvaToRgba(hsva: Hsva): Rgba {
+
+    this.hue = hsva.hue;
+    this.saturation = hsva.saturation;
+    this.value = hsva.value;
+    this.alpha = hsva.alpha;
+
+
+    let i = Math.floor(this.hue * 6);
+    let f = this.hue * 6 - i;
+    let p = this.value * (1 - this.saturation);
+    let q = this.value * (1 - f * this.saturation);
+    let t = this.value * (1 - (1 - f) * this.saturation);
+
+    switch (i % 6) {
+      case 0:
+        this.red = this.value, this.green = t, this.blue = p;
+        break;
+      case 1:
+        this.red = q, this.green = this.value, this.blue = p;
+        break;
+      case 2:
+        this.red = p, this.green = this.value, this.blue = t;
+        break;
+      case 3:
+        this.red = p, this.green = q, this.blue = this.value;
+        break;
+      case 4:
+        this.red = t, this.green = p, this.blue = this.value;
+        break;
+      case 5:
+        this.red = this.value, this.green = p, this.blue = q;
+        break;
+    }
+
+    return new Rgba(this.red, this.green, this.blue, this.alpha);
+  }
+
+  public stringToHsva(colorString: string = '', hex8: boolean = false): Hsva {
+    let stringParsers = [
+      {
+        re: /(rgb)a?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*%?,\s*(\d{1,3})\s*%?(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
+        parse: function (execResult: any) {
+          return new Rgba(parseInt(execResult[2], 0) / 255,
+            parseInt(execResult[3], 0) / 255,
+            parseInt(execResult[4], 0) / 255,
+            isNaN(parseFloat(execResult[5])) ? 1 : parseFloat(execResult[5]));
+        }
+      },
+      {
+        re: /(hsl)a?\(\s*(\d{1,3})\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
+        parse: function (execResult: any) {
+          return new Hsla(parseInt(execResult[2], 0) / 360,
+            parseInt(execResult[3], 0) / 100,
+            parseInt(execResult[4], 0) / 100,
+            isNaN(parseFloat(execResult[5])) ? 1 : parseFloat(execResult[5]));
+        }
+      }
+    ];
+    if (hex8) {
+      stringParsers.push({
+        re: /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})$/,
+        parse: function (execResult: any) {
+          return new Rgba(parseInt(execResult[1], 16) / 255,
+            parseInt(execResult[2], 16) / 255,
+            parseInt(execResult[3], 16) / 255,
+            parseInt(execResult[4], 16) / 255);
+        }
+      });
+    } else {
+      stringParsers.push({
+        re: /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})$/,
+        parse: function (execResult: any) {
+          return new Rgba(parseInt(execResult[1], 16) / 255,
+            parseInt(execResult[2], 16) / 255,
+            parseInt(execResult[3], 16) / 255,
+            1);
+        }
+      },
+        {
+          re: /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])$/,
+          parse: function (execResult: any) {
+            return new Rgba(parseInt(execResult[1] + execResult[1], 16) / 255,
+              parseInt(execResult[2] + execResult[2], 16) / 255,
+              parseInt(execResult[3] + execResult[3], 16) / 255,
+              1);
+          }
+        });
+    }
+
+
+    // colorString = colorString.toLowerCase();
+    let hsva: Hsva = undefined;
+    for (let key in stringParsers) {
+      if (stringParsers.hasOwnProperty(key)) {
+        let parser = stringParsers[key];
+        let match = parser.re.exec(colorString)
+          , color: any = match && parser.parse(match);
+        if (color) {
+          if (color instanceof Rgba) {
+            hsva = this.rgbaToHsva(color);
+          } else if (color instanceof Hsla) {
+            hsva = this.hsla2hsva(color);
+          }
+          return hsva;
+        }
+      }
+    }
+    return hsva;
+  }
+
+  public outputFormat(hsva: Hsva, outputFormat: string, allowHex8: boolean): string {
+    if (hsva.alpha < 1) {
+      switch (outputFormat) {
+        case 'hsla':
+          let hsla = this.hsva2hsla(hsva);
+          let hslaText = new Hsla(
+            Math.round((hsla.hue) * 360),
+            Math.round(hsla.saturation * 100),
+            Math.round(hsla.lightness * 100),
+            Math.round(hsla.alpha * 100) / 100);
+          return `hsla(
+            ${hslaText.hue},
+            ${hslaText.saturation}%,
+            ${hslaText.lightness}%,
+            ${hslaText.alpha})`;
+        default:
+          if (allowHex8 && outputFormat === 'hex') {
+            return this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
+          }
+          let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
+          return `rgba(
+            ${rgba.red},
+            ${rgba.green},
+            ${rgba.blue},
+            ${Math.round(rgba.alpha * 100) / 100})`;
+      }
+    } else {
+      switch (outputFormat) {
+        case 'hsla':
+          let hsla = this.hsva2hsla(hsva);
+          let hslaText = new Hsla(
+            Math.round((hsla.hue) * 360),
+            Math.round(hsla.saturation * 100),
+            Math.round(hsla.lightness * 100),
+            Math.round(hsla.alpha * 100) / 100);
+          return 'hsl('
+            + hslaText.hue + ','
+            + hslaText.saturation + '%,'
+            + hslaText.lightness + '%)';
+        case 'rgba':
+          let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
+          return 'rgb(' + rgba.red + ',' + rgba.green + ',' + rgba.blue + ')';
+        default:
+
+          let color = this.denormalizeRGBA(this.hsvaToRgba(hsva));
+          return this.hexText(color, allowHex8);
+      }
+    }
+  }
+
+  public hexText(rgba: Rgba, allowHex8: boolean): string {
+    let hexText = '#' + ((1 << 24) |
+      (rgba.red << 16) |
+      (rgba.green << 8) |
+      rgba.blue).toString(16).substr(1);
+    if (
+      hexText[1] === hexText[2]
+      && hexText[3] === hexText[4]
+      && hexText[5] === hexText[6]
+      && rgba.alpha === 1
+      && !allowHex8) {
+      hexText = '#' + hexText[1] + hexText[3] + hexText[5];
+    }
+    if (allowHex8) {
+      hexText += ((1 << 8) | Math.round(rgba.alpha * 255)).toString(16).substr(1);
+    }
+    return hexText;
+  }
+
+  public denormalizeRGBA(rgba: Rgba): Rgba {
+    return new Rgba(
+      Math.round(rgba.red * 255),
+      Math.round(rgba.green * 255),
+      Math.round(rgba.blue * 255),
+      rgba.alpha);
+  }
+
+}

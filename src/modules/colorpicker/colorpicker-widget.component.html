@@ -1,0 +1,89 @@
+<div class="color-picker" [style.visibility]="this.hidden ? 'hidden' : 'visible'" [style.height.px]="cpHeight" [style.width.px]="cpWidth"
+  [style.top.px]="top" [style.left.px]="left" [style.position]="position" #dialogPopup>
+  <div *ngIf="cpDialogDisplay=='popup'" class="arrow arrow-{{cpPosition}}" [style.top.px]="arrowTop"></div>
+
+  <div [skyColorpickerSlider] [style.background-color]="hueSliderColor" [rgX]="1" [rgY]="1" (newValue)="setSaturationAndBrightness($event)"
+    class="saturation-lightness">
+    <div [style.left.px]="slider.saturation" [style.top.px]="slider.v" class="cursor"></div>
+  </div>
+  <div class="box">
+    <div class="left">
+      <div class="selected-color-background"></div>
+      <div [style.background-color]="selectedColor" class="selected-color"></div>
+    </div>
+    <div class="right">
+      <div *ngIf="cpAlphaChannel==='disabled'" style="height: 18px;"></div>
+
+      <div [skyColorpickerSlider] [rgX]="1" (newValue)="setHue($event)" class="hue" #hueSlider>
+        <div [style.left.px]="slider.hue" class="cursor"></div>
+      </div>
+
+      <div [skyColorpickerSlider] [style.background-color]="alphaSliderColor" [rgX]="1"
+        (newValue)="setAlpha($event)" class="alpha" #alphaSlider>
+        <div [style.left.px]="slider.alpha" class="cursor"></div>
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="true" class="hsla-text">
+    <div class="box">
+      <div>H:</div>
+      <div>S:</div>
+      <div>L:</div>
+      <div>A:</div>
+    </div>
+    <div class="box">
+      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="360" [rg]="360" (newValue)="setHue($event)" [value]="hslaText.hue"
+      />
+      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setSaturation($event)"
+        [value]="hslaText.saturation" />
+      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setLightness($event)"
+        [value]="hslaText.lightness" />
+      <input [skyColorpickerText] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0"
+        max="1" step="0.1" [rg]="1" (newValue)="setA($event)" [value]="hslaText.alpha" />
+    </div>
+  </div>
+
+  <div class="rgba-text">
+    <div class="box">
+      <div>R:</div>
+      <div>G:</div>
+      <div>B:</div>
+      <div>A:</div>
+    </div>
+    <div class="box">
+      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setR($event)" [value]="rgbaText.red"
+      />
+      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setG($event)" [value]="rgbaText.green"
+      />
+      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setB($event)" [value]="rgbaText.blue"
+      />
+      <input [skyColorpickerText] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0"
+        max="1" step="0.1" [rg]="1" (newValue)="setA($event)" [value]="rgbaText.alpha" />
+    </div>
+  </div>
+
+  <div class="hex-text">
+    <div class="box">
+      <div>Hex:</div>
+    </div>
+    <div class="box">
+      <input [skyColorpickerText] (newValue)="setHex($event)" [value]="hexText" />
+    </div>
+  </div>
+
+
+  <div *ngIf="cpPresetColors && cpPresetColors.length" class="preset-area">
+    <hr>
+
+    <div class="preset-label">{{cpPresetLabel}}</div>
+
+    <div *ngFor="let color of cpPresetColors" class="preset-color" [style.backgroundColor]="color" (click)="setColorFromString(color)"></div>
+  </div>
+
+  <div *ngIf="cpOKButton || cpCancelButton" class="button-area">
+    <button *ngIf="cpOKButton" type="button" class="{{cpOKButtonClass}}" (click)="oKColor()">{{cpOKButtonText}}</button>
+    <button *ngIf="cpCancelButton" type="button" class="{{cpCancelButtonClass}}" (click)="cancelColor()">{{cpCancelButtonText}}</button>
+  </div>
+
+</div>

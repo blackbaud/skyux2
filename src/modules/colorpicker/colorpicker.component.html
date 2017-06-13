@@ -1,0 +1,37 @@
+<div class="sky-input-group">
+
+<!--
+  <sky-dropdown buttonType="caret-down" alignment="right">
+    <sky-dropdown-menu>
+      <sky-dropdown-item>
+-->
+
+        <div class="sky-colorpicker-container">
+          <span
+          [skyColorpickerInput]="colorPickerExample2"
+          [(skyColorpicker)]="arrayColors[selectedColor]"
+          [style.background]="arrayColors[selectedColor]"
+          [cpToggle]="true">
+          </span>
+
+          <div class="array-colors-element" [style.background]="arrayColors['color']" (click)="selectedColor='color'"></div>
+
+          <div class="array-colors-element" [style.background]="arrayColors['color2']" (click)="selectedColor='color2'"></div>
+
+          <div class="array-colors-element" [style.background]="arrayColors['color3']" (click)="selectedColor='color3'"></div>
+
+          <div class="array-colors-element" [style.background]="arrayColors['color4']" (click)="selectedColor='color4'"></div>
+
+          <div class="array-colors-element" [style.background]="arrayColors['color5']" (click)="selectedColor='color5'"></div>
+<!--
+          <div class="sky-colorpicker-container sky-colorpicker-footer">
+            <section class="sky-colorpicker-column">
+              <button type="button">Close</button>
+            </section>
+          </div>
+        </div>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
+  -->
+</div>
