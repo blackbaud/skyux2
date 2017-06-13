@@ -27,6 +27,26 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Autonumeric',
+        icon: 'calculator',
+        summary: 'The Autonumeric Pipe shortens long numbers and can format as currency.',
+        url: '/components/autonumeric',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'autonumeric-demo.component.html',
+              fileContents: require('!!raw-loader!./autonumeric/autonumeric-demo.component.html')
+            },
+            {
+              name: 'autonumeric-demo.component.ts',
+              fileContents: require('!!raw-loader!./autonumeric/autonumeric-demo.component.ts'),
+              componentName: 'SkyAutonumericDemoComponent',
+              bootstrapSelector: 'sky-autonumeric-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Avatar',
         icon: 'user',
         // tslint:disable-next-line

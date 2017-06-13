@@ -227,6 +227,22 @@
     "_description": "",
     "message": "Sep"
   },
+  "number_billion_abrev": {
+    "_description": "Abreviation for Billion used by numbers",
+    "message": "B"
+  },
+  "number_million_abrev": {
+    "_description": "Abreviation for million used by numbers",
+    "message": "M"
+  },
+  "number_thousands_abrev": {
+    "_description": "Abreviation for Thousands used by numbers",
+    "message": "K"
+  },
+  "number_trillion_abrev": {
+    "_description": "Abreviation for Trillion used by numbers",
+    "message": "T"
+  },
   "page_noaccess_button": {
     "_description": "",
     "message": "Return to a non-classified page"
