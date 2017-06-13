@@ -104,4 +104,17 @@ describe('Modal', function () {
         checkAccessibility: true
       });
   });
+
+  it('should match previous large size modal screenshot on intermediate screens', function () {
+    return browser
+      .setupTest('/modal.html', 800)
+      .click('.sky-test-large-size-modal')
+      .moveCursorOffScreen()
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'modal_large_size_bounded',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      });
+  });
 });
