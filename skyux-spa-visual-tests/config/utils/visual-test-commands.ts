@@ -102,7 +102,7 @@ export class SkyVisualTest {
             'color-contrast': { enabled: false }
           }
         })
-        .analyze(results => {
+        .analyze((results: any) => {
           const violations = results.violations.length;
           if (violations) {
             this.logAccessibilityResults(results);
@@ -126,9 +126,9 @@ export class SkyVisualTest {
 
       if (numResults > 0) {
         console.error("Accessibility failure(s) found for: " + results.url + "\n");
-        results.violations.forEach(result => {
+        results.violations.forEach((result: any) => {
           var label = result.nodes.length === 1 ? 'element' : 'elements';
-          var msg = result.nodes.reduce(function(msg, node) {
+          var msg = result.nodes.reduce(function (msg: any, node: any) {
               return `${msg}  Location: ${node.target[0]}
   ${node.html}`;
           }, "\n");
