@@ -66,26 +66,34 @@ export class SkyDropdownAdapterService {
     let menuEl = this.getMenuEl(dropdownEl);
 
     let possiblePositions = ['below', 'above', 'ycenter', 'center', 'ybottom', 'ytop'];
+    let possibleAlignments = [alignment];
+    if (alignment === 'right') {
+      possibleAlignments.push('left');
+    } else {
+      possibleAlignments.push('right');
+    }
     let i: number;
+    let n: number;
+    for (n = 0; n < possibleAlignments.length; n++) {
+      for (i = 0; i < possiblePositions.length; i++) {
+        let menuCoordinates = this.getElementCoordinates(
+          buttonEl,
+          menuEl,
+          possiblePositions[i],
+          possibleAlignments[n]);
 
-    for (i = 0; i < possiblePositions.length; i++) {
-      let menuCoordinates = this.getElementCoordinates(
-        buttonEl,
-        menuEl,
-        possiblePositions[i],
-        alignment);
+        // Check if visible in viewport
+        let elementVisibility = this.getElementVisibility(
+          menuCoordinates.left,
+          menuCoordinates.top,
+          menuEl,
+          windowObj);
 
-      // Check if visible in viewport
-      let elementVisibility = this.getElementVisibility(
-        menuCoordinates.left,
-        menuCoordinates.top,
-        menuEl,
-        windowObj);
-
-      if (elementVisibility.fitsInViewPort) {
-        renderer.setElementStyle(menuEl, 'top', menuCoordinates.top + 'px');
-        renderer.setElementStyle(menuEl, 'left', menuCoordinates.left + 'px');
-        return false;
+        if (elementVisibility.fitsInViewPort) {
+          renderer.setElementStyle(menuEl, 'top', menuCoordinates.top + 'px');
+          renderer.setElementStyle(menuEl, 'left', menuCoordinates.left + 'px');
+          return false;
+        }
       }
     }
 

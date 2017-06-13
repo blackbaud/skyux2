@@ -8,6 +8,7 @@ export class SkyRepeaterDemoComponent {
   public items: any[];
 
   public expandMode = 'single';
+  public selectable = false;
 
   constructor() {
     this.items = [

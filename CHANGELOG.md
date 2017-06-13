@@ -1,3 +1,12 @@
+# 2.0.0-beta.30 (2017-06-07)
+  - Fixed bug when modal service injected into ngIf block. (#744)
+  - Added locale date format as default to datepicker. (#732) (Thanks @Blackbaud-JoshGerdes)
+  - Added error modal to avatar when image upload fails (#204) (Thanks @Blackbaud-AdamHickey)
+  - Ensure list moves to first page after search is executed. (#706)
+  - Added checkbox to repeater component. (#278) (Thanks @Blackbaud-AdamHickey)
+  - Ensure fixed columns not appear in the column chooser for list. (#660) 
+
+
 # 2.0.0-beta.29 (2017-05-24)
 
   - Added the error modal service. (Thanks @Blackbaud-AdamHickey)

@@ -15,6 +15,7 @@ import { SkyDemoComponentsService } from './demo-components.service';
 })
 export class SkyDemoComponentsComponent implements OnInit {
   public actionButtonComponents: SkyDemoComponent[];
+  public displayedItems: any;
 
   constructor(private componentService: SkyDemoComponentsService) { }
 
@@ -27,5 +28,24 @@ export class SkyDemoComponentsComponent implements OnInit {
         summary: component.summary
       };
     });
+    this.displayedItems = this.actionButtonComponents;
+  }
+
+  public searchApplied(searchText: string) {
+    let filteredItems = this.actionButtonComponents;
+    if (searchText) {
+      filteredItems = this.actionButtonComponents.filter(function (item: any){
+        let property: any;
+        for (property in item) {
+          if (item.hasOwnProperty(property) && (property === 'name' || property === 'summary')) {
+            if (item[property].toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+              return true;
+            }
+          }
+        }
+        return false;
+      });
+    }
+    this.displayedItems = filteredItems;
   }
 }

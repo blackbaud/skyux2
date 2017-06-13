@@ -23,7 +23,8 @@ import {
   ListToolbarItemModel,
   ListToolbarItemsLoadAction,
   ListToolbarSetTypeAction,
-  ListSortLabelModel
+  ListSortLabelModel,
+  ListPagingSetPageNumberAction
 } from '../list/state';
 
 describe('List Toolbar Component', () => {
@@ -92,7 +93,7 @@ describe('List Toolbar Component', () => {
         });
       }));
 
-      it('should update list state search text on component apply', () => {
+      it('should update list state search text on component apply', async(() => {
         let stateChecked = false;
         initializeToolbar();
         fixture.whenStable().then(() => {
@@ -107,7 +108,28 @@ describe('List Toolbar Component', () => {
           fixture.detectChanges();
           expect(stateChecked).toBe(true);
         });
-      });
+      }));
+
+      it('should set pagination to first page when when searching', async(() => {
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          dispatcher.next(
+            new ListPagingSetPageNumberAction(Number(2))
+          );
+
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            component.toolbar.searchComponent.applySearchText('something');
+            fixture.detectChanges();
+            state.take(1).subscribe((s) => {
+              expect(s.search.searchText).toBe('something');
+              expect(s.paging.pageNumber).toBe(1);
+            });
+            fixture.detectChanges();
+          });
+        });
+      }));
     });
 
      describe('sort selector', () => {

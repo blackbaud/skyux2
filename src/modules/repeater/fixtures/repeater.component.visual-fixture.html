@@ -53,3 +53,16 @@
     </sky-repeater-item>
   </sky-repeater>
 </div>
+
+<div id="screenshot-repeater-selectable">
+  <sky-repeater [expandMode]="'single'">
+    <sky-repeater-item [isExpanded]="true" [selectable]="true">
+      <sky-repeater-item-title>Title 1</sky-repeater-item-title>
+      <sky-repeater-item-content>Content 1</sky-repeater-item-content>
+    </sky-repeater-item>
+    <sky-repeater-item [isExpanded]="false" [selectable]="true">
+      <sky-repeater-item-title>Title 2</sky-repeater-item-title>
+      <sky-repeater-item-content>Content 2</sky-repeater-item-content>
+    </sky-repeater-item>
+  </sky-repeater>
+</div>
