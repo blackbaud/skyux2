@@ -89,11 +89,14 @@ describe('formatNumber', () => {
     let iso = 'GBP';
     expect(SkyAutonumeric.formatNumber(value, digits, true, iso)).toBe('£15.50');
   });
+  // Adjusting test to expect either format of a negative.  MS browsers use system's Region
+  // setting for Currency formatting.  For Negative currency, the windows default is parentheses
+  // around the number. All other browsers use a preceeding negative sign (-).
   it('formats -15.50 as US dollar with 2 digits as -$15.50', () => {
     const value = -15.50;
     const digits = 2;
     let iso = 'USD';
-    expect(SkyAutonumeric.formatNumber(value, digits, true, iso)).toBe('-$15.50');
+    expect('-$15.50 ($15.50)').toContain(SkyAutonumeric.formatNumber(value, digits, true, iso));
   });
 
   it('formats 145.45 with 1 digits as 145.5', () => {
