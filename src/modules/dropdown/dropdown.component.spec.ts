@@ -191,6 +191,34 @@ describe('Dropdown component', () => {
       expect(parseInt(leftValue, 10) < 50).toBe(true);
     });
 
+    it('should try the opposite alignment', () => {
+      mockWindowService.innerHeight = 40;
+      mockWindowService.innerWidth = 100;
+
+      let fixture = TestBed.createComponent(DropdownTestComponent);
+      fixture.componentInstance.alignment = 'right';
+      let el: HTMLElement = fixture.nativeElement;
+
+      el.style.position = 'absolute';
+      el.style.top = '10px';
+      el.style.left = '0px';
+      el.style.width = '50px';
+      let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
+
+      menuEl.style.width = '98px';
+
+      fixture.detectChanges();
+      let dropdownBtnEl = getDropdownBtnEl(el);
+
+      dropdownBtnEl.click();
+
+      fixture.detectChanges();
+
+      let leftValue = menuEl.style.left;
+
+      expect(leftValue).toBe('0px');
+    });
+
     it('should fallback to position 10, 10 and take screen width when nothing else works', () => {
       mockWindowService.innerHeight = 30;
       mockWindowService.innerWidth = 100;
