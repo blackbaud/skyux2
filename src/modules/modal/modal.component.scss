@@ -14,7 +14,7 @@
 }
 
 @media (min-width: $sky-screen-sm-min) {
-  .sky-modal {
+  .sky-modal:not(.sky-modal-large) {
     margin: 0 auto;
   }
 
@@ -25,10 +25,12 @@
   .sky-modal-medium {
     width: 600px;
   }
+}
 
+@media (min-width: 920px) {
   .sky-modal-large {
+    margin: 0 auto;
     width: 900px;
-    max-width: 100%;
   }
 }
 
