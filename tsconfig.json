@@ -34,7 +34,9 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "skyux-spa-visual-tests/node_modules",
+    "skyux-spa-visual-tests/dist"
   ],
   "compileOnSave": false,
   "buildOnSave": false,
