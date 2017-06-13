@@ -45,9 +45,11 @@ export class SearchVisualComponent {
           let property: any;
           for (property in item) {
               if (item.hasOwnProperty(property) && (property === 'title' || property === 'note')) {
+                  /* tslint:disable */
                   if (item[property].indexOf(searchText) > -1) {
                       return true;
                   }
+                  /* tslint:enable */
               }
           }
           return false;

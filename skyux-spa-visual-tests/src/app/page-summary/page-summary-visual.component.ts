@@ -30,10 +30,11 @@ export class PageSummaryVisualComponent {
   public set itemsToShow(value: string) {
     let itemsToShow = value.split(',');
 
+    /* tslint:disable */
     itemsToShow.forEach((itemToShow) => {
         this['show' + itemToShow] = true;
     });
-
+    /* tslint:enable */
     this._itemsToShow = value;
   }
 
