@@ -361,7 +361,8 @@ export {
   SkyTileComponent
 } from './modules/tiles';
 export {
-  SkyTimepickerComponent
+  SkyTimepickerComponent,
+  SkyTimepickerModule
 } from './modules/timepicker';
 export {
   SkyToolbarComponent,
