@@ -65,4 +65,43 @@ describe('Modal', function () {
         checkAccessibility: true
       });
   });
+
+  it('should match previous small size modal screenshot', function () {
+    return browser
+      .setupTest('/modal.html')
+      .click('.sky-test-small-size-modal')
+      .moveCursorOffScreen()
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'modal_small_size',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      });
+  });
+
+  it('should match previous medium size modal screenshot', function () {
+    return browser
+      .setupTest('/modal.html')
+      .click('.sky-test-medium-size-modal')
+      .moveCursorOffScreen()
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'modal_medium_size',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      });
+  });
+
+  it('should match previous large size modal screenshot', function () {
+    return browser
+      .setupTest('/modal.html')
+      .click('.sky-test-large-size-modal')
+      .moveCursorOffScreen()
+      .pause(1000)
+      .compareScreenshot({
+        screenshotName: 'modal_large_size',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      });
+  });
 });

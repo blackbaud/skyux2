@@ -8,16 +8,14 @@
   var timestamp;
   module.exports = {
     specs: [
-        'src/modules/**/*.visual-spec.js'
+      'src/modules/**/*.visual-spec.js'
     ],
     logLevel: 'silent',
     baseUrl: 'http://localhost:3000',
     framework: 'jasmine',
     jasmineNodeOpts: {
       defaultTimeoutInterval: 200000,
-      expectationResultHandler: function () {
-
-      }
+      expectationResultHandler: function () { }
     },
     waitforTimeout: 3000,
     services: [

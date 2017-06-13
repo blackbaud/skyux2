@@ -15,8 +15,19 @@
 
 @media (min-width: $sky-screen-sm-min) {
   .sky-modal {
-    width: 600px;
     margin: 0 auto;
+  }
+
+  .sky-modal-small {
+    width: 300px;
+  }
+
+  .sky-modal-medium {
+    width: 600px;
+  }
+
+  .sky-modal-large {
+    width: 900px;
   }
 }
 

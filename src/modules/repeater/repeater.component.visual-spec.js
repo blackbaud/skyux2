@@ -41,4 +41,14 @@ describe('Repeater', function () {
       });
   });
 
+  it('should match previous repeater screenshot in selectable mode', function () {
+    return browser
+      .setupTest('/repeater.html')
+      .compareScreenshot({
+        screenshotName: 'repeater-selectable',
+        selector: '#screenshot-repeater-selectable',
+        checkAccessibility: true
+      });
+  });
+
 });

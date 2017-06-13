@@ -40,13 +40,13 @@ module.exports = function (config) {
         browser: 'chrome',
         os: 'OS X',
         os_version: 'Sierra'
-      },
-      bs_osx_firefox_latest: {
-        base: 'BrowserStack',
-        browser: 'firefox',
-        os: 'OS X',
-        os_version: 'Sierra'
-      }
+      }//,
+      // bs_osx_firefox_latest: {
+      //   base: 'BrowserStack',
+      //   browser: 'firefox',
+      //   os: 'OS X',
+      //   os_version: 'Sierra'
+      // }
     };
 
   config.set({

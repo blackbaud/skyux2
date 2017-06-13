@@ -2,25 +2,142 @@
 <stache-hero
   overlayOpacity="0"
   backgroundImageUrl="~/assets/skyux-background.jpg">
+  
   <stache-hero-heading>
-    SKYUX 2
+    SKY UX 2
   </stache-hero-heading>
+  
   <stache-hero-subheading>
-    A user experience framework for building web applications that leverage Blackbaud’s SKY UX patterns.
+    A user experience framework to build web applications that leverage common Blackbaud design patterns.
   </stache-hero-subheading>
 </stache-hero>
 
 <stache
   layout="container"
   showBreadcrumbs="false"
-  windowTitle="SKYUX 2"
-  pageTitle="SKYUX 2 is currently in beta">
-    <stache-page-summary>
-      <p>
-        SKY UX 2 is a new version of Blackbaud's user experience framework. The UX framework brings a consistent, cohesive experience to our products and allows third-party developers to provide the same consistent experience in their customizations and applications. With AngularJS now in maintenance mode and Angular 2 in general availability, SKY UX 2 takes advantage of <a href="https://angular.io/">Angular 2</a> to keep SKY UX modern while increasing the tooling, testing, and performance available.
+  windowTitle="SKY UX 2"
+  pageTitle="Welcome to Blackbaud's user experience framework">
+  <stache-page-summary>
+      <p>SKY UX 2 is an updated version of Blackbaud's UX framework. The framework brings a consistent, cohesive experience to Blackbaud products and allows third-party developers to provide the same consistent experience in their customizations and applications. SKY UX 2 takes advantage of updates to <a href="https://angular.io/">Angular</a> to keep SKY UX modern while increasing the tooling, testing, and performance available.
       </p>
     </stache-page-summary>
-    <sky-alert [alertType]="warning" [closeable]="false">
-      <p>To follow along with the development of SKY UX and to make contributions, see <a href="https://github.com/blackbaud/skyux2">the SKY UX 2 GitHub repo</a>. The SKY UX 2 documentation lives alongside the components in the repo, so you can contribute to the documentation there as well. For information about how to contribute, see <a href="https://github.com/blackbaud/skyux2/blob/master/CONTRIBUTING.md">the SKY UX 2 contribution guidelines</a>.</p>
+  
+    <sky-alert alertType="warning" [closeable]="false">
+      To follow along with the development of SKY UX and to make contributions, see <a href="https://github.com/blackbaud/skyux2">the SKY UX 2 GitHub repo</a>. The SKY UX 2 documentation lives alongside the components in the repo, so you can contribute to the documentation there as well. For information about how to contribute, see <a href="https://github.com/blackbaud/skyux2/blob/master/CONTRIBUTING.md">the SKY UX 2 contribution guidelines</a>.
     </sky-alert>
+
+  <stache-row>
+    <stache-column screenSmall="4"><div class="text-center"><a routerLink="/learn" fragment="how-to-guides">
+      <h2 class="sky-section-heading">Get started</h2>
+      <span class="fa-stack fa-4x">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-road fa-stack-1x fa-inverse"></i>
+      </span>
+      </a>
+      <div class="sky-emphasized"><p>SKY UX provides a consistent, cohesive user experience. Check out our documentation and follow the tutorials to get started.</p></div></div>
+    </stache-column>
+    <stache-column screenSmall="4"><div class="text-center"><a routerLink="/components">
+      <h2 class="sky-section-heading">Components</h2>
+      <span class="fa-stack fa-4x">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-code fa-stack-1x fa-inverse"></i>
+      </span>
+      </a>
+      <div class="sky-emphasized"><p>SKY UX components, services, and modules incorporate Blackbaud styles and provide the building blocks for your applications.</p></div></div>
+    </stache-column>
+    <stache-column screenSmall="4"><div class="text-center"><a routerLink="/design">
+      <h2 class="sky-section-heading">Design</h2>
+      <span class="fa-stack fa-4x">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-rocket fa-stack-1x fa-inverse"></i>
+      </span>
+      </a>
+      <div class="sky-emphasized"><p>The inspiration for SKY UX is the optimal user experience. Check out the design patterns and principles behind SKY UX components.</p></div></div>
+    </stache-column>
+    </stache-row>
 </stache>
+  
+<!--
+<div class="background-color">
+  <stache-row>
+    <stache-column>
+      <div class="text-center">
+        <h1>Why SKY UX?</h1>
+      </div>
+    </stache-column>
+  </stache-row>
+  <stache-row>
+    <stache-column screenSmall="4"><div class="text-center-padding">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x stacked-white"></i>
+        <i class="fa fa-gamepad fa-stack-1x"></i>
+      </span>
+      <h3>Fun</h3>
+      <p>SKY UX wears a T-shirt, not a tie. It gets the job done without being stodgy.</p>
+      </div>
+    </stache-column>
+    <stache-column screenSmall="4"><div class="text-center-padding">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x stacked-white"></i>
+        <i class="fa fa-group fa-stack-1x"></i>
+      </span>
+      <h3>Supportive</h3>
+      <p>SKY UX provides guidance and direction, while still offering flexibility.</p>
+      </div>
+    </stache-column>
+    <stache-column screenSmall="4"><div class="text-center-padding">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x stacked-white"></i>
+        <i class="fa fa-bed fa-stack-1x"></i>
+      </span>
+      <h3>Comfortable</h3>
+      <p>SKY UX is tailored but not rigid. Like an elastic waist, it grows to fit your needs.</p>
+      </div>
+    </stache-column>
+  </stache-row>
+  <stache-row>
+    <stache-column screenSmall="4"><div class="text-center-padding">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x stacked-white"></i>
+        <i class="fa fa-binoculars fa-stack-1x"></i>
+      </span>
+      <h3>Transparent</h3>
+      <p>What you see is what you get. The constructs in SKY UX relate directly to real world tasks.</p>
+      </div>
+    </stache-column>
+    <stache-column screenSmall="4"><div class="text-center-padding">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x stacked-white"></i>
+        <i class="fa fa-tree fa-stack-1x"></i>
+      </span>
+      <h3>Natural</h3>
+      <p>The way that users flow through the system creates a sense of confidence in their work.</p>
+      </div>
+    </stache-column>
+    <stache-column screenSmall="4"><div class="text-center-padding">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x stacked-white"></i>
+        <i class="fa fa-wheelchair fa-stack-1x"></i>
+      </span>
+      <h3>Accessible</h3>
+      <p>SKY UX strives to accommodate users. From their devices to their physical capabilities, we care.</p>
+      </div>
+    </stache-column>
+  </stache-row>
+</div>
+
+Styles
+.text-center-padding {
+    align-items: center;
+    text-align: center;
+    padding: 0px 50px;
+}
+
+.background-color {
+  background: rgb(114, 191, 68);
+}
+
+.stacked-white {
+  color: #FFF;
+}
+-->

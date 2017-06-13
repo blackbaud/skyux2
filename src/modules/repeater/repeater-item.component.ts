@@ -11,6 +11,7 @@ import {
 
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
+import { SkyCheckboxChange } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'sky-repeater-item',
@@ -41,6 +42,13 @@ export class SkyRepeaterItemComponent {
     this.updateForExpanded(value, true);
   }
 
+  public get isSelected(): boolean {
+    return this._isSelected;
+  }
+
+  @Input()
+  public selectable: boolean = false;
+
   public slideDirection: string;
 
   public get isCollapsible(): boolean {
@@ -61,6 +69,8 @@ export class SkyRepeaterItemComponent {
   private _isCollapsible = true;
 
   private _isExpanded = true;
+
+  private _isSelected = false;
 
   constructor(
     private repeaterService: SkyRepeaterService,
@@ -92,6 +102,10 @@ export class SkyRepeaterItemComponent {
       this.repeaterService.onItemCollapseStateChange(this);
       this.slideForExpanded(animate);
     }
+  }
+
+  public updateIsSelected(value: SkyCheckboxChange) {
+    this._isSelected = value.checked;
   }
 
   private slideForExpanded(animate: boolean) {

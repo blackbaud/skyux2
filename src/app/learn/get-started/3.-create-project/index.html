@@ -1,18 +1,20 @@
 <sky-demo-nav></sky-demo-nav>
 <stache
-    pageTitle="Create a project">
+    pageTitle="Create a local SKY UX single-page application">
     <stache-page-summary>
-        <p>This first step to work with SKY UX is to create the project for your single-page application.</p>
+        <p>This first step to work with SKY UX is to create your single-page application. You can create the local SKY UX application with the SKY UX CLI, but we recommend that you first set up a Git repo to store the source files for the SPA. You can create the repo in Visual Studio Team System or GitHub. Then when you create the local SKY UX application, the SKY UX CLI clones the repo and automatically pulls in the SKY UX template.</p>
+      <sky-alert alertType="info">Internal Blackbaud developers should create repos and provision their applications through the SKY UX App Management Portal before they create local SKY UX applications. Blackbaud developers can access documentation for the SKY UX App Management Portal on <a href="https://host.nxt.blackbaud.com/engineering-system-docs/learn/spa/spa-app-portal">the Engineering System website</a>, which is for Blackbaud internal use only and is not available to external developers.</sky-alert>
+      <p></p>
     </stache-page-summary>
     <ol>
-        <li><p>From the command prompt, <stache-code>cd</stache-code> into the directory where you want to create the project.</p></li>
+        <li><p>From the command prompt, <stache-code>cd</stache-code> into the directory where you want to create the application.</p></li>
         <li><p>Enter <stache-code>skyux new</stache-code>. A series of prompts appears.</p></li>
         <li><p>In the first prompt, specify a root directory for your project. The SKY UX CLI creates a folder with this name and prefixes it with "skyux-spa."</p>
             <p>The root directory determines how to access the SPA because the URL for the home page includes the root directory after the base URL.</p>
         </li>
-        <li><p>In the second prompt, specify the URL for your Git repo. You can use a Visual Studio Team System Git repo or a GitHub repo. The URL indicates where to store the source files for your project. The SKY UX CLI clones the repo and automatically pulls in the SKY UX template.</p>
-            <p>The only special requirement for the Git repo to host internal Blackbaud implementations is web hooks to the SKY UX continuous integration layer. For now, this must be set up manually by the SKY UX team. Contact the SKY UX team on the <a href="https://blackbaud.slack.com/messages/1bb-skyux-apps/">1bb-skyux-apps Slack channel</a>. For more information about the continuous integration layer, see <a routerLink="/learn">the overview documentation</a>.</p>
-            <sky-alert alertType="info">If your Git repo is not available when you create a SKY UX project, you can skip the second prompt and work on your project locally. Then when the repo is ready, you can manually add the repo as a remote to your local version. To add the repo as a remote, you enter <stache-code>git remote add origin [URL]</stache-code> in the command prompt, where "[URL]" is the path for your Visual Studio Team System or GitHub repo. Then to push your local content to the external repo, you enter <stache-code>git push origin --all</stache-code>.</sky-alert></li>
+        <li><p>In the second prompt, specify the URL for your Git repo to store the source files for your application. You can use a Visual Studio Team System Git repo or a GitHub repo. The SKY UX CLI clones the repo and automatically pulls in the SKY UX template.</p>
+            <p>Internal Blackbaud developers should create repos and provision their applications through the SKY UX App Management Portal before they create local SKY UX applications.</p>
+            <sky-alert alertType="info">We do not recommend creating the local SKY UX application before the Git repo. However, if the Git repo is not ready and you want to work locally only, you can skip the second prompt. Then when the repo is available, you can manually add it as a remote to your local project. To add the repo as a remote, you enter <stache-code>git remote add origin [URL]</stache-code> in the command prompt, where "[URL]" is the path for your repo. Then to push your local content to the external repo, you enter <stache-code>git push origin --all</stache-code>.</sky-alert></li>
         <li><p>After the SKY UX CLI downloads the SKY UX template project and installs its dependencies, the command prompt displays the directory name: "SPA [directory name] created in directory "skyux-spa-[directory name]."</p>
             <p>For information about the default items that the template provides in a SKY UX single-page application, see <a routerLink="/learn/reference/template-items">the template items reference</a>.</p>
         </li>
