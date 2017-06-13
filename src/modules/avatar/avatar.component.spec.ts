@@ -6,11 +6,16 @@ import { AvatarTestComponent } from './fixtures/avatar.component.fixture';
 import { SkyAvatarComponent } from './avatar.component';
 import { SkyAvatarFixturesModule } from './fixtures/avatar-fixtures.module';
 import { SkyFileItem, SkyFileDropChange } from '../fileattachments';
+import { MockErrorModalService } from './fixtures/mock-error-modal.service';
+import { SkyErrorModalService } from '../error/error-modal.service';
+import { ErrorModalConfig } from '../error/error-modal-config';
 
 describe('Avatar component', () => {
   /* tslint:disable-next-line max-line-length */
   let imgBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAFElEQVR42gEJAPb/AP//////////I+UH+Rtap+gAAAAASUVORK5CYII=';
   let imgUrl = 'data:image/png;base64,' + imgBase64;
+
+  const mockErrorModalService = new MockErrorModalService();
 
   function getPhotoEl(el: Element): Element {
     return el.querySelector('.sky-avatar-image');
@@ -67,7 +72,8 @@ describe('Avatar component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SkyAvatarFixturesModule]
+      imports: [SkyAvatarFixturesModule],
+      providers: [{provide: SkyErrorModalService, useValue: mockErrorModalService}]
     });
   });
 
@@ -204,5 +210,63 @@ describe('Avatar component', () => {
 
     fixture.detectChanges();
     expect(expectedFile).not.toEqual(actualFile);
+  });
+
+  it('should show error modal when invalid file type is uploaded', function () {
+    let fixture = TestBed.createComponent(SkyAvatarComponent);
+    let instance = fixture.componentInstance;
+
+    let badFileType = <SkyFileItem> {
+         file: <File> {
+           name: 'foo.txt',
+           type: 'text',
+           size: 1
+         },
+         errorType: 'fileType'
+      };
+
+    spyOn(mockErrorModalService, 'open');
+
+    instance.photoDrop(<SkyFileDropChange>{
+      files: [],
+      rejectedFiles: [badFileType]
+    });
+
+    const config: ErrorModalConfig = {
+      errorTitle: 'File is not an image.',
+      errorDescription: 'Please choose a file that is a valid image.',
+      errorCloseText: 'OK'
+    };
+
+    expect(mockErrorModalService.open).toHaveBeenCalledWith(config);
+  });
+
+  it('should show error modal when file larger than 500KB is uploaded', function () {
+    let fixture = TestBed.createComponent(SkyAvatarComponent);
+    let instance = fixture.componentInstance;
+
+    let badFileType = <SkyFileItem> {
+         file: <File> {
+           name: 'foo.txt',
+           type: 'text',
+           size: 1
+         },
+         errorType: 'maxFileSize'
+      };
+
+    spyOn(mockErrorModalService, 'open');
+
+    instance.photoDrop(<SkyFileDropChange>{
+      files: [],
+      rejectedFiles: [badFileType]
+    });
+
+    const config: ErrorModalConfig = {
+      errorTitle: 'File is too large.',
+      errorDescription: 'Please choose an image that is less than 500 KB.',
+      errorCloseText: 'OK'
+    };
+
+    expect(mockErrorModalService.open).toHaveBeenCalledWith(config);
   });
 });

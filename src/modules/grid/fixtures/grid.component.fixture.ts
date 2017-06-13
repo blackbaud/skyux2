@@ -63,5 +63,5 @@ export class GridTestComponent {
     this.searchedData = data;
     this.searchText = searchText;
     return true;
-  };
+  }
 }

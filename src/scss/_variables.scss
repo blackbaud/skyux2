@@ -3,14 +3,16 @@ $sky-font-family-narrow: 'Oswald', sans-serif !default;
 
 $sky-padding: 10px !default;
 $sky-padding-half: $sky-padding / 2 !default;
-$sky-padding-double: $sky-padding * 2 !default;
-$sky-padding-plus-half: $sky-padding + $sky-padding-half !default;
 $sky-padding-3_4: floor(($sky-padding * 0.75)) !default;
+$sky-padding-plus-half: $sky-padding + $sky-padding-half !default;
+$sky-padding-double: $sky-padding * 2 !default;
+$sky-padding-triple: $sky-padding * 3 !default;
 
 $sky-margin: 10px !default;
 $sky-margin-half: $sky-margin / 2 !default;
-$sky-margin-double: $sky-margin * 2 !default;
+$sky-margin-3_4: floor(($sky-margin * 0.75)) !default;
 $sky-margin-plus-half: $sky-margin + $sky-margin-half !default;
+$sky-margin-double: $sky-margin * 2 !default;
 $sky-margin-triple: $sky-margin * 3 !default;
 
 // start of new colors

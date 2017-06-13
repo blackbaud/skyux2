@@ -16,16 +16,19 @@ export class SkyModalDemoComponent {
     let context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
-    let windowMode: any = {
-
-      'defaultModal': [{ provide: SkyModalDemoContext, useValue: context }],
-
-      'fullScreenModal': {
-        'fullPage': true,
-        'providers': [{ provide: SkyModalDemoContext, useValue: context }]
-      }
+    let options: any = {
+      providers: [{ provide: SkyModalDemoContext, useValue: context }]
     };
-    let modalInstance = this.modal.open(SkyModalDemoFormComponent, windowMode[type]);
+
+    if (type === 'fullScreenModal') {
+      options.fullPage = true;
+    } else if (type === 'smallModal') {
+      options.size = 'small';
+    } else if (type === 'largeModal') {
+      options.size = 'large';
+    }
+
+    let modalInstance = this.modal.open(SkyModalDemoFormComponent, options);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
       console.log('Modal closed with reason: ' + result.reason + ' and data: ' + result.data);

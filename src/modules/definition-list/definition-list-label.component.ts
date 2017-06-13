@@ -14,5 +14,6 @@ import { SkyDefinitionListService } from './definition-list.service';
 export class SkyDefinitionListLabelComponent {
   public labelWidth: number;
 
-  constructor(private service: SkyDefinitionListService) { }
+  constructor(
+    public service: SkyDefinitionListService) { }
 }
