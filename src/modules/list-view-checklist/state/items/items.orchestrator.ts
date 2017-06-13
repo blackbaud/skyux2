@@ -19,7 +19,7 @@ let moment = require('moment');
 export class ListViewChecklistItemsOrchestrator
   extends ChecklistStateOrchestrator<AsyncList<ListViewChecklistItemModel>> {
   constructor() {
-    super();
+    super()/* istanbul ignore next */;
     this.register(ListViewChecklistItemsLoadAction, this.load);
   }
 

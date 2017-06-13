@@ -10,28 +10,26 @@
     specs: [
       'src/modules/**/*.visual-spec.js'
     ],
-    logLevel: 'silent',
+    logLevel: 'error',
+    coloredLogs: true,
     baseUrl: 'http://localhost:3000',
+    connectionRetryTimeout: 90000,
+    connectionRetryCount: 3,
     framework: 'jasmine',
     jasmineNodeOpts: {
-      defaultTimeoutInterval: 200000,
-      expectationResultHandler: function () { }
+      defaultTimeoutInterval: 200000
     },
-    waitforTimeout: 3000,
+    sync: false,
+    waitforTimeout: 25000,
     services: [
       'visual-regression'
     ],
 
     before: function () {
       timestamp = new Date().getTime();
+
       var commands = require('../utils/visual-browser-commands');
-      /*Object.keys(commands).forEach(function (command) {
-        browser.addCommand(command, function async() {
-          var args = Array.from(arguments);
-          args.unshift(this);
-          commands[command].apply(this, args);
-        });
-      });*/
+
       browser.addCommand('setupTest', function async(url, screenWidth) {
         return commands.setupTest(this, url, screenWidth || 1280);
       });
@@ -47,18 +45,6 @@
       browser.addCommand('focusElement', function async(selector) {
         return commands.focusElement(this, selector);
       });
-
-    },
-
-    beforeTest: function () {
-
-    },
-
-    after: function () {
-
-    },
-
-    sync: false
+    }
   };
-
 })();

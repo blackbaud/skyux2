@@ -9,7 +9,7 @@ import {
 
 @Component({
   selector: 'sky-list-filter-inline-item-renderer',
-  template: '<template #container></template>'
+  template: '<ng-template #container></ng-template>'
 })
 export class SkyListFilterInlineItemRendererComponent implements OnInit {
   @Input()

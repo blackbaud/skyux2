@@ -9,7 +9,7 @@ import {
 
 export class ListSortOrchestrator extends ListStateOrchestrator<ListSortModel> {
   constructor() {
-    super();
+    super()/* istanbul ignore next */;
 
     this
       .register(ListSortSetFieldSelectorsAction, this.setFieldSelectors)

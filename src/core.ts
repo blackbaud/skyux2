@@ -152,7 +152,8 @@ export {
   SkyErrorImageComponent,
   SkyErrorModule,
   SkyErrorTitleComponent,
-  SkyErrorModalService
+  SkyErrorModalService,
+  ErrorModalConfig
 } from './modules/error';
 export {
   SkyFileAttachmentsModule,
@@ -343,7 +344,7 @@ export {
   SkyTextExpandRepeaterModule
 } from './modules/text-expand-repeater';
 export {
-  SkyTileComponent,
+  SkyTileDashboardService,
   SkyTileContentModule,
   SkyTileContentSectionComponent,
   SkyTileDashboardColumnComponent,
@@ -355,9 +356,9 @@ export {
   SkyTileDashboardConfigLayoutTile,
   SkyTileDashboardConfigTile,
   SkyTileDashboardModule,
-  SkyTileDashboardService,
   SkyTileModule,
-  SkyTilesModule
+  SkyTilesModule,
+  SkyTileComponent
 } from './modules/tiles';
 export {
   SkyTimepickerComponent

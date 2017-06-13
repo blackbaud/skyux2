@@ -1,11 +1,10 @@
-/* global require, exports, process */
-
 (function () {
   'use strict';
 
   var server = require('../utils/visual-server');
   var config = require('./shared.wdio.conf');
 
+  config.maxInstances = 1;
   config.capabilities = [
     {
       browserName: 'chrome',
@@ -19,10 +18,9 @@
       'webdriver-screenshotslocal-screen',
       'webdriver-screenshotslocal-diffs'
     );
+
   config.onPrepare = server.start;
   config.onComplete = server.stop;
-
-  config.maxInstances = 1;
 
   exports.config = config;
 })();

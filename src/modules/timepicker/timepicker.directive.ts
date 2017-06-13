@@ -108,7 +108,7 @@ export class SkyTimepickerInputDirective implements
   public validate(control: AbstractControl): { [key: string]: any } {
     let value = control.value;
     if (!value) {
-      return;
+      return undefined;
     }
 
     if (value.local === 'Invalid date') {
@@ -118,6 +118,8 @@ export class SkyTimepickerInputDirective implements
         }
       };
     }
+
+    return undefined;
   }
   private writeModelValue(model: SkyTimepickerTimeOutput) {
     let setElementValue: string;
