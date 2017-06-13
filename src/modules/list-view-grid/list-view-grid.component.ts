@@ -143,6 +143,7 @@ export class SkyListViewGridComponent
       if (s.sort && s.sort.fieldSelectors) {
         return s.sort.fieldSelectors[0];
       }
+      return undefined;
     }).distinctUntilChanged();
 
     this.gridState.map(s => s.columns.items)

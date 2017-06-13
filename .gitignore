@@ -70,3 +70,10 @@ browserstack.err
 /skyux-spa-visual-tests/dist/
 /skyux-spa-visual-tests/node_modules/
 browserstack-binary/BrowserStackLocal
+
+skyux-spa-visual-tests/dist
+skyux-spa-visual-tests/node_modules
+skyux-spa-visual-tests/screenshots-baseline-local
+skyux-spa-visual-tests/screenshots-diff-local
+skyux-spa-visual-tests/screenshots-created-local
+
