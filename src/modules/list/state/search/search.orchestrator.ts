@@ -6,7 +6,7 @@ import { ListSearchSetFieldSelectorsAction } from './set-field-selectors.action'
 
 export class ListSearchOrchestrator extends ListStateOrchestrator<ListSearchModel> {
   constructor() {
-    super();
+    super()/* istanbul ignore next */;
 
     this
       .register(ListSearchSetSearchTextAction, this.setSearchText)

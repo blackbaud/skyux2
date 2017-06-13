@@ -64,6 +64,7 @@ export class AppComponent {
   public sortItems(item: any) {
     this.sortedItem = item;
   }
+
 }
 
 @NgModule({

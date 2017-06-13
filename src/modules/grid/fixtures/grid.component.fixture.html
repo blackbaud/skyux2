@@ -19,10 +19,10 @@
     [width]="150"
     [isSortable]="false"
     [search]="searchFunction">
-    <template
+    <ng-template
       let-row="row">
       {{row?.column2}}
-    </template>
+    </ng-template>
   </sky-grid-column>
   <sky-grid-column
     id="column3"
@@ -54,8 +54,8 @@
   </sky-grid-column>
 </sky-grid>
 
-<template let-value="value" #template1>
+<ng-template let-value="value" #template1>
   <div class="sky-test-custom-template">
   {{value}}
   </div>
-</template>
+</ng-template>

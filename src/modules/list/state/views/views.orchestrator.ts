@@ -5,7 +5,7 @@ import { ListViewsSetActiveAction } from './set-active.action';
 
 export class ListViewsOrchestrator extends ListStateOrchestrator<ListViewsModel> {
   constructor() {
-    super();
+    super()/* istanbul ignore next */;
 
     this
       .register(ListViewsSetActiveAction, this.setActive)

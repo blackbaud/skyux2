@@ -6,26 +6,27 @@
   var util = require('util');
 
   function checkAccessibility(browser, options) {
-    return browser.executeAsync(function (done) {
+    return browser
+      .executeAsync(function (done) {
+        var config = {
+          rules: {
+            'bypass': { enabled: false },
+            'color-contrast': { enabled: false }
+          }
+        };
 
-      var config = {
-        rules: {
-          'bypass': { enabled: false },
-          'color-contrast': { enabled: false }
+        axe.a11yCheck(document, config, function (results) {
+          done(results);
+        });
+      })
+      .then(function (ret) {
+        if (ret.value.violations && ret.value.violations.length !== 0) {
+          logViolations(options.screenshotName, ret.value.violations);
+          expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
         }
-      };
-      axe.a11yCheck(document, config, function (results) {
-        done(results);
+
+        return Promise.resolve();
       });
-
-    }).then(function (ret) {
-      if (ret.value.violations && ret.value.violations.length !== 0) {
-        logViolations(options.screenshotName, ret.value.violations);
-        expect(ret.value.violations.length).toBe(0, ' number of accessiblity violations');
-      }
-
-      return;
-    });
   }
 
   function checkVisualResult(results, options, browser) {
@@ -40,7 +41,7 @@
     if (options.checkAccessibility) {
       return checkAccessibility(browser, options);
     } else {
-      return;
+      return Promise.resolve();
     }
   }
 
@@ -50,19 +51,23 @@
     options.screenshotName =
       options.screenshotName + '_full' + '.' + options.screenshotName + widthString;
 
-    return browser.checkElement(
-      options.selector,
-      {
-        screenshotName: options.screenshotName
-      }).then(function (results) {
+    return browser
+      .checkElement(options.selector, { screenshotName: options.screenshotName })
+      .then(function (results) {
         return checkVisualResult(results, options, this);
+      })
+      .catch(function (err) {
+        log('checkElement() ERROR! ' + options.selector + ' // ' + err.message);
+        throw err;
       });
   }
 
   function compareScreenshot(browser, options) {
-    return browser.getViewportSize('width').then(function (width) {
-      return getViewSizeHandler(width, this, options);
-    });
+    return browser
+      .getViewportSize('width')
+      .then(function (width) {
+        return getViewSizeHandler(width, this, options);
+      });
   }
 
   function getPrefix(desiredCapabilities) {
@@ -98,6 +103,7 @@
   }
 
   function setupTest(browser, url, screenWidth) {
+    console.log('Setting up test for ' + url + '...');
     return browser
       .url(url)
       .getViewportSize()
@@ -117,9 +123,7 @@
     return function (context) {
       var prefix = getPrefix(context.desiredCapabilities);
       var screenshotName = context.options.screenshotName;
-
       screenshotName = prefix + '_' + screenshotName + '.baseline.png';
-
       return path.join(basePath, prefix, screenshotName);
     };
   }

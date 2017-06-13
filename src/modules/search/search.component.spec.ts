@@ -36,6 +36,7 @@ import {
   SkyMediaQueryService,
   SkyMediaBreakpoints
 } from '../media-queries';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Search component', () => {
   let fixture: ComponentFixture<SearchTestComponent>;
@@ -53,7 +54,8 @@ describe('Search component', () => {
         SearchTestComponent
       ],
       imports: [
-        SkySearchModule
+        SkySearchModule,
+        NoopAnimationsModule
       ],
       providers: [
         {provide: SkyMediaQueryService, useValue: mockMediaQueryService}
@@ -201,7 +203,7 @@ describe('Search component', () => {
       fixture.detectChanges();
     });
 
-       it('should apply search text on enter press', () => {
+  it('should apply search text on enter press', () => {
 
     setInput('my search text');
     let inputEl = element.query(By.css('input'));

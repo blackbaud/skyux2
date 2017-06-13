@@ -1,6 +1,6 @@
 /* global require, exports, process */
 
-(function ()  {
+(function () {
   'use strict';
 
   var server = require('../utils/visual-server');
@@ -24,29 +24,12 @@
       resolution: '1280x960',
       name: 'SKYUX2BROWSERSTACKCI',
       'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
-    },
-    // {
-    //   browserName: 'firefox',
-    //   browser_version: '52',
-    //   'browserstack.local': 'true',
-    //   'browserstack.debug': 'true',
-    //   os: 'OS X',
-    //   os_version: 'El Capitan',
-    //   browserDisconnectTimeout: 3e5,
-    //   browserDisconnectTolerance: 3,
-    //   browserNoActivityTimeout: 3e5,
-    //   captureTimeout: 3e5,
-    //   build: 'skyux2-mac-firefox-webdriver-' + process.env.TRAVIS_BUILD_NUMBER,
-    //   resolution: '1280x960',
-    //   name: 'SKYUX2BROWSERSTACKCI',
-    //   'browserstack.localIdentifier': 'SKYUX2BROWSERSTACKCI'
-
-    // }
+    }
   ];
   config.host = 'hub.browserstack.com';
   config.port = 80;
-
-  config.maxInstances = 4;
+  config.maxInstances = 2;
+  config.bail = 1;
 
   config.visualRegression = require('../utils/visual-browser-commands')
     .getVisualRegression(
@@ -59,5 +42,4 @@
   config.onComplete = server.stopCI;
 
   exports.config = config;
-
 })();

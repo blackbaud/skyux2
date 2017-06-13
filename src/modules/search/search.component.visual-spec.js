@@ -12,18 +12,6 @@ describe('search component', function () {
       });
   });
 
-  /*it('should match the baseline search screenshot when the input is focused', function () {
-    return browser
-      .setupTest('/search.html')
-      .pause(1000)
-      .focusElement('.sky-search-input')
-      .compareScreenshot({
-        screenshotName: 'search_focus',
-        selector: '#screenshot-search-full',
-        checkAccessibility: true
-      });
-  });*/
-
   it('should match the baseline search screenshot on small screens', function () {
     return browser
       .setupTest('/search.html', 480)

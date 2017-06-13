@@ -58,6 +58,7 @@ export class SkyTimepickerComponent implements OnInit {
         .map(function (x: number, i: number) {
           if (format === 'hh') { return ++i; }
           if (format === 'HH') { return i; }
+          return 0;
         }),
       'minutes': Array.apply(undefined, Array(m))
         .map(function (x: number, i: number) {
@@ -159,6 +160,8 @@ export class SkyTimepickerComponent implements OnInit {
       return moment(this.activeTime).hour() + 0;
     }
 
+    return 0;
+
   }
   private get selectedMinute() {
     return moment(this.activeTime).minute() + 0;
@@ -168,5 +171,6 @@ export class SkyTimepickerComponent implements OnInit {
     if (this.activeTime) {
       return moment(this.activeTime).format('A');
     }
+    return '';
   }
 }

@@ -11,7 +11,7 @@ export class ListToolbarOrchestrator
   extends ListStateOrchestrator<ListToolbarModel> {
 
   constructor() {
-    super();
+    super()/* istanbul ignore next */;
 
     this
       .register(ListToolbarSetExistsAction, this.setExists)

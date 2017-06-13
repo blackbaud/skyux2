@@ -1,11 +1,12 @@
-describe('Action button', function () {
+describe('Actionbutton', function () {
   'use strict';
 
   it('should match previous action button screenshot', function () {
     return browser
       .setupTest('/action-button.html')
+      .waitForVisible('.sky-action-button')
       .compareScreenshot({
-        screenshotName: 'action_button',
+        screenshotName: 'action-button',
         selector: '#screenshot-action-button',
         checkAccessibility: true
       });
@@ -14,8 +15,9 @@ describe('Action button', function () {
   it('should match previous action-button screenshot on small screens', function () {
     return browser
       .setupTest('/action-button.html', 480)
+      .waitForVisible('.sky-action-button')
       .compareScreenshot({
-        screenshotName: 'action_button_small',
+        screenshotName: 'action-button-small',
         selector: '#screenshot-action-button',
         checkAccessibility: true
       });
