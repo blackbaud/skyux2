@@ -9,7 +9,7 @@ import {
 
 export class ListToolbarOrchestrator
   extends ListStateOrchestrator<ListToolbarModel> {
-
+  /* istanbul ignore next */
   constructor() {
     super();
 

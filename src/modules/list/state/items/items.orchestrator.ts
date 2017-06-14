@@ -9,6 +9,7 @@ import {
 } from './actions';
 
 export class ListItemsOrchestrator extends ListStateOrchestrator<AsyncList<ListItemModel>> {
+  /* istanbul ignore next */
   constructor() {
     super();
 

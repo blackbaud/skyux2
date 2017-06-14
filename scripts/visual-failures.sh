@@ -17,15 +17,15 @@ if [[ "$(ls -A webdriver-screenshots-diffs)" ]]; then
     fi
     git checkout -b $branch
 
-    cp -rf ../webdriver-screenshots-screen created-screenshots/
+    cp -rf ../skyux-spa-visual-tests/screenshots-created/ created-screenshots/
 
     mkdir -p failures
 
-    cp -rf ../webdriver-screenshots-diffs/ failures/
+    cp -rf ../skyux-spa-visual-tests/screenshots-diff/ failures/
 
     mkdir -p all
 
-    cp -rf ../webdriver-screenshots/ all/
+    cp -rf ../skyux-spa-visual-tests/screenshots-baseline/ all/
 
     git add -A
     if [ -z "$(git status --porcelain)" ]; then

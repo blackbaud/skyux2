@@ -57,7 +57,11 @@ export class SkyTimepickerComponent implements OnInit {
       'hours': Array.apply(undefined, Array(h))
         .map(function (x: number, i: number) {
           if (format === 'hh') { return ++i; }
+          /* istanbul ignore else */
           if (format === 'HH') { return i; }
+          /* istanbul ignore next */
+          /* sanity check */
+          return 0;
         }),
       'minutes': Array.apply(undefined, Array(m))
         .map(function (x: number, i: number) {
@@ -75,6 +79,8 @@ export class SkyTimepickerComponent implements OnInit {
 
   public set selectedTime(newTime: SkyTimepickerTimeOutput) {
     if (typeof newTime !== 'undefined') {
+      /* istanbul ignore else */
+      /* sanity check */
       if (newTime.local !== 'Invalid date') {
         this.activeTime = newTime.ios8601;
       }
@@ -103,7 +109,9 @@ export class SkyTimepickerComponent implements OnInit {
   }
 
   public setTime(event: any) {
+    /* istanbul ignore else */
     if (typeof event !== 'undefined') {
+      /* istanbul ignore else */
       if (event.type === 'click') {
         event.stopPropagation();
         if (event.target.name === 'hour') {
@@ -143,6 +151,7 @@ export class SkyTimepickerComponent implements OnInit {
   }
 
   private set selectedMeridies(meridies: string) {
+    /* istanbul ignore else */
     if (!this.is8601) {
       if (meridies !== this.selectedMeridies) {
         this.activeTime = moment(this.activeTime).add(12, 'hours').format();
@@ -153,9 +162,9 @@ export class SkyTimepickerComponent implements OnInit {
 
   private get selectedHour() {
     if (!this.is8601) {
+      /* istanbul ignore next */
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
-    }
-    if (this.is8601) {
+    } else {
       return moment(this.activeTime).hour() + 0;
     }
 
@@ -168,5 +177,6 @@ export class SkyTimepickerComponent implements OnInit {
     if (this.activeTime) {
       return moment(this.activeTime).format('A');
     }
+    return '';
   }
 }
