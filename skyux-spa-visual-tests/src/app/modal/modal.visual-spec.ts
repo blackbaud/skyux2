@@ -93,7 +93,7 @@ describe('Modal', () => {
           selector: '.sky-modal',
           checkAccessibility: true
         }).then(() => {
-          element(by.css('.sky-modal .sky-test-close')).click();
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
       });
   });
@@ -108,7 +108,7 @@ describe('Modal', () => {
           selector: '.sky-modal',
           checkAccessibility: true
         }).then(() => {
-          element(by.css('.sky-modal .sky-test-close')).click();
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
       });
   });
@@ -123,7 +123,7 @@ describe('Modal', () => {
           selector: '.sky-modal',
           checkAccessibility: true
         }).then(() => {
-          element(by.css('.sky-modal .sky-test-close')).click();
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
       });
   });
@@ -138,7 +138,7 @@ describe('Modal', () => {
           selector: '.sky-modal',
           checkAccessibility: true
         }).then(() => {
-          element(by.css('.sky-modal .sky-test-close')).click();
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
       });
 
