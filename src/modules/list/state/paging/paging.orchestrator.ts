@@ -7,8 +7,9 @@ import {
 } from './actions';
 
 export class ListPagingOrchestrator extends ListStateOrchestrator<ListPagingModel> {
+  /* istanbul ignore next */
   constructor() {
-    super()/* istanbul ignore next */;
+    super();
 
     this
       .register(ListPagingSetMaxPagesAction, this.setMaxPages)

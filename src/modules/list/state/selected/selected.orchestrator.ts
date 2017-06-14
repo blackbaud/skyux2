@@ -12,8 +12,9 @@ import {
 let moment = require('moment');
 
 export class ListSelectedOrchestrator extends ListStateOrchestrator<AsyncItem<ListSelectedModel>> {
+  /* istanbul ignore next */
   constructor() {
-    super()/* istanbul ignore next */;
+    super();
 
     this
       .register(ListSelectedSetLoadingAction, this.setLoading)

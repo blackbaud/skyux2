@@ -9,9 +9,9 @@ import {
 
 export class ListToolbarOrchestrator
   extends ListStateOrchestrator<ListToolbarModel> {
-
+  /* istanbul ignore next */
   constructor() {
-    super()/* istanbul ignore next */;
+    super();
 
     this
       .register(ListToolbarSetExistsAction, this.setExists)

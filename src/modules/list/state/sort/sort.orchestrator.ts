@@ -8,8 +8,9 @@ import {
 } from './actions';
 
 export class ListSortOrchestrator extends ListStateOrchestrator<ListSortModel> {
+  /* istanbul ignore next */
   constructor() {
-    super()/* istanbul ignore next */;
+    super();
 
     this
       .register(ListSortSetFieldSelectorsAction, this.setFieldSelectors)
