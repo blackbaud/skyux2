@@ -1,34 +1,24 @@
 <sky-demo-nav></sky-demo-nav>
 <stache
-    pageTitle="Additional config files">
+    pageTitle="Additional configuration files">
     <stache-page-summary>
-        <p>The SKY UX template provides the <stache-code>skyuxconfig.json</stache-code> file to specify configuration settings. In addition, you can create additional config files with the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention to apply configuration settings specifically to <a routerLink="/learn/reference/configuration">SKY UX CLI commands</a>. Use these instructions to apply configuration settings to CLI commands.</p>
+      <p>The SKY UX template provides the <stache-code>skyuxconfig.json</stache-code> file to specify configuration settings. In addition, you can create additional configuration files with the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention to apply configuration settings specifically to <a routerLink="/learn/reference/cli-commands">SKY UX CLI commands</a>.</p>
+      <p>Use these instructions to apply configuration settings to CLI commands.</p>
     </stache-page-summary>
 
-  In addition to the normal skyuxconfig.json, we also support automatically reading a matching skyuxconfig.[COMMAND].json, so when running skyux serve, for example, we’ll automatically include and merge in skyuxconfig.serve.json if it exists.
-  
-  You can create a file that follows the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention for the config file.
-
-          <p>The SKY UX template provides the <stache-code>skyuxconfig.json</stache-code> file to specify configuration settings, but you can also create additional config files to apply configuration settings specifically to <a routerLink="/learn/reference/configuration">SKY UX CLI commands</a>. For example, you can create <stache-code>skyuxconfig.serve.json</stache-code> to apply specific configuration settings when <stache-code>skyux serve</stache-code> runs.</p>
-
-  
-  For example, to apply configuration settings when <stache-code>skyux serve</stache-code> runs, create a <stache-code>skyuxconfig.serve.json</stache-code> file and specify the configuration settings. When <stache-code>skyux serve</stache-code> runs, it automatically includes and merges in skyuxconfig.serve.json if it exists.
-  
-
   <stache-page-anchor>
-    Create configuration file for a SKY UX CLI command
+    Apply configuration settings to a SKY UX CLI command
   </stache-page-anchor>
   <ol>
       <li><p>In a local editor, create a configuration file in the root directory alongside the project's default <stache-code>skyuxconfig.json</stache-code> file. Follow the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention.</p>
         <p>For example, to apply configuration settings when <stache-code>skyux e2e</stache-code> runs, create <stache-code>skyuxconfig.e2e.json</stache-code>.</p></li>
-      <li><p>In the new config file, specify the configuration settings</p>
+      <li><p>In the new file, specify the configuration settings to apply when the command runs.</p>
         <p>For example, you can specify a mock server URL to use when you run <stache-code>skyux e2e</stache-code>.</p>
         <stache-code-block languageType="js">"appSettings": {
         "mockServerURL": "https://localhost:9000"
         }
       </stache-code-block></li>
-    <li><p>Save your changes. SKY UX automatically reads files with the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention. For example, when <stache-code>skyux e2e</stache-code> runs, SKY UX automatically includes and merge in the <stache-code>skyuxconfig.e2e.json</stache-code>.
-</p></li>
+    <li><p>Save your changes. When you run SKY UX CLI commands, SKY UX automatically reads any files with the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention. For example, SKY UX includes and merges the settings in <stache-code>skyuxconfig.e2e.json</stache-code> when you run <stache-code>skyux e2e</stache-code>.</p></li>
   </ol>
 
 </stache>
