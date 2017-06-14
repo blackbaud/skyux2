@@ -55,7 +55,7 @@ describe('Modal host service', () => {
     let componentService = new SkyModalComponentAdapterService();
     let component = new SkyModalComponent(
         service,
-        { fullPage: false },
+        { fullPage: false, size: 'medium' },
         { nativeElement: {} },
         componentService
       );
