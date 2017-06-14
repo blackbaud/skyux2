@@ -13,6 +13,13 @@
     >
       Specifies the type of button to render as the dropdown's trigger element.  Specify <code>select</code> to display a button with text and a caret or <code>context-menu</code> to display a round button containing an ellipsis.  You can also specify a font-awesome icon as the content of the dropdown by passing the class name to the <code>buttonType</code> attribute. For example, setting <code>buttonType</code> to <code>filter</code> would set the <code>fa-filter</code> icon as the content of the dropdown button. If you use the <code>select</code> style you will need to include a <code>sky-dropdown-button</code> element to specify the text for the button.
     </sky-demo-page-property>
+    <sky-demo-page-property 
+        propertyName="isPrimary"
+        isOptional="true"
+        defaultValue="false"
+    >
+      Indicates whether the button invokes primary action for a page or form. When set to <code>true</code>, the background color is <code>sky-color-blue</code>. By default, the button's background color is <code>sky-color-white</code>.
+    </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="label"
         isOptional="true"
