@@ -3,7 +3,13 @@ import {
   Input,
   ElementRef,
   ViewChild,
-  AfterContentInit
+  AfterContentInit,
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  AnimationTransitionEvent
 } from '@angular/core';
 
 import {
@@ -21,6 +27,10 @@ import {
 import {
   SkyTextExpandAdapterService
 } from './text-expand-adapter.service';
+
+const TEXT_EXPAND_STATE: string = 'expanded';
+const TEXT_COLLAPSE_STATE: string = 'collaped';
+
 @Component({
   selector: 'sky-text-expand',
   templateUrl: './text-expand.component.html',
@@ -28,7 +38,20 @@ import {
   providers: [
     SkyTextExpandAdapterService,
     SkyResourcesService
-  ]
+  ],
+  animations: [
+    trigger('expandState', [
+      state(TEXT_COLLAPSE_STATE,
+        style({
+          height: '0'
+      })),
+      state(TEXT_EXPAND_STATE,
+        style({
+          height: '*'
+      })),
+      transition('* <=> *', animate('250ms'))
+    ])
+  ],
 })
 export class SkyTextExpandComponent implements AfterContentInit {
   @Input()
@@ -47,6 +70,11 @@ export class SkyTextExpandComponent implements AfterContentInit {
   public containerEl: ElementRef;
   @ViewChild('text')
   public textEl: ElementRef;
+
+
+  public textExpandState: string = TEXT_COLLAPSE_STATE;
+
+
   public maxNewlines: number = 1;
   public isExpanded: boolean = false;
   public expandable: boolean;
@@ -84,15 +112,29 @@ export class SkyTextExpandComponent implements AfterContentInit {
     } else {
       // Normal View
       if (!this.isExpanded) {
-        this
-          .animateText(this.collapsedText, this.expandedText, true);
+        this.textExpandState = TEXT_EXPAND_STATE;
         this.isExpanded = true;
       } else {
-        this
-          .animateText(this.expandedText, this.collapsedText, false);
+        this.textExpandState = TEXT_COLLAPSE_STATE;
         this.isExpanded = false;
       }
     }
+  }
+
+  public expandAnimationStart() {
+    // For collapse
+    // Set min-height here
+
+    // For expand
+    // Set height to current height
+    // Set text for expanded text
+  }
+
+  public expandAnimationEnd() {
+    // For collapse
+    // Set text for collapsed text
+
+    // Remove min height, remove height, set see more/less text
   }
 
   public animationEnd() {
