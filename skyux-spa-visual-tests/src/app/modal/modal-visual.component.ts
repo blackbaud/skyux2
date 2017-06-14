@@ -28,4 +28,19 @@ export class ModalVisualComponent {
   public openContentModal() {
     this.modal.open(ModalContentDemoComponent);
   }
+
+  public openSmallSizeModal() {
+    this.modal.open(
+      ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'small'});
+  }
+
+  public openMediumSizeModal() {
+    this.modal.open(
+      ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'medium'});
+  }
+
+  public openLargeSizeModal() {
+    this.modal.open(
+      ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'large'});
+  }
 }
