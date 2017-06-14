@@ -54,23 +54,15 @@ As your tests run, code coverage results are generated and can be located under 
 
 ### Write visual regression tests
 
-During our continuous integration builds, we run visual regression tests through BrowserStack using [webdriverio](http://webdriver.io/) and [wdio-visual-regression-service](https://github.com/zinserjan/wdio-visual-regression-service). To run these tests locally, you need [GraphicsMagick](http://www.graphicsmagick.org/) for image processing installed on your system.
+During our continuous integration builds, we run visual regression tests through BrowserStack using [protractor](http://www.protractortest.org/) and [pix-diff](https://github.com/koola/pix-diff). 
 
-##### Mac OS X using [Homebrew](http://mxcl.github.io/homebrew/)
-```sh
-$ brew install graphicsmagick
-```
+After you install these prerequisites, you can run the visual regression tests using `npm run test:visual`, which creates and compares screenshots in the `skyux-spa-visual-tests/screenshots-baseline-local/` folder.
 
-##### Ubuntu using apt-get
-```sh
-$ sudo apt-get install graphicsmagick
-```
-
-##### Windows
-
-Download and install executables for [GraphicsMagick](http://www.graphicsmagick.org/download.html). Make sure to install the right binaries desired for your system (32bit vs 64bit).
-
-After you install these prerequisites, you can run the visual regression tests using `npm run test:visual`, which creates and compares screenshots in the `webdriver-screenshotslocal` folder.
+To create visual tests for a new component, first create a folder for the tests in `skyux-spa-visual-tests/src/app`. This folder will contain four files for the visual test: 
+  - {componentName}-visual.component.html : The template for the component to render and screenshot.
+  - {componentName}-visual.component.ts : The typescript code for the component to render and screenshot.
+  - {componentName}.visual-spec.ts : The protractor code to run the screenshot tests.
+  - index.html : The route file that contains the component to render and screenshot.
 
 ### Submit the code
 
@@ -90,8 +82,6 @@ Script      | Description
 `test`        | Runs unit tests and visual regression tests.
 `test:unit`   | Runs Karma unit tests.
 `test:visual` | Runs Webdriver visual regression tests.
-`start`       | Serves the components at [http://localhost:3000](http://localhost:3000) for debugging.
-`start:visual`| Serves the visual fixtures at [http://localhost:3000](http://localhost:3000) for debugging.
 `watch`       | Runs Karma unit tests and watch for file changes.
 
 
