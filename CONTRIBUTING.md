@@ -64,6 +64,8 @@ To create visual tests for a new component, first create a folder for the tests 
   - {componentName}.visual-spec.ts : The protractor code to run the screenshot tests.
   - index.html : The route file that contains the component to render and screenshot.
 
+Then, in `skyux-spa-visual-tests/src/app/home.component.ts`, add the name of the test folder you just created to the `tests` array.
+
 ### Submit the code
 
 1. Commit and push your changes to your repo.
