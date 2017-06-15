@@ -49,7 +49,7 @@ const TEXT_COLLAPSE_STATE: string = 'collaped';
         style({
           height: '*'
       })),
-      transition('* <=> *', animate('250ms'))
+      transition('* => collaped', animate('250ms ease-in'))
     ])
   ],
 })
@@ -112,6 +112,9 @@ export class SkyTextExpandComponent implements AfterContentInit {
     } else {
       // Normal View
       if (!this.isExpanded) {
+        let currentHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
+        this.containerEl.nativeElement.style.minHeight = currentHeight.toString() + 'px';
+
         this.textExpandState = TEXT_EXPAND_STATE;
         this.isExpanded = true;
       } else {
@@ -121,20 +124,43 @@ export class SkyTextExpandComponent implements AfterContentInit {
     }
   }
 
-  public expandAnimationStart() {
+  public expandAnimationStart(event: AnimationTransitionEvent) {
+    console.log('in start');
     // For collapse
     // Set min-height here
+    if (event.toState === TEXT_COLLAPSE_STATE) {
+      this.textExpandAdapter.setText(this.textEl, this.collapsedText);
+      let minHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
+      this.textExpandAdapter.setText(this.textEl, this.expandedText);
+      this.containerEl.nativeElement.style.minHeight = minHeight.toString() + 'px';
+    }
 
     // For expand
     // Set height to current height
     // Set text for expanded text
+    if (event.toState === TEXT_EXPAND_STATE) {
+      // let currentHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
+
+      // this.containerEl.nativeElement.style.minHeight = currentHeight.toString() + 'px';
+      // this.containerEl.nativeElement.style.height = currentHeight.toString() + 'px';
+      this.textExpandAdapter.setText(this.textEl, this.expandedText);
+    }
   }
 
-  public expandAnimationEnd() {
+  public expandAnimationEnd(event: AnimationTransitionEvent) {
+    console.log('in end')
     // For collapse
     // Set text for collapsed text
-
-    // Remove min height, remove height, set see more/less text
+    if (event.toState === TEXT_COLLAPSE_STATE) {
+      this.textExpandAdapter.setText(this.textEl, this.collapsedText);
+      this.containerEl.nativeElement.style.minHeight = '';
+      this.containerEl.nativeElement.style.height = '';
+      this.buttonText = this.seeMoreText;
+    } else {
+      this.containerEl.nativeElement.style.height = '';
+      this.containerEl.nativeElement.style.minHeight = '';
+      this.buttonText = this.seeLessText;
+    }
   }
 
   public animationEnd() {
