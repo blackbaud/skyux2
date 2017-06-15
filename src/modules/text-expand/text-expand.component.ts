@@ -177,5 +177,4 @@ export class SkyTextExpandComponent implements AfterContentInit {
       adapter.setContainerHeight(container, `${newHeight}px`);
     }, 5);
   }
-
 }
