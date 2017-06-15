@@ -3,13 +3,7 @@ import {
   Input,
   ElementRef,
   ViewChild,
-  AfterContentInit,
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-  AnimationTransitionEvent
+  AfterContentInit
 } from '@angular/core';
 
 import {
@@ -27,9 +21,6 @@ import {
 import {
   SkyTextExpandAdapterService
 } from './text-expand-adapter.service';
-
-const TEXT_EXPAND_STATE: string = 'expanded';
-const TEXT_COLLAPSE_STATE: string = 'collaped';
 
 @Component({
   selector: 'sky-text-expand',

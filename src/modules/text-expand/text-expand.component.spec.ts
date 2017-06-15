@@ -17,12 +17,6 @@ import {
 
 describe('Text expand component', () => {
 
-  function createTransition() {
-    let evt = document.createEvent('CustomEvent');
-    evt.initEvent('transitionend', false, false);
-    return evt;
-  }
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -248,7 +242,8 @@ describe('Text expand component', () => {
           textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
 
           expect(container.style.maxHeight).toBe('');
-          expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_less'));
+          expect(seeMoreButton.innerText.trim())
+            .toBe(SkyResources.getString('text_expand_see_less'));
           expect(ellipsis).toBeNull();
           expect(textArea.innerText.trim()).toBe(expandedText);
           seeMoreButton.click();
@@ -261,10 +256,11 @@ describe('Text expand component', () => {
               textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
 
               expect(container.style.maxHeight).toBe('');
-              expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
+              expect(seeMoreButton.innerText.trim())
+                .toBe(SkyResources.getString('text_expand_see_more'));
               expect(ellipsis).not.toBeNull();
               expect(textArea.innerText.trim()).toBe(collapsedText);
-            })
+            });
           });
         });
       });

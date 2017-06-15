@@ -11,12 +11,6 @@ import { SkyResources } from '../resources/resources';
 
 describe('Text expand repeater component', () => {
 
-  function createTransition() {
-    let evt = document.createEvent('CustomEvent');
-    evt.initEvent('transitionend', false, false);
-    return evt;
-  }
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -200,9 +194,9 @@ describe('Text expand repeater component', () => {
               expect(shownItems.length).toBe(2);
               expect(hiddenItems.length).toBe(1);
             });
-          })
+          });
         });
-      })
+      });
     }), 300000);
     it('should not display anything if no value is given for the text', () => {
       let fixture = TestBed.createComponent(TextExpandRepeaterTestComponent);
