@@ -15,7 +15,7 @@ if [[ "$TRAVIS_PULL_REQUEST" == "false" && ! $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]
   if [ -z "$(git ls-files --others --exclude-standard)" ]; then
     echo -e "No changes to commit to skyux2."
   else
-    git add webdriver-screenshots/
+    git add skyux-spa-visual-tests/screenshots-baseline/
     git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to skyux2 [ci skip]"
     git push -fq origin $TRAVIS_BRANCH > /dev/null
     echo -e "skyux2 successfully updated.\n"
