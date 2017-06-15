@@ -58,22 +58,51 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
       }
     }
     // Set height back to auto so the browser can change the height as needed with window changes
-    this.textExpandRepeaterAdapter.setContainerHeight(this.containerEl, 'auto');
+    this.textExpandRepeaterAdapter.setContainerHeight(this.containerEl, undefined);
   }
 
   public repeaterExpand() {
+    if (!this.isExpanded) {
+      this.setContainerMaxHeight();
+      setTimeout(() => {
+        this.isExpanded = true;
+        this.animateRepeater(true);
+      });
+
+    } else {
+      this.setContainerMaxHeight();
+      setTimeout(() => {
+        this.isExpanded = false;
+        this.animateRepeater(false);
+      });
+
+    }
+  }
+
+  private setContainerMaxHeight() {
+    // ensure everything is reset
+    this.animationEnd();
+    /* Before animation is kicked off, ensure that a maxHeight exists */
+    /* Once we have support for angular v4 animations with parameters we can use that instead */
+    let currentHeight = this.textExpandRepeaterAdapter.getContainerHeight(this.containerEl);
+    this.textExpandRepeaterAdapter.setContainerHeight(this.containerEl, `${currentHeight}px`);
+  }
+
+  private animateRepeater(expanding: boolean) {
     let adapter = this.textExpandRepeaterAdapter;
     let container = this.containerEl;
+
+    adapter.setContainerHeight(container, undefined);
     let currentHeight = adapter.getContainerHeight(container);
     for (let i = this.maxItems; i < this.contentItems.length; i++) {
-      if (this.isExpanded) {
+      if (!expanding) {
         adapter.hideItem(this.items[i]);
       } else {
         adapter.showItem(this.items[i]);
       }
     }
     let newHeight = adapter.getContainerHeight(container);
-    if (this.isExpanded) {
+    if (!expanding) {
       this.buttonText = this.seeMoreText;
     } else {
       this.buttonText = this.seeLessText;
@@ -85,13 +114,17 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
         adapter.showItem(this.items[i]);
       }
     }
+
     adapter.setContainerHeight(container, `${currentHeight}px`);
     // This timeout is necessary due to the browser needing to pick up the non-auto height being set
     // in order to do the transtion in height correctly. Without it the transition does not fire.
-    setTimeout(function () {
+    setTimeout(() => {
       adapter.setContainerHeight(container, `${newHeight}px`);
-    }, 5);
-    this.isExpanded = !this.isExpanded;
+      /* This resets values if the transition does not get kicked off */
+      setTimeout(() => {
+        this.animationEnd();
+      }, 500);
+    }, 10);
   }
 
   private setup(value: Array<any>) {

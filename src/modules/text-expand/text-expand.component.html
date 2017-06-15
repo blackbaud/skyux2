@@ -1,9 +1,7 @@
 <div
   class="sky-text-expand-container"
-  [@expandState]="textExpandState"
-  (@expandState.start)="expandAnimationStart($event)"
-  (@expandState.done)="expandAnimationEnd($event)"
-  #container>
+  (transitionend)="animationEnd()"
+   #container>
   <span class="sky-text-expand-text" #text></span>
   <span class="sky-text-expand-ellipsis" *ngIf="!isExpanded && expandable">... </span>
   <button type="button" class="sky-btn sky-btn-link-inline sky-text-expand-see-more" *ngIf="expandable" (click)="textExpand()">{{buttonText}}</button>
