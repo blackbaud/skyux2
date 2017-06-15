@@ -10,7 +10,7 @@ export class SearchVisualComponent {
   public displayedItems: any;
   public searchText: string;
 
-  private items = [
+  private items: Array<any> = [
     {
       title: 'Call Robert Hernandez',
       note: 'Robert recently gave a very generous gift. We should call to thank him.'
@@ -43,7 +43,7 @@ export class SearchVisualComponent {
     if (searchText) {
       filteredItems = this.items.filter(function (item) {
           let property: any;
-          for (property in item) {
+          for (property in item as any) {
               if (item.hasOwnProperty(property) && (property === 'title' || property === 'note')) {
                   /* tslint:disable */
                   if (item[property].indexOf(searchText) > -1) {

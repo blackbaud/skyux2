@@ -23,6 +23,8 @@ export class PageSummaryVisualComponent {
 
   public showKeyInfo = false;
 
+  [key: string]: boolean | string;
+
   public get itemsToShow(): string {
     return this._itemsToShow;
   }
