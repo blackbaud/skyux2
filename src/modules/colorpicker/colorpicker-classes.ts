@@ -1,3 +1,4 @@
+// spell-checker:ignore hsva,hsla,cmyk
 export class Hsva {
   constructor(
     public hue: number,
@@ -23,7 +24,7 @@ export class SliderPosition {
   constructor(
     public hue: number,
     public saturation: number,
-    public v: number,
+    public value: number,
     public alpha: number) { }
 }
 export class SliderDimension {

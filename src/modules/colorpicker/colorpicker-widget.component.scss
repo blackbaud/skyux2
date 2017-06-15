@@ -1,11 +1,5 @@
+@import "../../scss/variables";
 
-/*
- * Styles for Color Picker
- *
- * Alberto Pujante
- *
- * @licence: http://opensource.org/licenses/MIT
- */
 .color-picker *{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -23,9 +17,8 @@
 
 .color-picker{
     cursor: default;
-    width: 230px;
+    width: 270px;
     height: auto;
-    border:#777 solid 1px;
     background-color: #fff;
 
     -webkit-touch-callout: none;
@@ -67,30 +60,33 @@
         text-align: right;
     }
 
-    //.cp-cancel-button-class, cp-ok-button-class{
-        //text-align: center;
-        //text-transform: uppercase;
-    //}
-
-    .preset-area {
-        padding: 4px 15px;
-
-        .preset-label {
-            width: 100%;
-            padding: 4px;
-            font-size:11px;
-            text-align: left;
-            color: #555;
-        }
+    .sky-colorpickerwidget-preset-color-area {
+        padding-left: 9px;
+        padding-right: 9px;
+        padding-bottom: 15px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-flow: row wrap;
 
         .preset-color {
             cursor: pointer;
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            margin: 4px 6px 8px 6px;
-            @include boder-radius(25%);
-            border: #a9a9a9 solid 1px;
+            display: flex;
+            width: 32px;
+            height: 32px;
+            margin: 5px;
+            border: #EFEFEF solid 1px;
+        }
+        .preset-color:hover {
+           cursor: pointer;
+           border: #FFF solid 2px;
+           outline: 1px solid #EFEFEF;
+           margin: 4px;
+           width: 34px;
+           height: 34px;
+           box-shadow:
+            0 0 0 1px hsl(0, 0%, 80%),
+            0 0 0 2px hsl(0, 0%, 90%);
         }
     }
 
@@ -205,47 +201,37 @@
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAh0lEQVRYR+2W0QlAMQgD60zdfwOdqa8TmI/wQMr5K0I5bZLIzLOa2nt37VVVbd+dDx5obgCC3KBLwJ2ff4PnVidkf+ucIhw80HQaCLo3DMH3CRK3iFsmAWVl6hPNDwt8EvNE5q+YuEXcMgkonVM6SdyCoEvAnZ8v1Hjx817MilmxSUB5rdLJDycZgUAZUch/AAAAAElFTkSuQmCC');
     }
 
-    .type-policy{
-        position: absolute;
-        top: 215px;
-        right: 12px;
-        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAgCAYAAAAffCjxAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACewAAAnsB01CO3AAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIASURBVEiJ7ZY9axRRFIafsxMStrLQJpAgpBFhi+C9w1YSo00I6RZ/g9vZpBf/QOr4GyRgkSKNSrAadsZqQGwCkuAWyRZJsySwvhZ7N/vhzrgbLH3Ld8597jlzz50zJokyxXH8DqDVar0qi6v8BbItqSGpEcfxdlmsFWXkvX8AfAVWg3UKPEnT9GKujMzsAFgZsVaCN1VTQd77XUnrgE1kv+6935268WRpzrnHZvYRWC7YvC3pRZZl3wozqtVqiyH9IgjAspkd1Gq1xUJQtVrdB9ZKIAOthdg/Qc65LUk7wNIMoCVJO865rYFhkqjX6/d7vV4GPJwBMqofURS5JEk6FYBer/eeYb/Mo9WwFnPOvQbeAvfuAAK4BN4sAJtAG/gJIElmNuiJyba3EGNmZiPeZuEVmVell/Y/6N+CzDn3AXhEOOo7Hv/3BeAz8IzQkMPnJbuPx1wC+yYJ7/0nYIP5S/0FHKdp+rwCEEXRS/rf5Hl1Gtb2M0iSpCOpCZzPATmX1EySpHMLAsiy7MjMDoHrGSDXZnaYZdnRwBh7J91utwmczAA6CbG3GgPleX4jqUH/a1CktqRGnuc3hSCAMB32gKspkCtgb3KCQMmkjeP4WNJThrNNZval1WptTIsv7JtQ4tmIdRa8qSoEpWl6YWZNoAN0zKxZNPehpLSBZv2t+Q0CJ9lLnARQLAAAAABJRU5ErkJggg==');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 8px 16px;
-        -moz-background-size: 8px 16px;
-        -webkit-background-size: 8px 16px;
-        -o-background-size: 8px 16px;
-        width:16px;
-        height:24px;
-    }
-
     .hsla-text, .rgba-text{
         width: 100%;
-        font-size:11px;
-        padding: 4px 8px;
+        font-size:18px;
+        padding: 7px;
 
         .box{
-            padding: 0 24px 8px 8px;
+            padding: 0 8px 8px 8px;
+            input:first-of-type {
+              flex:2;
+            }
             input{
                 min-width: 0;
                 flex: 1;
                 margin: 0;
                 float:left;
                 margin-right:8px;
-                border: #a9a9a9 solid 1px;
+                border: #E5E6E7 solid 1px;
                 padding: 1px;
 
                 &:last-child{
                     margin-right: 0;
                 }
             }
+            div:first-of-type {
+              flex:2;
+            }
             div{
-                flex: 1 1 auto;
-                text-align: center;
+                flex: 1;
+                text-align: left;
                 color: #555;
                 margin-right:8px;
-
                 &:last-child{
                     margin-right: 0;
                 }

@@ -1,11 +1,12 @@
 // spell-checker:ignore Colorpicker, Cmyk, Hsva, Hsla
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
 
 import { Rgba, Cmyk } from './colorpicker-classes';
 @Component({
   selector: 'sky-colorpicker',
-  templateUrl: 'colorpicker.component.html'
+  templateUrl: 'colorpicker.component.html',
+  styleUrls: ['./colorpicker.component.scss']
 })
 
 export class SkyColorpickerComponent {
@@ -35,16 +36,20 @@ export class SkyColorpickerComponent {
   private lastColor = '#ff0';
   private cmyk: Cmyk = new Cmyk(0, 0, 0, 0);
 
-  constructor(private cpService: SkyColorpickerWidgetService) {
+  constructor(private service: SkyColorpickerWidgetService) {
     this.arrayColors['color'] = '#2883e9';
     this.arrayColors['color2'] = '#e920e9';
     this.arrayColors['color3'] = 'rgb(255,245,0)';
     this.arrayColors['color4'] = 'rgb(236,64,64)';
     this.arrayColors['color5'] = 'rgba(45,208,45,1)';
   }
-
+  @HostListener('click', ['$event'])
+  public onClick() {
+    // keep the dropdown open.
+    event.stopPropagation();
+  }
   public onChangeColor(color: string): Cmyk {
-    return this.rgbaToCmyk(this.cpService.hsvaToRgba(this.cpService.stringToHsva(color)));
+    return this.rgbaToCmyk(this.service.hsvaToRgba(this.service.stringToHsva(color)));
   }
 
   public rgbaToCmyk(rgba: Rgba): Cmyk {
@@ -60,6 +65,6 @@ export class SkyColorpickerComponent {
   }
 
   public onChangeColorHex8(color: string): string {
-    return this.cpService.outputFormat(this.cpService.stringToHsva(color, true), 'rgba', true);
+    return this.service.outputFormat(this.service.stringToHsva(color, true), 'rgba', true);
   }
 }

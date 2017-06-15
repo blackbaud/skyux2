@@ -7,20 +7,21 @@ import {
   EventEmitter,
   HostListener
 } from '@angular/core';
+import { SkyColorpickerChangeAxis } from './colorpicker.interface';
 
 @Directive({
   selector: '[skyColorpickerSlider]'
 })
 export class SkyColorpickerSliderDirective {
 
-  @Output('newValue')
-  public newValue = new EventEmitter<any>();
+  @Output('newColorContrast')
+  public newColorContrast = new EventEmitter<SkyColorpickerChangeAxis>();
   @Input('skyColorpickerSlider')
   public skyColorpickerSlider: string;
-  @Input('rgX')
-  public rgX: number;
-  @Input('rgY')
-  public rgY: number;
+  @Input('xAxis')
+  public xAxis: number;
+  @Input('yAxis')
+  public yAxis: number;
 
   private listenerMove: any;
   private listenerStop: any;
@@ -31,19 +32,21 @@ export class SkyColorpickerSliderDirective {
   }
 
   public setCursor(event: any) {
-
     let height = this.el.nativeElement.offsetHeight;
     let width = this.el.nativeElement.offsetWidth;
-    let x = Math.max(0, Math.min(this.getX(event), width));
-    let y = Math.max(0, Math.min(this.getY(event), height));
-
-    if (this.rgX !== undefined && this.rgY !== undefined) {
-      this.newValue.emit({ s: x / width, v: (1 - y / height), rgX: this.rgX, rgY: this.rgY });
-    } else if (this.rgX === undefined && this.rgY !== undefined) {
-      //ready to use vertical sliders
-      this.newValue.emit({ v: y / height, rg: this.rgY });
+    let xAxis = Math.max(0, Math.min(this.getX(event), width));
+    let yAxis = Math.max(0, Math.min(this.getY(event), height));
+    if (this.xAxis !== undefined && this.yAxis !== undefined) {
+      this.newColorContrast.emit({
+        xCoordinate: xAxis / width,
+        yCoordinate: (1 - yAxis / height),
+        xAxis: this.xAxis,
+        yAxis: this.yAxis
+      });
+    } else if (this.xAxis === undefined && this.yAxis !== undefined) {
+      this.newColorContrast.emit({ yCoordinate: yAxis / height, maxRange: this.yAxis });
     } else {
-      this.newValue.emit({ v: x / width, rg: this.rgX });
+      this.newColorContrast.emit({ xCoordinate: xAxis / width, maxRange: this.xAxis });
     }
   }
 

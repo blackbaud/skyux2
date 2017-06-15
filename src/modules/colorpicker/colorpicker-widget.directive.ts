@@ -18,52 +18,20 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
   public colorPickerSelect = new EventEmitter<string>(true);
   @Output('colorPickerChange')
   public colorPickerChange = new EventEmitter<string>(false);
-  @Input('cpToggle')
-  public cpToggle: boolean;
+/*
   @Output('cpInputChange')
   public cpInputChange = new EventEmitter<any>(true);
+*/
+/*
   @Output('cpSliderChange')
   public cpSliderChange = new EventEmitter<any>(true);
-  @Output('cpToggleChange')
-  public cpToggleChange = new EventEmitter<boolean>(true);
-  @Input('cpPosition')
-  public cpPosition: string = 'right';
-  @Input('cpPositionOffset')
-  public cpPositionOffset: string = '0%';
-  @Input('cpPositionRelativeToArrow')
-  public cpPositionRelativeToArrow: boolean = false;
-  @Input('cpOutputFormat')
-  public cpOutputFormat: string = 'hex';
-  @Input('cpPresetLabel')
-  public cpPresetLabel: string = 'Preset colors';
-  @Input('cpPresetColors')
-  public cpPresetColors: Array<string>;
-  @Input('cpCancelButton')
-  public cpCancelButton: boolean = false;
-  @Input('cpCancelButtonClass')
-  public cpCancelButtonClass: string = 'cp-cancel-button-class';
-  @Input('cpCancelButtonText')
-  public cpCancelButtonText: string = 'Cancel';
-  @Input('cpOKButton')
-  public cpOKButton: boolean = false;
-  @Input('cpOKButtonClass')
-  public cpOKButtonClass: string = 'cp-ok-button-class';
-  @Input('cpOKButtonText')
-  public cpOKButtonText: string = 'OK';
-  @Input('cpFallbackColor')
-  public cpFallbackColor: string = '#fff';
-  @Input('cpHeight')
-  public cpHeight: string = 'auto';
-  @Input('cpWidth')
-  public cpWidth: string = '270px';
-  @Input('cpIgnoredElements')
-  public cpIgnoredElements: any = [];
-  @Input('cpDialogDisplay')
-  public cpDialogDisplay: string = 'fixed';
-  @Input('cpSaveClickOutside')
-  public cpSaveClickOutside: boolean = true;
-  @Input('cpAlphaChannel')
-  public cpAlphaChannel: string = 'hex6';
+*/
+  @Input('outputFormat')
+  public outputFormat: string = 'hex';
+  @Input('presetColors')
+  public presetColors: Array<string>;
+  @Input('alphaChannel')
+  public alphaChannel: string = 'hex6';
 
   private dialog: any;
   private created: boolean;
@@ -79,24 +47,24 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
     this.created = false;
   }
 
+  @HostListener('input', ['$event'])
+  public changeInput(event: any) {
+    let value = event.target.value;
+    this.dialog.setColorFromString(value, true);
+  }
   public ngOnChanges(changes: any): void {
-    if (changes.cpToggle) {
-      if (changes.cpToggle.currentValue) { this.openDialog(); }
-      if (!changes.cpToggle.currentValue && this.dialog) { this.dialog.closeColorPicker(); }
-    }
+    this.openDialog();
+
     if (changes.skyColorpicker) {
       if (this.dialog && !this.ignoreChanges) {
-        if (this.cpDialogDisplay === 'inline') {
-          this.dialog.setInitialColor(changes.skyColorpicker.currentValue);
-        }
         this.dialog.setColorFromString(changes.skyColorpicker.currentValue, false);
 
       }
       this.ignoreChanges = false;
     }
-    if (changes.cpPresetLabel || changes.cpPresetColors) {
+    if (changes.presetColors) {
       if (this.dialog) {
-        this.dialog.setPresetConfig(this.cpPresetLabel, this.cpPresetColors);
+        this.dialog.setPresetConfig(this.presetColors);
       }
     }
   }
@@ -104,25 +72,19 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
   public ngOnInit() {
     let hsva = this.service.stringToHsva(this.skyColorpicker);
     if (hsva === undefined) { hsva = this.service.stringToHsva(this.skyColorpicker, true); }
-    if (hsva == undefined) {
-      hsva = this.service.stringToHsva(this.cpFallbackColor);
+    if (!hsva) {
+      hsva = this.service.stringToHsva('#fff');
     }
     let color = this.service.outputFormat(
       hsva,
-      this.cpOutputFormat,
-      this.cpAlphaChannel === 'hex8'
+      this.outputFormat,
+      this.alphaChannel === 'hex8'
     );
     if (color !== this.skyColorpicker) {
-      // setTimeout(() => {
+
       this.colorPickerChange.emit(color);
       this.cdr.detectChanges();
-      // }, 0);
-    }
-  }
-  @HostListener('click')
-  public onClick() {
-    if (this.cpIgnoredElements.filter((item: any) => item === this.el.nativeElement).length === 0) {
-      this.openDialog();
+
     }
   }
 
@@ -136,24 +98,9 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
         this,
         this.el,
         this.skyColorpicker,
-        this.cpPosition,
-        this.cpPositionOffset,
-        this.cpPositionRelativeToArrow,
-        this.cpOutputFormat,
-        this.cpPresetLabel,
-        this.cpPresetColors,
-        this.cpCancelButton,
-        this.cpCancelButtonClass,
-        this.cpCancelButtonText,
-        this.cpOKButton,
-        this.cpOKButtonClass,
-        this.cpOKButtonText,
-        this.cpHeight,
-        this.cpWidth,
-        this.cpIgnoredElements,
-        this.cpDialogDisplay,
-        this.cpSaveClickOutside,
-        this.cpAlphaChannel
+        this.outputFormat,
+        this.presetColors,
+        this.alphaChannel
       );
       this.dialog = cmpRef.instance;
     } else if (this.dialog) {
@@ -169,7 +116,7 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
   public colorSelected(value: string) {
     this.colorPickerSelect.emit(value);
   }
-
+/*
   public inputChanged(event: any) {
     this.cpInputChange.emit(event);
   }
@@ -177,14 +124,5 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
   public sliderChanged(event: any) {
     this.cpSliderChange.emit(event);
   }
-
-  @HostListener('input', ['$event'])
-  public changeInput(event: any) {
-    let value = event.target.value;
-    this.dialog.setColorFromString(value, true);
-  }
-
-  public toggle(value: boolean) {
-    this.cpToggleChange.emit(value);
-  }
+*/
 }

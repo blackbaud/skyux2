@@ -74,6 +74,7 @@ export class SkyColorpickerWidgetService {
         case this.blue:
           this.hue = (this.red - this.green) / d + 4;
           break;
+        default:
       }
       this.hue /= 6;
     }
@@ -88,7 +89,6 @@ export class SkyColorpickerWidgetService {
     this.value = hsva.value;
     this.alpha = hsva.alpha;
 
-
     let i = Math.floor(this.hue * 6);
     let f = this.hue * 6 - i;
     let p = this.value * (1 - this.saturation);
@@ -97,23 +97,24 @@ export class SkyColorpickerWidgetService {
 
     switch (i % 6) {
       case 0:
-        this.red = this.value, this.green = t, this.blue = p;
+        this.red = this.value; this.green = t; this.blue = p;
         break;
       case 1:
-        this.red = q, this.green = this.value, this.blue = p;
+        this.red = q; this.green = this.value; this.blue = p;
         break;
       case 2:
-        this.red = p, this.green = this.value, this.blue = t;
+        this.red = p; this.green = this.value; this.blue = t;
         break;
       case 3:
-        this.red = p, this.green = q, this.blue = this.value;
+        this.red = p; this.green = q; this.blue = this.value;
         break;
       case 4:
-        this.red = t, this.green = p, this.blue = this.value;
+        this.red = t; this.green = p; this.blue = this.value;
         break;
       case 5:
-        this.red = this.value, this.green = p, this.blue = q;
+        this.red = this.value; this.green = p; this.blue = q;
         break;
+      default:
     }
 
     return new Rgba(this.red, this.green, this.blue, this.alpha);
@@ -171,7 +172,6 @@ export class SkyColorpickerWidgetService {
         });
     }
 
-
     // colorString = colorString.toLowerCase();
     let hsva: Hsva = undefined;
     for (let key in stringParsers) {
@@ -193,6 +193,7 @@ export class SkyColorpickerWidgetService {
   }
 
   public outputFormat(hsva: Hsva, outputFormat: string, allowHex8: boolean): string {
+    let r: string;
     if (hsva.alpha < 1) {
       switch (outputFormat) {
         case 'hsla':
@@ -202,21 +203,19 @@ export class SkyColorpickerWidgetService {
             Math.round(hsla.saturation * 100),
             Math.round(hsla.lightness * 100),
             Math.round(hsla.alpha * 100) / 100);
-          return `hsla(
+          r = `hsla(
             ${hslaText.hue},
             ${hslaText.saturation}%,
             ${hslaText.lightness}%,
             ${hslaText.alpha})`;
+          return r;
         default:
           if (allowHex8 && outputFormat === 'hex') {
             return this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
           }
           let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
-          return `rgba(
-            ${rgba.red},
-            ${rgba.green},
-            ${rgba.blue},
-            ${Math.round(rgba.alpha * 100) / 100})`;
+          r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${Math.round(rgba.alpha * 100) / 100})`;
+          return r;
       }
     } else {
       switch (outputFormat) {
@@ -227,13 +226,12 @@ export class SkyColorpickerWidgetService {
             Math.round(hsla.saturation * 100),
             Math.round(hsla.lightness * 100),
             Math.round(hsla.alpha * 100) / 100);
-          return 'hsl('
-            + hslaText.hue + ','
-            + hslaText.saturation + '%,'
-            + hslaText.lightness + '%)';
+          r = `hsl(${hslaText.hue},${hslaText.saturation}%,${hslaText.lightness}%)`;
+          return r;
         case 'rgba':
           let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
-          return 'rgb(' + rgba.red + ',' + rgba.green + ',' + rgba.blue + ')';
+          r = `rgb(${rgba.red},${rgba.green},${rgba.blue})`;
+          return r;
         default:
 
           let color = this.denormalizeRGBA(this.hsvaToRgba(hsva));
@@ -243,6 +241,7 @@ export class SkyColorpickerWidgetService {
   }
 
   public hexText(rgba: Rgba, allowHex8: boolean): string {
+    // tslint:disable no-bitwise
     let hexText = '#' + ((1 << 24) |
       (rgba.red << 16) |
       (rgba.green << 8) |
@@ -259,6 +258,7 @@ export class SkyColorpickerWidgetService {
       hexText += ((1 << 8) | Math.round(rgba.alpha * 255)).toString(16).substr(1);
     }
     return hexText;
+    // tslint:enable no-bitwise
   }
 
   public denormalizeRGBA(rgba: Rgba): Rgba {

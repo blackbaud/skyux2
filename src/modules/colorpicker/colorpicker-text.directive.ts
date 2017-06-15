@@ -6,28 +6,33 @@ import {
   EventEmitter,
   HostListener
 } from '@angular/core';
-
+import { SkyColorpickerChangeColor } from './colorpicker.interface';
 @Directive({
   selector: '[skyColorpickerText]'
 })
 
 export class SkyColorpickerTextDirective {
-  @Output('newValue')
-  public newValue = new EventEmitter<any>();
+  @Output('newColorContrast')
+  public newColorContrast = new EventEmitter<SkyColorpickerChangeColor>();
   @Input('skyColorpickerText')
   public skyColorpickerText: any;
-  @Input('rg')
-  public rg: number;
+  @Input('color')
+  public color: string;
+  @Input('maxRange')
+  public maxRange: number;
 
   @HostListener('input', ['$event'])
-  public changeInput(value: string) {
-    if (this.rg === undefined) {
-      this.newValue.emit(value);
-    } else {
-      let numeric = parseFloat(value);
-      if (!isNaN(numeric) && numeric >= 0 && numeric <= this.rg) {
-        this.newValue.emit({ value: numeric, rg: this.rg });
-      }
+  public changeInput(event: Event) {
+    let element: HTMLInputElement = <HTMLInputElement>event.target;
+    let elementValue = parseFloat(element.value);
+    if (!isNaN(elementValue) && elementValue >= 0 && elementValue <= this.maxRange) {
+      this.newColorContrast.emit(
+        {
+          color: this.color,
+          colorValue: elementValue,
+          maxRange: this.maxRange
+        }
+      );
     }
   }
 }
