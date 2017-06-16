@@ -22,6 +22,10 @@ export class SkyModalDemoComponent {
 
     if (type === 'fullScreenModal') {
       options.fullPage = true;
+    } else if (type === 'smallModal') {
+      options.size = 'small';
+    } else if (type === 'largeModal') {
+      options.size = 'large';
     }
 
     let modalInstance = this.modal.open(SkyModalDemoFormComponent, options);
