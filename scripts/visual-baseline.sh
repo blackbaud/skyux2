@@ -2,6 +2,9 @@
 set -e
 
 # Update the webdriver-screenshots folder of the current branch, as long as it's a push and not a savage- branch.
+ls
+cd skyux-spa-visual-tests
+ls
 if [[ "$TRAVIS_PULL_REQUEST" == "false" && ! $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]; then
   echo -e "Starting to update skyux2.\n"
 
