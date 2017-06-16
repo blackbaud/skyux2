@@ -9,7 +9,9 @@ if [[ "$TRAVIS_PULL_REQUEST" == "false" && ! $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]
   git config --global user.name "Blackbaud Sky Build User"
   git clone --quiet --branch=$TRAVIS_BRANCH https://${GH_TOKEN}@github.com/blackbaud/skyux2.git skyux2 > /dev/null
 
-  cp -rf skyux-spa-visual-tests/screenshots-baseline/ skyux2/
+  ls
+
+  cp -rf /skyux-spa-visual-tests/screenshots-baseline /skyux2
   cd skyux2
 
   if [ -z "$(git ls-files --others --exclude-standard)" ]; then
