@@ -194,11 +194,13 @@ export class SkyDemoComponentsService {
           return [
             {
               name: 'email-validation-demo.component.html',
-              fileContents: require('!!raw-loader!./email-validation/email-validation-demo.component.html')
+              fileContents: require
+              ('!!raw-loader!./email-validation/email-validation-demo.component.html')
             },
             {
               name: 'email-validation.component.ts',
-              fileContents: require('!!raw-loader!./email-validation/email-validation-demo.component.ts'),
+              fileContents: require
+              ('!!raw-loader!./email-validation/email-validation-demo.component.ts'),
               componentName: 'SkyEmailValidationDemoComponent',
               bootstrapSelector: 'sky-email-validation-demo'
             }
