@@ -1,11 +1,13 @@
 import { Directive, forwardRef } from '@angular/core';
 import { Validator, NG_VALIDATORS, AbstractControl } from '@angular/forms';
 
+// tslint:disable no-forward-ref
 const SKY_EMAIL_VALIDATION_VALIDATOR = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => SkyEmailValidationInputDirective),
   multi: true
 };
+// tslint:enable
 
 @Directive({
   selector: '[skyEmailValidationInput]',
