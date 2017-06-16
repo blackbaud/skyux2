@@ -2,9 +2,6 @@
 set -e
 
 # Update the webdriver-screenshots folder of the current branch, as long as it's a push and not a savage- branch.
-ls
-cd skyux-spa-visual-tests
-ls
 if [[ "$TRAVIS_PULL_REQUEST" == "false" && ! $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]; then
   echo -e "Starting to update skyux2.\n"
 
@@ -12,7 +9,9 @@ if [[ "$TRAVIS_PULL_REQUEST" == "false" && ! $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]
   git config --global user.name "Blackbaud Sky Build User"
   git clone --quiet --branch=$TRAVIS_BRANCH https://${GH_TOKEN}@github.com/blackbaud/skyux2.git skyux2 > /dev/null
 
-  cp -rf skyux-spa-visual-tests/screenshots-baseline/ skyux2/
+  ls
+
+  cp -rf /skyux-spa-visual-tests/screenshots-baseline /skyux2
   cd skyux2
 
   if [ -z "$(git ls-files --others --exclude-standard)" ]; then
