@@ -11,8 +11,17 @@ if [[ "$TRAVIS_PULL_REQUEST" == "false" && ! $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]
 
   ls
 
-  cp -rf /skyux-spa-visual-tests/screenshots-baseline /skyux2
-  cd skyux2
+  echo -e "Changing directory to skyux-spa-visual-tests"
+
+  cd skyux-spa-visual-tests
+
+  ls
+
+  cp -rf screenshots-baseline/ ../skyux2/skyux-spa-visual-tests/
+
+  echo -e "Changing directory to skyux 2"
+
+  cd ../skyux2
 
   if [ -z "$(git ls-files --others --exclude-standard)" ]; then
     echo -e "No changes to commit to skyux2."
