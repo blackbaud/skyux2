@@ -49,19 +49,7 @@ export class SkyColorpickerComponent {
     event.stopPropagation();
   }
   public onChangeColor(color: string): Cmyk {
-    return this.rgbaToCmyk(this.service.hsvaToRgba(this.service.stringToHsva(color)));
-  }
-
-  public rgbaToCmyk(rgba: Rgba): Cmyk {
-    let cmyk: Cmyk = new Cmyk(0, 0, 0, 0), k: number;
-    k = 1 - Math.max(rgba.red, rgba.green, rgba.blue);
-    if (k == 1) {
-      return new Cmyk(0, 0, 0, 1);
-    } cmyk.cyan = (1 - rgba.red - k) / (1 - k);
-    cmyk.magenta = (1 - rgba.green - k) / (1 - k);
-    cmyk.yellow = (1 - rgba.blue - k) / (1 - k);
-    cmyk.key = k;
-    return cmyk;
+    return this.service.rgbaToCmyk(this.service.hsvaToRgba(this.service.stringToHsva(color)));
   }
 
   public onChangeColorHex8(color: string): string {

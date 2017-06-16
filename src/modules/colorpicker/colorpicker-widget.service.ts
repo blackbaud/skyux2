@@ -1,6 +1,6 @@
-// spell-checker:ignore hsva, hsla, denormalize, colorpicker
+// spell-checker:ignore hsva, hsla, cmyk, denormalize, colorpicker
 import { Injectable } from '@angular/core';
-import { Rgba, Hsla, Hsva } from './colorpicker-classes';
+import { Rgba, Hsla, Hsva, Cmyk } from './colorpicker-classes';
 
 @Injectable()
 export class SkyColorpickerWidgetService {
@@ -80,6 +80,18 @@ export class SkyColorpickerWidgetService {
     }
 
     return new Hsva(this.hue, this.saturation, this.value, this.alpha);
+  }
+
+  public rgbaToCmyk(rgba: Rgba): Cmyk {
+    let cmyk: Cmyk = new Cmyk(0, 0, 0, 0), k: number;
+    k = 1 - Math.max(rgba.red, rgba.green, rgba.blue);
+    if (k == 1) {
+      return new Cmyk(0, 0, 0, 1);
+    } cmyk.cyan = (1 - rgba.red - k) / (1 - k);
+    cmyk.magenta = (1 - rgba.green - k) / (1 - k);
+    cmyk.yellow = (1 - rgba.blue - k) / (1 - k);
+    cmyk.key = k;
+    return cmyk;
   }
 
   public hsvaToRgba(hsva: Hsva): Rgba {

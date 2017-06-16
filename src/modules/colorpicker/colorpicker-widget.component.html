@@ -1,26 +1,33 @@
-<div class="color-picker" #colorPicker>
-  <div [skyColorpickerSlider] [style.background-color]="hueSliderColor" [xAxis]="1" [yAxis]="1" (newColorContrast)="saturationAndLightness=$event"
-    class="saturation-lightness" [color]="saturation-lightness">
-    <div [style.left.px]="slider.saturation" [style.top.px]="slider.value" class="cursor"></div>
-  </div>
-  <div class="box">
-    <div class="left">
-      <div class="selected-color-background"></div>
-      <div [style.background-color]="selectedColor" class="selected-color"></div>
-    </div>
-    <div class="right">
+<div class="sky-input-group">
+<ng-content></ng-content>
+  <sky-dropdown buttonType="caret-down" alignment="right">
+    <sky-dropdown-menu>
 
-      <div [skyColorpickerSlider] [xAxis]="1" (newColorContrast)="hue=$event" class="hue" #hueSlider>
-        <div [style.left.px]="slider.hue" class="cursor"></div>
-      </div>
+      <div class="sky-colorpicker-container">
 
-      <div [skyColorpickerSlider] [style.background-color]="alphaSliderColor" [xAxis]="1" (newColorContrast)="alphaAxis=$event" class="alpha"
-        #alphaSlider>
-        <div [style.left.px]="slider.alpha" class="cursor"></div>
-      </div>
-    </div>
-  </div>
-<!--
+        <div class="color-picker" #colorPicker>
+          <div [skyColorpickerSlider] [style.background-color]="hueSliderColor" [xAxis]="1" [yAxis]="1" (newColorContrast)="saturationAndLightness=$event"
+            class="saturation-lightness" [color]="saturation-lightness">
+            <div [style.left.px]="slider.saturation" [style.top.px]="slider.value" class="cursor"></div>
+          </div>
+          <div class="box">
+            <div class="left">
+              <div class="selected-color-background"></div>
+              <div [style.background-color]="selectedColor" class="selected-color"></div>
+            </div>
+            <div class="right">
+
+              <div [skyColorpickerSlider] [xAxis]="1" (newColorContrast)="hue=$event" class="hue" #hueSlider>
+                <div [style.left.px]="slider.hue" class="cursor"></div>
+              </div>
+
+              <div [skyColorpickerSlider] [style.background-color]="alphaSliderColor" [xAxis]="1" (newColorContrast)="alphaAxis=$event"
+                class="alpha" #alphaSlider>
+                <div [style.left.px]="slider.alpha" class="cursor"></div>
+              </div>
+            </div>
+          </div>
+          <!--
   <div [hidden]="true" class="hsla-text">
     <div class="box">
       <div>H:</div>
@@ -41,33 +48,43 @@
     </div>
   </div>
 -->
-  <div class="rgba-text">
-    <div class="box">
-      <div>Hex:</div>
-      <div>R:</div>
-      <div>G:</div>
-      <div>B:</div>
-      <div>A:</div>
-    </div>
-    <div class="box">
-      <input [skyColorpickerText] (newColorContrast)="hex=$event" [value]="hexText" />
+          <div class="rgba-text">
+            <div class="box">
+              <div>Hex:</div>
+              <div>R:</div>
+              <div>G:</div>
+              <div>B:</div>
+              <div>A:</div>
+            </div>
+            <div class="box">
+              <input [skyColorpickerText] (newColorContrast)="hex=$event" [value]="hexText" />
 
-      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" [color]="red" (newColorContrast)="red=$event"
-        [value]="rgbaText.red" />
+              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" [color]="red" (newColorContrast)="red=$event"
+                [value]="rgbaText?.red" />
 
-      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="green=$event"
-        [value]="rgbaText.green" />
-      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="blue=$event"
-        [value]="rgbaText.blue" />
-      <input [skyColorpickerText] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [maxRange]="1" (newColorContrast)="alphaColor=$event"
-        [value]="rgbaText.alpha" />
-    </div>
-  </div>
+              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="green=$event"
+                [value]="rgbaText?.green" />
+              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="blue=$event"
+                [value]="rgbaText?.blue" />
+              <input [skyColorpickerText] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [maxRange]="1" (newColorContrast)="alphaColor=$event"
+                [value]="rgbaText?.alpha" />
+            </div>
+          </div>
 
-  <div *ngIf="presetColors && presetColors.length" class="sky-colorpickerwidget-preset-color-area">
+          <div *ngIf="presetColors && presetColors.length" class="sky-colorpickerwidget-preset-color-area">
+            <div *ngFor="let color of presetColors" class="preset-color" [style.backgroundColor]="color" (click)="setColorFromString(color)"></div>
+          </div>
+        </div>
 
-    <div *ngFor="let color of presetColors" class="preset-color" [style.backgroundColor]="color" (click)="setColorFromString(color)"></div>
-  </div>
+        <div class="sky-colorpicker-container sky-colorpicker-footer">
+          <section class="sky-colorpicker-column">
+            <button type="button" class="sky-btn sky-btn-primary">Apply</button>
+            <button type="button" class="sky-btn sky-btn-link">Close</button>
+          </section>
+        </div>
 
+      </div>
+    </sky-dropdown-menu>
+  </sky-dropdown>
 
 </div>

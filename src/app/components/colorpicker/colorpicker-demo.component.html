@@ -1,4 +1,10 @@
-<div style="max-width: 50%">
-  <sky-colorpicker>
+<h3>Colorpicker</h3>
+<div style="max-width: 400px">
+  <sky-colorpicker #colorPickerExample1>
+    <input type="text"
+    [skyColorpickerInput]="colorPickerExample1"
+    [(skyColorpicker)]="arrayColors[selectedColor]"
+    [presetColors]="['#333333', '#888888', '#EFEFEF', '#FFF', '#BD4040','#617FC2','#60AC68','#3486BA','#E87134','#DA9C9C']"
+    />
   </sky-colorpicker>
 </div>

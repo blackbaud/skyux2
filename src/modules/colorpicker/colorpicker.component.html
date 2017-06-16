@@ -1,23 +1,20 @@
 <div class="sky-input-group">
-
+  <ng-content #colorPickerWidgetInput></ng-content>
   <sky-dropdown buttonType="caret-down" alignment="right">
     <sky-dropdown-menu>
 
       <div class="sky-colorpicker-container">
-        <span [skyColorpickerInput]="colorPickerExample2"
-              [(skyColorpicker)]="arrayColors[selectedColor]"
-              [style.background]="arrayColors[selectedColor]"
-              [presetColors]="['#333333', '#888888', '#EFEFEF', '#FFF', '#BD4040','#617FC2','#60AC68','#3486BA','#E87134','#DA9C9C']">
-          </span>
+        <div [skyColorpickerInput]="colorPickerWidgetInput" [(skyColorpicker)]="arrayColors[selectedColor]"
+          [presetColors]="['#333333', '#888888', '#EFEFEF', '#FFF', '#BD4040','#617FC2','#60AC68','#3486BA','#E87134','#DA9C9C']"></div>
 
-          <div class="sky-colorpicker-container sky-colorpicker-footer">
-            <section class="sky-colorpicker-column">
-              <button type="button" class="sky-btn sky-btn-primary">Apply</button>
-              <button type="button" class="sky-btn sky-btn-link">Close</button>
-            </section>
-          </div>
+        <div class="sky-colorpicker-container sky-colorpicker-footer">
+          <section class="sky-colorpicker-column">
+            <button type="button" class="sky-btn sky-btn-primary">Apply</button>
+            <button type="button" class="sky-btn sky-btn-link">Close</button>
+          </section>
+        </div>
 
-     </div>
+      </div>
     </sky-dropdown-menu>
   </sky-dropdown>
 

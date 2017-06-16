@@ -18,6 +18,8 @@ export class SkyColorpickerSliderDirective {
   public newColorContrast = new EventEmitter<SkyColorpickerChangeAxis>();
   @Input('skyColorpickerSlider')
   public skyColorpickerSlider: string;
+  @Input('color')
+  public color: string;
   @Input('xAxis')
   public xAxis: number;
   @Input('yAxis')

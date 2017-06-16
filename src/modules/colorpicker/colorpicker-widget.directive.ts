@@ -1,6 +1,6 @@
 // spell-checker:ignore Colorpicker, Validators, hsva
-import { OnInit, OnChanges, Directive, HostListener, Input, Output, } from '@angular/core';
-import { EventEmitter, ElementRef, ViewContainerRef, ReflectiveInjector } from '@angular/core';
+import { OnInit, OnChanges, Directive, HostListener, Input, Output } from '@angular/core';
+import { EventEmitter, ElementRef, ViewContainerRef } from '@angular/core';
 import { ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
 import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
 import { SkyColorpickerWidgetComponent } from './colorpicker-widget.component';
@@ -13,19 +13,19 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
   @Input()
   public skyColorpickerInput: SkyColorpickerWidgetComponent;
   @Input('skyColorpicker')
-  public skyColorpicker: string;
+  public skyColorpicker: string = '#456f23';
   @Output('colorPickerSelect')
   public colorPickerSelect = new EventEmitter<string>(true);
   @Output('colorPickerChange')
   public colorPickerChange = new EventEmitter<string>(false);
-/*
-  @Output('cpInputChange')
-  public cpInputChange = new EventEmitter<any>(true);
-*/
-/*
-  @Output('cpSliderChange')
-  public cpSliderChange = new EventEmitter<any>(true);
-*/
+  /*
+    @Output('cpInputChange')
+    public cpInputChange = new EventEmitter<any>(true);
+  */
+  /*
+    @Output('cpSliderChange')
+    public cpSliderChange = new EventEmitter<any>(true);
+  */
   @Input('outputFormat')
   public outputFormat: string = 'hex';
   @Input('presetColors')
@@ -91,10 +91,8 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
   public openDialog() {
     if (!this.created) {
       this.created = true;
-      const compFactory = this.cfr.resolveComponentFactory(SkyColorpickerWidgetComponent);
-      const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
-      const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
-      cmpRef.instance.setDialog(
+
+      this.skyColorpickerInput.setDialog(
         this,
         this.el,
         this.skyColorpicker,
@@ -102,7 +100,8 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
         this.presetColors,
         this.alphaChannel
       );
-      this.dialog = cmpRef.instance;
+
+    this.dialog = this.skyColorpickerInput;
     } else if (this.dialog) {
       this.dialog.openDialog(this.skyColorpicker);
     }
@@ -116,13 +115,13 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
   public colorSelected(value: string) {
     this.colorPickerSelect.emit(value);
   }
-/*
-  public inputChanged(event: any) {
-    this.cpInputChange.emit(event);
-  }
+  /*
+    public inputChanged(event: any) {
+      this.cpInputChange.emit(event);
+    }
 
-  public sliderChanged(event: any) {
-    this.cpSliderChange.emit(event);
-  }
-*/
+    public sliderChanged(event: any) {
+      this.cpSliderChange.emit(event);
+    }
+  */
 }

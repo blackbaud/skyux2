@@ -1,23 +1,20 @@
-// spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva
-import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+// spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva,Cmyk
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { SkyColorpickerChangeAxis, SkyColorpickerChangeColor } from './colorpicker.interface';
 import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
-import { Rgba, Hsla, Hsva } from './colorpicker-classes';
+import { Rgba, Hsla, Hsva, Cmyk } from './colorpicker-classes';
 import { SliderPosition, SliderDimension } from './colorpicker-classes';
 
 @Component({
-  selector: 'sky-colorpicker-widget',
+  selector: 'sky-colorpicker',
   templateUrl: './colorpicker-widget.component.html',
   styleUrls: ['./colorpicker-widget.component.scss']
 })
 
 export class SkyColorpickerWidgetComponent implements OnInit {
 
-
   public outputFormat: string;
   public presetColors: Array<string>;
-
-
   public alphaChannel: string;
 
   public rgbaText: Rgba;
@@ -45,6 +42,11 @@ export class SkyColorpickerWidgetComponent implements OnInit {
   @ViewChild('colorPicker')
   private colorPickerElement: any;
 
+  @HostListener('click', ['$event'])
+  public onClick() {
+    // keep the dropdown open.
+    event.stopPropagation();
+  }
   constructor(
     private el: ElementRef,
     private cdr: ChangeDetectorRef,
@@ -97,6 +99,14 @@ export class SkyColorpickerWidgetComponent implements OnInit {
     this.setColorFromString(color);
   }
 
+  public onChangeColor(color: string): Cmyk {
+    return this.service.rgbaToCmyk(this.service.hsvaToRgba(this.service.stringToHsva(color)));
+  }
+
+  public onChangeColorHex8(color: string): string {
+    return this.service.outputFormat(this.service.stringToHsva(color, true), 'rgba', true);
+  }
+
   public cancelColor() {
     this.setColorFromString(this.initialColor);
   }
@@ -134,7 +144,7 @@ export class SkyColorpickerWidgetComponent implements OnInit {
     hsla.lightness = change.colorValue / change.maxRange;
     this.hsva = this.service.hsla2hsva(hsla);
     // 'lightness',
-    this.update( change);
+    this.update(change);
   }
 
   public set hue(change: SkyColorpickerChangeAxis) {
@@ -174,7 +184,7 @@ export class SkyColorpickerWidgetComponent implements OnInit {
 
   public set hex(change: string) {
     this.setColorFromString(change);
-   // this.directiveInstance.inputChanged({ slider: 'hex', value: change });
+    // this.directiveInstance.inputChanged({ slider: 'hex', value: change });
   }
 
   public set saturationAndLightness(value: SkyColorpickerChangeAxis) {
