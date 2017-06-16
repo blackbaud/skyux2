@@ -1,17 +1,64 @@
 // spell-checker:ignore Colorpicker, Validators, hsva
-import { OnInit, OnChanges, Directive, HostListener, Input, Output } from '@angular/core';
-import { EventEmitter, ElementRef, ViewContainerRef } from '@angular/core';
-import { ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+
+  ElementRef,
+  ViewContainerRef,
+  EventEmitter,
+  Directive,
+  forwardRef,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  Renderer,
+  SimpleChanges
+} from '@angular/core';
 import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
 import { SkyColorpickerWidgetComponent } from './colorpicker-widget.component';
+import { SkyColorpickerOutput } from './colorpicker.interface';
 import { SliderPosition, SliderDimension } from './colorpicker-classes';
 
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  Validator,
+  NG_VALIDATORS,
+  AbstractControl
+} from '@angular/forms';
+import {
+  Subscription
+} from 'rxjs/Subscription';
+
+// tslint:disable no-forward-ref
+const SKY_COLORPICKER_VALUE_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SkyColorpickerWidgetDirective),
+  multi: true
+};
+
+const SKY_COLORPICKER_VALIDATOR = {
+  provide: NG_VALIDATORS,
+  useExisting: forwardRef(() => SkyColorpickerWidgetDirective),
+  multi: true
+};
+// tslint:enable
 @Directive({
-  selector: '[skyColorpicker]'
+  selector: '[skyColorpicker]',
+  providers: [
+    SKY_COLORPICKER_VALUE_ACCESSOR,
+    SKY_COLORPICKER_VALIDATOR
+  ]
 })
-export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
+export class SkyColorpickerWidgetDirective
+  implements OnInit, OnChanges, ControlValueAccessor, Validator {
+
+  public pickerChangedSubscription: Subscription;
+
   @Input()
   public skyColorpickerInput: SkyColorpickerWidgetComponent;
+
   @Input('skyColorpicker')
   public skyColorpicker: string = '#456f23';
   @Output('colorPickerSelect')
@@ -41,8 +88,8 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
     private vcRef: ViewContainerRef,
     private el: ElementRef,
     private service: SkyColorpickerWidgetService,
-    private cfr: ComponentFactoryResolver,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private renderer: Renderer
   ) {
     this.created = false;
   }
@@ -53,6 +100,7 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
     this.dialog.setColorFromString(value, true);
   }
   public ngOnChanges(changes: any): void {
+    this._validatorChange();
     this.openDialog();
 
     if (changes.skyColorpicker) {
@@ -101,7 +149,7 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
         this.alphaChannel
       );
 
-    this.dialog = this.skyColorpickerInput;
+      this.dialog = this.skyColorpickerInput;
     } else if (this.dialog) {
       this.dialog.openDialog(this.skyColorpicker);
     }
@@ -124,4 +172,84 @@ export class SkyColorpickerWidgetDirective implements OnInit, OnChanges {
       this.cpSliderChange.emit(event);
     }
   */
+
+
+  @HostListener('change', ['$event'])
+  public onChange(event: any) {
+    //let newValue = event.target.value;
+    //this.modelValue = this.formatter(newValue);
+    //this._validatorChange();
+    //this._onChange(this.modelValue);
+    //this.writeModelValue(this.modelValue);
+  }
+
+  @HostListener('blur')
+  public onBlur() {
+    this._onTouched();
+  }
+
+  public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
+  public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
+  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
+
+  public writeValue(value: any) {
+    //this.modelValue = this.formatter(value);
+    //this.writeModelValue(this.modelValue);
+  }
+  public validate(control: AbstractControl): { [key: string]: any } {
+
+    let value = control.value;
+    if (!value) {
+      return;
+    }
+    /*
+        if (value.local === 'Invalid date') {
+          return {
+            'skyColor': {
+              invalid: control.value
+            }
+          };
+        }
+    */
+  }
+  private writeModelValue(model: SkyColorpickerOutput) {
+    /*
+    let setElementValue: SkyColorpickerOutput;
+    if (model) {
+      if (model !== model) {
+        setElementValue = { hex: '' };
+      } else {
+        setElementValue = { hex: '' };
+      }
+      this.renderer.setElementProperty(this.elRef.nativeElement, 'value', setElementValue);
+    }
+    this.skyColorpickerInput.selectedColor = '#832383';
+    */
+  }
+
+  private formatter(color: any) {
+    /*
+        if (typeof color === 'string') {
+          let currentFormat: string;
+          let formatColor: SkyColorpickerOutput;
+          if (this.colorFormat === 'rgb') {
+            currentFormat = 'rgb';
+          }
+          if (this.colorFormat === 'hex') {
+            currentFormat = 'hex';
+          }
+          if (typeof this.returnFormat === 'undefined') { this.returnFormat = currentFormat; }
+          formatColor = {
+            hex: ''
+          };
+          return formatColor;
+        }
+    */
+  }
+  /*istanbul ignore next */
+  private _onChange = (_: any) => { };
+  /*istanbul ignore next */
+  private _onTouched = () => { };
+  private _validatorChange = () => { };
+
 }
