@@ -1,17 +1,31 @@
 // spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva,Cmyk
-import { Component, Output, EventEmitter, ElementRef, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
-import { SkyColorpickerChangeAxis, SkyColorpickerChangeColor } from './colorpicker.interface';
-import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
-import { Rgba, Hsla, Hsva, Cmyk } from './colorpicker-classes';
-import { SliderPosition, SliderDimension } from './colorpicker-classes';
-import { SkyColorpickerOutput } from './colorpicker.interface';
+import {
+  ChangeDetectorRef,
+  HostListener,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  ViewChild,
+  Output,
+  Component
+} from '@angular/core';
+
+import {
+  SkyColorpickerChangeAxis,
+  SkyColorpickerChangeColor,
+  SkyColorpickerOutput
+} from './colorpicker.interface';
+
+import { SkyColorpickerService } from './colorpicker.service';
+import { Rgba, Hsla, Hsva, Cmyk, SliderPosition, SliderDimension } from './colorpicker-classes';
+
 @Component({
   selector: 'sky-colorpicker',
-  templateUrl: './colorpicker-widget.component.html',
-  styleUrls: ['./colorpicker-widget.component.scss']
+  templateUrl: './colorpicker.component.html',
+  styleUrls: ['./colorpicker.component.scss']
 })
 
-export class SkyColorpickerWidgetComponent implements OnInit {
+export class SkyColorpickerComponent implements OnInit {
 
   @Output()
   public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
@@ -53,7 +67,7 @@ export class SkyColorpickerWidgetComponent implements OnInit {
   constructor(
     private el: ElementRef,
     private cdr: ChangeDetectorRef,
-    private service: SkyColorpickerWidgetService
+    private service: SkyColorpickerService
   ) { }
 
   public setDialog(

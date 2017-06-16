@@ -4,21 +4,17 @@ import { CommonModule } from '@angular/common';
 import { SkyDropdownModule } from '../dropdown/dropdown.module';
 import { SkyResourcesModule } from '../resources';
 
-// import { SkyColorpickerComponent } from './colorpicker.component';
-import { SkyColorpickerWidgetComponent } from './colorpicker-widget.component';
-import { SkyColorpickerWidgetDirective } from './colorpicker-widget.directive';
-import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
+import { SkyColorpickerComponent } from './colorpicker.component';
+import { SkyColorpickerInputDirective } from './colorpicker-input.directive';
+import { SkyColorpickerService } from './colorpicker.service';
 import { SkyColorpickerTextDirective } from './colorpicker-text.directive';
 import { SkyColorpickerSliderDirective } from './colorpicker-slider.directive';
-// import { SkyColorpickerInputDirective } from './colorpicker.directive';
 @NgModule({
   declarations: [
-    //SkyColorpickerComponent,
-    SkyColorpickerWidgetComponent,
-    SkyColorpickerWidgetDirective,
+    SkyColorpickerComponent,
+    SkyColorpickerInputDirective,
     SkyColorpickerTextDirective,
-    SkyColorpickerSliderDirective,
-    SkyColorpickerWidgetDirective
+    SkyColorpickerSliderDirective
   ],
   imports: [
     CommonModule,
@@ -26,15 +22,14 @@ import { SkyColorpickerSliderDirective } from './colorpicker-slider.directive';
     SkyDropdownModule
   ],
   exports: [
-    //SkyColorpickerComponent,
-    SkyColorpickerWidgetComponent,
-    SkyColorpickerWidgetDirective
+    SkyColorpickerComponent,
+    SkyColorpickerInputDirective
   ],
   providers: [
-    SkyColorpickerWidgetService
+    SkyColorpickerService
   ],
   entryComponents: [
-    SkyColorpickerWidgetComponent
+    SkyColorpickerComponent
   ]
 })
 export class SkyColorpickerModule { }

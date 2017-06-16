@@ -13,8 +13,8 @@ import {
   Renderer,
   SimpleChanges
 } from '@angular/core';
-import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
-import { SkyColorpickerWidgetComponent } from './colorpicker-widget.component';
+import { SkyColorpickerService } from './colorpicker.service';
+import { SkyColorpickerComponent } from './colorpicker.component';
 import { SkyColorpickerOutput } from './colorpicker.interface';
 import { SliderPosition, SliderDimension } from './colorpicker-classes';
 
@@ -32,13 +32,13 @@ import {
 // tslint:disable no-forward-ref
 const SKY_COLORPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SkyColorpickerWidgetDirective),
+  useExisting: forwardRef(() => SkyColorpickerInputDirective),
   multi: true
 };
 
 const SKY_COLORPICKER_VALIDATOR = {
   provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => SkyColorpickerWidgetDirective),
+  useExisting: forwardRef(() => SkyColorpickerInputDirective),
   multi: true
 };
 // tslint:enable
@@ -49,13 +49,13 @@ const SKY_COLORPICKER_VALIDATOR = {
     SKY_COLORPICKER_VALIDATOR
   ]
 })
-export class SkyColorpickerWidgetDirective
+export class SkyColorpickerInputDirective
   implements OnInit, OnChanges, ControlValueAccessor, Validator {
 
   public pickerChangedSubscription: Subscription;
 
   @Input()
-  public skyColorpickerInput: SkyColorpickerWidgetComponent;
+  public skyColorpickerInput: SkyColorpickerComponent;
 
   @Input()
   public initialColor: string = '#fff';
@@ -94,7 +94,7 @@ private colorFormat: string;
   constructor(
     private vcRef: ViewContainerRef,
     private el: ElementRef,
-    private service: SkyColorpickerWidgetService,
+    private service: SkyColorpickerService,
     private renderer: Renderer
   ) {
     this.created = false;
