@@ -1,10 +1,10 @@
 // spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva,Cmyk
-import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, Output, EventEmitter, ElementRef, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { SkyColorpickerChangeAxis, SkyColorpickerChangeColor } from './colorpicker.interface';
 import { SkyColorpickerWidgetService } from './colorpicker-widget.service';
 import { Rgba, Hsla, Hsva, Cmyk } from './colorpicker-classes';
 import { SliderPosition, SliderDimension } from './colorpicker-classes';
-
+import { SkyColorpickerOutput } from './colorpicker.interface';
 @Component({
   selector: 'sky-colorpicker',
   templateUrl: './colorpicker-widget.component.html',
@@ -13,40 +13,43 @@ import { SliderPosition, SliderDimension } from './colorpicker-classes';
 
 export class SkyColorpickerWidgetComponent implements OnInit {
 
-  public outputFormat: string;
-  public presetColors: Array<string>;
+  @Output()
+  public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
+  new EventEmitter<SkyColorpickerOutput>();
+
   public alphaChannel: string;
-
-  public rgbaText: Rgba;
-  public hslaText: Hsla;
-  public selectedColor: string;
   public alphaSliderColor: string;
-  public hueSliderColor: string;
-  public slider: SliderPosition;
-
+  public arrowTop: number;
   public format: number;
   public hexText: string;
-  public arrowTop: number;
+  public hslaText: Hsla;
+  public hueSliderColor: string;
+  public outputFormat: string;
+  public presetColors: Array<string>;
+  public returnFormat: string;
+  public rgbaText: Rgba;
+  public selectedColor: string;
+  public slider: SliderPosition;
 
-  private hsva: Hsva;
-  private outputColor: string;
-  private sliderDimMax: SliderDimension;
-  private directiveInstance: any;
-  private initialColor: string;
-  private directiveElementRef: ElementRef;
-
-  private listenerMouseDown: any;
-
-  private dialogArrowOffset: number = 15;
 
   @ViewChild('colorPicker')
   private colorPickerElement: any;
+
+  private dialogArrowOffset: number = 15;
+  private directiveElementRef: ElementRef;
+  private directiveInstance: any;
+  private hsva: Hsva;
+  private initialColor: string;
+  private listenerMouseDown: any;
+  private outputColor: string;
+  private sliderDimMax: SliderDimension;
 
   @HostListener('click', ['$event'])
   public onClick() {
     // keep the dropdown open.
     event.stopPropagation();
   }
+
   constructor(
     private el: ElementRef,
     private cdr: ChangeDetectorRef,

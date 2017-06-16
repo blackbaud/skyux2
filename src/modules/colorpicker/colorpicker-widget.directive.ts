@@ -1,7 +1,5 @@
 // spell-checker:ignore Colorpicker, Validators, hsva
 import {
-  ChangeDetectorRef,
-
   ElementRef,
   ViewContainerRef,
   EventEmitter,
@@ -59,10 +57,18 @@ export class SkyColorpickerWidgetDirective
   @Input()
   public skyColorpickerInput: SkyColorpickerWidgetComponent;
 
+  @Input()
+  public initialColor: string = '#fff';
+
+  @Input()
+  public returnFormat: string = 'rgba';
+
   @Input('skyColorpicker')
   public skyColorpicker: string = '#456f23';
+
   @Output('colorPickerSelect')
   public colorPickerSelect = new EventEmitter<string>(true);
+
   @Output('colorPickerChange')
   public colorPickerChange = new EventEmitter<string>(false);
   /*
@@ -80,15 +86,15 @@ export class SkyColorpickerWidgetDirective
   @Input('alphaChannel')
   public alphaChannel: string = 'hex6';
 
+private colorFormat: string;
   private dialog: any;
   private created: boolean;
-  private ignoreChanges: boolean = false;
 
+  private modelValue: SkyColorpickerOutput;
   constructor(
     private vcRef: ViewContainerRef,
     private el: ElementRef,
     private service: SkyColorpickerWidgetService,
-    private cdr: ChangeDetectorRef,
     private renderer: Renderer
   ) {
     this.created = false;
@@ -99,16 +105,19 @@ export class SkyColorpickerWidgetDirective
     let value = event.target.value;
     this.dialog.setColorFromString(value, true);
   }
+
+
   public ngOnChanges(changes: any): void {
     this._validatorChange();
+    this.skyColorpickerInput.returnFormat = this.returnFormat;
     this.openDialog();
 
     if (changes.skyColorpicker) {
-      if (this.dialog && !this.ignoreChanges) {
+      if (this.dialog) {
         this.dialog.setColorFromString(changes.skyColorpicker.currentValue, false);
 
       }
-      this.ignoreChanges = false;
+
     }
     if (changes.presetColors) {
       if (this.dialog) {
@@ -118,6 +127,17 @@ export class SkyColorpickerWidgetDirective
   }
 
   public ngOnInit() {
+
+    this.renderer.setElementClass(this.el.nativeElement, 'sky-form-control', true);
+
+    this.pickerChangedSubscription =
+      this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: String) => {
+        this.writeValue(this.formatter(newColor));
+        this._onChange(newColor);
+      });
+
+
+
     let hsva = this.service.stringToHsva(this.skyColorpicker);
     if (hsva === undefined) { hsva = this.service.stringToHsva(this.skyColorpicker, true); }
     if (!hsva) {
@@ -131,10 +151,11 @@ export class SkyColorpickerWidgetDirective
     if (color !== this.skyColorpicker) {
 
       this.colorPickerChange.emit(color);
-      this.cdr.detectChanges();
+      //  this.cdr.detectChanges();
 
     }
   }
+
 
   public openDialog() {
     if (!this.created) {
@@ -155,8 +176,8 @@ export class SkyColorpickerWidgetDirective
     }
   }
 
-  public colorChanged(value: string, ignore: boolean = true) {
-    this.ignoreChanges = ignore;
+  public colorChanged(value: string) {
+
     this.colorPickerChange.emit(value);
   }
 
@@ -176,11 +197,11 @@ export class SkyColorpickerWidgetDirective
 
   @HostListener('change', ['$event'])
   public onChange(event: any) {
-    //let newValue = event.target.value;
-    //this.modelValue = this.formatter(newValue);
-    //this._validatorChange();
-    //this._onChange(this.modelValue);
-    //this.writeModelValue(this.modelValue);
+    let newValue = event.target.value;
+    this.modelValue = this.formatter(newValue);
+    this._validatorChange();
+    this._onChange(this.modelValue);
+    this.writeModelValue(this.modelValue);
   }
 
   @HostListener('blur')
@@ -193,8 +214,8 @@ export class SkyColorpickerWidgetDirective
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
-    //this.modelValue = this.formatter(value);
-    //this.writeModelValue(this.modelValue);
+    this.modelValue = this.formatter(value);
+    this.writeModelValue(this.modelValue);
   }
   public validate(control: AbstractControl): { [key: string]: any } {
 
@@ -202,18 +223,18 @@ export class SkyColorpickerWidgetDirective
     if (!value) {
       return;
     }
-    /*
-        if (value.local === 'Invalid date') {
-          return {
-            'skyColor': {
-              invalid: control.value
-            }
-          };
+
+    if (value.local === 'Invalid Color') {
+      return {
+        'skyColor': {
+          invalid: control.value
         }
-    */
+      };
+    }
+
   }
   private writeModelValue(model: SkyColorpickerOutput) {
-    /*
+
     let setElementValue: SkyColorpickerOutput;
     if (model) {
       if (model !== model) {
@@ -221,30 +242,30 @@ export class SkyColorpickerWidgetDirective
       } else {
         setElementValue = { hex: '' };
       }
-      this.renderer.setElementProperty(this.elRef.nativeElement, 'value', setElementValue);
+      this.renderer.setElementProperty(this.el.nativeElement, 'value', setElementValue);
     }
     this.skyColorpickerInput.selectedColor = '#832383';
-    */
+
   }
 
   private formatter(color: any) {
-    /*
-        if (typeof color === 'string') {
-          let currentFormat: string;
-          let formatColor: SkyColorpickerOutput;
-          if (this.colorFormat === 'rgb') {
-            currentFormat = 'rgb';
-          }
-          if (this.colorFormat === 'hex') {
-            currentFormat = 'hex';
-          }
-          if (typeof this.returnFormat === 'undefined') { this.returnFormat = currentFormat; }
-          formatColor = {
-            hex: ''
-          };
-          return formatColor;
-        }
-    */
+
+    if (typeof color === 'string') {
+      let currentFormat: string;
+      let formatColor: SkyColorpickerOutput;
+      if (this.colorFormat === 'rgb') {
+        currentFormat = 'rgb';
+      }
+      if (this.colorFormat === 'hex') {
+        currentFormat = 'hex';
+      }
+      if (typeof this.returnFormat === 'undefined') { this.returnFormat = currentFormat; }
+      formatColor = {
+        hex: ''
+      };
+      return formatColor;
+    }
+
   }
   /*istanbul ignore next */
   private _onChange = (_: any) => { };
