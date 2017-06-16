@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Rgba, Hsla, Hsva, Cmyk } from './colorpicker-classes';
 
 @Injectable()
-export class SkyColorpickerWidgetService {
+export class SkyColorpickerService {
   private red: number;
   private green: number;
   private blue: number;

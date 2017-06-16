@@ -9,6 +9,7 @@ import { SkyColorpickerInputDirective } from './colorpicker-input.directive';
 import { SkyColorpickerService } from './colorpicker.service';
 import { SkyColorpickerTextDirective } from './colorpicker-text.directive';
 import { SkyColorpickerSliderDirective } from './colorpicker-slider.directive';
+
 @NgModule({
   declarations: [
     SkyColorpickerComponent,
