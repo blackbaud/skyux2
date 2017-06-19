@@ -1,12 +1,12 @@
-<sky-demo-page title="Autonumeric">
+<sky-demo-page title="Numeric">
   <sky-demo-page-summary>
-    The autonumeric pipe formats numbers to a shortened value if it is 1000 or more to a rounded number plus an abbreviation character. K for thousands, M for millions, B for billions and T for trillion. It will also format the shortened number as a currency as an option.
+    The numeric pipe formats numbers to a shortened value if it is 1000 or more to a rounded number plus an abbreviation character. K for thousands, M for millions, B for billions and T for trillion. It will also format the shortened number as a currency as an option.
     <br/><br/>
-    Pipe Usage: number_expression | skyAutonumeric[:digits[:currency[:iso]]]
+    Pipe Usage: number_expression | skyNumeric[:digits[:currency[:iso]]]
     <br/><br/>
-    It can also be imported and the transform method called in ts files.
+    It can also be imported as SkyNumericService and the transform method called in ts files.
     <br/>
-    Method Usage: this.skyAutonumeric.transform(value, digits, currency, iso4217)
+    Method Usage: this.skyNumeric.transform(value, digits, currency, iso4217)
 
   </sky-demo-page-summary>
 
@@ -38,8 +38,8 @@
   </sky-demo-page-properties>
 
   <sky-demo-page-example>
-    <sky-autonumeric-demo></sky-autonumeric-demo>
-    <sky-demo-page-code demoName="Autonumeric"></sky-demo-page-code>
+    <sky-numeric-demo></sky-numeric-demo>
+    <sky-demo-page-code demoName="Numeric"></sky-demo-page-code>
   </sky-demo-page-example>
 
 </sky-demo-page>

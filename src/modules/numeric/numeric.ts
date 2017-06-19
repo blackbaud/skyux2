@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { SkyResources } from '../resources/resources';
 
-export class SkyAutonumeric {
+export class SkyNumeric {
   public static formatNumber(value: number, digits: number,
     currency: boolean = false, iso: string = 'USD'): string {
 

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { SkyAutonumeric } from './autonumeric';
+import { SkyNumeric } from './numeric';
 
 @Injectable()
-export class SkyAutonumericService {
+export class SkyNumericService {
   public formatNumber(value: number, digits: number,
   currency: boolean = false, iso: string = 'USD'): string {
-    return SkyAutonumeric.formatNumber(value, digits, currency, iso);
+    return SkyNumeric.formatNumber(value, digits, currency, iso);
   }
 }

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 import { SkyAlertModule } from './modules/alert';
-import { SkyAutonumericModule } from './modules/autonumeric';
+import { SkyNumericModule } from './modules/numeric';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
 import { SkyCardModule } from './modules/card';
@@ -47,7 +47,7 @@ import { SkyWaitModule } from './modules/wait';
 @NgModule({
   exports: [
     SkyAlertModule,
-    SkyAutonumericModule,
+    SkyNumericModule,
     SkyAvatarModule,
     SkyActionButtonModule,
     SkyCardModule,
@@ -96,10 +96,10 @@ export {
   SkyAlertModule
 } from './modules/alert';
 export {
-  SkyAutonumericModule,
-  SkyAutonumericPipe,
-  SkyAutonumericService
-} from './modules/autonumeric'
+  SkyNumericModule,
+  SkyNumericPipe,
+  SkyNumericService
+} from './modules/numeric'
 export {
   SkyAvatarComponent,
   SkyAvatarInnerComponent,

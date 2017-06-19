@@ -27,26 +27,6 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Autonumeric',
-        icon: 'calculator',
-        summary: 'The Autonumeric Pipe shortens long numbers and can format as currency.',
-        url: '/components/autonumeric',
-        getCodeFiles: function () {
-          return [
-            {
-              name: 'autonumeric-demo.component.html',
-              fileContents: require('!!raw-loader!./autonumeric/autonumeric-demo.component.html')
-            },
-            {
-              name: 'autonumeric-demo.component.ts',
-              fileContents: require('!!raw-loader!./autonumeric/autonumeric-demo.component.ts'),
-              componentName: 'SkyAutonumericDemoComponent',
-              bootstrapSelector: 'sky-autonumeric-demo'
-            }
-          ];
-        }
-      },
-      {
         name: 'Avatar',
         icon: 'user',
         // tslint:disable-next-line
@@ -607,6 +587,26 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./navbar/navbar-demo.component.ts'),
               componentName: 'SkyNavbarDemoComponent',
               bootstrapSelector: 'sky-navbar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Numeric',
+        icon: 'calculator',
+        summary: 'The Skynumeric Pipe shortens long numbers and can format as currency.',
+        url: '/components/numeric',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'numeric-demo.component.html',
+              fileContents: require('!!raw-loader!./numeric/numeric-demo.component.html')
+            },
+            {
+              name: 'numeric-demo.component.ts',
+              fileContents: require('!!raw-loader!./numeric/numeric-demo.component.ts'),
+              componentName: 'SkyNumericDemoComponent',
+              bootstrapSelector: 'sky-numeric-demo'
             }
           ];
         }
