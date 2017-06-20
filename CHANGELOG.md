@@ -1,3 +1,8 @@
+# 2.0.0-beta.32 (2017-06-20)
+
+  - Tweaked animation for text-expand in firefox. (#695)
+  - Handle search when paging does not exist. (#813)
+
 # 2.0.0-beta.31 (2017-06-14)
 
   - Added ability to specify sizes for modals. (#489) (Thanks @Blackbaud-AdamHickey)
