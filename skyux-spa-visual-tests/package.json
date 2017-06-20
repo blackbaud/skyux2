@@ -18,8 +18,8 @@
   "author": "Blackbaud",
   "license": "ISC",
   "devDependencies": {
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#update-angular",
-    "@blackbaud/skyux": "blackbaud/skyux2#rc-ng4-upgrade",
+    "@blackbaud/skyux-builder": "1.0.0-rc.1",
+    "@blackbaud/skyux": "2.0.0-rc.0",
     "codelyzer": "3.0.1",
     "moment": "2.18.1",
     "dragula": "3.7.2",
