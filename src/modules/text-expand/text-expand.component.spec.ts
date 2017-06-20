@@ -1,6 +1,7 @@
 import {
   TestBed,
-  inject
+  inject,
+  async
 } from '@angular/core/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,12 +16,6 @@ import {
 } from '../modal';
 
 describe('Text expand component', () => {
-
-  function createTransition() {
-    let evt = document.createEvent('CustomEvent');
-    evt.initEvent('transitionend', false, false);
-    return evt;
-  }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -217,7 +212,7 @@ describe('Text expand component', () => {
       expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
     });
 
-    it('should expand on click of the see more button', () => {
+    it('should expand on click of the see more button', async(() => {
       let fixture = TestBed.createComponent(TextExpandTestComponent);
       let cmp = fixture.componentInstance as TextExpandTestComponent;
       let el = fixture.nativeElement as HTMLElement;
@@ -238,30 +233,38 @@ describe('Text expand component', () => {
       expect(textArea.innerText.trim()).toBe(collapsedText);
 
       seeMoreButton.click();
-      document.querySelector('.sky-text-expand-container')
-        .dispatchEvent(createTransition());
       fixture.detectChanges();
-      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
-      textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+          textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
 
-      expect(container.style.height).toBe('auto');
-      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_less'));
-      expect(ellipsis).toBeNull();
-      expect(textArea.innerText.trim()).toBe(expandedText);
+          expect(container.style.maxHeight).toBe('');
+          expect(seeMoreButton.innerText.trim())
+            .toBe(SkyResources.getString('text_expand_see_less'));
+          expect(ellipsis).toBeNull();
+          expect(textArea.innerText.trim()).toBe(expandedText);
+          seeMoreButton.click();
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+              fixture.detectChanges();
+              ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+              textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
 
-      seeMoreButton.click();
-      document.querySelector('.sky-text-expand-container')
-        .dispatchEvent(createTransition());
-      fixture.detectChanges();
-
-      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
-      textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
-
-      expect(container.style.height).toBe('auto');
-      expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
-      expect(ellipsis).not.toBeNull();
-      expect(textArea.innerText.trim()).toBe(collapsedText);
-    });
+              expect(container.style.maxHeight).toBe('');
+              expect(seeMoreButton.innerText.trim())
+                .toBe(SkyResources.getString('text_expand_see_more'));
+              expect(ellipsis).not.toBeNull();
+              expect(textArea.innerText.trim()).toBe(collapsedText);
+            });
+          });
+        });
+      });
+    }), 300000);
   });
 
   describe('modal behaviors', () => {
