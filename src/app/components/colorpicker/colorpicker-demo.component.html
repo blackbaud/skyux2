@@ -1,10 +1,17 @@
 <h3>Colorpicker</h3>
 <div style="max-width: 400px">
   <sky-colorpicker #colorPickerExample1>
-    <input type="text"
+    <button type="text"
     [skyColorpickerInput]="colorPickerExample1"
-    [(skyColorpicker)]="arrayColors[selectedColor]"
+    [(ngModel)]="selectedColor1"
+    #color="ngModel"
     [presetColors]="['#333333', '#888888', '#EFEFEF', '#FFF', '#BD4040','#617FC2','#60AC68','#3486BA','#E87134','#DA9C9C']"
-    />
+    [initialColor]="selectedColor1"
+    [outputFormat]="selectedOutputFormat1"
+    ></button>
   </sky-colorpicker>
+
+  <div>
+    {{selectedColor1?.rgba}}
+  </div>
 </div>

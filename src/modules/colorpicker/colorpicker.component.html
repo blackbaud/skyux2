@@ -1,11 +1,11 @@
 <div class="sky-input-group">
-<ng-content></ng-content>
-  <sky-dropdown buttonType="caret-down" alignment="right">
+  <ng-content></ng-content>
+  <sky-dropdown>
     <sky-dropdown-menu>
 
       <div class="sky-colorpicker-container">
 
-        <div class="color-picker" #colorPicker>
+        <div class="colorpicker" #colorPicker>
           <div [skyColorpickerSlider] [style.background-color]="hueSliderColor" [xAxis]="1" [yAxis]="1" (newColorContrast)="saturationAndLightness=$event"
             class="saturation-lightness" [color]="saturation-lightness">
             <div [style.left.px]="slider.saturation" [style.top.px]="slider.value" class="cursor"></div>
@@ -57,7 +57,8 @@
               <div>A:</div>
             </div>
             <div class="box">
-              <input [skyColorpickerText] (newColorContrast)="hex=$event" [value]="hexText" />
+              <input [skyColorpickerText] (newColorContrast)="hex=$event" [value]="hexText" pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+              />
 
               <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" [color]="red" (newColorContrast)="red=$event"
                 [value]="rgbaText?.red" />
@@ -86,5 +87,5 @@
       </div>
     </sky-dropdown-menu>
   </sky-dropdown>
-
+  <button class="sky-colorpicker-reset-button" (click)="setColorFromString('#fff')"></button>
 </div>

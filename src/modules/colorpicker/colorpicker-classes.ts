@@ -20,6 +20,15 @@ export class Rgba {
     public blue: number,
     public alpha: number) { }
 }
+
+export class Cmyk {
+  constructor(
+    public cyan: number,
+    public magenta: number,
+    public yellow: number,
+    public key: number
+  ) { }
+}
 export class SliderPosition {
   constructor(
     public hue: number,
@@ -35,11 +44,13 @@ export class SliderDimension {
     public alpha: number) { }
 }
 
-export class Cmyk {
+export class SkyColorpickerOutput {
   constructor(
-    public cyan: number,
-    public magenta: number,
-    public yellow: number,
-    public key: number
+    public local: string,
+    public hsva: Hsva,
+    public rgba: Rgba,
+    public hsla: Hsla,
+    public cmyk: Cmyk,
+    public hex: string
   ) { }
 }

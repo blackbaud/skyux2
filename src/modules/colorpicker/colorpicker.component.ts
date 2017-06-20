@@ -12,12 +12,20 @@ import {
 
 import {
   SkyColorpickerChangeAxis,
-  SkyColorpickerChangeColor,
-  SkyColorpickerOutput
+  SkyColorpickerChangeColor
 } from './colorpicker.interface';
 
 import { SkyColorpickerService } from './colorpicker.service';
-import { Rgba, Hsla, Hsva, Cmyk, SliderPosition, SliderDimension } from './colorpicker-classes';
+
+import {
+  Rgba,
+  Hsla,
+  Hsva,
+  Cmyk,
+  SliderPosition,
+  SliderDimension,
+  SkyColorpickerOutput
+} from './colorpicker-classes';
 
 @Component({
   selector: 'sky-colorpicker',
@@ -43,8 +51,9 @@ export class SkyColorpickerComponent implements OnInit {
   public returnFormat: string;
   public rgbaText: Rgba;
   public selectedColor: string;
+  private outputColor: string;
   public slider: SliderPosition;
-
+  public initialColor: string;
 
   @ViewChild('colorPicker')
   private colorPickerElement: any;
@@ -53,9 +62,7 @@ export class SkyColorpickerComponent implements OnInit {
   private directiveElementRef: ElementRef;
   private directiveInstance: any;
   private hsva: Hsva;
-  private initialColor: string;
-  private listenerMouseDown: any;
-  private outputColor: string;
+
   private sliderDimMax: SliderDimension;
 
   @HostListener('click', ['$event'])
@@ -121,7 +128,9 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public onChangeColorHex8(color: string): string {
-    return this.service.outputFormat(this.service.stringToHsva(color, true), 'rgba', true);
+    let stringToHsva: Hsva = this.service.stringToHsva(color, true);
+    let hsvaToRgba: string = this.service.outputFormat(stringToHsva, 'rgba', true);
+    return hsvaToRgba;
   }
 
   public cancelColor() {
@@ -153,7 +162,7 @@ export class SkyColorpickerComponent implements OnInit {
     hsla.saturation = change.colorValue / change.maxRange;
     this.hsva = this.service.hsla2hsva(hsla);
     // 'saturation',
-    this.update(change);
+    this.update();
   }
 
   public set lightness(change: SkyColorpickerChangeColor) {
@@ -161,42 +170,42 @@ export class SkyColorpickerComponent implements OnInit {
     hsla.lightness = change.colorValue / change.maxRange;
     this.hsva = this.service.hsla2hsva(hsla);
     // 'lightness',
-    this.update(change);
+    this.update();
   }
 
   public set hue(change: SkyColorpickerChangeAxis) {
     this.hsva.hue = change.xCoordinate / change.maxRange;
-    this.update(change);
+    this.update();
   }
 
   public set red(change: SkyColorpickerChangeColor) {
     let rgba = this.service.hsvaToRgba(this.hsva);
     rgba.red = change.colorValue / change.maxRange;
     this.hsva = this.service.rgbaToHsva(rgba);
-    this.update(change);
+    this.update();
   }
 
   public set green(change: SkyColorpickerChangeColor) {
     let rgba = this.service.hsvaToRgba(this.hsva);
     rgba.green = change.colorValue / change.maxRange;
     this.hsva = this.service.rgbaToHsva(rgba);
-    this.update(change);
+    this.update();
   }
   public set blue(change: SkyColorpickerChangeColor) {
     let rgba = this.service.hsvaToRgba(this.hsva);
     rgba.blue = change.colorValue / change.maxRange;
     this.hsva = this.service.rgbaToHsva(rgba);
-    this.update(change);
+    this.update();
   }
 
   public set alphaAxis(change: SkyColorpickerChangeAxis) {
     this.hsva.alpha = change.xCoordinate / change.maxRange;
-    this.update(change);
+    this.update();
   }
 
   public set alphaColor(change: SkyColorpickerChangeColor) {
     this.hsva.alpha = change.colorValue / change.maxRange;
-    this.update(change);
+    this.update();
   }
 
   public set hex(change: string) {
@@ -208,7 +217,7 @@ export class SkyColorpickerComponent implements OnInit {
     this.hsva.saturation = value.xCoordinate / value.xAxis;
     this.hsva.value = value.yCoordinate / value.yAxis;
     // 'saturation-lightness',
-    this.update(value);
+    this.update();
   }
 
   public formatPolicy(): number {
@@ -219,11 +228,7 @@ export class SkyColorpickerComponent implements OnInit {
     return this.format;
   }
 
-  public update(inputValue: Object = {}) {
-
-    let update: SkyColorpickerChangeColor = <SkyColorpickerChangeColor>inputValue;
-    //this.directiveInstance.inputChanged({ slider: update.color, value: update.colorValue });
-
+  public update() {
     if (this.sliderDimMax) {
       let hsla = this.service.hsva2hsla(this.hsva);
       let rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
@@ -231,11 +236,7 @@ export class SkyColorpickerComponent implements OnInit {
         this.service.hsvaToRgba(new Hsva(this.hsva.hue, 1, 1, 1))
       );
 
-      this.hslaText = new Hsla(
-        Math.round((hsla.hue) * 360),
-        Math.round(hsla.saturation * 100),
-        Math.round(hsla.lightness * 100),
-        Math.round(hsla.alpha * 100) / 100);
+      this.hslaText = this.service.denormalizeHSLA(hsla);
       this.rgbaText = new Rgba(
         rgba.red,
         rgba.green,
@@ -252,9 +253,10 @@ export class SkyColorpickerComponent implements OnInit {
 
       let lastOutput = this.outputColor;
       this.outputColor = this.service.outputFormat(
-        this.hsva, this.outputFormat, this.alphaChannel === 'hex8'
-      );
-      this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
+        this.hsva,
+        this.outputFormat,
+        this.alphaChannel === 'hex8');
+     // this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
 
       this.slider = new SliderPosition(
         (this.hsva.hue) * this.sliderDimMax.hue - 8,
@@ -263,8 +265,10 @@ export class SkyColorpickerComponent implements OnInit {
         this.hsva.alpha * this.sliderDimMax.alpha - 8);
 
       if (lastOutput !== this.outputColor) {
-        this.directiveInstance.colorChanged(this.outputColor);
+        this.directiveInstance.writeModelValue(this.outputColor);
       }
+
+
     }
   }
 

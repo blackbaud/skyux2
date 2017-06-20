@@ -85,7 +85,7 @@ export class SkyColorpickerService {
   public rgbaToCmyk(rgba: Rgba): Cmyk {
     let cmyk: Cmyk = new Cmyk(0, 0, 0, 0), k: number;
     k = 1 - Math.max(rgba.red, rgba.green, rgba.blue);
-    if (k == 1) {
+    if (k === 1) {
       return new Cmyk(0, 0, 0, 1);
     } cmyk.cyan = (1 - rgba.red - k) / (1 - k);
     cmyk.magenta = (1 - rgba.green - k) / (1 - k);
@@ -155,7 +155,7 @@ export class SkyColorpickerService {
     ];
     if (hex8) {
       stringParsers.push({
-        re: /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})$/,
+        re: /#?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})$/,
         parse: function (execResult: any) {
           return new Rgba(parseInt(execResult[1], 16) / 255,
             parseInt(execResult[2], 16) / 255,
@@ -174,7 +174,7 @@ export class SkyColorpickerService {
         }
       },
         {
-          re: /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])$/,
+          re: /#?([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])$/,
           parse: function (execResult: any) {
             return new Rgba(parseInt(execResult[1] + execResult[1], 16) / 255,
               parseInt(execResult[2] + execResult[2], 16) / 255,
@@ -206,50 +206,19 @@ export class SkyColorpickerService {
 
   public outputFormat(hsva: Hsva, outputFormat: string, allowHex8: boolean): string {
     let r: string;
-    if (hsva.alpha < 1) {
-      switch (outputFormat) {
-        case 'hsla':
-          let hsla = this.hsva2hsla(hsva);
-          let hslaText = new Hsla(
-            Math.round((hsla.hue) * 360),
-            Math.round(hsla.saturation * 100),
-            Math.round(hsla.lightness * 100),
-            Math.round(hsla.alpha * 100) / 100);
-          r = `hsla(
-            ${hslaText.hue},
-            ${hslaText.saturation}%,
-            ${hslaText.lightness}%,
-            ${hslaText.alpha})`;
-          return r;
-        default:
-          if (allowHex8 && outputFormat === 'hex') {
-            return this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
-          }
-          let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
-          r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${Math.round(rgba.alpha * 100) / 100})`;
-          return r;
-      }
-    } else {
-      switch (outputFormat) {
-        case 'hsla':
-          let hsla = this.hsva2hsla(hsva);
-          let hslaText = new Hsla(
-            Math.round((hsla.hue) * 360),
-            Math.round(hsla.saturation * 100),
-            Math.round(hsla.lightness * 100),
-            Math.round(hsla.alpha * 100) / 100);
-          r = `hsl(${hslaText.hue},${hslaText.saturation}%,${hslaText.lightness}%)`;
-          return r;
-        case 'rgba':
-          let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
-          r = `rgb(${rgba.red},${rgba.green},${rgba.blue})`;
-          return r;
-        default:
-
-          let color = this.denormalizeRGBA(this.hsvaToRgba(hsva));
-          return this.hexText(color, allowHex8);
-      }
+    switch (outputFormat) {
+      case 'hsla':
+        let hsla = this.denormalizeHSLA(this.hsva2hsla(hsva));
+        r = `hsla(${hsla.hue},${hsla.saturation}%,${hsla.lightness}%,${hsla.alpha})`;
+        break;
+      case 'hex':
+        r = this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
+        break;
+      default:
+        let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
+        r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${Math.round(rgba.alpha * 100) / 100})`;
     }
+    return r;
   }
 
   public hexText(rgba: Rgba, allowHex8: boolean): string {
@@ -280,5 +249,14 @@ export class SkyColorpickerService {
       Math.round(rgba.blue * 255),
       rgba.alpha);
   }
+
+  public denormalizeHSLA(hsla: Hsla): Hsla {
+    return new Hsla(
+      Math.round((hsla.hue) * 360),
+      Math.round(hsla.saturation * 100),
+      Math.round(hsla.lightness * 100),
+      Math.round(hsla.alpha * 100) / 100);
+  }
+
 
 }
