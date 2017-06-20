@@ -758,6 +758,28 @@ export class SkyDemoComponentsService {
           ];
         }
       },
+       {
+        name: 'Text Highlight',
+        icon: 'clock-o',
+        summary: `The text highlight directive highlights text based on a search term.`,
+        url: '/components/text-highlight',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'text-highlight-demo.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.html')
+            },
+            {
+              name: 'tabs-demo.component.ts',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.ts'),
+              componentName: 'SkyTextHighlightDemoComponent',
+              bootstrapSelector: 'sky-text-highlight-demo'
+            }
+          ];
+        }
+      },
       {
         name: 'Tiles',
         icon: 'th-large',
