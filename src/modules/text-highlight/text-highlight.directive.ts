@@ -7,8 +7,6 @@ import {
   ElementRef
 } from '@angular/core';
 
-const highlightStyle = 'style="background-color: yellow"';
-
 @Directive({
     selector: '[skyHighlight]'
 })
@@ -22,14 +20,13 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
   private static getHighlightedNodeText(node: HTMLElement, searchText: string): string {
     const html = node.innerHTML;
     const searchRegex = new RegExp(searchText, 'gm');
-    const newHtml = html.replace(searchRegex, `<span ${highlightStyle}>${searchText}</span>`);
+    const newHtml = html.replace(searchRegex, `<mark>${searchText}</mark>`);
     return newHtml;
   }
 
   private static getRemoveHighlightedHtml(node: HTMLElement): string {
     const html = node.innerHTML;
-    const regexText = `<span ${highlightStyle}>|<\/span>`;
-    const searchRegex = new RegExp(regexText, 'gm');
+    const searchRegex = new RegExp(`<mark>|<\/mark>`, 'gm');
     const highlightRemoved = html.replace(searchRegex, '');
 
     return highlightRemoved;
