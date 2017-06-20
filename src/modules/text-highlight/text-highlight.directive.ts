@@ -1,4 +1,13 @@
-import { Directive, SimpleChanges, Input, AfterViewInit, OnChanges } from '@angular/core';
+import {
+  Directive,
+  SimpleChanges,
+  Input,
+  AfterViewInit,
+  OnChanges,
+  ElementRef
+} from '@angular/core';
+
+const highlightStyle = 'style="background-color: yellow"';
 
 @Directive({
     selector: '[skyHighlight]'
@@ -6,16 +15,55 @@ import { Directive, SimpleChanges, Input, AfterViewInit, OnChanges } from '@angu
 export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
 
   @Input()
-  public searchText: string = undefined;
+  public skyHighlight: string = undefined;
+
+  private existingHighlight = false;
+
+  private static getHighlightedNodeText(node: HTMLElement, searchText: string): string {
+    const html = node.innerHTML;
+    const searchRegex = new RegExp(searchText, 'gm');
+    const newHtml = html.replace(searchRegex, `<span ${highlightStyle}>${searchText}</span>`);
+    return newHtml;
+  }
+
+  private static getRemoveHighlightedHtml(node: HTMLElement): string {
+    const html = node.innerHTML;
+    const regexText = `<span ${highlightStyle}>|<\/span>`;
+    const searchRegex = new RegExp(regexText, 'gm');
+    const highlightRemoved = html.replace(searchRegex, '');
+
+    return highlightRemoved;
+  }
+
+  constructor(private el: ElementRef) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.highlightText();
+    this.highlight();
   }
 
   public ngAfterViewInit(): void {
-    this.highlightText();
+    this.highlight();
   }
 
-  public highlightText() {
+  private readyForHighlight(searchText: string): boolean {
+    return searchText && this.el.nativeElement;
+  }
+
+  private highlight(): void {
+    if (this.existingHighlight) {
+      // remove existing highlight
+      const node: HTMLElement = this.el.nativeElement;
+      const newHtml = SkyTextHighlightDirective.getRemoveHighlightedHtml(this.el.nativeElement);
+      node.innerHTML = newHtml;
+    }
+
+    const searchText = this.skyHighlight;
+
+    if (this.readyForHighlight(searchText)) {
+      const node: HTMLElement = this.el.nativeElement;
+      const newHtml = SkyTextHighlightDirective.getHighlightedNodeText(node, searchText);
+      node.innerHTML = newHtml;
+      this.existingHighlight = true;
+    }
   }
 }

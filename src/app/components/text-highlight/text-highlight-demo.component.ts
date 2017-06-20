@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './text-highlight-demo.component.html'
 })
 export class SkyTextHighlightDemoComponent {
-  public constructor() { }
+  public searchTerm: string = 'test';
 }
