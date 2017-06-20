@@ -1,3 +1,10 @@
+# 2.0.0-rc.1 (2017-06-20)
+
+  ## Breaking changes
+    - Fixed typo to change SkyTimepickerTimeOutput `ios8601` property to be `iso8601`.
+
+  - All the updates for 2.0.0-beta.32.
+
 # 2.0.0-beta.32 (2017-06-20)
 
   - Tweaked animation for text-expand in firefox. (#695)
