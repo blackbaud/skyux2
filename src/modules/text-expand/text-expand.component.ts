@@ -21,6 +21,7 @@ import {
 import {
   SkyTextExpandAdapterService
 } from './text-expand-adapter.service';
+
 @Component({
   selector: 'sky-text-expand',
   templateUrl: './text-expand.component.html',
@@ -47,6 +48,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
   public containerEl: ElementRef;
   @ViewChild('text')
   public textEl: ElementRef;
+
   public maxNewlines: number = 1;
   public isExpanded: boolean = false;
   public expandable: boolean;
@@ -84,13 +86,20 @@ export class SkyTextExpandComponent implements AfterContentInit {
     } else {
       // Normal View
       if (!this.isExpanded) {
-        this
-          .animateText(this.collapsedText, this.expandedText, true);
-        this.isExpanded = true;
+        this.setContainerMaxHeight();
+        setTimeout(() => {
+          this.isExpanded = true;
+          this
+            .animateText(this.collapsedText, this.expandedText, true);
+        }, 10);
+
       } else {
-        this
-          .animateText(this.expandedText, this.collapsedText, false);
-        this.isExpanded = false;
+        this.setContainerMaxHeight();
+        setTimeout(() => {
+          this.isExpanded = false;
+          this
+            .animateText(this.expandedText, this.collapsedText, false);
+        }, 10);
       }
     }
   }
@@ -99,11 +108,20 @@ export class SkyTextExpandComponent implements AfterContentInit {
     // Ensure the correct text is displayed
     this.textExpandAdapter.setText(this.textEl, this.textToShow);
     // Set height back to auto so the browser can change the height as needed with window changes
-    this.textExpandAdapter.setContainerHeight(this.containerEl, 'auto');
+    this.textExpandAdapter.setContainerHeight(this.containerEl, undefined);
   }
 
   public ngAfterContentInit() {
     this.setup(this.expandedText);
+  }
+
+  private setContainerMaxHeight() {
+    // ensure everything is reset
+    this.animationEnd();
+    /* Before animation is kicked off, ensure that a maxHeight exists */
+    /* Once we have support for angular v4 animations with parameters we can use that instead */
+    let currentHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
+    this.textExpandAdapter.setContainerHeight(this.containerEl, `${currentHeight}px`);
   }
 
   private setup(value: string) {
@@ -156,8 +174,11 @@ export class SkyTextExpandComponent implements AfterContentInit {
 
   private animateText(previousText: string, newText: string,
     expanding: boolean) {
+
     let adapter = this.textExpandAdapter;
     let container = this.containerEl;
+    // Reset max height
+    adapter.setContainerHeight(container, undefined);
     // Measure the current height so we can animate from it.
     let currentHeight = adapter.getContainerHeight(container);
     this.textToShow = newText;
@@ -170,11 +191,16 @@ export class SkyTextExpandComponent implements AfterContentInit {
       // the collapse animation to avoid showing a big chunk of whitespace.
       adapter.setText(this.textEl, previousText);
     }
+
     adapter.setContainerHeight(container, `${currentHeight}px`);
     // This timeout is necessary due to the browser needing to pick up the non-auto height being set
     // in order to do the transtion in height correctly. Without it the transition does not fire.
-    setTimeout(function () {
+    setTimeout(() => {
       adapter.setContainerHeight(container, `${newHeight}px`);
-    }, 5);
+      /* This resets values if the transition does not get kicked off */
+      setTimeout(() => {
+        this.animationEnd();
+      }, 500);
+    }, 10);
   }
 }

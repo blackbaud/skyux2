@@ -1,3 +1,8 @@
+# 2.0.0-beta.32 (2017-06-20)
+
+  - Tweaked animation for text-expand in firefox. (#695)
+  - Handle search when paging does not exist. (#813)
+
 # 2.0.0-rc.0 (2017-06-16)
 
   - Updated dependencies to support Angular 4.1.3. (#549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
