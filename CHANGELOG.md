@@ -1,4 +1,19 @@
+# 2.0.0-beta.32 (2017-06-20)
+
+  - Tweaked animation for text-expand in firefox. (#695)
+  - Handle search when paging does not exist. (#813)
+
+# 2.0.0-beta.31 (2017-06-14)
+
+  - Added ability to specify sizes for modals. (#489) (Thanks @Blackbaud-AdamHickey)
+  - Added timepicker module to core exports. (#754)
+  - Fixed responsiveness for large modal size. (#778)
+  - Made the dropdown adjust alignment based on space available. (#777)
+  - Fixed the AOT compilation for datepicker. (#794) (Thanks @Blackbaud-JoshGerdes)
+  - Added `isPrimary` flag for dropdowns. (#606) (Thanks @Blackbaud-SandhyaRajasabeson)
+
 # 2.0.0-beta.30 (2017-06-07)
+  
   - Fixed bug when modal service injected into ngIf block. (#744)
   - Added locale date format as default to datepicker. (#732) (Thanks @Blackbaud-JoshGerdes)
   - Added error modal to avatar when image upload fails (#204) (Thanks @Blackbaud-AdamHickey)
