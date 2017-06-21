@@ -12,11 +12,11 @@
       [attr.title]="title"
   >
     <div [ngSwitch]="buttonType">
-      <template ngSwitchCase="context-menu">
+      <ng-template ngSwitchCase="context-menu">
         <i class="fa fa-ellipsis-h"></i>
-      </template>
+      </ng-template>
 
-      <template ngSwitchDefault>
+      <ng-template ngSwitchDefault>
         <div class="sky-dropdown-button-container" *ngIf="buttonType === 'select' || buttonType === 'tab' || !buttonType">
           <div class="sky-dropdown-button-content-container">
             <ng-content select="sky-dropdown-button"></ng-content>
@@ -33,7 +33,7 @@
             ></i>
         </div>
 
-      </template>
+      </ng-template>
     </div>
   </button>
   <div class="sky-dropdown-menu">

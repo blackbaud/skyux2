@@ -8,7 +8,9 @@ import {
 
 export class ListToolbarConfigOrchestrator
   extends ListToolbarStateOrchestrator<ListToolbarConfigModel> {
+  /* istanbul ignore next */
   constructor() {
+
     super();
 
     this
