@@ -1,0 +1,9 @@
+<input type="text" [(ngModel)]="searchTerm" 
+/>
+<sky-checkbox [(ngModel)]="showAdditionalContent"></sky-checkbox>
+
+<div class="sky-test-div-container" [skyHighlight]="searchTerm">Here is some test text.
+    <div *ngIf="showAdditionalContent">
+        Here is additional text that was previously hidden.
+    </div>
+</div>
