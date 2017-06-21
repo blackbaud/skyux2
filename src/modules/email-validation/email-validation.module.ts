@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { SkyEmailValidationInputDirective } from './email-validation-input.directive';
+import { SkyEmailValidationDirective } from './email-validation.directive';
 
 @NgModule({
     declarations: [
-        SkyEmailValidationInputDirective
+        SkyEmailValidationDirective
     ],
     imports: [
         FormsModule
     ],
     exports: [
-        SkyEmailValidationInputDirective
+        SkyEmailValidationDirective
     ]
 })
 export class SkyEmailValidationModule { }

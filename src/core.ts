@@ -12,6 +12,7 @@ import { SkyColumnSelectorModule } from './modules/column-selector';
 import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
+import { SkyEmailValidationDirective} from './modules/email-validation';
 import { SkyEmailValidationModule } from './modules/email-validation';
 import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
@@ -55,6 +56,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyColumnSelectorModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
+    SkyEmailValidationDirective,
     SkyEmailValidationModule,
     SkyErrorModule,
     SkyFileAttachmentsModule,
@@ -149,7 +151,8 @@ export {
   SkyDropdownModule
 } from './modules/dropdown';
 export {
-  SkyEmailValidationModule
+  SkyEmailValidationModule,
+  SkyEmailValidationDirective
 } from './modules/email-validation'
 export {
   SkyErrorComponent,

@@ -51,7 +51,7 @@ describe('Email validation', () => {
         component = fixture.componentInstance;
     });
 
-    fit('should validate correct input', fakeAsync(() => {
+    it('should validate correct input', fakeAsync(() => {
         fixture.detectChanges();
         tick();
         setInput(nativeElement, 'joe@abc.com', fixture);
@@ -64,7 +64,7 @@ describe('Email validation', () => {
         expect(ngModel.control.touched).toBe(false);
 
     }));
-    fit('should validate incorrect input', fakeAsync(() => {
+    it('should validate incorrect input', fakeAsync(() => {
         fixture.detectChanges();
         tick();
         setInput(nativeElement, '[]awefhawenfc0293ejwf]', fixture);
@@ -77,7 +77,7 @@ describe('Email validation', () => {
         expect(ngModel.control.touched).toBe(false);
     }));
 
-    fit('should handle invalid and then valid input', fakeAsync(() => {
+    it('should handle invalid and then valid input', fakeAsync(() => {
         fixture.detectChanges();
         tick();
         setInput(nativeElement, '[]awefhawenfc0293ejwf]', fixture);
