@@ -4,7 +4,8 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
 
 import { SkyDateFormatter } from './date-formatter';
@@ -98,7 +99,7 @@ export class SkyDatepickerCalendarInnerComponent implements OnInit, OnChanges {
     }
   }
 
-  public ngOnChanges(): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     this.refreshView();
   }
 

@@ -46,11 +46,22 @@ export class SkyDropdownComponent implements OnDestroy {
   @Input()
   public alignment: string = 'left';
 
+  @Input()
+  public get buttonStyle(): string{
+    return this._buttonStyle || 'default';
+  }
+
+  public set buttonStyle(value: string) {
+    this._buttonStyle = value;
+  }
+
   private open = false;
 
   private opening = false;
 
   private _buttonType: string;
+
+  private _buttonStyle: string;
 
   private _trigger: string;
 

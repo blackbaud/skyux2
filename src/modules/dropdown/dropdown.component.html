@@ -2,18 +2,21 @@
   <button
       type="button"
       (click)="click()"
-      class="sky-btn sky-dropdown-button sky-btn-default"
-      [ngClass]="'sky-dropdown-button-type-' + buttonType"
+      class="sky-btn sky-dropdown-button"
+      [ngClass]="[
+        'sky-dropdown-button-type-' + buttonType,
+        'sky-btn-' + buttonStyle
+      ]"
       (document:click)="windowClick()"
       [attr.aria-label]="label"
       [attr.title]="title"
   >
     <div [ngSwitch]="buttonType">
-      <template ngSwitchCase="context-menu">
+      <ng-template ngSwitchCase="context-menu">
         <i class="fa fa-ellipsis-h"></i>
-      </template>
+      </ng-template>
 
-      <template ngSwitchDefault>
+      <ng-template ngSwitchDefault>
         <div class="sky-dropdown-button-container" *ngIf="buttonType === 'select' || buttonType === 'tab' || !buttonType">
           <div class="sky-dropdown-button-content-container">
             <ng-content select="sky-dropdown-button"></ng-content>
@@ -30,7 +33,7 @@
             ></i>
         </div>
 
-      </template>
+      </ng-template>
     </div>
   </button>
   <div class="sky-dropdown-menu">

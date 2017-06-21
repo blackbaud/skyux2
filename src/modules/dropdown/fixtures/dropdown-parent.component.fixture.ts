@@ -8,4 +8,5 @@ export class DropdownParentTestComponent {
   public trigger: String;
   public buttonType: String;
   public myTitle: string;
+  public buttonStyle: String;
 }

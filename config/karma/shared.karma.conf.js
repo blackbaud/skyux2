@@ -45,6 +45,10 @@ module.exports = function (config) {
     browserDisconnectTimeout: 3e5,
     browserDisconnectTolerance: 3,
     browserNoActivityTimeout: 3e5,
-    captureTimeout: 3e5
+    captureTimeout: 3e5,
+    browserConsoleLogOptions: {
+      level: 'log',
+      terminal: true
+    }
   });
 };
