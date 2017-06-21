@@ -47,12 +47,12 @@ export class SkyDropdownComponent implements OnDestroy {
   public alignment: string = 'left';
 
   @Input()
-  public get isPrimary(): boolean {
-    return this._isPrimary;
+  public get buttonStyle(): string{
+    return this._buttonStyle;
   }
 
-  public set isPrimary(flag: boolean) {
-    this._isPrimary = flag;
+  public set buttonStyle(value: string) {
+    this._buttonStyle= value;
   }
 
   private open = false;
@@ -61,7 +61,7 @@ export class SkyDropdownComponent implements OnDestroy {
 
   private _buttonType: string;
 
-  private _isPrimary: boolean;
+  private _buttonStyle: string;
 
   private _trigger: string;
 
