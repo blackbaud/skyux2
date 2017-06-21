@@ -35,8 +35,7 @@ describe('Highlight', () => {
 
   it('should not highlight any text when search term is blank', () => {
       const containerEl = nativeElement.querySelector('.sky-test-div-container');
-      const expectedHtml =
-`Here is some test text.
+      const expectedHtml = `Here is some test text.
     <!--bindings={
   "ng-reflect-ng-if": "false"
 }-->`;
@@ -49,8 +48,7 @@ describe('Highlight', () => {
       fixture.detectChanges();
 
       const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml =
-`Here is some test <mark>text</mark>.
+      const expectedHtml = `Here is some test <mark>text</mark>.
     <!--bindings={
   "ng-reflect-ng-if": "false"
 }-->`;
@@ -58,8 +56,18 @@ describe('Highlight', () => {
       expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
   });
 
-//   it('should highlight case insensitive search term', () => {
-//   });
+  it('should highlight case insensitive search term', () => {
+      component.searchTerm = 'here';
+      fixture.detectChanges();
+
+      const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+      const expectedHtml = `<mark>Here</mark> is some test text.
+    <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->`;
+
+      expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+  });
 
 //   it('should highlight search term in nested component', () => {
 //   });
