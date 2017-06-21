@@ -9,5 +9,5 @@ export class DropdownTestComponent {
   public buttonType: String;
   public myTitle: string;
   public alignment: string = 'left';
-  public buttonStyle: String;
+  public buttonStyle: string;
 }

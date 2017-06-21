@@ -48,11 +48,11 @@ export class SkyDropdownComponent implements OnDestroy {
 
   @Input()
   public get buttonStyle(): string{
-    return this._buttonStyle;
+    return this._buttonStyle || 'default';
   }
 
   public set buttonStyle(value: string) {
-    this._buttonStyle= value;
+    this._buttonStyle = value;
   }
 
   private open = false;
