@@ -56,7 +56,6 @@ import { SkyWaitModule } from './modules/wait';
     SkyColumnSelectorModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
-    SkyEmailValidationDirective,
     SkyEmailValidationModule,
     SkyErrorModule,
     SkyFileAttachmentsModule,
@@ -151,8 +150,8 @@ export {
   SkyDropdownModule
 } from './modules/dropdown';
 export {
-  SkyEmailValidationModule,
-  SkyEmailValidationDirective
+  SkyEmailValidationDirective,
+  SkyEmailValidationModule
 } from './modules/email-validation'
 export {
   SkyErrorComponent,
