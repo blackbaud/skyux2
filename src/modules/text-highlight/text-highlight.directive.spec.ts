@@ -37,8 +37,8 @@ describe('Highlight', () => {
       const containerEl = nativeElement.querySelector('.sky-test-div-container');
       const expectedHtml =
 `Here is some test text.
-    <!--template bindings={
-  "ng-reflect-ng-if": null
+    <!--bindings={
+  "ng-reflect-ng-if": "false"
 }-->`;
 
       expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
@@ -51,8 +51,8 @@ describe('Highlight', () => {
       const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
       const expectedHtml =
 `Here is some test <mark>text</mark>.
-    <!--template bindings={
-  "ng-reflect-ng-if": null
+    <!--bindings={
+  "ng-reflect-ng-if": "false"
 }-->`;
 
       expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
