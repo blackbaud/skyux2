@@ -5,7 +5,7 @@
       class="sky-btn sky-dropdown-button"
       [ngClass]="[
         'sky-dropdown-button-type-' + buttonType,
-        isPrimary ? 'sky-btn-primary' : 'sky-btn-default'
+        'sky-btn-' + buttonStyle
       ]"
       (document:click)="windowClick()"
       [attr.aria-label]="label"
