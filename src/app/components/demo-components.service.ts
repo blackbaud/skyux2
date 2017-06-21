@@ -294,6 +294,28 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Highlight',
+        icon: 'paint-brush',
+        summary: `The highlight component highlights text within DOM elements.`,
+        url: '/components/text-highlight',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'text-highlight-demo.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.html')
+            },
+            {
+              name: 'tabs-demo.component.ts',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.ts'),
+              componentName: 'SkyTextHighlightDemoComponent',
+              bootstrapSelector: 'sky-text-highlight-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Key info',
         icon: 'key',
         // tslint:disable-next-line
@@ -754,28 +776,6 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./text-expand/text-expand-demo.component.ts'),
               componentName: 'SkyTextExpandDemoComponent',
               bootstrapSelector: 'sky-text-expand-demo'
-            }
-          ];
-        }
-      },
-       {
-        name: 'Text Highlight',
-        icon: 'clock-o',
-        summary: `The text highlight directive highlights text based on a search term.`,
-        url: '/components/text-highlight',
-        getCodeFiles: function () {
-          return [
-            {
-              name: 'text-highlight-demo.component.html',
-              // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.html')
-            },
-            {
-              name: 'tabs-demo.component.ts',
-              // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.ts'),
-              componentName: 'SkyTextHighlightDemoComponent',
-              bootstrapSelector: 'sky-text-highlight-demo'
             }
           ];
         }
