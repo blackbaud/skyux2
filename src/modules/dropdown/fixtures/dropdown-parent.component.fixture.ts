@@ -8,5 +8,5 @@ export class DropdownParentTestComponent {
   public trigger: String;
   public buttonType: String;
   public myTitle: string;
-  public isPrimary: boolean;
+  public buttonStyle: String;
 }

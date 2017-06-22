@@ -153,7 +153,7 @@ export class SkyTimepickerInputDirective implements
         'minute': moment(time, currentFormat).minute(),
         'meridie': moment(time, currentFormat).format('A'),
         'timezone': moment(time, currentFormat).format('Z'),
-        'ios8601': moment(time, currentFormat).format(),
+        'iso8601': moment(time, currentFormat).format(),
         'local': moment(time, currentFormat).format(currentFormat),
         'customFormat': this.returnFormat
       };

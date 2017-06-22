@@ -82,7 +82,7 @@ export class SkyTimepickerComponent implements OnInit {
       /* istanbul ignore else */
       /* sanity check */
       if (newTime.local !== 'Invalid date') {
-        this.activeTime = newTime.ios8601;
+        this.activeTime = newTime.iso8601;
       }
     }
   }
@@ -100,7 +100,7 @@ export class SkyTimepickerComponent implements OnInit {
       minute: moment(this.activeTime).minute(),
       meridie: moment(this.activeTime).format('A'),
       timezone: moment(this.activeTime).format('Z'),
-      ios8601: this.activeTime,
+      iso8601: this.activeTime,
       local: moment(this.activeTime).format(this.localeFormat),
       customFormat: (typeof this.returnFormat !== 'undefined')
         ? this.returnFormat : this.localeFormat
