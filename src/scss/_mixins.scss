@@ -47,7 +47,8 @@
 }
 
 @mixin sky-headline {
-  font: 400 $sky-alternate-font-size-sm $sky-font-family-narrow;
+  font: 500 $sky-alternate-font-size-sm $sky-font-family-narrow;
+  font-stretch: condensed;
   color: $sky-text-color;
 }
 
@@ -65,6 +66,7 @@
 @mixin sky-section-heading {
   color: $sky-text-color;
   font: 300 22px $sky-font-family-narrow;
+  font-stretch: condensed;
 }
 
 @mixin sky-btn-tab {

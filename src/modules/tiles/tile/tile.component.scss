@@ -20,9 +20,7 @@
 }
 
 .sky-tile-title {
-    font-family: $sky-font-family-narrow;
-    font-size: 22px;
-    font-weight: 100;
+    @include sky-section-heading; 
     margin: 0;
     padding: $sky-padding $sky-tile-header-tool-padding;
 }
