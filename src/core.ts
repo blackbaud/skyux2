@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 import { SkyAlertModule } from './modules/alert';
+import { SkyNumericModule } from './modules/numeric';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
 import { SkyCardModule } from './modules/card';
@@ -46,6 +47,7 @@ import { SkyWaitModule } from './modules/wait';
 @NgModule({
   exports: [
     SkyAlertModule,
+    SkyNumericModule,
     SkyAvatarModule,
     SkyActionButtonModule,
     SkyCardModule,
@@ -93,6 +95,11 @@ export {
   SkyAlertComponent,
   SkyAlertModule
 } from './modules/alert';
+export {
+  SkyNumericModule,
+  SkyNumericPipe,
+  SkyNumericService
+} from './modules/numeric'
 export {
   SkyAvatarComponent,
   SkyAvatarInnerComponent,
@@ -360,7 +367,8 @@ export {
   SkyTilesModule
 } from './modules/tiles';
 export {
-  SkyTimepickerComponent
+  SkyTimepickerComponent,
+  SkyTimepickerModule
 } from './modules/timepicker';
 export {
   SkyToolbarComponent,

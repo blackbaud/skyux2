@@ -46,11 +46,22 @@ export class SkyDropdownComponent implements OnDestroy {
   @Input()
   public alignment: string = 'left';
 
+  @Input()
+  public get isPrimary(): boolean {
+    return this._isPrimary;
+  }
+
+  public set isPrimary(flag: boolean) {
+    this._isPrimary = flag;
+  }
+
   private open = false;
 
   private opening = false;
 
   private _buttonType: string;
+
+  private _isPrimary: boolean;
 
   private _trigger: string;
 
