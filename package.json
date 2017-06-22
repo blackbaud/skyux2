@@ -60,6 +60,7 @@
     "ng2-toastr": "4.0.1"
   },
   "devDependencies": {
+    "@angular/animations": "4.1.3",
     "@angular/compiler-cli": "4.1.3",
     "@blackbaud/skyux-builder": "1.0.0-rc.2",
     "@types/core-js": "0.9.41",
