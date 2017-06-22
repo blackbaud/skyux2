@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "4.1.3",
-    "@blackbaud/skyux-builder": "2.0.0-rc.2",
+    "@blackbaud/skyux-builder": "1.0.0-rc.2",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.18",
