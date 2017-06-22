@@ -9,7 +9,10 @@
 >
   <div class="sky-modal"
     [ngClass]="{
-      'sky-modal-full-page': modalFullPage
+      'sky-modal-full-page': modalFullPage,
+      'sky-modal-small' : isSmallSize,
+      'sky-modal-medium' : isMediumSize,
+      'sky-modal-large' : isLargeSize
       }"
     [ngStyle]="{
         zIndex: modalZIndex

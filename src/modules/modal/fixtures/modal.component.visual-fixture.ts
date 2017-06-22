@@ -17,19 +17,34 @@ class AppComponent {
   constructor(public viewContainerRef: ViewContainerRef, private modal: SkyModalService) { }
 
   public openModal() {
-
     this.modal.open(ModalDemoComponent, { 'providers': [] });
   }
 
   public openLargeModal() {
     this.modal.open(ModalLargeDemoComponent, { 'providers': [] });
   }
+
   public openFullScreenModal() {
     this.modal.open(ModalFullPageDemoComponent, { 'providers': [], 'fullPage': true });
   }
 
   public openContentModal() {
     this.modal.open(ModalContentDemoComponent);
+  }
+
+  public openSmallSizeModal() {
+    this.modal.open(
+      ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'small'});
+  }
+
+  public openMediumSizeModal() {
+    this.modal.open(
+      ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'medium'});
+  }
+
+  public openLargeSizeModal() {
+    this.modal.open(
+      ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'large'});
   }
 }
 
