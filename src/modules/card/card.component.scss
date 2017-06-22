@@ -65,8 +65,7 @@
 }
 
 .sky-card-title {
-    font-family: $sky-font-family-narrow;
-    font-size: $sky-alternate-font-size-sm;
+    @include sky-section-heading;
     margin: 0;
     line-height: $sky-line-height-base;
 }

@@ -52,6 +52,12 @@
   color: $sky-text-color;
 }
 
+@mixin sky-emphasized {
+  color: $sky-text-color;
+  font-size: 15px;
+  font-weight: 600;
+}
+
 @mixin sky-field-label {
   font: 400 $sky-font-size-base $sky-font-family-base;
   color: $sky-text-deemphasized-color;

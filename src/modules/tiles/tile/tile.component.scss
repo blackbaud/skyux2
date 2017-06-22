@@ -20,16 +20,14 @@
 }
 
 .sky-tile-title {
-    @include sky-section-heading; 
+    @include sky-section-heading(); 
     margin: 0;
     padding: $sky-padding $sky-tile-header-tool-padding;
 }
 
 .sky-tile-summary {
+    @include sky-headline();
     color: $sky-color-green;
-    font-family: $sky-font-family-narrow;
-    font-size: 18px;
-    font-weight: 400;
     opacity: 0;
     padding-right: $sky-tile-header-tool-padding;
     transition: opacity $sky-transition-time-medium;
