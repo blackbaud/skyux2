@@ -1,4 +1,4 @@
-import { Directive, forwardRef, Renderer, ElementRef } from '@angular/core';
+import { Directive, forwardRef } from '@angular/core';
 import { Validator, NG_VALIDATORS, AbstractControl } from '@angular/forms';
 
 // tslint:disable no-forward-ref
@@ -14,7 +14,7 @@ const SKY_EMAIL_VALIDATION_VALIDATOR = {
   providers: [SKY_EMAIL_VALIDATION_VALIDATOR]
 })
 
-export class SkyEmailValidationDirective implements Validator{
+export class SkyEmailValidationDirective implements Validator {
 
   public validate(control: AbstractControl): {[key: string]: any} {
     let value = control.value;
