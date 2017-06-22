@@ -615,6 +615,26 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Numeric',
+        icon: 'calculator',
+        summary: 'The Skynumeric Pipe shortens long numbers and can format as currency.',
+        url: '/components/numeric',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'numeric-demo.component.html',
+              fileContents: require('!!raw-loader!./numeric/numeric-demo.component.html')
+            },
+            {
+              name: 'numeric-demo.component.ts',
+              fileContents: require('!!raw-loader!./numeric/numeric-demo.component.ts'),
+              componentName: 'SkyNumericDemoComponent',
+              bootstrapSelector: 'sky-numeric-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Page summary',
         icon: 'newspaper-o',
         // tslint:disable-next-line

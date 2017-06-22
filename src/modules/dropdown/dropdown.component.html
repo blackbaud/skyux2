@@ -2,8 +2,11 @@
   <button
       type="button"
       (click)="click()"
-      class="sky-btn sky-dropdown-button sky-btn-default"
-      [ngClass]="'sky-dropdown-button-type-' + buttonType"
+      class="sky-btn sky-dropdown-button"
+      [ngClass]="[
+        'sky-dropdown-button-type-' + buttonType,
+        isPrimary ? 'sky-btn-primary' : 'sky-btn-default'
+      ]"
       (document:click)="windowClick()"
       [attr.aria-label]="label"
       [attr.title]="title"

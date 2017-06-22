@@ -93,7 +93,7 @@ export class SkyTimepickerInputDirective implements
   }
 
   @HostListener('blur')
-  public onBlur() {
+  public onBlur /* istanbul ignore next */ () {
     this._onTouched();
   }
 
@@ -111,6 +111,7 @@ export class SkyTimepickerInputDirective implements
       return;
     }
 
+    /* istanbul ignore next */
     if (value.local === 'Invalid date') {
       return {
         'skyTime': {
@@ -122,6 +123,7 @@ export class SkyTimepickerInputDirective implements
   private writeModelValue(model: SkyTimepickerTimeOutput) {
     let setElementValue: string;
     if (model) {
+      /* istanbul ignore next */
       if (moment(model).format(model.customFormat) === 'Invalid date') {
         setElementValue = '';
       } else {

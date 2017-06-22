@@ -55,16 +55,24 @@ export class SkyListColumnSelectorActionComponent {
       let columns: Array<SkyColumnSelectorModel> = [];
       let selectedColumnIds: Array<string> = [];
       this.gridView.gridState.take(1).subscribe((state: GridStateModel) => {
-        columns = state.columns.items.map((item: SkyGridColumnModel) => {
-          return {
-            id: item.id,
-            heading: item.heading,
-            description: item.description
-          };
-        });
-        selectedColumnIds = state.displayedColumns.items.map((item: SkyGridColumnModel) => {
-          return item.id;
-        });
+        columns = state.columns.items
+          .filter((item: SkyGridColumnModel) => {
+            return !item.locked;
+          })
+          .map((item: SkyGridColumnModel) => {
+            return {
+              id: item.id,
+              heading: item.heading,
+              description: item.description
+            };
+          });
+        selectedColumnIds = state.displayedColumns.items
+          .filter((item: SkyGridColumnModel) => {
+            return !item.locked;
+          })
+          .map((item: SkyGridColumnModel) => {
+            return item.id;
+          });
       });
 
       let modalInstance = this.modalService.open(
@@ -87,7 +95,7 @@ export class SkyListColumnSelectorActionComponent {
           this.gridView.gridState.take(1)
             .subscribe((state: GridStateModel) => {
               newDisplayedColumns = state.columns.items.filter((item) => {
-                return newSelectedIds.indexOf(item.id) > -1;
+                return newSelectedIds.indexOf(item.id) > -1 || item.locked;
               });
             });
           this.gridView.gridDispatcher.next(

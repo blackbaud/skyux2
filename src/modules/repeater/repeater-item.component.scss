@@ -6,6 +6,10 @@
   @include sky-border(row);
 }
 
+.sky-repeater-item-left {
+  padding-top: 7px;
+}
+
 .sky-repeater-item-right {
   flex-grow: 1;
 }
@@ -21,6 +25,15 @@
 
 .sky-repeater-item-context-menu {
   padding: $sky-padding-half $sky-padding 0 0;
+}
+
+.sky-repeater-item-checkbox {
+  padding: 0 $sky-padding 0 0;
+}
+
+.sky-repeater-item-selected {
+  background-color: $sky-selected-color;
+  transition: background-color 150ms;
 }
 
 .sky-repeater-item-title {
