@@ -9,6 +9,7 @@ if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   # Remove this line after stache and builder update to ng4:
   rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular
   rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular
+  rimraf ./node_modules/@blackbaud/stache/node_modules/@angular
 
   skyux build && ./scripts/visual-baseline.sh
 else
