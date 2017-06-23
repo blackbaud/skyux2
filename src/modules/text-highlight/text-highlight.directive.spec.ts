@@ -16,6 +16,26 @@ function updateInputText(fixture: ComponentFixture<SkyTextHighlightTestComponent
   fixture.detectChanges();
 }
 
+const additionalTextHidden = `
+    <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->`;
+
+const additionalTextVisible = `
+    <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->`;
+
+function getHtmlOutput(text: string) {
+  return `${text}${additionalTextHidden}`;
+}
+
+function getHtmlOutputAdditionalText(text: string, additionalText: string) {
+  return `${text}${additionalTextVisible}<div>
+        ${additionalText}
+    </div>`;
+}
+
 describe('Highlight', () => {
 
   let fixture: ComponentFixture<SkyTextHighlightTestComponent>;
@@ -41,110 +61,93 @@ describe('Highlight', () => {
   });
 
   it('should not highlight any text when search term is blank', () => {
-      const containerEl = nativeElement.querySelector('.sky-test-div-container');
-      const expectedHtml = `Here is some test text.
-    <!--bindings={
-  "ng-reflect-ng-if": "false"
-}-->`;
+    const containerEl = nativeElement.querySelector('.sky-test-div-container');
+    const expectedHtml = getHtmlOutput('Here is some test text.');
 
-      expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
   });
 
   it('should highlight search term', () => {
-      updateInputText(fixture, 'text');
+    updateInputText(fixture, 'text');
 
-      const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `Here is some test <mark class="sky-highlight-mark">text</mark>.
-    <!--bindings={
-  "ng-reflect-ng-if": "false"
-}-->`;
+    const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const expectedHtml =
+      getHtmlOutput('Here is some test <mark class="sky-highlight-mark">text</mark>.');
 
-      expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
   });
 
   it('should highlight case insensitive search term', () => {
-      updateInputText(fixture, 'here');
+    updateInputText(fixture, 'here');
 
-      const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `<mark class="sky-highlight-mark">Here</mark> is some test text.
-    <!--bindings={
-  "ng-reflect-ng-if": "false"
-}-->`;
+    const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const expectedHtml =
+      getHtmlOutput('<mark class="sky-highlight-mark">Here</mark> is some test text.');
 
-      expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
   });
 
   it('should highlight search term in nested component', () => {
-      component.showAdditionalContent = true;
-      fixture.detectChanges();
+    component.showAdditionalContent = true;
+    fixture.detectChanges();
 
-      updateInputText(fixture, 'here');
+    updateInputText(fixture, 'here');
 
-      const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `<mark class="sky-highlight-mark">Here</mark> is some test text.
-    <!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><div>
-        <mark class="sky-highlight-mark">Here</mark> is additional text that was previously hidden.
-    </div>`;
+    const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const text = '<mark class="sky-highlight-mark">Here</mark> is some test text.';
+    // tslint:disable-next-line:max-line-length
+    const additional = '<mark class="sky-highlight-mark">Here</mark> is additional text that was previously hidden.';
+    const expectedHtml = getHtmlOutputAdditionalText(text, additional);
 
-      expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
   });
 
   it('changed search term should highlight new term and old term should not highlight', () => {
-      updateInputText(fixture, 'some');
+    updateInputText(fixture, 'some');
 
-      const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `Here is <mark class="sky-highlight-mark">some</mark> test text.
-    <!--bindings={
-  "ng-reflect-ng-if": "false"
-}-->`;
+    const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const expectedHtml =
+      getHtmlOutput('Here is <mark class="sky-highlight-mark">some</mark> test text.');
 
-      expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
 
-      updateInputText(fixture, 'Here');
+    updateInputText(fixture, 'Here');
 
-      const containerElChanged =
-        nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtmlChanged = `<mark class="sky-highlight-mark">Here</mark> is some test text.
-    <!--bindings={
-  "ng-reflect-ng-if": "false"
-}-->`;
+    const containerElChanged =
+      nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const expectedHtmlChanged =
+      getHtmlOutput('<mark class="sky-highlight-mark">Here</mark> is some test text.');
 
-      expect(containerElChanged.innerHTML.trim()).toBe(expectedHtmlChanged);
+    expect(containerElChanged.innerHTML.trim()).toBe(expectedHtmlChanged);
   });
 
   it('highlight search term of html that was previously hidden', () => {
-      component.showAdditionalContent = false;
-      fixture.detectChanges();
+    component.showAdditionalContent = false;
+    fixture.detectChanges();
 
-      updateInputText(fixture, 'is');
+    updateInputText(fixture, 'is');
 
-      const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `Here <mark class="sky-highlight-mark">is</mark> some test text.
-    <!--bindings={
-  "ng-reflect-ng-if": "false"
-}-->`;
+    const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const expectedHtml =
+      getHtmlOutput('Here <mark class="sky-highlight-mark">is</mark> some test text.');
 
-      expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
 
-      // check box to show extra content
-      const checkboxEl =
-        fixture.nativeElement.querySelector('.sky-test-checkbox') as HTMLInputElement;
+    // check box to show extra content
+    const checkboxEl =
+      fixture.nativeElement.querySelector('.sky-test-checkbox') as HTMLInputElement;
 
-      checkboxEl.click();
-      fixture.detectChanges();
+    checkboxEl.click();
+    fixture.detectChanges();
 
-      const containerElUpdated =
-        nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const containerElUpdated =
+      nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
 
-      const expectedHtmlUpdated = `Here <mark class="sky-highlight-mark">is</mark> some test text.
-    <!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><div>
-        Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.
-    </div>`;
+    const text = 'Here <mark class="sky-highlight-mark">is</mark> some test text.';
+    // tslint:disable-next-line:max-line-length
+    const additional = 'Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.';
+    const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
 
-      expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlUpdated);
+    expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
   });
 });
