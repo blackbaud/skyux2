@@ -25,9 +25,7 @@
 }
 
 .sky-deemphasized {
-  color: $sky-text-deemphasized-color;
-  font-style: italic;
-  font-weight: 400;
+  @include sky-deemphasized();
 }
 
 .sky-field-label {

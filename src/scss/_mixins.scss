@@ -46,6 +46,12 @@
     }
 }
 
+@mixin sky-section-heading {
+  color: $sky-text-color;
+  font: 300 22px $sky-font-family-narrow;
+  font-stretch: condensed;
+}
+
 @mixin sky-headline {
   font: 500 $sky-alternate-font-size-sm $sky-font-family-narrow;
   font-stretch: condensed;
@@ -58,6 +64,12 @@
   font-weight: 600;
 }
 
+@mixin sky-deemphasized{
+  color: $sky-text-deemphasized-color;
+  font-style: italic;
+  font-weight: 400;
+}
+
 @mixin sky-field-label {
   font: 400 $sky-font-size-base $sky-font-family-base;
   color: $sky-text-deemphasized-color;
@@ -67,12 +79,6 @@
   box-shadow: 0 0 8px rgba(237, 85, 101, 0.6);
   border: 1px solid #ed5565;
   outline: none;
-}
-
-@mixin sky-section-heading {
-  color: $sky-text-color;
-  font: 300 22px $sky-font-family-narrow;
-  font-stretch: condensed;
 }
 
 @mixin sky-btn-tab {
