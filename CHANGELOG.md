@@ -1,3 +1,8 @@
+# 2.0.0-beta.33 (2017-06-23)
+
+  - Added the SkyNumeric Pipe. (#764) (Thanks @Blackbaud-AdamSc)
+  - Added the email validation directive. (#379) (Thanks @Blackbaud-SandhyaRajasabeson)
+
 # 2.0.0-beta.32 (2017-06-20)
 
   - Tweaked animation for text-expand in firefox. (#695)
