@@ -54,7 +54,7 @@ describe('Highlight', () => {
       updateInputText(fixture, 'text');
 
       const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `Here is some test <mark>text</mark>.
+      const expectedHtml = `Here is some test <mark class="sky-highlight-mark">text</mark>.
     <!--bindings={
   "ng-reflect-ng-if": "false"
 }-->`;
@@ -66,7 +66,7 @@ describe('Highlight', () => {
       updateInputText(fixture, 'here');
 
       const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `<mark>Here</mark> is some test text.
+      const expectedHtml = `<mark class="sky-highlight-mark">Here</mark> is some test text.
     <!--bindings={
   "ng-reflect-ng-if": "false"
 }-->`;
@@ -81,11 +81,11 @@ describe('Highlight', () => {
       updateInputText(fixture, 'here');
 
       const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `<mark>Here</mark> is some test text.
+      const expectedHtml = `<mark class="sky-highlight-mark">Here</mark> is some test text.
     <!--bindings={
   "ng-reflect-ng-if": "true"
 }--><div>
-        <mark>Here</mark> is additional text that was previously hidden.
+        <mark class="sky-highlight-mark">Here</mark> is additional text that was previously hidden.
     </div>`;
 
       expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
@@ -95,7 +95,7 @@ describe('Highlight', () => {
       updateInputText(fixture, 'some');
 
       const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `Here is <mark>some</mark> test text.
+      const expectedHtml = `Here is <mark class="sky-highlight-mark">some</mark> test text.
     <!--bindings={
   "ng-reflect-ng-if": "false"
 }-->`;
@@ -106,7 +106,7 @@ describe('Highlight', () => {
 
       const containerElChanged =
         nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtmlChanged = `<mark>Here</mark> is some test text.
+      const expectedHtmlChanged = `<mark class="sky-highlight-mark">Here</mark> is some test text.
     <!--bindings={
   "ng-reflect-ng-if": "false"
 }-->`;
@@ -115,16 +115,13 @@ describe('Highlight', () => {
   });
 
   it('highlight search term of html that was previously hidden', () => {
-      console.warn('1');
       component.showAdditionalContent = false;
       fixture.detectChanges();
-      console.warn('2');
 
       updateInputText(fixture, 'is');
-      console.warn('3');
 
       const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
-      const expectedHtml = `Here <mark>is</mark> some test text.
+      const expectedHtml = `Here <mark class="sky-highlight-mark">is</mark> some test text.
     <!--bindings={
   "ng-reflect-ng-if": "false"
 }-->`;
@@ -137,18 +134,14 @@ describe('Highlight', () => {
 
       checkboxEl.click();
 
-      console.warn(component.showAdditionalContent);
-      console.warn('4');
-      updateInputText(fixture, 'is1');
-
       const containerElUpdated =
         nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
 
-      const expectedHtmlUpdated = `Here <mark>is</mark> some test text.
+      const expectedHtmlUpdated = `Here <mark class="sky-highlight-mark">is</mark> some test text.
     <!--bindings={
   "ng-reflect-ng-if": "true"
 }--><div>
-        Here <mark>is</mark> additional text that was previously hidden.
+        Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.
     </div>`;
 
       expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlUpdated);

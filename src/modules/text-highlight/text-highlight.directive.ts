@@ -19,43 +19,41 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
 
   private existingHighlight = false;
 
-  private static getRemoveHighlightedHtml(node: HTMLElement): string {
-    const html = node.innerHTML;
-    const searchRegex = new RegExp(`<mark>|<\/mark>`, 'gi');
-    const highlightRemoved = html.replace(searchRegex, '');
-
-    return highlightRemoved;
-  }
-
   private static getRegexMatch(node: HTMLElement, searchText: string): RegExpExecArray {
     const text = node.nodeValue;
     const searchRegex = new RegExp(searchText, 'gi');
 
-    const result = searchRegex.exec(text);
-
-    return result;
+    return searchRegex.exec(text);
   }
 
-  private static markTextNodes(node: any, searchText: string) {
+  private static markNode(node: any, searchText: string) {
+    const regexMatch = SkyTextHighlightDirective.getRegexMatch(node, searchText);
+
+    // found match
+    if (regexMatch && regexMatch.length > 0) {
+
+      // split apart text node with mark tags in the middle on the search term
+      const matchIndex = regexMatch.index;
+
+      const middle = node.splitText(matchIndex);
+      middle.splitText(searchText.length);
+      const middleClone = middle.cloneNode(true);
+
+      const markNode = document.createElement('mark');
+      markNode.className = className;
+      markNode.appendChild(middleClone);
+      middle.parentNode.replaceChild(markNode, middle);
+
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  private static markTextNodes(node: HTMLElement, searchText: string) {
     if (node.nodeType === 3) {
-      const regexMatch = SkyTextHighlightDirective.getRegexMatch(node, searchText);
+      return SkyTextHighlightDirective.markNode(node, searchText);
 
-      if (regexMatch && regexMatch.length > 0) {
-
-        // split apart text node with mark tags in the middle on the search term
-        const matchIndex = regexMatch.index;
-
-        const middle = node.splitText(matchIndex);
-        middle.splitText(searchText.length);
-        const middleClone = middle.cloneNode(true);
-
-        const markNode = document.createElement('mark');
-        markNode.className = className;
-        markNode.appendChild(middleClone);
-        middle.parentNode.replaceChild(markNode, middle);
-
-        return 1;
-      }
     } else if (node.nodeType === 1 && node.childNodes) {
       for (let i = 0; i < node.childNodes.length; i++) {
         let childNode = node.childNodes[i] as HTMLElement;
