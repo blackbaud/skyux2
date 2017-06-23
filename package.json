@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "4.1.3",
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#fix-auth-http",
+    "@blackbaud/skyux-builder": "1.0.0-rc.3",
     "@blackbaud/stache": "2.0.0-beta.7",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
