@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SkyTextHighlightTestComponent } from './fixtures/text-highlight.component.fixture';
 import { SkyCheckboxModule } from '../checkbox/checkbox.module';
 import { SkyTextHighlightModule } from './text-highlight.module';
+import { async } from "@angular/core/testing";
 
 function updateInputText(fixture: ComponentFixture<SkyTextHighlightTestComponent>, text: string) {
   const inputEl = fixture.nativeElement.querySelector('.sky-input-search-term') as HTMLInputElement;
@@ -121,7 +122,7 @@ describe('Highlight', () => {
     expect(containerElChanged.innerHTML.trim()).toBe(expectedHtmlChanged);
   });
 
-  it('highlight search term of html that was previously hidden', () => {
+  it('highlight search term of html that was previously hidden', async(() => {
     component.showAdditionalContent = false;
     fixture.detectChanges();
 
@@ -140,14 +141,17 @@ describe('Highlight', () => {
     checkboxEl.click();
     fixture.detectChanges();
 
-    const containerElUpdated =
-      nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    fixture.whenStable().then(() => {
+      const containerElUpdated =
+        nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
 
-    const text = 'Here <mark class="sky-highlight-mark">is</mark> some test text.';
-    // tslint:disable-next-line:max-line-length
-    const additional = 'Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.';
-    const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
+      const text = 'Here <mark class="sky-highlight-mark">is</mark> some test text.';
+      // tslint:disable-next-line:max-line-length
+      const additional = 'Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.';
+      const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
 
-    expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
-  });
+      expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
+    });
+  }));
+
 });
