@@ -79,8 +79,8 @@ export class SkyTimepickerComponent implements OnInit {
 
   public set selectedTime(newTime: SkyTimepickerTimeOutput) {
     if (typeof newTime !== 'undefined') {
-      /* istanbul ignore else */
       /* sanity check */
+      /* istanbul ignore else */
       if (newTime.local !== 'Invalid date') {
         this.activeTime = newTime.iso8601;
       }
@@ -164,7 +164,10 @@ export class SkyTimepickerComponent implements OnInit {
     if (!this.is8601) {
       /* istanbul ignore next */
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
-    } else {
+    }
+
+    /* istanbul ignore else */
+    if (this.is8601) {
       return moment(this.activeTime).hour() + 0;
     }
 
