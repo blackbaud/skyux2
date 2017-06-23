@@ -6,8 +6,9 @@ set -e
 if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   ./scripts/browserstack-cleanup.sh && npm run ci
 
-  # Remove this line after stache and builder update to ng4:
+  # Remove duplicate libraries due to circular dependency:
   rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular
+  rimraf ./node_modules/@blackbaud/skyux/node_modules/@blackbaud
   rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular
   rimraf ./node_modules/@blackbaud/stache/node_modules/@angular
 
