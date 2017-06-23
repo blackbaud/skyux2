@@ -101,7 +101,7 @@ export {
   SkyNumericModule,
   SkyNumericPipe,
   SkyNumericService
-} from './modules/numeric'
+} from './modules/numeric';
 export {
   SkyAvatarComponent,
   SkyAvatarInnerComponent,
@@ -158,7 +158,7 @@ export {
 export {
   SkyEmailValidationDirective,
   SkyEmailValidationModule
-} from './modules/email-validation'
+} from './modules/email-validation';
 export {
   SkyErrorComponent,
   SkyErrorDescriptionComponent,
