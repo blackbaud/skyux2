@@ -1,3 +1,8 @@
+# 2.0.0-rc.2 (2017-06-23)
+
+- Merged `master` branch.
+- Added support for SKY UX Builder 1.0.0-rc.3.
+
 # 2.0.0-beta.33 (2017-06-23)
 
   - Added the SkyNumeric Pipe. (#764) (Thanks @Blackbaud-AdamSc)
