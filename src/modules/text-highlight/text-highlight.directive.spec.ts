@@ -133,6 +133,7 @@ describe('Highlight', () => {
         fixture.nativeElement.querySelector('.sky-test-checkbox') as HTMLInputElement;
 
       checkboxEl.click();
+      fixture.detectChanges();
 
       const containerElUpdated =
         nativeElement.querySelector('.sky-test-div-container') as HTMLElement;

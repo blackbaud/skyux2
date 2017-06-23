@@ -18,6 +18,8 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
   public skyHighlight: string = undefined;
 
   private existingHighlight = false;
+  private observer: MutationObserver;
+  private textHighlighted: boolean = false;
 
   private static getRegexMatch(node: HTMLElement, searchText: string): RegExpExecArray {
     const text = node.nodeValue;
@@ -86,7 +88,17 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.highlight();
+    let me = this;
+    this.observer = new MutationObserver(mutations => {
+      if (me.textHighlighted) {
+        me.textHighlighted = false;
+      } else {
+        me.highlight();
+      }
+    });
+
+    const config = { attributes: true, childList: true, characterData: true };
+    this.observer.observe(this.el.nativeElement, config);
   }
 
   private readyForHighlight(searchText: string): boolean {
@@ -107,5 +119,7 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
       SkyTextHighlightDirective.markTextNodes(node, searchText);
       this.existingHighlight = true;
     }
+
+    this.textHighlighted = true;
   }
 }
