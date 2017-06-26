@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SkyTextHighlightTestComponent } from './fixtures/text-highlight.component.fixture';
 import { SkyCheckboxModule } from '../checkbox/checkbox.module';
 import { SkyTextHighlightModule } from './text-highlight.module';
-import { MutationObserverService } from './mutation-observer-service';
+import { MutationObserverService } from '../mutation/mutation-observer-service';
 
 function updateInputText(fixture: ComponentFixture<SkyTextHighlightTestComponent>, text: string) {
   const inputEl = fixture.nativeElement.querySelector('.sky-input-search-term') as HTMLInputElement;

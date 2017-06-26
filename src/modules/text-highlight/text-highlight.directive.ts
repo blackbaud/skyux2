@@ -7,7 +7,7 @@ import {
   ElementRef
 } from '@angular/core';
 
-import { MutationObserverService } from './mutation-observer-service';
+import { MutationObserverService } from '../mutation/mutation-observer-service';
 
 const className = 'sky-highlight-mark';
 
