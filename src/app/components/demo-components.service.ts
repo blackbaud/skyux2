@@ -206,6 +206,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Email Validation',
+        icon: 'check',
+        // tslint:disable-next-line
+        summary: `The email validation module allows the user to validate email format.`,
+        url: '/components/email-validation',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'email-validation-demo.component.html',
+              fileContents: require
+              ('!!raw-loader!./email-validation/email-validation-demo.component.html')
+            },
+            {
+              name: 'email-validation.component.ts',
+              fileContents: require
+              ('!!raw-loader!./email-validation/email-validation-demo.component.ts'),
+              componentName: 'SkyEmailValidationDemoComponent',
+              bootstrapSelector: 'sky-email-validation-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Error',
         icon: 'exclamation',
         // tslint:disable-next-line
@@ -608,6 +631,26 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./navbar/navbar-demo.component.ts'),
               componentName: 'SkyNavbarDemoComponent',
               bootstrapSelector: 'sky-navbar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Numeric',
+        icon: 'calculator',
+        summary: 'The Skynumeric Pipe shortens long numbers and can format as currency.',
+        url: '/components/numeric',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'numeric-demo.component.html',
+              fileContents: require('!!raw-loader!./numeric/numeric-demo.component.html')
+            },
+            {
+              name: 'numeric-demo.component.ts',
+              fileContents: require('!!raw-loader!./numeric/numeric-demo.component.ts'),
+              componentName: 'SkyNumericDemoComponent',
+              bootstrapSelector: 'sky-numeric-demo'
             }
           ];
         }

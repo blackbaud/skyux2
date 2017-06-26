@@ -130,6 +130,24 @@ describe('List Toolbar Component', () => {
           });
         });
       }));
+
+      it('should not set pagination to first page when pagination is undefined', async(() => {
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            component.toolbar.searchComponent.applySearchText('something');
+            fixture.detectChanges();
+            state.take(1).subscribe((s) => {
+              expect(s.search.searchText).toBe('something');
+              expect(s.paging.pageNumber).not.toBe(1);
+            });
+            fixture.detectChanges();
+          });
+        });
+      }));
     });
 
      describe('sort selector', () => {
