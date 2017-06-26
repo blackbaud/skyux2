@@ -23,6 +23,7 @@ export class SkyColorpickerDemoComponent {
     '#A1B1A7',
     '#68AFEF'
   ];
+
   public constructor() {
 
   }

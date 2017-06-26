@@ -1,44 +1,101 @@
-<h3>Colorpicker</h3>
-<div style="max-width: 400px">
-  <sky-colorpicker #colorPickerExample1>
-    <button type="text" [skyColorpickerInput]="colorPickerExample1" [(ngModel)]="selectedColor1" #color1="ngModel" [presetColors]="presetColors1"
-      [initialColor]="selectedColor1" [outputFormat]="selectedOutputFormat1"></button>
-  </sky-colorpicker>
+<h3>Colorpicker with Options</h3>
+<div style="max-width: 400px;">
+
   <table>
-    <thead>
-      <tr>
-        <th>RGBA</th>
-        <th>HSLA</th>
-        <th>HSVA</th>
-        <th>CYMK</th>
-        <th>HEX</th>
-      </tr>
-    </thead>
     <tr>
-      <td>{{selectedColor1?.rgba?.red}}</td>
-      <td>{{selectedColor1?.hsla?.hue}}</td>
-      <td>{{selectedColor1?.hsva?.hue}}</td>
-      <td>{{selectedColor1?.cmyk?.cyan}}</td>
-      <td>{{selectedColor1?.hex}}</td>
-    </tr>
-    <tr>
-      <td>{{selectedColor1?.rgba?.blue}}</td>
-      <td>{{selectedColor1?.hsla?.saturation}}</td>
-      <td>{{selectedColor1?.hsva?.saturation}}</td>
-      <td>{{selectedColor1?.cmyk?.magenta}}</td>
-    </tr>
-    <tr>
-      <td>{{selectedColor1?.rgba?.green}}</td>
-      <td>{{selectedColor1?.hsla?.lightness}}</td>
-      <td>{{selectedColor1?.hsva?.value}}</td>
-      <td>{{selectedColor1?.cmyk?.yellow}}</td>
-    </tr>
-    <tr>
-      <td>{{selectedColor1?.rgba?.alpha}}</td>
-      <td>{{selectedColor1?.hsla?.alpha}}</td>
-      <td>{{selectedColor1?.hsva?.alpha}}</td>
-      <td>{{selectedColor1?.cmyk?.key}}</td>
+      <td>
+        <sky-colorpicker #colorPickerExample1>
+          <button
+          [skyColorpickerInput]="colorPickerExample1"
+          [(ngModel)]="selectedColor1"
+          #color1="ngModel"
+          [presetColors]="presetColors1"
+          [initialColor]="selectedColor1"
+          [outputFormat]="selectedOutputFormat1">
+    </button>
+        </sky-colorpicker>
+        <table>
+          <thead>
+            <tr>
+              <th>RGBA</th>
+              <th>HSLA</th>
+              <th>HSVA</th>
+              <th>CYMK</th>
+              <th>HEX</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>{{color1?.rgba?.red}}</td>
+            <td>{{color1?.hsla?.hue}}</td>
+            <td>{{color1?.hsva?.hue}}</td>
+            <td>{{color1?.cmyk?.cyan}}</td>
+            <td>{{color1?.hex}}</td>
+          </tr>
+          <tr>
+            <td>{{color1?.rgba?.blue}}</td>
+            <td>{{color1?.hsla?.saturation}}</td>
+            <td>{{color1?.hsva?.saturation}}</td>
+            <td>{{color1?.cmyk?.magenta}}</td>
+          </tr>
+          <tr>
+            <td>{{color1?.rgba?.green}}</td>
+            <td>{{color1?.hsla?.lightness}}</td>
+            <td>{{color1?.hsva?.value}}</td>
+            <td>{{color1?.cmyk?.yellow}}</td>
+          </tr>
+          <tr>
+            <td>{{color1?.rgba?.alpha}}</td>
+            <td>{{color1?.hsla?.alpha}}</td>
+            <td>{{color1?.hsva?.alpha}}</td>
+            <td>{{color1?.cmyk?.key}}</td>
+          </tr>
+        </table>
+      </td>
+      <td>
+
+        <sky-colorpicker #colorPickerExample2>
+          <input type="text"
+          [skyColorpickerInput]="colorPickerExample2"
+          [(ngModel)]="selectedColor2"
+          #color2="ngModel" />
+        </sky-colorpicker>
+        <table>
+          <thead>
+            <tr>
+              <th>RGBA</th>
+              <th>HSLA</th>
+              <th>HSVA</th>
+              <th>CYMK</th>
+              <th>HEX</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>{{color2?.rgba?.red}}</td>
+            <td>{{color2?.hsla?.hue}}</td>
+            <td>{{color2?.hsva?.hue}}</td>
+            <td>{{color2?.cmyk?.cyan}}</td>
+            <td>{{color2?.hex}}</td>
+          </tr>
+          <tr>
+            <td>{{color2?.rgba?.blue}}</td>
+            <td>{{color2?.hsla?.saturation}}</td>
+            <td>{{color2?.hsva?.saturation}}</td>
+            <td>{{color2?.cmyk?.magenta}}</td>
+          </tr>
+          <tr>
+            <td>{{color2?.rgba?.green}}</td>
+            <td>{{color2?.hsla?.lightness}}</td>
+            <td>{{color2?.hsva?.value}}</td>
+            <td>{{color2?.cmyk?.yellow}}</td>
+          </tr>
+          <tr>
+            <td>{{color2?.rgba?.alpha}}</td>
+            <td>{{color2?.hsla?.alpha}}</td>
+            <td>{{color2?.hsva?.alpha}}</td>
+            <td>{{color2?.cmyk?.key}}</td>
+          </tr>
+        </table>
+      </td>
     </tr>
   </table>
-
 </div>
