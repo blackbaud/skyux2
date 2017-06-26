@@ -61,7 +61,12 @@ export class SkyColorpickerComponent implements OnInit {
   public onClick() {
     let element: HTMLButtonElement = <HTMLButtonElement>event.target;
     // keep the drop down open.
-    if (element.classList.contains('sky-colorpicker')) {
+    if (
+      element.classList.contains('sky-btn-colorpicker-close') ||
+      element.classList.contains('sky-btn-colorpicker-apply')
+    ) {
+      element.click();
+    } else {
       event.stopPropagation();
     }
   }
