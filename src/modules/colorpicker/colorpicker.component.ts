@@ -5,7 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   OnInit,
-  // ViewChild,
+  ViewChild,
   Output,
   Component
 } from '@angular/core';
@@ -53,6 +53,8 @@ export class SkyColorpickerComponent implements OnInit {
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
+  @ViewChild('closeColorPicker')
+  private closeColorPicker: ElementRef;
   private outputColor: string;
   private hsva: Hsva;
   private sliderDimMax: SliderDimension;
@@ -68,6 +70,14 @@ export class SkyColorpickerComponent implements OnInit {
       element.click();
     } else {
       event.stopPropagation();
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  public keyboardInput(event: any) {
+    if (event.code.toLowerCase() === 'escape') {
+      this.closeColorpicker();
+      this.closeColorPicker.nativeElement.click();
     }
   }
 

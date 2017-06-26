@@ -51,15 +51,15 @@
           </div>
 
           <div *ngIf="presetColors && presetColors.length" class="sky-colorpicker-preset-color-area">
-            <div *ngFor="let color of presetColors | slice:0:12; let i = index;" class="preset-color" [style.backgroundColor]="color"
-              (click)="setColorFromString(color)"></div>
+            <button *ngFor="let color of presetColors | slice:0:12; let i = index;" class="preset-color" [style.backgroundColor]="color"
+              (click)="setColorFromString(color)"></button>
           </div>
         </div>
 
         <div class="sky-colorpicker-container sky-colorpicker-footer">
           <section class="sky-colorpicker-column">
             <button type="button" class="sky-btn sky-btn-primary sky-btn-colorpicker-apply" (click)="applyColor()">Apply</button>
-            <button type="button" class="sky-btn sky-btn-link sky-btn-colorpicker-close" (click)="closeColorpicker()">Close</button>
+            <button type="button" #closeColorPicker class="sky-btn sky-btn-link sky-btn-colorpicker-close" (click)="closeColorpicker()">Close</button>
           </section>
         </div>
 
