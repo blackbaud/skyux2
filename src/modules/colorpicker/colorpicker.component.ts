@@ -5,7 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   OnInit,
-  ViewChild,
+  // ViewChild,
   Output,
   Component
 } from '@angular/core';
@@ -50,25 +50,30 @@ export class SkyColorpickerComponent implements OnInit {
   public presetColors: Array<string>;
   public returnFormat: string;
   public rgbaText: Rgba;
-  public selectedColor: string;
-  private outputColor: string;
+  public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
-
-  @ViewChild('colorPicker')
-  private colorPickerElement: any;
-
-  private dialogArrowOffset: number = 15;
-  private directiveElementRef: ElementRef;
-  private directiveInstance: any;
+  private outputColor: string;
+  /*
+    @ViewChild('colorPicker')
+    private colorPickerElement: any;
+  */
+  // private dialogArrowOffset: number = 15;
+  // private directiveElementRef: ElementRef;
+  // private directiveInstance: any;
   private hsva: Hsva;
 
   private sliderDimMax: SliderDimension;
 
   @HostListener('click', ['$event'])
   public onClick() {
-    // keep the dropdown open.
-    event.stopPropagation();
+    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
+    // keep the drop down open.
+    if (element.classList.contains('sky-btn-close-colorpicker')) {
+      this.closeColorpicker();
+    } else {
+      event.stopPropagation();
+    }
   }
 
   constructor(
@@ -85,21 +90,14 @@ export class SkyColorpickerComponent implements OnInit {
     presetColors: Array<string>,
     alphaChannel: string
   ) {
-    this.directiveInstance = instance;
-    this.initialColor = color;
-    this.directiveElementRef = elementRef;
 
-    if (!false) {
-      this.dialogArrowOffset = 0;
-    }
+    // this.dialogArrowOffset = 0;
+
+    this.initialColor = color;
     this.outputFormat = outputFormat;
     this.presetColors = presetColors;
     this.alphaChannel = alphaChannel;
-  }
 
-  public ngOnInit() {
-    this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
-    this.slider = new SliderPosition(0, 0, 0, 0);
     if (this.outputFormat === 'rgba') {
       this.format = 1;
     } else if (this.outputFormat === 'hsla') {
@@ -107,7 +105,12 @@ export class SkyColorpickerComponent implements OnInit {
     } else {
       this.format = 0;
     }
-    this.openDialog(this.initialColor);
+  }
+
+  public ngOnInit() {
+    debugger
+    this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
+    this.slider = new SliderPosition(0, 0, 0, 0);
   }
 
   public setInitialColor(color: any) {
@@ -119,7 +122,7 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public openDialog(color: any) {
-    this.setInitialColor(color);
+    //  this.setInitialColor(color);
     this.setColorFromString(color);
   }
 
@@ -133,15 +136,16 @@ export class SkyColorpickerComponent implements OnInit {
     return hsvaToRgba;
   }
 
-  public cancelColor() {
+  public closeColorpicker() {
     this.setColorFromString(this.initialColor);
   }
 
-  public oKColor() {
-    this.directiveInstance.colorSelected(this.outputColor);
+  public applyColor() {
+    this.selectedColorChanged.emit(this.selectedColor);
   }
 
   public setColorFromString(value: string) {
+    debugger
     let hsva: Hsva;
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);
@@ -161,7 +165,6 @@ export class SkyColorpickerComponent implements OnInit {
     let hsla = this.service.hsva2hsla(this.hsva);
     hsla.saturation = change.colorValue / change.maxRange;
     this.hsva = this.service.hsla2hsva(hsla);
-    // 'saturation',
     this.update();
   }
 
@@ -169,7 +172,6 @@ export class SkyColorpickerComponent implements OnInit {
     let hsla = this.service.hsva2hsla(this.hsva);
     hsla.lightness = change.colorValue / change.maxRange;
     this.hsva = this.service.hsla2hsva(hsla);
-    // 'lightness',
     this.update();
   }
 
@@ -208,15 +210,13 @@ export class SkyColorpickerComponent implements OnInit {
     this.update();
   }
 
-  public set hex(change: string) {
-    this.setColorFromString(change);
-    // this.directiveInstance.inputChanged({ slider: 'hex', value: change });
+  public set hex(change: SkyColorpickerChangeColor) {
+    this.setColorFromString(change.color);
   }
 
   public set saturationAndLightness(value: SkyColorpickerChangeAxis) {
     this.hsva.saturation = value.xCoordinate / value.xAxis;
     this.hsva.value = value.yCoordinate / value.yAxis;
-    // 'saturation-lightness',
     this.update();
   }
 
@@ -256,7 +256,9 @@ export class SkyColorpickerComponent implements OnInit {
         this.hsva,
         this.outputFormat,
         this.alphaChannel === 'hex8');
-     // this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
+
+      // this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
+      this.selectedColor = this.service.skyColorpickerOutput(this.hsva);
 
       this.slider = new SliderPosition(
         (this.hsva.hue) * this.sliderDimMax.hue - 8,
@@ -265,11 +267,10 @@ export class SkyColorpickerComponent implements OnInit {
         this.hsva.alpha * this.sliderDimMax.alpha - 8);
 
       if (lastOutput !== this.outputColor) {
-        this.directiveInstance.writeModelValue(this.outputColor);
+        // this.directiveInstance.writeModelValue(this.outputColor);
+
+        this.selectedColorChanged.emit(this.selectedColor);
       }
-
-
     }
   }
-
 }

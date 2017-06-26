@@ -2,14 +2,14 @@
 import {
   ElementRef,
   ViewContainerRef,
-  EventEmitter,
+  // EventEmitter,
   Directive,
   forwardRef,
   HostListener,
   Input,
   OnChanges,
   OnInit,
-  Output,
+  // Output,
   Renderer,
   SimpleChanges,
   OnDestroy
@@ -17,8 +17,8 @@ import {
 import { SkyColorpickerService } from './colorpicker.service';
 import { SkyColorpickerComponent } from './colorpicker.component';
 import {
-  SliderPosition,
-  SliderDimension,
+  // SliderPosition,
+  // SliderDimension,
   Rgba, Hsla, Hsva, Cmyk, SkyColorpickerOutput
 } from './colorpicker-classes';
 
@@ -76,7 +76,7 @@ export class SkyColorpickerInputDirective
 
   private colorFormat: string;
   private created: boolean;
-  private modelValue: string;
+  private modelValue: SkyColorpickerOutput;
 
   constructor(
     private view: ViewContainerRef,
@@ -95,6 +95,7 @@ export class SkyColorpickerInputDirective
 
   @HostListener('change', ['$event'])
   public onChange(event: any) {
+    debugger
     let newValue = event.target.value;
     this.modelValue = this.formatter(newValue);
     this._validatorChange();
@@ -103,15 +104,17 @@ export class SkyColorpickerInputDirective
   }
 
   @HostListener('blur')
-  public onBlur() {
+  public onBlur /* istanbul ignore next */() {
     this._onTouched();
   }
 
   public ngOnInit() {
     this.renderer.setElementClass(this.element.nativeElement, 'sky-form-control', true);
+    this.skyColorpickerInput.initialColor = this.initialColor;
+    this.skyColorpickerInput.returnFormat = this.returnFormat;
     this.pickerChangedSubscription =
-      this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: string) => {
-        this.writeValue(this.formatter(newColor));
+      this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: SkyColorpickerOutput) => {
+        this.writeValue(newColor);
         this._onChange(newColor);
       });
   }
@@ -119,13 +122,13 @@ export class SkyColorpickerInputDirective
     this.pickerChangedSubscription.unsubscribe();
   }
 
-  public openDialog() {
+  public setColorPickerDefaults() {
     if (!this.created) {
       this.created = true;
       this.skyColorpickerInput.setDialog(
         this,
         this.element,
-        this.skyColorpickerInput,
+        this.initialColor,
         this.outputFormat,
         this.presetColors,
         this.alphaChannel
@@ -140,30 +143,7 @@ export class SkyColorpickerInputDirective
     this._validatorChange();
     this.skyColorpickerInput.initialColor = this.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
-    this.openDialog();
-
-    /*
-        if (changes.skyColorpicker) {
-          if (this.skyColorpickerInput) {
-            this.skyColorpickerInput.setColorFromString(changes.skyColorpicker.currentValue, false);
-
-          }
-
-        }
-        if (changes.presetColors) {
-          if (this.skyColorpickerInput) {
-            this.skyColorpickerInput.setPresetConfig(this.presetColors);
-          }
-        }*/
-
-
-  }
-  public colorChanged(value: string) {
-
-  }
-
-  public colorSelected(value: string) {
-    // this.colorPickerSelect.emit(value);
+    this.setColorPickerDefaults();
   }
 
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
@@ -175,47 +155,25 @@ export class SkyColorpickerInputDirective
     this.writeModelValue(this.modelValue);
   }
   public validate(control: AbstractControl): { [key: string]: any } {
-
     let value = control.value;
     if (!value) {
       return;
     }
-
-    if (value.local === 'Invalid Color') {
-      return {
-        'skyColor': {
-          invalid: control.value
-        }
-      };
-    }
-
+    // Validation
   }
 
-  private writeModelValue(model: string) {
-
-    let output: SkyColorpickerOutput;
-    let setElementValue: string;
-    let hsva: Hsva = this.service.stringToHsva(model);
-    let rgba: Rgba = this.service.hsvaToRgba(hsva);
-    let hsla: Hsla = this.service.hsva2hsla(hsva);
-    let cmyk: Cmyk = this.service.rgbaToCmyk(rgba);
-    let hex: string = this.service.outputFormat(hsva, 'hex', false);
-
-    output = {
-      'local': model,
-      'hsva': hsva,
-      'rgba': rgba,
-      'hsla': hsla,
-      'cmyk': cmyk,
-      'hex': hex
-    };
-
-    setElementValue = `${output.hex}`;
-
+  private writeModelValue(model: SkyColorpickerOutput) {
     if (model) {
+      let setElementValue: string;
+      setElementValue = this.service.outputFormat(model.hsva, 'rgba', true);
+      // tslint:disable max-line-length
+      // spell-checker:disable
+      this.renderer.setElementStyle(this.element.nativeElement, 'background-color', setElementValue);
+      debugger
+      this.renderer.setElementStyle(this.element.nativeElement, 'background-image', `url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cdefs%3E%3Cpath%20id%3D%22a%22%20d%3D%22M0%200h30v30H0V0zm14.5%204H4v22h14v-8h8V4H14.5z%22%2F%3E%3C%2Fdefs%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cuse%20fill%3D%22%23FFF%22%20xlink%3Ahref%3D%22%23a%22%2F%3E%3Cpath%20stroke%3D%22%23CCC%22%20d%3D%22M.5.5v29h29V.5H.5zm18%2018v8h-15v-23h23v15h-8z%22%2F%3E%3Cpath%20fill%3D%22%23292A2B%22%20d%3D%22M23.5%2025L21%2022h5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E)`);
+      // tslint:enable max-line-length
+      // spell-checker:enable
 
-      this.renderer.setElementProperty(this.element.nativeElement, 'value', setElementValue);
-      this.renderer.setElementStyle(this.element.nativeElement, 'background', `${setElementValue} url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cdefs%3E%3Cpath%20id%3D%22a%22%20d%3D%22M0%200h30v30H0V0zm14.5%204H4v22h14v-8h8V4H14.5z%22%2F%3E%3C%2Fdefs%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cuse%20fill%3D%22%23FFF%22%20xlink%3Ahref%3D%22%23a%22%2F%3E%3Cpath%20stroke%3D%22%23CCC%22%20d%3D%22M.5.5v29h29V.5H.5zm18%2018v8h-15v-23h23v15h-8z%22%2F%3E%3Cpath%20fill%3D%22%23292A2B%22%20d%3D%22M23.5%2025L21%2022h5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E)`);
       this.renderer.setElementStyle(this.element.nativeElement, 'color', setElementValue);
       this.renderer.setElementStyle(this.element.nativeElement, 'width', '30px');
       this.renderer.setElementStyle(this.element.nativeElement, 'height', '30px');
@@ -223,49 +181,30 @@ export class SkyColorpickerInputDirective
       this.renderer.setElementStyle(this.element.nativeElement, 'border', 'none');
       this.renderer.setElementStyle(this.element.nativeElement, 'pointer-events', 'none');
       this.renderer.setElementStyle(this.element.nativeElement, 'z-index', '1000');
+      this.renderer.setElementProperty(this.element.nativeElement, 'value', setElementValue);
 
-      /*
-      this.renderer.listen(
-        this.element.nativeElement, 'click', (event: Event) => console.log(event)
-      );*/
-
+      let output = this.service.outputFormat(
+        model.hsva,
+        this.outputFormat,
+        this.alphaChannel === 'hex8'
+      );
+      this.skyColorpickerInput.setColorFromString(output);
     }
-    this.skyColorpickerInput.selectedColor =
-      this.service.outputFormat(output.hsva, 'rgba', this.alphaChannel === 'hex8');
-
   }
 
-  private formatter(color: string) {
-    let currentFormat: string;
-    let formatColor: string;
-    let hsva: Hsva;
+  private formatter(color: SkyColorpickerOutput) {
+    if (color && typeof color !== 'string') { return color; }
+    if (typeof color === 'string') {
+      let currentFormat: string;
+      let formatColor: SkyColorpickerOutput;
+      let hsva: Hsva = this.service.stringToHsva(color);
+      formatColor = this.service.skyColorpickerOutput(hsva);
 
-    if (this.colorFormat === 'rgb') {
-      currentFormat = 'rgba';
+      if (this.colorFormat === 'rgb') { currentFormat = 'rgba'; }
+      if (this.colorFormat === 'hsv') { currentFormat = 'hsva'; }
+      if (typeof this.returnFormat === 'undefined') { this.returnFormat = currentFormat; }
+      return formatColor;
     }
-    if (this.colorFormat === 'hsv') {
-      currentFormat = 'hsva';
-    }
-
-    if (typeof this.returnFormat === 'undefined') {
-      this.returnFormat = currentFormat;
-    }
-
-    hsva = this.service.stringToHsva(color);
-    if (hsva === undefined) {
-      hsva = this.service.stringToHsva(this.initialColor);
-    }
-
-    formatColor = this.service.outputFormat(
-      hsva,
-      this.outputFormat,
-      this.alphaChannel === 'hex8'
-    );
-
-    this.skyColorpickerInput.setColorFromString(formatColor);
-
-    return formatColor;
-
   }
   /*istanbul ignore next */
   private _onChange = (_: any) => { };

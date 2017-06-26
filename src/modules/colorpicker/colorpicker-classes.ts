@@ -1,4 +1,4 @@
-// spell-checker:ignore hsva,hsla,cmyk
+// spell-checker:ignore colorpicker,hsva,hsla,cmyk
 export class Hsva {
   constructor(
     public hue: number,
@@ -46,7 +46,7 @@ export class SliderDimension {
 
 export class SkyColorpickerOutput {
   constructor(
-    public local: string,
+    public rgbaText: string,
     public hsva: Hsva,
     public rgba: Rgba,
     public hsla: Hsla,

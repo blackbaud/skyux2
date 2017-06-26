@@ -13,7 +13,7 @@
           <div class="box">
             <div class="left">
               <div class="selected-color-background"></div>
-              <div [style.background-color]="selectedColor" class="selected-color"></div>
+              <div [style.background-color]="selectedColor?.rgbaText" class="selected-color"></div>
             </div>
             <div class="right">
 
@@ -27,27 +27,6 @@
               </div>
             </div>
           </div>
-          <!--
-  <div [hidden]="true" class="hsla-text">
-    <div class="box">
-      <div>H:</div>
-      <div>S:</div>
-      <div>L:</div>
-      <div>A:</div>
-    </div>
-    <div class="box">
-      <input [skyColorpickerText] [maxRange] ="360" [value] ="hslaText.hue"
-      (newColorContrast) ="hue=$event" type="number" pattern="[0-9]*"
-        min="0" max="360" [color]="hue"/>
-      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="100" [maxRange]="100" (newColorContrast)="saturation=$event"
-        [value]="hslaText.saturation" [color]="saturation" />
-      <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="100" [maxRange]="100" (newColorContrast)="lightness=$event"
-        [value]="hslaText.lightness" [color]="lightness" />
-      <input [skyColorpickerText] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [maxRange]="1" (newColorContrast)="alphaColor=$event"
-        [value]="hslaText.alpha" [color]="alpha" />
-    </div>
-  </div>
--->
           <div class="rgba-text">
             <div class="box">
               <div>Hex:</div>
@@ -60,9 +39,8 @@
               <input [skyColorpickerText] (newColorContrast)="hex=$event" [value]="hexText" pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
               />
 
-              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" [color]="red" (newColorContrast)="red=$event"
+              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="red=$event"
                 [value]="rgbaText?.red" />
-
               <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="green=$event"
                 [value]="rgbaText?.green" />
               <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="blue=$event"
@@ -73,14 +51,15 @@
           </div>
 
           <div *ngIf="presetColors && presetColors.length" class="sky-colorpickerwidget-preset-color-area">
-            <div *ngFor="let color of presetColors" class="preset-color" [style.backgroundColor]="color" (click)="setColorFromString(color)"></div>
+            <div *ngFor="let color of presetColors | slice:0:12; let i = index;" class="preset-color" [style.backgroundColor]="color"
+              (click)="setColorFromString(color)"></div>
           </div>
         </div>
 
         <div class="sky-colorpicker-container sky-colorpicker-footer">
           <section class="sky-colorpicker-column">
-            <button type="button" class="sky-btn sky-btn-primary">Apply</button>
-            <button type="button" class="sky-btn sky-btn-link">Close</button>
+            <button type="button" class="sky-btn sky-btn-primary" (click)="applyColor()">Apply</button>
+            <button type="button" class="sky-btn sky-btn-link sky-btn-close-colorpicker">Close</button>
           </section>
         </div>
 
