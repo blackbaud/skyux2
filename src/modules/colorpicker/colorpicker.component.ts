@@ -54,24 +54,14 @@ export class SkyColorpickerComponent implements OnInit {
   public slider: SliderPosition;
   public initialColor: string;
   private outputColor: string;
-  /*
-    @ViewChild('colorPicker')
-    private colorPickerElement: any;
-  */
-  // private dialogArrowOffset: number = 15;
-  // private directiveElementRef: ElementRef;
-  // private directiveInstance: any;
   private hsva: Hsva;
-
   private sliderDimMax: SliderDimension;
 
   @HostListener('click', ['$event'])
   public onClick() {
     let element: HTMLButtonElement = <HTMLButtonElement>event.target;
     // keep the drop down open.
-    if (element.classList.contains('sky-btn-close-colorpicker')) {
-      this.closeColorpicker();
-    } else {
+    if (element.classList.contains('sky-colorpicker')) {
       event.stopPropagation();
     }
   }
@@ -90,9 +80,6 @@ export class SkyColorpickerComponent implements OnInit {
     presetColors: Array<string>,
     alphaChannel: string
   ) {
-
-    // this.dialogArrowOffset = 0;
-
     this.initialColor = color;
     this.outputFormat = outputFormat;
     this.presetColors = presetColors;
@@ -111,8 +98,6 @@ export class SkyColorpickerComponent implements OnInit {
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
 
-
-
   }
 
   public setInitialColor(color: any) {
@@ -124,7 +109,6 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public openDialog(color: any) {
-    //  this.setInitialColor(color);
     this.setColorFromString(color);
   }
 
@@ -257,8 +241,6 @@ export class SkyColorpickerComponent implements OnInit {
         this.hsva,
         this.outputFormat,
         this.alphaChannel === 'hex8');
-
-      // this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
       this.selectedColor = this.service.skyColorpickerOutput(this.hsva);
 
       this.slider = new SliderPosition(
@@ -268,8 +250,6 @@ export class SkyColorpickerComponent implements OnInit {
         this.hsva.alpha * this.sliderDimMax.alpha - 8);
 
       if (lastOutput !== this.outputColor) {
-        // this.directiveInstance.writeModelValue(this.outputColor);
-
         this.selectedColorChanged.emit(this.selectedColor);
       }
     }

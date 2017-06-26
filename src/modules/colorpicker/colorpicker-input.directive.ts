@@ -103,16 +103,16 @@ export class SkyColorpickerInputDirective
 
   public ngOnInit() {
     this.renderer.setElementClass(this.element.nativeElement, 'sky-form-control', true);
-    this.skyColorpickerInput.initialColor =
-      this.skyColorpickerInput.returnFormat = this.returnFormat;
+    this.skyColorpickerInput.initialColor = this.initialColor;
+    this.skyColorpickerInput.returnFormat = this.returnFormat;
     this.pickerChangedSubscription =
       this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: SkyColorpickerOutput) => {
         this.writeValue(newColor);
         this._onChange(newColor);
       });
     this.skyColorpickerInput.setColorFromString(this.initialColor);
-
   }
+
   public ngOnDestroy() {
     this.pickerChangedSubscription.unsubscribe();
   }
@@ -136,7 +136,6 @@ export class SkyColorpickerInputDirective
 
   public ngOnChanges(changes: SimpleChanges): void {
     this._validatorChange();
-    this.skyColorpickerInput.initialColor = this.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
     this.setColorPickerDefaults();
   }

@@ -37,7 +37,7 @@
     border-top: solid 1px #e6e6e6;
 }
 
-.colorpicker *{
+.sky-colorpicker *{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -54,7 +54,7 @@
     -khtml-border-radius: $radius;
 }
 
-.colorpicker{
+.sky-colorpicker{
     cursor: default;
     width: 270px;
     height: auto;
@@ -99,7 +99,7 @@
         text-align: right;
     }
 
-    .sky-colorpickerwidget-preset-color-area {
+    .sky-colorpicker-preset-color-area {
         padding-left: 9px;
         padding-right: 9px;
         padding-bottom: 15px;
