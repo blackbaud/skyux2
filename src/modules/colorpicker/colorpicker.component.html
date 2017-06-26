@@ -51,8 +51,10 @@
           </div>
 
           <div *ngIf="presetColors && presetColors.length" class="sky-colorpicker-preset-color-area">
-            <button *ngFor="let color of presetColors | slice:0:12; let i = index;" class="preset-color" [style.backgroundColor]="color"
-              (click)="setColorFromString(color)"></button>
+            <button *ngFor="let color of presetColors | slice:0:12; let i = index;" class="preset-color"
+            [style.backgroundColor]="color"
+
+            (click)="setColorFromString(color)"></button>
           </div>
         </div>
 

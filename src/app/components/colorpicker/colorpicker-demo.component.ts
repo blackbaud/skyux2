@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SkyWindowRefService } from '../../../modules/window';
 
 @Component({
   selector: 'sky-colorpicker-demo',
@@ -24,8 +23,5 @@ export class SkyColorpickerDemoComponent {
     '#68AFEF'
   ];
 
-  public constructor() {
-
-  }
-
+  public constructor() {  }
 }

@@ -64,7 +64,7 @@ export class SkyColorpickerInputDirective
   @Input('outputFormat')
   public outputFormat: string = 'rgba';
   @Input('presetColors')
-  public presetColors: Array<string>;
+  public presetColors: Array<string> = ['#333', '#888', '#EFEFEF', '#FFF'];
   @Input('alphaChannel')
   public alphaChannel: string = 'hex6';
 
