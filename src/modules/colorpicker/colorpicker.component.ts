@@ -108,9 +108,11 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public ngOnInit() {
-    debugger
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
+
+
+
   }
 
   public setInitialColor(color: any) {
@@ -145,7 +147,6 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public setColorFromString(value: string) {
-    debugger
     let hsva: Hsva;
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);

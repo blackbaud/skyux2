@@ -1,19 +1,44 @@
 <h3>Colorpicker</h3>
 <div style="max-width: 400px">
   <sky-colorpicker #colorPickerExample1>
-    <button type="text"
-    [skyColorpickerInput]="colorPickerExample1"
-    [(ngModel)]="selectedColor1"
-    #color1="ngModel"
-    [presetColors]="presetColors1"
-    [initialColor]="selectedColor1"
-    [outputFormat]="selectedOutputFormat1"></button>
+    <button type="text" [skyColorpickerInput]="colorPickerExample1" [(ngModel)]="selectedColor1" #color1="ngModel" [presetColors]="presetColors1"
+      [initialColor]="selectedColor1" [outputFormat]="selectedOutputFormat1"></button>
   </sky-colorpicker>
+  <table>
+    <thead>
+      <tr>
+        <th>RGBA</th>
+        <th>HSLA</th>
+        <th>HSVA</th>
+        <th>CYMK</th>
+        <th>HEX</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>{{selectedColor1?.rgba?.red}}</td>
+      <td>{{selectedColor1?.hsla?.hue}}</td>
+      <td>{{selectedColor1?.hsva?.hue}}</td>
+      <td>{{selectedColor1?.cmyk?.cyan}}</td>
+      <td>{{selectedColor1?.hex}}</td>
+    </tr>
+    <tr>
+      <td>{{selectedColor1?.rgba?.blue}}</td>
+      <td>{{selectedColor1?.hsla?.saturation}}</td>
+      <td>{{selectedColor1?.hsva?.saturation}}</td>
+      <td>{{selectedColor1?.cmyk?.magenta}}</td>
+    </tr>
+    <tr>
+      <td>{{selectedColor1?.rgba?.green}}</td>
+      <td>{{selectedColor1?.hsla?.lightness}}</td>
+      <td>{{selectedColor1?.hsva?.value}}</td>
+      <td>{{selectedColor1?.cmyk?.yellow}}</td>
+    </tr>
+    <tr>
+      <td>{{selectedColor1?.rgba?.alpha}}</td>
+      <td>{{selectedColor1?.hsla?.alpha}}</td>
+      <td>{{selectedColor1?.hsva?.alpha}}</td>
+      <td>{{selectedColor1?.cmyk?.key}}</td>
+    </tr>
+  </table>
 
-  <div>
-    {{selectedColor1?.rgba?.red}}
-    {{selectedColor1?.rgba?.blue}}
-    {{selectedColor1?.rgba?.green}}
-    {{selectedColor1?.rgba?.alpha}}
-  </div>
 </div>

@@ -1,26 +1,20 @@
-// spell-checker:ignore Colorpicker, Validators, hsva, hsla, cmyk, Dropdown
+// spell-checker:ignore Colorpicker, Validators, RGBA, hsva, hsla, cmyk, Dropdown
 import {
   ElementRef,
   ViewContainerRef,
-  // EventEmitter,
   Directive,
   forwardRef,
   HostListener,
   Input,
   OnChanges,
   OnInit,
-  // Output,
   Renderer,
   SimpleChanges,
   OnDestroy
 } from '@angular/core';
 import { SkyColorpickerService } from './colorpicker.service';
 import { SkyColorpickerComponent } from './colorpicker.component';
-import {
-  // SliderPosition,
-  // SliderDimension,
-  Rgba, Hsla, Hsva, Cmyk, SkyColorpickerOutput
-} from './colorpicker-classes';
+import { Hsva, SkyColorpickerOutput } from './colorpicker-classes';
 
 import {
   ControlValueAccessor,
@@ -95,7 +89,6 @@ export class SkyColorpickerInputDirective
 
   @HostListener('change', ['$event'])
   public onChange(event: any) {
-    debugger
     let newValue = event.target.value;
     this.modelValue = this.formatter(newValue);
     this._validatorChange();
@@ -110,13 +103,15 @@ export class SkyColorpickerInputDirective
 
   public ngOnInit() {
     this.renderer.setElementClass(this.element.nativeElement, 'sky-form-control', true);
-    this.skyColorpickerInput.initialColor = this.initialColor;
-    this.skyColorpickerInput.returnFormat = this.returnFormat;
+    this.skyColorpickerInput.initialColor =
+      this.skyColorpickerInput.returnFormat = this.returnFormat;
     this.pickerChangedSubscription =
       this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: SkyColorpickerOutput) => {
         this.writeValue(newColor);
         this._onChange(newColor);
       });
+    this.skyColorpickerInput.setColorFromString(this.initialColor);
+
   }
   public ngOnDestroy() {
     this.pickerChangedSubscription.unsubscribe();
@@ -165,11 +160,11 @@ export class SkyColorpickerInputDirective
   private writeModelValue(model: SkyColorpickerOutput) {
     if (model) {
       let setElementValue: string;
-      setElementValue = this.service.outputFormat(model.hsva, 'rgba', true);
+      setElementValue = model.rgbaText;
+      this.renderer.setElementStyle(
+        this.element.nativeElement, 'background-color', setElementValue);
       // tslint:disable max-line-length
       // spell-checker:disable
-      this.renderer.setElementStyle(this.element.nativeElement, 'background-color', setElementValue);
-      debugger
       this.renderer.setElementStyle(this.element.nativeElement, 'background-image', `url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cdefs%3E%3Cpath%20id%3D%22a%22%20d%3D%22M0%200h30v30H0V0zm14.5%204H4v22h14v-8h8V4H14.5z%22%2F%3E%3C%2Fdefs%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cuse%20fill%3D%22%23FFF%22%20xlink%3Ahref%3D%22%23a%22%2F%3E%3Cpath%20stroke%3D%22%23CCC%22%20d%3D%22M.5.5v29h29V.5H.5zm18%2018v8h-15v-23h23v15h-8z%22%2F%3E%3Cpath%20fill%3D%22%23292A2B%22%20d%3D%22M23.5%2025L21%2022h5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E)`);
       // tslint:enable max-line-length
       // spell-checker:enable

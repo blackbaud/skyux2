@@ -229,10 +229,10 @@ export class SkyColorpickerService {
 
     formatColor = {
       'rgbaText': rgbaText,
-      'hsva': color,
-      'rgba': rgba,
-      'hsla': hsla,
-      'cmyk': cmyk,
+      'hsva': this.denormalizeHSVA(color),
+      'rgba': this.denormalizeRGBA(rgba),
+      'hsla': this.denormalizeHSLA(hsla),
+      'cmyk': this.denormalizeCMYK(cmyk),
       'hex': hex
     };
     return formatColor;
@@ -273,5 +273,21 @@ export class SkyColorpickerService {
       Math.round(hsla.saturation * 100),
       Math.round(hsla.lightness * 100),
       Math.round(hsla.alpha * 100) / 100);
+  }
+
+  public denormalizeHSVA(hsla: Hsva): Hsva {
+    return new Hsva(
+      Math.round((hsla.hue) * 360),
+      Math.round(hsla.saturation * 100),
+      Math.round(hsla.value * 100),
+      Math.round(hsla.alpha * 100) / 100);
+  }
+
+  public denormalizeCMYK(cmyk: Cmyk): Cmyk {
+    return new Cmyk(
+      Math.round((cmyk.cyan) * 100),
+      Math.round(cmyk.magenta * 100),
+      Math.round(cmyk.yellow * 100),
+      Math.round(cmyk.key * 100));
   }
 }
