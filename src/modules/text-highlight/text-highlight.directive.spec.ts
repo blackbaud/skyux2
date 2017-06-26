@@ -11,9 +11,17 @@ import { SkyTextHighlightModule } from './text-highlight.module';
 import { MutationObserverService } from '../mutation/mutation-observer-service';
 
 function updateInputText(fixture: ComponentFixture<SkyTextHighlightTestComponent>, text: string) {
+  let params = {
+    bubbles: false,
+    cancelable: false
+  };
+
+  let inputEvent = document.createEvent('Event');
+  inputEvent.initEvent('input', params.bubbles, params.cancelable);
+
   const inputEl = fixture.nativeElement.querySelector('.sky-input-search-term') as HTMLInputElement;
   inputEl.value = text;
-  inputEl.dispatchEvent(new Event('input'));
+  inputEl.dispatchEvent(inputEvent);
   fixture.detectChanges();
 }
 
