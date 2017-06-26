@@ -1,14 +1,11 @@
-<h3>Colorpicker with Options</h3>
-<div style="max-width: 400px;">
-
-  <table>
+<h3>Colorpicker</h3>
+  <table cellpadding="10">
     <tr>
       <td>
         <sky-colorpicker #colorPickerExample1>
           <button
           [skyColorpickerInput]="colorPickerExample1"
-          [(ngModel)]="selectedColor1"
-          #color1="ngModel"
+          [(ngModel)]="color1"
           [presetColors]="presetColors1"
           [initialColor]="selectedColor1"
           [outputFormat]="selectedOutputFormat1">
@@ -56,8 +53,7 @@
         <sky-colorpicker #colorPickerExample2>
           <input type="text"
           [skyColorpickerInput]="colorPickerExample2"
-          [(ngModel)]="selectedColor2"
-          #color2="ngModel" />
+          [(ngModel)]="color2" />
         </sky-colorpicker>
         <table>
           <thead>
@@ -98,4 +94,4 @@
       </td>
     </tr>
   </table>
-</div>
+
