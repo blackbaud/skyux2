@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { SkyTextHighlightTestComponent } from './fixtures/text-highlight.component.fixture';
 import { SkyCheckboxModule } from '../checkbox/checkbox.module';
 import { SkyTextHighlightModule } from './text-highlight.module';
-import { async } from '@angular/core/testing';
 import { MutationObserverService } from './mutation-observer-service';
 
 function updateInputText(fixture: ComponentFixture<SkyTextHighlightTestComponent>, text: string) {
@@ -38,7 +37,7 @@ function getHtmlOutputAdditionalText(text: string, additionalText: string) {
     </div>`;
 }
 
-describe('Highlight', () => {
+describe('Text Highlight', () => {
 
   let fixture: ComponentFixture<SkyTextHighlightTestComponent>;
   let component: SkyTextHighlightTestComponent;
@@ -138,7 +137,7 @@ describe('Highlight', () => {
     expect(containerElChanged.innerHTML.trim()).toBe(expectedHtmlChanged);
   });
 
-  it('highlight search term of html that was previously hidden', async(() => {
+  it('highlight search term of html that was previously hidden', () => {
     component.showAdditionalContent = false;
     fixture.detectChanges();
 
@@ -162,17 +161,49 @@ describe('Highlight', () => {
 
     fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      const containerElUpdated =
-        nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const containerElUpdated =
+      nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
 
-      const text = 'Here <mark class="sky-highlight-mark">is</mark> some test text.';
-      // tslint:disable-next-line:max-line-length
-      const additional = 'Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.';
-      const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
+    const text = 'Here <mark class="sky-highlight-mark">is</mark> some test text.';
+    // tslint:disable-next-line:max-line-length
+    const additional = 'Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.';
+    const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
 
-      expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
-    });
-  }));
+    expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
+  });
 
+  it('highlight hidden search term where only highlighted term was hidden', () => {
+    component.showAdditionalContent = false;
+    fixture.detectChanges();
+
+    updateInputText(fixture, 'additional');
+
+    const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const expectedHtml =
+      getHtmlOutput('Here is some test text.');
+
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+
+    // check box to show extra content
+    const checkboxEl =
+      fixture.nativeElement.querySelector('.sky-test-checkbox') as HTMLInputElement;
+
+    checkboxEl.click();
+    fixture.detectChanges();
+
+    // mock the mutation observer callback on DOM change
+    callbacks[0](undefined);
+
+    fixture.detectChanges();
+
+    const containerElUpdated =
+      nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+
+    const text = 'Here is some test text.';
+    // tslint:disable-next-line:max-line-length
+    const additional = 'Here is <mark class="sky-highlight-mark">additional</mark> text that was previously hidden.';
+    const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
+
+    expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
+  });
 });
