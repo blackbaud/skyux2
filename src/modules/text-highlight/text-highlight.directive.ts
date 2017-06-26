@@ -7,6 +7,8 @@ import {
   ElementRef
 } from '@angular/core';
 
+import { MutationObserverService } from './mutation-observer-service';
+
 const className = 'sky-highlight-mark';
 
 @Directive({
@@ -19,7 +21,6 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
 
   private existingHighlight = false;
   private observer: MutationObserver;
-  private textHighlighted: boolean = false;
 
   private static getRegexMatch(node: HTMLElement, searchText: string): RegExpExecArray {
     const text = node.nodeValue;
@@ -81,7 +82,7 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
     }
   }
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, private observerService: MutationObserverService) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.highlight();
@@ -89,16 +90,12 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
 
   public ngAfterViewInit(): void {
     let me = this;
-    this.observer = new MutationObserver(mutations => {
-      if (me.textHighlighted) {
-        me.textHighlighted = false;
-      } else {
-        me.highlight();
-      }
+
+    this.observer = this.observerService.create((mutations: MutationRecord[]) => {
+      me.highlight();
     });
 
-    const config = { attributes: true, childList: true, characterData: true };
-    this.observer.observe(this.el.nativeElement, config);
+    this.observeDom();
   }
 
   private readyForHighlight(searchText: string): boolean {
@@ -106,6 +103,10 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
   }
 
   private highlight(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+
     const searchText = this.skyHighlight;
 
     if (this.existingHighlight) {
@@ -120,6 +121,13 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
       this.existingHighlight = true;
     }
 
-    this.textHighlighted = true;
+    this.observeDom();
+  }
+
+  private observeDom() {
+    if (this.observer) {
+      const config = { attributes: true, childList: true, characterData: true };
+      this.observer.observe(this.el.nativeElement, config);
+    }
   }
 }

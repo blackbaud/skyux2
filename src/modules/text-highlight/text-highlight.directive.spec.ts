@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { SkyTextHighlightTestComponent } from './fixtures/text-highlight.component.fixture';
 import { SkyCheckboxModule } from '../checkbox/checkbox.module';
 import { SkyTextHighlightModule } from './text-highlight.module';
-import { async } from "@angular/core/testing";
+import { async } from '@angular/core/testing';
+import { MutationObserverService } from './mutation-observer-service';
 
 function updateInputText(fixture: ComponentFixture<SkyTextHighlightTestComponent>, text: string) {
   const inputEl = fixture.nativeElement.querySelector('.sky-input-search-term') as HTMLInputElement;
@@ -42,6 +43,7 @@ describe('Highlight', () => {
   let fixture: ComponentFixture<SkyTextHighlightTestComponent>;
   let component: SkyTextHighlightTestComponent;
   let nativeElement: HTMLElement;
+  let callbacks: any[];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -52,9 +54,23 @@ describe('Highlight', () => {
         SkyCheckboxModule,
         SkyTextHighlightModule,
         FormsModule
-      ]
+      ],
+        providers: [{
+          provide: MutationObserverService,
+          useValue: {
+            create: function(callback: Function) {
+              callbacks.push(callback);
+
+              return {
+                observe: () => {},
+                disconnect: () => {}
+              };
+            }
+          }
+        }]
     });
 
+    callbacks = [];
     fixture = TestBed.createComponent(SkyTextHighlightTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
@@ -139,6 +155,11 @@ describe('Highlight', () => {
       fixture.nativeElement.querySelector('.sky-test-checkbox') as HTMLInputElement;
 
     checkboxEl.click();
+    fixture.detectChanges();
+
+    // mock the mutation observer callback on DOM change
+    callbacks[0](undefined);
+
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
