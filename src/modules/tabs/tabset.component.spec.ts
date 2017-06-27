@@ -687,13 +687,15 @@ describe('Tabset component', () => {
     it('should emit a click event on enter press', () => {
       fixture.detectChanges();
       fixture.detectChanges();
-      debugElement.queryAll(By.css('.sky-btn-tab'))[1].triggerEventHandler('keydown', { keyCode: 15});
+      let el =  debugElement.queryAll(By.css('.sky-btn-tab'))[1];
+
+      el.triggerEventHandler('keydown', { keyCode: 15});
       fixture.detectChanges();
       validateTabSelected(fixture.nativeElement, 0);
-      debugElement.queryAll(By.css('.sky-btn-tab'))[1].triggerEventHandler('keydown', { keyCode: 13});
+
+      el.triggerEventHandler('keydown', { keyCode: 13});
       fixture.detectChanges();
       validateTabSelected(fixture.nativeElement, 1);
     });
-  }); 
+  });
 });
-
