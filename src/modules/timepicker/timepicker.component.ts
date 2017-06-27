@@ -165,7 +165,6 @@ export class SkyTimepickerComponent implements OnInit {
       /* istanbul ignore next */
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
     }
-
     /* istanbul ignore else */
     if (this.is8601) {
       return moment(this.activeTime).hour() + 0;

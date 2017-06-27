@@ -5,6 +5,12 @@ import {
   tick
 } from '@angular/core/testing';
 
+import {
+  DebugElement
+} from '@angular/core';
+
+import { By } from '@angular/platform-browser';
+
 import { SkyTabsetComponent } from './tabset.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetService } from './tabset.service';
@@ -654,6 +660,42 @@ describe('Tabset component', () => {
 
       xit('adds max width when window size changes', () => {
       });
+    });
+  });
+
+   describe('keyboard accessibility', () => {
+    let debugElement: DebugElement;
+    let cmp: TabsetTestComponent;
+    let fixture: ComponentFixture<TabsetTestComponent>;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          SkyTabsFixturesModule
+        ]
+      });
+      fixture = TestBed.createComponent(TabsetTestComponent);
+      debugElement = fixture.debugElement;
+      cmp = fixture.componentInstance as TabsetTestComponent;
+    });
+
+    it('should have tabindex of 0', () => {
+      fixture.detectChanges();
+      expect(debugElement.query(By.css('.sky-btn-tab')).attributes['tabindex']).toBe('0');
+    });
+
+    it('should emit a click event on enter press', () => {
+      fixture.detectChanges();
+      fixture.detectChanges();
+      let el =  debugElement.queryAll(By.css('.sky-btn-tab'))[1];
+
+      el.triggerEventHandler('keydown', { keyCode: 15});
+      fixture.detectChanges();
+      validateTabSelected(fixture.nativeElement, 0);
+
+      el.triggerEventHandler('keydown', { keyCode: 13});
+      fixture.detectChanges();
+      validateTabSelected(fixture.nativeElement, 1);
     });
   });
 });
