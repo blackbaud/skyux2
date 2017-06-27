@@ -37,7 +37,7 @@ export class SkyTabButtonComponent {
 
   public doTabClick() {
     if (!this.disabled) {
-      this.tabClick.emit(undefined);
+      this.tabClick.emit();
     }
   }
 
@@ -46,7 +46,7 @@ export class SkyTabButtonComponent {
   }
 
   public keyDownFunction(event: any) {
-    if(event.keyCode == 13){
+    if (event.keyCode === 13) {
       this.doTabClick();
     }
   }
