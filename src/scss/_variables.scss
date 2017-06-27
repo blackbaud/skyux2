@@ -1,3 +1,5 @@
+@import '~@blackbaud/skyux-design-tokens/scss/variables.scss';
+
 $sky-font-family-base: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $sky-font-family-narrow: 'Oswald', sans-serif !default;
 
@@ -14,12 +16,6 @@ $sky-margin-3_4: floor(($sky-margin * 0.75)) !default;
 $sky-margin-plus-half: $sky-margin + $sky-margin-half !default;
 $sky-margin-double: $sky-margin * 2 !default;
 $sky-margin-triple: $sky-margin * 3 !default;
-
-// start of new colors
-$sky-color-gray-05: #eeeeef !default;
-$sky-color-gray-10: #e2e3e4 !default;
-
-// end of new colors
 
 $sky-info-background-color: #d9edf7 !default;
 $sky-info-border-color: #bce8f1 !default;
