@@ -4,7 +4,7 @@ import {
   ComponentFixture,
   tick
 } from '@angular/core/testing';
-
+import { browser } from 'protractor';
 import {
   FormsModule,
   NgModel
@@ -26,7 +26,6 @@ describe('Colorpicker', () => {
 
   function setPresetColor(element: HTMLElement, compFixture: ComponentFixture<any>, key: number) {
     let presetColors = element.querySelectorAll('.sky-preset-color') as NodeListOf<HTMLElement>;
-
     let applyColor = element.querySelector('.sky-btn-colorpicker-apply') as HTMLButtonElement;
     presetColors[key].click();
     applyColor.click();
@@ -69,18 +68,26 @@ describe('Colorpicker', () => {
     }
   }
 
-  it('Output should be RGBA', () => {
+  it('should output RGBA', () => {
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
     setPresetColor(nativeElement, fixture, 4);
     verifyColorpicker(nativeElement);
   });
 
-  it('Output should be HEX', () => {
+  it('should output HEX', () => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
     setPresetColor(nativeElement, fixture, 4);
     verifyColorpicker(nativeElement);
   });
+
+  it('Should accept a new HEX color.', () => {
+    component.selectedOutputFormat = 'hex';
+    openColorpicker(nativeElement, fixture);
+  browser.pause();
+
+  });
+
 
 });

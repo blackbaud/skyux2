@@ -3,9 +3,42 @@
     The colorpicker module allows users to use a button to select a color.
   </sky-demo-page-summary>
   <sky-demo-page-properties sectionHeading="color picker input directive properties">
-    <sky-demo-page-property propertyName="skyColorpickerInput">When this attribute is placed on an (input or button) element and wrapped in a <code>sky-colorpicker</code> component, the Element
-      and colorpicker are created. This attribute must be set to the instance of the <code>sky-colorpicker</code>. This directive
-      will use <code>NgModel</code> for binding data.
+    <sky-demo-page-property propertyName="skyColorpickerInput">When this attribute is placed on an (input or button) element and wrapped in a <code>sky-colorpicker</code> component,
+      the Element and colorpicker are created. This attribute must be set to the instance of the <code>sky-colorpicker</code>.
+      This directive will use <code>NgModel</code> for binding data.
+    </sky-demo-page-property>
+    <sky-demo-page-property propertyName="NgModel">
+      Will return an object as follows:
+      <div>
+        <dl style="display:inline-block">
+          <dt>Hex: String</dt>
+          <dd>*Hex6 does not contain opacity.</dd>
+          <dt>hsva: Object</dt>
+          <dd>.hue: number</dd>
+          <dd>.saturation: number</dd>
+          <dd>.value: number</dd>
+          <dd>.alpha: number</dd>
+          <dt>rgba: Object</dt>
+          <dd>.red: number</dd>
+          <dd>.green: number</dd>
+          <dd>.blue: number</dd>
+          <dd>.alpha: number</dd>
+        </dl>
+        <dl style="display:inline-block;">
+          <dt>rgbaText: string</dt>
+          <dd>*Formated for CSS: rgba(0,0,0,0)</dd>
+          <dt>hsla: Object</dt>
+          <dd>.hue: number</dd>
+          <dd>.saturation: number</dd>
+          <dd>.lightness: number</dd>
+          <dd>.alpha: number</dd>
+          <dt>cmyk: Object</dt>
+          <dd>.cyan: number</dd>
+          <dd>.magenta: number</dd>
+          <dd>.yellow: number</dd>
+          <dd>.key: number</dd>
+        </dl>
+      </div>
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="presetColors" isOptional="true">
       Specifies a array of colors that will load in the colorpicker.
@@ -14,7 +47,7 @@
       Specifies the initial color to be used, default <code>#FFF</code>.
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="outputFormat" isOptional="true">
-      Specifies the format <code> rgba</code> or <code> hex </code> for the button value.
+      Specifies the value property on the provided input or button, accepts <code>rgba</code> or <code>hex</code>
     </sky-demo-page-property>
   </sky-demo-page-properties>
   <sky-demo-page-example>

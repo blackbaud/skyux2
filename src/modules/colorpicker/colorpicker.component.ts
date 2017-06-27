@@ -60,7 +60,7 @@ export class SkyColorpickerComponent implements OnInit {
   private sliderDimMax: SliderDimension;
 
   @HostListener('click', ['$event'])
-  public onClick() {
+  public onClick(event: any) {
     let element: HTMLButtonElement = <HTMLButtonElement>event.target;
     // keep the drop down open.
     if (

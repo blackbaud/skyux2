@@ -97,7 +97,7 @@ export class SkyColorpickerInputDirective
   }
 
   @HostListener('blur')
-  public onBlur /* istanbul ignore next */() {
+  public onBlur /* istanbul ignore next */(event: any) {
     this._onTouched();
   }
 
