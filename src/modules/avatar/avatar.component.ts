@@ -62,10 +62,7 @@ export class SkyAvatarComponent {
   constructor(private errorService: SkyErrorModalService) {}
 
   public photoDrop(result: SkyFileDropChange) {
-<<<<<<< HEAD
-=======
     /* sanity check */
->>>>>>> blackbaud/rc-ng4-upgrade
     /* istanbul ignore else */
     if (result.files && result.files.length > 0) {
       this.avatarChanged.emit(result.files[0]);

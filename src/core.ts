@@ -101,11 +101,7 @@ export {
   SkyNumericModule,
   SkyNumericPipe,
   SkyNumericService
-<<<<<<< HEAD
-} from './modules/numeric'
-=======
 } from './modules/numeric';
->>>>>>> blackbaud/rc-ng4-upgrade
 export {
   SkyAvatarComponent,
   SkyAvatarInnerComponent,
@@ -162,11 +158,7 @@ export {
 export {
   SkyEmailValidationDirective,
   SkyEmailValidationModule
-<<<<<<< HEAD
-} from './modules/email-validation'
-=======
 } from './modules/email-validation';
->>>>>>> blackbaud/rc-ng4-upgrade
 export {
   SkyErrorComponent,
   SkyErrorDescriptionComponent,
