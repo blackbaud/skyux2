@@ -1,0 +1,10 @@
+<div>
+  <sky-colorpicker #colorPickerTest>
+    <input
+    [skyColorpickerInput]="colorPickerTest"
+    [(ngModel)]="colorModel"
+    [presetColors]="presetColors"
+    [initialColor]="selectedColor"
+    [outputFormat]="selectedOutputFormat"/>
+  </sky-colorpicker>
+</div>

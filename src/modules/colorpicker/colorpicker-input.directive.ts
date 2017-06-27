@@ -160,6 +160,15 @@ export class SkyColorpickerInputDirective
     if (model) {
       let setElementValue: string;
       setElementValue = model.rgbaText;
+      let output: string;
+      if (this.outputFormat === 'rgba') {
+        output = model.rgbaText;
+      }
+      if (this.outputFormat === 'hex') {
+        output = model.hex;
+      }
+
+      this.skyColorpickerInput.setColorFromString(output);
       this.renderer.setElementStyle(
         this.element.nativeElement, 'background-color', setElementValue);
       // tslint:disable max-line-length
@@ -175,14 +184,8 @@ export class SkyColorpickerInputDirective
       this.renderer.setElementStyle(this.element.nativeElement, 'border', 'none');
       this.renderer.setElementStyle(this.element.nativeElement, 'pointer-events', 'none');
       this.renderer.setElementStyle(this.element.nativeElement, 'z-index', '1000');
-      this.renderer.setElementProperty(this.element.nativeElement, 'value', setElementValue);
+      this.renderer.setElementProperty(this.element.nativeElement, 'value', output);
 
-      let output = this.service.outputFormat(
-        model.hsva,
-        this.outputFormat,
-        this.alphaChannel === 'hex8'
-      );
-      this.skyColorpickerInput.setColorFromString(output);
     }
   }
 

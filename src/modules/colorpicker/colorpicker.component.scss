@@ -2,39 +2,35 @@
 // Component modifying host-context element
 :host-context(sky-colorpicker) sky-dropdown{
     position: relative;
-    left: -30px;
-    width: 30px;
+    left: -$sky-alternate-font-size-xl;
+    width: $sky-alternate-font-size-xl;
     overflow: hidden;
-    height: 30px;
+    height: $sky-alternate-font-size-xl;
   }
 
 .sky-colorpicker-reset-button::before{
-  color:black;
+  color: $sky-color-gray;
     content: '\f00d';
     font-family: FontAwesome;
-    font-size:15px;
+    font-size: $sky-font-size-lg;
 }
 .sky-colorpicker-reset-button{
-    background-color: white;
+    background-color: $sky-color-white;
     margin: 0px;
-    border: 1px solid #ccc;
+    border: 1px solid $sky-color-gray-lighter;
     box-shadow:
-    inset 0 0 0 2px #fff,
-    inset 0 0 0 3px #ccc;
-    width: 30px;
-    height: 30px;
+    inset 0 0 0 2px $sky-color-white,
+    inset 0 0 0 3px $sky-color-gray-lighter;
+    width: $sky-alternate-font-size-xl;
+    height: $sky-alternate-font-size-xl;
     position: relative;
     left: -25px;
 }
 
-
-
-
-
 .sky-colorpicker-footer{
-    background-color: #ffffff;
-    padding: 15px;
-    border-top: solid 1px #e6e6e6;
+    background-color: $sky-color-white;
+    padding: $sky-font-size-lg;
+    border-top: solid 1px $sky-color-gray-lightest;
 }
 
 .sky-colorpicker *{
@@ -42,7 +38,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin:0;
-    font-size:11px;
+    font-size: $sky-font-size-sm;
 }
 
 
@@ -58,7 +54,7 @@
     cursor: default;
     width: 270px;
     height: auto;
-    background-color: #fff;
+    background-color: $sky-color-white;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -74,8 +70,8 @@
 
     input{
         text-align: center;
-        font-size: 13px;
-        height: 26px;
+        font-size: $sky-font-size-lg;
+        height: $sky-alternate-font-size-lg;
         &:invalid{
             box-shadow: none;
         }
@@ -95,37 +91,37 @@
     }
 
     .button-area{
-        padding: 0 16px 16px 16px;
+        padding: 0 $sky-font-size-xl $sky-font-size-xl $sky-font-size-xl;
         text-align: right;
     }
 
     .sky-colorpicker-preset-color-area {
         padding-left: 9px;
         padding-right: 9px;
-        padding-bottom: 15px;
+        padding-bottom: $sky-font-size-lg;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         flex-flow: row wrap;
 
-        .preset-color {
+        .sky-preset-color {
             cursor: pointer;
             display: flex;
-            width: 32px;
-            height: 32px;
+            width: $sky-font-size-xxl;
+            height: $sky-font-size-xxl;
             margin: 5px;
-            border: #EFEFEF solid 1px;
+            border: $sky-color-gray-lightest solid 1px;
         }
-        .preset-color:hover {
+        .sky-preset-color:hover {
            cursor: pointer;
-           border: #FFF solid 2px;
-           outline: 1px solid #EFEFEF;
+           border: $sky-color-white solid 2px;
+           outline: 1px solid $sky-color-gray-lightest;
            margin: 4px;
            width: 34px;
            height: 34px;
            box-shadow:
-            0 0 0 1px hsl(0, 0%, 80%),
-            0 0 0 2px hsl(0, 0%, 90%);
+            0 0 0 1px $sky-color-gray-lighter,
+            0 0 0 2px $sky-color-gray-lightest;
         }
     }
 
@@ -137,50 +133,22 @@
         z-index: 999999;
     }
 
-    .arrow-right{
-        border-width: 5px 10px;
-        border-color: rgba(0,0,0,0) #777 rgba(0,0,0,0) rgba(0,0,0,0);
-        top: 10px;
-        left:-20px;
-    }
-
-    .arrow-left{
-        border-width: 5px 10px;
-        border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) #777;
-        top: 10px;
-        left:100%;
-    }
-
-    .arrow-bottom{
-        border-width: 10px 5px;
-        border-color: rgba(0,0,0,0) rgba(0,0,0,0) #777 rgba(0,0,0,0);
-        top: -20px;
-        left:10px;
-    }
-
-    .arrow-top{
-        border-width: 10px 5px;
-        border-color: #777 rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0);
-        //top: 289px;
-        left:10px;
-    }
-
     div.cursor-sv{
         cursor:default;
         position:relative;
         @include boder-radius(50%);
-        width: 15px;
-        height: 15px;
-        border: #ddd solid 1px;
+        width: $sky-font-size-lg;
+        height: $sky-font-size-lg;
+        border: $sky-paging-border-color solid 1px;
     }
 
     div.cursor{
         cursor:default;
         position:relative;
         @include boder-radius(50%);
-        width: 16px;
-        height: 16px;
-        border: #222 solid 2px;
+        width: $sky-font-size-xl;
+        height: $sky-font-size-xl;
+        border: $sky-color-gray solid 2px;
     }
 
     .saturation-lightness{
@@ -259,7 +227,7 @@
                 margin: 0;
                 float:left;
                 margin-right:8px;
-                border: #E5E6E7 solid 1px;
+                border: $sky-color-gray-lightest solid 1px;
                 padding: 1px;
 
                 &:last-child{
@@ -272,7 +240,6 @@
             div{
                 flex: 1;
                 text-align: left;
-                color: #555;
                 margin-right:8px;
                 &:last-child{
                     margin-right: 0;
@@ -283,20 +250,20 @@
 
     .hex-text{
         width: 100%;
-        font-size: 11px;
+        font-size: $sky-font-size-sm;
         padding: 4px 8px;
 
         .box{
             padding: 0 24px 8px 8px;
             input{
                 flex: 1 1 auto;
-                border: #a9a9a9 solid 1px;
+                border: $sky-color-gray-lightest solid 1px;
                 padding: 1px;
             }
             div{
                 flex: 1 1 auto;
                 text-align: center;
-                color: #555;
+                color: $sky-color-gray-lighter;
                 float:left;
                 clear: left;
             }
