@@ -59,6 +59,9 @@ export class SkyTimepickerComponent implements OnInit {
           if (format === 'hh') { return ++i; }
           /* istanbul ignore else */
           if (format === 'HH') { return i; }
+          /* istanbul ignore next */
+          /* sanity check */
+          return 0;
         }),
       'minutes': Array.apply(undefined, Array(m))
         .map(function (x: number, i: number) {
@@ -76,9 +79,13 @@ export class SkyTimepickerComponent implements OnInit {
 
   public set selectedTime(newTime: SkyTimepickerTimeOutput) {
     if (typeof newTime !== 'undefined') {
+<<<<<<< HEAD
+=======
+      /* sanity check */
+>>>>>>> blackbaud/rc-ng4-upgrade
       /* istanbul ignore else */
       if (newTime.local !== 'Invalid date') {
-        this.activeTime = newTime.ios8601;
+        this.activeTime = newTime.iso8601;
       }
     }
   }
@@ -96,7 +103,7 @@ export class SkyTimepickerComponent implements OnInit {
       minute: moment(this.activeTime).minute(),
       meridie: moment(this.activeTime).format('A'),
       timezone: moment(this.activeTime).format('Z'),
-      ios8601: this.activeTime,
+      iso8601: this.activeTime,
       local: moment(this.activeTime).format(this.localeFormat),
       customFormat: (typeof this.returnFormat !== 'undefined')
         ? this.returnFormat : this.localeFormat
@@ -161,6 +168,10 @@ export class SkyTimepickerComponent implements OnInit {
       /* istanbul ignore next */
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> blackbaud/rc-ng4-upgrade
     /* istanbul ignore else */
     if (this.is8601) {
       return moment(this.activeTime).hour() + 0;
@@ -175,5 +186,6 @@ export class SkyTimepickerComponent implements OnInit {
     if (this.activeTime) {
       return moment(this.activeTime).format('A');
     }
+    return '';
   }
 }

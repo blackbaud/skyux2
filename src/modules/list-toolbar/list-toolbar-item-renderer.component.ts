@@ -2,7 +2,7 @@ import { Component, ViewContainerRef, ViewChild, Input, TemplateRef, OnInit} fro
 
 @Component({
   selector: 'sky-list-toolbar-item-renderer',
-  template: '<template #container></template>'
+  template: '<ng-template #container></ng-template>'
 })
 export class SkyListToolbarItemRendererComponent implements OnInit {
   @Input() public template: TemplateRef<any>;

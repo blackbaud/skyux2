@@ -15,7 +15,7 @@ import { getData } from '../list/helpers';
 
 @Component({
   selector: 'sky-grid-cell',
-  template: '<template #cell></template>',
+  template: '<ng-template #cell></ng-template>',
   styleUrls: ['./grid-cell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

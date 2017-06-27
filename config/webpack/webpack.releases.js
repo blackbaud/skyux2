@@ -41,7 +41,7 @@ module.exports = webpackMerge(commonConfig, {
   },
   output: {
     filename: '[name].js',
-    path: 'releases'
+    path: path.resolve(__dirname, '..', '..', 'releases')
   },
   plugins: [
     PrepareFallback,

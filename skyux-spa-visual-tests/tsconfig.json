@@ -1,0 +1,29 @@
+{
+  "extends": "./node_modules/@blackbaud/skyux-builder/tsconfig",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "sky-pages-spa/src/*": ["./src/*"],
+      "sky-pages-internal/*": ["./node_modules/@blackbaud/skyux-builder/*"],
+      "@blackbaud/skyux/dist/core": ["./node_modules/@blackbaud/skyux/dist/core"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false
+}

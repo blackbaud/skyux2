@@ -203,5 +203,4 @@ export class SkyTextExpandComponent implements AfterContentInit {
       }, 500);
     }, 10);
   }
-
 }

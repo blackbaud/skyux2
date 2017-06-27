@@ -13,7 +13,7 @@ import {
   transition
 } from '@angular/core';
 
-import { SkyTileDashboardService } from './../tile-dashboard';
+import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile',
@@ -77,8 +77,8 @@ export class SkyTileComponent implements AfterViewInit {
   }
 
   constructor(
-    @Optional() private dashboardService: SkyTileDashboardService,
-    public elementRef: ElementRef
+    public elementRef: ElementRef,
+    @Optional() private dashboardService: SkyTileDashboardService
   ) {
     this.isInDashboardColumn = !!dashboardService;
   }

@@ -194,6 +194,8 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
           return true;
         }
       }
+
+      return false;
     };
   }
 
