@@ -1,6 +1,7 @@
 @import '../../../scss/mixins';
 
 .sky-page-summary-subtitle {
+    @include sky-emphasized();
     margin-top: 0;
     margin-bottom: $sky-margin;
 }

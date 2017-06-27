@@ -37,6 +37,7 @@
 }
 
 .sky-repeater-item-title {
+  @include sky-emphasized();
   margin: $sky-margin 0;
   flex-grow: 1;
 }

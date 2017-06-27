@@ -46,10 +46,22 @@
     }
 }
 
+@mixin sky-page-heading {
+  font: 300 32px $sky-font-family-narrow;
+  font-stretch: condensed;
+  color: $sky-text-color;
+}
+
 @mixin sky-section-heading {
   color: $sky-text-color;
   font: 300 22px $sky-font-family-narrow;
   font-stretch: condensed;
+}
+
+@mixin sky-subsection-heading {
+  color: $sky-text-deemphasized-color;
+  font-size: 17px;
+  font-weight: 400;
 }
 
 @mixin sky-headline {
