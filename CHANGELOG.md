@@ -1,12 +1,31 @@
+# 2.0.0-rc.2 (2017-06-23)
+
+- Merged `master` branch.
+- Added support for SKY UX Builder 1.0.0-rc.3.
+
 # 2.0.0-beta.33 (2017-06-23)
 
   - Added the SkyNumeric Pipe. (#764) (Thanks @Blackbaud-AdamSc)
   - Added the email validation directive. (#379) (Thanks @Blackbaud-SandhyaRajasabeson)
 
+# 2.0.0-rc.1 (2017-06-20)
+  
+  - All the updates for 2.0.0-beta.32.
+
+  ### Breaking changes
+  
+  - Fixed typo to change SkyTimepickerTimeOutput `ios8601` property to be `iso8601`.
+
 # 2.0.0-beta.32 (2017-06-20)
 
   - Tweaked animation for text-expand in firefox. (#695)
   - Handle search when paging does not exist. (#813)
+
+# 2.0.0-rc.0 (2017-06-16)
+
+  - Updated dependencies to support Angular 4.1.3. (#549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
+  - Updated visual test process for SKY UX 2. 
+
 
 # 2.0.0-beta.31 (2017-06-14)
 

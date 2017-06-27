@@ -8,6 +8,7 @@ import {
 } from './actions';
 
 export class ListSortOrchestrator extends ListStateOrchestrator<ListSortModel> {
+  /* istanbul ignore next */
   constructor() {
     super();
 

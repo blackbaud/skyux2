@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'sky-test-cmp',
   templateUrl: './sort.component.fixture.html'
 })
-export class SortTestComponent {
-  public initialState = 3;
+export class SortTestComponent  implements OnInit {
+  public initialState: number;
   public sortOptions = [
     {
       id: 1,
@@ -46,6 +46,10 @@ export class SortTestComponent {
   ];
 
   public sortedItem: any;
+
+  public ngOnInit() {
+    this.initialState = 3;
+  }
 
   public sortItems(item: any) {
     this.sortedItem = item;

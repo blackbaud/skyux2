@@ -32,6 +32,9 @@ export class SkyTabDropdownComponent {
     if (activeTab.length > 0) {
       return activeTab[0].tabHeading;
     }
+    /* istanbul ignore next */
+    /* sanity check */
+    return '';
   }
 
   public selectTab(tab: SkyTabComponent) {
