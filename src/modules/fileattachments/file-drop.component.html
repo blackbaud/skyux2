@@ -22,8 +22,12 @@
           #fileInput/>
           <div class="sky-file-drop-contents" *ngIf="customEl.children.length === 0">
             <div class="sky-file-drop-contents-not-over">
-              <h4>{{'file_upload_drag_file_here' | skyResources}}</h4>
-              <h5>{{'file_upload_or_click_to_browse' | skyResources}}</h5>
+                <div class="sky-file-drop-text-header">
+                  {{'file_upload_drag_file_here' | skyResources}}
+                </div>
+                <div class="sky-file-droptext">
+                  {{'file_upload_or_click_to_browse' | skyResources}}
+                </div>
               <i class="fa fa-cloud-upload sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is valid -->
