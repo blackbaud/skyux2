@@ -26,6 +26,6 @@ export class SkyTextExpandRepeaterAdapterService {
   }
 
   public setContainerHeight(containerEl: ElementRef, height: string) {
-    this.renderer.setElementStyle(containerEl.nativeElement, 'height', height);
+    this.renderer.setElementStyle(containerEl.nativeElement, 'max-height', height);
   }
 }

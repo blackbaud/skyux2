@@ -67,7 +67,7 @@
   </div>
 </div>
 
-<template #search>
+<ng-template #search>
   <div *ngIf="isSearchEnabled | async">
     <sky-search
       #searchComponent
@@ -77,9 +77,9 @@
       [placeholderText]="placeholder">
     </sky-search>
   </div>
-</template>
+</ng-template>
 
-<template #sortSelector>
+<ng-template #sortSelector>
   <div
     class="sky-toolbar-item-sort-container"
     *ngIf="(isSortSelectorEnabled | async) && (sortSelectors | async).length > 0">
@@ -92,11 +92,11 @@
       </sky-sort-item>
     </sky-sort>
   </div>
-</template>
+</ng-template>
 
-<template #inlineFilterButton>
+<ng-template #inlineFilterButton>
   <sky-filter-button
     (filterButtonClick)="inlineFilterButtonClick()"
     [active]="hasAppliedFilters | async">
   </sky-filter-button>
-</template>
+</ng-template>

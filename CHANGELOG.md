@@ -1,3 +1,50 @@
+# 2.0.0-rc.2 (2017-06-23)
+
+- Merged `master` branch.
+- Added support for SKY UX Builder 1.0.0-rc.3.
+
+# 2.0.0-beta.33 (2017-06-23)
+
+  - Added the SkyNumeric Pipe. (#764) (Thanks @Blackbaud-AdamSc)
+  - Added the email validation directive. (#379) (Thanks @Blackbaud-SandhyaRajasabeson)
+
+# 2.0.0-rc.1 (2017-06-20)
+  
+  - All the updates for 2.0.0-beta.32.
+
+  ### Breaking changes
+  
+  - Fixed typo to change SkyTimepickerTimeOutput `ios8601` property to be `iso8601`.
+
+# 2.0.0-beta.32 (2017-06-20)
+
+  - Tweaked animation for text-expand in firefox. (#695)
+  - Handle search when paging does not exist. (#813)
+
+# 2.0.0-rc.0 (2017-06-16)
+
+  - Updated dependencies to support Angular 4.1.3. (#549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
+  - Updated visual test process for SKY UX 2. 
+
+# 2.0.0-beta.31 (2017-06-14)
+
+  - Added ability to specify sizes for modals. (#489) (Thanks @Blackbaud-AdamHickey)
+  - Added timepicker module to core exports. (#754)
+  - Fixed responsiveness for large modal size. (#778)
+  - Made the dropdown adjust alignment based on space available. (#777)
+  - Fixed the AOT compilation for datepicker. (#794) (Thanks @Blackbaud-JoshGerdes)
+  - Added `isPrimary` flag for dropdowns. (#606) (Thanks @Blackbaud-SandhyaRajasabeson)
+
+# 2.0.0-beta.30 (2017-06-07)
+  
+  - Fixed bug when modal service injected into ngIf block. (#744)
+  - Added locale date format as default to datepicker. (#732) (Thanks @Blackbaud-JoshGerdes)
+  - Added error modal to avatar when image upload fails (#204) (Thanks @Blackbaud-AdamHickey)
+  - Ensure list moves to first page after search is executed. (#706)
+  - Added checkbox to repeater component. (#278) (Thanks @Blackbaud-AdamHickey)
+  - Ensure fixed columns not appear in the column chooser for list. (#660) 
+
+
 # 2.0.0-beta.29 (2017-05-24)
 
   - Added the error modal service. (Thanks @Blackbaud-AdamHickey)

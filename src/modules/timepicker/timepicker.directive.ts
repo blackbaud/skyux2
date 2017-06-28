@@ -74,20 +74,13 @@ export class SkyTimepickerInputDirective implements
       });
   }
   public ngOnDestroy() {
-    if (this.pickerChangedSubscription) {
-      this.pickerChangedSubscription.unsubscribe();
-    }
+    this.pickerChangedSubscription.unsubscribe();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['timeFormat']) {
-      this._validatorChange();
-      this.skyTimepickerInput.setFormat(this.timeFormat);
-    }
-    if (changes['returnFormat']) {
-      this._validatorChange();
-      this.skyTimepickerInput.returnFormat = this.returnFormat;
-    }
+    this._validatorChange();
+    this.skyTimepickerInput.setFormat(this.timeFormat);
+    this.skyTimepickerInput.returnFormat = this.returnFormat;
   }
 
   @HostListener('change', ['$event'])
@@ -100,13 +93,13 @@ export class SkyTimepickerInputDirective implements
   }
 
   @HostListener('blur')
-  public onBlur() {
+  public onBlur /* istanbul ignore next */ () {
     this._onTouched();
   }
 
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
-  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; };
+  public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
     this.modelValue = this.formatter(value);
@@ -115,9 +108,10 @@ export class SkyTimepickerInputDirective implements
   public validate(control: AbstractControl): { [key: string]: any } {
     let value = control.value;
     if (!value) {
-      return;
+      return undefined;
     }
 
+    /* istanbul ignore next */
     if (value.local === 'Invalid date') {
       return {
         'skyTime': {
@@ -125,10 +119,13 @@ export class SkyTimepickerInputDirective implements
         }
       };
     }
+
+    return undefined;
   }
   private writeModelValue(model: SkyTimepickerTimeOutput) {
     let setElementValue: string;
     if (model) {
+      /* istanbul ignore next */
       if (moment(model).format(model.customFormat) === 'Invalid date') {
         setElementValue = '';
       } else {
@@ -156,7 +153,7 @@ export class SkyTimepickerInputDirective implements
         'minute': moment(time, currentFormat).minute(),
         'meridie': moment(time, currentFormat).format('A'),
         'timezone': moment(time, currentFormat).format('Z'),
-        'ios8601': moment(time, currentFormat).format(),
+        'iso8601': moment(time, currentFormat).format(),
         'local': moment(time, currentFormat).format(currentFormat),
         'customFormat': this.returnFormat
       };

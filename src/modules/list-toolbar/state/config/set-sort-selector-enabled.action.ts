@@ -1,3 +1,4 @@
 export class ListToolbarConfigSetSortSelectorEnabledAction {
-  constructor(public enabled: true) {}
+  /* istanbul ignore next */
+  constructor(public enabled: boolean = true) {}
 }

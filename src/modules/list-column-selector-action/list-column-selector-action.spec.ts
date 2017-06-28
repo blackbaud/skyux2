@@ -131,77 +131,67 @@ describe('List column selector action', () => {
 
   it('should open the appropriate modal on click and apply column changes on save',
     fakeAsync(() => {
-    tick();
     fixture.detectChanges();
     tick();
 
     getChooseColumnsAction().click();
     tick();
-    fixture.detectChanges();
 
     let checkboxLabelEl =
-      document.querySelector('.sky-modal .sky-list-view-checklist-item input') as HTMLElement;
-    checkboxLabelEl.click();
+      document
+        .querySelectorAll('.sky-modal .sky-list-view-checklist-item input') as
+        NodeListOf<HTMLElement>;
+
+    expect(checkboxLabelEl.length).toBe(2);
+    checkboxLabelEl.item(0).click();
 
     tick();
-    fixture.detectChanges();
 
     let submitButtonEl =
       document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
 
     submitButtonEl.click();
-    fixture.detectChanges();
     tick();
 
     component.grid.gridState.take(1).subscribe((gridState) => {
       expect(gridState.displayedColumns.items.length).toBe(2);
     });
-    fixture.detectChanges();
     tick();
 
   }));
 
   it('should keep previous columns on cancel', fakeAsync(() => {
-    tick();
     fixture.detectChanges();
     tick();
 
     getChooseColumnsAction().click();
     tick();
-    fixture.detectChanges();
 
     let checkboxLabelEl =
       document.querySelector('.sky-modal .sky-list-view-checklist-item input') as HTMLElement;
     checkboxLabelEl.click();
 
     tick();
-    fixture.detectChanges();
 
     let cancelButtonEl =
       document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
 
     cancelButtonEl.click();
 
-    fixture.detectChanges();
     tick();
 
     component.grid.gridState.take(1).subscribe((gridState) => {
       expect(gridState.displayedColumns.items.length).toBe(3);
     });
-    fixture.detectChanges();
     tick();
 
   }));
 
   it('should not appear if not in grid view', fakeAsync(() => {
     tick();
-    fixture.detectChanges();
-    tick();
-
     dispatcher.viewsSetActive('other');
     tick();
-    fixture.detectChanges();
-    tick();
+
     /* tslint:disable */
     let query =
       '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-secondary-action';

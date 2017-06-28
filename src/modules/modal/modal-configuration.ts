@@ -4,9 +4,10 @@ import { Injectable } from '@angular/core';
 export class SkyModalConfiguration {
 
   public fullPage: boolean;
+  public size: string;
 
   constructor() {
     this.fullPage = this.fullPage;
-
+    this.size = 'medium';
   }
 }

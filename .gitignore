@@ -32,6 +32,7 @@ Thumbs.db
 /node_modules
 /bower_components
 npm-debug.log*
+yarn.lock
 
 # Coverage #
 /coverage/
@@ -68,3 +69,10 @@ webdriver-screenshotslocal*
 browserstack.err
 
 browserstack-binary/BrowserStackLocal
+
+skyux-spa-visual-tests/dist
+skyux-spa-visual-tests/node_modules
+skyux-spa-visual-tests/screenshots-baseline-local
+skyux-spa-visual-tests/screenshots-diff-local
+skyux-spa-visual-tests/screenshots-created-local
+

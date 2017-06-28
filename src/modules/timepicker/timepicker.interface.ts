@@ -3,7 +3,7 @@ export interface SkyTimepickerTimeOutput {
   minute: number;
   meridie: string;
   timezone: number;
-  ios8601: Date;
+  iso8601: Date;
   local: string;
   customFormat: string;
 }

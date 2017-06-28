@@ -1,7 +1,7 @@
 <sky-demo-page title="Modal">
   <sky-demo-page-summary>
-    The modal directive and service allow you to launch modals in a consistent way in SKY UX applications. The <code>SkyModalService</code> provider lauches the modals, while the <code>sky-modal</code> directive provides a common look-and-feel for modal content. Within the <code>sky-modal</code> directive, you have options to display a common modal header, specify the body content, and display a common modal footer and buttons. The <code>SkyModalInstance</code> class allows you to close the modal and return data from the launched modal.
-    <sky-alert alertType="info">For information about how to test modals in SKY UX, see <a routerLink="/learn/tutorials/test/unit-test/unit-test-modal">write unit tests for modals</a>.</sky-alert>
+    <p>The modal directive and service allow you to launch modals in a consistent way in SKY UX applications. The <code>SkyModalService</code> provider lauches the modals, while the <code>sky-modal</code> directive provides a common look-and-feel for modal content. Within the <code>sky-modal</code> directive, you have options to display a common modal header, specify the body content, and display a common modal footer and buttons. The <code>SkyModalInstance</code> class allows you to close the modal and return data from the launched modal.</p>
+    <sky-alert alertType="info">For information about how to test modals in SKY UX, see <a routerLink="/learn/get-started/8.-unit-test-modals">write unit tests for modals</a>.</sky-alert>
   </sky-demo-page-summary>
 
   <sky-demo-page-properties sectionHeading="Modal service methods">
@@ -19,11 +19,20 @@
       A Boolean property of <code>config</code> with a default of false. When set to true, the modal will become full screen.
     </sky-demo-page-property>
 
-        <sky-demo-page-property
+    <sky-demo-page-property
         propertyName="providers?"
     >
       A array property of <code>providers</code> This can be used to pass context values from the component launching the modal to the modal component.
 
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="size?"
+        defaultValue="medium"
+        isOptional="true"
+    >
+      Specifies a size for the modal. The valid options are <code>small</code>,
+      <code>medium</code>, and <code>large</code>.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

@@ -8,6 +8,7 @@ let moment = require('moment');
 
 export class ListViewDisplayedGridColumnsOrchestrator
   extends GridStateOrchestrator<AsyncList<SkyGridColumnModel>> {
+  /* istanbul ignore next */
   constructor() {
     super();
 

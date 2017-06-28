@@ -19,12 +19,18 @@ export class SkyModalService {
     private appRef: ApplicationRef,
     private adapter: SkyModalAdapterService
   ) {
-    this.createHostComponent();
+    /*
+      This timeout is needed because you can run into errors like 'ApplicationRef.tick is called
+      recursively' when the modal service is injected into a component hidden by an *ngIf.
+    */
+    setTimeout(() => {
+      this.createHostComponent();
+    });
   }
 
   // Open Overloads
   public open(component: any, providers?: any[]): SkyModalInstance;
-  public open(component: any, config?: IConfig): SkyModalInstance
+  public open(component: any, config?: IConfig): SkyModalInstance;
 
   // Open Method
   public open(): SkyModalInstance {
@@ -54,7 +60,7 @@ export class SkyModalService {
   }
 
   private getConfigFromParameter(providersOrConfig: any) {
-    let defaultParams: IConfig = { 'providers': [], 'fullPage': false };
+    let defaultParams: IConfig = { 'providers': [], 'fullPage': false, 'size': 'medium' };
     let params: any = undefined;
     let method: any = undefined;
 

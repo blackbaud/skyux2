@@ -348,4 +348,36 @@ describe('Repeater item component', () => {
       expect(repeaterItems[0].isExpanded).toBe(true);
     }));
   });
+
+  describe('with selectability "true"', () => {
+    it('should add selected css class when selected', fakeAsync(() => {
+      let fixture = TestBed.createComponent(RepeaterTestComponent);
+      let cmp: RepeaterTestComponent = fixture.componentInstance;
+      let el = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      tick();
+
+      cmp.repeater.items.forEach(item => item.selectable = true);
+
+      let selectedItemsEl = el.querySelectorAll('.sky-repeater-item-selected') as NodeList;
+      expect(selectedItemsEl.length).toBe(0);
+
+      // select first item
+      const repeaterItems = cmp.repeater.items.toArray();
+      repeaterItems[0].updateIsSelected({source: undefined, checked: true});
+
+      fixture.detectChanges();
+
+      tick();
+
+      expect(repeaterItems[0].isSelected).toBe(true);
+      expect(repeaterItems[1].isSelected).toBe(false);
+      expect(repeaterItems[2].isSelected).toBe(false);
+
+      selectedItemsEl = el.querySelectorAll('.sky-repeater-item-selected');
+      expect(selectedItemsEl.length).toBe(1);
+    }));
+  });
 });

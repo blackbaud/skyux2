@@ -1,7 +1,6 @@
 import {
   TestBed,
   ComponentFixture
-
 } from '@angular/core/testing';
 
 import {
@@ -142,7 +141,7 @@ describe('File drop component', () => {
     let errorCallbacks: Function[] = [];
     let abortCallbacks: Function[] = [];
 
-    spyOn(window, 'FileReader').and.returnValue({
+    spyOn((window as any), 'FileReader').and.returnValue({
       readAsDataURL: function(file: any) {
 
       },
