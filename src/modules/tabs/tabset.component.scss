@@ -2,7 +2,7 @@
 
 .sky-tabset {
   align-items: baseline;
-  border-bottom: solid 2px $sky-color-blue;
+  border-bottom: solid 2px $sky-background-color-primary-dark;
   display: flex;
   list-style-type: none;
   margin: 0;
@@ -40,5 +40,5 @@
 
 .sky-tabset-btn-new,
 .sky-tabset-btn-open {
-  color: $sky-color-blue;
+  color: $sky-text-color-action-primary;
 }

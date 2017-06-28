@@ -11,7 +11,7 @@
   width: 300px;
 
   &:hover:not(.sky-tab-dropdown-item-selected) {
-    background-color: $sky-color-gray-lightest;
+    background-color: $sky-background-color-neutral-light;
   }
 }
 
@@ -31,10 +31,10 @@
 }
 
 .sky-tab-dropdown-item-selected {
-  background-color: $sky-color-blue;
+  background-color: $sky-background-color-primary-dark;
 
   &:hover {
-    background-color: $sky-color-blue;
+    background-color: $sky-background-color-primary-dark;
   }
 
   .sky-tab-dropdown-item-btn,

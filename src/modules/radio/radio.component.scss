@@ -17,7 +17,7 @@
 }
 
 .sky-radio {
-    border: 1px solid $sky-color-gray-lighter;
+    border: 1px solid $sky-border-color-neutral-light;
     cursor: pointer;
     display: inline-block;
     height: 22px;
@@ -31,26 +31,26 @@
 }
 
 .sky-radio-wrapper input:hover + .sky-radio {
-    border: 2px solid $sky-color-blue;
+    border: 2px solid $sky-highlight-color-info;
 }
 
 .sky-radio-wrapper input:checked + .sky-radio {
-    background-color: $sky-color-blue;
-    border-color: $sky-color-blue;
+    background-color: $sky-highlight-color-info;
+    border-color: $sky-highlight-color-info;
     border-width: 1px;
 
     &:before {
         color: $sky-color-white;
         content: "\f00c";
         font-family: FontAwesome;
-        font-size: $sky-font-size-sm;
+        font-size: 11px;
     }
 }
 
 
 .sky-radio-wrapper input:disabled + .sky-radio {
-    background-color: $sky-color-gray-lighter;
-    border: 1px solid $sky-color-gray-lighter;
+    background-color: $sky-background-color-neutral-light;
+    border: 1px solid $sky-border-color-neutral-light;
     cursor: default;
 }
 

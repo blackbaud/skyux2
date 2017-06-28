@@ -21,12 +21,12 @@
   color: #000;
   display: block;
   text-decoration: none;
-  border: solid 1px $sky-color-gray-lightest;
+  border: solid 1px $sky-border-color-neutral-light;
 
   h3 {
-    background-color: scale-color($color: $sky-color-gray-lightest, $lightness: 50%);
-    border-bottom: solid 1px $sky-color-gray-lightest;
-    font-size: $sky-font-size-lg;
+    background-color: scale-color($color: $sky-background-color-neutral-light, $lightness: 50%);
+    border-bottom: solid 1px $sky-border-color-neutral-light;
+    font-size: $sky-font-size-base;
     margin: 0;
     padding: $sky-padding;
   }
@@ -47,7 +47,7 @@
 }
 
 .sky-demo-button-icon {
-  color: $sky-color-gray;
+  color: $sky-text-color-deemphasized;
   display: block;
   flex-grow: 0;
   padding: $sky-padding-double;

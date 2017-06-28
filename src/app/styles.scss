@@ -23,7 +23,7 @@ code {
   &.atrule,
   &.attr-value,
   &.keyword {
-    color: scale-color($color: $sky-color-blue, $lightness: -20%);
+    color: scale-color($color: $sky-highlight-color-info, $lightness: -20%);
   }
 
   &.selector,
@@ -32,7 +32,7 @@ code {
   &.char,
   &.builtin,
   &.inserted {
-    color: scale-color($color: $sky-color-green, $lightness: -30%);
+    color: scale-color($color: $sky-highlight-color-success, $lightness: -30%);
   }
 
   &.property,
@@ -42,7 +42,7 @@ code {
   &.constant,
   &.symbol,
   &.deleted {
-    color: scale-color($color: $sky-color-red, $lightness: -20%);
+    color: scale-color($color: $sky-highlight-color-danger, $lightness: -20%);
   }
 
   &.function {
@@ -51,7 +51,7 @@ code {
 
   &.punctuation,
   &.operator {
-    color: scale-color($color: $sky-color-gray, $lightness: -20%);
+    color: scale-color($color: $sky-text-color-deemphasized, $lightness: -20%);
   }
 }
 

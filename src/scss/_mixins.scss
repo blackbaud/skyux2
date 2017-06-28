@@ -25,15 +25,15 @@
       }
 
       @if($type == "dark") {
-          border-#{$side}: 1px solid $sky-color-gray-lighter;
+          border-#{$side}: 1px solid $sky-border-color-neutral-light;
       }
 
       @if($type == "nav") {
-          border-#{$side}: $sky-nav-selected-border-width solid $sky-color-blue;
+          border-#{$side}: $sky-nav-selected-border-width solid $sky-highlight-color-info;
       }
 
       @if($type == "tab") {
-          border-#{$side}: 2px solid $sky-color-blue;
+          border-#{$side}: 2px solid $sky-background-color-primary-dark;
       }
 
       @if($type == "tile") {
@@ -41,19 +41,48 @@
       }
 
       @if($type == "row") {
-          border-#{$side}: 1px dotted $sky-color-gray-lighter;
+          border-#{$side}: 1px dotted $sky-border-color-neutral-light;
       }
     }
 }
 
+@mixin sky-page-heading {
+  color: $sky-text-color-default;
+  font: 300 32px;
+  font-stretch: condensed;
+}
+
+@mixin sky-section-heading {
+  color: $sky-text-color-default;
+  font: 300 22px;
+  font-stretch: condensed;
+}
+
+@mixin sky-subsection-heading {
+  color: $sky-text-color-deemphasized;
+  font: 400 17px;
+}
+
 @mixin sky-headline {
-  font: 400 $sky-alternate-font-size-sm $sky-font-family-narrow;
-  color: $sky-text-color;
+  color: $sky-text-color-default;
+  font: 500 22px;
+  font-stretch: condensed;
+}
+
+@mixin sky-emphasized {
+  color: $sky-text-color-default;
+  font: 600 15px;
+}
+
+@mixin sky-deemphasized{
+  color: $sky-text-color-deemphasized;
+  font: 400 $sky-font-size-base;
+  font-style: italic;
 }
 
 @mixin sky-field-label {
-  font: 400 $sky-font-size-base $sky-font-family-base;
-  color: $sky-text-deemphasized-color;
+  font: 300 $sky-font-size-base;
+  color: $sky-text-color-deemphasized;
 }
 
 @mixin sky-field-invalid {
@@ -62,16 +91,11 @@
   outline: none;
 }
 
-@mixin sky-section-heading {
-  color: $sky-text-color;
-  font: 300 22px $sky-font-family-narrow;
-}
-
 @mixin sky-btn-tab {
   background-color: transparent;
   border: none;
   border-radius: 4px 4px 0 0;
-  color: $sky-color-gray;
+  color: $sky-text-color-deemphasized;
   cursor: pointer;
   display: inline-block;
   font-weight: 600;
@@ -79,17 +103,17 @@
   padding: $sky-tab-btn-padding-top-bottom $sky-tab-btn-padding-left-right;
 
   &:hover {
-    background-color: $sky-color-gray-lightest;
-    color: $sky-color-gray;
+    background-color: $sky-background-color-neutral-light;
+    color: $sky-text-color-default;
   }
 }
 
 @mixin sky-btn-tab-selected {
-  background-color: $sky-color-blue;
+  background-color: $sky-background-color-primary-dark;
   color: #fff;
 
   &:hover {
-    background-color: $sky-color-blue;
+    background-color: $sky-background-color-primary-dark;
     color: #fff;
   }
 }
@@ -166,7 +190,7 @@
   transition: background-color $sky-transition-time-short;
 
   &:hover {
-    background-color: $sky-color-gray-lightest;
+    background-color: $sky-background-color-neutral-light;
   }
 
   /deep/ > button {
