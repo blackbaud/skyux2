@@ -52,7 +52,7 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
   }
 
   public toolbarRemoveItems(ids: string[]): void {
-    this.next(new ListToolbarItemsRemoveAction(ids));
+    setTimeout(() => this.next(new ListToolbarItemsRemoveAction(ids)));
   }
 
   public searchSetFunctions(sortFunctions: ((data: any, searchText: string) => boolean)[]): void {

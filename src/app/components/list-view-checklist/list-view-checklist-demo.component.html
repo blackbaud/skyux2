@@ -1,3 +1,11 @@
+<button
+  type="button"
+  class="sky-btn sky-btn-primary"
+  (click)="toggleSelectMode()"
+  style="margin-bottom: 10px">
+  Toggle
+</button>
+
 <sky-list
   [data]="items"
   (selectedIdsChange)="selectedItemsChange($event)">
@@ -5,7 +13,8 @@
   </sky-list-toolbar>
   <sky-list-view-checklist
     label="column2"
-    description="column3">
+    description="column3"
+    [selectMode]="selectMode">
   </sky-list-view-checklist>
 </sky-list>
 <div>

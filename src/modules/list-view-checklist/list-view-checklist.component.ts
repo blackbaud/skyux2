@@ -227,6 +227,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     switch (this.selectMode) {
       case 'single':
         this.dispatcher.toolbarRemoveItems([selectAllId, clearAllId]);
+        this.hasSelectToolbarItems = false;
         break;
       default:
         if (!this.hasSelectToolbarItems) {

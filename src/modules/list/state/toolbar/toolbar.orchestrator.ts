@@ -56,6 +56,7 @@ export class ListToolbarOrchestrator
     }
 
     newModel.items = resultItems;
+
     return newModel;
   }
 
@@ -66,7 +67,7 @@ export class ListToolbarOrchestrator
     const newModel = new ListToolbarModel(state);
 
     newModel.items = newModel.items.filter((item: ListToolbarItemModel) => {
-      return action.ids.indexOf(item.id) >= 0;
+      return action.ids.indexOf(item.id) === -1;
     });
 
     return newModel;
