@@ -4,7 +4,8 @@ import {
   Input,
   AfterViewInit,
   OnChanges,
-  ElementRef
+  ElementRef,
+  OnDestroy
 } from '@angular/core';
 
 import { MutationObserverService } from '../mutation/mutation-observer-service';
@@ -14,7 +15,7 @@ const className = 'sky-highlight-mark';
 @Directive({
     selector: '[skyHighlight]'
 })
-export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
+export class SkyTextHighlightDirective implements OnChanges, AfterViewInit, OnDestroy {
 
   @Input()
   public skyHighlight: string = undefined;
@@ -96,6 +97,10 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit {
     });
 
     this.observeDom();
+  }
+
+  public ngOnDestroy(): void {
+    this.observer.disconnect();
   }
 
   private readyForHighlight(searchText: string): boolean {

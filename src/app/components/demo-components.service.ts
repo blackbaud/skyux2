@@ -306,7 +306,7 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.html')
             },
             {
-              name: 'tabs-demo.component.ts',
+              name: 'text-highlight-demo.component.ts',
               // tslint:disable-next-line
               fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.ts'),
               componentName: 'SkyTextHighlightDemoComponent',

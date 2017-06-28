@@ -346,6 +346,10 @@ export {
   SkyTextExpandRepeaterModule
 } from './modules/text-expand-repeater';
 export {
+  SkyTextHighlightDirective,
+  SkyTextHighlightModule
+} from './modules/text-highlight';
+export {
   SkyTileDashboardService,
   SkyTileContentModule,
   SkyTileContentSectionComponent,
