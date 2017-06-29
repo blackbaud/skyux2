@@ -29,12 +29,12 @@
 }
 
 .sky-checkbox-wrapper input:hover + .sky-checkbox {
-  border: 2px solid $sky-highlight-color-info;
+  border: 2px solid $sky-background-color-primary-dark;
 }
 
 .sky-checkbox-wrapper input:checked + .sky-checkbox {
-  background-color: $sky-highlight-color-info;
-  border-color: $sky-highlight-color-info;
+  background-color: $sky-background-color-primary-dark;
+  border-color: $sky-background-color-primary-dark;
   border-width: 1px;
 
   &:before {

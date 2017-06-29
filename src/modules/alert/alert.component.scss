@@ -6,12 +6,29 @@
     border-left: solid 30px;
     border-radius: 3px;
     color: $sky-text-color-default;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-// These alerts have the default Bootstrap colors.  We need to change them at some point.
+
+.sky-alert button {
+    margin-left: auto;
+    width: 32px;
+    height: 32px;
+}
+
 .sky-alert-info {
     background-color: $sky-background-color-info;
     border-color: $sky-highlight-color-info;
+}
+
+.sky-alert-info::before {
+    content: "\f05a";
+	font-family: FontAwesome;
+	margin-left: -30px;
+    margin-right: 19px;
+	color: $sky-color-white;
 }
 
 .sky-alert-success {
@@ -19,9 +36,25 @@
     border-color: $sky-highlight-color-success;
 }
 
+.sky-alert-success::before {
+    content: "\f00c";
+	font-family: FontAwesome;
+	margin-left: -31px;
+    margin-right: 18px;
+	color: $sky-color-white;
+}
+
 .sky-alert-warning {
     background-color: $sky-background-color-warning;
     border-color: $sky-highlight-color-warning;
+}
+
+.sky-alert-warning::before {
+    content: "\f071";
+	font-family: FontAwesome;
+	margin-left: -31px;
+    margin-right: 18px;
+	color: $sky-color-white;
 }
 
 .sky-alert-danger {
@@ -29,22 +62,28 @@
     border-color: $sky-highlight-color-danger;
 }
 
+.sky-alert-danger::before {
+    content: "\f071";
+	font-family: FontAwesome;
+	margin-left: -31px;
+    margin-right: 18px;
+	color: $sky-color-white;
+}
+
 .sky-alert-close {
     cursor: pointer;
-    float: right;
-    font-size: 19.5px;
     font-weight: bold;
     line-height: 1;
     margin: 0;
     padding: 0;
     color: $sky-text-color-default;
-    opacity: 0.2;
+    opacity: 0.8;
     border: none;
     background-color: transparent;
     display: none;
 
     &:hover {
-        opacity: 0.5;
+        opacity: 1.0;
     }
 }
 

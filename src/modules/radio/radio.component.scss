@@ -31,12 +31,12 @@
 }
 
 .sky-radio-wrapper input:hover + .sky-radio {
-    border: 2px solid $sky-highlight-color-info;
+    border: 2px solid $sky-background-color-primary-dark;
 }
 
 .sky-radio-wrapper input:checked + .sky-radio {
-    background-color: $sky-highlight-color-info;
-    border-color: $sky-highlight-color-info;
+    background-color: $sky-background-color-primary-dark;
+    border-color: $sky-background-color-primary-dark;
     border-width: 1px;
 
     &:before {
