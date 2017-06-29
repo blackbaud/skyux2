@@ -37,7 +37,9 @@
             </div>
             <!-- This will appear when file is dragged over and is invalid -->
             <div class="sky-file-drop-contents-reject" >
-              <h4>{{'file_upload_invalid_file' | skyResources}}</h4>
+              <div class="sky-file-drop-text-header">
+                {{'file_upload_invalid_file' | skyResources}}
+              </div>
               <i class="fa fa-times-circle sky-file-upload-icon"></i>
             </div>
           </div>
@@ -49,7 +51,11 @@
     <div class="sky-file-drop-col" *ngIf="allowLinks">
         <div class="sky-file-drop-contents">
             <div class="sky-file-drop-link">
-                <h4 class="sky-file-drop-link-header">{{'file_upload_paste_link' | skyResources}}</h4>
+                <div class="sky-file-drop-link-header">
+                  <div class="sky-file-drop-text-header">
+                    {{'file_upload_paste_link' | skyResources}}
+                  </div>
+                </div>
                 <div class="sky-form-group">
                     <input
                       type="text"
