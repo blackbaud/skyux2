@@ -7,18 +7,6 @@
     "_description": "Screen reader text for the close button on alerts",
     "message": "Close the alert"
   },
-  "autonumeric_abbr_billions": {
-    "_description": "The suffix to show after an abbreviated value in the billions (e.g. $1.2b)",
-    "message": "b"
-  },
-  "autonumeric_abbr_millions": {
-    "_description": "The suffix to show after an abbreviated value in the millions (e.g. $1.2m)",
-    "message": "m"
-  },
-  "autonumeric_abbr_thousands": {
-    "_description": "The suffix to show after an abbreviated value in the thousands (e.g. $1.2k)",
-    "message": "k"
-  },
   "avatar_error_not_image_description": {
     "_description": "Message description displayed when the user attempts to upload an avatar file that is not a valid image",
     "message": "Please choose a file that is a valid image."
@@ -226,6 +214,22 @@
   "month_short_september": {
     "_description": "",
     "message": "Sep"
+  },
+  "number_billion_abrev": {
+    "_description": "Abreviation for Billion used by numbers",
+    "message": "B"
+  },
+  "number_million_abrev": {
+    "_description": "Abreviation for million used by numbers",
+    "message": "M"
+  },
+  "number_thousands_abrev": {
+    "_description": "Abreviation for Thousands used by numbers",
+    "message": "K"
+  },
+  "number_trillion_abrev": {
+    "_description": "Abreviation for Trillion used by numbers",
+    "message": "T"
   },
   "page_noaccess_button": {
     "_description": "",

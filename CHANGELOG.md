@@ -1,3 +1,13 @@
+# 2.0.0-rc.2 (2017-06-23)
+
+- Merged `master` branch.
+- Added support for SKY UX Builder 1.0.0-rc.3.
+
+# 2.0.0-beta.33 (2017-06-23)
+
+  - Added the SkyNumeric Pipe. (#764) (Thanks @Blackbaud-AdamSc)
+  - Added the email validation directive. (#379) (Thanks @Blackbaud-SandhyaRajasabeson)
+
 # 2.0.0-rc.1 (2017-06-20)
   
   - All the updates for 2.0.0-beta.32.
@@ -5,8 +15,6 @@
   ### Breaking changes
   
   - Fixed typo to change SkyTimepickerTimeOutput `ios8601` property to be `iso8601`.
-
-  
 
 # 2.0.0-beta.32 (2017-06-20)
 

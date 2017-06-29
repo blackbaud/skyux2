@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 import { SkyAlertModule } from './modules/alert';
+import { SkyNumericModule } from './modules/numeric';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
 import { SkyCardModule } from './modules/card';
@@ -12,6 +13,7 @@ import { SkyColumnSelectorModule } from './modules/column-selector';
 import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
+import { SkyEmailValidationModule } from './modules/email-validation';
 import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
@@ -47,6 +49,7 @@ import { SkyWaitModule } from './modules/wait';
 @NgModule({
   exports: [
     SkyAlertModule,
+    SkyNumericModule,
     SkyAvatarModule,
     SkyActionButtonModule,
     SkyCardModule,
@@ -55,6 +58,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyColumnSelectorModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
+    SkyEmailValidationModule,
     SkyErrorModule,
     SkyFileAttachmentsModule,
     SkyFilterModule,
@@ -95,6 +99,11 @@ export {
   SkyAlertComponent,
   SkyAlertModule
 } from './modules/alert';
+export {
+  SkyNumericModule,
+  SkyNumericPipe,
+  SkyNumericService
+} from './modules/numeric';
 export {
   SkyAvatarComponent,
   SkyAvatarInnerComponent,
@@ -148,6 +157,10 @@ export {
   SkyDropdownMenuComponent,
   SkyDropdownModule
 } from './modules/dropdown';
+export {
+  SkyEmailValidationDirective,
+  SkyEmailValidationModule
+} from './modules/email-validation';
 export {
   SkyErrorComponent,
   SkyErrorDescriptionComponent,

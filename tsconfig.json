@@ -20,16 +20,10 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@angular/*": ["./node_modules/@angular/*"],
+      "@blackbaud/skyux/dist/core": ["./src/core.ts"],
       "sky-pages-spa/src/*": ["./src/*"],
-      "sky-pages-internal/*": ["./node_modules/@blackbaud/skyux-builder/*"],
-      "@angular/common": ["node_modules/@angular/common"],
-      "@angular/compiler": ["node_modules/@angular/compiler"],
-      "@angular/core": ["node_modules/@angular/core"],
-      "@angular/forms": ["node_modules/@angular/forms"],
-      "@angular/platform-browser": ["node_modules/@angular/platform-browser"],
-      "@angular/platform-browser-dynamic": ["node_modules/@angular/platform-browser-dynamic"],
-      "@angular/router": ["node_modules/@angular/router"],
-      "@angular/http": ["node_modules/@angular/http"]
+      "sky-pages-internal/*": ["./node_modules/@blackbaud/skyux-builder/*"]
     }
   },
   "exclude": [
