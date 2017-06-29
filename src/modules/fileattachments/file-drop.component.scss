@@ -114,27 +114,22 @@
 .sky-file-drop-text-header {
   font-size: $sky-font-size-xl;
   margin: 0;
-  font-style: italic;
-  color: $sky-color-black;
-  font-weight: 600;
-  font-weight: 100;
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.1;
-  display: block;
-  -webkit-margin-before: 1.33em;
-  -webkit-margin-after: 1.33em;
-  -webkit-margin-start: 0px;
-  -webkit-margin-end: 0px;
+
 }
 
 .sky-file-drop-text {
   font-size: $sky-font-size-lg;
   margin-top: $sky-margin-half;
+  -webkit-margin-after: 1.67em;
+}
+
+.sky-file-drop-text, .sky-file-drop-text-header {
   font-style: italic;
+  color: $sky-color-black;
   font-weight: 600;
-  font-weight: 100;
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.1;
+  line-height: 1.1;    
+  display: block;
 }
 
 .sky-file-drop {
