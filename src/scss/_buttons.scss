@@ -3,7 +3,7 @@
 
 .sky-btn {
   background-color: transparent;
-  border: 1px solid $sky-border-color-neutral-light;
+  @include sky-border(light, top, bottom, left, right);
   border-radius: 3px;
   color: $sky-text-color-default;
   cursor: pointer;
@@ -14,7 +14,7 @@
   font-size: $sky-font-size-base;
 
   &:hover {
-    border: 1px solid $sky-border-color-neutral-light;
+    @include sky-border(light, top, bottom, left, right);
     color: $sky-text-color-default;
   }
 
@@ -108,7 +108,7 @@
 
 .sky-btn-tab-wizard {
   background-color: $sky-color-white;
-  border: 1px solid $sky-border-color-neutral-light;
+  @include sky-border(light, top, bottom, left, right);
   border-radius: 3px;
   font-weight: 400;
   color: $sky-text-color-default;

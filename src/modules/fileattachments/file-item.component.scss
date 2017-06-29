@@ -2,7 +2,7 @@
 @import "../../scss/mixins";
 
 .sky-file-item {
-  border: solid 1px $sky-border-color-neutral-light;
+  @include sky-border(light, top, bottom, left, right);
   background-color: $sky-background-color-neutral-light;
   padding: $sky-padding;
   margin-bottom: $sky-margin;

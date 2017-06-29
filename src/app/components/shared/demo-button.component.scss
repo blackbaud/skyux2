@@ -21,7 +21,7 @@
   color: #000;
   display: block;
   text-decoration: none;
-  border: solid 1px $sky-border-color-neutral-light;
+  @include sky-border(light, top, bottom, left, right);
 
   h3 {
     background-color: scale-color($color: $sky-background-color-neutral-light, $lightness: 50%);

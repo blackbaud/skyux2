@@ -1,4 +1,5 @@
 @import "../../scss/variables";
+@import "../../scss/mixins";
 
 .sky-radio-wrapper {
   display: inline-block;
@@ -17,7 +18,7 @@
 }
 
 .sky-radio {
-    border: 1px solid $sky-border-color-neutral-light;
+    @include sky-border(dark, top, bottom, left, right);
     cursor: pointer;
     display: inline-block;
     height: 22px;
@@ -50,7 +51,7 @@
 
 .sky-radio-wrapper input:disabled + .sky-radio {
     background-color: $sky-background-color-neutral-light;
-    border: 1px solid $sky-border-color-neutral-light;
+    @include sky-border(light, top, bottom, left, right);
     cursor: default;
 }
 

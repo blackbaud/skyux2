@@ -1,4 +1,5 @@
 @import "../../scss/variables";
+@import "../../scss/mixins";
 
 .sky-checkbox-wrapper {
   cursor: pointer;
@@ -16,7 +17,7 @@
 
 .sky-checkbox {
   background-color: $sky-color-white;
-  border: 1px solid $sky-border-color-neutral-light;
+  @include sky-border(dark, top, bottom, left, right);
   cursor: pointer;
   display: inline-block;
   height: 22px;
@@ -48,7 +49,7 @@
 
 .sky-checkbox-wrapper input:disabled + .sky-checkbox {
   background-color: $sky-background-color-neutral-light;
-  border: 1px solid $sky-border-color-neutral-light;
+  @include sky-border(light, top, bottom, left, right);
   cursor: default;
 }
 
