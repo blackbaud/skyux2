@@ -317,6 +317,28 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Highlight',
+        icon: 'paint-brush',
+        summary: `The highlight component highlights text within DOM elements.`,
+        url: '/components/text-highlight',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'text-highlight-demo.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.html')
+            },
+            {
+              name: 'text-highlight-demo.component.ts',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./text-highlight/text-highlight-demo.component.ts'),
+              componentName: 'SkyTextHighlightDemoComponent',
+              bootstrapSelector: 'sky-text-highlight-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Key info',
         icon: 'key',
         // tslint:disable-next-line
