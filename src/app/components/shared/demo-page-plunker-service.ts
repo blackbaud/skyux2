@@ -72,7 +72,7 @@ export class SkyDemoPagePlunkerService {
 
     'rxjs': 'npm:rxjs@5.1.0',
     'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
-    '@blackbaud/skyux/dist/core': 'npm:@blackbaud/skyux@2.0.0-beta.31/dist/bundles/core.umd.js',
+    '@blackbaud/skyux/dist/core': 'npm:@blackbaud/skyux@2.0.0-beta.33/dist/bundles/core.umd.js',
 
     'moment': 'npm:moment/moment.js',
 

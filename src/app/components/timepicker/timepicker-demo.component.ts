@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { SkyWindowRefService } from '../../../modules/window';
 
 @Component({
   selector: 'sky-timepicker-demo',
@@ -14,10 +13,4 @@ export class SkyTimePickerDemoComponent {
   public selectedTime2: any = '20:30';
   public selectedTime3: any = '02:00:00-0400';
 
-  public constructor(
-    private windowObj: SkyWindowRefService) { }
-
-  public alert(event: any) {
-    this.windowObj.getWindow().alert(event);
-  }
 }
