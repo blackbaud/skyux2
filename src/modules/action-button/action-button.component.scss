@@ -13,6 +13,11 @@
   padding-left: $sky-padding-double;
   padding-bottom: 30px;
   text-align: center;
+  
+  &:hover{
+    border-color: darken($sky-border-color-neutral-light, 12%)
+  }
+  
 }
 
 @media (min-width: $sky-screen-sm-min) {
