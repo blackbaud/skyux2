@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 @Component({
   selector: 'sky-timepicker-demo',
   templateUrl: './timepicker-demo.component.html'
