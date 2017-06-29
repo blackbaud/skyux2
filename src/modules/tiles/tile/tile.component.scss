@@ -6,7 +6,7 @@
 }
 
 .sky-tile-header {
-    border-color: $sky-border-color;
+    border-color: $sky-border-color-neutral-light;
     border-style: solid solid none;
     border-width: 4px 0 0;
     display: flex;
@@ -46,7 +46,7 @@
 }
 
 .sky-tile-content {
-    border-color: $sky-border-color;
+    border-color: $sky-border-color-neutral-light;
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0;

@@ -30,7 +30,7 @@
 
 // Status text
 .sky-text-success {
-    color: $sky-text-color;
+    color: $sky-text-color-default;
 }
 
 .sky-text-success::before {
@@ -41,7 +41,7 @@
 }
 
 .sky-text-warning {
-    color: $sky-text-color;
+    color: $sky-text-color-default;
 }
 
 .sky-text-warning::before {
@@ -52,7 +52,7 @@
 }
 
 .sky-text-danger {
-    color: $sky-text-color;
+    color: $sky-text-color-default;
 }
 
 .sky-text-danger::before {

@@ -11,9 +11,9 @@ p {
 code {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: 90%;
-  background-color: scale-color($color: $sky-color-red, $lightness: 90%);
+  background-color: scale-color($color: $sky-highlight-color-danger, $lightness: 90%);
   border-radius: 4px;
-  color: scale-color($color: $sky-color-red, $lightness: -20%);
+  color: scale-color($color: $sky-color-red-50, $lightness: -20%);
   padding: 2px 4px;
 }
 
@@ -23,7 +23,7 @@ code {
   &.atrule,
   &.attr-value,
   &.keyword {
-    color: scale-color($color: $sky-highlight-color-info, $lightness: -20%);
+    color: scale-color($color: $sky-color-blue-50, $lightness: -20%);
   }
 
   &.selector,
@@ -32,7 +32,7 @@ code {
   &.char,
   &.builtin,
   &.inserted {
-    color: scale-color($color: $sky-highlight-color-success, $lightness: -30%);
+    color: scale-color($color: $sky-color-green-50, $lightness: -30%);
   }
 
   &.property,
@@ -42,21 +42,21 @@ code {
   &.constant,
   &.symbol,
   &.deleted {
-    color: scale-color($color: $sky-highlight-color-danger, $lightness: -20%);
+    color: scale-color($color: $sky-color-red-50, $lightness: -20%);
   }
 
   &.function {
-    color: scale-color($color: $sky-color-purple, $lightness: -20%);
+    color: scale-color($color: $sky-color-purple-50, $lightness: -20%);
   }
 
   &.punctuation,
   &.operator {
-    color: scale-color($color: $sky-text-color-deemphasized, $lightness: -20%);
+    color: scale-color($color: $sky-color-gray-70, $lightness: -20%);
   }
 }
 
 .sky-demo-bg-gray {
-  background-color: $sky-body-background-color !important;
+  background-color: $sky-border-color-neutral-light !important;
   padding: $sky-padding !important;
 }
 

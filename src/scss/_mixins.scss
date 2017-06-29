@@ -21,11 +21,11 @@
 
     @each $side in $sides {
       @if($type == "light") {
-          border-#{$side}: 1px solid $sky-border-color;
+          border-#{$side}: 1px solid $sky-border-color-neutral-light;
       }
 
       @if($type == "dark") {
-          border-#{$side}: 1px solid $sky-border-color-neutral-light;
+          border-#{$side}: 1px solid $sky-border-color-neutral-medium;
       }
 
       @if($type == "nav") {
@@ -37,7 +37,7 @@
       }
 
       @if($type == "tile") {
-          border-top: 4px solid $sky-border-color;
+          border-top: 4px solid $sky-border-color-neutral-light;
       }
 
       @if($type == "row") {
@@ -48,41 +48,48 @@
 
 @mixin sky-page-heading {
   color: $sky-text-color-default;
-  font: 300 32px;
+  font-weight: 300;
+  font-size: 32px;
   font-stretch: condensed;
 }
 
 @mixin sky-section-heading {
   color: $sky-text-color-default;
-  font: 300 22px;
+  font-weight: 300;
+  font-size: 22px;
   font-stretch: condensed;
 }
 
 @mixin sky-subsection-heading {
   color: $sky-text-color-deemphasized;
-  font: 400 17px;
+  font-weight: 400;
+  font-size: 17px;
 }
 
 @mixin sky-headline {
   color: $sky-text-color-default;
-  font: 500 22px;
+  font-weight: 500;
+  font-size: 22px;
   font-stretch: condensed;
 }
 
 @mixin sky-emphasized {
   color: $sky-text-color-default;
-  font: 600 15px;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 @mixin sky-deemphasized{
   color: $sky-text-color-deemphasized;
-  font: 400 $sky-font-size-base;
+  font-weight: 400;
+  font-size: 14px;
   font-style: italic;
 }
 
 @mixin sky-field-label {
-  font: 300 $sky-font-size-base;
   color: $sky-text-color-deemphasized;
+  font-weight: 300;
+  font-size: 14px;
 }
 
 @mixin sky-field-invalid {

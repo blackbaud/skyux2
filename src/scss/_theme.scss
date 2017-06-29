@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  background-color: $sky-body-background-color;
+  background-color: $sky-border-color-neutral-light;
   color: $sky-text-color-default;
 }
 
@@ -66,11 +66,12 @@ h1 {
 }
 
 a {
-  color: $sky-link-color;
+  color: $sky-text-color-action-primary;
   text-decoration: none;
 
   &:hover {
-    color: scale-color($color: $sky-link-color, $lightness: -20%);
+    color: darken($sky-text-color-action-primary, 10%);
+    text-decoration: underline;
   }
 }
 
