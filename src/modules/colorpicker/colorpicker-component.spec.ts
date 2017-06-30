@@ -15,7 +15,7 @@ import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixtu
 
 import { expect } from '../testing';
 
-fdescribe('Colorpicker Component', () => {
+describe('Colorpicker Component', () => {
 
   function openColorpicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
