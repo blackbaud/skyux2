@@ -1,3 +1,7 @@
+# 2.0.0-rc.4 (2017-06-24)
+
+  - Fix npm release error.
+
 # 2.0.0-rc.3 (2017-06-24)
   
   - Added keyboard support for tab component. (#188) (Thanks @Blackbaud-SandhyaRajasabeson)
