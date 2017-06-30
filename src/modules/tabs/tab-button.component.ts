@@ -44,4 +44,10 @@ export class SkyTabButtonComponent {
   public doCloseClick() {
     this.closeClick.emit(undefined);
   }
+
+  public keyDownFunction(event: any) {
+    if (event.keyCode === 13) {
+      this.doTabClick();
+    }
+  }
 }

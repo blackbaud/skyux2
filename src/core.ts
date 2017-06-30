@@ -40,6 +40,7 @@ import { SkySortModule } from './modules/sort';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
+import { SkyTextHighlightModule } from './modules/text-highlight';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
@@ -84,6 +85,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTabsModule,
     SkyTextExpandModule,
     SkyTextExpandRepeaterModule,
+    SkyTextHighlightModule,
     SkyTilesModule,
     SkyTimepickerModule,
     SkyToolbarModule,
@@ -356,6 +358,10 @@ export {
   SkyTextExpandRepeaterComponent,
   SkyTextExpandRepeaterModule
 } from './modules/text-expand-repeater';
+export {
+  SkyTextHighlightDirective,
+  SkyTextHighlightModule
+} from './modules/text-highlight';
 export {
   SkyTileDashboardService,
   SkyTileContentModule,

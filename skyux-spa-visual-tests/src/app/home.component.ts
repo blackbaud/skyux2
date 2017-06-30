@@ -36,6 +36,7 @@ export class HomeComponent {
     'tabs',
     'text-expand',
     'text-expand-repeater',
+    'text-highlight',
     'tiles',
     'toolbar',
     'wait'
