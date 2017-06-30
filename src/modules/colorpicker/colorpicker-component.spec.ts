@@ -1,18 +1,9 @@
-// spell-checker:ignore Colorpicker, dropdown
-import {
-  TestBed,
-  ComponentFixture
-} from '@angular/core/testing';
-import {
-  By
-} from '@angular/platform-browser';
-import {
-  FormsModule
-} from '@angular/forms';
-
+// spell-checker:ignore Colorpicker, dropdown, cmyk, hsla
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
-
 import { expect } from '../testing';
 
 describe('Colorpicker Component', () => {

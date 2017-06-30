@@ -1,3 +1,4 @@
+// spell-checker:ignore Colorpicker
 import { Component } from '@angular/core';
 
 @Component({
