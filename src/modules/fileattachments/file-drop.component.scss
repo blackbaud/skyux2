@@ -100,14 +100,14 @@
 .sky-file-drop-text {
   font-size: $sky-font-size-lg;
   margin-top: $sky-margin-half;
-  -webkit-margin-after: 1.67em;
+  margin-bottom: $sky-margin-double;
 }
 
 .sky-file-drop-text, .sky-file-drop-text-header {
   font-style: italic;
   color: $sky-color-black;
   font-weight: 600;
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $sky-font-family-base;
   line-height: 1.1;    
   display: block;
 }
