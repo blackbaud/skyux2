@@ -34,21 +34,6 @@
   width: 100%;
   text-align: center;
 
-  h4,
-  h5 {
-    font-style: italic;
-  }
-
-  h4 {
-    font-size: $sky-font-size-xl;
-    margin: 0;
-  }
-
-  h5 {
-    font-size: $sky-font-size-lg;
-    margin-top: $sky-margin-half;
-  }
-
   .sky-file-drop-link-header {
     margin-bottom: $sky-margin-half;
   }
@@ -57,10 +42,6 @@
 .sky-file-drop-noclick {
   .sky-file-drop-contents {
     cursor: default;
-
-    h5 {
-      display: none;
-    }
   }
 }
 
