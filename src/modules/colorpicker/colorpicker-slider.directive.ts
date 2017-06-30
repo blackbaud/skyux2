@@ -45,11 +45,14 @@ export class SkyColorpickerSliderDirective {
         xAxis: this.xAxis,
         yAxis: this.yAxis
       });
-    } else if (this.xAxis === undefined && this.yAxis !== undefined) {
-      this.newColorContrast.emit({ yCoordinate: yAxis / height, maxRange: this.yAxis });
     } else {
       this.newColorContrast.emit({ xCoordinate: xAxis / width, maxRange: this.xAxis });
     }
+    /* // No vertical bars
+     if (this.xAxis === undefined && this.yAxis !== undefined) {
+          this.newColorContrast.emit({ yCoordinate: yAxis / height, maxRange: this.yAxis });
+    } */
+
   }
 
   public move(event: any) {

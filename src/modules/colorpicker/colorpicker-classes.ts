@@ -43,14 +43,3 @@ export class SliderDimension {
     public value: number,
     public alpha: number) { }
 }
-
-export class SkyColorpickerOutput {
-  constructor(
-    public rgbaText: string,
-    public hsva: Hsva,
-    public rgba: Rgba,
-    public hsla: Hsla,
-    public cmyk: Cmyk,
-    public hex: string
-  ) { }
-}

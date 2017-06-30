@@ -68,7 +68,6 @@ export class SkyColorpickerInputDirective
   @Input('alphaChannel')
   public alphaChannel: string = 'hex6';
 
-  private colorFormat: string;
   private created: boolean;
   private modelValue: SkyColorpickerOutput;
 
@@ -129,9 +128,11 @@ export class SkyColorpickerInputDirective
         this.alphaChannel
       );
 
-    } else if (this.skyColorpickerInput) {
-      this.skyColorpickerInput.openDialog(this.skyColorpickerInput);
     }
+    /*
+    else if (this.skyColorpickerInput) {
+      this.skyColorpickerInput.openDialog(this.skyColorpickerInput);
+    }*/
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -164,6 +165,12 @@ export class SkyColorpickerInputDirective
       if (this.outputFormat === 'rgba') {
         output = model.rgbaText;
       }
+      if (this.outputFormat === 'hsla') {
+        output = model.hslaText;
+      }
+      if (this.outputFormat === 'cmyk') {
+        output = model.cmykText;
+      }
       if (this.outputFormat === 'hex') {
         output = model.hex;
       }
@@ -192,14 +199,9 @@ export class SkyColorpickerInputDirective
   private formatter(color: SkyColorpickerOutput) {
     if (color && typeof color !== 'string') { return color; }
     if (typeof color === 'string') {
-      let currentFormat: string;
       let formatColor: SkyColorpickerOutput;
-      let hsva: Hsva = this.service.stringToHsva(color);
-      formatColor = this.service.skyColorpickerOutput(hsva);
-
-      if (this.colorFormat === 'rgb') { currentFormat = 'rgba'; }
-      if (this.colorFormat === 'hsv') { currentFormat = 'hsva'; }
-      if (typeof this.returnFormat === 'undefined') { this.returnFormat = currentFormat; }
+      let hsva: Hsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
+      formatColor = this.service.skyColorpickerOut(hsva);
       return formatColor;
     }
   }

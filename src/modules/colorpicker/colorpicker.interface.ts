@@ -12,3 +12,39 @@ export interface SkyColorpickerChangeColor {
   colorValue: number;
   maxRange: number;
 }
+
+export interface SkyColorpickerOutput {
+  hslaText: string;
+  rgbaText: string;
+  cmykText: string;
+  hsva: Hsva;
+  rgba: Rgba;
+  hsla: Hsla;
+  cmyk: Cmyk;
+  hex: string;
+}
+
+interface Hsva {
+  hue: number;
+  saturation: number;
+  value: number;
+  alpha: number;
+}
+interface Hsla {
+  hue: number;
+  saturation: number;
+  lightness: number;
+  alpha: number;
+}
+interface Rgba {
+  red: number;
+  green: number;
+  blue: number;
+  alpha: number;
+}
+interface Cmyk {
+  cyan: number;
+  magenta: number;
+  yellow: number;
+  key: number;
+}

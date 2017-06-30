@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './colorpicker-component.fixture.html'
 })
 export class ColorpickerTestComponent {
-
+  public selectedHexType: string = 'hex6';
   public selectedColor: string = '#2889e5';
   public selectedOutputFormat: string = 'rgba';
   public presetColors = [
@@ -23,5 +23,5 @@ export class ColorpickerTestComponent {
     '#68AFEF'
   ];
 
-  public constructor() {  }
+  public constructor() { }
 }

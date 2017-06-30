@@ -21,11 +21,11 @@ import {
   Rgba,
   Hsla,
   Hsva,
-  Cmyk,
   SliderPosition,
-  SliderDimension,
-  SkyColorpickerOutput
+  SliderDimension
 } from './colorpicker-classes';
+
+import { SkyColorpickerOutput } from './colorpicker.interface';
 
 @Component({
   selector: 'sky-colorpicker',
@@ -73,10 +73,9 @@ export class SkyColorpickerComponent implements OnInit {
     }
   }
 
-  @HostListener('window:keydown', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   public keyboardInput(event: any) {
     if (event.code.toLowerCase() === 'escape') {
-      this.closeColorpicker();
       this.closeColorPicker.nativeElement.click();
     }
   }
@@ -115,34 +114,13 @@ export class SkyColorpickerComponent implements OnInit {
 
   }
 
-  public setInitialColor(color: any) {
-    this.initialColor = color;
-  }
-
-  public setPresetConfig(presetColors: Array<string>) {
-    this.presetColors = presetColors;
-  }
-
-  public openDialog(color: any) {
-    this.setColorFromString(color);
-  }
-
-  public onChangeColor(color: string): Cmyk {
-    return this.service.rgbaToCmyk(this.service.hsvaToRgba(this.service.stringToHsva(color)));
-  }
-
-  public onChangeColorHex8(color: string): string {
-    let stringToHsva: Hsva = this.service.stringToHsva(color, true);
-    let hsvaToRgba: string = this.service.outputFormat(stringToHsva, 'rgba', true);
-    return hsvaToRgba;
-  }
-
-  public closeColorpicker() {
+  public closePicker() {
     this.setColorFromString(this.initialColor);
   }
 
   public applyColor() {
     this.selectedColorChanged.emit(this.selectedColor);
+    this.initialColor = this.selectedColor.rgbaText;
   }
 
   public setColorFromString(value: string) {
@@ -159,20 +137,6 @@ export class SkyColorpickerComponent implements OnInit {
       this.hsva = hsva;
       this.update();
     }
-  }
-
-  public set saturation(change: SkyColorpickerChangeColor) {
-    let hsla = this.service.hsva2hsla(this.hsva);
-    hsla.saturation = change.colorValue / change.maxRange;
-    this.hsva = this.service.hsla2hsva(hsla);
-    this.update();
-  }
-
-  public set lightness(change: SkyColorpickerChangeColor) {
-    let hsla = this.service.hsva2hsla(this.hsva);
-    hsla.lightness = change.colorValue / change.maxRange;
-    this.hsva = this.service.hsla2hsva(hsla);
-    this.update();
   }
 
   public set hue(change: SkyColorpickerChangeAxis) {
@@ -220,14 +184,6 @@ export class SkyColorpickerComponent implements OnInit {
     this.update();
   }
 
-  public formatPolicy(): number {
-    this.format = (this.format + 1) % 3;
-    if (this.format === 0 && this.hsva.alpha < 1 && this.alphaChannel === 'hex6') {
-      this.format++;
-    }
-    return this.format;
-  }
-
   public update() {
     if (this.sliderDimMax) {
       let hsla = this.service.hsva2hsla(this.hsva);
@@ -256,7 +212,7 @@ export class SkyColorpickerComponent implements OnInit {
         this.hsva,
         this.outputFormat,
         this.alphaChannel === 'hex8');
-      this.selectedColor = this.service.skyColorpickerOutput(this.hsva);
+      this.selectedColor = this.service.skyColorpickerOut(this.hsva);
 
       this.slider = new SliderPosition(
         (this.hsva.hue) * this.sliderDimMax.hue - 8,

@@ -1,7 +1,7 @@
 // spell-checker:ignore hsva, hsla, cmyk, denormalize, colorpicker,Injectable
 import { Injectable } from '@angular/core';
-import { Rgba, Hsla, Hsva, Cmyk, SkyColorpickerOutput } from './colorpicker-classes';
-
+import { Rgba, Hsla, Hsva, Cmyk } from './colorpicker-classes';
+import { SkyColorpickerOutput } from './colorpicker.interface';
 @Injectable()
 export class SkyColorpickerService {
   private red: number;
@@ -37,8 +37,6 @@ export class SkyColorpickerService {
     this.alpha = hsva.alpha;
     if (this.value === 0) {
       return new Hsla(this.hue, 0, 0, this.alpha);
-    } else if (this.saturation === 0 && this.value === 1) {
-      return new Hsla(this.hue, 1, 1, this.alpha);
     } else {
       this.lightness = this.value * (2 - this.saturation) / 2;
       return new Hsla(
@@ -112,9 +110,9 @@ export class SkyColorpickerService {
       case 1:
         this.red = q; this.green = this.value; this.blue = p;
         break;
-      case 2:
-        this.red = p; this.green = this.value; this.blue = t;
-        break;
+      /*  case 2:
+          this.red = p; this.green = this.value; this.blue = t;
+          break; */
       case 3:
         this.red = p; this.green = q; this.blue = this.value;
         break;
@@ -212,6 +210,10 @@ export class SkyColorpickerService {
       case 'hex':
         r = this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
         break;
+      case 'cmyk':
+        let cmyk = this.denormalizeCMYK(this.rgbaToCmyk(this.hsvaToRgba(hsva)));
+        r = `cmyk(${cmyk.cyan}%,${cmyk.magenta}%,${cmyk.yellow}%,${cmyk.key}%)`;
+        break;
       default:
         let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
         r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${Math.round(rgba.alpha * 100) / 100})`;
@@ -219,8 +221,10 @@ export class SkyColorpickerService {
     return r;
   }
 
-  public skyColorpickerOutput(color: Hsva) {
+  public skyColorpickerOut(color: Hsva) {
     let formatColor: SkyColorpickerOutput;
+    let cmykText: string = this.outputFormat(color, 'cmyk', true);
+    let hslaText: string = this.outputFormat(color, 'hsla', true);
     let rgbaText: string = this.outputFormat(color, 'rgba', true);
     let rgba: Rgba = this.hsvaToRgba(color);
     let hsla: Hsla = this.hsva2hsla(color);
@@ -228,6 +232,8 @@ export class SkyColorpickerService {
     let hex: string = this.outputFormat(color, 'hex', false);
 
     formatColor = {
+      'cmykText': cmykText,
+      'hslaText': hslaText,
       'rgbaText': rgbaText,
       'hsva': this.denormalizeHSVA(color),
       'rgba': this.denormalizeRGBA(rgba),
