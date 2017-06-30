@@ -14,8 +14,8 @@ import {
 } from '@angular/core';
 import { SkyColorpickerService } from './colorpicker.service';
 import { SkyColorpickerComponent } from './colorpicker.component';
-import { Hsva, SkyColorpickerOutput } from './colorpicker-classes';
-
+import { Hsva } from './colorpicker-classes';
+import { SkyColorpickerOutput } from './colorpicker.interface';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
