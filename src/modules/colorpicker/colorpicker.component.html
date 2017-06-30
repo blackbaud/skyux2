@@ -29,32 +29,29 @@
           </div>
           <div class="rgba-text">
             <div class="box">
-              <div>Hex:</div>
-              <div>R:</div>
-              <div>G:</div>
-              <div>B:</div>
-              <div>A:</div>
+              <label for="skyux_colorpicker_hex" aria-label="Hex">Hex:</label>
+              <label for="skyux_colorpicker_red" aria-label="Red">R:</label>
+              <label for="skyux_colorpicker_green" aria-label="Green">G:</label>
+              <label for="skyux_colorpicker_blue" aria-label="Blue">B:</label>
+              <label for="skyux_colorpicker_alpha" aria-label="Alpha">A:</label>
             </div>
             <div class="box">
-              <input [skyColorpickerText] (newColorContrast)="hex=$event" [value]="hexText" pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+              <input id="skyux_colorpicker_hex" [skyColorpickerText] (newColorContrast)="hex=$event" [value]="hexText" pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
               />
-
-              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="red=$event"
-                [value]="rgbaText?.red" />
-              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="green=$event"
-                [value]="rgbaText?.green" />
-              <input [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255" (newColorContrast)="blue=$event"
-                [value]="rgbaText?.blue" />
-              <input [skyColorpickerText] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [maxRange]="1" (newColorContrast)="alphaColor=$event"
-                [value]="rgbaText?.alpha" />
+              <input id="skyux_colorpicker_red" [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255"
+                (newColorContrast)="red=$event" [value]="rgbaText?.red" />
+              <input id="skyux_colorpicker_green" [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255"
+                (newColorContrast)="green=$event" [value]="rgbaText?.green" />
+              <input id="skyux_colorpicker_blue" [skyColorpickerText] type="number" pattern="[0-9]*" min="0" max="255" [maxRange]="255"
+                (newColorContrast)="blue=$event" [value]="rgbaText?.blue" />
+              <input id="skyux_colorpicker_alpha" [skyColorpickerText] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1"
+                step="0.1" [maxRange]="1" (newColorContrast)="alphaColor=$event" [value]="rgbaText?.alpha" />
             </div>
           </div>
 
           <div *ngIf="presetColors && presetColors.length" class="sky-colorpicker-preset-color-area">
-            <button *ngFor="let color of presetColors | slice:0:12; let i = index;" class="sky-preset-color"
-            [style.backgroundColor]="color"
-
-            (click)="setColorFromString(color)"></button>
+            <button *ngFor="let color of presetColors | slice:0:12; let i = index;" class="sky-preset-color" [style.backgroundColor]="color"
+              (click)="setColorFromString(color)"></button>
           </div>
         </div>
 
