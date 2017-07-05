@@ -1,10 +1,10 @@
 <div class="sky-list-view-checklist" *ngIf="active | async">
-    <sky-list-view-checklist-item
-      *ngFor="let item of items | async"
-      [item]="item"
-      [attr.sky-cmp-id]="item.id">
-      <div [ngSwitch]="selectMode">
-        <div ngSwitchCase="single">
+  <div [ngSwitch]="selectMode">
+    <ng-template ngSwitchCase="single">
+      <sky-list-view-checklist-item
+        *ngFor="let item of items | async"
+        [item]="item"
+        [attr.sky-cmp-id]="item.id">
           <button
             type="button"
             class="sky-list-view-checklist-single-button"
@@ -13,8 +13,14 @@
             <strong *ngIf="item.label">{{item.label}}</strong>
             <div *ngIf="item.description">{{item.description}}</div>
           </button>
-        </div>
-        <div ngSwitchDefault>
+      </sky-list-view-checklist-item>
+    </ng-template>
+
+    <ng-template ngSwitchDefault>
+      <sky-list-view-checklist-item
+        *ngFor="let item of items | async"
+        [item]="item"
+        [attr.sky-cmp-id]="item.id">
           <sky-checkbox
             [checked]="itemSelected(item.id) | async"
             (change)="setItemSelection(item, $event)">
@@ -23,10 +29,10 @@
               <div *ngIf="item.description">{{item.description}}</div>
             </sky-checkbox-label>
           </sky-checkbox>
-        </div>
+        </sky-list-view-checklist-item>
+    </ng-template>
+  </div>
 
-      </div>
-    </sky-list-view-checklist-item>
 </div>
 
 
