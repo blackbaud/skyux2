@@ -15,6 +15,7 @@ export default {
     '@angular/router': 'ng.router',
     'ng2-dragula/ng2-dragula': 'ng2.dragula',
     '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
+    '@angular/platform-browser': 'ng.platformBrowser',
     'moment': 'moment'
   },
   external: [

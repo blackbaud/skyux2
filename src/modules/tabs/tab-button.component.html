@@ -6,6 +6,8 @@
       'sky-btn-tab-disabled': disabled,
       'sky-tab-btn-closeable': allowClose
     }"
+    tabindex="0"
+    (keydown)="keyDownFunction($event)"
     (click)="doTabClick()"
     role="tab"
     [attr.aria-selected]="active"
