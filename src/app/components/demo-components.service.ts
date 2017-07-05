@@ -317,6 +317,26 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Inline Help',
+        icon: 'exclamation',
+        summary: 'Inline help',
+        url: '/components/inline-help',
+        getCodeFiles: function () {
+          return [            
+            {
+              name: 'inline-help-demo.component.html',
+              fileContents: require('!!raw-loader!./inline-help/inline-help-demo.component.html')
+            },
+            {
+              name: 'inline-help-demo.component.ts',
+              fileContents: require('!!raw-loader!./inline-help/inline-help-demo.component.ts'),
+              componentName: 'SkyInlineHelpDemoComponent',
+              bootstrapSelector: 'sky-inline-help-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Highlight',
         icon: 'paint-brush',
         summary: `The highlight component highlights text within DOM elements.`,
