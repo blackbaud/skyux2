@@ -895,7 +895,7 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./timepicker/timepicker-demo.component.html')
             },
             {
-              name: 'tabs-demo.component.ts',
+              name: 'timepicker-demo.component.ts',
               fileContents: require('!!raw-loader!./timepicker/timepicker-demo.component.ts'),
               componentName: 'SkyTimePickerDemoComponent',
               bootstrapSelector: 'sky-timepicker-demo'
