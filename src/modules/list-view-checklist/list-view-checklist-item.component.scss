@@ -37,6 +37,7 @@
     margin-bottom: 0;
     padding: $sky-padding;
     width: 100%;
+    cursor: pointer;
   }
   /deep/ .sky-list-view-checklist-single-button.sky-list-view-checklist-row-selected {
     background-color: $sky-selected-color;
