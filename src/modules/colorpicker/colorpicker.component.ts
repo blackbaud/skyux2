@@ -75,7 +75,11 @@ export class SkyColorpickerComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   public keyboardInput(event: any) {
-    if (event.code.toLowerCase() === 'escape') {
+    let code: string = (event.code || event.key);
+    if (
+      code.toLowerCase() === 'escape' // Not Internet Explorer
+      || code.toLowerCase() === 'esc' // Internet Explorer
+    ) {
       this.closeColorPicker.nativeElement.click();
     }
   }
@@ -200,8 +204,8 @@ export class SkyColorpickerComponent implements OnInit {
         Math.round(rgba.alpha * 100) / 100);
       this.hexText = this.service.hexText(rgba, this.alphaChannel === 'hex8');
 
-      this.alphaSliderColor = 'rgb(' + rgba.red + ',' + rgba.green + ',' + rgba.blue + ')';
-      this.hueSliderColor = 'rgb(' + hueRgba.red + ',' + hueRgba.green + ',' + hueRgba.blue + ')';
+      this.alphaSliderColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${rgba.alpha})`;
+      this.hueSliderColor = `rgba(${hueRgba.red},${hueRgba.green},${hueRgba.blue},${rgba.alpha})`;
 
       if (this.format === 0 && this.hsva.alpha < 1 && this.alphaChannel === 'hex6') {
         this.format++;

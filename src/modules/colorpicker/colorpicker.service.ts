@@ -61,18 +61,13 @@ export class SkyColorpickerService {
     if (this.max === this.min) {
       this.hue = 0;
     } else {
-      switch (this.max) {
-        case this.red:
-          this.hue = (this.green - this.blue) / d + (this.green < this.blue ? 6 : 0);
-          break;
-        case this.green:
-          this.hue = (this.blue - this.red) / d + 2;
-          break;
-        case this.blue:
-          this.hue = (this.red - this.green) / d + 4;
-          break;
-        default:
-      }
+
+      let maxValue = {
+        [this.red]: (this.green - this.blue) / d + (this.green < this.blue ? 6 : 0),
+        [this.green]: (this.blue - this.red) / d + 2,
+        [this.blue]: (this.red - this.green) / d + 4
+      };
+      this.hue = maxValue[this.max];
       this.hue /= 6;
     }
 
@@ -124,7 +119,6 @@ export class SkyColorpickerService {
         break;
       default:
     }
-
     return new Rgba(this.red, this.green, this.blue, this.alpha);
   }
 
