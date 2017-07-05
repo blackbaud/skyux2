@@ -317,7 +317,7 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Inline Help',
+        name: 'Inline help',
         icon: 'exclamation',
         summary: 'Inline help',
         url: '/components/inline-help',
