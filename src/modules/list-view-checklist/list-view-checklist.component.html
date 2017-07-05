@@ -3,14 +3,29 @@
       *ngFor="let item of items | async"
       [item]="item"
       [attr.sky-cmp-id]="item.id">
-      <sky-checkbox
-        [checked]="itemSelected(item.id) | async"
-        (change)="setItemSelection(item, $event)">
-        <sky-checkbox-label>
-          <strong *ngIf="item.label">{{item.label}}</strong>
-          <div *ngIf="item.description">{{item.description}}</div>
-        </sky-checkbox-label>
-      </sky-checkbox>
+      <div [ngSwitch]="selectMode">
+        <div ngSwitchCase="single">
+          <button
+            type="button"
+            class="sky-list-view-checklist-single-button"
+            [ngClass]="{ 'sky-list-view-checklist-row-selected' : (itemSelected(item.id) | async) }"
+            (click)="singleSelectRowClick(item)">
+            <strong *ngIf="item.label">{{item.label}}</strong>
+            <div *ngIf="item.description">{{item.description}}</div>
+          </button>
+        </div>
+        <div ngSwitchDefault>
+          <sky-checkbox
+            [checked]="itemSelected(item.id) | async"
+            (change)="setItemSelection(item, $event)">
+            <sky-checkbox-label>
+              <strong *ngIf="item.label">{{item.label}}</strong>
+              <div *ngIf="item.description">{{item.description}}</div>
+            </sky-checkbox-label>
+          </sky-checkbox>
+        </div>
+
+      </div>
     </sky-list-view-checklist-item>
 </div>
 
