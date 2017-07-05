@@ -40,6 +40,7 @@ import { SkySortModule } from './modules/sort';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
+import { SkyTextHighlightModule } from './modules/text-highlight';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
@@ -84,6 +85,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTabsModule,
     SkyTextExpandModule,
     SkyTextExpandRepeaterModule,
+    SkyTextHighlightModule,
     SkyTilesModule,
     SkyTimepickerModule,
     SkyToolbarModule,
@@ -101,7 +103,7 @@ export {
   SkyNumericModule,
   SkyNumericPipe,
   SkyNumericService
-} from './modules/numeric'
+} from './modules/numeric';
 export {
   SkyAvatarComponent,
   SkyAvatarInnerComponent,
@@ -158,14 +160,15 @@ export {
 export {
   SkyEmailValidationDirective,
   SkyEmailValidationModule
-} from './modules/email-validation'
+} from './modules/email-validation';
 export {
   SkyErrorComponent,
   SkyErrorDescriptionComponent,
   SkyErrorImageComponent,
   SkyErrorModule,
   SkyErrorTitleComponent,
-  SkyErrorModalService
+  SkyErrorModalService,
+  ErrorModalConfig
 } from './modules/error';
 export {
   SkyFileAttachmentsModule,
@@ -356,7 +359,11 @@ export {
   SkyTextExpandRepeaterModule
 } from './modules/text-expand-repeater';
 export {
-  SkyTileComponent,
+  SkyTextHighlightDirective,
+  SkyTextHighlightModule
+} from './modules/text-highlight';
+export {
+  SkyTileDashboardService,
   SkyTileContentModule,
   SkyTileContentSectionComponent,
   SkyTileDashboardColumnComponent,
@@ -368,9 +375,9 @@ export {
   SkyTileDashboardConfigLayoutTile,
   SkyTileDashboardConfigTile,
   SkyTileDashboardModule,
-  SkyTileDashboardService,
   SkyTileModule,
-  SkyTilesModule
+  SkyTilesModule,
+  SkyTileComponent
 } from './modules/tiles';
 export {
   SkyTimepickerComponent,

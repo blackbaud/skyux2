@@ -169,7 +169,7 @@ export class SkyDatepickerInputDirective implements
     let value = control.value;
 
     if (!value) {
-      return;
+      return undefined;
     }
 
     let dateValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
@@ -204,6 +204,8 @@ export class SkyDatepickerInputDirective implements
           }
         };
       }
+
+    return undefined;
   }
 
   private writeModelValue(model: Date) {

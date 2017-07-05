@@ -108,7 +108,7 @@ export class SkyTimepickerInputDirective implements
   public validate(control: AbstractControl): { [key: string]: any } {
     let value = control.value;
     if (!value) {
-      return;
+      return undefined;
     }
 
     /* istanbul ignore next */
@@ -119,6 +119,8 @@ export class SkyTimepickerInputDirective implements
         }
       };
     }
+
+    return undefined;
   }
   private writeModelValue(model: SkyTimepickerTimeOutput) {
     let setElementValue: string;
@@ -151,7 +153,7 @@ export class SkyTimepickerInputDirective implements
         'minute': moment(time, currentFormat).minute(),
         'meridie': moment(time, currentFormat).format('A'),
         'timezone': moment(time, currentFormat).format('Z'),
-        'ios8601': moment(time, currentFormat).format(),
+        'iso8601': moment(time, currentFormat).format(),
         'local': moment(time, currentFormat).format(currentFormat),
         'customFormat': this.returnFormat
       };
