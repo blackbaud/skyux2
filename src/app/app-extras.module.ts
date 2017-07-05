@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { StacheModule, StacheConfigService } from'@blackbaud/stache';
+import { StacheModule } from'@blackbaud/stache';
 
-import { SkyAppConfig } from '@blackbaud/skyux-builder/runtime';
 import { SkyDemoTitleService } from './shared/title.service';
 import { SkyFilterDemoModalComponent } from './components/filter/filter-demo-modal.component';
 import { SkyListFiltersModalDemoComponent }
@@ -34,11 +33,7 @@ require('style-loader!./styles.scss');
     StacheModule
   ],
   providers: [
-    SkyDemoTitleService,
-    {
-      provide: StacheConfigService,
-      useExisting: SkyAppConfig
-    }
+    SkyDemoTitleService
   ]
 })
 export class AppExtrasModule { }

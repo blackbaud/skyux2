@@ -5,6 +5,7 @@ import {
 } from './actions';
 
 export class ListFiltersOrchestrator extends ListStateOrchestrator<ListFilterModel[]> {
+  /* istanbul ignore next */
   constructor() {
     super();
 
