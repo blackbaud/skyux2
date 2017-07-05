@@ -1,10 +1,12 @@
 language: node_js
 node_js:
- - "6.1"
+ - "6.10.3"
 
 # https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
 git:
   depth: 10
+
+sudo: required
 
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
 addons:
@@ -31,6 +33,11 @@ before_install:
   - chmod +x ./scripts/browserstack-local-start.sh
   - chmod +x ./scripts/visual-baseline.sh
   - chmod +x ./scripts/visual-failures.sh
+
+after_install:
+
+  - sudo cp .node_modules/@blackbaud/skyux-builder/ssl/skyux-ca.crt /usr/local/share/ca-certificates/skyux-ca.crt
+  - sudo update-ca-certificates
 
 script: ./scripts/travis-script.sh
 after_script: ./scripts/travis-after-script.sh

@@ -94,5 +94,7 @@ export class SkyTabsetService {
         return existingTab;
       }
     }
+
+    return undefined;
   }
 }

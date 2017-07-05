@@ -17,6 +17,8 @@ import 'ts-helpers';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 
+import 'web-animations-js/web-animations.min';
+
 // if ('production' === ENV) {
   // Production
 // } else {

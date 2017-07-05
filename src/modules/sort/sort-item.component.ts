@@ -7,7 +7,8 @@ import {
   SimpleChanges,
   OnChanges,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import { SkySortService } from './sort.service';
@@ -38,13 +39,15 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
 
   private sortItemId: string;
 
-  constructor(private sortService: SkySortService) {}
+  constructor(private sortService: SkySortService, private detector: ChangeDetectorRef) {}
 
   public ngOnInit() {
+
     sortItemIdNumber++;
     this.sortItemId = SORT_ITEM_ID_PREFIX + sortItemIdNumber.toString();
     this.subscription = this.sortService.selectedItem.subscribe((itemId: string) => {
       this.isSelected.next(itemId === this.sortItemId);
+      this.detector.detectChanges();
     });
 
     if (this.active) {
@@ -56,7 +59,6 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
     if (changes && changes['active']
       && changes['active'].currentValue
       && changes['active'].currentValue !== changes['active'].previousValue) {
-
       this.sortService.selectItem(this.sortItemId);
     }
   }
