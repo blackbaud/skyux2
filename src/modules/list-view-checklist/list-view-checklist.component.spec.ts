@@ -377,4 +377,19 @@ describe('List View Checklist Component', () => {
       });
     }));
   });
+
+  describe('Single select mode', () => {
+    it('should hide the select all and clear all buttons when switched to single select mode',
+      () => {
+
+    });
+
+    it('should show the correct styles for single select mode selection', () => {
+
+    });
+
+    it('should clear all but the current selection on single select button click', () => {
+
+    });
+  });
 });
