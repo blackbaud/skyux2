@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SkySearchComponent } from './search.component';
 import { SkyMediaQueryModule } from '../media-queries';
 
@@ -12,6 +14,7 @@ import { SkyResourcesModule } from '../resources';
     SkySearchComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     SkyResourcesModule,
     SkyMediaQueryModule,
