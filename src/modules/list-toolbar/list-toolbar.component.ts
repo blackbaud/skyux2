@@ -172,7 +172,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
               template: this.sortSelectorTemplate,
               location: 'right'
             })
-          ], 1);
+          ], 0);
         } else if (currentSort.length < 1 && this.hasSortSelectors) {
           this.hasSortSelectors = false;
           this.dispatcher.toolbarRemoveItems([
