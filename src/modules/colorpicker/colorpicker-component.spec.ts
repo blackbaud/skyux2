@@ -6,7 +6,7 @@ import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 import { expect } from '../testing';
 
-fdescribe('Colorpicker Component', () => {
+describe('Colorpicker Component', () => {
 
   function openColorpicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
@@ -274,6 +274,7 @@ fdescribe('Colorpicker Component', () => {
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
     fixture.detectChanges();
     mouseMoveHelper(axis.middle - 50, axis.top - 50);
+    fixture.detectChanges();
     verifyColorpicker(nativeElement, '#8babcb', '139, 171, 203');
     mouseMoveHelper(axis.middle + 50, axis.top);
     verifyColorpicker(nativeElement, '#285480', '40, 84, 128');
