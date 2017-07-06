@@ -37,11 +37,7 @@
     "watch": "npm run test:unit -- --auto-watch --no-single-run"
   },
   "peerDependencies": {
-<<<<<<< HEAD
-    "@blackbaud/stache": "2.0.0-beta.8"
-=======
     "@blackbaud/stache": "2.0.0-beta.9"
->>>>>>> 14bf2f8a79b2abbb208a3cb9e06c269779102a1c
   },
   "dependencies": {
     "@angular/animations": "4.2.5",
