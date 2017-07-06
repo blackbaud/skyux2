@@ -264,7 +264,7 @@ export class SkyColorpickerService {
       Math.round(rgba.red * 255),
       Math.round(rgba.green * 255),
       Math.round(rgba.blue * 255),
-      rgba.alpha);
+      Math.round(rgba.alpha * 100) / 100);
   }
 
   public denormalizeHSLA(hsla: Hsla): Hsla {
