@@ -104,6 +104,32 @@ describe('Dropdown component', () => {
 
       expect(dropdownMenu1).not.toBeVisible();
     });
+
+     it('should display default label when label not set', () => {
+
+      let fixture = TestBed.createComponent(DropdownParentTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      let button = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLButtonElement;
+      let label = button.getAttribute('aria-label');
+
+      expect(label).toBe('Context menu');
+    });
+
+     it('should display default label when label is set', () => {
+
+      let fixture = TestBed.createComponent(DropdownParentTestComponent);
+      let el: HTMLElement = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      let button = el.querySelector('#dropdown-4 .sky-dropdown-button') as HTMLButtonElement;
+      let label = button.getAttribute('aria-label');
+
+      expect(label).toBe('test label');
+    });
   });
 
   describe('postition tests', () => {
