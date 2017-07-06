@@ -75,7 +75,7 @@ export class SkyColorpickerInputDirective
     private view: ViewContainerRef,
     private element: ElementRef,
     private service: SkyColorpickerService,
-    private renderer: Renderer,
+    private renderer: Renderer
   ) {
     this.created = false;
   }

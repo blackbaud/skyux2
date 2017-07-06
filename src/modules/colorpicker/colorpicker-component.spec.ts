@@ -57,14 +57,30 @@ describe('Colorpicker Component', () => {
       document.dispatchEvent(keyPress);
     } catch (error) {
       // depreciated browser API... IE
-      let keyPressDepreciated: any;
-      keyPressDepreciated = document.createEvent('KeyboardEvent');
+      let keyPressDepreciated = document.createEvent('KeyboardEvent');
       keyPressDepreciated.initKeyboardEvent('keydown', true, true, window,
         depreciatedKeyName, 27, 'window', false, '');
       document.dispatchEvent(keyPressDepreciated);
     }
   }
-
+  function mouseMoveHelper(x: number, y: number) {
+    let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
+     try { // Chrome, Safari, Firefox
+     let  mouseEvent = new MouseEvent('mousemove', {
+      'clientX': x,
+      'clientY': y
+    });
+    document.dispatchEvent(mouseEvent);
+    } catch (error) {
+      // depreciated browser API... IE
+     let mouseEventDepreciated = document.createEvent('MouseEvents');
+      mouseEventDepreciated.initMouseEvent(
+        'mousemove', true, true, window, 0, 0, 0, x, y, false, false, false, false, 0, undefined
+        );
+      document.dispatchEvent(mouseEventDepreciated);
+    }
+        fixture.detectChanges();
+  }
   function verifyColorpicker(element: HTMLElement, spaColor: string, colorPreview: string) {
     fixture.detectChanges();
     fixture.whenStable();
@@ -246,35 +262,15 @@ describe('Colorpicker Component', () => {
   it('Should accept mouse dragging on saturation and lightness.', () => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    let document = nativeElement.parentNode.parentNode.parentNode;
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
     let axis = getElementCords(slBar);
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
     fixture.detectChanges();
-    let mouseEvent = new MouseEvent('mousemove', {
-      'clientX': axis.middle - 50,
-      'clientY': axis.top - 50
-    });
-    mouseEvent.initEvent('mousemove', true, true);
-    document.dispatchEvent(mouseEvent);
-    fixture.detectChanges();
+    mouseMoveHelper(axis.middle - 50,  axis.top - 50);
     verifyColorpicker(nativeElement, '#8babcb', '139, 171, 203');
-    mouseEvent = new MouseEvent('mousemove',
-      {
-        'clientX': axis.middle + 50,
-        'clientY': axis.top
-      });
-    mouseEvent.initEvent('mousemove', true, true);
-    document.dispatchEvent(mouseEvent);
-    fixture.detectChanges();
+    mouseMoveHelper(axis.middle + 50,  axis.top);
     verifyColorpicker(nativeElement, '#285480', '40, 84, 128');
-    mouseEvent = new MouseEvent('mouseup', {
-      'bubbles': true,
-      'cancelable': true,
-      'view': window
-    });
-    mouseEvent.initEvent('mouseup', true, true);
-    document.dispatchEvent(mouseEvent);
+    slBar.triggerEventHandler('mouseup', { 'pageX': axis.middle, 'pageY': axis.top });
     fixture.detectChanges();
   });
 
