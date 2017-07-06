@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 
 @Component({
     selector: 'sky-inline-help',
@@ -6,5 +6,16 @@ import { Component } from '@angular/core'
     templateUrl: './inline-help.component.html'
 })
 export class SkyInlineHelpComponent {
+    @Output()
+    public actionClick = new EventEmitter<any>();
 
+    public buttonClicked() {
+        this.actionClick.emit();
+    }
+
+    public enterPress(event: KeyboardEvent) {
+        if (event.which === 13) {
+            this.actionClick.emit();
+        }
+    }
 }

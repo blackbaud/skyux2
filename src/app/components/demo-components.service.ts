@@ -318,8 +318,8 @@ export class SkyDemoComponentsService {
       },
       {
         name: 'Inline help',
-        icon: 'exclamation',
-        summary: 'Inline help',
+        icon: 'question',
+        summary: 'The inline help component creates a small help button next to a field.',
         url: '/components/inline-help',
         getCodeFiles: function () {
           return [            
