@@ -6,7 +6,7 @@ import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 import { expect } from '../testing';
 
-describe('Colorpicker Component', () => {
+fdescribe('Colorpicker Component', () => {
 
   function openColorpicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
@@ -63,31 +63,38 @@ describe('Colorpicker Component', () => {
       document.dispatchEvent(keyPressDepreciated);
     }
   }
+
   function mouseMoveHelper(x: number, y: number) {
     let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
-     try { // Chrome, Safari, Firefox
-     let  mouseEvent = new MouseEvent('mousemove', {
-      'clientX': x,
-      'clientY': y
-    });
-    document.dispatchEvent(mouseEvent);
+    try { // Chrome, Safari, Firefox
+      let mouseEvent = new MouseEvent('mousemove', {
+        'clientX': x,
+        'clientY': y
+      });
+      document.dispatchEvent(mouseEvent);
     } catch (error) {
       // depreciated browser API... IE
-     let mouseEventDepreciated = document.createEvent('MouseEvents');
+      let mouseEventDepreciated = document.createEvent('MouseEvents');
       mouseEventDepreciated.initMouseEvent(
         'mousemove', true, true, window, 0, 0, 0, x, y, false, false, false, false, 0, undefined
-        );
+      );
       document.dispatchEvent(mouseEventDepreciated);
     }
-        fixture.detectChanges();
+    fixture.detectChanges();
   }
-  function verifyColorpicker(element: HTMLElement, spaColor: string, colorPreview: string) {
+
+  function verifyColorpicker(element: HTMLElement, spaColor: string, test: string) {
     fixture.detectChanges();
     fixture.whenStable();
     let inputElement: HTMLInputElement = element.querySelector('input');
     expect(inputElement.value).toBe(spaColor);
     let selectedColor: HTMLDivElement = <HTMLDivElement>element.querySelector('.selected-color');
-    expect(selectedColor.style.backgroundColor).toContain(colorPreview);
+    let browserCSS = selectedColor.style.backgroundColor.replace(/[rgba\(\)]/g, '').split(',');
+    // Some browsers convert RGBA to multiple points pass the decimal.
+    let outcome = browserCSS.map((eachNumber) => {
+      return Math.round(Number(eachNumber) * 100) / 100;
+    });
+    expect(outcome.toString()).toContain(test.replace(/[\s]/g, '').split(',').toString());
   }
 
   function getElementCords(elementRef: any) {
@@ -266,9 +273,9 @@ describe('Colorpicker Component', () => {
     let axis = getElementCords(slBar);
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
     fixture.detectChanges();
-    mouseMoveHelper(axis.middle - 50,  axis.top - 50);
+    mouseMoveHelper(axis.middle - 50, axis.top - 50);
     verifyColorpicker(nativeElement, '#8babcb', '139, 171, 203');
-    mouseMoveHelper(axis.middle + 50,  axis.top);
+    mouseMoveHelper(axis.middle + 50, axis.top);
     verifyColorpicker(nativeElement, '#285480', '40, 84, 128');
     slBar.triggerEventHandler('mouseup', { 'pageX': axis.middle, 'pageY': axis.top });
     fixture.detectChanges();

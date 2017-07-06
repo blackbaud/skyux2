@@ -210,7 +210,7 @@ export class SkyColorpickerService {
         break;
       default:
         let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
-        r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${Math.round(rgba.alpha * 100) / 100})`;
+        r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${rgba.alpha})`;
     }
     return r;
   }
