@@ -10,9 +10,11 @@ if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular
   rimraf ./node_modules/@blackbaud/stache/node_modules/@angular
 
-  ./scripts/browserstack-cleanup.sh && npm run ci
+  ./scripts/browserstack-cleanup.sh
+  npm run ci
 
-  skyux build && ./scripts/visual-baseline.sh
+  skyux build
+  ./scripts/visual-baseline.sh
 
 else
   echo -e "Pull requests from forks are run via Savage."

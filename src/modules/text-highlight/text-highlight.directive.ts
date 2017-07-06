@@ -72,6 +72,8 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit, OnDe
     const matchedElements =
       el.nativeElement.querySelectorAll(`mark.${className}`) as NodeList;
 
+    /* istanbul ignore else */
+    /* sanity check */
     if (matchedElements) {
       for (let i = 0; i < matchedElements.length; i++) {
         const node = matchedElements[i];
