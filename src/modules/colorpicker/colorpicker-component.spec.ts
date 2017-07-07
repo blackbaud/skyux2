@@ -66,19 +66,20 @@ describe('Colorpicker Component', () => {
 
   function mouseMoveHelper(x: number, y: number) {
     let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
-    try { // Chrome, Safari, Firefox
-      let mouseEvent = new MouseEvent('mousemove', {
-        'clientX': x,
-        'clientY': y
-      });
-      document.dispatchEvent(mouseEvent);
-    } catch (error) {
+    try {
       // depreciated browser API... IE
       let mouseEventDepreciated = document.createEvent('MouseEvents');
       mouseEventDepreciated.initMouseEvent(
         'mousemove', true, true, window, 0, 0, 0, x, y, false, false, false, false, 0, undefined
       );
       document.dispatchEvent(mouseEventDepreciated);
+    } catch (error) {
+      // Chrome, Safari, Firefox
+      let mouseEvent = new MouseEvent('mousemove', {
+        'clientX': x,
+        'clientY': y
+      });
+      document.dispatchEvent(mouseEvent);
     }
     fixture.detectChanges();
   }
@@ -266,7 +267,7 @@ describe('Colorpicker Component', () => {
     verifyColorpicker(nativeElement, '#285380', '40, 83, 128');
   });
 
-  it('Should accept mouse dragging on saturation and lightness.', () => {
+  fit('Should accept mouse dragging on saturation and lightness.', () => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
