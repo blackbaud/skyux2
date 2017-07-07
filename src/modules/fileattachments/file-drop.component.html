@@ -22,18 +22,26 @@
           #fileInput/>
           <div class="sky-file-drop-contents" *ngIf="customEl.children.length === 0">
             <div class="sky-file-drop-contents-not-over">
-              <h4>{{'file_upload_drag_file_here' | skyResources}}</h4>
-              <h5>{{'file_upload_or_click_to_browse' | skyResources}}</h5>
+                <div class="sky-file-drop-text-header">
+                  {{'file_upload_drag_file_here' | skyResources}}
+                </div>
+                <div class="sky-file-drop-text">
+                  {{'file_upload_or_click_to_browse' | skyResources}}
+                </div>
               <i class="fa fa-cloud-upload sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is valid -->
             <div class="sky-file-drop-contents-accept" >
-              <h4>{{'file_upload_drop_files_here' | skyResources}}</h4>
+              <div class="sky-file-drop-text-header">
+                {{'file_upload_drop_files_here' | skyResources}}
+              </div>
               <i class="fa fa-bullseye sky-file-upload-icon"></i>
             </div>
             <!-- This will appear when file is dragged over and is invalid -->
             <div class="sky-file-drop-contents-reject" >
-              <h4>{{'file_upload_invalid_file' | skyResources}}</h4>
+              <div class="sky-file-drop-text-header">
+                {{'file_upload_invalid_file' | skyResources}}
+              </div>
               <i class="fa fa-times-circle sky-file-upload-icon"></i>
             </div>
           </div>
@@ -45,7 +53,11 @@
     <div class="sky-file-drop-col" *ngIf="allowLinks">
         <div class="sky-file-drop-contents">
             <div class="sky-file-drop-link">
-                <h4 class="sky-file-drop-link-header">{{'file_upload_paste_link' | skyResources}}</h4>
+                <div class="sky-file-drop-link-header">
+                  <div class="sky-file-drop-text-header">
+                    {{'file_upload_paste_link' | skyResources}}
+                  </div>
+                </div>
                 <div class="sky-form-group">
                     <input
                       type="text"
