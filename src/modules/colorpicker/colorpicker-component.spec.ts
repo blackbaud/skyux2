@@ -267,7 +267,7 @@ describe('Colorpicker Component', () => {
     verifyColorpicker(nativeElement, '#285380', '40, 83, 128');
   });
 
-  fit('Should accept mouse dragging on saturation and lightness.', () => {
+  it('Should accept mouse dragging on saturation and lightness.', () => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
