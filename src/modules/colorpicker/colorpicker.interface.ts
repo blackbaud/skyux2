@@ -24,25 +24,25 @@ export interface SkyColorpickerOutput {
   hex: string;
 }
 
-interface Hsva {
+export interface Hsva {
   hue: number;
   saturation: number;
   value: number;
   alpha: number;
 }
-interface Hsla {
+export interface Hsla {
   hue: number;
   saturation: number;
   lightness: number;
   alpha: number;
 }
-interface Rgba {
+export interface Rgba {
   red: number;
   green: number;
   blue: number;
   alpha: number;
 }
-interface Cmyk {
+export interface Cmyk {
   cyan: number;
   magenta: number;
   yellow: number;
