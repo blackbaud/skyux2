@@ -1,7 +1,7 @@
 @import "../../scss/mixins";
 
 .sky-filter-inline {
-  background-color: #e9f4fc;
+  background-color: $sky-background-color-neutral-light;
   display: flex;
   padding: $sky-padding;
   align-items: center;
