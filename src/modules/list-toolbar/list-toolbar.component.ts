@@ -219,8 +219,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     })
     .distinctUntilChanged()
     .map((filters) => {
-      let activeFilters = filters
-        .filter((f) => {
+      let activeFilters = filters.filter((f) => {
           return f.value !== '' &&
             f.value !== undefined &&
             f.value !== false &&
@@ -239,7 +238,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       this.dispatcher.toolbarAddItems(
         [new ListToolbarItemModel(toolbarItem)],
         toolbarItem.index
-      )
+      );
     });
 
     let sortModels = this.toolbarSorts.map(sort =>

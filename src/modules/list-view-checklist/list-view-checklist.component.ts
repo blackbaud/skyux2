@@ -96,7 +96,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   public set selectMode(value: string) {
     this._selectMode = value;
     this.updateActions();
-  };
+  }
 
   public get selectMode(): string {
     return this._selectMode;
