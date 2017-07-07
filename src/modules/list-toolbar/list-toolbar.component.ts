@@ -164,21 +164,22 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
     // Initialize the sort toolbar item if necessary
     this.sortSelectors.distinctUntilChanged().subscribe((currentSort) => {
-       if (currentSort.length > 0 && !this.hasSortSelectors) {
-          this.hasSortSelectors = true;
-          this.dispatcher.toolbarAddItems([
-            new ListToolbarItemModel({
-              id: 'sort-selector',
-              template: this.sortSelectorTemplate,
-              location: 'right'
-            })
-          ], 0);
-        } else if (currentSort.length < 1 && this.hasSortSelectors) {
-          this.hasSortSelectors = false;
-          this.dispatcher.toolbarRemoveItems([
-            'sort-selector'
-          ]);
-        }
+
+      if (currentSort.length > 0 && !this.hasSortSelectors) {
+        this.hasSortSelectors = true;
+        this.dispatcher.toolbarAddItems([
+          new ListToolbarItemModel({
+            id: 'sort-selector',
+            template: this.sortSelectorTemplate,
+            location: 'right'
+          })
+        ], 0);
+      } else if (currentSort.length < 1 && this.hasSortSelectors) {
+        this.hasSortSelectors = false;
+        this.dispatcher.toolbarRemoveItems([
+          'sort-selector'
+        ]);
+      }
     });
 
     this.searchTextInput = this.state.map(s => s.search.searchText).distinctUntilChanged();

@@ -210,6 +210,23 @@ describe('List Toolbar Component', () => {
 
       }));
 
+      it('should remove sort when sort selectors not available', async(() => {
+        initializeToolbar();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          dispatcher.sortSetGlobal([]);
+          dispatcher.sortSetAvailable([]);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            state.take(1).subscribe((current) => {
+              expect(current.toolbar.items.filter((item) => { item.id === 'sort-selector' }).length)
+                .toBe(0);
+            });
+          });
+        });
+      }));
+
       it('should not display when sortSelectorEnabled is false', async(() => {
         component.sortEnabled = false;
         initializeToolbar();
