@@ -7,6 +7,9 @@
     overflow: hidden;
     height: $sky-alternate-font-size-xl;
   }
+:host-context(sky-colorpicker) sky-dropdown /deep/ .sky-dropdown-button {
+  color: transparent;
+}
 
 .sky-colorpicker-reset-button::before{
   color: $sky-color-gray;
