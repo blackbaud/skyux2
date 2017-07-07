@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'sky-test-cmp',
     templateUrl: './inline-help.component.fixture.html'
 })
-export class InlineHlpeTestComponent {
+export class InlineHelpTestComponent {
     public buttonIsClicked: boolean = false;
 
     public buttonClicked() {

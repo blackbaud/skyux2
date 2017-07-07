@@ -322,7 +322,7 @@ export class SkyDemoComponentsService {
         summary: 'The inline help component creates a small help button next to a field.',
         url: '/components/inline-help',
         getCodeFiles: function () {
-          return [            
+          return [
             {
               name: 'inline-help-demo.component.html',
               fileContents: require('!!raw-loader!./inline-help/inline-help-demo.component.html')
