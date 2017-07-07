@@ -7,7 +7,7 @@
 
         <div class="sky-colorpicker" #colorPicker>
           <div [skyColorpickerSlider] [style.background-color]="hueSliderColor" [xAxis]="1" [yAxis]="1" (newColorContrast)="saturationAndLightness=$event"
-            class="saturation-lightness" [color]="saturation-lightness">
+            class="saturation-lightness" [color]="slider.saturation - slider.value">
             <div [style.left.px]="slider.saturation" [style.top.px]="slider.value" class="cursor"></div>
           </div>
           <div class="box">
