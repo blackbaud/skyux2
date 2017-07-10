@@ -69,6 +69,7 @@
     "@angular/compiler-cli": "4.2.5",
     "@blackbaud/skyux-builder": "1.0.0-rc.5",
     "@blackbaud/stache": "2.0.0-beta.9",
+    "@blackbaud/skyux-design-tokens": "0.0.4",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.18",
