@@ -62,7 +62,6 @@ export class SkyAvatarComponent {
   constructor(private errorService: SkyErrorModalService) {}
 
   public photoDrop(result: SkyFileDropChange) {
-
     /* sanity check */
     /* istanbul ignore else */
     if (result.files && result.files.length > 0) {

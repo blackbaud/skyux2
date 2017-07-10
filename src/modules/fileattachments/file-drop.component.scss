@@ -34,21 +34,6 @@
   width: 100%;
   text-align: center;
 
-  h4,
-  h5 {
-    font-style: italic;
-  }
-
-  h4 {
-    font-size: 17px;
-    margin: 0;
-  }
-
-  h5 {
-    font-size: $sky-font-size-base;
-    margin-top: $sky-margin-half;
-  }
-
   .sky-file-drop-link-header {
     margin-bottom: $sky-margin-half;
   }
@@ -57,10 +42,6 @@
 .sky-file-drop-noclick {
   .sky-file-drop-contents {
     cursor: default;
-
-    h5 {
-      display: none;
-    }
   }
 }
 
@@ -109,6 +90,26 @@
 
 .sky-file-drop-link {
   cursor: default;
+}
+
+.sky-file-drop-text-header {
+  font-size: $sky-font-size-xl;
+  margin: 0;
+}
+
+.sky-file-drop-text {
+  font-size: $sky-font-size-lg;
+  margin-top: $sky-margin-half;
+  margin-bottom: $sky-margin-double;
+}
+
+.sky-file-drop-text, .sky-file-drop-text-header {
+  font-style: italic;
+  color: $sky-color-black;
+  font-weight: 600;
+  font-family: $sky-font-family-base;
+  line-height: 1.1;
+  display: block;
 }
 
 .sky-file-drop {

@@ -1,6 +1,26 @@
+<<<<<<< HEAD
 # 2.0.0-rc.2 (2017-06-23)
 
 - Merged `master` branch.
+=======
+# 2.0.0-rc.4 (2017-06-24)
+
+  - Fix npm release error.
+
+# 2.0.0-rc.3 (2017-06-24)
+  
+  - Added keyboard support for tab component. (#188) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added animation polyfill for increased browser support. (#803) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added text highlight directive. (#775)
+
+  ### Library updates
+
+  - Added support for Angular 4.2.5 to fix some angular animation issues, see https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
+
+# 2.0.0-rc.2 (2017-06-23)
+
+- All the updates for 2.0.0-beta.33.
+>>>>>>> master
 - Added support for SKY UX Builder 1.0.0-rc.3.
 
 # 2.0.0-beta.33 (2017-06-23)
@@ -26,7 +46,10 @@
   - Updated dependencies to support Angular 4.1.3. (#549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
   - Updated visual test process for SKY UX 2. 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 # 2.0.0-beta.31 (2017-06-14)
 
   - Added ability to specify sizes for modals. (#489) (Thanks @Blackbaud-AdamHickey)
