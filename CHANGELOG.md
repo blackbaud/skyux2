@@ -40,10 +40,6 @@
   - Updated dependencies to support Angular 4.1.3. (#549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
   - Updated visual test process for SKY UX 2. 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 # 2.0.0-beta.31 (2017-06-14)
 
   - Added ability to specify sizes for modals. (#489) (Thanks @Blackbaud-AdamHickey)
