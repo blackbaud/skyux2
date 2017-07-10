@@ -68,13 +68,13 @@
 //   src: url(https://sky.blackbaudcdn.net/skyux-fonts/1.0.0/blackbaud-sans-thin-italic.woff) format('woff');
 // }
 
-// @font-face {
-//   font-family: 'Blackbaud Sans';
-//   font-style: normal;
-//   font-weight: 400;
-//   font-stretch: condensed;
-//   src: url(https://sky.blackbaudcdn.net/skyux-fonts/1.0.0/blackbaud-sans-condensed.woff) format('woff');
-// }
+@font-face {
+  font-family: 'Blackbaud Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: condensed;
+  src: url(https://sky.blackbaudcdn.net/skyux-fonts/1.0.0/blackbaud-sans-condensed.woff) format('woff');
+}
 
 @font-face {
   font-family: 'Blackbaud Sans';
@@ -85,10 +85,10 @@
 }
 
 
-@font-face {
-  font-family: 'Blackbaud Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-stretch: condensed;
-  src: url(https://sky.blackbaudcdn.net/skyux-fonts/1.0.0/blackbaud-sans-condensed-semi-bold.woff) format('woff');
-}
+// @font-face {
+//   font-family: 'Blackbaud Sans';
+//   font-style: normal;
+//   font-weight: 500;
+//   font-stretch: condensed;
+//   src: url(https://sky.blackbaudcdn.net/skyux-fonts/1.0.0/blackbaud-sans-condensed-semi-bold.woff) format('woff');
+// }
