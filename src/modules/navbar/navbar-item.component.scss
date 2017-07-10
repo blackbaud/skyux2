@@ -1,9 +1,10 @@
 @import '../../scss/mixins';
 
 .sky-navbar-item {
-  display: inline-block;
+  display: block;
   font-weight: 600;
   margin-right: $sky-margin-half;
+  float: left;
 
   /deep/ {
     a,
