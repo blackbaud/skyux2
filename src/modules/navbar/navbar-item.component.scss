@@ -1,10 +1,16 @@
 @import '../../scss/mixins';
 
+:host {
+  display: block;
+  float: left;
+  overflow: hidden;
+}
+
 .sky-navbar-item {
   display: block;
   font-weight: 600;
   margin-right: $sky-margin-half;
-  float: left;
+  height: 100%;
 
   /deep/ {
     a,
@@ -12,7 +18,7 @@
       background-color: transparent;
       border: none;
       color: $sky-nav-color;
-      display: inline-block;
+      display: block;
       padding: 16px 12px;
       text-decoration: none;
       width: 100%;
@@ -41,7 +47,6 @@
     }
   }
 
-  /deep/ > *:hover,
   /deep/ .sky-dropdown:hover .sky-dropdown-button,
   /deep/ .sky-navbar-item-active,
   &.sky-navbar-item-active /deep/ > *,
