@@ -98,7 +98,6 @@ export class SkyFileItemComponent implements DoCheck {
             break;
         }
       }
-
       this.otherCls = 'fa-file-' + (cls ? cls + '-' : '') + 'o';
     }
   }

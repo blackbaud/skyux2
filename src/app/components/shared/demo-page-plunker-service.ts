@@ -69,9 +69,19 @@ export class SkyDemoPagePlunkerService {
     '@angular/http': 'npm:@angular/http@4.2.5/bundles/http.umd.js',
     '@angular/router': 'npm:@angular/router@4.2.5/bundles/router.umd.js',
     '@angular/forms': 'npm:@angular/forms@4.2.5/bundles/forms.umd.js',
+<<<<<<< HEAD
 
     'rxjs': 'npm:rxjs@5.4.0',
     'typescript': 'npm:typescript@2.3.2/lib/typescript.js',
+=======
+    '@angular/animations': 'npm:@angular/animations@4.2.5/bundles/animations.umd.js',
+    '@angular/platform-browser/animations': 'npm:@angular/platform-browser@4.2.5/bundles/platform-browser-animations.umd.js',
+    '@angular/animations/browser': 'npm:@angular/animations@4.2.5/bundles/animations-browser.umd.js',
+    'tslib': 'npm:tslib@1.6.1',
+
+    'rxjs': 'npm:rxjs',
+    'typescript': 'npm:typescript@2.2.1/lib/typescript.js',
+>>>>>>> master
     '@blackbaud/skyux/dist/core': 'npm:@blackbaud/skyux/dist/bundles/core.umd.js',
 
     'moment': 'npm:moment/moment.js',
