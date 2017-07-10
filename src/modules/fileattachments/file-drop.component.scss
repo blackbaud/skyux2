@@ -93,21 +93,20 @@
 }
 
 .sky-file-drop-text-header {
-  font-size: $sky-font-size-xl;
+  font-size: 17px;
   margin: 0;
 }
 
 .sky-file-drop-text {
-  font-size: $sky-font-size-lg;
+  font-size: 14px;
   margin-top: $sky-margin-half;
   margin-bottom: $sky-margin-double;
 }
 
 .sky-file-drop-text, .sky-file-drop-text-header {
   font-style: italic;
-  color: $sky-color-black;
+  color: $sky-text-color-deemphasized;
   font-weight: 600;
-  font-family: $sky-font-family-base;
   line-height: 1.1;
   display: block;
 }
