@@ -2,10 +2,7 @@
 
 .sky-navbar {
   background-color: $sky-nav-background-color;
-
-  &:after {
-    content: '';
-    display: table;
-    width: 100%;
-  }
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
 }
