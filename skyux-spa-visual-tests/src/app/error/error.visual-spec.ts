@@ -29,6 +29,21 @@ describe('Error', () => {
         element(by.css('.sky-error-modal-close .sky-btn-primary')).click();
       });
     });
+  });
+
+  it('should match previous error modal with long description form screenshot', () => {
+    return SkyVisualTest.setupTest('error')
+    .then(() => {
+      element(by.css('.sky-test-error-modal-long-description')).click();
+      SkyVisualTest.moveCursorOffScreen();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'error-modal-form-long-description',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      }).then(() => {
+        element(by.css('.sky-error-modal-close .sky-btn-primary')).click();
+      });
+    });
 
   });
 });
