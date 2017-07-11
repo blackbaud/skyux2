@@ -6,5 +6,8 @@
   "compileMode": "aot",
   "plugins": [
     "@blackbaud/skyux-builder-plugin-stache"
-  ]
+  ],
+  "redirects": {
+    "learn/get-started/1.-SSL-certification": "learn/get-started/ssl-certificate"
+  }
 }
