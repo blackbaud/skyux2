@@ -25,7 +25,7 @@ export class ErrorVisualComponent {
     const config: any = {
       errorTitle: 'Title',
       // tslint:disable-next-line:max-line-length
-      errorDescription: 'Try to refresh this page, or come back later. And now I\'m going to make this really long so that it will go tto the next line.',
+      errorDescription: 'Try to refresh this page, or come back later. And now I\'m going to make this really long so that it will go to the next line.',
       errorCloseText: 'Close'
     };
 
