@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SkyVerticalTabComponent } from './vertical-tab.component';
+import { SkyVerticalTabItemComponent } from './vertical-tab-item.component';
+import { SkyVerticalTabMenuComponent } from './vertical-tab-menu.component';
 
 @NgModule({
   declarations: [
-    SkyVerticalTabComponent
+    SkyVerticalTabComponent,
+    SkyVerticalTabItemComponent,
+    SkyVerticalTabMenuComponent
   ],
   exports: [
-    SkyVerticalTabComponent
+    SkyVerticalTabComponent,
+    SkyVerticalTabItemComponent,
+    SkyVerticalTabMenuComponent
   ]
 })
-export class SkyVerticalTabModule {
-}
+export class SkyVerticalTabModule { }
