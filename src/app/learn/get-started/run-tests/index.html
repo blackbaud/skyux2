@@ -1,0 +1,60 @@
+<sky-demo-nav></sky-demo-nav>
+
+<stache
+    navOrder="7"
+    pageTitle="Run tests"
+    showTableOfContents="true">
+
+    <stache-page-summary>
+        <p>After you <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, <a routerLink="/learn/get-started/4.-serve-project">serve the default single-page application</a>, and <a routerLink="/learn/get-started/5.-edit-project">edit pages and components in the project</a>, you can follow these tutorials to run sample tests for the default SPA.</p>
+    </stache-page-summary>
+
+    <stache-page-anchor>
+        Run sample unit test
+    </stache-page-anchor>
+    <p>Unit tests scrutinize the smallest testable parts of an application. When you <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, the template includes sample unit tests in the new project. You can follow the steps in this tutorial to run the unit test for the default single-page application.</p>
+    <sky-alert alertType="info">For information about unit tests in SKY UX, see <a routerLink="/learn/reference/tests">unit tests</a>, and for information about how to test modals in SKY UX, see <a routerLink="/learn/get-started/8.-unit-test-modals">write unit tests for modals</a>. For additional tips and techniques on testing Angular applications, see the <a href="https://angular.io/docs/ts/latest/testing/">Angular testing guidelines</a>.</sky-alert>
+
+    <ol>
+        <li><p>To view the unit test spec files in a local editor, open the project's <stache-code>about.component.spec.ts</stache-code> file in the <stache-code>src/app/about</stache-code> folder and the <stache-code>home.component.spec.ts</stache-code> file in the <stache-code>src/app</stache-code> folder.</p>
+            <sky-alert alertType="info">SKY UX unit tests should use the same name as the components or services that they test, but they should end with <stache-code>.spec.ts.</stache-code> The spec files should also be in the same folder as the components or services that they test.</sky-alert></li>
+        <li><p>In the command prompt, if <stache-code>skyux serve</stache-code> is still running, enter Ctrl-C to stop serving the project.</p></li>
+        <li><p>Enter <stache-code>skyux test</stache-code> to run the unit tests.</p></li>
+        <li><p>The tests run, and the command prompt displays the results.</p>
+            <sky-alert alertType="info">When you run <stache-code>skyux test</stache-code> or <stache-code>skyux watch</stache-code>, code coverage results are stored in the <stache-code>coverage</stache-code> folder.</sky-alert></li>
+    </ol>
+
+    <stache-page-anchor>
+        Run sample end-to-end test
+    </stache-page-anchor>
+
+    <p>End-to-end tests identify system dependencies and ensure that an application flows as expected from start to finish. When you <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, the template includes a sample end-to-end test in the new project. You can follow the steps in this tutorial to run the end-to-end test for the default single-page application.</p>
+    <sky-alert alertType="info">For information about end-to-end tests in SKY UX, see <a routerLink="/learn/reference/tests">end-to-end tests</a>. And for tips and techniques on testing Angular applications, see the <a href="https://angular.io/docs/ts/latest/testing/">Angular testing guidelines</a>.</sky-alert>
+
+    <ol>
+        <li><p>To view the end-to-end test spec file in a local editor, open the project's <stache-code>about.component.e2e-spec.ts</stache-code> file in the <stache-code>e2e</stache-code> folder at the root of the project.</p>
+            <sky-alert alertType="info">SKY UX end-to-end tests should use the same name as the components or services that they test, but they should end with <stache-code>.e2e-spec.ts.</stache-code> Place spec files for end-to-end tests in the <stache-code>e2e</stache-code> folder in the root of your project.</sky-alert></li>
+        <li><p>In the command prompt, if <stache-code>skyux serve</stache-code> is still running, enter Ctrl-C to stop serving the project.</p></li>
+        <li><p>Enter <stache-code>skyux e2e</stache-code> to run the end-to-end test.</p></li>
+        <li><p>The test runs, and the command prompt displays the results.</p></li>
+    </ol>
+
+    <stache-row>
+        <stache-column screenSmall="6">
+            <div class="tutorial-previous-button">
+                <a routerLink="/learn/get-started/6.-add-entry-component">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Add an entry component
+                </a>
+            </div>
+        </stache-column>
+        <stache-column screenSmall="6">
+            <div class="tutorial-next-button">
+                <a routerLink="/learn/get-started/8.-unit-test-modals">
+                    Unit tests for modals
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </stache-column>
+    </stache-row>
+</stache>
