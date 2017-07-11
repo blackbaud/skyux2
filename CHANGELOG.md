@@ -1,3 +1,8 @@
+# 2.0.0-rc.5 (2017-07-11)
+
+  - Added default aria-label for dropdown. (#854, #855). (Thanks @Blackbaud-AdamHickey)
+  - Fixed padding around file attachment. (#823) (Thanks @Blackbaud-SandhyaRajasabeson)
+
 # 2.0.0-rc.4 (2017-06-24)
 
   - Fix npm release error.
