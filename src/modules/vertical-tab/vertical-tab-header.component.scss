@@ -1,0 +1,13 @@
+@import "../../scss/mixins";
+
+.vertical-tab-container {
+  @include sky-border(light);
+}
+
+.vertical-tab-header {
+  cursor: pointer;
+
+  &:hover {
+    color: #292a2b;
+  }
+}
