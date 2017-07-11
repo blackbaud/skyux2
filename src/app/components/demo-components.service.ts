@@ -905,6 +905,26 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Vertical Tab',
+        icon: 'chevron-down',
+        summary: `The vertical tab component displays a vertical navigation bar.`,
+        url: '/components/vertical-tab',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'vertical-tab-demo.component.html',
+              fileContents: require('!!raw-loader!./vertical-tab/vertical-tab-demo.component.html')
+            },
+            {
+              name: 'vertical-tab-demo.component.ts',
+              fileContents: require('!!raw-loader!./vertical-tab/vertical-tab-demo.component.ts'),
+              componentName: 'SkyVerticalTabDemoComponent',
+              bootstrapSelector: 'sky-vertical-tab-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Wait',
         icon: 'spinner',
         // tslint:disable-next-line
