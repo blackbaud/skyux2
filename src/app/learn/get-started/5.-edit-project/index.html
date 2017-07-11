@@ -1,5 +1,6 @@
 <sky-demo-nav></sky-demo-nav>
 <stache
+    navOrder="5"
     pageTitle="Edit a project"
     showTableOfContents="true">
 
@@ -37,7 +38,7 @@
             </div>
         </stache-code-block>
         </li>
-        <li><p>At the top of the file before the warning, add a paragraph such as 
+        <li><p>At the top of the file before the warning, add a paragraph such as
             <stache-code-block languageType="markup">
                 <p>
                     This page provides contact information for members of our team.
@@ -48,7 +49,7 @@
         <li><p>Return to the command prompt to see that <stache-code>skyux serve</stache-code> recognizes the changes and updates the page.</p></li>
         <li><p>Return to the About page in the web browser to see the new paragraph in place.</p></li>
     </ol>
-    
+
     <stache-page-anchor>
         Edit a component on an existing page
     </stache-page-anchor>
@@ -58,7 +59,7 @@
         <li><p>With <stache-code>skyux serve</stache-code> running, return to the default site's About page in your web browser. The paragraph from the previous tutorial should be in place.</p></li>
         <li><p>In a local editor, return to the project’s <stache-code>about.component.html</stache-code> file.</p></li>
         <li><p>Edit the type and message for the alert component. For example, in the <stache-code>alertType</stache-code> attribute, change the value to from <stache-code>warning</stache-code> to <stache-code>info</stache-code>. And in the <stache-code>sky-alert</stache-code> element, change the message to <stache-code>There may be a delay in responding to your email.</stache-code></p>
-        
+
         <stache-code-block languageType="markup">
             <sky-alert alertType="info">
                 <strong>Note:</strong> There may be a delay in responding to your email.
@@ -167,7 +168,7 @@
                     Component,
                     Input
                 } from '@angular/core';
-                
+
                 @Component({
                     selector: 'my-demo',
                     templateUrl: 'demo.component.html'
