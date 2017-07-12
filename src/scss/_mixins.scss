@@ -12,11 +12,7 @@
 
 @mixin sky-border($type, $sides...) {
     @if(length($sides) == 0) {
-        @if($type != "tile") {
-            $sides: "bottom";
-        } @else {
-            $sides: "top";
-        }
+        $sides: "bottom";
     }
 
     @each $side in $sides {

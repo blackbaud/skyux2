@@ -1,4 +1,6 @@
 @import "../../scss/variables";
+@import "../../scss/mixins";
+
 .sky-input-group-timepicker-btn /deep/ .sky-btn {
   border-radius: 0;
 }
