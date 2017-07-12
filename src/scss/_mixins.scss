@@ -1,4 +1,5 @@
 @import "variables";
+@import "~@blackbaud/skyux-design-tokens/scss/mixins.scss";
 
 @mixin sky-shadow (
   $h-shadow: 0px,
@@ -8,26 +9,6 @@
   $color: rgba(0, 0, 0, 0.3)
 ) {
   box-shadow: $h-shadow $v-shadow $blur $spread-radius $color;
-}
-
-@mixin sky-border($type, $sides...) {
-    @if(length($sides) == 0) {
-        $sides: "bottom";
-    }
-
-    @each $side in $sides {
-      @if($type == "light") {
-          border-#{$side}: 1px solid $sky-border-color-neutral-light;
-      }
-
-      @if($type == "dark") {
-          border-#{$side}: 1px solid $sky-border-color-neutral-medium;
-      }
-
-      @if($type == "row") {
-          border-#{$side}: 1px dotted $sky-border-color-neutral-light;
-      }
-    }
 }
 
 @mixin sky-page-heading {
