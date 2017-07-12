@@ -2,7 +2,7 @@
 
 .sky-tabset {
   align-items: baseline;
-  @include sky-border(tab, bottom);
+  border-bottom: 2px solid $sky-background-color-primary-dark;
   display: flex;
   list-style-type: none;
   margin: 0;

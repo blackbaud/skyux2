@@ -48,7 +48,7 @@
   {
     background-color: $sky-nav-selected-background-color;
     color: $sky-nav-selected-color;
-    @include sky-border(nav);
+    border-bottom: $sky-nav-selected-border-width solid $sky-highlight-color-info;
     padding-bottom: $sky-nav-item-padding - $sky-nav-selected-border-width;
   }
 }

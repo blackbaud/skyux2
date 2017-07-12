@@ -28,18 +28,6 @@
           border-#{$side}: 1px solid $sky-border-color-neutral-medium;
       }
 
-      @if($type == "nav") {
-          border-#{$side}: $sky-nav-selected-border-width solid $sky-highlight-color-info;
-      }
-
-      @if($type == "tab") {
-          border-#{$side}: 2px solid $sky-background-color-primary-dark;
-      }
-
-      @if($type == "tile") {
-          border-top: 4px solid $sky-border-color-neutral-light;
-      }
-
       @if($type == "row") {
           border-#{$side}: 1px dotted $sky-border-color-neutral-light;
       }
