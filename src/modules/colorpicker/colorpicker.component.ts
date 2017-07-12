@@ -10,22 +10,22 @@ import {
   Component
 } from '@angular/core';
 
-import {
-  SkyColorpickerChangeAxis,
-  SkyColorpickerChangeColor
-} from './colorpicker.interface';
+import { SkyColorpickerChangeColor } from './types/colorpicker-color';
+import { SkyColorpickerChangeAxis } from './types/colorpicker-axis';
+import { SkyColorpickerCmyk } from './types/colorpicker-cmyk';
+import { SkyColorpickerHsla } from './types/colorpicker-hsla';
+import { SkyColorpickerHsva } from './types/colorpicker-hsva';
+import { SkyColorpickerRgba } from './types/colorpicker-rgba';
+import { SkyColorpickerOutput } from './types/colorpicker-output';
 
 import { SkyColorpickerService } from './colorpicker.service';
 
 import {
-  Rgba,
-  Hsla,
-  Hsva,
   SliderPosition,
   SliderDimension
 } from './colorpicker-classes';
 
-import { SkyColorpickerOutput } from './colorpicker.interface';
+let componentIdIndex = 0;
 
 @Component({
   selector: 'sky-colorpicker',
@@ -38,25 +38,30 @@ export class SkyColorpickerComponent implements OnInit {
   @Output()
   public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
   new EventEmitter<SkyColorpickerOutput>();
-
+  public idIndex: number;
+  public skyColorpickerHexId: string;
+  public skyColorpickerRedId: string;
+  public skyColorpickerGreenId: string;
+  public skyColorpickerBlueId: string;
+  public skyColorpickerAlphaId: string;
   public alphaChannel: string;
   public alphaSliderColor: string;
   public arrowTop: number;
   public format: number;
   public hexText: string;
-  public hslaText: Hsla;
+  public hslaText: SkyColorpickerHsla;
   public hueSliderColor: string;
   public outputFormat: string;
   public presetColors: Array<string>;
   public returnFormat: string;
-  public rgbaText: Rgba;
+  public rgbaText: SkyColorpickerRgba;
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
   @ViewChild('closeColorPicker')
   private closeColorPicker: ElementRef;
   private outputColor: string;
-  private hsva: Hsva;
+  private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
 
   @HostListener('click', ['$event'])
@@ -88,7 +93,16 @@ export class SkyColorpickerComponent implements OnInit {
     private el: ElementRef,
     private cdr: ChangeDetectorRef,
     private service: SkyColorpickerService
-  ) { }
+  ) {
+    componentIdIndex++;
+    this.idIndex = componentIdIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
+    this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
+    this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
+  }
 
   public setDialog(
     instance: any,
@@ -128,7 +142,7 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public setColorFromString(value: string) {
-    let hsva: Hsva;
+    let hsva: SkyColorpickerHsva;
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);
       if (!hsva && !this.hsva) {
@@ -190,21 +204,27 @@ export class SkyColorpickerComponent implements OnInit {
 
   public update() {
     if (this.sliderDimMax) {
-      let hsla = this.service.hsva2hsla(this.hsva);
-      let rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
+      let hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
+      let dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
+      let rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
+      let dRgba: SkyColorpickerRgba = this.service.denormalizeRGBA(rgba);
+
+      let hsva: SkyColorpickerHsva = {
+        'hue': this.hsva.hue,
+        'saturation': 1,
+        'value': 1,
+        'alpha': 1
+      };
+
       let hueRgba = this.service.denormalizeRGBA(
-        this.service.hsvaToRgba(new Hsva(this.hsva.hue, 1, 1, 1))
+        this.service.hsvaToRgba(hsva)
       );
 
-      this.hslaText = this.service.denormalizeHSLA(hsla);
-      this.rgbaText = new Rgba(
-        rgba.red,
-        rgba.green,
-        rgba.blue,
-        Math.round(rgba.alpha * 100) / 100);
-      this.hexText = this.service.hexText(rgba, this.alphaChannel === 'hex8');
+      this.hslaText = dHsla;
+      this.rgbaText = dRgba;
+      this.hexText = this.service.hexText(dRgba, this.alphaChannel === 'hex8');
 
-      this.alphaSliderColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${rgba.alpha})`;
+      this.alphaSliderColor = `rgba(${dRgba.red},${dRgba.green},${dRgba.blue},${dRgba.alpha})`;
       this.hueSliderColor = `rgba(${hueRgba.red},${hueRgba.green},${hueRgba.blue},${rgba.alpha})`;
 
       if (this.format === 0 && this.hsva.alpha < 1 && this.alphaChannel === 'hex6') {

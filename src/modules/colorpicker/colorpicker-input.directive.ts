@@ -14,8 +14,9 @@ import {
 } from '@angular/core';
 import { SkyColorpickerService } from './colorpicker.service';
 import { SkyColorpickerComponent } from './colorpicker.component';
-import { Hsva } from './colorpicker-classes';
-import { SkyColorpickerOutput } from './colorpicker.interface';
+import { SkyColorpickerHsva } from './types/colorpicker-hsva';
+import { SkyColorpickerOutput } from './types/colorpicker-output';
+
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -61,11 +62,11 @@ export class SkyColorpickerInputDirective
   @Input()
   public returnFormat: string = 'rgba';
 
-  @Input('outputFormat')
+  @Input()
   public outputFormat: string = 'rgba';
-  @Input('presetColors')
+  @Input()
   public presetColors: Array<string> = ['#333', '#888', '#EFEFEF', '#FFF'];
-  @Input('alphaChannel')
+  @Input()
   public alphaChannel: string = 'hex6';
 
   private created: boolean;
@@ -176,23 +177,12 @@ export class SkyColorpickerInputDirective
       }
 
       this.skyColorpickerInput.setColorFromString(output);
+
       this.renderer.setElementStyle(
         this.element.nativeElement, 'background-color', setElementValue);
-      // tslint:disable max-line-length
-      // spell-checker:disable
-      this.renderer.setElementStyle(this.element.nativeElement, 'background-image', `url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cdefs%3E%3Cpath%20id%3D%22a%22%20d%3D%22M0%200h30v30H0V0zm14.5%204H4v22h14v-8h8V4H14.5z%22%2F%3E%3C%2Fdefs%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cuse%20fill%3D%22%23FFF%22%20xlink%3Ahref%3D%22%23a%22%2F%3E%3Cpath%20stroke%3D%22%23CCC%22%20d%3D%22M.5.5v29h29V.5H.5zm18%2018v8h-15v-23h23v15h-8z%22%2F%3E%3Cpath%20fill%3D%22%23292A2B%22%20d%3D%22M23.5%2025L21%2022h5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E)`);
-      // tslint:enable max-line-length
-      // spell-checker:enable
-
       this.renderer.setElementStyle(this.element.nativeElement, 'color', setElementValue);
-      this.renderer.setElementStyle(this.element.nativeElement, 'width', '30px');
-      this.renderer.setElementStyle(this.element.nativeElement, 'height', '30px');
-      this.renderer.setElementStyle(this.element.nativeElement, 'background-repeat', '20px');
-      this.renderer.setElementStyle(this.element.nativeElement, 'border', 'none');
-      this.renderer.setElementStyle(this.element.nativeElement, 'pointer-events', 'none');
-      this.renderer.setElementStyle(this.element.nativeElement, 'z-index', '1000');
       this.renderer.setElementProperty(this.element.nativeElement, 'value', output);
-
+      this.renderer.setElementClass(this.element.nativeElement, 'sky-colorpicker-input', true);
     }
   }
 
@@ -200,7 +190,7 @@ export class SkyColorpickerInputDirective
     if (color && typeof color !== 'string') { return color; }
     if (typeof color === 'string') {
       let formatColor: SkyColorpickerOutput;
-      let hsva: Hsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
+      let hsva: SkyColorpickerHsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
       formatColor = this.service.skyColorpickerOut(hsva);
       return formatColor;
     }

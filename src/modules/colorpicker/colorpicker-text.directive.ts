@@ -6,19 +6,21 @@ import {
   EventEmitter,
   HostListener
 } from '@angular/core';
-import { SkyColorpickerChangeColor } from './colorpicker.interface';
+
+import { SkyColorpickerChangeColor } from './types/colorpicker-color';
+
 @Directive({
   selector: '[skyColorpickerText]'
 })
 
 export class SkyColorpickerTextDirective {
-  @Output('newColorContrast')
+  @Output()
   public newColorContrast = new EventEmitter<SkyColorpickerChangeColor>();
-  @Input('skyColorpickerText')
+  @Input()
   public skyColorpickerText: any;
-  @Input('color')
+  @Input()
   public color: string;
-  @Input('maxRange')
+  @Input()
   public maxRange: number;
 
   @HostListener('input', ['$event'])

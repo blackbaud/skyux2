@@ -7,22 +7,22 @@ import {
   EventEmitter,
   HostListener
 } from '@angular/core';
-import { SkyColorpickerChangeAxis } from './colorpicker.interface';
+import { SkyColorpickerChangeAxis } from './types/colorpicker-axis';
 
 @Directive({
   selector: '[skyColorpickerSlider]'
 })
 export class SkyColorpickerSliderDirective {
 
-  @Output('newColorContrast')
+  @Output()
   public newColorContrast = new EventEmitter<SkyColorpickerChangeAxis>();
-  @Input('skyColorpickerSlider')
+  @Input()
   public skyColorpickerSlider: string;
-  @Input('color')
+  @Input()
   public color: string;
-  @Input('xAxis')
+  @Input()
   public xAxis: number;
-  @Input('yAxis')
+  @Input()
   public yAxis: number;
 
   private listenerMove: any;
