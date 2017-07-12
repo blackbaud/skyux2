@@ -1,0 +1,20 @@
+<div class="sky-confirmation-dialogue">
+    <sky-modal>
+        <sky-modal-content>
+            {{ context }}
+        </sky-modal-content>
+        <sky-modal-footer>
+            <button
+                type="button"
+                class="sky-btn sky-btn-primary"
+                (click)="confirmClicked()"
+            >Yes</button>
+            <button
+                type="button"
+                class"sky-btn"
+                (click)="cancelClicked()"
+            >Cancel</button>
+        </sky-modal-footer>
+    </sky-modal>
+</div>
+
