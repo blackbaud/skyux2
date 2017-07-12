@@ -50,7 +50,7 @@
 
   display: flex;
   align-items: baseline;
-  border-bottom: solid 1px $sky-border-color-neutral-light;
+  @include sky-border(light, bottom);
 }
 
 

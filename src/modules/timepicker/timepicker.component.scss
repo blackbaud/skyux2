@@ -35,9 +35,7 @@
   height: 100%;
 }
 .sky-timepicker-container :last-child ol li{
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: $sky-color-gray-05;
+  @include sky-border(light, bottom);
   flex: 1;
 }
 .sky-timepicker-column {

@@ -88,7 +88,7 @@
 }
 
 .sky-card-actions {
-    border-top: solid 1px #ccc;
+    @include sky-border(light, top);
     bottom: 0;
     flex-shrink: 0;
     padding: $sky-padding-3_4 0;
