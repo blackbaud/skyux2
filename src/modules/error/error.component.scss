@@ -11,7 +11,7 @@
 }
 
 .sky-error-title {
-  font-weight: bold;
+  @include sky-emphasized();
 }
 
 .sky-error-action {

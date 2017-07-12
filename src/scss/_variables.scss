@@ -93,7 +93,7 @@ $sky-dropdown-z-index: 1000 !default;
 // end dropdown
 
 // begin grid
-$sky-grid-odd-background-color: #f8f8f9 !default;
+$sky-grid-odd-background-color: $sky-color-gray-01 !default;
 $sky-grid-even-background-color: $sky-color-white !default;
 $sky-grid-header-background-color: $sky-color-white !default;
 $sky-grid-header-dragging-background-color: $sky-background-color-neutral-light !default;
