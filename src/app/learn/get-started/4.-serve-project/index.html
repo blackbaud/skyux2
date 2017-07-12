@@ -1,9 +1,12 @@
 <sky-demo-nav></sky-demo-nav>
 <stache
+    navOrder="4"
     pageTitle="Serve a project">
     <stache-page-summary>
-        <p>After you <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, you can serve the default single-page application. For more information about <stache-code>skyux serve</stache-code> and other SKY UX CLI commands, see <a routerLink="/learn/reference/CLI-commands">the CLI commands reference</a>.</p>
+        <p>After you <a routerLink="/learn/get-started/3.-create-project">create a SKY UX project</a>, you can serve the default single-page application. For more information about <stache-code>skyux serve</stache-code> and other SKY UX CLI commands, see <a routerLink="/learn/reference/cli-commands">the CLI commands reference</a>.</p>
     </stache-page-summary>
+
+  <sky-alert alertType="info">Since <stache-code>skyux serve</stache-code> serves your single-page application over HTTPS, any additional requests from your code such as AJAX requests must also be over HTTPS.</sky-alert>
 
     <ol>
         <li><p>From the command prompt, <stache-code>cd</stache-code> into the root directory for the SKY UX project from <a routerLink="/learn/get-started/3.-create-project">the previous tutorial</a>.</p></li>
@@ -36,5 +39,5 @@
             </div>
         </stache-column>
     </stache-row>
-        
+
 </stache>

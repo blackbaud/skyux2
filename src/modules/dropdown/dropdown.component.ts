@@ -9,6 +9,7 @@ import {
 import { SkyDropdownAdapterService } from './dropdown-adapter.service';
 
 import { SkyWindowRefService } from '../window';
+import { SkyResources } from '../resources';
 
 @Component({
   selector: 'sky-dropdown',
@@ -38,7 +39,13 @@ export class SkyDropdownComponent implements OnDestroy {
   }
 
   @Input()
-  public label: string;
+  public get label(): string{
+    return this._label || SkyResources.getString('context_menu_default_label');
+  }
+
+  public set label(value: string) {
+    this._label = value;
+  }
 
   @Input()
   public title: string;
@@ -64,6 +71,8 @@ export class SkyDropdownComponent implements OnDestroy {
   private _buttonStyle: string;
 
   private _trigger: string;
+
+  private _label: string;
 
   constructor(
     private renderer: Renderer,
