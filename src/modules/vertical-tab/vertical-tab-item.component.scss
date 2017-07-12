@@ -1,7 +1,9 @@
-.vertical-tab-item:hover {
-  cursor: pointer;
-}
 
-.vertical-tab-item:hover {
-  color: #292a2b;
+.vertical-tab-item {
+  cursor: pointer;
+  margin: 10px 0 10px 10px;
+
+  &:hover {
+    color: #292a2b;
+  }
 }

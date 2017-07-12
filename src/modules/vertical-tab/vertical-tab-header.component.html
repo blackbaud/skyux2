@@ -1,8 +1,13 @@
 <div class="vertical-tab-container">
-  <div class="vertical-tab-header sky-subsection-heading">
-    {{ title }}
-  </div>
   <div>
+    <div class="vertical-tab-header sky-subsection-heading" (click)="clicked()">
+      <div>{{ title }}</div>
+      <div>
+        <i *ngIf="!open" class="fa fa-chevron-down"></i>
+        <i *ngIf="open" class="fa fa-chevron-up"></i>
+    </div>
+  </div>
+  <div *ngIf="open">
     <ng-content></ng-content>
   </div>
 </div>

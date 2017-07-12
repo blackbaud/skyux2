@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class SkyVerticalTabHeaderComponent {
   @Input()
   public title: string;
+
+  public open: boolean = false;
+
+  public clicked() {
+    this.open = !this.open;
+  }
 }

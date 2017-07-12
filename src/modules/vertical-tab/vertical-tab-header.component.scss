@@ -2,11 +2,15 @@
 
 .vertical-tab-container {
   @include sky-border(light);
+  width: 320px;
+  padding: 10px 0 10px 20px;
 }
 
 .vertical-tab-header {
   cursor: pointer;
-
+  display: flex;
+  justify-content: space-between;
+  
   &:hover {
     color: #292a2b;
   }
