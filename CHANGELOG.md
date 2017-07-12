@@ -2,6 +2,8 @@
 
   - Added default aria-label for dropdown. (#854, #855). (Thanks @Blackbaud-AdamHickey)
   - Fixed padding around file attachment. (#823) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Fixed error modal when using long description in IE11. (#784) (Thanks @Blackbaud-AdamHickey)
+  - Fixed navbar alignment in IE11. (#853) (Thanks @Blackbaud-AdamHickey)
 
 # 2.0.0-rc.4 (2017-06-24)
 
