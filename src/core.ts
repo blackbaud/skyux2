@@ -44,7 +44,7 @@ import { SkyTextHighlightModule } from './modules/text-highlight';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
-import { SkyVerticalTabModule } from './modules/vertical-tab';
+import { SkyVerticalTabsetModule } from './modules/vertical-tabset';
 import { SkyWaitModule } from './modules/wait';
 
 @NgModule({
@@ -90,7 +90,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTilesModule,
     SkyTimepickerModule,
     SkyToolbarModule,
-    SkyVerticalTabModule,
+    SkyVerticalTabsetModule,
     SkyWaitModule,
     SkyDatepickerModule
   ]
@@ -392,8 +392,10 @@ export {
   SkyToolbarSectionComponent
 } from './modules/toolbar';
 export {
-  SkyVerticalTabComponent
-} from './modules/vertical-tab';
+  SkyVerticalTabsetComponent,
+  SkyVerticalTabsetHeaderComponent,
+  SkyVerticalTabsetItemComponent
+} from './modules/vertical-tabset';
 export {
   SkyWaitComponent,
   SkyWaitModule,

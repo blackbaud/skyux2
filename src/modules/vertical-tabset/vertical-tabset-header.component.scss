@@ -1,12 +1,12 @@
 @import "../../scss/mixins";
 
-.vertical-tab-container {
+.vertical-tabset-container {
   @include sky-border(light);
   width: 320px;
   padding: 10px 0 10px 20px;
 }
 
-.vertical-tab-header {
+.vertical-tabset-header {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
