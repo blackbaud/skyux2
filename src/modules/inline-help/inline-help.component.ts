@@ -12,10 +12,4 @@ export class SkyInlineHelpComponent {
     public buttonClicked() {
         this.actionClick.emit();
     }
-
-    public enterPress(event: KeyboardEvent) {
-        if (event.which === 13) {
-            this.actionClick.emit();
-        }
-    }
 }

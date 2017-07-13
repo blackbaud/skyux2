@@ -603,6 +603,10 @@
     "_description": "Text displayed on the button in single select mode to clear selection and close form",
     "message": "Clear selection"
   },
+  "show_help_content": {
+    "_description": "button to show additional instructions for specified field",
+    "message": "Help"
+  },
   "sort_menu_heading": {
     "_description": "Text for the heading in the sort dropdown",
     "message": "Sort by"
