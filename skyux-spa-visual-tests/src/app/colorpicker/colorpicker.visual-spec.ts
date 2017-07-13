@@ -9,26 +9,26 @@ fdescribe('Colorpicker', () => {
     .then(() => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
-          screenshotName: 'colorpicker',
+          screenshotName: 'colorpicker-closed',
           selector: '#screenshot-colorpicker'
         });
     });
 
   });
-/*
-  it('should match previous monthpicker screenshot', () => {
+
+  it('should match previous opened screenshot', () => {
     return SkyVisualTest.setupTest('colorpicker')
     .then(() => {
-      element(by.css('.sky-colorpicker-calendar-title')).click();
-      SkyVisualTest.moveCursorOffScreen()
+      element(by.css('sky-dropdown button')).click();
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'Colorpicker-monthpicker',
-        selector: '#screenshot-colorpicker-calendar'
+        screenshotName: 'colorpicker-opened',
+        selector: '.sky-colorpicker-container'
       });
     });
 
   });
-
+/*
   it('should match previous yearpicker screenshot', () => {
     return SkyVisualTest.setupTest('colorpicker')
     .then(() => {
