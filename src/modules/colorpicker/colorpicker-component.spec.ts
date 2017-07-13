@@ -43,7 +43,7 @@ describe('Colorpicker Component', () => {
     component = fixture.componentInstance;
   });
 
-  function keyHelper(keyName: string, key: number, depreciatedKeyName: string) {
+  function keyHelper(keyName: string, key: number, deprecatedKeyName: string) {
     let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
     let keyPress: KeyboardEvent;
     try { // Chrome, Safari, Firefox
@@ -56,23 +56,23 @@ describe('Colorpicker Component', () => {
       });
       document.dispatchEvent(keyPress);
     } catch (error) {
-      // depreciated browser API... IE
-      let keyPressDepreciated = document.createEvent('KeyboardEvent');
-      keyPressDepreciated.initKeyboardEvent('keydown', true, true, window,
-        depreciatedKeyName, 27, 'window', false, '');
-      document.dispatchEvent(keyPressDepreciated);
+      // Deprecated browser API... IE
+      let keyPressDeprecated = document.createEvent('KeyboardEvent');
+      keyPressDeprecated.initKeyboardEvent('keydown', true, true, window,
+        deprecatedKeyName, 27, 'window', false, '');
+      document.dispatchEvent(keyPressDeprecated);
     }
   }
 
   function mouseHelper(x: number, y: number, event: string) {
     let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
     try {
-      // depreciated browser API... IE
-      let mouseEventDepreciated = document.createEvent('MouseEvents');
-      mouseEventDepreciated.initMouseEvent(
+      // Deprecated browser API... IE
+      let mouseEventDeprecated = document.createEvent('MouseEvents');
+      mouseEventDeprecated.initMouseEvent(
         event, true, true, window, 0, 0, 0, x, y, false, false, false, false, 0, undefined
       );
-      document.dispatchEvent(mouseEventDepreciated);
+      document.dispatchEvent(mouseEventDeprecated);
     } catch (error) {
       // Chrome, Safari, Firefox
       let mouseEvent = new MouseEvent(event, {
