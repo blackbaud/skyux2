@@ -15,3 +15,26 @@
     color: #292a2b;
   }
 }
+
+.sky-vertical-tabset-icon {
+  transition: all 0.3s linear;
+
+  &.sky-vertical-tabset-icon-open {
+    transform:rotate(180deg);
+  }
+}
+
+.sky-vertical-tabset-content {
+  transition: height .35s;
+  overflow: hidden;
+}
+
+.sky-vertical-tabset-content-closed {
+  height: 0;
+  visibility: hidden;
+}
+
+.sky-vertical-tabset-content-open {
+  height: 100px; // todo: calculate this dynamically
+  visibility: visible;
+}
