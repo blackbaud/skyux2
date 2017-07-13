@@ -14,6 +14,7 @@ export class HomeComponent {
     'card',
     'checkbox',
     'chevron',
+    'colorpicker',
     'datepicker',
     'definition-list',
     'dropdown',
