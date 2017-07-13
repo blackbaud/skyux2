@@ -1,10 +1,26 @@
-<button
-  type="button"
-  class="sky-btn sky-btn-primary"
-  (click)="toggleSelectMode()"
-  style="margin-bottom: 10px">
-  Switch select mode
-</button>
+<div style="margin-bottom: 10px;">
+  <div>
+    <sky-radio
+      name="selectMode"
+      [(ngModel)]="selectMode"
+      value="multiple">
+      <sky-radio-label>
+        Default select mode
+      </sky-radio-label>
+    </sky-radio>
+  </div>
+  <div>
+    <sky-radio
+      name="selectMode"
+      [(ngModel)]="selectMode"
+      value="single">
+      <sky-radio-label>
+        Single select mode
+      </sky-radio-label>
+    </sky-radio>
+  </div>
+</div>
+
 
 <sky-list
   [data]="items"
