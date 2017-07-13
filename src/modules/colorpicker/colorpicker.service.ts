@@ -8,112 +8,91 @@ import { SkyColorpickerOutput } from './types/colorpicker-output';
 
 @Injectable()
 export class SkyColorpickerService {
-  private red: number;
-  private green: number;
-  private blue: number;
-  private alpha: number;
-  private max: number;
-  private min: number;
-  private hue: number;
-  private saturation: number;
-  private lightness: number;
-  private value: number;
-
   constructor() { }
 
   public hsla2hsva(hsla: SkyColorpickerHsla): SkyColorpickerHsva {
-    this.hue = Math.min(hsla.hue, 1);
-    this.saturation = Math.min(hsla.saturation, 1);
-    this.lightness = Math.min(hsla.lightness, 1);
-    this.alpha = Math.min(hsla.alpha, 1);
+    const alpha: number = Math.min(hsla.alpha, 1);
+    const hue: number = Math.min(hsla.hue, 1);
+    const lightness: number = Math.min(hsla.lightness, 1);
+    const saturation: number = Math.min(hsla.saturation, 1);
     let hsva: SkyColorpickerHsva = {
-      'hue': this.hue,
-      'saturation': this.saturation,
-      'value': this.lightness,
-      'alpha': this.alpha
+      'hue': hue,
+      'saturation': saturation,
+      'value': lightness,
+      'alpha': alpha
     };
-    if (this.lightness === 0) {
-      this.saturation = 0;
-      this.value = 0;
-      hsva.saturation = this.saturation;
-      hsva.value = this.value;
+    if (lightness === 0) {
+      hsva.saturation = 0;
+      hsva.value = 0;
     } else {
-      let v = this.lightness + this.saturation * (1 - Math.abs(2 * this.lightness - 1)) / 2;
-      this.saturation = 2 * (v - this.lightness) / v;
-      this.value = v;
-      hsva.saturation = this.saturation;
-      hsva.value = this.value;
+      hsva.value = lightness + saturation * (1 - Math.abs(2 * lightness - 1)) / 2;
+      hsva.saturation = 2 * (hsva.value - lightness) / hsva.value;
+
     }
     return hsva;
   }
 
   public hsva2hsla(hsva: SkyColorpickerHsva): SkyColorpickerHsla {
-    this.hue = hsva.hue;
-    this.saturation = hsva.saturation;
-    this.value = hsva.value;
-    this.alpha = hsva.alpha;
+    const alpha: number = hsva.alpha;
+    const hue: number = hsva.hue;
+    const saturation: number = hsva.saturation;
+    const value: number = hsva.value;
+
     let hsla: SkyColorpickerHsla = {
-      'hue': this.hue,
-      'saturation': this.saturation,
-      'lightness': this.value,
-      'alpha': this.alpha
+      'hue': hue,
+      'saturation': saturation,
+      'lightness': value,
+      'alpha': alpha
     };
-    if (this.value === 0) {
-      this.lightness = 0;
-      this.saturation = 0;
-      hsla.lightness = this.lightness;
-      hsla.saturation = this.saturation;
+    if (value === 0) {
+      hsla.lightness = 0;
+      hsla.saturation = 0;
     } else {
-      this.lightness = this.value * (2 - this.saturation) / 2;
-      this.saturation = this.value * this.saturation / (1 - Math.abs(2 * this.lightness - 1));
-      hsla.lightness = this.lightness;
-      hsla.saturation = this.saturation;
+      hsla.lightness = value * (2 - saturation) / 2;
+      hsla.saturation = value * saturation / (1 - Math.abs(2 * hsla.lightness - 1)) || 0;
     }
     return hsla;
   }
 
   public rgbaToHsva(rgba: SkyColorpickerRgba): SkyColorpickerHsva {
-    this.red = Math.min(rgba.red, 1);
-    this.green = Math.min(rgba.green, 1);
-    this.blue = Math.min(rgba.blue, 1);
-    this.alpha = Math.min(rgba.alpha, 1);
-    this.max = Math.max(this.red, this.green, this.blue);
-    this.min = Math.min(this.red, this.green, this.blue);
-    this.value = this.max;
-    let d = this.max - this.min;
-    this.saturation = this.max === 0 ? 0 : d / this.max;
-
-    if (this.max === this.min) {
-      this.hue = 0;
-    } else {
-
-      let maxValue = {
-        [this.red]: (this.green - this.blue) / d + (this.green < this.blue ? 6 : 0),
-        [this.green]: (this.blue - this.red) / d + 2,
-        [this.blue]: (this.red - this.green) / d + 4
+    const red: number = Math.min(rgba.red, 1);
+    const green: number = Math.min(rgba.green, 1);
+    const blue: number = Math.min(rgba.blue, 1);
+    const alpha: number = Math.min(rgba.alpha, 1);
+    const max: number = Math.max(red, green, blue);
+    const min: number = Math.min(red, green, blue);
+    const value: number = max;
+    const d = max - min;
+    const saturation: number = max === 0 ? 0 : d / max;
+    let hue: number = 0;
+    let maxValue: object;
+    if (max !== min) {
+      maxValue = {
+        [red]: (green - blue) / d + (green < blue ? 6 : 0),
+        [green]: (blue - red) / d + 2,
+        [blue]: (red - green) / d + 4
       };
-      this.hue = maxValue[this.max];
-      this.hue /= 6;
+      hue = maxValue[max];
+      hue /= 6;
     }
     const hsva: SkyColorpickerHsva = {
-      'hue': this.hue,
-      'saturation': this.saturation,
-      'value': this.value,
-      'alpha': this.alpha
+      'hue': hue,
+      'saturation': saturation,
+      'value': value,
+      'alpha': alpha
     };
     return hsva;
   }
 
   public rgbaToCmyk(rgba: SkyColorpickerRgba): SkyColorpickerCmyk {
     let cmyk: SkyColorpickerCmyk = { 'cyan': 0, 'magenta': 0, 'yellow': 0, 'key': 0 };
-    let k: number;
+    let k: number = 1 - Math.max(rgba.red, rgba.green, rgba.blue);
 
-    k = 1 - Math.max(rgba.red, rgba.green, rgba.blue);
     if (k === 1) {
       cmyk.key = 1;
       return cmyk;
-
-    } cmyk.cyan = (1 - rgba.red - k) / (1 - k);
+    }
+    cmyk.cyan = (1 - rgba.red - k) / (1 - k);
     cmyk.magenta = (1 - rgba.green - k) / (1 - k);
     cmyk.yellow = (1 - rgba.blue - k) / (1 - k);
     cmyk.key = k;
@@ -121,43 +100,33 @@ export class SkyColorpickerService {
   }
 
   public hsvaToRgba(hsva: SkyColorpickerHsva): SkyColorpickerRgba {
-    this.hue = hsva.hue;
-    this.saturation = hsva.saturation;
-    this.value = hsva.value;
-    this.alpha = hsva.alpha;
+    let red: number = 0;
+    let green: number = 0;
+    let blue: number = 0;
+    const hue = hsva.hue;
+    const saturation = hsva.saturation;
+    const value = hsva.value;
+    const alpha = hsva.alpha;
 
-    let i = Math.floor(this.hue * 6);
-    let f = this.hue * 6 - i;
-    let p = this.value * (1 - this.saturation);
-    let q = this.value * (1 - f * this.saturation);
-    let t = this.value * (1 - (1 - f) * this.saturation);
+    let i = Math.floor(hue * 6);
+    let f = hue * 6 - i;
+    let p = value * (1 - saturation);
+    let q = value * (1 - f * saturation);
+    let t = value * (1 - (1 - f) * saturation);
+    let color = {
+      0: () => { red = value; green = t; blue = p; },
+      1: () => { red = q; green = value; blue = p; },
+      2: () => { red = p; green = value; blue = t; },
+      3: () => { red = p; green = q; blue = value; },
+      4: () => { red = t; green = p; blue = value; },
+      5: () => { red = value; green = p; blue = q; }
+    }[i % 6]();
 
-    switch (i % 6) {
-      case 0:
-        this.red = this.value; this.green = t; this.blue = p;
-        break;
-      case 1:
-        this.red = q; this.green = this.value; this.blue = p;
-        break;
-      /*  case 2:
-          this.red = p; this.green = this.value; this.blue = t;
-          break; */
-      case 3:
-        this.red = p; this.green = q; this.blue = this.value;
-        break;
-      case 4:
-        this.red = t; this.green = p; this.blue = this.value;
-        break;
-      case 5:
-        this.red = this.value; this.green = p; this.blue = q;
-        break;
-      default:
-    }
     const rgba: SkyColorpickerRgba = {
-      'red': this.red,
-      'green': this.green,
-      'blue': this.blue,
-      'alpha': this.alpha
+      'red': red,
+      'green': green,
+      'blue': blue,
+      'alpha': alpha
     };
     return rgba;
   }
@@ -166,7 +135,7 @@ export class SkyColorpickerService {
     let stringParsers = [
       { // tslint:disable max-line-length
         re: /(rgb)a?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*%?,\s*(\d{1,3})\s*%?(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
-        parse: function (execResult: any) {
+        parse: (execResult: any) => {
           const rgba: SkyColorpickerRgba = {
             'red': parseInt(execResult[2], 0) / 255,
             'green': parseInt(execResult[3], 0) / 255,
@@ -178,7 +147,7 @@ export class SkyColorpickerService {
       },
       {
         re: /(hsl)a?\(\s*(\d{1,3})\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
-        parse: function (execResult: any) {
+        parse: (execResult: any) => {
           const hsla: SkyColorpickerHsla = {
             'hue': parseInt(execResult[2], 0) / 360,
             'saturation': parseInt(execResult[3], 0) / 100,
@@ -193,7 +162,7 @@ export class SkyColorpickerService {
     if (hex8) {
       stringParsers.push({
         re: /#?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})$/,
-        parse: function (execResult: any) {
+        parse: (execResult: any) => {
           const rgba: SkyColorpickerRgba = {
             'red': parseInt(execResult[1], 16) / 255,
             'green': parseInt(execResult[2], 16) / 255,
@@ -207,7 +176,7 @@ export class SkyColorpickerService {
     } else {
       stringParsers.push({
         re: /#?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})$/,
-        parse: function (execResult: any) {
+        parse: (execResult: any) => {
           const rgba: SkyColorpickerRgba = {
             'red': parseInt(execResult[1], 16) / 255,
             'green': parseInt(execResult[2], 16) / 255,
@@ -219,7 +188,7 @@ export class SkyColorpickerService {
       },
         {
           re: /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])$/,
-          parse: function (execResult: any) {
+          parse: (execResult: any) => {
             const rgba: SkyColorpickerRgba = {
               'red': parseInt(execResult[1] + execResult[1], 16) / 255,
               'green': parseInt(execResult[2] + execResult[2], 16) / 255,
@@ -252,23 +221,27 @@ export class SkyColorpickerService {
   }
 
   public outputFormat(hsva: SkyColorpickerHsva, outputFormat: string, allowHex8: boolean): string {
+
     let r: string;
-    switch (outputFormat) {
-      case 'hsla':
+    if (['hsla', 'hex', 'cmyk'].indexOf(outputFormat) === -1) { outputFormat = 'rgba'; }
+    let color = {
+      'hsla': () => {
         let hsla = this.denormalizeHSLA(this.hsva2hsla(hsva));
         r = `hsla(${hsla.hue},${hsla.saturation}%,${hsla.lightness}%,${hsla.alpha})`;
-        break;
-      case 'hex':
+      },
+      'hex': () => {
         r = this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
-        break;
-      case 'cmyk':
+      },
+      'cmyk': () => {
         let cmyk = this.denormalizeCMYK(this.rgbaToCmyk(this.hsvaToRgba(hsva)));
         r = `cmyk(${cmyk.cyan}%,${cmyk.magenta}%,${cmyk.yellow}%,${cmyk.key}%)`;
-        break;
-      default:
+      },
+      'rgba': () => {
         let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
         r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${rgba.alpha})`;
-    }
+      }
+    }[outputFormat]();
+
     return r;
   }
 

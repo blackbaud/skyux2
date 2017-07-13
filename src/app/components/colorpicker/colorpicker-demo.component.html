@@ -1,5 +1,5 @@
 <h3>Color picker</h3>
-<table cellpadding="10"  style="height:200px; width:500px;">
+<table cellpadding="10" style="height:200px; width:500px;">
   <tr>
     <td style="vertical-align:top;width:200px;">
       <sky-colorpicker #colorPickerExample1>
@@ -23,13 +23,13 @@
           <td>{{color1?.cmyk?.cyan}}</td>
         </tr>
         <tr>
-          <td>{{color1?.rgba?.blue}}</td>
+          <td>{{color1?.rgba?.green}}</td>
           <td>{{color1?.hsla?.saturation}}</td>
           <td>{{color1?.hsva?.saturation}}</td>
           <td>{{color1?.cmyk?.magenta}}</td>
         </tr>
         <tr>
-          <td>{{color1?.rgba?.green}}</td>
+          <td>{{color1?.rgba?.blue}}</td>
           <td>{{color1?.hsla?.lightness}}</td>
           <td>{{color1?.hsva?.value}}</td>
           <td>{{color1?.cmyk?.yellow}}</td>
@@ -46,7 +46,7 @@
       <sky-colorpicker #colorPickerExample2>
         <input type="text" [skyColorpickerInput]="colorPickerExample2" [(ngModel)]="color2" />
       </sky-colorpicker>
-      <table  style="margin:10px">
+      <table style="margin:10px">
         <thead>
           <tr>
             <th style="width:20%;">HEX</th>
@@ -56,9 +56,8 @@
         <tr>
           <td>{{color2?.hex}}</td>
           <td>
-            <div [style.background-color]="color2?.rgbaText"
-            style="padding:5px;">
-            <span [style.color]="color2?.rgbaText" style="-webkit-filter: invert(100%); filter: invert(100%);">{{color2?.rgbaText}}</span>
+            <div [style.background-color]="color2?.rgbaText" style="padding:5px;">
+              <span [style.color]="color2?.rgbaText" style="-webkit-filter: invert(100%); filter: invert(100%);">{{color2?.rgbaText}}</span>
             </div>
           </td>
         </tr>
