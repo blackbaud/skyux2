@@ -86,16 +86,16 @@ export class SkyColorpickerService {
 
   public rgbaToCmyk(rgba: SkyColorpickerRgba): SkyColorpickerCmyk {
     let cmyk: SkyColorpickerCmyk = { 'cyan': 0, 'magenta': 0, 'yellow': 0, 'key': 0 };
-    let k: number = 1 - Math.max(rgba.red, rgba.green, rgba.blue);
+    const key: number = 1 - Math.max(rgba.red, rgba.green, rgba.blue);
 
-    if (k === 1) {
+    if (key === 1) {
       cmyk.key = 1;
       return cmyk;
     }
-    cmyk.cyan = (1 - rgba.red - k) / (1 - k);
-    cmyk.magenta = (1 - rgba.green - k) / (1 - k);
-    cmyk.yellow = (1 - rgba.blue - k) / (1 - k);
-    cmyk.key = k;
+    cmyk.cyan = (1 - rgba.red - key) / (1 - key);
+    cmyk.magenta = (1 - rgba.green - key) / (1 - key);
+    cmyk.yellow = (1 - rgba.blue - key) / (1 - key);
+    cmyk.key = key;
     return cmyk;
   }
 
@@ -107,13 +107,12 @@ export class SkyColorpickerService {
     const saturation = hsva.saturation;
     const value = hsva.value;
     const alpha = hsva.alpha;
-
-    let i = Math.floor(hue * 6);
-    let f = hue * 6 - i;
-    let p = value * (1 - saturation);
-    let q = value * (1 - f * saturation);
-    let t = value * (1 - (1 - f) * saturation);
-    let color = {
+    const i = Math.floor(hue * 6);
+    const f = hue * 6 - i;
+    const p = value * (1 - saturation);
+    const q = value * (1 - f * saturation);
+    const t = value * (1 - (1 - f) * saturation);
+    const color = {
       0: () => { red = value; green = t; blue = p; },
       1: () => { red = q; green = value; blue = p; },
       2: () => { red = p; green = value; blue = t; },
@@ -221,7 +220,6 @@ export class SkyColorpickerService {
   }
 
   public outputFormat(hsva: SkyColorpickerHsva, outputFormat: string, allowHex8: boolean): string {
-
     let r: string;
     if (['hsla', 'hex', 'cmyk'].indexOf(outputFormat) === -1) { outputFormat = 'rgba'; }
     let color = {
