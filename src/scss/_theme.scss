@@ -125,6 +125,11 @@ select {
   }
 }
 
+mark.sky-highlight-mark {
+  background-color: $sky-highlight-color-warning;
+  color: $sky-text-color-default;
+}
+
 [role="button"] {
   cursor: pointer;
 }
