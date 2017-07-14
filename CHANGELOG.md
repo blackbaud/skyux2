@@ -1,12 +1,51 @@
+# 2.0.0-rc.5 (2017-07-11)
+
+  - Added default aria-label for dropdown. (#854, #855). (Thanks @Blackbaud-AdamHickey)
+  - Fixed padding around file attachment. (#823) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Fixed error modal when using long description in IE11. (#784) (Thanks @Blackbaud-AdamHickey)
+  - Fixed navbar alignment in IE11. (#853) (Thanks @Blackbaud-AdamHickey)
+
+# 2.0.0-rc.4 (2017-06-24)
+
+  - Fix npm release error.
+
+# 2.0.0-rc.3 (2017-06-24)
+  
+  - Added keyboard support for tab component. (#188) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added animation polyfill for increased browser support. (#803) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added text highlight directive. (#775)
+
+  ### Library updates
+
+  - Added support for Angular 4.2.5 to fix some angular animation issues, see https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
+
+# 2.0.0-rc.2 (2017-06-23)
+
+- All the updates for 2.0.0-beta.33.
+- Added support for SKY UX Builder 1.0.0-rc.3.
+
 # 2.0.0-beta.33 (2017-06-23)
 
   - Added the SkyNumeric Pipe. (#764) (Thanks @Blackbaud-AdamSc)
   - Added the email validation directive. (#379) (Thanks @Blackbaud-SandhyaRajasabeson)
 
+# 2.0.0-rc.1 (2017-06-20)
+  
+  - All the updates for 2.0.0-beta.32.
+
+  ### Breaking changes
+  
+  - Fixed typo to change SkyTimepickerTimeOutput `ios8601` property to be `iso8601`.
+
 # 2.0.0-beta.32 (2017-06-20)
 
   - Tweaked animation for text-expand in firefox. (#695)
   - Handle search when paging does not exist. (#813)
+
+# 2.0.0-rc.0 (2017-06-16)
+
+  - Updated dependencies to support Angular 4.1.3. (#549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
+  - Updated visual test process for SKY UX 2. 
 
 # 2.0.0-beta.31 (2017-06-14)
 

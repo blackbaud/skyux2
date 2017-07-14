@@ -26,5 +26,6 @@ export class SkyDefinitionListComponent {
     this.service.defaultValue.next(value);
   }
 
-  constructor(private service: SkyDefinitionListService) { }
+  constructor(
+    public service: SkyDefinitionListService) { }
 }

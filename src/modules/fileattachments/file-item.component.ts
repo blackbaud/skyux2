@@ -32,7 +32,7 @@ export class SkyFileItemComponent implements DoCheck {
 
   private otherCls: string;
 
-  private differ: KeyValueDiffer;
+  private differ: KeyValueDiffer<any, any>;
 
   public ngDoCheck() {
     let changes = this.differ.diff(this.fileItem);
@@ -98,7 +98,6 @@ export class SkyFileItemComponent implements DoCheck {
             break;
         }
       }
-
       this.otherCls = 'fa-file-' + (cls ? cls + '-' : '') + 'o';
     }
   }

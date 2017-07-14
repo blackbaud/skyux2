@@ -1,10 +1,5 @@
 import {
   Component,
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
   OnInit,
   OnDestroy,
   AnimationTransitionEvent,
@@ -31,6 +26,14 @@ import {
 } from '../resources';
 
 import { Subscription } from 'rxjs/Subscription';
+
+import {
+  style,
+  state,
+  trigger,
+  transition,
+  animate
+} from '@angular/animations';
 
 const INPUT_SHOWN_STATE: string = 'inputShown';
 const INPUT_HIDDEN_STATE: string = 'inputHidden';
@@ -93,7 +96,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     this._placeholderText = value;
   }
 
-  public inputAnimate: string = INPUT_SHOWN_STATE;
+ public inputAnimate: string = INPUT_SHOWN_STATE;
   public breakpointSubscription: Subscription;
   public searchButtonShown: boolean = false;
   public mobileSearchShown: boolean = false;
@@ -116,6 +119,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
       this.breakpointSubscription = this.mediaQueryService.subscribe(
         (args: SkyMediaBreakpoints) => {
           this.mediaQueryCallback(args);
+          this.changeRef.detectChanges();
         }
       );
     }
@@ -137,6 +141,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
           this.isFullWidth = false;
           break;
       }
+
     }
 
     if (this.searchBindingChanged(changes)) {
@@ -145,6 +150,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
         this.inputAnimate = INPUT_SHOWN_STATE;
       }
     }
+    this.changeRef.detectChanges();
   }
 
   public inputFocused(isFocused: boolean) {
@@ -200,7 +206,9 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
         && this.mediaQueryService.current === SkyMediaBreakpoints.xs) {
         this.mobileSearchShown = true;
         this.searchButtonShown = false;
+
       }
+
     }
   }
 
@@ -224,7 +232,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
       this.breakpointSubscription.unsubscribe();
     }
   }
-
   private searchBindingChanged(changes: SimpleChanges) {
     return changes['searchText'] &&
       changes['searchText'].previousValue !== changes['searchText'].currentValue;

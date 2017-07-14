@@ -32,8 +32,13 @@
 <h3>Custom timepicker.</h3>
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample3>
-    <input type="hidden" [skyTimepickerInput]="timePickerExample3" [timeFormat]="format24" [returnFormat]="returnFormat" (activeTime)="alert($event)"
-      [(ngModel)]="selectedTime3" #time3="ngModel" />
+    <input
+      type="hidden"
+      [skyTimepickerInput]="timePickerExample3"
+      [timeFormat]="format24"
+      [returnFormat]="returnFormat"
+      [(ngModel)]="selectedTime3"
+      #time3="ngModel" />
   </sky-timepicker>
   <div class="sky-error-label" *ngIf="time3.errors && time3.errors.skyTime && (time3.dirty || time3.touched)">
     <div [hidden]="!time.errors.skyTime.invalid">
