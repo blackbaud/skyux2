@@ -3,6 +3,7 @@ import { ListToolbarModel } from './toolbar.model';
 import { ListToolbarItemModel } from './toolbar-item.model';
 import {
   ListToolbarItemsLoadAction,
+  ListToolbarItemsRemoveAction,
   ListToolbarSetExistsAction,
   ListToolbarSetTypeAction
 } from './actions';
@@ -16,7 +17,8 @@ export class ListToolbarOrchestrator
     this
       .register(ListToolbarSetExistsAction, this.setExists)
       .register(ListToolbarItemsLoadAction, this.load)
-      .register(ListToolbarSetTypeAction, this.setType);
+      .register(ListToolbarSetTypeAction, this.setType)
+      .register(ListToolbarItemsRemoveAction, this.remove);
   }
 
   private setExists(
@@ -54,6 +56,20 @@ export class ListToolbarOrchestrator
     }
 
     newModel.items = resultItems;
+
+    return newModel;
+  }
+
+  private remove(
+    state: ListToolbarModel,
+    action: ListToolbarItemsRemoveAction
+  ): ListToolbarModel {
+    const newModel = new ListToolbarModel(state);
+
+    newModel.items = newModel.items.filter((item: ListToolbarItemModel) => {
+      return action.ids.indexOf(item.id) === -1;
+    });
+
     return newModel;
   }
 }
