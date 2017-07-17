@@ -15,6 +15,7 @@ import {
 
 import {
   ListToolbarItemsLoadAction,
+  ListToolbarItemsRemoveAction,
   ListToolbarSetExistsAction,
   ListToolbarSetTypeAction
 } from './toolbar/actions';
@@ -50,4 +51,4 @@ export type ListStateAction =
   ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
   ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction | ListToolbarSetTypeAction
   | ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction |
-  ListFiltersUpdateAction;
+  ListFiltersUpdateAction | ListToolbarItemsRemoveAction;
