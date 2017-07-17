@@ -113,13 +113,14 @@ export class SkyColorpickerService {
     const q = value * (1 - f * saturation);
     const t = value * (1 - (1 - f) * saturation);
     const color: { [key: number]: any } = {
-      0: () => { red = value; green = t; blue = p; },
-      1: () => { red = q; green = value; blue = p; },
-      2: () => { red = p; green = value; blue = t; },
-      3: () => { red = p; green = q; blue = value; },
-      4: () => { red = t; green = p; blue = value; },
-      5: () => { red = value; green = p; blue = q; }
-    }[i % 6]();
+      0: (): void => { red = value; green = t; blue = p; },
+      1: (): void => { red = q; green = value; blue = p; },
+      2: (): void => { red = p; green = value; blue = t; },
+      3: (): void => { red = p; green = q; blue = value; },
+      4: (): void => { red = t; green = p; blue = value; },
+      5: (): void => { red = value; green = p; blue = q; }
+    };
+    color[i % 6]();
 
     const rgba: SkyColorpickerRgba = {
       'red': red,
@@ -220,28 +221,26 @@ export class SkyColorpickerService {
   }
 
   public outputFormat(hsva: SkyColorpickerHsva, outputFormat: string, allowHex8: boolean): string {
-    let r: string;
     if (['hsla', 'hex', 'cmyk'].indexOf(outputFormat) === -1) { outputFormat = 'rgba'; }
-    let color: { [key: string]: any };
-    color = {
+    let color: { [key: string]: any } = {
       'hsla': () => {
         let hsla = this.denormalizeHSLA(this.hsva2hsla(hsva));
-        r = `hsla(${hsla.hue},${hsla.saturation}%,${hsla.lightness}%,${hsla.alpha})`;
+        return `hsla(${hsla.hue},${hsla.saturation}%,${hsla.lightness}%,${hsla.alpha})`;
       },
       'hex': () => {
-        r = this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
+        return this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
       },
       'cmyk': () => {
         let cmyk = this.denormalizeCMYK(this.rgbaToCmyk(this.hsvaToRgba(hsva)));
-        r = `cmyk(${cmyk.cyan}%,${cmyk.magenta}%,${cmyk.yellow}%,${cmyk.key}%)`;
+        return `cmyk(${cmyk.cyan}%,${cmyk.magenta}%,${cmyk.yellow}%,${cmyk.key}%)`;
       },
       'rgba': () => {
         let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
-        r = `rgba(${rgba.red},${rgba.green},${rgba.blue},${rgba.alpha})`;
+        return `rgba(${rgba.red},${rgba.green},${rgba.blue},${rgba.alpha})`;
       }
-    }[outputFormat]();
+    };
 
-    return r;
+    return color[outputFormat]();
   }
 
   public skyColorpickerOut(color: SkyColorpickerHsva) {
