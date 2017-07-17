@@ -1,3 +1,28 @@
+<div style="margin-bottom: 10px;">
+  <h3>Selection mode</h3>
+  <div>
+    <sky-radio
+      name="selectMode"
+      [(ngModel)]="selectMode"
+      value="multiple">
+      <sky-radio-label>
+        Default select mode
+      </sky-radio-label>
+    </sky-radio>
+  </div>
+  <div>
+    <sky-radio
+      name="selectMode"
+      [(ngModel)]="selectMode"
+      value="single">
+      <sky-radio-label>
+        Single select mode
+      </sky-radio-label>
+    </sky-radio>
+  </div>
+</div>
+
+
 <sky-list
   [data]="items"
   (selectedIdsChange)="selectedItemsChange($event)">
@@ -5,7 +30,8 @@
   </sky-list-toolbar>
   <sky-list-view-checklist
     label="column2"
-    description="column3">
+    description="column3"
+    [selectMode]="selectMode">
   </sky-list-view-checklist>
 </sky-list>
 <div>
