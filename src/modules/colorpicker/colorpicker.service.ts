@@ -112,7 +112,7 @@ export class SkyColorpickerService {
     const p = value * (1 - saturation);
     const q = value * (1 - f * saturation);
     const t = value * (1 - (1 - f) * saturation);
-    const color = {
+    const color: void = {
       0: () => { red = value; green = t; blue = p; },
       1: () => { red = q; green = value; blue = p; },
       2: () => { red = p; green = value; blue = t; },
@@ -222,7 +222,7 @@ export class SkyColorpickerService {
   public outputFormat(hsva: SkyColorpickerHsva, outputFormat: string, allowHex8: boolean): string {
     let r: string;
     if (['hsla', 'hex', 'cmyk'].indexOf(outputFormat) === -1) { outputFormat = 'rgba'; }
-    let color = {
+    let color: void = {
       'hsla': () => {
         let hsla = this.denormalizeHSLA(this.hsva2hsla(hsva));
         r = `hsla(${hsla.hue},${hsla.saturation}%,${hsla.lightness}%,${hsla.alpha})`;
