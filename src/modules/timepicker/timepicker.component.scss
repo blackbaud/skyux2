@@ -17,7 +17,7 @@
 .sky-input-group /deep/ .sky-dropdown-item{ box-shadow: 0 0 3px 0; }
 
 .sky-timepicker-container {
-  font-size: 14px;
+  font-size: $sky-font-size-base;
   display: flex;
   padding: $sky-padding-half;
   background-color: $sky-color-gray-05;
