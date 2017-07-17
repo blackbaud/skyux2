@@ -50,16 +50,17 @@
         <thead>
           <tr>
             <th style="width:20%;">HEX</th>
-            <th style="width:80%;">RGBA CSS</th>
+            <th colspan="2" style="width:80%;">RGBA CSS</th>
           </tr>
         </thead>
         <tr>
           <td>{{color2?.hex}}</td>
           <td>
-            <div [style.background-color]="color2?.rgbaText" style="padding:5px;">
-              <span [style.color]="color2?.rgbaText" style="-webkit-filter: invert(100%); filter: invert(100%);">{{color2?.rgbaText}}</span>
+            <div style="border-color: #999;width: 28px;height: 28px;border-radius: 50%;border-width: 2px;border-style: solid;">
+              <div [style.background-color]="color2?.rgbaText" style="width:24px;height:24px;    border-radius: 50%;">&nbsp;</div>
             </div>
           </td>
+          <td><span>{{color2?.rgbaText}}</span></td>
         </tr>
       </table>
     </td>
