@@ -1,0 +1,134 @@
+<sky-demo-nav></sky-demo-nav>
+
+<stache pageTitle="Component libraries" showTableOfContents="true">
+  <stache-page-anchor>
+    Overview
+  </stache-page-anchor>
+
+  <stache-page-anchor>
+    Getting started
+  </stache-page-anchor>
+
+  <stache-code-block>
+    skyux new --template library
+  </stache-code-block>
+
+  <stache-page-anchor>
+    Building your library
+  </stache-page-anchor>
+
+  <stache-code-block>
+    skyux build-public-library
+  </stache-code-block>
+
+  <stache-page-anchor>
+    Publishing your library
+  </stache-page-anchor>
+
+  <p>
+    (Add notes here about NPM feeds for both public and private libraries.)
+  </p>
+
+  <stache-page-anchor>
+    Consuming your library in another application
+  </stache-page-anchor>
+
+  <p>
+    <strong>/app/src/app-extras.module.ts</strong>
+  </p>
+  <stache-code-block languageType="typescript">
+    import { NgModule } from '@angular/core';
+
+    import { LibraryModule } from 'my-component-library';
+
+    @NgModule({
+      imports: [
+        LibraryModule
+      ],
+      exports: [
+        LibraryModule
+      ]
+    })
+    export class AppExtrasModule { }
+  </stache-code-block>
+
+  <stache-page-anchor>
+    Accessing the consuming app's configuration
+  </stache-page-anchor>
+
+  <p>
+    (Provide reasons for why SkyAppConfig cannot be accessed by the component library. Why we need to create the adaptor, etc.)
+  </p>
+
+  <p>
+    <strong>/skyuxconfig.json</strong>
+  </p>
+  <stache-code-block languageType="json">
+    {
+      "app": {
+        "title": "My Application"
+      }
+    }
+  </stache-code-block>
+
+  <p>
+    <strong>/app/src/app-extras.module.ts</strong>
+  </p>
+  <stache-code-block languageType="typescript">
+    import { NgModule } from '@angular/core';
+
+    import { SkyAppConfig } from '@blackbaud/skyux-builder/runtime';
+
+    import { LibraryModule, LibraryConfigService } from 'my-component-library';
+
+    @NgModule({
+      imports: [
+        LibraryModule
+      ],
+      exports: [
+        LibraryModule
+      ],
+      providers: [
+        // The config service acts as an adaptor for skyuxconfig.json:
+        {
+          provide: LibraryConfigService,
+          useExisting: SkyAppConfig
+        }
+      ]
+    })
+    export class AppExtrasModule { }
+  </stache-code-block>
+
+  <stache-page-anchor>
+    Providing configuration for your library
+  </stache-page-anchor>
+
+  <p>
+    <strong>/skyuxconfig.json</strong>
+  </p>
+  <stache-code-block languageType="json">
+    {
+      "appSettings": {
+        "myLibrary": {
+          "foo": "bar",
+          "baz": true
+        }
+      }
+    }
+  </stache-code-block>
+
+  <p>
+    <strong>/app/src/public/src/modules/shared/config.service.ts</strong>
+  </p>
+  <stache-code-block languageType="typescript">
+    import { LibraryConfigService } from '../shared';
+
+    @Component({ ... })
+    export class MyLibraryComponent {
+      constructor(public configService: LibraryConfigService) {
+        console.log(configService.appSettings.myLibrary.foo); // "bar"
+      }
+    }
+
+  </stache-code-block>
+</stache>
