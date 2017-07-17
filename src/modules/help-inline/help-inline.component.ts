@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-    selector: 'sky-inline-help',
-    styleUrls: ['./inline-help.component.scss'],
-    templateUrl: './inline-help.component.html'
+    selector: 'sky-help-inline',
+    styleUrls: ['./help-inline.component.scss'],
+    templateUrl: './help-inline.component.html'
 })
-export class SkyInlineHelpComponent {
+export class SkyHelpInlineComponent {
     @Output()
     public actionClick = new EventEmitter<any>();
 

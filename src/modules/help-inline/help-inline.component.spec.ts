@@ -3,29 +3,29 @@ import { DebugElement } from '@angular/core';
 
 import { BrowserModule, By } from '@angular/platform-browser';
 
-import { InlineHelpTestComponent } from './fixtures/inline-help.component.fixture';
-import { SkyInlineHelpModule } from '../inline-help/inline-help.module';
+import { HelpInlineTestComponent } from './fixtures/help-inline.component.fixture';
+import { SkyHelpInlineModule } from '../help-inline/help-inline.module';
 import { SkyResources } from '../resources/resources';
 
-describe('Inline help component', () => {
-    let fixture: ComponentFixture<InlineHelpTestComponent>;
-    let cmp: InlineHelpTestComponent;
+describe('Help inline component', () => {
+    let fixture: ComponentFixture<HelpInlineTestComponent>;
+    let cmp: HelpInlineTestComponent;
     let el: HTMLElement;
     let debugElement: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
-                InlineHelpTestComponent
+                HelpInlineTestComponent
             ],
             imports: [
                 BrowserModule,
-                SkyInlineHelpModule
+                SkyHelpInlineModule
             ]
         });
 
-        fixture = TestBed.createComponent(InlineHelpTestComponent);
-        cmp = fixture.componentInstance as InlineHelpTestComponent;
+        fixture = TestBed.createComponent(HelpInlineTestComponent);
+        cmp = fixture.componentInstance as HelpInlineTestComponent;
         el = fixture.nativeElement as HTMLElement;
         debugElement = fixture.debugElement;
 
@@ -33,12 +33,12 @@ describe('Inline help component', () => {
     });
 
     it('should emit a click event on button click', () => {
-        debugElement.query(By.css('.sky-inline-help')).triggerEventHandler('click', undefined);
+        debugElement.query(By.css('.sky-help-inline')).triggerEventHandler('click', undefined);
         fixture.detectChanges();
         expect(cmp.buttonIsClicked).toBe(true);
     });
 
     it('should have tabindex on the clickable area', () => {
-    expect(debugElement.query(By.css('.sky-inline-help')).attributes['tabindex']).toBe('0');
+    expect(debugElement.query(By.css('.sky-help-inline')).attributes['tabindex']).toBe('0');
   });
 });

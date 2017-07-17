@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'sky-inline-help-demo',
-    templateUrl: './inline-help-demo.component.html'
+    selector: 'sky-help-inline-demo',
+    templateUrl: './help-inline-demo.component.html'
 })
-export class SkyInlineHelpDemoComponent {
+export class SkyHelpInlineDemoComponent {
     public givingActionClick() {
-        alert('Giving inline help clicked');
+        alert('Giving help inline clicked');
     }
 
     public emailActionClick() {

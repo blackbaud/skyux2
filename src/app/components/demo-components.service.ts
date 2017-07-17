@@ -317,21 +317,21 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Inline help',
+        name: 'Help inline',
         icon: 'question',
-        summary: 'The inline help component creates a small help button next to a field.',
-        url: '/components/inline-help',
+        summary: 'The help inline component creates a small help button next to a field.',
+        url: '/components/help-inline',
         getCodeFiles: function () {
           return [
             {
-              name: 'inline-help-demo.component.html',
-              fileContents: require('!!raw-loader!./inline-help/inline-help-demo.component.html')
+              name: 'help-inline-demo.component.html',
+              fileContents: require('!!raw-loader!./help-inline/help-inline-demo.component.html')
             },
             {
-              name: 'inline-help-demo.component.ts',
-              fileContents: require('!!raw-loader!./inline-help/inline-help-demo.component.ts'),
-              componentName: 'SkyInlineHelpDemoComponent',
-              bootstrapSelector: 'sky-inline-help-demo'
+              name: 'help-inline-demo.component.ts',
+              fileContents: require('!!raw-loader!./help-inline/help-inline-demo.component.ts'),
+              componentName: 'SkyHelpInlineDemoComponent',
+              bootstrapSelector: 'sky-help-inline-demo'
             }
           ];
         }
