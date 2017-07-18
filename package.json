@@ -132,7 +132,7 @@
     "url": "https://github.com/blackbaud/skyux2/issues"
   },
   "engines": {
-    "node": ">= 4.2.1",
+    "node": ">= 6.11.1",
     "npm": ">= 3"
   }
 }
