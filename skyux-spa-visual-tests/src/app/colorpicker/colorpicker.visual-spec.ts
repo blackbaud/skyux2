@@ -2,7 +2,7 @@ import { SkyVisualTest} from '../../../config/utils/visual-test-commands';
 
 import { element, by } from 'protractor';
 
-fdescribe('Colorpicker', () => {
+describe('Colorpicker', () => {
 
   it('should match previous colorpicker screenshot', () => {
     return SkyVisualTest.setupTest('colorpicker')
