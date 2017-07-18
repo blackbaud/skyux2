@@ -1,4 +1,4 @@
-import {
+ import {
   animate,
   Component,
   state,
@@ -6,7 +6,8 @@ import {
   transition,
   trigger,
   ElementRef,
-  AfterViewInit
+  AfterViewInit,
+  HostListener
 } from '@angular/core';
 
 import { SkyModalHostService } from './modal-host.service';
@@ -58,6 +59,45 @@ export class SkyModalComponent implements AfterViewInit {
     return !this.modalFullPage && this.isSizeEqual(this.config.size, 'large');
   }
 
+  @HostListener('document:keydown', ['$event'])
+  public onDocumentKeyDown(event: KeyboardEvent) {
+    if (event.defaultPrevented) {
+      return event;
+    }
+    if (SkyModalHostService.openModalCount > 0) {
+      let topModal = SkyModalHostService.topModal;
+      if (topModal && topModal === this.hostService) {
+        switch(event.which) {
+          case 27: { // Esc key pressed
+            event.preventDefault();
+            this.hostService.onClose(this);
+          }
+
+          case 9: {  // Tab pressed
+            let focusChanged = false;
+
+            let focusElementList = this.componentAdapter.loadFocusElementList(this.elRef);
+
+            if (
+              event.shiftKey &&
+              this.componentAdapter.isFocusInFirstItem(event, focusElementList)) {
+
+              focusChanged = this.componentAdapter.focusLastElement(focusElementList);
+            } else if (this.componentAdapter.isFocusInLastItem(event, focusElementList)) {
+              focusChanged = this.componentAdapter.focusFirstElement(focusElementList);
+            }
+
+            if (focusChanged) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+          }
+        }
+      }
+
+    }
+  }
+
   constructor(
     private hostService: SkyModalHostService,
     private config: SkyModalConfiguration,
@@ -66,6 +106,8 @@ export class SkyModalComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     this.componentAdapter.handleWindowChange(this.elRef);
+
+    this.componentAdapter.modalOpened(this.elRef);
   }
 
   public closeButtonClick() {
