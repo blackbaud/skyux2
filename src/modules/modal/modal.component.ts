@@ -61,9 +61,6 @@ export class SkyModalComponent implements AfterViewInit {
 
   @HostListener('document:keydown', ['$event'])
   public onDocumentKeyDown(event: KeyboardEvent) {
-    if (event.defaultPrevented) {
-      return event;
-    }
     if (SkyModalHostService.openModalCount > 0) {
       let topModal = SkyModalHostService.topModal;
       if (topModal && topModal === this.hostService) {
@@ -71,6 +68,7 @@ export class SkyModalComponent implements AfterViewInit {
           case 27: { // Esc key pressed
             event.preventDefault();
             this.hostService.onClose(this);
+            break;
           }
 
           case 9: {  // Tab pressed
@@ -80,7 +78,8 @@ export class SkyModalComponent implements AfterViewInit {
 
             if (
               event.shiftKey &&
-              this.componentAdapter.isFocusInFirstItem(event, focusElementList)) {
+              (this.componentAdapter.isFocusInFirstItem(event, focusElementList) ||
+              this.componentAdapter.isModalFocused(event, this.elRef))) {
 
               focusChanged = this.componentAdapter.focusLastElement(focusElementList);
             } else if (this.componentAdapter.isFocusInLastItem(event, focusElementList)) {
@@ -91,7 +90,11 @@ export class SkyModalComponent implements AfterViewInit {
               event.preventDefault();
               event.stopPropagation();
             }
+            break;
           }
+
+          default:
+            break;
         }
       }
 

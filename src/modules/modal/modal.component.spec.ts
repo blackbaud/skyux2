@@ -15,6 +15,8 @@ import { SkyModalService } from './modal.service';
 
 import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
+import { ModalAutofocusTestComponent } from './fixtures/modal-autofocus.component.fixture';
+import { ModalFooterTestComponent } from './fixtures/modal-footer.component.fixture';
 
 import { TestUtility } from '../testing/testutility';
 
@@ -76,6 +78,91 @@ describe('Modal component', () => {
     closeModal(modalInstance2);
     closeModal(modalInstance1);
   }));
+
+  it('should focus the dialog when no autofocus is inside of content', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalTestComponent);
+    expect(document.activeElement).toEqual(document.querySelector('.sky-modal-dialog'));
+    closeModal(modalInstance1);
+  }));
+
+  it('should focus the autofocus element when autofocus is inside of content', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalAutofocusTestComponent);
+    expect(document.activeElement).toEqual(document.querySelector('#autofocus-el'));
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle escape key press when modal is the top modal', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalAutofocusTestComponent);
+    let escapeEvent: any = document.createEvent('CustomEvent');
+    escapeEvent.which = 27;
+    escapeEvent.keyCode = 27;
+    escapeEvent.initEvent('keydown', true, true);
+
+    document.dispatchEvent(escapeEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
+
+  }));
+
+  it('should handle tab with shift when focus is on modal and in top modal', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = true;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.dispatchEvent({
+      which: 9,
+      keyKode: 9,
+      shiftKey: true,
+      target: document.querySelector('.sky-modal-dialog')
+    });
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).toEqual(document.querySelector('.sky-btn-primary'));
+
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle tab with shift when focus is in first item and in top modal', fakeAsync(() => {
+
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = true;
+    tabEvent.srcElement = document.querySelector('.sky-modal-btn-close');
+    tabEvent.initEvent('keydown', true, true);
+
+    document.dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).toEqual(document.querySelector('.sky-btn-primary'));
+
+    closeModal(modalInstance1);
+
+  }));
+
+  it('should handle tab when focus is in last item and in top modal', () => {
+
+  });
+
+  it('should handle tab in content when in top modal', () => {
+
+  });
+
+  it('should handle tab when modals are stacked', () => {
+
+  });
 
   it('should close when the close button is clicked', fakeAsync(() => {
     openModal(ModalTestComponent);

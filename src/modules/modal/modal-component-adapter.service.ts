@@ -54,6 +54,11 @@ export class SkyModalComponentAdapterService {
     return list.length > 0 && (event.target || event.srcElement) === list[list.length -1];
   }
 
+  public isModalFocused(event: KeyboardEvent, modalEl: ElementRef): boolean {
+    return modalEl &&
+    (event.target || event.srcElement) === modalEl.nativeElement.querySelector('.sky-modal-dialog');
+  }
+
   public focusLastElement(list: Array<HTMLElement>): boolean {
     if (list.length > 0) {
       list[list.length - 1].focus();
@@ -71,17 +76,16 @@ export class SkyModalComponentAdapterService {
   }
 
   public modalOpened(modalEl: ElementRef): void {
-    // debugger;
+    /* istanbul ignore else */
+    /* handle the case where somehow there is a focused element already in the modal */
     if (!(document.activeElement && modalEl.nativeElement.contains(document.activeElement))) {
       let inputWithAutofocus = modalEl.nativeElement.querySelector('[autofocus]');
 
       if (inputWithAutofocus) {
         inputWithAutofocus.focus();
       } else {
-        // setTimeout(() => {
-          let focusEl: HTMLElement = modalEl.nativeElement.querySelector('.sky-modal-dialog');
-          focusEl.focus();
-        // }, 1000);
+        let focusEl: HTMLElement = modalEl.nativeElement.querySelector('.sky-modal-dialog');
+        focusEl.focus();
 
       }
     }
