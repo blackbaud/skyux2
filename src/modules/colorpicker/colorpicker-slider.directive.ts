@@ -78,12 +78,16 @@ export class SkyColorpickerSliderDirective {
 
   public getX(event: any): number {
     return (
+      /* Ignoring event.touches as tests are not run on a touch device. */
+      /* istanbul ignore next */
       event.pageX !== undefined ? event.pageX : event.touches[0].pageX)
       - this.el.nativeElement.getBoundingClientRect().left
       - window.pageXOffset;
   }
   public getY(event: any): number {
     return (
+      /* Ignoring event.touches as tests are not run on a touch device. */
+      /* istanbul ignore next */
       event.pageY !== undefined ? event.pageY : event.touches[0].pageY)
       - this.el.nativeElement.getBoundingClientRect().top
       - window.pageYOffset;

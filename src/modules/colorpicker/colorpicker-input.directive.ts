@@ -118,7 +118,6 @@ export class SkyColorpickerInputDirective
   }
 
   public setColorPickerDefaults() {
-    if (!this.created) {
       this.created = true;
       this.skyColorpickerInput.setDialog(
         this,
@@ -128,12 +127,6 @@ export class SkyColorpickerInputDirective
         this.presetColors,
         this.alphaChannel
       );
-
-    }
-    /*
-    else if (this.skyColorpickerInput) {
-      this.skyColorpickerInput.openDialog(this.skyColorpickerInput);
-    }*/
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

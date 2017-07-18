@@ -65,6 +65,7 @@ describe('Colorpicker Component', () => {
   }
 
   function mouseHelper(x: number, y: number, event: string) {
+
     let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
     try {
       // Deprecated browser API... IE
@@ -186,6 +187,20 @@ describe('Colorpicker Component', () => {
     verifyColorpicker(nativeElement, '#a31354', '163, 19, 84, 0.3');
   });
 
+  it('Should accept a new HSL color.', () => {
+    component.selectedOutputFormat = 'hex';
+    openColorpicker(nativeElement, fixture);
+    setInputElementValue(nativeElement, 'hex', 'hsl(113,78%,41%)');
+    verifyColorpicker(nativeElement, '#2aba17', '42, 186, 23');
+  });
+
+  it('Should accept a new HSLA color.', () => {
+    component.selectedOutputFormat = 'hex';
+    openColorpicker(nativeElement, fixture);
+    setInputElementValue(nativeElement, 'hex', 'hsla(231,66%,41%,0.62)');
+    verifyColorpicker(nativeElement, '#2438ae', '36, 56, 174');
+  });
+
   it('Should allow user to click cancel the color change.', () => {
     let button = nativeElement.querySelector('.sky-btn-colorpicker-close');
     let buttonEvent = document.createEvent('Event');
@@ -203,11 +218,11 @@ describe('Colorpicker Component', () => {
     let buttonEvent = document.createEvent('Event');
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    setInputElementValue(nativeElement, 'hex', '#BFF666');
-    verifyColorpicker(nativeElement, '#bff666', '191, 246, 102');
+    setInputElementValue(nativeElement, 'hex', '#2B7230');
+    verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
     buttonEvent.initEvent('click', true, false);
     button.dispatchEvent(buttonEvent);
-    verifyColorpicker(nativeElement, '#bff666', '191, 246, 102');
+    verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
   });
 
   it('Should accept mouse down events on hue bar.', () => {

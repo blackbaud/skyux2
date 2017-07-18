@@ -80,11 +80,11 @@ export class SkyColorpickerComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   public keyboardInput(event: any) {
-    let code: string = (event.code || event.key);
-    if (
-      code.toLowerCase() === 'escape' // Not Internet Explorer
-      || code.toLowerCase() === 'esc' // Internet Explorer
-    ) {
+    /* Ignores in place for valid code that is only used in IE and Edge */
+    /* istanbul ignore next */
+    let code: string = (event.code || event.key).toLowerCase();
+    /* istanbul ignore else */
+    if (code.indexOf('esc') === 0) {
       this.closeColorPicker.nativeElement.click();
     }
   }
@@ -203,50 +203,48 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public update() {
-    if (this.sliderDimMax) {
-      let hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
-      let dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
-      let rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
-      let dRgba: SkyColorpickerRgba = this.service.denormalizeRGBA(rgba);
+    let hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
+    let dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
+    let rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
+    let dRgba: SkyColorpickerRgba = this.service.denormalizeRGBA(rgba);
 
-      let hsva: SkyColorpickerHsva = {
-        'hue': this.hsva.hue,
-        'saturation': 1,
-        'value': 1,
-        'alpha': 1
-      };
+    let hsva: SkyColorpickerHsva = {
+      'hue': this.hsva.hue,
+      'saturation': 1,
+      'value': 1,
+      'alpha': 1
+    };
 
-      let hueRgba = this.service.denormalizeRGBA(
-        this.service.hsvaToRgba(hsva)
-      );
+    let hueRgba = this.service.denormalizeRGBA(
+      this.service.hsvaToRgba(hsva)
+    );
 
-      this.hslaText = dHsla;
-      this.rgbaText = dRgba;
-      this.hexText = this.service.hexText(dRgba, this.alphaChannel === 'hex8');
+    this.hslaText = dHsla;
+    this.rgbaText = dRgba;
+    this.hexText = this.service.hexText(dRgba, this.alphaChannel === 'hex8');
 
-      this.alphaSliderColor = `rgba(${dRgba.red},${dRgba.green},${dRgba.blue},${dRgba.alpha})`;
-      this.hueSliderColor = `rgba(${hueRgba.red},${hueRgba.green},${hueRgba.blue},${rgba.alpha})`;
+    this.alphaSliderColor = `rgba(${dRgba.red},${dRgba.green},${dRgba.blue},${dRgba.alpha})`;
+    this.hueSliderColor = `rgba(${hueRgba.red},${hueRgba.green},${hueRgba.blue},${rgba.alpha})`;
 
-      if (this.format === 0 && this.hsva.alpha < 1 && this.alphaChannel === 'hex6') {
-        this.format++;
-      }
+    if (this.format === 0 && this.hsva.alpha < 1 && this.alphaChannel === 'hex6') {
+      this.format++;
+    }
 
-      let lastOutput = this.outputColor;
-      this.outputColor = this.service.outputFormat(
-        this.hsva,
-        this.outputFormat,
-        this.alphaChannel === 'hex8');
-      this.selectedColor = this.service.skyColorpickerOut(this.hsva);
+    let lastOutput = this.outputColor;
+    this.outputColor = this.service.outputFormat(
+      this.hsva,
+      this.outputFormat,
+      this.alphaChannel === 'hex8');
+    this.selectedColor = this.service.skyColorpickerOut(this.hsva);
 
-      this.slider = new SliderPosition(
-        (this.hsva.hue) * this.sliderDimMax.hue - 8,
-        this.hsva.saturation * this.sliderDimMax.saturation - 8,
-        (1 - this.hsva.value) * this.sliderDimMax.value - 8,
-        this.hsva.alpha * this.sliderDimMax.alpha - 8);
+    this.slider = new SliderPosition(
+      (this.hsva.hue) * this.sliderDimMax.hue - 8,
+      this.hsva.saturation * this.sliderDimMax.saturation - 8,
+      (1 - this.hsva.value) * this.sliderDimMax.value - 8,
+      this.hsva.alpha * this.sliderDimMax.alpha - 8);
 
-      if (lastOutput !== this.outputColor) {
-        this.selectedColorChanged.emit(this.selectedColor);
-      }
+    if (lastOutput !== this.outputColor) {
+      this.selectedColorChanged.emit(this.selectedColor);
     }
   }
 }

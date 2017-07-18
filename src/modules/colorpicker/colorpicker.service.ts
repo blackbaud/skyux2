@@ -49,7 +49,7 @@ export class SkyColorpickerService {
       hsla.saturation = 0;
     } else {
       hsla.lightness = value * (2 - saturation) / 2;
-      hsla.saturation = value * saturation / (1 - Math.abs(2 * hsla.lightness - 1)) || 0;
+      hsla.saturation = value * saturation / (1 - Math.abs(2 * hsla.lightness - 1));
     }
     return hsla;
   }
@@ -131,7 +131,7 @@ export class SkyColorpickerService {
     return rgba;
   }
 
-  public stringToHsva(colorString: string = '', hex8: boolean = false): SkyColorpickerHsva {
+  public stringToHsva(colorString: string, hex8: boolean): SkyColorpickerHsva {
     let stringParsers = [
       { // tslint:disable max-line-length
         re: /(rgb)a?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*%?,\s*(\d{1,3})\s*%?(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
@@ -140,7 +140,7 @@ export class SkyColorpickerService {
             'red': parseInt(execResult[2], 0) / 255,
             'green': parseInt(execResult[3], 0) / 255,
             'blue': parseInt(execResult[4], 0) / 255,
-            'alpha': isNaN(parseFloat(execResult[5])) ? 1 : parseFloat(execResult[5])
+            'alpha': parseFloat(execResult[5])
           };
           return rgba;
         }
@@ -152,7 +152,7 @@ export class SkyColorpickerService {
             'hue': parseInt(execResult[2], 0) / 360,
             'saturation': parseInt(execResult[3], 0) / 100,
             'lightness': parseInt(execResult[4], 0) / 100,
-            'alpha': isNaN(parseFloat(execResult[5])) ? 1 : parseFloat(execResult[5])
+            'alpha': parseFloat(execResult[5])
           };
           return hsla;
           // tslint:enable max-line-length
@@ -202,6 +202,7 @@ export class SkyColorpickerService {
 
     let hsva: SkyColorpickerHsva = undefined;
     for (let key in stringParsers) {
+      /* istanbul ignore else */ /* for in must be filtered by an if */
       if (stringParsers.hasOwnProperty(key)) {
         let parser = stringParsers[key];
         let match = parser.re.exec(colorString);
@@ -209,7 +210,8 @@ export class SkyColorpickerService {
         if (color) {
           if ('red' in color) {
             hsva = this.rgbaToHsva(color);
-          } else if ('hue' in color) {
+          }
+          if ('hue' in color) {
             hsva = this.hsla2hsva(color);
           }
 
