@@ -1,3 +1,10 @@
+# 2.0.0-rc.6 (2017-07-18)
+  
+  - Added single-select mode for checklist. (#387)
+  - Updated node version to 6.11.1 in response to security vulnerability (https://nodejs.org/en/blog/vulnerability/july-2017-security-releases/)
+  - Handled IE11 grid sort bug. (#891)
+  - Added the color picker component. (#725) (Thanks @Blackbaud-JaminQuimby)
+
 # 2.0.0-rc.5 (2017-07-11)
 
   - Added default aria-label for dropdown. (#854, #855). (Thanks @Blackbaud-AdamHickey)
