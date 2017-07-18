@@ -61,6 +61,8 @@ export class SkyModalComponent implements AfterViewInit {
 
   @HostListener('document:keydown', ['$event'])
   public onDocumentKeyDown(event: KeyboardEvent) {
+    /* istanbul ignore else */
+    /* sanity check */
     if (SkyModalHostService.openModalCount > 0) {
       let topModal = SkyModalHostService.topModal;
       if (topModal && topModal === this.hostService) {
