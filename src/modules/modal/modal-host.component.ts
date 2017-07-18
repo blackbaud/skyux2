@@ -70,6 +70,8 @@ export class SkyModalHostComponent {
     function closeModal() {
       hostService.destroy();
       adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+      /* istanbul ignore else */
+      /* sanity check */
       if (modalOpener && modalOpener.focus) {
         modalOpener.focus();
       }

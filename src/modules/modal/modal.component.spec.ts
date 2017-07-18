@@ -224,6 +224,14 @@ describe('Modal component', () => {
     closeModal(modalInstance1);
   }));
 
+  it('handles no focusable elements', fakeAsync(() => {
+
+  }));
+
+  it('should handle empty list for focus first and last element functions', fakeAsync(() => {
+
+  }));
+
   it('should close when the close button is clicked', fakeAsync(() => {
     openModal(ModalTestComponent);
 
