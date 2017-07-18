@@ -115,12 +115,7 @@ describe('Modal component', () => {
     tabEvent.shiftKey = true;
     tabEvent.initEvent('keydown', true, true);
 
-    document.dispatchEvent({
-      which: 9,
-      keyKode: 9,
-      shiftKey: true,
-      target: document.querySelector('.sky-modal-dialog')
-    });
+    document.querySelector('.sky-modal-dialog').dispatchEvent(tabEvent);
 
     tick();
     applicationRef.tick();
@@ -138,10 +133,9 @@ describe('Modal component', () => {
     tabEvent.which = 9;
     tabEvent.keyCode = 9;
     tabEvent.shiftKey = true;
-    tabEvent.srcElement = document.querySelector('.sky-modal-btn-close');
     tabEvent.initEvent('keydown', true, true);
 
-    document.dispatchEvent(tabEvent);
+    document.querySelector('.sky-modal-btn-close').dispatchEvent(tabEvent);
 
     tick();
     applicationRef.tick();
@@ -152,17 +146,83 @@ describe('Modal component', () => {
 
   }));
 
-  it('should handle tab when focus is in last item and in top modal', () => {
+  it('should handle tab when focus is in last item and in top modal', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
 
-  });
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
 
-  it('should handle tab in content when in top modal', () => {
+    document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
 
-  });
+    tick();
+    applicationRef.tick();
 
-  it('should handle tab when modals are stacked', () => {
+    expect(document.activeElement).toEqual(document.querySelector('.sky-modal-btn-close'));
 
-  });
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle tab in content when in top modal', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('input').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle tab when modals are stacked', fakeAsync(() => {
+    let modalInstance2 = openModal(ModalAutofocusTestComponent);
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+    closeModal(modalInstance2);
+  }));
+
+  it('should handle a different key code', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 3;
+    tabEvent.keyCode = 3;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+  }));
 
   it('should close when the close button is clicked', fakeAsync(() => {
     openModal(ModalTestComponent);

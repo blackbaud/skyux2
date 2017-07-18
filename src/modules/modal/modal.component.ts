@@ -72,6 +72,7 @@ export class SkyModalComponent implements AfterViewInit {
           }
 
           case 9: {  // Tab pressed
+            console.log('event target', event.target);
             let focusChanged = false;
 
             let focusElementList = this.componentAdapter.loadFocusElementList(this.elRef);
