@@ -5,8 +5,6 @@
     the default large size. If the content does not require this much space, you can
     set the card size to small. The type of content to display in the body of a card
     varies based on what the card represents and whether it prompts users to action.
-    The content can consist of some combination of a graph, trend, status, summary
-    information, and guidance text.
   </sky-card-content>
   <sky-card-actions *ngIf="showAction">
     <button class="sky-btn sky-btn-default">Click me</button>
@@ -16,8 +14,7 @@
   <sky-card-title *ngIf="showTitle">Small card</sky-card-title>
   <sky-card-content *ngIf="showContent">
     This card demonstrates the reduced amount of space that is available when you
-    set the card size to small. If the content requires additional space, you can
-    use the default card size of large.
+    set the card size to small.
   </sky-card-content>
   <sky-card-actions *ngIf="showAction">
     <sky-dropdown buttonType="context-menu">
