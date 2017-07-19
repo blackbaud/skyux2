@@ -21,6 +21,7 @@ export class HomeComponent {
     'fileattachments',
     'filter',
     'grid',
+    'help-inline',
     'key-info',
     'label',
     'list-secondary-actions',

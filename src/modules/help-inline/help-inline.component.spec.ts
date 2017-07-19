@@ -37,8 +37,4 @@ describe('Help inline component', () => {
         fixture.detectChanges();
         expect(cmp.buttonIsClicked).toBe(true);
     });
-
-    it('should have tabindex on the clickable area', () => {
-    expect(debugElement.query(By.css('.sky-help-inline')).attributes['tabindex']).toBe('0');
-  });
 });
