@@ -1,11 +1,13 @@
 @import "../../scss/variables";
+@import "../../scss/mixins";
+
 // Component modifying host-context element
 :host-context(sky-colorpicker) sky-dropdown {
   position: relative;
-  left: -$sky-alternate-font-size-xl;
-  width: $sky-alternate-font-size-xl;
+  left: -30px;
+  width: 30px;
   overflow: hidden;
-  height: $sky-alternate-font-size-xl;
+  height: 30px;
 }
 
 :host-context(sky-colorpicker) sky-dropdown /deep/ .sky-dropdown-button {
@@ -23,19 +25,19 @@
 }
 
 .sky-colorpicker-reset-button::before {
-  color: $sky-color-gray;
+  color: $sky-text-color-deemphasized;
   content: '\f00d';
   font-family: FontAwesome;
-  font-size: $sky-font-size-lg;
+  font-size: $sky-font-size-base;
 }
 
 .sky-colorpicker-reset-button {
   background-color: $sky-color-white;
   margin: 0px;
-  border: 1px solid $sky-color-gray-lighter;
-  box-shadow: inset 0 0 0 2px $sky-color-white, inset 0 0 0 3px $sky-color-gray-lighter;
-  width: $sky-alternate-font-size-xl;
-  height: $sky-alternate-font-size-xl;
+  @include sky-border(light, top, right, bottom, left);
+  box-shadow: inset 0 0 0 2px $sky-color-white, inset 0 0 0 3px $sky-border-color-neutral-medium;
+  width: 30px;
+  height: 30px;
   position: relative;
   left: -25px;
   cursor: pointer;
@@ -43,8 +45,8 @@
 
 .sky-colorpicker-footer {
   background-color: $sky-color-white;
-  padding: $sky-font-size-lg;
-  border-top: solid 1px $sky-color-gray-lightest;
+  padding: $sky-padding-plus-half;
+  @include sky-border(light, top);
 }
 
 .sky-colorpicker * {
@@ -52,7 +54,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
-  font-size: $sky-font-size-sm;
 }
 
 @mixin boder-radius($radius) {
@@ -79,8 +80,8 @@
   }
   input {
     text-align: center;
-    font-size: $sky-font-size-lg;
-    height: $sky-alternate-font-size-lg;
+    font-size: $sky-font-size-base;
+    height: 26px;
     &:invalid {
       box-shadow: none;
     }
@@ -98,13 +99,13 @@
     -moz-appearance: textfield;
   }
   .button-area {
-    padding: 0 $sky-font-size-xl $sky-font-size-xl $sky-font-size-xl;
+    padding: 0 $sky-padding-plus-half $sky-padding-plus-half $sky-padding-plus-half;
     text-align: right;
   }
   .sky-colorpicker-preset-color-area {
-    padding-left: 9px;
-    padding-right: 9px;
-    padding-bottom: $sky-font-size-lg;
+    padding-left: $sky-padding;
+    padding-right: $sky-padding;
+    padding-bottom: $sky-padding-plus-half;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -112,19 +113,19 @@
     .sky-preset-color {
       cursor: pointer;
       display: flex;
-      width: $sky-font-size-xxl;
-      height: $sky-font-size-xxl;
+      width: 32px;
+      height: 32px;
       margin: 5px;
-      border: $sky-color-gray-lightest solid 1px;
+      @include sky-border(light, top, right, bottom, left);
     }
     .sky-preset-color:hover {
       cursor: pointer;
       border: $sky-color-white solid 2px;
-      outline: 1px solid $sky-color-gray-lightest;
+      outline: 1px solid $sky-border-color-neutral-light;
       margin: 4px;
       width: 34px;
       height: 34px;
-      box-shadow: 0 0 0 1px $sky-color-gray-lighter, 0 0 0 2px $sky-color-gray-lightest;
+      box-shadow: 0 0 0 1px $sky-border-color-neutral-medium, 0 0 0 2px $sky-border-color-neutral-light;
     }
   }
   .arrow {
@@ -138,17 +139,17 @@
     cursor: default;
     position: relative;
     @include boder-radius(50%);
-    width: $sky-font-size-lg;
-    height: $sky-font-size-lg;
-    border: $sky-paging-border-color solid 1px;
+    width: 15px;
+    height: 15px;
+    @include sky-border(dark, top, right, bottom, left);
   }
   div.cursor {
     cursor: default;
     position: relative;
     @include boder-radius(50%);
-    width: $sky-font-size-xl;
-    height: $sky-font-size-xl;
-    border: $sky-color-gray solid 2px;
+    width: 30px;
+    height: 30px;
+    border: $sky-text-color-deemphasized solid 2px;
   }
   .saturation-lightness {
     cursor: pointer;
@@ -217,7 +218,7 @@
         margin: 0;
         float: left;
         margin-right: 8px;
-        border: $sky-color-gray-lightest solid 1px;
+        @include sky-border(light, top, right, bottom, left);
         padding: 1px;
         &:last-child {
           margin-right: 0;
@@ -238,19 +239,19 @@
   }
   .hex-text {
     width: 100%;
-    font-size: $sky-font-size-sm;
+    font-size: $sky-font-size-base;
     padding: 4px 8px;
     .box {
       padding: 0 24px 8px 8px;
       input {
         flex: 1 1 auto;
-        border: $sky-color-gray-lightest solid 1px;
+        @include sky-border(light, top, right, bottom, left);
         padding: 1px;
       }
       div {
         flex: 1 1 auto;
         text-align: center;
-        color: $sky-color-gray-lighter;
+        color: $sky-text-color-deemphasized;
         float: left;
         clear: left;
       }

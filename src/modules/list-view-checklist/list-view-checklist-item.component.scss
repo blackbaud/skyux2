@@ -31,7 +31,7 @@
   /deep/ .sky-list-view-checklist-single-button {
     background-color: transparent;
     border: none;
-    border-bottom: 1px dotted $sky-color-gray-lighter;
+    @include sky-border(row, bottom);
     display: block;
     text-align: left;
     margin-bottom: 0;
@@ -40,6 +40,6 @@
     cursor: pointer;
   }
   /deep/ .sky-list-view-checklist-single-button.sky-list-view-checklist-row-selected {
-    background-color: $sky-selected-color;
+    background-color: $sky-background-color-selected;
   }
 }

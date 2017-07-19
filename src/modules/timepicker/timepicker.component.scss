@@ -45,9 +45,7 @@
   }
 
 .sky-timepicker-column ol {
-  border-color: $sky-paging-border-color;
-  border-style: solid;
-  border-width: 1px;
+  @include sky-border(light, top, right, bottom, left);
   column-gap: 1px;
   columns: 2;
   list-style-type: none;
@@ -69,7 +67,7 @@
   background-color: $sky-color-gray-10;
 }
 .sky-timepicker-column ol li button.sky-btn-active:hover {
-    background-color: $sky-background-color-primary-dark;
+  background-color: $sky-background-color-primary-dark;
 }
 .sky-timepicker-column ol .sky-btn-active {
   background-color: $sky-background-color-primary-dark;

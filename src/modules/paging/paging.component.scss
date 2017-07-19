@@ -15,9 +15,9 @@
     display: inline;
 
     a {
-      background-color: $sky-paging-background-color;
+      background-color: $sky-color-white;
       color: inherit;
-      border: 1px solid $sky-paging-border-color;
+      @include sky-border(light, top, right, bottom, left);
       float: left;
       margin-left: -1px;
       padding: 4px 10px;
@@ -33,15 +33,15 @@
       }
 
       &.sky-paging-current {
-        background-color: $sky-paging-current-color;
+        background-color: $sky-background-color-neutral-light;
       }
 
       &:hover {
-        background-color: darken($sky-paging-background-color, 10%);
+        background-color: darken($sky-background-color-neutral-light, 10%);
       }
 
        &.sky-paging-disabled {
-        color: $sky-paging-disabled-color;
+        color: $sky-text-color-deemphasized;
         cursor: not-allowed;
         pointer-events: none;
       }
