@@ -24,7 +24,7 @@
 }
 .sky-timepicker-container button {
   background-color: $sky-color-white;
-  border-width: 0px;
+  border-width: 0;
   padding: $sky-padding-plus-half;
   padding-top: $sky-padding-half;
   padding-bottom: $sky-padding-half;
@@ -49,12 +49,13 @@
   column-gap: 1px;
   columns: 2;
   list-style-type: none;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 .sky-timepicker-column ol li {
   text-align: center;
   cursor: pointer;
+  margin: 0;
 }
 .sky-timepicker-column ol li button {
   cursor: pointer;
