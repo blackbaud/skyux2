@@ -1,17 +1,37 @@
 <sky-demo-nav></sky-demo-nav>
 
 <stache pageTitle="Component libraries" showTableOfContents="true">
+  <stache-page-summary>
+    This page documents how to create a reusable component library for SKY UX.
+  </stache-page-summary>
+
   <stache-page-anchor>
     Overview
   </stache-page-anchor>
 
   <stache-page-anchor>
-    Getting started
+    Installing dependencies
   </stache-page-anchor>
+
+  <p>
+    The following command will create a new SKY UX SPA with features that will help you author a component library.
+  </p>
 
   <stache-code-block>
     skyux new --template library
   </stache-code-block>
+
+  <stache-page-anchor>
+    Creating the library
+  </stache-page-anchor>
+
+  <p>
+    The library source files live in <strong>/src/app/public</strong>. This folder is special in that SKY UX Builder will ignore components saved here (ie, the components will not be automatically declared in the <stache-code>SkyModule</stache-code>). This will allow you to write Angular modules, components, and services outside of SKY UX's scope.
+  </p>
+
+  <p>
+    The entry point for your component library is <strong>/src/app/public/index.ts</strong>. This file is responsible for exporting any code you want to be made available to the bundler.
+  </p>
 
   <stache-page-anchor>
     Building your library
@@ -29,8 +49,16 @@
     (Add notes here about NPM feeds for both public and private libraries.)
   </p>
 
+  <h3>
+    Publishing to npmjs.org
+  </h3>
+
+  <h3>
+    Publishing to Blackbaud's NPM stream
+  </h3>
+
   <stache-page-anchor>
-    Consuming your library in another application
+    Consuming your library in another SPA
   </stache-page-anchor>
 
   <p>
@@ -63,6 +91,7 @@
   <p>
     <strong>/skyuxconfig.json</strong>
   </p>
+
   <stache-code-block languageType="json">
     {
       "app": {
@@ -74,6 +103,7 @@
   <p>
     <strong>/app/src/app-extras.module.ts</strong>
   </p>
+
   <stache-code-block languageType="typescript">
     import { NgModule } from '@angular/core';
 
@@ -106,6 +136,7 @@
   <p>
     <strong>/skyuxconfig.json</strong>
   </p>
+
   <stache-code-block languageType="json">
     {
       "appSettings": {
@@ -120,6 +151,7 @@
   <p>
     <strong>/app/src/public/src/modules/shared/config.service.ts</strong>
   </p>
+
   <stache-code-block languageType="typescript">
     import { LibraryConfigService } from '../shared';
 
