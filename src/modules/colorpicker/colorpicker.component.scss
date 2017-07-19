@@ -80,7 +80,7 @@
   }
   input {
     text-align: center;
-    font-size: $sky-font-size-base;
+    font-size: 14px;
     height: 26px;
     &:invalid {
       box-shadow: none;
@@ -103,8 +103,8 @@
     text-align: right;
   }
   .sky-colorpicker-preset-color-area {
-    padding-left: $sky-padding;
-    padding-right: $sky-padding;
+    padding-left: 9px;
+    padding-right: 9px;
     padding-bottom: $sky-padding-plus-half;
     display: flex;
     flex-direction: row;
@@ -139,16 +139,16 @@
     cursor: default;
     position: relative;
     @include boder-radius(50%);
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     @include sky-border(dark, top, right, bottom, left);
   }
   div.cursor {
     cursor: default;
     position: relative;
     @include boder-radius(50%);
-    width: 30px;
-    height: 30px;
+    width: 17px;
+    height: 17px;
     border: $sky-text-color-deemphasized solid 2px;
   }
   .saturation-lightness {
@@ -239,7 +239,7 @@
   }
   .hex-text {
     width: 100%;
-    font-size: $sky-font-size-base;
+    font-size: 14px;
     padding: 4px 8px;
     .box {
       padding: 0 24px 8px 8px;
