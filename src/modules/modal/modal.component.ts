@@ -79,7 +79,7 @@ export class SkyModalComponent implements AfterViewInit {
     if (SkyModalHostService.openModalCount > 0) {
       let topModal = SkyModalHostService.topModal;
       if (topModal && topModal === this.hostService) {
-        switch(event.which) {
+        switch (event.which) {
           case 27: { // Esc key pressed
             event.preventDefault();
             this.hostService.onClose(this);

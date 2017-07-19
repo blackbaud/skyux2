@@ -57,7 +57,7 @@ export class SkyModalComponentAdapterService {
     /* istanbul ignore next */
     /* sanity check */
     let eventTarget = event.target || event.srcElement;
-    return list.length > 0 && eventTarget === list[list.length -1];
+    return list.length > 0 && eventTarget === list[list.length - 1];
   }
 
   public isModalFocused(event: KeyboardEvent, modalEl: ElementRef): boolean {

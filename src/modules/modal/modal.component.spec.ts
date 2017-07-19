@@ -354,4 +354,32 @@ describe('Modal component', () => {
 
     closeModal(modalInstance);
   }));
+
+  it('should default the aria-labelledby and aria-describedby', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent);
+
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby')
+      .indexOf('sky-modal-header-id-'))
+      .not.toBe(-1);
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-describedby')
+      .indexOf('sky-modal-content-id-'))
+      .not.toBe(-1);
+    closeModal(modalInstance);
+  }));
+
+  it('should accept configuration options for aria-labelledBy and aria-describedby',
+  fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {
+      'ariaLabelledBy': 'customlabelledby',
+      'ariaDescribedBy': 'customdescribedby'
+    });
+
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby'))
+      .toBe('customlabelledby');
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-describedby'))
+      .toBe('customdescribedby');
+
+    closeModal(modalInstance);
+
+  }));
 });
