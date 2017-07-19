@@ -15,6 +15,8 @@ import { SkyModalConfiguration } from './modal-configuration';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
+let skyModalUniqueIdentifier: number = 0;
+
 @Component({
   selector: 'sky-modal',
   templateUrl: './modal.component.html',
@@ -39,6 +41,9 @@ import { SkyModalComponentAdapterService } from './modal-component-adapter.servi
 export class SkyModalComponent implements AfterViewInit {
   public modalState = 'in';
 
+  public modalContentId: string = 'sky-modal-content-id-' + skyModalUniqueIdentifier.toString();
+  public modalHeaderId: string = 'sky-modal-header-id-' + skyModalUniqueIdentifier.toString();
+
   public get modalZIndex() {
     return this.hostService.getModalZIndex();
   }
@@ -59,6 +64,14 @@ export class SkyModalComponent implements AfterViewInit {
     return !this.modalFullPage && this.isSizeEqual(this.config.size, 'large');
   }
 
+  public get ariaDescribedBy() {
+    return this.config.ariaDescribedBy || this.modalContentId;
+  }
+
+  public get ariaLabelledBy() {
+    return this.config.ariaLabelledBy || this.modalHeaderId;
+  }
+
   @HostListener('document:keydown', ['$event'])
   public onDocumentKeyDown(event: KeyboardEvent) {
     /* istanbul ignore else */
@@ -74,7 +87,6 @@ export class SkyModalComponent implements AfterViewInit {
           }
 
           case 9: {  // Tab pressed
-            console.log('event target', event.target);
             let focusChanged = false;
 
             let focusElementList = this.componentAdapter.loadFocusElementList(this.elRef);
@@ -111,6 +123,7 @@ export class SkyModalComponent implements AfterViewInit {
     private componentAdapter: SkyModalComponentAdapterService) { }
 
   public ngAfterViewInit() {
+    skyModalUniqueIdentifier++;
     this.componentAdapter.handleWindowChange(this.elRef);
 
     this.componentAdapter.modalOpened(this.elRef);

@@ -18,7 +18,11 @@ import { ModalTestComponent } from './fixtures/modal.component.fixture';
 import { ModalAutofocusTestComponent } from './fixtures/modal-autofocus.component.fixture';
 import { ModalFooterTestComponent } from './fixtures/modal-footer.component.fixture';
 
+import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component.fixture';
+
 import { TestUtility } from '../testing/testutility';
+
+import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
@@ -225,11 +229,31 @@ describe('Modal component', () => {
   }));
 
   it('handles no focusable elements', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalNoHeaderTestComponent);
 
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
   }));
 
   it('should handle empty list for focus first and last element functions', fakeAsync(() => {
+    let adapterService = new SkyModalComponentAdapterService();
+    let firstResult = adapterService.focusFirstElement([]);
+    expect(firstResult).toBe(false);
 
+    let lastResult = adapterService.focusLastElement([]);
+    expect(lastResult).toBe(false);
   }));
 
   it('should close when the close button is clicked', fakeAsync(() => {

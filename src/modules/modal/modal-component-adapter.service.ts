@@ -41,22 +41,31 @@ export class SkyModalComponentAdapterService {
     let elements: Array<HTMLElement>
       = Array.prototype.slice.call(modalEl.nativeElement.querySelectorAll(tabbableSelector));
 
-    return elements ? elements.filter((element) => {
+    return elements.filter((element) => {
       return this.isVisible(element);
-    }): elements;
+    });
   }
 
   public isFocusInFirstItem(event: KeyboardEvent, list: Array<HTMLElement>): boolean {
-    return list.length > 0 && (event.target || event.srcElement) === list[0];
+    /* istanbul ignore next */
+    /* sanity check */
+    let eventTarget = event.target || event.srcElement;
+    return list.length > 0 && eventTarget === list[0];
   }
 
   public isFocusInLastItem(event: KeyboardEvent, list: Array<HTMLElement>): boolean {
-    return list.length > 0 && (event.target || event.srcElement) === list[list.length -1];
+    /* istanbul ignore next */
+    /* sanity check */
+    let eventTarget = event.target || event.srcElement;
+    return list.length > 0 && eventTarget === list[list.length -1];
   }
 
   public isModalFocused(event: KeyboardEvent, modalEl: ElementRef): boolean {
+    /* istanbul ignore next */
+    /* sanity check */
+    let eventTarget = event.target || event.srcElement;
     return modalEl &&
-    (event.target || event.srcElement) === modalEl.nativeElement.querySelector('.sky-modal-dialog');
+    eventTarget === modalEl.nativeElement.querySelector('.sky-modal-dialog');
   }
 
   public focusLastElement(list: Array<HTMLElement>): boolean {

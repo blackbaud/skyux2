@@ -6,13 +6,15 @@ import { ModalTestComponent } from './modal.component.fixture';
 import { ModalWithValuesTestComponent } from './modal-with-values.component.fixture';
 import { ModalAutofocusTestComponent } from './modal-autofocus.component.fixture';
 import { ModalFooterTestComponent } from './modal-footer.component.fixture';
+import { ModalNoHeaderTestComponent } from './modal-no-header.component.fixture';
 
 @NgModule({
   declarations: [
     ModalTestComponent,
     ModalWithValuesTestComponent,
     ModalAutofocusTestComponent,
-    ModalFooterTestComponent
+    ModalFooterTestComponent,
+    ModalNoHeaderTestComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { ModalFooterTestComponent } from './modal-footer.component.fixture';
     ModalTestComponent,
     ModalWithValuesTestComponent,
     ModalAutofocusTestComponent,
-    ModalFooterTestComponent
+    ModalFooterTestComponent,
+    ModalNoHeaderTestComponent
   ]
 })
 export class SkyModalFixturesModule { }
