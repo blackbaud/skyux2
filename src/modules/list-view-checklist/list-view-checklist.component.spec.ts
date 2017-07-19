@@ -377,4 +377,173 @@ describe('List View Checklist Component', () => {
       });
     }));
   });
+
+  describe('Single select mode', () => {
+    let dispatcher: ListStateDispatcher,
+      state: ListState,
+      bs: BehaviorSubject<Array<any>>,
+      items: Observable<Array<any>>,
+      fixture: ComponentFixture<ListViewChecklistToolbarTestComponent>,
+      nativeElement: HTMLElement,
+      element: DebugElement,
+      component: ListViewChecklistToolbarTestComponent,
+      itemsArray: Array<ListItemModel>;
+
+    beforeEach(async(() => {
+      dispatcher = new ListStateDispatcher();
+      state = new ListState(dispatcher);
+
+        /* tslint:disable */
+        itemsArray  = [
+          new ListItemModel('1', { column1: '1', column2: 'Apple',
+          column4: moment().add(1, 'minute') }),
+          new ListItemModel('2', { column1: '01', column2: 'Banana',
+          column4: moment().add(6, 'minute'), column5: 'test' }),
+          new ListItemModel('3', { column1: '11', column2: 'Banana',
+          column4: moment().add(4, 'minute') }),
+          new ListItemModel('4', { column1: '12', column2: 'Daikon',
+            column4: moment().add(2, 'minute') }),
+          new ListItemModel('5', { column1: '13', column2: 'Edamame',
+            column4: moment().add(5, 'minute') }),
+          new ListItemModel('6', { column1: '20', column2: 'Fig',
+            column4: moment().add(3, 'minute') }),
+          new ListItemModel('7', { column1: '21', column2: 'Grape',
+            column4: moment().add(7, 'minute') })
+        ];
+
+        bs = new BehaviorSubject<Array<any>>(itemsArray);
+        items = bs.asObservable();
+
+        TestBed.configureTestingModule({
+          declarations: [
+            ListViewChecklistToolbarTestComponent
+          ],
+          imports: [
+            SkyListModule,
+            SkyListToolbarModule,
+            SkyListViewChecklistModule
+          ],
+          providers: [
+            { provide: 'items', useValue: items }
+          ]
+        })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              { provide: ListState, useValue: state },
+              { provide: ListStateDispatcher, useValue: dispatcher }
+            ]
+          }
+        });;
+
+        fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
+        nativeElement = fixture.nativeElement as HTMLElement;
+        element = fixture.debugElement as DebugElement;
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        // always skip the first update to ListState, when state is ready
+        // run detectChanges once more then begin tests
+        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+        fixture.detectChanges();
+    }));
+
+    it('should hide the select all and clear all buttons when switched to single select mode',
+      fakeAsync(() => {
+
+      tick();
+      fixture.detectChanges();
+      let selectAllEl = nativeElement
+        .querySelector('.sky-list-view-checklist-select-all');
+
+      let clearAllEl = nativeElement
+        .querySelector('.sky-list-view-checklist-clear-all');
+
+      expect(selectAllEl).not.toBeNull();
+      expect(clearAllEl).not.toBeNull();
+
+      component.selectMode = 'single';
+      tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      selectAllEl = nativeElement
+        .querySelector('.sky-list-view-checklist-select-all');
+
+      clearAllEl = nativeElement
+        .querySelector('.sky-list-view-checklist-clear-all');
+
+      expect(selectAllEl).toBeNull();
+      expect(clearAllEl).toBeNull();
+
+      let toolbarSectionsEl = nativeElement.querySelectorAll('sky-toolbar-section');
+      expect(toolbarSectionsEl.item(1).attributes['hidden']).not.toBeUndefined();
+
+    }));
+
+    it('should show the correct styles for single select mode selection', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let singleSelectButtonsEl
+      = nativeElement
+        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+
+      expect(singleSelectButtonsEl.length).toBe(0);
+
+      component.selectMode = 'single';
+      tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      singleSelectButtonsEl
+      = nativeElement
+        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+
+      expect(singleSelectButtonsEl.length).toBe(7);
+    }));
+
+    it('should clear all but the current selection on single select button click', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let singleSelectButtonsEl
+      = nativeElement
+        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+
+      expect(singleSelectButtonsEl.length).toBe(0);
+
+      component.selectMode = 'single';
+      tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      singleSelectButtonsEl
+      = nativeElement
+        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+
+      (singleSelectButtonsEl.item(1) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(component.selectedItems.get('1')).toBe(undefined);
+      expect(component.selectedItems.get('2')).toBe(true);
+      expect(component.selectedItems.get('3')).toBe(undefined);
+      expect(component.selectedItems.get('4')).toBe(undefined);
+      expect(component.selectedItems.get('5')).toBe(undefined);
+      expect(component.selectedItems.get('6')).toBe(undefined);
+      expect(component.selectedItems.get('7')).toBe(undefined);
+
+      (singleSelectButtonsEl.item(0) as HTMLElement).click();
+
+      expect(component.selectedItems.get('1')).toBe(true);
+      expect(component.selectedItems.get('2')).toBe(undefined);
+      expect(component.selectedItems.get('3')).toBe(undefined);
+      expect(component.selectedItems.get('4')).toBe(undefined);
+      expect(component.selectedItems.get('5')).toBe(undefined);
+      expect(component.selectedItems.get('6')).toBe(undefined);
+      expect(component.selectedItems.get('7')).toBe(undefined);
+
+    }));
+  });
 });

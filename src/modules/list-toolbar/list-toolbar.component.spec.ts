@@ -1,6 +1,8 @@
 import {
   TestBed,
   async,
+  fakeAsync,
+  tick,
   ComponentFixture
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
@@ -208,6 +210,28 @@ describe('List Toolbar Component', () => {
           )).not.toBeNull();
         });
 
+      }));
+
+      it('should remove sort when sort selectors not available', fakeAsync(() => {
+        initializeToolbar();
+        tick();
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          tick();
+          dispatcher.sortSetGlobal([]);
+          dispatcher.sortSetAvailable([]);
+          fixture.detectChanges();
+          tick();
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            state.take(1).subscribe((current) => {
+              expect(current.toolbar.items
+              .filter((item) => { return item.id === 'sort-selector'; }).length).toBe(0);
+            });
+          });
+        });
       }));
 
       it('should not display when sortSelectorEnabled is false', async(() => {
