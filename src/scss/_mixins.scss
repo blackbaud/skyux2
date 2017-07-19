@@ -14,21 +14,21 @@
 @mixin sky-page-heading {
   color: $sky-text-color-default;
   font-weight: 300;
-  font-size: 32px;
+  font-size: 34px;
   font-stretch: condensed;
 }
 
 @mixin sky-section-heading {
   color: $sky-text-color-default;
   font-weight: 300;
-  font-size: 22px;
+  font-size: 26px;
   font-stretch: condensed;
 }
 
 @mixin sky-subsection-heading {
   color: $sky-text-color-deemphasized;
-  font-weight: 400;
-  font-size: 17px;
+  font-weight: 300;
+  font-size: 19px;
 }
 
 @mixin sky-headline {
@@ -41,20 +41,20 @@
 @mixin sky-emphasized {
   color: $sky-text-color-default;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 @mixin sky-deemphasized{
   color: $sky-text-color-deemphasized;
   font-weight: 400;
-  font-size: 14px;
+  font-size: $sky-font-size-base;
   font-style: italic;
 }
 
 @mixin sky-field-label {
   color: $sky-text-color-deemphasized;
   font-weight: 400;
-  font-size: 14px;
+  font-size: $sky-font-size-base;
 }
 
 @mixin sky-field-invalid {
