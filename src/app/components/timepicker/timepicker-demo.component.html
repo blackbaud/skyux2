@@ -4,9 +4,9 @@
     <input type="text" [skyTimepickerInput]="timePickerExample1" [timeFormat]="format12" [(ngModel)]="selectedTime1" #time="ngModel" />
   </sky-timepicker>
   <div class="sky-error-label" *ngIf="time.errors && time.errors.skyTime && (time.dirty || time.touched)">
-    <div [hidden]="!time.errors.skyTime.invalid" >
+    <span [hidden]="!time.errors.skyTime.invalid" >
       Please enter a valid time.
-    </div>
+    </span>
   </div>
 </div>
 <div>
@@ -20,9 +20,9 @@
     />
   </sky-timepicker>
   <div class="sky-error-label" *ngIf="time2.errors && time2.errors.skyTime && (time2.dirty || time2.touched)">
-    <div [hidden]="!time2.errors.skyTime.invalid">
+    <span [hidden]="!time2.errors.skyTime.invalid">
       Please enter a valid time.
-    </div>
+    </span>
   </div>
 </div>
 <div>
@@ -41,9 +41,9 @@
       #time3="ngModel" />
   </sky-timepicker>
   <div class="sky-error-label" *ngIf="time3.errors && time3.errors.skyTime && (time3.dirty || time3.touched)">
-    <div [hidden]="!time.errors.skyTime.invalid">
+    <span [hidden]="!time.errors.skyTime.invalid">
       Please enter a valid time.
-    </div>
+    </span>
   </div>
   Selected time is {{selectedTime3?.local}}
 </div>

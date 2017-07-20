@@ -1,12 +1,12 @@
 @import "../../scss/mixins";
 
 .sky-filter-btn-active, .sky-filter-btn-active:hover, .sky-filter-btn-active:focus   {
-   color: $sky-color-green;
-   border: 2px solid $sky-color-green;
+   color: $sky-highlight-color-success;
+   border: 2px solid $sky-highlight-color-success;
    border-radius: 3px;
    padding: 5px 11px; /* offset the thicker border to avoid button size change */
 }
 
 .sky-filter-btn-active:hover, .sky-filter-btn-active:focus   {
-   color: $sky-text-color;
+   color: $sky-text-color-default;
 }
