@@ -9,6 +9,7 @@ import { SkyActionButtonModule } from './modules/action-button';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
+import { SkyColorpickerModule } from './modules/colorpicker';
 import { SkyColumnSelectorModule } from './modules/column-selector';
 import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
@@ -56,6 +57,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyCardModule,
     SkyCheckboxModule,
     SkyChevronModule,
+    SkyColorpickerModule,
     SkyColumnSelectorModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
@@ -127,6 +129,11 @@ export {
   SkyCheckboxComponent,
   SkyCheckboxModule
 } from './modules/checkbox';
+export {
+  SkyColorpickerComponent,
+  SkyColorpickerModule
+}
+  from './modules/colorpicker';
 export {
   SkyColumnSelectorComponent,
   SkyColumnSelectorContext,
