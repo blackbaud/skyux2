@@ -14,7 +14,7 @@
 }
 
 .sky-demo-page-code-sample {
-  border: solid 1px $sky-color-gray-lighter;
+  @include sky-border(light, top, bottom, left, right);
   border-top: none;
   overflow: auto;
   padding: $sky-padding;

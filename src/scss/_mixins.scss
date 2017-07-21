@@ -1,4 +1,5 @@
 @import "variables";
+@import "~@blackbaud/skyux-design-tokens/scss/mixins.scss";
 
 @mixin sky-shadow (
   $h-shadow: 0px,
@@ -10,50 +11,50 @@
   box-shadow: $h-shadow $v-shadow $blur $spread-radius $color;
 }
 
-@mixin sky-border($type, $sides...) {
-    @if(length($sides) == 0) {
-        @if($type != "tile") {
-            $sides: "bottom";
-        } @else {
-            $sides: "top";
-        }
-    }
+@mixin sky-page-heading {
+  color: $sky-text-color-default;
+  font-weight: 300;
+  font-size: 34px;
+  font-stretch: condensed;
+}
 
-    @each $side in $sides {
-      @if($type == "light") {
-          border-#{$side}: 1px solid $sky-border-color;
-      }
+@mixin sky-section-heading {
+  color: $sky-text-color-default;
+  font-weight: 300;
+  font-size: 26px;
+  font-stretch: condensed;
+}
 
-      @if($type == "dark") {
-          border-#{$side}: 1px solid $sky-color-gray-lighter;
-      }
-
-      @if($type == "nav") {
-          border-#{$side}: $sky-nav-selected-border-width solid $sky-color-blue;
-      }
-
-      @if($type == "tab") {
-          border-#{$side}: 2px solid $sky-color-blue;
-      }
-
-      @if($type == "tile") {
-          border-top: 4px solid $sky-border-color;
-      }
-
-      @if($type == "row") {
-          border-#{$side}: 1px dotted $sky-color-gray-lighter;
-      }
-    }
+@mixin sky-subsection-heading {
+  color: $sky-text-color-deemphasized;
+  font-weight: 300;
+  font-size: 19px;
 }
 
 @mixin sky-headline {
-  font: 400 $sky-alternate-font-size-sm $sky-font-family-narrow;
-  color: $sky-text-color;
+  color: $sky-text-color-default;
+  font-weight: 400;
+  font-size: 22px;
+  font-stretch: condensed;
+}
+
+@mixin sky-emphasized {
+  color: $sky-text-color-default;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+@mixin sky-deemphasized{
+  color: $sky-text-color-deemphasized;
+  font-weight: 400;
+  font-size: $sky-font-size-base;
+  font-style: italic;
 }
 
 @mixin sky-field-label {
-  font: 400 $sky-font-size-base $sky-font-family-base;
-  color: $sky-text-deemphasized-color;
+  color: $sky-text-color-deemphasized;
+  font-weight: 400;
+  font-size: $sky-font-size-base;
 }
 
 @mixin sky-field-invalid {
@@ -62,34 +63,30 @@
   outline: none;
 }
 
-@mixin sky-section-heading {
-  color: $sky-text-color;
-  font: 300 22px $sky-font-family-narrow;
-}
-
 @mixin sky-btn-tab {
   background-color: transparent;
   border: none;
   border-radius: 4px 4px 0 0;
-  color: $sky-color-gray;
+  color: $sky-text-color-deemphasized;
   cursor: pointer;
   display: inline-block;
   font-weight: 600;
   line-height: 1.8;
   padding: $sky-tab-btn-padding-top-bottom $sky-tab-btn-padding-left-right;
 
-  &:hover {
-    background-color: $sky-color-gray-lightest;
-    color: $sky-color-gray;
+  &:hover, &:focus {
+    background-color: $sky-background-color-neutral-light;
+    color: $sky-text-color-default;
+    text-decoration: none;
   }
 }
 
 @mixin sky-btn-tab-selected {
-  background-color: $sky-color-blue;
+  background-color: $sky-background-color-primary-dark;
   color: #fff;
 
-  &:hover {
-    background-color: $sky-color-blue;
+  &:hover, &:focus {
+    background-color: $sky-background-color-primary-dark;
     color: #fff;
   }
 }
@@ -166,7 +163,7 @@
   transition: background-color $sky-transition-time-short;
 
   &:hover {
-    background-color: $sky-color-gray-lightest;
+    background-color: $sky-background-color-neutral-light;
   }
 
   /deep/ > button {

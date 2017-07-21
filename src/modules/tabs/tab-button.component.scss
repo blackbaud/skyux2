@@ -1,12 +1,13 @@
 @import "../../scss/mixins";
 
 .sky-tab-button-close {
-  color: $sky-color-gray-light;
+  color: $sky-text-color-deemphasized;
   line-height: 1.4;
   margin-left: $sky-margin-half;
 
   &:hover {
-    color: $sky-color-gray;
+    color: $sky-text-color-default;
+    transition: color $sky-transition-time-short;
   }
 }
 

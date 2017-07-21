@@ -2,6 +2,7 @@
 
 .sky-action-button-header {
   display: inline-block;
+  @include sky-section-heading();
 }
 
 @media (max-width: $sky-screen-xs-max) {

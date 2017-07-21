@@ -10,7 +10,7 @@
   }
 
   /deep/ .sky-btn-default:hover, /deep/ .sky-btn-active {
-    border-color: darken($sky-color-gray-lighter, 12%);
+    border-color: darken($sky-border-color-neutral-light, 12%);
   }
 
   /deep/ .sky-datepicker-center {
@@ -19,12 +19,12 @@
 
   /deep/ .sky-datepicker-btn-selected {
     color: $sky-color-white;
-    background-color: $sky-color-blue;
+    background-color: $sky-background-color-primary-dark;
     @include sky-border(dark, top, bottom, left, right);
   }
 
   /deep/ .sky-datepicker-secondary {
-    color: $sky-color-gray-light;
+    color: $sky-text-color-deemphasized;
   }
 
   /deep/ .sky-datepicker-btn-date {

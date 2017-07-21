@@ -103,11 +103,11 @@ describe('List View Checklist Component', () => {
     it('should show checklist with proper labels', () => {
       expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(7);
       expect(element.query(
-        By.css('sky-list-view-checklist-item sky-checkbox-label strong')
+        By.css('sky-list-view-checklist-item sky-checkbox-label .sky-emphasized')
       ).nativeElement.textContent.trim()).toBe('1');
-      expect(element.query(
+      expect(element.queryAll(
         By.css('sky-list-view-checklist-item sky-checkbox-label div')
-      ).nativeElement.textContent.trim()).toBe('Apple');
+      )[1].nativeElement.textContent.trim()).toBe('Apple');
     });
 
     it('should search based on input text', async(() => {
