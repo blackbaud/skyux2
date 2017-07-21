@@ -8,16 +8,16 @@
       #date="ngModel"/>
   </sky-datepicker>
   <div class="sky-error-label" *ngIf="date.errors && date.errors.skyDate && (date.dirty || date.touched)">
-    <div [hidden]="!date.errors.skyDate.invalid">
+    <span [hidden]="!date.errors.skyDate.invalid">
       Please enter a valid date.
-    </div>
-    <div [hidden]="!date.errors.skyDate.minDate">
+    </span>
+    <span [hidden]="!date.errors.skyDate.minDate">
       Date is prior to minimum date range.
-    </div>
+    </span>
 
-    <div [hidden]="!date.errors.skyDate.maxDate">
+    <span [hidden]="!date.errors.skyDate.maxDate">
       Date is after maximum date range.
-    </div>
+    </span>
   </div>
 </div>
 

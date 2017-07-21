@@ -3,13 +3,13 @@
 .sky-avatar {
   /deep/ .sky-file-drop-accept {
     .sky-avatar-wrapper {
-      border: dashed $sky-avatar-border-width $sky-color-green;
+      border: dashed $sky-avatar-border-width $sky-highlight-color-success;
     }
   }
 
   /deep/ .sky-file-drop-reject {
     .sky-avatar-wrapper {
-      border: dashed $sky-avatar-border-width $sky-color-red;
+      border: dashed $sky-avatar-border-width $sky-highlight-color-danger;
     }
   }
 

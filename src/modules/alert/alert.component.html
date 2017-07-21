@@ -10,7 +10,7 @@
     [hidden]="closed"
     role="alert"
 >
-  <ng-content></ng-content>
+  <div class="sky-alert-content"><ng-content></ng-content></div>
   <button
       type="button"
       class="sky-alert-close"
@@ -18,6 +18,6 @@
       [attr.aria-label]="'alert_close' | skyResources"
       [hidden]="!closeable"
   >
-    <span aria-hidden="true">&times;</span>
+    <span aria-hidden="true"><i class="fa fa-close"></i></span>
   </button>
 </div>

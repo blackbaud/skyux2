@@ -25,7 +25,7 @@
     .sky-dropdown-item {
       color: $sky-nav-color;
       display: block;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: normal;
       margin: 0;
 
@@ -48,7 +48,7 @@
   {
     background-color: $sky-nav-selected-background-color;
     color: $sky-nav-selected-color;
-    @include sky-border(nav);
+    border-bottom: $sky-nav-selected-border-width solid #1c84c6;
     padding-bottom: $sky-nav-item-padding - $sky-nav-selected-border-width;
   }
 }

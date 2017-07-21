@@ -9,8 +9,7 @@ var LOAD_TIMEOUT = 30000;
 module.exports = {
   loadStyles: function (callback) {
     var fontAwesome = new FontFaceObserver('FontAwesome'),
-      openSans = new FontFaceObserver('Open Sans'),
-      oswald = new FontFaceObserver('Oswald'),
+      blackbaudSans = new FontFaceObserver('Blackbaud Sans'),
       promise;
 
     promise = Promise.all(
@@ -19,8 +18,7 @@ module.exports = {
         // when the font is loaded unless a known character with a different width
         // than the default is not specified.
         fontAwesome.load('\uf0fc', LOAD_TIMEOUT),
-        openSans.load(null, LOAD_TIMEOUT),
-        oswald.load(null, LOAD_TIMEOUT)
+        blackbaudSans.load(null, LOAD_TIMEOUT)
       ]
     );
 
