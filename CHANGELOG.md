@@ -1,8 +1,18 @@
+# 2.0.0-rc.8 (2017-07-21)
+
+  - Updated rxjs library to 5.4.2. (#885) (Thanks @Blackbaud-TrevorBurch)
+  - Updated small card width to 225px and large card with to 350px to account for increased font sizes.
+  - Updated modal to automatically put focus in dialog when opening. (#860, #771, #478)
+  - Updated modal to keep focus in dialog until it is closed. (#860, #771, #635)
+  - Fixed typo in modal testing documentation. (#829)
+  - Updated modal to close when the escape key is pressed. (#772)
+  - Updated modal to return focus to the element that opened the modal (#771)
+
 # 2.0.0-rc.7 (2017-07-20)
   
 ### Breaking visual changes
 
-  - We have released changes to the SKY UX color scheme and fonts. These changes allow SKY UX to meet accessibility standards as well as increasing our brand alignment with marketing. (#247 #250 #739 #913).
+  - We have released changes to the SKY UX color scheme and fonts. These changes allow SKY UX to meet accessibility standards as well as increasing our brand alignment with marketing. (#247, #250, #739, #913).
 
 # 2.0.0-rc.6 (2017-07-18)
   
