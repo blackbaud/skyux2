@@ -12,7 +12,7 @@
   
 ### Breaking visual changes
 
-  - We have released changes to the SKY UX color scheme and fonts. These changes allow SKY UX to meet accessibility standards as well as increasing our brand alignment with marketing. (#247 #250 #739 #913).
+  - We have released changes to the SKY UX color scheme and fonts. These changes allow SKY UX to meet accessibility standards as well as increasing our brand alignment with marketing. (#247, #250, #739, #913).
 
 # 2.0.0-rc.6 (2017-07-18)
   
