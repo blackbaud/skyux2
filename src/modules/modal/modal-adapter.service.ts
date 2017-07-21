@@ -27,4 +27,8 @@ export class SkyModalAdapterService {
       document.body.classList.remove(modalClass);
     }
   }
+
+  public getModalOpener(): HTMLElement {
+    return <HTMLElement>document.activeElement;
+  }
 }
