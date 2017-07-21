@@ -5,6 +5,11 @@
 <!--<div @modalState="modalState">-->
 
 <div
+  class="sky-modal-dialog"
+  role="dialog"
+  tabindex="-1"
+  [attr.aria-describedby]="ariaDescribedBy"
+  [attr.aria-labelledby]="ariaLabelledBy"
   (window:resize)="windowResize()"
 >
   <div class="sky-modal"
@@ -19,7 +24,7 @@
       }">
 
     <div class="sky-modal-header" [hidden]="!headerContent || !headerContent.children || headerContent.children.length < 1">
-      <div class="sky-modal-header-content"  #headerContent>
+      <div [attr.id]="modalHeaderId" class="sky-modal-header-content"  #headerContent>
         <ng-content select="sky-modal-header"></ng-content>
       </div>
       <div class="sky-modal-header-buttons">
@@ -31,7 +36,7 @@
       </div>
 
     </div>
-    <div class="sky-modal-content">
+    <div [attr.id]="modalContentId" class="sky-modal-content">
       <ng-content select="sky-modal-content"></ng-content>
     </div>
     <div class="sky-modal-footer">
