@@ -12,13 +12,13 @@
     // vertically aligned with one another.  Otherwise because of the inline nature of the card the browser
     // will attempt to vertically align the cards based on the baselines of the text in each card.
     vertical-align: top;
-    width: 300px;
+    width: 350px;
     @include sky-shadow();
 }
 
 .sky-card-small {
     height: 250px;
-    width: 200px;
+    width: 225px;
 }
 
 .sky-card-selectable {
