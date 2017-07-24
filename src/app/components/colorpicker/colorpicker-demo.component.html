@@ -66,7 +66,7 @@
     </sky-definition-list-label>
     <sky-definition-list-value *ngIf="color2?.rgbaText">
 
-      {{color2?.rgbaText}}
+      <div style="margin-bottom: 5px;">{{color2?.rgbaText}}</div>
       <div style="border-color: #999;width: 28px;height: 28px;border-radius: 50%;border-width: 2px;border-style: solid;">
         <div [style.background-color]="color2?.rgbaText" style="width:24px;height:24px;    border-radius: 50%;">&nbsp;</div>
       </div>
