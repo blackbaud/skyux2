@@ -96,6 +96,9 @@
 }
 
 .sky-alert-closeable {
+    padding-top: $sky-padding-half;
+    padding-bottom: $sky-padding-half;
+  
     .sky-alert-close {
         display: block;
     }
