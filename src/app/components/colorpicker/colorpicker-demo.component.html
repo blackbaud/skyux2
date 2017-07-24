@@ -1,12 +1,90 @@
-<h3>Color picker</h3>
-<table cellpadding="10" style="height:200px; width:500px;">
+<div style="margin-bottom: 10px">
+  <sky-colorpicker #colorPickerExample1>
+    <input
+      [skyColorpickerInput]="colorPickerExample1"
+      [(ngModel)]="color1" [presetColors]="presetColors1"
+      [initialColor]="selectedColor1"
+      [outputFormat]="selectedOutputFormat1" />
+  </sky-colorpicker>
+</div>
+<sky-definition-list>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      RGBA
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color1?.rgba">
+      {{color1?.rgba?.red}}, {{color1?.rgba?.green}}, {{color1?.rgba?.blue}}, {{color1?.rgba?.alpha}}
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      HSLA
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color1?.hsla">
+      {{color1?.hsla?.hue}}, {{color1?.hsla?.saturation}}, {{color1?.hsla?.lightness}}, {{color1?.hsla?.alpha}}
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      HSVA
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color1?.hsva">
+      {{color1?.hsva?.hue}}, {{color1?.hsva?.saturation}}, {{color1?.hsva?.value}}, {{color1?.hsva?.alpha}}
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      CMYK
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color1?.cmyk">
+      {{color1?.cmyk?.cyan}}, {{color1?.cmyk?.magenta}}, {{color1?.cmyk?.yellow}}, {{color1?.cmyk?.key}}
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+</sky-definition-list>
+
+<div style="margin-bottom: 10px">
+  <sky-colorpicker #colorPickerExample2>
+    <input
+      type="text"
+      [skyColorpickerInput]="colorPickerExample2"
+      [(ngModel)]="color2" />
+  </sky-colorpicker>
+</div>
+
+<sky-definition-list>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      HEX
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color2?.hex">
+      {{color2?.hex}}
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      RGBA CSS
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color2?.rgbaText">
+
+      {{color2?.rgbaText}}
+      <div style="border-color: #999;width: 28px;height: 28px;border-radius: 50%;border-width: 2px;border-style: solid;">
+        <div [style.background-color]="color2?.rgbaText" style="width:24px;height:24px;    border-radius: 50%;">&nbsp;</div>
+      </div>
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+
+</sky-definition-list>
+<!--<div>
+  <div style="margin-bottom: 5px">: <span *ngIf=""></span></div>
+  <div style="margin-bottom: 5px">HSLA: <span ></span></div>
+  <div style="margin-bottom: 5px">: <span ></span></div>
+  <div style="margin-bottom: 5px">: <span ></span></div>
+</div>-->
+
+<!--<table cellpadding="10" style="height:200px; width:500px;">
   <tr>
     <td style="vertical-align:top;width:200px;">
-      <sky-colorpicker #colorPickerExample1>
-        <button [skyColorpickerInput]="colorPickerExample1" [(ngModel)]="color1" [presetColors]="presetColors1" [initialColor]="selectedColor1"
-          [outputFormat]="selectedOutputFormat1">
-    </button>
-      </sky-colorpicker>
+
       <table style="margin:10px">
         <thead>
           <tr>
@@ -43,14 +121,12 @@
       </table>
     </td>
     <td style="vertical-align:top;width:200px;">
-      <sky-colorpicker #colorPickerExample2>
-        <input type="text" [skyColorpickerInput]="colorPickerExample2" [(ngModel)]="color2" />
-      </sky-colorpicker>
+
       <table style="margin:10px">
         <thead>
           <tr>
             <th style="width:20%;">HEX</th>
-            <th colspan="2" style="width:80%;">RGBA CSS</th>
+            <th colspan="2" style="width:80%;"></th>
           </tr>
         </thead>
         <tr>
@@ -60,9 +136,9 @@
               <div [style.background-color]="color2?.rgbaText" style="width:24px;height:24px;    border-radius: 50%;">&nbsp;</div>
             </div>
           </td>
-          <td><span>{{color2?.rgbaText}}</span></td>
+          <td><span></span></td>
         </tr>
       </table>
     </td>
   </tr>
-</table>
+</table>-->

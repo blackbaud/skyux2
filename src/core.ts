@@ -129,9 +129,16 @@ export {
 } from './modules/checkbox';
 export {
   SkyColorpickerComponent,
-  SkyColorpickerModule
-}
-  from './modules/colorpicker';
+  SkyColorpickerModule,
+  SkyColorpickerOutput,
+  SkyColorpickerInputDirective,
+  SliderDimension,
+  SliderPosition,
+  SkyColorpickerSliderDirective,
+  SkyColorpickerTextDirective,
+  SkyColorpickerService
+
+} from './modules/colorpicker';
 export {
   SkyColumnSelectorComponent,
   SkyColumnSelectorContext,
