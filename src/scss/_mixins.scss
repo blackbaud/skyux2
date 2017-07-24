@@ -12,39 +12,42 @@
 }
 
 @mixin sky-page-heading {
+  font-family: $sky-font-family-condensed;
   color: $sky-text-color-default;
   font-weight: 300;
   font-size: 34px;
-  font-stretch: condensed;
 }
 
 @mixin sky-section-heading {
+  font-family: $sky-font-family-condensed;
   color: $sky-text-color-default;
   font-weight: 300;
   font-size: 26px;
-  font-stretch: condensed;
 }
 
 @mixin sky-subsection-heading {
+  font-family: $sky-font-family;
   color: $sky-text-color-deemphasized;
   font-weight: 300;
   font-size: 19px;
 }
 
 @mixin sky-headline {
+  font-family: $sky-font-family-condensed;
   color: $sky-text-color-default;
   font-weight: 400;
   font-size: 22px;
-  font-stretch: condensed;
 }
 
 @mixin sky-emphasized {
+  font-family: $sky-font-family;
   color: $sky-text-color-default;
   font-weight: 600;
   font-size: 16px;
 }
 
 @mixin sky-deemphasized{
+  font-family: $sky-font-family;
   color: $sky-text-color-deemphasized;
   font-weight: 400;
   font-size: $sky-font-size-base;
@@ -52,6 +55,7 @@
 }
 
 @mixin sky-field-label {
+  font-family: $sky-font-family;
   color: $sky-text-color-deemphasized;
   font-weight: 400;
   font-size: $sky-font-size-base;
