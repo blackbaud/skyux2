@@ -19,6 +19,10 @@ export class SkyModalHostService {
     return SkyModalHostService.BASE_Z_INDEX + SkyModalHostService.modalHosts.length * 10;
   }
 
+  public static get topModal(): SkyModalHostService {
+    return SkyModalHostService.modalHosts[SkyModalHostService.modalHosts.length - 1];
+  }
+
   private static modalHosts: SkyModalHostService[] = [];
 
   public close = new EventEmitter<SkyModalComponent>();

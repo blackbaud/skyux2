@@ -134,7 +134,7 @@ export class SkyDemoComponentsService {
             {
               name: 'colorpicker-demo.component.ts',
               fileContents: require('!!raw-loader!./colorpicker/colorpicker-demo.component.ts'),
-              componentName: 'SkyColorPickerDemoComponent',
+              componentName: 'SkyColorpickerDemoComponent',
               bootstrapSelector: 'sky-colorpicker-demo'
             }
           ];
