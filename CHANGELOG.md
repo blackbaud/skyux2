@@ -1,3 +1,12 @@
+# 2.0.0-rc.9 (2017-07-25)
+
+  - Adjusted z-index of colorpicker button to prevent it from appearing over the colorpicker menu.
+  - Added colorpicker directives/classes to core exports.
+  - Fixed documentation around design colors. (#931)
+  - Adjusted padding of alerts so that size does not change when adding close button. (#929)
+  - Fixed the condensed fonts so they appear properly in Safari. (#927)
+  - Added the `sky-control-label` and `sky-control-label-required` classes and documentation. (#872)
+
 # 2.0.0-rc.8 (2017-07-21)
 
   - Updated rxjs library to 5.4.2. (#885) (Thanks @Blackbaud-TrevorBurch)
