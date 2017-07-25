@@ -28,3 +28,16 @@ select.ng-invalid.submitted {
   margin-right: 5px;
   color: $sky-highlight-color-danger;
 }
+
+.sky-control-label {
+  display: inline-block;
+  font-weight: normal;
+  margin-bottom: $sky-margin-half;
+  max-width: 100%;
+}
+
+.sky-control-label-required:after {
+  content: "*";
+  color: $sky-highlight-color-danger;
+  padding-left: $sky-padding-half;
+}
