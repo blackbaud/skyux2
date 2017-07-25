@@ -10,7 +10,6 @@ if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular
   rimraf ./node_modules/@blackbaud/stache/node_modules/@angular
 
-  ./scripts/browserstack-cleanup.sh
   npm run ci
 
   skyux build
