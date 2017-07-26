@@ -29,7 +29,7 @@ Before you begin to contribute to SKY UX 2, please consider these general guidel
 1. [Fork the master branch](https://help.github.com/articles/fork-a-repo/) into your own GitHub repo.
 2. Create a branch named after the feature you will contribute. The name of your branch should be kebab-case (e.g. my-new-feature).
 3. Clone your repo locally, then run `npm install` from your local repo's directory to install all required dependencies.
-4. Run your first round of visual regression tests by following the instructions in the [Write visual regression tests](#writing-visual-regression-tests) section below.  This establishes baseline screenshots of the components in the master repo so that as you make changes and run your visual regression tests, your changes are validated against the state of the repo before the changes.
+4. Run your first round of visual regression tests by following the instructions in the [Write visual regression tests](#write-visual-regression-tests) section below. This establishes baseline screenshots of the components in the master repo so that as you make changes and run your visual regression tests, your changes are validated against the state of the repo before the changes.
 
 ### Write the code
 
