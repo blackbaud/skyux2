@@ -88,6 +88,9 @@ export class SkyModalComponentAdapterService {
     /* istanbul ignore else */
     /* handle the case where somehow there is a focused element already in the modal */
     if (!(document.activeElement && modalEl.nativeElement.contains(document.activeElement))) {
+      let currentScrollX = window.pageXOffset;
+      let currentScrollY = window.pageYOffset;
+
       let inputWithAutofocus = modalEl.nativeElement.querySelector('[autofocus]');
 
       if (inputWithAutofocus) {
@@ -97,6 +100,7 @@ export class SkyModalComponentAdapterService {
         focusEl.focus();
 
       }
+      window.scrollTo(currentScrollX, currentScrollY);
     }
   }
 
