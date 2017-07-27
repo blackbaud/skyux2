@@ -1,41 +1,44 @@
+# 2.0.0-rc.10 (2017-07-27)
+
+  - Ensure that modal doesn't lose background scroll position on open. ([#940](https://github.com/blackbaud/skyux2/issues/940))
 # 2.0.0-rc.9 (2017-07-25)
 
   - Adjusted z-index of colorpicker button to prevent it from appearing over the colorpicker menu.
   - Added colorpicker directives/classes to core exports.
-  - Fixed documentation around design colors. (#931)
-  - Adjusted padding of alerts so that size does not change when adding close button. (#929)
-  - Fixed the condensed fonts so they appear properly in Safari. (#927)
-  - Added the `sky-control-label` and `sky-control-label-required` classes and documentation. (#872)
+  - Fixed documentation around design colors. ([#931](https://github.com/blackbaud/skyux2/issues/931))
+  - Adjusted padding of alerts so that size does not change when adding close button. ([#929](https://github.com/blackbaud/skyux2/issues/929))
+  - Fixed the condensed fonts so they appear properly in Safari. ([#927](https://github.com/blackbaud/skyux2/issues/927))
+  - Added the `sky-control-label` and `sky-control-label-required` classes and documentation. ([#872](https://github.com/blackbaud/skyux2/issues/872))
 
 # 2.0.0-rc.8 (2017-07-21)
 
-  - Updated rxjs library to 5.4.2. (#885) (Thanks @Blackbaud-TrevorBurch)
+  - Updated rxjs library to 5.4.2. ([#885](https://github.com/blackbaud/skyux2/issues/885)) (Thanks @Blackbaud-TrevorBurch)
   - Updated small card width to 225px and large card with to 350px to account for increased font sizes.
-  - Updated modal to automatically put focus in dialog when opening. (#860, #771, #478)
-  - Updated modal to keep focus in dialog until it is closed. (#860, #771, #635)
-  - Fixed typo in modal testing documentation. (#829)
-  - Updated modal to close when the escape key is pressed. (#772)
-  - Updated modal to return focus to the element that opened the modal (#771)
+  - Updated modal to automatically put focus in dialog when opening. ([#860](https://github.com/blackbaud/skyux2/issues/860), [#771](https://github.com/blackbaud/skyux2/issues/771), [#478](https://github.com/blackbaud/skyux2/issues/478))
+  - Updated modal to keep focus in dialog until it is closed. ([#860](https://github.com/blackbaud/skyux2/issues/860), [#771](https://github.com/blackbaud/skyux2/issues/771), [#635](https://github.com/blackbaud/skyux2/issues/635))
+  - Fixed typo in modal testing documentation. ([#829](https://github.com/blackbaud/skyux2/issues/829))
+  - Updated modal to close when the escape key is pressed. ([#772](https://github.com/blackbaud/skyux2/issues/772))
+  - Updated modal to return focus to the element that opened the modal ([#771](https://github.com/blackbaud/skyux2/issues/771))
 
 # 2.0.0-rc.7 (2017-07-20)
   
 ### Breaking visual changes
 
-  - We have released changes to the SKY UX color scheme and fonts. These changes allow SKY UX to meet accessibility standards as well as increasing our brand alignment with marketing. (#247, #250, #739, #913).
+  - We have released changes to the SKY UX color scheme and fonts. These changes allow SKY UX to meet accessibility standards as well as increasing our brand alignment with marketing. ([#247](https://github.com/blackbaud/skyux2/issues/247), [#250](https://github.com/blackbaud/skyux2/issues/250), [#739](https://github.com/blackbaud/skyux2/issues/739), [#913](https://github.com/blackbaud/skyux2/issues/913)).
 
 # 2.0.0-rc.6 (2017-07-18)
   
-  - Added single-select mode for checklist. (#387)
+  - Added single-select mode for checklist. ([#387](https://github.com/blackbaud/skyux2/issues/387))
   - Updated node version to 6.11.1 in response to security vulnerability (https://nodejs.org/en/blog/vulnerability/july-2017-security-releases/)
-  - Handled IE11 grid sort bug. (#891)
-  - Added the color picker component. (#725) (Thanks @Blackbaud-JaminQuimby)
+  - Handled IE11 grid sort bug. ([#891](https://github.com/blackbaud/skyux2/issues/891))
+  - Added the color picker component. ([#725](https://github.com/blackbaud/skyux2/issues/725)) (Thanks @Blackbaud-JaminQuimby)
 
 # 2.0.0-rc.5 (2017-07-11)
 
-  - Added default aria-label for dropdown. (#854, #855). (Thanks @Blackbaud-AdamHickey)
-  - Fixed padding around file attachment. (#823) (Thanks @Blackbaud-SandhyaRajasabeson)
-  - Fixed error modal when using long description in IE11. (#784) (Thanks @Blackbaud-AdamHickey)
-  - Fixed navbar alignment in IE11. (#853) (Thanks @Blackbaud-AdamHickey)
+  - Added default aria-label for dropdown. ([#854](https://github.com/blackbaud/skyux2/issues/854), [#855](https://github.com/blackbaud/skyux2/issues/855)). (Thanks @Blackbaud-AdamHickey)
+  - Fixed padding around file attachment. ([#823](https://github.com/blackbaud/skyux2/issues/823)) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Fixed error modal when using long description in IE11. ([#784](https://github.com/blackbaud/skyux2/issues/784)) (Thanks @Blackbaud-AdamHickey)
+  - Fixed navbar alignment in IE11. ([#853](https://github.com/blackbaud/skyux2/issues/853)) (Thanks @Blackbaud-AdamHickey)
 
 # 2.0.0-rc.4 (2017-06-24)
 
@@ -43,9 +46,9 @@
 
 # 2.0.0-rc.3 (2017-06-24)
   
-  - Added keyboard support for tab component. (#188) (Thanks @Blackbaud-SandhyaRajasabeson)
-  - Added animation polyfill for increased browser support. (#803) (Thanks @Blackbaud-SandhyaRajasabeson)
-  - Added text highlight directive. (#775)
+  - Added keyboard support for tab component. ([#188](https://github.com/blackbaud/skyux2/issues/188)) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added animation polyfill for increased browser support. ([#803](https://github.com/blackbaud/skyux2/issues/803)) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added text highlight directive. ([#775](https://github.com/blackbaud/skyux2/issues/775))
 
   ### Library updates
 
@@ -58,8 +61,8 @@
 
 # 2.0.0-beta.33 (2017-06-23)
 
-  - Added the SkyNumeric Pipe. (#764) (Thanks @Blackbaud-AdamSc)
-  - Added the email validation directive. (#379) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added the SkyNumeric Pipe. ([#764](https://github.com/blackbaud/skyux2/issues/764)) (Thanks @Blackbaud-AdamSc)
+  - Added the email validation directive. ([#379](https://github.com/blackbaud/skyux2/issues/379)) (Thanks @Blackbaud-SandhyaRajasabeson)
 
 # 2.0.0-rc.1 (2017-06-20)
   
@@ -71,22 +74,22 @@
 
 # 2.0.0-beta.32 (2017-06-20)
 
-  - Tweaked animation for text-expand in firefox. (#695)
-  - Handle search when paging does not exist. (#813)
+  - Tweaked animation for text-expand in firefox. ([#695](https://github.com/blackbaud/skyux2/issues/695))
+  - Handle search when paging does not exist. ([#813](https://github.com/blackbaud/skyux2/issues/813))
 
 # 2.0.0-rc.0 (2017-06-16)
 
-  - Updated dependencies to support Angular 4.1.3. (#549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
+  - Updated dependencies to support Angular 4.1.3. ([#549](https://github.com/blackbaud/skyux2/issues/549)) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
   - Updated visual test process for SKY UX 2. 
 
 # 2.0.0-beta.31 (2017-06-14)
 
-  - Added ability to specify sizes for modals. (#489) (Thanks @Blackbaud-AdamHickey)
-  - Added timepicker module to core exports. (#754)
-  - Fixed responsiveness for large modal size. (#778)
-  - Made the dropdown adjust alignment based on space available. (#777)
-  - Fixed the AOT compilation for datepicker. (#794) (Thanks @Blackbaud-JoshGerdes)
-  - Added `isPrimary` flag for dropdowns. (#606) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added ability to specify sizes for modals. ([#489](https://github.com/blackbaud/skyux2/issues/489)) (Thanks @Blackbaud-AdamHickey)
+  - Added timepicker module to core exports. ([#754](https://github.com/blackbaud/skyux2/issues/754))
+  - Fixed responsiveness for large modal size. ([#778](https://github.com/blackbaud/skyux2/issues/778))
+  - Made the dropdown adjust alignment based on space available. ([#777](https://github.com/blackbaud/skyux2/issues/777))
+  - Fixed the AOT compilation for datepicker. ([#794](https://github.com/blackbaud/skyux2/issues/794)) (Thanks @Blackbaud-JoshGerdes)
+  - Added `isPrimary` flag for dropdowns. ([#606](https://github.com/blackbaud/skyux2/issues/606)) (Thanks @Blackbaud-SandhyaRajasabeson)
 
 # 2.0.0-beta.30 (2017-06-07)
   
