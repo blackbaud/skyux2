@@ -317,6 +317,13 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Form',
+        icon: 'keyboard-o',
+        // tslint:disable-next-line
+        summary: `The form classes create styled inputs and labels for use in forms.`,
+        url: '/components/form'
+      },
+      {
         name: 'Grid',
         icon: 'table',
         // tslint:disable-next-line

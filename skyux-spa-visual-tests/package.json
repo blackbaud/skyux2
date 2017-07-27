@@ -4,7 +4,8 @@
   "description": "Single-page-application for skyux-spa-visual-tests",
   "main": "index.js",
   "engines": {
-    "node": ">=6.3.1"
+    "node": ">= 6.11.1",
+    "npm": ">= 3"
   },
   "scripts": {
     "skyux": "skyux",
