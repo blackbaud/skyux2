@@ -21,6 +21,7 @@ export class HomeComponent {
     'error',
     'fileattachments',
     'filter',
+    'fluid-grid',
     'forms',
     'grid',
     'key-info',

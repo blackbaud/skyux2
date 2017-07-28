@@ -18,6 +18,7 @@ import { SkyEmailValidationModule } from './modules/email-validation';
 import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
+import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
 import { SkyGridModule } from './modules/grid';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
@@ -64,6 +65,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyErrorModule,
     SkyFileAttachmentsModule,
     SkyFilterModule,
+    SkyFluidGridModule,
     SkyGridModule,
     SkyKeyInfoModule,
     SkyLabelModule,
