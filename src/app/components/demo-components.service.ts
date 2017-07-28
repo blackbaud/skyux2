@@ -216,12 +216,12 @@ export class SkyDemoComponentsService {
             {
               name: 'email-validation-demo.component.html',
               fileContents: require
-              ('!!raw-loader!./email-validation/email-validation-demo.component.html')
+                ('!!raw-loader!./email-validation/email-validation-demo.component.html')
             },
             {
               name: 'email-validation.component.ts',
               fileContents: require
-              ('!!raw-loader!./email-validation/email-validation-demo.component.ts'),
+                ('!!raw-loader!./email-validation/email-validation-demo.component.ts'),
               componentName: 'SkyEmailValidationDemoComponent',
               bootstrapSelector: 'sky-email-validation-demo'
             }
@@ -321,7 +321,21 @@ export class SkyDemoComponentsService {
         icon: 'table',
         // tslint:disable-next-line
         summary: `Provides a layout grid for creating responsive content.`,
-        url: '/components/fluid-grid'
+        url: '/components/fluid-grid',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'fluid-grid.component.html',
+              fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.html')
+            },
+            {
+              name: 'fluid-grid-demo.component.ts',
+              fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.ts'),
+              componentName: 'SkyFluidGridDemoComponent',
+              bootstrapSelector: 'sky-fluid-grid-demo'
+            }
+          ];
+        }
       },
       {
         name: 'Form',

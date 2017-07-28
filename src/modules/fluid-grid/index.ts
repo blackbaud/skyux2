@@ -1,3 +1,3 @@
-export * from './column.component';
-export * from './row.component';
-export * from './fluid-grid.module';
+export { SkyColumnComponent } from './column.component';
+export { SkyRowComponent } from './row.component';
+export { SkyFluidGridModule } from './fluid-grid.module';
