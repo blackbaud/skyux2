@@ -39,6 +39,18 @@
         <li><p>The test runs, and the command prompt displays the results.</p></li>
     </ol>
 
+    <stache-page-anchor>
+        Controlling Test Runs
+    </stache-page-anchor>
+
+    <p>During development there may be times when you want control over which tests are included during a test run. You can follow the steps in this tutorial to better control your test runs.</p>
+
+    <h3>Exclude tests from a test run</h3>
+    <p>In order to exclude tests from a test run you can simply change <stache-code>it</stache-code> to <stache-code>xit</stache-code> for the test you wish to exclude or <stache-code>describe</stache-code> to <stache-code>xdescribe</stache-code> if you wish to exclude an entire test suite.</p>
+
+    <h3>Explicitly include tests in a test run</h3>
+    <p>If you would like to limit a test run to only include a subset of tests you can change <stache-code>it</stache-code> to <stache-code>fit</stache-code> or <stache-code>describe</stache-code> to <stache-code>fdescribe</stache-code> and only those tests or test suites will be included in the test run.
+
     <stache-row>
         <stache-column screenSmall="6">
             <div class="tutorial-previous-button">
