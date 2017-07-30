@@ -27,7 +27,7 @@ describe('Fluid grid', () => {
   });
 
   it('should display two on the top row and one on the bottom row when on a medium screen', () => {
-    return SkyVisualTest.setupTest('fluid-grid', 1000)
+    return SkyVisualTest.setupTest('fluid-grid', 1100)
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-screenmedium-tworows',
@@ -38,7 +38,7 @@ describe('Fluid grid', () => {
   });
 
   it('should display all columns distributed unevenly when on a large screen', () => {
-    return SkyVisualTest.setupTest('fluid-grid', 1500)
+    return SkyVisualTest.setupTest('fluid-grid', 1400)
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-screenlarge-unevenrow',
