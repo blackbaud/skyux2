@@ -57,7 +57,7 @@ describe('Card', () => {
     return SkyVisualTest.setupTest('card')
     .then(() => {
       SkyVisualTest.scrollElementIntoView('#screenshot-card-selectable');
-      element(by.css('#screenshot-card-selectable .sky-card-title')).click()
+      element(by.css('#screenshot-card-selectable .sky-card-title')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'card-selected',
         selector: '#screenshot-card-selectable',
