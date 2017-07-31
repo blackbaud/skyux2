@@ -2,13 +2,13 @@
 
 .sky-help-inline {
   margin-left: $sky-padding-half;
-  color: $sky-color-blue;
+  color: $sky-text-color-action-primary;
+  font-size: 14px;
   background-color: transparent;
   border: none;
   display: inline-block;
-  font-size: $sky-font-size-lg;
   &:hover {
-    color: darken($sky-color-blue, 10%);
+    color: darken($sky-text-color-action-primary, 10%);
     transition: color $sky-transition-time-short;
   }
 }
