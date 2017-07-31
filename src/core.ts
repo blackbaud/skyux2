@@ -204,6 +204,11 @@ export {
   SkyFilterSummaryItemComponent
 } from './modules/filter';
 export {
+  SkyColumnComponent,
+  SkyFluidGridModule,
+  SkyRowComponent
+} from './modules/fluid-grid';
+export {
   SkyFormat
 } from './modules/format';
 export {
