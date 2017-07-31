@@ -59,6 +59,7 @@
     "@angular/platform-browser": "4.2.5",
     "@angular/platform-browser-dynamic": "4.2.5",
     "@angular/router": "4.2.5",
+    "@blackbaud/skyux": "2.0.0-rc.10",
     "@blackbaud/skyux-builder": "1.0.0-rc.13",
     "@blackbaud/skyux-design-tokens": "0.0.7",
     "@blackbaud/stache": "2.0.0-rc.1",
