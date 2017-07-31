@@ -2,14 +2,12 @@ import {
   Component,
   ContentChildren,
   QueryList,
-  AfterContentInit,
-  ChangeDetectorRef
+  AfterContentInit
 } from '@angular/core';
 
 import { SkyListFilterInlineItemComponent } from './list-filter-inline-item.component';
 
 import {
-  ListState,
   ListStateDispatcher
 } from '../list/state';
 
@@ -32,8 +30,6 @@ export class SkyListFilterInlineComponent implements AfterContentInit {
   private filters: QueryList<SkyListFilterInlineItemComponent>;
 
   constructor(
-    private ref: ChangeDetectorRef,
-    private state: ListState,
     private dispatcher: ListStateDispatcher
   ) {}
 

@@ -3,8 +3,6 @@ import {
   Component
 } from '@angular/core';
 
-import { SkyDefinitionListService } from './definition-list.service';
-
 @Component({
   selector: 'sky-definition-list-value',
   templateUrl: './definition-list-value.component.html',
@@ -13,6 +11,4 @@ import { SkyDefinitionListService } from './definition-list.service';
 })
 export class SkyDefinitionListValueComponent {
   public defaultValue: string;
-
-  constructor(private service: SkyDefinitionListService) { }
 }
