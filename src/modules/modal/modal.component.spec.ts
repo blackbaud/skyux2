@@ -96,6 +96,7 @@ describe('Modal component', () => {
   }));
 
   it('should handle escape key press when modal is the top modal', fakeAsync(() => {
+    openModal(ModalFooterTestComponent);
     let escapeEvent: any = document.createEvent('CustomEvent');
     escapeEvent.which = 27;
     escapeEvent.keyCode = 27;
