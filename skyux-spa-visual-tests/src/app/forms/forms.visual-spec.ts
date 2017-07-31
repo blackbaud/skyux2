@@ -1,7 +1,5 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-import { element, by } from 'protractor';
-
 describe('Forms', () => {
 
   it('should match previous screenshot for required label', () => {
@@ -13,6 +11,5 @@ describe('Forms', () => {
         checkAccessibility: true
       });
     });
-
   });
 });
