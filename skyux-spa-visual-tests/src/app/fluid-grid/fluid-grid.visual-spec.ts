@@ -49,7 +49,7 @@ describe('Fluid grid', () => {
   });
 
   it('should reverse column order with reverseColumnOrder applied', () => {
-    return SkyVisualTest.setupTest('fluid-grid', 1500)
+    return SkyVisualTest.setupTest('fluid-grid')
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-reversecolumnorder',
