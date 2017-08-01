@@ -1,7 +1,3 @@
-declare let Prism: any;
-import 'prismjs/prism';
-import 'prismjs/components/prism-typescript';
-
 export class SkyDemoPageCodeFile {
   public readonly language: string;
 

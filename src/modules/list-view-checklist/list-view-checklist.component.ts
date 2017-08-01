@@ -4,7 +4,6 @@ import {
   TemplateRef,
   ViewChild,
   forwardRef,
-  NgZone,
   ChangeDetectionStrategy,
   AfterViewInit
 } from '@angular/core';
@@ -92,18 +91,31 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   @Input()
   public description: string = 'description';
 
+  @Input()
+  public set selectMode(value: string) {
+    this._selectMode = value;
+    this.updateActions();
+  }
+
+  public get selectMode(): string {
+    return this._selectMode;
+  }
+
   @ViewChild('selectAllTemplate')
   private selectAllTemplate: TemplateRef<any>;
 
   @ViewChild('clearSelectionsTemplate')
   private clearSelectionsTemplate: TemplateRef<any>;
 
+  private hasSelectToolbarItems = false;
+
+  private _selectMode = 'multiple';
+
   constructor(
     state: ListState,
     private dispatcher: ListStateDispatcher,
     private checklistState: ChecklistState,
-    private checklistDispatcher: ChecklistStateDispatcher,
-    private zone: NgZone
+    private checklistDispatcher: ChecklistStateDispatcher
   ) {
     super(state, 'Checklist View');
 
@@ -150,26 +162,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   }
 
   public ngAfterViewInit() {
-    this.dispatcher.toolbarAddItems([
-      new ListToolbarItemModel(
-        {
-          id: 'select-all',
-          template: this.selectAllTemplate,
-          location: 'right',
-          index: 500,
-          view: this.id
-        }
-      ),
-      new ListToolbarItemModel(
-        {
-          id: 'clear-all',
-          template: this.clearSelectionsTemplate,
-          location: 'right',
-          index: 500,
-          view: this.id
-        }
-      )
-    ]);
+    this.updateActions();
   }
 
   get items() {
@@ -207,6 +200,10 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     this.dispatcher.next(new ListSelectedSetItemSelectedAction(item.id, event.checked));
   }
 
+  public singleSelectRowClick(item: ListItemModel) {
+    this.dispatcher.next(new ListSelectedSetItemsSelectedAction([item.id], true, true));
+  }
+
   public clearSelections() {
     this.state.map(state => state.items.items)
       .take(1)
@@ -223,6 +220,44 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         this.dispatcher
           .next(new ListSelectedSetItemsSelectedAction(items.map(item => item.id), true, false));
       });
+  }
+
+  private updateActions() {
+    const selectAllId = 'select-all';
+    const clearAllId = 'clear-all';
+
+    switch (this.selectMode) {
+      case 'single':
+        this.dispatcher.toolbarRemoveItems([selectAllId, clearAllId]);
+        this.hasSelectToolbarItems = false;
+        break;
+      default:
+        if (!this.hasSelectToolbarItems) {
+          this.dispatcher.toolbarAddItems([
+            new ListToolbarItemModel(
+              {
+                id: 'select-all',
+                template: this.selectAllTemplate,
+                location: 'right',
+                index: 500,
+                view: this.id
+              }
+            ),
+            new ListToolbarItemModel(
+              {
+                id: 'clear-all',
+                template: this.clearSelectionsTemplate,
+                location: 'right',
+                index: 500,
+                view: this.id
+              }
+            )
+          ]);
+
+          this.hasSelectToolbarItems = true;
+        }
+        break;
+    }
   }
 
 }

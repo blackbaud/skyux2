@@ -24,6 +24,8 @@ export class SkyListViewChecklistDemoComponent {
 
   public selectedItems: Array<any> = [];
 
+  public selectMode: string = 'multiple';
+
   public selectedItemsChange(selectedMap: Map<string, boolean>) {
     this.items.take(1).subscribe((items) => {
       this.selectedItems = items.filter((item) => {

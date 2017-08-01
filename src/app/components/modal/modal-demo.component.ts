@@ -28,6 +28,8 @@ export class SkyModalDemoComponent {
       options.size = 'large';
     }
 
+    options.ariaDescribedBy = 'docs-modal-content';
+
     let modalInstance = this.modal.open(SkyModalDemoFormComponent, options);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {

@@ -32,14 +32,12 @@
 }
 
 .sky-repeater-item-selected {
-  background-color: $sky-selected-color;
+  background-color: $sky-background-color-selected;
   transition: background-color 150ms;
 }
 
 .sky-repeater-item-title {
-  font-family: $sky-font-family-base;
-  font-size: $sky-font-size-lg;
-  font-weight: bold;
+  @include sky-emphasized();
   margin: $sky-margin 0;
   flex-grow: 1;
 }

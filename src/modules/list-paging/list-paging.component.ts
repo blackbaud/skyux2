@@ -3,8 +3,7 @@ import {
   Input,
   ChangeDetectionStrategy,
   forwardRef,
-  OnInit,
-  ChangeDetectorRef
+  OnInit
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { getValue } from 'microedge-rxstate/dist/helpers';
@@ -50,8 +49,7 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
 
   constructor(
     state: ListState,
-    dispatcher: ListStateDispatcher,
-    private changeRef: ChangeDetectorRef
+    dispatcher: ListStateDispatcher
   ) {
     super(state, dispatcher);
   }

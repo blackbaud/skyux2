@@ -28,6 +28,48 @@ import {
 
 describe('Radio component', function () {
 
+  @Component({
+    template: `
+    <form>
+      <sky-radio
+        id="hey-2"
+        name="testName"
+        [value]="value1"
+        [(ngModel)]="selectedValue"
+        [label]="label1">
+        <sky-radio-label>My label</sky-radio-label>
+      </sky-radio>
+      <sky-radio
+        id="hey"
+        name="testName"
+        [value]="value2"
+        [(ngModel)]="selectedValue"
+        [tabindex]="tabindex2"
+        [disabled]="disabled2">
+        <sky-radio-label>My label</sky-radio-label>
+      </sky-radio>
+      <sky-radio
+        id="hey-3"
+        name="testName"
+        [value]="value3"
+        [(ngModel)]="selectedValue"
+        [labelledBy]="labelledBy3">
+        <sky-radio-label>My label</sky-radio-label>
+      </sky-radio>
+    </form>
+    `
+  })
+  class RadioTestComponent {
+    public value1 = '1';
+    public value2 = '2';
+    public value3 = '3';
+    public disabled2: boolean = false;
+    public label1: string;
+    public labelledBy3: string;
+    public tabindex2: string;
+    public selectedValue = '1';
+  }
+
   let fixture: ComponentFixture<RadioTestComponent>;
   let componentInstance: RadioTestComponent;
   beforeEach(function () {
@@ -148,47 +190,5 @@ describe('Radio component', function () {
     let radio1El = fixture.debugElement.query(By.css('#hey input'));
     expect(radio1El.nativeElement.getAttribute('tabindex')).toBe('3');
   }));
-
-  @Component({
-    template: `
-    <form>
-      <sky-radio
-        id="hey-2"
-        name="testName"
-        [value]="value1"
-        [(ngModel)]="selectedValue"
-        [label]="label1">
-        <sky-radio-label>My label</sky-radio-label>
-      </sky-radio>
-      <sky-radio
-        id="hey"
-        name="testName"
-        [value]="value2"
-        [(ngModel)]="selectedValue"
-        [tabindex]="tabindex2"
-        [disabled]="disabled2">
-        <sky-radio-label>My label</sky-radio-label>
-      </sky-radio>
-      <sky-radio
-        id="hey-3"
-        name="testName"
-        [value]="value3"
-        [(ngModel)]="selectedValue"
-        [labelledBy]="labelledBy3">
-        <sky-radio-label>My label</sky-radio-label>
-      </sky-radio>
-    </form>
-    `
-  })
-  class RadioTestComponent {
-    public value1 = '1';
-    public value2 = '2';
-    public value3 = '3';
-    public disabled2: boolean = false;
-    public label1: string;
-    public labelledBy3: string;
-    public tabindex2: string;
-    public selectedValue = '1';
-  }
 
 });

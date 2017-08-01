@@ -10,7 +10,6 @@ import {
   ViewChildren
 } from '@angular/core';
 
-import { SkyMediaQueryService } from '../../media-queries';
 import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
@@ -53,8 +52,7 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   constructor(
     // HACK: This is public so it can be accessed via a unit test due to breaking changes
     // in RC5. https://github.com/angular/angular/issues/10854
-    public dashboardService: SkyTileDashboardService,
-    private mediaQuery: SkyMediaQueryService
+    public dashboardService: SkyTileDashboardService
   ) {
     dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
       this.configChange.emit(config);

@@ -20,7 +20,7 @@ describe('Datepicker', () => {
     return SkyVisualTest.setupTest('datepicker')
     .then(() => {
       element(by.css('.sky-datepicker-calendar-title')).click();
-      SkyVisualTest.moveCursorOffScreen()
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-monthpicker',
         selector: '#screenshot-datepicker-calendar'
@@ -34,7 +34,7 @@ describe('Datepicker', () => {
     .then(() => {
       element(by.css('.sky-datepicker-calendar-title')).click();
       element(by.css('.sky-datepicker-calendar-title')).click();
-      SkyVisualTest.moveCursorOffScreen()
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-yearpicker',
         selector: '#screenshot-datepicker-calendar'
@@ -46,7 +46,7 @@ describe('Datepicker', () => {
   it('should match previous datepicker input screenshot', () => {
     return SkyVisualTest.setupTest('datepicker')
     .then(() => {
-      SkyVisualTest.moveCursorOffScreen()
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-input',
         selector: '#screenshot-datepicker'
@@ -59,7 +59,7 @@ describe('Datepicker', () => {
     return SkyVisualTest.setupTest('datepicker')
     .then(() => {
        element(by.css('.sky-dropdown-button')).click();
-      SkyVisualTest.moveCursorOffScreen()
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-input-open',
         selector: '#screenshot-datepicker'

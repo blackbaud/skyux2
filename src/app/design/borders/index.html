@@ -6,25 +6,13 @@
   
   <p>SKY UX uses various line styles to bound, divide, and highlight content. The lines are designed to maintain visual hierarchy regardless of how complex pages become or how many nested containers they include.</p>
 <p>As with other types of formatting or decoration in SKY UX, use lines minimally. Remember that white space and positioning can group or highlight content without extra subdivisions or boundaries.</p>
-<p>SKY UX uses 6 line styles that you can apply with a <a href="https://github.com/blackbaud/skyux/blob/master/scss/_mixins.scss">SASS mixin</a>.</p>
-<ul>
-    <li>A light separator to organize and divide blocks of content within a container</li>
-    <li>A dark separator to indicate borders and boundaries for components</li>
-    <li>4 prescriptive, &quot;isolated&quot; line styles:
-        <ul>
-            <li>Navigation selection underline</li>
-            <li>Tab underline</li>
-            <li>Tile crown</li>
-            <li>Row separator</li>
-        </ul>
-    </li>
-</ul>
+<p>SKY UX uses 3 generalized line styles that you can apply with a SASS mixin.</p>
 
-<div class="sky-section-heading" id="generic-styles">Generic styles</div>
+<h2 class="sky-section-heading" id="generic-lines">Line styles</h2>
   
 <div class="definition-table definition-table-wide">
     <div class="definition-item">
-      <div class="sky-subsection-heading" style="border-bottom: 1px solid #e7eaec;">Light separator</div>
+      <div class="sky-subsection-heading" style="border-bottom: 1px solid #e2e3e4;">Light separator</div>
     </div>
     <div class="definition-props">
       <div class="definition-usage">
@@ -43,7 +31,7 @@
       <div class="definition-styling">
         <div class="sky-field-label">Styling</div>
         <ul class="list-unstyled">
-          <li>1px solid #e7eaec</li>
+          <li>1px solid #e2e3e4</li>
           <li>When this line style subdivides content within a container, use a 15px margin on both ends.</li>
         </ul>
       </div>
@@ -52,7 +40,7 @@
 
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
-      <div class="sky-subsection-heading" style="border-bottom: 1px solid #ccc;">Dark separator</div>
+      <div class="sky-subsection-heading" style="border-bottom: 1px solid #cdcfd2;">Dark separator</div>
     </div>
     <div class="definition-props">
       <div class="definition-usage">
@@ -73,79 +61,14 @@
       </div>
       <div class="definition-styling">
         <div class="sky-field-label">Styling</div>
-        <div>1px solid #ccc</div>
-      </div>
-    </div>
-  </div>
-
-
-<div class="sky-section-heading" id="isolated-styles">Specific styles</div>
-
-<p>Specific line styles are specific to certain parts of SKY UX and are defined as part of the component that they belong to. They should not proliferate to other SKY UX elements.</p>
-
-  <div class="definition-table definition-table-wide">
-    <div class="definition-item">
-      <div class="sky-subsection-heading" style="border-bottom: 4px solid #1c84c6;">Navigation selection underline</div>
-    </div>
-    <div class="definition-props">
-      <div class="definition-usage">
-        <div class="sky-field-label">Usage</div>
-        <div>This line style highlights the active navigation item in the <a routerLink="../../components/navbar">navbar</a>. It aligns to the bottom of the navigation item and stretches to its full width.</div>
-      </div>
-      <div class="definition-code">
-        <div class="sky-field-label">Code</div>
-        <code>@include sky-border(nav)</code>
-      </div>
-      <div class="definition-styling">
-        <div class="sky-field-label">Styling</div>
-        <div>4px solid #1c84c6</div>
+        <div>1px solid #cdcfd2</div>
       </div>
     </div>
   </div>
 
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
-      <div class="sky-subsection-heading" style="border-bottom: 2px solid #1c84c6;">Tab underline</div>
-    </div>
-    <div class="definition-props">
-      <div class="definition-usage">
-        <div class="sky-field-label">Usage</div>
-        <div>This line style separates <a routerLink="../../components/tabs">tab</a> controls from their contents. It aligns to the bottom of the tab controls and stretches to the full width of the container.</div>
-      </div>
-      <div class="definition-code">
-        <div class="sky-field-label">Code</div>
-        <code>@include sky-border(tab)</code>
-      </div>
-      <div class="definition-styling">
-        <div class="sky-field-label">Styling</div>
-        <div>2px solid #1c84c6</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="definition-table definition-table-wide">
-    <div class="definition-item">
-      <div class="sky-subsection-heading" style="border-bottom: 4px solid #e7eaec;">Tile crown</div>
-    </div>
-    <div class="definition-props">
-      <div class="definition-usage">
-        <div class="sky-field-label">Usage</div>
-        <div>This line style affixes to the top of <a routerLink="../../components/tiles">tiles</a>. It extends above the top of the tile and stretches to its full width.</div>
-      </div>
-      <div class="definition-code">
-        <div class="sky-field-label">Code</div>
-        <code>@include sky-border(tile)</code>
-      </div>
-      <div class="definition-styling">
-        <div class="sky-field-label">Styling</div>
-        <div>4px solid #e7eaec</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="definition-table definition-table-wide">
-    <div class="definition-item">
-      <div class="sky-subsection-heading" style="border-bottom: 1px dotted #ccc;">Row separator</div>
+      <div class="sky-subsection-heading" style="border-bottom: 1px dotted #cdcfd2;">Row separator</div>
     </div>
     <div class="definition-props">
       <div class="definition-usage">
@@ -158,18 +81,18 @@
       </div>
       <div class="definition-styling">
         <div class="sky-field-label">Styling</div>
-        <div>1px dotted #ccc</div>
+        <div>1px dotted #cdcfd2</div>
       </div>
     </div>
   </div>
   
-<div class="sky-section-heading" id="isolated-styles">Corners</div>
+<h2 class="sky-section-heading" id="corners">Corners</h2>
 
 <p>In general, the style of corners should be handled by the component. If you need to directly specify the corners of an element, the rule of thumb is to use rounded corners for interactive elements and square corners for containers.</p>
 
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
-      <div class="swatch" style="border: 1px solid #ccc; border-radius: 3px;"></div>
+      <div class="swatch" style="border: 1px solid #cdcfd2; border-radius: 3px;"></div>
     </div>
     <div class="definition-props">
       <div class="definition-usage">
@@ -187,13 +110,13 @@
     </div>
   </div>
   
-<div class="sky-section-heading" id="isolated-styles">Shadows</div>
+<h2 class="sky-section-heading" id="shadows">Shadows</h2>
 
 <p>In general, the use of shadows should be handled by the component. Specific interface designs should be flat aside from these components, using other techniques to create visual separation.</p>
 
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
-      <div class="swatch" style="border: 1px solid #ccc; box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);"></div>
+      <div class="swatch" style="border: 1px solid #cdcfd2; box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);"></div>
     </div>
     <div class="definition-props">
       <div class="definition-usage">

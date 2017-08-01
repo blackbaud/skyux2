@@ -60,10 +60,10 @@ describe('Column selector component', () => {
     tick();
     let checklistItemQuery = '.sky-modal .sky-list-view-checklist-item sky-checkbox-label';
 
-    expect(document.body.querySelector(checklistItemQuery).querySelector('strong'))
+    expect(document.body.querySelector(checklistItemQuery).querySelector('.sky-emphasized'))
       .toHaveText('Column 1');
 
-    expect(document.body.querySelector(checklistItemQuery).querySelector('div'))
+    expect(document.body.querySelector(checklistItemQuery).querySelectorAll('div')[1])
       .toHaveText('Column 1 desc');
 
     let closeButton = document.body.querySelector('.sky-modal-btn-close') as HTMLButtonElement;

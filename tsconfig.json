@@ -21,7 +21,6 @@
     "baseUrl": ".",
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"],
-      "@blackbaud/skyux/dist/core": ["./src/core.ts"],
       "sky-pages-spa/src/*": ["./src/*"],
       "sky-pages-internal/*": ["./node_modules/@blackbaud/skyux-builder/*"]
     }

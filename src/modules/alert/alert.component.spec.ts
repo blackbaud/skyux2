@@ -35,7 +35,6 @@ describe('Alert component', () => {
     expect(closeAttrs['hidden']).toBe(undefined);
 
     cmp.closeable = false;
-
     fixture.detectChanges();
 
     expect(closeAttrs['hidden']).not.toBeNull();

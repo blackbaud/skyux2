@@ -1,9 +1,10 @@
 @import '../../scss/mixins';
 
 .sky-navbar-item {
-  display: inline-block;
+  display: block;
   font-weight: 600;
   margin-right: $sky-margin-half;
+  height: 100%;
 
   /deep/ {
     a,
@@ -11,7 +12,7 @@
       background-color: transparent;
       border: none;
       color: $sky-nav-color;
-      display: inline-block;
+      display: block;
       padding: 16px 12px;
       text-decoration: none;
       width: 100%;
@@ -24,7 +25,7 @@
     .sky-dropdown-item {
       color: $sky-nav-color;
       display: block;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: normal;
       margin: 0;
 
@@ -40,7 +41,6 @@
     }
   }
 
-  /deep/ > *:hover,
   /deep/ .sky-dropdown:hover .sky-dropdown-button,
   /deep/ .sky-navbar-item-active,
   &.sky-navbar-item-active /deep/ > *,
@@ -48,7 +48,7 @@
   {
     background-color: $sky-nav-selected-background-color;
     color: $sky-nav-selected-color;
-    @include sky-border(nav);
+    border-bottom: $sky-nav-selected-border-width solid #1c84c6;
     padding-bottom: $sky-nav-item-padding - $sky-nav-selected-border-width;
   }
 }

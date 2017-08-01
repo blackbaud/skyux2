@@ -6,7 +6,7 @@
 }
 
 .sky-tile-header {
-    border-color: $sky-border-color;
+    border-color: $sky-border-color-neutral-medium;
     border-style: solid solid none;
     border-width: 4px 0 0;
     display: flex;
@@ -20,18 +20,14 @@
 }
 
 .sky-tile-title {
-    font-family: $sky-font-family-narrow;
-    font-size: 22px;
-    font-weight: 100;
+    @include sky-section-heading();
     margin: 0;
     padding: $sky-padding $sky-tile-header-tool-padding;
 }
 
 .sky-tile-summary {
-    color: $sky-color-green;
-    font-family: $sky-font-family-narrow;
-    font-size: 18px;
-    font-weight: 400;
+    @include sky-headline();
+    color: $sky-text-color-action-primary;
     opacity: 0;
     padding-right: $sky-tile-header-tool-padding;
     transition: opacity $sky-transition-time-medium;
@@ -50,7 +46,7 @@
 }
 
 .sky-tile-content {
-    border-color: $sky-border-color;
+    border-color: $sky-border-color-neutral-light;
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0;

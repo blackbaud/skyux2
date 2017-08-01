@@ -14,5 +14,5 @@ import { SkyDefinitionListService } from './definition-list.service';
 export class SkyDefinitionListValueComponent {
   public defaultValue: string;
 
-  constructor(private service: SkyDefinitionListService) { }
+  constructor(public service: SkyDefinitionListService) { }
 }

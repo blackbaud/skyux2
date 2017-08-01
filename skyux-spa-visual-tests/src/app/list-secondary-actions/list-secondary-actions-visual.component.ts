@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of'
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'list-secondary-actions-visual',

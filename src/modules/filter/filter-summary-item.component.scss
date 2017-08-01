@@ -2,22 +2,21 @@
 
 .sky-filter-summary-item {
   display: inline-block;
-  background-color: $sky-warning-background-color;
-  border: 1px solid $sky-warning-border-color;
+  background-color: $sky-background-color-info;
+  border: 1px solid $sky-highlight-color-info;
   border-radius: 4px;
   padding: 3px;
-  color: $sky-warning-text-color;
+  color: $sky-text-color-default;
   margin-right: $sky-margin-half;
 
   .sky-filter-summary-item-close {
-    color: $sky-warning-text-color;
+    color: $sky-text-color-default;
     padding-left: $sky-padding-half;
-    text-shadow: 0 1px 0 #fff;
-    opacity: .2;
+    opacity: .8;
   }
 
   .sky-filter-summary-item-close:hover {
     text-decoration: none;
-    opacity: .5;
+    opacity: 1;
   }
 }
