@@ -102,6 +102,21 @@ describe('Search component', () => {
     fixture.detectChanges();
   }
 
+  function setNgModel(text: string) {
+    let inputEvent = document.createEvent('Event');
+    let params = {
+      bubbles: false,
+      cancelable: false
+    };
+    inputEvent.initEvent('input', params.bubbles, params.cancelable);
+
+    let inputEl = element.query(By.css('input'));
+    inputEl.nativeElement.value = text;
+
+    inputEl.nativeElement.dispatchEvent(inputEvent);
+    fixture.detectChanges();
+  }
+
   function triggerInputEnter() {
     let inputEl = element.query(By.css('input'));
     inputEl.triggerEventHandler('keyup', { which: 13});
@@ -223,8 +238,8 @@ describe('Search component', () => {
     expect(component.lastSearchTextApplied).toBe('applied text');
   });
 
-  it('should emit search change event on input change', () => {
-    setInput('change text');
+  it('should emit search change event on ngModel change', () => {
+    setNgModel('change text');
     expect(component.lastSearchTextChanged).toBe('change text');
     expect(component.lastSearchTextApplied).not.toBe('change text');
   });
@@ -258,6 +273,7 @@ describe('Search component', () => {
 
     expect(element.query(By.css('.sky-input-group-clear')).nativeElement).not.toBeVisible();
     expect(component.lastSearchTextApplied).toBe('');
+    expect(component.lastSearchTextChanged).toBe('');
   });
 
   it('should apply the correct focus class', () => {
