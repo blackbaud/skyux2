@@ -23,7 +23,7 @@ import {
     })),
     transition(
       'open <=> closed',
-      animate('350ms linear')
+      animate('300ms ease-in-out')
     )
   ])]
 })
