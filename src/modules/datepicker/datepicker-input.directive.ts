@@ -35,7 +35,7 @@ import {
   SkyDatepickerConfigService
 } from './datepicker-config.service';
 
-// tslint:disable no-forward-ref
+// tslint:disable:no-forward-ref no-use-before-declare
 const SKY_DATEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyDatepickerInputDirective),

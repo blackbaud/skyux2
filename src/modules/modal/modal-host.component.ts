@@ -1,7 +1,6 @@
 import {
   Component,
   ComponentFactoryResolver,
-  ElementRef,
   Injector,
   ReflectiveInjector,
   ViewChild,
@@ -36,8 +35,6 @@ export class SkyModalHostComponent {
 
   constructor(
     private resolver: ComponentFactoryResolver,
-    private elRef: ElementRef,
-    private viewContainer: ViewContainerRef,
     private adapter: SkyModalAdapterService,
     private injector: Injector
   ) { }
