@@ -285,7 +285,6 @@ describe('Colorpicker Component', () => {
   it('Should accept mouse dragging on saturation and lightness.', () => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
     let axis = getElementCords(slBar);
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });

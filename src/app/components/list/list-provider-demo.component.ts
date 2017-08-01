@@ -11,14 +11,6 @@ import {
   ListItemModel
 } from '../../../core';
 
-@Component({
-  selector: 'sky-list-provider-demo',
-  templateUrl: './list-provider-demo.component.html'
-})
-export class SkyListProviderDemoComponent {
-  public listDataProvider: DemoListProvider = new DemoListProvider();
-}
-
 export class DemoListProvider extends ListDataProvider {
 
   public items: Observable<Array<ListItemModel>>;
@@ -105,4 +97,12 @@ export class DemoListProvider extends ListDataProvider {
       });
     });
   }
+}
+
+@Component({
+  selector: 'sky-list-provider-demo',
+  templateUrl: './list-provider-demo.component.html'
+})
+export class SkyListProviderDemoComponent {
+  public listDataProvider: DemoListProvider = new DemoListProvider();
 }

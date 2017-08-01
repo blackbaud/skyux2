@@ -1,7 +1,7 @@
 import { Directive, forwardRef } from '@angular/core';
 import { Validator, NG_VALIDATORS, AbstractControl } from '@angular/forms';
 
-// tslint:disable no-forward-ref
+// tslint:disable:no-forward-ref no-use-before-declare
 const SKY_EMAIL_VALIDATION_VALIDATOR = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => SkyEmailValidationDirective),

@@ -1,7 +1,6 @@
 // spell-checker:ignore Colorpicker, Validators, RGBA, hsva, hsla, cmyk, Dropdown
 import {
   ElementRef,
-  ViewContainerRef,
   Directive,
   forwardRef,
   HostListener,
@@ -28,7 +27,7 @@ import {
   Subscription
 } from 'rxjs/Subscription';
 
-// tslint:disable no-forward-ref
+// tslint:disable:no-forward-ref no-use-before-declare
 const SKY_COLORPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyColorpickerInputDirective),
@@ -73,7 +72,6 @@ export class SkyColorpickerInputDirective
   private modelValue: SkyColorpickerOutput;
 
   constructor(
-    private view: ViewContainerRef,
     private element: ElementRef,
     private service: SkyColorpickerService,
     private renderer: Renderer

@@ -103,7 +103,7 @@ export class SkyFileItemComponent implements DoCheck {
   }
 
   public constructor(private differs: KeyValueDiffers) {
-    this.differ = differs.find({}).create(undefined);
+    this.differ = this.differs.find({}).create(undefined);
   }
 
   public itemDelete() {
