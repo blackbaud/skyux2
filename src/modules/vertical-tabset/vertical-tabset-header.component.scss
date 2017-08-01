@@ -25,16 +25,5 @@
 }
 
 .sky-vertical-tabset-content {
-  transition: height .35s;
   overflow: hidden;
-}
-
-.sky-vertical-tabset-content-closed {
-  height: 0;
-  visibility: hidden;
-}
-
-.sky-vertical-tabset-content-open {
-  height: 100px; // todo: calculate this dynamically
-  visibility: visible;
 }

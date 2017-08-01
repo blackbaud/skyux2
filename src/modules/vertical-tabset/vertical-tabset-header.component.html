@@ -6,7 +6,7 @@
         <i class="fa fa-chevron-down"></i>
     </div>
   </div>
-  <div class="sky-vertical-tabset-content" [ngClass]="{'sky-vertical-tabset-content-open': open, 'sky-vertical-tabset-content-closed': !open}">
+  <div class="sky-vertical-tabset-content" [@tabState]="openState()">
     <ng-content></ng-content>
   </div>
 </div>
