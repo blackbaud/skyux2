@@ -1,9 +1,8 @@
 @import '../../scss/mixins';
 
 .sky-help-inline {
-  margin-left: $sky-padding-half;
   color: $sky-text-color-action-primary;
-  font-size: 14px;
+  font-size: $sky-font-size-base;
   background-color: transparent;
   border: none;
   display: inline-block;
