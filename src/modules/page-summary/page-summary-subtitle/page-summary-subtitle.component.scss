@@ -1,8 +1,7 @@
 @import '../../../scss/mixins';
 
 .sky-page-summary-subtitle {
-    font-size: $sky-font-size-xl;
-    font-weight: 400;
+    @include sky-emphasized();
     margin-top: 0;
     margin-bottom: $sky-margin;
 }

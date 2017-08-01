@@ -60,8 +60,10 @@ export class SkyTextExpandComponent implements AfterContentInit {
   private expandedText: string;
   private newlineCount: number;
 
-  constructor(private resources: SkyResourcesService, private modalService: SkyModalService,
-    private elRef: ElementRef, private textExpandAdapter: SkyTextExpandAdapterService) { }
+  constructor(
+    private resources: SkyResourcesService,
+    private modalService: SkyModalService,
+    private textExpandAdapter: SkyTextExpandAdapterService) { }
 
   public textExpand() {
     if (this.newlineCount > this.maxExpandedNewlines

@@ -10,8 +10,6 @@ import { SkyModalService } from '@blackbaud/skyux/dist/core';
 export class ModalLargeDemoComponent implements OnInit {
   public title = 'Hello world';
 
-  constructor(private modalService: SkyModalService) { }
-
   public ngOnInit() {
     console.log('init happened');
   }

@@ -15,8 +15,14 @@ import { SkyModalService } from './modal.service';
 
 import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
+import { ModalAutofocusTestComponent } from './fixtures/modal-autofocus.component.fixture';
+import { ModalFooterTestComponent } from './fixtures/modal-footer.component.fixture';
+
+import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component.fixture';
 
 import { TestUtility } from '../testing/testutility';
+
+import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
@@ -75,6 +81,179 @@ describe('Modal component', () => {
 
     closeModal(modalInstance2);
     closeModal(modalInstance1);
+  }));
+
+  it('should focus the dialog when no autofocus is inside of content', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalTestComponent);
+    expect(document.activeElement).toEqual(document.querySelector('.sky-modal-dialog'));
+    closeModal(modalInstance1);
+  }));
+
+  it('should focus the autofocus element when autofocus is inside of content', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalAutofocusTestComponent);
+    expect(document.activeElement).toEqual(document.querySelector('#autofocus-el'));
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle escape key press when modal is the top modal', fakeAsync(() => {
+    openModal(ModalFooterTestComponent);
+    let escapeEvent: any = document.createEvent('CustomEvent');
+    escapeEvent.which = 27;
+    escapeEvent.keyCode = 27;
+    escapeEvent.initEvent('keydown', true, true);
+
+    document.dispatchEvent(escapeEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
+
+  }));
+
+  it('should handle tab with shift when focus is on modal and in top modal', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = true;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('.sky-modal-dialog').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).toEqual(document.querySelector('.sky-btn-primary'));
+
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle tab with shift when focus is in first item and in top modal', fakeAsync(() => {
+
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = true;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('.sky-modal-btn-close').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).toEqual(document.querySelector('.sky-btn-primary'));
+
+    closeModal(modalInstance1);
+
+  }));
+
+  it('should handle tab when focus is in last item and in top modal', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle tab in content when in top modal', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('input').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle tab when modals are stacked', fakeAsync(() => {
+    let modalInstance2 = openModal(ModalAutofocusTestComponent);
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+    closeModal(modalInstance2);
+  }));
+
+  it('should handle a different key code', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 3;
+    tabEvent.keyCode = 3;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+  }));
+
+  it('handles no focusable elements', fakeAsync(() => {
+    let modalInstance1 = openModal(ModalNoHeaderTestComponent);
+
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
+
+    document.dispatchEvent(tabEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+
+    closeModal(modalInstance1);
+  }));
+
+  it('should handle empty list for focus first and last element functions', fakeAsync(() => {
+    let adapterService = new SkyModalComponentAdapterService();
+    let firstResult = adapterService.focusFirstElement([]);
+    expect(firstResult).toBe(false);
+
+    let lastResult = adapterService.focusLastElement([]);
+    expect(lastResult).toBe(false);
   }));
 
   it('should close when the close button is clicked', fakeAsync(() => {
@@ -174,5 +353,33 @@ describe('Modal component', () => {
     expect(document.querySelector('.sky-modal-large')).toExist();
 
     closeModal(modalInstance);
+  }));
+
+  it('should default the aria-labelledby and aria-describedby', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent);
+
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby')
+      .indexOf('sky-modal-header-id-'))
+      .not.toBe(-1);
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-describedby')
+      .indexOf('sky-modal-content-id-'))
+      .not.toBe(-1);
+    closeModal(modalInstance);
+  }));
+
+  it('should accept configuration options for aria-labelledBy and aria-describedby',
+  fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {
+      'ariaLabelledBy': 'customlabelledby',
+      'ariaDescribedBy': 'customdescribedby'
+    });
+
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby'))
+      .toBe('customlabelledby');
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-describedby'))
+      .toBe('customdescribedby');
+
+    closeModal(modalInstance);
+
   }));
 });

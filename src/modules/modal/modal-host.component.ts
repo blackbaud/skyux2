@@ -1,7 +1,6 @@
 import {
   Component,
   ComponentFactoryResolver,
-  ElementRef,
   Injector,
   ReflectiveInjector,
   ViewChild,
@@ -36,8 +35,6 @@ export class SkyModalHostComponent {
 
   constructor(
     private resolver: ComponentFactoryResolver,
-    private elRef: ElementRef,
-    private viewContainer: ViewContainerRef,
     private adapter: SkyModalAdapterService,
     private injector: Injector
   ) { }
@@ -47,6 +44,7 @@ export class SkyModalHostComponent {
     let factory = this.resolver.resolveComponentFactory(component);
     let hostService = new SkyModalHostService();
     let adapter = this.adapter;
+    let modalOpener: HTMLElement = adapter.getModalOpener();
 
     params.providers.push({
       provide: SkyModalHostService,
@@ -69,6 +67,11 @@ export class SkyModalHostComponent {
     function closeModal() {
       hostService.destroy();
       adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+      /* istanbul ignore else */
+      /* sanity check */
+      if (modalOpener && modalOpener.focus) {
+        modalOpener.focus();
+      }
       modalComponentRef.destroy();
     }
 

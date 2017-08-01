@@ -53,7 +53,7 @@ describe('TabSet', () => {
   it('should match previous mobile dropdown tabset screenshot with long tab', () => {
     return SkyVisualTest.setupTest('tabs', 480)
     .then(() => {
-      SkyVisualTest.moveCursorOffScreen()
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'tabset-collapsed-dropdown-long',
         selector: '#screenshot-tabset-long'

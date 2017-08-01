@@ -30,22 +30,4 @@ export class SkyDemoComponentsComponent implements OnInit {
     });
     this.displayedItems = this.actionButtonComponents;
   }
-
-  public searchApplied(searchText: string) {
-    let filteredItems = this.actionButtonComponents;
-    if (searchText) {
-      filteredItems = this.actionButtonComponents.filter(function (item: any){
-        let property: any;
-        for (property in item) {
-          if (item.hasOwnProperty(property) && (property === 'name' || property === 'summary')) {
-            if (item[property].toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-              return true;
-            }
-          }
-        }
-        return false;
-      });
-    }
-    this.displayedItems = filteredItems;
-  }
 }

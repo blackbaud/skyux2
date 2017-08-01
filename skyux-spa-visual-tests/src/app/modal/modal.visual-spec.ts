@@ -56,7 +56,7 @@ describe('Modal', () => {
     return SkyVisualTest.setupTest('modal', 480)
     .then(() => {
       element(by.css('.sky-test-large-modal')).click();
-      SkyVisualTest.moveCursorOffScreen()
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'modal-large-mobile',
         selector: '.sky-modal',

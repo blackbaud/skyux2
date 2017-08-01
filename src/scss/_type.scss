@@ -1,8 +1,7 @@
 @import "mixins";
 
 .sky-page-heading {
-  font: 300 32px $sky-font-family-narrow;
-  color: $sky-text-color; 
+  @include sky-page-heading();
 }
 
 .sky-section-heading {
@@ -10,9 +9,7 @@
 }
 
 .sky-subsection-heading {
-  color: $sky-text-deemphasized-color;
-  font-size: 17px;
-  font-weight: 400;
+  @include sky-subsection-heading();
 }
 
 .sky-headline {
@@ -20,15 +17,11 @@
 }
 
 .sky-emphasized {
-  color: $sky-text-color;
-  font-size: 14px;
-  font-weight: 600;
+  @include sky-emphasized();
 }
 
 .sky-deemphasized {
-  color: $sky-text-deemphasized-color;
-  font-style: italic;
-  font-weight: 400;
+  @include sky-deemphasized();
 }
 
 .sky-field-label {
@@ -37,34 +30,34 @@
 
 // Status text
 .sky-text-success {
-    color: $sky-text-color;
+    color: $sky-text-color-default;
 }
 
 .sky-text-success::before {
     content: "\f00c";
 	font-family: FontAwesome;
 	margin-right: 5px;
-	color: $sky-color-green;
+	color: $sky-highlight-color-success;
 }
 
 .sky-text-warning {
-    color: $sky-text-color;
+    color: $sky-text-color-default;
 }
 
 .sky-text-warning::before {
     content: "\f071";
 	font-family: FontAwesome;
 	margin-right: 5px;
-	color: $sky-color-yellow;
+	color: $sky-highlight-color-warning;
 }
 
 .sky-text-danger {
-    color: $sky-text-color;
+    color: $sky-text-color-default;
 }
 
 .sky-text-danger::before {
     content: "\f071";
 	font-family: FontAwesome;
 	margin-right: 5px;
-	color: $sky-color-red;
+	color: $sky-highlight-color-danger;
 }

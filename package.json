@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.0.0-rc.5",
+  "version": "2.0.0-rc.10",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -11,12 +11,13 @@
   ],
   "scripts": {
     "ci": "npm run lint && npm run test:ci && npm run build",
-    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ngc && cd ../ && npm run compile:sass && cd config/rollup && rollup -c rollup.config.js && rollup -c rollup.min.config.js && npm run clean:srctemp",
+    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ngc && cd ../ && npm run compile:sass && npm run copy:design-tokens && cd config/rollup && rollup -c rollup.config.js && rollup -c rollup.min.config.js && npm run clean:srctemp",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs skyux-spa-visual-tests/node_modules/ skyux-spa-visual-tests/dist/",
     "clean:releases": "rimraf -- releases",
     "clean:srctemp": "rimraf -- .srctemp",
-    "compile:sass": "node-sass src/scss/sky.scss dist/css/sky.css",
+    "compile:sass": "node config/utils/compile-sass.js",
+    "copy:design-tokens": "node config/utils/copy-design-tokens.js",
     "lint": "tslint 'src/**/*.ts'",
     "ngc": "ngc",
     "node-sass": "node-sass",
@@ -53,16 +54,15 @@
     "web-animations-js": "2.2.5"
   },
   "devDependencies": {
-    "@angular/common": "4.2.5",
-    "@angular/compiler": "4.2.5",
-    "@angular/compiler-cli": "4.2.5",
     "@angular/core": "4.2.5",
     "@angular/forms": "4.2.5",
     "@angular/platform-browser": "4.2.5",
     "@angular/platform-browser-dynamic": "4.2.5",
     "@angular/router": "4.2.5",
-    "@blackbaud/skyux-builder": "1.0.0-rc.8",
-    "@blackbaud/stache": "2.0.0-beta.9",
+    "@blackbaud/skyux": "2.0.0-rc.10",
+    "@blackbaud/skyux-builder": "1.0.0-rc.13",
+    "@blackbaud/skyux-design-tokens": "0.0.7",
+    "@blackbaud/stache": "2.0.0-rc.1",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.18",
@@ -74,6 +74,7 @@
     "codelyzer": "3.0.1",
     "core-js": "2.4.1",
     "css-loader": "0.28.1",
+    "enhanced-resolve": "3.3.0",
     "express": "4.15.2",
     "extract-text-webpack-plugin": "2.1.0",
     "file-loader": "0.11.1",
@@ -89,8 +90,8 @@
     "karma": "1.7.0",
     "karma-browserstack-launcher": "1.2.0",
     "karma-chrome-launcher": "2.1.1",
-    "karma-firefox-launcher": "1.0.1",
     "karma-coverage": "1.1.1",
+    "karma-firefox-launcher": "1.0.1",
     "karma-jasmine": "1.1.0",
     "karma-mocha-reporter": "2.2.3",
     "karma-sourcemap-loader": "0.3.7",
@@ -98,6 +99,7 @@
     "less": "2.7.2",
     "node-resemble-js": "0.2.0",
     "node-sass": "4.5.3",
+    "node-sass-tilde-importer": "1.0.0",
     "normalize-scss": "5.0.3",
     "prismjs": "1.6.0",
     "raw-loader": "0.5.1",
@@ -107,7 +109,7 @@
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "1.0.2",
-    "rxjs": "5.4.0",
+    "rxjs": "5.4.2",
     "sass-loader": "6.0.5",
     "selenium-standalone": "6.4.1",
     "source-map-inline-loader": "blackbaud-bobbyearl/source-map-inline-loader",
@@ -132,7 +134,7 @@
     "url": "https://github.com/blackbaud/skyux2/issues"
   },
   "engines": {
-    "node": ">= 4.2.1",
+    "node": ">= 6.11.1",
     "npm": ">= 3"
   }
 }

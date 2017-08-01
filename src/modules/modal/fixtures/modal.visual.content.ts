@@ -10,8 +10,6 @@ import { SkyModalService } from '../../../../src/core';
 export class ModalDemoComponent implements OnInit {
   public title = 'Hello world';
 
-  constructor(private modalService: SkyModalService) { }
-
   public ngOnInit() {
     console.log('init happened');
   }
