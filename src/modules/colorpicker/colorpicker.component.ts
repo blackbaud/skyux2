@@ -1,6 +1,5 @@
 // spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva,Cmyk
 import {
-  ChangeDetectorRef,
   HostListener,
   ElementRef,
   EventEmitter,
@@ -12,7 +11,6 @@ import {
 
 import { SkyColorpickerChangeColor } from './types/colorpicker-color';
 import { SkyColorpickerChangeAxis } from './types/colorpicker-axis';
-import { SkyColorpickerCmyk } from './types/colorpicker-cmyk';
 import { SkyColorpickerHsla } from './types/colorpicker-hsla';
 import { SkyColorpickerHsva } from './types/colorpicker-hsva';
 import { SkyColorpickerRgba } from './types/colorpicker-rgba';
@@ -90,8 +88,6 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   constructor(
-    private el: ElementRef,
-    private cdr: ChangeDetectorRef,
     private service: SkyColorpickerService
   ) {
     componentIdIndex++;

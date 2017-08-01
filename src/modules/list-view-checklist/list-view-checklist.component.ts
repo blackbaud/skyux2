@@ -4,7 +4,6 @@ import {
   TemplateRef,
   ViewChild,
   forwardRef,
-  NgZone,
   ChangeDetectionStrategy,
   AfterViewInit
 } from '@angular/core';
@@ -116,8 +115,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     state: ListState,
     private dispatcher: ListStateDispatcher,
     private checklistState: ChecklistState,
-    private checklistDispatcher: ChecklistStateDispatcher,
-    private zone: NgZone
+    private checklistDispatcher: ChecklistStateDispatcher
   ) {
     super(state, 'Checklist View');
 

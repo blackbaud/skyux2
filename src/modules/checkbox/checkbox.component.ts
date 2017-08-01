@@ -18,19 +18,19 @@ let nextId = 0;
  * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  */
-// tslint:disable no-forward-ref
+// tslint:disable:no-forward-ref no-use-before-declare
 export const SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyCheckboxComponent),
   multi: true
 };
-// tslint:enable
 
 // A simple change event emitted by the SkyCheckbox component.
 export class SkyCheckboxChange {
   public source: SkyCheckboxComponent;
   public checked: boolean;
 }
+// tslint:enable
 
 @Component({
   selector: 'sky-checkbox',

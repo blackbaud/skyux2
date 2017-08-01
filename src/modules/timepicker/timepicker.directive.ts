@@ -28,7 +28,7 @@ import {
 } from 'rxjs/Subscription';
 import { SkyTimepickerTimeOutput } from './timepicker.interface';
 
-// tslint:disable no-forward-ref
+// tslint:disable:no-forward-ref no-use-before-declare
 const SKY_TIMEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyTimepickerInputDirective),

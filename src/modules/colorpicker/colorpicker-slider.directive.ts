@@ -44,9 +44,12 @@ export class SkyColorpickerSliderDirective {
         yCoordinate: (1 - yAxis / height),
         xAxis: this.xAxis,
         yAxis: this.yAxis
-      });
+      } as SkyColorpickerChangeAxis);
     } else {
-      this.newColorContrast.emit({ xCoordinate: xAxis / width, maxRange: this.xAxis });
+      this.newColorContrast.emit({
+        xCoordinate: xAxis / width,
+        maxRange: this.xAxis
+      } as SkyColorpickerChangeAxis);
     }
     /* // No vertical bars
      if (this.xAxis === undefined && this.yAxis !== undefined) {

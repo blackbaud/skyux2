@@ -11,7 +11,7 @@ export class SkyDatepickerConfigService {
   public dateFormat: string;
 
   constructor(private windowRefService: SkyWindowRefService) {
-    let safeNavigator: any = windowRefService.getWindow().navigator;
+    let safeNavigator: any = this.windowRefService.getWindow().navigator;
     /*istanbul ignore next */
     let userLang: string = safeNavigator.languages && safeNavigator.languages[0] ||
       safeNavigator.language || safeNavigator.userLanguage || 'en';

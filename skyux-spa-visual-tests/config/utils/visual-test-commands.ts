@@ -1,66 +1,73 @@
 import { element, by, browser} from 'protractor';
 import { SkyHostBrowser } from '@blackbaud/skyux-builder/runtime/testing/e2e';
 
-const AxeBuilder = require('axe-webdriverjs');
-
-let PixDiff = require('pix-diff');
+const axeBuilder = require('axe-webdriverjs');
+const pixDiff = require('pix-diff');
 
 export class SkyVisualTest {
 
-  public static scrollElementIntoView(selector: string) {
-    let scrollEl = element(by.css(selector))
+  public static scrollElementIntoView(selector: string): void {
+    let scrollEl = element(by.css(selector));
     browser.executeScript('arguments[0].scrollIntoView();', scrollEl.getWebElement());
   }
 
-  public static moveCursorOffScreen() {
+  public static moveCursorOffScreen(): void {
     browser.actions()
       .mouseMove(element(by.css('body')), { x: 0, y: 0})
       .perform();
   }
 
-  public static setupTest(url: string, screenWidth?: number) {
+  public static setupTest(url: string, screenWidth?: number): any {
+    return browser
+      .getCurrentUrl()
+      .then((currentUrl: string) => {
+        if (currentUrl !== 'https://host.nxt.blackbaud.com/visual-tests/') {
+          SkyHostBrowser.get('/');
+        }
 
-    return browser.getCurrentUrl().then((currentUrl) => {
-      if (currentUrl !== 'https://host.nxt.blackbaud.com/visual-tests/') {
-        SkyHostBrowser.get('/');
-      }
+        element(by.css('a.sky-visual-test-' + url)).click();
 
-      element(by.css('a.sky-visual-test-' + url)).click();
-      if (!screenWidth) {
-        browser.driver.manage().window().setSize(1000, 800);
-      } else {
-        browser.driver.manage().window().setSize(screenWidth, 800);
-      }
-    });
-
-
+        if (!screenWidth) {
+          browser.driver.manage().window().setSize(1000, 800);
+        } else {
+          browser.driver.manage().window().setSize(screenWidth, 800);
+        }
+      });
   }
 
-  public static compareScreenshot(options: any) {
+  public static compareScreenshot(options: any): any {
     browser.sleep(1000);
-    return (browser as any).pixDiff.checkRegion(
-      element(by.css(options.selector)),
-      options.screenshotName,
-      {
-        thresholdType: PixDiff.THRESHOLD_PERCENT,
-        threshold: .02
-      })
+    return (browser as any).pixDiff
+      .checkRegion(
+        element(by.css(options.selector)),
+        options.screenshotName,
+        {
+          thresholdType: pixDiff.THRESHOLD_PERCENT,
+          threshold: .02
+        }
+      )
       .then((result: any) => {
-        if (result.code !== PixDiff.RESULT_SIMILAR && result.code !== PixDiff.RESULT_IDENTICAL) {
-          let createdPixDiff = new PixDiff({
+        if (result.code !== pixDiff.RESULT_SIMILAR && result.code !== pixDiff.RESULT_IDENTICAL) {
+          let createdpixDiff = new pixDiff({
             basePath: (browser as any).skyVisualTestOptions.createdPath,
             diffPath: (browser as any).skyVisualTestOptions.createdPathDiff,
             baseline: true
           });
-          createdPixDiff.saveRegion(
-            element(by.css(options.selector)),
-            options.screenshotName).then(() => {
+
+          createdpixDiff
+            .saveRegion(
+              element(by.css(options.selector)),
+              options.screenshotName
+            )
+            .then(() => {
               browser.driver.manage().window().setSize(1000, 800);
               let differencePercent = ((result.differences / result.dimension) * 100).toFixed(2);
               let mismatchMessage
-                = 'screenshots have mismatch percentage of ' + differencePercent + ' percent'
-              expect(result.code === PixDiff.RESULT_SIMILAR ||
-                result.code === PixDiff.RESULT_IDENTICAL).toBe(true, mismatchMessage);
+                = `screenshots have mismatch percentage of ${differencePercent} percent`;
+              expect(
+                result.code === pixDiff.RESULT_SIMILAR ||
+                result.code === pixDiff.RESULT_IDENTICAL
+              ).toBe(true, mismatchMessage);
             });
         }
 
@@ -69,33 +76,35 @@ export class SkyVisualTest {
         if (options.checkAccessibility) {
           return this.checkAccessibility();
         } else {
-          browser.executeScript(function () {
+          browser.executeScript(() => {
             window.history.go(-1);
           });
+
           return Promise.resolve();
         }
-
       })
       .catch((error: any) => {
         browser.driver.manage().window().setSize(1000, 800);
+
         if (error.message.indexOf('saving current image') === -1) {
           throw error;
         } else {
            if (options.checkAccessibility) {
             return this.checkAccessibility();
           } else {
-            browser.executeScript(function () {
+            browser.executeScript(() => {
               window.history.go(-1);
             });
+
             return Promise.resolve();
           }
         }
       });
   }
 
-  private static checkAccessibility() {
-    return new Promise(resolve => {
-      AxeBuilder(browser.driver)
+  private static checkAccessibility(): Promise<any> {
+    return new Promise((resolve: any) => {
+      axeBuilder(browser.driver)
         .options({
           rules: {
             'bypass': { enabled: false },
@@ -104,39 +113,41 @@ export class SkyVisualTest {
         })
         .analyze((results: any) => {
           const violations = results.violations.length;
+
           if (violations) {
             this.logAccessibilityResults(results);
-            browser.executeScript(function () {
+            browser.executeScript(() => {
               window.history.go(-1);
             });
+
             expect(violations).toBe(0, ' number of accessiblity violations');
           }
 
-          browser.executeScript(function () {
+          browser.executeScript(() => {
             window.history.go(-1);
           });
 
           resolve();
-        })
+        });
     });
   }
 
-  private static logAccessibilityResults(results: any) {
-    var numResults = results.violations.length;
+  private static logAccessibilityResults(results: any): void {
+    const numResults = results.violations.length;
 
-      if (numResults > 0) {
-        console.error("Accessibility failure(s) found for: " + results.url + "\n");
-        results.violations.forEach((result: any) => {
-          var label = result.nodes.length === 1 ? 'element' : 'elements';
-          var msg = result.nodes.reduce(function (msg: any, node: any) {
-              return `${msg}  Location: ${node.target[0]}
-  ${node.html}`;
-          }, "\n");
-          console.error(`${result.nodes.length} ${label} failed '${result.id}' rule: ${result.help} ${msg}
-  Get help at: ${result.helpUrl}
-`)
-        });
-      }
+    if (numResults > 0) {
+      console.error(`Accessibility failure(s) found for: ${results.url}\n`);
+      results.violations.forEach((result: any) => {
+        const label = (result.nodes.length === 1) ? 'element' : 'elements';
+        const message = result.nodes.reduce((msg: any, node: any) => {
+            return `${msg}  Location: ${node.target[0]}\n${node.html}`;
+        }, '\n');
+        console.error(
+          `${result.nodes.length} ${label} failed '${result.id}' rule: ${result.help}
+${message}
+Get help at: ${result.helpUrl}`
+        );
+      });
+    }
   }
 }
-

@@ -12,10 +12,6 @@ import { Tile2Component } from './tile2.component';
 export class TilesVisualComponent {
   public dashboardConfig: SkyTileDashboardConfig;
 
-  public stringify(obj: any) {
-    return JSON.stringify(obj);
-  }
-
   constructor() {
     this.dashboardConfig = {
       tiles: [
@@ -61,5 +57,9 @@ export class TilesVisualComponent {
         ]
       }
     };
+  }
+
+  public stringify(obj: any): string {
+    return JSON.stringify(obj);
   }
 }

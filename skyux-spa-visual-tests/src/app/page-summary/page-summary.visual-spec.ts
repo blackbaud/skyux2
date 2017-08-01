@@ -1,21 +1,20 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-import { browser, element, by } from 'protractor';
+import { element, by } from 'protractor';
 
 describe('Page summary', () => {
 
   function clickTest(
     screenshotName: string, visibleComponents: Array<string>, screenWidth?: number) {
     return SkyVisualTest.setupTest('page-summary', screenWidth)
-    .then(() => {
-      element(by.css('#screenshots-page-summary-items')).sendKeys(visibleComponents.join(','));
-      return SkyVisualTest.compareScreenshot({
-        screenshotName: ('pagesummary-' + screenshotName),
-        selector: '#screenshots-page-summary',
-        checkAccessibility: true
+      .then(() => {
+        element(by.css('#screenshots-page-summary-items')).sendKeys(visibleComponents.join(','));
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: ('pagesummary-' + screenshotName),
+          selector: '#screenshots-page-summary',
+          checkAccessibility: true
+        });
       });
-    });
-
   }
 
   it(
@@ -24,13 +23,13 @@ describe('Page summary', () => {
       return clickTest(
         'all',
         [
-            'Title',
-            'Subtitle',
-            'Image',
-            'Status',
-            'KeyInfo',
-            'Content',
-            'Alert'
+          'Title',
+          'Subtitle',
+          'Image',
+          'Status',
+          'KeyInfo',
+          'Content',
+          'Alert'
         ]
       );
     }
@@ -162,9 +161,9 @@ describe('Page summary', () => {
       return clickTest(
         'image_title_subtitle',
         [
-            'Title',
-            'Subtitle',
-            'Image'
+          'Title',
+          'Subtitle',
+          'Image'
         ]
       );
     }

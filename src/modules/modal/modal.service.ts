@@ -1,8 +1,7 @@
 import {
   ApplicationRef,
   ComponentFactoryResolver,
-  Injectable,
-  Injector
+  Injectable
 } from '@angular/core';
 
 import { SkyModalInstance } from './modal-instance';
@@ -15,7 +14,6 @@ export class SkyModalService {
   private static hostComponent: SkyModalHostComponent;
   constructor(
     private resolver: ComponentFactoryResolver,
-    private injector: Injector,
     private appRef: ApplicationRef,
     private adapter: SkyModalAdapterService
   ) {
