@@ -20,7 +20,7 @@ export class SkyMediaQueryDemoComponent implements OnDestroy {
   private querySubscription: Subscription;
 
   constructor(private mediaQueries: SkyMediaQueryService) {
-    this.querySubscription = mediaQueries.subscribe((newBreakpoint: SkyMediaBreakpoints) => {
+    this.querySubscription = this.mediaQueries.subscribe((newBreakpoint: SkyMediaBreakpoints) => {
       switch (newBreakpoint) {
         case SkyMediaBreakpoints.xs:
           this.currentBreakpoint = 'xs';

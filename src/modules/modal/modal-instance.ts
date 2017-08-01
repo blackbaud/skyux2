@@ -38,7 +38,12 @@ export class SkyModalInstance {
     if (this.closeCallback) {
       this.closeCallback();
     }
-    this.closed.emit({ reason: type, data: result });
+
+    const args = new SkyModalCloseArgs();
+    args.reason = type;
+    args.data = result;
+
+    this.closed.emit(args);
   }
 
 }

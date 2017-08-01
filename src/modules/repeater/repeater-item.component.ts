@@ -1,7 +1,6 @@
 import {
   animate,
   Component,
-  ElementRef,
   Input,
   trigger,
   state,
@@ -74,7 +73,6 @@ export class SkyRepeaterItemComponent {
 
   constructor(
     private repeaterService: SkyRepeaterService,
-    private elementRef: ElementRef,
     private logService: SkyLogService
   ) {
     this.slideForExpanded(false);

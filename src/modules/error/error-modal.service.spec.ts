@@ -5,7 +5,7 @@ import { SkyErrorModalFormComponent } from './error-modal-form.component';
 
 describe('Error modal service', () => {
   it('Test open is called with correct parameters', () => {
-    let modalService = new MockModalService(undefined, undefined, undefined, undefined);
+    let modalService = new MockModalService(undefined, undefined, undefined);
 
     const config: ErrorModalConfig = {
       errorTitle: 'Error title',

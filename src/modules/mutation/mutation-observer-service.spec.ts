@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { MutationObserverService } from './mutation-observer-service';
 
 describe('Mutation observer service', () => {

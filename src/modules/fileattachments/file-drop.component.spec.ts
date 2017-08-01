@@ -30,6 +30,15 @@ import {
 
 describe('File drop component', () => {
 
+  /** Simple test component with tabIndex */
+  @Component({
+    template: `
+      <sky-file-drop>
+        <div class="sky-custom-drop"></div>
+      </sky-file-drop>`
+  })
+  class FileDropContentComponent { }
+
   let fixture: ComponentFixture<SkyFileDropComponent>;
   let el: any;
   let componentInstance: SkyFileDropComponent;
@@ -751,14 +760,5 @@ describe('File drop component', () => {
     expect(contentFixture.debugElement.query(
       By.css('.sky-file-drop-contents-custom .sky-custom-drop'))).toBeTruthy();
   });
-
-  /** Simple test component with tabIndex */
-  @Component({
-    template: `
-      <sky-file-drop>
-        <div class="sky-custom-drop"></div>
-      </sky-file-drop>`
-  })
-  class FileDropContentComponent {}
 
 });

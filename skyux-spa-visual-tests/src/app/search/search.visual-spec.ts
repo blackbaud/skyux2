@@ -36,7 +36,7 @@ describe('search component', () => {
     .then(() => {
       browser.sleep(1000);
       element(by.css('.sky-search-btn-open')).click();
-      browser.sleep(1000)
+      browser.sleep(1000);
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search-small-dismissable',
         selector: '#screenshot-search-full',
@@ -55,7 +55,7 @@ describe('search component', () => {
       browser.sleep(1000);
       element(by.css('.sky-search-input')).sendKeys('Value');
       element(by.css('.sky-search-btn-apply')).click();
-      browser.sleep(1000)
+      browser.sleep(1000);
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search-small-dismissable-applied',
         selector: '#screenshot-search-full',
@@ -74,9 +74,9 @@ describe('search component', () => {
       browser.sleep(1000);
       element(by.css('.sky-search-input')).sendKeys('Value');
       element(by.css('.sky-search-btn-apply')).click();
-      browser.sleep(1000)
+      browser.sleep(1000);
       element(by.css('.sky-search-btn-dismiss')).click();
-      browser.sleep(1000)
+      browser.sleep(1000);
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search-small-applied',
         selector: '#screenshot-search-full',

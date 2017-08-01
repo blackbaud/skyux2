@@ -32,6 +32,6 @@ export class SkyTileDashboardColumnComponent {
 
     this.columnId = 'tile-dashboard-column-' + columnIdIndex;
 
-    this.bagId = dashboardService.bagId;
+    this.bagId = this.dashboardService.bagId;
   }
 }
