@@ -14,7 +14,8 @@
   </stache-page-anchor>
 
   <p>
-    The following command will create a new SKY UX SPA with features that will help you author a component library.
+    - The following command will create a new SKY UX SPA with features that will help you author a component library.
+    - Clones a template with a starter module.
   </p>
 
   <stache-code-block>
@@ -41,6 +42,10 @@
     skyux build-public-library
   </stache-code-block>
 
+  <sky-alert [alertType]="'info'">
+    Please note that this CLI command only bundles the files into a <strong>/dist</strong> directory. You are responsible for choosing the publishing method (see below).
+  </sky-alert>
+
   <stache-page-anchor>
     Publishing your library
   </stache-page-anchor>
@@ -50,12 +55,20 @@
   </p>
 
   <h3>
-    Publishing to npmjs.org
+    Method 1: Publishing to Blackbaud's NPM stream (internal-only)
   </h3>
 
+  <p>
+    For internal-only component libraries, you'll need to register your SPA through the appropriate VSTS pipeline. Reach out to Jonathan Bell for more information.
+  </p>
+
   <h3>
-    Publishing to Blackbaud's NPM stream
+    Method 2: Publishing to npmjs.org (public)
   </h3>
+
+  <p>
+    Publishing to npmjs.org is done via Travis-CI, and free GitHub continuous integration service. If you wish to publish your library in the <stache-code>@blackbaud/*</stache-code> namespace, reach out to someone on the SKY UX team to get the Travis-CI account created and setup. Otherwise, you'll need to write some custom commands to have Travis-CI automatically publish your bundle to npmjs.org (See <a href="https://docs.travis-ci.com/user/deployment/npm/">Releasing to NPM with Travis-CI</a>, for more information).
+  </p>
 
   <stache-page-anchor>
     Consuming your library in another SPA
@@ -87,18 +100,13 @@
   <p>
     (Provide reasons for why SkyAppConfig cannot be accessed by the component library. Why we need to create the adaptor, etc.)
   </p>
-
   <p>
-    <strong>/skyuxconfig.json</strong>
+    Since the source files found in <strong>@blackbaud/skyux-builder/runtime</strong> (such as <stache-code>SkyAppConfig</stache-code>) are not transpiled as a <a href="http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/">UMD module</a>--and thus cannot be <a href="https://www.npmjs.com/package/codelyzer">analyzed statically</a>--we cannot directly reference these files in our component library (since it will eventually become a UMD module). Instead, we must create an adaptor class (in the consuming SPA) that can be provided the transpiled version of <stache-code>SkyAppConfig</stache-code> at runtime.
   </p>
 
-  <stache-code-block languageType="json">
-    {
-      "app": {
-        "title": "My Application"
-      }
-    }
-  </stache-code-block>
+  <p>
+    The following code sample demonstrates how to create the adaptor in the consuming SPA.
+  </p>
 
   <p>
     <strong>/app/src/app-extras.module.ts</strong>
@@ -134,6 +142,14 @@
   </stache-page-anchor>
 
   <p>
+    (This step depends on the previous step.)
+  </p>
+
+  <p>
+    Add any properties you wish to <stache-code>"appSettings"</stache-code>.
+  </p>
+
+  <p>
     <strong>/skyuxconfig.json</strong>
   </p>
 
@@ -147,6 +163,10 @@
       }
     }
   </stache-code-block>
+
+  <p>
+    You may then access these properties in your components by injecting the  <stache-code>LibraryConfigService</stache-code>.
+  </p>
 
   <p>
     <strong>/app/src/public/src/modules/shared/config.service.ts</strong>
