@@ -11,9 +11,9 @@ describe('Help inline', () => {
                   screenshotName: 'help-inline',
                   selector: '#screenshot-help-inline',
                   checkAccessibility: true
-              })
-          })
-    })
+              });
+          });
+    });
 
     it('should match previous help inline screenshot on hover', () => {
         return SkyVisualTest
@@ -32,4 +32,4 @@ describe('Help inline', () => {
         });
 
   });
-})
+});
