@@ -56,6 +56,36 @@ describe('Tile component', () => {
     });
   }));
 
+  it('should output state when collapsed/expanded', async(() => {
+    let fixture = TestBed.createComponent(TileTestComponent);
+    let el = fixture.nativeElement;
+
+    fixture.whenStable().then(() => {
+      let titleEl = el.querySelector('.sky-tile-title');
+
+      titleEl.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(fixture.componentInstance.collapsedOutputCalled).toBe(false);
+
+        let contentAttrs = el.querySelector('.sky-tile-content').attributes;
+
+        expect(contentAttrs['hidden']).not.toBeNull();
+
+        titleEl.click();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          expect(contentAttrs['hidden']).toBe(undefined);
+          expect(fixture.componentInstance.collapsedOutputCalled).toBe(true);
+        });
+      });
+    });
+  }));
+
   it('should collapse/expand when the chevron is clicked', () => {
     let fixture = TestBed.createComponent(TileTestComponent);
     let el = fixture.nativeElement;
