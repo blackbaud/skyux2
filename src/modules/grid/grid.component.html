@@ -31,7 +31,7 @@
             <td
               class="sky-grid-cell"
               *ngFor="let column of displayedColumns; let last = last; let i = index">
-              <sky-grid-cell [ngClass]="{'sky-grid-row-details': last}"
+              <sky-grid-cell [ngClass]="{'sky-grid-row-last-column': last}"
                 [template]="column.template || defaultCellTemplate"
                 [fieldSelector]="column.field"
                 [item]="item"
@@ -41,19 +41,19 @@
               </sky-grid-cell>
 
 
-              <sky-chevron class="sky-pull-right sky-grid-row-details-icon " *ngIf="last && canRenderRowDetails()" [direction]="isExpanded ? 'up' : 'down'"
+              <sky-chevron class="sky-pull-right sky-grid-row-details-icon" *ngIf="last && canRenderRowDetails()" [direction]="isExpanded ? 'up' : 'down'"
                            (directionChange)="chevronDirectionChange($event, item)">
               </sky-chevron>
 
             </td>
           </tr>
-          <tr *ngIf="canRenderRowDetails() && item.detailsOpen" >
-            <td [colSpan]="displayedColumns.length">
-              <sky-grid-details [template]="detailsTemplate"
-                             [item]="item">
-              </sky-grid-details>
-            </td>
-          </tr>
+          <td [colSpan]="displayedColumns.length"
+              *ngIf="canRenderRowDetails() && item.detailsOpen"
+              class="sky-grid-row-details">
+            <sky-grid-details [template]="detailsTemplate"
+                           [item]="item">
+            </sky-grid-details>
+          </td>
 
         </ng-container>
       </tbody>
