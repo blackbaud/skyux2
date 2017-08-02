@@ -1,7 +1,5 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-import { element, by, browser } from 'protractor';
-
 describe('Fluid grid', () => {
 
   it('should display all columns on different rows when on a very small screen', () => {
