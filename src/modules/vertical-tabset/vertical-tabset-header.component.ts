@@ -8,21 +8,24 @@ import {
   animate
 } from '@angular/animations';
 
+const TABSTATE_OPEN: string = 'open';
+const TABSTATE_CLOSED: string = 'closed';
+
 @Component({
   selector: 'sky-vertical-tabset-header',
   templateUrl: './vertical-tabset-header.component.html',
   styleUrls: ['./vertical-tabset-header.component.scss'],
   animations: [trigger('tabState', [
-    state('open', style({
+    state(TABSTATE_OPEN, style({
       height: '*',
       visibility: 'visible'
     })),
-    state('closed', style({
+    state(TABSTATE_CLOSED, style({
       height: '0',
       visibility: 'hidden'
     })),
     transition(
-      'open <=> closed',
+      `${TABSTATE_OPEN} <=> ${TABSTATE_CLOSED}`,
       animate('300ms ease-in-out')
     )
   ])]
@@ -39,9 +42,9 @@ export class SkyVerticalTabsetHeaderComponent {
 
   public openState(): string {
     if (this.open) {
-      return 'open';
+      return TABSTATE_OPEN;
     } else {
-      return 'closed';
+      return TABSTATE_CLOSED;
     }
   }
 }
