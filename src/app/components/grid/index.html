@@ -47,17 +47,11 @@
 
       Acceptable values: <code>ListSortFieldSelectorModel</code>. <code>ListSortFieldSelectorModel</code> contains the <code>fieldSelector</code> string that represents the current sort field and the <code>descending</code> boolean that indicates whether to sort in descending order.
     </sky-demo-page-property>
-    <sky-demo-page-property
-      propertyName="enableRowDetail"
-      [isOptional]="true"
-      defaultValue="false">
-      Indicates whether row detail dropdowns are enabled. If set to <code>true</code>, then for each row, a dropdown will render at the end of each table row that expands and shows more details about the row.
-    </sky-demo-page-property>
 
     <sky-demo-page-property
       propertyName="detailsTemplate"
-      isOptional="true">
-      Specifies a template for the row details, when enableRowDetails is set to true. The template has access to the <code>row</code> variable, which contains the entire row data.
+      [isOptional]="true">
+      Specifies a template for the row details. Adds a dropdown at the end of each table that when clicked, shows the details about the row. The template has access to the <code>row</code> variable, which contains the entire row data.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
