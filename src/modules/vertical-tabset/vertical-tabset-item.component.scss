@@ -1,9 +1,9 @@
-
-.vertical-tabset-item {
+.sky-vertical-tabset-item {
   cursor: pointer;
-  margin: 10px 0 10px 10px;
+  padding: 7px 0 7px 10px;
+  margin: 5px 0 5px 15px;
 
   &:hover {
-    color: #292a2b;
+    background-color: #eee;
   }
 }

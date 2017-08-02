@@ -1,16 +1,18 @@
 @import "../../scss/mixins";
 
-.vertical-tabset-container {
-  @include sky-border(light);
+.sky-vertical-tabset-container {
+  @include sky-border(light, bottom);
   width: 320px;
-  padding: 10px 0 10px 20px;
+  margin: 10px 0 10px 20px;
 }
 
-.vertical-tabset-header {
+.sky-vertical-tabset-header {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  
+  margin-bottom: 5px;
+  padding: 5px 15px;
+
   &:hover {
     color: #292a2b;
   }
@@ -26,4 +28,5 @@
 
 .sky-vertical-tabset-content {
   overflow: hidden;
+  @include sky-border(light, top);
 }
