@@ -5,7 +5,6 @@ import { BrowserModule, By } from '@angular/platform-browser';
 
 import { HelpInlineTestComponent } from './fixtures/help-inline.component.fixture';
 import { SkyHelpInlineModule } from '../help-inline/help-inline.module';
-import { SkyResources } from '../resources/resources';
 
 describe('Help inline component', () => {
     let fixture: ComponentFixture<HelpInlineTestComponent>;
