@@ -15,7 +15,7 @@
     width: 100%;
     padding: $sky-padding;
     cursor: pointer;
-    border-bottom: 1px dotted $sky-color-gray-lighter;
+    @include sky-border(row, bottom);
   }
 
   /deep/ sky-checkbox-label {
@@ -26,5 +26,20 @@
     white-space: nowrap;
     cursor: pointer;
     padding-left: $sky-padding;
+  }
+
+  /deep/ .sky-list-view-checklist-single-button {
+    background-color: transparent;
+    border: none;
+    @include sky-border(row, bottom);
+    display: block;
+    text-align: left;
+    margin-bottom: 0;
+    padding: $sky-padding;
+    width: 100%;
+    cursor: pointer;
+  }
+  /deep/ .sky-list-view-checklist-single-button.sky-list-view-checklist-row-selected {
+    background-color: $sky-background-color-selected;
   }
 }

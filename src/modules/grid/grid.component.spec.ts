@@ -544,6 +544,12 @@ describe('Grid Component', () => {
             }
           );
 
+          let moveOptionUndefined = options.moves(
+            undefined,
+            undefined,
+            undefined
+          );
+
           let acceptsOption = options.accepts(
             undefined,
             undefined,
@@ -556,6 +562,7 @@ describe('Grid Component', () => {
           );
 
           expect(moveOption).toBe(false);
+          expect(moveOptionUndefined).toBe(false);
           expect(acceptsOption).toBe(false);
         }
       );

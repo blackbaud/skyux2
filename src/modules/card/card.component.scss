@@ -2,7 +2,7 @@
 
 .sky-card {
     background-color: #fff;
-    border: solid 1px #ccc;
+    @include sky-border(dark, top, bottom, left, right);
     display: inline-flex;
     flex-direction: column;
     height: 350px;
@@ -12,13 +12,13 @@
     // vertically aligned with one another.  Otherwise because of the inline nature of the card the browser
     // will attempt to vertically align the cards based on the baselines of the text in each card.
     vertical-align: top;
-    width: 300px;
+    width: 350px;
     @include sky-shadow();
 }
 
 .sky-card-small {
     height: 250px;
-    width: 200px;
+    width: 225px;
 }
 
 .sky-card-selectable {
@@ -29,7 +29,7 @@
 }
 
 .sky-card-selected {
-    background-color: $sky-selected-color;
+    background-color: $sky-background-color-selected;
     transition: background-color $sky-transition-time-short;
 }
 
@@ -65,8 +65,7 @@
 }
 
 .sky-card-title {
-    font-family: $sky-font-family-narrow;
-    font-size: $sky-alternate-font-size-sm;
+    @include sky-section-heading();
     margin: 0;
     line-height: $sky-line-height-base;
 }
@@ -89,7 +88,7 @@
 }
 
 .sky-card-actions {
-    border-top: solid 1px #ccc;
+    @include sky-border(light, top);
     bottom: 0;
     flex-shrink: 0;
     padding: $sky-padding-3_4 0;

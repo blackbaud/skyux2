@@ -4,6 +4,7 @@ var fs = require('fs-extra'),
   glob = require('glob'),
   path = require('path'),
   sass = require('node-sass'),
+  tildeImporter = require('node-sass-tilde-importer'),
   TEMP_PATH = './.srctemp';
 
 function deleteNonDistFiles() {
@@ -72,6 +73,8 @@ function escapeContents(contents) {
 function compileSass(file) {
   var contents = sass.renderSync({
     file: file,
+    importer: tildeImporter,
+
     outputStyle: 'compressed'
   }).css;
 

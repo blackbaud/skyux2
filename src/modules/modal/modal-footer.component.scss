@@ -3,7 +3,7 @@
 .sky-modal-footer-container {
   background-color: #fff;
   padding: $sky-padding-plus-half;
-  border-top: solid 1px $sky-color-gray-lightest;
+  @include sky-border(light, top);
   /* Offset the margin-left of the link */
   /deep/ .sky-btn-link:first-child {
     margin-left: -12px;

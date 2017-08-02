@@ -34,6 +34,19 @@
       Specifies a size for the modal. The valid options are <code>small</code>,
       <code>medium</code>, and <code>large</code>.
     </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="ariaLabelledBy?"
+        isOptional="true"
+    >
+      Sets the <code>aria-labelledby</code> attribute for the modal dialog for accessibility support. The value should be an id (without the leading <code>#</code>) pointing to the element that labels your modal. Typically, this will be a header element. If not provided, this will default to the content of the <code>sky-modal-header</code> component.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="ariaDescribedBy?"
+      isOptional="true"
+    >
+      Sets the <code>aria-describedby</code> attribute for the modal dialog for accessibility support.  The value should be an id (without the leading <code>#</code>) pointing to the element that describes your modal. Typically, this will be the text on your modal, but does not include something the user would interact with, like buttons or a form. If not provided, this will default to the content of the <code>sky-modal-content</code> component.
+    </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-properties sectionHeading="Modal component properties">

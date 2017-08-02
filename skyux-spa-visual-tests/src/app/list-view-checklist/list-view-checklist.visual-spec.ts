@@ -26,4 +26,16 @@ describe('list-view-checklist component', () => {
     });
 
   });
+
+  it('should display checklist view single select', () => {
+    return SkyVisualTest.setupTest('list-view-checklist')
+    .then(() => {
+      element(by.css('.sky-btn.sky-btn-primary')).click();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'list-view-checklist-single',
+        selector: '#screenshot-list-view-checklist'
+      });
+    });
+
+  });
 });
