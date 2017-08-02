@@ -41,13 +41,13 @@
               </sky-grid-cell>
 
 
-              <sky-chevron class="sky-pull-right sky-grid-row-details-icon " *ngIf="last && enableRowDetail" [direction]="isExpanded ? 'up' : 'down'"
+              <sky-chevron class="sky-pull-right sky-grid-row-details-icon " *ngIf="last && canRenderRowDetails()" [direction]="isExpanded ? 'up' : 'down'"
                            (directionChange)="chevronDirectionChange($event, item)">
               </sky-chevron>
 
             </td>
           </tr>
-          <tr *ngIf="enableRowDetail && detailsTemplate !== null && item.detailsOpen" >
+          <tr *ngIf="canRenderRowDetails() && item.detailsOpen" >
             <td [colSpan]="displayedColumns.length">
               <sky-grid-details [template]="detailsTemplate"
                              [item]="item">
