@@ -219,4 +219,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       item.detailsOpen = false;
     }
   }
+
+  public canRenderRowDetails() {
+    return this.enableRowDetail && this.detailsTemplate != null;
+  }
 }
