@@ -6,8 +6,7 @@ import {
   forwardRef,
   ChangeDetectionStrategy,
   ViewChild,
-  AfterContentInit,
-  NgZone
+  AfterContentInit
 } from '@angular/core';
 import { ListViewComponent } from '../list/list-view.component';
 import {
@@ -101,12 +100,9 @@ export class SkyListViewGridComponent
     state: ListState,
     private dispatcher: ListStateDispatcher,
     public gridState: GridState,
-    public gridDispatcher: GridStateDispatcher,
-    private zone: NgZone
+    public gridDispatcher: GridStateDispatcher
   ) {
-
     super(state, 'Grid View');
-
   }
 
   public ngAfterContentInit() {

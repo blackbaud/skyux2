@@ -23,6 +23,7 @@ export class HomeComponent {
     'filter',
     'forms',
     'grid',
+    'help-inline',
     'key-info',
     'label',
     'list-secondary-actions',

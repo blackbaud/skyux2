@@ -4,7 +4,7 @@ import {
   Input
 } from '@angular/core';
 
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 /**
  * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
@@ -15,7 +15,7 @@ let nextId = 0;
  * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  */
-// tslint:disable no-forward-ref
+// tslint:disable:no-forward-ref no-use-before-declare
 export const SKY_RADIO_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyRadioComponent),

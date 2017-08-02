@@ -133,7 +133,7 @@ export class SkyFileDropComponent {
 
   public addLink(event: Event) {
     event.preventDefault();
-    this.linkChanged.emit({ url: this.linkUrl });
+    this.linkChanged.emit({ url: this.linkUrl } as SkyFileLink);
     this.linkUrl = undefined;
   }
 
@@ -144,7 +144,10 @@ export class SkyFileDropComponent {
     validFileArray: Array<SkyFileItem>) {
 
     if (totalFiles === rejectedFileArray.length + validFileArray.length) {
-      this.filesChanged.emit({ files: validFileArray, rejectedFiles: rejectedFileArray });
+      this.filesChanged.emit({
+        files: validFileArray,
+        rejectedFiles: rejectedFileArray
+      } as SkyFileDropChange);
       this.inputEl.nativeElement.value = '';
     }
   }

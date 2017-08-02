@@ -12,7 +12,6 @@ import { SkyColorpickerChangeColor } from './types/colorpicker-color';
 @Directive({
   selector: '[skyColorpickerText]'
 })
-
 export class SkyColorpickerTextDirective {
   @Output()
   public newColorContrast = new EventEmitter<SkyColorpickerChangeColor>();
@@ -32,17 +31,15 @@ export class SkyColorpickerTextDirective {
         color: element.value,
         colorValue: undefined,
         maxRange: undefined
-      });
+      } as SkyColorpickerChangeColor);
     }
 
     if (!isNaN(elementValue) && elementValue >= 0 && elementValue <= this.maxRange) {
-      this.newColorContrast.emit(
-        {
-          color: this.color,
-          colorValue: elementValue,
-          maxRange: this.maxRange
-        }
-      );
+      this.newColorContrast.emit({
+        color: this.color,
+        colorValue: elementValue,
+        maxRange: this.maxRange
+      } as SkyColorpickerChangeColor);
     }
   }
 }

@@ -31,7 +31,7 @@ export class SkyRepeaterComponent implements AfterContentInit {
   private _expandMode = 'none';
 
   constructor(private repeaterService: SkyRepeaterService) {
-    repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
+    this.repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
       if (this.expandMode === 'single' && item.isExpanded) {
         this.items.forEach((otherItem) => {
           if (otherItem !== item && otherItem.isExpanded) {

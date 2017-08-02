@@ -162,6 +162,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     this.clearButtonShown = false;
 
     this.searchAdapter.focusInput(this.elRef);
+    this.searchChange.emit(this.searchText);
 
     this.searchApply.emit(this.searchText);
   }
@@ -185,6 +186,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   }
 
   public searchTextChanged(searchText: string) {
+    this.searchText = searchText;
     this.searchChange.emit(searchText);
   }
 
