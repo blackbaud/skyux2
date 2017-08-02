@@ -275,9 +275,33 @@ describe('Grid Component', () => {
         }
       });
 
+      describe('row details', () => {
+        it('clicking chevron icon should open/close details', () => {
+          let details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
+          expect(details).not.toExist();
+          let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+          expect(detailsIcon).toHaveCssClass("sky-chevron-down");
+
+          detailsIcon.click();
+          fixture.detectChanges();
+          details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
+          expect(details).toExist();
+          detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+          expect(detailsIcon).toHaveCssClass("sky-chevron-up");
+
+          detailsIcon.click();
+          fixture.detectChanges();
+          details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
+          expect(details).not.toExist();
+          detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+          expect(detailsIcon).toHaveCssClass("sky-chevron-down");
+        });
+      });
+
       describe('sorting', () => {
         it('adds appropriate icons and emits event on click to headers', () => {
           let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          console.log(headerEl);
           headerEl.click();
           fixture.detectChanges();
 
