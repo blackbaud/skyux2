@@ -1,23 +1,23 @@
-<sky-demo-page title="Fluid Grid">
+<sky-demo-page title="Fluid grid">
   <sky-demo-page-summary>
-    The Grid components provide a 12 column layout grid for organizing content for all device sizes. The grid consists of <code>sky-row</code> and <code>sky-column</code> tags. Every column must be contained in a row. Each column can have multiple properties specified in order to handle different behavior for each screen size. Below the width of 768px (small screen) all elements will be displayed in a single column.
+    The fluid grid component provides a 12-column layout to organize responsive content for all device sizes. The grid consists of <code>sky-row</code> and <code>sky-column</code> tags. Each column must be contained in a row, and can specify behavior for different screen sizes. On extra small screens (less than 768px) the grid displays all elements in a single column.
   </sky-demo-page-summary>
 
   <sky-demo-page-properties sectionHeading="Sky row properties">
     <sky-demo-page-property propertyName="reverseColumnOrder" defaultValue="false" isOptional="true">
-      Reverses the display order for the child columns when set to <code>true</code>.
+      Indicates whether to reverse the display order for columns within this row.
     </sky-demo-page-property>
 
   </sky-demo-page-properties>
   <sky-demo-page-properties sectionHeading="Sky column properties">
     <sky-demo-page-property propertyName="screenSmall" isOptional="true">
-      The number of columns (1-12) the element will use on a small screen (768-991px).
+      Specifies the number of columns (1-12) for the element to use on a small screen (768-991px).
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="screenMedium" isOptional="true">
-      The number of columns (1-12) the element will use on a medium screen (992-1199px).
+      Specifies the number of columns (1-12) for the element to use on a medium screen (992-1199px).
     </sky-demo-page-property>
     <sky-demo-page-property propertyName="screenLarge" isOptional="true">
-      The number of columns (1-12) the element will use on a large screen (1200px+).
+      Specifies the number of columns (1-12) for the element to use on a large screen (greater than 1200px).
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

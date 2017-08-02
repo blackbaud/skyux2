@@ -317,10 +317,10 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Fluid Grid',
+        name: 'Fluid grid',
         icon: 'table',
         // tslint:disable-next-line
-        summary: `Provides a layout grid for creating responsive content.`,
+        summary: `Provides a layout grid for displaying responsive content.`,
         url: '/components/fluid-grid',
         getCodeFiles: function () {
           return [
