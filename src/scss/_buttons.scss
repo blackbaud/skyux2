@@ -93,7 +93,7 @@
 }
 
 .sky-tab-header-count {
-    @include sky-emphasized();
+    font-weight: 400;
     color: $sky-text-color-action-primary;
     margin-left: $sky-margin-half;
 }
