@@ -3,18 +3,26 @@
 .sky-vertical-tabset-container {
   @include sky-border(light, bottom);
   width: 320px;
-  margin: 10px 0 10px 20px;
+  margin: 5px 0 0 20px;
 }
 
 .sky-vertical-tabset-header {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
-  padding: 5px 15px;
+  padding: 10px 15px;
 
   &:hover {
     color: #292a2b;
+  }
+
+  &:focus {
+    //default
+    outline: thin dotted;
+
+    //webkit
+    outline: -webkit-focus-ring-color auto 5px;
+    outline-offset: -2px;
   }
 }
 
