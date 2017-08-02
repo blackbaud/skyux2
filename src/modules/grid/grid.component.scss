@@ -38,6 +38,17 @@
   }
 }
 
+.sky-grid-row-details {
+  float: left;
+}
+
+.sky-grid-row-details-icon {
+  vertical-align: middle;
+  display: table-cell;
+  padding: 8px;
+  //valign: middle;
+}
+
 .sky-grid-heading {
   @include sky-border(dark, top, bottom, left, right);
   @include sky-field-label();
