@@ -19,6 +19,7 @@ import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
 import { SkyGridModule } from './modules/grid';
+import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyListColumnSelectorActionModule } from './modules/list-column-selector-action';
@@ -65,6 +66,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyFileAttachmentsModule,
     SkyFilterModule,
     SkyGridModule,
+    SkyHelpInlineModule,
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyListColumnSelectorActionModule,
@@ -212,6 +214,10 @@ export {
   SkyGridComponent,
   SkyGridModule
 } from './modules/grid';
+export {
+  SkyHelpInlineComponent,
+  SkyHelpInlineModule
+} from './modules/help-inline';
 export {
   SkyKeyInfoComponent,
   SkyKeyInfoLabelComponent,
