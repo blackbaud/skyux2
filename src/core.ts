@@ -119,6 +119,7 @@ export {
   SkyActionButtonDetailsComponent,
   SkyActionButtonHeaderComponent,
   SkyActionButtonIconComponent,
+  SkyActionButtonContainerComponent,
   SkyActionButtonModule
 } from './modules/action-button';
 export {
