@@ -1,6 +1,8 @@
 <sky-grid
   fit="scroll"
   [data]="items"
+  [enableRowDetail]="true"
+  [detailsTemplate]="customDetailsTemplate"
   (sortFieldChange)="sortChanged($event)">
   <sky-grid-column
     id="column1"
@@ -12,7 +14,6 @@
     id="column2"
     field="column2"
     heading="Column2"
-
     >
   </sky-grid-column>
   <sky-grid-column
@@ -38,3 +39,35 @@
     Column 2: {{row.column2}}
   </div>
 </ng-template>
+
+<ng-template let-row="row" #customDetailsTemplate>
+  <table style="width:100%">
+    <tr>
+      <td>
+        <div>
+          Description
+        </div>
+        <div>
+          {{row.description}}
+        </div>
+      </td>
+      <td>
+        <div>
+           Open emails
+        </div>
+        <div>
+          {{row.openEmails}}
+        </div>
+      </td>
+      <td>
+        <div>
+          click through rate
+        </div>
+        <div>
+          {{row.clickThrough}}
+        </div>
+      </td>
+    </tr>
+  </table>
+</ng-template>
+

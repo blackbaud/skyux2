@@ -9,13 +9,14 @@ import {
   ChangeDetectorRef,
   SimpleChanges,
   EventEmitter,
-  OnChanges
+  OnChanges, TemplateRef
 } from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridColumnModel } from './grid-column.model';
 import { ListItemModel } from '../list/state';
 import { SkyGridAdapterService } from './grid-adapter.service';
+
 
 import { ListSortFieldSelectorModel } from '../list/state';
 
@@ -54,10 +55,16 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public columns: Array<SkyGridColumnModel>;
 
   @Input()
+  public detailsTemplate: TemplateRef<any>;
+
+  @Input()
   public hasToolbar: boolean = false;
 
   @Input()
   public sortField: ListSortFieldSelectorModel;
+
+  @Input()
+  public enableRowDetail: boolean = false;
 
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
@@ -203,5 +210,13 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
      this.columns = this.columnComponents.map(columnComponent => {
         return new SkyGridColumnModel(columnComponent.template, columnComponent);
       });
+  }
+
+  public chevronDirectionChange(direction: string, item: ListItemModel) {
+    if(direction === 'up') {
+      item.detailsOpen = true;
+    } else if(direction === 'down') {
+      item.detailsOpen = false;
+    }
   }
 }
