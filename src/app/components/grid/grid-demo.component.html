@@ -1,7 +1,7 @@
 <sky-grid
   fit="scroll"
   [data]="items"
-  [enableRowDetail]="true"
+  [detailsTemplate]="customDetailsTemplate"
   (sortFieldChange)="sortChanged($event)">
   <sky-grid-column
     id="column1"

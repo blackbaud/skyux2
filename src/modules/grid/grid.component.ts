@@ -63,9 +63,6 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   @Input()
   public sortField: ListSortFieldSelectorModel;
 
-  @Input()
-  public enableRowDetail: boolean = false;
-
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 
@@ -221,6 +218,6 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   }
 
   public canRenderRowDetails() {
-    return this.enableRowDetail && this.detailsTemplate != null;
+    return this.detailsTemplate != null;
   }
 }
