@@ -16,8 +16,10 @@ import {
   ]
 })
 export class SkyListPagingDemoComponent {
-  constructor(private state: ListState, private dispatcher: ListStateDispatcher) {
-    dispatcher.next(new ListItemsLoadAction([
+  constructor(
+    private dispatcher: ListStateDispatcher
+  ) {
+    this.dispatcher.next(new ListItemsLoadAction([
       new ListItemModel('1'),
       new ListItemModel('2'),
       new ListItemModel('3'),
