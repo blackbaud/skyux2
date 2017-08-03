@@ -24,6 +24,7 @@ export class HomeComponent {
     'fluid-grid',
     'forms',
     'grid',
+    'help-inline',
     'key-info',
     'label',
     'list-secondary-actions',
