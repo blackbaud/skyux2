@@ -1,4 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  QueryList,
+  ContentChildren,
+  OnInit,
+  AfterContentInit
+} from '@angular/core';
 
 import {
   style,
@@ -7,6 +14,8 @@ import {
   transition,
   animate
 } from '@angular/animations';
+
+import { SkyVerticalTabsetItemComponent } from './vertical-tabset-item.component';
 
 const TABSTATE_OPEN: string = 'open';
 const TABSTATE_CLOSED: string = 'closed';
@@ -30,12 +39,23 @@ const TABSTATE_CLOSED: string = 'closed';
     )
   ])]
 })
-export class SkyVerticalTabsetHeaderComponent {
+export class SkyVerticalTabsetHeaderComponent implements AfterContentInit {
 
   @Input()
   public title: string;
 
   public open: boolean = false;
+
+  @ContentChildren(SkyVerticalTabsetItemComponent)
+  private tabs: QueryList<SkyVerticalTabsetItemComponent>;
+
+  public ngAfterContentInit() {
+    // open group if child item is active
+    let activeTab = this.tabs && this.tabs.find(t => t.active === true);
+    if (activeTab) {
+      this.open = true;
+    }
+  }
 
   public clicked() {
     this.open = !this.open;
