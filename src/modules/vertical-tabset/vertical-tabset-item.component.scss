@@ -7,3 +7,18 @@
     background-color: #eee;
   }
 }
+
+.sky-vertical-tabset-content {
+  visibility: hidden;
+  height: 0;
+}
+
+.sky-vertical-tabset-item-active {
+  background-color: #eee;
+  // left border
+}
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+}

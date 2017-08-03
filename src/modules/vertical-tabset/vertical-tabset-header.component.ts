@@ -31,6 +31,7 @@ const TABSTATE_CLOSED: string = 'closed';
   ])]
 })
 export class SkyVerticalTabsetHeaderComponent {
+
   @Input()
   public title: string;
 
