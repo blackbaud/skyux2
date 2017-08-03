@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
@@ -15,6 +15,9 @@ export class SkyVerticalTabComponent implements OnInit {
   public active: boolean;
 
   public index: number;
+
+  @ViewChild('tabContentWrapper')
+  public tabContent: ElementRef;
 
   constructor(private tabsetService: SkyVerticalTabsetService) {}
 

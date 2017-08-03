@@ -2,8 +2,7 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  AfterContentInit,
-  ViewContainerRef
+  AfterContentInit
 } from '@angular/core';
 
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
@@ -22,17 +21,14 @@ export class SkyVerticalTabsetComponent implements AfterContentInit {
   @ViewChild('skySideContent')
   public content: ElementRef;
 
-  public tabContent: any;
-
-  constructor(
-    public viewContainerRef: ViewContainerRef) {}
+  constructor(private tabService: SkyVerticalTabsetService) {}
 
   public ngAfterContentInit() {
-    this.tabContent =
-      this.tabGroups.nativeElement.querySelectorAll('.sky-vertical-tab-content');
-
-    this.tabContent.forEach((contentEl: ElementRef) => {
-      this.content.nativeElement.appendChild(contentEl);
-    });
+    // move content from sub tabs to the right
+    if (this.tabService.tabs) {
+      this.tabService.tabs.forEach(tab => {
+        this.content.nativeElement.appendChild(tab.tabContent.nativeElement);
+      });
+    }
   }
 }
