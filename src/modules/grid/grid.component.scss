@@ -38,6 +38,25 @@
   }
 }
 
+.sky-grid-row-last-column {
+  float: left;
+}
+
+.sky-grid-row-details {
+  @include sky-border(row, bottom);
+  padding: 8px;
+}
+
+.sky-grid-row-details-hidden {
+  display: none;
+}
+
+.sky-grid-row-details-icon {
+  vertical-align: middle;
+  display: table-cell;
+  padding: 8px;
+}
+
 .sky-grid-heading {
   @include sky-border(dark, top, bottom, left, right);
   @include sky-field-label();

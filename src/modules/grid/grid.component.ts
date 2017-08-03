@@ -9,8 +9,12 @@ import {
   ChangeDetectorRef,
   SimpleChanges,
   EventEmitter,
-  OnChanges
+  OnChanges, TemplateRef
+  // animate, trigger, state, style, transition
 } from '@angular/core';
+import {
+  animate, trigger, state, style, transition
+} from '@angular/animations';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridColumnModel } from './grid-column.model';
@@ -31,7 +35,21 @@ import { Observable } from 'rxjs/Observable';
   providers: [
     SkyGridAdapterService
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [trigger('slide', [
+    state('down', style({
+      overflow: 'hidden',
+      height: '*'
+    })),
+    state('up', style({
+      overflow: 'hidden',
+      height: 0
+    })),
+    transition(
+      'up <=> down',
+      animate('150ms ease-in')
+    )
+  ])]
 })
 export class SkyGridComponent implements AfterContentInit, OnChanges {
 
@@ -54,6 +72,11 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public columns: Array<SkyGridColumnModel>;
 
   @Input()
+  public detailsTemplate: TemplateRef<any>;
+
+  public detailsSlideDirection: string = 'down';
+
+  @Input()
   public hasToolbar: boolean = false;
 
   @Input()
@@ -70,16 +93,16 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public items: Array<any> = new Array<any>();
 
   public currentSortField: BehaviorSubject<ListSortFieldSelectorModel>
-    = new BehaviorSubject<ListSortFieldSelectorModel>({ fieldSelector: '', descending: false });
+    = new BehaviorSubject<ListSortFieldSelectorModel>({fieldSelector: '', descending: false});
 
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
 
-  constructor(
-    private dragulaService: DragulaService,
-    private ref: ChangeDetectorRef,
-    private gridAdapter: SkyGridAdapterService
-  ) {}
+
+  constructor(private dragulaService: DragulaService,
+              private ref: ChangeDetectorRef,
+              private gridAdapter: SkyGridAdapterService) {
+  }
 
   public ngAfterContentInit() {
     if (this.columnComponents.length !== 0 || this.columns !== undefined) {
@@ -101,11 +124,11 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     });
 
     this.gridAdapter.initializeDragAndDrop(
-        this.dragulaService,
-        (selectedColumnIds: Array<string>) => {
-          this.onHeaderDrop(selectedColumnIds);
-        }
-      );
+      this.dragulaService,
+      (selectedColumnIds: Array<string>) => {
+        this.onHeaderDrop(selectedColumnIds);
+      }
+    );
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -128,23 +151,23 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public sortByColumn(column: SkyGridColumnModel) {
     if (column.isSortable) {
       this.currentSortField
-      .take(1)
-      .map(field => {
-        let selector = {
-          fieldSelector: column.field,
-          descending: true
-        };
-
-        if (field && field.fieldSelector === column.field && field.descending) {
-          selector = {
+        .take(1)
+        .map(field => {
+          let selector = {
             fieldSelector: column.field,
-            descending: false
+            descending: true
           };
-        }
-        this.sortFieldChange.emit(selector);
-        this.currentSortField.next(selector);
-      })
-      .subscribe();
+
+          if (field && field.fieldSelector === column.field && field.descending) {
+            selector = {
+              fieldSelector: column.field,
+              descending: false
+            };
+          }
+          this.sortFieldChange.emit(selector);
+          this.currentSortField.next(selector);
+        })
+        .subscribe();
     }
   }
 
@@ -157,18 +180,36 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       });
   }
 
+  public chevronDirectionChange(direction: string, item: ListItemModel) {
+    if (direction === 'up') {
+      item.detailsOpen = true;
+      // this.detailsSlideDirection = direction;
+
+    } else if (direction === 'down') {
+      item.detailsOpen = false;
+      // this.detailsSlideDirection = direction;
+
+    }
+    this.detailsSlideDirection = direction;
+
+  }
+
+  public canRenderRowDetails() {
+    return this.detailsTemplate !== undefined;
+  }
+
   private onHeaderDrop(newColumnIds: Array<string>) {
-     // update selected columnIds
-      this.selectedColumnIds = newColumnIds;
-      this.selectedColumnIdsChange.emit(newColumnIds);
+    // update selected columnIds
+    this.selectedColumnIds = newColumnIds;
+    this.selectedColumnIdsChange.emit(newColumnIds);
 
-      // set new displayed columns
-      this.displayedColumns = this.selectedColumnIds.map(
-        columnId => this.columns.filter(column => column.id === columnId)[0]
-      );
+    // set new displayed columns
+    this.displayedColumns = this.selectedColumnIds.map(
+      columnId => this.columns.filter(column => column.id === columnId)[0]
+    );
 
-      // mark for check because we are using ChangeDetectionStrategy.onPush
-      this.ref.markForCheck();
+    // mark for check because we are using ChangeDetectionStrategy.onPush
+    this.ref.markForCheck();
   }
 
   private setDisplayedColumns(respectHidden: boolean = false) {
@@ -196,12 +237,12 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   }
 
   private setSortHeaders() {
-    this.currentSortField.next(this.sortField || { fieldSelector: '', descending: false });
+    this.currentSortField.next(this.sortField || {fieldSelector: '', descending: false});
   }
 
   private getColumnsFromComponent() {
-     this.columns = this.columnComponents.map(columnComponent => {
-        return new SkyGridColumnModel(columnComponent.template, columnComponent);
-      });
+    this.columns = this.columnComponents.map(columnComponent => {
+      return new SkyGridColumnModel(columnComponent.template, columnComponent);
+    });
   }
 }

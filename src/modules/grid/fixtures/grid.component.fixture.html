@@ -6,6 +6,7 @@
   [data]="data"
   [width]="600"
   [height]="400"
+  [detailsTemplate]="details1"
   [sortField]="sortField"
   (sortFieldChange)="onSort($event)">
   <sky-grid-column
@@ -58,4 +59,9 @@
   <div class="sky-test-custom-template">
   {{value}}
   </div>
+</ng-template>
+
+
+<ng-template let-row="row" #details1>
+  <div>{{row.detailText}}</div>
 </ng-template>

@@ -28,19 +28,20 @@ export class GridTestComponent {
   ];
   public data: any[] = [
         new ListItemModel('1', { column1: '1', column2: 'Apple',
-          column3: 1, column4: moment().add(1, 'minute') }),
+          column3: 1, column4: moment().add(1, 'minute'), detailText: 'Apple details' }),
         new ListItemModel('2', { column1: '01', column2: 'Banana',
-          column3: 1, column4: moment().add(6, 'minute'), column5: 'test' }),
+          column3: 1, column4: moment().add(6, 'minute'), column5: 'test',
+          detailText: 'Banana details' }),
         new ListItemModel('3', { column1: '11', column2: 'Carrot',
-          column3: 11, column4: moment().add(4, 'minute') }),
+          column3: 11, column4: moment().add(4, 'minute'), detailText: 'Carrot details' }),
         new ListItemModel('4', { column1: '12', column2: 'Daikon',
-          column3: 12, column4: moment().add(2, 'minute') }),
+          column3: 12, column4: moment().add(2, 'minute'), detailText: 'Daikon details' }),
         new ListItemModel('5', { column1: '13', column2: 'Edamame',
-          column3: 13, column4: moment().add(5, 'minute') }),
+          column3: 13, column4: moment().add(5, 'minute'), detailText: 'Edamame details' }),
         new ListItemModel('6', { column1: '20', column2: 'Fig',
-          column3: 20, column4: moment().add(3, 'minute') }),
+          column3: 20, column4: moment().add(3, 'minute'), detailText: 'Fig details' }),
         new ListItemModel('7', { column1: '21', column2: 'Grape',
-          column3: 21, column4: moment().add(7, 'minute') })
+          column3: 21, column4: moment().add(7, 'minute'), detailText: 'Grape details' })
       ];
 
   @ViewChild(SkyGridComponent)

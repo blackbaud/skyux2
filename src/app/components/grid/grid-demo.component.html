@@ -1,6 +1,7 @@
 <sky-grid
   fit="scroll"
   [data]="items"
+  [detailsTemplate]="customDetailsTemplate"
   (sortFieldChange)="sortChanged($event)">
   <sky-grid-column
     id="column1"
@@ -12,7 +13,6 @@
     id="column2"
     field="column2"
     heading="Column2"
-
     >
   </sky-grid-column>
   <sky-grid-column
@@ -38,3 +38,22 @@
     Column 2: {{row.column2}}
   </div>
 </ng-template>
+
+<ng-template let-row="row" #customDetailsTemplate>
+  <table style="width:100%">
+    <tr>
+      <td>
+        <div>{{row.column2}} Metrics</div>
+      </td>
+      <td>
+        <div>Total fruit eaten</div>
+        <div>{{row.consumptionCount}}</div>
+      </td>
+      <td>
+        <div>Initial fruit Count</div>
+        <div>{{row.initialCount}}</div>
+      </td>
+    </tr>
+  </table>
+</ng-template>
+
