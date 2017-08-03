@@ -1,3 +1,5 @@
+@import '../../scss/mixins';
+
 .sky-vertical-tabset-item {
   cursor: pointer;
   padding: 7px 0 7px 10px;
@@ -15,7 +17,9 @@
 
 .sky-vertical-tabset-item-active {
   background-color: #eee;
-  // left border
+  color: #292a2b;
+  padding-left: 6px;
+  border-left: $sky-nav-selected-border-width solid #1c84c6;
 }
 
 .hidden {

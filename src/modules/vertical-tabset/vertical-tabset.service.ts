@@ -12,6 +12,12 @@ export class SkyVerticalTabsetService {
   public addTab(tab: SkyVerticalTabsetItemComponent) {
     const index = this.tabs.length + 1;
     tab.index = index;
+
+    // set first tab to active
+    if (this.tabs.length === 0) {
+      tab.active = true;
+    }
+
     this.tabs.push(tab);
   }
 
