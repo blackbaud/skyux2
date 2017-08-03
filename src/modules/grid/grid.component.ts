@@ -10,7 +10,11 @@ import {
   SimpleChanges,
   EventEmitter,
   OnChanges, TemplateRef
+  // animate, trigger, state, style, transition
 } from '@angular/core';
+import {
+  animate, trigger, state, style, transition
+} from '@angular/animations';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridColumnModel } from './grid-column.model';
@@ -31,7 +35,21 @@ import { Observable } from 'rxjs/Observable';
   providers: [
     SkyGridAdapterService
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [trigger('slide', [
+    state('down', style({
+      overflow: 'hidden',
+      height: '*'
+    })),
+    state('up', style({
+      overflow: 'hidden',
+      height: 0
+    })),
+    transition(
+      'up <=> down',
+      animate('150ms ease-in')
+    )
+  ])]
 })
 export class SkyGridComponent implements AfterContentInit, OnChanges {
 
@@ -56,6 +74,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   @Input()
   public detailsTemplate: TemplateRef<any>;
 
+  public detailsSlideDirection: string = 'down';
+
   @Input()
   public hasToolbar: boolean = false;
 
@@ -77,6 +97,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
 
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
+
 
   constructor(private dragulaService: DragulaService,
               private ref: ChangeDetectorRef,
@@ -162,9 +183,15 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   public chevronDirectionChange(direction: string, item: ListItemModel) {
     if (direction === 'up') {
       item.detailsOpen = true;
+      // this.detailsSlideDirection = direction;
+
     } else if (direction === 'down') {
       item.detailsOpen = false;
+      // this.detailsSlideDirection = direction;
+
     }
+    this.detailsSlideDirection = direction;
+
   }
 
   public canRenderRowDetails() {
