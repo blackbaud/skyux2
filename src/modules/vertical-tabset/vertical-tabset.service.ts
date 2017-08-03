@@ -10,7 +10,7 @@ export class SkyVerticalTabsetService {
   public activeIndex: Number = 0;
 
   public addTab(tab: SkyVerticalTabsetItemComponent) {
-    const index = this.tabs.length + 1;
+    const index = this.tabs.length;
     tab.index = index;
 
     // set first tab to active
@@ -22,10 +22,11 @@ export class SkyVerticalTabsetService {
   }
 
   public activateTab(tab: SkyVerticalTabsetItemComponent) {
-    // unactivate active tab tab
-    let currentTab = this.tabs.find(t => t.index === this.activeIndex);
-    if (currentTab) {
-      currentTab.active = false;
+
+    // unactivate active tab
+    let activeTab = this.tabs.find(t => t.index === this.activeIndex);
+    if (activeTab && activeTab.index !== tab.index) {
+      activeTab.active = false;
     }
 
     this.activeIndex = tab.index;
