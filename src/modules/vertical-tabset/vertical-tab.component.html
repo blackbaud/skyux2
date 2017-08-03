@@ -1,0 +1,11 @@
+<div 
+  class="sky-vertical-tab sky-field-label"
+  [ngClass]="{'sky-vertical-tab-active': active }"
+  (click)="activateTab()">
+  <div>{{ tabHeading }}</div>
+</div>
+ <div class="sky-vertical-tab-content">
+  <div [ngClass]="{'sky-vertical-tab-hidden': !active }">
+    <ng-content></ng-content>
+  <div>
+</div>

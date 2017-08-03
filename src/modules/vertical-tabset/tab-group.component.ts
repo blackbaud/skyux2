@@ -3,7 +3,6 @@ import {
   Input,
   QueryList,
   ContentChildren,
-  OnInit,
   AfterContentInit
 } from '@angular/core';
 
@@ -15,15 +14,15 @@ import {
   animate
 } from '@angular/animations';
 
-import { SkyVerticalTabsetItemComponent } from './vertical-tabset-item.component';
+import { SkyVerticalTabComponent } from './vertical-tab.component';
 
 const TABSTATE_OPEN: string = 'open';
 const TABSTATE_CLOSED: string = 'closed';
 
 @Component({
-  selector: 'sky-vertical-tabset-header',
-  templateUrl: './vertical-tabset-header.component.html',
-  styleUrls: ['./vertical-tabset-header.component.scss'],
+  selector: 'sky-tab-group',
+  templateUrl: './tab-group.component.html',
+  styleUrls: ['./tab-group.component.scss'],
   animations: [trigger('tabState', [
     state(TABSTATE_OPEN, style({
       height: '*',
@@ -39,15 +38,15 @@ const TABSTATE_CLOSED: string = 'closed';
     )
   ])]
 })
-export class SkyVerticalTabsetHeaderComponent implements AfterContentInit {
+export class SkyTabGroupComponent implements AfterContentInit {
 
   @Input()
-  public title: string;
+  public groupHeading: string;
 
   public open: boolean = false;
 
-  @ContentChildren(SkyVerticalTabsetItemComponent)
-  private tabs: QueryList<SkyVerticalTabsetItemComponent>;
+  @ContentChildren(SkyVerticalTabComponent)
+  private tabs: QueryList<SkyVerticalTabComponent>;
 
   public ngAfterContentInit() {
     // open group if child item is active

@@ -1,12 +1,12 @@
 @import "../../scss/mixins";
 
-.sky-vertical-tabset-container {
+.sky-tab-group-container {
   @include sky-border(light, bottom);
   width: 320px;
   margin: 5px 0 0 20px;
 }
 
-.sky-vertical-tabset-header {
+.sky-tab-group-header {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -26,15 +26,15 @@
   }
 }
 
-.sky-vertical-tabset-icon {
+.sky-tab-group-icon {
   transition: all 0.3s linear;
 
-  &.sky-vertical-tabset-icon-open {
+  &.sky-tab-group-icon-open {
     transform:rotate(180deg);
   }
 }
 
-.sky-vertical-tabset-content {
+.sky-tab-group-content {
   overflow: hidden;
   @include sky-border(light, top);
 }

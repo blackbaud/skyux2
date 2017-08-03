@@ -3,14 +3,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
 @Component({
-  selector: 'sky-vertical-tabset-item',
-  templateUrl: './vertical-tabset-item.component.html',
-  styleUrls: ['./vertical-tabset-item.component.scss']
+  selector: 'sky-vertical-tab',
+  templateUrl: './vertical-tab.component.html',
+  styleUrls: ['./vertical-tab.component.scss']
 })
-export class SkyVerticalTabsetItemComponent implements OnInit {
+export class SkyVerticalTabComponent implements OnInit {
 
   @Input()
-  public title: string;
+  public tabHeading: string;
 
   public active: boolean;
 

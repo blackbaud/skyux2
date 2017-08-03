@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { SkyVerticalTabsetItemComponent } from './vertical-tabset-item.component';
+import { SkyVerticalTabComponent } from './vertical-tab.component';
 
 @Injectable()
 export class SkyVerticalTabsetService {
 
-  public tabs: Array<SkyVerticalTabsetItemComponent> = [];
+  public tabs: Array<SkyVerticalTabComponent> = [];
 
   public activeIndex: Number = 0;
 
-  public addTab(tab: SkyVerticalTabsetItemComponent) {
+  public addTab(tab: SkyVerticalTabComponent) {
+
     const index = this.tabs.length;
     tab.index = index;
 
@@ -21,7 +22,7 @@ export class SkyVerticalTabsetService {
     this.tabs.push(tab);
   }
 
-  public activateTab(tab: SkyVerticalTabsetItemComponent) {
+  public activateTab(tab: SkyVerticalTabComponent) {
 
     // unactivate active tab
     let activeTab = this.tabs.find(t => t.index === this.activeIndex);

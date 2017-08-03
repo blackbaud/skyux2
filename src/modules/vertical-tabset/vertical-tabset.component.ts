@@ -1,16 +1,12 @@
 import {
   Component,
-  Input,
   ElementRef,
   ViewChild,
-  OnInit,
-  ViewContainerRef,
-  ContentChildren,
-  QueryList
+  AfterContentInit,
+  ViewContainerRef
 } from '@angular/core';
 
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
-import { SkyVerticalTabsetItemComponent } from './vertical-tabset-item.component';
 
 @Component({
   selector: 'sky-vertical-tabset',
@@ -18,7 +14,7 @@ import { SkyVerticalTabsetItemComponent } from './vertical-tabset-item.component
   styleUrls: ['./vertical-tabset.component.scss'],
   providers: [SkyVerticalTabsetService]
 })
-export class SkyVerticalTabsetComponent implements OnInit {
+export class SkyVerticalTabsetComponent implements AfterContentInit {
 
   @ViewChild('contentWrapper')
   public tabGroups: ElementRef;
@@ -29,12 +25,11 @@ export class SkyVerticalTabsetComponent implements OnInit {
   public tabContent: any;
 
   constructor(
-    public viewContainerRef: ViewContainerRef,
-    private tabsetService: SkyVerticalTabsetService) {}
+    public viewContainerRef: ViewContainerRef) {}
 
-  public ngOnInit() {
+  public ngAfterContentInit() {
     this.tabContent =
-      this.tabGroups.nativeElement.querySelectorAll('.sky-vertical-tabset-item-content');
+      this.tabGroups.nativeElement.querySelectorAll('.sky-vertical-tab-content');
 
     this.tabContent.forEach((contentEl: ElementRef) => {
       this.content.nativeElement.appendChild(contentEl);

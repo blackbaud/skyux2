@@ -407,8 +407,8 @@ export {
 } from './modules/toolbar';
 export {
   SkyVerticalTabsetComponent,
-  SkyVerticalTabsetHeaderComponent,
-  SkyVerticalTabsetItemComponent
+  SkyTabGroupComponent,
+  SkyVerticalTabComponent
 } from './modules/vertical-tabset';
 export {
   SkyWaitComponent,

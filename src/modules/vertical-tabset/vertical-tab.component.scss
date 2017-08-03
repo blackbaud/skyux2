@@ -1,6 +1,6 @@
 @import '../../scss/mixins';
 
-.sky-vertical-tabset-item {
+.sky-vertical-tab {
   cursor: pointer;
   padding: 7px 0 7px 10px;
   margin: 5px 0 5px 15px;
@@ -10,19 +10,14 @@
   }
 }
 
-.sky-vertical-tabset-content {
-  visibility: hidden;
-  height: 0;
-}
-
-.sky-vertical-tabset-item-active {
+.sky-vertical-tab-active {
   background-color: #eee;
   color: #292a2b;
   padding-left: 6px;
   border-left: $sky-nav-selected-border-width solid #1c84c6;
 }
 
-.hidden {
+.sky-vertical-tab-hidden {
   visibility: hidden;
   height: 0;
 }
