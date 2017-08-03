@@ -689,7 +689,7 @@ describe('Grid Component', () => {
     });
   });
 
-  fdescribe('Dynamic columns', () => {
+  describe('Dynamic columns', () => {
 
     let component: GridDynamicTestComponent,
       fixture: ComponentFixture<GridDynamicTestComponent>,
