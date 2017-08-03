@@ -276,7 +276,7 @@ describe('Grid Component', () => {
       });
 
       describe('row details', () => {
-        it('clicking chevron icon should open/close details', () => {
+        it('opens and closes row details when the chevron icon is clicked', () => {
           let details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
           expect(details).not.toExist();
           let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
@@ -688,12 +688,14 @@ describe('Grid Component', () => {
     });
   });
 
-  describe('Dynamic columns', () => {
-    it('should handle columns changing after initialization', () => {
-      let component: GridDynamicTestComponent,
-        fixture: ComponentFixture<GridDynamicTestComponent>,
-        nativeElement: HTMLElement,
-        element: DebugElement;
+  fdescribe('Dynamic columns', () => {
+
+    let component: GridDynamicTestComponent,
+      fixture: ComponentFixture<GridDynamicTestComponent>,
+      nativeElement: HTMLElement,
+      element: DebugElement;
+
+    beforeEach(async(() => {
 
       TestBed.configureTestingModule({
         imports: [
@@ -706,7 +708,9 @@ describe('Grid Component', () => {
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
+    }));
 
+    it('should handle columns changing after initialization', () => {
       fixture.detectChanges();
 
       expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
@@ -723,6 +727,12 @@ describe('Grid Component', () => {
         .toBe('Name');
       expect(getColumnHeader('email', element).nativeElement.textContent.trim())
         .toBe('Email');
+    });
+
+    it('should not show chevron icons to expand row details when ' +
+      'detailsTemplate not configured', () => {
+        let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+        expect(detailsIcon).not.toExist();
     });
   });
 
