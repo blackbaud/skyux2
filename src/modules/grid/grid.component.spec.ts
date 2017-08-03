@@ -279,7 +279,8 @@ describe('Grid Component', () => {
         it('opens and closes row details when the chevron icon is clicked', () => {
           let details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
           expect(details).not.toExist();
-          let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+          let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron')
+            .item(0) as HTMLElement;
           expect(detailsIcon).toHaveCssClass('sky-chevron-down');
 
           detailsIcon.click();
@@ -731,7 +732,8 @@ describe('Grid Component', () => {
 
     it('should not show chevron icons to expand row details when ' +
       'detailsTemplate not configured', () => {
-        let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+        let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron')
+          .item(0) as HTMLElement;
         expect(detailsIcon).not.toExist();
     });
   });
