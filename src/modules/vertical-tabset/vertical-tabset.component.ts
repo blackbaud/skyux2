@@ -42,6 +42,12 @@ export class SkyVerticalTabsetComponent implements AfterContentInit {
         this.content.nativeElement.appendChild(tab.tabContent.nativeElement);
       });
     }
+
+    this.tabService.tabClicked.subscribe((clicked: boolean) => {
+      if (this.isMobile()) {
+        this._tabsVisible = false;
+      }
+    });
   }
 
   public tabsVisible(): boolean {

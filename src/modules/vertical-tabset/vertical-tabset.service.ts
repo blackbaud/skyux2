@@ -1,12 +1,12 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
-
 import { SkyVerticalTabComponent } from './vertical-tab.component';
 
 @Injectable()
 export class SkyVerticalTabsetService {
 
   public tabs: Array<SkyVerticalTabComponent> = [];
-
+  public tabClicked = new BehaviorSubject(false);
   public activeIndex: Number = 0;
 
   public addTab(tab: SkyVerticalTabComponent) {
@@ -31,5 +31,6 @@ export class SkyVerticalTabsetService {
     }
 
     this.activeIndex = tab.index;
+    this.tabClicked.next(true);
   }
 }
