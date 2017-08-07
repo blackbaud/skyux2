@@ -11,7 +11,8 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
-
+  font-size: 16px;
+  
   &:hover {
     color: #292a2b;
   }
@@ -24,6 +25,10 @@
     outline: -webkit-focus-ring-color auto 5px;
     outline-offset: -2px;
   }
+}
+
+.sky-tab-group-header-sub-open {
+  @include sky-emphasized();
 }
 
 .sky-tab-group-icon {

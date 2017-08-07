@@ -67,4 +67,8 @@ export class SkyTabGroupComponent implements AfterContentInit {
       return TABSTATE_CLOSED;
     }
   }
+
+  public subMenuOpen(): boolean {
+    return this.tabs && (this.tabs.find(t => t.active) !== undefined);
+  }
 }
