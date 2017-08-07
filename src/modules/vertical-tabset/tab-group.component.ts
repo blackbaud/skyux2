@@ -2,8 +2,7 @@ import {
   Component,
   Input,
   QueryList,
-  ContentChildren,
-  AfterContentInit
+  ContentChildren
 } from '@angular/core';
 
 import {
@@ -38,26 +37,32 @@ const TABSTATE_CLOSED: string = 'closed';
     )
   ])]
 })
-export class SkyTabGroupComponent implements AfterContentInit {
+export class SkyTabGroupComponent {
 
   @Input()
   public groupHeading: string;
 
-  public open: boolean = false;
+  @Input()
+  public disabled: boolean;
+
+  private _open: boolean = false;
+
+  public get open(): boolean {
+    return !this.disabled && this._open;
+  }
+
+  @Input()
+  public set open(value: boolean) {
+    this._open = value;
+  }
 
   @ContentChildren(SkyVerticalTabComponent)
   private tabs: QueryList<SkyVerticalTabComponent>;
 
-  public ngAfterContentInit() {
-    // open group if child item is active
-    let activeTab = this.tabs && this.tabs.find(t => t.active === true);
-    if (activeTab) {
-      this.open = true;
-    }
-  }
-
   public clicked() {
-    this.open = !this.open;
+    if (!this.disabled) {
+      this.open = !this.open;
+    }
   }
 
   public openState(): string {

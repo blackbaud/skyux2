@@ -34,6 +34,8 @@
   <sky-tab-group 
     *ngFor="let group of groups"
     [groupHeading]="group.heading"
+    [open]="group.isOpen"
+    [disabled]="group.isDisabled"
   >
     <sky-vertical-tab
       *ngFor="let tab of group.subTabs"
