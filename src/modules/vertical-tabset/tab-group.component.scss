@@ -2,8 +2,13 @@
 
 .sky-tab-group-container {
   @include sky-border(light, bottom);
-  width: 320px;
-  margin: 5px 0 0 20px;
+  margin: 5px 10px 0 20px;
+}
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-tab-group-container {
+    width: 320px;
+  }
 }
 
 .sky-tab-group-header {
