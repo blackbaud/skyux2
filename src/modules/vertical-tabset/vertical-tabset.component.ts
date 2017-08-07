@@ -29,6 +29,7 @@ export class SkyVerticalTabsetComponent implements AfterContentInit {
   public showTabsText: string = this.resources.getString('vertical_tabs_show_tabs_text');
 
   private _tabsVisible: boolean;
+  private _wideScreen: boolean;
 
   constructor(
     private tabService: SkyVerticalTabsetService,
@@ -51,6 +52,16 @@ export class SkyVerticalTabsetComponent implements AfterContentInit {
   }
 
   public tabsVisible(): boolean {
+    const isMobile = this.isMobile();
+
+    // hide tabs when switching from widescreen to mobile
+    if (!isMobile) {
+      this._wideScreen = true;
+    } else if (isMobile && this._wideScreen) {
+      this._tabsVisible = false;
+      this._wideScreen = false;
+    }
+
     return !this.isMobile() || this._tabsVisible;
   }
 
