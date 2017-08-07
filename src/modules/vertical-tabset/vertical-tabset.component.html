@@ -1,8 +1,12 @@
- <div class="sky-vertical-tabset-component-container">
+ <div class="sky-vertical-tabset-container">
    <div #contentWrapper>
     <ng-content select="sky-tab-group"></ng-content>
   </div> 
-  <div class="sky-vertical-tabset-component-content">
-    <div #skySideContent></div> 
+  <div class="sky-vertical-tabset-content">
+    <div #skySideContent></div>
+    <button class="sky-btn sky-btn-primary sky-vertical-tabset-show-tabs">
+      <i class="fa fa-chevron-left"></i>
+      {{ showTabsText }}
+    </button>
   </div>
 </div> 

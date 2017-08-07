@@ -1,7 +1,21 @@
-.sky-vertical-tabset-component-container {
-  display: flex;
+@import "../../scss/mixins";
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-vertical-tabset-container {
+    display: flex;
+  }
 }
 
-.sky-vertical-tabset-component-content {
+@media (max-width: $sky-screen-sm-min) {
+  .sky-vertical-tabset-container {
+    background-color: blue;
+  }
+}
+
+.sky-vertical-tabset-content {
   margin: 10px 0 0 10px;
+}
+
+.sky-vertical-tabset-show-tabs {
+  margin-top: 10px;
 }
