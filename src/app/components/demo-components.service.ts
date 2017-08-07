@@ -320,7 +320,7 @@ export class SkyDemoComponentsService {
         name: 'Fluid grid',
         icon: 'table',
         // tslint:disable-next-line
-        summary: `Provides a layout grid for displaying responsive content.`,
+        summary: `Provides a responsive 12-column layout to organize content for all device sizes.`,
         url: '/components/fluid-grid',
         getCodeFiles: function () {
           return [
