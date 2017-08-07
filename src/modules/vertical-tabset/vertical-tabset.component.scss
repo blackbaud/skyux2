@@ -6,16 +6,14 @@
   }
 }
 
-@media (max-width: $sky-screen-sm-min) {
-  .sky-vertical-tabset-container {
-    background-color: blue;
-  }
-}
-
 .sky-vertical-tabset-content {
   margin: 10px 0 0 10px;
 }
 
 .sky-vertical-tabset-show-tabs {
   margin-top: 10px;
+}
+
+.sky-vertical-tabset-hidden {
+  display: none;
 }
