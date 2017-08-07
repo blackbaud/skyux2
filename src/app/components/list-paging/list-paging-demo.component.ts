@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import {
+  ListState,
   ListStateDispatcher,
   ListItemsLoadAction,
   ListItemModel
@@ -10,11 +11,14 @@ import {
   selector: 'sky-list-paging-demo',
   templateUrl: './list-paging-demo.component.html',
   providers: [
+    ListState,
     ListStateDispatcher
   ]
 })
 export class SkyListPagingDemoComponent {
-  constructor(private dispatcher: ListStateDispatcher) {
+  constructor(
+    private dispatcher: ListStateDispatcher
+  ) {
     this.dispatcher.next(new ListItemsLoadAction([
       new ListItemModel('1'),
       new ListItemModel('2'),

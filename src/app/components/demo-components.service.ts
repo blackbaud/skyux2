@@ -206,7 +206,7 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Email Validation',
+        name: 'Email validation',
         icon: 'check',
         // tslint:disable-next-line
         summary: `The email validation module allows the user to validate email format.`,
@@ -872,7 +872,7 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Text Expand',
+        name: 'Text expand',
         icon: 'text-height',
         // tslint:disable-next-line
         summary: `The text expand component truncates long text with an ellipsis and a link that users can click to expand the text.`,
