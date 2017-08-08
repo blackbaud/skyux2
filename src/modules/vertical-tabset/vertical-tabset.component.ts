@@ -4,7 +4,8 @@ import {
   ViewChild,
   Input,
   AfterViewInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit
 } from '@angular/core';
 
 import {
@@ -43,7 +44,7 @@ import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
     )
   ]
 })
-export class SkyVerticalTabsetComponent implements AfterViewInit {
+export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
 
   @ViewChild('contentWrapper')
   public tabGroups: ElementRef;
@@ -63,17 +64,26 @@ export class SkyVerticalTabsetComponent implements AfterViewInit {
     private mediaQueryService: SkyMediaQueryService,
     private changeRef: ChangeDetectorRef) {}
 
+  public ngOnInit() {
+    this._wideScreen = !this.isMobile();
+  }
+
   public ngAfterViewInit() {
     this.tabService.tabClicked.subscribe(this.tabClicked);
   }
 
   public tabsVisible(): boolean {
     const isMobile = this.isMobile();
+    const switchingToWidescreen = !isMobile && !this._wideScreen;
+    const switchingToMobile = isMobile && this._wideScreen;
 
     // hide tabs when switching from widescreen to mobile
-    if (!isMobile) {
+    if (switchingToWidescreen) {
       this._wideScreen = true;
-    } else if (isMobile && this._wideScreen) {
+      this.changeRef.detectChanges();
+      this.moveActiveTabContent();
+
+    } else if (switchingToMobile) {
       this._tabsVisible = false;
       this._wideScreen = false;
     }
