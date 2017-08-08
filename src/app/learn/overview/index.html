@@ -2,6 +2,7 @@
 
 <stache
     pageTitle="Overview"
+    navOrder="1"
     showTableOfContents="true">
 
     <stache-page-summary>
@@ -26,7 +27,7 @@
         <li><p>The continuous integration layer runs unit tests, visual regression tests, and end-to-end tests in multiple platforms and browsers when a SPA's code changes or when a dependency releases a new version. This layer also stages the SPA for additional testing and validation. <!-- The CI layer is primarily for internal Blackbaud use, but external developers can take advantage of tests when developing locally in SKY UX SPAs. However, it is not open source like the components, services, and modules in <a href="https://github.com/blackbaud/skyux2">the SKY UX 2 GitHub repo</a>. --></p></li>
         <li><p>SKY UX Host acts as a gateway for all requests to SKY UX SPAs. When serving locally, it pulls files locally. And for production, it pulls files from a registry that stores static files. <!-- Host is primarily for internal Blackbaud use, but when external developers use the SKY UX CLI to serve SKY UX SPAs locally, Host loads local files. However, is not open source like the components, services, and modules in <a href="https://github.com/blackbaud/skyux2">the SKY UX 2 GitHub repo</a>. --></p></li>
     </ul>
-    
+
     <stache-page-anchor>
         SKY UX Builder
     </stache-page-anchor>
@@ -44,7 +45,7 @@
     </stache-page-anchor>
     <p>The continuous integration layer of SKY UX runs unit tests, visual regression tests, and end-to-end tests in multiple platforms and browsers when SPA code changes or when a dependency releases a new version. It also handles staging SPAs for additional testing and validation.</p>
     <sky-alert alertType="info">The CI layer is primarily for internal Blackbaud use. External developers can use this layer when developing SPAs locally, but it is not open source like the components, services, and modules in <a href="https://github.com/blackbaud/skyux2">the SKY UX 2 GitHub repo</a>.</sky-alert>
-  
+
     <stache-page-anchor>
         SKY UX Host
     </stache-page-anchor>
