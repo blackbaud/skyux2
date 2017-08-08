@@ -9,7 +9,6 @@ import {
 
 import {
   style,
-  state,
   trigger,
   transition,
   animate
@@ -18,7 +17,7 @@ import {
 import { SkyResourcesService } from './../resources/resources.service';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 import { SkyMediaQueryService } from './../media-queries/media-query.service';
-import { SkyMediaBreakpoints } from 'src/modules/media-queries';
+import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
 
 @Component({
   selector: 'sky-vertical-tabset',
@@ -65,14 +64,7 @@ export class SkyVerticalTabsetComponent implements AfterViewInit {
     private changeRef: ChangeDetectorRef) {}
 
   public ngAfterViewInit() {
-    this.tabService.tabClicked.subscribe((clicked: boolean) => {
-      if (this.isMobile()) {
-        this._tabsVisible = false;
-        this.changeRef.detectChanges();
-      }
-
-      this.moveActiveTabContent();
-    });
+    this.tabService.tabClicked.subscribe(this.tabClicked);
   }
 
   public tabsVisible(): boolean {
@@ -99,6 +91,15 @@ export class SkyVerticalTabsetComponent implements AfterViewInit {
 
   public showTabs() {
     this._tabsVisible = true;
+  }
+
+  public tabClicked = () => {
+    if (this.isMobile()) {
+      this._tabsVisible = false;
+      this.changeRef.detectChanges();
+    }
+
+    this.moveActiveTabContent();
   }
 
   public moveActiveTabContent() {

@@ -12,7 +12,7 @@ export class SkyVerticalTabComponent implements OnInit {
   @Input()
   public tabHeading: string;
 
-  public active: boolean;
+  public active: boolean = false;
 
   public index: number;
 

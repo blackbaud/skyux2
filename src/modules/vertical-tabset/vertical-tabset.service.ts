@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { SkyVerticalTabComponent } from './vertical-tab.component';
 
 @Injectable()
@@ -34,7 +34,7 @@ export class SkyVerticalTabsetService {
     this.tabClicked.next(true);
   }
 
-  public activeTabContent() {
+  public activeTabContent(): ElementRef {
     let activeTab = this.tabs.find(t => t.index === this.activeIndex);
 
     if (activeTab) {
