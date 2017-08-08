@@ -1,6 +1,7 @@
  <div class="sky-vertical-tabset-container">
   <div 
     #contentWrapper 
+    class="sky-vertical-tabset-group-container"
     [ngClass]="{'sky-vertical-tabset-hidden': !tabsVisible() }"
   >
     <ng-content select="sky-tab-group"></ng-content>
