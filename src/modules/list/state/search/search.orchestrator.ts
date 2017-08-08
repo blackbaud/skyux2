@@ -3,6 +3,7 @@ import { ListSearchModel } from './search.model';
 import { ListSearchSetSearchTextAction } from './set-search-text.action';
 import { ListSearchSetFunctionsAction } from './set-functions.action';
 import { ListSearchSetFieldSelectorsAction } from './set-field-selectors.action';
+import { ListSearchSetOptionsAction } from './set-options.action';
 
 export class ListSearchOrchestrator extends ListStateOrchestrator<ListSearchModel> {
   /* istanbul ignore next */
@@ -12,7 +13,8 @@ export class ListSearchOrchestrator extends ListStateOrchestrator<ListSearchMode
     this
       .register(ListSearchSetSearchTextAction, this.setSearchText)
       .register(ListSearchSetFunctionsAction, this.setFunctions)
-      .register(ListSearchSetFieldSelectorsAction, this.setFieldSelectors);
+      .register(ListSearchSetFieldSelectorsAction, this.setFieldSelectors)
+      .register(ListSearchSetOptionsAction, this.setOptions);
    }
 
   private setSearchText(
@@ -35,5 +37,26 @@ export class ListSearchOrchestrator extends ListStateOrchestrator<ListSearchMode
     return new ListSearchModel(
       Object.assign({}, state, { fieldSelectors: [...action.fieldSelectors] })
     );
+  }
+
+  private setOptions(state: ListSearchModel, action: ListSearchSetOptionsAction) {
+    let result = state;
+
+    /* istanbul ignore else */
+    if (action.searchTextAction) {
+      result = this.setSearchText(result, action.searchTextAction);
+    }
+
+    /* istanbul ignore else */
+    if (action.setFieldSelectorsAction) {
+      result = this.setFieldSelectors(result, action.setFieldSelectorsAction);
+    }
+
+    /* istanbul ignore else */
+    if (action.setFunctionsAction) {
+      result = this.setFunctions(result, action.setFunctionsAction);
+    }
+
+    return result;
   }
 }

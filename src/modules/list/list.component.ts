@@ -218,7 +218,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
     return Observable.combineLatest(
       this.state.map(s => s.filters).distinctUntilChanged(),
       this.state.map(s => s.search).distinctUntilChanged(),
-      this.state.map(s => s.sort).distinctUntilChanged(),
+      this.state.map(s => s.sort.fieldSelectors).distinctUntilChanged(),
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
       selectedIds.distinctUntilChanged().map((selectedId: any) => {
@@ -229,7 +229,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
       (
         filters: ListFilterModel[],
         search: ListSearchModel,
-        sort: ListSortModel,
+        sortFieldSelectors: Array<ListSortFieldSelectorModel>,
         itemsPerPage: number,
         pageNumber: number,
         selected: Array<string>,
@@ -258,7 +258,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
             pageSize: itemsPerPage,
             pageNumber: pageNumber,
             search: search,
-            sort: sort
+            sort: new ListSortModel({ fieldSelectors: sortFieldSelectors })
           }));
         }
 

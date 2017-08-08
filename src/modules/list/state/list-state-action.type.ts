@@ -23,7 +23,8 @@ import {
 import {
   ListSearchSetSearchTextAction,
   ListSearchSetFunctionsAction,
-  ListSearchSetFieldSelectorsAction
+  ListSearchSetFieldSelectorsAction,
+  ListSearchSetOptionsAction
 } from './search/actions';
 
 import {
@@ -48,7 +49,7 @@ export type ListStateAction =
   ListPagingSetMaxPagesAction | ListPagingSetItemsPerPageAction | ListPagingSetPageNumberAction |
   ListViewsLoadAction | ListViewsSetActiveAction | ListToolbarItemsLoadAction |
   ListToolbarSetExistsAction | ListSearchSetSearchTextAction | ListSearchSetFunctionsAction |
-  ListSearchSetFieldSelectorsAction | ListSelectedSetLoadingAction | ListSelectedLoadAction |
-  ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction | ListToolbarSetTypeAction
-  | ListSortSetFieldSelectorsAction | ListSortSetAvailableAction | ListSortSetGlobalAction |
-  ListFiltersUpdateAction | ListToolbarItemsRemoveAction;
+  ListSearchSetFieldSelectorsAction | ListSearchSetOptionsAction | ListSelectedSetLoadingAction |
+  ListSelectedLoadAction | ListSelectedSetItemSelectedAction | ListSelectedSetItemsSelectedAction |
+  ListToolbarSetTypeAction | ListSortSetFieldSelectorsAction | ListSortSetAvailableAction |
+  ListSortSetGlobalAction | ListFiltersUpdateAction | ListToolbarItemsRemoveAction;
