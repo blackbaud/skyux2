@@ -11,7 +11,11 @@
         <i class="fa fa-chevron-down"></i>
       </div>
   </div>
-  <div class="sky-tab-group-content" [@tabState]="openState()">
+  <div 
+    class="sky-tab-group-content" 
+    *ngIf="open"
+    [@tabAnimate]
+  >
     <ng-content></ng-content>
   </div>
 </div>

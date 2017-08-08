@@ -15,27 +15,36 @@ import {
 
 import { SkyVerticalTabComponent } from './vertical-tab.component';
 
-const TABSTATE_OPEN: string = 'open';
-const TABSTATE_CLOSED: string = 'closed';
-
 @Component({
   selector: 'sky-tab-group',
   templateUrl: './tab-group.component.html',
   styleUrls: ['./tab-group.component.scss'],
-  animations: [trigger('tabState', [
-    state(TABSTATE_OPEN, style({
-      height: '*',
-      visibility: 'visible'
-    })),
-    state(TABSTATE_CLOSED, style({
-      height: '0',
-      visibility: 'hidden'
-    })),
-    transition(
-      `${TABSTATE_OPEN} <=> ${TABSTATE_CLOSED}`,
-      animate('300ms ease-in-out')
+  animations: [
+    trigger(
+      'tabAnimate', [
+        transition(':enter', [
+          style({
+            height: '0',
+            visibility: 'hidden'
+          }),
+          animate('350ms', style({
+            height: '*',
+            visibility: 'visible'
+          }))
+        ]),
+        transition(':leave', [
+          style({
+            height: '*',
+            visibility: 'visible'
+          }),
+          animate('350ms', style({
+            height: '0',
+            visibility: 'hidden'
+          }))
+        ])
+      ]
     )
-  ])]
+  ]
 })
 export class SkyTabGroupComponent {
 
@@ -62,14 +71,6 @@ export class SkyTabGroupComponent {
   public clicked() {
     if (!this.disabled) {
       this.open = !this.open;
-    }
-  }
-
-  public openState(): string {
-    if (this.open) {
-      return TABSTATE_OPEN;
-    } else {
-      return TABSTATE_CLOSED;
     }
   }
 
