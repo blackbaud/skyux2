@@ -41,7 +41,7 @@ export class SkyTileComponent implements AfterViewInit {
   public settingsClick = new EventEmitter();
 
   @Output()
-  public collapsedStateChange = new EventEmitter<boolean>();
+  public isCollapsedChange = new EventEmitter<boolean>();
 
   public get isCollapsed(): boolean {
     if (this.dashboardService) {
@@ -62,6 +62,8 @@ export class SkyTileComponent implements AfterViewInit {
     if (this.viewInitialized) {
       this.slideForCollapsed(true);
     }
+
+    this.isCollapsedChange.emit(value);
   }
 
   private _isCollapsed = false;
