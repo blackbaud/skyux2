@@ -2,20 +2,21 @@
 
 <stache pageTitle="Component libraries" showTableOfContents="true">
   <stache-page-summary>
-    This page documents how to create a reusable component library for SKY UX.
+    After you create components with SKY UX, you can organize them into libraries to publish them for other SPAs to consume. This reference describes how to create reusable component libraries for SKY UX.
   </stache-page-summary>
 
+<!--
   <stache-page-anchor>
     Overview
   </stache-page-anchor>
+-->
 
   <stache-page-anchor>
-    Installing dependencies
+    Install dependencies
   </stache-page-anchor>
 
   <p>
-    - The following command will create a new SKY UX SPA with features that will help you author a component library.
-    - Clones a template with a starter module.
+    The first step to author a SKY UX component library is to create a SPA and specify the base template that includes the starter module for creating component libraries. To do this, run <stache-code>skyux new</stache-code> from the SKY UX CLI and use the <stache-code>--template</stache-code> option to specify the <stache-code>library</stache-code> template.
   </p>
 
   <stache-code-block>
@@ -23,39 +24,48 @@
   </stache-code-block>
 
   <stache-page-anchor>
-    Creating the library
+    Create the components for the library
   </stache-page-anchor>
-
+  
   <p>
-    The library source files live in <strong>/src/app/public</strong>. This folder is special in that SKY UX Builder will ignore components saved here (ie, the components will not be automatically declared in the <stache-code>SkyModule</stache-code>). This will allow you to write Angular modules, components, and services outside of SKY UX's scope.
+    The library template places source files in <stache-code>/src/app/public</stache-code>. SKY UX Builder ignores any components in this folder, so they are not automatically declared in <stache-code>SkyModule</stache-code>. This allows you to write Angular modules, components, and services outside of SKY UX's scope.
   </p>
 
   <p>
-    The entry point for your component library is <strong>/src/app/public/index.ts</strong>. This file is responsible for exporting any code you want to be made available to the bundler.
+    The entry point for your component library is <stache-code>/src/app/public/index.ts</stache-code>. This file is responsible for exporting any code you want to make available to the bundler.
   </p>
 
   <stache-page-anchor>
-    Building your library
+    Bundle the library
   </stache-page-anchor>
+  
+  <p>
+    After you create a SPA and the components for the library, the next step is to bundle the components into a consumable NPM module that you can publish to an NPM stream such as <a href="https://www.npmjs.com/">npmjs.org</a>. To do this, run <stache-code>skyux build-public-library</stache-code> from the SKY UX CLI.
+  </p>
 
   <stache-code-block>
     skyux build-public-library
   </stache-code-block>
 
-  <sky-alert [alertType]="'info'">
-    Please note that this CLI command only bundles the files into a <strong>/dist</strong> directory. You are responsible for choosing the publishing method (see below).
-  </sky-alert>
+  <p>
+    This command creates a bundle that is NPM-ready and places it in a <strong>/dist</strong> directory. It bundles the components in the <stache-code>/src/app/public</stache-code> folder and ignores all other files. Keep in mind that this  command does not publish the component library.
+  </p>
 
   <stache-page-anchor>
-    Publishing your library
+    Publish the library
   </stache-page-anchor>
+
+  <p>
+    After you bundle SKY UX components into a consumable NPM module, you can publish it to an NPM stream to allow other SPAs to install the library. For public libraries, we recommend that you publish to <a href="https://www.npmjs.com/">npmjs.org</a>.
+    your SPA and the components for yoru library, the next step is to bundle your components into a consumable NPM module that can be published to an NPM stream such as <a href="https://www.npmjs.com/">npmjs.org</a>. To do this, run <stache-code>skyux build-public-library</stache-code> from the SKY UX CLI.
+  </p>
 
   <p>
     (Add notes here about NPM feeds for both public and private libraries.)
   </p>
 
   <h3>
-    Method 1: Publishing to Blackbaud's NPM stream (internal-only)
+    Method 1: Publish to Blackbaud's NPM stream (internal-only)
   </h3>
 
   <p>
@@ -63,7 +73,7 @@
   </p>
 
   <h3>
-    Method 2: Publishing to npmjs.org (public)
+    Method 2: Publish to npmjs.org (public)
   </h3>
 
   <p>
@@ -71,7 +81,7 @@
   </p>
 
   <stache-page-anchor>
-    Consuming your library in another SPA
+    Consume the library in another SPA
   </stache-page-anchor>
 
   <p>
@@ -94,7 +104,7 @@
   </stache-code-block>
 
   <stache-page-anchor>
-    Accessing the consuming app's configuration
+    Access the consuming app's configuration
   </stache-page-anchor>
 
   <p>
@@ -138,7 +148,7 @@
   </stache-code-block>
 
   <stache-page-anchor>
-    Providing configuration for your library
+    Provide configuration for the library
   </stache-page-anchor>
 
   <p>
@@ -165,7 +175,7 @@
   </stache-code-block>
 
   <p>
-    You may then access these properties in your components by injecting the  <stache-code>LibraryConfigService</stache-code>.
+    You may then access these properties in your components by injecting the <stache-code>LibraryConfigService</stache-code>.
   </p>
 
   <p>
