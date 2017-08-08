@@ -2,13 +2,15 @@
   <div 
     #contentWrapper 
     class="sky-vertical-tabset-group-container"
-    [ngClass]="{'sky-vertical-tabset-hidden': !tabsVisible() }"
+    [@tabGroupEnter]
+    *ngIf="tabsVisible()"
   >
     <ng-content select="sky-tab-group"></ng-content>
   </div> 
   <div 
-    class="sky-vertical-tabset-content" 
-    [ngClass]="{'sky-vertical-tabset-hidden': !contentVisible() }"
+    class="sky-vertical-tabset-content"
+    [@contentEnter]
+    *ngIf="contentVisible()"
   >
     <div #skySideContent></div>
     <button 

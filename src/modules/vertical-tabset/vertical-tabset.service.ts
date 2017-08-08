@@ -33,4 +33,14 @@ export class SkyVerticalTabsetService {
     this.activeIndex = tab.index;
     this.tabClicked.next(true);
   }
+
+  public activeTabContent() {
+    let activeTab = this.tabs.find(t => t.index === this.activeIndex);
+
+    if (activeTab) {
+      return activeTab.tabContent;
+    } else {
+      return undefined;
+    }
+  }
 }

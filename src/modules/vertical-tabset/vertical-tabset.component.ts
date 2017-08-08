@@ -2,9 +2,18 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  AfterContentInit,
-  Input
+  Input,
+  AfterViewInit,
+  ChangeDetectorRef
 } from '@angular/core';
+
+import {
+  style,
+  state,
+  trigger,
+  transition,
+  animate
+} from '@angular/animations';
 
 import { SkyResourcesService } from './../resources/resources.service';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
@@ -15,9 +24,27 @@ import { SkyMediaBreakpoints } from 'src/modules/media-queries';
   selector: 'sky-vertical-tabset',
   templateUrl: './vertical-tabset.component.html',
   styleUrls: ['./vertical-tabset.component.scss'],
-  providers: [SkyVerticalTabsetService, SkyResourcesService, SkyMediaQueryService]
+  providers: [SkyVerticalTabsetService, SkyResourcesService, SkyMediaQueryService],
+  animations: [
+    trigger(
+      'tabGroupEnter', [
+        transition(':enter', [
+          style({transform: 'translate(-100%)', opacity: 0}),
+          animate('350ms', style({transform: 'translate(0)', opacity: 1}))
+        ])
+      ]
+    ),
+    trigger(
+      'contentEnter', [
+        transition(':enter', [
+          style({transform: 'translate(100%)', opacity: 0}),
+          animate('350ms', style({transform: 'translate(0)', opacity: 1}))
+        ])
+      ]
+    )
+  ]
 })
-export class SkyVerticalTabsetComponent implements AfterContentInit {
+export class SkyVerticalTabsetComponent implements AfterViewInit {
 
   @ViewChild('contentWrapper')
   public tabGroups: ElementRef;
@@ -34,20 +61,17 @@ export class SkyVerticalTabsetComponent implements AfterContentInit {
   constructor(
     private tabService: SkyVerticalTabsetService,
     private resources: SkyResourcesService,
-    private mediaQueryService: SkyMediaQueryService) {}
+    private mediaQueryService: SkyMediaQueryService,
+    private changeRef: ChangeDetectorRef) {}
 
-  public ngAfterContentInit() {
-    // move content from sub tabs to the right
-    if (this.tabService.tabs) {
-      this.tabService.tabs.forEach(tab => {
-        this.content.nativeElement.appendChild(tab.tabContent.nativeElement);
-      });
-    }
-
+  public ngAfterViewInit() {
     this.tabService.tabClicked.subscribe((clicked: boolean) => {
       if (this.isMobile()) {
         this._tabsVisible = false;
+        this.changeRef.detectChanges();
       }
+
+      this.moveActiveTabContent();
     });
   }
 
@@ -75,5 +99,11 @@ export class SkyVerticalTabsetComponent implements AfterContentInit {
 
   public showTabs() {
     this._tabsVisible = true;
+  }
+
+  public moveActiveTabContent() {
+    // add active tab content to side div
+    let activeContent = this.tabService.activeTabContent();
+    this.content.nativeElement.appendChild(activeContent.nativeElement);
   }
 }
