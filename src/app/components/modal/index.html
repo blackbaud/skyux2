@@ -2,13 +2,6 @@
   <sky-demo-page-summary>
     <p>The modal directive and service allow you to launch modals in a consistent way in SKY UX applications. The <code>SkyModalService</code> provider lauches the modals, while the <code>sky-modal</code> directive provides a common look-and-feel for modal content. Within the <code>sky-modal</code> directive, you have options to display a common modal header, specify the body content, and display a common modal footer and buttons. The <code>SkyModalInstance</code> class allows you to close the modal and return data from the launched modal.</p>
     <sky-alert alertType="info">For information about how to test modals in SKY UX, see <a routerLink="/learn/get-started/8.-unit-test-modals">write unit tests for modals</a>.</sky-alert>
-    <h2>Accessibility</h2>
-    <p>Follow these guidelines to ensure that people using assistive technology or their keyboards can use modals:</p>
-    <ul>
-      <li>When a modal opens, focus should be on the first focusable item in the modal. If the modal does not include focusable items, then focus should be on the modal container element.</li>
-      <li>While a modal is open, focus should remain on elements in the modal when using Tab key to navigate. Focus should not move back to the initiating page behind the modal. Pressing Tab key at the end of the modal should cycle focus back to first focusable element in modal. Conversely, pressing Shift+Tab keys at top of the modal should cycle focus to the last focusable element in modal. </li>
-      <li>When a modal closes, focus should return to the element that had focus before the modal opened. Usually this is the element that opened the modal.</li>
-    </ul>
   </sky-demo-page-summary>
 
   <sky-demo-page-properties sectionHeading="Modal service methods">
@@ -95,6 +88,14 @@
       An event that is emitted by the modal instance when it is closed. It emits a <code>SkyCloseModalArgs</code> object that has a <code>data</code> property with data passed from the user on close or save and a <code>reason</code> property which indicates whether the modal was saved or closed without saving.
     </sky-demo-page-property>
   </sky-demo-page-properties>
+
+    <h2>Accessibility</h2>
+    <p>Follow these guidelines to ensure that people using assistive technology or keyboards:</p>
+    <ul>
+      <li>When a modal opens, focus should be on the first focusable item in the modal. If the modal does not include focusable items, then focus should be on the modal container element.</li>
+      <li>While a modal is open, focus should remain on elements in the modal when using Tab key to navigate. Focus should not move back to the initiating page behind the modal. At the end of the modal, the Tab key should return focus to the first focusable item in the modal. Conversely, at the top of the modal, the Shift+Tab keys should switch focus to the last focusable item in the modal. </li>
+      <li>When a modal closes, focus should return to the element that had focus before the modal opened. Usually this is the element that opened the modal.</li>
+    </ul>
 
   <sky-demo-page-example>
     <sky-modal-demo></sky-modal-demo>
