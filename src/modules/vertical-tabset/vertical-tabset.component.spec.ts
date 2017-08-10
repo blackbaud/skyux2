@@ -189,6 +189,53 @@ describe('Vertical tabset component', () => {
     expect(content.textContent.trim()).toBe('Group 1 Tab 2 content');
   });
 
-  // check switching from widescreen to mobile
-  // check switching from mobile to widescreen
+  it('should hide tabs when switching from widescreen to mobile', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // switch to mobile
+    mockQueryService.fire(SkyMediaBreakpoints.xs);
+
+    fixture.detectChanges();
+
+    // check tabs are not visible
+    const tabs = el.querySelectorAll('.sky-vertical-tabset-group-container');
+    expect(tabs.length).toBe(0);
+
+    // check content is visible
+    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
+    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+
+    // check show tabs button is visible
+    const showTabsButton = el.querySelector('.sky-vertical-tabset-show-tabs');
+    showTabsButton.click();
+  });
+
+  it('should show tabs and hide tab list button when switching from mobile to widescreen', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // switch to widescreen
+    mockQueryService.fire(SkyMediaBreakpoints.lg);
+
+    fixture.detectChanges();
+
+    // check tabs are visible
+    const tabs = el.querySelectorAll('.sky-vertical-tabset-group-container');
+    expect(tabs.length).toBe(1);
+
+    // check content is visible
+    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
+    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+
+    // check show tabs button is not visible
+    const showTabsButton = el.querySelectorAll('.sky-vertical-tabset-show-tabs');
+    expect(showTabsButton.length).toBe(0);
+  });
 });
