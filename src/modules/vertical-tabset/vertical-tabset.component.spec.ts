@@ -131,8 +131,63 @@ describe('Vertical tabset component', () => {
     expect(tabs.length).toBe(0);
   });
 
-  // check show tabs button shows tabs on mobile
-  // check clicking a tab in mobile shows content and hides tabs
+  it('show tabs button should show tabs on mobile', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // check tabs are not visible
+    const tabs = el.querySelectorAll('.sky-vertical-tabset-group-container');
+    expect(tabs.length).toBe(0);
+
+    // check content is visible
+    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
+    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+
+    // click show tabs
+    const showTabsButton = el.querySelector('.sky-vertical-tabset-show-tabs');
+    showTabsButton.click();
+
+    fixture.detectChanges();
+
+    // check tabs are visible
+    const tabsUpdated = el.querySelectorAll('.sky-vertical-tabset-group-container');
+    expect(tabsUpdated.length).toBe(1);
+
+    // check content is not visible
+    const contentUpdated = el.querySelectorAll('.sky-vertical-tab-visible');
+    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+  });
+
+  it('clicking a tab in mobile should show content and hides tabs', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // click show tabs
+    const showTabsButton = el.querySelector('.sky-vertical-tabset-show-tabs');
+    showTabsButton.click();
+
+    fixture.detectChanges();
+
+    // click second tab in first group
+    const allTabs = el.querySelectorAll('.sky-vertical-tab');
+    allTabs[1].click();
+
+    fixture.detectChanges();
+
+    // check tabs are not visible
+    const tabs = el.querySelectorAll('.sky-vertical-tabset-group-container');
+    expect(tabs.length).toBe(0);
+
+    // check content is visible
+    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
+    expect(content.textContent.trim()).toBe('Group 1 Tab 2 content');
+  });
 
   // check switching from widescreen to mobile
   // check switching from mobile to widescreen
