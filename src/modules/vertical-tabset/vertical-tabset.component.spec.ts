@@ -17,17 +17,6 @@ describe('Vertical tabset component', () => {
 
     fixture.detectChanges();
 
-    const content = el.querySelector('.sky-vertical-tabset-content');
-
-    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
-  });
-
-  it('first tab in open group should be selected', () => {
-    let fixture = TestBed.createComponent(VerticalTabsetTestComponent);
-    let el = fixture.nativeElement as HTMLElement;
-
-    fixture.detectChanges();
-
     // check open tab
     const content = el.querySelector('.sky-vertical-tabset-content');
     expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
@@ -70,20 +59,22 @@ describe('Vertical tabset component', () => {
     expect(openGroup[0].textContent.trim()).toBe('Group 2');
   });
 
-  // it('check closing of group', () => {
-  //   let fixture = TestBed.createComponent(VerticalTabsetTestComponent);
-  //   let el = fixture.nativeElement as HTMLElement;
+  it('check closing of group', () => {
+    let fixture = TestBed.createComponent(VerticalTabsetTestComponent);
+    let el = fixture.nativeElement;
 
-  //   fixture.detectChanges();
+    fixture.detectChanges();
 
-  //   // click first group to close it
-  //   const group = el.querySelectorAll('.sky-tab-group-header')[1];
-  //   group.click();
+    // close first group
+    const group = el.querySelectorAll('.sky-tab-group-header');
+    group[0].click();
 
-  //   fixture.detectChanges();
-  // });
+    fixture.detectChanges();
 
-  // test opening tab group and tab
+    // check group is closed
+    const openGroups = el.querySelectorAll('.sky-tab-group-icon-open');
+    expect(openGroups.length).toBe(0);
+  });
 
   // test mobile button is not visible on a wide screen
 
