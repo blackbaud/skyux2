@@ -5,7 +5,7 @@
   <div>{{ tabHeading }}</div>
 </div>
  <div #tabContentWrapper>
-  <div [ngClass]="{'sky-vertical-tab-hidden': !active }">
+  <div [ngClass]="{'sky-vertical-tab-hidden': !active, 'sky-vertical-tab-visible': active }">
     <ng-content></ng-content>
   <div>
 </div>

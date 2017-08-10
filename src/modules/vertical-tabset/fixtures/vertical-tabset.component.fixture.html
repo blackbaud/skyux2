@@ -1,8 +1,8 @@
 <sky-vertical-tabset showTabsText='Tab list'>
   <sky-tab-group 
     groupHeading="Group 1"
-    open="true"
-    disabled="false"
+    [open]="group1Open"
+    [disabled]="group1Disabled"
   >
     <sky-vertical-tab tabHeading="Group 1 Tab 1">
       Group 1 Tab 1 content
@@ -14,8 +14,8 @@
 
   <sky-tab-group 
     groupHeading="Group 2"
-    open="false"
-    disabled="false"
+    [open]="group2Open"
+    [disabled]="group2Disabled"
   >
     <sky-vertical-tab tabHeading="Group 2 Tab 1">
       Group 2 Tab 1 content
@@ -27,8 +27,8 @@
 
   <sky-tab-group 
     groupHeading="Group 3"
-    open="false"
-    disabled="true"
+    [open]="group3Open"
+    [disabled]="group3Disabled"
   >
     <sky-vertical-tab tabHeading="Group 3 Tab 1">
       Group 3 Tab 1 content
