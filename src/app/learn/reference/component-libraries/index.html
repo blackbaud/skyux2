@@ -1,14 +1,17 @@
 <sky-demo-nav></sky-demo-nav>
 
-<stache pageTitle="Component libraries" showTableOfContents="true">
+<stache pageTitle="Component Libraries" showTableOfContents="true">
   <stache-page-summary>
-    After you create components with SKY UX, you can organize them into libraries to publish them for other SPAs to consume. This reference describes how to create reusable component libraries for SKY UX.
+    After you create components with SKY UX, you can organize them into libraries and publish them for other SPAs to consume. This reference describes how to create reusable component libraries for SKY UX.
   </stache-page-summary>
 
 <!--
   <stache-page-anchor>
     Overview
   </stache-page-anchor>
+
+  Steve: I hid the overview because it was blank. I fleshed out the summary at the top of the page, so I don't think we need an overview. But let me know if you disagree and want to work with me on what to add here.
+
 -->
 
   <stache-page-anchor>
@@ -16,19 +19,23 @@
   </stache-page-anchor>
 
   <p>
-    The first step to author a SKY UX component library is to create a SPA and specify the base template that includes the starter module for creating component libraries. To do this, run <stache-code>skyux new</stache-code> from the SKY UX CLI and use the <stache-code>--template</stache-code> option to specify the <stache-code>library</stache-code> template.
+    The first step to author a SKY UX component library is to create a SPA and specify a base template with the starter module for creating component libraries. To do this, run <stache-code>skyux new</stache-code> from the SKY UX CLI and use the <stache-code>--template</stache-code> option to specify the <stache-code>library</stache-code> template.
   </p>
 
   <stache-code-block>
     skyux new --template library
   </stache-code-block>
 
+  <p>
+    This command uses the library template to create a SPA, and the library template places source files in <stache-code>/src/app/public</stache-code>.
+  </p>
+
   <stache-page-anchor>
-    Create the components for the library
+    Create components for the library
   </stache-page-anchor>
   
   <p>
-    The library template places source files in <stache-code>/src/app/public</stache-code>. SKY UX Builder ignores any components in this folder, so they are not automatically declared in <stache-code>SkyModule</stache-code>. This allows you to write Angular modules, components, and services outside of SKY UX's scope.
+    SKY UX Builder ignores components in <stache-code>/src/app/public</stache-code>, so they are not automatically declared in <stache-code>SkyModule</stache-code>. This allows you to write Angular modules, components, and services outside of SKY UX's scope.
   </p>
 
   <p>
@@ -40,7 +47,7 @@
   </stache-page-anchor>
   
   <p>
-    After you create a SPA and the components for the library, the next step is to bundle the components into a consumable NPM module that you can publish to an NPM stream such as <a href="https://www.npmjs.com/">npmjs.org</a>. To do this, run <stache-code>skyux build-public-library</stache-code> from the SKY UX CLI.
+    After you create a SPA and components for a library, the next step is to bundle the components into a consumable NPM module that you can publish to an NPM stream such as <a href="https://www.npmjs.com/">npmjs.org</a>. To do this, run <stache-code>skyux build-public-library</stache-code> from the SKY UX CLI.
   </p>
 
   <stache-code-block>
@@ -48,7 +55,7 @@
   </stache-code-block>
 
   <p>
-    This command creates a bundle that is NPM-ready and places it in a <strong>/dist</strong> directory. It bundles the components in the <stache-code>/src/app/public</stache-code> folder and ignores all other files. Keep in mind that this  command does not publish the component library.
+    This command creates a bundle that is NPM-ready and places it in a <stache-code>/dist</stache-code> directory. It bundles the components in <stache-code>/src/app/public</stache-code> and ignores all other files. Keep in mind that the command does not publish the component library.
   </p>
 
   <stache-page-anchor>
@@ -56,28 +63,27 @@
   </stache-page-anchor>
 
   <p>
-    After you bundle SKY UX components into a consumable NPM module, you can publish it to an NPM stream to allow other SPAs to install the library. For public libraries, we recommend that you publish to <a href="https://www.npmjs.com/">npmjs.org</a>.
-    your SPA and the components for yoru library, the next step is to bundle your components into a consumable NPM module that can be published to an NPM stream such as <a href="https://www.npmjs.com/">npmjs.org</a>. To do this, run <stache-code>skyux build-public-library</stache-code> from the SKY UX CLI.
+    After you bundle components into a consumable NPM module, you can publish the library to an NPM stream to allow other SKY UX SPAs to install the library. For public libraries, we recommend that you publish to <a href="https://www.npmjs.com/">npmjs.org</a>. For Blackbaud developers, an internal-only NPM stream is also available to publish component libraries that are for internal Blackbaud use only.
   </p>
 
-  <p>
-    (Add notes here about NPM feeds for both public and private libraries.)
-  </p>
+  <!--  <p>
+    (Add notes here about NPM feeds for both public and private libraries.) ... This was a placeholder that Steve left in place. I'm hiding it because I think I fleshed out the preceding  paragraph enough to handle this. But leaving it commented out instead of deleting as a reminder to ask Steve if he had additional info in mind.
+  </p> -->
 
   <h3>
-    Method 1: Publish to Blackbaud's NPM stream (internal-only)
+    Publish a public library to <a href="https://www.npmjs.com/">npmjs.org</a>
   </h3>
 
   <p>
-    For internal-only component libraries, you'll need to register your SPA through the appropriate VSTS pipeline. Reach out to Jonathan Bell for more information.
+    You can use Travis-CI to publish a component library to npmjs.org. Travis-CI is a free GitHub continuous integration service. To publish a library in the <stache-code>@blackbaud/*</stache-code> namespace, contact the SKY UX team to request a Travis-CI account. To publish a library in the <stache-code>@blackbaud/*</stache-code> namespace, you need to write some custom commands for Travis-CI to automatically publish your bundle to npmjs.org. For information about these custom commands, see <a href="https://docs.travis-ci.com/user/deployment/npm/">Releasing to NPM with Travis-CI</a>.
   </p>
 
   <h3>
-    Method 2: Publish to npmjs.org (public)
+    Publish to a private library to Blackbaud's internal-only NPM stream
   </h3>
 
   <p>
-    Publishing to npmjs.org is done via Travis-CI, and free GitHub continuous integration service. If you wish to publish your library in the <stache-code>@blackbaud/*</stache-code> namespace, reach out to someone on the SKY UX team to get the Travis-CI account created and setup. Otherwise, you'll need to write some custom commands to have Travis-CI automatically publish your bundle to npmjs.org (See <a href="https://docs.travis-ci.com/user/deployment/npm/">Releasing to NPM with Travis-CI</a>, for more information).
+    This option is for internal Blackbaud use only. To publish private libraries to Blackbaud's NPM stream, Blackbaud developers need to register the SPAs for their component libraries through the appropriate VSTS pipeline. Reach out to Jonathan Bell for more information.
   </p>
 
   <stache-page-anchor>
@@ -85,7 +91,7 @@
   </stache-page-anchor>
 
   <p>
-    <strong>/app/src/app-extras.module.ts</strong>
+    After you publish your component library, other SKY UX SPAs can install the library. To consume a SKY UX component library, the SPA imports the library through <stache-code>/app/src/app-extras.module.ts</stache-code>
   </p>
   <stache-code-block languageType="typescript">
     import { NgModule } from '@angular/core';
@@ -104,22 +110,23 @@
   </stache-code-block>
 
   <stache-page-anchor>
-    Access the consuming app's configuration
+    Access the consuming SPA's configuration
   </stache-page-anchor>
 
   <p>
-    (Provide reasons for why SkyAppConfig cannot be accessed by the component library. Why we need to create the adaptor, etc.)
+    After a SPA consumes a component library, the library requires an adapter in the consuming SPA to access <stache-code>SkyAppConfig</stache-code>.
   </p>
+
+  <!--  <p>
+    (Provide reasons for why SkyAppConfig cannot be accessed by the component library. Why we need to create the adaptor, etc.) ... This was a placeholder that Steve left in place. I'm hiding it because I think the next paragraph handles this. But leaving it commented out instead of deleting as a reminder to ask Steve if he had additional info in mind. 
+  </p> -->
+
   <p>
-    Since the source files found in <strong>@blackbaud/skyux-builder/runtime</strong> (such as <stache-code>SkyAppConfig</stache-code>) are not transpiled as a <a href="http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/">UMD module</a>--and thus cannot be <a href="https://www.npmjs.com/package/codelyzer">analyzed statically</a>--we cannot directly reference these files in our component library (since it will eventually become a UMD module). Instead, we must create an adaptor class (in the consuming SPA) that can be provided the transpiled version of <stache-code>SkyAppConfig</stache-code> at runtime.
+    SKY UX does not transpile source files in <stache-code>@blackbaud/skyux-builder/runtime</stache-code> as a <a href="http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/">UMD module</a>, so they cannot be <a href="https://www.npmjs.com/package/codelyzer">analyzed statically</a>. Therefore, a component library cannot directly reference <stache-code>@blackbaud/skyux-builder/runtime</stache-code> files such as <stache-code>SkyAppConfig</stache-code> because the library will eventually become a UMD module. Instead, the component library requires an adaptor class in the consuming SPA that can be provided in the transpiled version of <stache-code>SkyAppConfig</stache-code> at runtime.
   </p>
 
   <p>
-    The following code sample demonstrates how to create the adaptor in the consuming SPA.
-  </p>
-
-  <p>
-    <strong>/app/src/app-extras.module.ts</strong>
+    The following code sample demonstrates how to create an adaptor in the <stache-code>/app/src/app-extras.module.ts</stache-code> file in a consuming SPA.
   </p>
 
   <stache-code-block languageType="typescript">
@@ -152,15 +159,10 @@
   </stache-page-anchor>
 
   <p>
-    (This step depends on the previous step.)
+    After you create an adaptor in the consuming SPA's <stache-code>/app/src/app-extras.module.ts</stache-code> file, you can provide configuration for the library.
   </p>
-
-  <p>
-    Add any properties you wish to <stache-code>"appSettings"</stache-code>.
-  </p>
-
-  <p>
-    <strong>/skyuxconfig.json</strong>
+  
+  <p>To configure settings for a SKY UX SPA, you edit the <stache-code>skyuxconfig.json</stache-code> file in the project's directory. Within this file, the <stache-code>"appSettings"</stache-code> property specifies data that is available for reuse throughout the application, and you can use <stache-code>"appSettings"</stache-code> to add any properties that are necessary for the component library.
   </p>
 
   <stache-code-block languageType="json">
@@ -175,11 +177,7 @@
   </stache-code-block>
 
   <p>
-    You may then access these properties in your components by injecting the <stache-code>LibraryConfigService</stache-code>.
-  </p>
-
-  <p>
-    <strong>/app/src/public/src/modules/shared/config.service.ts</strong>
+    After you add any properties to <stache-code>"appSettings"</stache-code> for the component library, you can access the properties in your components by injecting the <stache-code>LibraryConfigService</stache-code> in <stache-code>/app/src/public/src/modules/shared/config.service.ts</stache-code>.
   </p>
 
   <stache-code-block languageType="typescript">
