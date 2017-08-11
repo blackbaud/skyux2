@@ -163,7 +163,7 @@ describe('Vertical tabset component', () => {
 
     // check content is not visible
     const contentUpdated = el.querySelectorAll('.sky-vertical-tab-visible');
-    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+    expect(contentUpdated.length).toBe(0);
   });
 
   it('clicking a tab in mobile should show content and hides tabs', () => {
