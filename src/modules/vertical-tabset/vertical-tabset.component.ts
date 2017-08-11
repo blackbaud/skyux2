@@ -115,6 +115,9 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
   public moveActiveTabContent() {
     // add active tab content to side div
     let activeContent = this.tabService.activeTabContent();
+
+    if (activeContent) {
     this.content.nativeElement.appendChild(activeContent.nativeElement);
+    }
   }
 }

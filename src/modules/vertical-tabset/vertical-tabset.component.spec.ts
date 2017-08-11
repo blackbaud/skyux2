@@ -2,6 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { SkyVerticalTabsFixturesModule } from './fixtures/vertical-tabs-fixtures.module';
 import { SkyVerticalTabsetComponent } from '../vertical-tabset/vertical-tabset.component';
 import { VerticalTabsetTestComponent } from './fixtures/vertical-tabset.component.fixture';
+
+import {
+  VerticalTabsetEmptyGroupTestComponent
+} from './fixtures/vertical-tabset-empty-group.component';
+
 import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
@@ -237,5 +242,26 @@ describe('Vertical tabset component', () => {
     // check show tabs button is not visible
     const showTabsButton = el.querySelectorAll('.sky-vertical-tabset-show-tabs');
     expect(showTabsButton.length).toBe(0);
+  });
+});
+
+// test tab group with no subtabs
+describe('Vertical tabset component', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyVerticalTabsFixturesModule
+      ]
+    });
+  });
+
+  it('group without tab should load without failing', () => {
+    let fixture = TestBed.createComponent(VerticalTabsetEmptyGroupTestComponent);
+    let el = fixture.nativeElement as HTMLElement;
+
+    fixture.detectChanges();
+
+    const contentUpdated = el.querySelectorAll('.sky-vertical-tab-visible');
+    expect(contentUpdated.length).toBe(0);
   });
 });
