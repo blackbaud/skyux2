@@ -6,8 +6,13 @@ import { Component } from '@angular/core';
 })
 export class TileTestComponent {
   public tileIsCollapsed = false;
+  public collapsedOutputCalled = false;
 
   public tileSettingsClick() {
 
+  }
+
+  public collapsedStateCallback(isCollapsed: boolean) {
+    this.collapsedOutputCalled = isCollapsed;
   }
 }
