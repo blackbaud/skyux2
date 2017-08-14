@@ -17,27 +17,28 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs')
     .then(() => {
 
-      browser.sleep(1000);
+      const groupElement = element(by.css('.group2'));
+      browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
 
       // open group
-      element(by.css('.group2')).click();
+      groupElement.click();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'vertical-tabset-clicked-group',
         selector: '#screenshot-vertical-tabset'
       }).then(() => {
 
-        // // wait for tab element to exist
-        // const tabElement = element(by.id('group2Tab2'));
-        // browser.wait(function() { return browser.isElementPresent(tabElement); }, 8000);
+        // wait for tab element to exist
+        const tabElement = element(by.id('group2Tab2'));
+        browser.wait(function() { return browser.isElementPresent(tabElement); }, 8000);
 
-        // // click tab
-        // tabElement.click();
+        // click tab
+        tabElement.click();
 
-        // return SkyVisualTest.compareScreenshot({
-        //   screenshotName: 'vertical-tabset-clicked-tab',
-        //   selector: '#screenshot-vertical-tabset'
-        // });
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'vertical-tabset-clicked-tab',
+          selector: '#screenshot-vertical-tabset'
+        });
       });
     });
   });
