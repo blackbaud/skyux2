@@ -1,5 +1,4 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
-import { element, by } from 'protractor';
 
 describe('Vertical tabSet', () => {
 
