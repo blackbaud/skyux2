@@ -38,6 +38,9 @@ describe('Vertical tabSet', () => {
   it('should match previous vertical tabset screenshot on mobile', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
+
+      // resize window event?
+
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'vertical-tabset-mobile',
         selector: '#screenshot-vertical-tabset'
@@ -48,6 +51,8 @@ describe('Vertical tabSet', () => {
   it('should match previous vertical tabset screenshot on mobile clicking tab', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
+
+      // resize window event?
 
       const groupElement = element(by.css('.group2'));
       browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
@@ -66,9 +71,12 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
+      // resize window event?
+
       const groupElement = element(by.css('.group2'));
       browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
 
+      browser.pause();
       // open group
       groupElement.click();
 
