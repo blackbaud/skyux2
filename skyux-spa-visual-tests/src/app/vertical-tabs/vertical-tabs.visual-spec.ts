@@ -23,23 +23,35 @@ describe('Vertical tabSet', () => {
       // open group
       groupElement.click();
 
+      browser.sleep(5000);
+
+      // wait for tab element to exist
+      const tabElement = element(by.id('group2Tab2'));
+      // browser.wait(function() { return browser.isElementPresent(tabElement); }, 8000);
+
+      // click tab
+      tabElement.click();
+
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'vertical-tabset-clicked-group',
+        screenshotName: 'vertical-tabset-clicked-tab',
         selector: '#screenshot-vertical-tabset'
-      }).then(() => {
-
-        // wait for tab element to exist
-        const tabElement = element(by.id('group2Tab2'));
-        browser.wait(function() { return browser.isElementPresent(tabElement); }, 8000);
-
-        // click tab
-        tabElement.click();
-
-        return SkyVisualTest.compareScreenshot({
-          screenshotName: 'vertical-tabset-clicked-tab',
-          selector: '#screenshot-vertical-tabset'
-        });
       });
+      // }).then(() => {
+
+      //   browser.sleep(5000);
+
+      //   // wait for tab element to exist
+      //   const tabElement = element(by.id('group2Tab2'));
+      //   // browser.wait(function() { return browser.isElementPresent(tabElement); }, 8000);
+
+      //   // click tab
+      //   tabElement.click();
+
+      //   return SkyVisualTest.compareScreenshot({
+      //     screenshotName: 'vertical-tabset-clicked-tab',
+      //     selector: '#screenshot-vertical-tabset'
+      //   });
+      // });
     });
   });
 
