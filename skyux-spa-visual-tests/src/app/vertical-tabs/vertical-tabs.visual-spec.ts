@@ -35,33 +35,60 @@ describe('Vertical tabSet', () => {
     });
   });
 
-  // it('should match previous vertical tabset screenshot on mobile', () => {
-  //   return SkyVisualTest.setupTest('vertical-tabs-mobile', 480)
-  //   .then(() => {
-  //     return SkyVisualTest.compareScreenshot({
-  //       screenshotName: 'vertical-tabset-mobile',
-  //       selector: '#screenshot-vertical-tabset'
-  //     });
-  //   });
-  // });
+  it('should match previous vertical tabset screenshot on mobile', () => {
+    return SkyVisualTest.setupTest('vertical-tabs', 480)
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'vertical-tabset-mobile',
+        selector: '#screenshot-vertical-tabset'
+      });
+    });
+  });
 
-  // it('should match previous vertical tabset screenshot on mobile clicking show tabs', () => {
-  //   return SkyVisualTest.setupTest('vertical-tabs-mobile-show-tabs', 480)
-  //   .then(() => {
-  //     return SkyVisualTest.compareScreenshot({
-  //       screenshotName: 'vertical-tabset-mobile-show-tabs',
-  //       selector: '#screenshot-vertical-tabset'
-  //     });
-  //   });
-  // });
+  it('should match previous vertical tabset screenshot on mobile clicking tab', () => {
+    return SkyVisualTest.setupTest('vertical-tabs', 480)
+    .then(() => {
 
-  // it('should match previous vertical tabset screenshot on mobile clicking tab', () => {
-  //   return SkyVisualTest.setupTest('vertical-tabs-mobile-clicking-tab', 480)
-  //   .then(() => {
-  //     return SkyVisualTest.compareScreenshot({
-  //       screenshotName: 'vertical-tabset-mobile-clicking-tab',
-  //       selector: '#screenshot-vertical-tabset'
-  //     });
-  //   });
-  // });
+      browser.sleep(5000);
+
+      const groupElement = element(by.css('.group2'));
+      browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
+
+      // open group
+      groupElement.click();
+
+      browser.sleep(5000);
+
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'vertical-tabset-mobile-clicked-tab',
+        selector: '#screenshot-vertical-tabset'
+      });
+    });
+  });
+
+  it('should match previous vertical tabset screenshot on mobile clicking show tabs', () => {
+    return SkyVisualTest.setupTest('vertical-tabs', 480)
+    .then(() => {
+
+      browser.sleep(5000);
+
+      const groupElement = element(by.css('.group2'));
+      browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
+
+      // open group
+      groupElement.click();
+
+      browser.sleep(5000);
+
+      // click show tabs
+      element(by.css('.sky-vertical-tabset-show-tabs')).click();
+
+      browser.sleep(5000);
+
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'vertical-tabset-mobile-show-tabs',
+        selector: '#screenshot-vertical-tabset'
+      });
+    });
+  });
 });
