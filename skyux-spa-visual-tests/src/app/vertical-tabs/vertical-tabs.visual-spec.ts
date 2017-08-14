@@ -49,15 +49,11 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
-      browser.sleep(5000);
-
       const groupElement = element(by.css('.group2'));
       browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
 
       // open group
       groupElement.click();
-
-      browser.sleep(5000);
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'vertical-tabset-mobile-clicked-tab',
@@ -70,20 +66,16 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
-      browser.sleep(5000);
-
       const groupElement = element(by.css('.group2'));
       browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
 
       // open group
       groupElement.click();
 
-      browser.sleep(5000);
+      browser.sleep(1000);
 
       // click show tabs
       element(by.css('.sky-vertical-tabset-show-tabs')).click();
-
-      browser.sleep(5000);
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'vertical-tabset-mobile-show-tabs',
