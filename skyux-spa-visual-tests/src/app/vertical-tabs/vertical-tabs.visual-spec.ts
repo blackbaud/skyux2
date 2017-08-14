@@ -1,6 +1,6 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-import { element, by } from 'protractor/built';
+import { element, by } from 'protractor';
 
 describe('Vertical tabSet', () => {
 
@@ -20,19 +20,23 @@ describe('Vertical tabSet', () => {
 
       // open group
       element(by.css('.group2')).click();
-
-      // click tab
-      element(by.id('group2Tab2')).click();
-
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'vertical-tabset-clicked-tab',
+        screenshotName: 'vertical-tabset-clicked-group',
         selector: '#screenshot-vertical-tabset'
+      }).then(() => {
+
+        // click tab
+        element(by.id('group2Tab2')).click();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'vertical-tabset-clicked-tab',
+          selector: '#screenshot-vertical-tabset'
+        });
       });
     });
   });
 
   // it('should match previous vertical tabset screenshot on mobile', () => {
-  //   return SkyVisualTest.setupTest('vertical-tabs-mobile', 500)
+  //   return SkyVisualTest.setupTest('vertical-tabs-mobile', 480)
   //   .then(() => {
   //     return SkyVisualTest.compareScreenshot({
   //       screenshotName: 'vertical-tabset-mobile',
@@ -42,7 +46,7 @@ describe('Vertical tabSet', () => {
   // });
 
   // it('should match previous vertical tabset screenshot on mobile clicking show tabs', () => {
-  //   return SkyVisualTest.setupTest('vertical-tabs-mobile-show-tabs', 500)
+  //   return SkyVisualTest.setupTest('vertical-tabs-mobile-show-tabs', 480)
   //   .then(() => {
   //     return SkyVisualTest.compareScreenshot({
   //       screenshotName: 'vertical-tabset-mobile-show-tabs',
@@ -52,7 +56,7 @@ describe('Vertical tabSet', () => {
   // });
 
   // it('should match previous vertical tabset screenshot on mobile clicking tab', () => {
-  //   return SkyVisualTest.setupTest('vertical-tabs-mobile-clicking-tab', 500)
+  //   return SkyVisualTest.setupTest('vertical-tabs-mobile-clicking-tab', 480)
   //   .then(() => {
   //     return SkyVisualTest.compareScreenshot({
   //       screenshotName: 'vertical-tabset-mobile-clicking-tab',
