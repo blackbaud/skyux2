@@ -15,6 +15,8 @@ import {
   animate
 } from '@angular/animations';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import { SkyResourcesService } from './../resources/resources.service';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 import { SkyMediaQueryService } from './../media-queries/media-query.service';
@@ -57,6 +59,7 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
 
   private _tabsVisible: boolean;
   private _wideScreen: boolean;
+  private _mediaSubscription: Subscription;
 
   constructor(
     private tabService: SkyVerticalTabsetService,
@@ -66,6 +69,13 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
 
   public ngOnInit() {
     this._wideScreen = !this.isMobile();
+
+    // subscribe to window size changes
+    this._mediaSubscription = this.mediaQueryService.subscribe(
+      (args: SkyMediaBreakpoints) => {
+        this.changeRef.detectChanges();
+      }
+    );
   }
 
   public ngAfterViewInit() {
