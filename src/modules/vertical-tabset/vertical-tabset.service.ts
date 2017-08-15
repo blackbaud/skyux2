@@ -28,6 +28,7 @@ export class SkyVerticalTabsetService {
     let activeTab = this.tabs.find(t => t.index === this.activeIndex);
     if (activeTab && activeTab.index !== tab.index) {
       activeTab.active = false;
+      activeTab.tabDeactivated();
     }
 
     this.activeIndex = tab.index;

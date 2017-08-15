@@ -2,7 +2,8 @@ import {
   Component,
   Input,
   QueryList,
-  ContentChildren
+  ContentChildren,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -18,6 +19,7 @@ import { SkyVerticalTabComponent } from './vertical-tab.component';
   selector: 'sky-tab-group',
   templateUrl: './tab-group.component.html',
   styleUrls: ['./tab-group.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger(
       'tabAnimate', [

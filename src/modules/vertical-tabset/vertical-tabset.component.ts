@@ -5,7 +5,8 @@ import {
   Input,
   AfterViewInit,
   ChangeDetectorRef,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -27,6 +28,7 @@ import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
   templateUrl: './vertical-tabset.component.html',
   styleUrls: ['./vertical-tabset.component.scss'],
   providers: [SkyVerticalTabsetService, SkyResourcesService, SkyMediaQueryService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger(
       'tabGroupEnter', [
@@ -127,7 +129,7 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
     let activeContent = this.tabService.activeTabContent();
 
     if (activeContent) {
-    this.content.nativeElement.appendChild(activeContent.nativeElement);
+      this.content.nativeElement.appendChild(activeContent.nativeElement);
     }
   }
 }

@@ -1,11 +1,20 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
 @Component({
   selector: 'sky-vertical-tab',
   templateUrl: './vertical-tab.component.html',
-  styleUrls: ['./vertical-tab.component.scss']
+  styleUrls: ['./vertical-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyVerticalTabComponent implements OnInit {
 
@@ -19,7 +28,9 @@ export class SkyVerticalTabComponent implements OnInit {
   @ViewChild('tabContentWrapper')
   public tabContent: ElementRef;
 
-  constructor(private tabsetService: SkyVerticalTabsetService) {}
+  constructor(
+    private tabsetService: SkyVerticalTabsetService,
+    private changeRef: ChangeDetectorRef) {}
 
   public ngOnInit() {
     this.tabsetService.addTab(this);
@@ -28,5 +39,9 @@ export class SkyVerticalTabComponent implements OnInit {
   public activateTab() {
     this.active = true;
     this.tabsetService.activateTab(this);
+  }
+
+  public tabDeactivated() {
+    this.changeRef.markForCheck();
   }
 }
