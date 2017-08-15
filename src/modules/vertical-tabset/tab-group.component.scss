@@ -30,15 +30,11 @@
   @include sky-emphasized();
 }
 
-.sky-tab-group-icon {
-  transition: all 0.3s linear;
-
-  &.sky-tab-group-icon-open {
-    transform:rotate(180deg);
-  }
-}
-
 .sky-tab-group-content {
   overflow: hidden;
   @include sky-border(light, top);
+}
+
+:host /deep/ .sky-tab-chevron > button {
+  font-size: 14px !important;
 }

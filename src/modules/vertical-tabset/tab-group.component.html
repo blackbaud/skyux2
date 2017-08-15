@@ -1,15 +1,19 @@
 <div class="sky-tab-group-container">
   <div>
-    <div 
+    <div
       class="sky-tab-group-header sky-subsection-heading" 
       [ngClass]="{'sky-tab-group-header-sub-open': subMenuOpen()}"
-      (click)="clicked()" 
+      (click)="groupClicked()" 
       tabindex="0"
     >
       <div>{{ groupHeading }}</div>
-      <div class="sky-tab-group-icon" [ngClass]="{'sky-tab-group-icon-open': open}">
-        <i class="fa fa-chevron-down"></i>
-      </div>
+      <sky-chevron 
+        class="sky-tab-chevron"
+        [direction]="open ? 'up' : 'down'"
+        [disabled]="disabled"
+        (directionChange)="groupClicked()"
+      >
+      </sky-chevron>
   </div>
   <div 
     class="sky-tab-group-content" 

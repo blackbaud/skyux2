@@ -12,8 +12,13 @@ export class SkyChevronComponent {
   @Input()
   public direction = 'up';
 
+  @Input()
+  public disabled: boolean = false;
+
   public chevronClick() {
-    this.direction = this.direction === 'up' ? 'down' : 'up';
-    this.directionChange.emit(this.direction);
+    if (!this.disabled) {
+      this.direction = this.direction === 'up' ? 'down' : 'up';
+      this.directionChange.emit(this.direction);
+    }
   }
 }

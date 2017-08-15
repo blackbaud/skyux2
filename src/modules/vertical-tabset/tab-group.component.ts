@@ -67,7 +67,7 @@ export class SkyTabGroupComponent {
   @ContentChildren(SkyVerticalTabComponent)
   private tabs: QueryList<SkyVerticalTabComponent>;
 
-  public clicked() {
+  public groupClicked() {
     if (!this.disabled) {
       this.open = !this.open;
     }
