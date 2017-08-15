@@ -38,30 +38,8 @@ describe('Vertical tabSet', () => {
   it('should match previous vertical tabset screenshot on mobile', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
-
-      // resize window event?
-
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'vertical-tabset-mobile',
-        selector: '#screenshot-vertical-tabset'
-      });
-    });
-  });
-
-  it('should match previous vertical tabset screenshot on mobile clicking tab', () => {
-    return SkyVisualTest.setupTest('vertical-tabs', 480)
-    .then(() => {
-
-      // resize window event?
-
-      const groupElement = element(by.css('.group2'));
-      browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
-
-      // open group
-      groupElement.click();
-
-      return SkyVisualTest.compareScreenshot({
-        screenshotName: 'vertical-tabset-mobile-clicked-tab',
         selector: '#screenshot-vertical-tabset'
       });
     });
@@ -71,22 +49,39 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
-      // resize window event?
+      const showTabsButton = element(by.css('.sky-vertical-tabset-show-tabs'));
+      browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
 
-      const groupElement = element(by.css('.group2'));
-      browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
-
-      browser.pause();
-      // open group
-      groupElement.click();
-
-      browser.sleep(1000);
-
-      // click show tabs
-      element(by.css('.sky-vertical-tabset-show-tabs')).click();
+      // show tabs
+      showTabsButton.click();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'vertical-tabset-mobile-show-tabs',
+        selector: '#screenshot-vertical-tabset'
+      });
+    });
+  });
+
+  it('should match previous vertical tabset screenshot on mobile clicking tab', () => {
+    return SkyVisualTest.setupTest('vertical-tabs', 480)
+    .then(() => {
+
+      const showTabsButton = element(by.css('.sky-vertical-tabset-show-tabs'));
+      browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
+
+      // show tabs
+      showTabsButton.click();
+      browser.sleep(1000);
+
+      // open group
+      element(by.css('.group2')).click();
+      browser.sleep(1000);
+
+      // click tab
+      element(by.id('group2Tab2')).click();
+
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'vertical-tabset-mobile-clicked-tab',
         selector: '#screenshot-vertical-tabset'
       });
     });
