@@ -3,11 +3,14 @@
 @media (min-width: $sky-screen-sm-min) {
   .sky-vertical-tabset-container {
     display: flex;
+    max-height: 98vh;
   }
 }
 
 .sky-vertical-tabset-content {
   margin: 10px 0 0 10px;
+  flex-basis: 75%;
+  overflow-y: auto;
 }
 
 .sky-vertical-tabset-show-tabs {
@@ -16,4 +19,5 @@
 
 .sky-vertical-tabset-group-container {
   flex-basis: 25%;
+  overflow-y: auto;
 }
