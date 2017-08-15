@@ -65,7 +65,7 @@ describe('Vertical tabset component', () => {
     fixture.detectChanges();
 
     // check second group open
-    const openedGroups = el.querySelectorAll('.sky-tab-group-icon-open');
+    const openedGroups = el.querySelectorAll('.sky-chevron-up');
     expect(openedGroups.length).toBe(2);
 
     // click second tab in second group

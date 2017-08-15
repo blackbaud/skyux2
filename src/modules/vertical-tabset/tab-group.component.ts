@@ -3,7 +3,9 @@ import {
   Input,
   QueryList,
   ContentChildren,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  AfterViewInit
 } from '@angular/core';
 
 import {
@@ -14,6 +16,7 @@ import {
 } from '@angular/animations';
 
 import { SkyVerticalTabComponent } from './vertical-tab.component';
+import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
 @Component({
   selector: 'sky-tab-group',
@@ -47,7 +50,7 @@ import { SkyVerticalTabComponent } from './vertical-tab.component';
     )
   ]
 })
-export class SkyTabGroupComponent {
+export class SkyTabGroupComponent implements AfterViewInit {
 
   @Input()
   public groupHeading: string;
@@ -69,13 +72,27 @@ export class SkyTabGroupComponent {
   @ContentChildren(SkyVerticalTabComponent)
   private tabs: QueryList<SkyVerticalTabComponent>;
 
+  constructor(
+    private tabService: SkyVerticalTabsetService,
+    private changeRef: ChangeDetectorRef) {}
+
+  public ngAfterViewInit() {
+    this.tabService.tabClicked.subscribe(this.tabClicked);
+  }
+
   public groupClicked() {
     if (!this.disabled) {
       this.open = !this.open;
     }
+
+    this.changeRef.markForCheck();
   }
 
   public subMenuOpen(): boolean {
     return this.tabs && (this.tabs.find(t => t.active) !== undefined);
+  }
+
+  public tabClicked = () => {
+    this.changeRef.markForCheck();
   }
 }

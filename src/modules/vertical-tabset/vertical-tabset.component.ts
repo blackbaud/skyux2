@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   OnInit,
+  OnDestroy,
   ChangeDetectionStrategy
 } from '@angular/core';
 
@@ -48,7 +49,7 @@ import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
     )
   ]
 })
-export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
+export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDestroy {
 
   @ViewChild('contentWrapper')
   public tabGroups: ElementRef;
@@ -82,6 +83,10 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
 
   public ngAfterViewInit() {
     this.tabService.tabClicked.subscribe(this.tabClicked);
+  }
+
+  public ngOnDestroy(): void {
+    this._mediaSubscription.unsubscribe();
   }
 
   public tabsVisible(): boolean {
@@ -131,5 +136,7 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit {
     if (activeContent) {
       this.content.nativeElement.appendChild(activeContent.nativeElement);
     }
+
+    this.changeRef.markForCheck();
   }
 }

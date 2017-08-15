@@ -39,6 +39,8 @@ export class SkyVerticalTabComponent implements OnInit {
   public activateTab() {
     this.active = true;
     this.tabsetService.activateTab(this);
+
+    this.changeRef.markForCheck();
   }
 
   public tabDeactivated() {
