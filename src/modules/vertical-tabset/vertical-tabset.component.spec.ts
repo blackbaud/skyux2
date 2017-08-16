@@ -261,6 +261,45 @@ describe('Vertical tabset component', () => {
     const showTabsButton = el.querySelectorAll('.sky-vertical-tabset-show-tabs');
     expect(showTabsButton.length).toBe(0);
   });
+
+  it('should deactivate active tab when another tab is clicked', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    fixture.detectChanges();
+    let el = fixture.nativeElement;
+
+    // click first tab in first group
+    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    tabs[0].click();
+
+    fixture.detectChanges();
+
+    // check open tab
+    let visibleTabs = el.querySelectorAll('.sky-vertical-tab-visible');
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 1 content');
+
+    // check open group
+    let openGroups = el.querySelectorAll('.sky-tab-group-header-sub-open');
+    expect(openGroups.length).toBe(1);
+    expect(openGroups[0].textContent.trim()).toBe('Group 1');
+
+    // click second tab in first group
+    tabs = el.querySelectorAll('.sky-vertical-tab');
+    tabs[1].click();
+
+    fixture.detectChanges();
+
+    // check open tab
+    visibleTabs = el.querySelectorAll('.sky-vertical-tab-visible');
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 2 content');
+
+    // check open group
+    openGroups = el.querySelectorAll('.sky-tab-group-header-sub-open');
+    expect(openGroups.length).toBe(1);
+    expect(openGroups[0].textContent.trim()).toBe('Group 1');
+  });
 });
 
 // test tab group with no subtabs
