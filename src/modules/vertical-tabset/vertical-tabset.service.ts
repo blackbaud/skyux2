@@ -9,6 +9,9 @@ export class SkyVerticalTabsetService {
   public tabClicked = new BehaviorSubject(false);
   public activeIndex: Number = 0;
 
+  public hidingTabs = new BehaviorSubject(false);
+  public showingTabs = new BehaviorSubject(false);
+
   public addTab(tab: SkyVerticalTabComponent) {
 
     const index = this.tabs.length;
@@ -43,5 +46,13 @@ export class SkyVerticalTabsetService {
     } else {
       return undefined;
     }
+  }
+
+  public tabsHidden() {
+    this.hidingTabs.next(true);
+  }
+
+  public tabsShown() {
+    this.showingTabs.next(true);
   }
 }

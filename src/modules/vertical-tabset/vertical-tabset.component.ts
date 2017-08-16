@@ -63,6 +63,7 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
   private _tabsVisible: boolean;
   private _wideScreen: boolean;
   private _mediaSubscription: Subscription;
+  private _previousTabsVisible: boolean;
 
   constructor(
     private tabService: SkyVerticalTabsetService,
@@ -105,7 +106,17 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
       this._wideScreen = false;
     }
 
-    return !this.isMobile() || this._tabsVisible;
+    const visible = !this.isMobile() || this._tabsVisible;
+
+    if (!visible && this._previousTabsVisible) {
+      this.tabService.tabsHidden();
+    } else if (visible && !this._previousTabsVisible) {
+      this.tabService.tabsShown();
+    }
+
+    this._previousTabsVisible = visible;
+
+    return visible;
   }
 
   public contentVisible(): boolean {
