@@ -34,16 +34,16 @@ import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
     trigger(
       'tabGroupEnter', [
         transition(':enter', [
-          style({transform: 'translate(-100%)', opacity: 0}),
-          animate('350ms', style({transform: 'translate(0)', opacity: 1}))
+          style({transform: 'translate(-100%)'}),
+          animate('350ms')
         ])
       ]
     ),
     trigger(
       'contentEnter', [
         transition(':enter', [
-          style({transform: 'translate(100%)', opacity: 0}),
-          animate('350ms', style({transform: 'translate(0)', opacity: 1}))
+          style({transform: 'translate(100%)'}),
+          animate('350ms')
         ])
       ]
     )
