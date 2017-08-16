@@ -107,10 +107,6 @@ Commenting out this section because I don't think we need it given that it doesn
     After a SPA consumes a component library, the library requires an adapter to access <stache-code>SkyAppConfig</stache-code> in the consuming SPA.
   </p>
 
-  <!--  <p>
-    (Provide reasons for why SkyAppConfig cannot be accessed by the component library. Why we need to create the adaptor, etc.) ... This was a placeholder that Steve left in place. I'm hiding it because I think the next paragraph handles this. But leaving it commented out instead of deleting as a reminder to ask Steve if he had additional info in mind. 
-  </p> -->
-
   <p>
     SKY UX does not transpile source files in <stache-code>@blackbaud/skyux-builder/runtime</stache-code> as a <a href="http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/">UMD module</a>, so they cannot be <a href="https://www.npmjs.com/package/codelyzer">analyzed statically</a>. Therefore, a component library cannot directly reference <stache-code>@blackbaud/skyux-builder/runtime</stache-code> files such as <stache-code>SkyAppConfig</stache-code> because the library will eventually become a UMD module. Instead, the component library requires an adaptor class in the consuming SPA that can be provided in the transpiled version of <stache-code>SkyAppConfig</stache-code> at runtime.
   </p>
