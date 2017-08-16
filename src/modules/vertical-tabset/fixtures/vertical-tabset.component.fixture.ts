@@ -12,5 +12,5 @@ export class VerticalTabsetTestComponent {
   public group2Disabled: boolean = false;
 
   public group3Open: boolean = false;
-  public group4Disabled: boolean = true;
+  public group3Disabled: boolean = true;
 }

@@ -99,8 +99,26 @@ describe('Vertical tabset component', () => {
     fixture.detectChanges();
 
     // check group is closed
-    const openGroups = el.querySelectorAll('.sky-tab-group-icon-open');
-    expect(openGroups.length).toBe(0);
+    const openedGroups = el.querySelectorAll('.sky-chevron-up');
+    expect(openedGroups.length).toBe(0);
+  });
+
+  it('disabled group should not open when clicked', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // click disabled group
+    const group = el.querySelectorAll('.sky-tab-group-header');
+    group[2].click();
+
+    fixture.detectChanges();
+
+    // check group is still closed (only first group still open)
+    const openedGroups = el.querySelectorAll('.sky-chevron-up');
+    expect(openedGroups.length).toBe(1);
   });
 
   it('mobile button should not be visible on wide screen', () => {
