@@ -93,6 +93,11 @@ $sky-avatar-border-width: 2px !default;
 $sky-dropdown-z-index: 1000 !default;
 // end dropdown
 
+// begin fluid grid
+$sky-fluid-grid-gutter: 15px !default;
+$sky-fluid-grid-columns: 12 !default;
+// end fluid grid
+
 // begin grid
 $sky-grid-odd-background-color: $sky-color-gray-01 !default;
 $sky-grid-even-background-color: $sky-color-white !default;
