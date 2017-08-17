@@ -4,8 +4,6 @@
   @include sky-border(light, top, bottom, left, right);
   max-width: 236px;
   border-radius: 3px;
-  margin-top: $sky-margin-double;
-  margin-right: $sky-margin-double;
   cursor: pointer;
   display: inline-block;
   padding-top: $sky-padding-double;
@@ -13,11 +11,11 @@
   padding-left: $sky-padding-double;
   padding-bottom: 30px;
   text-align: center;
-  
+
   &:hover{
     border-color: darken($sky-border-color-neutral-light, 12%)
   }
-  
+
 }
 
 @media (min-width: $sky-screen-sm-min) {

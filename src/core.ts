@@ -18,7 +18,9 @@ import { SkyEmailValidationModule } from './modules/email-validation';
 import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
+import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
 import { SkyGridModule } from './modules/grid';
+import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyListColumnSelectorActionModule } from './modules/list-column-selector-action';
@@ -64,7 +66,9 @@ import { SkyWaitModule } from './modules/wait';
     SkyErrorModule,
     SkyFileAttachmentsModule,
     SkyFilterModule,
+    SkyFluidGridModule,
     SkyGridModule,
+    SkyHelpInlineModule,
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyListColumnSelectorActionModule,
@@ -117,6 +121,7 @@ export {
   SkyActionButtonDetailsComponent,
   SkyActionButtonHeaderComponent,
   SkyActionButtonIconComponent,
+  SkyActionButtonContainerComponent,
   SkyActionButtonModule
 } from './modules/action-button';
 export {
@@ -202,6 +207,11 @@ export {
   SkyFilterSummaryItemComponent
 } from './modules/filter';
 export {
+  SkyColumnComponent,
+  SkyFluidGridModule,
+  SkyRowComponent
+} from './modules/fluid-grid';
+export {
   SkyFormat
 } from './modules/format';
 export {
@@ -211,6 +221,10 @@ export {
   SkyGridComponent,
   SkyGridModule
 } from './modules/grid';
+export {
+  SkyHelpInlineComponent,
+  SkyHelpInlineModule
+} from './modules/help-inline';
 export {
   SkyKeyInfoComponent,
   SkyKeyInfoLabelComponent,

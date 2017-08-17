@@ -206,7 +206,7 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Email Validation',
+        name: 'Email validation',
         icon: 'check',
         // tslint:disable-next-line
         summary: `The email validation module allows the user to validate email format.`,
@@ -317,6 +317,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Fluid grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `Provides a responsive 12-column layout to organize content for all device sizes.`,
+        url: '/components/fluid-grid',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'fluid-grid.component.html',
+              fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.html')
+            },
+            {
+              name: 'fluid-grid-demo.component.ts',
+              fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.ts'),
+              componentName: 'SkyFluidGridDemoComponent',
+              bootstrapSelector: 'sky-fluid-grid-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Form',
         icon: 'keyboard-o',
         // tslint:disable-next-line
@@ -340,6 +361,26 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./grid/grid-demo.component.ts'),
               componentName: 'SkyGridDemoComponent',
               bootstrapSelector: 'sky-grid-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Help inline',
+        icon: 'question',
+        summary: 'The help inline component creates a small help button next to a field.',
+        url: '/components/help-inline',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'help-inline-demo.component.html',
+              fileContents: require('!!raw-loader!./help-inline/help-inline-demo.component.html')
+            },
+            {
+              name: 'help-inline-demo.component.ts',
+              fileContents: require('!!raw-loader!./help-inline/help-inline-demo.component.ts'),
+              componentName: 'SkyHelpInlineDemoComponent',
+              bootstrapSelector: 'sky-help-inline-demo'
             }
           ];
         }
@@ -831,7 +872,7 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Text Expand',
+        name: 'Text expand',
         icon: 'text-height',
         // tslint:disable-next-line
         summary: `The text expand component truncates long text with an ellipsis and a link that users can click to expand the text.`,
