@@ -25,12 +25,12 @@
   @include sky-border(light, top, bottom, left, right);
   background-color: $sky-background-color-neutral-light;
   padding: $sky-padding;
+  height: 100%;
 }
 
 .sky-file-drop-contents {
   color: $sky-text-color-default;
   cursor: pointer;
-  height: 120px;
   width: 100%;
   text-align: center;
 
@@ -93,7 +93,7 @@
 }
 
 .sky-file-drop-text-header {
-  font-size: 17px;
+  @include sky-section-heading;
   margin: 0;
 }
 
@@ -104,9 +104,6 @@
 }
 
 .sky-file-drop-text, .sky-file-drop-text-header {
-  font-style: italic;
-  color: $sky-text-color-deemphasized;
-  font-weight: 600;
   line-height: 1.1;
   display: block;
 }
