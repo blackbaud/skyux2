@@ -3,7 +3,7 @@
   - Added support for NPM 5. ([#997](https://github.com/blackbaud/skyux2/pull/997))
   - Added support for `@blackbaud/skyux-builder@1.0.0-rc.15`. ([#975](https://github.com/blackbaud/skyux2/pull/975))
   - Added Action Button Container component. ([#968](https://github.com/blackbaud/skyux2/pull/968))
-  - Ported Inline Help component from SKY UX v.1. ([#874](https://github.com/blackbaud/skyux2/pull/874))
+  - Ported Inline Help component from SKY UX v.1. ([#874](https://github.com/blackbaud/skyux2/pull/874)) (Thanks @Blackbaud-SandhyaRajasabeson)
   - Added new Fluid Grid component, which allows for responsive rows and columns. ([#957](https://github.com/blackbaud/skyux2/pull/957)) (Thanks @Blackbaud-JeffDye)
   - Exposed multiple properties and events for Tile component. ([#966](https://github.com/blackbaud/skyux2/pull/966))
   - Fixed linting errors. ([#961](https://github.com/blackbaud/skyux2/pull/961))
