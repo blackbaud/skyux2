@@ -63,7 +63,7 @@
 
 @mixin sky-field-invalid {
   box-shadow: 0 0 8px rgba(237, 85, 101, 0.6);
-  border: 1px solid #ed5565;
+  border: 1px solid $sky-highlight-color-danger;
   outline: none;
 }
 
@@ -136,7 +136,7 @@
   &.sky-btn-active {
     color: $color;
     background-color: $hoverbackground;
-    border-color: darken($border, 10%);
+    border-color: darken($border, 12%);
   }
   &:active,
   &.sky-btn-active {
