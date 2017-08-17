@@ -3,7 +3,7 @@
 
 .sky-btn {
   background-color: transparent;
-  @include sky-border(light, top, bottom, left, right);
+  @include sky-border(dark, top, bottom, left, right);
   border-radius: 3px;
   color: $sky-text-color-default;
   cursor: pointer;
@@ -28,7 +28,7 @@
 }
 
 .sky-btn-default {
-  @include sky-button-variant($sky-text-color-default, $sky-color-white, $sky-border-color-neutral-light, $sky-background-color-neutral-light);
+  @include sky-button-variant($sky-text-color-default, $sky-color-white, $sky-border-color-neutral-medium, $sky-background-color-neutral-light);
 }
 
 .sky-btn-primary {

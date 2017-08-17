@@ -3,7 +3,7 @@
 .sky-form-control {
   width: 100%;
   padding: 6px 12px;
-  @include sky-border(light, top, bottom, left, right);
+  @include sky-border(dark, top, bottom, left, right);
   line-height: $sky-line-height-base;
   font-size: $sky-font-size-base;
   
