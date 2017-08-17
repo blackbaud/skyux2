@@ -136,6 +136,15 @@
   );
 }
 
+@mixin sky-icon-button-borderless {
+    color: $sky-text-color-icon-borderless;
+    cursor: pointer;
+    
+    &:hover, &:focus {
+        color: darken($sky-text-color-icon-borderless, 20%);
+    }
+}
+
 @mixin sky-button-variant($color, $background, $border, $hoverbackground:darken($background, 10%)) {
   color: $color;
   background-color: $background;

@@ -57,7 +57,7 @@
 }
 
 .sky-tile-settings {
-    color: $sky-border-color-neutral-medium;
+    @include sky-icon-button-borderless;
     height: $sky-context-menu-size;
     margin: 12px ($sky-tile-header-tool-padding - 6) 12px 0;
     padding: 0;
@@ -67,7 +67,7 @@
 }
 
 .sky-tile-grab-handle {
-    color: $sky-border-color-neutral-medium;
+    @include sky-icon-button-borderless;
     cursor: move;
     cursor: -webkit-grab;
     cursor: -moz-grab;
