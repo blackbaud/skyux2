@@ -1,12 +1,12 @@
 @import "../../scss/variables";
 @import "../../scss/mixins";
 
-.sky-input-group-timepicker-btn /deep/ .sky-btn {
+input + .sky-input-group-timepicker-btn /deep/ .sky-btn {
   border-radius: 0;
-}
-
-.sky-input-group /deep/ .sky-form-control {
-  border-right: none;
+  border-left: none;
+  &:hover{
+    @include sky-border(dark, left);
+  }
 }
 
 .sky-input-group-timepicker-btn /deep/ .sky-dropdown-menu {

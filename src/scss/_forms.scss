@@ -6,6 +6,10 @@
   @include sky-border(light, top, bottom, left, right);
   line-height: $sky-line-height-base;
   font-size: $sky-font-size-base;
+  
+  &:focus {
+    @include sky-field-status(active);
+  }
 }
 
 .sky-form-group {
@@ -14,7 +18,7 @@
 
 input.ng-invalid.ng-touched,
 select.ng-invalid.submitted {
-  @include sky-field-invalid;
+  @include sky-field-status(invalid);
 }
 
 .sky-error-label {
