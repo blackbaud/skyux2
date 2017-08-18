@@ -1,0 +1,21 @@
+@import '../../scss/_variables';
+@import '../../scss/_mixins';
+
+:host.sky-column {
+  padding-right: $sky-fluid-grid-gutter;
+  padding-left: $sky-fluid-grid-gutter;
+  width: 100%;
+  min-height: 1px;
+}
+
+@media (min-width: $sky-screen-sm-min) {
+  @include create_columns(sm);
+}
+
+@media (min-width: $sky-screen-md-min) {
+  @include create_columns(md);
+}
+
+@media (min-width: $sky-screen-lg-min) {
+  @include create_columns(lg);
+}
