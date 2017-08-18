@@ -317,6 +317,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Fluid grid',
+        icon: 'table',
+        // tslint:disable-next-line
+        summary: `Provides a responsive 12-column layout to organize content for all device sizes.`,
+        url: '/components/fluid-grid',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'fluid-grid.component.html',
+              fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.html')
+            },
+            {
+              name: 'fluid-grid-demo.component.ts',
+              fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.ts'),
+              componentName: 'SkyFluidGridDemoComponent',
+              bootstrapSelector: 'sky-fluid-grid-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Form',
         icon: 'keyboard-o',
         // tslint:disable-next-line

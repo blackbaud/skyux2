@@ -218,3 +218,11 @@
   border-bottom-left-radius: $radius;
   border-top-left-radius: $radius;
 }
+
+@mixin create_columns($screen-size: sm) {
+  @for $i from 1 through $sky-fluid-grid-columns {
+    :host.sky-column-#{$screen-size}-#{$i} {
+      width: ($i / $sky-fluid-grid-columns) * 100%;
+    }
+  }
+}
