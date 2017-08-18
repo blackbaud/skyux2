@@ -6,15 +6,15 @@
   margin: 5px 0 5px 15px;
 
   &:hover {
-    background-color: #eee;
+    background-color: $sky-background-color-neutral-light;
   }
 }
 
 .sky-vertical-tab-active {
-  background-color: #eee;
-  color: #292a2b;
+  background-color: $sky-background-color-neutral-light;
+  color: $sky-text-color-default;
   padding-left: 6px;
-  border-left: $sky-nav-selected-border-width solid #1c84c6;
+  border-left: $sky-nav-selected-border-width solid $sky-highlight-color-info;
 }
 
 .sky-vertical-tab-hidden {

@@ -10,19 +10,30 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
-  font-size: 16px;
+  @include sky-emphasized;
+  font-weight: 400;
+  color: $sky-text-color-deemphasized;
   
   &:hover {
-    color: #292a2b;
+    color: $sky-text-color-default;
   }
-
+  
   &:focus {
-    //default
-    outline: thin dotted;
+    @include sky-focus-outline;
+  }
+}
 
-    //webkit
-    outline: -webkit-focus-ring-color auto 5px;
-    outline-offset: -2px;
+:host[ng-reflect-disabled="true"] .sky-tab-group-header {
+  cursor: not-allowed;
+  font-style: italic;
+  opacity: 0.8;
+  
+  &:hover {
+    color: $sky-text-color-deemphasized;
+  }
+  
+  /deep/ button {
+    cursor: not-allowed;
   }
 }
 
@@ -38,3 +49,4 @@
 :host /deep/ .sky-tab-chevron > button {
   font-size: 14px !important;
 }
+
