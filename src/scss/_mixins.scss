@@ -140,8 +140,9 @@
     color: $sky-text-color-icon-borderless;
     cursor: pointer;
     
-    &:hover, &:focus {
+    &:hover {
         color: darken($sky-text-color-icon-borderless, 20%);
+        transition: color $sky-transition-time-short;
     }
 }
 
