@@ -6,6 +6,7 @@
   @include sky-border(dark, top, bottom, left, right);
   line-height: $sky-line-height-base;
   font-size: $sky-font-size-base;
+  color: $sky-text-color-default;
   
   &:focus {
     @include sky-field-status(active);

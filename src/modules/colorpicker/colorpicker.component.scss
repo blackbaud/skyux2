@@ -25,7 +25,6 @@
 }
 
 .sky-colorpicker-reset-button::before {
-  color: $sky-text-color-deemphasized;
   content: '\f00d';
   font-family: FontAwesome;
   font-size: $sky-font-size-base;
@@ -41,6 +40,10 @@
   position: relative;
   left: -25px;
   cursor: pointer;
+  color: $sky-text-color-deemphasized;
+  &:hover {
+    color: darken($sky-text-color-deemphasized, 20%);
+  }
 }
 
 .sky-colorpicker-footer {
@@ -82,6 +85,7 @@
     text-align: center;
     font-size: 14px;
     height: 26px;
+    color: $sky-text-color-default;
     &:invalid {
       box-shadow: none;
     }
