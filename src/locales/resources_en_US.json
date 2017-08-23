@@ -323,6 +323,10 @@
     "_description": "The error component title message for the not found error type",
     "message": "Sorry, we can't reach that page."
   },
+  "error_component_security_title": {
+    "_description": "The error component title message for the security error type",
+    "message": "You don't have permission to access that page."
+  },
   "error_description_broken": {
     "_description": "Text used for the error description to when page is broken.",
     "message": "Try to refresh this page or come back later."
