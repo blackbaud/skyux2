@@ -1,9 +1,11 @@
+@import "../../scss/mixins";
+
 .sky-input-group-datepicker-btn /deep/ .sky-dropdown-button.sky-btn {
   border-radius: 0;
-}
-
-.sky-input-group /deep/ .sky-form-control:not(.ng-invalid) {
-  border-right: none;
+  border-left: none;
+  &:hover{
+    @include sky-border(dark, left);
+  }
 }
 
 .sky-input-group-datepicker-btn /deep/ .sky-dropdown-menu {

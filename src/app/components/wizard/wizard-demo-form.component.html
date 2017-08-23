@@ -10,7 +10,7 @@
       >
         <label>
           Enter text to continue:
-          <input type="text" [(ngModel)]="requiredValue1" />
+          <input class="sky-form-control" type="text" [(ngModel)]="requiredValue1" />
         </label>
       </sky-tab>
       <sky-tab
@@ -36,7 +36,7 @@
     <sky-tabset-nav-button buttonType="next" [tabset]="wizardDemo"></sky-tabset-nav-button>
     <button
       type="button"
-      class="sky-btn sky-btn-primary"
+      class="sky-btn sky-btn-default"
       (click)="instance.close()"
     >
       Save and close

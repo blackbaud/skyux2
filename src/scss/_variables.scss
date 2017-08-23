@@ -1,6 +1,6 @@
 @import '~@blackbaud/skyux-design-tokens/scss/variables.scss';
 
-$sky-font-family: "Blackbaud Sans", Helvetica, Arial, sans-serif !default;
+$sky-font-family: "Blackbaud Sans", "Helvetica Neue", Arial, sans-serif !default;
 $sky-font-family-condensed: "Blackbaud Sans Condensed", "Helvetica Neue Condensed", "Arial Narrow" !default;
 
 $sky-padding: 10px !default;
@@ -50,11 +50,6 @@ $sky-screen-lg-min: 1200px;
 $sky-screen-xs-max: $sky-screen-sm-min - 1;
 $sky-screen-sm-max: $sky-screen-md-min - 1;
 $sky-screen-md-max: $sky-screen-lg-min - 1;
-
-// begin focus
-$sky-focus-border-color: #1f90d8 !default;
-$sky-focus-shadow-color: rgba(28, 132, 198, 0.6) !default;
-// end focus
 
 // begin color palette
 $sky-palette-multi: (

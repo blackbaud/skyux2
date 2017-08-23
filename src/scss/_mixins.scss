@@ -39,7 +39,7 @@
 @mixin sky-headline {
   font-family: $sky-font-family-condensed;
   color: $sky-text-color-default;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 22px;
 }
 
@@ -71,6 +71,24 @@
   box-shadow: 0 0 8px rgba(237, 85, 101, 0.6);
   border: 1px solid #ed5565;
   outline: none;
+}
+
+@mixin sky-field-status($status) {
+  @if($status == "active") {
+    box-shadow: 0 0 8px rgba($sky-highlight-color-info, 0.6);
+    border: 1px solid $sky-highlight-color-info;
+    outline: none;
+  }
+  @if($status == "invalid") {
+    box-shadow: 0 0 8px rgba($sky-highlight-color-danger, 0.6);
+    border: 1px solid $sky-highlight-color-danger;
+    outline: none;
+  }
+  @if($status == "success") {
+    box-shadow: 0 0 8px rgba($sky-highlight-color-success, 0.6);
+    border: 1px solid $sky-highlight-color-success;
+    outline: none;
+  }
 }
 
 //Begin tab buttons
@@ -134,6 +152,16 @@
   );
 }
 
+@mixin sky-icon-button-borderless {
+    color: $sky-text-color-icon-borderless;
+    cursor: pointer;
+    
+    &:hover {
+        color: darken($sky-text-color-icon-borderless, 20%);
+        transition: color $sky-transition-time-short;
+    }
+}
+
 @mixin sky-button-variant($color, $background, $border, $hoverbackground:darken($background, 10%)) {
   color: $color;
   background-color: $background;
@@ -146,7 +174,7 @@
   &.sky-btn-active {
     color: $color;
     background-color: $hoverbackground;
-    border-color: darken($border, 12%);
+    border-color: darken($border, 10%);
   }
   &:active,
   &.sky-btn-active {
@@ -183,6 +211,7 @@
   /deep/ > button {
     background-color: transparent;
     border: none;
+    color: $sky-text-color-default;
     cursor: pointer;
     display: block;
     padding: 3px $sky-padding-double;
