@@ -73,6 +73,9 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   @Output()
   public searchChange = new EventEmitter<string>();
 
+  @Output()
+  public searchClear = new EventEmitter();
+
   @Input()
   public searchText: string;
 
@@ -165,6 +168,8 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     this.searchChange.emit(this.searchText);
 
     this.searchApply.emit(this.searchText);
+
+    this.searchClear.emit();
   }
 
   public enterPress(event: KeyboardEvent, searchText: string) {
