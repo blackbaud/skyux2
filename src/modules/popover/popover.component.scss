@@ -1,0 +1,53 @@
+@import '../../scss/_variables';
+@import '../../scss/_mixins';
+
+$arrow-size: 10px;
+
+:host {
+  left: -999999px;
+  position: absolute;
+  z-index: 9999;
+  display: inline-block;
+}
+
+.sky-popover {
+  position: relative;
+  display: inline-block;
+  background-color: $sky-color-white;
+  border-bottom: $arrow-size solid $sky-highlight-color-info;
+  box-shadow: 0 0 35px rgba(0,0,0,0.45);
+  border-radius: 3px;
+  max-width: 200px;
+
+  &:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: $arrow-size solid transparent;
+    border-right: $arrow-size solid transparent;
+    border-top: $arrow-size solid $sky-highlight-color-info;
+    position: absolute;
+    bottom: ($arrow-size * 2) * -1;
+    left: 50%;
+    margin-left: -10px;
+  }
+}
+
+.sky-popover-position-top {}
+.sky-popover-position-right {}
+.sky-popover-position-bottom {}
+.sky-popover-position-left {}
+
+.sky-popover-header {
+  background-color: $sky-background-color-neutral-light;
+  padding: $sky-padding;
+}
+
+.sky-popover-title {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.sky-popover-body {
+  padding: $sky-padding;
+}

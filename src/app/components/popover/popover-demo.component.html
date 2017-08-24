@@ -1,0 +1,35 @@
+<!--
+  1. Button is clicked. `skyPopoverTarget` handles the click event.
+  2. Target directive checks Direction directive to see what direction the popover should be displayed.
+  3. Target directive locates the template reference variable on the page and displays it absolutely on the page.
+
+  // skyPopoverTarget needs to be an instance of SkyPopoverComponent.
+-->
+
+<button class="sky-btn sky-btn-primary"
+  [skyPopoverTarget]="mypopover"
+  skyPopoverPlacement="top">
+  Top
+</button>
+
+<button class="sky-btn sky-btn-primary"
+  [skyPopoverTarget]="mypopover"
+  skyPopoverPlacement="right">
+  Right
+</button>
+
+<button class="sky-btn sky-btn-primary"
+  [skyPopoverTarget]="mypopover"
+  skyPopoverPlacement="bottom">
+  Bottom
+</button>
+
+<button class="sky-btn sky-btn-primary"
+  [skyPopoverTarget]="mypopover"
+  skyPopoverPlacement="left">
+  Left
+</button>
+
+<sky-popover #mypopover>
+  You can edit your First and Last Name in your account settings.
+</sky-popover>
