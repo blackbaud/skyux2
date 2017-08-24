@@ -51,8 +51,9 @@
             <td [colSpan]="displayedColumns.length"
                 *ngIf="canRenderRowDetails() && item.detailsOpen"
                 class="sky-grid-row-details">
-              <sky-grid-details [template]="detailsTemplate"
-                             [item]="item">
+              <sky-grid-details
+                [template]="detailsTemplate"
+                [item]="item">
               </sky-grid-details>
             </td>
           </tr>
