@@ -31,6 +31,7 @@ import {
 import {
   ListItemModel,
   ListSortFieldSelectorModel,
+  ListSearchModel,
   ListStateDispatcher,
   ListState
 } from '../list/state';
@@ -213,8 +214,10 @@ export class SkyListViewGridComponent
               )
               .filter(c => c !== undefined);
 
-        this.dispatcher.searchSetFieldSelectors(displayedColumns.map(d => d.field));
-        this.dispatcher.searchSetFunctions(setFunctions);
+        this.dispatcher.searchSetOptions(new ListSearchModel({
+          functions: setFunctions,
+          fieldSelectors: displayedColumns.map(d => d.field)
+        }));
       });
     this.subscriptions.push(sub);
   }

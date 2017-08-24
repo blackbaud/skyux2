@@ -57,12 +57,7 @@
 .sky-modal-header-buttons {
   .sky-btn {
     border: none;
-    color: $sky-text-color-deemphasized;
-
-    &:hover {
-      color: $sky-text-color-default;
-      transition: color $sky-transition-time-short;
-    }
+    @include sky-icon-button-borderless;
   }
 }
 
