@@ -39,22 +39,23 @@
                 [attr.sky-cmp-id]="column.id || column.field"
                 [style.width.px]="last ? null : column.width">
               </sky-grid-cell>
-
-
-              <sky-chevron class="sky-pull-right sky-grid-row-details-icon" *ngIf="last && canRenderRowDetails()" [direction]="isExpanded ? 'up' : 'down'"
-                           (directionChange)="chevronDirectionChange($event, item)">
+              <sky-chevron
+                class="sky-pull-right sky-grid-row-details-icon"
+                *ngIf="last && canRenderRowDetails()"
+                [direction]="isExpanded ? 'up' : 'down'"
+                (directionChange)="chevronDirectionChange($event, item)">
               </sky-chevron>
-
             </td>
           </tr>
-          <td [colSpan]="displayedColumns.length"
-              *ngIf="canRenderRowDetails() && item.detailsOpen"
-              class="sky-grid-row-details">
-            <sky-grid-details [template]="detailsTemplate"
-                           [item]="item">
-            </sky-grid-details>
-          </td>
-
+          <tr>
+            <td [colSpan]="displayedColumns.length"
+                *ngIf="canRenderRowDetails() && item.detailsOpen"
+                class="sky-grid-row-details">
+              <sky-grid-details [template]="detailsTemplate"
+                             [item]="item">
+              </sky-grid-details>
+            </td>
+          </tr>
         </ng-container>
       </tbody>
     </table>
