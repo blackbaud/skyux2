@@ -42,6 +42,13 @@ export class ReferenceActionButtonsComponent {
       summary: 'Guidance on unit tests and end-to-end tests in SKY UX SPAs.'
     },
     {
+      name: 'Libraries',
+      path: '/learn/reference/component-libraries',
+      icon: 'book',
+      // tslint:disable-next-line
+      summary: 'Create reusable libraries of SKY UX components and services.'
+    },
+    {
       name: 'Helpers',
       path: '/learn/reference/helpers',
       icon: 'wrench',
