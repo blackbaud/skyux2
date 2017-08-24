@@ -74,7 +74,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public searchChange = new EventEmitter<string>();
 
   @Output()
-  public searchClear = new EventEmitter();
+  public searchClear = new EventEmitter<void>();
 
   @Input()
   public searchText: string;
