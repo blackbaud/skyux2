@@ -12,7 +12,8 @@ import {
   style,
   trigger,
   transition,
-  animate
+  animate,
+  state
 } from '@angular/animations';
 
 import { SkyVerticalTabComponent } from './vertical-tab.component';
@@ -23,32 +24,20 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
   templateUrl: './tab-group.component.html',
   styleUrls: ['./tab-group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger(
-      'tabAnimate', [
-        transition(':enter', [
-          style({
-            height: '0',
-            visibility: 'hidden'
-          }),
-          animate('350ms', style({
-            height: '*',
-            visibility: 'visible'
-          }))
-        ]),
-        transition(':leave', [
-          style({
-            height: '*',
-            visibility: 'visible'
-          }),
-          animate('350ms', style({
-            height: '0',
-            visibility: 'hidden'
-          }))
-        ])
-      ]
+  animations: [trigger('slide', [
+    state('down', style({
+      overflow: 'hidden',
+      height: '*'
+    })),
+    state('up', style({
+      overflow: 'hidden',
+      height: 0
+    })),
+    transition(
+      'up <=> down',
+      animate('150ms ease-in')
     )
-  ]
+  ])]
 })
 export class SkyTabGroupComponent implements AfterViewInit {
 
