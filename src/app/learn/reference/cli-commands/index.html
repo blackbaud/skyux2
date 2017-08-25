@@ -30,6 +30,31 @@
   <stache-page-anchor>
     Options
   </stache-page-anchor>
+  
+  <h3><stache-code>build</stache-code> options</h3>
+  
+  <stache-include fileName="cli/assets.html"></stache-include>
+  <stache-include fileName="cli/browser.html"></stache-include>
+  <stache-include fileName="cli/envid.html"></stache-include>
+  <stache-include fileName="cli/launch.html"></stache-include>
+  <stache-include fileName="cli/svcid.html"></stache-include>
+
+  <h3><stache-code>serve</stache-code> options</h3>
+  
+  <stache-include fileName="cli/assets.html"></stache-include>
+  <stache-include fileName="cli/browser.html"></stache-include>
+  <stache-include fileName="cli/envid.html"></stache-include>
+  <stache-include fileName="cli/launch.html"></stache-include>
+  <stache-include fileName="cli/svcid.html"></stache-include>
+  
+  <h3><stache-code>watch</stache-code> options</h3>
+  
+  <stache-include fileName="cli/no-coverage.html"></stache-include>
+
+  <h3><stache-code>watch</stache-code> options</h3>
+  
+  <stache-include fileName="cli/no-coverage.html"></stache-include>
+
   <ul>
     <li><p><stache-code>--assets</stache-code> — Specifies where to locate static assets when <stache-code>skyux build</stache-code> runs. The <stache-code>skyux build</stache-code> command replaces any instances of <stache-code>&#126;/assets/</stache-code> with this value in HTML, CSS, and SCSS files. For example, <stache-code>skyux build –-assets https://example.com/assets</stache-code>. By default, the command replaces <stache-code>&#126;/assets/</stache-code> with the CDN. For information about how to include static assets in HTML, CSS, and SCSS files, see <a routerLink="/learn/get-started/advanced/include-static-assets">the static assets tutorial</a>.</p></li>
     <li><p><stache-code>--browser</stache-code> or <stache-code>-b</stache-code> — Specifies a browser to open the application in when <stache-code>skyux serve</stache-code> runs. For example, <stache-code>skyux serve --browser firefox</stache-code>. This option is useful for cross-browser manual testing, and the available values are <stache-code>chrome</stache-code>, <stache-code>edge</stache-code>, <stache-code>firefox</stache-code>, <stache-code>iexplore</stache-code>, and <stache-code>safari</stache-code>. By default, <stache-code>skyux serve</stache-code> opens the SPA in the default browser.</p>
@@ -40,6 +65,7 @@
     <li><p><stache-code>--svcid</stache-code> — Specifies the service ID to add to the Host URL when <stache-code>skyux serve</stache-code> runs. <!-- For example, <stache-code>skyux serve --svcid 5678</stache-code>. --> </p></li>
     <li><p><stache-code>--template</stache-code> or <stache-code>-t</stache-code> — Specifies the base template to use when creating a SKY UX application. By default, <stache-code>skyux new</stache-code> uses <a href="https://github.com/blackbaud/skyux-template">the SKY UX application template</a> that includes <a routerLink="/learn/reference/template-items">the necessary items for a SKY UX single-page application</a>.</p></li>
   </ul>
+
   
     <stache-row>
         <stache-column screenSmall="6">
