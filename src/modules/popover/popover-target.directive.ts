@@ -19,6 +19,17 @@ export class SkyPopoverTargetDirective {
 
   constructor(private elementRef: ElementRef) { }
 
+  private movePopoverIntoPosition(): void {
+    this.skyPopoverTarget.positionNextTo(this.elementRef, this.skyPopoverPlacement);
+  }
+
+  private isLastCaller(): boolean {
+    return (
+      this.skyPopoverTarget.lastCaller &&
+      this.elementRef.nativeElement === this.skyPopoverTarget.lastCaller.nativeElement
+    );
+  }
+
   @HostListener('click', ['$event'])
   private togglePopover(event: MouseEvent) {
     event.preventDefault();
@@ -34,7 +45,7 @@ export class SkyPopoverTargetDirective {
       return;
     }
 
-    this.skyPopoverTarget.positionNextTo(this.elementRef, this.skyPopoverPlacement);
+    this.movePopoverIntoPosition();
   }
 
   @HostListener('document:click', ['$event'])
@@ -46,16 +57,23 @@ export class SkyPopoverTargetDirective {
       return;
     }
 
-    if (event.target !== this.skyPopoverTarget.elementRef.nativeElement) {
-      const isLastCaller = (
-        this.skyPopoverTarget.lastCaller &&
-        this.elementRef.nativeElement === this.skyPopoverTarget.lastCaller.nativeElement
-      );
+    if (this.isLastCaller()) {
+      event.preventDefault();
+      this.skyPopoverTarget.hide();
+    }
+  }
 
-      if (isLastCaller) {
-        event.preventDefault();
-        this.skyPopoverTarget.hide();
-      }
+  @HostListener('window:resize')
+  private readjustOnResize(): void {
+    if (this.isLastCaller()) {
+      this.movePopoverIntoPosition();
+    }
+  }
+
+  @HostListener('window:scroll')
+  private readjustOnScroll(): void {
+    if (this.isLastCaller()) {
+      this.movePopoverIntoPosition();
     }
   }
 }
