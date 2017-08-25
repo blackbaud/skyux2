@@ -2,8 +2,7 @@ import {
   Directive,
   ElementRef,
   HostListener,
-  Input,
-  OnInit
+  Input
 } from '@angular/core';
 
 import { SkyPopoverComponent } from './popover.component';
@@ -11,48 +10,52 @@ import { SkyPopoverComponent } from './popover.component';
 @Directive({
   selector: '[skyPopoverTarget]'
 })
-export class SkyPopoverTargetDirective implements OnInit {
+export class SkyPopoverTargetDirective {
   @Input()
   public skyPopoverTarget: SkyPopoverComponent;
 
   @Input()
   public skyPopoverPlacement: string;
 
+  constructor(private elementRef: ElementRef) { }
+
   @HostListener('click', ['$event'])
-  public onClick(event: MouseEvent) {
+  private togglePopover(event: MouseEvent) {
     event.preventDefault();
 
-    const controlRect = this.elementRef.nativeElement.getBoundingClientRect();
-    const popoverRect = this.skyPopoverTarget.elementRef.nativeElement.getBoundingClientRect();
+    // Toggle display of popover
+    const isRepeatedClick = (
+      this.skyPopoverTarget.lastCaller &&
+      event.target === this.skyPopoverTarget.lastCaller.nativeElement
+    );
 
-    let left;
-    let top;
-
-    switch (this.skyPopoverPlacement) {
-      default:
-      case 'top':
-        left = controlRect.left - (popoverRect.width / 2) + (controlRect.width / 2);
-        top = controlRect.top - popoverRect.height - 10;
-        break;
-      case 'right':
-        break;
-      case 'bottom':
-        left = controlRect.left - (popoverRect.width / 2) + (controlRect.width / 2);
-        top = controlRect.bottom + 10;
-        break;
-      case 'left':
-        break;
+    if (isRepeatedClick) {
+      this.skyPopoverTarget.hide();
+      return;
     }
 
-    // this.skyPopoverTarget.setElementPosition(left, top);
-    this.skyPopoverTarget.elementRef.nativeElement.style.left = `${left}px`;
-    this.skyPopoverTarget.elementRef.nativeElement.style.top = `${top}px`;
-    this.skyPopoverTarget.placement = this.skyPopoverPlacement;
+    this.skyPopoverTarget.positionNextTo(this.elementRef, this.skyPopoverPlacement);
   }
 
-  public constructor(
-    private elementRef: ElementRef) { }
+  @HostListener('document:click', ['$event'])
+  private closePopover(event: MouseEvent): void {
+    if (
+      event.target === this.elementRef.nativeElement ||
+      event.target === this.skyPopoverTarget.elementRef.nativeElement
+    ) {
+      return;
+    }
 
-  public ngOnInit(): void {
+    if (event.target !== this.skyPopoverTarget.elementRef.nativeElement) {
+      const isLastCaller = (
+        this.skyPopoverTarget.lastCaller &&
+        this.elementRef.nativeElement === this.skyPopoverTarget.lastCaller.nativeElement
+      );
+
+      if (isLastCaller) {
+        event.preventDefault();
+        this.skyPopoverTarget.hide();
+      }
+    }
   }
 }

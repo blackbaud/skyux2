@@ -4,7 +4,6 @@
 $arrow-size: 10px;
 
 :host {
-  left: -999999px;
   position: absolute;
   z-index: 9999;
   display: inline-block;
@@ -14,29 +13,67 @@ $arrow-size: 10px;
   position: relative;
   display: inline-block;
   background-color: $sky-color-white;
-  border-bottom: $arrow-size solid $sky-highlight-color-info;
   box-shadow: 0 0 35px rgba(0,0,0,0.45);
   border-radius: 3px;
   max-width: 200px;
+  margin: $arrow-size;
 
   &:before {
     content: '';
     width: 0;
     height: 0;
-    border-left: $arrow-size solid transparent;
-    border-right: $arrow-size solid transparent;
-    border-top: $arrow-size solid $sky-highlight-color-info;
     position: absolute;
-    bottom: ($arrow-size * 2) * -1;
-    left: 50%;
-    margin-left: -10px;
+    border: $arrow-size solid transparent;
   }
 }
 
-.sky-popover-position-top {}
-.sky-popover-position-right {}
-.sky-popover-position-bottom {}
-.sky-popover-position-left {}
+.sky-popover-placement-top {
+  border-bottom: $arrow-size solid $sky-highlight-color-info;
+
+  &:before {
+    border-bottom: 0;
+    border-top-color: $sky-highlight-color-info;
+    bottom: ($arrow-size * 2) * -1;
+    left: 50%;
+    margin-left: -$arrow-size;
+  }
+}
+
+.sky-popover-placement-bottom {
+  border-top: $arrow-size solid $sky-highlight-color-info;
+
+  &:before {
+    border-top: 0;
+    border-bottom-color: $sky-highlight-color-info;
+    top: ($arrow-size * 2) * -1;
+    left: 50%;
+    margin-left: -$arrow-size;
+  }
+}
+
+.sky-popover-placement-right {
+  border-left: $arrow-size solid $sky-highlight-color-info;
+
+  &:before {
+    border-left: 0;
+    border-right-color: $sky-highlight-color-info;
+    left: ($arrow-size * 2) * -1;
+    top: 50%;
+    margin-top: -$arrow-size;
+  }
+}
+
+.sky-popover-placement-left {
+  border-right: $arrow-size solid $sky-highlight-color-info;
+
+  &:before {
+    border-right: 0;
+    border-left-color: $sky-highlight-color-info;
+    right: ($arrow-size * 2) * -1;
+    top: 50%;
+    margin-top: -$arrow-size;
+  }
+}
 
 .sky-popover-header {
   background-color: $sky-background-color-neutral-light;
