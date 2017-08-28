@@ -1,0 +1,27 @@
+.popover-demo-container {
+  display: flex;
+  margin: 10px 0 40px;
+}
+
+.popover-demo-item {
+  position: relative;
+  padding: 10px;
+  flex: 1;
+}
+
+.help-link {
+  &:hover {
+    cursor: help;
+  }
+}
+
+/deep/
+.popover-demo-item {
+  sky-popover {
+    position: static;
+
+    .sky-popover {
+      margin: 0;
+    }
+  }
+}

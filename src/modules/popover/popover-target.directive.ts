@@ -1,8 +1,10 @@
 import {
   Directive,
   ElementRef,
+  EventEmitter,
   HostListener,
-  Input
+  Input,
+  Output
 } from '@angular/core';
 
 import { SkyPopoverComponent } from './popover.component';
@@ -17,63 +19,61 @@ export class SkyPopoverTargetDirective {
   @Input()
   public skyPopoverPlacement: string;
 
-  constructor(private elementRef: ElementRef) { }
+  @Output()
+  public skyPopoverOpened: EventEmitter<SkyPopoverComponent>;
+
+  @Output()
+  public skyPopoverClosed: EventEmitter<SkyPopoverComponent>;
+
+  constructor(private elementRef: ElementRef) {
+    this.skyPopoverClosed = new EventEmitter<SkyPopoverComponent>();
+    this.skyPopoverOpened = new EventEmitter<SkyPopoverComponent>();
+  }
 
   private movePopoverIntoPosition(): void {
     this.skyPopoverTarget.positionNextTo(this.elementRef, this.skyPopoverPlacement);
   }
 
-  private isLastCaller(): boolean {
+  // A popover may have more than one caller.
+  // That being the case, we need to make sure this caller has "permission" to execute
+  // requests against its specific target.
+  private isLastCaller(callerElement: any): boolean {
     return (
       this.skyPopoverTarget.lastCaller &&
-      this.elementRef.nativeElement === this.skyPopoverTarget.lastCaller.nativeElement
+      callerElement === this.skyPopoverTarget.lastCaller.nativeElement
     );
+  }
+
+  private closePopover(): void {
+    this.skyPopoverTarget.hide();
+    this.skyPopoverClosed.emit(this.skyPopoverTarget);
   }
 
   @HostListener('click', ['$event'])
   private togglePopover(event: MouseEvent) {
     event.preventDefault();
 
-    // Toggle display of popover
-    const isRepeatedClick = (
-      this.skyPopoverTarget.lastCaller &&
-      event.target === this.skyPopoverTarget.lastCaller.nativeElement
-    );
+    const isRepeatedClick = (this.isLastCaller(event.target));
 
     if (isRepeatedClick) {
-      this.skyPopoverTarget.hide();
+      this.closePopover();
       return;
     }
 
     this.movePopoverIntoPosition();
+    this.skyPopoverOpened.emit(this.skyPopoverTarget);
   }
 
   @HostListener('document:click', ['$event'])
-  private closePopover(event: MouseEvent): void {
-    if (
-      event.target === this.elementRef.nativeElement ||
-      event.target === this.skyPopoverTarget.elementRef.nativeElement
-    ) {
+  private closePopoverOnDocumentClick(event: MouseEvent): void {
+    // Yield to the specific event handler above, if the user clicks on the trigger itself.
+    if (event.target === this.elementRef.nativeElement) {
       return;
     }
 
-    if (this.isLastCaller()) {
+    if (this.isLastCaller(this.elementRef.nativeElement)) {
       event.preventDefault();
-      this.skyPopoverTarget.hide();
-    }
-  }
-
-  @HostListener('window:resize')
-  private readjustOnResize(): void {
-    if (this.isLastCaller()) {
-      this.movePopoverIntoPosition();
-    }
-  }
-
-  @HostListener('window:scroll')
-  private readjustOnScroll(): void {
-    if (this.isLastCaller()) {
-      this.movePopoverIntoPosition();
+      this.closePopover();
     }
   }
 }
