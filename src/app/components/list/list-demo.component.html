@@ -3,7 +3,9 @@
 <sky-list [data]="items">
   <sky-list-toolbar></sky-list-toolbar>
 
-  <sky-list-view-grid fit="scroll">
+  <sky-list-view-grid
+    fit="scroll"
+    [detailsTemplate]="customDetailsTemplate">
     <sky-grid-column field="column1" heading="Column1"></sky-grid-column>
     <sky-grid-column field="column2" heading="Column2"></sky-grid-column>
     <sky-grid-column field="column3" heading="Column3"></sky-grid-column>
@@ -11,4 +13,23 @@
 
   <sky-list-paging pageSize="5"></sky-list-paging>
 </sky-list>
+
+<ng-template let-row="row" #customDetailsTemplate>
+  <table style="width:100%">
+    <tr>
+      <td>
+        <div>{{row.column2}} metrics</div>
+      </td>
+      <td>
+        <div>Total fruit eaten</div>
+        <div>{{row.consumptionCount}}</div>
+      </td>
+      <td>
+        <div>Initial fruit count</div>
+        <div>{{row.initialCount}}</div>
+      </td>
+    </tr>
+  </table>
+</ng-template>
+
 

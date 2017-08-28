@@ -42,6 +42,10 @@
   float: left;
 }
 
+.sky-grid-row-open {
+  border-bottom: none;
+}
+
 .sky-grid-row-details {
   @include sky-border(row, bottom);
   padding: 8px;
