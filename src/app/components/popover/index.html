@@ -1,4 +1,39 @@
 <sky-demo-page title="Popover">
+  <sky-demo-page-properties sectionHeading="Directive properties">
+    <sky-demo-page-property propertyName="skyPopoverTarget">
+      References a <stache-code>SkyPopoverComponent</stache-code> instance on the page.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="skyPopoverPlacement"
+      defaultValue="top"
+      isOptional="true">
+      Specifies the placement of the popover in relation to the trigger element.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Component properties">
+    <sky-demo-page-property
+      propertyName="popoverTitle"
+      isOptional="true">
+      Adds a title to the popover.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="#<popover-reference-name>"
+      isOptional="true">
+      Allows the <stache-code>[skyPopoverTarget]</stache-code> directive to save a reference to the popover.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Events">
+    <sky-demo-page-property propertyName="popoverOpened">
+      Fires when the user opens the popover.
+    </sky-demo-page-property>
+    <sky-demo-page-property propertyName="popoverClosed">
+      Fires when the user closes the popover.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
   <sky-demo-page-example>
     <sky-popover-demo>
     </sky-popover-demo>
