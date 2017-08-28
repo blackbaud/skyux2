@@ -98,7 +98,7 @@ export class SkyVerticalTabsetGroupComponent implements AfterViewInit, OnDestroy
     this._ngUnsubscribe.complete();
   }
 
-  public groupClicked() {
+  public toggleMenuOpen() {
     if (!this.disabled) {
       this.open = !this.open;
     }

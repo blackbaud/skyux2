@@ -2,7 +2,7 @@
   <div
     class="sky-tab-group-header" 
     [ngClass]="{'sky-tab-group-header-sub-open': subMenuOpen()}"
-    (click)="groupClicked()" 
+    (click)="toggleMenuOpen()" 
     tabindex="0"
   >
     {{ groupHeading }}
@@ -10,7 +10,7 @@
       class="sky-tab-chevron"
       [direction]="open ? 'up' : 'down'"
       [disabled]="disabled"
-      (directionChange)="groupClicked()"
+      (directionChange)="toggleMenuOpen()"
     >
     </sky-chevron>
   </div>
