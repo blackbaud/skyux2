@@ -1,6 +1,6 @@
 <div id="screenshot-vertical-tabset">
   <sky-vertical-tabset showTabsText='Tab list'>
-    <sky-tab-group 
+    <sky-vertical-tabset-group 
       groupHeading="Group 1"
       [open]="group1Open"
       [disabled]="group1Disabled"
@@ -11,9 +11,9 @@
       <sky-vertical-tab tabHeading="Group 1 Tab 2">
         Group 1 Tab 2 content
       </sky-vertical-tab>
-    </sky-tab-group>
+    </sky-vertical-tabset-group>
   
-    <sky-tab-group 
+    <sky-vertical-tabset-group 
       class="group2"
       groupHeading="Group 2"
       [open]="group2Open"
@@ -25,9 +25,9 @@
       <sky-vertical-tab id="group2Tab2" tabHeading="Group 2 Tab 2">
         Group 2 Tab 2 content
       </sky-vertical-tab>
-    </sky-tab-group>
+    </sky-vertical-tabset-group>
   
-    <sky-tab-group 
+    <sky-vertical-tabset-group 
       groupHeading="Group 3"
       [open]="group3Open"
       [disabled]="group3Disabled"
@@ -38,6 +38,6 @@
       <sky-vertical-tab tabHeading="Group 3 Tab 2">
         Group 3 Tab 2 content
       </sky-vertical-tab>
-    </sky-tab-group>
+    </sky-vertical-tabset-group>
   </sky-vertical-tabset>
 </div>

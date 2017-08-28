@@ -421,7 +421,7 @@ export {
 } from './modules/toolbar';
 export {
   SkyVerticalTabsetComponent,
-  SkyTabGroupComponent,
+  SkyVerticalTabsetGroupComponent,
   SkyVerticalTabComponent
 } from './modules/vertical-tabset';
 export {

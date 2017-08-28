@@ -20,9 +20,9 @@ import { SkyVerticalTabComponent } from './vertical-tab.component';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
 @Component({
-  selector: 'sky-tab-group',
-  templateUrl: './tab-group.component.html',
-  styleUrls: ['./tab-group.component.scss'],
+  selector: 'sky-vertical-tabset-group',
+  templateUrl: './vertical-tabset-group.component.html',
+  styleUrls: ['./vertical-tabset-group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [trigger('slide', [
     state('down', style({
@@ -39,7 +39,7 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
     )
   ])]
 })
-export class SkyTabGroupComponent implements AfterViewInit {
+export class SkyVerticalTabsetGroupComponent implements AfterViewInit {
 
   @Input()
   public groupHeading: string;

@@ -4,13 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyVerticalTabsetComponent } from './vertical-tabset.component';
 import { SkyVerticalTabComponent } from './vertical-tab.component';
-import { SkyTabGroupComponent } from './tab-group.component';
+import { SkyVerticalTabsetGroupComponent } from './vertical-tabset-group.component';
 import { SkyChevronModule } from './../chevron/chevron.module';
 
 @NgModule({
   declarations: [
     SkyVerticalTabsetComponent,
-    SkyTabGroupComponent,
+    SkyVerticalTabsetGroupComponent,
     SkyVerticalTabComponent
   ],
   imports: [
@@ -20,7 +20,7 @@ import { SkyChevronModule } from './../chevron/chevron.module';
   ],
   exports: [
     SkyVerticalTabsetComponent,
-    SkyTabGroupComponent,
+    SkyVerticalTabsetGroupComponent,
     SkyVerticalTabComponent
   ]
 })
