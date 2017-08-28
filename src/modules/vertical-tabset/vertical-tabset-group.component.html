@@ -16,8 +16,9 @@
       </sky-chevron>
   </div>
   <div
-    [ngClass]="{'sky-tab-group-content-open': open}"
-    [@slide]="open ? 'down' : 'up'"
+    class="sky-tab-group-content"
+    *ngIf="open"
+    [@tabSlide]
   >
     <ng-content></ng-content>
   </div>

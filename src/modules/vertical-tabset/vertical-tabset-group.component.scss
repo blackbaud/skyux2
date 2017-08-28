@@ -41,7 +41,7 @@
   @include sky-emphasized();
 }
 
-.sky-tab-group-content-open {
+.sky-tab-group-content {
   overflow: hidden;
   @include sky-border(light, top);
 }
