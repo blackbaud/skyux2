@@ -5,7 +5,8 @@ import {
   ContentChildren,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  AfterViewInit
+  AfterViewInit,
+  OnDestroy
 } from '@angular/core';
 
 import {
@@ -15,6 +16,7 @@ import {
   animate
 } from '@angular/animations';
 
+import { Subject } from 'rxjs/Subject';
 import { SkyVerticalTabComponent } from './vertical-tab.component';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
@@ -49,7 +51,7 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
       ])
     ]
 })
-export class SkyVerticalTabsetGroupComponent implements AfterViewInit {
+export class SkyVerticalTabsetGroupComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   public groupHeading: string;
@@ -59,6 +61,7 @@ export class SkyVerticalTabsetGroupComponent implements AfterViewInit {
 
   private _open: boolean = false;
   private _openBeforeTabsHidden: boolean = false;
+  private _ngUnsubscribe = new Subject();
 
   public get open(): boolean {
     return !this.disabled && this._open;
@@ -77,9 +80,22 @@ export class SkyVerticalTabsetGroupComponent implements AfterViewInit {
     private changeRef: ChangeDetectorRef) {}
 
   public ngAfterViewInit() {
-    this.tabService.hidingTabs.subscribe(this.tabsHidden);
-    this.tabService.showingTabs.subscribe(this.tabsShown);
-    this.tabService.tabClicked.subscribe(this.tabClicked);
+    this.tabService.hidingTabs
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(this.tabsHidden);
+
+    this.tabService.showingTabs
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(this.tabsShown);
+
+    this.tabService.tabClicked
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(this.tabClicked);
+  }
+
+  public ngOnDestroy() {
+    this._ngUnsubscribe.next();
+    this._ngUnsubscribe.complete();
   }
 
   public groupClicked() {

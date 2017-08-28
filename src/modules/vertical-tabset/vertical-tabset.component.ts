@@ -18,6 +18,7 @@ import {
 } from '@angular/animations';
 
 import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 import { SkyResourcesService } from './../resources/resources.service';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
@@ -64,6 +65,7 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
   private _wideScreen: boolean;
   private _mediaSubscription: Subscription;
   private _previousTabsVisible: boolean;
+  private _ngUnsubscribe = new Subject();
 
   constructor(
     private tabService: SkyVerticalTabsetService,
@@ -83,10 +85,14 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
   }
 
   public ngAfterViewInit() {
-    this.tabService.tabClicked.subscribe(this.tabClicked);
+    this.tabService.tabClicked
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(this.tabClicked);
   }
 
   public ngOnDestroy(): void {
+    this._ngUnsubscribe.next();
+    this._ngUnsubscribe.complete();
     this._mediaSubscription.unsubscribe();
   }
 
