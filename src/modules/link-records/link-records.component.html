@@ -1,0 +1,10 @@
+<sky-link-records-item *ngFor="let record of records | async; trackBy: trackByRecordKey"
+  [record]="record"
+  [itemTemplate]="itemTemplate"
+  [matchTemplate]="matchTemplate"
+  [noMatchTemplate]="noMatchTemplate"
+  [itemTitleTemplate]="itemTitleTemplate"
+  [selectedByDefault]="selectedByDefault"
+  [showNewFieldValues]="showNewFieldValues"
+></sky-link-records-item>
+<ng-content></ng-content>
