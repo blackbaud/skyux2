@@ -1,3 +1,9 @@
+# 2.0.0-rc.12 (2017-08-29)
+
+ - Added `searchClear` emitter to Search Component. ([#1013](https://github.com/blackbaud/skyux2/pull/1013)) (Thanks @Blackbaud-TrevorBurch)
+ - Adjusted form group spacing. ([#1022](https://github.com/blackbaud/skyux2/pull/1022))
+ - Fixed bug with multiple requests during List Component column change. ([#982](https://github.com/blackbaud/skyux2/pull/982)) (Thanks @Blackbaud-LuisBello)
+
 # 2.0.0-rc.11 (2017-08-17)
 
   - Added support for NPM 5. ([#997](https://github.com/blackbaud/skyux2/pull/997))
