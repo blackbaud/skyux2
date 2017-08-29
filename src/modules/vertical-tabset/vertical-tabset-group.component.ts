@@ -125,4 +125,8 @@ export class SkyVerticalTabsetGroupComponent implements AfterViewInit, OnDestroy
     this.open = this._openBeforeTabsHidden;
     this.changeRef.detectChanges();
   }
+
+  public tabIndex(): number {
+    return this.disabled ? -1 : 0;
+  }
 }
