@@ -27,6 +27,7 @@ export class HomeComponent {
     'help-inline',
     'key-info',
     'label',
+    'link-records',
     'list-secondary-actions',
     'list-view-checklist',
     'modal',
