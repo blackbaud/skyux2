@@ -21,18 +21,19 @@
   }
 }
 
-.sky-file-drop-contents {
-  @include sky-border(dark, top, bottom, left, right);
-  background-color: $sky-background-color-neutral-light;
-  padding: $sky-padding;
+button.sky-file-drop {
   height: 100%;
 }
 
 .sky-file-drop-contents {
+  @include sky-border(dark, top, bottom, left, right);
+  background-color: $sky-background-color-neutral-light;
+  padding: $sky-padding;
   color: $sky-text-color-default;
   cursor: pointer;
   width: 100%;
   text-align: center;
+  height: 100%;
 
   .sky-file-drop-link-header {
     margin-bottom: $sky-margin-half;
