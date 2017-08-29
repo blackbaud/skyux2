@@ -21,3 +21,11 @@
   visibility: hidden;
   height: 0;
 }
+
+.sky-no-outline {
+  outline: 0;
+}
+
+.sky-outline:focus {
+  @include sky-focus-outline;
+}

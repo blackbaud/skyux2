@@ -25,6 +25,8 @@ export class SkyVerticalTabComponent implements OnInit {
 
   public index: number;
 
+  public outline: boolean = false;
+
   @ViewChild('tabContentWrapper')
   public tabContent: ElementRef;
 
@@ -36,6 +38,11 @@ export class SkyVerticalTabComponent implements OnInit {
     this.tabsetService.addTab(this);
   }
 
+  public activateTabFromClick() {
+    this.outline = false;
+    this.activateTab();
+  }
+
   public activateTab() {
     this.active = true;
     this.tabsetService.activateTab(this);
@@ -44,6 +51,15 @@ export class SkyVerticalTabComponent implements OnInit {
   }
 
   public tabDeactivated() {
+    this.outline = false;
     this.changeRef.markForCheck();
+  }
+
+  public tabPress(event: KeyboardEvent) {
+    // tabbed
+    if (event.which === 9) {
+      this.outline = true;
+      this.changeRef.markForCheck();
+    }
   }
 }
