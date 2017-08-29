@@ -300,6 +300,29 @@ describe('Vertical tabset component', () => {
     expect(openGroups.length).toBe(1);
     expect(openGroups[0].textContent.trim()).toBe('Group 1');
   });
+
+  it('tabbing to first tab adds highlight class', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    fixture.detectChanges();
+    let nativeEl = fixture.nativeElement as HTMLElement;
+    let firstTab = fixture.componentInstance.verticalTabs;
+
+    // check first tab is not highlighted
+    expect(firstTab.outline).toBe(false);
+
+    // hit a different keystroke
+    firstTab.tabPress({ which: 10 } as any);
+
+    // check tab is not highlighted
+    expect(firstTab.outline).toBe(false);
+
+    // tab to first tab
+    firstTab.tabPress({ which: 9 } as any);
+
+    // check tab is not highlighted
+    expect(firstTab.outline).toBe(true);
+  });
 });
 
 // test tab group with no subtabs

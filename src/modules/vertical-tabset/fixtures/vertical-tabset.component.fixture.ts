@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { SkyVerticalTabComponent } from './../vertical-tab.component';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -13,4 +14,7 @@ export class VerticalTabsetTestComponent {
 
   public group3Open: boolean = false;
   public group3Disabled: boolean = true;
+
+  @ViewChild(SkyVerticalTabComponent)
+  public verticalTabs: SkyVerticalTabComponent;
 }
