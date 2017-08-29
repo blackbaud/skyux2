@@ -136,19 +136,22 @@ mark.sky-highlight-mark {
 
 /* Placeholder Text */
 ::-webkit-input-placeholder {
-    @include sky-deemphasized();
+    @include sky-deemphasized;
+    opacity: 1;
 }
 
 ::-moz-placeholder { /* Firefox 19+ */
-    @include sky-deemphasized();
-    opacity: 1; // See https://github.com/twbs/bootstrap/pull/11526
+    @include sky-deemphasized;
+    opacity: 1;
 }
 
 input:-moz-placeholder { /* Firefox 18- */
-    @include sky-deemphasized();
+    @include sky-deemphasized;
+    opacity: 1;
 }
 
 :-ms-input-placeholder { /* IE */
-    @include sky-deemphasized();
+    @include sky-deemphasized;
+    opacity: 1;
 }
 /* End Placeholder Text */

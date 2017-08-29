@@ -5,10 +5,6 @@
   border-radius: 0;
 }
 
-.sky-input-group /deep/ .sky-form-control {
-  border-right: none;
-}
-
 .sky-input-group-timepicker-btn /deep/ .sky-dropdown-menu {
   box-shadow: none;
   background-color: transparent;
@@ -30,6 +26,8 @@
   padding-bottom: $sky-padding-half;
   width: 100%;
   height: 100%;
+  
+  
 }
 .sky-timepicker-container :last-child ol{
   display: flex;
@@ -51,7 +49,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
+}                                                      
 .sky-timepicker-column ol li {
   text-align: center;
   cursor: pointer;
@@ -59,8 +57,13 @@
 }
 .sky-timepicker-column ol li button {
   cursor: pointer;
-  outline: none;
+  &:focus {outline: thin dotted;
+  //webkit
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: -2px;
+  }
 }
+
 .sky-timepicker-column ol li button:hover {
   background-color: $sky-color-gray-05;
 }

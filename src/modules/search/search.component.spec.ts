@@ -276,6 +276,16 @@ describe('Search component', () => {
     expect(component.lastSearchTextChanged).toBe('');
   });
 
+  it('should emit the cleared event when clear button is clicked', () => {
+    spyOn(component.searchComponent.searchClear, 'emit').and.callThrough();
+    setInput('applied text');
+    triggerApplyButton();
+    triggerClearButton();
+
+    expect(element.query(By.css('.sky-input-group-clear')).nativeElement).not.toBeVisible();
+    expect(component.searchComponent.searchClear.emit).toHaveBeenCalled();
+  });
+
   it('should apply the correct focus class', () => {
     triggerFocus();
     let containerEl = element.query(By.css('.sky-search-input-container.sky-search-input-focused'));
