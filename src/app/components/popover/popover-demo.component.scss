@@ -13,6 +13,8 @@
 .popover-demo-item {
   .sky-popover-container {
     position: static !important;
+    width: 100% !important;
+    opacity: 1 !important;
 
     .sky-popover {
       margin: 0;

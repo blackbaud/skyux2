@@ -12,13 +12,29 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
 import { SkyPopoverCloseDirective } from './popover-close.directive';
 import { SkyWindowRefService } from '../window';
 
 @Component({
   selector: 'sky-popover',
   templateUrl: './popover.component.html',
-  styleUrls: ['./popover.component.scss']
+  styleUrls: ['./popover.component.scss'],
+  animations: [
+    trigger('popoverState', [
+      state('visible', style({ opacity: 1 })),
+      state('hidden', style({ opacity: 0 })),
+      transition('hidden => visible', animate('150ms')),
+      transition('visible => hidden', animate('150ms'))
+    ])
+  ]
 })
 export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
   @Input()
@@ -78,20 +94,39 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
 
   public show(): void {
     this.isVisible = true;
-    this.renderer.removeClass(this.popoverContainer.nativeElement, 'hidden');
-    this.popoverOpened.emit(this);
   }
 
   public hide(): void {
     this.lastCaller = undefined;
     this.isVisible = false;
-    this.renderer.addClass(this.popoverContainer.nativeElement, 'hidden');
-    this.popoverClosed.emit(this);
   }
 
   public getPlacementClassName(): any {
     if (this.placement) {
       return `sky-popover-placement-${this.placement}`;
+    }
+  }
+
+  public getState(): string {
+    return (this.isVisible) ? 'visible' : 'hidden';
+  }
+
+  public onAnimationChanged(event: any): void {
+    if (event.fromState === 'void') {
+      return;
+    }
+
+    if (event.phaseName === 'done') {
+      if (event.toState === 'hidden') {
+        this.renderer.addClass(this.popoverContainer.nativeElement, 'hidden');
+        this.popoverClosed.emit(this);
+      } else {
+        this.popoverOpened.emit(this);
+      }
+    } else {
+      if (event.toState === 'visible') {
+        this.renderer.removeClass(this.popoverContainer.nativeElement, 'hidden');
+      }
     }
   }
 
@@ -114,7 +149,7 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
 
     // Set the width explicitly to better calculate when the popover is clipped in the viewport.
     if (!popoverElement.style.width) {
-      this.renderer.setStyle(popoverElement, 'width', `${popoverRect.width}px`);
+      // this.renderer.setStyle(popoverElement, 'width', `${popoverRect.width}px`);
     }
 
     switch (this.placement) {

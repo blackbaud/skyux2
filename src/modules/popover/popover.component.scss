@@ -9,12 +9,22 @@ $arrow-size: 10px;
 
   &.hidden {
     left: -99999px !important;
-    // opacity: 0;
+    right: auto !important;
   }
 
   &.hidden-arrow {
     .sky-popover-arrow {
       visibility: hidden;
+    }
+  }
+
+  @media (max-width: $sky-screen-xs-max) {
+    left: 0 !important;
+    right: 0;
+    margin: $sky-padding;
+
+    .sky-popover {
+      margin: 0;
     }
   }
 
@@ -26,7 +36,8 @@ $arrow-size: 10px;
 .sky-popover {
   position: relative;
   background-color: $sky-color-white;
-  box-shadow: 0 0 35px rgba(0,0,0,0.45);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  border: 1px solid $sky-border-color-neutral-medium;
 }
 
 .sky-popover-arrow {
@@ -90,7 +101,7 @@ $arrow-size: 10px;
 
 .sky-popover-header {
   background-color: $sky-background-color-neutral-light;
-  padding: $sky-tab-btn-padding-top-bottom $sky-tab-btn-padding-left-right;
+  padding: 10px 15px;
 }
 
 .sky-popover-title {
@@ -99,5 +110,5 @@ $arrow-size: 10px;
 }
 
 .sky-popover-body {
-  padding: $sky-tab-btn-padding-top-bottom $sky-tab-btn-padding-left-right;
+  padding: 15px;
 }

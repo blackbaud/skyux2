@@ -1,13 +1,22 @@
 <sky-demo-page title="Popover">
-  <sky-demo-page-properties sectionHeading="Directive properties">
+  <sky-demo-page-summary>
+    The popover component allows you to display contextual content when a user clicks a button or link. The popover's content can be plain text, HTML, or any Angular component. A popover can be closed by clicking on the the trigger element that called it, clicking anywhere on the page, or by using the <stache-code>skyPopoverClosed</stache-code> directive, described below.
+  </sky-demo-page-summary>
+  <sky-demo-page-properties sectionHeading="Popover trigger properties">
     <sky-demo-page-property propertyName="skyPopoverTarget">
-      References a <stache-code>SkyPopoverComponent</stache-code> instance on the page.
+      References a <stache-code>SkyPopoverComponent</stache-code> instance on the page. Add this directive to an element that will open a popover when clicked.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="skyPopoverPlacement"
       defaultValue="top"
       isOptional="true">
       Specifies the placement of the popover in relation to the trigger element.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Popover close properties">
+    <sky-demo-page-property propertyName="skyPopoverClose">
+      References a <stache-code>SkyPopoverComponent</stache-code> instance on the page. Attach this directive on a button (or link) that will serve to close a popover.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -19,9 +28,8 @@
     </sky-demo-page-property>
 
     <sky-demo-page-property
-      propertyName="#<popover-reference-name>"
-      isOptional="true">
-      Allows the <stache-code>[skyPopoverTarget]</stache-code> directive to save a reference to the popover.
+      propertyName="#<popover-reference-name>">
+      The template reference variable used by the <stache-code>[skyPopoverTarget]</stache-code> directive.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

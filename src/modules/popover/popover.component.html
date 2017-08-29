@@ -1,4 +1,8 @@
-<div class="sky-popover-container hidden" #popoverContainer>
+<div class="sky-popover-container hidden"
+  (@popoverState.start)="onAnimationChanged($event)"
+  (@popoverState.done)="onAnimationChanged($event)"
+  [@popoverState]="getState()"
+  #popoverContainer>
   <div class="sky-popover" [ngClass]="getPlacementClassName()">
     <header class="sky-popover-header" *ngIf="popoverTitle">
       <h1 class="sky-popover-title">
