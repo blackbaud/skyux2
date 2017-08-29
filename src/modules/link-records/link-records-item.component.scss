@@ -1,0 +1,104 @@
+@import '../../scss/variables';
+@import '../../scss/buttons';
+@import '../../scss/mixins';
+
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 710px;
+
+  .link-records-item-info {
+    font-family: $sky-font-family;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .link-records-item {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    margin: 10px 0 40px;
+  }
+
+  .link-records-item-original,
+  .link-records-item-match {
+    @include sky-border(light, top, bottom, right, left);
+    @include sky-shadow();
+    background-color: $sky-color-white;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    width: 350px;
+
+    .link-records-item-content {
+      flex-grow: 1;
+      font-size: 13px;
+      padding: 10px 20px 10px 25px;
+    }
+
+    .link-records-item-header,
+    .link-records-item-footer {
+      display: flex;
+      flex-direction: row;
+      min-height: 48px;
+    }
+
+    .link-records-item-header {
+      @include sky-border(light, bottom);
+      font-family: $sky-font-family-condensed;
+      font-size: 22px;
+      font-weight: 300;
+      font-style: normal;
+      padding: 10px 20px 10px 25px;
+    }
+
+    .link-records-item-footer {
+      @include sky-border(light, top);
+      padding: 7px 20px 7px 25px;
+
+      .sky-btn {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .link-records-item-status {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+
+    &-content {
+      @include sky-border(light, top, bottom, right, left);
+      background-color: $sky-color-white;
+      border-radius: 22px;
+      height: 45px;
+      margin: -18px;
+      text-align: center;
+      width: 45px;
+      z-index: 1;
+
+      i {
+        color: $sky-highlight-color-success;
+        font-size: 29px;
+        margin: 7px 0 0;
+
+        &.fa-question-circle {
+          color: $sky-color-black;
+        }
+      }
+    }
+  }
+
+  @media(max-width: $sky-screen-sm-min) {
+    width: 350px;
+
+    .link-records-item {
+      flex-direction: column;
+    }
+  }
+}
