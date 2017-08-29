@@ -1,12 +1,18 @@
 import {
+  AfterContentInit,
+  AfterViewInit,
   Component,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
   HostListener,
   Input,
-  ElementRef,
-  OnInit,
-  Renderer2
+  Output,
+  Renderer2,
+  ViewChild
 } from '@angular/core';
 
+import { SkyPopoverCloseDirective } from './popover-close.directive';
 import { SkyWindowRefService } from '../window';
 
 @Component({
@@ -14,27 +20,42 @@ import { SkyWindowRefService } from '../window';
   templateUrl: './popover.component.html',
   styleUrls: ['./popover.component.scss']
 })
-export class SkyPopoverComponent implements OnInit {
+export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
   @Input()
   public popoverTitle: string;
 
   @Input()
   public placement: string;
 
-  @Input()
-  public isVisible = false;
+  @Output()
+  public popoverOpened: EventEmitter<SkyPopoverComponent>;
+
+  @Output()
+  public popoverClosed: EventEmitter<SkyPopoverComponent>;
+
+  @ContentChild(SkyPopoverCloseDirective)
+  public skyPopoverClose: SkyPopoverCloseDirective;
+
+  @ViewChild('popoverContainer')
+  public popoverContainer: ElementRef;
+
   public lastCaller: ElementRef;
+  public isVisible = false;
 
   constructor(
-    public elementRef: ElementRef,
     private renderer: Renderer2,
-    private windowRef: SkyWindowRefService) { }
+    private windowRef: SkyWindowRefService) {
+      this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
+      this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
+    }
 
-  public ngOnInit(): void {
-    if (this.isVisible) {
-      this.show();
-    } else {
-      this.hide();
+  public ngAfterViewInit(): void {
+    console.log('popover?', this.popoverContainer);
+  }
+
+  public ngAfterContentInit(): void {
+    if (this.skyPopoverClose) {
+      this.skyPopoverClose.target = this;
     }
   }
 
@@ -55,17 +76,23 @@ export class SkyPopoverComponent implements OnInit {
     }, 0);
   }
 
-  public hide(): void {
-    this.lastCaller = undefined;
-    this.renderer.addClass(this.elementRef.nativeElement, 'hidden');
+  public show(): void {
+    this.isVisible = true;
+    this.renderer.removeClass(this.popoverContainer.nativeElement, 'hidden');
+    this.popoverOpened.emit(this);
   }
 
-  public show(): void {
-    this.renderer.removeClass(this.elementRef.nativeElement, 'hidden');
+  public hide(): void {
+    this.lastCaller = undefined;
+    this.isVisible = false;
+    this.renderer.addClass(this.popoverContainer.nativeElement, 'hidden');
+    this.popoverClosed.emit(this);
   }
 
   public getPlacementClassName(): any {
-    return `sky-popover-placement-${this.placement}`;
+    if (this.placement) {
+      return `sky-popover-placement-${this.placement}`;
+    }
   }
 
   private determineCoordinates(caller: ElementRef): {
@@ -73,7 +100,7 @@ export class SkyPopoverComponent implements OnInit {
     left: number,
     adjustedToFitViewport: boolean
   } {
-    const popoverElement = this.elementRef.nativeElement;
+    const popoverElement = this.popoverContainer.nativeElement;
     const callerRect = caller.nativeElement.getBoundingClientRect();
     const popoverRect = popoverElement.getBoundingClientRect();
     const window = this.windowRef.getWindow();
@@ -152,7 +179,7 @@ export class SkyPopoverComponent implements OnInit {
   }
 
   private setPopoverCoordinates(top: number, left: number): void {
-    const elem = this.elementRef.nativeElement;
+    const elem = this.popoverContainer.nativeElement;
     this.renderer.setStyle(elem, 'left', `${left}px`);
     this.renderer.setStyle(elem, 'top', `${top}px`);
   }
@@ -161,9 +188,9 @@ export class SkyPopoverComponent implements OnInit {
     // Hide the arrow if the popover is clipped outside the viewport.
     // (As the arrow wouldn't be trained on the trigger element anymore.)
     if (show) {
-      this.renderer.removeClass(this.elementRef.nativeElement, 'hidden-arrow');
+      this.renderer.removeClass(this.popoverContainer.nativeElement, 'hidden-arrow');
     } else {
-      this.renderer.addClass(this.elementRef.nativeElement, 'hidden-arrow');
+      this.renderer.addClass(this.popoverContainer.nativeElement, 'hidden-arrow');
     }
   }
 

@@ -1,10 +1,8 @@
 import {
   Directive,
   ElementRef,
-  EventEmitter,
   HostListener,
-  Input,
-  Output
+  Input
 } from '@angular/core';
 
 import { SkyPopoverComponent } from './popover.component';
@@ -19,16 +17,8 @@ export class SkyPopoverTargetDirective {
   @Input()
   public skyPopoverPlacement: string;
 
-  @Output()
-  public skyPopoverOpened: EventEmitter<SkyPopoverComponent>;
-
-  @Output()
-  public skyPopoverClosed: EventEmitter<SkyPopoverComponent>;
-
-  constructor(private elementRef: ElementRef) {
-    this.skyPopoverClosed = new EventEmitter<SkyPopoverComponent>();
-    this.skyPopoverOpened = new EventEmitter<SkyPopoverComponent>();
-  }
+  constructor(
+    private elementRef: ElementRef) { }
 
   private movePopoverIntoPosition(): void {
     this.skyPopoverTarget.positionNextTo(this.elementRef, this.skyPopoverPlacement);
@@ -46,7 +36,6 @@ export class SkyPopoverTargetDirective {
 
   private closePopover(): void {
     this.skyPopoverTarget.hide();
-    this.skyPopoverClosed.emit(this.skyPopoverTarget);
   }
 
   @HostListener('click', ['$event'])
@@ -61,7 +50,6 @@ export class SkyPopoverTargetDirective {
     }
 
     this.movePopoverIntoPosition();
-    this.skyPopoverOpened.emit(this.skyPopoverTarget);
   }
 
   @HostListener('document:click', ['$event'])
@@ -72,6 +60,15 @@ export class SkyPopoverTargetDirective {
     }
 
     if (this.isLastCaller(this.elementRef.nativeElement)) {
+      event.preventDefault();
+      this.closePopover();
+    }
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  private closeOnEscapeKeyPressed(event: KeyboardEvent): void {
+    const isLastCaller = this.isLastCaller(this.elementRef.nativeElement);
+    if (event.which === 27 && isLastCaller) {
       event.preventDefault();
       this.closePopover();
     }

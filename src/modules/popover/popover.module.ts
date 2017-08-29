@@ -3,20 +3,23 @@ import { CommonModule } from '@angular/common';
 
 import {
   SkyPopoverComponent,
-  SkyPopoverTargetDirective
+  SkyPopoverTargetDirective,
+  SkyPopoverCloseDirective
 } from './index';
 
 @NgModule({
   declarations: [
     SkyPopoverComponent,
-    SkyPopoverTargetDirective
+    SkyPopoverTargetDirective,
+    SkyPopoverCloseDirective
   ],
   imports: [
     CommonModule
   ],
   exports: [
     SkyPopoverComponent,
-    SkyPopoverTargetDirective
+    SkyPopoverTargetDirective,
+    SkyPopoverCloseDirective
   ]
 })
 export class SkyPopoverModule {}

@@ -9,16 +9,10 @@
   flex: 1;
 }
 
-.help-link {
-  &:hover {
-    cursor: help;
-  }
-}
-
 /deep/
 .popover-demo-item {
-  sky-popover {
-    position: static;
+  .sky-popover-container {
+    position: static !important;
 
     .sky-popover {
       margin: 0;

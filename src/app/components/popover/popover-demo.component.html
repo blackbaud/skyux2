@@ -1,21 +1,21 @@
 <div class="popover-demo-container">
   <div class="popover-demo-item">
-    <sky-popover placement="top" [isVisible]="true">
+    <sky-popover placement="top">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="bottom" [isVisible]="true">
+    <sky-popover placement="bottom">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="right" [isVisible]="true">
+    <sky-popover placement="right">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="left" [isVisible]="true">
+    <sky-popover placement="left">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
@@ -27,22 +27,22 @@
 
 <div class="popover-demo-container">
   <div class="popover-demo-item">
-    <sky-popover placement="top" popoverTitle="Need help?" [isVisible]="true">
+    <sky-popover placement="top" popoverTitle="Need help?">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="bottom" popoverTitle="Need help?" [isVisible]="true">
+    <sky-popover placement="bottom" popoverTitle="Need help?">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="right" popoverTitle="Need help?" [isVisible]="true">
+    <sky-popover placement="right" popoverTitle="Need help?">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="left" popoverTitle="Need help?" [isVisible]="true">
+    <sky-popover placement="left" popoverTitle="Need help?">
       The content of a popover can be text, HTML, or Angular components.
     </sky-popover>
   </div>
@@ -52,63 +52,57 @@
   Popovers can be opened via buttons:
 </h3>
 
-<sky-popover #myPopover>
-  The content of a popover can be text, HTML, or Angular components.
-</sky-popover>
-
-<button class="sky-btn"
-  [skyPopoverTarget]="myPopover"
-  skyPopoverPlacement="right">
+<button class="sky-btn" [skyPopoverTarget]="myPopover" skyPopoverPlacement="right">
   Right
 </button>
 
-<button class="sky-btn"
-  [skyPopoverTarget]="myPopover"
-  skyPopoverPlacement="top">
+<button class="sky-btn" [skyPopoverTarget]="myPopover" skyPopoverPlacement="top">
   Top
 </button>
 
-<button class="sky-btn"
-  [skyPopoverTarget]="myPopover"
-  skyPopoverPlacement="bottom">
+<button class="sky-btn" [skyPopoverTarget]="myPopover" skyPopoverPlacement="bottom">
   Bottom
 </button>
 
-<button class="sky-btn"
-  [skyPopoverTarget]="myPopover"
-  skyPopoverPlacement="left">
+<button class="sky-btn" [skyPopoverTarget]="myPopover" skyPopoverPlacement="left">
   Left
 </button>
 
-<button class="sky-btn"
-  [skyPopoverTarget]="myPopover">
+<button class="sky-btn" [skyPopoverTarget]="myPopover">
   Default
 </button>
+
+<sky-popover popoverTitle="Did you know?" #myPopover>
+  The content of a popover can be text, HTML, or Angular components.<br><br>
+  <button class="sky-btn sky-btn-primary" skyPopoverClose>Got it!</button>
+</sky-popover>
 
 <h3>
   Or, via links:
 </h3>
 
 <p>
-  <a href="javascript:void" class="help-link" [skyPopoverTarget]="myPopover" skyPopoverPlacement="right">Need help?</a>
+  <a href="javascript:void" style="cursor:help;" [skyPopoverTarget]="myPopover" skyPopoverPlacement="right">Need help?</a>
 </p>
 
 <h3>
   Events
 </h3>
 
-<sky-popover popoverTitle="Need help?" #myPopoverWithTitle>
-  The content of a popover can be text, HTML, or Angular components.
-</sky-popover>
-
-<button class="sky-btn"
-  [skyPopoverTarget]="myPopoverWithTitle"
-  (skyPopoverOpened)="onPopoverOpened($event)">
+<button class="sky-btn" [skyPopoverTarget]="myPopoverOnOpened">
   Say something when opened
 </button>
 
-<button class="sky-btn"
-  [skyPopoverTarget]="myPopoverWithTitle"
-  (skyPopoverClosed)="onPopoverClosed($event)">
+<sky-popover (popoverOpened)="onPopoverOpened($event)" #myPopoverOnOpened>
+  The content of a popover can be text, HTML, or Angular components.<br><br>
+  <button class="sky-btn sky-btn-primary" skyPopoverClose>Got it!</button>
+</sky-popover>
+
+<button class="sky-btn" [skyPopoverTarget]="myPopoverOnClosed">
   Say something when closed
 </button>
+
+<sky-popover (popoverClosed)="onPopoverClosed($event)" #myPopoverOnClosed>
+  The content of a popover can be text, HTML, or Angular components.<br><br>
+  <button class="sky-btn sky-btn-primary" skyPopoverClose>Got it!</button>
+</sky-popover>

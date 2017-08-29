@@ -1,11 +1,13 @@
-<div class="sky-popover" [ngClass]="getPlacementClassName()">
-  <header class="sky-popover-header" *ngIf="popoverTitle">
-    <h1 class="sky-popover-title">
-      {{ popoverTitle }}
-    </h1>
-  </header>
-  <div class="sky-popover-body">
-    <ng-content></ng-content>
+<div class="sky-popover-container hidden" #popoverContainer>
+  <div class="sky-popover" [ngClass]="getPlacementClassName()">
+    <header class="sky-popover-header" *ngIf="popoverTitle">
+      <h1 class="sky-popover-title">
+        {{ popoverTitle }}
+      </h1>
+    </header>
+    <div class="sky-popover-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="sky-popover-arrow"></div>
   </div>
-  <div class="sky-popover-arrow"></div>
 </div>
