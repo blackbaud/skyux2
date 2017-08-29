@@ -2,6 +2,7 @@
 
  - Added `searchClear` emitter to Search Component. ([#1013](https://github.com/blackbaud/skyux2/pull/1013)) (Thanks @Blackbaud-TrevorBurch)
  - Adjusted form group spacing. ([#1022](https://github.com/blackbaud/skyux2/pull/1022))
+ - Standardized the color of borderless icon buttons. Darkened button and input borders, and lightened applied filter bubbles to improve usability. ([#999](https://github.com/blackbaud/skyux2/pull/999))
  - Fixed bug with multiple requests during List Component column change. ([#982](https://github.com/blackbaud/skyux2/pull/982)) (Thanks @Blackbaud-LuisBello)
 
 # 2.0.0-rc.11 (2017-08-17)
