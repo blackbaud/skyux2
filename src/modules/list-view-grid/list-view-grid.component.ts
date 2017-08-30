@@ -6,7 +6,8 @@ import {
   forwardRef,
   ChangeDetectionStrategy,
   ViewChild,
-  AfterContentInit
+  AfterContentInit,
+  TemplateRef
 } from '@angular/core';
 import { ListViewComponent } from '../list/list-view.component';
 import {
@@ -60,6 +61,9 @@ export class SkyListViewGridComponent
   public set name(value: string) {
     this.viewName = value;
   }
+
+  @Input()
+  public detailsTemplate: TemplateRef<any>;
 
   @Input()
   public displayedColumns: Array<string> | Observable<Array<string>>;

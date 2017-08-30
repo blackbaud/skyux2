@@ -4,17 +4,20 @@ import { SkyGridComponent } from './grid.component';
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridCellComponent } from './grid-cell.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { SkyChevronModule } from '../chevron';
+import {SkyGridDetailsComponent} from './grid-details.component';
 
 @NgModule({
   declarations: [
     SkyGridComponent,
     SkyGridColumnComponent,
-    SkyGridCellComponent
-  ],
+    SkyGridCellComponent,
+    SkyGridDetailsComponent],
   imports: [
     CommonModule,
-    DragulaModule
-  ],
+    DragulaModule,
+    SkyChevronModule
+],
   exports: [
     SkyGridComponent,
     SkyGridColumnComponent,

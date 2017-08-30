@@ -11,7 +11,8 @@
     (selectedColumnIdsChange)="columnIdsChanged($event)"
     [sortField]="sortField | async"
     (sortFieldChange)="sortFieldChanged($event)"
-    >
+    [detailsTemplate]="detailsTemplate"
+  >
   </sky-grid>
   <sky-wait [isWaiting]="loading | async"></sky-wait>
 </div>

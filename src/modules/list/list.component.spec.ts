@@ -42,6 +42,9 @@ import {
 } from './state';
 
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
+import {
+  expect
+} from '../testing';
 
 describe('List Component', () => {
   describe('List Fixture', () => {
@@ -62,20 +65,27 @@ describe('List Component', () => {
         /* tslint:disable */
         let itemsArray = [
           { id: '1', column1: '30', column2: 'Apple',
-            column3: 1, column4: moment().add(1, 'minute') },
+            column3: 1, column4: moment().add(1, 'minute'),
+            consumptionCount: 1, initialCount: 10},
           { id: '2', column1: '01', column2: 'Banana',
-            column3: 3, column4: moment().add(6, 'minute') },
+            column3: 3, column4: moment().add(6, 'minute'),
+            consumptionCount: 2, initialCount: 20},
           { id: '3', column1: '11', column2: 'Banana',
-            column3: 11, column4: moment().add(4, 'minute') },
+            column3: 11, column4: moment().add(4, 'minute'),
+            consumptionCount: 3, initialCount: 30},
           { id: '4', column1: '12', column2: 'Carrot',
-            column3: 12, column4: moment().add(2, 'minute') },
+            column3: 12, column4: moment().add(2, 'minute'),
+            consumptionCount: 4, initialCount: 40},
           { id: '5', column1: '12', column2: 'Edamame',
-            column3: 12, column4: moment().add(5, 'minute') },
+              column3: 12, column4: moment().add(5, 'minute'),
+            consumptionCount: 5, initialCount: 50},
           { id: '6', column1: null, column2: null,
-            column3: 20, column4: moment().add(3, 'minute') },
+              column3: 20, column4: moment().add(3, 'minute'),
+            consumptionCount: 6, initialCount: 60},
           { id: '7', column1: '22', column2: 'Grape',
-            column3: 21, column4: moment().add(7, 'minute') }
-        ];
+            column3: 21, column4: moment().add(7, 'minute'),
+            consumptionCount: 7, initialCount: 70}
+      ];
 
         bs = new BehaviorSubject<Array<any>>(itemsArray);
         items = bs.asObservable();
@@ -175,6 +185,31 @@ describe('List Component', () => {
             });
           });
         }));
+      });
+
+      describe('row details', () => {
+        it('opens and closes row details when the chevron icon is clicked', () => {
+          initializeList();
+          let details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
+          expect(details).not.toExist();
+          let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron')
+            .item(0) as HTMLElement;
+          expect(detailsIcon).toHaveCssClass('sky-chevron-down');
+
+          detailsIcon.click();
+          fixture.detectChanges();
+          details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
+          expect(details).toExist();
+          detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+          expect(detailsIcon).toHaveCssClass('sky-chevron-up');
+
+          detailsIcon.click();
+          fixture.detectChanges();
+          details = nativeElement.querySelectorAll('sky-grid-details').item(0) as HTMLElement;
+          expect(details).not.toExist();
+          detailsIcon = nativeElement.querySelectorAll('button.sky-chevron').item(0) as HTMLElement;
+          expect(detailsIcon).toHaveCssClass('sky-chevron-down');
+        });
       });
 
       describe('sorting', () => {
@@ -810,6 +845,13 @@ describe('List Component', () => {
         let response = provider.get(request);
         response.take(1).subscribe((r: any) => expect(r.count).toBe(2));
 
+      });
+
+      it('should not show chevron icons to expand row details when ' +
+        'detailsTemplate not configured', () => {
+        let detailsIcon = nativeElement.querySelectorAll('button.sky-chevron')
+          .item(0) as HTMLElement;
+        expect(detailsIcon).not.toExist();
       });
     });
 

@@ -4,7 +4,10 @@
   [sortFields]="sortFields"
 >
   <sky-list-toolbar #toolbar></sky-list-toolbar>
-  <sky-list-view-grid fit="scroll" #default>
+  <sky-list-view-grid
+    fit="scroll"
+    [detailsTemplate]="customDetailsTemplate"
+    #default>
     <sky-grid-column field="column1" heading="Column1">
       <ng-template let-row="row">{{row.column1}}</ng-template>
     </sky-grid-column>
@@ -18,3 +21,21 @@
     </sky-grid-column>
   </sky-list-view-grid>
 </sky-list>
+
+<ng-template let-row="row" #customDetailsTemplate>
+  <table style="width:100%">
+    <tr>
+      <td>
+        <div>{{row.column2}} metrics</div>
+      </td>
+      <td>
+        <div>Total fruit eaten</div>
+        <div>{{row.consumptionCount}}</div>
+      </td>
+      <td>
+        <div>Initial fruit count</div>
+        <div>{{row.initialCount}}</div>
+      </td>
+    </tr>
+  </table>
+</ng-template>
