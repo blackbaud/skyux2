@@ -12,6 +12,10 @@ import { SkyTilesDemoTile1Component } from './components/tiles/tiles-demo-tile1.
 import { SkyTilesDemoTile2Component } from './components/tiles/tiles-demo-tile2.component';
 import { SkyWizardDemoFormComponent } from './components/wizard/wizard-demo-form.component';
 
+import {
+  SkySectionedModalFormDemoComponent
+} from './components/sectioned-form/sectioned-modal-form-demo.component';
+
 import { SkyDemoComponentsModule } from './components/demo-components.module';
 
 require('style-loader!./styles.scss');
@@ -23,7 +27,8 @@ require('style-loader!./styles.scss');
     SkyTilesDemoTile2Component,
     SkyWizardDemoFormComponent,
     SkyFilterDemoModalComponent,
-    SkyListFiltersModalDemoComponent
+    SkyListFiltersModalDemoComponent,
+    SkySectionedModalFormDemoComponent
   ],
   imports: [
     SkyDemoComponentsModule,
