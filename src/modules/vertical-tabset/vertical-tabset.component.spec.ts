@@ -305,7 +305,6 @@ describe('Vertical tabset component', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
     let fixture = createTestComponent();
     fixture.detectChanges();
-    let nativeEl = fixture.nativeElement as HTMLElement;
     let firstTab = fixture.componentInstance.verticalTabs;
 
     // check first tab is not highlighted
