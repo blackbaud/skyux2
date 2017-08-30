@@ -49,7 +49,6 @@ describe('Chevron component', () => {
 
   it('should respect tab index input', () => {
     let fixture = TestBed.createComponent(SkyChevronComponent);
-    let cmp = fixture.componentInstance as SkyChevronComponent;
     let el = fixture.nativeElement;
 
     // set tab index
@@ -64,7 +63,6 @@ describe('Chevron component', () => {
 
   it('should set tab index to -1 for disabled chevron', () => {
     let fixture = TestBed.createComponent(SkyChevronComponent);
-    let cmp = fixture.componentInstance as SkyChevronComponent;
     let el = fixture.nativeElement;
 
     // make disabled
