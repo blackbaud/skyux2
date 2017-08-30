@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { SkyModalInstance, SkySectionedFormComponent } from '../../../core';
 
@@ -10,6 +10,9 @@ export class SkySectionedModalFormDemoComponent implements AfterViewInit, OnDest
 
   @ViewChild(SkySectionedFormComponent)
   public sectionedFormComponent: SkySectionedFormComponent;
+
+  @ViewChild('skySectionSideContent')
+  public content: ElementRef;
 
   public activeIndex: number = 0;
 

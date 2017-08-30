@@ -1,0 +1,14 @@
+@import "../../scss/mixins";
+
+.sky-sectioned-form-container {
+  display: flex;
+}
+
+.sky-sectioned-form-tabs {
+  flex-basis: 30%;
+  @include sky-border(light, right);
+}
+
+.sky-sectioned-content {
+  padding: 0 15px 0 15px;
+}
