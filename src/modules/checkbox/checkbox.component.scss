@@ -5,6 +5,10 @@
   cursor: pointer;
 }
 
+.sky-checkbox-wrapper.sky-checkbox-wrapper-disabled, .sky-checkbox-wrapper.sky-checkbox-wrapper-disabled input {
+  cursor: default;
+}
+
 .sky-checkbox-wrapper input {
   opacity: 0;
   position: absolute;
@@ -18,7 +22,6 @@
 .sky-checkbox {
   background-color: $sky-color-white;
   @include sky-border(dark, top, bottom, left, right);
-  cursor: pointer;
   display: inline-block;
   height: 22px;
   margin: 0;
@@ -51,7 +54,6 @@
 .sky-checkbox-wrapper input:disabled + .sky-checkbox {
   background-color: $sky-background-color-neutral-light;
   @include sky-border(light, top, bottom, left, right);
-  cursor: default;
 }
 
 .sky-checkbox-wrapper input:focus + .sky-checkbox {
