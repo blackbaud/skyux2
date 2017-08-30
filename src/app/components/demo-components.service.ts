@@ -831,6 +831,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Sectioned form',
+        icon: 'object-group',
+        // tslint:disable-next-line
+        summary: `A sectioned form combines multiple forms while allowing users to target specific independent areas.`,
+        url: '/components/sectioned-form',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'sectioned-form-demo.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-demo.component.html')
+            },
+            {
+              name: 'sectioned-form-demo.component.ts',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-demo.component.ts'),
+              componentName: 'SkySectionedFormDemoComponent',
+              bootstrapSelector: 'sky-sectioned-form-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Sort',
         icon: 'sort',
         // tslint:disable-next-line
