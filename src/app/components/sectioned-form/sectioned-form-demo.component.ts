@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SkyModalDemoContext } from './../modal/modal-demo-context';
 import { SkyModalService, SkyModalCloseArgs } from '../../../core';
 import { SkySectionedModalFormDemoComponent } from './sectioned-modal-form-demo.component';
 

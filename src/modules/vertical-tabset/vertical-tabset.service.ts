@@ -6,7 +6,7 @@ import { SkyVerticalTabComponent } from './vertical-tab.component';
 export class SkyVerticalTabsetService {
 
   public tabs: Array<SkyVerticalTabComponent> = [];
-  public tabClicked = new BehaviorSubject(false);
+  public tabClicked = new BehaviorSubject(0);
   public activeIndex: Number = 0;
 
   public hidingTabs = new BehaviorSubject(false);
@@ -35,7 +35,7 @@ export class SkyVerticalTabsetService {
     }
 
     this.activeIndex = tab.index;
-    this.tabClicked.next(true);
+    this.tabClicked.next(tab.index);
   }
 
   public activeTabContent(): ElementRef {

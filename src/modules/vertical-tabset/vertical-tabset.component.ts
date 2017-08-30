@@ -90,7 +90,7 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
       .subscribe(this.tabClicked);
   }
 
-  public ngOnDestroy(): void {
+  public ngOnDestroy() {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
     this._mediaSubscription.unsubscribe();
