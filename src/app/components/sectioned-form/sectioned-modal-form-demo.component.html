@@ -2,20 +2,18 @@
   <sky-modal-header>
       Tab sectioned modal - Index: {{ activeIndex }}
   </sky-modal-header>
-  <sky-modal-content >
-
+  <sky-modal-content>
     <sky-sectioned-form>
-      <sky-vertical-tab tabHeading="tab 1">
-        tab 1 content
+      <sky-vertical-tab tabHeading="Basic information">
+        <sky-sectioned-form-information></sky-sectioned-form-information>
       </sky-vertical-tab>
-      <sky-vertical-tab tabHeading="tab 2">
-        tab 2 content
+      <sky-vertical-tab tabHeading="Addresses">
+        <sky-sectioned-form-address></sky-sectioned-form-address>
       </sky-vertical-tab>
-      <sky-vertical-tab tabHeading="tab 3">
-        tab 3 content
+      <sky-vertical-tab tabHeading="Phone numbers">
+        <sky-sectioned-form-phone></sky-sectioned-form-phone>
       </sky-vertical-tab>
     </sky-sectioned-form>
-
   </sky-modal-content>
   <sky-modal-footer>
     <button

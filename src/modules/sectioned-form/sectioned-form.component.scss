@@ -2,6 +2,7 @@
 
 .sky-sectioned-form-container {
   display: flex;
+  margin: -15px;
 }
 
 .sky-sectioned-form-tabs {
@@ -10,5 +11,10 @@
 }
 
 .sky-sectioned-content {
-  padding: 0 15px 0 15px;
+  padding: 15px;
+}
+
+:host /deep/ .sky-vertical-tab {
+  margin-right: 0px !important;
+  margin-bottom: 0px !important;
 }
