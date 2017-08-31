@@ -15,18 +15,18 @@ import { SkyDemoTitleService } from '../../shared/title.service';
 })
 export class SkyDemoPageComponent implements OnInit {
   @Input()
-  public set title(value: string) {
-    this._title = value;
+  public set pageTitle(value: string) {
+    this._pageTitle = value;
   }
 
-  public get title(): string {
-    return this._title;
+  public get pageTitle(): string {
+    return this._pageTitle;
   }
 
   @Input()
   public summary: string;
 
-  private _title: string;
+  private _pageTitle: string;
 
   constructor(private titleService: SkyDemoTitleService) { }
 
@@ -35,8 +35,8 @@ export class SkyDemoPageComponent implements OnInit {
   }
 
   private updateTitle() {
-    if (this.title) {
-      this.titleService.setTitle(this.title, 'Components');
+    if (this.pageTitle) {
+      this.titleService.setTitle(this.pageTitle, 'Components');
     }
   }
 }
