@@ -2,41 +2,22 @@
 
 <stache
     pageTitle="SKY UX CLI"
-    showTableOfContents="true">
+    navOrder="1">
+  
+  <p>This reference describes the commands that are available in the SKY UX CLI.</p>
+  
+  <sky-cli-commands-action-buttons></sky-cli-commands-action-buttons>
 
-    <stache-page-summary>
-    <p>This reference describes the commands and options that are available in the SKY UX CLI.</p>
-    </stache-page-summary>
-
-    <stache-page-anchor>
-        Commands
-    </stache-page-anchor>
-    <ul>
-        <li><p><stache-code>skyux new</stache-code> — Initializes a new local SKY UX project by pulling down the latest version of the template and installing the necessary dependencies. For information about the default items that the SKY UX application template provides in a SKY UX single-page application, see <a routerLink="/learn/reference/template-items">the template items reference</a>.</p></li>
-        <li><p><stache-code>skyux serve</stache-code> — Serves the current SKY UX single-page application locally. This command also opens the <stache-code>host</stache-code> endpoint with the necessary query string to pull your local files. It tacks on <stache-code>local=true</stache-code> in the query string to instruct SKY UX Host to pull files from the local machine instead of the hosted location. By default, the SPA automatically opens in the default browser, but you can specify a different browser with the <stache-code>--browser</stache-code> option. Or you can add the <stache-code>--launch none</stache-code> option to prevent the SPA from opening. The <stache-code>serve</stache-code> command basically updates the production location rather than creating a duplicate local instance, so to view the production version alongside a local version, you need to open a separate incognito tab. The <stache-code>serve</stache-code> command sets a cookie to apply local dev mode. Keep in mind that since <stache-code>skyux serve</stache-code> serves your single-page application over HTTPS, any additional requests from your code such as AJAX requests must also be over HTTPS.</p>
-          <sky-alert alertType="info">If you serve in Internet Explorer 11 or Microsoft Edge, the default browser settings can cause the SPA to reload indefinitely. To fix the browser settings, open the <strong>Control Panel</strong> from the <strong>Start</strong> menu and select <strong>Internet Options</strong>. On the Internet Properties screen, go to the Security tab and click <strong>Local intranet</strong>. Then click <strong>Sites</strong>, and on the Local intranet screen, clear <strong>Include all local (intranet) sites not listed in other zones</strong>. Click <strong>OK</strong> to save the change and then click <strong>OK</strong> on the Internet Properties screen. For more information, see <a href="https://github.com/blackbaud/skyux2/issues/646">the issue in the SKY UX repo</a>.</sky-alert></li>
-        <li><p><stache-code>skyux build</stache-code> — Builds the current SPA into the <stache-code>dist/</stache-code> folder. The <stache-code>build</stache-code> and <stache-code>serve</stache-code> commands are largely the same command under the hood, but <stache-code>serve</stache-code> works in memory and launches a web server for the user, while <stache-code>build</stache-code> performs the same operations by writing and storing files to disk. The <stache-code>build</stache-code> command produces the static assets for an SPA.</p></li>
-        <li><p><stache-code>skyux test</stache-code> — Runs unit tests. The Karma unit test is configured under the hood to look for specific file names, similar to how SKY UX Builder looks for <stache-code>index.html</stache-code> files. The Karma unit test looks for any files in the <stache-code>src/app</stache-code> folder with names that end in <stache-code>.spec.ts</stache-code>. Users should write separate tests to confirm that the components work. For more information about unit tests, see <a routerLink="/learn/reference/tests">the unit test reference</a>.</p></li>
-        <li><p><stache-code>skyux e2e</stache-code> — Runs end-to-end tests that test your SPA running in a real browser, interacting with it as users would. The <stache-code>e2e</stache-code> command uses a tool called Protractor to look for files in the <stache-code>e2e</stache-code> folder with names that end in <stache-code>.e2e-spec.ts</stache-code>. End-to-end tests supplement the Karma unit test, but end-to-end files are written slightly differently. Both test files use a syntax called Jasmine. For more information about end-to-end tests, see <a routerLink="/learn/reference/tests">the end-to-end test reference</a>.</p></li>
-        <li><p><stache-code>skyux watch</stache-code> — Runs the <stache-code>test</stache-code> command and watches the file system for changes. The <stache-code>watch</stache-code> command monitors changes in much the same way as the <stache-code>serve</stache-code> command, but for testing, the <stache-code>watch</stache-code> command is always running, much like debug mode in Visual Studio. If you change a test, the window is watching that and runs the test. This command is useful when writing a bunch of tests.</p></li>
-        <li><p><stache-code>skyux lint</stache-code> — Runs the <a href="https://marketplace.visualstudio.com/items?itemName=eg2.tslint">TSLint extension</a> against the files in the <stache-code>src</stache-code> folder. The extension validates TypeScript code against the rules specified in the <stache-code>tslint.json</stache-code> file in the SKY UX 2 repo. Other commands such as <stache-code>skyux build</stache-code> and <stache-code>skyux e2e</stache-code> also run TSLint, but <stache-code>skyux lint</stache-code> allows you to run TSLint in isolation from those commands.</p></li>
-        <li><p><stache-code>skyux version</stache-code> or <stache-code>skyux -v</stache-code> — Returns the version of SKY UX CLI.</p></li>
-        <li><p><stache-code>skyux</stache-code>, <stache-code>skyux help</stache-code>, or <stache-code>skyux -h</stache-code> — Displays help information for SKY UX CLI arguments. This lists the commands and options that are available in the SKY UX CLI and provides descriptions.</p></li>
-    </ul>
-
-    <stache-page-anchor>
-        Options
-    </stache-page-anchor>
-    <ul>
-        <li><p><stache-code>--assets</stache-code> — Specifies where to locate static assets when <stache-code>skyux build</stache-code> runs. The <stache-code>skyux build</stache-code> command replaces any instances of <stache-code>&#126;/assets/</stache-code> with this value in HTML, CSS, and SCSS files. For example, <stache-code>skyux build –-assets https://example.com/assets</stache-code>. By default, the command replaces <stache-code>&#126;/assets/</stache-code> with the CDN. For information about how to include static assets in HTML, CSS, and SCSS files, see <a routerLink="/learn/get-started/9.-include-static-asset">the static assets tutorial</a>.</p></li>
-        <li><p><stache-code>--browser</stache-code> or <stache-code>-b</stache-code> — Specifies a browser to open the application in when <stache-code>skyux serve</stache-code> runs. For example, <stache-code>skyux serve --browser firefox</stache-code>. This option is useful for cross-browser manual testing, and the available values are <stache-code>chrome</stache-code>, <stache-code>edge</stache-code>, <stache-code>firefox</stache-code>, <stache-code>iexplore</stache-code>, and <stache-code>safari</stache-code>. By default, <stache-code>skyux serve</stache-code> opens the SPA in the default browser.</p>
-          <sky-alert alertType="info">To serve in Firefox, you must add a certificate exception. To add the exception through the browser, run <stache-code>skyux serve -b firefox -l local</stache-code> to launch the local URL (or <stache-code>skyux serve -l local</stache-code> if Firefox is the default browser). When the browser displays a warning that the connection is not secure, click <strong>Advanced</strong> and then click <strong>Add Exception</strong>. On the Add Security Exception screen, click <strong>Confirm Security Exception</strong> to add the exception and serve the SPA.</sky-alert></li>
-        <li><p><stache-code>--envid</stache-code> — Specifies the environment ID to add to the Host URL when <stache-code>skyux serve</stache-code> runs. For example, <stache-code>skyux serve --envid 1234</stache-code>.</p></li>
-        <li><p><stache-code>--launch</stache-code> or <stache-code>-l</stache-code> — Specifies the URL to launch when <stache-code>skyux serve</stache-code> runs. For example, <stache-code>skyux serve --launch local</stache-code> launches the local URL. The available values are <stache-code>none</stache-code>, which stops any URL from launching, <stache-code>local</stache-code>, and <stache-code>host</stache-code>, which launches the SKY UX Host URL and is the default value. For more information about this option, see the <a routerLink="/learn/get-started/4.-serve-project">tutorial on how to serve the default single-page application</a>.</p></li>
-        <li><p><stache-code>--no-coverage</stache-code> — Prevents the instrument loader from minifying files to enable debugging in browsers when <stache-code>skyux watch</stache-code> runs. By default, the instrument loader minifies files, which makes the code unreadable. This option prevents minifying so that developers can view the original source in the console while debugging the code.</p></li>
-        <li><p><stache-code>--svcid</stache-code> — Specifies the service ID to add to the Host URL when <stache-code>skyux serve</stache-code> runs. <!-- For example, <stache-code>skyux serve --svcid 5678</stache-code>. --> </p></li>
-        <li><p><stache-code>--template</stache-code> or <stache-code>-t</stache-code> — Specifies the base template to use when creating a SKY UX application. By default, <stache-code>skyux new</stache-code> uses <a href="https://github.com/blackbaud/skyux-template">the SKY UX application template</a> that includes <a routerLink="/learn/reference/template-items">the necessary items for a SKY UX single-page application</a>.</p></li>
-    </ul>
-
+    <stache-row>
+        <stache-column screenSmall="6">
+        </stache-column>
+        <stache-column screenSmall="6">
+            <div class="tutorial-next-button">
+                <a routerLink="/learn/reference/configuration">
+                    Configuration
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </stache-column>
+    </stache-row>
 </stache>
-

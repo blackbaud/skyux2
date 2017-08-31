@@ -43,6 +43,10 @@ export class SkyErrorComponent implements OnInit {
     } else if (this.errorType.toLowerCase() === 'construction') {
       this.title = this.resources.getString('error_component_construction_title');
       this.description = this.resources.getString('error_component_construction_description');
+
+    } else if (this.errorType.toLowerCase() === 'security') {
+      this.title = this.resources.getString('error_component_security_title');
+      this.description = undefined;
     }
   }
 
@@ -56,6 +60,10 @@ export class SkyErrorComponent implements OnInit {
 
   public showConstructionImage() {
     return this.errorType && this.errorType.toLowerCase() === 'construction';
+  }
+
+  public showSecurityImage() {
+    return this.errorType && this.errorType.toLowerCase() === 'security';
   }
 
 }
