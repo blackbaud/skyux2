@@ -3,6 +3,27 @@
 
 $arrow-size: 10px;
 
+$popover-max-width: 276px;
+$popover-screen-xs: $popover-max-width + ($sky-padding * 4);
+
+@mixin popover-border ($placement) {
+  margin-#{$placement}: $arrow-size;
+  padding-#{$placement}: $arrow-size;
+
+  &:after {
+    content: '';
+    border-#{$placement}: $arrow-size solid $sky-highlight-color-info;
+    display: block;
+    position: absolute;
+    #{$placement}: 0;
+  }
+}
+
+:host {
+  width: 0;
+  height: 0;
+}
+
 .sky-popover-container {
   position: absolute;
   z-index: 9999;
@@ -12,32 +33,36 @@ $arrow-size: 10px;
     right: auto !important;
   }
 
-  &.hidden-arrow {
-    .sky-popover-arrow {
-      visibility: hidden;
-    }
-  }
+  // &.hidden-arrow {
+  //   .sky-popover-arrow {
+  //     visibility: hidden;
+  //   }
+  // }
 
   @media (max-width: $sky-screen-xs-max) {
     left: 0 !important;
     right: 0;
-    margin: $sky-padding;
-
-    .sky-popover {
-      margin: 0;
-    }
+    width: 100% !important
   }
 
   @media (min-width: $sky-screen-sm-min) {
-    max-width: 276px;
+    max-width: $popover-max-width;
   }
+  // @media (max-width: $sky-screen-xs-max) {
+  //   left: 10px !important;
+  //   right: 10px;
+  //   max-width: 100% !important;
+  // }
 }
 
 .sky-popover {
   position: relative;
   background-color: $sky-color-white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
-  border: 1px solid $sky-border-color-neutral-medium;
+
+  @media (max-width: $sky-screen-xs-max) {
+    margin: 10px !important;
+  }
 }
 
 .sky-popover-arrow {
@@ -45,55 +70,83 @@ $arrow-size: 10px;
   height: 0;
   position: absolute;
   border: $arrow-size solid transparent;
+
+  @media (max-width: $sky-screen-xs-max) {
+    display: none !important;
+  }
 }
 
 .sky-popover-placement-top {
-  border-bottom: $arrow-size solid $sky-highlight-color-info;
-  margin-bottom: $arrow-size;
+  .sky-popover {
+    @include popover-border('bottom');
+
+    &:after {
+      left: 0;
+      right: 0;
+    }
+  }
 
   .sky-popover-arrow {
     border-bottom: 0;
     border-top-color: $sky-highlight-color-info;
-    bottom: ($arrow-size * 2) * -1;
+    bottom: $arrow-size * -1;
     left: 50%;
     margin-left: -$arrow-size;
   }
 }
 
 .sky-popover-placement-bottom {
-  border-top: $arrow-size solid $sky-highlight-color-info;
-  margin-top: $arrow-size;
+  .sky-popover {
+    @include popover-border('top');
+
+    &:after {
+      left: 0;
+      right: 0;
+    }
+  }
 
   .sky-popover-arrow {
     border-top: 0;
     border-bottom-color: $sky-highlight-color-info;
-    top: ($arrow-size * 2) * -1;
+    top: $arrow-size * -1;
     left: 50%;
     margin-left: -$arrow-size;
   }
 }
 
 .sky-popover-placement-right {
-  border-left: $arrow-size solid $sky-highlight-color-info;
-  margin-left: $arrow-size;
+  .sky-popover {
+    @include popover-border('left');
+
+    &:after {
+      top: 0;
+      bottom: 0;
+    }
+  }
 
   .sky-popover-arrow {
     border-left: 0;
     border-right-color: $sky-highlight-color-info;
-    left: ($arrow-size * 2) * -1;
+    left: $arrow-size * -1;
     top: 50%;
     margin-top: -$arrow-size;
   }
 }
 
 .sky-popover-placement-left {
-  border-right: $arrow-size solid $sky-highlight-color-info;
-  margin-right: $arrow-size;
+  .sky-popover {
+    @include popover-border('right');
+
+    &:after {
+      top: 0;
+      bottom: 0;
+    }
+  }
 
   .sky-popover-arrow {
     border-right: 0;
     border-left-color: $sky-highlight-color-info;
-    right: ($arrow-size * 2) * -1;
+    left: 100%;
     top: 50%;
     margin-top: -$arrow-size;
   }

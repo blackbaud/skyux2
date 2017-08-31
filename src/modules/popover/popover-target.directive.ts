@@ -59,6 +59,10 @@ export class SkyPopoverTargetDirective {
       return;
     }
 
+    if (this.skyPopoverTarget.isMouseEnter) {
+      return;
+    }
+
     if (this.isLastCaller(this.elementRef.nativeElement)) {
       event.preventDefault();
       this.closePopover();

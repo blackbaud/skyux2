@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   Component,
   ContentChild,
   ElementRef,
@@ -20,6 +19,8 @@ import {
   transition
 } from '@angular/animations';
 
+import { SkyMediaQueryService } from '../media-queries/media-query.service';
+import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
 import { SkyPopoverCloseDirective } from './popover-close.directive';
 import { SkyWindowRefService } from '../window';
 
@@ -36,7 +37,7 @@ import { SkyWindowRefService } from '../window';
     ])
   ]
 })
-export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
+export class SkyPopoverComponent implements AfterContentInit {
   @Input()
   public popoverTitle: string;
 
@@ -44,10 +45,10 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
   public placement: string;
 
   @Output()
-  public popoverOpened: EventEmitter<SkyPopoverComponent>;
+  public popoverOpened: EventEmitter<SkyPopoverComponent> = new EventEmitter<SkyPopoverComponent>();
 
   @Output()
-  public popoverClosed: EventEmitter<SkyPopoverComponent>;
+  public popoverClosed: EventEmitter<SkyPopoverComponent> = new EventEmitter<SkyPopoverComponent>();
 
   @ContentChild(SkyPopoverCloseDirective)
   public skyPopoverClose: SkyPopoverCloseDirective;
@@ -55,19 +56,18 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
   @ViewChild('popoverContainer')
   public popoverContainer: ElementRef;
 
+  @ViewChild('popoverArrow')
+  public popoverArrow: ElementRef;
+
   public lastCaller: ElementRef;
-  public isVisible = false;
+  public isMouseEnter = false;
+
+  private isVisible = false;
 
   constructor(
     private renderer: Renderer2,
-    private windowRef: SkyWindowRefService) {
-      this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
-      this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
-    }
-
-  public ngAfterViewInit(): void {
-    console.log('popover?', this.popoverContainer);
-  }
+    private mediaQueryService: SkyMediaQueryService,
+    private windowRef: SkyWindowRefService) { }
 
   public ngAfterContentInit(): void {
     if (this.skyPopoverClose) {
@@ -83,10 +83,17 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
     this.lastCaller = caller;
     this.setPlacement(placement);
 
+    // if (this.isMobile()) {
+    //   this.show();
+    //   return;
+    // }
+
     // Wait for a tick
     setTimeout(() => {
       const result = this.determineCoordinates(caller);
-      this.toggleArrowVisibility(!result.adjustedToFitViewport);
+      this.renderer.setStyle(this.popoverArrow.nativeElement, 'left', `${result.arrowLeft}px`);
+      this.renderer.setStyle(this.popoverArrow.nativeElement, 'top', `${result.arrowTop}px`);
+      // this.toggleArrowVisibility(!result.adjustedToFitViewport);
       this.setPopoverCoordinates(result.top, result.left);
       this.show();
     }, 0);
@@ -130,69 +137,125 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
-  private determineCoordinates(caller: ElementRef): {
-    top: number,
-    left: number,
-    adjustedToFitViewport: boolean
-  } {
-    const popoverElement = this.popoverContainer.nativeElement;
+  private determineCoordinates(caller: ElementRef): any {
+    const isMobile = this.isMobile();
+
     const callerRect = caller.nativeElement.getBoundingClientRect();
-    const popoverRect = popoverElement.getBoundingClientRect();
+    const popoverRect = this.popoverContainer.nativeElement.getBoundingClientRect();
+    const arrowRect = this.popoverArrow.nativeElement.getBoundingClientRect();
     const window = this.windowRef.getWindow();
 
     const documentWidth = window.document.body.clientWidth;
+    const documentHeight = window.document.body.clientHeight;
     const screenX = window.pageXOffset;
     const screenY = window.pageYOffset;
 
+    if (!this.popoverContainer.nativeElement.style.width) {
+      this.popoverContainer.nativeElement.style.width = `${popoverRect.width}px`;
+    }
+
     let left;
     let top;
-
-    // Set the width explicitly to better calculate when the popover is clipped in the viewport.
-    if (!popoverElement.style.width) {
-      // this.renderer.setStyle(popoverElement, 'width', `${popoverRect.width}px`);
-    }
+    let arrowLeft;
+    let arrowTop;
 
     switch (this.placement) {
       default:
       case 'top':
         left = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
         top = callerRect.top - popoverRect.height;
+        arrowLeft = (popoverRect.width / 2);
         break;
       case 'right':
         left = callerRect.right;
         top = callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2);
+        arrowTop = (popoverRect.height / 2);
         break;
       case 'bottom':
         left = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
         top = callerRect.bottom;
+        arrowLeft = (popoverRect.width / 2);
         break;
       case 'left':
         left = callerRect.left - popoverRect.width;
         top = callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2);
+        arrowTop = (popoverRect.height / 2);
         break;
     }
 
     left += screenX;
     top += screenY;
 
-    let adjustedToFitViewport = false;
+    if (isMobile) {
+      return { top, left, arrowTop, arrowLeft };
+    }
 
+    // let adjustedToFitViewport = false;
+
+    // Clipped at right of screen?
     if (callerRect.right + popoverRect.width > documentWidth) {
-      left = documentWidth - popoverRect.width + screenX;
-      adjustedToFitViewport = true;
+      console.log('clipped at right');
+      if (this.placement === 'top' || this.placement === 'bottom') {
+        // Move arrow to follow the trigger element.
+        console.log(documentWidth, callerRect.right);
+        arrowLeft = popoverRect.width - (documentWidth - callerRect.right + (callerRect.width / 2));
+        left = documentWidth - popoverRect.width;
+        // adjustedToFitViewport = true;
+      } else if (this.placement === 'right') {
+        this.setPlacement('left');
+        return this.determineCoordinates(caller);
+      }
     }
 
-    if (left < 0) {
-      left = screenX;
-      adjustedToFitViewport = true;
+    // Clipped at left of screen?
+    if (left <= 0) {
+      console.log('clipped at left');
+      if (this.placement === 'top' || this.placement === 'bottom') {
+        // Move arrow to follow the trigger element.
+        arrowLeft = callerRect.left + (callerRect.width / 2);
+        left = screenX;
+        // adjustedToFitViewport = true;
+      } else if (this.placement === 'left') {
+        this.setPlacement('right');
+        return this.determineCoordinates(caller);
+      }
     }
 
-    if (top < 0) {
-      top = screenY;
-      adjustedToFitViewport = true;
+    // Clipped at top of screen?
+    if (top <= 0) {
+      if (this.placement === 'left' || this.placement === 'right') {
+        // Move arrow to follow the trigger element.
+        arrowTop = callerRect.top + (callerRect.height / 2);
+        top = screenY;
+        // adjustedToFitViewport = true;
+      } else if (this.placement === 'top') {
+        this.setPlacement('bottom');
+        return this.determineCoordinates(caller);
+      }
     }
 
-    return { top, left, adjustedToFitViewport };
+    // Clipped at bottom of screen?
+    if (top >= documentHeight) {
+      if (this.placement === 'left' || this.placement === 'right') {
+        // Move arrow to follow the trigger element.
+        arrowTop = callerRect.top + (callerRect.height / 2);
+        top = documentHeight - popoverRect.height;
+        // adjustedToFitViewport = true;
+      } else if (this.placement === 'bottom') {
+        this.setPlacement('top');
+        return this.determineCoordinates(caller);
+      }
+    }
+
+    // if (this.placement === 'left' && arrowLeft < popoverRect.width) {
+    //   arrowLeft = popoverRect.width - arrowRect.width;
+    // }
+
+    // if (this.placement === 'right' && arrowLeft > 0) {
+    //   arrowLeft = arrowRect.height * -1;
+    // }
+
+    return { top, left, arrowTop, arrowLeft };
   }
 
   private setPlacement(value: string): void {
@@ -219,14 +282,18 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
     this.renderer.setStyle(elem, 'top', `${top}px`);
   }
 
-  private toggleArrowVisibility(show: boolean): void {
-    // Hide the arrow if the popover is clipped outside the viewport.
-    // (As the arrow wouldn't be trained on the trigger element anymore.)
-    if (show) {
-      this.renderer.removeClass(this.popoverContainer.nativeElement, 'hidden-arrow');
-    } else {
-      this.renderer.addClass(this.popoverContainer.nativeElement, 'hidden-arrow');
-    }
+  // private toggleArrowVisibility(show: boolean): void {
+  //   // Hide the arrow if the popover is clipped outside the viewport.
+  //   // (As the arrow wouldn't be trained on the trigger element anymore.)
+  //   if (show) {
+  //     this.renderer.removeClass(this.popoverContainer.nativeElement, 'hidden-arrow');
+  //   } else {
+  //     this.renderer.addClass(this.popoverContainer.nativeElement, 'hidden-arrow');
+  //   }
+  // }
+
+  private isMobile(): boolean {
+    return this.mediaQueryService.current === SkyMediaBreakpoints.xs;
   }
 
   @HostListener('window:resize')
@@ -234,14 +301,18 @@ export class SkyPopoverComponent implements AfterViewInit, AfterContentInit {
     this.positionNextTo(this.lastCaller, this.placement);
   }
 
-  @HostListener('window:scroll')
-  private adjustOnScroll(): void {
-    this.positionNextTo(this.lastCaller, this.placement);
+  // @HostListener('window:scroll')
+  // private adjustOnScroll(): void {
+  //   this.positionNextTo(this.lastCaller, this.placement);
+  // }
+
+  @HostListener('mouseenter', ['$event'])
+  private handleMouseEnter(event: MouseEvent): void {
+    this.isMouseEnter = true;
   }
 
-  @HostListener('click', ['$event'])
-  private preventCloseOperation(event: MouseEvent): void {
-    // Don't close the popover if it is clicked, directly.
-    event.stopPropagation();
+  @HostListener('mouseleave', ['$event'])
+  private handleMouseLeave(event: MouseEvent): void {
+    this.isMouseEnter = false;
   }
 }

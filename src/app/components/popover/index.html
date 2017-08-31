@@ -1,3 +1,12 @@
+<sky-popover #myPopover>
+  The content of a popover can be text, HTML, or Angular components.<br><br>
+  <button class="sky-btn sky-btn-primary" skyPopoverClose>Got it!</button>
+</sky-popover>
+
+<button class="sky-btn" [skyPopoverTarget]="myPopover" skyPopoverPlacement="top">
+  Top
+</button>
+
 <sky-demo-page title="Popover">
   <sky-demo-page-summary>
     The popover component allows you to display contextual content when a user clicks a button or link. The popover's content can be plain text, HTML, or any Angular component. A popover can be closed by clicking on the the trigger element that called it, clicking anywhere on the page, or by using the <stache-code>skyPopoverClosed</stache-code> directive, described below.
@@ -49,3 +58,12 @@
     </sky-demo-page-code>
   </sky-demo-page-example>
 </sky-demo-page>
+
+<sky-popover #myPopover1>
+  The content of a popover can be text, HTML, or Angular components.<br><br>
+  <button class="sky-btn sky-btn-primary" skyPopoverClose>Got it!</button>
+</sky-popover>
+
+<button class="sky-btn" [skyPopoverTarget]="myPopover1" skyPopoverPlacement="bottom">
+  Bottom
+</button>
