@@ -83,18 +83,11 @@ export class SkyPopoverComponent implements AfterContentInit {
     this.lastCaller = caller;
     this.setPlacement(placement);
 
-    // if (this.isMobile()) {
-    //   this.show();
-    //   return;
-    // }
-
     // Wait for a tick
     setTimeout(() => {
       const result = this.determineCoordinates(caller);
-      this.renderer.setStyle(this.popoverArrow.nativeElement, 'left', `${result.arrowLeft}px`);
-      this.renderer.setStyle(this.popoverArrow.nativeElement, 'top', `${result.arrowTop}px`);
-      // this.toggleArrowVisibility(!result.adjustedToFitViewport);
-      this.setPopoverCoordinates(result.top, result.left);
+      this.setElementCoordinates(this.popoverContainer, result.top, result.left);
+      this.setElementCoordinates(this.popoverArrow, result.arrowTop, result.arrowLeft);
       this.show();
     }, 0);
   }
@@ -276,10 +269,9 @@ export class SkyPopoverComponent implements AfterContentInit {
     this.placement = placement;
   }
 
-  private setPopoverCoordinates(top: number, left: number): void {
-    const elem = this.popoverContainer.nativeElement;
-    this.renderer.setStyle(elem, 'left', `${left}px`);
-    this.renderer.setStyle(elem, 'top', `${top}px`);
+  private setElementCoordinates(elem: ElementRef, top: number, left: number): void {
+    this.renderer.setStyle(elem.nativeElement, 'top', `${top}px`);
+    this.renderer.setStyle(elem.nativeElement, 'left', `${left}px`);
   }
 
   // private toggleArrowVisibility(show: boolean): void {
