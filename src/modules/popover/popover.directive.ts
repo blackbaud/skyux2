@@ -24,12 +24,9 @@ export class SkyPopoverDirective {
     private elementRef: ElementRef) { }
 
   @HostListener('click', ['$event'])
-  public onClick(event: MouseEvent) {
+  public togglePopover(event: MouseEvent) {
     event.preventDefault();
-    this.togglePopover();
-  }
 
-  private togglePopover() {
     if (this.skyPopover.isOpen) {
       this.skyPopover.close();
       return;
