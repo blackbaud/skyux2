@@ -34,10 +34,10 @@ export class SkyGridColumnComponent {
 
   /* tslint:disable */
   @Input('search')
-  private searchFunction: (value: any, searchText: string) => boolean = this.search;
+  public searchFunction: (value: any, searchText: string) => boolean = this.search;
 
   @Input('template')
-  private templateInput: TemplateRef<any>;
+  public templateInput: TemplateRef<any>;
   /* tslint:enable */
 
   @ContentChildren(TemplateRef)

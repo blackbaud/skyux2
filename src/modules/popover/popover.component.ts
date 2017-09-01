@@ -60,7 +60,6 @@ export class SkyPopoverComponent {
 
   @ViewChild('popoverArrow')
   public popoverArrow: ElementRef;
-
   public isOpen = false;
 
   private lastCaller: ElementRef;
@@ -69,10 +68,11 @@ export class SkyPopoverComponent {
 
   constructor(
     private renderer: Renderer2,
-    private windowRef: SkyWindowRefService) {
-      this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
-      this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
-    }
+    private windowRef: SkyWindowRefService
+  ) {
+    this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
+    this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
+  }
 
   @HostListener('window:resize')
   public adjustOnResize() {
@@ -120,6 +120,11 @@ export class SkyPopoverComponent {
     });
   }
 
+  public close() {
+    this.lastCaller = undefined;
+    this.isOpen = false;
+  }
+
   public getPlacementClassName(): string {
     return `sky-popover-placement-${this.placement}`;
   }
@@ -151,11 +156,6 @@ export class SkyPopoverComponent {
     return (this.isOpen) ? 'visible' : 'hidden';
   }
 
-  public close() {
-    this.lastCaller = undefined;
-    this.isOpen = false;
-  }
-
   private getVisibleCoordinates(): SkyPopoverCoordinates {
     const max = 5; // If all cardinal directions fail, just mirror the placement (4 plus 1)
 
@@ -164,7 +164,7 @@ export class SkyPopoverComponent {
 
     do {
       coords = this.getCoordinates();
-    } while (++counter < max && coords.isOutsideViewport);
+    } while (coords.isOutsideViewport && ++counter < max);
 
     return coords;
   }
@@ -266,7 +266,13 @@ export class SkyPopoverComponent {
 
     const isOutsideViewport = (placement !== this.placement);
 
-    return { top, left, arrowTop, arrowLeft, isOutsideViewport } as SkyPopoverCoordinates;
+    return {
+      top,
+      left,
+      arrowTop,
+      arrowLeft,
+      isOutsideViewport
+    } as SkyPopoverCoordinates;
   }
 
   private setElementCoordinates(elem: ElementRef, top: number, left: number) {
