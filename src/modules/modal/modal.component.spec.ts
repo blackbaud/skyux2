@@ -19,6 +19,7 @@ import { ModalAutofocusTestComponent } from './fixtures/modal-autofocus.componen
 import { ModalFooterTestComponent } from './fixtures/modal-footer.component.fixture';
 
 import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component.fixture';
+import { ModalTiledBodyTestComponent  } from './fixtures/modal-tiled-body.component.fixture';
 
 import { TestUtility } from '../testing/testutility';
 
@@ -399,6 +400,13 @@ describe('Modal component', () => {
     expect(document.querySelector('.sky-modal-tiled')).toExist();
 
     closeModal(modalInstance);
+  }));
 
+  it('should handle to tiledBody true', fakeAsync(() => {
+    let modalInstance = openModal(ModalTiledBodyTestComponent);
+
+    expect(document.querySelector('.sky-modal-tiled')).toExist();
+
+    closeModal(modalInstance);
   }));
 });

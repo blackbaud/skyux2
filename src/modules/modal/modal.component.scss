@@ -40,7 +40,15 @@
 }
 
 .sky-modal-tiled .sky-modal-content {
-  background-color: #F2F2F2;
+  background-color: $sky-background-color-neutral-light;
+
+  /deep/ .sky-tile-title {
+    @include sky-subsection-heading();
+  }
+
+  /deep/ .sky-tile-tools .sky-chevron {
+    margin: 9px ($sky-tile-header-tool-padding - 6) 8px 0;
+  }
 }
 
 .sky-modal-header {
