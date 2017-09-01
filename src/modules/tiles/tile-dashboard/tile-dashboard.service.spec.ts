@@ -200,8 +200,8 @@ describe('Tile dashboard service', () => {
       }
     );
 
-    /* tslint:disable-next-line */
-    new SkyTileDashboardService(
+    /* tslint:disable-next-line:no-unused-variable */
+    let testDashboardService = new SkyTileDashboardService(
       mockDragulaService,
       mockMediaQueryService
     );
