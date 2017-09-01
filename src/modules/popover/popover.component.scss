@@ -2,9 +2,7 @@
 @import '../../scss/_mixins';
 
 $arrow-size: 10px;
-
 $popover-max-width: 276px;
-$popover-screen-xs: $popover-max-width + ($sky-padding * 4);
 
 @mixin popover-border ($placement) {
   margin-#{$placement}: $arrow-size;
@@ -33,12 +31,6 @@ $popover-screen-xs: $popover-max-width + ($sky-padding * 4);
     right: auto !important;
   }
 
-  // &.hidden-arrow {
-  //   .sky-popover-arrow {
-  //     visibility: hidden;
-  //   }
-  // }
-
   @media (max-width: $sky-screen-xs-max) {
     left: 0 !important;
     right: 0;
@@ -48,11 +40,6 @@ $popover-screen-xs: $popover-max-width + ($sky-padding * 4);
   @media (min-width: $sky-screen-sm-min) {
     max-width: $popover-max-width;
   }
-  // @media (max-width: $sky-screen-xs-max) {
-  //   left: 10px !important;
-  //   right: 10px;
-  //   max-width: 100% !important;
-  // }
 }
 
 .sky-popover {
@@ -76,7 +63,7 @@ $popover-screen-xs: $popover-max-width + ($sky-padding * 4);
   }
 }
 
-.sky-popover-placement-top {
+.sky-popover-placement-above {
   .sky-popover {
     @include popover-border('bottom');
 
@@ -95,7 +82,7 @@ $popover-screen-xs: $popover-max-width + ($sky-padding * 4);
   }
 }
 
-.sky-popover-placement-bottom {
+.sky-popover-placement-below {
   .sky-popover {
     @include popover-border('top');
 

@@ -1,9 +1,8 @@
 <sky-popover #myPopover>
-  The content of a popover can be text, HTML, or Angular components.<br><br>
-  <button class="sky-btn sky-btn-primary" skyPopoverClose>Got it!</button>
+  The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopoverTarget]="myPopover" skyPopoverPlacement="top">
+<button class="sky-btn" [skyPopover]="myPopover" skyPopoverPlacement="above">
   Top
 </button>
 
@@ -12,24 +11,18 @@
     The popover component allows you to display contextual content when a user clicks a button or link. The popover's content can be plain text, HTML, or any Angular component. A popover can be closed by clicking on the the trigger element that called it, clicking anywhere on the page, or by using the <stache-code>skyPopoverClosed</stache-code> directive, described below.
   </sky-demo-page-summary>
   <sky-demo-page-properties sectionHeading="Popover trigger properties">
-    <sky-demo-page-property propertyName="skyPopoverTarget">
+    <sky-demo-page-property propertyName="skyPopover">
       References a <stache-code>SkyPopoverComponent</stache-code> instance on the page. Add this directive to an element that will open a popover when clicked.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="skyPopoverPlacement"
-      defaultValue="top"
+      defaultValue="above"
       isOptional="true">
-      Specifies the placement of the popover in relation to the trigger element.
+      Specifies the placement of the popover in relation to the trigger element (above, below, left, right).
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
-  <sky-demo-page-properties sectionHeading="Popover close properties">
-    <sky-demo-page-property propertyName="skyPopoverClose">
-      References a <stache-code>SkyPopoverComponent</stache-code> instance on the page. Attach this directive on a button (or link) that will serve to close a popover.
-    </sky-demo-page-property>
-  </sky-demo-page-properties>
-
-  <sky-demo-page-properties sectionHeading="Component properties">
+  <sky-demo-page-properties sectionHeading="Popover component properties">
     <sky-demo-page-property
       propertyName="popoverTitle"
       isOptional="true">
@@ -38,7 +31,7 @@
 
     <sky-demo-page-property
       propertyName="#<popover-reference-name>">
-      The template reference variable used by the <stache-code>[skyPopoverTarget]</stache-code> directive.
+      The template reference variable used by the <stache-code>[skyPopover]</stache-code> directive.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -60,10 +53,9 @@
 </sky-demo-page>
 
 <sky-popover #myPopover1>
-  The content of a popover can be text, HTML, or Angular components.<br><br>
-  <button class="sky-btn sky-btn-primary" skyPopoverClose>Got it!</button>
+  The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopoverTarget]="myPopover1" skyPopoverPlacement="bottom">
+<button class="sky-btn" [skyPopover]="myPopover1" skyPopoverPlacement="below">
   Bottom
 </button>
