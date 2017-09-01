@@ -13,7 +13,6 @@ import {
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalService } from './modal.service';
 
-import { SkyModalComponent } from './modal.component';
 import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 import { ModalAutofocusTestComponent } from './fixtures/modal-autofocus.component.fixture';
