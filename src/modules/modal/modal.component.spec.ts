@@ -13,6 +13,7 @@ import {
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalService } from './modal.service';
 
+import { SkyModalComponent } from './modal.component';
 import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 import { ModalAutofocusTestComponent } from './fixtures/modal-autofocus.component.fixture';
@@ -378,6 +379,25 @@ describe('Modal component', () => {
       .toBe('customlabelledby');
     expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-describedby'))
       .toBe('customdescribedby');
+
+    closeModal(modalInstance);
+
+  }));
+
+  it('should default to tiled modal false', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {'tiledBody': false});
+
+    expect(document.querySelector('.sky-modal-tiled')).not.toExist();
+
+    closeModal(modalInstance);
+  }));
+
+  it('should accept configuration options for tiledBody', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, {
+      'tiledBody': true
+    });
+
+    expect(document.querySelector('.sky-modal-tiled')).toExist();
 
     closeModal(modalInstance);
 

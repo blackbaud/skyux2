@@ -39,6 +39,10 @@
   padding: $sky-padding-plus-half;
 }
 
+.sky-modal-tiled .sky-modal-content {
+  background-color: #F2F2F2;
+}
+
 .sky-modal-header {
   /* Need less padding because of the close button padding */
   padding-left: $sky-padding-plus-half;

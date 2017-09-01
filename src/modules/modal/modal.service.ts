@@ -58,7 +58,12 @@ export class SkyModalService {
   }
 
   private getConfigFromParameter(providersOrConfig: any) {
-    let defaultParams: IConfig = { 'providers': [], 'fullPage': false, 'size': 'medium' };
+    let defaultParams: IConfig = {
+      'providers': [],
+      'fullPage': false,
+      'size': 'medium',
+      'tiledBody': false
+    };
     let params: any = undefined;
     let method: any = undefined;
 

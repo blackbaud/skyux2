@@ -1,6 +1,7 @@
  import {
   animate,
   Component,
+  Input,
   state,
   style,
   transition,
@@ -44,6 +45,11 @@ export class SkyModalComponent implements AfterViewInit {
   public modalContentId: string = 'sky-modal-content-id-' + skyModalUniqueIdentifier.toString();
   public modalHeaderId: string = 'sky-modal-header-id-' + skyModalUniqueIdentifier.toString();
 
+  @Input()
+  public set tiledBody(value: boolean) {
+    this.config.tiledBody = value;
+  }
+
   public get modalZIndex() {
     return this.hostService.getModalZIndex();
   }
@@ -62,6 +68,10 @@ export class SkyModalComponent implements AfterViewInit {
 
   public get isLargeSize() {
     return !this.modalFullPage && this.isSizeEqual(this.config.size, 'large');
+  }
+
+  public get isTiledBody() {
+    return this.config.tiledBody;
   }
 
   public get ariaDescribedBy() {
