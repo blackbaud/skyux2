@@ -47,13 +47,14 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-broken-image')).toExist();
     expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
     expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+    expect(el.querySelector('.sky-error-security-image')).not.toExist();
 
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
     expect(el.querySelector('.sky-error-description')).toHaveText(description);
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
-  it('error type notfound displays correct image, title, description, and action text', () => {
+  it('error type notfound displays correct image, title, and action text', () => {
     let html = `
     <sky-error errorType="notfound">
       <sky-error-action>
@@ -84,12 +85,13 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
     expect(el.querySelector('.sky-error-notfound-image')).toExist();
     expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+    expect(el.querySelector('.sky-error-security-image')).not.toExist();
 
     expect(el.querySelector('.sky-error-title')).toHaveText(title);
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
-  it('error type construction displays correct image, title, description, and action text', () => {
+  it('error type construction displays correct image, title, and action text', () => {
     let html = `
     <sky-error errorType="construction">
       <sky-error-action>
@@ -138,6 +140,43 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
   });
 
+  it('error type security displays correct image, title, description, and action text', () => {
+    let html = `
+    <sky-error errorType="security">
+      <sky-error-action>
+        <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
+          Refresh
+        </button>
+      </sky-error-action>
+    </sky-error>`;
+
+    let fixture = TestBed
+      .overrideComponent(
+        ErrorTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(ErrorTestComponent);
+
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    let title = 'You don\'t have permission to access that page.';
+
+    // check image
+    expect(el.querySelector('.sky-error-broken-image')).not.toExist();
+    expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
+    expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+    expect(el.querySelector('.sky-error-security-image')).toExist();
+
+    expect(el.querySelector('.sky-error-title')).toHaveText(title);
+    expect(el.querySelector('.sky-error-action button')).toHaveText('Refresh');
+  });
+
   it('error type custom displays correct image, title, description, and action text', () => {
     let html = `
     <sky-error>
@@ -170,6 +209,7 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
     expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
     expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+    expect(el.querySelector('.sky-error-security-image')).not.toExist();
 
     expect(el.querySelector('.sky-error-image-container')).toHaveText('test image');
     expect(el.querySelector('.sky-error-title')).toHaveText('test title');
@@ -245,6 +285,7 @@ describe('Error component', () => {
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
     expect(el.querySelector('.sky-error-notfound-image')).not.toExist();
     expect(el.querySelector('.sky-error-construction-image')).not.toExist();
+    expect(el.querySelector('.sky-error-security-image')).not.toExist();
 
     expect(el.querySelector('.sky-error-image-container')).toHaveText('test image');
     expect(el.querySelector('.sky-error-title')).toHaveText('test title');
