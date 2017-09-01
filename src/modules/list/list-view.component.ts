@@ -16,7 +16,6 @@ let moment = require('moment');
 
 export abstract class ListViewComponent implements OnDestroy {
   public active: Observable<boolean>;
-  public initialized: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   protected viewName: string;
   protected state: ListState;
@@ -24,6 +23,9 @@ export abstract class ListViewComponent implements OnDestroy {
   protected subscriptions: Array<any> = [];
   protected hasToolbar: Observable<boolean>;
 
+  /* tslint:disable */
+  private initialized: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /* tslint:enable */
   private viewId: string = moment().toDate().getTime().toString();
 
   constructor(state: ListState, defaultName: string) {

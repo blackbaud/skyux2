@@ -82,6 +82,10 @@ describe('List Secondary Actions Component', () => {
         fixture.detectChanges();
         tick();
         fixture.detectChanges();
+        /* tslint:disable */
+        let query =
+          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions';
+        /* tslint:enable */
 
         expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(true);
 
