@@ -1,0 +1,23 @@
+/deep/
+#screenshot-all-popovers {
+  display: flex;
+  flex-wrap: wrap;
+
+  .popover-visual-container {
+    padding: 10px;
+  }
+
+  .sky-popover-container {
+    position: static !important;
+    opacity: 1 !important;
+  }
+}
+
+/deep/
+#screenshot-popover-placements {
+  padding: 200px 350px;
+
+  .sky-popover-container:not(.hidden) {
+    animation-play-state: visible !important;
+  }
+}

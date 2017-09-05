@@ -1,0 +1,89 @@
+<div id="screenshot-all-popovers">
+  <div class="popover-visual-container">
+    <sky-popover placement="above">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover placement="below">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover placement="right">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover placement="left">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover>
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover placement="above" popoverTitle="Did you know?">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover placement="below" popoverTitle="Did you know?">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover placement="right" popoverTitle="Did you know?">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+  <div class="popover-visual-container">
+    <sky-popover placement="left" popoverTitle="Did you know?">
+      The content of a popover can be text, HTML, or Angular components.
+    </sky-popover>
+  </div>
+</div>
+
+<div id="screenshot-popover-placements">
+  <button id="btn-popover-placement-default" class="sky-btn" [skyPopover]="myPopover5">
+    Default
+  </button>
+
+  <sky-popover #myPopover5>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit arcu.
+  </sky-popover>
+
+  <button id="btn-popover-placement-right" class="sky-btn" [skyPopover]="myPopover1" skyPopoverPlacement="right">
+    Right
+  </button>
+
+  <sky-popover #myPopover1>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit arcu.
+  </sky-popover>
+
+  <button id="btn-popover-placement-above" class="sky-btn" [skyPopover]="myPopover2" skyPopoverPlacement="above">
+    Top
+  </button>
+
+  <sky-popover #myPopover2>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit arcu.
+  </sky-popover>
+
+  <button id="btn-popover-placement-below" class="sky-btn" [skyPopover]="myPopover3" skyPopoverPlacement="below">
+    Below
+  </button>
+
+  <sky-popover #myPopover3>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit arcu.
+  </sky-popover>
+
+  <button id="btn-popover-placement-left" class="sky-btn" [skyPopover]="myPopover4" skyPopoverPlacement="left">
+    Left
+  </button>
+
+  <sky-popover #myPopover4>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit arcu.
+  </sky-popover>
+</div>

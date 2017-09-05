@@ -70,6 +70,7 @@ export class SkyPopoverComponent {
     private renderer: Renderer2,
     private windowRef: SkyWindowRefService
   ) {
+    this.placement = this.defaultPlacement;
     this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
     this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
   }

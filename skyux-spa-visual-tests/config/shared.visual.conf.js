@@ -12,5 +12,5 @@ module.exports = {
     defaultTimeoutInterval: 90000
   },
   allScriptsTimeout: 30000,
-  specs: ['../src/app/**/*.visual-spec.ts']
+  specs: ['../src/app/**/popover.visual-spec.ts']
 };
