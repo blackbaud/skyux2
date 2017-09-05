@@ -173,19 +173,28 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     return (data: any, searchText: string) => {
       if (this.labelFieldSelector !== undefined) {
         let label = getData(data, this.labelFieldSelector);
-        if (label !== undefined && label.toString().toLowerCase().indexOf(searchText) !== -1) {
+        /* tslint:disable */
+        if (
+          label !== undefined &&
+          label !== null &&
+          label.toString().toLowerCase().indexOf(searchText) !== -1
+        ) {
           return true;
         }
+        /* tslint:enable */
       }
 
       if (this.description !== undefined) {
         let description = getData(data, this.description);
+        /* tslint:disable */
         if (
           description !== undefined &&
+          description !== null &&
           description.toString().toLowerCase().indexOf(searchText) !== -1
         ) {
           return true;
         }
+        /* tslint:enable */
       }
 
       return false;
