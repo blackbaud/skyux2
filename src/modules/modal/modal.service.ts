@@ -7,7 +7,7 @@ import {
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalAdapterService } from './modal-adapter.service';
-import { SkyModalConfiguationInterface as IConfig } from './modal.interface';
+import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 
 @Injectable()
 export class SkyModalService {
