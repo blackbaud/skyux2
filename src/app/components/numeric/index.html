@@ -1,14 +1,10 @@
-<sky-demo-page title="Numeric">
+<sky-demo-page pageTitle="Numeric">
   <sky-demo-page-summary>
-    The numeric pipe formats numbers to a shortened value if it is 1000 or more to a rounded number plus an abbreviation character. K for thousands, M for millions, B for billions and T for trillion. It will also format the shortened number as a currency as an option, with proper localization including currency symbol placement.
-    <br/><br/>
-    Pipe Usage: number_expression | skyNumeric[:NumericOptions] ]]
-    <br/>
-    Note: When creating the NumericOptions object in the template, You MUST have the space between the end of the options object bracket and the closing brackets for the pipe or it won't work.  See HTML code file below for examples.
-    <br/><br/>
-    It can also be imported as SkyNumericService and the formatNumber method called.  It uses a new NumericOptions class, which contains the three properties.  Create a new instance of the class with its parameters set and pass it in as the NumericOptions parameter.
-    <br/>
-    Method Usage: this.skyNumeric.formatNumber(value, NumericOptions)
+    <p>The numeric pipe formats numbers to a shortened value if it is 1000 or more to a rounded number plus an abbreviation character. K for thousands, M for millions, B for billions and T for trillion. It will also format the shortened number as a currency as an option, with proper localization including currency symbol placement.</p>
+    <p>Pipe usage: <code>number_expression | skyNumeric[:NumericOptions] ]]</code></p>
+    <sky-alert alertType="info">When creating the NumericOptions object in the template, You MUST have the space between the end of the options object bracket and the closing brackets for the pipe or it won't work.  See HTML code file below for examples.</sky-alert>
+    <p>It can also be imported as SkyNumericService and the formatNumber method called.  It uses a new NumericOptions class, which contains the three properties.  Create a new instance of the class with its parameters set and pass it in as the NumericOptions parameter.</p>
+    <p>Method usage: <code>this.skyNumeric.formatNumber(value, NumericOptions)</code></p>
   </sky-demo-page-summary>
 
   <sky-demo-page-properties>
