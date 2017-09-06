@@ -1,11 +1,15 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
+  ContentChildren,
   Input,
-  OnInit
+  OnInit,
+  QueryList
 } from '@angular/core';
 
 import { SkyDemoTitleService } from '../../shared/title.service';
+import { SkyDemoPagePropertiesComponent } from './demo-page-properties.component';
 
 @Component({
   selector: 'sky-demo-page',
@@ -13,25 +17,35 @@ import { SkyDemoTitleService } from '../../shared/title.service';
   styleUrls: ['./demo-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDemoPageComponent implements OnInit {
+export class SkyDemoPageComponent implements OnInit, AfterContentInit {
   @Input()
-  public set pageTitle(value: string) {
-    this._pageTitle = value;
-  }
-
-  public get pageTitle(): string {
-    return this._pageTitle;
-  }
+  public pageTitle: string;
 
   @Input()
   public summary: string;
 
-  private _pageTitle: string;
+  public tableOfContentsRoutes: any[] = [];
 
-  constructor(private titleService: SkyDemoTitleService) { }
+  @ContentChildren(SkyDemoPagePropertiesComponent)
+  private propertiesComponents: QueryList<SkyDemoPagePropertiesComponent>;
+
+  constructor(
+    private titleService: SkyDemoTitleService) { }
 
   public ngOnInit() {
     this.updateTitle();
+  }
+
+  public ngAfterContentInit(): void {
+    this.propertiesComponents.map((component: SkyDemoPagePropertiesComponent) => {
+      this.tableOfContentsRoutes.push({
+        name: component.sectionHeading,
+        fragment: component.sectionHeading
+          .toLowerCase()
+          .replace(/ /g, '-')
+          .replace(/[^\w-]+/g, '')
+      });
+    });
   }
 
   private updateTitle() {
