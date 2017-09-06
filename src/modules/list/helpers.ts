@@ -11,13 +11,13 @@ export function getData(item: any, selector: string): any {
   if (resultFieldParts.length > 0) {
     for (let index = 0; index < resultFieldParts.length; index++) {
     let part = resultFieldParts[index];
-      /* tslint:disable */
+      /* tslint:disable:no-null-keyword */
       /* istanbul ignore else */
       if (result[part] === null || result[part] === undefined) {
         result = null;
         break;
       }
-      /* tslint:enable */
+      /* tslint:enable:no-null-keyword */
 
       result = result[part];
     }
@@ -31,13 +31,13 @@ export function getData(item: any, selector: string): any {
 }
 
 export function compare(value1: any, value2: any) {
-  /* tslint:disable */
+  /* tslint:disable:no-null-keyword */
   if (value1 === null) {
     return 1;
   } else if (value2 === null) {
     return -1;
   }
-  /* tslint:enable */
+  /* tslint:enable:no-null-keyword */
 
   if (value1 && typeof value1 === 'string') {
     value1 = value1.toLowerCase();

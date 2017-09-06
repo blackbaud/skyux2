@@ -173,7 +173,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     return (data: any, searchText: string) => {
       if (this.labelFieldSelector !== undefined) {
         let label = getData(data, this.labelFieldSelector);
-        /* tslint:disable */
+        /* tslint:disable:no-null-keyword */
         if (
           label !== undefined &&
           label !== null &&
@@ -181,12 +181,12 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         ) {
           return true;
         }
-        /* tslint:enable */
+        /* tslint:enable:no-null-keyword */
       }
 
       if (this.description !== undefined) {
         let description = getData(data, this.description);
-        /* tslint:disable */
+        /* tslint:disable:no-null-keyword */
         if (
           description !== undefined &&
           description !== null &&
@@ -194,7 +194,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         ) {
           return true;
         }
-        /* tslint:enable */
+        /* tslint:enable:no-null-keyword */
       }
 
       return false;
