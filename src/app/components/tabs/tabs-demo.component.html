@@ -28,20 +28,3 @@
     {{tab.content}}
   </sky-tab>
 </sky-tabset>
-
-<h3>Vertical tabset</h3>
-<sky-vertical-tabset
-  showTabsText='Tab list'>
-  <sky-vertical-tabset-group 
-    *ngFor="let group of groups"
-    [groupHeading]="group.heading"
-    [open]="group.isOpen"
-    [disabled]="group.isDisabled"
-  >
-    <sky-vertical-tab
-      *ngFor="let tab of group.subTabs"
-      [tabHeading]="tab.tabHeading">
-      {{tab.content}}
-    </sky-vertical-tab>
-  </sky-vertical-tabset-group>
-</sky-vertical-tabset>
