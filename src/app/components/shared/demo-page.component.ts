@@ -10,6 +10,8 @@ import {
 
 import { SkyDemoTitleService } from '../../shared/title.service';
 import { SkyDemoPagePropertiesComponent } from './demo-page-properties.component';
+import { SkyDemoPageExampleComponent } from './demo-page-example.component';
+import { SkyDemoPageContentComponent } from './demo-page-content.component';
 
 @Component({
   selector: 'sky-demo-page',
@@ -29,6 +31,12 @@ export class SkyDemoPageComponent implements OnInit, AfterContentInit {
   @ContentChildren(SkyDemoPagePropertiesComponent)
   private propertiesComponents: QueryList<SkyDemoPagePropertiesComponent>;
 
+  @ContentChildren(SkyDemoPageExampleComponent)
+  private exampleComponents: QueryList<SkyDemoPageExampleComponent>;
+
+  @ContentChildren(SkyDemoPageContentComponent)
+  private contentComponents: QueryList<SkyDemoPageContentComponent>;
+
   constructor(
     private titleService: SkyDemoTitleService) { }
 
@@ -37,15 +45,38 @@ export class SkyDemoPageComponent implements OnInit, AfterContentInit {
   }
 
   public ngAfterContentInit(): void {
-    this.propertiesComponents.map((component: SkyDemoPagePropertiesComponent) => {
+    this.propertiesComponents.map((component: any) => {
       this.tableOfContentsRoutes.push({
         name: component.sectionHeading,
-        fragment: component.sectionHeading
-          .toLowerCase()
-          .replace(/ /g, '-')
-          .replace(/[^\w-]+/g, '')
+        fragment: this.getFragment(component.sectionHeading)
       });
     });
+
+    this.exampleComponents.map((component: any) => {
+      this.tableOfContentsRoutes.push({
+        name: 'Demo',
+        fragment: 'demo'
+      });
+    });
+
+    this.tableOfContentsRoutes.push({
+      name: 'Code',
+      fragment: 'code'
+    });
+
+    this.contentComponents.map((component: any) => {
+      this.tableOfContentsRoutes.push({
+        name: component.sectionHeading,
+        fragment: this.getFragment(component.sectionHeading)
+      });
+    });
+  }
+
+  private getFragment(name: string): string {
+    return name
+      .toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
   }
 
   private updateTitle() {
