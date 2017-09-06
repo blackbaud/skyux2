@@ -1,5 +1,7 @@
 <sky-vertical-tabset
-  showTabsText='Tab list'>
+  showTabsText='Tab list'
+  (activeChange)="tabChanged($event)"
+>
   <sky-vertical-tabset-group 
     *ngFor="let group of groups"
     [groupHeading]="group.heading"

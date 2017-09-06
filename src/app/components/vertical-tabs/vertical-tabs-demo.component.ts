@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 export class SkyVerticalTabsDemoComponent {
 
   public groups: any[];
-  public activeTabIndex: any = 0;
 
   constructor() {
     this.groups = [
@@ -37,6 +36,6 @@ export class SkyVerticalTabsDemoComponent {
   }
 
   public tabChanged(newIndex: any) {
-    console.log('new active', this.activeTabIndex);
+    console.log(`new active ${newIndex}`);
   }
 }

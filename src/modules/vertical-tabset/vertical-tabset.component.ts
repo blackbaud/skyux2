@@ -7,7 +7,9 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
 } from '@angular/core';
 
 import {
@@ -63,6 +65,9 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
   @Input()
   public showTabsText: string = this.resources.getString('vertical_tabs_show_tabs_text');
 
+  @Output()
+  public activeChange = new EventEmitter<number>();
+
   public animationVisibleState: string;
 
   private _tabsVisible: boolean;
@@ -86,15 +91,16 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
         this.changeRef.detectChanges();
       }
     );
+
+    // set the visible state so we do not animate on the initial load
+    this.animationVisibleState = VISIBLE_STATE;
+    this.changeRef.markForCheck();
   }
 
   public ngAfterViewInit() {
     this.tabService.tabClicked
       .takeUntil(this._ngUnsubscribe)
       .subscribe(this.tabClicked);
-
-    // set the visible state so we do not animate on the initial load
-    this.animationVisibleState = VISIBLE_STATE;
   }
 
   public ngOnDestroy(): void {
@@ -150,6 +156,8 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
       this.changeRef.detectChanges();
     }
 
+    // active tab changed
+    this.activeChange.emit(this.tabService.activeIndex);
     this.moveActiveTabContent();
   }
 
