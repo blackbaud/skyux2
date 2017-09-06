@@ -17,7 +17,7 @@ export class SkyVerticalTabsDemoComponent {
         isDisabled: false,
         subTabs: [
           { tabHeading: 'Group 1 - Tab 1', content: 'Group 1 - Tab 1 Content'},
-          { tabHeading: 'Group 1 - Tab 2', content: 'Group 1 - Tab 2 Content'}]
+          { tabHeading: 'Group 1 - Tab 2', content: 'Group 1 - Tab 2 Content', tabHeaderCount: 7}]
       },
       {
         heading: 'Group 2',

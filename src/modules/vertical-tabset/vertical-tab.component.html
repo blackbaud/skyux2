@@ -10,7 +10,12 @@
   (keyup)="tabPress($event)"
   tabIndex="0"
 >
-  <div>{{ tabHeading }}</div>
+  <div class="sky-vertical-tab-heading">{{ tabHeading }}</div>
+  <span 
+    class="sky-vertical-tab-count"
+    *ngIf="tabHeaderCount || tabHeaderCount === 0">
+    ({{ tabHeaderCount }})
+  </span>
 </div>
  <div #tabContentWrapper>
   <div [ngClass]="{'sky-vertical-tab-hidden': !active, 'sky-vertical-tab-visible': active }">
