@@ -36,3 +36,13 @@
 .sky-vertical-tab-count {
   margin-left: 5px;
 }
+
+.sky-vertical-tab-disabled {
+  cursor: not-allowed;
+  font-style: italic;
+  opacity: 0.8;
+  
+  &:hover {
+    color: $sky-text-color-deemphasized;
+  }
+}

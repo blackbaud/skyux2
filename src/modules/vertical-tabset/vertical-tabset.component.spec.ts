@@ -363,6 +363,41 @@ describe('Vertical tabset component', () => {
     // tslint:disable-next-line:no-null-keyword
     expect(headerCount).toBe(null);
   });
+
+  it('should not activate tab when disabled', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // open second group
+    const groups = el.querySelectorAll('.sky-tab-group-header');
+    groups[1].click();
+
+    fixture.detectChanges();
+
+    // open first tab in second group
+    const tabs = el.querySelectorAll('.sky-vertical-tab');
+    tabs[2].click();
+
+    fixture.detectChanges();
+
+    // check content is displayed
+    let visibleTab = el.querySelectorAll('.sky-vertical-tab-visible');
+    expect(visibleTab.length).toBe(1);
+    expect(visibleTab[0].textContent.trim()).toBe('Group 2 Tab 1 content');
+
+    // try clicking disabled third tab in second group
+    tabs[4].click();
+
+    fixture.detectChanges();
+
+    // check content of second tab still displayed
+    visibleTab = el.querySelectorAll('.sky-vertical-tab-visible');
+    expect(visibleTab.length).toBe(1);
+    expect(visibleTab[0].textContent.trim()).toBe('Group 2 Tab 1 content');
+  });
 });
 
 // test tab group with no subtabs
