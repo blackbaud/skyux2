@@ -1,1 +1,29 @@
-information
+<div class="sky-input-container">
+  <div class="sky-sectioned-modal-input">
+    <label>Name</label>
+    <input
+      type="text"
+      class="sky-form-control"
+      [ngModel]="name"
+      attr.aria-label="Name"
+    />
+  </div>
+  <div class="sky-sectioned-modal-input">
+    <label>Id</label>
+    <input
+      type="text"
+      class="sky-form-control"
+      [ngModel]="id"
+      attr.aria-label="Id"
+    />
+  </div>
+</div>
+
+<div class="sky-name-required">
+  <sky-checkbox [(ngModel)]="checked">
+    <sky-checkbox-label>
+      Mark 'Name' required
+    </sky-checkbox-label>
+  </sky-checkbox>
+</div>
+  

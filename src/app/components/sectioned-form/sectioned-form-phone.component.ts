@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-sectioned-form-phone',
-  templateUrl: './sectioned-form-phone.component.html',
-  styleUrls: ['./sectioned-form-phone.component.scss']
+  templateUrl: './sectioned-form-phone.component.html'
 })
 export class SkySectionedFormPhoneComponent {}
