@@ -19,12 +19,16 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
 export class SkyVerticalTabComponent implements OnInit {
 
   @Input()
+  public active: boolean = false;
+
+  @Input()
   public tabHeading: string;
 
   @Input()
   public tabHeaderCount: number;
 
-  public active: boolean = false;
+  @Input()
+  public disabled: boolean = false;
 
   public index: number;
 
@@ -41,16 +45,26 @@ export class SkyVerticalTabComponent implements OnInit {
     this.tabsetService.addTab(this);
   }
 
+  public tabIndex() {
+    if (!this.disabled) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
+
   public activateTabFromClick() {
     this.outline = false;
     this.activateTab();
   }
 
   public activateTab() {
-    this.active = true;
-    this.tabsetService.activateTab(this);
+    if (!this.disabled) {
+      this.active = true;
+      this.tabsetService.activateTab(this);
 
-    this.changeRef.markForCheck();
+      this.changeRef.markForCheck();
+    }
   }
 
   public tabDeactivated() {

@@ -56,17 +56,17 @@ const VISIBLE_STATE = 'shown';
 })
 export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDestroy {
 
-  @ViewChild('contentWrapper')
-  public tabGroups: ElementRef;
-
-  @ViewChild('skySideContent')
-  public content: ElementRef;
-
   @Input()
   public showTabsText: string = this.resources.getString('vertical_tabs_show_tabs_text');
 
   @Output()
   public activeChange = new EventEmitter<number>();
+
+  @ViewChild('contentWrapper')
+  public tabGroups: ElementRef;
+
+  @ViewChild('skySideContent')
+  public content: ElementRef;
 
   public animationVisibleState: string;
 

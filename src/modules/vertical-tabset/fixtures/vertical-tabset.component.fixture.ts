@@ -15,6 +15,9 @@ export class VerticalTabsetTestComponent {
   public group3Open: boolean = false;
   public group3Disabled: boolean = true;
 
+  public active: boolean = true;
+  public tabDisabled: boolean = true;
+
   @ViewChild(SkyVerticalTabComponent)
   public verticalTabs: SkyVerticalTabComponent;
 }

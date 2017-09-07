@@ -3,12 +3,13 @@
   [ngClass]="{
     'sky-vertical-tab-active': active, 
     'sky-no-outline': !outline, 
-    'sky-outline': outline 
+    'sky-outline': outline,
+    'sky-vertical-tab-disabled': disabled
   }"
   (click)="activateTabFromClick()"
   (keyup.enter)="activateTab()"
   (keyup)="tabPress($event)"
-  tabIndex="0"
+  [tabIndex]="tabIndex()"
   [attr.aria-selected]="active"
 >
   <div class="sky-vertical-tab-heading">{{ tabHeading }}</div>

@@ -12,7 +12,7 @@ export class SkyVerticalTabsDemoComponent {
     this.groups = [
       {
         heading: 'Group 1',
-        isOpen: true,
+        isOpen: false,
         isDisabled: false,
         subTabs: [
           { tabHeading: 'Group 1 - Tab 1', content: 'Group 1 - Tab 1 Content'},
@@ -20,11 +20,14 @@ export class SkyVerticalTabsDemoComponent {
       },
       {
         heading: 'Group 2',
-        isOpen: false,
+        isOpen: true,
         isDisabled: false,
         subTabs: [
-          { tabHeading: 'Group 2 - Tab 1', content: 'Group 2 - Tab 1 Content'},
-          { tabHeading: 'Group 2 - Tab 2', content: 'Group 2 - Tab 2 Content'}]
+          { tabHeading: 'Group 2 - Tab 1', content: 'Group 2 - Tab 1 Content', active: true},
+          { tabHeading: 'Group 2 - Tab 2 - Disabled',
+            content: 'Group 2 - Tab 2 Content',
+            disabled: true
+          }]
       },
       {
         heading: 'Disabled',
