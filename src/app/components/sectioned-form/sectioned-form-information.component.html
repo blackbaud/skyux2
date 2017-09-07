@@ -1,26 +1,37 @@
-<div class="sky-input-container">
-  <div class="sky-sectioned-modal-input">
-    <label>Name</label>
-    <input
-      type="text"
+<div style="display: flex;">
+  <div style="margin-right: 10px;">
+    <label 
+      for="inputName" 
+      class="sky-control-label"
+      [ngClass]="{'sky-control-label-required': nameRequired}"
+    >
+      Name
+    </label>
+    <input 
       class="sky-form-control"
       [ngModel]="name"
-      attr.aria-label="Name"
-    />
-  </div>
-  <div class="sky-sectioned-modal-input">
-    <label>Id</label>
-    <input
+      id="inputName" 
       type="text"
+    >
+  </div>
+  <div style="margin-right: 10px;">
+    <label 
+      for="inputId" 
+      class="sky-control-label"
+    >
+      Id
+    </label>
+    <input 
       class="sky-form-control"
       [ngModel]="id"
-      attr.aria-label="Id"
-    />
+      id="inputId" 
+      type="text" 
+    >
   </div>
 </div>
 
-<div class="sky-name-required">
-  <sky-checkbox [(ngModel)]="checked">
+<div style="margin-top: 10px;">
+  <sky-checkbox [(ngModel)]="nameRequired">
     <sky-checkbox-label>
       Mark 'Name' required
     </sky-checkbox-label>
