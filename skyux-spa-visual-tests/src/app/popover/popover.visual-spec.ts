@@ -7,7 +7,7 @@ import {
 } from 'protractor';
 
 describe('Popover', () => {
-  const testPlacement = (placement: string): Promise<any> => {
+  const testPopoverPlacement = (placement: string): Promise<any> => {
     SkyVisualTest.scrollElementIntoView(`#screenshot-popover-placements`);
     element(by.id(`btn-popover-placement-${placement}`)).click();
     return SkyVisualTest
@@ -32,28 +32,45 @@ describe('Popover', () => {
   it('should open a popover above the caller', () => {
     return SkyVisualTest
       .setupTest('popover')
-      .then(() => testPlacement('above'));
+      .then(() => testPopoverPlacement('above'));
   });
 
   it('should open a popover below the caller', () => {
     return SkyVisualTest
       .setupTest('popover')
-      .then(() => testPlacement('below'));
+      .then(() => testPopoverPlacement('below'));
   });
 
   it('should open a popover to the right of the caller', () => {
     return SkyVisualTest
       .setupTest('popover')
-      .then(() => testPlacement('right'));
+      .then(() => testPopoverPlacement('right'));
   });
 
   it('should open a popover to the left of the caller', () => {
     return SkyVisualTest
       .setupTest('popover')
-      .then(() => testPlacement('left'));
+      .then(() => testPopoverPlacement('left'));
   });
 
-  it('should handle tiny screens', () => {});
+  it('should handle tiny screens', () => {
+    return SkyVisualTest
+      .setupTest('popover', 767)
+      .then(() => testPopoverPlacement('above'));
+  });
 
-  it('should handle absolutely positioned items inside the popover', () => {});
+  it('should handle absolutely positioned items inside the popover', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => {
+        SkyVisualTest.scrollElementIntoView('#screenshot-popover-with-dropdown');
+        element(by.id('btn-popover-with-dropdown')).click();
+        element(by.css('#screenshot-popover-with-dropdown .sky-dropdown-button')).click();
+        return SkyVisualTest
+          .compareScreenshot({
+            screenshotName: 'popover-with-dropdown',
+            selector: '#screenshot-popover-with-dropdown'
+          });
+      });
+  });
 });

@@ -1,4 +1,8 @@
 /deep/
+.sky-popover-container:not(.hidden) {
+  animation-play-state: visible !important;
+}
+
 #screenshot-all-popovers {
   display: flex;
   flex-wrap: wrap;
@@ -7,17 +11,14 @@
     padding: 10px;
   }
 
+  /deep/
   .sky-popover-container {
     position: static !important;
     opacity: 1 !important;
   }
 }
 
-/deep/
-#screenshot-popover-placements {
+#screenshot-popover-placements,
+#screenshot-popover-with-dropdown {
   padding: 200px 350px;
-
-  .sky-popover-container:not(.hidden) {
-    animation-play-state: visible !important;
-  }
 }
