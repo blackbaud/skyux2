@@ -14,7 +14,11 @@ export class SkySectionedFormDemoComponent {
     let modalInstance = this.modal.open(SkySectionedModalFormDemoComponent);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-      console.log('Modal closed with reason: ' + result.reason + ' and data: ' + result.data);
+      if (result.reason === 'cancel') {
+        console.log(`Modal cancelled with data ${result.data}`);
+      } else if (result.reason === 'save') {
+        console.log(`Modal saved with data ${result.data}`);
+      }
     });
   }
 }

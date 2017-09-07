@@ -7,7 +7,7 @@ export class SkyVerticalTabsetService {
 
   public tabs: Array<SkyVerticalTabComponent> = [];
   public tabClicked = new BehaviorSubject(0);
-  public activeIndex: Number = 0;
+  public activeIndex: number = 0;
 
   public hidingTabs = new BehaviorSubject(false);
   public showingTabs = new BehaviorSubject(false);
