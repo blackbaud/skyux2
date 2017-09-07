@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { SkyModalInstance, SkySectionedFormComponent } from '../../../core';
 
@@ -6,7 +6,7 @@ import { SkyModalInstance, SkySectionedFormComponent } from '../../../core';
   selector: 'sky-sectioned-modal-form-demo',
   templateUrl: './sectioned-modal-form-demo.component.html'
 })
-export class SkySectionedModalFormDemoComponent implements AfterViewInit, OnDestroy {
+export class SkySectionedModalFormDemoComponent implements OnInit, OnDestroy {
 
   @ViewChild(SkySectionedFormComponent)
   public sectionedFormComponent: SkySectionedFormComponent;
@@ -14,16 +14,17 @@ export class SkySectionedModalFormDemoComponent implements AfterViewInit, OnDest
   @ViewChild('skySectionSideContent')
   public content: ElementRef;
 
-  public activeIndex: number = 0;
+  public activeIndex: number = undefined;
+  public activeTab = true;
 
   private _ngUnsubscribe = new Subject();
 
   constructor(public instance: SkyModalInstance) {}
 
-  public ngAfterViewInit() {
+  public ngOnInit() {
     this.sectionedFormComponent.indexChanged
-      .takeUntil(this._ngUnsubscribe)
-      .subscribe(activeIndex => this.activeIndex = activeIndex);
+    .takeUntil(this._ngUnsubscribe)
+    .subscribe(activeIndex => this.activeIndex = activeIndex);
   }
 
   public ngOnDestroy() {

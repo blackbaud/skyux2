@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { SkyVerticalTabsetService } from './../vertical-tabset/vertical-tabset.service';
@@ -9,7 +9,7 @@ import { SkyVerticalTabsetService } from './../vertical-tabset/vertical-tabset.s
   styleUrls: ['./sectioned-form.component.scss'],
   providers: [SkyVerticalTabsetService]
 })
-export class SkySectionedFormComponent implements AfterViewInit, OnDestroy {
+export class SkySectionedFormComponent implements OnInit, OnDestroy {
 
   public indexChanged = new BehaviorSubject(0);
 
@@ -20,18 +20,19 @@ export class SkySectionedFormComponent implements AfterViewInit, OnDestroy {
 
   public constructor(private tabService: SkyVerticalTabsetService) {}
 
-  public ngAfterViewInit() {
-
-    // move tab content to the right
-    this.tabService.tabs.forEach(tab => {
-      if (tab && tab.tabContent) {
-        this.content.nativeElement.appendChild(tab.tabContent.nativeElement);
-      }
-    });
-
+  public ngOnInit() {
     this.tabService.tabClicked
       .takeUntil(this._ngUnsubscribe)
       .subscribe(activeIndex => this.indexChanged.next(activeIndex));
+
+    // move tab content to the right
+    this.tabService.tabAdded
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(tab => {
+        if (tab && tab.tabContent) {
+          this.content.nativeElement.appendChild(tab.tabContent.nativeElement);
+        }
+      });
   }
 
   public ngOnDestroy() {

@@ -11,6 +11,7 @@ export class SkyVerticalTabsetService {
 
   public hidingTabs = new BehaviorSubject(false);
   public showingTabs = new BehaviorSubject(false);
+  public tabAdded: BehaviorSubject<SkyVerticalTabComponent> = new BehaviorSubject(undefined);
 
   public addTab(tab: SkyVerticalTabComponent) {
     const index = this.tabs.length;
@@ -21,6 +22,8 @@ export class SkyVerticalTabsetService {
     if (tab.active) {
       this.activateTab(tab);
     }
+
+    this.tabAdded.next(tab);
   }
 
   public activateTab(tab: SkyVerticalTabComponent) {
