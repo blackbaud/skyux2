@@ -69,7 +69,7 @@ export class SkyVerticalTabComponent implements OnInit {
 
   public tabDeactivated() {
     this.outline = false;
-    this.changeRef.markForCheck();
+    this.changeRef.detectChanges();
   }
 
   public tabPress(event: KeyboardEvent) {

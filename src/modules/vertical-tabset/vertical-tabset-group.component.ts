@@ -5,7 +5,7 @@ import {
   ContentChildren,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  AfterViewInit,
+  OnInit,
   OnDestroy
 } from '@angular/core';
 
@@ -51,7 +51,7 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
       ])
     ]
 })
-export class SkyVerticalTabsetGroupComponent implements AfterViewInit, OnDestroy {
+export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
 
   @Input()
   public groupHeading: string;
@@ -79,7 +79,7 @@ export class SkyVerticalTabsetGroupComponent implements AfterViewInit, OnDestroy
     private tabService: SkyVerticalTabsetService,
     private changeRef: ChangeDetectorRef) {}
 
-  public ngAfterViewInit() {
+  public ngOnInit() {
     this.tabService.hidingTabs
       .takeUntil(this._ngUnsubscribe)
       .subscribe(this.tabsHidden);
