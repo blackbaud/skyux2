@@ -11,7 +11,7 @@ import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalComponent } from './modal.component';
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
-import { SkyModalConfiguationInterface as IConfig }  from './modal.interface';
+import { SkyModalConfigurationInterface as IConfig }  from './modal.interface';
 import { SkyModalConfiguration } from './modal-configuration';
 
 @Component({
