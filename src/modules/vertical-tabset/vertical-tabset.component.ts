@@ -3,7 +3,6 @@ import {
   ElementRef,
   ViewChild,
   Input,
-  AfterViewInit,
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
@@ -54,7 +53,7 @@ const VISIBLE_STATE = 'shown';
     )
   ]
 })
-export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDestroy {
+export class SkyVerticalTabsetComponent implements OnInit, OnDestroy {
 
   @Input()
   public showTabsText: string = this.resources.getString('vertical_tabs_show_tabs_text');
@@ -85,6 +84,10 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
   public ngOnInit() {
     this._wideScreen = !this.isMobile();
 
+    this.tabService.tabClicked
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(this.tabClicked);
+
     // subscribe to window size changes
     this._mediaSubscription = this.mediaQueryService.subscribe(
       (args: SkyMediaBreakpoints) => {
@@ -95,12 +98,6 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
     // set the visible state so we do not animate on the initial load
     this.animationVisibleState = VISIBLE_STATE;
     this.changeRef.markForCheck();
-  }
-
-  public ngAfterViewInit() {
-    this.tabService.tabClicked
-      .takeUntil(this._ngUnsubscribe)
-      .subscribe(this.tabClicked);
   }
 
   public ngOnDestroy(): void {
