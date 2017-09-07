@@ -84,7 +84,8 @@ describe('List View Checklist Component', () => {
         new ListItemModel('6', { column1: '20', column2: 'Fig',
           column4: moment().add(3, 'minute') }),
         new ListItemModel('7', { column1: '21', column2: 'Grape',
-          column4: moment().add(7, 'minute') })
+          column4: moment().add(7, 'minute') }),
+        new ListItemModel('8', { column1: '22' })
       ];
 
       dispatcher.next(new ListItemsLoadAction(items, true));
@@ -101,7 +102,7 @@ describe('List View Checklist Component', () => {
     }));
 
     it('should show checklist with proper labels', () => {
-      expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(7);
+      expect(element.queryAll(By.css('sky-list-view-checklist-item')).length).toBe(8);
       expect(element.query(
         By.css('sky-list-view-checklist-item sky-checkbox-label .sky-emphasized')
       ).nativeElement.textContent.trim()).toBe('1');
