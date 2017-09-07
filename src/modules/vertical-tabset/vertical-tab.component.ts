@@ -21,6 +21,9 @@ export class SkyVerticalTabComponent implements OnInit {
   @Input()
   public tabHeading: string;
 
+  @Input()
+  public tabHeaderCount: number;
+
   public active: boolean = false;
 
   public index: number;

@@ -2,14 +2,14 @@
   <div 
     #contentWrapper 
     class="sky-vertical-tabset-group-container"
-    [@tabGroupEnter]
+    [@tabGroupEnter]="animationVisibleState"
     *ngIf="tabsVisible()"
   >
     <ng-content select="sky-vertical-tabset-group"></ng-content>
   </div> 
   <div 
     class="sky-vertical-tabset-content"
-    [@contentEnter]
+    [@contentEnter]="animationVisibleState"
     *ngIf="contentVisible()"
   >
     <div #skySideContent></div>

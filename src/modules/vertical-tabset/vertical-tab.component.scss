@@ -28,3 +28,11 @@
 .sky-outline:focus {
   @include sky-focus-outline;
 }
+
+.sky-vertical-tab-heading {
+  display: inline;
+}
+
+.sky-vertical-tab-count {
+  margin-left: 5px;
+}

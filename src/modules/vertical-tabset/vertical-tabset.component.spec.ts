@@ -322,6 +322,47 @@ describe('Vertical tabset component', () => {
     // check tab is not highlighted
     expect(firstTab.outline).toBe(true);
   });
+
+  it('should display tab header count when defined', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement as HTMLElement;
+
+    fixture.detectChanges();
+
+    // check open tab content
+    const activeTab = el.querySelectorAll('.sky-vertical-tab-active');
+    expect(activeTab.length).toBe(1);
+    const headerCount = activeTab[0].querySelector('.sky-vertical-tab-count');
+    expect(headerCount.textContent.trim()).toBe('(5)');
+  });
+
+  it('should not display tab header count when not defined', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // open second group
+    const group = el.querySelectorAll('.sky-tab-group-header');
+    group[1].click();
+
+    fixture.detectChanges();
+
+    // click first tab in second group
+    const tabs = el.querySelectorAll('.sky-vertical-tab');
+    tabs[2].click();
+
+    fixture.detectChanges();
+
+    // check tab header count is not displayed
+    const activeTab = el.querySelectorAll('.sky-vertical-tab-active');
+    expect(activeTab.length).toBe(1);
+    const headerCount = activeTab[0].querySelector('.sky-vertical-tab-count');
+    // tslint:disable-next-line:no-null-keyword
+    expect(headerCount).toBe(null);
+  });
 });
 
 // test tab group with no subtabs

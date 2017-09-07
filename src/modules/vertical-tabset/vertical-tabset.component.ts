@@ -7,7 +7,9 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
 } from '@angular/core';
 
 import {
@@ -25,6 +27,8 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
 import { SkyMediaQueryService } from './../media-queries/media-query.service';
 import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
 
+const VISIBLE_STATE = 'shown';
+
 @Component({
   selector: 'sky-vertical-tabset',
   templateUrl: './vertical-tabset.component.html',
@@ -34,17 +38,17 @@ import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
   animations: [
     trigger(
       'tabGroupEnter', [
-        transition(':enter', [
+        transition(`void => ${VISIBLE_STATE}`, [
           style({transform: 'translate(-100%)'}),
-          animate('350ms')
+          animate('150ms')
         ])
       ]
     ),
     trigger(
       'contentEnter', [
-        transition(':enter', [
+        transition(`void => ${VISIBLE_STATE}`, [
           style({transform: 'translate(100%)'}),
-          animate('350ms')
+          animate('150ms')
         ])
       ]
     )
@@ -60,6 +64,11 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
 
   @Input()
   public showTabsText: string = this.resources.getString('vertical_tabs_show_tabs_text');
+
+  @Output()
+  public activeChange = new EventEmitter<number>();
+
+  public animationVisibleState: string;
 
   private _tabsVisible: boolean;
   private _wideScreen: boolean;
@@ -82,6 +91,10 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
         this.changeRef.detectChanges();
       }
     );
+
+    // set the visible state so we do not animate on the initial load
+    this.animationVisibleState = VISIBLE_STATE;
+    this.changeRef.markForCheck();
   }
 
   public ngAfterViewInit() {
@@ -143,6 +156,8 @@ export class SkyVerticalTabsetComponent implements AfterViewInit, OnInit, OnDest
       this.changeRef.detectChanges();
     }
 
+    // active tab changed
+    this.activeChange.emit(this.tabService.activeIndex);
     this.moveActiveTabContent();
   }
 
