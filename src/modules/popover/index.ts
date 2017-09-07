@@ -1,3 +1,4 @@
+export * from './popover-adapter.service';
 export * from './popover-placement';
 export * from './popover.directive';
 export * from './popover.component';

@@ -21,7 +21,7 @@ export class SkyPopoverDirective {
   public skyPopoverPlacement: SkyPopoverPlacement;
 
   constructor(
-    private elementRef: ElementRef) { }
+    public elementRef: ElementRef) { }
 
   @HostListener('click', ['$event'])
   public togglePopover(event: MouseEvent) {

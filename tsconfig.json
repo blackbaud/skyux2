@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "noEmitHelpers": true,
+    "noUnusedLocals": true,
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "lib": [

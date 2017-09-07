@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnDestroy,
   Output,
   Renderer2,
   ViewChild
@@ -18,21 +19,16 @@ import {
   transition
 } from '@angular/animations';
 
-import { SkyWindowRefService } from '../window';
-import { SkyPopoverPlacement } from './index';
+import { Subscription } from 'rxjs/Subscription';
 
-export interface SkyPopoverCoordinates {
-  top: number;
-  left: number;
-  arrowTop: number;
-  arrowLeft: number;
-  isOutsideViewport: boolean;
-}
+import { SkyWindowRefService } from '../window';
+import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
 
 @Component({
   selector: 'sky-popover',
   templateUrl: './popover.component.html',
   styleUrls: ['./popover.component.scss'],
+  providers: [SkyPopoverAdapterService],
   animations: [
     trigger('popoverState', [
       state('visible', style({ opacity: 1 })),
@@ -42,7 +38,7 @@ export interface SkyPopoverCoordinates {
     ])
   ]
 })
-export class SkyPopoverComponent {
+export class SkyPopoverComponent implements OnDestroy {
   @Input()
   public popoverTitle: string;
 
@@ -64,15 +60,21 @@ export class SkyPopoverComponent {
 
   private lastCaller: ElementRef;
   private isMouseEnter = false;
-  private defaultPlacement: SkyPopoverPlacement = 'above';
+  private readonly defaultPlacement: SkyPopoverPlacement = 'above';
+  private placementSubscription: Subscription;
 
   constructor(
     private renderer: Renderer2,
+    private adapterService: SkyPopoverAdapterService,
     private windowRef: SkyWindowRefService
   ) {
     this.placement = this.defaultPlacement;
     this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
     this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
+    this.placementSubscription = this.adapterService.placementChanges
+      .subscribe((placement: SkyPopoverPlacement) => {
+        this.placement = placement;
+      });
   }
 
   @HostListener('window:resize')
@@ -105,6 +107,8 @@ export class SkyPopoverComponent {
   }
 
   public positionNextTo(caller: ElementRef, placement: SkyPopoverPlacement) {
+    const tick = this.windowRef.getWindow().setTimeout;
+
     if (!caller) {
       return;
     }
@@ -113,10 +117,15 @@ export class SkyPopoverComponent {
     this.placement = placement || this.defaultPlacement;
 
     // Wait for a tick to allow placement styles to render.
-    this.windowRef.getWindow().setTimeout(() => {
-      const coords = this.getVisibleCoordinates();
-      this.setElementCoordinates(this.popoverContainer, coords.top, coords.left);
-      this.setElementCoordinates(this.popoverArrow, coords.arrowTop, coords.arrowLeft);
+    // (The styles affect the element dimensions.)
+    tick(() => {
+      const elements = {
+        popover: this.popoverContainer,
+        popoverArrow: this.popoverArrow,
+        caller: this.lastCaller
+      };
+
+      this.adapterService.setPopoverPosition(elements, this.placement);
       this.isOpen = true;
     });
   }
@@ -157,127 +166,7 @@ export class SkyPopoverComponent {
     return (this.isOpen) ? 'visible' : 'hidden';
   }
 
-  private getVisibleCoordinates(): SkyPopoverCoordinates {
-    const max = 5; // If all cardinal directions fail, just mirror the placement (4 plus 1)
-
-    let counter = 0;
-    let coords: SkyPopoverCoordinates;
-
-    do {
-      coords = this.getCoordinates();
-    } while (coords.isOutsideViewport && ++counter < max);
-
-    return coords;
-  }
-
-  private getCoordinates(): SkyPopoverCoordinates {
-    const callerRect = this.lastCaller.nativeElement.getBoundingClientRect();
-    const popoverRect = this.popoverContainer.nativeElement.getBoundingClientRect();
-    const window = this.windowRef.getWindow();
-
-    const documentWidth = window.document.body.clientWidth;
-    const documentHeight = window.document.body.clientHeight;
-    const placement = this.placement;
-
-    const leftCenter = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
-    const topCenter = callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2);
-
-    let top;
-    let left;
-    let arrowTop;
-    let arrowLeft;
-
-    switch (placement) {
-      default:
-      case 'above':
-        left = leftCenter;
-        top = callerRect.top - popoverRect.height;
-        arrowLeft = (popoverRect.width / 2);
-        break;
-
-      case 'below':
-        left = leftCenter;
-        top = callerRect.top + callerRect.height;
-        arrowLeft = (popoverRect.width / 2);
-        break;
-
-      case 'right':
-        top = topCenter;
-        left = callerRect.right;
-        arrowTop = (popoverRect.height / 2);
-        break;
-
-      case 'left':
-        top = topCenter;
-        left = callerRect.left - popoverRect.width;
-        arrowTop = (popoverRect.height / 2);
-        break;
-    }
-
-    left += window.pageXOffset;
-    top += window.pageYOffset;
-
-    // Clipped on the right?
-    if (callerRect.right + (popoverRect.width / 2) > documentWidth) {
-      if (placement === 'right') {
-        this.placement = 'left';
-      }
-
-      if (placement === 'above' || placement === 'below') {
-        arrowLeft = popoverRect.width - (documentWidth - callerRect.right + (callerRect.width / 2));
-        left = documentWidth - popoverRect.width;
-      }
-    }
-
-    // Clipped on the left?
-    if (left <= 0) {
-      if (placement === 'left') {
-        this.placement = 'right';
-      }
-
-      if (placement === 'above' || placement === 'below') {
-        arrowLeft = callerRect.left + (callerRect.width / 2);
-        left = window.pageXOffset;
-      }
-    }
-
-    // Clipped above?
-    if (top <= 0) {
-      if (placement === 'above') {
-        this.placement = 'below';
-      }
-
-      if (placement === 'left' || placement === 'right') {
-        arrowTop = callerRect.top + (callerRect.height / 2);
-        top = window.pageYOffset;
-      }
-    }
-
-    // Clipped below?
-    if (top >= documentHeight) {
-      if (placement === 'below') {
-        this.placement = 'above';
-      }
-
-      if (placement === 'left' || placement === 'right') {
-        arrowTop = callerRect.top + (callerRect.height / 2);
-        top = documentHeight - popoverRect.height;
-      }
-    }
-
-    const isOutsideViewport = (placement !== this.placement);
-
-    return {
-      top,
-      left,
-      arrowTop,
-      arrowLeft,
-      isOutsideViewport
-    } as SkyPopoverCoordinates;
-  }
-
-  private setElementCoordinates(elem: ElementRef, top: number, left: number) {
-    this.renderer.setStyle(elem.nativeElement, 'top', `${top}px`);
-    this.renderer.setStyle(elem.nativeElement, 'left', `${left}px`);
+  public ngOnDestroy(): void {
+    this.placementSubscription.unsubscribe();
   }
 }
