@@ -8,16 +8,14 @@
   table {
     border-collapse: collapse;
     width: 100%;
+    margin: 0;
 
     th {
-      color: $sky-text-color-deemphasized;
+      @include sky-field-label;
     }
 
     th,
     td {
-      font-family: $sky-font-family;
-      font-weight: normal;
-      line-height: 22px;
       padding: 10px 10px 10px 0;
       text-align: left;
 
@@ -27,12 +25,11 @@
       }
 
       &.link-records-item-diff-value {
-        font-family: $sky-font-family;
         word-break: break-all;
       }
 
       &.item-deemphasized {
-        color: $sky-text-color-deemphasized;
+        @include sky-deemphasized;
       }
 
       &.item-highlighted {
@@ -50,10 +47,6 @@
   }
 
   /deep/ sky-checkbox {
-    label {
-      font-size: 13px;
-      line-height: 20px;
-    }
 
     .sky-checkbox {
       display: flex;
