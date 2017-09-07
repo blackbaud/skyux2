@@ -2,7 +2,7 @@ import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
 import { element, by } from 'protractor';
 
-fdescribe('Modal', () => {
+describe('Modal', () => {
 
   it('should match previous modal screenshot', () => {
     return SkyVisualTest.setupTest('modal')
