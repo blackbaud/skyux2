@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild
+} from '@angular/core';
+
+import { SkyVerticalTabComponent } from './../vertical-tabset/vertical-tab.component';
 
 @Component({
   selector: 'sky-sectioned-form-section',
@@ -16,4 +22,12 @@ export class SkySectionedFormSectionComponent {
   @Input()
   public active: boolean;
 
+  public fieldRequired: boolean;
+
+  @ViewChild(SkyVerticalTabComponent)
+  public tab: SkyVerticalTabComponent;
+
+  public index() {
+    return this.tab ? this.tab.index : undefined;
+  }
 }

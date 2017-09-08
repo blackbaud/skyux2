@@ -8,7 +8,10 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
-import { SkyModalInstance, SkySectionedFormComponent } from '../../../core';
+import {
+  SkyModalInstance,
+  SkySectionedFormComponent
+} from '../../../core';
 
 @Component({
   selector: 'sky-sectioned-modal-form-demo',
@@ -38,6 +41,10 @@ export class SkySectionedModalFormDemoComponent implements OnInit, OnDestroy, Af
 
   public ngAfterContentChecked() {
     this.activeIndexDisplay = this._activeIndex;
+  }
+
+  public requiredChange(required: boolean) {
+    this.sectionedFormComponent.setRequired(required);
   }
 
   public ngOnDestroy() {

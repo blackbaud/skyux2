@@ -1,7 +1,17 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+  ContentChildren,
+  QueryList
+} from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { SkyVerticalTabsetService } from './../vertical-tabset/vertical-tabset.service';
+import { SkySectionedFormSectionComponent } from './sectioned-form-section.component';
 
 @Component({
   selector: 'sky-sectioned-form',
@@ -16,14 +26,21 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy {
   @ViewChild('skySectionSideContent')
   public content: ElementRef;
 
+  @ContentChildren(SkySectionedFormSectionComponent)
+  public sections: QueryList<SkySectionedFormSectionComponent>;
+
   private _ngUnsubscribe = new Subject();
+  private _activeIndex: number;
 
   public constructor(private tabService: SkyVerticalTabsetService) {}
 
   public ngOnInit() {
     this.tabService.tabClicked
       .takeUntil(this._ngUnsubscribe)
-      .subscribe(activeIndex => this.indexChanged.next(activeIndex));
+      .subscribe(activeIndex => {
+        this._activeIndex = activeIndex;
+        this.indexChanged.next(activeIndex);
+      });
 
     // move tab content to the right
     this.tabService.tabAdded
@@ -33,6 +50,15 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy {
           this.content.nativeElement.appendChild(tab.tabContent.nativeElement);
         }
       });
+  }
+
+  public setRequired(required: boolean) {
+    if (this.sections) {
+      let section = this.sections.toArray().find(s => s.index() === this._activeIndex);
+      if (section) {
+        section.fieldRequired = required;
+      }
+    }
   }
 
   public ngOnDestroy() {

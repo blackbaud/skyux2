@@ -5,7 +5,10 @@
   <sky-modal-content>
     <sky-sectioned-form>
       <sky-sectioned-form-section heading="Basic information">
-        <sky-sectioned-form-information></sky-sectioned-form-information>
+        <sky-sectioned-form-information 
+          (requiredChange)="requiredChange($event)"
+        >
+        </sky-sectioned-form-information>
       </sky-sectioned-form-section>
       <sky-sectioned-form-section heading="Addresses" itemCount="2" [active]="activeTab">
         <sky-sectioned-form-address></sky-sectioned-form-address>
