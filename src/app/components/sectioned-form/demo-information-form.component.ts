@@ -1,10 +1,10 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'sky-sectioned-form-information',
-  templateUrl: './sectioned-form-information.component.html'
+  selector: 'sky-demo-information-form',
+  templateUrl: './demo-information-form.component.html'
 })
-export class SkySectionedFormInformationComponent {
+export class SkyDemoInformationFormComponent {
   public name: string = '';
   public id: string = '5324901';
 

@@ -5,16 +5,16 @@
   <sky-modal-content>
     <sky-sectioned-form>
       <sky-sectioned-form-section heading="Basic information">
-        <sky-sectioned-form-information 
+        <sky-demo-information-form 
           (requiredChange)="requiredChange($event)"
         >
-        </sky-sectioned-form-information>
+        </sky-demo-information-form>
       </sky-sectioned-form-section>
       <sky-sectioned-form-section heading="Addresses" itemCount="2" [active]="activeTab">
-        <sky-sectioned-form-address></sky-sectioned-form-address>
+        <sky-demo-address-form></sky-demo-address-form>
       </sky-sectioned-form-section>
       <sky-sectioned-form-section heading="Phone numbers" itemCount="3">
-        <sky-sectioned-form-phone></sky-sectioned-form-phone>
+        <sky-demo-phone-form></sky-demo-phone-form>
       </sky-sectioned-form-section>
     </sky-sectioned-form>
   </sky-modal-content>

@@ -861,34 +861,31 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts')
             },
             {
-              name: 'sectioned-form-address.component.html',
+              name: 'demo-address-form.component.html',
               // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-address.component.html')
+              fileContents: require('!!raw-loader!./sectioned-form/demo-address-form.component.html')
             },
             {
-              name: 'sectioned-form-address.component.ts',
-              // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-address.component.ts')
+              name: 'demo-address-form.component.ts',
+              fileContents: require('!!raw-loader!./sectioned-form/demo-address-form.component.ts')
             },
             {
-              name: 'sectioned-form-information.component.html',
+              name: 'demo-information-form.component.html',
               // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-information.component.html')
+              fileContents: require('!!raw-loader!./sectioned-form/demo-information-form.component.html')
             },
             {
-              name: 'sectioned-form-information.component.ts',
+              name: 'demo-information-form.component.ts',
               // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-information.component.ts')
+              fileContents: require('!!raw-loader!./sectioned-form/demo-information-form.component.ts')
             },
             {
-              name: 'sectioned-form-phone.component.html',
-              // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-phone.component.html')
+              name: 'demo-phone-form.component.html',
+              fileContents: require('!!raw-loader!./sectioned-form/demo-phone-form.component.html')
             },
             {
-              name: 'sectioned-form-phone.component.ts',
-              // tslint:disable-next-line
-              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-phone.component.ts')
+              name: 'demo-phone-form.component.ts',
+              fileContents: require('!!raw-loader!./sectioned-form/demo-phone-form.component.ts')
             }
           ];
         }
