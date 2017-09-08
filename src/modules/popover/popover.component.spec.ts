@@ -46,7 +46,9 @@ describe('SkyPopoverComponent', () => {
     let mockWindowService = new MockWindowService();
     let mockAdapterService = {
       placementChanges: Observable.of('above'),
-      setPopoverPosition() {}
+      setPopoverPosition() {},
+      hidePopover() {},
+      showPopover() {}
     };
 
     TestBed.configureTestingModule({
@@ -101,12 +103,12 @@ describe('SkyPopoverComponent', () => {
   });
 
   it('should get a CSS classname to represent its placement', () => {
-    let classname = component.getPlacementClassName();
-    expect(classname).toEqual('sky-popover-placement-above');
+    const element = fixture.debugElement.query(By.css('.sky-popover-placement-above'));
+    expect(Boolean(element)).not.toEqual(false);
   });
 
   it('should remove a CSS classname before the animation starts', () => {
-    spyOn(component['renderer'], 'removeClass').and.returnValue(0);
+    spyOn(component['adapterService'], 'showPopover').and.returnValue(0);
     component.onAnimationStart({
       fromState: 'hidden',
       toState: 'visible',
@@ -115,11 +117,11 @@ describe('SkyPopoverComponent', () => {
       element: {},
       triggerName: ''
     });
-    expect(component['renderer'].removeClass)
-      .toHaveBeenCalledWith(component.popoverContainer.nativeElement, 'hidden');
+    expect(component['adapterService'].showPopover)
+      .toHaveBeenCalledWith(component.popoverContainer);
 
     // Handle 'else' path:
-    (component['renderer'].removeClass as any).calls.reset();
+    (component['adapterService'].showPopover as any).calls.reset();
     component.onAnimationStart({
       fromState: 'visible',
       toState: 'hidden',
@@ -129,13 +131,13 @@ describe('SkyPopoverComponent', () => {
       triggerName: ''
     });
 
-    expect(component['renderer'].removeClass)
+    expect(component['adapterService'].showPopover)
       .not
       .toHaveBeenCalled();
   });
 
   it('should add a CSS classname when the animation stops', () => {
-    spyOn(component['renderer'], 'addClass').and.returnValue(0);
+    spyOn(component['adapterService'], 'hidePopover').and.returnValue(0);
     component.onAnimationDone({
       fromState: 'visible',
       toState: 'hidden',
@@ -144,8 +146,8 @@ describe('SkyPopoverComponent', () => {
       element: {},
       triggerName: ''
     });
-    expect(component['renderer'].addClass)
-      .toHaveBeenCalledWith(component.popoverContainer.nativeElement, 'hidden');
+    expect(component['adapterService'].hidePopover)
+      .toHaveBeenCalledWith(component.popoverContainer);
   });
 
   it('should emit an event when the popover is opened', () => {
@@ -217,7 +219,10 @@ describe('SkyPopoverComponent', () => {
     document.dispatchEvent(escapeEvent);
 
     fixture.detectChanges();
+    const element = fixture.debugElement.query(By.css('.sky-popover-container.hidden'));
+
     expect(component.close).toHaveBeenCalled();
+    expect(element.nativeElement).toBeDefined();
   });
 
   it('should only close the popover (when escape pressed) if it is open', () => {

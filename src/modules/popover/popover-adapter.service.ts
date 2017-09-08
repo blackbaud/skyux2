@@ -27,7 +27,6 @@ export interface SkyPopoverAdapterElements {
 @Injectable()
 export class SkyPopoverAdapterService {
   public placementChanges: Observable<SkyPopoverPlacement>;
-
   private placementSubject: Subject<SkyPopoverPlacement>;
 
   constructor(
@@ -42,9 +41,21 @@ export class SkyPopoverAdapterService {
     elements: SkyPopoverAdapterElements,
     placement: SkyPopoverPlacement
   ) {
+    this.clearElementCoordinates(elements.popover);
+    this.clearElementCoordinates(elements.popoverArrow);
+
     const coords = this.getVisibleCoordinates(elements, placement);
+
     this.setElementCoordinates(elements.popover, coords.top, coords.left);
     this.setElementCoordinates(elements.popoverArrow, coords.arrowTop, coords.arrowLeft);
+  }
+
+  public hidePopover(elem: ElementRef): void {
+    this.renderer.addClass(elem.nativeElement, 'hidden');
+  }
+
+  public showPopover(elem: ElementRef): void {
+    this.renderer.removeClass(elem.nativeElement, 'hidden');
   }
 
   private getVisibleCoordinates(
@@ -55,15 +66,19 @@ export class SkyPopoverAdapterService {
 
     let counter = 0;
     let coords: SkyPopoverCoordinates;
+    // let placement = preferredPlacement;
 
     do {
       coords = this.getCoordinates(elements, placement);
-
       if (coords.isOutsideViewport) {
-        placement = this.getInversePlacement(placement);
+        placement = this.getNextPlacement(placement);
       }
-
     } while (coords.isOutsideViewport && ++counter < max);
+
+    if (counter === max) {
+      placement = this.getInversePlacement(placement);
+      coords = this.getCoordinates(elements, placement);
+    }
 
     this.sendChanges(placement);
 
@@ -158,13 +173,13 @@ export class SkyPopoverAdapterService {
     }
 
     // Clipped below?
-    if (top >= documentHeight) {
+    if (top + popoverRect.height >= documentHeight) {
       if (placement === 'below') {
         isOutsideViewport = true;
       }
 
       if (placement === 'left' || placement === 'right') {
-        arrowTop = callerRect.top + (callerRect.height / 2);
+        arrowTop = documentHeight - callerRect.top - window.pageYOffset + callerRect.height;
         top = documentHeight - popoverRect.height;
       }
     }
@@ -178,9 +193,25 @@ export class SkyPopoverAdapterService {
     } as SkyPopoverCoordinates;
   }
 
+  private clearElementCoordinates(elem: ElementRef): void {
+    this.renderer.removeStyle(elem.nativeElement, 'top');
+    this.renderer.removeStyle(elem.nativeElement, 'left');
+  }
+
   private setElementCoordinates(elem: ElementRef, top: number, left: number) {
     this.renderer.setStyle(elem.nativeElement, 'top', `${top}px`);
     this.renderer.setStyle(elem.nativeElement, 'left', `${left}px`);
+  }
+
+  private getNextPlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
+    const placements: SkyPopoverPlacement[] = ['above', 'below', 'right', 'left'];
+
+    let index = placements.indexOf(placement) + 1;
+    if (index === placements.length) {
+      index = 0;
+    }
+
+    return placements[index];
   }
 
   private getInversePlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
