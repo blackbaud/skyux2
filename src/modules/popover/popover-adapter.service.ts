@@ -66,7 +66,6 @@ export class SkyPopoverAdapterService {
 
     let counter = 0;
     let coords: SkyPopoverCoordinates;
-    // let placement = preferredPlacement;
 
     do {
       coords = this.getCoordinates(elements, placement);
