@@ -10,9 +10,7 @@
   width: 710px;
 
   .link-records-item-info {
-    font-family: $sky-font-family;
-    font-size: 14px;
-    font-weight: 600;
+    @include sky-emphasized;
     text-align: center;
   }
 
@@ -26,18 +24,17 @@
 
   .link-records-item-original,
   .link-records-item-match {
+    @include sky-border(light, top, bottom, right, left);
+    @include sky-shadow();
     background-color: $sky-color-white;
-    border: 1px solid $sky-border-color-neutral-light;
     display: flex;
     flex-direction: column;
     min-height: 200px;
     width: 350px;
-    @include sky-shadow();
 
     .link-records-item-content {
       flex-grow: 1;
-      font-size: 13px;
-      padding: 10px 20px 10px 25px;
+      padding: $sky-padding 25px;
     }
 
     .link-records-item-header,
@@ -48,20 +45,25 @@
     }
 
     .link-records-item-header {
-      border-bottom: 1px solid $sky-border-color-neutral-light;
-      font-family: $sky-font-family-condensed;
-      font-size: 22px;
-      font-weight: 300;
-      font-style: normal;
-      padding: 10px 20px 10px 25px;
+      @include sky-border(light, bottom);
+      @include sky-subsection-heading;
+      padding: $sky-padding;
     }
 
     .link-records-item-footer {
-      border-top: 1px solid $sky-border-color-neutral-light;
-      padding: 7px 20px 7px 25px;
+      @include sky-border(light, top);
+      padding: $sky-padding-3_4 $sky-padding;
 
-      .sky-btn {
-        font-size: 14px;
+      & button.sky-btn:not(:first-child) {
+        margin-left: $sky-margin;
+      }
+
+      & button.sky-btn.sky-btn-link {
+        margin-left: 0;
+
+        &:first-child {
+          margin-left: -$sky-margin;
+        }
       }
     }
   }
@@ -73,9 +75,9 @@
     flex-direction: row;
 
     &-content {
+      @include sky-border(light, top, bottom, right, left);
       background-color: $sky-color-white;
       border-radius: 22px;
-      border: 1px solid $sky-border-color-neutral-light;
       height: 45px;
       margin: -18px;
       text-align: center;
@@ -83,12 +85,12 @@
       z-index: 1;
 
       i {
-        color: $sky-color-green-50;
+        color: $sky-highlight-color-success;
         font-size: 29px;
         margin: 7px 0 0;
 
-        &.fa-question-circle {
-          color: $sky-color-black;
+        &.fa-question-circle, &.fa-pencil {
+          color: $sky-highlight-color-warning;
         }
       }
     }

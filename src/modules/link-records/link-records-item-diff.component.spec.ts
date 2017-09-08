@@ -359,4 +359,68 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
         expect(field).toEqual([]);
       });
   }));
+
+  it('record state goes straight to linked if match has no value and showNewFieldValues is false',
+  async(() => {
+    let item = {
+      id: '1',
+      address: 101,
+      name: 'Apple',
+      description: 'Anne eats apples'
+    };
+
+    let linkRecordMatch = new LinkRecordsMatchModel({
+      key: '1',
+      status: STATUSES.Edit,
+      item: { id: '11', address: 111, name: '', description: '' }
+    });
+
+    let fields = [{ key: 'name' }, { key: 'description' }];
+
+    component.item = item;
+    component.key = '1';
+    component.match = linkRecordMatch;
+    component.fields = fields;
+    component.showNewFieldValues = false;
+
+    fixture.detectChanges();
+
+    component.fieldValues.take(1)
+      .subscribe(f => {
+        let field = f;
+        expect(field.length).toEqual(2);
+      });
+  }));
+
+  it('record state shows edits of matched fields with no value',
+  async(() => {
+    let item = {
+      id: '1',
+      address: 101,
+      name: 'Apple',
+      description: 'Anne eats apples'
+    };
+
+    let linkRecordMatch = new LinkRecordsMatchModel({
+      key: '1',
+      status: STATUSES.Edit,
+      item: { id: '11', address: 111, name: '', description: '' }
+    });
+
+    let fields = [{ key: 'name' }, { key: 'description' }];
+
+    component.item = item;
+    component.key = '1';
+    component.match = linkRecordMatch;
+    component.fields = fields;
+    component.showNewFieldValues = true;
+
+    fixture.detectChanges();
+
+    component.fieldValues.take(1)
+      .subscribe(f => {
+        let field = f;
+        expect(field.length).toEqual(2);
+      });
+  }));
 });

@@ -9,7 +9,8 @@
       <sky-link-records-renderer [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="itemTitleTemplate || defaultItemTitleTemplate"></sky-link-records-renderer>
     </div>
     <sky-link-records-renderer *ngIf="record.status != STATUSES.Edit" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="itemTemplate || defaultItemTemplate"></sky-link-records-renderer>
-    <sky-link-records-item-diff *ngIf="record.status == STATUSES.Edit" [key]="record.key" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [readOnly]="true" class="link-records-item-content"></sky-link-records-item-diff>
+    <sky-link-records-item-diff *ngIf="record.status == STATUSES.Edit" [key]="record.key" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [readOnly]="true"  [showNewFieldValues]="showNewFieldValues" class="link-records-item-content">
+    </sky-link-records-item-diff>
     <div class="link-records-item-footer"></div>
   </div>
   <div class="link-records-item-status">
@@ -28,7 +29,7 @@
     </div>
     <sky-link-records-renderer *ngIf="record.status != STATUSES.Edit && record.status != STATUSES.NoMatch && record.status != STATUSES.Selected" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="matchTemplate || defaultMatchTemplateContent"></sky-link-records-renderer>
     <sky-link-records-renderer *ngIf="record.status == STATUSES.NoMatch || record.status == STATUSES.Selected" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="noMatchTemplate || defaultNoMatchTemplateContent"></sky-link-records-renderer>
-    <sky-link-records-item-diff *ngIf="record.status == STATUSES.Edit" [key]="record.key" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [selectedByDefault]="selectedByDefault" class="link-records-item-content"></sky-link-records-item-diff>
+    <sky-link-records-item-diff *ngIf="record.status == STATUSES.Edit" [key]="record.key" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [selectedByDefault]="selectedByDefault" [showNewFieldValues]="showNewFieldValues" class="link-records-item-content"></sky-link-records-item-diff>
     <div class="link-records-item-footer">
       <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="edit()" class="sky-btn sky-btn-primary">Link this record</button>
       <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="unlink()" class="sky-btn sky-btn-link">Add or search for a record</button>

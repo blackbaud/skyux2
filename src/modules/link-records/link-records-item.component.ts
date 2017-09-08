@@ -35,6 +35,7 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
   @Input() public noMatchTemplate: TemplateRef<any>;
   @Input() public itemTitleTemplate: TemplateRef<any>;
   @Input() public selectedByDefault: boolean;
+  @Input() public showNewFieldValues: boolean;
   @ViewChildren(SkyLinkRecordsItemDiffComponent)
     public viewItems: QueryList<SkyLinkRecordsItemDiffComponent>;
 

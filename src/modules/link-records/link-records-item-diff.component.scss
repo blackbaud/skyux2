@@ -1,4 +1,5 @@
 @import '../../scss/variables';
+@import '../../scss/mixins';
 
 :host {
   display: block;
@@ -7,9 +8,10 @@
   table {
     border-collapse: collapse;
     width: 100%;
+    margin: 0;
 
     th {
-      color: #999;
+      @include sky-field-label;
     }
 
     th,
@@ -28,10 +30,11 @@
       &.link-records-item-diff-value {
         font-family: $sky-font-family;
         word-break: break-all;
+        white-space: pre-line;
       }
 
       &.item-deemphasized {
-        color: #999;
+        color: $sky-text-color-deemphasized;
       }
 
       &.item-highlighted {
@@ -40,10 +43,10 @@
     }
 
     tbody tr {
-      border-bottom: 1px dotted $sky-border-color-neutral-light;
+      @include sky-border(row, bottom);
 
       &:first-child {
-        border-top: 1px dotted $sky-border-color-neutral-light;
+        @include sky-border(row, top);
       }
     }
   }
