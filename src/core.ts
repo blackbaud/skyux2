@@ -371,7 +371,8 @@ export {
 } from './modules/search';
 export {
   SkySectionedFormComponent,
-  SkySectionedFormModule
+  SkySectionedFormModule,
+  SkySectionedFormSectionComponent
 } from './modules/sectioned-form';
 export {
   SkySortComponent,

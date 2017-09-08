@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
 import { SkySectionedFormComponent } from './sectioned-form.component';
+import { SkySectionedFormSectionComponent } from './sectioned-form-section.component';
+import { SkyVerticalTabsetModule } from '../vertical-tabset/vertical-tabset.module';
 
 @NgModule({
   declarations: [
-    SkySectionedFormComponent
+    SkySectionedFormComponent,
+    SkySectionedFormSectionComponent
+  ],
+  imports: [
+    SkyVerticalTabsetModule
   ],
   exports: [
-    SkySectionedFormComponent
+    SkySectionedFormComponent,
+    SkySectionedFormSectionComponent
   ]
 })
 export class SkySectionedFormModule { }
