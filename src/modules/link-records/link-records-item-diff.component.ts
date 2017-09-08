@@ -14,10 +14,10 @@ import { LinkRecordsMatchesSetStatusAction } from './state/matches/actions';
 import { STATUSES } from './link-records-statuses';
 
 @Component({
-    selector: 'sky-link-records-item-diff',
-    templateUrl: './link-records-item-diff.component.html',
-    styleUrls: ['./link-records-item-diff.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sky-link-records-item-diff',
+  templateUrl: './link-records-item-diff.component.html',
+  styleUrls: ['./link-records-item-diff.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyLinkRecordsItemDiffComponent implements OnInit {
   public STATUSES = STATUSES;
@@ -27,12 +27,13 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
   @Input() public match: LinkRecordsMatchModel;
   @Input() public fields: Array<any>;
   @Input() public selectedByDefault: boolean;
+  @Input() public showNewFieldValues: boolean;
 
   /* istanbul ignore next */
   constructor(
     private state: LinkRecordsState,
     private dispatcher: LinkRecordsStateDispatcher
-  ) {}
+  ) { }
 
   public ngOnInit() {
     if (this.key === undefined) {
@@ -43,8 +44,8 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
       .filter(id => this.item.hasOwnProperty(id)
         && this.match.item.hasOwnProperty(id)
         && this.fields.findIndex(f => f.key === id) > -1
-        && (this.item[id] && this.item[id].trim().length > 0)
-        && (this.item[id] !== this.match.item[id]))
+        && (this.item[id] && this.item[id].toString().trim().length > 0)
+        && this.item[id] !== this.match.item[id])
       .map(id => {
         let field = this.fields.find(f => f.key === id);
         return new LinkRecordsFieldModel({
@@ -63,25 +64,26 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
       );
     } else {
       this.state.map((s: any) => s.selected.item)
-      .filter((s: any) => this.selectedByDefault !== undefined)
-      .take(1)
-      .subscribe((selected: any) => {
-        matchFields.forEach(matchField => {
-          if (selected[this.key] && selected[this.key].hasOwnProperty(matchField.key)) {
-            return;
-          }
+        .filter((s: any) => this.selectedByDefault !== undefined)
+        .take(1)
+        .subscribe((selected: any) => {
+          matchFields.forEach(matchField => {
+            if (selected[this.key] && selected[this.key].hasOwnProperty(matchField.key)) {
+              return;
+            }
 
-          if (typeof this.selectedByDefault === 'string') {
-            this.selectedByDefault = String(this.selectedByDefault) === 'true';
-          }
+            if (typeof this.selectedByDefault === 'string') {
+              this.selectedByDefault = String(this.selectedByDefault) === 'true';
+            }
 
-          this.dispatcher.next(new LinkRecordsSelectedSetSelectedAction(
-            this.key,
-            matchField.key,
-            this.selectedByDefault
-          ));
+            this.dispatcher.next(new LinkRecordsSelectedSetSelectedAction(
+              this.key,
+              matchField.key,
+              this.selectedByDefault
+            ));
+          });
 
-          if (matchFields.every(match =>
+          if (!this.showNewFieldValues && matchFields.every(match =>
             !match.currentValue && match.newValue && match.newValue.length > 0)
           ) {
             this.dispatcher.next(
@@ -89,7 +91,6 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
             );
           }
         });
-      });
     }
   }
 
@@ -106,10 +107,13 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
     return Observable.combineLatest(
       this.state.map((s: any) => s.fields.item[this.key] || []).distinctUntilChanged(),
       this.state.map((s: any) => s.selected.item[this.key] || {}).distinctUntilChanged(),
-      (fields: LinkRecordsFieldModel[], selected: {[key: string]: boolean}) => {
+      (fields: LinkRecordsFieldModel[], selected: { [key: string]: boolean }) => {
         return fields.map(f => {
+          let checkCurrentValue: boolean = this.showNewFieldValues ? true : f.currentValue;
+
           return {
-            field: f.currentValue && f.newValue && f.newValue.trim().length > 0 ? f : undefined,
+            field: checkCurrentValue && f.newValue &&
+              f.newValue.toString().trim().length > 0 ? f : undefined,
             selected: selected[f.key] || false
           };
         });

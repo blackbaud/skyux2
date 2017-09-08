@@ -60,6 +60,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
   @Input() public itemTitleTemplate: TemplateRef<any>;
   @Input() public keyIdSelector: string = 'id';
   @Input() public selectedByDefault: boolean = true;
+  @Input() public showNewFieldValues: boolean = true;
   /* tslint:disable */
   @ContentChildren(forwardRef(() => SkyLinkRecordsItemTitleComponent))
     public nodeItemTitle: QueryList<SkyLinkRecordsItemTitleComponent>;

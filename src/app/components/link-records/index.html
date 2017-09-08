@@ -20,12 +20,20 @@
       Acceptable values: <code>Observable&lt;Array&lt;LinkRecordsMatchModel&gt;&gt;</code> or <code>Array&lt;LinkRecordsMatchModel&gt;</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
-      propertyName="fieldMatches"
+      propertyName="matchFields"
       defaultValue="[]"
       isOptional="true"
     >
       Specifies the property names of the fields that can be updated when editing. Takes in an object with a <code>key</code> and <code>label</code> property. the key specifies the field name, and the label defines the text to show when matching fields. if no label is defined, the key name is displayed instead.
       Acceptable values: <code>Observable&lt;Array&lt;any&gt;&gt;</code> or <code>Array&lt;any&gt;</code>.
+    </sky-demo-page-property>
+    <sky-demo-page-property
+      propertyName="showNewFieldValues"
+      defaultValue="true"
+      isOptional="true"
+    >
+      Specifies whether or not the user will be able to choose to update new values for a matched field that contains no current value. If false, the field will be updated automatically without input needed from the user.
+      Acceptable values: <code>true</code> or <code>false</code>.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="itemTemplate"

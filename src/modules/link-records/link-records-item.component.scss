@@ -53,14 +53,14 @@
     .link-records-item-footer {
       @include sky-border(light, top);
       padding: $sky-padding-3_4 $sky-padding;
-      
+
       & button.sky-btn:not(:first-child) {
         margin-left: $sky-margin;
       }
-      
+
       & button.sky-btn.sky-btn-link {
         margin-left: 0;
-        
+
         &:first-child {
           margin-left: -$sky-margin;
         }

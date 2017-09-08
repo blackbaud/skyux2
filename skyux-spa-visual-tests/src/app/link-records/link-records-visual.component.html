@@ -1,5 +1,5 @@
 <div id="screenshot-link-records-match">
-  <sky-link-records [items]="items" [matches]="matches">
+  <sky-link-records [items]="items" [matches]="matches" [showNewFieldValues]="false">
     <sky-link-records-item-title>
       <ng-template let-item="item">Applicant</ng-template>
     </sky-link-records-item-title>
@@ -39,7 +39,7 @@
 </div>
 
 <div id="screenshot-link-records-no-match">
-  <sky-link-records [items]="items" [matches]="matches2">
+  <sky-link-records [items]="items" [matches]="matches2" [showNewFieldValues]="false">
     <sky-link-records-item-title>
       <ng-template let-item="item">Applicant</ng-template>
     </sky-link-records-item-title>
@@ -75,7 +75,7 @@
 </div>
 
 <div id="screenshot-link-records-linked-match">
-  <sky-link-records [items]="items" [matches]="matches" id="linked-match-records">
+  <sky-link-records [items]="items" [matches]="matches" [showNewFieldValues]="false" id="linked-match-records" >
     <sky-link-records-item-title>
       <ng-template let-item="item">Applicant</ng-template>
     </sky-link-records-item-title>
@@ -115,7 +115,7 @@
 </div>
 
 <div id="screenshot-link-records-created-match">
-  <sky-link-records [items]="items" [matches]="matches2" id="create-link-records">
+  <sky-link-records [items]="items" [matches]="matches2" [showNewFieldValues]="false" id="create-link-records" >
     <sky-link-records-item-title>
       <ng-template let-item="item">Applicant</ng-template>
     </sky-link-records-item-title>
@@ -155,7 +155,7 @@
 </div>
 
 <div id="screenshot-link-records-fields-update">
-  <sky-link-records [items]="items" [matches]="matches" [matchFields]="matchFields" id="field-update-records">
+  <sky-link-records [items]="items" [matches]="matches" [matchFields]="matchFields" [showNewFieldValues]="false" id="field-update-records">
     <sky-link-records-item-title>
       <ng-template let-item="item">Applicant</ng-template>
     </sky-link-records-item-title>
