@@ -22,10 +22,15 @@
     flex: 1;
     position: relative;
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
     padding-left: $sky-padding;
+
+    div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
   }
 
   /deep/ .sky-list-view-checklist-single-button {
