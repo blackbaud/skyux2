@@ -204,7 +204,7 @@ describe('SkyPopoverComponent', () => {
   it('should adjust placement on window resize', () => {
     component.placement = 'below';
     spyOn(component, 'positionNextTo').and.returnValue(0);
-    window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(new CustomEvent('resize'));
     expect(component.positionNextTo).toHaveBeenCalledWith(component['lastCaller'], 'below');
   });
 
@@ -243,7 +243,7 @@ describe('SkyPopoverComponent', () => {
     spyOn(component, 'close');
 
     component.isOpen = true;
-    document.dispatchEvent(new MouseEvent('click'));
+    document.dispatchEvent(new CustomEvent('click'));
 
     fixture.detectChanges();
     expect(component.close).toHaveBeenCalled();
@@ -254,7 +254,7 @@ describe('SkyPopoverComponent', () => {
 
     component.isOpen = true;
     component['isMouseEnter'] = true;
-    document.dispatchEvent(new MouseEvent('click'));
+    document.dispatchEvent(new CustomEvent('click'));
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
