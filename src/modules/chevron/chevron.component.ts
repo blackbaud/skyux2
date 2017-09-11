@@ -15,17 +15,6 @@ export class SkyChevronComponent {
   @Input()
   public disabled: boolean = false;
 
-  private _tabIndex: number = 0;
-
-  @Input()
-  public set tabIndex(value: number) {
-    this._tabIndex = value;
-  }
-
-  public get tabIndex(): number {
-    return this.disabled ? -1 : this._tabIndex;
-  }
-
   public chevronClick() {
     if (!this.disabled) {
       this.direction = this.direction === 'up' ? 'down' : 'up';
