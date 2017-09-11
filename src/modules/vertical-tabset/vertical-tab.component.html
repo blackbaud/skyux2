@@ -1,9 +1,7 @@
-<div 
+<a 
   class="sky-vertical-tab"
   [ngClass]="{
     'sky-vertical-tab-active': active, 
-    'sky-no-outline': !outline, 
-    'sky-outline': outline,
     'sky-vertical-tab-disabled': disabled
   }"
   (click)="activateTabFromClick()"
@@ -18,9 +16,13 @@
     *ngIf="tabHeaderCount || tabHeaderCount === 0">
     ({{ tabHeaderCount }})
   </span>
-</div>
- <div #tabContentWrapper>
-  <div [ngClass]="{'sky-vertical-tab-hidden': !active, 'sky-vertical-tab-visible': active }">
+</a>
+
+<div #tabContentWrapper>
+  <div 
+    id="verticalTab" 
+    [ngClass]="{'sky-vertical-tab-hidden': !active}"
+  >
     <ng-content></ng-content>
   <div>
 </div>

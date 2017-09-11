@@ -12,6 +12,10 @@ import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
 let mockQueryService = new MockSkyMediaQueryService();
 
+function getVisibleVerticalTabs(el: any) {
+  return el.querySelectorAll('#verticalTab:not(.sky-vertical-tab-hidden)');
+}
+
 describe('Vertical tabset component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -75,9 +79,9 @@ describe('Vertical tabset component', () => {
     fixture.detectChanges();
 
     // check open tab
-    const visibleTab = el.querySelectorAll('.sky-vertical-tab-visible');
-    expect(visibleTab.length).toBe(1);
-    expect(visibleTab[0].textContent.trim()).toBe('Group 2 Tab 2 content');
+    const visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 2 Tab 2 content');
 
     // check open group
     const openGroup = el.querySelectorAll('.sky-tab-group-header-sub-open');
@@ -146,8 +150,9 @@ describe('Vertical tabset component', () => {
     expect(showTabsButton[0].textContent.trim()).toBe('Tab list');
 
     // check content is visible
-    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
-    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+    const visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 1 content');
 
     // check tabs are not visible
     const tabs = el.querySelectorAll('.sky-vertical-tabset-group-container');
@@ -166,8 +171,9 @@ describe('Vertical tabset component', () => {
     expect(tabs.length).toBe(0);
 
     // check content is visible
-    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
-    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+    let visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 1 content');
 
     // click show tabs
     const showTabsButton = el.querySelector('.sky-vertical-tabset-show-tabs');
@@ -180,8 +186,8 @@ describe('Vertical tabset component', () => {
     expect(tabsUpdated.length).toBe(1);
 
     // check content is not visible
-    const contentUpdated = el.querySelectorAll('.sky-vertical-tab-visible');
-    expect(contentUpdated.length).toBe(0);
+    visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(0);
   });
 
   it('clicking a tab in mobile should show content and hides tabs', () => {
@@ -208,8 +214,9 @@ describe('Vertical tabset component', () => {
     expect(tabs.length).toBe(0);
 
     // check content is visible
-    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
-    expect(content.textContent.trim()).toBe('Group 1 Tab 2 content');
+    const visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 2 content');
   });
 
   it('should hide tabs when switching from widescreen to mobile', () => {
@@ -229,8 +236,9 @@ describe('Vertical tabset component', () => {
     expect(tabs.length).toBe(0);
 
     // check content is visible
-    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
-    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+    const visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 1 content');
 
     // check show tabs button is visible
     const showTabsButton = el.querySelector('.sky-vertical-tabset-show-tabs');
@@ -254,8 +262,9 @@ describe('Vertical tabset component', () => {
     expect(tabs.length).toBe(1);
 
     // check content is visible
-    const content = el.querySelector('.sky-vertical-tabset-content .sky-vertical-tab-visible');
-    expect(content.textContent.trim()).toBe('Group 1 Tab 1 content');
+    const visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 1 content');
 
     // check show tabs button is not visible
     const showTabsButton = el.querySelectorAll('.sky-vertical-tabset-show-tabs');
@@ -275,7 +284,7 @@ describe('Vertical tabset component', () => {
     fixture.detectChanges();
 
     // check open tab
-    let visibleTabs = el.querySelectorAll('.sky-vertical-tab-visible');
+    let visibleTabs = getVisibleVerticalTabs(el);
     expect(visibleTabs.length).toBe(1);
     expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 1 content');
 
@@ -291,7 +300,7 @@ describe('Vertical tabset component', () => {
     fixture.detectChanges();
 
     // check open tab
-    visibleTabs = el.querySelectorAll('.sky-vertical-tab-visible');
+    visibleTabs = getVisibleVerticalTabs(el);
     expect(visibleTabs.length).toBe(1);
     expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 2 content');
 
@@ -299,28 +308,6 @@ describe('Vertical tabset component', () => {
     openGroups = el.querySelectorAll('.sky-tab-group-header-sub-open');
     expect(openGroups.length).toBe(1);
     expect(openGroups[0].textContent.trim()).toBe('Group 1');
-  });
-
-  it('tabbing to first tab adds highlight class', () => {
-    mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    fixture.detectChanges();
-    let firstTab = fixture.componentInstance.verticalTabs;
-
-    // check first tab is not highlighted
-    expect(firstTab.outline).toBe(false);
-
-    // hit a different keystroke
-    firstTab.tabPress({ which: 10 } as any);
-
-    // check tab is not highlighted
-    expect(firstTab.outline).toBe(false);
-
-    // tab to first tab
-    firstTab.tabPress({ which: 9 } as any);
-
-    // check tab is not highlighted
-    expect(firstTab.outline).toBe(true);
   });
 
   it('should display tab header count when defined', () => {
@@ -384,9 +371,9 @@ describe('Vertical tabset component', () => {
     fixture.detectChanges();
 
     // check content is displayed
-    let visibleTab = el.querySelectorAll('.sky-vertical-tab-visible');
-    expect(visibleTab.length).toBe(1);
-    expect(visibleTab[0].textContent.trim()).toBe('Group 2 Tab 1 content');
+    let visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 2 Tab 1 content');
 
     // try clicking disabled third tab in second group
     tabs[4].click();
@@ -394,9 +381,9 @@ describe('Vertical tabset component', () => {
     fixture.detectChanges();
 
     // check content of second tab still displayed
-    visibleTab = el.querySelectorAll('.sky-vertical-tab-visible');
-    expect(visibleTab.length).toBe(1);
-    expect(visibleTab[0].textContent.trim()).toBe('Group 2 Tab 1 content');
+    visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Group 2 Tab 1 content');
   });
 });
 
@@ -416,7 +403,7 @@ describe('Vertical tabset component', () => {
 
     fixture.detectChanges();
 
-    const contentUpdated = el.querySelectorAll('.sky-vertical-tab-visible');
-    expect(contentUpdated.length).toBe(0);
+    const visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(0);
   });
 });
