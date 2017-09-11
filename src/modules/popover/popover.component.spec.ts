@@ -14,13 +14,11 @@ import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
 
-import {
-  Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
-import {
-  SkyWindowRefService
-} from '../window';
+import { SkyWindowRefService } from '../window';
+import { TestUtility } from '../testing/testutility';
+import { expect } from '../testing';
 
 import {
   SkyPopoverModule,
@@ -195,16 +193,16 @@ describe('SkyPopoverComponent', () => {
 
   it('should capture mouse enter and mouse leave events', () => {
     expect(component['isMouseEnter']).toEqual(false);
-    fixture.nativeElement.dispatchEvent(new CustomEvent('mouseenter'));
+    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseenter');
     expect(component['isMouseEnter']).toEqual(true);
-    fixture.nativeElement.dispatchEvent(new CustomEvent('mouseleave'));
+    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(component['isMouseEnter']).toEqual(false);
   });
 
   it('should adjust placement on window resize', () => {
     component.placement = 'below';
     spyOn(component, 'positionNextTo').and.returnValue(0);
-    window.dispatchEvent(new CustomEvent('resize'));
+    TestUtility.fireDomEvent(window, 'resize');
     expect(component.positionNextTo).toHaveBeenCalledWith(component['lastCaller'], 'below');
   });
 
@@ -243,7 +241,7 @@ describe('SkyPopoverComponent', () => {
     spyOn(component, 'close');
 
     component.isOpen = true;
-    document.dispatchEvent(new CustomEvent('click'));
+    TestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();
     expect(component.close).toHaveBeenCalled();
@@ -254,7 +252,7 @@ describe('SkyPopoverComponent', () => {
 
     component.isOpen = true;
     component['isMouseEnter'] = true;
-    document.dispatchEvent(new CustomEvent('click'));
+    TestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
