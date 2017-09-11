@@ -195,9 +195,9 @@ describe('SkyPopoverComponent', () => {
 
   it('should capture mouse enter and mouse leave events', () => {
     expect(component['isMouseEnter']).toEqual(false);
-    fixture.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.nativeElement.dispatchEvent(new CustomEvent('mouseenter'));
     expect(component['isMouseEnter']).toEqual(true);
-    fixture.nativeElement.dispatchEvent(new MouseEvent('mouseleave'));
+    fixture.nativeElement.dispatchEvent(new CustomEvent('mouseleave'));
     expect(component['isMouseEnter']).toEqual(false);
   });
 
