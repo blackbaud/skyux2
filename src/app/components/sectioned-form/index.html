@@ -5,13 +5,34 @@
     </p>
   </sky-demo-page-summary>
 
-  <sky-demo-page-properties sectionHeading="Sectioned form settings">
+  <sky-demo-page-properties sectionHeading="Sectioned form section settings">
     <sky-demo-page-property
-        propertyName="active-index"
+        propertyName="active"
     >
-      The index of a section that should be made active.
+      A boolean value to indicate the active section.
     </sky-demo-page-property>
 
+    <sky-demo-page-property
+        propertyName="heading"
+    >
+      The display text used to identify the section.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+        propertyName="itemCount"
+        isOptional="true"
+    >
+      The number of items contained within a given section.
+    </sky-demo-page-property>
+
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="Sectioned form events">
+    <sky-demo-page-property
+        propertyName="active"
+    >
+      Fires when the active tab changes. Emits the index of the active section.
+    </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-example>
