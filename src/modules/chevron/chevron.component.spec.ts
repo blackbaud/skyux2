@@ -32,47 +32,16 @@ describe('Chevron component', () => {
     let fixture = TestBed.createComponent(SkyChevronComponent);
     let cmp = fixture.componentInstance as SkyChevronComponent;
     let el = fixture.nativeElement;
-    let expectedDirection: string;
 
     fixture.detectChanges();
 
-    expectedDirection = 'up';
-    validateDirection(fixture, cmp, expectedDirection);
+    validateDirection(fixture, cmp, 'up');
 
     cmp.directionChange.subscribe((direction: string) => {
-      validateDirection(fixture, cmp, expectedDirection);
+      validateDirection(fixture, cmp, 'down');
     });
 
-    expectedDirection = 'down';
     clickChevron(el);
-  });
-
-  it('should respect tab index input', () => {
-    let fixture = TestBed.createComponent(SkyChevronComponent);
-    let el = fixture.nativeElement;
-
-    // set tab index
-    fixture.componentInstance.tabIndex = 94;
-    fixture.detectChanges();
-
-    // check tab index is 94
-    const buttonEl = el.querySelector('.sky-chevron');
-    const tabIndex = buttonEl.getAttribute('tabIndex');
-    expect(tabIndex).toBe('94');
-  });
-
-  it('should set tab index to -1 for disabled chevron', () => {
-    let fixture = TestBed.createComponent(SkyChevronComponent);
-    let el = fixture.nativeElement;
-
-    // make disabled
-    fixture.componentInstance.disabled = true;
-    fixture.detectChanges();
-
-    // check tab index is -1
-    const buttonEl = el.querySelector('.sky-chevron');
-    const tabIndex = buttonEl.getAttribute('tabIndex');
-    expect(tabIndex).toBe('-1');
   });
 
   it('should not be able to click disabled chevron', () => {
@@ -86,7 +55,7 @@ describe('Chevron component', () => {
 
     validateDirection(fixture, cmp, 'up');
 
-    clickChevron(el);
+    cmp.chevronClick();
 
     validateDirection(fixture, cmp, 'up');
   });

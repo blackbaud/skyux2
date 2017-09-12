@@ -4,7 +4,7 @@
     [ngClass]="{'sky-tab-group-header-sub-open': subMenuOpen()}"
     (click)="toggleMenuOpen()"
     (keyup.enter)="toggleMenuOpen()"
-    [tabIndex]="tabIndex()"
+    [tabIndex]="-1"
   >
     {{ groupHeading }}
     <sky-chevron 
@@ -13,7 +13,6 @@
       [disabled]="disabled"
       (directionChange)="toggleMenuOpen()"
       (keyup.enter)="$event.stopPropagation()"
-      [tabIndex]="-1"
     >
     </sky-chevron>
   </div>
