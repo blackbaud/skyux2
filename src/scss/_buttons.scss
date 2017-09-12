@@ -4,7 +4,7 @@
 .sky-btn {
   background-color: transparent;
   @include sky-border(dark, top, bottom, left, right);
-  border-radius: 3px;
+  border-radius: $sky-border-radius;
   color: $sky-text-color-default;
   cursor: pointer;
   white-space: nowrap;
@@ -109,7 +109,7 @@
 .sky-btn-tab-wizard {
   background-color: $sky-color-white;
   @include sky-border(light, top, bottom, left, right);
-  border-radius: 3px;
+  border-radius: $sky-border-radius;
   font-weight: 400;
   color: $sky-text-color-default;
   line-height: 1.6em;
