@@ -146,8 +146,7 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-header {
-  @include sky-border(light, bottom);
-  padding: $sky-padding;
+  padding: $sky-padding $sky-padding 0 $sky-padding;
 }
 
 .sky-popover-title {
