@@ -51,10 +51,6 @@ export class SkyVerticalTabComponent implements OnInit {
     }
   }
 
-  public activateTabFromClick() {
-    this.activateTab();
-  }
-
   public activateTab() {
     if (!this.disabled) {
       this.active = true;

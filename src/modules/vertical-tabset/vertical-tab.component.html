@@ -4,7 +4,7 @@
     'sky-vertical-tab-active': active, 
     'sky-vertical-tab-disabled': disabled
   }"
-  (click)="activateTabFromClick()"
+  (click)="activateTab()"
   (keyup.enter)="activateTab()"
   [tabIndex]="tabIndex()"
   [attr.aria-selected]="active"
@@ -19,7 +19,7 @@
 
 <div #tabContentWrapper>
   <div 
-    id="verticalTab" 
+    class="sky-vertical-tab-content-pane"
     [ngClass]="{'sky-vertical-tab-hidden': !active}"
   >
     <ng-content></ng-content>
