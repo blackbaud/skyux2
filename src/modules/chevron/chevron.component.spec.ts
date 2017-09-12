@@ -32,18 +32,15 @@ describe('Chevron component', () => {
     let fixture = TestBed.createComponent(SkyChevronComponent);
     let cmp = fixture.componentInstance as SkyChevronComponent;
     let el = fixture.nativeElement;
-    let expectedDirection: string;
 
     fixture.detectChanges();
 
-    expectedDirection = 'up';
-    validateDirection(fixture, cmp, expectedDirection);
+    validateDirection(fixture, cmp, 'up');
 
     cmp.directionChange.subscribe((direction: string) => {
-      validateDirection(fixture, cmp, expectedDirection);
+      validateDirection(fixture, cmp, 'down');
     });
 
-    expectedDirection = 'down';
     clickChevron(el);
   });
 
@@ -58,7 +55,7 @@ describe('Chevron component', () => {
 
     validateDirection(fixture, cmp, 'up');
 
-    clickChevron(el);
+    cmp.chevronClick();
 
     validateDirection(fixture, cmp, 'up');
   });
