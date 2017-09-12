@@ -6,14 +6,13 @@ $popover-max-width: 276px;
 
 @mixin popover-border ($placement) {
   margin-#{$placement}: $arrow-size;
-  padding-#{$placement}: $arrow-size;
 
   &:after {
     content: '';
-    border-#{$placement}: $arrow-size solid $sky-highlight-color-info;
     display: block;
     position: absolute;
     #{$placement}: 0;
+    @include sky-shadow;
   }
 }
 
@@ -45,10 +44,13 @@ $popover-max-width: 276px;
 .sky-popover {
   position: relative;
   background-color: $sky-color-white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  @include sky-shadow;
+  border-radius: $sky-border-radius;
 
   @media (max-width: $sky-screen-xs-max) {
     margin: 10px !important;
+    border: none !important;
+    border-top: $arrow-size solid $sky-highlight-color-info !important; 
   }
 }
 
@@ -66,6 +68,7 @@ $popover-max-width: 276px;
 .sky-popover-placement-above {
   .sky-popover {
     @include popover-border('bottom');
+    border-bottom: $arrow-size solid $sky-highlight-color-info;
 
     &:after {
       left: 0;
@@ -76,7 +79,7 @@ $popover-max-width: 276px;
   .sky-popover-arrow {
     border-bottom: 0;
     border-top-color: $sky-highlight-color-info;
-    bottom: $arrow-size * -1;
+    bottom: $arrow-size * -2;
     left: 50%;
     margin-left: -$arrow-size;
   }
@@ -85,6 +88,7 @@ $popover-max-width: 276px;
 .sky-popover-placement-below {
   .sky-popover {
     @include popover-border('top');
+    border-top: $arrow-size solid $sky-highlight-color-info;
 
     &:after {
       left: 0;
@@ -95,7 +99,7 @@ $popover-max-width: 276px;
   .sky-popover-arrow {
     border-top: 0;
     border-bottom-color: $sky-highlight-color-info;
-    top: $arrow-size * -1;
+    top: $arrow-size * -2;
     left: 50%;
     margin-left: -$arrow-size;
   }
@@ -104,6 +108,7 @@ $popover-max-width: 276px;
 .sky-popover-placement-right {
   .sky-popover {
     @include popover-border('left');
+    border-left: $arrow-size solid $sky-highlight-color-info;
 
     &:after {
       top: 0;
@@ -114,7 +119,7 @@ $popover-max-width: 276px;
   .sky-popover-arrow {
     border-left: 0;
     border-right-color: $sky-highlight-color-info;
-    left: $arrow-size * -1;
+    left: $arrow-size * -2;
     top: 50%;
     margin-top: -$arrow-size;
   }
@@ -123,6 +128,7 @@ $popover-max-width: 276px;
 .sky-popover-placement-left {
   .sky-popover {
     @include popover-border('right');
+    border-right: $arrow-size solid $sky-highlight-color-info;
 
     &:after {
       top: 0;
@@ -133,22 +139,21 @@ $popover-max-width: 276px;
   .sky-popover-arrow {
     border-right: 0;
     border-left-color: $sky-highlight-color-info;
-    left: 100%;
+    right: $arrow-size * -2;
     top: 50%;
     margin-top: -$arrow-size;
   }
 }
 
 .sky-popover-header {
-  background-color: $sky-background-color-neutral-light;
-  padding: 10px 15px;
+  padding: $sky-padding $sky-padding 0 $sky-padding;
 }
 
 .sky-popover-title {
   margin: 0;
-  font-size: 1.1em;
+  @include sky-emphasized;
 }
 
 .sky-popover-body {
-  padding: 15px;
+  padding: $sky-padding;
 }
