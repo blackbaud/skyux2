@@ -39,7 +39,7 @@ const VISIBLE_STATE = 'shown';
       'tabGroupEnter', [
         transition(`void => ${VISIBLE_STATE}`, [
           style({transform: 'translate(-100%)'}),
-          animate('150ms')
+          animate('150ms ease-in')
         ])
       ]
     ),
@@ -47,7 +47,7 @@ const VISIBLE_STATE = 'shown';
       'contentEnter', [
         transition(`void => ${VISIBLE_STATE}`, [
           style({transform: 'translate(100%)'}),
-          animate('150ms')
+          animate('150ms ease-in')
         ])
       ]
     )
