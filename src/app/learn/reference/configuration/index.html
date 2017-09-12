@@ -9,7 +9,7 @@
   <sky-alert alertType="info">SKY UX enables you to create additional configuration files as necessary <a routerLink="/learn/reference/configuration/additional-config-files">to apply settings to specific SKY UX CLI commands</a> using the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention.</sky-alert>
   <p>The configuration options that are available in the <stache-code>skyuxconfig.json</stache-code> file include:</p>
   <ul>
-    <!-- <li><p><stache-code>a11y</stache-code> — Specifies/Provides </p></li> -->
+    <li><p><stache-code>a11y</stache-code> — Enables or disables accessibility test rules. You can manage rules individually, or you can enable or disable all rules in bulk. For examples of how to enable and disable rules, see <a routerLink="/learn/get-started/advanced/accessibility-analyzer">accessibility analyzer</a>.</p></li>
     <li><p><stache-code>app</stache-code> — Specifies configuration options for the local app when running <stache-code>skyux serve</stache-code>.</p>
       <ul>
         <li><p><stache-code>title</stache-code> — Controls the page title at the template level while waiting for the application to load. After it loads, you can use the Angular <a href="https://angular.io/docs/ts/latest/cookbook/set-document-title.html">title service</a> to set the page title. The default is <stache-code>Blackbaud - SKY UX Application</stache-code>, so if you do not want this default to appear in the title bar while the application loads, use the <stache-code>title</stache-code> to provide your preferred title.</p></li>
@@ -70,7 +70,12 @@
     <li><p><stache-code>omnibar</stache-code> — Specifies an object to pass to the omnibar's <stache-code>load</stache-code> method. This property is for internal Blackbaud use only. The omnibar provides a common UI element for Blackbaud applications that allows users to navigate between applications. For Blackbaud developers, <a href="http://authsvc.docs.blackbaudhosting.com/components/omnibar/configuration_options/">the omnibar configuration options documentation</a> describes the available options to pass to the omnibar.</p></li>
     <!-- <li><p><stache-code>params</stache-code> — Specifies/Provides </p></li> -->
     <!-- <li><p><stache-code>plugins</stache-code> — Specifies/Provides </p></li> -->
-    <li><p><stache-code>redirects</stache-code> — Specifies redirects for pages within an application. For example, if a project's folder structure changes, you can provide redirects to new locations for existing pages so that existing links to those pages will continue to work.</p></li>
+    <li><p><stache-code>redirects</stache-code> — Specifies redirects for pages within an application. When a project's folder structure changes, you can specify redirects for files that moved so that existing links will continue to work. In the <stache-code>redirects</stache-code> property, you create a comma-separated list of paths and their redirects.</p>
+      <stache-code-block>"redirects": {
+    "folder-1/subfolder-1": "new-folder/new-subfolder-1",
+    "folder-1/subfolder-2": "folder-1/subfolder-2/new-subfolder-2"
+  }</stache-code-block>
+    </li>
     <!-- <li><p><stache-code>routes</stache-code> — Specifies/Provides </p>
       <ul>
         <li><p><stache-code>public</stache-code> — </p></li>
