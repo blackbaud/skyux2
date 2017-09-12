@@ -9,7 +9,7 @@
   <sky-alert alertType="info">SKY UX enables you to create additional configuration files as necessary <a routerLink="/learn/reference/configuration/additional-config-files">to apply settings to specific SKY UX CLI commands</a> using the <stache-code>skyuxconfig.[COMMAND].json</stache-code> naming convention.</sky-alert>
   <p>The configuration options that are available in the <stache-code>skyuxconfig.json</stache-code> file include:</p>
   <ul>
-    <!-- <li><p><stache-code>a11y</stache-code> — Specifies/Provides </p></li> -->
+    <li><p><stache-code>a11y</stache-code> — Enables or disables accessibility test rules. You can manage rules individually, or you can enable or disable all rules in bulk. For examples of how to enable and disable rules, see <a routerLink="/learn/get-started/advanced/accessibility-analyzer">accessibility analyzer</a>.</p></li>
     <li><p><stache-code>app</stache-code> — Specifies configuration options for the local app when running <stache-code>skyux serve</stache-code>.</p>
       <ul>
         <li><p><stache-code>title</stache-code> — Controls the page title at the template level while waiting for the application to load. After it loads, you can use the Angular <a href="https://angular.io/docs/ts/latest/cookbook/set-document-title.html">title service</a> to set the page title. The default is <stache-code>Blackbaud - SKY UX Application</stache-code>, so if you do not want this default to appear in the title bar while the application loads, use the <stache-code>title</stache-code> to provide your preferred title.</p></li>
