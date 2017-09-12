@@ -10,6 +10,7 @@
     <input 
       class="sky-form-control"
       [ngModel]="name"
+      (ngModelChange)="nameChange($event)"
       id="inputName" 
       type="text"
     >
