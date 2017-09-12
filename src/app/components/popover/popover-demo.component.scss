@@ -22,18 +22,3 @@
     }
   }
 }
-
-/deep/
-#screenshot-all-popovers {
-  display: flex;
-  flex-wrap: wrap;
-
-  .popover-visual-container {
-    padding: 10px;
-  }
-
-  .sky-popover-container {
-    position: static !important;
-    opacity: 1 !important;
-  }
-}

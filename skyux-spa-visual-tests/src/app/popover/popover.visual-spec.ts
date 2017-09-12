@@ -1,7 +1,6 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
 import {
-  // browser,
   element,
   by
 } from 'protractor';

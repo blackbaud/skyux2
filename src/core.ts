@@ -389,6 +389,8 @@ export {
   SkyPagingModule
 } from './modules/paging';
 
+export * from './modules/popover';
+
 export {
   SkyRadioComponent,
   SkyRadioModule

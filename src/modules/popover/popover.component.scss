@@ -50,7 +50,7 @@ $popover-max-width: 276px;
   @media (max-width: $sky-screen-xs-max) {
     margin: 10px !important;
     border: none !important;
-    border-top: $arrow-size solid $sky-highlight-color-info !important; 
+    border-top: $arrow-size solid $sky-highlight-color-info !important;
   }
 }
 
@@ -147,6 +147,10 @@ $popover-max-width: 276px;
 
 .sky-popover-header {
   padding: $sky-padding $sky-padding 0 $sky-padding;
+
+  & + .sky-popover-body {
+    padding-top: 2px;
+  }
 }
 
 .sky-popover-title {
