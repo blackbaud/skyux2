@@ -1,0 +1,163 @@
+@import '../../scss/_variables';
+@import '../../scss/_mixins';
+
+$arrow-size: 10px;
+$popover-max-width: 276px;
+
+@mixin popover-border ($placement) {
+  margin-#{$placement}: $arrow-size;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    #{$placement}: 0;
+    @include sky-shadow;
+  }
+}
+
+:host {
+  width: 0;
+  height: 0;
+}
+
+.sky-popover-container {
+  position: absolute;
+  z-index: 9999;
+
+  &.hidden {
+    left: -99999px !important;
+    right: auto !important;
+  }
+
+  @media (max-width: $sky-screen-xs-max) {
+    left: 0 !important;
+    right: 0;
+    width: 100% !important
+  }
+
+  @media (min-width: $sky-screen-sm-min) {
+    max-width: $popover-max-width;
+  }
+}
+
+.sky-popover {
+  position: relative;
+  background-color: $sky-color-white;
+  @include sky-shadow;
+  border-radius: $sky-border-radius;
+
+  @media (max-width: $sky-screen-xs-max) {
+    margin: 10px !important;
+    border: none !important;
+    border-top: $arrow-size solid $sky-highlight-color-info !important;
+  }
+}
+
+.sky-popover-arrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  border: $arrow-size solid transparent;
+
+  @media (max-width: $sky-screen-xs-max) {
+    display: none !important;
+  }
+}
+
+.sky-popover-placement-above {
+  .sky-popover {
+    @include popover-border('bottom');
+    border-bottom: $arrow-size solid $sky-highlight-color-info;
+
+    &:after {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .sky-popover-arrow {
+    border-bottom: 0;
+    border-top-color: $sky-highlight-color-info;
+    bottom: $arrow-size * -2;
+    left: 50%;
+    margin-left: -$arrow-size;
+  }
+}
+
+.sky-popover-placement-below {
+  .sky-popover {
+    @include popover-border('top');
+    border-top: $arrow-size solid $sky-highlight-color-info;
+
+    &:after {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .sky-popover-arrow {
+    border-top: 0;
+    border-bottom-color: $sky-highlight-color-info;
+    top: $arrow-size * -2;
+    left: 50%;
+    margin-left: -$arrow-size;
+  }
+}
+
+.sky-popover-placement-right {
+  .sky-popover {
+    @include popover-border('left');
+    border-left: $arrow-size solid $sky-highlight-color-info;
+
+    &:after {
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  .sky-popover-arrow {
+    border-left: 0;
+    border-right-color: $sky-highlight-color-info;
+    left: $arrow-size * -2;
+    top: 50%;
+    margin-top: -$arrow-size;
+  }
+}
+
+.sky-popover-placement-left {
+  .sky-popover {
+    @include popover-border('right');
+    border-right: $arrow-size solid $sky-highlight-color-info;
+
+    &:after {
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  .sky-popover-arrow {
+    border-right: 0;
+    border-left-color: $sky-highlight-color-info;
+    right: $arrow-size * -2;
+    top: 50%;
+    margin-top: -$arrow-size;
+  }
+}
+
+.sky-popover-header {
+  padding: $sky-padding $sky-padding 0 $sky-padding;
+
+  & + .sky-popover-body {
+    padding-top: 2px;
+  }
+}
+
+.sky-popover-title {
+  margin: 0;
+  @include sky-emphasized;
+}
+
+.sky-popover-body {
+  padding: $sky-padding;
+}

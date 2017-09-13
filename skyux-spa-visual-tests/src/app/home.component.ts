@@ -33,6 +33,7 @@ export class HomeComponent {
     'navbar',
     'page-summary',
     'paging',
+    'popover',
     'radio',
     'repeater',
     'search',

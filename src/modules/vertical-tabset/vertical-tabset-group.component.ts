@@ -17,6 +17,8 @@ import {
 } from '@angular/animations';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+
 import { SkyVerticalTabComponent } from './vertical-tab.component';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
