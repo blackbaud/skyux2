@@ -707,6 +707,10 @@
     "_description": "The close button for the timepicker modal",
     "message": "Done"
   },
+  "vertical_tabs_show_tabs_text": {
+    "_description": "The default text for the show tabs button in mobile",
+    "message": "Tab list"
+  },
   "wizard_navigator_finish": {
     "_description": "Text displayed on the next button when a wizard is ready for completion.",
     "message": "Finish"
