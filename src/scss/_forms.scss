@@ -46,3 +46,10 @@ select.ng-invalid.submitted {
   color: $sky-highlight-color-danger;
   padding-left: $sky-padding-half;
 }
+
+// turning off normalized CSS from normalize
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
