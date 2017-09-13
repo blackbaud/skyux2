@@ -7,7 +7,7 @@
   line-height: $sky-line-height-base;
   font-size: $sky-font-size-base;
   color: $sky-text-color-default;
-  
+
   &:focus {
     @include sky-field-status(active);
   }
@@ -45,4 +45,11 @@ select.ng-invalid.submitted {
   content: "*";
   color: $sky-highlight-color-danger;
   padding-left: $sky-padding-half;
+}
+
+// turning off normalized CSS from normalize
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
