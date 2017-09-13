@@ -30,7 +30,7 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy {
   public sections: QueryList<SkySectionedFormSectionComponent>;
 
   private _ngUnsubscribe = new Subject();
-  private _activeIndex: number;
+  private _activeIndex: number = undefined;
 
   public constructor(private tabService: SkyVerticalTabsetService) {}
 
@@ -53,8 +53,10 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy {
   }
 
   public setRequired(required: boolean) {
-    if (this.sections) {
-      let section = this.sections.toArray().find(s => s.tab.index === this._activeIndex);
+    if (this.sections && this.sections.length > 0) {
+      let section = this.sections.toArray().find(s => {
+        return s.active && s.tab.index === this._activeIndex;
+      });
       if (section) {
         section.fieldRequired = required;
       }

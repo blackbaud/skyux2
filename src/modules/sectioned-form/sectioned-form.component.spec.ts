@@ -144,6 +144,9 @@ describe('Sectioned form component - no sections', () => {
     let allTabs = el.querySelectorAll('.sky-sectioned-form-tabs');
     expect(allTabs.length).toBe(1);
     expect(allTabs[0].textContent.trim()).toBe('');
+
+    // no errors should be thrown
+    cmp.sectionedForm.setRequired(true);
   });
 });
 
@@ -172,5 +175,10 @@ describe('Sectioned form component - no active sections', () => {
 
     let tabs = el.querySelectorAll('sky-vertical-tab');
     expect(tabs.length).toBe(2);
+
+    // no errors should be thrown
+    cmp.sectionedForm.setRequired(true);
+    expect(tabs[0].classList.contains('sky-tab-field-required')).toBe(false);
+    expect(tabs[1].classList.contains('sky-tab-field-required')).toBe(false);
   });
 });
