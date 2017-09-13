@@ -43,6 +43,7 @@ export class HomeComponent {
     'text-highlight',
     'tiles',
     'toolbar',
+    'vertical-tabs',
     'wait'
   ];
 }
