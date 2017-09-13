@@ -995,6 +995,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Vertical tabs',
+        icon: 'folder-open-o',
+        summary: `The vertical tabs module contains components to render a vertical tabset.`,
+        url: '/components/vertical-tabs',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'vertical-tabs-demo.component.html',
+              // tslint:disable-next-line:max-line-length
+              fileContents: require('!!raw-loader!./vertical-tabs/vertical-tabs-demo.component.html')
+            },
+            {
+              name: 'vertical-tabs-demo.component.ts',
+              fileContents: require('!!raw-loader!./vertical-tabs/vertical-tabs-demo.component.ts'),
+              componentName: 'SkyVerticalTabsDemoComponent',
+              bootstrapSelector: 'sky-vertical-tabs-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Wait',
         icon: 'spinner',
         // tslint:disable-next-line

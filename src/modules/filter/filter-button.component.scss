@@ -3,7 +3,7 @@
 .sky-filter-btn-active, .sky-filter-btn-active:hover, .sky-filter-btn-active:focus   {
    color: $sky-highlight-color-success;
    border: 2px solid $sky-highlight-color-success;
-   border-radius: 3px;
+   border-radius: $sky-border-radius;
    padding: 5px 11px; /* offset the thicker border to avoid button size change */
 }
 

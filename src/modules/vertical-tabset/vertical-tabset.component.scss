@@ -1,0 +1,23 @@
+@import "../../scss/mixins";
+
+@media (min-width: $sky-screen-sm-min) {
+  .sky-vertical-tabset {
+    display: flex;
+    max-height: 98vh;
+  }
+}
+
+.sky-vertical-tabset-content {
+  margin: $sky-margin 0 0 $sky-margin;
+  flex-basis: 75%;
+  overflow-y: auto;
+}
+
+.sky-vertical-tabset-show-tabs-btn {
+  margin-top: $sky-margin;
+}
+
+.sky-vertical-tabset-group-container {
+  flex-basis: 25%;
+  overflow-y: auto;
+}
