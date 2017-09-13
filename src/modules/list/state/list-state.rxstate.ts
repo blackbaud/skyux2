@@ -18,7 +18,8 @@ import { ListToolbarItemModel } from './toolbar/toolbar-item.model';
 import {
   ListSearchSetFunctionsAction,
   ListSearchSetSearchTextAction,
-  ListSearchSetFieldSelectorsAction
+  ListSearchSetFieldSelectorsAction,
+  ListSearchSetOptionsAction
 } from './search/actions';
 
 import {
@@ -29,6 +30,7 @@ import {
 import { ListSortLabelModel } from './sort/label.model';
 import { ListSortFieldSelectorModel } from './sort/field-selector.model';
 import { ListFilterModel } from './filters/filter.model';
+import { ListSearchModel } from './search/search.model';
 import {
   ListFiltersUpdateAction
 } from './filters/actions';
@@ -65,6 +67,14 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
 
   public searchSetText(searchText: string) {
     this.next(new ListSearchSetSearchTextAction(searchText));
+  }
+
+  public searchSetOptions(searchOptions: ListSearchModel) {
+    this.next(new ListSearchSetOptionsAction(
+      new ListSearchSetSearchTextAction(searchOptions.searchText),
+      new ListSearchSetFieldSelectorsAction(searchOptions.fieldSelectors),
+      new ListSearchSetFunctionsAction(searchOptions.functions)
+    ));
   }
 
   public sortSetAvailable(sortLabels: ListSortLabelModel[]): void {

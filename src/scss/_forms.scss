@@ -3,18 +3,23 @@
 .sky-form-control {
   width: 100%;
   padding: 6px 12px;
-  @include sky-border(light, top, bottom, left, right);
+  @include sky-border(dark, top, bottom, left, right);
   line-height: $sky-line-height-base;
   font-size: $sky-font-size-base;
+  color: $sky-text-color-default;
+  
+  &:focus {
+    @include sky-field-status(active);
+  }
 }
 
 .sky-form-group {
-  margin-bottom: $sky-margin-half;
+  margin-bottom: $sky-margin;
 }
 
 input.ng-invalid.ng-touched,
 select.ng-invalid.submitted {
-  @include sky-field-invalid;
+  @include sky-field-status(invalid);
 }
 
 .sky-error-label {

@@ -101,8 +101,7 @@
 
 .sky-input-group.sky-search-input-container.sky-search-input-focused {
 
-    border: 1px solid $sky-focus-border-color;
-    box-shadow: 0 0 8px $sky-focus-shadow-color;
+    @include sky-field-status(active);
     border-radius: 6px;
 
     .sky-input-group-btn {

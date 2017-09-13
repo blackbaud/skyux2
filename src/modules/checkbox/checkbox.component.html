@@ -1,4 +1,4 @@
-<label class="sky-checkbox-wrapper">
+<label class="sky-checkbox-wrapper" [ngClass]="{'sky-checkbox-wrapper-disabled': disabled}">
   <input type="checkbox"
         [id]="inputId"
         [checked]="checked"

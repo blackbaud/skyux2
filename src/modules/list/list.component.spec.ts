@@ -1070,6 +1070,45 @@ describe('List Component', () => {
       expect(action).not.toBeUndefined();
     }));
 
+    describe('list load search options action', () => {
+      let dispatcher: ListStateDispatcher;
+      let state: ListState;
+
+      beforeEach(fakeAsync(() => {
+        dispatcher = new ListStateDispatcher();
+        state = new ListState(dispatcher);
+
+        state.skip(1).take(1).subscribe(() => tick());
+        tick();
+      }));
+
+      it('should call searchSetOptions with undefined parameters', fakeAsync(() => {
+        dispatcher.searchSetOptions(new ListSearchModel());
+
+        state.map(s => s.search).take(1).subscribe(search => {
+          expect(search.searchText).toBe('');
+          expect(search.functions.length).toBe(0);
+          expect(search.fieldSelectors.length).toBe(0);
+        });
+      }));
+
+      it('should call searchSetOptions with defined actions', fakeAsync(() => {
+        let searchFunc = (data: any, searchText: string) => {return true;}
+
+        dispatcher.searchSetOptions(new ListSearchModel({
+          searchText: 'search text',
+          functions: [searchFunc],
+          fieldSelectors: ['fields']
+        }));
+
+        state.map(s => s.search).take(1).subscribe(search => {
+          expect(search.searchText).toBe('search text');
+          expect(search.functions.length).toBe(1);
+          expect(search.fieldSelectors.length).toBe(1);
+        });
+      }));
+    });
+
     describe('toolbar load action', () => {
       let dispatcher: ListStateDispatcher;
       let state: ListState;
