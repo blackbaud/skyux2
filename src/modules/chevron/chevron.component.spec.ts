@@ -47,6 +47,7 @@ describe('Chevron component', () => {
   it('should not be able to click disabled chevron', () => {
     let fixture = TestBed.createComponent(SkyChevronComponent);
     let cmp = fixture.componentInstance as SkyChevronComponent;
+    let el = fixture.nativeElement;
 
     // make disabled
     fixture.componentInstance.disabled = true;
@@ -54,7 +55,9 @@ describe('Chevron component', () => {
 
     validateDirection(fixture, cmp, 'up');
 
-    cmp.chevronClick();
+    clickChevron(el);
+
+    fixture.detectChanges();
 
     validateDirection(fixture, cmp, 'up');
   });

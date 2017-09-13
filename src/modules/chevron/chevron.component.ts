@@ -16,9 +16,7 @@ export class SkyChevronComponent {
   public disabled: boolean = false;
 
   public chevronClick() {
-    if (!this.disabled) {
-      this.direction = this.direction === 'up' ? 'down' : 'up';
-      this.directionChange.emit(this.direction);
-    }
+    this.direction = this.direction === 'up' ? 'down' : 'up';
+    this.directionChange.emit(this.direction);
   }
 }
