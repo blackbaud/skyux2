@@ -26,8 +26,4 @@ export class SkySectionedFormSectionComponent {
 
   @ViewChild(SkyVerticalTabComponent)
   public tab: SkyVerticalTabComponent;
-
-  public index() {
-    return this.tab ? this.tab.index : undefined;
-  }
 }

@@ -1,7 +1,15 @@
+import { expect } from '@blackbaud/skyux-builder/runtime/testing/browser';
 import { TestBed } from '@angular/core/testing';
 import { SkySectionedFormFixturesModule } from './fixtures/sectioned-form-fixtures.module';
 import { SkySectionedFormFixtureComponent } from './fixtures/sectioned-form.component.fixture';
-import { TestUtility } from '../testing/testutility';
+
+import {
+  SkySectionedFormNoSectionsFixtureComponent
+} from './fixtures/sectioned-form-no-sections.component.fixture';
+
+import {
+  SkySectionedFormNoActiveFixtureComponent
+} from './fixtures/sectioned-form-no-active.component.fixture';
 
 function getVisibleContent(el: any) {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
@@ -110,5 +118,59 @@ describe('Sectioned form component', () => {
     let firstTab = el.querySelectorAll('.sky-vertical-tab');
     firstTab[0].click();
     expect(cmp.sectionedForm.indexChanged.getValue()).toBe(0);
+  });
+});
+
+describe('Sectioned form component - no sections', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkySectionedFormFixturesModule
+      ]
+    });
+  });
+
+  function createTestComponent() {
+    return TestBed.createComponent(SkySectionedFormNoSectionsFixtureComponent);
+  }
+
+  it('should not fail to load when no sections exist', () => {
+    let fixture = createTestComponent();
+    let cmp = fixture.componentInstance;
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    let allTabs = el.querySelectorAll('.sky-sectioned-form-tabs');
+    expect(allTabs.length).toBe(1);
+    expect(allTabs[0].textContent.trim()).toBe('');
+  });
+});
+
+describe('Sectioned form component - no active sections', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkySectionedFormFixturesModule
+      ]
+    });
+  });
+
+  function createTestComponent() {
+    return TestBed.createComponent(SkySectionedFormNoActiveFixtureComponent);
+  }
+
+  it('should not fail to load when no active sections exist', () => {
+    let fixture = createTestComponent();
+    let cmp = fixture.componentInstance;
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    let activeSection = getActiveSection(el);
+    expect(activeSection.length).toBe(0);
+
+    let tabs = el.querySelectorAll('sky-vertical-tab');
+    expect(tabs.length).toBe(2);
   });
 });

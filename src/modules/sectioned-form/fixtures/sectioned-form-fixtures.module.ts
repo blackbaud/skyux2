@@ -5,6 +5,14 @@ import { SkySectionedFormModule } from '../';
 import { SkySectionedFormFixtureComponent } from './sectioned-form.component.fixture';
 
 import {
+  SkySectionedFormNoSectionsFixtureComponent
+} from './sectioned-form-no-sections.component.fixture';
+
+import {
+  SkySectionedFormNoActiveFixtureComponent
+} from './sectioned-form-no-active.component.fixture';
+
+import {
   SkySectionedFormFixtureInformation1Component
 } from './sectioned-form-fixture-information-1.component';
 
@@ -16,7 +24,9 @@ import {
   declarations: [
     SkySectionedFormFixtureComponent,
     SkySectionedFormFixtureInformation1Component,
-    SkySectionedFormFixtureInformation2Component
+    SkySectionedFormFixtureInformation2Component,
+    SkySectionedFormNoSectionsFixtureComponent,
+    SkySectionedFormNoActiveFixtureComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +35,9 @@ import {
   exports: [
     SkySectionedFormFixtureComponent,
     SkySectionedFormFixtureInformation1Component,
-    SkySectionedFormFixtureInformation2Component
+    SkySectionedFormFixtureInformation2Component,
+    SkySectionedFormNoSectionsFixtureComponent,
+    SkySectionedFormNoActiveFixtureComponent
   ]
 })
 export class SkySectionedFormFixturesModule { }

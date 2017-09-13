@@ -54,7 +54,7 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy {
 
   public setRequired(required: boolean) {
     if (this.sections) {
-      let section = this.sections.toArray().find(s => s.index() === this._activeIndex);
+      let section = this.sections.toArray().find(s => s.tab.index === this._activeIndex);
       if (section) {
         section.fieldRequired = required;
       }
