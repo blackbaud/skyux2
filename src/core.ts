@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
+
 import { SkyAlertModule } from './modules/alert';
 import { SkyNumericModule } from './modules/numeric';
 import { SkyAvatarModule } from './modules/avatar';
@@ -36,6 +37,7 @@ import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
 import { SkyPageSummaryModule } from './modules/page-summary';
 import { SkyPagingModule } from './modules/paging';
+import { SkyPopoverModule } from './modules/popover';
 import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkySearchModule } from './modules/search';
@@ -85,6 +87,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyNavbarModule,
     SkyPageSummaryModule,
     SkyPagingModule,
+    SkyPopoverModule,
     SkyRadioModule,
     SkyRepeaterModule,
     SkySearchModule,
@@ -107,17 +110,20 @@ export {
   SkyAlertComponent,
   SkyAlertModule
 } from './modules/alert';
+
 export {
   SkyNumericModule,
   SkyNumericPipe,
   SkyNumericService
 } from './modules/numeric';
+
 export {
   SkyAvatarComponent,
   SkyAvatarInnerComponent,
   SkyAvatarModule,
   SkyAvatarSrc
 } from './modules/avatar';
+
 export {
   SkyActionButtonComponent,
   SkyActionButtonDetailsComponent,
@@ -126,14 +132,17 @@ export {
   SkyActionButtonContainerComponent,
   SkyActionButtonModule
 } from './modules/action-button';
+
 export {
   SkyCardComponent,
   SkyCardModule
 } from './modules/card';
+
 export {
   SkyCheckboxComponent,
   SkyCheckboxModule
 } from './modules/checkbox';
+
 export {
   SkyColorpickerComponent,
   SkyColorpickerModule,
@@ -144,14 +153,15 @@ export {
   SkyColorpickerSliderDirective,
   SkyColorpickerTextDirective,
   SkyColorpickerService
-
 } from './modules/colorpicker';
+
 export {
   SkyColumnSelectorComponent,
   SkyColumnSelectorContext,
   SkyColumnSelectorModule,
   SkyColumnSelectorModel
 } from './modules/column-selector';
+
 export {
   SkyDateFormatter,
   SkyDatepickerCalendarComponent,
@@ -164,6 +174,7 @@ export {
   SkyDatepickerComponent,
   SkyDatepickerInputDirective
 } from './modules/datepicker';
+
 export {
   SkyDefinitionListComponent,
   SkyDefinitionListContentComponent,
@@ -172,16 +183,19 @@ export {
   SkyDefinitionListModule,
   SkyDefinitionListValueComponent
 } from './modules/definition-list';
+
 export {
   SkyDropdownComponent,
   SkyDropdownItemComponent,
   SkyDropdownMenuComponent,
   SkyDropdownModule
 } from './modules/dropdown';
+
 export {
   SkyEmailValidationDirective,
   SkyEmailValidationModule
 } from './modules/email-validation';
+
 export {
   SkyErrorComponent,
   SkyErrorDescriptionComponent,
@@ -191,6 +205,7 @@ export {
   SkyErrorModalService,
   ErrorModalConfig
 } from './modules/error';
+
 export {
   SkyFileAttachmentsModule,
   SkyFileDropChange,
@@ -200,6 +215,7 @@ export {
   SkyFileLink,
   SkyFileSizePipe
 } from './modules/fileattachments';
+
 export {
   SkyFilterButtonComponent,
   SkyFilterInlineComponent,
@@ -208,14 +224,17 @@ export {
   SkyFilterSummaryComponent,
   SkyFilterSummaryItemComponent
 } from './modules/filter';
+
 export {
   SkyColumnComponent,
   SkyFluidGridModule,
   SkyRowComponent
 } from './modules/fluid-grid';
+
 export {
   SkyFormat
 } from './modules/format';
+
 export {
   SkyGridCellComponent,
   SkyGridColumnComponent,
@@ -223,24 +242,29 @@ export {
   SkyGridComponent,
   SkyGridModule
 } from './modules/grid';
+
 export {
   SkyHelpInlineComponent,
   SkyHelpInlineModule
 } from './modules/help-inline';
+
 export {
   SkyKeyInfoComponent,
   SkyKeyInfoLabelComponent,
   SkyKeyInfoModule,
   SkyKeyInfoValueComponent
 } from './modules/key-info';
+
 export {
   SkyLabelComponent,
   SkyLabelModule
 } from './modules/label';
+
 export {
   SkyListColumnSelectorActionComponent,
   SkyListColumnSelectorActionModule
 } from './modules/list-column-selector-action';
+
 export {
   SkyListComponent,
   SkyListModule,
@@ -249,6 +273,7 @@ export {
   ListDataRequestModel,
   ListDataResponseModel
 } from './modules/list';
+
 export {
   ListFilterModel,
   ListFiltersUpdateAction,
@@ -287,6 +312,7 @@ export {
   ListViewsModel,
   ListViewsSetActiveAction
 } from './modules/list/state';
+
 export {
   SkyListFilterButtonComponent,
   SkyListFilterInlineComponent,
@@ -294,15 +320,18 @@ export {
   SkyListFiltersModule,
   SkyListFilterSummaryComponent
 } from './modules/list-filters';
+
 export {
   SkyListPagingComponent,
   SkyListPagingModule
 } from './modules/list-paging';
+
 export {
   SkyListSecondaryActionComponent,
   SkyListSecondaryActionsComponent,
   SkyListSecondaryActionsModule
 } from './modules/list-secondary-actions';
+
 export {
   SkyListToolbarComponent,
   SkyListToolbarItemComponent,
@@ -310,15 +339,18 @@ export {
   SkyListToolbarModule,
   SkyListToolbarSortComponent
 } from './modules/list-toolbar';
+
 export {
   SkyListViewChecklistComponent,
   SkyListViewChecklistItemComponent,
   SkyListViewChecklistModule
 } from './modules/list-view-checklist';
+
 export {
   SkyListViewGridComponent,
   SkyListViewGridModule
 } from './modules/list-view-grid';
+
 export {
   SkyModalCloseArgs,
   SkyModalComponent,
@@ -328,17 +360,20 @@ export {
   SkyModalModule,
   SkyModalService
 } from './modules/modal';
+
 export {
   SkyMediaBreakpoints,
   SkyMediaQueryListener,
   SkyMediaQueryModule,
   SkyMediaQueryService
 } from './modules/media-queries';
+
 export {
   SkyNavbarComponent,
   SkyNavbarItemComponent,
   SkyNavbarModule
 } from './modules/navbar';
+
 export {
   SkyPageSummaryAlertComponent,
   SkyPageSummaryComponent,
@@ -350,48 +385,60 @@ export {
   SkyPageSummarySubtitleComponent,
   SkyPageSummaryTitleComponent
 } from './modules/page-summary';
+
 export {
   SkyPagingComponent,
   SkyPagingModule
 } from './modules/paging';
+
+export * from './modules/popover';
+
 export {
   SkyRadioComponent,
   SkyRadioModule
 } from './modules/radio';
+
 export {
   SkyRepeaterComponent,
   SkyRepeaterItemComponent,
   SkyRepeaterModule
 } from './modules/repeater';
+
 export {
   SkySearchComponent,
   SkySearchModule
 } from './modules/search';
+
 export {
   SkySortComponent,
   SkySortItemComponent,
   SkySortModule
 } from './modules/sort';
+
 export {
   SkyTabComponent,
   SkyTabsModule,
   SkyTabsetComponent,
   SkyTabsetNavButtonComponent
 } from './modules/tabs';
+
 export {
   SkyTextExpandComponent,
   SkyTextExpandModalComponent,
   SkyTextExpandModalContext,
   SkyTextExpandModule
 } from './modules/text-expand';
+
 export {
   SkyTextExpandRepeaterComponent,
   SkyTextExpandRepeaterModule
 } from './modules/text-expand-repeater';
+
 export {
   SkyTextHighlightDirective,
   SkyTextHighlightModule
 } from './modules/text-highlight';
+
 export {
   SkyTileDashboardService,
   SkyTileContentModule,
@@ -409,16 +456,19 @@ export {
   SkyTilesModule,
   SkyTileComponent
 } from './modules/tiles';
+
 export {
   SkyTimepickerComponent,
   SkyTimepickerModule
 } from './modules/timepicker';
+
 export {
   SkyToolbarComponent,
   SkyToolbarItemComponent,
   SkyToolbarModule,
   SkyToolbarSectionComponent
 } from './modules/toolbar';
+
 export {
   SkyVerticalTabsetComponent,
   SkyVerticalTabsetGroupComponent,
@@ -432,5 +482,6 @@ export {
 } from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
-  ...SKY_MODAL_PROVIDERS, SKY_WAIT_PROVIDERS
+  ...SKY_MODAL_PROVIDERS,
+  SKY_WAIT_PROVIDERS
 ];

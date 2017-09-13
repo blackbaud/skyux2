@@ -768,6 +768,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Popover',
+        icon: 'newspaper-o',
+        // tslint:disable-next-line
+        summary: 'This component provides an HTML-formatted popover that is displayed by a trigger element.',
+        url: '/components/popover',
+        getCodeFiles: () => {
+          return [
+            {
+              name: 'popover-demo.component.html',
+              fileContents: require('!!raw-loader!./popover/popover-demo.component.html')
+            },
+            {
+              name: 'popover-demo.component.ts',
+              fileContents: require('!!raw-loader!./popover/popover-demo.component.ts'),
+              componentName: 'SkyPopoverDemoComponent',
+              bootstrapSelector: 'sky-popover-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Radio button',
         icon: 'circle-o',
         // tslint:disable-next-line
