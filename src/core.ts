@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
+
 import { SkyAlertModule } from './modules/alert';
 import { SkyNumericModule } from './modules/numeric';
 import { SkyAvatarModule } from './modules/avatar';
