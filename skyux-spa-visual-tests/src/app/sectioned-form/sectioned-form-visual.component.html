@@ -1,0 +1,23 @@
+<sky-modal>
+  <sky-modal-header>
+      Tab sectioned modal
+  </sky-modal-header>
+  <sky-modal-content>
+    <sky-sectioned-form>
+      <sky-sectioned-form-section heading="Basic information">
+        <sky-demo-information-form >
+        </sky-demo-information-form>
+      </sky-sectioned-form-section>
+      <sky-sectioned-form-section heading="Addresses" itemCount="2" [active]="activeTab">
+        <sky-demo-address-form></sky-demo-address-form>
+      </sky-sectioned-form-section>
+      <sky-sectioned-form-section heading="Phone numbers" itemCount="3">
+        <sky-demo-phone-form></sky-demo-phone-form>
+      </sky-sectioned-form-section>
+    </sky-sectioned-form>
+  </sky-modal-content>
+  <sky-modal-footer>
+    Save
+  </sky-modal-footer>
+  </sky-modal>
+  
