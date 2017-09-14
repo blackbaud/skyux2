@@ -148,14 +148,16 @@ export class SkyVerticalTabsetComponent implements OnInit, OnDestroy {
   }
 
   public tabClicked = () => {
-    if (this.isMobile()) {
-      this._tabsVisible = false;
-      this.changeRef.detectChanges();
-    }
-
     // active tab changed
-    this.activeChange.emit(this.tabService.activeIndex);
-    this.moveActiveTabContent();
+    if (this.tabService.activeIndex >= 0) {
+      if (this.isMobile()) {
+        this._tabsVisible = false;
+        this.changeRef.detectChanges();
+      }
+
+      this.activeChange.emit(this.tabService.activeIndex);
+      this.moveActiveTabContent();
+    }
   }
 
   public moveActiveTabContent() {
