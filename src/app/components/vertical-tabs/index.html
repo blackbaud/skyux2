@@ -1,4 +1,4 @@
-<sky-demo-page title="Vertical tabs">
+<sky-demo-page pageTitle="Vertical tabs">
   <sky-demo-page-summary>
     <p>
       The vertical tabs module contains components to render a vertical tabset.
@@ -10,7 +10,7 @@
         propertyName="showTabsText"
         isOptional="true"
     >
-      Specifies the text to use for the show tabs button in mobile.
+      Specifies the text to display on the show tabs button on mobile devices.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -19,12 +19,12 @@
         propertyName="active"
         isOptional="true"
     >
-      Indicates whether or not the tab is active on load
+      Indicates whether the tab is active when the tabset loads.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="tabHeading"
     >
-      The text of the button that selects the tab.
+      Specifies the tab header.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="tabHeaderCount"
@@ -36,7 +36,7 @@
       propertyName="disabled"
       isOptional="true"
     >
-    Determines whether the tab is disabled.
+    Indicates whether to disable the tab.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -45,19 +45,19 @@
     <sky-demo-page-property
         propertyName="groupHeading"
     >
-      Specifies the text to use in the heading of the collapsible group of tabs.
+      Specifies the header for the collapsible group of tabs.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="disabled"
         isOptional="true"
     >
-      Boolean value that can be set to disabled expanding and collapsing a collapsible group.
+      Indicates whether to disable the ability to open and collapse the collapsible group.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="open"
         isOptional="true"
     >
-      Boolean value indicating if the collapsible group is open.
+      Indicates whether the collapsible group is open.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -65,7 +65,7 @@
     <sky-demo-page-property
       propertyName="activeChange"
     >
-      Fires when the active tab changes. Emits the index of the active tab.
+      Fires when the active tab changes. Emits the index of the active tab. The index is based on the tab's position when it loads.
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
