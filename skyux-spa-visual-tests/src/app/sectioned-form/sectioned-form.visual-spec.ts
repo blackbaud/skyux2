@@ -1,15 +1,11 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
-import { element, by, browser } from 'protractor';
+import { element, by } from 'protractor';
 
 describe('Sectioned form', () => {
-  it('should match previous sectioned form screenshot', () => {
-    browser.sleep(8000);
 
+  it('should match previous sectioned form screenshot', () => {
     return SkyVisualTest.setupTest('sectioned-form')
     .then(() => {
-
-      browser.sleep(8000);
-
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'sectioned-form',
         selector: '#screenshot-sectioned-form'
@@ -17,17 +13,14 @@ describe('Sectioned form', () => {
     });
   });
 
-  it('should switch to first tab on click', () => {
+  it('should match previous sectioned form screenshot after clicking first tab', () => {
     return SkyVisualTest.setupTest('sectioned-form')
     .then(() => {
 
       let tabs = element.all(by.css('sky-vertical-tab'));
-      browser.wait(function() { return browser.isElementPresent(tabs); }, 8000);
 
       // click first tab
-      tabs[0].click();
-
-      browser.sleep(1000);
+      tabs.get(0).click();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'sectioned-form-first',
@@ -36,17 +29,14 @@ describe('Sectioned form', () => {
     });
   });
 
-  it('should switch to second tab on click', () => {
+  it('should match previous sectioned form screenshot after clicking second tab', () => {
     return SkyVisualTest.setupTest('sectioned-form')
     .then(() => {
 
       let tabs = element.all(by.css('sky-vertical-tab'));
-      browser.wait(function() { return browser.isElementPresent(tabs); }, 8000);
 
-      // click first tab
-      tabs[0].click();
-
-      browser.sleep(1000);
+      // click second tab
+      tabs.get(1).click();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'sectioned-form-second',
