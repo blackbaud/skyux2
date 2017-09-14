@@ -4,6 +4,10 @@ import { SkyVerticalTabsetComponent } from '../vertical-tabset/vertical-tabset.c
 import { VerticalTabsetTestComponent } from './fixtures/vertical-tabset.component.fixture';
 
 import {
+  VerticalTabsetNoActiveTestComponent
+} from './fixtures/vertical-tabset-no-active.component.fixture';
+
+import {
   VerticalTabsetEmptyGroupTestComponent
 } from './fixtures/vertical-tabset-empty-group.component';
 
@@ -405,5 +409,25 @@ describe('Vertical tabset component', () => {
 
     const visibleTabs = getVisibleVerticalTabs(el);
     expect(visibleTabs.length).toBe(0);
+  });
+});
+
+// test tab group with no active tabs
+describe('Vertical tabset no active tabs', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyVerticalTabsFixturesModule
+      ]
+    });
+  });
+
+  it('should not fail when trying to move active content when no tabs are active', () => {
+    let fixture = TestBed.createComponent(VerticalTabsetNoActiveTestComponent);
+
+    fixture.detectChanges();
+
+    // move content should not fail
+    fixture.componentInstance.tabset.moveActiveTabContent();
   });
 });
