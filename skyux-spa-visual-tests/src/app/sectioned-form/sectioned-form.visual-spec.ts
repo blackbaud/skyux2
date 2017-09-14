@@ -11,3 +11,6 @@ describe('Sectioned form', () => {
     });
   });
 });
+
+// switch to first tab
+// switch to second tab
