@@ -1,4 +1,4 @@
-# 2.0.0-rc.13 (2017-09-14)
+# 2.0.0 (2017-09-14)
 
 - Added Vertical Tabs Component. ([#1004](https://github.com/blackbaud/skyux2/pull/1004)) (Thanks @Blackbaud-AdamHickey)
 - Added Popover Component. ([#1020](https://github.com/blackbaud/skyux2/pull/1020))
