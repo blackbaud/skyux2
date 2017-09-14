@@ -20,6 +20,7 @@ import {
 
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyResourcesService } from './../resources/resources.service';
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
@@ -100,7 +101,7 @@ export class SkyVerticalTabsetComponent implements OnInit, OnDestroy {
     this.changeRef.markForCheck();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
     this._mediaSubscription.unsubscribe();

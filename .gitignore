@@ -63,8 +63,8 @@ yarn.lock
 # Allows for quick local testing #
 *.env
 
-/.srctemp
-/.skypagestmp
+.srctemp
+.skypagestmp
 webdriver-screenshotslocal*
 browserstack.err
 
