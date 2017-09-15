@@ -4,7 +4,7 @@
     padding: 0 $sky-padding;
     margin-bottom: $sky-margin-double;
     border-left: solid 30px;
-    border-radius: 3px;
+    border-radius: $sky-border-radius;
     color: $sky-text-color-default;
     display: flex;
     flex-direction: row;

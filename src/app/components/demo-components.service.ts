@@ -768,6 +768,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Popover',
+        icon: 'newspaper-o',
+        // tslint:disable-next-line
+        summary: 'This component provides an HTML-formatted popover that is displayed by a trigger element.',
+        url: '/components/popover',
+        getCodeFiles: () => {
+          return [
+            {
+              name: 'popover-demo.component.html',
+              fileContents: require('!!raw-loader!./popover/popover-demo.component.html')
+            },
+            {
+              name: 'popover-demo.component.ts',
+              fileContents: require('!!raw-loader!./popover/popover-demo.component.ts'),
+              componentName: 'SkyPopoverDemoComponent',
+              bootstrapSelector: 'sky-popover-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Radio button',
         icon: 'circle-o',
         // tslint:disable-next-line
@@ -969,6 +990,27 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./toolbar/toolbar-demo.component.ts'),
               componentName: 'SkyToolbarDemoComponent',
               bootstrapSelector: 'sky-toolbar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Vertical tabs',
+        icon: 'folder-open-o',
+        summary: `The vertical tabs module contains components to render a vertical tabset.`,
+        url: '/components/vertical-tabs',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'vertical-tabs-demo.component.html',
+              // tslint:disable-next-line:max-line-length
+              fileContents: require('!!raw-loader!./vertical-tabs/vertical-tabs-demo.component.html')
+            },
+            {
+              name: 'vertical-tabs-demo.component.ts',
+              fileContents: require('!!raw-loader!./vertical-tabs/vertical-tabs-demo.component.ts'),
+              componentName: 'SkyVerticalTabsDemoComponent',
+              bootstrapSelector: 'sky-vertical-tabs-demo'
             }
           ];
         }
