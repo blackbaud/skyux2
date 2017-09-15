@@ -27,3 +27,13 @@
   text-align: right;
   margin-bottom: 15px;
 }
+
+// This can be removed after the next Stache2 release:
+// https://github.com/blackbaud/stache2/pull/314
+/deep/
+.stache-table-of-contents {
+  .stache-nav-list {
+    list-style-type: decimal !important;
+    margin-left: 15px !important;
+  }
+}

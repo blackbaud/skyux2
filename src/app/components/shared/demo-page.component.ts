@@ -48,26 +48,30 @@ export class SkyDemoPageComponent implements OnInit, AfterContentInit {
     this.propertiesComponents.map((component: any) => {
       this.tableOfContentsRoutes.push({
         name: component.sectionHeading,
-        fragment: this.getFragment(component.sectionHeading)
+        fragment: this.getFragment(component.sectionHeading),
+        path: ''
       });
     });
 
     this.exampleComponents.map((component: any) => {
       this.tableOfContentsRoutes.push({
         name: 'Demo',
-        fragment: 'demo'
+        fragment: 'demo',
+        path: ''
       });
     });
 
     this.tableOfContentsRoutes.push({
       name: 'Code',
-      fragment: 'code'
+      fragment: 'code',
+      path: ''
     });
 
     this.contentComponents.map((component: any) => {
       this.tableOfContentsRoutes.push({
         name: component.sectionHeading,
-        fragment: this.getFragment(component.sectionHeading)
+        fragment: this.getFragment(component.sectionHeading),
+        path: ''
       });
     });
   }
