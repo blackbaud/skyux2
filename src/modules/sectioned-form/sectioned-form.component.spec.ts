@@ -148,7 +148,11 @@ describe('Sectioned form component', () => {
 
     let firstTab = el.querySelectorAll('.sky-vertical-tab');
     firstTab[0].click();
-    expect(cmp.sectionedForm.indexChanged.getValue()).toBe(0);
+
+    fixture.detectChanges();
+
+    let activeIndexEl = el.querySelector('#activeIndexDiv');
+    expect(activeIndexEl.textContent.trim()).toBe('active index = 0');
   });
 });
 
