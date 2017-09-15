@@ -10,7 +10,6 @@ import {
   Output
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { SkyVerticalTabsetService } from './../vertical-tabset/vertical-tabset.service';
 import { SkySectionedFormSectionComponent } from './sectioned-form-section.component';

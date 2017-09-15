@@ -141,7 +141,6 @@ describe('Sectioned form component', () => {
 
   it('active index should be raised when tab changed', () => {
     let fixture = createTestComponent();
-    let cmp = fixture.componentInstance;
     let el = fixture.nativeElement;
 
     fixture.detectChanges();

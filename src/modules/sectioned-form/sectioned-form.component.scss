@@ -1,6 +1,6 @@
 @import "../../scss/mixins";
 
-.sky-sectioned-form-container {
+.sky-sectioned-form {
   display: flex;
   margin: -15px;
   height: 460px;
@@ -11,8 +11,8 @@
   @include sky-border(light, right);
 }
 
-.sky-sectioned-content {
-  padding: 15px;
+.sky-sectioned-form-content {
+  padding: $sky-padding-plus-half;
   flex-basis: 70%;
 }
 
