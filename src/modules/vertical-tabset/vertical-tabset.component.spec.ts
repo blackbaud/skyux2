@@ -441,11 +441,11 @@ describe('Vertical tabset component - no groups', () => {
 
     fixture.detectChanges();
 
-    let indexChangeEl = el.querySlector('.vertical-tabset-test-indexchange');
+    let indexChangeEl = el.querySelector('.vertical-tabset-test-indexchange');
     expect(indexChangeEl.textContent.trim()).toBe('current index = 1');
 
     // open first tab
-    let tabs = el.querySelectorAll('sky-vertical-tab');
+    let tabs = el.querySelectorAll('.sky-vertical-tab');
     tabs[0].click();
 
     fixture.detectChanges();
