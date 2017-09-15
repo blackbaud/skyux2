@@ -255,3 +255,9 @@
     }
   }
 }
+
+@mixin sky-required-field {
+  content: "*";
+  color: $sky-highlight-color-danger;
+  padding-left: $sky-padding-half;
+}

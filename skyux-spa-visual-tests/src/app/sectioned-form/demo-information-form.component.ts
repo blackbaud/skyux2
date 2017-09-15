@@ -19,15 +19,15 @@ export class SkyDemoInformationFormComponent {
 
   public set nameRequired(value: boolean) {
     this._nameRequired = value;
-    this.EmitRequiredChange();
+    this.emitRequiredChange();
   }
 
   public nameChange(newName: string) {
     this.name = newName;
-    this.EmitRequiredChange();
+    this.emitRequiredChange();
   }
 
-  public EmitRequiredChange() {
+  private emitRequiredChange() {
     if (this.nameRequired && !this.name) {
       this.requiredChange.emit(true);
     } else {

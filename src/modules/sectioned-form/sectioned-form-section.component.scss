@@ -1,7 +1,5 @@
 @import "../../scss/mixins";
 
 :host .sky-tab-field-required /deep/ .sky-vertical-tab:after {
-  content: "*";
-  color: $sky-highlight-color-danger;
-  padding-left: $sky-padding-half;
+  @include sky-required-field;
 }
