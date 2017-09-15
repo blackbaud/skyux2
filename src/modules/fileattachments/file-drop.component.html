@@ -1,7 +1,6 @@
 <div class="sky-file-drop-row" [ngClass]="{'sky-file-drop-allow-links': allowLinks}">
     <div class="sky-file-drop-col">
-      <button
-        type="button"
+      <div
         class="sky-file-drop sky-file-drop-target"
         (click)="dropClicked()"
         (dragover)="fileDragOver($event)"
@@ -48,7 +47,7 @@
           <div class="sky-file-drop-contents-custom" #customEl>
             <ng-content></ng-content>
           </div>
-      </button>
+      </div>
     </div>
     <div class="sky-file-drop-col" *ngIf="allowLinks">
         <div class="sky-file-drop-contents">
