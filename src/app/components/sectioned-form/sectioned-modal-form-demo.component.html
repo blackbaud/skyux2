@@ -3,7 +3,7 @@
       Tab sectioned modal - Index: {{ activeIndexDisplay }}
   </sky-modal-header>
   <sky-modal-content>
-    <sky-sectioned-form>
+    <sky-sectioned-form (indexChanged)="updateIndex($event)">
       <sky-sectioned-form-section heading="Basic information">
         <sky-demo-information-form 
           (requiredChange)="requiredChange($event)"

@@ -5,7 +5,9 @@ import {
   ElementRef,
   ViewChild,
   ContentChildren,
-  QueryList
+  QueryList,
+  EventEmitter,
+  Output
 } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -21,7 +23,8 @@ import { SkySectionedFormSectionComponent } from './sectioned-form-section.compo
 })
 export class SkySectionedFormComponent implements OnInit, OnDestroy {
 
-  public indexChanged = new BehaviorSubject(0);
+  @Output()
+  public indexChanged: EventEmitter<number> = new EventEmitter();
 
   @ViewChild('skySectionSideContent')
   public content: ElementRef;
@@ -40,7 +43,7 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy {
       .subscribe(activeIndex => {
         if (activeIndex >= 0) {
           this._activeIndex = activeIndex;
-          this.indexChanged.next(activeIndex);
+          this.indexChanged.emit(activeIndex);
         }
       });
 
