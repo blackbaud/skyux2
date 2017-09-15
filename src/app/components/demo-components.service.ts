@@ -855,7 +855,7 @@ export class SkyDemoComponentsService {
         name: 'Sectioned form',
         icon: 'object-group',
         // tslint:disable-next-line
-        summary: `A sectioned form combines multiple forms while allowing users to target specific independent areas.`,
+        summary: `A sectioned form combines multiple forms and allows users to target specific, independent areas.`,
         url: '/components/sectioned-form',
         getCodeFiles: function () {
           return [
