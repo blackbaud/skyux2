@@ -1,7 +1,17 @@
 <div class="sky-sectioned-form">
-  <div class="sky-sectioned-form-tabs">
+  <div 
+    *ngIf="tabsVisible()"
+    class="sky-sectioned-form-tabs"
+    [@tabEnter]="animationVisibleState"
+  >
     <ng-content></ng-content>
   </div>
-  <div #skySectionSideContent class="sky-sectioned-form-content"></div>
+  <div 
+    #skySectionSideContent 
+    *ngIf="contentVisible()"
+    class="sky-sectioned-form-content"
+    [@contentEnter]="animationVisibleState"
+  >
+  </div>
 </div>
 

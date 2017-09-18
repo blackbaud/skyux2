@@ -1,17 +1,23 @@
 @import "../../scss/mixins";
 
 .sky-sectioned-form {
-  display: flex;
-  margin: -15px;
   height: 460px;
 }
 
-.sky-sectioned-form-tabs {
-  flex-basis: 30%;
-  @include sky-border(light, right);
+@media (min-width: $sky-screen-sm-min) {
+  .sky-sectioned-form {
+    display: flex;
+    margin: -15px;
+  }
+
+  .sky-sectioned-form-tabs {
+    flex-basis: 30%;
+    @include sky-border(light, right);
+  }
+
+  .sky-sectioned-form-content {
+    padding: $sky-padding-plus-half;
+    flex-basis: 70%;
+  }
 }
 
-.sky-sectioned-form-content {
-  padding: $sky-padding-plus-half;
-  flex-basis: 70%;
-}

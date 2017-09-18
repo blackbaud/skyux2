@@ -21,6 +21,14 @@
   <sky-modal-footer>
     <button
       type="button"
+      *ngIf="tabsHidden()"
+      class="sky-btn sky-btn-secondary"
+      (click)="showTabs()"
+    >
+      Show sections
+    </button>
+    <button
+      type="button"
       class="sky-btn sky-btn-primary"
       (click)="instance.save('Something cool')"
     >
