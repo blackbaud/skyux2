@@ -19,3 +19,16 @@
     </sky-vertical-tab>
   </sky-vertical-tabset-group>
 </sky-vertical-tabset>
+
+<h3>Without groups</h3>
+<sky-vertical-tabset (activeChange)="tabChanged($event)">
+  <sky-vertical-tab tabHeading="tab 1">
+    Tab 1 content
+  </sky-vertical-tab>
+  <sky-vertical-tab tabHeading="tab 2" active="true">
+    Tab 2 content
+  </sky-vertical-tab>
+  <sky-vertical-tab tabHeading="tab 3">
+    Tab 3 content
+  </sky-vertical-tab>
+</sky-vertical-tabset>
