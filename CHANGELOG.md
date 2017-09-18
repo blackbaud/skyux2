@@ -1,3 +1,10 @@
+# 2.0.1 (2017-09-18)
+
+- Added support for Tile components within Modals. ([#1039](https://github.com/blackbaud/skyux2/pull/1039)) (Thanks @Blackbaud-TomRamsey)
+- Added support for SKY UX Builder `1.0.0-rc.19`. ([#1066](https://github.com/blackbaud/skyux2/pull/1066))
+- Fixed bug with Vertical Tabset component when not using tab groups. ([#1076](https://github.com/blackbaud/skyux2/pull/1076))
+- Fixed bug with Tile component styles on smaller screens. ([#1067](https://github.com/blackbaud/skyux2/pull/1067))
+
 # 2.0.0 (2017-09-14)
 
 - Added Vertical Tabs Component. ([#1004](https://github.com/blackbaud/skyux2/pull/1004)) (Thanks @Blackbaud-AdamHickey)
