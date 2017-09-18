@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { SkyVerticalTabsetModule } from '../';
 import { VerticalTabsetTestComponent } from './vertical-tabset.component.fixture';
 import { VerticalTabsetEmptyGroupTestComponent } from './vertical-tabset-empty-group.component';
+import { VerticalTabsetNoGroupTestComponent } from './vertical-tabset-no-group.component.fixture';
 
 @NgModule({
   declarations: [
     VerticalTabsetTestComponent,
-    VerticalTabsetEmptyGroupTestComponent
+    VerticalTabsetEmptyGroupTestComponent,
+    VerticalTabsetNoGroupTestComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { VerticalTabsetEmptyGroupTestComponent } from './vertical-tabset-empty-g
   ],
   exports: [
     VerticalTabsetTestComponent,
-    VerticalTabsetEmptyGroupTestComponent
+    VerticalTabsetEmptyGroupTestComponent,
+    VerticalTabsetNoGroupTestComponent
   ]
 })
 export class SkyVerticalTabsFixturesModule { }
