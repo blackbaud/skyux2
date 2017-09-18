@@ -86,4 +86,14 @@ describe('Vertical tabSet', () => {
       });
     });
   });
+
+  it('should match previous vertical tabset screenshot without groups', () => {
+    return SkyVisualTest.setupTest('vertical-tabs')
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'vertical-tabset-no-groups',
+        selector: '#screenshot-vertical-tabs-no-groups'
+      });
+    });
+  });
 });
