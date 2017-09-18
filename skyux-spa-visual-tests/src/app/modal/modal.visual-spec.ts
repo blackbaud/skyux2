@@ -141,6 +141,20 @@ describe('Modal', () => {
           element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
       });
+  });
 
+  it('should match previous tiled modal screenshot', () => {
+    return SkyVisualTest.setupTest('modal', 800)
+      .then(() => {
+        element(by.css('.sky-test-tiled-modal')).click();
+        SkyVisualTest.moveCursorOffScreen();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'modal_tiled',
+          selector: '.sky-modal',
+          checkAccessibility: true
+        }).then(() => {
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
+        });
+      });
   });
 });
