@@ -2,12 +2,16 @@
 
 .sky-sectioned-form {
   height: 460px;
+  margin: -$sky-margin-plus-half;
+}
+
+.sky-sectioned-form-content {
+  padding: $sky-padding-plus-half;
 }
 
 @media (min-width: $sky-screen-sm-min) {
   .sky-sectioned-form {
     display: flex;
-    margin: -15px;
   }
 
   .sky-sectioned-form-tabs {
@@ -16,7 +20,6 @@
   }
 
   .sky-sectioned-form-content {
-    padding: $sky-padding-plus-half;
     flex-basis: 70%;
   }
 }

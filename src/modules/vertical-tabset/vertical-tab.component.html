@@ -9,12 +9,22 @@
   [tabIndex]="tabIndex()"
   [attr.aria-selected]="active"
 >
-  <div class="sky-vertical-tab-heading">{{ tabHeading }}</div>
-  <span 
-    class="sky-vertical-tab-count"
-    *ngIf="tabHeaderCount || tabHeaderCount === 0">
-    ({{ tabHeaderCount }})
-  </span>
+  <div class="sky-vertical-tab-display">
+    <div class="sky-vertical-tab-heading">
+      {{ tabHeading }}
+      <span 
+        class="sky-vertical-tab-count"
+        *ngIf="tabHeaderCount || tabHeaderCount === 0">
+        ({{ tabHeaderCount }})
+      </span>
+    </div>
+
+    <i 
+      *ngIf="showTabRightArrow"
+      class="fa fa-chevron-right sky-vertical-tab-right-arrow"
+    >
+    </i>
+  </div>
 </a>
 
 <div #tabContentWrapper>

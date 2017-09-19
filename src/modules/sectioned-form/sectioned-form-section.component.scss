@@ -1,5 +1,5 @@
 @import "../../scss/mixins";
 
-:host .sky-tab-field-required /deep/ .sky-vertical-tab:after {
+:host .sky-tab-field-required /deep/ .sky-vertical-tab-heading:after {
   @include sky-required-field;
 }

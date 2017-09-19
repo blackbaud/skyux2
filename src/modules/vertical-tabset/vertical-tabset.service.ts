@@ -18,7 +18,7 @@ export class SkyVerticalTabsetService {
   public showingTabs = new BehaviorSubject(false);
   public tabAdded: BehaviorSubject<SkyVerticalTabComponent> = new BehaviorSubject(undefined);
   public indexChanged: EventEmitter<number> = new EventEmitter();
-  public contentUpdated: EventEmitter<boolean> = new EventEmitter();
+  public switchingMobile: EventEmitter<boolean> = new EventEmitter();
 
   public animationVisibleState: string;
 
@@ -27,8 +27,10 @@ export class SkyVerticalTabsetService {
   public set content(value: ElementRef) {
     this._content = value;
   }
+
   private _tabsVisible: boolean = false;
   private _contentAdded: boolean = false;
+  private _isWidescreen: boolean = false;
 
   public constructor(private mediaQueryService: SkyMediaQueryService) {}
 
@@ -82,18 +84,28 @@ export class SkyVerticalTabsetService {
   }
 
   public updateContent() {
-    if (!this.isMobile() && !this._contentAdded) {
-      // switching to widescreen
+
+    if (!this._contentAdded && this.contentVisible()) {
+      // content needs to be moved
       this.moveContent();
 
     } else if (this._contentAdded && !this.contentVisible()) {
-      // switching to mobile
+      // content hidden
       this._contentAdded = false;
-
-    } else if (this.contentVisible() && !this._contentAdded) {
-      // content needs to be moved
-      this.moveContent();
     }
+
+    const mobile = this.isMobile();
+
+    if (mobile && this._isWidescreen) {
+      // switching to mobile
+      this.switchingMobile.emit(true);
+
+    } else if (!mobile && !this._isWidescreen) {
+      // switching to widescreen
+      this.switchingMobile.emit(false);
+    }
+
+    this._isWidescreen = !mobile;
   }
 
   public tabsVisible() {
@@ -117,7 +129,6 @@ export class SkyVerticalTabsetService {
       if (activeContent && activeContent.nativeElement) {
         this._content.nativeElement.appendChild(activeContent.nativeElement);
         this._contentAdded = true;
-        this.contentUpdated.emit(true);
       }
     }
   }
