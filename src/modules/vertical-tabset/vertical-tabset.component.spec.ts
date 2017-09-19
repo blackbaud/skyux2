@@ -3,9 +3,9 @@ import { SkyVerticalTabsFixturesModule } from './fixtures/vertical-tabs-fixtures
 import { SkyVerticalTabsetComponent } from '../vertical-tabset/vertical-tabset.component';
 import { VerticalTabsetTestComponent } from './fixtures/vertical-tabset.component.fixture';
 
-// import {
-//   VerticalTabsetNoActiveTestComponent
-// } from './fixtures/vertical-tabset-no-active.component.fixture';
+import {
+  VerticalTabsetNoActiveTestComponent
+} from './fixtures/vertical-tabset-no-active.component.fixture';
 
 import {
   VerticalTabsetEmptyGroupTestComponent
@@ -463,21 +463,21 @@ describe('Vertical tabset component - no groups', () => {
   });
 });
 
-// describe('Vertical tabset no active tabs', () => {
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       imports: [
-//         SkyVerticalTabsFixturesModule
-//       ]
-//     });
-//   });
+describe('Vertical tabset no active tabs', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyVerticalTabsFixturesModule
+      ]
+    });
+  });
 
-//   it('should not fail when trying to move active content when no tabs are active', () => {
-//     let fixture = TestBed.createComponent(VerticalTabsetNoActiveTestComponent);
+  it('should not fail when trying to move active content when no tabs are active', () => {
+    let fixture = TestBed.createComponent(VerticalTabsetNoActiveTestComponent);
 
-//     fixture.detectChanges();
+    fixture.detectChanges();
 
-//     // move content should not fail
-//     fixture.componentInstance.tabset.moveActiveTabContent();
-//   });
-// });
+    // move content should not fail
+    fixture.componentInstance.tabset.tabService.updateContent();
+  });
+});
