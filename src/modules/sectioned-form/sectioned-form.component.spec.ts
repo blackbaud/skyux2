@@ -42,8 +42,8 @@ describe('Sectioned form component', () => {
     let activeSection = getActiveSection(el);
     expect(activeSection.length).toBe(1);
 
-    let heading = activeSection[0].querySelector('.sky-vertical-tab-heading');
-    expect(heading.textContent.trim()).toBe('Information 2');
+    let heading = activeSection[0].querySelector('.sky-vertical-tab-heading-value');
+    expect(heading.textContent.trim()).toBe('Information 1a');
 
     let count = activeSection[0].querySelector('.sky-vertical-tab-count');
     expect(count.textContent.trim()).toBe('(2)');

@@ -84,7 +84,6 @@ export class SkyVerticalTabsetService {
   }
 
   public updateContent() {
-
     if (!this._contentAdded && this.contentVisible()) {
       // content needs to be moved
       this.moveContent();

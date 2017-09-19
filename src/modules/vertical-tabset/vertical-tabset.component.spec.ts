@@ -234,9 +234,9 @@ describe('Vertical tabset component', () => {
 
     fixture.detectChanges();
 
-    // switch to mobile
-    mockQueryService.fire(SkyMediaBreakpoints.xs);
-
+    // simulate screensize change switching to mobile
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    fixture.componentInstance.tabset.tabService.updateContent();
     fixture.detectChanges();
 
     // check tabs are not visible
@@ -260,9 +260,9 @@ describe('Vertical tabset component', () => {
 
     fixture.detectChanges();
 
-    // switch to widescreen
-    mockQueryService.fire(SkyMediaBreakpoints.lg);
-
+    // simulate screensize change switching to widescreen
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.componentInstance.tabset.tabService.updateContent();
     fixture.detectChanges();
 
     // check tabs are visible

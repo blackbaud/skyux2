@@ -79,8 +79,15 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
 
   public ngOnInit() {
     this.tabService.indexChanged
-    .takeUntil(this._ngUnsubscribe)
-    .subscribe(index => this.changeRef.markForCheck());
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(index => {
+        this.activeChange.emit(index);
+        this.changeRef.markForCheck();
+      });
+
+    this.tabService.switchingMobile
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe((mobile: boolean) => this.changeRef.detectChanges());
 
     if (this.tabService.isMobile()) {
       this.tabService.animationVisibleState = VISIBLE_STATE;
