@@ -2,7 +2,7 @@ import { async } from '@angular/core/testing/';
 import { LinkRecordsStateDispatcher, LinkRecordsStateModel, LinkRecordsState } from './state';
 import { LinkRecordsApi } from './link-records-api';
 import { LinkRecordsMatchesLoadAction } from './state/matches/actions';
-import { STATUSES } from './link-records-statuses';
+import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
 describe('Injectable: Link Records API ', () => {
   let linkRecordApi: LinkRecordsApi, dispatcher: LinkRecordsStateDispatcher,
@@ -30,7 +30,7 @@ describe('Injectable: Link Records API ', () => {
 
     let matches = [{
       key: expectedKey,
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: oldItem
     }];
 
@@ -39,7 +39,7 @@ describe('Injectable: Link Records API ', () => {
     linkRecordApi.addSelectedItem(expectedKey, newItem);
 
     state.take(1).subscribe(s => {
-      expect(s.matches.items[0].status).toEqual(STATUSES.Selected);
+      expect(s.matches.items[0].status).toEqual(SKY_LINK_RECORDS_STATUSES.Selected);
       expect(s.matches.items[0].item).toEqual(newItem);
     });
   }));
@@ -56,7 +56,7 @@ describe('Injectable: Link Records API ', () => {
     let matches = [
       {
         key: expectedKey,
-        status: STATUSES.Created,
+        status: SKY_LINK_RECORDS_STATUSES.Created,
         item: oldItem
       }
     ];
@@ -81,7 +81,7 @@ describe('Injectable: Link Records API ', () => {
     let matches = [
       {
         key: expectedKey,
-        status: STATUSES.Created,
+        status: SKY_LINK_RECORDS_STATUSES.Created,
         item: oldItem
       }
     ];
@@ -91,7 +91,7 @@ describe('Injectable: Link Records API ', () => {
     linkRecordApi.removeSelectedItem(expectedKey);
 
     state.take(1).subscribe(s => {
-      expect(s.matches.items[0].status).toEqual(STATUSES.NoMatch);
+      expect(s.matches.items[0].status).toEqual(SKY_LINK_RECORDS_STATUSES.NoMatch);
       expect(s.matches.items[0].item).toEqual(undefined);
     });
   }));

@@ -15,7 +15,7 @@ import {
 } from './state/matches/actions';
 import { LinkRecordsFieldsClearFieldsAction } from './state/fields/actions';
 import { LinkRecordsSelectedClearSelectedAction } from './state/selected/actions';
-import { STATUSES } from './link-records-statuses';
+import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 import { LinkRecordsItemModel } from './link-records-item.model';
 import {
   SkyLinkRecordsItemDiffComponent
@@ -28,7 +28,7 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyLinkRecordsItemComponent implements AfterContentInit {
-  public STATUSES = STATUSES;
+  public STATUSES = SKY_LINK_RECORDS_STATUSES;
   @Input() public record: LinkRecordsItemModel;
   @Input() public itemTemplate: TemplateRef<any>;
   @Input() public matchTemplate: TemplateRef<any>;
@@ -46,7 +46,7 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
   ) {}
 
   public ngAfterContentInit() {
-    if (this.record.status === STATUSES.Edit &&
+    if (this.record.status === this.STATUSES.Edit &&
       (!this.record.matchFields || this.record.matchFields.length === 0)) {
       this.link();
     }
@@ -60,31 +60,37 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
   }
 
   public link() {
-    this.dispatcher.next(new LinkRecordsMatchesSetStatusAction(this.record.key, STATUSES.Linked));
+    this.dispatcher.next(
+      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Linked)
+    );
   }
 
   public unlink() {
-    this.dispatcher.next(new LinkRecordsMatchesSetStatusAction(this.record.key, STATUSES.NoMatch));
+    this.dispatcher.next(
+      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.NoMatch)
+    );
     this.dispatcher.next(new LinkRecordsMatchesSetItemAction(this.record.key, undefined));
     this.dispatcher.next(new LinkRecordsSelectedClearSelectedAction(this.record.key));
     this.dispatcher.next(new LinkRecordsFieldsClearFieldsAction(this.record.key));
   }
 
   public create() {
-    this.dispatcher.next(new LinkRecordsMatchesSetStatusAction(this.record.key, STATUSES.Created));
+    this.dispatcher.next(
+      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Created)
+    );
     this.dispatcher.next(new LinkRecordsMatchesSetItemAction(this.record.key, this.record.item));
   }
 
   public edit() {
     let status = (this.record.matchFields && this.record.matchFields.length > 0) ?
-      STATUSES.Edit : STATUSES.Linked;
+      this.STATUSES.Edit : this.STATUSES.Linked;
 
     this.dispatcher.next(new LinkRecordsMatchesSetStatusAction(this.record.key, status));
   }
 
   public cancelEdit() {
     this.dispatcher.next(
-      new LinkRecordsMatchesSetStatusAction(this.record.key, STATUSES.Suggested));
+      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Suggested));
     this.dispatcher.next(new LinkRecordsSelectedClearSelectedAction(this.record.key));
     this.dispatcher.next(new LinkRecordsFieldsClearFieldsAction(this.record.key));
   }

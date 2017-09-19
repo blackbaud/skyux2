@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { SkyWindowRefService } from '../../../modules/window';
 import {
-  STATUSES,
+  SKY_LINK_RECORDS_STATUSES,
   SkyLinkRecordsComponent,
   LinkRecordsMatchModel
 } from '../../../modules/link-records';
@@ -33,7 +33,7 @@ export class SkyLinkRecordsDemoComponent {
   public matches: Observable<Array<LinkRecordsMatchModel>> = Observable.of([
     new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     }),
     new LinkRecordsMatchModel({
@@ -43,27 +43,27 @@ export class SkyLinkRecordsDemoComponent {
     }),
     new LinkRecordsMatchModel({
       key: '3',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: undefined
     }),
     new LinkRecordsMatchModel({
       key: '5',
-      status: STATUSES.Suggested,
+      status: SKY_LINK_RECORDS_STATUSES.Suggested,
       item: { id: '55', address: 555, name: 'Huge Banana', description: 'Barry loves bananas.' }
     }),
     new LinkRecordsMatchModel({
       key: '6',
-      status: STATUSES.Selected,
+      status: SKY_LINK_RECORDS_STATUSES.Selected,
       item: { id: '66', address: 666, name: 'Lovely Lemons', description: 'Lisa loves lemons.' }
     }),
     new LinkRecordsMatchModel({
       key: '7',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: undefined
     }),
     new LinkRecordsMatchModel({
       key: '8',
-      status: STATUSES.Linked,
+      status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: {
         id: '88',
         address: 888,

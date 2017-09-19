@@ -35,7 +35,7 @@ import {
 import {
   SkyLinkRecordsNoMatchContentComponent
 } from './link-records-nomatch-content.component';
-import { STATUSES } from './link-records-statuses';
+import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 import { LinkRecordsApi } from './link-records-api';
 
 @Component({
@@ -112,7 +112,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
         let newResultItems = matches.map(match => {
           let newItem = new LinkRecordsResultModel(match);
 
-          if (newItem.status === STATUSES.Linked) {
+          if (newItem.status === SKY_LINK_RECORDS_STATUSES.Linked) {
             newItem.item = {id: match.item.id};
             let selection = selected[match.key] || {};
             let newFields = (fields[newItem.key]) ?
@@ -174,9 +174,9 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
 
           return new LinkRecordsItemModel({
             key: item[this.keyIdSelector],
-            status: (match.status) ? match.status : STATUSES.NoMatch,
+            status: (match.status) ? match.status : SKY_LINK_RECORDS_STATUSES.NoMatch,
             item: item,
-            match: (match.status !== STATUSES.NoMatch) ? match : undefined,
+            match: (match.status !== SKY_LINK_RECORDS_STATUSES.NoMatch) ? match : undefined,
             matchFields: fields
           });
         });

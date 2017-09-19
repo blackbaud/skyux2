@@ -1,4 +1,4 @@
-export const STATUSES = {
+export const SKY_LINK_RECORDS_STATUSES = {
   Created: 'created',
   Edit: 'edit',
   Linked: 'linked',
@@ -6,10 +6,10 @@ export const STATUSES = {
   Suggested: 'suggested',
   Selected: 'selected',
   isValid: (value: string) =>
-    value === STATUSES.Created ||
-    value === STATUSES.Edit ||
-    value === STATUSES.Linked ||
-    value === STATUSES.NoMatch ||
-    value === STATUSES.Suggested ||
-    value === STATUSES.Selected
+    value === SKY_LINK_RECORDS_STATUSES.Created ||
+    value === SKY_LINK_RECORDS_STATUSES.Edit ||
+    value === SKY_LINK_RECORDS_STATUSES.Linked ||
+    value === SKY_LINK_RECORDS_STATUSES.NoMatch ||
+    value === SKY_LINK_RECORDS_STATUSES.Suggested ||
+    value === SKY_LINK_RECORDS_STATUSES.Selected
 };

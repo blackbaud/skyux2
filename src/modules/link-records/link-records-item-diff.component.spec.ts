@@ -9,7 +9,8 @@ import { LinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
 import { LinkRecordsMatchModel } from './state/matches/match.model';
 import { SkyCheckboxModule } from '@blackbaud/skyux/dist/core';
 import { SkyLinkRecordsItemDiffComponent } from './link-records-item-diff.component';
-import { STATUSES } from './link-records-statuses';
+import { SkyResourcesModule } from '../resources';
+import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
 describe('Component: SkyLinkRecordsItemDiffComponent', () => {
   let fixture: ComponentFixture<SkyLinkRecordsItemDiffComponent>,
@@ -26,7 +27,8 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
         SkyLinkRecordsItemDiffComponent
       ],
       imports: [
-        SkyCheckboxModule
+        SkyCheckboxModule,
+        SkyResourcesModule
       ],
       providers: [
         { provide: LinkRecordsState, useValue: state },
@@ -56,7 +58,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
     });
 
@@ -80,7 +82,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
     state.map((s: any) => s.matches.items).take(1)
       .subscribe((m: any) => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Linked);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
 
@@ -94,7 +96,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     });
 
@@ -130,7 +132,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     });
 
@@ -165,7 +167,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     });
 
@@ -204,7 +206,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: '' }
     });
 
@@ -225,7 +227,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
     state.map((s: any) => s.matches.items).take(1)
       .subscribe((m: any) => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Linked);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
 
@@ -238,7 +240,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
     });
 
@@ -271,7 +273,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
     });
 
@@ -305,7 +307,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     });
 
@@ -336,7 +338,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     });
 
@@ -371,7 +373,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: '', description: '' }
     });
 
@@ -403,7 +405,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: '', description: '' }
     });
 

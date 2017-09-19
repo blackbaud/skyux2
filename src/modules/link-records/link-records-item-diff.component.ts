@@ -11,7 +11,7 @@ import { LinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
 import { LinkRecordsFieldModel } from './state/fields/field.model';
 import { LinkRecordsMatchModel } from './state/matches/match.model';
 import { LinkRecordsMatchesSetStatusAction } from './state/matches/actions';
-import { STATUSES } from './link-records-statuses';
+import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
 @Component({
   selector: 'sky-link-records-item-diff',
@@ -20,7 +20,7 @@ import { STATUSES } from './link-records-statuses';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyLinkRecordsItemDiffComponent implements OnInit {
-  public STATUSES = STATUSES;
+  public STATUSES = SKY_LINK_RECORDS_STATUSES;
   @Input() public readOnly: boolean = false;
   @Input() public key: string;
   @Input() public item: any;
@@ -60,7 +60,7 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
 
     if (matchFields.length === 0) {
       this.dispatcher.next(
-        new LinkRecordsMatchesSetStatusAction(this.key, STATUSES.Linked)
+        new LinkRecordsMatchesSetStatusAction(this.key, this.STATUSES.Linked)
       );
     } else {
       this.state.map((s: any) => s.selected.item)
@@ -87,7 +87,7 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
             !match.currentValue && match.newValue && match.newValue.length > 0)
           ) {
             this.dispatcher.next(
-              new LinkRecordsMatchesSetStatusAction(this.key, STATUSES.Linked)
+              new LinkRecordsMatchesSetStatusAction(this.key, this.STATUSES.Linked)
             );
           }
         });

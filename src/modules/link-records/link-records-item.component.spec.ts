@@ -27,7 +27,8 @@ import {
   SkyLinkRecordsRendererComponent,
   SkyLinkRecordsItemDiffComponent
 } from './';
-import { STATUSES } from './link-records-statuses';
+import { SkyResourcesModule } from '../resources';
+import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
 describe('Component: SkyLinkRecordsItemComponent ', () => {
   let fixture: ComponentFixture<SkyLinkRecordsItemComponent>,
@@ -46,7 +47,8 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
         SkyLinkRecordsItemDiffComponent
       ],
       imports: [
-        SkyCheckboxModule
+        SkyCheckboxModule,
+        SkyResourcesModule
       ],
       providers: [
         { provide: LinkRecordsState, useValue: state },
@@ -63,13 +65,13 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
   it('match state is updated to linked if status is edit and matchFields is falsey', async(() => {
      let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: { id: '11', name: 'Kevin' }
     });
 
     let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Edit,
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '111', name: 'David' },
       match: linkRecordMatch,
       matchFields: []
@@ -83,20 +85,20 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Linked);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
 
   it('link updated match state to linked', async(() => {
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: { id: 1, name: 'Kevin'}
     });
 
     let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: {},
       match: {}
     });
@@ -111,14 +113,14 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Linked);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
 
   it('updatedFieldsTotal returns total of field objects in selected state', async(() => {
      let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: 1, name: 'Kevin', description: 'desc' },
       matchFields: [{ key: 'name' }]
     });
@@ -138,13 +140,13 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
   it('unlink sets match status to no match, set item to undefined, clear selection', async(() => {
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: {}
     });
 
     let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: 1, name: 'Kevin'},
       match: {}
     });
@@ -168,7 +170,7 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.NoMatch);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.NoMatch);
         expect(match.item).toBeUndefined();
       });
 
@@ -188,14 +190,14 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
   it('create sets match status to created and maps record key to record item', async(() => {
     let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: 1, name: 'Kevin'},
       match: {}
     });
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: {}
     });
 
@@ -210,7 +212,7 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Created);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Created);
         expect(match.key).toEqual(component.record.key);
         expect(match.item).toEqual(component.record.item);
       });
@@ -219,7 +221,7 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
   it('edit sets match status of edit if match field is defined', async(() => {
     let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: 1, name: 'Kevin'},
       match: {},
       matchFields: [{ key: 'name'}]
@@ -227,7 +229,7 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: {}
     });
 
@@ -242,21 +244,21 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Edit);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Edit);
       });
   }));
 
   it('edit sets match status of linked if match field is undefined', async(() => {
      let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: 1, name: 'Kevin'},
       match: {}
     });
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: {}
     });
 
@@ -271,21 +273,21 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Linked);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
 
   it('cancelEdit sets match status to suggested and selected and fields are cleared', async(() => {
      let linkRecordItem = new LinkRecordsItemModel({
       key: '1',
-      status: STATUSES.Created,
+      status: SKY_LINK_RECORDS_STATUSES.Created,
       item: {},
       match: { id: 1, name: 'David' }
     });
 
     let linkRecordMatch = new LinkRecordsMatchModel({
       key: '1',
-      status: STATUSES.NoMatch,
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: {}
     });
 
@@ -300,7 +302,7 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(STATUSES.Suggested);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Suggested);
       });
 
     state.map(s => s.selected.item).take(1)

@@ -4,7 +4,7 @@ import {
   LinkRecordsMatchesSetStatusAction,
   LinkRecordsMatchesSetItemAction
 } from './state/matches/actions';
-import { STATUSES } from './link-records-statuses';
+import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
 @Injectable()
 export class LinkRecordsApi {
@@ -13,12 +13,16 @@ export class LinkRecordsApi {
   ) {}
 
   public addSelectedItem(key: string, item: any) {
-    this.dispatcher.next(new LinkRecordsMatchesSetStatusAction(key, STATUSES.Selected));
+    this.dispatcher.next(
+      new LinkRecordsMatchesSetStatusAction(key, SKY_LINK_RECORDS_STATUSES.Selected)
+    );
     this.dispatcher.next(new LinkRecordsMatchesSetItemAction(key, item));
   }
 
   public removeSelectedItem(key: string) {
-    this.dispatcher.next(new LinkRecordsMatchesSetStatusAction(key, STATUSES.NoMatch));
+    this.dispatcher.next(
+      new LinkRecordsMatchesSetStatusAction(key, SKY_LINK_RECORDS_STATUSES.NoMatch)
+    );
     this.dispatcher.next(new LinkRecordsMatchesSetItemAction(key, undefined));
   }
 }

@@ -2,7 +2,7 @@ import { LinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncList } from 'microedge-rxstate/dist';
 let moment = require('moment');
 
-import { STATUSES } from '../../link-records-statuses';
+import { SKY_LINK_RECORDS_STATUSES } from '../../link-records-statuses';
 import { LinkRecordsMatchModel } from './match.model';
 import {
   LinkRecordsMatchesLoadAction,
@@ -27,7 +27,8 @@ export class LinkRecordsMatchesOrchestrator
     const newMatches = action.matches
       .filter(m => m)
       .map(m => new LinkRecordsMatchModel(m))
-      .filter(m => m.status !== STATUSES.NoMatch || !STATUSES.isValid(status));
+      .filter(m => m.status !== SKY_LINK_RECORDS_STATUSES.NoMatch
+        || !SKY_LINK_RECORDS_STATUSES.isValid(status));
 
     if (action.refresh) {
       return new AsyncList<LinkRecordsMatchModel>([...newMatches], moment());
@@ -49,7 +50,8 @@ export class LinkRecordsMatchesOrchestrator
 
           return match;
         })
-        .filter(m => m.status !== STATUSES.NoMatch || !STATUSES.isValid(status));
+        .filter(m => m.status !== SKY_LINK_RECORDS_STATUSES.NoMatch
+          || !SKY_LINK_RECORDS_STATUSES.isValid(status));
 
       return new AsyncList<LinkRecordsMatchModel>([...newMatches], moment());
   }
@@ -67,7 +69,8 @@ export class LinkRecordsMatchesOrchestrator
 
           return match;
         })
-        .filter(m => m.status !== STATUSES.NoMatch || !STATUSES.isValid(status));
+        .filter(m => m.status !== SKY_LINK_RECORDS_STATUSES.NoMatch
+          || !SKY_LINK_RECORDS_STATUSES.isValid(status));
 
       return new AsyncList<LinkRecordsMatchModel>([...newMatches], moment());
   }
