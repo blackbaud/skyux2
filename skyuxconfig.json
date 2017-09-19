@@ -29,7 +29,6 @@
     "learn/get-started/include-static-assets": "learn/get-started/advanced/include-static-assets",
     "learn/get-started/initial-setup": "learn/get-started/prereqs/initial-setup",
     "learn/get-started/run-tests": "learn/get-started/basics/run-tests",
-    "learn/get-started/serve-project": "learn/get-started/basics/serve-project",
     "learn/get-started/ssl-certificate": "learn/get-started/prereqs/ssl-certificate",
     "learn/get-started/unit-test-modals": "learn/get-started/advanced/unit-test-modals",
     "learn/contribute": "contribute",
