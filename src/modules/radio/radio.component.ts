@@ -1,13 +1,14 @@
 import {
   Component,
   forwardRef,
+  HostListener,
   Input
 } from '@angular/core';
 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 /**
- * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
+ * Auto-incrementing integer used to generate unique ids for checkbox components.
  */
 let nextId = 0;
 
@@ -63,52 +64,55 @@ export class SkyRadioComponent implements ControlValueAccessor {
 
   public selectedValue: any;
 
-  /** Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor. */
-  /*istanbul ignore next */
-  public onTouched: () => any = () => {};
-
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public writeValue(value: any) {
-    this.selectedValue = value;
-  }
-
-   /**
-    * Implemented as part of ControlValueAccessor.
-    */
-  public registerOnChange(fn: (value: any) => void) {
-    this._controlValueAccessorChangeFn = fn;
-  }
-
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public registerOnTouched(fn: any) {
-    this.onTouched = fn;
+  // When clicking on a checkbox label, angular registers two click events.
+  // This handler ignores all events except for those that deal with the checkbox input explicitly.
+  @HostListener('click', ['$event'])
+  public onClick(event: MouseEvent) {
+    const elem = event.target as HTMLElement;
+    if (elem.tagName.toLowerCase() !== 'input') {
+      event.preventDefault();
+      return;
+    }
   }
 
   public onInputBlur() {
-    this.onTouched();
+    this.onTouchedCallback();
   }
 
-  /**
-   * Event handler for checkbox input element.
-   * Toggles checked state if element is not disabled.
-   */
   public onRadioChanged(newValue: any) {
-    /* istanbul ignore else */
-    /* sanity check */
-    if (!this.disabled) {
-      /* istanbul ignore else */
-      /* sanity check */
-      if (newValue !== this.selectedValue) {
-        this.selectedValue = newValue;
-        this._controlValueAccessorChangeFn(newValue);
-      }
+    if (this.disabled) {
+      return;
     }
-  }
-  /* istanbul ignore next */
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
 
+    if (newValue === this.selectedValue) {
+      return;
+    }
+
+    this.selectedValue = newValue;
+    this.onChangeCallback(newValue);
+  }
+
+  // Satisfying ControlValueAccessor interface.
+  public writeValue(value: any) {
+    if (value === undefined) {
+      return;
+    }
+
+    this.selectedValue = value;
+  }
+
+  // onChanged callback set by ControlValueAccessor.
+  public registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+
+  // onTouched callback set by ControlValueAccessor.
+  public registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
+
+  // Placeholders for the callbacks which are later provided
+  // by the ControlValueAccessor.
+  private onTouchedCallback() {}
+  private onChangeCallback(value: any) {}
 }
