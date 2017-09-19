@@ -26,13 +26,6 @@ export class LearnActionButtonsComponent {
       icon: 'book',
       // tslint:disable-next-line
       summary: 'Review the technical references for help to manage and configure SKY UX projects.'
-    },
-    {
-      name: 'Contribute',
-      path: '/learn/contribute',
-      icon: 'exchange',
-      // tslint:disable-next-line
-      summary: 'We encourage contributions from all SKY UX users. Learn about our coding conventions.'
     }
   ];
 }
