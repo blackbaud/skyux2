@@ -5,6 +5,7 @@
   margin-bottom: $sky-margin;
   padding-left: $sky-margin-half;
   padding-right: $sky-margin-half;
+  position: relative;
 }
 
 @media (min-width: $sky-screen-sm-min) {
@@ -23,6 +24,12 @@
 
 button.sky-file-drop {
   height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .sky-file-drop-contents {
@@ -104,7 +111,8 @@ button.sky-file-drop {
   margin-bottom: $sky-margin-double;
 }
 
-.sky-file-drop-text, .sky-file-drop-text-header {
+.sky-file-drop-text,
+.sky-file-drop-text-header {
   line-height: 1.1;
   display: block;
 }
@@ -120,8 +128,8 @@ button.sky-file-drop {
   -webkit-appearance: none;
   width: 100%;
   padding: 0;
+}
 
-  .sky-file-input-hidden {
-    display: none;
-  }
+.sky-file-input-hidden {
+  display: none;
 }
