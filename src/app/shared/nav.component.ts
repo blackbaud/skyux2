@@ -21,8 +21,12 @@ export class SkyDemoNavComponent {
       url: '/components'
     },
     {
-      title: 'Design' ,
+      title: 'Design',
       url: '/design'
+    },
+    {
+      title: 'Contribute',
+      url: '/contribute'
     }
   ];
 }
