@@ -7,6 +7,10 @@ import {
   VerticalTabsetEmptyGroupTestComponent
 } from './fixtures/vertical-tabset-empty-group.component';
 
+import {
+  VerticalTabsetNoGroupTestComponent
+} from './fixtures/vertical-tabset-no-group.component.fixture';
+
 import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
@@ -388,7 +392,7 @@ describe('Vertical tabset component', () => {
 });
 
 // test tab group with no subtabs
-describe('Vertical tabset component', () => {
+describe('Vertical tabset component - no subtabs', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -405,5 +409,52 @@ describe('Vertical tabset component', () => {
 
     const visibleTabs = getVisibleVerticalTabs(el);
     expect(visibleTabs.length).toBe(0);
+  });
+});
+
+describe('Vertical tabset component - no groups', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyVerticalTabsFixturesModule
+      ]
+    });
+  });
+
+  it('should load tabs without groups', () => {
+    let fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
+    let el = fixture.nativeElement as HTMLElement;
+
+    fixture.detectChanges();
+
+    let allTabs = el.querySelectorAll('sky-vertical-tab');
+    expect(allTabs.length).toBe(3);
+
+    const visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Tab 2 content');
+  });
+
+  it('should switch tabs on clicking without groups', () => {
+    let fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    let indexChangeEl = el.querySelector('.vertical-tabset-test-indexchange');
+    expect(indexChangeEl.textContent.trim()).toBe('current index = 1');
+
+    // open first tab
+    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    tabs[0].click();
+
+    fixture.detectChanges();
+
+    //  check activeChange fires
+    expect(indexChangeEl.textContent.trim()).toBe('current index = 0');
+
+    let visibleTabs = getVisibleVerticalTabs(el);
+    expect(visibleTabs.length).toBe(1);
+    expect(visibleTabs[0].textContent.trim()).toBe('Tab 1 content');
   });
 });
