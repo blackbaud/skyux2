@@ -3,8 +3,6 @@ import {
   Injectable
 } from '@angular/core';
 
-import { SkyModalComponent } from './modal.component';
-
 @Injectable()
 export class SkyModalHostService {
   public static get openModalCount(): number {
@@ -25,7 +23,7 @@ export class SkyModalHostService {
 
   private static modalHosts: SkyModalHostService[] = [];
 
-  public close = new EventEmitter<SkyModalComponent>();
+  public close = new EventEmitter<void>();
 
   public constructor() {
     SkyModalHostService.modalHosts.push(this);
@@ -37,8 +35,8 @@ export class SkyModalHostService {
     return zIndex;
   }
 
-  public onClose(modalComponent: SkyModalComponent): void {
-    this.close.emit(modalComponent);
+  public onClose(): void {
+    this.close.emit();
   }
 
   public destroy(): void {
