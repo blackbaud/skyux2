@@ -1,16 +1,16 @@
-<div class="sky-sectioned-form">
+<div class="sky-sectioned-form" (window:resize)="tabService.updateContent()">
   <div 
     *ngIf="tabsVisible()"
     class="sky-sectioned-form-tabs"
-    [@tabEnter]="animationVisibleState"
+    [@tabEnter]="tabService.animationVisibleState"
   >
     <ng-content></ng-content>
   </div>
   <div 
     #skySectionSideContent 
-    *ngIf="contentVisible()"
+    *ngIf="tabService.contentVisible()"
     class="sky-sectioned-form-content"
-    [@contentEnter]="animationVisibleState"
+    [@contentEnter]="tabService.animationVisibleState"
   >
   </div>
 </div>

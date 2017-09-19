@@ -1,5 +1,6 @@
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 import { SkyVerticalTabComponent } from './vertical-tab.component';
+import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
 
 class MockChangeDetector {
   public detectChanges() {}
@@ -8,9 +9,10 @@ class MockChangeDetector {
 describe('Vertical tabset service', () => {
   let service: SkyVerticalTabsetService;
   let mockDetectChanges: any = new MockChangeDetector();
+  let mockQueryService = new MockSkyMediaQueryService();
 
   beforeEach(() => {
-    service = new SkyVerticalTabsetService();
+    service = new SkyVerticalTabsetService(mockQueryService);
   });
 
   it('should add two non active tabs', () => {
@@ -20,9 +22,9 @@ describe('Vertical tabset service', () => {
     let tab2 = new SkyVerticalTabComponent(undefined, mockDetectChanges);
     tab2.tabHeading = 'tab 2';
 
-    service.tabClicked.subscribe(index => {
-      if (index >= 0) {
-        fail(`tab should not have been clicked with index =${index}`);
+    service.tabClicked.subscribe(clicked => {
+      if (service.activeIndex >= 0) {
+        fail(`tab should not have been clicked with index =${service.activeIndex}`);
       }
     });
 
@@ -42,9 +44,9 @@ describe('Vertical tabset service', () => {
     let tab2 = new SkyVerticalTabComponent(undefined, mockDetectChanges);
     tab2.active = true;
 
-    service.tabClicked.subscribe(index => {
-      if (index >= 0) {
-        expect(index).toBe(1);
+    service.tabClicked.subscribe(clicked => {
+      if (service.activeIndex >= 0) {
+        expect(service.activeIndex).toBe(1);
       }
     });
 

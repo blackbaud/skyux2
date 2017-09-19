@@ -8,8 +8,9 @@ import {
   QueryList,
   EventEmitter,
   Output,
-  ChangeDetectorRef,
-  AfterViewChecked
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -20,20 +21,23 @@ import {
 } from '@angular/animations';
 
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyMediaQueryService } from './../media-queries/media-query.service';
-import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
-import { SkyVerticalTabsetService } from './../vertical-tabset/vertical-tabset.service';
-import { SkySectionedFormSectionComponent } from './sectioned-form-section.component';
 
-const VISIBLE_STATE = 'shown';
+import {
+  SkyVerticalTabsetService,
+  VISIBLE_STATE
+} from './../vertical-tabset/vertical-tabset.service';
+
+import { SkySectionedFormSectionComponent } from './sectioned-form-section.component';
 
 @Component({
   selector: 'sky-sectioned-form',
   templateUrl: './sectioned-form.component.html',
   styleUrls: ['./sectioned-form.component.scss'],
-  providers: [SkyVerticalTabsetService],
+  providers: [SkyVerticalTabsetService, SkyMediaQueryService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger(
       'tabEnter', [
@@ -64,37 +68,28 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   @ContentChildren(SkySectionedFormSectionComponent)
   public sections: QueryList<SkySectionedFormSectionComponent>;
 
-  public animationVisibleState: string;
-
   private _ngUnsubscribe = new Subject();
-  private _activeIndex: number;
-  private _tabsVisible: boolean;
-  private _contentAdded: boolean = false;
 
   public constructor(
-    private tabService: SkyVerticalTabsetService,
-    private mediaQueryService: SkyMediaQueryService,
+    public tabService: SkyVerticalTabsetService,
     private changeRef: ChangeDetectorRef) {}
 
   public ngOnInit() {
-    this.tabService.tabClicked
-    .takeUntil(this._ngUnsubscribe)
-    .subscribe(this.tabClicked);
+    this.tabService.indexChanged
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(index => {
+        this.indexChanged.emit(index);
+        this.changeRef.markForCheck();
+      });
 
-    if (this.isMobile()) {
-      this.animationVisibleState = VISIBLE_STATE;
+    if (this.tabService.isMobile()) {
+      this.tabService.animationVisibleState = VISIBLE_STATE;
     }
   }
 
   public ngAfterViewChecked() {
-    if (!this.isMobile() && !this._contentAdded) {
-      // switching to widescreen
-      this.moveContent();
-
-    } else if (this._contentAdded && !this.contentVisible()) {
-      // switching to mobile
-      this._contentAdded = false;
-    }
+    this.tabService.content = this.content;
+    this.tabService.updateContent();
   }
 
   public ngOnDestroy() {
@@ -104,55 +99,19 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
 
   public setRequired(required: boolean) {
     if (this.sections && this.sections.length > 0) {
-      let section = this.sections.toArray().find(s => s.tab.index === this._activeIndex );
+      let section = this.sections.toArray().find(s => s.tab.index === this.tabService.activeIndex );
       if (section) {
         section.fieldRequired = required;
       }
     }
   }
 
-  public isMobile() {
-    return this.mediaQueryService.current === SkyMediaBreakpoints.xs;
-  }
-
   public tabsVisible() {
-    return !this.isMobile() || this._tabsVisible;
-  }
-
-  public contentVisible() {
-    return !this.isMobile() || !this._tabsVisible;
+    return this.tabService.tabsVisible();
   }
 
   public showTabs() {
-    this._tabsVisible = true;
-    this.animationVisibleState = VISIBLE_STATE;
-    this._contentAdded = false;
-  }
-
-  public tabClicked = () => {
-    if (this.isMobile()) {
-      this._tabsVisible = false;
-      this.animationVisibleState = VISIBLE_STATE;
-      this._contentAdded = false;
-      this.changeRef.detectChanges();
-    }
-
-    this._activeIndex = this.tabService.activeIndex;
-    this.indexChanged.emit(this._activeIndex);
-
-    if (this.contentVisible()) {
-      this.moveContent();
-    }
-  }
-
-  public moveContent() {
-    if (this.content) {
-      let activeContent = this.tabService.activeTabContent();
-
-      if (activeContent && activeContent.nativeElement) {
-        this.content.nativeElement.appendChild(activeContent.nativeElement);
-        this._contentAdded = true;
-      }
-    }
+    this.tabService.showTabs();
+    this.changeRef.markForCheck();
   }
 }
