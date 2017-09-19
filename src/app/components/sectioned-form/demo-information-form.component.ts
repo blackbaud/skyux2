@@ -11,6 +11,9 @@ export class SkyDemoInformationFormComponent {
   @Output()
   public requiredChange = new EventEmitter<boolean>();
 
+  @Output()
+  public invalidChange = new EventEmitter<boolean>();
+
   private _nameRequired: boolean = false;
 
   public get nameRequired() {
@@ -27,11 +30,30 @@ export class SkyDemoInformationFormComponent {
     this.emitRequiredChange();
   }
 
+  public idChange(newId: string) {
+    this.id = newId;
+
+    if (this.idValid(this.id)) {
+      this.invalidChange.emit(false);
+    } else {
+      this.invalidChange.emit(true);
+    }
+  }
+
   private emitRequiredChange() {
     if (this.nameRequired && !this.name) {
       this.requiredChange.emit(true);
     } else {
       this.requiredChange.emit(false);
+    }
+  }
+
+  private idValid(value: string) {
+    if (value) {
+      let regExp = new RegExp('^[0-9]+$');
+      return regExp.test(value);
+    } else {
+      return true;
     }
   }
 }

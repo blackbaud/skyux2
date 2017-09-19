@@ -261,3 +261,10 @@
   color: $sky-highlight-color-danger;
   padding-left: $sky-padding-half;
 }
+
+@mixin sky-danger {
+  content: "\f071";
+	font-family: FontAwesome;
+	margin-right: 5px;
+	color: $sky-highlight-color-danger;
+}

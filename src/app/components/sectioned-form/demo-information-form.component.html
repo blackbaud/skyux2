@@ -26,7 +26,8 @@
       class="sky-form-control"
       [ngModel]="id"
       id="inputId" 
-      type="text" 
+      type="text"
+      (ngModelChange)="idChange($event)"
     >
   </div>
 </div>

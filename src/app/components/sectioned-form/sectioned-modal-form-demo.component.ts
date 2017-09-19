@@ -37,6 +37,10 @@ export class SkySectionedModalFormDemoComponent implements AfterContentChecked {
     this.sectionedFormComponent.setRequired(required);
   }
 
+  public invalidChange(invalid: boolean) {
+    this.sectionedFormComponent.setInvalid(invalid);
+  }
+
   public tabsHidden() {
     return !this.sectionedFormComponent.tabsVisible();
   }

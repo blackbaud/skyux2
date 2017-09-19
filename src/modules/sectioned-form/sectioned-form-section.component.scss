@@ -3,3 +3,7 @@
 :host .sky-tab-field-required /deep/ .sky-vertical-tab-heading:after {
   @include sky-required-field;
 }
+
+:host .sky-tab-field-invalid /deep/ .sky-vertical-tab-heading:after {
+  @include sky-danger;
+}

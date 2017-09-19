@@ -23,6 +23,7 @@ export class SkySectionedFormSectionComponent {
   public active: boolean;
 
   public fieldRequired: boolean;
+  public fieldInvalid: boolean;
 
   @ViewChild(SkyVerticalTabComponent)
   public tab: SkyVerticalTabComponent;

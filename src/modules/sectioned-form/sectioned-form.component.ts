@@ -98,11 +98,22 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   }
 
   public setRequired(required: boolean) {
+    let section = this.getActiveSection();
+    if (section) {
+      section.fieldRequired = required;
+    }
+  }
+
+  public setInvalid(invalid: boolean) {
+    let section = this.getActiveSection();
+    if (section) {
+      section.fieldInvalid = invalid;
+    }
+  }
+
+  public getActiveSection() {
     if (this.sections && this.sections.length > 0) {
-      let section = this.sections.toArray().find(s => s.tab.index === this.tabService.activeIndex );
-      if (section) {
-        section.fieldRequired = required;
-      }
+      return this.sections.toArray().find(s => s.tab.index === this.tabService.activeIndex );
     }
   }
 
