@@ -33,6 +33,7 @@ export class HomeComponent {
     'navbar',
     'page-summary',
     'paging',
+    'popover',
     'radio',
     'repeater',
     'search',
@@ -43,6 +44,7 @@ export class HomeComponent {
     'text-highlight',
     'tiles',
     'toolbar',
+    'vertical-tabs',
     'wait'
   ];
 }

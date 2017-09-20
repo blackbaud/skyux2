@@ -1,3 +1,21 @@
+# 2.0.1 (2017-09-18)
+
+- Added support for Tile components within Modals. ([#1039](https://github.com/blackbaud/skyux2/pull/1039)) (Thanks @Blackbaud-TomRamsey)
+- Added support for SKY UX Builder `1.0.0-rc.19`. ([#1066](https://github.com/blackbaud/skyux2/pull/1066))
+- Fixed bug with Vertical Tabset component when not using tab groups. ([#1076](https://github.com/blackbaud/skyux2/pull/1076))
+- Fixed bug with Tile component styles on smaller screens. ([#1067](https://github.com/blackbaud/skyux2/pull/1067))
+
+# 2.0.0 (2017-09-14)
+
+- Added Vertical Tabs Component. ([#1004](https://github.com/blackbaud/skyux2/pull/1004)) (Thanks @Blackbaud-AdamHickey)
+- Added Popover Component. ([#1020](https://github.com/blackbaud/skyux2/pull/1020))
+- Updated colors and fonts. ([#1053](https://github.com/blackbaud/skyux2/pull/1053), [#1059](https://github.com/blackbaud/skyux2/pull/1059))
+- Added `errorType="security"` option to Error Component ([#1011](https://github.com/blackbaud/skyux2/pull/1011)) (Thanks @Blackbaud-JeffDye)
+- Implemented `cursor: default` for a disabled Checkbox Component ([#1025](https://github.com/blackbaud/skyux2/pull/1025)) (Thanks @Blackbaud-TrevorBurch)
+- Added styles for text overflow on `SkyListViewChecklist`. ([#1043](https://github.com/blackbaud/skyux2/pull/1043))
+- Fixed typo in `SkyModalConfigurationInterface`. ([#1034](https://github.com/blackbaud/skyux2/pull/1034))
+- Fixed bug with `SkyListViewChecklist` search. ([#1046](https://github.com/blackbaud/skyux2/pull/1046))
+
 # 2.0.0-rc.12 (2017-08-29)
 
  - Added `searchClear` emitter to Search Component. ([#1013](https://github.com/blackbaud/skyux2/pull/1013)) (Thanks @Blackbaud-TrevorBurch)
