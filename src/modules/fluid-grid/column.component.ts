@@ -12,6 +12,9 @@ import {
 })
 export class SkyColumnComponent implements OnInit {
   @Input()
+  public screenXSmall: number;
+
+  @Input()
   public screenSmall: number;
 
   @Input()
@@ -27,6 +30,10 @@ export class SkyColumnComponent implements OnInit {
     let classnames = [
       'sky-column'
     ];
+
+    if (this.screenXSmall) {
+      classnames.push(`sky-column-xs-${this.screenXSmall}`);
+    }
 
     if (this.screenSmall) {
       classnames.push(`sky-column-sm-${this.screenSmall}`);
