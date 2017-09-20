@@ -1,3 +1,4 @@
+import { SkySectionedFormComponent } from './sectioned-form.component';
 import { expect } from '@blackbaud/skyux-builder/runtime/testing/browser';
 import { TestBed } from '@angular/core/testing';
 import { SkySectionedFormFixturesModule } from './fixtures/sectioned-form-fixtures.module';
@@ -11,6 +12,12 @@ import {
   SkySectionedFormNoActiveFixtureComponent
 } from './fixtures/sectioned-form-no-active.component.fixture';
 
+import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
+import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
+
+import { SkyVerticalTabsetService } from './../vertical-tabset/vertical-tabset.service';
+import { inject } from '@angular/core/testing';
+
 function getVisibleContent(el: any) {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
 }
@@ -20,16 +27,32 @@ function getActiveSection(el: any) {
 }
 
 describe('Sectioned form component', () => {
+
+  let mockQueryService: MockSkyMediaQueryService;
+
   beforeEach(() => {
+
+    mockQueryService = new MockSkyMediaQueryService();
+
     TestBed.configureTestingModule({
       imports: [
         SkySectionedFormFixturesModule
+      ],
+      providers: [
+        { provide: SkyMediaQueryService, useValue: mockQueryService}
       ]
     });
   });
 
   function createTestComponent() {
-    return TestBed.createComponent(SkySectionedFormFixtureComponent);
+    return TestBed.overrideComponent(SkySectionedFormComponent, {
+      add: {
+        providers: [
+          { provide: SkyMediaQueryService, useValue: mockQueryService }
+        ]
+      }
+    })
+    .createComponent(SkySectionedFormFixtureComponent);
   }
 
   it('active tab should be open', () => {
@@ -145,13 +168,75 @@ describe('Sectioned form component', () => {
 
     fixture.detectChanges();
 
-    let firstTab = el.querySelectorAll('.sky-vertical-tab');
-    firstTab[0].click();
+    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    tabs[0].click();
 
     fixture.detectChanges();
 
     let activeIndexEl = el.querySelector('#activeIndexDiv');
     expect(activeIndexEl.textContent.trim()).toBe('active index = 0');
+  });
+
+  it('should have a visible animation state on load in mobile', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.sectionedForm.tabService.animationVisibleState).toBe('shown');
+  });
+
+  it('should hide content and show tabs on mobile after calling showtabs function', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // check tabs not visible and content visible
+    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    expect(tabs.length).toBe(0);
+
+    let content = getVisibleContent(el);
+    expect(content.length).toBe(1);
+    expect(content[0].textContent.trim()).toBe('information 2');
+
+    fixture.componentInstance.sectionedForm.showTabs();
+
+    fixture.detectChanges();
+
+    // tabs should now be visible and content not visible
+    content = getVisibleContent(el);
+    expect(content.length).toBe(0);
+
+    tabs = el.querySelectorAll('.sky-vertical-tab');
+    expect(tabs.length).toBe(2);
+  });
+
+  it('section should respect invalid field change', () => {
+    let fixture = createTestComponent();
+    let cmp = fixture.componentInstance;
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // check section is not invalid
+    let tabs = el.querySelectorAll('sky-vertical-tab');
+    expect(tabs.length).toBe(2);
+
+    let activeTab = tabs[1];
+    expect(activeTab.classList.contains('sky-tab-field-invalid')).toBe(false);
+
+    // mark invalid
+    cmp.sectionedForm.setInvalid(true);
+    fixture.detectChanges();
+
+    let invalidTabs = cmp.sectionedForm.sections.filter(section => section.fieldInvalid);
+    expect(invalidTabs.length).toBe(1);
+
+    // check section is invalid
+    expect(activeTab.classList.contains('sky-tab-field-invalid')).toBe(true);
   });
 });
 
