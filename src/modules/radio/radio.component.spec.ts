@@ -100,7 +100,7 @@ describe('Radio component', function () {
 
   it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
     let radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
-    let ngModel = <NgModel> radioElement.injector.get(NgModel);
+    let ngModel = <NgModel>radioElement.injector.get(NgModel);
     let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
 
     expect(ngModel.valid).toBe(true);
@@ -193,7 +193,6 @@ describe('Radio component', function () {
 
   it('should only register one click event', fakeAsync(() => {
     const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
-    const ngModel = <NgModel>radioElement.injector.get(NgModel);
 
     spyOn(radioElement.componentInstance, 'onClick');
 
