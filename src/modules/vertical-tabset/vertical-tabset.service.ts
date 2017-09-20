@@ -71,14 +71,6 @@ export class SkyVerticalTabsetService {
     }
   }
 
-  public tabsHidden() {
-    this.hidingTabs.next(true);
-  }
-
-  public tabsShown() {
-    this.showingTabs.next(true);
-  }
-
   public isMobile() {
     return this.mediaQueryService.current === SkyMediaBreakpoints.xs;
   }

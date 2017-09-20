@@ -82,6 +82,10 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
         this.changeRef.markForCheck();
       });
 
+    this.tabService.switchingMobile
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe((mobile: boolean) => this.changeRef.detectChanges());
+
     if (this.tabService.isMobile()) {
       this.tabService.animationVisibleState = VISIBLE_STATE;
     }

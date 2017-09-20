@@ -15,6 +15,10 @@
   &:focus {
     @include sky-focus-outline;
   }
+
+  &:hover .sky-vertical-tab-right-arrow {
+    color: darken($sky-text-color-icon-borderless, 20%);
+  }
 }
 
 .sky-vertical-tab-active {
@@ -54,4 +58,5 @@
 
 .sky-vertical-tab-right-arrow {
   padding: 3px $sky-padding 0 0;
+  color: $sky-text-color-icon-borderless;
 }

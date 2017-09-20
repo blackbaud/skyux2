@@ -234,6 +234,47 @@ describe('Sectioned form component', () => {
     // check section is invalid
     expect(activeTab.classList.contains('sky-tab-field-invalid')).toBe(true);
   });
+
+  it('should show content after resizing screen', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // show tabs to hide content
+    fixture.componentInstance.sectionedForm.showTabs();
+    fixture.detectChanges();
+
+    // resize screen out of mobile
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.componentInstance.sectionedForm.tabService.updateContent();
+    fixture.detectChanges();
+
+    // content should be visible
+    let content = getVisibleContent(el);
+    expect(content.length).toBe(1);
+    expect(content[0].textContent.trim()).toBe('information 2');
+
+    // resize back to mobile
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    fixture.componentInstance.sectionedForm.tabService.updateContent();
+    fixture.detectChanges();
+
+    // content should be hidden
+    content = getVisibleContent(el);
+    expect(content.length).toBe(0);
+
+    // resize to widescreen
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.componentInstance.sectionedForm.tabService.updateContent();
+    fixture.detectChanges();
+
+    // content should be visible
+    content = getVisibleContent(el);
+    expect(content.length).toBe(1);
+    expect(content[0].textContent.trim()).toBe('information 2');
+  });
 });
 
 describe('Sectioned form component - no sections', () => {
