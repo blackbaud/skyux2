@@ -63,6 +63,8 @@ export class SkyRadioComponent implements ControlValueAccessor {
   }
 
   public selectedValue: any;
+  private onTouchedCallback: Function;
+  private onChangeCallback: (value: any) => void;
 
   // When clicking on a checkbox label, angular registers two click events.
   // This handler ignores all events except for those that deal with the checkbox input explicitly.
@@ -70,7 +72,6 @@ export class SkyRadioComponent implements ControlValueAccessor {
   public onClick(event: MouseEvent) {
     const elem = event.target as HTMLElement;
     if (elem.tagName.toLowerCase() !== 'input') {
-      event.preventDefault();
       return;
     }
   }
@@ -110,9 +111,4 @@ export class SkyRadioComponent implements ControlValueAccessor {
   public registerOnTouched(fn: any) {
     this.onTouchedCallback = fn;
   }
-
-  // Placeholders for the callbacks which are later provided
-  // by the ControlValueAccessor.
-  private onTouchedCallback() {}
-  private onChangeCallback(value: any) {}
 }
