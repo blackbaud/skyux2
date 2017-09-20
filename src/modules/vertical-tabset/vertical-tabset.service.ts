@@ -99,9 +99,17 @@ export class SkyVerticalTabsetService {
       // switching to mobile
       this.switchingMobile.emit(true);
 
+      if (!this.tabsVisible()) {
+        this.hidingTabs.next(true);
+      }
+
     } else if (!mobile && !this._isWidescreen) {
       // switching to widescreen
       this.switchingMobile.emit(false);
+
+      if (!this._tabsVisible) {
+        this.showingTabs.next(true);
+      }
     }
 
     this._isWidescreen = !mobile;
@@ -119,6 +127,7 @@ export class SkyVerticalTabsetService {
     this._tabsVisible = true;
     this._contentAdded = false;
     this.animationVisibleState = VISIBLE_STATE;
+    this.showingTabs.next(true);
   }
 
   private moveContent() {
@@ -138,6 +147,7 @@ export class SkyVerticalTabsetService {
     if (this.isMobile()) {
       this._tabsVisible = false;
       this.animationVisibleState = VISIBLE_STATE;
+      this.hidingTabs.next(true);
     }
 
     this.indexChanged.emit(this.activeIndex);

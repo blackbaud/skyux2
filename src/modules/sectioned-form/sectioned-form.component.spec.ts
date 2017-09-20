@@ -15,9 +15,6 @@ import {
 import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
-import { SkyVerticalTabsetService } from './../vertical-tabset/vertical-tabset.service';
-import { inject } from '@angular/core/testing';
-
 function getVisibleContent(el: any) {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
 }
@@ -180,7 +177,6 @@ describe('Sectioned form component', () => {
   it('should have a visible animation state on load in mobile', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
     let fixture = createTestComponent();
-    let el = fixture.nativeElement;
 
     fixture.detectChanges();
 
