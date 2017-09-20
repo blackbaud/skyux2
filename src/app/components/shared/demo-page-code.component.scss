@@ -23,9 +23,21 @@
   }
 }
 
+.sky-demo-page-code-header {
+  position: relative;
+}
+
 .sky-demo-page-code-plunker {
+  position: static;
   text-align: right;
   margin-bottom: 15px;
+
+  @media (min-width: $sky-screen-sm-min) {
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+    margin-bottom: 0;
+  }
 }
 
 // This can be removed after the next Stache2 release:
