@@ -7,8 +7,8 @@ import {
   ChangeDetectionStrategy,
   OnInit
 } from '@angular/core';
-import { LinkRecordsMatchModel } from './state/matches/match.model';
-import { LinkRecordsApi } from './link-records-api';
+import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
+import { SkyLinkRecordsApi } from './link-records-api';
 
 @Component({
   selector: 'sky-link-records-renderer',
@@ -17,12 +17,12 @@ import { LinkRecordsApi } from './link-records-api';
 })
 export class SkyLinkRecordsRendererComponent implements OnInit {
   @Input() public item: any;
-  @Input() public match: LinkRecordsMatchModel;
+  @Input() public match: SkyLinkRecordsMatchModel;
   @Input() public fields: Array<any>;
   @Input() public template: TemplateRef<any>;
   @ViewChild('container', { read: ViewContainerRef }) public container: ViewContainerRef;
 
-  constructor(public api: LinkRecordsApi) {}
+  constructor(public api: SkyLinkRecordsApi) {}
 
   public ngOnInit() {
     /* istanbul ignore else */

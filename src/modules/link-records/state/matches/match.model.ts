@@ -1,4 +1,4 @@
-export class LinkRecordsMatchModel {
+export class SkyLinkRecordsMatchModel {
   public key: string;
   public status: string;
   public item: any;

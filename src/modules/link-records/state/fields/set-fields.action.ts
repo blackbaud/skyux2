@@ -1,9 +1,9 @@
-import { LinkRecordsFieldModel } from './field.model';
+import { SkyLinkRecordsFieldModel } from './field.model';
 
-export class LinkRecordsFieldsSetFieldsAction {
+export class SkyLinkRecordsFieldsSetFieldsAction {
   constructor(
     public key: string,
-    public fields: Array<LinkRecordsFieldModel>
+    public fields: Array<SkyLinkRecordsFieldModel>
   ) {
   }
 }

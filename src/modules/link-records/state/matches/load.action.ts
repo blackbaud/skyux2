@@ -1,8 +1,8 @@
-import { LinkRecordsMatchModel } from './match.model';
+import { SkyLinkRecordsMatchModel } from './match.model';
 
-export class LinkRecordsMatchesLoadAction {
+export class SkyLinkRecordsMatchesLoadAction {
   constructor(
-    public matches: Array<LinkRecordsMatchModel>,
+    public matches: Array<SkyLinkRecordsMatchModel>,
     public refresh: boolean = false
   ) {
   }

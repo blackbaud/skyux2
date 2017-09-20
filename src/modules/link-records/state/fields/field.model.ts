@@ -1,4 +1,4 @@
-export class LinkRecordsFieldModel {
+export class SkyLinkRecordsFieldModel {
   public key: string;
   public label: string;
   public currentValue: any;

@@ -1,17 +1,21 @@
 import { async } from '@angular/core/testing/';
-import { LinkRecordsStateDispatcher, LinkRecordsStateModel, LinkRecordsState } from './state';
-import { LinkRecordsApi } from './link-records-api';
-import { LinkRecordsMatchesLoadAction } from './state/matches/actions';
+import {
+  SkyLinkRecordsStateDispatcher,
+  SkyLinkRecordsStateModel,
+  SkyLinkRecordsState
+} from './state';
+import { SkyLinkRecordsApi } from './link-records-api';
+import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
 import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
 describe('Injectable: Link Records API ', () => {
-  let linkRecordApi: LinkRecordsApi, dispatcher: LinkRecordsStateDispatcher,
-    state: LinkRecordsState;
+  let linkRecordApi: SkyLinkRecordsApi, dispatcher: SkyLinkRecordsStateDispatcher,
+    state: SkyLinkRecordsState;
 
   beforeEach(() => {
-    dispatcher = new LinkRecordsStateDispatcher(),
-    state = new LinkRecordsState(new LinkRecordsStateModel(), dispatcher),
-    linkRecordApi = new LinkRecordsApi(dispatcher);
+    dispatcher = new SkyLinkRecordsStateDispatcher(),
+    state = new SkyLinkRecordsState(new SkyLinkRecordsStateModel(), dispatcher),
+    linkRecordApi = new SkyLinkRecordsApi(dispatcher);
   });
 
   it('addSelectedItem set match status to selected and match item to the state', async(() => {
@@ -34,7 +38,7 @@ describe('Injectable: Link Records API ', () => {
       item: oldItem
     }];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction(matches));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches));
 
     linkRecordApi.addSelectedItem(expectedKey, newItem);
 
@@ -61,7 +65,7 @@ describe('Injectable: Link Records API ', () => {
       }
     ];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction(matches));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches));
 
     linkRecordApi.addSelectedItem(expectedKey, newItem);
 
@@ -86,7 +90,7 @@ describe('Injectable: Link Records API ', () => {
       }
     ];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction(matches));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches));
 
     linkRecordApi.removeSelectedItem(expectedKey);
 

@@ -8,15 +8,15 @@ import {
   AfterContentInit
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { LinkRecordsState, LinkRecordsStateDispatcher } from './state';
+import { SkyLinkRecordsState, SkyLinkRecordsStateDispatcher } from './state';
 import {
-  LinkRecordsMatchesSetStatusAction,
-  LinkRecordsMatchesSetItemAction
+  SkyLinkRecordsMatchesSetStatusAction,
+  SkyLinkRecordsMatchesSetItemAction
 } from './state/matches/actions';
-import { LinkRecordsFieldsClearFieldsAction } from './state/fields/actions';
-import { LinkRecordsSelectedClearSelectedAction } from './state/selected/actions';
+import { SkyLinkRecordsFieldsClearFieldsAction } from './state/fields/actions';
+import { SkyLinkRecordsSelectedClearSelectedAction } from './state/selected/actions';
 import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
-import { LinkRecordsItemModel } from './link-records-item.model';
+import { SkyLinkRecordsItemModel } from './link-records-item.model';
 import {
   SkyLinkRecordsItemDiffComponent
 } from './link-records-item-diff.component';
@@ -29,7 +29,7 @@ import {
 })
 export class SkyLinkRecordsItemComponent implements AfterContentInit {
   public STATUSES = SKY_LINK_RECORDS_STATUSES;
-  @Input() public record: LinkRecordsItemModel;
+  @Input() public record: SkyLinkRecordsItemModel;
   @Input() public itemTemplate: TemplateRef<any>;
   @Input() public matchTemplate: TemplateRef<any>;
   @Input() public noMatchTemplate: TemplateRef<any>;
@@ -41,8 +41,8 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
 
   /* istanbul ignore next */
   constructor(
-    private state: LinkRecordsState,
-    private dispatcher: LinkRecordsStateDispatcher
+    private state: SkyLinkRecordsState,
+    private dispatcher: SkyLinkRecordsStateDispatcher
   ) {}
 
   public ngAfterContentInit() {
@@ -61,37 +61,37 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
 
   public link() {
     this.dispatcher.next(
-      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Linked)
+      new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Linked)
     );
   }
 
   public unlink() {
     this.dispatcher.next(
-      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.NoMatch)
+      new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.NoMatch)
     );
-    this.dispatcher.next(new LinkRecordsMatchesSetItemAction(this.record.key, undefined));
-    this.dispatcher.next(new LinkRecordsSelectedClearSelectedAction(this.record.key));
-    this.dispatcher.next(new LinkRecordsFieldsClearFieldsAction(this.record.key));
+    this.dispatcher.next(new SkyLinkRecordsMatchesSetItemAction(this.record.key, undefined));
+    this.dispatcher.next(new SkyLinkRecordsSelectedClearSelectedAction(this.record.key));
+    this.dispatcher.next(new SkyLinkRecordsFieldsClearFieldsAction(this.record.key));
   }
 
   public create() {
     this.dispatcher.next(
-      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Created)
+      new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Created)
     );
-    this.dispatcher.next(new LinkRecordsMatchesSetItemAction(this.record.key, this.record.item));
+    this.dispatcher.next(new SkyLinkRecordsMatchesSetItemAction(this.record.key, this.record.item));
   }
 
   public edit() {
     let status = (this.record.matchFields && this.record.matchFields.length > 0) ?
       this.STATUSES.Edit : this.STATUSES.Linked;
 
-    this.dispatcher.next(new LinkRecordsMatchesSetStatusAction(this.record.key, status));
+    this.dispatcher.next(new SkyLinkRecordsMatchesSetStatusAction(this.record.key, status));
   }
 
   public cancelEdit() {
     this.dispatcher.next(
-      new LinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Suggested));
-    this.dispatcher.next(new LinkRecordsSelectedClearSelectedAction(this.record.key));
-    this.dispatcher.next(new LinkRecordsFieldsClearFieldsAction(this.record.key));
+      new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Suggested));
+    this.dispatcher.next(new SkyLinkRecordsSelectedClearSelectedAction(this.record.key));
+    this.dispatcher.next(new SkyLinkRecordsFieldsClearFieldsAction(this.record.key));
   }
 }

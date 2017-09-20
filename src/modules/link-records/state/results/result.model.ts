@@ -1,4 +1,4 @@
-export class LinkRecordsResultModel {
+export class SkyLinkRecordsResultModel {
   public key: string;
   public status: string;
   public item: any;

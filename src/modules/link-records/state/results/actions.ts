@@ -1,1 +1,1 @@
-export { LinkRecordsResultsLoadAction } from './load.action';
+export * from './load.action';

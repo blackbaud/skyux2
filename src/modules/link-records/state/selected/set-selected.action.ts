@@ -1,4 +1,4 @@
-export class LinkRecordsSelectedSetSelectedAction {
+export class SkyLinkRecordsSelectedSetSelectedAction {
   constructor(
     public key: string,
     public fieldKey: string,

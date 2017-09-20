@@ -4,7 +4,7 @@ import { SkyWindowRefService } from '../../../modules/window';
 import {
   SKY_LINK_RECORDS_STATUSES,
   SkyLinkRecordsComponent,
-  LinkRecordsMatchModel
+  SkyLinkRecordsMatchModel
 } from '../../../modules/link-records';
 
 @Component({
@@ -30,38 +30,38 @@ export class SkyLinkRecordsDemoComponent {
     { id: '8', address: 808, name: 'Strawberry', description: 'Sally eats strawberries' }
   ]);
 
-  public matches: Observable<Array<LinkRecordsMatchModel>> = Observable.of([
-    new LinkRecordsMatchModel({
+  public matches: Observable<Array<SkyLinkRecordsMatchModel>> = Observable.of([
+    new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     }),
-    new LinkRecordsMatchModel({
+    new SkyLinkRecordsMatchModel({
       key: '2',
       status: undefined,
       item: undefined
     }),
-    new LinkRecordsMatchModel({
+    new SkyLinkRecordsMatchModel({
       key: '3',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: undefined
     }),
-    new LinkRecordsMatchModel({
+    new SkyLinkRecordsMatchModel({
       key: '5',
       status: SKY_LINK_RECORDS_STATUSES.Suggested,
       item: { id: '55', address: 555, name: 'Huge Banana', description: 'Barry loves bananas.' }
     }),
-    new LinkRecordsMatchModel({
+    new SkyLinkRecordsMatchModel({
       key: '6',
       status: SKY_LINK_RECORDS_STATUSES.Selected,
       item: { id: '66', address: 666, name: 'Lovely Lemons', description: 'Lisa loves lemons.' }
     }),
-    new LinkRecordsMatchModel({
+    new SkyLinkRecordsMatchModel({
       key: '7',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: undefined
     }),
-    new LinkRecordsMatchModel({
+    new SkyLinkRecordsMatchModel({
       key: '8',
       status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: {

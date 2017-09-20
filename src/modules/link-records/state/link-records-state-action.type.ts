@@ -1,21 +1,21 @@
 import {
-  LinkRecordsMatchesLoadAction,
-  LinkRecordsMatchesSetStatusAction,
-  LinkRecordsMatchesSetItemAction
+  SkyLinkRecordsMatchesLoadAction,
+  SkyLinkRecordsMatchesSetStatusAction,
+  SkyLinkRecordsMatchesSetItemAction
 } from './matches/actions';
 import {
-  LinkRecordsFieldsSetFieldsAction,
-  LinkRecordsFieldsClearFieldsAction
+  SkyLinkRecordsFieldsSetFieldsAction,
+  SkyLinkRecordsFieldsClearFieldsAction
 } from './fields/actions';
-import { LinkRecordsResultsLoadAction } from './results/actions';
+import { SkyLinkRecordsResultsLoadAction } from './results/actions';
 import {
-  LinkRecordsSelectedSetSelectedAction,
-  LinkRecordsSelectedClearSelectedAction
+  SkyLinkRecordsSelectedSetSelectedAction,
+  SkyLinkRecordsSelectedClearSelectedAction
 } from './selected/actions';
 
-export type LinkRecordsStateAction =
-  LinkRecordsMatchesLoadAction | LinkRecordsMatchesSetStatusAction |
-  LinkRecordsMatchesSetItemAction |
-  LinkRecordsFieldsSetFieldsAction | LinkRecordsFieldsClearFieldsAction |
-  LinkRecordsResultsLoadAction |
-  LinkRecordsSelectedSetSelectedAction | LinkRecordsSelectedClearSelectedAction;
+export type SkyLinkRecordsStateAction =
+  SkyLinkRecordsMatchesLoadAction | SkyLinkRecordsMatchesSetStatusAction |
+  SkyLinkRecordsMatchesSetItemAction |
+  SkyLinkRecordsFieldsSetFieldsAction | SkyLinkRecordsFieldsClearFieldsAction |
+  SkyLinkRecordsResultsLoadAction |
+  SkyLinkRecordsSelectedSetSelectedAction | SkyLinkRecordsSelectedClearSelectedAction;

@@ -1,10 +1,10 @@
-import { LinkRecordsMatchModel } from './state/matches/match.model';
+import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
 
-export class LinkRecordsItemModel {
+export class SkyLinkRecordsItemModel {
   public key: string;
   public status: string;
   public item: any;
-  public match: LinkRecordsMatchModel = new LinkRecordsMatchModel();
+  public match: SkyLinkRecordsMatchModel = new SkyLinkRecordsMatchModel();
   public matchFields: Array<any> = [];
 
   constructor(data: any = undefined) {

@@ -3,10 +3,14 @@ import {
   async,
   ComponentFixture
 } from '@angular/core/testing';
-import { LinkRecordsState, LinkRecordsStateDispatcher, LinkRecordsStateModel } from './state/';
-import { LinkRecordsMatchesLoadAction } from './state/matches/actions';
-import { LinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
-import { LinkRecordsMatchModel } from './state/matches/match.model';
+import {
+  SkyLinkRecordsState,
+  SkyLinkRecordsStateDispatcher,
+  SkyLinkRecordsStateModel
+} from './state/';
+import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
+import { SkyLinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
+import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
 import { SkyCheckboxModule } from '@blackbaud/skyux/dist/core';
 import { SkyLinkRecordsItemDiffComponent } from './link-records-item-diff.component';
 import { SkyResourcesModule } from '../resources';
@@ -15,12 +19,12 @@ import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 describe('Component: SkyLinkRecordsItemDiffComponent', () => {
   let fixture: ComponentFixture<SkyLinkRecordsItemDiffComponent>,
     component: SkyLinkRecordsItemDiffComponent,
-    dispatcher: LinkRecordsStateDispatcher,
-    state: LinkRecordsState;
+    dispatcher: SkyLinkRecordsStateDispatcher,
+    state: SkyLinkRecordsState;
 
   beforeEach(async(() => {
-    dispatcher = new LinkRecordsStateDispatcher();
-    state = new LinkRecordsState(new LinkRecordsStateModel(), dispatcher);
+    dispatcher = new SkyLinkRecordsStateDispatcher();
+    state = new SkyLinkRecordsState(new SkyLinkRecordsStateModel(), dispatcher);
 
     TestBed.configureTestingModule({
       declarations: [
@@ -31,8 +35,8 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
         SkyResourcesModule
       ],
       providers: [
-        { provide: LinkRecordsState, useValue: state },
-        { provide: LinkRecordsStateDispatcher, useValue: dispatcher }
+        { provide: SkyLinkRecordsState, useValue: state },
+        { provide: SkyLinkRecordsStateDispatcher, useValue: dispatcher }
       ]
     });
 
@@ -56,7 +60,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
@@ -64,7 +68,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     let fields = [{ key: 'none' }];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction([linkRecordMatch]));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     component.key = '1';
     component.item = item;
@@ -94,7 +98,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
@@ -105,7 +109,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       label: 'label '
     }];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction([linkRecordMatch]));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     component.key = '1';
     component.item = item;
@@ -130,7 +134,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
@@ -140,7 +144,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       key: 'description'
     }];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction([linkRecordMatch]));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     component.key = '1';
     component.item = item;
@@ -165,7 +169,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
@@ -175,14 +179,14 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       key: 'description'
     }];
 
-    let action = new LinkRecordsSelectedSetSelectedAction(
+    let action = new SkyLinkRecordsSelectedSetSelectedAction(
       '1',
       'description',
       true
     );
 
     dispatcher.next(action);
-    dispatcher.next(new LinkRecordsMatchesLoadAction([linkRecordMatch]));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     component.key = '1';
     component.item = item;
@@ -204,7 +208,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: '' }
@@ -214,7 +218,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       key: 'description'
     }];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction([linkRecordMatch]));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     component.key = '1';
     component.item = item;
@@ -238,7 +242,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
@@ -271,7 +275,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
@@ -305,7 +309,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
@@ -315,7 +319,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       key: 'description'
     }];
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction([linkRecordMatch]));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     component.key = '1';
     component.item = item;
@@ -336,7 +340,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
@@ -371,7 +375,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: '', description: '' }
@@ -403,7 +407,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: '', description: '' }

@@ -1,2 +1,2 @@
-export { LinkRecordsFieldsSetFieldsAction } from './set-fields.action';
-export { LinkRecordsFieldsClearFieldsAction } from './clear-fields.action';
+export * from './set-fields.action';
+export * from './clear-fields.action';

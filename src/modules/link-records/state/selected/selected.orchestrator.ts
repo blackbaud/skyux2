@@ -1,25 +1,26 @@
-import { LinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
+import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncItem } from 'microedge-rxstate/dist';
 let moment = require('moment');
 
 import {
-  LinkRecordsSelectedSetSelectedAction,
-  LinkRecordsSelectedClearSelectedAction
+  SkyLinkRecordsSelectedSetSelectedAction,
+  SkyLinkRecordsSelectedClearSelectedAction
 } from './actions';
 
-export class LinkRecordsSelectedOrchestrator
-  extends LinkRecordsStateOrchestrator<AsyncItem<{[key: string]: {[keyField: string]: boolean}}>> {
+export class SkyLinkRecordsSelectedOrchestrator
+  extends SkyLinkRecordsStateOrchestrator<AsyncItem<{[key: string]:
+    {[keyField: string]: boolean}}>> {
   constructor() {
     super();
 
     this
-      .register(LinkRecordsSelectedSetSelectedAction, this.setSelected)
-      .register(LinkRecordsSelectedClearSelectedAction, this.clearSelected);
+      .register(SkyLinkRecordsSelectedSetSelectedAction, this.setSelected)
+      .register(SkyLinkRecordsSelectedClearSelectedAction, this.clearSelected);
   }
 
   private setSelected(
     state: AsyncItem<{[key: string]: {[keyField: string]: boolean}}>,
-    action: LinkRecordsSelectedSetSelectedAction):
+    action: SkyLinkRecordsSelectedSetSelectedAction):
       AsyncItem<{[key: string]: {[keyField: string]: boolean}}> {
       let newStateItem = Object.assign({}, state.item);
       let fields = (newStateItem[action.key]) ? Object.assign({}, newStateItem[action.key]) : {};
@@ -32,7 +33,7 @@ export class LinkRecordsSelectedOrchestrator
 
   private clearSelected(
     state: AsyncItem<{[key: string]: {[keyField: string]: boolean}}>,
-    action: LinkRecordsSelectedSetSelectedAction):
+    action: SkyLinkRecordsSelectedSetSelectedAction):
       AsyncItem<{[key: string]: {[keyField: string]: boolean}}> {
       let newStateItem = Object.assign({}, state.item);
       newStateItem[action.key] = undefined;

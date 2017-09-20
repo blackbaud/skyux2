@@ -1,3 +1,3 @@
-export { LinkRecordsMatchesLoadAction } from './load.action';
-export { LinkRecordsMatchesSetStatusAction } from './set-status.action';
-export { LinkRecordsMatchesSetItemAction } from './set-item.action';
+export * from './load.action';
+export * from './set-status.action';
+export * from './set-item.action';

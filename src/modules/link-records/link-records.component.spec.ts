@@ -9,18 +9,18 @@ import {
   SkyLinkRecordsRendererComponent,
   SkyLinkRecordsItemDiffComponent
 } from './';
-import { LinkRecordsItemModel } from './link-records-item.model';
-import { LinkRecordsMatchModel } from './state/matches/match.model';
-import { LinkRecordsFieldModel } from './state/fields/field.model';
-import { LinkRecordsResultModel } from './state/results/result.model';
-import { LinkRecordsResultsLoadAction } from './state/results/actions';
-import { LinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
-import { LinkRecordsFieldsSetFieldsAction } from './state/fields/actions';
-import { LinkRecordsMatchesLoadAction } from './state/matches/actions';
+import { SkyLinkRecordsItemModel } from './link-records-item.model';
+import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
+import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
+import { SkyLinkRecordsResultModel } from './state/results/result.model';
+import { SkyLinkRecordsResultsLoadAction } from './state/results/actions';
+import { SkyLinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
+import { SkyLinkRecordsFieldsSetFieldsAction } from './state/fields/actions';
+import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
 import {
-  LinkRecordsState,
-  LinkRecordsStateDispatcher,
-  LinkRecordsStateModel
+  SkyLinkRecordsState,
+  SkyLinkRecordsStateDispatcher,
+  SkyLinkRecordsStateModel
 } from './state/';
 import { Observable } from 'rxjs/Observable';
 import { SkyCheckboxModule } from '@blackbaud/skyux/dist/core';
@@ -31,12 +31,12 @@ describe('Component: SkyLinkRecordsComponent', () => {
   let fixture: any,
     element: DebugElement,
     component: any,
-    dispatcher: LinkRecordsStateDispatcher,
-    state: LinkRecordsState;
+    dispatcher: SkyLinkRecordsStateDispatcher,
+    state: SkyLinkRecordsState;
 
   beforeEach(async(() => {
-    dispatcher = new LinkRecordsStateDispatcher();
-    state = new LinkRecordsState(new LinkRecordsStateModel(), dispatcher);
+    dispatcher = new SkyLinkRecordsStateDispatcher();
+    state = new SkyLinkRecordsState(new SkyLinkRecordsStateModel(), dispatcher);
 
     TestBed.configureTestingModule({
       declarations: [
@@ -50,16 +50,16 @@ describe('Component: SkyLinkRecordsComponent', () => {
         SkyResourcesModule
       ],
       providers: [
-        { provide: LinkRecordsState, useValue: state },
-        { provide: LinkRecordsStateDispatcher, useValue: dispatcher }
+        { provide: SkyLinkRecordsState, useValue: state },
+        { provide: SkyLinkRecordsStateDispatcher, useValue: dispatcher }
       ]
     });
 
     fixture = TestBed.createComponent(SkyLinkRecordsComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
-    state = component.state as LinkRecordsState;
-    dispatcher = component.dispatcher as LinkRecordsStateDispatcher;
+    state = component.state as SkyLinkRecordsState;
+    dispatcher = component.dispatcher as SkyLinkRecordsStateDispatcher;
   }));
 
   it('items are converted to observable on ngOnInit', () => {
@@ -84,7 +84,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
   });
 
   it('unlinked matches loaded into state and result item is undefined on ngOnInit', async(() => {
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: '11' }
@@ -131,7 +131,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: item
@@ -155,14 +155,14 @@ describe('Component: SkyLinkRecordsComponent', () => {
       name: 'Kevin'
     };
 
-    let field = new LinkRecordsFieldModel({
+    let field = new SkyLinkRecordsFieldModel({
       key: 'name',
       label: 'name',
       currentValue: 'Kevin',
       newValue: 'Brian'
     });
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: item
@@ -170,8 +170,8 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     component.matches = Observable.of([linkRecordMatch]);
 
-    dispatcher.next(new LinkRecordsSelectedSetSelectedAction('1', 'name', true));
-    dispatcher.next(new LinkRecordsFieldsSetFieldsAction('1', [field]));
+    dispatcher.next(new SkyLinkRecordsSelectedSetSelectedAction('1', 'name', true));
+    dispatcher.next(new SkyLinkRecordsFieldsSetFieldsAction('1', [field]));
 
     fixture.detectChanges();
 
@@ -190,21 +190,21 @@ describe('Component: SkyLinkRecordsComponent', () => {
       name: 'Kevin'
     };
 
-    let field = new LinkRecordsFieldModel({
+    let field = new SkyLinkRecordsFieldModel({
       key: 'name',
       label: 'name',
       currentValue: 'Kevin',
       newValue: 'Brian'
     });
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: item
     });
 
     component.matches = Observable.of([linkRecordMatch]);
-    dispatcher.next(new LinkRecordsFieldsSetFieldsAction('1', [field]));
+    dispatcher.next(new SkyLinkRecordsFieldsSetFieldsAction('1', [field]));
 
     fixture.detectChanges();
 
@@ -223,7 +223,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: '22' }
@@ -235,7 +235,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
     fixture.detectChanges();
 
     component.records.take(1)
-      .subscribe((r: LinkRecordsItemModel[]) => {
+      .subscribe((r: SkyLinkRecordsItemModel[]) => {
         let record = r[0];
         expect(record.key).toEqual(linkRecordMatch.key);
         expect(record.status).toEqual(linkRecordMatch.status);
@@ -253,7 +253,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     fixture.detectChanges();
 
-    component.records.take(1).subscribe((r: LinkRecordsItemModel[]) => {
+    component.records.take(1).subscribe((r: SkyLinkRecordsItemModel[]) => {
       let record = r[0];
       expect(record.status).toEqual(SKY_LINK_RECORDS_STATUSES.NoMatch);
     });
@@ -266,7 +266,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: { id: '22' }
@@ -278,46 +278,46 @@ describe('Component: SkyLinkRecordsComponent', () => {
     fixture.detectChanges();
 
     component.records.take(1)
-      .subscribe((r: LinkRecordsItemModel[]) => {
+      .subscribe((r: SkyLinkRecordsItemModel[]) => {
         let record = r[0];
         expect(record.match).toBeUndefined();
       });
   }));
 
   it('results are returned from state', async(() => {
-    let linkRecordResult = new LinkRecordsResultModel({
+    let linkRecordResult = new SkyLinkRecordsResultModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: {}
     });
 
-    dispatcher.next(new LinkRecordsResultsLoadAction([linkRecordResult]));
+    dispatcher.next(new SkyLinkRecordsResultsLoadAction([linkRecordResult]));
 
     component.results.take(1)
-      .subscribe((r: LinkRecordsResultModel[]) => {
+      .subscribe((r: SkyLinkRecordsResultModel[]) => {
         let result = r;
         expect(result.length > 0).toBe(true);
       });
   }));
 
   it('recordMatches are returned from state', async(() => {
-    let linkRecordMatch = new LinkRecordsMatchModel({
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: '11' }
     });
 
-    dispatcher.next(new LinkRecordsMatchesLoadAction([linkRecordMatch]));
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     component.recordMatches.take(1)
-      .subscribe((m: LinkRecordsMatchModel[]) => {
+      .subscribe((m: SkyLinkRecordsMatchModel[]) => {
         let matches = m;
         expect(matches.length > 0).toBe(true);
       });
   }));
 
-  it('LinkRecordsItemModel undefined constructor data init defaults fields', () => {
-    let linkRecordItem = new LinkRecordsItemModel();
+  it('SkyLinkRecordsItemModel undefined constructor data init defaults fields', () => {
+    let linkRecordItem = new SkyLinkRecordsItemModel();
 
     expect(linkRecordItem.key).toBeUndefined();
     expect(linkRecordItem.status).toBeUndefined();

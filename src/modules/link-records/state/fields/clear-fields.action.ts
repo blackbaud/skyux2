@@ -1,4 +1,4 @@
-export class LinkRecordsFieldsClearFieldsAction {
+export class SkyLinkRecordsFieldsClearFieldsAction {
   constructor(
     public key: string
   ) {
