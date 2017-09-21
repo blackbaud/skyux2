@@ -13,7 +13,8 @@
       (ngModelChange)="nameChange($event)"
       id="inputName" 
       type="text"
-    >
+      [required]="nameRequired"
+    />
   </div>
   <div style="margin-right: 10px; flex: 1;">
     <label 
@@ -28,7 +29,7 @@
       id="inputId" 
       type="text"
       (ngModelChange)="idChange($event)"
-    >
+    />
   </div>
 </div>
 
