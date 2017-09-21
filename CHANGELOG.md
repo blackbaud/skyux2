@@ -1,7 +1,7 @@
 # 2.0.3 (2017-09-21)
 
 - Added Link Records Component. ([#1036](https://github.com/blackbaud/skyux2/pull/1036)) (Thanks @blackbaud-joshgerdes)
-- Fixed wrapping columns for extra-small fluid grid coponent. ([#1096](https://github.com/blackbaud/skyux2/pull/1096))
+- Fixed wrapping columns for extra-small Fluid Grid Component. ([#1096](https://github.com/blackbaud/skyux2/pull/1096))
 
 # 2.0.2 (2017-09-21)
 
