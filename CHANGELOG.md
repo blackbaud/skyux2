@@ -1,7 +1,7 @@
 # 2.0.3 (2017-09-21)
 
-- Added Link Records Component. ([#1036](https://github.com/blackbaud/skyux2/pull/1036)) (Thanks @blackbaud-joshgerdes)
-- Fixed wrapping columns for extra-small Fluid Grid Component. ([#1096](https://github.com/blackbaud/skyux2/pull/1096))
+- Added link records component. ([#1036](https://github.com/blackbaud/skyux2/pull/1036)) (Thanks @blackbaud-joshgerdes)
+- Fixed wrapping columns for extra-small fluid grid component. ([#1096](https://github.com/blackbaud/skyux2/pull/1096))
 
 # 2.0.2 (2017-09-21)
 
@@ -9,39 +9,39 @@
 
 # 2.0.1 (2017-09-18)
 
-- Added support for Tile components within Modals. ([#1039](https://github.com/blackbaud/skyux2/pull/1039)) (Thanks @Blackbaud-TomRamsey)
+- Added support for tile components within modals. ([#1039](https://github.com/blackbaud/skyux2/pull/1039)) (Thanks @Blackbaud-TomRamsey)
 - Added support for SKY UX Builder `1.0.0-rc.19`. ([#1066](https://github.com/blackbaud/skyux2/pull/1066))
-- Fixed bug with Vertical Tabset component when not using tab groups. ([#1076](https://github.com/blackbaud/skyux2/pull/1076))
-- Fixed bug with Tile component styles on smaller screens. ([#1067](https://github.com/blackbaud/skyux2/pull/1067))
+- Fixed bug with vertical tabset component when not using tab groups. ([#1076](https://github.com/blackbaud/skyux2/pull/1076))
+- Fixed bug with tile component styles on smaller screens. ([#1067](https://github.com/blackbaud/skyux2/pull/1067))
 
 # 2.0.0 (2017-09-14)
 
-- Added Vertical Tabs Component. ([#1004](https://github.com/blackbaud/skyux2/pull/1004)) (Thanks @Blackbaud-AdamHickey)
-- Added Popover Component. ([#1020](https://github.com/blackbaud/skyux2/pull/1020))
+- Added vertical tabs component. ([#1004](https://github.com/blackbaud/skyux2/pull/1004)) (Thanks @Blackbaud-AdamHickey)
+- Added popover component. ([#1020](https://github.com/blackbaud/skyux2/pull/1020))
 - Updated colors and fonts. ([#1053](https://github.com/blackbaud/skyux2/pull/1053), [#1059](https://github.com/blackbaud/skyux2/pull/1059))
-- Added `errorType="security"` option to Error Component ([#1011](https://github.com/blackbaud/skyux2/pull/1011)) (Thanks @Blackbaud-JeffDye)
-- Implemented `cursor: default` for a disabled Checkbox Component ([#1025](https://github.com/blackbaud/skyux2/pull/1025)) (Thanks @Blackbaud-TrevorBurch)
+- Added `errorType="security"` option to error component ([#1011](https://github.com/blackbaud/skyux2/pull/1011)) (Thanks @Blackbaud-JeffDye)
+- Implemented `cursor: default` for a disabled checkbox component ([#1025](https://github.com/blackbaud/skyux2/pull/1025)) (Thanks @Blackbaud-TrevorBurch)
 - Added styles for text overflow on `SkyListViewChecklist`. ([#1043](https://github.com/blackbaud/skyux2/pull/1043))
 - Fixed typo in `SkyModalConfigurationInterface`. ([#1034](https://github.com/blackbaud/skyux2/pull/1034))
 - Fixed bug with `SkyListViewChecklist` search. ([#1046](https://github.com/blackbaud/skyux2/pull/1046))
 
 # 2.0.0-rc.12 (2017-08-29)
 
- - Added `searchClear` emitter to Search Component. ([#1013](https://github.com/blackbaud/skyux2/pull/1013)) (Thanks @Blackbaud-TrevorBurch)
+ - Added `searchClear` emitter to search component. ([#1013](https://github.com/blackbaud/skyux2/pull/1013)) (Thanks @Blackbaud-TrevorBurch)
  - Adjusted form group spacing. ([#1022](https://github.com/blackbaud/skyux2/pull/1022))
  - Standardized the color of borderless icon buttons. Darkened button and input borders, and lightened applied filter bubbles to improve usability. ([#999](https://github.com/blackbaud/skyux2/pull/999))
- - Fixed bug with multiple requests during List Component column change. ([#982](https://github.com/blackbaud/skyux2/pull/982)) (Thanks @Blackbaud-LuisBello)
+ - Fixed bug with multiple requests during list component column change. ([#982](https://github.com/blackbaud/skyux2/pull/982)) (Thanks @Blackbaud-LuisBello)
 
 # 2.0.0-rc.11 (2017-08-17)
 
   - Added support for NPM 5. ([#997](https://github.com/blackbaud/skyux2/pull/997))
   - Added support for `@blackbaud/skyux-builder@1.0.0-rc.15`. ([#975](https://github.com/blackbaud/skyux2/pull/975))
-  - Added Action Button Container component. ([#968](https://github.com/blackbaud/skyux2/pull/968))
-  - Ported Inline Help component from SKY UX v.1. ([#874](https://github.com/blackbaud/skyux2/pull/874)) (Thanks @Blackbaud-SandhyaRajasabeson)
-  - Added new Fluid Grid component, which allows for responsive rows and columns. ([#957](https://github.com/blackbaud/skyux2/pull/957)) (Thanks @Blackbaud-JeffDye)
-  - Exposed multiple properties and events for Tile component. ([#966](https://github.com/blackbaud/skyux2/pull/966))
+  - Added action button container component. ([#968](https://github.com/blackbaud/skyux2/pull/968))
+  - Ported inline help component from SKY UX v.1. ([#874](https://github.com/blackbaud/skyux2/pull/874)) (Thanks @Blackbaud-SandhyaRajasabeson)
+  - Added new fluid grid component, which allows for responsive rows and columns. ([#957](https://github.com/blackbaud/skyux2/pull/957)) (Thanks @Blackbaud-JeffDye)
+  - Exposed multiple properties and events for tile component. ([#966](https://github.com/blackbaud/skyux2/pull/966))
   - Fixed linting errors. ([#961](https://github.com/blackbaud/skyux2/pull/961))
-  - Fixed bug with Search component event handlers. ([#960](https://github.com/blackbaud/skyux2/pull/960))
+  - Fixed bug with search component event handlers. ([#960](https://github.com/blackbaud/skyux2/pull/960))
   
 
 # 2.0.0-rc.10 (2017-07-27)
