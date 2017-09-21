@@ -15,6 +15,7 @@ import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfiguration } from './modal-configuration';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
+import { SkyWindowRefService } from '../window';
 
 let skyModalUniqueIdentifier: number = 0;
 
@@ -130,13 +131,18 @@ export class SkyModalComponent implements AfterViewInit {
     private hostService: SkyModalHostService,
     private config: SkyModalConfiguration,
     private elRef: ElementRef,
+    private windowRef: SkyWindowRefService,
     private componentAdapter: SkyModalComponentAdapterService) { }
 
   public ngAfterViewInit() {
     skyModalUniqueIdentifier++;
     this.componentAdapter.handleWindowChange(this.elRef);
 
-    this.componentAdapter.modalOpened(this.elRef);
+    // Adding a timeout to avoid ExpressionChangedAfterItHasBeenCheckedError.
+    // https://stackoverflow.com/questions/40562845
+    this.windowRef.getWindow().setTimeout(() => {
+      this.componentAdapter.modalOpened(this.elRef);
+    });
   }
 
   public closeButtonClick() {

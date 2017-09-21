@@ -2,7 +2,8 @@ import {
   TestBed,
   fakeAsync,
   ComponentFixture,
-  tick
+  tick,
+  async
 } from '@angular/core/testing';
 
 import {
@@ -18,13 +19,9 @@ import {
   By
 } from '@angular/platform-browser';
 
-import {
-  SkyRadioModule
-} from './radio.module';
-
-import {
-  SkyRadioComponent
-} from './radio.component';
+import { SkyRadioModule } from './radio.module';
+import { SkyRadioComponent } from './radio.component';
+import { SkyRadioLabelComponent } from './radio-label.component';
 
 describe('Radio component', function () {
 
@@ -56,6 +53,9 @@ describe('Radio component', function () {
         [labelledBy]="labelledBy3">
         <sky-radio-label>My label</sky-radio-label>
       </sky-radio>
+      <sky-radio id="radio-clickable" (click)="onClick()">
+        <sky-radio-label>Label</sky-radio-label>
+      </sky-radio>
     </form>
     `
   })
@@ -68,6 +68,7 @@ describe('Radio component', function () {
     public labelledBy3: string;
     public tabindex2: string;
     public selectedValue = '1';
+    public onClick() {}
   }
 
   let fixture: ComponentFixture<RadioTestComponent>;
@@ -191,18 +192,6 @@ describe('Radio component', function () {
     expect(radio1El.nativeElement.getAttribute('tabindex')).toBe('3');
   }));
 
-  it('should only register one click event', fakeAsync(() => {
-    const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
-
-    spyOn(radioElement.componentInstance, 'onClick');
-
-    radioElement.nativeElement.click();
-    fixture.detectChanges();
-    tick();
-
-    expect(radioElement.componentInstance.onClick.calls.count()).toEqual(1);
-  }));
-
   it('should not change the selected value if input is disabled', fakeAsync(() => {
     const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
     const radioComponent = radioElement.componentInstance;
@@ -235,4 +224,17 @@ describe('Radio component', function () {
     expect(radioComponent.selectedValue).toEqual('foo');
   }));
 
+  it('should prevent click events on the label from bubbling to parents', async(() => {
+    let radioLabelElement = fixture.debugElement
+      .query(By.css('#radio-clickable'))
+      .query(By.directive(SkyRadioLabelComponent));
+
+    spyOn(componentInstance, 'onClick');
+    spyOn(radioLabelElement.componentInstance, 'onClick').and.callThrough();
+
+    radioLabelElement.nativeElement.click();
+
+    expect((componentInstance.onClick as any).calls.count()).toEqual(1);
+    expect(radioLabelElement.componentInstance.onClick).toHaveBeenCalled();
+  }));
 });

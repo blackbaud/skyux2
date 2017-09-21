@@ -1,7 +1,6 @@
 import {
   Component,
   forwardRef,
-  HostListener,
   Input
 } from '@angular/core';
 
@@ -63,18 +62,7 @@ export class SkyRadioComponent implements ControlValueAccessor {
   }
 
   public selectedValue: any;
-  private onTouchedCallback: Function;
   private onChangeCallback: (value: any) => void;
-
-  // When clicking on a checkbox label, angular registers two click events.
-  // This handler ignores all events except for those that deal with the checkbox input explicitly.
-  @HostListener('click', ['$event'])
-  public onClick(event: MouseEvent) {
-    const elem = event.target as HTMLElement;
-    if (elem.tagName.toLowerCase() !== 'input') {
-      return;
-    }
-  }
 
   public onInputBlur() {
     this.onTouchedCallback();
@@ -110,5 +98,11 @@ export class SkyRadioComponent implements ControlValueAccessor {
   // onTouched callback set by ControlValueAccessor.
   public registerOnTouched(fn: any) {
     this.onTouchedCallback = fn;
+  }
+
+  // Satisfying ControlValueAccessor interface.
+  /* istanbul ignore next */
+  private onTouchedCallback(): () => void {
+    return () => {};
   }
 }

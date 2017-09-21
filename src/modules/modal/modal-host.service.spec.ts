@@ -60,6 +60,15 @@ describe('Modal host service', () => {
           size: 'medium'
         },
         { nativeElement: {} },
+        {
+          getWindow(): any {
+            return {
+              setTimeout(cb: Function) {
+                return cb();
+              }
+            };
+          }
+        },
         componentService
       );
     let closeEmitted = false;
