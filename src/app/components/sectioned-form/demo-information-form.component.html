@@ -9,8 +9,7 @@
     </label>
     <input 
       class="sky-form-control"
-      [ngModel]="name"
-      (ngModelChange)="nameChange($event)"
+      [(ngModel)]="name"
       id="inputName" 
       type="text"
       [required]="nameRequired"
@@ -25,10 +24,9 @@
     </label>
     <input 
       class="sky-form-control"
-      [ngModel]="id"
+      [(ngModel)]="id"
       id="inputId" 
       type="text"
-      (ngModelChange)="idChange($event)"
     />
   </div>
 </div>

@@ -1,20 +1,20 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { SkySectionedFormService } from 'src/core';
 
 @Component({
   selector: 'sky-demo-information-form',
   templateUrl: './demo-information-form.component.html'
 })
 export class SkyDemoInformationFormComponent {
-  public name: string = '';
-  public id: string = '5324901';
 
-  @Output()
-  public requiredChange = new EventEmitter<boolean>();
+  @ViewChild('skyInformationForm')
+  public informationForm: NgForm;
 
-  @Output()
-  public invalidChange = new EventEmitter<boolean>();
+  @ViewChild('nameInput')
+  public nameInput: NgModel;
 
-  private _nameRequired: boolean = false;
+  private _nameRequired: boolean;
 
   public get nameRequired() {
     return this._nameRequired;
@@ -22,31 +22,37 @@ export class SkyDemoInformationFormComponent {
 
   public set nameRequired(value: boolean) {
     this._nameRequired = value;
-    this.emitRequiredChange();
+    this.sectionedFormService.requiredFieldChanged(value);
   }
 
-  public nameChange(newName: string) {
-    this.name = newName;
-    this.emitRequiredChange();
+  private _name: string = '';
+
+  public get name() {
+    return this._name;
   }
 
-  public idChange(newId: string) {
-    this.id = newId;
+  public set name(value: string) {
+    this._name = value;
 
-    if (this.idValid(this.id)) {
-      this.invalidChange.emit(false);
-    } else {
-      this.invalidChange.emit(true);
+    if (this._nameRequired) {
+      this.sectionedFormService.requiredFieldChanged(!this._name);
     }
   }
 
-  private emitRequiredChange() {
-    if (this.nameRequired && !this.name) {
-      this.requiredChange.emit(true);
-    } else {
-      this.requiredChange.emit(false);
-    }
+  private _id: string = '5324901';
+
+  public get id() {
+    return this._id;
   }
+
+  public set id(value: string) {
+    this._id = value;
+
+    const valid = this.idValid(this._id);
+    this.sectionedFormService.invalidFieldChanged(!valid);
+  }
+
+  constructor(private sectionedFormService: SkySectionedFormService) {}
 
   private idValid(value: string) {
     if (value) {

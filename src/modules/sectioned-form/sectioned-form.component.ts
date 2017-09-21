@@ -4,8 +4,6 @@ import {
   OnDestroy,
   ElementRef,
   ViewChild,
-  ContentChildren,
-  QueryList,
   EventEmitter,
   Output,
   AfterViewChecked,
@@ -29,8 +27,6 @@ import {
   SkyVerticalTabsetService,
   VISIBLE_STATE
 } from './../vertical-tabset/vertical-tabset.service';
-
-import { SkySectionedFormSectionComponent } from './sectioned-form-section.component';
 
 @Component({
   selector: 'sky-sectioned-form',
@@ -65,12 +61,9 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   @ViewChild('skySectionSideContent')
   public content: ElementRef;
 
-  @ContentChildren(SkySectionedFormSectionComponent)
-  public sections: QueryList<SkySectionedFormSectionComponent>;
-
   private _ngUnsubscribe = new Subject();
 
-  public constructor(
+  constructor(
     public tabService: SkyVerticalTabsetService,
     private changeRef: ChangeDetectorRef) {}
 
@@ -99,26 +92,6 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
-  }
-
-  public setRequired(required: boolean) {
-    let section = this.getActiveSection();
-    if (section) {
-      section.fieldRequired = required;
-    }
-  }
-
-  public setInvalid(invalid: boolean) {
-    let section = this.getActiveSection();
-    if (section) {
-      section.fieldInvalid = invalid;
-    }
-  }
-
-  public getActiveSection() {
-    if (this.sections && this.sections.length > 0) {
-      return this.sections.toArray().find(s => s.tab.index === this.tabService.activeIndex );
-    }
   }
 
   public tabsVisible() {
