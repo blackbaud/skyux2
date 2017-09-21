@@ -1,3 +1,7 @@
+# 2.0.2 (2017-09-21)
+
+- Added extra-small breakpoint to fluid grid component. ([#1088](https://github.com/blackbaud/skyux2/pull/1088))
+
 # 2.0.1 (2017-09-18)
 
 - Added support for Tile components within Modals. ([#1039](https://github.com/blackbaud/skyux2/pull/1039)) (Thanks @Blackbaud-TomRamsey)
