@@ -1,7 +1,9 @@
 <sky-row>
   <sky-column
     *ngFor="let image of images"
-    [screenSmall]="small ? 2 : 3"
+    screenXSmall="4"
+    [screenSmall]="small ? 3 : 4"
+    [screenMedium]="small ? 2 : 3"
   >
     <div
       class="sky-minifig-image-wrapper"
