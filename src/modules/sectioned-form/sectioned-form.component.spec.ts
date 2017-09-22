@@ -100,7 +100,8 @@ describe('Sectioned form component', () => {
     // check correct section content is displayed
     let content = getVisibleContent(el);
     expect(content.length).toBe(1);
-    expect(content[0].textContent.trim()).toBe('information 1');
+    let informationContent = content[0].querySelector('.demo-content');
+    expect(informationContent.textContent.trim()).toBe('information 1');
   });
 
   it('section should respect required field change', () => {
@@ -117,8 +118,8 @@ describe('Sectioned form component', () => {
     expect(activeTab.classList.contains('sky-tab-field-required')).toBe(false);
 
     // mark required
-    el.querySelector('#requiredTestCheckbox');
-    el.click();
+    let checkbox = el.querySelector('#requiredTestCheckbox input');
+    checkbox.click();
     fixture.detectChanges();
 
     // check section is required
@@ -147,8 +148,8 @@ describe('Sectioned form component', () => {
     expect(activeTab.classList.contains('sky-tab-field-required')).toBe(false);
 
     // mark required
-    el.querySelector('#requiredTestCheckbox');
-    el.click();
+    let checkbox = el.querySelector('#requiredTestCheckbox input');
+    checkbox.click();
     fixture.detectChanges();
 
     // check section is required
@@ -222,8 +223,8 @@ describe('Sectioned form component', () => {
     expect(activeTab.classList.contains('sky-tab-field-invalid')).toBe(false);
 
     // mark invalid
-    el.querySelector('#invalidTestCheckbox');
-    el.click();
+    let checkbox = el.querySelector('#invalidTestCheckbox input');
+    checkbox.click();
     fixture.detectChanges();
 
     // check section is required

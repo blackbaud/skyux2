@@ -1,5 +1,4 @@
-import { NgForm, NgModel } from '@angular/forms';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { SkySectionedFormService } from 'src/core';
 
 @Component({
@@ -7,12 +6,6 @@ import { SkySectionedFormService } from 'src/core';
   templateUrl: './demo-information-form.component.html'
 })
 export class SkyDemoInformationFormComponent {
-
-  @ViewChild('skyInformationForm')
-  public informationForm: NgForm;
-
-  @ViewChild('nameInput')
-  public nameInput: NgModel;
 
   private _nameRequired: boolean;
 

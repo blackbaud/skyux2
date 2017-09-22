@@ -15,7 +15,6 @@ export class SkySectionedFormFixtureInformation1Component {
 
   public set required(value: boolean) {
     this._required = value;
-    console.warn(`setting required = ${value}`);
     this.sectionedFormService.requiredFieldChanged(value);
   }
 
@@ -27,7 +26,6 @@ export class SkySectionedFormFixtureInformation1Component {
 
   public set invalid(value: boolean) {
     this._invalid = value;
-    console.warn(`setting invalid = ${value}`);
     this.sectionedFormService.invalidFieldChanged(value);
   }
 
