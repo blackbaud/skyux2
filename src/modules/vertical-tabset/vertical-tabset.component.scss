@@ -20,4 +20,5 @@
 .sky-vertical-tabset-group-container {
   flex-basis: 25%;
   overflow-y: auto;
+  @include sky-border(dark, right);
 }
