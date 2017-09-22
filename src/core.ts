@@ -414,7 +414,8 @@ export {
 export {
   SkySectionedFormComponent,
   SkySectionedFormModule,
-  SkySectionedFormSectionComponent
+  SkySectionedFormSectionComponent,
+  SkySectionedFormService
 } from './modules/sectioned-form';
 export {
   SkySortComponent,

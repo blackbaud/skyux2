@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SkySectionedFormModule } from '../';
 import { SkySectionedFormFixtureComponent } from './sectioned-form.component.fixture';
@@ -20,6 +21,8 @@ import {
   SkySectionedFormFixtureInformation2Component
 } from './sectioned-form-fixture-information-2.component';
 
+import { SkyCheckboxModule } from './../../checkbox/checkbox.module';
+
 @NgModule({
   declarations: [
     SkySectionedFormFixtureComponent,
@@ -30,7 +33,9 @@ import {
   ],
   imports: [
     CommonModule,
-    SkySectionedFormModule
+    SkySectionedFormModule,
+    SkyCheckboxModule,
+    FormsModule
   ],
   exports: [
     SkySectionedFormFixtureComponent,
