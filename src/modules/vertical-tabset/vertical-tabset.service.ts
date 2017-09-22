@@ -1,5 +1,6 @@
-import { Injectable, ElementRef, EventEmitter } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 
 import { SkyVerticalTabComponent } from './vertical-tab.component';
 import { SkyMediaQueryService } from './../media-queries/media-query.service';
@@ -16,9 +17,9 @@ export class SkyVerticalTabsetService {
 
   public hidingTabs = new BehaviorSubject(false);
   public showingTabs = new BehaviorSubject(false);
-  public tabAdded: BehaviorSubject<SkyVerticalTabComponent> = new BehaviorSubject(undefined);
-  public indexChanged: EventEmitter<number> = new EventEmitter();
-  public switchingMobile: EventEmitter<boolean> = new EventEmitter();
+  public tabAdded: Subject<SkyVerticalTabComponent> = new Subject();
+  public indexChanged: BehaviorSubject<number> = new BehaviorSubject(undefined);
+  public switchingMobile: Subject<boolean> = new Subject();
 
   public animationVisibleState: string;
 
@@ -89,7 +90,7 @@ export class SkyVerticalTabsetService {
 
     if (mobile && this._isWidescreen) {
       // switching to mobile
-      this.switchingMobile.emit(true);
+      this.switchingMobile.next(true);
 
       if (!this.tabsVisible()) {
         this.hidingTabs.next(true);
@@ -97,7 +98,7 @@ export class SkyVerticalTabsetService {
 
     } else if (!mobile && !this._isWidescreen) {
       // switching to widescreen
-      this.switchingMobile.emit(false);
+      this.switchingMobile.next(false);
 
       if (!this._tabsVisible) {
         this.showingTabs.next(true);
@@ -142,6 +143,6 @@ export class SkyVerticalTabsetService {
       this.hidingTabs.next(true);
     }
 
-    this.indexChanged.emit(this.activeIndex);
+    this.indexChanged.next(this.activeIndex);
   }
 }

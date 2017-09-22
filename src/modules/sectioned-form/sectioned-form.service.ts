@@ -1,19 +1,17 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SkySectionedFormService {
 
-  @Output()
-  public requiredChange = new EventEmitter<boolean>();
-
-  @Output()
-  public invalidChange = new EventEmitter<boolean>();
+  public requiredChange: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
+  public invalidChange: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
 
   public requiredFieldChanged(required: boolean) {
-    this.requiredChange.emit(required);
+    this.requiredChange.next(required);
   }
 
   public invalidFieldChanged(invalid: boolean) {
-    this.invalidChange.emit(invalid);
+    this.invalidChange.next(invalid);
   }
 }
