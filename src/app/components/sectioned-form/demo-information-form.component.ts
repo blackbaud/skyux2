@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SkySectionedFormService } from 'src/core';
+import { SkySectionedFormService } from '../../../core';
 
 @Component({
   selector: 'sky-demo-information-form',
