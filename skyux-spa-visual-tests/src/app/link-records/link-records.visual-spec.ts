@@ -28,7 +28,7 @@ describe('link-records component', () => {
   it('should display linked match', () => {
     return SkyVisualTest.setupTest('link-records')
     .then(() => {
-      element(by.css('#linked-match-records .link-records-item-footer .sky-btn-primary')).click();
+      element(by.css('#linked-match-records .link-records-item-footer .sky-btn-default')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'link_records_linked_match',
         selector: '#screenshot-link-records-linked-match',
@@ -40,7 +40,7 @@ describe('link-records component', () => {
   it('should display created match', () => {
     return SkyVisualTest.setupTest('link-records')
     .then(() => {
-      element(by.css('#create-link-records .link-records-item-footer .sky-btn-link')).click();
+      element(by.css('#create-link-records .link-records-item-footer .sky-btn-default')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'link_records_created_match',
         selector: '#screenshot-link-records-created-match',
