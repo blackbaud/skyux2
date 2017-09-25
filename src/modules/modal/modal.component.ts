@@ -93,7 +93,7 @@ export class SkyModalComponent implements AfterViewInit {
         switch (event.which) {
           case 27: { // Esc key pressed
             event.preventDefault();
-            this.hostService.onClose(this);
+            this.hostService.onClose();
             break;
           }
 
@@ -146,7 +146,7 @@ export class SkyModalComponent implements AfterViewInit {
   }
 
   public closeButtonClick() {
-    this.hostService.onClose(this);
+    this.hostService.onClose();
   }
 
   public windowResize() {

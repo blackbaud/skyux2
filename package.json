@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -47,7 +47,7 @@
     "dragula": "3.7.2",
     "font-awesome": "4.7.0",
     "intl": "1.2.5",
-    "microedge-rxstate": "1.0.3",
+    "microedge-rxstate": "2.0.0",
     "moment": "2.18.1",
     "ng2-dragula": "1.5.0",
     "ng2-toastr": "4.1.2",

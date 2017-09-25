@@ -24,6 +24,7 @@ import { SkyGridModule } from './modules/grid';
 import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
+import { SkyLinkRecordsModule } from './modules/link-records';
 import { SkyListColumnSelectorActionModule } from './modules/list-column-selector-action';
 import { SkyListFiltersModule } from './modules/list-filters';
 import { SkyListModule } from './modules/list';
@@ -74,6 +75,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyHelpInlineModule,
     SkyKeyInfoModule,
     SkyLabelModule,
+    SkyLinkRecordsModule,
     SkyListColumnSelectorActionModule,
     SkyListFiltersModule,
     SkyListModule,
@@ -260,6 +262,16 @@ export {
   SkyLabelModule
 } from './modules/label';
 
+export {
+  SkyLinkRecordsComponent,
+  SkyLinkRecordsItemComponent,
+  SkyLinkRecordsItemContentComponent,
+  SkyLinkRecordsItemDiffComponent,
+  SkyLinkRecordsItemTitleComponent,
+  SkyLinkRecordsMatchContentComponent,
+  SkyLinkRecordsNoMatchContentComponent,
+  SkyLinkRecordsRendererComponent
+} from './modules/link-records';
 export {
   SkyListColumnSelectorActionComponent,
   SkyListColumnSelectorActionModule

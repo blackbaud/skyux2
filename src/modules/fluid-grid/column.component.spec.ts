@@ -28,10 +28,12 @@ describe('SkyColumnComponent', () => {
   });
 
   it('should add a class for small, medium, and large breakpoints', () => {
+    component.screenXSmall = 1;
     component.screenSmall = 1;
     component.screenMedium = 2;
     component.screenLarge = 5;
     fixture.detectChanges();
+    expect(element.className).toContain('sky-column-xs-1');
     expect(element.className).toContain('sky-column-sm-1');
     expect(element.className).toContain('sky-column-md-2');
     expect(element.className).toContain('sky-column-lg-5');
