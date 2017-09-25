@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
 import { ListDataProvider } from '../list/list-data.provider';
 import { ListDataRequestModel } from '../list/list-data-request.model';
 import { ListDataResponseModel } from '../list/list-data-response.model';

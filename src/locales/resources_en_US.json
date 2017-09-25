@@ -503,6 +503,94 @@
     "_description": "Placeholder text in grid search box",
     "message": "Find in this list"
   },
+  "link_records_item_info_match": {
+    "_description": "",
+    "message": "A possible match has been identified for this record. Would you like to link it?"
+  },
+  "link_records_item_info_no_match": {
+    "_description": "",
+    "message": "We are not able to identify a possible match for this record."
+  },
+  "link_records_item_info_linked": {
+    "_description": "",
+    "message": "You have successfully linked this record!"
+  },
+  "link_records_item_info_created": {
+    "_description": "",
+    "message": "You have successfully created and linked this record!"
+  },
+  "link_records_item_info_edit": {
+    "_description": "",
+    "message": "Do you want to update this record with this new information?"
+  },
+  "link_records_item_header_created": {
+    "_description": "",
+    "message": "Record created"
+  },
+  "link_records_item_header_no_match": {
+    "_description": "",
+    "message": "No match found"
+  },
+  "link_records_item_header_match": {
+    "_description": "",
+    "message": "Match found"
+  },
+  "link_records_item_footer_link": {
+    "_description": "",
+    "message": "Link this record"
+  },
+  "link_records_item_footer_search": {
+    "_description": "",
+    "message": "Add or search for record"
+  },
+  "link_records_item_footer_unlink": {
+    "_description": "",
+    "message": "Remove this link"
+  },
+  "link_records_item_footer_create": {
+    "_description": "",
+    "message": "Create a new record"
+  },
+  "link_records_item_footer_link_with_updating": {
+    "_description": "",
+    "message": "Apply Updates"
+  },
+  "link_records_item_footer_link_without_updating": {
+    "_description": "",
+    "message": "Link without updating"
+  },
+  "link_records_item_footer_cancel": {
+    "_description": "",
+    "message": "Cancel"
+  },
+  "link_records_item_title_default": {
+    "_description": "",
+    "message": "Item"
+  },
+  "link_records_item_content_no_match": {
+    "_description": "",
+    "message": "no match"
+  },
+  "link_records_item_diff_header_field": {
+    "_description": "",
+    "message": "Field"
+  },
+  "link_records_item_diff_header_current_value": {
+    "_description": "",
+    "message": "Current value"
+  },
+  "link_records_item_diff_header_new_value": {
+    "_description": "",
+    "message": "New value"
+  },
+  "link_records_item_diff_header_update": {
+    "_description": "",
+    "message": "Update"
+  },
+  "link_records_item_diff_content_no_value": {
+    "_description": "",
+    "message": "No value"
+  },
   "list_show_secondary_actions": {
     "_description": "Label for the button that opens the secondary actions menu in the list toolbar",
     "message": "Show secondary actions"
