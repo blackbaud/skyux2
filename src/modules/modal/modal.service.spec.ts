@@ -83,6 +83,20 @@ describe('Modal service', () => {
     expect(document.body).not.toHaveCssClass('sky-modal-body-open');
   }));
 
+  it('should pass a "close" reason to the closed subscription when modal close button clicked',
+  fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent);
+    modalInstance.closed.subscribe((result: any) => {
+      expect(result.reason).toEqual('close');
+      expect(result.data).toBeUndefined();
+    });
+
+    applicationRef.tick();
+    (document.body.querySelector('.sky-modal-btn-close') as HTMLElement).click();
+    tick();
+    applicationRef.tick();
+  }));
+
   it('should reuse the same modal host container for all modals', fakeAsync(() => {
     function validateModalCount(modalCount: number) {
       expect(document.body.querySelectorAll('sky-modal-host').length).toBe(1);

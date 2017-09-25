@@ -50,13 +50,13 @@
       <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="edit()" class="sky-btn sky-btn-primary">
           {{'link_records_item_footer_link' | skyResources}}
       </button>
-      <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="unlink()" class="sky-btn sky-btn-link">
+      <button *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" (click)="unlink()" class="sky-btn sky-btn-default">
           {{'link_records_item_footer_search' | skyResources}}
       </button>
       <button *ngIf="record.status == STATUSES.Linked || record.status == STATUSES.Created" (click)="unlink()" class="sky-btn sky-btn-link">
           {{'link_records_item_footer_unlink' | skyResources}}
       </button>
-      <button *ngIf="record.status == STATUSES.NoMatch" (click)="create()" class="sky-btn sky-btn-link">
+      <button *ngIf="record.status == STATUSES.NoMatch" (click)="create()" class="sky-btn sky-btn-default">
           {{'link_records_item_footer_create' | skyResources}}
       </button>
       <button *ngIf="record.status == STATUSES.Edit" (click)="link()" class="sky-btn sky-btn-primary">
