@@ -1,0 +1,28 @@
+<sky-demo-nav></sky-demo-nav>
+
+<stache 
+  pageTitle="Call out information"
+  windowTitle="Call out information">
+
+<p>
+The optimal method to highlight information depends on the content and its context.
+</p>
+<h2 class="sky-section-heading">Critical messages</h2>
+<p>
+To highlight critical information that users absolutely must see, use <a routerLink="../../components/alert">the alert component</a>. Depending on the nature of the message, you can specify whether the alert is dismissible. In general, an alert should be dismissible if users only need to see it once, although you may want to include a way for users to reopen it. Meanwhile, an alert should not be dismissible if it is important for users see every time or if it is triggered by underlying data.
+</p>
+<h2 class="sky-section-heading">Summary data</h2>
+<p>
+For dense sets of data, you can create summaries to highlight important points. To call out these points, use a <a routerLink="../../components/keyinfo">key information component</a>. They draw user attention, and then users can decide whether to dig into the underlying data or rely on the high-level understanding.
+</p>
+<h2 class="sky-section-heading">Status</h2>
+<p>
+To communicate the status of a record when it is important enough to highlight, use <a routerLink="../../components/labels">a label component</a>. The bold styling catches the eye without distracting users. In general, labels communicate binary information or values from a small, system-defined list. You should only use labels for information that is important enough to warrant the bold treatment. If you use too many labels, they become distracting and lose their ability to grab user attention.
+</p>
+<h2 class="sky-section-heading">Process updates</h2>
+<p>To communicate a message that a background process triggers, use <a routerLink="../../components/toast">the toast component</a>. Background processes include processes that users initiate and system processes that users need to be aware of.
+</p>
+<p>Depending on the nature of the message, you can specify whether the toast fades automatically or requires users to dismiss it. In general, <code>success</code> and <code>info</code> toasts should fade automatically, while <code>warning</code> and <code>danger</code> toasts should require users to manually dismiss the messages because they often require follow-up actions.
+</p>  
+  
+</stache>

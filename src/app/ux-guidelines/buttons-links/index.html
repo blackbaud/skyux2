@@ -1,0 +1,62 @@
+<sky-demo-nav></sky-demo-nav>
+
+<stache 
+  pageTitle="Buttons and links"
+  windowTitle="Buttons and links">
+
+<p>In SKY UX, the uses of hyperlinks and buttons are guided by two interacting principles: style and implementation. The style principle determines the appropriate appearance of the affordance to the user. The implementation principle involves the core HTML – whether the <code>&lt;a&gt;</code> tag or the <code>&lt;button&gt;</code> tag are appropriate for a situation. In SKY UX, these guidelines overlap and interact: differences in styling do not need to correspond to the use of different tags.</p>
+  
+<h2 class="sky-section-heading">Style</h2>
+<p>SKY UX uses several styles for hyperlinks and buttons. The differences in their appearance carry meaning about their roles in the system, distinguishing between navigation and action, or conveying different levels of emphasis/priority.</p>
+
+<h3 class="sky-subsection-heading">Primary actions</h3>
+
+<p>The stye of a “primary action” uses bold, saturated color to convey importance and drive user workflows. There should only be one primary action available in any given system state. Use primary actions for:</p>
+<ul>
+<li>The most important (or frequent) action on a page</li>
+<li>The “progressive” terminal action on a dialogue (e.g. “Save”)</li>
+</ul>
+
+<h3 class="sky-subsection-heading">Secondary actions</h3>
+
+<p>Secondary actions are less important or less frequently used than primary actions. Since secondary buttons are less important than primary buttons, SKY UX reduces the visual weight to make them noticeable but not attention-drawing. Use secondary actions for:</p>
+<ul>
+<li>Toolbar or action bar buttons</li>
+<li>Actions relevant to only part of a page’s content (cards, tiles, etc.)</li>
+</ul>
+
+<h3 class="sky-subsection-heading">Tertiary actions</h3>
+
+<p>Tertiary actions have a lighter visual weight, but invisibly occupy the same amount of space as primary and secondary actions. Use tertiary actions for:</p>
+<ul>
+<li>Infrequently used actions or options on a page</li>
+<li>The “regressive” action on a dialogue (e.g. “Cancel” or “Close”)</li>
+</ul>
+
+<h3 class="sky-subsection-heading">In-line links</h3>
+
+<p>In-line links are given the least visual weight and appear in-line with text instead of having their own rectangular space. They have no “button” padding or spacing and should not be used in groups of other buttons. Take care not to “stack” multiple in-line links too closely together, since this creates usability risks of mis-clicks or mis-touches. In-line links should almost always be used for pure navigation:</p>
+<ul>
+<li>Parent-to-parent</li>
+<li>Parent-to-child</li>
+<li>Links to external applications/services (e.g. a street address that links to a map application)</li>
+</ul>
+
+<h2 class="sky-section-heading">Implementation</h2> 
+<p>While SKY UX styling properties allow <code>&lt;a&gt;</code> and <code>&lt;button&gt;</code> elements to appear interchangable, subtle differences in their behavior make it important to select the correct implementation. Most notably, <code>&lt;a&gt;</code> tags differ from their <code>&lt;button&gt;</code> counterparts in:</p>
+<ul>
+<li>Right-click options</li>
+<li>Long-touch / force-touch behaviors (mobile browsers)</li>
+<li>Keyboard shortcuts</li>
+<li>Behavior with screen readers and other accessibility software</li>
+</ul>
+
+<p>Determining the correct HTML tag to use for an affordance in SKY UX is done with a simple rule:</p>
+<ul>
+<li>If the ONLY result of clicking/tapping/selecting an affordance is to load a new URL in the browser, then the affordance should be implemented as an <code>&lt;a&gt;</code> tag</li>
+<li>Otherwise, implement the affordance as a <code>&lt;button&gt;</code></li>
+</ul>
+
+<p>In other words, <code>&lt;a&gt;</code> elements are only appropriate when an affordance changes nothing about the state of the system and the only result is that the user traverses from one view of content to another. For example, a record page may contain an affordance for deleting itself (“Delete this record”). If the user activates this affordance, the browser will indeed redirect to a new URL (since the existing page will presumably cease to exist), but since there is also an effect on the system (data is deleted), this affordance should be implemented as a <code>&lt;button&gt;</code>.</p>
+  
+</stache>
