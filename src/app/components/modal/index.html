@@ -102,4 +102,13 @@
     <sky-demo-page-code demoName="Modal"></sky-demo-page-code>
   </sky-demo-page-example>
 
+  <sky-demo-page-content sectionHeading="Accessibility">
+    <p>Follow these guidelines to ensure that people can use modals with assistive technology or keyboards.</p>
+    <ul>
+      <li>When a modal opens, focus should be on the first focusable item in the modal. If the modal does not include focusable items, then focus should be on the modal container element.</li>
+      <li>While a modal is open, focus should remain on elements in the modal when using Tab key to navigate. Focus should not move back to the initiating page behind the modal. At the end of the modal, the Tab key should return focus to the first focusable item in the modal. Conversely, at the top of the modal, the Shift+Tab keys should switch focus to the last focusable item in the modal. </li>
+      <li>When a modal closes, focus should return to the element that had focus before the modal opened. Usually this is the element that opened the modal.</li>
+    </ul>
+  </sky-demo-page-content>
+
 </sky-demo-page>
