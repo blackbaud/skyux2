@@ -28,8 +28,8 @@ config.onPrepare = function () {
   var destination = builderUtils.resolve(
     '/',
     browser.params.localUrl,
-    JSON.parse(browser.params.chunks),
-    JSON.parse(browser.params.skyPagesConfig)
+    browser.params.chunks,
+    browser.params.skyPagesConfig
   );
 
   return browser.get(destination);

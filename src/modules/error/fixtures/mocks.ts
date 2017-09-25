@@ -1,4 +1,3 @@
-import { SkyModalService } from '../../modal/modal.service';
 import { SkyModalInstance } from '../../modal/modal-instance';
 
 export class SkyModalInstanceMock {
@@ -16,7 +15,7 @@ export interface OpenParameters {
   providers?: any[];
 }
 
-export class MockModalService extends SkyModalService {
+export class MockModalService {
   public openCalls: OpenParameters[] = [];
 
   public open(component: any, providers?: any[]): SkyModalInstance {
