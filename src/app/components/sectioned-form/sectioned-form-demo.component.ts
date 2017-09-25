@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterContentChecked } from '@angular/core';
 import { SkyModalService, SkyModalCloseArgs } from '../../../core';
 import { SkySectionedModalFormDemoComponent } from './sectioned-modal-form-demo.component';
 
@@ -6,7 +6,11 @@ import { SkySectionedModalFormDemoComponent } from './sectioned-modal-form-demo.
   selector: 'sky-sectioned-form-demo',
   templateUrl: './sectioned-form-demo.component.html'
 })
-export class SkySectionedFormDemoComponent {
+export class SkySectionedFormDemoComponent implements AfterContentChecked {
+
+  public activeIndexDisplay: number = undefined;
+
+  private _activeIndex: number = undefined;
 
   constructor(private modal: SkyModalService) { }
 
@@ -20,5 +24,13 @@ export class SkySectionedFormDemoComponent {
         console.log(`Modal saved with data ${result.data}`);
       }
     });
+  }
+
+  public ngAfterContentChecked() {
+    this.activeIndexDisplay = this._activeIndex;
+  }
+
+  public updateIndex(newIndex: number) {
+    this._activeIndex = newIndex;
   }
 }
