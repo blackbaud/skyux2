@@ -15,10 +15,7 @@
 
     th,
     td {
-      font-family: $sky-font-family;
-      font-weight: normal;
-      line-height: 22px;
-      padding: 10px 10px 10px 0;
+      padding: $sky-padding $sky-padding $sky-padding 0;
       text-align: left;
 
       &.link-records-item-diff-update {
@@ -27,13 +24,12 @@
       }
 
       &.link-records-item-diff-value {
-        font-family: $sky-font-family;
         word-break: break-all;
         white-space: pre-line;
       }
 
       &.item-deemphasized {
-        color: $sky-text-color-deemphasized;
+        @include sky-deemphasized;
       }
 
       &.item-highlighted {
@@ -51,11 +47,6 @@
   }
 
   /deep/ sky-checkbox {
-    label {
-      font-size: 13px;
-      line-height: 20px;
-    }
-
     .sky-checkbox {
       display: flex;
       align-items: center;
