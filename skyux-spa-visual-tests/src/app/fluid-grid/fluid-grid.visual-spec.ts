@@ -1,6 +1,6 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-fdescribe('Fluid grid', () => {
+describe('Fluid grid', () => {
 
   it('should handle very small screens', () => {
     return SkyVisualTest.setupTest('fluid-grid', 600)
