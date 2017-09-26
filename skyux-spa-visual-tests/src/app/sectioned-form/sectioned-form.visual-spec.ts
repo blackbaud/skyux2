@@ -64,7 +64,7 @@ describe('Sectioned form', () => {
       browser.sleep(1000);
 
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'sectioned-form-second',
+        screenshotName: 'sectioned-form-to-mobile',
         selector: '#screenshot-sectioned-form'
       });
     });
@@ -83,7 +83,7 @@ describe('Sectioned form', () => {
       browser.sleep(1000);
 
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'sectioned-form-second',
+        screenshotName: 'sectioned-form-to-widescreen',
         selector: '#screenshot-sectioned-form'
       });
     });
