@@ -7,7 +7,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 /**
- * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
+ * Auto-incrementing integer used to generate unique ids for checkbox components.
  */
 let nextId = 0;
 
@@ -62,53 +62,47 @@ export class SkyRadioComponent implements ControlValueAccessor {
   }
 
   public selectedValue: any;
+  private onChangeCallback: (value: any) => void;
 
-  /** Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor. */
-  /*istanbul ignore next */
-  public onTouched: () => any = () => {};
+  public onInputBlur() {
+    this.onTouchedCallback();
+  }
 
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
+  public onRadioChanged(newValue: any) {
+    if (this.disabled) {
+      return;
+    }
+
+    if (newValue === this.selectedValue) {
+      return;
+    }
+
+    this.selectedValue = newValue;
+    this.onChangeCallback(newValue);
+  }
+
+  // Satisfying ControlValueAccessor interface.
   public writeValue(value: any) {
+    if (value === undefined) {
+      return;
+    }
+
     this.selectedValue = value;
   }
 
-   /**
-    * Implemented as part of ControlValueAccessor.
-    */
-  public registerOnChange(fn: (value: any) => void) {
-    this._controlValueAccessorChangeFn = fn;
+  // onChanged callback set by ControlValueAccessor.
+  public registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
   }
 
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
+  // onTouched callback set by ControlValueAccessor.
   public registerOnTouched(fn: any) {
-    this.onTouched = fn;
+    this.onTouchedCallback = fn;
   }
 
-  public onInputBlur() {
-    this.onTouched();
-  }
-
-  /**
-   * Event handler for checkbox input element.
-   * Toggles checked state if element is not disabled.
-   */
-  public onRadioChanged(newValue: any) {
-    /* istanbul ignore else */
-    /* sanity check */
-    if (!this.disabled) {
-      /* istanbul ignore else */
-      /* sanity check */
-      if (newValue !== this.selectedValue) {
-        this.selectedValue = newValue;
-        this._controlValueAccessorChangeFn(newValue);
-      }
-    }
-  }
+  // Satisfying ControlValueAccessor interface.
   /* istanbul ignore next */
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
-
+  private onTouchedCallback(): () => void {
+    return () => {};
+  }
 }
