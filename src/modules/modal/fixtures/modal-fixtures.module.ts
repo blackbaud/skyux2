@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SkyWindowRefService } from '../../window';
+
 import { SkyModalModule } from '../modal.module';
 import { ModalTestComponent } from './modal.component.fixture';
 import { ModalWithValuesTestComponent } from './modal-with-values.component.fixture';
@@ -21,6 +23,9 @@ import { ModalTiledBodyTestComponent } from './modal-tiled-body.component.fixtur
   imports: [
     CommonModule,
     SkyModalModule
+  ],
+  providers: [
+    SkyWindowRefService
   ],
   entryComponents: [
     ModalTestComponent,
