@@ -60,7 +60,7 @@
     "@angular/platform-browser-dynamic": "4.2.5",
     "@angular/router": "4.2.5",
     "@blackbaud/skyux": "2.0.0",
-    "@blackbaud/skyux-builder": "1.0.0-rc.19",
+    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#angular-animations",
     "@blackbaud/skyux-design-tokens": "0.0.8",
     "@blackbaud/stache": "2.0.0-rc.2",
     "@types/core-js": "0.9.41",
