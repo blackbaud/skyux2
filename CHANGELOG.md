@@ -1,3 +1,12 @@
+# 2.1.0 (2017-09-26)
+
+- Added support for Angular 4.3.6. ([#1117](https://github.com/blackbaud/skyux2/pull/1117))
+- Adjusted link records component styles. ([#1104](https://github.com/blackbaud/skyux2/pull/1104))
+- Fixed some buttons not having correct `type`. ([#1111](https://github.com/blackbaud/skyux2/pull/1111))
+- Fixed visual tests not running for certain components. ([#1109](https://github.com/blackbaud/skyux2/pull/1109))
+- Fixed 'x' button not firing modal 'closed' event. ([#1085](https://github.com/blackbaud/skyux2/pull/1085))
+- Fixed click events on radio component firing twice. ([#1091](https://github.com/blackbaud/skyux2/pull/1091))
+
 # 2.0.3 (2017-09-21)
 
 - Added link records component. ([#1036](https://github.com/blackbaud/skyux2/pull/1036)) (Thanks @blackbaud-joshgerdes)
