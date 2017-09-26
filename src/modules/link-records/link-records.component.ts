@@ -169,7 +169,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
       this.matchFields.distinctUntilChanged(),
       (items: Array<any>, matches: Array<SkyLinkRecordsMatchModel>, fields: Array<string>) => {
         return items.map(item => {
-          let itemMatches = matches.filter(match => match.key === item[this.keyIdSelector]);
+          let itemMatches = matches.filter(m => m.key === item[this.keyIdSelector]);
           let match = (itemMatches.length > 0) ? itemMatches[0] : new SkyLinkRecordsMatchModel();
 
           return new SkyLinkRecordsItemModel({
