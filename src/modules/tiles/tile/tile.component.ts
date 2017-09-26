@@ -59,10 +59,6 @@ export class SkyTileComponent implements AfterViewInit {
       this._isCollapsed = value;
     }
 
-    if (this.viewInitialized) {
-      this.slideForCollapsed(true);
-    }
-
     this.isCollapsedChange.emit(value);
   }
 
@@ -95,14 +91,5 @@ export class SkyTileComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     this.viewInitialized = true;
-
-    if (this.isCollapsed) {
-      this.slideForCollapsed(false);
-    }
-  }
-
-  private slideForCollapsed(animate: boolean) {
-    // let direction = this.isCollapsed ? 'up' : 'down';
-    // this.slideService.slide(this.elementRef, '.sky-tile-content', direction, animate);
   }
 }
