@@ -7,15 +7,10 @@
   margin-left: -$sky-fluid-grid-gutter;
   margin-right: -$sky-fluid-grid-gutter;
   margin-bottom: $sky-fluid-grid-gutter;
+  flex-direction: row;
 
   &.sky-row-reverse {
-    flex-direction: column-reverse;
-  }
-
-  @media (min-width: $sky-screen-sm-min) {
-    flex-direction: row;
-
-    &.sky-row-reverse {
+    @media (min-width: $sky-screen-sm-min) {
       flex-direction: row-reverse;
     }
   }

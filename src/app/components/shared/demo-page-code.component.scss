@@ -4,15 +4,6 @@
   margin: $sky-margin 0;
 }
 
-.sky-demo-page-code-header {
-  align-items: baseline;
-  display: flex;
-
-  h2 {
-    flex-grow: 1;
-  }
-}
-
 .sky-demo-page-code-sample {
   @include sky-border(light, top, bottom, left, right);
   border-top: none;
@@ -29,5 +20,32 @@
     color: #000;
     line-height: 1.6em;
     padding: 0;
+  }
+}
+
+.sky-demo-page-code-header {
+  position: relative;
+}
+
+.sky-demo-page-code-plunker {
+  position: static;
+  text-align: right;
+  margin-bottom: 15px;
+
+  @media (min-width: $sky-screen-sm-min) {
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+    margin-bottom: 0;
+  }
+}
+
+// This can be removed after the next Stache2 release:
+// https://github.com/blackbaud/stache2/pull/314
+/deep/
+.stache-table-of-contents {
+  .stache-nav-list {
+    list-style-type: decimal !important;
+    margin-left: 15px !important;
   }
 }
