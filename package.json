@@ -43,7 +43,7 @@
     "wdio": "wdio"
   },
   "dependencies": {
-    "@angular/animations": "4.2.5",
+    "@angular/animations": "4.3.6",
     "dragula": "3.7.2",
     "font-awesome": "4.7.0",
     "intl": "1.2.5",
@@ -54,13 +54,13 @@
     "web-animations-js": "2.3.1"
   },
   "devDependencies": {
-    "@angular/core": "4.2.5",
-    "@angular/forms": "4.2.5",
-    "@angular/platform-browser": "4.2.5",
-    "@angular/platform-browser-dynamic": "4.2.5",
-    "@angular/router": "4.2.5",
+    "@angular/core": "4.3.6",
+    "@angular/forms": "4.3.6",
+    "@angular/platform-browser": "4.3.6",
+    "@angular/platform-browser-dynamic": "4.3.6",
+    "@angular/router": "4.3.6",
     "@blackbaud/skyux": "2.0.0",
-    "@blackbaud/skyux-builder": "1.0.0-rc.19",
+    "@blackbaud/skyux-builder": "1.0.1",
     "@blackbaud/skyux-design-tokens": "0.0.8",
     "@blackbaud/stache": "2.0.0-rc.2",
     "@types/core-js": "0.9.41",
