@@ -72,6 +72,10 @@ describe('File drop component', () => {
     return fixture.debugElement.query(By.css('.sky-file-drop'));
   }
 
+  function getDropElWrapper() {
+    return el.querySelector('.sky-file-drop-col');
+  }
+
   function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any) {
     expect(dropEl.classList.contains('sky-file-drop-accept')).toBe(hasAccept);
     expect(dropEl.classList.contains('sky-file-drop-reject')).toBe(hasReject);
@@ -577,13 +581,13 @@ describe('File drop component', () => {
 
     triggerDragEnter('sky-drop', dropDebugEl);
     triggerDragOver(files, dropDebugEl);
-    let dropEl = getDropEl();
+    let dropElWrapper = getDropElWrapper();
 
-    validateDropClasses(true, false, dropEl);
+    validateDropClasses(true, false, dropElWrapper);
 
     triggerDrop(files, dropDebugEl);
 
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
     fileReaderSpy.loadCallbacks[0]({
       target: {
         result: 'url'
@@ -602,16 +606,16 @@ describe('File drop component', () => {
     // Verify reject classes when appropriate
     triggerDragEnter('sky-drop', dropDebugEl);
     triggerDragOver(invalidFiles, dropDebugEl);
-    validateDropClasses(false, true, dropEl);
+    validateDropClasses(false, true, dropElWrapper);
     triggerDragLeave('something', dropDebugEl);
-    validateDropClasses(false, true, dropEl);
+    validateDropClasses(false, true, dropElWrapper);
     triggerDragLeave('sky-drop', dropDebugEl);
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
 
     // Verify empty file array
     triggerDragEnter('sky-drop', dropDebugEl);
     triggerDragOver([], dropDebugEl);
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
 
     let emptyEvent = {
       stopPropagation: function (){},
@@ -621,7 +625,7 @@ describe('File drop component', () => {
     // Verify no dataTransfer drag
     dropDebugEl.triggerEventHandler('dragover', emptyEvent);
     fixture.detectChanges();
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
 
     // Verify no dataTransfer drop
     fileReaderSpy.loadCallbacks = [];
