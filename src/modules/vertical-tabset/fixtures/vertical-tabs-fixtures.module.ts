@@ -6,12 +6,14 @@ import { SkyVerticalTabsetModule } from '../';
 import { VerticalTabsetTestComponent } from './vertical-tabset.component.fixture';
 import { VerticalTabsetEmptyGroupTestComponent } from './vertical-tabset-empty-group.component';
 import { VerticalTabsetNoGroupTestComponent } from './vertical-tabset-no-group.component.fixture';
+import { VerticalTabsetNoActiveTestComponent } from './vertical-tabset-no-active.component.fixture';
 
 @NgModule({
   declarations: [
     VerticalTabsetTestComponent,
     VerticalTabsetEmptyGroupTestComponent,
-    VerticalTabsetNoGroupTestComponent
+    VerticalTabsetNoGroupTestComponent,
+    VerticalTabsetNoActiveTestComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { VerticalTabsetNoGroupTestComponent } from './vertical-tabset-no-group.c
   exports: [
     VerticalTabsetTestComponent,
     VerticalTabsetEmptyGroupTestComponent,
-    VerticalTabsetNoGroupTestComponent
+    VerticalTabsetNoGroupTestComponent,
+    VerticalTabsetNoActiveTestComponent
   ]
 })
 export class SkyVerticalTabsFixturesModule { }

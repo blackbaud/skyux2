@@ -450,6 +450,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Link Records',
+        icon: 'link',
+        // tslint:disable-next-line
+        summary: `The link records component is used to match data between two sources.`,
+        url: '/components/link-records',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'link-records-demo.component.html',
+              fileContents: require('!!raw-loader!./link-records/link-records-demo.component.html')
+            },
+            {
+              name: 'link-records-demo.component.ts',
+              fileContents: require('!!raw-loader!./link-records/link-records-demo.component.ts'),
+              componentName: 'SkyLinkRecordsDemoComponent',
+              bootstrapSelector: 'sky-link-records-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'List',
         icon: 'list',
         // tslint:disable-next-line
@@ -847,6 +868,66 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./search/search-demo.component.ts'),
               componentName: 'SkySearchDemoComponent',
               bootstrapSelector: 'sky-search-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Sectioned form',
+        icon: 'object-group',
+        // tslint:disable-next-line
+        summary: `A sectioned form combines multiple forms and allows users to target specific, independent areas.`,
+        url: '/components/sectioned-form',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'sectioned-form-demo.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-demo.component.html')
+            },
+            {
+              name: 'sectioned-form-demo.component.ts',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/sectioned-form-demo.component.ts'),
+              componentName: 'SkySectionedFormDemoComponent',
+              bootstrapSelector: 'sky-sectioned-form-demo'
+            },
+            {
+              name: 'sectioned-modal-form-demo.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.html')
+            },
+            {
+              name: 'sectioned-modal-form-demo.component.ts',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts')
+            },
+            {
+              name: 'demo-address-form.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/demo-address-form.component.html')
+            },
+            {
+              name: 'demo-address-form.component.ts',
+              fileContents: require('!!raw-loader!./sectioned-form/demo-address-form.component.ts')
+            },
+            {
+              name: 'demo-information-form.component.html',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/demo-information-form.component.html')
+            },
+            {
+              name: 'demo-information-form.component.ts',
+              // tslint:disable-next-line
+              fileContents: require('!!raw-loader!./sectioned-form/demo-information-form.component.ts')
+            },
+            {
+              name: 'demo-phone-form.component.html',
+              fileContents: require('!!raw-loader!./sectioned-form/demo-phone-form.component.html')
+            },
+            {
+              name: 'demo-phone-form.component.ts',
+              fileContents: require('!!raw-loader!./sectioned-form/demo-phone-form.component.ts')
             }
           ];
         }

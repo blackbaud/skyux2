@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 
 import { SkyModalAdapterService } from './modal-adapter.service';
-import { SkyModalComponent } from './modal.component';
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfigurationInterface as IConfig }  from './modal.interface';
@@ -75,11 +74,11 @@ export class SkyModalHostComponent {
       modalComponentRef.destroy();
     }
 
-    hostService.close.subscribe((modalComponent: SkyModalComponent) => {
-      closeModal();
+    hostService.close.subscribe(() => {
+      modalInstance.close();
     });
 
-    modalInstance.setCloseCallback(() => {
+    modalInstance.closed.subscribe(() => {
       closeModal();
     });
   }
