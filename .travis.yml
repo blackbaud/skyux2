@@ -40,7 +40,6 @@ after_install:
 script: ./scripts/travis-script.sh
 after_script: ./scripts/travis-after-script.sh
 after_success:
-  - ./scripts/travis-after-success.sh
   - bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
 
 after_failure:
