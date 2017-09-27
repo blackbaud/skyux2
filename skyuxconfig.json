@@ -4,6 +4,38 @@
   "importPath": "src",
   "cssPath": "src/scss/sky.scss",
   "compileMode": "aot",
+  "omnibar": {
+    "experimental": true,
+    "nav": {
+      "services": [
+        {
+          "title": "SKY UX",
+          "items": [
+            {
+              "title": "Home",
+              "route": "/"
+            },
+            {
+              "title": "Learn",
+              "route": "/learn"
+            },
+            {
+              "title": "Components",
+              "route": "/components"
+            },
+            {
+              "title": "Design",
+              "route": "/design"
+            },
+            {
+              "title": "Contribute",
+              "route": "/contribute"
+            }
+          ]
+        }
+      ]
+    }
+  },
   "plugins": [
     "@blackbaud/skyux-builder-plugin-stache"
   ],
