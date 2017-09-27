@@ -33,7 +33,6 @@
     "prebuild": "npm run clean",
     "pretest": "npm run lint",
     "preversion": "npm test",
-    "start:visual": "node ./config/utils/visual-server.js start",
     "version": "npm run build",
     "watch": "npm run test:unit -- --auto-watch --no-single-run",
     "webpack": "webpack",
