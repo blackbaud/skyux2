@@ -1,0 +1,79 @@
+<sky-demo-nav></sky-demo-nav>
+
+<stache 
+  pageTitle="Managing records"
+  windowTitle="Managing records">
+
+<div class="sky-section-heading">Add records</div>
+
+<div class="sky-subsection-heading">Add from a list</div>
+  <p>This is likely to be the most common interaction by which records are added. The user will go to a list of existing records (and maybe search for the specific record) to add the new record. This list could be its own page, or within a tile on a page. The add button will open a <a routerLink="../../components/modal">modal</a> form. </p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/add-from-list.png" alt="Add record from a list"/></p>
+
+<div class="sky-subsection-heading">Add another</div>
+<p>There will be cases where a user needs to add several records in sequence. If these records are only a few fields, they can use this pattern along with an inline add form. The most likely scenario for this to come up is while filling out a form that can have multiple instances of a child record added at the same time. For example, while adding a new constituent the user may want to add multiple phone numbers.</p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/add-another.png" alt="Add another"/></p>
+
+<div class="sky-subsection-heading">Add from a search field</div>
+<p>A record may need to reference another record, such as a donation that references a constituent. There will be cases where the referenced record does not exist yet, and will need to be added on the fly. The user should search first to ensure that they do not create a duplicate record. Once they know the referenced record does not exist, its add form can be invoked.</p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/next-to-search.png" alt="Add from next to search field"/></p>
+  
+<div class="sky-subsection-heading">Adding child records</div>
+<p>Some record types have a lot of child records associated with them. For example, a constituent record will have contact information, relationships and notes, among other information. While some of this will be known when the parent record is created, much will be added after the fact. Rather than adding all this information through a master form, it should be added from the parent record page. The method used to add the information will depend on the other guidelines here and in the <a routerLink="../forms">Forms guidelines</a>.</p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/child-info-add.png" alt="Adding child information"/></p>
+
+<div class="sky-section-heading">Edit records</div>
+
+<div class="sky-subsection-heading">Edit from a list</div>
+<p>If a user needs to edit a record they should be able to do so from a list of those records via the context menu, without having to go to the specific record page itself. As with adding a record from a list, if the record is complex the user may only be able to edit core information in this way and will have to go to the record page to edit ancillary information. This guideline applies to full page lists and lists within a tile. </p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/edit-from-list.png" alt="Edit record from a list"/></p>
+
+<div class="sky-subsection-heading">Edit from a record page</div>
+  
+<div class="sky-emphasized">Core information</div>  
+<p>If a user is on a record page and needs to edit the core information of the record they should be able to open the edit form from the page summary toolbar.</p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/edit-from-record.png" alt="Edit core information from a record page"/></p>
+
+<div class="sky-emphasized">Non-list information</div>
+<p>Some types of information will be presented in a non-list format, such as a definition list or text block. The edit for these should be invoked via an edit button on the top right side of the content block.</p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/edit-non-list.png" alt="Edit non-list-based information"/></p>
+  
+<div class="sky-emphasized">Tiles with multiple types of non-list information</div>
+<p>A page may include tiles that contain multiple types of information in a compact manner. In these cases the edit can be invoked via a split edit button in the tile toolbar, to avoid having multiple edit buttons in close proximity within the tile.</p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/edit-tile-multiple-types.png" alt="Edit from tiles with multiple types of non-list information"/></p>
+  
+<div class="sky-section-heading">Remove records</div>
+
+<div class="sky-subsection-heading">Delete records</div>
+
+<div class="sky-emphasized">From a list</div>  
+<p>Records that are less systemically important or have a low cost of re-creation in the case of accidental deletion can be deleted via the context menu in a list.</p>
+<p><img src="~/assets/img/guidelines/managingrecords/delete-from-list.png" alt="Delete record from a list"/></p>
+
+<div class="sky-emphasized">From a record page</div>  
+<p>Systemically important records should be deleted from the record page, rather than a list. This provides an extra level of safety to prevent accidentally deleting a record incorrectly by requiring the user to take extra steps. Deleting important records should be a rare occurrence so this extra interaction will not be overly burdensome.</p>
+<p><img src="~/assets/img/guidelines/managingrecords/delete-from-record.png" alt="Delete record from the record page"/></p>
+  
+<div class="sky-subsection-heading">Removing temporary items</div>
+<p>There will be some types of information that are only needed temporarily, such as list filters. The user should remove these via a button using the “fa-close” icon. </p>
+
+<p><img src="~/assets/img/guidelines/managingrecords/remove-filter.png" alt="Remove item via close button"/></p>
+
+<div class="sky-subsection-heading">Mark records inactive</div>
+<p>Some types of information need to be preserved in the system beyond their active usefulness for audit or historical reference purposes. Since this action is reversible it can be accessed from lists even for systemically important types of records.</p>  
+  
+<div class="sky-emphasized">From a list</div>
+<p><img src="~/assets/img/guidelines/managingrecords/inactivate-from-list.png" alt="Inactivate a record from a list"/></p>
+  
+<div class="sky-emphasized">Tiles with multiple types of non-list information</div>
+<p><img src="~/assets/img/guidelines/managingrecords/inactivate-from-record.png" alt="Inactivate a record from the record page"/></p>
+  
+</stache>

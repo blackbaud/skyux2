@@ -1,0 +1,60 @@
+<sky-demo-nav></sky-demo-nav>
+
+<stache 
+  pageTitle="Content containers"
+  windowTitle="Content containers">
+
+<h2 class="sky-section-heading">Dividing a page into sections of related content</h2>
+
+<h3 class="sky-subsection-heading"><a routerLink="../../components/tiles">Tile</a></h3>
+
+<p>A container for dividing and grouping categories heterogeneous content on a page. DO NOT use tiles to represent individual items in a set of items - use cards if you want to contain items in a list within individual bounding boxes. Content inside each tile can (and often will) vary widely. Tiles can be reordered and repositioned within the page. Tiles can be expanded and collapsed, and their default state can be determined by the situation.</p>
+  
+<p>Tiles can contain toolbars to house actions related to their content.</p>
+  
+<h3 class="sky-subsection-heading"><a routerLink="../../components/tabs">Tabs</a></h3>  
+
+<p>A container for dividing large subsets of content on a page. A sets of tabs should serve as categories of page content, not as a list of similar items. The contents of each tab can be considered like a page and may contain any other container or arrangement of content.</p>
+
+<h2 class="sky-section-heading">Presenting instances of a collection of related items</h2>
+
+<h3 class="sky-subsection-heading"><a routerLink="../../components/card">Cards</a></h3>
+
+<p>This is a list of items that uses set of rectangular card containers, instead of rows. The card decks can appear in different layouts, such as grids or carousels. Content and presentation can be determined per card list instance. Cards can be selected (multi-select via checkbox) for bulk actions, and can also contain item-specific actions in an action bar or context menu.</p>
+
+<p>If you are using cards within a tile, consider using them with the <a routerLink="../../components/carousel">Carousel</a> component which accounts for the width of its container.</p>
+
+<h3 class="sky-subsection-heading"><a routerLink="../../components/repeater">Repeater list</a></h3>
+
+<p>A list of items that does not use columns. The content and presentation inside the row can be determined per list. Rows in a repeater list can be selected (multi-select via checkbox) for bulk actions. Each row can contain hyperlinks (usually on the “primary” label), but row-specific actions should be collected into the row's context menu.</p>
+  
+<p>Repeaters can be used in full-page formats, tabs, tiles, or dialogues.</p>
+
+<p>For cases where the user needs to manually sort a list, the <a routerLink="../../components/reorder">Reorder</a> component enables this for a simple repeater list.</p>
+  
+<h3 class="sky-subsection-heading"><a routerLink="../../components/grid">Grid</a></h3>
+
+<p>A list of items in table format (i.e. defined columns). Content and presentation of each row and column can be determined per list, but must conform to column breakdowns. Columns can be shown/hidden/reordered, and content can be sorted based on values inside specific columns.</p>
+  
+<p>Grids commonly use a toolbar containing search, filter controls, column selection, and other actions.</p>
+
+<p>Grids should generally be used in full-page formats or inside of full-page tabs. When designing within a smaller container such as a tile, try using a repeater instead since they scale down better than grids.</p>
+
+<h2 class="sky-section-heading">Revealing content that is not always visible</h2>
+
+<h3 class="sky-subsection-heading"><a routerLink="../../components/modal">Modal</a></h3>
+
+<p>A container to focus the user's attention on a specific task. A modal is appropriate in scenarios that meet one or more of these conditions:</p>
+<ul>
+  <li>The task cannot be completed until the user provides more information or makes additional choices</li>
+  <li>The task is self-contained and does not need the context of the underlying page</li>
+  <li>The task is secondary to the purpose of the underlying page</li>
+  <li>The task interface is too complex to fit within the container from which it was invoked</li>
+  <li>The interface from which the task is invoked would be too distracting for the user to efficiently complete the task inline</li>
+</ul>
+
+<h3 class="sky-subsection-heading"><a routerLink="../../components/popover">Popover</a></h3>
+
+<p>Used to show small chunks of information that are only occasionally relevant to the user. If the content is relevant most of the time it should be presented in-page instead. If the amount of content would require scrolling on a mobile device, use a modal instead.</p>
+  
+</stache>
