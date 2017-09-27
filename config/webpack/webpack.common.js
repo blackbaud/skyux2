@@ -19,6 +19,12 @@ module.exports = {
     'vendor': './src/vendor.ts'
   },
 
+  externals: [
+    /^@angular\//,
+    /^@blackbaud\//,
+    /^rxjs\//
+  ],
+
   resolve: {
 
     extensions: ['.ts', '.js'],
