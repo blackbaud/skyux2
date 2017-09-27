@@ -30,6 +30,10 @@ button.sky-file-drop {
   bottom: 0;
   left: 0;
   z-index: 1;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .sky-file-drop-contents {
