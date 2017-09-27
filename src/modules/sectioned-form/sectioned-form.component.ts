@@ -1,15 +1,14 @@
 import {
   Component,
+  OnInit,
+  OnDestroy,
   ElementRef,
   ViewChild,
-  Input,
-  OnInit,
-  ChangeDetectionStrategy,
-  Output,
   EventEmitter,
+  Output,
   AfterViewChecked,
-  ChangeDetectorRef,
-  OnDestroy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -22,24 +21,22 @@ import {
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
-import { SkyResourcesService } from './../resources/resources.service';
+import { SkyMediaQueryService } from './../media-queries/media-query.service';
 
 import {
   SkyVerticalTabsetService,
   VISIBLE_STATE
-} from './vertical-tabset.service';
-
-import { SkyMediaQueryService } from './../media-queries/media-query.service';
+} from './../vertical-tabset/vertical-tabset.service';
 
 @Component({
-  selector: 'sky-vertical-tabset',
-  templateUrl: './vertical-tabset.component.html',
-  styleUrls: ['./vertical-tabset.component.scss'],
-  providers: [SkyVerticalTabsetService, SkyResourcesService, SkyMediaQueryService],
+  selector: 'sky-sectioned-form',
+  templateUrl: './sectioned-form.component.html',
+  styleUrls: ['./sectioned-form.component.scss'],
+  providers: [SkyVerticalTabsetService, SkyMediaQueryService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger(
-      'tabGroupEnter', [
+      'tabEnter', [
         transition(`void => ${VISIBLE_STATE}`, [
           style({transform: 'translate(-100%)'}),
           animate('150ms ease-in')
@@ -56,32 +53,25 @@ import { SkyMediaQueryService } from './../media-queries/media-query.service';
     )
   ]
 })
-export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnDestroy {
-
-  @Input()
-  public showTabsText: string = this.resources.getString('vertical_tabs_show_tabs_text');
+export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @Output()
-  public activeChange = new EventEmitter<number>();
+  public indexChanged: EventEmitter<number> = new EventEmitter();
 
-  @ViewChild('contentWrapper')
-  public tabGroups: ElementRef;
-
-  @ViewChild('skySideContent')
+  @ViewChild('skySectionSideContent')
   public content: ElementRef;
 
   private _ngUnsubscribe = new Subject();
 
   constructor(
     public tabService: SkyVerticalTabsetService,
-    private resources: SkyResourcesService,
     private changeRef: ChangeDetectorRef) {}
 
   public ngOnInit() {
     this.tabService.indexChanged
       .takeUntil(this._ngUnsubscribe)
       .subscribe(index => {
-        this.activeChange.emit(index);
+        this.indexChanged.emit(index);
         this.changeRef.markForCheck();
       });
 
@@ -102,5 +92,14 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
+  }
+
+  public tabsVisible() {
+    return this.tabService.tabsVisible();
+  }
+
+  public showTabs() {
+    this.tabService.showTabs();
+    this.changeRef.markForCheck();
   }
 }

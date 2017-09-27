@@ -121,3 +121,8 @@
 .sky-modal-full-page .sky-modal-content {
     flex-grow: 1;
 }
+
+:host /deep/ .sky-sectioned-form {
+  height: 460px;
+  margin: -$sky-margin-plus-half;
+}
