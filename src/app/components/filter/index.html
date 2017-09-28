@@ -53,18 +53,19 @@
 
   <sky-demo-page-content sectionHeading="UX Guidelines">
     <section>
-      <div class="sky-subsection-heading">When to use Inline Filters</div>
-      <p>Use when one, two, or three simple filters can be applied to a <a routerLink="../../components/list">list</a> or
-        <a routerLink="../../components/tiles">tile</a>. This pattern works well with filters which are <a routerLink="../../components/checkbox">checkboxes</a>
-        or <a routerLink="../../components/dropdown">dropdowns</a>, but not with complex
-        <a routerLink="../../components/list-view-checklist">multi-selects</a>.
+      <div class="sky-subsection-heading">Inline filters</div>
+      <p>Use inline filters when one, two, or three simple filters can be applied to a <a routerLink="/components/list">list</a> or
+        <a routerLink="/components/tiles">tile</a>. This pattern works well with filters which are <a routerLink="/components/checkbox">checkboxes</a>
+        or <a routerLink="/components/dropdown">dropdowns</a>, but not with complex selection controls.
       </p>
-      <div class="sky-subsection-heading">When to use Modal Filters</div>
+      <div class="sky-subsection-heading">Modal filters</div>
+      <p>Use modal filters:</p>
       <ul>
-        <li>When four or more simple filters can be applied to a <a routerLink="../../components/list">list</a> or
-          <a routerLink="../../components/tiles">tile</a>.</li>
-          <li>If any of your filters are complex <a routerLink="../../components/list-view-checklist">multi-selects</a>.</li>
-        </ul>
+        <li>When four or more simple filters can be applied to a <a routerLink="/components/list">list</a> or
+        <a routerLink="/components/tiles">tile</a>.</li>
+        <li>If any of your filters use complex selection controls.</li>
+      </ul>
+      <p>Filters can be presented in either a <a routerLink="/components/modal">modal</a> or a <a routerLink="/components/sectioned-form">sectioned modal</a> depending on the quantity and nature of the filters.</p>
       </section>
     </sky-demo-page-content>
 
