@@ -25,7 +25,7 @@ export class DesignActionButtonsComponent {
       path: '/design/ux-styles',
       icon: 'paint-brush',
       // tslint:disable-next-line
-      summary: 'Core design elements that serve as building blocks for SKYUX components.'
+      summary: 'Core design elements that serve as building blocks for SKY UX components.'
     }
   ];
 }

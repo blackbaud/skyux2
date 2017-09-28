@@ -18,7 +18,7 @@ export class GuidelineActionButtonsComponent {
       path: '/design/ux-guidelines/call-out-info',
       icon: '',
       // tslint:disable-next-line
-      summary: 'SKYUX includes several options to highlight information and draw user attention.'
+      summary: 'SKY UX includes several options to highlight information and draw user attention.'
     },
     {
       name: 'Content containers',
@@ -53,7 +53,7 @@ export class GuidelineActionButtonsComponent {
       path: '/design/ux-guidelines/page-layouts',
       icon: '',
       // tslint:disable-next-line
-      summary: 'Responsive, mobile-first page layouts provide flexibility while conforming to SKYUX standards.'
+      summary: 'Responsive, mobile-first page layouts provide flexibility while conforming to SKY UX standards.'
     },
     {
       name: 'Selecting items from lists',
