@@ -4,6 +4,10 @@ import { SkyVerticalTabsetComponent } from '../vertical-tabset/vertical-tabset.c
 import { VerticalTabsetTestComponent } from './fixtures/vertical-tabset.component.fixture';
 
 import {
+  VerticalTabsetNoActiveTestComponent
+} from './fixtures/vertical-tabset-no-active.component.fixture';
+
+import {
   VerticalTabsetEmptyGroupTestComponent
 } from './fixtures/vertical-tabset-empty-group.component';
 
@@ -230,9 +234,9 @@ describe('Vertical tabset component', () => {
 
     fixture.detectChanges();
 
-    // switch to mobile
-    mockQueryService.fire(SkyMediaBreakpoints.xs);
-
+    // simulate screensize change switching to mobile
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    fixture.componentInstance.tabset.tabService.updateContent();
     fixture.detectChanges();
 
     // check tabs are not visible
@@ -256,9 +260,9 @@ describe('Vertical tabset component', () => {
 
     fixture.detectChanges();
 
-    // switch to widescreen
-    mockQueryService.fire(SkyMediaBreakpoints.lg);
-
+    // simulate screensize change switching to widescreen
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.componentInstance.tabset.tabService.updateContent();
     fixture.detectChanges();
 
     // check tabs are visible
@@ -456,5 +460,24 @@ describe('Vertical tabset component - no groups', () => {
     let visibleTabs = getVisibleVerticalTabs(el);
     expect(visibleTabs.length).toBe(1);
     expect(visibleTabs[0].textContent.trim()).toBe('Tab 1 content');
+  });
+});
+
+describe('Vertical tabset no active tabs', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyVerticalTabsFixturesModule
+      ]
+    });
+  });
+
+  it('should not fail when trying to move active content when no tabs are active', () => {
+    let fixture = TestBed.createComponent(VerticalTabsetNoActiveTestComponent);
+
+    fixture.detectChanges();
+
+    // move content should not fail
+    fixture.componentInstance.tabset.tabService.updateContent();
   });
 });

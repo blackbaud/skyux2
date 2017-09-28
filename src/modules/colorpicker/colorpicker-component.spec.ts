@@ -354,4 +354,10 @@ describe('Colorpicker Component', () => {
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#2889e5', '40, 137, 229');
   });
+
+  it('Should specify type="button" on all button elements.', () => {
+    component.selectedOutputFormat = 'hex';
+    openColorpicker(nativeElement, fixture);
+    expect(nativeElement.querySelectorAll('button:not([type="button"])').length).toBe(0);
+  });
 });

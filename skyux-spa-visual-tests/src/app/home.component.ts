@@ -38,6 +38,7 @@ export class HomeComponent {
     'radio',
     'repeater',
     'search',
+    'sectioned-form',
     'sort',
     'tabs',
     'text-expand',

@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { expect } from '../testing';
+import { SkyWindowRefService } from '../window';
 import { ErrorModalConfig } from './error-modal-config';
 import { SkyModalInstance } from '../modal/modal-instance';
 import { SkyModalModule } from '../modal/modal.module';
@@ -10,6 +11,13 @@ import { SkyModalConfiguration } from '../modal/modal-configuration';
 import { MockHostService, SkyModalInstanceMock } from './fixtures/mocks';
 
 describe('Error modal form component', () => {
+  const mockWindowService = {
+    getWindow(): any {
+      return {
+        setTimeout: (cb: Function) => cb()
+      };
+    }
+  };
 
   const config: ErrorModalConfig = {
     errorTitle: 'Some error title',
@@ -29,7 +37,8 @@ describe('Error modal form component', () => {
         { provide: ErrorModalConfig, useValue: config },
         { provide: SkyModalInstance, useValue: modalInstance },
         { provide: SkyModalHostService, useValue: mockHost },
-        { provide: SkyModalConfiguration, useValue: {} }
+        { provide: SkyModalConfiguration, useValue: {} },
+        { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
     });
   });
