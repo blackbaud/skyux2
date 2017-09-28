@@ -39,7 +39,7 @@ config.onPrepare = function () {
 config.capabilities =  {
   'browserName': 'chrome',
   'chromeOptions': {
-    'args': ['--ignore-certificate-errors']
+    'args': ['--ignore-certificate-errors', '--headless']
   }
 };
 

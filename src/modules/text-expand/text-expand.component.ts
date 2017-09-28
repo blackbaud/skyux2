@@ -51,7 +51,6 @@ export class SkyTextExpandComponent implements AfterContentInit {
   @ViewChild('text')
   public textEl: ElementRef;
 
-  public maxNewlines: number = 1;
   public isExpanded: boolean = false;
   public expandable: boolean;
   public buttonText: string;
