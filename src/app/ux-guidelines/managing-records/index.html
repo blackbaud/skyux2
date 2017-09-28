@@ -1,10 +1,11 @@
 <sky-demo-nav></sky-demo-nav>
 
-<stache 
-  pageTitle="Managing records"
-  windowTitle="Managing records">
+<stache
+    layout="container"
+    pageTitle="Managing records"
+    showTableOfContents="true">
 
-<div class="sky-section-heading">Add records</div>
+<stache-page-anchor>Add records</stache-page-anchor>
 
 <div class="sky-subsection-heading">Add from a list</div>
   <p>This is likely to be the most common interaction by which records are added. The user will go to a list of existing records (and maybe search for the specific record) to add the new record. This list could be its own page, or within a tile on a page. The add button will open a <a routerLink="../../components/modal">modal</a> form. </p>
@@ -22,11 +23,11 @@
 <p><img src="~/assets/img/guidelines/managingrecords/next-to-search.png" alt="Add from next to search field"/></p>
   
 <div class="sky-subsection-heading">Adding child records</div>
-<p>Some record types have a lot of child records associated with them. For example, a constituent record will have contact information, relationships and notes, among other information. While some of this will be known when the parent record is created, much will be added after the fact. Rather than adding all this information through a master form, it should be added from the parent record page. The method used to add the information will depend on the other guidelines here and in the <a routerLink="../forms">Forms guidelines</a>.</p>
+<p>Some record types have a lot of child records associated with them. For example, a constituent record will have contact information, relationships and notes, among other information. While some of this will be known when the parent record is created, much will be added after the fact. Rather than adding all this information through a master form, it should be added from the parent record page. The method used to add the information will depend on the other guidelines here and in the <a routerLink="../form-containers">form container guidelines</a>.</p>
 
 <p><img src="~/assets/img/guidelines/managingrecords/child-info-add.png" alt="Adding child information"/></p>
 
-<div class="sky-section-heading">Edit records</div>
+<stache-page-anchor>Edit records</stache-page-anchor>
 
 <div class="sky-subsection-heading">Edit from a list</div>
 <p>If a user needs to edit a record they should be able to do so from a list of those records via the context menu, without having to go to the specific record page itself. As with adding a record from a list, if the record is complex the user may only be able to edit core information in this way and will have to go to the record page to edit ancillary information. This guideline applies to full page lists and lists within a tile. </p>
@@ -50,7 +51,7 @@
 
 <p><img src="~/assets/img/guidelines/managingrecords/edit-tile-multiple-types.png" alt="Edit from tiles with multiple types of non-list information"/></p>
   
-<div class="sky-section-heading">Remove records</div>
+<stache-page-anchor>Remove records</stache-page-anchor>
 
 <div class="sky-subsection-heading">Delete records</div>
 

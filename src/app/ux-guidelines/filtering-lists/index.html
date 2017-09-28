@@ -1,27 +1,28 @@
 <sky-demo-nav></sky-demo-nav>
 
-<stache 
-  pageTitle="Filtering lists"
-  windowTitle="Filtering lists">
+<stache
+    layout="container"
+    pageTitle="Filtering lists"
+    showTableOfContents="true">
 
 <stache-page-summary><p>SKYUX provides three filter patterns to accommodate different filter scenarios.</p></stache-page-summary>
 
-<div class="sky-subsection-heading">Inline filters</div>
+<stache-page-anchor>Inline filters</stache-page-anchor>
 <p>Inline filters display always-visible controls to the right of tile or list headers. The filter is applied immediately after users make selections. This pattern only supports simple filter controls such as checkbox toggles and dropdowns.</p>
 
 <p>This pattern is appropriate for scenarios where users can only apply one or two simple filter options. Since the filter controls are always visible, users can quickly apply filter options without invoking them through a button.</p>
 
-<div class="sky-subsection-heading">Expandable filters</div>
-<p>Expandable filters hide filter controls by default and allow users to display them inline by clicking "Filter" buttons in tile or list headers. For example, the <a routerLink="../../components/list">List</a> component can display a "Filter" button in the list header. After users apply filters, the "Filter" button's text and outline change to green to indicate that the data is filtered.</p>
+<stache-page-anchor>Expandable filters</stache-page-anchor>
+<p>Expandable filters hide filter controls by default and allow users to display them inline by clicking "Filter" buttons in tile or list headers. For example, the <a routerLink="../../components/list">list</a> component can display a "Filter" button in the list header. After users apply filters, the "Filter" button's text and outline change to green to indicate that the data is filtered.</p>
 
 <p>The filter is applied immediately after users make selections. This pattern only supports simple filter controls such as checkbox toggles and dropdowns.</p>
 
 <p>This pattern is appropriate for scenarios where users can apply up to four simple filter options.</p>
 
-<div class="sky-subsection-heading">Filters in a modal</div>
-<p>Filters in a modal hide filter controls by default and allow users to display them in a <a routerLink="../../components/modal">Modal</a> by clicking "Filter" buttons in tile or list headers. For example, the <a routerLink="../../components/filter">Filter</a> component can display a "Filter" button in a list header. After users apply filters, boxes on the page indicate the applied filters and the "Filter" button's text and outline change to green to indicate that the data is filtered.</p>
+<stache-page-anchor>Filters in a modal</stache-page-anchor>
+<p>Filters in a modal hide filter controls by default and allow users to display them in a <a routerLink="../../components/modal">modal</a> by clicking "Filter" buttons in tile or list headers. For example, the <a routerLink="../../components/filter">filter</a> component can display a "Filter" button in a list header. After users apply filters, boxes on the page indicate the applied filters and the "Filter" button's text and outline change to green to indicate that the data is filtered.</p>
 
-<p>Filters in a modal can include both simple filter controls and more complex controls such as the <a routerLink="../../components/selectfield">Select Field</a> component.</p>
+<p>Filters in a modal can include both simple filter controls and more complex controls.</p>
 
 <p>This pattern is appropriate for scenarios where users can apply more than four simple filter options or where one or more complex filter controls are necessary.</p>  
   

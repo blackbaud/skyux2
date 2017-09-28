@@ -1,26 +1,27 @@
 <sky-demo-nav></sky-demo-nav>
 
-<stache 
-  pageTitle="Select items from lists"
-  windowTitle="Select items from lists">
+<stache
+    layout="container"
+    pageTitle="Select items from a list"
+    showTableOfContents="true">
 
 <stache-page-summary><p>To provide a consistent experience for users to select items from lists, follow these guidelines to determine which control to use to create a list.</p></stache-page-summary>
 
-<div class="sky-subsection-heading"><a routerLink="../../components/radio">Radio buttons</a></div>
+<stache-page-anchor>Radio buttons</stache-page-anchor>
 
-<p>Use radio buttons when you have 2-5 options and users can only select one value.</p>
+<p>Use <a routerLink="../../components/radio">radio buttons</a> when you have 2-5 options and users can only select one value.</p>
 
-<div class="sky-subsection-heading">HTML &lt;select&gt; field</div>
+<stache-page-anchor>HTML &lt;select&gt; field</stache-page-anchor>
 
 <p>Use an HTML <code>&lt;select&gt;</code> field when you have 6-20 values and users do not need to search for items.</p>
 
-<div class="sky-subsection-heading"><a routerLink="../../components/checkbox">Checkboxes</a></div>
+<stache-page-anchor>Checkboxes</stache-page-anchor>
 
-<p>Use checkboxes when you have 2-5 values and users can select multiple values.</p>
+<p>Use <a routerLink="../../components/checkbox">checkboxes</a> when you have 2-5 values and users can select multiple values.</p>
 
-<div class="sky-subsection-heading"><a routerLink="../../components/selectfield">SKYUX select field</a></div>
+<stache-page-anchor>SKYUX select field</stache-page-anchor>
 
-<p>Use a SKYUX select field component when:</p>
+<p>Use a SKYUX select field when:</p>
 <ul>
   <li>You have user-defined values that can accumulate and become too cumbersome for the other controls.</li>
   <li>You have more than 5 values and users can select multiple values.</li>

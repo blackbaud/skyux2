@@ -16,52 +16,52 @@
 // Begin typography
 
 @mixin sky-page-heading {
-  font-family: $sky-font-family-condensed;
-  color: $sky-text-color-default;
-  font-weight: 300;
-  font-size: 34px;
+  font-family: $sky-font-family-condensed !important;
+  color: $sky-text-color-default !important;
+  font-weight: 300 !important;
+  font-size: 34px !important;
 }
 
 @mixin sky-section-heading {
-  font-family: $sky-font-family-condensed;
-  color: $sky-text-color-default;
-  font-weight: 300;
-  font-size: 26px;
+  font-family: $sky-font-family-condensed !important;
+  color: $sky-text-color-default !important;
+  font-weight: 300 !important;
+  font-size: 26px !important;
 }
 
 @mixin sky-subsection-heading {
-  font-family: $sky-font-family;
-  color: $sky-text-color-deemphasized;
-  font-weight: 300;
-  font-size: 19px;
+  font-family: $sky-font-family !important;
+  color: $sky-text-color-deemphasized !important;
+  font-weight: 300 !important;
+  font-size: 19px !important;
 }
 
 @mixin sky-headline {
-  font-family: $sky-font-family-condensed;
-  color: $sky-text-color-default;
-  font-weight: 500;
-  font-size: 22px;
+  font-family: $sky-font-family-condensed !important;
+  color: $sky-text-color-default !important;
+  font-weight: 500 !important;
+  font-size: 22px !important;
 }
 
 @mixin sky-emphasized {
-  font-family: $sky-font-family;
-  color: $sky-text-color-default;
-  font-weight: 600;
+  font-family: $sky-font-family !important;
+  color: $sky-text-color-default !important;
+  font-weight: 600 !important;
   font-size: 16px;
 }
 
 @mixin sky-deemphasized{
-  font-family: $sky-font-family;
-  color: $sky-text-color-deemphasized;
-  font-weight: 400;
+  font-family: $sky-font-family !important;
+  color: $sky-text-color-deemphasized !important;
+  font-weight: 400 !important;
   font-size: $sky-font-size-base;
-  font-style: italic;
+  font-style: italic !important;
 }
 
 @mixin sky-field-label {
-  font-family: $sky-font-family;
-  color: $sky-text-color-deemphasized;
-  font-weight: 400;
+  font-family: $sky-font-family !important;
+  color: $sky-text-color-deemphasized !important;
+  font-weight: 400 !important;
   font-size: $sky-font-size-base;
 }
 

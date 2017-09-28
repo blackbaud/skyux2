@@ -35,11 +35,11 @@ export class GuidelineActionButtonsComponent {
       summary: 'Filter patterns provide guidance on how to display filter options in various scenarios.'
     },
     {
-      name: 'Forms',
-      path: '/ux-guidelines/forms',
+      name: 'Form containers',
+      path: '/ux-guidelines/form-containers',
       icon: '',
       // tslint:disable-next-line
-      summary: 'Form patterns determine the type of form to use to meet different workflow requirements.'
+      summary: 'Form container patterns determine the type of form to use to meet different workflow requirements.'
     },    
     {
       name: 'Managing records',

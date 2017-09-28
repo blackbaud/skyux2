@@ -1,10 +1,11 @@
 <sky-demo-nav></sky-demo-nav>
 
-<stache 
-  pageTitle="Content containers"
-  windowTitle="Content containers">
+<stache
+    layout="container"
+    pageTitle="Content containers"
+    showTableOfContents="true">
 
-<h2 class="sky-section-heading">Dividing a page into sections of related content</h2>
+<stache-page-anchor>Dividing a page into sections of related content</stache-page-anchor>
 
 <h3 class="sky-subsection-heading"><a routerLink="../../components/tiles">Tile</a></h3>
 
@@ -16,21 +17,19 @@
 
 <p>A container for dividing large subsets of content on a page. A sets of tabs should serve as categories of page content, not as a list of similar items. The contents of each tab can be considered like a page and may contain any other container or arrangement of content.</p>
 
-<h2 class="sky-section-heading">Presenting instances of a collection of related items</h2>
+<stache-page-anchor>Presenting instances of a collection of related items</stache-page-anchor>
 
 <h3 class="sky-subsection-heading"><a routerLink="../../components/card">Cards</a></h3>
 
 <p>This is a list of items that uses set of rectangular card containers, instead of rows. The card decks can appear in different layouts, such as grids or carousels. Content and presentation can be determined per card list instance. Cards can be selected (multi-select via checkbox) for bulk actions, and can also contain item-specific actions in an action bar or context menu.</p>
 
-<p>If you are using cards within a tile, consider using them with the <a routerLink="../../components/carousel">Carousel</a> component which accounts for the width of its container.</p>
+<p>If you are using cards within a tile, consider using them with a carousel that accounts for the width of its container.</p>
 
 <h3 class="sky-subsection-heading"><a routerLink="../../components/repeater">Repeater list</a></h3>
 
 <p>A list of items that does not use columns. The content and presentation inside the row can be determined per list. Rows in a repeater list can be selected (multi-select via checkbox) for bulk actions. Each row can contain hyperlinks (usually on the “primary” label), but row-specific actions should be collected into the row's context menu.</p>
   
 <p>Repeaters can be used in full-page formats, tabs, tiles, or dialogues.</p>
-
-<p>For cases where the user needs to manually sort a list, the <a routerLink="../../components/reorder">Reorder</a> component enables this for a simple repeater list.</p>
   
 <h3 class="sky-subsection-heading"><a routerLink="../../components/grid">Grid</a></h3>
 
@@ -40,7 +39,7 @@
 
 <p>Grids should generally be used in full-page formats or inside of full-page tabs. When designing within a smaller container such as a tile, try using a repeater instead since they scale down better than grids.</p>
 
-<h2 class="sky-section-heading">Revealing content that is not always visible</h2>
+<stache-page-anchor>Revealing content that is not always visible</stache-page-anchor>
 
 <h3 class="sky-subsection-heading"><a routerLink="../../components/modal">Modal</a></h3>
 

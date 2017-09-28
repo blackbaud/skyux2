@@ -1,12 +1,13 @@
 <sky-demo-nav></sky-demo-nav>
 
-<stache 
-  pageTitle="Forms"
-  windowTitle="Forms">
+<stache
+    layout="container"
+    pageTitle="Form containers"
+    showTableOfContents="true">
 
-<stache-page-summary><p>SKYUX provides various form patterns to accommodate different scenarios and workflow requirements.</p></stache-page-summary>
+<stache-page-summary><p>SKYUX provides various form container patterns to accommodate different scenarios and workflow requirements.</p></stache-page-summary>
 
-<div class="sky-subsection-heading">Inline panel</div>
+<stache-page-anchor>Inline panel</stache-page-anchor>
 <p>An inline panel is appropriate for simple forms that meets the following criteria:</p>
 <ul>
   <li>The form has few fields, and its input controls are not complex.</li>
@@ -14,16 +15,16 @@
   <li>The task is functionally non-modal, and users can abandon it while the form is open.</li>
 </ul>
 
-<div class="sky-subsection-heading">Modal dialog</div>
-<p>A <a routerLink="../../components/modal">Modal</a> dialog is appropriate for forms that meet any of the following criteria:</p>
+<stache-page-anchor>Modal dialog</stache-page-anchor>
+<p>A <a routerLink="../../components/modal">modal</a> dialog is appropriate for forms that meet any of the following criteria:</p>
 <ul>
   <li>The task is functionally modal, and users must finish it before doing anything else.</li>
   <li>Displaying the form inline would lead to a large amount of content shifting or require users to scroll to complete the form.</li>
   <li>The form adds records from [a paginated list](../../components/pagination) or [an infinite scroll list](../../components/infinitescroll).</li>
 </ul>
   
-<div class="sky-subsection-heading">Full-page modal</div>
-<p>A <a routerLink="../../components/modal">Full-page modal</a> is appropriate for forms that meet the following criteria:</p>
+<stache-page-anchor>Full-page modal</stache-page-anchor>
+<p>A <a routerLink="../../components/modal">full-page modal</a> is appropriate for forms that meet the following criteria:</p>
 <ul>
   <li>The task is functionally modal, and users must finish it before doing anything else.</li>
   <li>Users usually perform the task in a large viewport, and a full-page modal can optimize the use of space.</li>
@@ -33,8 +34,8 @@
 <li>The task includes subtasks that need to be completed in context.</li>
 </ul>
 
-<div class="sky-subsection-heading">Wizard</div>
-<p>A <a routerLink="../../components/wizard">Wizard</a> is appropriate for forms that meet the following criteria:</p>
+<stache-page-anchor>Wizard</stache-page-anchor>
+<p>A <a routerLink="../../components/wizard">wizard</a> is appropriate for forms that meet the following criteria:</p>
 <ul>
   <li>The task can be divided into discrete steps.</li>
   <li>The order of the steps is important.</li>
