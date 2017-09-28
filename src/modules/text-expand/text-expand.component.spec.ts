@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
-
+import { SkyWindowRefService } from '../window';
 import { TextExpandTestComponent } from './fixtures/text-expand.component.fixture';
 import { SkyTextExpandModule } from './text-expand.module';
 import { SkyResources } from '../resources/resources';
@@ -16,6 +16,13 @@ import {
 } from '../modal';
 
 describe('Text expand component', () => {
+  const mockWindowService = {
+    getWindow(): any {
+      return {
+        setTimeout: (cb: Function) => cb()
+      };
+    }
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,6 +33,9 @@ describe('Text expand component', () => {
         BrowserModule,
         SkyTextExpandModule,
         SkyModalModule
+      ],
+      providers: [
+        { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
     });
   });

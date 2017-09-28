@@ -11,18 +11,11 @@ export class SkyModalInstance {
 
   public closed = new EventEmitter<SkyModalCloseArgs>();
 
-  private closeCallback: Function;
-
-  constructor() { }
-
-  public setCloseCallback(closeCallback: Function) {
-    this.closeCallback = closeCallback;
-  }
-
   public close(result?: any, reason?: string) {
     if (reason === undefined) {
       reason = 'close';
     }
+
     this.closeModal(reason, result);
   }
 
@@ -35,11 +28,8 @@ export class SkyModalInstance {
   }
 
   private closeModal(type: string, result?: any) {
-    if (this.closeCallback) {
-      this.closeCallback();
-    }
-
     const args = new SkyModalCloseArgs();
+
     args.reason = type;
     args.data = result;
 
