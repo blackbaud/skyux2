@@ -19,8 +19,9 @@
   "author": "Blackbaud",
   "license": "ISC",
   "devDependencies": {
-    "@blackbaud/skyux": "2.1.0",
-    "@blackbaud/skyux-builder": "1.0.2",
+    "@angular/animations": "4.2.5",
+    "@blackbaud/skyux": "2.0.0",
+    "@blackbaud/skyux-builder": "1.0.0-rc.19",
     "enhanced-resolve": "3.3.0",
     "codelyzer": "3.0.1",
     "moment": "2.18.1",
