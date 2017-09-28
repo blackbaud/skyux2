@@ -10,6 +10,7 @@ export class SkyModalInstance {
   public componentInstance: any;
 
   public closed = new EventEmitter<SkyModalCloseArgs>();
+  public openBBHelp = new EventEmitter<any>();
 
   public close(result?: any, reason?: string) {
     if (reason === undefined) {
@@ -25,6 +26,10 @@ export class SkyModalInstance {
 
   public save(result?: any) {
     this.closeModal('save', result);
+  }
+
+  public openHelp(helpKey?: string) {
+    this.openBBHelp.emit(helpKey);
   }
 
   private closeModal(type: string, result?: any) {

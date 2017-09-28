@@ -74,6 +74,10 @@ export class SkyModalHostComponent {
       modalComponentRef.destroy();
     }
 
+    hostService.openHelp.subscribe((helpKey?: string) => {
+      modalInstance.openHelp(helpKey);
+    });
+
     hostService.close.subscribe(() => {
       modalInstance.close();
     });

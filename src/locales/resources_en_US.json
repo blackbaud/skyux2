@@ -599,6 +599,10 @@
     "_description": "Text for modal close button",
     "message": "Close modal"
   },
+  "open_help": {
+    "_description": "Text for modal header Open Help button",
+    "message": "Open Help"
+  },
   "modal_footer_cancel_button": {
     "_description": "Default lable text for modal cancel button",
     "message": "Cancel"

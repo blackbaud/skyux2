@@ -5,4 +5,5 @@ export interface SkyModalConfigurationInterface {
   ariaDescribedBy?: string;
   ariaLabelledBy?: string;
   tiledBody?: boolean;
+  helpKey?: string;
 }
