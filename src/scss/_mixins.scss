@@ -153,13 +153,13 @@
 }
 
 @mixin sky-icon-button-borderless {
-    color: $sky-text-color-icon-borderless;
-    cursor: pointer;
-    
-    &:hover {
-        color: darken($sky-text-color-icon-borderless, 20%);
-        transition: color $sky-transition-time-short;
-    }
+  color: $sky-text-color-icon-borderless;
+  cursor: pointer;
+  
+  &:hover {
+    color: darken($sky-text-color-icon-borderless, 20%);
+    transition: color $sky-transition-time-short;
+  }
 }
 
 @mixin sky-button-variant($color, $background, $border, $hoverbackground:darken($background, 10%)) {
@@ -221,12 +221,12 @@
 }
 
 @mixin sky-focus-outline {
-    //default
-    outline: thin dotted;
+  //default
+  outline: thin dotted;
 
-    //webkit
-    outline: -webkit-focus-ring-color auto 5px;
-    outline-offset: -2px;
+  //webkit
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: -2px;
 }
 
 // Single side border-radius
@@ -254,4 +254,17 @@
       width: ($i / $sky-fluid-grid-columns) * 100%;
     }
   }
+}
+
+@mixin sky-required-field {
+  content: "*";
+  color: $sky-highlight-color-danger;
+  padding-left: $sky-padding-half;
+}
+
+@mixin sky-danger {
+  content: "\f071";
+  font-family: FontAwesome;
+  margin-right: 5px;
+  color: $sky-highlight-color-danger;
 }

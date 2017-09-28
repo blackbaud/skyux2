@@ -42,9 +42,7 @@ select.ng-invalid.submitted {
 }
 
 .sky-control-label-required:after {
-  content: "*";
-  color: $sky-highlight-color-danger;
-  padding-left: $sky-padding-half;
+  @include sky-required-field;
 }
 
 // turning off normalized CSS from normalize
