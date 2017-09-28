@@ -18,6 +18,9 @@
     <sky-demo-page-property propertyName="text">
       The text to truncate.
     </sky-demo-page-property>
+    <sky-demo-page-property propertyName="maxNewline" defaultValue="1" isOptional="true">
+      The number of newlines allowed in the truncated text (all remaining newlines will be converted to spaces).
+    </sky-demo-page-property>
     <sky-demo-page-property propertyName="maxLength" defaultValue="200" isOptional="true">
       The number of characters to show before truncating the text. To avoid truncating text in the middle of a word, the directive looks for a space in the 10 characters before the last character.
     </sky-demo-page-property>

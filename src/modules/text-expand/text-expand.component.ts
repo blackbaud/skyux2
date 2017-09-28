@@ -9,19 +9,15 @@ import {
 import {
   SkyResourcesService
 } from '../resources';
-
 import {
   SkyModalService
 } from '../modal';
-
 import {
   SkyTextExpandModalComponent
 } from './text-expand-modal.component';
-
 import {
   SkyTextExpandModalContext
 } from './text-expand-modal-context';
-
 import {
   SkyTextExpandAdapterService
 } from './text-expand-adapter.service';
@@ -40,32 +36,24 @@ export class SkyTextExpandComponent implements AfterContentInit {
   public set text(value: string) {
     this.setup(value);
   }
-
   @Input()
   public maxNewlines: number = 1;
-
   @Input()
   public maxLength: number = 200;
-
   @Input()
   public maxExpandedLength: number = 600;
-
   @Input()
   public maxExpandedNewlines: number = 2;
-
   @Input()
   public expandModalTitle: string = this.resources.getString('text_expand_modal_title');
-
   @ViewChild('container')
   public containerEl: ElementRef;
-
   @ViewChild('text')
   public textEl: ElementRef;
 
   public isExpanded: boolean = false;
   public expandable: boolean;
   public buttonText: string;
-
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
   private textToShow: string;
@@ -79,40 +67,43 @@ export class SkyTextExpandComponent implements AfterContentInit {
     private textExpandAdapter: SkyTextExpandAdapterService) { }
 
   public textExpand() {
-    if (
-      this.newlineCount > this.maxExpandedNewlines ||
-      this.expandedText.length > this.maxExpandedLength
-    ) {
+    if (this.newlineCount > this.maxExpandedNewlines
+      || this.expandedText.length > this.maxExpandedLength) {
       // Modal View
       /* istanbul ignore else */
+      /* sanity check */
       if (!this.isExpanded) {
-        this.modalService.open(SkyTextExpandModalComponent,
-          [{
-            provide: SkyTextExpandModalContext,
-            useValue: {
-              header: this.expandModalTitle,
-              text: this.expandedText
+        this.modalService.open(
+          SkyTextExpandModalComponent,
+          [
+            {
+              provide: SkyTextExpandModalContext,
+              useValue: {
+                header: this.expandModalTitle,
+                text: this.expandedText
+              }
             }
-          }]
+          ]
         );
       }
-
-      return;
-    }
-
-    this.setContainerMaxHeight();
-
-    // Normal View
-    if (!this.isExpanded) {
-      setTimeout(() => {
-        this.isExpanded = true;
-        this.animateText(this.collapsedText, this.expandedText, true);
-      });
     } else {
-      setTimeout(() => {
-        this.isExpanded = false;
-        this.animateText(this.expandedText, this.collapsedText, false);
-      });
+      // Normal View
+      if (!this.isExpanded) {
+        this.setContainerMaxHeight();
+        setTimeout(() => {
+          this.isExpanded = true;
+          this
+            .animateText(this.collapsedText, this.expandedText, true);
+        }, 10);
+
+      } else {
+        this.setContainerMaxHeight();
+        setTimeout(() => {
+          this.isExpanded = false;
+          this
+            .animateText(this.expandedText, this.collapsedText, false);
+        }, 10);
+      }
     }
   }
 
@@ -130,11 +121,9 @@ export class SkyTextExpandComponent implements AfterContentInit {
   private setContainerMaxHeight() {
     // ensure everything is reset
     this.animationEnd();
-    /**
-     * TODO: Once we have support for Angular v4 animations with parameters we can use that instead.
-     */
-    // Before animation is kicked off, ensure that a maxHeight exists.
-    const currentHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
+    /* Before animation is kicked off, ensure that a maxHeight exists */
+    /* Once we have support for angular v4 animations with parameters we can use that instead */
+    let currentHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
     this.textExpandAdapter.setContainerHeight(this.containerEl, `${currentHeight}px`);
   }
 
@@ -143,7 +132,6 @@ export class SkyTextExpandComponent implements AfterContentInit {
       this.newlineCount = this.getNewlineCount(value);
       this.collapsedText = this.getTruncatedText(value, this.maxLength, this.maxNewlines);
       this.expandedText = value;
-
       if (this.collapsedText !== value) {
         this.buttonText = this.seeMoreText;
         this.isExpanded = false;
@@ -151,18 +139,16 @@ export class SkyTextExpandComponent implements AfterContentInit {
       } else {
         this.expandable = false;
       }
-
       this.textToShow = this.collapsedText;
     } else {
       this.textToShow = '';
       this.expandable = false;
     }
-
     this.textExpandAdapter.setText(this.textEl, this.textToShow);
   }
 
-  private getNewlineCount(text: string): number {
-    let matches = text.match(/\n/gi);
+  private getNewlineCount(value: string) {
+    let matches = value.match(/\n/gi);
 
     if (matches) {
       return matches.length;
@@ -170,43 +156,39 @@ export class SkyTextExpandComponent implements AfterContentInit {
 
     return 0;
   }
-
-  private getTruncatedText(value: string, length: number, newlines: number): string {
+  private getTruncatedText(value: string, length: number, newlines: number) {
+    let i: number;
     if (newlines && this.newlineCount >= newlines) {
       value = value.replace(/\s+/gi, ' ');
     }
-
     // Jump ahead one character and see if it's a space, and if it isn't,
     // back up to the first space and break there so a word doesn't get cut
     // in half.
     if (length < value.length) {
-      for (let i = length; i > length - 10; i--) {
+      for (i = length; i > length - 10; i--) {
         if (/\s/.test(value.charAt(i))) {
           length = i;
           break;
         }
       }
     }
-
     return value.substr(0, length);
   }
 
-  private animateText(previousText: string, newText: string, expanding: boolean) {
+  private animateText(previousText: string, newText: string,
+    expanding: boolean) {
+
     let adapter = this.textExpandAdapter;
     let container = this.containerEl;
-
     // Reset max height
     adapter.setContainerHeight(container, undefined);
-
     // Measure the current height so we can animate from it.
     let currentHeight = adapter.getContainerHeight(container);
     this.textToShow = newText;
     adapter.setText(this.textEl, this.textToShow);
     this.buttonText = expanding ? this.seeLessText : this.seeMoreText;
-
     // Measure the new height so we can animate to it.
     let newHeight = adapter.getContainerHeight(container);
-
     if (newHeight < currentHeight) {
       // The new text is smaller than the old text, so put the old text back before doing
       // the collapse animation to avoid showing a big chunk of whitespace.
@@ -214,7 +196,6 @@ export class SkyTextExpandComponent implements AfterContentInit {
     }
 
     adapter.setContainerHeight(container, `${currentHeight}px`);
-
     // This timeout is necessary due to the browser needing to pick up the non-auto height being set
     // in order to do the transtion in height correctly. Without it the transition does not fire.
     setTimeout(() => {
@@ -223,6 +204,6 @@ export class SkyTextExpandComponent implements AfterContentInit {
       setTimeout(() => {
         this.animationEnd();
       }, 500);
-    });
+    }, 10);
   }
 }
