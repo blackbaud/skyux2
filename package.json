@@ -1,7 +1,7 @@
 {
   "name": "@blackbaud/skyux",
   "version": "2.1.0",
-  "description": "SKY UX built on Angular 2 ",
+  "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
   "license": "MIT",
