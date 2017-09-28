@@ -25,10 +25,6 @@ export class SkyDemoNavComponent {
       url: '/design'
     },
     {
-      title: 'UX Guidelines',
-      url: '/ux-guidelines'
-    },
-    {
       title: 'Contribute',
       url: '/contribute'
     }
