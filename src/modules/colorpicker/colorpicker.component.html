@@ -49,24 +49,46 @@
             </div>
           </div>
 
-          <div *ngIf="presetColors && presetColors.length" class="sky-colorpicker-preset-color-area">
-            <button [attr.aria-label]="('colorpicker_preset_color' | skyResources) + ' '+color" *ngFor="let color of presetColors | slice:0:12; let i = index;"
-              class="sky-preset-color" [style.backgroundColor]="color" (click)="setColorFromString(color)"></button>
+          <div
+            *ngIf="presetColors && presetColors.length"
+            class="sky-colorpicker-preset-color-area"
+          >
+            <button
+              *ngFor="let color of presetColors | slice:0:12; let i = index;"
+              class="sky-preset-color"
+              type="button"
+              [attr.aria-label]="('colorpicker_preset_color' | skyResources) + ' ' + color"[style.backgroundColor]="color"
+              (click)="setColorFromString(color)"
+            ></button>
           </div>
         </div>
 
         <div class="sky-colorpicker-container sky-colorpicker-footer">
           <section class="sky-colorpicker-column">
-            <button [attr.aria-label]="'colorpicker_apply' | skyResources" type="button" class="sky-btn sky-btn-primary sky-btn-colorpicker-apply"
-              (click)="applyColor()">{{'colorpicker_apply' | skyResources}}</button>
+            <button
+              class="sky-btn sky-btn-primary sky-btn-colorpicker-apply"
+              type="button"
+              [attr.aria-label]="'colorpicker_apply' | skyResources"
+              (click)="applyColor()"
+            >{{'colorpicker_apply' | skyResources}}</button>
 
-            <button [attr.aria-label]="'colorpicker_close' | skyResources" type="button" #closeColorPicker class="sky-btn sky-btn-link sky-btn-colorpicker-close"
-              (click)="closePicker()">{{'colorpicker_close' | skyResources}}</button>
+            <button
+              class="sky-btn sky-btn-link sky-btn-colorpicker-close"
+              type="button"
+              [attr.aria-label]="'colorpicker_close' | skyResources"
+              (click)="closePicker()"
+              #closeColorPicker
+            >{{'colorpicker_close' | skyResources}}</button>
           </section>
         </div>
 
       </div>
     </sky-dropdown-menu>
   </sky-dropdown>
-  <button [attr.aria-label]="'colorpicker_reset' | skyResources" class="sky-colorpicker-reset-button" (click)="setColorFromString('#fff')"></button>
+  <button
+    class="sky-colorpicker-reset-button"
+    type="button"
+    [attr.aria-label]="'colorpicker_reset' | skyResources"
+    (click)="setColorFromString('#fff')"
+  ></button>
 </div>

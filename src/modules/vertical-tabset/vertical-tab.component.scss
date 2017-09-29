@@ -5,7 +5,7 @@
   padding: $sky-padding-3_4 0 $sky-padding-3_4 $sky-padding;
   margin: $sky-margin-half 0 $sky-margin-half $sky-margin;
   color: $sky-text-color-default;
-  display: block;
+  display: flex;
   text-decoration: none;
 
   &:hover {
@@ -14,6 +14,10 @@
 
   &:focus {
     @include sky-focus-outline;
+  }
+
+  &:hover .sky-vertical-tab-right-arrow {
+    color: darken($sky-text-color-icon-borderless, 20%);
   }
 }
 
@@ -28,8 +32,13 @@
   display: none;
 }
 
+.sky-vertical-tab-display {
+  display: flex;
+  flex-grow: 1;
+}
+
 .sky-vertical-tab-heading {
-  display: inline;
+  flex-grow: 1;
 }
 
 .sky-vertical-tab-count {
@@ -45,4 +54,9 @@
   &:hover {
     color: $sky-text-color-deemphasized;
   }
+}
+
+.sky-vertical-tab-right-arrow {
+  padding: 3px $sky-padding 0 0;
+  color: $sky-text-color-icon-borderless;
 }

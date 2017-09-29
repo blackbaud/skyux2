@@ -1,21 +1,21 @@
- <div class="sky-vertical-tabset">
+ <div class="sky-vertical-tabset" (window:resize)="tabService.updateContent()">
   <div 
     #contentWrapper 
     class="sky-vertical-tabset-group-container"
-    [@tabGroupEnter]="animationVisibleState"
-    *ngIf="tabsVisible()"
+    [@tabGroupEnter]="tabService.animationVisibleState"
+    *ngIf="tabService.tabsVisible()"
   >
     <ng-content></ng-content>
   </div> 
   <div 
     class="sky-vertical-tabset-content"
-    [@contentEnter]="animationVisibleState"
-    *ngIf="contentVisible()"
+    [@contentEnter]="tabService.animationVisibleState"
+    *ngIf="tabService.contentVisible()"
   >
     <div #skySideContent></div>
     <button 
-      *ngIf="isMobile()"
-      (click)="showTabs()"
+      *ngIf="!tabService.tabsVisible()"
+      (click)="tabService.showTabs()"
       class="sky-btn sky-btn-primary sky-vertical-tabset-show-tabs-btn"
     >
       <i class="fa fa-chevron-left"></i>
