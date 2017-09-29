@@ -52,7 +52,7 @@ export class SkyModalDemoComponent {
 
     modalInstance.helpInvoked.subscribe((helpKey: string) => {
       context.eventMessage =  `
-        Modal header help was invoked with the following help key: ${helpKey }
+        Modal header help was invoked with the following help key: ${helpKey}
       `;
     });
   }
