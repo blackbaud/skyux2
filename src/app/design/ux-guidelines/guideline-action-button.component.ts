@@ -28,7 +28,7 @@ export class GuidelineActionButtonsComponent {
       summary: 'Describes the contexts in which to use different types of content containers.'
     },
     {
-      name: 'Filtering lists',
+      name: 'Filter lists',
       path: '/design/ux-guidelines/filtering-lists',
       icon: '',
       // tslint:disable-next-line
@@ -42,11 +42,11 @@ export class GuidelineActionButtonsComponent {
       summary: 'Form container patterns determine the type of form to use to meet different workflow requirements.'
     },    
     {
-      name: 'Managing records',
+      name: 'Manage records',
       path: '/design/ux-guidelines/managing-records',
       icon: '',
       // tslint:disable-next-line
-      summary: 'Record management patterns provide guidance on how records should be added, edited and removed.'
+      summary: 'Record management patterns provide guidance on how to add, edit and remove records.'
     },
     {
       name: 'Page layouts',
@@ -56,7 +56,7 @@ export class GuidelineActionButtonsComponent {
       summary: 'Responsive, mobile-first page layouts provide flexibility while conforming to SKY UX standards.'
     },
     {
-      name: 'Selecting items from lists',
+      name: 'Select items from lists',
       path: '/design/ux-guidelines/select-items',
       icon: '',
       // tslint:disable-next-line
