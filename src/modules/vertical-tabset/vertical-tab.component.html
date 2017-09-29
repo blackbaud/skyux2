@@ -1,0 +1,37 @@
+<a 
+  class="sky-vertical-tab"
+  [ngClass]="{
+    'sky-vertical-tab-active': active, 
+    'sky-vertical-tab-disabled': disabled
+  }"
+  (click)="activateTab()"
+  (keyup.enter)="activateTab()"
+  [tabIndex]="tabIndex()"
+  [attr.aria-selected]="active"
+>
+  <div class="sky-vertical-tab-display">
+    <div class="sky-vertical-tab-heading">
+      <span class="sky-vertical-tab-heading-value">{{ tabHeading }}</span>
+      <span 
+        class="sky-vertical-tab-count"
+        *ngIf="tabHeaderCount || tabHeaderCount === 0">
+        ({{ tabHeaderCount }})
+      </span>
+    </div>
+
+    <i 
+      *ngIf="showTabRightArrow"
+      class="fa fa-chevron-right sky-vertical-tab-right-arrow"
+    >
+    </i>
+  </div>
+</a>
+
+<div #tabContentWrapper>
+  <div 
+    class="sky-vertical-tab-content-pane"
+    [ngClass]="{'sky-vertical-tab-hidden': !active}"
+  >
+    <ng-content></ng-content>
+  <div>
+</div>

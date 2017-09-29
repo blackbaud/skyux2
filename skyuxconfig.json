@@ -4,6 +4,38 @@
   "importPath": "src",
   "cssPath": "src/scss/sky.scss",
   "compileMode": "aot",
+  "omnibar": {
+    "experimental": true,
+    "nav": {
+      "services": [
+        {
+          "title": "SKY UX 2",
+          "items": [
+            {
+              "title": "Home",
+              "route": "/"
+            },
+            {
+              "title": "Learn",
+              "route": "/learn"
+            },
+            {
+              "title": "Components",
+              "route": "/components"
+            },
+            {
+              "title": "Design",
+              "route": "/design"
+            },
+            {
+              "title": "Contribute",
+              "route": "/contribute"
+            }
+          ]
+        }
+      ]
+    }
+  },
   "plugins": [
     "@blackbaud/skyux-builder-plugin-stache"
   ],
@@ -17,9 +49,9 @@
     "learn/get-started/7.-run-tests": "learn/get-started/basics/run-tests",
     "learn/get-started/8.-unit-test-modals": "learn/get-started/advanced/unit-test-modals",
     "learn/get-started/9.-include-static-asset": "learn/get-started/advanced/include-static-assets",
-    "learn/accessibility": "/learn/contribute/accessibility",
-    "learn/accessibility/code-review": "/learn/contribute/accessibility/code-review",
-    "learn/accessibility/keyboard-testing": "/learn/contribute/accessibility/keyboard-testing",
+    "learn/accessibility": "design/accessibility",
+    "learn/accessibility/code-review": "design/accessibility/code-review",
+    "learn/accessibility/keyboard-testing": "design/accessibility/keyboard-testing",
     "learn/faq": "learn/reference/faq",
     "learn/resources": "learn/reference/resources",
     "learn/get-started/add-entry-components": "learn/get-started/advanced/add-entry-components",
@@ -29,8 +61,12 @@
     "learn/get-started/include-static-assets": "learn/get-started/advanced/include-static-assets",
     "learn/get-started/initial-setup": "learn/get-started/prereqs/initial-setup",
     "learn/get-started/run-tests": "learn/get-started/basics/run-tests",
-    "learn/get-started/serve-project": "learn/get-started/basics/serve-project",
     "learn/get-started/ssl-certificate": "learn/get-started/prereqs/ssl-certificate",
-    "learn/get-started/unit-test-modals": "learn/get-started/advanced/unit-test-modals"
+    "learn/get-started/unit-test-modals": "learn/get-started/advanced/unit-test-modals",
+    "learn/contribute": "contribute",
+    "learn/contribute/accessibility": "design/accessibility",
+    "learn/contribute/accessibility/code-review": "design/accessibility/code-review",
+    "learn/contribute/accessibility/keyboard-testing": "design/accessibility/keyboard-testing",
+    "components/tiles": "components/tile"
   }
 }

@@ -35,7 +35,11 @@ export class SkyVisualTest {
       });
   }
 
-  public static compareScreenshot(options: any): any {
+  public static compareScreenshot(options: {
+    screenshotName: string;
+    selector: string;
+    checkAccessibility?: boolean;
+  }): any {
     browser.sleep(1000);
     return (browser as any).pixDiff
       .checkRegion(

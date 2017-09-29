@@ -33,6 +33,7 @@ Thumbs.db
 /bower_components
 npm-debug.log*
 yarn.lock
+package-lock.json
 
 # Coverage #
 /coverage/
@@ -44,7 +45,6 @@ yarn.lock
 
 # Dist #
 /dist
-/releases
 /public/__build__/
 /src/*/__build__/
 /__build__/**
@@ -63,8 +63,8 @@ yarn.lock
 # Allows for quick local testing #
 *.env
 
-/.srctemp
-/.skypagestmp
+.srctemp
+.skypagestmp
 webdriver-screenshotslocal*
 browserstack.err
 

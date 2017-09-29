@@ -27,15 +27,18 @@ export class HomeComponent {
     'help-inline',
     'key-info',
     'label',
+    'link-records',
     'list-secondary-actions',
     'list-view-checklist',
     'modal',
     'navbar',
     'page-summary',
     'paging',
+    'popover',
     'radio',
     'repeater',
     'search',
+    'sectioned-form',
     'sort',
     'tabs',
     'text-expand',
@@ -43,6 +46,7 @@ export class HomeComponent {
     'text-highlight',
     'tiles',
     'toolbar',
+    'vertical-tabs',
     'wait'
   ];
 }

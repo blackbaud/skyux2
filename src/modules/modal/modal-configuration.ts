@@ -7,6 +7,7 @@ export class SkyModalConfiguration {
   public size?: string;
   public ariaDescribedBy?: string;
   public ariaLabelledBy?: string;
+  public tiledBody?: boolean;
 
   constructor() {
     this.fullPage = this.fullPage;

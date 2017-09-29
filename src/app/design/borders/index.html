@@ -1,15 +1,13 @@
-<sky-demo-nav></sky-demo-nav>
-
-<stache 
+<stache
   pageTitle="Borders and shadows"
   windowTitle="Borders and shadows">
-  
+
   <p>SKY UX uses various line styles to bound, divide, and highlight content. The lines are designed to maintain visual hierarchy regardless of how complex pages become or how many nested containers they include.</p>
 <p>As with other types of formatting or decoration in SKY UX, use lines minimally. Remember that white space and positioning can group or highlight content without extra subdivisions or boundaries.</p>
 <p>SKY UX uses 3 generalized line styles that you can apply with a SASS mixin.</p>
 
 <h2 class="sky-section-heading" id="generic-lines">Line styles</h2>
-  
+
 <div class="definition-table definition-table-wide">
     <div class="definition-item">
       <div class="sky-subsection-heading" style="border-bottom: 1px solid #e2e3e4;">Light separator</div>
@@ -17,8 +15,7 @@
     <div class="definition-props">
       <div class="definition-usage">
         <div class="sky-field-label">Usage</div>
-        <div>The light separator is a very light gray, single-pixel line that subdivides content within a container. Do not use it at the edge of a container. Only use it when it is adjacent to white space on both sides.</div>
-        <p>SKY UX uses this style for:</p>
+        <div>The light separator is a very light gray, single-pixel line that subdivides content within a container. Do not use it at the edge of a container. Only use it when it is adjacent to white space on both sides. SKY UX uses this style for:</div>
         <ul>
           <li>Subsection dividers within containers such as <a routerLink="../../components/tiles">tiles</a></li>
           <li>Top boundaries for action bars on <a routerLink="../../components/modal">modals</a></li>
@@ -45,8 +42,7 @@
     <div class="definition-props">
       <div class="definition-usage">
         <div class="sky-field-label">Usage</div>
-        <div>The dark separator is a moderate gray, single-pixel line. This heavier stroke holds up between two different colors, which makes it ideal for borders and boundaries. It also frequently separates active content from passive content. For example, it can separate a toolbar from the content that the toolbar acts on.</div>
-            <p>SKY UX uses this style for:</p>
+        <div>The dark separator is a moderate gray, single-pixel line. This heavier stroke holds up between two different colors, which makes it ideal for borders and boundaries. It also frequently separates active content from passive content. For example, it can separate a toolbar from the content that the toolbar acts on. SKY UX uses this style for:</div>
             <ul>
               <li>Borders on <a routerLink="../../components/button">buttons</a></li>
               <li>Top and bottom boundaries for toolbars in areas such as <a routerLink="../../components/tiles">tiles</a> and <a routerLink="../../components/grid">grids</a></li>
@@ -85,10 +81,10 @@
       </div>
     </div>
   </div>
-  
+
 <h2 class="sky-section-heading" id="corners">Corners</h2>
 
-<p>In general, the style of corners should be handled by the component. If you need to directly specify the corners of an element, the rule of thumb is to use rounded corners for interactive elements and square corners for containers.</p>
+<p>In general, the component should handle the style of corners. If you need to directly specify the corners of an element, the rule of thumb is to use rounded corners for interactive elements and square corners for containers.</p>
 
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
@@ -97,11 +93,11 @@
     <div class="definition-props">
       <div class="definition-usage">
         <div class="sky-field-label">Usage</div>
-        <div>Rounded corners are primarily for interactive elements such as <a routerLink="../../components/button">buttons</a> to convey a distinction from non-interactive elements.</div>
+        <div>Rounded corners are primarily for interactive elements such as <a routerLink="../../components/button">buttons</a> to distinguish them from non-interactive elements.</div>
       </div>
       <div class="definition-code">
         <div class="sky-field-label">Code</div>
-        <code>border-radius: 3px</code>
+        <code>border-radius: $sky-border-radius</code>
       </div>
       <div class="definition-styling">
         <div class="sky-field-label">Styling</div>
@@ -109,10 +105,10 @@
       </div>
     </div>
   </div>
-  
+
 <h2 class="sky-section-heading" id="shadows">Shadows</h2>
 
-<p>In general, the use of shadows should be handled by the component. Specific interface designs should be flat aside from these components, using other techniques to create visual separation.</p>
+<p>In general, the component should handle the use of shadows. Interface designs should be flat aside from these components and use other techniques to create visual separation.</p>
 
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
@@ -132,6 +128,6 @@
         <div>box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3)</div>
       </div>
     </div>
-  </div>    
-  
+  </div>
+
 </stache>
