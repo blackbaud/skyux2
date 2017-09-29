@@ -160,7 +160,7 @@ public findBoxInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-    value: 'This is the search component, and it should have the same interactions and highlights as other contexts where the search component is used.' 
+    value: 'This is the search component, and it should have the same interactions and highlights as other contexts where the search component is used.'
   }
 ];
 public simpleFiltersInfo: {label: string, value: string}[] = [
@@ -174,7 +174,7 @@ public simpleFiltersInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-    value: 'For tiles or lists that need no more than two filters, those filters can appear in the view section on the right of the toolbar in place of a filter action button.' 
+    value: 'For tiles or lists that need no more than two filters, those filters can appear in the view section on the right of the toolbar in place of a filter action button.'
   }
 ];
 public expandCollapseInfo: {label: string, value: string}[] = [

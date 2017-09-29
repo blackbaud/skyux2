@@ -40,7 +40,7 @@ export class GuidelineActionButtonsComponent {
       icon: '',
       // tslint:disable-next-line
       summary: 'Form container patterns determine the type of form to use to meet different workflow requirements.'
-    },    
+    },
     {
       name: 'Managing records',
       path: '/design/ux-guidelines/managing-records',
