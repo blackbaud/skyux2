@@ -5,7 +5,6 @@
 
   // Make all columns within a tile dashboard the same width.
   flex-grow: 1;
-  flex-shrink: 0;
   // flex-basis is set in the template based on the number of columns in the dashboard.
   overflow: hidden;
 
