@@ -34,6 +34,7 @@
     "learn/contribute": "contribute",
     "learn/contribute/accessibility": "design/accessibility",
     "learn/contribute/accessibility/code-review": "design/accessibility/code-review",
-    "learn/contribute/accessibility/keyboard-testing": "design/accessibility/keyboard-testing"
+    "learn/contribute/accessibility/keyboard-testing": "design/accessibility/keyboard-testing",
+    "components/tiles": "components/tile"
   }
 }
