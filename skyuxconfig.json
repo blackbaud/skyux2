@@ -4,6 +4,38 @@
   "importPath": "src",
   "cssPath": "src/scss/sky.scss",
   "compileMode": "aot",
+  "omnibar": {
+    "experimental": true,
+    "nav": {
+      "services": [
+        {
+          "title": "SKY UX 2",
+          "items": [
+            {
+              "title": "Home",
+              "route": "/"
+            },
+            {
+              "title": "Learn",
+              "route": "/learn"
+            },
+            {
+              "title": "Components",
+              "route": "/components"
+            },
+            {
+              "title": "Design",
+              "route": "/design"
+            },
+            {
+              "title": "Contribute",
+              "route": "/contribute"
+            }
+          ]
+        }
+      ]
+    }
+  },
   "plugins": [
     "@blackbaud/skyux-builder-plugin-stache"
   ],
@@ -34,6 +66,7 @@
     "learn/contribute": "contribute",
     "learn/contribute/accessibility": "design/accessibility",
     "learn/contribute/accessibility/code-review": "design/accessibility/code-review",
-    "learn/contribute/accessibility/keyboard-testing": "design/accessibility/keyboard-testing"
+    "learn/contribute/accessibility/keyboard-testing": "design/accessibility/keyboard-testing",
+    "components/tiles": "components/tile"
   }
 }
