@@ -37,6 +37,9 @@ export class SkyModalDemoComponent {
       case 'tiledModal':
       modalInstanceType = SkyModalDemoTiledFormComponent;
       break;
+      case 'withHelpHeader':
+      options.helpKey = 'demo-key.html';
+      break;
       default:
       break;
     }
@@ -45,6 +48,10 @@ export class SkyModalDemoComponent {
 
     modalInstance.closed.first().subscribe((result: SkyModalCloseArgs) => {
       console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
+    });
+
+    modalInstance.helpInvoked.subscribe((helpKey: string) => {
+      console.log(`Modal header help was invoked with the following help key: ${helpKey}`);
     });
   }
 }
