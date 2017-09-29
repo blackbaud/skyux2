@@ -20,7 +20,7 @@ describe('Modal', () => {
 
   });
 
-  it('should match previous modal screenshot with help button in the header', () => {
+  it('should match previous modal screenshot with help button in header', () => {
     return SkyVisualTest.setupTest('modal')
       .then(() => {
         element(by.css('.sky-modal-with-help')).click();
@@ -36,8 +36,7 @@ describe('Modal', () => {
 
   });
 
-  it('should match previous modal screenshot with help button in the header on small screens',
-  () => {
+  it('should match previous modal screenshot with help button in header on small screens', () => {
     return SkyVisualTest.setupTest('modal', 480)
       .then(() => {
         element(by.css('.sky-modal-with-help')).click();
