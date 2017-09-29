@@ -1,12 +1,10 @@
-<sky-demo-nav></sky-demo-nav>
-
 <stache
     pageTitle="File conventions"
     showTableOfContents="true"
     navOrder="5">
-  
+
   <p>This reference describes naming conventions for files in SKY UX projects and rules and recommendations on where to place those. For a more information about the items that the template provides by default in SKY UX single-page applications, see <a routerLink="/learn/reference/template-items">the template items reference</a>.</p>
-  
+
   <ul>
     <li><p>Root directory — There are no special requirements for the name of the root directory that you specify when <a routerLink="/learn/get-started/basics/create-project">you create a project</a>. However, you should be aware that the CLI creates a folder for the project with this name and the <stache-code>skyux-spa</stache-code> prefix. Also, it includes the root directory name in the URL for the home page of the SPA after the base URL. (If you do not want the root directory in the public-facing URL, you can overwrite it with the <stache-code>name</stache-code> property of the <stache-code>skyuxconfig.json</stache-code> file.</p></li>
     <li><p>Git repo — There are no special requirements for the name of the Visual Studio Team System Git repo or GitHub repo where you store source files for the project. However, you may want to include the <stache-code>skyux-spa</stache-code> prefix so that the repo name matches the root directory name.</p></li>
@@ -25,7 +23,7 @@
     <li><p><stache-code>dist</stache-code> folder – Contains files that are deployed through the continuous integration pipeline.</p></li>
     <li><p><stache-code>node_modules</stache-code> folder – Contains external dependencies for SKY UX components and SKY UX Builder (including system files to build the SPA). We recommend against placing this folder in source control.</p></li>-->
   </ul>
-  
+
     <stache-row>
         <stache-column screenSmall="6">
             <div class="tutorial-previous-button">
