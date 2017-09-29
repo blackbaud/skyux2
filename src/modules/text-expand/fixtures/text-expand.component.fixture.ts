@@ -8,4 +8,5 @@ export class TextExpandTestComponent {
   // tslint:disable-next-line
   public text: string;
   public maxLength: number;
+  public truncateNewlines: boolean = true;
 }
