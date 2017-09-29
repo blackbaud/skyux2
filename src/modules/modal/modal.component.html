@@ -29,9 +29,10 @@
         <ng-content select="sky-modal-header"></ng-content>
       </div>
       <div class="sky-modal-header-buttons">
-        <button *ngIf="helpKey !== undefined" type="button" class="sky-btn" [attr.aria-label]="'open_help' | skyResources" (click)="helpButtonClick()">
+        <button *ngIf="helpKey !== undefined" type="button" class="sky-btn" name="help-button" [attr.aria-label]="'open_help' | skyResources" (click)="helpButtonClick()">
           <i class="fa fa-question-circle"></i>
         </button>
+
         <button type="button" class="sky-btn sky-modal-btn-close" [attr.aria-label]="'modal_close' | skyResources" (click)="closeButtonClick()">
 
           <i class="fa fa-close"></i>
