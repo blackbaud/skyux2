@@ -280,6 +280,8 @@ describe('Modal component', () => {
     expect(modalInstance.openHelp).toHaveBeenCalledWith('default.html');
 
     applicationRef.tick();
+
+    closeModal(modalInstance);
   }));
 
   it('should set max height based on window and change when window resizes', fakeAsync(() => {
