@@ -30,7 +30,7 @@ export class SkyDemoComponentsService {
         name: 'Avatar',
         icon: 'user',
         // tslint:disable-next-line
-        summary: `The avatar component displays an image with an option to let users change the image.`,
+        summary: `The avatar component displays an image and allows users to change the image.`,
         url: '/components/avatar',
         getCodeFiles: function () {
           return [
@@ -71,7 +71,7 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Buttons',
+        name: 'Button',
         icon: 'square-o',
         // tslint:disable-next-line
         summary: `The button classes create buttons to trigger actions from within an interface.`,
@@ -188,7 +188,7 @@ export class SkyDemoComponentsService {
         name: 'Dropdown',
         icon: 'caret-down',
         // tslint:disable-next-line
-        summary: `The dropdown component renders a button that when clicked will display a dropdown menu.`,
+        summary: `The dropdown component renders a button that displays a dropdown menu.`,
         url: '/components/dropdown',
         getCodeFiles: function () {
           return [
@@ -209,7 +209,7 @@ export class SkyDemoComponentsService {
         name: 'Email validation',
         icon: 'check',
         // tslint:disable-next-line
-        summary: `The email validation module allows the user to validate email format.`,
+        summary: `The email validation module allows users to validate email format.`,
         url: '/components/email-validation',
         getCodeFiles: function () {
           return [
@@ -232,7 +232,7 @@ export class SkyDemoComponentsService {
         name: 'Error',
         icon: 'exclamation',
         // tslint:disable-next-line
-        summary: `The error component provides a template that allows other components to display error messages when errors occur.`,
+        summary: `The error component provides a template for other components to display error messages.`,
         url: '/components/error',
         getCodeFiles: function () {
           return [
@@ -250,10 +250,10 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'File attachments',
+        name: 'File attachment',
         icon: 'cloud-upload',
         // tslint:disable-next-line
-        summary: `The file attachment components provide the ability to add multiple files to forms and then display information about the files.`,
+        summary: `The file attachment components allow users to add file attachments to forms.`,
         url: '/components/fileattachments',
         getCodeFiles: function () {
           return [
@@ -320,7 +320,7 @@ export class SkyDemoComponentsService {
         name: 'Fluid grid',
         icon: 'table',
         // tslint:disable-next-line
-        summary: `Provides a responsive 12-column layout to organize content for all device sizes.`,
+        summary: `The fluid grid component provides a responsive 12-column layout to organize content.`,
         url: '/components/fluid-grid',
         getCodeFiles: function () {
           return [
@@ -348,7 +348,7 @@ export class SkyDemoComponentsService {
         name: 'Grid',
         icon: 'table',
         // tslint:disable-next-line
-        summary: `The grid component is used to display data in a consistent and flexible way.`,
+        summary: `The grid component displays data in a consistent and flexible way.`,
         url: '/components/grid',
         getCodeFiles: function () {
           return [
@@ -429,10 +429,10 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Labels',
+        name: 'Label',
         icon: 'tags',
         // tslint:disable-next-line
-        summary: `The label component is used to call out important status information.`,
+        summary: `The label component calls out important status information such as warnings.`,
         url: '/components/label',
         getCodeFiles: function () {
           return [
@@ -450,10 +450,10 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Link Records',
+        name: 'Link records',
         icon: 'link',
         // tslint:disable-next-line
-        summary: `The link records component is used to match data between two sources.`,
+        summary: `The link records component matches data between two sources.`,
         url: '/components/link-records',
         getCodeFiles: function () {
           return [
@@ -474,7 +474,7 @@ export class SkyDemoComponentsService {
         name: 'List',
         icon: 'list',
         // tslint:disable-next-line
-        summary: `The list component is used to display data in a consistent and flexible way.`,
+        summary: `The list component displays data in a consistent and flexible way.`,
         url: '/components/list',
         getCodeFiles: function () {
           return [
@@ -549,7 +549,7 @@ export class SkyDemoComponentsService {
         name: 'List paging',
         icon: 'file-o',
         // tslint:disable-next-line
-        summary: `The list paging component displays a SKY UX-themed pagination control for a list of data.`,
+        summary: `The list paging component displays a SKY UX-themed pagination control for a list.`,
         url: '/components/list-paging',
         getCodeFiles: function () {
           return [
@@ -573,7 +573,7 @@ export class SkyDemoComponentsService {
         icon: 'wrench',
         // tslint:disable-next-line
         summary:
-        `The list toolbar component displays a SKY UX-themed toolbar for the list component.`,
+        `The list toolbar component displays a SKY UX-themed toolbar for a list.`,
         url: '/components/list-toolbar',
         getCodeFiles: function () {
           return [
@@ -606,7 +606,7 @@ export class SkyDemoComponentsService {
         name: 'List view checklist',
         icon: 'list-ul',
         // tslint:disable-next-line
-        summary: `The checklist builds a filterable checkbox list of data.`,
+        summary: `The list view checklist component builds a filterable checkbox list of data.`,
         url: '/components/list-view-checklist',
         getCodeFiles: function () {
           return [
@@ -629,7 +629,7 @@ export class SkyDemoComponentsService {
         name: 'List view grid',
         icon: 'table',
         // tslint:disable-next-line
-        summary: `The list component is used to display data in a consistent and flexible way.`,
+        summary: `The list view grid component displays a SKY UX-themed grid for a list of data.`,
         url: '/components/list-view-grid',
         getCodeFiles: function () {
           return [
@@ -652,7 +652,7 @@ export class SkyDemoComponentsService {
         name: 'Media queries',
         icon: 'mobile',
         // tslint:disable-next-line
-        summary: `The media queries service allows users to subscribe to screen size changes at different breakpoints.`,
+        summary: `The media queries service allows users to subscribe to screen size changes at breakpoints.`,
         url: '/components/media-queries',
         getCodeFiles: function () {
           return [
@@ -729,7 +729,7 @@ export class SkyDemoComponentsService {
       {
         name: 'Numeric',
         icon: 'calculator',
-        summary: 'The Skynumeric Pipe shortens long numbers and can format as currency.',
+        summary: 'The numeric pipe shortens long numbers and can format as currency.',
         url: '/components/numeric',
         getCodeFiles: function () {
           return [
@@ -750,7 +750,7 @@ export class SkyDemoComponentsService {
         name: 'Page summary',
         icon: 'newspaper-o',
         // tslint:disable-next-line
-        summary: `The page summary displays critical information and actions for users to access quickly and frequently.`,
+        summary: `The page summary displays critical information and actions for users to access frequently.`,
         url: '/components/page-summary',
         getCodeFiles: function () {
           return [
@@ -771,7 +771,7 @@ export class SkyDemoComponentsService {
         name: 'Paging',
         icon: 'files-o',
         // tslint:disable-next-line
-        summary: `The paging component is used to display a pagination control.`,
+        summary: `The paging component displays a SKY UX-themed pagination control.`,
         url: '/components/paging',
         getCodeFiles: function () {
           return [
@@ -792,7 +792,7 @@ export class SkyDemoComponentsService {
         name: 'Popover',
         icon: 'newspaper-o',
         // tslint:disable-next-line
-        summary: 'This component provides an HTML-formatted popover that is displayed by a trigger element.',
+        summary: 'The popover component provides an HTML-formatted popover that is displayed by a trigger element.',
         url: '/components/popover',
         getCodeFiles: () => {
           return [
@@ -876,7 +876,7 @@ export class SkyDemoComponentsService {
         name: 'Sectioned form',
         icon: 'object-group',
         // tslint:disable-next-line
-        summary: `A sectioned form combines multiple forms and allows users to target specific, independent areas.`,
+        summary: `The sectioned form component combines forms and lets users target specific areas.`,
         url: '/components/sectioned-form',
         getCodeFiles: function () {
           return [
@@ -977,7 +977,7 @@ export class SkyDemoComponentsService {
         name: 'Text expand',
         icon: 'text-height',
         // tslint:disable-next-line
-        summary: `The text expand component truncates long text with an ellipsis and a link that users can click to expand the text.`,
+        summary: `The text expand component truncates long text and provides a link to expand the text.`,
         url: '/components/text-expand',
         getCodeFiles: function () {
           return [
@@ -995,39 +995,39 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Tiles',
+        name: 'Tile',
         icon: 'th-large',
         // tslint:disable-next-line
-        summary: `Tiles provides a collapsible container that is the building block for pages and forms in SKY UX applications.`,
-        url: '/components/tiles',
+        summary: `The tile directive provides a container that is the building block for pages and forms.`,
+        url: '/components/tile',
         getCodeFiles: function () {
           return [
             {
               name: 'tiles-demo.component.html',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo.component.html')
+              fileContents: require('!!raw-loader!./tile/tiles-demo.component.html')
             },
             {
               name: 'tiles-demo.component.ts',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo.component.ts'),
+              fileContents: require('!!raw-loader!./tile/tiles-demo.component.ts'),
               componentName: 'SkyTilesDemoComponent',
               bootstrapSelector: 'sky-tiles-demo'
             },
             {
               name: 'tiles-demo-tile1.component.html',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile1.component.html')
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile1.component.html')
             },
             {
               name: 'tiles-demo-tile1.component.ts',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile1.component.ts'),
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile1.component.ts'),
               componentName: 'SkyTilesDemoTile1Component'
             },
             {
               name: 'tiles-demo-tile2.component.html',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile2.component.html')
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile2.component.html')
             },
             {
               name: 'tiles-demo-tile2.component.ts',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile2.component.ts'),
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile2.component.ts'),
               componentName: 'SkyTilesDemoTile2Component'
             }
           ];
