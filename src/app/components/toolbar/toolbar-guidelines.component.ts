@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class SkyToolbarGuidelinesComponent {
-
+/* tslint:disable:max-line-length */
 public addButtonInfo: {label: string, value: string}[] = [
     {
       label: 'Text',
@@ -23,7 +23,6 @@ public addButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Notes',
-  // tslint:disable-next-line
       value: 'When add is the primary action in a list, use the blue primary button styling. In all other cases, use the white secondary button styling.'
     }
   ];
@@ -38,7 +37,6 @@ public editButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Dropdown',
-  // tslint:disable-next-line
       value: 'Optional. Used if there are multiple types of records to edit in a given content container.'
     }
   ];
@@ -53,7 +51,6 @@ public saveButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Dropdown',
-  // tslint:disable-next-line
       value: 'Optional. Used if there are multiple choices for how to save a list, such as "Save" and "Save as".'
     }
   ];
@@ -132,7 +129,6 @@ public exportButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Notes',
-  // tslint:disable-next-line
       value: 'If there are multiple ways to export, use the generic fa-file-o icon with a dropdown that has choices for how to export. If there is only one way to export, use the appropriate icon for thetype of file that will be created.'
     }
   ];
@@ -151,7 +147,6 @@ public moreButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Notes',
-  // tslint:disable-next-line
       value: 'The more actions button should only appear if there are at least two items in it. If there is only one additional action, show the button for that action instead of more actions.' }
   ];
 public findBoxInfo: {label: string, value: string}[] = [
@@ -165,7 +160,6 @@ public findBoxInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-// tslint:disable-next-line
     value: 'This is the search component, and it should have the same interactions and highlights as other contexts where the search component is used.' 
   }
 ];
@@ -180,7 +174,6 @@ public simpleFiltersInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-// tslint:disable-next-line
     value: 'For tiles or lists that need no more than two filters, those filters can appear in the view section on the right of the toolbar in place of a filter action button.' 
   }
 ];
@@ -195,7 +188,6 @@ public expandCollapseInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-// tslint:disable-next-line
     value: 'The expand all button expands all of the tiles on the current page, and the collapse all button collapses all of the tiles on the current page.'
   }
 ];
@@ -210,8 +202,7 @@ public viewSwitcherInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-// tslint:disable-next-line
-value: 'The view switcher changes the component that is used to display the items ina list. It uses the styling from icon based checkboxes to indicate which view is currently active.'
+    value: 'The view switcher changes the component that is used to display the items ina list. It uses the styling from icon based checkboxes to indicate which view is currently active.'
   }
 ];
 }
