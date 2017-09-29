@@ -729,7 +729,7 @@ export class SkyDemoComponentsService {
       {
         name: 'Numeric',
         icon: 'calculator',
-        summary: 'The skyNumeric pipe shortens long numbers and can format as currency.',
+        summary: 'The numeric pipe shortens long numbers and can format as currency.',
         url: '/components/numeric',
         getCodeFiles: function () {
           return [
@@ -999,35 +999,35 @@ export class SkyDemoComponentsService {
         icon: 'th-large',
         // tslint:disable-next-line
         summary: `The tile directive provides a container that is the building block for pages and forms.`,
-        url: '/components/tiles',
+        url: '/components/tile',
         getCodeFiles: function () {
           return [
             {
               name: 'tiles-demo.component.html',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo.component.html')
+              fileContents: require('!!raw-loader!./tile/tiles-demo.component.html')
             },
             {
               name: 'tiles-demo.component.ts',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo.component.ts'),
+              fileContents: require('!!raw-loader!./tile/tiles-demo.component.ts'),
               componentName: 'SkyTilesDemoComponent',
               bootstrapSelector: 'sky-tiles-demo'
             },
             {
               name: 'tiles-demo-tile1.component.html',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile1.component.html')
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile1.component.html')
             },
             {
               name: 'tiles-demo-tile1.component.ts',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile1.component.ts'),
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile1.component.ts'),
               componentName: 'SkyTilesDemoTile1Component'
             },
             {
               name: 'tiles-demo-tile2.component.html',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile2.component.html')
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile2.component.html')
             },
             {
               name: 'tiles-demo-tile2.component.ts',
-              fileContents: require('!!raw-loader!./tiles/tiles-demo-tile2.component.ts'),
+              fileContents: require('!!raw-loader!./tile/tiles-demo-tile2.component.ts'),
               componentName: 'SkyTilesDemoTile2Component'
             }
           ];
