@@ -28,8 +28,8 @@ config.onPrepare = function () {
   var destination = builderUtils.resolve(
     '/',
     browser.params.localUrl,
-    browser.params.chunks,
-    browser.params.skyPagesConfig
+    JSON.parse(browser.params.chunks),
+    JSON.parse(browser.params.skyPagesConfig)
   );
 
   return browser.get(destination);
@@ -46,4 +46,3 @@ config.capabilities =  {
 config.directConnect = true;
 
 exports.config = config;
-

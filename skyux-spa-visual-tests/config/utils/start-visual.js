@@ -39,15 +39,11 @@ function visualtest(skyPagesConfig, webpack) {
     spawnServer(),
     spawnSelenium()
   ]).then(values => {
-    return spawnProtractor(
+    spawnProtractor(
       values[0],
       values[1],
       skyPagesConfig
     );
-  })
-  .catch((err) => {
-    console.error('visual tests failure:', err);
-    process.exit(1);
   });
 }
 
@@ -100,23 +96,20 @@ function killServers(exitCode) {
 function spawnProtractor(chunks, port, skyPagesConfig) {
 
   logger.info('Running Protractor');
-  const protractorPath = path.join(
+  const protractorPath = path.resolve(
     'node_modules',
     '.bin',
     'protractor'
   );
-
-  const protractorArgs = [
-    getProtractorConfigPath(),
-    `--baseUrl ${skyPagesConfig.skyux.host.url}`,
-    `--params.localUrl=https://localhost:${port}`,
-    `--params.chunks=${JSON.stringify(chunks)}`,
-    `--params.skyPagesConfig=${JSON.stringify(skyPagesConfig)}`
-  ];
-
   const protractor = spawn.spawn(
     protractorPath,
-    protractorArgs,
+    [
+      getProtractorConfigPath(),
+      `--baseUrl ${skyPagesConfig.skyux.host.url}`,
+      `--params.localUrl=https://localhost:${port}`,
+      `--params.chunks=${JSON.stringify(chunks)}`,
+      `--params.skyPagesConfig=${JSON.stringify(skyPagesConfig)}`
+    ],
     spawnOptions
   );
 
@@ -202,4 +195,3 @@ function spawnBuild(skyPagesConfig, webpack) {
     });
   });
 }
-

@@ -13,10 +13,10 @@ export default {
     '@angular/core': 'ng.core',
     '@angular/forms': 'ng.forms',
     '@angular/router': 'ng.router',
+    'ng2-dragula/ng2-dragula': 'ng2.dragula',
     '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
     '@angular/platform-browser': 'ng.platformBrowser',
-    'moment': 'moment',
-    'ng2-dragula/ng2-dragula': 'ng2.dragula'
+    'moment': 'moment'
   },
   external: [
     '@angular/core',
@@ -26,8 +26,8 @@ export default {
     '@angular/router',
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
-    'moment/moment',
-    'ng2-dragula/ng2-dragula'
+    'ng2-dragula/ng2-dragula',
+    'moment/moment'
   ],
   plugins: [
     nodeResolve(),
