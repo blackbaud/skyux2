@@ -1,5 +1,5 @@
 import {
-  SkyA11y,
+  // SkyA11y,
   SkyHostBrowser,
   SkyVisualTest
 } from '@blackbaud/skyux-builder/runtime/testing/e2e';
@@ -14,11 +14,11 @@ fdescribe('Action button', () => {
       breakpoint: 'sm'
     });
 
-    SkyA11y
-      .run()
-      .then((violations: number) => {
-        expect(violations).toEqual(0);
-      });
+    // SkyA11y
+    //   .run()
+    //   .then((violations: number) => {
+    //     expect(violations).toEqual(0);
+    //   });
   });
 
   // it('should match previous action button screenshot on small screens', () => {

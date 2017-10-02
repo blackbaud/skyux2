@@ -11,7 +11,7 @@
     "skyux": "skyux",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-visual": "npm install && cd .. && npm run build && node skyux-spa-visual-tests/config/utils/setup-skyux-dist.js && cd skyux-spa-visual-tests",
-    "test-visual:local": "skyux e2e --config ./config/local.visual.conf.js",
+    "test-visual:local": "skyux visual",
     "test-visual:local-browserstack": "skyux e2e --config ./config/local-browserstack.visual.conf.js",
     "test-visual:ci": "skyux e2e --config ./config/ci.visual.conf.js"
   },
