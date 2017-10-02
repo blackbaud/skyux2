@@ -10,7 +10,7 @@
   "scripts": {
     "skyux": "skyux",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-visual": "npm install && cd .. && npm run build && node skyux-spa-visual-tests/config/utils/setup-skyux-dist.js && cd skyux-spa-visual-tests && rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular && rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular",
+    "build-visual": "npm install && cd .. && npm run build && node skyux-spa-visual-tests/config/utils/setup-skyux-dist.js && cd skyux-spa-visual-tests",
     "test-visual:local": "skyux e2e --config ./config/local.visual.conf.js",
     "test-visual:local-browserstack": "skyux e2e --config ./config/local-browserstack.visual.conf.js",
     "test-visual:ci": "skyux e2e --config ./config/ci.visual.conf.js"

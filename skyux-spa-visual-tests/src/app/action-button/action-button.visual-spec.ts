@@ -1,5 +1,5 @@
 import {
-  // SkyA11y,
+  SkyA11y,
   SkyHostBrowser,
   SkyVisualTest
 } from '@blackbaud/skyux-builder/runtime/testing/e2e';
@@ -7,16 +7,17 @@ import {
 fdescribe('Action button', () => {
   it('should match previous action button screenshot', () => {
     SkyHostBrowser.get('action-button');
-    return SkyVisualTest
-      .compareScreenshot({
-        screenshotName: 'action-button',
-        selector: '#screenshot-action-button',
-        breakpoint: 'sm'
-      })
-      .then(() => {
-        // SkyA11y.run().then((violations: number) => {
-        //   expect(violations).toEqual(0);
-        // });
+
+    SkyVisualTest.compareScreenshot({
+      screenshotName: 'action-button',
+      selector: '#screenshot-action-button',
+      breakpoint: 'sm'
+    });
+
+    SkyA11y
+      .run()
+      .then((violations: number) => {
+        expect(violations).toEqual(0);
       });
   });
 
