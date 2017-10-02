@@ -21,6 +21,7 @@
   "peerDependencies": {
     "enhanced-resolve": "~3.3.0",
     "http-server": "~0.10.0",
+    "pix-diff": "~2.0.0",
     "portfinder": "~1.0.0",
     "protractor": "~5.1.0",
     "selenium-standalone": "~6.4.0",
@@ -28,9 +29,8 @@
   },
   "devDependencies": {
     "@blackbaud/skyux": "~2.1.0",
-    "@blackbaud/skyux-builder": "~1.0.0",
-    "normalize-scss": "5.0.3",
-    "pix-diff": "2.0.0"
+    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#visual-config",
+    "normalize-scss": "5.0.3"
   },
   "repository": {
     "type": "git",
