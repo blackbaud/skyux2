@@ -5,6 +5,10 @@
     display: flex;
     height: 100%;
   }
+
+  .sky-vertical-tabset-group-container {
+    @include sky-border(dark, right);
+  }
 }
 
 .sky-vertical-tabset-content {
@@ -20,5 +24,4 @@
 .sky-vertical-tabset-group-container {
   flex-basis: 25%;
   overflow-y: auto;
-  @include sky-border(dark, right);
 }
