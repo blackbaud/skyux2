@@ -26,7 +26,7 @@ export class MinifigImagesComponent {
 
     if (value) {
       for (const image of value) {
-        const name = image.name
+        const name = image.fileName || image.name
           .toLowerCase()
           .replace(/ /g, '-')
           .replace(/\./g, '');
