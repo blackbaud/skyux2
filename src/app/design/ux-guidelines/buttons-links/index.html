@@ -5,11 +5,11 @@
     pageTitle="Buttons and links"
     showTableOfContents="true">
   
-  <sky-demo-page-summary>
+  <stache-page-summary>
     <p>
-      SKY UX hyperlinks and <a routerLink="/components/button">buttons</a> are guided by two interacting principles: style and implementation. Style determines the appropriate appearance of the affordance to the user, while implementation involves the core HTML decision to use the <stache-code>&lt;a&gt;</stache-code> element or the <stache-code>&lt;button&gt;</stache-code> element. In SKY UX, these guidelines overlap and interact: Differences in styling do not need to correspond to the use of different tags.
+      Two interacting principles guide SKY UX hyperlinks and <a routerLink="/components/button">buttons</a>: style and implementation. Style determines the appropriate appearance of an affordance to the user, while implementation involves the core HTML decision to use the <stache-code>&lt;a&gt;</stache-code> element or the <stache-code>&lt;button&gt;</stache-code> element. In SKY UX, these guidelines overlap and interact: Differences in styling do not need to correspond to the use of different tags.
     </p>
-  </sky-demo-page-summary>
+  </stache-page-summary>
 
   <stache-page-anchor>Style</stache-page-anchor>
     <p>SKY UX uses several styles for hyperlinks and buttons. The differences in appearance carry meaning about roles in the system, distinguish between navigation and action, or convey different levels of emphasis or priority.</p>
@@ -59,7 +59,7 @@
 
     <p>To determine the correct HTML tag for an affordance in SKY UX, follow this guidance:</p>
     <ol>
-    <li>If the ONLY result of clicking/tapping/selecting the affordance is to load a new URL in the browser, then implement the affordance as an <code>&lt;a&gt;</code> element.</li>
+    <li>If the ONLY result when users click, tap, or select the affordance is loading a new URL in the browser, then implement the affordance as an <code>&lt;a&gt;</code> element.</li>
     <li>Otherwise, implement the affordance as a <code>&lt;button&gt;</code> element.</li>
     </ol>
 
