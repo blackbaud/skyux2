@@ -46,7 +46,7 @@ config.onPrepare = function () {
 config.capabilities =  {
   'browserName': 'chrome',
   'chromeOptions': {
-    'args': ['--disable-extensions --ignore-certificate-errors']
+    'args': ['--disable-extensions', '--ignore-certificate-errors', '--headless']
   },
   'browserstack.user': process.env.BROWSER_STACK_USERNAME,
   'browserstack.key': process.env.BROWSER_STACK_ACCESS_KEY,
