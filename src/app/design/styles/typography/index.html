@@ -1,15 +1,17 @@
 <stache
+  layout="container"
   pageTitle="Typography"
-  windowTitle="Typography">
+  windowTitle="Typography"
+  showTableOfContents="true">
 
   <stache-page-summary>SKY UX supports a set of semantically defined classes for text to ensure consistent usage and to maintain visual hierarchy of type. Components generally incorporate text classes as necessary, but you may find cases where you need to apply classes directly.</stache-page-summary>
 
   <p>The SKY UX font system is based on the Blackbaud Sans typeface.</p>
 
   <p>Styling values are for reference only. You should apply styling through the use of the classes.</p>
-
-  <h2 class="sky-section-heading">Typographic styles</h2>
-
+  
+  <stache-page-anchor>Font hierarchy</stache-page-anchor>
+  
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
       <h1 class="sky-page-heading" id="page-heading">Page heading</h1>
@@ -190,6 +192,10 @@
       </div>
     </div>
   </div>
+  
+  <stache-page-anchor>Status text</stache-page-anchor>
+  
+  <sky-alert alertType="warning">In order to maintain accessible color contrast you should use these classes if you need to call out status-related text rather than use color text.</sky-alert>
 
   <div class="definition-table definition-table-wide">
     <div class="definition-item">
