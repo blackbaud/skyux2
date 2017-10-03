@@ -3,7 +3,11 @@
 @media (min-width: $sky-screen-sm-min) {
   .sky-vertical-tabset {
     display: flex;
-    max-height: 98vh;
+    height: 100%;
+  }
+
+  .sky-vertical-tabset-group-container {
+    @include sky-border(dark, right);
   }
 }
 
