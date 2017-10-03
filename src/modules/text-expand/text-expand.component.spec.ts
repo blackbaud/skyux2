@@ -275,23 +275,6 @@ describe('Text expand component', () => {
         });
       });
     }), 300000);
-
-    it('should render newlines if requested', () => {
-      let fixture = TestBed.createComponent(TextExpandTestComponent);
-      let cmp = fixture.componentInstance as TextExpandTestComponent;
-      let el = fixture.nativeElement as HTMLElement;
-
-      // tslint:disable-next-line
-      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\nAenean commodo ligula eget dolor. Aenean massa.\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu';
-      cmp.truncateNewlines = false;
-
-      fixture.detectChanges();
-
-      let ellipsis: any = el.querySelector('.sky-text-expand-ellipsis');
-      let seeMoreButton: any = el.querySelector('.sky-text-expand-see-more');
-      expect(ellipsis).toBeNull();
-      expect(seeMoreButton).toBeNull();
-    });
   });
 
   describe('modal behaviors', () => {

@@ -8,6 +8,4 @@ export interface MinifigImage {
 
   title?: string;
 
-  fileName?: string;
-
 }

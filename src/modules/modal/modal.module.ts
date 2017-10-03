@@ -8,7 +8,6 @@ import { SkyModalHeaderComponent } from './modal-header.component';
 import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalComponent } from './modal.component';
 import { SkyModalService } from './modal.service';
-import { SkyWindowRefService } from '../window';
 
 import { SkyResourcesModule } from '../resources';
 import { SkyErrorModalFormComponent } from '../error/error-modal-form.component';
@@ -24,8 +23,7 @@ import { SkyErrorModalFormComponent } from '../error/error-modal-form.component'
   ],
   providers: [
     SkyModalAdapterService,
-    SkyModalService,
-    SkyWindowRefService
+    SkyModalService
   ],
   imports: [
     CommonModule,

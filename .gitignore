@@ -45,6 +45,7 @@ package-lock.json
 
 # Dist #
 /dist
+/releases
 /public/__build__/
 /src/*/__build__/
 /__build__/**

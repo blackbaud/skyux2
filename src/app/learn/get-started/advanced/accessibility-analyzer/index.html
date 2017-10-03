@@ -1,21 +1,23 @@
+<sky-demo-nav></sky-demo-nav>
+
 <stache
   navOrder="12"
   pageTitle="Accessibility analyzer"
   navTitle="Accessibilty"
   showTableOfContents="false">
-
+  
   <stache-page-summary>
     <p>The SKY UX accessibility analyzer tool allows you to run accessibility tests such as <a href="https://github.com/dequelabs/axe-core">aXe automated tests</a> as part of your end-to-end testing. aXe is an open source library of automated accessibility tests that is integrated into SKY UX to identify potential issues for a subset of the <a href="https://www.w3.org/TR/WCAG20/">Web Content Accessibility Guidelines 2.0 Level A and AA success criteria</a>.</p>
     <p>To use the accessibilty analyzer, you add <stache-code>SkyA11y</stache-code> to e2e specs. And to manage rules for accessibility tests, you use the <stache-code>a11y</stache-code> property in the <stache-code>skyuxconfig.json</stache-code> file.</p>
   </stache-page-summary>
-
+  
   <stache-page-anchor>
     Add the accessibility analyzer to e2e specs
   </stache-page-anchor>
   <p>You can add the accessibility analyzer anywhere in your e2e specs. You manually import the accessibility library and then execute accessibility checks using the imported library:</p>
   <stache-code-block>
     import { SkyA11y } from '@blackbaud/skyux-builder/runtime/testing/e2e';
-
+    
     SkyA11y.run().then((violations: number) => {
       expect(violations).toEqual(0);
       done();
@@ -68,7 +70,8 @@
       </stache-code-block>
     </li>
   </ul>
-
+  
   <sky-alert alertType="info">For SKY UX guidance on accessibility best practices, see <a routerLink="/learn/contribute/accessibility">accessibility recommendations</a>.</sky-alert>
 
 </stache>
+  

@@ -41,16 +41,4 @@ describe('TextExpand', () => {
 
   });
 
-  it('should match previous text expand without truncated newlines', () => {
-    return SkyVisualTest
-      .setupTest('text-expand')
-      .then(() => {
-        return SkyVisualTest
-          .compareScreenshot({
-            screenshotName: 'text-expand-w-newlines',
-            selector: '#screenshot-truncate-text-w-newlines'
-          });
-      });
-  });
-
 });

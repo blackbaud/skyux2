@@ -1,0 +1,17 @@
+<div class="sky-demo-nav-container">
+  <div class="sky-container">
+    <sky-navbar>
+      <sky-navbar-item *ngFor="let navItem of navItems">
+        <a
+          [routerLink]="navItem.url"
+          routerLinkActive="sky-navbar-item-active"
+          [routerLinkActiveOptions]="{
+            exact: navItem.exact
+          }"
+        >
+          {{navItem.title}}
+        </a>
+      </sky-navbar-item>
+    </sky-navbar>
+  </div>
+</div>
