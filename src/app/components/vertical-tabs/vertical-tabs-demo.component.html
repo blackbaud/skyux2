@@ -1,24 +1,26 @@
-<sky-vertical-tabset
-  showTabsText="Tab list"
-  (activeChange)="tabChanged($event)"
->
-  <sky-vertical-tabset-group 
-    *ngFor="let group of groups"
-    [groupHeading]="group.heading"
-    [open]="group.isOpen"
-    [disabled]="group.isDisabled"
+<div style="height: 40vh">
+  <sky-vertical-tabset
+    showTabsText="Tab list"
+    (activeChange)="tabChanged($event)"
   >
-    <sky-vertical-tab
-      *ngFor="let tab of group.subTabs"
-      [active]="tab.active"
-      [tabHeading]="tab.tabHeading"
-      [tabHeaderCount]="tab.tabHeaderCount"
-      [disabled]="tab.disabled"
+    <sky-vertical-tabset-group 
+      *ngFor="let group of groups"
+      [groupHeading]="group.heading"
+      [open]="group.isOpen"
+      [disabled]="group.isDisabled"
     >
-      {{ tab.content }}
-    </sky-vertical-tab>
-  </sky-vertical-tabset-group>
-</sky-vertical-tabset>
+      <sky-vertical-tab
+        *ngFor="let tab of group.subTabs"
+        [active]="tab.active"
+        [tabHeading]="tab.tabHeading"
+        [tabHeaderCount]="tab.tabHeaderCount"
+        [disabled]="tab.disabled"
+      >
+        {{ tab.content }}
+      </sky-vertical-tab>
+    </sky-vertical-tabset-group>
+  </sky-vertical-tabset>
+</div>
 
 <h3>Without groups</h3>
 <sky-vertical-tabset (activeChange)="tabChanged($event)">
