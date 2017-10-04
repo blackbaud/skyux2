@@ -83,6 +83,10 @@ export class SkyModalComponent implements AfterViewInit {
     return this.config.ariaLabelledBy || this.modalHeaderId;
   }
 
+  public get helpKey() {
+    return this.config.helpKey;
+  }
+
   @HostListener('document:keydown', ['$event'])
   public onDocumentKeyDown(event: KeyboardEvent) {
     /* istanbul ignore else */
@@ -143,6 +147,10 @@ export class SkyModalComponent implements AfterViewInit {
     this.windowRef.getWindow().setTimeout(() => {
       this.componentAdapter.modalOpened(this.elRef);
     });
+  }
+
+  public helpButtonClick() {
+    this.hostService.onOpenHelp(this.helpKey);
   }
 
   public closeButtonClick() {
