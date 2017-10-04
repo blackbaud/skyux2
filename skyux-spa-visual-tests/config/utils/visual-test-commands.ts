@@ -26,8 +26,6 @@ export class SkyVisualTest {
       threshold: SkyVisualTest.THRESHOLD_PERCENT
     };
 
-    browser.waitForAngular();
-
     return Promise.all([
       SkyVisualTest.checkAccessibility(options),
       browser
