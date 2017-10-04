@@ -4,8 +4,7 @@ import {
   Injector,
   ReflectiveInjector,
   ViewChild,
-  ViewContainerRef,
-  OnDestroy
+  ViewContainerRef
 } from '@angular/core';
 
 import { SkyModalAdapterService } from './modal-adapter.service';
@@ -22,7 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./modal-host.component.scss'],
   viewProviders: [SkyModalAdapterService]
 })
-export class SkyModalHostComponent implements OnDestroy {
+export class SkyModalHostComponent {
   public get modalOpen() {
     return SkyModalHostService.openModalCount > 0;
   }
@@ -33,10 +32,6 @@ export class SkyModalHostComponent implements OnDestroy {
 
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
-
-  private openHelpSubscription: Subscription;
-  private hostCloseSubscription: Subscription;
-  private modalClosedSubscription: Subscription;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -50,6 +45,10 @@ export class SkyModalHostComponent implements OnDestroy {
     let hostService = new SkyModalHostService();
     let adapter = this.adapter;
     let modalOpener: HTMLElement = adapter.getModalOpener();
+
+    let openHelpSubscription: Subscription;
+    let hostCloseSubscription: Subscription;
+    let modalClosedSubscription: Subscription;
 
     params.providers.push({
       provide: SkyModalHostService,
@@ -77,25 +76,24 @@ export class SkyModalHostComponent implements OnDestroy {
       if (modalOpener && modalOpener.focus) {
         modalOpener.focus();
       }
+
+      openHelpSubscription.unsubscribe();
+      hostCloseSubscription.unsubscribe();
+      modalClosedSubscription.unsubscribe();
+
       modalComponentRef.destroy();
     }
 
-    this.openHelpSubscription = hostService.openHelp.subscribe((helpKey?: string) => {
+    openHelpSubscription = hostService.openHelp.subscribe((helpKey?: string) => {
       modalInstance.openHelp(helpKey);
     });
 
-    this.hostCloseSubscription = hostService.close.subscribe(() => {
+    hostCloseSubscription = hostService.close.subscribe(() => {
       modalInstance.close();
     });
 
-    this.modalClosedSubscription = modalInstance.closed.subscribe(() => {
+    modalClosedSubscription = modalInstance.closed.subscribe(() => {
       closeModal();
     });
-  }
-
-  public ngOnDestroy() {
-    this.openHelpSubscription.unsubscribe();
-    this.hostCloseSubscription.unsubscribe();
-    this.modalClosedSubscription.unsubscribe();
   }
 }
