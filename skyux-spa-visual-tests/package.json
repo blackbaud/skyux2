@@ -20,7 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "@blackbaud/skyux": "2.1.0",
-    "@blackbaud/skyux-builder": "1.0.2",
+    "@blackbaud/skyux-builder": "1.1.0",
     "enhanced-resolve": "3.3.0",
     "codelyzer": "3.0.1",
     "moment": "2.18.1",
