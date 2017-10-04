@@ -1,5 +1,5 @@
 import { element, by, browser } from 'protractor';
-import { SkyHostBrowser, SkyA11y } from '@blackbaud/skyux-builder/runtime/testing/e2e';
+import { SkyA11y, SkyHostBrowser } from '@blackbaud/skyux-builder/runtime/testing/e2e';
 
 const pixDiff = require('pix-diff');
 
@@ -28,23 +28,8 @@ export class SkyVisualTest {
 
     browser.waitForAngular();
 
-    const handlePixDiffErrors = (error: any) => {
-      console.log('error?', error);
-
-      // Ignore 'image not found' errors from PixDiff.
-      if (error.message.indexOf('saving current image') > -1) {
-        return Promise.resolve();
-      }
-
-      throw error;
-    };
-
     return Promise.all([
-      function () {
-        if (options.checkAccessibility) {
-          return SkyVisualTest.checkAccessibility();
-        }
-      }(),
+      SkyVisualTest.checkAccessibility(options),
 
       browser
         .pixDiff
@@ -56,21 +41,19 @@ export class SkyVisualTest {
         .then((result: any) => {
           const code = result.code;
           const isMatch = (code === pixDiff.RESULT_SIMILAR || code === pixDiff.RESULT_IDENTICAL);
-
-          if (isMatch) {
-            return;
-          }
-
-          const comparator = new pixDiff(browser.skyVisualTestConfig);
           const mismatchPercentage = (result.differences / result.dimension * 100).toFixed(2);
           const mismatchMessage = `Screenshots have mismatch percent of ${mismatchPercentage}!`;
-
-          return comparator
-            .saveRegion(subject, options.screenshotName)
-            .catch(handlePixDiffErrors)
-            .then(() => expect(false).toBe(true, mismatchMessage));
+          expect(isMatch).toBe(true, mismatchMessage);
         })
-        .catch(handlePixDiffErrors)
+        .catch((error: any) => {
+          // Ignore 'baseline image not found' errors from PixDiff.
+          if (error.message.indexOf('saving current image') > -1) {
+            console.log(error.message);
+            return Promise.resolve();
+          }
+
+          throw error;
+        })
     ]);
   }
 
@@ -86,7 +69,19 @@ export class SkyVisualTest {
       .perform();
   }
 
-  public static resizeWindow(
+  private static checkAccessibility(options: any): Promise<any> {
+    if (!options.checkAccessibility) {
+      return;
+    }
+
+    SkyVisualTest.resizeWindow();
+
+    return SkyA11y
+      .run()
+      .then((violations: number) => expect(violations).toBe(0));
+  }
+
+  private static resizeWindow(
     width: number = SkyVisualTest.SCREEN_WIDTH,
     height: number = SkyVisualTest.SCREEN_HEIGHT
   ) {
@@ -95,13 +90,5 @@ export class SkyVisualTest {
       .manage()
       .window()
       .setSize(width, height);
-  }
-
-  private static checkAccessibility(): Promise<any> {
-    SkyVisualTest.resizeWindow();
-
-    return SkyA11y
-      .run()
-      .then((violations: number) => expect(violations).toBe(0));
   }
 }

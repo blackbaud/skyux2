@@ -11,11 +11,10 @@ module.exports = {
 
     browser.params.chunks = JSON.parse(browser.params.chunks);
     browser.params.skyPagesConfig = JSON.parse(browser.params.skyPagesConfig);
-
     browser.skyVisualTestConfig = getVisualTestConfig('local');
     browser.pixDiff = new PixDiff(browser.skyVisualTestConfig);
   },
-  beforeLaunch: function () {
+  beforeLaunch: () => {
     require('ts-node').register({ ignore: false });
   },
   jasmineNodeOpts: {

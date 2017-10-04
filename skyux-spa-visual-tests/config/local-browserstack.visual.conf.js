@@ -1,6 +1,7 @@
 /*jshint jasmine: true, node: true */
 'use strict';
 
+const browserstack = require('browserstack-local');
 const config = require('./shared.visual.conf.js');
 const timestamp = new Date().toString();
 
@@ -37,7 +38,9 @@ config.capabilities = {
 
 config.beforeLaunch = function () {
   require('ts-node').register({ ignore: false });
-  console.log('Connecting local');
+
+  console.log('Connecting local...');
+
   return new Promise(function (resolve, reject) {
     exports.bs_local = new browserstack.Local();
     exports.bs_local.start(
@@ -52,7 +55,7 @@ config.beforeLaunch = function () {
           return reject(error);
         }
 
-        console.log('Connected. Now testing...');
+        console.log('Connected. Running tests...');
         resolve();
       });
   });

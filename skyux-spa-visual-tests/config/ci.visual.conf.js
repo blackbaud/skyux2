@@ -14,7 +14,6 @@ config.onPrepare = () => {
 
   browser.params.chunks = JSON.parse(browser.params.chunks);
   browser.params.skyPagesConfig = JSON.parse(browser.params.skyPagesConfig);
-
   browser.skyVisualTestConfig = getVisualTestConfig();
   browser.pixDiff = new PixDiff(browser.skyVisualTestConfig.baseline);
 };
@@ -49,7 +48,7 @@ config.capabilities = {
 
 config.beforeLaunch = () => {
   require('ts-node').register({ ignore: false });
-  console.log('Connecting local');
+  console.log('Connecting local...');
   return new Promise((resolve, reject) => {
     exports.bs_local = new browserstack.Local();
     exports.bs_local.start(
