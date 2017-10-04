@@ -1,11 +1,14 @@
-<sky-alert [alertType]="alertType" [closeable]="closeable" [closed]="closed">
+<sky-alert
+  [alertType]="alertType"
+  [closeable]="closeable"
+  [closed]="closed">
   This is a sample alert.
 </sky-alert>
 <select [(ngModel)]="alertType">
-  <option>info</option>
-  <option>success</option>
-  <option>warning</option>
-  <option>danger</option>
+  <option value="info">info</option>
+  <option value="success">success</option>
+  <option value="warning">warning</option>
+  <option value="danger">danger</option>
 </select>
 <sky-checkbox [(ngModel)]="closeable">
   <sky-checkbox-label>Closeable</sky-checkbox-label>
