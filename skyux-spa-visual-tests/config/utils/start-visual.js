@@ -195,4 +195,3 @@ function spawnBuild(skyPagesConfig, webpack) {
     });
   });
 }
-
