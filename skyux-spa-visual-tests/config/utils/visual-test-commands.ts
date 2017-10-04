@@ -30,7 +30,6 @@ export class SkyVisualTest {
 
     return Promise.all([
       SkyVisualTest.checkAccessibility(options),
-
       browser
         .pixDiff
         .checkRegion(
@@ -48,7 +47,7 @@ export class SkyVisualTest {
         .catch((error: any) => {
           // Ignore 'baseline image not found' errors from PixDiff.
           if (error.message.indexOf('saving current image') > -1) {
-            console.log(error.message);
+            console.log(`[${options.screenshotName}]`, error.message);
             return Promise.resolve();
           }
 
@@ -73,8 +72,6 @@ export class SkyVisualTest {
     if (!options.checkAccessibility) {
       return;
     }
-
-    SkyVisualTest.resizeWindow();
 
     return SkyA11y
       .run()
