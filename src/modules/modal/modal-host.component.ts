@@ -13,14 +13,13 @@ import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfigurationInterface as IConfig }  from './modal.interface';
 import { SkyModalConfiguration } from './modal-configuration';
 
-import { Subscription } from 'rxjs/Subscription';
-
 @Component({
   selector: 'sky-modal-host',
   templateUrl: './modal-host.component.html',
   styleUrls: ['./modal-host.component.scss'],
   viewProviders: [SkyModalAdapterService]
 })
+
 export class SkyModalHostComponent {
   public get modalOpen() {
     return SkyModalHostService.openModalCount > 0;
@@ -45,10 +44,6 @@ export class SkyModalHostComponent {
     let hostService = new SkyModalHostService();
     let adapter = this.adapter;
     let modalOpener: HTMLElement = adapter.getModalOpener();
-
-    let openHelpSubscription: Subscription;
-    let hostCloseSubscription: Subscription;
-    let modalClosedSubscription: Subscription;
 
     params.providers.push({
       provide: SkyModalHostService,
@@ -76,23 +71,18 @@ export class SkyModalHostComponent {
       if (modalOpener && modalOpener.focus) {
         modalOpener.focus();
       }
-
-      openHelpSubscription.unsubscribe();
-      hostCloseSubscription.unsubscribe();
-      modalClosedSubscription.unsubscribe();
-
       modalComponentRef.destroy();
     }
 
-    openHelpSubscription = hostService.openHelp.subscribe((helpKey?: string) => {
+    hostService.openHelp.subscribe((helpKey?: string) => {
       modalInstance.openHelp(helpKey);
     });
 
-    hostCloseSubscription = hostService.close.subscribe(() => {
+    hostService.close.subscribe(() => {
       modalInstance.close();
     });
 
-    modalClosedSubscription = modalInstance.closed.subscribe(() => {
+    modalInstance.closed.subscribe(() => {
       closeModal();
     });
   }
