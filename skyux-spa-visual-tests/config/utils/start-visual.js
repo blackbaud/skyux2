@@ -102,8 +102,6 @@ function spawnProtractor(chunks, port, skyPagesConfig) {
     'protractor'
   );
 
-  logger.info('CONFIG: ' + JSON.stringify(skyPagesConfig.skyux));
-
   const protractor = spawn.spawn(
     protractorPath,
     [
