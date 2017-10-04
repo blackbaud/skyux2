@@ -15,7 +15,7 @@ config.onPrepare = () => {
   browser.params.chunks = JSON.parse(browser.params.chunks);
   browser.params.skyPagesConfig = JSON.parse(browser.params.skyPagesConfig);
   browser.skyVisualTestConfig = getVisualTestConfig();
-  browser.pixDiff = new PixDiff(browser.skyVisualTestConfig.baseline);
+  browser.pixDiff = new PixDiff(browser.skyVisualTestConfig);
 };
 
 config.seleniumAddress = 'http://hub-cloud.browserstack.com/wd/hub';
