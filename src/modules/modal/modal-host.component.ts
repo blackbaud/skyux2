@@ -34,7 +34,9 @@ export class SkyModalHostComponent implements OnDestroy {
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
-  private helpSubscription: Subscription;
+  private openHelpSubscription: Subscription;
+  private hostCloseSubscription: Subscription;
+  private modalClosedSubscription: Subscription;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -78,20 +80,22 @@ export class SkyModalHostComponent implements OnDestroy {
       modalComponentRef.destroy();
     }
 
-    this.helpSubscription = hostService.openHelp.subscribe((helpKey?: string) => {
+    this.openHelpSubscription = hostService.openHelp.subscribe((helpKey?: string) => {
       modalInstance.openHelp(helpKey);
     });
 
-    hostService.close.first().subscribe(() => {
+    this.hostCloseSubscription = hostService.close.subscribe(() => {
       modalInstance.close();
     });
 
-    modalInstance.closed.first().subscribe(() => {
+    this.modalClosedSubscription = modalInstance.closed.subscribe(() => {
       closeModal();
     });
   }
 
   public ngOnDestroy() {
-    this.helpSubscription.unsubscribe();
+    this.openHelpSubscription.unsubscribe();
+    this.hostCloseSubscription.unsubscribe();
+    this.modalClosedSubscription.unsubscribe();
   }
 }
