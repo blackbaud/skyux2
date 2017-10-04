@@ -50,7 +50,7 @@ export class SkyModalDemoComponent {
       console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
     });
 
-    modalInstance.helpInvoked.subscribe((helpKey: string) => {
+    modalInstance.helpOpened.subscribe((helpKey: string) => {
       context.eventMessage =  `
         Modal header help was invoked with the following help key: ${helpKey}
       `;

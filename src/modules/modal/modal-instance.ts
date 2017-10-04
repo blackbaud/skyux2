@@ -10,7 +10,7 @@ export class SkyModalInstance {
   public componentInstance: any;
 
   public closed = new EventEmitter<SkyModalCloseArgs>();
-  public helpInvoked = new EventEmitter<any>();
+  public helpOpened = new EventEmitter<any>();
 
   public close(result?: any, reason?: string) {
     if (reason === undefined) {
@@ -29,7 +29,7 @@ export class SkyModalInstance {
   }
 
   public openHelp(helpKey?: string) {
-    this.helpInvoked.emit(helpKey);
+    this.helpOpened.emit(helpKey);
   }
 
   private closeModal(type: string, result?: any) {

@@ -4,7 +4,8 @@ import {
   Injector,
   ReflectiveInjector,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  OnDestroy
 } from '@angular/core';
 
 import { SkyModalAdapterService } from './modal-adapter.service';
@@ -13,14 +14,15 @@ import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfigurationInterface as IConfig }  from './modal.interface';
 import { SkyModalConfiguration } from './modal-configuration';
 
+import { Subscription } from 'rxjs/Subscription';
+
 @Component({
   selector: 'sky-modal-host',
   templateUrl: './modal-host.component.html',
   styleUrls: ['./modal-host.component.scss'],
   viewProviders: [SkyModalAdapterService]
 })
-
-export class SkyModalHostComponent {
+export class SkyModalHostComponent implements OnDestroy {
   public get modalOpen() {
     return SkyModalHostService.openModalCount > 0;
   }
@@ -31,6 +33,8 @@ export class SkyModalHostComponent {
 
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
+
+  private helpSubscription: Subscription;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -74,16 +78,20 @@ export class SkyModalHostComponent {
       modalComponentRef.destroy();
     }
 
-    hostService.openHelp.subscribe((helpKey?: string) => {
+    this.helpSubscription = hostService.openHelp.subscribe((helpKey?: string) => {
       modalInstance.openHelp(helpKey);
     });
 
-    hostService.close.subscribe(() => {
+    hostService.close.first().subscribe(() => {
       modalInstance.close();
     });
 
-    modalInstance.closed.subscribe(() => {
+    modalInstance.closed.first().subscribe(() => {
       closeModal();
     });
+  }
+
+  public ngOnDestroy() {
+    this.helpSubscription.unsubscribe();
   }
 }
