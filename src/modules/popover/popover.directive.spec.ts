@@ -45,7 +45,9 @@ describe('SkyPopoverDirective', () => {
   function triggerMouseEvent(el: DebugElement, eventName: string) {
     el.triggerEventHandler(
       eventName,
-      new MouseEvent(eventName)
+      {
+        preventDefault: () => {}
+      }
     );
   }
 
