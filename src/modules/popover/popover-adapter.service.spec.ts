@@ -17,7 +17,6 @@ import {
 } from './popover-adapter.service';
 
 describe('SkyPopoverAdapterService', () => {
-  let elementRefDefinition: any;
   let mockRenderer: any;
 
   class MockWindowService {
@@ -38,18 +37,46 @@ describe('SkyPopoverAdapterService', () => {
     }
   }
 
-  beforeEach(() => {
-    elementRefDefinition = {
+  function createElementRefDefinition(
+    top = 0,
+    left = 0,
+    right: any = 'auto',
+    width = 0,
+    height = 0
+  ) {
+    return {
       getBoundingClientRect: function () {
         return {
-          top: 0,
-          left: 0,
-          width: 0,
-          height: 0
+          top: top,
+          left: left,
+          right: right,
+          width: width,
+          height: height
         };
+      },
+      classList: {
+        _items: [] as any[],
+        add: function (cls: string) {
+          this._items.push(cls);
+        },
+        remove: function (cls: string) {
+          const index = this._items.indexOf(cls);
+
+          if (index >= 0) {
+            this._items.splice(index, 1);
+          }
+        },
+        item: function (index: number) {
+          return this._items[index];
+        },
+        get length(): number {
+          return this._items.length;
+        }
       }
     };
+  }
 
+  beforeEach(() => {
     mockRenderer = {
       removeStyle() {},
       setStyle() {},
@@ -71,9 +98,9 @@ describe('SkyPopoverAdapterService', () => {
       spyOn(adapterService['renderer'], 'setStyle');
 
       adapterService.setPopoverPosition({
-        popover: new ElementRef(elementRefDefinition),
-        popoverArrow: new ElementRef(elementRefDefinition),
-        caller: new ElementRef(elementRefDefinition)
+        popover: new ElementRef(createElementRefDefinition()),
+        popoverArrow: new ElementRef(createElementRefDefinition()),
+        caller: new ElementRef(createElementRefDefinition())
       }, 'right');
 
       expect(adapterService['renderer'].setStyle).toHaveBeenCalled();
@@ -85,9 +112,9 @@ describe('SkyPopoverAdapterService', () => {
       spyOn(adapterService['renderer'], 'setStyle');
 
       adapterService.setPopoverPosition({
-        popover: new ElementRef(elementRefDefinition),
-        popoverArrow: new ElementRef(elementRefDefinition),
-        caller: new ElementRef(elementRefDefinition)
+        popover: new ElementRef(createElementRefDefinition()),
+        popoverArrow: new ElementRef(createElementRefDefinition()),
+        caller: new ElementRef(createElementRefDefinition())
       }, undefined);
 
       expect(adapterService['renderer'].setStyle).toHaveBeenCalled();
@@ -102,21 +129,9 @@ describe('SkyPopoverAdapterService', () => {
       });
 
       adapterService.setPopoverPosition({
-        popover: new ElementRef({
-          getBoundingClientRect() {
-            return { top: 0, left: 0, width: 276, height: 100 };
-          }
-        }),
-        popoverArrow: new ElementRef({
-          getBoundingClientRect() {
-            return { top: 0, left: 0, width: 0, height: 0 };
-          }
-        }),
-        caller: new ElementRef({
-          getBoundingClientRect() {
-            return { top: 0, left: 0, right: 100, width: 100, height: 34 };
-          }
-        })
+        popover: new ElementRef(createElementRefDefinition(0, 0, 'auto', 276, 100)),
+        popoverArrow: new ElementRef(createElementRefDefinition()),
+        caller: new ElementRef(createElementRefDefinition(0, 0, 100, 100, 34))
       }, 'above');
 
       subscription.unsubscribe();
@@ -148,21 +163,9 @@ describe('SkyPopoverAdapterService', () => {
         });
 
         adapterService.setPopoverPosition({
-          popover: new ElementRef({
-            getBoundingClientRect() {
-              return { top: 0, left: 0, width: 276, height: 100 };
-            }
-          }),
-          popoverArrow: new ElementRef({
-            getBoundingClientRect() {
-              return { top: 0, left: 0, width: 0, height: 0 };
-            }
-          }),
-          caller: new ElementRef({
-            getBoundingClientRect() {
-              return { top: 0, left: 0, right: 100, width: 100, height: 34 };
-            }
-          })
+          popover: new ElementRef(createElementRefDefinition(0, 0, 'auto', 276, 100)),
+          popoverArrow: new ElementRef(createElementRefDefinition()),
+          caller: new ElementRef(createElementRefDefinition(0, 0, 100, 100, 34))
         }, 'above');
 
         subscription.unsubscribe();
@@ -191,6 +194,27 @@ describe('SkyPopoverAdapterService', () => {
       adapterService.showPopover(elem);
       expect(adapterService['renderer'].removeClass)
         .toHaveBeenCalledWith(elem.nativeElement, 'hidden');
+    })
+  );
+
+  it('should set the expected CSS class for the specified placement',
+    inject([SkyPopoverAdapterService], (adapterService: SkyPopoverAdapterService) => {
+      const popoverEl = createElementRefDefinition();
+
+      popoverEl.classList.add('sky-popover-placement-left');
+      popoverEl.classList.add('sky-popover-something-else');
+
+      adapterService.setPopoverPosition({
+        popover: new ElementRef(popoverEl),
+        popoverArrow: new ElementRef(createElementRefDefinition()),
+        caller: new ElementRef(createElementRefDefinition())
+      }, 'right');
+
+      const classItems = popoverEl.classList._items;
+
+      expect(classItems.indexOf('sky-popover-placement-right')).toBeGreaterThan(-1);
+      expect(classItems.indexOf('sky-popover-something-else')).toBeGreaterThan(-1);
+      expect(classItems.indexOf('sky-popover-placement-left')).toBe(-1);
     })
   );
 });

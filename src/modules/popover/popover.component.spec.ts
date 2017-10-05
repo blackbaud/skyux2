@@ -99,11 +99,6 @@ describe('SkyPopoverComponent', () => {
     expect(component.isOpen).toEqual(false);
   });
 
-  it('should get a CSS classname to represent its placement', () => {
-    const element = fixture.debugElement.query(By.css('.sky-popover-placement-above'));
-    expect(Boolean(element)).not.toEqual(false);
-  });
-
   it('should remove a CSS classname before the animation starts', () => {
     spyOn(component['adapterService'], 'showPopover').and.returnValue(0);
     component.onAnimationStart({
@@ -182,12 +177,6 @@ describe('SkyPopoverComponent', () => {
     fixture.detectChanges();
     state = component.getAnimationState();
     expect(state).toEqual('visible');
-  });
-
-  it('should unsubscribe from the placement observable', () => {
-    spyOn(component['placementSubscription'], 'unsubscribe');
-    component.ngOnDestroy();
-    expect(component['placementSubscription'].unsubscribe).toHaveBeenCalled();
   });
 
   it('should capture mouse enter and mouse leave events', () => {
