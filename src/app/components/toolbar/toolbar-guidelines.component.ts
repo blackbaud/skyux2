@@ -19,11 +19,11 @@ public addButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Dropdown',
-      value: 'Optional. Used if adding more than one type of record.'
+      value: 'Optional. Allows users to add more than one type of record.'
     },
     {
       label: 'Notes',
-      value: 'When add is the primary action in a list, use the blue primary button styling. In all other cases, use the white secondary button styling.'
+      value: 'If add is the primary action, use the blue primary button styling. Otherwise, use the white secondary button styling.'
     }
   ];
 public editButtonInfo: {label: string, value: string}[] = [
@@ -37,7 +37,7 @@ public editButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Dropdown',
-      value: 'Optional. Used if there are multiple types of records to edit in a given content container.'
+      value: 'Optional. Allows users to edit multiple types of records in a content container.'
     }
   ];
 public saveButtonInfo: {label: string, value: string}[] = [
@@ -51,7 +51,7 @@ public saveButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Dropdown',
-      value: 'Optional. Used if there are multiple choices for how to save a list, such as "Save" and "Save as".'
+      value: 'Optional. Allows users to select multiple choices for how to save a list, such as "Save" and "Save as."'
     }
   ];
 public filterButtonInfo: {label: string, value: string}[] = [
@@ -97,7 +97,7 @@ public columnsButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Notes',
-      value: 'The columns button is only visible when viewing a list as a grid.'
+      value: 'Only visible when viewing a list as a grid.'
     }
   ];
 public shareButtonInfo: {label: string, value: string}[] = [
@@ -125,11 +125,11 @@ public exportButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Dropdown',
-      value: 'Optional. Used if there are multiple ways to export the data.'
+      value: 'Optional. Allows users to select from multiple export options.'
     },
     {
       label: 'Notes',
-      value: 'If there are multiple ways to export, use the generic fa-file-o icon with a dropdown that has choices for how to export. If there is only one way to export, use the appropriate icon for thetype of file that will be created.'
+      value: 'For multiple export options, use the generic fa-file-o icon and a dropdown. For a single export option, use the icon for the file type that the option creates.'
     }
   ];
 public moreButtonInfo: {label: string, value: string}[] = [
@@ -147,7 +147,7 @@ public moreButtonInfo: {label: string, value: string}[] = [
     },
     {
       label: 'Notes',
-      value: 'The more actions button should only appear if there are at least two items in it. If there is only one additional action, show the button for that action instead of more actions.' }
+      value: 'Only use the more actions button for two or more items. For a single action, display the action button in the toolbar.' }
   ];
 public findBoxInfo: {label: string, value: string}[] = [
   {
@@ -160,7 +160,7 @@ public findBoxInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-    value: 'This is the search component, and it should have the same interactions and highlights as other contexts where the search component is used.'
+    value: 'This search component should have the same interactions and highlights as other contexts where the search component is used.'
   }
 ];
 public simpleFiltersInfo: {label: string, value: string}[] = [
@@ -174,7 +174,7 @@ public simpleFiltersInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-    value: 'For tiles or lists that need no more than two filters, those filters can appear in the view section on the right of the toolbar in place of a filter action button.'
+    value: 'For tiles or lists with no more than two simple filters, the filters can appear in the view section in place of a filter action button.'
   }
 ];
 public expandCollapseInfo: {label: string, value: string}[] = [
@@ -188,7 +188,7 @@ public expandCollapseInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-    value: 'The expand all button expands all of the tiles on the current page, and the collapse all button collapses all of the tiles on the current page.'
+    value: 'The expand all button expands all tiles on a page, and the collapse all button collapses all tiles on a page.'
   }
 ];
 public viewSwitcherInfo: {label: string, value: string}[] = [
@@ -202,7 +202,7 @@ public viewSwitcherInfo: {label: string, value: string}[] = [
   },
   {
     label: 'Notes',
-    value: 'The view switcher changes the component that is used to display the items ina list. It uses the styling from icon based checkboxes to indicate which view is currently active.'
+    value: 'The view switcher changes the component that displays items in a list. It uses the styling from icon-based checkboxes to indicate which view is currently active.'
   }
 ];
 }

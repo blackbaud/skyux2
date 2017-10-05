@@ -2,12 +2,8 @@
   
   <header><div class="sky-section-heading">Usage</div></header>
   
-  <div class="sky-subsection-heading">When to use a toolbar</div>
-  <p>When a particular content container requires actions be performed on it, those actions should be placed in a toolbar.</p>
-  
-  <div class="sky-subsection-heading">When not to use a toolbar</div>
-  <p>Toolbars should only be used in lists, below the page summary of a record page, or in a tile. In any other situation, a toolbar is not appropriate.</p>
-  
+  <p>When a content container requires actions, place them in a toolbar. Only use toolbars in <a routerLink="/components/list">lists</a>, below the <a routerLink="/components/page-summary">page summaries</a> on record pages, or in <a routerLink="/components/tiles">tiles</a>. Toolbars are not appropriate in any other situations.</p>
+
   <div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/toolbar/generic-toolbar.png" style="width: 100%;" /></div>
 </section>
 
@@ -18,7 +14,7 @@
   <div class="sky-subsection-heading">List toolbar</div>
   <stache-row>
     <stache-column screenSmall="6">
-      <p>The list toolbar is located above a list of records, and it contains actions that allow users to manipulate the contents and display of the list. Frequently used actions should appear directly in the toolbar, and less-frequently used actions should live inside the more actions menu. When multiple views of the list are available, the view switcher is docked on the right side of the toolbar.</p>
+      <p>The list toolbar appears above a <a routerLink="/components/list">list</a> of records. It contains actions to manipulate the contents and display of the list. Place frequently used actions directly in the toolbar, and place less-frequently used actions in a more actions menu. When multiple views of the list are available, the view switcher is docked on the right side of the toolbar.</p>
     </stache-column>
     <stache-column screenSmall="6">
       <div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/toolbar/list-toolbar-context.png" style="width: 100%;" /></div>
@@ -28,7 +24,7 @@
   <div class="sky-subsection-heading">Record toolbar</div>
   <stache-row>
     <stache-column screenSmall="6">
-      <p>The record action bar is attached to the bottom of the page summary component on record pages that allow the user to take actions. Frequently used actions show appear directly in the toolbar, and less-frequently used actions should live inside the more actions menu. Specific actions for collapsing and expanding all subsequent tiles on the record are docked on the right of the toolbar.</p>
+      <p>The record toolbar appears below the <a routerLink="/components/page-summary">page summary</a> on record pages. It contains actions to manipulate the record. Place frequently used actions directly in the toolbar, and place less-frequently used actions in a more actions menu. Actions to collapse and expand all tiles on the record are docked on the right side of the toolbar.</p>
     </stache-column>
     <stache-column screenSmall="6">
       <div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/toolbar/page-toolbar-context.png" style="width: 100%;" /></div>
@@ -38,7 +34,7 @@
   <div class="sky-subsection-heading">Tile toolbar</div>
   <stache-row>
     <stache-column screenSmall="6">
-      <p>The tile toolbar is located directly above the control it affects, and it contains actions that affect the contents and display of the tile or aportion of the tile. Only the most important actions should appear directly in the toolbar given the small amount of horizontal real estate in a tile. Additional actions should live inside the more actions menu. If a tile requires no more than two filters, those filters should appear docked onthe right side of the toolbar.</p>
+      <p>The tile toolbar appears in a <a routerLink="/components/tiles">tile</a> above the control it affects. It contains actions to manipulate the contents and display of the tile or a portion of the tile. Only place the most important actions directly in the toolbar because tiles have limited horizontal real estate. Place all other actions in a more actions menu. If a tile requires no more than two filters, the filters should be docked on the right side of the toolbar.</p>
     </stache-column>
     <stache-column  screenSmall="6">
       <div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/toolbar/tile-toolbar-context.png" style="width: 100%;" /></div>
@@ -55,7 +51,7 @@
   <div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/toolbar/anatomy.png" style="width: 100%;" /></div>
   
   <div class="sky-subsection-heading">Action button order</div>
-  <p>The buttons in a toolbar should always appear in a consistent order. Not all toolbars will have every possible button, but when a button is present on a particular toolbar, it should be located in the expected place. The following standard actions should appear in this order from left to right when they are included in a toolbar.</p>
+  <p>Toolbar buttons should always appear in a consistent order. Not all toolbars will have every possible button, but when a button is present, it should be in the expected location. Standard actions should appear from left to right in the following order when present in a toolbar.</p>
   
   <div>
   
@@ -217,7 +213,7 @@
   </div>
   
   <div class="sky-subsection-heading">More actions</div>
-  <p>Less important or less frequently used actions should go in the more actions menu. Additionally, when there isn't enough horizontal space for all of the actions in a given toolbar, the standard actions should collapse into the more actions menu as needed.</p>
+  <p>Place less important or less-frequently used actions in a more actions menu. And when horizontal space in a toolbar is insufficient for all actions, standard actions should collapse into the more actions menu.</p>
   
   <div class="sky-emphasized">More button</div> 
   <stache-row>
@@ -241,7 +237,7 @@
   <div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/toolbar/more-button-dropdown.png" style="width: 100%;" /></div>
   
   <div class="sky-subsection-heading">Find in this list</div>
-  <p>When a toolbar needs a search component, it should follow the actions (and more actions button if used). The find in this list is aligned with the action buttons, so if a user has a really large monitor resolution, it will still appear on the left side of the screen.</p>
+  <p>When a toolbar includes a search component, it should follow the actions and more actions button. The search field is aligned with the action buttons, so if a user has a really large monitor resolution, the field appears on the left side of the screen.</p>
 
   <stache-row>
     <stache-column screenSmall="4" screenMedium="3">
@@ -262,7 +258,7 @@
   </stache-row>
   
   <div class="sky-subsection-heading">Items related to views</div>
-  <p>The portion of the toolbar that is docked on the right side of the screen is reserved for items that change or affect the view of the rest of the content container in a substantial way. Which items appear for a given toolbar largely depends on how the toolbar is being used. If more than one of these exists in a given toolbar, they show up in this order from left to right.</p>
+  <p>The view section of the toolbar is docked on the right side of the screen. It is reserved for items that substantially change or affect the view of the rest of the content container. The items in a view section largely depend on how the toolbar is used. If the view section includes more than one item, they appear from left to right in the following order.</p>
   
   <div class="sky-emphasized">Simple filters</div> 
   <stache-row>
@@ -337,21 +333,21 @@
   
   <div class="sky-subsection-heading">Toolbar action wrapping</div>
   <p>The actions in a toolbar (including the more actions button) shouldn't extend beyond 50% of the screen. If the actions would extend beyond 50% of the screen, the rightmost action should collapse into the more actions menu.</p>
-  <p class="sky-emphasized">Don't do this, the toolbar has too many visible actions:</p>
+  <p class="sky-emphasized">Don't do this; the toolbar has too many visible actions:</p>
   <div class="screenshot screenshot-danger"><img src="~/assets/img/guidelines/toolbar/wrapping-dont-with-context-menu.png" style="width: 100%;" /></div>
   <p class="sky-emphasized">Do this instead, moving the rightmost action into the more actions menu:</p>
   <div class="screenshot screenshot-success"><img src="~/assets/img/guidelines/toolbar/wrapping-do-with-context-menu.png" style="width: 100%;" /></div>
   
-  <p>If there isn't already a more actions menu in a list that has too many actions to fit, a more actions menu should be created and the two rightmost actions should both be placed in it.</p>
-  <p class="sky-emphasized">Don't do this, the toolbar has too many visible action seven without a more actions menu:</p>
+  <p>If a toolbar doesn't include a more actions menu and the actions extend beyond 50% of the screen, create a more actions menu for the two rightmost actions.</p>
+  <p class="sky-emphasized">Don't do this; the toolbar has too many visible actions even without a more actions menu:</p>
   <div class="screenshot screenshot-danger"><img src="~/assets/img/guidelines/toolbar/wrapping-dont-with-context-menu.png" style="width: 100%;" /></div>
   <p class="sky-emphasized">Do this instead, moving the two rightmost actions into a more actions menu:</p>
   <div class="screenshot screenshot-success"><img src="~/assets/img/guidelines/toolbar/wrapping-do-with-context-menu.png" style="width: 100%;" /></div>
   
-  <div class="sky-subsection-heading">Smaller form factors</div>
+  <div class="sky-subsection-heading">Small form factors</div>
   <stache-row>
     <stache-column screenSmall="6">
-      <p>Once a screen gets too small, the action buttons should switch to be icon-only buttons, the find in this list should collapse into a single search icon, and the view switcher should collapse into a single icon as well. Buttons that don't have an icon will need to go in the more actions menu. The more actions button, view switcher, and any other buttons that need to drop down will drop down to show their options when pressed.</p>
+      <p>On small screens, action buttons should switch to icon-only buttons, the search field should collapse into a search icon, and the view switcher should collapse into a single icon. Buttons without icons should go in the more actions menu, and the more actions button, view switcher, and any other buttons with dropdowns should display their options when pressed.</p>
     </stache-column>
     <stache-column screenSmall="6">
       <div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/toolbar/wrapping-mobile.png" /></div>
