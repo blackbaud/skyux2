@@ -15,13 +15,17 @@ export class ModalVisualComponent {
   constructor(private modal: SkyModalService) { }
 
   public openModal() {
-
     this.modal.open(ModalDemoComponent, { 'providers': [] });
+  }
+
+  public openModalWithHelp() {
+    this.modal.open(ModalDemoComponent, { 'providers': [], 'helpKey': 'demo-key.html' });
   }
 
   public openLargeModal() {
     this.modal.open(ModalLargeDemoComponent, { 'providers': [] });
   }
+
   public openFullScreenModal() {
     this.modal.open(ModalFullPageDemoComponent, { 'providers': [], 'fullPage': true });
   }
