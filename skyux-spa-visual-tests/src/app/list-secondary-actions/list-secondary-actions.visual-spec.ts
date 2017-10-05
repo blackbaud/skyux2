@@ -1,5 +1,5 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
-import { browser, element, by } from 'protractor';
+import { element, by } from 'protractor';
 
 describe('list-secondary-actions component', () => {
 
@@ -7,10 +7,10 @@ describe('list-secondary-actions component', () => {
     return SkyVisualTest
       .setupTest('list-secondary-actions')
       .then(() => {
-        browser.sleep(100);
-
-        element(by.css('.sky-list-secondary-actions .sky-dropdown-button')).click();
-
+        return element(by.css('.sky-list-secondary-actions .sky-dropdown-button'))
+          .click() as any;
+      })
+      .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'list_secondary_actions',
           selector: '#screenshot-list-secondary-actions',
