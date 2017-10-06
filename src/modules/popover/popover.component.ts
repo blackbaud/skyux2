@@ -115,6 +115,7 @@ export class SkyPopoverComponent {
     };
 
     this.placement = placement || this.placementDefault;
+    this.changeDetector.markForCheck();
 
     // Wait for a tick to allow placement styles to render.
     // (The styles affect the element dimensions.)
