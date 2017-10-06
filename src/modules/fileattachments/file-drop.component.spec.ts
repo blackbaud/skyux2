@@ -644,8 +644,6 @@ describe('File drop component', () => {
     componentInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    let fileReaderSpy = setupFileReaderSpy();
-
     componentInstance.acceptedTypes = 'image/png, image/tiff';
 
     fixture.detectChanges();
