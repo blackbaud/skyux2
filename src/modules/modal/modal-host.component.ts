@@ -54,7 +54,7 @@ export class SkyModalHostComponent {
       useValue: params
     });
 
-    adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+    adapter.setPageScroll(SkyModalHostService.openModalCount > 0, params.fullPage);
 
     let providers = params.providers /* istanbul ignore next */ || [];
     let resolvedProviders = ReflectiveInjector.resolve(providers);
@@ -65,7 +65,7 @@ export class SkyModalHostComponent {
 
     function closeModal() {
       hostService.destroy();
-      adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+      adapter.setPageScroll(SkyModalHostService.openModalCount > 0, params.fullPage);
       /* istanbul ignore else */
       /* sanity check */
       if (modalOpener && modalOpener.focus) {
