@@ -44,8 +44,6 @@ export class SkyPopoverAdapterService {
     this.clearElementCoordinates(elements.popover);
     this.clearElementCoordinates(elements.popoverArrow);
 
-    this.setPopoverPlacementCls(elements, placement);
-
     const coords = this.getVisibleCoordinates(elements, placement);
 
     this.setElementCoordinates(elements.popover, coords.top, coords.left);
@@ -58,29 +56,6 @@ export class SkyPopoverAdapterService {
 
   public showPopover(elem: ElementRef): void {
     this.renderer.removeClass(elem.nativeElement, 'hidden');
-  }
-
-  private setPopoverPlacementCls(
-    elements: SkyPopoverAdapterElements,
-    placement: SkyPopoverPlacement
-  ) {
-    const placementCls = `sky-popover-placement-${placement}`;
-    const popoverElClassList = elements.popover.nativeElement.classList;
-    const classesToRemove: string[] = [];
-
-    for (let i = 0; i < popoverElClassList.length; i++) {
-      const popoverCls = popoverElClassList.item(i);
-
-      if (popoverCls.indexOf('sky-popover-placement-') === 0) {
-        classesToRemove.push(popoverCls);
-      }
-    }
-
-    for (const classToRemove of classesToRemove) {
-      popoverElClassList.remove(classToRemove);
-    }
-
-    popoverElClassList.add(placementCls);
   }
 
   private getVisibleCoordinates(

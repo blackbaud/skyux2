@@ -53,25 +53,6 @@ describe('SkyPopoverAdapterService', () => {
           width: width,
           height: height
         };
-      },
-      classList: {
-        _items: [] as any[],
-        add: function (cls: string) {
-          this._items.push(cls);
-        },
-        remove: function (cls: string) {
-          const index = this._items.indexOf(cls);
-
-          if (index >= 0) {
-            this._items.splice(index, 1);
-          }
-        },
-        item: function (index: number) {
-          return this._items[index];
-        },
-        get length(): number {
-          return this._items.length;
-        }
       }
     };
   }
@@ -194,27 +175,6 @@ describe('SkyPopoverAdapterService', () => {
       adapterService.showPopover(elem);
       expect(adapterService['renderer'].removeClass)
         .toHaveBeenCalledWith(elem.nativeElement, 'hidden');
-    })
-  );
-
-  it('should set the expected CSS class for the specified placement',
-    inject([SkyPopoverAdapterService], (adapterService: SkyPopoverAdapterService) => {
-      const popoverEl = createElementRefDefinition();
-
-      popoverEl.classList.add('sky-popover-placement-left');
-      popoverEl.classList.add('sky-popover-something-else');
-
-      adapterService.setPopoverPosition({
-        popover: new ElementRef(popoverEl),
-        popoverArrow: new ElementRef(createElementRefDefinition()),
-        caller: new ElementRef(createElementRefDefinition())
-      }, 'right');
-
-      const classItems = popoverEl.classList._items;
-
-      expect(classItems.indexOf('sky-popover-placement-right')).toBeGreaterThan(-1);
-      expect(classItems.indexOf('sky-popover-something-else')).toBeGreaterThan(-1);
-      expect(classItems.indexOf('sky-popover-placement-left')).toBe(-1);
     })
   );
 });

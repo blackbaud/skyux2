@@ -116,10 +116,11 @@ export class SkyPopoverComponent {
       caller: this.lastCaller
     };
 
+    this.placement = placement || this.placementDefault;
+
     // Wait for a tick to allow placement styles to render.
     // (The styles affect the element dimensions.)
     this.windowRef.getWindow().setTimeout(() => {
-      this.placement = placement || this.placementDefault;
       this.adapterService.setPopoverPosition(elements, this.placement);
       this.isOpen = true;
       this.changeDetector.markForCheck();
