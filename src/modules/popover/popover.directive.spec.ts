@@ -77,13 +77,13 @@ describe('SkyPopoverDirective', () => {
       if (supportedTrigger !== openTrigger) {
         triggerMouseEvent(caller, supportedTrigger);
 
-        expect(callerInstance.skyPopover.positionNextTo).not.toHaveBeenCalled();
+        expect(positionNextToSpy).not.toHaveBeenCalled();
       }
     }
 
     triggerMouseEvent(caller, openTrigger);
 
-    expect(callerInstance.skyPopover.positionNextTo).toHaveBeenCalled();
+    expect(positionNextToSpy).toHaveBeenCalled();
 
     callerInstance.skyPopover.isOpen = true;
 

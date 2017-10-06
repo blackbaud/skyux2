@@ -19,8 +19,6 @@ import {
   transition
 } from '@angular/animations';
 
-import { Subscription } from 'rxjs/Subscription';
-
 import { SkyWindowRefService } from '../window';
 import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
 
