@@ -12,12 +12,24 @@ export class SkyModalAdapterService {
     document.body.removeChild(document.querySelector('sky-modal-host'));
   }
 
-  public setPageScroll(isAdd: boolean): void {
-    const modalClass = 'sky-modal-body-open';
+  public setPageScroll(isAdd: boolean, isFullPage: boolean): void {
+    const modalBodyClasses = ['sky-modal-body-open'];
+
+    if (isFullPage) {
+      modalBodyClasses.push('sky-modal-body-full-page');
+    }
+
     if (isAdd) {
-      document.body.classList.add(modalClass);
+      // Use forEach and add one class a time for IE / older Firefox support.
+      // https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=814014
+      modalBodyClasses.forEach(bodyClass => {
+        document.body.classList.add(bodyClass);
+      });
     } else {
-      document.body.classList.remove(modalClass);
+      modalBodyClasses.forEach(bodyClass => {
+        document.body.classList.remove(bodyClass);
+      });
     }
   }
 

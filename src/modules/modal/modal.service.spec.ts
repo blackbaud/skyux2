@@ -83,6 +83,20 @@ describe('Modal service', () => {
     expect(document.body).not.toHaveCssClass('sky-modal-body-open');
   }));
 
+  it('should add the sky-modal-body-full-page class to the body', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, { 'fullPage': false });
+    expect(document.body).toHaveCssClass('sky-modal-body-open');
+    expect(document.body).not.toHaveCssClass('sky-modal-body-full-page');
+
+    closeModal(modalInstance);
+
+    modalInstance = openModal(ModalTestComponent, { 'fullPage': true });
+    expect(document.body).toHaveCssClass('sky-modal-body-open');
+    expect(document.body).toHaveCssClass('sky-modal-body-full-page');
+
+    closeModal(modalInstance);
+  }));
+
   it('should pass a "close" reason to the closed subscription when modal close button clicked',
   fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent);
