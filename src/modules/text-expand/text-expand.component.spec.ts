@@ -41,8 +41,6 @@ describe('Text expand component', () => {
         { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
     });
-
-    spyOn(windowRef.getWindow(), 'setTimeout').and.callFake((cb: Function) => cb());
   });
 
   beforeEach(
