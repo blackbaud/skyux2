@@ -179,4 +179,14 @@ describe('SkyPopoverDirective', () => {
   it('should allow mouseenter to display the popover', () => {
     validateTriggerOpensPopover(2, 'mouseenter', 'mouseleave');
   });
+
+  it('should mark the popover to close on mouseleave', () => {
+    const caller = directiveElements[2];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+    const spy = spyOn(callerInstance.skyPopover, 'markForCloseOnMouseLeave');
+    callerInstance.skyPopover.isOpen = true;
+    callerInstance.skyPopover.isMouseEnter = true;
+    triggerMouseEvent(caller, 'mouseleave');
+    expect(spy).toHaveBeenCalledWith();
+  });
 });

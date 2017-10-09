@@ -6,6 +6,10 @@ import {
 } from '@angular/core';
 
 import {
+  SkyWindowRefService
+} from '../window';
+
+import {
   SkyPopoverComponent,
   SkyPopoverPlacement,
   SkyPopoverTrigger
@@ -25,7 +29,8 @@ export class SkyPopoverDirective {
   public skyPopoverTrigger: SkyPopoverTrigger = 'click';
 
   constructor(
-    public elementRef: ElementRef
+    public elementRef: ElementRef,
+    private windowRef: SkyWindowRefService
   ) { }
 
   @HostListener('click', ['$event'])
@@ -56,9 +61,17 @@ export class SkyPopoverDirective {
     if (this.skyPopoverTrigger === 'mouseenter') {
       event.preventDefault();
 
-      if (this.skyPopover.isOpen) {
-        this.skyPopover.close();
-      }
+      // Give the popover a chance to set its isMouseEnter flag before checking to see
+      // if it should be closed.
+      this.windowRef.getWindow().setTimeout(() => {
+        if (this.skyPopover.isOpen) {
+          if (this.skyPopover.isMouseEnter) {
+            this.skyPopover.markForCloseOnMouseLeave();
+          } else {
+            this.skyPopover.close();
+          }
+        }
+      });
     }
   }
 }
