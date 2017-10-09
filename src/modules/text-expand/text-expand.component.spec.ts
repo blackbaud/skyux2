@@ -19,6 +19,16 @@ describe('Text expand component', () => {
   const mockWindowService = {
     getWindow(): any {
       return {
+        document: {
+          body: {
+            classList: {
+              add: () => {},
+              remove: () => {}
+            },
+            appendChild: () => {},
+            removeChild: () => {}
+          }
+        },
         setTimeout: (cb: Function) => cb()
       };
     }
