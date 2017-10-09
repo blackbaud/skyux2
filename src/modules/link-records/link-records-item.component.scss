@@ -1,0 +1,106 @@
+@import '../../scss/variables';
+@import '../../scss/buttons';
+@import '../../scss/mixins';
+
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 710px;
+
+  .link-records-item-info {
+    @include sky-emphasized;
+    text-align: center;
+  }
+
+  .link-records-item {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    margin: 10px 0 40px;
+  }
+
+  .link-records-item-original,
+  .link-records-item-match {
+    @include sky-border(light, top, bottom, right, left);
+    @include sky-shadow();
+    background-color: $sky-color-white;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    width: 350px;
+
+    .link-records-item-content {
+      flex-grow: 1;
+      padding: $sky-padding $sky-padding-double $sky-padding 25px;
+    }
+
+    .link-records-item-header,
+    .link-records-item-footer {
+      display: flex;
+      flex-direction: row;
+      min-height: 48px;
+    }
+
+    .link-records-item-header {
+      @include sky-border(light, bottom);
+      @include sky-subsection-heading;
+      padding: $sky-padding;
+    }
+
+    .link-records-item-footer {
+      @include sky-border(light, top);
+      padding: $sky-padding-3_4 $sky-padding;
+
+      & button.sky-btn:not(:first-child) {
+        margin-left: $sky-margin;
+      }
+
+      & button.sky-btn.sky-btn-link {
+        margin-left: 0;
+
+        &:first-child {
+          margin-left: -$sky-margin;
+        }
+      }
+    }
+  }
+
+  .link-records-item-status {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+
+    &-content {
+      @include sky-border(light, top, bottom, right, left);
+      background-color: $sky-color-white;
+      border-radius: 22px;
+      height: 45px;
+      margin: -18px;
+      text-align: center;
+      width: 45px;
+      z-index: 1;
+
+      i {
+        color: $sky-highlight-color-success;
+        font-size: 29px;
+        margin: 7px 0 0;
+
+        &.fa-question-circle, &.fa-pencil {
+          color: $sky-highlight-color-warning;
+        }
+      }
+    }
+  }
+
+  @media(max-width: $sky-screen-sm-min) {
+    width: 350px;
+
+    .link-records-item {
+      flex-direction: column;
+    }
+  }
+}

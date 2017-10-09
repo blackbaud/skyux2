@@ -5,6 +5,7 @@ import { ModalDemoComponent } from './modal-demo.component';
 import { ModalLargeDemoComponent } from './modal-large-demo.component';
 import { ModalFullPageDemoComponent } from './modal-fullpage-demo.component';
 import { ModalContentDemoComponent } from './modal-content-demo.component';
+import { ModalTiledDemoComponent } from './modal-tiled-demo.component';
 
 @Component({
   selector: 'modal-visual',
@@ -14,13 +15,17 @@ export class ModalVisualComponent {
   constructor(private modal: SkyModalService) { }
 
   public openModal() {
-
     this.modal.open(ModalDemoComponent, { 'providers': [] });
+  }
+
+  public openModalWithHelp() {
+    this.modal.open(ModalDemoComponent, { 'providers': [], 'helpKey': 'demo-key.html' });
   }
 
   public openLargeModal() {
     this.modal.open(ModalLargeDemoComponent, { 'providers': [] });
   }
+
   public openFullScreenModal() {
     this.modal.open(ModalFullPageDemoComponent, { 'providers': [], 'fullPage': true });
   }
@@ -42,5 +47,9 @@ export class ModalVisualComponent {
   public openLargeSizeModal() {
     this.modal.open(
       ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'large'});
+  }
+
+  public openTiledModal() {
+    this.modal.open(ModalTiledDemoComponent, { 'providers': [] });
   }
 }

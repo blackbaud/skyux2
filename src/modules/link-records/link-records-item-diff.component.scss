@@ -1,0 +1,57 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+:host {
+  display: block;
+  width: 100%;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+
+    th {
+      @include sky-field-label;
+    }
+
+    th,
+    td {
+      padding: $sky-padding $sky-padding $sky-padding 0;
+      text-align: left;
+
+      &.link-records-item-diff-update {
+        text-align: center;
+        width: 50px;
+      }
+
+      &.link-records-item-diff-value {
+        word-break: break-all;
+        white-space: pre-line;
+      }
+
+      &.item-deemphasized {
+        @include sky-deemphasized;
+      }
+
+      &.item-highlighted {
+        font-weight: 600;
+      }
+    }
+
+    tbody tr {
+      @include sky-border(row, bottom);
+
+      &:first-child {
+        @include sky-border(row, top);
+      }
+    }
+  }
+
+  /deep/ sky-checkbox {
+    .sky-checkbox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+    }
+  }
+}

@@ -49,7 +49,8 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
-      const showTabsButton = element(by.css('.sky-vertical-tabset-show-tabs-btn'));
+      const showTabsButton =
+        element(by.css('#screenshot-vertical-tabset .sky-vertical-tabset-show-tabs-btn'));
       browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
 
       // show tabs
@@ -66,7 +67,8 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
-      const showTabsButton = element(by.css('.sky-vertical-tabset-show-tabs-btn'));
+      const showTabsButton =
+        element(by.css('#screenshot-vertical-tabset .sky-vertical-tabset-show-tabs-btn'));
       browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
 
       // show tabs
@@ -83,6 +85,16 @@ describe('Vertical tabSet', () => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'vertical-tabset-mobile-clicked-tab',
         selector: '#screenshot-vertical-tabset'
+      });
+    });
+  });
+
+  it('should match previous vertical tabset screenshot without groups', () => {
+    return SkyVisualTest.setupTest('vertical-tabs')
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'vertical-tabset-no-groups',
+        selector: '#screenshot-vertical-tabs-no-groups'
       });
     });
   });

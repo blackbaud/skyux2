@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
 
+// Element matches polyfill
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
+if (!Element.prototype.matches) {
+  Element.prototype.matches =
+    Element.prototype.msMatchesSelector ||
+    Element.prototype.webkitMatchesSelector;
+}
+
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
@@ -24,6 +32,7 @@ import { SkyGridModule } from './modules/grid';
 import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
+import { SkyLinkRecordsModule } from './modules/link-records';
 import { SkyListColumnSelectorActionModule } from './modules/list-column-selector-action';
 import { SkyListFiltersModule } from './modules/list-filters';
 import { SkyListModule } from './modules/list';
@@ -41,6 +50,7 @@ import { SkyPopoverModule } from './modules/popover';
 import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkySearchModule } from './modules/search';
+import { SkySectionedFormModule } from './modules/sectioned-form';
 import { SkySortModule } from './modules/sort';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
@@ -74,6 +84,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyHelpInlineModule,
     SkyKeyInfoModule,
     SkyLabelModule,
+    SkyLinkRecordsModule,
     SkyListColumnSelectorActionModule,
     SkyListFiltersModule,
     SkyListModule,
@@ -91,6 +102,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyRadioModule,
     SkyRepeaterModule,
     SkySearchModule,
+    SkySectionedFormModule,
     SkySortModule,
     SkyTabsModule,
     SkyTextExpandModule,
@@ -261,6 +273,16 @@ export {
 } from './modules/label';
 
 export {
+  SkyLinkRecordsComponent,
+  SkyLinkRecordsItemComponent,
+  SkyLinkRecordsItemContentComponent,
+  SkyLinkRecordsItemDiffComponent,
+  SkyLinkRecordsItemTitleComponent,
+  SkyLinkRecordsMatchContentComponent,
+  SkyLinkRecordsNoMatchContentComponent,
+  SkyLinkRecordsRendererComponent
+} from './modules/link-records';
+export {
   SkyListColumnSelectorActionComponent,
   SkyListColumnSelectorActionModule
 } from './modules/list-column-selector-action';
@@ -409,6 +431,12 @@ export {
   SkySearchModule
 } from './modules/search';
 
+export {
+  SkySectionedFormComponent,
+  SkySectionedFormModule,
+  SkySectionedFormSectionComponent,
+  SkySectionedFormService
+} from './modules/sectioned-form';
 export {
   SkySortComponent,
   SkySortItemComponent,

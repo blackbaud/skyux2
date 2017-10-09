@@ -26,7 +26,6 @@ before_install:
   - chmod +x ./scripts/travis-script.sh
   - chmod +x ./scripts/travis-after-failure.sh
   - chmod +x ./scripts/travis-after-script.sh
-  - chmod +x ./scripts/travis-after-success.sh
   - chmod +x ./scripts/browserstack-cleanup.sh
   - chmod +x ./scripts/browserstack-local-start.sh
   - chmod +x ./scripts/visual-baseline.sh
@@ -40,7 +39,6 @@ after_install:
 script: ./scripts/travis-script.sh
 after_script: ./scripts/travis-after-script.sh
 after_success:
-  - ./scripts/travis-after-success.sh
   - bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
 
 after_failure:
@@ -59,7 +57,6 @@ branches:
 # Cache a few things
 cache:
   directories:
-    - node_modules
     - $BROWSER_STACK_BINARY_BASE_PATH
 
 notifications:

@@ -2,12 +2,12 @@ import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
 describe('Fluid grid', () => {
 
-  it('should display all columns on different rows when on a very small screen', () => {
+  it('should handle very small screens', () => {
     return SkyVisualTest.setupTest('fluid-grid', 600)
       .then(() => {
         return SkyVisualTest.compareScreenshot({
-          screenshotName: 'fluid-grid-screensmallest-differentrows',
-          selector: '#screenshot-fluid-grid',
+          screenshotName: 'fluid-grid-screenxsmall',
+          selector: '#screenshot-fluid-grid-xsmall',
           checkAccessibility: true
         });
       });
