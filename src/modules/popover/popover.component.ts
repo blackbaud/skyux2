@@ -57,9 +57,10 @@ export class SkyPopoverComponent {
   public popoverArrow: ElementRef;
   public isOpen = false;
   public placementClassName: string;
+  public isMouseEnter = false;
 
+  private isMarkedForCloseOnMouseLeave = false;
   private lastCaller: ElementRef;
-  private isMouseEnter = false;
   private readonly placementDefault: SkyPopoverPlacement = 'above';
 
   constructor(
@@ -99,6 +100,11 @@ export class SkyPopoverComponent {
   @HostListener('mouseleave')
   public onMouseLeave() {
     this.isMouseEnter = false;
+
+    if (this.isMarkedForCloseOnMouseLeave) {
+      this.close();
+      this.isMarkedForCloseOnMouseLeave = false;
+    }
   }
 
   public positionNextTo(caller: ElementRef, placement: SkyPopoverPlacement) {
@@ -157,5 +163,9 @@ export class SkyPopoverComponent {
 
   public getAnimationState(): string {
     return (this.isOpen) ? 'visible' : 'hidden';
+  }
+
+  public markForCloseOnMouseLeave() {
+    this.isMarkedForCloseOnMouseLeave = true;
   }
 }
