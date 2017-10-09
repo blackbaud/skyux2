@@ -17,7 +17,7 @@ import { SkyModalConfiguration } from './modal-configuration';
   selector: 'sky-modal-host',
   templateUrl: './modal-host.component.html',
   styleUrls: ['./modal-host.component.scss'],
-  providers: [SkyModalAdapterService]
+  viewProviders: [SkyModalAdapterService]
 })
 
 export class SkyModalHostComponent {
@@ -66,7 +66,6 @@ export class SkyModalHostComponent {
 
     function closeModal() {
       hostService.destroy();
-
       adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
       adapter.toggleFullPageModalClass(SkyModalHostService.fullPageModalCount > 0);
       /* istanbul ignore else */
