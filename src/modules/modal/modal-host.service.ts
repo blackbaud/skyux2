@@ -27,7 +27,6 @@ export class SkyModalHostService {
   }
 
   private static modalHosts: SkyModalHostService[] = [];
-  private static fullPageModals: number = 0;
 
   public close = new EventEmitter<void>();
   public openHelp = new EventEmitter<any>();
