@@ -29,8 +29,16 @@
   <li>The context of the task is self-contained.</li>
   <li>The form displays ancillary information or previews such as running totals or an email being constructed.</li>
   <li>The form supports a complex task for a list of objects such as filling out report cards for a class.</li>
-<li>The task includes subtasks that need to be completed in context.</li>
+	<li>The task includes subtasks that need to be completed in context.</li>
 </ul>
+    
+<stache-page-anchor>Sectioned form</stache-page-anchor>
+<p>A <a routerLink="/components/sectioned-form">sectioned form</a> is appropriate for forms that meet the following criteria:</p>
+<ul>
+  <li>Users are navigating into a hierarchy and can be expected to know what they are looking for. This is common for editing pieces of a larger record, or for tasks like applying filters.</li>
+  <li>When it’s beneficial to group multiple related but independent forms together in order to simplify the UI on the page. For example, one “Add filters” button instead of “Filter by giving,” “Filter by status,” “Filter by constituent code,” “Filter by ratings,” etc.</li>
+</ul>
+<p>Sectioned forms are not appropriate if choices in one tab can have effects in another tab, since the effects would potentially be invisible or unpredictable to the user.</p>
 
 <stache-page-anchor>Wizard</stache-page-anchor>
 <p>A <a routerLink="/components/wizard">wizard</a> is appropriate for forms that meet the following criteria:</p>
