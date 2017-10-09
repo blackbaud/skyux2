@@ -9,19 +9,21 @@ export class SkyModalAdapterService {
   private static readonly MODAL_BODY_FULL_CLASS = 'sky-modal-body-full-page';
   private static readonly MODAL_BODY_CLASS = 'sky-modal-body-open';
 
+  private docRef: any;
   private bodyEl: HTMLElement;
 
   constructor(
     private windowRef: SkyWindowRefService) {
-    this.bodyEl = this.windowRef.getWindow().document.body;
+      this.docRef = this.windowRef.getWindow().document;
+      this.bodyEl = this.windowRef.getWindow().document.body;
   }
 
   public addHostEl(): void {
-    this.bodyEl.appendChild(document.createElement('sky-modal-host'));
+    this.bodyEl.appendChild(this.docRef.createElement('sky-modal-host'));
   }
 
   public removeHostEl(): void {
-    this.bodyEl.removeChild(document.querySelector('sky-modal-host'));
+    this.bodyEl.removeChild(this.docRef.querySelector('sky-modal-host'));
   }
 
   public toggleFullPageModalClass(isAddFull: boolean): void {
@@ -41,7 +43,7 @@ export class SkyModalAdapterService {
   }
 
   public getModalOpener(): HTMLElement {
-    return <HTMLElement>document.activeElement;
+    return <HTMLElement>this.docRef.activeElement;
   }
 
   private addClassToBody(className: string): void {

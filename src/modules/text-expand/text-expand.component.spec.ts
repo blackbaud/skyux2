@@ -16,19 +16,12 @@ import {
 } from '../modal';
 
 describe('Text expand component', () => {
+  const windowRef = new SkyWindowRefService();
+
   const mockWindowService = {
     getWindow(): any {
       return {
-        document: {
-          body: {
-            classList: {
-              add: () => {},
-              remove: () => {}
-            },
-            appendChild: () => {},
-            removeChild: () => {}
-          }
-        },
+        document: windowRef.getWindow().document,
         setTimeout: (cb: Function) => cb()
       };
     }
@@ -45,9 +38,11 @@ describe('Text expand component', () => {
         SkyModalModule
       ],
       providers: [
-        { provide: SkyWindowRefService, useValue: mockWindowService }
+       { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
     });
+
+    spyOn(windowRef.getWindow(), 'setTimeout').and.callFake((cb: Function) => cb());
   });
 
   beforeEach(
