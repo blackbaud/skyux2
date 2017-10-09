@@ -1,39 +1,56 @@
 import {
-  Injectable
+  Injectable,
+  Renderer2
 } from '@angular/core';
+
+import { SkyWindowRefService } from '../window';
 
 @Injectable()
 export class SkyModalAdapterService {
+  private static readonly MODAL_BODY_FULL_CLASS = 'sky-modal-body-full-page';
+  private static readonly MODAL_BODY_CLASS = 'sky-modal-body-open';
+
+  private bodyEl: HTMLElement;
+
+  constructor(
+    private renderer: Renderer2,
+    private windowRef: SkyWindowRefService) {
+    this.bodyEl = this.windowRef.getWindow().document.body;
+  }
+
   public addHostEl(): void {
-    document.body.appendChild(document.createElement('sky-modal-host'));
+    this.bodyEl.appendChild(document.createElement('sky-modal-host'));
   }
 
   public removeHostEl(): void {
-    document.body.removeChild(document.querySelector('sky-modal-host'));
+    this.bodyEl.removeChild(document.querySelector('sky-modal-host'));
   }
 
-  public setPageScroll(isAdd: boolean, isFullPage: boolean): void {
-    const modalBodyClasses = ['sky-modal-body-open'];
-
-    if (isFullPage) {
-      modalBodyClasses.push('sky-modal-body-full-page');
-    }
-
-    if (isAdd) {
-      // Use forEach and add one class a time for IE / older Firefox support.
-      // https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
-      // https://bugzilla.mozilla.org/show_bug.cgi?id=814014
-      modalBodyClasses.forEach(bodyClass => {
-        document.body.classList.add(bodyClass);
-      });
+  public toggleFullPageModalClass(isAddFull: boolean): void {
+    if (isAddFull) {
+      this.addClassToBody(SkyModalAdapterService.MODAL_BODY_FULL_CLASS);
     } else {
-      modalBodyClasses.forEach(bodyClass => {
-        document.body.classList.remove(bodyClass);
-      });
+      this.removeClassFromBody(SkyModalAdapterService.MODAL_BODY_FULL_CLASS);
+    }
+  }
+
+  public setPageScroll(isAdd: boolean): void {
+    if (isAdd) {
+      this.addClassToBody(SkyModalAdapterService.MODAL_BODY_CLASS);
+    } else {
+      this.removeClassFromBody(SkyModalAdapterService.MODAL_BODY_CLASS);
     }
   }
 
   public getModalOpener(): HTMLElement {
     return <HTMLElement>document.activeElement;
+  }
+
+  private addClassToBody(className: string): void {
+    this.renderer.addClass(this.bodyEl, className);
+  }
+
+  private removeClassFromBody(className: string): void {
+    this.renderer.removeClass(this.bodyEl, className);
   }
 }

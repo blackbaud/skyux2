@@ -9,6 +9,11 @@ export class SkyModalHostService {
     return SkyModalHostService.modalHosts.length;
   }
 
+  public static get fullPageModalCount(): number {
+    let fullPageModals = SkyModalHostService.modalHosts.filter(modal => modal.fullPage);
+    return fullPageModals.length;
+  }
+
   private static get BASE_Z_INDEX(): number {
     return 1040;
   }
@@ -22,11 +27,12 @@ export class SkyModalHostService {
   }
 
   private static modalHosts: SkyModalHostService[] = [];
+  private static fullPageModals: number = 0;
 
   public close = new EventEmitter<void>();
   public openHelp = new EventEmitter<any>();
 
-  public constructor() {
+  public constructor(private fullPage: boolean) {
     SkyModalHostService.modalHosts.push(this);
   }
 

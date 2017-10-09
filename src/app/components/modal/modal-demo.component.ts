@@ -11,9 +11,12 @@ import { SkyModalDemoTiledFormComponent } from './modal-demo-tiled-form.componen
   templateUrl: './modal-demo.component.html'
 })
 export class SkyModalDemoComponent {
+
+  private count: number = 0;
   constructor(private modal: SkyModalService) { }
 
   public openModal(type: string) {
+    this.count++;
     const context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
@@ -55,5 +58,13 @@ export class SkyModalDemoComponent {
         Modal header help was invoked with the following help key: ${helpKey}
       `;
     });
+
+    if (this.count < 5 ) {
+      this.openModal(type);
+    }
+
+    if (this.count === 5) {
+      this.openModal('fullScreenModal');
+    }
   }
 }
