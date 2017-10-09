@@ -38,7 +38,7 @@ describe('Text expand component', () => {
         SkyModalModule
       ],
       providers: [
-       { provide: SkyWindowRefService, useValue: mockWindowService }
+        { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
     });
 
