@@ -21,7 +21,10 @@ Before you begin to contribute to SKY UX 2, please consider these general guidel
     - It allows you to get feedback sooner. In the case where you need to make pervasive coding style changes, for example, catching that in a small code review lets you update the rest of your code that may need the same changes before you submit it.
     - It demonstrates that your code is modular and does not contain excessive interdependencies. For instance, if you have Component B that is a child component of Component A, you should be able to author, test, document, review, and release Component B in the absence of Component A. If your changes must include both Component A and Component B to be tested and reviewed, then it raises a red flag that these components may be too tightly coupled and should be refactored.
 - If you are making an API change that affects inputs and outputs for a component, we recommend that you provide your potential (not working) documentation and demo to the SKY UX team for review so that we can head off any API issues before implementation. Contributors should keep in mind that the API can change in the course of development.
-- To declare localization strings, specify a string name and provide the string and a description in the `resources_en_US.json` file in `src/assets/locales`. You can reference the localization strings with the `skyAppResources` pipe or the `SkyAppResourcesService` service in `@blackbaud/skyux-builder/runtime/i18n`.
+
+## Localization
+
+To declare localization strings, specify a string name and provide the string and a description in the `resources_en_US.json` file in `src/assets/locales`. You can reference the localization strings with the `skyAppResources` pipe or the `SkyAppResourcesService` service in `@blackbaud/skyux-builder/runtime/i18n`.
 
 ## Make your changes
 
