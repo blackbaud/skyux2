@@ -1,6 +1,5 @@
 import {
-  Injectable,
-  Renderer2
+  Injectable
 } from '@angular/core';
 
 import { SkyWindowRefService } from '../window';
@@ -13,7 +12,6 @@ export class SkyModalAdapterService {
   private bodyEl: HTMLElement;
 
   constructor(
-    private renderer: Renderer2,
     private windowRef: SkyWindowRefService) {
     this.bodyEl = this.windowRef.getWindow().document.body;
   }
@@ -47,10 +45,10 @@ export class SkyModalAdapterService {
   }
 
   private addClassToBody(className: string): void {
-    this.renderer.addClass(this.bodyEl, className);
+    this.bodyEl.classList.add(className);
   }
 
   private removeClassFromBody(className: string): void {
-    this.renderer.removeClass(this.bodyEl, className);
+    this.bodyEl.classList.remove(className);
   }
 }
