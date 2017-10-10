@@ -4,6 +4,7 @@ import { SkyModalService, SkyModalCloseArgs } from '../../../core';
 
 import { SkyModalDemoContext } from './modal-demo-context';
 import { SkyModalDemoFormComponent } from './modal-demo-form.component';
+import { SkyModalDemoTiledFormComponent } from './modal-demo-tiled-form.component';
 
 @Component({
   selector: 'sky-modal-demo',
@@ -13,27 +14,46 @@ export class SkyModalDemoComponent {
   constructor(private modal: SkyModalService) { }
 
   public openModal(type: string) {
-    let context = new SkyModalDemoContext();
+    const context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
-    let options: any = {
-      providers: [{ provide: SkyModalDemoContext, useValue: context }]
+    const options: any = {
+      providers: [{ provide: SkyModalDemoContext, useValue: context }],
+      ariaDescribedBy: 'docs-modal-content'
     };
 
-    if (type === 'fullScreenModal') {
+    let modalInstanceType = SkyModalDemoFormComponent;
+
+    switch (type) {
+      case 'fullScreenModal':
       options.fullPage = true;
-    } else if (type === 'smallModal') {
+      break;
+      case 'smallModal':
       options.size = 'small';
-    } else if (type === 'largeModal') {
+      break;
+      case 'largeModal':
       options.size = 'large';
+      break;
+      case 'tiledModal':
+      modalInstanceType = SkyModalDemoTiledFormComponent;
+      break;
+      case 'withHelpHeader':
+      options.helpKey = 'demo-key.html';
+      break;
+      default:
+      break;
     }
 
-    options.ariaDescribedBy = 'docs-modal-content';
+    const modalInstance = this.modal.open(modalInstanceType, options);
 
-    let modalInstance = this.modal.open(SkyModalDemoFormComponent, options);
+    modalInstance.closed.first().subscribe((result: SkyModalCloseArgs) => {
+      console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
+    });
 
-    modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-      console.log('Modal closed with reason: ' + result.reason + ' and data: ' + result.data);
+    modalInstance.helpOpened.subscribe((helpKey: string) => {
+      context.eventMessage =  `
+        Modal header help was invoked with the following help key: ${helpKey}
+      `;
     });
   }
 }

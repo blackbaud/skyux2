@@ -37,6 +37,8 @@ export class SkyTextExpandComponent implements AfterContentInit {
     this.setup(value);
   }
   @Input()
+  public truncateNewlines = true;
+  @Input()
   public maxLength: number = 200;
   @Input()
   public maxExpandedLength: number = 600;
@@ -49,7 +51,6 @@ export class SkyTextExpandComponent implements AfterContentInit {
   @ViewChild('text')
   public textEl: ElementRef;
 
-  public maxNewlines: number = 1;
   public isExpanded: boolean = false;
   public expandable: boolean;
   public buttonText: string;
@@ -129,7 +130,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
   private setup(value: string) {
     if (value) {
       this.newlineCount = this.getNewlineCount(value);
-      this.collapsedText = this.getTruncatedText(value, this.maxLength, this.maxNewlines);
+      this.collapsedText = this.getTruncatedText(value, this.maxLength);
       this.expandedText = value;
       if (this.collapsedText !== value) {
         this.buttonText = this.seeMoreText;
@@ -155,10 +156,10 @@ export class SkyTextExpandComponent implements AfterContentInit {
 
     return 0;
   }
-  private getTruncatedText(value: string, length: number, newlines: number) {
+  private getTruncatedText(value: string, length: number) {
     let i: number;
-    if (newlines && this.newlineCount >= newlines) {
-      value = value.replace(/\s+/gi, ' ');
+    if (this.truncateNewlines) {
+      value = value.replace(/\n+/gi, ' ');
     }
     // Jump ahead one character and see if it's a space, and if it isn't,
     // back up to the first space and break there so a word doesn't get cut

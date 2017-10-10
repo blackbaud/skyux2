@@ -4,4 +4,6 @@ export interface SkyModalConfigurationInterface {
   providers?: any[];
   ariaDescribedBy?: string;
   ariaLabelledBy?: string;
+  tiledBody?: boolean;
+  helpKey?: string;
 }

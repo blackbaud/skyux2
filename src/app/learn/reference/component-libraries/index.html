@@ -1,5 +1,3 @@
-<sky-demo-nav></sky-demo-nav>
-
 <stache
     pageTitle="Component libraries"
     showTableOfContents="true"
@@ -8,7 +6,7 @@
   <stache-page-summary>
     After you create components with SKY UX, you can organize them into reusable libraries and publish them for other SPAs to consume. This reference describes how to create and consume SKY UX component libraries.
   </stache-page-summary>
-  
+
   <sky-alert alertType="info">For internal Blackbaud component libraries, Blackbaud developers follow a different workflow to create libraries and publish them to an internal Blackbaud NPM stream. Documentation on this process is available on <a href="https://host.nxt.blackbaud.com/engineering-system-docs/learn/spa/spa-component-libraries">the Engineering System website</a>. This site is for Blackbaud internal use only and is not available to external developers.</sky-alert>
 
   <stache-page-anchor>
@@ -34,7 +32,7 @@
   <stache-page-anchor>
     Create components for the library
   </stache-page-anchor>
-  
+
   <p>
     In the new SPA, create the components for the library. SKY UX Builder ignores components in <stache-code>/src/app/public</stache-code>, so they are not automatically declared in <stache-code>SkyModule</stache-code>. This allows you to write Angular modules, components, and services outside of SKY UX's scope.
   </p>
@@ -46,7 +44,7 @@
   <stache-page-anchor>
     Bundle the library
   </stache-page-anchor>
-  
+
   <p>
     After you create the components for the library, you are ready to bundle them into a consumable NPM module that you can publish to an NPM stream such as <a href="https://www.npmjs.com/">npmjs.org</a>. To do this, run <stache-code>skyux build-public-library</stache-code> from the SKY UX CLI.
   </p>
@@ -178,7 +176,7 @@ Commenting out this section because I don't think we need it given that it doesn
     }
 
   </stache-code-block>
-  
+
     <stache-row>
         <stache-column screenSmall="6">
             <div class="tutorial-previous-button">

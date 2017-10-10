@@ -8,6 +8,8 @@
   min-height: 1px;
 }
 
+@include create_columns(xs);
+
 @media (min-width: $sky-screen-sm-min) {
   @include create_columns(sm);
 }
