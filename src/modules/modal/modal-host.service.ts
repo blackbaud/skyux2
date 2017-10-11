@@ -50,6 +50,6 @@ export class SkyModalHostService {
   }
 
   public destroy(): void {
-    SkyModalHostService.modalHosts.splice(SkyModalHostService.modalHosts.indexOf(this));
+    SkyModalHostService.modalHosts.splice(SkyModalHostService.modalHosts.indexOf(this), 1);
   }
 }
