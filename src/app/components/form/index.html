@@ -66,12 +66,12 @@
 	
 	<div>
 	<h2>Error states</h2>
-	<p>Form fields that use Angular validation will by styled with a red glow when they are in an invalid state. We specifically check for the following conditions to apply the styling:</p>
+	<p>Form fields that use Angular validation are styled with a red glow when they are in an invalid state.</p>
 		<ul>
-			<li><code>input</code> fields with classes <code>ng-invalid</code> + <code>ng-touched</code></li>
-			<li><code>select</code> fields with classes <code>ng-invalid</code> + <code>submitted</code></li>
+			<li><code>input</code> fields with <code>ng-invalid</code> and <code>ng-touched</code> classes.</li>
+			<li><code>select</code> fields with <code>ng-invalid</code> and <code>submitted</code> classes.</li>
 		</ul>
-	<p>The <code>sky-error-label</code> class provides styling for error messages for a form field that is in an invalid state. You should place the message below the form field, and include logic to show the message when the conditions for showing invalid styling are met.</p>
+	<p>The <code>sky-error-label</code> class provides styling for error messages for form fields in an invalid state. Place the message below the form field, and include logic to display the message when the conditions for invalid styling are met.</p>
 	<div style="max-width: 50%">
       <label for="input-with-error-example" class="sky-control-label">
         Age
