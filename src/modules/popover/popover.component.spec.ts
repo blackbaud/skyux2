@@ -1,4 +1,6 @@
-import { By } from '@angular/platform-browser';
+import {
+  By
+} from '@angular/platform-browser';
 
 import {
   ElementRef
@@ -12,8 +14,6 @@ import {
 import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
-
-import { Observable } from 'rxjs/Observable';
 
 import { SkyWindowRefService } from '../window';
 import { TestUtility } from '../testing/testutility';
@@ -42,7 +42,6 @@ describe('SkyPopoverComponent', () => {
   beforeEach(() => {
     let mockWindowService = new MockWindowService();
     let mockAdapterService = {
-      placementChanges: Observable.of('above'),
       setPopoverPosition() {},
       hidePopover() {},
       showPopover() {}
@@ -74,23 +73,23 @@ describe('SkyPopoverComponent', () => {
 
   it('should call the adapter service to position the popover', () => {
     const caller = new ElementRef({});
-    spyOn(component['adapterService'], 'setPopoverPosition');
+    const spy = spyOn(component['adapterService'], 'setPopoverPosition');
     component.positionNextTo(caller, 'above');
-    expect(component['adapterService'].setPopoverPosition).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should call the adapter service with a default position', () => {
     const caller = new ElementRef({});
-    spyOn(component['adapterService'], 'setPopoverPosition');
+    const spy = spyOn(component['adapterService'], 'setPopoverPosition');
     component.positionNextTo(caller, undefined);
-    expect(component['adapterService'].setPopoverPosition).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
     expect(component.placement).toEqual('above');
   });
 
   it('should not call the adapter service if a caller is not defined', () => {
-    spyOn(component['adapterService'], 'setPopoverPosition');
+    const spy = spyOn(component['adapterService'], 'setPopoverPosition');
     component.positionNextTo(undefined, 'above');
-    expect(component['adapterService'].setPopoverPosition).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('should close a popover', () => {
@@ -99,13 +98,9 @@ describe('SkyPopoverComponent', () => {
     expect(component.isOpen).toEqual(false);
   });
 
-  it('should get a CSS classname to represent its placement', () => {
-    const element = fixture.debugElement.query(By.css('.sky-popover-placement-above'));
-    expect(Boolean(element)).not.toEqual(false);
-  });
-
   it('should remove a CSS classname before the animation starts', () => {
-    spyOn(component['adapterService'], 'showPopover').and.returnValue(0);
+    const spy = spyOn(component['adapterService'], 'showPopover').and.returnValue(0);
+
     component.onAnimationStart({
       fromState: 'hidden',
       toState: 'visible',
@@ -114,11 +109,11 @@ describe('SkyPopoverComponent', () => {
       element: {},
       triggerName: ''
     });
-    expect(component['adapterService'].showPopover)
-      .toHaveBeenCalledWith(component.popoverContainer);
+
+    expect(spy).toHaveBeenCalledWith(component.popoverContainer);
 
     // Handle 'else' path:
-    (component['adapterService'].showPopover as any).calls.reset();
+    spy.calls.reset();
     component.onAnimationStart({
       fromState: 'visible',
       toState: 'hidden',
@@ -128,13 +123,12 @@ describe('SkyPopoverComponent', () => {
       triggerName: ''
     });
 
-    expect(component['adapterService'].showPopover)
-      .not
-      .toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('should add a CSS classname when the animation stops', () => {
-    spyOn(component['adapterService'], 'hidePopover').and.returnValue(0);
+    const spy = spyOn(component['adapterService'], 'hidePopover').and.returnValue(0);
+
     component.onAnimationDone({
       fromState: 'visible',
       toState: 'hidden',
@@ -143,12 +137,13 @@ describe('SkyPopoverComponent', () => {
       element: {},
       triggerName: ''
     });
-    expect(component['adapterService'].hidePopover)
-      .toHaveBeenCalledWith(component.popoverContainer);
+
+    expect(spy).toHaveBeenCalledWith(component.popoverContainer);
   });
 
   it('should emit an event when the popover is opened', () => {
-    spyOn(component.popoverOpened, 'emit').and.returnValue(0);
+    const spy = spyOn(component.popoverOpened, 'emit').and.returnValue(0);
+
     component.onAnimationDone({
       fromState: 'hidden',
       toState: 'visible',
@@ -157,12 +152,13 @@ describe('SkyPopoverComponent', () => {
       element: {},
       triggerName: ''
     });
-    expect(component.popoverOpened.emit)
-      .toHaveBeenCalledWith(component);
+
+    expect(spy).toHaveBeenCalledWith(component);
   });
 
   it('should emit an event when the popover is closed', () => {
-    spyOn(component.popoverClosed, 'emit').and.returnValue(0);
+    const spy = spyOn(component.popoverClosed, 'emit').and.returnValue(0);
+
     component.onAnimationDone({
       fromState: 'visible',
       toState: 'hidden',
@@ -171,8 +167,8 @@ describe('SkyPopoverComponent', () => {
       element: {},
       triggerName: ''
     });
-    expect(component.popoverClosed.emit)
-      .toHaveBeenCalledWith(component);
+
+    expect(spy).toHaveBeenCalledWith(component);
   });
 
   it('should get the animation state', () => {
@@ -182,12 +178,6 @@ describe('SkyPopoverComponent', () => {
     fixture.detectChanges();
     state = component.getAnimationState();
     expect(state).toEqual('visible');
-  });
-
-  it('should unsubscribe from the placement observable', () => {
-    spyOn(component['placementSubscription'], 'unsubscribe');
-    component.ngOnDestroy();
-    expect(component['placementSubscription'].unsubscribe).toHaveBeenCalled();
   });
 
   it('should capture mouse enter and mouse leave events', () => {
@@ -255,5 +245,13 @@ describe('SkyPopoverComponent', () => {
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
+  });
+
+  it('should close the popover on mouseleave if it has been marked for close', () => {
+    const spy = spyOn(component, 'close');
+    component.markForCloseOnMouseLeave();
+    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
+    expect(spy).toHaveBeenCalledWith();
+    expect(component['isMarkedForCloseOnMouseLeave']).toEqual(false);
   });
 });
