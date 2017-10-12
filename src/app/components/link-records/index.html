@@ -85,4 +85,17 @@
     <sky-link-records-demo></sky-link-records-demo>
     <sky-demo-page-code demoName="Link records"></sky-demo-page-code>
   </sky-demo-page-example>
+	
+	<sky-demo-page-content sectionHeading="UX guidelines">
+		<div class="sky-section-heading">Usage</div>
+		<div class="sky-subsection-heading">Matching certainty</div>
+		<p>The intent of this component is to allow users to compare records when a single record is very likely the correct match. To present users with a set of less-certain matches, use a different approach.</p>
+		<div class="sky-subsection-heading">Content</div>
+		<p>To minimize cognitive load, comparison cards should display the minimum data required to uniquely identify a record and allow users to create a record when no true match is found.</p>
+		<div class="sky-subsection-heading">Batch processing</div>
+		<p>Record linking is frequently handled in the context of importing multiple records. In these cases, you can repeat the component in a vertical list of comparisons, as in the demo above. If you import multiple types of records, divide the task by record type so that users work through multiple lists that each include a single record type.</p>
+		<div class="sky-section-heading">Workflow</div>
+		<div class="screenshot screenshot-info"><img src="~/assets/img/guidelines/linkrecords/record-link-flow.png" /></div>
+	</sky-demo-page-content>
+	
 </sky-demo-page>
