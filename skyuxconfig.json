@@ -67,6 +67,12 @@
     "learn/contribute/accessibility": "design/accessibility",
     "learn/contribute/accessibility/code-review": "design/accessibility/code-review",
     "learn/contribute/accessibility/keyboard-testing": "design/accessibility/keyboard-testing",
-    "components/tiles": "components/tile"
+    "components/tiles": "components/tile",
+    "design/borders": "design/styles/borders",
+    "design/color": "design/styles/color",
+    "design/icons": "design/styles/icons",
+    "design/motion": "design/styles/motion",
+    "design/spacing": "design/styles/spacing",
+    "design/typography": "design/styles/typography"
   }
 }

@@ -720,6 +720,15 @@ export class SkyDemoComponentsService {
               componentName: 'SkyModalDemoFormComponent'
             },
             {
+              name: 'modal-demo-tiled-form.component.html',
+              fileContents: require('!!raw-loader!./modal/modal-demo-tiled-form.component.html')
+            },
+            {
+              name: 'modal-demo-tiled-form.component.ts',
+              fileContents: require('!!raw-loader!./modal/modal-demo-tiled-form.component.ts'),
+              componentName: 'SkyModalDemoTiledFormComponent'
+            },
+            {
               name: 'modal-demo-context.ts',
               fileContents: require('!!raw-loader!./modal/modal-demo-context.ts')
             }

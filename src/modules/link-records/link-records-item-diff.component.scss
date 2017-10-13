@@ -10,7 +10,7 @@
     width: 100%;
 
     th {
-      color: $sky-text-color-deemphasized;
+      @include sky-field-label;
     }
 
     th,

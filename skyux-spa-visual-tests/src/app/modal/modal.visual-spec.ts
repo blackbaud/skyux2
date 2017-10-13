@@ -20,6 +20,38 @@ describe('Modal', () => {
 
   });
 
+  it('should match previous modal screenshot with help button in header', () => {
+    return SkyVisualTest.setupTest('modal')
+      .then(() => {
+        element(by.css('.sky-modal-with-help')).click();
+        SkyVisualTest.moveCursorOffScreen();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'modal-with-help',
+          selector: '.sky-modal',
+          checkAccessibility: true
+        }).then(() => {
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
+        });
+      });
+
+  });
+
+  it('should match previous modal screenshot with help button in header on small screens', () => {
+    return SkyVisualTest.setupTest('modal', 480)
+      .then(() => {
+        element(by.css('.sky-modal-with-help')).click();
+        SkyVisualTest.moveCursorOffScreen();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'modal-with-help-small',
+          selector: '.sky-modal',
+          checkAccessibility: true
+        }).then(() => {
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
+        });
+      });
+
+  });
+
   it('should match previous modal screenshot on small screens', () => {
     return SkyVisualTest.setupTest('modal', 480)
     .then(() => {

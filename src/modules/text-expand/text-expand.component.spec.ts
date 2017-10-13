@@ -16,9 +16,12 @@ import {
 } from '../modal';
 
 describe('Text expand component', () => {
+  const windowRef = new SkyWindowRefService();
+
   const mockWindowService = {
     getWindow(): any {
       return {
+        document: windowRef.getWindow().document,
         setTimeout: (cb: Function) => cb()
       };
     }
