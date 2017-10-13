@@ -10,7 +10,7 @@ import {
 import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
-import { SkyModalConfigurationInterface as IConfig }  from './modal.interface';
+import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 import { SkyModalConfiguration } from './modal-configuration';
 
 @Component({
@@ -41,7 +41,7 @@ export class SkyModalHostComponent {
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
     let params: IConfig = Object.assign({}, config);
     let factory = this.resolver.resolveComponentFactory(component);
-    let hostService = new SkyModalHostService();
+    let hostService = new SkyModalHostService(params.fullPage);
     let adapter = this.adapter;
     let modalOpener: HTMLElement = adapter.getModalOpener();
 
@@ -55,6 +55,7 @@ export class SkyModalHostComponent {
     });
 
     adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+    adapter.toggleFullPageModalClass(SkyModalHostService.fullPageModalCount > 0);
 
     let providers = params.providers /* istanbul ignore next */ || [];
     let resolvedProviders = ReflectiveInjector.resolve(providers);
@@ -66,6 +67,7 @@ export class SkyModalHostComponent {
     function closeModal() {
       hostService.destroy();
       adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
+      adapter.toggleFullPageModalClass(SkyModalHostService.fullPageModalCount > 0);
       /* istanbul ignore else */
       /* sanity check */
       if (modalOpener && modalOpener.focus) {
@@ -73,6 +75,10 @@ export class SkyModalHostComponent {
       }
       modalComponentRef.destroy();
     }
+
+    hostService.openHelp.subscribe((helpKey?: string) => {
+      modalInstance.openHelp(helpKey);
+    });
 
     hostService.close.subscribe(() => {
       modalInstance.close();

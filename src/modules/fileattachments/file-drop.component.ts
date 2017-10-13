@@ -25,7 +25,6 @@ import {
   styleUrls: ['./file-drop.component.scss']
 })
 export class SkyFileDropComponent {
-
   @Output()
   public filesChanged = new EventEmitter<SkyFileDropChange>();
 
@@ -57,9 +56,7 @@ export class SkyFileDropComponent {
   public inputEl: ElementRef;
 
   public rejectedOver: boolean = false;
-
-  public  acceptedOver: boolean = false;
-
+  public acceptedOver: boolean = false;
   public linkUrl: string;
 
   private enterEventTarget: any;
@@ -74,51 +71,64 @@ export class SkyFileDropComponent {
     this.handleFiles(fileChangeEvent.target.files);
   }
 
-  public fileDragEnter(this: SkyFileDropComponent, dragEnterEvent: any) {
+  public fileDragEnter(dragEnterEvent: any) {
     // Save this target to know when the drag event leaves
     this.enterEventTarget = dragEnterEvent.target;
     dragEnterEvent.stopPropagation();
     dragEnterEvent.preventDefault();
-
   }
 
-  public fileDragOver(this: SkyFileDropComponent, dragOverEvent: any) {
+  public fileDragOver(dragOverEvent: any) {
+    const transfer = dragOverEvent.dataTransfer;
+
     dragOverEvent.stopPropagation();
     dragOverEvent.preventDefault();
 
-     if (dragOverEvent.dataTransfer && dragOverEvent.dataTransfer.items) {
+    if (transfer) {
+      if (transfer.items) {
+        const files = transfer.items;
 
-      let files = dragOverEvent.dataTransfer.items;
+        for (let index = 0; index < files.length; index++) {
+          const file: any = files[index];
 
-      for (let index = 0; index < files.length; index++) {
-        let file: any = files[index];
-        if (file.type && this.fileTypeRejected(file.type)) {
-          this.rejectedOver = true;
-          this.acceptedOver = false;
-          return;
+          if (file.type && this.fileTypeRejected(file.type)) {
+            this.rejectedOver = true;
+            this.acceptedOver = false;
+            return;
+          }
         }
-      }
-      if (files.length > 0 && !this.acceptedOver) {
+
+        if (files.length > 0 && !this.acceptedOver) {
+          this.rejectedOver = false;
+          this.acceptedOver = true;
+        }
+
+      } else if (transfer.files) {
+        // If the browser does not support DataTransfer.items,
+        // defer file-type checking to drop handler.
+        // https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/items#Browser_compatibility
         this.rejectedOver = false;
         this.acceptedOver = true;
       }
     }
   }
 
-  public fileDrop(this: SkyFileDropComponent, dropEvent: any) {
-    this.enterEventTarget = undefined;
+  public fileDrop(dropEvent: any) {
     dropEvent.stopPropagation();
     dropEvent.preventDefault();
+
+    this.enterEventTarget = undefined;
     this.rejectedOver = false;
     this.acceptedOver = false;
+
     if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
-      if (this.verifyDropFiles(dropEvent.dataTransfer.items)) {
+      if (this.verifyDropFiles(dropEvent.dataTransfer.files)) {
         this.handleFiles(dropEvent.dataTransfer.files);
       }
     }
   }
 
-  public fileDragLeave(this: SkyFileDropComponent, dragLeaveEvent: any) {
+  public fileDragLeave(dragLeaveEvent: any) {
     if (this.enterEventTarget === dragLeaveEvent.target) {
       this.rejectedOver = false;
       this.acceptedOver = false;
@@ -138,22 +148,21 @@ export class SkyFileDropComponent {
   }
 
   private emitFileChangeEvent(
-    this: SkyFileDropComponent,
     totalFiles: number,
     rejectedFileArray: Array<SkyFileItem>,
-    validFileArray: Array<SkyFileItem>) {
-
+    validFileArray: Array<SkyFileItem>
+  ) {
     if (totalFiles === rejectedFileArray.length + validFileArray.length) {
       this.filesChanged.emit({
         files: validFileArray,
         rejectedFiles: rejectedFileArray
       } as SkyFileDropChange);
+
       this.inputEl.nativeElement.value = '';
     }
   }
 
   private filesRejected(
-    this: SkyFileDropComponent,
     file: SkyFileItem,
     validFileArray: Array<SkyFileItem>,
     rejectedFileArray: Array<SkyFileItem>,
@@ -168,29 +177,23 @@ export class SkyFileDropComponent {
     file: SkyFileItem,
     validFileArray: Array<SkyFileItem>,
     rejectedFileArray: Array<SkyFileItem>,
-    totalFiles: number) {
+    totalFiles: number
+  ) {
+    const reader = new FileReader();
 
-    let reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      file.url = event.target.result;
+      validFileArray.push(file);
+      fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
+    });
 
-    reader.addEventListener('load',
-      function (this: FileReader, event: any) {
-        file.url = event.target.result;
-        validFileArray.push(file);
-        fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
-      }
-    );
+    reader.addEventListener('error', (event: any) => {
+      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+    });
 
-    reader.addEventListener('error',
-      function (this: FileReader, event: any) {
-        fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-      }
-    );
-
-    reader.addEventListener('abort',
-      function (this: FileReader, event: any) {
-        fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
-      }
-    );
+    reader.addEventListener('abort', (event: any) => {
+      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+    });
 
     reader.readAsDataURL(file.file);
   }
@@ -207,15 +210,18 @@ export class SkyFileDropComponent {
     if (typeArray.indexOf(fileType) !== -1) {
       return true;
     }
+
     for (let index = 0; index < typeArray.length; index++) {
-      let type = typeArray[index];
-      let validSubtype = this.getMimeSubtype(type);
+      const type = typeArray[index];
+      const validSubtype = this.getMimeSubtype(type);
+
       if (validSubtype === '*') {
         if (this.getMimeMainType(type) === this.getMimeMainType(fileType)) {
           return true;
         }
       }
     }
+
     return false;
   }
 
@@ -230,6 +236,7 @@ export class SkyFileDropComponent {
 
     let acceptedTypesUpper = this.acceptedTypes.toUpperCase();
     let typeArray = acceptedTypesUpper.split(',');
+
     return !this.fileTypeInArray(typeArray, fileType.toUpperCase());
   }
 
@@ -237,30 +244,36 @@ export class SkyFileDropComponent {
     let validFileArray: Array<SkyFileItem> = [];
     let rejectedFileArray: Array<SkyFileItem> = [];
     let totalFiles = files.length;
-
     let fileDrop = this;
 
     for (let index = 0; index < files.length; index++) {
-      let fileItem =  <SkyFileItem> { file: files.item(index) };
+      let fileItem = {
+        file: files.item(index)
+      } as SkyFileItem;
 
       if (fileItem.file.size < this.minFileSize) {
         fileItem.errorType = 'minFileSize';
         fileItem.errorParam = this.minFileSize.toString();
         this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+
       } else if (fileItem.file.size > this.maxFileSize) {
         fileItem.errorType = 'maxFileSize';
         fileItem.errorParam = this.maxFileSize.toString();
         this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+
       } else if (this.fileTypeRejected(fileItem.file.type)) {
         fileItem.errorType = 'fileType';
         fileItem.errorParam = this.acceptedTypes;
         this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+
       } else if (this.validateFn) {
         let errorParam = this.validateFn(fileItem);
+
         if (!!errorParam) {
           fileItem.errorType = 'validate';
           fileItem.errorParam = errorParam;
           this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+
         } else {
           this.loadFile(fileDrop, fileItem, validFileArray, rejectedFileArray, totalFiles);
         }
@@ -271,13 +284,14 @@ export class SkyFileDropComponent {
     }
   }
 
-  private verifyDropFiles(this: SkyFileDropComponent, items: any) {
-    if (!this.multiple && items.length > 1) {
+  private verifyDropFiles(files: any) {
+    if (!this.multiple && files.length > 1) {
       return false;
     }
 
-    for (let index = 0; index < items.length; index++) {
-      let file = items[index];
+    for (let index = 0; index < files.length; index++) {
+      const file = files.item(index);
+
       if (file.webkitGetAsEntry && file.webkitGetAsEntry() && file.webkitGetAsEntry().isDirectory) {
         return false;
       }
@@ -285,5 +299,4 @@ export class SkyFileDropComponent {
 
     return true;
   }
-
 }

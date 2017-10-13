@@ -1,3 +1,15 @@
+# 2.2.0 (2017-10-04)
+
+- Added support for Builder 1.1.0. ([#1157](https://github.com/blackbaud/skyux2/pull/1157))
+- Added sectioned form component. ([#1068](https://github.com/blackbaud/skyux2/pull/1068)) (Thanks @Blackbaud-AdamHickey)
+- Added help button to modal header. ([#1144](https://github.com/blackbaud/skyux2/pull/1144)) (Thanks @Blackbaud-BrandonJones)
+- Added vertical separator to vertical tabs component. ([#1140](https://github.com/blackbaud/skyux2/pull/1140))
+- Fixed flex elements not displaying properly within alert component (IE11). ([#1151](https://github.com/blackbaud/skyux2/pull/1151))
+- Fixed drag/collapse not working properly for tile component (IE11, Edge). ([#1153](https://github.com/blackbaud/skyux2/pull/1153))
+- Fixed newlines with text expand component. ([#1138](https://github.com/blackbaud/skyux2/pull/1138))
+- Fixed padding of tile dashboard component (IE11). ([#1127](https://github.com/blackbaud/skyux2/pull/1127))
+- Fixed file drop component not displaying properly during a serve. ([#1073](https://github.com/blackbaud/skyux2/pull/1073))
+
 # 2.1.0 (2017-09-26)
 
 - Added support for Angular 4.3.6. ([#1117](https://github.com/blackbaud/skyux2/pull/1117))
