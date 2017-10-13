@@ -31,12 +31,12 @@
         border-left: none;
         border-bottom-right-radius: 6px;
         border-top-right-radius: 6px;
-        @include sky-border(light, top, bottom, right);
+        @include sky-border(dark, top, bottom, right);
     }
     .sky-btn.sky-search-btn-clear {
         border-right: none;
         border-left: none;
-        @include sky-border(light, top, bottom);
+        @include sky-border(dark, top, bottom);
     }
 }
 

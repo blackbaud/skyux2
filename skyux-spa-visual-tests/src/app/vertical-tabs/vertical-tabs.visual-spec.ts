@@ -49,7 +49,8 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
-      const showTabsButton = element(by.css('.sky-vertical-tabset-show-tabs-btn'));
+      const showTabsButton =
+        element(by.css('#screenshot-vertical-tabset .sky-vertical-tabset-show-tabs-btn'));
       browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
 
       // show tabs
@@ -66,7 +67,8 @@ describe('Vertical tabSet', () => {
     return SkyVisualTest.setupTest('vertical-tabs', 480)
     .then(() => {
 
-      const showTabsButton = element(by.css('.sky-vertical-tabset-show-tabs-btn'));
+      const showTabsButton =
+        element(by.css('#screenshot-vertical-tabset .sky-vertical-tabset-show-tabs-btn'));
       browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
 
       // show tabs
