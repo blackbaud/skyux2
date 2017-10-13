@@ -122,6 +122,13 @@
     }
 }
 
+.sky-lookup-menu-item {
+    @include sky-dropdown-item();
+    &.sky-lookup-menu-item-focused {
+        background-color: $sky-background-color-selected;
+    }
+}
+
 .sky-lookup-no-match {
     font-style: italic;
 }

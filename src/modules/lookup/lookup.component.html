@@ -16,7 +16,8 @@
             class="sky-form-control sky-lookup-input"
             [ngModel]="searchText"
             (ngModelChange)="searchTextChanged($event)"
-            (keyup)="enterPress($event, searchText)"
+            (keydown)="keydown($event, searchText)"
+            (keyup)="keyup($event, searchText)"
             (focus)="inputFocused(true)"
             (blur)="inputFocused(false)"
             [attr.aria-label]="'search_label' | skyResources"
@@ -47,18 +48,19 @@
     </div>
   </div>
   <div class="sky-dropdown-menu">
-    <sky-dropdown-item *ngFor="let item of results">
+    <div *ngFor="let item of results" class="sky-lookup-menu-item"
+      [ngClass]="{'sky-lookup-menu-item-focused': (item === activeMenuItem)}">
       <button type="button" (click)="selectItem(item)">
         <ng-container
           *ngTemplateOutlet="template || defaultResultTemplate; context: { item: item }">
         </ng-container>
       </button>
-    </sky-dropdown-item>
-    <sky-dropdown-item *ngIf="!results || results.length === 0">
+    </div>
+    <div *ngIf="!results || results.length === 0" class="sky-lookup-menu-item">
       <button type="button" (click)="closeMenu()" class="sky-lookup-no-match">
           {{ ('lookup_no_results' | skyResources) }}
       </button>
-    </sky-dropdown-item>
+    </div>
   </div>
 </div>
 
