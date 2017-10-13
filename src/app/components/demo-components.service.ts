@@ -649,6 +649,27 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Lookup',
+        icon: 'search',
+        // tslint:disable-next-line
+        summary: `The lookup component allows users to search and select items.`,
+        url: '/components/lookup',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'lookup-demo.component.html',
+              fileContents: require('!!raw-loader!./lookup/lookup-demo.component.html')
+            },
+            {
+              name: 'lookup-demo.component.ts',
+              fileContents: require('!!raw-loader!./lookup/lookup-demo.component.ts'),
+              componentName: 'SkyLookupDemoComponent',
+              bootstrapSelector: 'sky-lookup-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Media queries',
         icon: 'mobile',
         // tslint:disable-next-line

@@ -496,7 +496,7 @@
     "message": "Filter:"
   },
   "grid_load_more": {
-    "_description": "The text for the button to load additional rows into the grid if more rows are available.",
+    "_description": "The text for the button to load additional rows into the grid if more rows are availabel.",
     "message": "Load more"
   },
   "grid_search_placeholder": {
@@ -595,16 +595,20 @@
     "_description": "Label for the button that opens the secondary actions menu in the list toolbar",
     "message": "Show secondary actions"
   },
+  "lookup_no_results": {
+    "_description": "Label to display when no results are found by search",
+    "message": "No results match criteria"
+  },
   "modal_close": {
     "_description": "Text for modal close button",
     "message": "Close modal"
   },
   "modal_footer_cancel_button": {
-    "_description": "Default lable text for modal cancel button",
+    "_description": "Default label text for modal cancel button",
     "message": "Cancel"
   },
   "modal_footer_primary_button": {
-    "_description": "Default lable text for modal primary button",
+    "_description": "Default label text for modal primary button",
     "message": "Save"
   },
   "month_short_april": {

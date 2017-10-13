@@ -1,0 +1,174 @@
+@import '../../scss/mixins';
+
+@media (min-width: $sky-screen-sm-min) {
+    .sky-lookup-input-container {
+        min-width: 300px;
+    }
+}
+
+/*  On iOS, the input will zoom when focused,
+    setting the font-size to 16px prevents this
+*/
+@media (max-width: $sky-screen-xs-max) {
+    .sky-lookup-input, .sky-lookup-btn-apply, .sky-lookup-btn-clear {
+        font-size: 16px;
+    }
+}
+
+.sky-lookup-input {
+    border-top: 1px transparent solid;
+    border-bottom: 1px transparent solid;
+    border-left: 1px transparent solid;
+    border-right: none;
+    box-shadow: none;
+    outline: none;
+}
+/*  Prevents the IE clear icon from displaying in the input
+    because our lookup control already includes a clear icon
+*/
+.sky-lookup-input::-ms-clear {
+    display: none;
+}
+
+.sky-input-group.sky-lookup-input-container .sky-input-group-btn {
+    .sky-btn.sky-lookup-btn-apply {
+        border-left: none;
+        @include sky-border(light, top, bottom, right);
+        @include sky-border-right-radius(6px);
+    }
+    .sky-btn.sky-lookup-btn-clear {
+        border-right: none;
+        border-left: none;
+        @include sky-border(light, top, bottom);
+    }
+}
+
+.sky-lookup-item-input {
+    flex-grow: 1;
+    display: flex;
+}
+
+/*  This is needed or else the input will be tiny
+    on Safari
+*/
+@media (min-width: $sky-screen-sm-min) {
+    .sky-lookup-item-input {
+        flex-shrink: 0;
+    }
+}
+
+.sky-lookup-btn-clear {
+    padding-right: 6px;
+    padding-left: 18px;
+}
+
+.sky-lookup-btn-apply {
+    padding-left: 6px;
+}
+
+.sky-lookup-btn-apply:hover, .sky-lookup-btn-apply:focus,
+.sky-lookup-btn-clear:hover, .sky-lookup-btn-clear:focus {
+    background-color: $sky-color-white;
+}
+
+.sky-lookup-input-container {
+    width: 100%;
+    border: 1px transparent solid;
+}
+
+.sky-input-group.sky-lookup-input-container.sky-lookup-input-focused {
+    @include sky-field-status(active);
+    border-radius: 6px;
+
+    .sky-input-group-btn {
+      .sky-btn.sky-lookup-btn-apply {
+        border-right: 1px transparent solid;
+        border-top: 1px transparent solid;
+        border-bottom: 1px transparent solid;
+      }
+
+      .sky-btn.sky-lookup-btn-clear {
+          border-top: 1px transparent solid;
+          border-bottom: 1px transparent solid;
+      }
+    }
+}
+
+.sky-form-control.sky-lookup-input:focus {
+    border-top: 1px transparent solid;
+    border-bottom: 1px transparent solid;
+    border-left: 1px transparent solid;
+    border-right: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.sky-dropdown-menu {
+    background-color: #fff;
+    display: none;
+    position: fixed;
+    @include sky-shadow;
+    z-index: $sky-dropdown-z-index;
+  
+    &.sky-dropdown-open {
+      display: block;
+    }
+}
+
+.sky-dropdown-menu {
+    /deep/ button {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.sky-lookup-no-match {
+    font-style: italic;
+}
+
+.sky-lookup-selected-item {
+    overflow: hidden;
+    height: auto !important;
+    height: 15px;
+    margin: 3px;
+    padding: 1px 3px;
+    background-color: #eff2f7;
+    color: #000;
+    cursor: default;
+    border: 1px solid #ccd5e4;
+    border-radius: 5px;
+    float: left;
+    white-space: nowrap;
+    display: list-item;
+
+    p {
+        display: inline;
+        padding: 0;
+        margin: 0;
+    }
+    .sky-lookup-item-delete {
+        color: #a6b3cf;
+        margin-left: 5px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
+.sky-lookup-input-group {
+    @include sky-border(light, top, bottom, left);
+    @include sky-border-left-radius(6px);
+    color: $sky-text-color-default;
+    font-size: $sky-font-size-base;
+    line-height: $sky-line-height-base;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    .sky-lookup-input-item .sky-lookup-input {
+        @include sky-border-left-radius(6px);
+    }
+}
+.sky-lookup-input-item {
+    display: list-item;
+    overflow: hidden;
+    padding: 0;
+}

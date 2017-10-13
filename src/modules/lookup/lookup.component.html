@@ -1,0 +1,65 @@
+<div (document:click)="windowClick()">
+  <div class="sky-lookup-item-input">
+    <div
+      [ngClass]="{'sky-lookup-input-focused': searchInputFocused}"
+      class="sky-lookup-input-container sky-input-group sky-dropdown-button">
+      <ul class="sky-lookup-input-group">
+        <ng-container *ngIf="multiple">
+          <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item">
+            <p>{{item[descriptorProperty]}}</p>
+            <span class="sky-lookup-item-delete" (click)="removeSelectedItem(item)">x</span>
+          </li>
+        </ng-container>
+        <li class="sky-lookup-input-item">
+          <input
+            type="text"
+            class="sky-form-control sky-lookup-input"
+            [ngModel]="searchText"
+            (ngModelChange)="searchTextChanged($event)"
+            (keyup)="enterPress($event, searchText)"
+            (focus)="inputFocused(true)"
+            (blur)="inputFocused(false)"
+            [attr.aria-label]="'search_label' | skyResources"
+            [attr.placeholder]="placeholderText" />
+        </li>
+      </ul>
+      <span
+      class="sky-input-group-btn sky-input-group-clear"
+      [hidden]="multiple || !selectedItems || selectedItems.length === 0"
+      >
+        <button
+          tabindex="-1"
+          aria-hidden="true"
+          type="button"
+          class="sky-btn sky-btn-default sky-lookup-btn-clear"
+          (click)="clearSearchText()">
+          <i class="fa fa-times"></i>
+        </button>
+      </span>
+      <span class="sky-input-group-btn">
+        <button
+          tabindex="-1"
+          type="button"
+          class="sky-btn sky-btn-default sky-lookup-btn-apply">
+          <i class="fa fa-search fa-lg"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="sky-dropdown-menu">
+    <sky-dropdown-item *ngFor="let item of results">
+      <button type="button" (click)="selectItem(item)">
+        <ng-container
+          *ngTemplateOutlet="template || defaultResultTemplate; context: { item: item }">
+        </ng-container>
+      </button>
+    </sky-dropdown-item>
+    <sky-dropdown-item *ngIf="!results || results.length === 0">
+      <button type="button" (click)="closeMenu()" class="sky-lookup-no-match">
+          {{ ('lookup_no_results' | skyResources) }}
+      </button>
+    </sky-dropdown-item>
+  </div>
+</div>
+
+<ng-template #defaultResultTemplate let-item="item">{{item.name}}</ng-template>
