@@ -1,67 +1,36 @@
 import {
   TestBed,
   ComponentFixture,
-  async
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';
-
 import { By } from '@angular/platform-browser';
-
 import { expect } from '../testing';
-
 import { SkyLookupModule } from './lookup.module';
-import { SkyLookupComponent } from './lookup.component';
 
 import {
   LookupTestComponent
 } from './fixtures/lookup.component.fixture';
-
-import {
-  MockSkyMediaQueryService
-} from '../testing/mocks';
-
-import {
-  SkyMediaQueryService,
-  SkyMediaBreakpoints
-} from '../media-queries';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 fdescribe('Lookup component', () => {
   let fixture: ComponentFixture<LookupTestComponent>;
   let nativeElement: HTMLElement;
   let component: LookupTestComponent;
   let element: DebugElement;
-  let mockMediaQueryService: MockSkyMediaQueryService;
 
   beforeEach(() => {
-
-    mockMediaQueryService = new MockSkyMediaQueryService();
-
     TestBed.configureTestingModule({
       declarations: [
         LookupTestComponent
       ],
       imports: [
-        SkyLookupModule,
-        NoopAnimationsModule
-      ],
-      providers: [
-        {provide: SkyMediaQueryService, useValue: mockMediaQueryService}
+        SkyLookupModule
       ]
     });
 
-    fixture = TestBed.overrideComponent(SkyLookupComponent, {
-      add: {
-        providers: [
-          {
-            provide: SkyMediaQueryService,
-            useValue: mockMediaQueryService
-          }
-        ]
-      }
-    })
-    .createComponent(LookupTestComponent);
+    fixture = TestBed.createComponent(LookupTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
     element = fixture.debugElement as DebugElement;
@@ -91,15 +60,9 @@ fdescribe('Lookup component', () => {
     fixture.detectChanges();
   }
 
-  function triggerInputEnter() {
+  /*function triggerInputKeyUp(key: number) {
     let inputEl = element.query(By.css('input'));
-    inputEl.triggerEventHandler('keyup', { which: 13});
-    fixture.detectChanges();
-  }
-
-  function triggerApplyButton() {
-    let applyEl = element.query(By.css('.sky-search-btn-apply'));
-    applyEl.triggerEventHandler('click', undefined);
+    inputEl.triggerEventHandler('keyup', { which: key});
     fixture.detectChanges();
   }
 
@@ -107,7 +70,7 @@ fdescribe('Lookup component', () => {
     let clearEl = element.query(By.css('.sky-search-btn-clear'));
     clearEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
-  }
+  }*/
 
   function triggerFocus() {
     let inputEl = element.query(By.css('input'));
@@ -123,15 +86,120 @@ fdescribe('Lookup component', () => {
 
   describe('standard lookup', () => {
     beforeEach(() => {
-      fixture.detectChanges();
+      component.multiple = false;
+      component.lastSelectionChange = undefined;
     });
 
   it('should override default placeholder text when placeholder text is provided', () => {
+    fixture.detectChanges();
     component.placeholderText = 'hey ya';
     fixture.detectChanges();
-    /*tslint:disable */
-    expect(element.query(By.css('input')).attributes['placeholder']).toBe('hey ya');
-    /*tslint:enable */
+    expect(element.query(By.css('input')).attributes.placeholder).toBe('hey ya');
+  });
+
+  it('should apply the correct focus class', () => {
+    fixture.detectChanges();
+    triggerFocus();
+    let css = '.sky-lookup-input-container.sky-input-group'
+      + '.sky-dropdown-button.sky-lookup-input-focused';
+
+    let containerEl = element.query(By.css(css));
+    expect(containerEl).not.toBeNull();
+    triggerBlur();
+    containerEl = element.query(By.css(css));
+    expect(containerEl).toBeNull();
+  });
+
+  it('should not perform a search when focus gained or lost when the search field is empty', () => {
+    fixture.detectChanges();
+    triggerFocus();
+    let inputEl = element.query(By.css('input'));
+    expect(inputEl.nativeElement.value).toBe('');
+    triggerBlur();
+    expect(inputEl.nativeElement.value).toBe('');
+  });
+
+  it('should search and clear when focus is lost when the search critera matches no item', () => {
+    fixture.detectChanges();
+    fakeAsync(() => {
+      triggerFocus();
+      let inputEl = element.query(By.css('input'));
+      setInput('abc');
+      expect(inputEl.nativeElement.value).toBe('abc');
+      triggerBlur();
+      tick();
+      expect(inputEl.nativeElement.value).toBe('');
+    });
+  });
+
+  it('should search and select an item when the search critera matches a data entry', () => {
+    component.data = [
+      { name: 'Red' }
+    ];
+    fixture.detectChanges();
+    fakeAsync(() => {
+      triggerFocus();
+      let inputEl = element.query(By.css('input'));
+      setInput('red');
+      expect(inputEl.nativeElement.value).toBe('red');
+      triggerBlur();
+      tick();
+      expect(inputEl.nativeElement.value).toBe('Red');
+    });
+  });
+
+  it('should search and select an item when the search critera partially matches a data entry',
+  () => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' }
+    ];
+    fixture.detectChanges();
+    fakeAsync(() => {
+      triggerFocus();
+      let inputEl = element.query(By.css('input'));
+      setInput('b');
+      expect(inputEl.nativeElement.value).toBe('b');
+      triggerBlur();
+      tick();
+      expect(inputEl.nativeElement.value).toBe('Blue');
+
+      let lastSelectionChange = component.lastSelectionChange;
+      expect(lastSelectionChange.added.length).toBe(1);
+      expect(lastSelectionChange.added[0].name).toBe('Blue');
+      expect(lastSelectionChange.added[0]).toBe(component.data[0]);
+      expect(lastSelectionChange.removed.length).toBe(0);
+      expect(lastSelectionChange.result.length).toBe(1);
+      expect(lastSelectionChange.result[0].name).toBe('Blue');
+      expect(lastSelectionChange.result[0]).toBe(component.data[0]);
+      let selectedItems = component.selectedItems;
+      expect(selectedItems.length).toBe(1);
+      expect(selectedItems[0]).toBe(component.data[0]);
+    });
+  });
+
+  it('should respect default selection', () => {
+    component.data = [
+      { name: 'Green' },
+      { name: 'Orange' }
+    ];
+    component.selectedItems = [component.data[1]];
+    fixture.detectChanges();
+    fakeAsync(() => {
+      let inputEl = element.query(By.css('input'));
+      expect(inputEl.nativeElement.value).toBe('Orange');
+      expect(component.lastSelectionChange).toBe(undefined);
+      let selectedItems = component.selectedItems;
+      expect(selectedItems.length).toBe(1);
+      expect(selectedItems[0]).toBe(component.data[1]);
+    });
+  });
+ });
+
+ describe('multi-select lookup', () => {
+  beforeEach(() => {
+    component.multiple = true;
+    fixture.detectChanges();
   });
 
  });

@@ -48,10 +48,10 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   public multiple?: boolean = false;
 
   @Input()
-  public data?: Array<any> = [];
+  public data?: Array<any>;
 
   @Input()
-  public selectedItems?: Array<any> = [];
+  public selectedItems?: Array<any>;
 
   @Input()
   public searchDelay?: number = 300;
@@ -106,6 +106,11 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public ngOnInit() {
+    this.data = this.data || [];
+    this.selectedItems = this.selectedItems || [];
+    if (!this.multiple && this.selectedItems.length > 0) {
+      this.searchText = this.selectedItems[0][this.descriptorProperty];
+    }
   }
 
   public ngOnDestroy() {
@@ -116,7 +121,9 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     this.searchInputFocused = isFocused;
 
     if (!isFocused) {
-      this.resolvePartialSearch();
+      /* If blur is needed to collapse activity, it must be done after deferring to all other events
+      Clicking the menu item will trigger the blur before the click has the chance to resolve */
+      setTimeout(() => this.resolvePartialSearch(), 100);
     }
   }
 
