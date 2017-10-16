@@ -11,6 +11,15 @@ require('./utils/fast-selenium.js');
 
 config.seleniumAddress = 'http://hub-cloud.browserstack.com/wd/hub';
 
+config.onPrepare = function () {
+  jasmine.getEnv().addReporter(new SpecReporter());
+
+  browser.params.chunks = JSON.parse(browser.params.chunks);
+  browser.params.skyPagesConfig = JSON.parse(browser.params.skyPagesConfig);
+  browser.skyVisualTestConfig = getVisualTestConfig();
+  browser.pixDiff = new PixDiff(browser.skyVisualTestConfig);
+};
+
 config.capabilities = {
   'browserName': 'chrome',
   'chromeOptions': {
