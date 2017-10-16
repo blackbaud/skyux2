@@ -18,15 +18,15 @@
             (ngModelChange)="searchTextChanged($event)"
             (keydown)="keydown($event, searchText)"
             (keyup)="keyup($event, searchText)"
-            (focus)="inputFocused(true)"
-            (blur)="inputFocused(false)"
+            (focus)="inputFocused($event, true)"
+            (blur)="inputFocused($event, false)"
             [attr.aria-label]="'search_label' | skyResources"
             [attr.placeholder]="placeholderText" />
         </li>
       </ul>
       <span
       class="sky-input-group-btn sky-input-group-clear"
-      [hidden]="multiple || !selectedItems || selectedItems.length === 0"
+      *ngIf="!multiple &amp;&amp; selectedItems &amp;&amp; selectedItems.length > 0"
       >
         <button
           tabindex="-1"

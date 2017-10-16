@@ -161,6 +161,7 @@
     }
 }
 .sky-lookup-input-group {
+    background-color: #fff;
     @include sky-border(light, top, bottom, left);
     @include sky-border-left-radius(6px);
     color: $sky-text-color-default;

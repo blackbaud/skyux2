@@ -117,13 +117,15 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     this.closeMenu();
   }
 
-  public inputFocused(isFocused: boolean) {
+  public inputFocused(event: FocusEvent, isFocused: boolean) {
     this.searchInputFocused = isFocused;
 
     if (!isFocused) {
-      /* If blur is needed to collapse activity, it must be done after deferring to all other events
-      Clicking the menu item will trigger the blur before the click has the chance to resolve */
-      setTimeout(() => this.resolvePartialSearch(), 100);
+      // Verify that the blur was not caused by the act of clicking a menu item
+      let target = <HTMLButtonElement>event.relatedTarget;
+      if (!target || target.parentElement.className !== 'sky-lookup-menu-item') {
+        this.resolvePartialSearch();
+      }
     }
   }
 
@@ -177,6 +179,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
 
   public searchTextChanged(searchText: string) {
     this.searchText = searchText;
+    this.queueSearch();
   }
 
   public selectItem(item: any) {
