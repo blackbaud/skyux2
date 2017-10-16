@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
 import { expect } from '../testing';
-import { SkyWindowRefService } from '../window';
 import { ConfirmationDialogConfig } from './confirmation-dialog-config';
 import { SkyModalInstance } from '../modal/modal-instance';
 import { SkyModalModule } from '../modal/modal.module';
