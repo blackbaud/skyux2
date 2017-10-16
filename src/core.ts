@@ -179,7 +179,7 @@ export {
 export {
   SkyConfirmationDialogService,
   SkyConfirmationDialogModule
-} from './modules/confirmation-dialog'
+} from './modules/confirmation-dialog';
 
 export {
   SkyDateFormatter,

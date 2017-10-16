@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
-import { SkyConfirmationDialogService } from '../../../modules/confirmation-dialog/confirmation-dialog.service';
-import { ConfirmationDialogConfig } from '../../../modules/confirmation-dialog/confirmation-dialog-config';
+import { SkyConfirmationDialogService } from
+  '../../../modules/confirmation-dialog/confirmation-dialog.service';
+import { ConfirmationDialogConfig } from
+  '../../../modules/confirmation-dialog/confirmation-dialog-config';
 
 @Component({
   selector: 'sky-confirmation-dialog-demo',

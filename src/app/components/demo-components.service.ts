@@ -150,11 +150,13 @@ export class SkyDemoComponentsService {
           return [
             {
               name: 'confirmation-dialog-demo.component.html',
-              fileContents: require('!!raw-loader!./confirmation-dialog/confirmation-dialog-demo.component.html')
+              fileContents: require('!!raw-loader!./confirmation-dialog/' +
+                'confirmation-dialog-demo.component.html')
             },
             {
               name: 'confirmation-dialog-demo.component.ts',
-              fileContents: require('!!raw-loader!./confirmation-dialog/confirmation-dialog-demo.component.ts'),
+              fileContents: require('!!raw-loader!./confirmation-dialog/' +
+                'confirmation-dialog-demo.component.ts'),
               componentName: 'SkyConfirmationDialogDemoComponent',
               bootstrapSelector: 'sky-confirmation-dialog-demo'
             }
