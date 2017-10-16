@@ -9,15 +9,6 @@ const { getVisualTestConfig } = require('./utils/visual-test-config');
 
 require('./utils/fast-selenium.js');
 
-config.onPrepare = () => {
-  jasmine.getEnv().addReporter(new SpecReporter());
-
-  browser.params.chunks = JSON.parse(browser.params.chunks);
-  browser.params.skyPagesConfig = JSON.parse(browser.params.skyPagesConfig);
-  browser.skyVisualTestConfig = getVisualTestConfig();
-  browser.pixDiff = new PixDiff(browser.skyVisualTestConfig);
-};
-
 config.seleniumAddress = 'http://hub-cloud.browserstack.com/wd/hub';
 
 config.capabilities = {
@@ -47,8 +38,10 @@ config.capabilities = {
 };
 
 config.beforeLaunch = () => {
-  require('ts-node').register({ ignore: false });
   console.log('Connecting local...');
+
+  require('ts-node').register({ ignore: false });
+
   return new Promise((resolve, reject) => {
     exports.bs_local = new browserstack.Local();
     exports.bs_local.start(
