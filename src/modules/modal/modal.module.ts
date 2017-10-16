@@ -12,6 +12,8 @@ import { SkyWindowRefService } from '../window';
 
 import { SkyResourcesModule } from '../resources';
 import { SkyErrorModalFormComponent } from '../error/error-modal-form.component';
+import { SkyConfirmationDialogFormComponent } from
+'../confirmation-dialog/confirmation-dialog-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { SkyErrorModalFormComponent } from '../error/error-modal-form.component'
     SkyModalFooterComponent,
     SkyModalHeaderComponent,
     SkyModalHostComponent,
-    SkyErrorModalFormComponent
+    SkyErrorModalFormComponent,
+    SkyConfirmationDialogFormComponent
   ],
   providers: [
     SkyModalAdapterService,
@@ -39,7 +42,8 @@ import { SkyErrorModalFormComponent } from '../error/error-modal-form.component'
   ],
   entryComponents: [
     SkyModalHostComponent,
-    SkyErrorModalFormComponent
+    SkyErrorModalFormComponent,
+    SkyConfirmationDialogFormComponent
   ]
 })
 export class SkyModalModule { }

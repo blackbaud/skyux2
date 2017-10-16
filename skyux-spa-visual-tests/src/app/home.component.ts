@@ -15,6 +15,7 @@ export class HomeComponent {
     'checkbox',
     'chevron',
     'colorpicker',
+    'confirmation-dialog',
     'datepicker',
     'definition-list',
     'dropdown',
