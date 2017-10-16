@@ -115,9 +115,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   public inputFocused(isFocused: boolean) {
     this.searchInputFocused = isFocused;
 
-    // When focus is lost, resolve the pending text to either select or clear the input field
-    // WARNING: focus is allowed to walk into the context menu.
-    if (!isFocused && !this.open) {
+    if (!isFocused) {
       this.resolvePartialSearch();
     }
   }
@@ -132,6 +130,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
 
   public keydown(event: KeyboardEvent, searchText: string) {
     if (event.which === 27 /* Escape Key */) {
+      event.preventDefault();
       this.revertSelection();
       this.closeMenu();
     } else if (event.which === 8 /* Backspace */) {
@@ -140,8 +139,10 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
         this.notifySelectionChange([], removedItems);
       }
     } else if (event.which === 38 /* Up Key */) {
+      event.preventDefault();
       this.moveActiveMenuItemUp();
     } else if (event.which === 40 /* Down Key */) {
+      event.preventDefault();
       this.moveActiveMenuItemDown();
     }
   }
