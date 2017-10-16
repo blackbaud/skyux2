@@ -83,6 +83,83 @@ describe('Modal service', () => {
     expect(document.body).not.toHaveCssClass('sky-modal-body-open');
   }));
 
+  it('should show multiple modals and return an instances.', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent);
+    let modalInstance2 = openModal(ModalTestComponent);
+    applicationRef.tick();
+
+    expect(document.body.querySelector('.sky-modal')).toExist();
+    expect(document.body).toHaveCssClass('sky-modal-body-open');
+    closeModal(modalInstance);
+    tick();
+    applicationRef.tick();
+
+    expect(document.body.querySelector('.sky-modal')).toExist();
+    expect(document.body).toHaveCssClass('sky-modal-body-open');
+    closeModal(modalInstance2);
+    tick();
+    applicationRef.tick();
+
+    expect(document.body.querySelector('.sky-modal')).not.toExist();
+    expect(document.body).not.toHaveCssClass('sky-modal-body-open');
+  }));
+
+  it('should add the sky-modal-body-full-page class to the body', fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent, { 'fullPage': false });
+    expect(document.body).toHaveCssClass('sky-modal-body-open');
+    expect(document.body).not.toHaveCssClass('sky-modal-body-full-page');
+
+    closeModal(modalInstance);
+
+    modalInstance = openModal(ModalTestComponent, { 'fullPage': true });
+    expect(document.body).toHaveCssClass('sky-modal-body-open');
+    expect(document.body).toHaveCssClass('sky-modal-body-full-page');
+
+    closeModal(modalInstance);
+  }));
+
+  it('should remove the sky-modal-body-full-page only when all fullPage modals are closed.',
+    fakeAsync(() => {
+      let modalInstance = openModal(ModalTestComponent, { 'fullPage': false });
+      let modalInstance1 = openModal(ModalTestComponent, { 'fullPage': false });
+      let fullPageModal = openModal(ModalTestComponent, { 'fullPage': true });
+      let fullPageModal2 = openModal(ModalTestComponent, { 'fullPage': true });
+
+      expect(document.body).toHaveCssClass('sky-modal-body-open');
+      expect(document.body).toHaveCssClass('sky-modal-body-full-page');
+
+      closeModal(modalInstance);
+      closeModal(fullPageModal);
+
+      expect(document.body).toHaveCssClass('sky-modal-body-open');
+      expect(document.body).toHaveCssClass('sky-modal-body-full-page');
+
+      closeModal(modalInstance1);
+
+      expect(document.body).toHaveCssClass('sky-modal-body-open');
+      expect(document.body).toHaveCssClass('sky-modal-body-full-page');
+
+      closeModal(fullPageModal2);
+
+      expect(document.body).not.toHaveCssClass('sky-modal-body-open');
+      expect(document.body).not.toHaveCssClass('sky-modal-body-full-page');
+    })
+  );
+
+  it('should pass a "close" reason to the closed subscription when modal close button clicked',
+  fakeAsync(() => {
+    let modalInstance = openModal(ModalTestComponent);
+    modalInstance.closed.subscribe((result: any) => {
+      expect(result.reason).toEqual('close');
+      expect(result.data).toBeUndefined();
+    });
+
+    applicationRef.tick();
+    (document.body.querySelector('.sky-modal-btn-close') as HTMLElement).click();
+    tick();
+    applicationRef.tick();
+  }));
+
   it('should reuse the same modal host container for all modals', fakeAsync(() => {
     function validateModalCount(modalCount: number) {
       expect(document.body.querySelectorAll('sky-modal-host').length).toBe(1);

@@ -1,12 +1,10 @@
-<sky-demo-nav></sky-demo-nav>
-
 <stache
     pageTitle="Template items"
     showTableOfContents="true"
     navOrder="7">
-  
+
   <p>This reference describes the default items that the template provides in a SKY UX single-page application.</p>
-  
+
   <p>After you <a routerLink="/learn/get-started/basics/create-project">create a SKY UX project</a>, a variety of files and folders are already in place, and some SKY UX CLI commands create additional items in the project. This topic explains the purpose of these files and folders to provide guidance to developers on which items to edit and which items to ignore.</p>
   <p>The default items that the SKY UX template provides in a SPA include:</p>
   <ul>
@@ -30,8 +28,16 @@
             <li><p><stache-code>home.component.html</stache-code>, <stache-code>home.component.ts</stache-code>, <stache-code>home.component.spec.ts</stache-code>, and <stache-code>index.html</stache-code> — The page, component, and unit test for the sample Home page in the template SPA. The <stache-code>index.html</stache-code> file is required to generate a route, while the other <stache-code>.html</stache-code> file and the <stache-code>.ts</stache-code> file create the HomeComponent that <stache-code>index.html</stache-code> references. The <stache-code>.spec.ts</stache-code> file is the unit test for the component, and <a routerLink="/learn/reference/tests">we recommend storing the unit test</a> in the same location as the <stache-code>.ts</stache-code> file.</p></li>
           </ul>
         </li>
+        <li><p><stache-code>assets</stache-code> — Contains static assets such as images that you can reference throughout your SPA. For information on how to include static assets in HTML, CSS, and SCSS files, see the <a routerLink="/learn/get-started/advanced/include-static-assets">static assets tutorial</a>.</p>
+          <ul>
+            <li><p><stache-code>locales</stache-code> — Contains a <stache-code>resources_en_US.json</stache-code> file to specify localization strings that you can reference throughout your SPA. For information on how to use localization strings, see the <a routerLink="/learn/get-started/advanced/localization">localization tutorial</a>.</p>
+              <ul>
+                <li><p><stache-code>resources_en_US.json</stache-code> — Contains localization strings that you can reference using the <stache-code>skyAppResources</stache-code> pipe or the <stache-code>SkyAppResourcesService</stache-code> service.</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
       </ul>
-      <sky-alert alertType="info">You can also create a <stache-code>src/assets</stache-code> folder to include static assets such as images in your SPA. For information about how to include static assets in HTML, CSS, and SCSS files, see the <a routerLink="/learn/get-started/advanced/include-static-assets">static assets tutorial</a>.</sky-alert>
     </li>
     <li><p><stache-code>.editorconfig</stache-code> — A configuration file to specify settings for editors that support an EditorConfig file to define and maintain consistent coding styles between editors and IDEs. For information about EditorConfig files, see <a href="http://editorconfig.org/">the EditorConfig website</a>.</p></li>
     <li><p><stache-code>.gitignore</stache-code> — A standard file for Git repositories that lists untracked files to intentionally ignore in the working directory. For information about gitignore files, see <a href="https://git-scm.com/docs/gitignore">the Git documentation</a>.</p></li>
@@ -41,7 +47,7 @@
     <li><p><stache-code>tsconfig.json</stache-code> — A configuration file for the TypeScript compiler. For information about <stache-code>tsconfig.json</stache-code> files, see <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">the TypeScript documentation</a>.</p></li>
     <li><p><stache-code>tslint.json</stache-code> — A configuration file for TSLint. For information about <stache-code>tslint.json</stache-code> files, see <a href="https://palantir.github.io/tslint/usage/tslint-json/">the TSLint documentation</a>.</p></li>
   </ul>
-  
+
     <stache-row>
         <stache-column screenSmall="6">
             <div class="tutorial-previous-button">

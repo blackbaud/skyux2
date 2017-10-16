@@ -1,0 +1,14 @@
+<sky-vertical-tab 
+  [ngClass]="{
+    'sky-tab-field-required': fieldRequired,
+    'sky-tab-field-invalid': fieldInvalid
+  }"
+  [tabHeading]="heading" 
+  [tabHeaderCount]="itemCount" 
+  [active]="active"
+  [showTabRightArrow]="true"
+>
+  <div #tabContent>
+    <ng-content></ng-content>
+  </div>
+</sky-vertical-tab>
