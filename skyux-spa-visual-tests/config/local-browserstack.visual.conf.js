@@ -62,7 +62,7 @@ config.beforeLaunch = function () {
 };
 
 // Code to stop browserstack local after end of test
-config.afterLaunch = () => {
+config.afterLaunch = function () {
   return new Promise((resolve) => {
     exports.bs_local.stop(resolve);
   });

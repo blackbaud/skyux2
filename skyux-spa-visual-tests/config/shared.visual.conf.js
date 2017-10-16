@@ -6,7 +6,7 @@ const PixDiff = require('pix-diff');
 const { getVisualTestConfig } = require('./utils/visual-test-config');
 
 module.exports = {
-  onPrepare: () => {
+  onPrepare: function () {
     jasmine.getEnv().addReporter(new SpecReporter());
 
     browser.params.chunks = JSON.parse(browser.params.chunks);
@@ -14,7 +14,7 @@ module.exports = {
     browser.skyVisualTestConfig = getVisualTestConfig('local');
     browser.pixDiff = new PixDiff(browser.skyVisualTestConfig);
   },
-  beforeLaunch: () => {
+  beforeLaunch: function () {
     require('ts-node').register({ ignore: false });
   },
   jasmineNodeOpts: {

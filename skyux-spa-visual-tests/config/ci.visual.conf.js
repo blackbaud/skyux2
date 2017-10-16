@@ -37,7 +37,7 @@ config.capabilities = {
   'acceptSslCerts': true
 };
 
-config.beforeLaunch = () => {
+config.beforeLaunch = function () {
   console.log('Connecting local...');
 
   require('ts-node').register({ ignore: false });
@@ -63,7 +63,7 @@ config.beforeLaunch = () => {
 };
 
 // Code to stop browserstack local after end of test
-config.afterLaunch = () => {
+config.afterLaunch = function () {
   return new Promise((resolve) => {
     exports.bs_local.stop(resolve);
   });
