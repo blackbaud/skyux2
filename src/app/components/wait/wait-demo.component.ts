@@ -9,8 +9,10 @@ import {
   templateUrl: './wait-demo.component.html'
 })
 export class SkyWaitDemoComponent {
-
   public isWaiting = false;
+
+  constructor(
+    private waitSvc: SkyWaitService) { }
 
   public showPageWait(isBlocking: boolean) {
     if (isBlocking) {
@@ -25,6 +27,4 @@ export class SkyWaitDemoComponent {
       }, 2000);
     }
   }
-
-  constructor(private waitSvc: SkyWaitService) { }
 }

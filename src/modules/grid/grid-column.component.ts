@@ -32,13 +32,13 @@ export class SkyGridColumnComponent {
   @Input()
   public isSortable: boolean = true;
 
-  /* tslint:disable */
+  /* tslint:disable:no-input-rename */
   @Input('search')
-  private searchFunction: (value: any, searchText: string) => boolean = this.search;
+  public searchFunction: (value: any, searchText: string) => boolean = this.search;
 
   @Input('template')
-  private templateInput: TemplateRef<any>;
-  /* tslint:enable */
+  public templateInput: TemplateRef<any>;
+  /* tslint:enable:no-input-rename */
 
   @ContentChildren(TemplateRef)
   private templates: QueryList<TemplateRef<any>>;
