@@ -19,6 +19,8 @@ export class LookupTestComponent {
   public placeholderText: string;
 
   public multiple: boolean;
+  public resultsLimit: number;
+  public propertiesToSearch: Array<string> = ['name'];
 
   public data: Array<any> = [];
   public selectedItems: Array<any> = [];

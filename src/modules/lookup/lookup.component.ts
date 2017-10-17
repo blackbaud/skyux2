@@ -133,7 +133,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     this.searchText = '';
     if (!this.multiple) {
       let removedItems = this.selectedItems.splice(0, this.selectedItems.length);
-      this.notifySelectionChange([], removedItems);
+      this.notifySelectionChange(undefined, removedItems);
     }
   }
 
@@ -145,7 +145,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     } else if (event.which === 8 /* Backspace */) {
       if (this.multiple && this.isSearchTextEmpty() && this.selectedItems.length > 0) {
         let removedItems = this.selectedItems.splice(this.selectedItems.length - 1, 1);
-        this.notifySelectionChange([], removedItems);
+        this.notifySelectionChange(undefined, removedItems);
       }
     } else if (event.which === 38 /* Up Key */) {
       event.preventDefault();
@@ -162,12 +162,8 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       this.searchText = searchText;
     }
 
-    if (event.which === 13 /* Enter Key */) {
-      if (this.activeMenuItem) {
-        this.selectItem(this.activeMenuItem);
-      } else {
-        this.performSearch();
-      }
+    if (event.which === 13 /* Enter Key */ && this.activeMenuItem) {
+      this.selectItem(this.activeMenuItem);
     } else if (
       event.which !== 27 /* Escape Key */
       && event.which !== 38 /* Up Key */
@@ -203,7 +199,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       let index = this.selectedItems.findIndex((n) => { return (n === item); });
       if (index > -1) {
         let removedItems = this.selectedItems.splice(index, 1);
-        this.notifySelectionChange([], removedItems);
+        this.notifySelectionChange(undefined, removedItems);
       }
     }
   }
@@ -294,7 +290,8 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   private isSearchMatch(item: any, searchTextLower: string) {
     let n = this.propertiesToSearch.length;
     while (n--) {
-      if ((item[this.propertiesToSearch[n]] || '').toLowerCase().indexOf(searchTextLower) > -1) {
+      let val = item[this.propertiesToSearch[n]] || '';
+      if (val.toString().toLowerCase().indexOf(searchTextLower) > -1) {
         return true;
       }
     }
