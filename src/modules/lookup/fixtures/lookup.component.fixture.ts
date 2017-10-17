@@ -21,6 +21,7 @@ export class LookupTestComponent {
   public multiple: boolean;
   public resultsLimit: number;
   public propertiesToSearch: Array<string> = ['name'];
+  public searchDelay: number = 0;
 
   public data: Array<any> = [];
   public selectedItems: Array<any> = [];

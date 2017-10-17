@@ -195,12 +195,10 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public removeSelectedItem(item: any) {
-    if (this.selectedItems) {
-      let index = this.selectedItems.findIndex((n) => { return (n === item); });
-      if (index > -1) {
-        let removedItems = this.selectedItems.splice(index, 1);
-        this.notifySelectionChange(undefined, removedItems);
-      }
+    let index = this.selectedItems.findIndex((n) => { return (n === item); });
+    if (index > -1) {
+      let removedItems = this.selectedItems.splice(index, 1);
+      this.notifySelectionChange(undefined, removedItems);
     }
   }
 
