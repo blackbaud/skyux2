@@ -125,7 +125,12 @@
 .sky-lookup-menu-item {
     @include sky-dropdown-item();
     &.sky-lookup-menu-item-focused {
-        background-color: $sky-background-color-selected;
+        @include sky-button-variant($sky-color-white, $sky-background-color-primary-dark,
+        $sky-background-color-primary-dark);
+
+        button {
+            color: $sky-color-white;
+        }
     }
 }
 
@@ -139,10 +144,10 @@
     height: 15px;
     margin: 3px;
     padding: 1px 3px;
-    background-color: #eff2f7;
-    color: #000;
+    background-color: $sky-background-color-neutral-light;
+    color: $sky-text-color-default;
     cursor: default;
-    border: 1px solid #ccd5e4;
+    border: 1px solid $sky-border-color-neutral-medium;
     border-radius: 5px;
     float: left;
     white-space: nowrap;
@@ -154,7 +159,7 @@
         margin: 0;
     }
     .sky-lookup-item-delete {
-        color: #a6b3cf;
+        color: $sky-text-color-default;
         margin-left: 5px;
         font-weight: bold;
         cursor: pointer;

@@ -18,7 +18,7 @@ export class SkyLookupDemoComponent {
     this.oceans = [
       { name: 'Antarctic' },
       { name: 'Atlantic' },
-      { name: 'Artic' },
+      { name: 'Arctic' },
       { name: 'Indian' },
       { name: 'Pacific' }
     ];

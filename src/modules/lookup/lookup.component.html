@@ -7,7 +7,9 @@
         <ng-container *ngIf="multiple">
           <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item">
             <p>{{item[descriptorProperty]}}</p>
-            <span class="sky-lookup-item-delete" (click)="removeSelectedItem(item)">x</span>
+            <span class="sky-lookup-item-delete" (click)="removeSelectedItem(item)">
+              <i class="fa fa-times"></i>
+            </span>
           </li>
         </ng-container>
         <li class="sky-lookup-input-item">
