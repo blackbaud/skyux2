@@ -30,6 +30,7 @@ export class HomeComponent {
     'link-records',
     'list-secondary-actions',
     'list-view-checklist',
+    'lookup',
     'modal',
     'navbar',
     'page-summary',
