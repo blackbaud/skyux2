@@ -75,6 +75,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   public searchText: string;
   public searchInputFocused: boolean = false;
   public activeMenuItem: any;
+  public results: Array<any>;
 
   /* tslint:disable:no-input-rename */
   @Input('template')
@@ -91,7 +92,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   private _placeholderText: string;
   private _currentWait: any;
   private open = false;
-  private results: Array<any>;
 
   constructor(
     private renderer: Renderer,
