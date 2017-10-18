@@ -2,7 +2,7 @@ import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
 import { browser, element, by } from 'protractor';
 
-fdescribe('lookup component', () => {
+describe('lookup component', () => {
 
   it('should match the baseline lookup single screenshot', () => {
     return SkyVisualTest.setupTest('lookup')
