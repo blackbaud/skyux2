@@ -94,17 +94,19 @@ function killServers(exitCode) {
  * @name spawnProtractor
  */
 function spawnProtractor(chunks, port, skyPagesConfig) {
-
   logger.info('Running Protractor');
+
   const protractorPath = path.resolve(
     'node_modules',
     '.bin',
     'protractor'
   );
+
   const protractor = spawn.spawn(
     protractorPath,
     [
       getProtractorConfigPath(),
+      '--disableChecks',
       `--baseUrl ${skyPagesConfig.skyux.host.url}`,
       `--params.localUrl=https://localhost:${port}`,
       `--params.chunks=${JSON.stringify(chunks)}`,

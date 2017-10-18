@@ -61,7 +61,6 @@ describe('Sectioned form', () => {
 
       // resize to mobile
       browser.driver.manage().window().setSize(480, 800);
-      browser.sleep(1000);
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'sectioned-form-to-mobile',
@@ -76,11 +75,9 @@ describe('Sectioned form', () => {
 
       // resize to mobile
       browser.driver.manage().window().setSize(480, 800);
-      browser.sleep(1000);
 
       // resize to widescreen
       browser.driver.manage().window().setSize(1000, 800);
-      browser.sleep(1000);
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'sectioned-form-to-widescreen',

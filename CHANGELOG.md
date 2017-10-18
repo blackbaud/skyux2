@@ -1,3 +1,14 @@
+# 2.3.0 (2017-10-16)
+
+- Added CSS class name to body when modal is displayed full-page. ([#1180](https://github.com/blackbaud/skyux2/pull/1180)) (Thanks @Blackbaud-BrandonJones)
+- Added ability to show popover on mouse hover. ([#1172](https://github.com/blackbaud/skyux2/pull/1172))
+- Added padding to tabset component. ([#1167](https://github.com/blackbaud/skyux2/pull/1167))
+- Updated link records label color. ([#1176](https://github.com/blackbaud/skyux2/pull/1176))
+- Fixed file drop component in IE11. ([#1179](https://github.com/blackbaud/skyux2/pull/1179))
+- Fixed incorrect border color for search component button. ([#1197](https://github.com/blackbaud/skyux2/pull/1197))
+- Fixed definition list component wrapping to a new row. ([#1194](https://github.com/blackbaud/skyux2/pull/1194))
+- Fixed SVG error images not showing in IE11. ([#1190](https://github.com/blackbaud/skyux2/pull/1190))
+
 # 2.2.0 (2017-10-04)
 
 - Added support for Builder 1.1.0. ([#1157](https://github.com/blackbaud/skyux2/pull/1157))

@@ -1,7 +1,10 @@
 @import "../../scss/mixins";
 
+:host {
+  flex: 0 0 90px;
+}
+
 .sky-definition-list-label {
   margin-right: $sky-margin;
-  width: 90px;
   word-wrap: break-word;
 }
