@@ -91,7 +91,8 @@ export class SkyModalComponent implements AfterViewInit {
     private config: SkyModalConfiguration,
     private elRef: ElementRef,
     private windowRef: SkyWindowRefService,
-    private componentAdapter: SkyModalComponentAdapterService) { }
+    private componentAdapter: SkyModalComponentAdapterService
+  ) { }
 
   @HostListener('document:keydown', ['$event'])
   public onDocumentKeyDown(event: KeyboardEvent) {
