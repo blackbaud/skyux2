@@ -2,10 +2,10 @@
 'use strict';
 
 /* Taken from browserstack selenium test tips at https://www.browserstack.com/automate/node */
-var http = require('http');
-var https = require('https');
+const http = require('http');
+const https = require('https');
 
-var keepAliveTimeout = 30 * 1000;
+const keepAliveTimeout = 30 * 1000;
 
 if (http.globalAgent && http.globalAgent.hasOwnProperty('keepAlive')) {
   http.globalAgent.keepAlive = true;
@@ -13,27 +13,26 @@ if (http.globalAgent && http.globalAgent.hasOwnProperty('keepAlive')) {
   http.globalAgent.keepAliveMsecs = keepAliveTimeout;
   https.globalAgent.keepAliveMsecs = keepAliveTimeout;
 } else {
-  var agent = new http.Agent({
+  const agent = new http.Agent({
     keepAlive: true,
     keepAliveMsecs: keepAliveTimeout
   });
 
-  var secureAgent = new https.Agent({
+  const secureAgent = new https.Agent({
     keepAlive: true,
     keepAliveMsecs: keepAliveTimeout
   });
 
-  var httpRequest = http.request;
-  var httpsRequest = https.request;
+  const httpRequest = http.request;
+  const httpsRequest = https.request;
 
-  http.request = function (options, callback) {
-    if (options.protocol ===  'https:') {
+  http.request = (options, callback) => {
+    if (options.protocol === 'https:') {
       options.agent = secureAgent;
-      return httpsRequest(options, callback);
-    }
-    else {
+    } else {
       options.agent = agent;
-      return httpRequest(options, callback);
     }
+
+    return httpRequest(options, callback);
   };
 }

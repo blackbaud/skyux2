@@ -23,8 +23,6 @@ describe('Vertical tabSet', () => {
       // open group
       groupElement.click();
 
-      browser.sleep(1000);
-
       // click tab
       element(by.id('group2Tab2')).click();
 
@@ -73,11 +71,9 @@ describe('Vertical tabSet', () => {
 
       // show tabs
       showTabsButton.click();
-      browser.sleep(1000);
 
       // open group
       element(by.css('.group2')).click();
-      browser.sleep(1000);
 
       // click tab
       element(by.id('group2Tab2')).click();
