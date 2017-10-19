@@ -16,6 +16,7 @@ import { LookupMenuTemplateTestComponent } from './fixtures/lookup.menu.template
 
 enum Key {
   Backspace = 8,
+  Tab = 9,
   Enter = 13,
   Escape = 27,
   Up = 38,
@@ -42,7 +43,7 @@ function _setInput(element: DebugElement, fixture: ComponentFixture<any>, text: 
   fixture.detectChanges();
 }
 
-describe('Lookup component', () => {
+fdescribe('Lookup component', () => {
   let fixture: ComponentFixture<LookupTestComponent>;
   let nativeElement: HTMLElement;
   let component: LookupTestComponent;
@@ -174,7 +175,7 @@ describe('Lookup component', () => {
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
   });
 
-  it('should not perform a search when focus lost when the search field matches selection',
+  it('should not perform a search when tabbing out while the search field matches selection',
   fakeAsync(() => {
     component.data = [
       { name: 'Ruby' },
@@ -188,7 +189,7 @@ describe('Lookup component', () => {
     let inputEl = element.query(By.css('input'));
     expect(inputEl.nativeElement.value).toBe('Red');
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('Red');
@@ -205,31 +206,43 @@ describe('Lookup component', () => {
     setInput('red');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
     expect(element.query(By.css('input')).nativeElement.value).toBe('');
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
   }));
 
-  it('should clear when focus is lost when the search critera matches no item (blur)',
+  it('should clear selection when tabbing out while the search critera is blank (tab)',
   fakeAsync(() => {
+    component.data = [
+      { name: 'Red' }
+    ];
+    component.selectedItems = [component.data[0]];
     fixture.detectChanges();
     tick();
 
     let inputEl = element.query(By.css('input'));
-    setInput('abc');
-    expect(inputEl.nativeElement.value).toBe('abc');
+    setInput('');
+    expect(inputEl.nativeElement.value).toBe('');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('');
 
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
+
+    let lastSelectionChange = component.lastSelectionChange;
+    expect(lastSelectionChange.added.length).toBe(0);
+    expect(lastSelectionChange.removed.length).toBe(1);
+    expect(lastSelectionChange.removed[0].name).toBe('Red');
+    expect(lastSelectionChange.removed[0]).toBe(component.data[0]);
+    expect(lastSelectionChange.result.length).toBe(0);
+    expect(component.selectedItems.length).toBe(0);
   }));
 
-  it('should not clear when focus is lost to a menu item (blur)',
+  it('should clear when tabbing out while the search critera matches no item (tab)',
   fakeAsync(() => {
     fixture.detectChanges();
     tick();
@@ -239,17 +252,12 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('abc');
     tick();
 
-    inputEl.triggerEventHandler('blur', {
-      relatedTarget: {
-        parentElement: {
-          className: 'sky-lookup-menu-item'
-        }
-      }
-    });
-    fixture.detectChanges();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
-    expect(inputEl.nativeElement.value).toBe('abc');
+    expect(inputEl.nativeElement.value).toBe('');
+
+    expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
   }));
 
   it('should clear when focus is lost when the search critera matches no item (click window)',
@@ -296,7 +304,7 @@ describe('Lookup component', () => {
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
   }));
 
-  it('should search and select an item when the search critera matches a data entry (blur)',
+  it('should search and select an item when the search critera matches a data entry (tab)',
   fakeAsync(() => {
     component.data = [
       { name: 'Red' }
@@ -309,7 +317,7 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('red');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('Red');
@@ -317,19 +325,20 @@ describe('Lookup component', () => {
     expect(element.query(By.css('.sky-lookup-btn-clear'))).not.toBeNull();
   }));
 
-  it('should search and select an item when the search critera matches a data entry (click window)',
+  it('should revert selection when the search critera matches a data entry (click window)',
   fakeAsync(() => {
     component.data = [
-      { name: 'Red' }
+      { name: 'Red' },
+      { name: 'Blue' }
     ];
+    component.selectedItems = [component.data[0]];
     fixture.detectChanges();
     tick();
 
-    triggerFocus();
-
     let inputEl = element.query(By.css('input'));
-    setInput('red');
-    expect(inputEl.nativeElement.value).toBe('red');
+    expect(inputEl.nativeElement.value).toBe('Red');
+    setInput('blue');
+    expect(inputEl.nativeElement.value).toBe('blue');
     tick();
 
     triggerClickWindow();
@@ -339,14 +348,7 @@ describe('Lookup component', () => {
 
     expect(element.query(By.css('.sky-lookup-btn-clear'))).not.toBeNull();
 
-    let lastSelectionChange = component.lastSelectionChange;
-    expect(lastSelectionChange.added.length).toBe(1);
-    expect(lastSelectionChange.added[0].name).toBe('Red');
-    expect(lastSelectionChange.added[0]).toBe(component.data[0]);
-    expect(lastSelectionChange.removed.length).toBe(0);
-    expect(lastSelectionChange.result.length).toBe(1);
-    expect(lastSelectionChange.result[0].name).toBe('Red');
-    expect(lastSelectionChange.result[0]).toBe(component.data[0]);
+    expect(component.lastSelectionChange).toBe(undefined);
     let selectedItems = component.selectedItems;
     expect(selectedItems.length).toBe(1);
     expect(selectedItems[0]).toBe(component.data[0]);
@@ -366,7 +368,7 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('b');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('Blue');
@@ -537,6 +539,31 @@ describe('Lookup component', () => {
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Apple');
   }));
+
+  it('should respect menu item click', fakeAsync(() => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Brown' }
+    ];
+    fixture.detectChanges();
+    tick();
+
+    setInput('b');
+    tick();
+    fixture.detectChanges();
+
+    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item button'));
+    expect(menuItems.length).toBe(3);
+
+    menuItems[1].triggerEventHandler('click', undefined);
+    fixture.detectChanges();
+    tick();
+
+    expect(component.selectedItems[0]).toBe(component.data[1]);
+    expect(element.query(By.css('input')).nativeElement.value).toBe('Black');
+    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+  }));
  });
 
  describe('multi-select lookup', () => {
@@ -566,7 +593,7 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('abc');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('');
@@ -588,7 +615,7 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('red');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('');
@@ -614,7 +641,7 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('b');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('');
@@ -638,7 +665,7 @@ describe('Lookup component', () => {
     setInput('silver');
     tick();
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     expect(inputEl.nativeElement.value).toBe('');
@@ -796,7 +823,7 @@ describe('Lookup component', () => {
     let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0); /* assert the menu hasn't appeared yet */
 
-    triggerBlur();
+    triggerInputKeyDown(Key.Tab);
     tick(1000);
 
     expect(inputEl.nativeElement.value).toBe('');
@@ -827,6 +854,30 @@ describe('Lookup component', () => {
     expect(component.lastSelectionChange).toBe(undefined);
   });
 
+  it('should respect menu item click', fakeAsync(() => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Brown' }
+    ];
+    fixture.detectChanges();
+    tick();
+
+    setInput('b');
+    tick();
+    fixture.detectChanges();
+
+    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item button'));
+    expect(menuItems.length).toBe(3);
+
+    menuItems[1].triggerEventHandler('click', undefined);
+    fixture.detectChanges();
+    tick();
+
+    expect(component.selectedItems[0]).toBe(component.data[1]);
+    expect(element.query(By.css('input')).nativeElement.value).toBe('');
+    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+  }));
  });
 
  describe('lookup menu', () => {
@@ -938,8 +989,8 @@ describe('Lookup component', () => {
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
 
-    /* Verify blur uses active item from menu */
-    triggerBlur();
+    /* Verify tab uses active item from menu */
+    triggerInputKeyDown(Key.Tab);
     tick();
 
     let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
@@ -1024,7 +1075,7 @@ describe('Lookup component', () => {
 
 });
 
-describe('Lookup with menu template component', () => {
+fdescribe('Lookup with menu template component', () => {
   let fixture: ComponentFixture<LookupMenuTemplateTestComponent>;
   let nativeElement: HTMLElement;
   let component: LookupMenuTemplateTestComponent;

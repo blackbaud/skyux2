@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 
 import { SkyDropdownAdapterService} from '../dropdown/dropdown-adapter.service';
+import { SkySearchAdapterService} from '../search/search-adapter.service';
 import { SkyWindowRefService } from '../window';
 import { SkyResourcesService } from '../resources';
 
@@ -28,7 +29,8 @@ export class SkyLookupSelectionChange {
   styleUrls: ['./lookup.component.scss'],
   providers: [
     SkyDropdownAdapterService,
-    SkyResourcesService
+    SkyResourcesService,
+    SkySearchAdapterService
   ]
 })
 export class SkyLookupComponent implements OnDestroy, OnInit {
@@ -97,6 +99,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     private renderer: Renderer,
     private elRef: ElementRef,
     private dropdownAdapter: SkyDropdownAdapterService,
+    private searchAdapter: SkySearchAdapterService,
     private resources: SkyResourcesService,
     private windowObj: SkyWindowRefService
   ) {
@@ -119,14 +122,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
 
   public inputFocused(event: FocusEvent, isFocused: boolean) {
     this.searchInputFocused = isFocused;
-
-    if (!isFocused) {
-      // Verify that the blur was not caused by the act of clicking a menu item
-      let target = <HTMLButtonElement>event.relatedTarget;
-      if (!target || target.parentElement.className !== 'sky-lookup-menu-item') {
-        this.resolvePartialSearch();
-      }
-    }
   }
 
   public clearSearchText() {
@@ -141,7 +136,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     if (event.which === 27 /* Escape Key */) {
       event.preventDefault();
       this.revertSelection();
-      this.closeMenu();
     } else if (event.which === 8 /* Backspace */) {
       if (this.multiple && this.isSearchTextEmpty() && this.selectedItems.length > 0) {
         let removedItems = this.selectedItems.splice(this.selectedItems.length - 1, 1);
@@ -153,6 +147,8 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     } else if (event.which === 40 /* Down Key */) {
       event.preventDefault();
       this.moveActiveMenuItemDown();
+    } else if (event.which === 9 /* Tab */) {
+      this.resolvePartialSearch();
     }
   }
 
@@ -165,7 +161,8 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     if (event.which === 13 /* Enter Key */ && this.activeMenuItem) {
       this.selectItem(this.activeMenuItem);
     } else if (
-      event.which !== 27 /* Escape Key */
+      event.which !== 9 /* Tab Key */
+      && event.which !== 27 /* Escape Key */
       && event.which !== 38 /* Up Key */
       && event.which !== 40 /* Down Key */
     ) {
@@ -176,6 +173,11 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   public searchTextChanged(searchText: string) {
     this.searchText = searchText;
     this.queueSearch();
+  }
+
+  public selectMenuItem(item: any) {
+    this.selectItem(item);
+    this.searchAdapter.focusInput(this.elRef);
   }
 
   public selectItem(item: any) {
@@ -203,10 +205,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public windowClick() {
-    if (this.searchInputFocused || this.open) {
-      this.resolvePartialSearch();
-    }
-    this.closeMenu();
+    this.revertSelection();
   }
 
   public closeMenu() {
@@ -307,6 +306,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     } else {
       this.searchText = '';
     }
+    this.closeMenu();
   }
 
   private openMenu() {
