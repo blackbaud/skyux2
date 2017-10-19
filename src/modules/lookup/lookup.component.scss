@@ -124,7 +124,7 @@
 
 .sky-lookup-menu-item {
     @include sky-dropdown-item();
-    &.sky-lookup-menu-item-focused {
+    &.sky-lookup-menu-item-active {
         @include sky-button-variant($sky-color-white, $sky-background-color-primary-dark,
         $sky-background-color-primary-dark);
 
@@ -164,7 +164,7 @@
         font-weight: bold;
         cursor: pointer;
         opacity: .8;
-        
+
         &:hover {
             text-decoration: none;
             opacity: 1;

@@ -793,7 +793,7 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('b');
     tick(1000);
 
-    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0); /* assert the menu hasn't appeared yet */
 
     triggerBlur();
@@ -904,37 +904,37 @@ describe('Lookup component', () => {
     expect(menuItems.length).toBe(3);
 
     /* Verify the first item in the menu is the active entry */
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
 
     /* Verify up arrow does nothing */
     triggerInputKeyDown(Key.Up);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
 
     /* Verify down arrow selects the 2nd entry */
     triggerInputKeyDown(Key.Down);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
 
     /* Verify down arrow selects the 3rd entry */
     triggerInputKeyDown(Key.Down);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
 
     /* Verify down arrow does nothing */
     triggerInputKeyDown(Key.Down);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
 
     /* Verify up arrow selects the 2nd entry */
     triggerInputKeyDown(Key.Up);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(1);
     expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
 
@@ -959,11 +959,11 @@ describe('Lookup component', () => {
 
     triggerInputKeyDown(Key.Down);
     expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
-    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0);
     triggerInputKeyDown(Key.Up);
     expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-focused'));
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0);
   }));
 
