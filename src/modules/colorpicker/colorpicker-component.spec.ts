@@ -117,7 +117,7 @@ describe('Colorpicker Component', () => {
     fixture.whenStable();
     let inputElement: NodeListOf<Element> =
       element.querySelectorAll('.rgba-text > div:last-child > input');
-    let input = {
+    let input: any = {
       'hex': inputElement[0],
       'red': inputElement[1],
       'green': inputElement[2],
@@ -125,7 +125,7 @@ describe('Colorpicker Component', () => {
       'alpha': inputElement[4]
     };
     input[name].value = value;
-    let params = {
+    let params: any = {
       'bubbles': false,
       'cancelable': false
     };

@@ -32,10 +32,10 @@ let componentIdIndex = 0;
 })
 
 export class SkyColorpickerComponent implements OnInit {
-
   @Output()
   public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
-  new EventEmitter<SkyColorpickerOutput>();
+    new EventEmitter<SkyColorpickerOutput>();
+
   public idIndex: number;
   public skyColorpickerHexId: string;
   public skyColorpickerRedId: string;
@@ -56,11 +56,25 @@ export class SkyColorpickerComponent implements OnInit {
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
+
   @ViewChild('closeColorPicker')
   private closeColorPicker: ElementRef;
+
   private outputColor: string;
   private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
+
+  constructor(private service: SkyColorpickerService) {
+    componentIdIndex++;
+
+    this.idIndex = componentIdIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
+    this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
+    this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
+  }
 
   @HostListener('click', ['$event'])
   public onClick(event: any) {
@@ -85,19 +99,6 @@ export class SkyColorpickerComponent implements OnInit {
     if (code.indexOf('esc') === 0) {
       this.closeColorPicker.nativeElement.click();
     }
-  }
-
-  constructor(
-    private service: SkyColorpickerService
-  ) {
-    componentIdIndex++;
-    this.idIndex = componentIdIndex;
-    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
-    this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
-    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
-    this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
-    this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
-    this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
   }
 
   public setDialog(
