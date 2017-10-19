@@ -9,17 +9,9 @@ export class SkyListFilterInlineModel {
   public name: string;
   public value: any;
   public defaultValue: any;
-
   public filterFunction: (item: ListItemModel, filter: any) => boolean;
-
   public onChange: EventEmitter<any> = new EventEmitter<any>();
-
   public template: TemplateRef<any>;
-
-  public changed(value: any) {
-    this.value = value;
-    this.onChange.emit(value);
-  }
 
   constructor(data?: any) {
     if (data) {
@@ -29,5 +21,10 @@ export class SkyListFilterInlineModel {
       this.template = data.template;
       this.defaultValue = data.defaultValue;
     }
+  }
+
+  public changed(value: any) {
+    this.value = value;
+    this.onChange.emit(value);
   }
 }
