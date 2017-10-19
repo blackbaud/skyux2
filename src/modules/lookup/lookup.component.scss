@@ -144,11 +144,11 @@
     height: 15px;
     margin: 3px;
     padding: 1px 3px;
-    background-color: $sky-background-color-neutral-light;
+    background-color: $sky-background-color-info-light;
+    border: 1px solid $sky-highlight-color-info;
+    border-radius: 4px;
     color: $sky-text-color-default;
     cursor: default;
-    border: 1px solid $sky-border-color-neutral-medium;
-    border-radius: 5px;
     float: left;
     white-space: nowrap;
     display: list-item;
@@ -163,6 +163,12 @@
         margin-left: 5px;
         font-weight: bold;
         cursor: pointer;
+        opacity: .8;
+        
+        &:hover {
+            text-decoration: none;
+            opacity: 1;
+        }
     }
 }
 .sky-lookup-input-group {
