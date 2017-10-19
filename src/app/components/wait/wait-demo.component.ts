@@ -10,9 +10,8 @@ import {
 })
 export class SkyWaitDemoComponent {
   public isWaiting = false;
-
-  constructor(
-    private waitSvc: SkyWaitService) { }
+  
+  constructor(private waitSvc: SkyWaitService) { }
 
   public showPageWait(isBlocking: boolean) {
     if (isBlocking) {
