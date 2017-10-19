@@ -9,7 +9,7 @@ export class ColorpickerTestComponent {
   public selectedColorChanged = new EventEmitter<any>();
 
   public selectedHexType: string = 'hex6';
-  public selectedColor: string = '#2889e5';
+  public colorModel: string = '#2889e5';
   public selectedOutputFormat: string = 'rgba';
   public presetColors: string[] = [
     '#333333',

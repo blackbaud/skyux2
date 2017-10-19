@@ -32,19 +32,24 @@ describe('Colorpicker Component', () => {
   let fixture: ComponentFixture<ColorpickerTestComponent>;
   let component: ColorpickerTestComponent;
 
-  function openColorpickerAsync() {
+  function openColorpickerAsync(): Promise<any> {
+    fixture.detectChanges();
+
     return new Promise((resolve: any) => {
       fixture.componentInstance
         .selectedColorChanged
         .first()
         .subscribe((data: any) => {
           fixture.nativeElement.querySelector('.sky-dropdown-button').click();
-          resolve();
+          fixture.detectChanges();
+          fixture.whenStable().then(() => resolve());
         });
     });
   }
 
   function selectColorByIndex(index: number) {
+    fixture.detectChanges();
+
     const element = fixture.nativeElement;
     const presetColorsBtn = element.querySelectorAll('.sky-preset-color');
     const applyColorBtn = element.querySelector('.sky-btn-colorpicker-apply');
@@ -56,6 +61,7 @@ describe('Colorpicker Component', () => {
   function verifyColorpicker(spaColor: string, test: string) {
     const inputElem = fixture.nativeElement.querySelector('input');
 
+    fixture.detectChanges();
     expect(inputElem.value).toBe(spaColor);
 
     const selectedColor = fixture.nativeElement.querySelector('.selected-color');
@@ -66,13 +72,13 @@ describe('Colorpicker Component', () => {
       return Math.round(Number(eachNumber) * 100) / 100;
     });
 
+    fixture.detectChanges();
     expect(outcome.toString()).toContain(test.replace(/[\s]/g, '').split(',').toString());
   }
 
   function setInputElementValue(name: string, value: string) {
     const inputEvent = document.createEvent('Event');
     const changeEvent = document.createEvent('Event');
-
     const inputElem = fixture.nativeElement.querySelectorAll(
       '.rgba-text > div:last-child > input'
     );
@@ -96,9 +102,6 @@ describe('Colorpicker Component', () => {
     input[name].value = value;
     input[name].dispatchEvent(inputEvent);
     input[name].dispatchEvent(changeEvent);
-
-    // fixture.detectChanges();
-    // fixture.whenStable();
   }
 
   function getElementCords(elementRef: any): { middle: number, top: number } {
@@ -118,28 +121,30 @@ describe('Colorpicker Component', () => {
   function mouseHelper(x: number, y: number, event: string) {
     const document = fixture.nativeElement.parentNode.parentNode.parentNode;
 
+    let mouseEvent: any;
+
     try {
       // Deprecated browser API... IE
-      const mouseEventDeprecated = document.createEvent('MouseEvents');
-      mouseEventDeprecated.initMouseEvent(
+      mouseEvent = document.createEvent('MouseEvents');
+      mouseEvent.initMouseEvent(
         event, true, true, window, 0, 0, 0, x, y, false, false, false, false, 0, undefined
       );
-      document.dispatchEvent(mouseEventDeprecated);
     } catch (error) {
       // Chrome, Safari, Firefox
-      const mouseEvent = new MouseEvent(event, {
+      mouseEvent = new MouseEvent(event, {
         'clientX': x,
         'clientY': y
       });
-      document.dispatchEvent(mouseEvent);
     }
 
-    fixture.detectChanges();
+    document.dispatchEvent(mouseEvent);
   }
 
   function keyHelper(keyName: string, key: number, deprecatedKeyName: string) {
     const document = fixture.nativeElement.parentNode.parentNode.parentNode;
+
     let keyPress: KeyboardEvent;
+
     try {
       // Chrome, Safari, Firefox
       keyPress = new KeyboardEvent('keydown', {
@@ -160,7 +165,7 @@ describe('Colorpicker Component', () => {
     document.dispatchEvent(keyPress);
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         ColorpickerTestComponent
@@ -174,41 +179,41 @@ describe('Colorpicker Component', () => {
 
     fixture = TestBed.createComponent(ColorpickerTestComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+    // fixture.detectChanges();
+  });
 
-  it('should output RGBA', () => {
+  it('should output RGBA', async(() => {
     openColorpickerAsync().then(() => {
       selectColorByIndex(4);
       verifyColorpicker('rgba(189,64,64,1)', '189, 64, 64');
     });
-  });
+  }));
 
-  it('should output HEX', () => {
+  it('should output HEX', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       selectColorByIndex(4);
       verifyColorpicker('#bd4040', '189, 64, 64');
     });
-  });
+  }));
 
-  it('should accept a new HEX3 color', () => {
+  it('should accept a new HEX3 color', async(() => {
     component.selectedOutputFormat = 'rgba';
     openColorpickerAsync().then(() => {
       setInputElementValue('hex', '#BC4');
       verifyColorpicker('rgba(187,204,68,1)', '187, 204, 68');
     });
-  });
+  }));
 
-  it('should accept a new HEX6 color', () => {
+  it('should accept a new HEX6 color', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       setInputElementValue('hex', '#BFF666');
       verifyColorpicker('#bff666', '191, 246, 102');
     });
-  });
+  }));
 
-  it('should accept a new RGB color', () => {
+  it('should accept a new RGB color', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       setInputElementValue('red', '77');
@@ -216,9 +221,9 @@ describe('Colorpicker Component', () => {
       setInputElementValue('blue', '183');
       verifyColorpicker('#4d3ab7', '77, 58, 183');
     });
-  });
+  }));
 
-  it('should accept a new RGBA color', () => {
+  it('should accept a new RGBA color', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       setInputElementValue('red', '163');
@@ -227,25 +232,25 @@ describe('Colorpicker Component', () => {
       setInputElementValue('alpha', '0.3');
       verifyColorpicker('#a31354', '163, 19, 84, 0.3');
     });
-  });
+  }));
 
-  it('should accept a new HSL color', () => {
+  it('should accept a new HSL color', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       setInputElementValue('hex', 'hsl(113,78%,41%)');
       verifyColorpicker('#2aba17', '42, 186, 23');
     });
-  });
+  }));
 
-  it('should accept a new HSLA color', () => {
+  it('should accept a new HSLA color', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       setInputElementValue('hex', 'hsla(231,66%,41%,0.62)');
       verifyColorpicker('#2438ae', '36, 56, 174');
     });
-  });
+  }));
 
-  it('should allow user to click cancel the color change', () => {
+  it('should allow user to click cancel the color change', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       const button = fixture.nativeElement.querySelector('.sky-btn-colorpicker-close');
@@ -258,9 +263,9 @@ describe('Colorpicker Component', () => {
       button.dispatchEvent(buttonEvent);
       verifyColorpicker('#2889e5', '40, 137, 229');
     });
-  });
+  }));
 
-  it('should allow user to click apply the color change', () => {
+  it('should allow user to click apply the color change', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       const button = fixture.nativeElement.querySelector('.sky-btn-colorpicker-apply');
@@ -273,9 +278,9 @@ describe('Colorpicker Component', () => {
       button.dispatchEvent(buttonEvent);
       verifyColorpicker('#2b7230', '43, 114, 48');
     });
-  });
+  }));
 
-  it('should accept mouse down events on hue bar', () => {
+  it('should accept mouse down events on hue bar', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       const hueBar = fixture.debugElement.query(By.css('.hue'));
@@ -302,9 +307,9 @@ describe('Colorpicker Component', () => {
 
       verifyColorpicker('#a328e5', '163, 40, 229');
     });
-  });
+  }));
 
-  it('should accept mouse down events on alpha bar', () => {
+  it('should accept mouse down events on alpha bar', async(() => {
     component.selectedOutputFormat = 'rgba';
     openColorpickerAsync().then(() => {
       const alphaBar = fixture.debugElement.query(By.css('.alpha'));
@@ -331,9 +336,9 @@ describe('Colorpicker Component', () => {
 
       verifyColorpicker('rgba(40,137,229,0.77)', '40, 137, 229, 0.77');
     });
-  });
+  }));
 
-  it('should accept mouse down events on saturation and lightness', () => {
+  it('should accept mouse down events on saturation and lightness', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       const slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
@@ -381,9 +386,9 @@ describe('Colorpicker Component', () => {
 
       verifyColorpicker('#285380', '40, 83, 128');
     });
-  });
+  }));
 
-  it('should accept mouse dragging on saturation and lightness', () => {
+  it('should accept mouse dragging on saturation and lightness', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       const slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
@@ -403,34 +408,35 @@ describe('Colorpicker Component', () => {
       mouseHelper(axis.middle + 50, axis.top, 'mouseup');
       verifyColorpicker('#285480', '40, 84, 128');
     });
-  });
+  }));
 
-  it('should output HSLA in css format', () => {
+  it('should output HSLA in css format', async(() => {
+    component.colorModel = '#123456';
     component.selectedOutputFormat = 'hsla';
+    component.selectedHexType = 'hex8';
     openColorpickerAsync().then(() => {
-      setInputElementValue('hex', '#123456');
       verifyColorpicker('hsla(210,65%,20%,1)', '18, 51, 84');
     });
-  });
+  }));
 
-  it('should accept HEX8 alpha conversions', () => {
-    component.selectedHexType = 'hex8';
+  it('should accept HEX8 alpha conversions', async(() => {
+    component.colorModel = '#12345680';
     component.selectedOutputFormat = 'rgba';
+    component.selectedHexType = 'hex8';
     openColorpickerAsync().then(() => {
-      setInputElementValue('hex', '#12345680');
       verifyColorpicker('rgba(18,52,86,0.5)', '18, 52, 86, 0.5');
     });
-  });
+  }));
 
-  it('should output CMYK in css format', () => {
+  it('should output CMYK in css format', async(() => {
     component.selectedOutputFormat = 'cmyk';
     openColorpickerAsync().then(() => {
       setInputElementValue('hex', '#654321');
       verifyColorpicker('cmyk(0%,34%,67%,60%)', '101, 67, 33');
     });
-  });
+  }));
 
-  it('should accept transparency', () => {
+  it('should accept transparency', async(() => {
     component.selectedOutputFormat = 'hsla';
     openColorpickerAsync().then(() => {
       setInputElementValue('red', '0');
@@ -439,9 +445,9 @@ describe('Colorpicker Component', () => {
       setInputElementValue('alpha', '0');
       verifyColorpicker('hsla(0,0%,0%,0)', '0, 0, 0, 0');
     });
-  });
+  }));
 
-  it('should accept color change through directive host listener', () => {
+  it('should accept color change through directive host listener', async(() => {
     component.selectedOutputFormat = 'rgba';
     openColorpickerAsync().then(() => {
       const inputElem = fixture.nativeElement.querySelector('input');
@@ -458,9 +464,9 @@ describe('Colorpicker Component', () => {
 
       verifyColorpicker('rgba(69,35,252,1)', '69, 35, 252');
     });
-  });
+  }));
 
-  it('should allow user to esc cancel the color change', () => {
+  it('should allow user to esc cancel the color change', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       setInputElementValue('hex', '#086A93');
@@ -469,13 +475,13 @@ describe('Colorpicker Component', () => {
       keyHelper('Escape', 27, 'Esc');
       verifyColorpicker('#2889e5', '40, 137, 229');
     });
-  });
+  }));
 
-  it('should specify type="button" on all button elements', () => {
+  it('should specify type="button" on all button elements', async(() => {
     component.selectedOutputFormat = 'hex';
     openColorpickerAsync().then(() => {
       expect(fixture.nativeElement.querySelectorAll('button:not([type="button"])').length)
         .toBe(0);
     });
-  });
+  }));
 });

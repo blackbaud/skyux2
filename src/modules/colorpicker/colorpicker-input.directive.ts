@@ -197,7 +197,12 @@ export class SkyColorpickerInputDirective
 
     if (typeof color === 'string') {
       let formatColor: SkyColorpickerOutput;
-      let hsva: SkyColorpickerHsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
+      let hsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
+
+      if (!hsva) {
+        hsva = this.service.stringToHsva(color, false);
+      }
+
       formatColor = this.service.skyColorpickerOut(hsva);
       return formatColor;
     }
