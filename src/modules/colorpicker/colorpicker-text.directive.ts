@@ -1,4 +1,3 @@
-// spell-checker:ignore Colorpicker
 import {
   Directive,
   Input,
@@ -15,10 +14,13 @@ import { SkyColorpickerChangeColor } from './types/colorpicker-color';
 export class SkyColorpickerTextDirective {
   @Output()
   public newColorContrast = new EventEmitter<SkyColorpickerChangeColor>();
+
   @Input()
   public skyColorpickerText: any;
+
   @Input()
   public color: string;
+
   @Input()
   public maxRange: number;
 
@@ -26,6 +28,7 @@ export class SkyColorpickerTextDirective {
   public changeInput(event: Event) {
     let element: HTMLInputElement = <HTMLInputElement>event.target;
     let elementValue = parseFloat(element.value);
+
     if (this.maxRange === undefined) {
       this.newColorContrast.emit({
         color: element.value,

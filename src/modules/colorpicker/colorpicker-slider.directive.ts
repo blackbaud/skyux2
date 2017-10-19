@@ -1,4 +1,3 @@
-// spell-checker:ignore Colorpicker
 import {
   Directive,
   Input,
@@ -7,21 +6,27 @@ import {
   EventEmitter,
   HostListener
 } from '@angular/core';
-import { SkyColorpickerChangeAxis } from './types/colorpicker-axis';
+
+import {
+  SkyColorpickerChangeAxis
+} from './types/colorpicker-axis';
 
 @Directive({
   selector: '[skyColorpickerSlider]'
 })
 export class SkyColorpickerSliderDirective {
-
   @Output()
   public newColorContrast = new EventEmitter<SkyColorpickerChangeAxis>();
+
   @Input()
   public skyColorpickerSlider: string;
+
   @Input()
   public color: string;
+
   @Input()
   public xAxis: number;
+
   @Input()
   public yAxis: number;
 
@@ -38,6 +43,7 @@ export class SkyColorpickerSliderDirective {
     let width = this.el.nativeElement.offsetWidth;
     let xAxis = Math.max(0, Math.min(this.getX(event), width));
     let yAxis = Math.max(0, Math.min(this.getY(event), height));
+
     if (this.xAxis !== undefined && this.yAxis !== undefined) {
       this.newColorContrast.emit({
         xCoordinate: xAxis / width,
@@ -51,17 +57,13 @@ export class SkyColorpickerSliderDirective {
         maxRange: this.xAxis
       } as SkyColorpickerChangeAxis);
     }
-    /* // No vertical bars
-     if (this.xAxis === undefined && this.yAxis !== undefined) {
-          this.newColorContrast.emit({ yCoordinate: yAxis / height, maxRange: this.yAxis });
-    } */
-
   }
 
   public move(event: any) {
     event.preventDefault();
     this.setCursor(event);
   }
+
   @HostListener('touchstart', ['$event'])
   @HostListener('mousedown', ['$event'])
   public start(event: MouseEvent) {
@@ -84,15 +86,16 @@ export class SkyColorpickerSliderDirective {
       /* Ignoring event.touches as tests are not run on a touch device. */
       /* istanbul ignore next */
       event.pageX !== undefined ? event.pageX : event.touches[0].pageX)
-      - this.el.nativeElement.getBoundingClientRect().left
-      - window.pageXOffset;
+        - this.el.nativeElement.getBoundingClientRect().left
+        - window.pageXOffset;
   }
+
   public getY(event: any): number {
     return (
       /* Ignoring event.touches as tests are not run on a touch device. */
       /* istanbul ignore next */
       event.pageY !== undefined ? event.pageY : event.touches[0].pageY)
-      - this.el.nativeElement.getBoundingClientRect().top
-      - window.pageYOffset;
+        - this.el.nativeElement.getBoundingClientRect().top
+        - window.pageYOffset;
   }
 }

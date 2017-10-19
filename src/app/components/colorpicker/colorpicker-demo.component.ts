@@ -5,9 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './colorpicker-demo.component.html'
 })
 export class SkyColorpickerDemoComponent {
-  public color1: any;
-  public color2: any;
-  public selectedColor1: string = '#2889e5';
+  public color1 = '#2889e5';
+  public color2 = '#000';
   public selectedOutputFormat1: string = 'rgba';
   public presetColors1 = [
     '#333333',
@@ -23,6 +22,4 @@ export class SkyColorpickerDemoComponent {
     '#A1B1A7',
     '#68AFEF'
   ];
-
-  public constructor() { }
 }

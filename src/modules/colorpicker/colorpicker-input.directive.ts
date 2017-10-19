@@ -1,4 +1,3 @@
-// spell-checker:ignore Colorpicker, Validators, RGBA, hsva, hsla, cmyk, Dropdown
 import {
   ElementRef,
   Directive,
@@ -11,10 +10,6 @@ import {
   SimpleChanges,
   OnDestroy
 } from '@angular/core';
-import { SkyColorpickerService } from './colorpicker.service';
-import { SkyColorpickerComponent } from './colorpicker.component';
-import { SkyColorpickerHsva } from './types/colorpicker-hsva';
-import { SkyColorpickerOutput } from './types/colorpicker-output';
 
 import {
   ControlValueAccessor,
@@ -23,9 +18,15 @@ import {
   NG_VALIDATORS,
   AbstractControl
 } from '@angular/forms';
+
 import {
   Subscription
 } from 'rxjs/Subscription';
+
+import { SkyColorpickerService } from './colorpicker.service';
+import { SkyColorpickerComponent } from './colorpicker.component';
+import { SkyColorpickerHsva } from './types/colorpicker-hsva';
+import { SkyColorpickerOutput } from './types/colorpicker-output';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_COLORPICKER_VALUE_ACCESSOR = {
@@ -33,13 +34,13 @@ const SKY_COLORPICKER_VALUE_ACCESSOR = {
   useExisting: forwardRef(() => SkyColorpickerInputDirective),
   multi: true
 };
-
 const SKY_COLORPICKER_VALIDATOR = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => SkyColorpickerInputDirective),
   multi: true
 };
 // tslint:enable
+
 @Directive({
   selector: '[skyColorpickerInput]',
   providers: [
@@ -49,9 +50,6 @@ const SKY_COLORPICKER_VALIDATOR = {
 })
 export class SkyColorpickerInputDirective
   implements OnInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
-
-  public pickerChangedSubscription: Subscription;
-
   @Input()
   public skyColorpickerInput: SkyColorpickerComponent;
 
@@ -63,21 +61,23 @@ export class SkyColorpickerInputDirective
 
   @Input()
   public outputFormat: string = 'rgba';
+
   @Input()
   public presetColors: Array<string> = ['#333', '#888', '#EFEFEF', '#FFF'];
+
   @Input()
   public alphaChannel: string = 'hex6';
 
-  private created: boolean;
+  public pickerChangedSubscription: Subscription;
+
+  private firstChange = false;
   private modelValue: SkyColorpickerOutput;
 
   constructor(
     private element: ElementRef,
     private service: SkyColorpickerService,
     private renderer: Renderer
-  ) {
-    this.created = false;
-  }
+  ) { }
 
   @HostListener('input', ['$event'])
   public changeInput(event: any) {
@@ -101,14 +101,24 @@ export class SkyColorpickerInputDirective
 
   public ngOnInit() {
     this.renderer.setElementClass(this.element.nativeElement, 'sky-form-control', true);
-    this.skyColorpickerInput.initialColor = this.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
+
     this.pickerChangedSubscription =
-      this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: SkyColorpickerOutput) => {
-        this.writeValue(newColor);
-        this._onChange(newColor);
-      });
-    this.skyColorpickerInput.setColorFromString(this.initialColor);
+      this.skyColorpickerInput.selectedColorChanged
+        .subscribe((newColor: SkyColorpickerOutput) => {
+          if (!this.firstChange) {
+            this.firstChange = true;
+            this.initialColor = newColor.hex;
+            this.setColorPickerDefaults();
+          }
+
+          this.writeValue(newColor);
+          this._onChange(newColor);
+        });
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._validatorChange();
   }
 
   public ngOnDestroy() {
@@ -116,21 +126,14 @@ export class SkyColorpickerInputDirective
   }
 
   public setColorPickerDefaults() {
-      this.created = true;
-      this.skyColorpickerInput.setDialog(
-        this,
-        this.element,
-        this.initialColor,
-        this.outputFormat,
-        this.presetColors,
-        this.alphaChannel
-      );
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    this._validatorChange();
-    this.skyColorpickerInput.returnFormat = this.returnFormat;
-    this.setColorPickerDefaults();
+    this.skyColorpickerInput.setDialog(
+      this,
+      this.element,
+      this.initialColor,
+      this.outputFormat,
+      this.presetColors,
+      this.alphaChannel
+    );
   }
 
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
@@ -138,31 +141,37 @@ export class SkyColorpickerInputDirective
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
-    this.modelValue = this.formatter(value);
-    this.writeModelValue(this.modelValue);
+    if (value) {
+      this.modelValue = this.formatter(value);
+      this.writeModelValue(this.modelValue);
+    }
   }
+
   public validate(control: AbstractControl): { [key: string]: any } {
-    let value = control.value;
-    if (!value) {
+    if (!control.value) {
       return;
     }
-    // Validation
   }
 
   private writeModelValue(model: SkyColorpickerOutput) {
     if (model) {
       let setElementValue: string;
-      setElementValue = model.rgbaText;
       let output: string;
+
+      setElementValue = model.rgbaText;
+
       if (this.outputFormat === 'rgba') {
         output = model.rgbaText;
       }
+
       if (this.outputFormat === 'hsla') {
         output = model.hslaText;
       }
+
       if (this.outputFormat === 'cmyk') {
         output = model.cmykText;
       }
+
       if (this.outputFormat === 'hex') {
         output = model.hex;
       }
@@ -170,7 +179,11 @@ export class SkyColorpickerInputDirective
       this.skyColorpickerInput.setColorFromString(output);
 
       this.renderer.setElementStyle(
-        this.element.nativeElement, 'background-color', setElementValue);
+        this.element.nativeElement,
+        'background-color',
+        setElementValue
+      );
+
       this.renderer.setElementStyle(this.element.nativeElement, 'color', setElementValue);
       this.renderer.setElementProperty(this.element.nativeElement, 'value', output);
       this.renderer.setElementClass(this.element.nativeElement, 'sky-colorpicker-input', true);
@@ -178,7 +191,10 @@ export class SkyColorpickerInputDirective
   }
 
   private formatter(color: SkyColorpickerOutput) {
-    if (color && typeof color !== 'string') { return color; }
+    if (color && typeof color !== 'string') {
+      return color;
+    }
+
     if (typeof color === 'string') {
       let formatColor: SkyColorpickerOutput;
       let hsva: SkyColorpickerHsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
@@ -186,10 +202,11 @@ export class SkyColorpickerInputDirective
       return formatColor;
     }
   }
+
   /*istanbul ignore next */
   private _onChange = (_: any) => { };
+
   /*istanbul ignore next */
   private _onTouched = () => { };
   private _validatorChange = () => { };
-
 }
