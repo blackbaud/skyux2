@@ -28,7 +28,7 @@ import {
   ColorpickerTestComponent
 } from './fixtures/colorpicker-component.fixture';
 
-fdescribe('Colorpicker Component', () => {
+describe('Colorpicker Component', () => {
   let fixture: ComponentFixture<ColorpickerTestComponent>;
   let component: ColorpickerTestComponent;
 
