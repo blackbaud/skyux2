@@ -3,7 +3,7 @@
   <sky-dropdown>
     <sky-dropdown-menu>
 
-      <div class="sky-colorpicker-container">
+      <div class="sky-colorpicker-container" (click)="onContainerClick($event)">
 
         <div class="sky-colorpicker" #colorPicker>
           <div [skyColorpickerSlider] [style.background-color]="hueSliderColor" [xAxis]="1" [yAxis]="1" (newColorContrast)="saturationAndLightness=$event"
