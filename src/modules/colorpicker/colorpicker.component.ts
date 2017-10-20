@@ -1,4 +1,3 @@
-// spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva,Cmyk
 import {
   HostListener,
   ElementRef,
@@ -15,7 +14,6 @@ import { SkyColorpickerHsla } from './types/colorpicker-hsla';
 import { SkyColorpickerHsva } from './types/colorpicker-hsva';
 import { SkyColorpickerRgba } from './types/colorpicker-rgba';
 import { SkyColorpickerOutput } from './types/colorpicker-output';
-
 import { SkyColorpickerService } from './colorpicker.service';
 
 import {
@@ -30,7 +28,6 @@ let componentIdIndex = 0;
   templateUrl: './colorpicker.component.html',
   styleUrls: ['./colorpicker.component.scss']
 })
-
 export class SkyColorpickerComponent implements OnInit {
   @Output()
   public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
@@ -66,7 +63,6 @@ export class SkyColorpickerComponent implements OnInit {
 
   constructor(private service: SkyColorpickerService) {
     componentIdIndex++;
-
     this.idIndex = componentIdIndex;
     this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
     this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
@@ -74,20 +70,6 @@ export class SkyColorpickerComponent implements OnInit {
     this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
     this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
     this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
-  }
-
-  @HostListener('click', ['$event'])
-  public onClick(event: any) {
-    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    // keep the drop down open.
-    if (
-      element.classList.contains('sky-btn-colorpicker-close') ||
-      element.classList.contains('sky-btn-colorpicker-apply')
-    ) {
-      element.click();
-    } else {
-      event.stopPropagation();
-    }
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -98,6 +80,18 @@ export class SkyColorpickerComponent implements OnInit {
     /* istanbul ignore else */
     if (code.indexOf('esc') === 0) {
       this.closeColorPicker.nativeElement.click();
+    }
+  }
+
+  public onContainerClick(event: MouseEvent) {
+    const element: HTMLButtonElement = <HTMLButtonElement>event.target;
+    // Allow the click event to propagate to the dropdown handler for certain buttons.
+    // (This will allow the dropdown menu to close.)
+    if (
+      !element.classList.contains('sky-btn-colorpicker-close') &&
+      !element.classList.contains('sky-btn-colorpicker-apply')
+    ) {
+      event.stopPropagation();
     }
   }
 
@@ -126,7 +120,6 @@ export class SkyColorpickerComponent implements OnInit {
   public ngOnInit() {
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
-
   }
 
   public closePicker() {
@@ -140,14 +133,17 @@ export class SkyColorpickerComponent implements OnInit {
 
   public setColorFromString(value: string) {
     let hsva: SkyColorpickerHsva;
+
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);
-      if (!hsva && !this.hsva) {
+
+      if (!hsva) {
         hsva = this.service.stringToHsva(value, false);
       }
     } else {
       hsva = this.service.stringToHsva(value, false);
     }
+
     if (hsva) {
       this.hsva = hsva;
       this.update();
@@ -172,6 +168,7 @@ export class SkyColorpickerComponent implements OnInit {
     this.hsva = this.service.rgbaToHsva(rgba);
     this.update();
   }
+
   public set blue(change: SkyColorpickerChangeColor) {
     let rgba = this.service.hsvaToRgba(this.hsva);
     rgba.blue = change.colorValue / change.maxRange;
@@ -228,17 +225,21 @@ export class SkyColorpickerComponent implements OnInit {
     }
 
     let lastOutput = this.outputColor;
+
     this.outputColor = this.service.outputFormat(
       this.hsva,
       this.outputFormat,
-      this.alphaChannel === 'hex8');
+      this.alphaChannel === 'hex8'
+    );
+
     this.selectedColor = this.service.skyColorpickerOut(this.hsva);
 
     this.slider = new SliderPosition(
       (this.hsva.hue) * this.sliderDimMax.hue - 8,
       this.hsva.saturation * this.sliderDimMax.saturation - 8,
       (1 - this.hsva.value) * this.sliderDimMax.value - 8,
-      this.hsva.alpha * this.sliderDimMax.alpha - 8);
+      this.hsva.alpha * this.sliderDimMax.alpha - 8
+    );
 
     if (lastOutput !== this.outputColor) {
       this.selectedColorChanged.emit(this.selectedColor);

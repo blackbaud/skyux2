@@ -1,15 +1,17 @@
-// spell-checker:ignore Colorpicker
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'sky-colorpicker-fixture',
   templateUrl: './colorpicker-component.fixture.html'
 })
 export class ColorpickerTestComponent {
+  @Output()
+  public selectedColorChanged = new EventEmitter<any>();
+
   public selectedHexType: string = 'hex6';
-  public selectedColor: string = '#2889e5';
+  public colorModel: string = '#2889e5';
   public selectedOutputFormat: string = 'rgba';
-  public presetColors = [
+  public presetColors: string[] = [
     '#333333',
     '#888888',
     '#EFEFEF',
@@ -24,5 +26,7 @@ export class ColorpickerTestComponent {
     '#68AFEF'
   ];
 
-  public constructor() { }
+  public onSelectedColorChanged(newColor: any) {
+    this.selectedColorChanged.emit(newColor);
+  }
 }

@@ -1,11 +1,12 @@
 <div>
-  <sky-colorpicker #colorPickerTest>
+  <sky-colorpicker
+    (selectedColorChanged)="onSelectedColorChanged($event)"
+    #colorPickerTest>
     <input
-    [skyColorpickerInput]="colorPickerTest"
-    [(ngModel)]="colorModel"
-    [presetColors]="presetColors"
-    [initialColor]="selectedColor"
-    [outputFormat]="selectedOutputFormat"
-    [alphaChannel]="selectedHexType"/>
+      [skyColorpickerInput]="colorPickerTest"
+      [(ngModel)]="colorModel"
+      [presetColors]="presetColors"
+      [outputFormat]="selectedOutputFormat"
+      [alphaChannel]="selectedHexType">
   </sky-colorpicker>
 </div>

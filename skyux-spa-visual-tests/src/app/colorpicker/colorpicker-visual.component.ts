@@ -5,8 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './colorpicker-visual.component.html'
 })
 export class ColorpickerVisualComponent {
-  public color1: any;
-  public selectedColor1: string = '#2889e5';
+  public color1 = '#2889e5';
   public selectedOutputFormat1: string = 'rgba';
   public presetColors1 = [
     '#333333',
@@ -23,8 +22,7 @@ export class ColorpickerVisualComponent {
     '#68AFEF'
   ];
 
-  public color2: any;
-  public selectedColor2: string = '#2889e5';
+  public color2 = '#2889e5';
   public selectedOutputFormat2: string = 'rgba';
   public presetColors2 = [
     '#333333',
