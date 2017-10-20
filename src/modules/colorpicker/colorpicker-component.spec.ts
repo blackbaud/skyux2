@@ -83,7 +83,7 @@ describe('Colorpicker Component', () => {
       '.rgba-text > div:last-child > input'
     );
 
-    const input = {
+    const input: any = {
       'hex': inputElem[0],
       'red': inputElem[1],
       'green': inputElem[2],
