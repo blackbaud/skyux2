@@ -56,7 +56,7 @@ export class SkyColorpickerInputDirective
   public skyColorpickerInput: SkyColorpickerComponent;
 
   @Input()
-  public initialColor: string = '#FFFFFF';
+  public initialColor: string;
 
   @Input()
   public returnFormat: string = 'rgba';
@@ -68,6 +68,7 @@ export class SkyColorpickerInputDirective
   @Input()
   public alphaChannel: string = 'hex6';
 
+  private readonly defaultColor: string = '#FFFFFF';
   private created: boolean;
   private modelValue: SkyColorpickerOutput;
 
@@ -100,6 +101,10 @@ export class SkyColorpickerInputDirective
   }
 
   public ngOnInit() {
+    if (this.initialColor === undefined) {
+      this.initialColor = this.defaultColor;
+    }
+
     this.renderer.setElementClass(this.element.nativeElement, 'sky-form-control', true);
     this.skyColorpickerInput.initialColor = this.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
@@ -138,8 +143,10 @@ export class SkyColorpickerInputDirective
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
-    this.modelValue = this.formatter(value);
-    this.writeModelValue(this.modelValue);
+    if (value) {
+      this.modelValue = this.formatter(value);
+      this.writeModelValue(this.modelValue);
+    }
   }
   public validate(control: AbstractControl): { [key: string]: any } {
     let value = control.value;
