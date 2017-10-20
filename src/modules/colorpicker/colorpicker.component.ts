@@ -94,9 +94,9 @@ export class SkyColorpickerComponent implements OnInit {
   public keyboardInput(event: any) {
     /* Ignores in place for valid code that is only used in IE and Edge */
     /* istanbul ignore next */
-    let code: string = (event.code || event.key).toLowerCase();
+    const code: string = event.code || event.key;
     /* istanbul ignore else */
-    if (code.indexOf('esc') === 0) {
+    if (code && code.toLowerCase().indexOf('esc') === 0) {
       this.closeColorPicker.nativeElement.click();
     }
   }
