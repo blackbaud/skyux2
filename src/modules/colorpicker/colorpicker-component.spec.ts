@@ -1,6 +1,4 @@
-import {
-  FormsModule
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import {
   async,
@@ -8,27 +6,15 @@ import {
   ComponentFixture
 } from '@angular/core/testing';
 
-import {
-  By
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
+import { expect } from '../testing';
 
-import {
-  SkyDropdownModule
-} from '../dropdown/dropdown.module';
+import { SkyDropdownModule } from '../dropdown/dropdown.module';
+import { SkyColorpickerModule } from './colorpicker.module';
+// import { SkyColorpickerComponent } from './colorpicker.component';
+import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 
-import {
-  expect
-} from '../testing';
-
-import {
-  SkyColorpickerModule
-} from './colorpicker.module';
-
-import {
-  ColorpickerTestComponent
-} from './fixtures/colorpicker-component.fixture';
-
-describe('Colorpicker Component', () => {
+fdescribe('Colorpicker Component', () => {
   let fixture: ComponentFixture<ColorpickerTestComponent>;
   let component: ColorpickerTestComponent;
 
@@ -179,7 +165,6 @@ describe('Colorpicker Component', () => {
 
     fixture = TestBed.createComponent(ColorpickerTestComponent);
     component = fixture.componentInstance;
-    // fixture.detectChanges();
   });
 
   it('should output RGBA', async(() => {
@@ -411,10 +396,9 @@ describe('Colorpicker Component', () => {
   }));
 
   it('should output HSLA in css format', async(() => {
-    component.colorModel = '#123456';
     component.selectedOutputFormat = 'hsla';
-    component.selectedHexType = 'hex8';
     openColorpickerAsync().then(() => {
+      setInputElementValue('hex', '#123456');
       verifyColorpicker('hsla(210,65%,20%,1)', '18, 51, 84');
     });
   }));
@@ -427,6 +411,29 @@ describe('Colorpicker Component', () => {
       verifyColorpicker('rgba(18,52,86,0.5)', '18, 52, 86, 0.5');
     });
   }));
+
+  // fit('should handle invalid HEX8 conversions', async(() => {
+  //   component.selectedHexType = 'hex8';
+  //   component.selectedOutputFormat = 'rgba';
+  //   openColorpickerAsync().then(() => {
+  //     selectColorByIndex(4);
+  //     verifyColorpicker('rgba(189,64,64,1)', '189, 64, 64');
+  //   });
+
+  //   // // component.colorModel = '#123456';
+  //   // component.selectedOutputFormat = 'hsla';
+  //   // component.selectedHexType = 'hex8';
+  //   // fixture.detectChanges();
+
+  //   // // const colorPickers = fixture.debugElement.queryAll(By.directive(SkyColorpickerComponent));
+  //   // // console.log('colorPickers?', colorPickers[0].componentInstance);
+  //   // // console.log('hsva (from test)?', colorPickers[0].componentInstance.hsva);
+  //   // // colorPickers[0].componentInstance.hsva = undefined;
+
+  //   // openColorpickerAsync().then(() => {
+  //   //   verifyColorpicker('hsla(210,65%,20%,1)', '18, 51, 84');
+  //   // });
+  // }));
 
   it('should output CMYK in css format', async(() => {
     component.selectedOutputFormat = 'cmyk';
