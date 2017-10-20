@@ -61,6 +61,17 @@ export class SkyColorpickerComponent implements OnInit {
   private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
 
+  constructor(private service: SkyColorpickerService) {
+    componentIdIndex++;
+    this.idIndex = componentIdIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
+    this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
+    this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
+  }
+
   @HostListener('document:keydown', ['$event'])
   public keyboardInput(event: any) {
     /* Ignores in place for valid code that is only used in IE and Edge */
@@ -70,19 +81,6 @@ export class SkyColorpickerComponent implements OnInit {
     if (code.indexOf('esc') === 0) {
       this.closeColorPicker.nativeElement.click();
     }
-  }
-
-  constructor(
-    private service: SkyColorpickerService
-  ) {
-    componentIdIndex++;
-    this.idIndex = componentIdIndex;
-    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
-    this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
-    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
-    this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
-    this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
-    this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
   }
 
   public onContainerClick(event: MouseEvent) {
