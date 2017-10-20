@@ -137,7 +137,7 @@ export class SkyColorpickerComponent implements OnInit {
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);
 
-      if (!hsva && !this.hsva) {
+      if (!hsva) {
         hsva = this.service.stringToHsva(value, false);
       }
     } else {
