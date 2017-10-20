@@ -153,6 +153,10 @@
     white-space: nowrap;
     display: list-item;
 
+    &.sky-lookup-selected-item-active {
+        background-color: $sky-background-color-info
+    }
+
     p {
         display: inline;
         padding: 0;

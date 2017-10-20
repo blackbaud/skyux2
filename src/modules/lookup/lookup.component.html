@@ -5,7 +5,8 @@
       class="sky-lookup-input-container sky-input-group sky-dropdown-button">
       <ul class="sky-lookup-input-group">
         <ng-container *ngIf="multiple">
-          <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item">
+          <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item"
+          [ngClass]="{'sky-lookup-selected-item-active': (item === activeSelectedItem)}">
             <p>{{item[descriptorProperty]}}</p>
             <span class="sky-lookup-item-delete" (click)="removeSelectedItem(item)">
               <i class="fa fa-times"></i>

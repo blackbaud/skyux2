@@ -19,8 +19,11 @@ enum Key {
   Tab = 9,
   Enter = 13,
   Escape = 27,
+  Left = 37,
   Up = 38,
-  Down = 40
+  Right = 39,
+  Down = 40,
+  Delete = 46
 }
 
 function _setInput(element: DebugElement, fixture: ComponentFixture<any>, text: string) {
@@ -478,10 +481,18 @@ describe('Lookup component', () => {
     triggerInputKeyUp(76 /* letter l */);
     triggerInputKeyDown(76 /* letter l */);
 
-    /* Escape\Up\Down should be entirely ignored by key up */
+    /* Left and right should be ignored, this is single selection mode */
+    triggerInputKeyDown(Key.Left);
+    expect(component.lookupComponent.activeSelectedItem).toBe(undefined);
+    triggerInputKeyDown(Key.Right);
+    expect(component.lookupComponent.activeSelectedItem).toBe(undefined);
+
+    /* Escape\Up\Down\Left\Right should be entirely ignored by key up */
     triggerInputKeyUp(Key.Escape);
     triggerInputKeyUp(Key.Up);
     triggerInputKeyUp(Key.Down);
+    triggerInputKeyUp(Key.Left);
+    triggerInputKeyUp(Key.Right);
 
     triggerInputKeyUp(Key.Backspace);
     triggerInputKeyDown(Key.Backspace);
@@ -747,7 +758,7 @@ describe('Lookup component', () => {
       { name: 'Black' },
       { name: 'Brown' }
     ];
-    component.selectedItems = [component.data[1]];
+    component.selectedItems = [component.data[1], component.data[2]];
     fixture.detectChanges();
     tick();
 
@@ -755,24 +766,317 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
+    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
+    expect(selectionList.length).toBe(2);
+    expect(selectionList[0].nativeElement.innerHTML).toBe('Black');
+    expect(selectionList[1].nativeElement.innerHTML).toBe('Brown');
+
+    /* The backspace is ignored because input isn't empty */
     triggerInputKeyDown(Key.Backspace);
     tick();
     fixture.detectChanges();
-    expect(component.selectedItems[0]).toBe(component.data[1]);
 
     setInput('');
     tick();
     fixture.detectChanges();
 
+    /* The first backspace works like a left arrow, activate the first selected item */
     triggerInputKeyDown(Key.Backspace);
     tick();
     fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The 2nd backspace clears the selected item and moves left */
+    triggerInputKeyDown(Key.Backspace);
+    tick();
+    fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    expect(component.selectedItems.length).toBe(1);
+    expect(component.selectedItems[0]).toBe(component.data[1]);
+
+    /* The 3rd backspace clears the selected item and leaves the field empty */
+    triggerInputKeyDown(Key.Backspace);
+    tick();
+    fixture.detectChanges();
+
+    expect(element.query(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
+    )).toBeNull();
     expect(component.selectedItems.length).toBe(0);
 
     triggerInputKeyDown(Key.Backspace);
     tick();
     fixture.detectChanges();
     expect(component.selectedItems.length).toBe(0);
+  }));
+
+  it('should handle nav between active items (up & down)', fakeAsync(() => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Brown' }
+    ];
+    component.selectedItems = [component.data[1], component.data[2]];
+    fixture.detectChanges();
+    tick();
+
+    setInput('b');
+    tick();
+    fixture.detectChanges();
+
+    /* The up is applied to the menu and not the active item because input isn't empty */
+    triggerInputKeyDown(Key.Up);
+    tick();
+    fixture.detectChanges();
+
+    expect(element.query(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
+    )).toBeNull();
+
+    setInput('');
+    tick();
+    fixture.detectChanges();
+
+    /* The first up works like a left arrow, activate the first selected item */
+    triggerInputKeyDown(Key.Up);
+    tick();
+    fixture.detectChanges();
+
+    let selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The 2nd up moves left */
+    triggerInputKeyDown(Key.Up);
+    tick();
+    fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The 3rd up does nothing */
+    triggerInputKeyDown(Key.Up);
+    tick();
+    fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The down will move right */
+    triggerInputKeyDown(Key.Down);
+    tick();
+    fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The down will move to no active item state */
+    triggerInputKeyDown(Key.Down);
+    tick();
+    fixture.detectChanges();
+
+    expect(element.query(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
+    )).toBeNull();
+    expect(component.selectedItems.length).toBe(2);
+  }));
+
+  it('should handle nav between active items (left & right)', fakeAsync(() => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Brown' }
+    ];
+    component.selectedItems = [component.data[1], component.data[2]];
+    fixture.detectChanges();
+    tick();
+
+    setInput('b');
+    tick();
+    fixture.detectChanges();
+
+    /* The left is applied to the menu and not the active item because input isn't empty */
+    triggerInputKeyDown(Key.Left);
+    tick();
+    fixture.detectChanges();
+
+    expect(element.query(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
+    )).toBeNull();
+
+    setInput('');
+    tick();
+    fixture.detectChanges();
+
+    /* The first left key works like a left arrow, activate the first selected item */
+    triggerInputKeyDown(Key.Left);
+    tick();
+    fixture.detectChanges();
+
+    let selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The 2nd left key moves left */
+    triggerInputKeyDown(Key.Left);
+    tick();
+    fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The 3rd left key does nothing */
+    triggerInputKeyDown(Key.Left);
+    tick();
+    fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The key will move right */
+    triggerInputKeyDown(Key.Right);
+    tick();
+    fixture.detectChanges();
+
+    selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    expect(component.selectedItems.length).toBe(2);
+
+    /* The right will move to no active item state */
+    triggerInputKeyDown(Key.Right);
+    tick();
+    fixture.detectChanges();
+
+    expect(element.query(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
+    )).toBeNull();
+    expect(component.selectedItems.length).toBe(2);
+  }));
+
+  it('should remove specific active item', fakeAsync(() => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Brown' }
+    ];
+    component.selectedItems = [component.data[1], component.data[2]];
+    fixture.detectChanges();
+    tick();
+
+    /* The first left key works like a left arrow, activate the first selected item */
+    triggerInputKeyDown(Key.Left);
+    triggerInputKeyDown(Key.Left);
+    triggerInputKeyDown(Key.Delete);
+    tick();
+    fixture.detectChanges();
+
+    expect(element.query(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
+    )).toBeNull();
+
+    let lastSelectionChange = component.lastSelectionChange;
+    expect(lastSelectionChange.added.length).toBe(0);
+    expect(lastSelectionChange.removed.length).toBe(1);
+    expect(lastSelectionChange.removed[0].name).toBe('Black');
+    expect(lastSelectionChange.removed[0]).toBe(component.data[1]);
+    expect(lastSelectionChange.result.length).toBe(1);
+    expect(lastSelectionChange.result[0].name).toBe('Brown');
+    expect(lastSelectionChange.result[0]).toBe(component.data[2]);
+    let selectedItems = component.selectedItems;
+    expect(selectedItems.length).toBe(1);
+    expect(selectedItems[0]).toBe(component.data[2]);
+  }));
+
+  it('should not remove a selected item on delete key if no active item', fakeAsync(() => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Brown' }
+    ];
+    component.selectedItems = [component.data[1], component.data[2]];
+    fixture.detectChanges();
+    tick();
+
+    setInput('b');
+    tick();
+    fixture.detectChanges();
+    
+    triggerInputKeyDown(Key.Delete);
+    tick();
+    fixture.detectChanges();
+
+    expect(component.lastSelectionChange).toBe(undefined);
+    expect(component.selectedItems.length).toBe(2);
+  }));
+
+  it('should handle tab to remove active item selection and enter entry mode', fakeAsync(() => {
+    component.data = [
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Brown' }
+    ];
+    component.selectedItems = [component.data[1], component.data[2]];
+    fixture.detectChanges();
+    tick();
+
+    triggerInputKeyDown(Key.Left);
+    tick();
+    fixture.detectChanges();
+
+    let selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    expect(selectionList.length).toBe(1);
+    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+
+    triggerInputKeyDown(Key.Tab);
+    tick();
+    fixture.detectChanges();
+
+    expect(element.query(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
+    )).toBeNull();
+    expect(component.selectedItems.length).toBe(2);
   }));
 
   it('should remove the specified selected item when the x is clicked', fakeAsync(() => {
@@ -1000,7 +1304,74 @@ describe('Lookup component', () => {
     expect(element.query(By.css('input')).nativeElement.value).toBe('');
   }));
 
-  it('should ignore up and down arrow keys when menu closed', fakeAsync(() => {
+  it('should respect left and right arrow keys', fakeAsync(() => {
+    component.multiple = true;
+    component.data = [
+      { name: 'White' },
+      { name: 'Blue' },
+      { name: 'Black' },
+      { name: 'Beigh' },
+      { name: 'Brown' },
+      { name: 'Green' }
+    ];
+    component.selectedItems = [component.data[1]];
+    fixture.detectChanges();
+    tick();
+
+    setInput('b');
+    tick();
+    fixture.detectChanges();
+
+    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item'));
+    expect(menuItems.length).toBe(3);
+
+    /* Verify the first item in the menu is the active entry */
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(1);
+    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
+
+    /* Verify left arrow does nothing */
+    triggerInputKeyDown(Key.Left);
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(1);
+    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
+
+    /* Verify right arrow selects the 2nd entry */
+    triggerInputKeyDown(Key.Right);
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(1);
+    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
+
+    /* Verify right arrow selects the 3rd entry */
+    triggerInputKeyDown(Key.Right);
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(1);
+    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
+
+    /* Verify right arrow does nothing */
+    triggerInputKeyDown(Key.Right);
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(1);
+    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
+
+    /* Verify left arrow selects the 2nd entry */
+    triggerInputKeyDown(Key.Left);
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(1);
+    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
+
+    /* Verify tab uses active item from menu */
+    triggerInputKeyDown(Key.Tab);
+    tick();
+
+    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
+    expect(selectionList[0].nativeElement.innerHTML).toBe('Blue');
+    expect(selectionList[1].nativeElement.innerHTML).toBe('Beigh');
+
+    expect(element.query(By.css('input')).nativeElement.value).toBe('');
+  }));
+
+  it('should ignore up, down, left, right arrow keys when menu closed', fakeAsync(() => {
     component.multiple = true;
     component.data = [
       { name: 'Blue' }
@@ -1012,7 +1383,18 @@ describe('Lookup component', () => {
     expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
     let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0);
+
     triggerInputKeyDown(Key.Up);
+    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(0);
+    
+    triggerInputKeyDown(Key.Left);
+    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    expect(menuItems.length).toBe(0);
+    
+    triggerInputKeyDown(Key.Right);
     expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
     menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0);

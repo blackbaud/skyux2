@@ -76,6 +76,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
 
   public searchText: string;
   public searchInputFocused: boolean = false;
+  public activeSelectedItem: any;
   public activeMenuItem: any;
   public results: Array<any>;
 
@@ -130,25 +131,53 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       let removedItems = this.selectedItems.splice(0, this.selectedItems.length);
       this.notifySelectionChange(undefined, removedItems);
     }
+    this.closeMenu();
   }
 
   public keydown(event: KeyboardEvent, searchText: string) {
     if (event.which === 27 /* Escape Key */) {
       event.preventDefault();
       this.revertSelection();
-    } else if (event.which === 8 /* Backspace */) {
-      if (this.multiple && this.isSearchTextEmpty() && this.selectedItems.length > 0) {
-        let removedItems = this.selectedItems.splice(this.selectedItems.length - 1, 1);
-        this.notifySelectionChange(undefined, removedItems);
+      return;
+    } else if (event.which === 46 /* Delete */) {
+      if (this.activeSelectedItem) {
+        event.preventDefault();
+        this.removeSelectedItem(this.activeSelectedItem);
       }
-    } else if (event.which === 38 /* Up Key */) {
+    }else if (event.which === 8 /* Backspace */) {
+      if (this.multiple && this.isSearchTextEmpty()) {
+        event.preventDefault();
+        let activeItem = this.activeSelectedItem;
+        this.moveActiveSelectedItemLeft();
+        if (activeItem) {
+          this.removeSelectedItem(activeItem);
+        }
+      }
+    } else if (event.which === 38 /* Up Key */ || event.which === 37 /* Left Key */) {
       event.preventDefault();
-      this.moveActiveMenuItemUp();
-    } else if (event.which === 40 /* Down Key */) {
+      if (this.open) {
+        this.moveActiveMenuItemUp();
+      } else if (this.multiple && this.isSearchTextEmpty()) {
+        this.moveActiveSelectedItemLeft();
+      }
+    } else if (event.which === 40 /* Down Key */ || event.which === 39 /* Right Key */) {
       event.preventDefault();
-      this.moveActiveMenuItemDown();
-    } else if (event.which === 9 /* Tab */) {
-      this.resolvePartialSearch();
+      if (this.open) {
+        this.moveActiveMenuItemDown();
+      } else if (this.multiple && this.isSearchTextEmpty()) {
+        this.moveActiveSelectedItemRight();
+      }
+    } if (event.which === 9 /* Tab */) {
+      if (this.activeSelectedItem) {
+        event.preventDefault();
+        this.activeSelectedItem = undefined;
+      } else {
+        this.resolvePartialSearch();
+      }
+    }
+    /* Supress all key messages if there is an active selected item */
+    if (this.activeSelectedItem) {
+      event.preventDefault();
     }
   }
 
@@ -163,7 +192,9 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     } else if (
       event.which !== 9 /* Tab Key */
       && event.which !== 27 /* Escape Key */
+      && event.which !== 37 /* Left Key */
       && event.which !== 38 /* Up Key */
+      && event.which !== 39 /* Right Key */
       && event.which !== 40 /* Down Key */
     ) {
       this.queueSearch();
@@ -197,10 +228,13 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public removeSelectedItem(item: any) {
-    let index = this.selectedItems.findIndex((n) => { return (n === item); });
+    let index = this.findIndex(this.selectedItems, item);
     if (index > -1) {
       let removedItems = this.selectedItems.splice(index, 1);
       this.notifySelectionChange(undefined, removedItems);
+    }
+    if (this.activeSelectedItem === item) {
+      this.activeSelectedItem = undefined;
     }
   }
 
@@ -281,7 +315,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   private isItemSelected(item: any) {
-    return this.selectedItems.findIndex((n) => { return (n === item); }) > -1;
+    return this.findIndex(this.selectedItems, item) > -1;
   }
 
   private isSearchMatch(item: any, searchTextLower: string) {
@@ -307,6 +341,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       this.searchText = '';
     }
     this.closeMenu();
+    this.activeSelectedItem = undefined;
   }
 
   private openMenu() {
@@ -324,21 +359,44 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     }
   }
 
-  private moveActiveMenuItemDown() {
-    if (this.open && this.activeMenuItem) {
-      let index = this.results.findIndex((n) => { return (n === this.activeMenuItem); });
-      if (index > -1 && this.results.length > index + 1) {
-        this.activeMenuItem = this.results[index + 1];
+  private findIndex(list: Array<any>, item: any) {
+    return list.findIndex((n) => { return (n === item); });;
+  }
+
+  private moveActiveSelectedItemRight() {
+    if (this.selectedItems.length > 0) {
+      let index = this.findIndex(this.selectedItems, this.activeSelectedItem);
+      if (index > -1 && this.selectedItems.length > index + 1) {
+        this.activeSelectedItem = this.selectedItems[index + 1];
+      } else {
+        this.activeSelectedItem = undefined;
       }
     }
   }
 
-  private moveActiveMenuItemUp() {
-    if (this.open && this.activeMenuItem) {
-      let index = this.results.findIndex((n) => { return (n === this.activeMenuItem); });
+  private moveActiveSelectedItemLeft() {
+    if (this.selectedItems.length > 0) {
+      let index = this.findIndex(this.selectedItems, this.activeSelectedItem);
       if (index > 0) {
-        this.activeMenuItem = this.results[index - 1];
+        this.activeSelectedItem = this.selectedItems[index - 1];
+      } else if (index < 0) {
+        this.activeSelectedItem = this.selectedItems[this.selectedItems.length - 1];
       }
+      /* If index = 0, leave the active item alone */
+    }
+  }
+
+  private moveActiveMenuItemDown() {
+    let index = this.findIndex(this.results, this.activeMenuItem);
+    if (index > -1 && this.results.length > index + 1) {
+      this.activeMenuItem = this.results[index + 1];
+    }
+  }
+
+  private moveActiveMenuItemUp() {
+    let index = this.findIndex(this.results, this.activeMenuItem);
+    if (index > 0) {
+      this.activeMenuItem = this.results[index - 1];
     }
   }
 
