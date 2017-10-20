@@ -1,9 +1,7 @@
 import {
-  EventEmitter,
-  Injectable
+  EventEmitter
 } from '@angular/core';
 
-@Injectable()
 export class SkyModalHostService {
   public static get openModalCount(): number {
     return SkyModalHostService.modalHosts.length;
@@ -31,7 +29,7 @@ export class SkyModalHostService {
   public close = new EventEmitter<void>();
   public openHelp = new EventEmitter<any>();
 
-  public constructor(private fullPage: boolean) {
+  constructor(private fullPage: boolean) {
     SkyModalHostService.modalHosts.push(this);
   }
 

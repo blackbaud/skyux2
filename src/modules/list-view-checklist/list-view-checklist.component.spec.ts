@@ -478,7 +478,7 @@ describe('List View Checklist Component', () => {
       expect(clearAllEl).toBeNull();
 
       let toolbarSectionsEl = nativeElement.querySelectorAll('sky-toolbar-section');
-      expect(toolbarSectionsEl.item(1).attributes['hidden']).not.toBeUndefined();
+      expect((toolbarSectionsEl.item(1) as any).attributes['hidden']).not.toBeUndefined();
 
     }));
 
