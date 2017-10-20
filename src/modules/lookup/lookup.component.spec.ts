@@ -114,6 +114,31 @@ describe('Lookup component', () => {
     fixture.detectChanges();
   }
 
+  function validateMenuClosed() {
+    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+    validateActiveMenuItem(undefined);
+  }
+
+  function validateActiveMenuItem(activeItemText: string) {
+    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
+    if (activeItemText) {
+      expect(menuItems[0].nativeElement.textContent.trim()).toBe(activeItemText);
+    } else {
+      expect(menuItems.length).toBe(0);
+    }
+  }
+
+  function validateActiveSelectedItem(activeItemText: string) {
+    let selectionList = element.queryAll(
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+    );
+    if (activeItemText) {
+      expect(selectionList[0].nativeElement.textContent.trim()).toBe(activeItemText);
+    } else {
+      expect(selectionList.length).toBe(0);
+    }
+  }
+
   describe('standard lookup', () => {
     beforeEach(() => {
       component.multiple = false;
@@ -431,7 +456,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+    validateMenuClosed();
     expect(inputEl.nativeElement.value).toBe('');
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
     expect(component.selectedItems.length).toBe(0);
@@ -459,7 +484,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+    validateMenuClosed();
     expect(inputEl.nativeElement.value).toBe('Black');
     expect(element.query(By.css('.sky-lookup-btn-clear'))).not.toBeNull();
     expect(component.selectedItems[0]).toBe(component.data[1]);
@@ -573,7 +598,7 @@ describe('Lookup component', () => {
 
     expect(component.selectedItems[0]).toBe(component.data[1]);
     expect(element.query(By.css('input')).nativeElement.value).toBe('Black');
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+    validateMenuClosed();
   }));
  });
 
@@ -785,11 +810,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveSelectedItem('Brown');
     expect(component.selectedItems.length).toBe(2);
 
     /* The 2nd backspace clears the selected item and moves left */
@@ -797,11 +818,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveSelectedItem('Black');
     expect(component.selectedItems.length).toBe(1);
     expect(component.selectedItems[0]).toBe(component.data[1]);
 
@@ -810,9 +827,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    expect(element.query(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
-    )).toBeNull();
+    validateActiveSelectedItem(undefined);
     expect(component.selectedItems.length).toBe(0);
 
     triggerInputKeyDown(Key.Backspace);
@@ -840,9 +855,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    expect(element.query(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
-    )).toBeNull();
+    validateActiveSelectedItem(undefined);
 
     setInput('');
     tick();
@@ -853,11 +866,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    let selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveSelectedItem('Brown');
     expect(component.selectedItems.length).toBe(2);
 
     /* The 2nd up moves left */
@@ -865,11 +874,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveSelectedItem('Black');
     expect(component.selectedItems.length).toBe(2);
 
     /* The 3rd up does nothing */
@@ -877,11 +882,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveSelectedItem('Black');
     expect(component.selectedItems.length).toBe(2);
 
     /* The down will move right */
@@ -889,11 +890,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveSelectedItem('Brown');
     expect(component.selectedItems.length).toBe(2);
 
     /* The down will move to no active item state */
@@ -901,10 +898,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    expect(element.query(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
-    )).toBeNull();
-    expect(component.selectedItems.length).toBe(2);
+    validateActiveSelectedItem(undefined);
   }));
 
   it('should handle nav between active items (left & right)', fakeAsync(() => {
@@ -926,9 +920,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    expect(element.query(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
-    )).toBeNull();
+    validateActiveSelectedItem(undefined);
 
     setInput('');
     tick();
@@ -939,11 +931,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    let selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveSelectedItem('Brown');
     expect(component.selectedItems.length).toBe(2);
 
     /* The 2nd left key moves left */
@@ -951,11 +939,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveSelectedItem('Black');
     expect(component.selectedItems.length).toBe(2);
 
     /* The 3rd left key does nothing */
@@ -963,11 +947,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveSelectedItem('Black');
     expect(component.selectedItems.length).toBe(2);
 
     /* The key will move right */
@@ -975,11 +955,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveSelectedItem('Brown');
     expect(component.selectedItems.length).toBe(2);
 
     /* The right will move to no active item state */
@@ -987,9 +963,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    expect(element.query(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
-    )).toBeNull();
+    validateActiveSelectedItem(undefined);
     expect(component.selectedItems.length).toBe(2);
   }));
 
@@ -1010,9 +984,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    expect(element.query(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
-    )).toBeNull();
+    validateActiveSelectedItem(undefined);
 
     let lastSelectionChange = component.lastSelectionChange;
     expect(lastSelectionChange.added.length).toBe(0);
@@ -1062,20 +1034,12 @@ describe('Lookup component', () => {
     triggerInputKeyDown(Key.Left);
     tick();
     fixture.detectChanges();
-
-    let selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
-    );
-    expect(selectionList.length).toBe(1);
-    expect(selectionList[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveSelectedItem('Brown');
 
     triggerInputKeyDown(Key.Tab);
     tick();
     fixture.detectChanges();
-
-    expect(element.query(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active')
-    )).toBeNull();
+    validateActiveSelectedItem(undefined);
     expect(component.selectedItems.length).toBe(2);
   }));
 
@@ -1124,8 +1088,7 @@ describe('Lookup component', () => {
     expect(inputEl.nativeElement.value).toBe('b');
     tick(1000);
 
-    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(0); /* assert the menu hasn't appeared yet */
+    validateMenuClosed(); /* assert the menu hasn't appeared yet */
 
     triggerInputKeyDown(Key.Tab);
     tick(1000);
@@ -1180,7 +1143,7 @@ describe('Lookup component', () => {
 
     expect(component.selectedItems[0]).toBe(component.data[1]);
     expect(element.query(By.css('input')).nativeElement.value).toBe('');
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
+    validateMenuClosed();
   }));
  });
 
@@ -1259,39 +1222,27 @@ describe('Lookup component', () => {
     expect(menuItems.length).toBe(3);
 
     /* Verify the first item in the menu is the active entry */
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveMenuItem('Black');
 
     /* Verify up arrow does nothing */
     triggerInputKeyDown(Key.Up);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveMenuItem('Black');
 
     /* Verify down arrow selects the 2nd entry */
     triggerInputKeyDown(Key.Down);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
+    validateActiveMenuItem('Beigh');
 
     /* Verify down arrow selects the 3rd entry */
     triggerInputKeyDown(Key.Down);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveMenuItem('Brown');
 
     /* Verify down arrow does nothing */
     triggerInputKeyDown(Key.Down);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveMenuItem('Brown');
 
     /* Verify up arrow selects the 2nd entry */
     triggerInputKeyDown(Key.Up);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
+    validateActiveMenuItem('Beigh');
 
     /* Verify tab uses active item from menu */
     triggerInputKeyDown(Key.Tab);
@@ -1326,39 +1277,27 @@ describe('Lookup component', () => {
     expect(menuItems.length).toBe(3);
 
     /* Verify the first item in the menu is the active entry */
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveMenuItem('Black');
 
     /* Verify left arrow does nothing */
     triggerInputKeyDown(Key.Left);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Black');
+    validateActiveMenuItem('Black');
 
     /* Verify right arrow selects the 2nd entry */
     triggerInputKeyDown(Key.Right);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
+    validateActiveMenuItem('Beigh');
 
     /* Verify right arrow selects the 3rd entry */
     triggerInputKeyDown(Key.Right);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveMenuItem('Brown');
 
     /* Verify right arrow does nothing */
     triggerInputKeyDown(Key.Right);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Brown');
+    validateActiveMenuItem('Brown');
 
     /* Verify left arrow selects the 2nd entry */
     triggerInputKeyDown(Key.Left);
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(1);
-    expect(menuItems[0].nativeElement.textContent.trim()).toBe('Beigh');
+    validateActiveMenuItem('Beigh');
 
     /* Verify tab uses active item from menu */
     triggerInputKeyDown(Key.Tab);
@@ -1380,24 +1319,16 @@ describe('Lookup component', () => {
     tick();
 
     triggerInputKeyDown(Key.Down);
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
-    let menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(0);
+    validateMenuClosed();
 
     triggerInputKeyDown(Key.Up);
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(0);
+    validateMenuClosed();
 
     triggerInputKeyDown(Key.Left);
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(0);
+    validateMenuClosed();
 
     triggerInputKeyDown(Key.Right);
-    expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
-    menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
-    expect(menuItems.length).toBe(0);
+    validateMenuClosed();
   }));
 
   it('should handle key enter to select active item', fakeAsync(() => {
