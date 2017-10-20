@@ -13,7 +13,7 @@ import { SkyDropdownModule } from '../dropdown/dropdown.module';
 import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 
-fdescribe('Colorpicker Component', () => {
+describe('Colorpicker Component', () => {
   let fixture: ComponentFixture<ColorpickerTestComponent>;
   let component: ColorpickerTestComponent;
 
