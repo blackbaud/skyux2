@@ -43,7 +43,7 @@ function _setInput(element: DebugElement, fixture: ComponentFixture<any>, text: 
   fixture.detectChanges();
 }
 
-fdescribe('Lookup component', () => {
+describe('Lookup component', () => {
   let fixture: ComponentFixture<LookupTestComponent>;
   let nativeElement: HTMLElement;
   let component: LookupTestComponent;
@@ -1075,7 +1075,7 @@ fdescribe('Lookup component', () => {
 
 });
 
-fdescribe('Lookup with menu template component', () => {
+describe('Lookup with menu template component', () => {
   let fixture: ComponentFixture<LookupMenuTemplateTestComponent>;
   let nativeElement: HTMLElement;
   let component: LookupMenuTemplateTestComponent;
