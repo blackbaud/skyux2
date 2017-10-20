@@ -1040,7 +1040,7 @@ describe('Lookup component', () => {
     setInput('b');
     tick();
     fixture.detectChanges();
-    
+
     triggerInputKeyDown(Key.Delete);
     tick();
     fixture.detectChanges();
@@ -1388,12 +1388,12 @@ describe('Lookup component', () => {
     expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
     menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0);
-    
+
     triggerInputKeyDown(Key.Left);
     expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
     menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));
     expect(menuItems.length).toBe(0);
-    
+
     triggerInputKeyDown(Key.Right);
     expect(element.query(By.css('.sky-dropdown-menu.sky-dropdown-open'))).toBeNull();
     menuItems = element.queryAll(By.css('.sky-lookup-menu-item.sky-lookup-menu-item-active'));

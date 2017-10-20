@@ -360,7 +360,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   private findIndex(list: Array<any>, item: any) {
-    return list.findIndex((n) => { return (n === item); });;
+    return list.findIndex((n) => { return (n === item); });
   }
 
   private moveActiveSelectedItemRight() {
