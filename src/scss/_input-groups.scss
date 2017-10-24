@@ -1,66 +1,44 @@
 @import "mixins";
 
 .sky-input-group {
-  position: relative; // For dropdowns
+  position: relative;
   display: flex;
-
-  .sky-form-control {
-    // Ensure that the input is always above the *appended* addon button for
-    // proper border colors.
-    position: relative;
-
-    width: 100%;
-    margin-bottom: 0;
-  }
+  align-items: stretch;
+  width: 100%;
 }
 
-.sky-input-group-btn,
-.sky-input-group .sky-form-control {
+.sky-form-control {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  width: 1%;
+  align-items: center;
+  z-index: 2;
+}
 
-  &:not(:first-child):not(:last-child) {
+.sky-input-group-btn {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  font-size: 0;
+  white-space: nowrap;
+
+  &:first-child > .sky-btn,
+  &:last-child > .sky-btn:not(:last-child) {
+    @include sky-border-right-radius(0);
+  }
+
+  &:not(:first-child):not(:last-child) > .sky-btn {
     border-radius: 0;
   }
-}
-
-// Reset rounded corners
-.sky-input-group .sky-form-control:first-child,
-.sky-input-group-btn:first-child > .sky-btn,
-.sky-input-group-btn:last-child > .sky-btn:not(:last-child) {
-  @include sky-border-right-radius(0);
-}
-
-.sky-input-group .sky-form-control:last-child,
-.sky-input-group-btn:last-child > .sky-btn,
-.sky-input-group-btn:first-child > .sky-btn:not(:first-child),
-.sky-input-group-btn:not(:first-child) > .sky-btn {
-  @include sky-border-left-radius(0);
-}
-
-// Button input groups
-.sky-input-group-btn {
-  display: flex;
-  position: relative;
-
-  // Negative margin for spacing, position for bringing hovered/focused/actived
-  // element above the siblings.
-  > .sky-btn {
-    padding-top: 0;
-    padding-bottom: 0;
-    position: relative;
-    + .sky-btn {
-      margin-left: -1px;
-    }
+  
+  &:last-child > .sky-btn,
+  &:first-child > .sky-btn:not(:first-child),
+  &:not(:first-child) > .sky-btn {
+    @include sky-border-left-radius(0);
   }
 
-  // Negative margin to only have a 1px border between the two
-  &:first-child {
-    > .sky-btn {
-      margin-right: -1px;
-    }
-  }
-  &:last-child {
-    > .sky-btn {
-      margin-left: -1px;
-    }
+  & > .sky-btn {
+    margin-left: -1px;
   }
 }
