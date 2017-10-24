@@ -12,7 +12,9 @@ if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
 
   npm run ci
 
-  skyux build
+  # Sometimes our builds take longer than 10 minutes.
+  # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
+  travis_wait skyux build
   ./scripts/visual-baseline.sh
 
 else
