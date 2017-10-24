@@ -1,8 +1,9 @@
 @import '../../scss/mixins';
+@import '../../scss/_variables';
 
 @media (min-width: $sky-screen-sm-min) {
     .sky-search-input-container {
-        min-width: 300px;
+        min-width: $sky-search-width;
     }
 }
 
