@@ -36,7 +36,9 @@ after_install:
   - sudo cp .node_modules/@blackbaud/skyux-builder/ssl/skyux-ca.crt /usr/local/share/ca-certificates/skyux-ca.crt
   - sudo update-ca-certificates
 
-script: ./scripts/travis-script.sh
+# Sometimes the build takes longer than 10 minutes.
+# https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
+script: travis_wait ./scripts/travis-script.sh
 after_script: ./scripts/travis-after-script.sh
 after_success:
   - bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
