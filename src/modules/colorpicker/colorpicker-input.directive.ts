@@ -40,6 +40,9 @@ const SKY_COLORPICKER_VALIDATOR = {
   multi: true
 };
 // tslint:enable
+
+const SKY_COLORPICKER_DEFAULT_COLOR = '#FFFFFF';
+
 @Directive({
   selector: '[skyColorpickerInput]',
   providers: [
@@ -56,7 +59,13 @@ export class SkyColorpickerInputDirective
   public skyColorpickerInput: SkyColorpickerComponent;
 
   @Input()
-  public initialColor: string;
+  public set initialColor(value: string) {
+    this._initialColor = value || SKY_COLORPICKER_DEFAULT_COLOR;
+  }
+
+  public get initialColor(): string {
+    return this._initialColor;
+  }
 
   @Input()
   public returnFormat: string = 'rgba';
@@ -68,7 +77,7 @@ export class SkyColorpickerInputDirective
   @Input()
   public alphaChannel: string = 'hex6';
 
-  private readonly defaultColor: string = '#FFFFFF';
+  private _initialColor = SKY_COLORPICKER_DEFAULT_COLOR;
   private created: boolean;
   private modelValue: SkyColorpickerOutput;
 
@@ -101,10 +110,6 @@ export class SkyColorpickerInputDirective
   }
 
   public ngOnInit() {
-    if (this.initialColor === undefined) {
-      this.initialColor = this.defaultColor;
-    }
-
     this.renderer.setElementClass(this.element.nativeElement, 'sky-form-control', true);
     this.skyColorpickerInput.initialColor = this.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
