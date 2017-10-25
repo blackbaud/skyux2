@@ -197,3 +197,47 @@
     </sky-link-records-nomatch-content>
   </sky-link-records>
 </div>
+
+<div id="screenshot-link-records-created-match-long-field">
+  <sky-link-records
+    [items]="longFieldItems"
+    [matches]="matches2"
+    [showNewFieldValues]="false"
+    id="create-link-records-long-field">
+    <sky-link-records-item-title>
+      <ng-template let-item="item">Applicant</ng-template>
+    </sky-link-records-item-title>
+    <sky-link-records-item-content>
+      <ng-template let-item="item" >
+        <div>Original Item</div>
+        <div>{{ item?.id }}</div>
+        <div>{{ item?.name }}</div>
+        <div>{{ item?.description }}</div>
+      </ng-template>
+    </sky-link-records-item-content>
+    <sky-link-records-match-content>
+      <ng-template let-match="match">
+        <div>Match Item</div>
+        <div>{{ match?.item?.id }}</div>
+        <div>{{ match?.item?.name }}</div>
+        <div>{{ match?.item?.description }}</div>
+      </ng-template>
+    </sky-link-records-match-content>
+    <sky-link-records-nomatch-content>
+      <ng-template let-item="item" let-match="match" let-api="api">
+        <div *ngIf="match?.item">
+          <div>Match Item</div>
+          <div>{{ match?.item?.id }}</div>
+          <div>{{ match?.item?.name }}</div>
+          <div>{{ match?.item?.description }}</div>
+        </div>
+        <div *ngIf="!match?.item">
+          <div>Match Search</div>
+          <button class="sky-btn sky-btn-default" (click)="api.addSelectedItem(item?.id, newItem)">
+            Test Select
+          </button>
+        </div>
+      </ng-template>
+    </sky-link-records-nomatch-content>
+  </sky-link-records>
+</div>
