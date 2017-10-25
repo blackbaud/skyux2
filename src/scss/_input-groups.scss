@@ -6,7 +6,7 @@
   align-items: stretch;
   width: 100%;
 
-  .sky-form-control {
+  > .sky-form-control {
     position: relative;
     display: flex;
     flex: 1 1 auto;
@@ -20,7 +20,6 @@
   position: relative;
   display: flex;
   align-items: stretch;
-  font-size: 0;
   white-space: nowrap;
 
   &:first-child > .sky-btn,
