@@ -109,7 +109,7 @@
     position: fixed;
     @include sky-shadow;
     z-index: $sky-dropdown-z-index;
-  
+
     &.sky-dropdown-open {
       display: block;
     }
@@ -192,6 +192,7 @@
 }
 .sky-lookup-input-item {
     display: list-item;
+    float: left;
     overflow: hidden;
     padding: 0;
 }
