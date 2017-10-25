@@ -15,6 +15,10 @@ export class LinkRecordsVisualComponent {
     { id: '1', address: 101, name: 'Apple', description: 'Anne eats apples' }
   ]);
 
+  public longFieldItems: Observable<any> = Observable.of([
+    { id: '1', address: 101, name: 'Apple', description: 'Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz' }
+  ]);
+
   public matches: Observable<Array<any>> = Observable.of([
     {
       key: '1',
