@@ -206,7 +206,7 @@ describe('SkyPopoverComponent', () => {
     document.dispatchEvent(escapeEvent);
 
     fixture.detectChanges();
-    const element = fixture.debugElement.query(By.css('.sky-popover-container.hidden'));
+    const element = fixture.debugElement.query(By.css('.sky-popover-container'));
 
     expect(component.close).toHaveBeenCalled();
     expect(element.nativeElement).toBeDefined();
