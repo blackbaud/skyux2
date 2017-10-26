@@ -76,16 +76,14 @@ export class SkyColorpickerComponent implements OnInit {
     this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
   }
 
-  @HostListener('click', ['$event'])
-  public onClick(event: any) {
-    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    // keep the drop down open.
+  public onContainerClick(event: MouseEvent) {
+    const element: HTMLButtonElement = <HTMLButtonElement>event.target;
+    // Allow the click event to propagate to the dropdown handler for certain buttons.
+    // (This will allow the dropdown menu to close.)
     if (
-      element.classList.contains('sky-btn-colorpicker-close') ||
-      element.classList.contains('sky-btn-colorpicker-apply')
+      !element.classList.contains('sky-btn-colorpicker-close') &&
+      !element.classList.contains('sky-btn-colorpicker-apply')
     ) {
-      element.click();
-    } else {
       event.stopPropagation();
     }
   }
@@ -94,9 +92,9 @@ export class SkyColorpickerComponent implements OnInit {
   public keyboardInput(event: any) {
     /* Ignores in place for valid code that is only used in IE and Edge */
     /* istanbul ignore next */
-    let code: string = (event.code || event.key).toLowerCase();
+    const code: string = event.code || event.key;
     /* istanbul ignore else */
-    if (code.indexOf('esc') === 0) {
+    if (code && code.toLowerCase().indexOf('esc') === 0) {
       this.closeColorPicker.nativeElement.click();
     }
   }
