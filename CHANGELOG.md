@@ -1,3 +1,12 @@
+# 2.3.1 (2017-10-26)
+
+- Removed bottom margin of fluid-grid row component. ((#1212)[https://github.com/blackbaud/skyux2/pull/1212]) (Thanks @Blackbaud-ScottFreeman)
+- Altered popover animation states to use best practices. ((#1218)[https://github.com/blackbaud/skyux2/pull/1218])
+- Fixed visual inconsistencies with search component in IE11. ([#1234](https://github.com/blackbaud/skyux2/pull/1234))
+- Fixed various colorpicker bugs. ([#1227](https://github.com/blackbaud/skyux2/pull/1227))
+- Fixed line-breaks for long text in link records component. ([#1226](https://github.com/blackbaud/skyux2/pull/1226)) (Thanks @Blackbaud-KristinaDurivage)
+- Fixed warning thrown by modal host during builds. ((#1216)[https://github.com/blackbaud/skyux2/pull/1216])
+
 # 2.3.0 (2017-10-16)
 
 - Added CSS class name to body when modal is displayed full-page. ([#1180](https://github.com/blackbaud/skyux2/pull/1180)) (Thanks @Blackbaud-BrandonJones)
