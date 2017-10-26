@@ -147,6 +147,13 @@ describe('Colorpicker Component', () => {
     verifyColorpicker(nativeElement, 'rgba(189,64,64,1)', '189, 64, 64');
   });
 
+  it('should handle undefined initial color', () => {
+    component.selectedOutputFormat = 'hex';
+    component.selectedColor = undefined;
+    openColorpicker(nativeElement, fixture);
+    verifyColorpicker(nativeElement, '#fff', '255, 255, 255');
+  });
+
   it('should output HEX', () => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
