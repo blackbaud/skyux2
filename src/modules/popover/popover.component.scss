@@ -22,13 +22,10 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-container {
+  visibility: hidden;
+  opacity: 0;
   position: absolute;
   z-index: 9999;
-
-  &.hidden {
-    left: -99999px !important;
-    right: auto !important;
-  }
 
   @media (max-width: $sky-screen-xs-max) {
     left: 0 !important;
