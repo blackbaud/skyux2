@@ -183,16 +183,21 @@
     font-size: $sky-font-size-base;
     line-height: $sky-line-height-base;
     margin: 0;
+    overflow: hidden;
     padding: 0;
     width: 100%;
 
-    .sky-lookup-input-item .sky-lookup-input {
-        @include sky-border-left-radius(6px);
+    li {
+      display: list-item;
+      overflow: hidden;
+      padding: 0;
     }
-}
-.sky-lookup-input-item {
-    display: list-item;
-    float: left;
-    overflow: hidden;
-    padding: 0;
+
+    .sky-lookup-input {
+      @include sky-border-left-radius(6px);
+    }
+
+    .sky-lookup-input-item {
+      float: left;
+    }
 }

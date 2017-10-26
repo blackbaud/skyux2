@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class SkyLookupDemoComponent {
   public oceans: any[];
-  public selectedOceans: any[];
+  public selectedOceans: any[] = [];
 
   public fruits: any[];
   public selectedFruits: any[];
