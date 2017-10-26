@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { expect } from '../testing';
-import { ConfirmationDialogConfig } from './confirmation-dialog-config';
+import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
 import { SkyModalInstance } from '../modal/modal-instance';
 import { SkyModalModule } from '../modal/modal.module';
 import { SkyConfirmationDialogFormComponent } from './confirmation-dialog-form.component';
@@ -25,7 +25,7 @@ describe('Confirmation dialog form component', () => {
         SkyModalModule
       ],
       providers: [
-        { provide: ConfirmationDialogConfig, useValue: config },
+        { provide: SkyConfirmationDialogConfig, useValue: config },
         { provide: SkyModalInstance, useValue: modalInstance },
         { provide: SkyModalHostService, useValue: mockHost },
         { provide: SkyModalConfiguration, useValue: {} }
@@ -43,7 +43,7 @@ describe('Confirmation dialog form component', () => {
         SkyModalModule
       ],
       providers: [
-        { provide: ConfirmationDialogConfig, useValue: config },
+        { provide: SkyConfirmationDialogConfig, useValue: config },
         { provide: SkyModalInstance, useValue: modalInstance },
         { provide: SkyModalHostService, useValue: mockHost },
         { provide: SkyModalConfiguration, useValue: {} }

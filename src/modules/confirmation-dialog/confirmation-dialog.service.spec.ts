@@ -1,5 +1,5 @@
 import { SkyConfirmationDialogService } from './confirmation-dialog.service';
-import { ConfirmationDialogConfig } from './confirmation-dialog-config';
+import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
 import { MockModalService } from './fixtures/mocks';
 import { SkyConfirmationDialogFormComponent } from './confirmation-dialog-form.component';
 
@@ -14,7 +14,7 @@ describe('Confirmation dialog service', () => {
     };
 
     const expectedConfig = {
-      providers: [{ provide: ConfirmationDialogConfig, useValue: config }]
+      providers: [{ provide: SkyConfirmationDialogConfig, useValue: config }]
     };
 
     let service = new SkyConfirmationDialogService(modalService);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationDialogConfig } from './confirmation-dialog-config';
+import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
 import { SkyModalInstance } from '../modal/modal-instance';
 import { SkyResources } from '../resources';
 
@@ -10,7 +10,7 @@ import { SkyResources } from '../resources';
 })
 export class SkyConfirmationDialogFormComponent implements OnInit {
   constructor(
-    public context: ConfirmationDialogConfig,
+    public context: SkyConfirmationDialogConfig,
     public instance: SkyModalInstance) {}
 
   public ngOnInit() {
