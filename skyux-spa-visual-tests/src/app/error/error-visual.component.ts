@@ -6,7 +6,8 @@ import {
 
 @Component({
   selector: 'error-visual',
-  templateUrl: './error-visual.component.html'
+  templateUrl: './error-visual.component.html',
+  styleUrls: ['./error-visual.component.scss']
 })
 export class ErrorVisualComponent {
   constructor(private modal: SkyErrorModalService) { }
