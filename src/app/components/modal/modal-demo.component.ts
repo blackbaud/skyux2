@@ -13,13 +13,7 @@ import { SkyModalDemoTiledFormComponent } from './modal-demo-tiled-form.componen
 export class SkyModalDemoComponent {
   constructor(private modal: SkyModalService) { }
 
-  public openModal(type: string, event: any) {
-    if (event instanceof KeyboardEvent) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-
+  public openModal(type: string) {
     const context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
@@ -62,9 +56,4 @@ export class SkyModalDemoComponent {
       `;
     });
   }
-
-  // public openModalOnKeyup(type: string, event: KeyboardEvent) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  // }
 }

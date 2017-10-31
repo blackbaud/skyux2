@@ -4,6 +4,11 @@
   display: inline-block;
 }
 
+.sky-action-button-icon-header-container {
+  display: block;
+  width: 100%;
+}
+
 @media (max-width: $sky-screen-xs-max) {
   .sky-action-button-icon-container {
     margin-left: $sky-margin-half;
