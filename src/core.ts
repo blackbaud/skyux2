@@ -59,6 +59,7 @@ import { SkyTextHighlightModule } from './modules/text-highlight';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
+import { SkyUrlValidationModule } from './modules/url-validation';
 import { SkyVerticalTabsetModule } from './modules/vertical-tabset';
 import { SkyWaitModule } from './modules/wait';
 
@@ -111,6 +112,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTilesModule,
     SkyTimepickerModule,
     SkyToolbarModule,
+    SkyUrlValidationModule,
     SkyVerticalTabsetModule,
     SkyWaitModule,
     SkyDatepickerModule
@@ -496,6 +498,11 @@ export {
   SkyToolbarModule,
   SkyToolbarSectionComponent
 } from './modules/toolbar';
+
+export {
+  SkyUrlValidationDirective,
+  SkyUrlValidationModule
+} from './modules/url-validation';
 
 export {
   SkyVerticalTabsetComponent,
