@@ -1,4 +1,8 @@
-<button type="button" class="sky-btn sky-btn-primary" (click)="openModal('defaultModal')">
+<button
+  type="button"
+  class="sky-btn sky-btn-primary"
+  (click)="openModal('defaultModal', $event)"
+  (keyup.enter)="openModal('defaultModal', $event)">
   Open modal
 </button>
 
