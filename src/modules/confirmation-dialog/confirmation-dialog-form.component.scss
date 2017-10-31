@@ -1,11 +1,12 @@
+@import "../../scss/mixins";
+
 .sky-confirmation-dialog-description-container {
-  padding-top: 5px;
-  padding-bottom: 20px;
+  padding-top: $sky-padding-half;
+  margin-bottom: $sky-margin-triple;
 }
 
 .sky-confirmation-dialog-buttons {
-  padding-top: 10px;
-  padding-bottom: 5px;
+  padding-bottom: $sky-padding-half;
 }
 
 .sky-confirmation-dialog-confirm,
