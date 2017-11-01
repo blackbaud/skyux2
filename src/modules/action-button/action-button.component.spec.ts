@@ -25,7 +25,7 @@ import {
   MockSkyMediaQueryService
 } from '../testing/mocks';
 
-fdescribe('Action button component', () => {
+describe('Action button component', () => {
   let fixture: ComponentFixture<ActionButtonTestComponent>;
   let cmp: ActionButtonTestComponent;
   let el: HTMLElement;
