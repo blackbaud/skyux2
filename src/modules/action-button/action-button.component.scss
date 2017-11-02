@@ -1,44 +1,31 @@
 @import '../../scss/mixins';
 
-.sky-action-button-icon-header-container {
+:host {
+  padding-left: $sky-margin;
+  padding-right: $sky-margin;
   display: block;
-  width: 100%;
-}
 
-.sky-action-button {
-  max-width: 236px;
-  padding-top: $sky-padding-double;
-  padding-right: $sky-padding-double;
-  padding-left: $sky-padding-double;
-  padding-bottom: 30px;
-  text-align: center;
-  cursor: pointer;
-
-  &:hover{
-    border-color: darken($sky-border-color-neutral-light, 12%);
+  @media (min-width: $sky-screen-sm-min) {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
-@media (min-width: $sky-screen-sm-min) {
-  .sky-action-button {
+.sky-action-button {
+  display: block;
+  width: 100%;
+  padding: $sky-padding-double $sky-padding-double 30px $sky-padding-double;
+  white-space: normal;
+
+  @media (min-width: $sky-screen-sm-min) {
+    min-width: 236px;
+    max-width: 236px;
     padding: 30px $sky-padding-double;
   }
 }
 
-@media (max-width: $sky-screen-xs-max) {
-  .sky-action-button-icon-header-container {
-    margin-bottom: $sky-margin-double;
-  }
-
-  :host {
-    padding-left: $sky-margin;
-    padding-right: $sky-margin;
-  }
-
-  .sky-action-button {
-    max-width: 100%;
-    width: 100%;
-    display: block;
-  }
+.sky-action-button-icon-header-container {
+  display: block;
+  width: 100%;
+  margin-bottom: $sky-margin-double;
 }
-
