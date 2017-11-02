@@ -193,12 +193,14 @@ describe('Lookup component', () => {
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
   });
 
-  it('should apply focus on container click', () => {
+  it('should apply focus on container click', fakeAsync(() => {
     fixture.detectChanges();
+    tick();
 
-    let clearEl = element.query(By.css('.sky-lookup-input-group'));
-    clearEl.triggerEventHandler('click', undefined);
+    let groupEl = element.query(By.css('.sky-lookup-input-group'));
+    groupEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
+    tick();
 
     let css = '.sky-lookup-input-container.sky-input-group'
       + '.sky-dropdown-button.sky-lookup-input-focused';
@@ -206,11 +208,13 @@ describe('Lookup component', () => {
     let containerEl = element.query(By.css(css));
     expect(containerEl).not.toBeNull();
     triggerBlur();
+    tick();
+
     containerEl = element.query(By.css(css));
     expect(containerEl).toBeNull();
 
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
-  });
+  }));
 
   it('should not perform a search when focus gained or lost when the search field is empty', () => {
     fixture.detectChanges();
