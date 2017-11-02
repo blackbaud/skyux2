@@ -7,10 +7,10 @@
         <ng-container *ngIf="multiple">
           <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item"
           [ngClass]="{'sky-lookup-selected-item-active': (item === activeSelectedItem)}">
-            <p>{{item[descriptorProperty]}}</p>
-            <span class="sky-lookup-item-delete" (click)="removeSelectedItem(item)">
+            <div class="sky-lookup-selected-item-name">{{item[descriptorProperty]}}</div>
+            <div class="sky-lookup-selected-item-delete" (click)="removeSelectedItem(item)">
               <i class="fa fa-times"></i>
-            </span>
+            </div>
           </li>
         </ng-container>
         <li [ngClass]="{'sky-lookup-input-item': multiple}">

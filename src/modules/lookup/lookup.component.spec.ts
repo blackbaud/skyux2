@@ -130,7 +130,8 @@ describe('Lookup component', () => {
 
   function validateActiveSelectedItem(activeItemText: string) {
     let selectionList = element.queryAll(
-      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active p')
+      By.css('.sky-lookup-selected-item.sky-lookup-selected-item-active'
+        + ' .sky-lookup-selected-item-name')
     );
     if (activeItemText) {
       expect(selectionList[0].nativeElement.textContent.trim()).toBe(activeItemText);
@@ -675,7 +676,7 @@ describe('Lookup component', () => {
 
     expect(inputEl.nativeElement.value).toBe('');
 
-    let selectedItem = element.query(By.css('.sky-lookup-selected-item p'));
+    let selectedItem = element.query(By.css('.sky-lookup-selected-item-name'));
     expect(selectedItem.nativeElement.innerHTML).toBe('Red');
 
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
@@ -713,7 +714,7 @@ describe('Lookup component', () => {
     expect(selectedItems.length).toBe(1);
     expect(selectedItems[0]).toBe(component.data[0]);
 
-    let selectedItem = element.query(By.css('.sky-lookup-selected-item p'));
+    let selectedItem = element.query(By.css('.sky-lookup-selected-item-name'));
     expect(selectedItem.nativeElement.innerHTML).toBe('Blue');
 
     /* Select 2nd item */
@@ -740,7 +741,7 @@ describe('Lookup component', () => {
     expect(selectedItems[0]).toBe(component.data[0]);
     expect(selectedItems[1]).toBe(component.data[2]);
 
-    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
+    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item-name'));
     expect(selectionList[0].nativeElement.innerHTML).toBe('Blue');
     expect(selectionList[1].nativeElement.innerHTML).toBe('Silver');
 
@@ -763,7 +764,7 @@ describe('Lookup component', () => {
     expect(selectedItems.length).toBe(1);
     expect(selectedItems[0]).toBe(component.data[1]);
 
-    let selectedItem = element.query(By.css('.sky-lookup-selected-item p'));
+    let selectedItem = element.query(By.css('.sky-lookup-selected-item-name'));
     expect(selectedItem.nativeElement.innerHTML).toBe('Orange');
 
     expect(element.query(By.css('.sky-lookup-btn-clear'))).toBeNull();
@@ -810,7 +811,7 @@ describe('Lookup component', () => {
     tick();
     fixture.detectChanges();
 
-    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
+    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item-name'));
     expect(selectionList.length).toBe(2);
     expect(selectionList[0].nativeElement.innerHTML).toBe('Black');
     expect(selectionList[1].nativeElement.innerHTML).toBe('Brown');
@@ -1074,7 +1075,7 @@ describe('Lookup component', () => {
 
     let selectionList = element.queryAll(By.css('.sky-lookup-selected-item'));
     expect(selectionList.length).toBe(2);
-    let clearEl = selectionList[0].query(By.css('.sky-lookup-item-delete'));
+    let clearEl = selectionList[0].query(By.css('.sky-lookup-selected-item-delete'));
     clearEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
     tick();
@@ -1267,7 +1268,7 @@ describe('Lookup component', () => {
     triggerInputKeyDown(Key.Tab);
     tick();
 
-    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
+    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item-name'));
     expect(selectionList[0].nativeElement.innerHTML).toBe('Blue');
     expect(selectionList[1].nativeElement.innerHTML).toBe('Beigh');
 
@@ -1322,7 +1323,7 @@ describe('Lookup component', () => {
     triggerInputKeyDown(Key.Tab);
     tick();
 
-    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
+    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item-name'));
     expect(selectionList[0].nativeElement.innerHTML).toBe('Blue');
     expect(selectionList[1].nativeElement.innerHTML).toBe('Beigh');
 
@@ -1372,7 +1373,7 @@ describe('Lookup component', () => {
     triggerInputKeyUp(Key.Enter);
     tick();
 
-    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item p'));
+    let selectionList = element.queryAll(By.css('.sky-lookup-selected-item-name'));
     expect(selectionList[0].nativeElement.innerHTML).toBe('Black');
     expect(component.selectedItems.length).toBe(1);
     expect(component.selectedItems[0]).toBe(component.data[2]);
