@@ -1,29 +1,64 @@
 @import '../../scss/mixins';
 
-@media (min-width: $sky-screen-sm-min) {
-  .sky-action-button-container {
-    display: flex;
-    align-items: stretch;
-  }
-}
-
-@media (max-width: $sky-screen-xs-max) {
-  .sky-action-button-container {
-    padding-top: 0;
-    /deep/.sky-action-button {
-      margin-top: $sky-margin-double;
-    }
-  }
-}
-
 .sky-action-button-container {
 
-  padding-top: $sky-padding-double;
+  /deep/
+  sky-action-button {
+    padding-top: $sky-margin-double;
+    display: block;
 
-  /deep/.sky-action-button  {
-    height: 100%;
-    min-width: 236px;
-    margin-left: $sky-margin;
-    margin-right: $sky-margin;
+    @media (min-width: $sky-screen-sm-min) {
+      padding-left: $sky-margin;
+      padding-right: $sky-margin;
+      min-width: 236px;
+
+      .sky-action-button {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  @media (min-width: $sky-screen-sm-min) {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: $sky-padding-double;
+    margin-left: -$sky-margin;
+    margin-right: -$sky-margin;
   }
 }
+
+// @media (min-width: $sky-screen-sm-min) {
+//   .sky-action-button-container {
+//     display: flex;
+//     align-items: stretch;
+//   }
+// }
+
+// @media (max-width: $sky-screen-xs-max) {
+//   .sky-action-button-container {
+//     padding-top: 0;
+
+//     /deep/
+//     .sky-action-button {
+//       margin-top: $sky-margin-double;
+//       margin-left: 0 !important;
+//       margin-right: 0 !important;
+//     }
+//   }
+// }
+
+// .sky-action-button-container {
+//   padding-top: $sky-padding-double;
+
+//   /deep/
+//   .sky-action-button  {
+//     height: 100%;
+//     min-width: 236px;
+//     margin-left: $sky-margin;
+//     margin-right: $sky-margin;
+//   }
+// }
