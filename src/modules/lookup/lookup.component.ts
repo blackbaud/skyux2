@@ -249,6 +249,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public selectInput() {
+    this.searchInputFocused = true;
     this.searchAdapter.focusInput(this.elRef);
   }
 

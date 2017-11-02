@@ -197,10 +197,15 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    expect(component.lookupComponent.searchInputFocused).toBe(false);
+
     let groupEl = element.query(By.css('.sky-lookup-input-group'));
     groupEl.triggerEventHandler('click', undefined);
+
     fixture.detectChanges();
     tick();
+
+    expect(component.lookupComponent.searchInputFocused).toBe(true);
 
     let css = '.sky-lookup-input-container.sky-input-group'
       + '.sky-dropdown-button.sky-lookup-input-focused';
