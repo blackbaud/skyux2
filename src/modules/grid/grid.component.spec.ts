@@ -20,6 +20,9 @@ import {
 import {
   GridDynamicTestComponent
 } from './fixtures/grid-dynamic.component.fixture';
+
+import { GridAsyncTestComponent } from './fixtures/grid-async.component.fixture';
+
 import {
   SkyGridModule,
   SkyGridComponent,
@@ -32,10 +35,12 @@ import {
 
 let moment = require('moment');
 
-fdescribe('Grid Component', () => {
+describe('Grid Component', () => {
 
   function getColumnHeader(id: string, element: DebugElement) {
-    return element.query(By.css('th[sky-cmp-id="' + id + '"]'));
+    return element.query(
+      By.css('th[sky-cmp-id="' + id + '"]')
+    );
   }
 
   function getCell(rowId: string, columnId: string, element: DebugElement) {
@@ -43,14 +48,14 @@ fdescribe('Grid Component', () => {
       By.css('tr[sky-cmp-id="' + rowId + '"] sky-grid-cell[sky-cmp-id="' + columnId + '"]')
     );
   }
-
   describe('Basic Fixture', () => {
-    let component: GridTestComponent;
-    let fixture: ComponentFixture<GridTestComponent>;
-    let nativeElement: HTMLElement;
-    let element: DebugElement;
+    let component: GridTestComponent,
+        fixture: ComponentFixture<GridTestComponent>,
+        nativeElement: HTMLElement,
+        element: DebugElement;
 
     beforeEach(async(() => {
+
       TestBed.configureTestingModule({
         imports: [
           GridFixturesModule,
@@ -66,11 +71,9 @@ fdescribe('Grid Component', () => {
 
     function verifyHeaders(useAllHeaders: boolean = false, hiddenCol: boolean = false) {
       let headerCount = useAllHeaders ? 7 : 5;
-
       if (hiddenCol) {
         headerCount = 6;
       }
-
       expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(headerCount);
       expect(getColumnHeader('column1', element).nativeElement.textContent.trim()).toBe('Column1');
       expect(getColumnHeader('column2', element).nativeElement.textContent.trim()).toBe('Column2');
@@ -80,9 +83,7 @@ fdescribe('Grid Component', () => {
         expect(getColumnHeader('column4', element).nativeElement.textContent.trim())
           .toBe('Column4');
       }
-
       expect(getColumnHeader('column5', element).nativeElement.textContent.trim()).toBe('Column5');
-
       if (useAllHeaders) {
         expect(getColumnHeader('hiddenCol1', element).nativeElement.textContent.trim())
           .toBe('Column6');
@@ -91,17 +92,19 @@ fdescribe('Grid Component', () => {
       }
     }
 
-    function verifyData(flatData = false, useAllHeaders = false, hiddenCol = false) {
+    function verifyData(
+      flatData: boolean = false,
+      useAllHeaders: boolean = false,
+      hiddenCol: boolean = false) {
+
       for (let i = 0; i < component.data.length; i ++) {
         let row = component.data[i];
         let rowData: any;
-
         if (flatData) {
           rowData = row;
         } else {
           rowData = row.data;
         }
-
         expect(getCell(row.id, 'column1', element).nativeElement.textContent.trim())
           .toBe(rowData.column1);
         expect(getCell(row.id, 'column2', element).nativeElement.textContent.trim())
@@ -110,10 +113,9 @@ fdescribe('Grid Component', () => {
           .toBe(rowData.column3.toString());
         expect(getCell(row.id, 'column3', element)
           .query(By.css('div.sky-test-custom-template'))).not.toBeNull();
-
         if (!hiddenCol) {
           expect(getCell(row.id, 'column4', element).nativeElement.textContent.trim())
-            .toBe(rowData.column4.toString());
+          .toBe(rowData.column4.toString());
         }
 
         expect(getCell(row.id, 'column5', element).nativeElement.textContent.trim())
@@ -127,7 +129,6 @@ fdescribe('Grid Component', () => {
         }
       }
     }
-
     describe('standard setup', () => {
       beforeEach(() => {
         fixture.detectChanges();
@@ -142,7 +143,7 @@ fdescribe('Grid Component', () => {
         verifyData();
       });
 
-      it('should transform data properly into a usable format for the grid', () => {
+      it('should transform data properly into a usable formate for the grid', () => {
         component.data = [
           {
             id: '1',
@@ -199,6 +200,7 @@ fdescribe('Grid Component', () => {
         fixture.detectChanges();
 
         verifyData(true);
+
       });
 
       it('should change displayed headers and data when selected columnids change', () => {
@@ -211,7 +213,6 @@ fdescribe('Grid Component', () => {
           'hiddenCol1',
           'hiddenCol2'
         ];
-
         fixture.detectChanges();
 
         verifyHeaders(true);
@@ -230,21 +231,18 @@ fdescribe('Grid Component', () => {
       it('should change styles based on hasToolbar input', () => {
         expect(element.query(By.css('.sky-grid-table')).nativeElement)
           .not.toHaveCssClass('sky-grid-has-toolbar');
-
         component.hasToolbar = true;
         fixture.detectChanges();
-
         expect(element.query(By.css('.sky-grid-table')).nativeElement)
           .toHaveCssClass('sky-grid-has-toolbar');
       });
 
       it('should allow the access of search function on displayed columns', () => {
-        const searchFunctions = component.grid.displayedColumns.map(column => {
+        let searchFunctions = component.grid.displayedColumns.map(column => {
           return column.searchFunction;
         });
 
         expect(searchFunctions.length).toBe(5);
-
         for (let i = 0; i < searchFunctions.length; i++) {
           let result = searchFunctions[i]('Something', 'something');
           expect(result).toBe(true);
@@ -257,27 +255,24 @@ fdescribe('Grid Component', () => {
         component.searchedData = '';
 
         for (let i = 0; i < searchFunctions.length; i++) {
-          const result = searchFunctions[i]('blaah', 'something');
-
+          let result = searchFunctions[i]('blaah', 'something');
           if (component.searchText !== '') {
             expect(result).toBe(true);
           } else {
             expect(result).toBe(false);
           }
-
           component.searchText = '';
           component.searchedData = '';
+
         }
 
-        for (let i = 0; i < searchFunctions.length; i++) {
-          const result = searchFunctions[i](undefined, 'something');
-
+         for (let i = 0; i < searchFunctions.length; i++) {
+          let result = searchFunctions[i](undefined, 'something');
           if (component.searchText !== '') {
             expect(result).toBe(true);
           } else {
             expect(result).toBe(false);
           }
-
           component.searchText = '';
           component.searchedData = '';
         }
@@ -286,12 +281,10 @@ fdescribe('Grid Component', () => {
       describe('sorting', () => {
         it('adds appropriate icons and emits event on click to headers', () => {
           let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
-
           headerEl.click();
           fixture.detectChanges();
 
           headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
-
           expect(component.activeSortSelector)
             .toEqual({ fieldSelector: 'column1', descending: true});
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-down');
@@ -300,7 +293,6 @@ fdescribe('Grid Component', () => {
           fixture.detectChanges();
 
           headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
-
           expect(component.activeSortSelector)
             .toEqual({ fieldSelector: 'column1', descending: false});
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
@@ -308,12 +300,10 @@ fdescribe('Grid Component', () => {
 
         it('should not respond to click when the appropriate column option is set', () => {
           let headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
-
           headerEl.click();
           fixture.detectChanges();
 
           headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
-
           expect(component.activeSortSelector)
             .toEqual(undefined);
           expect(headerEl.querySelector('i')).not.toHaveCssClass('fa-caret-down');
@@ -678,12 +668,12 @@ fdescribe('Grid Component', () => {
   });
 
   describe('Dynamic columns', () => {
-    let component: GridDynamicTestComponent,
-      fixture: ComponentFixture<GridDynamicTestComponent>,
-      nativeElement: HTMLElement,
-      element: DebugElement;
+    it('should handle columns changing after initialization', () => {
+      let component: GridDynamicTestComponent,
+        fixture: ComponentFixture<GridDynamicTestComponent>,
+        nativeElement: HTMLElement,
+        element: DebugElement;
 
-    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           GridFixturesModule,
@@ -695,12 +685,10 @@ fdescribe('Grid Component', () => {
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
-    });
 
-    it('should handle columns changing after initialization', () => {
       fixture.detectChanges();
 
-      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(3);
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
       expect(getColumnHeader('name', element).nativeElement.textContent.trim())
         .toBe('Name Initial');
       expect(getColumnHeader('email', element).nativeElement.textContent.trim())
@@ -709,29 +697,48 @@ fdescribe('Grid Component', () => {
       component.changeColumns();
       fixture.detectChanges();
 
-      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(3);
+      expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
       expect(getColumnHeader('name', element).nativeElement.textContent.trim())
         .toBe('Name');
       expect(getColumnHeader('email', element).nativeElement.textContent.trim())
         .toBe('Email');
     });
+  });
 
-    it('should update columns when async heading changes', fakeAsync((done) => {
+  describe('async headings', () => {
+    it('should handle async column headings', (done: any) => {
+      let component: GridAsyncTestComponent;
+      let fixture: ComponentFixture<GridAsyncTestComponent>;
+      let nativeElement: HTMLElement;
+      let element: DebugElement;
+
+      TestBed.configureTestingModule({
+        imports: [
+          GridFixturesModule,
+          SkyGridModule
+        ]
+      });
+
+      fixture = TestBed.createComponent(GridAsyncTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
+
       fixture.detectChanges();
 
-      expect(getColumnHeader('asyncColumn', element).nativeElement.textContent.trim())
-        .toBe('default');
+      expect(getColumnHeader('column1', element).nativeElement.textContent.trim())
+        .toBe('');
 
-      fixture.detectChanges();
-      tick();
       fixture.detectChanges();
 
       setTimeout(() => {
-        console.log('hello?????????????????');
-        expect(getColumnHeader('asyncColumn', element).nativeElement.textContent.trim())
-          .toBe('updated');
-        done();
-      }, 500);
-    }));
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(getColumnHeader('column1', element).nativeElement.textContent.trim())
+            .toBe('updated');
+          done();
+        });
+      }, 110);
+    });
   });
 });
