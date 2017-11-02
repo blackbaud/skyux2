@@ -1,4 +1,3 @@
-/* tslint:disable:no-console */
 import { Component } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
