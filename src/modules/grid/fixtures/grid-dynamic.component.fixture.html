@@ -2,7 +2,10 @@
   [data]="data">
   <sky-grid-column *ngFor="let gridColumn of gridColumns"
     [field]="gridColumn.field"
-    [heading]="gridColumn.heading"
-    >
+    [heading]="gridColumn.heading">
+  </sky-grid-column>
+  <sky-grid-column
+    field="asyncColumn"
+    [heading]="asyncHeading | async">
   </sky-grid-column>
 </sky-grid>
