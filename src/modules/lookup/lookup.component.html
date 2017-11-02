@@ -3,7 +3,7 @@
     <div
       [ngClass]="{'sky-lookup-input-focused': searchInputFocused}"
       class="sky-lookup-input-container sky-input-group sky-dropdown-button">
-      <ul class="sky-lookup-input-group">
+      <ul class="sky-lookup-input-group" (click)="selectInput()">
         <ng-container *ngIf="multiple">
           <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item"
           [ngClass]="{'sky-lookup-selected-item-active': (item === activeSelectedItem)}">

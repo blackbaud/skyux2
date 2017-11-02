@@ -208,7 +208,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
 
   public selectMenuItem(item: any) {
     this.selectItem(item);
-    this.searchAdapter.focusInput(this.elRef);
+    this.selectInput();
   }
 
   public selectItem(item: any) {
@@ -246,6 +246,10 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     this.clearQueuedSearch();
     this.dropdownAdapter.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
     this.activeMenuItem = undefined;
+  }
+
+  public selectInput() {
+    this.searchAdapter.focusInput(this.elRef);
   }
 
   // A search will be performed after the configured delay (default 300ms)
