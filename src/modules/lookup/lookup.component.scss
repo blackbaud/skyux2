@@ -171,38 +171,38 @@
     position: relative;
     white-space: nowrap;
 
-    &.sky-lookup-selected-item-active, &.sky-lookup-selected-item-active .sky-lookup-item-delete {
+    &.sky-lookup-selected-item-active,
+    &.sky-lookup-selected-item-active .sky-lookup-selected-item-delete {
       background-color: $sky-background-color-info
     }
+  }
+}
+.sky-lookup-selected-item-name {
+  display: inline-block;
+  margin: 0;
+  overflow: hidden;
+  padding: 2px 0 3px 0px;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  width: 100%;
+}
+.sky-lookup-selected-item-delete {
+  background: $sky-background-color-info-light;
+  color: $sky-text-color-default;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+  padding: 0 3px;
+  position: absolute;
+  right: 0;
+  top: 2px;
 
-    .sky-lookup-selected-item-name {
-      display: inline-block;
-      margin: 0;
-      overflow: hidden;
-      padding: 2px 0 3px 0px;
-      text-overflow: ellipsis;
-      vertical-align: middle;
-      width: 100%;
-    }
-    .sky-lookup-selected-item-delete {
-      background: $sky-background-color-info-light;
-      color: $sky-text-color-default;
-      cursor: pointer;
-      font-weight: bold;
-      margin-left: 5px;
-      padding: 0 3px;
-      position: absolute;
-      right: 0;
-      top: 2px;
+  i {
+    opacity: .8;
 
-      i {
-        opacity: .8;
-
-        &:hover {
-          text-decoration: none;
-          opacity: 1;
-        }
-      }
+    &:hover {
+      text-decoration: none;
+      opacity: 1;
     }
   }
 }
