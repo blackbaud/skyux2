@@ -1,8 +1,8 @@
 @import '../../scss/mixins';
 
 :host {
-  padding-left: $sky-margin;
-  padding-right: $sky-margin;
+  padding-left: $sky-margin-plus-half;
+  padding-right: $sky-margin-plus-half;
   display: block;
 
   @media (min-width: $sky-screen-sm-min) {
