@@ -1,3 +1,8 @@
+# 2.3.2 (2017-10-31)
+
+- Fixed error component visual tests being clipped. ([#1241](https://github.com/blackbaud/skyux2/pull/1241))
+- Fixed colorpicker repeating background. ([#1245](https://github.com/blackbaud/skyux2/pull/1245))
+
 # 2.3.1 (2017-10-26)
 
 - Removed bottom margin of fluid-grid row component. ((#1212)[https://github.com/blackbaud/skyux2/pull/1212]) (Thanks @Blackbaud-ScottFreeman)
