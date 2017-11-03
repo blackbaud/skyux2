@@ -23,7 +23,6 @@ import { SkyColumnSelectorModule } from './modules/column-selector';
 import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
-import { SkyEmailValidationModule } from './modules/email-validation';
 import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
@@ -59,7 +58,7 @@ import { SkyTextHighlightModule } from './modules/text-highlight';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
-import { SkyUrlValidationModule } from './modules/url-validation';
+import { SkyValidationModule } from './modules/validation';
 import { SkyVerticalTabsetModule } from './modules/vertical-tabset';
 import { SkyWaitModule } from './modules/wait';
 
@@ -76,7 +75,6 @@ import { SkyWaitModule } from './modules/wait';
     SkyColumnSelectorModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
-    SkyEmailValidationModule,
     SkyErrorModule,
     SkyFileAttachmentsModule,
     SkyFilterModule,
@@ -112,7 +110,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTilesModule,
     SkyTimepickerModule,
     SkyToolbarModule,
-    SkyUrlValidationModule,
+    SkyValidationModule,
     SkyVerticalTabsetModule,
     SkyWaitModule,
     SkyDatepickerModule
@@ -204,11 +202,6 @@ export {
   SkyDropdownMenuComponent,
   SkyDropdownModule
 } from './modules/dropdown';
-
-export {
-  SkyEmailValidationDirective,
-  SkyEmailValidationModule
-} from './modules/email-validation';
 
 export {
   SkyErrorComponent,
@@ -500,9 +493,10 @@ export {
 } from './modules/toolbar';
 
 export {
+  SkyEmailValidationDirective,
   SkyUrlValidationDirective,
-  SkyUrlValidationModule
-} from './modules/url-validation';
+  SkyValidationModule
+} from './modules/validation';
 
 export {
   SkyVerticalTabsetComponent,

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { SkyUrlValidationModule } from '../';
+import { SkyValidationModule } from '../';
 import { UrlValidationTestComponent } from './url-validation.component.fixture';
 
 @NgModule({
@@ -12,7 +12,7 @@ import { UrlValidationTestComponent } from './url-validation.component.fixture';
     imports: [
         FormsModule,
         CommonModule,
-        SkyUrlValidationModule
+        SkyValidationModule
     ],
     exports: [
         UrlValidationTestComponent
