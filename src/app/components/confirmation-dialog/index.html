@@ -1,13 +1,13 @@
 <sky-demo-page pageTitle="Confirmation Dialog">
   <sky-demo-page-summary>
-    <p>The confirmation dialog service allows you to launch a simple confirmation dialog in a consistent way in SKY UX applications. The <code>SkyConfirmationDialogService</code> provider lauches the confirmation dialog. Within the <code>SkyConfirmationDialogService</code> service, you have options to display a description, and specify the text of the confirm and cancel buttons.
+    <p>The confirmation dialog service allows you to launch a simple confirmation dialog in a consistent way in SKY UX applications. The <code>SkyConfirmationDialogService</code> provider lauches the confirmation dialog. Within the <code>SkyConfirmationDialogService</code> service, you have options to display a description, type of dialog, and button text.
   </sky-demo-page-summary>
 
   <sky-demo-page-properties sectionHeading="Confirmation dialog service methods">
     <sky-demo-page-property
         propertyName="open(config)"
     >
-      Opens a confirmation dialog. The <code>config</code> parameter is an object literal to be passed to the component's constructor. This method returns the modal instance. 
+      Opens a confirmation dialog. The <code>config</code> parameter is an object literal to be passed to the component's constructor. This method returns the confirmation dialog instance. 
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -15,30 +15,65 @@
     <sky-demo-page-property
         propertyName="description"
     >
-      A <code>string</code> property of <code>config</code> that displays the text in the dialog.
+      A string property of <code>config</code> that displays the text in the dialog.
     </sky-demo-page-property>
-
     <sky-demo-page-property
-        propertyName="confirmText"
+        propertyName="type"
         isOptional="true"
     >
-      A <code>string</code> property of <code>config</code> that displays the confirm button text in the dialog. This has a default value of 'Yes'.
+      An enum of type <code>SkyConfirmationDialogType</code> used for specifying the number of 
+      buttons and default text.
+      
     </sky-demo-page-property>
-
     <sky-demo-page-property
-        propertyName="cancelText"
+        propertyName="buttons"
         isOptional="true"
     >
-      A <code>string</code> property of <code>config</code> that displays the cancel button text in the dialog. This has a default value of 'Cancel'.
+      An optional array of <code>SkyConfirmationDialogButton</code> that allow you to override the default button config.
 
     </sky-demo-page-property>
-
   </sky-demo-page-properties>
+
+  <sky-demo-page-properties sectionHeading="SkyConfirmationDialogType types">
+      <sky-demo-page-property
+          propertyName="OKDialog"
+      >
+        A single button dialog with 'OK' as the default button text. Integer value equivalent is 1.
+
+      </sky-demo-page-property>
+      <sky-demo-page-property
+          propertyName="YesCancelDialog"
+      >
+        A two button dialog with 'Yes' and 'Cancel' as the default button text. Integer value equivalent is 2.
+        
+      </sky-demo-page-property>
+      <sky-demo-page-property
+          propertyName="YesNoCancelDialog"
+      >
+        A three button dialog with 'Yes', 'No', and 'Cancel' as the default button text. Integer value equivalent is 3.
+  
+      </sky-demo-page-property>
+    </sky-demo-page-properties>
+
+    <sky-demo-page-properties sectionHeading="SkyConfirmationDialogButton properties">
+        <sky-demo-page-property
+            propertyName="text"
+        >
+          A string property that displays the button text.
+  
+        </sky-demo-page-property>
+        <sky-demo-page-property
+            propertyName="autofocus"
+        >
+          A boolean property used to specify whether this button should be autofocused. 
+          
+        </sky-demo-page-property>
+      </sky-demo-page-properties>
 
   <sky-demo-page-properties sectionHeading="Confirmation dialog events">
     <sky-demo-page-property
       propertyName="closed">
-      This is the event that is emitted by the modal instance when the dialog is closed. The <code>data</code> property of the result object will be a string with value 'confirm' meaning the confirm button was clicked and 'cancel' meaning the cancel button was clicked.
+      This is the event that is emitted by the confirmation dialog instance when the dialog is closed. A string is passed back and has the text of the button that the user clicked. 
     </sky-demo-page-property>
   </sky-demo-page-properties>
 

@@ -8,19 +8,14 @@
       </div>      
       <div class="sky-confirmation-dialog-buttons">
         <button
+         *ngFor="let btn of buttons; let i = index;"
           type="button"
-          class="sky-btn sky-btn-primary sky-confirmation-dialog-confirm"
-          (click)="instance.close('confirm')"
+          class="{{btn.style}} sky-confirmation-dialog-btn"
+          (click)="instance.close(btn.text)"
+          [attr.autofocus]="btn.autofocus ? 'autofocus' : null"
         >
-          {{ context.confirmText }}
+        {{btn.text}}
         </button>
-        <button
-          type="button"
-          class="sky-btn-link sky-confirmation-dialog-cancel"
-          (click)="instance.close('cancel')"
-        >
-          {{ context.cancelText }}
-      </button>
       </div>
     </div>
   </sky-modal-content>

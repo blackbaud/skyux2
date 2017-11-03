@@ -103,9 +103,17 @@
     "_description": "Label for the reset button to change the color back to the initial color",
     "message": "Reset"
   },
-  "confirm_dialog_default_confirm_text" : {
-    "_description": "Default text for confirm dialog's confirm button",
+  "confirm_dialog_default_ok_text" : {
+    "_description": "Default text for confirm dialog's ok button",
+    "message": "OK"
+  },
+  "confirm_dialog_default_yes_text" : {
+    "_description": "Default text for confirm dialog's yes button",
     "message": "Yes"
+  },
+  "confirm_dialog_default_no_text" : {
+    "_description": "Default text for confirm dialog's no button",
+    "message": "No"
   },
   "confirm_dialog_default_cancel_text" : {
     "_description": "Default text for confirm dialog's cancel button",

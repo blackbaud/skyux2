@@ -12,17 +12,31 @@ export class SkyConfirmationDialogDemoComponent {
 
   constructor(private confirmService: SkyConfirmationDialogService) {}
 
-  public openConfirmationDialog() {
+  public openConfirmationDialog(type: number) {
     const config: any = {
-      description: 'Are you really sure you want to do this?'
+      description: 'Are you really sure you want to do this?',
+      type: type
     };
 
-    this.confirmService.open(config).closed.subscribe((result: any) => {
-      if (result.data === 'confirm') {
-        this.action = 'You accepted the dialog.';
-      } else if (result.data === 'cancel') {
-        this.action = 'You cancelled the dialog.';
-      }
+    this.confirmService.open(config).closed.subscribe((result: string) => {
+        this.action = 'You clicked \'' + result + '\'';
+    });
+  }
+
+  public openCustomDialog() {
+    const config: any = {
+      description: 'What option are you going to select?',
+      type: 3,
+      buttons: [ { text: '1' }, { text: '2' }, { text: '3', autofocus: true } ]
+    };
+
+    this.confirmService.open(config).closed.subscribe((result: string) => {
+        switch (result) {
+          case '1': this.action = 'Action 1'; break;
+          case '2': this.action = 'Action 2'; break;
+          case '3': this.action = 'Action 3'; break;
+          default: this.action = 'Unhandled case'; break;
+        }
     });
   }
 }

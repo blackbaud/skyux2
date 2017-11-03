@@ -9,7 +9,7 @@
   padding-bottom: $sky-padding-half;
 }
 
-.sky-confirmation-dialog-confirm,
-.sky-confirmation-dialog-cancel  {
-    min-width: 15%; 
+.sky-confirmation-dialog-btn  {
+  min-width: 15%; 
+  margin-right: $sky-margin-half;
 }

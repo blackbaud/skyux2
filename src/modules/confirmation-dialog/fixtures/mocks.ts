@@ -1,13 +1,15 @@
+import { EventEmitter } from '@angular/core';
 import { SkyModalService } from '../../modal/modal.service';
 import { SkyModalInstance } from '../../modal/modal-instance';
 import { SkyModalConfigurationInterface as IConfig } from '../../modal/modal.interface';
 
 export class SkyModalInstanceMock {
-  public close() {}
+  public closed = new EventEmitter<any>();
+  public close(result?: any) { this.closed.emit({ data: result }); }
   public save() {}
 }
 
-export class MockHostService {
+export class MockHostService extends SkyModalInstance {
   public getModalZIndex(): number {
     return 1;
   }
@@ -21,9 +23,9 @@ export interface OpenParameters {
 export class MockModalService extends SkyModalService {
   public openCalls: OpenParameters[] = [];
 
-  public open(component: any, config?: IConfig): SkyModalInstance {
+  public open(component: any, config?: IConfig): SkyModalInstanceMock {
     this.openCalls.push({component: component, config: config });
 
-    return undefined;
+    return new SkyModalInstanceMock();
   }
 }

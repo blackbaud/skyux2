@@ -4,17 +4,47 @@ import { element, by } from 'protractor';
 
 describe('Confirmation dialog', () => {
 
-  it('should match previous confirmation-dialog form screenshot', () => {
+  it('should match previous one button confirmation-dialog form screenshot', () => {
     return SkyVisualTest.setupTest('confirmation-dialog')
     .then(() => {
-      element(by.css('.sky-test-confirmation-dialog')).click();
+      element(by.css('.sky-test-one-confirmation-dialog')).click();
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'confirmation-dialog-form',
+        screenshotName: 'one-button-confirmation-dialog-form',
         selector: '.sky-modal',
         checkAccessibility: true
       }).then(() => {
-        element(by.css('.sky-confirmation-dialog-cancel')).click();
+        element(by.css('.sky-dialog-btn-1')).click();
+      });
+    });
+  });
+
+  it('should match previous two button confirmation dialog form screenshot', () => {
+    return SkyVisualTest.setupTest('confirmation-dialog')
+    .then(() => {
+      element(by.css('.sky-test-two-confirmation-dialog')).click();
+      SkyVisualTest.moveCursorOffScreen();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'two-button-confirmation-dialog-form',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      }).then(() => {
+        element(by.css('.sky-dialog-btn-1')).click();
+      });
+    });
+  });
+
+  it('should match previous three button confirmation dialog form screenshot', () => {
+    return SkyVisualTest.setupTest('confirmation-dialog')
+    .then(() => {
+      element(by.css('.sky-test-three-confirmation-dialog')).click();
+      SkyVisualTest.moveCursorOffScreen();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'three-button-confirmation-dialog-form',
+        selector: '.sky-modal',
+        checkAccessibility: true
+      }).then(() => {
+        element(by.css('.sky-dialog-btn-1')).click();
       });
     });
   });
@@ -22,16 +52,15 @@ describe('Confirmation dialog', () => {
   it('should match previous confirmation dialog with long description form screenshot', () => {
     return SkyVisualTest.setupTest('confirmation-dialog')
     .then(() => {
-      element(by.css('.sky-test-confirmation-dialog-long-description')).click();
+      element(by.css('.sky-test-long-confirmation-dialog')).click();
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'confirmation-dialog-form-long-description',
         selector: '.sky-modal',
         checkAccessibility: true
       }).then(() => {
-        element(by.css('.sky-confirmation-dialog-confirm')).click();
+        element(by.css('.sky-dialog-btn-1')).click();
       });
     });
-
   });
 });

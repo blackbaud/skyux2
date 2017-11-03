@@ -1,5 +1,14 @@
-<button type="button" class="sky-btn sky-btn-primary" (click)="openConfirmationDialog()">
-    Click me
+<button type="button" class="sky-btn sky-btn-primary" (click)="openConfirmationDialog(1)">
+    OK dialog
+</button>
+<button type="button" class="sky-btn sky-btn-primary" (click)="openConfirmationDialog(2)">
+    Yes cancel dialog
+</button>
+<button type="button" class="sky-btn sky-btn-primary" (click)="openConfirmationDialog(3)">
+    Yes no cancel dialog
+</button>
+<button type="button" class="sky-btn sky-btn-primary" (click)="openCustomDialog()">
+    Custom button text dialog
 </button>
 <p>
   {{action}}

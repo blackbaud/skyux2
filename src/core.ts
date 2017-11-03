@@ -178,7 +178,9 @@ export {
 
 export {
   SkyConfirmationDialogService,
-  SkyConfirmationDialogModule
+  SkyConfirmationDialogModule,
+  SkyConfirmationDialogType,
+  SkyConfirmationDialogButton
 } from './modules/confirmation-dialog';
 
 export {

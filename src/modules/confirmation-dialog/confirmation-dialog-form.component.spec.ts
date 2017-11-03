@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-
+import { By } from '@angular/platform-browser';
 import { expect } from '../testing';
 import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
+import { SkyConfirmationDialogType } from './confirmation-dialog-type';
 import { SkyModalInstance } from '../modal/modal-instance';
 import { SkyModalModule } from '../modal/modal.module';
-import { SkyConfirmationDialogFormComponent } from './confirmation-dialog-form.component';
+import { SkyConfirmationDialogFormComponent,
+  SkyConfirmationDialogButton } from './confirmation-dialog-form.component';
 import { SkyModalHostService } from '../modal/modal-host.service';
 import { SkyModalConfiguration } from '../modal/modal-configuration';
 import { MockHostService, SkyModalInstanceMock } from './fixtures/mocks';
@@ -12,12 +14,18 @@ import { MockHostService, SkyModalInstanceMock } from './fixtures/mocks';
 describe('Confirmation dialog form component', () => {
   const modalInstance = new SkyModalInstanceMock();
   const mockHost = new MockHostService();
+  let fixture: any;
+  let nativeElement: any;
+  let element: any;
 
-  let configWithSpecifyingButtonText = function() {
-    const config: any = {
+  let configDialog = function(type: SkyConfirmationDialogType, buttons:
+    Array<SkyConfirmationDialogButton>) {
+
+    let config = new SkyConfirmationDialogConfig();
+    config = {
       description: 'dialog description test',
-      confirmText: 'accept test',
-      cancelText: 'cancel test'
+      type: type,
+      buttons: buttons
     };
 
     TestBed.configureTestingModule({
@@ -31,101 +39,195 @@ describe('Confirmation dialog form component', () => {
         { provide: SkyModalConfiguration, useValue: {} }
       ]
     });
-  };
 
-  let configWithoutSpecifyingButtonText = function() {
-    const config: any = {
-      description: 'dialog description test'
-    };
-
-    TestBed.configureTestingModule({
-      imports: [
-        SkyModalModule
-      ],
-      providers: [
-        { provide: SkyConfirmationDialogConfig, useValue: config },
-        { provide: SkyModalInstance, useValue: modalInstance },
-        { provide: SkyModalHostService, useValue: mockHost },
-        { provide: SkyModalConfiguration, useValue: {} }
-      ]
-    });
-  };
-
-  it('Description, and specified button text are displayed', () => {
-    configWithSpecifyingButtonText();
-
-    const fixture = TestBed.createComponent(SkyConfirmationDialogFormComponent);
-
-    let el = fixture.nativeElement;
-
+    fixture = TestBed.createComponent(SkyConfirmationDialogFormComponent);
+    nativeElement = fixture.nativeElement;
+    element = fixture.debugElement;
     fixture.detectChanges();
+  };
+
+  it('should display default text for OK dialog', () => {
+    configDialog(SkyConfirmationDialogType.OKDialog, undefined);
 
     // check text
-    const description = el.querySelector('.sky-confirmation-dialog-description');
-    const acceptButtonEl = el.querySelector('.sky-confirmation-dialog-confirm');
-    const cancelButtonEl = el.querySelector('.sky-confirmation-dialog-cancel');
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const okButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
 
     expect(description).toExist();
-    expect(acceptButtonEl).toExist();
-    expect(cancelButtonEl).toExist();
+    expect(okButtonEl).toExist();
 
     expect(description).toHaveText('dialog description test');
-    expect(acceptButtonEl).toHaveText('accept test');
-    expect(cancelButtonEl).toHaveText('cancel test');
+    expect(okButtonEl).toHaveText('OK');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(1);
   });
 
-  it('Description, and default button text are displayed', () => {
-    configWithoutSpecifyingButtonText();
-
-    const fixture = TestBed.createComponent(SkyConfirmationDialogFormComponent);
-
-    let el = fixture.nativeElement;
-
-    fixture.detectChanges();
+  it('should display custom text for OK dialog', () => {
+    let button = new SkyConfirmationDialogButton();
+    button.text = 'Custom Text 1';
+    configDialog(SkyConfirmationDialogType.OKDialog, [ button ]);
 
     // check text
-    const description = el.querySelector('.sky-confirmation-dialog-description');
-    const acceptButtonEl = el.querySelector('.sky-confirmation-dialog-confirm');
-    const cancelButtonEl = el.querySelector('.sky-confirmation-dialog-cancel');
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const okButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
 
     expect(description).toExist();
-    expect(acceptButtonEl).toExist();
+    expect(okButtonEl).toExist();
+
+    expect(description).toHaveText('dialog description test');
+    expect(okButtonEl).toHaveText('Custom Text 1');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(1);
+  });
+
+  it('should display default dialog when no button config is specified', () => {
+    configDialog(undefined, undefined);
+
+    // check text
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const yesButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
+    const cancelButtonEl = nativeElement.querySelector('.sky-dialog-btn-2');
+
+    expect(description).toExist();
+    expect(yesButtonEl).toExist();
     expect(cancelButtonEl).toExist();
 
     expect(description).toHaveText('dialog description test');
-    expect(acceptButtonEl).toHaveText('Yes');
+    expect(yesButtonEl).toHaveText('Yes');
     expect(cancelButtonEl).toHaveText('Cancel');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(2);
   });
 
-  it('clicking confirm button invokes close method with reason confirm', () => {
-    configWithSpecifyingButtonText();
-    let fixture = TestBed.createComponent(SkyConfirmationDialogFormComponent);
+  it('should display custom button text for yes cancel dialog', () => {
+    configDialog(SkyConfirmationDialogType.YesCancelDialog, [ { text: 'Custom Text 1' },
+      { text: 'Custom Text 2' } ]);
 
-    let el = fixture.nativeElement;
+    // check text
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const yesButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
+    const cancelButtonEl = nativeElement.querySelector('.sky-dialog-btn-2');
 
-    fixture.detectChanges();
+    expect(description).toExist();
+    expect(yesButtonEl).toExist();
+    expect(cancelButtonEl).toExist();
+
+    expect(description).toHaveText('dialog description test');
+    expect(yesButtonEl).toHaveText('Custom Text 1');
+    expect(cancelButtonEl).toHaveText('Custom Text 2');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(2);
+  });
+
+  it('should display custom second button text when partial button override is passed', () => {
+    configDialog(SkyConfirmationDialogType.YesCancelDialog, [ undefined,
+      { text: 'Custom Text 2' } ]);
+
+    // check text
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const yesButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
+    const cancelButtonEl = nativeElement.querySelector('.sky-dialog-btn-2');
+
+    expect(description).toExist();
+    expect(yesButtonEl).toExist();
+    expect(cancelButtonEl).toExist();
+
+    expect(description).toHaveText('dialog description test');
+    expect(yesButtonEl).toHaveText('Yes');
+    expect(cancelButtonEl).toHaveText('Custom Text 2');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(2);
+  });
+
+  it('should display custom first button text when partial button override is passed', () => {
+    configDialog(SkyConfirmationDialogType.YesCancelDialog, [ { text: 'Custom Text 1' } ]);
+
+    // check text
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const yesButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
+    const cancelButtonEl = nativeElement.querySelector('.sky-dialog-btn-2');
+
+    expect(description).toExist();
+    expect(yesButtonEl).toExist();
+    expect(cancelButtonEl).toExist();
+
+    expect(description).toHaveText('dialog description test');
+    expect(yesButtonEl).toHaveText('Custom Text 1');
+    expect(cancelButtonEl).toHaveText('Cancel');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(2);
+  });
+
+  it('should display default button text for yes no cancel dialog', () => {
+    configDialog(SkyConfirmationDialogType.YesNoCancelDialog, undefined);
+
+    // check text
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const yesButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
+    const noButtonEl = nativeElement.querySelector('.sky-dialog-btn-2');
+    const cancelButtonEl = nativeElement.querySelector('.sky-dialog-btn-3');
+
+    expect(description).toExist();
+    expect(yesButtonEl).toExist();
+    expect(noButtonEl).toExist();
+    expect(cancelButtonEl).toExist();
+
+    expect(description).toHaveText('dialog description test');
+    expect(yesButtonEl).toHaveText('Yes');
+    expect(noButtonEl).toHaveText('No');
+    expect(cancelButtonEl).toHaveText('Cancel');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(3);
+  });
+
+  it('should display custom button text for yes no cancel dialog', () => {
+    configDialog(SkyConfirmationDialogType.YesNoCancelDialog, [ { text: 'Custom Text 1' },
+      { text: 'Custom Text 2' }, { text: 'Custom Text 3' } ]);
+
+    // check text
+    const description = nativeElement.querySelector('.sky-confirmation-dialog-description');
+    const yesButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
+    const noButtonEl = nativeElement.querySelector('.sky-dialog-btn-2');
+    const cancelButtonEl = nativeElement.querySelector('.sky-dialog-btn-3');
+
+    expect(description).toExist();
+    expect(yesButtonEl).toExist();
+    expect(noButtonEl).toExist();
+    expect(cancelButtonEl).toExist();
+
+    expect(description).toHaveText('dialog description test');
+    expect(yesButtonEl).toHaveText('Custom Text 1');
+    expect(noButtonEl).toHaveText('Custom Text 2');
+    expect(cancelButtonEl).toHaveText('Custom Text 3');
+    expect(element.queryAll(By.css('.sky-confirmation-dialog-btn')).length).toBe(3);
+  });
+
+  it('should invoke close method with button text as reason', () => {
+    configDialog(SkyConfirmationDialogType.YesNoCancelDialog, undefined);
 
     // test close method is called when clicked
     spyOn(modalInstance, 'close');
-    const closeButtonEl = el.querySelector('.sky-confirmation-dialog-confirm');
-    closeButtonEl.click();
+    const yesButtonEl = nativeElement.querySelector('.sky-dialog-btn-1');
+    const noButtonEl = nativeElement.querySelector('.sky-dialog-btn-2');
+    const cancelButtonEl = nativeElement.querySelector('.sky-dialog-btn-3');
+    noButtonEl.click();
     expect(modalInstance.close).toHaveBeenCalled();
-    expect(modalInstance.close).toHaveBeenCalledWith('confirm');
+    expect(modalInstance.close).toHaveBeenCalledWith('No');
+    yesButtonEl.click();
+    expect(modalInstance.close).toHaveBeenCalledWith('Yes');
+    cancelButtonEl.click();
+    expect(modalInstance.close).toHaveBeenCalledWith('Cancel');
   });
 
-  it('clicking cancel button invokes close method with reason cancel', () => {
-    configWithSpecifyingButtonText();
-    let fixture = TestBed.createComponent(SkyConfirmationDialogFormComponent);
+  it('should autofocus first button when not specified in config', () => {
+    configDialog(SkyConfirmationDialogType.YesNoCancelDialog, undefined);
 
-    let el = fixture.nativeElement;
+    const buttonEl = nativeElement.querySelector('.sky-dialog-btn-1');
 
-    fixture.detectChanges();
+    expect(buttonEl.hasAttribute('autofocus')).toEqual(true);
+  });
 
-    // test close method is called when clicked
-    spyOn(modalInstance, 'close');
-    const closeButtonEl = el.querySelector('.sky-confirmation-dialog-cancel');
-    closeButtonEl.click();
-    expect(modalInstance.close).toHaveBeenCalled();
-    expect(modalInstance.close).toHaveBeenCalledWith('cancel');
+  it('should autofocus specified button from config', () => {
+    configDialog(SkyConfirmationDialogType.YesNoCancelDialog, [ undefined, undefined,
+      { autofocus: true } ]);
+
+    const buttonEl1 = nativeElement.querySelector('.sky-dialog-btn-1');
+    const buttonEl2 = nativeElement.querySelector('.sky-dialog-btn-3');
+
+    expect(buttonEl1.hasAttribute('autofocus')).toEqual(false);
+    expect(buttonEl2.hasAttribute('autofocus')).toEqual(true);
   });
 });

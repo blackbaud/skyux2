@@ -1,16 +1,17 @@
 import { SkyConfirmationDialogService } from './confirmation-dialog.service';
 import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
+import { SkyConfirmationDialogType } from './confirmation-dialog-type';
 import { MockModalService } from './fixtures/mocks';
 import { SkyConfirmationDialogFormComponent } from './confirmation-dialog-form.component';
 
 describe('Confirmation dialog service', () => {
-  it('Test open is called with correct parameters', () => {
+  it('should open confirmation dialog with correct parameters', () => {
     let modalService = new MockModalService(undefined, undefined, undefined);
 
-    const config: any = {
+    const config: SkyConfirmationDialogConfig = {
       description: 'dialog description',
-      confirmText: 'accept',
-      cancelText: 'cancel'
+      type: SkyConfirmationDialogType.YesCancelDialog,
+      buttons: [{ text: 'yes' }, { text: 'cancel' }]
     };
 
     const expectedConfig = {
