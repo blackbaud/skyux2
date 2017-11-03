@@ -3,13 +3,13 @@ import { SkyModalService } from '../../modal/modal.service';
 import { SkyModalInstance } from '../../modal/modal-instance';
 import { SkyModalConfigurationInterface as IConfig } from '../../modal/modal.interface';
 
-export class SkyModalInstanceMock {
+export class SkyModalInstanceMock extends SkyModalInstance {
   public closed = new EventEmitter<any>();
   public close(result?: any) { this.closed.emit({ data: result }); }
   public save() {}
 }
 
-export class MockHostService extends SkyModalInstance {
+export class MockHostService {
   public getModalZIndex(): number {
     return 1;
   }
