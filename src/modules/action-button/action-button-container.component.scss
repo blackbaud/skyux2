@@ -1,8 +1,9 @@
 @import '../../scss/mixins';
 
 .sky-action-button-container {
+  padding-top: $sky-padding-double;
+
   @media (min-width: $sky-screen-sm-min) {
-    padding-top: $sky-padding-double;
     display: flex;
     align-items: stretch;
   }
