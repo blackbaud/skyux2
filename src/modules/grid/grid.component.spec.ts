@@ -20,6 +20,9 @@ import {
 import {
   GridDynamicTestComponent
 } from './fixtures/grid-dynamic.component.fixture';
+
+import { GridAsyncTestComponent } from './fixtures/grid-async.component.fixture';
+
 import {
   SkyGridModule,
   SkyGridComponent,
@@ -702,4 +705,40 @@ describe('Grid Component', () => {
     });
   });
 
+  describe('async headings', () => {
+    it('should handle async column headings', (done: any) => {
+      let component: GridAsyncTestComponent;
+      let fixture: ComponentFixture<GridAsyncTestComponent>;
+      let nativeElement: HTMLElement;
+      let element: DebugElement;
+
+      TestBed.configureTestingModule({
+        imports: [
+          GridFixturesModule,
+          SkyGridModule
+        ]
+      });
+
+      fixture = TestBed.createComponent(GridAsyncTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
+
+      fixture.detectChanges();
+
+      expect(getColumnHeader('column1', element).nativeElement.textContent.trim())
+        .toBe('');
+
+      fixture.detectChanges();
+
+      setTimeout(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(getColumnHeader('column1', element).nativeElement.textContent.trim())
+            .toBe('updated');
+          done();
+        });
+      }, 110);
+    });
+  });
 });
