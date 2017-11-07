@@ -1,5 +1,7 @@
 import { Directive, forwardRef } from '@angular/core';
-import { Validator, NG_VALIDATORS, AbstractControl } from '@angular/forms';
+import { NG_VALIDATORS } from '@angular/forms';
+
+import { SkyValidator } from './validation';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_URL_VALIDATION_VALIDATOR = {
@@ -14,27 +16,13 @@ const SKY_URL_VALIDATION_VALIDATOR = {
   providers: [SKY_URL_VALIDATION_VALIDATOR]
 })
 
-export class SkyUrlValidationDirective implements Validator {
+export class SkyUrlValidationDirective extends SkyValidator {
 
-  public validate(control: AbstractControl): {[key: string]: any} {
-    let value = control.value;
-
-    if (!value) {
-      return;
-    }
-
-    if (!this.urlIsValid(value)) {
-      return {
-        'skyUrl': {
-          invalid: control.value
-        }
-      };
-    }
-
+  constructor() {
+    super(
+      'skyUrl',
+      /^((http|https):\/\/)?([\w\-]+\.)+[\w\-]+/i
+    );
   }
 
-  public urlIsValid(url: string): boolean {
-    let regex = /^(http|https):\/\/(\w+.?)+/;
-    return regex.test(url);
-  }
 }
