@@ -9,7 +9,7 @@ export abstract class SkyValidator implements Validator {
   public validate(control: AbstractControl): { [key: string]: any } {
     const value = control.value;
 
-    if (!value || this.regex.test(value)) {
+    if (!value || this.testRegex(value)) {
       return;
     }
 
@@ -18,5 +18,9 @@ export abstract class SkyValidator implements Validator {
         invalid: control.value
       }
     };
+  }
+
+  private testRegex(value: string): boolean {
+    return this.regex.test(value);
   }
 }
