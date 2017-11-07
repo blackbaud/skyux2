@@ -22,7 +22,7 @@ export class SkyEmailValidationDirective extends SkyValidator {
     super(
       'skyEmail',
       /[\w\-]+@([\w\-]+\.)+[\w\-]+/
-    )
+    );
   }
 
 }
