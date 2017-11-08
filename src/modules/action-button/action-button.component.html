@@ -3,12 +3,22 @@
     type="button"
     class="sky-action-button-target"
     (click)="buttonClicked()"
+    [attr.aria-labelledby]="componentId"
     tabindex="0">
   </button>
 
   <div class="sky-action-button-icon-header-container">
-    <ng-content select="sky-action-button-icon"></ng-content>
-    <ng-content select="sky-action-button-header"></ng-content>
+    <ng-content
+      select="sky-action-button-icon">
+    </ng-content>
+    <div id="{{ componentId }}">
+      <ng-content
+        select="sky-action-button-header">
+      </ng-content>
+    </div>
   </div>
-  <ng-content select="sky-action-button-details"></ng-content>
+
+  <ng-content
+    select="sky-action-button-details">
+  </ng-content>
 </div>
