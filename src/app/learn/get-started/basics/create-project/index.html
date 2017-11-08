@@ -13,7 +13,7 @@
         </li>
         <li><p>In the second prompt, specify the URL for a Git repo to store the source files for the application. You can use a Visual Studio Team System Git repo or a GitHub repo. The SKY UX CLI clones the repo and automatically pulls in the SKY UX template.</p>
             <p>To work locally only, you can skip the second prompt and create the SPA without a repo. Later, you can manually add a repo as a remote to the local application. To do this, enter <stache-code>git remote add origin [URL]</stache-code> in the command prompt, where "[URL]" is the path for the repo. Then to push local content to the external repo, enter <stache-code>git push origin --all</stache-code>.</p></li>
-        <li><p>After the SKY UX CLI downloads the SKY UX template project and installs its dependencies, the command prompt displays the directory name: "SPA [directory name] created in directory "skyux-spa-[directory name]."</p>
+        <li><p>After the SKY UX CLI downloads the SKY UX template project and runs <stache-code>npm install</stache-code> to install dependencies, the command prompt displays the directory name: "SPA [directory name] created in directory "skyux-spa-[directory name]."</p>
             <p>For information about the default items that the template provides in a SKY UX single-page application, see <a routerLink="/learn/reference/template-items">the template items reference</a>.</p>
         </li>
     </ol>
