@@ -3,12 +3,13 @@ sudo: required
 
 # Save the browserstack binary to a known location so we can cache it
 env:
-  - TEST_COMMAND=build
-  - TEST_COMMAND=coverage
-  - TEST_COMMAND=visual
   global:
     - CXX=g++-4.8
     - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
+  matrix:
+    - TEST_COMMAND=build
+    - TEST_COMMAND=coverage
+    - TEST_COMMAND=visual
 
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
 addons:
