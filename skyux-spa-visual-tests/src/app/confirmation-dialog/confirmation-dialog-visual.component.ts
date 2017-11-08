@@ -12,7 +12,7 @@ export class ConfirmationDialogVisualComponent {
 
   public openOneBtnDialog() {
     const config: any = {
-      description: 'Description of text',
+      message: 'Description of text',
       type: SkyConfirmationDialogType.OKDialog,
       buttons: [ { text: 'Accept' } ]
     };
@@ -22,9 +22,9 @@ export class ConfirmationDialogVisualComponent {
 
   public openTwoBtnDialog() {
     const config: any = {
-      description: 'Description of text',
+      message: 'Description of text',
       type: SkyConfirmationDialogType.YesCancelDialog,
-      buttonText: [ { text: 'Accept' }, { text: 'Cancel' } ]
+      buttons: [ { text: 'Accept' }, { text: 'Cancel' } ]
     };
 
     this.confirm.open(config);
@@ -32,9 +32,9 @@ export class ConfirmationDialogVisualComponent {
 
   public openThreeBtnDialog() {
     const config: any = {
-      description: 'Description of text',
+      message: 'Description of text',
       type: SkyConfirmationDialogType.YesNoCancelDialog,
-      buttonText: [ { text: 'Accept' }, { text: 'Deny' }, { text: 'Cancel' } ]
+      buttons: [ { text: 'Accept' }, { text: 'Deny' }, { text: 'Cancel' } ]
     };
 
     this.confirm.open(config);
@@ -42,8 +42,8 @@ export class ConfirmationDialogVisualComponent {
 
   public openLongDescriptionDialog() {
     const config: any = {
-      description: 'This is really long text so that it goes to the next line. This is really long'
-       + 'text so that it goes to the next line. This is really long text so that it goes to the'
+      message: 'This is really long text so that it goes to the next line. This is really long '
+       + 'text so that it goes to the next line. This is really long text so that it goes to the '
        + 'next line.'
     };
 

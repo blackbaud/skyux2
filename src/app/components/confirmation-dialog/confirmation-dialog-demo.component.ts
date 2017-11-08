@@ -14,7 +14,7 @@ export class SkyConfirmationDialogDemoComponent {
 
   public openConfirmationDialog(type: number) {
     const config: any = {
-      description: 'Are you really sure you want to do this?',
+      message: 'Are you really sure you want to do this?',
       type: type
     };
 
@@ -25,7 +25,7 @@ export class SkyConfirmationDialogDemoComponent {
 
   public openCustomDialog() {
     const config: any = {
-      description: 'What option are you going to select?',
+      message: 'What option are you going to select?',
       type: 3,
       buttons: [ { text: '1' }, { text: '2' }, { text: '3', autofocus: true } ]
     };

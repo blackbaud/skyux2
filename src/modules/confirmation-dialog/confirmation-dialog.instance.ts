@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
-import { SkyConfirmationDialogFormComponent } from './confirmation-dialog-form.component';
+import { SkyConfirmationDialogComponent } from './confirmation-dialog.component';
 import { SkyModalService } from '../modal/modal.service';
 import { SkyModalInstance } from '../modal/modal-instance';
 
@@ -16,7 +16,7 @@ export class SkyConfirmationDialogInstance {
       providers: [{ provide: SkyConfirmationDialogConfig, useValue: config }]
     };
 
-    this.modalInstance = modal.open(SkyConfirmationDialogFormComponent, options);
+    this.modalInstance = modal.open(SkyConfirmationDialogComponent, options);
 
     this.modalInstance.closed.subscribe((result: any) => {
       this.closed.emit(result.data);

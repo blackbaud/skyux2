@@ -1,21 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
 import { SkyConfirmationDialogType } from './confirmation-dialog-type';
+import { SkyConfirmationDialogButton } from './confirmation-dialog-button';
 import { SkyModalInstance } from '../modal/modal-instance';
 import { SkyResources } from '../resources';
 
-export class SkyConfirmationDialogButton {
-  public text?: string;
-  public autofocus?: boolean;
-  public style?: string;
-}
-
 @Component({
-  selector: 'sky-confirmation-dialog-form',
-  templateUrl: './confirmation-dialog-form.component.html',
-  styleUrls: ['./confirmation-dialog-form.component.scss']
+  selector: 'sky-confirmation-dialog',
+  templateUrl: './confirmation-dialog.component.html',
+  styleUrls: ['./confirmation-dialog.component.scss']
 })
-export class SkyConfirmationDialogFormComponent implements OnInit {
+export class SkyConfirmationDialogComponent implements OnInit {
   public buttons: Array<SkyConfirmationDialogButton>;
 
   constructor(
@@ -47,49 +42,52 @@ export class SkyConfirmationDialogFormComponent implements OnInit {
         {
           text: SkyResources.getString('confirm_dialog_default_ok_text'),
           autofocus: true,
-          style: 'sky-btn sky-btn-primary sky-dialog-btn-1'
+          buttonType: 'primary'
         }
       ];
       case SkyConfirmationDialogType.YesNoCancelDialog: return [
         {
           text: SkyResources.getString('confirm_dialog_default_yes_text'),
           autofocus: true,
-          style: 'sky-btn sky-btn-primary sky-dialog-btn-1'
+          buttonType: 'primary'
         },
         {
           text: SkyResources.getString('confirm_dialog_default_no_text'),
-          style: 'sky-btn sky-dialog-btn-2'
+          buttonType: 'default'
         },
         {
           text: SkyResources.getString('confirm_dialog_default_cancel_text'),
-          style: 'sky-btn-link sky-dialog-btn-3'
+          buttonType: 'link'
         }
       ];
       default: return [
         {
           text: SkyResources.getString('confirm_dialog_default_yes_text'),
           autofocus: true,
-          style: 'sky-btn sky-btn-primary sky-dialog-btn-1'
+          buttonType: 'primary'
         },
         {
           text: SkyResources.getString('confirm_dialog_default_cancel_text'),
-          style: 'sky-btn-link sky-dialog-btn-2'
+          buttonType: 'link'
         }
       ];
     }
   }
 
   private overrideButtonConfig() {
-    for (let i = 0; i < this.buttons.length; i++) {
-      if (this.context.buttons.length >= (i + 1) && this.context.buttons[i]) {
-        if (this.context.buttons[i].text) {
+    const configButtons = this.context.buttons;
+
+    this.buttons.forEach((button: any, i: number) => {
+      if (configButtons[i]) {
+        if (configButtons[i].text) {
           this.buttons[i].text = this.context.buttons[i].text;
         }
-        if (this.context.buttons[i].autofocus) {
+
+        if (configButtons[i].autofocus) {
           this.buttons[0].autofocus = false; // clear out default
           this.buttons[i].autofocus = true;
         }
       }
-    }
+    });
   }
 }
