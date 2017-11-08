@@ -81,10 +81,10 @@ describe('Url validation', () => {
         fixture.detectChanges();
         tick();
         setInput(nativeElement, '[]awefhawenfc0293ejwf]', fixture);
-        setInput(nativeElement, 'https://blackbaud.com', fixture);
+        setInput(nativeElement, 'blackbaud.com', fixture);
 
-        expect(nativeElement.querySelector('input').value).toBe('https://blackbaud.com');
-        expect(component.urlValidator).toEqual('https://blackbaud.com');
+        expect(nativeElement.querySelector('input').value).toBe('blackbaud.com');
+        expect(component.urlValidator).toEqual('blackbaud.com');
 
         expect(ngModel.control.valid).toBe(true);
         expect(ngModel.control.pristine).toBe(false);
