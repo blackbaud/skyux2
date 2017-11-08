@@ -17,7 +17,7 @@
     "clean:srctemp": "rimraf -- .srctemp",
     "compile:sass": "node config/utils/compile-sass.js",
     "copy:design-tokens": "node config/utils/copy-design-tokens.js",
-    "lint": "tslint 'src/**/*.ts'",
+    "lint": "skyux lint",
     "ngc": "ngc",
     "node-sass": "node-sass",
     "rollup": "rollup",
