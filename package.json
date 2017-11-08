@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "ci": "npm run lint && npm run test:ci && npm run build",
+    "ci": "npm run lint && npm run test:ci",
     "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ngc && cd ../ && npm run compile:sass && npm run copy:design-tokens && cd config/rollup && rollup -c rollup.config.js && rollup -c rollup.min.config.js && npm run clean:srctemp",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs skyux-spa-visual-tests/node_modules/ skyux-spa-visual-tests/dist/",
