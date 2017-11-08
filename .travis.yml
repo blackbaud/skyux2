@@ -7,7 +7,6 @@ env:
     - CXX=g++-4.8
     - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
   matrix:
-    - TEST_COMMAND=build
     - TEST_COMMAND=coverage
     - TEST_COMMAND=visual
 
@@ -27,7 +26,6 @@ before_install:
 
   - npm install -g @blackbaud/skyux-cli
   - export SAVAGE_BRANCH="^savage-"
-  - chmod +x ./scripts/travis-script-build.sh
   - chmod +x ./scripts/travis-script-coverage.sh
   - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
