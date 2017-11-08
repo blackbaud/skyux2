@@ -1,10 +1,14 @@
 language: node_js
-
-# https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
-git:
-  depth: 10
-
 sudo: required
+
+# Save the browserstack binary to a known location so we can cache it
+env:
+  - TEST_COMMAND=build
+  - TEST_COMMAND=coverage
+  - TEST_COMMAND=visual
+  global:
+    - CXX=g++-4.8
+    - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
 
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
 addons:
@@ -17,13 +21,14 @@ addons:
       - libcairo2-dev
 
 before_install:
-
   # https://github.com/npm/npm/issues/11283
   - npm set progress=false
 
   - npm install -g @blackbaud/skyux-cli
   - export SAVAGE_BRANCH="^savage-"
-  - chmod +x ./scripts/travis-script.sh
+  - chmod +x ./scripts/travis-script-build.sh
+  - chmod +x ./scripts/travis-script-coverage.sh
+  - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
   - chmod +x ./scripts/travis-after-script.sh
   - chmod +x ./scripts/browserstack-cleanup.sh
@@ -32,11 +37,10 @@ before_install:
   - chmod +x ./scripts/visual-failures.sh
 
 after_install:
-
   - sudo cp .node_modules/@blackbaud/skyux-builder/ssl/skyux-ca.crt /usr/local/share/ca-certificates/skyux-ca.crt
   - sudo update-ca-certificates
 
-script: ./scripts/travis-script.sh
+script: eval "./scripts/travis-script-${TEST_COMMAND}.sh"
 after_script: ./scripts/travis-after-script.sh
 after_success:
   - bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
@@ -66,8 +70,6 @@ notifications:
   webhooks:
     - http://sky-savage.cloudapp.net:6262/savage/travis
 
-# Save the browserstack binary to a known location so we can cache it
-env:
-  global:
-    - CXX=g++-4.8
-    - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
+# https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
+git:
+  depth: 10
