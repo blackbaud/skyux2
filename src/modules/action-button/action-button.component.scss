@@ -13,10 +13,12 @@
 
 .sky-action-button {
   display: block;
-  line-height: normal;
   width: 100%;
+  line-height: normal;
+  text-align: center;
   padding: $sky-padding-double $sky-padding-double 30px $sky-padding-double;
   white-space: normal;
+  position: relative;
 
   @media (min-width: $sky-screen-sm-min) {
     min-width: 236px;
@@ -26,7 +28,25 @@
 }
 
 .sky-action-button-icon-header-container {
-  display: block;
-  width: 100%;
   margin-bottom: $sky-margin-double;
+}
+
+.sky-action-button-target {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background-color: transparent;
+  border: none;
+  display: block;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

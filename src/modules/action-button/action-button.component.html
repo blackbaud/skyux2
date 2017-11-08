@@ -1,11 +1,14 @@
-<button
-  type="button"
-  class="sky-action-button sky-btn sky-btn-default"
-  (click)="buttonClicked()"
-  tabindex="0">
-  <span class="sky-action-button-icon-header-container">
+<div class="sky-action-button sky-btn sky-btn-default">
+  <button
+    type="button"
+    class="sky-action-button-target"
+    (click)="buttonClicked()"
+    tabindex="0">
+  </button>
+
+  <div class="sky-action-button-icon-header-container">
     <ng-content select="sky-action-button-icon"></ng-content>
     <ng-content select="sky-action-button-header"></ng-content>
-  </span>
+  </div>
   <ng-content select="sky-action-button-details"></ng-content>
-</button>
+</div>
