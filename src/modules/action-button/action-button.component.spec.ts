@@ -79,7 +79,7 @@ describe('Action button component', () => {
   });
 
   it('should emit a click event on button click', () => {
-    debugElement.query(By.css('.sky-action-button')).triggerEventHandler('click', undefined);
+    debugElement.query(By.css('.sky-action-button-target')).triggerEventHandler('click', undefined);
     fixture.detectChanges();
     expect(cmp.buttonIsClicked).toBe(true);
   });
