@@ -21,6 +21,15 @@ addons:
       - graphicsmagick
       - libcairo2-dev
 
+jobs:
+  include:
+    - stage: test
+      # The build usually takes longer than 10 minutes:
+      # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
+      script: travis_wait 30 eval "./scripts/travis-script-${TEST_COMMAND}.sh"
+    - stage: deploy
+      script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
+
 before_install:
   # https://github.com/npm/npm/issues/11283
   - npm set progress=false
@@ -31,7 +40,6 @@ before_install:
   - chmod +x ./scripts/travis-script-coverage.sh
   - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
-  - chmod +x ./scripts/travis-after-script.sh
   - chmod +x ./scripts/browserstack-cleanup.sh
   - chmod +x ./scripts/browserstack-local-start.sh
   - chmod +x ./scripts/visual-baseline.sh
@@ -40,14 +48,6 @@ before_install:
 after_install:
   - sudo cp .node_modules/@blackbaud/skyux-builder/ssl/skyux-ca.crt /usr/local/share/ca-certificates/skyux-ca.crt
   - sudo update-ca-certificates
-
-# The build usually takes longer than 10 minutes:
-# https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
-script: travis_wait eval "./scripts/travis-script-${TEST_COMMAND}.sh"
-
-after_script: ./scripts/travis-after-script.sh
-after_success:
-  - bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
 
 after_failure:
   - ./scripts/travis-after-failure.sh
