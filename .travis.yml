@@ -7,6 +7,7 @@ env:
     - CXX=g++-4.8
     - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
   matrix:
+    - TEST_COMMAND=build
     - TEST_COMMAND=coverage
     - TEST_COMMAND=visual
 
@@ -39,16 +40,17 @@ after_install:
   - sudo cp .node_modules/@blackbaud/skyux-builder/ssl/skyux-ca.crt /usr/local/share/ca-certificates/skyux-ca.crt
   - sudo update-ca-certificates
 
+# The build usually takes longer than 10 minutes:
+# https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
+script: travis_wait 30 eval "./scripts/travis-script-${TEST_COMMAND}.sh"
+
 jobs:
   include:
-    - stage: test
-      # The build usually takes longer than 10 minutes:
-      # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
-      script: travis_wait 30 eval "./scripts/travis-script-${TEST_COMMAND}.sh"
     - stage: deploy
+      env: TEST_COMMAND=none
+      install: skip
       script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
 
-script: echo Script
 
 after_failure:
   - ./scripts/travis-after-failure.sh
