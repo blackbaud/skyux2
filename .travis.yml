@@ -46,18 +46,19 @@ after_install:
   - sudo cp .node_modules/@blackbaud/skyux-builder/ssl/skyux-ca.crt /usr/local/share/ca-certificates/skyux-ca.crt
   - sudo update-ca-certificates
 
-script: eval "./scripts/travis-script-${TEST_COMMAND}.sh"
+script:
+  # `skyux build` does not output to the console within Travis's 10 minute timeout limit.
+  # Tell Travis to wait for 30 min, instead:
+  # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
+  - if [[ "$TEST_COMMAND" == "build" ]];
+    then travis_wait 30 eval "./scripts/travis-script-${TEST_COMMAND}.sh";
+    else eval "./scripts/travis-script-${TEST_COMMAND}.sh";
+    fi
 
 # Run the deployment after all jobs have been successfully completed.
 # https://docs.travis-ci.com/user/build-stages
 jobs:
   include:
-    - stage: build
-      env: TEST_COMMAND=none
-      # The build does not output to the console within 10 minutes.
-      # Tell Travis to wait for 30 min, instead:
-      # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
-      script: travis_wait 30 ./scripts/travis-script-build.sh
     - stage: deploy
       env: TEST_COMMAND=none
       install: skip
