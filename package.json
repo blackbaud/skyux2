@@ -21,7 +21,6 @@
     "ngc": "ngc",
     "node-sass": "node-sass",
     "rollup": "rollup",
-    "skyux": "skyux",
     "test": "npm run test:unit && npm run test:visual",
     "test:ci": "npm run test:unit:ci && npm run test:visual:ci",
     "test:unit": "npm run test:unit:base -- config/karma/local.karma.conf.js",

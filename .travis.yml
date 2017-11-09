@@ -62,7 +62,6 @@ jobs:
   include:
     - stage: deploy
       env: TEST_COMMAND=none
-      install: skip
       script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
 
 after_failure:
