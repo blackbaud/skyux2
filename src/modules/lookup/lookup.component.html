@@ -19,7 +19,7 @@
             class="sky-form-control sky-lookup-input"
             [ngModel]="searchText"
             (ngModelChange)="searchTextChanged($event)"
-            (keydown)="keydown($event, searchText)"
+            (keydown)="keydown($event)"
             (keyup)="keyup($event, searchText)"
             (focus)="inputFocused($event, true)"
             (blur)="inputFocused($event, false)"

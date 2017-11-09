@@ -56,9 +56,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   public selectedItems?: Array<any>;
 
   @Input()
-  public searchDelay?: number = 300;
-
-  @Input()
   public minChars?: number = 1;
 
   @Input()
@@ -93,7 +90,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   private _placeholderText: string;
-  private _currentWait: any;
   private open = false;
 
   constructor(
@@ -134,7 +130,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     this.closeMenu();
   }
 
-  public keydown(event: KeyboardEvent, searchText: string) {
+  public keydown(event: KeyboardEvent) {
     if (event.which === 27 /* Escape Key */) {
       event.preventDefault();
       this.revertSelection();
@@ -144,7 +140,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
         event.preventDefault();
         this.removeSelectedItem(this.activeSelectedItem);
       }
-    }else if (event.which === 8 /* Backspace */) {
+    } else if (event.which === 8 /* Backspace */) {
       if (this.multiple && this.isSearchTextEmpty()) {
         event.preventDefault();
         let activeItem = this.activeSelectedItem;
@@ -153,19 +149,21 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
           this.removeSelectedItem(activeItem);
         }
       }
-    } else if (event.which === 38 /* Up Key */ || event.which === 37 /* Left Key */) {
+    } else if (event.which === 37 /* Left Key */ && this.multiple && this.isSearchTextEmpty()) {
+      event.preventDefault();
+      this.moveActiveSelectedItemLeft();
+    } else if (event.which === 38 /* Up Key */) {
       event.preventDefault();
       if (this.open) {
         this.moveActiveMenuItemUp();
-      } else if (this.multiple && this.isSearchTextEmpty()) {
-        this.moveActiveSelectedItemLeft();
       }
-    } else if (event.which === 40 /* Down Key */ || event.which === 39 /* Right Key */) {
+    } else if (event.which === 39 /* Right Key */ && this.multiple && this.isSearchTextEmpty()) {
+      event.preventDefault();
+      this.moveActiveSelectedItemRight();
+    } else if (event.which === 40 /* Down Key */) {
       event.preventDefault();
       if (this.open) {
         this.moveActiveMenuItemDown();
-      } else if (this.multiple && this.isSearchTextEmpty()) {
-        this.moveActiveSelectedItemRight();
       }
     } if (event.which === 9 /* Tab */) {
       if (this.activeSelectedItem) {
@@ -197,13 +195,13 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       && event.which !== 39 /* Right Key */
       && event.which !== 40 /* Down Key */
     ) {
-      this.queueSearch();
+      this.performSearch();
     }
   }
 
   public searchTextChanged(searchText: string) {
     this.searchText = searchText;
-    this.queueSearch();
+    this.performSearch();
   }
 
   public selectMenuItem(item: any) {
@@ -243,7 +241,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public closeMenu() {
-    this.clearQueuedSearch();
     this.dropdownAdapter.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
     this.activeMenuItem = undefined;
   }
@@ -251,20 +248,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   public selectInput() {
     this.searchInputFocused = true;
     this.searchAdapter.focusInput(this.elRef);
-  }
-
-  // A search will be performed after the configured delay (default 300ms)
-  // This delay prevents excessive work by waiting for the user to stop typing
-  private queueSearch() {
-    this.clearQueuedSearch();
-    this._currentWait = setTimeout(() => this.performSearch(), this.searchDelay);
-  }
-
-  private clearQueuedSearch() {
-    if (this._currentWait) {
-      clearTimeout(this._currentWait);
-      this._currentWait = undefined;
-    }
   }
 
   private resolvePartialSearch() {
@@ -290,7 +273,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   private performSearch() {
-    this.clearQueuedSearch();
     if (this.searchText && this.searchText.length >= this.minChars
       && !this.isSearchTextMatchingSelectedItem()) {
       this.updateSearchResults();
