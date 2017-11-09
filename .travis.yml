@@ -14,6 +14,7 @@ env:
   # Run three tasks in parallel:
   # https://docs.travis-ci.com/user/customizing-the-build/#Build-Matrix
   matrix:
+    - TEST_COMMAND=build
     - TEST_COMMAND=coverage
     - TEST_COMMAND=visual
 
