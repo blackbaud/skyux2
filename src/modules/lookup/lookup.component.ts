@@ -236,6 +236,10 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     }
   }
 
+  public setActiveMenuItem(item: any) {
+    this.activeMenuItem = item;
+  }
+
   public windowClick() {
     this.revertSelection();
   }
@@ -376,14 +380,14 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   private moveActiveMenuItemDown() {
     let index = this.findIndex(this.results, this.activeMenuItem);
     if (index > -1 && this.results.length > index + 1) {
-      this.activeMenuItem = this.results[index + 1];
+      this.setActiveMenuItem(this.results[index + 1]);
     }
   }
 
   private moveActiveMenuItemUp() {
     let index = this.findIndex(this.results, this.activeMenuItem);
     if (index > 0) {
-      this.activeMenuItem = this.results[index - 1];
+      this.setActiveMenuItem(this.results[index - 1]);
     }
   }
 

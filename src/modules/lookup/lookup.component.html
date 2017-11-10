@@ -53,7 +53,9 @@
   <div class="sky-dropdown-menu">
     <div *ngFor="let item of results" class="sky-lookup-menu-item"
       [ngClass]="{'sky-lookup-menu-item-active': (item === activeMenuItem)}">
-      <button type="button" (click)="selectMenuItem(item)">
+      <button type="button"
+        (click)="selectMenuItem(item)"
+        (mouseenter)="setActiveMenuItem(item)">
         <ng-container
           *ngTemplateOutlet="template || defaultResultTemplate; context: { item: item }">
         </ng-container>
