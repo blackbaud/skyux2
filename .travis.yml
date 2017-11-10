@@ -48,7 +48,7 @@ after_install:
   - sudo update-ca-certificates
 
 script:
-  -  eval "./scripts/travis-script-${TEST_COMMAND}.sh"
+  - eval "./scripts/travis-script-${TEST_COMMAND}.sh"
 
 # Run the deployment after all jobs have been successfully completed.
 # https://docs.travis-ci.com/user/build-stages
