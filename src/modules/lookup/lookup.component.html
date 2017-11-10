@@ -55,7 +55,8 @@
       [ngClass]="{'sky-lookup-menu-item-active': (item === activeMenuItem)}">
       <button type="button"
         (click)="selectMenuItem(item)"
-        (mouseenter)="setActiveMenuItem(item)">
+        (mouseenter)="setActiveMenuItem(item)"
+        [skyHighlight]="searchText">
         <ng-container
           *ngTemplateOutlet="template || defaultResultTemplate; context: { item: item }">
         </ng-container>

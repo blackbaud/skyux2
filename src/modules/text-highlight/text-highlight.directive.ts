@@ -94,6 +94,8 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit, OnDe
   public ngAfterViewInit(): void {
     let me = this;
 
+    this.highlight(); // call highlight before creating the observer to skip an immediate disconnect
+
     this.observer = this.observerService.create((mutations: MutationRecord[]) => {
       me.highlight();
     });

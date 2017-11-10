@@ -9,6 +9,7 @@ import { SkyWindowRefService } from '../window';
 
 import { SkyResourcesModule } from '../resources';
 import { SkyDropdownModule } from '../dropdown';
+import { SkyTextHighlightModule } from '../text-highlight';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SkyDropdownModule } from '../dropdown';
     CommonModule,
     FormsModule,
     SkyResourcesModule,
-    SkyDropdownModule
+    SkyDropdownModule,
+    SkyTextHighlightModule
   ],
   exports: [
     SkyLookupComponent
