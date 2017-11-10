@@ -46,7 +46,7 @@ function _setInput(element: DebugElement, fixture: ComponentFixture<any>, text: 
   fixture.detectChanges();
 }
 
-fdescribe('Lookup component', () => {
+describe('Lookup component', () => {
   let fixture: ComponentFixture<LookupTestComponent>;
   let component: LookupTestComponent;
   let element: DebugElement;
@@ -1035,7 +1035,6 @@ fdescribe('Lookup component', () => {
     expect(selectedItems[0]).toBe(component.data[2]);
   }));
 
-
   it('should select the first matching result item if there is no active item', fakeAsync(() => {
     component.data = [
       { name: 'Blue' },
@@ -1295,7 +1294,7 @@ fdescribe('Lookup component', () => {
 
 });
 
-fdescribe('Lookup with menu template component', () => {
+describe('Lookup with menu template component', () => {
   let fixture: ComponentFixture<LookupMenuTemplateTestComponent>;
   let component: LookupMenuTemplateTestComponent;
   let element: DebugElement;
