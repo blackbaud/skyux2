@@ -158,6 +158,24 @@ describe('Lookup component', () => {
     expect(element.query(By.css('input')).attributes.placeholder).toBe('hey ya');
   });
 
+  it('should override default search function', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+
+    component.lookupComponent.search = (data: Array<any>, searchText: string) => {
+      return new Promise((resolve) => {
+        resolve([{ name: 'TestItem' }]);
+      });
+    };
+
+    component.lookupComponent.searchTextChanged('ABC');
+    fixture.detectChanges();
+    tick();
+
+    expect(component.lookupComponent.results.length).toBe(1);
+    expect(component.lookupComponent.results[0].name).toBe('TestItem');
+  }));
+
   it('should set search text on keyup when it does not match internal tracked state', () => {
     fixture.detectChanges();
     component.lookupComponent.keyup(<KeyboardEvent>{}, 'test');
@@ -258,6 +276,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('red');
     tick();
 
@@ -276,6 +295,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('');
     expect(inputEl.nativeElement.value).toBe('');
@@ -302,6 +322,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('abc');
     expect(inputEl.nativeElement.value).toBe('abc');
@@ -321,7 +342,6 @@ describe('Lookup component', () => {
     tick();
 
     triggerFocus();
-
     let inputEl = element.query(By.css('input'));
     setInput('abc');
     expect(inputEl.nativeElement.value).toBe('abc');
@@ -340,6 +360,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('abc');
     expect(inputEl.nativeElement.value).toBe('abc');
@@ -367,6 +388,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('red');
     expect(inputEl.nativeElement.value).toBe('red');
@@ -390,6 +412,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     expect(inputEl.nativeElement.value).toBe('Red');
     setInput('blue');
@@ -418,6 +441,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('b');
     expect(inputEl.nativeElement.value).toBe('b');
@@ -452,6 +476,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     expect(inputEl.nativeElement.value).toBe('Orange');
     expect(component.lastSelectionChange).toBe(undefined);
@@ -471,6 +496,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('l');
     expect(inputEl.nativeElement.value).toBe('l');
@@ -499,6 +525,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('b');
     expect(inputEl.nativeElement.value).toBe('b');
@@ -527,6 +554,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('b');
     triggerInputKeyUp(66 /* letter b */);
     triggerInputKeyDown(66 /* letter b */);
@@ -586,6 +614,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('Ome');
     tick();
     fixture.detectChanges();
@@ -612,6 +641,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('b');
     tick();
     fixture.detectChanges();
@@ -651,6 +681,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('abc');
     expect(inputEl.nativeElement.value).toBe('abc');
@@ -673,6 +704,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('red');
     expect(inputEl.nativeElement.value).toBe('red');
@@ -699,6 +731,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('b');
     expect(inputEl.nativeElement.value).toBe('b');
@@ -764,6 +797,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     expect(inputEl.nativeElement.value).toBe('');
     expect(component.lastSelectionChange).toBe(undefined);
@@ -789,6 +823,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('abc');
     tick();
     fixture.detectChanges();
@@ -814,6 +849,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('b');
     tick();
     fixture.detectChanges();
@@ -873,6 +909,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('b');
     tick();
     fixture.detectChanges();
@@ -1044,6 +1081,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     let inputEl = element.query(By.css('input'));
     setInput('b');
     expect(inputEl.nativeElement.value).toBe('b');
@@ -1091,6 +1129,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('b');
     tick();
     fixture.detectChanges();
@@ -1175,6 +1214,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('b');
     tick();
     fixture.detectChanges();
@@ -1250,6 +1290,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
+    triggerFocus();
     setInput('bl');
     tick();
     fixture.detectChanges();

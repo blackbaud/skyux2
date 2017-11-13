@@ -67,6 +67,10 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   @Input()
   public resultsLimit?: number;
 
+  @Input()
+  public search: (data: Array<any>, searchText: string) => Array<any> | Promise<Array<any>>
+    = this.defaultSearchFunction;
+
   public set placeholderText(value: string) {
     this._placeholderText = value;
   }
@@ -181,10 +185,6 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
 
   /* If a key is handled in keydown, ignore it in keyup */
   public keyup(event: KeyboardEvent, searchText: string) {
-    if (searchText !== this.searchText) {
-      this.searchText = searchText;
-    }
-
     if (event.which === 13 /* Enter Key */ && this.activeMenuItem) {
       this.selectItem(this.activeMenuItem);
     } else if (
@@ -195,13 +195,15 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       && event.which !== 39 /* Right Key */
       && event.which !== 40 /* Down Key */
     ) {
-      this.performSearch();
+      this.searchTextChanged(searchText);
     }
   }
 
   public searchTextChanged(searchText: string) {
-    this.searchText = searchText;
-    this.performSearch();
+    if (searchText !== this.searchText) {
+      this.searchText = searchText;
+      this.performSearch();
+    }
   }
 
   public selectMenuItem(item: any) {
@@ -266,12 +268,14 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       if (this.activeMenuItem) {
         this.selectItem(this.activeMenuItem);
       } else {
-        this.updateSearchResults();
-        if (this.results.length > 0) {
-          this.selectItem(this.results[0]);
-        } else {
-          this.clearSearchText();
-        }
+        this.closeMenu();
+        this.updateSearchResults(() => {
+          if (this.results.length > 0) {
+            this.selectItem(this.results[0]);
+          } else {
+            this.clearSearchText();
+          }
+        });
       }
     }
   }
@@ -279,26 +283,45 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   private performSearch() {
     if (this.searchText && this.searchText.length >= this.minChars
       && !this.isSearchTextMatchingSelectedItem()) {
-      this.updateSearchResults();
-      this.openMenu();
+        this.updateSearchResults(this.openMenu);
     } else {
       this.closeMenu();
     }
   }
 
-  private updateSearchResults() {
+  private updateSearchResults(callback: Function) {
+    let view = this;
+    let loadResults = (results: Array<any>) => {
+      if (view.multiple) { // reject entry duplication
+        view.results = results.filter(item => !view.isItemSelected(item));
+      } else {
+        view.results = results;
+      }
+      callback.call(view);
+    };
+
+    let searchResult = this.search(this.data, this.searchText);
+    if (searchResult instanceof Array) {
+      loadResults(searchResult);
+    } else {
+      searchResult.then(loadResults);
+    }
+  }
+
+  private defaultSearchFunction(data: Array<any>, searchText: string) {
     let searchTextLower = this.searchText.toLowerCase();
-    this.results = [];
+    let results = [];
     for (let i = 0, n = this.data.length; i < n; i++) {
-      if (this.resultsLimit && this.results.length >= this.resultsLimit) {
-        return;
+      if (this.resultsLimit && results.length >= this.resultsLimit) {
+        return results;
       }
       let item = this.data[i];
       if ((!this.multiple || !this.isItemSelected(item))
         && this.isSearchMatch(item, searchTextLower)) {
-        this.results.push(item);
+        results.push(item);
       }
     }
+    return results;
   }
 
   private isSearchTextEmpty() {
@@ -336,7 +359,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   private openMenu() {
-    if (!this.open) {
+    if (!this.open && this.searchInputFocused) {
       this.dropdownAdapter.showDropdown(
         this.elRef,
         this.renderer,
@@ -345,7 +368,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       );
       this.open = true;
     }
-    if (this.results.length > 0) {
+    if (this.open && this.results.length > 0) {
       this.activeMenuItem = this.results[0];
     }
   }

@@ -13,6 +13,14 @@
     </sky-demo-page-property>
 
     <sky-demo-page-property
+        propertyName="search"
+        isOptional="true"
+    >
+      Specifies a function to apply when text changes to dynamically manage the data source
+      Acceptable value: <code>(data: Array, searchText: string) => Array or Promise Array</code>.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
       propertyName="placeholderText"
       isOptional="true"
       defaultValue="Find in this list">

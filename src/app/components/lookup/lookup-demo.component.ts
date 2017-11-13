@@ -14,6 +14,13 @@ export class SkyLookupDemoComponent {
   public colors: any[];
   public selectedColors: any[];
 
+  public selectedCustom: any[] = [];
+  public defaultCustomOptions: any[] = [
+    { name: 'Option1' },
+    { name: 'Option2' },
+    { name: 'Option3' }
+  ];
+
   constructor() {
     this.oceans = [
       { name: 'Antarctic' },
@@ -43,5 +50,16 @@ export class SkyLookupDemoComponent {
       { name: 'Black' }
     ];
     this.selectedColors = [this.colors[2]];
+  }
+
+  public buildSearchFunction(): Function {
+    let defaultCustomOptions = this.defaultCustomOptions;
+    return (data: Array<any>, searchText: string) => {
+      return new Promise((resolve) => {
+        let results: any[] = [{ name: searchText }];
+        results.push.apply(results, defaultCustomOptions);
+        resolve(results);
+      });
+    };
   }
 }
