@@ -57,10 +57,10 @@
 
     <p>To determine the correct HTML tag for an affordance in SKY UX, follow this guidance:</p>
     <ol>
-    <li>If the ONLY result when users click, tap, or select the affordance is loading a new URL in the browser, then implement the affordance as an <code>&lt;a&gt;</code> element.</li>
-    <li>Otherwise, implement the affordance as a <code>&lt;button&gt;</code> element.</li>
+    <li>If the ONLY result when users click, tap, or select the affordance is loading a new URL in the browser, then implement the affordance as an <stache-code>&lt;a&gt;</stache-code> element.</li>
+    <li>Otherwise, implement the affordance as a <stache-code>&lt;button&gt;</stache-code> element.</li>
     </ol>
 
-    <p>In other words, <code>&lt;a&gt;</code> elements are only appropriate when an affordance changes nothing about the state of the system and the only result is that the user traverses from one view of content to another. For example, a record page may contain an affordance to delete the record. If a user activates this affordance, the browser redirects to a new URL because the existing page presumably ceases to exist. However, since this also impacts the system by deleting data, you should implement the affordance as a <code>&lt;button&gt;</code> element.</p>
+    <p>In other words, <stache-code>&lt;a&gt;</stache-code> elements are only appropriate when an affordance changes nothing about the state of the system and the only result is that the user traverses from one view of content to another. For example, a record page may contain an affordance to delete the record. If a user activates this affordance, the browser redirects to a new URL because the existing page presumably ceases to exist. However, since this also impacts the system by deleting data, you should implement the affordance as a <stache-code>&lt;button&gt;</stache-code> element.</p>
   
 </stache>
