@@ -50,8 +50,16 @@ module.exports = {
       {
         test: /\.ts$/,
         use: [
-          'awesome-typescript-loader',
-          'angular2-template-loader'
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              // Linting is handled by builder.
+              transpileOnly: true
+            }
+          },
+          {
+            loader: 'angular2-template-loader'
+          }
         ],
         exclude: [/\.(spec|e2e)\.ts$/]
       },
