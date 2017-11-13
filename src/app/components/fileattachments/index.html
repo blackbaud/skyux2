@@ -4,13 +4,13 @@
       The file attachment module contains two components to add files to forms and display summary information about attachments.
     </p>
     <p>
-      The <code>sky-file-drop</code> component provides an element that users can click to select files from their local drives or use as a drop zone to drag and drop files. The component can also display controls for users to provide hyperlinks to files on the web. You can leave the contents of the component blank to display the drop zone's default UI, or you can specify custom content to display instead.
+      The <stache-code>sky-file-drop</stache-code> component provides an element that users can click to select files from their local drives or use as a drop zone to drag and drop files. The component can also display controls for users to provide hyperlinks to files on the web. You can leave the contents of the component blank to display the drop zone's default UI, or you can specify custom content to display instead.
     </p>
     <p>
-      When the SKY UX module initializes, it disables the ability to drag and drop files for the entire window. This prevents the browser from opening files that are accidentally dropped outside the target zone. If you implement your own file drop functionality outside of the file drop component, you can place the <code>sky-file-drop-target</code> CSS class on the element that receives drop events to exempt it from the drop exclusion rule.
+      When the SKY UX module initializes, it disables the ability to drag and drop files for the entire window. This prevents the browser from opening files that are accidentally dropped outside the target zone. If you implement your own file drop functionality outside of the file drop component, you can place the <stache-code>sky-file-drop-target</stache-code> CSS class on the element that receives drop events to exempt it from the drop exclusion rule.
     </p>
     <p>
-      The <code>sky-file-item</code> component displays summary information about files that users attach to forms. By default, the component displays file names, delete buttons, and fields for names and tags.. For files from local drives, the component also displays file sizes and thumbnails.
+      The <stache-code>sky-file-item</stache-code> component displays summary information about files that users attach to forms. By default, the component displays file names, delete buttons, and fields for names and tags.. For files from local drives, the component also displays file sizes and thumbnails.
     </p>
   </sky-demo-page-summary>
 
@@ -46,12 +46,12 @@
         propertyName="validateFn"
         isOptional="true"
     >
-      Provides a custom validation function (<code>[validateFn]="validateFile"</code>). By default, any type of file is allowed.
+      Provides a custom validation function (<stache-code>[validateFn]="validateFile"</stache-code>). By default, any type of file is allowed.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="acceptedTypes"
     >
-      Provides a comma-delimited string literal of MIME types that users can drop or select (<code>[acceptedTypes]="validFileTypes"</code> or <code>acceptedTypes="image/png,image/jpeg"</code>). By default, any type of file is allowed.
+      Provides a comma-delimited string literal of MIME types that users can drop or select (<stache-code>[acceptedTypes]="validFileTypes"</stache-code> or <stache-code>acceptedTypes="image/png,image/jpeg"</stache-code>). By default, any type of file is allowed.
     </sky-demo-page-property>
     <sky-demo-page-property
         propertyName="noClick"

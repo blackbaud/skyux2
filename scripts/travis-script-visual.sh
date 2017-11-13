@@ -2,8 +2,10 @@
 set -e
 
 # Necessary to stop pull requests from forks from running outside of Savage
-# Upload coverage to https://codecov.io/gh/blackbaud/skyux2
 if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
-  bash <(curl -s https://codecov.io/bash)
+  npm run test:visual:ci
+  ./scripts/visual-baseline.sh
   ./scripts/browserstack-cleanup.sh
+else
+  echo -e "Pull requests from forks are run via Savage."
 fi
