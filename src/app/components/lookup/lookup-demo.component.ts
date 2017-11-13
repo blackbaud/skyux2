@@ -54,7 +54,7 @@ export class SkyLookupDemoComponent {
 
   public buildSearchFunction(): Function {
     let defaultCustomOptions = this.defaultCustomOptions;
-    return (data: Array<any>, searchText: string) => {
+    return (searchText: string) => {
       return new Promise((resolve) => {
         let results: any[] = [{ name: searchText }];
         results.push.apply(results, defaultCustomOptions);

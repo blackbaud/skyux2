@@ -162,7 +162,7 @@ describe('Lookup component', () => {
     fixture.detectChanges();
     tick();
 
-    component.lookupComponent.search = (data: Array<any>, searchText: string) => {
+    component.lookupComponent.search = (searchText: string) => {
       return new Promise((resolve) => {
         resolve([{ name: 'TestItem' }]);
       });

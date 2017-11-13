@@ -68,7 +68,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   public resultsLimit?: number;
 
   @Input()
-  public search: (data: Array<any>, searchText: string) => Array<any> | Promise<Array<any>>
+  public search: (searchText: string) => Array<any> | Promise<Array<any>>
     = this.defaultSearchFunction;
 
   public set placeholderText(value: string) {
@@ -300,7 +300,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
       callback.call(view);
     };
 
-    let searchResult = this.search(this.data, this.searchText);
+    let searchResult = this.search(this.searchText);
     if (searchResult instanceof Array) {
       loadResults(searchResult);
     } else {
@@ -308,7 +308,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     }
   }
 
-  private defaultSearchFunction(data: Array<any>, searchText: string) {
+  private defaultSearchFunction(searchText: string) {
     let searchTextLower = this.searchText.toLowerCase();
     let results = [];
     for (let i = 0, n = this.data.length; i < n; i++) {
