@@ -1,0 +1,20 @@
+<stache
+  pageTitle="Route params"
+  showTableofContents="true"
+  navTitle="Route params">
+
+  <p>For each <stache-code>index.html</stache-code> file placed in the <stache-code>src/app/</stache-code> directory, SKY UX will automatically register a route and create the corresponding component. We also support routes that contain a <a href="https://angular.io/guide/router#route-definition-with-a-parameter">Route Param</a>.</p>
+
+  <p>To automatically create a route param, prefix the folder name with an underscore.  The string after the underscore is used as the variable name. For example, if you created a file at <stache-code>src/app/dogs/_id/index.html</stache-code> with the following content:</p>
+
+  <stache-code-block>
+    You are viewing dog {{ id }}.
+  </stache-code-block>
+
+  <p>Visiting the route <stache-code>dogs/42</stache-code> would set the <stache-code>id</stache-code> variable to "42", which would render as:</p>
+
+  <stache-code-block>
+    You are viewing dog 42.
+  </stache-code-block>
+
+</stache>
