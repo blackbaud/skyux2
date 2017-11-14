@@ -5,7 +5,7 @@ set -e
 if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   # Building SKY UX requires a lot of memory:
   # https://github.com/npm/npm/issues/12238#issuecomment-301645764
-  node --max-old-space-size=10240 `which npm` run build:skyux
+  skyux build --output-keep-alive
 else
   echo -e "Pull requests from forks are run via Savage."
 fi
