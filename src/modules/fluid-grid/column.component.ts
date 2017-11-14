@@ -24,7 +24,7 @@ export class SkyColumnComponent implements OnInit {
   public screenLarge: number;
 
   @HostBinding('class')
-  private classnames: string;
+  public classnames: string;
 
   public getClassNames(): string {
     let classnames = [

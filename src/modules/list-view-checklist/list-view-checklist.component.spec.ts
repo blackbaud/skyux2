@@ -43,7 +43,6 @@ describe('List View Checklist Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewChecklistTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement,
         items: Array<any>;
 
@@ -65,7 +64,6 @@ describe('List View Checklist Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewChecklistTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -134,7 +132,6 @@ describe('List View Checklist Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewChecklistEmptyTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         items: Array<any>,
         element: DebugElement;
 
@@ -156,7 +153,6 @@ describe('List View Checklist Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewChecklistEmptyTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -203,7 +199,6 @@ describe('List View Checklist Component', () => {
       items: Observable<Array<any>>,
       fixture: ComponentFixture<ListViewChecklistToolbarTestComponent>,
       nativeElement: HTMLElement,
-      element: DebugElement,
       component: ListViewChecklistToolbarTestComponent,
       itemsArray: Array<ListItemModel>;
 
@@ -256,7 +251,6 @@ describe('List View Checklist Component', () => {
 
         fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
         nativeElement = fixture.nativeElement as HTMLElement;
-        element = fixture.debugElement as DebugElement;
         component = fixture.componentInstance;
         fixture.detectChanges();
 
@@ -386,7 +380,6 @@ describe('List View Checklist Component', () => {
       items: Observable<Array<any>>,
       fixture: ComponentFixture<ListViewChecklistToolbarTestComponent>,
       nativeElement: HTMLElement,
-      element: DebugElement,
       component: ListViewChecklistToolbarTestComponent,
       itemsArray: Array<ListItemModel>;
 
@@ -439,7 +432,6 @@ describe('List View Checklist Component', () => {
 
         fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
         nativeElement = fixture.nativeElement as HTMLElement;
-        element = fixture.debugElement as DebugElement;
         component = fixture.componentInstance;
         fixture.detectChanges();
 

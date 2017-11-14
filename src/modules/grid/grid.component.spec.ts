@@ -377,7 +377,6 @@ describe('Grid Component', () => {
     let mockDragulaService: DragulaService;
     let component: GridTestComponent,
       fixture: ComponentFixture<GridTestComponent>,
-      nativeElement: HTMLElement,
       element: DebugElement;
 
     beforeEach(() => {
@@ -402,7 +401,6 @@ describe('Grid Component', () => {
         })
         .createComponent(GridTestComponent);
 
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
     });
@@ -578,7 +576,6 @@ describe('Grid Component', () => {
 
   describe('Empty Fixture', () => {
     let fixture: ComponentFixture<GridEmptyTestComponent>,
-        nativeElement: HTMLElement,
         element: DebugElement,
         component: GridEmptyTestComponent;
 
@@ -592,7 +589,6 @@ describe('Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(GridEmptyTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
     }));
@@ -671,7 +667,6 @@ describe('Grid Component', () => {
     it('should handle columns changing after initialization', () => {
       let component: GridDynamicTestComponent,
         fixture: ComponentFixture<GridDynamicTestComponent>,
-        nativeElement: HTMLElement,
         element: DebugElement;
 
       TestBed.configureTestingModule({
@@ -682,7 +677,6 @@ describe('Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(GridDynamicTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
 
@@ -707,9 +701,7 @@ describe('Grid Component', () => {
 
   describe('async headings', () => {
     it('should handle async column headings', (done: any) => {
-      let component: GridAsyncTestComponent;
       let fixture: ComponentFixture<GridAsyncTestComponent>;
-      let nativeElement: HTMLElement;
       let element: DebugElement;
 
       TestBed.configureTestingModule({
@@ -720,9 +712,7 @@ describe('Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(GridAsyncTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
-      component = fixture.componentInstance;
 
       fixture.detectChanges();
 

@@ -5,11 +5,12 @@ import {
   fakeAsync,
   tick
 } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
+
 import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
+
 import { SkyListToolbarModule } from '../list-toolbar';
 
 import {
@@ -28,8 +29,7 @@ describe('List Secondary Actions Component', () => {
         dispatcher: ListStateDispatcher,
         fixture: ComponentFixture<ListSecondaryActionsTestComponent>,
         nativeElement: HTMLElement,
-        component: ListSecondaryActionsTestComponent,
-        element: DebugElement;
+        component: ListSecondaryActionsTestComponent;
 
     beforeEach(async(() => {
       dispatcher = new ListStateDispatcher();
@@ -51,7 +51,6 @@ describe('List Secondary Actions Component', () => {
 
       fixture = TestBed.createComponent(ListSecondaryActionsTestComponent);
       nativeElement = fixture.nativeElement as HTMLElement;
-      element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
     }));
 

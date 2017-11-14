@@ -16,10 +16,8 @@ import {
 } from '../testing';
 
 describe('Filter button', () => {
-
   let fixture: ComponentFixture<FilterInlineTestComponent>;
   let nativeElement: HTMLElement;
-  let component: FilterInlineTestComponent;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,7 +31,6 @@ describe('Filter button', () => {
 
     fixture = TestBed.createComponent(FilterInlineTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 

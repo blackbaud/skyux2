@@ -21,7 +21,6 @@ import {
 describe('Paging component', () => {
   let component: PagingTestComponent,
       fixture: any,
-      nativeElement: HTMLElement,
       element: DebugElement;
   beforeEach(() => {
 
@@ -35,7 +34,6 @@ describe('Paging component', () => {
     });
 
     fixture = TestBed.createComponent(PagingTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
     element = fixture.debugElement as DebugElement;
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -39,7 +39,7 @@ export class SkyDropdownComponent implements OnDestroy {
   }
 
   @Input()
-  public get label(): string{
+  public get label(): string {
     return this._label || SkyResources.getString('context_menu_default_label');
   }
 
@@ -54,7 +54,7 @@ export class SkyDropdownComponent implements OnDestroy {
   public alignment: string = 'left';
 
   @Input()
-  public get buttonStyle(): string{
+  public get buttonStyle(): string {
     return this._buttonStyle || 'default';
   }
 

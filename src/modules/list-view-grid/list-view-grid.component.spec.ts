@@ -270,7 +270,6 @@ describe('List View Grid Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewGridTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement;
 
     beforeEach(async(() => {
@@ -289,7 +288,6 @@ describe('List View Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewGridDisplayTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -338,10 +336,7 @@ describe('List View Grid Component', () => {
   describe('Empty Fixture', () => {
     let state: ListState,
         dispatcher: ListStateDispatcher,
-        component: ListViewGridTestComponent,
-        fixture: any,
-        nativeElement: HTMLElement,
-        element: DebugElement;
+        fixture: any;
 
     beforeEach(async(() => {
       dispatcher = new ListStateDispatcher();
@@ -359,9 +354,6 @@ describe('List View Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewGridEmptyTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
-      element = fixture.debugElement as DebugElement;
-      component = fixture.componentInstance;
     }));
 
     it('should throw columns require error', () => {
@@ -375,7 +367,6 @@ describe('List View Grid Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewGridDynamicTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement;
 
     beforeEach(async(() => {
@@ -398,7 +389,6 @@ describe('List View Grid Component', () => {
         });
 
       fixture = TestBed.createComponent(ListViewGridDynamicTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();

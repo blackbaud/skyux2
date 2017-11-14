@@ -1,4 +1,3 @@
-import { DebugElement } from '@angular/core';
 import {
   TestBed,
   async
@@ -29,7 +28,6 @@ import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
 describe('Component: SkyLinkRecordsComponent', () => {
   let fixture: any,
-    element: DebugElement,
     component: any,
     dispatcher: SkyLinkRecordsStateDispatcher,
     state: SkyLinkRecordsState;
@@ -57,7 +55,6 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     fixture = TestBed.createComponent(SkyLinkRecordsComponent);
     component = fixture.componentInstance;
-    element = fixture.nativeElement;
     state = component.state as SkyLinkRecordsState;
     dispatcher = component.dispatcher as SkyLinkRecordsStateDispatcher;
   }));

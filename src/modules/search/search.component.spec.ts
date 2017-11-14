@@ -40,7 +40,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Search component', () => {
   let fixture: ComponentFixture<SearchTestComponent>;
-  let nativeElement: HTMLElement;
   let component: SearchTestComponent;
   let element: DebugElement;
   let mockMediaQueryService: MockSkyMediaQueryService;
@@ -73,7 +72,6 @@ describe('Search component', () => {
       }
     })
     .createComponent(SearchTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
     element = fixture.debugElement as DebugElement;
   });

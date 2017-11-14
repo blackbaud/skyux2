@@ -249,7 +249,6 @@ describe('Checkbox component', () => {
     let checkboxInstance: SkyCheckboxComponent;
     let testComponent: CheckboxWithChangeEventComponent;
     let inputElement: HTMLInputElement;
-    let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
       fixture = TestBed.createComponent(CheckboxWithChangeEventComponent);
@@ -262,8 +261,6 @@ describe('Checkbox component', () => {
         checkboxInstance = checkboxDebugElement.componentInstance;
         testComponent = fixture.debugElement.componentInstance;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
-        labelElement =
-          <HTMLLabelElement>checkboxNativeElement.querySelector('label.sky-checkbox-wrapper');
       });
     }));
 
@@ -358,7 +355,6 @@ describe('Checkbox component', () => {
     let checkboxNativeElement: HTMLElement;
     let testComponent: CheckboxWithTabIndexComponent;
     let inputElement: HTMLInputElement;
-    let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
       fixture = TestBed.createComponent(CheckboxWithTabIndexComponent);
@@ -370,7 +366,6 @@ describe('Checkbox component', () => {
         checkboxDebugElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
         checkboxNativeElement = checkboxDebugElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
-        labelElement = <HTMLLabelElement>checkboxNativeElement.querySelector('label');
       });
     }));
 

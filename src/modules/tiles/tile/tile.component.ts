@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   animate,
   Component,
   ElementRef,
@@ -34,7 +33,7 @@ import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.servic
     )
   ])]
 })
-export class SkyTileComponent implements AfterViewInit {
+export class SkyTileComponent {
   public isInDashboardColumn = false;
 
   @Output()
@@ -59,15 +58,10 @@ export class SkyTileComponent implements AfterViewInit {
       this._isCollapsed = value;
     }
 
-    if (this.viewInitialized) {
-      this.slideForCollapsed(true);
-    }
-
     this.isCollapsedChange.emit(value);
   }
 
   private _isCollapsed = false;
-  private viewInitialized = false;
 
   constructor(
     public elementRef: ElementRef,
@@ -90,18 +84,5 @@ export class SkyTileComponent implements AfterViewInit {
 
   public chevronDirectionChange(direction: string) {
     this.isCollapsed = direction === 'down';
-  }
-
-  public ngAfterViewInit() {
-    this.viewInitialized = true;
-
-    if (this.isCollapsed) {
-      this.slideForCollapsed(false);
-    }
-  }
-
-  private slideForCollapsed(animate: boolean) {
-    // let direction = this.isCollapsed ? 'up' : 'down';
-    // this.slideService.slide(this.elementRef, '.sky-tile-content', direction, animate);
   }
 }
