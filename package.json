@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ngc && cd ../ && npm run compile:sass && npm run copy:design-tokens && cd config/rollup && rollup -c rollup.config.js && rollup -c rollup.min.config.js && npm run clean:srctemp",
+    "build:skyux": "skyux build --output-keep-alive",
     "ci": "npm run lint && npm run test:ci",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs skyux-spa-visual-tests/node_modules/ skyux-spa-visual-tests/dist/",
@@ -56,7 +57,7 @@
     "@angular/platform-browser-dynamic": "4.3.6",
     "@angular/router": "4.3.6",
     "@blackbaud/skyux": "2.3.2",
-    "@blackbaud/skyux-builder": "1.6.0",
+    "@blackbaud/skyux-builder": "1.6.2",
     "@blackbaud/skyux-design-tokens": "0.0.8",
     "@blackbaud/stache": "2.1.0",
     "@types/core-js": "0.9.41",
