@@ -32,6 +32,7 @@ before_install:
   # https://github.com/npm/npm/issues/11283
   - npm set progress=false
 
+  - npm cache clear
   - npm install -g @blackbaud/skyux-cli
   - export SAVAGE_BRANCH="^savage-"
   - chmod +x ./scripts/travis-script-build.sh
@@ -74,7 +75,6 @@ branches:
 # Cache a few things
 cache:
   directories:
-    - node_modules
     - $BROWSER_STACK_BINARY_BASE_PATH
 
 notifications:
