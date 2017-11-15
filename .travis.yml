@@ -14,6 +14,7 @@ env:
   # Run three tasks in parallel:
   # https://docs.travis-ci.com/user/customizing-the-build/#Build-Matrix
   matrix:
+    - TEST_COMMAND=build
     - TEST_COMMAND=coverage
     - TEST_COMMAND=visual
 
@@ -47,18 +48,14 @@ after_install:
   - sudo update-ca-certificates
 
 script:
-  - eval "./scripts/travis-script-${TEST_COMMAND}.sh"
+  - if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]];
+    then eval "node --max-old-space-size=10240 `which npm` run ci:${TEST_COMMAND}";
+    fi
 
 # Run the deployment after all jobs have been successfully completed.
 # https://docs.travis-ci.com/user/build-stages
 jobs:
   include:
-    - stage: build
-      env: TEST_COMMAND=build
-      script:
-        - if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]];
-          then node --max-old-space-size=10240 `which npm` run build:skyux;
-          fi
     - stage: deploy
       env: TEST_COMMAND=none
       script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
