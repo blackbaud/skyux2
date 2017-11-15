@@ -39,7 +39,6 @@ class MockWindowService {
 
 describe('SkyPopoverDirective', () => {
   let fixture: ComponentFixture<SkyPopoverTestComponent>;
-  let component: SkyPopoverTestComponent;
   let directiveElements: DebugElement[];
 
   function triggerMouseEvent(el: DebugElement, eventName: string) {
@@ -131,7 +130,6 @@ describe('SkyPopoverDirective', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(SkyPopoverTestComponent);
-    component = fixture.componentInstance;
     directiveElements = fixture.debugElement.queryAll(By.directive(SkyPopoverDirective));
     fixture.detectChanges();
   });

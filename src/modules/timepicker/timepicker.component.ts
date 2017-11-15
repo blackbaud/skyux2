@@ -88,13 +88,7 @@ export class SkyTimepickerComponent implements OnInit {
   }
 
   public get selectedTime() {
-    let setReturn: string;
     let returnTime: SkyTimepickerTimeOutput;
-    if (typeof this.returnFormat !== 'undefined') {
-      setReturn = moment(this.activeTime).format(this.returnFormat);
-    } else {
-      setReturn = moment(this.activeTime).format(this.localeFormat);
-    }
     returnTime = {
       hour: moment(this.activeTime).hour(),
       minute: moment(this.activeTime).minute(),

@@ -6,15 +6,14 @@ import {
 } from '@angular/core/testing';
 
 import {
-  FormsModule,
-  NgModel
+  FormsModule
 } from '@angular/forms';
 
 import { SkyTimepickerModule } from './timepicker.module';
 import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture';
 
 import { expect } from '../testing';
-import { By } from '@angular/platform-browser';
+
 let moment = require('moment');
 
 describe('Timepicker', () => {
@@ -117,12 +116,6 @@ describe('Timepicker', () => {
     expect(component.selectedTime.local).toEqual('2:55 AM');
   }));
   describe('validation', () => {
-    let ngModel: NgModel;
-    beforeEach(() => {
-      let inputElement = fixture.debugElement.query(By.css('input'));
-      ngModel = <NgModel>inputElement.injector.get(NgModel);
-    });
-
     it('should have active css when in twelve hour timeFormat',
       fakeAsync(() => {
         component.timeFormat = 'hh';

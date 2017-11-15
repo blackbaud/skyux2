@@ -78,16 +78,13 @@ export class SkyColorpickerInputDirective
   public alphaChannel: string = 'hex6';
 
   private _initialColor = SKY_COLORPICKER_DEFAULT_COLOR;
-  private created: boolean;
   private modelValue: SkyColorpickerOutput;
 
   constructor(
     private element: ElementRef,
     private service: SkyColorpickerService,
     private renderer: Renderer
-  ) {
-    this.created = false;
-  }
+  ) { }
 
   @HostListener('input', ['$event'])
   public changeInput(event: any) {
@@ -126,7 +123,6 @@ export class SkyColorpickerInputDirective
   }
 
   public setColorPickerDefaults() {
-      this.created = true;
       this.skyColorpickerInput.setDialog(
         this,
         this.element,

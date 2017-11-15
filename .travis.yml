@@ -4,7 +4,7 @@ sudo: required
 # Limit the git history cloned for the tests.
 # https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
 git:
-  depth: 10
+  depth: 3
 
 # Save the browserstack binary to a known location so we can cache it.
 env:
@@ -48,6 +48,11 @@ after_install:
   - sudo update-ca-certificates
 
 script:
+  # Remove duplicate libraries due to circular dependency:
+  - rimraf ./node_modules/@blackbaud/skyux/node_modules/@angular
+  - rimraf ./node_modules/@blackbaud/skyux/node_modules/@blackbaud
+  - rimraf ./node_modules/@blackbaud/skyux-builder/node_modules/@angular
+  - rimraf ./node_modules/@blackbaud/stache/node_modules/@angular
   - eval "./scripts/travis-script-${TEST_COMMAND}.sh"
 
 # Run the deployment after all jobs have been successfully completed.

@@ -665,7 +665,6 @@ describe('Tabset component', () => {
 
    describe('keyboard accessibility', () => {
     let debugElement: DebugElement;
-    let cmp: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
 
     beforeEach(() => {
@@ -676,7 +675,6 @@ describe('Tabset component', () => {
       });
       fixture = TestBed.createComponent(TabsetTestComponent);
       debugElement = fixture.debugElement;
-      cmp = fixture.componentInstance as TabsetTestComponent;
     });
 
     it('should have tabindex of 0', () => {
