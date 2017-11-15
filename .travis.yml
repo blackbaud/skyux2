@@ -14,7 +14,6 @@ env:
   # Run three tasks in parallel:
   # https://docs.travis-ci.com/user/customizing-the-build/#Build-Matrix
   matrix:
-    - TEST_COMMAND=build
     - TEST_COMMAND=coverage
     - TEST_COMMAND=visual
 
@@ -54,6 +53,9 @@ script:
 # https://docs.travis-ci.com/user/build-stages
 jobs:
   include:
+    - stage: build
+      env: TEST_COMMAND=build
+      script: ./scripts/travis-script-build.sh
     - stage: deploy
       env: TEST_COMMAND=none
       script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
