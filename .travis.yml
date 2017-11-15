@@ -4,7 +4,7 @@ sudo: required
 # Limit the git history cloned for the tests.
 # https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
 git:
-  depth: 3
+  depth: 10
 
 # Save the browserstack binary to a known location so we can cache it.
 env:
