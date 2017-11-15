@@ -14,7 +14,7 @@
     "build:skyux": "skyux build --output-keep-alive",
     "ci": "npm run lint && npm run test:ci",
     "ci:build": "npm run build:skyux",
-    "ci:coverage": "npm run test:unit:ci && bash <(curl -s https://codecov.io/bash)",
+    "ci:coverage": "npm run test:unit:ci && curl -s https://codecov.io/bash | bash",
     "ci:visual": "npm run test:visual:ci && bash ./scripts/visual-baseline.sh && bash ./scripts/browserstack-cleanup.sh",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs skyux-spa-visual-tests/node_modules/ skyux-spa-visual-tests/dist/",
