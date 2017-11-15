@@ -56,8 +56,8 @@ jobs:
     - stage: build
       env: TEST_COMMAND=build
       script:
-        - if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ];
-          then node --max-old-space-size=10240 `which npm` run build:skyux
+        - if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]];
+          then node --max-old-space-size=10240 `which npm` run build:skyux;
           fi
     - stage: deploy
       env: TEST_COMMAND=none
