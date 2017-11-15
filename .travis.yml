@@ -4,7 +4,7 @@ sudo: required
 # Limit the git history cloned for the tests.
 # https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
 git:
-  depth: 10
+  depth: 3
 
 # Save the browserstack binary to a known location so we can cache it.
 env:
@@ -55,7 +55,10 @@ jobs:
   include:
     - stage: build
       env: TEST_COMMAND=build
-      script: ./scripts/travis-script-build.sh
+      script:
+        - if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ];
+          then node --max-old-space-size=10240 `which npm` run build:skyux
+          fi
     - stage: deploy
       env: TEST_COMMAND=none
       script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
