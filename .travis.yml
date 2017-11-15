@@ -48,9 +48,7 @@ after_install:
   - sudo update-ca-certificates
 
 script:
-  - if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]];
-    then eval "node --max-old-space-size=10240 `which npm` run ci:${TEST_COMMAND}";
-    fi
+  - eval "./scripts/travis-script-${TEST_COMMAND}.sh"
 
 # Run the deployment after all jobs have been successfully completed.
 # https://docs.travis-ci.com/user/build-stages
