@@ -57,7 +57,7 @@
     "@angular/platform-browser-dynamic": "4.3.6",
     "@angular/router": "4.3.6",
     "@blackbaud/skyux": "2.3.2",
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder",
+    "@blackbaud/skyux-builder": "1.7.1",
     "@blackbaud/skyux-design-tokens": "0.0.8",
     "@blackbaud/stache": "2.1.0",
     "@types/core-js": "0.9.41",
