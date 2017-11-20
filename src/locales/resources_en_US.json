@@ -496,7 +496,7 @@
     "message": "Filter:"
   },
   "grid_load_more": {
-    "_description": "The text for the button to load additional rows into the grid if more rows are availabel.",
+    "_description": "The text for the button to load additional rows into the grid if more rows are available.",
     "message": "Load more"
   },
   "grid_search_placeholder": {
