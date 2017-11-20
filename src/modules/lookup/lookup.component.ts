@@ -135,47 +135,59 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public keydown(event: KeyboardEvent) {
-    if (event.which === 27 /* Escape Key */) {
-      event.preventDefault();
-      this.revertSelection();
-      return;
-    } else if (event.which === 46 /* Delete */) {
-      if (this.activeSelectedItem) {
+    switch(event.which) {
+      case 27: /* Escape Key */
         event.preventDefault();
-        this.removeSelectedItem(this.activeSelectedItem);
-      }
-    } else if (event.which === 8 /* Backspace */) {
-      if (this.multiple && this.isSearchTextEmpty()) {
-        event.preventDefault();
-        let activeItem = this.activeSelectedItem;
-        this.moveActiveSelectedItemLeft();
-        if (activeItem) {
-          this.removeSelectedItem(activeItem);
+        this.revertSelection();
+        return;
+      case 46: /* Delete */
+        if (this.activeSelectedItem) {
+          event.preventDefault();
+          this.removeSelectedItem(this.activeSelectedItem);
         }
-      }
-    } else if (event.which === 37 /* Left Key */ && this.multiple && this.isSearchTextEmpty()) {
-      event.preventDefault();
-      this.moveActiveSelectedItemLeft();
-    } else if (event.which === 38 /* Up Key */) {
-      event.preventDefault();
-      if (this.open) {
-        this.moveActiveMenuItemUp();
-      }
-    } else if (event.which === 39 /* Right Key */ && this.multiple && this.isSearchTextEmpty()) {
-      event.preventDefault();
-      this.moveActiveSelectedItemRight();
-    } else if (event.which === 40 /* Down Key */) {
-      event.preventDefault();
-      if (this.open) {
-        this.moveActiveMenuItemDown();
-      }
-    } if (event.which === 9 /* Tab */) {
-      if (this.activeSelectedItem) {
+        break;
+      case 8: /* Backspace */
+        if (this.multiple && this.isSearchTextEmpty()) {
+          event.preventDefault();
+          let activeItem = this.activeSelectedItem;
+          this.moveActiveSelectedItemLeft();
+          if (activeItem) {
+            this.removeSelectedItem(activeItem);
+          }
+        }
+        break;
+      case 37: /* Left Key */
+        if (this.multiple && this.isSearchTextEmpty()) {
+          event.preventDefault();
+          this.moveActiveSelectedItemLeft();
+        }
+        break;
+      case 38: /* Up Key */
         event.preventDefault();
-        this.activeSelectedItem = undefined;
-      } else {
-        this.resolvePartialSearch();
-      }
+        if (this.open) {
+          this.moveActiveMenuItemUp();
+        }
+        break;
+      case 39: /* Right Key */
+        if (this.multiple && this.isSearchTextEmpty()) {
+          event.preventDefault();
+          this.moveActiveSelectedItemRight();
+        }
+        break;
+      case 40: /* Down Key */
+        event.preventDefault();
+        if (this.open) {
+          this.moveActiveMenuItemDown();
+        }
+        break;
+      case 9: /* Tab Key */
+        if (this.activeSelectedItem) {
+          event.preventDefault();
+          this.activeSelectedItem = undefined;
+        } else {
+          this.resolvePartialSearch();
+        }
+        break;
     }
     /* Supress all key messages if there is an active selected item */
     if (this.activeSelectedItem) {
