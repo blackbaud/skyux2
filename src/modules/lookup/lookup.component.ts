@@ -47,25 +47,25 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   @Input()
-  public multiple?: boolean = false;
+  public multiple: boolean = false;
 
   @Input()
-  public data?: Array<any>;
+  public data: Array<any>;
 
   @Input()
-  public selectedItems?: Array<any>;
+  public selectedItems: Array<any>;
 
   @Input()
-  public minChars?: number = 1;
+  public minChars: number = 1;
 
   @Input()
-  public propertiesToSearch?: Array<string> = ['name'];
+  public propertiesToSearch: Array<string> = ['name'];
 
   @Input()
-  public descriptorProperty?: string = 'name';
+  public descriptorProperty: string = 'name';
 
   @Input()
-  public resultsLimit?: number;
+  public resultsLimit: number;
 
   @Input()
   public search: (searchText: string) => Array<any> | Promise<Array<any>>
