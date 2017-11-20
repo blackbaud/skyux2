@@ -39,6 +39,7 @@ import { SkyListModule } from './modules/list';
 import { SkyListPagingModule } from './modules/list-paging';
 import { SkyListSecondaryActionsModule } from './modules/list-secondary-actions';
 import { SkyListToolbarModule } from './modules/list-toolbar';
+import { SkyListViewActionButtonModule } from './modules/list-view-action-button';
 import { SkyListViewChecklistModule } from './modules/list-view-checklist';
 import { SkyListViewGridModule } from './modules/list-view-grid';
 import { SkyMediaQueryModule } from './modules/media-queries';
@@ -91,6 +92,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyListPagingModule,
     SkyListSecondaryActionsModule,
     SkyListToolbarModule,
+    SkyListViewActionButtonModule,
     SkyListViewChecklistModule,
     SkyListViewGridModule,
     SkyMediaQueryModule,
@@ -361,6 +363,8 @@ export {
   SkyListToolbarModule,
   SkyListToolbarSortComponent
 } from './modules/list-toolbar';
+
+export * from './modules/list-view-action-button';
 
 export {
   SkyListViewChecklistComponent,

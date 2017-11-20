@@ -16,6 +16,7 @@ import { SkyDemoComponentsService } from './demo-components.service';
 export class SkyDemoComponentsComponent implements OnInit {
   public actionButtonComponents: SkyDemoComponent[];
   public displayedItems: any;
+  public actionButtons: any;
 
   constructor(private componentService: SkyDemoComponentsService) { }
 
@@ -29,5 +30,16 @@ export class SkyDemoComponentsComponent implements OnInit {
       };
     });
     this.displayedItems = this.actionButtonComponents;
+
+    this.actionButtons = this.componentService.getComponents().map((component: any) => {
+      return {
+        actionClick: function () {
+          console.log('clicked!');
+        },
+        heading: component.name,
+        iconType: component.icon,
+        summary: component.summary
+      };
+    });
   }
 }

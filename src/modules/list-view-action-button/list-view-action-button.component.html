@@ -1,0 +1,22 @@
+<div class="sky-list-view-action-button">
+  <sky-row>
+    <sky-column
+      *ngFor="let item of items"
+      screenSmall="6"
+      screenMedium="4"
+      screenLarge="3">
+      <sky-action-button
+        (actionClick)="item.actionClick()">
+        <sky-action-button-icon
+          [iconType]="item.iconType">
+        </sky-action-button-icon>
+        <sky-action-button-header>
+          {{ item.heading }}
+        </sky-action-button-header>
+        <sky-action-button-details>
+          {{ item.summary }}
+        </sky-action-button-details>
+      </sky-action-button>
+    </sky-column>
+  </sky-row>
+</div>
