@@ -23,7 +23,7 @@ import {
   SkyLinkRecordsStateModel
 } from './state/';
 import { Observable } from 'rxjs/Observable';
-import { SkyCheckboxModule } from '@blackbaud/skyux/dist/core';
+import { SkyCheckboxModule } from '../checkbox';
 import { SkyResourcesModule } from '../resources';
 import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 
