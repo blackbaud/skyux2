@@ -144,7 +144,7 @@ export class SkyDemoComponentsService {
         name: 'Confirmation dialog',
         icon: 'list-alt',
         // tslint:disable-next-line
-        summary: `The confirmation dialog component allows users to confirm an action.`,
+        summary: `The confirmation dialog component launches simple confirmation dialogs to allow users to confirm actions.`,
         url: '/components/confirmation-dialog',
         getCodeFiles: function () {
           return [

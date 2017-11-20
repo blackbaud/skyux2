@@ -19,7 +19,7 @@ export class SkyConfirmationDialogDemoComponent {
     };
 
     this.confirmService.open(config).closed.subscribe((result: string) => {
-        this.action = 'You clicked \'' + result + '\'';
+      this.action = 'You clicked \'' + result + '\'';
     });
   }
 
@@ -31,12 +31,7 @@ export class SkyConfirmationDialogDemoComponent {
     };
 
     this.confirmService.open(config).closed.subscribe((result: string) => {
-        switch (result) {
-          case '1': this.action = 'Action 1'; break;
-          case '2': this.action = 'Action 2'; break;
-          case '3': this.action = 'Action 3'; break;
-          default: this.action = 'Unhandled case'; break;
-        }
+      this.action = 'You clicked \'' + result + '\'';
     });
   }
 }
