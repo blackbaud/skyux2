@@ -4,9 +4,6 @@ import {
   Renderer2
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-
 import { SkyWindowRefService } from '../window';
 import { SkyPopoverPlacement } from './index';
 
@@ -26,20 +23,13 @@ export interface SkyPopoverAdapterElements {
 
 @Injectable()
 export class SkyPopoverAdapterService {
-  public placementChanges: Observable<SkyPopoverPlacement>;
-  private placementSubject: Subject<SkyPopoverPlacement>;
-
   constructor(
     private renderer: Renderer2,
-    private windowRef: SkyWindowRefService
-  ) {
-    this.placementSubject = new Subject<SkyPopoverPlacement>();
-    this.placementChanges = this.placementSubject.asObservable();
-  }
+    private windowRef: SkyWindowRefService) { }
 
   public setPopoverPosition(
     elements: SkyPopoverAdapterElements,
-    placement: SkyPopoverPlacement
+    placement: SkyPopoverPlacement = 'above'
   ) {
     this.clearElementCoordinates(elements.popover);
     this.clearElementCoordinates(elements.popoverArrow);
@@ -79,8 +69,6 @@ export class SkyPopoverAdapterService {
       coords = this.getCoordinates(elements, placement);
     }
 
-    this.sendChanges(placement);
-
     return coords;
   }
 
@@ -105,8 +93,9 @@ export class SkyPopoverAdapterService {
 
     let isOutsideViewport = false;
 
+    // tslint:disable:switch-default
+    // All possible types are represented; default unnecessary.
     switch (placement) {
-      default:
       case 'above':
         left = leftCenter;
         top = callerRect.top - popoverRect.height;
@@ -131,6 +120,7 @@ export class SkyPopoverAdapterService {
         arrowTop = (popoverRect.height / 2);
         break;
     }
+    // tslint:enable:switch-default
 
     left += window.pageXOffset;
     top += window.pageYOffset;
@@ -198,8 +188,19 @@ export class SkyPopoverAdapterService {
   }
 
   private setElementCoordinates(elem: ElementRef, top: number, left: number) {
-    this.renderer.setStyle(elem.nativeElement, 'top', `${top}px`);
-    this.renderer.setStyle(elem.nativeElement, 'left', `${left}px`);
+    let topStyle;
+    let leftStyle;
+
+    if (top !== undefined) {
+      topStyle = `${top}px`;
+    }
+
+    if (left !== undefined) {
+      leftStyle = `${left}px`;
+    }
+
+    this.renderer.setStyle(elem.nativeElement, 'top', topStyle);
+    this.renderer.setStyle(elem.nativeElement, 'left', leftStyle);
   }
 
   private getNextPlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
@@ -216,9 +217,5 @@ export class SkyPopoverAdapterService {
   private getInversePlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
     const pairings = { above: 'below', below: 'above', right: 'left', left: 'right' };
     return pairings[placement] as SkyPopoverPlacement;
-  }
-
-  private sendChanges(placement: SkyPopoverPlacement) {
-    this.placementSubject.next(placement);
   }
 }

@@ -10,7 +10,7 @@
     width: 100%;
 
     th {
-      color: $sky-text-color-deemphasized;
+      @include sky-field-label;
     }
 
     th,
@@ -19,6 +19,7 @@
       text-align: left;
 
       &.link-records-item-diff-update {
+        word-break: normal;
         text-align: center;
         width: 50px;
       }

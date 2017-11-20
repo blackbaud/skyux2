@@ -111,6 +111,26 @@
 </sky-popover>
 
 <h3>
+  Popovers can also be opened when the mouse hovers over an element:
+</h3>
+
+<button
+  class="sky-btn"
+  [skyPopover]="popoverMouseEnter"
+  skyPopoverPlacement="right"
+  skyPopoverTrigger="mouseenter"
+>
+  Hover
+</button>
+
+<sky-popover
+  popoverTitle="Did you know?"
+  #popoverMouseEnter
+>
+  You can move your mouse off the button to close this popover.
+</sky-popover>
+
+<h3>
   Events
 </h3>
 

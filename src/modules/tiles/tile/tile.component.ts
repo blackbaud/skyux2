@@ -63,8 +63,14 @@ export class SkyTileComponent implements AfterViewInit {
   }
 
   private _isCollapsed = false;
-
   private viewInitialized = false;
+
+  constructor(
+    public elementRef: ElementRef,
+    @Optional() private dashboardService: SkyTileDashboardService
+  ) {
+    this.isInDashboardColumn = !!dashboardService;
+  }
 
   public settingsButtonClicked() {
     this.settingsClick.emit(undefined);
@@ -72,13 +78,6 @@ export class SkyTileComponent implements AfterViewInit {
 
   public get hasSettings(): boolean {
     return this.settingsClick.observers.length > 0;
-  }
-
-  constructor(
-    public elementRef: ElementRef,
-    @Optional() private dashboardService: SkyTileDashboardService
-  ) {
-    this.isInDashboardColumn = !!dashboardService;
   }
 
   public titleClick() {

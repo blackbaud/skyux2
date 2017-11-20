@@ -42,7 +42,6 @@ let skyModalUniqueIdentifier: number = 0;
 })
 export class SkyModalComponent implements AfterViewInit {
   public modalState = 'in';
-
   public modalContentId: string = 'sky-modal-content-id-' + skyModalUniqueIdentifier.toString();
   public modalHeaderId: string = 'sky-modal-header-id-' + skyModalUniqueIdentifier.toString();
 
@@ -82,6 +81,18 @@ export class SkyModalComponent implements AfterViewInit {
   public get ariaLabelledBy() {
     return this.config.ariaLabelledBy || this.modalHeaderId;
   }
+
+  public get helpKey() {
+    return this.config.helpKey;
+  }
+
+  constructor(
+    private hostService: SkyModalHostService,
+    private config: SkyModalConfiguration,
+    private elRef: ElementRef,
+    private windowRef: SkyWindowRefService,
+    private componentAdapter: SkyModalComponentAdapterService
+  ) { }
 
   @HostListener('document:keydown', ['$event'])
   public onDocumentKeyDown(event: KeyboardEvent) {
@@ -127,13 +138,6 @@ export class SkyModalComponent implements AfterViewInit {
     }
   }
 
-  constructor(
-    private hostService: SkyModalHostService,
-    private config: SkyModalConfiguration,
-    private elRef: ElementRef,
-    private windowRef: SkyWindowRefService,
-    private componentAdapter: SkyModalComponentAdapterService) { }
-
   public ngAfterViewInit() {
     skyModalUniqueIdentifier++;
     this.componentAdapter.handleWindowChange(this.elRef);
@@ -143,6 +147,10 @@ export class SkyModalComponent implements AfterViewInit {
     this.windowRef.getWindow().setTimeout(() => {
       this.componentAdapter.modalOpened(this.elRef);
     });
+  }
+
+  public helpButtonClick() {
+    this.hostService.onOpenHelp(this.helpKey);
   }
 
   public closeButtonClick() {

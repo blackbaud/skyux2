@@ -61,40 +61,35 @@ describe('List Secondary Actions Component', () => {
       // run detectChanges once more then begin tests
       state.skip(1).take(1).subscribe(() => fixture.detectChanges());
     }
-      it('should show secondary actions when specified', async(() => {
-        initializeToolbar();
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
 
-          /* tslint:disable */
-          let query =
-            '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-secondary-action';
-          /* tslint:enable */
-          expect(nativeElement.querySelector(query)).not.toBeNull();
-        });
-
-      }));
-
-      it('should hide secondary actions when no child actions available', fakeAsync(() => {
-        component.showOption = false;
-        initializeToolbar();
+    it('should show secondary actions when specified', async(() => {
+      initializeToolbar();
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
         fixture.detectChanges();
-        tick();
-        fixture.detectChanges();
-        /* tslint:disable */
+
+        /* tslint:disable:max-line-length */
         let query =
-          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions';
-        /* tslint:enable */
+          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-secondary-action';
+        /* tslint:enable:max-line-length */
+        expect(nativeElement.querySelector(query)).not.toBeNull();
+      });
+    }));
 
-        expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(true);
+    it('should hide secondary actions when no child actions available', fakeAsync(() => {
+      component.showOption = false;
+      initializeToolbar();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-        component.showOption = true;
-        fixture.detectChanges();
-        tick();
-        expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(false);
+      expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(true);
 
-      }));
+      component.showOption = true;
+      fixture.detectChanges();
+      tick();
 
-    });
+      expect(component.secondaryActions.dropdownHidden.valueOf()).toBe(false);
+    }));
+  });
 });

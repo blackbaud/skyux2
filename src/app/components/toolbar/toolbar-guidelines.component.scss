@@ -1,0 +1,14 @@
+@import '../../../scss/variables';
+
+div.sky-section-heading {
+  margin: $sky-margin-double 0 $sky-margin 0;
+}
+
+div.sky-subsection-heading {
+  margin: $sky-margin 0;
+}
+
+p {
+  margin: $sky-margin 0 !important;
+}
+

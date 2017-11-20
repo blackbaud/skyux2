@@ -1,12 +1,15 @@
 import {
-  EventEmitter,
-  Injectable
+  EventEmitter
 } from '@angular/core';
 
-@Injectable()
 export class SkyModalHostService {
   public static get openModalCount(): number {
     return SkyModalHostService.modalHosts.length;
+  }
+
+  public static get fullPageModalCount(): number {
+    let fullPageModals = SkyModalHostService.modalHosts.filter(modal => modal.fullPage);
+    return fullPageModals.length;
   }
 
   private static get BASE_Z_INDEX(): number {
@@ -24,8 +27,9 @@ export class SkyModalHostService {
   private static modalHosts: SkyModalHostService[] = [];
 
   public close = new EventEmitter<void>();
+  public openHelp = new EventEmitter<any>();
 
-  public constructor() {
+  constructor(private fullPage: boolean) {
     SkyModalHostService.modalHosts.push(this);
   }
 
@@ -39,7 +43,11 @@ export class SkyModalHostService {
     this.close.emit();
   }
 
+  public onOpenHelp(helpKey?: string) {
+    this.openHelp.emit(helpKey);
+  }
+
   public destroy(): void {
-    SkyModalHostService.modalHosts.splice(SkyModalHostService.modalHosts.indexOf(this));
+    SkyModalHostService.modalHosts.splice(SkyModalHostService.modalHosts.indexOf(this), 1);
   }
 }

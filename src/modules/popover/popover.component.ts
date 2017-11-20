@@ -6,8 +6,6 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  OnInit,
-  OnDestroy,
   Output,
   ViewChild
 } from '@angular/core';
@@ -21,8 +19,6 @@ import {
   transition
 } from '@angular/animations';
 
-import { Subscription } from 'rxjs/Subscription';
-
 import { SkyWindowRefService } from '../window';
 import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
 
@@ -33,7 +29,7 @@ import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
   providers: [SkyPopoverAdapterService],
   animations: [
     trigger('popoverState', [
-      state('visible', style({ opacity: 1 })),
+      state('visible', style({ opacity: 1, visibility: 'visible' })),
       state('hidden', style({ opacity: 0 })),
       transition('hidden => visible', animate('150ms')),
       transition('visible => hidden', animate('150ms'))
@@ -41,7 +37,7 @@ import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyPopoverComponent implements OnInit, OnDestroy {
+export class SkyPopoverComponent {
   @Input()
   public popoverTitle: string;
 
@@ -61,11 +57,11 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public popoverArrow: ElementRef;
   public isOpen = false;
   public placementClassName: string;
+  public isMouseEnter = false;
 
+  private isMarkedForCloseOnMouseLeave = false;
   private lastCaller: ElementRef;
-  private isMouseEnter = false;
   private readonly placementDefault: SkyPopoverPlacement = 'above';
-  private placementSubscription: Subscription;
 
   constructor(
     private windowRef: SkyWindowRefService,
@@ -75,11 +71,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.placement = this.placementDefault;
     this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
     this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
-    this.placementSubscription = this.adapterService.placementChanges
-      .subscribe((placement: SkyPopoverPlacement) => {
-        this.placement = placement;
-        this.placementClassName = this.getPlacementClassName();
-      });
   }
 
   @HostListener('window:resize')
@@ -109,10 +100,11 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   @HostListener('mouseleave')
   public onMouseLeave() {
     this.isMouseEnter = false;
-  }
 
-  public ngOnInit(): void {
-    this.placementClassName = this.getPlacementClassName();
+    if (this.isMarkedForCloseOnMouseLeave) {
+      this.close();
+      this.isMarkedForCloseOnMouseLeave = false;
+    }
   }
 
   public positionNextTo(caller: ElementRef, placement: SkyPopoverPlacement) {
@@ -128,10 +120,13 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       caller: this.lastCaller
     };
 
+    this.placement = placement || this.placementDefault;
+    this.changeDetector.markForCheck();
+
     // Wait for a tick to allow placement styles to render.
     // (The styles affect the element dimensions.)
     this.windowRef.getWindow().setTimeout(() => {
-      this.adapterService.setPopoverPosition(elements, placement || this.placementDefault);
+      this.adapterService.setPopoverPosition(elements, this.placement);
       this.isOpen = true;
       this.changeDetector.markForCheck();
     });
@@ -140,6 +135,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public close() {
     this.lastCaller = undefined;
     this.isOpen = false;
+    this.changeDetector.markForCheck();
   }
 
   public onAnimationStart(event: AnimationEvent) {
@@ -169,11 +165,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     return (this.isOpen) ? 'visible' : 'hidden';
   }
 
-  public ngOnDestroy(): void {
-    this.placementSubscription.unsubscribe();
-  }
-
-  private getPlacementClassName(): string {
-    return `sky-popover-placement-${this.placement}`;
+  public markForCloseOnMouseLeave() {
+    this.isMarkedForCloseOnMouseLeave = true;
   }
 }

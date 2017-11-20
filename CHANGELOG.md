@@ -1,3 +1,40 @@
+# 2.3.2 (2017-10-31)
+
+- Fixed error component visual tests being clipped. ([#1241](https://github.com/blackbaud/skyux2/pull/1241))
+- Fixed colorpicker repeating background. ([#1245](https://github.com/blackbaud/skyux2/pull/1245))
+
+# 2.3.1 (2017-10-26)
+
+- Removed bottom margin of fluid-grid row component. ((#1212)[https://github.com/blackbaud/skyux2/pull/1212]) (Thanks @Blackbaud-ScottFreeman)
+- Altered popover animation states to use best practices. ((#1218)[https://github.com/blackbaud/skyux2/pull/1218])
+- Fixed visual inconsistencies with search component in IE11. ([#1234](https://github.com/blackbaud/skyux2/pull/1234))
+- Fixed various colorpicker bugs. ([#1227](https://github.com/blackbaud/skyux2/pull/1227))
+- Fixed line-breaks for long text in link records component. ([#1226](https://github.com/blackbaud/skyux2/pull/1226)) (Thanks @Blackbaud-KristinaDurivage)
+- Fixed warning thrown by modal host during builds. ((#1216)[https://github.com/blackbaud/skyux2/pull/1216])
+
+# 2.3.0 (2017-10-16)
+
+- Added CSS class name to body when modal is displayed full-page. ([#1180](https://github.com/blackbaud/skyux2/pull/1180)) (Thanks @Blackbaud-BrandonJones)
+- Added ability to show popover on mouse hover. ([#1172](https://github.com/blackbaud/skyux2/pull/1172))
+- Added padding to tabset component. ([#1167](https://github.com/blackbaud/skyux2/pull/1167))
+- Updated link records label color. ([#1176](https://github.com/blackbaud/skyux2/pull/1176))
+- Fixed file drop component in IE11. ([#1179](https://github.com/blackbaud/skyux2/pull/1179))
+- Fixed incorrect border color for search component button. ([#1197](https://github.com/blackbaud/skyux2/pull/1197))
+- Fixed definition list component wrapping to a new row. ([#1194](https://github.com/blackbaud/skyux2/pull/1194))
+- Fixed SVG error images not showing in IE11. ([#1190](https://github.com/blackbaud/skyux2/pull/1190))
+
+# 2.2.0 (2017-10-04)
+
+- Added support for Builder 1.1.0. ([#1157](https://github.com/blackbaud/skyux2/pull/1157))
+- Added sectioned form component. ([#1068](https://github.com/blackbaud/skyux2/pull/1068)) (Thanks @Blackbaud-AdamHickey)
+- Added help button to modal header. ([#1144](https://github.com/blackbaud/skyux2/pull/1144)) (Thanks @Blackbaud-BrandonJones)
+- Added vertical separator to vertical tabs component. ([#1140](https://github.com/blackbaud/skyux2/pull/1140))
+- Fixed flex elements not displaying properly within alert component (IE11). ([#1151](https://github.com/blackbaud/skyux2/pull/1151))
+- Fixed drag/collapse not working properly for tile component (IE11, Edge). ([#1153](https://github.com/blackbaud/skyux2/pull/1153))
+- Fixed newlines with text expand component. ([#1138](https://github.com/blackbaud/skyux2/pull/1138))
+- Fixed padding of tile dashboard component (IE11). ([#1127](https://github.com/blackbaud/skyux2/pull/1127))
+- Fixed file drop component not displaying properly during a serve. ([#1073](https://github.com/blackbaud/skyux2/pull/1073))
+
 # 2.1.0 (2017-09-26)
 
 - Added support for Angular 4.3.6. ([#1117](https://github.com/blackbaud/skyux2/pull/1117))

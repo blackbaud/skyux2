@@ -32,10 +32,10 @@ let componentIdIndex = 0;
 })
 
 export class SkyColorpickerComponent implements OnInit {
-
   @Output()
   public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
-  new EventEmitter<SkyColorpickerOutput>();
+    new EventEmitter<SkyColorpickerOutput>();
+
   public idIndex: number;
   public skyColorpickerHexId: string;
   public skyColorpickerRedId: string;
@@ -56,22 +56,34 @@ export class SkyColorpickerComponent implements OnInit {
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
+
   @ViewChild('closeColorPicker')
   private closeColorPicker: ElementRef;
+
   private outputColor: string;
   private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
 
-  @HostListener('click', ['$event'])
-  public onClick(event: any) {
-    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    // keep the drop down open.
+  constructor(private service: SkyColorpickerService) {
+    componentIdIndex++;
+
+    this.idIndex = componentIdIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
+    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
+    this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
+    this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
+    this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
+  }
+
+  public onContainerClick(event: MouseEvent) {
+    const element: HTMLButtonElement = <HTMLButtonElement>event.target;
+    // Allow the click event to propagate to the dropdown handler for certain buttons.
+    // (This will allow the dropdown menu to close.)
     if (
-      element.classList.contains('sky-btn-colorpicker-close') ||
-      element.classList.contains('sky-btn-colorpicker-apply')
+      !element.classList.contains('sky-btn-colorpicker-close') &&
+      !element.classList.contains('sky-btn-colorpicker-apply')
     ) {
-      element.click();
-    } else {
       event.stopPropagation();
     }
   }
@@ -80,24 +92,11 @@ export class SkyColorpickerComponent implements OnInit {
   public keyboardInput(event: any) {
     /* Ignores in place for valid code that is only used in IE and Edge */
     /* istanbul ignore next */
-    let code: string = (event.code || event.key).toLowerCase();
+    const code: string = event.code || event.key;
     /* istanbul ignore else */
-    if (code.indexOf('esc') === 0) {
+    if (code && code.toLowerCase().indexOf('esc') === 0) {
       this.closeColorPicker.nativeElement.click();
     }
-  }
-
-  constructor(
-    private service: SkyColorpickerService
-  ) {
-    componentIdIndex++;
-    this.idIndex = componentIdIndex;
-    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
-    this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
-    this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
-    this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
-    this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
-    this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
   }
 
   public setDialog(

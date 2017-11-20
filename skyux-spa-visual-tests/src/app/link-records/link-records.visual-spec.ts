@@ -59,4 +59,17 @@ describe('link-records component', () => {
       });
     });
   });
+
+  it('should display created match with long field', () => {
+    return SkyVisualTest.setupTest('link-records')
+      .then(() => {
+        element(by.css('#create-link-records-long-field .link-records-item-footer .sky-btn-default')).click();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'link_records_created_match_long_field',
+          selector: '#screenshot-link-records-created-match-long-field',
+          checkAccessibility: true
+        });
+      });
+  });
+
 });
