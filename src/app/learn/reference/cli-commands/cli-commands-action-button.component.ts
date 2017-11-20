@@ -28,6 +28,13 @@ export class CLICommandsActionButtonsComponent {
       summary: 'Runs any e2e tests in the e2e folder.'
     },
     {
+      name: 'generate',
+      path: '/learn/reference/cli-commands/generate',
+      icon: 'plus-circle',
+      // tslint:disable-next-line
+      summary: 'Creates SKY UX template items.'
+    },
+    {
       name: 'help',
       path: '/learn/reference/cli-commands/help',
       icon: 'question-circle-o',
