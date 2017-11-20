@@ -75,6 +75,12 @@
   @include sky-field-status(active);
   border-radius: $sky-border-radius;
 
+  .sky-lookup-input-group {
+    border-left: 1px transparent solid;
+    border-top: 1px transparent solid;
+    border-bottom: 1px transparent solid;
+  }
+
   .sky-input-group-btn {
     .sky-btn.sky-lookup-btn-apply {
       border-right: 1px transparent solid;
