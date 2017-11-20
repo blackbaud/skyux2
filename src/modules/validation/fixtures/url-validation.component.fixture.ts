@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'sky-test-cmp',
-    templateUrl: './url-validation.component.fixture.html'
+  selector: 'sky-test-cmp',
+  templateUrl: './url-validation.component.fixture.html'
 })
 export class UrlValidationTestComponent {
-    public urlValidator: string;
+  public urlValidator: string;
 }

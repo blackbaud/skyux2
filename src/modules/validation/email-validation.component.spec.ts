@@ -1,15 +1,15 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule, NgModel } from '@angular/forms';
-import {By} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 
 import { SkyEmailValidationFixturesModule } from './fixtures/email-validation-fixtures.module';
 import { EmailValidationTestComponent } from './fixtures/email-validation.component.fixture';
 
 describe('Email validation', () => {
-    function setInput(
-      element: HTMLElement,
-      text: string,
-      compFixture: ComponentFixture<any>) {
+  function setInput(
+    element: HTMLElement,
+    text: string,
+    compFixture: ComponentFixture<any>) {
     let inputEvent = document.createEvent('Event');
     let params = {
       bubbles: false,
@@ -32,62 +32,62 @@ describe('Email validation', () => {
 
   }
 
-    let component: EmailValidationTestComponent;
-    let fixture: ComponentFixture<EmailValidationTestComponent>;
-    let ngModel: NgModel;
-    let nativeElement: HTMLElement;
+  let component: EmailValidationTestComponent;
+  let fixture: ComponentFixture<EmailValidationTestComponent>;
+  let ngModel: NgModel;
+  let nativeElement: HTMLElement;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                SkyEmailValidationFixturesModule,
-                FormsModule
-            ]
-        });
-        fixture = TestBed.createComponent(EmailValidationTestComponent);
-        nativeElement = fixture.nativeElement as HTMLElement;
-        let input = fixture.debugElement.query(By.css('input'));
-        ngModel = <NgModel> input.injector.get(NgModel);
-        component = fixture.componentInstance;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyEmailValidationFixturesModule,
+        FormsModule
+      ]
     });
+    fixture = TestBed.createComponent(EmailValidationTestComponent);
+    nativeElement = fixture.nativeElement as HTMLElement;
+    let input = fixture.debugElement.query(By.css('input'));
+    ngModel = <NgModel>input.injector.get(NgModel);
+    component = fixture.componentInstance;
+  });
 
-    it('should validate correct input', fakeAsync(() => {
-        fixture.detectChanges();
-        tick();
-        setInput(nativeElement, 'joe@abc.com', fixture);
-        fixture.detectChanges();
+  it('should validate correct input', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    setInput(nativeElement, 'joe@abc.com', fixture);
+    fixture.detectChanges();
 
-        expect(nativeElement.querySelector('input').value).toBe('joe@abc.com');
+    expect(nativeElement.querySelector('input').value).toBe('joe@abc.com');
 
-        expect(ngModel.control.valid).toBe(true);
-        expect(ngModel.control.pristine).toBe(false);
-        expect(ngModel.control.touched).toBe(false);
+    expect(ngModel.control.valid).toBe(true);
+    expect(ngModel.control.pristine).toBe(false);
+    expect(ngModel.control.touched).toBe(false);
 
-    }));
-    it('should validate incorrect input', fakeAsync(() => {
-        fixture.detectChanges();
-        tick();
-        setInput(nativeElement, '[]awefhawenfc0293ejwf]', fixture);
-        fixture.detectChanges();
+  }));
+  it('should validate incorrect input', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    setInput(nativeElement, '[]awefhawenfc0293ejwf]', fixture);
+    fixture.detectChanges();
 
-        expect(nativeElement.querySelector('input').value).toBe('[]awefhawenfc0293ejwf]');
+    expect(nativeElement.querySelector('input').value).toBe('[]awefhawenfc0293ejwf]');
 
-        expect(ngModel.control.valid).toBe(false);
-        expect(ngModel.control.pristine).toBe(false);
-        expect(ngModel.control.touched).toBe(false);
-    }));
+    expect(ngModel.control.valid).toBe(false);
+    expect(ngModel.control.pristine).toBe(false);
+    expect(ngModel.control.touched).toBe(false);
+  }));
 
-    it('should handle invalid and then valid input', fakeAsync(() => {
-        fixture.detectChanges();
-        tick();
-        setInput(nativeElement, '[]awefhawenfc0293ejwf]', fixture);
-        setInput(nativeElement, 'joe@abc.com', fixture);
+  it('should handle invalid and then valid input', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    setInput(nativeElement, '[]awefhawenfc0293ejwf]', fixture);
+    setInput(nativeElement, 'joe@abc.com', fixture);
 
-        expect(nativeElement.querySelector('input').value).toBe('joe@abc.com');
-        expect(component.emailValidator).toEqual('joe@abc.com');
+    expect(nativeElement.querySelector('input').value).toBe('joe@abc.com');
+    expect(component.emailValidator).toEqual('joe@abc.com');
 
-        expect(ngModel.control.valid).toBe(true);
-        expect(ngModel.control.pristine).toBe(false);
-        expect(ngModel.control.touched).toBe(false);
-    }));
+    expect(ngModel.control.valid).toBe(true);
+    expect(ngModel.control.pristine).toBe(false);
+    expect(ngModel.control.touched).toBe(false);
+  }));
 });

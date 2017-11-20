@@ -6,16 +6,16 @@ import { SkyValidationModule } from '../';
 import { UrlValidationTestComponent } from './url-validation.component.fixture';
 
 @NgModule({
-    declarations: [
-        UrlValidationTestComponent
-    ],
-    imports: [
-        FormsModule,
-        CommonModule,
-        SkyValidationModule
-    ],
-    exports: [
-        UrlValidationTestComponent
-    ]
+  declarations: [
+    UrlValidationTestComponent
+  ],
+  imports: [
+    FormsModule,
+    CommonModule,
+    SkyValidationModule
+  ],
+  exports: [
+    UrlValidationTestComponent
+  ]
 })
 export class SkyUrlValidationFixturesModule { }

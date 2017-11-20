@@ -6,16 +6,16 @@ import { SkyValidationModule } from '../';
 import { EmailValidationTestComponent } from './email-validation.component.fixture';
 
 @NgModule({
-    declarations: [
-        EmailValidationTestComponent
-    ],
-    imports: [
-        FormsModule,
-        CommonModule,
-        SkyValidationModule
-    ],
-    exports: [
-        EmailValidationTestComponent
-    ]
+  declarations: [
+    EmailValidationTestComponent
+  ],
+  imports: [
+    FormsModule,
+    CommonModule,
+    SkyValidationModule
+  ],
+  exports: [
+    EmailValidationTestComponent
+  ]
 })
 export class SkyEmailValidationFixturesModule { }
