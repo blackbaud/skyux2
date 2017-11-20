@@ -1,0 +1,18 @@
+.sky-list-view-action-button {
+  /deep/
+  sky-action-button {
+    height: 100%;
+    flex: 100%;
+    display: inline-flex;
+    padding-bottom: 30px;
+  }
+
+  /deep/
+  .sky-action-button {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 0;
+    margin-right: 0 !important;
+    height: 100%;
+  }
+}
