@@ -67,7 +67,8 @@
     </li>
     <!-- <li><p><stache-code>command</stache-code> — Specifies/Provides </p></li> -->
     <li>
-      <p><stache-code>compileMode</stache-code> — Specifies how to compile the project's code. By default, the <stache-code>skyuxconfig.json</stache-code> file sets this property to <stache-code>aot</stache-code> to specify ahead-of-time compilation, which runs the compiler once at build time using one set of libraries. You can change this setting to <stache-code>jit</stache-code> to specify just-in-time compilation, which runs the compiler at run time for every user using a different set of libraries. SKY UX uses ahead-of-time compilation by default because it is typically more performant and has less to handle at run-time. For more information about the difference, see the <a href="https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#aot-jit">Angular documentation</a></p></li>
+      <p><stache-code>compileMode</stache-code> — Specifies how to compile the project's code. By default, the <stache-code>skyuxconfig.json</stache-code> file sets this property to <stache-code>aot</stache-code> to specify ahead-of-time compilation, which runs the compiler once at build time using one set of libraries. You can change this setting to <stache-code>jit</stache-code> to specify just-in-time compilation, which runs the compiler at run time for every user using a different set of libraries. SKY UX uses ahead-of-time compilation by default because it is typically more performant and has less to handle at run-time. For more information about the difference, see the <a href="https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#aot-jit">Angular documentation</a></p>
+    </li>
     <!-- <li><p><stache-code>cssPath</stache-code> — Specifies/Provides </p></li> -->
     <li>
       <p><stache-code>help</stache-code> — Indicates whether to automatically include the help widget in the application to identify the current page and display relevant help content. This property is for internal Blackbaud use only. By default, this property is set to <stache-code>false</stache-code>. For Blackbaud developers who want to include the help widget, <a href="https://github.com/blackbaud/bb-help#configuration">the help widget configuration options documentation</a> describes the configuration object to set the <stache-code>help</stache-code> property to.</p>
@@ -75,7 +76,9 @@
     <li>
       <p><stache-code>host</stache-code> — Specifies configuration options for communication with SKY UX Host.</p>
       <ul>
-        <li><p><stache-code>url</stache-code> — Specifies a base URL to pass information from <stache-code>skyux serve</stache-code> to the SKY UX Host. The default value is <stache-code>https://host.nxt.blackbaud.com</stache-code>.</p></li>
+        <li>
+          <p><stache-code>url</stache-code> — Specifies a base URL to pass information from <stache-code>skyux serve</stache-code> to the SKY UX Host. The default value is <stache-code>https://host.nxt.blackbaud.com</stache-code>.</p>
+        </li>
       </ul>
     </li>
     <!-- <li><p><stache-code>importPath</stache-code> — Specifies/Provides </p></li> -->
@@ -104,16 +107,12 @@
     "folder-1/subfolder-2": "folder-1/subfolder-2/new-subfolder-2"
   }</stache-code-block>
     </li>
-    <li>
-      <p><stache-code>svcid</stache-code> — Specifies a default value for the service ID to add to the Host URL when <stache-code>skyux serve</stache-code> runs.</p>
-    </li>
     <!-- <li><p><stache-code>routes</stache-code> — Specifies/Provides </p>
       <ul>
         <li><p><stache-code>public</stache-code> — </p></li>
         <li><p><stache-code>referenced</stache-code> — </p></li>
       </ul>
     </li> -->
-</li>
     <!-- <li><p><stache-code>useHashRouting</stache-code> — Specifies/Provides </li> -->
   </ul>
 
