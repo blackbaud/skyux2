@@ -2,11 +2,11 @@
     navOrder="5"
     pageTitle="Edit a project"
     showTableOfContents="true">
-  
+
   <stache-page-anchor>
     Edit an existing page
   </stache-page-anchor>
-  
+
   <p>After you <a routerLink="/learn/get-started/basics/serve-project">serve the default single-page application</a>, you can update an existing page.</p>
   <ol>
     <li>
@@ -17,11 +17,11 @@
       <stache-code-block>
         <app-nav></app-nav>
         <h1>About our Team</h1>
-        
+
         <sky-alert alertType="warning">
           <strong>Warning!</strong> We never check our email.
         </sky-alert>
-        
+
         <div class="template-about-teams">
           <div *ngFor="let member of team" class="template-about-team">
             <sky-avatar [name]="member.name"></sky-avatar>
@@ -55,11 +55,11 @@
       <p>Return to the About page in the web browser to see the new paragraph in place.</p>
     </li>
   </ol>
-  
+
   <stache-page-anchor>
     Edit a component on an existing page
   </stache-page-anchor>
-  
+
   <p>After you edit an existing page in the default single-page application, you can update an existing component on the page.</p>
   <ol>
     <li>
@@ -86,11 +86,11 @@
       <p>Return to the About page in the web browser to see that the new <stache-code>alertType</stache-code> value updates the background color and that the new text replaces the previous message.</p>
     </li>
   </ol>
-  
+
   <stache-page-anchor>
     Add a component to an existing page
   </stache-page-anchor>
-  
+
   <p>After you edit a component on an existing page in the default single-page application, you can add a SKY UX component to the page.</p>
   <ol>
     <li>
@@ -128,11 +128,11 @@
       <p>Return to the About page in the web browser to see the new card component between the alert and avatar components.</p>
     </li>
   </ol>
-  
+
   <stache-page-anchor>
     Create a page
   </stache-page-anchor>
-  
+
   <p>After you add a SKY UX component to an existing page in the default single-page application, you can create a page. By default, SKY UX uses automatic route configuration based on the project's folder structure. So to create a page, you simply create a folder in the existing <stache-code>src/app</stache-code> folder and then create an <stache-code>index.html</stache-code> file in that folder.</p>
   <ol>
     <li>
@@ -161,7 +161,7 @@
       <p>Add a path for the new page with <stache-code>name</stache-code> set to "Demo" and <stache-code>path</stache-code> set to "/demo." The <stache-code>name</stache-code> provides the label for the menu, and the <stache-code>path</stache-code> specifies the name of the folder.</p>
       <stache-code-block languageType="typescript">
         import { Component } from '@angular/core';
-        
+
         @Component({
           selector: 'app-nav',
           templateUrl: './app-nav.component.html',
@@ -198,65 +198,78 @@
       <p>Click the <strong>Demo</strong> menu option. The new page appears.</p>
     </li>
   </ol>
-  
+
   <stache-page-anchor>
     Create a component
   </stache-page-anchor>
-  
-  <p>After you create a page in the default single-page application, you can create a component for the page.</p>
+
+  <p>
+    Now that you've added some basic content to your page, you may need more programmatic control over the contents of the page. For instance, you might want to display some dynamic data based on a web request or some client-side logic written in TypeScript. For that, you need to create your own component.
+  </p>
+  <p>
+    The SKY UX CLI makes it easy to create components from the command line. For this example, we'll create a component in the <stache-code>demo</stache-code> folder from the previous tutorial.
+  </p>
   <ol>
     <li>
-      <p>Return to the project in a local editor.</p>
+      <p>From the command line, run <stache-code>skyux generate component demo/my-demo</stache-code> in the context of your project's root directory.  This creates the TypeScript, HTML, SCSS, and spec files to build and test your component.</p>
     </li>
     <li>
-      <p>In the <stache-code>demo</stache-code> folder from the previous tutorial, create a file and name it <stache-code>demo.component.ts</stache-code>. This file will define the component and its functionality.</p>
-      <sky-alert alertType="info">If <stache-code>skyux serve</stache-code> is running, it detects the new file and attempts to update the SPA. However, errors occur when trying to serve the empty file, and the SPA fails to compile. In the command prompt, you can see the errors.</sky-alert>
-    </li>
-    <li>
-      <p>Create another file in the <stache-code>demo</stache-code> folder and name it <stache-code>demo.component.html</stache-code>. This file will be the template for the new component to use.</p>
-    </li>
-    <li>
-      <p>In the <stache-code>demo.component.ts</stache-code> file, add the following code for a component to display a message on the Demo page.</p>
+      <p>In your code editor, navigate to the <stache-code>demo</stache-code> folder, and open the <stache-code>my-demo.component.ts</stache-code> file that includes boilerplate code to create your component.</p>
       <stache-code-block languageType="typescript">
         import {
-          Component,
-          Input
+          Component
         } from '@angular/core';
-        
+
         @Component({
-          selector: 'my-demo',
-          templateUrl: 'demo.component.html'
+          selector: 'app-my-demo',
+          templateUrl: './my-demo.component.html',
+          styleUrls: ['./my-demo.component.scss']
         })
         export class MyDemoComponent {
-          @Input()
-          public message: string;
+
         }
       </stache-code-block>
-      <p>The <stache-code>import</stache-code> portion imports the <stache-code>Component</stache-code> and <stache-code>Input</stache-code> classes from Angular to provide that functionality to the component that we are defining. The <stache-code>@Component</stache-code> section is a decorator for the component, and it defines our selector and template. The decorator takes normal JavaScript classes and  extends the JavaScript functionality to convert them into Angular components. The <stache-code>export</stache-code> portion defines the component class and a public input variable called <stache-code>message</stache-code>.</p>
-      <sky-alert alertType="info">If your component requires a <stache-code>.scss</stache-code> file to extend the CSS, you can add a <stache-code>.scss</stache-code> file in the same location as the component files and use the <stache-code>styleUrls</stache-code> property in the <stache-code>@Component</stache-code> section to define the <stache-code>.scss</stache-code> file.</sky-alert>
     </li>
     <li>
-      <p>In the <stache-code>demo.component.html</stache-code> file, add the following code for a component to display the message.</p>
-      <stache-code-block>{{ message }}</stache-code-block>
-      <p>This provides the <stache-code>message</stache-code> variable to the template. The curly braces are the syntax to reference properties of the component class.</p>
-    </li>
-    <li>
-      <p>Open the <stache-code>index.html</stache-code> file in the <stache-code>demo</stache-code> folder, and add the new <stache-code>my-demo</stache-code> component. Set the value of the <stache-code>message</stache-code> variable to "Hello!"</p>
-      <stache-code-block languageType="markup">
-        <my-demo message="Hello!"></my-demo>
+      We want our component to accept input from the host page. This requires a public property with the Angular <stache-code>@Input</stache-code> decorator. We can import this decorator from <stache-code>@angular/core</stache-code>. For this example, we'll add an input property called <stache-code>message</stache-code>.
+      <stache-code-block languageType="typescript">
+          import {
+            Component,
+            Input
+          } from '@angular/core';
+
+          @Component({
+            selector: 'app-my-demo',
+            templateUrl: './my-demo.component.html',
+            styleUrls: ['./my-demo.component.scss']
+          })
+          export class MyDemoComponent {
+            @Input()
+            public message: string;
+          }
       </stache-code-block>
     </li>
     <li>
-      <p>Save all three files.</p>
+      Now that the component accepts input, we can display input in the component's template. Open the <stache-code>my-demo.component.html</stache-code> file, and add the following code to display the message.
+      <stache-code-block languageType="markup">
+        {{ message }}
+      </stache-code-block>
+      <p>The curly braces are the syntax to reference public properties of the component class.</p>
     </li>
     <li>
-      <p>Return to the command prompt. If <stache-code>skyux serve</stache-code> is running, it detects the changes and updates the SPA. If not, run <stache-code>skyux serve</stache-code> to launch the SPA in your default browser.</p>
+      <p>Open the <stache-code>index.html</stache-code> file in the <stache-code>demo</stache-code> folder, and add the new <stache-code>app-my-demo</stache-code> component. Set the value of the <stache-code>message</stache-code> attribute to "Hello!"</p>
+      <stache-code-block languageType="markup">
+        <app-my-demo message="Hello!"></app-my-demo>
+      </stache-code-block>
     </li>
     <li>
-      <p>Return to the Demo page in the SPA. It renders the text from the component after the header.</p>
+      <p>Return to the command prompt, and run <stache-code>skyux serve</stache-code> to launch the SPA in your default browser.</p>
+    </li>
+    <li>
+      <p>Return to the Demo page in the SPA. You should see "Hello!" input text rendered after the header.</p>
     </li>
   </ol>
-  
+
   <stache-row>
     <stache-column screenSmall="6">
       <div class="tutorial-previous-button">
