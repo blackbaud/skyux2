@@ -135,7 +135,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
   }
 
   public keydown(event: KeyboardEvent) {
-    switch(event.which) {
+    switch (event.which) {
       case 27: /* Escape Key */
         event.preventDefault();
         this.revertSelection();
@@ -188,6 +188,8 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
           this.resolvePartialSearch();
         }
         break;
+      default:
+        // Ignore the key press
     }
     /* Supress all key messages if there is an active selected item */
     if (this.activeSelectedItem) {
