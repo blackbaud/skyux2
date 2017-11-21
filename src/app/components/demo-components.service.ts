@@ -141,6 +141,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Confirmation dialog',
+        icon: 'list-alt',
+        // tslint:disable-next-line
+        summary: `The confirmation dialog component launches simple confirmation dialogs to allow users to confirm actions.`,
+        url: '/components/confirmation-dialog',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'confirmation-dialog-demo.component.html',
+              fileContents: require('!!raw-loader!./confirmation-dialog/' +
+                'confirmation-dialog-demo.component.html')
+            },
+            {
+              name: 'confirmation-dialog-demo.component.ts',
+              fileContents: require('!!raw-loader!./confirmation-dialog/' +
+                'confirmation-dialog-demo.component.ts'),
+              componentName: 'SkyConfirmationDialogDemoComponent',
+              bootstrapSelector: 'sky-confirmation-dialog-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Datepicker',
         icon: 'calendar',
         // tslint:disable-next-line
