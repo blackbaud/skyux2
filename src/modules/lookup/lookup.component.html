@@ -3,6 +3,7 @@
     <div
       [ngClass]="{'sky-lookup-input-focused': searchInputFocused}"
       class="sky-lookup-input-container sky-input-group sky-dropdown-button">
+
       <ul class="sky-lookup-input-group" (click)="selectInput()">
         <ng-container *ngIf="multiple">
           <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item"
@@ -27,10 +28,10 @@
             [attr.placeholder]="placeholderText" />
         </li>
       </ul>
+
       <span
-      class="sky-input-group-btn sky-input-group-clear"
-      *ngIf="!multiple &amp;&amp; selectedItems &amp;&amp; selectedItems.length > 0"
-      >
+        class="sky-input-group-btn sky-input-group-clear"
+        *ngIf="!multiple &amp;&amp; selectedItems &amp;&amp; selectedItems.length > 0">
         <button
           tabindex="-1"
           aria-hidden="true"
@@ -40,6 +41,7 @@
           <i class="fa fa-times"></i>
         </button>
       </span>
+
       <span class="sky-input-group-btn">
         <button
           tabindex="-1"
@@ -50,10 +52,12 @@
       </span>
     </div>
   </div>
-  <div class="sky-dropdown-menu">
-    <div *ngFor="let item of results" class="sky-lookup-menu-item"
-      [ngClass]="{'sky-lookup-menu-item-active': (item === activeMenuItem)}">
-      <button type="button"
+
+  <sky-dropdown-menu>
+    <sky-dropdown-item
+      *ngFor="let item of results">
+      <button
+        type="button"
         (click)="selectMenuItem(item)"
         (mouseenter)="setActiveMenuItem(item)"
         [skyHighlight]="searchText">
@@ -61,13 +65,22 @@
           *ngTemplateOutlet="template || defaultResultTemplate; context: { item: item }">
         </ng-container>
       </button>
-    </div>
-    <div *ngIf="!results || results.length === 0" class="sky-lookup-menu-item">
-      <button type="button" (click)="closeMenu()" class="sky-lookup-no-match">
-          {{ ('lookup_no_results' | skyResources) }}
+    </sky-dropdown-item>
+    <div
+      *ngIf="!results || results.length === 0"
+      class="sky-lookup-menu-item">
+      <button
+        type="button"
+        (click)="closeMenu()"
+        class="sky-lookup-no-match">
+        {{ 'lookup_no_results' | skyResources }}
       </button>
     </div>
-  </div>
+  </sky-dropdown-menu>
 </div>
 
-<ng-template #defaultResultTemplate let-item="item">{{item.name}}</ng-template>
+<ng-template
+  #defaultResultTemplate
+  let-item="item">
+  {{ item.name }}
+</ng-template>

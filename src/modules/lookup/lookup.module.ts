@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { SkyLookupComponent } from './lookup.component';
 import { SkyWindowRefService } from '../window';
 
@@ -16,7 +14,6 @@ import { SkyTextHighlightModule } from '../text-highlight';
     SkyLookupComponent
   ],
   imports: [
-    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
     SkyResourcesModule,
