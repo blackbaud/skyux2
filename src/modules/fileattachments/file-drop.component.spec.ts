@@ -798,4 +798,10 @@ describe('File drop component', () => {
       By.css('.sky-file-drop-contents-custom .sky-custom-drop'))).toBeTruthy();
   });
 
+  it('Should specify type="button" on all button elements.', () => {
+    fixture.detectChanges();
+    expect(el.querySelectorAll('button:not([type])').length).toBe(0);
+    expect(el.querySelectorAll('button[type="submit"]').length).toBe(0);
+    expect(el.querySelectorAll('button[type="button"]').length).toBe(1);
+  });
 });
