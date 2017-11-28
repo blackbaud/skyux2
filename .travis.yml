@@ -56,7 +56,9 @@ jobs:
   include:
     - stage: deploy
       env: TEST_COMMAND=none
-      script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
+      script:
+        - npm run build
+        - bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
 
 after_failure:
   - ./scripts/travis-after-failure.sh
