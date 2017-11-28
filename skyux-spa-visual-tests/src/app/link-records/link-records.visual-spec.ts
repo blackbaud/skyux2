@@ -51,7 +51,8 @@ describe('link-records component', () => {
       element(by.css('#field-update-records .link-records-item-footer .sky-btn-primary')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'link_records_fields_update',
-        selector: '#screenshot-link-records-fields-update'
+        selector: '#screenshot-link-records-fields-update',
+        checkAccessibility: false
       });
     });
   });
