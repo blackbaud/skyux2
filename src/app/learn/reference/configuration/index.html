@@ -65,11 +65,15 @@
     <li>
       <p><stache-code>auth</stache-code> — Indicates whether the application requires an authenticated Blackbaud ID. This property is for internal Blackbaud use only. By default, this property is set to <stache-code>false</stache-code>. To require authentication, set this property to <stache-code>true</stache-code>. For Blackbaud developers, <a routerLink="/learn/reference/helpers">the helpers reference</a> provides information about how to make authenticated HTTP requests.</p>
     </li>
-    <!-- <li><p><stache-code>command</stache-code> — Specifies/Provides </p></li> -->
+    <li>
+      <p><stache-code>command</stache-code> — Overrides the version of SKY UX with the local version to enable you to use components that you are building in Builder. This property is specific to the SKY UX docs site and is for internal Blackbaud use only.</p>
+    </li>
     <li>
       <p><stache-code>compileMode</stache-code> — Specifies how to compile the project's code. By default, the <stache-code>skyuxconfig.json</stache-code> file sets this property to <stache-code>aot</stache-code> to specify ahead-of-time compilation, which runs the compiler once at build time using one set of libraries. You can change this setting to <stache-code>jit</stache-code> to specify just-in-time compilation, which runs the compiler at run time for every user using a different set of libraries. SKY UX uses ahead-of-time compilation by default because it is typically more performant and has less to handle at run-time. For more information about the difference, see the <a href="https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#aot-jit">Angular documentation</a></p>
     </li>
-    <!-- <li><p><stache-code>cssPath</stache-code> — Specifies/Provides </p></li> -->
+    <li>
+      <p><stache-code>cssPath</stache-code> — Specifies a path to reference CSS styles. This property is specific to the SKY UX docs site and is for internal Blackbaud use only.</p>
+    </li>
     <li>
       <p><stache-code>help</stache-code> — Indicates whether to automatically include the help widget in the application to identify the current page and display relevant help content. This property is for internal Blackbaud use only. By default, this property is set to <stache-code>false</stache-code>. For Blackbaud developers who want to include the help widget, <a href="https://github.com/blackbaud/bb-help#configuration">the help widget configuration options documentation</a> describes the configuration object to set the <stache-code>help</stache-code> property to.</p>
     </li>
@@ -81,7 +85,9 @@
         </li>
       </ul>
     </li>
-    <!-- <li><p><stache-code>importPath</stache-code> — Specifies/Provides </p></li> -->
+    <li>
+      <p><stache-code>importPath</stache-code> — Specifies a path to reference SKY UX components in Angular. This property is specific to the SKY UX docs site and is for internal Blackbaud use only.</p>
+    </li>
     <li>
       <p><stache-code>mode</stache-code> — Controls how much boilerplate code to generate automatically. By default, the <stache-code>skyuxconfig.json</stache-code> file sets this property to <stache-code>easy</stache-code>. In easy mode, SKY UX  automatically generates routes based the project's folder structure, provides bootstrapping to initialize the application, and supplies SKY UX components to the application. To override these options, change the <stache-code>mode</stache-code> property to <stache-code>advanced</stache-code>. Since advanced mode does not provide automatic route configuration, you can adjust URLs and point to specific components in your SPA. This property will eventually become obsolete as the SKY UX team builds out the CLI to allow users to override individual steps without switching to advanced mode.</p>
     </li>
@@ -91,15 +97,40 @@
     <li>
       <p><stache-code>omnibar</stache-code> — Specifies an object to pass to the omnibar's <stache-code>load</stache-code> method. This property is for internal Blackbaud use only. The omnibar provides a common UI element for Blackbaud applications that allows users to navigate between applications. For Blackbaud developers, <a href="http://authsvc.docs.blackbaudhosting.com/components/omnibar/configuration_options/">the omnibar configuration options documentation</a> describes the available options to pass to the omnibar.</p>
     </li>
-<!--    <li>
-      <p><stache-code>params</stache-code> — Specifies a list of parameters that are allowed, and can provide default values for the parameters. A boolean value may be present to simply indicate that a parameter is allowed.</p>
+    <li>
+      <p><stache-code>params</stache-code> — Specifies a list of parameters that are allowed at runtime. You can list parameters as an array of strings, specify parameters as key-value pairs with boolean values that indicate whether the parameters are allowed, or specify parameters as objects to provide default values for the parameters.</p>
+      <p>By default, Builder’s <stache-code>skyuxconfig.json</stache-code> lists the <stache-code>svcid</stache-code> and <stache-code>envid</stache-code> parameters and sets them to <stache-code>true</stache-code>. This allows the SPA to track the querystring parameters of svcid and envid in the URL and exposes them through the <stache-code>SkyAppConfig</stache-code> in runtime.</p>
       <ul>
-        <li><p><stache-code>svcid</stache-code> — Specifies a default value for the service ID to add to the Host URL when <stache-code>skyux serve</stache-code> runs.</p></li>
-        <li><p><stache-code>envid</stache-code> — Specifies a default value for the environment ID to add to the Host URL when <stache-code>skyux serve</stache-code> runs.</p>
+        <li>
+          <p>Parameters as an array of strings:</p>
+          <stache-code-block>"params": [
+            "param1",
+            "param2"
+          ]</stache-code-block>
+        </li>
+        <li>
+          <p>Parameters as key-value pairs with boolean values:</p>
+          <stache-code-block>"params": {
+            "param3": true,
+            "param4": true
+          }</stache-code-block>
+        </li>
+        <li>
+          <p>Parameters as objects with default values:</p>
+          <stache-code-block>"params": {
+            "param5": {
+              "value": "value1"
+            },
+            "param4": {
+              "value": "value2"
+            }
+          }</stache-code-block>
         </li>
       </ul>
-    </li> -->
-    <!-- <li><p><stache-code>plugins</stache-code> — Specifies/Provides </p></li> -->
+    </li>
+    <li>
+      <p><stache-code>plugins</stache-code> — Specifies plugins to expand on existing SKY UX Builder functionality and create new functionality. For example, the Stache 2 component library uses <a href="https://developer.blackbaud.com/stache/learn/plugins">a variety of plugins</a>.</p>
+    </li>
     <li>
       <p><stache-code>redirects</stache-code> — Specifies redirects for pages within an application. When a project's folder structure changes, you can specify redirects for files that moved so that existing links will continue to work. In the <stache-code>redirects</stache-code> property, you create a comma-separated list of paths and their redirects.</p>
       <stache-code-block>"redirects": {
@@ -107,13 +138,11 @@
     "folder-1/subfolder-2": "folder-1/subfolder-2/new-subfolder-2"
   }</stache-code-block>
     </li>
-    <!-- <li><p><stache-code>routes</stache-code> — Specifies/Provides </p>
-      <ul>
-        <li><p><stache-code>public</stache-code> — </p></li>
-        <li><p><stache-code>referenced</stache-code> — </p></li>
-      </ul>
-    </li> -->
-    <!-- <li><p><stache-code>useHashRouting</stache-code> — Specifies/Provides </li> -->
+    <li><p><stache-code>routes</stache-code> — Allows you to use the omnibar but still define navigation items. This property is for internal Blackbaud use only. For Blackbaud developers, the Engineering System website describes how to <a href="https://host.nxt.blackbaud.com/engineering-system-docs/learn/spa/spa-global-navigation">add your SPA to global navigation</a>.</p>
+    </li>
+    <li>
+      <p><stache-code>useHashRouting</stache-code> — Allows your SPA to use Angular's hash location strategy. For more information, see <a href="https://angular.io/guide/router#hashlocationstrategy">the Angular documentation</a>.</p>
+    </li>
   </ul>
 
 </stache>
