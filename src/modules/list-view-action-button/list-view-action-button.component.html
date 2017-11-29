@@ -1,4 +1,5 @@
-<div class="sky-list-view-action-button">
+<div
+  class="sky-list-view-action-button">
   <sky-row>
     <sky-column
       *ngFor="let item of items"
@@ -6,15 +7,15 @@
       screenMedium="4"
       screenLarge="3">
       <sky-action-button
-        (actionClick)="item.actionClick()">
+        (actionClick)="navigate(item.data.route)">
         <sky-action-button-icon
-          [iconType]="item.iconType">
+          [iconType]="item.data.icon">
         </sky-action-button-icon>
         <sky-action-button-header>
-          {{ item.heading }}
+          {{ item.data.title }}
         </sky-action-button-header>
         <sky-action-button-details>
-          {{ item.summary }}
+          {{ item.data.summary }}
         </sky-action-button-details>
       </sky-action-button>
     </sky-column>

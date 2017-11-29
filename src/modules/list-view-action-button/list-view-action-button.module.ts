@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { SkyFluidGridModule } from '../fluid-grid';
 import { SkyActionButtonModule } from '../action-button';
 
-import { SkyListViewActionButtonComponent } from './list-view-action-button.component';
+import {
+  SkyListViewActionButtonComponent
+} from './list-view-action-button.component';
 
 @NgModule({
   declarations: [

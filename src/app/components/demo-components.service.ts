@@ -603,6 +603,28 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'List view action button',
+        icon: 'list-ul',
+        summary: ``,
+        url: '/components/list-view-action-button',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'list-view-action-button-demo.component.html',
+              fileContents:
+              require('!!raw-loader!./list-view-action-button/list-view-action-button-demo.component.html')
+            },
+            {
+              name: 'list-view-action-button-demo.component.ts',
+              fileContents:
+              require('!!raw-loader!./list-view-action-button/list-view-action-button-demo.component.ts'),
+              componentName: 'SkyListViewActionButtonDemoComponent',
+              bootstrapSelector: 'sky-list-view-action-button-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'List view checklist',
         icon: 'list-ul',
         // tslint:disable-next-line

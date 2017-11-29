@@ -1,18 +1,16 @@
+@import '../../scss/_variables';
+
+/deep/
 .sky-list-view-action-button {
-  /deep/
-  sky-action-button {
-    height: 100%;
-    flex: 100%;
-    display: inline-flex;
-    padding-bottom: 30px;
+  .sky-column {
+    margin-top: $sky-fluid-grid-gutter !important;
+    margin-bottom: $sky-fluid-grid-gutter;
   }
 
-  /deep/
   .sky-action-button {
     width: 100% !important;
-    max-width: 100% !important;
-    margin-bottom: 0;
-    margin-right: 0 !important;
     height: 100%;
+    max-width: none !important;
+    margin-right: 0 !important;
   }
 }
