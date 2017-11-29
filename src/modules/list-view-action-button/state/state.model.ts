@@ -4,7 +4,7 @@ import {
 
 import {
   SkyListViewActionButtonItemModel
-} from './items/item.model';
+} from './item.model';
 
 export class SkyListViewActionButtonStateModel {
   public items: AsyncList<SkyListViewActionButtonItemModel> = new AsyncList<SkyListViewActionButtonItemModel>();

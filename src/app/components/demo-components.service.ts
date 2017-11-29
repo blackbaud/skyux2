@@ -604,8 +604,8 @@ export class SkyDemoComponentsService {
       },
       {
         name: 'List view action button',
-        icon: 'list-ul',
-        summary: ``,
+        icon: 'clone',
+        summary: 'The list view action button component builds a searchable action buttons.',
         url: '/components/list-view-action-button',
         getCodeFiles: function () {
           return [

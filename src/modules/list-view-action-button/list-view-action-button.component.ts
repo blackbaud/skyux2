@@ -1,8 +1,10 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  forwardRef
+  forwardRef,
+  Input,
+  OnInit
 } from '@angular/core';
 
 import {
@@ -13,30 +15,30 @@ import {
   AsyncList
 } from 'microedge-rxstate';
 
-// import {
-//   Observable
-// } from 'rxjs/Observable';
-
 import {
   ListViewComponent
 } from '../list';
 
 import {
-  SkyListViewActionButtonItemModel
-} from './state/items';
+  getData
+} from '../list/helpers';
 
 import {
-  ListState
-  // ListStateModel
-  // ListItemModel
-  // ListStateDispatcher
+  ListState,
+  ListItemModel,
+  ListStateDispatcher
 } from '../list/state';
 
 import {
-  // SkyListViewActionButtonState,
-  // SkyListViewActionButtonStateDispatcher,
+  ListToolbarSetTypeAction
+} from '../list/state/toolbar/actions';
+
+import {
   SkyListViewActionButtonStateModel
 } from './state';
+
+export type SkyListViewActionButtonSearchFunction =
+  (data: any, searchText: string) => boolean;
 
 @Component({
   selector: 'sky-list-view-action-button',
@@ -49,47 +51,63 @@ import {
       useExisting: forwardRef(() => SkyListViewActionButtonComponent)
     },
     /* tslint:enable */
-    // SkyListViewActionButtonState,
-    // SkyListViewActionButtonStateDispatcher,
     SkyListViewActionButtonStateModel
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyListViewActionButtonComponent
-  extends ListViewComponent implements AfterContentInit {
-
-  public items: any[];
+export class SkyListViewActionButtonComponent extends ListViewComponent implements OnInit {
+  @Input()
+  public search: SkyListViewActionButtonSearchFunction;
+  public items: ListItemModel[];
+  public searchText: string;
 
   constructor(
     public state: ListState,
-    private router: Router
-    // private dispatcher: ListStateDispatcher,
-    // private checklistState: ChecklistState,
-    // private checklistDispatcher: ChecklistStateDispatcher
+    private router: Router,
+    private dispatcher: ListStateDispatcher,
+    private changeDetector: ChangeDetectorRef
   ) {
     super(state, 'Action Button View');
+    this.search = this.getDefaultSearchFunction();
   }
 
-  public ngAfterContentInit() {
+  public ngOnInit(): void {
     this.getItems();
+
+    this.dispatcher.searchSetFunctions([this.search]);
+    this.dispatcher.next(new ListToolbarSetTypeAction('search-bar'));
   }
 
-  public navigate(route: string) {
-    if (route === undefined) {
-      return;
+  public navigate(route: string): void {
+    if (route !== undefined) {
+      this.router.navigate([route]);
     }
-
-    this.router.navigate([route]);
   }
 
-  private getItems() {
+  private getItems(): void {
     this.state
       .map(s => s.items)
       .distinctUntilChanged()
-      .subscribe((list: AsyncList<SkyListViewActionButtonItemModel>) => {
+      .subscribe((list: AsyncList<ListItemModel>) => {
         if (list.lastUpdate) {
           this.items = list.items;
+          this.changeDetector.detectChanges();
         }
       });
+  }
+
+  private getDefaultSearchFunction(): SkyListViewActionButtonSearchFunction {
+    return (data: any, searchText: string) => {
+      const query = searchText.toLowerCase();
+      const title = (getData(data, 'title') || '').toLowerCase();
+
+      this.searchText = searchText;
+
+      if (title.match(query)) {
+        return true;
+      }
+
+      return false;
+    };
   }
 }

@@ -1,5 +1,5 @@
 <div class="sky-list-toolbar-container">
-  <sky-toolbar *ngIf="(type | async) !== 'search'">
+  <sky-toolbar *ngIf="(type | async) === undefined">
     <sky-toolbar-section>
       <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
         <sky-list-toolbar-item-renderer
@@ -62,6 +62,11 @@
       </sky-toolbar-section>
     </sky-toolbar>
   </div>
+  <div class="sky-list-toolbar-search-bar" *ngIf="(type | async) === 'search-bar'">
+    <sky-list-toolbar-item-renderer
+      [template]="search" sky-cmp-id="search-bar">
+    </sky-list-toolbar-item-renderer>
+  </div>
   <div *ngIf="hasInlineFilters && inlineFilterBarExpanded">
     <ng-content select="sky-list-filter-inline"></ng-content>
   </div>
@@ -71,7 +76,7 @@
   <div *ngIf="isSearchEnabled | async">
     <sky-search
       #searchComponent
-      [expandMode]="(type | async) === 'search' ? 'fit' : 'responsive'"
+      [expandMode]="(type | async) === undefined ? 'response' : 'fit'"
       [searchText]="searchTextInput | async"
       (searchApply)="updateSearchText($event)"
       [placeholderText]="placeholder">

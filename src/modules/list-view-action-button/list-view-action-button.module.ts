@@ -14,8 +14,8 @@ import {
   ],
   imports: [
     CommonModule,
-    SkyFluidGridModule,
-    SkyActionButtonModule
+    SkyActionButtonModule,
+    SkyFluidGridModule
   ],
   exports: [
     SkyListViewActionButtonComponent

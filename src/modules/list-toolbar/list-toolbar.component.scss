@@ -6,6 +6,16 @@
   }
 }
 
+.sky-list-toolbar-search-bar {
+  margin-bottom: $sky-margin;
+
+  /deep/
+  .sky-search-dismiss-absolute {
+    position: static;
+    padding: 0;
+  }
+}
+
 .sky-list-toolbar-container {
   /deep/ sky-toolbar-item[sky-toolbar-id="sort-selector"] .sky-toolbar-item {
     margin-right: 0;

@@ -2,7 +2,20 @@
   pageTitle="List view action button">
 
   <sky-demo-page-summary>
+    This list view action button component displays an array of <a href="/skyux2/components/action-button">action buttons</a>. It includes
+    the ability to defined a custom search function for the data given. It is used in
+    conjunction with the <a href="/skyux2/components/list">list component</a>.
   </sky-demo-page-summary>
+
+  <sky-demo-page-properties>
+    <sky-demo-page-property
+      propertyName="search"
+      defaultValue="default search function"
+      isOptional="true">
+      Specify a search function to apply on the view data. The default search behavior queries against the action button's title.<br>
+      Acceptable value: <stache-code>(data: any, searchText: string) => boolean</stache-code>.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
 
   <sky-demo-page-example>
     <sky-list-view-action-button-demo>
