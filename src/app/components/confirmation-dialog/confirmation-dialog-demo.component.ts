@@ -10,28 +10,34 @@ import { SkyConfirmationDialogService } from
 export class SkyConfirmationDialogDemoComponent {
   public action: string;
 
-  constructor(private confirmService: SkyConfirmationDialogService) {}
+  constructor(
+    private confirmService: SkyConfirmationDialogService
+  ) { }
 
   public openConfirmationDialog(type: number) {
-    const config: any = {
+    const instance = this.confirmService.open({
       message: 'Are you really sure you want to do this?',
       type: type
-    };
+    });
 
-    this.confirmService.open(config).closed.subscribe((result: string) => {
-      this.action = 'You clicked \'' + result + '\'';
+    instance.confirmed.subscribe((result: any) => {
+      this.action = `You clicked "${result.action}"`;
     });
   }
 
   public openCustomDialog() {
-    const config: any = {
+    const instance = this.confirmService.open({
       message: 'What option are you going to select?',
       type: 3,
-      buttons: [ { text: '1' }, { text: '2' }, { text: '3', autofocus: true } ]
-    };
+      buttons: [
+        { text: '1' },
+        { text: '2' },
+        { text: '3', autofocus: true }
+      ]
+    });
 
-    this.confirmService.open(config).closed.subscribe((result: string) => {
-      this.action = 'You clicked \'' + result + '\'';
+    instance.confirmed.subscribe((result: any) => {
+      this.action = `You clicked "${result.action}"`;
     });
   }
 }

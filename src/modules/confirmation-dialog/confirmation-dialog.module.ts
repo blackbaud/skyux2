@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SkyModalModule } from '../modal';
+import { SkyResourcesModule } from '../resources';
 
 import { SkyConfirmationDialogService } from './confirmation-dialog.service';
 import { SkyConfirmationDialogComponent } from './confirmation-dialog.component';
-import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
