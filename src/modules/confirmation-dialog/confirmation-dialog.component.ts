@@ -87,7 +87,7 @@ export class SkyConfirmationDialogComponent implements OnInit {
   }
 
   private overrideButtonConfig() {
-    const configButtons = this.context.buttons;
+    const configButtons = this.context.buttons || [];
 
     this.buttons.forEach((button: any, i: number) => {
       if (configButtons[i]) {
