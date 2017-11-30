@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import {
   SkyConfirmButtonAction,
+  SkyConfirmInstance,
   SkyConfirmService,
   SkyConfirmType
 } from '../../../modules/confirm';
@@ -16,7 +17,7 @@ export class SkyConfirmationDialogDemoComponent {
   constructor(private confirmService: SkyConfirmService) { }
 
   public openConfirm(type: SkyConfirmType) {
-    const dialog = this.confirmService.open({
+    const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'Do you wish to continue?',
       type
     });
@@ -27,7 +28,7 @@ export class SkyConfirmationDialogDemoComponent {
   }
 
   public openCustomConfirm() {
-    const dialog = this.confirmService.open({
+    const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'What option are you going to select?',
       type: 3,
       buttons: [

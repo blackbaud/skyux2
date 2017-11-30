@@ -115,8 +115,7 @@ export class SkyConfirmComponent implements OnInit {
         return;
       }
 
-      Object
-        .keys(buttonConfig[i])
+      Object.keys(config)
         .forEach((key: keyof SkyConfirmButtonConfig) => {
           if (config[key] === undefined) {
             return;

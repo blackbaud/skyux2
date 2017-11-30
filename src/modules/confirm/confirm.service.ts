@@ -14,13 +14,6 @@ export class SkyConfirmService {
   public open(config: SkyConfirmConfig): SkyConfirmInstance {
     const instance = new SkyConfirmInstance();
 
-    if (config.buttons === undefined) {
-      config.buttons = [];
-    }
-
-    return instance.open(
-      this.modalService,
-      config
-    );
+    return instance.open(this.modalService, config);
   }
 }
