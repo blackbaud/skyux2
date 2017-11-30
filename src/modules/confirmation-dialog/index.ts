@@ -1,6 +1,9 @@
-export { SkyConfirmationDialogComponent } from './confirmation-dialog.component';
-export { SkyConfirmationDialogButton } from './confirmation-dialog-button';
-export { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
-export { SkyConfirmationDialogService } from './confirmation-dialog.service';
-export { SkyConfirmationDialogModule } from './confirmation-dialog.module';
-export { SkyConfirmationDialogType } from './confirmation-dialog-type';
+export * from './confirmation-dialog-button-action';
+export * from './confirmation-dialog-button-config';
+export * from './confirmation-dialog-button';
+export * from './confirmation-dialog-config';
+export * from './confirmation-dialog-type';
+export * from './confirmation-dialog.component';
+export * from './confirmation-dialog.instance';
+export * from './confirmation-dialog.module';
+export * from './confirmation-dialog.service';

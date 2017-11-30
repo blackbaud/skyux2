@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
+import { SkyModalInstance } from '../modal';
+import { SkyResources } from '../resources';
+
 import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
 import { SkyConfirmationDialogType } from './confirmation-dialog-type';
 import { SkyConfirmationDialogButton } from './confirmation-dialog-button';
-import { SkyModalInstance } from '../modal/modal-instance';
-import { SkyResources } from '../resources';
 
 @Component({
   selector: 'sky-confirmation-dialog',
@@ -11,21 +13,14 @@ import { SkyResources } from '../resources';
   styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class SkyConfirmationDialogComponent implements OnInit {
-  public buttons: Array<SkyConfirmationDialogButton>;
+  public buttons: SkyConfirmationDialogButton[];
 
   constructor(
     public context: SkyConfirmationDialogConfig,
-    public instance: SkyModalInstance) {}
+    public instance: SkyModalInstance
+  ) { }
 
   public ngOnInit() {
-    if (!this.context.type) {
-      this.context.type = SkyConfirmationDialogType.YesCancelDialog;
-    }
-
-    if (!this.context.buttons) {
-      this.context.buttons = new Array<SkyConfirmationDialogButton>();
-    }
-
     this.createButtons();
   }
 
@@ -36,46 +31,63 @@ export class SkyConfirmationDialogComponent implements OnInit {
     this.overrideButtonConfig();
   }
 
-  private getDefaultButtons(): Array<SkyConfirmationDialogButton> {
-    switch (this.context.type) {
-      case SkyConfirmationDialogType.OKDialog: return [
-        {
-          text: SkyResources.getString('confirm_dialog_default_ok_text'),
-          autofocus: true,
-          buttonType: 'primary'
-        }
-      ];
-      case SkyConfirmationDialogType.YesNoCancelDialog: return [
-        {
-          text: SkyResources.getString('confirm_dialog_default_yes_text'),
-          autofocus: true,
-          buttonType: 'primary'
-        },
-        {
-          text: SkyResources.getString('confirm_dialog_default_no_text'),
-          buttonType: 'default'
-        },
-        {
-          text: SkyResources.getString('confirm_dialog_default_cancel_text'),
-          buttonType: 'link'
-        }
-      ];
-      default: return [
-        {
-          text: SkyResources.getString('confirm_dialog_default_yes_text'),
-          autofocus: true,
-          buttonType: 'primary'
-        },
-        {
-          text: SkyResources.getString('confirm_dialog_default_cancel_text'),
-          buttonType: 'link'
-        }
-      ];
+  private getDefaultButtons(): SkyConfirmationDialogButton[] {
+    const dialogType = this.context.type;
+    let buttons: SkyConfirmationDialogButton[];
+
+    switch (dialogType) {
+      case SkyConfirmationDialogType.OKDialog:
+        buttons = [
+          {
+            text: SkyResources.getString('confirm_dialog_default_ok_text'),
+            autofocus: true,
+            buttonType: 'primary',
+            action: 'ok'
+          }
+        ];
+        break;
+      case SkyConfirmationDialogType.YesNoCancelDialog:
+        buttons = [
+          {
+            text: SkyResources.getString('confirm_dialog_default_yes_text'),
+            autofocus: true,
+            buttonType: 'primary',
+            action: 'yes'
+          },
+          {
+            text: SkyResources.getString('confirm_dialog_default_no_text'),
+            buttonType: 'default',
+            action: 'no'
+          },
+          {
+            text: SkyResources.getString('confirm_dialog_default_cancel_text'),
+            buttonType: 'link',
+            action: 'cancel'
+          }
+        ];
+        break;
+      default:
+        buttons = [
+          {
+            text: SkyResources.getString('confirm_dialog_default_yes_text'),
+            autofocus: true,
+            buttonType: 'primary',
+            action: 'yes'
+          },
+          {
+            text: SkyResources.getString('confirm_dialog_default_cancel_text'),
+            buttonType: 'link',
+            action: 'cancel'
+          }
+        ];
+        break;
     }
+
+    return buttons;
   }
 
   private overrideButtonConfig() {
-    const configButtons = this.context.buttons;
+    const configButtons = this.context.buttons || [];
 
     this.buttons.forEach((button: any, i: number) => {
       if (configButtons[i]) {

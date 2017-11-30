@@ -176,12 +176,7 @@ export {
   SkyColumnSelectorModel
 } from './modules/column-selector';
 
-export {
-  SkyConfirmationDialogService,
-  SkyConfirmationDialogModule,
-  SkyConfirmationDialogType,
-  SkyConfirmationDialogButton
-} from './modules/confirmation-dialog';
+export * from './modules/confirmation-dialog';
 
 export {
   SkyDateFormatter,

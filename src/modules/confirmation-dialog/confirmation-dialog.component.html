@@ -12,9 +12,8 @@
             *ngFor="let btn of buttons"
             type="button"
             class="sky-btn sky-confirmation-dialog-btn sky-btn-{{ btn.buttonType }}"
-            (click)="instance.close(btn.text)"
-            [attr.autofocus]="btn.autofocus ? 'autofocus' : null"
-          >
+            (click)="instance.close(btn)"
+            [attr.autofocus]="btn.autofocus ? 'autofocus' : null">
             {{ btn.text }}
           </button>
         </div>

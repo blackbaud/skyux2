@@ -20,7 +20,7 @@ describe('Confirmation dialog instance', () => {
       expectedResult = result;
     });
 
-    confirmInstance.modalInstance.close('yes');
+    confirmInstance.modalInstance.close({ text: 'yes' });
 
     expect(expectedResult).toBe('yes');
   });

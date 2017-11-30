@@ -19,10 +19,12 @@ describe('Confirmation dialog form component', () => {
   let nativeElement: any;
   let element: any;
 
-  let configDialog = function(type: SkyConfirmationDialogType, buttons:
-    Array<SkyConfirmationDialogButton>) {
-
+  const configDialog = function (
+    type: SkyConfirmationDialogType,
+    buttons: SkyConfirmationDialogButton[]
+  ) {
     let config = new SkyConfirmationDialogConfig();
+
     config = {
       message: 'dialog message test',
       type: type,

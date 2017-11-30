@@ -1,8 +1,13 @@
-import { SkyConfirmationDialogType } from './confirmation-dialog-type';
-import { SkyConfirmationDialogButton } from './confirmation-dialog-button';
+import {
+  SkyConfirmationDialogType
+} from './confirmation-dialog-type';
+
+import {
+  SkyConfirmationDialogButtonConfig
+} from './confirmation-dialog-button-config';
 
 export class SkyConfirmationDialogConfig {
   public message: string;
-  public buttons: Array<SkyConfirmationDialogButton>;
   public type: SkyConfirmationDialogType;
+  public buttons?: SkyConfirmationDialogButtonConfig[];
 }
