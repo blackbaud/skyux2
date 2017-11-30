@@ -21,6 +21,7 @@ export class SkyVisualTest {
 
   public static compareScreenshot(options: SkyCompareScreenshotConfig): Promise<any> {
     const subject = element(by.css(options.selector));
+
     const checkRegionConfig = {
       thresholdType: pixDiff.THRESHOLD_PERCENT,
       threshold: SkyVisualTest.THRESHOLD_PERCENT
@@ -67,6 +68,10 @@ export class SkyVisualTest {
   }
 
   private static checkAccessibility(options: any): Promise<any> {
+    if (options.checkAccessibility === undefined) {
+      options.checkAccessibility = true;
+    }
+
     if (!options.checkAccessibility) {
       return;
     }

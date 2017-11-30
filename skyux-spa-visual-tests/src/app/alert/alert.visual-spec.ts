@@ -8,8 +8,7 @@ describe('Alert', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'alert',
-          selector: '#screenshot-alert',
-          checkAccessibility: true
+          selector: '#screenshot-alert'
         });
       });
 

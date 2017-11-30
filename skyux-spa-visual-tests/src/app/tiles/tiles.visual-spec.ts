@@ -7,8 +7,7 @@ describe('Tile', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'tile',
-          selector: '#screenshot-tiles',
-          checkAccessibility: true
+          selector: '#screenshot-tiles'
         });
       });
 
@@ -19,8 +18,7 @@ describe('Tile', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'tile-small',
-          selector: '#screenshot-tiles',
-          checkAccessibility: true
+          selector: '#screenshot-tiles'
         });
       });
 

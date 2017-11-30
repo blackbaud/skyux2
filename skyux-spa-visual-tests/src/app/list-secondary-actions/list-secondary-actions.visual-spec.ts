@@ -13,8 +13,7 @@ describe('list-secondary-actions component', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'list_secondary_actions',
-          selector: '#screenshot-list-secondary-actions',
-          checkAccessibility: true
+          selector: '#screenshot-list-secondary-actions'
         });
       });
   });
