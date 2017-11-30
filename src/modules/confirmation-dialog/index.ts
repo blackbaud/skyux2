@@ -1,4 +1,5 @@
 export * from './confirmation-dialog-button-action';
+export * from './confirmation-dialog-button-config';
 export * from './confirmation-dialog-button';
 export * from './confirmation-dialog-config';
 export * from './confirmation-dialog-type';

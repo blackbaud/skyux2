@@ -31,7 +31,7 @@ export class SkyConfirmationDialogComponent implements OnInit {
     this.overrideButtonConfig();
   }
 
-  private getDefaultButtons(): Array<SkyConfirmationDialogButton> {
+  private getDefaultButtons(): SkyConfirmationDialogButton[] {
     const dialogType = this.context.type;
     let buttons: SkyConfirmationDialogButton[];
 
