@@ -1,0 +1,20 @@
+<div class="sky-confirm">
+  <sky-modal>
+    <sky-modal-content>
+      <div class="sky-confirm-message">
+        {{ message }}
+      </div>
+      <div class="sky-confirm-buttons">
+        <button
+          *ngFor="let button of buttons"
+          type="button"
+          class="sky-btn"
+          ngClass="sky-btn-{{ button.styleType }}"
+          (click)="close(button)"
+          [attr.autofocus]="button.autofocus">
+          {{ button.text }}
+        </button>
+      </div>
+    </sky-modal-content>
+  </sky-modal>
+</div>
