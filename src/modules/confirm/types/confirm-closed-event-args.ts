@@ -1,3 +1,3 @@
-export interface SkyConfirmClosedEventArgs {
+export interface SkyConfirmCloseEventArgs {
   action: string;
 }

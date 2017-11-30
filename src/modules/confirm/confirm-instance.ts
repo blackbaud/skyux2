@@ -10,7 +10,7 @@ import {
 } from '../modal';
 
 import {
-  SkyConfirmClosedEventArgs,
+  SkyConfirmCloseEventArgs,
   SkyConfirmConfig
 } from './types';
 
@@ -19,7 +19,7 @@ import { SkyConfirmComponent } from './confirm.component';
 
 @Injectable()
 export class SkyConfirmInstance {
-  public closed = new EventEmitter<SkyConfirmClosedEventArgs>();
+  public closed = new EventEmitter<SkyConfirmCloseEventArgs>();
 
   public open(
     modalService: SkyModalService,
@@ -37,7 +37,7 @@ export class SkyConfirmInstance {
     );
 
     instance.closed.subscribe((args: SkyModalCloseArgs) => {
-      let result: SkyConfirmClosedEventArgs = args.data;
+      let result: SkyConfirmCloseEventArgs = args.data;
 
       // The modal was closed using the ESC key.
       if (result === undefined) {

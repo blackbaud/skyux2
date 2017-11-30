@@ -7,7 +7,7 @@ import { SkyModalInstance } from '../modal';
 import { SkyResources } from '../resources';
 
 import {
-  SkyConfirmClosedEventArgs,
+  SkyConfirmCloseEventArgs,
   SkyConfirmType,
   SkyConfirmButton,
   SkyConfirmButtonConfig
@@ -36,7 +36,7 @@ export class SkyConfirmComponent implements OnInit {
   }
 
   public close(button: SkyConfirmButton) {
-    const result: SkyConfirmClosedEventArgs = {
+    const result: SkyConfirmCloseEventArgs = {
       action: button.action
     };
 
