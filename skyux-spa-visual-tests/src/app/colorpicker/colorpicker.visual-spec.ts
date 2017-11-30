@@ -10,7 +10,8 @@ describe('Colorpicker', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'colorpicker-closed',
-          selector: '#screenshot-colorpicker'
+          selector: '#screenshot-colorpicker',
+          checkAccessibility: false
         });
       });
   });
@@ -23,7 +24,8 @@ describe('Colorpicker', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'colorpicker-opened',
-          selector: '.sky-colorpicker-container'
+          selector: '.sky-colorpicker-container',
+          checkAccessibility: false
         });
       });
   });

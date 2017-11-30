@@ -7,8 +7,7 @@ describe('Forms', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'label-required',
-        selector: '#screenshot-required-label',
-        checkAccessibility: true
+        selector: '#screenshot-required-label'
       });
     });
   });

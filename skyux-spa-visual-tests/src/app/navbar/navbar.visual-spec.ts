@@ -9,7 +9,8 @@ describe('Navbar', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'navbar',
-        selector: '#screenshot-navbar'
+        selector: '#screenshot-navbar',
+        checkAccessibility: false
       });
     });
 
@@ -24,7 +25,8 @@ describe('Navbar', () => {
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'navbar-item-over',
-        selector: '#screenshot-navbar'
+        selector: '#screenshot-navbar',
+        checkAccessibility: false
       });
     });
 
@@ -39,7 +41,8 @@ describe('Navbar', () => {
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'navbar-dropdown-open',
-        selector: '#screenshot-navbar'
+        selector: '#screenshot-navbar',
+        checkAccessibility: false
       });
     });
 
@@ -57,7 +60,8 @@ describe('Navbar', () => {
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'navbar-dropdown-item-over',
-        selector: '#screenshot-navbar'
+        selector: '#screenshot-navbar',
+        checkAccessibility: false
       });
     });
 
@@ -70,7 +74,8 @@ describe('Navbar', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'navbar-item-active',
-          selector: '#screenshot-navbar-active-item'
+          selector: '#screenshot-navbar-active-item',
+          checkAccessibility: false
         });
       });
 
@@ -84,7 +89,8 @@ describe('Navbar', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'navbar-item-active-child',
-          selector: '#screenshot-navbar-active-child'
+          selector: '#screenshot-navbar-active-child',
+          checkAccessibility: false
         });
       });
 
@@ -98,7 +104,8 @@ describe('Navbar', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'navbar-item-active-child',
-          selector: '#screenshot-navbar-active-child'
+          selector: '#screenshot-navbar-active-child',
+          checkAccessibility: false
         });
       });
     });
