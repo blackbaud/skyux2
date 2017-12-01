@@ -11,7 +11,7 @@ import {
   selector: 'sky-confirm-demo',
   templateUrl: './confirm-demo.component.html'
 })
-export class SkyConfirmationDialogDemoComponent {
+export class SkyConfirmDemoComponent {
   public selectedAction: SkyConfirmButtonAction;
 
   constructor(private confirmService: SkyConfirmService) { }
