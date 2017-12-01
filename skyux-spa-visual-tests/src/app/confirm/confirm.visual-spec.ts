@@ -2,7 +2,7 @@ import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
 import { element, by } from 'protractor';
 
-fdescribe('Confirm', () => {
+describe('Confirm', () => {
   it('should match previous OK screenshot', () => {
     return SkyVisualTest
       .setupTest('confirm')
