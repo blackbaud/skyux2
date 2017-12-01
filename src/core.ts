@@ -24,7 +24,6 @@ import { SkyConfirmationDialogModule } from './modules/confirmation-dialog';
 import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
-import { SkyEmailValidationModule } from './modules/email-validation';
 import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
@@ -60,6 +59,7 @@ import { SkyTextHighlightModule } from './modules/text-highlight';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
+import { SkyValidationModule } from './modules/validation';
 import { SkyVerticalTabsetModule } from './modules/vertical-tabset';
 import { SkyWaitModule } from './modules/wait';
 
@@ -77,7 +77,6 @@ import { SkyWaitModule } from './modules/wait';
     SkyConfirmationDialogModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
-    SkyEmailValidationModule,
     SkyErrorModule,
     SkyFileAttachmentsModule,
     SkyFilterModule,
@@ -113,6 +112,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTilesModule,
     SkyTimepickerModule,
     SkyToolbarModule,
+    SkyValidationModule,
     SkyVerticalTabsetModule,
     SkyWaitModule,
     SkyDatepickerModule
@@ -211,11 +211,6 @@ export {
   SkyDropdownMenuComponent,
   SkyDropdownModule
 } from './modules/dropdown';
-
-export {
-  SkyEmailValidationDirective,
-  SkyEmailValidationModule
-} from './modules/email-validation';
 
 export {
   SkyErrorComponent,
@@ -505,6 +500,12 @@ export {
   SkyToolbarModule,
   SkyToolbarSectionComponent
 } from './modules/toolbar';
+
+export {
+  SkyEmailValidationDirective,
+  SkyUrlValidationDirective,
+  SkyValidationModule
+} from './modules/validation';
 
 export {
   SkyVerticalTabsetComponent,

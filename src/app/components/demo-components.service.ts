@@ -229,29 +229,6 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Email validation',
-        icon: 'check',
-        // tslint:disable-next-line
-        summary: `The email validation module allows users to validate email format.`,
-        url: '/components/email-validation',
-        getCodeFiles: function () {
-          return [
-            {
-              name: 'email-validation-demo.component.html',
-              fileContents: require
-              ('!!raw-loader!./email-validation/email-validation-demo.component.html')
-            },
-            {
-              name: 'email-validation.component.ts',
-              fileContents: require
-              ('!!raw-loader!./email-validation/email-validation-demo.component.ts'),
-              componentName: 'SkyEmailValidationDemoComponent',
-              bootstrapSelector: 'sky-email-validation-demo'
-            }
-          ];
-        }
-      },
-      {
         name: 'Error',
         icon: 'exclamation',
         // tslint:disable-next-line
@@ -1103,6 +1080,27 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./toolbar/toolbar-demo.component.ts'),
               componentName: 'SkyToolbarDemoComponent',
               bootstrapSelector: 'sky-toolbar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'Validation',
+        icon: 'check',
+        // tslint:disable-next-line
+        summary: `The validation module allows the user to validate the format of various inputs.`,
+        url: '/components/validation',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'validation-demo.component.html',
+              fileContents: require('!!raw-loader!./validation/validation-demo.component.html')
+            },
+            {
+              name: 'validation.component.ts',
+              fileContents: require('!!raw-loader!./validation/validation-demo.component.ts'),
+              componentName: 'SkyValidationDemoComponent',
+              bootstrapSelector: 'sky-validation-demo'
             }
           ];
         }
