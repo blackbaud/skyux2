@@ -141,6 +141,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Confirmation dialog',
+        icon: 'list-alt',
+        // tslint:disable-next-line
+        summary: `The confirmation dialog component launches simple confirmation dialogs to allow users to confirm actions.`,
+        url: '/components/confirmation-dialog',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'confirmation-dialog-demo.component.html',
+              fileContents: require('!!raw-loader!./confirmation-dialog/' +
+                'confirmation-dialog-demo.component.html')
+            },
+            {
+              name: 'confirmation-dialog-demo.component.ts',
+              fileContents: require('!!raw-loader!./confirmation-dialog/' +
+                'confirmation-dialog-demo.component.ts'),
+              componentName: 'SkyConfirmationDialogDemoComponent',
+              bootstrapSelector: 'sky-confirmation-dialog-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Datepicker',
         icon: 'calendar',
         // tslint:disable-next-line
@@ -1080,6 +1103,29 @@ export class SkyDemoComponentsService {
               fileContents: require('!!raw-loader!./toolbar/toolbar-demo.component.ts'),
               componentName: 'SkyToolbarDemoComponent',
               bootstrapSelector: 'sky-toolbar-demo'
+            }
+          ];
+        }
+      },
+      {
+        name: 'URL validation',
+        icon: 'check',
+        // tslint:disable-next-line
+        summary: `The URL validation module allows users to validate URL format.`,
+        url: '/components/url-validation',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'url-validation-demo.component.html',
+              fileContents: require
+              ('!!raw-loader!./url-validation/url-validation-demo.component.html')
+            },
+            {
+              name: 'url-validation.component.ts',
+              fileContents: require
+              ('!!raw-loader!./url-validation/url-validation-demo.component.ts'),
+              componentName: 'SkyUrlValidationDemoComponent',
+              bootstrapSelector: 'sky-url-validation-demo'
             }
           ];
         }

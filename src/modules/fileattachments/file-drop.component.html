@@ -6,6 +6,7 @@
 
     <button
       class="sky-file-drop sky-file-drop-target"
+      type="button"
       (click)="dropClicked()"
       (dragover)="fileDragOver($event)"
       (dragenter)="fileDragEnter($event)"
@@ -74,6 +75,7 @@
             [attr.aria-label]="'file_upload_link_input' | skyResources">
         </div>
         <button
+          type="button"
           class="sky-btn sky-btn-primary"
           [disabled]="!linkUrl"
           (click)="addLink($event)">

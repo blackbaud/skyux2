@@ -9,8 +9,7 @@ describe('Help inline', () => {
           .then(() => {
               SkyVisualTest.compareScreenshot({
                   screenshotName: 'help-inline',
-                  selector: '#screenshot-help-inline',
-                  checkAccessibility: true
+                  selector: '#screenshot-help-inline'
               });
           });
     });
@@ -26,8 +25,7 @@ describe('Help inline', () => {
             return SkyVisualTest
             .compareScreenshot({
                 screenshotName: 'help-inline-hover',
-                selector: '#screenshot-help-inline',
-                checkAccessibility: true
+                selector: '#screenshot-help-inline'
             });
         });
 

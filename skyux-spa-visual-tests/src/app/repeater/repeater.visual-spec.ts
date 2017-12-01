@@ -8,8 +8,7 @@ describe('Repeater', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'repeater',
-          selector: '#screenshot-repeater',
-          checkAccessibility: true
+          selector: '#screenshot-repeater'
         });
       });
 
@@ -20,8 +19,7 @@ describe('Repeater', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'repeater-collapsed',
-        selector: '#screenshot-repeater-collapsed',
-        checkAccessibility: true
+        selector: '#screenshot-repeater-collapsed'
       });
     });
 
@@ -32,8 +30,7 @@ describe('Repeater', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'repeater-single',
-        selector: '#screenshot-repeater-single',
-        checkAccessibility: true
+        selector: '#screenshot-repeater-single'
       });
     });
 
@@ -44,8 +41,7 @@ describe('Repeater', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'repeater-multiple',
-        selector: '#screenshot-repeater-multiple',
-        checkAccessibility: true
+        selector: '#screenshot-repeater-multiple'
       });
     });
 
