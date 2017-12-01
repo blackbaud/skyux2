@@ -11,8 +11,7 @@ describe('Confirmation dialog', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'confirmation-dialog-one-button',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-confirmation-dialog-buttons .sky-btn-primary')).click();
       });
@@ -26,8 +25,7 @@ describe('Confirmation dialog', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'confirmation-dialog-two-button',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-confirmation-dialog-buttons .sky-btn-primary')).click();
       });
@@ -41,8 +39,7 @@ describe('Confirmation dialog', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'confirmation-dialog-three-button',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-confirmation-dialog-buttons .sky-btn-primary')).click();
       });
@@ -56,8 +53,7 @@ describe('Confirmation dialog', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'confirmation-dialog-long-description',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-confirmation-dialog-buttons .sky-btn-primary')).click();
       });

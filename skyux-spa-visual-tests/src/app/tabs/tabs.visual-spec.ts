@@ -44,7 +44,8 @@ describe('TabSet', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'tabset-collapsed-dropdown',
-        selector: '#screenshot-tabset'
+        selector: '#screenshot-tabset',
+        checkAccessibility: false
       });
     });
 

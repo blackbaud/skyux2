@@ -7,8 +7,7 @@ describe('Toolbar', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'toolbar',
-          selector: '#screenshot-toolbar',
-          checkAccessibility: true
+          selector: '#screenshot-toolbar'
         });
       });
   });
@@ -18,8 +17,7 @@ describe('Toolbar', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'toolbar-section',
-          selector: '#screenshot-toolbar-sectioned',
-          checkAccessibility: true
+          selector: '#screenshot-toolbar-sectioned'
         });
       });
   });

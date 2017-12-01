@@ -7,8 +7,7 @@ describe('Label', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'labels-all',
-        selector: '#screenshot-label',
-        checkAccessibility: true
+        selector: '#screenshot-label'
       });
     });
 

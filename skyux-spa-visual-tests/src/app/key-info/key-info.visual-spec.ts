@@ -7,8 +7,7 @@ describe('KeyInfo', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'key-info',
-        selector: '#screenshot-key-info',
-        checkAccessibility: true
+        selector: '#screenshot-key-info'
       });
     });
 

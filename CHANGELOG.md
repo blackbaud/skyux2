@@ -1,3 +1,7 @@
+# 2.4.1 (2017-11-28)
+
+- Fixed missing files in published package. [#1315](https://github.com/blackbaud/skyux2/pull/1315)
+
 # 2.4.0 (2017-11-27)
 
 - Added confirmation component. [#1209](https://github.com/blackbaud/skyux2/pull/1209) (Thanks @Blackbaud-AnthonyLopez)
