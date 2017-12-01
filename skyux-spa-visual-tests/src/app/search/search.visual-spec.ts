@@ -9,8 +9,7 @@ describe('search component', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search',
-        selector: '#screenshot-search-full',
-        checkAccessibility: true
+        selector: '#screenshot-search-full'
       });
     });
 
@@ -21,8 +20,7 @@ describe('search component', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search-small',
-        selector: '#screenshot-search-full',
-        checkAccessibility: true
+        selector: '#screenshot-search-full'
       });
     });
 
@@ -35,8 +33,7 @@ describe('search component', () => {
       element(by.css('.sky-search-btn-open')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search-small-dismissable',
-        selector: '#screenshot-search-full',
-        checkAccessibility: true
+        selector: '#screenshot-search-full'
       });
     });
 
@@ -51,8 +48,7 @@ describe('search component', () => {
       element(by.css('.sky-search-btn-apply')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search-small-dismissable-applied',
-        selector: '#screenshot-search-full',
-        checkAccessibility: true
+        selector: '#screenshot-search-full'
       });
     });
 
@@ -68,8 +64,7 @@ describe('search component', () => {
       element(by.css('.sky-search-btn-dismiss')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'search-small-applied',
-        selector: '#screenshot-search-full',
-        checkAccessibility: true
+        selector: '#screenshot-search-full'
       });
     });
 
