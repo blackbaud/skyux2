@@ -1,15 +1,14 @@
-<div style="max-width: 50%">
-  <input
-    skyUrlValidation
-    class="sky-form-control"
-    [(ngModel)]="urlValidator"
-    #url="ngModel">
-  <div
-    class="sky-error-label"
-    *ngIf="url.errors && url.errors.skyUrl && (url.dirty && url.touched)">
-    <span
-      [hidden]="!url.errors.skyUrl.invalid">
-      Please enter valid url with format http(s)://site.domain
-    </span>
-  </div>
+<input
+  skyUrlValidation
+  class="sky-form-control"
+  [(ngModel)]="url"
+  #input="ngModel">
+
+<div
+  class="sky-error-label"
+  *ngIf="input.errors && input.errors.skyUrl && (input.dirty && input.touched)">
+  <span
+    [hidden]="!input.errors.skyUrl.invalid">
+    Please enter valid url with format http(s)://site.domain
+  </span>
 </div>

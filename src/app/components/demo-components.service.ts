@@ -1108,10 +1108,10 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Url validation',
+        name: 'URL validation',
         icon: 'check',
         // tslint:disable-next-line
-        summary: `The url validation module allows users to validate url format.`,
+        summary: `The URL validation module allows users to validate URL format.`,
         url: '/components/url-validation',
         getCodeFiles: function () {
           return [

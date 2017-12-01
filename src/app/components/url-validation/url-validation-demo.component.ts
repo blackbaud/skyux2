@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './url-validation-demo.component.html'
 })
 export class SkyUrlValidationDemoComponent {
-  public urlValidator: string;
+  public url: string;
 }
