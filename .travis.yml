@@ -14,7 +14,6 @@ env:
   # Run three tasks in parallel:
   # https://docs.travis-ci.com/user/customizing-the-build/#Build-Matrix
   matrix:
-    - TEST_COMMAND=build
     - TEST_COMMAND=coverage
     - TEST_COMMAND=visual
 
@@ -34,7 +33,6 @@ before_install:
 
   - npm install -g @blackbaud/skyux-cli
   - export SAVAGE_BRANCH="^savage-"
-  - chmod +x ./scripts/travis-script-build.sh
   - chmod +x ./scripts/travis-script-coverage.sh
   - chmod +x ./scripts/travis-script-deploy.sh
   - chmod +x ./scripts/travis-script-visual.sh
