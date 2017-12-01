@@ -32,7 +32,7 @@ export class SkyConfirmDemoComponent {
   public openCustomConfirm() {
     const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'What option are you going to select?',
-      type: 3,
+      type: SkyConfirmType.YesNoCancel,
       buttons: [
         { text: '1', action: 'foo' },
         { text: '2', action: 'bar' },

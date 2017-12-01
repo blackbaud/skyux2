@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 import {
-  SkyConfirmService
+  SkyConfirmService,
+  SkyConfirmType
 } from '@blackbaud/skyux/dist/core';
 
 @Component({
@@ -13,7 +14,7 @@ export class ConfirmVisualComponent {
     private confirmService: SkyConfirmService
   ) { }
 
-  public openConfirm(type: number) {
+  public openConfirm(type: SkyConfirmType) {
     this.confirmService.open({
       message: 'Do you wish to continue?',
       type
@@ -27,7 +28,7 @@ export class ConfirmVisualComponent {
         'text so that it goes to the next line. This is really long text so that it goes to the',
         'next line.'
       ].join(' '),
-      type: 3,
+      type: SkyConfirmType.YesNoCancel,
       buttons: [
         { text: '1', action: 'foo' },
         { text: '2', action: 'bar', autofocus: true },
