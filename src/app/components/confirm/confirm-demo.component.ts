@@ -14,7 +14,9 @@ import {
 export class SkyConfirmDemoComponent {
   public selectedAction: SkyConfirmButtonAction;
 
-  constructor(private confirmService: SkyConfirmService) { }
+  constructor(
+    private confirmService: SkyConfirmService
+  ) { }
 
   public openConfirm(type: SkyConfirmType) {
     const dialog: SkyConfirmInstance = this.confirmService.open({

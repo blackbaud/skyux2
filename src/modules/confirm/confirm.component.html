@@ -11,7 +11,7 @@
           class="sky-btn"
           ngClass="sky-btn-{{ button.styleType }}"
           (click)="close(button)"
-          [attr.autofocus]="button.autofocus">
+          [attr.autofocus]="button.autofocus ? 'autofocus': null">
           {{ button.text }}
         </button>
       </div>

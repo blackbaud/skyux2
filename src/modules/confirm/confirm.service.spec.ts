@@ -5,13 +5,13 @@ import {
   SkyConfirmType
 } from './types';
 
-import { MockModalService } from './fixtures/mocks';
+import { MockSkyModalService } from './fixtures/mocks';
 import { SkyConfirmComponent } from './confirm.component';
 import { SkyConfirmModalContext } from './confirm-modal-context';
 
 describe('Confirm service', () => {
   it('should open confirmation dialog with correct parameters', () => {
-    const modalService = new MockModalService(undefined, undefined, undefined);
+    const modalService = new MockSkyModalService(undefined, undefined, undefined);
 
     const config: SkyConfirmConfig = {
       message: 'dialog description',

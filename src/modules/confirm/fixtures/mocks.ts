@@ -5,29 +5,34 @@ import {
   SkyModalInstance
 } from '../../modal';
 
-export class SkyModalInstanceMock extends SkyModalInstance {
+export class MockSkyModalInstance extends SkyModalInstance {
   public closed = new EventEmitter<any>();
-  public close(result?: any) { this.closed.emit({ data: result }); }
+  public close(result?: any) {
+    this.closed.emit({
+      data: result
+    });
+  }
   public save() {}
 }
 
-export class MockHostService {
+export class MockSkyModalHostService {
   public getModalZIndex(): number {
     return 1;
   }
 }
 
-export interface OpenParameters {
-  component: any;
-  config: any;
-}
+export class MockSkyModalService extends SkyModalService {
+  public openCalls: {
+    component: any;
+    config: any;
+  }[] = [];
 
-export class MockModalService extends SkyModalService {
-  public openCalls: OpenParameters[] = [];
+  public open(component: any, config?: any): MockSkyModalInstance {
+    this.openCalls.push({
+      component,
+      config
+    });
 
-  public open(component: any, config?: any): SkyModalInstanceMock {
-    this.openCalls.push({component: component, config: config });
-
-    return new SkyModalInstanceMock();
+    return new MockSkyModalInstance();
   }
 }

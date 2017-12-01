@@ -121,10 +121,22 @@ export class SkyConfirmComponent implements OnInit {
             return;
           }
 
+          // Reset autofocus for all buttons so that
+          // the current button receives focus.
+          if (key === 'autofocus') {
+            this.resetAutofocus(buttons);
+          }
+
           button[key] = config[key];
         });
     });
 
     return buttons;
+  }
+
+  private resetAutofocus(buttons: SkyConfirmButton[]) {
+    buttons.forEach((button: SkyConfirmButton) => {
+      button.autofocus = false;
+    });
   }
 }
