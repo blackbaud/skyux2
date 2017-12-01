@@ -10,8 +10,7 @@ describe('wait component', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component',
-          selector: '#screenshot-wait',
-          checkAccessibility: true
+          selector: '#screenshot-wait'
         });
       });
   });
@@ -22,8 +21,7 @@ describe('wait component', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component-absolute',
-          selector: '#screenshot-wait-absolute',
-          checkAccessibility: true
+          selector: '#screenshot-wait-absolute'
         });
       });
   });
@@ -35,8 +33,7 @@ describe('wait component', () => {
         SkyVisualTest.scrollElementIntoView('#screenshot-wait-behind');
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component-absolute-behind',
-          selector: '#screenshot-wait-behind',
-          checkAccessibility: true
+          selector: '#screenshot-wait-behind'
         });
       });
   });
@@ -48,8 +45,7 @@ describe('wait component', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component-non-block',
-          selector: '#screenshot-wait',
-          checkAccessibility: true
+          selector: '#screenshot-wait'
         });
       });
   });
@@ -61,8 +57,7 @@ describe('wait component', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-full-page',
-          selector: 'body',
-          checkAccessibility: true
+          selector: 'body'
         });
       });
   });
@@ -75,8 +70,7 @@ describe('wait component', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-full-page-non-block',
-          selector: 'body',
-          checkAccessibility: true
+          selector: 'body'
         });
       });
   });

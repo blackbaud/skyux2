@@ -1,0 +1,24 @@
+<div class="sky-confirmation-dialog">
+  <sky-modal>
+    <sky-modal-content>
+      <div class="sky-confirmation-dialog-container">
+        <div class="sky-confirmation-dialog-message-container">
+          <span class="sky-confirmation-dialog-message sky-emphasized">
+            {{ context.message }}
+          </span>
+        </div>
+        <div class="sky-confirmation-dialog-buttons">
+          <button
+            *ngFor="let btn of buttons"
+            type="button"
+            class="sky-btn sky-confirmation-dialog-btn sky-btn-{{ btn.buttonType }}"
+            (click)="instance.close(btn.text)"
+            [attr.autofocus]="btn.autofocus ? 'autofocus' : null"
+          >
+            {{ btn.text }}
+          </button>
+        </div>
+      </div>
+    </sky-modal-content>
+  </sky-modal>
+</div>
