@@ -6,33 +6,17 @@ import {
   EventEmitter,
   Input,
   Optional,
-  Output,
-  trigger,
-  state,
-  style,
-  transition
+  Output
 } from '@angular/core';
 
+import { skySlide } from '../../animation/slide';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile',
   styleUrls: ['./tile.component.scss'],
   templateUrl: './tile.component.html',
-  animations: [trigger('slide', [
-    state('down', style({
-      overflow: 'hidden',
-      height: '*'
-    })),
-    state('up', style({
-      overflow: 'hidden',
-      height: 0
-    })),
-    transition(
-      'up <=> down',
-      animate('150ms ease-in')
-    )
-  ])]
+  animations: [skySlide]
 })
 export class SkyTileComponent implements AfterViewInit {
   public isInDashboardColumn = false;

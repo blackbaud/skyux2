@@ -6,7 +6,7 @@ import {
   animate
 } from '@angular/core';
 
-export default trigger('slide', [
+const skySlide = trigger('slide', [
   state('down', style({
     overflow: 'hidden',
     height: '*'
@@ -19,4 +19,8 @@ export default trigger('slide', [
     'up <=> down',
     animate('150ms ease-in')
   )
-]) as any;
+]);
+
+export {
+  skySlide
+};

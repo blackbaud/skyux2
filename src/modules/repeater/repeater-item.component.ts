@@ -1,13 +1,9 @@
 import {
-  animate,
   Component,
-  Input,
-  trigger,
-  state,
-  style,
-  transition
+  Input
 } from '@angular/core';
 
+import { skySlide } from '../animation/slide';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
 import { SkyCheckboxChange } from '../checkbox/checkbox.component';
@@ -16,20 +12,7 @@ import { SkyCheckboxChange } from '../checkbox/checkbox.component';
   selector: 'sky-repeater-item',
   styleUrls: ['./repeater-item.component.scss'],
   templateUrl: './repeater-item.component.html',
-  animations: [trigger('slide', [
-    state('down', style({
-      overflow: 'hidden',
-      height: '*'
-    })),
-    state('up', style({
-      overflow: 'hidden',
-      height: 0
-    })),
-    transition(
-      'up <=> down',
-      animate('150ms ease-in')
-    )
-  ])]
+  animations: [skySlide]
 })
 export class SkyRepeaterItemComponent {
   public get isExpanded(): boolean {
