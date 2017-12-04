@@ -10,8 +10,7 @@ describe('Error', () => {
         SkyVisualTest.scrollElementIntoView('#screenshot-error-broken');
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'error-type-broken',
-          selector: '#screenshot-error-broken',
-          checkAccessibility: true
+          selector: '#screenshot-error-broken'
         });
       });
   });
@@ -23,8 +22,7 @@ describe('Error', () => {
         SkyVisualTest.scrollElementIntoView('#screenshot-error-notfound');
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'error-type-notfound',
-          selector: '#screenshot-error-notfound',
-          checkAccessibility: true
+          selector: '#screenshot-error-notfound'
         });
       });
   });
@@ -36,8 +34,7 @@ describe('Error', () => {
         SkyVisualTest.scrollElementIntoView('#screenshot-error-construction');
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'error-type-construction',
-          selector: '#screenshot-error-construction',
-          checkAccessibility: true
+          selector: '#screenshot-error-construction'
         });
       });
   });
@@ -49,8 +46,7 @@ describe('Error', () => {
         SkyVisualTest.scrollElementIntoView('#screenshot-error-security');
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'error-type-security',
-          selector: '#screenshot-error-security',
-          checkAccessibility: true
+          selector: '#screenshot-error-security'
         });
       });
   });
@@ -62,8 +58,7 @@ describe('Error', () => {
         SkyVisualTest.scrollElementIntoView('#screenshot-error-custom');
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'error-type-custom',
-          selector: '#screenshot-error-custom',
-          checkAccessibility: true
+          selector: '#screenshot-error-custom'
         });
       });
   });
@@ -75,8 +70,7 @@ describe('Error', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'error-modal-form',
-          selector: '.sky-modal',
-          checkAccessibility: true
+          selector: '.sky-modal'
         });
       })
       .then(() => element(by.css('.sky-error-modal-close .sky-btn-primary')).click() as any);
@@ -89,8 +83,7 @@ describe('Error', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'error-modal-form-long-description',
-          selector: '.sky-modal',
-          checkAccessibility: true
+          selector: '.sky-modal'
         });
       })
       .then(() => element(by.css('.sky-error-modal-close .sky-btn-primary')).click() as any);

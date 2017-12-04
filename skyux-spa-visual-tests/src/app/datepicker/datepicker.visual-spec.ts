@@ -10,7 +10,8 @@ describe('Datepicker', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
           screenshotName: 'datepicker-daypicker',
-          selector: '#screenshot-datepicker-calendar'
+          selector: '#screenshot-datepicker-calendar',
+          checkAccessibility: false
         });
     });
 
@@ -23,7 +24,8 @@ describe('Datepicker', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-monthpicker',
-        selector: '#screenshot-datepicker-calendar'
+        selector: '#screenshot-datepicker-calendar',
+        checkAccessibility: false
       });
     });
 
@@ -37,7 +39,8 @@ describe('Datepicker', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-yearpicker',
-        selector: '#screenshot-datepicker-calendar'
+        selector: '#screenshot-datepicker-calendar',
+        checkAccessibility: false
       });
     });
 
@@ -49,7 +52,8 @@ describe('Datepicker', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-input',
-        selector: '#screenshot-datepicker'
+        selector: '#screenshot-datepicker',
+        checkAccessibility: false
       });
     });
 
@@ -62,7 +66,8 @@ describe('Datepicker', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'datepicker-input-open',
-        selector: '#screenshot-datepicker'
+        selector: '#screenshot-datepicker',
+        checkAccessibility: false
       });
     });
 

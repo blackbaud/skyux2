@@ -7,8 +7,7 @@ describe('Fluid grid', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-screenxsmall',
-          selector: '#screenshot-fluid-grid-xsmall',
-          checkAccessibility: true
+          selector: '#screenshot-fluid-grid-xsmall'
         });
       });
   });
@@ -18,8 +17,7 @@ describe('Fluid grid', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-screensmall-evenrow',
-          selector: '#screenshot-fluid-grid',
-          checkAccessibility: true
+          selector: '#screenshot-fluid-grid'
         });
       });
   });
@@ -29,8 +27,7 @@ describe('Fluid grid', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-screenmedium-tworows',
-          selector: '#screenshot-fluid-grid',
-          checkAccessibility: true
+          selector: '#screenshot-fluid-grid'
         });
       });
   });
@@ -40,8 +37,7 @@ describe('Fluid grid', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-screenlarge-unevenrow',
-          selector: '#screenshot-fluid-grid',
-          checkAccessibility: true
+          selector: '#screenshot-fluid-grid'
         });
       });
   });
@@ -51,8 +47,7 @@ describe('Fluid grid', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'fluid-grid-reversecolumnorder',
-          selector: '#screenshot-fluid-grid-reverse',
-          checkAccessibility: true
+          selector: '#screenshot-fluid-grid-reverse'
         });
       });
   });

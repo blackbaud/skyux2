@@ -36,6 +36,7 @@ before_install:
   - export SAVAGE_BRANCH="^savage-"
   - chmod +x ./scripts/travis-script-build.sh
   - chmod +x ./scripts/travis-script-coverage.sh
+  - chmod +x ./scripts/travis-script-deploy.sh
   - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
   - chmod +x ./scripts/browserstack-cleanup.sh
@@ -56,7 +57,7 @@ jobs:
   include:
     - stage: deploy
       env: TEST_COMMAND=none
-      script: bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
+      script: ./scripts/travis-script-deploy.sh
 
 after_failure:
   - ./scripts/travis-after-failure.sh

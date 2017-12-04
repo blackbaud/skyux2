@@ -8,6 +8,8 @@ fdescribe('Action button', () => {
   it('should match previous action button screenshot', () => {
     SkyHostBrowser.get('action-button');
 
+    SkyVisualTest.moveCursorOffScreen();
+
     SkyVisualTest.compareScreenshot({
       screenshotName: 'action-button',
       selector: '#screenshot-action-button',
@@ -28,10 +30,10 @@ fdescribe('Action button', () => {
   //       SkyVisualTest.moveCursorOffScreen();
   //       return SkyVisualTest.compareScreenshot({
   //         screenshotName: 'action-button-small',
-  //         selector: '#screenshot-action-button',
-  //         checkAccessibility: true
+  //         selector: '#screenshot-action-button'
   //       });
   //     });
+
   // });
 
   // it('should match previous action button containerscreenshot', () => {
@@ -41,10 +43,10 @@ fdescribe('Action button', () => {
   //       SkyVisualTest.moveCursorOffScreen();
   //       return SkyVisualTest.compareScreenshot({
   //           screenshotName: 'action-button-container',
-  //           selector: '#screenshot-action-button-container',
-  //           checkAccessibility: true
+  //           selector: '#screenshot-action-button-container'
   //         });
   //     });
+
   // });
 
   // it('should match previous action button container screenshot on small screens', () => {
@@ -54,9 +56,9 @@ fdescribe('Action button', () => {
   //       SkyVisualTest.moveCursorOffScreen();
   //       return SkyVisualTest.compareScreenshot({
   //         screenshotName: 'action-button-container-small',
-  //         selector: '#screenshot-action-button-container',
-  //         checkAccessibility: true
+  //         selector: '#screenshot-action-button-container'
   //       });
   //     });
+
   // });
 });

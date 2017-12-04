@@ -11,8 +11,7 @@ describe('Page summary', () => {
         element(by.css('#screenshots-page-summary-items')).sendKeys(visibleComponents.join(','));
         return SkyVisualTest.compareScreenshot({
           screenshotName: ('pagesummary-' + screenshotName),
-          selector: '#screenshots-page-summary',
-          checkAccessibility: true
+          selector: '#screenshots-page-summary'
         });
       });
   }
