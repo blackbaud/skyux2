@@ -6,7 +6,7 @@ import {
   animate
 } from '@angular/core';
 
-const skySlide = trigger('slide', [
+const skyAnimationSlide = trigger('skyAnimationSlide', [
   state('down', style({
     overflow: 'hidden',
     height: '*'
@@ -22,5 +22,5 @@ const skySlide = trigger('slide', [
 ]);
 
 export {
-  skySlide
+  skyAnimationSlide
 };

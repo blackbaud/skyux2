@@ -3,7 +3,7 @@ import {
   Input
 } from '@angular/core';
 
-import { skySlide } from '../animation/slide';
+import { skyAnimationSlide } from '../animation/slide';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
 import { SkyCheckboxChange } from '../checkbox/checkbox.component';
@@ -12,7 +12,7 @@ import { SkyCheckboxChange } from '../checkbox/checkbox.component';
   selector: 'sky-repeater-item',
   styleUrls: ['./repeater-item.component.scss'],
   templateUrl: './repeater-item.component.html',
-  animations: [skySlide]
+  animations: [skyAnimationSlide]
 })
 export class SkyRepeaterItemComponent {
   public get isExpanded(): boolean {
