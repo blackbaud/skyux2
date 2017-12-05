@@ -10,6 +10,7 @@
       "services": [
         {
           "title": "SKY UX 2",
+          "searchUrl": "https://stache-search-query.sky.blackbaud.com/search/skyux2",
           "items": [
             {
               "title": "Home",
