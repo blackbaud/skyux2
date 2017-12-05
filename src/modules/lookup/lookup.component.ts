@@ -3,6 +3,7 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   OnDestroy,
   OnInit,
@@ -256,6 +257,7 @@ export class SkyLookupComponent implements OnDestroy, OnInit {
     this.activeMenuItem = item;
   }
 
+  @HostListener('document:click')
   public windowClick() {
     this.revertSelection();
   }
