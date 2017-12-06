@@ -7,7 +7,9 @@
       <sky-alert alertType="info">Blackbaud developers should create repos and provision applications through the SKY UX App Management Portal. Documentation on the SKY UX App Management Portal is available on <a href="https://host.nxt.blackbaud.com/engineering-system-docs/learn/spa/spa-app-portal">the Engineering System website</a>. This site is for Blackbaud internal use only and is not available to external developers.</sky-alert>
     </stache-page-summary>
     <ol>
-        <li><p>From the command prompt, <stache-code>cd</stache-code> into the directory where you want to create the application.</p></li>
+        <li><p>From the command prompt, <stache-code>cd</stache-code> into the directory where you want to create the application.</p>
+      <sky-alert alertType="warning">Do not use Git Bash with Windows because known issues occur with <stache-code>skyux new</stache-code>. We recommend the native Windows command prompt instead.</sky-alert>
+      </li>
         <li><p>Enter <stache-code>skyux new</stache-code>. A series of prompts appears.</p></li>
         <li><p>In the first prompt, specify a root directory for the application. The SKY UX CLI creates a folder with this name and prefixes it with "skyux-spa." The root directory also determines how to access the SPA because the URL for the home page includes the root directory after the base URL.</p>
         </li>
