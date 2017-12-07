@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 import {
   SkyConfirmService,
-  SkyConfirmType,
-  SkyConfirmInstance
+  SkyConfirmType
 } from '@blackbaud/skyux/dist/core';
 
 @Component({
@@ -16,21 +15,21 @@ export class ConfirmVisualComponent {
   ) { }
 
   public openOKConfirm() {
-    const dialog: SkyConfirmInstance = this.confirmService.open({
+    this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.OK
     });
   }
 
   public openYesCancelConfirm() {
-    const dialog: SkyConfirmInstance = this.confirmService.open({
+    this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.YesCancel
     });
   }
 
   public openYesNoCancelConfirm() {
-    const dialog: SkyConfirmInstance = this.confirmService.open({
+    this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.YesNoCancel
     });
