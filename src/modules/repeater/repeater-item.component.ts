@@ -3,7 +3,8 @@ import {
   Input
 } from '@angular/core';
 
-import { skyAnimationSlide } from '../animation/slide';
+import skyAnimationSlide from '../animation/slide';
+
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
 import { SkyCheckboxChange } from '../checkbox/checkbox.component';
