@@ -8,7 +8,7 @@
     </stache-page-summary>
 
     <stache-page-anchor>
-        Installation for Macs
+        Installation for Mac
     </stache-page-anchor>
     <ol>
         <li><p>Download the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt</a>.</p></li>
@@ -19,6 +19,19 @@
         <li><p>Double-click the new "SKY UX" item in the list to open the certificate's info window.</p></li>
         <li><p>Expand the Trust section near the top of the info window, and select the "Always Trust" option for "Secure Sockets Layer (SSL)."</p></li>
         <li><p>Close the info window.</p></li>
+    </ol>
+
+    <stache-page-anchor>
+        Installation for iOS Simulator on Mac
+    </stache-page-anchor>
+    <ol>
+        <li><p>Download the <a href="https://raw.githubusercontent.com/blackbaud/skyux-builder/master/ssl/skyux-ca.crt">skyux-ca.crt</a> to your Mac.</p></li>
+        <li><p>Drag and drop the certificate to your simulator, which will cause a prompt to open.</p></li>
+        <li><p>In the prompt, choose <b>Allow</b>, which will open a settings page.</p></li>
+        <li><p>Click <b>Install</b> on each page (3 times total) to install the certificate.</p></li>
+        <li><p>Click <b>Done</b> to exit.</p></li>
+        <li><p>In <b>Settings</b> > <b>General</b> > <b>About</b>, select <b>Certificate Trust Settings</b>.</p></li>
+        <li><p>Switch <b>Enable Full Trust For Root Certificates</b> on for the SKY UX certificate and continue when prompted.</p></li>
     </ol>
 
     <stache-page-anchor>
