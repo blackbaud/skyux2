@@ -1,6 +1,16 @@
-import { Component, AfterContentChecked } from '@angular/core';
-import { SkyModalService, SkyModalCloseArgs } from '@blackbaud/skyux/dist/core';
-import { SkySectionedModalFormDemoComponent } from './sectioned-modal-form-demo.component';
+import {
+  Component,
+  AfterContentChecked
+} from '@angular/core';
+
+import {
+  SkyModalService,
+  SkyModalCloseArgs
+} from '../../core';
+
+import {
+  SkySectionedModalFormDemoComponent
+} from './sectioned-modal-form-demo.component';
 
 @Component({
   selector: 'sky-sectioned-form-demo',

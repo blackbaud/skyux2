@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListSortFieldSelectorModel } from '@blackbaud/skyux/dist/core';
+import { ListSortFieldSelectorModel } from '../../core';
 
 @Component({
   selector: 'sky-grid-demo',

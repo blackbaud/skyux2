@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {
   SkyModalService,
   SkyModalCloseArgs
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 import { SkyFilterDemoModalComponent } from './filter-demo-modal.component';
 import { SkyFilterDemoModalContext } from './filter-demo-modal-context';
@@ -86,7 +86,7 @@ export class SkyFilterDemoComponent {
     return filter.name === 'fruitType' && filter.value !== 'any' && filter.value !== item.type;
   }
 
-  private itemIsShown(filters: Array<any>, item: Array<any>) {
+  private itemIsShown(filters: any[], item: any[]) {
     let passesFilter = true,
         j: number;
 
@@ -101,10 +101,10 @@ export class SkyFilterDemoComponent {
     return passesFilter;
   }
 
-  private filterItems(items: Array<any>, filters: Array<any>) {
+  private filterItems(items: any[], filters: any[]) {
     let i: number,
       passesFilter: boolean,
-      result: Array<any> = [];
+      result: any[] = [];
 
     for (i = 0; i < items.length; i++) {
       passesFilter = this.itemIsShown(filters, items[i]);

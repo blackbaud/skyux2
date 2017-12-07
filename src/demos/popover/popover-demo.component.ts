@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 
 import {
   DomSanitizer,
   SafeResourceUrl
 } from '@angular/platform-browser';
 
-import { SkyAppWindowRef } from '@blackbaud/skyux-builder/runtime';
+function getWindow() {
+  return window;
+}
 
 @Component({
   selector: 'sky-popover-demo',
@@ -16,14 +21,13 @@ export class SkyPopoverDemoComponent implements OnInit {
   public outOfBoundsDemoUrl: SafeResourceUrl;
 
   constructor(
-    private windowRef: SkyAppWindowRef,
     private sanitizer: DomSanitizer
   ) { }
 
   public ngOnInit() {
     this.outOfBoundsDemoUrl = this.sanitizer
       .bypassSecurityTrustResourceUrl(
-        `${this.windowRef.nativeWindow.location.href}/out-of-bounds-demo`
+        `${getWindow().location.href}/out-of-bounds-demo`
       );
   }
 

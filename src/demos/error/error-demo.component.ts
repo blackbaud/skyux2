@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {
   ErrorModalConfig,
   SkyErrorModalService
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 @Component({
   selector: 'sky-error-demo',

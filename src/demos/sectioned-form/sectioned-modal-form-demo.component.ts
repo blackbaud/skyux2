@@ -7,7 +7,7 @@ import {
 import {
   SkyModalInstance,
   SkySectionedFormComponent
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 @Component({
   selector: 'sky-sectioned-modal-form-demo',

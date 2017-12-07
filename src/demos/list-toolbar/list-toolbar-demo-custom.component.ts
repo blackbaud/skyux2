@@ -1,4 +1,3 @@
-import 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 

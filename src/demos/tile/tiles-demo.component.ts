@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SkyTileDashboardConfig } from '@blackbaud/skyux/dist/core';
+import { SkyTileDashboardConfig } from '../../core';
 import { SkyTilesDemoTile1Component } from './tiles-demo-tile1.component';
 import { SkyTilesDemoTile2Component } from './tiles-demo-tile2.component';
 

@@ -1,4 +1,3 @@
-import 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -7,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './list-toolbar-demo.component.html'
 })
 export class SkyListToolbarDemoComponent {
-
   public items: Observable<any> = Observable.of([
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },

@@ -8,11 +8,10 @@ import {
   ListDataRequestModel,
   ListDataResponseModel,
   ListItemModel
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 export class DemoListProvider extends ListDataProvider {
-
-  public items: Observable<Array<ListItemModel>>;
+  public items: Observable<ListItemModel[]>;
   public remoteCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor() {
@@ -77,7 +76,7 @@ export class DemoListProvider extends ListDataProvider {
   }
 
   private fakeHttpRequest(request: ListDataRequestModel): Observable<ListDataResponseModel> {
-    return this.items.map((items: Array<ListItemModel>) => {
+    return this.items.map((items: ListItemModel[]) => {
       let searchedList = items;
 
       if (request.search.searchText) {

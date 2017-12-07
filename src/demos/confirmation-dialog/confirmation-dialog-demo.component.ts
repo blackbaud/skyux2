@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import { SkyConfirmationDialogService } from '@blackbaud/skyux/dist/core';
+import {
+  SkyConfirmationDialogService
+} from '../../core';
 
 @Component({
   selector: 'sky-confirmation-dialog-demo',

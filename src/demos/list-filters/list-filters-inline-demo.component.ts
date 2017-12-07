@@ -1,10 +1,9 @@
-import 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import {
   ListItemModel
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 @Component({
   selector: 'sky-list-filters-inline-demo',

@@ -3,7 +3,7 @@ import {
   Component
 } from '@angular/core';
 
-import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
+import { SkyModalInstance } from '../../core';
 
 @Component({
   selector: 'sky-demo-wizard-form',

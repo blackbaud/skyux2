@@ -4,9 +4,11 @@ import {
   SkyModalInstance,
   ListFilterModel,
   ListItemModel
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
-import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-context';
+import {
+  SkyListFiltersModalDemoContext
+} from './list-filters-demo-modal-context';
 
 @Component({
   selector: 'sky-demo-filter-modal-form',
@@ -51,7 +53,7 @@ export class SkyListFiltersModalDemoComponent {
   }
 
   private getAppliedFiltersArray() {
-    let appliedFilters: Array<ListFilterModel> = [];
+    let appliedFilters: ListFilterModel[] = [];
     if (this.fruitType !== 'any') {
 
       appliedFilters.push(new ListFilterModel({
@@ -74,7 +76,7 @@ export class SkyListFiltersModalDemoComponent {
     return appliedFilters;
   }
 
-  private setFormFilters(appliedFilters: Array<any>) {
+  private setFormFilters(appliedFilters: any[]) {
     for (let i = 0; i < appliedFilters.length; i++) {
       if (appliedFilters[i].name === 'fruitType') {
         this.fruitType = appliedFilters[i].value;

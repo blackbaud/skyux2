@@ -59,11 +59,9 @@ import {
   SkyUrlValidationDemoComponent,
   SkyVerticalTabsDemoComponent,
   SkyWaitDemoComponent,
-  SkyWizardDemoComponent
-} from './demos';
+  SkyWizardDemoComponent,
 
-// Entry components
-import {
+  // Entry components
   SkyFilterDemoModalComponent,
   SkyListFiltersModalDemoComponent,
   SkyModalDemoFormComponent,

@@ -8,7 +8,7 @@ import {
   ListStateDispatcher,
   ListItemsLoadAction,
   ListItemModel
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 @Component({
   selector: 'sky-list-paging-demo',

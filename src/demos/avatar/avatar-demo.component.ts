@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyFileItem } from '@blackbaud/skyux/dist/core';
+import { SkyFileItem } from '../../core';
 
 @Component({
   selector: 'sky-avatar-demo',

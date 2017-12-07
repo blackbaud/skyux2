@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyModalService } from '@blackbaud/skyux/dist/core';
+import { SkyModalService } from '../../core';
 
 import { SkyWizardDemoFormComponent } from './wizard-demo-form.component';
 

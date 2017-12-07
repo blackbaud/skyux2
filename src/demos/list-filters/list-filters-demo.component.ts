@@ -6,7 +6,7 @@ import {
   SkyModalService,
   SkyModalCloseArgs,
   ListFilterModel
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 import { SkyListFiltersModalDemoComponent } from './list-filters-demo-modal.component';
 import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-context';
@@ -16,8 +16,8 @@ import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-contex
   templateUrl: './list-filters-demo.component.html'
 })
 export class SkyListFiltersDemoComponent {
-  public listFilters: Array<ListFilterModel> = [];
-  public modalFilters: Array<ListFilterModel> = [];
+  public listFilters: ListFilterModel[] = [];
+  public modalFilters: ListFilterModel[] = [];
 
   public items: Observable<any> = Observable.of([
     {

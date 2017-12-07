@@ -5,7 +5,7 @@ import {
   SKY_LINK_RECORDS_STATUSES,
   SkyLinkRecordsComponent,
   SkyLinkRecordsMatchModel
-} from '@blackbaud/skyux/dist/core';
+} from '../../core';
 
 const getWindow = () => {
   return window;
@@ -19,7 +19,7 @@ export class SkyLinkRecordsDemoComponent {
   @ViewChild(SkyLinkRecordsComponent) public item: SkyLinkRecordsComponent;
   public window: any;
 
-  public matchFields: Array<any> = [{key: 'description'}, {key: 'name'}];
+  public matchFields: any[] = [{key: 'description'}, {key: 'name'}];
 
   public newItem: any = { id: '99', address: 999, name: 'Lime', description: 'Laura eats limes.' };
 
@@ -34,7 +34,7 @@ export class SkyLinkRecordsDemoComponent {
     { id: '8', address: 808, name: 'Strawberry', description: 'Sally eats strawberries' }
   ]);
 
-  public matches: Observable<Array<SkyLinkRecordsMatchModel>> = Observable.of([
+  public matches: Observable<SkyLinkRecordsMatchModel[]> = Observable.of([
     new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
