@@ -1,5 +1,6 @@
 export interface SkyConfirmButtonConfig {
-  action?: string;
+  action: string;
+  text: string;
+  styleType?: string;
   autofocus?: boolean;
-  text?: string;
 }

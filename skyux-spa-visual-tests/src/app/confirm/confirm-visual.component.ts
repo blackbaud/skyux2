@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 import {
   SkyConfirmService,
-  SkyConfirmType
+  SkyConfirmType,
+  SkyConfirmInstance
 } from '@blackbaud/skyux/dist/core';
 
 @Component({
@@ -14,10 +15,24 @@ export class ConfirmVisualComponent {
     private confirmService: SkyConfirmService
   ) { }
 
-  public openConfirm(type: SkyConfirmType) {
-    this.confirmService.open({
+  public openOKConfirm() {
+    const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'Do you wish to continue?',
-      type
+      type: SkyConfirmType.OK
+    });
+  }
+
+  public openYesCancelConfirm() {
+    const dialog: SkyConfirmInstance = this.confirmService.open({
+      message: 'Do you wish to continue?',
+      type: SkyConfirmType.YesCancel
+    });
+  }
+
+  public openYesNoCancelConfirm() {
+    const dialog: SkyConfirmInstance = this.confirmService.open({
+      message: 'Do you wish to continue?',
+      type: SkyConfirmType.YesNoCancel
     });
   }
 
@@ -28,12 +43,11 @@ export class ConfirmVisualComponent {
         'text so that it goes to the next line. This is really long text so that it goes to the',
         'next line.'
       ].join(' '),
-      type: SkyConfirmType.YesNoCancel,
+      type: SkyConfirmType.Custom,
       buttons: [
-        { text: '1', action: 'foo' },
+        { text: '1', action: 'foo', styleType: 'primary' },
         { text: '2', action: 'bar', autofocus: true },
-        { text: '3', action: 'baz' },
-        { text: 'wontshow' }
+        { text: '3', action: 'baz' }
       ]
     });
   }

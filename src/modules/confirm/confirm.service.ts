@@ -1,8 +1,18 @@
 import { Injectable } from '@angular/core';
 
-import { SkyModalService } from '../modal';
+import {
+  SkyModalService,
+  SkyModalInstance,
+  SkyModalCloseArgs
+} from '../modal';
 
-import { SkyConfirmConfig } from './types/confirm-config';
+import {
+  SkyConfirmCloseEventArgs,
+  SkyConfirmConfig
+} from './types';
+
+import { SkyConfirmModalContext } from './confirm-modal-context';
+import { SkyConfirmComponent } from './confirm.component';
 import { SkyConfirmInstance } from './confirm-instance';
 
 @Injectable()
@@ -12,8 +22,32 @@ export class SkyConfirmService {
   ) { }
 
   public open(config: SkyConfirmConfig): SkyConfirmInstance {
-    const instance = new SkyConfirmInstance();
+    const modalInstance: SkyModalInstance = this.modalService.open(
+      SkyConfirmComponent,
+      {
+        providers: [{
+          provide: SkyConfirmModalContext,
+          useValue: config
+        }]
+      }
+    );
 
-    return instance.open(this.modalService, config);
+    const confirmInstance = new SkyConfirmInstance();
+
+    modalInstance.closed.subscribe((args: SkyModalCloseArgs) => {
+      let result: SkyConfirmCloseEventArgs = args.data;
+
+      // The modal was closed using the ESC key.
+      if (result === undefined) {
+        result = {
+          action: 'cancel'
+        };
+      }
+
+      confirmInstance.closed.emit(result);
+      confirmInstance.closed.complete();
+    });
+
+    return confirmInstance;
   }
 }

@@ -133,9 +133,11 @@ describe('Confirm component', () => {
   it('should display a custom confirm', () => {
     const fixture = createConfirm({
       message: 'confirm message',
+      type: SkyConfirmType.Custom,
       buttons: [
         {
-          text: 'Custom label'
+          text: 'Custom label',
+          action: 'foo'
         }
       ]
     });
@@ -153,7 +155,7 @@ describe('Confirm component', () => {
   it('should handle incorrect button config', () => {
     const fixture = createConfirm({
       message: 'confirm message',
-      type: SkyConfirmType.YesCancel,
+      type: SkyConfirmType.Custom,
       buttons: [
         {
           text: undefined,
@@ -168,9 +170,25 @@ describe('Confirm component', () => {
     const buttons = fixture.nativeElement.querySelectorAll('.sky-confirm-buttons .sky-btn');
 
     expect(messageElem).toHaveText('confirm message');
-    expect(buttons.length).toEqual(2);
-    expect(buttons[0]).toHaveText('Yes');
-    expect(buttons[1]).toHaveText('Cancel');
+    expect(buttons.length).toEqual(1);
+    expect(buttons[0]).toHaveText('');
+  });
+
+  it('should default to OK confirm if buttons not provided with custom type', () => {
+    const fixture = createConfirm({
+      message: 'confirm message',
+      type: SkyConfirmType.Custom,
+      buttons: []
+    });
+
+    fixture.detectChanges();
+
+    const messageElem = fixture.nativeElement.querySelector('.sky-confirm-message');
+    const buttons = fixture.nativeElement.querySelectorAll('.sky-confirm-buttons .sky-btn');
+
+    expect(messageElem).toHaveText('confirm message');
+    expect(buttons.length).toEqual(1);
+    expect(buttons[0]).toHaveText('OK');
   });
 
   it('should invoke close method and return arguments', () => {
@@ -194,11 +212,19 @@ describe('Confirm component', () => {
   it('should autofocus specified button from config', () => {
     const fixture = createConfirm({
       message: 'confirm message',
-      type: SkyConfirmType.YesNoCancel,
+      type: SkyConfirmType.Custom,
       buttons: [
-        {},
-        {},
         {
+          text: 'foo',
+          action: 'foo'
+        },
+        {
+          text: 'bar',
+          action: 'bar'
+        },
+        {
+          text: 'baz',
+          action: 'baz',
           autofocus: true
         }
       ]

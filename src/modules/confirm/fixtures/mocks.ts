@@ -26,6 +26,7 @@ export class MockSkyModalService extends SkyModalService {
     component: any;
     config: any;
   }[] = [];
+  public instance: MockSkyModalInstance;
 
   public open(component: any, config?: any): MockSkyModalInstance {
     this.openCalls.push({
@@ -33,6 +34,8 @@ export class MockSkyModalService extends SkyModalService {
       config
     });
 
-    return new MockSkyModalInstance();
+    this.instance = new MockSkyModalInstance();
+
+    return this.instance;
   }
 }

@@ -13,7 +13,9 @@ import {
   SkyConfirmButtonConfig
 } from './types';
 
-import { SkyConfirmModalContext } from './confirm-modal-context';
+import {
+  SkyConfirmModalContext
+} from './confirm-modal-context';
 
 @Component({
   selector: 'sky-confirm',
@@ -30,8 +32,15 @@ export class SkyConfirmComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    const defaultButtons = this.getDefaultButtons();
-    this.buttons = this.extendButtons(defaultButtons, this.config.buttons);
+    let buttons;
+
+    if (this.config.type === SkyConfirmType.Custom && this.config.buttons.length > 0) {
+      buttons = this.getCustomButtons(this.config.buttons);
+    } else {
+      buttons = this.getPresetButtons();
+    }
+
+    this.buttons = buttons;
     this.message = this.config.message;
   }
 
@@ -43,7 +52,7 @@ export class SkyConfirmComponent implements OnInit {
     this.modal.close(result);
   }
 
-  private getDefaultButtons(): SkyConfirmButton[] {
+  private getPresetButtons(): SkyConfirmButton[] {
     let buttons: SkyConfirmButton[];
 
     switch (this.config.type) {
@@ -100,43 +109,18 @@ export class SkyConfirmComponent implements OnInit {
     return buttons;
   }
 
-  private extendButtons(
-    buttons: SkyConfirmButton[],
-    buttonConfig: SkyConfirmButtonConfig[]
-  ): SkyConfirmButton[] {
-    if (buttonConfig === undefined) {
-      return buttons;
-    }
+  private getCustomButtons(buttonConfig: SkyConfirmButtonConfig[]): SkyConfirmButton[] {
+    const buttons: SkyConfirmButton[] = [];
 
-    buttons.forEach((button: SkyConfirmButton, i: number) => {
-      const config = buttonConfig[i];
-
-      if (!config) {
-        return;
-      }
-
-      Object.keys(config)
-        .forEach((key: keyof SkyConfirmButtonConfig) => {
-          if (config[key] === undefined) {
-            return;
-          }
-
-          // Reset autofocus for all buttons so that
-          // the current button receives focus.
-          if (key === 'autofocus') {
-            this.resetAutofocus(buttons);
-          }
-
-          button[key] = config[key];
-        });
+    buttonConfig.forEach((config: SkyConfirmButtonConfig) => {
+      buttons.push({
+        text: config.text,
+        action: config.action,
+        styleType: config.styleType || 'default',
+        autofocus: config.autofocus || false
+      } as SkyConfirmButton);
     });
 
     return buttons;
-  }
-
-  private resetAutofocus(buttons: SkyConfirmButton[]) {
-    buttons.forEach((button: SkyConfirmButton) => {
-      button.autofocus = false;
-    });
   }
 }
