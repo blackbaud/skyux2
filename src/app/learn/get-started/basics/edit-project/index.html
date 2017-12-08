@@ -3,11 +3,15 @@
     pageTitle="Edit a project"
     showTableOfContents="true">
 
+  <stache-page-summary>
+    <p>After you <a routerLink="/learn/get-started/basics/serve-project">serve the default single-page application</a>, you edit its existing pages and components, and you can addadditional pages and components as necessary.</p>
+  </stache-page-summary>
+
+  
   <stache-page-anchor>
     Edit an existing page
   </stache-page-anchor>
-
-  <p>After you <a routerLink="/learn/get-started/basics/serve-project">serve the default single-page application</a>, you can update an existing page.</p>
+  
   <ol>
     <li>
       <p>With <stache-code>skyux serve</stache-code> running, navigate to the default site's About page in your web browser.</p>
@@ -60,13 +64,9 @@
     Edit a component on an existing page
   </stache-page-anchor>
 
-  <p>After you edit an existing page in the default single-page application, you can update an existing component on the page.</p>
   <ol>
     <li>
-      <p>With <stache-code>skyux serve</stache-code> running, return to the default site's About page in your web browser. The paragraph from the previous tutorial should be in place.</p>
-    </li>
-    <li>
-      <p>In a local editor, return to the project’s <stache-code>about.component.html</stache-code> file.</p>
+      <p>With <stache-code>skyux serve</stache-code> running, return to the project’s <stache-code>about.component.html</stache-code> file in a local editor.</p>
     </li>
     <li>
       <p>Edit the type and message for the alert component. For example, in the <stache-code>alertType</stache-code> attribute, change the value to from <stache-code>warning</stache-code> to <stache-code>info</stache-code>. And in the <stache-code>sky-alert</stache-code> element, change the message to <stache-code>There may be a delay in responding to your email.</stache-code></p>
@@ -91,13 +91,9 @@
     Add a component to an existing page
   </stache-page-anchor>
 
-  <p>After you edit a component on an existing page in the default single-page application, you can add a SKY UX component to the page.</p>
   <ol>
     <li>
-      <p>With <stache-code>skyux serve</stache-code> running, return to the default site's About page in your web browser. The updates to the alert component from the previous tutorial should be in place.</p>
-    </li>
-    <li>
-      <p>In a local editor, return to the project’s <stache-code>about.component.html</stache-code> file.</p>
+      <p>With <stache-code>skyux serve</stache-code> running, return to the project’s <stache-code>about.component.html</stache-code> file in a local editor.</p>
     </li>
     <li>
       <p>Between the alert and avatar components, add a card component. Add the <stache-code>sky-card</stache-code> element, and then within that element, add the <stache-code>sky-card-title</stache-code> element for the header text, the <stache-code>sky-card-content</stache-code> element for the body content, and the <stache-code>sky-card-actions</stache-code> element for the button.</p>
@@ -133,16 +129,13 @@
     Create a page
   </stache-page-anchor>
 
-  <p>After you add a SKY UX component to an existing page in the default single-page application, you can create a page. By default, SKY UX uses automatic route configuration based on the project's folder structure. So to create a page, you simply create a folder in the existing <stache-code>src/app</stache-code> folder and then create an <stache-code>index.html</stache-code> file in that folder.</p>
+  <p>By default, SKY UX uses automatic route configuration based on the project's folder structure. So to create a page, you simply create a folder in the existing <stache-code>src/app</stache-code> folder and then create an <stache-code>index.html</stache-code> file in that folder.</p>
   <ol>
     <li>
-      <p>Return to the project in a local editor, and create a folder within the <stache-code>app</stache-code> folder.</p>
+      <p>In a local editor, create a folder within the <stache-code>src/app</stache-code> folder and name it <stache-code>demo</stache-code>. The folder name appears in the route for the page.</p>
     </li>
     <li>
-      <p>Rename the folder. The folder name appears in the route for the page. For this tutorial, use "demo" for the folder name.</p>
-    </li>
-    <li>
-      <p>In the new <stache-code>demo</stache-code> folder, create a file and name it <stache-code>index.html</stache-code>.</p>
+      <p>In the <stache-code>demo</stache-code> folder, create a file and name it <stache-code>index.html</stache-code>.</p>
     </li>
     <li>
       <p>In the new file, place the shared <stache-code>app-nav</stache-code> component at the top and then add hello world content such as <stache-code>&#60;h1&#62;Hello world!&#60;&#47;h1&#62;</stache-code>. The <stache-code>app-nav</stache-code> component is an example of a shared component. It manually creates top-level navigation within your app.</p>
@@ -155,10 +148,10 @@
       <p>Save the changes to the <stache-code>index.html</stache-code> file.</p>
     </li>
     <li>
-      <p>Go to the <stache-code>shared</stache-code> folder, and open the <stache-code>app-nav.component.ts</stache-code> file.</p>
+      <p>In the <stache-code>src/shared</stache-code> folder, open the <stache-code>app-nav.component.ts</stache-code> file.</p>
     </li>
     <li>
-      <p>Add a path for the new page with <stache-code>name</stache-code> set to "Demo" and <stache-code>path</stache-code> set to "/demo." The <stache-code>name</stache-code> provides the label for the menu, and the <stache-code>path</stache-code> specifies the name of the folder.</p>
+      <p>Add a path for the new page with <stache-code>tileKey</stache-code> set to "app_nav_demo" and <stache-code>path</stache-code> set to "/demo." The <stache-code>titleKey</stache-code> provides the label for the menu, and the <stache-code>path</stache-code> specifies the name of the folder.</p>
       <stache-code-block languageType="typescript">
         import { Component } from '@angular/core';
 
@@ -170,15 +163,15 @@
         export class AppNavComponent {
           public nav = [
             {
-            name: 'Home',
+            titleKey: 'app_nav_home',
             path: '/'
             },
             {
-            name: 'About',
+            titleKey: 'app_nav_about',
             path: '/about'
             },
             {
-            name: 'Demo',
+            titleKey: 'Demo',
             path: '/demo'
             }
           ];
