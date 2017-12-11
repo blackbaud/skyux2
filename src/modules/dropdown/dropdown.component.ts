@@ -1,15 +1,24 @@
 import {
   Component,
+  ContentChild,
   ElementRef,
+  HostListener,
   Input,
-  Renderer,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 
-import { SkyDropdownAdapterService } from './dropdown-adapter.service';
+import {
+  SkyDropdownAdapterService
+} from './dropdown-adapter.service';
 
-import { SkyWindowRefService } from '../window';
-import { SkyResources } from '../resources';
+import {
+  SkyResources
+} from '../resources';
+
+import {
+  SkyDropdownMenuComponent
+} from './dropdown-menu.component';
 
 @Component({
   selector: 'sky-dropdown',
@@ -19,125 +28,127 @@ import { SkyResources } from '../resources';
     SkyDropdownAdapterService
   ]
 })
-export class SkyDropdownComponent implements OnDestroy {
+export class SkyDropdownComponent implements OnInit, OnDestroy {
   @Input()
-  public set buttonType(value: string) {
-    this._buttonType = value;
-  }
-
-  public get buttonType(): string {
-    return this._buttonType || 'select';
-  }
+  public alignment = 'left';
 
   @Input()
-  public set trigger(value: string) {
-    this._trigger = value;
-  }
-
-  public get trigger(): string {
-    return this._trigger || 'click';
-  }
+  public buttonStyle = 'default';
 
   @Input()
-  public get label(): string{
-    return this._label || SkyResources.getString('context_menu_default_label');
-  }
+  public buttonType = 'select';
 
-  public set label(value: string) {
-    this._label = value;
-  }
+  @Input()
+  public label = SkyResources.getString('context_menu_default_label');
 
   @Input()
   public title: string;
 
   @Input()
-  public alignment: string = 'left';
+  public trigger = 'click';
 
-  @Input()
-  public get buttonStyle(): string{
-    return this._buttonStyle || 'default';
-  }
+  @ContentChild(SkyDropdownMenuComponent)
+  public menuComponent: SkyDropdownMenuComponent;
 
-  public set buttonStyle(value: string) {
-    this._buttonStyle = value;
-  }
-
-  private open = false;
-
-  private opening = false;
-
-  private _buttonType: string;
-
-  private _buttonStyle: string;
-
-  private _trigger: string;
-
-  private _label: string;
+  private isOpen = false;
+  // private isOpening = false;
 
   constructor(
-    private renderer: Renderer,
     private elRef: ElementRef,
-    private adapterService: SkyDropdownAdapterService,
-    private windowObj: SkyWindowRefService
-  ) {
+    private adapterService: SkyDropdownAdapterService
+  ) { }
+
+  public ngOnInit() {
     this.adapterService.dropdownClose.subscribe(() => {
-      this.open = false;
+      this.isOpen = false;
     });
   }
 
-  public click() {
-    this.openMenu();
+  public ngOnDestroy() {
+    this.hideDropdown();
+  }
+
+  // @HostListener('document:click')
+  // public handleWindowClicked() {
+  //   if (this.isOpening) {
+  //     this.isOpening = false;
+  //     this.isOpen = true;
+  //   } else {
+  //     this.hideDropdown();
+  //   }
+  // }
+
+  @HostListener('document:keydown', ['$event'])
+  public disableArrowKeyWindowScroll(event: KeyboardEvent) {
+    const key = event.key.toLowerCase();
+
+    if (!this.isOpen) {
+      return;
+    }
+
+    // When the menu is opened, disable the normal scrolling behavior
+    // of the up and down arrows.
+    if (key === 'arrowup' || key === 'arrowdown') {
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('keydown', ['$event'])
+  public handleKeyDown(event: KeyboardEvent) {
+    const key = event.key.toLowerCase();
+
+    switch (key) {
+      case 'arrowup':
+      this.menuComponent.selectPreviousItem();
+      break;
+
+      case 'arrowdown':
+      this.menuComponent.selectNextItem();
+      break;
+
+      case 'tab':
+      case 'escape':
+      this.hideDropdown();
+      break;
+
+      default:
+      break;
+    }
+  }
+
+  @HostListener('mouseenter')
+  public handleMouseEnter() {
+    if (this.trigger === 'hover') {
+      this.showDropdown();
+    }
+  }
+
+  @HostListener('mouseleave')
+  public handleMouseLeave() {
+    if (this.trigger === 'hover') {
+      this.hideDropdown();
+    }
   }
 
   public resetDropdownPosition() {
-    this.adapterService.setMenuLocation(
-      this.elRef,
-      this.renderer,
-      this.windowObj.getWindow(),
-      this.alignment
-    );
+    this.adapterService.setMenuLocation(this.elRef, this.alignment);
   }
 
-  public windowClick() {
-    if (this.opening) {
-      this.opening = false;
-      this.open = true;
-    } else {
-      this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
-    }
-  }
-
-  public mouseEnter() {
-    if (this.trigger === 'hover') {
-      this.openMenu();
-      this.opening = false;
-      this.open = true;
-    }
-  }
-
-  public mouseLeave() {
-    if (this.trigger === 'hover') {
-      this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
-    }
-  }
-
-  public ngOnDestroy() {
-    this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
-  }
-
-  private openMenu() {
-    if (!this.open) {
-      this.adapterService.showDropdown(
-        this.elRef,
-        this.renderer,
-        this.windowObj.getWindow(),
-        this.alignment
-      );
+  private showDropdown() {
+    if (!this.isOpen) {
+      this.adapterService.showDropdown(this.elRef, this.alignment);
+      this.isOpen = true;
 
       // Notify the window click handler that the menu was just opened so it doesn't try to
       // close it.
-      this.opening = true;
+      // this.isOpening = true;
     }
   }
 
+  private hideDropdown() {
+    if (this.isOpen) {
+      this.adapterService.hideDropdown(this.elRef);
+      this.menuComponent.resetSelectedIndex();
+    }
+  }
 }

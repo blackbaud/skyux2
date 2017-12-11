@@ -5,45 +5,43 @@ import {
   Renderer
 } from '@angular/core';
 
+import { SkyWindowRefService } from '../window';
+
 const CLS_OPEN = 'sky-dropdown-open';
 const CLS_NO_SCROLL = 'sky-dropdown-no-scroll';
 
 @Injectable()
 export class SkyDropdownAdapterService {
   public dropdownClose = new EventEmitter<any>();
-  private scrollListeners: Array<Function> = [];
+  private scrollListeners: Function[] = [];
 
-  constructor() {
-  }
+  public constructor(
+    private renderer: Renderer,
+    private windowRef: SkyWindowRefService
+  ) { }
 
-  public showDropdown(
-    dropdownEl: ElementRef,
-    renderer: Renderer,
-    windowObj: Window,
-    alignment: string) {
-
-    let menuEl = this.getMenuEl(dropdownEl);
+  public showDropdown(dropdownEl: ElementRef, alignment: string) {
+    const menuEl = this.getMenuEl(dropdownEl);
 
     /* istanbul ignore else */
-    /* sanity check */
     if (!menuEl.classList.contains(CLS_OPEN)) {
-      renderer.setElementClass(menuEl, CLS_OPEN, true);
-      let isFullScreen = this.setMenuLocation(dropdownEl, renderer, windowObj, alignment);
+      this.renderer.setElementClass(menuEl, CLS_OPEN, true);
+
+      let isFullScreen = this.setMenuLocation(dropdownEl, alignment);
 
       // Do not need to disable scroll when in full screen dropdown mode
       if (!isFullScreen) {
-        this.scrollListeners = this.setupParentScrollHandler(dropdownEl, windowObj, renderer);
+        this.scrollListeners = this.setupParentScrollHandler(dropdownEl);
       }
-
     }
   }
 
-  public hideDropdown(dropdownEl: ElementRef, renderer: Renderer, windowObj: Window) {
-    let menuEl = this.getMenuEl(dropdownEl);
+  public hideDropdown(dropdownEl: ElementRef) {
+    const menuEl = this.getMenuEl(dropdownEl);
+    const buttonEl = this.getButtonEl(dropdownEl);
 
     if (menuEl.classList.contains(CLS_OPEN)) {
-
-      this.setDropdownDefaults(menuEl, renderer, windowObj, false);
+      this.setDropdownDefaults(menuEl, false);
       this.dropdownClose.emit(undefined);
 
       if (this.scrollListeners.length > 0) {
@@ -54,44 +52,44 @@ export class SkyDropdownAdapterService {
         this.scrollListeners = [];
       }
     }
+
+    // Return focus to the trigger element.
+    buttonEl.focus();
   }
 
-  public setMenuLocation(
-    dropdownEl: ElementRef,
-    renderer: Renderer,
-    windowObj: Window,
-    alignment: string) {
+  public setMenuLocation(dropdownEl: ElementRef, alignment: string) {
+    const buttonEl = this.getButtonEl(dropdownEl);
+    const menuEl = this.getMenuEl(dropdownEl);
 
-    let buttonEl = this.getButtonEl(dropdownEl);
-    let menuEl = this.getMenuEl(dropdownEl);
+    const possiblePositions = ['below', 'above', 'ycenter', 'center', 'ybottom', 'ytop'];
+    const possibleAlignments = [alignment];
 
-    let possiblePositions = ['below', 'above', 'ycenter', 'center', 'ybottom', 'ytop'];
-    let possibleAlignments = [alignment];
     if (alignment === 'right') {
       possibleAlignments.push('left');
     } else {
       possibleAlignments.push('right');
     }
-    let i: number;
-    let n: number;
-    for (n = 0; n < possibleAlignments.length; n++) {
-      for (i = 0; i < possiblePositions.length; i++) {
-        let menuCoordinates = this.getElementCoordinates(
+
+    for (let n = 0; n < possibleAlignments.length; n++) {
+      for (let i = 0; i < possiblePositions.length; i++) {
+        const menuCoordinates = this.getElementCoordinates(
           buttonEl,
           menuEl,
           possiblePositions[i],
-          possibleAlignments[n]);
+          possibleAlignments[n]
+        );
 
         // Check if visible in viewport
-        let elementVisibility = this.getElementVisibility(
+        const elementVisibility = this.getElementVisibility(
           menuCoordinates.left,
           menuCoordinates.top,
-          menuEl,
-          windowObj);
+          menuEl
+        );
 
         if (elementVisibility.fitsInViewPort) {
-          renderer.setElementStyle(menuEl, 'top', menuCoordinates.top + 'px');
-          renderer.setElementStyle(menuEl, 'left', menuCoordinates.left + 'px');
+          this.renderer.setElementStyle(menuEl, 'top', menuCoordinates.top + 'px');
+          this.renderer.setElementStyle(menuEl, 'left', menuCoordinates.left + 'px');
+
           return false;
         }
       }
@@ -101,55 +99,51 @@ export class SkyDropdownAdapterService {
       None of the positions allowed the menu to be fully visible.
       In this case we put it in the upper left corner and set the max-height and width.
     */
-    this.setDropdownDefaults(menuEl, renderer, windowObj, true);
+    this.setDropdownDefaults(menuEl, true);
 
     return true;
   }
 
-  private setupParentScrollHandler(
-    dropdownEl: ElementRef,
-    windowObj: Window,
-    renderer: Renderer): Array<Function> {
+  private setupParentScrollHandler(dropdownEl: ElementRef): Function[] {
+    const parentEls = this.getAllScrollableParentEl(dropdownEl);
+    const listeners: Function[] = [];
 
-    let parentEls = this.getAllScrollableParentEl(dropdownEl, windowObj);
-    let listeners: Array<Function> = [];
     /* istanbul ignore else */
-    /* sanity check */
     for (let i = 0; i < parentEls.length; i++) {
+      const parentEl = parentEls[i];
       let listener: Function;
-      let parentEl = parentEls[i];
+
       if (parentEl === document.body) {
-        listener = renderer.listenGlobal('window', 'scroll', () => {
+        listener = this.renderer.listenGlobal('window', 'scroll', () => {
           this.dropdownClose.emit(undefined);
-          this.hideDropdown(dropdownEl, renderer, windowObj);
+          this.hideDropdown(dropdownEl);
         });
 
       } else {
-        listener = renderer.listen(parentEl, 'scroll', () => {
+        listener = this.renderer.listen(parentEl, 'scroll', () => {
           this.dropdownClose.emit(undefined);
-          this.hideDropdown(dropdownEl, renderer, windowObj);
+          this.hideDropdown(dropdownEl);
         });
       }
 
       listeners.push(listener);
-
     }
+
     return listeners;
   }
 
-  private setDropdownDefaults(
-    menuEl: HTMLElement,
-    renderer: Renderer,
-    windowObj: Window,
-    isOpen: boolean) {
-    renderer.setElementClass(menuEl, CLS_OPEN, isOpen);
-    renderer.setElementClass(document.body, CLS_NO_SCROLL, isOpen);
-    let topLeftVal = isOpen ? '10px' : '';
-    let heightVal = isOpen ? (windowObj.innerHeight - 20) + 'px' : '';
-    let widthVal = isOpen ? (windowObj.innerWidth - 20) + 'px' : '';
-    let overflowVal = isOpen ? 'auto' : '';
+  private setDropdownDefaults(menuEl: HTMLElement, isOpen: boolean) {
+    const windowObj = this.windowRef.getWindow();
+
+    this.renderer.setElementClass(menuEl, CLS_OPEN, isOpen);
+    this.renderer.setElementClass(document.body, CLS_NO_SCROLL, isOpen);
+
+    const topLeftVal = isOpen ? '10px' : '';
+    const heightVal = isOpen ? (windowObj.innerHeight - 20) + 'px' : '';
+    const widthVal = isOpen ? (windowObj.innerWidth - 20) + 'px' : '';
+    const overflowVal = isOpen ? 'auto' : '';
+
     this.setMenuStyles(
-      renderer,
       menuEl,
       topLeftVal,
       heightVal,
@@ -159,31 +153,30 @@ export class SkyDropdownAdapterService {
   }
 
   private setMenuStyles(
-    renderer: Renderer,
     menuEl: HTMLElement,
     topLeftVal: string,
     heightVal: string,
     widthVal: string,
-    overflowVal: string) {
-
-    renderer.setElementStyle(menuEl, 'top', topLeftVal);
-    renderer.setElementStyle(menuEl, 'left', topLeftVal);
-    renderer.setElementStyle(menuEl, 'max-height', heightVal);
-    renderer.setElementStyle(menuEl, 'max-width', widthVal);
-    renderer.setElementStyle(menuEl, 'height', heightVal);
-    renderer.setElementStyle(menuEl, 'width', widthVal);
-    renderer.setElementStyle(menuEl, 'overflow-y', overflowVal);
-    renderer.setElementStyle(menuEl, 'overflow-x', overflowVal);
+    overflowVal: string
+  ) {
+    this.renderer.setElementStyle(menuEl, 'top', topLeftVal);
+    this.renderer.setElementStyle(menuEl, 'left', topLeftVal);
+    this.renderer.setElementStyle(menuEl, 'max-height', heightVal);
+    this.renderer.setElementStyle(menuEl, 'max-width', widthVal);
+    this.renderer.setElementStyle(menuEl, 'height', heightVal);
+    this.renderer.setElementStyle(menuEl, 'width', widthVal);
+    this.renderer.setElementStyle(menuEl, 'overflow-y', overflowVal);
+    this.renderer.setElementStyle(menuEl, 'overflow-x', overflowVal);
   }
 
   private getElementCoordinates(
     originEl: HTMLElement,
     fixedEl: HTMLElement,
     position: string,
-    alignment: string) {
-
-    let fixedRect = fixedEl.getBoundingClientRect();
-    let originRect = originEl.getBoundingClientRect();
+    alignment: string
+  ) {
+    const fixedRect = fixedEl.getBoundingClientRect();
+    const originRect = originEl.getBoundingClientRect();
 
     let leftPos: number;
     let topPos: number;
@@ -234,48 +227,42 @@ export class SkyDropdownAdapterService {
     };
   }
 
-  private getElementVisibility(
-    leftPos: number,
-    topPos: number,
-    el: HTMLElement,
-    windowObj: Window): any {
+  private getElementVisibility(leftPos: number, topPos: number, el: HTMLElement): any {
+    const elRect = el.getBoundingClientRect();
+    const windowObj = this.windowRef.getWindow();
 
-    let elRect = el.getBoundingClientRect();
+    const hiddenRightArea = leftPos + elRect.width - windowObj.innerWidth;
+    const hiddenLeftArea = 0 - leftPos;
+    const hiddenBottomArea = topPos + elRect.height - windowObj.innerHeight;
+    const hiddenTopArea = 0 - topPos;
 
-    let hiddenRightArea = leftPos + elRect.width - windowObj.innerWidth;
-    let hiddenLeftArea = 0 - leftPos;
-    let hiddenBottomArea = topPos + elRect.height - windowObj.innerHeight;
-    let hiddenTopArea = 0 - topPos;
+    const visibleMenuWidth = elRect.width - Math.max(0, hiddenRightArea) - Math.max(0, hiddenLeftArea);
+    const visibleMenuHeight = elRect.height - Math.max(0, hiddenBottomArea) - Math.max(0, hiddenTopArea);
 
-    let visibleMenuWidth
-      = elRect.width - Math.max(0, hiddenRightArea) - Math.max(0, hiddenLeftArea);
-
-    let visibleMenuHeight
-      = elRect.height - Math.max(0, hiddenBottomArea) - Math.max(0, hiddenTopArea);
-
-    let visibleArea = visibleMenuWidth * visibleMenuHeight;
-    let fitsInViewPort = (elRect.width * elRect.height) === visibleArea;
+    const visibleArea = visibleMenuWidth * visibleMenuHeight;
+    const fitsInViewPort = (elRect.width * elRect.height) === visibleArea;
 
     return {
-      visibleArea: visibleArea,
-      fitsInViewPort: fitsInViewPort
+      visibleArea,
+      fitsInViewPort
     };
   }
 
-  private getAllScrollableParentEl(el: ElementRef, windowObj: Window): Array<HTMLElement> {
-    let overflowY: string,
-      result: Array<HTMLElement> = [document.body],
-      parentEl = el.nativeElement.parentNode;
+  private getAllScrollableParentEl(el: ElementRef): HTMLElement[] {
+    const result: Array<HTMLElement> = [document.body];
+    const windowObj = this.windowRef.getWindow();
+
+    let parentEl = el.nativeElement.parentNode;
+    let overflowY: string;
 
     while (
       parentEl !== undefined &&
       parentEl instanceof HTMLElement &&
-      parentEl !== document.body) {
-
-      overflowY = windowObj.getComputedStyle(parentEl, undefined).overflowY;
+      parentEl !== document.body
+    ) {
+      overflowY = windowObj.getComputedStyle(parentEl, undefined).overflowY.toLowerCase();
 
       /*istanbul ignore else */
-      /* sanity check  */
       if (overflowY) {
         switch (overflowY.toUpperCase()) {
         case 'AUTO':
@@ -290,6 +277,7 @@ export class SkyDropdownAdapterService {
 
       parentEl = parentEl.parentNode;
     }
+
     return result;
   }
 
