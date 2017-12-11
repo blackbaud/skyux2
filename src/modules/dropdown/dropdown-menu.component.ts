@@ -5,10 +5,6 @@ import {
 } from '@angular/core';
 
 import {
-  Subject
-} from 'rxjs/Subject';
-
-import {
   SkyDropdownItemComponent
 } from './dropdown-item.component';
 
@@ -18,31 +14,28 @@ import {
 })
 export class SkyDropdownMenuComponent {
   public selectedIndex = -1;
-  public selectionChanged: Subject<any> = new Subject<any>();
 
   @ContentChildren(SkyDropdownItemComponent)
-  public items: QueryList<SkyDropdownItemComponent>;
+  public itemComponents: QueryList<SkyDropdownItemComponent>;
 
   public selectPreviousItem() {
     this.selectedIndex--;
 
     if (this.selectedIndex < 0) {
-      this.selectedIndex = this.items.length - 1;
+      this.selectedIndex = this.itemComponents.length - 1;
     }
 
     this.focusSelectedItem();
-    this.selectionChanged.next(this.selectedIndex);
   }
 
   public selectNextItem() {
     this.selectedIndex++;
 
-    if (this.selectedIndex >= this.items.length) {
+    if (this.selectedIndex >= this.itemComponents.length) {
       this.selectedIndex = 0;
     }
 
     this.focusSelectedItem();
-    this.selectionChanged.next(this.selectedIndex);
   }
 
   public resetSelectedIndex() {
@@ -50,8 +43,10 @@ export class SkyDropdownMenuComponent {
   }
 
   private focusSelectedItem() {
-    const item = this.items.toArray()[this.selectedIndex];
+    const item = this.itemComponents.toArray()[this.selectedIndex];
 
-    item.focusElement();
+    if (item) {
+      item.focusElement();
+    }
   }
 }

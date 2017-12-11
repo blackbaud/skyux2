@@ -9,12 +9,12 @@ import {
 } from '@angular/core';
 
 import {
-  SkyDropdownAdapterService
-} from './dropdown-adapter.service';
-
-import {
   SkyResources
 } from '../resources';
+
+import {
+  SkyDropdownAdapterService
+} from './dropdown-adapter.service';
 
 import {
   SkyDropdownMenuComponent
@@ -51,7 +51,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   public menuComponent: SkyDropdownMenuComponent;
 
   private isOpen = false;
-  // private isOpening = false;
+  private isOpening = false;
 
   constructor(
     private elRef: ElementRef,
@@ -68,15 +68,14 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     this.hideDropdown();
   }
 
-  // @HostListener('document:click')
-  // public handleWindowClicked() {
-  //   if (this.isOpening) {
-  //     this.isOpening = false;
-  //     this.isOpen = true;
-  //   } else {
-  //     this.hideDropdown();
-  //   }
-  // }
+  @HostListener('document:click')
+  public handleWindowClicked() {
+    if (this.isOpening) {
+      this.isOpening = false;
+    } else {
+      this.hideDropdown();
+    }
+  }
 
   @HostListener('document:keydown', ['$event'])
   public disableArrowKeyWindowScroll(event: KeyboardEvent) {
@@ -139,16 +138,18 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       this.adapterService.showDropdown(this.elRef, this.alignment);
       this.isOpen = true;
 
-      // Notify the window click handler that the menu was just opened so it doesn't try to
-      // close it.
-      // this.isOpening = true;
+      // Notify the window click handler that the menu was just opened
+      // so it doesn't try to close it.
+      this.isOpening = true;
     }
   }
 
   private hideDropdown() {
     if (this.isOpen) {
       this.adapterService.hideDropdown(this.elRef);
-      this.menuComponent.resetSelectedIndex();
+      if (this.menuComponent) {
+        this.menuComponent.resetSelectedIndex();
+      }
     }
   }
 }
