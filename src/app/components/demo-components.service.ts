@@ -141,24 +141,24 @@ export class SkyDemoComponentsService {
         }
       },
       {
-        name: 'Confirmation dialog',
+        name: 'Confirm',
         icon: 'list-alt',
         // tslint:disable-next-line
-        summary: `The confirmation dialog component launches simple confirmation dialogs to allow users to confirm actions.`,
-        url: '/components/confirmation-dialog',
+        summary: `The confirm component launches simple confirmation dialogs to allow users to confirm actions.`,
+        url: '/components/confirm',
         getCodeFiles: function () {
           return [
             {
-              name: 'confirmation-dialog-demo.component.html',
-              fileContents: require('!!raw-loader!./confirmation-dialog/' +
-                'confirmation-dialog-demo.component.html')
+              name: 'confirm-demo.component.html',
+              fileContents: require('!!raw-loader!./confirm/' +
+                'confirm-demo.component.html')
             },
             {
-              name: 'confirmation-dialog-demo.component.ts',
-              fileContents: require('!!raw-loader!./confirmation-dialog/' +
-                'confirmation-dialog-demo.component.ts'),
+              name: 'confirm-demo.component.ts',
+              fileContents: require('!!raw-loader!./confirm/' +
+                'confirm-demo.component.ts'),
               componentName: 'SkyConfirmationDialogDemoComponent',
-              bootstrapSelector: 'sky-confirmation-dialog-demo'
+              bootstrapSelector: 'sky-confirm-demo'
             }
           ];
         }
