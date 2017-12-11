@@ -20,6 +20,7 @@ import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
 import { SkyColorpickerModule } from './modules/colorpicker';
 import { SkyColumnSelectorModule } from './modules/column-selector';
+import { SkyConfirmModule } from './modules/confirm';
 import { SkyConfirmationDialogModule } from './modules/confirmation-dialog';
 import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
@@ -76,6 +77,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyChevronModule,
     SkyColorpickerModule,
     SkyColumnSelectorModule,
+    SkyConfirmModule,
     SkyConfirmationDialogModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
@@ -179,6 +181,8 @@ export {
   SkyColumnSelectorModule,
   SkyColumnSelectorModel
 } from './modules/column-selector';
+
+export * from './modules/confirm';
 
 export {
   SkyConfirmationDialogService,
