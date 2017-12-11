@@ -66,12 +66,11 @@ export class SkyDemoComponentsService {
         getCodeFiles: () => this.getDemoFiles('SkyColorpickerDemoComponent')
       },
       {
-        name: 'Confirmation dialog',
+        name: 'Confirm',
         icon: 'list-alt',
-        // tslint:disable-next-line
-        summary: `The confirmation dialog component launches simple confirmation dialogs to allow users to confirm actions.`,
-        url: '/components/confirmation-dialog',
-        getCodeFiles: () => this.getDemoFiles('SkyConfirmationDialogDemoComponent')
+        summary: 'The confirm component launches simple confirmation dialogs to allow users to confirm actions.',
+        url: '/components/confirm',
+        getCodeFiles: () => this.getDemoFiles('SkyConfirmDemoComponent')
       },
       {
         name: 'Datepicker',

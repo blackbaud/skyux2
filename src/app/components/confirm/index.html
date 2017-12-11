@@ -1,0 +1,100 @@
+<sky-demo-page
+  pageTitle="Confirm">
+  <sky-demo-page-summary>
+    The confirm service launches simple confirmation dialogs to allow users to confirm actions. The <stache-code>SkyConfirmService</stache-code> provider lauches the confirmation dialog. Within the service, you may specify the dialog's message and type, and customize the button text.
+  </sky-demo-page-summary>
+
+  <sky-demo-page-properties
+    sectionHeading="Service methods">
+    <sky-demo-page-property
+      propertyName="open(config)">
+      Opens a confirmation dialog. The <stache-code>config</stache-code> parameter is of type <stache-code>SkyConfirmConfig</stache-code> and passed to the component's constructor. This method returns the confirmation dialog instance.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="Service configuration (SkyConfirmConfig)">
+    <sky-demo-page-property
+      propertyName="message">
+      The message to display in the dialog.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="type"
+      isOptional="true">
+      An enum of type <stache-code>SkyConfirmType</stache-code> that specifies the number of buttons to include in the dialog.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="buttons"
+      isOptional="true">
+      An optional array of <stache-code>SkyConfirmButtonConfig</stache-code> that overrides the default button config. (The number of items in this array must match the number provided for the <stache-code>type</stache-code> property.)
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="Dialog types (SkyConfirmType)">
+    <sky-demo-page-property
+      propertyName="OK">
+      A one-button dialog with 'OK' as the default button text. The integer value equivalent is 1.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="YesCancel">
+      A two-button dialog with 'Yes' and 'Cancel' as the default button text. The integer value equivalent is 2.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="YesNoCancel">
+      A three-button dialog with 'Yes', 'No', and 'Cancel' as the default button text. The integer value equivalent is 3.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="Custom">
+      Provide the <stache-code>Custom</stache-code> type if you want to define your own buttons. This setting should be accompanied with a <stache-code>buttons</stache-code> config (see below).
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="Button configuration (SkyConfirmButtonConfig)">
+    <sky-demo-page-property
+      propertyName="text"
+      isOptional="true">
+      The button's text.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="autofocus"
+      isOptional="true">
+      A boolean property that specifies whether to autofocus this button.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="styleType"
+      isOptional="true">
+      A string that describes the button's visual appearance. <em>(Default: "default")</em>.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="action"
+      isOptional="true">
+      A string identifier that is returned after the closed event is emitted. This is useful to determine which button the user clicked. Default values are applied based on the type of dialog being used.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-properties
+    sectionHeading="Events">
+    <sky-demo-page-property
+      propertyName="closed">
+      The event that the confirmation dialog instance emits after a user action is received. An object is returned that provides information about the button clicked.
+    </sky-demo-page-property>
+  </sky-demo-page-properties>
+
+  <sky-demo-page-example>
+    <sky-confirm-demo>
+    </sky-confirm-demo>
+    <sky-demo-page-code
+      demoName="Confirm">
+    </sky-demo-page-code>
+  </sky-demo-page-example>
+</sky-demo-page>

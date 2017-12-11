@@ -123,6 +123,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
     requireContents;
 
   requireFile = path.join(dirname, requireFile);
+  requireFile = requireFile.replace('!!raw-loader!', '');
 
   switch (path.extname(requireFile)) {
     case '.scss':
