@@ -7,8 +7,7 @@ describe('Chevron', () => {
     .then(() => {
        return SkyVisualTest.compareScreenshot({
         screenshotName: 'chevron',
-        selector: '#screenshot-chevron',
-        checkAccessibility: true
+        selector: '#screenshot-chevron'
       });
     });
 

@@ -8,8 +8,7 @@ describe('Avatar', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'avatar-image',
-          selector: '#screenshot-avatar-img',
-          checkAccessibility: true
+          selector: '#screenshot-avatar-img'
         });
       });
 
@@ -21,8 +20,7 @@ describe('Avatar', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'avatar-initials',
-          selector: '#screenshot-avatar-initials',
-          checkAccessibility: true
+          selector: '#screenshot-avatar-initials'
         });
       });
 

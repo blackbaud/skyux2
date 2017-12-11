@@ -15,8 +15,7 @@ describe('Button', () => {
         return SkyVisualTest
           .compareScreenshot({
             screenshotName: 'button-link-hover',
-            selector: '#screenshot-button-link',
-            checkAccessibility: true
+            selector: '#screenshot-button-link'
           });
       });
 
@@ -33,8 +32,7 @@ describe('Button', () => {
         return SkyVisualTest
           .compareScreenshot({
             screenshotName: 'button-link-inline-hover',
-            selector: '#screenshot-button-link-inline',
-            checkAccessibility: true
+            selector: '#screenshot-button-link-inline'
           });
 
       });

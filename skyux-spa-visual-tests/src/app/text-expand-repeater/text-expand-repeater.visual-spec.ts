@@ -7,7 +7,6 @@ describe('TextExpandRepeater', () => {
     return SkyVisualTest.setupTest('text-expand-repeater')
     .then(() => {
       return SkyVisualTest.compareScreenshot({
-        checkAccessibility: true,
         screenshotName: 'text-expand-repeater-not-expanded',
         selector: '#text-expand-repeater'
       });
@@ -20,7 +19,6 @@ describe('TextExpandRepeater', () => {
     .then(() => {
       element(by.css('.sky-text-expand-repeater-see-more')).click();
       return SkyVisualTest.compareScreenshot({
-        checkAccessibility: true,
         screenshotName: 'text-expand-repeater-expanded',
         selector: '#text-expand-repeater'
       });

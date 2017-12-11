@@ -1108,6 +1108,29 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'URL validation',
+        icon: 'check',
+        // tslint:disable-next-line
+        summary: `The URL validation module allows users to validate URL format.`,
+        url: '/components/url-validation',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'url-validation-demo.component.html',
+              fileContents: require
+              ('!!raw-loader!./url-validation/url-validation-demo.component.html')
+            },
+            {
+              name: 'url-validation.component.ts',
+              fileContents: require
+              ('!!raw-loader!./url-validation/url-validation-demo.component.ts'),
+              componentName: 'SkyUrlValidationDemoComponent',
+              bootstrapSelector: 'sky-url-validation-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Vertical tabs',
         icon: 'folder-open-o',
         summary: `The vertical tabs module contains components to render a vertical tabset.`,
