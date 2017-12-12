@@ -4,7 +4,7 @@
     showTableOfContents="true">
 
   <stache-page-summary>
-    <p>After you <a routerLink="/learn/get-started/basics/serve-project">serve the default single-page application</a>, you edit its existing pages and components, and you can addadditional pages and components as necessary.</p>
+    <p>After you <a routerLink="/learn/get-started/basics/serve-project">serve the default single-page application</a>, you can edit the existing pages and components and add additional pages and components as necessary.</p>
   </stache-page-summary>
 
   
@@ -44,19 +44,13 @@
       </stache-code-block>
     </li>
     <li>
-      <p>At the top of the file before the warning, add a paragraph such as</p>
+      <p>At the top of the file before the warning, add a paragraph.</p>
       <stache-code-block languageType="markup">
         <p>This page provides contact information for members of our team.</p>
       </stache-code-block>
     </li>
     <li>
-      <p>Save the changes.</p>
-    </li>
-    <li>
-      <p>Return to the command prompt to see that <stache-code>skyux serve</stache-code> recognizes the changes and updates the page.</p>
-    </li>
-    <li>
-      <p>Return to the About page in the web browser to see the new paragraph in place.</p>
+      <p>Save the changes. The <stache-code>skyux serve</stache-code> command refreshes the About page in the web browser to display the new paragraph.</p>
     </li>
   </ol>
 
@@ -77,13 +71,7 @@
       </stache-code-block>
     </li>
     <li>
-      <p>Save the changes.</p>
-    </li>
-    <li>
-      <p>Return to the command prompt to see that <stache-code>skyux serve</stache-code> recognizes the changes and updates the page.</p>
-    </li>
-    <li>
-      <p>Return to the About page in the web browser to see that the new <stache-code>alertType</stache-code> value updates the background color and that the new text replaces the previous message.</p>
+      <p>Save the changes. The <stache-code>skyux serve</stache-code> command refreshes the About page in the web browser to display the updated background color and text.</p>
     </li>
   </ol>
 
@@ -115,13 +103,7 @@
       </stache-code-block>
     </li>
     <li>
-      <p>Save the changes.</p>
-    </li>
-    <li>
-      <p>Return to the command prompt to see that <stache-code>skyux serve</stache-code> recognizes the changes and updates the page.</p>
-    </li>
-    <li>
-      <p>Return to the About page in the web browser to see the new card component between the alert and avatar components.</p>
+      <p>Save the changes. The <stache-code>skyux serve</stache-code> command refreshes the About page in the web browser to display the new card component between the alert and avatar components.</p>
     </li>
   </ol>
 
@@ -132,10 +114,10 @@
   <p>By default, SKY UX uses automatic route configuration based on the project's folder structure. So to create a page, you simply create a folder in the existing <stache-code>src/app</stache-code> folder and then create an <stache-code>index.html</stache-code> file in that folder.</p>
   <ol>
     <li>
-      <p>In a local editor, create a folder within the <stache-code>src/app</stache-code> folder and name it <stache-code>demo</stache-code>. The folder name appears in the route for the page.</p>
+      <p>In a local editor, create a folder within <stache-code>src/app</stache-code> and name it <stache-code>demo</stache-code>. The folder name appears in the route for the page.</p>
     </li>
     <li>
-      <p>In the <stache-code>demo</stache-code> folder, create a file and name it <stache-code>index.html</stache-code>.</p>
+      <p>In the <stache-code>demo</stache-code> folder, create an <stache-code>index.html</stache-code> file.</p>
     </li>
     <li>
       <p>In the new file, place the shared <stache-code>app-nav</stache-code> component at the top and then add hello world content such as <stache-code>&#60;h1&#62;Hello world!&#60;&#47;h1&#62;</stache-code>. The <stache-code>app-nav</stache-code> component is an example of a shared component. It manually creates top-level navigation within your app.</p>
@@ -145,13 +127,10 @@
       </stache-code-block>
     </li>
     <li>
-      <p>Save the changes to the <stache-code>index.html</stache-code> file.</p>
-    </li>
-    <li>
       <p>In the <stache-code>src/shared</stache-code> folder, open the <stache-code>app-nav.component.ts</stache-code> file.</p>
     </li>
     <li>
-      <p>Add a path for the new page with <stache-code>tileKey</stache-code> set to "app_nav_demo" and <stache-code>path</stache-code> set to "/demo." The <stache-code>titleKey</stache-code> provides the label for the menu, and the <stache-code>path</stache-code> specifies the name of the folder.</p>
+      <p>Add a path for the new page with <stache-code>titleKey</stache-code> set to "Demo" and <stache-code>path</stache-code> set to "/demo." <stache-code>titleKey</stache-code> specifies a label for the menu, and <stache-code>path</stache-code> specifies the name of the folder.</p>
       <stache-code-block languageType="typescript">
         import { Component } from '@angular/core';
 
@@ -179,16 +158,10 @@
       </stache-code-block>
     </li>
     <li>
-      <p>Save the changes to the component file.</p>
+      <p>Save the changes. If <stache-code>skyux serve</stache-code> is running, it refreshes the SPA to display the Demo menu item. If not, enter <stache-code>skyux serve</stache-code> in the command prompt to launch the SPA.</p>
     </li>
     <li>
-      <p>If <stache-code>skyux serve</stache-code> is running, it recognizes the changes and updates the SPA. If not, open the command prompt and enter <stache-code>skyux serve</stache-code> to launch the SPA.</p>
-    </li>
-    <li>
-      <p>Return to the default site to see the update in place. The Demo item appears in the menu.</p>
-    </li>
-    <li>
-      <p>Click the <strong>Demo</strong> menu option. The new page appears.</p>
+      <p>Click <strong>Demo</strong> in the menu. The new page appears.</p>
     </li>
   </ol>
 
@@ -197,7 +170,7 @@
   </stache-page-anchor>
 
   <p>
-    Now that you've added some basic content to your page, you may need more programmatic control over the contents of the page. For instance, you might want to display some dynamic data based on a web request or some client-side logic written in TypeScript. For that, you need to create your own component.
+    After you add basic content to your page, you may need more programmatic control over the contents of a page. For example, you might want to display dynamic data based on a web request or client-side logic written in TypeScript. To do that, you need to create your own component.
   </p>
   <stache-include fileName="small-components.html"></stache-include>
   <p>
@@ -251,16 +224,13 @@
       <p>The curly braces are the syntax to reference public properties of the component class.</p>
     </li>
     <li>
-      <p>Open the <stache-code>index.html</stache-code> file in the <stache-code>demo</stache-code> folder, and add the new <stache-code>app-my-demo</stache-code> component. Set the value of the <stache-code>message</stache-code> attribute to "Hello!"</p>
+      <p>Open the <stache-code>index.html</stache-code> file in the <stache-code>demo</stache-code> folder, and add the new <stache-code>app-my-demo</stache-code> component after the header. Set the value of the <stache-code>message</stache-code> attribute to "Hello!"</p>
       <stache-code-block languageType="markup">
         <app-my-demo message="Hello!"></app-my-demo>
       </stache-code-block>
     </li>
     <li>
-      <p>Return to the command prompt, and run <stache-code>skyux serve</stache-code> to launch the SPA in your default browser.</p>
-    </li>
-    <li>
-      <p>Return to the Demo page in the SPA. You should see "Hello!" input text rendered after the header.</p>
+      <p>Save the changes, then return to the command prompt and run <stache-code>skyux serve</stache-code> to launch the SPA in your default browser. On the SPA's Demo page, the "Hello!" message is rendered after the header.</p>
     </li>
   </ol>
 
