@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SortTestComponent  implements OnInit {
   public initialState: number;
+  public showButtonText: boolean = false;
   public sortOptions = [
     {
       id: 1,

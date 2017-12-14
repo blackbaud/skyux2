@@ -1,0 +1,28 @@
+<div id="screenshot-list-toolbar">
+  <sky-list [data]="data">
+    <sky-list-toolbar>
+      <sky-list-secondary-actions>
+        <sky-list-secondary-action>
+          <button type="button">
+            Option
+          </button>
+        </sky-list-secondary-action>
+      </sky-list-secondary-actions>
+      <sky-list-column-selector-action [gridView]="grid"></sky-list-column-selector-action>
+      <sky-list-toolbar-sort
+        label="Custom"
+        field="column1"
+        type="string"
+        [descending]="false">
+      </sky-list-toolbar-sort>
+    <sky-list-filter-button>
+        <sky-filter-button [showButtonText]="true">
+        </sky-filter-button>
+      </sky-list-filter-button>
+    </sky-list-toolbar>
+    <sky-list-view-grid fit="scroll">
+      <sky-grid-column field="column1" heading="Column1"></sky-grid-column>
+      <sky-grid-column field="column2" heading="Column2"></sky-grid-column>
+    </sky-list-view-grid>
+  </sky-list>
+</div>

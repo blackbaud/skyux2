@@ -30,7 +30,10 @@ export class SkyFilterButtonComponent implements OnInit, OnDestroy {
 
   private mediaQuerySubscription: Subscription;
 
-  constructor(private mediaQueries: SkyMediaQueryService, private changeRef: ChangeDetectorRef) {}
+  constructor(
+    private mediaQueries: SkyMediaQueryService,
+    private changeRef: ChangeDetectorRef
+  ) { }
 
   public ngOnInit() {
     this.mediaQuerySubscription = this.mediaQueries.subscribe((newBreakpoint: SkyMediaBreakpoints) => {
@@ -51,6 +54,10 @@ export class SkyFilterButtonComponent implements OnInit, OnDestroy {
 
   public filterButtonOnClick() {
     this.filterButtonClick.emit(undefined);
+  }
+
+  public isButtonTextVisible(): boolean {
+    return (this.showButtonText && !this.isSmallScreen());
   }
 
 }
