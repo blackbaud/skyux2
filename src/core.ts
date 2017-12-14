@@ -12,6 +12,7 @@ import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
 import { SkyAlertModule } from './modules/alert';
+import { SkyAutocompleteModule } from './modules/autocomplete';
 import { SkyNumericModule } from './modules/numeric';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
@@ -69,6 +70,7 @@ import { SkyWaitModule } from './modules/wait';
 @NgModule({
   exports: [
     SkyAlertModule,
+    SkyAutocompleteModule,
     SkyNumericModule,
     SkyAvatarModule,
     SkyActionButtonModule,

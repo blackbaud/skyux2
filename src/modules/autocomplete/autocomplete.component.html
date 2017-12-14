@@ -1,0 +1,12 @@
+<div class="sky-autocomplete">
+  <ng-content>
+  </ng-content>
+  <sky-autocomplete-results
+    [activeIndex]="searchResultsIndex"
+    [displayProperty]="descriptorProperty"
+    [highlightText]="searchText"
+    [results]="searchResults"
+    [resultTemplate]="searchResultTemplate"
+    (resultClick)="onSearchResultClicked($event)">
+  </sky-autocomplete-results>
+</div>

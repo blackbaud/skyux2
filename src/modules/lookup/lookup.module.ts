@@ -2,32 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { SkyLookupComponent } from './lookup.component';
-import { SkyWindowRefService } from '../window';
+import { SkyLookupTokensComponent } from './lookup-tokens.component';
 
+import { SkyAutocompleteModule } from '../autocomplete';
 import { SkyResourcesModule } from '../resources';
-import { SkyDropdownModule } from '../dropdown';
-import { SkyTextHighlightModule } from '../text-highlight';
 
 @NgModule({
   declarations: [
-    SkyLookupComponent
+    SkyLookupComponent,
+    SkyLookupTokensComponent
   ],
   imports: [
-    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
-    SkyResourcesModule,
-    SkyDropdownModule,
-    SkyTextHighlightModule
+    SkyAutocompleteModule,
+    SkyResourcesModule
   ],
   exports: [
     SkyLookupComponent
-  ],
-  providers: [
-    SkyWindowRefService
   ]
 })
 export class SkyLookupModule { }

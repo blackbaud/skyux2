@@ -1,0 +1,21 @@
+<div
+  class="sky-lookup-tokens"
+  *ngIf="tokens">
+
+  <div
+    *ngFor="let token of tokens"
+    class="sky-lookup-token"
+    tabindex="-1"
+    (keydown)="handleKeyDown($event, token)">
+
+    {{ token | json }}
+
+    <button
+      type="button"
+      tabindex="-1"
+      (click)="removeToken(token)"
+      [attr.aria-hidden]="true">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+</div>

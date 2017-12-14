@@ -1,2 +1,3 @@
-export { SkyLookupComponent } from './lookup.component';
-export { SkyLookupModule } from './lookup.module';
+export * from './types';
+export * from './lookup.component';
+export * from './lookup.module';

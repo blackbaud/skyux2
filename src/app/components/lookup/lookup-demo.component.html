@@ -1,5 +1,6 @@
-<ul class="sky-list-unstyled">
+<!-- <ul class="sky-list-unstyled">
   <li style="margin-top:20px">
+
     <label>Single select:
       <sky-lookup
         [data]="oceans"
@@ -7,20 +8,24 @@
         placeholderText="Select an ocean">
       </sky-lookup>
     </label>
+
     <div *ngIf="selectedOceans?.length > 0">
       <div>Selected item:</div>
-      <div *ngFor="let item of selectedOceans">{{item.name}}</div>
+      <div *ngFor="let item of selectedOceans">
+        {{ item.name }}
+      </div>
     </div>
+
   </li>
   <li style="margin-top:20px">
+
     <label>Single select (with dropdown template):
       <sky-lookup
         [data]="fruits"
         [selectedItems]="selectedFruits"
         [propertiesToSearch]="['fruit', 'description']"
-        descriptorProperty="fruit"
-        placeholderText="Pick a fruit"
-        [template]="fruitTemplate">
+        [searchResultTemplate]="fruitTemplate"
+        placeholderText="Pick a fruit">
       </sky-lookup>
     </label>
     <div *ngIf="selectedFruits?.length > 0">
@@ -29,13 +34,13 @@
     </div>
   </li>
   <li style="margin-top:20px">
-    <label>Multi-select:
-      <sky-lookup
-        [data]="colors"
-        [selectedItems]="selectedColors"
-        [multiple]="true">
-      </sky-lookup>
-    </label>
+    <label>Multi-select:</label>
+    <sky-lookup
+      [data]="colors"
+      [selectedItems]="selectedColors"
+      [multiple]="true">
+    </sky-lookup>
+
     <div *ngIf="selectedColors?.length > 0">
       <div>Selected items:</div>
       <div *ngFor="let item of selectedColors">{{item.name}}</div>
@@ -59,4 +64,4 @@
 <ng-template #fruitTemplate let-item="item">
   <div>Name: {{item.fruit}}</div>
   <div *ngIf="item.description">Description: {{item.description}}</div>
-</ng-template>
+</ng-template> -->

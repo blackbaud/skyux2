@@ -1,73 +1,30 @@
-<div>
-  <div class="sky-lookup-item-input">
-    <div
-      [ngClass]="{'sky-lookup-input-focused': searchInputFocused}"
-      class="sky-lookup-input-container sky-input-group sky-dropdown-button">
-      <ul class="sky-lookup-input-group" (click)="selectInput()">
-        <ng-container *ngIf="multiple">
-          <li *ngFor="let item of selectedItems" class="sky-lookup-selected-item"
-          [ngClass]="{'sky-lookup-selected-item-active': (item === activeSelectedItem)}">
-            <div class="sky-lookup-selected-item-name">{{item[descriptorProperty]}}</div>
-            <div class="sky-lookup-selected-item-delete" (click)="removeSelectedItem(item)">
-              <i class="fa fa-times"></i>
-            </div>
-          </li>
-        </ng-container>
-        <li [ngClass]="{'sky-lookup-input-item': multiple}">
-          <input
-            type="text"
-            class="sky-form-control sky-lookup-input"
-            [ngModel]="searchText"
-            (ngModelChange)="searchTextChanged($event)"
-            (keydown)="keydown($event)"
-            (keyup)="keyup($event, searchText)"
-            (focus)="inputFocused($event, true)"
-            (blur)="inputFocused($event, false)"
-            [attr.aria-label]="'search_label' | skyResources"
-            [attr.placeholder]="placeholderText" />
-        </li>
-      </ul>
-      <span
-      class="sky-input-group-btn sky-input-group-clear"
-      *ngIf="!multiple &amp;&amp; selectedItems &amp;&amp; selectedItems.length > 0"
-      >
-        <button
-          tabindex="-1"
-          aria-hidden="true"
-          type="button"
-          class="sky-btn sky-btn-default sky-lookup-btn-clear"
-          (click)="clearSearchText()">
-          <i class="fa fa-times"></i>
-        </button>
-      </span>
-      <span class="sky-input-group-btn">
-        <button
-          tabindex="-1"
-          type="button"
-          class="sky-btn sky-btn-default sky-lookup-btn-apply">
-          <i class="fa fa-search fa-lg"></i>
-        </button>
-      </span>
-    </div>
-  </div>
-  <div class="sky-dropdown-menu">
-    <div *ngFor="let item of results" class="sky-lookup-menu-item"
-      [ngClass]="{'sky-lookup-menu-item-active': (item === activeMenuItem)}">
-      <button type="button"
-        (click)="selectMenuItem(item)"
-        (mouseenter)="setActiveMenuItem(item)"
-        [skyHighlight]="searchText">
-        <ng-container
-          *ngTemplateOutlet="template || defaultResultTemplate; context: { item: item }">
-        </ng-container>
-      </button>
-    </div>
-    <div *ngIf="!results || results.length === 0" class="sky-lookup-menu-item">
-      <button type="button" (click)="closeMenu()" class="sky-lookup-no-match">
-          {{ ('lookup_no_results' | skyResources) }}
-      </button>
-    </div>
-  </div>
-</div>
+<div class="sky-lookup">
+  <sky-autocomplete
+    [data]="data"
+    [search]="search"
+    [searchResultsLimit]="searchResultsLimit"
+    [searchResultTemplate]="searchResultTemplate"
+    [propertiesToSearch]="propertiesToSearch"
+    [descriptorProperty]="descriptorProperty"
+    (resultSelected)="onSearchResultSelected($event)">
+    <div class="sky-lookup-search">
+      <sky-lookup-tokens
+        [tokens]="selectedItems"
+        [updateTokenStream]="selectionChanges"
+        (focusLost)="lookupInput.focus()"
+        (tokenChanges)="onTokenChanges($event)">
+      </sky-lookup-tokens>
 
-<ng-template #defaultResultTemplate let-item="item">{{item.name}}</ng-template>
+      <textarea
+        skyAutocompleteInput
+        [ngModel]="searchText"
+        [disabled]="disabled"
+        [attr.id]="inputId"
+        [attr.aria-label]="'lookup_search_label' | skyResources"
+        [attr.placeholder]="placeholderText"
+        (keydown)="onKeyDown($event)"
+        #lookupInput>
+      </textarea>
+    </div>
+  </sky-autocomplete>
+</div>

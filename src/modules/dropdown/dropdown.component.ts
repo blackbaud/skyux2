@@ -3,13 +3,18 @@ import {
   ElementRef,
   Input,
   Renderer,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 
-import { SkyDropdownAdapterService } from './dropdown-adapter.service';
+import {
+  Observable
+} from 'rxjs/Observable';
 
 import { SkyWindowRefService } from '../window';
 import { SkyResources } from '../resources';
+
+import { SkyDropdownAdapterService } from './dropdown-adapter.service';
 
 @Component({
   selector: 'sky-dropdown',
@@ -19,7 +24,7 @@ import { SkyResources } from '../resources';
     SkyDropdownAdapterService
   ]
 })
-export class SkyDropdownComponent implements OnDestroy {
+export class SkyDropdownComponent implements OnInit, OnDestroy {
   @Input()
   public set buttonType(value: string) {
     this._buttonType = value;
@@ -62,6 +67,9 @@ export class SkyDropdownComponent implements OnDestroy {
     this._buttonStyle = value;
   }
 
+  @Input()
+  public commandStream: Observable<any> = Observable.of();
+
   private open = false;
 
   private opening = false;
@@ -103,7 +111,7 @@ export class SkyDropdownComponent implements OnDestroy {
       this.opening = false;
       this.open = true;
     } else {
-      this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
+      this.closeMenu();
     }
   }
 
@@ -121,8 +129,24 @@ export class SkyDropdownComponent implements OnDestroy {
     }
   }
 
+  public ngOnInit() {
+    // this.commandStream.subscribe((args: any) => {
+    //   console.log('args?', args.command);
+    //   switch (args.command) {
+    //     case 'open':
+    //     this.openMenu();
+    //     break;
+    //     case 'close':
+    //     this.closeMenu();
+    //     break;
+    //     default:
+    //     break;
+    //   }
+    // });
+  }
+
   public ngOnDestroy() {
-    this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
+    this.closeMenu();
   }
 
   private openMenu() {
@@ -140,4 +164,7 @@ export class SkyDropdownComponent implements OnDestroy {
     }
   }
 
+  private closeMenu() {
+    this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
+  }
 }
