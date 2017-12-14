@@ -5,4 +5,5 @@
   class="sky-btn sky-btn-default sky-filter-btn"
   (click)="filterButtonOnClick()">
   <i class="fa fa-lg fa-filter"></i>
+  <ng-container *ngIf="showButtonText && !isSmallScreen()"> Filter</ng-container>
 </button>

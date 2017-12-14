@@ -83,7 +83,7 @@
   <div
     class="sky-toolbar-item-sort-container"
     *ngIf="(isSortSelectorEnabled | async) && (sortSelectors | async).length > 0">
-    <sky-sort>
+    <sky-sort [showButtonText]="true">
       <sky-sort-item
         *ngFor="let item of sortSelectors | async"
         [active]="item.selected"
@@ -97,6 +97,8 @@
 <ng-template #inlineFilterButton>
   <sky-filter-button
     (filterButtonClick)="inlineFilterButtonClick()"
-    [active]="hasAppliedFilters | async">
+    [active]="hasAppliedFilters | async"
+    [showButtonText]="true"
+  >
   </sky-filter-button>
 </ng-template>

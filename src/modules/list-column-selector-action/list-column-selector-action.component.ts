@@ -1,9 +1,16 @@
 import {
   Component,
-  Input
- } from '@angular/core';
+  Input,
+  Optional,
+  AfterContentInit,
+  ViewChild,
+  TemplateRef,
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import {
-  ListState
+  ListState, ListStateDispatcher, ListToolbarItemModel
 } from '../list/state';
 import {
   SkyListViewGridComponent
@@ -28,24 +35,67 @@ import {
 } from '../column-selector';
 
 import { Observable } from 'rxjs/Observable';
+import { SkyListSecondaryActionsComponent } from '../list-secondary-actions/';
+import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'sky-list-column-selector-action',
   templateUrl: './list-column-selector-action.component.html'
 })
-export class SkyListColumnSelectorActionComponent {
+export class SkyListColumnSelectorActionComponent implements AfterContentInit, OnInit, OnDestroy {
   @Input()
   public gridView: SkyListViewGridComponent;
+  public currentBreakpoint: SkyMediaBreakpoints;
+
+  @ViewChild('columnChooser')
+  private columnChooserTemplate: TemplateRef<any>;
+
+  private mediaQuerySubscription: Subscription;
 
   constructor(
     public listState: ListState,
-    private modalService: SkyModalService
-  ) {}
+    @Optional() public secondaryActions: SkyListSecondaryActionsComponent,
+    private dispatcher: ListStateDispatcher,
+    private modalService: SkyModalService,
+    private mediaQueries: SkyMediaQueryService,
+    private changeRef: ChangeDetectorRef
+  ) { }
+
+  public ngOnInit() {
+    this.mediaQuerySubscription = this.mediaQueries.subscribe((newBreakpoint: SkyMediaBreakpoints) => {
+      this.currentBreakpoint = newBreakpoint;
+      this.changeRef.detectChanges();
+    });
+  }
+
+  public ngAfterContentInit() {
+    if (!this.secondaryActions) {
+      let columnChooserItem = new ListToolbarItemModel(
+        {
+          id: 'column-chooser',
+          template: this.columnChooserTemplate,
+          location: 'right'
+        }
+      );
+      this.dispatcher.toolbarAddItems([columnChooserItem], -1);
+    }
+  }
+
+  public ngOnDestroy() {
+    if (this.mediaQuerySubscription) {
+      this.mediaQuerySubscription.unsubscribe();
+    }
+  }
 
   get isInGridView(): Observable<boolean> {
     return this.listState.map(s => s.views.active).map((activeView) => {
-      return this.gridView && (activeView === this.gridView.id) ;
+      return this.gridView && (activeView === this.gridView.id);
     }).distinctUntilChanged();
+  }
+
+  public isSmallScreen() {
+    return this.currentBreakpoint === SkyMediaBreakpoints.xs;
   }
 
   public openColumnSelector() {
@@ -100,8 +150,8 @@ export class SkyListColumnSelectorActionComponent {
             });
           this.gridView.gridDispatcher.next(
             new ListViewDisplayedGridColumnsLoadAction(
-             newDisplayedColumns,
-            true)
+              newDisplayedColumns,
+              true)
           );
         }
       });

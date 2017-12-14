@@ -9,7 +9,6 @@ import { SkyListToolbarComponent } from './list-toolbar.component';
 import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
 import { SkyListToolbarItemRendererComponent } from './list-toolbar-item-renderer.component';
 import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
-
 @NgModule({
   declarations: [
     SkyListToolbarComponent,

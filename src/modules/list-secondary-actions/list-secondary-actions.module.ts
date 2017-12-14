@@ -8,6 +8,7 @@ import {
   SkyListSecondaryActionComponent
 } from './list-secondary-action.component';
 import { SkyResourcesModule } from '../resources';
+import { SkyMediaQueryModule } from '../media-queries';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SkyResourcesModule } from '../resources';
   imports: [
     CommonModule,
     SkyDropdownModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyMediaQueryModule
   ],
   exports: [
     SkyListSecondaryActionsComponent,

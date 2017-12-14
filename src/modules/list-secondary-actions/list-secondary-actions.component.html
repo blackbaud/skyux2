@@ -4,8 +4,12 @@
     [hidden]="dropdownHidden"
     >
     <sky-dropdown
-    buttonType="context-menu"
-    [title]="'list_show_secondary_actions' | skyResources">
+      [title]="'list_show_secondary_actions' | skyResources"
+      [buttonType]="isSmallScreen() ? 'ellipsis-h' : 'select'"
+    >
+      <sky-dropdown-button *ngIf="!isSmallScreen()">
+        <i class="fa fa-ellipsis-h"></i> More
+      </sky-dropdown-button>
       <sky-dropdown-menu>
         <ng-content></ng-content>
       </sky-dropdown-menu>

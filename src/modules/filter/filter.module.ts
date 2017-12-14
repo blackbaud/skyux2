@@ -7,6 +7,7 @@ import { SkyFilterSummaryItemComponent } from './filter-summary-item.component';
 import { SkyFilterInlineComponent } from './filter-inline.component';
 import { SkyFilterInlineItemComponent } from './filter-inline-item.component';
 import { SkyResourcesModule } from '../resources';
+import { SkyMediaQueryModule } from '../media-queries';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SkyResourcesModule } from '../resources';
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyMediaQueryModule
   ],
   exports: [
     SkyFilterButtonComponent,
