@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -38,7 +39,7 @@ let nextId = 0;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyLookupComponent implements OnInit {
+export class SkyLookupComponent implements OnInit, AfterViewInit {
   @Input()
   public disabled = false;
 
@@ -50,21 +51,6 @@ export class SkyLookupComponent implements OnInit {
 
   @Input()
   public descriptorProperty = 'name';
-
-  @Input()
-  public data: any[]; // passive
-
-  @Input()
-  public propertiesToSearch: string[]; // passive
-
-  @Input()
-  public searchResultsLimit: number; // passive
-
-  @Input()
-  public searchResultTemplate: TemplateRef<any>; // passive
-
-  @Input()
-  public search: SkyAutocompleteSearchFunction; // passive
 
   @Output()
   public selectionChanges = new EventEmitter<SkyLookupChanges>();
@@ -79,6 +65,23 @@ export class SkyLookupComponent implements OnInit {
   public inputDirective: SkyAutocompleteInputDirective;
   public inputId: string;
   public searchText: string;
+
+  // start autocomplete component inputs
+  @Input()
+  public data: any[];
+
+  @Input()
+  public propertiesToSearch: string[];
+
+  @Input()
+  public searchResultsLimit: number;
+
+  @Input()
+  public searchResultTemplate: TemplateRef<any>;
+
+  @Input()
+  public search: SkyAutocompleteSearchFunction;
+  // end autocomplete component inputs
 
   constructor(
     private resources: SkyResourcesService
@@ -122,13 +125,18 @@ export class SkyLookupComponent implements OnInit {
       case 'backspace':
       if (this.isSearchEmpty()) {
         event.preventDefault();
-        this.tokensComponent.focus();
+        this.tokensComponent.focusLastToken();
       }
       break;
 
       case 'escape':
       event.preventDefault();
       this.clearSearchText();
+      break;
+
+      // Prevent newlines from being created in the textarea.
+      case 'enter':
+      event.preventDefault();
       break;
 
       default:

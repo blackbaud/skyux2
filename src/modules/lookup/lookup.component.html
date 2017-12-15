@@ -1,4 +1,5 @@
 <div class="sky-lookup">
+
   <sky-autocomplete
     [data]="data"
     [search]="search"
@@ -7,24 +8,27 @@
     [propertiesToSearch]="propertiesToSearch"
     [descriptorProperty]="descriptorProperty"
     (resultSelected)="onSearchResultSelected($event)">
+
     <div class="sky-lookup-search">
       <sky-lookup-tokens
-        [tokens]="selectedItems"
-        [updateTokenStream]="selectionChanges"
-        (focusLost)="lookupInput.focus()"
-        (tokenChanges)="onTokenChanges($event)">
-      </sky-lookup-tokens>
-
-      <textarea
-        skyAutocompleteInput
-        [ngModel]="searchText"
         [disabled]="disabled"
-        [attr.id]="inputId"
-        [attr.aria-label]="'lookup_search_label' | skyResources"
-        [attr.placeholder]="placeholderText"
-        (keydown)="onKeyDown($event)"
-        #lookupInput>
-      </textarea>
+        [tokens]="selectedItems"
+        [tokenStream]="selectionChanges"
+        (tokensBlur)="lookupInput.focus()"
+        (tokenChanges)="onTokenChanges($event)">
+
+        <textarea
+          skyAutocompleteInput
+          [ngModel]="searchText"
+          [disabled]="disabled"
+          [attr.id]="inputId"
+          [attr.aria-label]="'lookup_search_label' | skyResources"
+          [attr.placeholder]="placeholderText"
+          (keydown)="onKeyDown($event)"
+          #lookupInput>
+        </textarea>
+
+      </sky-lookup-tokens>
     </div>
   </sky-autocomplete>
 </div>

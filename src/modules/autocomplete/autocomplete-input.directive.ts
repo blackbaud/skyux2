@@ -61,4 +61,8 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
   public set value(val: string) {
     this.control.control.setValue(val);
   }
+
+  public focusElement() {
+    this.elementRef.nativeElement.focus();
+  }
 }

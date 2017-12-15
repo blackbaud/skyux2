@@ -1,29 +1,23 @@
 import {
   ChangeDetectionStrategy,
+  // ChangeDetectorRef,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
-  Renderer,
   SimpleChanges,
   TemplateRef
 } from '@angular/core';
 
-// import {
-//   Subject
-// } from 'rxjs/Subject';
+import {
+  Subject
+} from 'rxjs/Subject';
 
 import {
-  SkyDropdownAdapterService
-} from '../dropdown/dropdown-adapter.service';
-
-import {
-  SkyWindowRefService
-} from '../window';
+  SkyDropdownMessageEventArgs
+} from '../dropdown';
 
 import {
   SkyAutocompleteChanges
@@ -33,12 +27,9 @@ import {
   selector: 'sky-autocomplete-results',
   templateUrl: './autocomplete-results.component.html',
   styleUrls: ['./autocomplete-results.component.scss'],
-  providers: [
-    SkyDropdownAdapterService
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAutocompleteResultsComponent implements OnInit, OnChanges, OnDestroy {
+export class SkyAutocompleteResultsComponent implements OnChanges, OnDestroy {
   @Input()
   public highlightText: string;
 
@@ -57,26 +48,16 @@ export class SkyAutocompleteResultsComponent implements OnInit, OnChanges, OnDes
   @Input()
   public activeIndex = 0;
 
-  // public dropdownController = new Subject<any>();
-
-  private isOpen = false;
+  public dropdownMessages = new Subject<SkyDropdownMessageEventArgs>();
 
   public constructor(
-    private elementRef: ElementRef,
-    private dropdownAdapter: SkyDropdownAdapterService,
-    private renderer: Renderer,
-    private windowObj: SkyWindowRefService
+    // private changeDetector: ChangeDetectorRef
   ) { }
-
-  public ngOnInit() {
-    this.dropdownAdapter.dropdownClose.subscribe(() => {
-      this.isOpen = false;
-    });
-  }
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.results && !changes.results.firstChange) {
       this.openDropdown();
+      // this.changeDetector.markForCheck();
 
       if (!changes.results.currentValue.length) {
         this.closeDropdown();
@@ -101,23 +82,14 @@ export class SkyAutocompleteResultsComponent implements OnInit, OnChanges, OnDes
   }
 
   public closeDropdown() {
-    this.dropdownAdapter.hideDropdown(
-      this.elementRef,
-      this.renderer,
-      this.windowObj.getWindow()
-    );
+    this.dropdownMessages.next({
+      message: 'close'
+    });
   }
 
   private openDropdown() {
-    if (!this.isOpen) {
-      this.dropdownAdapter.showDropdown(
-        this.elementRef,
-        this.renderer,
-        this.windowObj.getWindow(),
-        'left'
-      );
-
-      this.isOpen = true;
-    }
+    this.dropdownMessages.next({
+      message: 'open'
+    });
   }
 }

@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
   selector: 'sky-dropdown-demo',
   templateUrl: './dropdown-demo.component.html'
 })
-export class SkyDropdownDemoComponent {
-}
+export class SkyDropdownDemoComponent { }

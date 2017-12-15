@@ -1,3 +1,6 @@
-<div class="sky-dropdown-item">
-  <ng-content></ng-content>
+<div
+  class="sky-dropdown-item"
+  [ngClass]="{ 'sky-dropdown-item-active': isActive }">
+  <ng-content>
+  </ng-content>
 </div>

@@ -1,28 +1,24 @@
 <div class="sky-lookup-results">
-  <!--
-    .sky-dropdown-button is needed to satisfy the SkyDropdownAdapterService
-  -->
-  <button
-    tabindex="-1"
-    class="sky-dropdown-button">
-  </button>
+  <sky-dropdown
+    [messageStream]="dropdownMessages">
 
-  <div class="sky-dropdown-menu">
-    <ul>
-      <li *ngFor="let result of results; let i = index">
+    <sky-dropdown-menu>
+      <sky-dropdown-item
+        *ngFor="let result of results; let i = index">
+
         <button
           type="button"
           tabindex="-1"
           (click)="selectResult(result, i)"
-          [ngClass]="{ 'sky-lookup-result-active': i === activeIndex }"
           [skyHighlight]="highlightText">
           <ng-container
             *ngTemplateOutlet="resultTemplate || defaultResultTemplate; context: { item: result }">
           </ng-container>
         </button>
-      </li>
-    </ul>
-  </div>
+
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
 </div>
 
 <ng-template let-item="item" #defaultResultTemplate>

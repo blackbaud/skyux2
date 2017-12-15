@@ -28,9 +28,9 @@
     What are your favorite colors?
   </label>
   <sky-lookup
-    (inputIdChanges)="onInputIdChanges($event)"
     [data]="colors"
     [selectedItems]="selectedColors"
+    (inputIdChanges)="onInputIdChanges($event)"
     (selectionChanges)="onResultSelected($event)">
   </sky-lookup>
 
@@ -40,3 +40,22 @@
     Submit
   </button> -->
 </form>
+
+<!-- <button
+  (click)="openDropdown($event)">
+  Open
+</button>
+
+<button
+  (click)="closeDropdown($event)">
+  Close
+</button>
+
+<sky-dropdown
+  [commandStream]="commandStream">
+  <sky-dropdown-menu>
+    <sky-dropdown-item>
+      Hello
+    </sky-dropdown-item>
+  </sky-dropdown-menu>
+</sky-dropdown> -->

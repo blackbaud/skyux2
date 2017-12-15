@@ -7,9 +7,23 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnDestroy,
   Output,
   TemplateRef
 } from '@angular/core';
+
+import {
+  Subscription
+} from 'rxjs/Subscription';
+
+import {
+  Subject
+} from 'rxjs/Subject';
+
+import {
+  SkyDropdownMessage,
+  SkyDropdownMessageEventArgs
+} from '../dropdown';
 
 import {
   SkyAutocompleteInputDirective
@@ -27,7 +41,7 @@ import {
   styleUrls: ['./autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAutocompleteComponent implements AfterContentInit {
+export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @Input()
   public set search(value: SkyAutocompleteSearchFunction) {
     this._searchFunction = value;
@@ -64,10 +78,14 @@ export class SkyAutocompleteComponent implements AfterContentInit {
   @ContentChild(SkyAutocompleteInputDirective)
   public inputDirective: SkyAutocompleteInputDirective;
 
+  public dropdownMessages = new Subject<SkyDropdownMessageEventArgs>();
+
   public selectedItem: any;
   public searchText: string;
 
   private isMouseEnter = false;
+  private subscriptions: Subscription[] = [];
+
   private _searchFunction: SkyAutocompleteSearchFunction;
   private _propertiesToSearch: string[];
 
@@ -76,28 +94,36 @@ export class SkyAutocompleteComponent implements AfterContentInit {
   ) { }
 
   public ngAfterContentInit() {
-    this.inputDirective.valueChanges
-      .subscribe((changes: SkyAutocompleteChanges) => {
-        const searchText = changes.inputValue;
+    this.subscriptions.push(
+      this.inputDirective.valueChanges
+        .subscribe((changes: SkyAutocompleteChanges) => {
+          const searchText = changes.inputValue;
 
-        if (this.isTextEmpty(searchText)) {
-          this.searchText = '';
-          this.searchResults = [];
-          this.searchResultsIndex = 0;
-          this.changeDetector.markForCheck();
-          return;
-        }
+          if (this.isTextEmpty(searchText)) {
+            this.searchText = '';
+            this.resetSearchResults();
+            this.changeDetector.markForCheck();
+            return;
+          }
 
-        if (searchText !== this.searchText) {
-          this.searchText = searchText.trim();
+          if (searchText !== this.searchText) {
+            this.searchText = searchText.trim();
 
-          this.performSearch(searchText)
-            .then((results: any[]) => {
-              this.searchResults = results;
-              this.changeDetector.markForCheck();
-            });
-        }
-      });
+            this.performSearch(searchText)
+              .then((results: any[]) => {
+                this.searchResults = results;
+                this.openDropdown();
+                this.changeDetector.markForCheck();
+              });
+          }
+        })
+      );
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   // Handles keyboard events that affect usability and interaction.
@@ -109,12 +135,16 @@ export class SkyAutocompleteComponent implements AfterContentInit {
     switch (key) {
       case 'arrowdown':
       event.preventDefault();
-      this.incrementActiveSearchResultIndex();
+      this.dropdownMessages.next({
+        message: SkyDropdownMessage.FocusNextItem
+      });
       break;
 
       case 'arrowup':
       event.preventDefault();
-      this.decrementActiveSearchResultIndex();
+      this.dropdownMessages.next({
+        message: SkyDropdownMessage.FocusPreviousItem
+      });
       break;
 
       case 'tab':
@@ -127,7 +157,9 @@ export class SkyAutocompleteComponent implements AfterContentInit {
 
       case 'escape':
       event.preventDefault();
+      event.stopPropagation();
       this.resetSearch();
+      this.inputDirective.focusElement();
       break;
 
       default:
@@ -135,12 +167,12 @@ export class SkyAutocompleteComponent implements AfterContentInit {
     }
   }
 
-  // Reset search when clicking outside of the component.
+  // Close search results when clicking outside of the component.
   @HostListener('document:click')
-  public handleDocumentClicked() {
+  public onDocumentClick() {
     if (!this.isMouseEnter) {
-      this.handlePartialSearch();
-      this.resetSearch();
+      // this.handlePartialSearch();
+      this.resetSearchResults();
     }
   }
 
@@ -155,6 +187,7 @@ export class SkyAutocompleteComponent implements AfterContentInit {
   }
 
   public resetSearch() {
+    /* sanity check */
     if (this.selectedItem) {
       if (this.searchText !== this.selectedItem[this.descriptorProperty]) {
         this.searchText = '';
@@ -164,12 +197,32 @@ export class SkyAutocompleteComponent implements AfterContentInit {
     }
 
     this.inputDirective.value = this.searchText;
-    this.searchResults = [];
-    this.searchResultsIndex = 0;
+    this.resetSearchResults();
   }
 
-  public onSearchResultClicked(data: SkyAutocompleteChanges) {
-    this.searchResultsIndex = data.selectedResultIndex;
+  public resetSearchResults() {
+    this.searchResults = [];
+    this.closeDropdown();
+  }
+
+  public onMenuChanges(changes: any) {
+    this.searchResultsIndex = changes.activeIndex;
+  }
+
+  public closeDropdown() {
+    this.dropdownMessages.next({
+      message: SkyDropdownMessage.Close
+    });
+  }
+
+  public openDropdown() {
+    this.dropdownMessages.next({
+      message: SkyDropdownMessage.Open
+    });
+  }
+
+  public onSearchResultClicked(index: number) {
+    this.searchResultsIndex = index;
     this.selectActiveSearchResult();
   }
 
@@ -198,23 +251,24 @@ export class SkyAutocompleteComponent implements AfterContentInit {
 
   // If the search text matches an unselected result, and the user clicks
   // off of the component, automatically select the result.
-  private handlePartialSearch() {
-    if (this.hasSearchResults()) {
-      const activeResult = this.searchResults[this.searchResultsIndex];
-      const resultTextLower = activeResult[this.descriptorProperty].toLowerCase();
-      const searchTextLower = this.searchText.toLowerCase();
+  // private handlePartialSearch() {
+  //   if (this.hasSearchResults()) {
+  //     const activeResult = this.searchResults[this.searchResultsIndex];
+  //     const resultTextLower = activeResult[this.descriptorProperty].toLowerCase();
+  //     const searchTextLower = this.searchText.toLowerCase();
 
-      if (resultTextLower === searchTextLower) {
-        this.selectActiveSearchResult();
-      }
-    }
-  }
+  //     if (resultTextLower === searchTextLower) {
+  //       this.selectActiveSearchResult();
+  //     }
+  //   }
+  // }
 
   private defaultSearchFunction(searchText: string): SkyAutocompleteSearchResponse {
     const searchTextLower = searchText.toLowerCase();
     const results = [];
 
     for (let i = 0, n = this.data.length; i < n; i++) {
+      // TODO: add filters here (limit included)!
       const limitReached = (
         this.searchResultsLimit &&
         results.length >= this.searchResultsLimit
@@ -239,26 +293,26 @@ export class SkyAutocompleteComponent implements AfterContentInit {
     return results;
   }
 
-  private incrementActiveSearchResultIndex() {
-    this.searchResultsIndex++;
+  // private incrementActiveSearchResultIndex() {
+  //   this.searchResultsIndex++;
 
-    if (this.searchResultsIndex >= this.searchResults.length) {
-      this.searchResultsIndex = 0;
-    }
-  }
+  //   if (this.searchResultsIndex >= this.searchResults.length) {
+  //     this.searchResultsIndex = 0;
+  //   }
+  // }
 
-  private decrementActiveSearchResultIndex() {
-    if (!this.hasSearchResults()) {
-      this.searchResultsIndex = 0;
-      return;
-    }
+  // private decrementActiveSearchResultIndex() {
+  //   if (!this.hasSearchResults()) {
+  //     this.searchResultsIndex = 0;
+  //     return;
+  //   }
 
-    this.searchResultsIndex--;
+  //   this.searchResultsIndex--;
 
-    if (this.searchResultsIndex < 0) {
-      this.searchResultsIndex = this.searchResults.length - 1;
-    }
-  }
+  //   if (this.searchResultsIndex < 0) {
+  //     this.searchResultsIndex = this.searchResults.length - 1;
+  //   }
+  // }
 
   private notifyResultSelected(result: any) {
     this.resultSelected.emit({

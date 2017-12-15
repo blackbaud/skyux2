@@ -2,20 +2,23 @@
   class="sky-lookup-tokens"
   *ngIf="tokens">
 
-  <div
+  <sky-lookup-token
     *ngFor="let token of tokens"
-    class="sky-lookup-token"
-    tabindex="-1"
-    (keydown)="handleKeyDown($event, token)">
+    [attr.tabindex]="(disabled) ? false : -1"
+    (keydown)="onKeyDown($event, token)">
 
     {{ token | json }}
 
     <button
+      [disabled]="disabled"
       type="button"
       tabindex="-1"
       (click)="removeToken(token)"
       [attr.aria-hidden]="true">
       <i class="fa fa-times"></i>
     </button>
-  </div>
+  </sky-lookup-token>
+
+  <ng-content>
+  </ng-content>
 </div>

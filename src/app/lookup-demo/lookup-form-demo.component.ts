@@ -1,5 +1,6 @@
 import {
   Component,
+  EventEmitter,
   OnInit
 } from '@angular/core';
 
@@ -16,6 +17,8 @@ import { SkyLookupChanges } from '../../modules/lookup/types';
   templateUrl: './lookup-form-demo.component.html'
 })
 export class SkyLookupFormDemoComponent implements OnInit {
+  public commandStream = new EventEmitter<any>();
+
   public colors: any[] = [
     { name: 'Red' },
     { name: 'Blue' },
@@ -52,6 +55,20 @@ export class SkyLookupFormDemoComponent implements OnInit {
     this.createForm();
     this.formModel.reset({});
     this.formModel.controls.favoriteColors.reset(this.selectedColors);
+  }
+
+  public openDropdown(event: MouseEvent) {
+    this.commandStream.emit({
+      command: 'open'
+    });
+    event.stopPropagation();
+  }
+
+  public closeDropdown(event: MouseEvent) {
+    this.commandStream.emit({
+      command: 'close'
+    });
+    event.stopPropagation();
   }
 
   public submit() {
