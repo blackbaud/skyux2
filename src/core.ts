@@ -43,6 +43,7 @@ import { SkyListSecondaryActionsModule } from './modules/list-secondary-actions'
 import { SkyListToolbarModule } from './modules/list-toolbar';
 import { SkyListViewChecklistModule } from './modules/list-view-checklist';
 import { SkyListViewGridModule } from './modules/list-view-grid';
+import { SkyLookupModule } from './modules/lookup';
 import { SkyMediaQueryModule } from './modules/media-queries';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
@@ -98,6 +99,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyListToolbarModule,
     SkyListViewChecklistModule,
     SkyListViewGridModule,
+    SkyLookupModule,
     SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
@@ -387,6 +389,11 @@ export {
   SkyListViewGridComponent,
   SkyListViewGridModule
 } from './modules/list-view-grid';
+
+export {
+  SkyLookupComponent,
+  SkyLookupModule
+} from './modules/lookup';
 
 export {
   SkyModalCloseArgs,
