@@ -25,7 +25,7 @@
     </li>
     <li>
       <p>In <stache-code>about.service.ts</stache-code>, add data to the shared service so that multiple components can use it. First, import <stache-code>Injectable</stache-code> from Angular. Then copy the <stache-code>AboutService</stache-code> data from the <stache-code>about.component.ts</stache-code> file in <stache-code>src/app/about</stache-code> and update it to replace the public <stache-code>team</stache-code> method with a private <stache-code>users</stache-code> method and add <stache-code>id</stache-code> properties for each user. Then expose public methods to read the data.</p>
-      <stache-code-block>
+      <stache-code-block languageType="typescript">
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -56,7 +56,7 @@ export class AboutService {
     </li>
     <li>
       <p>In the <stache-code>about.component.ts</stache-code> file in <stache-code>src/app/about</stache-code>, import <stache-code>AboutService</stache-code> and update the public <stache-code>team</stache-code> method so that we can declare it in the constructor and use it to get users. We can also remove data from the public <stache-code>team</stache-code> method.</p>
-      <stache-code-block>
+      <stache-code-block languageType="typescript">
 import { Component } from '@angular/core';
 import { AboutService } from '../shared/about.service';
 
@@ -77,7 +77,7 @@ export class AboutComponent {
     </li>
     <li>
       <p>In the <stache-code>app-extras.module.ts</stache-code> file in <stache-code>src/app</stache-code>, to import <stache-code>AboutService</stache-code> and add it to the <stache-code>providers</stache-code> array.</p>
-      <stache-code-block>
+      <stache-code-block languageType="typescript">
 import { NgModule } from '@angular/core';
 import { AboutService } from './shared/about.service';
 
@@ -96,7 +96,7 @@ export class AppExtrasModule { }
     </li>
     <li>
       <p>In the <stache-code>_id</stache-code> subfolder, add <stache-code>about-user.component.ts</stache-code> to create a component. We need to import <stache-code>Component</stache-code>, <stache-code>Input</stache-code>, and <stache-code>OnInit</stache-code> from Angular, plus <stache-code>AboutService</stache-code>. After we define the component's selector and template, we can define the component class and the public <stache-code>userId</stache-code> and <stache-code>user</stache-code> input variables. We'll use <stache-code>userId</stache-code> to pass the ID into the component. We can also declare the <stache-code>aboutService</stache-code> as a constructor and use <stache-code>ngOnInit</stache-code> to retrieve users based on ID.</p>
-      <stache-code-block>
+      <stache-code-block languageType="typescript">
 import {
   Component,
   Input,
