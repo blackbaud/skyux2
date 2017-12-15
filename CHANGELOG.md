@@ -1,3 +1,9 @@
+# 2.5.0 (2017-12-15)
+
+- Added URL validation directive. [#1334](https://github.com/blackbaud/skyux2/pull/1334) (Thanks @Blackbaud-JeffDye)
+- Updated confirmation component API and event arguments. [#1333](https://github.com/blackbaud/skyux2/pull/1333)
+- Accessibility is now checked by default during visual tests. [#1313](https://github.com/blackbaud/skyux2/pull/1313)
+
 # 2.4.1 (2017-11-28)
 
 - Fixed missing files in published package. [#1315](https://github.com/blackbaud/skyux2/pull/1315)
