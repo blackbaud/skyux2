@@ -139,10 +139,7 @@
       </stache-code-block>
     </li>
     <li>
-      <p>In the <stache-code>src/app/shared</stache-code> folder, open the <stache-code>app-nav.component.ts</stache-code> file.</p>
-    </li>
-    <li>
-      <p>Add a path for the new page with <stache-code>titleKey</stache-code> set to Demo localization string and <stache-code>path</stache-code> set to "/demo." <stache-code>titleKey</stache-code> specifies a label for the menu, and <stache-code>path</stache-code> specifies the name of the folder.</p>
+      <p>In the <stache-code>src/app/shared</stache-code> folder, open the <stache-code>app-nav.component.ts</stache-code> file and add a path for the Demo page. Set <stache-code>titleKey</stache-code> to the localization string we just added to <stache-code>resources_en_US.json</stache-code>, and set <stache-code>path</stache-code> to "/demo." <stache-code>titleKey</stache-code> specifies a label for the menu, and <stache-code>path</stache-code> specifies the location of the folder.</p>
       <stache-code-block languageType="typescript">
         import { Component } from '@angular/core';
 
@@ -162,7 +159,7 @@
               path: '/about'
             },
             {
-              titleKey: 'Demo',
+              titleKey: 'app_nav_demo',
               path: '/demo'
             }
           ];
