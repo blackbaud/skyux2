@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -39,7 +38,7 @@ let nextId = 0;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyLookupComponent implements OnInit, AfterViewInit {
+export class SkyLookupComponent implements OnInit {
   @Input()
   public disabled = false;
 

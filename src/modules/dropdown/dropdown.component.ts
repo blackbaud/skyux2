@@ -16,13 +16,8 @@ import {
   ViewChild
 } from '@angular/core';
 
-import {
-  Observable
-} from 'rxjs/Observable';
-
-import {
-  Subscription
-} from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { SkyResources } from '../resources';
 import { SkyWindowRefService } from '../window';
@@ -50,21 +45,21 @@ export class SkyDropdownComponent
   implements OnInit, AfterContentInit, OnDestroy {
 
   @Input()
+  public set buttonStyle(value: string) {
+    this._buttonStyle = value;
+  }
+
+  public get buttonStyle(): string {
+    return this._buttonStyle || 'default';
+  }
+
+  @Input()
   public set buttonType(value: string) {
     this._buttonType = value;
   }
 
   public get buttonType(): string {
     return this._buttonType || 'select';
-  }
-
-  @Input()
-  public set trigger(value: SkyDropdownTriggerType) {
-    this._trigger = value;
-  }
-
-  public get trigger(): SkyDropdownTriggerType {
-    return this._trigger || 'click';
   }
 
   @Input()
@@ -77,25 +72,25 @@ export class SkyDropdownComponent
   }
 
   @Input()
-  public set buttonStyle(value: string) {
-    this._buttonStyle = value;
+  public set trigger(value: SkyDropdownTriggerType) {
+    this._trigger = value;
   }
 
-  public get buttonStyle(): string {
-    return this._buttonStyle || 'default';
+  public get trigger(): SkyDropdownTriggerType {
+    return this._trigger || 'click';
   }
-
-  @Input()
-  public disableNativeFocus = false;
-
-  @Input()
-  public title: string;
 
   @Input()
   public alignment = 'left';
 
   @Input()
+  public disableNativeFocus = false;
+
+  @Input()
   public messageStream: Observable<SkyDropdownMessageEventArgs> = Observable.of();
+
+  @Input()
+  public title: string;
 
   @Output()
   public menuChanges = new EventEmitter<SkyDropdownMenuChanges>();
@@ -106,10 +101,10 @@ export class SkyDropdownComponent
   @ContentChildren(SkyDropdownItemComponent, { descendants: true })
   public menuItems: QueryList<SkyDropdownItemComponent>;
 
-  private isOpen = false;
   private hasFocus = false;
-  private openedWithKeyboard = false;
+  private isOpen = false;
   private menuIndex = 0;
+  private openedWithKeyboard = false;
   private subscriptions: Subscription[] = [];
 
   private _trigger: SkyDropdownTriggerType;
@@ -118,11 +113,11 @@ export class SkyDropdownComponent
   private _label: string;
 
   constructor(
-    private renderer: Renderer,
-    private elRef: ElementRef,
     private adapterService: SkyDropdownAdapterService,
-    private windowObj: SkyWindowRefService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private elRef: ElementRef,
+    private renderer: Renderer,
+    private windowObj: SkyWindowRefService
   ) {
     this.adapterService.dropdownClose.subscribe(() => {
       this.isOpen = false;
@@ -207,11 +202,9 @@ export class SkyDropdownComponent
       break;
 
       case 'arrowdown':
-      event.preventDefault();
-
       // If the menu is first opened with a mouse click,
       // and the user attempts to navigate the items using the arrow keys,
-      // start the focus on the first item if it's the first keypress.
+      // reset the focus to the first item on the first keypress.
       // (Otherwise, the focus would start on the second item.)
       if (!this.openedWithKeyboard) {
         this.menuIndex = -1;
@@ -219,11 +212,12 @@ export class SkyDropdownComponent
       }
 
       this.focusNextMenuItem();
+      event.preventDefault();
       break;
 
       case 'arrowup':
-      event.preventDefault();
       this.focusPreviousMenuItem();
+      event.preventDefault();
       break;
 
       default:
@@ -350,7 +344,7 @@ export class SkyDropdownComponent
       });
 
     if (activeItem) {
-      activeItem.focusElement(this.disableNativeFocus);
+      activeItem.focusElement(!this.disableNativeFocus);
 
       this.menuChanges.emit({
         activeIndex: this.menuIndex
@@ -360,13 +354,13 @@ export class SkyDropdownComponent
     }
   }
 
+  private focusDropdownButton() {
+    this.dropdownButton.nativeElement.focus();
+  }
+
   private resetMenuItems() {
     this.menuItems.forEach((item: SkyDropdownItemComponent) => {
       item.resetState();
     });
-  }
-
-  private focusDropdownButton() {
-    this.dropdownButton.nativeElement.focus();
   }
 }

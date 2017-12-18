@@ -3,8 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
-  Input
+  ElementRef
 } from '@angular/core';
 
 @Component({
@@ -19,8 +18,8 @@ export class SkyDropdownItemComponent implements AfterViewInit {
   private buttonElement: HTMLElement;
 
   public constructor(
-    private elementRef: ElementRef,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private elementRef: ElementRef
   ) { }
 
   public ngAfterViewInit() {
@@ -31,10 +30,10 @@ export class SkyDropdownItemComponent implements AfterViewInit {
     }
   }
 
-  public focusElement(disableNativeFocus = false) {
+  public focusElement(allowNativeFocus = true) {
     this.isActive = true;
 
-    if (this.buttonElement && !disableNativeFocus) {
+    if (this.buttonElement && allowNativeFocus) {
       this.buttonElement.focus();
     }
 

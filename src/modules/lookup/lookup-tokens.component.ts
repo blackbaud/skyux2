@@ -143,7 +143,7 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
 
   private focusActiveToken() {
     const activeToken = this.tokenElements.find((token: any, i: number) => {
-      return (this.focusIndex === i)
+      return (this.focusIndex === i);
     });
 
     if (activeToken) {

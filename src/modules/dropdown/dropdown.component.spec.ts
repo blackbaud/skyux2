@@ -13,7 +13,7 @@ import { expect } from '../testing';
 
 import { SkyWindowRefService } from '../window';
 
-describe('Dropdown component', () => {
+fdescribe('Dropdown component', () => {
 
   function getDropdownEl(el: Element) {
     return <HTMLElement>el.querySelector('.sky-dropdown');
@@ -135,9 +135,9 @@ describe('Dropdown component', () => {
   describe('postition tests', () => {
 
     class MockWindowService {
+      public innerHeight = 100;
+      public innerWidth = 500;
 
-      public innerHeight: number = 100;
-      public innerWidth: number = 500;
       public getWindow() {
         return {
           innerHeight: this.innerHeight,
@@ -150,6 +150,7 @@ describe('Dropdown component', () => {
         };
       }
     }
+
     let mockWindowService = new MockWindowService();
 
     beforeEach(() => {
@@ -167,7 +168,6 @@ describe('Dropdown component', () => {
     });
 
     it('should display dropdown above when necessary', () => {
-
       mockWindowService.innerHeight = 100;
       mockWindowService.innerWidth = 500;
 
