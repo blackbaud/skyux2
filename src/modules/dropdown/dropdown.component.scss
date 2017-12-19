@@ -1,4 +1,8 @@
-@import "../../scss/mixins";
+@import '../../scss/mixins';
+
+.sky-dropdown {
+  display: inline-block;
+}
 
 .sky-dropdown-button-type-tab {
   @include sky-btn-tab;
@@ -18,18 +22,6 @@
   margin-left: $sky-margin;
 }
 
-.sky-dropdown-menu {
-  background-color: #fff;
-  display: none;
-  position: fixed;
-  @include sky-shadow;
-  z-index: $sky-dropdown-z-index;
-
-  &.sky-dropdown-open {
-    display: block;
-  }
-}
-
 .sky-dropdown-button-container {
   display: flex;
 }
@@ -42,11 +34,4 @@
 
 .sky-dropdown-button-icon-container {
   flex-grow: 1;
-}
-
-.sky-dropdown-menu {
-  /deep/ button {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }

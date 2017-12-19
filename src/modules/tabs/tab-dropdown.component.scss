@@ -1,4 +1,10 @@
-@import "../../scss/mixins";
+@import '../../scss/mixins';
+
+.sky-tab-dropdown {
+  ::ng-deep .sky-dropdown-item {
+    margin: 0;
+  }
+}
 
 .sky-tab-dropdown-button {
   max-width: 300px;

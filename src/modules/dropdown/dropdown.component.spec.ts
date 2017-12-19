@@ -2,18 +2,27 @@ import {
   TestBed
 } from '@angular/core/testing';
 
-import { By } from '@angular/platform-browser';
+import {
+  By
+} from '@angular/platform-browser';
+
+import {
+  expect,
+  TestUtility
+} from '../testing';
+
+import {
+  SkyWindowRefService
+} from '../window';
 
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
 import { DropdownParentTestComponent } from './fixtures/dropdown-parent.component.fixture';
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
 
-import { TestUtility } from '../testing/testutility';
-import { expect } from '../testing';
-
-import { SkyWindowRefService } from '../window';
-
 describe('Dropdown component', () => {
+  function getDropdownHostEl(el: Element) {
+    return <HTMLElement>el.querySelector('sky-dropdown');
+  }
 
   function getDropdownEl(el: Element) {
     return <HTMLElement>el.querySelector('.sky-dropdown');
@@ -37,28 +46,25 @@ describe('Dropdown component', () => {
     });
 
     it('should close dropdown on scroll events', () => {
-
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
 
       fixture.detectChanges();
 
       let parent1El = fixture.debugElement.query(By.css('#parent-1'));
-
       let dropdown1BtnEl = el.querySelector('#dropdown-1 .sky-dropdown-button') as HTMLElement;
 
       dropdown1BtnEl.click();
-
       fixture.detectChanges();
 
       parent1El.triggerEventHandler('scroll', {});
+
       let dropdownMenu1 = el.querySelector('#dropdown-1 .sky-dropdown-menu') as HTMLElement;
 
       expect(dropdownMenu1).not.toBeVisible();
     });
 
     it('should close dropdown on window scroll', () => {
-
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
 
@@ -69,22 +75,20 @@ describe('Dropdown component', () => {
       dropdown1BtnEl.click();
       fixture.detectChanges();
 
-      let dropdown3BtnEl = el.querySelector('#dropdown-3 .sky-dropdown-button') as HTMLElement;
+      let dropdown3BtnEl = el.querySelector('#dropdown-2 .sky-dropdown-button') as HTMLElement;
       dropdown3BtnEl.click();
       fixture.detectChanges();
 
       let windowScrollEvt = document.createEvent('CustomEvent');
       windowScrollEvt.initEvent('scroll', false, false);
-
       window.dispatchEvent(windowScrollEvt);
 
-      let dropdownMenu3 = el.querySelector('#dropdown-3 .sky-dropdown-menu') as HTMLElement;
+      let dropdownMenu3 = el.querySelector('#dropdown-2 .sky-dropdown-menu') as HTMLElement;
 
       expect(dropdownMenu3).not.toBeVisible();
     });
 
-     it('should close dropdown on multiple parent scroll', () => {
-
+    it('should close dropdown on multiple parent scroll', () => {
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
 
@@ -97,7 +101,6 @@ describe('Dropdown component', () => {
 
       let windowScrollEvt = document.createEvent('CustomEvent');
       windowScrollEvt.initEvent('scroll', false, false);
-
       window.dispatchEvent(windowScrollEvt);
 
       let dropdownMenu1 = el.querySelector('#dropdown-1 .sky-dropdown-menu') as HTMLElement;
@@ -105,8 +108,7 @@ describe('Dropdown component', () => {
       expect(dropdownMenu1).not.toBeVisible();
     });
 
-     it('should display default label when label not set', () => {
-
+    it('should display default label when label not set', () => {
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
 
@@ -118,26 +120,24 @@ describe('Dropdown component', () => {
       expect(label).toBe('Context menu');
     });
 
-     it('should display default label when label is set', () => {
-
+    it('should display label when label is set', () => {
       let fixture = TestBed.createComponent(DropdownParentTestComponent);
       let el: HTMLElement = fixture.nativeElement;
 
       fixture.detectChanges();
 
-      let button = el.querySelector('#dropdown-4 .sky-dropdown-button') as HTMLButtonElement;
+      let button = el.querySelector('#dropdown-3 .sky-dropdown-button') as HTMLButtonElement;
       let label = button.getAttribute('aria-label');
 
       expect(label).toBe('test label');
     });
   });
 
-  describe('postition tests', () => {
-
+  describe('position tests', () => {
     class MockWindowService {
+      public innerHeight = 100;
+      public innerWidth = 500;
 
-      public innerHeight: number = 100;
-      public innerWidth: number = 500;
       public getWindow() {
         return {
           innerHeight: this.innerHeight,
@@ -150,6 +150,7 @@ describe('Dropdown component', () => {
         };
       }
     }
+
     let mockWindowService = new MockWindowService();
 
     beforeEach(() => {
@@ -167,7 +168,6 @@ describe('Dropdown component', () => {
     });
 
     it('should display dropdown above when necessary', () => {
-
       mockWindowService.innerHeight = 100;
       mockWindowService.innerWidth = 500;
 
@@ -178,10 +178,10 @@ describe('Dropdown component', () => {
       el.style.top = '100px';
 
       fixture.detectChanges();
+
       let dropdownBtnEl = getDropdownBtnEl(el);
 
       dropdownBtnEl.click();
-
       fixture.detectChanges();
 
       let menuEl = el.querySelector('.sky-dropdown-menu') as HTMLElement;
@@ -191,7 +191,6 @@ describe('Dropdown component', () => {
     });
 
     it('should display dropdown center when necessary', () => {
-
       mockWindowService.innerHeight = 40;
       mockWindowService.innerWidth = 100;
 
@@ -207,9 +206,7 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
       let dropdownBtnEl = getDropdownBtnEl(el);
-
       dropdownBtnEl.click();
-
       fixture.detectChanges();
 
       let leftValue = menuEl.style.left;
@@ -359,7 +356,7 @@ describe('Dropdown component', () => {
       expect(getDropdownBtnEl(el)).toHaveCssClass('sky-dropdown-button-type-context-menu');
     });
 
-   it('should have a default button background of "sky-btn-default"', () => {
+    it('should have a default button background of "sky-btn-default"', () => {
       let fixture = TestBed.createComponent(DropdownTestComponent);
       let el: Element = fixture.nativeElement;
 
@@ -506,7 +503,7 @@ describe('Dropdown component', () => {
 
         fixture.detectChanges();
 
-        let dropdownEl = getDropdownEl(el);
+        let dropdownEl = getDropdownHostEl(el);
         TestUtility.fireDomEvent(dropdownEl, 'mouseenter');
 
         fixture.detectChanges();
@@ -524,7 +521,7 @@ describe('Dropdown component', () => {
 
         fixture.detectChanges();
 
-        let dropdownEl = getDropdownEl(el);
+        let dropdownEl = getDropdownHostEl(el);
         TestUtility.fireDomEvent(dropdownEl, 'mouseenter');
 
         let dropdownMenuEl = getDropdownMenuEl(el);
@@ -547,7 +544,7 @@ describe('Dropdown component', () => {
 
         fixture.detectChanges();
 
-        let dropdownEl = getDropdownEl(el);
+        let dropdownEl = getDropdownHostEl(el);
 
         TestUtility.fireDomEvent(dropdownEl, 'mouseenter');
 

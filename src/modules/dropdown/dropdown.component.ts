@@ -1,15 +1,31 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ContentChild,
   ElementRef,
+  HostListener,
   Input,
+  OnDestroy,
+  OnInit,
   Renderer,
-  OnDestroy
+  ViewChild
 } from '@angular/core';
 
-import { SkyDropdownAdapterService } from './dropdown-adapter.service';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
-import { SkyWindowRefService } from '../window';
 import { SkyResources } from '../resources';
+import { SkyWindowRefService } from '../window';
+
+import { SkyDropdownAdapterService } from './dropdown-adapter.service';
+import { SkyDropdownMenuComponent } from './dropdown-menu.component';
+
+import {
+  SkyDropdownMessageType,
+  SkyDropdownMessageEventArgs,
+  SkyDropdownTriggerType
+} from './types';
 
 @Component({
   selector: 'sky-dropdown',
@@ -17,9 +33,19 @@ import { SkyResources } from '../resources';
   styleUrls: ['./dropdown.component.scss'],
   providers: [
     SkyDropdownAdapterService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDropdownComponent implements OnDestroy {
+export class SkyDropdownComponent implements OnInit, OnDestroy {
+  @Input()
+  public set buttonStyle(value: string) {
+    this._buttonStyle = value;
+  }
+
+  public get buttonStyle(): string {
+    return this._buttonStyle || 'default';
+  }
+
   @Input()
   public set buttonType(value: string) {
     this._buttonType = value;
@@ -30,63 +56,185 @@ export class SkyDropdownComponent implements OnDestroy {
   }
 
   @Input()
-  public set trigger(value: string) {
-    this._trigger = value;
-  }
-
-  public get trigger(): string {
-    return this._trigger || 'click';
-  }
-
-  @Input()
-  public get label(): string{
-    return this._label || SkyResources.getString('context_menu_default_label');
-  }
-
   public set label(value: string) {
     this._label = value;
   }
 
+  public get label(): string {
+    return this._label || SkyResources.getString('context_menu_default_label');
+  }
+
+  @Input()
+  public set trigger(value: SkyDropdownTriggerType) {
+    this._trigger = value;
+  }
+
+  public get trigger(): SkyDropdownTriggerType {
+    return this._trigger || 'click';
+  }
+
+  @Input()
+  public alignment = 'left';
+
+  @Input()
+  public messageStream: Observable<SkyDropdownMessageEventArgs> = Observable.of();
+
   @Input()
   public title: string;
 
-  @Input()
-  public alignment: string = 'left';
+  @ViewChild('dropdownButton')
+  private dropdownButton: ElementRef;
 
-  @Input()
-  public get buttonStyle(): string{
-    return this._buttonStyle || 'default';
-  }
+  @ContentChild(SkyDropdownMenuComponent)
+  private menuComponent: SkyDropdownMenuComponent;
 
-  public set buttonStyle(value: string) {
-    this._buttonStyle = value;
-  }
+  private hasKeyboardFocus = false;
+  private isMouseEnter = false;
+  private isOpen = false;
+  private subscriptions: Subscription[] = [];
 
-  private open = false;
-
-  private opening = false;
-
+  private _trigger: SkyDropdownTriggerType;
   private _buttonType: string;
-
   private _buttonStyle: string;
-
-  private _trigger: string;
-
   private _label: string;
 
   constructor(
-    private renderer: Renderer,
-    private elRef: ElementRef,
     private adapterService: SkyDropdownAdapterService,
+    private changeDetector: ChangeDetectorRef,
+    private elRef: ElementRef,
+    private renderer: Renderer,
     private windowObj: SkyWindowRefService
   ) {
     this.adapterService.dropdownClose.subscribe(() => {
-      this.open = false;
+      this.isOpen = false;
+      this.hasKeyboardFocus = false;
+      this.menuComponent.resetIndex();
+      this.menuComponent.resetItems();
     });
   }
 
-  public click() {
-    this.openMenu();
+  public ngOnInit() {
+    const messageSubscription = this.messageStream
+      .subscribe((args: SkyDropdownMessageEventArgs) => {
+        this.handleIncomingMessages(args);
+      });
+
+    this.subscriptions.push(messageSubscription);
+  }
+
+  public ngOnDestroy() {
+    this.closeDropdown();
+
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
+  }
+
+  @HostListener('document:click', ['$event'])
+  public onDocumentClick(event: MouseEvent) {
+    if (this.isMouseEnter) {
+      return;
+    }
+
+    this.closeDropdown();
+    this.hasKeyboardFocus = false;
+  }
+
+  @HostListener('mouseenter')
+  public onMouseEnter() {
+    this.isMouseEnter = true;
+
+    if (this.trigger === 'hover') {
+      this.openDropdown();
+    }
+  }
+
+  @HostListener('mouseleave')
+  public onMouseLeave() {
+    this.isMouseEnter = false;
+
+    if (this.trigger === 'hover') {
+      this.closeDropdown();
+    }
+  }
+
+  @HostListener('keydown', ['$event'])
+  public onKeyDown(event: KeyboardEvent) {
+    const key = event.key.toLowerCase();
+
+    // Except for the enter key, all other events should
+    // only be handled when the dropdown is open.
+    if (!this.isOpen) {
+      if (key === 'enter') {
+        this.hasKeyboardFocus = true;
+        this.openDropdown();
+        event.preventDefault();
+      }
+
+      return;
+    }
+
+    switch (key) {
+      case 'tab':
+      case 'escape':
+      this.closeDropdown();
+      break;
+
+      case 'enter':
+      if (this.isOpen) {
+        // After the selected button is clicked,
+        // return focus to the dropdown trigger element.
+        this.windowObj.getWindow().setTimeout(() => {
+          this.focusDropdownButton();
+        });
+      }
+      break;
+
+      case 'arrowdown':
+      // If the menu is first opened with a mouse click,
+      // and the user attempts to navigate the items using the arrow keys,
+      // reset the focus to the first item on the first keypress.
+      // (Otherwise, the focus would start on the second item.)
+      if (!this.hasKeyboardFocus && this.menuComponent.menuIndex === -1) {
+        this.menuComponent.resetIndex();
+      }
+
+      this.menuComponent.focusNextItem();
+      event.preventDefault();
+      break;
+
+      case 'arrowup':
+      this.menuComponent.focusPreviousItem();
+      event.preventDefault();
+      break;
+
+      default:
+      break;
+    }
+
+    // Pressing the escape key should return focus to the trigger.
+    if (key === 'escape') {
+      this.focusDropdownButton();
+    }
+  }
+
+  public onButtonClick(event: MouseEvent) {
+    this.hasKeyboardFocus = false;
+    this.toggleDropdown();
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  public onMenuClick() {
+    this.closeDropdown();
+  }
+
+  public onButtonFocus() {
+    this.hasKeyboardFocus = true;
+  }
+
+  public onButtonBlur() {
+    this.hasKeyboardFocus = false;
   }
 
   public resetDropdownPosition() {
@@ -98,46 +246,93 @@ export class SkyDropdownComponent implements OnDestroy {
     );
   }
 
-  public windowClick() {
-    if (this.opening) {
-      this.opening = false;
-      this.open = true;
+  public getClassNames(): string[] {
+    const classNames = [];
+
+    classNames.push('sky-dropdown-button-type-' + this.buttonType);
+    classNames.push('sky-btn-' + this.buttonStyle);
+
+    if (this.hasKeyboardFocus) {
+      classNames.push('sky-btn-focus');
+    }
+
+    return classNames;
+  }
+
+  private toggleDropdown() {
+    if (this.isOpen) {
+      this.closeDropdown();
     } else {
-      this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
+      this.openDropdown();
     }
   }
 
-  public mouseEnter() {
-    if (this.trigger === 'hover') {
-      this.openMenu();
-      this.opening = false;
-      this.open = true;
+  private openDropdown() {
+    this.menuComponent.resetIndex();
+
+    // Only open the menu if there are focusable items.
+    if (this.isOpen) {
+      return;
+    }
+
+    this.adapterService.showDropdown(
+      this.elRef,
+      this.renderer,
+      this.windowObj.getWindow(),
+      this.alignment
+    );
+
+    this.isOpen = true;
+
+    // Focus the first item if the menu was opened with the keyboard.
+    if (this.hasKeyboardFocus) {
+      this.menuComponent.focusFirstItem();
     }
   }
 
-  public mouseLeave() {
-    if (this.trigger === 'hover') {
-      this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
+  private closeDropdown() {
+    if (!this.isOpen) {
+      return;
+    }
+
+    this.adapterService.hideDropdown(
+      this.elRef,
+      this.renderer,
+      this.windowObj.getWindow()
+    );
+  }
+
+  private focusDropdownButton() {
+    this.menuComponent.resetItems();
+    this.hasKeyboardFocus = true;
+    this.dropdownButton.nativeElement.focus();
+    this.changeDetector.markForCheck();
+  }
+
+  private handleIncomingMessages(args: SkyDropdownMessageEventArgs) {
+    switch (args.message) {
+      case SkyDropdownMessageType.Open:
+      this.openDropdown();
+      break;
+
+      case SkyDropdownMessageType.Close:
+      this.closeDropdown();
+      break;
+
+      case SkyDropdownMessageType.FocusTriggerButton:
+      this.focusDropdownButton();
+      break;
+
+      case SkyDropdownMessageType.FocusNextItem:
+      this.menuComponent.focusNextItem();
+      break;
+
+      case SkyDropdownMessageType.FocusPreviousItem:
+      this.menuComponent.focusPreviousItem();
+      break;
+
+      default:
+      break;
     }
   }
-
-  public ngOnDestroy() {
-    this.adapterService.hideDropdown(this.elRef, this.renderer, this.windowObj.getWindow());
-  }
-
-  private openMenu() {
-    if (!this.open) {
-      this.adapterService.showDropdown(
-        this.elRef,
-        this.renderer,
-        this.windowObj.getWindow(),
-        this.alignment
-      );
-
-      // Notify the window click handler that the menu was just opened so it doesn't try to
-      // close it.
-      this.opening = true;
-    }
-  }
-
 }

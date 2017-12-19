@@ -211,12 +211,7 @@ export {
   SkyDefinitionListValueComponent
 } from './modules/definition-list';
 
-export {
-  SkyDropdownComponent,
-  SkyDropdownItemComponent,
-  SkyDropdownMenuComponent,
-  SkyDropdownModule
-} from './modules/dropdown';
+export * from './modules/dropdown';
 
 export {
   SkyEmailValidationDirective,

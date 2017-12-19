@@ -137,10 +137,9 @@ describe('List column selector action', () => {
     getChooseColumnsAction().click();
     tick();
 
-    let checkboxLabelEl =
-      document
-        .querySelectorAll('.sky-modal .sky-list-view-checklist-item input') as
-        NodeListOf<HTMLElement>;
+    let checkboxLabelEl = document.querySelectorAll(
+      '.sky-modal .sky-list-view-checklist-item input'
+    ) as NodeListOf<HTMLElement>;
 
     expect(checkboxLabelEl.length).toBe(2);
     checkboxLabelEl.item(0).click();
@@ -149,15 +148,16 @@ describe('List column selector action', () => {
 
     let submitButtonEl =
       document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
-
     submitButtonEl.click();
+
     tick();
 
     component.grid.gridState.take(1).subscribe((gridState) => {
+      console.log('gridstate:', gridState.displayedColumns.items);
       expect(gridState.displayedColumns.items.length).toBe(2);
     });
-    tick();
 
+    tick();
   }));
 
   it('should keep previous columns on cancel', fakeAsync(() => {
