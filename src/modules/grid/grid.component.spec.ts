@@ -707,7 +707,9 @@ describe('Grid Component', () => {
 
   describe('async headings', () => {
     it('should handle async column headings', (done: any) => {
+      let component: GridAsyncTestComponent;
       let fixture: ComponentFixture<GridAsyncTestComponent>;
+      let nativeElement: HTMLElement;
       let element: DebugElement;
 
       TestBed.configureTestingModule({
@@ -718,7 +720,9 @@ describe('Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(GridAsyncTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
 
       fixture.detectChanges();
 

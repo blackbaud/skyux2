@@ -199,14 +199,6 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       break;
 
       case 'arrowdown':
-      // If the menu is first opened with a mouse click,
-      // and the user attempts to navigate the items using the arrow keys,
-      // reset the focus to the first item on the first keypress.
-      // (Otherwise, the focus would start on the second item.)
-      // if (!this.hasKeyboardFocus && this.menuComponent.menuIndex === -1) {
-      //   this.menuComponent.resetIndex();
-      // }
-
       this.menuComponent.focusNextItem();
       event.preventDefault();
       break;

@@ -33,7 +33,8 @@ let componentIdIndex = 0;
 
 export class SkyColorpickerComponent implements OnInit {
   @Output()
-  public selectedColorChanged = new EventEmitter<SkyColorpickerOutput>();
+  public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
+    new EventEmitter<SkyColorpickerOutput>();
 
   public idIndex: number;
   public skyColorpickerHexId: string;
@@ -123,6 +124,7 @@ export class SkyColorpickerComponent implements OnInit {
   public ngOnInit() {
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
+
   }
 
   public closePicker() {
@@ -136,7 +138,6 @@ export class SkyColorpickerComponent implements OnInit {
 
   public setColorFromString(value: string) {
     let hsva: SkyColorpickerHsva;
-
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);
       if (!hsva && !this.hsva) {
@@ -145,7 +146,6 @@ export class SkyColorpickerComponent implements OnInit {
     } else {
       hsva = this.service.stringToHsva(value, false);
     }
-
     if (hsva) {
       this.hsva = hsva;
       this.update();
@@ -198,19 +198,19 @@ export class SkyColorpickerComponent implements OnInit {
   }
 
   public update() {
-    const hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
-    const dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
-    const rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
-    const dRgba: SkyColorpickerRgba = this.service.denormalizeRGBA(rgba);
+    let hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
+    let dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
+    let rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
+    let dRgba: SkyColorpickerRgba = this.service.denormalizeRGBA(rgba);
 
-    const hsva: SkyColorpickerHsva = {
+    let hsva: SkyColorpickerHsva = {
       'hue': this.hsva.hue,
       'saturation': 1,
       'value': 1,
       'alpha': 1
     };
 
-    const hueRgba = this.service.denormalizeRGBA(
+    let hueRgba = this.service.denormalizeRGBA(
       this.service.hsvaToRgba(hsva)
     );
 
@@ -225,22 +225,18 @@ export class SkyColorpickerComponent implements OnInit {
       this.format++;
     }
 
-    const lastOutput = this.outputColor;
-
+    let lastOutput = this.outputColor;
     this.outputColor = this.service.outputFormat(
       this.hsva,
       this.outputFormat,
-      this.alphaChannel === 'hex8'
-    );
-
+      this.alphaChannel === 'hex8');
     this.selectedColor = this.service.skyColorpickerOut(this.hsva);
 
-    const hue = (this.hsva.hue) * this.sliderDimMax.hue - 8;
-    const saturation = this.hsva.saturation * this.sliderDimMax.saturation - 8;
-    const value = (1 - this.hsva.value) * this.sliderDimMax.value - 8;
-    const alpha = this.hsva.alpha * this.sliderDimMax.alpha - 8;
-
-    this.slider = new SliderPosition(hue, saturation, value, alpha);
+    this.slider = new SliderPosition(
+      (this.hsva.hue) * this.sliderDimMax.hue - 8,
+      this.hsva.saturation * this.sliderDimMax.saturation - 8,
+      (1 - this.hsva.value) * this.sliderDimMax.value - 8,
+      this.hsva.alpha * this.sliderDimMax.alpha - 8);
 
     if (lastOutput !== this.outputColor) {
       this.selectedColorChanged.emit(this.selectedColor);

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SkyDropdownModule } from '../dropdown.module';
-
+import { SkyDropdownModule } from '../';
 import { DropdownTestComponent } from './dropdown.component.fixture';
 import { DropdownParentTestComponent } from './dropdown-parent.component.fixture';
 
