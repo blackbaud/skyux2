@@ -145,14 +145,16 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   private focusActiveItem() {
     const activeItem = this.getActiveItem();
 
-    this.resetItems();
-    activeItem.focusElement(this.useNativeFocus);
+    if (activeItem) {
+      this.resetItems();
+      activeItem.focusElement(this.useNativeFocus);
 
-    this.menuChanges.emit({
-      activeIndex: this._menuIndex
-    });
+      this.menuChanges.emit({
+        activeIndex: this._menuIndex
+      });
 
-    this.changeDetector.detectChanges();
+      this.changeDetector.detectChanges();
+    }
   }
 
   private checkFocusableItems() {
