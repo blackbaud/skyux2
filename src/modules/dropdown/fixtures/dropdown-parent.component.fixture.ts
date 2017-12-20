@@ -61,4 +61,9 @@ export class DropdownParentTestComponent {
     ];
     this.changeDetector.detectChanges();
   }
+
+  public removeItems() {
+    this.changingItems = [];
+    this.changeDetector.detectChanges();
+  }
 }

@@ -182,6 +182,35 @@ describe('Dropdown component', () => {
       expect(menuItems[0]).toHaveCssClass(activeItemClass);
       expect(menuItems[1]).not.toHaveCssClass(activeItemClass);
     }));
+
+    it('should not focus items if they do not exist', fakeAsync(() => {
+      const fixture = TestBed.createComponent(DropdownParentTestComponent);
+      const el = fixture.nativeElement.querySelector('#dropdown-7');
+
+      fixture.detectChanges();
+
+      const buttonEl = getDropdownBtnEl(el);
+      const menuEl = getDropdownMenuEl(el);
+      const hostEl = getDropdownHostEl(el);
+
+      const spy = spyOn(fixture.componentInstance.changingDropdownMenu.menuChanges, 'emit')
+        .and.callThrough();
+
+      buttonEl.click();
+      fixture.detectChanges();
+      expect(menuEl).toBeVisible();
+
+      fixture.componentInstance.removeItems();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
+
+      const menuItems = menuEl.querySelectorAll('.sky-dropdown-item');
+      expect(menuItems.length).toEqual(0);
+      expect(spy).not.toHaveBeenCalled();
+    }));
   });
 
   describe('message stream', () => {
