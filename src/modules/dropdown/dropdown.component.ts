@@ -181,13 +181,11 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       break;
 
       case 'enter':
-      if (this.isOpen) {
-        // After the selected button is clicked,
-        // return focus to the dropdown trigger element.
-        this.windowObj.getWindow().setTimeout(() => {
-          this.focusDropdownButton();
-        });
-      }
+      // After the selected button is clicked,
+      // return focus to the dropdown trigger element.
+      this.windowObj.getWindow().setTimeout(() => {
+        this.focusDropdownButton();
+      });
       break;
 
       case 'arrowdown':
@@ -195,9 +193,9 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       // and the user attempts to navigate the items using the arrow keys,
       // reset the focus to the first item on the first keypress.
       // (Otherwise, the focus would start on the second item.)
-      if (!this.hasKeyboardFocus && this.menuComponent.menuIndex === -1) {
-        this.menuComponent.resetIndex();
-      }
+      // if (!this.hasKeyboardFocus && this.menuComponent.menuIndex === -1) {
+      //   this.menuComponent.resetIndex();
+      // }
 
       this.menuComponent.focusNextItem();
       event.preventDefault();
@@ -270,7 +268,6 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   private openDropdown() {
     this.menuComponent.resetIndex();
 
-    // Only open the menu if there are focusable items.
     if (this.isOpen) {
       return;
     }
@@ -310,6 +307,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   private handleIncomingMessages(args: SkyDropdownMessageEventArgs) {
+    /* tslint:disable:switch-default */
     switch (args.message) {
       case SkyDropdownMessageType.Open:
       this.openDropdown();
@@ -330,9 +328,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       case SkyDropdownMessageType.FocusPreviousItem:
       this.menuComponent.focusPreviousItem();
       break;
-
-      default:
-      break;
     }
+    /* tslint:enable */
   }
 }

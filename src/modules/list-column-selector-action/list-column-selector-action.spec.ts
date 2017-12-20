@@ -153,7 +153,6 @@ describe('List column selector action', () => {
     tick();
 
     component.grid.gridState.take(1).subscribe((gridState) => {
-      console.log('gridstate:', gridState.displayedColumns.items);
       expect(gridState.displayedColumns.items.length).toBe(2);
     });
 
