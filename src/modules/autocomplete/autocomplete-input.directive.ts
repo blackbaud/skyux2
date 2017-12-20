@@ -3,7 +3,8 @@ import {
   ElementRef,
   EventEmitter,
   OnDestroy,
-  OnInit
+  OnInit,
+  Renderer2
 } from '@angular/core';
 
 import {
@@ -28,7 +29,8 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef,
-    private control: NgControl
+    private control: NgControl,
+    private renderer: Renderer2
   ) { }
 
   public ngOnInit() {
@@ -40,12 +42,12 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
       })
     );
 
-    // Disable automatic browser behavior on the field.
     const input = this.elementRef.nativeElement;
-    input.autocomplete = 'off';
-    input.autocapitalize = 'off';
-    input.autocorrect = 'off';
-    input.spellcheck = 'false';
+    this.renderer.setAttribute(input, 'autocomplete', 'off');
+    this.renderer.setAttribute(input, 'autocapitalize', 'off');
+    this.renderer.setAttribute(input, 'autocorrect', 'off');
+    this.renderer.setAttribute(input, 'spellcheck', 'false');
+    this.renderer.addClass(input, 'sky-form-control');
   }
 
   public ngOnDestroy() {

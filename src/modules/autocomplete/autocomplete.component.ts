@@ -30,7 +30,7 @@ import {
 } from './autocomplete-input.directive';
 
 import {
-  SkyAutocompleteChanges,
+  SkyAutocompleteInputChanges,
   SkyAutocompleteSearchResultSelectedEventArgs,
   SkyAutocompleteSearchFunction,
   SkyAutocompleteSearchResponse
@@ -74,13 +74,12 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public searchResultsIndex = 0;
 
   @Output()
-  public resultSelected = new EventEmitter<SkyAutocompleteSearchResultSelectedEventArgs>();
+  public searchResultSelected = new EventEmitter<SkyAutocompleteSearchResultSelectedEventArgs>();
 
   @ContentChild(SkyAutocompleteInputDirective)
   public inputDirective: SkyAutocompleteInputDirective;
 
   public dropdownMessages = new Subject<SkyDropdownMessageEventArgs>();
-
   public selectedItem: any;
   public searchText: string;
 
@@ -97,7 +96,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public ngAfterContentInit() {
     this.subscriptions.push(
       this.inputDirective.valueChanges
-        .subscribe((changes: SkyAutocompleteChanges) => {
+        .subscribe((changes: SkyAutocompleteInputChanges) => {
           const searchText = changes.inputValue;
 
           if (this.isTextEmpty(searchText)) {
@@ -136,16 +135,12 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     switch (key) {
       case 'arrowdown':
       event.preventDefault();
-      this.dropdownMessages.next({
-        message: SkyDropdownMessageType.FocusNextItem
-      });
+      this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
       break;
 
       case 'arrowup':
       event.preventDefault();
-      this.dropdownMessages.next({
-        message: SkyDropdownMessageType.FocusPreviousItem
-      });
+      this.sendDropdownMessage(SkyDropdownMessageType.FocusPreviousItem);
       break;
 
       case 'tab':
@@ -211,20 +206,20 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   }
 
   public closeDropdown() {
-    this.dropdownMessages.next({
-      message: SkyDropdownMessageType.Close
-    });
+    this.sendDropdownMessage(SkyDropdownMessageType.Close);
   }
 
   public openDropdown() {
-    this.dropdownMessages.next({
-      message: SkyDropdownMessageType.Open
-    });
+    this.sendDropdownMessage(SkyDropdownMessageType.Open);
   }
 
   public onSearchResultClicked(index: number) {
     this.searchResultsIndex = index;
     this.selectActiveSearchResult();
+  }
+
+  public hasSearchResults(): boolean {
+    return (this.searchResults && this.searchResults.length > 0);
   }
 
   private selectActiveSearchResult() {
@@ -294,38 +289,17 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     return results;
   }
 
-  // private incrementActiveSearchResultIndex() {
-  //   this.searchResultsIndex++;
-
-  //   if (this.searchResultsIndex >= this.searchResults.length) {
-  //     this.searchResultsIndex = 0;
-  //   }
-  // }
-
-  // private decrementActiveSearchResultIndex() {
-  //   if (!this.hasSearchResults()) {
-  //     this.searchResultsIndex = 0;
-  //     return;
-  //   }
-
-  //   this.searchResultsIndex--;
-
-  //   if (this.searchResultsIndex < 0) {
-  //     this.searchResultsIndex = this.searchResults.length - 1;
-  //   }
-  // }
-
   private notifyResultSelected(result: any) {
-    this.resultSelected.emit({
+    this.searchResultSelected.emit({
       result
     });
   }
 
-  private hasSearchResults(): boolean {
-    return (this.searchResults && this.searchResults.length > 0);
-  }
-
   private isTextEmpty(text: string) {
     return (!text || text.match(/^\s+$/));
+  }
+
+  private sendDropdownMessage(message: SkyDropdownMessageType) {
+    this.dropdownMessages.next({ message });
   }
 }

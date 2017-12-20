@@ -6,7 +6,6 @@ import {
 
 import {
   FormBuilder,
-  FormControl,
   FormGroup
 } from '@angular/forms';
 
@@ -20,6 +19,8 @@ import {
 })
 export class SkyAutocompleteDemoComponent implements OnInit {
   public commandStream = new EventEmitter<any>();
+  public selectedColor: any;
+  public formModel: FormGroup;
 
   public colors: any[] = [
     { name: 'Red' },
@@ -33,8 +34,6 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     { name: 'Black' }
   ];
 
-  public formModel: FormGroup;
-
   constructor(
     private formBuilder: FormBuilder
   ) { }
@@ -44,31 +43,31 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     this.formModel.reset({});
   }
 
-  public openDropdown(event: MouseEvent) {
-    this.commandStream.emit({
-      command: 'open'
-    });
-    event.stopPropagation();
-  }
+  // public openDropdown(event: MouseEvent) {
+  //   this.commandStream.emit({
+  //     command: 'open'
+  //   });
+  //   event.stopPropagation();
+  // }
 
-  public closeDropdown(event: MouseEvent) {
-    this.commandStream.emit({
-      command: 'close'
-    });
-    event.stopPropagation();
-  }
+  // public closeDropdown(event: MouseEvent) {
+  //   this.commandStream.emit({
+  //     command: 'close'
+  //   });
+  //   event.stopPropagation();
+  // }
 
   public submit() {
-    console.log('submitted with:', this.formModel.value);
+    alert(`Your favorite color is ${this.formModel.value.favoriteColor}!`);
   }
 
-  public mySearchFunction(searchText: string): any[] {
-    console.log('searching based on:', searchText);
-    return [{}];
-  }
+  // public mySearchFunction(searchText: string): any[] {
+  //   console.log('searching based on:', searchText);
+  //   return [{}];
+  // }
 
-  public onResultSelected(changes: SkyAutocompleteSearchResultSelectedEventArgs) {
-    console.log('Autocomplete, you selected:', changes.result);
+  public onSearchResultSelected(changes: SkyAutocompleteSearchResultSelectedEventArgs) {
+    this.selectedColor = changes.result;
   }
 
   private createForm(): void {

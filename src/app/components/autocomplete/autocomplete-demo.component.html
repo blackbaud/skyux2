@@ -3,19 +3,27 @@
   (ngSubmit)="submit()"
   novalidate>
 
-  <label for="my-id">
-    What is your favorite color?
-  </label>
+  <div class="sky-form-group">
+    <label
+      for="my-id"
+      class="sky-control-label">
+      What is your favorite color?
+    </label>
 
-  <sky-autocomplete
-    [data]="colors"
-    (resultSelected)="onResultSelected($event)">
-    <input
-      skyAutocompleteInput
-      id="my-id"
-      type="text"
-      formControlName="favoriteColor">
-  </sky-autocomplete>
+    <sky-autocomplete
+      [data]="colors"
+      (searchResultSelected)="onSearchResultSelected($event)">
+      <input
+        skyAutocompleteInput
+        id="my-id"
+        type="text"
+        formControlName="favoriteColor">
+    </sky-autocomplete>
+  </div>
+
+  <sky-alert alertType="info" *ngIf="selectedColor">
+    You selected '{{ selectedColor.name }}'
+  </sky-alert>
 
   <button
     class="sky-btn sky-btn-primary"

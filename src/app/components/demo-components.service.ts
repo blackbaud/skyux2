@@ -27,6 +27,26 @@ export class SkyDemoComponentsService {
         }
       },
       {
+        name: 'Autocomplete',
+        icon: 'circle',
+        summary: 'The autocomplete component...',
+        url: '/components/autocomplete',
+        getCodeFiles: function () {
+          return [
+            {
+              name: 'autocomplete-demo.component.html',
+              fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.html')
+            },
+            {
+              name: 'autocomplete-demo.component.ts',
+              fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.ts'),
+              componentName: 'SkyAutocompleteDemoComponent',
+              bootstrapSelector: 'sky-autocomplete-demo'
+            }
+          ];
+        }
+      },
+      {
         name: 'Avatar',
         icon: 'user',
         // tslint:disable-next-line

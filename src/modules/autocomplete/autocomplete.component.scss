@@ -1,3 +1,9 @@
+.sky-lookup-results-hidden {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
 ::ng-deep .sky-dropdown-button {
   visibility: hidden;
   height: 0px;

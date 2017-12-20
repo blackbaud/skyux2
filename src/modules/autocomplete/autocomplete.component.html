@@ -1,7 +1,9 @@
 <div class="sky-autocomplete">
   <ng-content>
   </ng-content>
-  <div class="sky-lookup-results">
+  <div
+    class="sky-lookup-results"
+    [ngClass]="{ 'sky-lookup-results-hidden': !hasSearchResults() }">
 
     <sky-dropdown
       [messageStream]="dropdownMessages">
@@ -27,7 +29,6 @@
       </sky-dropdown-menu>
     </sky-dropdown>
   </div>
-
   <ng-template
     let-item="item"
     #defaultSearchResultTemplate>
