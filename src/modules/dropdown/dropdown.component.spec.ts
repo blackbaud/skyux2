@@ -20,9 +20,21 @@ import {
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
 import { DropdownParentTestComponent } from './fixtures/dropdown-parent.component.fixture';
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
-import { SkyDropdownMessageType } from './types';
+
+import {
+  SkyDropdownMessageType
+} from './types';
 
 describe('Dropdown component', () => {
+  const activeItemClass = 'sky-dropdown-item-active';
+
+  function dispatchKeyDownEvent(elem: any, key: string) {
+    const keyboardEvent: any = document.createEvent('CustomEvent');
+    keyboardEvent.key = key;
+    keyboardEvent.initEvent('keydown', true, true);
+    elem.dispatchEvent(keyboardEvent);
+  }
+
   function getDropdownHostEl(el: Element) {
     return <HTMLElement>el.querySelector('sky-dropdown');
   }
@@ -134,6 +146,42 @@ describe('Dropdown component', () => {
 
       expect(label).toBe('test label');
     });
+
+    it('should reset focus when menu items change', fakeAsync(() => {
+      const fixture = TestBed.createComponent(DropdownParentTestComponent);
+      const el = fixture.nativeElement.querySelector('#dropdown-7');
+
+      fixture.detectChanges();
+
+      const buttonEl = getDropdownBtnEl(el);
+      const menuEl = getDropdownMenuEl(el);
+      const hostEl = getDropdownHostEl(el);
+
+      buttonEl.click();
+      fixture.detectChanges();
+      expect(menuEl).toBeVisible();
+
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
+      fixture.detectChanges();
+
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
+      fixture.detectChanges();
+
+      let menuItems = menuEl.querySelectorAll('.sky-dropdown-item');
+      expect(menuItems[0]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).toHaveCssClass(activeItemClass);
+      expect(menuItems[2]).not.toHaveCssClass(activeItemClass);
+
+      fixture.componentInstance.changeItems();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      menuItems = menuEl.querySelectorAll('.sky-dropdown-item');
+      expect(menuItems.length).toEqual(2);
+      expect(menuItems[0]).toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).not.toHaveCssClass(activeItemClass);
+    }));
   });
 
   describe('message stream', () => {
@@ -212,13 +260,13 @@ describe('Dropdown component', () => {
 
       tick();
       fixture.detectChanges();
-      expect(menuItems[0]).toHaveCssClass('sky-dropdown-item-active');
+      expect(menuItems[0]).toHaveCssClass(activeItemClass);
 
       component.sendMessage(SkyDropdownMessageType.FocusPreviousItem);
 
       tick();
       fixture.detectChanges();
-      expect(menuItems[2]).toHaveCssClass('sky-dropdown-item-active');
+      expect(menuItems[2]).toHaveCssClass(activeItemClass);
     }));
 
     it('should allow focusing trigger button', fakeAsync(() => {
@@ -389,6 +437,30 @@ describe('Dropdown component', () => {
       expect(overflowX).toBe('auto');
 
       expect(document.body).toHaveCssClass('sky-dropdown-no-scroll');
+    });
+
+    it('should reset dropdown position on window resize', () => {
+      const fixture = TestBed.createComponent(DropdownTestComponent);
+      const component = fixture.componentInstance;
+      const el = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      const buttonEl = getDropdownBtnEl(el);
+      const menuEl = getDropdownMenuEl(el);
+
+      const dropdownComponent: any = component.vanillaDropdown;
+      const spy = spyOn(dropdownComponent['adapterService'], 'setMenuLocation').and.callThrough();
+
+      buttonEl.click();
+      fixture.detectChanges();
+      expect(menuEl).toBeVisible();
+
+      TestUtility.fireDomEvent(window, 'resize');
+      fixture.detectChanges();
+
+      expect(menuEl).toBeVisible();
+      expect(spy.calls.count()).toEqual(2);
     });
   });
 
@@ -770,7 +842,7 @@ describe('Dropdown component', () => {
         imports: [
           SkyDropdownFixturesModule
         ]
-      });
+      }).compileComponents();
     });
 
     it('should add a focus css class to the trigger button when focused', () => {
@@ -782,6 +854,7 @@ describe('Dropdown component', () => {
       let dropdownBtnEl = getDropdownBtnEl(el);
       TestUtility.fireDomEvent(dropdownBtnEl, 'focus');
       fixture.detectChanges();
+
       expect(dropdownBtnEl).toHaveCssClass('sky-btn-focus');
       TestUtility.fireDomEvent(dropdownBtnEl, 'blur');
     });
@@ -799,11 +872,7 @@ describe('Dropdown component', () => {
       dropdownBtnEl.click();
       expect(dropdownMenuEl).toBeVisible();
 
-      const keyboardEvent: any = document.createEvent('CustomEvent');
-      keyboardEvent.key = 'escape';
-      keyboardEvent.initEvent('keydown', true, true);
-      hostEl.dispatchEvent(keyboardEvent);
-
+      dispatchKeyDownEvent(hostEl, 'escape');
       fixture.detectChanges();
 
       expect(dropdownMenuEl).not.toBeVisible();
@@ -823,11 +892,7 @@ describe('Dropdown component', () => {
       dropdownBtnEl.click();
       expect(dropdownMenuEl).toBeVisible();
 
-      const keyboardEvent: any = document.createEvent('CustomEvent');
-      keyboardEvent.key = 'tab';
-      keyboardEvent.initEvent('keydown', true, true);
-      hostEl.dispatchEvent(keyboardEvent);
-
+      dispatchKeyDownEvent(hostEl, 'tab');
       fixture.detectChanges();
 
       expect(dropdownMenuEl).not.toBeVisible();
@@ -840,20 +905,16 @@ describe('Dropdown component', () => {
 
       fixture.detectChanges();
 
-      let keyboardEvent: any = document.createEvent('CustomEvent');
-      keyboardEvent.key = 'enter';
-      keyboardEvent.initEvent('keydown', true, true);
-
       const hostEl = getDropdownHostEl(el);
       const dropdownBtnEl = getDropdownBtnEl(el);
       const dropdownMenuEl = getDropdownMenuEl(el);
 
-      hostEl.dispatchEvent(keyboardEvent);
+      dispatchKeyDownEvent(hostEl, 'enter');
       fixture.detectChanges();
 
       expect(dropdownMenuEl).toBeVisible();
 
-      dropdownMenuEl.dispatchEvent(keyboardEvent);
+      dispatchKeyDownEvent(hostEl, 'enter');
       dropdownMenuEl.click();
 
       tick();
@@ -876,33 +937,104 @@ describe('Dropdown component', () => {
       dropdownBtnEl.click();
       expect(dropdownMenuEl).toBeVisible();
 
-      const keyboardEvent: any = document.createEvent('CustomEvent');
-      keyboardEvent.key = 'arrowdown';
-      keyboardEvent.initEvent('keydown', true, true);
-      hostEl.dispatchEvent(keyboardEvent);
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
       fixture.detectChanges();
 
       const menuItems = dropdownMenuEl.querySelectorAll('.sky-dropdown-item');
 
-      expect(menuItems[0]).toHaveCssClass('sky-dropdown-item-active');
+      expect(menuItems[0]).toHaveCssClass(activeItemClass);
 
-      keyboardEvent.key = 'arrowup';
-      hostEl.dispatchEvent(keyboardEvent);
+      dispatchKeyDownEvent(hostEl, 'arrowup');
       fixture.detectChanges();
 
-      expect(menuItems[2]).toHaveCssClass('sky-dropdown-item-active');
+      expect(menuItems[2]).toHaveCssClass(activeItemClass);
 
-      hostEl.dispatchEvent(keyboardEvent);
+      dispatchKeyDownEvent(hostEl, 'arrowup');
       fixture.detectChanges();
 
-      expect(menuItems[1]).toHaveCssClass('sky-dropdown-item-active');
+      expect(menuItems[1]).toHaveCssClass(activeItemClass);
 
-      keyboardEvent.key = 'arrowdown';
-      hostEl.dispatchEvent(keyboardEvent);
-      hostEl.dispatchEvent(keyboardEvent);
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
       fixture.detectChanges();
 
-      expect(menuItems[0]).toHaveCssClass('sky-dropdown-item-active');
+      expect(menuItems[0]).toHaveCssClass(activeItemClass);
+    });
+
+    it('should skip disabled items with arrow keys', () => {
+      const fixture = TestBed.createComponent(DropdownParentTestComponent);
+      const el = fixture.nativeElement.querySelector('#dropdown-5');
+
+      fixture.detectChanges();
+
+      const hostEl = getDropdownHostEl(el);
+      const dropdownBtnEl = getDropdownBtnEl(el);
+      const dropdownMenuEl = getDropdownMenuEl(el);
+
+      fixture.componentInstance.keyboardDropdownMenu.ngAfterContentInit();
+
+      dropdownBtnEl.click();
+      expect(dropdownMenuEl).toBeVisible();
+
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
+      fixture.detectChanges();
+
+      const menuItems = dropdownMenuEl.querySelectorAll('.sky-dropdown-item');
+      expect(menuItems[0]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).toHaveCssClass(activeItemClass);
+      expect(menuItems[2]).not.toHaveCssClass(activeItemClass);
+
+      dispatchKeyDownEvent(hostEl, 'arrowup');
+      fixture.detectChanges();
+
+      expect(menuItems[0]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[2]).toHaveCssClass(activeItemClass);
+
+      fixture.componentInstance.keyboardDropdownMenu.focusFirstItem();
+      fixture.detectChanges();
+
+      expect(menuItems[0]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).toHaveCssClass(activeItemClass);
+      expect(menuItems[2]).not.toHaveCssClass(activeItemClass);
+    });
+
+    it('should handle all items being disabled', () => {
+      const fixture = TestBed.createComponent(DropdownParentTestComponent);
+      const el = fixture.nativeElement.querySelector('#dropdown-6');
+
+      fixture.detectChanges();
+
+      const hostEl = getDropdownHostEl(el);
+      const dropdownBtnEl = getDropdownBtnEl(el);
+      const dropdownMenuEl = getDropdownMenuEl(el);
+
+      fixture.componentInstance.disabledDropdownMenu.ngAfterContentInit();
+
+      dropdownBtnEl.click();
+      expect(dropdownMenuEl).toBeVisible();
+
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
+      fixture.detectChanges();
+
+      const menuItems = dropdownMenuEl.querySelectorAll('.sky-dropdown-item');
+      expect(menuItems[0]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[2]).not.toHaveCssClass(activeItemClass);
+
+      dispatchKeyDownEvent(hostEl, 'arrowup');
+      fixture.detectChanges();
+
+      expect(menuItems[0]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[2]).not.toHaveCssClass(activeItemClass);
+
+      fixture.componentInstance.disabledDropdownMenu.focusFirstItem();
+      fixture.detectChanges();
+
+      expect(menuItems[0]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[1]).not.toHaveCssClass(activeItemClass);
+      expect(menuItems[2]).not.toHaveCssClass(activeItemClass);
     });
 
     it('should handle all other key presses', () => {
@@ -915,11 +1047,7 @@ describe('Dropdown component', () => {
       const dropdownBtnEl = getDropdownBtnEl(el);
       const dropdownMenuEl = getDropdownMenuEl(el);
 
-      const keyboardEvent: any = document.createEvent('CustomEvent');
-      keyboardEvent.key = 'shift';
-      keyboardEvent.initEvent('keydown', true, true);
-      hostEl.dispatchEvent(keyboardEvent);
-
+      dispatchKeyDownEvent(hostEl, 'shift');
       fixture.detectChanges();
 
       // Nothing should happen if the dropdown isn't open:
@@ -931,9 +1059,36 @@ describe('Dropdown component', () => {
       expect(dropdownMenuEl).toBeVisible();
 
       // Now that the dropdown is open, unhandled keypresses shouldn't close it:
-      hostEl.dispatchEvent(keyboardEvent);
+      dispatchKeyDownEvent(hostEl, 'shift');
       fixture.detectChanges();
       expect(dropdownMenuEl).toBeVisible();
+    });
+
+    it('should allow disabling of native focus', () => {
+      const fixture = TestBed.createComponent(DropdownParentTestComponent);
+      const el = fixture.nativeElement.querySelector('#dropdown-5');
+
+      fixture.detectChanges();
+
+      const hostEl = getDropdownHostEl(el);
+      const dropdownBtnEl = getDropdownBtnEl(el);
+      const dropdownMenuEl = getDropdownMenuEl(el);
+
+      dropdownBtnEl.click();
+      expect(dropdownMenuEl).toBeVisible();
+
+      const dropdownMenuComponent = fixture.componentInstance.keyboardDropdownMenu;
+      const menuItemEl = (dropdownMenuComponent as any)['menuItems']
+        .filter((item: any, i: number) => i === 1)[0];
+
+      const focusSpy = spyOn(menuItemEl['buttonElement'], 'focus');
+
+      dispatchKeyDownEvent(hostEl, 'arrowdown');
+      fixture.detectChanges();
+
+      const menuItems = dropdownMenuEl.querySelectorAll('.sky-dropdown-item');
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(menuItems[1]).toHaveCssClass(activeItemClass);
     });
   });
 });

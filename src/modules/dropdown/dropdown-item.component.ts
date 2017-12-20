@@ -14,7 +14,6 @@ import {
 })
 export class SkyDropdownItemComponent implements AfterViewInit {
   public isActive = false;
-
   private buttonElement: HTMLElement;
 
   public constructor(
@@ -30,7 +29,7 @@ export class SkyDropdownItemComponent implements AfterViewInit {
     }
   }
 
-  public focusElement(useNativeFocus = true) {
+  public focusElement(useNativeFocus: boolean) {
     this.isActive = true;
 
     if (this.buttonElement && useNativeFocus) {

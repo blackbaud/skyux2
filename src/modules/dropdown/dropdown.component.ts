@@ -130,6 +130,16 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     });
   }
 
+  @HostListener('window:resize')
+  public resetDropdownPosition() {
+    this.adapterService.setMenuLocation(
+      this.elRef,
+      this.renderer,
+      this.windowObj.getWindow(),
+      this.alignment
+    );
+  }
+
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent) {
     if (this.isMouseEnter) {
@@ -233,15 +243,6 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
   public onButtonBlur() {
     this.hasKeyboardFocus = false;
-  }
-
-  public resetDropdownPosition() {
-    this.adapterService.setMenuLocation(
-      this.elRef,
-      this.renderer,
-      this.windowObj.getWindow(),
-      this.alignment
-    );
   }
 
   public getClassNames(): string[] {

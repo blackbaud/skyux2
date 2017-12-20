@@ -6,9 +6,12 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   QueryList
 } from '@angular/core';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { SkyDropdownItemComponent } from './dropdown-item.component';
 
@@ -22,7 +25,7 @@ import {
   styleUrls: ['./dropdown-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDropdownMenuComponent implements AfterContentInit {
+export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   @Input()
   public useNativeFocus = true;
 
@@ -50,6 +53,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit {
   @ContentChildren(SkyDropdownItemComponent)
   private menuItems: QueryList<SkyDropdownItemComponent>;
   private hasFocusableItems = false;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private changeDetector: ChangeDetectorRef
@@ -59,10 +63,18 @@ export class SkyDropdownMenuComponent implements AfterContentInit {
     this.checkFocusableItems();
 
     // Reset focus whenever the menu items change.
-    this.menuItems.changes.subscribe(() => {
-      this._menuIndex = 0;
-      this.checkFocusableItems();
-      this.focusActiveItem();
+    this.subscriptions.push(
+      this.menuItems.changes.subscribe(() => {
+        this.menuIndex = 0;
+        this.checkFocusableItems();
+        this.focusActiveItem();
+      })
+    );
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
     });
   }
 
@@ -134,16 +146,13 @@ export class SkyDropdownMenuComponent implements AfterContentInit {
     const activeItem = this.getActiveItem();
 
     this.resetItems();
+    activeItem.focusElement(this.useNativeFocus);
 
-    if (activeItem) {
-      activeItem.focusElement(this.useNativeFocus);
+    this.menuChanges.emit({
+      activeIndex: this._menuIndex
+    });
 
-      this.menuChanges.emit({
-        activeIndex: this._menuIndex
-      });
-
-      this.changeDetector.detectChanges();
-    }
+    this.changeDetector.detectChanges();
   }
 
   private checkFocusableItems() {

@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild
+} from '@angular/core';
+
+import {
+  SkyDropdownComponent
+} from '../dropdown.component';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -10,4 +17,7 @@ export class DropdownTestComponent {
   public myTitle: string;
   public alignment: string = 'left';
   public buttonStyle: string;
+
+  @ViewChild('vanillaDropdown')
+  public vanillaDropdown: SkyDropdownComponent;
 }
