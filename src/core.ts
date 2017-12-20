@@ -13,6 +13,7 @@ import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
 import { SkyAlertModule } from './modules/alert';
 import { SkyNumericModule } from './modules/numeric';
+import { SkyAutocompleteModule } from './modules/autocomplete';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
 import { SkyCardModule } from './modules/card';
@@ -68,6 +69,7 @@ import { SkyWaitModule } from './modules/wait';
 @NgModule({
   exports: [
     SkyAlertModule,
+    SkyAutocompleteModule,
     SkyNumericModule,
     SkyAvatarModule,
     SkyActionButtonModule,
@@ -128,6 +130,8 @@ export {
   SkyAlertComponent,
   SkyAlertModule
 } from './modules/alert';
+
+export * from './modules/autocomplete';
 
 export {
   SkyNumericModule,
