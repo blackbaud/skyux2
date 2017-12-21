@@ -8,8 +8,7 @@ describe('grid component', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'grid',
-        selector: '#screenshot-grid',
-        checkAccessibility: true
+        selector: '#screenshot-grid'
       });
     });
 
@@ -21,8 +20,7 @@ describe('grid component', () => {
       element(by.css('th')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'grid-sort-desc',
-        selector: '#screenshot-grid',
-        checkAccessibility: true
+        selector: '#screenshot-grid'
       });
     });
 
@@ -35,8 +33,7 @@ describe('grid component', () => {
       element(by.css('th')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'grid-sort-asc',
-        selector: '#screenshot-grid',
-        checkAccessibility: true
+        selector: '#screenshot-grid'
       });
     });
 

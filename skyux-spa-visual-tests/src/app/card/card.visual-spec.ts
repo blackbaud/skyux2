@@ -11,8 +11,7 @@ describe('Card', () => {
         return SkyVisualTest
           .compareScreenshot({
             screenshotName: 'card-all',
-            selector: '#screenshot-card-all',
-            checkAccessibility: true
+            selector: '#screenshot-card-all'
           });
       });
   });
@@ -23,8 +22,7 @@ describe('Card', () => {
       .then(() => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'card-noheader',
-          selector: '#screenshot-card-noheader',
-          checkAccessibility: true
+          selector: '#screenshot-card-noheader'
         });
       });
   });
@@ -35,8 +33,7 @@ describe('Card', () => {
       SkyVisualTest.scrollElementIntoView('#screenshot-card-noactions');
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'card-noactions',
-        selector: '#screenshot-card-noactions',
-        checkAccessibility: true
+        selector: '#screenshot-card-noactions'
       });
     });
   });
@@ -47,8 +44,7 @@ describe('Card', () => {
       SkyVisualTest.scrollElementIntoView('#screenshot-card-selectable');
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'card-selectable',
-        selector: '#screenshot-card-selectable',
-        checkAccessibility: true
+        selector: '#screenshot-card-selectable'
       });
     });
   });
@@ -60,8 +56,7 @@ describe('Card', () => {
       element(by.css('#screenshot-card-selectable .sky-card-title')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'card-selected',
-        selector: '#screenshot-card-selectable',
-        checkAccessibility: true
+        selector: '#screenshot-card-selectable'
       });
     });
   });
@@ -72,8 +67,7 @@ describe('Card', () => {
       SkyVisualTest.scrollElementIntoView('#screenshot-card-overflow');
       SkyVisualTest.compareScreenshot({
         screenshotName: 'card-title-overflow',
-        selector: '#screenshot-card-overflow',
-        checkAccessibility: true
+        selector: '#screenshot-card-overflow'
       });
     });
   });

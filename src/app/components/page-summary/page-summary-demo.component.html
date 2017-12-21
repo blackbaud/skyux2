@@ -4,7 +4,7 @@
       <sky-alert alertType="info">This is an alert.</sky-alert>
     </sky-page-summary-alert>
     <sky-page-summary-image *ngIf="showImage">
-      <sky-avatar [name]="name"></sky-avatar>
+      <sky-avatar [name]="name" [canChange]="true"></sky-avatar>
     </sky-page-summary-image>
     <sky-page-summary-title *ngIf="showTitle">
       {{name}}

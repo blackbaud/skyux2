@@ -20,6 +20,8 @@ import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
 import { SkyColorpickerModule } from './modules/colorpicker';
 import { SkyColumnSelectorModule } from './modules/column-selector';
+import { SkyConfirmModule } from './modules/confirm';
+import { SkyConfirmationDialogModule } from './modules/confirmation-dialog';
 import { SkyDatepickerModule } from './modules/datepicker';
 import { SkyDefinitionListModule } from './modules/definition-list';
 import { SkyDropdownModule } from './modules/dropdown';
@@ -59,6 +61,7 @@ import { SkyTextHighlightModule } from './modules/text-highlight';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
+import { SkyUrlValidationModule } from './modules/url-validation';
 import { SkyVerticalTabsetModule } from './modules/vertical-tabset';
 import { SkyWaitModule } from './modules/wait';
 
@@ -73,6 +76,8 @@ import { SkyWaitModule } from './modules/wait';
     SkyChevronModule,
     SkyColorpickerModule,
     SkyColumnSelectorModule,
+    SkyConfirmModule,
+    SkyConfirmationDialogModule,
     SkyDefinitionListModule,
     SkyDropdownModule,
     SkyEmailValidationModule,
@@ -111,6 +116,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTilesModule,
     SkyTimepickerModule,
     SkyToolbarModule,
+    SkyUrlValidationModule,
     SkyVerticalTabsetModule,
     SkyWaitModule,
     SkyDatepickerModule
@@ -173,6 +179,15 @@ export {
   SkyColumnSelectorModule,
   SkyColumnSelectorModel
 } from './modules/column-selector';
+
+export * from './modules/confirm';
+
+export {
+  SkyConfirmationDialogService,
+  SkyConfirmationDialogModule,
+  SkyConfirmationDialogType,
+  SkyConfirmationDialogButton
+} from './modules/confirmation-dialog';
 
 export {
   SkyDateFormatter,
@@ -496,6 +511,8 @@ export {
   SkyToolbarModule,
   SkyToolbarSectionComponent
 } from './modules/toolbar';
+
+export * from './modules/url-validation';
 
 export {
   SkyVerticalTabsetComponent,

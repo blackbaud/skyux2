@@ -117,7 +117,7 @@ describe('Colorpicker Component', () => {
     fixture.whenStable();
     let inputElement: NodeListOf<Element> =
       element.querySelectorAll('.rgba-text > div:last-child > input');
-    let input = {
+    let input: any = {
       'hex': inputElement[0],
       'red': inputElement[1],
       'green': inputElement[2],
@@ -125,7 +125,7 @@ describe('Colorpicker Component', () => {
       'alpha': inputElement[4]
     };
     input[name].value = value;
-    let params = {
+    let params: any = {
       'bubbles': false,
       'cancelable': false
     };
@@ -145,6 +145,13 @@ describe('Colorpicker Component', () => {
     openColorpicker(nativeElement, fixture);
     setPresetColor(nativeElement, fixture, 4);
     verifyColorpicker(nativeElement, 'rgba(189,64,64,1)', '189, 64, 64');
+  });
+
+  it('should handle undefined initial color', () => {
+    component.selectedOutputFormat = 'hex';
+    component.selectedColor = undefined;
+    openColorpicker(nativeElement, fixture);
+    verifyColorpicker(nativeElement, '#fff', '255, 255, 255');
   });
 
   it('should output HEX', () => {

@@ -29,7 +29,7 @@ import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
   providers: [SkyPopoverAdapterService],
   animations: [
     trigger('popoverState', [
-      state('visible', style({ opacity: 1 })),
+      state('visible', style({ opacity: 1, visibility: 'visible' })),
       state('hidden', style({ opacity: 0 })),
       transition('hidden => visible', animate('150ms')),
       transition('visible => hidden', animate('150ms'))

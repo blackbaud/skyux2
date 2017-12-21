@@ -99,7 +99,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     this._placeholderText = value;
   }
 
- public inputAnimate: string = INPUT_SHOWN_STATE;
+  public inputAnimate: string = INPUT_SHOWN_STATE;
   public breakpointSubscription: Subscription;
   public searchButtonShown: boolean = false;
   public mobileSearchShown: boolean = false;

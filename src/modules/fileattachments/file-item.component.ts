@@ -23,7 +23,6 @@ import {
 
 })
 export class SkyFileItemComponent implements DoCheck {
-
   @Input()
   public fileItem: SkyFileItem | SkyFileLink;
 
@@ -31,8 +30,11 @@ export class SkyFileItemComponent implements DoCheck {
   public deleteFile = new EventEmitter<SkyFileLink | SkyFileItem>();
 
   private otherCls: string;
-
   private differ: KeyValueDiffer<any, any>;
+
+  public constructor(private differs: KeyValueDiffers) {
+    this.differ = this.differs.find({}).create(undefined);
+  }
 
   public ngDoCheck() {
     let changes = this.differ.diff(this.fileItem);
@@ -100,10 +102,6 @@ export class SkyFileItemComponent implements DoCheck {
       }
       this.otherCls = 'fa-file-' + (cls ? cls + '-' : '') + 'o';
     }
-  }
-
-  public constructor(private differs: KeyValueDiffers) {
-    this.differ = this.differs.find({}).create(undefined);
   }
 
   public itemDelete() {
