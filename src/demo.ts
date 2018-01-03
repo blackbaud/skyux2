@@ -12,7 +12,6 @@ import {
   SkyCheckboxDemoComponent,
   SkyColorpickerDemoComponent,
   SkyConfirmDemoComponent,
-  SkyConfirmationDialogDemoComponent,
   SkyDatepickerDemoComponent,
   SkyDefinitionListDemoComponent,
   SkyDropdownDemoComponent,
@@ -33,7 +32,7 @@ import {
   SkyListFiltersInlineDemoComponent,
   SkyListPagingDemoComponent,
   SkyListToolbarDemoComponent,
-  SkyListToolbarDemoCustomComponent,
+  SkyListToolbarCustomDemoComponent,
   SkyListViewChecklistDemoComponent,
   SkyListViewGridDemoComponent,
   SkyMediaQueryDemoComponent,
@@ -54,7 +53,7 @@ import {
   SkyTabsDemoComponent,
   SkyTextExpandDemoComponent,
   SkyTextHighlightDemoComponent,
-  SkyTilesDemoComponent,
+  SkyTileDemoComponent,
   SkyTimePickerDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
@@ -68,8 +67,8 @@ import {
   SkyModalDemoFormComponent,
   SkyModalDemoTiledFormComponent,
   SkySectionedModalFormDemoComponent,
-  SkyTilesDemoTile1Component,
-  SkyTilesDemoTile2Component,
+  SkyTileDemoTile1Component,
+  SkyTileDemoTile2Component,
   SkyWizardDemoFormComponent
 } from './demos';
 
@@ -85,7 +84,6 @@ const components = [
   SkyCheckboxDemoComponent,
   SkyColorpickerDemoComponent,
   SkyConfirmDemoComponent,
-  SkyConfirmationDialogDemoComponent,
   SkyDatepickerDemoComponent,
   SkyDefinitionListDemoComponent,
   SkyDropdownDemoComponent,
@@ -106,7 +104,7 @@ const components = [
   SkyListFiltersInlineDemoComponent,
   SkyListPagingDemoComponent,
   SkyListToolbarDemoComponent,
-  SkyListToolbarDemoCustomComponent,
+  SkyListToolbarCustomDemoComponent,
   SkyListViewChecklistDemoComponent,
   SkyListViewGridDemoComponent,
   SkyMediaQueryDemoComponent,
@@ -129,7 +127,7 @@ const components = [
   SkyTabsDemoComponent,
   SkyTextExpandDemoComponent,
   SkyTextHighlightDemoComponent,
-  SkyTilesDemoComponent,
+  SkyTileDemoComponent,
   SkyTimePickerDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
@@ -141,8 +139,8 @@ const components = [
   SkyModalDemoFormComponent,
   SkyModalDemoTiledFormComponent,
   SkySectionedModalFormDemoComponent,
-  SkyTilesDemoTile1Component,
-  SkyTilesDemoTile2Component,
+  SkyTileDemoTile1Component,
+  SkyTileDemoTile2Component,
   SkyWizardDemoFormComponent
 ];
 
@@ -161,8 +159,8 @@ const components = [
     SkyModalDemoFormComponent,
     SkyModalDemoTiledFormComponent,
     SkySectionedModalFormDemoComponent,
-    SkyTilesDemoTile1Component,
-    SkyTilesDemoTile2Component,
+    SkyTileDemoTile1Component,
+    SkyTileDemoTile2Component,
     SkyWizardDemoFormComponent
   ]
 })

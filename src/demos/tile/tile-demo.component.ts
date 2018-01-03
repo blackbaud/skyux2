@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { SkyTileDashboardConfig } from '../../core';
-import { SkyTilesDemoTile1Component } from './tiles-demo-tile1.component';
-import { SkyTilesDemoTile2Component } from './tiles-demo-tile2.component';
+import { SkyTileDemoTile1Component } from './tile-demo-tile1.component';
+import { SkyTileDemoTile2Component } from './tile-demo-tile2.component';
 
 @Component({
-  selector: 'sky-tiles-demo',
-  templateUrl: './tiles-demo.component.html'
+  selector: 'sky-tile-demo',
+  templateUrl: './tile-demo.component.html'
 })
-export class SkyTilesDemoComponent {
+export class SkyTileDemoComponent {
   public dashboardConfig: SkyTileDashboardConfig;
 
   constructor() {
@@ -15,11 +15,11 @@ export class SkyTilesDemoComponent {
       tiles: [
         {
           id: 'tile1',
-          componentType: SkyTilesDemoTile1Component
+          componentType: SkyTileDemoTile1Component
         },
         {
           id: 'tile2',
-          componentType: SkyTilesDemoTile2Component
+          componentType: SkyTileDemoTile2Component
         }
       ],
       layout: {

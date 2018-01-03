@@ -14,6 +14,9 @@ export class SkyDemoPageCodeFile {
     let fileNameParts = name.split('.');
 
     switch (fileNameParts[fileNameParts.length - 1]) {
+      case 'scss':
+        this.language = 'scss';
+        break;
       case 'ts':
         this.language = 'typescript';
         break;
@@ -22,6 +25,8 @@ export class SkyDemoPageCodeFile {
     }
 
     // This changes the imports from using the relative path to displaying the SKY UX 2 npm path
-    this.codeImports = this.code.replace(/\.\.\/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
+    let modifiedCode = this.code.replace(/\.\.\/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
+    modifiedCode = modifiedCode.replace(/\.\.\/\.\.\/core/g, '@blackbaud/skyux/dist/core');
+    this.codeImports = modifiedCode;
   }
 }

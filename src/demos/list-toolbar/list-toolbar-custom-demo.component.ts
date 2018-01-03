@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'sky-list-toolbar-demo-custom',
-  templateUrl: './list-toolbar-demo-custom.component.html'
+  selector: 'sky-list-toolbar-custom-demo',
+  templateUrl: './list-toolbar-custom-demo.component.html'
 })
-export class SkyListToolbarDemoCustomComponent {
-  public items: Observable<any> = Observable.of([
+export class SkyListToolbarCustomDemoComponent {
+  public items: Observable<any[]> = Observable.of([
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
     { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears' },

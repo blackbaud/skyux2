@@ -5,7 +5,6 @@ export * from './card';
 export * from './checkbox';
 export * from './colorpicker';
 export * from './confirm';
-export * from './confirmation-dialog';
 export * from './datepicker';
 export * from './definition-list';
 export * from './dropdown';
