@@ -1,8 +1,6 @@
-@import '../../../scss/mixins';
-
 li {
   line-height: 1.6em;
-  padding-bottom: $sky-padding-half;
+  padding-bottom: 5px;
 
   /deep/ code {
     white-space: nowrap;

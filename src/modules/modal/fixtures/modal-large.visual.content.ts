@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SkyModalService } from '../../../../src/core';
+import { SkyModalService } from '../modal.service';
 
 @Component({
   selector: 'sky-test-cmp-modal-large',
