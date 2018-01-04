@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
 
 import { SkyVerticalTabComponent } from './../vertical-tabset/vertical-tab.component';
 import { SkySectionedFormService } from './sectioned-form.service';

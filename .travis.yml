@@ -34,6 +34,7 @@ before_install:
 
   - npm install -g @blackbaud/skyux-cli
   - export SAVAGE_BRANCH="^savage-"
+  - chmod +x ./scripts/build-packages.sh
   - chmod +x ./scripts/travis-script-build.sh
   - chmod +x ./scripts/travis-script-coverage.sh
   - chmod +x ./scripts/travis-script-deploy.sh

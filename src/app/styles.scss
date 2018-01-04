@@ -149,15 +149,15 @@ code {
 .screenshot {
   box-sizing: border-box;
   border: 30px solid;
-  
+
   &.screenshot-info {
     border-color: $sky-background-color-info-light;
   }
-  
+
   &.screenshot-success {
     border-color: $sky-background-color-success;
   }
-  
+
   &.screenshot-danger {
     border-color: $sky-background-color-danger;
   }
