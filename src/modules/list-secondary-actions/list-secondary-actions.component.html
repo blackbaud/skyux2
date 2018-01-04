@@ -4,7 +4,7 @@
     [hidden]="dropdownHidden"
     >
     <sky-dropdown
-      [title]="'list_show_secondary_actions' | skyResources"
+      [attr.title]="'list_show_secondary_actions' | skyResources"
       [buttonType]="isSmallScreen() ? 'ellipsis-h' : 'select'"
     >
       <sky-dropdown-button *ngIf="!isSmallScreen()">

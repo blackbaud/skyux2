@@ -7,9 +7,9 @@ import { SkyListViewGridComponent } from '../../list-view-grid';
 
 @Component({
   selector: 'sky-test-cmp',
-  templateUrl: './list-column-selector-action.component.fixture.html'
+  templateUrl: './list-column-selector-action-deprecated.component.fixture.html'
 })
-export class ListColumnSelectorActionTestComponent {
+export class ListColumnSelectorActionDeprecatedTestComponent {
   public items: Observable<Array<any>> = Observable.of([
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
@@ -22,5 +22,4 @@ export class ListColumnSelectorActionTestComponent {
 
   @ViewChild(SkyListViewGridComponent)
   public grid: SkyListViewGridComponent;
-
 }

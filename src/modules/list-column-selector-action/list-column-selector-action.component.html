@@ -1,8 +1,10 @@
-<sky-list-secondary-action *ngIf="(isInGridView | async) && secondaryActions">
-  <button type="button" (click)="openColumnSelector()">
-    {{'grid_columns_button' | skyResources}}
-  </button>
-</sky-list-secondary-action>
+<ng-container *ngIf="isInGridViewAndSecondary | async">
+  <sky-list-secondary-action>
+    <button type="button" (click)="openColumnSelector()">
+      {{'grid_columns_button_deprecated' | skyResources}}
+    </button>
+  </sky-list-secondary-action>
+</ng-container>
 
 <ng-template #columnChooser>
   <button
@@ -10,6 +12,7 @@
     class="sky-btn sky-btn-default"
     [title]="'grid_columns_button' | skyResources"
     (click)="openColumnSelector()"
+    *ngIf="isInGridView | async"
   >
     <i class="fa fa-columns"></i><ng-container *ngIf="!isSmallScreen()"> {{'grid_columns_button' | skyResources}}</ng-container>
   </button>

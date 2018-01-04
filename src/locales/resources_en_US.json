@@ -487,6 +487,10 @@
     "_description": "Label for button to select columns to display in a grid.",
     "message": "Columns"
   },
+  "grid_columns_button_deprecated": {
+    "_description": "Label for button to select columns to display in a grid. (Deprecated manner)",
+    "message": "Choose columns"
+  },
   "grid_filters_apply": {
     "_description": "Text for button on filters flyout to apply the selected filters to the grid",
     "message": "Apply filters"

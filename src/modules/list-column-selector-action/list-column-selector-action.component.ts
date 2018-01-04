@@ -94,6 +94,12 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit, O
     }).distinctUntilChanged();
   }
 
+  get isInGridViewAndSecondary(): Observable<boolean> {
+    return this.listState.map(s => s.views.active).map((activeView) => {
+      return this.gridView && (activeView === this.gridView.id) && this.secondaryActions !== undefined ;
+    }).distinctUntilChanged();
+  }
+
   public isSmallScreen() {
     return this.currentBreakpoint === SkyMediaBreakpoints.xs;
   }

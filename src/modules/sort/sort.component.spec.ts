@@ -1,6 +1,7 @@
 import {
   TestBed,
-  ComponentFixture
+  ComponentFixture,
+  async
 } from '@angular/core/testing';
 
 import {
@@ -14,21 +15,27 @@ import {
 import {
   expect
 } from '../testing';
+import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
+import { MockSkyMediaQueryService } from '../testing/mocks';
 
 describe('Sort component', () => {
 
   let fixture: ComponentFixture<SortTestComponent>;
   let nativeElement: HTMLElement;
   let component: SortTestComponent;
+  let mockMediaQueryService: MockSkyMediaQueryService;
 
   beforeEach(() => {
+    mockMediaQueryService = new MockSkyMediaQueryService();
+
     TestBed.configureTestingModule({
       declarations: [
         SortTestComponent
       ],
       imports: [
         SkySortModule
-      ]
+      ],
+      providers: [{provide: SkyMediaQueryService, useValue: mockMediaQueryService}]
     });
 
     fixture = TestBed.createComponent(SortTestComponent);
@@ -38,13 +45,33 @@ describe('Sort component', () => {
   });
 
   function getDropdownButtonEl() {
-    let dropdownButtonQuery = '.sky-sort .sky-dropdown .sky-dropdown-button .fa-sort';
+    let dropdownButtonQuery = '.sky-sort .sky-dropdown .sky-dropdown-button';
     return nativeElement.querySelector(dropdownButtonQuery) as HTMLElement;
   }
 
   function getSortItems() {
     let itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
     return nativeElement.querySelectorAll(itemQuery);
+  }
+
+  function triggerXsBreakpoint() {
+    mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
+    fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
+  function triggerSmBreakpoint() {
+    mockMediaQueryService.fire(SkyMediaBreakpoints.sm);
+    fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
+  function verifyTextPresent() {
+    expect(getDropdownButtonEl().innerText.trim()).toBe('Sort');
+  }
+
+  function verifyTextNotPresent() {
+    expect(getDropdownButtonEl().innerText.trim()).not.toBe('Sort');
   }
 
   it('creates a sort dropdown that respects active input', () => {
@@ -88,5 +115,34 @@ describe('Sort component', () => {
     fixture.detectChanges();
     let itemsEl = getSortItems();
     expect(itemsEl.item(3)).toHaveCssClass('sky-sort-item-selected');
+  });
+
+  describe('text and media queries', () => {
+
+    it('text should not be present if not activated', () => {
+      fixture.detectChanges();
+      verifyTextNotPresent();
+    });
+
+    it('text should be present if activated when not an extra small screen', async(() => {
+      component.showButtonText = true;
+      fixture.detectChanges();
+      verifyTextPresent();
+      triggerSmBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifyTextPresent();
+      });
+    }));
+
+    it('text should not be present if activated when an extra small screen', async(() => {
+      component.showButtonText = true;
+      fixture.detectChanges();
+      verifyTextPresent();
+      triggerXsBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifyTextNotPresent();
+      });
+    }));
+
   });
 });
