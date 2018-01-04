@@ -22,8 +22,8 @@ import { SkyDropdownAdapterService } from './dropdown-adapter.service';
 import { SkyDropdownMenuComponent } from './dropdown-menu.component';
 
 import {
+  SkyDropdownMessage,
   SkyDropdownMessageType,
-  SkyDropdownMessageEventArgs,
   SkyDropdownTriggerType
 } from './types';
 
@@ -77,7 +77,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   public alignment = 'left';
 
   @Input()
-  public messageStream: Observable<SkyDropdownMessageEventArgs> = Observable.of();
+  public messageStream: Observable<SkyDropdownMessage> = Observable.of();
 
   @Input()
   public title: string;
@@ -115,8 +115,8 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     const messageSubscription = this.messageStream
-      .subscribe((args: SkyDropdownMessageEventArgs) => {
-        this.handleIncomingMessages(args);
+      .subscribe((message: SkyDropdownMessage) => {
+        this.handleIncomingMessages(message);
       });
 
     this.subscriptions.push(messageSubscription);
@@ -299,9 +299,9 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     this.changeDetector.markForCheck();
   }
 
-  private handleIncomingMessages(args: SkyDropdownMessageEventArgs) {
+  private handleIncomingMessages(message: SkyDropdownMessage) {
     /* tslint:disable:switch-default */
-    switch (args.message) {
+    switch (message.type) {
       case SkyDropdownMessageType.Open:
       this.openDropdown();
       break;

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import {
-  SkyDropdownMessageEventArgs,
+  SkyDropdownMessage,
   SkyDropdownMessageType,
   SkyDropdownMenuChanges
 } from '../../../core';
@@ -13,7 +13,7 @@ import {
   templateUrl: './dropdown-demo.component.html'
 })
 export class SkyDropdownDemoComponent {
-  public dropdownController = new Subject<SkyDropdownMessageEventArgs>();
+  public dropdownController = new Subject<SkyDropdownMessage>();
 
   public optionClicked(option: number) {
     alert('You selected option ' + option);
@@ -50,8 +50,7 @@ export class SkyDropdownDemoComponent {
   }
 
   private sendMessage(type: SkyDropdownMessageType) {
-    this.dropdownController.next({
-      message: type
-    });
+    const message: SkyDropdownMessage = { type };
+    this.dropdownController.next(message);
   }
 }
