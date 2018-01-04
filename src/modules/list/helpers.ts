@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import {$$observable as symbolObservable} from 'rxjs/symbol/observable';
 
 export function getData(item: any, selector: string): any {

@@ -1,0 +1,19 @@
+<button
+  style="margin-bottom: 5px;"
+  class="sky-btn sky-btn-primary"
+  (click)="changeData()">
+  Change data
+</button>
+
+<sky-list [data]="items">
+  <sky-list-toolbar></sky-list-toolbar>
+
+  <sky-list-view-grid fit="scroll">
+    <sky-grid-column field="column1" heading="Column1"></sky-grid-column>
+    <sky-grid-column field="column2" heading="Column2"></sky-grid-column>
+    <sky-grid-column field="column3" heading="Column3"></sky-grid-column>
+  </sky-list-view-grid>
+
+  <sky-list-paging pageSize="5"></sky-list-paging>
+</sky-list>
+
