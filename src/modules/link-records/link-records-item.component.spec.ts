@@ -20,7 +20,7 @@ import {
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel }
 from './state/';
-import { SkyCheckboxModule } from '@blackbaud/skyux/dist/core';
+import { SkyCheckboxModule } from '../checkbox';
 import { SkyLinkRecordsApi } from './link-records-api';
 import {
   SkyLinkRecordsItemComponent,

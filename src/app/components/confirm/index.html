@@ -48,6 +48,11 @@
       propertyName="YesNoCancel">
       A three-button dialog with 'Yes', 'No', and 'Cancel' as the default button text. The integer value equivalent is 3.
     </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="Custom">
+      Provide the <stache-code>Custom</stache-code> type if you want to define your own buttons. This setting should be accompanied with a <stache-code>buttons</stache-code> config (see below).
+    </sky-demo-page-property>
   </sky-demo-page-properties>
 
   <sky-demo-page-properties
@@ -62,6 +67,12 @@
       propertyName="autofocus"
       isOptional="true">
       A boolean property that specifies whether to autofocus this button.
+    </sky-demo-page-property>
+
+    <sky-demo-page-property
+      propertyName="styleType"
+      isOptional="true">
+      A string that describes the button's visual appearance. <em>(Default: "default")</em>.
     </sky-demo-page-property>
 
     <sky-demo-page-property
