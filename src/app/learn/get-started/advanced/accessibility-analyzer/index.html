@@ -3,30 +3,40 @@
   navTitle="Accessibilty analyzer"
   showTableOfContents="true">
   <stache-page-summary>
-    <p>The SKY UX accessibility analyzer tool allows you to run accessibility tests such as <a href="https://github.com/dequelabs/axe-core">aXe automated tests</a> as part of your end-to-end testing. aXe is an open source library of automated accessibility tests that is integrated into SKY UX to identify potential issues for a subset of the <a href="https://www.w3.org/TR/WCAG20/">Web Content Accessibility Guidelines 2.0 Level A and AA success criteria</a>.</p>
-    <p>To use the accessibilty analyzer, you add <stache-code>SkyA11y</stache-code> to e2e specs. And to manage rules for accessibility tests, you use the <stache-code>a11y</stache-code> property in the <stache-code>skyuxconfig.json</stache-code> file.</p>
+    <p>The SKY UX accessibility analyzer tool allows you to run <a href="https://github.com/dequelabs/axe-core">aXe automated testing</a> as part of your end-to-end testing. aXe is an open source library of automated accessibility rules that is integrated into SKY UX to identify potential issues for a subset of the <a href="https://www.w3.org/TR/WCAG20/">Web Content Accessibility Guidelines 2.0 Level A and AA success criteria</a>.</p>
   </stache-page-summary>
 
+    <p>To use the accessibilty analyzer, you add <stache-code>SkyA11y</stache-code> to e2e specs. And to manage accessibility rules for e2e tests, you use the <stache-code>a11y</stache-code> property in the <stache-code>skyuxconfig.json</stache-code> file.</p>
+  <sky-alert alertType="info">For SKY UX guidance on accessibility best practices, see <a routerLink="/learn/contribute/accessibility">accessibility recommendations</a>.</sky-alert>
+
+  
   <stache-page-anchor>
-    Add the accessibility analyzer to e2e specs
+    Add accessibility analyzer to e2e specs
   </stache-page-anchor>
-  <p>You can add the accessibility analyzer anywhere in your e2e specs. You manually import the accessibility library and then execute accessibility checks using the imported library:</p>
+  <p>To use the accessibility analyzer in an e2e spec, you manually import the accessibility library at the top of the spec file. This allows you to add the accessibility analyzer anywhere in the e2e spec.</p>
   <stache-code-block>
     import { SkyA11y } from '@blackbaud/skyux-builder/runtime/testing/e2e';
+  </stache-code-block>
 
+  <stache-page-anchor>
+    Use accessibility analyzer in e2e specs
+  </stache-page-anchor>
+  <p>After you import the accessibility library, you can run aXe tests by including the expectation.</p>
+  <stache-code-block>
     SkyA11y.run().then((violations: number) => {
       expect(violations).toEqual(0);
       done();
     });
   </stache-code-block>
+  <p>You should include the expectation at any point in your script where you introduce new UI elements into the DOM. For example, include the expectation when pages or views load, when modals or repeater sections open, and when tab panels change.</p>
 
   <stache-page-anchor>
     Manage accessibility rules
   </stache-page-anchor>
-  <p>To enable or disable rules for accessibility tests, use the <stache-code>a11y</stache-code> property in the <stache-code>skyuxconfig.json</stache-code> file. You can manage rules individually, or you can enable or disable all rules in bulk. For information about individual rules in aXe automated tests, see <a href="https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md">the  complete list of accessibility rules</a>.</p>
+  <p>To enable or disable accessibility rules for e2e tests, use the <stache-code>a11y</stache-code> property in the <stache-code>skyuxconfig.json</stache-code> file. You can manage rules individually, or you can enable or disable all rules in bulk. For information about individual rules in aXe automated testing, see <a href="https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md">the  complete list of accessibility rules</a>.</p>
   <ul>
     <li>
-      <p>To disable individual rules, add the <stache-code>a11y</stache-code> property and its <stache-code>rules</stache-code> property. Then list the rules to disable and set <stache-code>enabled</stache-code> to <stache-code>false</stache-code>:</p>
+      <p>To disable individual rules, add the <stache-code>a11y</stache-code> property and its <stache-code>rules</stache-code> property. Then list the rules to disable and set <stache-code>enabled</stache-code> to <stache-code>false</stache-code>.</p>
       <stache-code-block>
         {
           "a11y": {
@@ -38,7 +48,7 @@
       </stache-code-block>
     </li>
     <li>
-      <p>To enable individual rules that are disabled by default, add the <stache-code>a11y</stache-code> property and its <stache-code>rules</stache-code> property. Then list the rules to enable and set <stache-code>enabled</stache-code> to <stache-code>true</stache-code>:</p>
+      <p>To enable individual rules that are disabled by default, add the <stache-code>a11y</stache-code> property and its <stache-code>rules</stache-code> property. Then list the rules to enable and set <stache-code>enabled</stache-code> to <stache-code>true</stache-code>.</p>
       <stache-code-block>
         {
           "a11y": {
@@ -50,7 +60,7 @@
       </stache-code-block>
     </li>
     <li>
-      <p>To disable all rules, set the <stache-code>a11y</stache-code> property to <stache-code>false</stache-code>:</p>
+      <p>To disable all rules, set the <stache-code>a11y</stache-code> property to <stache-code>false</stache-code>.</p>
       <stache-code-block>
         {
           "a11y": false
@@ -58,7 +68,7 @@
       </stache-code-block>
     </li>
     <li>
-      <p>To enable all rules, including rules that are disabled by default, set the <stache-code>a11y</stache-code> property to <stache-code>true</stache-code>:</p>
+      <p>To enable all rules, including rules that are disabled by default, set the <stache-code>a11y</stache-code> property to <stache-code>true</stache-code>.</p>
       <stache-code-block>
         {
           "a11y": true
@@ -67,6 +77,25 @@
     </li>
   </ul>
 
-  <sky-alert alertType="info">For SKY UX guidance on accessibility best practices, see <a routerLink="/learn/contribute/accessibility">accessibility recommendations</a>.</sky-alert>
+<!--  <sky-alert alertType="info">In addition to the <stache-code>rules</stache-code> property, the aXe API can also handle <a href="https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter">other properties of the options object</a>.</sky-alert>
+-->
+  
+  <stache-page-anchor>
+    Accessibility analyzer output
+  </stache-page-anchor>
+  <p>When you include accessibility rules in your e2e tests, you may run into errors that uncover accessibility issues. Here is an example:</p>
+  <stache-code-block>
+    info: Starting accessibility checks for https://host.nxt.blackbaud.com/builder-allytest/...
+    info: Accessibility checks finished with 1 violation.
+    
+    error: aXe - [Rule: 'label'] Form elements must have labels - WCAG: wcag332, wcag131
+    Get help at: https://dequeuniversity.com/rules/axe/2.3/label?application=webdriverjs
+    Elements:
+    
+    <input id="thefirstname" type="text">
+  </stache-code-block>
+  <p>The first line of the error indicates what failed by listing the name of the rule, a description, and the WCAG 2.0 success criteria numbers. Next, the error provides a URL to get help to address the failure. And then the error lists the DOM elements where the failure was identified.</p>
 
+
+  
 </stache>
