@@ -1,3 +1,7 @@
+# 2.6.0 (2017-01-04)
+
+- Added demo components module to enable demo components to be consumed outside this project. This is to enable future refactoring of documentation into a separate repo. [#1350](https://github.com/blackbaud/skyux2/pull/1350)
+
 # 2.5.0 (2017-12-15)
 
 - Added URL validation directive. [#1334](https://github.com/blackbaud/skyux2/pull/1334) (Thanks @Blackbaud-JeffDye)
