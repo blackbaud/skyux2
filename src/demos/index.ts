@@ -10,7 +10,7 @@ export * from './definition-list';
 export * from './dropdown';
 export * from './email-validation';
 export * from './error';
-export * from './fileattachments';
+export * from './file-attachment';
 export * from './filter';
 export * from './fluid-grid';
 export * from './grid';

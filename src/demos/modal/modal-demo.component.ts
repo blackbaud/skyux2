@@ -49,7 +49,7 @@ export class SkyModalDemoComponent {
 
     const modalInstance = this.modal.open(modalInstanceType, options);
 
-    modalInstance.closed.first().subscribe((result: SkyModalCloseArgs) => {
+    modalInstance.closed.take(1).subscribe((result: SkyModalCloseArgs) => {
       console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
     });
 

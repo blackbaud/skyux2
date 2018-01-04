@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+
+import { Observable } from 'rxjs/Observable';
 
 import {
   SKY_LINK_RECORDS_STATUSES,
@@ -16,11 +17,11 @@ const getWindow = () => {
   templateUrl: './link-records-demo.component.html'
 })
 export class SkyLinkRecordsDemoComponent {
-  @ViewChild(SkyLinkRecordsComponent) public item: SkyLinkRecordsComponent;
+  @ViewChild(SkyLinkRecordsComponent)
+  public item: SkyLinkRecordsComponent;
+
   public window: any;
-
-  public matchFields: any[] = [{key: 'description'}, {key: 'name'}];
-
+  public matchFields: any[] = [{ key: 'description' }, { key: 'name' }];
   public newItem: any = { id: '99', address: 999, name: 'Lime', description: 'Laura eats limes.' };
 
   public items: Observable<any> = Observable.of([

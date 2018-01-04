@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'sky-timepicker-demo',
   templateUrl: './timepicker-demo.component.html'
 })
-export class SkyTimePickerDemoComponent {
+export class SkyTimepickerDemoComponent {
   public format12 = 'hh';
   public format24 = 'HH';
   public returnFormat = 'HH:mm:ssZ';

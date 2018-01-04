@@ -5,7 +5,7 @@ import {
   SkyConfirmInstance,
   SkyConfirmService,
   SkyConfirmType
-} from '../../modules/confirm';
+} from '../../core';
 
 @Component({
   selector: 'sky-confirm-demo',

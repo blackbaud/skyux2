@@ -7,10 +7,10 @@ import {
 } from '../../core';
 
 @Component({
-  selector: 'sky-fileattachments-demo',
-  templateUrl: './fileattachments-demo.component.html'
+  selector: 'sky-file-attachment-demo',
+  templateUrl: './file-attachment-demo.component.html'
 })
-export class SkyFileattachmentsDemoComponent {
+export class SkyFileAttachmentDemoComponent {
   public filesToUpload: SkyFileItem[];
   public allItems: (SkyFileItem | SkyFileLink)[];
   public linksToUpload: SkyFileLink[];

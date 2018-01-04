@@ -13,7 +13,7 @@ import {
   SkyDropdownDemoComponent,
   SkyEmailValidationDemoComponent,
   SkyErrorDemoComponent,
-  SkyFileattachmentsDemoComponent,
+  SkyFileAttachmentDemoComponent,
   SkyFilterDemoComponent,
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
@@ -28,6 +28,7 @@ import {
   SkyListPagingDemoComponent,
   SkyListProviderDemoComponent,
   SkyListToolbarDemoComponent,
+  SkyListToolbarCustomDemoComponent,
   SkyListViewChecklistDemoComponent,
   SkyListViewGridDemoComponent,
   SkyMediaQueryDemoComponent,
@@ -46,7 +47,7 @@ import {
   SkyTextExpandDemoComponent,
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
-  SkyTimePickerDemoComponent,
+  SkyTimepickerDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
   SkyVerticalTabsDemoComponent,
@@ -244,23 +245,23 @@ export class SkyDemoService {
         {
           name: 'error-demo.component.ts',
           fileContents: require('!!raw-loader!./error/error-demo.component.ts'),
-          componentName: 'ErrorDemoComponent',
+          componentName: 'SkyErrorDemoComponent',
           bootstrapSelector: 'sky-error-demo'
         }
       ]
     },
     {
-      component: SkyFileattachmentsDemoComponent,
+      component: SkyFileAttachmentDemoComponent,
       files: [
         {
-          name: 'fileattachments-demo.component.html',
-          fileContents: require('!!raw-loader!./fileattachments/fileattachments-demo.component.html')
+          name: 'file-attachment-demo.component.html',
+          fileContents: require('!!raw-loader!./file-attachment/file-attachment-demo.component.html')
         },
         {
-          name: 'fileattachments-demo.component.ts',
-          fileContents: require('!!raw-loader!./fileattachments/fileattachments-demo.component.ts'),
-          componentName: 'SkyFileattachmentsDemoComponent',
-          bootstrapSelector: 'sky-fileattachments-demo'
+          name: 'file-attachment-demo.component.ts',
+          fileContents: require('!!raw-loader!./file-attachment/file-attachment-demo.component.ts'),
+          componentName: 'SkyFileAttachmentDemoComponent',
+          bootstrapSelector: 'sky-file-attachment-demo'
         }
       ]
     },
@@ -311,7 +312,7 @@ export class SkyDemoService {
       component: SkyFluidGridDemoComponent,
       files: [
         {
-          name: 'fluid-grid.component.html',
+          name: 'fluid-grid-demo.component.html',
           fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.html')
         },
         {
@@ -417,13 +418,13 @@ export class SkyDemoService {
       files: [
         {
           name: 'list-filters-demo.component.html',
-          fileContents: require('!!raw-loader!./list-filters/list-filters-demo.component.html'),
-          componentName: 'SkyListFiltersDemoComponent',
-          bootstrapSelector: 'sky-list-filters-demo'
+          fileContents: require('!!raw-loader!./list-filters/list-filters-demo.component.html')
         },
         {
           name: 'list-filters-demo.component.ts',
-          fileContents: require('!!raw-loader!./list-filters/list-filters-demo.component.ts')
+          fileContents: require('!!raw-loader!./list-filters/list-filters-demo.component.ts'),
+          componentName: 'SkyListFiltersDemoComponent',
+          bootstrapSelector: 'sky-list-filters-demo'
         },
         {
           name: 'list-filters-demo-modal.component.html',
@@ -433,6 +434,10 @@ export class SkyDemoService {
           name: 'list-filters-demo-modal.component.ts',
           fileContents: require('!!raw-loader!./list-filters/list-filters-demo-modal.component.ts'),
           componentName: 'SkyListFiltersModalDemoComponent'
+        },
+        {
+          name: 'list-filters-demo-modal-context.ts',
+          fileContents: require('!!raw-loader!./list-filters/list-filters-demo-modal-context.ts')
         }
       ]
     },
@@ -493,7 +498,12 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./list-toolbar/list-toolbar-demo.component.ts'),
           componentName: 'SkyListToolbarDemoComponent',
           bootstrapSelector: 'sky-list-toolbar-demo'
-        },
+        }
+      ]
+    },
+    {
+      component: SkyListToolbarCustomDemoComponent,
+      files: [
         {
           name: 'list-toolbar-custom-demo.component.html',
           fileContents: require('!!raw-loader!./list-toolbar/list-toolbar-custom-demo.component.html')
@@ -656,6 +666,10 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./popover/popover-demo.component.html')
         },
         {
+          name: 'popover-demo.component.scss',
+          fileContents: require('!!raw-loader!./popover/popover-demo.component.scss')
+        },
+        {
           name: 'popover-demo.component.ts',
           fileContents: require('!!raw-loader!./popover/popover-demo.component.ts'),
           componentName: 'SkyPopoverDemoComponent',
@@ -735,7 +749,8 @@ export class SkyDemoService {
         },
         {
           name: 'demo-address-form.component.ts',
-          fileContents: require('!!raw-loader!./sectioned-form/demo-address-form.component.ts')
+          fileContents: require('!!raw-loader!./sectioned-form/demo-address-form.component.ts'),
+          componentName: 'SkyDemoAddressFormComponent'
         },
         {
           name: 'demo-information-form.component.html',
@@ -743,7 +758,8 @@ export class SkyDemoService {
         },
         {
           name: 'demo-information-form.component.ts',
-          fileContents: require('!!raw-loader!./sectioned-form/demo-information-form.component.ts')
+          fileContents: require('!!raw-loader!./sectioned-form/demo-information-form.component.ts'),
+          componentName: 'SkyDemoInformationFormComponent'
         },
         {
           name: 'demo-phone-form.component.html',
@@ -751,7 +767,8 @@ export class SkyDemoService {
         },
         {
           name: 'demo-phone-form.component.ts',
-          fileContents: require('!!raw-loader!./sectioned-form/demo-phone-form.component.ts')
+          fileContents: require('!!raw-loader!./sectioned-form/demo-phone-form.component.ts'),
+          componentName: 'SkyDemoPhoneFormComponent'
         }
       ]
     },
@@ -825,7 +842,7 @@ export class SkyDemoService {
         {
           name: 'tile-demo.component.ts',
           fileContents: require('!!raw-loader!./tile/tile-demo.component.ts'),
-          componentName: 'SkyTilesDemoComponent',
+          componentName: 'SkyTileDemoComponent',
           bootstrapSelector: 'sky-tile-demo'
         },
         {
@@ -835,7 +852,7 @@ export class SkyDemoService {
         {
           name: 'tile-demo-tile1.component.ts',
           fileContents: require('!!raw-loader!./tile/tile-demo-tile1.component.ts'),
-          componentName: 'SkyTilesDemoTile1Component'
+          componentName: 'SkyTileDemoTile1Component'
         },
         {
           name: 'tile-demo-tile2.component.html',
@@ -844,12 +861,12 @@ export class SkyDemoService {
         {
           name: 'tile-demo-tile2.component.ts',
           fileContents: require('!!raw-loader!./tile/tile-demo-tile2.component.ts'),
-          componentName: 'SkyTilesDemoTile2Component'
+          componentName: 'SkyTileDemoTile2Component'
         }
       ]
     },
     {
-      component: SkyTimePickerDemoComponent,
+      component: SkyTimepickerDemoComponent,
       files: [
         {
           name: 'timepicker-demo.component.html',
@@ -858,7 +875,7 @@ export class SkyDemoService {
         {
           name: 'timepicker-demo.component.ts',
           fileContents: require('!!raw-loader!./timepicker/timepicker-demo.component.ts'),
-          componentName: 'SkyTimePickerDemoComponent',
+          componentName: 'SkyTimepickerDemoComponent',
           bootstrapSelector: 'sky-timepicker-demo'
         }
       ]
