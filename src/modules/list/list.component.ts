@@ -57,6 +57,7 @@ import { ListState, ListStateDispatcher } from './state';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/skip';
