@@ -1,6 +1,5 @@
 import {
   Component,
-  EventEmitter,
   OnInit
 } from '@angular/core';
 
@@ -10,7 +9,8 @@ import {
 } from '@angular/forms';
 
 import {
-  SkyAutocompleteSearchResultSelectedEventArgs
+  SkyAutocompleteSearchResultSelectedEventArgs,
+  SkyAutocompleteChanges
 } from '../../../core';
 
 @Component({
@@ -18,10 +18,8 @@ import {
   templateUrl: './autocomplete-demo.component.html'
 })
 export class SkyAutocompleteDemoComponent implements OnInit {
-  public commandStream = new EventEmitter<any>();
-  public selectedColor: any;
   public formModel: FormGroup;
-
+  public selectedColor: any;
   public colors: any[] = [
     { name: 'Red' },
     { name: 'Blue' },
@@ -43,31 +41,27 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     this.formModel.reset({});
   }
 
-  // public openDropdown(event: MouseEvent) {
-  //   this.commandStream.emit({
-  //     command: 'open'
-  //   });
-  //   event.stopPropagation();
-  // }
-
-  // public closeDropdown(event: MouseEvent) {
-  //   this.commandStream.emit({
-  //     command: 'close'
-  //   });
-  //   event.stopPropagation();
-  // }
-
   public submit() {
     alert(`Your favorite color is ${this.formModel.value.favoriteColor}!`);
   }
 
-  // public mySearchFunction(searchText: string): any[] {
-  //   console.log('searching based on:', searchText);
-  //   return [{}];
-  // }
-
   public onSearchResultSelected(changes: SkyAutocompleteSearchResultSelectedEventArgs) {
     this.selectedColor = changes.result;
+  }
+
+  public getSearchFunction(): Function {
+    return (searchText: string) => {
+      const searchTextLower = searchText.toLowerCase();
+
+      console.log('search:', searchText, this);
+      const results = this.colors.filter((item: any) => {
+        const val = item['name'];
+        const isMatch = (val && val.toString().toLowerCase().indexOf(searchTextLower) > -1);
+        return isMatch;
+      });
+
+      return results;
+    };
   }
 
   private createForm(): void {

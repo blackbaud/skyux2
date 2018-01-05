@@ -23,7 +23,7 @@ import {
   selector: '[skyAutocompleteInput]'
 })
 export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
-  public valueChanges = new EventEmitter<SkyAutocompleteChanges>();
+  public valueChange = new EventEmitter<SkyAutocompleteChanges>();
 
   private subscriptions: Subscription[] = [];
 
@@ -36,18 +36,13 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
   public ngOnInit() {
     this.subscriptions.push(
       this.control.valueChanges.subscribe((value: string) => {
-        this.valueChanges.emit({
-          inputValue: value
+        this.valueChange.emit({
+          searchText: value
         });
       })
     );
 
-    const input = this.elementRef.nativeElement;
-    this.renderer.setAttribute(input, 'autocomplete', 'off');
-    this.renderer.setAttribute(input, 'autocapitalize', 'off');
-    this.renderer.setAttribute(input, 'autocorrect', 'off');
-    this.renderer.setAttribute(input, 'spellcheck', 'false');
-    this.renderer.addClass(input, 'sky-form-control');
+    this.setElementAttributes();
   }
 
   public ngOnDestroy() {
@@ -66,5 +61,14 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
 
   public focusElement() {
     this.elementRef.nativeElement.focus();
+  }
+
+  private setElementAttributes() {
+    const input = this.elementRef.nativeElement;
+    this.renderer.setAttribute(input, 'autocomplete', 'off');
+    this.renderer.setAttribute(input, 'autocapitalize', 'off');
+    this.renderer.setAttribute(input, 'autocorrect', 'off');
+    this.renderer.setAttribute(input, 'spellcheck', 'false');
+    this.renderer.addClass(input, 'sky-form-control');
   }
 }

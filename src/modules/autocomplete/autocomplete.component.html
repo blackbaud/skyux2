@@ -6,11 +6,11 @@
     [ngClass]="{ 'sky-lookup-results-hidden': !hasSearchResults() }">
 
     <sky-dropdown
-      [messageStream]="dropdownMessages">
+      [messageStream]="dropdownMessageStream">
 
       <sky-dropdown-menu
         [useNativeFocus]="false"
-        (menuChanges)="onMenuChanges($event)">
+        (menuChange)="onMenuChange($event)">
 
         <sky-dropdown-item
           *ngFor="let result of searchResults; let i = index">
@@ -18,7 +18,7 @@
           <button
             type="button"
             tabindex="-1"
-            (click)="onSearchResultClicked(i)"
+            (click)="onSearchResultClick(i)"
             [skyHighlight]="searchText">
             <ng-container
               *ngTemplateOutlet="searchResultTemplate || defaultSearchResultTemplate; context: { item: result }">
