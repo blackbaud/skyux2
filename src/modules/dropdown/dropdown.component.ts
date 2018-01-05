@@ -115,18 +115,16 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     if (this.messageStream) {
-      const messageSubscription = this.messageStream
-        .subscribe((message: SkyDropdownMessage) => {
+      this.subscriptions.push(
+        this.messageStream.subscribe((message: SkyDropdownMessage) => {
           this.handleIncomingMessages(message);
-        });
-
-      this.subscriptions.push(messageSubscription);
+        })
+      );
     }
   }
 
   public ngOnDestroy() {
     this.closeDropdown();
-
     this.subscriptions.forEach((subscription: Subscription) => {
       subscription.unsubscribe();
     });

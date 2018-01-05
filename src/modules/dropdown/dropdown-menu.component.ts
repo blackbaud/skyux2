@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SkyDropdownItemComponent } from './dropdown-item.component';
 
 import {
-  SkyDropdownMenuChanges
+  SkyDropdownMenuChange
 } from './types';
 
 @Component({
@@ -30,7 +30,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public useNativeFocus = true;
 
   @Output()
-  public menuChange = new EventEmitter<SkyDropdownMenuChanges>();
+  public menuChange = new EventEmitter<SkyDropdownMenuChange>();
 
   public get menuIndex(): number {
     return this._menuIndex;
@@ -155,10 +155,10 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   }
 
   private checkFocusableItems() {
-    const focusableItems = this.menuItems.filter((item: SkyDropdownItemComponent) => {
+    const focusableItem = this.menuItems.find((item: SkyDropdownItemComponent) => {
       return (item.isFocusable());
     });
 
-    this.hasFocusableItems = (focusableItems.length > 0);
+    this.hasFocusableItems = (focusableItem !== undefined);
   }
 }
