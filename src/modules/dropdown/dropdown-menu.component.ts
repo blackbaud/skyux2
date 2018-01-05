@@ -30,7 +30,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public useNativeFocus = true;
 
   @Output()
-  public menuChanges = new EventEmitter<SkyDropdownMenuChanges>();
+  public menuChange = new EventEmitter<SkyDropdownMenuChanges>();
 
   public get menuIndex(): number {
     return this._menuIndex;
@@ -86,7 +86,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.menuIndex = this.menuIndex - 1;
 
     const previousItem = this.getActiveItem();
-
     if (previousItem && previousItem.isFocusable()) {
       this.focusActiveItem();
     } else {
@@ -102,7 +101,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.menuIndex = this.menuIndex + 1;
 
     const nextItem = this.getActiveItem();
-
     if (nextItem && nextItem.isFocusable()) {
       this.focusActiveItem();
     } else {
@@ -118,7 +116,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.menuIndex = 0;
 
     const nextItem = this.getActiveItem();
-
     if (nextItem && nextItem.isFocusable()) {
       this.focusActiveItem();
     } else {
@@ -149,7 +146,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
       this.resetItems();
       activeItem.focusElement(this.useNativeFocus);
 
-      this.menuChanges.emit({
+      this.menuChange.emit({
         activeIndex: this._menuIndex
       });
 

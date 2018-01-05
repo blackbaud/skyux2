@@ -193,7 +193,7 @@ describe('Dropdown component', () => {
       const menuEl = getDropdownMenuEl(el);
       const hostEl = getDropdownHostEl(el);
 
-      const spy = spyOn(fixture.componentInstance.changingDropdownMenu.menuChanges, 'emit')
+      const spy = spyOn(fixture.componentInstance.changingDropdownMenu.menuChange, 'emit')
         .and.callThrough();
 
       buttonEl.click();

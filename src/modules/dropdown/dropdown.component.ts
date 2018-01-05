@@ -77,7 +77,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   public alignment = 'left';
 
   @Input()
-  public messageStream: Observable<SkyDropdownMessage> = Observable.of();
+  public messageStream: Observable<SkyDropdownMessage>;
 
   @Input()
   public title: string;
@@ -114,12 +114,14 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
-    const messageSubscription = this.messageStream
-      .subscribe((message: SkyDropdownMessage) => {
-        this.handleIncomingMessages(message);
-      });
+    if (this.messageStream) {
+      const messageSubscription = this.messageStream
+        .subscribe((message: SkyDropdownMessage) => {
+          this.handleIncomingMessages(message);
+        });
 
-    this.subscriptions.push(messageSubscription);
+      this.subscriptions.push(messageSubscription);
+    }
   }
 
   public ngOnDestroy() {
