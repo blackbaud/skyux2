@@ -14,7 +14,9 @@ import {
 })
 export class SkyDropdownItemComponent implements AfterViewInit {
   public isActive = false;
-  private buttonElement: HTMLElement;
+  public isDisabled = false;
+
+  private buttonElement: HTMLButtonElement;
 
   public constructor(
     private changeDetector: ChangeDetectorRef,
@@ -26,6 +28,7 @@ export class SkyDropdownItemComponent implements AfterViewInit {
 
     if (this.buttonElement) {
       this.buttonElement.tabIndex = -1;
+      this.isDisabled = this.buttonElement.disabled;
     }
   }
 

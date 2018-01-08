@@ -1,0 +1,31 @@
+<sky-tabset
+  (newTab)="newTabClick()"
+  (openTab)="openTabClick()"
+  [active]="activeTabIndex"
+  (activeChange)="tabChanged($event)">
+  <sky-tab
+    *ngFor="let tab of tabs; let i = index"
+    [tabHeading]="tab.heading"
+    (close)="closeClick(i)">
+    {{tab.content}}
+  </sky-tab>
+  <sky-tab
+    tabHeading="Permanent tab"
+    tabIndex="permanent">
+    This tab cannot be closed.
+  </sky-tab>
+</sky-tabset>
+
+<h3>
+  Tabs example with counter
+</h3>
+
+<sky-tabset
+  [active]="0">
+  <sky-tab
+    *ngFor="let tab of tabsWithCounts"
+    [tabHeading]="tab.heading"
+    [tabHeaderCount]="tab.headerCount">
+    {{tab.content}}
+  </sky-tab>
+</sky-tabset>
