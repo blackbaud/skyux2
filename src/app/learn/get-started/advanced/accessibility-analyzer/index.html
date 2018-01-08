@@ -3,7 +3,8 @@
   navTitle="Accessibilty analyzer"
   showTableOfContents="true">
   <stache-page-summary>
-    <p>The SKY UX accessibility analyzer tool allows you to run <a href="https://github.com/dequelabs/axe-core">aXe automated testing</a> as part of your end-to-end testing. aXe is an open source library of automated accessibility rules that is integrated into SKY UX to identify potential issues for a subset of the <a href="https://www.w3.org/TR/WCAG20/">Web Content Accessibility Guidelines 2.0 Level A and AA success criteria</a>.</p>
+    <p>The SKY UX accessibility analyzer tool allows you to run <a href="https://github.com/dequelabs/axe-core">aXe automated accessibility tests</a> as part of your end-to-end testing. aXe is an open source library of automated accessibility tests that is integrated into SKY UX to identify potential issues for a subset of the <a href="https://www.w3.org/TR/WCAG20/">Web Content Accessibility Guidelines 2.0 Level A and AA success criteria</a>.</p>
+    <p>To use the accessibilty analyzer, you add <stache-code>SkyA11y</stache-code> to e2e specs. And to manage rules for accessibility tests, you use the <stache-code>a11y</stache-code> property in the <stache-code>skyuxconfig.json</stache-code> file.</p>
   </stache-page-summary>
 
     <p>To use the accessibilty analyzer, you add <stache-code>SkyA11y</stache-code> to e2e specs. And to manage accessibility rules for e2e tests, you use the <stache-code>a11y</stache-code> property in the <stache-code>skyuxconfig.json</stache-code> file.</p>
@@ -77,8 +78,10 @@
     </li>
   </ul>
 
-<!--  <sky-alert alertType="info">In addition to the <stache-code>rules</stache-code> property, the aXe API can also handle <a href="https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter">other properties of the options object</a>.</sky-alert>
--->
+  <sky-alert alertType="info">For additional guidance on designing, coding, and testing accessible experiences with SKY UX, see <a routerLink="/learn/accessibility">accessibility</a>.</sky-alert>
+  <!--
+  <sky-alert alertType="info">In addition to the <stache-code>rules</stache-code> property, the aXe API can also handle <a href="https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter">other properties of the options object</a>.</sky-alert>
+  -->
   
   <stache-page-anchor>
     Accessibility analyzer output
@@ -96,6 +99,4 @@
   </stache-code-block>
   <p>The first line of the error indicates what failed by listing the name of the rule, a description, and the WCAG 2.0 success criteria numbers. Next, the error provides a URL to get help to address the failure. And then the error lists the DOM elements where the failure was identified.</p>
 
-
-  
 </stache>

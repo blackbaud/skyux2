@@ -7,13 +7,6 @@ import { Component } from '@angular/core';
 export class DesignActionButtonsComponent {
   public routes = [
     {
-      name: 'Accessibility',
-      path: '/design/accessibility',
-      icon: 'universal-access',
-      // tslint:disable-next-line
-      summary: 'Guidelines to build features that conform to WCAG 2.0 best practices.'
-    },
-    {
       name: 'Guidelines',
       path: '/design/guidelines',
       icon: 'map-o',
