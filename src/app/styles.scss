@@ -1,0 +1,10 @@
+@import '~@blackbaud/skyux-design-tokens/scss/mixins';
+
+code {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
+  background-color: scale-color($color: $sky-highlight-color-danger, $lightness: 90%);
+  border-radius: 4px;
+  color: scale-color($color: $sky-color-red-50, $lightness: -20%);
+  padding: 2px 4px;
+}

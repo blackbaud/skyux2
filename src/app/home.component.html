@@ -9,21 +9,23 @@
     Component demos
   </h1>
 
-  <sky-dropdown>
-    <sky-dropdown-button>
-      Select a demo
-    </sky-dropdown-button>
-    <sky-dropdown-menu>
-      <sky-dropdown-item
-        *ngFor="let component of components">
-        <button
-          type="button"
-          (click)="open(component)">
-          {{ component.name }}
-        </button>
-      </sky-dropdown-item>
-    </sky-dropdown-menu>
-  </sky-dropdown>
+  <div class="demo-selection-dropdown">
+    <sky-dropdown>
+      <sky-dropdown-button>
+        Select a demo
+      </sky-dropdown-button>
+      <sky-dropdown-menu>
+        <sky-dropdown-item
+          *ngFor="let component of components">
+          <button
+            type="button"
+            (click)="open(component)">
+            {{ component.name }}
+          </button>
+        </sky-dropdown-item>
+      </sky-dropdown-menu>
+    </sky-dropdown>
+  </div>
 
   <sky-demo-generator
     [componentData]="selectedComponent">
