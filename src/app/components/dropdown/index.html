@@ -38,7 +38,7 @@
     <sky-demo-page-property
       propertyName="messageStream"
       isOptional="true">
-      Provide an observable to send commands to the dropdown. The commands should respect the <stache-code>SkyDropdownMessageEventArgs</stache-code> type (see below).
+      Provide an observable to send commands to the dropdown. The commands should respect the <stache-code>SkyDropdownMessage</stache-code> type (see below).
     </sky-demo-page-property>
   </sky-demo-page-properties>
 
@@ -48,7 +48,7 @@
       propertyName="useNativeFocus"
       isOptional="true"
       defaultValue="true">
-      Set this property to false to disable the browser's native focus function when navigating the menu items using a keyboard. This is useful when you wish to interact with the dropdown menu, but keep the focus on a specific element.
+      Set this property to false to disable the browser's native focus function when navigating the menu items using a keyboard. This is useful when you wish to interact with the dropdown menu, but keep the keyboard focus on a different element.
     </sky-demo-page-property>
     <sky-demo-page-property
       propertyName="menuChanges"
@@ -58,9 +58,9 @@
   </sky-demo-page-properties>
 
   <sky-demo-page-properties
-    sectionHeading="SkyDropdownMessageEventArgs type">
+    sectionHeading="SkyDropdownMessage type">
     <sky-demo-page-property
-      propertyName="message"
+      propertyName="type"
       isOptional="true">
       <p>
         Set the message to one of <stache-code>SkyDropdownMessageType</stache-code>:
@@ -86,7 +86,7 @@
   </sky-demo-page-properties>
 
   <sky-demo-page-properties
-    sectionHeading="SkyDropdownMessageChanges type">
+    sectionHeading="SkyDropdownMenuChanges type">
     <sky-demo-page-property
       propertyName="activeIndex">
       The currently active menu index.

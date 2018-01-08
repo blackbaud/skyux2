@@ -2,65 +2,111 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  OnDestroy,
+  forwardRef,
+  HostListener,
+  Input,
   OnInit,
   Renderer2
 } from '@angular/core';
 
 import {
-  NgControl
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
 } from '@angular/forms';
 
-import {
-  Subscription
-} from 'rxjs/Subscription';
-
-import {
-  SkyAutocompleteChanges
-} from './types';
-
 @Directive({
-  selector: '[skyAutocompleteInput]'
+  selector: 'input[skyAutocomplete], textarea[skyAutocomplete]',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      /*tslint:disable:no-forward-ref */
+      useExisting: forwardRef(() => SkyAutocompleteInputDirective),
+      multi: true
+    }
+  ]
 })
-export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
-  public valueChange = new EventEmitter<SkyAutocompleteChanges>();
+export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccessor {
+  @Input()
+  public disabled = false;
 
-  private subscriptions: Subscription[] = [];
+  public set descriptorProperty(value: string) {
+    this._descriptorProperty = value;
+  }
+
+  public get descriptorProperty(): string {
+    return this._descriptorProperty || 'name';
+  }
+
+  public get value() {
+    return this._value;
+  }
+
+  public set value(val: any) {
+    this._value = val;
+    this.setElementValue(val[this.descriptorProperty] || '');
+    this.onChange(val);
+    this.onTouched();
+  }
+
+  public searchTextChange = new EventEmitter<any>();
+
+  private _descriptorProperty: string;
+  private _value: any = {};
 
   constructor(
     private elementRef: ElementRef,
-    private control: NgControl,
     private renderer: Renderer2
   ) { }
 
   public ngOnInit() {
-    this.subscriptions.push(
-      this.control.valueChanges.subscribe((value: string) => {
-        this.valueChange.emit({
-          searchText: value
-        });
-      })
-    );
-
     this.setElementAttributes();
   }
 
-  public ngOnDestroy() {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
+  @HostListener('keyup', ['$event'])
+  public onKeyUp(event: KeyboardEvent) {
+    const searchText = this.elementRef.nativeElement.value;
+    this.searchTextChange.emit({
+      searchText
     });
+    event.preventDefault();
   }
 
-  public get value(): string {
-    return this.control.control.value;
+  @HostListener('blur')
+  public onBlur() {
+    const searchText = this.elementRef.nativeElement.value;
+    const descriptorValue = this.value[this.descriptorProperty];
+
+    // If the search field contains text, make sure that the display value
+    // matches the selected descriptor key.
+    if (searchText && descriptorValue) {
+      this.setElementValue(descriptorValue);
+    } else {
+      // The search field is empty, so clear out the selected value.
+      this.value = {};
+    }
   }
 
-  public set value(val: string) {
-    this.control.control.setValue(val);
+  public writeValue(value: any) {
+    this.value = value;
   }
 
-  public focusElement() {
-    this.elementRef.nativeElement.focus();
+  public onChange(value: any) {}
+  public onTouched() {}
+
+  public registerOnChange(fn: (value: any) => void) {
+    this.onChange = fn;
+  }
+
+  public registerOnTouched(fn: () => void) {
+    this.onTouched = fn;
+  }
+
+  public setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
+
+  private setElementValue(value: string) {
+    this.elementRef.nativeElement.value = value;
   }
 
   private setElementAttributes() {

@@ -20,6 +20,7 @@ import {
 export class SkyAutocompleteDemoComponent implements OnInit {
   public formModel: FormGroup;
   public selectedColor: any;
+
   public colors: any[] = [
     { name: 'Red' },
     { name: 'Blue' },
@@ -28,6 +29,7 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     { name: 'Purple' },
     { name: 'Yellow' },
     { name: 'Brown' },
+    { name: 'Turquoise' },
     { name: 'White' },
     { name: 'Black' }
   ];
@@ -38,35 +40,34 @@ export class SkyAutocompleteDemoComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createForm();
-    this.formModel.reset({});
   }
 
   public submit() {
-    alert(`Your favorite color is ${this.formModel.value.favoriteColor}!`);
+    const color = this.formModel.value.favoriteColor.name;
+    alert(`Your favorite color is ${color}!`);
   }
 
   public onSearchResultSelected(changes: SkyAutocompleteSearchResultSelectedEventArgs) {
     this.selectedColor = changes.result;
   }
 
-  public getSearchFunction(): Function {
-    return (searchText: string) => {
-      const searchTextLower = searchText.toLowerCase();
+  // public getSearchFunction(): Function {
+  //   return (searchText: string) => {
+  //     const searchTextLower = searchText.toLowerCase();
 
-      console.log('search:', searchText, this);
-      const results = this.colors.filter((item: any) => {
-        const val = item['name'];
-        const isMatch = (val && val.toString().toLowerCase().indexOf(searchTextLower) > -1);
-        return isMatch;
-      });
+  //     const results = this.colors.filter((item: any) => {
+  //       const val = item['name'];
+  //       const isMatch = (val && val.toString().toLowerCase().indexOf(searchTextLower) > -1);
+  //       return isMatch;
+  //     });
 
-      return results;
-    };
-  }
+  //     return results;
+  //   };
+  // }
 
   private createForm(): void {
     this.formModel = this.formBuilder.group({
-      favoriteColor: undefined
+      favoriteColor: { name: 'Turquoise' }
     });
   }
 }

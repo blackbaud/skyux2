@@ -16,9 +16,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
 import {
-  SkyDropdownMenuChanges,
+  SkyDropdownMenuChange,
   SkyDropdownMessageType,
-  SkyDropdownMessageEventArgs
+  SkyDropdownMessage
 } from '../dropdown';
 
 import {
@@ -70,7 +70,8 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @ContentChild(SkyAutocompleteInputDirective)
   public inputDirective: SkyAutocompleteInputDirective;
 
-  public dropdownMessageStream = new Subject<SkyDropdownMessageEventArgs>();
+  public dropdownMessageStream = new Subject<SkyDropdownMessage>();
+  public dropdownClosed = new EventEmitter<void>();
   public searchResults: any[];
   public searchText: string;
 
@@ -83,11 +84,21 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   ) { }
 
   public ngAfterContentInit() {
+    if (!this.inputDirective) {
+      throw Error(
+        [
+          'The SkyAutocompleteComponent requires a TemplateChild input or textarea bound with',
+          'the SkyAutocomplete directive. For example: `<input type="text" skyAutocomplete>`.'
+        ].join(' ')
+      );
+    }
+
+    this.inputDirective.descriptorProperty = this.descriptorProperty;
+
     this.subscriptions.push(
-      this.inputDirective.valueChange
-        .subscribe((args: SkyAutocompleteInputChangeEventArgs) => {
-          this.searchTextChanged(args.value);
-        })
+      this.inputDirective.searchTextChange.subscribe((value: any) => {
+        this.searchTextChanged(value.searchText);
+      })
     );
   }
 
@@ -123,8 +134,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
       break;
 
       case 'escape':
-      this.resetSearchResults();
-      this.inputDirective.focusElement();
+      this.closeDropdown();
       event.preventDefault();
       event.stopPropagation();
       break;
@@ -138,7 +148,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @HostListener('document:click')
   public onDocumentClick() {
     if (!this.isMouseEnter) {
-      this.resetSearchResults();
+      this.closeDropdown();
     }
   }
 
@@ -152,8 +162,8 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     this.isMouseEnter = false;
   }
 
-  public onMenuChange(changes: SkyDropdownMenuChanges) {
-    this.searchResultsIndex = changes.activeIndex;
+  public onMenuChange(change: SkyDropdownMenuChange) {
+    this.searchResultsIndex = change.activeIndex;
   }
 
   public openDropdown() {
@@ -161,7 +171,9 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   }
 
   public closeDropdown() {
+    this.searchResults = [];
     this.sendDropdownMessage(SkyDropdownMessageType.Close);
+    this.changeDetector.markForCheck();
   }
 
   public onSearchResultClick(index: number) {
@@ -173,12 +185,12 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     return (this.searchResults && this.searchResults.length > 0);
   }
 
-  private searchTextChanged(searchText = '') {
+  public searchTextChanged(searchText = '') {
     const isSearchTextEmpty = (!searchText || searchText.match(/^\s+$/));
 
     if (isSearchTextEmpty) {
-      this.resetSearchResults();
-      this.changeDetector.markForCheck();
+      this.searchText = '';
+      this.closeDropdown();
       return;
     }
 
@@ -238,24 +250,20 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private selectActiveSearchResult() {
     if (this.hasSearchResults()) {
       const result = this.searchResults[this.searchResultsIndex];
-      const value = result[this.descriptorProperty];
-
-      this.searchText = value;
-      this.inputDirective.value = value;
-
-      this.resetSearchResults();
-      this.selectionChange.emit({
-        searchResult: result
-      });
+      this.searchText = result[this.descriptorProperty];
+      this.inputDirective.value = result;
+      this.notifySelectionChange(result);
+      this.closeDropdown();
     }
   }
 
-  private resetSearchResults() {
-    this.searchResults = [];
-    this.closeDropdown();
+  private sendDropdownMessage(type: SkyDropdownMessageType) {
+    this.dropdownMessageStream.next({ type });
   }
 
-  private sendDropdownMessage(message: SkyDropdownMessageType) {
-    this.dropdownMessageStream.next({ message });
+  private notifySelectionChange(selection: any) {
+    this.selectionChange.emit({
+      searchResult: selection
+    });
   }
 }

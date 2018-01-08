@@ -1,14 +1,14 @@
-@import '../../../scss/mixins';
+@import '~@blackbaud/skyux-design-tokens/scss/mixins';
 
 .sky-demo-page-code {
-  margin: $sky-margin 0;
+  margin: 10px 0;
 }
 
 .sky-demo-page-code-sample {
   @include sky-border(light, top, bottom, left, right);
   border-top: none;
   overflow: auto;
-  padding: $sky-padding;
+  padding: 10px;
 
   pre {
     margin: 0;
@@ -32,7 +32,7 @@
   text-align: right;
   margin-bottom: 15px;
 
-  @media (min-width: $sky-screen-sm-min) {
+  @media (min-width: 768px) {
     position: absolute;
     right: 0;
     bottom: 12px;

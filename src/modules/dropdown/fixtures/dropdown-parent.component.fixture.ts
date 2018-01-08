@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 
 import {
   SkyDropdownMessageType,
-  SkyDropdownMessageEventArgs
+  SkyDropdownMessage
 } from '../types';
 
 import {
@@ -28,8 +28,8 @@ export class DropdownParentTestComponent {
   public buttonType: String;
   public myTitle: string;
   public buttonStyle: String;
-  public dropdownController = new Subject<SkyDropdownMessageEventArgs>();
-  public disabledDropdownController = new Subject<SkyDropdownMessageEventArgs>();
+  public dropdownController = new Subject<SkyDropdownMessage>();
+  public disabledDropdownController = new Subject<SkyDropdownMessage>();
 
   public changingItems: any[] = [
     {}, {}, {}
@@ -51,8 +51,8 @@ export class DropdownParentTestComponent {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public sendMessage(message: SkyDropdownMessageType) {
-    this.dropdownController.next({ message });
+  public sendMessage(type: SkyDropdownMessageType) {
+    this.dropdownController.next({ type });
   }
 
   public changeItems() {

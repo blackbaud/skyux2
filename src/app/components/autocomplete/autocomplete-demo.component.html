@@ -17,11 +17,14 @@
     <sky-autocomplete
       [data]="colors">
       <input
-        skyAutocompleteInput
+        skyAutocomplete
         id="my-autocomplete-1"
         type="text"
         formControlName="favoriteColor">
     </sky-autocomplete>
+
+    <strong>Selected:</strong>
+    <pre>{{ formModel.controls.favoriteColor.value | json }}</pre>
   </div>
 
   <sky-alert alertType="info" *ngIf="selectedColor">
