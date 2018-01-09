@@ -38,19 +38,14 @@ import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
 })
 export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @Input()
-  public set search(value: SkyAutocompleteSearchFunction) {
-    this._search = value;
+  public set descriptorProperty(value: string) {
+    this._descriptorProperty = value;
   }
 
-  public get search(): SkyAutocompleteSearchFunction {
-    return this._search || this.defaultSearchFunction;
+  public get descriptorProperty(): string {
+    return this._descriptorProperty || 'name';
   }
 
-  // Only applicable to default search
-  @Input()
-  public data: any[];
-
-  // Only applicable to default search
   @Input()
   public set propertiesToSearch(value: string[]) {
     this._propertiesToSearch = value;
@@ -60,15 +55,33 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     return this._propertiesToSearch || ['name'];
   }
 
-  // Only applicable to default search
+  @Input()
+  public set search(value: SkyAutocompleteSearchFunction) {
+    this._search = value;
+  }
+
+  public get search(): SkyAutocompleteSearchFunction {
+    return this._search || this.defaultSearchFunction;
+  }
+
+  @Input()
+  public set searchTextMinimumCharacters(value: number) {
+    this._searchTextMinimumCharacters = value;
+  }
+
+  public get searchTextMinimumCharacters(): number {
+    if (this._searchTextMinimumCharacters > 0) {
+      return this._searchTextMinimumCharacters;
+    }
+
+    return 1;
+  }
+
+  @Input()
+  public data: any[];
+
   @Input()
   public searchResultsLimit: number;
-
-  @Input()
-  public descriptorProperty = 'name';
-
-  @Input()
-  public searchTextMinimumCharacters = 1;
 
   @Input()
   public searchResultTemplate: TemplateRef<any>;
@@ -87,8 +100,10 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private searchResultsIndex = 0;
   private subscriptions: Subscription[] = [];
 
+  private _descriptorProperty: string;
   private _propertiesToSearch: string[];
   private _search: SkyAutocompleteSearchFunction;
+  private _searchTextMinimumCharacters: number;
 
   public constructor(
     private changeDetector: ChangeDetectorRef
@@ -96,12 +111,10 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
 
   public ngAfterContentInit() {
     if (!this.inputDirective) {
-      throw Error(
-        [
-          'The SkyAutocompleteComponent requires a TemplateChild input or textarea bound with',
-          'the SkyAutocomplete directive. For example: `<input type="text" skyAutocomplete>`.'
-        ].join(' ')
-      );
+      throw Error([
+        'The SkyAutocompleteComponent requires a TemplateChild input or textarea bound with',
+        'the SkyAutocomplete directive. For example: `<input type="text" skyAutocomplete>`.'
+      ].join(' '));
     }
 
     this.inputDirective.descriptorProperty = this.descriptorProperty;
