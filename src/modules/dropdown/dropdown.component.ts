@@ -38,12 +38,15 @@ import {
 })
 export class SkyDropdownComponent implements OnInit, OnDestroy {
   @Input()
-  public set buttonStyle(value: string) {
-    this._buttonStyle = value;
+  public alignment: string = 'left';
+
+  @Input()
+  public get buttonStyle(): string{
+    return this._buttonStyle || 'default';
   }
 
-  public get buttonStyle(): string {
-    return this._buttonStyle || 'default';
+  public set buttonStyle(value: string) {
+    this._buttonStyle = value;
   }
 
   @Input()
@@ -56,13 +59,19 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   @Input()
+  public get label(): string{
+    return this._label || SkyResources.getString('context_menu_default_label');
+  }
+
   public set label(value: string) {
     this._label = value;
   }
 
-  public get label(): string {
-    return this._label || SkyResources.getString('context_menu_default_label');
-  }
+  @Input()
+  public messageStream: Observable<SkyDropdownMessage>;
+
+  @Input()
+  public title: string;
 
   @Input()
   public set trigger(value: SkyDropdownTriggerType) {
@@ -73,17 +82,8 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     return this._trigger || 'click';
   }
 
-  @Input()
-  public alignment = 'left';
-
-  @Input()
-  public messageStream: Observable<SkyDropdownMessage>;
-
-  @Input()
-  public title: string;
-
-  @ViewChild('dropdownButton')
-  private dropdownButton: ElementRef;
+  @ViewChild('triggerButton')
+  private triggerButton: ElementRef;
 
   @ContentChild(SkyDropdownMenuComponent)
   private menuComponent: SkyDropdownMenuComponent;
@@ -93,23 +93,23 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   private isOpen = false;
   private subscriptions: Subscription[] = [];
 
-  private _trigger: SkyDropdownTriggerType;
   private _buttonType: string;
   private _buttonStyle: string;
   private _label: string;
+  private _trigger: SkyDropdownTriggerType;
 
   constructor(
-    private adapterService: SkyDropdownAdapterService,
-    private changeDetector: ChangeDetectorRef,
-    private elRef: ElementRef,
     private renderer: Renderer,
-    private windowObj: SkyWindowRefService
+    private elRef: ElementRef,
+    private adapterService: SkyDropdownAdapterService,
+    private windowObj: SkyWindowRefService,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.adapterService.dropdownClose.subscribe(() => {
       this.isOpen = false;
       this.hasKeyboardFocus = false;
       this.menuComponent.resetIndex();
-      this.menuComponent.resetItems();
+      this.menuComponent.resetActiveState();
     });
   }
 
@@ -142,18 +142,15 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent) {
-    if (this.isMouseEnter) {
-      return;
+    if (!this.isMouseEnter) {
+      this.closeDropdown();
+      this.hasKeyboardFocus = false;
     }
-
-    this.closeDropdown();
-    this.hasKeyboardFocus = false;
   }
 
   @HostListener('mouseenter')
   public onMouseEnter() {
     this.isMouseEnter = true;
-
     if (this.trigger === 'hover') {
       this.openDropdown();
     }
@@ -162,7 +159,6 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   @HostListener('mouseleave')
   public onMouseLeave() {
     this.isMouseEnter = false;
-
     if (this.trigger === 'hover') {
       this.closeDropdown();
     }
@@ -173,7 +169,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     const key = event.key.toLowerCase();
 
     // Except for the enter key, all other events should
-    // only be handled when the dropdown is open.
+    // be handled when the dropdown is open.
     if (!this.isOpen) {
       if (key === 'enter') {
         this.hasKeyboardFocus = true;
@@ -191,10 +187,10 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       break;
 
       case 'enter':
-      // After the selected button is clicked,
-      // return focus to the dropdown trigger element.
+      // After an item is selected with the enter key,
+      // wait a moment before returning focus to the dropdown trigger element.
       this.windowObj.getWindow().setTimeout(() => {
-        this.focusDropdownButton();
+        this.focusTriggerButton();
       });
       break;
 
@@ -214,7 +210,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
     // Pressing the escape key should return focus to the trigger.
     if (key === 'escape') {
-      this.focusDropdownButton();
+      this.focusTriggerButton();
     }
   }
 
@@ -240,8 +236,8 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   public getClassNames(): string[] {
     const classNames = [];
 
-    classNames.push('sky-dropdown-button-type-' + this.buttonType);
-    classNames.push('sky-btn-' + this.buttonStyle);
+    classNames.push(`sky-dropdown-button-type-${this.buttonType}`);
+    classNames.push(`sky-btn-${this.buttonStyle}`);
 
     if (this.hasKeyboardFocus) {
       classNames.push('sky-btn-focus');
@@ -281,21 +277,19 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   private closeDropdown() {
-    if (!this.isOpen) {
-      return;
+    if (this.isOpen) {
+      this.adapterService.hideDropdown(
+        this.elRef,
+        this.renderer,
+        this.windowObj.getWindow()
+      );
     }
-
-    this.adapterService.hideDropdown(
-      this.elRef,
-      this.renderer,
-      this.windowObj.getWindow()
-    );
   }
 
-  private focusDropdownButton() {
-    this.menuComponent.resetItems();
+  private focusTriggerButton() {
+    this.menuComponent.resetActiveState();
     this.hasKeyboardFocus = true;
-    this.dropdownButton.nativeElement.focus();
+    this.triggerButton.nativeElement.focus();
     this.changeDetector.markForCheck();
   }
 
@@ -311,7 +305,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       break;
 
       case SkyDropdownMessageType.FocusTriggerButton:
-      this.focusDropdownButton();
+      this.focusTriggerButton();
       break;
 
       case SkyDropdownMessageType.FocusNextItem:
