@@ -41,21 +41,22 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     return this._descriptorProperty || 'name';
   }
 
-  public get value() {
-    return this._value;
+  public get selectedItem() {
+    return this._selectedItem;
   }
 
-  public set value(val: any) {
-    this._value = val;
-    this.setElementValue(val[this.descriptorProperty] || '');
-    this.onChange(val);
+  public set selectedItem(value: any) {
+    this._selectedItem = value;
+    this.setElementValue(value[this.descriptorProperty] || '');
+    this.onChange(value);
     this.onTouched();
   }
 
+  public inputText = '';
   public inputTextChange = new EventEmitter<SkyAutocompleteInputTextChange>();
 
   private _descriptorProperty: string;
-  private _value: any = {};
+  private _selectedItem: any = {};
 
   constructor(
     private elementRef: ElementRef,
@@ -69,6 +70,7 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
   @HostListener('keyup', ['$event'])
   public onKeyUp(event: KeyboardEvent) {
     const value = this.elementRef.nativeElement.value;
+    this.inputText = value;
     this.inputTextChange.emit({ value });
     event.preventDefault();
   }
@@ -76,7 +78,7 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
   @HostListener('blur')
   public onBlur() {
     const searchText = this.elementRef.nativeElement.value;
-    const descriptorValue = this.value[this.descriptorProperty];
+    const descriptorValue = this.selectedItem[this.descriptorProperty];
 
     // If the search field contains text, make sure that the display value
     // matches the selected descriptor key.
@@ -84,13 +86,13 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
       this.setElementValue(descriptorValue);
     } else {
       // The search field is empty, so clear out the selected value.
-      this.value = {};
+      this.selectedItem = {};
     }
   }
 
   public writeValue(value: any) {
     if (value) {
-      this.value = value;
+      this.selectedItem = value;
     }
   }
 

@@ -63,8 +63,8 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     this.createForm();
   }
 
-  public submitTemplateForm() {
-    alert('Form submitted with: \n' + JSON.stringify(this.selectedColor));
+  public submitTemplateForm(formData: any) {
+    alert('Form submitted with: \n' + JSON.stringify(formData));
   }
 
   public submitReactiveForm() {
@@ -73,6 +73,14 @@ export class SkyAutocompleteDemoComponent implements OnInit {
 
   public onPlanetSelection(args: SkyAutocompleteSelectionChange) {
     alert(`You selected ${args.searchResult.name}`);
+  }
+
+  public getSearchFilters() {
+    return [
+      (searchText: string, item: any) => {
+        return (item.name !== 'Red');
+      }
+    ];
   }
 
   public getOceanSearchFunction(): Function {

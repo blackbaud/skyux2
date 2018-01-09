@@ -4,7 +4,7 @@
 
 <form
   #f="ngForm"
-  (ngSubmit)="submitTemplateForm()"
+  (ngSubmit)="submitTemplateForm(f.value)"
   novalidate>
 
   <h3>
@@ -110,6 +110,32 @@
   </div>
 
   <h3>
+    Search filters
+  </h3>
+
+  <p>
+    This field provides a custom function that filters the data before every search attempt.
+  </p>
+
+  <div class="sky-form-group">
+    <label
+      for="my-autocomplete-3"
+      class="sky-control-label">
+      Pick a color ("Red" is not available).
+    </label>
+
+    <sky-autocomplete
+      [data]="colors"
+      [searchFilters]="getSearchFilters()">
+      <input
+        skyAutocomplete
+        id="my-autocomplete-3"
+        type="text"
+        formControlName="favoriteColor">
+    </sky-autocomplete>
+  </div>
+
+  <h3>
     Custom search
   </h3>
 
@@ -119,7 +145,7 @@
 
   <div class="sky-form-group">
     <label
-      for="my-autocomplete-3"
+      for="my-autocomplete-4"
       class="sky-control-label">
       Which ocean is the largest?
     </label>
@@ -130,7 +156,7 @@
       [descriptorProperty]="'title'">
       <input
         skyAutocomplete
-        id="my-autocomplete-3"
+        id="my-autocomplete-4"
         type="text"
         formControlName="largestOcean">
     </sky-autocomplete>

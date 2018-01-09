@@ -1,6 +1,7 @@
 export {
   SkyAutocompleteSelectionChange,
   SkyAutocompleteSearchFunction,
+  SkyAutocompleteSearchFunctionFilter,
   SkyAutocompleteSearchFunctionResponse
 } from './types';
 

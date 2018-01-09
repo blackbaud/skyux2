@@ -24,6 +24,7 @@ import {
 import {
   SkyAutocompleteInputTextChange,
   SkyAutocompleteSearchFunction,
+  SkyAutocompleteSearchFunctionFilter,
   SkyAutocompleteSearchFunctionResponse,
   SkyAutocompleteSelectionChange
 } from './types';
@@ -76,6 +77,9 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
 
     return 1;
   }
+
+  @Input()
+  public searchFilters: SkyAutocompleteSearchFunctionFilter[] = [];
 
   @Input()
   public data: any[];
@@ -168,7 +172,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  // Close search results when clicking outside of the component.
   @HostListener('document:click')
   public onDocumentClick() {
     if (!this.isMouseEnter) {
@@ -209,7 +212,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     return (this.searchResults && this.searchResults.length > 0);
   }
 
-  public searchTextChanged(searchText = '') {
+  private searchTextChanged(searchText = '') {
     const isSearchTextEmpty = (!searchText || searchText.match(/^\s+$/));
 
     if (isSearchTextEmpty) {
@@ -245,9 +248,10 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
 
   private defaultSearchFunction(searchText: string): SkyAutocompleteSearchFunctionResponse {
     const searchTextLower = searchText.toLowerCase();
+    const data = this.filterData(searchText);
     const results = [];
 
-    for (let i = 0, n = this.data.length; i < n; i++) {
+    for (let i = 0, n = data.length; i < n; i++) {
       const limitReached = (
         this.searchResultsLimit &&
         this.searchResultsLimit <= results.length
@@ -257,7 +261,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
         return results;
       }
 
-      const result = this.data[i];
+      const result = data[i];
       const isMatch = this.propertiesToSearch.find((property: string) => {
         const value = (result[property] || '').toString().toLowerCase();
         return (value.indexOf(searchTextLower) > -1);
@@ -271,11 +275,28 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     return results;
   }
 
+  private filterData(searchText: string): any[] {
+    return this.data.filter((item: any) => {
+      if (!this.searchFilters.length) {
+        return true;
+      }
+
+      let isValid = true;
+      this.searchFilters.forEach((filter: Function) => {
+        if (isValid) {
+          isValid = filter.call({}, searchText, item);
+        }
+      });
+
+      return isValid;
+    });
+  }
+
   private selectActiveSearchResult() {
     if (this.hasSearchResults()) {
       const result = this.searchResults[this.searchResultsIndex];
       this.searchText = result[this.descriptorProperty];
-      this.inputDirective.value = result;
+      this.inputDirective.selectedItem = result;
       this.notifySelectionChange(result);
       this.closeDropdown();
     }
