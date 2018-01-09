@@ -27,6 +27,7 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     { name: 'Blue' },
     { name: 'Green' },
     { name: 'Orange' },
+    { name: 'Pink' },
     { name: 'Purple' },
     { name: 'Yellow' },
     { name: 'Brown' },
