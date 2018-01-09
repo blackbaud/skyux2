@@ -22,16 +22,13 @@ import {
 } from '../dropdown';
 
 import {
-  SkyAutocompleteInputChangeEventArgs,
-  SkyAutocompleteSelectionChangeEventArgs,
+  SkyAutocompleteInputTextChange,
   SkyAutocompleteSearchFunction,
-  SkyAutocompleteSearchResponse,
-  SkyAutocompleteSearchResultSelectedEventArgs
+  SkyAutocompleteSearchFunctionResponse,
+  SkyAutocompleteSelectionChange
 } from './types';
 
-import {
-  SkyAutocompleteInputDirective
-} from './autocomplete-input.directive';
+import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
 
 @Component({
   selector: 'sky-autocomplete',
@@ -65,13 +62,12 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public searchResultTemplate: TemplateRef<any>;
 
   @Output()
-  public selectionChange = new EventEmitter<SkyAutocompleteSelectionChangeEventArgs>();
+  public selectionChange = new EventEmitter<SkyAutocompleteSelectionChange>();
 
   @ContentChild(SkyAutocompleteInputDirective)
   public inputDirective: SkyAutocompleteInputDirective;
 
   public dropdownMessageStream = new Subject<SkyDropdownMessage>();
-  public dropdownClosed = new EventEmitter<void>();
   public searchResults: any[];
   public searchText: string;
 
@@ -96,8 +92,8 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     this.inputDirective.descriptorProperty = this.descriptorProperty;
 
     this.subscriptions.push(
-      this.inputDirective.searchTextChange.subscribe((value: any) => {
-        this.searchTextChanged(value.searchText);
+      this.inputDirective.inputTextChange.subscribe((change: SkyAutocompleteInputTextChange) => {
+        this.searchTextChanged(change.value);
       })
     );
   }
@@ -210,7 +206,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   }
 
   private performSearch(searchText: string): Promise<any> {
-    const searchResult: SkyAutocompleteSearchResponse = this.search(searchText);
+    const searchResult: SkyAutocompleteSearchFunctionResponse = this.search(searchText);
 
     if (searchResult instanceof Array) {
       return Promise.resolve(searchResult);
@@ -219,7 +215,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     return searchResult;
   }
 
-  private defaultSearchFunction(searchText: string): SkyAutocompleteSearchResponse {
+  private defaultSearchFunction(searchText: string): SkyAutocompleteSearchFunctionResponse {
     const searchTextLower = searchText.toLowerCase();
     const results = [];
 

@@ -1,0 +1,114 @@
+<form
+  [formGroup]="formModel"
+  (ngSubmit)="submit()"
+  novalidate>
+
+  <h3>
+    Basic setup
+  </h3>
+
+  <p>
+    This field uses the default settings and has a preselected value.
+  </p>
+
+  <div class="sky-form-group">
+    <label
+      for="my-autocomplete-1"
+      class="sky-control-label">
+      What is your favorite color?
+    </label>
+
+    <sky-autocomplete
+      [data]="colors">
+      <input
+        skyAutocomplete
+        id="my-autocomplete-1"
+        type="text"
+        formControlName="favoriteColor">
+    </sky-autocomplete>
+  </div>
+
+  <h3>
+    Advanced setup
+  </h3>
+
+  <p>
+    This field searches against the name and description properties, limits the search results to two (2), runs the search if the query is at least three (3) characters long, and fires an event when a selection is made.
+  </p>
+
+  <div class="sky-form-group">
+    <label
+      for="my-autocomplete-2"
+      class="sky-control-label">
+      Which planet is farthest from the sun?
+    </label>
+
+    <sky-autocomplete
+      [data]="planets"
+      [propertiesToSearch]="['name', 'description']"
+      [searchResultsLimit]="2"
+      [searchResultTemplate]="planetSearchResultTemplate"
+      [searchTextMinimumCharacters]="3"
+      (selectionChange)="onPlanetSelection($event)">
+      <input
+        skyAutocomplete
+        id="my-autocomplete-2"
+        type="text"
+        formControlName="farthestPlanet">
+    </sky-autocomplete>
+  </div>
+
+  <h3>
+    Custom search
+  </h3>
+
+  <p>
+    This field utilizes a custom search function.
+  </p>
+
+  <div class="sky-form-group">
+    <label
+      for="my-autocomplete-3"
+      class="sky-control-label">
+      Which ocean is the largest?
+    </label>
+
+    <sky-autocomplete
+      [search]="getOceanSearchFunction()"
+      [searchResultTemplate]="oceanSearchResultTemplate"
+      [descriptorProperty]="'title'">
+      <input
+        skyAutocomplete
+        id="my-autocomplete-3"
+        type="text"
+        formControlName="largestOcean">
+    </sky-autocomplete>
+  </div>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="submit">
+    Submit
+  </button>
+</form>
+
+<div style="background-color: #f2f2f2; padding: 10px; margin: 10px 0;">
+  <strong>Form model:</strong><br>
+  {{ formModel.value | json }}
+</div>
+
+<!-- Custom search result templates -->
+
+<ng-template
+  let-item="item"
+  #planetSearchResultTemplate>
+  <strong>{{ item.name }}</strong><br>
+  {{ item.description }}
+</ng-template>
+
+<ng-template
+  let-item="item"
+  #oceanSearchResultTemplate>
+  <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+  {{ item.title }} &bull; ID {{ item.id }}
+</ng-template>

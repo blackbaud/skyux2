@@ -1,6 +1,7 @@
 export {
-  SkyAutocompleteSearchResultSelectedEventArgs,
-  SkyAutocompleteChanges
+  SkyAutocompleteSelectionChange,
+  SkyAutocompleteSearchFunction,
+  SkyAutocompleteSearchFunctionResponse
 } from './types';
 
 export * from './autocomplete-input.directive';

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SkyModule } from './core';
 
 import {
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -79,6 +80,7 @@ import {
 const components = [
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -150,19 +152,11 @@ const components = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SkyModule
   ],
   exports: components,
-  entryComponents: [
-    SkyFilterDemoModalComponent,
-    SkyListFiltersModalDemoComponent,
-    SkyModalDemoFormComponent,
-    SkyModalDemoTiledFormComponent,
-    SkySectionedModalFormDemoComponent,
-    SkyTileDemoTile1Component,
-    SkyTileDemoTile2Component,
-    SkyWizardDemoFormComponent
-  ]
+  entryComponents: components
 })
 export class SkyDemoModule { }
 

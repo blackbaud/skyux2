@@ -14,6 +14,10 @@ import {
   NG_VALUE_ACCESSOR
 } from '@angular/forms';
 
+import {
+  SkyAutocompleteInputTextChange
+} from './types';
+
 @Directive({
   selector: 'input[skyAutocomplete], textarea[skyAutocomplete]',
   providers: [
@@ -48,7 +52,7 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     this.onTouched();
   }
 
-  public searchTextChange = new EventEmitter<any>();
+  public inputTextChange = new EventEmitter<SkyAutocompleteInputTextChange>();
 
   private _descriptorProperty: string;
   private _value: any = {};
@@ -64,10 +68,8 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
 
   @HostListener('keyup', ['$event'])
   public onKeyUp(event: KeyboardEvent) {
-    const searchText = this.elementRef.nativeElement.value;
-    this.searchTextChange.emit({
-      searchText
-    });
+    const value = this.elementRef.nativeElement.value;
+    this.inputTextChange.emit({ value });
     event.preventDefault();
   }
 
@@ -87,7 +89,9 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
   }
 
   public writeValue(value: any) {
-    this.value = value;
+    if (value) {
+      this.value = value;
+    }
   }
 
   public onChange(value: any) {}
