@@ -38,7 +38,13 @@ import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
 })
 export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @Input()
-  public search: SkyAutocompleteSearchFunction = this.defaultSearchFunction;
+  public set search(value: SkyAutocompleteSearchFunction) {
+    this._search = value;
+  }
+
+  public get search(): SkyAutocompleteSearchFunction {
+    return this._search || this.defaultSearchFunction;
+  }
 
   // Only applicable to default search
   @Input()
@@ -46,7 +52,13 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
 
   // Only applicable to default search
   @Input()
-  public propertiesToSearch = ['name'];
+  public set propertiesToSearch(value: string[]) {
+    this._propertiesToSearch = value;
+  }
+
+  public get propertiesToSearch(): string[] {
+    return this._propertiesToSearch || ['name'];
+  }
 
   // Only applicable to default search
   @Input()
@@ -74,6 +86,9 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private isMouseEnter = false;
   private searchResultsIndex = 0;
   private subscriptions: Subscription[] = [];
+
+  private _propertiesToSearch: string[];
+  private _search: SkyAutocompleteSearchFunction;
 
   public constructor(
     private changeDetector: ChangeDetectorRef

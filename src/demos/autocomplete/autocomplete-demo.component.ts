@@ -63,7 +63,11 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     this.createForm();
   }
 
-  public submit() {
+  public submitTemplateForm() {
+    alert('Form submitted with: \n' + JSON.stringify(this.selectedColor));
+  }
+
+  public submitReactiveForm() {
     alert('Form submitted with: \n' + JSON.stringify(this.formModel.value));
   }
 

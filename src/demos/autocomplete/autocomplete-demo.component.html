@@ -1,6 +1,57 @@
+<h2>
+  Template-driven form setup:
+</h2>
+
+<form
+  #f="ngForm"
+  (ngSubmit)="submitTemplateForm()"
+  novalidate>
+
+  <h3>
+    Basic setup
+  </h3>
+
+  <p>
+    This field uses the default settings and has a preselected value.
+  </p>
+
+  <div class="sky-form-group">
+    <label
+      for="my-autocomplete-1"
+      class="sky-control-label">
+      What is your favorite color?
+    </label>
+
+    <sky-autocomplete
+      [data]="colors">
+      <input
+        skyAutocomplete
+        id="my-autocomplete-1"
+        type="text"
+        name="favoriteColor"
+        ngModel>
+    </sky-autocomplete>
+  </div>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="submit">
+    Submit
+  </button>
+</form>
+
+<div style="background-color: #f2f2f2; padding: 10px; margin: 10px 0;">
+  <strong>Form model:</strong><br>
+  {{ f.value | json }}
+</div>
+
+<h2>
+  Reactive form setup
+</h2>
+
 <form
   [formGroup]="formModel"
-  (ngSubmit)="submit()"
+  (ngSubmit)="submitReactiveForm()"
   novalidate>
 
   <h3>
