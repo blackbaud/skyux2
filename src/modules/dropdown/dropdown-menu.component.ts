@@ -83,7 +83,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
       return;
     }
 
-    this.menuIndex = this.menuIndex - 1;
+    this.menuIndex--;
 
     const previousItem = this.getActiveItem();
     if (previousItem && previousItem.isFocusable()) {
@@ -98,7 +98,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
       return;
     }
 
-    this.menuIndex = this.menuIndex + 1;
+    this.menuIndex++;
 
     const nextItem = this.getActiveItem();
     if (nextItem && nextItem.isFocusable()) {
@@ -123,7 +123,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  public resetItems() {
+  public resetActiveState() {
     this.menuItems.forEach((item: SkyDropdownItemComponent) => {
       item.resetState();
     });
@@ -143,7 +143,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     const activeItem = this.getActiveItem();
 
     if (activeItem) {
-      this.resetItems();
+      this.resetActiveState();
       activeItem.focusElement(this.useNativeFocus);
 
       this.menuChange.emit({
