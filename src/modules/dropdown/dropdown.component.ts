@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 import { SkyResources } from '../resources';
 import { SkyWindowRefService } from '../window';
@@ -82,6 +82,8 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     return this._trigger || 'click';
   }
 
+  public destroy = new Subject<boolean>();
+
   @ViewChild('triggerButton')
   private triggerButton: ElementRef;
 
@@ -91,7 +93,6 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   private hasKeyboardFocus = false;
   private isMouseEnter = false;
   private isOpen = false;
-  private subscriptions: Subscription[] = [];
 
   private _buttonType: string;
   private _buttonStyle: string;
@@ -105,29 +106,30 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     private windowObj: SkyWindowRefService,
     private changeDetector: ChangeDetectorRef
   ) {
-    this.adapterService.dropdownClose.subscribe(() => {
-      this.isOpen = false;
-      this.hasKeyboardFocus = false;
-      this.menuComponent.resetIndex();
-      this.menuComponent.resetActiveState();
-    });
+    this.adapterService.dropdownClose
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.isOpen = false;
+        this.hasKeyboardFocus = false;
+        this.menuComponent.resetIndex();
+        this.menuComponent.resetActiveState();
+      });
   }
 
   public ngOnInit() {
     if (this.messageStream) {
-      this.subscriptions.push(
-        this.messageStream.subscribe((message: SkyDropdownMessage) => {
+      this.messageStream
+        .takeUntil(this.destroy)
+        .subscribe((message: SkyDropdownMessage) => {
           this.handleIncomingMessages(message);
-        })
-      );
+        });
     }
   }
 
   public ngOnDestroy() {
     this.closeDropdown();
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 
   @HostListener('window:resize')
