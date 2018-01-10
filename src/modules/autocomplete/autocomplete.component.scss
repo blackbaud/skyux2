@@ -1,13 +1,15 @@
-.sky-lookup-results-hidden {
+.sky-autocomplete {
+  ::ng-deep .sky-dropdown-button {
+    visibility: hidden;
+    height: 0px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+  }
+}
+
+.sky-autocomplete-results-hidden {
   visibility: hidden;
   height: 0;
   overflow: hidden;
-}
-
-::ng-deep .sky-dropdown-button {
-  visibility: hidden;
-  height: 0px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
 }
