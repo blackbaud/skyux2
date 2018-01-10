@@ -75,10 +75,10 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit, O
         {
           id: 'column-chooser',
           template: this.columnChooserTemplate,
-          location: 'right'
+          location: 'center'
         }
       );
-      this.dispatcher.toolbarAddItems([columnChooserItem], -1);
+      this.dispatcher.toolbarAddItems([columnChooserItem], 3);
     }
   }
 
@@ -96,7 +96,7 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit, O
 
   get isInGridViewAndSecondary(): Observable<boolean> {
     return this.listState.map(s => s.views.active).map((activeView) => {
-      return this.gridView && (activeView === this.gridView.id) && this.secondaryActions !== undefined ;
+      return this.secondaryActions && this.gridView && (activeView === this.gridView.id);
     }).distinctUntilChanged();
   }
 
