@@ -21,6 +21,7 @@
         </li>
         <li>
           <p><stache-code>externals</stache-code> — Dynamically injects CSS and JavaScript files into SKY UX Host. You should have a specific use-case for an external. For example, Office Addins require their library to load through CDN in the head. The <stache-code>before</stache-code> and <stache-code>after</stache-code> sections of an external indicate whether to include the external resource before or after the default SKY UX Builder resources. The <stache-code>head</stache-code> property, which only applies to JS resources, indicates whether to inject elements within the HTML <stache-code>head</stache-code> element or just before the closing <stache-code>body</stache-code> tag.</p>
+          <sky-alert alertType="info">For Blackbaud-hosted SPAs, Blackbaud developers must whitelist all URLs in the <stache-code>externals</stache-code> property. If <stache-code>skyuxconfig.json</stache-code> includes externals that are not whitelisted, then the SPA won’t load. To whitelist externals, contact the SKY UX team.</sky-alert>
           <p>The following example shows an external with all the configuration options:</p>
           <stache-code-block languageType="js">externals: {
     css: {
