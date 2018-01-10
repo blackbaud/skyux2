@@ -1,42 +1,45 @@
-<div class="sky-dropdown" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+<div class="sky-dropdown">
   <button
-      type="button"
-      (click)="click()"
-      class="sky-btn sky-dropdown-button"
-      [ngClass]="[
-        'sky-dropdown-button-type-' + buttonType,
-        'sky-btn-' + buttonStyle
-      ]"
-      (document:click)="windowClick()"
-      [attr.aria-label]="label"
-      [attr.title]="title"
-  >
+    type="button"
+    class="sky-btn sky-dropdown-button"
+    [ngClass]="getClassNames()"
+    [attr.aria-label]="label"
+    [attr.title]="title"
+    (click)="onButtonClick($event)"
+    (focus)="onButtonFocus()"
+    (blur)="onButtonBlur()"
+    #triggerButton>
+
     <div [ngSwitch]="buttonType">
       <ng-template ngSwitchCase="context-menu">
         <i class="fa fa-ellipsis-h"></i>
       </ng-template>
 
       <ng-template ngSwitchDefault>
-        <div class="sky-dropdown-button-container" *ngIf="buttonType === 'select' || buttonType === 'tab' || !buttonType">
+        <div
+          class="sky-dropdown-button-container"
+          *ngIf="buttonType === 'select' || buttonType === 'tab' || !buttonType">
           <div class="sky-dropdown-button-content-container">
-            <ng-content select="sky-dropdown-button"></ng-content>
+            <ng-content
+              select="sky-dropdown-button">
+            </ng-content>
           </div>
           <div class="sky-dropdown-button-icon-container">
             <i class="fa fa-caret-down sky-dropdown-caret"></i>
           </div>
         </div>
         <div
-          *ngIf="buttonType !== 'select' &amp;&amp; buttonType !== 'tab' &amp;&amp; buttonType">
+          *ngIf="buttonType !== 'select' && buttonType !== 'tab' && buttonType">
           <i
             class="fa fa-lg"
-            [ngClass]="['fa-' + buttonType]"
-            ></i>
+            [ngClass]="['fa-' + buttonType]"></i>
         </div>
-
       </ng-template>
     </div>
   </button>
-  <div class="sky-dropdown-menu">
-    <ng-content select="sky-dropdown-menu"></ng-content>
+  <div (click)="onMenuClick()">
+    <ng-content
+      select="sky-dropdown-menu">
+    </ng-content>
   </div>
 </div>

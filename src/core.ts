@@ -13,6 +13,7 @@ import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
 import { SkyAlertModule } from './modules/alert';
 import { SkyNumericModule } from './modules/numeric';
+import { SkyAutocompleteModule } from './modules/autocomplete';
 import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
 import { SkyCardModule } from './modules/card';
@@ -68,6 +69,7 @@ import { SkyWaitModule } from './modules/wait';
 @NgModule({
   exports: [
     SkyAlertModule,
+    SkyAutocompleteModule,
     SkyNumericModule,
     SkyAvatarModule,
     SkyActionButtonModule,
@@ -124,10 +126,10 @@ import { SkyWaitModule } from './modules/wait';
 })
 export class SkyModule { }
 
-export * from './modules/alert';
-export * from './modules/numeric';
-export * from './modules/avatar';
 export * from './modules/action-button';
+export * from './modules/alert';
+export * from './modules/autocomplete';
+export * from './modules/avatar';
 export * from './modules/card';
 export * from './modules/checkbox';
 export * from './modules/colorpicker';
@@ -160,6 +162,7 @@ export * from './modules/list-view-grid';
 export * from './modules/modal';
 export * from './modules/media-queries';
 export * from './modules/navbar';
+export * from './modules/numeric';
 export * from './modules/page-summary';
 export * from './modules/paging';
 export * from './modules/popover';

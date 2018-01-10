@@ -20,6 +20,13 @@ export class SkyDemoComponentsService {
         getCodeFiles: () => this.getDemoFiles('SkyAlertDemoComponent')
       },
       {
+        name: 'Autocomplete',
+        icon: 'circle',
+        summary: 'The autocomplete component...',
+        url: '/components/autocomplete',
+        getCodeFiles: () => this.getDemoFiles('SkyAutocompleteDemoComponent')
+      },
+      {
         name: 'Avatar',
         icon: 'user',
         // tslint:disable-next-line

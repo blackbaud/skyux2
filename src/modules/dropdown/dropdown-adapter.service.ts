@@ -41,6 +41,7 @@ export class SkyDropdownAdapterService {
   public hideDropdown(dropdownEl: ElementRef, renderer: Renderer, windowObj: Window) {
     let menuEl = this.getMenuEl(dropdownEl);
 
+    /* istanbul ignore else */
     if (menuEl.classList.contains(CLS_OPEN)) {
 
       this.setDropdownDefaults(menuEl, renderer, windowObj, false);

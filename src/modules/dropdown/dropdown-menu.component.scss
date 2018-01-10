@@ -1,1 +1,18 @@
-@import "../../scss/mixins";
+@import '../../scss/mixins';
+
+.sky-dropdown-menu {
+  @include sky-shadow;
+  background-color: #fff;
+  display: none;
+  position: fixed;
+  z-index: $sky-dropdown-z-index;
+
+  &.sky-dropdown-open {
+    display: block;
+  }
+
+  ::ng-deep button {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
