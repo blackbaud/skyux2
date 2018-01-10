@@ -48,8 +48,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this._menuIndex = value;
   }
 
-  public destroy = new Subject<boolean>();
-
+  private destroy = new Subject<boolean>();
   private _menuIndex = 0;
 
   @ContentChildren(SkyDropdownItemComponent)

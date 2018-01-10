@@ -82,14 +82,12 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     return this._trigger || 'click';
   }
 
-  public destroy = new Subject<boolean>();
-
   @ViewChild('triggerButton')
   private triggerButton: ElementRef;
 
   @ContentChild(SkyDropdownMenuComponent)
   private menuComponent: SkyDropdownMenuComponent;
-
+  private destroy = new Subject<boolean>();
   private hasKeyboardFocus = false;
   private isMouseEnter = false;
   private isOpen = false;
