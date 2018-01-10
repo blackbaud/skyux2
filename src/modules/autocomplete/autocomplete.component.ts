@@ -12,7 +12,6 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
 import {
@@ -100,9 +99,9 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public searchResults: any[];
   public searchText: string;
 
+  private destroy = new Subject<boolean>();
   private isMouseEnter = false;
   private searchResultsIndex = 0;
-  private subscriptions: Subscription[] = [];
 
   private _descriptorProperty: string;
   private _propertiesToSearch: string[];
@@ -122,18 +121,16 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     }
 
     this.inputDirective.descriptorProperty = this.descriptorProperty;
-
-    this.subscriptions.push(
-      this.inputDirective.inputTextChange.subscribe((change: SkyAutocompleteInputTextChange) => {
+    this.inputDirective.inputTextChange
+      .takeUntil(this.destroy)
+      .subscribe((change: SkyAutocompleteInputTextChange) => {
         this.searchTextChanged(change.value);
-      })
-    );
+      });
   }
 
   public ngOnDestroy() {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 
   // Handles keyboard events that affect usability and interaction.
