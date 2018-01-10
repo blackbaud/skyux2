@@ -11,7 +11,7 @@ import {
   QueryList
 } from '@angular/core';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 import { SkyDropdownItemComponent } from './dropdown-item.component';
 
@@ -48,12 +48,13 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this._menuIndex = value;
   }
 
+  public destroy = new Subject<boolean>();
+
   private _menuIndex = 0;
 
   @ContentChildren(SkyDropdownItemComponent)
   private menuItems: QueryList<SkyDropdownItemComponent>;
   private hasFocusableItems = false;
-  private subscriptions: Subscription[] = [];
 
   constructor(
     private changeDetector: ChangeDetectorRef
@@ -63,19 +64,18 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.checkFocusableItems();
 
     // Reset focus whenever the menu items change.
-    this.subscriptions.push(
-      this.menuItems.changes.subscribe(() => {
+    this.menuItems.changes
+      .takeUntil(this.destroy)
+      .subscribe(() => {
         this.menuIndex = 0;
         this.checkFocusableItems();
         this.focusActiveItem();
-      })
-    );
+      });
   }
 
   public ngOnDestroy() {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 
   public focusPreviousItem() {
