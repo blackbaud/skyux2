@@ -58,7 +58,6 @@
     "@blackbaud/skyux": "2.3.2",
     "@blackbaud/skyux-builder": "1.7.1",
     "@blackbaud/skyux-design-tokens": "0.0.8",
-    "@blackbaud/stache": "2.2.0",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.18",
