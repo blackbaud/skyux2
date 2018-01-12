@@ -1,24 +1,17 @@
 import { NgModule } from '@angular/core';
 
-import { StacheModule } from'@blackbaud/stache';
-
-import { SkyDemoTitleService } from './shared/title.service';
-import { SkyDemoComponentsModule } from './components/demo-components.module';
+import { SkyDemoModule } from '../demo';
 
 require('style-loader!./styles.scss');
 
 @NgModule({
   entryComponents: [],
   imports: [
-    SkyDemoComponentsModule,
-    StacheModule
+    SkyDemoModule
   ],
   exports: [
-    SkyDemoComponentsModule,
-    StacheModule
+    SkyDemoModule
   ],
-  providers: [
-    SkyDemoTitleService
-  ]
+  providers: []
 })
 export class AppExtrasModule { }
