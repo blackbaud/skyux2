@@ -1,35 +1,26 @@
 import {
   Component,
-  OnInit
+  ElementRef,
+  ViewChild
 } from '@angular/core';
 
-import {
-  DomSanitizer,
-  SafeResourceUrl
-} from '@angular/platform-browser';
+import { Subject } from 'rxjs/Subject';
 
-function getWindow() {
-  return window;
-}
+import {
+  SkyPopoverMessage,
+  SkyPopoverMessageType
+} from '../../core';
 
 @Component({
   selector: 'sky-popover-demo',
   templateUrl: './popover-demo.component.html',
   styleUrls: ['./popover-demo.component.scss']
 })
-export class SkyPopoverDemoComponent implements OnInit {
-  public outOfBoundsDemoUrl: SafeResourceUrl;
+export class SkyPopoverDemoComponent {
+  @ViewChild('remote')
+  public remote: ElementRef;
 
-  constructor(
-    private sanitizer: DomSanitizer
-  ) { }
-
-  public ngOnInit() {
-    this.outOfBoundsDemoUrl = this.sanitizer
-      .bypassSecurityTrustResourceUrl(
-        `${getWindow().location.href}/out-of-bounds-demo`
-      );
-  }
+  public popoverMessages = new Subject<SkyPopoverMessage>();
 
   public onPopoverOpened(popoverComponent: any): void {
     alert('The popover was opened: ' + popoverComponent.popoverTitle);
@@ -37,5 +28,20 @@ export class SkyPopoverDemoComponent implements OnInit {
 
   public onPopoverClosed(popoverComponent: any): void {
     alert('The popover was closed: ' + popoverComponent.popoverTitle);
+  }
+
+  public openPopover() {
+    this.popoverMessages.next({
+      type: SkyPopoverMessageType.Open,
+      elementRef: this.remote,
+      alignment: 'left',
+      placement: 'below'
+    });
+  }
+
+  public closePopover() {
+    this.popoverMessages.next({
+      type: SkyPopoverMessageType.Close
+    });
   }
 }

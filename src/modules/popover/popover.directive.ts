@@ -10,10 +10,12 @@ import {
 } from '../window';
 
 import {
-  SkyPopoverComponent,
+  SkyPopoverAlignment,
   SkyPopoverPlacement,
   SkyPopoverTrigger
-} from './index';
+} from './types';
+
+import { SkyPopoverComponent } from './popover.component';
 
 @Directive({
   selector: '[skyPopover]'
@@ -21,6 +23,9 @@ import {
 export class SkyPopoverDirective {
   @Input()
   public skyPopover: SkyPopoverComponent;
+
+  @Input()
+  public skyPopoverAlignment: SkyPopoverAlignment;
 
   @Input()
   public skyPopoverPlacement: SkyPopoverPlacement;
@@ -33,17 +38,30 @@ export class SkyPopoverDirective {
     private windowRef: SkyWindowRefService
   ) { }
 
+  @HostListener('window:resize')
+  public onWindowResize() {
+    if (this.skyPopover.isOpen) {
+      this.positionPopover();
+    }
+  }
+
   @HostListener('click', ['$event'])
   public togglePopover(event: MouseEvent) {
-    if (this.skyPopoverTrigger === 'click') {
-      event.preventDefault();
+    event.preventDefault();
 
-      if (this.skyPopover.isOpen) {
-        this.skyPopover.close();
-        return;
-      }
+    if (this.skyPopover.isOpen) {
+      this.closePopover();
+      return;
+    }
 
-      this.skyPopover.positionNextTo(this.elementRef, this.skyPopoverPlacement);
+    this.positionPopover();
+  }
+
+  @HostListener('keydown', ['$event'])
+  public onKeyUp(event: KeyboardEvent) {
+    const key = event.key.toLowerCase();
+    if (key === 'tab') {
+      this.closePopover();
     }
   }
 
@@ -51,8 +69,7 @@ export class SkyPopoverDirective {
   public onMouseEnter(event: MouseEvent) {
     if (this.skyPopoverTrigger === 'mouseenter') {
       event.preventDefault();
-
-      this.skyPopover.positionNextTo(this.elementRef, this.skyPopoverPlacement);
+      this.positionPopover();
     }
   }
 
@@ -68,10 +85,22 @@ export class SkyPopoverDirective {
           if (this.skyPopover.isMouseEnter) {
             this.skyPopover.markForCloseOnMouseLeave();
           } else {
-            this.skyPopover.close();
+            this.closePopover();
           }
         }
       });
     }
+  }
+
+  private positionPopover() {
+    this.skyPopover.positionNextTo(
+      this.elementRef,
+      this.skyPopoverPlacement,
+      this.skyPopoverAlignment
+    );
+  }
+
+  private closePopover() {
+    this.skyPopover.close();
   }
 }

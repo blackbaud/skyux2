@@ -1,22 +1,54 @@
 <div class="popover-demo-container">
   <div class="popover-demo-item">
-    <sky-popover placement="above">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="right">
+      Right
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="below">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="left">
+      Left
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="right">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="above">
+      Above (default)
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="left">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="above"
+      alignment="left">
+      Above, align left
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="above"
+      alignment="right">
+      Above, align right
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="below">
+      Below
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="below"
+      alignment="left">
+      Below, align left
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="below"
+      alignment="right">
+      Below, align right
     </sky-popover>
   </div>
 </div>
@@ -52,15 +84,22 @@
   Popovers can be opened via buttons:
 </h3>
 
-<button class="sky-btn" [skyPopover]="myPopover5">
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover0">
   Default
 </button>
 
-<sky-popover #myPopover5>
+<sky-popover #myPopover0>
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover1" skyPopoverPlacement="right">
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover1"
+  skyPopoverPlacement="right">
   Right
 </button>
 
@@ -68,27 +107,160 @@
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover2" skyPopoverPlacement="above">
-  Top
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover2"
+  skyPopoverPlacement="above">
+  Above
 </button>
 
 <sky-popover #myPopover2>
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover3" skyPopoverPlacement="below">
-  Bottom
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover2a"
+  skyPopoverPlacement="above"
+  skyPopoverAlignment="left">
+  Above left
+</button>
+
+<sky-popover #myPopover2a>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover2b"
+  skyPopoverPlacement="above"
+  skyPopoverAlignment="right">
+  Above right
+</button>
+
+<sky-popover #myPopover2b>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover3"
+  skyPopoverPlacement="below">
+  Below
 </button>
 
 <sky-popover #myPopover3>
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover4" skyPopoverPlacement="left">
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover3a"
+  skyPopoverPlacement="below"
+  skyPopoverAlignment="left">
+  Below left
+</button>
+
+<sky-popover #myPopover3a>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover4"
+  skyPopoverPlacement="left">
   Left
 </button>
 
 <sky-popover #myPopover4>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<p style="color:red;">
+  Works inside positioned elements, too:
+</p>
+<div style="border:1px solid red;position:relative;">
+  <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover3b"
+    skyPopoverPlacement="below"
+    skyPopoverAlignment="left">
+    Below, align left
+  </button>
+
+  <sky-popover #myPopover3b>
+    The content of a popover can be text, HTML, or Angular components.
+  </sky-popover>
+</div>
+
+<p>
+  <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover5"
+    skyPopoverPlacement="below">
+    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
+  </button>
+</p>
+<p>
+  <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover5"
+    skyPopoverPlacement="below"
+    skyPopoverAlignment="left">
+    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
+  </button>
+</p>
+<p>
+  <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover5"
+    skyPopoverPlacement="below"
+    skyPopoverAlignment="right">
+    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
+  </button>
+</p>
+<p>
+  <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover5"
+    skyPopoverPlacement="above">
+    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
+  </button>
+</p>
+<p>
+  <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover5"
+    skyPopoverPlacement="above"
+    skyPopoverAlignment="left">
+    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
+  </button>
+</p>
+<p>
+  <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover5"
+    skyPopoverPlacement="above"
+    skyPopoverAlignment="right">
+    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
+  </button>
+</p>
+
+
+<sky-popover #myPopover5>
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
@@ -128,6 +300,27 @@
   #popoverMouseEnter
 >
   You can move your mouse off the button to close this popover.
+</sky-popover>
+
+<h3>
+  Using multiple triggers
+</h3>
+<p>
+  The same popover can be opened with multiple triggers. Each trigger will overwrite the popover's placement and alignment when opened.
+</p>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover7">
+  Open popover with defaults
+</button>
+
+<sky-popover
+  alignment="left"
+  placement="above"
+  #myPopover7>
+  The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
 <h3>
@@ -174,4 +367,28 @@
       </sky-dropdown-item>
     </sky-dropdown-menu>
   </sky-dropdown>
+</sky-popover>
+
+<h3>
+  Interacting with a popover programmatically
+</h3>
+
+<button
+  type="button"
+  class="sky-btn sky-btn-primary"
+  (click)="openPopover()"
+  #remote>
+  Open popover
+</button>
+
+<button
+  type="button"
+  class="sky-btn sky-btn-default"
+  (click)="closePopover()">
+  Close popover
+</button>
+
+<sky-popover
+  [messageStream]="popoverMessages">
+  This popover can be opened remotely.
 </sky-popover>

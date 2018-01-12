@@ -6,6 +6,7 @@ import { SkyDropdownItemComponent } from './dropdown-item.component';
 import { SkyDropdownMenuComponent } from './dropdown-menu.component';
 import { SkyDropdownComponent } from './dropdown.component';
 import { SkyWindowRefService } from '../window';
+import { SkyPopoverModule } from '../popover';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,10 @@ import { SkyWindowRefService } from '../window';
     SkyDropdownItemComponent,
     SkyDropdownMenuComponent
   ],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    SkyPopoverModule
+  ],
   exports: [
     SkyDropdownButtonComponent,
     SkyDropdownComponent,

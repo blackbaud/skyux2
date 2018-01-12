@@ -2,12 +2,17 @@
   <button
     type="button"
     class="sky-btn sky-dropdown-button"
-    [ngClass]="getClassNames()"
+    [ngClass]="[
+      'sky-dropdown-button-type-' + buttonType,
+      'sky-btn-' + buttonStyle
+    ]"
     [attr.aria-label]="label"
     [attr.title]="title"
-    (click)="onButtonClick($event)"
-    (focus)="onButtonFocus()"
     (blur)="onButtonBlur()"
+    [skyPopover]="popover"
+    [skyPopoverTrigger]="getPopoverTriggerType()"
+    skyPopoverPlacement="below"
+    skyPopoverAlignment="left"
     #triggerButton>
 
     <div [ngSwitch]="buttonType">
@@ -37,9 +42,14 @@
       </ng-template>
     </div>
   </button>
-  <div (click)="onMenuClick()">
+  <sky-popover
+    [messageStream]="popoverMessages"
+    (click)="onPopoverClick()"
+    (popoverOpened)="onPopoverOpened()"
+    (popoverClosed)="onPopoverClosed()"
+    #popover>
     <ng-content
       select="sky-dropdown-menu">
     </ng-content>
-  </div>
+  </sky-popover>
 </div>

@@ -2,6 +2,21 @@
 
 .sky-dropdown {
   display: inline-block;
+
+  ::ng-deep .sky-popover {
+    @include sky-shadow;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0;
+
+    .sky-popover-body {
+      padding: 0;
+    }
+
+    .sky-popover-arrow {
+      display: none;
+    }
+  }
 }
 
 .sky-dropdown-button-type-tab {
