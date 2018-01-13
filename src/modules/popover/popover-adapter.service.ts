@@ -43,8 +43,8 @@ export class SkyPopoverAdapterService {
 
   public setPopoverPosition(
     elements: SkyPopoverAdapterElements,
-    placement: SkyPopoverPlacement = 'above',
-    alignment: SkyPopoverAlignment = 'center'
+    placement: SkyPopoverPlacement,
+    alignment: SkyPopoverAlignment
   ) {
     this.clearElementCoordinates(elements.popover);
     this.clearElementCoordinates(elements.popoverArrow);
@@ -101,74 +101,70 @@ export class SkyPopoverAdapterService {
     placement: SkyPopoverPlacement,
     alignment: SkyPopoverAlignment
   ): SkyPopoverCoordinates {
-    const callerRect = elements.caller.nativeElement.getBoundingClientRect();
+    const callerElement = elements.caller.nativeElement;
+    const callerRect = callerElement.getBoundingClientRect();
+    const callerOffsetTop = callerElement.offsetTop;
+    const callerOffsetLeft = callerElement.offsetLeft;
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
 
-    const callerOffsetTop = elements.caller.nativeElement.offsetTop;
-    const callerOffsetLeft = elements.caller.nativeElement.offsetLeft;
-
     const windowObj = this.windowRef.getWindow();
-    const documentWidth = windowObj.document.body.clientWidth;
-    const documentHeight = windowObj.document.body.clientHeight;
+    const parentHeight = windowObj.document.body.clientHeight;
 
+    let parentWidth: number;
     let left: number;
     let top: number;
 
-    // Determine left position based on alignment:
-    if (placement === 'above' || placement === 'below') {
-      switch (alignment) {
-        case 'center':
-        default:
-          left = callerOffsetLeft - (popoverRect.width / 2) + (callerRect.width / 2);
-        break;
-
-        case 'left':
-          left = callerOffsetLeft;
-        break;
-
-        case 'right':
-          left = callerOffsetLeft - popoverRect.width + callerRect.width;
-        break;
-      }
+    if (callerElement.offsetParent) {
+      parentWidth = callerElement.offsetParent.getBoundingClientRect().width;
+    } else {
+      parentWidth = windowObj.document.body.clientWidth;
     }
 
-    /* tslint:disable:switch-default */
+    // Determine left position based on alignment:
+    switch (alignment) {
+      default:
+      case 'center':
+        left = callerOffsetLeft - (popoverRect.width / 2) + (callerRect.width / 2);
+      break;
+      case 'left':
+        left = callerOffsetLeft;
+      break;
+      case 'right':
+        left = callerOffsetLeft - popoverRect.width + callerRect.width;
+      break;
+    }
+
     switch (placement) {
+      default:
       case 'above':
         top = callerOffsetTop - popoverRect.height;
         break;
-
       case 'below':
         top = callerOffsetTop + callerRect.height;
         break;
-
       case 'right':
         top = callerOffsetTop - (popoverRect.height / 2) + (callerRect.height / 2);
         left = callerOffsetLeft + callerRect.width;
         break;
-
       case 'left':
         top = callerOffsetTop - (popoverRect.height / 2) + (callerRect.height / 2);
         left = callerOffsetLeft - popoverRect.width;
         break;
     }
-    /* tslint:enable */
 
     let isOutsideViewport = false;
     let clippedOnRight: boolean;
 
     switch (alignment) {
-      case 'center':
       default:
-        clippedOnRight = (
-          callerOffsetLeft + callerRect.width + (popoverRect.width / 2) > documentWidth
-        );
+      case 'center':
+        clippedOnRight = (callerOffsetLeft + callerRect.width + (popoverRect.width / 2) > parentWidth);
       break;
       case 'left':
-        clippedOnRight = (callerOffsetLeft + popoverRect.width > documentWidth);
+        clippedOnRight = (callerOffsetLeft + popoverRect.width > parentWidth);
       break;
       case 'right':
-        clippedOnRight = (callerOffsetLeft + callerRect.width > documentWidth);
+        clippedOnRight = (callerOffsetLeft + callerRect.width > parentWidth);
       break;
     }
 
@@ -178,7 +174,7 @@ export class SkyPopoverAdapterService {
       }
 
       if (placement === 'above' || placement === 'below') {
-        left = documentWidth - popoverRect.width;
+        left = parentWidth - popoverRect.width;
       }
     }
 
@@ -205,13 +201,13 @@ export class SkyPopoverAdapterService {
     }
 
     // Clipped below?
-    if (top + popoverRect.height >= documentHeight) {
+    if (top + popoverRect.height >= parentHeight) {
       if (placement === 'below') {
         isOutsideViewport = true;
       }
 
       if (placement === 'left' || placement === 'right') {
-        top = documentHeight - popoverRect.height;
+        top = parentHeight - popoverRect.height;
       }
     }
 
@@ -239,30 +235,20 @@ export class SkyPopoverAdapterService {
     switch (placement) {
       default:
       case 'above':
-        left = callerOffsetLeft - popoverCoords.left + (callerRect.width / 2);
-      break;
-
       case 'below':
         left = callerOffsetLeft - popoverCoords.left + (callerRect.width / 2);
       break;
 
       case 'right':
-        top = callerOffsetTop - popoverCoords.top + (callerRect.height / 2);
-        break;
-
       case 'left':
-        top = callerOffsetTop - popoverCoords.top + (callerOffsetTop / 2);
-        break;
+        top = callerOffsetTop - popoverCoords.top + (callerRect.height / 2);
+      break;
     }
 
     // The arrow has exceded the bounds of the popover;
     // default to the CSS className position.
     if (left < 0 || left > popoverRect.width) {
       left = undefined;
-    }
-
-    if (top < 0 || top > popoverRect.height) {
-      top = undefined;
     }
 
     return { top, left };

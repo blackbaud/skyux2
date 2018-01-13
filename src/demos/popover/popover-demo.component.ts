@@ -19,14 +19,13 @@ import {
 export class SkyPopoverDemoComponent {
   @ViewChild('remote')
   public remote: ElementRef;
-
   public popoverMessages = new Subject<SkyPopoverMessage>();
 
-  public onPopoverOpened(popoverComponent: any): void {
+  public onPopoverOpened(popoverComponent: any) {
     alert('The popover was opened: ' + popoverComponent.popoverTitle);
   }
 
-  public onPopoverClosed(popoverComponent: any): void {
+  public onPopoverClosed(popoverComponent: any) {
     alert('The popover was closed: ' + popoverComponent.popoverTitle);
   }
 
@@ -35,7 +34,7 @@ export class SkyPopoverDemoComponent {
       type: SkyPopoverMessageType.Open,
       elementRef: this.remote,
       alignment: 'left',
-      placement: 'below'
+      placement: 'above'
     });
   }
 

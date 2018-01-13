@@ -182,84 +182,6 @@
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<p style="color:red;">
-  Works inside positioned elements, too:
-</p>
-<div style="border:1px solid red;position:relative;">
-  <button
-    class="sky-btn"
-    type="button"
-    [skyPopover]="myPopover3b"
-    skyPopoverPlacement="below"
-    skyPopoverAlignment="left">
-    Below, align left
-  </button>
-
-  <sky-popover #myPopover3b>
-    The content of a popover can be text, HTML, or Angular components.
-  </sky-popover>
-</div>
-
-<p>
-  <button
-    class="sky-btn"
-    type="button"
-    [skyPopover]="myPopover5"
-    skyPopoverPlacement="below">
-    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
-  </button>
-</p>
-<p>
-  <button
-    class="sky-btn"
-    type="button"
-    [skyPopover]="myPopover5"
-    skyPopoverPlacement="below"
-    skyPopoverAlignment="left">
-    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
-  </button>
-</p>
-<p>
-  <button
-    class="sky-btn"
-    type="button"
-    [skyPopover]="myPopover5"
-    skyPopoverPlacement="below"
-    skyPopoverAlignment="right">
-    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
-  </button>
-</p>
-<p>
-  <button
-    class="sky-btn"
-    type="button"
-    [skyPopover]="myPopover5"
-    skyPopoverPlacement="above">
-    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
-  </button>
-</p>
-<p>
-  <button
-    class="sky-btn"
-    type="button"
-    [skyPopover]="myPopover5"
-    skyPopoverPlacement="above"
-    skyPopoverAlignment="left">
-    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
-  </button>
-</p>
-<p>
-  <button
-    class="sky-btn"
-    type="button"
-    [skyPopover]="myPopover5"
-    skyPopoverPlacement="above"
-    skyPopoverAlignment="right">
-    The trigger button may have exceedingly long text. The component automatically detects this and makes sure that the arrow is placed correctly.
-  </button>
-</p>
-
-
 <sky-popover #myPopover5>
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
@@ -290,37 +212,14 @@
   class="sky-btn"
   [skyPopover]="popoverMouseEnter"
   skyPopoverPlacement="right"
-  skyPopoverTrigger="mouseenter"
->
+  skyPopoverTrigger="mouseenter">
   Hover
 </button>
 
 <sky-popover
   popoverTitle="Did you know?"
-  #popoverMouseEnter
->
+  #popoverMouseEnter>
   You can move your mouse off the button to close this popover.
-</sky-popover>
-
-<h3>
-  Using multiple triggers
-</h3>
-<p>
-  The same popover can be opened with multiple triggers. Each trigger will overwrite the popover's placement and alignment when opened.
-</p>
-
-<button
-  class="sky-btn"
-  type="button"
-  [skyPopover]="myPopover7">
-  Open popover with defaults
-</button>
-
-<sky-popover
-  alignment="left"
-  placement="above"
-  #myPopover7>
-  The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
 <h3>

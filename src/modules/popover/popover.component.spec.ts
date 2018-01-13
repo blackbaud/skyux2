@@ -38,13 +38,23 @@ class MockWindowService {
 describe('SkyPopoverComponent', () => {
   let fixture: ComponentFixture<SkyPopoverComponent>;
   let component: SkyPopoverComponent;
+  let placementChangesSubscribe: Function;
 
   beforeEach(() => {
     let mockWindowService = new MockWindowService();
     let mockAdapterService = {
       setPopoverPosition() {},
       hidePopover() {},
-      showPopover() {}
+      showPopover() {},
+      placementChanges: {
+        takeUntil() {
+          return {
+            subscribe(callback: Function) {
+              placementChangesSubscribe = callback;
+            }
+          };
+        }
+      }
     };
 
     TestBed.configureTestingModule({
@@ -81,9 +91,23 @@ describe('SkyPopoverComponent', () => {
   it('should call the adapter service with a default position', () => {
     const caller = new ElementRef({});
     const spy = spyOn(component['adapterService'], 'setPopoverPosition');
-    component.positionNextTo(caller, undefined);
+    (component as any).alignment = undefined;
+    (component as any).placement = undefined;
+    component.positionNextTo(caller, undefined, undefined);
     expect(spy).toHaveBeenCalled();
     expect(component.placement).toEqual('above');
+    expect(component.alignment).toEqual('center');
+  });
+
+  it('should update classnames if the adapter changes the placement', () => {
+    expect(component.classNames[1]).toEqual('sky-popover-placement-above');
+    placementChangesSubscribe({ placement: 'below' });
+    // fixture.detectChanges();
+    expect(component.classNames[1]).toEqual('sky-popover-placement-below');
+
+    // It shouldn't change the class names if the placement hasn't changed.
+    placementChangesSubscribe({ foo: 'below' });
+    expect(component.classNames[1]).toEqual('sky-popover-placement-below');
   });
 
   it('should not call the adapter service if a caller is not defined', () => {
@@ -93,9 +117,8 @@ describe('SkyPopoverComponent', () => {
   });
 
   it('should close a popover', () => {
-    // component.close();
-    // expect(component['lastCaller']).toBeUndefined();
-    // expect(component.isOpen).toEqual(false);
+    component.close();
+    expect(component.isOpen).toEqual(false);
   });
 
   it('should remove a CSS classname before the animation starts', () => {
@@ -186,13 +209,6 @@ describe('SkyPopoverComponent', () => {
     expect(component['isMouseEnter']).toEqual(true);
     TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(component['isMouseEnter']).toEqual(false);
-  });
-
-  it('should adjust placement on window resize', () => {
-    // component.placement = 'below';
-    // spyOn(component, 'positionNextTo').and.returnValue(0);
-    // TestUtility.fireDomEvent(window, 'resize');
-    // expect(component.positionNextTo).toHaveBeenCalledWith(component['lastCaller'], 'below');
   });
 
   it('should close the popover when the escape key is pressed', () => {

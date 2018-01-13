@@ -27,8 +27,8 @@ import { SkyWindowRefService } from '../window';
 
 import {
   SkyPopoverAlignment,
-  SkyPopoverMessageType,
-  SkyPopoverMessage,
+  // SkyPopoverMessageType,
+  // SkyPopoverMessage,
   SkyPopoverPlacement,
   SkyPopoverPlacementChange
 } from './types';
@@ -72,8 +72,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     return this._placement || 'above';
   }
 
-  @Input()
-  public messageStream = new Subject<SkyPopoverMessage>();
+  // @Input()
+  // public messageStream = new Subject<SkyPopoverMessage>();
 
   @Output()
   public popoverOpened = new EventEmitter<SkyPopoverComponent>();
@@ -106,6 +106,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.adapterService.placementChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyPopoverPlacementChange) => {
+        console.log('real placement changes:', change);
         if (change.placement) {
           this.updateClassNames(
             change.placement,
@@ -118,9 +119,11 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.updateClassNames(this.placement, this.alignment);
 
-    this.messageStream.takeUntil(this.destroy).subscribe((message: SkyPopoverMessage) => {
-      this.handleIncomingMessages(message);
-    });
+    // this.messageStream
+    //   .takeUntil(this.destroy)
+    //   .subscribe((message: SkyPopoverMessage) => {
+    //     this.handleIncomingMessages(message);
+    //   });
   }
 
   public ngOnDestroy() {
@@ -228,20 +231,22 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       `sky-popover-alignment-${alignment}`,
       `sky-popover-placement-${placement}`
     ];
+
+    console.log('classnames:', this.classNames);
   }
 
-  private handleIncomingMessages(message: SkyPopoverMessage) {
-    if (message.type === SkyPopoverMessageType.Close) {
-      this.close();
-      return;
-    }
+  // private handleIncomingMessages(message: SkyPopoverMessage) {
+  //   if (message.type === SkyPopoverMessageType.Close) {
+  //     this.close();
+  //     return;
+  //   }
 
-    if (message.type === SkyPopoverMessageType.Open) {
-      this.positionNextTo(
-        message.elementRef,
-        message.placement,
-        message.alignment
-      );
-    }
-  }
+  //   if (message.type === SkyPopoverMessageType.Open) {
+  //     this.positionNextTo(
+  //       message.elementRef,
+  //       message.placement,
+  //       message.alignment
+  //     );
+  //   }
+  // }
 }

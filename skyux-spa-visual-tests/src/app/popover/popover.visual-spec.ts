@@ -5,7 +5,7 @@ import {
   by
 } from 'protractor';
 
-describe('Popover', () => {
+fdescribe('Popover', () => {
   const testPopoverPlacement = (placement: string): Promise<any> => {
     SkyVisualTest.scrollElementIntoView(`#screenshot-popover-placements`);
     element(by.id(`btn-popover-placement-${placement}`)).click();
@@ -34,6 +34,30 @@ describe('Popover', () => {
       .then(() => testPopoverPlacement('above'));
   });
 
+  it('should open a popover above-left the caller', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => testPopoverPlacement('above-left'));
+  });
+
+  it('should open a popover above-right the caller', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => testPopoverPlacement('above-right'));
+  });
+
+  it('should open a popover below-left the caller', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => testPopoverPlacement('below-left'));
+  });
+
+  it('should open a popover below-right the caller', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => testPopoverPlacement('below-right'));
+  });
+
   it('should open a popover below the caller', () => {
     return SkyVisualTest
       .setupTest('popover')
@@ -54,8 +78,16 @@ describe('Popover', () => {
 
   it('should handle tiny screens', () => {
     return SkyVisualTest
-      .setupTest('popover', 767)
-      .then(() => testPopoverPlacement('above'));
+      .setupTest('popover', 768)
+      .then(() => {
+        SkyVisualTest.scrollElementIntoView(`#screenshot-popover-tiny`);
+        element(by.id(`btn-popover-tiny`)).click();
+        return SkyVisualTest
+          .compareScreenshot({
+            screenshotName: `popover-placement-tiny`,
+            selector: '#screenshot-popover-tiny'
+          });
+      });
   });
 
   it('should handle absolutely positioned items inside the popover', () => {
@@ -69,6 +101,34 @@ describe('Popover', () => {
           .compareScreenshot({
             screenshotName: 'popover-with-dropdown',
             selector: '#screenshot-popover-with-dropdown'
+          });
+      });
+  });
+
+  it('should handle left aligned popover in positioned parent', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => {
+        SkyVisualTest.scrollElementIntoView('#screenshot-popover-positioned-parent');
+        element(by.id('btn-popover-position-parent-left')).click();
+        return SkyVisualTest
+          .compareScreenshot({
+            screenshotName: 'popover-position-parent-left',
+            selector: '#screenshot-popover-positioned-parent'
+          });
+      });
+  });
+
+  it('should handle right aligned popover in positioned parent', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => {
+        SkyVisualTest.scrollElementIntoView('#screenshot-popover-positioned-parent');
+        element(by.id('btn-popover-position-parent-right')).click();
+        return SkyVisualTest
+          .compareScreenshot({
+            screenshotName: 'popover-position-parent-right',
+            selector: '#screenshot-popover-positioned-parent'
           });
       });
   });
