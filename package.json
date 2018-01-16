@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "bash ./scripts/build-packages.sh",
+    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ngc && cd ../ && npm run compile:sass && npm run copy:design-tokens && cd config/rollup && rollup -c rollup.config.js && rollup -c rollup.min.config.js && rollup -c rollup.demo.config.js && rollup -c rollup.demo.min.config.js && npm run clean:srctemp",
     "ci": "npm run lint && npm run test:ci",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs skyux-spa-visual-tests/node_modules/ skyux-spa-visual-tests/dist/",
@@ -58,7 +58,6 @@
     "@blackbaud/skyux": "2.3.2",
     "@blackbaud/skyux-builder": "1.7.1",
     "@blackbaud/skyux-design-tokens": "0.0.8",
-    "@blackbaud/stache": "2.2.0",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.18",

@@ -153,16 +153,7 @@ const components = [
     SkyModule
   ],
   exports: components,
-  entryComponents: [
-    SkyFilterDemoModalComponent,
-    SkyListFiltersModalDemoComponent,
-    SkyModalDemoFormComponent,
-    SkyModalDemoTiledFormComponent,
-    SkySectionedModalFormDemoComponent,
-    SkyTileDemoTile1Component,
-    SkyTileDemoTile2Component,
-    SkyWizardDemoFormComponent
-  ]
+  entryComponents: components
 })
 export class SkyDemoModule { }
 
