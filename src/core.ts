@@ -30,6 +30,7 @@ import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
 import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
+import { SkyFlyoutModule } from './modules/flyout/flyout.module';
 import { SkyGridModule } from './modules/grid';
 import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyKeyInfoModule } from './modules/key-info';
@@ -85,6 +86,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyFileAttachmentsModule,
     SkyFilterModule,
     SkyFluidGridModule,
+    SkyFlyoutModule,
     SkyGridModule,
     SkyHelpInlineModule,
     SkyKeyInfoModule,
@@ -143,6 +145,7 @@ export * from './modules/fileattachments';
 export * from './modules/filter';
 export * from './modules/fluid-grid';
 export * from './modules/format';
+export * from './modules/flyout';
 export * from './modules/grid';
 export * from './modules/help-inline';
 export * from './modules/key-info';

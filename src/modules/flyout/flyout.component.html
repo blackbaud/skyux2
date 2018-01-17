@@ -1,0 +1,18 @@
+<div
+  class="sky-flyout-dialog"
+  role="dialog"
+  tabindex="-1"
+  [attr.aria-describedby]="ariaDescribedBy"
+  [attr.aria-labelledby]="ariaLabelledBy"
+  (window:resize)="windowResize()"
+>
+  <div
+    class="sky-flyout"
+    [ngStyle]="{ zIndex: modalZIndex }"
+  >
+
+  <div class="sky-flyout-content">
+    FLYOUT CONTENT GOES HERE
+    <ng-content select="sky-flyout-content"></ng-content>
+  </div>
+</div>
