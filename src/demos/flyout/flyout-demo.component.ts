@@ -1,28 +1,18 @@
 import { SkyFlyoutComponent } from './../../modules/flyout/flyout.component';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
-import {
-  SkyModalCloseArgs
-} from '../../core';
-
+import { SkyFlyoutService } from '../../modules/flyout/flyout.service';
 
 @Component({
   selector: 'sky-flyout-demo',
   templateUrl: './flyout-demo.component.html'
 })
 export class SkyFlyoutDemoComponent {
-  @ViewChild(SkyFlyoutComponent) flyout: SkyFlyoutComponent;
-  private state: string = 'in';
 
-  constructor() { }
+  constructor(public skyFlyoutService: SkyFlyoutService) { }
 
   public toggleState() {
-    if (this.state === 'in') {
-      this.state = 'out';
-    } else if (this.state === 'out') {
-      this.state = 'in';
-    }
-    this.flyout.toggleState(this.state);
+    this.skyFlyoutService.open(SkyFlyoutComponent, []);
   }
 
 }
