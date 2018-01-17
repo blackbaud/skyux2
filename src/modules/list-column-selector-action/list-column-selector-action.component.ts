@@ -75,10 +75,10 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit, O
         {
           id: 'column-chooser',
           template: this.columnChooserTemplate,
-          location: 'center'
+          location: 'left'
         }
       );
-      this.dispatcher.toolbarAddItems([columnChooserItem], 3);
+      this.dispatcher.toolbarAddItems([columnChooserItem], 2);
     }
   }
 

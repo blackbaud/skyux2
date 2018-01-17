@@ -56,13 +56,13 @@ export class SkyListSecondaryActionsComponent implements AfterContentInit, OnIni
       {
         id: 'secondary-actions',
         template: this.secondaryActionsTemplate,
-        location: 'right'
+        location: 'center'
       }
     );
     this.dispatcher.toolbarAddItems([
       secondaryActionItem
     ],
-    -1);
+    0);
 
     this.actionService.secondaryActionsSubject.subscribe((count) => {
       this.dropdownHidden = count < 1;

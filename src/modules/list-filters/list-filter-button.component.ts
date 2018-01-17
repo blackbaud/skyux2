@@ -30,7 +30,7 @@ export class SkyListFilterButtonComponent implements AfterViewInit {
     this.dispatcher.toolbarAddItems([
       new ListToolbarItemModel({
         template: this.filterButtonTemplate,
-        location: 'right'
+        location: 'left'
       })
     ],
     0);

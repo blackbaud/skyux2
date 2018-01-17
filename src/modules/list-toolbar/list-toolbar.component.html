@@ -45,7 +45,6 @@
         </sky-toolbar-item>
         <sky-toolbar-item *ngFor="let item of centerTemplates | async">
           <sky-list-toolbar-item-renderer
-            *ngIf="item.id !== 'search'"
             [template]="item.template"
             [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
@@ -54,6 +53,7 @@
           [attr.sky-toolbar-id]="item.id"
         >
           <sky-list-toolbar-item-renderer
+            *ngIf="item.id !== 'search'"
             [template]="item.template"
             [attr.sky-cmp-id]="item.id">
           </sky-list-toolbar-item-renderer>
