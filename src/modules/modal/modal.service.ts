@@ -7,7 +7,7 @@ import {
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostComponent } from './modal-host.component';
 import { SkyModalAdapterService } from './modal-adapter.service';
-import { SkyModalConfiguationInterface as IConfig } from './modal.interface';
+import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 
 @Injectable()
 export class SkyModalService {
@@ -58,7 +58,12 @@ export class SkyModalService {
   }
 
   private getConfigFromParameter(providersOrConfig: any) {
-    let defaultParams: IConfig = { 'providers': [], 'fullPage': false, 'size': 'medium' };
+    let defaultParams: IConfig = {
+      'providers': [],
+      'fullPage': false,
+      'size': 'medium',
+      'tiledBody': false
+    };
     let params: any = undefined;
     let method: any = undefined;
 

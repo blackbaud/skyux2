@@ -1,6 +1,7 @@
  import {
   animate,
   Component,
+  Input,
   state,
   style,
   transition,
@@ -14,6 +15,7 @@ import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfiguration } from './modal-configuration';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
+import { SkyWindowRefService } from '../window';
 
 let skyModalUniqueIdentifier: number = 0;
 
@@ -40,9 +42,13 @@ let skyModalUniqueIdentifier: number = 0;
 })
 export class SkyModalComponent implements AfterViewInit {
   public modalState = 'in';
-
   public modalContentId: string = 'sky-modal-content-id-' + skyModalUniqueIdentifier.toString();
   public modalHeaderId: string = 'sky-modal-header-id-' + skyModalUniqueIdentifier.toString();
+
+  @Input()
+  public set tiledBody(value: boolean) {
+    this.config.tiledBody = value;
+  }
 
   public get modalZIndex() {
     return this.hostService.getModalZIndex();
@@ -64,6 +70,10 @@ export class SkyModalComponent implements AfterViewInit {
     return !this.modalFullPage && this.isSizeEqual(this.config.size, 'large');
   }
 
+  public get isTiledBody() {
+    return this.config.tiledBody;
+  }
+
   public get ariaDescribedBy() {
     return this.config.ariaDescribedBy || this.modalContentId;
   }
@@ -71,6 +81,18 @@ export class SkyModalComponent implements AfterViewInit {
   public get ariaLabelledBy() {
     return this.config.ariaLabelledBy || this.modalHeaderId;
   }
+
+  public get helpKey() {
+    return this.config.helpKey;
+  }
+
+  constructor(
+    private hostService: SkyModalHostService,
+    private config: SkyModalConfiguration,
+    private elRef: ElementRef,
+    private windowRef: SkyWindowRefService,
+    private componentAdapter: SkyModalComponentAdapterService
+  ) { }
 
   @HostListener('document:keydown', ['$event'])
   public onDocumentKeyDown(event: KeyboardEvent) {
@@ -82,7 +104,7 @@ export class SkyModalComponent implements AfterViewInit {
         switch (event.which) {
           case 27: { // Esc key pressed
             event.preventDefault();
-            this.hostService.onClose(this);
+            this.hostService.onClose();
             break;
           }
 
@@ -116,21 +138,23 @@ export class SkyModalComponent implements AfterViewInit {
     }
   }
 
-  constructor(
-    private hostService: SkyModalHostService,
-    private config: SkyModalConfiguration,
-    private elRef: ElementRef,
-    private componentAdapter: SkyModalComponentAdapterService) { }
-
   public ngAfterViewInit() {
     skyModalUniqueIdentifier++;
     this.componentAdapter.handleWindowChange(this.elRef);
 
-    this.componentAdapter.modalOpened(this.elRef);
+    // Adding a timeout to avoid ExpressionChangedAfterItHasBeenCheckedError.
+    // https://stackoverflow.com/questions/40562845
+    this.windowRef.getWindow().setTimeout(() => {
+      this.componentAdapter.modalOpened(this.elRef);
+    });
+  }
+
+  public helpButtonClick() {
+    this.hostService.onOpenHelp(this.helpKey);
   }
 
   public closeButtonClick() {
-    this.hostService.onClose(this);
+    this.hostService.onClose();
   }
 
   public windowResize() {

@@ -72,6 +72,10 @@ describe('File drop component', () => {
     return fixture.debugElement.query(By.css('.sky-file-drop'));
   }
 
+  function getDropElWrapper() {
+    return el.querySelector('.sky-file-drop-col');
+  }
+
   function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any) {
     expect(dropEl.classList.contains('sky-file-drop-accept')).toBe(hasAccept);
     expect(dropEl.classList.contains('sky-file-drop-reject')).toBe(hasReject);
@@ -195,10 +199,10 @@ describe('File drop component', () => {
 
     if (fileReaderSpy.loadCallbacks[0]) {
        fileReaderSpy.loadCallbacks[0]({
-          target: {
-            result: 'url'
-          }
-        });
+        target: {
+          result: 'url'
+        }
+      });
     }
 
     if (fileReaderSpy.loadCallbacks[1]) {
@@ -359,7 +363,7 @@ describe('File drop component', () => {
 
     componentInstance.validateFn = function(file: any) {
       if (file.file.name.indexOf('w') === 0) {
-          return errorMessage;
+        return errorMessage;
       }
     };
 
@@ -403,7 +407,7 @@ describe('File drop component', () => {
     expect(filesChangedActual.files[0].file.size).toBe(1000);
   });
 
-   it('should reject a file with no type when accepted types are defined', () => {
+  it('should reject a file with no type when accepted types are defined', () => {
     let filesChangedActual: SkyFileDropChange;
 
     componentInstance.filesChanged.subscribe(
@@ -414,16 +418,16 @@ describe('File drop component', () => {
     fixture.detectChanges();
 
     let files = [
-        {
-          name: 'foo.txt',
-          size: 1000
-        },
-        {
-          name: 'woo.txt',
-          size: 2000,
-          type: 'image/jpeg'
-        }
-      ];
+      {
+        name: 'foo.txt',
+        size: 1000
+      },
+      {
+        name: 'woo.txt',
+        size: 2000,
+        type: 'image/jpeg'
+      }
+    ];
 
     setupStandardFileChangeEvent(files);
 
@@ -489,6 +493,7 @@ describe('File drop component', () => {
 
     let dragOverEvent = {
       dataTransfer: {
+        files: {} as any,
         items: files
       },
       stopPropagation: function () {
@@ -512,14 +517,13 @@ describe('File drop component', () => {
 
     let dropEvent = {
       dataTransfer: {
-        files:
-          {
-            length: fileLength,
-            item: function (index: number) {
-              return files[index];
-            }
-          },
-          items: files
+        files: {
+          length: fileLength,
+          item: function (index: number) {
+            return files[index];
+          }
+        },
+        items: files
       },
       stopPropagation: function () {
         dropPropStopped = true;
@@ -560,30 +564,31 @@ describe('File drop component', () => {
     let dropDebugEl = getDropDebugEl();
 
     let files = [
-        {
-          name: 'foo.txt',
-          size: 1000,
-          type: 'image/png'
-        }
-      ];
+      {
+        name: 'foo.txt',
+        size: 1000,
+        type: 'image/png'
+      }
+    ];
 
     let invalidFiles = [
-        {
-          name: 'foo.txt',
-          size: 1000,
-          type: 'image/jpeg'
-        }
-      ];
+      {
+        name: 'foo.txt',
+        size: 1000,
+        type: 'image/jpeg'
+      }
+    ];
 
     triggerDragEnter('sky-drop', dropDebugEl);
     triggerDragOver(files, dropDebugEl);
-    let dropEl = getDropEl();
+    let dropElWrapper = getDropElWrapper();
 
-    validateDropClasses(true, false, dropEl);
+    validateDropClasses(true, false, dropElWrapper);
 
     triggerDrop(files, dropDebugEl);
 
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
+
     fileReaderSpy.loadCallbacks[0]({
       target: {
         result: 'url'
@@ -593,7 +598,6 @@ describe('File drop component', () => {
     fixture.detectChanges();
 
     expect(filesChangedActual.rejectedFiles.length).toBe(0);
-
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('url');
     expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
@@ -602,26 +606,26 @@ describe('File drop component', () => {
     // Verify reject classes when appropriate
     triggerDragEnter('sky-drop', dropDebugEl);
     triggerDragOver(invalidFiles, dropDebugEl);
-    validateDropClasses(false, true, dropEl);
+    validateDropClasses(false, true, dropElWrapper);
     triggerDragLeave('something', dropDebugEl);
-    validateDropClasses(false, true, dropEl);
+    validateDropClasses(false, true, dropElWrapper);
     triggerDragLeave('sky-drop', dropDebugEl);
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
 
     // Verify empty file array
     triggerDragEnter('sky-drop', dropDebugEl);
     triggerDragOver([], dropDebugEl);
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
 
     let emptyEvent = {
-      stopPropagation: function (){},
+      stopPropagation: function () {},
       preventDefault: function () {}
     };
 
     // Verify no dataTransfer drag
     dropDebugEl.triggerEventHandler('dragover', emptyEvent);
     fixture.detectChanges();
-    validateDropClasses(false, false, dropEl);
+    validateDropClasses(false, false, dropElWrapper);
 
     // Verify no dataTransfer drop
     fileReaderSpy.loadCallbacks = [];
@@ -631,66 +635,99 @@ describe('File drop component', () => {
 
   });
 
+  it([
+    'should accept a file of rejected type on drag (but not on drop)',
+    'if the browser does not support dataTransfer.items'
+  ].join(' '), () => {
+    let filesChangedActual: SkyFileDropChange;
+
+    componentInstance.filesChanged.subscribe(
+      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+    componentInstance.acceptedTypes = 'image/png, image/tiff';
+
+    fixture.detectChanges();
+
+    let dropDebugEl = getDropDebugEl();
+
+    let invalidFiles = [
+      {
+        name: 'foo.txt',
+        size: 1000,
+        type: 'image/jpeg'
+      }
+    ];
+
+    let dropElWrapper = getDropElWrapper();
+
+    triggerDragEnter('sky-drop', dropDebugEl);
+    triggerDragOver(undefined, dropDebugEl);
+    validateDropClasses(true, false, dropElWrapper);
+
+    triggerDrop(invalidFiles, dropDebugEl);
+    validateDropClasses(false, false, dropElWrapper);
+  });
+
   it('should prevent loading multiple files on drag and drop when multiple is false', () => {
     let files = [
-        {
-          name: 'foo.txt',
-          size: 1000,
-          type: 'image/png'
-        },
-        {
-          name: 'goo.txt',
-          size: 1000,
-          type: 'image/png'
-        }
-      ];
+      {
+        name: 'foo.txt',
+        size: 1000,
+        type: 'image/png'
+      },
+      {
+        name: 'goo.txt',
+        size: 1000,
+        type: 'image/png'
+      }
+    ];
 
-      let filesChangedActual: SkyFileDropChange;
+    let filesChangedActual: SkyFileDropChange;
 
-      componentInstance.filesChanged.subscribe(
-        (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+    componentInstance.filesChanged.subscribe(
+      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-      let fileReaderSpy = setupFileReaderSpy();
+    let fileReaderSpy = setupFileReaderSpy();
 
-      componentInstance.multiple = false;
-      fixture.detectChanges();
+    componentInstance.multiple = false;
+    fixture.detectChanges();
 
-      let dropDebugEl = getDropDebugEl();
+    let dropDebugEl = getDropDebugEl();
 
-      triggerDragEnter('sky-drop', dropDebugEl);
-      triggerDragOver(files, dropDebugEl);
-      triggerDrop(files, dropDebugEl);
-      expect(fileReaderSpy.loadCallbacks.length).toBe(0);
+    triggerDragEnter('sky-drop', dropDebugEl);
+    triggerDragOver(files, dropDebugEl);
+    triggerDrop(files, dropDebugEl);
+    expect(fileReaderSpy.loadCallbacks.length).toBe(0);
   });
 
   it('should prevent loading directories on drag and drop', () => {
     let files = [
-        {
-          name: 'foo.txt',
-          size: 1000,
-          type: 'image/png',
-          webkitGetAsEntry: function () {
-            return {
-              isDirectory: true
-            };
-          }
+      {
+        name: 'foo.txt',
+        size: 1000,
+        type: 'image/png',
+        webkitGetAsEntry: function () {
+          return {
+            isDirectory: true
+          };
         }
-      ];
+      }
+    ];
 
-      let filesChangedActual: SkyFileDropChange;
+    let filesChangedActual: SkyFileDropChange;
 
-      componentInstance.filesChanged.subscribe(
-        (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+    componentInstance.filesChanged.subscribe(
+      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-      let fileReaderSpy = setupFileReaderSpy();
-      fixture.detectChanges();
+    let fileReaderSpy = setupFileReaderSpy();
+    fixture.detectChanges();
 
-      let dropDebugEl = getDropDebugEl();
+    let dropDebugEl = getDropDebugEl();
 
-      triggerDragEnter('sky-drop', dropDebugEl);
-      triggerDragOver(files, dropDebugEl);
-      triggerDrop(files, dropDebugEl);
-      expect(fileReaderSpy.loadCallbacks.length).toBe(0);
+    triggerDragEnter('sky-drop', dropDebugEl);
+    triggerDragOver(files, dropDebugEl);
+    triggerDrop(files, dropDebugEl);
+    expect(fileReaderSpy.loadCallbacks.length).toBe(0);
   });
 
   it('should show link section when allowLinks is true', () => {
@@ -761,4 +798,10 @@ describe('File drop component', () => {
       By.css('.sky-file-drop-contents-custom .sky-custom-drop'))).toBeTruthy();
   });
 
+  it('Should specify type="button" on all button elements.', () => {
+    fixture.detectChanges();
+    expect(el.querySelectorAll('button:not([type])').length).toBe(0);
+    expect(el.querySelectorAll('button[type="submit"]').length).toBe(0);
+    expect(el.querySelectorAll('button[type="button"]').length).toBe(1);
+  });
 });

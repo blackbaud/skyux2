@@ -9,8 +9,7 @@ describe('Filter', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'filter-button',
-        selector: '#screenshot-filter-button',
-        checkAccessibility: true
+        selector: '#screenshot-filter-button'
       });
     });
 
@@ -22,8 +21,7 @@ describe('Filter', () => {
        element(by.css('.sky-btn-default')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'filter-button-active',
-        selector: '#screenshot-filter-button',
-        checkAccessibility: true
+        selector: '#screenshot-filter-button'
       });
     });
 
@@ -34,8 +32,7 @@ describe('Filter', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'filter-summary',
-        selector: '#screenshot-filter-summary',
-        checkAccessibility: true
+        selector: '#screenshot-filter-summary'
       });
     });
 
@@ -46,8 +43,7 @@ describe('Filter', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'filter-inline',
-        selector: '#screenshot-filter-inline',
-        checkAccessibility: true
+        selector: '#screenshot-filter-inline'
       });
     });
 

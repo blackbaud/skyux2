@@ -28,6 +28,8 @@ $sky-line-height-base: 1.428571429 !default;
 
 $sky-font-size-base: 15px !default;
 
+$sky-border-radius: 3px;
+
 // begin transitions
 $sky-transition-time-short: 150ms !default;
 $sky-transition-time-medium: 250ms !default;
@@ -102,6 +104,7 @@ $sky-grid-header-dragging-background-color: $sky-background-color-neutral-light 
 
 // begin search
 $sky-search-background-color: $sky-color-white !default;
+$sky-search-width: 300px !default;
 // end search
 
 // begin tabs

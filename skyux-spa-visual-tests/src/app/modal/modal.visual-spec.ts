@@ -11,12 +11,41 @@ describe('Modal', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'modal',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-modal .sky-modal-btn-close')).click();
       });
     });
+
+  });
+
+  it('should match previous modal screenshot with help button in header', () => {
+    return SkyVisualTest.setupTest('modal')
+      .then(() => {
+        element(by.css('.sky-modal-with-help')).click();
+        SkyVisualTest.moveCursorOffScreen();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'modal-with-help',
+          selector: '.sky-modal'
+        }).then(() => {
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
+        });
+      });
+
+  });
+
+  it('should match previous modal screenshot with help button in header on small screens', () => {
+    return SkyVisualTest.setupTest('modal', 480)
+      .then(() => {
+        element(by.css('.sky-modal-with-help')).click();
+        SkyVisualTest.moveCursorOffScreen();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'modal-with-help-small',
+          selector: '.sky-modal'
+        }).then(() => {
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
+        });
+      });
 
   });
 
@@ -27,8 +56,7 @@ describe('Modal', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'modal-small',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-modal .sky-modal-btn-close')).click();
       });
@@ -43,8 +71,7 @@ describe('Modal', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'modal-large',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-modal .sky-modal-btn-close')).click();
       });
@@ -59,8 +86,7 @@ describe('Modal', () => {
       SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'modal-large-mobile',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-modal .sky-modal-btn-close')).click();
       });
@@ -75,8 +101,7 @@ describe('Modal', () => {
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'modal-content-only',
-        selector: '.sky-modal',
-        checkAccessibility: true
+        selector: '.sky-modal'
       }).then(() => {
         element(by.css('.sky-modal .sky-test-close')).click();
       });
@@ -90,8 +115,7 @@ describe('Modal', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'modal_small_size',
-          selector: '.sky-modal',
-          checkAccessibility: true
+          selector: '.sky-modal'
         }).then(() => {
           element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
@@ -105,8 +129,7 @@ describe('Modal', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'modal_medium_size',
-          selector: '.sky-modal',
-          checkAccessibility: true
+          selector: '.sky-modal'
         }).then(() => {
           element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
@@ -120,8 +143,7 @@ describe('Modal', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'modal_large_size',
-          selector: '.sky-modal',
-          checkAccessibility: true
+          selector: '.sky-modal'
         }).then(() => {
           element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
@@ -135,12 +157,24 @@ describe('Modal', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'modal_large_size_bounded',
-          selector: '.sky-modal',
-          checkAccessibility: true
+          selector: '.sky-modal'
         }).then(() => {
           element(by.css('.sky-modal .sky-modal-btn-close')).click();
         });
       });
+  });
 
+  it('should match previous tiled modal screenshot', () => {
+    return SkyVisualTest.setupTest('modal', 800)
+      .then(() => {
+        element(by.css('.sky-test-tiled-modal')).click();
+        SkyVisualTest.moveCursorOffScreen();
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'modal_tiled',
+          selector: '.sky-modal'
+        }).then(() => {
+          element(by.css('.sky-modal .sky-modal-btn-close')).click();
+        });
+      });
   });
 });

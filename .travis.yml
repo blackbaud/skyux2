@@ -1,10 +1,22 @@
 language: node_js
+sudo: required
 
+# Limit the git history cloned for the tests.
 # https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
 git:
   depth: 10
 
-sudo: required
+# Save the browserstack binary to a known location so we can cache it.
+env:
+  global:
+    - CXX=g++-4.8
+    - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
+  # Run three tasks in parallel:
+  # https://docs.travis-ci.com/user/customizing-the-build/#Build-Matrix
+  matrix:
+    - TEST_COMMAND=build
+    - TEST_COMMAND=coverage
+    - TEST_COMMAND=visual
 
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
 addons:
@@ -17,31 +29,35 @@ addons:
       - libcairo2-dev
 
 before_install:
-
   # https://github.com/npm/npm/issues/11283
   - npm set progress=false
 
   - npm install -g @blackbaud/skyux-cli
   - export SAVAGE_BRANCH="^savage-"
-  - chmod +x ./scripts/travis-script.sh
+  - chmod +x ./scripts/travis-script-build.sh
+  - chmod +x ./scripts/travis-script-coverage.sh
+  - chmod +x ./scripts/travis-script-deploy.sh
+  - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
-  - chmod +x ./scripts/travis-after-script.sh
-  - chmod +x ./scripts/travis-after-success.sh
   - chmod +x ./scripts/browserstack-cleanup.sh
   - chmod +x ./scripts/browserstack-local-start.sh
   - chmod +x ./scripts/visual-baseline.sh
   - chmod +x ./scripts/visual-failures.sh
 
 after_install:
-
   - sudo cp .node_modules/@blackbaud/skyux-builder/ssl/skyux-ca.crt /usr/local/share/ca-certificates/skyux-ca.crt
   - sudo update-ca-certificates
 
-script: ./scripts/travis-script.sh
-after_script: ./scripts/travis-after-script.sh
-after_success:
-  - ./scripts/travis-after-success.sh
-  - bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
+script:
+  - eval "./scripts/travis-script-${TEST_COMMAND}.sh"
+
+# Run the deployment after all jobs have been successfully completed.
+# https://docs.travis-ci.com/user/build-stages
+jobs:
+  include:
+    - stage: deploy
+      env: TEST_COMMAND=none
+      script: ./scripts/travis-script-deploy.sh
 
 after_failure:
   - ./scripts/travis-after-failure.sh
@@ -67,9 +83,3 @@ notifications:
     secure: AJd6KPL0tpgMp+tmF6ASiKtR6CW2qSXcL8H1+OVm++94n4iekdrxPX2PH97p8gmKHoyS0/qg0uBsl+Xv5HYrHe2pTFr75wj6J9KLDL5T1H9/eSowM01ugfcVZz0Lc7VqacUg3NV6NTPiLydy/XyhchT2KPIV5oQEw5FpNXj81Udo1O5fC4jhlc5SnQuHmdSRbqhXwXpOqYlyfZDW+njzJq5rIrZAKtWJOWyDR1BRtwSCuYyqMQoOS7WIzOgau5Tvx/X1YkZVohEesj1zsYd0dLkCrujkxPSHt8i5o010zlleeabz5w9lZWXreKbvA2qqHnGrIFoXftq2zPRJl4EgSBz6zDt0uTUDmOGDPHfG21pXuDTx1bwjHrV9VkjTsSp0nEmyWgJbn7EmJDo/y1cUk2+fkmuzTgn4wUqNfTMqGrQh8BKMzLG9wU3UxlHtKLgVqkeVNuEu0iZEIpcAAIbDHYbxYkUOr7pjmm/F1h/b3pojHC91UB6mdzJpSjfTCFlQsRwb2bASEvyTxuDex1bEHBnuK/kk+TeBgIplBXzBsQiEauj8mWeCmBXPaxNIagfsT4nVtBNW6ZsCoRpJC3t9CDI1DIkDtZKcxc4/KmMskunVmOliQyTY2tT86tyo1VpcZ3BI4TOd3sLwpeCX4SW25Y80N7vnXSBlaoU5JTcoUSo=
   webhooks:
     - http://sky-savage.cloudapp.net:6262/savage/travis
-
-# Save the browserstack binary to a known location so we can cache it
-env:
-  global:
-    - CXX=g++-4.8
-    - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary

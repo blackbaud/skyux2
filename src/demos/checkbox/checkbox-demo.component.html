@@ -1,0 +1,18 @@
+<fieldset>
+  <legend>Checkbox options</legend>
+  <ul class="sky-list-unstyled">
+    <li *ngFor="let checkboxItem of checkboxItems">
+      <sky-checkbox [(ngModel)]="checkboxItem.checked" [disabled]="checkboxItem.disabled">
+        <sky-checkbox-label>
+          {{ checkboxItem.description }}
+        </sky-checkbox-label>
+      </sky-checkbox>
+    </li>
+  </ul>
+</fieldset>
+<b>Checked state:</b>
+<ul class="sky-list-unstyled">
+  <li *ngFor="let checkboxItem of checkboxItems">
+    {{ checkboxItem.description }}: <b>{{ checkboxItem.checked ? 'true': 'false' }}</b>
+  </li>
+</ul>

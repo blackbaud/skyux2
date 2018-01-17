@@ -7,8 +7,7 @@ describe('Checkbox', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'checkbox',
-        selector: '#screenshot-checkbox',
-        checkAccessibility: true
+        selector: '#screenshot-checkbox'
       });
     });
 

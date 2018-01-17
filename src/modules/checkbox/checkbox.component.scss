@@ -3,6 +3,7 @@
 
 .sky-checkbox-wrapper {
   cursor: pointer;
+  position: relative;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-wrapper-disabled, .sky-checkbox-wrapper.sky-checkbox-wrapper-disabled input {
@@ -57,10 +58,5 @@
 }
 
 .sky-checkbox-wrapper input:focus + .sky-checkbox {
-  //default
-  outline: thin dotted;
-
-  //webkit
-  outline: -webkit-focus-ring-color auto 5px;
-  outline-offset: -2px;
+  @include sky-focus-outline;
 }

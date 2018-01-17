@@ -40,6 +40,9 @@ const SKY_COLORPICKER_VALIDATOR = {
   multi: true
 };
 // tslint:enable
+
+const SKY_COLORPICKER_DEFAULT_COLOR = '#FFFFFF';
+
 @Directive({
   selector: '[skyColorpickerInput]',
   providers: [
@@ -56,7 +59,13 @@ export class SkyColorpickerInputDirective
   public skyColorpickerInput: SkyColorpickerComponent;
 
   @Input()
-  public initialColor: string = '#FFFFFF';
+  public set initialColor(value: string) {
+    this._initialColor = value || SKY_COLORPICKER_DEFAULT_COLOR;
+  }
+
+  public get initialColor(): string {
+    return this._initialColor;
+  }
 
   @Input()
   public returnFormat: string = 'rgba';
@@ -68,6 +77,7 @@ export class SkyColorpickerInputDirective
   @Input()
   public alphaChannel: string = 'hex6';
 
+  private _initialColor = SKY_COLORPICKER_DEFAULT_COLOR;
   private created: boolean;
   private modelValue: SkyColorpickerOutput;
 
@@ -138,8 +148,10 @@ export class SkyColorpickerInputDirective
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
-    this.modelValue = this.formatter(value);
-    this.writeModelValue(this.modelValue);
+    if (value) {
+      this.modelValue = this.formatter(value);
+      this.writeModelValue(this.modelValue);
+    }
   }
   public validate(control: AbstractControl): { [key: string]: any } {
     let value = control.value;
@@ -150,41 +162,38 @@ export class SkyColorpickerInputDirective
   }
 
   private writeModelValue(model: SkyColorpickerOutput) {
-    if (model) {
-      let setElementValue: string;
-      setElementValue = model.rgbaText;
-      let output: string;
-      if (this.outputFormat === 'rgba') {
-        output = model.rgbaText;
-      }
-      if (this.outputFormat === 'hsla') {
-        output = model.hslaText;
-      }
-      if (this.outputFormat === 'cmyk') {
-        output = model.cmykText;
-      }
-      if (this.outputFormat === 'hex') {
-        output = model.hex;
-      }
-
-      this.skyColorpickerInput.setColorFromString(output);
-
-      this.renderer.setElementStyle(
-        this.element.nativeElement, 'background-color', setElementValue);
-      this.renderer.setElementStyle(this.element.nativeElement, 'color', setElementValue);
-      this.renderer.setElementProperty(this.element.nativeElement, 'value', output);
-      this.renderer.setElementClass(this.element.nativeElement, 'sky-colorpicker-input', true);
+    let setElementValue: string;
+    setElementValue = model.rgbaText;
+    let output: string;
+    if (this.outputFormat === 'rgba') {
+      output = model.rgbaText;
     }
+    if (this.outputFormat === 'hsla') {
+      output = model.hslaText;
+    }
+    if (this.outputFormat === 'cmyk') {
+      output = model.cmykText;
+    }
+    if (this.outputFormat === 'hex') {
+      output = model.hex;
+    }
+
+    this.skyColorpickerInput.setColorFromString(output);
+
+    this.renderer.setElementStyle(
+      this.element.nativeElement, 'background-color', setElementValue);
+    this.renderer.setElementStyle(this.element.nativeElement, 'color', setElementValue);
+    this.renderer.setElementProperty(this.element.nativeElement, 'value', output);
+    this.renderer.setElementClass(this.element.nativeElement, 'sky-colorpicker-input', true);
   }
 
-  private formatter(color: SkyColorpickerOutput) {
+  private formatter(color: any) {
     if (color && typeof color !== 'string') { return color; }
-    if (typeof color === 'string') {
-      let formatColor: SkyColorpickerOutput;
-      let hsva: SkyColorpickerHsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
-      formatColor = this.service.skyColorpickerOut(hsva);
-      return formatColor;
-    }
+
+    let formatColor: SkyColorpickerOutput;
+    let hsva: SkyColorpickerHsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
+    formatColor = this.service.skyColorpickerOut(hsva);
+    return formatColor;
   }
   /*istanbul ignore next */
   private _onChange = (_: any) => { };

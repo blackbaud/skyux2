@@ -1,0 +1,44 @@
+<sky-modal>
+  <sky-modal-header>
+      Sectioned form — Index: {{ activeIndexDisplay }}
+  </sky-modal-header>
+  <sky-modal-content>
+    <sky-sectioned-form (indexChanged)="updateIndex($event)">
+      <sky-sectioned-form-section heading="Basic information">
+        <sky-demo-information-form>
+        </sky-demo-information-form>
+      </sky-sectioned-form-section>
+      <sky-sectioned-form-section heading="Addresses" itemCount="2" [active]="activeTab">
+        <sky-demo-address-form></sky-demo-address-form>
+      </sky-sectioned-form-section>
+      <sky-sectioned-form-section heading="Phone numbers" itemCount="3">
+        <sky-demo-phone-form></sky-demo-phone-form>
+      </sky-sectioned-form-section>
+    </sky-sectioned-form>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button
+      type="button"
+      *ngIf="tabsHidden()"
+      class="sky-btn sky-btn-secondary"
+      (click)="showTabs()"
+    >
+      Show sections
+    </button>
+    <button
+      type="button"
+      class="sky-btn sky-btn-primary"
+      (click)="instance.save('Something cool')"
+    >
+      Save
+    </button>
+    <button
+      type="button"
+      class="sky-btn sky-btn-link"
+      (click)="instance.cancel('Nevermind')"
+    >
+      Cancel
+    </button>
+  </sky-modal-footer>
+  </sky-modal>
+  

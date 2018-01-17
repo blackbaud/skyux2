@@ -17,7 +17,8 @@
       'sky-modal-full-page': modalFullPage,
       'sky-modal-small' : isSmallSize,
       'sky-modal-medium' : isMediumSize,
-      'sky-modal-large' : isLargeSize
+      'sky-modal-large' : isLargeSize,
+      'sky-modal-tiled' : isTiledBody
       }"
     [ngStyle]="{
         zIndex: modalZIndex
@@ -28,6 +29,9 @@
         <ng-content select="sky-modal-header"></ng-content>
       </div>
       <div class="sky-modal-header-buttons">
+        <button *ngIf="helpKey" type="button" class="sky-btn" name="help-button" [attr.aria-label]="'open_help' | skyResources" (click)="helpButtonClick()">
+          <i class="fa fa-question-circle"></i>
+        </button>
 
         <button type="button" class="sky-btn sky-modal-btn-close" [attr.aria-label]="'modal_close' | skyResources" (click)="closeButtonClick()">
 

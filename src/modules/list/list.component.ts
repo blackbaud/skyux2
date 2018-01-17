@@ -12,7 +12,8 @@ import {
 } from '@angular/core';
 
 import {
-  ListItemsLoadAction, ListItemsSetLoadingAction
+  ListItemsLoadAction,
+  ListItemsSetLoadingAction
 } from './state/items/actions';
 
 import {
@@ -53,7 +54,14 @@ import { ListDataResponseModel } from './list-data-response.model';
 import { ListDataProvider } from './list-data.provider';
 import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
 import { ListState, ListStateDispatcher } from './state';
+
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/skip';
+
 import { ListViewComponent } from './list-view.component';
 
 import { ListSearchModel } from './state/search/search.model';
@@ -165,7 +173,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
 
       this.state.map(current => current.selected).distinctUntilChanged()
         .skip(1)
-        .subscribe((selected) => {
+        .subscribe((selected: any) => {
           this.selectedIdsChange.emit(selected.item.selectedIdMap);
         });
     }
@@ -173,7 +181,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
     if (this.appliedFiltersChange.observers.length > 0) {
       this.state.map(current => current.filters).distinctUntilChanged()
         .skip(1)
-        .subscribe((filters) => {
+        .subscribe((filters: any) => {
           this.appliedFiltersChange.emit(filters);
         });
     }
@@ -188,7 +196,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
   }
 
   public refreshDisplayedItems(): void {
-    this.displayedItems.take(1).subscribe(result => {
+    this.displayedItems.take(1).subscribe((result: any) => {
       this.dispatcher.next(new ListItemsSetLoadingAction());
       this.dispatcher.next(new ListItemsLoadAction(result.items, true, true, result.count));
     });

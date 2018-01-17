@@ -1,4 +1,12 @@
 {
   "mode": "easy",
-  "compileMode": "aot"
+  "compileMode": "aot",
+  "name": "visual-tests",
+  "a11y": {
+    "rules": {
+      "bypass": { "enabled": false },
+      "color-contrast": { "enabled": false },
+      "landmark-one-main": { "enabled": false }
+    }
+  }
 }

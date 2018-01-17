@@ -1,6 +1,8 @@
 @import "variables";
 @import "~@blackbaud/skyux-design-tokens/scss/mixins.scss";
 
+// Border mixin is now in the design tokens mixin
+
 @mixin sky-shadow (
   $h-shadow: 0px,
   $v-shadow: 0px,
@@ -10,6 +12,8 @@
 ) {
   box-shadow: $h-shadow $v-shadow $blur $spread-radius $color;
 }
+
+// Begin typography
 
 @mixin sky-page-heading {
   font-family: $sky-font-family-condensed;
@@ -61,6 +65,14 @@
   font-size: $sky-font-size-base;
 }
 
+// End typography
+
+@mixin sky-field-invalid {
+  box-shadow: 0 0 8px rgba(237, 85, 101, 0.6);
+  border: 1px solid #ed5565;
+  outline: none;
+}
+
 @mixin sky-field-status($status) {
   @if($status == "active") {
     box-shadow: 0 0 8px rgba($sky-highlight-color-info, 0.6);
@@ -78,6 +90,8 @@
     outline: none;
   }
 }
+
+//Begin tab buttons
 
 @mixin sky-btn-tab {
   background-color: transparent;
@@ -106,6 +120,8 @@
     color: #fff;
   }
 }
+
+// End tab buttons
 
 @mixin sky-experimental($property, $value,
   $moz      : $sky-experimental-support-for-mozilla,
@@ -137,13 +153,13 @@
 }
 
 @mixin sky-icon-button-borderless {
-    color: $sky-text-color-icon-borderless;
-    cursor: pointer;
-    
-    &:hover {
-        color: darken($sky-text-color-icon-borderless, 20%);
-        transition: color $sky-transition-time-short;
-    }
+  color: $sky-text-color-icon-borderless;
+  cursor: pointer;
+  
+  &:hover {
+    color: darken($sky-text-color-icon-borderless, 20%);
+    transition: color $sky-transition-time-short;
+  }
 }
 
 @mixin sky-button-variant($color, $background, $border, $hoverbackground:darken($background, 10%)) {
@@ -204,6 +220,15 @@
   }
 }
 
+@mixin sky-focus-outline {
+  //default
+  outline: thin dotted;
+
+  //webkit
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: -2px;
+}
+
 // Single side border-radius
 
 @mixin sky-border-top-radius($radius) {
@@ -229,4 +254,17 @@
       width: ($i / $sky-fluid-grid-columns) * 100%;
     }
   }
+}
+
+@mixin sky-required-field {
+  content: "*";
+  color: $sky-highlight-color-danger;
+  padding-left: $sky-padding-half;
+}
+
+@mixin sky-danger {
+  content: "\f071";
+  font-family: FontAwesome;
+  margin-right: 5px;
+  color: $sky-highlight-color-danger;
 }

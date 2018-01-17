@@ -4,17 +4,18 @@
     padding: 0 $sky-padding;
     margin-bottom: $sky-margin-double;
     border-left: solid 30px;
-    border-radius: 3px;
+    border-radius: $sky-border-radius;
     color: $sky-text-color-default;
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+
     .sky-alert-content {
       padding-top: $sky-padding;
       padding-bottom: $sky-padding;
+      width: 100%;
     }
-  
+
     /deep/ .sky-alert-content a {
       color: change-color($sky-text-color-default, $alpha: 0.8);
       text-decoration: underline;
