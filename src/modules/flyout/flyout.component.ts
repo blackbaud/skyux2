@@ -19,20 +19,28 @@ let skyModalUniqueIdentifier: number = 0;
   styleUrls: ['./flyout.component.scss'],
   animations: [
     trigger('modalState', [
-      state('in', style({ opacity: '1.0' })),
-      state('out', style({ opacity: '0.0' })),
+      state('in', style({ transform: 'translateX(0)' })),
+      state('out', style({ transform: 'translateX(100%)' })),
       transition('void => *', [
-        style({ opacity: '0.0' }),
-        animate(150)
+        style({ transform: 'translateX(100%)' }),
+        animate(250)
       ]),
       transition('* => void', [
-        animate(150, style({ opacity: '0.0' }))
-      ])
+        animate(250, style({ transform: 'translateX(0)' }))
+      ]),
+      transition('in => out', animate('250ms ease-in')),
+      transition('out => in', animate('250ms ease-in')),
     ])
   ],
   providers: [ ]
 })
 export class SkyFlyoutComponent {
+  public modalState = 'in';
 
   constructor( ) { }
+
+  public toggleState(state: string) {
+    this.modalState = state;
+    console.log(state);
+  }
 }
