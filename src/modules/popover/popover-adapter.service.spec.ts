@@ -169,7 +169,7 @@ describe('SkyPopoverAdapterService', () => {
           },
           document: {
             body: {
-              clientWidth: 100,
+              clientWidth: 50,
               clientHeight: 50
             }
           },

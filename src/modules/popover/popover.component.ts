@@ -27,8 +27,6 @@ import { SkyWindowRefService } from '../window';
 
 import {
   SkyPopoverAlignment,
-  // SkyPopoverMessageType,
-  // SkyPopoverMessage,
   SkyPopoverPlacement,
   SkyPopoverPlacementChange
 } from './types';
@@ -72,9 +70,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     return this._placement || 'above';
   }
 
-  // @Input()
-  // public messageStream = new Subject<SkyPopoverMessage>();
-
   @Output()
   public popoverOpened = new EventEmitter<SkyPopoverComponent>();
 
@@ -93,12 +88,14 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public classNames: string[] = [];
 
   private isMarkedForCloseOnMouseLeave = false;
+  private caller: ElementRef;
   private destroy = new Subject<boolean>();
 
   private _alignment: SkyPopoverAlignment;
   private _placement: SkyPopoverPlacement;
 
   constructor(
+    public elementRef: ElementRef,
     private windowRef: SkyWindowRefService,
     private changeDetector: ChangeDetectorRef,
     private adapterService: SkyPopoverAdapterService
@@ -106,7 +103,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.adapterService.placementChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyPopoverPlacementChange) => {
-        console.log('real placement changes:', change);
         if (change.placement) {
           this.updateClassNames(
             change.placement,
@@ -117,13 +113,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
+    this.adapterService.hidePopover(this.popoverContainer);
     this.updateClassNames(this.placement, this.alignment);
-
-    // this.messageStream
-    //   .takeUntil(this.destroy)
-    //   .subscribe((message: SkyPopoverMessage) => {
-    //     this.handleIncomingMessages(message);
-    //   });
   }
 
   public ngOnDestroy() {
@@ -131,18 +122,27 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.destroy.unsubscribe();
   }
 
-  @HostListener('document:keyup', ['$event'])
-  public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
-    if (this.isOpen && event.which === 27) {
+  @HostListener('keyup', ['$event'])
+  public onKeyUp(event: KeyboardEvent): void {
+    const key = event.key.toLowerCase();
+    if (key === 'escape') {
       this.close();
+      this.focusCallerElement();
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 
   @HostListener('document:click', ['$event'])
-  public closeOnDocumentClick(event: MouseEvent): void {
-    if (this.isOpen && !this.isMouseEnter) {
+  public onDocumentClick(event: MouseEvent): void {
+    if (!this.isMouseEnter) {
       this.close();
     }
+  }
+
+  @HostListener('click', ['$event'])
+  public onClick(event: MouseEvent): void {
+    event.stopPropagation();
   }
 
   @HostListener('mouseenter')
@@ -169,10 +169,12 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.caller = caller;
+
     const elements = {
       popover: this.popoverContainer,
       popoverArrow: this.popoverArrow,
-      caller
+      caller: this.caller
     };
 
     // Allow the caller to overwrite the component's placement and alignment values.
@@ -186,13 +188,16 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.windowRef.getWindow().setTimeout(() => {
       this.adapterService.setPopoverPosition(elements, placement, alignment);
       this.isOpen = true;
+      this.elementRef.nativeElement.focus();
       this.changeDetector.markForCheck();
     });
   }
 
   public close() {
-    this.isOpen = false;
-    this.changeDetector.markForCheck();
+    if (this.isOpen) {
+      this.isOpen = false;
+      this.changeDetector.markForCheck();
+    }
   }
 
   public onAnimationStart(event: AnimationEvent) {
@@ -231,22 +236,9 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       `sky-popover-alignment-${alignment}`,
       `sky-popover-placement-${placement}`
     ];
-
-    console.log('classnames:', this.classNames);
   }
 
-  // private handleIncomingMessages(message: SkyPopoverMessage) {
-  //   if (message.type === SkyPopoverMessageType.Close) {
-  //     this.close();
-  //     return;
-  //   }
-
-  //   if (message.type === SkyPopoverMessageType.Open) {
-  //     this.positionNextTo(
-  //       message.elementRef,
-  //       message.placement,
-  //       message.alignment
-  //     );
-  //   }
-  // }
+  private focusCallerElement() {
+    this.caller.nativeElement.focus();
+  }
 }

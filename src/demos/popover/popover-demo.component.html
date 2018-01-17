@@ -92,7 +92,26 @@
 </button>
 
 <sky-popover #myPopover0>
-  The content of a popover can be text, HTML, or Angular components.
+  The content of a popover can be text, HTML, or Angular components.<br>
+  <sky-dropdown buttonType="context-menu">
+    <sky-dropdown-menu>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 1
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 2
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 3
+        </button>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
 </sky-popover>
 
 <button
@@ -105,6 +124,7 @@
 
 <sky-popover #myPopover1>
   The content of a popover can be text, HTML, or Angular components.
+  <a href="">Some link</a>
 </sky-popover>
 
 <button
@@ -219,7 +239,26 @@
 <sky-popover
   popoverTitle="Did you know?"
   #popoverMouseEnter>
-  You can move your mouse off the button to close this popover.
+  <sky-dropdown buttonType="context-menu">
+    <sky-dropdown-menu>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 1
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 2
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 3
+        </button>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
+  <br><br>You can move your mouse off the button to close this popover.<br><br>
 </sky-popover>
 
 <h3>
@@ -266,28 +305,4 @@
       </sky-dropdown-item>
     </sky-dropdown-menu>
   </sky-dropdown>
-</sky-popover>
-
-<h3>
-  Interacting with a popover programmatically
-</h3>
-
-<button
-  type="button"
-  class="sky-btn sky-btn-primary"
-  (click)="openPopover()"
-  #remote>
-  Open popover
-</button>
-
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="closePopover()">
-  Close popover
-</button>
-
-<sky-popover
-  [messageStream]="popoverMessages">
-  This popover can be opened remotely.
 </sky-popover>

@@ -15,32 +15,31 @@ import {
 export class SkyDropdownItemComponent implements AfterViewInit {
   public isActive = false;
   public isDisabled = false;
-
-  private buttonElement: HTMLButtonElement;
+  public buttonElement: HTMLButtonElement;
 
   public constructor(
     private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef
+    public elementRef: ElementRef
   ) { }
 
   public ngAfterViewInit() {
     this.buttonElement = this.elementRef.nativeElement.querySelector('button');
 
     if (this.buttonElement) {
-      this.buttonElement.tabIndex = -1;
+      // this.buttonElement.tabIndex = -1;
       this.isDisabled = this.buttonElement.disabled;
       this.changeDetector.detectChanges();
     }
   }
 
-  public focusElement(useNativeFocus: boolean) {
+  public focusElement(enableNativeFocus: boolean) {
     this.isActive = true;
 
-    if (this.buttonElement && useNativeFocus) {
+    if (enableNativeFocus) {
       this.buttonElement.focus();
     }
 
-    this.changeDetector.detectChanges();
+    this.changeDetector.markForCheck();
   }
 
   public isFocusable(): boolean {

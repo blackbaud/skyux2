@@ -217,7 +217,7 @@ describe('SkyPopoverComponent', () => {
     component.isOpen = true;
 
     const escapeEvent: any = document.createEvent('CustomEvent');
-    escapeEvent.which = 27;
+    escapeEvent.key = 'Escape';
     escapeEvent.initEvent('keyup', true, true);
     document.dispatchEvent(escapeEvent);
 
@@ -234,7 +234,7 @@ describe('SkyPopoverComponent', () => {
     component.isOpen = false;
 
     const escapeEvent: any = document.createEvent('CustomEvent');
-    escapeEvent.which = 27;
+    escapeEvent.key = 'Escape';
     escapeEvent.initEvent('keyup', true, true);
     document.dispatchEvent(escapeEvent);
 

@@ -1,8 +1,9 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChild,
+  ElementRef,
   HostListener,
   Input,
   OnDestroy,
@@ -14,9 +15,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import {
-  SkyPopoverDirective,
-  SkyPopoverMessage,
-  SkyPopoverMessageType,
+  SkyPopoverComponent,
   SkyPopoverTrigger
 } from '../popover';
 
@@ -26,6 +25,7 @@ import { SkyWindowRefService } from '../window';
 import { SkyDropdownMenuComponent } from './dropdown-menu.component';
 
 import {
+  SkyDropdownMenuChange,
   SkyDropdownMessage,
   SkyDropdownMessageType,
   SkyDropdownTriggerType
@@ -37,7 +37,7 @@ import {
   styleUrls: ['./dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDropdownComponent implements OnInit, OnDestroy {
+export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input()
   public alignment: string = 'left';
 
@@ -83,15 +83,18 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     return this._trigger || 'click';
   }
 
-  public popoverMessages = new Subject<SkyPopoverMessage>();
+  @ViewChild('triggerButton')
+  private triggerButton: ElementRef;
 
-  @ViewChild(SkyPopoverDirective)
-  private triggerButton: SkyPopoverDirective;
+  @ViewChild(SkyPopoverComponent)
+  private popover: SkyPopoverComponent;
 
   @ContentChild(SkyDropdownMenuComponent)
   private menuComponent: SkyDropdownMenuComponent;
+
   private destroy = new Subject<boolean>();
-  private openedWithKeyboard = false;
+  private isKeyboardActive = false;
+  private tabKeyPressed = false;
   private isOpen = false;
 
   private _buttonType: string;
@@ -100,8 +103,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   private _trigger: SkyDropdownTriggerType;
 
   constructor(
-    private windowObj: SkyWindowRefService,
-    private changeDetector: ChangeDetectorRef
+    private windowObj: SkyWindowRefService
   ) { }
 
   public ngOnInit() {
@@ -114,119 +116,145 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     }
   }
 
+  public ngAfterContentInit() {
+    this.menuComponent.menuChanges
+      .takeUntil(this.destroy)
+      .subscribe((change: SkyDropdownMenuChange) => {
+        // Adjust the position of the dropdown if the number of items changes.
+        if (change.items) {
+          this.windowObj.getWindow().setTimeout(() => {
+            this.resetDropdownPosition();
+          });
+        } else if (change.selectedItem) {
+          this.closeDropdown();
+        }
+      });
+  }
+
   public ngOnDestroy() {
     this.closeDropdown();
     this.destroy.next(true);
     this.destroy.unsubscribe();
   }
 
-  public getPopoverTriggerType(): SkyPopoverTrigger {
-    // The popover has different trigger types.
-    return (this.trigger === 'click') ? 'click' : 'mouseenter';
-  }
-
   @HostListener('keydown', ['$event'])
   public onKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
-    // Except for the enter key, all other events should
-    // be handled when the dropdown is open.
-    if (!this.isOpen) {
-      if (key === 'enter') {
-        this.openedWithKeyboard = true;
+    if (this.isOpen) {
+      switch (key) {
+        // If the menu was opened with the mouse, but the user then presses the tab key,
+        // alert the component that the keyboard is being used.
+        case 'tab':
+        this.isKeyboardActive = true;
+        if (event.shiftKey) {
+          // The shift+tab combo was pressed on the trigger button,
+          // so let's close the dropdown.
+          if (this.triggerButton.nativeElement === event.target) {
+            this.closeDropdown();
+            return;
+          }
+        } else {
+          // Only register the tab key if it's not a shift+tab combo.
+          this.tabKeyPressed = true;
+        }
+        break;
+
+        // After an item is selected with the enter key,
+        // wait a moment before returning focus to the dropdown trigger element.
+        case 'enter':
+        this.windowObj.getWindow().setTimeout(() => {
+          this.focusTriggerButton();
+        });
+        break;
+
+        // Allow the menu to be opened with the arrowdown key
+        // if it is first opened with the mouse.
+        case 'arrowdown':
+        if (!this.isKeyboardActive) {
+          this.isKeyboardActive = true;
+          this.menuComponent.focusFirstItem();
+          event.preventDefault();
+        }
+        break;
       }
 
       return;
     }
 
     switch (key) {
-      case 'tab':
-      this.closeDropdown();
-      break;
-
       case 'enter':
-      // After an item is selected with the enter key,
-      // wait a moment before returning focus to the dropdown trigger element.
-      this.windowObj.getWindow().setTimeout(() => {
-        this.focusTriggerButton();
-      });
+      this.isKeyboardActive = true;
       break;
 
       case 'arrowdown':
-      this.menuComponent.focusNextItem();
+      this.isKeyboardActive = true;
+      this.openDropdown();
       event.preventDefault();
       break;
-
-      case 'arrowup':
-      this.menuComponent.focusPreviousItem();
-      event.preventDefault();
-      break;
-
-      default:
-      break;
-    }
-
-    // Pressing the escape key should return focus to the trigger.
-    if (key === 'escape') {
-      this.focusTriggerButton();
     }
   }
 
-  public onPopoverClick() {
-    this.closeDropdown();
+  @HostListener('focusin', ['$event'])
+  public onFocusIn(event: KeyboardEvent) {
+    this.tabKeyPressed = false;
   }
 
-  public onButtonBlur() {
-    this.openedWithKeyboard = false;
+  @HostListener('focusout', ['$event'])
+  public onFocusOut(event: KeyboardEvent) {
+    // Close the dropdown if the last item loses focus.
+    if (
+      this.tabKeyPressed &&
+      this.menuComponent.lastItemMatches(event.target)
+    ) {
+      this.closeDropdown();
+    }
   }
 
   public onPopoverOpened() {
     this.isOpen = true;
-    this.menuComponent.resetIndex();
+    this.menuComponent.reset();
     // Focus the first item if the menu was opened with the keyboard.
-    if (this.openedWithKeyboard) {
+    if (this.isKeyboardActive) {
       this.menuComponent.focusFirstItem();
     }
   }
 
   public onPopoverClosed() {
     this.isOpen = false;
-    this.menuComponent.resetIndex();
-    this.menuComponent.resetActiveState();
+    this.isKeyboardActive = false;
+    this.menuComponent.reset();
   }
 
   public resetDropdownPosition() {
-    this.openDropdown();
-  }
-
-  private openDropdown() {
-    // if (!this.isOpen) {
-      this.popoverMessages.next({
-        type: SkyPopoverMessageType.Open,
-        elementRef: this.triggerButton.elementRef,
-        placement: 'below',
-        alignment: 'left'
-      });
-    // }
-  }
-
-  private closeDropdown() {
+    // Only reposition the dropdown if it is already open.
     if (this.isOpen) {
-      this.popoverMessages.next({
-        type: SkyPopoverMessageType.Close
-      });
+      this.openDropdown();
     }
   }
 
+  public getPopoverTriggerType(): SkyPopoverTrigger {
+    // Map the dropdown trigger type to the popover trigger type.
+    return (this.trigger === 'click') ? 'click' : 'mouseenter';
+  }
+
+  private openDropdown() {
+    this.popover.positionNextTo(
+      this.triggerButton,
+      'below',
+      'left'
+    );
+  }
+
+  private closeDropdown() {
+    this.popover.close();
+  }
+
   private focusTriggerButton() {
-    this.menuComponent.resetActiveState();
-    this.openedWithKeyboard = true;
-    this.triggerButton.elementRef.nativeElement.focus();
-    this.changeDetector.markForCheck();
+    this.triggerButton.nativeElement.focus();
   }
 
   private handleIncomingMessages(message: SkyDropdownMessage) {
-    /* tslint:disable:switch-default */
     switch (message.type) {
       case SkyDropdownMessageType.Open:
       this.openDropdown();
@@ -248,6 +276,5 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       this.menuComponent.focusPreviousItem();
       break;
     }
-    /* tslint:enable */
   }
 }

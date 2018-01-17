@@ -34,7 +34,7 @@ export class SkyPopoverDirective {
   public skyPopoverTrigger: SkyPopoverTrigger = 'click';
 
   constructor(
-    public elementRef: ElementRef,
+    private elementRef: ElementRef,
     private windowRef: SkyWindowRefService
   ) { }
 
@@ -42,6 +42,14 @@ export class SkyPopoverDirective {
   public onWindowResize() {
     if (this.skyPopover.isOpen) {
       this.positionPopover();
+    }
+  }
+
+  @HostListener('keyup', ['$event'])
+  public onKeyUp(event: KeyboardEvent): void {
+    const key = event.key.toLowerCase();
+    if (key === 'escape') {
+      this.closePopover();
     }
   }
 
@@ -55,14 +63,6 @@ export class SkyPopoverDirective {
     }
 
     this.positionPopover();
-  }
-
-  @HostListener('keydown', ['$event'])
-  public onKeyUp(event: KeyboardEvent) {
-    const key = event.key.toLowerCase();
-    if (key === 'tab') {
-      this.closePopover();
-    }
   }
 
   @HostListener('mouseenter', ['$event'])

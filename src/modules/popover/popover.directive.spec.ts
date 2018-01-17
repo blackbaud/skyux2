@@ -6,9 +6,7 @@ import {
 
 import {
   ComponentFixture,
-  // fakeAsync,
   TestBed
-  // tick
 } from '@angular/core/testing';
 
 import {

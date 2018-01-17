@@ -5,7 +5,7 @@ import {
   by
 } from 'protractor';
 
-fdescribe('Popover', () => {
+describe('Popover', () => {
   const testPopoverPlacement = (placement: string): Promise<any> => {
     SkyVisualTest.scrollElementIntoView(`#screenshot-popover-placements`);
     element(by.id(`btn-popover-placement-${placement}`)).click();

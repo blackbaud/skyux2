@@ -1,17 +1,17 @@
-@import "../../scss/variables";
-@import "../../scss/mixins";
+@import '../../scss/mixins';
 
-// Component modifying host-context element
-:host-context(sky-colorpicker) sky-dropdown {
-  position: relative;
-  left: -30px;
-  width: 30px;
-  overflow: hidden;
-  height: 30px;
-}
-
-:host-context(sky-colorpicker) sky-dropdown /deep/ .sky-dropdown-button {
-  color: transparent;
+:host-context(sky-colorpicker) {
+  ::ng-deep .sky-dropdown-button {
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    border-color: transparent;
+    left: -30px;
+    height: 30px;
+    width: 30px;
+    color: transparent;
+    background-color: transparent;
+  }
 }
 
 :host-context(sky-colorpicker) /deep/ .sky-colorpicker-input {

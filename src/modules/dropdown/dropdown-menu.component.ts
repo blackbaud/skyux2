@@ -5,6 +5,7 @@ import {
   Component,
   ContentChildren,
   EventEmitter,
+  HostListener,
   Input,
   OnDestroy,
   Output,
@@ -30,7 +31,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public useNativeFocus = true;
 
   @Output()
-  public menuChange = new EventEmitter<SkyDropdownMenuChange>();
+  public menuChanges = new EventEmitter<SkyDropdownMenuChange>();
 
   public get menuIndex(): number {
     return this._menuIndex;
@@ -46,35 +47,98 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     }
 
     this._menuIndex = value;
-  }
 
-  private destroy = new Subject<boolean>();
-  private _menuIndex = 0;
+    this.menuChanges.emit({
+      activeIndex: value
+    });
+  }
 
   @ContentChildren(SkyDropdownItemComponent)
   private menuItems: QueryList<SkyDropdownItemComponent>;
-  private hasFocusableItems = false;
+
+  private destroy = new Subject<boolean>();
+  private get hasFocusableItems(): boolean {
+    const found = this.menuItems.find(item => item.isFocusable());
+    return (found !== undefined);
+  }
+
+  private _menuIndex = 0;
 
   constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
 
   public ngAfterContentInit() {
-    this.checkFocusableItems();
-
     // Reset focus whenever the menu items change.
     this.menuItems.changes
       .takeUntil(this.destroy)
       .subscribe(() => {
         this.menuIndex = 0;
-        this.checkFocusableItems();
         this.focusActiveItem();
+        this.menuChanges.emit({
+          items: this.menuItems
+        });
       });
   }
 
   public ngOnDestroy() {
     this.destroy.next(true);
     this.destroy.unsubscribe();
+  }
+
+  @HostListener('click', ['$event'])
+  public onClick(event: MouseEvent) {
+    const selectedItem = this.menuItems.filter((item: SkyDropdownItemComponent) => {
+      return (item.buttonElement === event.target);
+    })[0];
+
+    if (selectedItem) {
+      this.menuChanges.next({
+        selectedItem
+      });
+    }
+  }
+
+  @HostListener('focusin', ['$event'])
+  public onFocusIn(event: KeyboardEvent) {
+    this.menuItems.forEach((item: SkyDropdownItemComponent, i: number) => {
+      item.resetState();
+
+      if (item.buttonElement === event.target) {
+        this.menuIndex = i;
+        item.isActive = true;
+      }
+    });
+  }
+
+  @HostListener('keydown', ['$event'])
+  public onKeyDown(event: KeyboardEvent) {
+    const key = event.key.toLowerCase();
+
+    if (key === 'arrowdown') {
+      this.focusNextItem();
+      event.preventDefault();
+    }
+
+    if (key === 'arrowup') {
+      this.focusPreviousItem();
+      event.preventDefault();
+    }
+  }
+
+  public focusFirstItem() {
+    if (!this.hasFocusableItems) {
+      return;
+    }
+
+    this.menuIndex = 0;
+
+    const firstItem = this.getActiveItem();
+    if (firstItem && firstItem.isFocusable()) {
+      this.focusItem(firstItem);
+    } else {
+      this.focusNextItem();
+    }
   }
 
   public focusPreviousItem() {
@@ -86,7 +150,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
     const previousItem = this.getActiveItem();
     if (previousItem && previousItem.isFocusable()) {
-      this.focusActiveItem();
+      this.focusItem(previousItem);
     } else {
       this.focusPreviousItem();
     }
@@ -101,63 +165,43 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
     const nextItem = this.getActiveItem();
     if (nextItem && nextItem.isFocusable()) {
-      this.focusActiveItem();
+      this.focusItem(nextItem);
     } else {
       this.focusNextItem();
     }
   }
 
-  public focusFirstItem() {
-    if (!this.hasFocusableItems) {
-      return;
-    }
-
-    this.menuIndex = 0;
-
-    const nextItem = this.getActiveItem();
-    if (nextItem && nextItem.isFocusable()) {
-      this.focusActiveItem();
-    } else {
-      this.focusNextItem();
-    }
+  public reset() {
+    this._menuIndex = -1;
+    this.resetItemsActiveState();
+    this.changeDetector.markForCheck();
   }
 
-  public resetActiveState() {
+  public lastItemMatches(target: EventTarget) {
+    return (this.menuItems.last && this.menuItems.last.buttonElement === target);
+  }
+
+  private resetItemsActiveState() {
     this.menuItems.forEach((item: SkyDropdownItemComponent) => {
       item.resetState();
     });
   }
 
-  public resetIndex() {
-    this._menuIndex = -1;
+  private focusActiveItem() {
+    const activeItem = this.getActiveItem();
+    if (activeItem) {
+      this.focusItem(activeItem);
+    }
+  }
+
+  private focusItem(item: SkyDropdownItemComponent) {
+    this.resetItemsActiveState();
+    item.focusElement(this.useNativeFocus);
   }
 
   private getActiveItem(): SkyDropdownItemComponent {
     return this.menuItems.find((item: any, i: number) => {
       return (i === this._menuIndex);
     });
-  }
-
-  private focusActiveItem() {
-    const activeItem = this.getActiveItem();
-
-    if (activeItem) {
-      this.resetActiveState();
-      activeItem.focusElement(this.useNativeFocus);
-
-      this.menuChange.emit({
-        activeIndex: this._menuIndex
-      });
-
-      this.changeDetector.detectChanges();
-    }
-  }
-
-  private checkFocusableItems() {
-    const focusableItem = this.menuItems.find((item: SkyDropdownItemComponent) => {
-      return (item.isFocusable());
-    });
-
-    this.hasFocusableItems = (focusableItem !== undefined);
   }
 }

@@ -8,7 +8,6 @@
     ]"
     [attr.aria-label]="label"
     [attr.title]="title"
-    (blur)="onButtonBlur()"
     [skyPopover]="popover"
     [skyPopoverTrigger]="getPopoverTriggerType()"
     skyPopoverPlacement="below"
@@ -43,10 +42,9 @@
     </div>
   </button>
   <sky-popover
-    [messageStream]="popoverMessages"
-    (click)="onPopoverClick()"
     (popoverOpened)="onPopoverOpened()"
     (popoverClosed)="onPopoverClosed()"
+    [@.disabled]="true"
     #popover>
     <ng-content
       select="sky-dropdown-menu">

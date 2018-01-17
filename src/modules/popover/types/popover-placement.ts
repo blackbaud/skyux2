@@ -1,1 +1,1 @@
-export type SkyPopoverPlacement = 'above' | 'below' | 'right' | 'left';
+export type SkyPopoverPlacement = 'above' | 'below' | 'right' | 'left' | 'fullscreen';

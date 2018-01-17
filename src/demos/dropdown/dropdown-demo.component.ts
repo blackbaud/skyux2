@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component
+} from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
 
@@ -14,6 +17,17 @@ import {
 })
 export class SkyDropdownDemoComponent {
   public dropdownController = new Subject<SkyDropdownMessage>();
+  public items: any[] = [
+    { name: 'Option 1', disabled: false },
+    { name: 'Option 2', disabled: true },
+    { name: 'Option 3', disabled: false },
+    { name: 'Option 4', disabled: false },
+    { name: 'Option 5', disabled: false }
+  ];
+
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   public optionClicked(option: number) {
     alert('You selected option ' + option);
@@ -49,7 +63,14 @@ export class SkyDropdownDemoComponent {
     event.stopPropagation();
   }
 
-  public onMenuChange(change: SkyDropdownMenuChange) {
+  public changeItems(event: MouseEvent) {
+    this.items.pop();
+    this.changeDetector.detectChanges();
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  public onMenuChanges(change: SkyDropdownMenuChange) {
     if (change.activeIndex !== undefined) {
       console.log('The menu\'s active index changed to:', change.activeIndex);
     }
