@@ -28,6 +28,10 @@ describe('Definition list component', () => {
       return listEl.querySelectorAll('sky-definition-list-value .sky-definition-list-value');
     }
 
+    function getDefaultValueEl(valueEl: Element): Element {
+      return valueEl.querySelector('.sky-deemphasized');
+    }
+
     it('should render the heading in the expected location', () => {
       let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
       let el: Element = fixture.nativeElement;
@@ -73,6 +77,31 @@ describe('Definition list component', () => {
       let defaultValueEl = valueEls[2].querySelector('.sky-deemphasized');
 
       expect(defaultValueEl).toHaveText('None found');
+    });
+
+    it('should display a susequent value no value is initially specified', () => {
+      let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+      let el: Element = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      let list1El = getListEl(el, 1);
+
+      let valueEls = getValueEls(list1El);
+
+      let defaultValueEl = getDefaultValueEl(valueEls[2]);
+
+      expect(defaultValueEl).toHaveText('None found');
+
+      fixture.componentInstance.personalInfo[2].value = 'test';
+
+      fixture.detectChanges();
+
+      defaultValueEl = getDefaultValueEl(valueEls[2]);
+
+      expect(defaultValueEl).toBeNull();
+
+      expect(valueEls[2]).toHaveText('test');
     });
 
     it('should allow the default value to be specified', () => {
