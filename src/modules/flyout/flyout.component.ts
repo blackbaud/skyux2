@@ -1,18 +1,20 @@
 import {
   animate,
   Component,
-  Input,
   state,
   style,
   transition,
   trigger,
-  ElementRef,
-  AfterViewInit,
+  ViewChild,
+  ComponentFactoryResolver,
+  Injector,
+  ReflectiveInjector,
+  ViewContainerRef,
   HostListener
 } from '@angular/core';
 import { SkyFlyoutService } from './flyout.service';
-
-let skyModalUniqueIdentifier: number = 0;
+import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
 
 @Component({
   selector: 'sky-flyout',
@@ -38,8 +40,16 @@ let skyModalUniqueIdentifier: number = 0;
 export class SkyFlyoutComponent {
   public flyoutState = 'in';
   public isOpen = false;
+  public displayedInstance: SkyFlyoutInstance;
 
-  constructor(private skyFlyoutService: SkyFlyoutService) { }
+  @ViewChild('target', { read: ViewContainerRef })
+  public target: ViewContainerRef;
+
+  constructor(
+    private skyFlyoutService: SkyFlyoutService,
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector
+  ) { }
 
   public toggleState() {
     this.isOpen = !this.isOpen;
@@ -53,17 +63,30 @@ export class SkyFlyoutComponent {
   }
   public close() {
     this.isOpen = false;
-  }
-
-  public open(event: AnimationEvent) {
-    this.isOpen = true;
+    /* istanbul ignore else */
+    /* sanity check */
+    if (this.displayedInstance) {
+      this.displayedInstance.close();
+    }
+    this.skyFlyoutService.close();
   }
 
   public getAnimationState(): string {
     return (this.isOpen) ? 'in' : 'out';
   }
 
-  public closeFlyout() {
-    this.skyFlyoutService.dispose();
+  public open(flyoutInstance: SkyFlyoutInstance, component: any, config?: IConfig) {
+    this.isOpen = true;
+    this.target.clear();
+
+    let factory = this.resolver.resolveComponentFactory(component);
+
+    let providers = config.providers /* istanbul ignore next */ || [];
+    let resolvedProviders = ReflectiveInjector.resolve(providers);
+    let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
+    let componentRef = this.target.createComponent(factory, undefined, injector);
+
+    flyoutInstance.componentInstance = componentRef.instance;
+    this.displayedInstance = flyoutInstance;
   }
 }

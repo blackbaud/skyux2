@@ -8,15 +8,17 @@ import {
 import { SkyFlyoutInstance } from './flyout-instance';
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
+import { SkyFlyoutComponent } from './flyout.component';
 
 @Injectable()
 export class SkyFlyoutService {
-
-  private flyoutExists: boolean;
+  private static hostComponent: SkyFlyoutComponent;
 
   constructor(
+    private resolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
     private adapter: SkyFlyoutAdapterService
-  ) {}
+  ) { }
 
   // Open Overloads
   public open(component: any, providers?: any[]): SkyFlyoutInstance;
@@ -25,6 +27,7 @@ export class SkyFlyoutService {
   // Open Method
   public open(): SkyFlyoutInstance {
     let flyoutInstance = new SkyFlyoutInstance();
+    this.createHostComponent();
     let providersOrConfig: IConfig = arguments[1];
     let resolvedConfig = this.getConfigFromParameter(providersOrConfig);
     let component = arguments[0];
@@ -34,19 +37,17 @@ export class SkyFlyoutService {
       useValue: flyoutInstance
     });
 
-    this.adapter.addFlyout(flyoutInstance, component, resolvedConfig);
-
-    this.flyoutExists = true;
+    SkyFlyoutService.hostComponent.open(flyoutInstance, component, resolvedConfig);
 
     return flyoutInstance;
   }
 
-  public dispose() {
+  public close() {
     /* istanbul ignore else */
     /* sanity check */
-    if (this.flyoutExists) {
-      this.adapter.removeFlyout();
-      this.flyoutExists = false;
+    if (SkyFlyoutService.hostComponent) {
+      SkyFlyoutService.hostComponent = undefined;
+      this.adapter.removeHostEl();
     }
   }
 
@@ -60,5 +61,17 @@ export class SkyFlyoutService {
     }
 
     return config;
+  }
+
+  private createHostComponent() {
+    if (!SkyFlyoutService.hostComponent) {
+      let factory = this.resolver.resolveComponentFactory(SkyFlyoutComponent);
+
+      this.adapter.addHostEl();
+
+      let cmpRef = this.appRef.bootstrap(factory);
+
+      SkyFlyoutService.hostComponent = cmpRef.instance;
+    }
   }
 }

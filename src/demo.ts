@@ -70,7 +70,9 @@ import {
   SkySectionedModalFormDemoComponent,
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
-  SkyWizardDemoFormComponent
+  SkyWizardDemoFormComponent,
+  SkyFlyoutDemoInternalComponent,
+  SkyFlyoutDemoInternal2Component
 } from './demos';
 
 import {
@@ -95,6 +97,8 @@ const components = [
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
   SkyFlyoutDemoComponent,
+  SkyFlyoutDemoInternalComponent,
+  SkyFlyoutDemoInternal2Component,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
   SkyKeyInfoDemoComponent,
