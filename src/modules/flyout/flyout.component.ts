@@ -7,11 +7,16 @@ import {
   style,
   transition,
   trigger,
-  HostListener
+  ViewChild,
+  ComponentFactoryResolver,
+  Injector,
+  ReflectiveInjector,
+  ViewContainerRef,
+  HostListener,
+  EventEmitter
 } from '@angular/core';
-import { SkyFlyoutService } from './flyout.service';
-
-let skyModalUniqueIdentifier: number = 0;
+import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
 
 @Component({
   selector: 'sky-flyout',
@@ -31,14 +36,21 @@ let skyModalUniqueIdentifier: number = 0;
       transition('in => out', animate('250ms ease-in')),
       transition('out => in', animate('250ms ease-in'))
     ])
-  ],
-  providers: [ ]
+  ]
 })
 export class SkyFlyoutComponent {
   public flyoutState = 'out';
   public isOpen = false;
+  public displayedInstance: SkyFlyoutInstance;
+  public closed: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private skyFlyoutService: SkyFlyoutService) { }
+  @ViewChild('target', { read: ViewContainerRef })
+  public target: ViewContainerRef;
+
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector
+  ) { }
 
   @HostListener('document:keyup', ['$event'])
   public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
@@ -46,21 +58,39 @@ export class SkyFlyoutComponent {
       this.close();
     }
   }
+
   public close() {
     this.isOpen = false;
-  }
-
-  public open() {
-    this.isOpen = true;
   }
 
   public getAnimationState(): string {
     return (this.isOpen) ? 'in' : 'out';
   }
 
+  public open(flyoutInstance: SkyFlyoutInstance, component: any, config?: IConfig) {
+    this.isOpen = true;
+    this.target.clear();
+
+    let factory = this.resolver.resolveComponentFactory(component);
+
+    let providers = config.providers /* istanbul ignore next */ || [];
+    let resolvedProviders = ReflectiveInjector.resolve(providers);
+    let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
+    let componentRef = this.target.createComponent(factory, undefined, injector);
+
+    flyoutInstance.componentInstance = componentRef.instance;
+    this.displayedInstance = flyoutInstance;
+  }
+
   public animationDone(event: any) {
     if (!this.isOpen) {
-      this.skyFlyoutService.dispose();
+      /* istanbul ignore else */
+      /* sanity check */
+      if (this.displayedInstance) {
+        this.displayedInstance.close();
+      }
+      this.closed.emit();
+      this.closed.complete();
     }
   }
 }

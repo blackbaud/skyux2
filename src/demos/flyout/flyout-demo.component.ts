@@ -10,18 +10,17 @@ import { SkyFlyoutComponent } from './../../modules/flyout/flyout.component';
 import { Component, ViewChild } from '@angular/core';
 
 import { SkyFlyoutService } from '../../modules/flyout/flyout.service';
+import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
+import { SkyFlyoutDemoInternal2Component } from './flyout-demo-internal-2.component';
 
 @Component({
   selector: 'sky-flyout-demo',
   templateUrl: './flyout-demo.component.html'
 })
 export class SkyFlyoutDemoComponent {
+  public open: boolean;
 
   constructor(private skyFlyoutService: SkyFlyoutService, private modal: SkyModalService) { }
-
-  public toggleState() {
-    this.skyFlyoutService.open(SkyFlyoutComponent, []);
-  }
 
   public openModal(type: string) {
     const context = new SkyModalDemoContext();
@@ -55,6 +54,16 @@ export class SkyFlyoutDemoComponent {
     }
 
     const modalInstance = this.modal.open(modalInstanceType, options);
+  }
+
+  public toggleState() {
+    if (!this.open) {
+      this.skyFlyoutService.open(SkyFlyoutDemoInternalComponent, []);
+    } else {
+      this.skyFlyoutService.open(SkyFlyoutDemoInternal2Component, []);
+    }
+
+    this.open = true;
   }
 
 }
