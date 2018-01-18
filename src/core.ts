@@ -8,6 +8,7 @@ if (!Element.prototype.matches) {
     Element.prototype.webkitMatchesSelector;
 }
 
+import { SKY_FLYOUT_PROVIDERS } from './modules/flyout';
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
@@ -184,5 +185,6 @@ export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
   ...SKY_MODAL_PROVIDERS,
-  SKY_WAIT_PROVIDERS
+  SKY_WAIT_PROVIDERS,
+  SKY_FLYOUT_PROVIDERS
 ];
