@@ -10,6 +10,7 @@ import {
   AfterViewInit,
   HostListener
 } from '@angular/core';
+import { SkyFlyoutService } from './flyout.service';
 
 let skyModalUniqueIdentifier: number = 0;
 
@@ -29,7 +30,7 @@ let skyModalUniqueIdentifier: number = 0;
         animate(250, style({ transform: 'translateX(0)' }))
       ]),
       transition('in => out', animate('250ms ease-in')),
-      transition('out => in', animate('250ms ease-in')),
+      transition('out => in', animate('250ms ease-in'))
     ])
   ],
   providers: [ ]
@@ -38,7 +39,7 @@ export class SkyFlyoutComponent {
   public flyoutState = 'in';
   public isOpen = false;
 
-  constructor( ) { }
+  constructor(private skyFlyoutService: SkyFlyoutService) { }
 
   public toggleState() {
     this.isOpen = !this.isOpen;
@@ -60,5 +61,9 @@ export class SkyFlyoutComponent {
 
   public getAnimationState(): string {
     return (this.isOpen) ? 'in' : 'out';
+  }
+
+  public closeFlyout() {
+    this.skyFlyoutService.dispose();
   }
 }

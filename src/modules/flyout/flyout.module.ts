@@ -2,12 +2,19 @@ import { SkyFlyoutComponent } from './flyout.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkyResourcesModule } from '../resources';
+import { SkyWindowRefService } from '../window';
+import { SkyFlyoutAdapterService } from './flyout-adapter.service';
+import { SkyFlyoutService } from './flyout.service';
 
 @NgModule({
   declarations: [
     SkyFlyoutComponent
   ],
-  providers: [ ],
+  providers: [
+    SkyFlyoutAdapterService,
+    SkyFlyoutService,
+    SkyWindowRefService
+  ],
   imports: [
     CommonModule,
     SkyResourcesModule
@@ -15,6 +22,6 @@ import { SkyResourcesModule } from '../resources';
   exports: [
     SkyFlyoutComponent
   ],
-  entryComponents: [ ]
+  entryComponents: [ SkyFlyoutComponent ]
 })
 export class SkyFlyoutModule { }

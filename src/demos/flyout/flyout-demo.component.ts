@@ -9,6 +9,7 @@ import {
 import { SkyFlyoutComponent } from './../../modules/flyout/flyout.component';
 import { Component, ViewChild } from '@angular/core';
 
+import { SkyFlyoutService } from '../../modules/flyout/flyout.service';
 
 @Component({
   selector: 'sky-flyout-demo',
