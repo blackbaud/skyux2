@@ -16,14 +16,12 @@ import { SkyFlyoutService } from '../../modules/flyout/flyout.service';
   templateUrl: './flyout-demo.component.html'
 })
 export class SkyFlyoutDemoComponent {
-  @ViewChild(SkyFlyoutComponent) flyout: SkyFlyoutComponent;
 
-  constructor(private modal: SkyModalService) { }
+  constructor(private skyFlyoutService: SkyFlyoutService, private modal: SkyModalService) { }
 
   public toggleState() {
-    this.flyout.toggleState();
+    this.skyFlyoutService.open(SkyFlyoutComponent, []);
   }
-
 
   public openModal(type: string) {
     const context = new SkyModalDemoContext();
@@ -57,16 +55,6 @@ export class SkyFlyoutDemoComponent {
     }
 
     const modalInstance = this.modal.open(modalInstanceType, options);
-
-    modalInstance.closed.take(1).subscribe((result: SkyModalCloseArgs) => {
-      console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
-    });
-
-    modalInstance.helpOpened.subscribe((helpKey: string) => {
-      context.eventMessage =  `
-        Modal header help was invoked with the following help key: ${helpKey}
-      `;
-    });
   }
 
 }

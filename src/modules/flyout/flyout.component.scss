@@ -18,5 +18,12 @@
 
 .sky-flyout-header {
   width:100%;
-  border-top:6px solid $sky-highlight-color-info;
+  background: #7f8690;
+  height:56px;
+  padding:9px 3px 9px 15px;
+  display:flex;
+  align-items: baseline;
+}
+.sky-flyout-header-content {
+  flex-grow:1;
 }

@@ -1,13 +1,12 @@
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {
   animate,
   Component,
-  Input,
   state,
   style,
   transition,
   trigger,
-  ElementRef,
-  AfterViewInit,
   HostListener
 } from '@angular/core';
 import { SkyFlyoutService } from './flyout.service';
@@ -36,14 +35,10 @@ let skyModalUniqueIdentifier: number = 0;
   providers: [ ]
 })
 export class SkyFlyoutComponent {
-  public flyoutState = 'in';
+  public flyoutState = 'out';
   public isOpen = false;
 
   constructor(private skyFlyoutService: SkyFlyoutService) { }
-
-  public toggleState() {
-    this.isOpen = !this.isOpen;
-  }
 
   @HostListener('document:keyup', ['$event'])
   public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
@@ -55,7 +50,7 @@ export class SkyFlyoutComponent {
     this.isOpen = false;
   }
 
-  public open(event: AnimationEvent) {
+  public open() {
     this.isOpen = true;
   }
 
@@ -63,7 +58,9 @@ export class SkyFlyoutComponent {
     return (this.isOpen) ? 'in' : 'out';
   }
 
-  public closeFlyout() {
-    this.skyFlyoutService.dispose();
+  public animationDone(event: any) {
+    if (!this.isOpen) {
+      this.skyFlyoutService.dispose();
+    }
   }
 }

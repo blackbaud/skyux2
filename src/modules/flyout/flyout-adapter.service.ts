@@ -1,3 +1,4 @@
+import { SkyFlyoutComponent } from './flyout.component';
 import {
   Injectable, ComponentFactoryResolver, ReflectiveInjector, Injector, ApplicationRef, EmbeddedViewRef, ComponentRef
 } from '@angular/core';
@@ -43,6 +44,8 @@ export class SkyFlyoutAdapterService {
     this.bodyEl.appendChild(domElem);
 
     this.attachedComponentRef = componentRef;
+    let newFlyout: SkyFlyoutComponent = this.attachedComponentRef.instance as SkyFlyoutComponent;
+    newFlyout.open();
   }
 
   public removeFlyout(): void {
