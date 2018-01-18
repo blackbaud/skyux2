@@ -1,4 +1,3 @@
-import { SkyFlyoutComponent } from './flyout.component';
 import {
   Injectable
 } from '@angular/core';

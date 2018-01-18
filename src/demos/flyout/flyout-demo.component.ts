@@ -3,11 +3,9 @@ import { SkyModalDemoContext } from '../modal/modal-demo-context';
 import { SkyModalDemoFormComponent } from '../modal/modal-demo-form.component';
 import { SkyModalDemoTiledFormComponent } from '../modal/modal-demo-tiled-form.component';
 import {
-  SkyModalService,
-  SkyModalCloseArgs
+  SkyModalService
 } from '../../core';
-import { SkyFlyoutComponent } from './../../modules/flyout/flyout.component';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { SkyFlyoutService } from '../../modules/flyout/flyout.service';
 import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
@@ -53,7 +51,7 @@ export class SkyFlyoutDemoComponent {
       break;
     }
 
-    const modalInstance = this.modal.open(modalInstanceType, options);
+    this.modal.open(modalInstanceType, options);
   }
 
   public toggleState() {

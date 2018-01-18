@@ -2,7 +2,6 @@ import {
   SkyFlyoutInstance
 } from './flyout-instance';
 
-
 describe('Flyout instance', () => {
 
   it('should not error if no close callback is specified', () => {

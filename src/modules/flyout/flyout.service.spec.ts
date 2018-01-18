@@ -1,3 +1,4 @@
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   fakeAsync,
   inject,
@@ -24,7 +25,7 @@ import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { FlyoutWithValuesTestComponent } from './fixtures/flyout-with-values.component.fixture';
 import { FlyoutTestValues } from './fixtures/flyout-values.fixture';
 
-fdescribe('Flyout service', () => {
+describe('Flyout service', () => {
   let flyoutService: SkyFlyoutService;
   let applicationRef: ApplicationRef;
 
@@ -47,7 +48,8 @@ fdescribe('Flyout service', () => {
       imports: [
         BrowserModule,
         SkyFlyoutModule,
-        SkyFlyoutFixturesModule
+        SkyFlyoutFixturesModule,
+        NoopAnimationsModule
       ]
     });
   });
@@ -69,7 +71,7 @@ fdescribe('Flyout service', () => {
     )
   );
 
-  fit('should show a flyout and return an instance that can then be closed',
+  it('should show a flyout and return an instance that can then be closed',
   fakeAsync(inject([SkyFlyoutService], (theFlyoutService: SkyFlyoutService) => {
     flyoutService = theFlyoutService;
     let flyoutInstance = openFlyout(FlyoutTestComponent);
