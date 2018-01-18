@@ -10,9 +10,9 @@ import {
   Injector,
   ReflectiveInjector,
   ViewContainerRef,
-  HostListener
+  HostListener,
+  EventEmitter
 } from '@angular/core';
-import { SkyFlyoutService } from './flyout.service';
 import { SkyFlyoutInstance } from './flyout-instance';
 import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
 
@@ -34,19 +34,18 @@ import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
       transition('in => out', animate('250ms ease-in')),
       transition('out => in', animate('250ms ease-in'))
     ])
-  ],
-  providers: [ ]
+  ]
 })
 export class SkyFlyoutComponent {
   public flyoutState = 'in';
   public isOpen = false;
   public displayedInstance: SkyFlyoutInstance;
+  public closed: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
   constructor(
-    private skyFlyoutService: SkyFlyoutService,
     private resolver: ComponentFactoryResolver,
     private injector: Injector
   ) { }
@@ -68,7 +67,8 @@ export class SkyFlyoutComponent {
     if (this.displayedInstance) {
       this.displayedInstance.close();
     }
-    this.skyFlyoutService.close();
+    this.closed.emit();
+    this.closed.complete();
   }
 
   public getAnimationState(): string {

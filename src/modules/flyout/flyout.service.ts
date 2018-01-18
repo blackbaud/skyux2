@@ -72,6 +72,7 @@ export class SkyFlyoutService {
       let cmpRef = this.appRef.bootstrap(factory);
 
       SkyFlyoutService.hostComponent = cmpRef.instance;
+      SkyFlyoutService.hostComponent.closed.subscribe(() => this.close());
     }
   }
 }
