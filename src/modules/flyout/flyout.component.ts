@@ -18,7 +18,7 @@ let skyModalUniqueIdentifier: number = 0;
   templateUrl: './flyout.component.html',
   styleUrls: ['./flyout.component.scss'],
   animations: [
-    trigger('modalState', [
+    trigger('flyoutState', [
       state('in', style({ transform: 'translateX(0)' })),
       state('out', style({ transform: 'translateX(100%)' })),
       transition('void => *', [
@@ -35,12 +35,30 @@ let skyModalUniqueIdentifier: number = 0;
   providers: [ ]
 })
 export class SkyFlyoutComponent {
-  public modalState = 'in';
+  public flyoutState = 'in';
+  public isOpen = false;
 
   constructor( ) { }
 
-  public toggleState(state: string) {
-    this.modalState = state;
-    console.log(state);
+  public toggleState() {
+    this.isOpen = !this.isOpen;
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
+    if (this.isOpen && event.which === 27) {
+      this.close();
+    }
+  }
+  public close() {
+    this.isOpen = false;
+  }
+
+  public open(event: AnimationEvent) {
+    this.isOpen = true;
+  }
+
+  public getAnimationState(): string {
+    return (this.isOpen) ? 'in' : 'out';
   }
 }

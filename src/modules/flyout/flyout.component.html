@@ -3,7 +3,7 @@
   class="sky-flyout"
   role="dialog"
   tabindex="-1"
-  [@modalState]="modalState"
+  [@flyoutState]="getAnimationState()"
   [attr.aria-describedby]="ariaDescribedBy"
   [attr.aria-labelledby]="ariaLabelledBy"
 >
@@ -14,7 +14,14 @@
   >
 
   <div class="sky-flyout-content">
-    FLYOUT CONTENT GOES HERE
+    <form>
+      <input type="text"/>
+      <p>some text</p>
+      <textarea></textarea>
+      <p>some more text with a <a href="#">link</a>.</p>
+      <input type="text"/>
+      <p>some final text</p>
+    </form>
     <ng-content select="sky-flyout-content"></ng-content>
   </div>
 </div>

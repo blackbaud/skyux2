@@ -1,7 +1,7 @@
 @import "../../scss/mixins";
 
 .sky-flyout {
-  position: fixed;
+  position:fixed;
   right:0;
   top:0;
   bottom:0;
@@ -13,6 +13,7 @@
   min-width:320px;
 
   z-index:1001; // omnibar is 1000, help is 9999
+  overflow-y:scroll;
 }
 
 .sky-flyout-header {
