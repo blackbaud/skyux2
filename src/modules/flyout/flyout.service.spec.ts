@@ -1,4 +1,3 @@
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   fakeAsync,
   inject,
@@ -24,13 +23,14 @@ import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { FlyoutWithValuesTestComponent } from './fixtures/flyout-with-values.component.fixture';
 import { FlyoutTestValues } from './fixtures/flyout-values.fixture';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('Flyout service', () => {
+fdescribe('Flyout service', () => {
   let flyoutService: SkyFlyoutService;
   let applicationRef: ApplicationRef;
 
-  function openFlyout(modalType: any, config?: Object) {
-    let flyoutInstance = flyoutService.open(modalType, config);
+  function openFlyout(flyoutType: any, config?: Object) {
+    let flyoutInstance = flyoutService.open(flyoutType, config);
 
     tick();
 
@@ -38,7 +38,7 @@ describe('Flyout service', () => {
   }
 
   function closeFlyout(flyoutInstance: SkyFlyoutInstance) {
-    flyoutInstance.close();
+    flyoutService.close();
     tick();
     applicationRef.tick();
   }
@@ -49,7 +49,7 @@ describe('Flyout service', () => {
         BrowserModule,
         SkyFlyoutModule,
         SkyFlyoutFixturesModule,
-        NoopAnimationsModule
+        BrowserAnimationsModule
       ]
     });
   });
@@ -72,8 +72,7 @@ describe('Flyout service', () => {
   );
 
   it('should show a flyout and return an instance that can then be closed',
-  fakeAsync(inject([SkyFlyoutService], (theFlyoutService: SkyFlyoutService) => {
-    flyoutService = theFlyoutService;
+  fakeAsync(() => {
     let flyoutInstance = openFlyout(FlyoutTestComponent);
     applicationRef.tick();
 
@@ -83,12 +82,12 @@ describe('Flyout service', () => {
     applicationRef.tick();
 
     expect(document.body.querySelector('.sky-flyout')).not.toExist();
-  })));
+  }));
 
   it('should not show multiple flyouts', fakeAsync(() => {
     let flyoutInstance = openFlyout(FlyoutTestComponent);
     let flyoutInstance2 = openFlyout(FlyoutTestComponent);
-    applicationRef.tick();
+    tick();
 
     expect(document.body.querySelector('.sky-flyout')).toExist();
     expect(document.body.querySelectorAll('.sky-flyout').length).toBe(1);
