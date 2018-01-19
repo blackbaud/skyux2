@@ -1,4 +1,3 @@
-import { FlyoutAutofocusTestComponent } from './fixtures/flyout-autofocus.component.fixture';
 import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
@@ -73,15 +72,6 @@ describe('Flyout component', () => {
     closeFlyout();
   }));
 
-  fit('should focus the autofocus element when autofocus is inside of content', ((done) => {
-    openFlyout(FlyoutAutofocusTestComponent);
-    setTimeout(() => {
-      expect(document.activeElement).toEqual(document.querySelector('#autofocus-el'));
-      closeFlyout();
-      done();
-    }, 10);
-  }));
-
   it('should handle escape key press and close the flyout', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
     tick();
@@ -114,7 +104,7 @@ describe('Flyout component', () => {
     closeFlyout();
   }));
 
-  fit('should accept configuration options for aria-labelledBy, aria-describedby and role',
+  it('should accept configuration options for aria-labelledBy, aria-describedby and role',
   fakeAsync(() => {
     let expectedLabel = 'customlabelledby';
     let expectedDescribed = 'customdescribedby';
