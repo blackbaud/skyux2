@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, ChangeDetectorRef } from '@angular/core';
 
 /* tslint:disable */
 let tabbableSelector = 'a[href], area[href], input:not([disabled]):not([tabindex=\'-1\']), ' +

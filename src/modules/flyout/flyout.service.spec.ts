@@ -15,7 +15,6 @@ import {
 
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SkyFlyoutInstance } from './flyout-instance';
 import { SkyFlyoutService } from './flyout.service';
 import { SkyFlyoutModule } from './flyout.module';
 
@@ -24,22 +23,22 @@ import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { FlyoutWithValuesTestComponent } from './fixtures/flyout-with-values.component.fixture';
 import { FlyoutTestValues } from './fixtures/flyout-values.fixture';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { setTimeout } from 'core-js/library/web/timers';
 
-fdescribe('Flyout service', () => {
+describe('Flyout service', () => {
   let flyoutService: SkyFlyoutService;
   let applicationRef: ApplicationRef;
 
   function openFlyout(flyoutType: any, config?: Object) {
     let flyoutInstance = flyoutService.open(flyoutType, config);
 
-    tick();
+    applicationRef.tick();
 
     return flyoutInstance;
   }
 
-  function closeFlyout(flyoutInstance: SkyFlyoutInstance) {
+  function closeFlyout() {
     flyoutService.close();
-    tick();
     applicationRef.tick();
   }
 
@@ -73,11 +72,11 @@ fdescribe('Flyout service', () => {
 
   it('should show a flyout and return an instance that can then be closed',
   fakeAsync(() => {
-    let flyoutInstance = openFlyout(FlyoutTestComponent);
+    openFlyout(FlyoutTestComponent);
     applicationRef.tick();
 
     expect(document.body.querySelector('.sky-flyout')).toExist();
-    closeFlyout(flyoutInstance);
+    closeFlyout();
     tick();
     applicationRef.tick();
 
@@ -85,19 +84,21 @@ fdescribe('Flyout service', () => {
   }));
 
   it('should not show multiple flyouts', fakeAsync(() => {
-    let flyoutInstance = openFlyout(FlyoutTestComponent);
-    let flyoutInstance2 = openFlyout(FlyoutTestComponent);
+    openFlyout(FlyoutTestComponent);
+    openFlyout(FlyoutTestComponent);
     tick();
 
     expect(document.body.querySelector('.sky-flyout')).toExist();
     expect(document.body.querySelectorAll('.sky-flyout').length).toBe(1);
-    closeFlyout(flyoutInstance);
     tick();
     applicationRef.tick();
 
     expect(document.body.querySelector('.sky-flyout')).toExist();
     expect(document.body.querySelectorAll('.sky-flyout').length).toBe(1);
-    closeFlyout(flyoutInstance2);
+    tick();
+    applicationRef.tick();
+
+    closeFlyout();
     tick();
     applicationRef.tick();
 
@@ -105,7 +106,7 @@ fdescribe('Flyout service', () => {
   }));
 
   it('should allow data to be passed to the modal component when opened', fakeAsync(() => {
-    let modalInstance = openFlyout(FlyoutWithValuesTestComponent, [
+    let flyoutInstance = openFlyout(FlyoutWithValuesTestComponent, [
       {
         provide: FlyoutTestValues,
         useValue: {
@@ -114,8 +115,27 @@ fdescribe('Flyout service', () => {
       }
     ]);
 
-    expect(modalInstance.componentInstance.values.valueA).toBe('A');
+    expect(flyoutInstance.componentInstance.values.valueA).toBe('A');
 
-    closeFlyout(modalInstance);
+    closeFlyout();
   }));
+
+  it('should close the host comopnent when the host component sends the closed event', (done) => {
+    let flyoutInstance = openFlyout(FlyoutTestComponent);
+    applicationRef.tick();
+
+    expect(document.body.querySelector('.sky-flyout')).toExist();
+    expect(document.body.querySelectorAll('.sky-flyout').length).toBe(1);
+
+    flyoutInstance.closed.subscribe(() => {
+      setTimeout(() => {
+        expect(document.body.querySelector('.sky-flyout')).not.toExist();
+        done();
+      }, 10);
+    });
+
+    (document.body.querySelector('.sky-flyout-btn-close') as HTMLElement).click();
+    applicationRef.tick();
+  });
+
 });
