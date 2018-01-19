@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
 })
 export class SkyFlyoutDemoInternalComponent {
 
+  public name: string = 'Joe McDougal';
+
   constructor() { }
 
 }
