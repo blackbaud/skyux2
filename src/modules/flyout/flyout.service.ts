@@ -40,7 +40,6 @@ export class SkyFlyoutService {
     });
 
     SkyFlyoutService.hostComponent.open(flyoutInstance, component, resolvedConfig);
-
     return flyoutInstance;
   }
 

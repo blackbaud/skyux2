@@ -6,7 +6,6 @@ export class SkyFlyoutInstance {
   public componentInstance: any;
 
   public closed = new EventEmitter<void>();
-  public helpOpened = new EventEmitter<any>();
 
   public close() {
 
