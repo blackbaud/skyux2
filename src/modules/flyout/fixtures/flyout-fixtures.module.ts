@@ -1,4 +1,3 @@
-import { FlyoutWithoutTabbableContent } from './flyout-without-tabbable-content.component.fixture';
 import { FlyoutAutofocusTestComponent } from './flyout-autofocus.component.fixture';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,8 +12,7 @@ import { FlyoutWithValuesTestComponent } from './flyout-with-values.component.fi
   declarations: [
     FlyoutTestComponent,
     FlyoutAutofocusTestComponent,
-    FlyoutWithValuesTestComponent,
-    FlyoutWithoutTabbableContent
+    FlyoutWithValuesTestComponent
   ],
   imports: [
     CommonModule,
@@ -26,8 +24,8 @@ import { FlyoutWithValuesTestComponent } from './flyout-with-values.component.fi
   entryComponents: [
     FlyoutTestComponent,
     FlyoutAutofocusTestComponent,
-    FlyoutWithValuesTestComponent,
-    FlyoutWithoutTabbableContent
+    FlyoutWithValuesTestComponent
+
   ]
 })
 export class SkyFlyoutFixturesModule { }

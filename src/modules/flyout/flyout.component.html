@@ -1,13 +1,11 @@
-
 <div
   class="sky-flyout"
-  role="dialog"
   tabindex="-1"
   (@flyoutState.done)="animationDone($event)"
   [@flyoutState]="getAnimationState()"
+  [attr.role]="ariaRole"
   [attr.aria-describedby]="ariaDescribedBy"
   [attr.aria-labelledby]="ariaLabelledBy"
-  skyContainFocus
 >
   <div class="sky-flyout-header">
     <div class="sky-flyout-header-content"></div>

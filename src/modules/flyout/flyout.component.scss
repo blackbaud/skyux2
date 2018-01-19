@@ -27,3 +27,12 @@
 .sky-flyout-header-content {
   flex-grow:1;
 }
+.help-shim {
+  padding-right:50px;
+}
+
+@media (max-width: 767px) {
+  .help-shim {
+    padding-right:8px;
+  }
+}

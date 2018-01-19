@@ -48,6 +48,8 @@ export class SkyFlyoutComponent implements AfterViewInit {
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
+  private config: IConfig = {};
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private injector: Injector,
@@ -74,9 +76,22 @@ export class SkyFlyoutComponent implements AfterViewInit {
     return (this.isOpen) ? 'in' : 'out';
   }
 
+  public get ariaDescribedBy() {
+    return this.config.ariaDescribedBy || "";
+  }
+
+  public get ariaLabelledBy() {
+    return this.config.ariaLabelledBy || "";
+  }
+
+  public get ariaRole() {
+    return this.config.ariaRole || "";
+  }
+
   public open(flyoutInstance: SkyFlyoutInstance, component: any, config?: IConfig) {
     this.isOpen = true;
     this.target.clear();
+    this.config = config || {};
 
     let factory = this.resolver.resolveComponentFactory(component);
 
@@ -87,6 +102,8 @@ export class SkyFlyoutComponent implements AfterViewInit {
 
     flyoutInstance.componentInstance = componentRef.instance;
     this.displayedInstance = flyoutInstance;
+
+    this.flyoutAdapter.adjustHeaderForHelp();
   }
 
   public animationDone(event: any) {

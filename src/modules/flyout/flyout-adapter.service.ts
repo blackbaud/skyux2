@@ -46,4 +46,11 @@ export class SkyFlyoutAdapterService {
     }
   }
 
+  public adjustHeaderForHelp() {
+    let helpWidget = document.querySelector('#bb-help-invoker');
+    if (helpWidget) {
+      let header = document.querySelector('.sky-flyout-header');
+      header.classList.add('help-shim');
+    }
+  }
 }
