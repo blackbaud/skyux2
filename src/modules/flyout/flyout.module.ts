@@ -1,3 +1,4 @@
+import { SkyContainFocusModule } from './../sky-contain-focus/sky-contain-focus.module';
 import { SkyFlyoutComponent } from './flyout.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,7 +18,8 @@ import { SkyFlyoutService } from './flyout.service';
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyContainFocusModule
   ],
   exports: [
     SkyFlyoutComponent

@@ -7,6 +7,7 @@
   [@flyoutState]="getAnimationState()"
   [attr.aria-describedby]="ariaDescribedBy"
   [attr.aria-labelledby]="ariaLabelledBy"
+  skyContainFocus
 >
   <div class="sky-flyout-header">
     <div class="sky-flyout-header-content"></div>
@@ -20,10 +21,6 @@
       </button>
     </div>
   </div>
-  <div
-    class=""
-    [ngStyle]="{ zIndex: modalZIndex }"
-  >
 
   <div class="sky-flyout-content">
     <form>
@@ -36,5 +33,4 @@
     </form>
     <div #target></div>
   </div>
-
 </div>
