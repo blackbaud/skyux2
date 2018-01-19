@@ -1,5 +1,6 @@
 import {
-  Injectable
+  Injectable,
+  ElementRef
 } from '@angular/core';
 
 import { SkyWindowRefService } from '../window';
@@ -25,8 +26,24 @@ export class SkyFlyoutAdapterService {
     this.bodyEl.removeChild(this.docRef.querySelector('sky-flyout'));
   }
 
-  public getModalOpener(): HTMLElement {
+  public getCurrentActiveElement(): HTMLElement {
     return <HTMLElement>this.docRef.activeElement;
+  }
+
+  public setFlyoutFocus(flyoutEl: ElementRef): void {
+    /* istanbul ignore else */
+    /* handle the case where somehow there is a focused element already in the flyout */
+    if (!(document.activeElement && flyoutEl.nativeElement.contains(document.activeElement))) {
+      let inputWithAutofocus = flyoutEl.nativeElement.querySelector('[autofocus]');
+
+      if (inputWithAutofocus) {
+        inputWithAutofocus.focus();
+      } else {
+        let focusEl: HTMLElement = flyoutEl.nativeElement.querySelector('.sky-flyout');
+        focusEl.focus();
+
+      }
+    }
   }
 
 }

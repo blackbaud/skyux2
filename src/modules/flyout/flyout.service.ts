@@ -13,6 +13,7 @@ import { SkyFlyoutComponent } from './flyout.component';
 @Injectable()
 export class SkyFlyoutService {
   private static hostComponent: SkyFlyoutComponent;
+  private currentActiveEl: HTMLElement;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -27,6 +28,7 @@ export class SkyFlyoutService {
   // Open Method
   public open(): SkyFlyoutInstance {
     let flyoutInstance = new SkyFlyoutInstance();
+    this.currentActiveEl = this.adapter.getCurrentActiveElement();
     this.createHostComponent();
     let providersOrConfig: IConfig = arguments[1];
     let resolvedConfig = this.getConfigFromParameter(providersOrConfig);
@@ -48,6 +50,12 @@ export class SkyFlyoutService {
     if (SkyFlyoutService.hostComponent) {
       SkyFlyoutService.hostComponent = undefined;
       this.adapter.removeHostEl();
+
+      /* istanbul ignore else */
+      /* sanity check */
+      if (this.currentActiveEl && this.currentActiveEl.focus) {
+        this.currentActiveEl.focus();
+      }
     }
   }
 
