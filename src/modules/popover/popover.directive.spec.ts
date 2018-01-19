@@ -131,7 +131,7 @@ describe('SkyPopoverDirective', () => {
     triggerMouseEvent(caller, 'click');
 
     expect(callerInstance.skyPopover.positionNextTo)
-      .toHaveBeenCalledWith(callerInstance.elementRef, undefined, undefined);
+      .toHaveBeenCalledWith(callerInstance['elementRef'], undefined, undefined);
   });
 
   it('should ask the popover to close itself if the button is clicked again', () => {
@@ -156,7 +156,7 @@ describe('SkyPopoverDirective', () => {
     triggerMouseEvent(caller, 'click');
 
     expect(callerInstance.skyPopover.positionNextTo)
-      .toHaveBeenCalledWith(callerInstance.elementRef, 'below', undefined);
+      .toHaveBeenCalledWith(callerInstance['elementRef'], 'below', undefined);
   });
 
   it('should allow click to display the popover', () => {
@@ -186,13 +186,13 @@ describe('SkyPopoverDirective', () => {
     triggerMouseEvent(caller, 'click');
     fixture.detectChanges();
 
-    expect(spy).toHaveBeenCalledWith(callerInstance.elementRef, 'above', 'left');
+    expect(spy).toHaveBeenCalledWith(callerInstance['elementRef'], 'above', 'left');
     callerInstance.skyPopover.isOpen = true;
 
     spy.calls.reset();
 
     TestUtility.fireDomEvent(window, 'resize');
-    expect(spy).toHaveBeenCalledWith(callerInstance.elementRef, 'above', 'left');
+    expect(spy).toHaveBeenCalledWith(callerInstance['elementRef'], 'above', 'left');
 
     // Positioning should only occur if the popover is open.
     triggerMouseEvent(caller, 'click');

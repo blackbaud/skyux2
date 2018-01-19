@@ -5,18 +5,16 @@
 }
 
 .popover-demo-item {
-  position: relative;
   padding: 10px;
-  flex: 1 0 auto;
 }
 
-/deep/
 .popover-demo-item {
-  .sky-popover-container {
-    position: static !important;
+  ::ng-deep .sky-popover-container {
+    position: relative !important;
     width: 100% !important;
     opacity: 1 !important;
     visibility: visible !important;
+    z-index: 1;
 
     .sky-popover {
       margin: 0;

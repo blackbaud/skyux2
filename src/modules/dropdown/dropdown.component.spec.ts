@@ -350,7 +350,7 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
 
       verifyMenuVisibility();
-      expect(fixture.componentInstance.dropdown['openedWithKeyboard']).toEqual(true);
+      expect((fixture.componentInstance.dropdown as any)['openedWithKeyboard']).toEqual(true);
       verifyActiveMenuItemByIndex(0);
       expect(spy).toHaveBeenCalled();
     }));

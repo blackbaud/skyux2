@@ -28,7 +28,7 @@ import { SkyWindowRefService } from '../window';
 import {
   SkyPopoverAlignment,
   SkyPopoverPlacement,
-  SkyPopoverPlacementChange
+  SkyPopoverPositionChange
 } from './types';
 
 import { SkyPopoverAdapterService } from './popover-adapter.service';
@@ -83,7 +83,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public popoverArrow: ElementRef;
 
   public isOpen = false;
-  public placementClassName: string;
   public isMouseEnter = false;
   public classNames: string[] = [];
 
@@ -100,15 +99,14 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     private changeDetector: ChangeDetectorRef,
     private adapterService: SkyPopoverAdapterService
   ) {
-    this.adapterService.placementChanges
+    this.adapterService.positionChange
       .takeUntil(this.destroy)
-      .subscribe((change: SkyPopoverPlacementChange) => {
-        if (change.placement) {
-          this.updateClassNames(
-            change.placement,
-            this.alignment
-          );
-        }
+      .subscribe((change: SkyPopoverPositionChange) => {
+        this.updateClassNames(change.placement, change.alignment);
+        this.windowRef.getWindow().setTimeout(() => {
+          this.isOpen = true;
+          this.changeDetector.markForCheck();
+        });
       });
   }
 
@@ -160,9 +158,16 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('window:scroll')
+  public onWindowScroll() {
+    if (this.isOpen) {
+      this.positionNextTo(this.caller, this.placement, this.alignment);
+    }
+  }
+
   public positionNextTo(
     caller: ElementRef,
-    placement: SkyPopoverPlacement,
+    placement?: SkyPopoverPlacement,
     alignment?: SkyPopoverAlignment
   ) {
     if (!caller) {
@@ -170,6 +175,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     }
 
     this.caller = caller;
+    this.placement = placement;
+    this.alignment = alignment;
 
     const elements = {
       popover: this.popoverContainer,
@@ -177,20 +184,11 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       caller: this.caller
     };
 
-    // Allow the caller to overwrite the component's placement and alignment values.
-    // If none are provided, use the component's configuration.
-    placement = placement || this.placement;
-    alignment = alignment || this.alignment;
-    this.updateClassNames(placement, alignment);
-
-    // Wait for a tick to allow placement styles to render.
-    // (The styles affect the element dimensions.)
-    this.windowRef.getWindow().setTimeout(() => {
-      this.adapterService.setPopoverPosition(elements, placement, alignment);
-      this.isOpen = true;
-      this.elementRef.nativeElement.focus();
-      this.changeDetector.markForCheck();
-    });
+    this.adapterService.setPopoverPosition(
+      elements,
+      this.placement,
+      this.alignment
+    );
   }
 
   public close() {
@@ -233,8 +231,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   private updateClassNames(placement: SkyPopoverPlacement, alignment: SkyPopoverAlignment) {
     this.classNames = [
-      `sky-popover-alignment-${alignment}`,
-      `sky-popover-placement-${placement}`
+      `sky-popover-alignment-${alignment || this.alignment}`,
+      `sky-popover-placement-${placement || this.placement}`
     ];
   }
 

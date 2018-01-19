@@ -142,7 +142,7 @@ describe('SkyPopoverAdapterService', () => {
 
   it('should attempt to find the optimal placement if outside viewport',
     inject([SkyPopoverAdapterService], (adapterService: SkyPopoverAdapterService) => {
-      adapterService.placementChanges.take(1).subscribe((change: any) => {
+      adapterService.positionChange.take(1).subscribe((change: any) => {
         expect(change.placement).toEqual('below');
       });
 

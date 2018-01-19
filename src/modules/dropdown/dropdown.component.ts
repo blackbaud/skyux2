@@ -15,12 +15,18 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import {
+  SkyPopoverAlignment,
   SkyPopoverComponent,
   SkyPopoverTrigger
 } from '../popover';
 
-import { SkyResources } from '../resources';
-import { SkyWindowRefService } from '../window';
+import {
+  SkyResources
+} from '../resources';
+
+import {
+  SkyWindowRefService
+} from '../window';
 
 import { SkyDropdownMenuComponent } from './dropdown-menu.component';
 
@@ -39,7 +45,7 @@ import {
 })
 export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input()
-  public alignment: string = 'left';
+  public alignment: SkyPopoverAlignment = 'left';
 
   @Input()
   public get buttonStyle(): string{
@@ -142,6 +148,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     const key = event.key.toLowerCase();
 
     if (this.isOpen) {
+      /* tslint:disable:switch-default */
       switch (key) {
         // If the menu was opened with the mouse, but the user then presses the tab key,
         // alert the component that the keyboard is being used.
@@ -178,10 +185,12 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         }
         break;
       }
+      /* tslint:enable */
 
       return;
     }
 
+    /* tslint:disable:switch-default */
     switch (key) {
       case 'enter':
       this.isKeyboardActive = true;
@@ -193,6 +202,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       event.preventDefault();
       break;
     }
+    /* tslint:enable */
   }
 
   @HostListener('focusin', ['$event'])
@@ -238,23 +248,8 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     return (this.trigger === 'click') ? 'click' : 'mouseenter';
   }
 
-  private openDropdown() {
-    this.popover.positionNextTo(
-      this.triggerButton,
-      'below',
-      'left'
-    );
-  }
-
-  private closeDropdown() {
-    this.popover.close();
-  }
-
-  private focusTriggerButton() {
-    this.triggerButton.nativeElement.focus();
-  }
-
   private handleIncomingMessages(message: SkyDropdownMessage) {
+    /* tslint:disable:switch-default */
     switch (message.type) {
       case SkyDropdownMessageType.Open:
       this.openDropdown();
@@ -276,5 +271,18 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       this.menuComponent.focusPreviousItem();
       break;
     }
+    /* tslint:enable */
+  }
+
+  private openDropdown() {
+    this.popover.positionNextTo(this.triggerButton, 'below', this.alignment);
+  }
+
+  private closeDropdown() {
+    this.popover.close();
+  }
+
+  private focusTriggerButton() {
+    this.triggerButton.nativeElement.focus();
   }
 }

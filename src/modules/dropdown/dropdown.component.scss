@@ -3,17 +3,26 @@
 .sky-dropdown {
   display: inline-block;
 
-  ::ng-deep .sky-popover {
-    @include sky-shadow;
-    margin: 0 !important;
-    border: 0 !important;
-    border-radius: 0;
+  ::ng-deep .sky-popover-container {
+    padding: 0;
+    min-width: auto;
+    max-width: none;
+
+    .sky-popover {
+      border-radius: 0 !important;
+    }
+
+    .sky-popover-border {
+      padding: 0;
+    }
 
     .sky-popover-body {
       padding: 0;
     }
 
-    .sky-popover-arrow {
+    .sky-popover-arrow,
+    .sky-popover-border-x,
+    .sky-popover-border-y {
       display: none;
     }
   }
