@@ -1,3 +1,5 @@
+import { FlyoutWithoutTabbableContent } from './fixtures/flyout-without-tabbable-content.component.fixture';
+import { FlyoutAutofocusTestComponent } from './fixtures/flyout-autofocus.component.fixture';
 import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
@@ -10,16 +12,11 @@ import {
   expect
 } from '../testing';
 
-// import { SkyFlyoutInstance } from './flyout-instance';
 import { SkyFlyoutService } from './flyout.service';
-
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// import { TestUtility } from '../testing/testutility';
-
-// import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 
 describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
@@ -33,11 +30,26 @@ describe('Flyout component', () => {
     return flyoutInstance;
   }
 
-  // function closeFlyout(flyoutInstance: SkyFlyoutInstance) {
-  //   flyoutInstance.close();
-  //   tick();
-  //   applicationRef.tick();
-  // }
+  function getFlyout(): any {
+    return document.querySelector('.sky-flyout');
+  }
+
+  function getCloseButton(): any {
+    return document.querySelector('.sky-flyout-btn-close');
+  }
+
+  function getLastTabbableElement(): any {
+    return document.querySelector('#last-tabbable-element');
+  }
+
+  function getFirstTabbableElement(): any {
+    return document.querySelector('#first-tabbable-element');
+  }
+
+  function closeFlyout() {
+    getCloseButton().click();
+    applicationRef.tick();
+  }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -64,201 +76,161 @@ describe('Flyout component', () => {
     )
   );
 
-  // it('should focus the dialog when no autofocus is inside of content', fakeAsync(() => {
-  //   let modalInstance1 = openFlyout(FlyoutTestComponent);
-  //   expect(document.activeElement).toEqual(document.querySelector('.sky-modal-dialog'));
-  //   closeFlyout(modalInstance1);
-  // }));
+  it('should focus the dialog when no autofocus is inside of content', fakeAsync(() => {
+    openFlyout(FlyoutTestComponent);
+    expect(document.activeElement).toEqual(getFlyout());
+    closeFlyout();
+  }));
 
-  // it('should focus the autofocus element when autofocus is inside of content', fakeAsync(() => {
-  //   let modalInstance1 = openFlyout(ModalAutofocusTestComponent);
-  //   expect(document.activeElement).toEqual(document.querySelector('#autofocus-el'));
-  //   closeFlyout(modalInstance1);
-  // }));
+  it('should focus the autofocus element when autofocus is inside of content', ((done) => {
+    openFlyout(FlyoutAutofocusTestComponent);
+    setTimeout(() => {
+      expect(document.activeElement).toEqual(document.querySelector('#autofocus-el'));
+      closeFlyout();
+      done();
+    }, 10);
+  }));
 
   it('should handle escape key press and close the flyout', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
     tick();
 
-    expect(document.querySelector('.sky-flyout')).toExist();
+    expect(getFlyout()).toExist();
 
     let escapeEvent: any = document.createEvent('CustomEvent');
     escapeEvent.which = 27;
     escapeEvent.keyCode = 27;
     escapeEvent.initEvent('keyup', true, true);
-
     document.dispatchEvent(escapeEvent);
-
     tick();
     applicationRef.tick();
 
-    expect(document.querySelector('.sky-flyout')).not.toExist();
-
+    expect(getFlyout()).not.toExist();
   }));
 
   it('should close when the close button is clicked', ((done) => {
     let flyoutInstance = openFlyout(FlyoutTestComponent);
-
     applicationRef.tick();
 
-    expect(document.querySelector('.sky-flyout')).toExist();
+    expect(getFlyout()).toExist();
 
     flyoutInstance.closed.subscribe(() => {
       setTimeout(() => {
-        expect(document.body.querySelector('.sky-flyout')).not.toExist();
+        expect(getFlyout()).not.toExist();
         done();
       }, 10);
     });
-
-    (<any>document.querySelector('.sky-flyout-btn-close')).click();
-
-    applicationRef.tick();
+    closeFlyout();
   }));
 
-  // it('should handle tab with shift when focus is on modal and in top modal', fakeAsync(() => {
-  //   let modalInstance1 = openFlyout(ModalFooterTestComponent);
-  //   let tabEvent: any = document.createEvent('CustomEvent');
-  //   tabEvent.which = 9;
-  //   tabEvent.keyCode = 9;
-  //   tabEvent.shiftKey = true;
-  //   tabEvent.initEvent('keydown', true, true);
+  it('should handle shift+tab when focus is on flyout', fakeAsync(() => {
+    openFlyout(FlyoutTestComponent);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = true;
+    tabEvent.initEvent('keydown', true, true);
 
-  //   document.querySelector('.sky-modal-dialog').dispatchEvent(tabEvent);
+    getFlyout().dispatchEvent(tabEvent);
 
-  //   tick();
-  //   applicationRef.tick();
+    tick();
+    applicationRef.tick();
 
-  //   expect(document.activeElement).toEqual(document.querySelector('.sky-btn-primary'));
+    expect(document.activeElement).toEqual(getLastTabbableElement());
 
-  //   closeFlyout(modalInstance1);
-  // }));
+    closeFlyout();
+  }));
 
-  // it('should handle tab with shift when focus is in first item and in top modal', fakeAsync(() => {
+  it('should handle shift+tab when focus is in first item', fakeAsync(() => {
+    openFlyout(FlyoutTestComponent);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = true;
+    tabEvent.initEvent('keydown', true, true);
 
-  //   let modalInstance1 = openFlyout(ModalFooterTestComponent);
+    getCloseButton().dispatchEvent(tabEvent);
 
-  //   let tabEvent: any = document.createEvent('CustomEvent');
-  //   tabEvent.which = 9;
-  //   tabEvent.keyCode = 9;
-  //   tabEvent.shiftKey = true;
-  //   tabEvent.initEvent('keydown', true, true);
+    tick();
+    applicationRef.tick();
 
-  //   document.querySelector('.sky-modal-btn-close').dispatchEvent(tabEvent);
+    expect(document.activeElement).toEqual(getLastTabbableElement());
 
-  //   tick();
-  //   applicationRef.tick();
+    closeFlyout();
+  }));
 
-  //   expect(document.activeElement).toEqual(document.querySelector('.sky-btn-primary'));
+  it('should handle tab when focus is in last item', fakeAsync(() => {
+    openFlyout(FlyoutTestComponent);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
 
-  //   closeFlyout(modalInstance1);
+    getLastTabbableElement().dispatchEvent(tabEvent);
 
-  // }));
+    tick();
+    applicationRef.tick();
 
-  // it('should handle tab when focus is in last item and in top modal', fakeAsync(() => {
-  //   let modalInstance1 = openFlyout(ModalFooterTestComponent);
+    expect(document.activeElement).toEqual(getCloseButton());
 
-  //   let tabEvent: any = document.createEvent('CustomEvent');
-  //   tabEvent.which = 9;
-  //   tabEvent.keyCode = 9;
-  //   tabEvent.shiftKey = false;
-  //   tabEvent.initEvent('keydown', true, true);
+    closeFlyout();
+  }));
 
-  //   document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
+  it('should handle tab in content', fakeAsync(() => {
+    openFlyout(FlyoutTestComponent);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
 
-  //   tick();
-  //   applicationRef.tick();
+    getFirstTabbableElement().dispatchEvent(tabEvent);
 
-  //   expect(document.activeElement).toEqual(document.querySelector('.sky-modal-btn-close'));
+    tick();
+    applicationRef.tick();
 
-  //   closeFlyout(modalInstance1);
-  // }));
+    expect(document.activeElement).not.toEqual(getLastTabbableElement());
 
-  // it('should handle tab in content when in top modal', fakeAsync(() => {
-  //   let modalInstance1 = openFlyout(ModalFooterTestComponent);
+    closeFlyout();
+  }));
 
-  //   let tabEvent: any = document.createEvent('CustomEvent');
-  //   tabEvent.which = 9;
-  //   tabEvent.keyCode = 9;
-  //   tabEvent.shiftKey = false;
-  //   tabEvent.initEvent('keydown', true, true);
+  it('should handle a different key code', fakeAsync(() => {
+    openFlyout(FlyoutTestComponent);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 3;
+    tabEvent.keyCode = 3;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
 
-  //   document.querySelector('input').dispatchEvent(tabEvent);
+    getFirstTabbableElement().dispatchEvent(tabEvent);
 
-  //   tick();
-  //   applicationRef.tick();
+    tick();
+    applicationRef.tick();
 
-  //   expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+    expect(document.activeElement).not.toEqual(getCloseButton());
 
-  //   closeFlyout(modalInstance1);
-  // }));
+    closeFlyout();
+  }));
 
-  // it('should handle a different key code', fakeAsync(() => {
-  //   let modalInstance1 = openFlyout(ModalFooterTestComponent);
+  it('handles no focusable elements', fakeAsync(() => {
+    openFlyout(FlyoutWithoutTabbableContent);
 
-  //   let tabEvent: any = document.createEvent('CustomEvent');
-  //   tabEvent.which = 3;
-  //   tabEvent.keyCode = 3;
-  //   tabEvent.shiftKey = false;
-  //   tabEvent.initEvent('keydown', true, true);
+    let tabEvent: any = document.createEvent('CustomEvent');
+    tabEvent.which = 9;
+    tabEvent.keyCode = 9;
+    tabEvent.shiftKey = false;
+    tabEvent.initEvent('keydown', true, true);
 
-  //   document.querySelector('.sky-btn-primary').dispatchEvent(tabEvent);
+    document.dispatchEvent(tabEvent);
 
-  //   tick();
-  //   applicationRef.tick();
+    tick();
+    applicationRef.tick();
 
-  //   expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
+    expect(document.activeElement).not.toEqual(getCloseButton());
 
-  //   closeFlyout(modalInstance1);
-  // }));
-
-  // it('handles no focusable elements', fakeAsync(() => {
-  //   let modalInstance1 = openFlyout(ModalNoHeaderTestComponent);
-
-  //   let tabEvent: any = document.createEvent('CustomEvent');
-  //   tabEvent.which = 9;
-  //   tabEvent.keyCode = 9;
-  //   tabEvent.shiftKey = false;
-  //   tabEvent.initEvent('keydown', true, true);
-
-  //   document.dispatchEvent(tabEvent);
-
-  //   tick();
-  //   applicationRef.tick();
-
-  //   expect(document.activeElement).not.toEqual(document.querySelector('.sky-modal-btn-close'));
-
-  //   closeFlyout(modalInstance1);
-  // }));
-
-  // it('should handle empty list for focus first and last element functions', fakeAsync(() => {
-  //   let adapterService = new SkyFlyoutAdapterService();
-  //   let firstResult = adapterService.focusFirstElement([]);
-  //   expect(firstResult).toBe(false);
-
-  //   let lastResult = adapterService.focusLastElement([]);
-  //   expect(lastResult).toBe(false);
-  // }));
-
-
-  // it('should set max height based on window and change when window resizes', fakeAsync(() => {
-  //   let modalInstance = openFlyout(FlyoutTestComponent);
-  //   let modalEl = document.querySelector('.sky-modal');
-  //   let maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
-  //   let windowHeight = window.innerHeight;
-  //   let contentEl = modalEl.querySelector('.sky-modal-content');
-
-  //   let contentHeight = parseInt(getComputedStyle(contentEl).maxHeight, 10);
-
-  //   expect(maxHeight).toEqual(windowHeight - 40);
-  //   expect(contentHeight).toEqual(windowHeight - 40 - 114);
-
-  //   TestUtility.fireDomEvent(window, 'resize');
-  //   applicationRef.tick();
-  //   maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
-  //   expect(maxHeight).toEqual(window.innerHeight - 40);
-
-  //   closeFlyout(modalInstance);
-  // }));
+    closeFlyout();
+  }));
 
   // it('should default the aria-labelledby and aria-describedby', fakeAsync(() => {
   //   let modalInstance = openFlyout(FlyoutTestComponent);
