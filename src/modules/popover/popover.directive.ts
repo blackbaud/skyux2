@@ -56,6 +56,7 @@ export class SkyPopoverDirective {
   @HostListener('click', ['$event'])
   public togglePopover(event: MouseEvent) {
     event.preventDefault();
+    console.log('popover directive, click, togglePopover()');
 
     if (this.skyPopover.isOpen) {
       this.closePopover();
@@ -93,6 +94,7 @@ export class SkyPopoverDirective {
   }
 
   private positionPopover() {
+    console.log('popover directive, positionPopover()');
     this.skyPopover.positionNextTo(
       this.elementRef,
       this.skyPopoverPlacement,
@@ -101,6 +103,7 @@ export class SkyPopoverDirective {
   }
 
   private closePopover() {
+    console.log('popover directive, closePopover()');
     this.skyPopover.close();
   }
 }

@@ -1,14 +1,12 @@
 import {
-  By
-} from '@angular/platform-browser';
-
-import {
   ElementRef
 } from '@angular/core';
 
 import {
   ComponentFixture,
+  // fakeAsync,
   TestBed
+  // tick
 } from '@angular/core/testing';
 
 import {
@@ -38,7 +36,14 @@ class MockWindowService {
 describe('SkyPopoverComponent', () => {
   let fixture: ComponentFixture<SkyPopoverComponent>;
   let component: SkyPopoverComponent;
-  let placementChangesSubscribe: Function;
+  let positionChangeSubscribe: Function;
+
+  function dispatchKeyboardEvent(element: Element, eventName: string, key: string) {
+    const event: any = document.createEvent('CustomEvent');
+    event.key = key;
+    event.initEvent(eventName, true, true);
+    element.dispatchEvent(event);
+  }
 
   beforeEach(() => {
     let mockWindowService = new MockWindowService();
@@ -46,11 +51,11 @@ describe('SkyPopoverComponent', () => {
       setPopoverPosition() {},
       hidePopover() {},
       showPopover() {},
-      placementChanges: {
+      positionChange: {
         takeUntil() {
           return {
             subscribe(callback: Function) {
-              placementChangesSubscribe = callback;
+              positionChangeSubscribe = callback;
             }
           };
         }
@@ -101,13 +106,17 @@ describe('SkyPopoverComponent', () => {
 
   it('should update classnames if the adapter changes the placement', () => {
     expect(component.classNames[1]).toEqual('sky-popover-placement-above');
-    placementChangesSubscribe({ placement: 'below' });
-    // fixture.detectChanges();
+    positionChangeSubscribe({ placement: 'below' });
+    fixture.detectChanges();
     expect(component.classNames[1]).toEqual('sky-popover-placement-below');
+  });
 
-    // It shouldn't change the class names if the placement hasn't changed.
-    placementChangesSubscribe({ foo: 'below' });
-    expect(component.classNames[1]).toEqual('sky-popover-placement-below');
+  it('should handle undefind placement/alignment values after adapter position changes', () => {
+    expect(component.classNames[1]).toEqual('sky-popover-placement-above');
+    positionChangeSubscribe({ placement: undefined, alignment: undefined });
+    fixture.detectChanges();
+    expect(component.classNames[0]).toEqual('sky-popover-alignment-center');
+    expect(component.classNames[1]).toEqual('sky-popover-placement-above');
   });
 
   it('should not call the adapter service if a caller is not defined', () => {
@@ -211,35 +220,48 @@ describe('SkyPopoverComponent', () => {
     expect(component['isMouseEnter']).toEqual(false);
   });
 
-  it('should close the popover when the escape key is pressed', () => {
-    spyOn(component, 'close');
-
-    component.isOpen = true;
-
-    const escapeEvent: any = document.createEvent('CustomEvent');
-    escapeEvent.key = 'Escape';
-    escapeEvent.initEvent('keyup', true, true);
-    document.dispatchEvent(escapeEvent);
-
+  it('should prevent bubbling of click events', () => {
+    const event: any = document.createEvent('CustomEvent');
+    const spy = spyOn(event, 'stopPropagation');
+    event.initEvent('click', true, true);
+    fixture.nativeElement.dispatchEvent(event);
     fixture.detectChanges();
-    const element = fixture.debugElement.query(By.css('.sky-popover-container'));
-
-    expect(component.close).toHaveBeenCalled();
-    expect(element.nativeElement).toBeDefined();
+    expect(spy).toHaveBeenCalled();
   });
 
-  it('should only close the popover (when escape pressed) if it is open', () => {
-    spyOn(component, 'close');
+  it('should reposition the popover on window scroll', () => {
+    const spy = spyOn(fixture.componentInstance, 'positionNextTo');
+    const event = document.createEvent('CustomEvent');
+    event.initEvent('scroll', false, false);
 
-    component.isOpen = false;
-
-    const escapeEvent: any = document.createEvent('CustomEvent');
-    escapeEvent.key = 'Escape';
-    escapeEvent.initEvent('keyup', true, true);
-    document.dispatchEvent(escapeEvent);
-
+    component.isOpen = true;
+    window.dispatchEvent(event);
     fixture.detectChanges();
-    expect(component.close).not.toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
+
+    // Test the else condition.
+    spy.calls.reset();
+    component.isOpen = false;
+    window.dispatchEvent(event);
+    fixture.detectChanges();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should close the popover when the escape key is pressed', () => {
+    const spy = spyOn(component, 'close');
+
+    component.isOpen = true;
+    dispatchKeyboardEvent(component.elementRef.nativeElement, 'keyup', 'Escape');
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalled();
+
+    // Disregard other key presses:
+    spy.calls.reset();
+    dispatchKeyboardEvent(component.elementRef.nativeElement, 'keyup', 'Shift');
+    fixture.detectChanges();
+
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('should close the popover when the document is clicked', () => {

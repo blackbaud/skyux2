@@ -4,12 +4,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyDropdownModule } from '../index';
 import { DropdownTestComponent } from './dropdown.component.fixture';
-import { DropdownParentTestComponent } from './dropdown-parent.component.fixture';
 
 @NgModule({
   declarations: [
-    DropdownTestComponent,
-    DropdownParentTestComponent
+    DropdownTestComponent
   ],
   imports: [
     CommonModule,

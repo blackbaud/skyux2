@@ -227,9 +227,9 @@ export class SkyPopoverAdapterService {
       top -= bleedTop;
 
       // Prevent popover's top boundary from leaving the bounds of the caller.
-      if (top > callerOffsetTop) {
-        top = callerOffsetTop;
-      }
+      // if (top > callerOffsetTop - 20) {
+      //   top = callerOffsetTop - 20;
+      // }
     }
 
     // Clipped on bottom?
@@ -241,9 +241,9 @@ export class SkyPopoverAdapterService {
       top += bleedBottom;
 
       // Prevent popover's bottom boundary from leaving the bounds of the caller.
-      if (top + popoverRect.height < callerOffsetTop + callerRect.height) {
-        top = callerOffsetTop - popoverRect.height + callerRect.height;
-      }
+      // if (top + popoverRect.height < callerOffsetTop + callerRect.height) {
+      //   top = callerOffsetTop - popoverRect.height + callerRect.height;
+      // }
     }
 
     return {
@@ -282,7 +282,7 @@ export class SkyPopoverAdapterService {
 
     // The arrow has exceded the bounds of the popover;
     // default to the CSS className position.
-    if (left < 0 || left > popoverRect.width) {
+    if (left < 0 || left > popoverRect.width || isNaN(left)) {
       left = undefined;
     }
 
@@ -321,12 +321,7 @@ export class SkyPopoverAdapterService {
 
   private getNextPlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
     const placements: SkyPopoverPlacement[] = ['above', 'right', 'below', 'left'];
-
-    let index = placements.indexOf(placement) + 1;
-    if (index === placements.length) {
-      index = 0;
-    }
-
+    const index = placements.indexOf(placement) + 1;
     return placements[index];
   }
 

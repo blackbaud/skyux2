@@ -91,10 +91,10 @@ describe('SkyPopoverDirective', () => {
     expect(closeSpy).not.toHaveBeenCalled();
   }
 
-  function dispatchKeyDownEvent(elem: any, key: string) {
+  function dispatchKeyUpEvent(elem: any, key: string) {
     const keyboardEvent: any = document.createEvent('CustomEvent');
     keyboardEvent.key = key;
-    keyboardEvent.initEvent('keydown', true, true);
+    keyboardEvent.initEvent('keyup', true, true);
     elem.dispatchEvent(keyboardEvent);
   }
 
@@ -203,18 +203,18 @@ describe('SkyPopoverDirective', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('should close the popover when the tab key is pressed', () => {
+  it('should close the popover when the escape key is pressed', () => {
     const caller = directiveElements[3];
     const callerInstance = caller.injector.get(SkyPopoverDirective);
     const spy = spyOn(callerInstance.skyPopover, 'close');
 
-    dispatchKeyDownEvent(caller.nativeElement, 'tab');
+    dispatchKeyUpEvent(caller.nativeElement, 'escape');
     expect(spy).toHaveBeenCalledWith();
 
     spy.calls.reset();
 
     // Should ignore other key events.
-    dispatchKeyDownEvent(caller.nativeElement, 'backspace');
+    dispatchKeyUpEvent(caller.nativeElement, 'backspace');
     expect(spy).not.toHaveBeenCalled();
   });
 });

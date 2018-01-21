@@ -40,7 +40,7 @@ describe('SkyPopoverAdapterService', () => {
     width = 0,
     height = 0
   ) {
-    return {
+    const def: any = {
       getBoundingClientRect: function () {
         return {
           top: top,
@@ -52,6 +52,13 @@ describe('SkyPopoverAdapterService', () => {
       offsetTop: top,
       offsetLeft: left
     };
+
+    def.setOffsets = (offsetTop: number, offsetLeft: number) => {
+      def.offsetTop = offsetTop;
+      def.offsetLeft = offsetLeft;
+    };
+
+    return def;
   }
 
   beforeEach(() => {
@@ -90,6 +97,43 @@ describe('SkyPopoverAdapterService', () => {
     })
   );
 
+  it('should set a popover\'s arrow top and left coordinates',
+    inject([SkyPopoverAdapterService, SkyWindowRefService], (
+      adapterService: SkyPopoverAdapterService,
+      windowService: SkyWindowRefService
+    ) => {
+      const spy = spyOn(adapterService['renderer'], 'setStyle');
+
+      spyOn(windowService, 'getWindow').and.returnValue({
+        setTimeout(callback: Function) {
+          callback();
+        },
+        document: {
+          body: {
+            clientWidth: 800,
+            clientHeight: 800
+          }
+        },
+        innerHeight: 300, // viewport height
+        pageXOffset: 0,
+        pageYOffset: 100
+      });
+
+      const caller = new ElementRef(createElementRefDefinition(750, 0, 100, 34));
+      const popover = new ElementRef(createElementRefDefinition(0, 0, 200, 300));
+      const popoverArrow = new ElementRef(createElementRefDefinition());
+
+      adapterService.setPopoverPosition({
+        popover,
+        popoverArrow,
+        caller
+      }, 'right', undefined);
+
+      expect(spy).toHaveBeenCalledWith(popoverArrow.nativeElement, 'top', '367px');
+      expect(spy).toHaveBeenCalledWith(popoverArrow.nativeElement, 'left', undefined);
+    })
+  );
+
   it('should handle invalid placement and alignment values',
     inject([SkyPopoverAdapterService], (adapterService: SkyPopoverAdapterService) => {
       const spy = spyOn(adapterService['renderer'], 'setStyle');
@@ -102,11 +146,10 @@ describe('SkyPopoverAdapterService', () => {
         caller: new ElementRef(createElementRefDefinition(200, 200, 80, 34))
       }, 'foo', 'bar');
 
-      // Should default to values that would normally be created by 'above' 'center':
-      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'top', '130px');
-      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'left', '150px');
+      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'top', undefined);
+      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'left', undefined);
       expect(spy).toHaveBeenCalledWith(popoverArrow.nativeElement, 'top', undefined);
-      expect(spy).toHaveBeenCalledWith(popoverArrow.nativeElement, 'left', '90px');
+      expect(spy).toHaveBeenCalledWith(popoverArrow.nativeElement, 'left', undefined);
     })
   );
 
@@ -154,10 +197,28 @@ describe('SkyPopoverAdapterService', () => {
     })
   );
 
+  it('should return placement of fullscreen if popover dimensions greater than viewport',
+    inject([SkyPopoverAdapterService], (adapterService: SkyPopoverAdapterService) => {
+      adapterService.positionChange.take(1).subscribe((change: any) => {
+        expect(change.placement).toEqual('fullscreen');
+      });
+
+      adapterService.setPopoverPosition({
+        popover: new ElementRef(createElementRefDefinition(0, 0, 1500, 1500)),
+        popoverArrow: new ElementRef(createElementRefDefinition()),
+        caller: new ElementRef(createElementRefDefinition(0, 0, 100, 34))
+      }, 'above', undefined);
+    })
+  );
+
   it('should only check for optimal placements a few times',
     inject(
       [SkyPopoverAdapterService, SkyWindowRefService],
       (adapterService: SkyPopoverAdapterService, windowService: SkyWindowRefService) => {
+        adapterService.positionChange.take(1).subscribe((change: any) => {
+          expect(change.placement).toEqual('fullscreen');
+        });
+
         const spy = spyOn(adapterService as any, 'getPopoverCoordinates').and.callThrough();
 
         // For this test, the window's dimensions have been set to be smaller than the popover.
@@ -169,31 +230,28 @@ describe('SkyPopoverAdapterService', () => {
           },
           document: {
             body: {
-              clientWidth: 50,
-              clientHeight: 50
+              clientWidth: 300,
+              clientHeight: 300
             }
           },
+          innerHeight: 300,
           pageXOffset: 0,
           pageYOffset: 0
         });
 
         const elements = {
-          popover: new ElementRef(createElementRefDefinition(0, 0, 276, 100)),
+          popover: new ElementRef(createElementRefDefinition(0, 0, 276, 276)),
           popoverArrow: new ElementRef(createElementRefDefinition()),
-          caller: new ElementRef(createElementRefDefinition(0, 0, 100, 34))
+          caller: new ElementRef(createElementRefDefinition(0, 0, 50, 50))
         };
 
-        adapterService.setPopoverPosition(elements, 'below', undefined);
-        expect(spy.calls.mostRecent().args[1]).toEqual('above');
-
-        adapterService.setPopoverPosition(elements, 'right', undefined);
-        expect(spy.calls.mostRecent().args[1]).toEqual('left');
-
-        adapterService.setPopoverPosition(elements, 'left', undefined);
-        expect(spy.calls.mostRecent().args[1]).toEqual('right');
-
         adapterService.setPopoverPosition(elements, 'above', undefined);
-        expect(spy.calls.mostRecent().args[1]).toEqual('below');
+
+        expect(spy.calls.count()).toEqual(4);
+        expect(spy.calls.argsFor(0)[1]).toEqual('above');
+        expect(spy.calls.argsFor(1)[1]).toEqual('below');
+        expect(spy.calls.argsFor(2)[1]).toEqual('left');
+        expect(spy.calls.argsFor(3)[1]).toEqual('right');
       }
     )
   );
@@ -203,7 +261,7 @@ describe('SkyPopoverAdapterService', () => {
       const spy = spyOn(adapterService['renderer'], 'addClass');
       const elem = new ElementRef({ nativeElement: {} });
       adapterService.hidePopover(elem);
-      expect(spy).toHaveBeenCalledWith(elem.nativeElement, 'hidden');
+      expect(spy).toHaveBeenCalledWith(elem.nativeElement, 'sky-popover-hidden');
     })
   );
 
@@ -212,7 +270,7 @@ describe('SkyPopoverAdapterService', () => {
       const spy = spyOn(adapterService['renderer'], 'removeClass');
       const elem = new ElementRef({ nativeElement: {} });
       adapterService.showPopover(elem);
-      expect(spy).toHaveBeenCalledWith(elem.nativeElement, 'hidden');
+      expect(spy).toHaveBeenCalledWith(elem.nativeElement, 'sky-popover-hidden');
     })
   );
 
@@ -245,31 +303,24 @@ describe('SkyPopoverAdapterService', () => {
     })
   );
 
-  it('should respect a positioned parent\'s width',
+  it('should stick the popover to the button\'s horizontal dimensions',
     inject([SkyPopoverAdapterService], (adapterService: SkyPopoverAdapterService) => {
       const spy = spyOn(adapterService['renderer'], 'setStyle');
-      const popover = new ElementRef(createElementRefDefinition(0, 0, 180, 70));
-      const popoverArrow = new ElementRef(createElementRefDefinition(0, 0, 20, 10));
-      const caller = new ElementRef(createElementRefDefinition(0, 0, 80, 34));
+      const callerDef = createElementRefDefinition(200, -5, 100, 34);
+      callerDef.setOffsets(0, 10);
 
-      // Create a parent with position:relative set.
-      // See: offsetParent, https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent
-      // Parent element is the same width as the button,
-      // so that a placement of 'right' will cause the adapter
-      // to place the popover 'below'.
-      caller.nativeElement.offsetParent = createElementRefDefinition(0, 0, 80, 80);
+      const popover = new ElementRef(createElementRefDefinition(0, 0, 200, 100));
+      const popoverArrow = new ElementRef(createElementRefDefinition());
 
       adapterService.setPopoverPosition({
         popover,
         popoverArrow,
-        caller
-      }, 'right', undefined);
+        caller: new ElementRef(callerDef)
+      }, 'above', 'right');
 
-      // The following coordinates represent the popover 'below' the trigger.
-      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'top', '34px');
-      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'left', '0px');
-      expect(spy).toHaveBeenCalledWith(popoverArrow.nativeElement, 'top', undefined);
-      expect(spy).toHaveBeenCalledWith(popoverArrow.nativeElement, 'left', '40px');
+      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'top', '-100px');
+      // The popover left coordinate should never be less than the button's offsetLeft.
+      expect(spy).toHaveBeenCalledWith(popover.nativeElement, 'left', '10px');
     })
   );
 });

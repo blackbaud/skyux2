@@ -1,4 +1,5 @@
 import {
+  // async,
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -20,7 +21,7 @@ describe('Dropdown component', () => {
   const activeItemClass = 'sky-dropdown-item-active';
   let fixture: ComponentFixture<DropdownTestComponent>;
 
-  const beforeEachCallback = () => {
+  const beforeEachCallback = fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyDropdownFixturesModule
@@ -28,12 +29,15 @@ describe('Dropdown component', () => {
     });
 
     fixture = TestBed.createComponent(DropdownTestComponent);
+    tick();
     fixture.detectChanges();
-  };
+  });
 
-  function dispatchKeyboardEvent(elem: HTMLElement, eventName: string, key: string) {
+  function dispatchKeyboardEvent(elem: HTMLElement, eventName: string, key?: string) {
     const keyboardEvent: any = document.createEvent('CustomEvent');
-    keyboardEvent.key = key;
+    if (key) {
+      keyboardEvent.key = key;
+    }
     keyboardEvent.initEvent(eventName, true, true);
     elem.dispatchEvent(keyboardEvent);
   }
@@ -77,9 +81,13 @@ describe('Dropdown component', () => {
     expect(buttonHasFocus).toEqual(hasFocus);
   }
 
-  // function getDropdownHostElement(elem: HTMLElement): HTMLElement {
-  //   return elem.querySelector('sky-dropdown') as HTMLElement;
-  // }
+  function getDropdownHostElement(): HTMLElement {
+    return fixture.nativeElement.querySelector('sky-dropdown') as HTMLElement;
+  }
+
+  function getDropdownMenuHostElement(): HTMLElement {
+    return fixture.nativeElement.querySelector('sky-dropdown-menu') as HTMLElement;
+  }
 
   function getDropdownButtonElement(): HTMLElement {
     return fixture.nativeElement.querySelector('.sky-dropdown-button') as HTMLElement;
@@ -98,6 +106,7 @@ describe('Dropdown component', () => {
   }
 
   function isElementVisible(elem: HTMLElement): boolean {
+    // return (!elem.classList.contains('sky-popover-hidden'));
     return (getComputedStyle(elem).visibility !== 'hidden');
   }
 
@@ -178,6 +187,7 @@ describe('Dropdown component', () => {
     it('should open the menu when clicking the trigger button', fakeAsync(() => {
       const buttonElem = getDropdownButtonElement();
 
+      expect(fixture.componentInstance.dropdown['isOpen']).toEqual(false);
       verifyMenuVisibility(false);
 
       buttonElem.click();
@@ -185,7 +195,8 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
       tick();
 
-      verifyMenuVisibility();
+      expect(fixture.componentInstance.dropdown['isOpen']).toEqual(true);
+      verifyMenuVisibility(true);
     }));
 
     // it('should ignore subsequent calls to open if menu already open', fakeAsync(() => {
@@ -212,25 +223,6 @@ describe('Dropdown component', () => {
     //   verifyMenuVisibility();
     //   expect(spy.calls.count()).toEqual(0);
     // }));
-
-    it('should close the menu when clicked', fakeAsync(() => {
-      const buttonElem = getDropdownButtonElement();
-      const popoverElem = getPopoverContainerElement();
-
-      buttonElem.click();
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyMenuVisibility();
-
-      popoverElem.click();
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyMenuVisibility(false);
-    }));
   });
 
   describe('keyboard interactions', () => {
@@ -238,6 +230,7 @@ describe('Dropdown component', () => {
 
     it('should close the dropdown and focus the trigger button after user presses the esc key', fakeAsync(() => {
       const buttonElem = getDropdownButtonElement();
+      const popoverElem = getPopoverContainerElement();
 
       verifyMenuVisibility(false);
 
@@ -246,10 +239,10 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
       tick();
 
-      verifyMenuVisibility();
+      verifyMenuVisibility(true);
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'escape');
-      dispatchKeyboardEvent(buttonElem, 'keyup', 'escape');
+      dispatchKeyboardEvent(popoverElem, 'keydown', 'escape');
+      dispatchKeyboardEvent(popoverElem, 'keyup', 'escape');
       tick();
       fixture.detectChanges();
       tick();
@@ -258,7 +251,7 @@ describe('Dropdown component', () => {
       verifyMenuVisibility(false);
     }));
 
-    it('should close the dropdown after user presses the tab key', fakeAsync(() => {
+    it('should close the dropdown after user presses the tab key on the last item', fakeAsync(() => {
       const buttonElem = getDropdownButtonElement();
 
       verifyMenuVisibility(false);
@@ -270,7 +263,15 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility();
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'tab');
+      const hostElem = getDropdownHostElement();
+      const popoverElem = getPopoverContainerElement();
+      const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
+
+      dispatchKeyboardEvent(hostElem, 'keydown', 'tab');
+      dispatchKeyboardEvent(lastItem.querySelector('button'), 'focusout');
+      // const event: any = document.createEvent('CustomEvent');
+      // event.initEvent('focusout', true, true);
+      // lastItem.querySelector('button').dispatchEvent(event);
       tick();
       fixture.detectChanges();
       tick();
@@ -281,6 +282,7 @@ describe('Dropdown component', () => {
 
     it('should navigate menu items with arrow keys', fakeAsync(() => {
       const buttonElem = getDropdownButtonElement();
+      const hostElem = getDropdownMenuHostElement();
 
       verifyMenuVisibility(false);
 
@@ -291,7 +293,7 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility();
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowdown');
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
       tick();
       fixture.detectChanges();
       tick();
@@ -299,7 +301,7 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowdown');
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
       tick();
       fixture.detectChanges();
       tick();
@@ -308,7 +310,7 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(2);
       verifyFocusedMenuItemByIndex(2);
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowup');
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowup');
       tick();
       fixture.detectChanges();
       tick();
@@ -318,9 +320,9 @@ describe('Dropdown component', () => {
       verifyFocusedMenuItemByIndex(0);
 
       // Navigation should loop from the last item to the first:
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowdown');
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowdown');
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowdown');
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
       tick();
       fixture.detectChanges();
       tick();
@@ -328,7 +330,7 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowup');
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowup');
       tick();
       fixture.detectChanges();
       tick();
@@ -350,7 +352,7 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
 
       verifyMenuVisibility();
-      expect((fixture.componentInstance.dropdown as any)['openedWithKeyboard']).toEqual(true);
+      // expect((fixture.componentInstance.dropdown as any)['openedWithKeyboard']).toEqual(true);
       verifyActiveMenuItemByIndex(0);
       expect(spy).toHaveBeenCalled();
     }));
@@ -372,7 +374,6 @@ describe('Dropdown component', () => {
       tick();
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
 
       verifyMenuVisibility();
       expect(firstSpy).not.toHaveBeenCalled();
@@ -395,7 +396,6 @@ describe('Dropdown component', () => {
       tick();
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
 
       verifyMenuVisibility();
       expect(firstSpy).not.toHaveBeenCalled();
@@ -435,17 +435,14 @@ describe('Dropdown component', () => {
       tick();
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
 
       verifyMenuVisibility();
-      verifyActiveMenuItemByIndex(0);
 
       const menuItemButton = popoverElem.querySelectorAll('button').item(0);
       dispatchKeyboardButtonClickEvent(menuItemButton);
       tick();
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
 
       verifyMenuVisibility(false);
       verifyTriggerButtonHasFocus();
@@ -527,7 +524,6 @@ describe('Dropdown component', () => {
       tick();
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
 
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
@@ -536,7 +532,6 @@ describe('Dropdown component', () => {
       tick();
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
 
       verifyActiveMenuItemByIndex(3);
       verifyFocusedMenuItemByIndex(3);
@@ -612,7 +607,6 @@ describe('Dropdown component', () => {
       tick();
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
 
       expect(getDropdownItemElements().length).toEqual(3);
       expect(spy).toHaveBeenCalled();

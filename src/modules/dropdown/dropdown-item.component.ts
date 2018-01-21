@@ -34,6 +34,7 @@ export class SkyDropdownItemComponent implements AfterViewInit {
 
   public focusElement(enableNativeFocus: boolean) {
     this.isActive = true;
+    console.log('focus menu item button element!');
 
     if (enableNativeFocus) {
       this.buttonElement.focus();

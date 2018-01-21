@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
+  BrowserAnimationsModule
+} from '@angular/platform-browser/animations';
+
+import {
   SkyPopoverComponent,
   SkyPopoverDirective
 } from './index';
@@ -12,6 +16,7 @@ import {
     SkyPopoverDirective
   ],
   imports: [
+    BrowserAnimationsModule,
     CommonModule
   ],
   exports: [

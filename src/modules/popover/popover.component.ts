@@ -111,35 +111,40 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
+    console.log('popover component, ngOnInit()');
     this.adapterService.hidePopover(this.popoverContainer);
     this.updateClassNames(this.placement, this.alignment);
   }
 
   public ngOnDestroy() {
+    console.log('popover component, ngOnDestroy()');
     this.destroy.next(true);
     this.destroy.unsubscribe();
   }
 
   @HostListener('keyup', ['$event'])
   public onKeyUp(event: KeyboardEvent): void {
+    console.log('popover component, onKeyUp()');
     const key = event.key.toLowerCase();
     if (key === 'escape') {
-      this.close();
-      this.focusCallerElement();
       event.preventDefault();
       event.stopPropagation();
+      this.close();
+      this.focusCallerElement();
     }
   }
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent): void {
+    console.log('popover component, onDocumentClick()');
     if (!this.isMouseEnter) {
       this.close();
     }
   }
 
   @HostListener('click', ['$event'])
-  public onClick(event: MouseEvent): void {
+  public onClick(event: MouseEvent) {
+    console.log('popover component, onClick()');
     event.stopPropagation();
   }
 
@@ -170,6 +175,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     placement?: SkyPopoverPlacement,
     alignment?: SkyPopoverAlignment
   ) {
+    console.log('popover component, positionNextTo()');
     if (!caller) {
       return;
     }
@@ -192,6 +198,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   public close() {
+    console.log('popover component, close()');
     if (this.isOpen) {
       this.isOpen = false;
       this.changeDetector.markForCheck();
@@ -199,25 +206,36 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   public onAnimationStart(event: AnimationEvent) {
+    console.log('popover component, onAnimationStart()');
     if (event.fromState === 'void') {
       return;
     }
 
     if (event.toState === 'visible') {
+      console.log('adapterService.showPopover()');
       this.adapterService.showPopover(this.popoverContainer);
+      // this.windowRef.getWindow().setTimeout(() => {
+        // this.popoverOpened.emit(this);
+      // });
     }
   }
 
   public onAnimationDone(event: AnimationEvent) {
+    console.log('popover component, onAnimationDone()');
     if (event.fromState === 'void') {
       return;
     }
 
     if (event.toState === 'hidden') {
       this.adapterService.hidePopover(this.popoverContainer);
-      this.popoverClosed.emit(this);
+      this.windowRef.getWindow().setTimeout(() => {
+        this.popoverClosed.emit(this);
+      });
     } else {
-      this.popoverOpened.emit(this);
+      console.log('popover component, visible?', getComputedStyle(this.popoverContainer.nativeElement).visibility);
+      this.windowRef.getWindow().setTimeout(() => {
+        this.popoverOpened.emit(this);
+      });
     }
   }
 
