@@ -72,15 +72,15 @@ export class SkyFlyoutComponent {
   }
 
   public get ariaDescribedBy() {
-    return this.config.ariaDescribedBy || '';
+    return this.config.ariaDescribedBy || undefined;
   }
 
   public get ariaLabelledBy() {
-    return this.config.ariaLabelledBy || '';
+    return this.config.ariaLabelledBy || undefined;
   }
 
   public get ariaRole() {
-    return this.config.ariaRole || '';
+    return this.config.ariaRole || undefined;
   }
 
   public open(flyoutInstance: SkyFlyoutInstance, component: any, config?: IConfig) {
