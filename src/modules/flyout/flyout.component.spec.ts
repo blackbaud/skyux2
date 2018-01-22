@@ -4,6 +4,7 @@ import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
   inject,
+  tick,
   TestBed
 } from '@angular/core/testing';
 
@@ -14,7 +15,7 @@ import {
 import { SkyFlyoutService } from './flyout.service';
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
@@ -24,6 +25,7 @@ describe('Flyout component', () => {
     let flyoutInstance = flyoutService.open(flyoutType, config);
 
     applicationRef.tick();
+    tick();
 
     return flyoutInstance;
   }
@@ -40,20 +42,11 @@ describe('Flyout component', () => {
     return document.querySelector('#autofocus-el');
   }
 
-  function getCloseButton(): any {
-    return document.querySelector('.sky-flyout-btn-close');
-  }
-
-  function closeFlyout() {
-    getCloseButton().click();
-    applicationRef.tick();
-  }
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyFlyoutFixturesModule,
-        BrowserAnimationsModule
+        NoopAnimationsModule
       ]
     });
   });
@@ -77,33 +70,30 @@ describe('Flyout component', () => {
   it('should set focus on the flyout when no autofocus element is present', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
     expect(document.activeElement).toEqual(getFlyout());
-    closeFlyout();
+    flyoutService.close();
   }));
 
-  it('should set focus on the autofocus element, if there is one present', ((done) => {
+  it('should set focus on the autofocus element, if there is one present', fakeAsync(() => {
     openFlyout(FlyoutAutofocusTestComponent);
-    setTimeout(() => {
-      expect(document.activeElement).toEqual(getAutofocusElement());
-      closeFlyout();
-      done();
-    }, 10);
+    expect(document.activeElement).toEqual(getAutofocusElement());
+    flyoutService.close();
   }));
 
   it('should not have the help-shim class if the help widget is not present', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
     applicationRef.tick();
     expect(getFlyoutHeader().classList.contains('help-shim')).toBeFalsy();
-    closeFlyout();
+    flyoutService.close();
   }));
 
   it('should have the help-shim class if the help widget is present', fakeAsync(() => {
     openFlyout(FlyoutWithHelpWidgetTestComponent);
     applicationRef.tick();
     expect(getFlyoutHeader().classList.contains('help-shim')).toBeTruthy();
-    closeFlyout();
+    flyoutService.close();
   }));
 
-  it('should handle escape key press and close the flyout', ((done) => {
+  it('should handle escape key press and close the flyout', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
     applicationRef.tick();
 
@@ -115,26 +105,25 @@ describe('Flyout component', () => {
     escapeEvent.initEvent('keydown', true, true);
     document.dispatchEvent(escapeEvent);
 
-    setTimeout(() => {
-      expect(getFlyout()).not.toExist();
-      done();
-    }, 10);
+    applicationRef.tick();
+    tick();
+    expect(getFlyout()).not.toExist();
 
+    flyoutService.close();
   }));
 
-  it('should close when the close button is clicked', ((done) => {
+  it('should close when the close button is clicked', fakeAsync(() => {
     let flyoutInstance = openFlyout(FlyoutTestComponent);
     applicationRef.tick();
 
     expect(getFlyout()).toExist();
 
     flyoutInstance.closed.subscribe(() => {
-      setTimeout(() => {
-        expect(getFlyout()).not.toExist();
-        done();
-      }, 10);
+      applicationRef.tick();
+      expect(getFlyout()).not.toExist();
     });
-    closeFlyout();
+
+    flyoutService.close();
   }));
 
   it('should accept configuration options for aria-labelledBy, aria-describedby and role',
@@ -156,6 +145,6 @@ describe('Flyout component', () => {
     expect(document.querySelector('.sky-flyout').getAttribute('role'))
       .toBe(expectedRole);
 
-    closeFlyout();
+    flyoutService.close();
   }));
 });

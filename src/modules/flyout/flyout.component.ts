@@ -13,7 +13,6 @@ import {
   ViewContainerRef,
   HostListener,
   EventEmitter,
-  AfterViewInit,
   ElementRef
 } from '@angular/core';
 import { SkyFlyoutInstance } from './flyout-instance';
@@ -39,7 +38,7 @@ import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
     ])
   ]
 })
-export class SkyFlyoutComponent implements AfterViewInit {
+export class SkyFlyoutComponent {
   public flyoutState = 'out';
   public isOpen = false;
   public displayedInstance: SkyFlyoutInstance;
@@ -56,10 +55,6 @@ export class SkyFlyoutComponent implements AfterViewInit {
     private elRef: ElementRef,
     private flyoutAdapter: SkyFlyoutAdapterService
   ) { }
-
-  public ngAfterViewInit() {
-    this.flyoutAdapter.setFlyoutFocus(this.elRef);
-  }
 
   @HostListener('document:keydown', ['$event'])
   public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
@@ -104,6 +99,7 @@ export class SkyFlyoutComponent implements AfterViewInit {
     this.displayedInstance = flyoutInstance;
 
     this.flyoutAdapter.adjustHeaderForHelp();
+    this.flyoutAdapter.setFlyoutFocus(this.elRef);
   }
 
   public animationDone(event: any) {
