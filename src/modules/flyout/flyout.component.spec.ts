@@ -71,9 +71,9 @@ describe('Flyout component', () => {
     closeFlyout();
   }));
 
-  it('should handle escape key press and close the flyout', fakeAsync(() => {
+  it('should handle escape key press and close the flyout', ((done) => {
     openFlyout(FlyoutTestComponent);
-    tick();
+    applicationRef.tick();
 
     expect(getFlyout()).toExist();
 
@@ -82,10 +82,12 @@ describe('Flyout component', () => {
     escapeEvent.keyCode = 27;
     escapeEvent.initEvent('keydown', true, true);
     document.dispatchEvent(escapeEvent);
-    tick();
-    applicationRef.tick();
 
-    expect(getFlyout()).not.toExist();
+    setTimeout(() => {
+      expect(getFlyout()).not.toExist();
+      done();
+    }, 10);
+
   }));
 
   it('should close when the close button is clicked', ((done) => {
