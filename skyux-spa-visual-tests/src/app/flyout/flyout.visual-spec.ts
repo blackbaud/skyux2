@@ -2,7 +2,7 @@ import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
 import { element, by } from 'protractor';
 
-fdescribe('Flyout', () => {
+describe('Flyout', () => {
 
   it('should match previous flyout screenshot', () => {
     return SkyVisualTest.setupTest('flyout')
