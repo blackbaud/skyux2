@@ -15,7 +15,6 @@ import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
   let flyoutService: SkyFlyoutService;
@@ -81,7 +80,7 @@ describe('Flyout component', () => {
     let escapeEvent: any = document.createEvent('CustomEvent');
     escapeEvent.which = 27;
     escapeEvent.keyCode = 27;
-    escapeEvent.initEvent('keyup', true, true);
+    escapeEvent.initEvent('keydown', true, true);
     document.dispatchEvent(escapeEvent);
     tick();
     applicationRef.tick();

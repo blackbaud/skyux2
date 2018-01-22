@@ -61,7 +61,7 @@ export class SkyFlyoutComponent implements AfterViewInit {
     this.flyoutAdapter.setFlyoutFocus(this.elRef);
   }
 
-  @HostListener('document:keyup', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
     if (this.isOpen && event.which === 27) {
       this.close();
@@ -77,15 +77,15 @@ export class SkyFlyoutComponent implements AfterViewInit {
   }
 
   public get ariaDescribedBy() {
-    return this.config.ariaDescribedBy || "";
+    return this.config.ariaDescribedBy || '';
   }
 
   public get ariaLabelledBy() {
-    return this.config.ariaLabelledBy || "";
+    return this.config.ariaLabelledBy || '';
   }
 
   public get ariaRole() {
-    return this.config.ariaRole || "";
+    return this.config.ariaRole || '';
   }
 
   public open(flyoutInstance: SkyFlyoutInstance, component: any, config?: IConfig) {
