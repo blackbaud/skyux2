@@ -8,125 +8,125 @@ import { SkyDefinitionListFixturesModule } from './fixtures/definition-list-fixt
 import { expect } from '../testing';
 
 describe('Definition list component', () => {
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          SkyDefinitionListFixturesModule
-        ]
-      });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyDefinitionListFixturesModule
+      ]
     });
+  });
 
-    function getListEl(el: Element, listIndex: number): Element {
-      return el.querySelector('.sky-definition-list-test-' + listIndex);
-    }
+  function getListEl(el: Element, listIndex: number): Element {
+    return el.querySelector('.sky-definition-list-test-' + listIndex);
+  }
 
-    function getLabelEls(listEl: Element): NodeListOf<Element> {
-      return listEl.querySelectorAll('sky-definition-list-label .sky-definition-list-label');
-    }
+  function getLabelEls(listEl: Element): NodeListOf<Element> {
+    return listEl.querySelectorAll('sky-definition-list-label .sky-definition-list-label');
+  }
 
-    function getValueEls(listEl: Element): NodeListOf<Element> {
-      return listEl.querySelectorAll('sky-definition-list-value .sky-definition-list-value');
-    }
+  function getValueEls(listEl: Element): NodeListOf<Element> {
+    return listEl.querySelectorAll('sky-definition-list-value .sky-definition-list-value');
+  }
 
-    function getDefaultValueEl(valueEl: Element): Element {
-      return valueEl.querySelector('.sky-deemphasized');
-    }
+  function getDefaultValueEl(valueEl: Element): Element {
+    return valueEl.querySelector('.sky-deemphasized');
+  }
 
-    it('should render the heading in the expected location', () => {
-      let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-      let el: Element = fixture.nativeElement;
+  it('should render the heading in the expected location', () => {
+    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    let el: Element = fixture.nativeElement;
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      let list1El = getListEl(el, 1);
+    let list1El = getListEl(el, 1);
 
-      let headingEl =
-        list1El.querySelector('sky-definition-list-heading .sky-definition-list-heading');
+    let headingEl =
+      list1El.querySelector('sky-definition-list-heading .sky-definition-list-heading');
 
-      expect(headingEl).toHaveText('Personal information');
-      expect(headingEl).toHaveCssClass('sky-subsection-heading');
-    });
+    expect(headingEl).toHaveText('Personal information');
+    expect(headingEl).toHaveCssClass('sky-subsection-heading');
+  });
 
-    it('should render labels and values in the expected locations', () => {
-      let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-      let el: Element = fixture.nativeElement;
+  it('should render labels and values in the expected locations', () => {
+    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    let el: Element = fixture.nativeElement;
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      let list1El = getListEl(el, 1);
+    let list1El = getListEl(el, 1);
 
-      let labelEls = getLabelEls(list1El);
-      let valueEls = getValueEls(list1El);
+    let labelEls = getLabelEls(list1El);
+    let valueEls = getValueEls(list1El);
 
-      expect(labelEls[0]).toHaveCssClass('sky-field-label');
-      expect(labelEls[0]).toHaveText('Job title');
+    expect(labelEls[0]).toHaveCssClass('sky-field-label');
+    expect(labelEls[0]).toHaveText('Job title');
 
-      expect(valueEls[0]).toHaveText('Engineer');
-    });
+    expect(valueEls[0]).toHaveText('Engineer');
+  });
 
-    it('should display a default value when no value is specified', () => {
-      let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-      let el: Element = fixture.nativeElement;
+  it('should display a default value when no value is specified', () => {
+    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    let el: Element = fixture.nativeElement;
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      let list1El = getListEl(el, 1);
+    let list1El = getListEl(el, 1);
 
-      let valueEls = getValueEls(list1El);
+    let valueEls = getValueEls(list1El);
 
-      let defaultValueEl = valueEls[2].querySelector('.sky-deemphasized');
+    let defaultValueEl = valueEls[2].querySelector('.sky-deemphasized');
 
-      expect(defaultValueEl).toHaveText('None found');
-    });
+    expect(defaultValueEl).toHaveText('None found');
+  });
 
-    it('should display a subsequent value when no value is initially specified', () => {
-      let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-      let el: Element = fixture.nativeElement;
+  it('should display a subsequent value when no value is initially specified', () => {
+    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    let el: Element = fixture.nativeElement;
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      let list1El = getListEl(el, 1);
+    let list1El = getListEl(el, 1);
 
-      let valueEls = getValueEls(list1El);
+    let valueEls = getValueEls(list1El);
 
-      let defaultValueEl = getDefaultValueEl(valueEls[2]);
+    let defaultValueEl = getDefaultValueEl(valueEls[2]);
 
-      expect(defaultValueEl).toHaveText('None found');
+    expect(defaultValueEl).toHaveText('None found');
 
-      fixture.componentInstance.personalInfo[2].value = 'test';
+    fixture.componentInstance.personalInfo[2].value = 'test';
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      defaultValueEl = getDefaultValueEl(valueEls[2]);
+    defaultValueEl = getDefaultValueEl(valueEls[2]);
 
-      expect(defaultValueEl).toBeNull();
+    expect(defaultValueEl).toBeNull();
 
-      expect(valueEls[2]).toHaveText('test');
-    });
+    expect(valueEls[2]).toHaveText('test');
+  });
 
-    it('should allow the default value to be specified', () => {
-      let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-      let el: Element = fixture.nativeElement;
+  it('should allow the default value to be specified', () => {
+    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    let el: Element = fixture.nativeElement;
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      let list1El = getListEl(el, 2);
+    let list1El = getListEl(el, 2);
 
-      let valueEls = getValueEls(list1El);
+    let valueEls = getValueEls(list1El);
 
-      expect(valueEls[2]).toHaveText('No information found');
-    });
+    expect(valueEls[2]).toHaveText('No information found');
+  });
 
-    it('should allow the label width to be specified', () => {
-      let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-      let el: Element = fixture.nativeElement;
+  it('should allow the label width to be specified', () => {
+    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    let el: Element = fixture.nativeElement;
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      let list1El = getListEl(el, 2);
+    let list1El = getListEl(el, 2);
 
-      let labelEls = getLabelEls(list1El);
+    let labelEls = getLabelEls(list1El);
 
-      expect(getComputedStyle(labelEls[0]).width).toBe('150px');
-    });
+    expect(getComputedStyle(labelEls[0]).width).toBe('150px');
+  });
 });
