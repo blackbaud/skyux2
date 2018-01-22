@@ -2,7 +2,6 @@ import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
   inject,
-  tick,
   TestBed
 } from '@angular/core/testing';
 
