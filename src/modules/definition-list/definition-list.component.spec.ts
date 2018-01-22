@@ -79,7 +79,7 @@ describe('Definition list component', () => {
       expect(defaultValueEl).toHaveText('None found');
     });
 
-    it('should display a susequent value no value is initially specified', () => {
+    it('should display a subsequent value when no value is initially specified', () => {
       let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
       let el: Element = fixture.nativeElement;
 
