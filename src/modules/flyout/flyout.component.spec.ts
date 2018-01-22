@@ -1,3 +1,5 @@
+import { FlyoutWithHelpWidgetTestComponent } from './fixtures/flyout-with-help-widget.component.fixture';
+import { FlyoutAutofocusTestComponent } from './fixtures/flyout-autofocus.component.fixture';
 import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
@@ -28,6 +30,14 @@ describe('Flyout component', () => {
 
   function getFlyout(): any {
     return document.querySelector('.sky-flyout');
+  }
+
+  function getFlyoutHeader(): any {
+    return document.querySelector('.sky-flyout-header');
+  }
+
+  function getAutofocusElement(): any {
+    return document.querySelector('#autofocus-el');
   }
 
   function getCloseButton(): any {
@@ -64,9 +74,32 @@ describe('Flyout component', () => {
     )
   );
 
-  it('should focus the dialog when no autofocus is inside of content', fakeAsync(() => {
+  it('should set focus on the flyout when no autofocus element is present', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
     expect(document.activeElement).toEqual(getFlyout());
+    closeFlyout();
+  }));
+
+  it('should set focus on the autofocus element, if there is one present', ((done) => {
+    openFlyout(FlyoutAutofocusTestComponent);
+    setTimeout(() => {
+      expect(document.activeElement).toEqual(getAutofocusElement());
+      closeFlyout();
+      done();
+    }, 10);
+  }));
+
+  it('should not have the help-shim class if the help widget is not present', fakeAsync(() => {
+    openFlyout(FlyoutTestComponent);
+    applicationRef.tick();
+    expect(getFlyoutHeader().classList.contains('help-shim')).toBeFalsy();
+    closeFlyout();
+  }));
+
+  it('should have the help-shim class if the help widget is present', fakeAsync(() => {
+    openFlyout(FlyoutWithHelpWidgetTestComponent);
+    applicationRef.tick();
+    expect(getFlyoutHeader().classList.contains('help-shim')).toBeTruthy();
     closeFlyout();
   }));
 

@@ -1,3 +1,4 @@
+import { FlyoutWithHelpWidgetTestComponent } from './flyout-with-help-widget.component.fixture';
 import { FlyoutAutofocusTestComponent } from './flyout-autofocus.component.fixture';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,7 +13,8 @@ import { FlyoutWithValuesTestComponent } from './flyout-with-values.component.fi
   declarations: [
     FlyoutTestComponent,
     FlyoutAutofocusTestComponent,
-    FlyoutWithValuesTestComponent
+    FlyoutWithValuesTestComponent,
+    FlyoutWithHelpWidgetTestComponent
   ],
   imports: [
     CommonModule,
@@ -24,8 +26,8 @@ import { FlyoutWithValuesTestComponent } from './flyout-with-values.component.fi
   entryComponents: [
     FlyoutTestComponent,
     FlyoutAutofocusTestComponent,
-    FlyoutWithValuesTestComponent
-
+    FlyoutWithValuesTestComponent,
+    FlyoutWithHelpWidgetTestComponent
   ]
 })
 export class SkyFlyoutFixturesModule { }
