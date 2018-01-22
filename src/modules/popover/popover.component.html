@@ -2,7 +2,9 @@
   [ngClass]="classNames"
   (@popoverState.start)="onAnimationStart($event)"
   (@popoverState.done)="onAnimationDone($event)"
-  [@popoverState]="getAnimationState()"
+  [@popoverState]="animationState"
+  [style.top.px]="top"
+  [style.left.px]="left"
   #popoverContainer>
   <div class="sky-popover-border">
     <div class="sky-popover-border-x"></div>
@@ -18,5 +20,9 @@
       </div>
     </div>
   </div>
-  <div class="sky-popover-arrow" #popoverArrow></div>
+  <div
+    class="sky-popover-arrow"
+    [style.top.px]="arrowTop"
+    [style.left.px]="arrowLeft"
+    #popoverArrow></div>
 </div>

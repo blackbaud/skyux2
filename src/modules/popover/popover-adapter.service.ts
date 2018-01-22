@@ -4,23 +4,18 @@ import {
   Renderer2
 } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
-
 import { SkyWindowRefService } from '../window';
 
 import {
   SkyPopoverAlignment,
   SkyPopoverPlacement,
-  SkyPopoverPositionChange
+  SkyPopoverPosition
 } from './types';
 
 export interface SkyPopoverCoordinates {
   isOutsideViewport: boolean;
   top?: number;
   left?: number;
-  arrow?: SkyPopoverArrowCoordinates;
-  placement?: SkyPopoverPlacement;
-  alignment?: SkyPopoverAlignment;
 }
 
 export interface SkyPopoverArrowCoordinates {
@@ -36,45 +31,16 @@ export interface SkyPopoverAdapterElements {
 
 @Injectable()
 export class SkyPopoverAdapterService {
-  public positionChange = new Subject<SkyPopoverPositionChange>();
-
   constructor(
     private renderer: Renderer2,
     private windowRef: SkyWindowRefService
   ) { }
 
-  public setPopoverPosition(
+  public getPopoverPosition(
     elements: SkyPopoverAdapterElements,
     placement: SkyPopoverPlacement,
     alignment: SkyPopoverAlignment
-  ) {
-    this.clearElementCoordinates(elements.popover);
-    this.clearElementCoordinates(elements.popoverArrow);
-
-    const coords = this.getVisibleCoordinates(elements, placement, alignment);
-
-    this.setElementCoordinates(elements.popover, coords.top, coords.left);
-    this.setElementCoordinates(elements.popoverArrow, coords.arrow.top, coords.arrow.left);
-
-    this.positionChange.next({
-      alignment: coords.alignment,
-      placement: coords.placement
-    });
-  }
-
-  public hidePopover(elem: ElementRef): void {
-    this.renderer.addClass(elem.nativeElement, 'sky-popover-hidden');
-  }
-
-  public showPopover(elem: ElementRef): void {
-    this.renderer.removeClass(elem.nativeElement, 'sky-popover-hidden');
-  }
-
-  private getVisibleCoordinates(
-    elements: SkyPopoverAdapterElements,
-    placement: SkyPopoverPlacement,
-    alignment: SkyPopoverAlignment
-  ): SkyPopoverCoordinates {
+  ): SkyPopoverPosition {
     const max = 4;
 
     let counter = 0;
@@ -101,11 +67,24 @@ export class SkyPopoverAdapterService {
       }
     }
 
-    coords.arrow = this.getArrowCoordinates(elements, coords, placement);
-    coords.alignment = alignment;
-    coords.placement = placement;
+    const arrowCoords = this.getArrowCoordinates(elements, coords, placement);
 
-    return coords;
+    return {
+      top: coords.top,
+      left: coords.left,
+      arrowTop: arrowCoords.top,
+      arrowLeft: arrowCoords.left,
+      placement,
+      alignment
+    };
+  }
+
+  public hidePopover(elem: ElementRef): void {
+    this.renderer.addClass(elem.nativeElement, 'sky-popover-hidden');
+  }
+
+  public showPopover(elem: ElementRef): void {
+    this.renderer.removeClass(elem.nativeElement, 'sky-popover-hidden');
   }
 
   private getPopoverCoordinates(
@@ -225,11 +204,6 @@ export class SkyPopoverAdapterService {
       }
 
       top -= bleedTop;
-
-      // Prevent popover's top boundary from leaving the bounds of the caller.
-      // if (top > callerOffsetTop - 20) {
-      //   top = callerOffsetTop - 20;
-      // }
     }
 
     // Clipped on bottom?
@@ -239,11 +213,6 @@ export class SkyPopoverAdapterService {
       }
 
       top += bleedBottom;
-
-      // Prevent popover's bottom boundary from leaving the bounds of the caller.
-      // if (top + popoverRect.height < callerOffsetTop + callerRect.height) {
-      //   top = callerOffsetTop - popoverRect.height + callerRect.height;
-      // }
     }
 
     return {
@@ -296,27 +265,6 @@ export class SkyPopoverAdapterService {
     const parentWidth = windowObj.document.body.clientWidth;
 
     return (popoverRect.height > parentHeight || popoverRect.width > parentWidth);
-  }
-
-  private clearElementCoordinates(elem: ElementRef): void {
-    this.renderer.removeStyle(elem.nativeElement, 'top');
-    this.renderer.removeStyle(elem.nativeElement, 'left');
-  }
-
-  private setElementCoordinates(elem: ElementRef, top: number, left: number) {
-    let topStyle;
-    let leftStyle;
-
-    if (top !== undefined) {
-      topStyle = `${top}px`;
-    }
-
-    if (left !== undefined) {
-      leftStyle = `${left}px`;
-    }
-
-    this.renderer.setStyle(elem.nativeElement, 'top', topStyle);
-    this.renderer.setStyle(elem.nativeElement, 'left', leftStyle);
   }
 
   private getNextPlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {

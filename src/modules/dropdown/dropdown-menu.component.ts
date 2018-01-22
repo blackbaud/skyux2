@@ -88,10 +88,11 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent) {
-    const selectedItem = this.menuItems.filter((item: SkyDropdownItemComponent) => {
+    const selectedItem = this.menuItems.find((item: SkyDropdownItemComponent) => {
       return (item.buttonElement === event.target);
-    })[0];
+    });
 
+    /* istanbul ignore else */
     if (selectedItem) {
       this.menuChanges.next({
         selectedItem
@@ -133,7 +134,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
     this.menuIndex = 0;
 
-    const firstItem = this.getActiveItem();
+    const firstItem = this.getItemByIndex(this.menuIndex);
     if (firstItem && firstItem.isFocusable()) {
       this.focusItem(firstItem);
     } else {
@@ -148,7 +149,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
     this.menuIndex--;
 
-    const previousItem = this.getActiveItem();
+    const previousItem = this.getItemByIndex(this.menuIndex);
     if (previousItem && previousItem.isFocusable()) {
       this.focusItem(previousItem);
     } else {
@@ -163,7 +164,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
     this.menuIndex++;
 
-    const nextItem = this.getActiveItem();
+    const nextItem = this.getItemByIndex(this.menuIndex);
     if (nextItem && nextItem.isFocusable()) {
       this.focusItem(nextItem);
     } else {
@@ -188,7 +189,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   }
 
   private focusActiveItem() {
-    const activeItem = this.getActiveItem();
+    const activeItem = this.getItemByIndex(this.menuIndex);
     if (activeItem) {
       this.focusItem(activeItem);
     }
@@ -199,9 +200,9 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     item.focusElement(this.useNativeFocus);
   }
 
-  private getActiveItem(): SkyDropdownItemComponent {
+  private getItemByIndex(index: number) {
     return this.menuItems.find((item: any, i: number) => {
-      return (i === this._menuIndex);
+      return (i === index);
     });
   }
 }

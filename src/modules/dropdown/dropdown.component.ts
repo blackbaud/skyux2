@@ -113,7 +113,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   ) { }
 
   public ngOnInit() {
-    console.log('ngOnInit()');
     if (this.messageStream) {
       this.messageStream
         .takeUntil(this.destroy)
@@ -124,7 +123,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public ngAfterContentInit() {
-    console.log('ngAfterContentInit()');
     this.menuComponent.menuChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyDropdownMenuChange) => {
@@ -134,13 +132,13 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
             this.resetDropdownPosition();
           });
         } else if (change.selectedItem) {
+          // Close the dropdown when a menu item is selected.
           this.closeDropdown();
         }
       });
   }
 
   public ngOnDestroy() {
-    console.log('ngOnDestroy()');
     this.closeDropdown();
     this.destroy.next(true);
     this.destroy.unsubscribe();
@@ -148,9 +146,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
   @HostListener('keydown', ['$event'])
   public onKeyDown(event: KeyboardEvent) {
-    console.log('onKeyDown() isOpen?', this.isOpen);
     const key = event.key.toLowerCase();
-    console.log('key:', key);
 
     if (this.isOpen) {
       /* tslint:disable:switch-default */
@@ -169,7 +165,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         } else {
           // Only register the tab key if it's not a shift+tab combo.
           this.tabKeyPressed = true;
-          console.log('tab key pressed!');
         }
         break;
 
@@ -218,7 +213,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
   @HostListener('focusout', ['$event'])
   public onFocusOut(event: KeyboardEvent) {
-    console.log('onFocusOut', event);
     // Close the dropdown if the last item loses focus.
     if (
       this.tabKeyPressed &&
@@ -231,7 +225,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   public onPopoverOpened() {
     this.isOpen = true;
     this.menuComponent.reset();
-    console.log('onPopoverOpened(), isOpen?', this.isOpen);
     // Focus the first item if the menu was opened with the keyboard.
     if (this.isKeyboardActive) {
       this.menuComponent.focusFirstItem();
@@ -239,7 +232,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public onPopoverClosed() {
-    console.log('onPopoverClosed()');
     this.isOpen = false;
     this.isKeyboardActive = false;
     this.menuComponent.reset();
@@ -284,17 +276,14 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   private openDropdown() {
-    console.log('openDropdown()');
     this.popover.positionNextTo(this.triggerButton, 'below', this.alignment);
   }
 
   private closeDropdown() {
-    console.log('closeDropdown()');
     this.popover.close();
   }
 
   private focusTriggerButton() {
-    console.log('focusTriggerButton()');
     this.triggerButton.nativeElement.focus();
   }
 }

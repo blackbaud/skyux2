@@ -56,7 +56,7 @@ export class SkyPopoverDirective {
   @HostListener('click', ['$event'])
   public togglePopover(event: MouseEvent) {
     event.preventDefault();
-    console.log('popover directive, click, togglePopover()');
+    event.stopPropagation();
 
     if (this.skyPopover.isOpen) {
       this.closePopover();
@@ -68,6 +68,7 @@ export class SkyPopoverDirective {
 
   @HostListener('mouseenter', ['$event'])
   public onMouseEnter(event: MouseEvent) {
+    this.skyPopover.isMouseEnter = true;
     if (this.skyPopoverTrigger === 'mouseenter') {
       event.preventDefault();
       this.positionPopover();
@@ -76,6 +77,8 @@ export class SkyPopoverDirective {
 
   @HostListener('mouseleave', ['$event'])
   public onMouseLeave(event: MouseEvent) {
+    this.skyPopover.isMouseEnter = false;
+
     if (this.skyPopoverTrigger === 'mouseenter') {
       event.preventDefault();
 
@@ -94,7 +97,6 @@ export class SkyPopoverDirective {
   }
 
   private positionPopover() {
-    console.log('popover directive, positionPopover()');
     this.skyPopover.positionNextTo(
       this.elementRef,
       this.skyPopoverPlacement,
@@ -103,7 +105,6 @@ export class SkyPopoverDirective {
   }
 
   private closePopover() {
-    console.log('popover directive, closePopover()');
     this.skyPopover.close();
   }
 }

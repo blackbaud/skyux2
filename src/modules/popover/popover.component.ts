@@ -23,12 +23,9 @@ import {
 
 import { Subject } from 'rxjs/Subject';
 
-import { SkyWindowRefService } from '../window';
-
 import {
   SkyPopoverAlignment,
-  SkyPopoverPlacement,
-  SkyPopoverPositionChange
+  SkyPopoverPlacement
 } from './types';
 
 import { SkyPopoverAdapterService } from './popover-adapter.service';
@@ -85,6 +82,12 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public isOpen = false;
   public isMouseEnter = false;
   public classNames: string[] = [];
+  public animationState: 'hidden' | 'visible' = 'hidden';
+
+  public top: number;
+  public left: number;
+  public arrowTop: number;
+  public arrowLeft: number;
 
   private isMarkedForCloseOnMouseLeave = false;
   private caller: ElementRef;
@@ -94,37 +97,22 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   private _placement: SkyPopoverPlacement;
 
   constructor(
-    public elementRef: ElementRef,
-    private windowRef: SkyWindowRefService,
-    private changeDetector: ChangeDetectorRef,
-    private adapterService: SkyPopoverAdapterService
-  ) {
-    this.adapterService.positionChange
-      .takeUntil(this.destroy)
-      .subscribe((change: SkyPopoverPositionChange) => {
-        this.updateClassNames(change.placement, change.alignment);
-        this.windowRef.getWindow().setTimeout(() => {
-          this.isOpen = true;
-          this.changeDetector.markForCheck();
-        });
-      });
-  }
+    private adapterService: SkyPopoverAdapterService,
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   public ngOnInit() {
-    console.log('popover component, ngOnInit()');
     this.adapterService.hidePopover(this.popoverContainer);
     this.updateClassNames(this.placement, this.alignment);
   }
 
   public ngOnDestroy() {
-    console.log('popover component, ngOnDestroy()');
     this.destroy.next(true);
     this.destroy.unsubscribe();
   }
 
   @HostListener('keyup', ['$event'])
   public onKeyUp(event: KeyboardEvent): void {
-    console.log('popover component, onKeyUp()');
     const key = event.key.toLowerCase();
     if (key === 'escape') {
       event.preventDefault();
@@ -136,7 +124,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent): void {
-    console.log('popover component, onDocumentClick()');
     if (!this.isMouseEnter) {
       this.close();
     }
@@ -144,7 +131,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent) {
-    console.log('popover component, onClick()');
     event.stopPropagation();
   }
 
@@ -156,7 +142,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   @HostListener('mouseleave')
   public onMouseLeave() {
     this.isMouseEnter = false;
-
     if (this.isMarkedForCloseOnMouseLeave) {
       this.close();
       this.isMarkedForCloseOnMouseLeave = false;
@@ -175,7 +160,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     placement?: SkyPopoverPlacement,
     alignment?: SkyPopoverAlignment
   ) {
-    console.log('popover component, positionNextTo()');
     if (!caller) {
       return;
     }
@@ -190,57 +174,52 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       caller: this.caller
     };
 
-    this.adapterService.setPopoverPosition(
+    const position = this.adapterService.getPopoverPosition(
       elements,
       this.placement,
       this.alignment
     );
+
+    this.updateClassNames(position.placement, position.alignment);
+
+    this.top = position.top;
+    this.left = position.left;
+    this.arrowTop = position.arrowTop;
+    this.arrowLeft = position.arrowLeft;
+    this.animationState = 'visible';
+    this.changeDetector.markForCheck();
   }
 
   public close() {
-    console.log('popover component, close()');
     if (this.isOpen) {
-      this.isOpen = false;
+      this.animationState = 'hidden';
       this.changeDetector.markForCheck();
     }
   }
 
   public onAnimationStart(event: AnimationEvent) {
-    console.log('popover component, onAnimationStart()');
     if (event.fromState === 'void') {
       return;
     }
 
     if (event.toState === 'visible') {
-      console.log('adapterService.showPopover()');
       this.adapterService.showPopover(this.popoverContainer);
-      // this.windowRef.getWindow().setTimeout(() => {
-        // this.popoverOpened.emit(this);
-      // });
     }
   }
 
   public onAnimationDone(event: AnimationEvent) {
-    console.log('popover component, onAnimationDone()');
     if (event.fromState === 'void') {
       return;
     }
 
     if (event.toState === 'hidden') {
+      this.isOpen = false;
       this.adapterService.hidePopover(this.popoverContainer);
-      this.windowRef.getWindow().setTimeout(() => {
-        this.popoverClosed.emit(this);
-      });
+      this.popoverClosed.emit(this);
     } else {
-      console.log('popover component, visible?', getComputedStyle(this.popoverContainer.nativeElement).visibility);
-      this.windowRef.getWindow().setTimeout(() => {
-        this.popoverOpened.emit(this);
-      });
+      this.isOpen = true;
+      this.popoverOpened.emit(this);
     }
-  }
-
-  public getAnimationState(): string {
-    return (this.isOpen) ? 'visible' : 'hidden';
   }
 
   public markForCloseOnMouseLeave() {

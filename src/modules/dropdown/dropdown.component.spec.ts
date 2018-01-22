@@ -17,7 +17,7 @@ import {
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
 
-describe('Dropdown component', () => {
+fdescribe('Dropdown component', () => {
   const activeItemClass = 'sky-dropdown-item-active';
   let fixture: ComponentFixture<DropdownTestComponent>;
 
@@ -269,15 +269,60 @@ describe('Dropdown component', () => {
 
       dispatchKeyboardEvent(hostElem, 'keydown', 'tab');
       dispatchKeyboardEvent(lastItem.querySelector('button'), 'focusout');
-      // const event: any = document.createEvent('CustomEvent');
-      // event.initEvent('focusout', true, true);
-      // lastItem.querySelector('button').dispatchEvent(event);
       tick();
       fixture.detectChanges();
       tick();
 
       verifyMenuVisibility(false);
       verifyTriggerButtonHasFocus(false);
+    }));
+
+    it('should close the dropdown after user presses shift+tab key on trigger button', fakeAsync(() => {
+      const buttonElem = getDropdownButtonElement();
+
+      verifyMenuVisibility(false);
+
+      buttonElem.click();
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyMenuVisibility();
+
+      // const hostElem = getDropdownHostElement();
+      const popoverElem = getPopoverContainerElement();
+      const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
+
+      const event: any = document.createEvent('CustomEvent');
+      event.key = 'Tab';
+      event.shiftKey = true;
+      event.initEvent('keydown', true, true);
+
+      // Should have no effect on menu items.
+      lastItem.dispatchEvent(event);
+      tick();
+      fixture.detectChanges();
+      tick();
+      verifyMenuVisibility(true);
+
+      buttonElem.dispatchEvent(event);
+      tick();
+      fixture.detectChanges();
+      tick();
+      verifyMenuVisibility(false);
+    }));
+
+    it('should open menu if arrow down is pressed', fakeAsync(() => {
+      const hostElem = getDropdownHostElement();
+
+      verifyMenuVisibility(false);
+
+      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyMenuVisibility();
     }));
 
     it('should navigate menu items with arrow keys', fakeAsync(() => {

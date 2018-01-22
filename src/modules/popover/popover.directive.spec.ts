@@ -42,6 +42,7 @@ class MockWindowService {
 describe('SkyPopoverDirective', () => {
   let fixture: ComponentFixture<SkyPopoverTestComponent>;
   let directiveElements: DebugElement[];
+  let mockWindowService: MockWindowService;
 
   function triggerMouseEvent(el: DebugElement, eventName: string) {
     el.triggerEventHandler(
@@ -99,7 +100,7 @@ describe('SkyPopoverDirective', () => {
   }
 
   beforeEach(() => {
-    let mockWindowService = new MockWindowService();
+    mockWindowService = new MockWindowService();
     let mockAdapterService = {};
 
     TestBed.configureTestingModule({
@@ -170,11 +171,32 @@ describe('SkyPopoverDirective', () => {
   it('should mark the popover to close on mouseleave', () => {
     const caller = directiveElements[2];
     const callerInstance = caller.injector.get(SkyPopoverDirective);
-    const spy = spyOn(callerInstance.skyPopover, 'markForCloseOnMouseLeave');
+    const popoverSpy = spyOn(callerInstance.skyPopover, 'markForCloseOnMouseLeave');
+    const closeSpy = spyOn((callerInstance as any), 'closePopover').and.callThrough();
+
     callerInstance.skyPopover.isOpen = true;
     callerInstance.skyPopover.isMouseEnter = true;
+
     triggerMouseEvent(caller, 'mouseleave');
-    expect(spy).toHaveBeenCalledWith();
+    expect(popoverSpy).not.toHaveBeenCalled();
+    expect(closeSpy).toHaveBeenCalled();
+
+    popoverSpy.calls.reset();
+    closeSpy.calls.reset();
+
+    // Else path, popover has mouseenter.
+    callerInstance.skyPopover.isOpen = true;
+    spyOn(mockWindowService, 'getWindow').and.returnValue({
+      setTimeout(callback: Function) {
+        // Simulate the popover triggering mouseenter event:
+        callerInstance.skyPopover.isMouseEnter = true;
+        callback();
+      }
+    });
+
+    triggerMouseEvent(caller, 'mouseleave');
+    expect(popoverSpy).toHaveBeenCalledWith();
+    expect(closeSpy).not.toHaveBeenCalled();
   });
 
   it('should adjust placement on window resize', () => {
