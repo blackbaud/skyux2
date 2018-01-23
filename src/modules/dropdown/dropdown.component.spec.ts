@@ -31,6 +31,22 @@ describe('Dropdown component', () => {
     fixture = TestBed.createComponent(DropdownTestComponent);
   });
 
+  function openPopoverWithButtonClick() {
+    tick();
+    fixture.detectChanges();
+
+    const buttonElem = getDropdownButtonElement();
+
+    verifyMenuVisibility(false);
+
+    buttonElem.click();
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    verifyMenuVisibility();
+  }
+
   // Simulates a click event on a button (which also registers the Enter key).
   function dispatchKeyboardButtonClickEvent(elem: HTMLElement) {
     TestUtility.dispatchKeyboardEvent(elem, 'keydown', { key: 'Enter' });
@@ -171,38 +187,15 @@ describe('Dropdown component', () => {
 
   describe('click interactions', () => {
     it('should open the menu when clicking the trigger button', fakeAsync(() => {
-      tick();
-      fixture.detectChanges();
-
-      const buttonElem = getDropdownButtonElement();
-
-      verifyMenuVisibility(false);
-
-      buttonElem.click();
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyMenuVisibility(true);
+      openPopoverWithButtonClick();
     }));
   });
 
   describe('keyboard interactions', () => {
     it('should close the dropdown and focus the trigger button after user presses the esc key', fakeAsync(() => {
-      tick();
-      fixture.detectChanges();
+      openPopoverWithButtonClick();
 
-      const buttonElem = getDropdownButtonElement();
       const popoverElem = getPopoverContainerElement();
-
-      verifyMenuVisibility(false);
-
-      buttonElem.click();
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyMenuVisibility(true);
 
       TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Escape' });
       TestUtility.dispatchKeyboardEvent(popoverElem, 'keyup', { key: 'Escape' });
@@ -215,27 +208,15 @@ describe('Dropdown component', () => {
     }));
 
     it('should close the dropdown after user presses the tab key on the last item', fakeAsync(() => {
-      tick();
-      fixture.detectChanges();
+      openPopoverWithButtonClick();
 
-      const buttonElem = getDropdownButtonElement();
-
-      verifyMenuVisibility(false);
-
-      buttonElem.click();
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyMenuVisibility();
-
-      const popoverElem = getPopoverContainerElement();
-      const popoverItems = popoverElem.querySelectorAll('.sky-dropdown-item');
-      const firstItem = popoverItems.item(0);
-      const lastItem = popoverItems.item(3);
+      const dropdownHost = getDropdownHostElement();
+      const dropdownItems = dropdownHost.querySelectorAll('.sky-dropdown-item');
+      const firstItem = dropdownItems.item(0);
+      const lastItem = dropdownItems.item(3);
 
       // Should have no affect on other items.
-      TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Tab' });
+      TestUtility.dispatchKeyboardEvent(dropdownHost, 'keydown', { key: 'Tab' });
       TestUtility.dispatchKeyboardEvent(firstItem.querySelector('button'), 'focusout');
       tick();
       fixture.detectChanges();
@@ -243,7 +224,7 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(true);
 
-      TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Tab' });
+      TestUtility.dispatchKeyboardEvent(dropdownHost, 'keydown', { key: 'Tab' });
       TestUtility.dispatchKeyboardEvent(lastItem.querySelector('button'), 'focusout');
       tick();
       fixture.detectChanges();
@@ -254,20 +235,9 @@ describe('Dropdown component', () => {
     }));
 
     it('should close the dropdown after user presses shift+tab key on trigger button', fakeAsync(() => {
-      tick();
-      fixture.detectChanges();
+      openPopoverWithButtonClick();
 
       const buttonElem = getDropdownButtonElement();
-
-      verifyMenuVisibility(false);
-
-      buttonElem.click();
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyMenuVisibility();
-
       const popoverElem = getPopoverContainerElement();
       const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
 
@@ -310,20 +280,9 @@ describe('Dropdown component', () => {
     }));
 
     it('should navigate menu items with arrow keys', fakeAsync(() => {
-      tick();
-      fixture.detectChanges();
+      openPopoverWithButtonClick();
 
-      const buttonElem = getDropdownButtonElement();
       const hostElem = getDropdownMenuHostElement();
-
-      verifyMenuVisibility(false);
-
-      buttonElem.click();
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyMenuVisibility();
 
       TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();

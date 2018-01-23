@@ -111,17 +111,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.destroy.unsubscribe();
   }
 
-  @HostListener('keyup', ['$event'])
-  public onKeyUp(event: KeyboardEvent): void {
-    const key = event.key.toLowerCase();
-    if (key === 'escape') {
-      event.preventDefault();
-      event.stopPropagation();
-      this.close();
-      this.focusCallerElement();
-    }
-  }
-
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent): void {
     if (!this.isMouseEnter) {
@@ -231,11 +220,5 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       `sky-popover-alignment-${alignment || this.alignment}`,
       `sky-popover-placement-${placement || this.placement}`
     ];
-  }
-
-  private focusCallerElement() {
-    if (this.caller) {
-      this.caller.nativeElement.focus();
-    }
   }
 }

@@ -23,18 +23,15 @@ export class SkyDropdownItemComponent implements AfterViewInit {
   ) { }
 
   public ngAfterViewInit() {
-    console.log('dropdown menu item, ngAfterViewInit()');
     this.buttonElement = this.elementRef.nativeElement.querySelector('button');
 
     if (this.buttonElement) {
-      // this.buttonElement.tabIndex = -1;
       this.isDisabled = this.buttonElement.disabled;
       this.changeDetector.detectChanges();
     }
   }
 
   public focusElement(enableNativeFocus: boolean) {
-    console.log('dropdown menu item, focusElement()');
     this.isActive = true;
 
     if (enableNativeFocus) {
@@ -45,7 +42,6 @@ export class SkyDropdownItemComponent implements AfterViewInit {
   }
 
   public isFocusable(): boolean {
-    console.log('dropdown menu item, isFocusable()');
     /*tslint:disable no-null-keyword */
     const isDisabled = (
       this.buttonElement &&
@@ -56,7 +52,6 @@ export class SkyDropdownItemComponent implements AfterViewInit {
   }
 
   public resetState() {
-    console.log('dropdown menu item, resetState()');
     this.isActive = false;
     this.changeDetector.markForCheck();
   }

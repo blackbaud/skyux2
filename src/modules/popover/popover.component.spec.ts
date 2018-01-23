@@ -213,33 +213,6 @@ describe('SkyPopoverComponent', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('should close the popover when the escape key is pressed', () => {
-    const spy = spyOn(component, 'close');
-    component.isOpen = true;
-    TestUtility.dispatchKeyboardEvent(fixture.debugElement.nativeElement, 'keyup', {
-      key: 'Escape'
-    });
-    expect(spy).toHaveBeenCalled();
-
-    // Disregard other key presses:
-    spy.calls.reset();
-    TestUtility.dispatchKeyboardEvent(fixture.debugElement.nativeElement, 'keyup', {
-      key: 'Shift'
-    });
-    expect(spy).not.toHaveBeenCalled();
-  });
-
-  it('should focus the caller element after being closed', () => {
-    const caller = new ElementRef(document.createElement('div'));
-    const spy = spyOn(caller.nativeElement, 'focus').and.callThrough();
-    component.isOpen = true;
-    component['caller'] = caller;
-    TestUtility.dispatchKeyboardEvent(fixture.debugElement.nativeElement, 'keyup', {
-      key: 'Escape'
-    });
-    expect(spy).toHaveBeenCalled();
-  });
-
   it('should close the popover when the document is clicked', () => {
     spyOn(component, 'close');
 

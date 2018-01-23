@@ -210,13 +210,26 @@ describe('SkyPopoverDirective', () => {
     const callerInstance = caller.injector.get(SkyPopoverDirective);
     const spy = spyOn(callerInstance.skyPopover, 'close');
 
-    TestUtility.dispatchKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
+    callerInstance.skyPopover.isOpen = true;
+
+    TestUtility.dispatchKeyboardEvent(document as any, 'keyup', { key: 'Escape' });
     expect(spy).toHaveBeenCalledWith();
 
     spy.calls.reset();
 
     // Should ignore other key events.
-    TestUtility.dispatchKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Backspace' });
+    TestUtility.dispatchKeyboardEvent(document as any, 'keyup', { key: 'Backspace' });
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should focus the caller element after being closed', () => {
+    const caller = directiveElements[3];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+    const spy = spyOn(callerInstance['elementRef'].nativeElement, 'focus').and.callThrough();
+
+    callerInstance.skyPopover.isOpen = true;
+
+    TestUtility.dispatchKeyboardEvent(document as any, 'keyup', { key: 'Escape' });
+    expect(spy).toHaveBeenCalledWith();
   });
 });
