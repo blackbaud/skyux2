@@ -1,5 +1,4 @@
 import {
-  // async,
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -7,7 +6,8 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect
+  expect,
+  TestUtility
 } from '../testing';
 
 import {
@@ -17,11 +17,11 @@ import {
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
 
-fdescribe('Dropdown component', () => {
+describe('Dropdown component', () => {
   const activeItemClass = 'sky-dropdown-item-active';
   let fixture: ComponentFixture<DropdownTestComponent>;
 
-  const beforeEachCallback = fakeAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyDropdownFixturesModule
@@ -29,22 +29,11 @@ fdescribe('Dropdown component', () => {
     });
 
     fixture = TestBed.createComponent(DropdownTestComponent);
-    tick();
-    fixture.detectChanges();
   });
-
-  function dispatchKeyboardEvent(elem: HTMLElement, eventName: string, key?: string) {
-    const keyboardEvent: any = document.createEvent('CustomEvent');
-    if (key) {
-      keyboardEvent.key = key;
-    }
-    keyboardEvent.initEvent(eventName, true, true);
-    elem.dispatchEvent(keyboardEvent);
-  }
 
   // Simulates a click event on a button (which also registers the Enter key).
   function dispatchKeyboardButtonClickEvent(elem: HTMLElement) {
-    dispatchKeyboardEvent(elem, 'keydown', 'enter');
+    TestUtility.dispatchKeyboardEvent(elem, 'keydown', { key: 'Enter' });
     elem.click();
   }
 
@@ -106,14 +95,12 @@ fdescribe('Dropdown component', () => {
   }
 
   function isElementVisible(elem: HTMLElement): boolean {
-    // return (!elem.classList.contains('sky-popover-hidden'));
     return (getComputedStyle(elem).visibility !== 'hidden');
   }
 
   describe('basic setup', () => {
-    beforeEach(() => beforeEachCallback());
-
     it('should have a default button type of "select"', () => {
+      fixture.detectChanges();
       const buttonElem = getDropdownButtonElement();
       expect(buttonElem).toHaveCssClass('sky-dropdown-button-type-select');
       expect(buttonElem.innerText.trim()).toBe('Show dropdown');
@@ -160,6 +147,7 @@ fdescribe('Dropdown component', () => {
     });
 
     it('should display default label when label not set', () => {
+      fixture.detectChanges();
       const buttonElem = getDropdownButtonElement();
       const label = buttonElem.getAttribute('aria-label');
       expect(label).toBe('Context menu');
@@ -182,12 +170,12 @@ fdescribe('Dropdown component', () => {
   });
 
   describe('click interactions', () => {
-    beforeEach(() => beforeEachCallback());
-
     it('should open the menu when clicking the trigger button', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
 
-      expect(fixture.componentInstance.dropdown['isOpen']).toEqual(false);
       verifyMenuVisibility(false);
 
       buttonElem.click();
@@ -195,40 +183,15 @@ fdescribe('Dropdown component', () => {
       fixture.detectChanges();
       tick();
 
-      expect(fixture.componentInstance.dropdown['isOpen']).toEqual(true);
       verifyMenuVisibility(true);
     }));
-
-    // it('should ignore subsequent calls to open if menu already open', fakeAsync(() => {
-    //   const buttonElem = getDropdownButtonElement();
-    //   const spy = spyOn(fixture.componentInstance.dropdown['popover'], 'positionNextTo').and.callThrough();
-
-    //   verifyMenuVisibility(false);
-
-    //   buttonElem.click();
-    //   tick();
-    //   fixture.detectChanges();
-    //   tick();
-
-    //   verifyMenuVisibility();
-    //   expect(spy.calls.count()).toEqual(1);
-
-    //   spy.calls.reset();
-    //   fixture.componentInstance.dropdown.resetDropdownPosition();
-
-    //   tick();
-    //   fixture.detectChanges();
-    //   tick();
-
-    //   verifyMenuVisibility();
-    //   expect(spy.calls.count()).toEqual(0);
-    // }));
   });
 
   describe('keyboard interactions', () => {
-    beforeEach(() => beforeEachCallback());
-
     it('should close the dropdown and focus the trigger button after user presses the esc key', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
       const popoverElem = getPopoverContainerElement();
 
@@ -241,17 +204,20 @@ fdescribe('Dropdown component', () => {
 
       verifyMenuVisibility(true);
 
-      dispatchKeyboardEvent(popoverElem, 'keydown', 'escape');
-      dispatchKeyboardEvent(popoverElem, 'keyup', 'escape');
+      TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Escape' });
+      TestUtility.dispatchKeyboardEvent(popoverElem, 'keyup', { key: 'Escape' });
       tick();
       fixture.detectChanges();
       tick();
 
-      verifyTriggerButtonHasFocus();
       verifyMenuVisibility(false);
+      verifyTriggerButtonHasFocus();
     }));
 
     it('should close the dropdown after user presses the tab key on the last item', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
 
       verifyMenuVisibility(false);
@@ -263,12 +229,11 @@ fdescribe('Dropdown component', () => {
 
       verifyMenuVisibility();
 
-      const hostElem = getDropdownHostElement();
       const popoverElem = getPopoverContainerElement();
       const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
 
-      dispatchKeyboardEvent(hostElem, 'keydown', 'tab');
-      dispatchKeyboardEvent(lastItem.querySelector('button'), 'focusout');
+      TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Tab' });
+      TestUtility.dispatchKeyboardEvent(lastItem.querySelector('button'), 'focusout');
       tick();
       fixture.detectChanges();
       tick();
@@ -278,6 +243,9 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should close the dropdown after user presses shift+tab key on trigger button', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
 
       verifyMenuVisibility(false);
@@ -289,35 +257,37 @@ fdescribe('Dropdown component', () => {
 
       verifyMenuVisibility();
 
-      // const hostElem = getDropdownHostElement();
       const popoverElem = getPopoverContainerElement();
       const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
 
-      const event: any = document.createEvent('CustomEvent');
-      event.key = 'Tab';
-      event.shiftKey = true;
-      event.initEvent('keydown', true, true);
-
       // Should have no effect on menu items.
-      lastItem.dispatchEvent(event);
+      TestUtility.dispatchKeyboardEvent(lastItem, 'keydown', { key: 'Tab' });
       tick();
       fixture.detectChanges();
       tick();
+
       verifyMenuVisibility(true);
 
-      buttonElem.dispatchEvent(event);
+      TestUtility.dispatchKeyboardEvent(buttonElem, 'keydown', {
+        key: 'Tab',
+        shiftKey: true
+      });
       tick();
       fixture.detectChanges();
       tick();
+
       verifyMenuVisibility(false);
     }));
 
     it('should open menu if arrow down is pressed', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const hostElem = getDropdownHostElement();
 
       verifyMenuVisibility(false);
 
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -326,6 +296,9 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should navigate menu items with arrow keys', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
       const hostElem = getDropdownMenuHostElement();
 
@@ -338,7 +311,7 @@ fdescribe('Dropdown component', () => {
 
       verifyMenuVisibility();
 
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -346,7 +319,7 @@ fdescribe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -355,7 +328,7 @@ fdescribe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(2);
       verifyFocusedMenuItemByIndex(2);
 
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowup');
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
       tick();
       fixture.detectChanges();
       tick();
@@ -365,9 +338,9 @@ fdescribe('Dropdown component', () => {
       verifyFocusedMenuItemByIndex(0);
 
       // Navigation should loop from the last item to the first:
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowdown');
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -375,7 +348,7 @@ fdescribe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      dispatchKeyboardEvent(hostElem, 'keydown', 'arrowup');
+      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
       tick();
       fixture.detectChanges();
       tick();
@@ -385,6 +358,9 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should focus the first item if opened with enter key', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
       const spy = spyOn(fixture.componentInstance.dropdown['menuComponent'], 'focusFirstItem').and.callThrough();
 
@@ -397,12 +373,14 @@ fdescribe('Dropdown component', () => {
       fixture.detectChanges();
 
       verifyMenuVisibility();
-      // expect((fixture.componentInstance.dropdown as any)['openedWithKeyboard']).toEqual(true);
       verifyActiveMenuItemByIndex(0);
       expect(spy).toHaveBeenCalled();
     }));
 
     it('should not focus the first item if it is disabled', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
       fixture.componentInstance.setItems([
         { name: 'Foo', disabled: true },
@@ -471,6 +449,9 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should return focus to the trigger button after making a selection with enter key', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
       const popoverElem = getPopoverContainerElement();
 
@@ -494,11 +475,14 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should handle other keydown events', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
 
       verifyMenuVisibility(false);
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'a');
+      TestUtility.dispatchKeyboardEvent(buttonElem, 'keydown', { key: 'a' });
       tick();
       fixture.detectChanges();
       tick();
@@ -507,6 +491,9 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should allow disabling of native focus', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
       fixture.componentInstance.dropdown['menuComponent'].useNativeFocus = false;
       fixture.detectChanges();
@@ -523,7 +510,7 @@ fdescribe('Dropdown component', () => {
       const itemComponent = fixture.componentInstance.dropdown['menuComponent']['menuItems'].first;
       const focusSpy = spyOn(itemComponent['buttonElement'], 'focus');
 
-      dispatchKeyboardEvent(buttonElem, 'keydown', 'arrowdown');
+      TestUtility.dispatchKeyboardEvent(buttonElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -535,9 +522,10 @@ fdescribe('Dropdown component', () => {
   });
 
   describe('message stream', () => {
-    beforeEach(() => beforeEachCallback());
-
     it('should allow opening and closing the menu', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const component = fixture.componentInstance;
 
       component.sendMessage(SkyDropdownMessageType.Open);
@@ -556,6 +544,9 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should allow navigating the menu', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const component = fixture.componentInstance;
 
       component.sendMessage(SkyDropdownMessageType.Open);
@@ -613,6 +604,9 @@ fdescribe('Dropdown component', () => {
     }));
 
     it('should allow focusing trigger button', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       fixture.componentInstance.sendMessage(SkyDropdownMessageType.FocusTriggerButton);
 
       tick();
@@ -632,9 +626,10 @@ fdescribe('Dropdown component', () => {
   });
 
   describe('menu changes', () => {
-    beforeEach(() => beforeEachCallback());
-
     it('should reposition the menu when number of menu items change', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
       const buttonElem = getDropdownButtonElement();
       const spy = spyOn(fixture.componentInstance.dropdown, 'resetDropdownPosition').and.callThrough();
 

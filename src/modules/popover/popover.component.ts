@@ -234,6 +234,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   private focusCallerElement() {
-    this.caller.nativeElement.focus();
+    if (this.caller) {
+      this.caller.nativeElement.focus();
+    }
   }
 }

@@ -2,12 +2,12 @@
 import { fakeAsync, flush, TestBed, tick, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 import { expect } from '../testing';
 
 describe('Colorpicker Component', () => {
-
   function openColorpicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
@@ -34,6 +34,7 @@ describe('Colorpicker Component', () => {
       ],
       imports: [
         SkyColorpickerModule,
+        NoopAnimationsModule,
         FormsModule
       ]
     });
@@ -152,6 +153,7 @@ describe('Colorpicker Component', () => {
   it('should handle undefined initial color', fakeAsync(() => {
     component.selectedOutputFormat = 'hex';
     component.selectedColor = undefined;
+    fixture.detectChanges();
     openColorpicker(nativeElement, fixture);
     tick();
     fixture.detectChanges();

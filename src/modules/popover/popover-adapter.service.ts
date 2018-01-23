@@ -7,27 +7,13 @@ import {
 import { SkyWindowRefService } from '../window';
 
 import {
+  SkyPopoverAdapterArrowCoordinates,
+  SkyPopoverAdapterCoordinates,
+  SkyPopoverAdapterElements,
   SkyPopoverAlignment,
   SkyPopoverPlacement,
   SkyPopoverPosition
 } from './types';
-
-export interface SkyPopoverCoordinates {
-  isOutsideViewport: boolean;
-  top?: number;
-  left?: number;
-}
-
-export interface SkyPopoverArrowCoordinates {
-  top: number;
-  left: number;
-}
-
-export interface SkyPopoverAdapterElements {
-  popover: ElementRef;
-  popoverArrow: ElementRef;
-  caller: ElementRef;
-}
 
 @Injectable()
 export class SkyPopoverAdapterService {
@@ -44,7 +30,7 @@ export class SkyPopoverAdapterService {
     const max = 4;
 
     let counter = 0;
-    let coords: SkyPopoverCoordinates = {
+    let coords: SkyPopoverAdapterCoordinates = {
       top: undefined,
       left: undefined,
       isOutsideViewport: true
@@ -91,7 +77,7 @@ export class SkyPopoverAdapterService {
     elements: SkyPopoverAdapterElements,
     placement: SkyPopoverPlacement,
     alignment: SkyPopoverAlignment
-  ): SkyPopoverCoordinates {
+  ): SkyPopoverAdapterCoordinates {
     const callerElement = elements.caller.nativeElement;
     const popoverElement = elements.popover.nativeElement;
 
@@ -224,9 +210,9 @@ export class SkyPopoverAdapterService {
 
   private getArrowCoordinates(
     elements: SkyPopoverAdapterElements,
-    popoverCoords: SkyPopoverCoordinates,
+    popoverCoords: SkyPopoverAdapterCoordinates,
     placement: SkyPopoverPlacement
-  ): SkyPopoverArrowCoordinates {
+  ): SkyPopoverAdapterArrowCoordinates {
     const callerRect = elements.caller.nativeElement.getBoundingClientRect();
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
 

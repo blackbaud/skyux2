@@ -113,6 +113,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   ) { }
 
   public ngOnInit() {
+    console.log('dropdown, ngOnInit()');
     if (this.messageStream) {
       this.messageStream
         .takeUntil(this.destroy)
@@ -123,6 +124,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public ngAfterContentInit() {
+    console.log('dropdown, ngAfterContentInit()');
     this.menuComponent.menuChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyDropdownMenuChange) => {
@@ -139,6 +141,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public ngOnDestroy() {
+    console.log('dropdown, ngOnDestroy()');
     this.closeDropdown();
     this.destroy.next(true);
     this.destroy.unsubscribe();
@@ -146,6 +149,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
   @HostListener('keydown', ['$event'])
   public onKeyDown(event: KeyboardEvent) {
+    console.log('dropdown, onKeyDown()');
     const key = event.key.toLowerCase();
 
     if (this.isOpen) {
@@ -208,11 +212,13 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
   @HostListener('focusin', ['$event'])
   public onFocusIn(event: KeyboardEvent) {
+    console.log('dropdown, onFocusIn()');
     this.tabKeyPressed = false;
   }
 
   @HostListener('focusout', ['$event'])
   public onFocusOut(event: KeyboardEvent) {
+    console.log('dropdown, onFocusOut()');
     // Close the dropdown if the last item loses focus.
     if (
       this.tabKeyPressed &&
@@ -223,8 +229,10 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public onPopoverOpened() {
+    console.log('dropdown, onPopoverOpened()');
     this.isOpen = true;
     this.menuComponent.reset();
+    console.log('onPopoverOpened()', this.isKeyboardActive);
     // Focus the first item if the menu was opened with the keyboard.
     if (this.isKeyboardActive) {
       this.menuComponent.focusFirstItem();
@@ -232,12 +240,15 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public onPopoverClosed() {
+    console.log('dropdown, onPopoverClosed()');
     this.isOpen = false;
     this.isKeyboardActive = false;
     this.menuComponent.reset();
+    console.log('onPopoverClosed()');
   }
 
   public resetDropdownPosition() {
+    console.log('dropdown, resetDropdownPosition()');
     // Only reposition the dropdown if it is already open.
     if (this.isOpen) {
       this.openDropdown();
@@ -245,11 +256,13 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public getPopoverTriggerType(): SkyPopoverTrigger {
+    console.log('dropdown, getPopoverTriggerType()');
     // Map the dropdown trigger type to the popover trigger type.
     return (this.trigger === 'click') ? 'click' : 'mouseenter';
   }
 
   private handleIncomingMessages(message: SkyDropdownMessage) {
+    console.log('dropdown, handleIncomingMessage()');
     /* tslint:disable:switch-default */
     switch (message.type) {
       case SkyDropdownMessageType.Open:
@@ -276,14 +289,17 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   private openDropdown() {
+    console.log('dropdown, openDropdown()');
     this.popover.positionNextTo(this.triggerButton, 'below', this.alignment);
   }
 
   private closeDropdown() {
+    console.log('dropdown, closeDropdown()');
     this.popover.close();
   }
 
   private focusTriggerButton() {
+    console.log('dropdown, focusTriggerButton()');
     this.triggerButton.nativeElement.focus();
   }
 }
