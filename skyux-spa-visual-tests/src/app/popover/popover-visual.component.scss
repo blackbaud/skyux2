@@ -9,13 +9,18 @@
 
   .popover-visual-container {
     padding: 10px;
-  }
 
-  /deep/
-  .sky-popover-container {
-    position: static !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+    ::ng-deep .sky-popover-container {
+      position: relative !important;
+      width: 100% !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      z-index: 1;
+
+      .sky-popover {
+        margin: 0;
+      }
+    }
   }
 }
 

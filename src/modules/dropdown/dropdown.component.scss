@@ -1,8 +1,6 @@
 @import '../../scss/mixins';
 
 .sky-dropdown {
-  display: inline-block;
-
   ::ng-deep .sky-popover-container {
     padding: 0;
     min-width: auto;
