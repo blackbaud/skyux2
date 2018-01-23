@@ -231,24 +231,16 @@ $popover-max-width: 276px;
 .sky-popover-placement-above,
 .sky-popover-placement-below {
   &.sky-popover-alignment-left {
-    // margin-left: -$popover-arrow-size;
-
     .sky-popover-arrow {
       left: $popover-arrow-size * 2;
       right: auto;
-      // margin-left: 0;
-      // margin-left: $popover-border-size;
     }
   }
 
   &.sky-popover-alignment-right {
-    // margin-left: $popover-arrow-size;
-
     .sky-popover-arrow {
       left: auto;
       right: $popover-arrow-size * 2;
-      // margin-left: 0;
-      // margin-left: ($popover-arrow-size + $popover-border-size) * -1;
     }
   }
 }
