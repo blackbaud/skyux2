@@ -42,6 +42,8 @@
     </div>
   </button>
   <sky-popover
+    placement="below"
+    [alignment]="alignment"
     (popoverOpened)="onPopoverOpened()"
     (popoverClosed)="onPopoverClosed()"
     [@.disabled]="true"
