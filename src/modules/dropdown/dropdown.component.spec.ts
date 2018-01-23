@@ -49,7 +49,7 @@ describe('Dropdown component', () => {
 
   // Simulates a click event on a button (which also registers the Enter key).
   function dispatchKeyboardButtonClickEvent(elem: HTMLElement) {
-    TestUtility.dispatchKeyboardEvent(elem, 'keydown', { key: 'Enter' });
+    TestUtility.fireKeyboardEvent(elem, 'keydown', { key: 'Enter' });
     elem.click();
   }
 
@@ -197,8 +197,8 @@ describe('Dropdown component', () => {
 
       const popoverElem = getPopoverContainerElement();
 
-      TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Escape' });
-      TestUtility.dispatchKeyboardEvent(popoverElem, 'keyup', { key: 'Escape' });
+      TestUtility.fireKeyboardEvent(popoverElem, 'keydown', { key: 'Escape' });
+      TestUtility.fireKeyboardEvent(popoverElem, 'keyup', { key: 'Escape' });
       tick();
       fixture.detectChanges();
       tick();
@@ -216,16 +216,16 @@ describe('Dropdown component', () => {
       const lastItem = dropdownItems.item(3);
 
       // Should have no affect on other items.
-      TestUtility.dispatchKeyboardEvent(dropdownHost, 'keydown', { key: 'Tab' });
-      TestUtility.dispatchKeyboardEvent(firstItem.querySelector('button'), 'focusout');
+      TestUtility.fireKeyboardEvent(dropdownHost, 'keydown', { key: 'Tab' });
+      TestUtility.fireKeyboardEvent(firstItem.querySelector('button'), 'focusout');
       tick();
       fixture.detectChanges();
       tick();
 
       verifyMenuVisibility(true);
 
-      TestUtility.dispatchKeyboardEvent(dropdownHost, 'keydown', { key: 'Tab' });
-      TestUtility.dispatchKeyboardEvent(lastItem.querySelector('button'), 'focusout');
+      TestUtility.fireKeyboardEvent(dropdownHost, 'keydown', { key: 'Tab' });
+      TestUtility.fireKeyboardEvent(lastItem.querySelector('button'), 'focusout');
       tick();
       fixture.detectChanges();
       tick();
@@ -242,7 +242,7 @@ describe('Dropdown component', () => {
       const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
 
       // Should have no effect on menu items.
-      TestUtility.dispatchKeyboardEvent(lastItem, 'keydown', {
+      TestUtility.fireKeyboardEvent(lastItem, 'keydown', {
         key: 'Tab',
         shiftKey: true
       });
@@ -252,7 +252,7 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(true);
 
-      TestUtility.dispatchKeyboardEvent(buttonElem, 'keydown', {
+      TestUtility.fireKeyboardEvent(buttonElem, 'keydown', {
         key: 'Tab',
         shiftKey: true
       });
@@ -271,7 +271,7 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -284,7 +284,7 @@ describe('Dropdown component', () => {
 
       const hostElem = getDropdownMenuHostElement();
 
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -292,7 +292,7 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -301,7 +301,7 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(2);
       verifyFocusedMenuItemByIndex(2);
 
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
       tick();
       fixture.detectChanges();
       tick();
@@ -311,9 +311,9 @@ describe('Dropdown component', () => {
       verifyFocusedMenuItemByIndex(0);
 
       // Navigation should loop from the last item to the first:
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
@@ -321,7 +321,7 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      TestUtility.dispatchKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
+      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
       tick();
       fixture.detectChanges();
       tick();
@@ -455,7 +455,7 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      TestUtility.dispatchKeyboardEvent(buttonElem, 'keydown', { key: 'a' });
+      TestUtility.fireKeyboardEvent(buttonElem, 'keydown', { key: 'a' });
       tick();
       fixture.detectChanges();
       tick();
@@ -483,7 +483,7 @@ describe('Dropdown component', () => {
       const itemComponent = fixture.componentInstance.dropdown['menuComponent']['menuItems'].first;
       const focusSpy = spyOn(itemComponent['buttonElement'], 'focus');
 
-      TestUtility.dispatchKeyboardEvent(buttonElem, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(buttonElem, 'keydown', { key: 'arrowdown' });
       tick();
       fixture.detectChanges();
       tick();
