@@ -88,12 +88,12 @@ export class SkyFlyoutComponent {
     this.target.clear();
     this.config = config || {};
 
-    let factory = this.resolver.resolveComponentFactory(component);
+    const factory = this.resolver.resolveComponentFactory(component);
 
-    let providers = config.providers /* istanbul ignore next */ || [];
-    let resolvedProviders = ReflectiveInjector.resolve(providers);
-    let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
-    let componentRef = this.target.createComponent(factory, undefined, injector);
+    const providers = config.providers /* istanbul ignore next */ || [];
+    const resolvedProviders = ReflectiveInjector.resolve(providers);
+    const injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
+    const componentRef = this.target.createComponent(factory, undefined, injector);
 
     flyoutInstance.componentInstance = componentRef.instance;
     this.displayedInstance = flyoutInstance;

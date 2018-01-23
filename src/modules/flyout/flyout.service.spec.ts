@@ -30,7 +30,7 @@ describe('Flyout service', () => {
   let applicationRef: ApplicationRef;
 
   function openFlyout(flyoutType: any, config?: Object) {
-    let flyoutInstance = flyoutService.open(flyoutType, config);
+    const flyoutInstance = flyoutService.open(flyoutType, config);
 
     applicationRef.tick();
 
@@ -106,7 +106,7 @@ describe('Flyout service', () => {
   }));
 
   it('should allow data to be passed to the modal component when opened', fakeAsync(() => {
-    let flyoutInstance = openFlyout(FlyoutWithValuesTestComponent, [
+    const flyoutInstance = openFlyout(FlyoutWithValuesTestComponent, [
       {
         provide: FlyoutTestValues,
         useValue: {
@@ -121,7 +121,7 @@ describe('Flyout service', () => {
   }));
 
   it('should close the host comopnent when the host component sends the closed event', (done) => {
-    let flyoutInstance = openFlyout(FlyoutTestComponent);
+    const flyoutInstance = openFlyout(FlyoutTestComponent);
     applicationRef.tick();
 
     expect(document.body.querySelector('.sky-flyout')).toExist();

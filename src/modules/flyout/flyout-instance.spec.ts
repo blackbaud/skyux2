@@ -5,7 +5,7 @@ import {
 describe('Flyout instance', () => {
 
   it('should not error if no close callback is specified', () => {
-    let instance = new SkyFlyoutInstance();
+    const instance = new SkyFlyoutInstance();
 
     instance.close();
   });

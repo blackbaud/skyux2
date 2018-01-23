@@ -30,9 +30,9 @@ export class SkyFlyoutService {
     let flyoutInstance = new SkyFlyoutInstance();
     this.currentActiveEl = this.adapter.getCurrentActiveElement();
     this.createHostComponent();
-    let providersOrConfig: IConfig = arguments[1];
-    let resolvedConfig = this.getConfigFromParameter(providersOrConfig);
-    let component = arguments[0];
+    const component = arguments[0];
+    const providersOrConfig: IConfig = arguments[1];
+    const resolvedConfig = this.getConfigFromParameter(providersOrConfig);
 
     resolvedConfig.providers.push({
       provide: SkyFlyoutInstance,
@@ -72,11 +72,11 @@ export class SkyFlyoutService {
 
   private createHostComponent() {
     if (!SkyFlyoutService.hostComponent) {
-      let factory = this.resolver.resolveComponentFactory(SkyFlyoutComponent);
+      const factory = this.resolver.resolveComponentFactory(SkyFlyoutComponent);
 
       this.adapter.addHostEl();
 
-      let cmpRef = this.appRef.bootstrap(factory);
+      const cmpRef = this.appRef.bootstrap(factory);
 
       SkyFlyoutService.hostComponent = cmpRef.instance;
       SkyFlyoutService.hostComponent.closed.subscribe(() => this.close());

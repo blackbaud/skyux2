@@ -22,7 +22,7 @@ describe('Flyout component', () => {
   let flyoutService: SkyFlyoutService;
 
   function openFlyout(flyoutType: any, config?: Object) {
-    let flyoutInstance = flyoutService.open(flyoutType, config);
+    const flyoutInstance = flyoutService.open(flyoutType, config);
 
     applicationRef.tick();
     tick();
@@ -79,17 +79,17 @@ describe('Flyout component', () => {
     flyoutService.close();
   }));
 
-  it('should not have the help-shim class if the help widget is not present', fakeAsync(() => {
+  it('should not have the sky-flyout-help-shim class if the help widget is not present', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
     applicationRef.tick();
-    expect(getFlyoutHeader().classList.contains('help-shim')).toBeFalsy();
+    expect(getFlyoutHeader().classList.contains('sky-flyout-help-shim')).toBeFalsy();
     flyoutService.close();
   }));
 
-  it('should have the help-shim class if the help widget is present', fakeAsync(() => {
+  it('should have the sky-flyout-help-shim class if the help widget is present', fakeAsync(() => {
     openFlyout(FlyoutWithHelpWidgetTestComponent);
     applicationRef.tick();
-    expect(getFlyoutHeader().classList.contains('help-shim')).toBeTruthy();
+    expect(getFlyoutHeader().classList.contains('sky-flyout-help-shim')).toBeTruthy();
     flyoutService.close();
   }));
 
@@ -99,7 +99,7 @@ describe('Flyout component', () => {
 
     expect(getFlyout()).toExist();
 
-    let escapeEvent: any = document.createEvent('CustomEvent');
+    const escapeEvent: any = document.createEvent('CustomEvent');
     escapeEvent.which = 27;
     escapeEvent.keyCode = 27;
     escapeEvent.initEvent('keydown', true, true);
@@ -113,7 +113,7 @@ describe('Flyout component', () => {
   }));
 
   it('should close when the close button is clicked', fakeAsync(() => {
-    let flyoutInstance = openFlyout(FlyoutTestComponent);
+    const flyoutInstance = openFlyout(FlyoutTestComponent);
     applicationRef.tick();
 
     expect(getFlyout()).toExist();
@@ -128,9 +128,9 @@ describe('Flyout component', () => {
 
   it('should accept configuration options for aria-labelledBy, aria-describedby and role',
   fakeAsync(() => {
-    let expectedLabel = 'customlabelledby';
-    let expectedDescribed = 'customdescribedby';
-    let expectedRole = 'customrole';
+    const expectedLabel = 'customlabelledby';
+    const expectedDescribed = 'customdescribedby';
+    const expectedRole = 'customrole';
 
     openFlyout(FlyoutTestComponent, {
       'ariaLabelledBy': expectedLabel,
