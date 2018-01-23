@@ -230,7 +230,18 @@ describe('Dropdown component', () => {
       verifyMenuVisibility();
 
       const popoverElem = getPopoverContainerElement();
-      const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
+      const popoverItems = popoverElem.querySelectorAll('.sky-dropdown-item');
+      const firstItem = popoverItems.item(0);
+      const lastItem = popoverItems.item(3);
+
+      // Should have no affect on other items.
+      TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Tab' });
+      TestUtility.dispatchKeyboardEvent(firstItem.querySelector('button'), 'focusout');
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyMenuVisibility(true);
 
       TestUtility.dispatchKeyboardEvent(popoverElem, 'keydown', { key: 'Tab' });
       TestUtility.dispatchKeyboardEvent(lastItem.querySelector('button'), 'focusout');
@@ -261,7 +272,10 @@ describe('Dropdown component', () => {
       const lastItem = popoverElem.querySelectorAll('.sky-dropdown-item').item(3);
 
       // Should have no effect on menu items.
-      TestUtility.dispatchKeyboardEvent(lastItem, 'keydown', { key: 'Tab' });
+      TestUtility.dispatchKeyboardEvent(lastItem, 'keydown', {
+        key: 'Tab',
+        shiftKey: true
+      });
       tick();
       fixture.detectChanges();
       tick();

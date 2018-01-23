@@ -1,17 +1,34 @@
-// spell-checker:ignore Colorpicker, dropdown, cmyk, hsla
-import { fakeAsync, flush, TestBed, tick, ComponentFixture } from '@angular/core/testing';
+import {
+  async,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  ComponentFixture
+} from '@angular/core/testing';
+
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 import { expect } from '../testing';
 
 describe('Colorpicker Component', () => {
+  let fixture: ComponentFixture<ColorpickerTestComponent>;
+  let component: ColorpickerTestComponent;
+  let nativeElement: HTMLElement;
+
   function openColorpicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
-    let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
+    flush();
+    tick();
+    fixture.detectChanges();
+
+    const dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
+
     dropdownButtonEl.click();
-    compFixture.detectChanges();
+    flush();
+    tick();
+    fixture.detectChanges();
   }
 
   function setPresetColor(element: HTMLElement, compFixture: ComponentFixture<any>, key: number) {
@@ -23,25 +40,23 @@ describe('Colorpicker Component', () => {
     compFixture.detectChanges();
   }
 
-  let fixture: ComponentFixture<ColorpickerTestComponent>;
-  let component: ColorpickerTestComponent;
-  let nativeElement: HTMLElement;
-
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         ColorpickerTestComponent
       ],
       imports: [
         SkyColorpickerModule,
-        NoopAnimationsModule,
         FormsModule
       ]
-    });
+    }).compileComponents();
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(ColorpickerTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   function keyHelper(keyName: string, key: number, deprecatedKeyName: string) {
@@ -142,63 +157,51 @@ describe('Colorpicker Component', () => {
   }
 
   it('should output RGBA', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
-    flush();
     setPresetColor(nativeElement, fixture, 4);
     verifyColorpicker(nativeElement, 'rgba(189,64,64,1)', '189, 64, 64');
   }));
 
   it('should handle undefined initial color', fakeAsync(() => {
+    fixture.destroy();
+
+    fixture = TestBed.createComponent(ColorpickerTestComponent);
+    nativeElement = fixture.nativeElement as HTMLElement;
+    component = fixture.componentInstance;
+
+    component.selectedHexType = 'hex8';
     component.selectedOutputFormat = 'hex';
     component.selectedColor = undefined;
-    fixture.detectChanges();
+
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     verifyColorpicker(nativeElement, '#fff', '255, 255, 255');
   }));
 
   it('should output HEX', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    flush();
     setPresetColor(nativeElement, fixture, 4);
     verifyColorpicker(nativeElement, '#bd4040', '189, 64, 64');
   }));
 
   it('Should accept a new HEX3 color.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#BC4');
     verifyColorpicker(nativeElement, 'rgba(187,204,68,1)', '187, 204, 68');
   }));
 
   it('Should accept a new HEX6 color.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#BFF666');
     verifyColorpicker(nativeElement, '#bff666', '191, 246, 102');
   }));
 
   it('Should accept a new RGB color.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'red', '77');
     setInputElementValue(nativeElement, 'green', '58');
     setInputElementValue(nativeElement, 'blue', '183');
@@ -206,12 +209,8 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should accept a new RGBA color.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'red', '163');
     setInputElementValue(nativeElement, 'green', '19');
     setInputElementValue(nativeElement, 'blue', '84');
@@ -220,73 +219,46 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should accept a new HSL color.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', 'hsl(113,78%,41%)');
     verifyColorpicker(nativeElement, '#2aba17', '42, 186, 23');
   }));
 
   it('Should accept a new HSLA color.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', 'hsla(231,66%,41%,0.62)');
     verifyColorpicker(nativeElement, '#2438ae', '36, 56, 174');
   }));
 
   it('Should allow user to click cancel the color change.', fakeAsync(() => {
-    fixture.detectChanges();
     let button = nativeElement.querySelector('.sky-btn-colorpicker-close');
     let buttonEvent = document.createEvent('Event');
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#BFF666');
-    tick();
     verifyColorpicker(nativeElement, '#bff666', '191, 246, 102');
     buttonEvent.initEvent('click', true, false);
     button.dispatchEvent(buttonEvent);
-    tick();
-    fixture.detectChanges();
-    tick();
     verifyColorpicker(nativeElement, '#2889e5', '40, 137, 229');
   }));
 
   it('Should allow user to click apply the color change.', fakeAsync(() => {
-    fixture.detectChanges();
     let button = nativeElement.querySelector('.sky-btn-colorpicker-apply');
     let buttonEvent = document.createEvent('Event');
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#2B7230');
     verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
     buttonEvent.initEvent('click', true, false);
     button.dispatchEvent(buttonEvent);
-    tick();
-    fixture.detectChanges();
-    tick();
     verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
   }));
 
   it('Should accept mouse down events on hue bar.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     let hueBar = fixture.debugElement.query(By.css('.hue'));
     let axis = getElementCords(hueBar);
     hueBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
@@ -301,12 +273,8 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should accept mouse down events on alpha bar.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     let alphaBar = fixture.debugElement.query(By.css('.alpha'));
     let axis = getElementCords(alphaBar);
     alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
@@ -321,12 +289,8 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should accept mouse down events on saturation and lightness.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
     let axis = getElementCords(slBar);
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
@@ -350,12 +314,8 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should accept mouse dragging on saturation and lightness.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
     let axis = getElementCords(slBar);
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
@@ -371,46 +331,30 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should output HSLA in css format.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hsla';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#123456');
     verifyColorpicker(nativeElement, 'hsla(210,65%,20%,1)', '18, 51, 84');
   }));
 
   it('Should accept HEX8 alpha conversions.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedHexType = 'hex8';
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#12345680');
     verifyColorpicker(nativeElement, 'rgba(18,52,86,0.5)', '18, 52, 86, 0.5');
   }));
 
   it('Should output CMYK in css format.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'cmyk';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#654321');
     verifyColorpicker(nativeElement, 'cmyk(0%,34%,67%,60%)', '101, 67, 33');
   }));
 
   it('Should accept transparency', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hsla';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'red', '0');
     setInputElementValue(nativeElement, 'green', '0');
     setInputElementValue(nativeElement, 'blue', '0');
@@ -419,12 +363,8 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should accept color change through directive host listener', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     nativeElement.querySelector('input').value = '#4523FC';
     let inputEvent = document.createEvent('Event');
     inputEvent.initEvent('input', true, false);
@@ -437,28 +377,18 @@ describe('Colorpicker Component', () => {
   }));
 
   it('Should allow user to esc cancel the color change.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     setInputElementValue(nativeElement, 'hex', '#086A93');
     verifyColorpicker(nativeElement, '#086a93', '8, 106, 147');
     keyHelper('Escape', 27, 'Esc');
-    tick();
     fixture.detectChanges();
-    tick();
     verifyColorpicker(nativeElement, '#2889e5', '40, 137, 229');
   }));
 
   it('Should specify type="button" on all button elements.', fakeAsync(() => {
-    fixture.detectChanges();
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    tick();
-    fixture.detectChanges();
-    tick();
     expect(nativeElement.querySelectorAll('button:not([type="button"])').length).toBe(0);
   }));
 });
