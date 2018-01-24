@@ -71,6 +71,7 @@ import {
 export class SkyDemoService {
   public components: any[] = [
     {
+      name: 'Action button',
       component: SkyActionButtonDemoComponent,
       files: [
         {
@@ -86,6 +87,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Alert',
       component: SkyAlertDemoComponent,
       files: [
         {
@@ -101,6 +103,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Avatar',
       component: SkyAvatarDemoComponent,
       files: [
         {
@@ -116,6 +119,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Card',
       component: SkyCardDemoComponent,
       files: [
         {
@@ -131,6 +135,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Checkbox',
       component: SkyCheckboxDemoComponent,
       files: [
         {
@@ -146,6 +151,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Colorpicker',
       component: SkyColorpickerDemoComponent,
       files: [
         {
@@ -161,6 +167,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Confirm',
       component: SkyConfirmDemoComponent,
       files: [
         {
@@ -176,6 +183,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Datepicker',
       component: SkyDatepickerDemoComponent,
       files: [
         {
@@ -191,6 +199,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Definition list',
       component: SkyDefinitionListDemoComponent,
       files: [
         {
@@ -206,6 +215,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Dropdown',
       component: SkyDropdownDemoComponent,
       files: [
         {
@@ -221,6 +231,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Email validation',
       component: SkyEmailValidationDemoComponent,
       files: [
         {
@@ -236,6 +247,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Error',
       component: SkyErrorDemoComponent,
       files: [
         {
@@ -251,6 +263,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'File attachment',
       component: SkyFileAttachmentDemoComponent,
       files: [
         {
@@ -266,6 +279,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Filter',
       component: SkyFilterDemoComponent,
       files: [
         {
@@ -294,6 +308,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Filter inline',
       component: SkyFilterInlineDemoComponent,
       files: [
         {
@@ -309,6 +324,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Fluid grid',
       component: SkyFluidGridDemoComponent,
       files: [
         {
@@ -324,6 +340,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Grid',
       component: SkyGridDemoComponent,
       files: [
         {
@@ -339,6 +356,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Help inline',
       component: SkyHelpInlineDemoComponent,
       files: [
         {
@@ -354,6 +372,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Key info',
       component: SkyKeyInfoDemoComponent,
       files: [
         {
@@ -369,6 +388,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Label',
       component: SkyLabelDemoComponent,
       files: [
         {
@@ -384,6 +404,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Link records',
       component: SkyLinkRecordsDemoComponent,
       files: [
         {
@@ -399,6 +420,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List',
       component: SkyListDemoComponent,
       files: [
         {
@@ -414,6 +436,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List filters',
       component: SkyListFiltersDemoComponent,
       files: [
         {
@@ -442,6 +465,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List filters inline',
       component: SkyListFiltersInlineDemoComponent,
       files: [
         {
@@ -457,6 +481,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List paging',
       component: SkyListPagingDemoComponent,
       files: [
         {
@@ -472,6 +497,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List provider',
       component: SkyListProviderDemoComponent,
       files: [
         {
@@ -487,6 +513,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List toolbar',
       component: SkyListToolbarDemoComponent,
       files: [
         {
@@ -502,6 +529,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List toolbar custom',
       component: SkyListToolbarCustomDemoComponent,
       files: [
         {
@@ -517,6 +545,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List view checklist',
       component: SkyListViewChecklistDemoComponent,
       files: [
         {
@@ -532,6 +561,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'List view grid',
       component: SkyListViewGridDemoComponent,
       files: [
         {
@@ -547,6 +577,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Media query',
       component: SkyMediaQueryDemoComponent,
       files: [
         {
@@ -562,6 +593,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Modal',
       component: SkyModalDemoComponent,
       files: [
         {
@@ -599,6 +631,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Navbar',
       component: SkyNavbarDemoComponent,
       files: [
         {
@@ -614,6 +647,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Numeric',
       component: SkyNumericDemoComponent,
       files: [
         {
@@ -629,6 +663,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Page summary',
       component: SkyPageSummaryDemoComponent,
       files: [
         {
@@ -644,6 +679,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Paging',
       component: SkyPagingDemoComponent,
       files: [
         {
@@ -659,6 +695,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Popover',
       component: SkyPopoverDemoComponent,
       files: [
         {
@@ -678,6 +715,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Radio',
       component: SkyRadioDemoComponent,
       files: [
         {
@@ -693,6 +731,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Repeater',
       component: SkyRepeaterDemoComponent,
       files: [
         {
@@ -708,6 +747,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Search',
       component: SkySearchDemoComponent,
       files: [
         {
@@ -723,6 +763,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Sectioned form',
       component: SkySectionedFormDemoComponent,
       files: [
         {
@@ -773,6 +814,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Sort',
       component: SkySortDemoComponent,
       files: [
         {
@@ -788,6 +830,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Tabs',
       component: SkyTabsDemoComponent,
       files: [
         {
@@ -803,6 +846,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Text expand',
       component: SkyTextExpandDemoComponent,
       files: [
         {
@@ -818,6 +862,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Text highlight',
       component: SkyTextHighlightDemoComponent,
       files: [
         {
@@ -833,6 +878,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Tile',
       component: SkyTileDemoComponent,
       files: [
         {
@@ -866,6 +912,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Timepicker',
       component: SkyTimepickerDemoComponent,
       files: [
         {
@@ -881,6 +928,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Toolbar',
       component: SkyToolbarDemoComponent,
       files: [
         {
@@ -896,6 +944,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'URL validation',
       component: SkyUrlValidationDemoComponent,
       files: [
         {
@@ -911,6 +960,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Vertical tabs',
       component: SkyVerticalTabsDemoComponent,
       files: [
         {
@@ -926,6 +976,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Wait',
       component: SkyWaitDemoComponent,
       files: [
         {
@@ -941,6 +992,7 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Wizard',
       component: SkyWizardDemoComponent,
       files: [
         {
