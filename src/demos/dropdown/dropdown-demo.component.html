@@ -109,24 +109,6 @@
 </sky-row>
 
 <h3>
-  Showing a dropdown on mouse hover
-</h3>
-
-<sky-dropdown
-  trigger="hover">
-  <sky-dropdown-button>
-    Hover to show dropdown
-  </sky-dropdown-button>
-  <sky-dropdown-menu>
-    <sky-dropdown-item *ngFor="let item of items">
-      <button type="button" [attr.disabled]="item.disabled ? '' : null">
-        {{ item.name }}
-      </button>
-    </sky-dropdown-item>
-  </sky-dropdown-menu>
-</sky-dropdown>
-
-<h3>
   Interacting with a dropdown programmatically
 </h3>
 
