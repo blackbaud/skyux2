@@ -11,7 +11,6 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import {
@@ -75,10 +74,10 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   @Input()
-  public dismissOnNextClick = true;
+  public dismissOnBlur = true;
 
   @Input()
-  public messageStream: Observable<SkyDropdownMessage>;
+  public messageStream = new Subject<SkyDropdownMessage>();
 
   @Input()
   public title: string;
@@ -103,7 +102,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
   private destroy = new Subject<boolean>();
   private isKeyboardActive = false;
-  private hasFocus = false;
   private isOpen = false;
 
   private _buttonType: string;
@@ -112,18 +110,15 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   private _trigger: SkyDropdownTriggerType;
 
   constructor(
-    private elementRef: ElementRef,
     private windowObj: SkyWindowRefService
   ) { }
 
   public ngOnInit() {
-    if (this.messageStream) {
-      this.messageStream
-        .takeUntil(this.destroy)
-        .subscribe((message: SkyDropdownMessage) => {
-          this.handleIncomingMessages(message);
-        });
-    }
+    this.messageStream
+      .takeUntil(this.destroy)
+      .subscribe((message: SkyDropdownMessage) => {
+        this.handleIncomingMessages(message);
+      });
   }
 
   public ngAfterContentInit() {
@@ -137,13 +132,14 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
           });
         } else if (change.selectedItem) {
           // Close the dropdown when a menu item is selected.
-          this.closeDropdown();
+          this.messageStream.next({
+            type: SkyDropdownMessageType.Close
+          });
         }
       });
   }
 
   public ngOnDestroy() {
-    this.closeDropdown();
     this.destroy.next(true);
     this.destroy.unsubscribe();
   }
@@ -159,7 +155,9 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         // wait a moment before returning focus to the dropdown trigger element.
         case 'enter':
         this.windowObj.getWindow().setTimeout(() => {
-          this.focusTriggerButton();
+          this.messageStream.next({
+            type: SkyDropdownMessageType.FocusTriggerButton
+          });
         });
         break;
 
@@ -186,23 +184,13 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
       case 'arrowdown':
       this.isKeyboardActive = true;
-      this.openDropdown();
+      this.messageStream.next({
+        type: SkyDropdownMessageType.Open
+      });
       event.preventDefault();
       break;
     }
     /* tslint:enable */
-  }
-
-  @HostListener('document:focusin', ['$event'])
-  public onFocusIn(event: KeyboardEvent) {
-    if (this.elementRef.nativeElement.contains(event.target)) {
-      this.hasFocus = true;
-    } else if (this.isOpen && this.hasFocus) {
-      // The dropdown is open, was currently being operated by the user, and
-      // has just lost keyboard focus. We should close it.
-      this.closeDropdown();
-      this.hasFocus = false;
-    }
   }
 
   public onPopoverOpened() {
@@ -223,7 +211,9 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   public resetDropdownPosition() {
     // Only reposition the dropdown if it is already open.
     if (this.isOpen) {
-      this.openDropdown();
+      this.messageStream.next({
+        type: SkyDropdownMessageType.Open
+      });
     }
   }
 
@@ -236,15 +226,15 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     /* tslint:disable:switch-default */
     switch (message.type) {
       case SkyDropdownMessageType.Open:
-      this.openDropdown();
+      this.popover.positionNextTo(this.triggerButton, 'below', this.alignment);
       break;
 
       case SkyDropdownMessageType.Close:
-      this.closeDropdown();
+      this.popover.close();
       break;
 
       case SkyDropdownMessageType.FocusTriggerButton:
-      this.focusTriggerButton();
+      this.triggerButton.nativeElement.focus();
       break;
 
       case SkyDropdownMessageType.FocusNextItem:
@@ -256,17 +246,5 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       break;
     }
     /* tslint:enable */
-  }
-
-  private openDropdown() {
-    this.popover.positionNextTo(this.triggerButton, 'below', this.alignment);
-  }
-
-  private closeDropdown() {
-    this.popover.close();
-  }
-
-  private focusTriggerButton() {
-    this.triggerButton.nativeElement.focus();
   }
 }

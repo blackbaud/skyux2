@@ -233,7 +233,7 @@ describe('SkyPopoverComponent', () => {
     spyOn(component, 'close');
 
     component.isOpen = true;
-    component.dismissOnNextClick = false;
+    component.dismissOnBlur = false;
     TestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();

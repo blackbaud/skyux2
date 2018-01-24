@@ -134,48 +134,48 @@
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="openDropdown($event)">
+    (click)="openDropdown()">
     Open dropdown
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="closeDropdown($event)">
+    (click)="closeDropdown()">
     Close dropdown
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="focusTriggerButton($event)">
+    (click)="focusTriggerButton()">
     Focus trigger button
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="focusNextItem($event)">
+    (click)="focusNextItem()">
     Focus next item
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="focusPreviousItem($event)">
+    (click)="focusPreviousItem()">
     Focus previous item
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="changeItems($event)">
+    (click)="changeItems()">
     Change items
   </button>
 </p>
 <sky-dropdown
   buttonStyle="primary"
-  [dismissOnNextClick]="false"
+  [dismissOnBlur]="false"
   [messageStream]="dropdownController">
   <sky-dropdown-button>
     Open

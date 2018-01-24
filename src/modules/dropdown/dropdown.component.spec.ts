@@ -555,14 +555,6 @@ describe('Dropdown component', () => {
 
       verifyTriggerButtonHasFocus();
     }));
-
-    it('should handle undefined stream', fakeAsync(() => {
-      const spy = spyOn(component.dropdownController, 'takeUntil').and.callThrough();
-      component.dropdownController = undefined;
-      fixture.detectChanges();
-      component.dropdown.ngOnInit();
-      expect(spy).not.toHaveBeenCalled();
-    }));
   });
 
   describe('menu changes', () => {

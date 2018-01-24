@@ -33,41 +33,29 @@ export class SkyDropdownDemoComponent {
     alert('You selected option ' + option);
   }
 
-  public openDropdown(event: MouseEvent) {
+  public openDropdown() {
     this.sendMessage(SkyDropdownMessageType.Open);
-    event.preventDefault();
-    event.stopPropagation();
   }
 
-  public closeDropdown(event: MouseEvent) {
+  public closeDropdown() {
     this.sendMessage(SkyDropdownMessageType.Close);
-    event.preventDefault();
-    event.stopPropagation();
   }
 
-  public focusTriggerButton(event: MouseEvent) {
+  public focusTriggerButton() {
     this.sendMessage(SkyDropdownMessageType.FocusTriggerButton);
-    event.preventDefault();
-    event.stopPropagation();
   }
 
-  public focusNextItem(event: MouseEvent) {
+  public focusNextItem() {
     this.sendMessage(SkyDropdownMessageType.FocusNextItem);
-    event.preventDefault();
-    event.stopPropagation();
   }
 
-  public focusPreviousItem(event: MouseEvent) {
+  public focusPreviousItem() {
     this.sendMessage(SkyDropdownMessageType.FocusPreviousItem);
-    event.preventDefault();
-    event.stopPropagation();
   }
 
-  public changeItems(event: MouseEvent) {
+  public changeItems() {
     this.items.pop();
     this.changeDetector.detectChanges();
-    event.preventDefault();
-    event.stopPropagation();
   }
 
   public onMenuChanges(change: SkyDropdownMenuChange) {

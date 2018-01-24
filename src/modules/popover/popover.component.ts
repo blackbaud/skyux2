@@ -47,7 +47,7 @@ import { SkyPopoverAdapterService } from './popover-adapter.service';
 })
 export class SkyPopoverComponent implements OnInit, OnDestroy {
   @Input()
-  public dismissOnNextClick = true;
+  public dismissOnBlur = true;
 
   @Input()
   public popoverTitle: string;
@@ -101,7 +101,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   constructor(
     private adapterService: SkyPopoverAdapterService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private elementRef: ElementRef
   ) { }
 
   public ngOnInit() {
@@ -127,9 +128,21 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('document:focusin', ['$event'])
+  public onFocusIn(event: KeyboardEvent) {
+    const targetIsChild = (this.elementRef.nativeElement.contains(event.target));
+    const targetIsCaller = (this.caller && this.caller.nativeElement === event.target);
+
+    if (!targetIsChild && !targetIsCaller && this.isOpen && this.dismissOnBlur) {
+      // The popover is open, is currently being operated by the user, and
+      // has just lost keyboard focus. We should close it.
+      this.close();
+    }
+  }
+
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent): void {
-    if (!this.isMouseEnter && this.dismissOnNextClick) {
+    if (!this.isMouseEnter && this.dismissOnBlur) {
       this.close();
     }
   }
