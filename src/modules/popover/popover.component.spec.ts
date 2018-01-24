@@ -186,13 +186,19 @@ describe('SkyPopoverComponent', () => {
     expect(component['isMouseEnter']).toEqual(false);
   });
 
-  it('should prevent bubbling of click events', () => {
-    const event: any = document.createEvent('CustomEvent');
-    const spy = spyOn(event, 'stopPropagation');
-    event.initEvent('click', true, true);
-    fixture.nativeElement.dispatchEvent(event);
-    fixture.detectChanges();
-    expect(spy).toHaveBeenCalled();
+  it('should close the popover when the escape key is pressed', () => {
+    const spy = spyOn(fixture.componentInstance, 'close');
+
+    fixture.componentInstance.isOpen = true;
+
+    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Escape' });
+    expect(spy).toHaveBeenCalledWith();
+
+    spy.calls.reset();
+
+    // Should ignore other key events.
+    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Backspace' });
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('should reposition the popover on window scroll', () => {

@@ -111,16 +111,24 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.destroy.unsubscribe();
   }
 
+  @HostListener('keyup', ['$event'])
+  public onDocumentKeyUp(event: KeyboardEvent): void {
+    const key = event.key.toLowerCase();
+    if (key === 'escape' && this.isOpen) {
+      event.stopPropagation();
+      event.preventDefault();
+      this.close();
+      if (this.caller) {
+        this.caller.nativeElement.focus();
+      }
+    }
+  }
+
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent): void {
     if (!this.isMouseEnter) {
       this.close();
     }
-  }
-
-  @HostListener('click', ['$event'])
-  public onClick(event: MouseEvent) {
-    event.stopPropagation();
   }
 
   @HostListener('mouseenter')

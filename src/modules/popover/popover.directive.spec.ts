@@ -212,13 +212,13 @@ describe('SkyPopoverDirective', () => {
 
     callerInstance.skyPopover.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(document as any, 'keyup', { key: 'Escape' });
+    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
     expect(spy).toHaveBeenCalledWith();
 
     spy.calls.reset();
 
     // Should ignore other key events.
-    TestUtility.fireKeyboardEvent(document as any, 'keyup', { key: 'Backspace' });
+    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Backspace' });
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -229,7 +229,7 @@ describe('SkyPopoverDirective', () => {
 
     callerInstance.skyPopover.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(document as any, 'keyup', { key: 'Escape' });
+    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
     expect(spy).toHaveBeenCalledWith();
   });
 });

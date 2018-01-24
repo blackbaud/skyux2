@@ -45,12 +45,13 @@ export class SkyPopoverDirective {
     }
   }
 
-  @HostListener('document:keyup', ['$event'])
+  @HostListener('keyup', ['$event'])
   public onDocumentKeyUp(event: KeyboardEvent): void {
     const key = event.key.toLowerCase();
     if (key === 'escape' && this.skyPopover.isOpen) {
+      event.stopPropagation();
+      event.preventDefault();
       this.closePopover();
-      this.elementRef.nativeElement.focus();
     }
   }
 
