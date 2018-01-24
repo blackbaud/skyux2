@@ -52,6 +52,7 @@ export class SkyPopoverDirective {
       event.stopPropagation();
       event.preventDefault();
       this.closePopover();
+      this.elementRef.nativeElement.focus();
     }
   }
 
