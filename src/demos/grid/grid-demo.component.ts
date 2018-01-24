@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
-import { ListSortFieldSelectorModel } from '../../core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import {
+  ListSortFieldSelectorModel
+} from '../../core';
 
 @Component({
   selector: 'sky-grid-demo',
   templateUrl: './grid-demo.component.html'
 })
-export class SkyGridDemoComponent {
+export class SkyGridDemoComponent implements OnInit {
   public items: any[] = [
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples', composite: 'Comp A' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas', composite: 'Comp B' },
@@ -18,9 +26,18 @@ export class SkyGridDemoComponent {
       composite: 'Comp G' }
   ];
 
+  public asyncHeading = new BehaviorSubject<string>('');
+
+  public ngOnInit() {
+    setTimeout(() => {
+      this.asyncHeading.next('Foobar');
+    }, 1000);
+  }
+
   public sortChanged(activeSort: ListSortFieldSelectorModel) {
-    let sortField = activeSort.fieldSelector;
-    let descending = activeSort.descending;
+    const sortField = activeSort.fieldSelector;
+    const descending = activeSort.descending;
+
     this.items = this.items.sort((a: any, b: any) => {
       let value1 = a[sortField];
       let value2 = b[sortField];
@@ -32,6 +49,7 @@ export class SkyGridDemoComponent {
       if (value2 && typeof value2 === 'string') {
         value2 = value2.toLowerCase();
       }
+
       if (value1 === value2) {
         return 0;
       }
@@ -41,6 +59,7 @@ export class SkyGridDemoComponent {
       if (descending) {
         result *= -1;
       }
+
       return result;
     }).slice();
   }
