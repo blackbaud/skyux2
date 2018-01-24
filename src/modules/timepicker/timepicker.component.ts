@@ -97,9 +97,7 @@ export class SkyTimepickerComponent implements OnInit {
   }
 
   public get selectedTime() {
-    let time: SkyTimepickerTimeOutput;
-
-    time = {
+    const time: SkyTimepickerTimeOutput = {
       hour: moment(this.activeTime).hour(),
       minute: moment(this.activeTime).minute(),
       meridie: moment(this.activeTime).format('A'),

@@ -269,7 +269,6 @@ describe('SkyPopoverAdapterService', () => {
 
   it('should handle out-of-bounds coordinates for arrows',
     inject([SkyPopoverAdapterService], (adapterService: SkyPopoverAdapterService) => {
-      // const spy = spyOn(adapterService['renderer'], 'setStyle');
       const popover = new ElementRef(createElementRefDefinition(0, 0, 180, 70));
       const popoverArrow = new ElementRef(createElementRefDefinition(0, 0, 20, 10));
 

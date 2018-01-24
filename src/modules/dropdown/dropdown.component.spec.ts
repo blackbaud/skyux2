@@ -76,7 +76,6 @@ describe('Dropdown component', () => {
 
   function verifyFocusedMenuItemByIndex(index: number, isFocused = true) {
     const menuItems = getDropdownItemElements();
-    // expect(menuItems.item(index).classList.contains('sky-dropdown-item-focused')).toEqual(isFocused);
     expect(isElementFocused(menuItems.item(index).querySelector('button'))).toEqual(isFocused);
   }
 

@@ -3,8 +3,8 @@
   (@popoverState.start)="onAnimationStart($event)"
   (@popoverState.done)="onAnimationDone($event)"
   [@popoverState]="animationState"
-  [style.top.px]="top"
-  [style.left.px]="left"
+  [style.top.px]="popoverTop"
+  [style.left.px]="popoverLeft"
   #popoverContainer>
   <div class="sky-popover-border">
     <div class="sky-popover-border-x"></div>

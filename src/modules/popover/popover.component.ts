@@ -84,8 +84,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public classNames: string[] = [];
   public animationState: 'hidden' | 'visible' = 'hidden';
 
-  public top: number;
-  public left: number;
+  public popoverTop: number;
+  public popoverLeft: number;
   public arrowTop: number;
   public arrowLeft: number;
 
@@ -171,8 +171,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
     this.updateClassNames(position.placement, position.alignment);
 
-    this.top = position.top;
-    this.left = position.left;
+    this.popoverTop = position.top;
+    this.popoverLeft = position.left;
     this.arrowTop = position.arrowTop;
     this.arrowLeft = position.arrowLeft;
     this.animationState = 'visible';
