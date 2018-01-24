@@ -18,15 +18,15 @@ export class SkyDropdownItemComponent implements AfterViewInit {
   public buttonElement: HTMLButtonElement;
 
   public constructor(
-    private changeDetector: ChangeDetectorRef,
-    public elementRef: ElementRef
+    public elementRef: ElementRef,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   public ngAfterViewInit() {
     this.buttonElement = this.elementRef.nativeElement.querySelector('button');
 
     if (this.buttonElement) {
-      this.isDisabled = this.buttonElement.disabled;
+      this.isDisabled = this.isFocusable();
       this.changeDetector.detectChanges();
     }
   }

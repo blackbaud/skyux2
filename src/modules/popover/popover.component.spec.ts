@@ -229,6 +229,17 @@ describe('SkyPopoverComponent', () => {
     expect(component.close).toHaveBeenCalled();
   });
 
+  it('should allow disabling of closing the popover when the document is clicked', () => {
+    spyOn(component, 'close');
+
+    component.isOpen = true;
+    component.dismissOnNextClick = false;
+    TestUtility.fireDomEvent(document, 'click');
+
+    fixture.detectChanges();
+    expect(component.close).not.toHaveBeenCalled();
+  });
+
   it('should not close the popover if the popover is clicked', () => {
     spyOn(component, 'close');
 

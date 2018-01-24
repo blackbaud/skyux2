@@ -53,11 +53,12 @@
     </ul>
   </sky-column>
   <sky-column screenSmall="6">
-    <ul class="sky-list-unstyled">
+    <ul class="sky-list-unstyled" style="text-align:right">
       <li>
         Select primary style:
         <br>
         <sky-dropdown
+          alignment="right"
           buttonStyle="primary">
           <sky-dropdown-button>
             Show dropdown
@@ -75,6 +76,7 @@
         Context menu with primary style:
         <br>
         <sky-dropdown
+          alignment="right"
           buttonType="context-menu"
           buttonStyle="primary">
           <sky-dropdown-menu>
@@ -90,6 +92,7 @@
         Icon with primary style:
         <br>
         <sky-dropdown
+          alignment="right"
           buttonType="folder-open-o"
           buttonStyle="primary">
           <sky-dropdown-menu>
@@ -127,90 +130,66 @@
   Interacting with a dropdown programmatically
 </h3>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="openDropdown($event)">
-  Open dropdown
-</button>
+<p>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="openDropdown($event)">
+    Open dropdown
+  </button>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="closeDropdown($event)">
-  Close dropdown
-</button>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="closeDropdown($event)">
+    Close dropdown
+  </button>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="focusTriggerButton($event)">
-  Focus trigger button
-</button>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="focusTriggerButton($event)">
+    Focus trigger button
+  </button>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="focusNextItem($event)">
-  Focus next item
-</button>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="focusNextItem($event)">
+    Focus next item
+  </button>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="focusPreviousItem($event)">
-  Focus previous item
-</button>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="focusPreviousItem($event)">
+    Focus previous item
+  </button>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="changeItems($event)">
-  Change items
-</button>
-
-<br><br>
-
-<sky-row>
-  <sky-column screenXSmall="6">
-    <sky-dropdown
-      buttonStyle="primary"
-      [messageStream]="dropdownController">
-      <sky-dropdown-button>
-        Open
-      </sky-dropdown-button>
-      <sky-dropdown-menu>
-        <sky-dropdown-item *ngFor="let item of items">
-          <button type="button" [attr.disabled]="item.disabled ? '' : null">
-            {{ item.name }}
-          </button>
-        </sky-dropdown-item>
-      </sky-dropdown-menu>
-    </sky-dropdown>
-    <p>
-      The default behavior for dropdown menu items is to receive focus when the arrow keys are used.
-    </p>
-  </sky-column>
-  <sky-column screenXSmall="6">
-    <sky-dropdown
-      alignment="right"
-      buttonStyle="primary"
-      [messageStream]="dropdownController">
-      <sky-dropdown-button>
-        Open
-      </sky-dropdown-button>
-      <sky-dropdown-menu
-        [useNativeFocus]="false"
-        (menuChanges)="onMenuChanges($event)">
-        <sky-dropdown-item *ngFor="let item of items">
-          <button type="button" [attr.disabled]="item.disabled ? '' : null">
-            {{ item.name }}
-          </button>
-        </sky-dropdown-item>
-      </sky-dropdown-menu>
-    </sky-dropdown>
-    <p>
-      This menu does not bring the active items to focus; this is useful for custom implementations where the focus should remain on a different control.
-    </p>
-  </sky-column>
-</sky-row>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="changeItems($event)">
+    Change items
+  </button>
+</p>
+<sky-dropdown
+  buttonStyle="primary"
+  [dismissOnNextClick]="false"
+  [messageStream]="dropdownController">
+  <sky-dropdown-button>
+    Open
+  </sky-dropdown-button>
+  <sky-dropdown-menu
+    [useNativeFocus]="false"
+    (menuChanges)="onMenuChanges($event)">
+    <sky-dropdown-item *ngFor="let item of items">
+      <button type="button" [attr.disabled]="item.disabled ? '' : null">
+        {{ item.name }}
+      </button>
+    </sky-dropdown-item>
+  </sky-dropdown-menu>
+</sky-dropdown>
+<p>
+  This menu does not bring the active items to focus; this is useful for custom implementations where the focus should remain on a different control.
+</p>

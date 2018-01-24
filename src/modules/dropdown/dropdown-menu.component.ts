@@ -47,10 +47,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     }
 
     this._menuIndex = value;
-
-    this.menuChanges.emit({
-      activeIndex: value
-    });
   }
 
   @ContentChildren(SkyDropdownItemComponent)
@@ -76,7 +72,8 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
         this.menuIndex = 0;
         this.focusActiveItem();
         this.menuChanges.emit({
-          items: this.menuItems
+          items: this.menuItems,
+          activeIndex: this.menuIndex
         });
       });
   }
@@ -89,7 +86,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent) {
     const selectedItem = this.menuItems.find((item: SkyDropdownItemComponent) => {
-      return (item.buttonElement === event.target);
+      return (item.elementRef.nativeElement.contains(event.target));
     });
 
     /* istanbul ignore else */
@@ -105,9 +102,12 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.menuItems.forEach((item: SkyDropdownItemComponent, i: number) => {
       item.resetState();
 
-      if (item.buttonElement === event.target) {
+      if (item.elementRef.nativeElement.contains(event.target)) {
         this.menuIndex = i;
         item.isActive = true;
+        this.menuChanges.emit({
+          activeIndex: this.menuIndex
+        });
       }
     });
   }
@@ -178,10 +178,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.changeDetector.markForCheck();
   }
 
-  public lastItemMatches(target: EventTarget) {
-    return (this.menuItems.last && this.menuItems.last.buttonElement === target);
-  }
-
   private resetItemsActiveState() {
     this.menuItems.forEach((item: SkyDropdownItemComponent) => {
       item.resetState();
@@ -198,6 +194,9 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   private focusItem(item: SkyDropdownItemComponent) {
     this.resetItemsActiveState();
     item.focusElement(this.useNativeFocus);
+    this.menuChanges.emit({
+      activeIndex: this.menuIndex
+    });
   }
 
   private getItemByIndex(index: number) {

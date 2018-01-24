@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  ElementRef,
   ViewChild
 } from '@angular/core';
 
@@ -37,6 +38,9 @@ export class DropdownTestComponent {
 
   @ViewChild('dropdown')
   public dropdown: SkyDropdownComponent;
+
+  @ViewChild('outsideButton')
+  public outsideButton: ElementRef;
 
   constructor(
     private changeDetector: ChangeDetectorRef

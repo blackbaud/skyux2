@@ -75,6 +75,9 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   @Input()
+  public dismissOnNextClick = true;
+
+  @Input()
   public messageStream: Observable<SkyDropdownMessage>;
 
   @Input()
@@ -100,7 +103,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
   private destroy = new Subject<boolean>();
   private isKeyboardActive = false;
-  private tabKeyPressed = false;
+  private hasFocus = false;
   private isOpen = false;
 
   private _buttonType: string;
@@ -109,6 +112,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   private _trigger: SkyDropdownTriggerType;
 
   constructor(
+    private elementRef: ElementRef,
     private windowObj: SkyWindowRefService
   ) { }
 
@@ -151,23 +155,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     if (this.isOpen) {
       /* tslint:disable:switch-default */
       switch (key) {
-        // If the menu was opened with the mouse, but the user then presses the tab key,
-        // alert the component that the keyboard is being used.
-        case 'tab':
-        this.isKeyboardActive = true;
-        if (event.shiftKey) {
-          // The shift+tab combo was pressed on the trigger button,
-          // so let's close the dropdown.
-          if (this.triggerButton.nativeElement === event.target) {
-            this.closeDropdown();
-            return;
-          }
-        } else {
-          // Only register the tab key if it's not a shift+tab combo.
-          this.tabKeyPressed = true;
-        }
-        break;
-
         // After an item is selected with the enter key,
         // wait a moment before returning focus to the dropdown trigger element.
         case 'enter':
@@ -206,19 +193,15 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     /* tslint:enable */
   }
 
-  @HostListener('focusin', ['$event'])
+  @HostListener('document:focusin', ['$event'])
   public onFocusIn(event: KeyboardEvent) {
-    this.tabKeyPressed = false;
-  }
-
-  @HostListener('focusout', ['$event'])
-  public onFocusOut(event: KeyboardEvent) {
-    // Close the dropdown if the last item loses focus.
-    if (
-      this.tabKeyPressed &&
-      this.menuComponent.lastItemMatches(event.target)
-    ) {
+    if (this.elementRef.nativeElement.contains(event.target)) {
+      this.hasFocus = true;
+    } else if (this.isOpen && this.hasFocus) {
+      // The dropdown is open, was currently being operated by the user, and
+      // has just lost keyboard focus. We should close it.
       this.closeDropdown();
+      this.hasFocus = false;
     }
   }
 

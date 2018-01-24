@@ -47,6 +47,9 @@ import { SkyPopoverAdapterService } from './popover-adapter.service';
 })
 export class SkyPopoverComponent implements OnInit, OnDestroy {
   @Input()
+  public dismissOnNextClick = true;
+
+  @Input()
   public popoverTitle: string;
 
   @Input()
@@ -126,7 +129,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: MouseEvent): void {
-    if (!this.isMouseEnter) {
+    if (!this.isMouseEnter && this.dismissOnNextClick) {
       this.close();
     }
   }
