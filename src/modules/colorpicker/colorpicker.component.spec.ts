@@ -81,8 +81,8 @@ describe('Colorpicker Component', () => {
   }
 
   function mouseHelper(x: number, y: number, event: string) {
-
     let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
+
     try {
       // Deprecated browser API... IE
       let mouseEventDeprecated = document.createEvent('MouseEvents');
@@ -116,16 +116,12 @@ describe('Colorpicker Component', () => {
   }
 
   function getElementCords(elementRef: any) {
-    let el = elementRef.nativeElement;
-    let parent = el.offsetParent;
-    // Avoid box model issues in IE and by moving color picker top left.
-    parent.style.left = '0px';
-    parent.style.top = '0px';
-    let left = el.offsetLeft;
-    let top = el.scrollHeight / 2;
-    let width = el.offsetWidth;
-    let xMiddle = left + (width / 2);
-    return { 'middle': xMiddle, 'top': top };
+    const rect = (elementRef.nativeElement as HTMLElement).getBoundingClientRect();
+
+    return {
+      x: Math.round(rect.left + (rect.width / 2)),
+      y: Math.round(rect.top + (rect.height / 2))
+    };
   }
 
   function setInputElementValue(element: HTMLElement, name: string, value: string) {
@@ -261,13 +257,13 @@ describe('Colorpicker Component', () => {
     openColorpicker(nativeElement, fixture);
     let hueBar = fixture.debugElement.query(By.css('.hue'));
     let axis = getElementCords(hueBar);
-    hueBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
+    hueBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#28e5e5', '40, 229, 229');
-    hueBar.triggerEventHandler('mousedown', { 'pageX': axis.middle - 50, 'pageY': axis.top });
+    hueBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#a3e528', '163, 229, 40');
-    hueBar.triggerEventHandler('mousedown', { 'pageX': axis.middle + 50, 'pageY': axis.top });
+    hueBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#a328e5', '163, 40, 229');
   }));
@@ -277,13 +273,13 @@ describe('Colorpicker Component', () => {
     openColorpicker(nativeElement, fixture);
     let alphaBar = fixture.debugElement.query(By.css('.alpha'));
     let axis = getElementCords(alphaBar);
-    alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
+    alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(40,137,229,0.5)', '40, 137, 229, 0.5');
-    alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.middle - 50, 'pageY': axis.top });
+    alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(40,137,229,0.23)', '40, 137, 229, 0.23');
-    alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.middle + 50, 'pageY': axis.top });
+    alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(40,137,229,0.77)', '40, 137, 229, 0.77');
   }));
@@ -293,23 +289,35 @@ describe('Colorpicker Component', () => {
     openColorpicker(nativeElement, fixture);
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
     let axis = getElementCords(slBar);
-    slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
+
+    slBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
+
     verifyColorpicker(nativeElement, '#406080', '64, 96, 128');
-    slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle - 50, 'pageY': axis.top });
+
+    slBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y });
     fixture.detectChanges();
+
     verifyColorpicker(nativeElement, '#576b80', '87, 107, 128');
-    slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle - 50, 'pageY': axis.top / 2 });
+
+    slBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y / 2 });
     fixture.detectChanges();
-    verifyColorpicker(nativeElement, '#83a0bf', '131, 160, 191');
-    slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top / 2 });
+
+    verifyColorpicker(nativeElement, '#88a7c7', '136, 167, 199');
+
+    slBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y / 2 });
     fixture.detectChanges();
-    verifyColorpicker(nativeElement, '#608ebf', '96, 142, 191');
-    slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle + 50, 'pageY': axis.top / 2 });
+
+    verifyColorpicker(nativeElement, '#6394c7', '99, 148, 199');
+
+    slBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y / 2 });
     fixture.detectChanges();
-    verifyColorpicker(nativeElement, '#3c7cbf', '60, 124, 191');
-    slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle + 50, 'pageY': axis.top });
+
+    verifyColorpicker(nativeElement, '#3f81c7', '63, 129, 199');
+
+    slBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y });
     fixture.detectChanges();
+
     verifyColorpicker(nativeElement, '#285380', '40, 83, 128');
   }));
 
@@ -318,14 +326,14 @@ describe('Colorpicker Component', () => {
     openColorpicker(nativeElement, fixture);
     let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
     let axis = getElementCords(slBar);
-    slBar.triggerEventHandler('mousedown', { 'pageX': axis.middle, 'pageY': axis.top });
+    slBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
-    mouseHelper(axis.middle - 50, axis.top - 50, 'mousemove');
+    mouseHelper(axis.x - 50, axis.y - 50, 'mousemove');
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#8babcb', '139, 171, 203');
-    mouseHelper(axis.middle + 50, axis.top, 'mousemove');
+    mouseHelper(axis.x + 50, axis.y, 'mousemove');
     verifyColorpicker(nativeElement, '#285480', '40, 84, 128');
-    mouseHelper(axis.middle + 50, axis.top, 'mouseup');
+    mouseHelper(axis.x + 50, axis.y, 'mouseup');
     verifyColorpicker(nativeElement, '#285480', '40, 84, 128');
     fixture.detectChanges();
   }));

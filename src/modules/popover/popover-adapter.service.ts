@@ -27,8 +27,12 @@ export class SkyPopoverAdapterService {
     placement: SkyPopoverPlacement,
     alignment: SkyPopoverAlignment
   ): SkyPopoverPosition {
-    const max = 4;
+    const isFullScreen = (
+      placement === 'fullscreen' ||
+      elements.popover.nativeElement.className.match('sky-popover-placement-fullscreen')
+    );
 
+    const max = 4;
     let counter = 0;
     let coords: SkyPopoverAdapterCoordinates = {
       top: undefined,
@@ -36,7 +40,7 @@ export class SkyPopoverAdapterService {
       isOutsideViewport: true
     };
 
-    if (this.popoverLargerThanParent(elements) || !placement || placement === 'fullscreen') {
+    if (isFullScreen || !placement || this.popoverLargerThanParent(elements)) {
       placement = 'fullscreen';
     } else {
       do {

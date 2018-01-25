@@ -107,7 +107,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.adapterService.hidePopover(this.popoverContainer);
-    this.updateClassNames(this.placement, this.alignment);
+    this.updateClassNames();
   }
 
   public ngOnDestroy() {
@@ -116,7 +116,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('keyup', ['$event'])
-  public onDocumentKeyUp(event: KeyboardEvent): void {
+  public onKeyUp(event: KeyboardEvent): void {
     const key = event.key.toLowerCase();
     if (key === 'escape' && this.isOpen) {
       event.stopPropagation();
@@ -239,7 +239,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.isMarkedForCloseOnMouseLeave = true;
   }
 
-  private updateClassNames(placement: SkyPopoverPlacement, alignment: SkyPopoverAlignment) {
+  public updateClassNames(placement?: SkyPopoverPlacement, alignment?: SkyPopoverAlignment) {
     this.classNames = [
       `sky-popover-alignment-${alignment || this.alignment}`,
       `sky-popover-placement-${placement || this.placement}`

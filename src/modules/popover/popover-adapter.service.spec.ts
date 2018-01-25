@@ -54,7 +54,8 @@ describe('SkyPopoverAdapterService', () => {
         };
       },
       offsetTop: top,
-      offsetLeft: left
+      offsetLeft: left,
+      className: ''
     };
 
     def.setOffsets = (offsetTop: number, offsetLeft: number) => {

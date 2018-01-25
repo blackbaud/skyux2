@@ -50,7 +50,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   }
 
   @ContentChildren(SkyDropdownItemComponent)
-  private menuItems: QueryList<SkyDropdownItemComponent>;
+  public menuItems: QueryList<SkyDropdownItemComponent>;
 
   private destroy = new Subject<boolean>();
   private get hasFocusableItems(): boolean {
@@ -72,7 +72,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
         this.menuIndex = 0;
         this.focusActiveItem();
         this.menuChanges.emit({
-          items: this.menuItems,
           activeIndex: this.menuIndex
         });
       });

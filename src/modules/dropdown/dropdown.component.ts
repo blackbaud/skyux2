@@ -122,16 +122,23 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public ngAfterContentInit() {
+    this.menuComponent.menuItems.changes
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        // Update the popover's style and position whenever the number of items changes.
+        // e.g., If the menu is fullscreen, and removing an item allows it to fit
+        // as it should, we need to restore the popover's original styles.
+        this.popover.updateClassNames();
+        this.windowObj.getWindow().setTimeout(() => {
+          this.resetDropdownPosition();
+        });
+      });
+
     this.menuComponent.menuChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyDropdownMenuChange) => {
-        // Adjust the position of the dropdown if the number of items changes.
-        if (change.items) {
-          this.windowObj.getWindow().setTimeout(() => {
-            this.resetDropdownPosition();
-          });
-        } else if (change.selectedItem) {
-          // Close the dropdown when a menu item is selected.
+        // Close the dropdown when a menu item is selected.
+        if (change.selectedItem) {
           this.messageStream.next({
             type: SkyDropdownMessageType.Close
           });
