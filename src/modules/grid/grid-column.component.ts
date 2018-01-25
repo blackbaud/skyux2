@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
@@ -10,6 +9,10 @@ import {
   TemplateRef,
   QueryList
 } from '@angular/core';
+
+import {
+  SkyGridColumnHeadingChange
+} from './types';
 
 @Component({
   selector: 'sky-grid-column',
@@ -52,19 +55,18 @@ export class SkyGridColumnComponent implements OnChanges {
   public templateInput: TemplateRef<any>;
   /* tslint:enable:no-input-rename */
 
-  public headingChanges: EventEmitter<string> = new EventEmitter<string>();
+  public headingChanges= new EventEmitter<SkyGridColumnHeadingChange>();
 
   @ContentChildren(TemplateRef)
   private templates: QueryList<TemplateRef<any>>;
 
-  constructor(
-    private changeDetector: ChangeDetectorRef
-  ) { }
-
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.heading && changes.heading.firstChange === false) {
-      this.headingChanges.emit(changes.heading.currentValue);
-      this.changeDetector.markForCheck();
+      this.headingChanges.emit({
+        value: this.heading,
+        id: this.id,
+        field: this.field
+      });
     }
   }
 

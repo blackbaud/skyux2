@@ -35,7 +35,7 @@ import {
 
 let moment = require('moment');
 
-describe('Grid Component', () => {
+fdescribe('Grid Component', () => {
 
   function getColumnHeader(id: string, element: DebugElement) {
     return element.query(

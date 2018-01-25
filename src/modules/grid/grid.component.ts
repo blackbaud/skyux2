@@ -27,6 +27,7 @@ import {
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridColumnModel } from './grid-column.model';
 import { SkyGridAdapterService } from './grid-adapter.service';
+import { SkyGridColumnHeadingChange } from './types';
 
 @Component({
   selector: 'sky-grid',
@@ -111,7 +112,9 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     // Watch for column heading changes:
     this.columnComponents.forEach((comp: SkyGridColumnComponent) => {
       this.subscriptions.push(
-        comp.headingChanges.subscribe(() => this.updateColumns())
+        comp.headingChanges.subscribe((change: SkyGridColumnHeadingChange) => {
+          this.updateColumnHeading(change);
+        })
       );
     });
 
@@ -176,6 +179,21 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
         return field.fieldSelector === columnField ?
           (field.descending ? 'desc' : 'asc') : undefined;
       });
+  }
+
+  public updateColumnHeading(change: SkyGridColumnHeadingChange) {
+    const foundColumnModel = this.columns.find((column: SkyGridColumnModel) => {
+      return (
+        change.id !== undefined && change.id === column.id ||
+        change.field !== undefined && change.field === column.field
+      );
+    });
+
+    /* istanbul ignore else */
+    if (foundColumnModel) {
+      foundColumnModel.heading = change.value;
+      this.ref.markForCheck();
+    }
   }
 
   private onHeaderDrop(newColumnIds: Array<string>) {
