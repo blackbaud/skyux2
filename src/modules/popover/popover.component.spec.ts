@@ -1,21 +1,18 @@
 import {
-  By
-} from '@angular/platform-browser';
-
-import {
   ElementRef
 } from '@angular/core';
 
 import {
   ComponentFixture,
-  TestBed
+  fakeAsync,
+  TestBed,
+  tick
 } from '@angular/core/testing';
 
 import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
 
-import { SkyWindowRefService } from '../window';
 import { TestUtility } from '../testing/testutility';
 import { expect } from '../testing';
 
@@ -25,35 +22,24 @@ import {
   SkyPopoverAdapterService
 } from './index';
 
-class MockWindowService {
-  public getWindow(): any {
-    return {
-      setTimeout(callback: Function) {
-        callback();
-      }
-    };
-  }
+class MockPopoverAdapterService {
+  public getPopoverPosition() {}
+  public hidePopover() {}
+  public showPopover() {}
 }
 
 describe('SkyPopoverComponent', () => {
   let fixture: ComponentFixture<SkyPopoverComponent>;
   let component: SkyPopoverComponent;
+  let mockAdapterService: MockPopoverAdapterService;
 
   beforeEach(() => {
-    let mockWindowService = new MockWindowService();
-    let mockAdapterService = {
-      setPopoverPosition() {},
-      hidePopover() {},
-      showPopover() {}
-    };
+    mockAdapterService = new MockPopoverAdapterService();
 
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
         SkyPopoverModule
-      ],
-      providers: [
-        { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
     })
     .compileComponents();
@@ -71,35 +57,60 @@ describe('SkyPopoverComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should call the adapter service to position the popover', () => {
+  it('should call the adapter service to position the popover', fakeAsync(() => {
     const caller = new ElementRef({});
-    const spy = spyOn(component['adapterService'], 'setPopoverPosition');
+    const spy = spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
+      top: 0,
+      left: 0,
+      arrowLeft: 0,
+      arrowRight: 0,
+      placement: 'above',
+      alignment: undefined
+    });
     component.positionNextTo(caller, 'above');
+    tick();
     expect(spy).toHaveBeenCalled();
-  });
+  }));
 
-  it('should call the adapter service with a default position', () => {
+  it('should call the adapter service with a default position', fakeAsync(() => {
     const caller = new ElementRef({});
-    const spy = spyOn(component['adapterService'], 'setPopoverPosition');
-    component.positionNextTo(caller, undefined);
-    expect(spy).toHaveBeenCalled();
-    expect(component.placement).toEqual('above');
-  });
+    const spy = spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
+      top: 0,
+      left: 0,
+      arrowLeft: 0,
+      arrowRight: 0,
+      placement: undefined,
+      alignment: undefined
+    });
+    component.alignment = undefined;
+    component.placement = undefined;
+    component.positionNextTo(caller, undefined, undefined);
+    tick();
+    expect(spy.calls.argsFor(0)[1]).toEqual('above');
+    expect(spy.calls.argsFor(0)[2]).toEqual('center');
+  }));
 
   it('should not call the adapter service if a caller is not defined', () => {
-    const spy = spyOn(component['adapterService'], 'setPopoverPosition');
+    const spy = spyOn(mockAdapterService, 'getPopoverPosition');
     component.positionNextTo(undefined, 'above');
     expect(spy).not.toHaveBeenCalled();
   });
 
   it('should close a popover', () => {
+    component.isOpen = true;
+    component.animationState = undefined;
     component.close();
-    expect(component['lastCaller']).toBeUndefined();
-    expect(component.isOpen).toEqual(false);
+    expect(component.animationState).toEqual('hidden');
+
+    // Else branch:
+    component.isOpen = false;
+    component.animationState = undefined;
+    component.close();
+    expect(component.animationState).toBeUndefined();
   });
 
   it('should remove a CSS classname before the animation starts', () => {
-    const spy = spyOn(component['adapterService'], 'showPopover').and.returnValue(0);
+    const spy = spyOn(mockAdapterService, 'showPopover').and.returnValue(undefined);
 
     component.onAnimationStart({
       fromState: 'hidden',
@@ -127,7 +138,7 @@ describe('SkyPopoverComponent', () => {
   });
 
   it('should add a CSS classname when the animation stops', () => {
-    const spy = spyOn(component['adapterService'], 'hidePopover').and.returnValue(0);
+    const spy = spyOn(mockAdapterService, 'hidePopover').and.returnValue(undefined);
 
     component.onAnimationDone({
       fromState: 'visible',
@@ -171,15 +182,6 @@ describe('SkyPopoverComponent', () => {
     expect(spy).toHaveBeenCalledWith(component);
   });
 
-  it('should get the animation state', () => {
-    let state = component.getAnimationState();
-    expect(state).toEqual('hidden');
-    component.isOpen = true;
-    fixture.detectChanges();
-    state = component.getAnimationState();
-    expect(state).toEqual('visible');
-  });
-
   it('should capture mouse enter and mouse leave events', () => {
     expect(component['isMouseEnter']).toEqual(false);
     TestUtility.fireDomEvent(fixture.nativeElement, 'mouseenter');
@@ -188,42 +190,37 @@ describe('SkyPopoverComponent', () => {
     expect(component['isMouseEnter']).toEqual(false);
   });
 
-  it('should adjust placement on window resize', () => {
-    component.placement = 'below';
-    spyOn(component, 'positionNextTo').and.returnValue(0);
-    TestUtility.fireDomEvent(window, 'resize');
-    expect(component.positionNextTo).toHaveBeenCalledWith(component['lastCaller'], 'below');
+  it('should close the popover when the escape key is pressed', () => {
+    const spy = spyOn(fixture.componentInstance, 'close');
+
+    fixture.componentInstance.isOpen = true;
+
+    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Escape' });
+    expect(spy).toHaveBeenCalledWith();
+
+    spy.calls.reset();
+
+    // Should ignore other key events.
+    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Backspace' });
+    expect(spy).not.toHaveBeenCalled();
   });
 
-  it('should close the popover when the escape key is pressed', () => {
-    spyOn(component, 'close');
+  it('should reposition the popover on window scroll', () => {
+    const spy = spyOn(fixture.componentInstance, 'positionNextTo');
+    const event = document.createEvent('CustomEvent');
+    event.initEvent('scroll', false, false);
 
     component.isOpen = true;
-
-    const escapeEvent: any = document.createEvent('CustomEvent');
-    escapeEvent.which = 27;
-    escapeEvent.initEvent('keyup', true, true);
-    document.dispatchEvent(escapeEvent);
-
+    window.dispatchEvent(event);
     fixture.detectChanges();
-    const element = fixture.debugElement.query(By.css('.sky-popover-container'));
+    expect(spy).toHaveBeenCalled();
 
-    expect(component.close).toHaveBeenCalled();
-    expect(element.nativeElement).toBeDefined();
-  });
-
-  it('should only close the popover (when escape pressed) if it is open', () => {
-    spyOn(component, 'close');
-
+    // Test the else condition.
+    spy.calls.reset();
     component.isOpen = false;
-
-    const escapeEvent: any = document.createEvent('CustomEvent');
-    escapeEvent.which = 27;
-    escapeEvent.initEvent('keyup', true, true);
-    document.dispatchEvent(escapeEvent);
-
+    window.dispatchEvent(event);
     fixture.detectChanges();
-    expect(component.close).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('should close the popover when the document is clicked', () => {
@@ -234,6 +231,17 @@ describe('SkyPopoverComponent', () => {
 
     fixture.detectChanges();
     expect(component.close).toHaveBeenCalled();
+  });
+
+  it('should allow disabling of closing the popover when the document is clicked', () => {
+    spyOn(component, 'close');
+
+    component.isOpen = true;
+    component.dismissOnBlur = false;
+    TestUtility.fireDomEvent(document, 'click');
+
+    fixture.detectChanges();
+    expect(component.close).not.toHaveBeenCalled();
   });
 
   it('should not close the popover if the popover is clicked', () => {
