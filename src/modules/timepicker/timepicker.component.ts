@@ -5,7 +5,16 @@ import {
   ChangeDetectionStrategy,
   OnInit
 } from '@angular/core';
+
+import { Subject } from 'rxjs/Subject';
+
+import {
+  SkyDropdownMessage,
+  SkyDropdownMessageType
+} from '../dropdown';
+
 import { SkyTimepickerTimeOutput } from './timepicker.interface';
+
 let moment = require('moment');
 
 @Component({
@@ -15,11 +24,11 @@ let moment = require('moment');
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyTimepickerComponent implements OnInit {
-
   @Output()
   public selectedTimeChanged: EventEmitter<SkyTimepickerTimeOutput> =
-  new EventEmitter<SkyTimepickerTimeOutput>();
+    new EventEmitter<SkyTimepickerTimeOutput>();
 
+  public dropdownController = new Subject<SkyDropdownMessage>();
   public activeTime: Date;
   public returnFormat: string;
   public timeFormat: string = 'hh';
@@ -88,14 +97,7 @@ export class SkyTimepickerComponent implements OnInit {
   }
 
   public get selectedTime() {
-    let setReturn: string;
-    let returnTime: SkyTimepickerTimeOutput;
-    if (typeof this.returnFormat !== 'undefined') {
-      setReturn = moment(this.activeTime).format(this.returnFormat);
-    } else {
-      setReturn = moment(this.activeTime).format(this.localeFormat);
-    }
-    returnTime = {
+    const time: SkyTimepickerTimeOutput = {
       hour: moment(this.activeTime).hour(),
       minute: moment(this.activeTime).minute(),
       meridie: moment(this.activeTime).format('A'),
@@ -105,7 +107,8 @@ export class SkyTimepickerComponent implements OnInit {
       customFormat: (typeof this.returnFormat !== 'undefined')
         ? this.returnFormat : this.localeFormat
     };
-    return returnTime;
+
+    return time;
   }
 
   public setTime(event: any) {
@@ -125,6 +128,12 @@ export class SkyTimepickerComponent implements OnInit {
         }
       }
     }
+  }
+
+  public onButtonClick() {
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Close
+    });
   }
 
   private set selectedHour(setHour: number) {
