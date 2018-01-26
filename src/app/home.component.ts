@@ -1,6 +1,12 @@
 import {
-  Component
+  Component,
+  OnInit
 } from '@angular/core';
+
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
 
 import {
   SkyDemoService
@@ -11,17 +17,29 @@ import {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class SkyDemoHomeComponent {
+export class SkyDemoHomeComponent implements OnInit {
   public components: any;
   public selectedComponent: any;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private demoService: SkyDemoService
   ) {
     this.components = this.demoService.components;
   }
 
+  public ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.selectedComponent = this.demoService.getComponent(params['component']);
+    });
+  }
+
   public open(component: any) {
-    this.selectedComponent = component;
+    this.router.navigate([], {
+      queryParams: {
+        'component': component.component.name
+      }
+    });
   }
 }

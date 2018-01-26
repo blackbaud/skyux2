@@ -10,10 +10,12 @@ import {
 } from '../window';
 
 import {
-  SkyPopoverComponent,
+  SkyPopoverAlignment,
   SkyPopoverPlacement,
   SkyPopoverTrigger
-} from './index';
+} from './types';
+
+import { SkyPopoverComponent } from './popover.component';
 
 @Directive({
   selector: '[skyPopover]'
@@ -23,41 +25,63 @@ export class SkyPopoverDirective {
   public skyPopover: SkyPopoverComponent;
 
   @Input()
+  public skyPopoverAlignment: SkyPopoverAlignment;
+
+  @Input()
   public skyPopoverPlacement: SkyPopoverPlacement;
 
   @Input()
   public skyPopoverTrigger: SkyPopoverTrigger = 'click';
 
   constructor(
-    public elementRef: ElementRef,
+    private elementRef: ElementRef,
     private windowRef: SkyWindowRefService
   ) { }
 
+  @HostListener('window:resize')
+  public onWindowResize() {
+    if (this.skyPopover.isOpen) {
+      this.positionPopover();
+    }
+  }
+
+  @HostListener('keyup', ['$event'])
+  public onDocumentKeyUp(event: KeyboardEvent): void {
+    const key = event.key.toLowerCase();
+    if (key === 'escape' && this.skyPopover.isOpen) {
+      event.stopPropagation();
+      event.preventDefault();
+      this.closePopover();
+      this.elementRef.nativeElement.focus();
+    }
+  }
+
   @HostListener('click', ['$event'])
   public togglePopover(event: MouseEvent) {
-    if (this.skyPopoverTrigger === 'click') {
-      event.preventDefault();
+    event.preventDefault();
+    event.stopPropagation();
 
-      if (this.skyPopover.isOpen) {
-        this.skyPopover.close();
-        return;
-      }
-
-      this.skyPopover.positionNextTo(this.elementRef, this.skyPopoverPlacement);
+    if (this.skyPopover.isOpen) {
+      this.closePopover();
+      return;
     }
+
+    this.positionPopover();
   }
 
   @HostListener('mouseenter', ['$event'])
   public onMouseEnter(event: MouseEvent) {
+    this.skyPopover.isMouseEnter = true;
     if (this.skyPopoverTrigger === 'mouseenter') {
       event.preventDefault();
-
-      this.skyPopover.positionNextTo(this.elementRef, this.skyPopoverPlacement);
+      this.positionPopover();
     }
   }
 
   @HostListener('mouseleave', ['$event'])
   public onMouseLeave(event: MouseEvent) {
+    this.skyPopover.isMouseEnter = false;
+
     if (this.skyPopoverTrigger === 'mouseenter') {
       event.preventDefault();
 
@@ -68,10 +92,22 @@ export class SkyPopoverDirective {
           if (this.skyPopover.isMouseEnter) {
             this.skyPopover.markForCloseOnMouseLeave();
           } else {
-            this.skyPopover.close();
+            this.closePopover();
           }
         }
       });
     }
+  }
+
+  private positionPopover() {
+    this.skyPopover.positionNextTo(
+      this.elementRef,
+      this.skyPopoverPlacement,
+      this.skyPopoverAlignment
+    );
+  }
+
+  private closePopover() {
+    this.skyPopover.close();
   }
 }

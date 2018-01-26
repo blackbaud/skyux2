@@ -1,6 +1,8 @@
 import {
+  ComponentFixture,
+  fakeAsync,
   TestBed,
-  ComponentFixture
+  tick
 } from '@angular/core/testing';
 
 import {
@@ -34,7 +36,6 @@ describe('Sort component', () => {
     fixture = TestBed.createComponent(SortTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   function getDropdownButtonEl() {
@@ -47,32 +48,43 @@ describe('Sort component', () => {
     return nativeElement.querySelectorAll(itemQuery);
   }
 
-  it('creates a sort dropdown that respects active input', () => {
+  it('creates a sort dropdown that respects active input', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
     let dropdownButtonEl = getDropdownButtonEl();
     expect(dropdownButtonEl).not.toBeNull();
+
     dropdownButtonEl.click();
+    tick();
     fixture.detectChanges();
-    let menuHeaderQuery = '.sky-sort .sky-sort-menu-heading';
+    tick();
+
+    let menuHeaderQuery = '.sky-sort-menu-heading';
     expect(nativeElement.querySelector(menuHeaderQuery)).toHaveText('Sort by');
 
     let itemsEl = getSortItems();
     expect(itemsEl.length).toBe(6);
     expect(itemsEl.item(2)).toHaveCssClass('sky-sort-item-selected');
     expect(itemsEl.item(2)).toHaveText('Date created (newest first)');
+  }));
 
-  });
-
-  it('changes active item on click and emits proper event', () => {
+  it('changes active item on click and emits proper event', fakeAsync(() => {
+    fixture.detectChanges();
     let dropdownButtonEl = getDropdownButtonEl();
     dropdownButtonEl.click();
+    tick();
     fixture.detectChanges();
+    tick();
 
     let itemsEl = getSortItems();
     let clickItem = itemsEl.item(1).querySelector('button') as HTMLElement;
-    clickItem.click();
-    fixture.detectChanges();
 
-    expect(component.sortedItem).toEqual( {
+    clickItem.click();
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    expect(component.sortedItem).toEqual({
       id: 2,
       label: 'Assigned to (Z - A)',
       name: 'assignee',
@@ -81,9 +93,10 @@ describe('Sort component', () => {
 
     itemsEl = getSortItems();
     expect(itemsEl.item(1)).toHaveCssClass('sky-sort-item-selected');
-  });
+  }));
 
   it('can set active input programmatically', () => {
+    fixture.detectChanges();
     component.initialState = 4;
     fixture.detectChanges();
     let itemsEl = getSortItems();
