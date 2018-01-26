@@ -1,7 +1,6 @@
 import {
   async,
   fakeAsync,
-  flush,
   TestBed,
   tick,
   ComponentFixture
@@ -19,16 +18,21 @@ describe('Colorpicker Component', () => {
   let nativeElement: HTMLElement;
 
   function openColorpicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
-    flush();
     tick();
     fixture.detectChanges();
+    verifyMenuVisibility(false);
 
-    const dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
-
-    dropdownButtonEl.click();
-    flush();
+    const buttonElem = element.querySelector('.sky-dropdown-button') as HTMLElement;
+    buttonElem.click();
     tick();
     fixture.detectChanges();
+    tick();
+    verifyMenuVisibility();
+  }
+
+  function verifyMenuVisibility(isVisible = true) {
+    const popoverElem = fixture.nativeElement.querySelector('.sky-popover-container');
+    expect(getComputedStyle(popoverElem).visibility !== 'hidden').toEqual(isVisible);
   }
 
   function setPresetColor(element: HTMLElement, compFixture: ComponentFixture<any>, key: number) {
@@ -39,25 +43,6 @@ describe('Colorpicker Component', () => {
     applyColor.click();
     compFixture.detectChanges();
   }
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        ColorpickerTestComponent
-      ],
-      imports: [
-        SkyColorpickerModule,
-        FormsModule
-      ]
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ColorpickerTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
   function keyHelper(keyName: string, key: number, deprecatedKeyName: string) {
     let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
@@ -117,11 +102,12 @@ describe('Colorpicker Component', () => {
 
   function getElementCords(elementRef: any) {
     const rect = (elementRef.nativeElement as HTMLElement).getBoundingClientRect();
-
-    return {
+    const coords = {
       x: Math.round(rect.left + (rect.width / 2)),
       y: Math.round(rect.top + (rect.height / 2))
     };
+
+    return coords;
   }
 
   function setInputElementValue(element: HTMLElement, name: string, value: string) {
@@ -152,6 +138,24 @@ describe('Colorpicker Component', () => {
     return input[name];
   }
 
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        ColorpickerTestComponent
+      ],
+      imports: [
+        SkyColorpickerModule,
+        FormsModule
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ColorpickerTestComponent);
+    nativeElement = fixture.nativeElement as HTMLElement;
+    component = fixture.componentInstance;
+  });
+
   it('should output RGBA', fakeAsync(() => {
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
@@ -160,6 +164,7 @@ describe('Colorpicker Component', () => {
   }));
 
   it('should handle undefined initial color', fakeAsync(() => {
+    fixture.detectChanges();
     fixture.destroy();
 
     fixture = TestBed.createComponent(ColorpickerTestComponent);
@@ -255,14 +260,18 @@ describe('Colorpicker Component', () => {
   it('Should accept mouse down events on hue bar.', fakeAsync(() => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    let hueBar = fixture.debugElement.query(By.css('.hue'));
-    let axis = getElementCords(hueBar);
+
+    const hueBar = fixture.debugElement.query(By.css('.hue'));
+    const axis = getElementCords(hueBar);
+
     hueBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#28e5e5', '40, 229, 229');
+
     hueBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#a3e528', '163, 229, 40');
+
     hueBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, '#a328e5', '163, 40, 229');
@@ -271,14 +280,18 @@ describe('Colorpicker Component', () => {
   it('Should accept mouse down events on alpha bar.', fakeAsync(() => {
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
-    let alphaBar = fixture.debugElement.query(By.css('.alpha'));
-    let axis = getElementCords(alphaBar);
+
+    const alphaBar = fixture.debugElement.query(By.css('.alpha'));
+    const axis = getElementCords(alphaBar);
+
     alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(40,137,229,0.5)', '40, 137, 229, 0.5');
+
     alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(40,137,229,0.23)', '40, 137, 229, 0.23');
+
     alphaBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y });
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(40,137,229,0.77)', '40, 137, 229, 0.77');
@@ -287,38 +300,33 @@ describe('Colorpicker Component', () => {
   it('Should accept mouse down events on saturation and lightness.', fakeAsync(() => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
-    let axis = getElementCords(slBar);
+
+    const slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
+    const axis = getElementCords(slBar);
 
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
-
     verifyColorpicker(nativeElement, '#406080', '64, 96, 128');
 
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y });
     fixture.detectChanges();
-
     verifyColorpicker(nativeElement, '#576b80', '87, 107, 128');
 
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.x - 50, 'pageY': axis.y / 2 });
     fixture.detectChanges();
-
-    verifyColorpicker(nativeElement, '#88a7c7', '136, 167, 199');
+    verifyColorpicker(nativeElement, '#92b3d6', '146, 179, 214');
 
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y / 2 });
     fixture.detectChanges();
-
-    verifyColorpicker(nativeElement, '#6394c7', '99, 148, 199');
+    verifyColorpicker(nativeElement, '#6b9fd6', '107, 159, 214');
 
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y / 2 });
     fixture.detectChanges();
-
-    verifyColorpicker(nativeElement, '#3f81c7', '63, 129, 199');
+    verifyColorpicker(nativeElement, '#438ad6', '67, 138, 214');
 
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.x + 50, 'pageY': axis.y });
     fixture.detectChanges();
-
-    verifyColorpicker(nativeElement, '#285380', '40, 83, 128');
+    verifyColorpicker(nativeElement, '#285280', '40, 82, 128');
   }));
 
   it('Should accept mouse dragging on saturation and lightness.', fakeAsync(() => {

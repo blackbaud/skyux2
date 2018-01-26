@@ -12,14 +12,6 @@
     color: transparent;
     background-color: transparent;
   }
-
-  ::ng-deep .sky-popover-container {
-    &.sky-popover-placement-fullscreen {
-      .sky-popover {
-        border: 0 !important;
-      }
-    }
-  }
 }
 
 :host-context(sky-colorpicker) /deep/ .sky-colorpicker-input {

@@ -4,12 +4,15 @@ import {
   Renderer2
 } from '@angular/core';
 
-import { SkyWindowRefService } from '../window';
+import {
+  SkyWindowRefService
+} from '../window';
 
 import {
   SkyPopoverAdapterArrowCoordinates,
   SkyPopoverAdapterCoordinates,
   SkyPopoverAdapterElements,
+  SkyPopoverAdapterParentDimensions,
   SkyPopoverAlignment,
   SkyPopoverPlacement,
   SkyPopoverPosition
@@ -94,8 +97,7 @@ export class SkyPopoverAdapterService {
     const callerOffsetTop = callerElement.offsetTop;
 
     const windowObj = this.windowRef.getWindow();
-    const documentWidth = windowObj.document.body.clientWidth;
-    const documentHeight = windowObj.document.body.clientHeight;
+    const parent = this.getParentDimensions();
     const viewportOffsetBottom = windowObj.innerHeight + windowObj.pageYOffset;
 
     let top: number;
@@ -120,7 +122,7 @@ export class SkyPopoverAdapterService {
 
       case 'right':
       left = callerOffsetLeft + callerRect.width;
-      bleedRight = documentWidth - (callerRect.left + callerRect.width + popoverRect.width);
+      bleedRight = parent.width - (callerRect.left + callerRect.width + popoverRect.width);
       break;
 
       case 'left':
@@ -133,7 +135,9 @@ export class SkyPopoverAdapterService {
     if (placement === 'right' || placement === 'left') {
       top = callerOffsetTop - (popoverRect.height / 2) + (callerRect.height / 2);
       bleedTop = windowObj.pageYOffset + (callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2));
-      bleedBottom = documentHeight - (callerRect.top + windowObj.pageYOffset + ((callerRect.height / 2) + (popoverRect.height / 2)));
+      bleedBottom = parent.height - (
+        callerRect.top + windowObj.pageYOffset + ((callerRect.height / 2) + (popoverRect.height / 2))
+      );
     }
 
     // Make adjustments based on horizontal alignment.
@@ -143,19 +147,19 @@ export class SkyPopoverAdapterService {
         case 'center':
         left = callerOffsetLeft - (popoverRect.width / 2) + (callerRect.width / 2);
         bleedLeft = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
-        bleedRight = documentWidth - (callerRect.left + (popoverRect.width / 2) + (callerRect.width / 2));
+        bleedRight = parent.width - (callerRect.left + (popoverRect.width / 2) + (callerRect.width / 2));
         break;
 
         case 'left':
         left = callerOffsetLeft;
         bleedLeft = callerRect.left;
-        bleedRight = documentWidth - (bleedLeft + popoverRect.width);
+        bleedRight = parent.width - (bleedLeft + popoverRect.width);
         break;
 
         case 'right':
         left = callerOffsetLeft - popoverRect.width + callerRect.width;
         bleedLeft = callerRect.left - popoverRect.width + callerRect.width;
-        bleedRight = documentWidth - (callerRect.left + callerRect.width);
+        bleedRight = parent.width - (callerRect.left + callerRect.width);
         break;
       }
       /* tslint:enable */
@@ -251,16 +255,17 @@ export class SkyPopoverAdapterService {
   }
 
   private popoverLargerThanParent(elements: SkyPopoverAdapterElements) {
-    const windowObj = this.windowRef.getWindow();
-    const parentHeight = windowObj.document.body.clientHeight;
-    const parentWidth = windowObj.document.body.clientWidth;
+    const parentDimensions = this.getParentDimensions();
 
     // Set concrete dimensions after we've determined the document height.
     this.setConcreteDimensions(elements.popover);
 
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
 
-    return (popoverRect.height > parentHeight || popoverRect.width > parentWidth);
+    return (
+      popoverRect.height > parentDimensions.height ||
+      popoverRect.width > parentDimensions.width
+    );
   }
 
   private getNextPlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
@@ -279,5 +284,20 @@ export class SkyPopoverAdapterService {
     const rect = element.getBoundingClientRect();
     element.style.width = `${rect.width}px`;
     element.style.height = `${rect.height}px`;
+  }
+
+  private getParentDimensions(): SkyPopoverAdapterParentDimensions {
+    const windowObj = this.windowRef.getWindow();
+
+    const documentHeight = windowObj.document.body.clientHeight;
+    const viewportHeight = windowObj.innerHeight;
+
+    const width = windowObj.document.body.clientWidth;
+    const height = (viewportHeight > documentHeight) ? viewportHeight : documentHeight;
+
+    return {
+      width,
+      height
+    };
   }
 }

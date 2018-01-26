@@ -8,9 +8,7 @@ module.exports = function (config) {
   require('./shared.karma.conf')(config);
 
   config.set({
-    browsers: [
-      'Chrome'
-    ]
+    browsers: ['Chrome'],
+    logLevel: config.LOG_DEBUG
   });
-
 };
