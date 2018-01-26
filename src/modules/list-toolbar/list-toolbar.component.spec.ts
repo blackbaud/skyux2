@@ -2,6 +2,7 @@ import {
   TestBed,
   async,
   fakeAsync,
+  flush,
   tick,
   ComponentFixture
 } from '@angular/core/testing';
@@ -54,12 +55,14 @@ describe('List Toolbar Component', () => {
           { provide: ListStateDispatcher, useValue: dispatcher }
         ]
       });
+    }));
 
+    beforeEach(() => {
       fixture = TestBed.createComponent(ListToolbarTestComponent);
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
-    }));
+    });
 
     function initializeToolbar() {
       fixture.detectChanges();
@@ -243,22 +246,28 @@ describe('List Toolbar Component', () => {
         });
       }));
 
-      it('should create ascending and descending items for each sort label', async(() => {
-        initializeToolbar();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          let sortItems = nativeElement.querySelectorAll('.sky-sort .sky-sort-item');
-          expect(sortItems.length).toBe(8);
-          expect(sortItems.item(2)).toHaveText('Status (A - Z)');
-          expect(sortItems.item(3)).toHaveText('Status (Z - A)');
-          expect(sortItems.item(4)).toHaveText('Date (Most recent first)');
-          expect(sortItems.item(5)).toHaveText('Date (Most recent last)');
-          expect(sortItems.item(6)).toHaveText('Number (Highest first)');
-          expect(sortItems.item(7)).toHaveText('Number (Lowest first)');
-          expect(sortItems.item(0)).toHaveText('Custom');
-          expect(sortItems.item(1)).toHaveText('Custom');
-        });
+      function verifyInnerText(elem: Element, needle: string) {
+        expect(elem.textContent.trim().indexOf(needle) > -1).toEqual(true);
+      }
 
+      it('should create ascending and descending items for each sort label', fakeAsync(() => {
+        initializeToolbar();
+
+        flush();
+        tick();
+        fixture.detectChanges();
+
+        const sortItems = nativeElement.querySelectorAll('.sky-sort .sky-sort-item');
+
+        expect(sortItems.length).toBe(8);
+        verifyInnerText(sortItems.item(0), 'Custom');
+        verifyInnerText(sortItems.item(1), 'Custom');
+        verifyInnerText(sortItems.item(2), 'Status (A - Z)');
+        verifyInnerText(sortItems.item(3), 'Status (Z - A)');
+        verifyInnerText(sortItems.item(4), 'Date (Most recent first)');
+        verifyInnerText(sortItems.item(5), 'Date (Most recent last)');
+        verifyInnerText(sortItems.item(6), 'Number (Highest first)');
+        verifyInnerText(sortItems.item(7), 'Number (Lowest first)');
       }));
 
       it('should handle sort item click', async(() => {
