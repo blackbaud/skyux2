@@ -11,7 +11,8 @@ import { SkyModalDemoTiledFormComponent } from './modal-demo-tiled-form.componen
 
 @Component({
   selector: 'sky-modal-demo',
-  templateUrl: './modal-demo.component.html'
+  templateUrl: './modal-demo.component.html',
+  styleUrls: ['./modal-demo.component.scss']
 })
 export class SkyModalDemoComponent {
   constructor(private modal: SkyModalService) { }
