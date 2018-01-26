@@ -23,7 +23,7 @@ import {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      /*tslint:disable:no-forward-ref */
+      /* tslint:disable-next-line:no-forward-ref */
       useExisting: forwardRef(() => SkyAutocompleteInputDirective),
       multi: true
     }

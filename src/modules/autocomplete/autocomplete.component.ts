@@ -27,6 +27,7 @@ import {
   SkyAutocompleteSelectionChange
 } from './types';
 
+// import { SkyAutocompleteAdapterService } from './autocomplete-adapter.service';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
 import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-search-function';
 
@@ -34,6 +35,7 @@ import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-sea
   selector: 'sky-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
+  // providers: [SkyAutocompleteAdapterService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
@@ -88,15 +90,15 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @Output()
   public selectionChange = new EventEmitter<SkyAutocompleteSelectionChange>();
 
-  public dropdownMessageStream = new Subject<SkyDropdownMessage>();
+  public dropdownController = new Subject<SkyDropdownMessage>();
   public searchResults: any[];
   public searchText: string;
 
   @ContentChild(SkyAutocompleteInputDirective)
   private inputDirective: SkyAutocompleteInputDirective;
   private destroy = new Subject<boolean>();
-  private isMouseEnter = false;
-  private isOpen = false;
+  // private isMouseEnter = false;
+  // private isOpen = false;
   private searchResultsIndex = 0;
   private defaultSearchFunction: SkyAutocompleteSearchFunction;
 
@@ -106,6 +108,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private _searchTextMinimumCharacters: number;
 
   public constructor(
+    // private adapterService: SkyAutocompleteAdapterService,
     private changeDetector: ChangeDetectorRef
   ) {
     this.defaultSearchFunction = skyAutocompleteDefaultSearchFunction({
@@ -136,25 +139,30 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     this.destroy.unsubscribe();
   }
 
+  // @HostListener('keydown', ['$event'])
+  // public onKeyDown(event: any) {
+  //   this.adapterService.handleKeyDown(event);
+  // }
+
   // Handles keyboard events that affect usability and interaction.
   // ('keydown' is needed to override default browser behavior.)
   @HostListener('keydown', ['$event'])
   public handleKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
+    /* tslint:disable-next-line:switch-default */
     switch (key) {
-      case 'arrowdown':
-      // Open the dropdown with the arrow key (if it gets closed on window scroll)
-      if (!this.isOpen) {
-        this.openDropdown();
-      }
-
-      this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
+      case 'arrowup':
+      this.sendDropdownMessage(SkyDropdownMessageType.FocusPreviousItem);
       event.preventDefault();
       break;
 
-      case 'arrowup':
-      this.sendDropdownMessage(SkyDropdownMessageType.FocusPreviousItem);
+      case 'arrowdown':
+      // if (!this.isOpen) {
+      //   this.openDropdown();
+      // }
+
+      this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
       event.preventDefault();
       break;
 
@@ -169,45 +177,40 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
       case 'escape':
       this.closeDropdown();
       event.preventDefault();
-      event.stopPropagation();
-      break;
-
-      default:
       break;
     }
   }
 
-  @HostListener('document:click')
-  public onDocumentClick() {
-    if (!this.isMouseEnter) {
-      this.closeDropdown();
-    }
-  }
+  // @HostListener('document:click')
+  // public onDocumentClick() {
+  //   if (!this.isMouseEnter) {
+  //     this.closeDropdown();
+  //   }
+  // }
 
-  @HostListener('mouseenter')
-  public onMouseEnter() {
-    this.isMouseEnter = true;
-  }
+  // @HostListener('mouseenter')
+  // public onMouseEnter() {
+  //   this.isMouseEnter = true;
+  // }
 
-  @HostListener('mouseleave')
-  public onMouseLeave() {
-    this.isMouseEnter = false;
-  }
+  // @HostListener('mouseleave')
+  // public onMouseLeave() {
+  //   this.isMouseEnter = false;
+  // }
 
-  public onMenuChange(change: SkyDropdownMenuChange) {
+  public onMenuChanges(change: SkyDropdownMenuChange) {
     if (change.activeIndex !== undefined) {
       this.searchResultsIndex = change.activeIndex;
     }
+
+    if (change.selectedItem) {
+      this.selectActiveSearchResult();
+    }
   }
 
-  public onDropdownClose() {
-    this.isOpen = false;
-  }
-
-  public onSearchResultClick(index: number) {
-    this.searchResultsIndex = index;
-    this.selectActiveSearchResult();
-  }
+  // public onDropdownClose() {
+  //   this.isOpen = false;
+  // }
 
   public hasSearchResults(): boolean {
     return (this.searchResults && this.searchResults.length > 0);
@@ -248,31 +251,32 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private selectActiveSearchResult() {
     if (this.hasSearchResults()) {
       const result = this.searchResults[this.searchResultsIndex];
+
       this.searchText = result[this.descriptorProperty];
       this.inputDirective.selectedItem = result;
+
       this.notifySelectionChange(result);
       this.closeDropdown();
     }
   }
 
+  private notifySelectionChange(selection: any) {
+    this.selectionChange.emit({
+      selectedItem: selection
+    });
+  }
+
   private openDropdown() {
-    this.isOpen = true;
+    // this.isOpen = true;
     this.sendDropdownMessage(SkyDropdownMessageType.Open);
   }
 
   private closeDropdown() {
     this.searchResults = [];
     this.sendDropdownMessage(SkyDropdownMessageType.Close);
-    this.changeDetector.markForCheck();
   }
 
   private sendDropdownMessage(type: SkyDropdownMessageType) {
-    this.dropdownMessageStream.next({ type });
-  }
-
-  private notifySelectionChange(selection: any) {
-    this.selectionChange.emit({
-      searchResult: selection
-    });
+    this.dropdownController.next({ type });
   }
 }

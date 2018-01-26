@@ -69,9 +69,7 @@ function copySrc() {
 
 function escapeContents(contents) {
   return contents.toString()
-    .replace(/`/g, '\`')
-    .replace(/\+/g, '&#43;')
-    .replace(/\$/g, '&#36;');
+    .replace(/`/g, '\`');
 }
 
 function compileSass(file) {

@@ -6,20 +6,22 @@
     [ngClass]="{ 'sky-autocomplete-results-hidden': !hasSearchResults() }">
 
     <sky-dropdown
-      [messageStream]="dropdownMessageStream"
+      [messageStream]="dropdownController"
       (close)="onDropdownClose()">
+
+      <sky-dropdown-button>
+        Toggle search results
+      </sky-dropdown-button>
 
       <sky-dropdown-menu
         [useNativeFocus]="false"
-        (menuChange)="onMenuChange($event)">
+        (menuChanges)="onMenuChanges($event)">
 
         <sky-dropdown-item
           *ngFor="let result of searchResults; let i = index">
 
           <button
             type="button"
-            tabindex="-1"
-            (click)="onSearchResultClick(i)"
             [skyHighlight]="searchText">
             <ng-container
               *ngTemplateOutlet="searchResultTemplate || defaultSearchResultTemplate; context: { item: result }">

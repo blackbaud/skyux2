@@ -1,27 +1,27 @@
-.sky-autocomplete {
-  position: relative;
+// .sky-autocomplete {
+//   position: relative;
 
-  ::ng-deep .sky-dropdown {
-    height: 100%;
+//   ::ng-deep .sky-dropdown {
+//     height: 100%;
 
-    .sky-dropdown-button {
-      // visibility: hidden;
-      height: 100%;
-      padding: 0;
-      overflow: hidden;
-      border: 0;
-      width: 0;
-    }
-  }
-}
+//     .sky-dropdown-button {
+//       // visibility: hidden;
+//       height: 100%;
+//       padding: 0;
+//       overflow: hidden;
+//       border: 0;
+//       width: 0;
+//     }
+//   }
+// }
 
-.sky-autocomplete-results {
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  width: 0;
-}
+// .sky-autocomplete-results {
+//   position: absolute;
+//   bottom: 0;
+//   top: 0;
+//   left: 0;
+//   width: 0;
+// }
 
 // .sky-autocomplete-results {
 //   position: relative;
@@ -34,8 +34,8 @@
 //   }
 // }
 
-.sky-autocomplete-results-hidden {
-  visibility: hidden;
-  height: 0;
-  overflow: hidden;
-}
+// .sky-autocomplete-results-hidden {
+//   visibility: hidden;
+//   height: 0;
+//   overflow: hidden;
+// }
