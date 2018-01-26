@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -99,6 +100,26 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./alert/alert-demo.component.ts'),
           componentName: 'SkyAlertDemoComponent',
           bootstrapSelector: 'sky-alert-demo'
+        }
+      ]
+    },
+    {
+      name: 'Autocomplete',
+      component: SkyAutocompleteDemoComponent,
+      files: [
+        {
+          name: 'autocomplete-demo.component.html',
+          fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.html')
+        },
+        {
+          name: 'autocomplete-demo.component.scss',
+          fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.scss')
+        },
+        {
+          name: 'autocomplete-demo.component.ts',
+          fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.ts'),
+          componentName: 'SkyAutocompleteDemoComponent',
+          bootstrapSelector: 'sky-autocomplete-demo'
         }
       ]
     },

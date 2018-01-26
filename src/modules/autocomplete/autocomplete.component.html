@@ -1,0 +1,38 @@
+<div class="sky-autocomplete">
+  <ng-content>
+  </ng-content>
+  <div
+    class="sky-autocomplete-results"
+    [ngClass]="{ 'sky-autocomplete-results-hidden': !hasSearchResults() }">
+
+    <sky-dropdown
+      [messageStream]="dropdownMessageStream"
+      (close)="onDropdownClose()">
+
+      <sky-dropdown-menu
+        [useNativeFocus]="false"
+        (menuChange)="onMenuChange($event)">
+
+        <sky-dropdown-item
+          *ngFor="let result of searchResults; let i = index">
+
+          <button
+            type="button"
+            tabindex="-1"
+            (click)="onSearchResultClick(i)"
+            [skyHighlight]="searchText">
+            <ng-container
+              *ngTemplateOutlet="searchResultTemplate || defaultSearchResultTemplate; context: { item: result }">
+            </ng-container>
+          </button>
+
+        </sky-dropdown-item>
+      </sky-dropdown-menu>
+    </sky-dropdown>
+  </div>
+  <ng-template
+    let-item="item"
+    #defaultSearchResultTemplate>
+    {{ item[descriptorProperty] }}
+  </ng-template>
+</div>

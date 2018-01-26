@@ -1,12 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyModule } from './core';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+
+import {
+  SkyModule
+} from './core';
 
 import {
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -79,6 +91,7 @@ import {
 const components = [
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -150,6 +163,7 @@ const components = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SkyModule
   ],
   exports: components,
