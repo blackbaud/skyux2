@@ -563,7 +563,7 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
 
       const buttonElem = getDropdownButtonElement();
-      const spy = spyOn(component.dropdown, 'resetDropdownPosition').and.callThrough();
+      const spy = spyOn(component.dropdown.messageStream, 'next').and.callThrough();
 
       verifyMenuVisibility(false);
 
@@ -581,7 +581,9 @@ describe('Dropdown component', () => {
       tick();
 
       expect(getDropdownItemElements().length).toEqual(3);
-      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith({
+        type: SkyDropdownMessageType.Reposition
+      });
     }));
   });
 });

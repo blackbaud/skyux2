@@ -4,7 +4,9 @@ import {
 
 import {
   ComponentFixture,
-  TestBed
+  fakeAsync,
+  TestBed,
+  tick
 } from '@angular/core/testing';
 
 import {
@@ -55,7 +57,7 @@ describe('SkyPopoverComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should call the adapter service to position the popover', () => {
+  it('should call the adapter service to position the popover', fakeAsync(() => {
     const caller = new ElementRef({});
     const spy = spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
       top: 0,
@@ -66,10 +68,11 @@ describe('SkyPopoverComponent', () => {
       alignment: undefined
     });
     component.positionNextTo(caller, 'above');
+    tick();
     expect(spy).toHaveBeenCalled();
-  });
+  }));
 
-  it('should call the adapter service with a default position', () => {
+  it('should call the adapter service with a default position', fakeAsync(() => {
     const caller = new ElementRef({});
     const spy = spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
       top: 0,
@@ -82,9 +85,10 @@ describe('SkyPopoverComponent', () => {
     component.alignment = undefined;
     component.placement = undefined;
     component.positionNextTo(caller, undefined, undefined);
+    tick();
     expect(spy.calls.argsFor(0)[1]).toEqual('above');
     expect(spy.calls.argsFor(0)[2]).toEqual('center');
-  });
+  }));
 
   it('should not call the adapter service if a caller is not defined', () => {
     const spy = spyOn(mockAdapterService, 'getPopoverPosition');

@@ -9,13 +9,12 @@ $popover-max-width: 276px;
   z-index: $sky-dropdown-z-index;
   min-width: $popover-max-width;
   max-width: $popover-max-width;
-  padding: $popover-border-size;
 
   &.sky-popover-hidden {
     visibility: hidden;
     opacity: 0;
-    top: 0 !important;
-    left: 0 !important;
+    top: -9999px !important;
+    left: -9999px !important;
   }
 
   &:focus {
@@ -23,35 +22,10 @@ $popover-max-width: 276px;
   }
 }
 
-.sky-popover-border {
-  position: relative;
-  padding: $popover-border-size;
-}
-
-.sky-popover-border-x {
-  position: absolute;
-  top: $popover-border-size;
-  left: 0;
-  right: 0;
-  bottom: $popover-border-size;
-  border-radius: $sky-border-radius;
-  overflow: hidden;
-}
-
-.sky-popover-border-y {
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  right: $popover-border-size;
-  left: $popover-border-size;
-  border-radius: $sky-border-radius;
-  overflow: hidden;
-}
-
 .sky-popover {
   @include sky-shadow;
   background-color: $sky-color-white;
-  position: relative;
+  border-radius: $sky-border-radius;
 }
 
 .sky-popover-header {
@@ -79,16 +53,9 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-placement-fullscreen {
-  background-color: rgba(0, 0, 0, 0.2);
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  position: fixed;
-  max-width: none;
+  padding: $sky-padding;
 
-  > .sky-popover-border > .sky-popover {
+  > .sky-popover {
     position: fixed;
     top: $sky-padding;
     left: $sky-padding;
@@ -114,21 +81,10 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-placement-above {
-  .sky-popover-border-y {
-    &:before {
-      content: '';
-      height: $popover-border-size;
-      display: block;
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: $sky-highlight-color-info;
-    }
-  }
+  padding-bottom: $popover-border-size;
 
   .sky-popover {
-    border-radius: $sky-border-radius $sky-border-radius 0 0;
+    border-bottom: $popover-border-size solid $sky-highlight-color-info;
   }
 
   .sky-popover-arrow {
@@ -141,21 +97,10 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-placement-below {
-  .sky-popover-border-y {
-    &:before {
-      content: '';
-      height: $popover-border-size;
-      display: block;
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      background-color: $sky-highlight-color-info;
-    }
-  }
+  padding-top: $popover-border-size;
 
   .sky-popover {
-    border-radius: 0 0 $sky-border-radius $sky-border-radius;
+    border-top: $popover-border-size solid $sky-highlight-color-info;
   }
 
   .sky-popover-arrow {
@@ -168,21 +113,10 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-placement-right {
-  .sky-popover-border-x {
-    &:before {
-      content: '';
-      width: $popover-border-size;
-      display: block;
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      background-color: $sky-highlight-color-info;
-    }
-  }
+  padding-left: $popover-border-size;
 
   .sky-popover {
-    border-radius: 0 $sky-border-radius $sky-border-radius 0;
+    border-left: $popover-border-size solid $sky-highlight-color-info;
   }
 
   .sky-popover-arrow {
@@ -195,21 +129,10 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-placement-left {
-  .sky-popover-border-x {
-    &:before {
-      content: '';
-      width: $popover-border-size;
-      display: block;
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: $sky-highlight-color-info;
-    }
-  }
+  padding-right: $popover-border-size;
 
   .sky-popover {
-    border-radius: $sky-border-radius 0 0 $sky-border-radius;
+    border-right: $popover-border-size solid $sky-highlight-color-info;
   }
 
   .sky-popover-arrow {
@@ -218,39 +141,6 @@ $popover-max-width: 276px;
     right: 0;
     top: 50%;
     margin-top: -$popover-arrow-size / 2;
-  }
-}
-
-.sky-popover-placement-above,
-.sky-popover-placement-below {
-  &.sky-popover-alignment-left {
-    padding-left: 0;
-    padding-right: 20px;
-
-    .sky-popover-border {
-      padding-left: 0;
-      padding-right: 20px;
-    }
-
-    .sky-popover-border-y {
-      left: 0;
-      right: 20px;
-    }
-  }
-
-  &.sky-popover-alignment-right {
-    padding-right: 0;
-    padding-left: 20px;
-
-    .sky-popover-border {
-      padding-right: 0;
-      padding-left: 20px;
-    }
-
-    .sky-popover-border-y {
-      left: 20px;
-      right: 0;
-    }
   }
 }
 

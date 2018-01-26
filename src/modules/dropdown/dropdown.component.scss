@@ -8,19 +8,14 @@
 
     .sky-popover {
       border-radius: 0 !important;
-    }
-
-    .sky-popover-border {
-      padding: 0;
+      border: 0 !important;
     }
 
     .sky-popover-body {
       padding: 0;
     }
 
-    .sky-popover-arrow,
-    .sky-popover-border-x,
-    .sky-popover-border-y {
+    .sky-popover-arrow {
       display: none;
     }
   }

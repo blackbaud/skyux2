@@ -6,6 +6,10 @@ import {
 } from '@angular/platform-browser/animations';
 
 import {
+  SkyWindowRefService
+} from '../window';
+
+import {
   SkyPopoverComponent,
   SkyPopoverDirective
 } from './index';
@@ -22,6 +26,9 @@ import {
   exports: [
     SkyPopoverComponent,
     SkyPopoverDirective
+  ],
+  providers: [
+    SkyWindowRefService
   ]
 })
 export class SkyPopoverModule { }

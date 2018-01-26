@@ -24,6 +24,10 @@ import {
 import { Subject } from 'rxjs/Subject';
 
 import {
+  SkyWindowRefService
+} from '../window';
+
+import {
   SkyPopoverAlignment,
   SkyPopoverPlacement
 } from './types';
@@ -102,7 +106,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   constructor(
     private adapterService: SkyPopoverAdapterService,
     private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private windowRef: SkyWindowRefService
   ) { }
 
   public ngOnInit() {
@@ -177,6 +182,11 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (placement !== this.placement) {
+      this.updateClassNames(placement, alignment);
+      this.changeDetector.markForCheck();
+    }
+
     this.caller = caller;
     this.placement = placement;
     this.alignment = alignment;
@@ -187,20 +197,27 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       caller: this.caller
     };
 
-    const position = this.adapterService.getPopoverPosition(
-      elements,
-      this.placement,
-      this.alignment
-    );
+    // Let the styles render before gauging the dimensions.
+    this.windowRef.getWindow().setTimeout(() => {
+      const position = this.adapterService.getPopoverPosition(
+        elements,
+        this.placement,
+        this.alignment
+      );
 
-    this.updateClassNames(position.placement, position.alignment);
+      this.updateClassNames(position.placement, position.alignment);
 
-    this.popoverTop = position.top;
-    this.popoverLeft = position.left;
-    this.arrowTop = position.arrowTop;
-    this.arrowLeft = position.arrowLeft;
-    this.animationState = 'visible';
-    this.changeDetector.markForCheck();
+      this.popoverTop = position.top;
+      this.popoverLeft = position.left;
+      this.arrowTop = position.arrowTop;
+      this.arrowLeft = position.arrowLeft;
+      this.animationState = 'visible';
+      this.changeDetector.markForCheck();
+    });
+  }
+
+  public resetPopover() {
+    this.adapterService.clearConcreteDimensions(this.popoverContainer);
   }
 
   public close() {

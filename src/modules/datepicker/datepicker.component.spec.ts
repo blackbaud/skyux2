@@ -194,6 +194,7 @@ describe('datepicker', () => {
       openDatepicker(nativeElement, fixture);
       tick();
       fixture.detectChanges();
+      tick();
 
       expect(nativeElement.querySelector('td .sky-datepicker-btn-selected'))
         .toHaveText('12');
@@ -207,12 +208,12 @@ describe('datepicker', () => {
           .querySelectorAll('tbody tr td .sky-btn-default').item(2) as HTMLButtonElement;
 
       dateButtonEl.click();
+      tick();
       fixture.detectChanges();
+      tick();
 
       expect(component.selectedDate).toEqual(new Date('5/2/2017'));
-
       expect(nativeElement.querySelector('input').value).toBe('05/02/2017');
-
     }));
 
     describe('initialization', () => {
@@ -514,9 +515,10 @@ describe('datepicker', () => {
         fixture.detectChanges();
 
         setInput(fixture.nativeElement, 'abcdebf', fixture);
+        tick();
 
         openDatepicker(fixture.nativeElement, fixture);
-
+        tick();
       }));
 
       it('should handle noValidate property', fakeAsync(() => {
@@ -578,13 +580,13 @@ describe('datepicker', () => {
         fixture.detectChanges();
 
         openDatepicker(fixture.nativeElement, fixture);
+        tick();
 
         let dateButtonEl
           = fixture.nativeElement
             .querySelectorAll('tbody tr td .sky-btn-default').item(30) as HTMLButtonElement;
 
         expect(dateButtonEl).toHaveCssClass('sky-btn-disabled');
-
       }));
 
       it('should pass min date to calendar', fakeAsync(() => {
@@ -595,6 +597,7 @@ describe('datepicker', () => {
         fixture.detectChanges();
 
         openDatepicker(fixture.nativeElement, fixture);
+        tick();
 
         let dateButtonEl
           = fixture.nativeElement

@@ -14,10 +14,6 @@ import {
   SkyDropdownMessageType
 } from '../dropdown';
 
-import {
-  SkyWindowRefService
-} from '../window';
-
 @Component({
   selector: 'sky-datepicker',
   templateUrl: './datepicker.component.html',
@@ -34,10 +30,6 @@ export class SkyDatepickerComponent {
   public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
   public maxDate: Date;
   public minDate: Date;
-
-  constructor(
-    private windowRef: SkyWindowRefService
-  ) { }
 
   public dateSelected(newDate: Date) {
     this.dateChanged.emit(newDate);
@@ -59,8 +51,8 @@ export class SkyDatepickerComponent {
   }
 
   public onCalendarModeChange() {
-    this.windowRef.getWindow().setTimeout(() => {
-      this.dropdown.resetDropdownPosition();
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Reposition
     });
   }
 }

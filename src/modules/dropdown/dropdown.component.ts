@@ -110,7 +110,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   private _trigger: SkyDropdownTriggerType;
 
   constructor(
-    private windowObj: SkyWindowRefService
+    private windowRef: SkyWindowRefService
   ) { }
 
   public ngOnInit() {
@@ -128,9 +128,11 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         // Update the popover's style and position whenever the number of items changes.
         // e.g., If the menu is fullscreen, and removing an item allows it to fit
         // as it should, we need to restore the popover's original styles.
-        this.popover.updateClassNames();
-        this.windowObj.getWindow().setTimeout(() => {
-          this.resetDropdownPosition();
+        // this.popover.updateClassNames();
+        this.windowRef.getWindow().setTimeout(() => {
+          this.messageStream.next({
+            type: SkyDropdownMessageType.Reposition
+          });
         });
       });
 
@@ -161,7 +163,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         // After an item is selected with the enter key,
         // wait a moment before returning focus to the dropdown trigger element.
         case 'enter':
-        this.windowObj.getWindow().setTimeout(() => {
+        this.windowRef.getWindow().setTimeout(() => {
           this.messageStream.next({
             type: SkyDropdownMessageType.FocusTriggerButton
           });
@@ -215,15 +217,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     this.menuComponent.reset();
   }
 
-  public resetDropdownPosition() {
-    // Only reposition the dropdown if it is already open.
-    if (this.isOpen) {
-      this.messageStream.next({
-        type: SkyDropdownMessageType.Open
-      });
-    }
-  }
-
   public getPopoverTriggerType(): SkyPopoverTrigger {
     // Map the dropdown trigger type to the popover trigger type.
     return (this.trigger === 'click') ? 'click' : 'mouseenter';
@@ -250,6 +243,18 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
 
       case SkyDropdownMessageType.FocusPreviousItem:
       this.menuComponent.focusPreviousItem();
+      break;
+
+      case SkyDropdownMessageType.Reposition:
+      // Only reposition the dropdown if it is already open.
+      if (this.isOpen) {
+        this.popover.resetPopover();
+        this.windowRef.getWindow().setTimeout(() => {
+          this.messageStream.next({
+            type: SkyDropdownMessageType.Open
+          });
+        });
+      }
       break;
     }
     /* tslint:enable */

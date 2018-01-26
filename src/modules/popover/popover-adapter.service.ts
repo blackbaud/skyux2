@@ -27,12 +27,8 @@ export class SkyPopoverAdapterService {
     placement: SkyPopoverPlacement,
     alignment: SkyPopoverAlignment
   ): SkyPopoverPosition {
-    const isFullScreen = (
-      placement === 'fullscreen' ||
-      elements.popover.nativeElement.className.match('sky-popover-placement-fullscreen')
-    );
-
     const max = 4;
+
     let counter = 0;
     let coords: SkyPopoverAdapterCoordinates = {
       top: undefined,
@@ -40,7 +36,7 @@ export class SkyPopoverAdapterService {
       isOutsideViewport: true
     };
 
-    if (isFullScreen || !placement || this.popoverLargerThanParent(elements)) {
+    if (!placement || placement === 'fullscreen' || this.popoverLargerThanParent(elements)) {
       placement = 'fullscreen';
     } else {
       do {
@@ -75,6 +71,12 @@ export class SkyPopoverAdapterService {
 
   public showPopover(elem: ElementRef): void {
     this.renderer.removeClass(elem.nativeElement, 'sky-popover-hidden');
+  }
+
+  public clearConcreteDimensions(elem: ElementRef): void {
+    this.renderer.removeStyle(elem.nativeElement, 'width');
+    this.renderer.removeStyle(elem.nativeElement, 'height');
+    this.renderer.removeClass(elem.nativeElement, 'sky-popover-placement-fullscreen');
   }
 
   private getPopoverCoordinates(
@@ -249,10 +251,14 @@ export class SkyPopoverAdapterService {
   }
 
   private popoverLargerThanParent(elements: SkyPopoverAdapterElements) {
-    const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
     const windowObj = this.windowRef.getWindow();
     const parentHeight = windowObj.document.body.clientHeight;
     const parentWidth = windowObj.document.body.clientWidth;
+
+    // Set concrete dimensions after we've determined the document height.
+    this.setConcreteDimensions(elements.popover);
+
+    const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
 
     return (popoverRect.height > parentHeight || popoverRect.width > parentWidth);
   }
@@ -266,5 +272,12 @@ export class SkyPopoverAdapterService {
   private getInversePlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
     const pairings: any = { above: 'below', below: 'above', right: 'left', left: 'right' };
     return pairings[placement] as SkyPopoverPlacement;
+  }
+
+  private setConcreteDimensions(elementRef: ElementRef) {
+    const element = elementRef.nativeElement;
+    const rect = element.getBoundingClientRect();
+    element.style.width = `${rect.width}px`;
+    element.style.height = `${rect.height}px`;
   }
 }
