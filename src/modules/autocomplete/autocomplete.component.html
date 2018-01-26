@@ -6,8 +6,7 @@
     [ngClass]="{ 'sky-autocomplete-results-hidden': !hasSearchResults() }">
 
     <sky-dropdown
-      [messageStream]="dropdownController"
-      (close)="onDropdownClose()">
+      [messageStream]="dropdownController">
 
       <sky-dropdown-button>
         Toggle search results

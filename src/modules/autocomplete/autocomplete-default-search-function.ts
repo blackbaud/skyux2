@@ -7,7 +7,7 @@ import {
 export function skyAutocompleteDefaultSearchFunction(
   options: SkyAutocompleteDefaultSearchFunctionOptions
 ): SkyAutocompleteSearchFunction {
-  const search = (searchText: string, data: any[]): SkyAutocompleteSearchFunctionResponse => {
+  const search = function (searchText: string, data: any[]): SkyAutocompleteSearchFunctionResponse {
     const searchTextLower = searchText.toLowerCase();
     const filteredData = filterData(searchText, data);
     const results = [];
@@ -36,7 +36,7 @@ export function skyAutocompleteDefaultSearchFunction(
     return results;
   };
 
-  const filterData = (searchText: string, data: any[]): any[] => {
+  const filterData = function (searchText: string, data: any[]): any[] {
     return data.filter((item: any) => {
       if (!options.searchFilters.length) {
         return true;

@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
@@ -27,7 +26,6 @@ import {
   SkyAutocompleteSelectionChange
 } from './types';
 
-// import { SkyAutocompleteAdapterService } from './autocomplete-adapter.service';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
 import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-search-function';
 
@@ -35,7 +33,6 @@ import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-sea
   selector: 'sky-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
-  // providers: [SkyAutocompleteAdapterService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
@@ -72,7 +69,11 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   }
 
   public get searchTextMinimumCharacters(): number {
-    return (this._searchTextMinimumCharacters > 0) ? this._searchTextMinimumCharacters : 1;
+    if (this._searchTextMinimumCharacters > 0) {
+      return this._searchTextMinimumCharacters;
+    }
+
+    return 1;
   }
 
   @Input()
@@ -97,8 +98,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @ContentChild(SkyAutocompleteInputDirective)
   private inputDirective: SkyAutocompleteInputDirective;
   private destroy = new Subject<boolean>();
-  // private isMouseEnter = false;
-  // private isOpen = false;
   private searchResultsIndex = 0;
   private defaultSearchFunction: SkyAutocompleteSearchFunction;
 
@@ -107,10 +106,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private _search: SkyAutocompleteSearchFunction;
   private _searchTextMinimumCharacters: number;
 
-  public constructor(
-    // private adapterService: SkyAutocompleteAdapterService,
-    private changeDetector: ChangeDetectorRef
-  ) {
+  constructor() {
     this.defaultSearchFunction = skyAutocompleteDefaultSearchFunction({
       propertiesToSearch: this.propertiesToSearch,
       searchFilters: this.searchFilters,
@@ -139,11 +135,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     this.destroy.unsubscribe();
   }
 
-  // @HostListener('keydown', ['$event'])
-  // public onKeyDown(event: any) {
-  //   this.adapterService.handleKeyDown(event);
-  // }
-
   // Handles keyboard events that affect usability and interaction.
   // ('keydown' is needed to override default browser behavior.)
   @HostListener('keydown', ['$event'])
@@ -158,10 +149,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
       break;
 
       case 'arrowdown':
-      // if (!this.isOpen) {
-      //   this.openDropdown();
-      // }
-
       this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
       event.preventDefault();
       break;
@@ -181,23 +168,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  // @HostListener('document:click')
-  // public onDocumentClick() {
-  //   if (!this.isMouseEnter) {
-  //     this.closeDropdown();
-  //   }
-  // }
-
-  // @HostListener('mouseenter')
-  // public onMouseEnter() {
-  //   this.isMouseEnter = true;
-  // }
-
-  // @HostListener('mouseleave')
-  // public onMouseLeave() {
-  //   this.isMouseEnter = false;
-  // }
-
   public onMenuChanges(change: SkyDropdownMenuChange) {
     if (change.activeIndex !== undefined) {
       this.searchResultsIndex = change.activeIndex;
@@ -207,10 +177,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
       this.selectActiveSearchResult();
     }
   }
-
-  // public onDropdownClose() {
-  //   this.isOpen = false;
-  // }
 
   public hasSearchResults(): boolean {
     return (this.searchResults && this.searchResults.length > 0);
@@ -233,7 +199,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
       this.performSearch().then((results: any[]) => {
         this.searchResults = results;
         this.openDropdown();
-        this.changeDetector.markForCheck();
       });
     }
   }
@@ -267,7 +232,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   }
 
   private openDropdown() {
-    // this.isOpen = true;
     this.sendDropdownMessage(SkyDropdownMessageType.Open);
   }
 
