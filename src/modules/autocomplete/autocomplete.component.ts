@@ -8,7 +8,8 @@ import {
   Input,
   OnDestroy,
   Output,
-  TemplateRef
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -64,16 +65,21 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   }
 
   @Input()
+  public set searchResultTemplate(value: TemplateRef<any>) {
+    this._searchResultTemplate = value;
+  }
+
+  public get searchResultTemplate(): TemplateRef<any> {
+    return this._searchResultTemplate || this.defaultSearchResultTemplate;
+  }
+
+  @Input()
   public set searchTextMinimumCharacters(value: number) {
     this._searchTextMinimumCharacters = value;
   }
 
   public get searchTextMinimumCharacters(): number {
-    if (this._searchTextMinimumCharacters > 0) {
-      return this._searchTextMinimumCharacters;
-    }
-
-    return 1;
+    return (this._searchTextMinimumCharacters > 0) ? this._searchTextMinimumCharacters : 1;
   }
 
   @Input()
@@ -85,9 +91,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   @Input()
   public searchResultsLimit: number;
 
-  @Input()
-  public searchResultTemplate: TemplateRef<any>;
-
   @Output()
   public selectionChange = new EventEmitter<SkyAutocompleteSelectionChange>();
 
@@ -95,8 +98,12 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public searchResults: any[];
   public searchText: string;
 
+  @ViewChild('defaultSearchResultTemplate')
+  private defaultSearchResultTemplate: TemplateRef<any>;
+
   @ContentChild(SkyAutocompleteInputDirective)
   private inputDirective: SkyAutocompleteInputDirective;
+
   private destroy = new Subject<boolean>();
   private searchResultsIndex = 0;
   private defaultSearchFunction: SkyAutocompleteSearchFunction;
@@ -104,6 +111,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private _descriptorProperty: string;
   private _propertiesToSearch: string[];
   private _search: SkyAutocompleteSearchFunction;
+  private _searchResultTemplate: TemplateRef<any>;
   private _searchTextMinimumCharacters: number;
 
   constructor() {

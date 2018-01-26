@@ -77,7 +77,7 @@ export class SkyAutocompleteDemoComponent implements OnInit {
   }
 
   public onPlanetSelection(args: SkyAutocompleteSelectionChange) {
-    alert(`You selected ${args.searchResult.name}`);
+    alert(`You selected ${args.selectedItem.name}`);
   }
 
   public getSearchFilters() {
@@ -88,24 +88,23 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     ];
   }
 
-  public getOceanSearchFunction(): Function {
-    const searchFunction: SkyAutocompleteSearchFunction =
-      (searchText: string): SkyAutocompleteSearchFunctionResponse => {
-        return new Promise((resolve: Function) => {
-          const searchTextLower = searchText.toLowerCase();
+  public getOceanSearchFunction(): SkyAutocompleteSearchFunction {
+    const searchFunction = (searchText: string): SkyAutocompleteSearchFunctionResponse => {
+      return new Promise((resolve: Function) => {
+        const searchTextLower = searchText.toLowerCase();
 
-          const results = this.oceans.filter((ocean: any) => {
-            const val = ocean.title;
-            const isMatch = (val && val.toString().toLowerCase().indexOf(searchTextLower) > -1);
-            return isMatch;
-          });
-
-          // Simulate remote call:
-          setTimeout(() => {
-            resolve(results);
-          }, 500);
+        const results = this.oceans.filter((ocean: any) => {
+          const val = ocean.title;
+          const isMatch = (val && val.toString().toLowerCase().indexOf(searchTextLower) > -1);
+          return isMatch;
         });
-      };
+
+        // Simulate remote call:
+        setTimeout(() => {
+          resolve(results);
+        }, 500);
+      });
+    };
 
     return searchFunction;
   }

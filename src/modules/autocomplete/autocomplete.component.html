@@ -23,7 +23,7 @@
             type="button"
             [skyHighlight]="searchText">
             <ng-container
-              *ngTemplateOutlet="searchResultTemplate || defaultSearchResultTemplate; context: { item: result }">
+              *ngTemplateOutlet="searchResultTemplate; context: { item: result }">
             </ng-container>
           </button>
 
