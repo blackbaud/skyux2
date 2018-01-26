@@ -10,7 +10,6 @@ import {
   async,
   ComponentFixture,
   fakeAsync,
-  flush,
   TestBed,
   tick
 } from '@angular/core/testing';
@@ -48,7 +47,7 @@ function getCell(rowId: string, columnId: string, element: DebugElement) {
   );
 }
 
-fdescribe('Grid Component', () => {
+describe('Grid Component', () => {
   describe('Basic Fixture', () => {
     let component: GridTestComponent,
         fixture: ComponentFixture<GridTestComponent>,
@@ -708,26 +707,24 @@ fdescribe('Grid Component', () => {
           GridFixturesModule,
           SkyGridModule
         ]
-      });
+      }).compileComponents();
     }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(GridAsyncTestComponent);
       element = fixture.debugElement as DebugElement;
-      fixture.detectChanges();
     });
 
     it('should handle async column headings', fakeAsync(() => {
+      fixture.detectChanges();
+
       expect(getColumnHeader('column1', element).nativeElement.textContent.trim()).toBe('');
 
+      tick(110); // wait for setTimeout
       fixture.detectChanges();
-      flush();
       tick();
-      fixture.detectChanges();
-      tick(110);
-      fixture.detectChanges();
 
-      expect(getColumnHeader('column1', element).nativeElement.textContent.trim()).toBe('updated');
+      expect(getColumnHeader('column1', element).nativeElement.textContent.trim()).toBe('Column1');
     }));
   });
 });

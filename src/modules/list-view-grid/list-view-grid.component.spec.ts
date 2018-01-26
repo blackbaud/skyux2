@@ -46,7 +46,7 @@ import {
   expect
 } from '../testing';
 
-fdescribe('List View Grid Component', () => {
+describe('List View Grid Component', () => {
   describe('Basic Fixture', () => {
     let state: ListState,
         dispatcher: ListStateDispatcher,
@@ -74,7 +74,6 @@ fdescribe('List View Grid Component', () => {
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
-
     }));
 
     function setupTest() {
@@ -182,14 +181,11 @@ fdescribe('List View Grid Component', () => {
       }));
 
       it('should handle async column headings', fakeAsync(() => {
-        // fixture.detectChanges();
-        // tick();
         setupTest();
-        let firstHeading = element.nativeElement.querySelectorAll('.sky-grid-heading')[0];
+        const firstHeading = element.nativeElement.querySelectorAll('.sky-grid-heading')[0];
         expect(firstHeading.textContent.trim()).toEqual('');
-        tick(110);
+        tick(110); // Wait for setTimeout
         fixture.detectChanges();
-        firstHeading = element.nativeElement.querySelectorAll('.sky-grid-heading')[0];
         expect(firstHeading.textContent.trim()).toEqual('Column1');
       }));
 
@@ -304,7 +300,6 @@ fdescribe('List View Grid Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewGridTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement;
 
     beforeEach(async(() => {
@@ -323,7 +318,6 @@ fdescribe('List View Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewGridDisplayTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -372,10 +366,7 @@ fdescribe('List View Grid Component', () => {
   describe('Empty Fixture', () => {
     let state: ListState,
         dispatcher: ListStateDispatcher,
-        component: ListViewGridTestComponent,
-        fixture: any,
-        nativeElement: HTMLElement,
-        element: DebugElement;
+        fixture: any;
 
     beforeEach(async(() => {
       dispatcher = new ListStateDispatcher();
@@ -393,9 +384,6 @@ fdescribe('List View Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewGridEmptyTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
-      element = fixture.debugElement as DebugElement;
-      component = fixture.componentInstance;
     }));
 
     it('should throw columns require error', () => {
@@ -409,7 +397,6 @@ fdescribe('List View Grid Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewGridDynamicTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement;
 
     beforeEach(async(() => {
@@ -432,7 +419,6 @@ fdescribe('List View Grid Component', () => {
         });
 
       fixture = TestBed.createComponent(ListViewGridDynamicTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();

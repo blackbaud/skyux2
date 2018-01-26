@@ -21,7 +21,7 @@ export class GridAsyncTestComponent implements OnInit {
 
   public ngOnInit() {
     setTimeout(() => {
-      this.asyncHeading.next('updated');
+      this.asyncHeading.next('Column1');
     }, 100);
   }
 }
