@@ -61,7 +61,11 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   }
 
   public get search(): SkyAutocompleteSearchFunction {
-    return this._search || this.defaultSearchFunction;
+    return this._search || skyAutocompleteDefaultSearchFunction({
+      propertiesToSearch: this.propertiesToSearch,
+      searchFilters: this.searchFilters,
+      searchResultsLimit: this.searchResultsLimit
+    });
   }
 
   @Input()
@@ -106,21 +110,12 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
 
   private destroy = new Subject<boolean>();
   private searchResultsIndex = 0;
-  private defaultSearchFunction: SkyAutocompleteSearchFunction;
 
   private _descriptorProperty: string;
   private _propertiesToSearch: string[];
   private _search: SkyAutocompleteSearchFunction;
   private _searchResultTemplate: TemplateRef<any>;
   private _searchTextMinimumCharacters: number;
-
-  constructor() {
-    this.defaultSearchFunction = skyAutocompleteDefaultSearchFunction({
-      propertiesToSearch: this.propertiesToSearch,
-      searchFilters: this.searchFilters,
-      searchResultsLimit: this.searchResultsLimit
-    });
-  }
 
   public ngAfterContentInit() {
     if (!this.inputDirective) {

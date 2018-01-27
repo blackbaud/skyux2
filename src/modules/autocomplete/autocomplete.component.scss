@@ -1,11 +1,13 @@
 .sky-autocomplete {
   position: relative;
 
-  ::ng-deep .sky-popover-container {
+  ::ng-deep
+  .sky-popover-container {
     width: 100% !important;
   }
 
-  ::ng-deep .sky-dropdown-button {
+  ::ng-deep
+  .sky-dropdown-button {
     visibility: hidden;
     overflow: hidden;
     position: absolute;

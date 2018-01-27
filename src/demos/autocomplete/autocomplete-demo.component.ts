@@ -83,6 +83,7 @@ export class SkyAutocompleteDemoComponent implements OnInit {
   public getSearchFilters() {
     return [
       (searchText: string, item: any) => {
+        console.log('search?', searchText, item);
         return (item.name !== 'Red');
       }
     ];
