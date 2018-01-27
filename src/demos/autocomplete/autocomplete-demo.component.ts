@@ -21,7 +21,7 @@ import {
 })
 export class SkyAutocompleteDemoComponent implements OnInit {
   public reactiveForm: FormGroup;
-  public templateModel: any = {
+  public templateDrivenModel: any = {
     favoriteColor: { name: 'Red' }
   };
 

@@ -1,48 +1,4 @@
 <h2>
-  Template-driven form setup:
-</h2>
-
-<form
-  class="autocomplete-demo-form"
-  #myForm="ngForm"
-  (ngSubmit)="submitTemplateForm(myForm.value)"
-  novalidate>
-
-  <sky-alert alertType="info">
-    This field uses the default settings and has a preselected value.
-  </sky-alert>
-
-  <div class="sky-form-group">
-    <label
-      for="my-autocomplete-template"
-      class="sky-control-label">
-      What is your favorite color?
-    </label>
-
-    <sky-autocomplete
-      [data]="colors">
-      <input
-        skyAutocomplete
-        id="my-autocomplete-template"
-        type="text"
-        name="favoriteColor"
-        [(ngModel)]="templateModel.favoriteColor">
-    </sky-autocomplete>
-  </div>
-
-  <div class="autocomplete-demo-alert">
-    <strong>Form model:</strong>
-    <pre>{{ myForm.value | json }}</pre>
-  </div>
-
-  <button
-    class="sky-btn sky-btn-primary"
-    type="submit">
-    Submit
-  </button>
-</form>
-
-<h2>
   Reactive form setup
 </h2>
 
@@ -84,6 +40,7 @@
   <sky-alert alertType="info">
     The following field:
     <ul>
+      <li>utilizes a custom search result template,</li>
       <li>searches against the name and description properties,</li>
       <li>limits the search results to two (2),</li>
       <li>runs the search if the query is at least three (3) characters long,</li>
@@ -140,7 +97,7 @@
   </div>
 
   <h3>
-    Custom search
+    Custom search function
   </h3>
 
   <sky-alert alertType="info">
@@ -169,6 +126,50 @@
   <div class="autocomplete-demo-alert">
     <strong>Form model:</strong>
     <pre>{{ reactiveForm.value | json }}</pre>
+  </div>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="submit">
+    Submit
+  </button>
+</form>
+
+<h2>
+  Template-driven form setup
+</h2>
+
+<form
+  class="autocomplete-demo-form"
+  #myForm="ngForm"
+  (ngSubmit)="submitTemplateForm(myForm.value)"
+  novalidate>
+
+  <sky-alert alertType="info">
+    This field uses the default settings and has a preselected value.
+  </sky-alert>
+
+  <div class="sky-form-group">
+    <label
+      for="my-autocomplete-template-driven"
+      class="sky-control-label">
+      What is your favorite color?
+    </label>
+
+    <sky-autocomplete
+      [data]="colors">
+      <input
+        skyAutocomplete
+        id="my-autocomplete-template-driven"
+        type="text"
+        name="favoriteColor"
+        [(ngModel)]="templateDrivenModel.favoriteColor">
+    </sky-autocomplete>
+  </div>
+
+  <div class="autocomplete-demo-alert">
+    <strong>Form model:</strong>
+    <pre>{{ myForm.value | json }}</pre>
   </div>
 
   <button
