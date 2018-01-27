@@ -7,6 +7,24 @@ import {
 export function skyAutocompleteDefaultSearchFunction(
   options: SkyAutocompleteDefaultSearchFunctionOptions
 ): SkyAutocompleteSearchFunction {
+
+  const filterData = function (searchText: string, data: any[]): any[] {
+    return data.filter((item: any) => {
+      if (!options.searchFilters.length) {
+        return true;
+      }
+
+      let isValid = true;
+      options.searchFilters.forEach((filter: Function) => {
+        if (isValid) {
+          isValid = filter.call({}, searchText, item);
+        }
+      });
+
+      return isValid;
+    });
+  };
+
   const search = function (searchText: string, data: any[]): SkyAutocompleteSearchFunctionResponse {
     const searchTextLower = searchText.toLowerCase();
     const filteredData = filterData(searchText, data);
@@ -34,23 +52,6 @@ export function skyAutocompleteDefaultSearchFunction(
     }
 
     return results;
-  };
-
-  const filterData = function (searchText: string, data: any[]): any[] {
-    return data.filter((item: any) => {
-      if (!options.searchFilters.length) {
-        return true;
-      }
-
-      let isValid = true;
-      options.searchFilters.forEach((filter: Function) => {
-        if (isValid) {
-          isValid = filter.call({}, searchText, item);
-        }
-      });
-
-      return isValid;
-    });
   };
 
   return search;
