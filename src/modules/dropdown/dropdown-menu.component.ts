@@ -65,15 +65,11 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   ) { }
 
   public ngAfterContentInit() {
-    // Reset focus whenever the menu items change.
+    // Reset dropdown whenever the menu items change.
     this.menuItems.changes
       .takeUntil(this.destroy)
       .subscribe(() => {
-        this.menuIndex = 0;
-        this.focusActiveItem();
-        this.menuChanges.emit({
-          activeIndex: this.menuIndex
-        });
+        this.reset();
       });
   }
 
@@ -181,13 +177,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.menuItems.forEach((item: SkyDropdownItemComponent) => {
       item.resetState();
     });
-  }
-
-  private focusActiveItem() {
-    const activeItem = this.getItemByIndex(this.menuIndex);
-    if (activeItem) {
-      this.focusItem(activeItem);
-    }
   }
 
   private focusItem(item: SkyDropdownItemComponent) {

@@ -110,9 +110,9 @@ export class SkyAutocompleteDemoComponent implements OnInit {
 
   private createForm(): void {
     this.reactiveForm = this.formBuilder.group({
-      favoriteColor: { name: 'Turquoise' },
+      favoriteColor: undefined,
       farthestPlanet: {},
-      largestOcean: undefined
+      largestOcean: { title: 'Arctic', id: 1 }
     });
   }
 }

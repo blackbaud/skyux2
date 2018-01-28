@@ -21,6 +21,10 @@ import {
 } from '../dropdown';
 
 import {
+  SkyWindowRefService
+} from '../window';
+
+import {
   SkyAutocompleteInputTextChange,
   SkyAutocompleteSearchFunction,
   SkyAutocompleteSearchFunctionFilter,
@@ -101,6 +105,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public dropdownController = new Subject<SkyDropdownMessage>();
   public searchResults: any[];
   public searchText: string;
+  public highlightText: string;
 
   @ViewChild('defaultSearchResultTemplate')
   private defaultSearchResultTemplate: TemplateRef<any>;
@@ -117,6 +122,10 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private _searchResultTemplate: TemplateRef<any>;
   private _searchTextMinimumCharacters: number;
 
+  constructor(
+    private windowRef: SkyWindowRefService
+  ) { }
+
   public ngAfterContentInit() {
     if (!this.inputDirective) {
       throw Error([
@@ -125,9 +134,9 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
       ].join(' '));
     }
 
-    this.inputDirective.descriptorProperty = this.descriptorProperty;
+    this.inputDirective.displayWith = this.descriptorProperty;
 
-    this.inputDirective.inputTextChange
+    this.inputDirective.textChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyAutocompleteInputTextChange) => {
         this.searchTextChanged(change.value);
@@ -195,12 +204,13 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
 
     const isSearchTextLongEnough = (searchText.length >= this.searchTextMinimumCharacters);
     const isSearchTextDifferent = (searchText !== this.searchText);
+    this.searchText = searchText.trim();
 
     if (isSearchTextLongEnough && isSearchTextDifferent) {
-      this.searchText = searchText.trim();
       this.performSearch().then((results: any[]) => {
         this.searchResults = results;
         this.openDropdown();
+        this.highlightText = this.searchText;
       });
     }
   }
@@ -219,7 +229,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     if (this.hasSearchResults()) {
       const result = this.searchResults[this.searchResultsIndex];
       this.searchText = result[this.descriptorProperty];
-      this.inputDirective.selectedItem = result;
+      this.inputDirective.value = result;
 
       this.notifySelectionChange(result);
       this.closeDropdown();
@@ -234,6 +244,10 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
 
   private openDropdown() {
     this.sendDropdownMessage(SkyDropdownMessageType.Open);
+    // Focus the first item once the menu is opened.
+    this.windowRef.getWindow().setTimeout(() => {
+       this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
+    });
   }
 
   private closeDropdown() {

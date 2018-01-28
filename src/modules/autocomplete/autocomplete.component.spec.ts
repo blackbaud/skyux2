@@ -20,7 +20,7 @@ import {
   SkyAutocompleteSearchFunction
 } from './types';
 
-fdescribe('SkyAutocompleteComponent', () => {
+describe('SkyAutocompleteComponent', () => {
   let fixture: ComponentFixture<SkyAutocompleteTestComponent>;
   let component: SkyAutocompleteTestComponent;
   let autocomplete: SkyAutocompleteComponent;
@@ -62,7 +62,7 @@ fdescribe('SkyAutocompleteComponent', () => {
       fixture.detectChanges();
 
       expect(component.myForm.value.favoriteColor).toEqual(selectedValue);
-      expect(input.selectedItem).toEqual(selectedValue);
+      expect(input.value).toEqual(selectedValue);
     }));
 
     it('should search', fakeAsync(() => {

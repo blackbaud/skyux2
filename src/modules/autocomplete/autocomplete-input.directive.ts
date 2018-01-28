@@ -29,29 +29,30 @@ import {
   ]
 })
 export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccessor {
-  public set descriptorProperty(value: string) {
-    this._descriptorProperty = value;
+  public set displayWith(value: string) {
+    this._displayWith = value;
+    this.setTextValue(this.value[this.displayWith]);
   }
 
-  public get descriptorProperty(): string {
-    return this._descriptorProperty || 'name';
+  public get displayWith(): string {
+    return this._displayWith || 'name';
   }
 
-  public get selectedItem() {
-    return this._selectedItem || {};
+  public get value() {
+    return this._value || { };
   }
 
-  public set selectedItem(value: any) {
-    this._selectedItem = value;
-    this.setElementValue(value[this.descriptorProperty] || '');
+  public set value(value: any) {
+    this._value = value;
+    this.setTextValue(value[this.displayWith]);
     this.onChange(value);
     this.onTouched();
   }
 
-  public inputTextChange = new EventEmitter<SkyAutocompleteInputTextChange>();
+  public textChanges = new EventEmitter<SkyAutocompleteInputTextChange>();
 
-  private _descriptorProperty: string;
-  private _selectedItem: any;
+  private _displayWith: string;
+  private _value: any;
 
   constructor(
     private elementRef: ElementRef,
@@ -62,32 +63,34 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     this.setElementAttributes();
   }
 
-  @HostListener('keyup', ['$event'])
-  public onKeyUp(event: KeyboardEvent) {
-    const value = this.elementRef.nativeElement.value;
-    this.inputTextChange.emit({ value });
-    event.preventDefault();
+  @HostListener('keyup')
+  public notifyTextChange() {
+    this.textChanges.emit({
+      value: this.elementRef.nativeElement.value
+    });
   }
 
-  @HostListener('blur')
-  public onBlur() {
-    const searchText = this.elementRef.nativeElement.value;
-    const descriptorValue = this.selectedItem[this.descriptorProperty];
+  @HostListener('blur', ['$event'])
+  public onBlur(event: KeyboardEvent) {
+    const text = this.elementRef.nativeElement.value;
+    const displayValue = this.value[this.displayWith];
 
     // If the search field contains text, make sure that the value
     // matches the selected descriptor key.
-    if (searchText && descriptorValue) {
-      this.setElementValue(descriptorValue);
+    if (text && displayValue) {
+      if (text !== displayValue) {
+        this.setTextValue(displayValue);
+      }
     } else {
       // The search field is empty (or doesn't have a selected item),
       // so clear out the selected value.
-      this.selectedItem = {};
+      this.value = { };
     }
   }
 
   public writeValue(value: any) {
     if (value) {
-      this.selectedItem = value;
+      this.value = value;
     }
   }
 
@@ -105,7 +108,7 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     this.onTouched = fn;
   }
 
-  private setElementValue(value: string) {
+  private setTextValue(value = '') {
     this.elementRef.nativeElement.value = value;
   }
 

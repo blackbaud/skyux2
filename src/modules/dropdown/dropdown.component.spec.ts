@@ -370,14 +370,6 @@ describe('Dropdown component', () => {
       expect(firstSpy).not.toHaveBeenCalled();
     }));
 
-    it('should handle focusing when no items are present', () => {
-      component.setItems([]);
-      fixture.detectChanges();
-      const spy = spyOn(component.dropdown['menuComponent'] as any, 'focusItem').and.callThrough();
-      component.dropdown['menuComponent']['focusActiveItem']();
-      expect(spy).not.toHaveBeenCalled();
-    });
-
     it('should handle focusing when item does not include a button', fakeAsync(() => {
       component.setItems([
         { name: 'Foo', disabled: false }
