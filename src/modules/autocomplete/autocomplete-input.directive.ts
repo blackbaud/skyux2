@@ -4,7 +4,6 @@ import {
   EventEmitter,
   forwardRef,
   HostListener,
-  Input,
   OnInit,
   Renderer2
 } from '@angular/core';
@@ -30,9 +29,6 @@ import {
   ]
 })
 export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccessor {
-  @Input()
-  public disabled = false;
-
   public set descriptorProperty(value: string) {
     this._descriptorProperty = value;
   }
@@ -42,7 +38,7 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
   }
 
   public get selectedItem() {
-    return this._selectedItem;
+    return this._selectedItem || {};
   }
 
   public set selectedItem(value: any) {
@@ -52,11 +48,10 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     this.onTouched();
   }
 
-  public inputText = '';
   public inputTextChange = new EventEmitter<SkyAutocompleteInputTextChange>();
 
   private _descriptorProperty: string;
-  private _selectedItem: any = {};
+  private _selectedItem: any;
 
   constructor(
     private elementRef: ElementRef,
@@ -70,7 +65,6 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
   @HostListener('keyup', ['$event'])
   public onKeyUp(event: KeyboardEvent) {
     const value = this.elementRef.nativeElement.value;
-    this.inputText = value;
     this.inputTextChange.emit({ value });
     event.preventDefault();
   }
@@ -80,12 +74,13 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     const searchText = this.elementRef.nativeElement.value;
     const descriptorValue = this.selectedItem[this.descriptorProperty];
 
-    // If the search field contains text, make sure that the display value
+    // If the search field contains text, make sure that the value
     // matches the selected descriptor key.
     if (searchText && descriptorValue) {
       this.setElementValue(descriptorValue);
     } else {
-      // The search field is empty, so clear out the selected value.
+      // The search field is empty (or doesn't have a selected item),
+      // so clear out the selected value.
       this.selectedItem = {};
     }
   }
@@ -96,7 +91,10 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     }
   }
 
+  // Angular constructs these methods.
+  /* istanbul ignore next */
   public onChange(value: any) {}
+  /* istanbul ignore next */
   public onTouched() {}
 
   public registerOnChange(fn: (value: any) => void) {
@@ -105,10 +103,6 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
 
   public registerOnTouched(fn: () => void) {
     this.onTouched = fn;
-  }
-
-  public setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
   }
 
   private setElementValue(value: string) {

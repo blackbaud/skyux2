@@ -1,5 +1,6 @@
 import {
   SkyAutocompleteSearchFunction,
+  SkyAutocompleteSearchFunctionFilter,
   SkyAutocompleteSearchFunctionResponse,
   SkyAutocompleteDefaultSearchFunctionOptions
 } from './types';
@@ -10,18 +11,16 @@ export function skyAutocompleteDefaultSearchFunction(
 
   const filterData = function (searchText: string, data: any[]): any[] {
     return data.filter((item: any) => {
-      if (!options.searchFilters.length) {
+      if (!options.searchFilters || !options.searchFilters.length) {
         return true;
       }
 
-      let isValid = true;
-      options.searchFilters.forEach((filter: Function) => {
-        if (isValid) {
-          isValid = filter.call({}, searchText, item);
-        }
+      // Find the first failing filter (we can skip the others if one fails).
+      const failedFilter = options.searchFilters.find((filter: SkyAutocompleteSearchFunctionFilter) => {
+        return !(filter.call({}, searchText, item));
       });
 
-      return isValid;
+      return (failedFilter === undefined);
     });
   };
 

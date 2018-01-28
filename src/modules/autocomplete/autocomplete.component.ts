@@ -120,12 +120,13 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public ngAfterContentInit() {
     if (!this.inputDirective) {
       throw Error([
-        'The SkyAutocompleteComponent requires a TemplateChild input or textarea bound with',
+        'The SkyAutocompleteComponent requires a ContentChild input or textarea bound with',
         'the SkyAutocomplete directive. For example: `<input type="text" skyAutocomplete>`.'
       ].join(' '));
     }
 
     this.inputDirective.descriptorProperty = this.descriptorProperty;
+
     this.inputDirective.inputTextChange
       .takeUntil(this.destroy)
       .subscribe((change: SkyAutocompleteInputTextChange) => {
@@ -174,9 +175,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   public onMenuChanges(change: SkyDropdownMenuChange) {
     if (change.activeIndex !== undefined) {
       this.searchResultsIndex = change.activeIndex;
-    }
-
-    if (change.selectedItem) {
+    } else if (change.selectedItem) {
       this.selectActiveSearchResult();
     }
   }
@@ -185,7 +184,7 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
     return (this.searchResults && this.searchResults.length > 0);
   }
 
-  private searchTextChanged(searchText = '') {
+  private searchTextChanged(searchText: string) {
     const isSearchTextEmpty = (!searchText || searchText.match(/^\s+$/));
 
     if (isSearchTextEmpty) {
@@ -219,7 +218,6 @@ export class SkyAutocompleteComponent implements AfterContentInit, OnDestroy {
   private selectActiveSearchResult() {
     if (this.hasSearchResults()) {
       const result = this.searchResults[this.searchResultsIndex];
-
       this.searchText = result[this.descriptorProperty];
       this.inputDirective.selectedItem = result;
 

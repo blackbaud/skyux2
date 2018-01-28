@@ -1,0 +1,20 @@
+<form
+  #myForm="ngForm"
+  novalidate>
+  <sky-autocomplete
+    [data]="data"
+    [descriptorProperty]="descriptorProperty"
+    [propertiesToSearch]="propertiesToSearch"
+    [search]="search"
+    [searchFilters]="searchFilters"
+    [searchResultsLimit]="searchResultsLimit"
+    [searchResultTemplate]="searchResultTemplate"
+    [searchTextMinimumCharacters]="searchTextMinimumCharacters"
+    (selectionChange)="onSelectionChange($event)">
+    <input
+      skyAutocomplete
+      type="text"
+      name="favoriteColor"
+      [(ngModel)]="model.favoriteColor">
+  </sky-autocomplete>
+</form>

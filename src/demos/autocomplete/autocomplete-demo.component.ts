@@ -10,6 +10,7 @@ import {
 
 import {
   SkyAutocompleteSearchFunction,
+  SkyAutocompleteSearchFunctionFilter,
   SkyAutocompleteSearchFunctionResponse,
   SkyAutocompleteSelectionChange
 } from '../../core';
@@ -60,6 +61,12 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     { name: 'Neptune', description: 'Neptune is a planet in our solar system.' }
   ];
 
+  public searchFilters: SkyAutocompleteSearchFunctionFilter[] = [
+    (searchText: string, item: any): boolean => {
+      return (item.name !== 'Red');
+    }
+  ];
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
@@ -78,15 +85,6 @@ export class SkyAutocompleteDemoComponent implements OnInit {
 
   public onPlanetSelection(args: SkyAutocompleteSelectionChange) {
     alert(`You selected ${args.selectedItem.name}`);
-  }
-
-  public getSearchFilters() {
-    return [
-      (searchText: string, item: any) => {
-        console.log('search?', searchText, item);
-        return (item.name !== 'Red');
-      }
-    ];
   }
 
   public getOceanSearchFunction(): SkyAutocompleteSearchFunction {
