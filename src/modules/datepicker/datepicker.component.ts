@@ -4,12 +4,14 @@ import {
   ViewChild
 } from '@angular/core';
 
-import {
-  SkyDatepickerCalendarComponent
-} from './datepicker-calendar.component';
+import { Subject } from 'rxjs/Subject';
+
+import { SkyDatepickerCalendarComponent } from './datepicker-calendar.component';
 
 import {
-  SkyDropdownComponent
+  SkyDropdownComponent,
+  SkyDropdownMessage,
+  SkyDropdownMessageType
 } from '../dropdown';
 
 @Component({
@@ -18,21 +20,22 @@ import {
   styleUrls: ['./datepicker.component.scss']
 })
 export class SkyDatepickerComponent {
-
-  public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
-
-  public maxDate: Date;
-
-  public minDate: Date;
-
   @ViewChild(SkyDatepickerCalendarComponent)
   public calendar: SkyDatepickerCalendarComponent;
 
   @ViewChild(SkyDropdownComponent)
   public dropdown: SkyDropdownComponent;
 
+  public dropdownController = new Subject<SkyDropdownMessage>();
+  public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
+  public maxDate: Date;
+  public minDate: Date;
+
   public dateSelected(newDate: Date) {
     this.dateChanged.emit(newDate);
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Close
+    });
   }
 
   public setSelectedDate(newDate: Date) {
@@ -48,9 +51,8 @@ export class SkyDatepickerComponent {
   }
 
   public onCalendarModeChange() {
-    setTimeout(() => {
-      this.dropdown.resetDropdownPosition();
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Reposition
     });
   }
-
 }

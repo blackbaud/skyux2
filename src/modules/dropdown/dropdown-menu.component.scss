@@ -1,1 +1,11 @@
-@import "../../scss/mixins";
+@import '../../scss/mixins';
+
+.sky-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+
+  ::ng-deep button {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
