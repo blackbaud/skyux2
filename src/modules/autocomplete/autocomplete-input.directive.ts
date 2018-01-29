@@ -3,7 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostListener,
+  OnDestroy,
   OnInit,
   Renderer2
 } from '@angular/core';
@@ -12,6 +12,10 @@ import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR
 } from '@angular/forms';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import { Subject } from 'rxjs/Subject';
 
 import {
   SkyAutocompleteInputTextChange
@@ -28,10 +32,10 @@ import {
     }
   ]
 })
-export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccessor {
+export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, ControlValueAccessor {
   public set displayWith(value: string) {
     this._displayWith = value;
-    this.setTextValue(this.value[this.displayWith]);
+    this.textValue = this.value[this.displayWith];
   }
 
   public get displayWith(): string {
@@ -44,13 +48,18 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
 
   public set value(value: any) {
     this._value = value;
-    this.setTextValue(value[this.displayWith]);
+    this.textValue = value[this.displayWith];
     this.onChange(value);
     this.onTouched();
   }
 
+  public set textValue(value: string) {
+    this.elementRef.nativeElement.value = value || '';
+  }
+
   public textChanges = new EventEmitter<SkyAutocompleteInputTextChange>();
 
+  private destroy = new Subject<boolean>();
   private _displayWith: string;
   private _value: any;
 
@@ -60,32 +69,28 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
   ) { }
 
   public ngOnInit() {
-    this.setElementAttributes();
+    const element = this.elementRef.nativeElement;
+
+    this.setAttributes(element);
+
+    Observable
+      .fromEvent(element, 'keyup')
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.notifyTextChanges();
+      });
+
+    Observable
+      .fromEvent(element, 'blur')
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.handleBlur();
+      });
   }
 
-  @HostListener('keyup')
-  public notifyTextChange() {
-    this.textChanges.emit({
-      value: this.elementRef.nativeElement.value
-    });
-  }
-
-  @HostListener('blur', ['$event'])
-  public onBlur(event: KeyboardEvent) {
-    const text = this.elementRef.nativeElement.value;
-    const displayValue = this.value[this.displayWith];
-
-    // If the search field contains text, make sure that the value
-    // matches the selected descriptor key.
-    if (text && displayValue) {
-      if (text !== displayValue) {
-        this.setTextValue(displayValue);
-      }
-    } else {
-      // The search field is empty (or doesn't have a selected item),
-      // so clear out the selected value.
-      this.value = { };
-    }
+  public ngOnDestroy() {
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 
   public writeValue(value: any) {
@@ -93,12 +98,6 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
       this.value = value;
     }
   }
-
-  // Angular constructs these methods.
-  /* istanbul ignore next */
-  public onChange(value: any) {}
-  /* istanbul ignore next */
-  public onTouched() {}
 
   public registerOnChange(fn: (value: any) => void) {
     this.onChange = fn;
@@ -108,16 +107,41 @@ export class SkyAutocompleteInputDirective implements OnInit, ControlValueAccess
     this.onTouched = fn;
   }
 
-  private setTextValue(value = '') {
-    this.elementRef.nativeElement.value = value;
+  // Angular automatically constructs these methods.
+  /* istanbul ignore next */
+  public onChange(value: any) { }
+
+  /* istanbul ignore next */
+  public onTouched() { }
+
+  private setAttributes(element: any) {
+    this.renderer.setAttribute(element, 'autocomplete', 'off');
+    this.renderer.setAttribute(element, 'autocapitalize', 'off');
+    this.renderer.setAttribute(element, 'autocorrect', 'off');
+    this.renderer.setAttribute(element, 'spellcheck', 'false');
+    this.renderer.addClass(element, 'sky-form-control');
   }
 
-  private setElementAttributes() {
-    const input = this.elementRef.nativeElement;
-    this.renderer.setAttribute(input, 'autocomplete', 'off');
-    this.renderer.setAttribute(input, 'autocapitalize', 'off');
-    this.renderer.setAttribute(input, 'autocorrect', 'off');
-    this.renderer.setAttribute(input, 'spellcheck', 'false');
-    this.renderer.addClass(input, 'sky-form-control');
+  private notifyTextChanges() {
+    this.textChanges.emit({
+      value: this.elementRef.nativeElement.value
+    });
+  }
+
+  private handleBlur() {
+    const text = this.elementRef.nativeElement.value;
+    const displayValue = this.value[this.displayWith];
+
+    // If the search field contains text, make sure that the value
+    // matches the selected descriptor key.
+    if (text && displayValue) {
+      if (text !== displayValue) {
+        this.textValue = displayValue;
+      }
+    } else {
+      // The search field is empty (or doesn't have a selected item),
+      // so clear out the selected value.
+      this.value = { };
+    }
   }
 }

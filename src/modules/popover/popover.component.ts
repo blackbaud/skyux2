@@ -228,6 +228,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   public onAnimationStart(event: AnimationEvent) {
+    this.isOpen = false;
+
     if (event.fromState === 'void') {
       return;
     }
