@@ -20,7 +20,7 @@ import {
   SkyAutocompleteSearchFunction
 } from './types';
 
-describe('SkyAutocompleteComponent', () => {
+fdescribe('SkyAutocompleteComponent', () => {
   let fixture: ComponentFixture<SkyAutocompleteTestComponent>;
   let component: SkyAutocompleteTestComponent;
   let autocomplete: SkyAutocompleteComponent;
@@ -257,16 +257,36 @@ describe('SkyAutocompleteComponent', () => {
   });
 
   describe('keyboard interactions', () => {
-    it('should notify selection when enter key pressed', fakeAsync(() => {}));
+    // it('should notify selection when enter key pressed', fakeAsync(() => {}));
 
-    it('should notify selection when tab key pressed', fakeAsync(() => {}));
+    // it('should notify selection when tab key pressed', fakeAsync(() => {}));
 
-    it('should navigate items with arrow keys', fakeAsync(() => {}));
+    // it('should navigate items with arrow keys', fakeAsync(() => {}));
 
-    it('should close menu when escape key pressed', fakeAsync(() => {}));
+    // it('should close menu when escape key pressed', fakeAsync(() => {}));
 
-    it('should reset input text value to descriptor value on blur', fakeAsync(() => {}));
+    it('should reset input text value to descriptor value on blur', fakeAsync(() => {
+      const selectedValue = { name: 'Red' };
+      const inputElement = input['elementRef'].nativeElement;
 
-    it('should clear the input selected value if text value empty on blur', fakeAsync(() => {}));
+      component.model.favoriteColor = selectedValue;
+      fixture.detectChanges();
+
+      inputElement.value = 're';
+
+      fixture.detectChanges();
+
+      TestUtility.fireKeyboardEvent(inputElement, 'blur');
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(component.myForm.value.favoriteColor).toEqual(selectedValue);
+      expect(input.value).toEqual(selectedValue);
+      expect(inputElement.value).toEqual(selectedValue.name);
+    }));
+
+    // it('should clear the input selected value if text value empty on blur', fakeAsync(() => {
+    // }));
   });
 });

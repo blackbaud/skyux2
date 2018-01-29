@@ -75,15 +75,15 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     this.createForm();
   }
 
-  public submitTemplateForm(formData: any) {
+  public submitTemplateForm(formData: any): void {
     alert('Form submitted with: \n' + JSON.stringify(formData));
   }
 
-  public submitReactiveForm() {
+  public submitReactiveForm(): void {
     alert('Form submitted with: \n' + JSON.stringify(this.reactiveForm.value));
   }
 
-  public onPlanetSelection(args: SkyAutocompleteSelectionChange) {
+  public onPlanetSelection(args: SkyAutocompleteSelectionChange): void {
     alert(`You selected ${args.selectedItem.name}`);
   }
 
@@ -98,7 +98,7 @@ export class SkyAutocompleteDemoComponent implements OnInit {
           return isMatch;
         });
 
-        // Simulate remote call:
+        // Simulated async request:
         setTimeout(() => {
           resolve(results);
         }, 500);

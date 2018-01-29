@@ -1,11 +1,10 @@
 <div class="sky-autocomplete">
   <ng-content>
   </ng-content>
-  <div
-    class="sky-autocomplete-results"
-    [ngClass]="{ 'sky-autocomplete-results-hidden': !hasSearchResults() }">
+  <div class="sky-autocomplete-results">
 
     <sky-dropdown
+      [dismissOnBlur]="false"
       [messageStream]="dropdownController">
 
       <sky-dropdown-button>

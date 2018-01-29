@@ -55,5 +55,5 @@ export class SkyAutocompleteTestComponent {
   @ViewChild('myForm')
   public myForm: NgForm;
 
-  public onSelectionChange(event: SkyAutocompleteSelectionChange) { }
+  public onSelectionChange(event: SkyAutocompleteSelectionChange): void { }
 }

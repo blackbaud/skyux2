@@ -58,6 +58,7 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, Control
   }
 
   public textChanges = new EventEmitter<SkyAutocompleteInputTextChange>();
+  public blur = new EventEmitter<void>();
 
   private destroy = new Subject<boolean>();
   private _displayWith: string;
@@ -84,37 +85,37 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, Control
       .fromEvent(element, 'blur')
       .takeUntil(this.destroy)
       .subscribe(() => {
-        this.handleBlur();
+        this.checkValues();
       });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.destroy.next(true);
     this.destroy.unsubscribe();
   }
 
-  public writeValue(value: any) {
+  public writeValue(value: any): void {
     if (value) {
       this.value = value;
     }
   }
 
-  public registerOnChange(fn: (value: any) => void) {
+  public registerOnChange(fn: (value: any) => void): void {
     this.onChange = fn;
   }
 
-  public registerOnTouched(fn: () => void) {
+  public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
   // Angular automatically constructs these methods.
   /* istanbul ignore next */
-  public onChange(value: any) { }
+  public onChange(value: any): void { }
 
   /* istanbul ignore next */
-  public onTouched() { }
+  public onTouched(): void { }
 
-  private setAttributes(element: any) {
+  private setAttributes(element: any): void {
     this.renderer.setAttribute(element, 'autocomplete', 'off');
     this.renderer.setAttribute(element, 'autocapitalize', 'off');
     this.renderer.setAttribute(element, 'autocorrect', 'off');
@@ -122,13 +123,13 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, Control
     this.renderer.addClass(element, 'sky-form-control');
   }
 
-  private notifyTextChanges() {
+  private notifyTextChanges(): void {
     this.textChanges.emit({
       value: this.elementRef.nativeElement.value
     });
   }
 
-  private handleBlur() {
+  private checkValues(): void {
     const text = this.elementRef.nativeElement.value;
     const displayValue = this.value[this.displayWith];
 
@@ -143,5 +144,7 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, Control
       // so clear out the selected value.
       this.value = { };
     }
+
+    this.blur.emit();
   }
 }

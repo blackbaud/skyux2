@@ -119,6 +119,7 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
 
   private destroy = new Subject<boolean>();
   private searchResultsIndex = 0;
+  private isMouseEnter = false;
 
   private _descriptorProperty: string;
   private _propertiesToSearch: string[];
@@ -132,7 +133,35 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
     private windowRef: SkyWindowRefService
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
+    this.setupHostEvents();
+  }
+
+  public ngAfterContentInit(): void {
+    if (!this.inputDirective) {
+      throw Error([
+        'The SkyAutocompleteComponent requires a ContentChild input or textarea bound with',
+        'the SkyAutocomplete directive. For example: `<input type="text" skyAutocomplete>`.'
+      ].join(' '));
+    }
+
+    this.setupInputDirective();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
+  }
+
+  public onMenuChanges(change: SkyDropdownMenuChange): void {
+    if (change.activeIndex !== undefined) {
+      this.searchResultsIndex = change.activeIndex;
+    } else if (change.selectedItem) {
+      this.selectActiveSearchResult();
+    }
+  }
+
+  private setupHostEvents(): void {
     const element = this.elementRef.nativeElement;
 
     Observable
@@ -141,16 +170,23 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
       .subscribe((event: KeyboardEvent) => {
         this.handleKeyDown(event);
       });
+
+    Observable
+      .fromEvent(element, 'mouseenter')
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.isMouseEnter = true;
+      });
+
+    Observable
+      .fromEvent(element, 'mouseleave')
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.isMouseEnter = false;
+      });
   }
 
-  public ngAfterContentInit() {
-    if (!this.inputDirective) {
-      throw Error([
-        'The SkyAutocompleteComponent requires a ContentChild input or textarea bound with',
-        'the SkyAutocomplete directive. For example: `<input type="text" skyAutocomplete>`.'
-      ].join(' '));
-    }
-
+  private setupInputDirective(): void {
     this.inputDirective.displayWith = this.descriptorProperty;
 
     this.inputDirective.textChanges
@@ -158,26 +194,17 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
       .subscribe((change: SkyAutocompleteInputTextChange) => {
         this.searchTextChanged(change.value);
       });
+
+    this.inputDirective.blur
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        if (!this.isMouseEnter) {
+          this.closeDropdown();
+        }
+      });
   }
 
-  public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
-  }
-
-  public onMenuChanges(change: SkyDropdownMenuChange) {
-    if (change.activeIndex !== undefined) {
-      this.searchResultsIndex = change.activeIndex;
-    } else if (change.selectedItem) {
-      this.selectActiveSearchResult();
-    }
-  }
-
-  public hasSearchResults(): boolean {
-    return (this.searchResults && this.searchResults.length > 0);
-  }
-
-  private handleKeyDown(event: KeyboardEvent) {
+  private handleKeyDown(event: KeyboardEvent): void {
     const key = event.key.toLowerCase();
 
     /* tslint:disable-next-line:switch-default */
@@ -207,7 +234,7 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
     }
   }
 
-  private searchTextChanged(searchText: string) {
+  private searchTextChanged(searchText: string): void {
     const isEmpty = (!searchText || searchText.match(/^\s+$/));
 
     if (isEmpty) {
@@ -241,7 +268,7 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
     return result;
   }
 
-  private selectActiveSearchResult() {
+  private selectActiveSearchResult(): void {
     if (this.hasSearchResults()) {
       const result = this.searchResults[this.searchResultsIndex];
       this.searchText = result[this.descriptorProperty];
@@ -252,25 +279,29 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
     }
   }
 
-  private notifySelectionChange(selection: any) {
+  private notifySelectionChange(selection: any): void {
     this.selectionChange.emit({
       selectedItem: selection
     });
   }
 
-  private openDropdown() {
+  private openDropdown(): void {
     this.sendDropdownMessage(SkyDropdownMessageType.Open);
     this.windowRef.getWindow().setTimeout(() => {
       this.sendDropdownMessage(SkyDropdownMessageType.FocusFirstItem);
     });
   }
 
-  private closeDropdown() {
+  private closeDropdown(): void {
     this.searchResults = [];
     this.sendDropdownMessage(SkyDropdownMessageType.Close);
   }
 
-  private sendDropdownMessage(type: SkyDropdownMessageType) {
+  private sendDropdownMessage(type: SkyDropdownMessageType): void {
     this.dropdownController.next({ type });
+  }
+
+  private hasSearchResults(): boolean {
+    return (this.searchResults && this.searchResults.length > 0);
   }
 }

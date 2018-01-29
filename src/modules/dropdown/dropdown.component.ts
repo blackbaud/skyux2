@@ -206,7 +206,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     this.isOpen = false;
     this.isKeyboardActive = false;
     this.menuComponent.reset();
-    console.log('dd closed');
   }
 
   public getPopoverTriggerType(): SkyPopoverTrigger {

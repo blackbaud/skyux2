@@ -138,7 +138,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     const targetIsChild = (this.elementRef.nativeElement.contains(event.target));
     const targetIsCaller = (this.caller && this.caller.nativeElement === event.target);
 
-    if (!targetIsChild && !targetIsCaller && this.isOpen && this.dismissOnBlur) {
+    if (!targetIsChild && !targetIsCaller && this.dismissOnBlur) {
       // The popover is open, is currently being operated by the user, and
       // has just lost keyboard focus. We should close it.
       this.close();
@@ -222,14 +222,13 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   public close() {
     if (this.isOpen) {
+      this.isMouseEnter = false;
       this.animationState = 'hidden';
       this.changeDetector.markForCheck();
     }
   }
 
   public onAnimationStart(event: AnimationEvent) {
-    this.isOpen = false;
-
     if (event.fromState === 'void') {
       return;
     }
