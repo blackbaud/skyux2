@@ -4,218 +4,300 @@ import {
   Renderer2
 } from '@angular/core';
 
-import { SkyWindowRefService } from '../window';
-import { SkyPopoverPlacement } from './index';
+import {
+  SkyWindowRefService
+} from '../window';
 
-export interface SkyPopoverCoordinates {
-  top: number;
-  left: number;
-  arrowTop: number;
-  arrowLeft: number;
-  isOutsideViewport: boolean;
-}
-
-export interface SkyPopoverAdapterElements {
-  popover: ElementRef;
-  popoverArrow: ElementRef;
-  caller: ElementRef;
-}
+import {
+  SkyPopoverAdapterArrowCoordinates,
+  SkyPopoverAdapterCoordinates,
+  SkyPopoverAdapterElements,
+  SkyPopoverAdapterParentDimensions,
+  SkyPopoverAlignment,
+  SkyPopoverPlacement,
+  SkyPopoverPosition
+} from './types';
 
 @Injectable()
 export class SkyPopoverAdapterService {
   constructor(
     private renderer: Renderer2,
-    private windowRef: SkyWindowRefService) { }
+    private windowRef: SkyWindowRefService
+  ) { }
 
-  public setPopoverPosition(
+  public getPopoverPosition(
     elements: SkyPopoverAdapterElements,
-    placement: SkyPopoverPlacement = 'above'
-  ) {
-    this.clearElementCoordinates(elements.popover);
-    this.clearElementCoordinates(elements.popoverArrow);
-
-    const coords = this.getVisibleCoordinates(elements, placement);
-
-    this.setElementCoordinates(elements.popover, coords.top, coords.left);
-    this.setElementCoordinates(elements.popoverArrow, coords.arrowTop, coords.arrowLeft);
-  }
-
-  public hidePopover(elem: ElementRef): void {
-    this.renderer.addClass(elem.nativeElement, 'hidden');
-  }
-
-  public showPopover(elem: ElementRef): void {
-    this.renderer.removeClass(elem.nativeElement, 'hidden');
-  }
-
-  private getVisibleCoordinates(
-    elements: SkyPopoverAdapterElements,
-    placement: SkyPopoverPlacement
-  ): SkyPopoverCoordinates {
+    placement: SkyPopoverPlacement,
+    alignment: SkyPopoverAlignment
+  ): SkyPopoverPosition {
     const max = 4;
 
     let counter = 0;
-    let coords: SkyPopoverCoordinates;
+    let coords: SkyPopoverAdapterCoordinates = {
+      top: undefined,
+      left: undefined,
+      isOutsideViewport: true
+    };
 
-    do {
-      coords = this.getCoordinates(elements, placement);
-      if (coords.isOutsideViewport) {
-        placement = this.getNextPlacement(placement);
+    if (!placement || placement === 'fullscreen' || this.popoverLargerThanParent(elements)) {
+      placement = 'fullscreen';
+    } else {
+      do {
+        coords = this.getPopoverCoordinates(elements, placement, alignment);
+        if (coords.isOutsideViewport) {
+          placement = (counter % 2 === 0) ?
+            this.getInversePlacement(placement) :
+            this.getNextPlacement(placement);
+        }
+      } while (coords.isOutsideViewport && ++counter < max);
+
+      if (counter === max) {
+        placement = 'fullscreen';
       }
-    } while (coords.isOutsideViewport && ++counter < max);
-
-    if (counter === max) {
-      placement = this.getInversePlacement(placement);
-      coords = this.getCoordinates(elements, placement);
     }
 
-    return coords;
+    const arrowCoords = this.getArrowCoordinates(elements, coords, placement);
+
+    return {
+      top: coords.top,
+      left: coords.left,
+      arrowTop: arrowCoords.top,
+      arrowLeft: arrowCoords.left,
+      placement,
+      alignment
+    };
   }
 
-  private getCoordinates(
+  public hidePopover(elem: ElementRef): void {
+    this.renderer.addClass(elem.nativeElement, 'sky-popover-hidden');
+  }
+
+  public showPopover(elem: ElementRef): void {
+    this.renderer.removeClass(elem.nativeElement, 'sky-popover-hidden');
+  }
+
+  public clearConcreteDimensions(elem: ElementRef): void {
+    this.renderer.removeStyle(elem.nativeElement, 'width');
+    this.renderer.removeStyle(elem.nativeElement, 'height');
+    this.renderer.removeClass(elem.nativeElement, 'sky-popover-placement-fullscreen');
+  }
+
+  private getPopoverCoordinates(
     elements: SkyPopoverAdapterElements,
-    placement: SkyPopoverPlacement
-  ): SkyPopoverCoordinates {
-    const callerRect = elements.caller.nativeElement.getBoundingClientRect();
-    const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
-    const window = this.windowRef.getWindow();
+    placement: SkyPopoverPlacement,
+    alignment: SkyPopoverAlignment
+  ): SkyPopoverAdapterCoordinates {
+    const callerElement = elements.caller.nativeElement;
+    const popoverElement = elements.popover.nativeElement;
 
-    const documentWidth = window.document.body.clientWidth;
-    const documentHeight = window.document.body.clientHeight;
+    const callerRect = callerElement.getBoundingClientRect();
+    const popoverRect = popoverElement.getBoundingClientRect();
 
-    const leftCenter = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
-    const topCenter = callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2);
+    const callerOffsetLeft = callerElement.offsetLeft;
+    const callerOffsetTop = callerElement.offsetTop;
 
-    let top;
-    let left;
-    let arrowTop;
-    let arrowLeft;
+    const windowObj = this.windowRef.getWindow();
+    const parent = this.getParentDimensions();
+    const viewportOffsetBottom = windowObj.innerHeight + windowObj.pageYOffset;
 
+    let top: number;
+    let left: number;
+    let bleedLeft = 0;
+    let bleedRight = 0;
+    let bleedTop = 0;
+    let bleedBottom = 0;
     let isOutsideViewport = false;
 
-    // tslint:disable:switch-default
-    // All possible types are represented; default unnecessary.
+    /* tslint:disable:switch-default */
     switch (placement) {
       case 'above':
-        left = leftCenter;
-        top = callerRect.top - popoverRect.height;
-        arrowLeft = (popoverRect.width / 2);
-        break;
+      top = callerOffsetTop - popoverRect.height;
+      bleedTop = callerRect.top - popoverRect.height;
+      break;
 
       case 'below':
-        left = leftCenter;
-        top = callerRect.top + callerRect.height;
-        arrowLeft = (popoverRect.width / 2);
-        break;
+      top = callerOffsetTop + callerRect.height;
+      bleedBottom = viewportOffsetBottom - (callerRect.top + callerRect.height + popoverRect.height + windowObj.pageYOffset);
+      break;
 
       case 'right':
-        top = topCenter;
-        left = callerRect.right;
-        arrowTop = (popoverRect.height / 2);
-        break;
+      left = callerOffsetLeft + callerRect.width;
+      bleedRight = parent.width - (callerRect.left + callerRect.width + popoverRect.width);
+      break;
 
       case 'left':
-        top = topCenter;
-        left = callerRect.left - popoverRect.width;
-        arrowTop = (popoverRect.height / 2);
+      left = callerOffsetLeft - popoverRect.width;
+      bleedLeft = callerRect.left - popoverRect.width;
+      break;
+    }
+    /* tslint:enable */
+
+    if (placement === 'right' || placement === 'left') {
+      top = callerOffsetTop - (popoverRect.height / 2) + (callerRect.height / 2);
+      bleedTop = windowObj.pageYOffset + (callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2));
+      bleedBottom = parent.height - (
+        callerRect.top + windowObj.pageYOffset + ((callerRect.height / 2) + (popoverRect.height / 2))
+      );
+    }
+
+    // Make adjustments based on horizontal alignment.
+    if (placement === 'above' || placement === 'below') {
+      /* tslint:disable:switch-default */
+      switch (alignment) {
+        case 'center':
+        left = callerOffsetLeft - (popoverRect.width / 2) + (callerRect.width / 2);
+        bleedLeft = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
+        bleedRight = parent.width - (callerRect.left + (popoverRect.width / 2) + (callerRect.width / 2));
         break;
-    }
-    // tslint:enable:switch-default
 
-    left += window.pageXOffset;
-    top += window.pageYOffset;
+        case 'left':
+        left = callerOffsetLeft;
+        bleedLeft = callerRect.left;
+        bleedRight = parent.width - (bleedLeft + popoverRect.width);
+        break;
 
-    // Clipped on the right?
-    if (callerRect.right + (popoverRect.width / 2) > documentWidth) {
-      if (placement === 'right') {
-        isOutsideViewport = true;
+        case 'right':
+        left = callerOffsetLeft - popoverRect.width + callerRect.width;
+        bleedLeft = callerRect.left - popoverRect.width + callerRect.width;
+        bleedRight = parent.width - (callerRect.left + callerRect.width);
+        break;
       }
-
-      if (placement === 'above' || placement === 'below') {
-        arrowLeft = popoverRect.width - (documentWidth - callerRect.right + (callerRect.width / 2));
-        left = documentWidth - popoverRect.width;
-      }
+      /* tslint:enable */
     }
 
-    // Clipped on the left?
-    if (left <= 0) {
+    // Clipped on left?
+    if (bleedLeft < 0) {
       if (placement === 'left') {
         isOutsideViewport = true;
       }
 
-      if (placement === 'above' || placement === 'below') {
-        arrowLeft = callerRect.left + (callerRect.width / 2);
-        left = window.pageXOffset;
+      left -= bleedLeft;
+
+      // Prevent popover's left boundary from leaving the bounds of the caller.
+      if (callerRect.left < 0) {
+        left = callerOffsetLeft;
       }
     }
 
-    // Clipped above?
-    if (top <= 0) {
+    // Clipped on right?
+    if (bleedRight < 0) {
+      if (placement === 'right') {
+        isOutsideViewport = true;
+      }
+
+      left += bleedRight;
+
+      // Prevent popover's right boundary from leaving the bounds of the caller.
+      if (left + popoverRect.width < callerOffsetLeft + callerRect.width) {
+        left = callerOffsetLeft - popoverRect.width + callerRect.width;
+      }
+    }
+
+    // Clipped on top?
+    if (bleedTop < 0) {
       if (placement === 'above') {
         isOutsideViewport = true;
       }
 
-      if (placement === 'left' || placement === 'right') {
-        arrowTop = callerRect.top + (callerRect.height / 2);
-        top = window.pageYOffset;
-      }
+      top -= bleedTop;
     }
 
-    // Clipped below?
-    if (top + popoverRect.height >= documentHeight) {
+    // Clipped on bottom?
+    if (bleedBottom < 0) {
       if (placement === 'below') {
         isOutsideViewport = true;
       }
 
-      if (placement === 'left' || placement === 'right') {
-        arrowTop = documentHeight - callerRect.top - window.pageYOffset + callerRect.height;
-        top = documentHeight - popoverRect.height;
-      }
+      top += bleedBottom;
     }
 
     return {
       top,
       left,
-      arrowTop,
-      arrowLeft,
       isOutsideViewport
-    } as SkyPopoverCoordinates;
+    };
   }
 
-  private clearElementCoordinates(elem: ElementRef): void {
-    this.renderer.removeStyle(elem.nativeElement, 'top');
-    this.renderer.removeStyle(elem.nativeElement, 'left');
+  private getArrowCoordinates(
+    elements: SkyPopoverAdapterElements,
+    popoverCoords: SkyPopoverAdapterCoordinates,
+    placement: SkyPopoverPlacement
+  ): SkyPopoverAdapterArrowCoordinates {
+    const callerRect = elements.caller.nativeElement.getBoundingClientRect();
+    const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
+
+    const callerOffsetTop = elements.caller.nativeElement.offsetTop;
+    const callerOffsetLeft = elements.caller.nativeElement.offsetLeft;
+
+    let left: number;
+    let top: number;
+
+    switch (placement) {
+      default:
+      case 'above':
+      case 'below':
+      left = callerOffsetLeft - popoverCoords.left + (callerRect.width / 2);
+      break;
+
+      case 'right':
+      case 'left':
+      top = callerOffsetTop - popoverCoords.top + (callerRect.height / 2);
+      break;
+    }
+
+    // The arrow has exceded the bounds of the popover;
+    // default to the CSS className position.
+    if (left < 0 || left > popoverRect.width || isNaN(left)) {
+      left = undefined;
+    }
+
+    return { top, left };
   }
 
-  private setElementCoordinates(elem: ElementRef, top: number, left: number) {
-    let topStyle;
-    let leftStyle;
+  private popoverLargerThanParent(elements: SkyPopoverAdapterElements) {
+    const parentDimensions = this.getParentDimensions();
 
-    if (top !== undefined) {
-      topStyle = `${top}px`;
-    }
+    // Set concrete dimensions after we've determined the document height.
+    this.setConcreteDimensions(elements.popover);
 
-    if (left !== undefined) {
-      leftStyle = `${left}px`;
-    }
+    const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
 
-    this.renderer.setStyle(elem.nativeElement, 'top', topStyle);
-    this.renderer.setStyle(elem.nativeElement, 'left', leftStyle);
+    return (
+      popoverRect.height > parentDimensions.height ||
+      popoverRect.width > parentDimensions.width
+    );
   }
 
   private getNextPlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
-    const placements: SkyPopoverPlacement[] = ['above', 'below', 'right', 'left'];
-
-    let index = placements.indexOf(placement) + 1;
-    if (index === placements.length) {
-      index = 0;
-    }
-
+    const placements: SkyPopoverPlacement[] = ['above', 'right', 'below', 'left'];
+    const index = placements.indexOf(placement) + 1;
     return placements[index];
   }
 
   private getInversePlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
-    const pairings = { above: 'below', below: 'above', right: 'left', left: 'right' };
+    const pairings: any = { above: 'below', below: 'above', right: 'left', left: 'right' };
     return pairings[placement] as SkyPopoverPlacement;
+  }
+
+  private setConcreteDimensions(elementRef: ElementRef) {
+    const element = elementRef.nativeElement;
+    const rect = element.getBoundingClientRect();
+    element.style.width = `${rect.width}px`;
+    element.style.height = `${rect.height}px`;
+  }
+
+  private getParentDimensions(): SkyPopoverAdapterParentDimensions {
+    const windowObj = this.windowRef.getWindow();
+
+    const documentHeight = windowObj.document.body.clientHeight;
+    const viewportHeight = windowObj.innerHeight;
+
+    const width = windowObj.document.body.clientWidth;
+    const height = (viewportHeight > documentHeight) ? viewportHeight : documentHeight;
+
+    return {
+      width,
+      height
+    };
   }
 }
