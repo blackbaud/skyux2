@@ -106,14 +106,14 @@ describe('Flyout service', () => {
   }));
 
   it('should allow data to be passed to the modal component when opened', fakeAsync(() => {
-    const flyoutInstance = openFlyout(FlyoutWithValuesTestComponent, [
+    const flyoutInstance = openFlyout(FlyoutWithValuesTestComponent, {providers: [
       {
         provide: FlyoutTestValues,
         useValue: {
           valueA: 'A'
         }
       }
-    ]);
+    ]});
 
     expect(flyoutInstance.componentInstance.values.valueA).toBe('A');
 

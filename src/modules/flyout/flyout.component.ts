@@ -107,7 +107,8 @@ export class SkyFlyoutComponent {
       /* istanbul ignore else */
       /* sanity check */
       if (this.displayedInstance) {
-        this.displayedInstance.close();
+        this.displayedInstance.closed.emit();
+        this.displayedInstance.closed.complete();
       }
       this.closed.emit();
       this.closed.complete();

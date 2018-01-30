@@ -7,7 +7,8 @@
   bottom:0;
   height:100%;
   background-color:#fff;
-  border-left:6px solid $sky-background-color-primary-dark;
+  border-left:6px solid $sky-highlight-color-info;
+  box-shadow: -3px 0 3px 0 rgba(0,0,0,.3);
 
   width:50%;
   min-width:320px;
@@ -18,7 +19,8 @@
 
 .sky-flyout-header {
   width:100%;
-  background: #7f8690;
+  background: $sky-background-color-neutral-light;
+  @include sky-border(dark, bottom);
   height:50px;
   padding:8px 8px 8px 15px;
   display:flex;

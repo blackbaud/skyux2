@@ -1,16 +1,17 @@
 import {
   EventEmitter
 } from '@angular/core';
+import { SkyFlyoutService } from './index';
 
 export class SkyFlyoutInstance {
   public componentInstance: any;
 
   public closed = new EventEmitter<void>();
 
-  public close() {
+  constructor(private skyFlyoutService: SkyFlyoutService) {}
 
-    this.closed.emit();
-    this.closed.complete();
+  public close() {
+    this.skyFlyoutService.close();
   }
 
 }
