@@ -215,13 +215,9 @@ describe('Autocomplete component', () => {
         inputElement.value = 'r';
         TestUtility.fireKeyboardEvent(inputElement, 'keyup');
         tick();
-        fixture.detectChanges();
-        tick();
 
         inputElement.value = 're';
         TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-        tick();
-        fixture.detectChanges();
         tick();
 
         expect(messageSpy)
