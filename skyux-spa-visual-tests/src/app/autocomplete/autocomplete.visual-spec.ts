@@ -6,13 +6,11 @@ import {
 
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-fdescribe('Autocomplete', () => {
-
+describe('Autocomplete', () => {
   it('should match previous alert screenshot', () => {
     return SkyVisualTest
       .setupTest('autocomplete')
       .then(() => {
-
         const input = element(by.css('input'));
         input.value = 'r';
         input.click();
