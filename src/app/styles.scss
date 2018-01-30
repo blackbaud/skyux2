@@ -162,3 +162,40 @@ code {
     border-color: $sky-background-color-danger;
   }
 }
+<<<<<<< Updated upstream
+=======
+
+// Start content tables 
+.content-table {
+  border-collapse: collapse;
+  td, th {
+    padding: 10px 5px;
+  }
+  td {
+    border-bottom: 1px dotted $sky-border-color-neutral-light;
+    vertical-align: top;
+  }
+  tr:nth-child(even) {
+    background-color: $sky-color-gray-01;
+  }
+  label {
+    display: block;
+    padding-left: 23px;
+    text-indent: -26px;
+}
+  input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    margin:0;
+    vertical-align: top;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+  }
+  a {
+    font-size: 14px;
+    font-style: italic;
+  }
+}
+>>>>>>> Stashed changes

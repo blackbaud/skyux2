@@ -1,0 +1,134 @@
+<stache   
+  navOrder="1"
+  navTitle="UI checklist"
+  pageTitle="User interface accessibility checklist"
+  >
+
+  <stache-page-summary>
+    Checklist of user interface-specific criteria for accessibility
+  </stache-page-summary>
+  <p>We utilize this checklist to think through and evaluate new patterns and components for SKY UX to ensure they are as accessible as possible. This covers a subset of the WCAG 2.0 success criteria specific to the user interface display and behaviors. It does not cover criteria related to the code or HTML markup used. </p>
+
+  <table class="content-table">
+    <thead>
+      <tr style="text-align: left;" class="sky-emphasized">
+        <th style="width: 1.4em;">&nbsp;</th>
+        <th style="width: 18em;">Does this exists in the interface?</th>
+        <th>Then check that this is true:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><label><input type="checkbox"> Text <br>(&lt; 18 point or if bold &lt; 14pt)</label></td>
+        <td><label><input type="checkbox"> Contrast ratio of background to text is >= 4.5:1 
+          <br><a href="https://www.w3.org/TR/WCAG20-TECHS/G145.html">WCAG Criterion 1.4.3</a></label></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><label><input type="checkbox"> Large Text <br>( >=18 point or if bold >= 14pt)</label></td>
+        <td><label><input type="checkbox"> Contrast ratio of background to text is >= 3:1 
+          <br><a href="https://www.w3.org/TR/WCAG20-TECHS/G145.html">WCAG Criterion 1.4.3</a></label></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><label><input type="checkbox"> Link(s) within text not underlined (e.g., w/in paragraphs)</label></td>
+        <td><label><input type="checkbox"> Link color to text color contrast is >= 3:1 AND has additional visual indication when hovered and focused 
+          <br><a href="https://www.w3.org/TR/WCAG20-TECHS/G183.html">WCAG Criterion  1.4.1</a></label></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><label><input type="checkbox"> Images or non-text content (e.g., icons)</label></td>
+        <td><label><input type="checkbox"> All images have text equivalents defined. (If image decorative, indicate image is presentational and should be ignored by screen readers)
+          <br><a href="https://www.w3.org/TR/2016/NOTE-WCAG20-TECHS-20161007/G94">WCAG Criterion  1.1.1</a></label></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><label><input type="checkbox"> Images or non-text content invokes a function</label></td>
+        <td><label><input type="checkbox"> Image, icon, non-text content has text equivalents communicating this function
+          <br><a href="https://www.w3.org/TR/2016/NOTE-WCAG20-TECHS-20161007/G94">WCAG Criterion 1.1.1</a></label></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><label><input type="checkbox"> Color used as information</label></td>
+        <td><label><input type="checkbox"> If color is not the only means of communicating the information color is communicating 
+          <br><a href="https://www.w3.org/WAI/WCAG20/quickref/?showtechniques=11%2C141#visual-audio-contrast-without-color">WCAG Criterion 1.4.1</a></label></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><label><input type="checkbox"> Motion, animations</label></td>
+        <td><label><input type="checkbox"> There is no flashing that flashes more than 3 times in any 1 second period 
+          <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/seizure-does-not-violate.html">WCAG Criterion 2.3.1</a></label></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><label><input type="checkbox"> Motion, blinking, scrolling that starts automatically and lasts more than 5 seconds</label></td>
+        <td><label><input type="checkbox"> There is a mechanism for a user to pause, stop or hide it (unless this motion is essential) <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/time-limits-pause.html">WCAG Criterion 2.2.2</a></label></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><label><input type="checkbox"> Displaying auto-updating content that automatically starts</label></td>
+        <td><label><input type="checkbox"> There is a mechanism for a user to pause, stop or hide it (unless this motion is essential) <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/time-limits-pause.html">WCAG Criterion 2.2.2</a></label></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><label><input type="checkbox"> Forms and/or input elements</label></td>
+        <td><label><input type="checkbox"> All input elements have associated text labels either on screen or specified for off-screen 
+          <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/minimize-error-cues.html">WCAG Criterion 3.3.2</a></label></td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td><label><input type="checkbox"> Required form input and required input formats (e.g., date format)</label></td>
+        <td><label><input type="checkbox"> Required elements and/or formats are communicated visually and textually 
+          <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/minimize-error-cues.html">WCAG Criterion  3.3.2</a>, <a href="https://www.w3.org/TR/WCAG20-TECHS/F81.html">1.4.1</a></label></td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td><label><input type="checkbox"> Error states/messages</label></td>
+        <td><label><input type="checkbox"> Users notified of errors and given instructions on how to fix errors, ideally there is a way to directly navigate to errors from error message 
+          <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/minimize-error-identified.html">WCAG Criterion 3.3.1</a>, <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/minimize-error-suggestions.html">3.3.3</a></label></td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td><label><input type="checkbox"> Interactions that are mouse or touch-only (e.g., drag 'n drop) </label></td>
+        <td><label><input type="checkbox"> Keyboard operation alternatives noted in proposal 
+          <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/keyboard-operation-keyboard-operable.html">WCAG Criterion 2.1.1</a></label></td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td><label><input type="checkbox"> Interactive elements (e.g., links, buttons, form/input elements)</label></td>
+        <td>
+          <ul style="list-style: none; margin:0; padding:0;">
+            <li><label><input type="checkbox"> On focus, no unexpected (or non browser default) behaviors are specified which would be unexpected <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-receive-focus.html">WCAG Criterion 3.2.1</a></label></li>
+            <li><label><input type="checkbox"> On focus, additional focus state visual indicators are specified if needed OR default SKY UX visual indicators are sufficient <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-focus-visible.html">WCAG Criterion 2.4.7</a></label></li>
+            <li><label><input type="checkbox"> On text entry or input selection, no unexpected behavior is invoked. If unexpected behavior, a warning is communicated to users ahead of time <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html">WCAG Criterion 3.2.2</a></label></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td><label><input type="checkbox"> Page titles</label></td>
+        <td><label><input type="checkbox"> Titles are unique and descriptive of the contents and/or purpose of the page</label></td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td><label><input type="checkbox"> Non-native HTML components 
+          (i.e., rich internet application widgets)
+          </label></td>
+        <td><label><input type="checkbox"> Interactions for keyboard defined (see WAI-ARIA Authoring Practices for <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex">common keyboard widget patterns</a> and <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard">principles</a>)
+          <br><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/keyboard-operation-keyboard-operable.html">WCAG Criterion 2.1.1</a></label></td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td><label><input type="checkbox"> Headings</label></td>
+        <td><label><input type="checkbox"> Heading levels are specified in hierarchical order (H1-H6) and are descriptive 
+        <br><a href="https://www.w3.org/TR/WCAG20-TECHS/H42.html">WCAG Criterion 1.3.1</a>, <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html"> 2.4.6</a></label></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+</stache>
