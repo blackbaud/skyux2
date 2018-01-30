@@ -1,6 +1,11 @@
 @import "../../scss/variables";
 @import "../../scss/mixins";
 
+.sky-input-group,
+.sky-input-group-btn {
+  position: static;
+}
+
 .sky-input-group-timepicker-btn /deep/ .sky-btn {
   border-radius: 0;
 }
@@ -26,8 +31,8 @@
   padding-bottom: $sky-padding-half;
   width: 100%;
   height: 100%;
-  
-  
+
+
 }
 .sky-timepicker-container :last-child ol{
   display: flex;
@@ -49,7 +54,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-}                                                      
+}
 .sky-timepicker-column ol li {
   text-align: center;
   cursor: pointer;
