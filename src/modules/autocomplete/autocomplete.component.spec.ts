@@ -204,6 +204,32 @@ describe('Autocomplete component', () => {
       })
     );
 
+    it('should only open the dropdown once when user types',
+      fakeAsync(() => {
+        fixture.detectChanges();
+
+        const inputElement = getInputElement();
+        const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+          .and.callThrough();
+
+        inputElement.value = 'r';
+        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        inputElement.value = 're';
+        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        expect(messageSpy)
+          .toHaveBeenCalledWith(SkyDropdownMessageType.Open);
+        expect(messageSpy.calls.count()).toEqual(1);
+      })
+    );
+
     it('should limit search results', fakeAsync(() => {
       component.searchResultsLimit = 1;
       fixture.detectChanges();

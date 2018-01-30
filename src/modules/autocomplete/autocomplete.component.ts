@@ -258,9 +258,12 @@ export class SkyAutocompleteComponent
 
     if (isLongEnough && isDifferent) {
       this.performSearch().then((results: any[]) => {
+        if (!this.hasSearchResults()) {
+          this.sendDropdownMessage(SkyDropdownMessageType.Open);
+        }
+
         this.searchResults = results;
         this.highlightText = this.searchText;
-        this.sendDropdownMessage(SkyDropdownMessageType.Open);
         this.changeDetector.markForCheck();
       });
     }
@@ -300,6 +303,6 @@ export class SkyAutocompleteComponent
   }
 
   private hasSearchResults(): boolean {
-    return (!this.searchResults || this.searchResults.length > 0);
+    return (this.searchResults && this.searchResults.length > 0);
   }
 }
