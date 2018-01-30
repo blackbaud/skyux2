@@ -42,7 +42,11 @@ export class SkyFlyoutService {
   }
 
   public close() {
-    SkyFlyoutService.hostComponent.close();
+    /* istanbul ignore else */
+    /* sanity check */
+    if (SkyFlyoutService.hostComponent) {
+      SkyFlyoutService.hostComponent.close();
+    }
   }
 
   private createHostComponent() {

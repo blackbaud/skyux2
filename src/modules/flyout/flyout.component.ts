@@ -83,15 +83,14 @@ export class SkyFlyoutComponent {
     return this.config.ariaRole || undefined;
   }
 
-  public open(flyoutInstance: SkyFlyoutInstance, component: any, config?: IConfig) {
+  public open(flyoutInstance: SkyFlyoutInstance, component: any, config: IConfig) {
     this.isOpen = true;
     this.target.clear();
-    this.config = config || {};
+    this.config = config;
 
     const factory = this.resolver.resolveComponentFactory(component);
 
-    const providers = config.providers /* istanbul ignore next */ || [];
-    const resolvedProviders = ReflectiveInjector.resolve(providers);
+    const resolvedProviders = ReflectiveInjector.resolve(config.providers);
     const injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
     const componentRef = this.target.createComponent(factory, undefined, injector);
 

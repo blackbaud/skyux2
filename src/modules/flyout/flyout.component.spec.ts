@@ -38,6 +38,10 @@ describe('Flyout component', () => {
     return document.querySelector('.sky-flyout-header');
   }
 
+  function getFlyoutX(): any {
+    return document.querySelector('.sky-flyout-btn-close');
+  }
+
   function getAutofocusElement(): any {
     return document.querySelector('#autofocus-el');
   }
@@ -66,6 +70,11 @@ describe('Flyout component', () => {
       }
     )
   );
+
+  // Needed to ensure that the flyout cleans up after each test
+  afterEach(() => {
+    applicationRef.tick();
+  });
 
   it('should set focus on the flyout when no autofocus element is present', fakeAsync(() => {
     openFlyout(FlyoutTestComponent);
@@ -113,38 +122,41 @@ describe('Flyout component', () => {
   }));
 
   it('should close when the close button is clicked', fakeAsync(() => {
-    const flyoutInstance = openFlyout(FlyoutTestComponent);
+    openFlyout(FlyoutTestComponent);
     applicationRef.tick();
 
     expect(getFlyout()).toExist();
 
-    flyoutInstance.closed.subscribe(() => {
-      applicationRef.tick();
-      expect(getFlyout()).not.toExist();
-    });
+    getFlyoutX().click();
 
-    flyoutService.close();
+    applicationRef.tick();
+    tick();
+
+    expect(getFlyout()).not.toExist();
   }));
 
   it('should accept configuration options for aria-labelledBy, aria-describedby and role',
-  fakeAsync(() => {
-    const expectedLabel = 'customlabelledby';
-    const expectedDescribed = 'customdescribedby';
-    const expectedRole = 'customrole';
+    fakeAsync(() => {
+      const expectedLabel = 'customlabelledby';
+      const expectedDescribed = 'customdescribedby';
+      const expectedRole = 'customrole';
 
-    openFlyout(FlyoutTestComponent, {
-      'ariaLabelledBy': expectedLabel,
-      'ariaDescribedBy': expectedDescribed,
-      'ariaRole': expectedRole
-    });
+      openFlyout(FlyoutTestComponent, {
+        'ariaLabelledBy': expectedLabel,
+        'ariaDescribedBy': expectedDescribed,
+        'ariaRole': expectedRole
+      });
 
-    expect(document.querySelector('.sky-flyout').getAttribute('aria-labelledby'))
-      .toBe(expectedLabel);
-    expect(document.querySelector('.sky-flyout').getAttribute('aria-describedby'))
-      .toBe(expectedDescribed);
-    expect(document.querySelector('.sky-flyout').getAttribute('role'))
-      .toBe(expectedRole);
+      applicationRef.tick();
+      tick();
 
-    flyoutService.close();
-  }));
+      expect(document.querySelector('.sky-flyout').getAttribute('aria-labelledby'))
+        .toBe(expectedLabel);
+      expect(document.querySelector('.sky-flyout').getAttribute('aria-describedby'))
+        .toBe(expectedDescribed);
+      expect(document.querySelector('.sky-flyout').getAttribute('role'))
+        .toBe(expectedRole);
+
+      flyoutService.close();
+    }));
 });
