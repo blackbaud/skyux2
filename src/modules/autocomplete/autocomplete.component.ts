@@ -25,10 +25,6 @@ import {
 } from '../dropdown';
 
 import {
-  SkyWindowRefService
-} from '../window';
-
-import {
   SkyAutocompleteInputTextChange,
   SkyAutocompleteSearchFunction,
   SkyAutocompleteSearchFunctionFilter,
@@ -132,8 +128,7 @@ export class SkyAutocompleteComponent
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef,
-    private windowRef: SkyWindowRefService
+    private elementRef: ElementRef
   ) { }
 
   public ngOnInit(): void {
@@ -201,6 +196,10 @@ export class SkyAutocompleteComponent
     if (change.selectedItem) {
       this.selectActiveSearchResult();
     }
+
+    if (change.items) {
+      this.sendDropdownMessage(SkyDropdownMessageType.FocusFirstItem);
+    }
   }
 
   private handleKeyDown(event: KeyboardEvent): void {
@@ -261,7 +260,7 @@ export class SkyAutocompleteComponent
       this.performSearch().then((results: any[]) => {
         this.searchResults = results;
         this.highlightText = this.searchText;
-        this.openDropdown();
+        this.sendDropdownMessage(SkyDropdownMessageType.Open);
         this.changeDetector.markForCheck();
       });
     }
@@ -287,13 +286,6 @@ export class SkyAutocompleteComponent
     });
 
     this.closeDropdown();
-  }
-
-  private openDropdown(): void {
-    this.sendDropdownMessage(SkyDropdownMessageType.Open);
-    this.windowRef.getWindow().setTimeout(() => {
-      this.sendDropdownMessage(SkyDropdownMessageType.FocusFirstItem);
-    });
   }
 
   private closeDropdown(): void {

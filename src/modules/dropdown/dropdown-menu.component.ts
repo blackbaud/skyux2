@@ -68,8 +68,11 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     // Reset dropdown whenever the menu items change.
     this.menuItems.changes
       .takeUntil(this.destroy)
-      .subscribe(() => {
+      .subscribe((items: QueryList<SkyDropdownItemComponent>) => {
         this.reset();
+        this.menuChanges.emit({
+          items: items.toArray()
+        });
       });
   }
 
@@ -80,9 +83,10 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent) {
-    const selectedItem = this.menuItems.find((item: SkyDropdownItemComponent) => {
-      return (item.elementRef.nativeElement.contains(event.target));
-    });
+    const selectedItem = this.menuItems
+      .find((item: SkyDropdownItemComponent) => {
+        return (item.elementRef.nativeElement.contains(event.target));
+      });
 
     /* istanbul ignore else */
     if (selectedItem) {

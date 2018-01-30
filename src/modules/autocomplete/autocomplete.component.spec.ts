@@ -25,7 +25,7 @@ import {
   SkyAutocompleteSearchFunction
 } from './types';
 
-describe('SkyAutocompleteComponent', () => {
+describe('Autocomplete component', () => {
   let fixture: ComponentFixture<SkyAutocompleteTestComponent>;
   let component: SkyAutocompleteTestComponent;
   let autocomplete: SkyAutocompleteComponent;
@@ -95,6 +95,25 @@ describe('SkyAutocompleteComponent', () => {
       expect(spy.calls.argsFor(0)[0]).toEqual('r');
     }));
 
+    it('should search against multiple properties', fakeAsync(() => {
+      component.propertiesToSearch = ['name', 'objectid'];
+      fixture.detectChanges();
+
+      const inputElement = getInputElement();
+
+      inputElement.value = 'y';
+
+      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      expect(autocomplete.searchResults.length).toEqual(2);
+      expect(autocomplete.searchResults[0].name).toEqual('Yellow');
+      // The letter 'y' is in the objectid of 'Turquoise':
+      expect(autocomplete.searchResults[1].name).toEqual('Turquoise');
+    }));
+
     it('should search with filters', fakeAsync(() => {
       fixture.detectChanges();
 
@@ -145,6 +164,45 @@ describe('SkyAutocompleteComponent', () => {
       expect(found).toBeUndefined();
       expect(autocomplete.searchResults.length).toEqual(5);
     }));
+
+    it('should allow custom search result template', fakeAsync(() => {
+      component.searchResultTemplate = component.customSearchResultTemplate;
+      fixture.detectChanges();
+
+      const inputElement = getInputElement();
+      inputElement.value = 'r';
+
+      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      const customElement = getAutocompleteElement()
+        .querySelector('.custom-search-result-id') as HTMLElement;
+
+      expect(customElement).not.toBeNull();
+    }));
+
+    it('should focus the first search result after being opened',
+      fakeAsync(() => {
+        fixture.detectChanges();
+
+        const inputElement = getInputElement();
+        const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+          .and.callThrough();
+
+        inputElement.value = 'r';
+        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        expect(messageSpy)
+          .toHaveBeenCalledWith(SkyDropdownMessageType.Open);
+        expect(messageSpy)
+          .toHaveBeenCalledWith(SkyDropdownMessageType.FocusFirstItem);
+      })
+    );
 
     it('should limit search results', fakeAsync(() => {
       component.searchResultsLimit = 1;
@@ -226,26 +284,28 @@ describe('SkyAutocompleteComponent', () => {
       expect(customSearchCalled).toEqual(true);
     }));
 
-    it('should handle items that do not have the descriptor property', fakeAsync(() => {
-      component.data = [{
-        foo: 'bar'
-      }];
+    it('should handle items that do not have the descriptor property',
+      fakeAsync(() => {
+        component.data = [{
+          foo: 'bar'
+        }];
 
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      const inputElement = input['elementRef'].nativeElement;
-      const spy = spyOn(autocomplete, 'search').and.callThrough();
+        const inputElement = input['elementRef'].nativeElement;
+        const spy = spyOn(autocomplete, 'search').and.callThrough();
 
-      inputElement.value = 'r';
+        inputElement.value = 'r';
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-      tick();
-      fixture.detectChanges();
-      tick();
+        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        tick();
+        fixture.detectChanges();
+        tick();
 
-      expect(autocomplete.searchResults.length).toEqual(0);
-      expect(spy.calls.argsFor(0)[0]).toEqual('r');
-    }));
+        expect(autocomplete.searchResults.length).toEqual(0);
+        expect(spy.calls.argsFor(0)[0]).toEqual('r');
+      })
+    );
 
     it('should handle disabled input', fakeAsync(() => {
       const inputElement = getInputElement();
@@ -286,11 +346,15 @@ describe('SkyAutocompleteComponent', () => {
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
-      const notifySpy = spyOn(autocomplete.selectionChange, 'emit').and.callThrough();
+      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+        .and.callThrough();
+      const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
+        .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
-      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', { key: 'Enter' });
+      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', {
+        key: 'Enter'
+      });
       tick();
 
       expect(input.value.name).toEqual('Red');
@@ -309,11 +373,15 @@ describe('SkyAutocompleteComponent', () => {
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
-      const notifySpy = spyOn(autocomplete.selectionChange, 'emit').and.callThrough();
+      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+        .and.callThrough();
+      const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
+        .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
-      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', { key: 'Tab' });
+      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', {
+        key: 'Tab'
+      });
       tick();
 
       expect(input.value.name).toEqual('Red');
@@ -331,42 +399,54 @@ describe('SkyAutocompleteComponent', () => {
       tick();
       fixture.detectChanges();
 
-      const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
+      const spy = spyOn(autocomplete as any, 'sendDropdownMessage')
+        .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
-      const dropdownElement = autocompleteElement.querySelector('sky-dropdown-menu') as HTMLElement;
+      const dropdownElement = autocompleteElement
+        .querySelector('sky-dropdown-menu') as HTMLElement;
 
-      TestUtility.fireKeyboardEvent(dropdownElement, 'keydown', { key: 'arrowdown' });
+      TestUtility.fireKeyboardEvent(dropdownElement, 'keydown', {
+        key: 'arrowdown'
+      });
       tick();
 
-      TestUtility.fireKeyboardEvent(dropdownElement, 'keydown', { key: 'arrowup' });
+      TestUtility.fireKeyboardEvent(dropdownElement, 'keydown', {
+        key: 'arrowup'
+      });
       tick();
 
-      expect(spy).toHaveBeenCalledWith(SkyDropdownMessageType.FocusPreviousItem);
-      expect(spy).toHaveBeenCalledWith(SkyDropdownMessageType.FocusNextItem);
+      expect(spy)
+        .toHaveBeenCalledWith(SkyDropdownMessageType.FocusPreviousItem);
+      expect(spy)
+        .toHaveBeenCalledWith(SkyDropdownMessageType.FocusNextItem);
     }));
 
-    it('should trigger a new search when the down arrow key is pressed', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should trigger a new search when the down arrow key is pressed',
+      fakeAsync(() => {
+        fixture.detectChanges();
 
-      const inputElement = getInputElement();
-      const spy = spyOn(autocomplete, 'search').and.callThrough();
+        const inputElement = getInputElement();
+        const spy = spyOn(autocomplete, 'search').and.callThrough();
 
-      inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-      tick();
+        inputElement.value = 'r';
+        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        tick();
 
-      expect(spy.calls.argsFor(0)[0]).toEqual('r');
+        expect(spy.calls.argsFor(0)[0]).toEqual('r');
 
-      spy.calls.reset();
-      autocomplete.searchResults = [];
-      fixture.detectChanges();
+        spy.calls.reset();
+        autocomplete.searchResults = [];
+        fixture.detectChanges();
 
-      const autocompleteElement = getAutocompleteElement();
-      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', { key: 'arrowdown' });
-      tick();
+        const autocompleteElement = getAutocompleteElement();
+        TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', {
+          key: 'arrowdown'
+        });
+        tick();
 
-      expect(spy.calls.argsFor(0)[0]).toEqual('r');
-    }));
+        expect(spy.calls.argsFor(0)[0]).toEqual('r');
+      })
+    );
 
     it('should close the menu when escape key pressed', fakeAsync(() => {
       fixture.detectChanges();
@@ -387,28 +467,30 @@ describe('SkyAutocompleteComponent', () => {
       expect(autocomplete.searchResults.length).toEqual(0);
     }));
 
-    it('should reset input text value to descriptor value on blur', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should reset input text value to descriptor value on blur',
+      fakeAsync(() => {
+        fixture.detectChanges();
 
-      const selectedValue = { name: 'Red' };
-      component.model.favoriteColor = selectedValue;
+        const selectedValue = { name: 'Red' };
+        component.model.favoriteColor = selectedValue;
 
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
 
-      const inputElement = getInputElement();
-      input.textValue = 're';
+        const inputElement = getInputElement();
+        input.textValue = 're';
 
-      expect(inputElement.value).toEqual('re');
+        expect(inputElement.value).toEqual('re');
 
-      TestUtility.fireKeyboardEvent(inputElement, 'blur');
-      tick();
+        TestUtility.fireKeyboardEvent(inputElement, 'blur');
+        tick();
 
-      expect(component.myForm.value.favoriteColor).toEqual(selectedValue);
-      expect(input.value).toEqual(selectedValue);
-      expect(inputElement.value).toEqual(selectedValue.name);
-    }));
+        expect(component.myForm.value.favoriteColor).toEqual(selectedValue);
+        expect(input.value).toEqual(selectedValue);
+        expect(inputElement.value).toEqual(selectedValue.name);
+      })
+    );
 
     it('should not reset input text value if unchanged', fakeAsync(() => {
       fixture.detectChanges();
@@ -433,28 +515,30 @@ describe('SkyAutocompleteComponent', () => {
       expect(spy).not.toHaveBeenCalled();
     }));
 
-    it('should clear the input selected value if text value empty on blur', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should clear the input selected value if text value empty on blur',
+      fakeAsync(() => {
+        fixture.detectChanges();
 
-      const selectedValue = { name: 'Red' };
-      component.model.favoriteColor = selectedValue;
+        const selectedValue = { name: 'Red' };
+        component.model.favoriteColor = selectedValue;
 
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
 
-      const inputElement = getInputElement();
-      input.textValue = '';
+        const inputElement = getInputElement();
+        input.textValue = '';
 
-      expect(inputElement.value).toEqual('');
+        expect(inputElement.value).toEqual('');
 
-      TestUtility.fireKeyboardEvent(inputElement, 'blur');
-      tick();
+        TestUtility.fireKeyboardEvent(inputElement, 'blur');
+        tick();
 
-      expect(component.myForm.value.favoriteColor).toEqual({});
-      expect(input.value).toEqual({});
-      expect(inputElement.value).toEqual('');
-    }));
+        expect(component.myForm.value.favoriteColor).toEqual({ });
+        expect(input.value).toEqual({ });
+        expect(inputElement.value).toEqual('');
+      })
+    );
   });
 
   describe('mouse interactions', () => {
@@ -468,9 +552,12 @@ describe('SkyAutocompleteComponent', () => {
       tick();
       fixture.detectChanges();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
-      const notifySpy = spyOn(autocomplete.selectionChange, 'emit').and.callThrough();
-      const firstItem = getAutocompleteElement().querySelector('.sky-dropdown-item') as HTMLElement;
+      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+        .and.callThrough();
+      const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
+        .and.callThrough();
+      const firstItem = getAutocompleteElement()
+        .querySelector('.sky-dropdown-item') as HTMLElement;
 
       firstItem.querySelector('button').click();
       tick();
@@ -482,39 +569,41 @@ describe('SkyAutocompleteComponent', () => {
       });
     }));
 
-    it('should not close the dropdown during input blur if mouseenter', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should not close the dropdown during input blur if mouseenter',
+      fakeAsync(() => {
+        fixture.detectChanges();
 
-      const inputElement = getInputElement();
+        const inputElement = getInputElement();
 
-      inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-      tick();
-      fixture.detectChanges();
-      tick();
+        inputElement.value = 'r';
+        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        tick();
+        fixture.detectChanges();
+        tick();
 
-      const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
+        const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
 
-      TestUtility.fireKeyboardEvent(inputElement, 'mouseenter');
-      tick();
-      fixture.detectChanges();
-      tick();
+        TestUtility.fireKeyboardEvent(inputElement, 'mouseenter');
+        tick();
+        fixture.detectChanges();
+        tick();
 
-      input.blur.emit();
-      tick();
+        input.blur.emit();
+        tick();
 
-      expect(spy).not.toHaveBeenCalled();
-      spy.calls.reset();
+        expect(spy).not.toHaveBeenCalled();
+        spy.calls.reset();
 
-      TestUtility.fireKeyboardEvent(inputElement, 'mouseleave');
-      tick();
-      fixture.detectChanges();
-      tick();
+        TestUtility.fireKeyboardEvent(inputElement, 'mouseleave');
+        tick();
+        fixture.detectChanges();
+        tick();
 
-      input.blur.emit();
-      tick();
+        input.blur.emit();
+        tick();
 
-      expect(spy).toHaveBeenCalled();
-    }));
+        expect(spy).toHaveBeenCalled();
+      })
+    );
   });
 });

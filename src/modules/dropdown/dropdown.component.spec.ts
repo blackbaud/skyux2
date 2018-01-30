@@ -65,16 +65,18 @@ describe('Dropdown component', () => {
   }
 
   function verifyActiveMenuItemByIndex(index: number) {
-    const menuItems = component.dropdown['menuComponent']['menuItems'].toArray();
+    const menuItems = component.dropdown['menuComponent'].menuItems.toArray();
 
     menuItems.forEach((item: any, i: number) => {
       if (i === index) {
-        expect(menuItems[i].isActive).toEqual(true);
-        expect(menuItems[i].elementRef.nativeElement.querySelector('.sky-dropdown-item'))
+        expect(item.isActive).toEqual(true);
+        expect(item.elementRef.nativeElement
+          .querySelector('.sky-dropdown-item'))
           .toHaveCssClass(activeItemClass);
       } else {
-        expect(menuItems[i].isActive).toEqual(false);
-        expect(menuItems[i].elementRef.nativeElement.querySelector('.sky-dropdown-item'))
+        expect(item.isActive).toEqual(false);
+        expect(item.elementRef.nativeElement
+          .querySelector('.sky-dropdown-item'))
           .not.toHaveCssClass(activeItemClass);
       }
     });

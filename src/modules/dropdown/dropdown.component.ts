@@ -122,23 +122,18 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public ngAfterContentInit() {
-    this.menuComponent.menuItems.changes
-      .takeUntil(this.destroy)
-      .subscribe(() => {
-        // Update the popover's style and position whenever the number of items changes.
-        // e.g., If the menu is fullscreen, and removing an item allows it to fit
-        // as it should, we need to restore the popover's original styles.
-        this.windowRef.getWindow().setTimeout(() => {
-          this.sendMessage(SkyDropdownMessageType.Reposition);
-        });
-      });
-
     this.menuComponent.menuChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyDropdownMenuChange) => {
         // Close the dropdown when a menu item is selected.
         if (change.selectedItem) {
           this.sendMessage(SkyDropdownMessageType.Close);
+        }
+
+        if (change.items) {
+          // Update the popover style and position whenever the number of
+          // items changes.
+          this.sendMessage(SkyDropdownMessageType.Reposition);
         }
       });
   }
@@ -153,7 +148,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     const key = event.key.toLowerCase();
 
     if (this.isOpen) {
-      /* tslint:disable:switch-default */
+      /* tslint:disable-next-line:switch-default */
       switch (key) {
         // After an item is selected with the enter key,
         // wait a moment before returning focus to the dropdown trigger element.
@@ -173,12 +168,11 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         }
         break;
       }
-      /* tslint:enable */
 
       return;
     }
 
-    /* tslint:disable:switch-default */
+    /* tslint:disable-next-line:switch-default */
     switch (key) {
       case 'enter':
       this.isKeyboardActive = true;
@@ -190,12 +184,10 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       event.preventDefault();
       break;
     }
-    /* tslint:enable */
   }
 
   public onPopoverOpened() {
     this.isOpen = true;
-    this.menuComponent.reset();
     // Focus the first item if the menu was opened with the keyboard.
     if (this.isKeyboardActive) {
       this.sendMessage(SkyDropdownMessageType.FocusFirstItem);
@@ -214,10 +206,11 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   private handleIncomingMessages(message: SkyDropdownMessage) {
-    /* tslint:disable:switch-default */
+    /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyDropdownMessageType.Open:
-      this.popover.positionNextTo(this.triggerButton, 'below', this.alignment);
+      this.menuComponent.reset();
+      this.positionPopover();
       break;
 
       case SkyDropdownMessageType.Close:
@@ -244,14 +237,21 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       this.popover.resetPopover();
       // Only reposition the dropdown if it is already open.
       if (this.isOpen) {
-        this.sendMessage(SkyDropdownMessageType.Open);
+        this.positionPopover();
       }
       break;
     }
-    /* tslint:enable */
   }
 
   private sendMessage(type: SkyDropdownMessageType) {
     this.messageStream.next({ type });
+  }
+
+  private positionPopover() {
+    this.popover.positionNextTo(
+      this.triggerButton,
+      'below',
+      this.alignment
+    );
   }
 }

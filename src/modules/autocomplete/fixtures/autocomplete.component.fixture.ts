@@ -22,17 +22,17 @@ import {
 })
 export class SkyAutocompleteTestComponent {
   public data: any[] = [
-    { name: 'Red' },
-    { name: 'Blue' },
-    { name: 'Green' },
-    { name: 'Orange' },
-    { name: 'Pink' },
-    { name: 'Purple' },
-    { name: 'Yellow' },
-    { name: 'Brown' },
-    { name: 'Turquoise' },
-    { name: 'White' },
-    { name: 'Black' }
+    { name: 'Red', objectid: 'abc' },
+    { name: 'Blue', objectid: 'def' },
+    { name: 'Green', objectid: 'ghi' },
+    { name: 'Orange', objectid: 'jkl' },
+    { name: 'Pink', objectid: 'mno' },
+    { name: 'Purple', objectid: 'pqr' },
+    { name: 'Yellow', objectid: 'stu'},
+    { name: 'Brown', objectid: 'vwx' },
+    { name: 'Turquoise', objectid: 'yz0' },
+    { name: 'White', objectid: '123' },
+    { name: 'Black', objectid: '456' }
   ];
 
   public model: any = {
@@ -54,6 +54,9 @@ export class SkyAutocompleteTestComponent {
 
   @ViewChild('myForm')
   public myForm: NgForm;
+
+  @ViewChild('customSearchResultTemplate')
+  public customSearchResultTemplate: TemplateRef<any>;
 
   public onSelectionChange(event: SkyAutocompleteSelectionChange): void { }
 }
