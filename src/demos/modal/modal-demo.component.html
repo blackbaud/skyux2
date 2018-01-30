@@ -1,23 +1,31 @@
-<button type="button" class="sky-btn sky-btn-primary" (click)="openModal('defaultModal')">
-  Open modal
-</button>
+<div class="sky-modal-demo-button-container">
+  <button type="button" class="sky-btn sky-btn-primary" (click)="openModal('defaultModal')">
+    Open modal
+  </button>
 
-<button type="button" class="sky-btn sky-btn-primary" (click)="openModal('smallModal')">
-  Open small modal
-</button>
+  <button type="button" class="sky-btn sky-btn-primary" (click)="openModal('smallModal')">
+    Open small modal
+  </button>
 
-<button type="button" class="sky-btn sky-btn-primary" (click)="openModal('largeModal')">
-  Open large modal
-</button>
+  <button type="button" class="sky-btn sky-btn-primary" (click)="openModal('largeModal')">
+    Open large modal
+  </button>
 
-<button type="button" class="sky-btn sky-btn-primary" (click)="openModal('fullScreenModal')">
- Open full-screen modal
-</button>
+  <button type="button" class="sky-btn sky-btn-primary" (click)="openModal('fullScreenModal')">
+   Open full-screen modal
+  </button>
 
-<button type="button" class="sky-btn sky-btn-primary" (click)="openModal('tiledModal')">
-  Open tiled modal
-</button>
+  <button type="button" class="sky-btn sky-btn-primary" (click)="openModal('tiledModal')">
+    Open tiled modal
+  </button>
 
-<button type="button" class="sky-btn sky-btn-primary" (click)="openModal('withHelpHeader')">
-  Open modal with help header
-</button>
+  <button type="button" class="sky-btn sky-btn-primary" (click)="openModal('withHelpHeader')">
+    Open modal with help header
+  </button>
+</div>
+
+<sky-action-button (actionClick)="openModal('defaultModal')">
+  <sky-action-button-header>
+    Open modal with an action button
+  </sky-action-button-header>
+</sky-action-button>

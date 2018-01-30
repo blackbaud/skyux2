@@ -607,6 +607,10 @@ export class SkyDemoService {
           bootstrapSelector: 'sky-modal-demo'
         },
         {
+          name: 'modal-demo.component.scss',
+          fileContents: require('!!raw-loader!./modal/modal-demo.component.scss')
+        },
+        {
           name: 'modal-demo-form.component.html',
           fileContents: require('!!raw-loader!./modal/modal-demo-form.component.html')
         },
