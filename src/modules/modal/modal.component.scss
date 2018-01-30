@@ -13,6 +13,10 @@
   flex-direction: column;
 }
 
+.sky-modal:focus {
+  outline: none;
+}
+
 @media (min-width: $sky-screen-sm-min) {
   .sky-modal:not(.sky-modal-large) {
     margin: 0 auto;
