@@ -96,6 +96,13 @@ export class SkyFlyoutComponent {
     const componentRef = this.target.createComponent(factory, undefined, injector);
 
     flyoutInstance.componentInstance = componentRef.instance;
+
+    // Emit the closed event on any previously opened flyout instance
+    if (this.displayedInstance) {
+      this.displayedInstance.closed.emit();
+      this.displayedInstance.closed.complete();
+    }
+
     this.displayedInstance = flyoutInstance;
 
     this.flyoutAdapter.adjustHeaderForHelp();
