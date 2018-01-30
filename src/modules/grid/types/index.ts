@@ -1,1 +1,1 @@
-export * from './grid-column-heading-change';
+export * from './grid-column-heading-model-change';

@@ -24,6 +24,7 @@ import {
 import {
   SkyGridComponent,
   SkyGridColumnComponent,
+  SkyGridColumnHeadingModelChange,
   SkyGridColumnModel
 } from '../grid';
 
@@ -251,9 +252,9 @@ export class SkyListViewGridComponent
 
     // Watch for column heading changes:
     this.columnComponents.forEach((comp: SkyGridColumnComponent) => {
-      comp.headingChanges
+      comp.headingModelChanges
         .takeUntil(this.destroy)
-        .subscribe((change: any) => {
+        .subscribe((change: SkyGridColumnHeadingModelChange) => {
           this.gridComponent.updateColumnHeading(change);
         });
     });

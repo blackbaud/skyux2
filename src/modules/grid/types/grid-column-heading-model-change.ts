@@ -1,4 +1,4 @@
-export interface SkyGridColumnHeadingChange {
+export interface SkyGridColumnHeadingModelChange {
   value?: string;
   id?: string;
   field?: string;

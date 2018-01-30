@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import {
-  SkyGridColumnHeadingChange
+  SkyGridColumnHeadingModelChange
 } from './types';
 
 @Component({
@@ -55,14 +55,16 @@ export class SkyGridColumnComponent implements OnChanges {
   public templateInput: TemplateRef<any>;
   /* tslint:enable:no-input-rename */
 
-  public headingChanges= new EventEmitter<SkyGridColumnHeadingChange>();
+  public headingChanges: EventEmitter<string> = new EventEmitter<string>();
+  public headingModelChanges = new EventEmitter<SkyGridColumnHeadingModelChange>();
 
   @ContentChildren(TemplateRef)
   private templates: QueryList<TemplateRef<any>>;
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.heading && changes.heading.firstChange === false) {
-      this.headingChanges.emit({
+      this.headingChanges.emit(this.heading);
+      this.headingModelChanges.emit({
         value: this.heading,
         id: this.id,
         field: this.field
