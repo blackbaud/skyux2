@@ -32,14 +32,16 @@ import {
     }
   ]
 })
-export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, ControlValueAccessor {
+export class SkyAutocompleteInputDirective
+  implements OnInit, OnDestroy, ControlValueAccessor {
+
   public set displayWith(value: string) {
     this._displayWith = value;
     this.textValue = this.value[this.displayWith];
   }
 
   public get displayWith(): string {
-    return this._displayWith || 'name';
+    return this._displayWith;
   }
 
   public get value() {
@@ -78,7 +80,9 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, Control
       .fromEvent(element, 'keyup')
       .takeUntil(this.destroy)
       .subscribe(() => {
-        this.notifyTextChanges();
+        this.textChanges.emit({
+          value: this.elementRef.nativeElement.value
+        });
       });
 
     Observable
@@ -111,7 +115,6 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, Control
   // Angular automatically constructs these methods.
   /* istanbul ignore next */
   public onChange(value: any): void { }
-
   /* istanbul ignore next */
   public onTouched(): void { }
 
@@ -121,12 +124,6 @@ export class SkyAutocompleteInputDirective implements OnInit, OnDestroy, Control
     this.renderer.setAttribute(element, 'autocorrect', 'off');
     this.renderer.setAttribute(element, 'spellcheck', 'false');
     this.renderer.addClass(element, 'sky-form-control');
-  }
-
-  private notifyTextChanges(): void {
-    this.textChanges.emit({
-      value: this.elementRef.nativeElement.value
-    });
   }
 
   private checkValues(): void {

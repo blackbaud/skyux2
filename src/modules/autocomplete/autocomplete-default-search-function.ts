@@ -16,15 +16,20 @@ export function skyAutocompleteDefaultSearchFunction(
       }
 
       // Find the first failing filter (we can skip the others if one fails).
-      const failedFilter = options.searchFilters.find((filter: SkyAutocompleteSearchFunctionFilter) => {
-        return !(filter.call({}, searchText, item));
-      });
+      const failedFilter = options.searchFilters
+        .find((filter: SkyAutocompleteSearchFunctionFilter) => {
+          return !(filter.call({}, searchText, item));
+        });
 
       return (failedFilter === undefined);
     });
   };
 
-  const search = function (searchText: string, data: any[]): SkyAutocompleteSearchFunctionResponse {
+  const search = function (
+    searchText: string,
+    data: any[]
+  ): SkyAutocompleteSearchFunctionResponse {
+
     const searchTextLower = searchText.toLowerCase();
     const filteredData = filterData(searchText, data);
     const results = [];

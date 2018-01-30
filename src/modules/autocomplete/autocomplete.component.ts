@@ -44,7 +44,9 @@ import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-sea
   styleUrls: ['./autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContentInit {
+export class SkyAutocompleteComponent
+  implements OnInit, OnDestroy, AfterContentInit {
+
   @Input()
   public set descriptorProperty(value: string) {
     this._descriptorProperty = value;
@@ -91,7 +93,8 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
   }
 
   public get searchTextMinimumCharacters(): number {
-    return (this._searchTextMinimumCharacters > 0) ? this._searchTextMinimumCharacters : 1;
+    return (this._searchTextMinimumCharacters > 0)
+      ? this._searchTextMinimumCharacters : 1;
   }
 
   @Input()
@@ -108,7 +111,6 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
 
   public dropdownController = new Subject<SkyDropdownMessage>();
   public searchResults: any[];
-  public searchText: string;
   public highlightText: string;
 
   @ViewChild('defaultSearchResultTemplate')
@@ -118,8 +120,9 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
   private inputDirective: SkyAutocompleteInputDirective;
 
   private destroy = new Subject<boolean>();
-  private searchResultsIndex = 0;
   private isMouseEnter = false;
+  private searchResultsIndex = 0;
+  private searchText: string;
 
   private _descriptorProperty: string;
   private _propertiesToSearch: string[];
@@ -134,34 +137,6 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
   ) { }
 
   public ngOnInit(): void {
-    this.setupHostEvents();
-  }
-
-  public ngAfterContentInit(): void {
-    if (!this.inputDirective) {
-      throw Error([
-        'The SkyAutocompleteComponent requires a ContentChild input or textarea bound with',
-        'the SkyAutocomplete directive. For example: `<input type="text" skyAutocomplete>`.'
-      ].join(' '));
-    }
-
-    this.setupInputDirective();
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
-  }
-
-  public onMenuChanges(change: SkyDropdownMenuChange): void {
-    if (change.activeIndex !== undefined) {
-      this.searchResultsIndex = change.activeIndex;
-    } else if (change.selectedItem) {
-      this.selectActiveSearchResult();
-    }
-  }
-
-  private setupHostEvents(): void {
     const element = this.elementRef.nativeElement;
 
     Observable
@@ -186,7 +161,15 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
       });
   }
 
-  private setupInputDirective(): void {
+  public ngAfterContentInit(): void {
+    if (!this.inputDirective) {
+      throw Error([
+        'The SkyAutocompleteComponent requires a ContentChild input or',
+        'textarea bound with the SkyAutocomplete directive. For example:',
+        '`<input type="text" skyAutocomplete>`.'
+      ].join(' '));
+    }
+
     this.inputDirective.displayWith = this.descriptorProperty;
 
     this.inputDirective.textChanges
@@ -199,9 +182,25 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
       .takeUntil(this.destroy)
       .subscribe(() => {
         if (!this.isMouseEnter) {
+          this.searchText = '';
           this.closeDropdown();
         }
       });
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
+  }
+
+  public onMenuChanges(change: SkyDropdownMenuChange): void {
+    if (change.activeIndex !== undefined) {
+      this.searchResultsIndex = change.activeIndex;
+    }
+
+    if (change.selectedItem) {
+      this.selectActiveSearchResult();
+    }
   }
 
   private handleKeyDown(event: KeyboardEvent): void {
@@ -215,15 +214,25 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
       break;
 
       case 'arrowdown':
-      this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
-      event.preventDefault();
+      // Trigger a search if there is search text and the dropdown is not open.
+      if (this.searchText && !this.hasSearchResults()) {
+        const text = this.searchText;
+        this.searchText = '';
+        this.searchTextChanged(text);
+        event.preventDefault();
+      } else {
+        this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
+        event.preventDefault();
+      }
       break;
 
       case 'tab':
       case 'enter':
+      /* istanbul ignore else */
       if (this.hasSearchResults()) {
         this.selectActiveSearchResult();
         event.preventDefault();
+        event.stopPropagation();
       }
       break;
 
@@ -269,20 +278,15 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
   }
 
   private selectActiveSearchResult(): void {
-    if (this.hasSearchResults()) {
-      const result = this.searchResults[this.searchResultsIndex];
-      this.searchText = result[this.descriptorProperty];
-      this.inputDirective.value = result;
+    const result = this.searchResults[this.searchResultsIndex];
 
-      this.notifySelectionChange(result);
-      this.closeDropdown();
-    }
-  }
-
-  private notifySelectionChange(selection: any): void {
+    this.searchText = result[this.descriptorProperty];
+    this.inputDirective.value = result;
     this.selectionChange.emit({
-      selectedItem: selection
+      selectedItem: result
     });
+
+    this.closeDropdown();
   }
 
   private openDropdown(): void {
@@ -294,6 +298,8 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
 
   private closeDropdown(): void {
     this.searchResults = [];
+    this.highlightText = '';
+    this.changeDetector.markForCheck();
     this.sendDropdownMessage(SkyDropdownMessageType.Close);
   }
 
@@ -302,6 +308,6 @@ export class SkyAutocompleteComponent implements OnInit, OnDestroy, AfterContent
   }
 
   private hasSearchResults(): boolean {
-    return (this.searchResults && this.searchResults.length > 0);
+    return (!this.searchResults || this.searchResults.length > 0);
   }
 }
