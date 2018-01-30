@@ -214,7 +214,7 @@ export class SkyListViewGridComponent
               )
               .filter(c => c !== undefined);
 
-        this.state.first().subscribe(s => {
+        this.state.take(1).subscribe(s => {
           this.dispatcher.searchSetOptions(new ListSearchModel({
             searchText: s.search.searchText,
             functions: setFunctions,
