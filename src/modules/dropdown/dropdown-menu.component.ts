@@ -84,8 +84,17 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent) {
     const selectedItem = this.menuItems
-      .find((item: SkyDropdownItemComponent) => {
-        return (item.elementRef.nativeElement.contains(event.target));
+      .find((item: SkyDropdownItemComponent, i: number) => {
+        const found = (item.elementRef.nativeElement.contains(event.target));
+
+        if (found) {
+          this.menuIndex = i;
+          this.menuChanges.next({
+            activeIndex: this.menuIndex
+          });
+        }
+
+        return found;
       });
 
     /* istanbul ignore else */
@@ -94,21 +103,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
         selectedItem
       });
     }
-  }
-
-  @HostListener('focusin', ['$event'])
-  public onFocusIn(event: KeyboardEvent) {
-    this.menuItems.forEach((item: SkyDropdownItemComponent, i: number) => {
-      item.resetState();
-
-      if (item.elementRef.nativeElement.contains(event.target)) {
-        this.menuIndex = i;
-        item.isActive = true;
-        this.menuChanges.emit({
-          activeIndex: this.menuIndex
-        });
-      }
-    });
   }
 
   @HostListener('keydown', ['$event'])
