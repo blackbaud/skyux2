@@ -46,6 +46,7 @@ import { SkyListViewGridModule } from './modules/list-view-grid';
 import { SkyMediaQueryModule } from './modules/media-queries';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
+import { SkyOverlayModule } from './modules/overlay';
 import { SkyPageSummaryModule } from './modules/page-summary';
 import { SkyPagingModule } from './modules/paging';
 import { SkyPopoverModule } from './modules/popover';
@@ -101,6 +102,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
+    SkyOverlayModule,
     SkyPageSummaryModule,
     SkyPagingModule,
     SkyPopoverModule,
@@ -160,6 +162,7 @@ export * from './modules/list-view-grid';
 export * from './modules/modal';
 export * from './modules/media-queries';
 export * from './modules/navbar';
+export * from './modules/overlay';
 export * from './modules/page-summary';
 export * from './modules/paging';
 export * from './modules/popover';

@@ -87,95 +87,80 @@ export class SkyPopoverAdapterService {
     placement: SkyPopoverPlacement,
     alignment: SkyPopoverAlignment
   ): SkyPopoverAdapterCoordinates {
-    const callerElement = elements.caller.nativeElement;
-    const popoverElement = elements.popover.nativeElement;
-
-    const callerRect = callerElement.getBoundingClientRect();
-    const popoverRect = popoverElement.getBoundingClientRect();
-
-    const callerOffsetLeft = callerElement.offsetLeft;
-    const callerOffsetTop = callerElement.offsetTop;
-
     const windowObj = this.windowRef.getWindow();
-    const parent = this.getParentDimensions();
-    const viewportOffsetBottom = windowObj.innerHeight + windowObj.pageYOffset;
+    const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
+    const callerRect = elements.caller.nativeElement.getBoundingClientRect();
+
+    const scrollRight = windowObj.innerWidth + windowObj.pageXOffset;
+    const scrollBottom = windowObj.innerHeight + windowObj.pageYOffset;
 
     let top: number;
     let left: number;
-    let bleedLeft = 0;
     let bleedRight = 0;
     let bleedTop = 0;
     let bleedBottom = 0;
     let isOutsideViewport = false;
 
-    /* tslint:disable:switch-default */
+    /* tslint:disable-next-line:switch-default */
     switch (placement) {
       case 'above':
-      top = callerOffsetTop - popoverRect.height;
-      bleedTop = callerRect.top - popoverRect.height;
+      top = callerRect.top - popoverRect.height;
+      bleedTop = top;
       break;
 
       case 'below':
-      top = callerOffsetTop + callerRect.height;
-      bleedBottom = viewportOffsetBottom - (callerRect.top + callerRect.height + popoverRect.height + windowObj.pageYOffset);
+      top = callerRect.top + callerRect.height;
+      bleedBottom = scrollBottom - (top + popoverRect.height + windowObj.pageYOffset);
       break;
 
       case 'right':
-      left = callerOffsetLeft + callerRect.width;
-      bleedRight = parent.width - (callerRect.left + callerRect.width + popoverRect.width);
+      left = callerRect.left + callerRect.width;
+      bleedRight = scrollRight - (left + popoverRect.width);
       break;
 
       case 'left':
-      left = callerOffsetLeft - popoverRect.width;
-      bleedLeft = callerRect.left - popoverRect.width;
+      left = callerRect.left - popoverRect.width;
       break;
     }
-    /* tslint:enable */
 
     if (placement === 'right' || placement === 'left') {
-      top = callerOffsetTop - (popoverRect.height / 2) + (callerRect.height / 2);
-      bleedTop = windowObj.pageYOffset + (callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2));
-      bleedBottom = parent.height - (
-        callerRect.top + windowObj.pageYOffset + ((callerRect.height / 2) + (popoverRect.height / 2))
-      );
+      top = callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2);
+      bleedTop = windowObj.pageYOffset + top;
+      bleedBottom = scrollBottom - top;
     }
 
     // Make adjustments based on horizontal alignment.
     if (placement === 'above' || placement === 'below') {
-      /* tslint:disable:switch-default */
+      /* tslint:disable-next-line:switch-default */
       switch (alignment) {
         case 'center':
-        left = callerOffsetLeft - (popoverRect.width / 2) + (callerRect.width / 2);
-        bleedLeft = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
-        bleedRight = parent.width - (callerRect.left + (popoverRect.width / 2) + (callerRect.width / 2));
+        left = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
+        bleedRight = scrollRight - (callerRect.left + (popoverRect.width / 2) + (callerRect.width / 2));
         break;
 
         case 'left':
-        left = callerOffsetLeft;
-        bleedLeft = callerRect.left;
-        bleedRight = parent.width - (bleedLeft + popoverRect.width);
+        left = callerRect.left;
+        bleedRight = scrollRight - (left + popoverRect.width);
         break;
 
         case 'right':
-        left = callerOffsetLeft - popoverRect.width + callerRect.width;
-        bleedLeft = callerRect.left - popoverRect.width + callerRect.width;
-        bleedRight = parent.width - (callerRect.left + callerRect.width);
+        left = callerRect.left - popoverRect.width + callerRect.width;
+        bleedRight = scrollRight - callerRect.left + callerRect.width;
         break;
       }
-      /* tslint:enable */
     }
 
     // Clipped on left?
-    if (bleedLeft < 0) {
+    if (left < 0) {
       if (placement === 'left') {
         isOutsideViewport = true;
       }
 
-      left -= bleedLeft;
+      left = 0;
 
       // Prevent popover's left boundary from leaving the bounds of the caller.
       if (callerRect.left < 0) {
-        left = callerOffsetLeft;
+        left = callerRect.left;
       }
     }
 
@@ -188,8 +173,8 @@ export class SkyPopoverAdapterService {
       left += bleedRight;
 
       // Prevent popover's right boundary from leaving the bounds of the caller.
-      if (left + popoverRect.width < callerOffsetLeft + callerRect.width) {
-        left = callerOffsetLeft - popoverRect.width + callerRect.width;
+      if (left + popoverRect.width < callerRect.left + callerRect.width) {
+        left = callerRect.left - popoverRect.width + callerRect.width;
       }
     }
 
@@ -226,9 +211,6 @@ export class SkyPopoverAdapterService {
     const callerRect = elements.caller.nativeElement.getBoundingClientRect();
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
 
-    const callerOffsetTop = elements.caller.nativeElement.offsetTop;
-    const callerOffsetLeft = elements.caller.nativeElement.offsetLeft;
-
     let left: number;
     let top: number;
 
@@ -236,12 +218,12 @@ export class SkyPopoverAdapterService {
       default:
       case 'above':
       case 'below':
-      left = callerOffsetLeft - popoverCoords.left + (callerRect.width / 2);
+      left = callerRect.left - popoverCoords.left + (callerRect.width / 2);
       break;
 
       case 'right':
       case 'left':
-      top = callerOffsetTop - popoverCoords.top + (callerRect.height / 2);
+      top = callerRect.top - popoverCoords.top + (callerRect.height / 2);
       break;
     }
 
