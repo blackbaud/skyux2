@@ -6,6 +6,8 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnDestroy,
+  OnInit,
   Output,
   ViewChild
 } from '@angular/core';
@@ -19,8 +21,18 @@ import {
   transition
 } from '@angular/animations';
 
-import { SkyWindowRefService } from '../window';
-import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
+import { Subject } from 'rxjs/Subject';
+
+import {
+  SkyWindowRefService
+} from '../window';
+
+import {
+  SkyPopoverAlignment,
+  SkyPopoverPlacement
+} from './types';
+
+import { SkyPopoverAdapterService } from './popover-adapter.service';
 
 @Component({
   selector: 'sky-popover',
@@ -37,57 +49,105 @@ import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyPopoverComponent {
+export class SkyPopoverComponent implements OnInit, OnDestroy {
+  @Input()
+  public dismissOnBlur = true;
+
   @Input()
   public popoverTitle: string;
 
   @Input()
-  public placement: SkyPopoverPlacement;
+  public set alignment(value: SkyPopoverAlignment) {
+    this._alignment = value;
+  }
+
+  public get alignment(): SkyPopoverAlignment {
+    return this._alignment || 'center';
+  }
+
+  @Input()
+  public set placement(value: SkyPopoverPlacement) {
+    this._placement = value;
+  }
+
+  public get placement(): SkyPopoverPlacement {
+    return this._placement || 'above';
+  }
 
   @Output()
-  public popoverOpened: EventEmitter<SkyPopoverComponent>;
+  public popoverOpened = new EventEmitter<SkyPopoverComponent>();
 
   @Output()
-  public popoverClosed: EventEmitter<SkyPopoverComponent>;
+  public popoverClosed = new EventEmitter<SkyPopoverComponent>();
 
   @ViewChild('popoverContainer')
   public popoverContainer: ElementRef;
 
   @ViewChild('popoverArrow')
   public popoverArrow: ElementRef;
+
   public isOpen = false;
-  public placementClassName: string;
   public isMouseEnter = false;
+  public classNames: string[] = [];
+  public animationState: 'hidden' | 'visible' = 'hidden';
+
+  public popoverTop: number;
+  public popoverLeft: number;
+  public arrowTop: number;
+  public arrowLeft: number;
 
   private isMarkedForCloseOnMouseLeave = false;
-  private lastCaller: ElementRef;
-  private readonly placementDefault: SkyPopoverPlacement = 'above';
+  private caller: ElementRef;
+  private destroy = new Subject<boolean>();
+
+  private _alignment: SkyPopoverAlignment;
+  private _placement: SkyPopoverPlacement;
 
   constructor(
-    private windowRef: SkyWindowRefService,
+    private adapterService: SkyPopoverAdapterService,
     private changeDetector: ChangeDetectorRef,
-    private adapterService: SkyPopoverAdapterService
-  ) {
-    this.placement = this.placementDefault;
-    this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
-    this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
+    private elementRef: ElementRef,
+    private windowRef: SkyWindowRefService
+  ) { }
+
+  public ngOnInit() {
+    this.adapterService.hidePopover(this.popoverContainer);
+    this.updateClassNames();
   }
 
-  @HostListener('window:resize')
-  public adjustOnResize() {
-    this.positionNextTo(this.lastCaller, this.placement);
+  public ngOnDestroy() {
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 
-  @HostListener('document:keyup', ['$event'])
-  public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
-    if (this.isOpen && event.which === 27) {
+  @HostListener('keyup', ['$event'])
+  public onKeyUp(event: KeyboardEvent): void {
+    const key = event.key.toLowerCase();
+    if (key === 'escape' && this.isOpen) {
+      event.stopPropagation();
+      event.preventDefault();
+      this.close();
+      if (this.caller) {
+        this.caller.nativeElement.focus();
+      }
+    }
+  }
+
+  @HostListener('document:focusin', ['$event'])
+  public onFocusIn(event: KeyboardEvent) {
+    const targetIsChild = (this.elementRef.nativeElement.contains(event.target));
+    const targetIsCaller = (this.caller && this.caller.nativeElement === event.target);
+
+    if (!targetIsChild && !targetIsCaller && this.isOpen && this.dismissOnBlur) {
+      // The popover is open, is currently being operated by the user, and
+      // has just lost keyboard focus. We should close it.
       this.close();
     }
   }
 
   @HostListener('document:click', ['$event'])
-  public closeOnDocumentClick(event: MouseEvent): void {
-    if (this.isOpen && !this.isMouseEnter) {
+  public onDocumentClick(event: MouseEvent): void {
+    if (!this.isMouseEnter && this.dismissOnBlur) {
       this.close();
     }
   }
@@ -100,42 +160,71 @@ export class SkyPopoverComponent {
   @HostListener('mouseleave')
   public onMouseLeave() {
     this.isMouseEnter = false;
-
     if (this.isMarkedForCloseOnMouseLeave) {
       this.close();
       this.isMarkedForCloseOnMouseLeave = false;
     }
   }
 
-  public positionNextTo(caller: ElementRef, placement: SkyPopoverPlacement) {
+  @HostListener('window:scroll')
+  public onWindowScroll() {
+    if (this.isOpen) {
+      this.positionNextTo(this.caller, this.placement, this.alignment);
+    }
+  }
+
+  public positionNextTo(
+    caller: ElementRef,
+    placement?: SkyPopoverPlacement,
+    alignment?: SkyPopoverAlignment
+  ) {
     if (!caller) {
       return;
     }
 
-    this.lastCaller = caller;
+    if (placement !== this.placement) {
+      this.updateClassNames(placement, alignment);
+      this.changeDetector.markForCheck();
+    }
+
+    this.caller = caller;
+    this.placement = placement;
+    this.alignment = alignment;
 
     const elements = {
       popover: this.popoverContainer,
       popoverArrow: this.popoverArrow,
-      caller: this.lastCaller
+      caller: this.caller
     };
 
-    this.placement = placement || this.placementDefault;
-    this.changeDetector.markForCheck();
-
-    // Wait for a tick to allow placement styles to render.
-    // (The styles affect the element dimensions.)
+    // Let the styles render before gauging the dimensions.
     this.windowRef.getWindow().setTimeout(() => {
-      this.adapterService.setPopoverPosition(elements, this.placement);
-      this.isOpen = true;
+      const position = this.adapterService.getPopoverPosition(
+        elements,
+        this.placement,
+        this.alignment
+      );
+
+      this.updateClassNames(position.placement, position.alignment);
+
+      this.popoverTop = position.top;
+      this.popoverLeft = position.left;
+      this.arrowTop = position.arrowTop;
+      this.arrowLeft = position.arrowLeft;
+      this.animationState = 'visible';
       this.changeDetector.markForCheck();
     });
   }
 
+  public resetPopover() {
+    this.adapterService.clearConcreteDimensions(this.popoverContainer);
+  }
+
   public close() {
-    this.lastCaller = undefined;
-    this.isOpen = false;
-    this.changeDetector.markForCheck();
+    if (this.isOpen) {
+      this.animationState = 'hidden';
+      this.changeDetector.markForCheck();
+    }
   }
 
   public onAnimationStart(event: AnimationEvent) {
@@ -154,18 +243,23 @@ export class SkyPopoverComponent {
     }
 
     if (event.toState === 'hidden') {
+      this.isOpen = false;
       this.adapterService.hidePopover(this.popoverContainer);
       this.popoverClosed.emit(this);
     } else {
+      this.isOpen = true;
       this.popoverOpened.emit(this);
     }
   }
 
-  public getAnimationState(): string {
-    return (this.isOpen) ? 'visible' : 'hidden';
-  }
-
   public markForCloseOnMouseLeave() {
     this.isMarkedForCloseOnMouseLeave = true;
+  }
+
+  public updateClassNames(placement?: SkyPopoverPlacement, alignment?: SkyPopoverAlignment) {
+    this.classNames = [
+      `sky-popover-alignment-${alignment || this.alignment}`,
+      `sky-popover-placement-${placement || this.placement}`
+    ];
   }
 }

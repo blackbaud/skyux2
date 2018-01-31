@@ -1,3 +1,25 @@
+# 2.7.0 (2017-01-26)
+
+- Added option for horizontal alignment on the popover component. [#1386](https://github.com/blackbaud/skyux2/pull/1386)
+- Popover now attempts to find the most suitable placement during window scroll events. [#1386](https://github.com/blackbaud/skyux2/pull/1386)
+- Added dropdown message stream to allow other components to remotely control its functions (open, close, etc.). [#1386](https://github.com/blackbaud/skyux2/pull/1386)
+- Added ability for dropdown items to be navigated with arrow keys. [#1386](https://github.com/blackbaud/skyux2/pull/1386)
+- Refactored dropdown component to use popover's placement functionality. [#1386](https://github.com/blackbaud/skyux2/pull/1386)
+- Modal instance closed event is now automatically completed internally. [#1326](https://github.com/blackbaud/skyux2/pull/1326) (Thanks @Blackbaud-ScottFreeman)
+- Fixed visual issues with collapsed tabs in IE11 [#1406](https://github.com/blackbaud/skyux2/pull/1406)
+- Fixed TestUtility `toHaveText` matcher not working for certain scenarios. [#1422](https://github.com/blackbaud/skyux2/pull/1422) (Thanks @Blackbaud-StacyCarlos)
+- Fixed definition list component printing "None found" before change detection. [#1424](https://github.com/blackbaud/skyux2/pull/1424)
+
+# 2.6.0 (2017-01-04)
+
+- Added demo components module to enable demo components to be consumed outside this project. This is to enable future refactoring of documentation into a separate repo. [#1350](https://github.com/blackbaud/skyux2/pull/1350)
+
+# 2.5.0 (2017-12-15)
+
+- Added URL validation directive. [#1334](https://github.com/blackbaud/skyux2/pull/1334) (Thanks @Blackbaud-JeffDye)
+- Updated confirmation component API and event arguments. [#1333](https://github.com/blackbaud/skyux2/pull/1333)
+- Accessibility is now checked by default during visual tests. [#1313](https://github.com/blackbaud/skyux2/pull/1313)
+
 # 2.4.1 (2017-11-28)
 
 - Fixed missing files in published package. [#1315](https://github.com/blackbaud/skyux2/pull/1315)
