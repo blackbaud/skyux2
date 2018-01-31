@@ -49,7 +49,8 @@ export class SkyPopoverAdapterService {
             this.getInversePlacement(placement) :
             this.getNextPlacement(placement);
         }
-      } while (coords.isOutsideViewport && ++counter < max);
+        counter++;
+      } while (coords.isOutsideViewport && counter < max);
 
       if (counter === max) {
         placement = 'fullscreen';

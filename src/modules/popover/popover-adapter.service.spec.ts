@@ -53,15 +53,8 @@ describe('SkyPopoverAdapterService', () => {
           height: height
         };
       },
-      offsetTop: top,
-      offsetLeft: left,
       className: '',
       style: {}
-    };
-
-    def.setOffsets = (offsetTop: number, offsetLeft: number) => {
-      def.offsetTop = offsetTop;
-      def.offsetLeft = offsetLeft;
     };
 
     return def;
@@ -236,7 +229,7 @@ describe('SkyPopoverAdapterService', () => {
         const elements = {
           popover: new ElementRef(createElementRefDefinition(0, 0, 276, 276)),
           popoverArrow: new ElementRef(createElementRefDefinition()),
-          caller: new ElementRef(createElementRefDefinition(0, 0, 50, 50))
+          caller: new ElementRef(createElementRefDefinition(125, 125, 50, 50))
         };
 
         const position = adapterService.getPopoverPosition(elements, 'above', undefined);
@@ -303,17 +296,15 @@ describe('SkyPopoverAdapterService', () => {
       const popover = new ElementRef(createElementRefDefinition(0, 0, 200, 100));
       const popoverArrow = new ElementRef(createElementRefDefinition());
 
-      callerDef.setOffsets(0, 10);
-
       const position = adapterService.getPopoverPosition({
         popover,
         popoverArrow,
         caller: new ElementRef(callerDef)
       }, 'above', 'right');
 
-      expect(position.top).toEqual(-100);
-      // The popover left coordinate should never be less than the button's offsetLeft.
-      expect(position.left).toEqual(10);
+      expect(position.top).toEqual(100);
+      // The popover left coordinate should never be less than the button's left.
+      expect(position.left).toEqual(-5);
     })
   );
 });
