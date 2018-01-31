@@ -4,19 +4,8 @@ $popover-arrow-size: 20px;
 $popover-border-size: 10px;
 $popover-max-width: 276px;
 
-:host {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
 .sky-popover-container {
-  position: absolute;
-  pointer-events: auto;
+  position: fixed;
   z-index: $sky-dropdown-z-index;
   min-width: $popover-max-width;
   max-width: $popover-max-width;
