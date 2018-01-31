@@ -6,7 +6,6 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  OnDestroy,
   OnInit,
   Output,
   ViewChild
@@ -20,8 +19,6 @@ import {
   animate,
   transition
 } from '@angular/animations';
-
-import { Subject } from 'rxjs/Subject';
 
 import {
   SkyWindowRefService
@@ -49,7 +46,7 @@ import { SkyPopoverAdapterService } from './popover-adapter.service';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyPopoverComponent implements OnInit, OnDestroy {
+export class SkyPopoverComponent implements OnInit {
   @Input()
   public dismissOnBlur = true;
 
@@ -98,7 +95,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   private isMarkedForCloseOnMouseLeave = false;
   private caller: ElementRef;
-  private destroy = new Subject<boolean>();
 
   private _alignment: SkyPopoverAlignment;
   private _placement: SkyPopoverPlacement;
@@ -113,11 +109,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.adapterService.hidePopover(this.popoverContainer);
     this.updateClassNames();
-  }
-
-  public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
   }
 
   @HostListener('keyup', ['$event'])

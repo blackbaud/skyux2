@@ -9,17 +9,21 @@
 }
 
 .popover-demo-item {
-  ::ng-deep .sky-popover-container.sky-popover-hidden {
-    position: relative !important;
-    width: 100% !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 1;
-    left: auto !important;
-    top: auto !important;
+  ::ng-deep sky-popover {
+    position: static !important;
 
-    .sky-popover {
-      margin: 0;
+    .sky-popover-container.sky-popover-hidden {
+      position: relative !important;
+      width: 100% !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      z-index: 1;
+      left: auto !important;
+      top: auto !important;
+
+      .sky-popover {
+        margin: 0;
+      }
     }
   }
 }
