@@ -7,7 +7,7 @@ import {
   Output
 } from '@angular/core';
 
-import skyAnimationSlide from '../../animation/slide';
+import { skyAnimationSlide } from '../../animation/slide';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 @Component({
