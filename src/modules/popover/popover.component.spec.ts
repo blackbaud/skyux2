@@ -230,13 +230,6 @@ describe('SkyPopoverComponent', () => {
     window.dispatchEvent(event);
     fixture.detectChanges();
     expect(spy).toHaveBeenCalled();
-
-    // Test the else condition.
-    // spy.calls.reset();
-    // component.isOpen = false;
-    // window.dispatchEvent(event);
-    // fixture.detectChanges();
-    // expect(spy).not.toHaveBeenCalled();
   }));
 
   it('should reposition the popover on window resize', fakeAsync(() => {
