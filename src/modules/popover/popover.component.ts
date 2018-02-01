@@ -4,8 +4,8 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild
@@ -19,6 +19,12 @@ import {
   animate,
   transition
 } from '@angular/animations';
+
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/observable/fromEvent';
 
 import {
   SkyWindowRefService
@@ -46,7 +52,7 @@ import { SkyPopoverAdapterService } from './popover-adapter.service';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyPopoverComponent implements OnInit {
+export class SkyPopoverComponent implements OnInit, OnDestroy {
   @Input()
   public dismissOnBlur = true;
 
@@ -93,8 +99,10 @@ export class SkyPopoverComponent implements OnInit {
   public arrowTop: number;
   public arrowLeft: number;
 
-  private isMarkedForCloseOnMouseLeave = false;
   private caller: ElementRef;
+  private idled = new Subject<boolean>();
+  private isMarkedForCloseOnMouseLeave = false;
+  private preferredPlacement: SkyPopoverPlacement;
 
   private _alignment: SkyPopoverAlignment;
   private _placement: SkyPopoverPlacement;
@@ -107,61 +115,13 @@ export class SkyPopoverComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
+    this.preferredPlacement = this.placement;
     this.adapterService.hidePopover(this.popoverContainer);
-    this.updateClassNames();
   }
 
-  @HostListener('keyup', ['$event'])
-  public onKeyUp(event: KeyboardEvent): void {
-    const key = event.key.toLowerCase();
-    if (key === 'escape' && this.isOpen) {
-      event.stopPropagation();
-      event.preventDefault();
-      this.close();
-      if (this.caller) {
-        this.caller.nativeElement.focus();
-      }
-    }
-  }
-
-  @HostListener('document:focusin', ['$event'])
-  public onFocusIn(event: KeyboardEvent) {
-    const targetIsChild = (this.elementRef.nativeElement.contains(event.target));
-    const targetIsCaller = (this.caller && this.caller.nativeElement === event.target);
-
-    if (!targetIsChild && !targetIsCaller && this.isOpen && this.dismissOnBlur) {
-      // The popover is open, is currently being operated by the user, and
-      // has just lost keyboard focus. We should close it.
-      this.close();
-    }
-  }
-
-  @HostListener('document:click', ['$event'])
-  public onDocumentClick(event: MouseEvent): void {
-    if (!this.isMouseEnter && this.dismissOnBlur) {
-      this.close();
-    }
-  }
-
-  @HostListener('mouseenter')
-  public onMouseEnter() {
-    this.isMouseEnter = true;
-  }
-
-  @HostListener('mouseleave')
-  public onMouseLeave() {
-    this.isMouseEnter = false;
-    if (this.isMarkedForCloseOnMouseLeave) {
-      this.close();
-      this.isMarkedForCloseOnMouseLeave = false;
-    }
-  }
-
-  @HostListener('window:scroll')
-  public onWindowScroll() {
-    if (this.isOpen) {
-      this.positionNextTo(this.caller, this.placement, this.alignment);
-    }
+  public ngOnDestroy() {
+    this.removeListeners();
+    this.idled.complete();
   }
 
   public positionNextTo(
@@ -173,49 +133,44 @@ export class SkyPopoverComponent implements OnInit {
       return;
     }
 
-    if (placement !== this.placement) {
-      this.updateClassNames(placement, alignment);
-      this.changeDetector.markForCheck();
-    }
+    this.close();
 
     this.caller = caller;
     this.placement = placement;
     this.alignment = alignment;
-
-    const elements = {
-      popover: this.popoverContainer,
-      popoverArrow: this.popoverArrow,
-      caller: this.caller
-    };
+    this.preferredPlacement = this.placement;
+    this.changeDetector.markForCheck();
 
     // Let the styles render before gauging the dimensions.
     this.windowRef.getWindow().setTimeout(() => {
-      const position = this.adapterService.getPopoverPosition(
-        elements,
-        this.placement,
-        this.alignment
-      );
+      if (this.adapterService.isPopoverLargerThanParent(this.popoverContainer)) {
+        this.placement = 'fullscreen';
+      }
 
-      this.updateClassNames(position.placement, position.alignment);
-
-      this.popoverTop = position.top;
-      this.popoverLeft = position.left;
-      this.arrowTop = position.arrowTop;
-      this.arrowLeft = position.arrowLeft;
+      this.positionPopover();
+      this.addListeners();
       this.animationState = 'visible';
       this.changeDetector.markForCheck();
     });
   }
 
-  public resetPopover() {
-    this.adapterService.clearConcreteDimensions(this.popoverContainer);
+  public reposition() {
+    this.placement = this.preferredPlacement;
+    this.changeDetector.markForCheck();
+
+    this.windowRef.getWindow().setTimeout(() => {
+      if (this.adapterService.isPopoverLargerThanParent(this.popoverContainer)) {
+        this.placement = 'fullscreen';
+      }
+
+      this.positionPopover();
+    });
   }
 
   public close() {
-    if (this.isOpen) {
-      this.animationState = 'hidden';
-      this.changeDetector.markForCheck();
-    }
+    this.animationState = 'hidden';
+    this.removeListeners();
+    this.changeDetector.markForCheck();
   }
 
   public onAnimationStart(event: AnimationEvent) {
@@ -247,10 +202,112 @@ export class SkyPopoverComponent implements OnInit {
     this.isMarkedForCloseOnMouseLeave = true;
   }
 
-  public updateClassNames(placement?: SkyPopoverPlacement, alignment?: SkyPopoverAlignment) {
-    this.classNames = [
-      `sky-popover-alignment-${alignment || this.alignment}`,
-      `sky-popover-placement-${placement || this.placement}`
-    ];
+  private positionPopover() {
+    if (this.placement !== 'fullscreen') {
+      const elements = {
+        popover: this.popoverContainer,
+        popoverArrow: this.popoverArrow,
+        caller: this.caller
+      };
+
+      const position = this.adapterService.getPopoverPosition(
+        elements,
+        this.preferredPlacement,
+        this.alignment
+      );
+
+      this.placement = position.placement;
+      this.alignment = position.alignment;
+      this.popoverTop = position.top;
+      this.popoverLeft = position.left;
+      this.arrowTop = position.arrowTop;
+      this.arrowLeft = position.arrowLeft;
+    }
+
+    this.changeDetector.markForCheck();
+  }
+
+  private addListeners(): void {
+    const windowObj = this.windowRef.getWindow();
+    const hostElement = this.elementRef.nativeElement;
+
+    Observable
+      .fromEvent(windowObj, 'scroll')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.positionPopover();
+      });
+
+    Observable
+      .fromEvent(windowObj, 'resize')
+      .debounceTime(400)
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.reposition();
+      });
+
+    Observable
+      .fromEvent(windowObj.document, 'focusin')
+      .takeUntil(this.idled)
+      .subscribe((event: KeyboardEvent) => {
+        const targetIsChild = (hostElement.contains(event.target));
+        const targetIsCaller = (this.caller && this.caller.nativeElement === event.target);
+
+        /* istanbul ignore else */
+        if (!targetIsChild && !targetIsCaller && this.dismissOnBlur) {
+          // The popover is currently being operated by the user, and
+          // has just lost keyboard focus. We should close it.
+          this.close();
+        }
+      });
+
+    Observable
+      .fromEvent(windowObj.document, 'click')
+      .takeUntil(this.idled)
+      .subscribe((event: MouseEvent) => {
+        if (!this.isMouseEnter && this.dismissOnBlur) {
+          this.close();
+        }
+      });
+
+    Observable
+      .fromEvent(hostElement, 'mouseenter')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.isMouseEnter = true;
+      });
+
+    Observable
+      .fromEvent(hostElement, 'mouseleave')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.isMouseEnter = false;
+        if (this.isMarkedForCloseOnMouseLeave) {
+          this.close();
+          this.isMarkedForCloseOnMouseLeave = false;
+        }
+      });
+
+    Observable
+      .fromEvent(hostElement, 'keyup')
+      .takeUntil(this.idled)
+      .subscribe((event: KeyboardEvent) => {
+        const key = event.key.toLowerCase();
+
+        if (key === 'escape') {
+          event.stopPropagation();
+          event.preventDefault();
+          this.close();
+
+          /* istanbul ignore else */
+          if (this.caller) {
+            this.caller.nativeElement.focus();
+          }
+        }
+      });
+  }
+
+  private removeListeners(): void {
+    this.idled.next(true);
   }
 }
