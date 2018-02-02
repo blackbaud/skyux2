@@ -1,4 +1,4 @@
-export interface SkyFlyoutConfigurationInterface {
+export interface SkyFlyoutConfig {
   providers?: any[];
   ariaDescribedBy?: string;
   ariaLabelledBy?: string;

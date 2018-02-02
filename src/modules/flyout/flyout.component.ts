@@ -1,23 +1,29 @@
-import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import {
   AnimationTransitionEvent,
-  animate,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  state,
-  style,
-  transition,
-  trigger,
   ViewChild,
   ComponentFactoryResolver,
+  EventEmitter,
   Injector,
   ReflectiveInjector,
   ViewContainerRef
 } from '@angular/core';
-import { SkyFlyoutInstance } from './flyout-instance';
-import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+
+import {
+  SkyFlyoutConfig,
+  SkyFlyoutInstance
+} from './index';
+import { SkyFlyoutAdapterService } from './flyout-adapter.service';
+import { SkyFlyoutService } from './flyout.service';
 
 const FLYOUT_OPEN_STATE: string = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE: string = 'flyoutClosed';
@@ -48,12 +54,13 @@ export class SkyFlyoutComponent {
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
-  private config: IConfig = {};
+  public config: SkyFlyoutConfig = {};
 
   constructor(
     private resolver: ComponentFactoryResolver,
     private injector: Injector,
     private flyoutAdapter: SkyFlyoutAdapterService,
+    private flyoutService: SkyFlyoutService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
@@ -66,19 +73,7 @@ export class SkyFlyoutComponent {
     return (this.isOpen) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
   }
 
-  public get ariaDescribedBy() {
-    return this.config.ariaDescribedBy || undefined;
-  }
-
-  public get ariaLabelledBy() {
-    return this.config.ariaLabelledBy || undefined;
-  }
-
-  public get ariaRole() {
-    return this.config.ariaRole || undefined;
-  }
-
-  public open(flyoutInstance: SkyFlyoutInstance, component: any, config: IConfig) {
+  public open(component: any, config: SkyFlyoutConfig) {
     this.isOpen = true;
     this.changeDetector.markForCheck();
     this.target.clear();
@@ -89,6 +84,8 @@ export class SkyFlyoutComponent {
     const resolvedProviders = ReflectiveInjector.resolve(config.providers);
     const injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
     const componentRef = this.target.createComponent(factory, undefined, injector);
+
+    const flyoutInstance = new SkyFlyoutInstance(this.flyoutService);
 
     flyoutInstance.componentInstance = componentRef.instance;
 
@@ -101,6 +98,8 @@ export class SkyFlyoutComponent {
     this.displayedInstance = flyoutInstance;
 
     this.flyoutAdapter.adjustHeaderForHelp();
+
+    return flyoutInstance;
   }
 
   public animationDone(event: AnimationTransitionEvent) {

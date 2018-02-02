@@ -5,7 +5,7 @@ export { SkyFlyoutModule } from './flyout.module';
 export { SkyFlyoutAdapterService } from './flyout-adapter.service';
 export { SkyFlyoutService } from './flyout.service';
 export { SkyFlyoutInstance } from './flyout-instance';
-export { SkyFlyoutConfigurationInterface } from './flyout.interface';
+export { SkyFlyoutConfig } from './flyout.interface';
 
 export const SKY_FLYOUT_PROVIDERS: any[] = [
   SkyFlyoutAdapterService

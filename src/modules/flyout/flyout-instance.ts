@@ -1,6 +1,5 @@
-import {
-  EventEmitter
-} from '@angular/core';
+import { EventEmitter } from '@angular/core';
+
 import { SkyFlyoutService } from './index';
 
 export class SkyFlyoutInstance {

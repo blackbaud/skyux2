@@ -3,9 +3,9 @@
   tabindex="-1"
   (@flyoutState.done)="animationDone($event)"
   [@flyoutState]="getAnimationState()"
-  [attr.role]="ariaRole"
-  [attr.aria-describedby]="ariaDescribedBy"
-  [attr.aria-labelledby]="ariaLabelledBy"
+  [attr.role]="config?.ariaRole"
+  [attr.aria-describedby]="config?.ariaDescribedBy"
+  [attr.aria-labelledby]="config?.ariaLabelledBy"
 >
   <div class="sky-flyout-header">
     <div class="sky-flyout-header-content"></div>

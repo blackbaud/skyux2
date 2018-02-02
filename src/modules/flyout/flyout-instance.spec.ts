@@ -1,9 +1,14 @@
 import {
-  SkyFlyoutInstance
-} from './flyout-instance';
-import { inject, TestBed } from '@angular/core/testing';
-import { SkyFlyoutService, SkyFlyoutModule } from './index';
+  inject,
+  TestBed
+} from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
+
+import {
+  SkyFlyoutInstance,
+  SkyFlyoutModule,
+  SkyFlyoutService
+} from './index';
 
 describe('Flyout instance', () => {
 

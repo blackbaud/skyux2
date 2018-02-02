@@ -1,21 +1,18 @@
-import { FlyoutWithHelpWidgetTestComponent } from './fixtures/flyout-with-help-widget.component.fixture';
-import { FlyoutAutofocusTestComponent } from './fixtures/flyout-autofocus.component.fixture';
-import { ApplicationRef } from '@angular/core';
 import {
   fakeAsync,
   inject,
   tick,
   TestBed
 } from '@angular/core/testing';
-
-import {
-  expect
-} from '../testing';
-
-import { SkyFlyoutService } from './flyout.service';
-import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
-import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
+import { ApplicationRef } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { expect } from '../testing';
+import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
+import { FlyoutAutofocusTestComponent } from './fixtures/flyout-autofocus.component.fixture';
+import { FlyoutWithHelpWidgetTestComponent } from './fixtures/flyout-with-help-widget.component.fixture';
+import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
+import { SkyFlyoutService } from './index';
 
 describe('Flyout component', () => {
   let applicationRef: ApplicationRef;

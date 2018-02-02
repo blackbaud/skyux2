@@ -1,29 +1,26 @@
 import {
+  ApplicationRef
+} from '@angular/core';
+import {
   fakeAsync,
   inject,
   TestBed,
   tick
 } from '@angular/core/testing';
-
-import {
-  expect
-} from '../testing';
-
-import {
-  ApplicationRef
-} from '@angular/core';
-
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SkyFlyoutService } from './flyout.service';
-import { SkyFlyoutModule } from './flyout.module';
+import { setTimeout } from 'core-js/library/web/timers';
 
+import {
+  SkyFlyoutModule,
+  SkyFlyoutService
+} from './index';
+import { expect } from '../testing';
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
-import { FlyoutWithValuesTestComponent } from './fixtures/flyout-with-values.component.fixture';
 import { FlyoutTestValues } from './fixtures/flyout-values.fixture';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { setTimeout } from 'core-js/library/web/timers';
+import { FlyoutWithValuesTestComponent } from './fixtures/flyout-with-values.component.fixture';
 
 describe('Flyout service', () => {
   let flyoutService: SkyFlyoutService;
