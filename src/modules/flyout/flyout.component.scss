@@ -8,10 +8,9 @@
   height:100%;
   background-color:#fff;
   border-left:6px solid $sky-highlight-color-info;
-  box-shadow: -3px 0 3px 0 rgba(0,0,0,.3);
+  box-shadow:-3px 0 3px 0 rgba(0,0,0,.3);
 
-  width:50%;
-  min-width:320px;
+  width:100%;
 
   z-index:1001; // omnibar is 1000, help is 9999
   overflow-y:scroll;
@@ -19,22 +18,27 @@
 
 .sky-flyout-header {
   width:100%;
-  background: $sky-background-color-neutral-light;
+  background:$sky-background-color-neutral-light;
   @include sky-border(dark, bottom);
   height:50px;
   padding:8px 8px 8px 15px;
   display:flex;
   align-items: baseline;
 }
+
 .sky-flyout-header-content {
   flex-grow:1;
 }
+
 .sky-flyout-help-shim {
-  padding-right:50px;
+  padding-right:8px;
 }
 
-@media (max-width: $sky-screen-sm-min - 1px) {
+@media (min-width: $sky-screen-sm-min) {
+  .sky-flyout {
+    width:50%;
+  }
   .sky-flyout-help-shim {
-    padding-right:8px;
+    padding-right:50px;
   }
 }
