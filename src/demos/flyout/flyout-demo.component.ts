@@ -1,37 +1,60 @@
 
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { SkyFlyoutService } from '../../modules/flyout/flyout.service';
+import { Observable } from 'rxjs/Observable';
+
+import {
+  SkyFlyoutInstance,
+  SkyFlyoutService
+} from '../../modules/flyout';
+
 import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
-import { SkyFlyoutInstance } from '../../modules/flyout/flyout-instance';
 
 @Component({
   selector: 'sky-flyout-demo',
   templateUrl: './flyout-demo.component.html'
 })
 export class SkyFlyoutDemoComponent {
+  public users = Observable.of([
+    { id: '1', name: 'Sally' },
+    { id: '2', name: 'John' },
+    { id: '3', name: 'David' },
+    { id: '4', name: 'Janet' }
+  ]);
 
-  private flyoutInstance: SkyFlyoutInstance;
+  private flyout: SkyFlyoutInstance;
 
-  constructor(private skyFlyoutService: SkyFlyoutService) { }
+  constructor(
+    private flyoutService: SkyFlyoutService
+  ) { }
 
-  public openFlyout() {
-    this.flyoutInstance = this.skyFlyoutService.open(SkyFlyoutDemoInternalComponent, { providers: [] });
+  public createFlyout() {
+    this.flyout = this.flyoutService.create(SkyFlyoutDemoInternalComponent, {
+      providers: [],
+      ariaDescribedBy: 'my-describedby-id',
+      ariaLabelledBy: 'my-labelledby-id',
+      ariaRole: 'modal'
+    });
+
+    this.flyout.closed.subscribe(() => {
+      console.log('Flyout closed!');
+    });
+
+    this.flyout.opened.subscribe(() => {
+      console.log('Flyout opened!');
+    });
   }
 
-  public closeFlyout() {
-    if (this.flyoutInstance) {
-      this.flyoutInstance.close();
-      this.flyoutInstance = undefined;
+  public openRecord(record: any) {
+    if (!this.flyout) {
+      this.createFlyout();
     }
-  }
 
-  public toggleFlyout() {
-    if (this.flyoutInstance) {
-      this.closeFlyout();
-    } else {
-      this.openFlyout();
-    }
-  }
+    this.flyout.open();
 
+    // Update the flyout with the appropriate record:
+    this.flyout.componentInstance.record = record;
+  }
 }

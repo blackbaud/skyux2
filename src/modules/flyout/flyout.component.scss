@@ -1,44 +1,50 @@
-@import "../../scss/mixins";
+@import '../../scss/mixins';
 
 .sky-flyout {
-  position:fixed;
-  right:0;
-  top:0;
-  bottom:0;
-  height:100%;
-  background-color:#fff;
-  border-left:6px solid $sky-highlight-color-info;
-  box-shadow:-3px 0 3px 0 rgba(0,0,0,.3);
+  @include sky-shadow;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: #fff;
+  border-left: 6px solid $sky-highlight-color-info;
+  z-index: $sky-flyout-z-index;
+  overflow: auto;
+  width: 100%;
 
-  width:100%;
+  &:focus {
+    outline: none;
+  }
 
-  z-index:1001; // omnibar is 1000, help is 9999
-  overflow-y:scroll;
+  @media (min-width: $sky-screen-sm-min) {
+    width: 50%;
+    min-width: 320px;
+  }
+
+  &.sky-flyout-hidden {
+    visibility: hidden;
+  }
 }
 
 .sky-flyout-header {
-  width:100%;
-  background:$sky-background-color-neutral-light;
   @include sky-border(dark, bottom);
-  height:50px;
-  padding:8px 8px 8px 15px;
-  display:flex;
+  width: 100%;
+  background: $sky-background-color-neutral-light;
+  height: 50px;
+  padding: 8px $sky-padding-plus-half;
+  display: flex;
   align-items: baseline;
 }
 
 .sky-flyout-header-content {
-  flex-grow:1;
+  flex-grow: 1;
 }
 
 .sky-flyout-help-shim {
-  padding-right:8px;
-}
+  padding-right: 8px;
 
-@media (min-width: $sky-screen-sm-min) {
-  .sky-flyout {
-    width:50%;
-  }
-  .sky-flyout-help-shim {
-    padding-right:50px;
+  @media (min-width: $sky-screen-sm-min) {
+    padding-right: 50px;
   }
 }

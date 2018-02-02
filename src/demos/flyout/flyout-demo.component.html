@@ -1,5 +1,47 @@
-<button type="button" class="sky-btn sky-btn-primary" (click)="openFlyout()">
-  Open flyout
+<sky-list
+  [data]="users"
+  [defaultView]="grid">
+
+  <sky-list-toolbar>
+    <sky-list-secondary-actions>
+      <sky-list-column-selector-action
+        [gridView]="grid">
+      </sky-list-column-selector-action>
+    </sky-list-secondary-actions>
+  </sky-list-toolbar>
+
+  <sky-list-view-grid
+    fit="scroll"
+    #grid>
+
+    <sky-grid-column
+      field="name"
+      heading="Name"
+      [locked]="true">
+    </sky-grid-column>
+
+    <sky-grid-column
+      [locked]="true"
+      [template]="customTemplate">
+    </sky-grid-column>
+
+  </sky-list-view-grid>
+</sky-list>
+
+<ng-template
+  let-row="row"
+  #customTemplate>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="openRecord(row)">
+    View record
+  </button>
+</ng-template>
+
+
+<!-- <button type="button" class="sky-btn sky-btn-primary" (click)="openFlyout()">
+  Open new flyout
 </button>
 
 <button type="button" class="sky-btn sky-btn-primary" (click)="closeFlyout()">
@@ -7,5 +49,5 @@
 </button>
 
 <button type="button" class="sky-btn sky-btn-primary" (click)="toggleFlyout()">
-  Toggle flyout
-</button>
+  Toggle existing flyout
+</button> -->

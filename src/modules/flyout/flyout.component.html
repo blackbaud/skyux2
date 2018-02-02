@@ -1,22 +1,21 @@
 <div
   class="sky-flyout"
   tabindex="-1"
-  (@flyoutState.done)="animationDone($event)"
-  [@flyoutState]="getAnimationState()"
   [attr.role]="config?.ariaRole"
   [attr.aria-describedby]="config?.ariaDescribedBy"
   [attr.aria-labelledby]="config?.ariaLabelledBy"
->
-  <div class="sky-flyout-header">
+  [ngClass]="{ 'sky-flyout-hidden': !isOpen && !isOpening }"
+  (@flyoutState.done)="animationDone($event)"
+  [@flyoutState]="getAnimationState()">
+  <div class="sky-flyout-header" #header>
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
       <button
         type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
         (click)="close()"
-        [attr.aria-label]="'flyout_close' | skyResources"
-      >
-        <i class="fa fa-close"></i>
+        [attr.aria-label]="'flyout_close' | skyResources">
+        <i class="fa fa-close" aria-hidden="true"></i>
       </button>
     </div>
   </div>

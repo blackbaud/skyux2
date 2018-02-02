@@ -11,6 +11,6 @@ export class FlyoutVisualComponent {
   constructor(private flyout: SkyFlyoutService) { }
 
   public openFlyout() {
-    this.flyout.open(FlyoutDemoComponent, { 'providers': [] });
+    this.flyout.launch(FlyoutDemoComponent, { 'providers': [] });
   }
 }

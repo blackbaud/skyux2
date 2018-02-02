@@ -1,60 +1,29 @@
 
 import {
-  ComponentRef,
   Injectable
 } from '@angular/core';
 
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
+import { SkyFlyoutComponent } from './flyout.component';
+import { SkyFlyoutInstance } from './flyout-instance';
 
 import {
-  SkyFlyoutConfig,
-  SkyFlyoutComponent,
-  SkyFlyoutInstance
-} from './index';
+  SkyFlyoutConfig
+} from './types';
 
 @Injectable()
 export class SkyFlyoutService {
-  private static hostComponentRef: ComponentRef<SkyFlyoutComponent>;
-  private currentActiveEl: HTMLElement;
+  private host: SkyFlyoutComponent;
 
   constructor(
     private adapter: SkyFlyoutAdapterService
   ) { }
 
-  public open(component: any, config?: SkyFlyoutConfig): SkyFlyoutInstance {
-    this.currentActiveEl = this.adapter.getCurrentActiveElement();
-    this.createHostComponent();
-    const flyoutInstance = SkyFlyoutService.hostComponentRef.instance.open(component, config);
-    return flyoutInstance;
-  }
-
-  public close() {
-    /* istanbul ignore else */
-    /* sanity check */
-    if (SkyFlyoutService.hostComponentRef) {
-      SkyFlyoutService.hostComponentRef.instance.close();
+  public create(component: any, config?: SkyFlyoutConfig): SkyFlyoutInstance {
+    if (!this.host) {
+      this.host = this.adapter.createHostComponent();
     }
-  }
 
-  private createHostComponent() {
-    if (!SkyFlyoutService.hostComponentRef) {
-      SkyFlyoutService.hostComponentRef = this.adapter.appendHostEl();
-      SkyFlyoutService.hostComponentRef.instance.closed.subscribe(() => this.removeHostComponent());
-    }
-  }
-
-  private removeHostComponent() {
-    /* istanbul ignore else */
-    /* sanity check */
-    if (SkyFlyoutService.hostComponentRef) {
-      this.adapter.removeHostEl(SkyFlyoutService.hostComponentRef);
-      SkyFlyoutService.hostComponentRef = undefined;
-
-      /* istanbul ignore else */
-      /* sanity check */
-      if (this.currentActiveEl && this.currentActiveEl.focus) {
-        this.currentActiveEl.focus();
-      }
-    }
+    return this.host.attach(component, config);
   }
 }

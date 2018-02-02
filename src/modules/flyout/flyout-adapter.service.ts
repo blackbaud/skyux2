@@ -1,7 +1,6 @@
 import {
   ApplicationRef,
   ComponentFactoryResolver,
-  ComponentRef,
   EmbeddedViewRef,
   Injectable,
   Injector,
@@ -14,7 +13,6 @@ import { SkyWindowRefService } from '../window';
 
 @Injectable()
 export class SkyFlyoutAdapterService {
-
   private renderer: Renderer2;
 
   constructor(
@@ -24,38 +22,30 @@ export class SkyFlyoutAdapterService {
     private resolver: ComponentFactoryResolver,
     private windowRef: SkyWindowRefService
   ) {
-      this.renderer = this.rendererFactory.createRenderer(this.windowRef.getWindow().document.body, undefined);
+    this.renderer = this.rendererFactory.createRenderer(undefined, undefined);
   }
 
-  public appendHostEl(): ComponentRef<SkyFlyoutComponent> {
+  public createHostComponent(): SkyFlyoutComponent {
     const componentRef = this.resolver
       .resolveComponentFactory(SkyFlyoutComponent)
       .create(this.injector);
 
+    this.appRef.attachView(componentRef.hostView);
+
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
 
+    this.renderer.appendChild(this.windowRef.getWindow().document.body, domElem);
+
+    return componentRef.instance;
+  }
+
+  public adjustHeaderForHelp(headerElement: any): void {
     const windowObj = this.windowRef.getWindow();
-    this.renderer.appendChild(windowObj.document.body, domElem);
+    const helpWidget = windowObj.document.querySelector('#bb-help-invoker');
 
-    return componentRef;
-  }
-
-  public removeHostEl(componentRef: ComponentRef<SkyFlyoutComponent>): void {
-    this.appRef.detachView(componentRef.hostView);
-    componentRef.destroy();
-  }
-
-  public getCurrentActiveElement(): HTMLElement {
-    const docObj = this.windowRef.getWindow().document;
-    return <HTMLElement> docObj.activeElement;
-  }
-
-  public adjustHeaderForHelp() {
-    const helpWidget = document.querySelector('#bb-help-invoker');
     if (helpWidget) {
-      const header = document.querySelector('.sky-flyout-header');
-      this.renderer.addClass(header, 'sky-flyout-help-shim');
+      this.renderer.addClass(headerElement, 'sky-flyout-help-shim');
     }
   }
 }

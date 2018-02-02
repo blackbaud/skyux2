@@ -1,19 +1,17 @@
 import {
-  inject,
   TestBed
 } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
+
+import {
+  BrowserModule
+} from '@angular/platform-browser';
 
 import {
   SkyFlyoutInstance,
-  SkyFlyoutModule,
-  SkyFlyoutService
+  SkyFlyoutModule
 } from './index';
 
-describe('Flyout instance', () => {
-
-  let flyoutService: SkyFlyoutService;
-
+fdescribe('Flyout instance', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -23,22 +21,8 @@ describe('Flyout instance', () => {
     });
   });
 
-  beforeEach(
-    inject(
-      [
-        SkyFlyoutService
-      ],
-      (
-        _flyoutService: SkyFlyoutService
-      ) => {
-        flyoutService = _flyoutService;
-        flyoutService.close();
-      }
-    )
-  );
-
   it('should not error if no close callback is specified', () => {
-    const instance = new SkyFlyoutInstance(flyoutService);
+    const instance = new SkyFlyoutInstance();
 
     instance.close();
   });
@@ -52,7 +36,7 @@ describe('Flyout instance', () => {
     expect(callbackHit).toBeTruthy();
 
     function subscribeToClosed() {
-      const flyoutInstance = new SkyFlyoutInstance(flyoutService);
+      const flyoutInstance = new SkyFlyoutInstance();
 
       flyoutInstance.closed.subscribe(() => {
         callbackHit = true;

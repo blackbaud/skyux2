@@ -1,32 +1,39 @@
 import {
-  AnimationTransitionEvent,
+  Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  ViewChild,
   ComponentFactoryResolver,
-  EventEmitter,
+  ElementRef,
   Injector,
+  OnDestroy,
   ReflectiveInjector,
+  ViewChild,
   ViewContainerRef
 } from '@angular/core';
+
 import {
   animate,
+  AnimationEvent,
   state,
   style,
   transition,
   trigger
 } from '@angular/animations';
 
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+
+import { SkyFlyoutAdapterService } from './flyout-adapter.service';
+import { SkyFlyoutInstance } from './flyout-instance';
+
 import {
   SkyFlyoutConfig,
-  SkyFlyoutInstance
-} from './index';
-import { SkyFlyoutAdapterService } from './flyout-adapter.service';
-import { SkyFlyoutService } from './flyout.service';
+  SkyFlyoutMessage,
+  SkyFlyoutMessageType
+} from './types';
 
-const FLYOUT_OPEN_STATE: string = 'flyoutOpen';
-const FLYOUT_CLOSED_STATE: string = 'flyoutClosed';
+const FLYOUT_OPEN_STATE = 'flyoutOpen';
+const FLYOUT_CLOSED_STATE = 'flyoutClosed';
 
 @Component({
   selector: 'sky-flyout',
@@ -40,78 +47,108 @@ const FLYOUT_CLOSED_STATE: string = 'flyoutClosed';
         style({ transform: 'translateX(100%)' }),
         animate(250)
       ]),
-      transition(`* <=> *`, animate('250ms ease-in'))
+      transition('* => void', [
+        animate(250, style({ transform: 'translateX(0)' }))
+      ]),
+      transition(`${FLYOUT_OPEN_STATE} => ${FLYOUT_CLOSED_STATE}`, animate('250ms ease-in')),
+      transition(`${FLYOUT_CLOSED_STATE} => ${FLYOUT_OPEN_STATE}`, animate('250ms ease-in'))
     ])
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyFlyoutComponent {
+export class SkyFlyoutComponent implements OnDestroy {
+  public config: SkyFlyoutConfig;
   public flyoutState = FLYOUT_CLOSED_STATE;
   public isOpen = false;
-  public displayedInstance: SkyFlyoutInstance;
-  public closed: EventEmitter<void> = new EventEmitter<void>();
+  public isOpening = false;
 
   @ViewChild('target', { read: ViewContainerRef })
-  public target: ViewContainerRef;
+  private target: ViewContainerRef;
 
-  public config: SkyFlyoutConfig = {};
+  @ViewChild('header')
+  private header: ElementRef;
+
+  private instance: SkyFlyoutInstance;
+  private destroy = new Subject<boolean>();
 
   constructor(
-    private resolver: ComponentFactoryResolver,
+    private adapter: SkyFlyoutAdapterService,
+    private changeDetector: ChangeDetectorRef,
     private injector: Injector,
-    private flyoutAdapter: SkyFlyoutAdapterService,
-    private flyoutService: SkyFlyoutService,
-    private changeDetector: ChangeDetectorRef
+    private resolver: ComponentFactoryResolver
   ) { }
 
-  public close() {
-    this.isOpen = false;
-    this.changeDetector.markForCheck();
+  public ngOnDestroy() {
+    this.destroy.next(false);
+    this.destroy.unsubscribe();
   }
 
   public getAnimationState(): string {
-    return (this.isOpen) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
+    return (this.isOpening) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
   }
 
-  public open(component: any, config: SkyFlyoutConfig) {
-    this.isOpen = true;
-    this.changeDetector.markForCheck();
+  public attach(component: any, config: SkyFlyoutConfig) {
+    this.isOpen = false;
     this.target.clear();
-    this.config = config;
-
-    const factory = this.resolver.resolveComponentFactory(component);
-
-    const resolvedProviders = ReflectiveInjector.resolve(config.providers);
-    const injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
-    const componentRef = this.target.createComponent(factory, undefined, injector);
-
-    const flyoutInstance = new SkyFlyoutInstance(this.flyoutService);
-
-    flyoutInstance.componentInstance = componentRef.instance;
+    this.config = Object.assign({ providers: [] }, config);
 
     // Emit the closed event on any previously opened flyout instance
-    if (this.displayedInstance) {
-      this.displayedInstance.closed.emit();
-      this.displayedInstance.closed.complete();
+    if (this.instance) {
+      this.instance.closed.emit();
+      this.instance.closed.complete();
+      this.instance.opened.complete();
     }
 
-    this.displayedInstance = flyoutInstance;
+    const factory = this.resolver.resolveComponentFactory(component);
+    const providers = ReflectiveInjector.resolve(this.config.providers);
+    const injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
+    const componentRef = this.target.createComponent(factory, undefined, injector);
 
-    this.flyoutAdapter.adjustHeaderForHelp();
+    console.log('header?', this.header.nativeElement);
+    this.adapter.adjustHeaderForHelp(this.header.nativeElement);
 
-    return flyoutInstance;
+    this.instance = new SkyFlyoutInstance();
+    this.instance.componentInstance = componentRef.instance;
+    this.instance.messageStream
+      .takeUntil(this.destroy)
+      .subscribe((message: SkyFlyoutMessage) => {
+        this.handleIncomingMessages(message);
+      });
+
+    return this.instance;
   }
 
-  public animationDone(event: AnimationTransitionEvent) {
-    if (event.fromState === FLYOUT_OPEN_STATE && event.toState === FLYOUT_CLOSED_STATE) {
-      /* istanbul ignore else */
-      /* sanity check */
-      if (this.displayedInstance) {
-        this.displayedInstance.closed.emit();
-        this.displayedInstance.closed.complete();
-      }
-      this.closed.emit();
-      this.closed.complete();
+  public open() {
+    this.isOpening = true;
+    this.changeDetector.markForCheck();
+  }
+
+  public close() {
+    this.isOpening = false;
+    this.changeDetector.markForCheck();
+  }
+
+  public animationDone(event: AnimationEvent) {
+    if (event.toState === FLYOUT_OPEN_STATE) {
+      this.isOpen = true;
+      this.instance.opened.emit();
+    }
+
+    if (event.toState === FLYOUT_CLOSED_STATE) {
+      this.isOpen = false;
+      this.instance.closed.emit();
+    }
+  }
+
+  private handleIncomingMessages(message: SkyFlyoutMessage) {
+    /* tslint:disable-next-line:switch-default */
+    switch (message.type) {
+      case SkyFlyoutMessageType.Open:
+      this.open();
+      break;
+      case SkyFlyoutMessageType.Close:
+      this.close();
+      break;
     }
   }
 }
