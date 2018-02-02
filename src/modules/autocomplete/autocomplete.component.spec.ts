@@ -15,11 +15,11 @@ import {
   SkyDropdownMessageType
 } from '../dropdown';
 
-import { SkyAutocompleteFixturesModule } from './fixtures/autocomplete-fixtures.module';
-import { SkyAutocompleteTestComponent } from './fixtures/autocomplete.component.fixture';
-
 import { SkyAutocompleteComponent } from './autocomplete.component';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
+
+import { SkyAutocompleteFixturesModule } from './fixtures/autocomplete-fixtures.module';
+import { SkyAutocompleteTestComponent } from './fixtures/autocomplete.component.fixture';
 
 import {
   SkyAutocompleteSearchFunction
@@ -204,7 +204,7 @@ describe('Autocomplete component', () => {
       })
     );
 
-    it('should only open the dropdown once when user types',
+    it('should only open the dropdown one time on keypress',
       fakeAsync(() => {
         fixture.detectChanges();
 
@@ -355,6 +355,27 @@ describe('Autocomplete component', () => {
       } catch (e) {
         expect(e.message.indexOf('The SkyAutocompleteComponent requires a ContentChild input') > -1).toEqual(true);
       }
+    }));
+
+    it('should set the width of the dropdown on window resize', fakeAsync(() => {
+      fixture.detectChanges();
+
+      const inputElement = getInputElement();
+      const spy = spyOn(autocomplete['renderer'], 'setStyle').and.callThrough();
+      const event = document.createEvent('CustomEvent');
+      event.initEvent('resize', false, false);
+
+      inputElement.value = 'r';
+      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      window.dispatchEvent(event);
+      tick();
+      tick(1001); // account for observable debounceTime
+
+      const dropdownElement = document.querySelector('.sky-popover-container');
+      const autocompleteElement = getAutocompleteElement();
+      const formattedWidth = `${autocompleteElement.getBoundingClientRect().width}px`;
+
+      expect(spy).toHaveBeenCalledWith(dropdownElement, 'width', formattedWidth);
     }));
   });
 

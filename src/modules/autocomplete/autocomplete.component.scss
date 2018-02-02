@@ -1,18 +1,20 @@
 .sky-autocomplete {
   position: relative;
 
-  ::ng-deep
-  .sky-popover-container {
-    width: 100% !important;
-  }
+  // ::ng-deep
+  // .sky-popover-container {
+  //   width: 100% !important;
+  // }
 
   ::ng-deep
   .sky-dropdown-button {
     visibility: hidden;
     overflow: hidden;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    bottom: 0;
   }
 }

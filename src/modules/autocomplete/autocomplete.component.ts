@@ -10,19 +10,25 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
 
 import {
   SkyDropdownMenuChange,
   SkyDropdownMessageType,
   SkyDropdownMessage
 } from '../dropdown';
+
+import {
+  SkyWindowRefService
+} from '../window';
 
 import {
   SkyAutocompleteInputTextChange,
@@ -128,7 +134,9 @@ export class SkyAutocompleteComponent
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    private windowRef: SkyWindowRefService
   ) { }
 
   public ngOnInit(): void {
@@ -153,6 +161,14 @@ export class SkyAutocompleteComponent
       .takeUntil(this.destroy)
       .subscribe(() => {
         this.isMouseEnter = false;
+      });
+
+    Observable
+      .fromEvent(this.windowRef.getWindow(), 'resize')
+      .debounceTime(1000)
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.setDropdownWidth();
       });
   }
 
@@ -181,6 +197,8 @@ export class SkyAutocompleteComponent
           this.closeDropdown();
         }
       });
+
+    this.setDropdownWidth();
   }
 
   public ngOnDestroy(): void {
@@ -304,5 +322,13 @@ export class SkyAutocompleteComponent
 
   private hasSearchResults(): boolean {
     return (this.searchResults && this.searchResults.length > 0);
+  }
+
+  private setDropdownWidth() {
+    const dropdownContainer = this.elementRef.nativeElement
+      .querySelector('.sky-popover-container');
+
+    const width = this.elementRef.nativeElement.getBoundingClientRect().width;
+    this.renderer.setStyle(dropdownContainer, 'width', `${width}px`);
   }
 }
