@@ -16,6 +16,8 @@
       opacity: 1 !important;
       visibility: visible !important;
       z-index: 1;
+      left: auto !important;
+      top: auto !important;
 
       .sky-popover {
         margin: 0;
@@ -25,7 +27,7 @@
 }
 
 #screenshot-popover-placements,
-#screenshot-popover-tiny,
-#screenshot-popover-with-dropdown {
+#screenshot-popover-with-dropdown,
+screenshot-popover-positioned-parent {
   padding: 200px 350px;
 }
