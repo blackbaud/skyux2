@@ -1,7 +1,11 @@
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import {
+  AnimationTransitionEvent,
   animate,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  EventEmitter,
   state,
   style,
   transition,
@@ -10,13 +14,13 @@ import {
   ComponentFactoryResolver,
   Injector,
   ReflectiveInjector,
-  ViewContainerRef,
-  HostListener,
-  EventEmitter,
-  ElementRef
+  ViewContainerRef
 } from '@angular/core';
 import { SkyFlyoutInstance } from './flyout-instance';
 import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
+
+const FLYOUT_OPEN_STATE: string = 'flyoutOpen';
+const FLYOUT_CLOSED_STATE: string = 'flyoutClosed';
 
 @Component({
   selector: 'sky-flyout',
@@ -24,22 +28,19 @@ import { SkyFlyoutConfigurationInterface as IConfig } from './flyout.interface';
   styleUrls: ['./flyout.component.scss'],
   animations: [
     trigger('flyoutState', [
-      state('in', style({ transform: 'translateX(0)' })),
-      state('out', style({ transform: 'translateX(100%)' })),
+      state(FLYOUT_OPEN_STATE, style({ transform: 'translateX(0)' })),
+      state(FLYOUT_CLOSED_STATE, style({ transform: 'translateX(100%)' })),
       transition('void => *', [
         style({ transform: 'translateX(100%)' }),
         animate(250)
       ]),
-      transition('* => void', [
-        animate(250, style({ transform: 'translateX(0)' }))
-      ]),
-      transition('in => out', animate('250ms ease-in')),
-      transition('out => in', animate('250ms ease-in'))
+      transition(`* <=> *`, animate('250ms ease-in'))
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyFlyoutComponent {
-  public flyoutState = 'out';
+  public flyoutState = FLYOUT_CLOSED_STATE;
   public isOpen = false;
   public displayedInstance: SkyFlyoutInstance;
   public closed: EventEmitter<void> = new EventEmitter<void>();
@@ -52,23 +53,17 @@ export class SkyFlyoutComponent {
   constructor(
     private resolver: ComponentFactoryResolver,
     private injector: Injector,
-    private elRef: ElementRef,
-    private flyoutAdapter: SkyFlyoutAdapterService
+    private flyoutAdapter: SkyFlyoutAdapterService,
+    private changeDetector: ChangeDetectorRef
   ) { }
-
-  @HostListener('document:keydown', ['$event'])
-  public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
-    if (this.isOpen && event.which === 27) {
-      this.close();
-    }
-  }
 
   public close() {
     this.isOpen = false;
+    this.changeDetector.markForCheck();
   }
 
   public getAnimationState(): string {
-    return (this.isOpen) ? 'in' : 'out';
+    return (this.isOpen) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
   }
 
   public get ariaDescribedBy() {
@@ -85,6 +80,7 @@ export class SkyFlyoutComponent {
 
   public open(flyoutInstance: SkyFlyoutInstance, component: any, config: IConfig) {
     this.isOpen = true;
+    this.changeDetector.markForCheck();
     this.target.clear();
     this.config = config;
 
@@ -105,11 +101,10 @@ export class SkyFlyoutComponent {
     this.displayedInstance = flyoutInstance;
 
     this.flyoutAdapter.adjustHeaderForHelp();
-    this.flyoutAdapter.setFlyoutFocus(this.elRef);
   }
 
-  public animationDone(event: any) {
-    if (!this.isOpen) {
+  public animationDone(event: AnimationTransitionEvent) {
+    if (event.fromState === FLYOUT_OPEN_STATE && event.toState === FLYOUT_CLOSED_STATE) {
       /* istanbul ignore else */
       /* sanity check */
       if (this.displayedInstance) {

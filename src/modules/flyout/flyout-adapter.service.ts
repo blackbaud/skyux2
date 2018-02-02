@@ -30,22 +30,6 @@ export class SkyFlyoutAdapterService {
     return <HTMLElement>this.docRef.activeElement;
   }
 
-  public setFlyoutFocus(flyoutEl: ElementRef): void {
-    /* istanbul ignore else */
-    /* handle the case where somehow there is a focused element already in the flyout */
-    if (!(document.activeElement && flyoutEl.nativeElement.contains(document.activeElement))) {
-      const inputWithAutofocus = flyoutEl.nativeElement.querySelector('[autofocus]');
-
-      if (inputWithAutofocus) {
-        inputWithAutofocus.focus();
-      } else {
-        const focusEl: HTMLElement = flyoutEl.nativeElement.querySelector('.sky-flyout');
-        focusEl.focus();
-
-      }
-    }
-  }
-
   public adjustHeaderForHelp() {
     const helpWidget = document.querySelector('#bb-help-invoker');
     if (helpWidget) {
