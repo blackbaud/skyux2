@@ -165,6 +165,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
     instance.componentInstance = component;
     instance.hostController
+      .takeUntil(this.destroy)
       .subscribe((message: SkyFlyoutMessage) => {
         this.messageStream.next(message);
       });
