@@ -1,4 +1,4 @@
 export enum SkyFlyoutMessageType {
-  Close = 0,
-  Open = 1
+  Open = 0,
+  Close = 1
 }

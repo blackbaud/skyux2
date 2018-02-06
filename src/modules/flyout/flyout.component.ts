@@ -6,7 +6,9 @@ import {
   ElementRef,
   Injector,
   OnDestroy,
+  OnInit,
   ReflectiveInjector,
+  Type,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -22,6 +24,7 @@ import {
 
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/merge';
 
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutInstance } from './flyout-instance';
@@ -47,16 +50,12 @@ const FLYOUT_CLOSED_STATE = 'flyoutClosed';
         style({ transform: 'translateX(100%)' }),
         animate(250)
       ]),
-      transition('* => void', [
-        animate(250, style({ transform: 'translateX(0)' }))
-      ]),
-      transition(`${FLYOUT_OPEN_STATE} => ${FLYOUT_CLOSED_STATE}`, animate('250ms ease-in')),
-      transition(`${FLYOUT_CLOSED_STATE} => ${FLYOUT_OPEN_STATE}`, animate('250ms ease-in'))
+      transition(`* <=> *`, animate('250ms ease-in'))
     ])
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyFlyoutComponent implements OnDestroy {
+export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public config: SkyFlyoutConfig;
   public flyoutState = FLYOUT_CLOSED_STATE;
   public isOpen = false;
@@ -68,76 +67,111 @@ export class SkyFlyoutComponent implements OnDestroy {
   @ViewChild('header')
   private header: ElementRef;
 
-  private instance: SkyFlyoutInstance;
+  private flyoutInstance: SkyFlyoutInstance<any>;
   private destroy = new Subject<boolean>();
+  private messageStream = new Subject<SkyFlyoutMessage>();
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
     private resolver: ComponentFactoryResolver
-  ) { }
+  ) {
+    // All commands flow through the message stream.
+    // Flyout host controllers are merged into the stream when
+    // they are attached to the view.
+    this.messageStream
+      .takeUntil(this.destroy)
+      .subscribe((message: SkyFlyoutMessage) => {
+        this.handleIncomingMessages(message);
+      });
+  }
+
+  public ngOnInit() {
+    this.adapter.adjustHeaderForHelp(this.header);
+  }
 
   public ngOnDestroy() {
-    this.destroy.next(false);
+    this.destroy.next(true);
     this.destroy.unsubscribe();
   }
 
-  public getAnimationState(): string {
-    return (this.isOpening) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
+  public onCloseButtonClick() {
+    this.messageStream.next({
+      type: SkyFlyoutMessageType.Close
+    });
   }
 
-  public attach(component: any, config: SkyFlyoutConfig) {
-    this.isOpen = false;
-    this.target.clear();
-    this.config = Object.assign({ providers: [] }, config);
+  public attach<T>(component: Type<T>, config: SkyFlyoutConfig): SkyFlyoutInstance<T> {
+    this.cleanTemplate();
 
     // Emit the closed event on any previously opened flyout instance
-    if (this.instance) {
-      this.instance.closed.emit();
-      this.instance.closed.complete();
-      this.instance.opened.complete();
+    if (this.flyoutInstance) {
+      this.notifyClosed();
     }
+
+    this.config = Object.assign({ providers: [] }, config);
 
     const factory = this.resolver.resolveComponentFactory(component);
     const providers = ReflectiveInjector.resolve(this.config.providers);
     const injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
     const componentRef = this.target.createComponent(factory, undefined, injector);
 
-    console.log('header?', this.header.nativeElement);
-    this.adapter.adjustHeaderForHelp(this.header.nativeElement);
+    this.flyoutInstance = this.createFlyoutInstance<T>(componentRef.instance);
 
-    this.instance = new SkyFlyoutInstance();
-    this.instance.componentInstance = componentRef.instance;
-    this.instance.messageStream
-      .takeUntil(this.destroy)
-      .subscribe((message: SkyFlyoutMessage) => {
-        this.handleIncomingMessages(message);
-      });
+    // Open the flyout immediately.
+    this.messageStream.next({
+      type: SkyFlyoutMessageType.Open
+    });
 
-    return this.instance;
+    return this.flyoutInstance;
   }
 
-  public open() {
-    this.isOpening = true;
-    this.changeDetector.markForCheck();
-  }
-
-  public close() {
-    this.isOpening = false;
-    this.changeDetector.markForCheck();
+  public getAnimationState(): string {
+    return (this.isOpening) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
   }
 
   public animationDone(event: AnimationEvent) {
     if (event.toState === FLYOUT_OPEN_STATE) {
       this.isOpen = true;
-      this.instance.opened.emit();
     }
 
     if (event.toState === FLYOUT_CLOSED_STATE) {
       this.isOpen = false;
-      this.instance.closed.emit();
+      this.notifyClosed();
+      this.cleanTemplate();
     }
+  }
+
+  private open() {
+    if (!this.isOpen) {
+      this.isOpen = false;
+      this.isOpening = true;
+    }
+
+    this.changeDetector.markForCheck();
+  }
+
+  private close() {
+    if (this.isOpen) {
+      this.isOpen = true;
+      this.isOpening = false;
+    }
+
+    this.changeDetector.markForCheck();
+  }
+
+  private cleanTemplate() {
+    this.target.clear();
+  }
+
+  private createFlyoutInstance<T>(component: T): SkyFlyoutInstance<T> {
+    const instance = new SkyFlyoutInstance<T>();
+
+    instance.componentInstance = component;
+    this.messageStream.merge(instance.hostController);
+
+    return instance;
   }
 
   private handleIncomingMessages(message: SkyFlyoutMessage) {
@@ -150,5 +184,10 @@ export class SkyFlyoutComponent implements OnDestroy {
       this.close();
       break;
     }
+  }
+
+  private notifyClosed() {
+    this.flyoutInstance.closed.emit();
+    this.flyoutInstance.closed.complete();
   }
 }

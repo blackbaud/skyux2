@@ -13,13 +13,12 @@
       <button
         type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
-        (click)="close()"
+        (click)="onCloseButtonClick()"
         [attr.aria-label]="'flyout_close' | skyResources">
         <i class="fa fa-close" aria-hidden="true"></i>
       </button>
     </div>
   </div>
-
   <div class="sky-flyout-content">
     <div #target></div>
   </div>

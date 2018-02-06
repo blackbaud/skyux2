@@ -7,5 +7,7 @@ export { SkyFlyoutService } from './flyout.service';
 export { SKY_FLYOUT_PROVIDERS } from './flyout-providers';
 
 export {
-  SkyFlyoutConfig
+  SkyFlyoutConfig,
+  SkyFlyoutMessage,
+  SkyFlyoutMessageType
 } from './types';

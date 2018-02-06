@@ -1,25 +1,15 @@
 import {
-  ChangeDetectorRef,
   Component
 } from '@angular/core';
+
+import { FlyoutDemoContext } from './flyout-demo-context';
 
 @Component({
   selector: 'sky-flyout-demo-internal',
   templateUrl: './flyout-demo-internal.component.html'
 })
 export class SkyFlyoutDemoInternalComponent {
-  public get record(): string {
-    return this._record;
-  }
-
-  public set record(value: string) {
-    this._record = value;
-    this.changeDetector.detectChanges();
-  }
-
-  private _record: string;
-
   constructor(
-    private changeDetector: ChangeDetectorRef
+    public context: FlyoutDemoContext
   ) { }
 }

@@ -1,33 +1,34 @@
-import { FlyoutWithHelpWidgetTestComponent } from './flyout-with-help-widget.component.fixture';
-import { FlyoutAutofocusTestComponent } from './flyout-autofocus.component.fixture';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyWindowRefService } from '../../window';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  NoopAnimationsModule
+} from '@angular/platform-browser/animations';
 
 import { SkyFlyoutModule } from '../flyout.module';
-import { FlyoutTestComponent } from './flyout.component.fixture';
-import { FlyoutWithValuesTestComponent } from './flyout-with-values.component.fixture';
+import { SkyFlyoutTestComponent } from './flyout.component.fixture';
+import { SkyFlyoutTestSampleComponent } from './flyout-sample.component.fixture';
 
 @NgModule({
   declarations: [
-    FlyoutTestComponent,
-    FlyoutAutofocusTestComponent,
-    FlyoutWithValuesTestComponent,
-    FlyoutWithHelpWidgetTestComponent
+    SkyFlyoutTestComponent,
+    SkyFlyoutTestSampleComponent
   ],
   imports: [
     CommonModule,
+    NoopAnimationsModule,
     SkyFlyoutModule
   ],
-  providers: [
-    SkyWindowRefService
+  exports: [
+    SkyFlyoutTestSampleComponent
   ],
   entryComponents: [
-    FlyoutTestComponent,
-    FlyoutAutofocusTestComponent,
-    FlyoutWithValuesTestComponent,
-    FlyoutWithHelpWidgetTestComponent
+    SkyFlyoutTestSampleComponent
   ]
 })
 export class SkyFlyoutFixturesModule { }

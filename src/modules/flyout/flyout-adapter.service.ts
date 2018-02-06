@@ -1,14 +1,10 @@
 import {
-  ApplicationRef,
-  ComponentFactoryResolver,
-  EmbeddedViewRef,
+  ElementRef,
   Injectable,
-  Injector,
   Renderer2,
   RendererFactory2
 } from '@angular/core';
 
-import { SkyFlyoutComponent } from './index';
 import { SkyWindowRefService } from '../window';
 
 @Injectable()
@@ -16,36 +12,29 @@ export class SkyFlyoutAdapterService {
   private renderer: Renderer2;
 
   constructor(
-    private appRef: ApplicationRef,
-    private injector: Injector,
     private rendererFactory: RendererFactory2,
-    private resolver: ComponentFactoryResolver,
     private windowRef: SkyWindowRefService
   ) {
     this.renderer = this.rendererFactory.createRenderer(undefined, undefined);
   }
 
-  public createHostComponent(): SkyFlyoutComponent {
-    const componentRef = this.resolver
-      .resolveComponentFactory(SkyFlyoutComponent)
-      .create(this.injector);
-
-    this.appRef.attachView(componentRef.hostView);
-
-    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
-      .rootNodes[0] as HTMLElement;
-
-    this.renderer.appendChild(this.windowRef.getWindow().document.body, domElem);
-
-    return componentRef.instance;
+  public appendToBody(element: any): void {
+    const body = this.windowRef.getWindow().document.body;
+    this.renderer.appendChild(body, element);
   }
 
-  public adjustHeaderForHelp(headerElement: any): void {
+  public removeHostElement(): void {
+    const document = this.windowRef.getWindow().document;
+    const hostElement = document.querySelector('sky-flyout');
+    this.renderer.removeChild(document.body, hostElement);
+  }
+
+  public adjustHeaderForHelp(header: ElementRef): void {
     const windowObj = this.windowRef.getWindow();
-    const helpWidget = windowObj.document.querySelector('#bb-help-invoker');
+    const helpWidget = windowObj.document.getElementById('bb-help-invoker');
 
     if (helpWidget) {
-      this.renderer.addClass(headerElement, 'sky-flyout-help-shim');
+      this.renderer.addClass(header.nativeElement, 'sky-flyout-help-shim');
     }
   }
 }

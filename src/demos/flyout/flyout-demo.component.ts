@@ -6,10 +6,10 @@ import {
 import { Observable } from 'rxjs/Observable';
 
 import {
-  SkyFlyoutInstance,
   SkyFlyoutService
 } from '../../modules/flyout';
 
+import { FlyoutDemoContext } from './flyout-demo-context';
 import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
 
 @Component({
@@ -24,37 +24,23 @@ export class SkyFlyoutDemoComponent {
     { id: '4', name: 'Janet' }
   ]);
 
-  private flyout: SkyFlyoutInstance;
-
   constructor(
     private flyoutService: SkyFlyoutService
   ) { }
 
-  public createFlyout() {
-    this.flyout = this.flyoutService.create(SkyFlyoutDemoInternalComponent, {
-      providers: [],
+  public openRecord(record: FlyoutDemoContext) {
+    const flyout = this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
+      providers: [{
+        provide: FlyoutDemoContext,
+        useValue: record
+      }],
       ariaDescribedBy: 'my-describedby-id',
       ariaLabelledBy: 'my-labelledby-id',
       ariaRole: 'modal'
     });
 
-    this.flyout.closed.subscribe(() => {
+    flyout.closed.subscribe(() => {
       console.log('Flyout closed!');
     });
-
-    this.flyout.opened.subscribe(() => {
-      console.log('Flyout opened!');
-    });
-  }
-
-  public openRecord(record: any) {
-    if (!this.flyout) {
-      this.createFlyout();
-    }
-
-    this.flyout.open();
-
-    // Update the flyout with the appropriate record:
-    this.flyout.componentInstance.record = record;
   }
 }

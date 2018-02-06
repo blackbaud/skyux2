@@ -1,49 +1,32 @@
 import {
-  TestBed
-} from '@angular/core/testing';
-
-import {
-  BrowserModule
-} from '@angular/platform-browser';
-
-import {
-  SkyFlyoutInstance,
-  SkyFlyoutModule
+  SkyFlyoutInstance
 } from './index';
 
-fdescribe('Flyout instance', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        BrowserModule,
-        SkyFlyoutModule
-      ]
+import {
+  SkyFlyoutMessageType
+ } from './types';
+
+describe('Flyout instance', () => {
+  it('should expose observables for closed event', () => {
+    const flyout = new SkyFlyoutInstance();
+
+    let closedCalled = false;
+
+    flyout.closed.take(1).subscribe(() => {
+      closedCalled = true;
+    });
+
+    flyout.closed.emit();
+    expect(closedCalled).toEqual(true);
+  });
+
+  it('should expose method to close the flyout', () => {
+    const flyout = new SkyFlyoutInstance();
+    const spy = spyOn(flyout.hostController, 'next').and.callThrough();
+
+    flyout.close();
+    expect(spy).toHaveBeenCalledWith({
+      type: SkyFlyoutMessageType.Close
     });
   });
-
-  it('should not error if no close callback is specified', () => {
-    const instance = new SkyFlyoutInstance();
-
-    instance.close();
-  });
-
-  it('should allow users to subscribe to the instance Closed event', function () {
-    let instance: SkyFlyoutInstance;
-    let callbackHit: boolean;
-
-    instance = subscribeToClosed();
-    instance.closed.emit();
-    expect(callbackHit).toBeTruthy();
-
-    function subscribeToClosed() {
-      const flyoutInstance = new SkyFlyoutInstance();
-
-      flyoutInstance.closed.subscribe(() => {
-        callbackHit = true;
-      });
-
-      return flyoutInstance;
-    }
-  });
-
 });
