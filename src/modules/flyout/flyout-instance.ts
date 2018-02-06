@@ -15,7 +15,11 @@ export class SkyFlyoutInstance<T> {
   public isOpen = true;
 
   // Used to communicate with the host component.
-  public hostController = new Subject<SkyFlyoutMessage>();
+  public get hostController(): Subject<SkyFlyoutMessage> {
+    return this._hostController;
+  }
+
+  private _hostController = new Subject<SkyFlyoutMessage>();
 
   constructor() {
     this.closed.subscribe(() => {
@@ -27,5 +31,7 @@ export class SkyFlyoutInstance<T> {
     this.hostController.next({
       type: SkyFlyoutMessageType.Close
     });
+
+    this.hostController.complete();
   }
 }

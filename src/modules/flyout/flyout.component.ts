@@ -61,6 +61,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public isOpen = false;
   public isOpening = false;
 
+  public get messageStream(): Subject<SkyFlyoutMessage> {
+    return this._messageStream;
+  }
+
   @ViewChild('target', { read: ViewContainerRef })
   private target: ViewContainerRef;
 
@@ -69,7 +73,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
   private flyoutInstance: SkyFlyoutInstance<any>;
   private destroy = new Subject<boolean>();
-  private messageStream = new Subject<SkyFlyoutMessage>();
+
+  private _messageStream = new Subject<SkyFlyoutMessage>();
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
@@ -78,8 +83,6 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     private resolver: ComponentFactoryResolver
   ) {
     // All commands flow through the message stream.
-    // Flyout host controllers are merged into the stream when
-    // they are attached to the view.
     this.messageStream
       .takeUntil(this.destroy)
       .subscribe((message: SkyFlyoutMessage) => {
@@ -153,23 +156,19 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   private close() {
-    if (this.isOpen) {
-      this.isOpen = true;
-      this.isOpening = false;
-    }
-
+    this.isOpen = true;
+    this.isOpening = false;
     this.changeDetector.markForCheck();
-  }
-
-  private cleanTemplate() {
-    this.target.clear();
   }
 
   private createFlyoutInstance<T>(component: T): SkyFlyoutInstance<T> {
     const instance = new SkyFlyoutInstance<T>();
 
     instance.componentInstance = component;
-    this.messageStream.merge(instance.hostController);
+    instance.hostController
+      .subscribe((message: SkyFlyoutMessage) => {
+        this.messageStream.next(message);
+      });
 
     return instance;
   }
@@ -180,6 +179,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       case SkyFlyoutMessageType.Open:
       this.open();
       break;
+
       case SkyFlyoutMessageType.Close:
       this.close();
       break;
@@ -189,5 +189,9 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   private notifyClosed() {
     this.flyoutInstance.closed.emit();
     this.flyoutInstance.closed.complete();
+  }
+
+  private cleanTemplate() {
+    this.target.clear();
   }
 }

@@ -24,6 +24,10 @@ import {
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutService } from './flyout.service';
 
+import {
+  SkyFlyoutMessageType
+} from './types';
+
 describe('Flyout service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -61,9 +65,24 @@ describe('Flyout service', () => {
                       ]
                     },
                     instance: {
+                      messageStream: {
+                        take() {
+                          return {
+                            subscribe() { }
+                          };
+                        },
+                        next() {}
+                      },
                       attach() {
                         return {
-                          close() { }
+                          close() { },
+                          closed: {
+                            take() {
+                              return {
+                                subscribe() { }
+                              };
+                            }
+                          }
                         };
                       }
                     }
@@ -103,12 +122,12 @@ describe('Flyout service', () => {
       adapter: SkyFlyoutAdapterService,
       appRef: ApplicationRef
     ) => {
-      const adapterSpy = spyOn(adapter, 'removeHostElement').and.callThrough();
-      const appRefSpy = spyOn(appRef, 'detachView').and.callThrough();
       service.open({} as any);
-      service.dispose();
-      expect(adapterSpy).toHaveBeenCalled();
-      expect(appRefSpy).toHaveBeenCalled();
+      const spy = spyOn(service['host'].instance.messageStream, 'next').and.callThrough();
+      service.close();
+      expect(spy).toHaveBeenCalledWith({
+        type: SkyFlyoutMessageType.Close
+      });
     }
   ));
 });

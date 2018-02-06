@@ -13,12 +13,15 @@ import { SkyFlyoutComponent } from './flyout.component';
 import { SkyFlyoutInstance } from './flyout-instance';
 
 import {
-  SkyFlyoutConfig
+  SkyFlyoutConfig,
+  SkyFlyoutMessage,
+  SkyFlyoutMessageType
 } from './types';
 
 @Injectable()
 export class SkyFlyoutService {
   private host: ComponentRef<SkyFlyoutComponent>;
+  private removeAfterClosed = false;
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
@@ -32,15 +35,19 @@ export class SkyFlyoutService {
       this.host = this.createHostComponent();
     }
 
-    return this.host.instance.attach<T>(component, config);
+    const flyout = this.host.instance.attach(component, config);
+
+    this.addListeners(flyout);
+
+    return flyout;
   }
 
-  public dispose(): void {
+  public close(): void {
     if (this.host) {
-      this.adapter.removeHostElement();
-      this.appRef.detachView(this.host.hostView);
-      this.host.destroy();
-      this.host = undefined;
+      this.removeAfterClosed = true;
+      this.host.instance.messageStream.next({
+        type: SkyFlyoutMessageType.Close
+      });
     }
   }
 
@@ -55,5 +62,33 @@ export class SkyFlyoutService {
     this.adapter.appendToBody(domElem);
 
     return componentRef;
+  }
+
+  private removeHostComponent() {
+    if (this.host) {
+      this.appRef.detachView(this.host.hostView);
+      this.host.destroy();
+      this.host = undefined;
+    }
+
+    this.adapter.removeHostElement();
+  }
+
+  private addListeners<T>(flyout: SkyFlyoutInstance<T>): void {
+    this.removeAfterClosed = false;
+
+    this.host.instance.messageStream
+      .take(1)
+      .subscribe((message: SkyFlyoutMessage) => {
+        if (message.type === SkyFlyoutMessageType.Close) {
+          this.removeAfterClosed = true;
+        }
+      });
+
+    flyout.closed.take(1).subscribe(() => {
+      if (this.removeAfterClosed) {
+        this.removeHostComponent();
+      }
+    });
   }
 }

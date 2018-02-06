@@ -84,18 +84,18 @@ describe('Flyout component', () => {
     ) => {
       applicationRef = _applicationRef;
       flyoutService = _flyoutService;
-      flyoutService.dispose();
+      flyoutService.close();
     }
   ));
 
   afterEach(fakeAsync(() => {
-    flyoutService.dispose();
+    flyoutService.close();
     applicationRef.tick();
     tick();
     fixture.detectChanges();
   }));
 
-  fit('should close when the close button is clicked', fakeAsync(() => {
+  it('should close when the close button is clicked', fakeAsync(() => {
     const flyout = openFlyout();
     expect(flyout.isOpen).toBe(true);
 
@@ -118,8 +118,8 @@ describe('Flyout component', () => {
     fixture.detectChanges();
     tick();
 
-    expect(flyout.isOpen).toBe(false);
     expect(closeSpy).toHaveBeenCalled();
+    expect(flyout.isOpen).toBe(false);
   }));
 
   it('should emit closed event of previously opened flyouts when a new one is opened',
