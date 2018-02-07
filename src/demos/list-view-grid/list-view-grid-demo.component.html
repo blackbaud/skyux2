@@ -6,6 +6,10 @@
 
   <sky-list-view-grid fit="scroll" #grid>
     <sky-grid-column
+      [locked]="true"
+      [template]="customCellTemplate">
+    </sky-grid-column>
+    <sky-grid-column
       field="column1"
       [locked]="true"
       [heading]="asyncHeading | async"
@@ -23,3 +27,27 @@
     </sky-grid-column>
   </sky-list-view-grid>
 </sky-list>
+
+<ng-template
+  #customCellTemplate
+  let-row="row">
+  <sky-dropdown buttonType="context-menu">
+    <sky-dropdown-menu>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 1
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 2
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 3
+        </button>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
+</ng-template>

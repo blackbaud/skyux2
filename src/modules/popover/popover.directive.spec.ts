@@ -180,31 +180,6 @@ describe('SkyPopoverDirective', () => {
     expect(closeSpy).not.toHaveBeenCalled();
   });
 
-  it('should adjust placement on window resize', () => {
-    const caller = directiveElements[3];
-    const callerInstance = caller.injector.get(SkyPopoverDirective);
-    const spy = spyOn(callerInstance.skyPopover, 'positionNextTo');
-
-    callerInstance.skyPopover.isOpen = false;
-    caller.nativeElement.click();
-
-    expect(spy).toHaveBeenCalledWith(callerInstance['elementRef'], 'above', 'left');
-    callerInstance.skyPopover.isOpen = true;
-
-    spy.calls.reset();
-
-    TestUtility.fireDomEvent(window, 'resize');
-    expect(spy).toHaveBeenCalledWith(callerInstance['elementRef'], 'above', 'left');
-
-    // Positioning should only occur if the popover is open.
-    caller.nativeElement.click();
-    callerInstance.skyPopover.isOpen = false;
-    spy.calls.reset();
-
-    TestUtility.fireDomEvent(window, 'resize');
-    expect(spy).not.toHaveBeenCalled();
-  });
-
   it('should close the popover when the escape key is pressed', () => {
     const caller = directiveElements[3];
     const callerInstance = caller.injector.get(SkyPopoverDirective);
