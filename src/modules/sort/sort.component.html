@@ -1,11 +1,12 @@
 <div class="sky-sort">
   <sky-dropdown
     [buttonType]="(showButtonText && !isSmallScreen()) ? 'select' : 'sort'"
-    [attr.title]="'sort_button_label' | skyResources">
+    [attr.title]="'sort_button_label' | skyResources"
+    [messageStream]="dropdownController">
     <sky-dropdown-button *ngIf="showButtonText && !isSmallScreen()">
       <i class="fa fa-sort"></i> {{'sort_button_label' | skyResources}}
     </sky-dropdown-button>
-    <sky-dropdown-menu>
+    <sky-dropdown-menu (click)="dropdownClicked()">
       <div class="sky-sort-menu-heading sky-subsection-heading">
         {{'sort_menu_heading' | skyResources}}
       </div>

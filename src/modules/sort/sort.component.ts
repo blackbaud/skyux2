@@ -7,6 +7,13 @@ import {
   OnDestroy
 } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+
+import {
+  SkyDropdownMessage,
+  SkyDropdownMessageType
+} from '../dropdown';
+
 import {
   SkySortService
 } from './sort.service';
@@ -26,6 +33,7 @@ import { Subscription } from 'rxjs';
 export class SkySortComponent implements OnInit, OnDestroy {
 
   @Input() public showButtonText: boolean = false;
+  public dropdownController = new Subject<SkyDropdownMessage>();
   public currentBreakpoint: SkyMediaBreakpoints;
 
   private mediaQuerySubscription: Subscription;
@@ -49,4 +57,9 @@ export class SkySortComponent implements OnInit, OnDestroy {
     return this.currentBreakpoint === SkyMediaBreakpoints.xs;
   }
 
+  public dropdownClicked() {
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Close
+    });
+  }
 }

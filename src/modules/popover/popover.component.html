@@ -1,8 +1,11 @@
 <div class="sky-popover-container"
-  [ngClass]="'sky-popover-placement-' + placement"
+  tabindex="-1"
+  [ngClass]="classNames"
   (@popoverState.start)="onAnimationStart($event)"
   (@popoverState.done)="onAnimationDone($event)"
-  [@popoverState]="getAnimationState()"
+  [@popoverState]="animationState"
+  [style.top.px]="popoverTop"
+  [style.left.px]="popoverLeft"
   #popoverContainer>
   <div class="sky-popover">
     <header class="sky-popover-header" *ngIf="popoverTitle">
@@ -13,6 +16,11 @@
     <div class="sky-popover-body">
       <ng-content></ng-content>
     </div>
-    <div class="sky-popover-arrow" #popoverArrow></div>
+    <div
+      class="sky-popover-arrow"
+      [style.top.px]="arrowTop"
+      [style.left.px]="arrowLeft"
+      aria-hidden="true"
+      #popoverArrow></div>
   </div>
 </div>

@@ -1,5 +1,7 @@
 <div style="margin-bottom: 10px">
-  <sky-colorpicker #colorPickerExample1>
+  <sky-colorpicker
+    (selectedColorChanged)="onSelectedColorChanged($event)"
+    #colorPickerExample1>
     <input
       [skyColorpickerInput]="colorPickerExample1"
       [(ngModel)]="color1" [presetColors]="presetColors1"
