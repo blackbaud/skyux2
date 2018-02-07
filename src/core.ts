@@ -8,6 +8,7 @@ if (!Element.prototype.matches) {
     Element.prototype.webkitMatchesSelector;
 }
 
+import { SKY_FLYOUT_PROVIDERS } from './modules/flyout';
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
@@ -30,6 +31,7 @@ import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
 import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
+import { SkyFlyoutModule } from './modules/flyout/flyout.module';
 import { SkyGridModule } from './modules/grid';
 import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyKeyInfoModule } from './modules/key-info';
@@ -86,6 +88,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyFileAttachmentsModule,
     SkyFilterModule,
     SkyFluidGridModule,
+    SkyFlyoutModule,
     SkyGridModule,
     SkyHelpInlineModule,
     SkyKeyInfoModule,
@@ -145,6 +148,7 @@ export * from './modules/fileattachments';
 export * from './modules/filter';
 export * from './modules/fluid-grid';
 export * from './modules/format';
+export * from './modules/flyout';
 export * from './modules/grid';
 export * from './modules/help-inline';
 export * from './modules/key-info';
@@ -184,5 +188,6 @@ export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
   ...SKY_MODAL_PROVIDERS,
-  SKY_WAIT_PROVIDERS
+  SKY_WAIT_PROVIDERS,
+  SKY_FLYOUT_PROVIDERS
 ];

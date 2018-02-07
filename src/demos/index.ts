@@ -14,6 +14,7 @@ export * from './error';
 export * from './file-attachment';
 export * from './filter';
 export * from './fluid-grid';
+export * from './flyout';
 export * from './grid';
 export * from './help-inline';
 export * from './key-info';
