@@ -124,7 +124,7 @@
   </sky-popover>
 </div>
 
-<div id="screenshot-popover-tiny">
+<div id="screenshot-popover-tiny" style="padding-top:200px;">
   <button id="btn-popover-tiny" class="sky-btn" [skyPopover]="myPopoverTiny">
     Default
   </button>
@@ -166,36 +166,85 @@
   </sky-popover>
 </div>
 
-<div id="screenshot-popover-positioned-parent" style="padding:40px;">
-  <div style="border:1px solid red;position:relative;padding:30px;background-color:#f1f1f1;">
-    <button
-      id="btn-popover-position-parent-left"
-      class="sky-btn"
-      type="button"
-      [skyPopover]="positionedParent1"
-      skyPopoverPlacement="below"
-      skyPopoverAlignment="left">
-      Below, align left
-    </button>
+<div id="screenshot-popover-positioned-parent" style="padding-top:0;height:500px;">
+  <div style="border:1px solid red;position:relative;padding:20px;overflow:hidden;">
+    <table style="border:1px solid blue;width:100%;">
+      <tbody>
+        <tr>
+          <td style="padding:20px;">
+            <span id="popover-positioned-parent-container-left">
+              <button
+                id="btn-popover-position-parent-left"
+                class="sky-btn"
+                type="button"
+                [skyPopover]="positionedParent1"
+                skyPopoverPlacement="below"
+                skyPopoverAlignment="left">
+                Below, align left
+              </button>
 
-    <sky-popover #positionedParent1>
-      The content of a popover can be text, HTML, or Angular components.
-    </sky-popover>
+              <sky-popover #positionedParent1>
+                The content of a popover can be text, HTML, or Angular components.<br>
+                <sky-dropdown buttonType="context-menu">
+                  <sky-dropdown-menu>
+                    <sky-dropdown-item>
+                      <button type="button">
+                        Option 1
+                      </button>
+                    </sky-dropdown-item>
+                    <sky-dropdown-item>
+                      <button type="button">
+                        Option 2
+                      </button>
+                    </sky-dropdown-item>
+                    <sky-dropdown-item>
+                      <button type="button">
+                        Option 3
+                      </button>
+                    </sky-dropdown-item>
+                  </sky-dropdown-menu>
+                </sky-dropdown>
+              </sky-popover>
+            </span>
+            <span id="popover-positioned-parent-container-right">
+              <button
+                id="btn-popover-position-parent-right"
+                class="sky-btn"
+                type="button"
+                style="float:right;"
+                [skyPopover]="positionedParent2"
+                skyPopoverPlacement="below"
+                skyPopoverAlignment="left">
+                Below, align left
+              </button>
 
-    <button
-      id="btn-popover-position-parent-right"
-      class="sky-btn"
-      type="button"
-      style="float:right;"
-      [skyPopover]="positionedParent2"
-      skyPopoverPlacement="below"
-      skyPopoverAlignment="left">
-      Below, align left
-    </button>
-
-    <sky-popover #positionedParent2>
-      The content of a popover can be text, HTML, or Angular components.
-    </sky-popover>
+              <sky-popover #positionedParent2>
+                The content of a popover can be text, HTML, or Angular components.<br>
+                <sky-dropdown buttonType="context-menu">
+                  <sky-dropdown-menu>
+                    <sky-dropdown-item>
+                      <button type="button">
+                        Option 1
+                      </button>
+                    </sky-dropdown-item>
+                    <sky-dropdown-item>
+                      <button type="button">
+                        Option 2
+                      </button>
+                    </sky-dropdown-item>
+                    <sky-dropdown-item>
+                      <button type="button">
+                        Option 3
+                      </button>
+                    </sky-dropdown-item>
+                  </sky-dropdown-menu>
+                </sky-dropdown>
+              </sky-popover>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 

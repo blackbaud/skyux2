@@ -23,7 +23,19 @@ import {
 } from './index';
 
 class MockPopoverAdapterService {
-  public getPopoverPosition() {}
+  public isPopoverLargerThanParent(): boolean {
+    return false;
+  }
+  public getPopoverPosition(): any {
+    return {
+      top: 0,
+      left: 0,
+      arrowLeft: 0,
+      arrowRight: 0,
+      placement: 'above',
+      alignment: undefined
+    };
+  }
   public hidePopover() {}
   public showPopover() {}
 }
@@ -101,12 +113,6 @@ describe('SkyPopoverComponent', () => {
     component.animationState = undefined;
     component.close();
     expect(component.animationState).toEqual('hidden');
-
-    // Else branch:
-    component.isOpen = false;
-    component.animationState = undefined;
-    component.close();
-    expect(component.animationState).toBeUndefined();
   });
 
   it('should remove a CSS classname before the animation starts', () => {
@@ -182,16 +188,22 @@ describe('SkyPopoverComponent', () => {
     expect(spy).toHaveBeenCalledWith(component);
   });
 
-  it('should capture mouse enter and mouse leave events', () => {
+  it('should capture mouse enter and mouse leave events', fakeAsync(() => {
+    const caller = new ElementRef({});
     expect(component['isMouseEnter']).toEqual(false);
+    component.positionNextTo(caller, 'above');
+    tick();
     TestUtility.fireDomEvent(fixture.nativeElement, 'mouseenter');
     expect(component['isMouseEnter']).toEqual(true);
     TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(component['isMouseEnter']).toEqual(false);
-  });
+  }));
 
-  it('should close the popover when the escape key is pressed', () => {
+  it('should close the popover when the escape key is pressed', fakeAsync(() => {
     const spy = spyOn(fixture.componentInstance, 'close');
+    const caller = new ElementRef({ focus() {} });
+    component.positionNextTo(caller, 'above');
+    tick();
 
     fixture.componentInstance.isOpen = true;
 
@@ -203,46 +215,71 @@ describe('SkyPopoverComponent', () => {
     // Should ignore other key events.
     TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Backspace' });
     expect(spy).not.toHaveBeenCalled();
-  });
+  }));
 
-  it('should reposition the popover on window scroll', () => {
-    const spy = spyOn(fixture.componentInstance, 'positionNextTo');
+  it('should reposition the popover on window scroll', fakeAsync(() => {
+    const spy = spyOn(fixture.componentInstance as any, 'positionPopover');
     const event = document.createEvent('CustomEvent');
     event.initEvent('scroll', false, false);
+
+    const caller = new ElementRef({});
+    component.positionNextTo(caller, 'above');
+    tick();
 
     component.isOpen = true;
     window.dispatchEvent(event);
     fixture.detectChanges();
     expect(spy).toHaveBeenCalled();
+  }));
 
-    // Test the else condition.
-    spy.calls.reset();
-    component.isOpen = false;
+  it('should reposition the popover on window resize', fakeAsync(() => {
+    const spy = spyOn(fixture.componentInstance, 'reposition');
+    const event = document.createEvent('CustomEvent');
+    event.initEvent('resize', false, false);
+
+    const caller = new ElementRef({});
+    component.positionNextTo(caller, 'above');
+    tick();
+
+    component.isOpen = true;
     window.dispatchEvent(event);
+    tick();
     fixture.detectChanges();
-    expect(spy).not.toHaveBeenCalled();
-  });
 
-  it('should close the popover when the document is clicked', () => {
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should close the popover when the document is clicked', fakeAsync(() => {
     spyOn(component, 'close');
+
+    const caller = new ElementRef({});
+    component.positionNextTo(caller, 'above');
+    tick();
 
     component.isOpen = true;
     TestUtility.fireDomEvent(document, 'click');
-
+    TestUtility.fireDomEvent(document, 'focusin');
+    tick();
     fixture.detectChanges();
-    expect(component.close).toHaveBeenCalled();
-  });
 
-  it('should allow disabling of closing the popover when the document is clicked', () => {
+    expect(component.close).toHaveBeenCalled();
+  }));
+
+  it('should allow disabling of closing the popover when the document is clicked', fakeAsync(() => {
+    const caller = new ElementRef({});
+    component.positionNextTo(caller, 'above');
+    tick();
+
     spyOn(component, 'close');
 
     component.isOpen = true;
+    component.isMouseEnter = false;
     component.dismissOnBlur = false;
     TestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
-  });
+  }));
 
   it('should not close the popover if the popover is clicked', () => {
     spyOn(component, 'close');
@@ -255,11 +292,52 @@ describe('SkyPopoverComponent', () => {
     expect(component.close).not.toHaveBeenCalled();
   });
 
-  it('should close the popover on mouseleave if it has been marked for close', () => {
+  it('should close the popover on mouseleave if it has been marked for close', fakeAsync(() => {
     const spy = spyOn(component, 'close');
+    const caller = new ElementRef({});
+    component.positionNextTo(caller, 'above');
+    tick();
     component.markForCloseOnMouseLeave();
     TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(spy).toHaveBeenCalledWith();
     expect(component['isMarkedForCloseOnMouseLeave']).toEqual(false);
-  });
+  }));
+
+  it('should not reposition fullscreen popovers', fakeAsync(() => {
+    const caller = new ElementRef({});
+    spyOn(mockAdapterService, 'isPopoverLargerThanParent').and.returnValue(true);
+    component.positionNextTo(caller, 'above');
+    tick();
+    fixture.detectChanges();
+    expect(component.placement).toEqual('fullscreen');
+
+    const spy = spyOn(mockAdapterService, 'getPopoverPosition').and.callThrough();
+
+    component.reposition();
+    tick();
+
+    expect(spy).not.toHaveBeenCalled();
+  }));
+
+  it('should expose a method to return the placement to the preferred placement', fakeAsync(() => {
+    spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
+      top: 0,
+      left: 0,
+      arrowLeft: 0,
+      arrowRight: 0,
+      placement: 'right',
+      alignment: undefined
+    });
+
+    const caller = new ElementRef({});
+    component.positionNextTo(caller, 'above');
+    tick();
+    fixture.detectChanges();
+
+    expect(component.placement).toEqual('right');
+
+    component.reposition();
+    expect(component.placement).toEqual('above');
+    tick();
+  }));
 });
