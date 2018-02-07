@@ -7,7 +7,7 @@
   [ngClass]="{ 'sky-flyout-hidden': !isOpen && !isOpening }"
   (@flyoutState.done)="animationDone($event)"
   [@flyoutState]="getAnimationState()">
-  <div class="sky-flyout-header" #header>
+  <div class="sky-flyout-header" #flyoutHeader>
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
       <button

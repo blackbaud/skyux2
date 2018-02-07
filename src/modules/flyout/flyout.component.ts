@@ -67,8 +67,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   @ViewChild('target', { read: ViewContainerRef })
   private target: ViewContainerRef;
 
-  @ViewChild('header')
-  private header: ElementRef;
+  @ViewChild('flyoutHeader')
+  private flyoutHeader: ElementRef;
 
   private flyoutInstance: SkyFlyoutInstance<any>;
   private destroy = new Subject<boolean>();
@@ -90,7 +90,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public ngOnInit() {
-    this.adapter.adjustHeaderForHelp(this.header);
+    this.adapter.adjustHeaderForHelp(this.flyoutHeader);
   }
 
   public ngOnDestroy() {
