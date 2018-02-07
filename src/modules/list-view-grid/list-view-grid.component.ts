@@ -1,33 +1,33 @@
 import {
-  Component,
-  Input,
-  ContentChildren,
-  QueryList,
-  forwardRef,
+  AfterContentInit,
   ChangeDetectionStrategy,
-  ViewChild,
-  AfterContentInit
+  Component,
+  ContentChildren,
+  forwardRef,
+  Input,
+  OnDestroy,
+  QueryList,
+  ViewChild
 } from '@angular/core';
-import { ListViewComponent } from '../list/list-view.component';
-import {
-  GridState,
-  GridStateDispatcher,
-  GridStateModel
-} from './state';
-import { ListViewGridColumnsLoadAction } from './state/columns/actions';
-import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
+
+import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+
 import {
   getValue
 } from 'microedge-rxstate/dist/helpers';
+
 import {
   AsyncList
 } from 'microedge-rxstate/dist';
+
 import {
   SkyGridComponent,
   SkyGridColumnComponent,
+  SkyGridColumnHeadingModelChange,
   SkyGridColumnModel
 } from '../grid';
+
 import {
   ListItemModel,
   ListSortFieldSelectorModel,
@@ -35,10 +35,22 @@ import {
   ListStateDispatcher,
   ListState
 } from '../list/state';
+
 import {
   getData,
   isObservable
 } from '../list/helpers';
+
+import { ListViewComponent } from '../list/list-view.component';
+
+import {
+  GridState,
+  GridStateDispatcher,
+  GridStateModel
+} from './state';
+
+import { ListViewGridColumnsLoadAction } from './state/columns/actions';
+import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
 
 @Component({
   selector: 'sky-list-view-grid',
@@ -54,7 +66,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyListViewGridComponent
-  extends ListViewComponent implements AfterContentInit {
+  extends ListViewComponent implements AfterContentInit, OnDestroy {
 
   @Input()
   public set name(value: string) {
@@ -96,6 +108,8 @@ export class SkyListViewGridComponent
 
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
+
+  private destroy = new Subject<boolean>();
 
   constructor(
     state: ListState,
@@ -185,6 +199,11 @@ export class SkyListViewGridComponent
     this.handleColumnChange();
   }
 
+  public ngOnDestroy() {
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
+  }
+
   public columnIdsChanged(selectedColumnIds: Array<string>) {
     this.gridState.map(s => s.columns.items)
         .take(1)
@@ -232,6 +251,15 @@ export class SkyListViewGridComponent
         return new SkyGridColumnModel(column.template, column);
       });
       this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
+    });
+
+    // Watch for column heading changes:
+    this.columnComponents.forEach((comp: SkyGridColumnComponent) => {
+      comp.headingModelChanges
+        .takeUntil(this.destroy)
+        .subscribe((change: SkyGridColumnHeadingModelChange) => {
+          this.gridComponent.updateColumnHeading(change);
+        });
     });
   }
 
