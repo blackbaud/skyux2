@@ -22,9 +22,8 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyWindowRefService
@@ -240,7 +239,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
     Observable
       .fromEvent(windowObj, 'resize')
-      .debounceTime(400)
       .takeUntil(this.idled)
       .subscribe(() => {
         this.reposition();

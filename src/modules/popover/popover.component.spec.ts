@@ -243,7 +243,7 @@ describe('SkyPopoverComponent', () => {
 
     component.isOpen = true;
     window.dispatchEvent(event);
-    tick(401); // wait for debounceTime
+    tick();
     fixture.detectChanges();
 
     expect(spy).toHaveBeenCalled();
