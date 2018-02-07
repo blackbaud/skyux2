@@ -1,0 +1,30 @@
+<sky-page-summary>
+  <sky-page-summary-alert>
+    <sky-alert
+      alertType="info">
+      The internal flyout content is dynamic!
+    </sky-alert>
+  </sky-page-summary-alert>
+  <sky-page-summary-image>
+    <sky-avatar
+      [name]="context.name"
+      [canChange]="false">
+    </sky-avatar>
+  </sky-page-summary-image>
+  <sky-page-summary-title>
+    {{context.name}}
+  </sky-page-summary-title>
+  <sky-page-summary-subtitle>
+    Board member
+  </sky-page-summary-subtitle>
+  <sky-page-summary-status>
+    <sky-label
+      labelType="success">
+      Fundraiser
+    </sky-label>
+    <sky-label>Inactive</sky-label>
+  </sky-page-summary-status>
+  <sky-page-summary-content>
+    This is the arbitrary content section.
+  </sky-page-summary-content>
+</sky-page-summary>

@@ -78,7 +78,7 @@ describe('Popover', () => {
 
   it('should handle tiny screens', () => {
     return SkyVisualTest
-      .setupTest('popover', 768)
+      .setupTest('popover', 480)
       .then(() => {
         SkyVisualTest.scrollElementIntoView(`#screenshot-popover-tiny`);
         element(by.id(`btn-popover-tiny`)).click();
@@ -111,6 +111,7 @@ describe('Popover', () => {
       .then(() => {
         SkyVisualTest.scrollElementIntoView('#screenshot-popover-positioned-parent');
         element(by.id('btn-popover-position-parent-left')).click();
+        element(by.css('#popover-positioned-parent-container-left .sky-dropdown-button')).click();
         return SkyVisualTest
           .compareScreenshot({
             screenshotName: 'popover-position-parent-left',
@@ -125,6 +126,7 @@ describe('Popover', () => {
       .then(() => {
         SkyVisualTest.scrollElementIntoView('#screenshot-popover-positioned-parent');
         element(by.id('btn-popover-position-parent-right')).click();
+        element(by.css('#popover-positioned-parent-container-right .sky-dropdown-button')).click();
         return SkyVisualTest
           .compareScreenshot({
             screenshotName: 'popover-position-parent-right',
