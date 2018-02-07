@@ -1,4 +1,12 @@
-# 2.7.0 (2017-01-26)
+# 2.8.0 (2018-02-07)
+
+- Added flyout component. [#1460](https://github.com/blackbaud/skyux2/pull/1460) (Thanks @Blackbaud-TrevorBurch and @Blackbaud-AlexKingman)
+- Added support for FontAwesome 4.7.0. [#1451](https://github.com/blackbaud/skyux2/pull/1451) (Thanks @Blackbaud-BrandonHare)
+- Fixed position issues with components using dropdown. [#1450](https://github.com/blackbaud/skyux2/pull/1450)
+- Fixed list view grid column headings not working with impure pipes. [#1436](https://github.com/blackbaud/skyux2/pull/1436)
+- Fixed modal receiving focus on an invalid element. [#1392](https://github.com/blackbaud/skyux2/pull/1392) (Thanks @saranshkataria)
+
+# 2.7.0 (2018-01-26)
 
 - Added option for horizontal alignment on the popover component. [#1386](https://github.com/blackbaud/skyux2/pull/1386)
 - Popover now attempts to find the most suitable placement during window scroll events. [#1386](https://github.com/blackbaud/skyux2/pull/1386)
@@ -10,7 +18,7 @@
 - Fixed TestUtility `toHaveText` matcher not working for certain scenarios. [#1422](https://github.com/blackbaud/skyux2/pull/1422) (Thanks @Blackbaud-StacyCarlos)
 - Fixed definition list component printing "None found" before change detection. [#1424](https://github.com/blackbaud/skyux2/pull/1424)
 
-# 2.6.0 (2017-01-04)
+# 2.6.0 (2018-01-04)
 
 - Added demo components module to enable demo components to be consumed outside this project. This is to enable future refactoring of documentation into a separate repo. [#1350](https://github.com/blackbaud/skyux2/pull/1350)
 
@@ -122,7 +130,7 @@
   - Exposed multiple properties and events for tile component. [#966](https://github.com/blackbaud/skyux2/pull/966)
   - Fixed linting errors. [#961](https://github.com/blackbaud/skyux2/pull/961)
   - Fixed bug with search component event handlers. [#960](https://github.com/blackbaud/skyux2/pull/960)
-  
+
 
 # 2.0.0-rc.10 (2017-07-27)
 
@@ -147,13 +155,13 @@
   - Updated modal to return focus to the element that opened the modal [#771](https://github.com/blackbaud/skyux2/issues/771)
 
 # 2.0.0-rc.7 (2017-07-20)
-  
+
 ### Breaking visual changes
 
   - We have released changes to the SKY UX color scheme and fonts. These changes allow SKY UX to meet accessibility standards as well as increasing our brand alignment with marketing. [#247](https://github.com/blackbaud/skyux2/issues/247), [#250](https://github.com/blackbaud/skyux2/issues/250), [#739](https://github.com/blackbaud/skyux2/issues/739), [#913](https://github.com/blackbaud/skyux2/issues/913).
 
 # 2.0.0-rc.6 (2017-07-18)
-  
+
   - Added single-select mode for checklist. [#387](https://github.com/blackbaud/skyux2/issues/387)
   - Updated node version to 6.11.1 in response to security vulnerability (https://nodejs.org/en/blog/vulnerability/july-2017-security-releases/)
   - Handled IE11 grid sort bug. [#891](https://github.com/blackbaud/skyux2/issues/891)
@@ -171,7 +179,7 @@
   - Fix npm release error.
 
 # 2.0.0-rc.3 (2017-06-24)
-  
+
   - Added keyboard support for tab component. [#188](https://github.com/blackbaud/skyux2/issues/188) (Thanks @Blackbaud-SandhyaRajasabeson)
   - Added animation polyfill for increased browser support. [#803](https://github.com/blackbaud/skyux2/issues/803) (Thanks @Blackbaud-SandhyaRajasabeson)
   - Added text highlight directive. [#775](https://github.com/blackbaud/skyux2/issues/775)
@@ -191,11 +199,11 @@
   - Added the email validation directive. [#379](https://github.com/blackbaud/skyux2/issues/379) (Thanks @Blackbaud-SandhyaRajasabeson)
 
 # 2.0.0-rc.1 (2017-06-20)
-  
+
   - All the updates for 2.0.0-beta.32.
 
   ### Breaking changes
-  
+
   - Fixed typo to change SkyTimepickerTimeOutput `ios8601` property to be `iso8601`.
 
 # 2.0.0-beta.32 (2017-06-20)
@@ -206,7 +214,7 @@
 # 2.0.0-rc.0 (2017-06-16)
 
   - Updated dependencies to support Angular 4.1.3. [#549](https://github.com/blackbaud/skyux2/issues/549) See http://angularjs.blogspot.com/2017/03/angular-400-now-available.html and https://github.com/angular/angular/blob/master/CHANGELOG.md for more information.
-  - Updated visual test process for SKY UX 2. 
+  - Updated visual test process for SKY UX 2.
 
 # 2.0.0-beta.31 (2017-06-14)
 
@@ -218,13 +226,13 @@
   - Added `isPrimary` flag for dropdowns. [#606](https://github.com/blackbaud/skyux2/issues/606) (Thanks @Blackbaud-SandhyaRajasabeson)
 
 # 2.0.0-beta.30 (2017-06-07)
-  
+
   - Fixed bug when modal service injected into ngIf block. [#744](https://github.com/blackbaud/skyux2/issues/744)
   - Added locale date format as default to datepicker. [#732](https://github.com/blackbaud/skyux2/issues/732) (Thanks @Blackbaud-JoshGerdes)
   - Added error modal to avatar when image upload fails [#204](https://github.com/blackbaud/skyux2/issues/204) (Thanks @Blackbaud-AdamHickey)
   - Ensure list moves to first page after search is executed. [#706](https://github.com/blackbaud/skyux2/issues/706)
   - Added checkbox to repeater component. [#278](https://github.com/blackbaud/skyux2/issues/278) (Thanks @Blackbaud-AdamHickey)
-  - Ensure fixed columns not appear in the column chooser for list. [#660](https://github.com/blackbaud/skyux2/issues/660) 
+  - Ensure fixed columns not appear in the column chooser for list. [#660](https://github.com/blackbaud/skyux2/issues/660)
 
 
 # 2.0.0-beta.29 (2017-05-24)
@@ -285,7 +293,7 @@
   - Fixed problem around exporting SKY UX classes for AOT. [#607](https://github.com/blackbaud/skyux2/issues/607)
 
 # 2.0.0-beta.20 (2017-04-24)
-  
+
   - Fixed text expand AOT compilation. [#613](https://github.com/blackbaud/skyux2/issues/613) (Thanks @Blackbaud-JoshGerdes)
   - Fixed bug where lists did not display all entries when pagination was undefined. [#583](https://github.com/blackbaud/skyux2/issues/583)
   - Fixed bug where initial sort state for lists only accepted array. [#586](https://github.com/blackbaud/skyux2/issues/586)
@@ -331,7 +339,7 @@
   - Added additional documentation around configuration options.
   - Added additional documentation around items in the template.
   - Added white background-color to dropdown buttons. (Thanks @Blackbaud-TrevorBurch) [#486](https://github.com/blackbaud/skyux2/issues/486)
-  - Fixed documentation examples to use `indexOf` instead of a loop. (Thanks @Blackbaud-ScottFreeman) 
+  - Fixed documentation examples to use `indexOf` instead of a loop. (Thanks @Blackbaud-ScottFreeman)
   - Updated the default padding for modals. [#483](https://github.com/blackbaud/skyux2/issues/483)
   - Removed border for hover state of `btn-link-inline` class. [#488](https://github.com/blackbaud/skyux2/issues/488)
 
@@ -346,7 +354,7 @@
 
   - Added initial documentation around testing, serving, and host.
   - Added sorting support to sky-list and sky-list-toolbar. [#169](https://github.com/blackbaud/skyux2/issues/169)
-  - Added sort integration to list headers. [#315](https://github.com/blackbaud/skyux2/issues/315) 
+  - Added sort integration to list headers. [#315](https://github.com/blackbaud/skyux2/issues/315)
   - Fixed typo in Learn documentation. (thanks @don-noonan)
   - Ensured that select change event for card is emitted properly. [#396](https://github.com/blackbaud/skyux2/issues/396)
   - Added a property to tab for header counts. (thanks @Blackbaud-AlexKingman) [#388](https://github.com/blackbaud/skyux2/issues/388)
@@ -377,7 +385,7 @@
 # 2.0.0-beta.8 (2017-02-18)
 
   - Added appropriate styles for `sky-btn-default`, `sky-btn-link`, and `sky-btn-link-inline` classes. [#302](https://github.com/blackbaud/skyux2/issues/302)
-  - Added getting started documentation to docs site. 
+  - Added getting started documentation to docs site.
   - Fixed stylesheets for plunker examples. [#352](https://github.com/blackbaud/skyux2/issues/352)
   - Added checklist view for `sky-list`. [#112](https://github.com/blackbaud/skyux2/issues/112)
   - Added documentation and example around data providers for `sky-list` [#340](https://github.com/blackbaud/skyux2/issues/340)
@@ -393,7 +401,7 @@
   - Added correct overflow styles to card header area. [#323](https://github.com/blackbaud/skyux2/issues/323)
   - Updated the padding for tab buttons to use an even amount of padding. [#336](https://github.com/blackbaud/skyux2/issues/336)
   - Added the list toolbar with search functionality. [#312](https://github.com/blackbaud/skyux2/issues/312)
-  - Added the `isCollapsible` option to search component. [#337](https://github.com/blackbaud/skyux2/issues/337) 
+  - Added the `isCollapsible` option to search component. [#337](https://github.com/blackbaud/skyux2/issues/337)
 
 # 2.0.0-beta.6 (2017-02-03)
 
@@ -433,12 +441,12 @@
 
 - Use skyux-builder for documentation instead of sky-pages-out-skyux2.
 - Created the paging component for pagingation. [#140](https://github.com/blackbaud/skyux2/issues/140)
-- Created the list-paging component for pagination in the context of a list (more list functionality coming soon, thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes). 
+- Created the list-paging component for pagination in the context of a list (more list functionality coming soon, thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes).
 - Created the definition list component. [#274](https://github.com/blackbaud/skyux2/issues/274)
 - Updated the media query service to work more like SKY UX 1 while using Observables. [#268](https://github.com/blackbaud/skyux2/issues/268)
 - Added the sky- prefix for the button variant mixin.
 - Added a dependency on [moment](https://github.com/moment/moment).
-- Added a dependency on [microedge-rxstate](https://github.com/blackbaud/microedge-rxstate). 
+- Added a dependency on [microedge-rxstate](https://github.com/blackbaud/microedge-rxstate).
 
 # 2.0.0-beta.0 (2017-01-03)
 
@@ -498,7 +506,7 @@
 # 2.0.0-alpha.5 (2016-09-21)
 
 - Fixed an issue where code editors could not resolve type references after upgrading to TypeScript 2.0 [#121](https://github.com/blackbaud/skyux2/issues/121)
-- Updated Angular 2 Dragula and other NPM packages [#123](https://github.com/blackbaud/skyux2/issues/123) 
+- Updated Angular 2 Dragula and other NPM packages [#123](https://github.com/blackbaud/skyux2/issues/123)
 
 # 2.0.0-alpha.4 (2016-09-15)
 
