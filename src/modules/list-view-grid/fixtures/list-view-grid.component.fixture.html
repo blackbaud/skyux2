@@ -5,17 +5,55 @@
   [width]="600"
   [height]="400"
   selectionEnabled="true"
-  [search]="searchFn"
-  >
-  <sky-grid-column field="column1" heading="Column1" [locked]="true"></sky-grid-column>
-  <sky-grid-column field="column2" heading="Column2" [width]="150">
-    <ng-template let-row="row">{{row.column2}}</ng-template>
+  [search]="searchFn">
+
+  <sky-grid-column
+    field="column1"
+    [heading]="asyncHeading | async"
+    [locked]="true">
   </sky-grid-column>
-  <sky-grid-column id="column3" field="column3" type="number" heading="Column3" [template]="template1"></sky-grid-column>
-  <sky-grid-column id="column4" type="date" heading="Column4" [hidden]="true"></sky-grid-column>
-  <sky-grid-column id="column5" heading="Column5" [hidden]="true"></sky-grid-column>
-  <sky-grid-column field="hiddenCol1" heading="Column6"></sky-grid-column>
-  <sky-grid-column id="hiddenCol2" field="column1" heading="Column7"></sky-grid-column>
+
+  <sky-grid-column
+    field="column2"
+    heading="Column2"
+    [width]="150">
+    <ng-template
+      let-row="row">
+      {{row.column2}}
+    </ng-template>
+  </sky-grid-column>
+
+  <sky-grid-column
+    id="column3"
+    field="column3"
+    type="number"
+    heading="Column3"
+    [template]="template1">
+  </sky-grid-column>
+
+  <sky-grid-column
+    id="column4"
+    type="date"
+    heading="Column4"
+    [hidden]="true">
+  </sky-grid-column>
+
+  <sky-grid-column
+    id="column5"
+    heading="Column5"
+    [hidden]="true">
+  </sky-grid-column>
+
+  <sky-grid-column
+    field="hiddenCol1"
+    heading="Column6">
+  </sky-grid-column>
+
+  <sky-grid-column
+    id="hiddenCol2"
+    field="column1"
+    heading="Column7">
+  </sky-grid-column>
 </sky-list-view-grid>
 
 <ng-template let-value="value" #template1>
