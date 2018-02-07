@@ -1,11 +1,50 @@
-<button type="button" class="sky-btn sky-btn-primary" (click)="openFlyout()">
-  Open flyout
-</button>
+<style>* { transition: none !important; }</style>
+<sky-list
+  [data]="users"
+  [defaultView]="grid">
 
-<button type="button" class="sky-btn sky-btn-primary" (click)="closeFlyout()">
-  Close flyout
-</button>
+  <sky-list-view-grid #grid>
+    <sky-grid-column
+      [locked]="true"
+      [template]="customTemplate">
+    </sky-grid-column>
+    <sky-grid-column
+      field="name"
+      heading="Name"
+      [locked]="true">
+    </sky-grid-column>
+  </sky-list-view-grid>
+</sky-list>
 
-<button type="button" class="sky-btn sky-btn-primary" (click)="toggleFlyout()">
-  Toggle flyout
-</button>
+<ng-template
+  let-row="row"
+  #customTemplate>
+  <button
+    type="button"
+    class="sky-btn sky-btn-primary"
+    (click)="openRecord(row)">
+    View record
+  </button>
+  <button
+    *ngIf="isRecordOpen(row)"
+    type="button"
+    class="sky-btn sky-btn-default"
+    title="Close record"
+    (click)="closeFlyout()">
+    <i class="fa fa-close" aria-hidden="true"></i>
+  </button>
+</ng-template>
+
+<div *ngIf="flyout">
+  <p>
+    This button will close the flyout and then delete the host element from the document.
+  </p>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="removeFlyout()">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+    Delete flyout
+  </button>
+</div>

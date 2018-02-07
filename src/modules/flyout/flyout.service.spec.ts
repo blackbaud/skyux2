@@ -1,138 +1,133 @@
 import {
-  ApplicationRef
+  ApplicationRef,
+  ComponentFactoryResolver,
+  Injector
 } from '@angular/core';
+
 import {
-  fakeAsync,
   inject,
-  TestBed,
-  tick
+  TestBed
 } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { setTimeout } from 'core-js/library/web/timers';
 
 import {
-  SkyFlyoutModule,
-  SkyFlyoutService
-} from './index';
-import { expect } from '../testing';
-import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
-import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
-import { FlyoutTestValues } from './fixtures/flyout-values.fixture';
-import { FlyoutWithValuesTestComponent } from './fixtures/flyout-with-values.component.fixture';
+  NoopAnimationsModule
+} from '@angular/platform-browser/animations';
+
+import {
+  expect
+} from '../testing';
+
+import {
+  SkyWindowRefService
+} from '../window';
+
+import { SkyFlyoutAdapterService } from './flyout-adapter.service';
+import { SkyFlyoutService } from './flyout.service';
+
+import {
+  SkyFlyoutMessageType
+} from './types';
 
 describe('Flyout service', () => {
-  let flyoutService: SkyFlyoutService;
-  let applicationRef: ApplicationRef;
-
-  function openFlyout(flyoutType: any, config?: Object) {
-    const flyoutInstance = flyoutService.open(flyoutType, config);
-
-    applicationRef.tick();
-
-    return flyoutInstance;
-  }
-
-  function closeFlyout() {
-    flyoutService.close();
-    applicationRef.tick();
-  }
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
-        SkyFlyoutModule,
-        SkyFlyoutFixturesModule,
-        BrowserAnimationsModule
+        NoopAnimationsModule
+      ],
+      providers: [
+        SkyFlyoutService,
+        {
+          provide: SkyFlyoutAdapterService,
+          useValue: {
+            appendToBody() { },
+            removeHostElement() { }
+          }
+        },
+        {
+          provide: ApplicationRef,
+          useValue: {
+            attachView() {},
+            detachView() {}
+          }
+        },
+        Injector,
+        {
+          provide: ComponentFactoryResolver,
+          useValue: {
+            resolveComponentFactory() {
+              return {
+                create() {
+                  return {
+                    destroy() {},
+                    hostView: {
+                      rootNodes: [
+                        {}
+                      ]
+                    },
+                    instance: {
+                      messageStream: {
+                        take() {
+                          return {
+                            subscribe() { }
+                          };
+                        },
+                        next() {}
+                      },
+                      attach() {
+                        return {
+                          close() { },
+                          closed: {
+                            take() {
+                              return {
+                                subscribe() { }
+                              };
+                            }
+                          }
+                        };
+                      }
+                    }
+                  };
+                }
+              };
+            }
+          }
+        },
+        SkyWindowRefService
       ]
     });
   });
 
-  beforeEach(
-    inject(
-      [
-        SkyFlyoutService,
-        ApplicationRef
-      ],
-      (
-        _flyoutService: SkyFlyoutService,
-        _applicationRef: ApplicationRef
-      ) => {
-        flyoutService = _flyoutService;
-        flyoutService.close();
-        applicationRef = _applicationRef;
-      }
-    )
-  );
+  it('should only create a single host component', inject(
+    [SkyFlyoutService],
+    (service: SkyFlyoutService) => {
+      const spy = spyOn(service as any, 'createHostComponent').and.callThrough();
+      service.open({} as any);
+      service.open({} as any);
+      expect(spy.calls.count()).toEqual(1);
+    }
+  ));
 
-  it('should show a flyout and return an instance that can then be closed',
-  fakeAsync(() => {
-    openFlyout(FlyoutTestComponent);
-    applicationRef.tick();
+  it('should return an instance with a close method', inject(
+    [SkyFlyoutService],
+    (service: SkyFlyoutService) => {
+      const flyout = service.open({} as any);
+      expect(typeof flyout.close).toEqual('function');
+    }
+  ));
 
-    expect(document.body.querySelector('.sky-flyout')).toExist();
-    closeFlyout();
-    tick();
-    applicationRef.tick();
-
-    expect(document.body.querySelector('.sky-flyout')).not.toExist();
-  }));
-
-  it('should not show multiple flyouts', fakeAsync(() => {
-    openFlyout(FlyoutTestComponent);
-    openFlyout(FlyoutTestComponent);
-    tick();
-
-    expect(document.body.querySelector('.sky-flyout')).toExist();
-    expect(document.body.querySelectorAll('.sky-flyout').length).toBe(1);
-    tick();
-    applicationRef.tick();
-
-    expect(document.body.querySelector('.sky-flyout')).toExist();
-    expect(document.body.querySelectorAll('.sky-flyout').length).toBe(1);
-    tick();
-    applicationRef.tick();
-
-    closeFlyout();
-    tick();
-    applicationRef.tick();
-
-    expect(document.body.querySelector('.sky-flyout')).not.toExist();
-  }));
-
-  it('should allow data to be passed to the modal component when opened', fakeAsync(() => {
-    const flyoutInstance = openFlyout(FlyoutWithValuesTestComponent, {providers: [
-      {
-        provide: FlyoutTestValues,
-        useValue: {
-          valueA: 'A'
-        }
-      }
-    ]});
-
-    expect(flyoutInstance.componentInstance.values.valueA).toBe('A');
-
-    closeFlyout();
-  }));
-
-  it('should close the host comopnent when the host component sends the closed event', (done) => {
-    const flyoutInstance = openFlyout(FlyoutTestComponent);
-    applicationRef.tick();
-
-    expect(document.body.querySelector('.sky-flyout')).toExist();
-    expect(document.body.querySelectorAll('.sky-flyout').length).toBe(1);
-
-    flyoutInstance.closed.subscribe(() => {
-      setTimeout(() => {
-        expect(document.body.querySelector('.sky-flyout')).not.toExist();
-        done();
-      }, 10);
-    });
-
-    (document.body.querySelector('.sky-flyout-btn-close') as HTMLElement).click();
-    applicationRef.tick();
-  });
-
+  it('should expose a method to remove the flyout from the DOM', inject(
+    [SkyFlyoutService, SkyFlyoutAdapterService, ApplicationRef],
+    (
+      service: SkyFlyoutService,
+      adapter: SkyFlyoutAdapterService,
+      appRef: ApplicationRef
+    ) => {
+      service.open({} as any);
+      const spy = spyOn(service['host'].instance.messageStream, 'next').and.callThrough();
+      service.close();
+      expect(spy).toHaveBeenCalledWith({
+        type: SkyFlyoutMessageType.Close
+      });
+    }
+  ));
 });

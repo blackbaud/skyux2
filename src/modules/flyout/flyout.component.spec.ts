@@ -1,135 +1,157 @@
 import {
+  ApplicationRef
+} from '@angular/core';
+
+import {
+  ComponentFixture,
   fakeAsync,
   inject,
   tick,
   TestBed
 } from '@angular/core/testing';
-import { ApplicationRef } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { expect } from '../testing';
-import { FlyoutTestComponent } from './fixtures/flyout.component.fixture';
-import { FlyoutAutofocusTestComponent } from './fixtures/flyout-autofocus.component.fixture';
-import { FlyoutWithHelpWidgetTestComponent } from './fixtures/flyout-with-help-widget.component.fixture';
+import {
+  expect
+} from '../testing';
+
+import { SkyFlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
-import { SkyFlyoutService } from './index';
+import { SkyFlyoutTestSampleContext } from './fixtures/flyout-sample-context.fixture';
+import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutService } from './flyout.service';
+
+import {
+  SkyFlyoutConfig
+} from './types';
 
 describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
+  let fixture: ComponentFixture<SkyFlyoutTestComponent>;
   let flyoutService: SkyFlyoutService;
 
-  function openFlyout(flyoutType: any, config?: Object) {
-    const flyoutInstance = flyoutService.open(flyoutType, config);
+  function openFlyout(config: SkyFlyoutConfig = {}): SkyFlyoutInstance<any> {
+    config = Object.assign({
+      providers: [{
+        provide: SkyFlyoutTestSampleContext,
+        useValue: { name: 'Sam' }
+      }]
+    }, config);
+
+    const flyoutInstance = fixture.componentInstance.openFlyout(config);
 
     applicationRef.tick();
     tick();
+    fixture.detectChanges();
 
     return flyoutInstance;
   }
 
-  function getFlyout(): any {
-    return document.querySelector('.sky-flyout');
+  function closeFlyout() {
+    const closeButton = getCloseButtonElement();
+    closeButton.click();
+    tick();
+    fixture.detectChanges();
+    tick();
   }
 
-  function getFlyoutHeader(): any {
-    return document.querySelector('.sky-flyout-header');
+  function getFlyoutElement(): HTMLElement {
+    return document.querySelector('.sky-flyout') as HTMLElement;
   }
 
-  function getFlyoutX(): any {
-    return document.querySelector('.sky-flyout-btn-close');
+  function getFlyoutHeaderElement(): HTMLElement {
+    return document.querySelector('.sky-flyout-header') as HTMLElement;
   }
 
-  function getAutofocusElement(): any {
-    return document.querySelector('#autofocus-el');
+  function getCloseButtonElement(): HTMLElement {
+    return document.querySelector('.sky-flyout-btn-close') as HTMLElement;
   }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        SkyFlyoutFixturesModule,
-        NoopAnimationsModule
+        SkyFlyoutFixturesModule
       ]
     });
+
+    fixture = TestBed.createComponent(SkyFlyoutTestComponent);
+    fixture.detectChanges();
   });
 
-  beforeEach(
-    inject(
-      [
-        ApplicationRef,
-        SkyFlyoutService
-      ],
-      (
-        _applicationRef: ApplicationRef,
-        _flyoutService: SkyFlyoutService
-      ) => {
-        applicationRef = _applicationRef;
-        flyoutService = _flyoutService;
-      }
-    )
-  );
+  beforeEach(inject([ApplicationRef, SkyFlyoutService],
+    (
+      _applicationRef: ApplicationRef,
+      _flyoutService: SkyFlyoutService
+    ) => {
+      applicationRef = _applicationRef;
+      flyoutService = _flyoutService;
+      flyoutService.close();
+    }
+  ));
 
-  // Needed to ensure that the flyout cleans up after each test
-  afterEach(() => {
-    applicationRef.tick();
-  });
-
-  it('should set focus on the flyout when no autofocus element is present', fakeAsync(() => {
-    openFlyout(FlyoutTestComponent);
-    expect(document.activeElement).toEqual(getFlyout());
+  afterEach(fakeAsync(() => {
     flyoutService.close();
-  }));
-
-  it('should set focus on the autofocus element, if there is one present', fakeAsync(() => {
-    openFlyout(FlyoutAutofocusTestComponent);
-    expect(document.activeElement).toEqual(getAutofocusElement());
-    flyoutService.close();
-  }));
-
-  it('should not have the sky-flyout-help-shim class if the help widget is not present', fakeAsync(() => {
-    openFlyout(FlyoutTestComponent);
-    applicationRef.tick();
-    expect(getFlyoutHeader().classList.contains('sky-flyout-help-shim')).toBeFalsy();
-    flyoutService.close();
-  }));
-
-  it('should have the sky-flyout-help-shim class if the help widget is present', fakeAsync(() => {
-    openFlyout(FlyoutWithHelpWidgetTestComponent);
-    applicationRef.tick();
-    expect(getFlyoutHeader().classList.contains('sky-flyout-help-shim')).toBeTruthy();
-    flyoutService.close();
-  }));
-
-  it('should handle escape key press and close the flyout', fakeAsync(() => {
-    openFlyout(FlyoutTestComponent);
-    applicationRef.tick();
-
-    expect(getFlyout()).toExist();
-
-    const escapeEvent: any = document.createEvent('CustomEvent');
-    escapeEvent.which = 27;
-    escapeEvent.keyCode = 27;
-    escapeEvent.initEvent('keydown', true, true);
-    document.dispatchEvent(escapeEvent);
-
     applicationRef.tick();
     tick();
-    expect(getFlyout()).not.toExist();
-
-    flyoutService.close();
+    fixture.detectChanges();
   }));
 
   it('should close when the close button is clicked', fakeAsync(() => {
-    openFlyout(FlyoutTestComponent);
-    applicationRef.tick();
+    const flyout = openFlyout();
+    expect(flyout.isOpen).toBe(true);
 
-    expect(getFlyout()).toExist();
+    closeFlyout();
+    expect(flyout.isOpen).toBe(false);
 
-    getFlyoutX().click();
+    // Closing the flyout again should have no effect:
+    closeFlyout();
+    expect(flyout.isOpen).toBe(false);
+  }));
 
-    applicationRef.tick();
+  it('should close when the Close message type is received', fakeAsync(() => {
+    const flyout = openFlyout();
+    const closeSpy = spyOn(flyoutService['host'].instance as any, 'close').and.callThrough();
+
+    expect(flyout.isOpen).toBe(true);
+
+    flyout.close();
+    tick();
+    fixture.detectChanges();
     tick();
 
-    expect(getFlyout()).not.toExist();
+    expect(closeSpy).toHaveBeenCalled();
+    expect(flyout.isOpen).toBe(false);
+  }));
+
+  it('should emit closed event of previously opened flyouts when a new one is opened',
+    fakeAsync(() => {
+      const flyout = openFlyout();
+
+      let closedCalled = false;
+      flyout.closed.subscribe(() => {
+        closedCalled = true;
+      });
+
+      // Open a new flyout before closing the last one:
+      openFlyout();
+
+      expect(closedCalled).toEqual(true);
+    })
+  );
+
+  it('should pass providers to the flyout', fakeAsync(() => {
+    openFlyout({
+      providers: [{
+        provide: SkyFlyoutTestSampleContext,
+        useValue: {
+          name: 'Sally'
+        }
+      }]
+    });
+
+    const flyoutContentElement = getFlyoutElement()
+      .querySelector('.sky-flyout-content') as HTMLElement;
+
+    expect(flyoutContentElement).toHaveText('Sally');
   }));
 
   it('should accept configuration options for aria-labelledBy, aria-describedby and role',
@@ -138,22 +160,37 @@ describe('Flyout component', () => {
       const expectedDescribed = 'customdescribedby';
       const expectedRole = 'customrole';
 
-      openFlyout(FlyoutTestComponent, {
-        'ariaLabelledBy': expectedLabel,
-        'ariaDescribedBy': expectedDescribed,
-        'ariaRole': expectedRole
+      openFlyout({
+        ariaLabelledBy: expectedLabel,
+        ariaDescribedBy: expectedDescribed,
+        ariaRole: expectedRole
       });
 
-      applicationRef.tick();
-      tick();
+      const flyoutElement = getFlyoutElement();
 
-      expect(document.querySelector('.sky-flyout').getAttribute('aria-labelledby'))
+      expect(flyoutElement.getAttribute('aria-labelledby'))
         .toBe(expectedLabel);
-      expect(document.querySelector('.sky-flyout').getAttribute('aria-describedby'))
+      expect(flyoutElement.getAttribute('aria-describedby'))
         .toBe(expectedDescribed);
-      expect(document.querySelector('.sky-flyout').getAttribute('role'))
+      expect(flyoutElement.getAttribute('role'))
         .toBe(expectedRole);
+    })
+  );
 
-      flyoutService.close();
-    }));
+  it('should not have the sky-flyout-help-shim class if the help widget is not present',
+    fakeAsync(() => {
+      openFlyout();
+      const headerElement = getFlyoutHeaderElement();
+      expect(headerElement.classList.contains('sky-flyout-help-shim')).toBeFalsy();
+    })
+  );
+
+  it('should have the sky-flyout-help-shim class if the help widget is present',
+    fakeAsync(() => {
+      spyOn(window.document, 'getElementById').and.returnValue({});
+      openFlyout();
+      const headerElement = getFlyoutHeaderElement();
+      expect(headerElement.classList.contains('sky-flyout-help-shim')).toBeTruthy();
+    })
+  );
 });

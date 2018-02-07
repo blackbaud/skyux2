@@ -8,9 +8,13 @@ import { FlyoutDemoComponent } from './flyout-demo.component';
   templateUrl: './flyout-visual.component.html'
 })
 export class FlyoutVisualComponent {
-  constructor(private flyout: SkyFlyoutService) { }
+  constructor(
+    private flyoutService: SkyFlyoutService
+  ) { }
 
   public openFlyout() {
-    this.flyout.open(FlyoutDemoComponent, { 'providers': [] });
+    this.flyoutService.open(FlyoutDemoComponent, {
+      providers: []
+    });
   }
 }
