@@ -21,6 +21,7 @@ import {
   SkyFilterDemoComponent,
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
+  SkyFlyoutDemoComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
   SkyKeyInfoDemoComponent,
@@ -69,7 +70,8 @@ import {
   SkySectionedModalFormDemoComponent,
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
-  SkyWizardDemoFormComponent
+  SkyWizardDemoFormComponent,
+  SkyFlyoutDemoInternalComponent
 } from './demos';
 
 import {
@@ -93,6 +95,8 @@ const components = [
   SkyFilterDemoComponent,
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
+  SkyFlyoutDemoComponent,
+  SkyFlyoutDemoInternalComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
   SkyKeyInfoDemoComponent,
