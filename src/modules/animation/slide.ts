@@ -1,12 +1,13 @@
 import {
-  trigger,
+  animate,
+  AnimationEntryMetadata,
   state,
   style,
   transition,
-  animate
+  trigger
 } from '@angular/core';
 
-export default trigger('slide', [
+export const skyAnimationSlide = trigger('skyAnimationSlide', [
   state('down', style({
     overflow: 'hidden',
     height: '*'
@@ -19,4 +20,4 @@ export default trigger('slide', [
     'up <=> down',
     animate('150ms ease-in')
   )
-]) as any;
+]) as AnimationEntryMetadata;
