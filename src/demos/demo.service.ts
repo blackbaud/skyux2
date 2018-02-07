@@ -1,3 +1,4 @@
+import { SkyFlyoutDemoComponent } from './flyout/flyout-demo.component';
 import { Injectable } from '@angular/core';
 
 import {
@@ -336,6 +337,31 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.ts'),
           componentName: 'SkyFluidGridDemoComponent',
           bootstrapSelector: 'sky-fluid-grid-demo'
+        }
+      ]
+    },
+    {
+      name: 'Flyout',
+      component: SkyFlyoutDemoComponent,
+      files: [
+        {
+          name: 'flyout-demo.component.html',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo.component.html')
+        },
+        {
+          name: 'flyout-demo.component.ts',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo.component.ts'),
+          componentName: 'SkyFlyoutDemoComponent',
+          bootstrapSelector: 'sky-flyout-demo'
+        },
+        {
+          name: 'flyout-demo-internal.component.html',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo-internal.component.html')
+        },
+        {
+          name: 'flyout-demo-internal.component.ts',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo-internal.component.ts'),
+          componentName: 'SkyFlyoutDemoInternalComponent'
         }
       ]
     },

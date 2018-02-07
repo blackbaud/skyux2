@@ -1,6 +1,9 @@
 <div class="sky-popover-container"
   tabindex="-1"
-  [ngClass]="classNames"
+  [ngClass]="[
+    'sky-popover-alignment-' + alignment,
+    'sky-popover-placement-' + placement
+  ]"
   (@popoverState.start)="onAnimationStart($event)"
   (@popoverState.done)="onAnimationDone($event)"
   [@popoverState]="animationState"
