@@ -18,7 +18,6 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
 
 import {
   SkyDropdownMenuChange,
@@ -179,7 +178,6 @@ export class SkyAutocompleteComponent
 
     Observable
       .fromEvent(this.windowRef.getWindow(), 'resize')
-      .debounceTime(1000)
       .takeUntil(this.destroy)
       .subscribe(() => {
         this.setDropdownWidth();

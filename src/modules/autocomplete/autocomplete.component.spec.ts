@@ -369,7 +369,7 @@ describe('Autocomplete component', () => {
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       window.dispatchEvent(event);
       tick();
-      tick(1001); // account for observable debounceTime
+      tick();
 
       const dropdownElement = document.querySelector('.sky-popover-container');
       const autocompleteElement = getAutocompleteElement();
