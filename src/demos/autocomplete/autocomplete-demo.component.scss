@@ -1,14 +1,26 @@
 @import '~@blackbaud/skyux-design-tokens/scss/mixins';
 
 .autocomplete-demo-form {
-  background-color: $sky-background-color-neutral-light;
-  margin: 10px 0;
-  padding: 10px;
+  ::ng-deep .sky-form-group {
+    background-color: $sky-background-color-neutral-light;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  ::ng-deep h3 {
+    margin-top: 30px;
+  }
 }
 
 .autocomplete-demo-alert {
-  background-color: $sky-background-color-disabled;
-  padding: 10px 15px;
-  border-radius: 3px;
+  padding: 10px;
   margin-bottom: 10px;
+  border: 1px solid $sky-background-color-disabled;
+  border-radius: 3px;
+
+  pre {
+    margin: 0;
+  }
 }

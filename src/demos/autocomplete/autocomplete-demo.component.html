@@ -1,4 +1,4 @@
-<h2>
+<h2 class="sky-section-heading">
   Reactive form setup
 </h2>
 
@@ -8,13 +8,13 @@
   (ngSubmit)="submitReactiveForm()"
   novalidate>
 
-  <h3>
+  <h3 class="sky-subsection-heading">
     Basic
   </h3>
 
-  <sky-alert alertType="info">
+  <p>
     The following field uses the default settings.
-  </sky-alert>
+  </p>
 
   <div class="sky-form-group">
     <label
@@ -33,12 +33,12 @@
     </sky-autocomplete>
   </div>
 
-  <h3>
+  <h3 class="sky-subsection-heading">
     Advanced
   </h3>
 
-  <sky-alert alertType="info">
-    The following field:
+  <div style="margin-bottom:10px;">
+    The following field:<br>
     <ul>
       <li>utilizes a custom search result template,</li>
       <li>searches against the name and description properties,</li>
@@ -46,7 +46,7 @@
       <li>runs the search if the query is at least three (3) characters long,</li>
       <li>and fires an event when a selection is made.</li>
     </ul>
-  </sky-alert>
+  </div>
 
   <div class="sky-form-group">
     <label
@@ -70,13 +70,13 @@
     </sky-autocomplete>
   </div>
 
-  <h3>
+  <h3 class="sky-subsection-heading">
     Search filters
   </h3>
 
-  <sky-alert alertType="info">
+  <p>
     The following field provides a custom function that filters the data before every search attempt.
-  </sky-alert>
+  </p>
 
   <div class="sky-form-group">
     <label
@@ -96,13 +96,13 @@
     </sky-autocomplete>
   </div>
 
-  <h3>
+  <h3 class="sky-subsection-heading">
     Custom search function
   </h3>
 
-  <sky-alert alertType="info">
+  <p>
     The following field has a preselected value and utilizes a custom search function, as well as a custom template for the search results.
-  </sky-alert>
+  </p>
 
   <div class="sky-form-group">
     <label
@@ -135,7 +135,7 @@
   </button>
 </form>
 
-<h2>
+<h2 class="sky-section-heading">
   Template-driven form setup
 </h2>
 
@@ -145,9 +145,9 @@
   (ngSubmit)="submitTemplateForm(myForm.value)"
   novalidate>
 
-  <sky-alert alertType="info">
+  <p>
     This field uses the default settings and has a preselected value.
-  </sky-alert>
+  </p>
 
   <div class="sky-form-group">
     <label
