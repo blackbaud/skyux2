@@ -24,7 +24,7 @@ describe('Colorpicker', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'colorpicker-opened',
-          selector: '.sky-colorpicker-container',
+          selector: '#screenshot-colorpicker2',
           checkAccessibility: false
         });
       });
