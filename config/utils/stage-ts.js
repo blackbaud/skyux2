@@ -46,7 +46,8 @@ function writeTSConfig() {
       "baseUrl": "."
     },
     "files": [
-      "core.ts"
+      "core.ts",
+      "demo.ts"
     ],
     "exclude": [
       "../node_modules"
@@ -67,34 +68,41 @@ function copySrc() {
 }
 
 function escapeContents(contents) {
-  return contents.toString().replace(/`/g, '\\`');
+  return contents.toString()
+    .replace(/`/g, '\`')
+    .replace(/\+/g, '&#43;')
+    .replace(/\$/g, '&#36;');
 }
 
 function compileSass(file) {
-  var contents = sass.renderSync({
-    file: file,
-    importer: tildeImporter,
+  let contents = '';
 
-    outputStyle: 'compressed'
-  }).css;
+  try {
+    contents = sass.renderSync({
+      file: file,
+      importer: tildeImporter,
+      outputStyle: 'compressed'
+    }).css;
+  } catch (e) {
+    console.log(e.message);
+  }
+
 
   return contents;
 }
 
-function getHtmlContents(requireFile) {
-  var encodedHtml,
-    encodedTs,
-    fileContents,
-    fileSuffix = '.demo.html',
-    tsFileContents;
+function getRawContents(requireFile) {
+  let fileContents = '';
 
-  fileContents = fs.readFileSync(requireFile).toString();
+  try {
+    fileContents = fs.readFileSync(requireFile).toString();
+  } catch (e) {}
 
   return fileContents;
 }
 
 function getJsonContents(requireFile) {
-  var fileContents,
+  var fileContents = '',
     newFileFirst,
     newFileLast,
     loaderIndex = requireFile.indexOf('json-loader!'),
@@ -106,9 +114,7 @@ function getJsonContents(requireFile) {
     newFileName = newFileFirst + newFileLast;
   }
 
-  fileContents = fs.readFileSync(newFileName);
-
-  return fileContents;
+  return getRawContents(newFileName);
 }
 
 function inlineContents(file, fileContents, requireMatch, requireFile, processFn) {
@@ -117,13 +123,17 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
     requireContents;
 
   requireFile = path.join(dirname, requireFile);
+  requireFile = requireFile.replace('!!raw-loader!', '');
 
   switch (path.extname(requireFile)) {
     case '.scss':
       requireContents = compileSass(requireFile);
       break;
+    case '.ts':
+      requireContents = escapeContents(getRawContents(requireFile));
+      break;
     case '.html':
-      requireContents = getHtmlContents(requireFile);
+      requireContents = getRawContents(requireFile);
       break;
     case '.json':
       requireContents = getJsonContents(requireFile);
@@ -140,25 +150,24 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
     requireContents = processFn(requireContents);
   }
 
-  fileContents = fileContents.replace(requireMatch, requireContents);
+  if (requireContents) {
+    fileContents = fileContents.replace(requireMatch, requireContents);
+  }
 
   return fileContents;
 }
 
-function inlineHtmlCss() {
+function injectRequiredFileContents() {
   var files = glob.sync(TEMP_PATH + '/**/*.ts');
 
   files.forEach(function (file) {
-    var fileContents,
+    var fileContents = '',
       matches,
-      regex = /require\('(.+?\.(html|json|scss))'\)/gi;
+      regex = /require\('(.+?\.(html|json|scss|ts))'\)/gi;
 
-    fileContents = fs.readFileSync(
-      file,
-      {
-        encoding: 'utf8'
-      }
-    );
+    try {
+      fileContents = fs.readFileSync(file, { encoding: 'utf8' });
+    } catch (e) { }
 
     while (matches = regex.exec(fileContents)) {
       fileContents = inlineContents(file, fileContents, matches[0], matches[1]);
@@ -169,30 +178,33 @@ function inlineHtmlCss() {
       regex.lastIndex = 0;
     }
 
-    while (matches = /templateUrl\:\s*'(.+?\.html)'/gi.exec(fileContents)) {
-      fileContents = inlineContents(
-        file,
-        fileContents,
-        matches[0],
-        matches[1],
-        (requireContents) => {
-          return `template: ${requireContents}`
-        }
-      );
-      regex.lastIndex = 0;
-    }
+    // Don't replace raw typescript file contents from demos.
+    if (!/demo\.service\.ts$/.test(file)) {
+      while (matches = /templateUrl\:\s*'(.+?\.html)'/gi.exec(fileContents)) {
+        fileContents = inlineContents(
+          file,
+          fileContents,
+          matches[0],
+          matches[1],
+          (requireContents) => {
+            return `template: ${requireContents}`
+          }
+        );
+        regex.lastIndex = 0;
+      }
 
-    while (matches = /styleUrls\:\s*\[\s*'(.+?\.scss)']/gi.exec(fileContents)) {
-      fileContents = inlineContents(
-        file,
-        fileContents,
-        matches[0],
-        matches[1],
-        (requireContents) => {
-          return `styles: [${requireContents}]`
-        }
-      );
-      regex.lastIndex = 0;
+      while (matches = /styleUrls\:\s*\[\s*'(.+?\.scss)']/gi.exec(fileContents)) {
+        fileContents = inlineContents(
+          file,
+          fileContents,
+          matches[0],
+          matches[1],
+          (requireContents) => {
+            return `styles: [${requireContents}]`
+          }
+        );
+        regex.lastIndex = 0;
+      }
     }
 
     fs.writeFileSync(
@@ -206,5 +218,4 @@ function inlineHtmlCss() {
 }
 
 copySrc();
-inlineHtmlCss();
-
+injectRequiredFileContents();

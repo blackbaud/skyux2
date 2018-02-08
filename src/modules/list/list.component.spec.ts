@@ -612,7 +612,7 @@ describe('List Component', () => {
 
       describe('models and state', () => {
         it('should handle no data passed to constructor', () => {
-          let item = new ListFilterModel();
+          new ListFilterModel();
         });
       });
     });
@@ -820,8 +820,7 @@ describe('List Component', () => {
           fixture: any,
           dataProvider: SkyListInMemoryDataProvider,
           nativeElement: HTMLElement,
-          element: DebugElement,
-          bs: BehaviorSubject<any>;
+          element: DebugElement;
 
       beforeEach(async(() => {
         dispatcher = new ListStateDispatcher();
@@ -882,8 +881,7 @@ describe('List Component', () => {
           component: ListTestComponent,
           fixture: any,
           nativeElement: HTMLElement,
-          element: DebugElement,
-          bs: BehaviorSubject<any>;
+          element: DebugElement;
 
       beforeEach(async(() => {
         dispatcher = new ListStateDispatcher();

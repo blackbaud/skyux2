@@ -1,5 +1,3 @@
-import 'rxjs/Rx';
-
 import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 

@@ -1,6 +1,6 @@
 # Contributing
 
-We highly encourage contributions from all SKY UX 2 users. We just ask you to follow the coding conventions in the existing code and to write the appropriate documentation and unit tests for your feature.
+We highly encourage contributions from all SKY UX 2 users. We just ask you to follow the coding conventions in the existing code and to write the appropriate unit tests for your feature.
 
 For more information about working with SKY UX 2, see the [SKY UX 2 README](https://github.com/blackbaud/skyux2/blob/master/README.md).
 
@@ -13,14 +13,19 @@ Before you can contribute to SKY UX 2, you must install the following prerequisi
 
 Before you begin to contribute to SKY UX 2, please consider these general guidelines so that your contributions can be reviewed and accepted in a timely fashion. Failure to follow these guidelines will result in your contribution not being accepted until they are addressed.
 
-- All new code must have 100 percent unit test code coverage. This doesn't guarantee that every use case is accounted for, but anything less than 100 percent code coverage does guarantee that at least one use case is not accounted for. This can be verified by running tests with `npm run watch` and viewing the code coverage results in `coverage/Chrome xx.x.xxxx/index.html`.
-- New components or visual changes to existing components must be accompanied by visual regression tests. This ensures that future changes to CSS or markup will not cause components to render in an unexpected manner. Visual tests consist of three parts: an HTML template for the component to test, a TypeScript file for the component to test, and the actual file that runs the test using webdriver.io and our custom screenshot functions. You can see examples of each part of the visual test process at https://github.com/blackbaud/skyux2/blob/master/src/modules/alert/fixtures/alert.component.visual-fixture.html, https://github.com/blackbaud/skyux2/blob/master/src/modules/alert/fixtures/alert.component.visual-fixture.ts, and https://github.com/blackbaud/skyux2/blob/master/src/modules/alert/alert.component.visual-spec.js.
-- Documentation and a working demo must be included. While grammatical errors and other inconsistencies will not necessarily cause your contribution to be rejected (we can clean it up for you), your documentation should be extensive enough to explain the features of your component. The demo should also include most or all of the features available to the component.
-- If you are making a large change consisting of multiple components, please submit your changes in several small pull requests rather than one large pull request (large being more than 50 files).  We ask that you do so for the following reasons:
+- **Use the `Sky` prefix when naming all classes, directives, services, components, etc.** This makes it clear at first-glance to other contributors that the items are owned by SKY UX and not a third-party library. It also prevents potential class-name clashes with other libraries. Keep in mind that while we generally use the uppercase `Sky` prefix, we also use the `sky-` prefix in some cases, such as the selector property in components.
+- **All new code must have 100 percent unit test code coverage.** This doesn't guarantee that every use case is accounted for, but anything less than 100 percent code coverage does guarantee that at least one use case is not accounted for. This can be verified by running tests with `npm run watch` and viewing the code coverage results in `coverage/Chrome xx.x.xxxx/index.html`.
+- **New components or visual changes to existing components must be accompanied by visual regression tests.** This ensures that future changes to CSS or markup will not cause components to render in an unexpected manner. Visual tests consist of three parts: an HTML template for the component to test, a TypeScript file for the component to test, and the actual file that runs the test using webdriver.io and our custom screenshot functions. You can see examples of each part of the visual test process at:
+    - https://github.com/blackbaud/skyux2/blob/master/skyux-spa-visual-tests/src/app/alert/alert-visual.component.html
+    - https://github.com/blackbaud/skyux2/blob/master/skyux-spa-visual-tests/src/app/alert/alert-visual.component.ts
+    - https://github.com/blackbaud/skyux2/blob/master/skyux-spa-visual-tests/src/app/alert/alert.visual-spec.ts.
+- **New components or changes to existing components must have passing [accessibility tests](https://developer.blackbaud.com/skyux2/learn/accessibility/test).** This includes automated tests that are run during visual regression tests as well as code review and manual keyboard testing.
+- **All new components must include demos.** The demos must include all or most of the features available to the components and provide examples of all inputs and outputs. We also recommend that you to create reference documentation to accompany the demos in [the Components section of the SKY UX website](https://developer.blackbaud.com/skyux/components). This documentation should be extensive enough to explain the features of your components, including all properties and events. You can contribute documentation in a separate pull request in [the SKY UX 2 docs repo](https://github.com/blackbaud/skyux2-docs). The SKY UX team will document your components if you do not, but we strongly encourage you to create your own documentation because it can be useful to uncover issues with your components. 
+- **If you make a large change that consists of multiple components, please submit changes in several small pull requests rather than one large pull request.** (Large being more than 50 files). We ask that you do so for the following reasons:
     - It allows the SKY UX team to review your code in manageable pieces. It's much easier to review 50 files in 3 pull requests than 150 files in 1 pull request.
     - It allows you to get feedback sooner. In the case where you need to make pervasive coding style changes, for example, catching that in a small code review lets you update the rest of your code that may need the same changes before you submit it.
     - It demonstrates that your code is modular and does not contain excessive interdependencies. For instance, if you have Component B that is a child component of Component A, you should be able to author, test, document, review, and release Component B in the absence of Component A. If your changes must include both Component A and Component B to be tested and reviewed, then it raises a red flag that these components may be too tightly coupled and should be refactored.
-- If you are making an API change that affects inputs and outputs for a component, we recommend that you provide your potential (not working) documentation and demo to the SKY UX team for review so that we can head off any API issues before implementation. Contributors should keep in mind that the API can change in the course of development.
+- **If you make an API change that affects inputs and outputs for a component, we recommend that you provide your potential (not working) documentation and demo to the SKY UX team for review.** This lets us head off any API issues before implementation. Contributors should keep in mind that the API can change in the course of development.
 
 ## Localization
 
@@ -87,7 +92,7 @@ Script      | Description
 `lint`        | Runs TypeScript linter.
 `test`        | Runs unit tests and visual regression tests.
 `test:unit`   | Runs Karma unit tests.
-`test:visual` | Runs Webdriver visual regression tests.
+`test:visual` | Runs Webdriver visual regression tests and accessibility tests.
 `watch`       | Runs Karma unit tests and watch for file changes.
 
 

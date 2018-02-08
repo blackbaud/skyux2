@@ -9,8 +9,7 @@ describe('Sort component', () => {
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'sort',
-        selector: '#screenshot-sort-full',
-        checkAccessibility: true
+        selector: '#screenshot-sort-full'
       });
     });
 
@@ -22,8 +21,7 @@ describe('Sort component', () => {
       element(by.css('.sky-btn-default')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'sort-open',
-        selector: '#screenshot-sort-full',
-        checkAccessibility: true
+        selector: '#screenshot-sort-full'
       });
     });
 

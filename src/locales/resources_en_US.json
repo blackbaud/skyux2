@@ -103,6 +103,22 @@
     "_description": "Label for the reset button to change the color back to the initial color",
     "message": "Reset"
   },
+  "confirm_dialog_default_ok_text" : {
+    "_description": "Default text for confirm dialog's OK button",
+    "message": "OK"
+  },
+  "confirm_dialog_default_yes_text" : {
+    "_description": "Default text for confirm dialog's Yes button",
+    "message": "Yes"
+  },
+  "confirm_dialog_default_no_text" : {
+    "_description": "Default text for confirm dialog's No button",
+    "message": "No"
+  },
+  "confirm_dialog_default_cancel_text" : {
+    "_description": "Default text for confirm dialog's Cancel button",
+    "message": "Cancel"
+  },
   "context_menu_default_label": {
     "_description": "The label on the context menu button used for screen readers when the consumer has not specified a label",
     "message": "Context menu"
@@ -418,6 +434,10 @@
   "filter_summary_header": {
     "_description": "Text for the filter summary component",
     "message": "Filter"
+  },
+  "flyout_close": {
+    "_description": "Text for flyout close button",
+    "message": "Close flyout"
   },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",

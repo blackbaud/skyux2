@@ -200,11 +200,12 @@ describe('Tile dashboard service', () => {
       }
     );
 
-    /* tslint:disable-next-line:no-unused-variable */
-    let testDashboardService = new SkyTileDashboardService(
-      mockDragulaService,
-      mockMediaQueryService
-    );
+    (function () {
+      return new SkyTileDashboardService(
+        mockDragulaService,
+        mockMediaQueryService
+      );
+    }());
 
     expect(setOptionsSpy).toHaveBeenCalled();
   });

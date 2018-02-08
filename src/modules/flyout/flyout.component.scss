@@ -1,0 +1,50 @@
+@import '../../scss/mixins';
+
+.sky-flyout {
+  @include sky-shadow;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: #fff;
+  border-left: 6px solid $sky-highlight-color-info;
+  z-index: $sky-flyout-z-index;
+  overflow: auto;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (min-width: $sky-screen-sm-min) {
+    width: 50%;
+    min-width: 320px;
+  }
+
+  &.sky-flyout-hidden {
+    visibility: hidden;
+  }
+}
+
+.sky-flyout-header {
+  @include sky-border(dark, bottom);
+  width: 100%;
+  background: $sky-background-color-neutral-light;
+  height: 50px;
+  padding: 8px $sky-padding-plus-half;
+  display: flex;
+  align-items: baseline;
+}
+
+.sky-flyout-header-content {
+  flex-grow: 1;
+}
+
+.sky-flyout-help-shim {
+  padding-right: 8px;
+
+  @media (min-width: $sky-screen-sm-min) {
+    padding-right: 50px;
+  }
+}

@@ -87,13 +87,17 @@ $sky-avatar-border-width: 2px !default;
 // end avatar
 
 // begin dropdown
-$sky-dropdown-z-index: 1000 !default;
+$sky-dropdown-z-index: 999 !default;
 // end dropdown
 
 // begin fluid grid
 $sky-fluid-grid-gutter: 15px !default;
 $sky-fluid-grid-columns: 12 !default;
 // end fluid grid
+
+// begin flyout
+$sky-flyout-z-index: 1001 !default; // omnibar is 1000, help is 9999:
+// end flyout
 
 // begin grid
 $sky-grid-odd-background-color: $sky-color-gray-01 !default;
@@ -104,6 +108,7 @@ $sky-grid-header-dragging-background-color: $sky-background-color-neutral-light 
 
 // begin search
 $sky-search-background-color: $sky-color-white !default;
+$sky-search-width: 300px !default;
 // end search
 
 // begin tabs

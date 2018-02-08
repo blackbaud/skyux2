@@ -6,77 +6,71 @@ describe('wait component', () => {
 
   it('should display wait on parent', () => {
     return SkyVisualTest.setupTest('wait')
+      .then(() => element(by.css('.sky-test-wait')).click() as any)
       .then(() => {
-        element(by.css('.sky-test-wait')).click();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component',
-          selector: '#screenshot-wait',
-          checkAccessibility: true
+          selector: '#screenshot-wait'
         });
       });
   });
 
   it('should display wait on parent to block absolute item', () => {
     return SkyVisualTest.setupTest('wait')
+      .then(() => element(by.css('.sky-test-wait')).click() as any)
       .then(() => {
-        element(by.css('.sky-test-wait')).click();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component-absolute',
-          selector: '#screenshot-wait-absolute',
-          checkAccessibility: true
+          selector: '#screenshot-wait-absolute'
         });
       });
   });
 
   it('should display wait behind parent with modal z-index', () => {
     return SkyVisualTest.setupTest('wait')
+      .then(() => element(by.css('.sky-test-wait')).click() as any)
       .then(() => {
-        element(by.css('.sky-test-wait')).click();
         SkyVisualTest.scrollElementIntoView('#screenshot-wait-behind');
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component-absolute-behind',
-          selector: '#screenshot-wait-behind',
-          checkAccessibility: true
+          selector: '#screenshot-wait-behind'
         });
       });
   });
 
   it('should display nonblocking wait on parent', () => {
     return SkyVisualTest.setupTest('wait')
+      .then(() => element(by.css('.sky-test-non-blocking')).click() as any)
+      .then(() => element(by.css('.sky-test-wait')).click() as any)
       .then(() => {
-        element(by.css('.sky-test-non-blocking')).click();
-        element(by.css('.sky-test-wait')).click();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-component-non-block',
-          selector: '#screenshot-wait',
-          checkAccessibility: true
+          selector: '#screenshot-wait'
         });
       });
   });
 
   it('should display wait on full page', () => {
     return SkyVisualTest.setupTest('wait')
+      .then(() => element(by.css('.sky-test-full-page')).click() as any)
+      .then(() => element(by.css('.sky-test-wait')).click() as any)
       .then(() => {
-        element(by.css('.sky-test-full-page')).click();
-        element(by.css('.sky-test-wait')).click();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-full-page',
-          selector: 'body',
-          checkAccessibility: true
+          selector: 'body'
         });
       });
   });
 
   it('should display non blocking wait on full page', () => {
     return SkyVisualTest.setupTest('wait')
+      .then(() => element(by.css('.sky-test-full-page')).click() as any)
+      .then(() => element(by.css('.sky-test-non-blocking')).click() as any)
+      .then(() => element(by.css('.sky-test-wait')).click() as any)
       .then(() => {
-        element(by.css('.sky-test-full-page')).click();
-        element(by.css('.sky-test-non-blocking')).click();
-        element(by.css('.sky-test-wait')).click();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'wait-full-page-non-block',
-          selector: 'body',
-          checkAccessibility: true
+          selector: 'body'
         });
       });
   });

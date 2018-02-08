@@ -8,8 +8,7 @@ describe('Action button', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
             screenshotName: 'action-button',
-            selector: '#screenshot-action-button',
-            checkAccessibility: true
+            selector: '#screenshot-action-button'
           });
       });
 
@@ -22,8 +21,7 @@ describe('Action button', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'action-button-small',
-          selector: '#screenshot-action-button',
-          checkAccessibility: true
+          selector: '#screenshot-action-button'
         });
       });
 
@@ -36,8 +34,7 @@ describe('Action button', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
             screenshotName: 'action-button-container',
-            selector: '#screenshot-action-button-container',
-            checkAccessibility: true
+            selector: '#screenshot-action-button-container'
           });
       });
 
@@ -50,8 +47,7 @@ describe('Action button', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'action-button-container-small',
-          selector: '#screenshot-action-button-container',
-          checkAccessibility: true
+          selector: '#screenshot-action-button-container'
         });
       });
 

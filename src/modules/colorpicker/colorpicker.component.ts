@@ -9,6 +9,13 @@ import {
   Component
 } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+
+import {
+  SkyDropdownMessage,
+  SkyDropdownMessageType
+} from '../dropdown';
+
 import { SkyColorpickerChangeColor } from './types/colorpicker-color';
 import { SkyColorpickerChangeAxis } from './types/colorpicker-axis';
 import { SkyColorpickerHsla } from './types/colorpicker-hsla';
@@ -32,10 +39,10 @@ let componentIdIndex = 0;
 })
 
 export class SkyColorpickerComponent implements OnInit {
-
   @Output()
   public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
-  new EventEmitter<SkyColorpickerOutput>();
+    new EventEmitter<SkyColorpickerOutput>();
+
   public idIndex: number;
   public skyColorpickerHexId: string;
   public skyColorpickerRedId: string;
@@ -56,41 +63,19 @@ export class SkyColorpickerComponent implements OnInit {
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
+
+  public dropdownController = new Subject<SkyDropdownMessage>();
+
   @ViewChild('closeColorPicker')
   private closeColorPicker: ElementRef;
+
   private outputColor: string;
   private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
 
-  @HostListener('click', ['$event'])
-  public onClick(event: any) {
-    let element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    // keep the drop down open.
-    if (
-      element.classList.contains('sky-btn-colorpicker-close') ||
-      element.classList.contains('sky-btn-colorpicker-apply')
-    ) {
-      element.click();
-    } else {
-      event.stopPropagation();
-    }
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  public keyboardInput(event: any) {
-    /* Ignores in place for valid code that is only used in IE and Edge */
-    /* istanbul ignore next */
-    let code: string = (event.code || event.key).toLowerCase();
-    /* istanbul ignore else */
-    if (code.indexOf('esc') === 0) {
-      this.closeColorPicker.nativeElement.click();
-    }
-  }
-
-  constructor(
-    private service: SkyColorpickerService
-  ) {
+  constructor(private service: SkyColorpickerService) {
     componentIdIndex++;
+
     this.idIndex = componentIdIndex;
     this.skyColorpickerRedId = 'sky-colorpicker-red-' + this.idIndex;
     this.skyColorpickerHexId = 'sky-colorpicker-hex-' + this.idIndex;
@@ -98,6 +83,17 @@ export class SkyColorpickerComponent implements OnInit {
     this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
     this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
     this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  public keyboardInput(event: any) {
+    /* Ignores in place for valid code that is only used in IE and Edge */
+    /* istanbul ignore next */
+    const code: string = event.code || event.key;
+    /* istanbul ignore else */
+    if (code && code.toLowerCase().indexOf('esc') === 0) {
+      this.closeColorPicker.nativeElement.click();
+    }
   }
 
   public setDialog(
@@ -130,11 +126,13 @@ export class SkyColorpickerComponent implements OnInit {
 
   public closePicker() {
     this.setColorFromString(this.initialColor);
+    this.closeDropdown();
   }
 
   public applyColor() {
     this.selectedColorChanged.emit(this.selectedColor);
     this.initialColor = this.selectedColor.rgbaText;
+    this.closeDropdown();
   }
 
   public setColorFromString(value: string) {
@@ -242,5 +240,11 @@ export class SkyColorpickerComponent implements OnInit {
     if (lastOutput !== this.outputColor) {
       this.selectedColorChanged.emit(this.selectedColor);
     }
+  }
+
+  private closeDropdown() {
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Close
+    });
   }
 }

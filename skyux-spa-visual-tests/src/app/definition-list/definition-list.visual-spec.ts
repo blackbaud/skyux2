@@ -24,4 +24,15 @@ describe('Definition list', () => {
 
   });
 
+  it('should match definition list screenshot with long text', () => {
+    return SkyVisualTest
+      .setupTest('definition-list')
+      .then(() => {
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'definition-list-long-text',
+          selector: '#screenshot-definition-list-3'
+        });
+      });
+  });
+
 });

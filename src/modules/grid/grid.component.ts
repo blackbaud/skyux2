@@ -1,6 +1,7 @@
 import {
   Component,
   Input,
+  OnDestroy,
   Output,
   ContentChildren,
   QueryList,
@@ -11,17 +12,25 @@ import {
   EventEmitter,
   OnChanges
 } from '@angular/core';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { SkyGridColumnComponent } from './grid-column.component';
-import { SkyGridColumnModel } from './grid-column.model';
-import { ListItemModel } from '../list/state';
-import { SkyGridAdapterService } from './grid-adapter.service';
-
-import { ListSortFieldSelectorModel } from '../list/state';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
+import {
+  ListItemModel,
+  ListSortFieldSelectorModel
+} from '../list/state';
+
+import { SkyGridColumnComponent } from './grid-column.component';
+import { SkyGridColumnModel } from './grid-column.model';
+import { SkyGridAdapterService } from './grid-adapter.service';
+
+import {
+  SkyGridColumnHeadingModelChange
+} from './types';
 
 @Component({
   selector: 'sky-grid',
@@ -33,8 +42,7 @@ import { Observable } from 'rxjs/Observable';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyGridComponent implements AfterContentInit, OnChanges {
-
+export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy {
   @Input()
   public selectedColumnIds: Array<string>;
 
@@ -65,21 +73,27 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   @Output()
   public sortFieldChange = new EventEmitter<ListSortFieldSelectorModel>();
 
-  public displayedColumns: Array<SkyGridColumnModel> = new Array<SkyGridColumnModel>();
+  public items: Array<any>;
+  public displayedColumns: Array<SkyGridColumnModel>;
+  public currentSortField: BehaviorSubject<ListSortFieldSelectorModel>;
 
-  public items: Array<any> = new Array<any>();
-
-  public currentSortField: BehaviorSubject<ListSortFieldSelectorModel>
-    = new BehaviorSubject<ListSortFieldSelectorModel>({ fieldSelector: '', descending: false });
-
-  @ContentChildren(SkyGridColumnComponent, {descendants: true})
+  @ContentChildren(SkyGridColumnComponent, { descendants: true })
   private columnComponents: QueryList<SkyGridColumnComponent>;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private dragulaService: DragulaService,
     private ref: ChangeDetectorRef,
     private gridAdapter: SkyGridAdapterService
-  ) {}
+  ) {
+    this.displayedColumns = new Array<SkyGridColumnModel>();
+    this.items = new Array<any>();
+    this.currentSortField = new BehaviorSubject<ListSortFieldSelectorModel>({
+      fieldSelector: '',
+      descending: false
+    });
+  }
 
   public ngAfterContentInit() {
     if (this.columnComponents.length !== 0 || this.columns !== undefined) {
@@ -90,22 +104,30 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       }
 
       this.transformData();
-
       this.setDisplayedColumns(true);
     }
 
-    this.columnComponents.changes.subscribe((columnComponents) => {
-      this.getColumnsFromComponent();
-      this.setDisplayedColumns(true);
-      this.ref.markForCheck();
+    // Watch for added/removed columns:
+    this.subscriptions.push(
+      this.columnComponents.changes.subscribe(() => this.updateColumns())
+    );
+
+    // Watch for column heading changes:
+    this.columnComponents.forEach((comp: SkyGridColumnComponent) => {
+      this.subscriptions.push(
+        comp.headingModelChanges
+          .subscribe((change: SkyGridColumnHeadingModelChange) => {
+            this.updateColumnHeading(change);
+          })
+      );
     });
 
     this.gridAdapter.initializeDragAndDrop(
-        this.dragulaService,
-        (selectedColumnIds: Array<string>) => {
-          this.onHeaderDrop(selectedColumnIds);
-        }
-      );
+      this.dragulaService,
+      (selectedColumnIds: Array<string>) => {
+        this.onHeaderDrop(selectedColumnIds);
+      }
+    );
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -123,6 +145,12 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
     if (changes['sortField']) {
       this.setSortHeaders();
     }
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   public sortByColumn(column: SkyGridColumnModel) {
@@ -157,18 +185,33 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
       });
   }
 
-  private onHeaderDrop(newColumnIds: Array<string>) {
-     // update selected columnIds
-      this.selectedColumnIds = newColumnIds;
-      this.selectedColumnIdsChange.emit(newColumnIds);
-
-      // set new displayed columns
-      this.displayedColumns = this.selectedColumnIds.map(
-        columnId => this.columns.filter(column => column.id === columnId)[0]
+  public updateColumnHeading(change: SkyGridColumnHeadingModelChange) {
+    const foundColumnModel = this.columns.find((column: SkyGridColumnModel) => {
+      return (
+        change.id !== undefined && change.id === column.id ||
+        change.field !== undefined && change.field === column.field
       );
+    });
 
-      // mark for check because we are using ChangeDetectionStrategy.onPush
+    /* istanbul ignore else */
+    if (foundColumnModel) {
+      foundColumnModel.heading = change.value;
       this.ref.markForCheck();
+    }
+  }
+
+  private onHeaderDrop(newColumnIds: Array<string>) {
+    // update selected columnIds
+    this.selectedColumnIds = newColumnIds;
+    this.selectedColumnIdsChange.emit(newColumnIds);
+
+    // set new displayed columns
+    this.displayedColumns = this.selectedColumnIds.map(
+      columnId => this.columns.filter(column => column.id === columnId)[0]
+    );
+
+    // mark for check because we are using ChangeDetectionStrategy.onPush
+    this.ref.markForCheck();
   }
 
   private setDisplayedColumns(respectHidden: boolean = false) {
@@ -200,8 +243,14 @@ export class SkyGridComponent implements AfterContentInit, OnChanges {
   }
 
   private getColumnsFromComponent() {
-     this.columns = this.columnComponents.map(columnComponent => {
-        return new SkyGridColumnModel(columnComponent.template, columnComponent);
-      });
+    this.columns = this.columnComponents.map(columnComponent => {
+      return new SkyGridColumnModel(columnComponent.template, columnComponent);
+    });
+  }
+
+  private updateColumns() {
+    this.getColumnsFromComponent();
+    this.setDisplayedColumns(true);
+    this.ref.markForCheck();
   }
 }
