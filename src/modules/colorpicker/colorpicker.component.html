@@ -1,11 +1,10 @@
 <div class="sky-input-group">
   <ng-content>
   </ng-content>
-  <sky-dropdown>
+  <sky-dropdown
+    [messageStream]="dropdownController">
     <sky-dropdown-menu>
-      <div
-        class="sky-colorpicker-container"
-        (click)="onContainerClick($event)">
+      <div class="sky-colorpicker-container">
         <div
           class="sky-colorpicker"
           #colorPicker>

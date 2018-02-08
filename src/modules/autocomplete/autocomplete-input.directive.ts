@@ -2,67 +2,146 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  forwardRef,
   OnDestroy,
-  OnInit
+  OnInit,
+  Renderer2
 } from '@angular/core';
 
 import {
-  NgControl
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
 } from '@angular/forms';
 
-import {
-  Subscription
-} from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import { Subject } from 'rxjs/Subject';
 
 import {
-  SkyAutocompleteChanges
+  SkyAutocompleteInputTextChange
 } from './types';
 
 @Directive({
-  selector: '[skyAutocompleteInput]'
+  selector: 'input[skyAutocomplete], textarea[skyAutocomplete]',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      /* tslint:disable-next-line:no-forward-ref */
+      useExisting: forwardRef(() => SkyAutocompleteInputDirective),
+      multi: true
+    }
+  ]
 })
-export class SkyAutocompleteInputDirective implements OnInit, OnDestroy {
-  public valueChanges = new EventEmitter<SkyAutocompleteChanges>();
+export class SkyAutocompleteInputDirective
+  implements OnInit, OnDestroy, ControlValueAccessor {
 
-  private subscriptions: Subscription[] = [];
+  public get displayWith(): string {
+    return this._displayWith;
+  }
+
+  public set displayWith(value: string) {
+    this._displayWith = value;
+    this.textValue = this.value[this.displayWith];
+  }
+
+  public get value() {
+    return this._value || { };
+  }
+
+  public set value(value: any) {
+    this._value = value;
+    this.textValue = value[this.displayWith];
+    this.onChange(value);
+    this.onTouched();
+  }
+
+  public set textValue(value: string) {
+    this.elementRef.nativeElement.value = value || '';
+  }
+
+  public textChanges = new EventEmitter<SkyAutocompleteInputTextChange>();
+  public blur = new EventEmitter<void>();
+
+  private destroy = new Subject<boolean>();
+  private _displayWith: string;
+  private _value: any;
 
   constructor(
     private elementRef: ElementRef,
-    private control: NgControl
+    private renderer: Renderer2
   ) { }
 
   public ngOnInit() {
-    this.subscriptions.push(
-      this.control.valueChanges.subscribe((value: string) => {
-        this.valueChanges.emit({
-          inputValue: value
+    const element = this.elementRef.nativeElement;
+
+    this.setAttributes(element);
+
+    Observable
+      .fromEvent(element, 'keyup')
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.textChanges.emit({
+          value: this.elementRef.nativeElement.value
         });
-      })
-    );
+      });
 
-    // Disable automatic browser behavior on the field.
-    const input = this.elementRef.nativeElement;
-    input.autocomplete = 'off';
-    input.autocapitalize = 'off';
-    input.autocorrect = 'off';
-    input.spellcheck = 'false';
+    Observable
+      .fromEvent(element, 'blur')
+      .takeUntil(this.destroy)
+      .subscribe(() => {
+        this.checkValues();
+      });
   }
 
-  public ngOnDestroy() {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
+  public ngOnDestroy(): void {
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 
-  public get value(): string {
-    return this.control.control.value;
+  public writeValue(value: any): void {
+    if (value) {
+      this.value = value;
+    }
   }
 
-  public set value(val: string) {
-    this.control.control.setValue(val);
+  public registerOnChange(fn: (value: any) => void): void {
+    this.onChange = fn;
   }
 
-  public focusElement() {
-    this.elementRef.nativeElement.focus();
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  // Angular automatically constructs these methods.
+  /* istanbul ignore next */
+  public onChange(value: any): void { }
+  /* istanbul ignore next */
+  public onTouched(): void { }
+
+  private setAttributes(element: any): void {
+    this.renderer.setAttribute(element, 'autocomplete', 'off');
+    this.renderer.setAttribute(element, 'autocapitalize', 'off');
+    this.renderer.setAttribute(element, 'autocorrect', 'off');
+    this.renderer.setAttribute(element, 'spellcheck', 'false');
+    this.renderer.addClass(element, 'sky-form-control');
+  }
+
+  private checkValues(): void {
+    const text = this.elementRef.nativeElement.value;
+    const displayValue = this.value[this.displayWith];
+
+    // If the search field contains text, make sure that the value
+    // matches the selected descriptor key.
+    if (text && displayValue) {
+      if (text !== displayValue) {
+        this.textValue = displayValue;
+      }
+    } else {
+      // The search field is empty (or doesn't have a selected item),
+      // so clear out the selected value.
+      this.value = { };
+    }
+
+    this.blur.emit();
   }
 }

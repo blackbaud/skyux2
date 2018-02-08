@@ -1,11 +1,12 @@
 import {
-  Directive,
-  SimpleChanges,
-  Input,
+  AfterContentChecked,
   AfterViewInit,
-  OnChanges,
+  Directive,
   ElementRef,
-  OnDestroy
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges
 } from '@angular/core';
 
 import { MutationObserverService } from '../mutation/mutation-observer-service';
@@ -13,9 +14,10 @@ import { MutationObserverService } from '../mutation/mutation-observer-service';
 const className = 'sky-highlight-mark';
 
 @Directive({
-    selector: '[skyHighlight]'
+  selector: '[skyHighlight]'
 })
-export class SkyTextHighlightDirective implements OnChanges, AfterViewInit, OnDestroy {
+export class SkyTextHighlightDirective
+  implements OnChanges, AfterViewInit, AfterContentChecked, OnDestroy {
 
   @Input()
   public skyHighlight: string = undefined;
@@ -88,7 +90,9 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit, OnDe
   constructor(private el: ElementRef, private observerService: MutationObserverService) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.highlight();
+    if (changes.skyHighlight && !changes.skyHighlight.firstChange) {
+      this.highlight();
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -101,6 +105,10 @@ export class SkyTextHighlightDirective implements OnChanges, AfterViewInit, OnDe
     });
 
     this.observeDom();
+  }
+
+  public ngAfterContentChecked(): void {
+    this.highlight();
   }
 
   public ngOnDestroy(): void {

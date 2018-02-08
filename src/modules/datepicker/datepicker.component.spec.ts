@@ -6,6 +6,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  NoopAnimationsModule
+} from '@angular/platform-browser/animations';
+
+import {
   FormsModule,
   NgModel
 } from '@angular/forms';
@@ -94,6 +98,7 @@ describe('datepicker', () => {
     let fixture: ComponentFixture<DatepickerNoFormatTestComponent>;
     let component: DatepickerNoFormatTestComponent;
     let nativeElement: HTMLElement;
+
     it('should handle different format from configuration', fakeAsync(() => {
       TestBed.configureTestingModule({
         declarations: [
@@ -101,6 +106,7 @@ describe('datepicker', () => {
         ],
         imports: [
           SkyDatepickerModule,
+          NoopAnimationsModule,
           FormsModule
         ]
       });
@@ -111,13 +117,13 @@ describe('datepicker', () => {
             {
               provide: SkyDatepickerConfigService,
               useValue: {
-              dateFormat: 'DD/MM/YYYY'
-            }
+                dateFormat: 'DD/MM/YYYY'
+              }
             }
           ]
         }
-      })
-      .createComponent(DatepickerNoFormatTestComponent);
+      }).createComponent(DatepickerNoFormatTestComponent);
+
       nativeElement = fixture.nativeElement as HTMLElement;
       component = fixture.componentInstance;
 
@@ -135,6 +141,7 @@ describe('datepicker', () => {
     let fixture: ComponentFixture<DatepickerTestComponent>;
     let component: DatepickerTestComponent;
     let nativeElement: HTMLElement;
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         declarations: [
@@ -142,6 +149,7 @@ describe('datepicker', () => {
         ],
         imports: [
           SkyDatepickerModule,
+          NoopAnimationsModule,
           FormsModule
         ]
       });
@@ -152,7 +160,6 @@ describe('datepicker', () => {
     });
 
     it('should create the component with the appropriate styles', () => {
-
       fixture.detectChanges();
       expect(nativeElement.querySelector('input')).toHaveCssClass('sky-form-control');
       expect(nativeElement
@@ -160,22 +167,26 @@ describe('datepicker', () => {
         .not.toBeNull();
     });
 
-    it('should keep the calendar open on mode change', () => {
+    it('should keep the calendar open on mode change', fakeAsync(() => {
       fixture.detectChanges();
       openDatepicker(nativeElement, fixture);
+      tick();
+      fixture.detectChanges();
+      tick();
 
-      let dropdownMenuEl = nativeElement.querySelector('.sky-dropdown-menu');
-      expect(dropdownMenuEl).toHaveCssClass('sky-dropdown-open');
+      let dropdownMenuEl = nativeElement.querySelector('.sky-popover-container');
+      expect(dropdownMenuEl).not.toHaveCssClass('sky-popover-hidden');
 
-      let titleEl
-        = nativeElement.querySelector('.sky-datepicker-calendar-title') as HTMLButtonElement;
+      let titleEl = nativeElement.querySelector('.sky-datepicker-calendar-title') as HTMLButtonElement;
 
       titleEl.click();
+      tick();
       fixture.detectChanges();
+      tick();
 
-      dropdownMenuEl = nativeElement.querySelector('.sky-dropdown-menu');
-      expect(dropdownMenuEl).toHaveCssClass('sky-dropdown-open');
-    });
+      dropdownMenuEl = nativeElement.querySelector('.sky-popover-container');
+      expect(dropdownMenuEl).not.toHaveCssClass('sky-popover-hidden');
+    }));
 
     it('should pass date back when date is selected in calendar', fakeAsync(() => {
       component.selectedDate = new Date('5/12/2017');
@@ -183,6 +194,7 @@ describe('datepicker', () => {
       openDatepicker(nativeElement, fixture);
       tick();
       fixture.detectChanges();
+      tick();
 
       expect(nativeElement.querySelector('td .sky-datepicker-btn-selected'))
         .toHaveText('12');
@@ -196,12 +208,12 @@ describe('datepicker', () => {
           .querySelectorAll('tbody tr td .sky-btn-default').item(2) as HTMLButtonElement;
 
       dateButtonEl.click();
+      tick();
       fixture.detectChanges();
+      tick();
 
       expect(component.selectedDate).toEqual(new Date('5/2/2017'));
-
       expect(nativeElement.querySelector('input').value).toBe('05/02/2017');
-
     }));
 
     describe('initialization', () => {
@@ -313,6 +325,9 @@ describe('datepicker', () => {
         setInput(nativeElement, '5/12/2017', fixture);
 
         openDatepicker(nativeElement, fixture);
+        tick();
+        fixture.detectChanges();
+        tick();
 
         expect(nativeElement.querySelector('td .sky-datepicker-btn-selected'))
           .toHaveText('12');
@@ -500,9 +515,10 @@ describe('datepicker', () => {
         fixture.detectChanges();
 
         setInput(fixture.nativeElement, 'abcdebf', fixture);
+        tick();
 
         openDatepicker(fixture.nativeElement, fixture);
-
+        tick();
       }));
 
       it('should handle noValidate property', fakeAsync(() => {
@@ -564,13 +580,13 @@ describe('datepicker', () => {
         fixture.detectChanges();
 
         openDatepicker(fixture.nativeElement, fixture);
+        tick();
 
         let dateButtonEl
           = fixture.nativeElement
             .querySelectorAll('tbody tr td .sky-btn-default').item(30) as HTMLButtonElement;
 
         expect(dateButtonEl).toHaveCssClass('sky-btn-disabled');
-
       }));
 
       it('should pass min date to calendar', fakeAsync(() => {
@@ -581,6 +597,7 @@ describe('datepicker', () => {
         fixture.detectChanges();
 
         openDatepicker(fixture.nativeElement, fixture);
+        tick();
 
         let dateButtonEl
           = fixture.nativeElement
@@ -615,10 +632,11 @@ describe('datepicker', () => {
         ],
         imports: [
           SkyDatepickerModule,
+          NoopAnimationsModule,
           FormsModule
         ],
         providers: [
-            { provide: SkyWindowRefService, useValue: mockWindowService }
+          { provide: SkyWindowRefService, useValue: mockWindowService }
         ]
       });
 

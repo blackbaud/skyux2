@@ -33,7 +33,7 @@ let skyMatchers: jasmine.CustomMatcherFactories = {
           message: ''
         };
 
-        let actualText = el.innerText;
+        let actualText = el.textContent;
 
         if (trimWhitespace) {
           actualText = actualText.trim();

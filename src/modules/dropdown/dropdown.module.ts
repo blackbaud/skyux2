@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SkyWindowRefService } from '../window';
+import { SkyPopoverModule } from '../popover';
 
 import { SkyDropdownButtonComponent } from './dropdown-button.component';
 import { SkyDropdownItemComponent } from './dropdown-item.component';
@@ -16,7 +17,8 @@ import { SkyDropdownComponent } from './dropdown.component';
     SkyDropdownMenuComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SkyPopoverModule
   ],
   exports: [
     SkyDropdownButtonComponent,

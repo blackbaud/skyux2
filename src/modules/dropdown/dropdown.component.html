@@ -8,9 +8,11 @@
     ]"
     [attr.aria-label]="label"
     [attr.title]="title"
-    (click)="onButtonClick()"
-    (focus)="onButtonFocus()"
-    #dropdownButton>
+    [skyPopover]="popover"
+    [skyPopoverTrigger]="getPopoverTriggerType()"
+    [skyPopoverAlignment]="alignment"
+    skyPopoverPlacement="below"
+    #triggerButton>
 
     <div [ngSwitch]="buttonType">
       <ng-template ngSwitchCase="context-menu">
@@ -39,11 +41,16 @@
       </ng-template>
     </div>
   </button>
-  <div
-    class="sky-dropdown-menu"
-    (click)="onMenuClick()">
+  <sky-popover
+    placement="below"
+    [alignment]="alignment"
+    [dismissOnBlur]="dismissOnBlur"
+    (popoverOpened)="onPopoverOpened()"
+    (popoverClosed)="onPopoverClosed()"
+    [@.disabled]="true"
+    #popover>
     <ng-content
       select="sky-dropdown-menu">
     </ng-content>
-  </div>
+  </sky-popover>
 </div>
