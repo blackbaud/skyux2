@@ -1,5 +1,6 @@
 export * from './action-button';
 export * from './alert';
+export * from './autocomplete';
 export * from './avatar';
 export * from './card';
 export * from './checkbox';
