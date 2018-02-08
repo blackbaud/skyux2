@@ -1,17 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
-import {
-  ListDataProvider,
-  ListDataRequestModel,
-  ListDataResponseModel,
-  ListItemModel
-} from '../../core';
+import { ListDataProvider, ListDataRequestModel, ListDataResponseModel, ListItemModel } from '../../core';
 
+@Injectable()
 export class DemoListProvider extends ListDataProvider {
   public items: Observable<ListItemModel[]>;
   public remoteCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -23,43 +19,57 @@ export class DemoListProvider extends ListDataProvider {
       {
         id: '1',
         data: {
-          column1: 101, column2: 'Apple', column3: 'Anne eats apples'
+          column1: 101,
+          column2: 'Apple',
+          column3: 'Anne eats apples'
         }
       },
       {
         id: '2',
         data: {
-          column1: 202, column2: 'Banana', column3: 'Ben eats bananas'
+          column1: 202,
+          column2: 'Banana',
+          column3: 'Ben eats bananas'
         }
       },
       {
         id: '3',
         data: {
-          column1: 303, column2: 'Pear', column3: 'Patty eats pears'
+          column1: 303,
+          column2: 'Pear',
+          column3: 'Patty eats pears'
         }
       },
       {
         id: '4',
         data: {
-          column1: 404, column2: 'Grape', column3: 'George eats grapes'
+          column1: 404,
+          column2: 'Grape',
+          column3: 'George eats grapes'
         }
       },
       {
         id: '5',
         data: {
-          column1: 505, column2: 'Banana', column3: 'Becky eats bananas'
+          column1: 505,
+          column2: 'Banana',
+          column3: 'Becky eats bananas'
         }
       },
       {
         id: '6',
         data: {
-          column1: 606, column2: 'Lemon', column3: 'Larry eats lemons'
+          column1: 606,
+          column2: 'Lemon',
+          column3: 'Larry eats lemons'
         }
       },
       {
         id: '7',
         data: {
-          column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries'
+          column1: 707,
+          column2: 'Strawberry',
+          column3: 'Sally eats strawberries'
         }
       }
     ]);
@@ -85,8 +95,10 @@ export class DemoListProvider extends ListDataProvider {
         let searchText = request.search.searchText.toLowerCase();
 
         searchedList = items.filter((item) => {
-          return item.data.column2.toLowerCase().indexOf(searchText) > -1 ||
-            item.data.column3.toLowerCase().indexOf(searchText) > -1;
+          return (
+            item.data.column2.toLowerCase().indexOf(searchText) > -1 ||
+            item.data.column3.toLowerCase().indexOf(searchText) > -1
+          );
         });
       }
 
@@ -105,8 +117,9 @@ export class DemoListProvider extends ListDataProvider {
 
 @Component({
   selector: 'sky-list-provider-demo',
-  templateUrl: './list-provider-demo.component.html'
+  templateUrl: './list-provider-demo.component.html',
+  providers: [DemoListProvider]
 })
 export class SkyListProviderDemoComponent {
-  public listDataProvider: DemoListProvider = new DemoListProvider();
+  constructor(public listDataProvider: DemoListProvider) {}
 }
