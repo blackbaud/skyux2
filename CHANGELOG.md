@@ -1,4 +1,4 @@
-# 2.8.0 (2018-02-07)
+# 2.8.0 (2018-02-08)
 
 - Added flyout component. [#1460](https://github.com/blackbaud/skyux2/pull/1460) (Thanks @Blackbaud-TrevorBurch and @Blackbaud-AlexKingman)
 - Added support for FontAwesome 4.7.0. [#1451](https://github.com/blackbaud/skyux2/pull/1451) (Thanks @Blackbaud-BrandonHare)
