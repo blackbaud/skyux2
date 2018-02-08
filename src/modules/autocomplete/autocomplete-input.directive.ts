@@ -35,13 +35,13 @@ import {
 export class SkyAutocompleteInputDirective
   implements OnInit, OnDestroy, ControlValueAccessor {
 
+  public get displayWith(): string {
+    return this._displayWith;
+  }
+
   public set displayWith(value: string) {
     this._displayWith = value;
     this.textValue = this.value[this.displayWith];
-  }
-
-  public get displayWith(): string {
-    return this._displayWith;
   }
 
   public get value() {

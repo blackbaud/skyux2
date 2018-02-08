@@ -478,7 +478,7 @@ describe('Autocomplete component', () => {
         expect(spy.calls.argsFor(0)[0]).toEqual('r');
 
         spy.calls.reset();
-        autocomplete.searchResults = [];
+        autocomplete['_searchResults'] = [];
         fixture.detectChanges();
 
         const autocompleteElement = getAutocompleteElement();

@@ -109,11 +109,21 @@ export class SkyAutocompleteComponent
   public searchResultsLimit: number;
 
   @Output()
-  public selectionChange = new EventEmitter<SkyAutocompleteSelectionChange>();
+  public get selectionChange(): EventEmitter<SkyAutocompleteSelectionChange> {
+    return this._selectionChange;
+  }
 
-  public dropdownController = new Subject<SkyDropdownMessage>();
-  public searchResults: any[];
-  public highlightText: string;
+  public get dropdownController(): Subject<SkyDropdownMessage> {
+    return this._dropdownController;
+  }
+
+  public get searchResults(): any[] {
+    return this._searchResults || [];
+  }
+
+  public get highlightText(): string {
+    return this._highlightText || '';
+  }
 
   @ViewChild('defaultSearchResultTemplate')
   private defaultSearchResultTemplate: TemplateRef<any>;
@@ -127,10 +137,14 @@ export class SkyAutocompleteComponent
   private searchText: string;
 
   private _descriptorProperty: string;
+  private _dropdownController = new Subject<SkyDropdownMessage>();
+  private _highlightText: string;
   private _propertiesToSearch: string[];
   private _search: SkyAutocompleteSearchFunction;
+  private _searchResults: any[];
   private _searchResultTemplate: TemplateRef<any>;
   private _searchTextMinimumCharacters: number;
+  private _selectionChange = new EventEmitter<SkyAutocompleteSelectionChange>();
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -280,8 +294,8 @@ export class SkyAutocompleteComponent
           this.sendDropdownMessage(SkyDropdownMessageType.Open);
         }
 
-        this.searchResults = results;
-        this.highlightText = this.searchText;
+        this._searchResults = results;
+        this._highlightText = this.searchText;
         this.changeDetector.markForCheck();
       });
     }
@@ -310,8 +324,8 @@ export class SkyAutocompleteComponent
   }
 
   private closeDropdown(): void {
-    this.searchResults = [];
-    this.highlightText = '';
+    this._searchResults = [];
+    this._highlightText = '';
     this.changeDetector.markForCheck();
     this.sendDropdownMessage(SkyDropdownMessageType.Close);
   }
