@@ -104,7 +104,7 @@
   line-height: 1.8;
   padding: $sky-tab-btn-padding-top-bottom $sky-tab-btn-padding-left-right;
 
-  &:hover, &:focus {
+  &:hover {
     background-color: $sky-background-color-neutral-light;
     color: $sky-text-color-default;
     text-decoration: none;
@@ -115,7 +115,7 @@
   background-color: $sky-background-color-primary-dark;
   color: #fff;
 
-  &:hover, &:focus {
+  &:hover {
     background-color: $sky-background-color-primary-dark;
     color: #fff;
   }
@@ -168,8 +168,6 @@
   border-color: $border;
 
   &:hover,
-  &:focus,
-  &.sky-btn-focus,
   &:active,
   &.sky-btn-active {
     color: $color;
@@ -242,7 +240,6 @@
 
   //webkit
   outline: -webkit-focus-ring-color auto 5px;
-  outline-offset: -2px;
 }
 
 // Single side border-radius

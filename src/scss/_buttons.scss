@@ -8,7 +8,6 @@
   color: $sky-text-color-default;
   cursor: pointer;
   white-space: nowrap;
-  outline-offset: -2px;
   padding: 6px 12px;
   line-height: $sky-line-height-base;
   font-size: $sky-font-size-base;
@@ -41,7 +40,7 @@
   border-color: transparent;
 }
 
-.sky-btn-link:hover, .sky-btn-link:focus {
+.sky-btn-link:hover {
   color: darken($sky-text-color-action-primary, 10%);
   background-color: transparent;
   border-color: transparent;
@@ -59,7 +58,7 @@
   vertical-align: top;
 }
 
-.sky-btn-link-inline:hover, .sky-btn-link-inline:focus {
+.sky-btn-link-inline:hover {
   border: none;
 }
 
