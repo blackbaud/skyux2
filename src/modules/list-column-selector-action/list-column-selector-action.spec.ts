@@ -84,14 +84,14 @@ describe('List column selector action', () => {
         NoopAnimationsModule
       ]
     })
-    .overrideComponent(SkyListComponent, {
-      set: {
-        providers: [
-          { provide: ListState, useValue: state },
-          { provide: ListStateDispatcher, useValue: dispatcher }
-        ]
-      }
-    });
+      .overrideComponent(SkyListComponent, {
+        set: {
+          providers: [
+            { provide: ListState, useValue: state },
+            { provide: ListStateDispatcher, useValue: dispatcher }
+          ]
+        }
+      });
   }));
 
   beforeEach(() => {
@@ -157,6 +157,37 @@ describe('List column selector action', () => {
 
     component.grid.gridState.take(1).subscribe((gridState) => {
       expect(gridState.displayedColumns.items.length).toBe(2);
+    });
+
+    flush();
+    tick();
+  }));
+
+  it('should not clear the search text when new columns are set', fakeAsync(() => {
+    component.searchText = 'something';
+    toggleSecondaryActionsDropdown();
+
+    const chooseColumnsButton = getChooseColumnsButton();
+    chooseColumnsButton.click();
+    tick();
+
+    const checkboxLabelEl = document.querySelectorAll(
+      '.sky-modal .sky-list-view-checklist-item input'
+    ) as NodeListOf<HTMLElement>;
+
+    expect(checkboxLabelEl.length).toBe(2);
+
+    checkboxLabelEl.item(0).click();
+    tick();
+
+    const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
+
+    submitButtonEl.click();
+    tick();
+
+    component.grid.gridState.take(1).subscribe((gridState) => {
+      expect(gridState.displayedColumns.items.length).toBe(2);
+      expect(component.searchText).toEqual('something');
     });
 
     flush();
