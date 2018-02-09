@@ -122,6 +122,10 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   public ngAfterContentInit() {
+    if (!this.menuComponent) {
+      return;
+    }
+
     this.menuComponent.menuChanges
       .takeUntil(this.destroy)
       .subscribe((change: SkyDropdownMenuChange) => {
@@ -163,7 +167,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         case 'arrowdown':
         if (!this.isKeyboardActive) {
           this.isKeyboardActive = true;
-          this.menuComponent.focusFirstItem();
+          this.sendMessage(SkyDropdownMessageType.FocusFirstItem);
           event.preventDefault();
         }
         break;
@@ -197,7 +201,9 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   public onPopoverClosed() {
     this.isOpen = false;
     this.isKeyboardActive = false;
-    this.menuComponent.reset();
+    if (this.menuComponent) {
+      this.menuComponent.reset();
+    }
   }
 
   public getPopoverTriggerType(): SkyPopoverTrigger {
@@ -206,39 +212,42 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   private handleIncomingMessages(message: SkyDropdownMessage) {
-    /* tslint:disable-next-line:switch-default */
-    switch (message.type) {
-      case SkyDropdownMessageType.Open:
-      this.menuComponent.reset();
-      this.positionPopover();
-      break;
+    // These message types should only trigger if a child dropdown menu exists.
+    if (this.menuComponent) {
+      /* tslint:disable-next-line:switch-default */
+      switch (message.type) {
+        case SkyDropdownMessageType.Open:
+        this.menuComponent.reset();
+        this.positionPopover();
+        break;
 
-      case SkyDropdownMessageType.Close:
-      this.popover.close();
-      break;
+        case SkyDropdownMessageType.Close:
+        this.popover.close();
+        break;
 
-      case SkyDropdownMessageType.FocusTriggerButton:
-      this.triggerButton.nativeElement.focus();
-      break;
+        case SkyDropdownMessageType.FocusFirstItem:
+        this.menuComponent.focusFirstItem();
+        break;
 
-      case SkyDropdownMessageType.FocusFirstItem:
-      this.menuComponent.focusFirstItem();
-      break;
+        case SkyDropdownMessageType.FocusNextItem:
+        this.menuComponent.focusNextItem();
+        break;
 
-      case SkyDropdownMessageType.FocusNextItem:
-      this.menuComponent.focusNextItem();
-      break;
+        case SkyDropdownMessageType.FocusPreviousItem:
+        this.menuComponent.focusPreviousItem();
+        break;
 
-      case SkyDropdownMessageType.FocusPreviousItem:
-      this.menuComponent.focusPreviousItem();
-      break;
-
-      case SkyDropdownMessageType.Reposition:
-      // Only reposition the dropdown if it is already open.
-      if (this.isOpen) {
-        this.popover.reposition();
+        case SkyDropdownMessageType.Reposition:
+        // Only reposition the dropdown if it is already open.
+        if (this.isOpen) {
+          this.popover.reposition();
+        }
+        break;
       }
-      break;
+    }
+
+    if (message.type === SkyDropdownMessageType.FocusTriggerButton) {
+      this.triggerButton.nativeElement.focus();
     }
   }
 

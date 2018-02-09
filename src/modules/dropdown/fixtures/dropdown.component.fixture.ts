@@ -28,6 +28,7 @@ export class DropdownTestComponent {
   public title: string;
   public trigger: String;
   public dropdownController = new Subject<SkyDropdownMessage>();
+  public dropdownNoMenuController = new Subject<SkyDropdownMessage>();
 
   public items: any[] = [
     { name: 'Option 1', disabled: false },
@@ -38,6 +39,9 @@ export class DropdownTestComponent {
 
   @ViewChild('dropdown')
   public dropdown: SkyDropdownComponent;
+
+  @ViewChild('dropdownNoMenu')
+  public dropdownNoMenu: SkyDropdownComponent;
 
   @ViewChild('outsideButton')
   public outsideButton: ElementRef;
