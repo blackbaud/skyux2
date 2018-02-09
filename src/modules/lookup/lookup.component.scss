@@ -1,9 +1,37 @@
 @import '../../scss/mixins';
 
-.sky-lookup-search { }
+.sky-lookup {
+  textarea {
+    resize: none;
+    border: 0;
+    overflow: hidden;
+    width: auto;
+    display: inline-block;
+    height: #{$sky-line-height-base}em;
+    flex: 1 0 auto;
+    padding: 0;
+    padding-left: 6px;
+    background-color: transparent;
 
-textarea {
-  height: 34px;
-  resize: none;
-  border: 0;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  ::ng-deep
+  .sky-lookup-tokens {
+    sky-lookup-token {
+      margin-top: -1px;
+      margin-bottom: -1px;
+    }
+  }
+}
+
+.sky-lookup-search {
+  padding-left: 6px;
+}
+
+.sky-lookup-input-focused {
+  @include sky-focus-outline;
 }

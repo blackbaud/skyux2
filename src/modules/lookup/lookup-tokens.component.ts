@@ -12,11 +12,8 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
-import {
-  SkyLookupChanges
-} from './types';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyLookupTokenComponent
@@ -33,13 +30,19 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
   public disabled = false;
 
   @Input()
-  public tokens: any[] = [];
+  public set displayWith(value: string) {
+    this._displayWith = value;
+  }
+
+  public get displayWith(): string {
+    return this._displayWith || 'name';
+  }
 
   @Input()
   public tokenStream: Observable<any>;
 
   @Output()
-  public tokenChanges = new EventEmitter<SkyLookupChanges>();
+  public tokenChanges = new EventEmitter<any>();
 
   @Output()
   public tokensBlur = new EventEmitter<void>();
@@ -49,26 +52,28 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
   @ViewChildren(SkyLookupTokenComponent)
   public tokenElements: QueryList<SkyLookupTokenComponent>;
 
+  private destroy = new Subject<boolean>();
   private focusIndex: number;
-  private subscriptions: Subscription[] = [];
+  private tokens: any[];
+
+  private _displayWith: string;
 
   public constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
 
   public ngOnInit() {
-    this.subscriptions.push(
-      this.tokenStream.subscribe((changes: SkyLookupChanges) => {
-        this.tokens = changes.selectedItems;
+    this.tokenStream
+      .takeUntil(this.destroy)
+      .subscribe((args: any) => {
+        this.tokens = args.tokens;
         this.changeDetector.markForCheck();
-      })
-    );
+      });
   }
 
   public ngOnDestroy() {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 
   public onKeyDown(event: KeyboardEvent, token: any) {

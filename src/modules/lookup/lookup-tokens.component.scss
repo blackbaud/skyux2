@@ -1,4 +1,16 @@
 .sky-lookup-tokens {
   display: flex;
   flex-wrap: wrap;
+
+  ::ng-deep sky-lookup-token {
+    & + sky-lookup-token {
+      margin-left: 4px;
+    }
+  }
+}
+
+.sky-lookup-token-btn-close {
+  background: transparent;
+  padding: 0;
+  border: 0;
 }

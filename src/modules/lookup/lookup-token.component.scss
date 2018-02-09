@@ -1,5 +1,21 @@
+@import '../../scss/mixins';
+@import '~@blackbaud/skyux-design-tokens/scss/mixins';
+
 .sky-lookup-token {
-  display: inline-block;
   white-space: nowrap;
-  height: 34px;
+  background-color: $sky-background-color-neutral-light;
+  border: 1px solid $sky-border-color-neutral-medium;
+  padding: 0 4px;
+  user-select: none;
+}
+
+:host {
+  &:focus {
+    outline: none;
+
+    .sky-lookup-token {
+      background-color: $sky-background-color-info-light;
+      border: 1px solid $sky-highlight-color-info;
+    }
+  }
 }

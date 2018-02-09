@@ -1,30 +1,33 @@
-<div class="sky-lookup">
+<div
+  class="sky-lookup"
+  [ngClass]="{ 'sky-lookup-input-focused': inputFocused }">
 
   <sky-autocomplete
     [data]="data"
+    [descriptorProperty]="descriptorProperty"
+    [propertiesToSearch]="propertiesToSearch"
     [search]="search"
+    [searchFilters]="searchFilters"
     [searchResultsLimit]="searchResultsLimit"
     [searchResultTemplate]="searchResultTemplate"
-    [propertiesToSearch]="propertiesToSearch"
-    [descriptorProperty]="descriptorProperty"
-    (resultSelected)="onSearchResultSelected($event)">
+    [searchTextMinimumCharacters]="searchTextMinimumCharacters"
+    (selectionChange)="onSelectionChange($event)">
 
-    <div class="sky-lookup-search">
+    <div class="sky-lookup-search sky-form-control">
       <sky-lookup-tokens
         [disabled]="disabled"
-        [tokens]="selectedItems"
-        [tokenStream]="selectionChanges"
+        [displayWith]="descriptorProperty"
+        [tokenStream]="tokenStream"
         (tokensBlur)="lookupInput.focus()"
         (tokenChanges)="onTokenChanges($event)">
 
         <textarea
-          skyAutocompleteInput
-          [ngModel]="searchText"
+          skyAutocomplete
+          class="sky-form-control"
           [disabled]="disabled"
-          [attr.id]="inputId"
-          [attr.aria-label]="'lookup_search_label' | skyResources"
+          [attr.aria-label]="ariaLabel"
+          [attr.aria-labelledby]="ariaLabelledBy"
           [attr.placeholder]="placeholderText"
-          (keydown)="onKeyDown($event)"
           #lookupInput>
         </textarea>
 
@@ -32,3 +35,5 @@
     </div>
   </sky-autocomplete>
 </div>
+
+<pre>{{ selectedItems | json}}</pre>

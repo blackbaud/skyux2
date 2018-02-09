@@ -7,14 +7,15 @@
     [attr.tabindex]="(disabled) ? false : -1"
     (keydown)="onKeyDown($event, token)">
 
-    {{ token | json }}
+    {{ token[displayWith] }}
 
     <button
-      [disabled]="disabled"
       type="button"
       tabindex="-1"
-      (click)="removeToken(token)"
-      [attr.aria-hidden]="true">
+      class="sky-btn sky-lookup-token-btn-close"
+      [attr.aria-hidden]="true"
+      [disabled]="disabled"
+      (click)="removeToken(token)">
       <i class="fa fa-times"></i>
     </button>
   </sky-lookup-token>

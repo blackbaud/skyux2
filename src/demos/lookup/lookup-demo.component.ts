@@ -15,8 +15,8 @@ import {
 } from '../../modules/lookup';
 
 @Component({
-  selector: 'sky-lookup-form-demo',
-  templateUrl: './lookup-form-demo.component.html'
+  selector: 'sky-lookup-demo',
+  templateUrl: './lookup-demo.component.html'
 })
 export class SkyLookupDemoComponent implements OnInit {
   public commandStream = new EventEmitter<any>();
@@ -82,16 +82,16 @@ export class SkyLookupDemoComponent implements OnInit {
   }
 
   public onResultSelected(changes: SkyLookupChanges) {
-    console.log('onResultSelected', changes);
+    // console.log('onResultSelected', changes);
   }
 
   public mySearchFunction(searchText: string): any[] {
-    console.log('searching based on:', searchText);
+    // console.log('searching based on:', searchText);
     return [{}];
   }
 
   public handleSelectionChanged(changes: any) {
-    console.log('Autocomplete, you selected:', changes.result);
+    // console.log('Autocomplete, you selected:', changes.result);
   }
 
   private createForm(): void {

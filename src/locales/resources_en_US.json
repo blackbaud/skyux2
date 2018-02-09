@@ -615,22 +615,6 @@
     "_description": "Label for the button that opens the secondary actions menu in the list toolbar",
     "message": "Show secondary actions"
   },
-  "lookup_no_results": {
-    "_description": "Label to display when no results are found by search",
-    "message": "No results match criteria"
-  },
-  "lookup_search_label": {
-    "_description": "Label for lookup search component functionality",
-    "message": "Search items"
-  },
-  "lookup_search_button_text": {
-    "_description": "Text for lookup search button",
-    "message": "Search"
-  },
-  "lookup_token_remove_button_text": {
-    "_description": "Text for the remove token button",
-    "message": "Remove item"
-  },
   "modal_close": {
     "_description": "Text for modal close button",
     "message": "Close modal"
