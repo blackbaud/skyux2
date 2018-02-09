@@ -38,13 +38,6 @@ export class SkyPopoverDirective {
     private windowRef: SkyWindowRefService
   ) { }
 
-  @HostListener('window:resize')
-  public onWindowResize() {
-    if (this.skyPopover.isOpen) {
-      this.positionPopover();
-    }
-  }
-
   @HostListener('keyup', ['$event'])
   public onDocumentKeyUp(event: KeyboardEvent): void {
     const key = event.key.toLowerCase();

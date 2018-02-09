@@ -1,5 +1,6 @@
 export * from './action-button';
 export * from './alert';
+export * from './autocomplete';
 export * from './avatar';
 export * from './card';
 export * from './checkbox';
@@ -13,6 +14,7 @@ export * from './error';
 export * from './file-attachment';
 export * from './filter';
 export * from './fluid-grid';
+export * from './flyout';
 export * from './grid';
 export * from './help-inline';
 export * from './key-info';

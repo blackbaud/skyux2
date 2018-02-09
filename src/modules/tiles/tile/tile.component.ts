@@ -1,40 +1,22 @@
 import {
-  AfterViewInit,
-  animate,
   Component,
   ElementRef,
   EventEmitter,
   Input,
   Optional,
-  Output,
-  trigger,
-  state,
-  style,
-  transition
+  Output
 } from '@angular/core';
 
+import { skyAnimationSlide } from '../../animation/slide';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile',
   styleUrls: ['./tile.component.scss'],
   templateUrl: './tile.component.html',
-  animations: [trigger('slide', [
-    state('down', style({
-      overflow: 'hidden',
-      height: '*'
-    })),
-    state('up', style({
-      overflow: 'hidden',
-      height: 0
-    })),
-    transition(
-      'up <=> down',
-      animate('150ms ease-in')
-    )
-  ])]
+  animations: [skyAnimationSlide]
 })
-export class SkyTileComponent implements AfterViewInit {
+export class SkyTileComponent {
   public isInDashboardColumn = false;
 
   @Output()
@@ -59,15 +41,10 @@ export class SkyTileComponent implements AfterViewInit {
       this._isCollapsed = value;
     }
 
-    if (this.viewInitialized) {
-      this.slideForCollapsed(true);
-    }
-
     this.isCollapsedChange.emit(value);
   }
 
   private _isCollapsed = false;
-  private viewInitialized = false;
 
   constructor(
     public elementRef: ElementRef,
@@ -90,18 +67,5 @@ export class SkyTileComponent implements AfterViewInit {
 
   public chevronDirectionChange(direction: string) {
     this.isCollapsed = direction === 'down';
-  }
-
-  public ngAfterViewInit() {
-    this.viewInitialized = true;
-
-    if (this.isCollapsed) {
-      this.slideForCollapsed(false);
-    }
-  }
-
-  private slideForCollapsed(animate: boolean) {
-    // let direction = this.isCollapsed ? 'up' : 'down';
-    // this.slideService.slide(this.elementRef, '.sky-tile-content', direction, animate);
   }
 }

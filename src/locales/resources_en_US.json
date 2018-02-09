@@ -435,6 +435,10 @@
     "_description": "Text for the filter summary component",
     "message": "Filter"
   },
+  "flyout_close": {
+    "_description": "Text for flyout close button",
+    "message": "Close flyout"
+  },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
     "message": "Cancel"
