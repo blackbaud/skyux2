@@ -11,7 +11,7 @@
     <sky-dropdown-button>
       Show dropdown
     </sky-dropdown-button>
-    <sky-dropdown-menu>
+    <sky-dropdown-menu #dropdownMenu>
       <sky-dropdown-item *ngFor="let item of items">
         <button type="button" [attr.disabled]="item.disabled ? '' : null">
           {{ item.name }}
@@ -19,14 +19,5 @@
       </sky-dropdown-item>
     </sky-dropdown-menu>
   </sky-dropdown>
-
-  <div id="popover-no-menu-fixture">
-    <sky-dropdown
-      [messageStream]="dropdownNoMenuController"
-      #dropdownNoMenu>
-      <sky-dropdown-button>
-      </sky-dropdown-button>
-    </sky-dropdown>
-  </div>
 </div>
 <button type="button" #outsideButton>Outside button</button>

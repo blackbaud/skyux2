@@ -1,8 +1,6 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
-  ContentChild,
   ElementRef,
   HostListener,
   Input,
@@ -27,10 +25,7 @@ import {
   SkyWindowRefService
 } from '../window';
 
-import { SkyDropdownMenuComponent } from './dropdown-menu.component';
-
 import {
-  SkyDropdownMenuChange,
   SkyDropdownMessage,
   SkyDropdownMessageType,
   SkyDropdownTriggerType
@@ -42,7 +37,7 @@ import {
   styleUrls: ['./dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy {
+export class SkyDropdownComponent implements OnInit, OnDestroy {
   @Input()
   public alignment: SkyPopoverAlignment = 'left';
 
@@ -97,9 +92,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   @ViewChild(SkyPopoverComponent)
   private popover: SkyPopoverComponent;
 
-  @ContentChild(SkyDropdownMenuComponent)
-  private menuComponent: SkyDropdownMenuComponent;
-
   private destroy = new Subject<boolean>();
   private isKeyboardActive = false;
   private isOpen = false;
@@ -118,27 +110,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       .takeUntil(this.destroy)
       .subscribe((message: SkyDropdownMessage) => {
         this.handleIncomingMessages(message);
-      });
-  }
-
-  public ngAfterContentInit() {
-    if (!this.menuComponent) {
-      return;
-    }
-
-    this.menuComponent.menuChanges
-      .takeUntil(this.destroy)
-      .subscribe((change: SkyDropdownMenuChange) => {
-        // Close the dropdown when a menu item is selected.
-        if (change.selectedItem) {
-          this.sendMessage(SkyDropdownMessageType.Close);
-        }
-
-        if (change.items) {
-          // Update the popover style and position whenever the number of
-          // items changes.
-          this.sendMessage(SkyDropdownMessageType.Reposition);
-        }
       });
   }
 
@@ -201,9 +172,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   public onPopoverClosed() {
     this.isOpen = false;
     this.isKeyboardActive = false;
-    if (this.menuComponent) {
-      this.menuComponent.reset();
-    }
   }
 
   public getPopoverTriggerType(): SkyPopoverTrigger {
@@ -212,42 +180,26 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   private handleIncomingMessages(message: SkyDropdownMessage) {
-    // These message types should only trigger if a child dropdown menu exists.
-    if (this.menuComponent) {
-      /* tslint:disable-next-line:switch-default */
-      switch (message.type) {
-        case SkyDropdownMessageType.Open:
-        this.menuComponent.reset();
-        this.positionPopover();
-        break;
+    /* tslint:disable-next-line:switch-default */
+    switch (message.type) {
+      case SkyDropdownMessageType.Open:
+      this.positionPopover();
+      break;
 
-        case SkyDropdownMessageType.Close:
-        this.popover.close();
-        break;
+      case SkyDropdownMessageType.Close:
+      this.popover.close();
+      break;
 
-        case SkyDropdownMessageType.FocusFirstItem:
-        this.menuComponent.focusFirstItem();
-        break;
-
-        case SkyDropdownMessageType.FocusNextItem:
-        this.menuComponent.focusNextItem();
-        break;
-
-        case SkyDropdownMessageType.FocusPreviousItem:
-        this.menuComponent.focusPreviousItem();
-        break;
-
-        case SkyDropdownMessageType.Reposition:
-        // Only reposition the dropdown if it is already open.
-        if (this.isOpen) {
-          this.popover.reposition();
-        }
-        break;
+      case SkyDropdownMessageType.Reposition:
+      // Only reposition the dropdown if it is already open.
+      if (this.isOpen) {
+        this.popover.reposition();
       }
-    }
+      break;
 
-    if (message.type === SkyDropdownMessageType.FocusTriggerButton) {
+      case SkyDropdownMessageType.FocusTriggerButton:
       this.triggerButton.nativeElement.focus();
+      break;
     }
   }
 
