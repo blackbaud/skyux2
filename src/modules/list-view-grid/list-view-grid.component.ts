@@ -233,10 +233,13 @@ export class SkyListViewGridComponent
               )
               .filter(c => c !== undefined);
 
-        this.dispatcher.searchSetOptions(new ListSearchModel({
-          functions: setFunctions,
-          fieldSelectors: displayedColumns.map(d => d.field)
-        }));
+        this.state.take(1).subscribe(s => {
+          this.dispatcher.searchSetOptions(new ListSearchModel({
+            searchText: s.search.searchText,
+            functions: setFunctions,
+            fieldSelectors: displayedColumns.map(d => d.field)
+          }));
+        });
       });
     this.subscriptions.push(sub);
   }

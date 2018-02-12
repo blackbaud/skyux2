@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { SkyListViewGridComponent } from '../../list-view-grid';
+import { SkyListToolbarComponent } from '../../list-toolbar';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -20,5 +21,8 @@ export class ListColumnSelectorActionTestComponent {
 
   @ViewChild(SkyListViewGridComponent)
   public grid: SkyListViewGridComponent;
+  @ViewChild(SkyListToolbarComponent)
+  public toolbar: SkyListToolbarComponent;
 
+  public searchText: string;
 }

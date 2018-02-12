@@ -72,6 +72,7 @@ import { ListColumnSelectorActionDeprecatedTestComponent } from './fixtures/list
 describe('List column selector action', () => {
   let state: ListState,
     dispatcher: ListStateDispatcher,
+    component: ListColumnSelectorActionTestComponent,
     fixture: ComponentFixture<ListColumnSelectorActionTestComponent>,
     nativeElement: HTMLElement,
     mockMediaQueryService: MockSkyMediaQueryService,
@@ -151,6 +152,7 @@ describe('List column selector action', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ListColumnSelectorActionTestComponent);
+    component = fixture.componentInstance;
     nativeElement = fixture.nativeElement as HTMLElement;
     fixture.detectChanges();
 
@@ -196,6 +198,37 @@ describe('List column selector action', () => {
       });
     });
   }));
+
+  it('should not clear the search text when new columns are set', async(() => {
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      component.searchText = 'something';
+
+      const chooseColumnsButton = getButtonEl();
+      chooseColumnsButton.click();
+      fixture.detectChanges();
+
+      const checkboxLabelEl = document.querySelectorAll(
+        '.sky-modal .sky-list-view-checklist-item input'
+      ) as NodeListOf<HTMLElement>;
+
+      expect(checkboxLabelEl.length).toBe(2);
+
+      checkboxLabelEl.item(0).click();
+      fixture.detectChanges();
+
+      const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
+
+      submitButtonEl.click();
+      fixture.detectChanges();
+
+      component.grid.gridState.take(1).subscribe((gridState) => {
+        expect(gridState.displayedColumns.items.length).toBe(2);
+        expect(component.searchText).toEqual('something');
+      });
+    });
+  }));
 });
 
 describe('List column selector action - deprecated', () => {
@@ -224,14 +257,14 @@ describe('List column selector action - deprecated', () => {
         NoopAnimationsModule
       ]
     })
-    .overrideComponent(SkyListComponent, {
-      set: {
-        providers: [
-          { provide: ListState, useValue: state },
-          { provide: ListStateDispatcher, useValue: dispatcher }
-        ]
-      }
-    });
+      .overrideComponent(SkyListComponent, {
+        set: {
+          providers: [
+            { provide: ListState, useValue: state },
+            { provide: ListStateDispatcher, useValue: dispatcher }
+          ]
+        }
+      });
   }));
 
   beforeEach(() => {

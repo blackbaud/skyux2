@@ -65,14 +65,13 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   ) { }
 
   public ngAfterContentInit() {
-    // Reset focus whenever the menu items change.
+    // Reset dropdown whenever the menu items change.
     this.menuItems.changes
       .takeUntil(this.destroy)
-      .subscribe(() => {
-        this.menuIndex = 0;
-        this.focusActiveItem();
+      .subscribe((items: QueryList<SkyDropdownItemComponent>) => {
+        this.reset();
         this.menuChanges.emit({
-          activeIndex: this.menuIndex
+          items: items.toArray()
         });
       });
   }
@@ -84,9 +83,19 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent) {
-    const selectedItem = this.menuItems.find((item: SkyDropdownItemComponent) => {
-      return (item.elementRef.nativeElement.contains(event.target));
-    });
+    const selectedItem = this.menuItems
+      .find((item: SkyDropdownItemComponent, i: number) => {
+        const found = (item.elementRef.nativeElement.contains(event.target));
+
+        if (found) {
+          this.menuIndex = i;
+          this.menuChanges.next({
+            activeIndex: this.menuIndex
+          });
+        }
+
+        return found;
+      });
 
     /* istanbul ignore else */
     if (selectedItem) {
@@ -94,21 +103,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
         selectedItem
       });
     }
-  }
-
-  @HostListener('focusin', ['$event'])
-  public onFocusIn(event: KeyboardEvent) {
-    this.menuItems.forEach((item: SkyDropdownItemComponent, i: number) => {
-      item.resetState();
-
-      if (item.elementRef.nativeElement.contains(event.target)) {
-        this.menuIndex = i;
-        item.isActive = true;
-        this.menuChanges.emit({
-          activeIndex: this.menuIndex
-        });
-      }
-    });
   }
 
   @HostListener('keydown', ['$event'])
@@ -181,13 +175,6 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     this.menuItems.forEach((item: SkyDropdownItemComponent) => {
       item.resetState();
     });
-  }
-
-  private focusActiveItem() {
-    const activeItem = this.getItemByIndex(this.menuIndex);
-    if (activeItem) {
-      this.focusItem(activeItem);
-    }
   }
 
   private focusItem(item: SkyDropdownItemComponent) {

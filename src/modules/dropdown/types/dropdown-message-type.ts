@@ -4,5 +4,6 @@ export enum SkyDropdownMessageType {
   FocusTriggerButton = 2,
   FocusNextItem = 3,
   FocusPreviousItem = 4,
-  Reposition = 5
+  Reposition = 5,
+  FocusFirstItem = 6
 }
