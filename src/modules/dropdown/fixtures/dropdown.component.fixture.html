@@ -19,5 +19,14 @@
       </sky-dropdown-item>
     </sky-dropdown-menu>
   </sky-dropdown>
+
+  <div id="popover-no-menu-fixture">
+    <sky-dropdown
+      [messageStream]="dropdownNoMenuController"
+      #dropdownNoMenu>
+      <sky-dropdown-button>
+      </sky-dropdown-button>
+    </sky-dropdown>
+  </div>
 </div>
 <button type="button" #outsideButton>Outside button</button>

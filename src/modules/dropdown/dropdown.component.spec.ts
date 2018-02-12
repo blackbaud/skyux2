@@ -549,6 +549,31 @@ describe('Dropdown component', () => {
 
       verifyTriggerButtonHasFocus();
     }));
+
+    it('should handle non-existant child menu component', fakeAsync(() => {
+      const spy = spyOn(component.dropdownNoMenu as any, 'positionPopover').and.callThrough();
+      tick();
+      fixture.detectChanges();
+
+      // Attempt to open dropdown with stream.
+      component.dropdownNoMenuController.next({
+        type: SkyDropdownMessageType.Open
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      // Simulate popover being closed by other means:
+      component.dropdownNoMenu.onPopoverClosed();
+
+      const popoverElem = document
+        .getElementById('popover-no-menu-fixture')
+        .querySelector('.sky-popover-container') as HTMLElement;
+
+      expect(isElementVisible(popoverElem)).toEqual(false);
+      expect(component.dropdown['isOpen']).toEqual(false);
+      expect(spy).not.toHaveBeenCalled();
+    }));
   });
 
   describe('menu changes', () => {
