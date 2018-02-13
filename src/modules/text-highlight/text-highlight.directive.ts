@@ -98,8 +98,6 @@ export class SkyTextHighlightDirective
   public ngAfterViewInit(): void {
     let me = this;
 
-    this.highlight(); // call highlight before creating the observer to skip an immediate disconnect
-
     this.observer = this.observerService.create((mutations: MutationRecord[]) => {
       me.highlight();
     });

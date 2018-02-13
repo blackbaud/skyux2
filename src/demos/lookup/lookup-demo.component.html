@@ -5,14 +5,16 @@
 
   <sky-row>
     <sky-column screenSmall="6">
-      <label>
-        What are your favorite colors?
-      </label>
-      <sky-lookup
-        [data]="colors"
-        [selectedItems]="selectedColors"
-        (selectionChanges)="onResultSelected($event)">
-      </sky-lookup>
+      <div class="sky-form-group">
+        <label>
+          What are your favorite colors?
+        </label>
+        <sky-lookup
+          [data]="colors"
+          [selectedItems]="selectedColors"
+          (selectionChanges)="onResultSelected($event)">
+        </sky-lookup>
+      </div>
     </sky-column>
     <sky-column screenSmall="6">
       <label>

@@ -2,11 +2,9 @@
   display: flex;
   flex-wrap: wrap;
 
-  // ::ng-deep sky-token {
-  //   & + sky-token .sky-token {
-  //     margin-left: 4px;
-  //   }
-  // }
+  ::ng-deep sky-token {
+    flex: 0 0 auto;
+  }
 }
 
 .sky-token-btn-close {

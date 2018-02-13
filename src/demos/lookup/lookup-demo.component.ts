@@ -23,13 +23,14 @@ export class SkyLookupDemoComponent implements OnInit {
 
   public colors: any[] = [
     { name: 'Red' },
+    { name: 'Black' },
     { name: 'Blue' },
-    { name: 'Green' },
-    { name: 'Purple' },
-    { name: 'Yellow' },
     { name: 'Brown' },
+    { name: 'Green' },
+    { name: 'Orange' },
+    { name: 'Purple' },
     { name: 'White' },
-    { name: 'Black' }
+    { name: 'Yellow' }
   ];
 
   public selectedColors: any[] = [

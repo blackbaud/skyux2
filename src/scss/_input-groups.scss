@@ -10,7 +10,6 @@
     position: relative;
     display: flex;
     flex: 1 1 auto;
-    width: 100%;
     align-items: center;
     z-index: 2;
   }
@@ -19,7 +18,6 @@
 .sky-input-group-btn {
   position: relative;
   display: flex;
-  flex: 1 0 auto;
   align-items: stretch;
   white-space: nowrap;
 

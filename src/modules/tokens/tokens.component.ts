@@ -109,10 +109,6 @@ export class SkyTokensComponent implements OnInit, AfterViewInit, OnDestroy {
       event.preventDefault();
       break;
 
-      // case 'tab':
-      // this.exitFocus();
-      // break;
-
       default:
       break;
     }

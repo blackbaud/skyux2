@@ -25,16 +25,14 @@
         <textarea
           skyAutocomplete
           class="sky-form-control"
+          [ngClass]="{ 'sky-lookup-input-hidden': !inputFocused }"
           [disabled]="disabled"
           [attr.aria-label]="ariaLabel"
           [attr.aria-labelledby]="ariaLabelledBy"
           [attr.placeholder]="placeholderText"
           #lookupInput>
         </textarea>
-
       </sky-tokens>
     </div>
   </sky-autocomplete>
 </div>
-
-<pre>{{ selectedItems | json}}</pre>

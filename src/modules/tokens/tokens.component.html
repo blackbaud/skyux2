@@ -6,7 +6,7 @@
     *ngFor="let token of tokens; let i = index;"
     [attr.tabindex]="(disabled) ? false : 0"
     (keydown)="onKeyDown($event, token)"
-    (click)="onClick(token)"
+    (click)="onClick(token);$event.stopPropagation();"
     (focus)="onFocus(i)">
 
     {{ token[displayWith] }}

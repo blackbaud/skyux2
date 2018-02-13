@@ -123,6 +123,17 @@ export class SkyLookupComponent
       });
 
     Observable
+      .fromEvent(this.elementRef.nativeElement, 'click')
+      .takeUntil(this.destroy)
+      .subscribe((event: KeyboardEvent) => {
+        this.inputFocused = true;
+        this.changeDetector.markForCheck();
+        setTimeout(() => {
+          this.lookupInput.nativeElement.focus();
+        });
+      });
+
+    Observable
       .fromEvent(document, 'click')
       .takeUntil(this.destroy)
       .subscribe((event: MouseEvent) => {
