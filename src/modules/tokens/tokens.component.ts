@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -27,7 +26,7 @@ import {
   styleUrls: ['./tokens.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTokensComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SkyTokensComponent implements OnInit, OnDestroy {
   @Input()
   public disabled = false;
 
@@ -69,12 +68,6 @@ export class SkyTokensComponent implements OnInit, AfterViewInit, OnDestroy {
         this.tokens = args.tokens;
         this.changeDetector.markForCheck();
       });
-  }
-
-  public ngAfterViewInit() {
-    // this.tokenElements.changes.subscribe((changes: any) => {
-    //   this.focusLastToken();
-    // });
   }
 
   public ngOnDestroy() {
