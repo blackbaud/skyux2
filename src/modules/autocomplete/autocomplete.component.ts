@@ -10,7 +10,6 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Renderer2,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -24,10 +23,6 @@ import {
   SkyDropdownMessageType,
   SkyDropdownMessage
 } from '../dropdown';
-
-import {
-  SkyWindowRefService
-} from '../window';
 
 import {
   SkyAutocompleteInputTextChange,
