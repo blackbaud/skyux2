@@ -25,7 +25,7 @@ import {
   SkyAutocompleteSearchFunction
 } from './types';
 
-fdescribe('Autocomplete component', () => {
+describe('Autocomplete component', () => {
   let fixture: ComponentFixture<SkyAutocompleteTestComponent>;
   let component: SkyAutocompleteTestComponent;
   let autocomplete: SkyAutocompleteComponent;
