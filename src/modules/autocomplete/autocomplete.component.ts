@@ -6,12 +6,9 @@ import {
   ContentChild,
   ElementRef,
   EventEmitter,
-  Input,
   OnDestroy,
   OnInit,
-  Output,
-  TemplateRef,
-  ViewChild
+  Output
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -26,14 +23,12 @@ import {
 
 import {
   SkyAutocompleteInputTextChange,
-  SkyAutocompleteSearchFunction,
-  SkyAutocompleteSearchFunctionFilter,
   SkyAutocompleteSelectionChange
 } from './types';
 
+import { SkyAutocompleteComponentAPI } from './autocomplete-component-api';
 import { SkyAutocompleteAdapterService } from './autocomplete-adapter.service';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
-import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-search-function';
 
 @Component({
   selector: 'sky-autocomplete',
@@ -43,66 +38,8 @@ import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-sea
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAutocompleteComponent
+  extends SkyAutocompleteComponentAPI
   implements OnInit, OnDestroy, AfterContentInit {
-
-  @Input()
-  public set descriptorProperty(value: string) {
-    this._descriptorProperty = value;
-  }
-
-  public get descriptorProperty(): string {
-    return this._descriptorProperty || 'name';
-  }
-
-  @Input()
-  public set propertiesToSearch(value: string[]) {
-    this._propertiesToSearch = value;
-  }
-
-  public get propertiesToSearch(): string[] {
-    return this._propertiesToSearch || ['name'];
-  }
-
-  @Input()
-  public set search(value: SkyAutocompleteSearchFunction) {
-    this._search = value;
-  }
-
-  public get search(): SkyAutocompleteSearchFunction {
-    return this._search || skyAutocompleteDefaultSearchFunction({
-      propertiesToSearch: this.propertiesToSearch,
-      searchFilters: this.searchFilters,
-      searchResultsLimit: this.searchResultsLimit
-    });
-  }
-
-  @Input()
-  public set searchResultTemplate(value: TemplateRef<any>) {
-    this._searchResultTemplate = value;
-  }
-
-  public get searchResultTemplate(): TemplateRef<any> {
-    return this._searchResultTemplate || this.defaultSearchResultTemplate;
-  }
-
-  @Input()
-  public set searchTextMinimumCharacters(value: number) {
-    this._searchTextMinimumCharacters = value;
-  }
-
-  public get searchTextMinimumCharacters(): number {
-    return (this._searchTextMinimumCharacters > 0)
-      ? this._searchTextMinimumCharacters : 1;
-  }
-
-  @Input()
-  public data: any[];
-
-  @Input()
-  public searchFilters: SkyAutocompleteSearchFunctionFilter[];
-
-  @Input()
-  public searchResultsLimit: number;
 
   @Output()
   public get selectionChange(): EventEmitter<SkyAutocompleteSelectionChange> {
@@ -121,9 +58,6 @@ export class SkyAutocompleteComponent
     return this._highlightText || '';
   }
 
-  @ViewChild('defaultSearchResultTemplate')
-  private defaultSearchResultTemplate: TemplateRef<any>;
-
   @ContentChild(SkyAutocompleteInputDirective)
   private inputDirective: SkyAutocompleteInputDirective;
 
@@ -132,21 +66,18 @@ export class SkyAutocompleteComponent
   private searchResultsIndex = 0;
   private searchText: string;
 
-  private _descriptorProperty: string;
   private _dropdownController = new Subject<SkyDropdownMessage>();
   private _highlightText: string;
-  private _propertiesToSearch: string[];
-  private _search: SkyAutocompleteSearchFunction;
   private _searchResults: any[];
-  private _searchResultTemplate: TemplateRef<any>;
-  private _searchTextMinimumCharacters: number;
   private _selectionChange = new EventEmitter<SkyAutocompleteSelectionChange>();
 
   constructor(
     private adapter: SkyAutocompleteAdapterService,
     private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef
-  ) { }
+  ) {
+    super();
+  }
 
   public ngOnInit(): void {
     const element = this.elementRef.nativeElement;

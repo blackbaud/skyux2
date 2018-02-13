@@ -1,19 +1,20 @@
 @import '../../scss/mixins';
 @import '~@blackbaud/skyux-design-tokens/scss/mixins';
 
-.sky-lookup-token {
+.sky-token {
   white-space: nowrap;
   background-color: $sky-background-color-neutral-light;
   border: 1px solid $sky-border-color-neutral-medium;
   padding: 0 4px;
   user-select: none;
+  margin: 2px;
 }
 
 :host {
   &:focus {
     outline: none;
 
-    .sky-lookup-token {
+    .sky-token {
       background-color: $sky-background-color-info-light;
       border: 1px solid $sky-highlight-color-info;
     }

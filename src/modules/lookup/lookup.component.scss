@@ -10,7 +10,7 @@
     height: #{$sky-line-height-base}em;
     flex: 1 0 auto;
     padding: 0;
-    padding-left: 6px;
+    padding-left: 8px;
     background-color: transparent;
 
     &:focus {
@@ -18,20 +18,14 @@
       box-shadow: none;
     }
   }
-
-  ::ng-deep
-  .sky-lookup-tokens {
-    sky-lookup-token {
-      margin-top: -1px;
-      margin-bottom: -1px;
-    }
-  }
 }
 
 .sky-lookup-search {
-  padding-left: 6px;
+  padding-left: 4px;
 }
 
 .sky-lookup-input-focused {
-  @include sky-focus-outline;
+  .sky-lookup-search {
+    @include sky-field-status(active);
+  }
 }

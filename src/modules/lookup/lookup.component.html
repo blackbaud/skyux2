@@ -14,12 +14,13 @@
     (selectionChange)="onSelectionChange($event)">
 
     <div class="sky-lookup-search sky-form-control">
-      <sky-lookup-tokens
+      <sky-tokens
+        tabindex="-1"
         [disabled]="disabled"
         [displayWith]="descriptorProperty"
         [tokenStream]="tokenStream"
-        (tokensBlur)="lookupInput.focus()"
-        (tokenChanges)="onTokenChanges($event)">
+        (changes)="onTokenChanges($event)"
+        (blur)="onTokensBlur()">
 
         <textarea
           skyAutocomplete
@@ -31,7 +32,7 @@
           #lookupInput>
         </textarea>
 
-      </sky-lookup-tokens>
+      </sky-tokens>
     </div>
   </sky-autocomplete>
 </div>

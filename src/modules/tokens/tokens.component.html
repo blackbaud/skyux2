@@ -1,24 +1,26 @@
 <div
-  class="sky-lookup-tokens"
+  class="sky-tokens"
   *ngIf="tokens">
 
-  <sky-lookup-token
-    *ngFor="let token of tokens"
-    [attr.tabindex]="(disabled) ? false : -1"
-    (keydown)="onKeyDown($event, token)">
+  <sky-token
+    *ngFor="let token of tokens; let i = index;"
+    [attr.tabindex]="(disabled) ? false : 0"
+    (keydown)="onKeyDown($event, token)"
+    (click)="onClick(token)"
+    (focus)="onFocus(i)">
 
     {{ token[displayWith] }}
 
     <button
       type="button"
       tabindex="-1"
-      class="sky-btn sky-lookup-token-btn-close"
+      class="sky-btn sky-token-btn-close"
       [attr.aria-hidden]="true"
       [disabled]="disabled"
       (click)="removeToken(token)">
       <i class="fa fa-times"></i>
     </button>
-  </sky-lookup-token>
+  </sky-token>
 
   <ng-content>
   </ng-content>

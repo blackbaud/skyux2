@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -12,20 +13,21 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
-  SkyLookupTokenComponent
-} from './lookup-token.component';
+  SkyTokenComponent
+} from './token.component';
 
 @Component({
-  selector: 'sky-lookup-tokens',
-  templateUrl: './lookup-tokens.component.html',
-  styleUrls: ['./lookup-tokens.component.scss'],
+  selector: 'sky-tokens',
+  templateUrl: './tokens.component.html',
+  styleUrls: ['./tokens.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyLookupTokensComponent implements OnInit, OnDestroy {
+export class SkyTokensComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   public disabled = false;
 
@@ -42,23 +44,21 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
   public tokenStream: Observable<any>;
 
   @Output()
-  public tokenChanges = new EventEmitter<any>();
+  public changes = new EventEmitter<any>();
 
   @Output()
-  public tokensBlur = new EventEmitter<void>();
+  public blur = new EventEmitter<void>();
 
-  // TODO: need to run focus behavior in the same way that dropdown is doing it
-  // RE: watching for viewchildren changes
-  @ViewChildren(SkyLookupTokenComponent)
-  public tokenElements: QueryList<SkyLookupTokenComponent>;
+  @ViewChildren(SkyTokenComponent)
+  public tokenElements: QueryList<SkyTokenComponent>;
 
   private destroy = new Subject<boolean>();
-  private focusIndex: number;
+  private focusIndex = 0;
   private tokens: any[];
 
   private _displayWith: string;
 
-  public constructor(
+  constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
 
@@ -71,6 +71,12 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
       });
   }
 
+  public ngAfterViewInit() {
+    // this.tokenElements.changes.subscribe((changes: any) => {
+    //   this.focusLastToken();
+    // });
+  }
+
   public ngOnDestroy() {
     this.destroy.next(true);
     this.destroy.unsubscribe();
@@ -78,8 +84,6 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
 
   public onKeyDown(event: KeyboardEvent, token: any) {
     const key = event.key.toLowerCase();
-
-    event.preventDefault();
 
     if (this.disabled) {
       return;
@@ -89,29 +93,47 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
       case 'delete':
       case 'backspace':
       this.removeToken(token);
-      this.focusPreviousToken();
+      setTimeout(() => {
+        this.focusPreviousToken();
+      });
+      event.preventDefault();
       break;
 
       case 'arrowleft':
       this.focusPreviousToken();
+      event.preventDefault();
       break;
 
       case 'arrowright':
       this.focusNextToken();
+      event.preventDefault();
       break;
 
-      case 'tab':
-      this.exitFocus();
-      break;
+      // case 'tab':
+      // this.exitFocus();
+      // break;
 
       default:
       break;
     }
   }
 
+  public onClick(token: any) {
+    this.tokens.find((t: any, i: number) => {
+      if (t === token) {
+        this.focusIndex = i;
+        return t;
+      }
+    });
+  }
+
+  public onFocus(index: number) {
+    this.focusIndex = index;
+  }
+
   public removeToken(token: any) {
     this.tokens = this.tokens.filter(t => t !== token);
-    this.tokenChanges.emit({
+    this.changes.emit({
       tokens: this.tokens
     });
   }
@@ -143,7 +165,12 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
 
   private focusNextToken() {
     this.focusIndex++;
-    this.focusActiveToken();
+    if (this.focusIndex >= this.tokens.length) {
+      this.focusIndex = this.tokens.length - 1;
+      this.exitFocus();
+    } else {
+      this.focusActiveToken();
+    }
   }
 
   private focusActiveToken() {
@@ -159,6 +186,6 @@ export class SkyLookupTokensComponent implements OnInit, OnDestroy {
   }
 
   private exitFocus() {
-    this.tokensBlur.emit();
+    this.blur.emit();
   }
 }

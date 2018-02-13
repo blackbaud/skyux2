@@ -23,8 +23,8 @@ import {
 } from '../autocomplete';
 
 import {
-  SkyLookupTokensComponent
-} from './lookup-tokens.component';
+  SkyTokensComponent
+} from '../tokens';
 
 import {
   SkyLookupChanges
@@ -60,8 +60,8 @@ export class SkyLookupComponent
   public inputFocused = false;
   public tokenStream = new Subject<any>();
 
-  @ViewChild(SkyLookupTokensComponent)
-  private tokensComponent: SkyLookupTokensComponent;
+  @ViewChild(SkyTokensComponent)
+  private tokensComponent: SkyTokensComponent;
 
   @ViewChild(SkyAutocompleteInputDirective)
   private inputDirective: SkyAutocompleteInputDirective;
@@ -97,7 +97,6 @@ export class SkyLookupComponent
           case 'arrowleft':
           case 'backspace':
           if (this.isSearchEmpty()) {
-            console.log('stop backspace!!!!!!');
             event.preventDefault();
             this.tokensComponent.focusLastToken();
           }
@@ -166,14 +165,18 @@ export class SkyLookupComponent
     this.notifySelectionChange(this.selectedItems);
   }
 
+  public onTokensBlur() {
+    this.lookupInput.nativeElement.focus();
+  }
+
   private addToSelected(item: any) {
     const copy = { ...item };
     this.selectedItems.push(copy);
     this.notifySelectionChange(this.selectedItems);
+    this.clearSearchText();
     this.tokenStream.next({
       tokens: this.selectedItems
     });
-    this.clearSearchText();
   }
 
   private clearSearchText() {

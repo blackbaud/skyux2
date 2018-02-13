@@ -2,24 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { SkyLookupComponent } from './lookup.component';
-import { SkyLookupTokenComponent } from './lookup-token.component';
-import { SkyLookupTokensComponent } from './lookup-tokens.component';
-
 import { SkyAutocompleteModule } from '../autocomplete';
-import { SkyResourcesModule } from '../resources';
+import { SkyTokensModule } from '../tokens';
+
+import { SkyLookupComponent } from './lookup.component';
 
 @NgModule({
   declarations: [
-    SkyLookupComponent,
-    SkyLookupTokenComponent,
-    SkyLookupTokensComponent
+    SkyLookupComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     SkyAutocompleteModule,
-    SkyResourcesModule
+    SkyTokensModule
   ],
   exports: [
     SkyLookupComponent

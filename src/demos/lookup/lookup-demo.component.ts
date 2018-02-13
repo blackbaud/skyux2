@@ -77,10 +77,6 @@ export class SkyLookupDemoComponent implements OnInit {
     console.log('submitted with:', this.formModel.value);
   }
 
-  public onInputIdChanges(changes: SkyLookupChanges) {
-    this.lookupInputId = changes.inputId;
-  }
-
   public onResultSelected(changes: SkyLookupChanges) {
     // console.log('onResultSelected', changes);
   }

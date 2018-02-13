@@ -1,0 +1,16 @@
+.sky-tokens {
+  display: flex;
+  flex-wrap: wrap;
+
+  // ::ng-deep sky-token {
+  //   & + sky-token .sky-token {
+  //     margin-left: 4px;
+  //   }
+  // }
+}
+
+.sky-token-btn-close {
+  background: transparent;
+  padding: 0;
+  border: 0;
+}

@@ -3,15 +3,24 @@
   (ngSubmit)="submit()"
   novalidate>
 
-  <label>
-    What are your favorite colors?
-  </label>
-  <sky-lookup
-    [data]="colors"
-    [selectedItems]="selectedColors"
-    (selectionChanges)="onResultSelected($event)">
-  </sky-lookup>
-  <input type="text" class="sky-form-control">
+  <sky-row>
+    <sky-column screenSmall="6">
+      <label>
+        What are your favorite colors?
+      </label>
+      <sky-lookup
+        [data]="colors"
+        [selectedItems]="selectedColors"
+        (selectionChanges)="onResultSelected($event)">
+      </sky-lookup>
+    </sky-column>
+    <sky-column screenSmall="6">
+      <label>
+        This is a standard field for comparison
+      </label>
+      <input type="text" class="sky-form-control">
+    </sky-column>
+  </sky-row>
 
   <button
     class="sky-btn sky-btn-primary"
