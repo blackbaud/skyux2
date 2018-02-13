@@ -36,6 +36,7 @@ import {
   SkyAutocompleteSelectionChange
 } from './types';
 
+import { SkyAutocompleteAdapterService } from './autocomplete-adapter.service';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
 import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-search-function';
 
@@ -43,6 +44,7 @@ import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-sea
   selector: 'sky-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
+  providers: [SkyAutocompleteAdapterService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAutocompleteComponent
@@ -146,10 +148,9 @@ export class SkyAutocompleteComponent
   private _selectionChange = new EventEmitter<SkyAutocompleteSelectionChange>();
 
   constructor(
+    private adapter: SkyAutocompleteAdapterService,
     private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private windowRef: SkyWindowRefService
+    private elementRef: ElementRef
   ) { }
 
   public ngOnInit(): void {
@@ -174,13 +175,6 @@ export class SkyAutocompleteComponent
       .takeUntil(this.destroy)
       .subscribe(() => {
         this.isMouseEnter = false;
-      });
-
-    Observable
-      .fromEvent(this.windowRef.getWindow(), 'resize')
-      .takeUntil(this.destroy)
-      .subscribe(() => {
-        this.setDropdownWidth();
       });
   }
 
@@ -210,7 +204,7 @@ export class SkyAutocompleteComponent
         }
       });
 
-    this.setDropdownWidth();
+    this.adapter.watchDropdownWidth(this.elementRef);
   }
 
   public ngOnDestroy(): void {
@@ -334,13 +328,5 @@ export class SkyAutocompleteComponent
 
   private hasSearchResults(): boolean {
     return (this.searchResults && this.searchResults.length > 0);
-  }
-
-  private setDropdownWidth() {
-    const dropdownContainer = this.elementRef.nativeElement
-      .querySelector('.sky-popover-container');
-
-    const width = this.elementRef.nativeElement.getBoundingClientRect().width;
-    this.renderer.setStyle(dropdownContainer, 'width', `${width}px`);
   }
 }

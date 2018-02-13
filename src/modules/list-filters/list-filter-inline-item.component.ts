@@ -24,13 +24,13 @@ export class SkyListFilterInlineItemComponent implements OnInit {
   @Input()
   public defaultValue: any;
 
-  /* tslint:disable */
+  /* tslint:disable:no-input-rename */
   @Input('filter')
   public filterFunction: (item: ListItemModel, filter: any) => boolean;
 
   @Input('template')
   public templateInput: TemplateRef<any>;
-  /* tslint:enable */
+  /* tslint:enable:no-input-rename */
 
   public onChange: EventEmitter<any> = new EventEmitter<any>();
 
