@@ -1,8 +1,11 @@
-import { Component, Injectable } from '@angular/core';
+import {
+  Component,
+  Injectable
+} from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 import {
@@ -112,5 +115,7 @@ export class DemoListProvider extends ListDataProvider {
   providers: [DemoListProvider]
 })
 export class SkyListProviderDemoComponent {
-  constructor(public listDataProvider: DemoListProvider) {}
+  constructor(
+    public listDataProvider: DemoListProvider
+  ) { }
 }
