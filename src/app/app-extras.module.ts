@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { SkyDemoModule } from '../demo';
 
-require('style-loader!../scss/sky.scss');
 require('style-loader!./styles.scss');
 
 @NgModule({
