@@ -11,7 +11,7 @@
     <sky-dropdown-button>
       Show dropdown
     </sky-dropdown-button>
-    <sky-dropdown-menu>
+    <sky-dropdown-menu #dropdownMenu>
       <sky-dropdown-item *ngFor="let item of items">
         <button type="button" [attr.disabled]="item.disabled ? '' : null">
           {{ item.name }}

@@ -65,7 +65,7 @@ describe('Dropdown component', () => {
   }
 
   function verifyActiveMenuItemByIndex(index: number) {
-    const menuItems = component.dropdown['menuComponent'].menuItems.toArray();
+    const menuItems = component.dropdownMenu.menuItems.toArray();
 
     menuItems.forEach((item: any, i: number) => {
       if (i === index) {
@@ -310,7 +310,7 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
 
       const buttonElem = getDropdownButtonElement();
-      const spy = spyOn(component.dropdown['menuComponent'], 'focusFirstItem').and.callThrough();
+      const spy = spyOn(component.dropdownMenu, 'focusFirstItem').and.callThrough();
 
       verifyMenuVisibility(false);
 
@@ -338,8 +338,8 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      const firstSpy = spyOn(component.dropdown['menuComponent']['menuItems'].first, 'focusElement').and.callThrough();
-      const lastSpy = spyOn(component.dropdown['menuComponent']['menuItems'].last, 'focusElement').and.callThrough();
+      const firstSpy = spyOn(component.dropdownMenu.menuItems.first, 'focusElement').and.callThrough();
+      const lastSpy = spyOn(component.dropdownMenu.menuItems.last, 'focusElement').and.callThrough();
 
       dispatchKeyboardButtonClickEvent(buttonElem);
       tick();
@@ -361,7 +361,7 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      const firstSpy = spyOn(component.dropdown['menuComponent']['menuItems'].first, 'focusElement').and.callThrough();
+      const firstSpy = spyOn(component.dropdownMenu.menuItems.first, 'focusElement').and.callThrough();
 
       dispatchKeyboardButtonClickEvent(buttonElem);
       tick();
@@ -377,7 +377,7 @@ describe('Dropdown component', () => {
         { name: 'Foo', disabled: false }
       ]);
 
-      const menuItemComponent = component.dropdown['menuComponent']['menuItems'].first;
+      const menuItemComponent = component.dropdownMenu.menuItems.first;
       spyOn(menuItemComponent.elementRef.nativeElement, 'querySelector').and.returnValue(undefined);
 
       fixture.detectChanges();
@@ -435,7 +435,7 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
 
       const buttonElem = getDropdownButtonElement();
-      component.dropdown['menuComponent'].useNativeFocus = false;
+      component.dropdownMenu.useNativeFocus = false;
       fixture.detectChanges();
 
       verifyMenuVisibility(false);
@@ -447,7 +447,7 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility();
 
-      const itemComponent = component.dropdown['menuComponent']['menuItems'].first;
+      const itemComponent = component.dropdownMenu.menuItems.first;
       const focusSpy = spyOn(itemComponent['buttonElement'], 'focus');
 
       TestUtility.fireKeyboardEvent(buttonElem, 'keydown', { key: 'arrowdown' });
