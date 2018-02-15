@@ -1,10 +1,9 @@
 # 2.9.0 (2018-02-15)
 
 - Added autocomplete component. [#1438](https://github.com/blackbaud/skyux2/pull/1438) (Thanks @Blackbaud-TomRamsey)
-- Fixed action button keyup also triggering click event [#1448](https://github.com/blackbaud/skyux2/pull/1448)
-- Fixed error when dropdown does not include menu [#1470](https://github.com/blackbaud/skyux2/pull/1470)
-- Fixed error when popover directive references undefined popover component [#1475](https://github.com/blackbaud/skyux2/pull/1475)
-
+- Fixed action button keyup also triggering click event. [#1448](https://github.com/blackbaud/skyux2/pull/1448)
+- Fixed error when dropdown does not include menu. [#1470](https://github.com/blackbaud/skyux2/pull/1470)
+- Fixed error when popover directive references undefined popover component. [#1475](https://github.com/blackbaud/skyux2/pull/1475)
 
 # 2.8.0 (2018-02-08)
 
