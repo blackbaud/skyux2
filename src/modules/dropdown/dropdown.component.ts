@@ -1,8 +1,6 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
-  ContentChild,
   ElementRef,
   HostListener,
   Input,
@@ -27,10 +25,7 @@ import {
   SkyWindowRefService
 } from '../window';
 
-import { SkyDropdownMenuComponent } from './dropdown-menu.component';
-
 import {
-  SkyDropdownMenuChange,
   SkyDropdownMessage,
   SkyDropdownMessageType,
   SkyDropdownTriggerType
@@ -42,7 +37,7 @@ import {
   styleUrls: ['./dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy {
+export class SkyDropdownComponent implements OnInit, OnDestroy {
   @Input()
   public alignment: SkyPopoverAlignment = 'left';
 
@@ -97,9 +92,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   @ViewChild(SkyPopoverComponent)
   private popover: SkyPopoverComponent;
 
-  @ContentChild(SkyDropdownMenuComponent)
-  private menuComponent: SkyDropdownMenuComponent;
-
   private destroy = new Subject<boolean>();
   private isKeyboardActive = false;
   private isOpen = false;
@@ -118,23 +110,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       .takeUntil(this.destroy)
       .subscribe((message: SkyDropdownMessage) => {
         this.handleIncomingMessages(message);
-      });
-  }
-
-  public ngAfterContentInit() {
-    this.menuComponent.menuChanges
-      .takeUntil(this.destroy)
-      .subscribe((change: SkyDropdownMenuChange) => {
-        // Close the dropdown when a menu item is selected.
-        if (change.selectedItem) {
-          this.sendMessage(SkyDropdownMessageType.Close);
-        }
-
-        if (change.items) {
-          // Update the popover style and position whenever the number of
-          // items changes.
-          this.sendMessage(SkyDropdownMessageType.Reposition);
-        }
       });
   }
 
@@ -163,7 +138,7 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
         case 'arrowdown':
         if (!this.isKeyboardActive) {
           this.isKeyboardActive = true;
-          this.menuComponent.focusFirstItem();
+          this.sendMessage(SkyDropdownMessageType.FocusFirstItem);
           event.preventDefault();
         }
         break;
@@ -197,7 +172,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
   public onPopoverClosed() {
     this.isOpen = false;
     this.isKeyboardActive = false;
-    this.menuComponent.reset();
   }
 
   public getPopoverTriggerType(): SkyPopoverTrigger {
@@ -209,7 +183,6 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyDropdownMessageType.Open:
-      this.menuComponent.reset();
       this.positionPopover();
       break;
 
@@ -217,27 +190,15 @@ export class SkyDropdownComponent implements OnInit, AfterContentInit, OnDestroy
       this.popover.close();
       break;
 
-      case SkyDropdownMessageType.FocusTriggerButton:
-      this.triggerButton.nativeElement.focus();
-      break;
-
-      case SkyDropdownMessageType.FocusFirstItem:
-      this.menuComponent.focusFirstItem();
-      break;
-
-      case SkyDropdownMessageType.FocusNextItem:
-      this.menuComponent.focusNextItem();
-      break;
-
-      case SkyDropdownMessageType.FocusPreviousItem:
-      this.menuComponent.focusPreviousItem();
-      break;
-
       case SkyDropdownMessageType.Reposition:
       // Only reposition the dropdown if it is already open.
       if (this.isOpen) {
         this.popover.reposition();
       }
+      break;
+
+      case SkyDropdownMessageType.FocusTriggerButton:
+      this.triggerButton.nativeElement.focus();
       break;
     }
   }
