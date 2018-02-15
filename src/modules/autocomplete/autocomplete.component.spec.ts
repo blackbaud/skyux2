@@ -349,6 +349,7 @@ describe('Autocomplete component', () => {
     it('should handle missing skyAutocomplete directive', fakeAsync(() => {
       fixture.detectChanges();
       component.autocomplete['inputDirective'] = undefined;
+      tick();
 
       try {
         autocomplete.ngAfterContentInit();
@@ -358,24 +359,29 @@ describe('Autocomplete component', () => {
     }));
 
     it('should set the width of the dropdown on window resize', fakeAsync(() => {
+      const adapterSpy = spyOn(autocomplete['adapter'], 'watchDropdownWidth').and.callThrough();
+      const rendererSpy = spyOn(autocomplete['adapter']['renderer'], 'setStyle').and.callThrough();
+
       fixture.detectChanges();
 
       const inputElement = getInputElement();
-      const spy = spyOn(autocomplete['renderer'], 'setStyle').and.callThrough();
-      const event = document.createEvent('CustomEvent');
-      event.initEvent('resize', false, false);
 
       inputElement.value = 'r';
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      tick();
+
+      const event = document.createEvent('CustomEvent');
+      event.initEvent('resize', false, false);
       window.dispatchEvent(event);
       tick();
-      tick();
+
+      expect(adapterSpy).toHaveBeenCalledWith(autocomplete['elementRef']);
 
       const dropdownElement = document.querySelector('.sky-popover-container');
       const autocompleteElement = getAutocompleteElement();
       const formattedWidth = `${autocompleteElement.getBoundingClientRect().width}px`;
 
-      expect(spy).toHaveBeenCalledWith(dropdownElement, 'width', formattedWidth);
+      expect(rendererSpy).toHaveBeenCalledWith(dropdownElement, 'width', formattedWidth);
     }));
   });
 

@@ -50,8 +50,8 @@ export class SkyAutocompleteInputDirective
 
   public set value(value: any) {
     this._value = value;
-    this.textValue = value[this.displayWith];
-    this.onChange(value);
+    this.textValue = this.value[this.displayWith];
+    this.onChange(this.value);
     this.onTouched();
   }
 
