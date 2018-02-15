@@ -12,9 +12,8 @@ import {
   SkyDropdownMessage
 } from '../types';
 
-import {
-  SkyDropdownComponent
-} from '../dropdown.component';
+import { SkyDropdownComponent } from '../dropdown.component';
+import { SkyDropdownMenuComponent } from '../dropdown-menu.component';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -38,6 +37,9 @@ export class DropdownTestComponent {
 
   @ViewChild('dropdown')
   public dropdown: SkyDropdownComponent;
+
+  @ViewChild('dropdownMenu')
+  public dropdownMenu: SkyDropdownMenuComponent;
 
   @ViewChild('outsideButton')
   public outsideButton: ElementRef;

@@ -12,10 +12,10 @@ import { SKY_FLYOUT_PROVIDERS } from './modules/flyout';
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
-import { SkyAlertModule } from './modules/alert';
-import { SkyNumericModule } from './modules/numeric';
-import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
+import { SkyAlertModule } from './modules/alert';
+import { SkyAvatarModule } from './modules/avatar';
+import { SkyAutocompleteModule } from './modules/autocomplete';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
@@ -48,6 +48,7 @@ import { SkyListViewGridModule } from './modules/list-view-grid';
 import { SkyMediaQueryModule } from './modules/media-queries';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
+import { SkyNumericModule } from './modules/numeric';
 import { SkyPageSummaryModule } from './modules/page-summary';
 import { SkyPagingModule } from './modules/paging';
 import { SkyPopoverModule } from './modules/popover';
@@ -69,10 +70,10 @@ import { SkyWaitModule } from './modules/wait';
 
 @NgModule({
   exports: [
-    SkyAlertModule,
-    SkyNumericModule,
-    SkyAvatarModule,
     SkyActionButtonModule,
+    SkyAlertModule,
+    SkyAutocompleteModule,
+    SkyAvatarModule,
     SkyCardModule,
     SkyCheckboxModule,
     SkyChevronModule,
@@ -104,6 +105,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
+    SkyNumericModule,
     SkyPageSummaryModule,
     SkyPagingModule,
     SkyPopoverModule,
@@ -128,7 +130,7 @@ import { SkyWaitModule } from './modules/wait';
 export class SkyModule { }
 
 export * from './modules/alert';
-export * from './modules/numeric';
+export * from './modules/autocomplete';
 export * from './modules/avatar';
 export * from './modules/action-button';
 export * from './modules/card';
@@ -164,6 +166,7 @@ export * from './modules/list-view-grid';
 export * from './modules/modal';
 export * from './modules/media-queries';
 export * from './modules/navbar';
+export * from './modules/numeric';
 export * from './modules/page-summary';
 export * from './modules/paging';
 export * from './modules/popover';
