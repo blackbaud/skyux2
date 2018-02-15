@@ -207,4 +207,59 @@ describe('SkyPopoverDirective', () => {
     TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
     expect(spy).toHaveBeenCalledWith();
   });
+
+  it('should handle asynchronous popover references', () => {
+    const caller = directiveElements[4];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+    const eventListenerSpy = spyOn(callerInstance as any, 'addEventListeners').and.callThrough();
+
+    caller.nativeElement.click();
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeUndefined();
+    expect(eventListenerSpy).not.toHaveBeenCalled();
+
+    eventListenerSpy.calls.reset();
+
+    fixture.componentInstance.attachAsyncPopover();
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeDefined();
+    expect(eventListenerSpy).toHaveBeenCalled();
+  });
+
+  it('should remove event listeners before adding them again', () => {
+    const caller = directiveElements[4];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+    const addEventSpy = spyOn(callerInstance as any, 'addEventListeners').and.callThrough();
+    const removeEventSpy = spyOn(callerInstance as any, 'removeEventListeners').and.callThrough();
+
+    fixture.componentInstance.attachAsyncPopover();
+    fixture.detectChanges();
+
+    fixture.componentInstance.attachAnotherAsyncPopover();
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeDefined();
+    expect(addEventSpy.calls.count()).toEqual(2);
+    expect(removeEventSpy.calls.count()).toEqual(2);
+  });
+
+  it('should not add listeners to undefined popovers', () => {
+    const caller = directiveElements[4];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+
+    fixture.componentInstance.attachAsyncPopover();
+    fixture.detectChanges();
+
+    const addEventSpy = spyOn(callerInstance as any, 'addEventListeners').and.callThrough();
+    const removeEventSpy = spyOn(callerInstance as any, 'removeEventListeners').and.callThrough();
+
+    fixture.componentInstance.asyncPopoverRef = undefined;
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeUndefined();
+    expect(addEventSpy).not.toHaveBeenCalled();
+    expect(removeEventSpy).toHaveBeenCalled();
+  });
 });
