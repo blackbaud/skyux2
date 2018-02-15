@@ -7,7 +7,7 @@ import {
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
 describe('Autocomplete', () => {
-  it('should match previous alert screenshot', () => {
+  it('should match previous autocomplete screenshot', () => {
     return SkyVisualTest
       .setupTest('autocomplete')
       .then(() => {
@@ -29,7 +29,7 @@ describe('Autocomplete', () => {
       });
   });
 
-  it('should match previous alert screenshot on small screens', () => {
+  it('should match previous autocomplete screenshot on small screens', () => {
     return SkyVisualTest
       .setupTest('autocomplete', 480)
       .then(() => {

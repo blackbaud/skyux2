@@ -624,11 +624,11 @@
     "message": "Open Help"
   },
   "modal_footer_cancel_button": {
-    "_description": "Default lable text for modal cancel button",
+    "_description": "Default label text for modal cancel button",
     "message": "Cancel"
   },
   "modal_footer_primary_button": {
-    "_description": "Default lable text for modal primary button",
+    "_description": "Default label text for modal primary button",
     "message": "Save"
   },
   "month_short_april": {
