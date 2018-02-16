@@ -1,27 +1,23 @@
 @import '../../scss/mixins';
 
 .sky-lookup {
+  &:focus {
+    outline: none;
+  }
+
   textarea {
     resize: none;
     border: 0;
     overflow: hidden;
-    width: auto;
-    display: block;
     height: #{$sky-line-height-base}em;
-    flex: 1 1 100px;
+    box-sizing: content-box;
     padding: 0;
-    padding-left: 2px;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    display: inline-flex;
     background-color: transparent;
 
     &:focus {
       outline: none;
       box-shadow: none;
-    }
-
-    &.sky-lookup-input-hidden {
-      flex-basis: 1px;
     }
   }
 
@@ -32,18 +28,36 @@
     }
 
     .sky-tokens {
-      margin-left: -2px;
+      margin-top: -4px;
+      margin-bottom: -4px;
+
+      .sky-tokens-content {
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
     }
   }
 }
 
+// This "hides" the textarea if the component is not active.
+.sky-lookup:not(.sky-lookup-focused) {
+  ::ng-deep
+  .sky-tokens-content {
+    flex-basis: 1px !important;
+  }
+}
+
 .sky-lookup-search {
-  padding-top: 3px;
-  padding-bottom: 3px;
   cursor: text;
 }
 
-.sky-lookup-input-focused {
+.sky-lookup-disabled {
+  .sky-lookup-search {
+    cursor: default;
+  }
+}
+
+.sky-lookup-focused {
   .sky-lookup-search {
     @include sky-field-status(active);
   }

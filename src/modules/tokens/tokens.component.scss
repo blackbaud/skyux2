@@ -1,9 +1,35 @@
+@import '../../scss/mixins';
+
+$sky-tokens-gutter-size: 2px;
+
 .sky-tokens {
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0 -$sky-tokens-gutter-size;
 
+  .sky-tokens-content,
   ::ng-deep sky-token {
     flex: 0 0 auto;
+    display: inline-flex;
+    padding: $sky-tokens-gutter-size;
+  }
+
+  .sky-tokens-content {
+    flex-grow: 1;
+    flex-basis: 100px;
+
+    // Add a zero-width space to allow form controls to align
+    // properly to text baseline.
+    &:before {
+      content: '\200B';
+    }
+  }
+
+  &.sky-tokens-disabled {
+    ::ng-deep .sky-token {
+      cursor: default;
+    }
   }
 }
 
@@ -11,4 +37,5 @@
   background: transparent;
   padding: 0;
   border: 0;
+  margin-left: 2px;
 }

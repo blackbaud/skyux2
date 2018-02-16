@@ -2,12 +2,9 @@
 @import '~@blackbaud/skyux-design-tokens/scss/mixins';
 
 .sky-token {
-  white-space: nowrap;
   background-color: $sky-background-color-neutral-light;
-  border: 1px solid $sky-border-color-neutral-medium;
-  padding: 0 4px;
+  padding: 1px 7px;
   user-select: none;
-  margin: 2px;
 }
 
 :host {

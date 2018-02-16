@@ -4,12 +4,17 @@ import {
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import {
+  SkyTokens,
+  SkyTokensChange
+} from '../../modules/tokens';
+
 @Component({
   selector: 'sky-tokens-demo',
   templateUrl: './tokens-demo.component.html'
 })
 export class SkyTokensDemoComponent {
-  public tokenStream: BehaviorSubject<any>;
+  public tokenStream: BehaviorSubject<SkyTokens>;
 
   private defaultColors = [
     { name: 'Red' },
@@ -26,15 +31,44 @@ export class SkyTokensDemoComponent {
   ];
 
   constructor() {
-    this.tokenStream = new BehaviorSubject<any>({
-      tokens: this.defaultColors
+    this.createTokenStream();
+  }
+
+  public resetTokenStream() {
+    if (!this.tokenStream) {
+      this.createTokenStream();
+    }
+
+    this.tokenStream.next({
+      value: this.defaultColors
     });
   }
 
-  public resetTokens() {
-    console.log('token stream, next');
+  public changeTokenStream() {
+    if (!this.tokenStream) {
+      this.createTokenStream();
+    }
+
     this.tokenStream.next({
-      tokens: this.defaultColors
+      value: [
+        { name: 'Red' },
+        { name: 'White' },
+        { name: 'Blue' }
+      ]
     });
+  }
+
+  public killTokenStream() {
+    this.tokenStream = undefined;
+  }
+
+  public createTokenStream() {
+    this.tokenStream = new BehaviorSubject<any>({
+      value: this.defaultColors
+    });
+  }
+
+  public onTokenChanges(changes: SkyTokensChange) {
+    console.log('Token changes:', changes);
   }
 }

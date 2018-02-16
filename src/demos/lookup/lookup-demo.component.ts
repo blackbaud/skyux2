@@ -19,36 +19,19 @@ import {
   templateUrl: './lookup-demo.component.html'
 })
 export class SkyLookupDemoComponent implements OnInit {
-  public commandStream = new EventEmitter<any>();
+  public reactiveForm: FormGroup;
 
-  public colors: any[] = [
-    { name: 'Red' },
-    { name: 'Black' },
-    { name: 'Blue' },
-    { name: 'Brown' },
-    { name: 'Green' },
-    { name: 'Orange' },
-    { name: 'Purple' },
-    { name: 'White' },
-    { name: 'Yellow' }
+  public iceCreamFlavors: any[] = [
+    { name: 'Chocolate' },
+    { name: 'Moose Tracks' },
+    { name: 'Rocky Road' },
+    { name: 'Strawberry' },
+    { name: 'Vanilla' }
   ];
 
-  public selectedColors: any[] = [
-    { name: 'Red' }
+  public favoriteIceCreamFlavors: any[] = [
+    { name: 'Chocolate' }
   ];
-
-  public formModel: FormGroup;
-
-  public tokens = [
-    {
-      name: 'hello1'
-    },
-    {
-      name: 'hello2'
-    }
-  ];
-
-  public lookupInputId: string;
 
   constructor(
     private formBuilder: FormBuilder
@@ -56,46 +39,25 @@ export class SkyLookupDemoComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createForm();
-    this.formModel.reset({});
-    this.formModel.controls.favoriteColors.reset(this.selectedColors);
   }
 
-  public openDropdown(event: MouseEvent) {
-    this.commandStream.emit({
-      command: 'open'
-    });
-    event.stopPropagation();
+  public enableLookup() {
+    this.reactiveForm.controls.favoriteIceCreamFlavors.enable();
   }
 
-  public closeDropdown(event: MouseEvent) {
-    this.commandStream.emit({
-      command: 'close'
-    });
-    event.stopPropagation();
+  public disableLookup() {
+    this.reactiveForm.controls.favoriteIceCreamFlavors.disable();
   }
 
-  public submit() {
-    console.log('submitted with:', this.formModel.value);
-  }
-
-  public onResultSelected(changes: SkyLookupChanges) {
-    // console.log('onResultSelected', changes);
-  }
-
-  public mySearchFunction(searchText: string): any[] {
-    // console.log('searching based on:', searchText);
-    return [{}];
-  }
-
-  public handleSelectionChanged(changes: any) {
-    // console.log('Autocomplete, you selected:', changes.result);
+  public submitReactiveForm() {
+    alert('Form submitted with: ' + JSON.stringify(this.reactiveForm.value));
   }
 
   private createForm(): void {
-    this.formModel = this.formBuilder.group({
-      favoriteColor: undefined,
-      favoriteColors: new FormControl({
-        name: undefined
+    this.reactiveForm = this.formBuilder.group({
+      favoriteIceCreamFlavors: new FormControl({
+        value: this.favoriteIceCreamFlavors,
+        disabled: false
       })
     });
   }

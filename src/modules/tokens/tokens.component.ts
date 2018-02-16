@@ -4,10 +4,12 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   ViewChildren
 } from '@angular/core';
 
@@ -17,8 +19,17 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
-  SkyTokenComponent
-} from './token.component';
+  SkyWindowRefService
+} from '../../modules/window';
+
+import {
+  SkyTokens,
+  SkyTokensChange,
+  SkyTokensMessage,
+  SkyTokensMessageType
+} from './types';
+
+import { SkyTokenComponent } from './token.component';
 
 @Component({
   selector: 'sky-tokens',
@@ -26,7 +37,16 @@ import {
   styleUrls: ['./tokens.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTokensComponent implements OnInit, OnDestroy {
+export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
+  @Input()
+  public set allowFocus(value: boolean) {
+    this._allowFocus = value;
+  }
+
+  public get allowFocus(): boolean {
+    return (this._allowFocus && !this.disabled);
+  }
+
   @Input()
   public disabled = false;
 
@@ -40,53 +60,105 @@ export class SkyTokensComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  public tokenStream: Observable<any>;
+  public messageStream = new Subject<SkyTokensMessage>();
+
+  @Input()
+  public tokenStream: Observable<SkyTokens>;
 
   @Output()
-  public changes = new EventEmitter<any>();
+  public changes = new EventEmitter<SkyTokensChange>();
 
-  @Output()
-  public blur = new EventEmitter<void>();
+  public get activeIndex(): number {
+    return this._activeIndex || 0;
+  }
+
+  public set activeIndex(value: number) {
+    if (value >= this.tokens.length) {
+      value = this.tokens.length - 1;
+    }
+
+    if (value < 0) {
+      value = 0;
+    }
+
+    if (this._activeIndex !== value) {
+      this.changes.next({
+        activeIndex: value
+      });
+    }
+
+    this._activeIndex = value;
+  }
 
   @ViewChildren(SkyTokenComponent)
-  public tokenElements: QueryList<SkyTokenComponent>;
-
+  private tokenComponents: QueryList<SkyTokenComponent>;
   private destroy = new Subject<boolean>();
-  private focusIndex = 0;
-  private tokens: any[];
+  private tokenStreamDestroy = new Subject<boolean>();
 
+  private get tokens(): any[] {
+    return this._tokens || [];
+  }
+
+  private set tokens(value: any[]) {
+    console.log('set tokens:', value);
+    this._tokens = value;
+  }
+
+  private _activeIndex: number;
+  private _allowFocus = false;
+  private _tokens: any[];
   private _displayWith: string;
 
   constructor(
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private windowRef: SkyWindowRefService
   ) { }
 
   public ngOnInit() {
-    this.tokenStream
+    this.messageStream
       .takeUntil(this.destroy)
-      .subscribe((args: any) => {
-        this.tokens = args.tokens;
-        this.changeDetector.markForCheck();
+      .subscribe((message: SkyTokensMessage) => {
+        this.handleIncomingMessages(message);
       });
   }
 
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes.tokenStream) {
+      this.resetTokenStream();
+
+      if (!changes.tokenStream.currentValue) {
+        this.tokens = [];
+        this.changes.next({
+          tokens: this.tokens
+        });
+        return;
+      }
+
+      this.tokenStream
+        .takeUntil(this.tokenStreamDestroy)
+        .subscribe((tokens: SkyTokens) => {
+          console.log('token stream:', tokens);
+          this.tokens = tokens.value;
+          this.changeDetector.markForCheck();
+        });
+    }
+  }
+
   public ngOnDestroy() {
+    this.resetTokenStream();
     this.destroy.next(true);
     this.destroy.unsubscribe();
   }
 
-  public onKeyDown(event: KeyboardEvent, token: any) {
+  public onKeyUp(event: KeyboardEvent, token: any) {
     const key = event.key.toLowerCase();
 
-    if (this.disabled) {
-      return;
-    }
-
+    /* tslint:disable-next-line:switch-default */
     switch (key) {
       case 'delete':
       case 'backspace':
       this.removeToken(token);
-      setTimeout(() => {
+      this.windowRef.getWindow().setTimeout(() => {
         this.focusPreviousToken();
       });
       event.preventDefault();
@@ -101,80 +173,62 @@ export class SkyTokensComponent implements OnInit, OnDestroy {
       this.focusNextToken();
       event.preventDefault();
       break;
-
-      default:
-      break;
     }
-  }
-
-  public onClick(token: any) {
-    this.tokens.find((t: any, i: number) => {
-      if (t === token) {
-        this.focusIndex = i;
-        return t;
-      }
-    });
-  }
-
-  public onFocus(index: number) {
-    this.focusIndex = index;
   }
 
   public removeToken(token: any) {
     this.tokens = this.tokens.filter(t => t !== token);
-    this.changes.emit({
+    this.changes.next({
       tokens: this.tokens
     });
   }
 
-  public focusLastToken() {
-    const lastToken = this.tokenElements.last;
-
+  public getTabIndex(): any {
     if (this.disabled) {
-      return;
+      return false;
     }
 
-    if (lastToken) {
-      lastToken.focusElement();
-      this.focusIndex = this.tokenElements.length - 1;
-    } else {
-      this.exitFocus();
-    }
+    return (this.allowFocus) ? 0 : -1;
   }
 
   private focusPreviousToken() {
-    this.focusIndex--;
-
-    if (this.focusIndex < 0) {
-      this.focusIndex = 0;
-    }
-
+    this.activeIndex--;
     this.focusActiveToken();
   }
 
   private focusNextToken() {
-    this.focusIndex++;
-    if (this.focusIndex >= this.tokens.length) {
-      this.focusIndex = this.tokens.length - 1;
-      this.exitFocus();
-    } else {
-      this.focusActiveToken();
-    }
+    this.activeIndex++;
+    this.focusActiveToken();
+  }
+
+  private focusLastToken() {
+    this.activeIndex = this.tokenComponents.length - 1;
+    this.focusActiveToken();
   }
 
   private focusActiveToken() {
-    const activeToken = this.tokenElements.find((token: any, i: number) => {
-      return (this.focusIndex === i);
-    });
+    const tokenComponent = this.tokenComponents
+      .find((token: any, i: number) => {
+        return (this.activeIndex === i);
+      });
 
-    if (activeToken) {
-      activeToken.focusElement();
-    } else {
-      this.exitFocus();
+    if (tokenComponent) {
+      tokenComponent.focusElement();
     }
   }
 
-  private exitFocus() {
-    this.blur.emit();
+  private resetTokenStream() {
+    this.tokenStreamDestroy.next(true);
+    this.tokenStreamDestroy.unsubscribe();
+    this.tokenStreamDestroy = new Subject<boolean>();
+  }
+
+  private handleIncomingMessages(message: SkyTokensMessage) {
+    /* tslint:disable-next-line:switch-default */
+    switch (message.type) {
+      case SkyTokensMessageType.FocusLastToken:
+      this.focusLastToken();
+      break;
+    }
   }
 }

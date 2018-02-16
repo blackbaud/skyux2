@@ -1,32 +1,45 @@
+<h3 class="sky-section-heading">
+  Reactive form setup
+</h3>
+
 <form
-  [formGroup]="formModel"
-  (ngSubmit)="submit()"
+  [formGroup]="reactiveForm"
+  (ngSubmit)="submitReactiveForm()"
   novalidate>
 
   <sky-row>
     <sky-column screenSmall="6">
       <div class="sky-form-group">
         <label>
-          What are your favorite colors?
+          Favorite ice cream flavors?
         </label>
         <sky-lookup
-          [data]="colors"
-          [selectedItems]="selectedColors"
-          (selectionChanges)="onResultSelected($event)">
+          [data]="iceCreamFlavors"
+          formControlName="favoriteIceCreamFlavors">
         </sky-lookup>
       </div>
     </sky-column>
     <sky-column screenSmall="6">
-      <label>
-        This is a standard field for comparison
-      </label>
-      <input type="text" class="sky-form-control">
+      <div class="sky-form-group">
+        <label>
+          Sample
+        </label>
+        <input type="text" class="sky-form-control">
+      </div>
     </sky-column>
   </sky-row>
+
+  <button type="button" (click)="disableLookup()">Disable lookup</button>
+  <button type="button" (click)="enableLookup()">Enable lookup</button>
 
   <button
     class="sky-btn sky-btn-primary"
     type="submit">
     Submit
   </button>
+
+  <div class="lookup-demo-alert">
+    <strong>Form model:</strong>
+    <pre>{{ reactiveForm.value | json }}</pre>
+  </div>
 </form>
