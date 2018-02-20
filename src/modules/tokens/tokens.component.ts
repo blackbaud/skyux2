@@ -17,10 +17,12 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
+  SkyToken,
   SkyTokens,
   SkyTokensChange,
   SkyTokensMessage,
-  SkyTokensMessageType
+  SkyTokensMessageType,
+  SkyTokenSelectedEventArgs
 } from './types';
 
 import { SkyTokenComponent } from './token.component';
@@ -62,6 +64,9 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   @Output()
   public focusEnd = new EventEmitter<void>();
 
+  @Output()
+  public tokenSelected = new EventEmitter<SkyTokenSelectedEventArgs>();
+
   public get activeIndex(): number {
     return this._activeIndex || 0;
   }
@@ -84,16 +89,16 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   private destroyed = new ReplaySubject<boolean>();
   private tokenStreamDestroyed = new ReplaySubject<boolean>();
 
-  private get tokens(): any[] {
+  private get tokens(): SkyToken[] {
     return this._tokens || [];
   }
 
-  private set tokens(value: any[]) {
+  private set tokens(value: SkyToken[]) {
     this._tokens = value;
   }
 
   private _activeIndex: number;
-  private _tokens: any[];
+  private _tokens: SkyToken[];
   private _displayWith: string;
 
   constructor(
@@ -121,7 +126,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
       this.tokenStream
         .takeUntil(this.tokenStreamDestroyed)
         .subscribe((tokens: SkyTokens) => {
-          this.tokens = tokens.value;
+          this.tokens = tokens.value.map(value => ({ value }));
           this.changeDetector.markForCheck();
         });
     }
@@ -133,12 +138,20 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this.destroyed.unsubscribe();
   }
 
-  public onKeyUp(event: KeyboardEvent) {
-    if (!this.focusable) {
+  public onTokenClick(token: SkyToken) {
+    if (!this.isSelectable()) {
       return;
     }
 
+    this.notifyTokenSelected(token);
+  }
+
+  public onTokenKeyUp(event: KeyboardEvent, token: SkyToken) {
     const key = event.key.toLowerCase();
+
+    if (!this.isSelectable()) {
+      return;
+    }
 
     /* tslint:disable-next-line:switch-default */
     switch (key) {
@@ -149,6 +162,11 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
       case 'arrowright':
       this.focusNextToken();
+      event.preventDefault();
+      break;
+
+      case 'enter':
+      this.notifyTokenSelected(token);
       event.preventDefault();
       break;
     }
@@ -177,7 +195,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   private focusActiveToken() {
     const tokenComponent = this.tokenComponents
-      .find((token: any, i: number) => {
+      .find((comp: SkyTokenComponent, i: number) => {
         return (this.activeIndex === i);
       });
 
@@ -203,9 +221,17 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   private notifyChanges() {
     this.changes.next({
-      tokens: {
-        value: this.tokens
-      }
+      tokens: this.tokens
     });
+  }
+
+  private notifyTokenSelected(token: SkyToken) {
+    this.tokenSelected.emit({
+      token
+    });
+  }
+
+  private isSelectable(): boolean {
+    return (!this.disabled && this.focusable);
   }
 }

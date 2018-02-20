@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import {
   SkyTokens,
-  SkyTokensChange
+  SkyTokensChange,
+  SkyTokenSelectedEventArgs
 } from '../../modules/tokens';
 
 @Component({
@@ -14,17 +15,10 @@ import {
   templateUrl: './tokens-demo.component.html'
 })
 export class SkyTokensDemoComponent {
-  public tokenStream: BehaviorSubject<SkyTokens>;
-  public filterTokenStream = new BehaviorSubject<SkyTokens>({
-    value: [
-      { label: 'Canada' },
-      { label: 'Older than 55' },
-      { label: 'Employed' },
-      { label: 'Added before 2018' }
-    ]
-  });
+  public colorChanges: BehaviorSubject<SkyTokens>;
+  public filterChanges: BehaviorSubject<SkyTokens>;
 
-  private defaultColors = [
+  private colors = [
     { name: 'Red' },
     { name: 'Black' },
     { name: 'Blue' },
@@ -38,26 +32,37 @@ export class SkyTokensDemoComponent {
     { name: 'Yellow' }
   ];
 
+  private filters = [
+    { label: 'Canada' },
+    { label: 'Older than 55' },
+    { label: 'Employed' },
+    { label: 'Added before 2018' }
+  ];
+
   constructor() {
-    this.createTokenStream();
-  }
+    this.createColorStream();
 
-  public resetTokenStream() {
-    if (!this.tokenStream) {
-      this.createTokenStream();
-    }
-
-    this.tokenStream.next({
-      value: this.defaultColors
+    this.filterChanges = new BehaviorSubject<SkyTokens>({
+      value: this.filters
     });
   }
 
-  public changeTokenStream() {
-    if (!this.tokenStream) {
-      this.createTokenStream();
+  public resetColorStream() {
+    if (!this.colorChanges) {
+      this.createColorStream();
     }
 
-    this.tokenStream.next({
+    this.colorChanges.next({
+      value: this.colors
+    });
+  }
+
+  public changeColorStream() {
+    if (!this.colorChanges) {
+      this.createColorStream();
+    }
+
+    this.colorChanges.next({
       value: [
         { name: 'Red' },
         { name: 'White' },
@@ -66,17 +71,21 @@ export class SkyTokensDemoComponent {
     });
   }
 
-  public destroyTokenStream() {
-    this.tokenStream = undefined;
+  public destroyColorStream() {
+    this.colorChanges = undefined;
   }
 
-  public createTokenStream() {
-    this.tokenStream = new BehaviorSubject<any>({
-      value: this.defaultColors
+  public createColorStream() {
+    this.colorChanges = new BehaviorSubject<SkyTokens>({
+      value: this.colors
     });
   }
 
   public onTokenChanges(changes: SkyTokensChange) {
     console.log('Token changes:', changes);
+  }
+
+  public onTokenSelected(args: SkyTokenSelectedEventArgs) {
+    console.log('Token selected:', args);
   }
 }

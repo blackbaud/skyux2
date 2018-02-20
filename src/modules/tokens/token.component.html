@@ -2,7 +2,8 @@
   class="sky-token sky-btn sky-btn-default"
   [ngClass]="{
     'sky-btn-disabled': disabled,
-    'sky-token-focusable': focusable
+    'sky-token-focusable': focusable,
+    'sky-token-static': !focusable && !disabled
   }"
   [attr.role]="ariaRole"
   [attr.tabindex]="tabIndex"

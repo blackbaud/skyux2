@@ -24,6 +24,11 @@
   }
 }
 
+.sky-token-static {
+  border-radius: 0;
+  border-color: transparent;
+}
+
 .sky-btn-disabled {
   cursor: default;
   user-select: none;
@@ -34,4 +39,13 @@
   padding: 0;
   border: 0;
   margin-left: 2px;
+  opacity: .9;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }

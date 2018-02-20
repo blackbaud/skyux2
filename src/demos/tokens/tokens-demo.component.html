@@ -8,7 +8,7 @@
 
 <p>
   <sky-tokens
-    [tokenStream]="tokenStream"
+    [tokenStream]="colorChanges"
     (changes)="onTokenChanges($event)">
   </sky-tokens>
 </p>
@@ -25,7 +25,7 @@
 
 <p>
   <sky-tokens
-    [tokenStream]="tokenStream"
+    [tokenStream]="colorChanges"
     [dismissible]="false">
   </sky-tokens>
 </p>
@@ -42,7 +42,7 @@
 
 <p>
   <sky-tokens
-    [tokenStream]="tokenStream"
+    [tokenStream]="colorChanges"
     [dismissible]="false"
     [focusable]="false">
   </sky-tokens>
@@ -61,7 +61,7 @@
 <p>
   <sky-tokens
     [disabled]="true"
-    [tokenStream]="tokenStream">
+    [tokenStream]="colorChanges">
   </sky-tokens>
 </p>
 
@@ -75,28 +75,28 @@
   <button
     class="sky-btn sky-btn-default"
     type="button"
-    (click)="changeTokenStream()">
+    (click)="changeColorStream()">
     Change tokens
   </button>
 
   <button
     class="sky-btn sky-btn-default"
     type="button"
-    (click)="resetTokenStream()">
+    (click)="resetColorStream()">
     Reset tokens
   </button>
 
   <button
     class="sky-btn sky-btn-default"
     type="button"
-    (click)="destroyTokenStream()">
+    (click)="destroyColorStream()">
     Destroy tokens
   </button>
 
   <button
     class="sky-btn sky-btn-default"
     type="button"
-    (click)="createTokenStream()">
+    (click)="createColorStream()">
     Replace tokens
   </button>
 </p>
@@ -108,13 +108,14 @@
 </h3>
 
 <p>
-  These tokens define a custom property to display their value.
+  These tokens define a custom property to display their value, and emit an event when a token is selected.
 </p>
 
 <p>
   <sky-tokens
     displayWith="label"
-    [tokenStream]="filterTokenStream">
+    [tokenStream]="filterChanges"
+    (tokenSelected)="onTokenSelected($event)">
     (You may also include content inside the tokens component.)
   </sky-tokens>
 </p>

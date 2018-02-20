@@ -1,8 +1,7 @@
 <div
   *ngIf="tokens"
   class="sky-tokens"
-  role="list"
-  [ngClass]="{ 'sky-tokens-disabled': disabled }">
+  role="list">
 
   <sky-token
     *ngFor="let token of tokens; let i = index"
@@ -11,9 +10,10 @@
     [dismissible]="dismissible"
     [focusable]="focusable"
     (dismiss)="removeToken(token)"
-    (keyup)="onKeyUp($event)"
+    (click)="onTokenClick(token)"
+    (keyup)="onTokenKeyUp($event, token)"
     (tokenFocus)="activeIndex = i">
-    {{ token[displayWith] }}
+    {{ token.value[displayWith] }}
   </sky-token>
 
   <div class="sky-tokens-content">
