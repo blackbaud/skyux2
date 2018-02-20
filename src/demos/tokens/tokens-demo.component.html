@@ -1,0 +1,82 @@
+<h3 class="sky-subsection-heading">
+  Default setup
+</h3>
+
+<p>
+  These tokens may be navigated with the arrow keys, and dismissed by either clicking the close button on each token, or pressing the backspace key.
+</p>
+
+<p>
+  <sky-tokens
+    [tokenStream]="tokenStream"
+    (changes)="onTokenChanges($event)">
+  </sky-tokens>
+</p>
+
+<hr>
+
+<h3 class="sky-subsection-heading">
+  Static tokens
+</h3>
+
+<p>
+  These tokens cannot be dismissed. However, they may still be navigated using the arrow keys.
+</p>
+
+<p>
+  <sky-tokens
+    [tokenStream]="tokenStream"
+    [dismissible]="false">
+  </sky-tokens>
+</p>
+
+<hr>
+
+<h3 class="sky-subsection-heading">
+  Disabled tokens
+</h3>
+
+<p>
+  These tokens are disabled and cannot be dismissed or navigated with the arrow keys.
+</p>
+
+<p>
+  <sky-tokens
+    [disabled]="true"
+    [tokenStream]="tokenStream">
+  </sky-tokens>
+</p>
+
+<hr>
+
+<h3 class="sky-subsection-heading">
+  Token stream interactions
+</h3>
+
+<button
+  class="sky-btn sky-btn-default"
+  type="button"
+  (click)="changeTokenStream()">
+  Change tokens
+</button>
+
+<button
+  class="sky-btn sky-btn-default"
+  type="button"
+  (click)="resetTokenStream()">
+  Reset tokens
+</button>
+
+<button
+  class="sky-btn sky-btn-default"
+  type="button"
+  (click)="destroyTokenStream()">
+  Destroy tokens
+</button>
+
+<button
+  class="sky-btn sky-btn-default"
+  type="button"
+  (click)="createTokenStream()">
+  Replace tokens
+</button>
