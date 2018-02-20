@@ -1,5 +1,4 @@
 import {
-  AfterContentChecked,
   AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -29,6 +28,7 @@ import {
 
 import {
   SkyTokens,
+  SkyTokensChange,
   SkyTokensMessage,
   SkyTokensMessageType
 } from '../tokens';
@@ -89,13 +89,13 @@ export class SkyLookupComponent
   public tokensController = new ReplaySubject<SkyTokensMessage>();
 
   @ViewChild(SkyAutocompleteInputDirective)
-  private inputDirective: SkyAutocompleteInputDirective;
+  private autocompleteInputDirective: SkyAutocompleteInputDirective;
 
   @ViewChild('lookupInput')
   private lookupInput: ElementRef;
-
-  private destroy = new ReplaySubject<boolean>();
+  private destroyed = new ReplaySubject<boolean>();
   private idled = new ReplaySubject<boolean>();
+  private markForTokenFocusOnKeyUp = false;
 
   private _value: any[];
 
@@ -119,24 +119,30 @@ export class SkyLookupComponent
 
   public ngOnDestroy() {
     this.removeEventListeners();
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.destroyed.next(true);
+    this.destroyed.unsubscribe();
   }
 
   public onAutocompleteSelectionChange(change: SkyAutocompleteSelectionChange) {
     this.addToSelected(change.selectedItem);
-    this.lookupInput.nativeElement.focus();
+    this.focusInput();
   }
 
-  public onTokenChanges(changes: any) {
-    if (changes.tokens) {
-      if (changes.tokens.length === 0) {
-        this.lookupInput.nativeElement.focus();
+  public onTokensChange(change: SkyTokensChange) {
+    if (change.tokens) {
+      if (change.tokens.value.length === 0) {
+        this.focusInput();
       }
 
-      this.value = this.cloneItems(changes.tokens);
+      this.value = this.cloneItems(change.tokens.value);
       this.notifySelectionChange(this.value);
     }
+  }
+
+  public onTokensFocusEnd() {
+    this.windowRef.getWindow().setTimeout(() => {
+      this.focusInput();
+    });
   }
 
   public writeValue(value: any) {
@@ -151,18 +157,6 @@ export class SkyLookupComponent
 
   public registerOnTouched(fn: () => void) {
     this.onTouched = fn;
-  }
-
-  public setDisabledState(disabled: boolean) {
-    this.disabled = disabled;
-    this.removeEventListeners();
-
-    if (!disabled) {
-      this.addEventListeners();
-    } else {
-      this.isInputFocused = false;
-      this.changeDetector.markForCheck();
-    }
   }
 
   // Angular automatically constructs these methods.
@@ -182,26 +176,6 @@ export class SkyLookupComponent
     this.clearSearchText();
   }
 
-  private clearSearchText() {
-    this.inputDirective.value = undefined;
-  }
-
-  private isSearchEmpty() {
-    return (!this.lookupInput.nativeElement.value);
-  }
-
-  private notifySelectionChange(items: any[]) {
-    this.selectionChanges.emit({
-      selectedItems: items
-    });
-  }
-
-  private cloneItems(items: any[]): any[] {
-    return items.map(item => {
-      return { ...item };
-    });
-  }
-
   private addEventListeners() {
     const inputElement = this.lookupInput.nativeElement;
     const hostElement = this.elementRef.nativeElement;
@@ -214,13 +188,25 @@ export class SkyLookupComponent
       .takeUntil(this.idled)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
+        if (key === 'arrowleft' || key === 'backspace') {
+          if (this.isSearchEmpty()) {
+            this.markForTokenFocusOnKeyUp = true;
+          } else {
+            this.markForTokenFocusOnKeyUp = false;
+          }
+        }
+      });
 
+    Observable
+      .fromEvent(inputElement, 'keyup')
+      .takeUntil(this.idled)
+      .subscribe((event: KeyboardEvent) => {
+        const key = event.key.toLowerCase();
         /* tslint:disable-next-line:switch-default */
         switch (key) {
           case 'arrowleft':
           case 'backspace':
-          if (this.isSearchEmpty()) {
-            event.preventDefault();
+          if (this.markForTokenFocusOnKeyUp) {
             this.tokensController.next({
               type: SkyTokensMessageType.FocusLastToken
             });
@@ -230,11 +216,6 @@ export class SkyLookupComponent
           case 'escape':
           event.preventDefault();
           this.clearSearchText();
-          break;
-
-          // Prevent newlines from being created in the textarea.
-          case 'enter':
-          event.preventDefault();
           break;
         }
       });
@@ -260,9 +241,9 @@ export class SkyLookupComponent
     Observable
       .fromEvent(documentObj, 'mouseup')
       .takeUntil(this.idled)
-      .subscribe((event: MouseEvent) => {
+      .subscribe(() => {
         if (!isSomethingFocused) {
-          this.lookupInput.nativeElement.focus();
+          this.focusInput();
         }
       });
 
@@ -270,9 +251,7 @@ export class SkyLookupComponent
       .fromEvent(documentObj, 'focusin')
       .takeUntil(this.idled)
       .subscribe((event: KeyboardEvent) => {
-        const targetIsChild = (hostElement.contains(event.target));
-
-        if (targetIsChild) {
+        if (hostElement.contains(event.target)) {
           isSomethingFocused = true;
           this.isInputFocused = true;
         } else {
@@ -287,5 +266,29 @@ export class SkyLookupComponent
     this.idled.next(true);
     this.idled.unsubscribe();
     this.idled = new ReplaySubject<boolean>();
+  }
+
+  private focusInput() {
+    this.lookupInput.nativeElement.focus();
+  }
+
+  private clearSearchText() {
+    this.autocompleteInputDirective.value = undefined;
+  }
+
+  private isSearchEmpty() {
+    return (!this.lookupInput.nativeElement.value);
+  }
+
+  private notifySelectionChange(items: any[]) {
+    this.selectionChanges.emit({
+      selectedItems: items
+    });
+  }
+
+  private cloneItems(items: any[]): any[] {
+    return items.map(item => {
+      return { ...item };
+    });
   }
 }

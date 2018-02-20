@@ -1,6 +1,5 @@
 import {
   Component,
-  EventEmitter,
   OnInit
 } from '@angular/core';
 
@@ -9,10 +8,6 @@ import {
   FormControl,
   FormGroup
 } from '@angular/forms';
-
-import {
-  SkyLookupChanges
-} from '../../modules/lookup';
 
 @Component({
   selector: 'sky-lookup-demo',

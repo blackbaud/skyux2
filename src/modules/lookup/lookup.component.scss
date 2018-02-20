@@ -1,10 +1,6 @@
 @import '../../scss/mixins';
 
 .sky-lookup {
-  &:focus {
-    outline: none;
-  }
-
   textarea {
     resize: none;
     border: 0;
@@ -28,22 +24,14 @@
     }
 
     .sky-tokens {
-      margin-top: -4px;
-      margin-bottom: -4px;
+      margin-top: -5px;
+      margin-bottom: -5px;
 
       .sky-tokens-content {
-        padding-top: 4px;
-        padding-bottom: 4px;
+        padding-top: 5px;
+        padding-bottom: 5px;
       }
     }
-  }
-}
-
-// This "hides" the textarea if the component is not active.
-.sky-lookup:not(.sky-lookup-focused) {
-  ::ng-deep
-  .sky-tokens-content {
-    flex-basis: 1px !important;
   }
 }
 
@@ -60,5 +48,9 @@
 .sky-lookup-focused {
   .sky-lookup-search {
     @include sky-field-status(active);
+  }
+
+  ::ng-deep .sky-tokens-content {
+    flex-basis: 100px;
   }
 }

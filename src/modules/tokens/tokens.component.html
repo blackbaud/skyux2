@@ -1,26 +1,17 @@
 <div
+  *ngIf="tokens"
   class="sky-tokens"
-  [ngClass]="{ 'sky-tokens-disabled': disabled }"
-  *ngIf="tokens">
+  [ngClass]="{ 'sky-tokens-disabled': disabled }">
 
   <sky-token
     *ngFor="let token of tokens; let i = index"
-    [attr.tabindex]="getTabIndex()"
     [disabled]="disabled"
-    (keydown)="onKeyUp($event, token)"
-    (focus)="activeIndex = i">
-
+    [dismissible]="dismissible"
+    [focusable]="focusable"
+    (dismiss)="removeToken(token)"
+    (keyup)="onKeyUp($event)"
+    (tokenFocus)="activeIndex = i">
     {{ token[displayWith] }}
-
-    <button
-      type="button"
-      tabindex="-1"
-      class="sky-btn sky-token-btn-close"
-      [attr.aria-hidden]="true"
-      [disabled]="disabled"
-      (click)="removeToken(token)">
-      <i class="fa fa-times"></i>
-    </button>
   </sky-token>
 
   <div class="sky-tokens-content">

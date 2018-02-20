@@ -1,4 +1,5 @@
+import { SkyTokens } from './tokens';
+
 export interface SkyTokensChange {
-  activeIndex?: number;
-  tokens?: any[];
+  tokens?: SkyTokens;
 }

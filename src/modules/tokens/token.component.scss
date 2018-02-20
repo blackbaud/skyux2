@@ -1,19 +1,31 @@
-@import '../../scss/mixins';
 @import '~@blackbaud/skyux-design-tokens/scss/mixins';
+@import '../../scss/mixins';
 
 .sky-token {
-  background-color: $sky-background-color-neutral-light;
-  padding: 1px 7px;
+  background-color: $sky-background-color-info-light;
+  border: 1px solid $sky-highlight-color-info;
+  padding: 2px 6px;
   user-select: none;
+  display: inline-block;
+  cursor: default;
 }
 
-:host {
+.sky-token-focusable {
+  &:hover,
   &:focus {
-    outline: none;
-
-    .sky-token {
-      background-color: $sky-background-color-info-light;
-      border: 1px solid $sky-highlight-color-info;
-    }
+    background-color: darken($sky-background-color-info-light, 10%);
+    border-color: darken($sky-highlight-color-info, 10%);
+    cursor: pointer;
   }
+
+  &:focus {
+    @include sky-field-status('active');
+  }
+}
+
+.sky-token-btn-close {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  margin-left: 2px;
 }

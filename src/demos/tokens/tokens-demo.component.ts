@@ -58,7 +58,7 @@ export class SkyTokensDemoComponent {
     });
   }
 
-  public killTokenStream() {
+  public destroyTokenStream() {
     this.tokenStream = undefined;
   }
 
