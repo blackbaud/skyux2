@@ -81,11 +81,15 @@ export class SkyTokensDemoComponent {
     });
   }
 
-  public onTokenChanges(changes: SkyTokensChange) {
+  public onChanges(changes: SkyTokensChange) {
     console.log('Token changes:', changes);
   }
 
   public onTokenSelected(args: SkyTokenSelectedEventArgs) {
     console.log('Token selected:', args);
+  }
+
+  public onFocusIndexLimitReached() {
+    console.log('Last token focused.');
   }
 }

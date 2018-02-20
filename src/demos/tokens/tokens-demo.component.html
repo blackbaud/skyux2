@@ -9,7 +9,7 @@
 <p>
   <sky-tokens
     [tokenStream]="colorChanges"
-    (changes)="onTokenChanges($event)">
+    (changes)="onChanges($event)">
   </sky-tokens>
 </p>
 
@@ -115,6 +115,7 @@
   <sky-tokens
     displayWith="label"
     [tokenStream]="filterChanges"
+    (focusIndexLimitReached)="onFocusIndexLimitReached()"
     (tokenSelected)="onTokenSelected($event)">
     (You may also include content inside the tokens component.)
   </sky-tokens>

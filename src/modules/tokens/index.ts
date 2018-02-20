@@ -1,6 +1,6 @@
-export * from './token.module';
-export * from './tokens.component';
 export * from './token.component';
+export * from './tokens.component';
+export * from './tokens.module';
 
 export {
   SkyTokensChange,
