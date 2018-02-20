@@ -16,7 +16,7 @@
 <hr>
 
 <h3 class="sky-subsection-heading">
-  Static tokens
+  Non-dismissible tokens
 </h3>
 
 <p>
@@ -27,6 +27,24 @@
   <sky-tokens
     [tokenStream]="tokenStream"
     [dismissible]="false">
+  </sky-tokens>
+</p>
+
+<hr>
+
+<h3 class="sky-subsection-heading">
+  Static tokens
+</h3>
+
+<p>
+  These tokens cannot be dismissed or focused.
+</p>
+
+<p>
+  <sky-tokens
+    [tokenStream]="tokenStream"
+    [dismissible]="false"
+    [focusable]="false">
   </sky-tokens>
 </p>
 
@@ -53,30 +71,50 @@
   Token stream interactions
 </h3>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="changeTokenStream()">
-  Change tokens
-</button>
+<p>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="changeTokenStream()">
+    Change tokens
+  </button>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="resetTokenStream()">
-  Reset tokens
-</button>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="resetTokenStream()">
+    Reset tokens
+  </button>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="destroyTokenStream()">
-  Destroy tokens
-</button>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="destroyTokenStream()">
+    Destroy tokens
+  </button>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="createTokenStream()">
-  Replace tokens
-</button>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="createTokenStream()">
+    Replace tokens
+  </button>
+</p>
+
+<hr>
+
+<h3 class="sky-subsection-heading">
+  Custom setup
+</h3>
+
+<p>
+  These tokens define a custom property to display their value.
+</p>
+
+<p>
+  <sky-tokens
+    displayWith="label"
+    [tokenStream]="filterTokenStream">
+    (You may also include content inside the tokens component.)
+  </sky-tokens>
+</p>

@@ -1,10 +1,12 @@
 <div
   *ngIf="tokens"
   class="sky-tokens"
+  role="list"
   [ngClass]="{ 'sky-tokens-disabled': disabled }">
 
   <sky-token
     *ngFor="let token of tokens; let i = index"
+    role="listitem"
     [disabled]="disabled"
     [dismissible]="dismissible"
     [focusable]="focusable"

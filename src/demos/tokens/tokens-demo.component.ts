@@ -15,6 +15,14 @@ import {
 })
 export class SkyTokensDemoComponent {
   public tokenStream: BehaviorSubject<SkyTokens>;
+  public filterTokenStream = new BehaviorSubject<SkyTokens>({
+    value: [
+      { label: 'Canada' },
+      { label: 'Older than 55' },
+      { label: 'Employed' },
+      { label: 'Added before 2018' }
+    ]
+  });
 
   private defaultColors = [
     { name: 'Red' },
