@@ -130,11 +130,12 @@ export class SkyLookupComponent
 
   public onTokensChange(change: SkyTokensChange) {
     if (change.tokens) {
-      if (change.tokens.value.length === 0) {
+      if (change.tokens.length === 0) {
         this.focusInput();
       }
 
-      this.value = this.cloneItems(change.tokens.value);
+      const tokens = change.tokens.map(token => token.value);
+      this.value = this.cloneItems(tokens);
       this.notifySelectionChange(this.value);
     }
   }

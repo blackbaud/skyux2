@@ -8,8 +8,25 @@
 
 <p>
   <sky-tokens
-    [tokenStream]="tokenStream"
-    (changes)="onTokenChanges($event)">
+    [tokenStream]="colorChanges"
+    (changes)="onChanges($event)">
+  </sky-tokens>
+</p>
+
+<hr>
+
+<h3 class="sky-subsection-heading">
+  Non-dismissible tokens
+</h3>
+
+<p>
+  These tokens cannot be dismissed. However, they may still be navigated using the arrow keys.
+</p>
+
+<p>
+  <sky-tokens
+    [tokenStream]="colorChanges"
+    [dismissible]="false">
   </sky-tokens>
 </p>
 
@@ -20,13 +37,14 @@
 </h3>
 
 <p>
-  These tokens cannot be dismissed. However, they may still be navigated using the arrow keys.
+  These tokens cannot be dismissed or focused.
 </p>
 
 <p>
   <sky-tokens
-    [tokenStream]="tokenStream"
-    [dismissible]="false">
+    [tokenStream]="colorChanges"
+    [dismissible]="false"
+    [focusable]="false">
   </sky-tokens>
 </p>
 
@@ -43,7 +61,7 @@
 <p>
   <sky-tokens
     [disabled]="true"
-    [tokenStream]="tokenStream">
+    [tokenStream]="colorChanges">
   </sky-tokens>
 </p>
 
@@ -53,30 +71,52 @@
   Token stream interactions
 </h3>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="changeTokenStream()">
-  Change tokens
-</button>
+<p>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="changeColorStream()">
+    Change tokens
+  </button>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="resetTokenStream()">
-  Reset tokens
-</button>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="resetColorStream()">
+    Reset tokens
+  </button>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="destroyTokenStream()">
-  Destroy tokens
-</button>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="destroyColorStream()">
+    Destroy tokens
+  </button>
 
-<button
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="createTokenStream()">
-  Replace tokens
-</button>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="createColorStream()">
+    Replace tokens
+  </button>
+</p>
+
+<hr>
+
+<h3 class="sky-subsection-heading">
+  Custom setup
+</h3>
+
+<p>
+  These tokens define a custom property to display their value, and emit an event when a token is selected.
+</p>
+
+<p>
+  <sky-tokens
+    displayWith="label"
+    [tokenStream]="filterChanges"
+    (focusIndexLimitReached)="onFocusIndexLimitReached()"
+    (tokenSelected)="onTokenSelected($event)">
+    (You may also include content inside the tokens component.)
+  </sky-tokens>
+</p>

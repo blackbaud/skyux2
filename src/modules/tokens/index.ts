@@ -1,10 +1,12 @@
-export * from './token.module';
-export * from './tokens.component';
 export * from './token.component';
+export * from './tokens.component';
+export * from './tokens.module';
 
 export {
-  SkyTokens,
   SkyTokensChange,
   SkyTokensMessage,
-  SkyTokensMessageType
+  SkyTokensMessageType,
+  SkyTokenSelectedEventArgs,
+  SkyTokens,
+  SkyToken
 } from './types';

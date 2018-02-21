@@ -5,12 +5,13 @@
   background-color: $sky-background-color-info-light;
   border: 1px solid $sky-highlight-color-info;
   padding: 2px 6px;
-  user-select: none;
   display: inline-block;
-  cursor: default;
+  cursor: initial;
 }
 
 .sky-token-focusable {
+  user-select: none;
+
   &:hover,
   &:focus {
     background-color: darken($sky-background-color-info-light, 10%);
@@ -23,9 +24,28 @@
   }
 }
 
+.sky-token-static {
+  border-radius: 0;
+  border-color: transparent;
+}
+
+.sky-btn-disabled {
+  cursor: default;
+  user-select: none;
+}
+
 .sky-token-btn-close {
   background: transparent;
   padding: 0;
   border: 0;
   margin-left: 2px;
+  opacity: .9;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }

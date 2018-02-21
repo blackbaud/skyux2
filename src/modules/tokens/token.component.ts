@@ -15,7 +15,13 @@ import {
 })
 export class SkyTokenComponent {
   @Input()
-  public disabled = false;
+  public set disabled(value: boolean) {
+    this._disabled = value;
+  }
+
+  public get disabled(): boolean {
+    return (this._disabled === true);
+  }
 
   @Input()
   public set dismissible(value: boolean) {
@@ -53,6 +59,7 @@ export class SkyTokenComponent {
     return (this.focusable) ? 0 : false;
   }
 
+  private _disabled: boolean;
   private _dismissible: boolean;
   private _focusable: boolean;
 

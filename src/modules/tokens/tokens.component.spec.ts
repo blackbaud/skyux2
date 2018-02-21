@@ -1,0 +1,327 @@
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+
+import {
+  expect,
+  TestUtility
+} from '../testing';
+
+import { SkyTokensComponent } from './tokens.component';
+
+import {
+  SkyTokensMessageType
+} from './types';
+
+import { SkyTokensFixturesModule } from './fixtures/tokens-fixtures.module';
+import { SkyTokensTestComponent } from './fixtures/tokens.component.fixture';
+
+describe('Tokens component', () => {
+  let fixture: ComponentFixture<SkyTokensTestComponent>;
+  let component: SkyTokensTestComponent;
+  let tokensComponent: SkyTokensComponent;
+
+  function getTokenElements(): NodeListOf<HTMLElement> {
+    const tokensElement = component.tokensElementRef.nativeElement;
+    const tokenElements = tokensElement.querySelectorAll('sky-token');
+    return tokenElements as NodeListOf<HTMLElement>;
+  }
+
+  function verifyKeyupRemovesToken(key: string) {
+    fixture.detectChanges();
+    component.publishTokenStream();
+    fixture.detectChanges();
+
+    expect(tokensComponent.tokens.length).toEqual(3);
+
+    let tokenElements = getTokenElements();
+    TestUtility.fireKeyboardEvent(tokenElements.item(1).querySelector('.sky-token'), 'keyup', { key });
+    fixture.detectChanges();
+
+    tokenElements = getTokenElements();
+    expect(tokensComponent.activeIndex).toEqual(0);
+    expect(tokensComponent.tokens.length).toEqual(2);
+    expect(document.activeElement).toEqual(tokenElements.item(0).querySelector('.sky-token'));
+  }
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyTokensFixturesModule
+      ]
+    });
+
+    fixture = TestBed.createComponent(SkyTokensTestComponent);
+    component = fixture.componentInstance;
+    tokensComponent = component.tokensComponent;
+  });
+
+  describe('basic setup', () => {
+    it('should set defaults', () => {
+      expect(tokensComponent.tokens).toEqual([]);
+      fixture.detectChanges();
+      expect(tokensComponent.disabled).toEqual(false);
+      expect(tokensComponent.dismissible).toEqual(true);
+      expect(tokensComponent.displayWith).toEqual('name');
+      expect(tokensComponent.focusable).toEqual(true);
+      expect(tokensComponent.tokenStream).toBeUndefined();
+      expect(tokensComponent.messageStream).toBeUndefined();
+      expect(tokensComponent.activeIndex).toEqual(0);
+    });
+
+    it('should wrap internal content', () => {
+      fixture.detectChanges();
+      expect(component.tokensElementRef.nativeElement).toHaveText('INNER CONTENT');
+    });
+  });
+
+  describe('events', () => {
+    it('should emit when tokens change', () => {
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      let tokens = tokensComponent.tokens;
+      expect(tokens.length).toEqual(3);
+      expect(tokens[0].value.name).toEqual('Red');
+      expect(tokens[1].value.name).toEqual('White');
+      expect(tokens[2].value.name).toEqual('Blue');
+
+      const spy = spyOn(component, 'onChanges').and.callThrough();
+      tokensComponent.removeToken(tokens[0]);
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalled();
+      tokens = tokensComponent.tokens;
+      expect(tokens.length).toEqual(2);
+      expect(tokens[0].value.name).toEqual('White');
+      expect(tokens[1].value.name).toEqual('Blue');
+    });
+
+    it('should emit when the focus index has reached maximum', () => {
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      tokensComponent.activeIndex = 2;
+
+      const tokenElements = getTokenElements();
+      const spy = spyOn(component, 'onFocusIndexLimitReached').and.callThrough();
+
+      TestUtility.fireKeyboardEvent(tokenElements.item(2), 'keyup', {
+        key: 'ArrowRight'
+      });
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalled();
+      expect(tokensComponent.activeIndex).toEqual(2);
+    });
+
+    it('should emit when token is selected on click', () => {
+      const spy = spyOn(component, 'onTokenSelected').and.callThrough();
+
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      const tokenElements = getTokenElements();
+      tokenElements.item(0).click();
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledWith({
+        token: tokensComponent.tokens[0]
+      });
+    });
+  });
+
+  describe('message stream', () => {
+    it('should focus last item', () => {
+      component.publishMessageStream();
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      const spy = spyOn((tokensComponent as any), 'focusLastToken').and.callThrough();
+
+      component.messageStream.next({
+        type: SkyTokensMessageType.FocusLastToken
+      });
+      fixture.detectChanges();
+
+      const tokenElements = fixture.nativeElement.querySelectorAll('.sky-token');
+      const lastToken = tokenElements[tokenElements.length - 1] as HTMLElement;
+
+      expect(spy).toHaveBeenCalled();
+      expect(tokensComponent.activeIndex).toEqual(tokenElements.length - 1);
+      expect(document.activeElement).toEqual(lastToken);
+    });
+
+    it('should handle empty tokens', () => {
+      component.publishMessageStream();
+      fixture.detectChanges();
+      component.disabled = true;
+      fixture.detectChanges();
+
+      expect(tokensComponent.activeIndex).toEqual(0);
+
+      component.messageStream.next({
+        type: SkyTokensMessageType.FocusLastToken
+      });
+      fixture.detectChanges();
+
+      expect(tokensComponent.activeIndex).toEqual(0);
+    });
+  });
+
+  describe('keyboard interactions', () => {
+    it('should navigate token focus with arrow keys', () => {
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      expect(tokensComponent.activeIndex).toEqual(0);
+
+      const tokenElements = getTokenElements();
+
+      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
+        key: 'ArrowRight'
+      });
+      fixture.detectChanges();
+
+      expect(tokensComponent.activeIndex).toEqual(1);
+      expect(document.activeElement).toEqual(tokenElements.item(1).querySelector('.sky-token'));
+
+      TestUtility.fireKeyboardEvent(tokenElements.item(1), 'keyup', {
+        key: 'ArrowLeft'
+      });
+      fixture.detectChanges();
+
+      expect(tokensComponent.activeIndex).toEqual(0);
+      expect(document.activeElement).toEqual(tokenElements.item(0).querySelector('.sky-token'));
+    });
+
+    it('should select token with enter keyup', () => {
+      const spy = spyOn(component, 'onTokenSelected').and.callThrough();
+
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      const tokenElements = getTokenElements();
+
+      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
+        key: 'Enter'
+      });
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledWith({
+        token: tokensComponent.tokens[0]
+      });
+    });
+
+    it('should ignore keyboard events if tokens not selectable', () => {
+      component.focusable = false;
+      const spy = spyOn(component, 'onTokenSelected').and.callThrough();
+
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      const tokenElements = getTokenElements();
+
+      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
+        key: 'Enter'
+      });
+      fixture.detectChanges();
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should remove a token with backspace keyup and focus previous item', () => {
+      verifyKeyupRemovesToken('Backspace');
+    });
+
+    it('should remove a token with delete keyup', () => {
+      verifyKeyupRemovesToken('Delete');
+    });
+
+    it('should not dismiss a token if not dismissible', () => {
+      component.dismissible = false;
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      expect(tokensComponent.tokens.length).toEqual(3);
+
+      const spy = spyOn(tokensComponent, 'removeToken').and.callThrough();
+
+      let tokenElements = getTokenElements();
+      TestUtility.fireKeyboardEvent(tokenElements.item(1).querySelector('.sky-token'), 'keyup', {
+        key: 'Backspace'
+      });
+      fixture.detectChanges();
+
+      tokenElements = getTokenElements();
+      expect(tokensComponent.tokens.length).toEqual(3);
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should ignore keyboard events if tokens not selectable', () => {
+      component.focusable = false;
+      const spy = spyOn(component, 'onTokenSelected').and.callThrough();
+
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      const tokenElements = getTokenElements();
+      tokenElements.item(0).click();
+      fixture.detectChanges();
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('token component', () => {
+    it('should dismiss a token when close button clicked', () => {
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      expect(tokensComponent.tokens.length).toEqual(3);
+
+      const removedToken = tokensComponent.tokens[0];
+
+      const spy = spyOn(tokensComponent, 'removeToken').and.callThrough();
+
+      let tokenElements = getTokenElements();
+      (tokenElements.item(0).querySelector('.sky-token-btn-close') as HTMLElement).click();
+      fixture.detectChanges();
+
+      tokenElements = getTokenElements();
+      expect(tokensComponent.tokens.length).toEqual(2);
+      expect(spy).toHaveBeenCalledWith(removedToken);
+    });
+
+    it('should add a sky-btn-disabled class if disabled', () => {
+      component.disabled = true;
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      expect(tokensComponent.tokens.length).toEqual(3);
+
+      const spy = spyOn(tokensComponent, 'removeToken').and.callThrough();
+
+      let tokenElements = getTokenElements();
+      (tokenElements.item(0).querySelector('.sky-token-btn-close') as HTMLElement).click();
+      fixture.detectChanges();
+
+      tokenElements = getTokenElements();
+      expect(tokenElements.item(0).querySelector('.sky-btn-disabled')).not.toBeNull();
+      expect(tokensComponent.tokens.length).toEqual(3);
+      expect(spy).not.toHaveBeenCalled();
+    });
+  });
+});
