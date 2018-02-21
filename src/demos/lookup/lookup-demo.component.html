@@ -3,6 +3,7 @@
 </h3>
 
 <form
+  style="margin: 10px 0;"
   [formGroup]="reactiveForm"
   (ngSubmit)="submitReactiveForm()"
   novalidate>
@@ -29,17 +30,29 @@
     </sky-column>
   </sky-row>
 
-  <button type="button" (click)="disableLookup()">Disable lookup</button>
-  <button type="button" (click)="enableLookup()">Enable lookup</button>
+  <p>
+    <button
+      type="button"
+      class="sky-btn sky-btn-default"
+      (click)="disableLookup()">
+      Disable lookup
+    </button>
+    <button
+      type="button"
+      class="sky-btn sky-btn-default"
+      (click)="enableLookup()">
+      Enable lookup
+    </button>
+  </p>
 
   <button
     class="sky-btn sky-btn-primary"
     type="submit">
     Submit
   </button>
-
-  <div class="lookup-demo-alert">
-    <strong>Form model:</strong>
-    <pre>{{ reactiveForm.value | json }}</pre>
-  </div>
 </form>
+
+<div class="lookup-demo-alert">
+  <strong>Form model:</strong>
+  <pre>{{ reactiveForm.value | json }}</pre>
+</div>

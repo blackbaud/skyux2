@@ -140,7 +140,7 @@ export class SkyLookupComponent
     }
   }
 
-  public onTokensFocusEnd() {
+  public onTokensFocusIndexOverRange() {
     this.windowRef.getWindow().setTimeout(() => {
       this.focusInput();
     });

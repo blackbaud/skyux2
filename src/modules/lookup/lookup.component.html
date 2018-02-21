@@ -19,10 +19,10 @@
       <sky-tokens
         [disabled]="disabled"
         [displayWith]="descriptorProperty"
-        [tokenStream]="tokenStream"
         [messageStream]="tokensController"
+        [tokenStream]="tokenStream"
         (changes)="onTokensChange($event)"
-        (focusEnd)="onTokensFocusEnd()">
+        (focusIndexOverRange)="onTokensFocusIndexOverRange()">
 
         <textarea
           skyAutocomplete
