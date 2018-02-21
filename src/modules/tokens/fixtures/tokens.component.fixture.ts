@@ -38,22 +38,11 @@ export class SkyTokensTestComponent {
     { name: 'Blue' }
   ];
 
-  // public changedData: any[] = [
-  //   { name: 'Apples' },
-  //   { name: 'Oranges' }
-  // ];
+  public onChanges(change: SkyTokensChange) { }
 
-  public onChanges(change: SkyTokensChange) {
-    console.log('onTokenChanges()', change);
-  }
+  public onFocusIndexLimitReached() { }
 
-  public onFocusIndexLimitReached() {
-    console.log('onFocusIndexLimitReached()');
-  }
-
-  public onTokenSelected(args: SkyTokenSelectedEventArgs) {
-    console.log('onTokenSelected()', args);
-  }
+  public onTokenSelected(args: SkyTokenSelectedEventArgs) { }
 
   public publishTokenStream() {
     if (this.tokenStream) {
@@ -73,11 +62,4 @@ export class SkyTokensTestComponent {
 
     this.messageStream = new ReplaySubject<SkyTokensMessage>();
   }
-
-  // public changeTokenStream() {
-  //   this.tokenStream = new ReplaySubject<SkyTokens>();
-  //   this.tokenStream.next({
-  //     value: this.changedData
-  //   });
-  // }
 }
