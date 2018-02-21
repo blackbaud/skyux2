@@ -102,18 +102,18 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this._activeIndex = value;
   }
 
+  public get tokens(): SkyToken[] {
+    return this._tokens || [];
+  }
+
+  public set tokens(value: SkyToken[]) {
+    this._tokens = value;
+  }
+
   @ViewChildren(SkyTokenComponent)
   private tokenComponents: QueryList<SkyTokenComponent>;
   private destroyed = new ReplaySubject<boolean>();
   private tokenStreamDestroyed = new ReplaySubject<boolean>();
-
-  private get tokens(): SkyToken[] {
-    return this._tokens || [];
-  }
-
-  private set tokens(value: SkyToken[]) {
-    this._tokens = value;
-  }
 
   private _activeIndex: number;
   private _disabled: boolean;
@@ -138,17 +138,14 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.tokenStream) {
-      console.log('tokens, changes.tokenStream');
       this.resetTokenStream();
 
       if (!changes.tokenStream.currentValue) {
-        console.log('tokens, changes undefined');
         this.tokens = [];
         this.notifyChanges();
         return;
       }
 
-      console.log('tokens, changes defined!');
       this.tokenStream
         .takeUntil(this.tokenStreamDestroyed)
         .subscribe((tokens: SkyTokens) => {
@@ -237,7 +234,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private handleIncomingMessages(message: SkyTokensMessage) {
-    console.log('handleIncomingMessages', message);
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyTokensMessageType.FocusLastToken:

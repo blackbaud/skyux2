@@ -33,7 +33,7 @@ describe('Tokens component', () => {
     component.publishTokenStream();
     fixture.detectChanges();
 
-    expect(tokensComponent['tokens'].length).toEqual(3);
+    expect(tokensComponent.tokens.length).toEqual(3);
 
     let tokenElements = getTokenElements();
     TestUtility.fireKeyboardEvent(tokenElements.item(1).querySelector('.sky-token'), 'keyup', { key });
@@ -41,7 +41,7 @@ describe('Tokens component', () => {
 
     tokenElements = getTokenElements();
     expect(tokensComponent.activeIndex).toEqual(0);
-    expect(tokensComponent['tokens'].length).toEqual(2);
+    expect(tokensComponent.tokens.length).toEqual(2);
     expect(document.activeElement).toEqual(tokenElements.item(0).querySelector('.sky-token'));
   }
 
@@ -59,7 +59,7 @@ describe('Tokens component', () => {
 
   describe('basic setup', () => {
     it('should set defaults', () => {
-      expect(tokensComponent['tokens']).toEqual([]);
+      expect(tokensComponent.tokens).toEqual([]);
       fixture.detectChanges();
       expect(tokensComponent.disabled).toEqual(false);
       expect(tokensComponent.dismissible).toEqual(true);
@@ -82,7 +82,7 @@ describe('Tokens component', () => {
       component.publishTokenStream();
       fixture.detectChanges();
 
-      let tokens = tokensComponent['tokens'];
+      let tokens = tokensComponent.tokens;
       expect(tokens.length).toEqual(3);
       expect(tokens[0].value.name).toEqual('Red');
       expect(tokens[1].value.name).toEqual('White');
@@ -93,7 +93,7 @@ describe('Tokens component', () => {
       fixture.detectChanges();
 
       expect(spy).toHaveBeenCalled();
-      tokens = tokensComponent['tokens'];
+      tokens = tokensComponent.tokens;
       expect(tokens.length).toEqual(2);
       expect(tokens[0].value.name).toEqual('White');
       expect(tokens[1].value.name).toEqual('Blue');
@@ -130,7 +130,7 @@ describe('Tokens component', () => {
       fixture.detectChanges();
 
       expect(spy).toHaveBeenCalledWith({
-        token: tokensComponent['tokens'][0]
+        token: tokensComponent.tokens[0]
       });
     });
   });
@@ -216,7 +216,7 @@ describe('Tokens component', () => {
       fixture.detectChanges();
 
       expect(spy).toHaveBeenCalledWith({
-        token: tokensComponent['tokens'][0]
+        token: tokensComponent.tokens[0]
       });
     });
 
@@ -252,7 +252,7 @@ describe('Tokens component', () => {
       component.publishTokenStream();
       fixture.detectChanges();
 
-      expect(tokensComponent['tokens'].length).toEqual(3);
+      expect(tokensComponent.tokens.length).toEqual(3);
 
       const spy = spyOn(tokensComponent, 'removeToken').and.callThrough();
 
@@ -263,7 +263,7 @@ describe('Tokens component', () => {
       fixture.detectChanges();
 
       tokenElements = getTokenElements();
-      expect(tokensComponent['tokens'].length).toEqual(3);
+      expect(tokensComponent.tokens.length).toEqual(3);
       expect(spy).not.toHaveBeenCalled();
     });
 
@@ -289,9 +289,9 @@ describe('Tokens component', () => {
       component.publishTokenStream();
       fixture.detectChanges();
 
-      expect(tokensComponent['tokens'].length).toEqual(3);
+      expect(tokensComponent.tokens.length).toEqual(3);
 
-      const removedToken = tokensComponent['tokens'][0];
+      const removedToken = tokensComponent.tokens[0];
 
       const spy = spyOn(tokensComponent, 'removeToken').and.callThrough();
 
@@ -300,7 +300,7 @@ describe('Tokens component', () => {
       fixture.detectChanges();
 
       tokenElements = getTokenElements();
-      expect(tokensComponent['tokens'].length).toEqual(2);
+      expect(tokensComponent.tokens.length).toEqual(2);
       expect(spy).toHaveBeenCalledWith(removedToken);
     });
 
@@ -310,7 +310,7 @@ describe('Tokens component', () => {
       component.publishTokenStream();
       fixture.detectChanges();
 
-      expect(tokensComponent['tokens'].length).toEqual(3);
+      expect(tokensComponent.tokens.length).toEqual(3);
 
       const spy = spyOn(tokensComponent, 'removeToken').and.callThrough();
 
@@ -320,7 +320,7 @@ describe('Tokens component', () => {
 
       tokenElements = getTokenElements();
       expect(tokenElements.item(0).querySelector('.sky-btn-disabled')).not.toBeNull();
-      expect(tokensComponent['tokens'].length).toEqual(3);
+      expect(tokensComponent.tokens.length).toEqual(3);
       expect(spy).not.toHaveBeenCalled();
     });
   });
