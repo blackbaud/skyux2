@@ -38,10 +38,10 @@ export class SkyTokensTestComponent {
     { name: 'Blue' }
   ];
 
-  public changedData: any[] = [
-    { name: 'Apples' },
-    { name: 'Oranges' }
-  ];
+  // public changedData: any[] = [
+  //   { name: 'Apples' },
+  //   { name: 'Oranges' }
+  // ];
 
   public onChanges(change: SkyTokensChange) {
     console.log('onTokenChanges()', change);
@@ -74,10 +74,10 @@ export class SkyTokensTestComponent {
     this.messageStream = new ReplaySubject<SkyTokensMessage>();
   }
 
-  public changeTokenStream() {
-    this.tokenStream = new ReplaySubject<SkyTokens>();
-    this.tokenStream.next({
-      value: this.changedData
-    });
-  }
+  // public changeTokenStream() {
+  //   this.tokenStream = new ReplaySubject<SkyTokens>();
+  //   this.tokenStream.next({
+  //     value: this.changedData
+  //   });
+  // }
 }

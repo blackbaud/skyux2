@@ -1,0 +1,38 @@
+<div id="screenshot-tokens">
+  <p>
+    <sky-tokens
+      [tokenStream]="colorChanges"
+      (changes)="onChanges($event)">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      [tokenStream]="colorChanges"
+      [dismissible]="false">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      [tokenStream]="colorChanges"
+      [dismissible]="false"
+      [focusable]="false">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      [disabled]="true"
+      [tokenStream]="colorChanges">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      displayWith="label"
+      [tokenStream]="filterChanges">
+      (You may also include content inside the tokens component.)
+    </sky-tokens>
+  </p>
+</div>
