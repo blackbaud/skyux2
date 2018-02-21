@@ -37,7 +37,7 @@
 </h3>
 
 <p>
-  These tokens cannot be dismissed or focused.
+  These tokens cannot be dismissed or navigated with the arrow keys.
 </p>
 
 <p>
@@ -115,7 +115,8 @@
   <sky-tokens
     displayWith="label"
     [tokenStream]="filterChanges"
-    (focusIndexLimitReached)="onFocusIndexLimitReached()"
+    (focusIndexOverRange)="onFocusIndexOverRange()"
+    (focusIndexUnderRange)="onFocusIndexUnderRange()"
     (tokenSelected)="onTokenSelected($event)">
     (You may also include content inside the tokens component.)
   </sky-tokens>

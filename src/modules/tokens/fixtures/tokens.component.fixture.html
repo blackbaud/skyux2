@@ -6,7 +6,8 @@
   [messageStream]="messageStream"
   [tokenStream]="tokenStream"
   (changes)="onChanges($event)"
-  (tokenSelected)="onTokenSelected($event)"
-  (focusIndexLimitReached)="onFocusIndexLimitReached()">
+  (focusIndexOverRange)="onFocusIndexOverRange()"
+  (focusIndexUnderRange)="onFocusIndexUnderRange()"
+  (tokenSelected)="onTokenSelected($event)">
   INNER CONTENT
 </sky-tokens>
