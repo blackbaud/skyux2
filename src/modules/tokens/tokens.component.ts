@@ -80,7 +80,10 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   public changes = new EventEmitter<SkyTokensChange>();
 
   @Output()
-  public focusIndexLimitReached = new EventEmitter<void>();
+  public focusIndexOverRange = new EventEmitter<void>();
+
+  @Output()
+  public focusIndexUnderRange = new EventEmitter<void>();
 
   @Output()
   public tokenSelected = new EventEmitter<SkyTokenSelectedEventArgs>();
@@ -92,11 +95,12 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   public set activeIndex(value: number) {
     if (value >= this.tokens.length) {
       value = this.tokens.length - 1;
-      this.focusIndexLimitReached.emit();
+      this.focusIndexOverRange.emit();
     }
 
     if (value < 0) {
       value = 0;
+      this.focusIndexUnderRange.emit();
     }
 
     this._activeIndex = value;

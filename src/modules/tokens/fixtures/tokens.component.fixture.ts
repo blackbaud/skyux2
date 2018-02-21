@@ -40,7 +40,9 @@ export class SkyTokensTestComponent {
 
   public onChanges(change: SkyTokensChange) { }
 
-  public onFocusIndexLimitReached() { }
+  public onFocusIndexOverRange() { }
+
+  public onFocusIndexUnderRange() { }
 
   public onTokenSelected(args: SkyTokenSelectedEventArgs) { }
 

@@ -89,7 +89,11 @@ export class SkyTokensDemoComponent {
     console.log('Token selected:', args);
   }
 
-  public onFocusIndexLimitReached() {
-    console.log('Last token focused.');
+  public onFocusIndexUnderRange() {
+    console.log('Focus index was less than zero.');
+  }
+
+  public onFocusIndexOverRange() {
+    console.log('Focus index was greater than the number of tokens.');
   }
 }

@@ -99,7 +99,7 @@ describe('Tokens component', () => {
       expect(tokens[1].value.name).toEqual('Blue');
     });
 
-    it('should emit when the focus index has reached maximum', () => {
+    it('should emit when the focus index is greater than the number of tokens', () => {
       fixture.detectChanges();
       component.publishTokenStream();
       fixture.detectChanges();
@@ -107,7 +107,7 @@ describe('Tokens component', () => {
       tokensComponent.activeIndex = 2;
 
       const tokenElements = getTokenElements();
-      const spy = spyOn(component, 'onFocusIndexLimitReached').and.callThrough();
+      const spy = spyOn(component, 'onFocusIndexOverRange').and.callThrough();
 
       TestUtility.fireKeyboardEvent(tokenElements.item(2), 'keyup', {
         key: 'ArrowRight'
@@ -116,6 +116,25 @@ describe('Tokens component', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(tokensComponent.activeIndex).toEqual(2);
+    });
+
+    it('should emit when the focus index is less than zero', () => {
+      fixture.detectChanges();
+      component.publishTokenStream();
+      fixture.detectChanges();
+
+      tokensComponent.activeIndex = 0;
+
+      const tokenElements = getTokenElements();
+      const spy = spyOn(component, 'onFocusIndexUnderRange').and.callThrough();
+
+      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
+        key: 'ArrowLeft'
+      });
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalled();
+      expect(tokensComponent.activeIndex).toEqual(0);
     });
 
     it('should emit when token is selected on click', () => {
