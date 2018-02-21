@@ -22,7 +22,7 @@ $sky-tokens-gutter-size: 2px;
     // Add a zero-width space to allow form controls to align
     // properly to text baseline.
     &:before {
-      content: '\200B';
+      content: "#{'\200B'}";
     }
   }
 }

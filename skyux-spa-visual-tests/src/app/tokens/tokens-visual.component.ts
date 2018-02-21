@@ -5,9 +5,7 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import {
-  SkyTokens,
-  SkyTokensChange,
-  SkyTokenSelectedEventArgs
+  SkyTokens
 } from '@blackbaud/skyux/dist/core';
 
 @Component({
