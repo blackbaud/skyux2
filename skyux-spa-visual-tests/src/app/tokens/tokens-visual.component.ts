@@ -12,7 +12,6 @@ import {
 })
 export class TokensVisualComponent {
   public colors: SkyToken[] = [
-    { name: 'Red' },
     { name: 'Black' },
     { name: 'Blue' },
     { name: 'Brown' },
@@ -20,6 +19,7 @@ export class TokensVisualComponent {
     { name: 'Orange' },
     { name: 'Pink' },
     { name: 'Purple' },
+    { name: 'Red' },
     { name: 'Turquoise' },
     { name: 'White' },
     { name: 'Yellow' }

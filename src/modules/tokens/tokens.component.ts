@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  SimpleChanges,
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
@@ -29,7 +31,7 @@ import { SkyTokenComponent } from './token.component';
   styleUrls: ['./tokens.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTokensComponent implements OnInit, OnDestroy {
+export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   public set disabled(value: boolean) {
     this._disabled = value;
@@ -67,7 +69,7 @@ export class SkyTokensComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  public messageStream: ReplaySubject<SkyTokensMessage>;
+  public messageStream = new ReplaySubject<SkyTokensMessage>();
 
   @Input()
   public set tokens(value: SkyToken[]) {
@@ -126,11 +128,17 @@ export class SkyTokensComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     if (this.messageStream) {
-      this.messageStream
-        .takeUntil(this.destroyed)
-        .subscribe((message: SkyTokensMessage) => {
-          this.handleIncomingMessages(message);
-        });
+      this.initMessageStream();
+    }
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes.messageStream &&
+      changes.messageStream.currentValue &&
+      !changes.messageStream.firstChange
+    ) {
+      this.initMessageStream();
     }
   }
 
@@ -157,7 +165,6 @@ export class SkyTokensComponent implements OnInit, OnDestroy {
     /* tslint:disable-next-line:switch-default */
     switch (key) {
       case 'arrowleft':
-      case 'backspace':
       this.focusPreviousToken();
       event.preventDefault();
       break;
@@ -167,14 +174,23 @@ export class SkyTokensComponent implements OnInit, OnDestroy {
       event.preventDefault();
       break;
 
-      case 'delete':
-      this.focusActiveToken();
-      event.preventDefault();
-      break;
-
       case 'enter':
       this.notifyTokenSelected(token);
       event.preventDefault();
+      break;
+
+      case 'backspace':
+      if (this.dismissible) {
+        this.focusPreviousToken();
+        event.preventDefault();
+      }
+      break;
+
+      case 'delete':
+      if (this.dismissible) {
+        this.focusActiveToken();
+        event.preventDefault();
+      }
       break;
     }
   }
@@ -210,13 +226,17 @@ export class SkyTokensComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleIncomingMessages(message: SkyTokensMessage) {
-    /* tslint:disable-next-line:switch-default */
-    switch (message.type) {
-      case SkyTokensMessageType.FocusLastToken:
-      this.focusLastToken();
-      break;
-    }
+  private initMessageStream() {
+    this.messageStream
+      .takeUntil(this.destroyed)
+      .subscribe((message: SkyTokensMessage) => {
+        /* tslint:disable-next-line:switch-default */
+        switch (message.type) {
+          case SkyTokensMessageType.FocusLastToken:
+          this.focusLastToken();
+          break;
+        }
+      });
   }
 
   private notifyTokenSelected(token: SkyToken) {
