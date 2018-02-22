@@ -73,7 +73,8 @@ function escapeContents(contents) {
     // the compile process. The placeholder phrase will then be
     // replaced at the end of the process.
     .replace(/\+\$/g, '---PLUSSIGNDOLLAR---')
-    .replace(/\$/g, `\\\$`);
+    .replace(/\$/g, `\\\$`)
+    .replace(/\\\'/g, String.raw`\\\'`);
 }
 
 function compileSass(file) {
@@ -144,6 +145,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
   }
 
   if (quote) {
+    requireContents = requireContents.toString().replace(/\\f/g, '\\\\f');
     requireContents = '`' + requireContents.toString().replace(/`/g, '\\\`') + '`';
   }
 
@@ -207,8 +209,6 @@ function injectRequiredFileContents() {
         regex.lastIndex = 0;
       }
     }
-
-    fileContents = String.raw`${fileContents}`.replace(/\\\'/g, String.raw`\\\'`);
 
     // Replace the placeholder with `+$` character combo.
     fileContents = fileContents.replace(/\-\-\-PLUSSIGNDOLLAR\-\-\-/g, '+\\\$');

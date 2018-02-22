@@ -98,7 +98,7 @@ export class SkyAutocompleteDemoComponent implements OnInit {
           return isMatch;
         });
 
-        // Simulated async request:
+        // Simulate an async request.
         setTimeout(() => {
           resolve(results);
         }, 500);
