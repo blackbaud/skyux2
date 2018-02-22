@@ -9,10 +9,6 @@ import '@angular/platform-browser-dynamic';
 import '@angular/core';
 import '@angular/common';
 
-// RxJS
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-
 // Dragula
 import 'ng2-dragula/ng2-dragula';
 

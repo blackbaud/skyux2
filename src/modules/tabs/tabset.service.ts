@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { SkyTabComponent } from './tab.component';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/take';
 
 @Injectable()
 export class SkyTabsetService {
 
-  public tabs: BehaviorSubject<Array<SkyTabComponent>>
-    = new BehaviorSubject<Array<SkyTabComponent>>([]);
-
-  public activeIndex: BehaviorSubject<any> = new BehaviorSubject(0);
+  public tabs = new BehaviorSubject<SkyTabComponent[]>([]);
+  public activeIndex = new BehaviorSubject<any>(0);
 
   public activateTab(tab: SkyTabComponent) {
     this.tabs.take(1).subscribe((currentTabs) => {

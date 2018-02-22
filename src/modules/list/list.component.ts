@@ -56,10 +56,11 @@ import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
 import { ListState, ListStateDispatcher } from './state';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/take';
-import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/skip';
 
 import { ListViewComponent } from './list-view.component';

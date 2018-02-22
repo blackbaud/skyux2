@@ -6,7 +6,6 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'sky-list-view-grid-demo',

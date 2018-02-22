@@ -21,9 +21,8 @@ import {
 } from '@angular/animations';
 
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
 
 import {
   SkyWindowRefService

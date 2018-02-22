@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'sky-list-toolbar-demo',

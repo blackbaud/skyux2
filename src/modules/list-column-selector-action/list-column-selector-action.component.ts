@@ -1,7 +1,7 @@
 import {
   Component,
   Input
- } from '@angular/core';
+} from '@angular/core';
 import {
   ListState
 } from '../list/state';

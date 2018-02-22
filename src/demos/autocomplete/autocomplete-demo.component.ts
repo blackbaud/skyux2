@@ -88,11 +88,11 @@ export class SkyAutocompleteDemoComponent implements OnInit {
   }
 
   public getOceanSearchFunction(): SkyAutocompleteSearchFunction {
-    const searchFunction = (searchText: string): SkyAutocompleteSearchFunctionResponse => {
+    const searchFunction = (searchText: string, oceans: any[]): SkyAutocompleteSearchFunctionResponse => {
       return new Promise((resolve: Function) => {
         const searchTextLower = searchText.toLowerCase();
 
-        const results = this.oceans.filter((ocean: any) => {
+        const results = oceans.filter((ocean: any) => {
           const val = ocean.title;
           const isMatch = (val && val.toString().toLowerCase().indexOf(searchTextLower) > -1);
           return isMatch;
