@@ -76,28 +76,6 @@ describe('Tokens component', () => {
   });
 
   describe('events', () => {
-    // it('should emit when tokens change', () => {
-    //   fixture.detectChanges();
-    //   component.publishTokens();
-    //   fixture.detectChanges();
-
-    //   let tokens = tokensComponent.tokens;
-    //   expect(tokens.length).toEqual(3);
-    //   expect(tokens[0].value.name).toEqual('Red');
-    //   expect(tokens[1].value.name).toEqual('White');
-    //   expect(tokens[2].value.name).toEqual('Blue');
-
-    //   const spy = spyOn(component, 'onChanges').and.callThrough();
-    //   tokensComponent.removeToken(tokens[0]);
-    //   fixture.detectChanges();
-
-    //   expect(spy).toHaveBeenCalled();
-    //   tokens = tokensComponent.tokens;
-    //   expect(tokens.length).toEqual(2);
-    //   expect(tokens[0].value.name).toEqual('White');
-    //   expect(tokens[1].value.name).toEqual('Blue');
-    // });
-
     it('should emit when the focus index is greater than the number of tokens', () => {
       fixture.detectChanges();
       component.publishTokens();
@@ -171,6 +149,37 @@ describe('Tokens component', () => {
       const lastToken = tokenElements[tokenElements.length - 1] as HTMLElement;
 
       expect(spy).toHaveBeenCalled();
+      expect(tokensComponent.activeIndex).toEqual(tokenElements.length - 1);
+      expect(document.activeElement).toEqual(lastToken);
+    });
+
+    it('should handle async message stream init', () => {
+      fixture.detectChanges();
+      component.publishTokens();
+      fixture.detectChanges();
+
+      component.publishMessageStream();
+      fixture.detectChanges();
+
+      const spy = spyOn((tokensComponent as any), 'focusLastToken').and.callThrough();
+
+      component.messageStream.next({
+        type: SkyTokensMessageType.FocusLastToken
+      });
+      fixture.detectChanges();
+
+      component.publishMessageStream();
+      fixture.detectChanges();
+
+      component.messageStream.next({
+        type: SkyTokensMessageType.FocusLastToken
+      });
+      fixture.detectChanges();
+
+      const tokenElements = fixture.nativeElement.querySelectorAll('.sky-token');
+      const lastToken = tokenElements[tokenElements.length - 1] as HTMLElement;
+
+      expect(spy.calls.count()).toEqual(2);
       expect(tokensComponent.activeIndex).toEqual(tokenElements.length - 1);
       expect(document.activeElement).toEqual(lastToken);
     });

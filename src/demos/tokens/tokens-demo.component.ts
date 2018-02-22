@@ -2,9 +2,13 @@ import {
   Component
 } from '@angular/core';
 
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+
 import {
   SkyToken,
-  SkyTokenSelectedEventArgs
+  SkyTokenSelectedEventArgs,
+  SkyTokensMessageType,
+  SkyTokensMessage
 } from '../../modules/tokens';
 
 @Component({
@@ -14,6 +18,7 @@ import {
 export class SkyTokensDemoComponent {
   public colors: SkyToken[];
   public filters: SkyToken[];
+  public tokensController: ReplaySubject<SkyTokensMessage>;
 
   private defaultColors = [
     { name: 'Red' },
@@ -38,11 +43,11 @@ export class SkyTokensDemoComponent {
 
   constructor() {
     this.createColors();
+    this.filters = this.parseTokens(this.selectedFilters);
   }
 
   public resetColors() {
     this.createColors();
-    this.filters = this.parseTokens(this.selectedFilters);
   }
 
   public changeColors() {
@@ -71,6 +76,16 @@ export class SkyTokensDemoComponent {
 
   public onFocusIndexOverRange() {
     console.log('Focus index was greater than the number of tokens.');
+  }
+
+  public focusLastToken() {
+    if (!this.tokensController) {
+      this.tokensController = new ReplaySubject<SkyTokensMessage>();
+    }
+
+    this.tokensController.next({
+      type: SkyTokensMessageType.FocusLastToken
+    });
   }
 
   private parseTokens(data: any[]): SkyToken[] {

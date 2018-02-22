@@ -107,9 +107,17 @@
   <sky-tokens
     displayWith="label"
     [(tokens)]="filters"
+    [messageStream]="tokensController"
     (focusIndexOverRange)="onFocusIndexOverRange()"
     (focusIndexUnderRange)="onFocusIndexUnderRange()"
     (tokenSelected)="onTokenSelected($event)">
     (You may also include content inside the tokens component.)
   </sky-tokens>
+</p>
+
+<p>
+  <button
+    (click)="focusLastToken()">
+    Focus last token
+  </button>
 </p>
