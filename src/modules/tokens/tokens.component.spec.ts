@@ -288,6 +288,10 @@ describe('Tokens component', () => {
         key: 'Backspace'
       });
       fixture.detectChanges();
+      TestUtility.fireKeyboardEvent(tokenElements.item(1).querySelector('.sky-token'), 'keyup', {
+        key: 'Delete'
+      });
+      fixture.detectChanges();
 
       tokenElements = getTokenElements();
       expect(tokensComponent.tokens.length).toEqual(3);

@@ -6,12 +6,10 @@
   border: 1px solid $sky-highlight-color-info;
   padding: 2px 6px;
   display: inline-block;
-  cursor: initial;
+  user-select: none;
 }
 
 .sky-token-focusable {
-  user-select: none;
-
   &:hover,
   &:focus {
     background-color: darken($sky-background-color-info-light, 10%);
@@ -22,11 +20,6 @@
   &:focus {
     @include sky-field-status('active');
   }
-}
-
-.sky-token-static {
-  border-radius: 0;
-  border-color: transparent;
 }
 
 .sky-btn-disabled {

@@ -165,7 +165,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     /* tslint:disable-next-line:switch-default */
     switch (key) {
       case 'arrowleft':
-      case 'backspace':
       this.focusPreviousToken();
       event.preventDefault();
       break;
@@ -175,14 +174,23 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
       event.preventDefault();
       break;
 
-      case 'delete':
-      this.focusActiveToken();
-      event.preventDefault();
-      break;
-
       case 'enter':
       this.notifyTokenSelected(token);
       event.preventDefault();
+      break;
+
+      case 'backspace':
+      if (this.dismissible) {
+        this.focusPreviousToken();
+        event.preventDefault();
+      }
+      break;
+
+      case 'delete':
+      if (this.dismissible) {
+        this.focusActiveToken();
+        event.preventDefault();
+      }
       break;
     }
   }
