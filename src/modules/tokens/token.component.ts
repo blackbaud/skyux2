@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   Output
 } from '@angular/core';
@@ -66,6 +67,15 @@ export class SkyTokenComponent {
   constructor(
     private elementRef: ElementRef
   ) { }
+
+  @HostListener('keyup', ['$event'])
+  public onKeyUp(event: KeyboardEvent) {
+    const key = event.key.toLowerCase();
+    if (key === 'backspace' || key === 'delete') {
+      this.dismissToken();
+      event.preventDefault();
+    }
+  }
 
   public dismissToken() {
     if (this.dismissible) {

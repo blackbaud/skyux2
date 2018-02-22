@@ -8,8 +8,7 @@
 
 <p>
   <sky-tokens
-    [tokenStream]="colorChanges"
-    (changes)="onChanges($event)">
+    [(tokens)]="colors">
   </sky-tokens>
 </p>
 
@@ -25,7 +24,7 @@
 
 <p>
   <sky-tokens
-    [tokenStream]="colorChanges"
+    [(tokens)]="colors"
     [dismissible]="false">
   </sky-tokens>
 </p>
@@ -42,7 +41,7 @@
 
 <p>
   <sky-tokens
-    [tokenStream]="colorChanges"
+    [(tokens)]="colors"
     [dismissible]="false"
     [focusable]="false">
   </sky-tokens>
@@ -60,8 +59,8 @@
 
 <p>
   <sky-tokens
-    [disabled]="true"
-    [tokenStream]="colorChanges">
+    [(tokens)]="colors"
+    [disabled]="true">
   </sky-tokens>
 </p>
 
@@ -75,29 +74,22 @@
   <button
     class="sky-btn sky-btn-default"
     type="button"
-    (click)="changeColorStream()">
+    (click)="changeColors()">
     Change tokens
   </button>
 
   <button
     class="sky-btn sky-btn-default"
     type="button"
-    (click)="resetColorStream()">
+    (click)="resetColors()">
     Reset tokens
   </button>
 
   <button
     class="sky-btn sky-btn-default"
     type="button"
-    (click)="destroyColorStream()">
+    (click)="destroyColors()">
     Destroy tokens
-  </button>
-
-  <button
-    class="sky-btn sky-btn-default"
-    type="button"
-    (click)="createColorStream()">
-    Replace tokens
   </button>
 </p>
 
@@ -114,7 +106,7 @@
 <p>
   <sky-tokens
     displayWith="label"
-    [tokenStream]="filterChanges"
+    [(tokens)]="filters"
     (focusIndexOverRange)="onFocusIndexOverRange()"
     (focusIndexUnderRange)="onFocusIndexUnderRange()"
     (tokenSelected)="onTokenSelected($event)">

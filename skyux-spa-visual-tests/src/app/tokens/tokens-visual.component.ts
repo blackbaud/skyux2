@@ -2,10 +2,8 @@ import {
   Component
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import {
-  SkyTokens
+  SkyToken
 } from '@blackbaud/skyux/dist/core';
 
 @Component({
@@ -13,10 +11,7 @@ import {
   templateUrl: './tokens-visual.component.html'
 })
 export class TokensVisualComponent {
-  public colorChanges: BehaviorSubject<SkyTokens>;
-  public filterChanges: BehaviorSubject<SkyTokens>;
-
-  private colors = [
+  public colors: SkyToken[] = [
     { name: 'Red' },
     { name: 'Black' },
     { name: 'Blue' },
@@ -28,26 +23,12 @@ export class TokensVisualComponent {
     { name: 'Turquoise' },
     { name: 'White' },
     { name: 'Yellow' }
-  ];
+  ].map(value => ({ value }));
 
-  private filters = [
+  public filters: SkyToken[] = [
     { label: 'Canada' },
     { label: 'Older than 55' },
     { label: 'Employed' },
     { label: 'Added before 2018' }
-  ];
-
-  constructor() {
-    this.createColorStream();
-
-    this.filterChanges = new BehaviorSubject<SkyTokens>({
-      value: this.filters
-    });
-  }
-
-  public createColorStream() {
-    this.colorChanges = new BehaviorSubject<SkyTokens>({
-      value: this.colors
-    });
-  }
+  ].map(value => ({ value }));
 }

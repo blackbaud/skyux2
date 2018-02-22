@@ -2,11 +2,8 @@ import {
   Component
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import {
-  SkyTokens,
-  SkyTokensChange,
+  SkyToken,
   SkyTokenSelectedEventArgs
 } from '../../modules/tokens';
 
@@ -15,10 +12,10 @@ import {
   templateUrl: './tokens-demo.component.html'
 })
 export class SkyTokensDemoComponent {
-  public colorChanges: BehaviorSubject<SkyTokens>;
-  public filterChanges: BehaviorSubject<SkyTokens>;
+  public colors: SkyToken[];
+  public filters: SkyToken[];
 
-  private colors = [
+  private defaultColors = [
     { name: 'Red' },
     { name: 'Black' },
     { name: 'Blue' },
@@ -32,7 +29,7 @@ export class SkyTokensDemoComponent {
     { name: 'Yellow' }
   ];
 
-  private filters = [
+  private selectedFilters = [
     { label: 'Canada' },
     { label: 'Older than 55' },
     { label: 'Employed' },
@@ -40,49 +37,28 @@ export class SkyTokensDemoComponent {
   ];
 
   constructor() {
-    this.createColorStream();
-
-    this.filterChanges = new BehaviorSubject<SkyTokens>({
-      value: this.filters
-    });
+    this.createColors();
   }
 
-  public resetColorStream() {
-    if (!this.colorChanges) {
-      this.createColorStream();
-    }
-
-    this.colorChanges.next({
-      value: this.colors
-    });
+  public resetColors() {
+    this.createColors();
+    this.filters = this.parseTokens(this.selectedFilters);
   }
 
-  public changeColorStream() {
-    if (!this.colorChanges) {
-      this.createColorStream();
-    }
-
-    this.colorChanges.next({
-      value: [
-        { name: 'Red' },
-        { name: 'White' },
-        { name: 'Blue' }
-      ]
-    });
+  public changeColors() {
+    this.colors = this.parseTokens([
+      { name: 'Red' },
+      { name: 'White' },
+      { name: 'Blue' }
+    ]);
   }
 
-  public destroyColorStream() {
-    this.colorChanges = undefined;
+  public destroyColors() {
+    this.colors = undefined;
   }
 
-  public createColorStream() {
-    this.colorChanges = new BehaviorSubject<SkyTokens>({
-      value: this.colors
-    });
-  }
-
-  public onChanges(changes: SkyTokensChange) {
-    console.log('Token changes:', changes);
+  public createColors() {
+    this.colors = this.parseTokens(this.defaultColors);
   }
 
   public onTokenSelected(args: SkyTokenSelectedEventArgs) {
@@ -95,5 +71,13 @@ export class SkyTokensDemoComponent {
 
   public onFocusIndexOverRange() {
     console.log('Focus index was greater than the number of tokens.');
+  }
+
+  private parseTokens(data: any[]): SkyToken[] {
+    return data.map((item: any) => {
+      return {
+        value: item
+      } as SkyToken;
+    });
   }
 }

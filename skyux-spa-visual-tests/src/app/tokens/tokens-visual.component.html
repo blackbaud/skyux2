@@ -1,20 +1,20 @@
 <div id="screenshot-tokens">
   <p>
     <sky-tokens
-      [tokenStream]="colorChanges">
+      [tokens]="colors">
     </sky-tokens>
   </p>
 
   <p>
     <sky-tokens
-      [tokenStream]="colorChanges"
+      [tokens]="colors"
       [dismissible]="false">
     </sky-tokens>
   </p>
 
   <p>
     <sky-tokens
-      [tokenStream]="colorChanges"
+      [tokens]="colors"
       [dismissible]="false"
       [focusable]="false">
     </sky-tokens>
@@ -23,14 +23,14 @@
   <p>
     <sky-tokens
       [disabled]="true"
-      [tokenStream]="colorChanges">
+      [tokens]="colors">
     </sky-tokens>
   </p>
 
   <p>
     <sky-tokens
       displayWith="label"
-      [tokenStream]="filterChanges">
+      [tokens]="filters">
       (You may also include content inside the tokens component.)
     </sky-tokens>
   </p>
