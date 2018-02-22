@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -101,7 +101,7 @@
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "1.0.2",
-    "rxjs": "5.4.3",
+    "rxjs": "5.5.6",
     "sass-loader": "6.0.5",
     "selenium-standalone": "6.4.1",
     "source-map-inline-loader": "blackbaud-bobbyearl/source-map-inline-loader",
