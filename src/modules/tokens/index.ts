@@ -3,10 +3,8 @@ export * from './tokens.component';
 export * from './tokens.module';
 
 export {
-  SkyTokensChange,
+  SkyToken,
   SkyTokensMessage,
   SkyTokensMessageType,
-  SkyTokenSelectedEventArgs,
-  SkyTokens,
-  SkyToken
+  SkyTokenSelectedEventArgs
 } from './types';
