@@ -7,9 +7,7 @@
   }"
   [attr.role]="ariaRole"
   [attr.tabindex]="tabIndex"
-  (focus)="tokenFocus.emit()"
-  (keyup.backspace)="dismissToken();$event.stopPropagation();"
-  (keyup.delete)="dismissToken();$event.stopPropagation();">
+  (focus)="tokenFocus.emit()">
 
   <ng-content>
   </ng-content>

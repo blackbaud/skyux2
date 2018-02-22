@@ -7,8 +7,7 @@ import {
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import {
-  SkyTokens,
-  SkyTokensChange,
+  SkyToken,
   SkyTokensComponent,
   SkyTokensMessage,
   SkyTokenSelectedEventArgs
@@ -29,8 +28,8 @@ export class SkyTokensTestComponent {
   public dismissible: boolean;
   public displayWith: string;
   public focusable: boolean;
-  public tokenStream: ReplaySubject<SkyTokens>;
   public messageStream: ReplaySubject<SkyTokensMessage>;
+  public tokens: SkyToken[];
 
   public data: any[] = [
     { name: 'Red' },
@@ -38,23 +37,14 @@ export class SkyTokensTestComponent {
     { name: 'Blue' }
   ];
 
-  public onChanges(change: SkyTokensChange) { }
-
   public onFocusIndexOverRange() { }
 
   public onFocusIndexUnderRange() { }
 
   public onTokenSelected(args: SkyTokenSelectedEventArgs) { }
 
-  public publishTokenStream() {
-    if (this.tokenStream) {
-      this.tokenStream.unsubscribe();
-    }
-
-    this.tokenStream = new ReplaySubject<SkyTokens>();
-    this.tokenStream.next({
-      value: this.data
-    });
+  public publishTokens() {
+    this.tokens = this.data.map(value => ({ value }));
   }
 
   public publishMessageStream() {

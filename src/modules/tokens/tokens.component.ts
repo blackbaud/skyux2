@@ -4,12 +4,10 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
-  SimpleChanges,
   ViewChildren
 } from '@angular/core';
 
@@ -18,8 +16,6 @@ import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyToken,
-  SkyTokens,
-  SkyTokensChange,
   SkyTokensMessage,
   SkyTokensMessageType,
   SkyTokenSelectedEventArgs
@@ -33,7 +29,7 @@ import { SkyTokenComponent } from './token.component';
   styleUrls: ['./tokens.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
+export class SkyTokensComponent implements OnInit, OnDestroy {
   @Input()
   public set disabled(value: boolean) {
     this._disabled = value;
@@ -74,10 +70,17 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   public messageStream: ReplaySubject<SkyTokensMessage>;
 
   @Input()
-  public tokenStream: ReplaySubject<SkyTokens>;
+  public set tokens(value: SkyToken[]) {
+    this._tokens = value;
+    this.tokensChange.emit(this._tokens);
+  }
+
+  public get tokens(): SkyToken[] {
+    return this._tokens || [];
+  }
 
   @Output()
-  public changes = new EventEmitter<SkyTokensChange>();
+  public tokensChange = new EventEmitter<SkyToken[]>();
 
   @Output()
   public focusIndexOverRange = new EventEmitter<void>();
@@ -106,18 +109,9 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this._activeIndex = value;
   }
 
-  public get tokens(): SkyToken[] {
-    return this._tokens || [];
-  }
-
-  public set tokens(value: SkyToken[]) {
-    this._tokens = value;
-  }
-
   @ViewChildren(SkyTokenComponent)
   private tokenComponents: QueryList<SkyTokenComponent>;
   private destroyed = new ReplaySubject<boolean>();
-  private tokenStreamDestroyed = new ReplaySubject<boolean>();
 
   private _activeIndex: number;
   private _disabled: boolean;
@@ -140,27 +134,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes.tokenStream) {
-      this.resetTokenStream();
-
-      if (!changes.tokenStream.currentValue) {
-        this.tokens = [];
-        this.notifyChanges();
-        return;
-      }
-
-      this.tokenStream
-        .takeUntil(this.tokenStreamDestroyed)
-        .subscribe((tokens: SkyTokens) => {
-          this.tokens = tokens.value.map(value => ({ value }));
-          this.changeDetector.markForCheck();
-        });
-    }
-  }
-
   public ngOnDestroy() {
-    this.resetTokenStream();
     this.destroyed.next(true);
     this.destroyed.unsubscribe();
   }
@@ -183,12 +157,18 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     /* tslint:disable-next-line:switch-default */
     switch (key) {
       case 'arrowleft':
+      case 'backspace':
       this.focusPreviousToken();
       event.preventDefault();
       break;
 
       case 'arrowright':
       this.focusNextToken();
+      event.preventDefault();
+      break;
+
+      case 'delete':
+      this.focusActiveToken();
       event.preventDefault();
       break;
 
@@ -201,8 +181,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   public removeToken(token: SkyToken) {
     this.tokens = this.tokens.filter(t => t !== token);
-    this.notifyChanges();
-    this.focusPreviousToken();
+    this.changeDetector.detectChanges();
   }
 
   private focusPreviousToken() {
@@ -231,12 +210,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private resetTokenStream() {
-    this.tokenStreamDestroyed.next(true);
-    this.tokenStreamDestroyed.unsubscribe();
-    this.tokenStreamDestroyed = new ReplaySubject<boolean>();
-  }
-
   private handleIncomingMessages(message: SkyTokensMessage) {
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
@@ -244,12 +217,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
       this.focusLastToken();
       break;
     }
-  }
-
-  private notifyChanges() {
-    this.changes.next({
-      tokens: this.tokens
-    });
   }
 
   private notifyTokenSelected(token: SkyToken) {

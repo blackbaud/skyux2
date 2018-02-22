@@ -17,11 +17,11 @@
 
     <div class="sky-lookup-search sky-form-control">
       <sky-tokens
+        [tokens]="tokens"
+        (tokensChange)="onTokensChange($event)"
         [disabled]="disabled"
         [displayWith]="descriptorProperty"
         [messageStream]="tokensController"
-        [tokenStream]="tokenStream"
-        (changes)="onTokensChange($event)"
         (focusIndexOverRange)="onTokensFocusIndexOverRange()">
 
         <textarea

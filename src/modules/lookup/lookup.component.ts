@@ -27,8 +27,7 @@ import {
 } from '../autocomplete';
 
 import {
-  SkyTokens,
-  SkyTokensChange,
+  SkyToken,
   SkyTokensMessage,
   SkyTokensMessageType
 } from '../tokens';
@@ -74,18 +73,16 @@ export class SkyLookupComponent
   @Output()
   public selectionChanges = new EventEmitter<SkyLookupChanges>();
 
-  public get value() {
-    return this._value || [];
-  }
+  public get value(): any[] {
+    if (!this.tokens) {
+      return [];
+    }
 
-  public set value(value: any[]) {
-    this._value = value;
-    this.onChange(this.value);
-    this.onTouched();
+    return this.tokens.map(token => token.value);
   }
 
   public isInputFocused = false;
-  public tokenStream = new ReplaySubject<SkyTokens>();
+  public tokens: SkyToken[];
   public tokensController = new ReplaySubject<SkyTokensMessage>();
 
   @ViewChild(SkyAutocompleteInputDirective)
@@ -93,11 +90,10 @@ export class SkyLookupComponent
 
   @ViewChild('lookupInput')
   private lookupInput: ElementRef;
+
   private destroyed = new ReplaySubject<boolean>();
   private idled = new ReplaySubject<boolean>();
   private markForTokenFocusOnKeyUp = false;
-
-  private _value: any[];
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -111,10 +107,6 @@ export class SkyLookupComponent
     if (!this.disabled) {
       this.addEventListeners();
     }
-
-    this.tokenStream.next({
-      value: this.value
-    });
   }
 
   public ngOnDestroy() {
@@ -128,15 +120,14 @@ export class SkyLookupComponent
     this.focusInput();
   }
 
-  public onTokensChange(change: SkyTokensChange) {
-    if (change.tokens) {
-      if (change.tokens.length === 0) {
-        this.focusInput();
-      }
+  public onTokensChange(change: SkyToken[]) {
+    if (change.length === 0) {
+      this.focusInput();
+    }
 
-      const tokens = change.tokens.map(token => token.value);
-      this.value = this.cloneItems(tokens);
-      this.notifySelectionChange(this.value);
+    if (this.tokens !== change) {
+      this.tokens = change;
+      this.onChange(this.value);
     }
   }
 
@@ -146,11 +137,20 @@ export class SkyLookupComponent
     });
   }
 
-  public writeValue(value: any) {
+  public writeValue(value: any[]) {
     if (value && !this.disabled) {
-      this.value = value;
+      const copy = this.cloneItems(value);
+      this.tokens = this.parseTokens(copy);
+      this.onChange(this.value);
+      this.onTouched();
     }
   }
+
+  // Angular automatically constructs these methods.
+  /* istanbul ignore next */
+  public onChange = (value: any[]) => {};
+  /* istanbul ignore next */
+  public onTouched = () => {};
 
   public registerOnChange(fn: (value: any) => void) {
     this.onChange = fn;
@@ -160,19 +160,10 @@ export class SkyLookupComponent
     this.onTouched = fn;
   }
 
-  // Angular automatically constructs these methods.
-  /* istanbul ignore next */
-  public onChange(value: any) { }
-  /* istanbul ignore next */
-  public onTouched() { }
-
   private addToSelected(item: any) {
-    const copy = { ...item };
-    this.value.push(copy);
-    this.tokenStream.next({
-      value: this.value
-    });
-
+    const tokenValues: any[] = this.tokens.map(token => token.value);
+    const newValue = this.cloneItems(tokenValues.concat(item));
+    this.writeValue(newValue);
     this.notifySelectionChange(this.value);
     this.clearSearchText();
   }
@@ -290,6 +281,14 @@ export class SkyLookupComponent
   private cloneItems(items: any[]): any[] {
     return items.map(item => {
       return { ...item };
+    });
+  }
+
+  private parseTokens(data: any[]): SkyToken[] {
+    return data.map((item: any) => {
+      return {
+        value: item
+      };
     });
   }
 }

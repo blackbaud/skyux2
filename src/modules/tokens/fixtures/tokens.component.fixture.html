@@ -4,8 +4,7 @@
   [displayWith]="displayWith"
   [focusable]="focusable"
   [messageStream]="messageStream"
-  [tokenStream]="tokenStream"
-  (changes)="onChanges($event)"
+  [(tokens)]="tokens"
   (focusIndexOverRange)="onFocusIndexOverRange()"
   (focusIndexUnderRange)="onFocusIndexUnderRange()"
   (tokenSelected)="onTokenSelected($event)">
