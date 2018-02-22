@@ -8,16 +8,20 @@ import {
   HostListener,
   Input,
   OnDestroy,
+  Optional,
   Output,
   QueryList
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
 
+import { SkyDropdownComponent } from './dropdown.component';
 import { SkyDropdownItemComponent } from './dropdown-item.component';
 
 import {
-  SkyDropdownMenuChange
+  SkyDropdownMenuChange,
+  SkyDropdownMessage,
+  SkyDropdownMessageType
 } from './types';
 
 @Component({
@@ -61,10 +65,57 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   private _menuIndex = 0;
 
   constructor(
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    @Optional() private dropdownComponent: SkyDropdownComponent
   ) { }
 
   public ngAfterContentInit() {
+    /* istanbul ignore else */
+    if (this.dropdownComponent) {
+      this.dropdownComponent.messageStream
+        .takeUntil(this.destroy)
+        .subscribe((message: SkyDropdownMessage) => {
+          /* tslint:disable-next-line:switch-default */
+          switch (message.type) {
+            case SkyDropdownMessageType.Open:
+            case SkyDropdownMessageType.Close:
+            this.reset();
+            break;
+
+            case SkyDropdownMessageType.FocusFirstItem:
+            this.focusFirstItem();
+            break;
+
+            case SkyDropdownMessageType.FocusNextItem:
+            this.focusNextItem();
+            break;
+
+            case SkyDropdownMessageType.FocusPreviousItem:
+            this.focusPreviousItem();
+            break;
+          }
+        });
+
+      this.menuChanges
+        .takeUntil(this.destroy)
+        .subscribe((change: SkyDropdownMenuChange) => {
+          // Close the dropdown when a menu item is selected.
+          if (change.selectedItem) {
+            this.dropdownComponent.messageStream.next({
+              type: SkyDropdownMessageType.Close
+            });
+          }
+
+          if (change.items) {
+            // Update the popover style and position whenever the number of
+            // items changes.
+            this.dropdownComponent.messageStream.next({
+              type: SkyDropdownMessageType.Reposition
+            });
+          }
+        });
+    }
+
     // Reset dropdown whenever the menu items change.
     this.menuItems.changes
       .takeUntil(this.destroy)
