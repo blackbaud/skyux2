@@ -8,27 +8,20 @@
   (ngSubmit)="submitReactiveForm()"
   novalidate>
 
-  <sky-row>
-    <sky-column screenSmall="6">
-      <div class="sky-form-group">
-        <label>
-          Favorite ice cream flavors?
-        </label>
-        <sky-lookup
-          [data]="iceCreamFlavors"
-          formControlName="favoriteIceCreamFlavors">
-        </sky-lookup>
-      </div>
-    </sky-column>
-    <sky-column screenSmall="6">
-      <div class="sky-form-group">
-        <label>
-          Sample
-        </label>
-        <input type="text" class="sky-form-control">
-      </div>
-    </sky-column>
-  </sky-row>
+  <div class="sky-form-group">
+    <label
+      id="my-custom-label"
+      class="sky-control-label">
+      Who are your friends?
+    </label>
+    <sky-lookup
+      ariaLabelledBy="my-custom-label"
+      formControlName="friends"
+      placeholderText="Type a person's name..."
+      [data]="people"
+      [searchFilters]="getSearchFilters()">
+    </sky-lookup>
+  </div>
 
   <p>
     <button
@@ -37,6 +30,7 @@
       (click)="disableLookup()">
       Disable lookup
     </button>
+
     <button
       type="button"
       class="sky-btn sky-btn-default"
