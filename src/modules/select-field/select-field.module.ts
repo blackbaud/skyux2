@@ -5,7 +5,6 @@ import { SkyModalModule } from '../modal';
 import { SkyListModule } from '../list';
 import { SkyDropdownModule } from '../dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SkySelectFieldInputDirective } from './select-field-input.directive';
 import { SkySelectFieldComponent } from './select-field.component';
 import { SkySelectFieldFormComponent } from './select-field-form.component';
 @NgModule({
@@ -18,12 +17,10 @@ import { SkySelectFieldFormComponent } from './select-field-form.component';
     ReactiveFormsModule
   ],
   exports: [
-    SkySelectFieldInputDirective,
     SkySelectFieldComponent,
     SkySelectFieldFormComponent
   ],
   declarations: [
-    SkySelectFieldInputDirective,
     SkySelectFieldComponent,
     SkySelectFieldFormComponent
   ],

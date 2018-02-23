@@ -3,6 +3,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   Output,
+  Input,
   AfterContentInit
 } from '@angular/core';
 import { FormGroup, FormControl, Validators }
@@ -24,12 +25,36 @@ import { SkyModalService, SkyModalCloseArgs } from '../modal';
 })
 
 export class SkySelectFieldComponent implements AfterContentInit {
+
+  @Input()
+  public skySelectFieldInput: SkySelectFieldComponent;
+
+  @Input()
+  public selectFieldStyle: string;
+
+  @Input()
+  public selectFieldIcon: string;
+
+  @Input()
+  public selectFieldClear: boolean;
+
+  @Input()
+  public selectFieldText: string;
+
+  @Input()
+  public selectFieldPickerHeader: string;
+
+  @Input()
+  public selectFieldPickerList: Array<SkySelectFieldListItems>;
+
+  @Input()
+  public selectFieldInitialItemsSelected: SkySelectFieldListItems[];
+
   @Output()
-  public selectFieldChanged: EventEmitter<SkySelectFieldOutput> =
+  public selectFieldOutput: EventEmitter<SkySelectFieldOutput> =
     new EventEmitter<SkySelectFieldOutput>();
 
   public singleSelectForm: FormGroup;
-  public selectFieldContext: SkySelectFieldContext;
 
   // temporary poly-fill for sky-tokens
   public tokens: BehaviorSubject<SkySelectFieldListItems[]>;
@@ -40,21 +65,25 @@ export class SkySelectFieldComponent implements AfterContentInit {
     });
   }
   public ngAfterContentInit() {
-    this.tokens = new BehaviorSubject(this.initialSelectedItems);
+    this.tokens = new BehaviorSubject(this.selectFieldInitialItemsSelected);
 
     this.tokens.subscribe(items => {
       if (!this.isSelectMultiple()) { this.singleSelectLabel(items[0]); }
-      this.selectFieldChanged.emit(items);
+      this.selectFieldOutput.emit(items);
     });
 
   }
 
-  public get selectFieldText() { return this.selectFieldContext.selectFieldText; }
-  public get selectFieldStyle() { return this.selectFieldContext.selectFieldStyle; }
-  public get initialSelectedItems() { return this.selectFieldContext.initialSelectedItems; }
-
   public openFormModel() {
-    const context = this.selectFieldContext;
+    const context = new SkySelectFieldContext();
+    context.pickerList = this.selectFieldPickerList || context.pickerList;
+    context.pickerHeader = this.selectFieldPickerHeader || context.pickerHeader;
+    context.selectFieldInitialItemsSelected = this.selectFieldInitialItemsSelected || context.selectFieldInitialItemsSelected;
+    context.selectFieldStyle = this.selectFieldStyle || context.selectFieldStyle;
+    context.selectFieldText = this.selectFieldText || context.selectFieldText;
+    context.selectFieldIcon = this.selectFieldIcon || context.selectFieldIcon;
+    context.selectFieldClear = this.selectFieldClear || context.selectFieldClear;
+
     const options: any = {
       providers: [{ provide: SkySelectFieldContext, useValue: context }],
       ariaDescribedBy: 'docs-modal-content'

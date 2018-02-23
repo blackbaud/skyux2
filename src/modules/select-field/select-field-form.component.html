@@ -1,6 +1,8 @@
 <sky-modal>
   <sky-modal-header>
-    {{pickerHeader}}
+    <div *ngIf="pickerHeader">{{pickerHeader}}</div>
+    <div *ngIf="!pickerHeader && isSelectMultiple()">{{'selectfieldpicker_select_values' | skyResources}}</div>
+    <div *ngIf="!pickerHeader && !isSelectMultiple()">{{'selectfieldpicker_select_value' | skyResources}}</div>
   </sky-modal-header>
   <sky-modal-content>
     <div *ngIf="true else developerProvidedTemplate">
@@ -19,10 +21,10 @@
   <sky-modal-footer>
     <div *ngIf="isSelectMultiple() else singleSelectModeFooter">
       <button type="button" class="sky-btn sky-btn-primary" (click)="save()">
-        Select
+        {{'selectfieldpicker_select' | skyResources}}
       </button>
       <button type="button" class="sky-btn sky-btn-link" (click)="close()">
-        Close
+        {{'selectfieldpicker_close' | skyResources}}
       </button>
     </div>
   </sky-modal-footer>
@@ -30,7 +32,7 @@
 
 <ng-template #singleSelectModeFooter>
   <button type="button" class="sky-btn sky-btn-secondary" (click)="clearSelection()">
-    Clear selection
+    {{'selectfieldpicker_clear' | skyResources}}
   </button>
 </ng-template>
 

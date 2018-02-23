@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SkyModalInstance } from '../modal';
 import { SkySelectFieldContext } from './select-field-context';
 import { SkySelectFieldListItems } from './select-field.interface';
@@ -8,11 +8,12 @@ import { Subject } from 'rxjs/Subject';
 @Component({
   selector: 'sky-select-field-form',
   styleUrls: ['./select-field-form.component.scss'],
-  templateUrl: 'select-field-form.component.html'
+  templateUrl: 'select-field-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class SkySelectFieldFormComponent {
-  public allItems: BehaviorSubject<SkySelectFieldListItems[]> = new BehaviorSubject(this.context.pickerContent);
+  public allItems: BehaviorSubject<SkySelectFieldListItems[]> = new BehaviorSubject(this.context.pickerList);
   public filteredItems: Subject<SkySelectFieldListItems[]> = this.allItems;
   public selectedCategory: string;
   public selectedIds: string[] = [];
@@ -36,16 +37,16 @@ export class SkySelectFieldFormComponent {
     return this.context.pickerHeader;
   }
   public get pickerContentItems() {
-    return this.context.pickerContent;
+    return this.context.pickerList;
   }
   public get selectFieldStyle() {
     return this.context.selectFieldStyle;
   }
   public get selectedItems() {
-    return this.context.initialSelectedItems;
+    return this.context.selectFieldInitialItemsSelected;
   }
   public set selectedItems(items) {
-    this.context.initialSelectedItems = items;
+    this.context.selectFieldInitialItemsSelected = items;
   }
   public setSelectedIds() {
     this.selectedIds = this.selectedItems.map(item => item.id);

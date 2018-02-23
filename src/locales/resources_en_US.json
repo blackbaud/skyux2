@@ -103,19 +103,19 @@
     "_description": "Label for the reset button to change the color back to the initial color",
     "message": "Reset"
   },
-  "confirm_dialog_default_ok_text" : {
+  "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
     "message": "OK"
   },
-  "confirm_dialog_default_yes_text" : {
+  "confirm_dialog_default_yes_text": {
     "_description": "Default text for confirm dialog's Yes button",
     "message": "Yes"
   },
-  "confirm_dialog_default_no_text" : {
+  "confirm_dialog_default_no_text": {
     "_description": "Default text for confirm dialog's No button",
     "message": "No"
   },
-  "confirm_dialog_default_cancel_text" : {
+  "confirm_dialog_default_cancel_text": {
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
   },
@@ -755,9 +755,17 @@
     "_description": "Text displayed when the user has more than 5 items selected",
     "message": "{0} items selected"
   },
+  "selectfield_selection_required_warning": {
+    "_description": "Text for when there is no selection in a single select mode.",
+    "message": "A selection is required in this field."
+  },
   "selectfieldpicker_clear": {
     "_description": "Text displayed on the button in single select mode to clear selection and close form",
     "message": "Clear selection"
+  },
+  "selectfieldpicker_close": {
+    "_description": "Text displayed on the button in multi select mode to close form",
+    "message": "Close"
   },
   "selectfieldpicker_select": {
     "_description": "Text displayed on the primary dialog button to confirm selection of multiple items",

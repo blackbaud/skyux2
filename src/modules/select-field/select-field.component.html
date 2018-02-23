@@ -2,6 +2,10 @@
   <button class="sky-btn sky-btn-link" (click)="openFormModel()">
     <i class="fa fa-plus-circle"></i>
     <span> {{selectFieldText}}</span>
+    <span *ngIf="selectFieldText">{{selectFieldText}}</span>
+    <span *ngIf="!selectFieldText && isSelectMultiple()">{{'selectfieldpicker_select_values' | skyResources}}</span>
+    <span *ngIf="!selectFieldText && !isSelectMultiple()">{{'selectfieldpicker_select_value' | skyResources}}</span>
+
   </button>
   <!-- replace with sky tokens -->
   <div *ngFor="let token of tokens | async">
@@ -24,6 +28,6 @@
   </div>
 
   <div *ngIf="singleSelectForm.invalid && (singleSelectForm.dirty || singleSelectForm.touched)" class="alert alert-danger">
-    <i class="fa fa-exclamation-triangle sky-select-field-warning"></i> A selection is required in this field.
+    <i class="fa fa-exclamation-triangle sky-select-field-warning"></i> {{'selectfield_selection_required_warning' | skyResources}}
   </div>
 </ng-template>
