@@ -1,8 +1,6 @@
-export interface SkySelectFieldListItems {
+export interface SkySelectFieldListItemsType {
   id: string;
   label: string;
   description: string;
   category: string;
 }
-
-export interface SkySelectFieldOutput extends Array<SkySelectFieldListItems> { }

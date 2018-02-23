@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SkyModalInstance } from '../modal';
 import { SkySelectFieldContext } from './select-field-context';
-import { SkySelectField, SkySelectFieldListItemsType } from './types';
+import { SkySelectField } from './types';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 
