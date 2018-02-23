@@ -5,19 +5,16 @@
     <span *ngIf="selectFieldText">{{selectFieldText}}</span>
     <span *ngIf="!selectFieldText && isSelectMultiple()">{{'selectfieldpicker_select_values' | skyResources}}</span>
     <span *ngIf="!selectFieldText && !isSelectMultiple()">{{'selectfieldpicker_select_value' | skyResources}}</span>
-
   </button>
-  <!-- replace with sky tokens -->
-  <div *ngFor="let token of tokens | async">
-    {{token.label}}
-  </div>
+  <sky-tokens displayWith="label" [(tokens)]="tokensValues"></sky-tokens>
 </div>
 
 
 <ng-template #singleSelectMode>
   <div [formGroup]="singleSelectForm" class="sky-input-group">
-    <input formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input" type="text" placeholder="{{selectFieldText}}" (click)="openFormModel()">
-    <div class="sky-input-group-btn sky-select-field-input-group" >
+    <input formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input" type="text" placeholder="{{selectFieldText}}"
+      (click)="openFormModel()">
+    <div class="sky-input-group-btn sky-select-field-input-group">
       <button class="sky-btn" *ngIf="singleSelectForm.controls.singleSelectInput.value" (click)="clearSelectSingle()">
         <i class="fa fa-times"></i>
       </button>

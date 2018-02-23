@@ -7,14 +7,17 @@ import { SkyDropdownModule } from '../dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SkySelectFieldComponent } from './select-field.component';
 import { SkySelectFieldFormComponent } from './select-field-form.component';
+import { SkyTokensModule } from '../tokens';
+
 @NgModule({
   imports: [
     CommonModule,
-    SkyModalModule,
-    SkyListModule,
+    ReactiveFormsModule,
     SkyDropdownModule,
+    SkyListModule,
+    SkyModalModule,
     SkyResourcesModule,
-    ReactiveFormsModule
+    SkyTokensModule
   ],
   exports: [
     SkySelectFieldComponent,

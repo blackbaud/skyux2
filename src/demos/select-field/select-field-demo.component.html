@@ -5,8 +5,7 @@
 <sky-select-field
   [selectFieldText]='multipleModeText'
   [selectFieldPickerList]='pickerItems'
-  [selectFieldInitialItemsSelected]="multipleItemsSelected"
-  (selectFieldOutput)="multipleItemsSelected"
+  [(selectField)]="multipleItemsSelected"
 >
 </sky-select-field>
 </div>
@@ -22,8 +21,7 @@
   [selectFieldStyle]='singleModeStyle'
   [selectFieldText]='singleModeText'
   [selectFieldPickerList]='pickerItems'
-  [selectFieldInitialItemsSelected]="singleItemSelected"
-  (selectFieldOutput)="singleItemSelected">
+  [(selectField)]="singleItemSelected">
 </sky-select-field>
 </div>
 <li>{{singleItemSelected[0]?.label}}</li>

@@ -43,10 +43,10 @@ export class SkySelectFieldFormComponent {
     return this.context.selectFieldStyle;
   }
   public get selectedItems() {
-    return this.context.selectFieldInitialItemsSelected;
+    return this.context.selectField;
   }
   public set selectedItems(items) {
-    this.context.selectFieldInitialItemsSelected = items;
+    this.context.selectField = items;
   }
   public setSelectedIds() {
     this.selectedIds = this.selectedItems.map(item => item.id);
