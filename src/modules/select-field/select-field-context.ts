@@ -1,7 +1,7 @@
-import { SkySelectFieldOutput, SkySelectFieldListItems } from './select-field.interface';
+import { SkySelectField } from './types';
 export class SkySelectFieldContext {
   public pickerHeader: string;
-  public pickerList: SkySelectFieldOutput;
-  public selectField: SkySelectFieldListItems[];
+  public pickerList: SkySelectField;
+  public selectField: SkySelectField;
   public selectFieldStyle: string;
 }

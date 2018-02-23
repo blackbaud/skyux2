@@ -9,10 +9,9 @@ import {
 import { FormGroup, FormControl, Validators }
   from '@angular/forms';
 
-import { SkySelectFieldOutput } from './select-field.interface';
 import { SkySelectFieldContext } from './select-field-context';
 import { SkySelectFieldFormComponent } from './select-field-form.component';
-import { SkySelectFieldListItems } from './select-field.interface';
+import { SkySelectField, SkySelectFieldListItemsType } from './types';
 import { SkyResources } from '../resources/resources';
 import { SkyModalService, SkyModalCloseArgs } from '../modal';
 
@@ -26,7 +25,7 @@ import { SkyModalService, SkyModalCloseArgs } from '../modal';
 export class SkySelectFieldComponent implements AfterContentInit {
 
   @Input()
-  public set selectField(value: SkySelectFieldListItems[]) {
+  public set selectField(value: SkySelectField) {
     this._selectField = value;
     this.selectFieldChange.emit(this._selectField);
   }
@@ -47,7 +46,7 @@ export class SkySelectFieldComponent implements AfterContentInit {
   }
 
   @Input()
-  public set selectFieldPickerList(value: Array<SkySelectFieldListItems>) {
+  public set selectFieldPickerList(value: SkySelectField) {
     this._selectFieldPickerList = value;
   }
 
@@ -62,8 +61,8 @@ export class SkySelectFieldComponent implements AfterContentInit {
   }
 
   @Output()
-  public selectFieldChange = new EventEmitter<SkySelectFieldOutput>();
-  public get selectField(): SkySelectFieldListItems[] {
+  public selectFieldChange = new EventEmitter<SkySelectField>();
+  public get selectField(): SkySelectField {
     return this._selectField || [];
   }
 
@@ -102,17 +101,17 @@ export class SkySelectFieldComponent implements AfterContentInit {
 
   public singleSelectForm: FormGroup;
 
-  private _selectField: SkySelectFieldListItems[];
+  private _selectField: SkySelectField;
   private _selectFieldClear: boolean;
   private _selectFieldIcon: string = 'fa-sort';
   private _selectFieldPickerHeader: string;
-  private _selectFieldPickerList: Array<SkySelectFieldListItems> = [];
+  private _selectFieldPickerList: SkySelectField = [];
   private _selectFieldStyle: string = 'multiple';
   private _selectFieldText: string;
-  private _tokenValues: Array<SkySelectFieldListItems> = [];
+  private _tokenValues: SkySelectField = [];
 
   constructor(private modal: SkyModalService) {
-    this.selectFieldChange.subscribe((item: SkySelectFieldOutput) => {
+    this.selectFieldChange.subscribe((item: SkySelectField) => {
       this.singleSelectLabel(item[0]);
       this._tokenValues = this._selectField;
     });
@@ -139,7 +138,7 @@ export class SkySelectFieldComponent implements AfterContentInit {
 
     const modalInstance = this.modal.open(SkySelectFieldFormComponent, options);
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-      let data: SkySelectFieldOutput = result.data;
+      let data: SkySelectField = result.data;
       if (result.reason === 'save') {
         this.selectFieldChange.emit(data);
       }
@@ -155,7 +154,7 @@ export class SkySelectFieldComponent implements AfterContentInit {
   public clearSelect() {
     this.selectFieldChange.emit([]);
   }
-  private singleSelectLabel(selectedItem: SkySelectFieldListItems) {
+  private singleSelectLabel(selectedItem: SkySelectFieldListItemsType) {
     if (!this.isSelectMultiple()) {
       this.singleSelectForm.controls.singleSelectInput.setValue(selectedItem ? selectedItem.label : '');
     }

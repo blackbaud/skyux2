@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SkyModalInstance } from '../modal';
 import { SkySelectFieldContext } from './select-field-context';
-import { SkySelectFieldListItems } from './select-field.interface';
+import { SkySelectField, SkySelectFieldListItemsType } from './types';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 
@@ -13,8 +13,8 @@ import { Subject } from 'rxjs/Subject';
 })
 
 export class SkySelectFieldFormComponent {
-  public allItems: BehaviorSubject<SkySelectFieldListItems[]> = new BehaviorSubject(this.context.pickerList);
-  public filteredItems: Subject<SkySelectFieldListItems[]> = this.allItems;
+  public allItems: BehaviorSubject<SkySelectField> = new BehaviorSubject(this.context.pickerList);
+  public filteredItems: Subject<SkySelectField> = this.allItems;
   public selectedCategory: string;
   public selectedIds: string[] = [];
 
