@@ -10,12 +10,12 @@
 
   <div class="sky-form-group">
     <label
-      id="my-custom-label"
+      id="my-friends-label"
       class="sky-control-label">
       Who are your friends?
     </label>
     <sky-lookup
-      ariaLabelledBy="my-custom-label"
+      ariaLabelledBy="my-friends-label"
       formControlName="friends"
       placeholderText="Type a person's name..."
       [data]="people"
@@ -38,6 +38,20 @@
       Enable lookup
     </button>
   </p>
+
+  <div class="sky-form-group">
+    <label
+      id="my-enemies-label"
+      class="sky-control-label">
+      Who are your enemies?
+    </label>
+    <sky-lookup
+      ariaLabelledBy="my-enemies-label"
+      formControlName="enemies"
+      placeholderText="Type a person's name..."
+      [data]="people">
+    </sky-lookup>
+  </div>
 
   <button
     class="sky-btn sky-btn-primary"

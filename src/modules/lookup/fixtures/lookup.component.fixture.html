@@ -1,9 +1,11 @@
-<sky-lookup
-  [placeholderText]="placeholderText"
-  [data]="data"
-  [selectedItems]="selectedItems"
-  (selectionChange)="selectionChanged($event)"
-  [propertiesToSearch]="propertiesToSearch"
-  [multiple]="multiple"
-  [resultsLimit]="resultsLimit">
-</sky-lookup>
+<form
+  [formGroup]="form"
+  novalidate>
+  <sky-lookup
+    formControlName="friends"
+    [ariaLabel]="ariaLabel"
+    [ariaLabelledBy]="ariaLabelledBy"
+    [data]="people"
+    [placeholderText]="placeholderText">
+  </sky-lookup>
+</form>

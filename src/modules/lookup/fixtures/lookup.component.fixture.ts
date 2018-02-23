@@ -1,33 +1,70 @@
-// import {
-//   Component,
-//   ViewChild
-// } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 
-// import {
-//   SkyLookupComponent,
-//   SkyLookupSelectionChange
-// } from '../lookup.component';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup
+} from '@angular/forms';
 
-// @Component({
-//   selector: 'sky-test-cmp',
-//   templateUrl: './lookup.component.fixture.html'
-// })
-// export class LookupTestComponent {
-//   @ViewChild(SkyLookupComponent)
-//   public lookupComponent: SkyLookupComponent;
+import { SkyLookupComponent } from '../lookup.component';
 
-//   public placeholderText: string;
+@Component({
+  selector: 'sky-test-cmp',
+  templateUrl: './lookup.component.fixture.html'
+})
+export class SkyLookupTestComponent implements OnInit {
+  @ViewChild(SkyLookupComponent)
+  public lookupComponent: SkyLookupComponent;
 
-//   public multiple: boolean;
-//   public resultsLimit: number;
-//   public propertiesToSearch: Array<string> = ['name'];
+  public ariaLabel: string;
+  public ariaLabelledBy: string;
+  public friends: any[];
+  public form: FormGroup;
+  public placeholderText: string;
 
-//   public data: Array<any> = [];
-//   public selectedItems: Array<any> = [];
+  public people: any[] = [
+    { name: 'Andy' },
+    { name: 'Beth' },
+    { name: 'David' },
+    { name: 'Frank' },
+    { name: 'Isaac' },
+    { name: 'John' },
+    { name: 'Joyce' },
+    { name: 'Lindsey' },
+    { name: 'Mitch' },
+    { name: 'Patty' },
+    { name: 'Paul' },
+    { name: 'Sally' },
+    { name: 'Susan' },
+    { name: 'Vanessa' },
+    { name: 'Xavier' },
+    { name: 'Yolanda' },
+    { name: 'Zack' }
+  ];
 
-//   public lastSelectionChange: SkyLookupSelectionChange;
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
 
-//   public selectionChanged(event: SkyLookupSelectionChange) {
-//     this.lastSelectionChange = event;
-//   }
-// }
+  public ngOnInit(): void {
+    this.createForm();
+  }
+
+  public enableLookup() {
+    this.form.controls.friends.enable();
+  }
+
+  public disableLookup() {
+    this.form.controls.friends.disable();
+  }
+
+  private createForm(): void {
+    this.form = this.formBuilder.group({
+      friends: new FormControl(this.friends)
+    });
+  }
+}

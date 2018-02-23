@@ -44,6 +44,8 @@ export class SkyLookupDemoComponent implements OnInit {
     { name: 'Susan' }
   ];
 
+  public enemies: any[];
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
@@ -53,16 +55,15 @@ export class SkyLookupDemoComponent implements OnInit {
 
     // If you need to execute some logic after the lookup values change,
     // subscribe to Angular's built-in value changes observable.
-    this.reactiveForm.controls.friends.valueChanges.subscribe(changes => {
+    this.reactiveForm.valueChanges.subscribe(changes => {
       console.log('Lookup value changes:', changes);
     });
   }
 
+  // Only show people in the search results that have not been chosen already.
   public getSearchFilters(): SkyAutocompleteSearchFunctionFilter[] {
     const friends: any[] = this.reactiveForm.controls.friends.value;
-
     return [
-      // Only show people in the search results that have not been chosen already.
       (searchText: string, item: any): boolean => {
         const found = friends.find(friend => friend.name === item.name);
         return !found;
@@ -82,16 +83,10 @@ export class SkyLookupDemoComponent implements OnInit {
     alert('Form submitted with: ' + JSON.stringify(this.reactiveForm.value));
   }
 
-  public onValueChange(change: any) {
-    console.log('value changed:', change);
-  }
-
   private createForm(): void {
     this.reactiveForm = this.formBuilder.group({
-      friends: new FormControl({
-        value: this.friends,
-        disabled: false
-      })
+      friends: new FormControl(this.friends),
+      enemies: new FormControl(this.enemies)
     });
   }
 }

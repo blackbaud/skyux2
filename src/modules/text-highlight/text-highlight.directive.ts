@@ -110,7 +110,9 @@ export class SkyTextHighlightDirective
   }
 
   public ngOnDestroy(): void {
-    this.observer.disconnect();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
 
   private readyForHighlight(searchText: string): boolean {

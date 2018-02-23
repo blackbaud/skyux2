@@ -20,7 +20,6 @@ import 'rxjs/add/observable/fromEvent';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import {
-  SkyAutocompleteSearchFunctionFilter,
   SkyAutocompleteSelectionChange,
   SkyAutocompleteInputDirective
 } from '../autocomplete';
@@ -65,14 +64,6 @@ export class SkyLookupComponent
   @Input()
   public placeholderText: string;
 
-  public get value(): any[] {
-    if (!this.tokens) {
-      return [];
-    }
-
-    return this.tokens.map(token => token.value);
-  }
-
   public get tokens(): SkyToken[] {
     return this._tokens;
   }
@@ -81,6 +72,14 @@ export class SkyLookupComponent
     this._tokens = value;
     this.onChange(this.value);
     this.onTouched();
+  }
+
+  public get value(): any[] {
+    if (!this.tokens) {
+      return [];
+    }
+
+    return this.tokens.map(token => token.value);
   }
 
   public isInputFocused = false;
@@ -124,6 +123,10 @@ export class SkyLookupComponent
   }
 
   public onTokensChange(change: SkyToken[]) {
+    if (!change) {
+      return;
+    }
+
     if (change.length === 0) {
       this.focusInput();
     }
@@ -173,9 +176,16 @@ export class SkyLookupComponent
   }
 
   private addToSelected(item: any) {
-    const tokenValues: any[] = this.tokens.map(token => token.value);
-    const newValue = this.cloneItems(tokenValues.concat(item));
-    this.writeValue(newValue);
+    let selectedItems: any[] = [];
+
+    if (this.tokens) {
+      selectedItems = this.tokens.map(token => token.value);
+    }
+
+    // Add the new item.
+    selectedItems = selectedItems.concat(item);
+
+    this.writeValue(selectedItems);
     this.clearSearchText();
   }
 
@@ -192,7 +202,8 @@ export class SkyLookupComponent
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
         if (key === 'arrowleft' || key === 'backspace') {
-          if (this.isSearchEmpty()) {
+          const isSearchEmpty = (!this.lookupInput.nativeElement.value);
+          if (isSearchEmpty) {
             this.markForTokenFocusOnKeyUp = true;
           } else {
             this.markForTokenFocusOnKeyUp = false;
@@ -280,11 +291,12 @@ export class SkyLookupComponent
     this.autocompleteInputDirective.value = undefined;
   }
 
-  private isSearchEmpty() {
-    return (!this.lookupInput.nativeElement.value);
-  }
-
   private cloneItems(items: any[]): any[] {
+    // if (!Array.isArray(items)) {
+    //   return [];
+    // }
+
+    console.log('cloneItems():', items);
     return items.map(item => {
       return { ...item };
     });
