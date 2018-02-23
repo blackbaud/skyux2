@@ -6,7 +6,7 @@ import {
 
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-fdescribe('Lookup component', () => {
+describe('Lookup component', () => {
   it('should match previous lookup screenshot', () => {
     return SkyVisualTest
       .setupTest('lookup')
@@ -45,7 +45,7 @@ fdescribe('Lookup component', () => {
       .setupTest('lookup', 480)
       .then(() => {
         return SkyVisualTest.compareScreenshot({
-          screenshotName: 'lookup',
+          screenshotName: 'lookup-sm',
           selector: 'body'
         });
       });
@@ -67,7 +67,7 @@ fdescribe('Lookup component', () => {
         });
 
         return SkyVisualTest.compareScreenshot({
-          screenshotName: 'lookup-w-menu',
+          screenshotName: 'lookup-w-menu-sm',
           selector: 'body'
         });
       });
@@ -80,7 +80,7 @@ fdescribe('Lookup component', () => {
         const btn = element(by.css('#btn-disable-lookup'));
         btn.click();
         return SkyVisualTest.compareScreenshot({
-          screenshotName: 'lookup-w-menu',
+          screenshotName: 'lookup-disabled',
           selector: 'body'
         });
       });
