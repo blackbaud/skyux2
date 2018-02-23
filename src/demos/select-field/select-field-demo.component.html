@@ -3,8 +3,8 @@
   Multi-select Mode
 </label>
 <sky-select-field
-  [selectFieldText]='multipleModeText'
-  [selectFieldPickerList]='pickerItems'
+  [selectFieldText]="multipleModeText"
+  [selectFieldPickerList]="pickerItems"
   [(selectField)]="multipleItemsSelected"
 >
 </sky-select-field>
@@ -18,9 +18,10 @@
   Single-select Mode
 </label>
 <sky-select-field
-  [selectFieldStyle]='singleModeStyle'
-  [selectFieldText]='singleModeText'
-  [selectFieldPickerList]='pickerItems'
+  selectFieldClear=""
+  [selectFieldStyle]="singleModeStyle"
+  [selectFieldText]="singleModeText"
+  [selectFieldPickerList]="pickerItems"
   [(selectField)]="singleItemSelected">
 </sky-select-field>
 </div>

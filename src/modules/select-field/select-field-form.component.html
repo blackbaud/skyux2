@@ -37,19 +37,19 @@
 </ng-template>
 
 <ng-template #singleSelectToolbar>
-  <div class="sky-select-field-toolbar">
+  <div class="sky-select-field-toolbar" *ngIf="pickerItemsCategories.length >= 1">
     <sky-dropdown>
       <sky-dropdown-button (click)="clearSelection()">
         <span *ngIf="!selectedCategory">All categories</span>
         <span *ngIf="selectedCategory">{{selectedCategory}}</span>
       </sky-dropdown-button>
-      <sky-dropdown-menu>
-        <sky-dropdown-item *ngFor="let category of pickerItemsCategories">
-          <button (click)="selectedItemsCategory(category)">
-            {{ category }}
-          </button>
-        </sky-dropdown-item>
-      </sky-dropdown-menu>
+        <sky-dropdown-menu>
+          <sky-dropdown-item *ngFor="let category of pickerItemsCategories">
+            <button (click)="selectedItemsCategory(category)">
+              {{ category }}
+            </button>
+          </sky-dropdown-item>
+        </sky-dropdown-menu>
     </sky-dropdown>
   </div>
 </ng-template>

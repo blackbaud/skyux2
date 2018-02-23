@@ -73,12 +73,7 @@ export class SkySelectFieldFormComponent {
   public selectedItemsChange(selectedMap: Map<string, boolean>) {
 
     this.allItems.subscribe(items => {
-      if (selectedMap === undefined) {
-        this.selectedItems = [];
-      } else {
-        this.selectedItems = items.filter(item => selectedMap.get(item.id));
-      }
-
+      this.selectedItems = selectedMap === undefined ? [] : items.filter(item => selectedMap.get(item.id));
       if (!this.isSelectMultiple()) { this.save(); }
     });
   }

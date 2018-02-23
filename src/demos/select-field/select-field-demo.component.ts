@@ -30,9 +30,5 @@ export class SkySelectFieldDemoComponent {
     { id: '7', category: 'Aggregate fruit', label: 'Strawberry', description: 'Sally eats strawberries' }
   ];
 
-  public pickerItems2 = [
-    { id: '1', category: 'Test', label: 'test', description: 'test' }
-  ];
-
   constructor() { }
 }
