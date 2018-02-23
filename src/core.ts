@@ -53,6 +53,7 @@ import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkySearchModule } from './modules/search';
 import { SkySectionedFormModule } from './modules/sectioned-form';
+import { SkySelectFieldModule} from './modules/select-field';
 import { SkySortModule } from './modules/sort';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
@@ -108,6 +109,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyRepeaterModule,
     SkySearchModule,
     SkySectionedFormModule,
+    SkySelectFieldModule,
     SkySortModule,
     SkyTabsModule,
     SkyTextExpandModule,

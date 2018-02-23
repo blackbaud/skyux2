@@ -1,0 +1,30 @@
+.sky-select-field-warning {
+  color: #ef4040
+}
+
+.sky-select-field-single-input {
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.sky-select-field-single-input:hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.sky-select-field-input-group {
+  z-index: 3;
+  width: 0%;
+  overflow: visible;
+  justify-content: flex-end;
+}
+
+.sky-select-field-input-group button {
+  padding-right: 6px;
+  padding-left: 6px;
+  border-color: transparent;
+}
+.sky-select-field-input-group button:last-child {
+  padding-right: 12px;
+}

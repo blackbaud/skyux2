@@ -42,6 +42,7 @@ import {
   SkyRepeaterDemoComponent,
   SkySearchDemoComponent,
   SkySectionedFormDemoComponent,
+  SkySelectFieldDemoComponent,
   SkySortDemoComponent,
   SkyTabsDemoComponent,
   SkyTextExpandDemoComponent,
@@ -810,6 +811,22 @@ export class SkyDemoService {
           name: 'demo-phone-form.component.ts',
           fileContents: require('!!raw-loader!./sectioned-form/demo-phone-form.component.ts'),
           componentName: 'SkyDemoPhoneFormComponent'
+        }
+      ]
+    },
+    {
+      name: 'Select Field',
+      component: SkySelectFieldDemoComponent,
+      files: [
+        {
+          name: 'select-field-demo.component.html',
+          fileContents: require('!!raw-loader!./select-field/select-field-demo.component.html')
+        },
+        {
+          name: 'select-field-demo.component.ts',
+          fileContents: require('!!raw-loader!./select-field/select-field-demo.component.ts'),
+          componentName: 'SkySelectFieldDemoComponent',
+          bootstrapSelector: 'sky-select-field-demo'
         }
       ]
     },

@@ -1,0 +1,29 @@
+<div *ngIf="isSelectMultiple() else singleSelectMode">
+  <button class="sky-btn sky-btn-link" (click)="openFormModel()">
+    <i class="fa fa-plus-circle"></i>
+    <span> {{selectFieldText}}</span>
+  </button>
+  <!-- replace with sky tokens -->
+  <div *ngFor="let token of tokens | async">
+    {{token.label}}
+  </div>
+</div>
+
+
+<ng-template #singleSelectMode>
+  <div [formGroup]="singleSelectForm" class="sky-input-group">
+    <input formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input" type="text" placeholder="{{selectFieldText}}" (click)="openFormModel()">
+    <div class="sky-input-group-btn sky-select-field-input-group" >
+      <button class="sky-btn" *ngIf="singleSelectForm.controls.singleSelectInput.value" (click)="clearSelectSingle()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button class="sky-btn" (click)="openFormModel()">
+        <i class="fa fa-sort"></i>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="singleSelectForm.invalid && (singleSelectForm.dirty || singleSelectForm.touched)" class="alert alert-danger">
+    <i class="fa fa-exclamation-triangle sky-select-field-warning"></i> A selection is required in this field.
+  </div>
+</ng-template>

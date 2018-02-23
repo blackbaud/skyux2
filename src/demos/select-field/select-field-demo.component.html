@@ -1,0 +1,35 @@
+<div>
+<label class="sky-control-label">
+  Multi-select Mode
+</label>
+<sky-select-field #skySelectField1>
+  <div
+  [skySelectFieldInput]="skySelectField1"
+  [selectFieldText]='multipleModeText'
+  [selectFieldContent]='pickerItems'
+  [(ngModel)]="multipleItemsSelected"
+  #selected1="ngModel"></div>
+</sky-select-field>
+</div>
+<ul *ngFor="let item of multipleItemsSelected">
+  <li>{{item.label}}</li>
+</ul>
+
+<div>
+<label class="sky-control-label sky-control-label-required">
+  Single-select Mode
+</label>
+<sky-select-field #skySelectField2>
+  <div
+  [skySelectFieldInput]="skySelectField2"
+  [selectFieldStyle]='singleModeStyle'
+  [selectFieldText]='singleModeText'
+  [selectFieldContent]='pickerItems'
+  [(ngModel)]="singleItemSelected"
+  #selected2="ngModel">
+  </div>
+</sky-select-field>
+</div>
+<li>{{singleItemSelected[0]?.label}}</li>
+<ul *ngFor="let item of singleItemSelected">
+</ul>
