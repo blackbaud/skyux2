@@ -13,8 +13,9 @@ import { SkySelectFieldOutput } from './select-field.interface';
 import { SkySelectFieldContext } from './select-field-context';
 import { SkySelectFieldFormComponent } from './select-field-form.component';
 import { SkySelectFieldListItems } from './select-field.interface';
-
+import { SkyResources } from '../resources/resources';
 import { SkyModalService, SkyModalCloseArgs } from '../modal';
+import { SkyResourcesPipe } from '../resources';
 
 @Component({
   selector: 'sky-select-field',
@@ -87,6 +88,19 @@ export class SkySelectFieldComponent implements AfterContentInit {
     this.selectFieldChange.emit(arg.map((item: any) => item.value));
   }
 
+  public get tokenOverflow() {
+    let text = SkyResources.getString('selectfield_summary_text');
+    let summary = text.replace('{0}', this._tokenValues.length.toString());
+    return [{ value: { name: summary } }];
+  }
+
+  public set tokenOverflow(arg) {
+    if (arg.length === 0) {
+      this.clearSelect();
+    }
+  }
+
+
   public singleSelectForm: FormGroup;
 
   private _selectField: SkySelectFieldListItems[];
@@ -136,10 +150,10 @@ export class SkySelectFieldComponent implements AfterContentInit {
   public isSelectMultiple() {
     return this._selectFieldStyle === 'multiple' ? true : false;
   }
-  public isClearable(){
+  public isClearable() {
     return this.singleSelectForm.controls.singleSelectInput.value && this.selectFieldClear;
   }
-  public clearSelectSingle() {
+  public clearSelect() {
     this.selectFieldChange.emit([]);
   }
   private singleSelectLabel(selectedItem: SkySelectFieldListItems) {

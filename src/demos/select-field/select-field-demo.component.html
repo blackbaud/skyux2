@@ -1,30 +1,42 @@
-<div>
-<label class="sky-control-label">
-  Multi-select Mode
-</label>
-<sky-select-field
-  [selectFieldText]="multipleModeText"
-  [selectFieldPickerList]="pickerItems"
-  [(selectField)]="multipleItemsSelected"
->
-</sky-select-field>
-</div>
-<ul *ngFor="let item of multipleItemsSelected">
-  <li>{{item.label}}</li>
-</ul>
-
-<div>
-<label class="sky-control-label sky-control-label-required">
-  Single-select Mode
-</label>
-<sky-select-field
-  selectFieldClear=""
-  [selectFieldStyle]="singleModeStyle"
-  [selectFieldText]="singleModeText"
-  [selectFieldPickerList]="pickerItems"
-  [(selectField)]="singleItemSelected">
-</sky-select-field>
-</div>
-<li>{{singleItemSelected[0]?.label}}</li>
-<ul *ngFor="let item of singleItemSelected">
-</ul>
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      <div>
+        <label class="sky-control-label">
+          Multi-select Mode
+        </label>
+        <sky-select-field
+        [selectFieldText]="multipleModeText"
+        [selectFieldPickerList]="pickerItems"
+        [(selectField)]="multipleItemsSelected">
+        </sky-select-field>
+      </div>
+    </td>
+    <td>
+      <ul *ngFor="let item of multipleItemsSelected">
+        <li>{{item.label}}</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <div>
+        <label class="sky-control-label sky-control-label-required">
+          Single-select Mode
+        </label>
+        <sky-select-field
+        selectFieldClear=""
+        [selectFieldStyle]="singleModeStyle"
+        [selectFieldText]="singleModeText"
+        [selectFieldPickerList]="pickerItems"
+        [(selectField)]="singleItemSelected">
+        </sky-select-field>
+      </div>
+    </td>
+    <td>
+      <ul *ngFor="let item of singleItemSelected">
+        <li>{{item?.label}}</li>
+      </ul>
+    </td>
+  </tr>
+</table>
