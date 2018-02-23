@@ -26,10 +26,6 @@ export class SkyFilterSummaryItemComponent {
     this.dismiss.emit();
   }
 
-  public onItemDismissKeypress() {
-    this.onItemDismiss();
-  }
-
   public onItemClick() {
     this.itemClick.emit();
   }
