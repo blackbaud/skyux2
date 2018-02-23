@@ -19,6 +19,7 @@
       <sky-tokens
         [disabled]="disabled"
         [displayWith]="descriptorProperty"
+        [focusable]="false"
         [messageStream]="tokensController"
         [tokens]="tokens"
         (tokensChange)="onTokensChange($event)"
@@ -32,6 +33,7 @@
           [attr.aria-labelledby]="ariaLabelledBy"
           [attr.placeholder]="placeholderText"
           (keydown.enter)="$event.preventDefault();"
+          (keyup.escape)="clearSearchText();$event.preventDefault();"
           #lookupInput>
         </textarea>
       </sky-tokens>

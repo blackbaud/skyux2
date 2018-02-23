@@ -175,6 +175,10 @@ export class SkyLookupComponent
     this.changeDetector.markForCheck();
   }
 
+  public clearSearchText() {
+    this.autocompleteInputDirective.value = undefined;
+  }
+
   private addToSelected(item: any) {
     let selectedItems: any[] = [];
 
@@ -190,11 +194,23 @@ export class SkyLookupComponent
   }
 
   private addEventListeners() {
-    const inputElement = this.lookupInput.nativeElement;
-    const hostElement = this.elementRef.nativeElement;
-    const documentObj = this.windowRef.getWindow().document;
+    this.focusTokensOnInputKeyUp();
+    this.focusInputOnHostClick();
+  }
 
-    let isSomethingFocused = false;
+  private removeEventListeners() {
+    this.idled.next(true);
+    this.idled.unsubscribe();
+    this.idled = new ReplaySubject<boolean>();
+  }
+
+  private focusTokensOnInputKeyUp() {
+    const inputElement = this.lookupInput.nativeElement;
+
+    // Handles when to focus on the tokens.
+    // Check for empty search text on keydown, before the escape key is fully pressed.
+    // (Otherwise, a single character being escaped would register as empty on keyup.)
+    // If empty on keydown, set a flag so that the appropriate action can be taken on keyup.
 
     Observable
       .fromEvent(inputElement, 'keydown')
@@ -216,87 +232,62 @@ export class SkyLookupComponent
       .takeUntil(this.idled)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
-        /* tslint:disable-next-line:switch-default */
-        switch (key) {
-          case 'arrowleft':
-          case 'backspace':
+        if (key === 'arrowleft' || key === 'backspace') {
+          /* istanbul ignore else */
           if (this.markForTokenFocusOnKeyUp) {
+            event.preventDefault();
             this.tokensController.next({
               type: SkyTokensMessageType.FocusLastToken
             });
-            event.preventDefault();
           }
-          break;
-
-          case 'escape':
-          this.clearSearchText();
-          event.preventDefault();
-          break;
         }
       });
+  }
+
+  private focusInputOnHostClick() {
+    const hostElement = this.elementRef.nativeElement;
+    const documentObj = this.windowRef.getWindow().document;
+
+    let clickRegistered = false;
+    let focusRegistered = false;
+
+    // Handles focusing the input when the host is clicked.
+    // The input should NOT be focused if other elements (tokens, etc.)
+    // are currently focused or being tabbed through.
 
     Observable
       .fromEvent(documentObj, 'mousedown')
       .takeUntil(this.idled)
       .subscribe((event: MouseEvent) => {
-        const hostClicked = (hostElement.contains(event.target));
-
-        isSomethingFocused = false;
-
-        if (hostClicked) {
-          this.isInputFocused = true;
-        } else {
-          this.isInputFocused = false;
-          isSomethingFocused = true;
-        }
-
-        this.changeDetector.markForCheck();
-      });
-
-    Observable
-      .fromEvent(documentObj, 'mouseup')
-      .takeUntil(this.idled)
-      .subscribe(() => {
-        if (!isSomethingFocused) {
-          this.focusInput();
-        }
+        focusRegistered = false;
+        clickRegistered = hostElement.contains(event.target);
+        this.isInputFocused = clickRegistered;
       });
 
     Observable
       .fromEvent(documentObj, 'focusin')
       .takeUntil(this.idled)
       .subscribe((event: KeyboardEvent) => {
-        if (hostElement.contains(event.target)) {
-          isSomethingFocused = true;
-          this.isInputFocused = true;
-        } else {
-          this.isInputFocused = false;
-        }
-
-        this.changeDetector.markForCheck();
+        clickRegistered = false;
+        focusRegistered = hostElement.contains(event.target);
+        this.isInputFocused = focusRegistered;
       });
-  }
 
-  private removeEventListeners() {
-    this.idled.next(true);
-    this.idled.unsubscribe();
-    this.idled = new ReplaySubject<boolean>();
+    Observable
+      .fromEvent(documentObj, 'mouseup')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        if (!focusRegistered && clickRegistered) {
+          this.focusInput();
+        }
+      });
   }
 
   private focusInput() {
     this.lookupInput.nativeElement.focus();
   }
 
-  private clearSearchText() {
-    this.autocompleteInputDirective.value = undefined;
-  }
-
   private cloneItems(items: any[]): any[] {
-    // if (!Array.isArray(items)) {
-    //   return [];
-    // }
-
-    console.log('cloneItems():', items);
     return items.map(item => {
       return { ...item };
     });

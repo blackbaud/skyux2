@@ -247,8 +247,8 @@ describe('Tokens component', () => {
       });
     });
 
-    it('should ignore keyboard events if tokens not selectable', () => {
-      component.focusable = false;
+    it('should ignore keyboard events if tokens are disabled', () => {
+      component.disabled = true;
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
       fixture.detectChanges();
@@ -299,7 +299,7 @@ describe('Tokens component', () => {
     });
 
     it('should ignore keyboard events if tokens not selectable', () => {
-      component.focusable = false;
+      component.disabled = true;
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
       fixture.detectChanges();
