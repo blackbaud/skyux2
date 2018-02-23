@@ -1,8 +1,10 @@
+import { SkyFlyoutDemoComponent } from './flyout/flyout-demo.component';
 import { Injectable } from '@angular/core';
 
 import {
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -49,6 +51,7 @@ import {
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
   SkyTimepickerDemoComponent,
+  SkyTokensDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
   SkyVerticalTabsDemoComponent,
@@ -100,6 +103,26 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./alert/alert-demo.component.ts'),
           componentName: 'SkyAlertDemoComponent',
           bootstrapSelector: 'sky-alert-demo'
+        }
+      ]
+    },
+    {
+      name: 'Autocomplete',
+      component: SkyAutocompleteDemoComponent,
+      files: [
+        {
+          name: 'autocomplete-demo.component.html',
+          fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.html')
+        },
+        {
+          name: 'autocomplete-demo.component.scss',
+          fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.scss')
+        },
+        {
+          name: 'autocomplete-demo.component.ts',
+          fileContents: require('!!raw-loader!./autocomplete/autocomplete-demo.component.ts'),
+          componentName: 'SkyAutocompleteDemoComponent',
+          bootstrapSelector: 'sky-autocomplete-demo'
         }
       ]
     },
@@ -337,6 +360,31 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./fluid-grid/fluid-grid-demo.component.ts'),
           componentName: 'SkyFluidGridDemoComponent',
           bootstrapSelector: 'sky-fluid-grid-demo'
+        }
+      ]
+    },
+    {
+      name: 'Flyout',
+      component: SkyFlyoutDemoComponent,
+      files: [
+        {
+          name: 'flyout-demo.component.html',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo.component.html')
+        },
+        {
+          name: 'flyout-demo.component.ts',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo.component.ts'),
+          componentName: 'SkyFlyoutDemoComponent',
+          bootstrapSelector: 'sky-flyout-demo'
+        },
+        {
+          name: 'flyout-demo-internal.component.html',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo-internal.component.html')
+        },
+        {
+          name: 'flyout-demo-internal.component.ts',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo-internal.component.ts'),
+          componentName: 'SkyFlyoutDemoInternalComponent'
         }
       ]
     },
@@ -941,6 +989,22 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./timepicker/timepicker-demo.component.ts'),
           componentName: 'SkyTimepickerDemoComponent',
           bootstrapSelector: 'sky-timepicker-demo'
+        }
+      ]
+    },
+    {
+      name: 'Tokens',
+      component: SkyTokensDemoComponent,
+      files: [
+        {
+          name: 'tokens-demo.component.html',
+          fileContents: require('!!raw-loader!./tokens/tokens-demo.component.html')
+        },
+        {
+          name: 'tokens-demo.component.ts',
+          fileContents: require('!!raw-loader!./tokens/tokens-demo.component.ts'),
+          componentName: 'SkyTokensDemoComponent',
+          bootstrapSelector: 'sky-tokens-demo'
         }
       ]
     },

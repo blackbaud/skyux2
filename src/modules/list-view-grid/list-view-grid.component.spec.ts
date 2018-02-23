@@ -2,6 +2,7 @@ import {
   TestBed,
   async,
   fakeAsync,
+  flush,
   tick
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
@@ -73,7 +74,6 @@ describe('List View Grid Component', () => {
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
-
     }));
 
     function setupTest() {
@@ -110,11 +110,12 @@ describe('List View Grid Component', () => {
     }
 
     describe('standard setup', () => {
-      beforeEach(() => {
+      it('should show 6 columns', fakeAsync(() => {
         setupTest();
-      });
+        flush();
+        tick(110); // wait for async heading
+        fixture.detectChanges();
 
-      it('should show 6 columns', () => {
         expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(5);
         expect(element.query(
           By.css('th[sky-cmp-id="column1"]')
@@ -131,22 +132,30 @@ describe('List View Grid Component', () => {
         expect(element.query(
           By.css('th[sky-cmp-id="column5"]')
         ).nativeElement.textContent.trim()).toBe('Column5');
-      });
+      }));
 
-       it('should listen for the selectedColumnIdsChanged event and update the columns accordingly',
-      () => {
-        component.grid.gridComponent.selectedColumnIdsChange.emit(['column1', 'column2']);
-        fixture.detectChanges();
-        expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
-        expect(element.query(
-          By.css('th[sky-cmp-id="column1"]')
-        ).nativeElement.textContent.trim()).toBe('Column1');
-        expect(element.query(
-          By.css('th[sky-cmp-id="column2"]')
-        ).nativeElement.textContent.trim()).toBe('Column2');
-      });
+      it('should listen for the selectedColumnIdsChanged event and update the columns accordingly',
+        fakeAsync(() => {
+          setupTest();
+          flush();
+          tick(110); // wait for async heading
+          fixture.detectChanges();
+
+          component.grid.gridComponent.selectedColumnIdsChange.emit(['column1', 'column2']);
+          fixture.detectChanges();
+          expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
+          expect(element.query(
+            By.css('th[sky-cmp-id="column1"]')
+          ).nativeElement.textContent.trim()).toBe('Column1');
+          expect(element.query(
+            By.css('th[sky-cmp-id="column2"]')
+          ).nativeElement.textContent.trim()).toBe('Column2');
+        })
+      );
 
       it('should listen for the sortFieldChange event', fakeAsync(() => {
+        setupTest();
+        tick(110); // wait for async heading
         let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
         headerEl.click();
         fixture.detectChanges();
@@ -161,6 +170,8 @@ describe('List View Grid Component', () => {
       }));
 
       it('should update grid header sort on state change', fakeAsync(() => {
+        setupTest();
+        tick(110); // wait for async heading
         dispatcher.sortSetFieldSelectors([{ fieldSelector: 'column1', descending: false }]);
         fixture.detectChanges();
         tick();
@@ -169,8 +180,18 @@ describe('List View Grid Component', () => {
         expect(headerIconEl).toHaveCssClass('fa-caret-up');
       }));
 
+      it('should handle async column headings', fakeAsync(() => {
+        setupTest();
+        const firstHeading = element.nativeElement.querySelectorAll('.sky-grid-heading')[0];
+        expect(firstHeading.textContent.trim()).toEqual('');
+        tick(110); // Wait for setTimeout
+        fixture.detectChanges();
+        expect(firstHeading.textContent.trim()).toEqual('Column1');
+      }));
+
       describe('Models and State', () => {
         it('should run ListViewGridColumnsLoadAction action', async(() => {
+          setupTest();
           let gridDispatcher = new GridStateDispatcher();
           let gridState = new GridState(new GridStateModel(), gridDispatcher);
 
@@ -184,65 +205,74 @@ describe('List View Grid Component', () => {
           });
         }));
 
-         it('should run ListViewDisplayedGridColumnsLoadAction action with no refresh',
+        it('should run ListViewDisplayedGridColumnsLoadAction action with no refresh',
           async(() => {
-          let gridDispatcher = new GridStateDispatcher();
-          let gridState = new GridState(new GridStateModel(), gridDispatcher);
+            setupTest();
+            let gridDispatcher = new GridStateDispatcher();
+            let gridState = new GridState(new GridStateModel(), gridDispatcher);
 
-          let columns = [
-            new SkyGridColumnModel(component.viewtemplates.first),
-            new SkyGridColumnModel(component.viewtemplates.first)
-          ];
-          gridDispatcher.next(new ListViewGridColumnsLoadAction(columns));
-          gridState.take(1).subscribe(s => {
-            expect(s.columns.count).toBe(2);
-          });
+            let columns = [
+              new SkyGridColumnModel(component.viewtemplates.first),
+              new SkyGridColumnModel(component.viewtemplates.first)
+            ];
+            gridDispatcher.next(new ListViewGridColumnsLoadAction(columns));
+            gridState.take(1).subscribe(s => {
+              expect(s.columns.count).toBe(2);
+            });
 
-          gridDispatcher.next(new ListViewDisplayedGridColumnsLoadAction([
-            new SkyGridColumnModel(component.viewtemplates.first)
-          ]));
+            gridDispatcher.next(new ListViewDisplayedGridColumnsLoadAction([
+              new SkyGridColumnModel(component.viewtemplates.first)
+            ]));
 
-          gridState.take(1).subscribe(s => {
-            expect(s.displayedColumns.count).toBe(1);
-          });
+            gridState.take(1).subscribe(s => {
+              expect(s.displayedColumns.count).toBe(1);
+            });
 
-          gridDispatcher.next(new ListViewDisplayedGridColumnsLoadAction([
-            new SkyGridColumnModel(component.viewtemplates.first)
-          ]));
+            gridDispatcher.next(new ListViewDisplayedGridColumnsLoadAction([
+              new SkyGridColumnModel(component.viewtemplates.first)
+            ]));
 
-          gridState.take(1).subscribe(s => {
-            expect(s.displayedColumns.count).toBe(2);
-          });
-        }));
+            gridState.take(1).subscribe(s => {
+              expect(s.displayedColumns.count).toBe(2);
+            });
+          })
+        );
       });
     });
 
     describe('nonstandard setup', () => {
-      it('should respect the hidden property when not hidden columns and displayed columns', () => {
-        component.hiddenColumns = undefined;
-        setupTest();
+      it('should respect the hidden property when not hidden columns and displayed columns',
+        fakeAsync(() => {
+          component.hiddenColumns = undefined;
+          setupTest();
 
-        expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(5);
-        expect(element.query(
-          By.css('th[sky-cmp-id="column1"]')
-        ).nativeElement.textContent.trim()).toBe('Column1');
-        expect(element.query(
-          By.css('th[sky-cmp-id="column2"]')
-        ).nativeElement.textContent.trim()).toBe('Column2');
-        expect(element.query(
-          By.css('th[sky-cmp-id="column3"]')
-        ).nativeElement.textContent.trim()).toBe('Column3');
-        expect(element.query(
-          By.css('th[sky-cmp-id="hiddenCol1"]')
-        ).nativeElement.textContent.trim()).toBe('Column6');
-        expect(element.query(
-          By.css('th[sky-cmp-id="hiddenCol2"]')
-        ).nativeElement.textContent.trim()).toBe('Column7');
-      });
+          flush();
+          tick(110); // wait for async heading
+          fixture.detectChanges();
+
+          expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(5);
+          expect(element.query(
+            By.css('th[sky-cmp-id="column1"]')
+          ).nativeElement.textContent.trim()).toBe('Column1');
+          expect(element.query(
+            By.css('th[sky-cmp-id="column2"]')
+          ).nativeElement.textContent.trim()).toBe('Column2');
+          expect(element.query(
+            By.css('th[sky-cmp-id="column3"]')
+          ).nativeElement.textContent.trim()).toBe('Column3');
+          expect(element.query(
+            By.css('th[sky-cmp-id="hiddenCol1"]')
+          ).nativeElement.textContent.trim()).toBe('Column6');
+          expect(element.query(
+            By.css('th[sky-cmp-id="hiddenCol2"]')
+          ).nativeElement.textContent.trim()).toBe('Column7');
+        })
+      );
 
       it('should handle setting a searchFunction', fakeAsync(() => {
         let appliedData: any;
         let appliedSearch: string;
+
         component.searchFn = (data: any, searchText: string) => {
           appliedData = data;
           appliedSearch = searchText;
@@ -251,6 +281,7 @@ describe('List View Grid Component', () => {
 
         setupTest();
 
+        flush();
         tick();
 
         state.take(1).subscribe((current) => {
@@ -262,7 +293,6 @@ describe('List View Grid Component', () => {
         tick();
       }));
     });
-
   });
 
   describe('Display Fixture', () => {
@@ -270,7 +300,6 @@ describe('List View Grid Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewGridTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement;
 
     beforeEach(async(() => {
@@ -289,7 +318,6 @@ describe('List View Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewGridDisplayTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -338,10 +366,7 @@ describe('List View Grid Component', () => {
   describe('Empty Fixture', () => {
     let state: ListState,
         dispatcher: ListStateDispatcher,
-        component: ListViewGridTestComponent,
-        fixture: any,
-        nativeElement: HTMLElement,
-        element: DebugElement;
+        fixture: any;
 
     beforeEach(async(() => {
       dispatcher = new ListStateDispatcher();
@@ -359,9 +384,6 @@ describe('List View Grid Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewGridEmptyTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
-      element = fixture.debugElement as DebugElement;
-      component = fixture.componentInstance;
     }));
 
     it('should throw columns require error', () => {
@@ -375,7 +397,6 @@ describe('List View Grid Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewGridDynamicTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement;
 
     beforeEach(async(() => {
@@ -398,7 +419,6 @@ describe('List View Grid Component', () => {
         });
 
       fixture = TestBed.createComponent(ListViewGridDynamicTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();

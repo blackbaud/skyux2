@@ -12,7 +12,6 @@ import {
   SkyPopoverAdapterArrowCoordinates,
   SkyPopoverAdapterCoordinates,
   SkyPopoverAdapterElements,
-  SkyPopoverAdapterParentDimensions,
   SkyPopoverAlignment,
   SkyPopoverPlacement,
   SkyPopoverPosition
@@ -33,39 +32,36 @@ export class SkyPopoverAdapterService {
     const max = 4;
 
     let counter = 0;
-    let coords: SkyPopoverAdapterCoordinates = {
-      top: undefined,
-      left: undefined,
-      isOutsideViewport: true
-    };
+    let coords: SkyPopoverAdapterCoordinates;
 
-    if (!placement || placement === 'fullscreen' || this.popoverLargerThanParent(elements)) {
-      placement = 'fullscreen';
-    } else {
-      do {
-        coords = this.getPopoverCoordinates(elements, placement, alignment);
-        if (coords.isOutsideViewport) {
-          placement = (counter % 2 === 0) ?
-            this.getInversePlacement(placement) :
-            this.getNextPlacement(placement);
-        }
-      } while (coords.isOutsideViewport && ++counter < max);
+    do {
+      coords = this.getPopoverCoordinates(elements, placement, alignment);
 
-      if (counter === max) {
-        placement = 'fullscreen';
+      if (coords.isOutsideViewport) {
+        placement = (counter % 2 === 0) ?
+          this.getInversePlacement(placement) :
+          this.getNextPlacement(placement);
       }
+
+      counter++;
+    } while (coords.isOutsideViewport && counter < max);
+
+    if (counter === max && coords.isOutsideViewport) {
+      placement = 'fullscreen';
     }
 
     const arrowCoords = this.getArrowCoordinates(elements, coords, placement);
 
-    return {
+    const position = this.verifyCoordinatesNearCaller(elements, {
       top: coords.top,
       left: coords.left,
       arrowTop: arrowCoords.top,
       arrowLeft: arrowCoords.left,
       placement,
       alignment
-    };
+    });
+
+    return position;
   }
 
   public hidePopover(elem: ElementRef): void {
@@ -76,10 +72,14 @@ export class SkyPopoverAdapterService {
     this.renderer.removeClass(elem.nativeElement, 'sky-popover-hidden');
   }
 
-  public clearConcreteDimensions(elem: ElementRef): void {
-    this.renderer.removeStyle(elem.nativeElement, 'width');
-    this.renderer.removeStyle(elem.nativeElement, 'height');
-    this.renderer.removeClass(elem.nativeElement, 'sky-popover-placement-fullscreen');
+  public isPopoverLargerThanParent(popover: ElementRef): boolean {
+    const windowObj = this.windowRef.getWindow();
+    const popoverRect = popover.nativeElement.getBoundingClientRect();
+
+    return (
+      popoverRect.height >= windowObj.innerHeight ||
+      popoverRect.width >= windowObj.innerWidth
+    );
   }
 
   private getPopoverCoordinates(
@@ -87,18 +87,13 @@ export class SkyPopoverAdapterService {
     placement: SkyPopoverPlacement,
     alignment: SkyPopoverAlignment
   ): SkyPopoverAdapterCoordinates {
-    const callerElement = elements.caller.nativeElement;
-    const popoverElement = elements.popover.nativeElement;
-
-    const callerRect = callerElement.getBoundingClientRect();
-    const popoverRect = popoverElement.getBoundingClientRect();
-
-    const callerOffsetLeft = callerElement.offsetLeft;
-    const callerOffsetTop = callerElement.offsetTop;
-
     const windowObj = this.windowRef.getWindow();
-    const parent = this.getParentDimensions();
-    const viewportOffsetBottom = windowObj.innerHeight + windowObj.pageYOffset;
+    const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
+    const callerRect = elements.caller.nativeElement.getBoundingClientRect();
+
+    const callerXCenter = callerRect.width / 2;
+    const scrollRight = windowObj.innerWidth;
+    const scrollBottom = windowObj.innerHeight;
 
     let top: number;
     let left: number;
@@ -108,61 +103,55 @@ export class SkyPopoverAdapterService {
     let bleedBottom = 0;
     let isOutsideViewport = false;
 
-    /* tslint:disable:switch-default */
+    /* tslint:disable-next-line:switch-default */
     switch (placement) {
       case 'above':
-      top = callerOffsetTop - popoverRect.height;
-      bleedTop = callerRect.top - popoverRect.height;
+      top = callerRect.top - popoverRect.height;
+      bleedTop = top;
       break;
 
       case 'below':
-      top = callerOffsetTop + callerRect.height;
-      bleedBottom = viewportOffsetBottom - (callerRect.top + callerRect.height + popoverRect.height + windowObj.pageYOffset);
+      top = callerRect.bottom;
+      bleedBottom = scrollBottom - (top + popoverRect.height);
       break;
 
       case 'right':
-      left = callerOffsetLeft + callerRect.width;
-      bleedRight = parent.width - (callerRect.left + callerRect.width + popoverRect.width);
+      left = callerRect.right;
+      bleedRight = scrollRight - (left + popoverRect.width);
       break;
 
       case 'left':
-      left = callerOffsetLeft - popoverRect.width;
-      bleedLeft = callerRect.left - popoverRect.width;
+      left = callerRect.left - popoverRect.width;
+      bleedLeft = left;
       break;
     }
-    /* tslint:enable */
 
     if (placement === 'right' || placement === 'left') {
-      top = callerOffsetTop - (popoverRect.height / 2) + (callerRect.height / 2);
-      bleedTop = windowObj.pageYOffset + (callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2));
-      bleedBottom = parent.height - (
-        callerRect.top + windowObj.pageYOffset + ((callerRect.height / 2) + (popoverRect.height / 2))
-      );
+      top = callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2);
+      bleedTop = top;
+      bleedBottom = scrollBottom - (top + popoverRect.height);
     }
 
-    // Make adjustments based on horizontal alignment.
     if (placement === 'above' || placement === 'below') {
-      /* tslint:disable:switch-default */
+
+      // Make adjustments based on horizontal alignment.
       switch (alignment) {
+        default:
         case 'center':
-        left = callerOffsetLeft - (popoverRect.width / 2) + (callerRect.width / 2);
-        bleedLeft = callerRect.left - (popoverRect.width / 2) + (callerRect.width / 2);
-        bleedRight = parent.width - (callerRect.left + (popoverRect.width / 2) + (callerRect.width / 2));
+        left = callerRect.left - (popoverRect.width / 2) + callerXCenter;
         break;
 
         case 'left':
-        left = callerOffsetLeft;
-        bleedLeft = callerRect.left;
-        bleedRight = parent.width - (bleedLeft + popoverRect.width);
+        left = callerRect.left;
         break;
 
         case 'right':
-        left = callerOffsetLeft - popoverRect.width + callerRect.width;
-        bleedLeft = callerRect.left - popoverRect.width + callerRect.width;
-        bleedRight = parent.width - (callerRect.left + callerRect.width);
+        left = callerRect.left - popoverRect.width + callerRect.width;
         break;
       }
-      /* tslint:enable */
+
+      bleedLeft = left;
+      bleedRight = scrollRight - (left + popoverRect.width);
     }
 
     // Clipped on left?
@@ -171,12 +160,7 @@ export class SkyPopoverAdapterService {
         isOutsideViewport = true;
       }
 
-      left -= bleedLeft;
-
-      // Prevent popover's left boundary from leaving the bounds of the caller.
-      if (callerRect.left < 0) {
-        left = callerOffsetLeft;
-      }
+      left = 0;
     }
 
     // Clipped on right?
@@ -186,11 +170,6 @@ export class SkyPopoverAdapterService {
       }
 
       left += bleedRight;
-
-      // Prevent popover's right boundary from leaving the bounds of the caller.
-      if (left + popoverRect.width < callerOffsetLeft + callerRect.width) {
-        left = callerOffsetLeft - popoverRect.width + callerRect.width;
-      }
     }
 
     // Clipped on top?
@@ -225,79 +204,93 @@ export class SkyPopoverAdapterService {
   ): SkyPopoverAdapterArrowCoordinates {
     const callerRect = elements.caller.nativeElement.getBoundingClientRect();
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
+    const arrowRect = elements.popoverArrow.nativeElement.getBoundingClientRect();
+    const callerXCenter = (callerRect.width / 2);
+    const callerYCenter = (callerRect.height / 2);
 
-    const callerOffsetTop = elements.caller.nativeElement.offsetTop;
-    const callerOffsetLeft = elements.caller.nativeElement.offsetLeft;
-
-    let left: number;
     let top: number;
+    let left: number;
 
-    switch (placement) {
-      default:
-      case 'above':
-      case 'below':
-      left = callerOffsetLeft - popoverCoords.left + (callerRect.width / 2);
-      break;
+    if (placement === 'left' || placement === 'right') {
+      top = callerRect.top - popoverCoords.top + callerYCenter;
 
-      case 'right':
-      case 'left':
-      top = callerOffsetTop - popoverCoords.top + (callerRect.height / 2);
-      break;
+      if (top < callerYCenter) {
+        top = callerYCenter;
+      }
+
+      if (top > popoverRect.height - callerYCenter) {
+        top = popoverRect.height - callerYCenter;
+      }
     }
 
-    // The arrow has exceded the bounds of the popover;
-    // default to the CSS className position.
-    if (left < 0 || left > popoverRect.width || isNaN(left)) {
-      left = undefined;
+    if (placement === 'above' || placement === 'below') {
+      left = callerRect.left - popoverCoords.left + callerXCenter;
+
+      if (left < arrowRect.width) {
+        left = arrowRect.width;
+      }
+
+      if (left > popoverRect.width - arrowRect.width) {
+        left = popoverRect.width - arrowRect.width;
+      }
     }
 
     return { top, left };
   }
 
-  private popoverLargerThanParent(elements: SkyPopoverAdapterElements) {
-    const parentDimensions = this.getParentDimensions();
-
-    // Set concrete dimensions after we've determined the document height.
-    this.setConcreteDimensions(elements.popover);
-
+  // This method ensures that the popover remains close to caller element,
+  // when the caller element is no longer visible after scrolling.
+  private verifyCoordinatesNearCaller(
+    elements: SkyPopoverAdapterElements,
+    position: SkyPopoverPosition
+  ): SkyPopoverPosition {
+    const windowObj = this.windowRef.getWindow();
+    const callerRect = elements.caller.nativeElement.getBoundingClientRect();
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
+    const pixelTolerance = 40;
 
-    return (
-      popoverRect.height > parentDimensions.height ||
-      popoverRect.width > parentDimensions.width
-    );
+    if (position.placement === 'left' || position.placement === 'right') {
+      if (callerRect.top < 0) {
+        position.top = callerRect.top;
+      }
+
+      if (callerRect.bottom > windowObj.innerHeight) {
+        position.top = callerRect.bottom - popoverRect.height;
+      }
+    }
+
+    if (position.placement === 'above' || position.placement === 'below') {
+      if (position.left + pixelTolerance > callerRect.right) {
+        position.left = callerRect.right - pixelTolerance;
+      }
+
+      if (position.left + popoverRect.width - pixelTolerance < callerRect.left) {
+        position.left = callerRect.left - popoverRect.width + pixelTolerance;
+      }
+    }
+
+    return position;
   }
 
   private getNextPlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
     const placements: SkyPopoverPlacement[] = ['above', 'right', 'below', 'left'];
-    const index = placements.indexOf(placement) + 1;
+
+    let index = placements.indexOf(placement) + 1;
+    if (index === placements.length) {
+      index = 0;
+    }
+
     return placements[index];
   }
 
   private getInversePlacement(placement: SkyPopoverPlacement): SkyPopoverPlacement {
-    const pairings: any = { above: 'below', below: 'above', right: 'left', left: 'right' };
-    return pairings[placement] as SkyPopoverPlacement;
-  }
-
-  private setConcreteDimensions(elementRef: ElementRef) {
-    const element = elementRef.nativeElement;
-    const rect = element.getBoundingClientRect();
-    element.style.width = `${rect.width}px`;
-    element.style.height = `${rect.height}px`;
-  }
-
-  private getParentDimensions(): SkyPopoverAdapterParentDimensions {
-    const windowObj = this.windowRef.getWindow();
-
-    const documentHeight = windowObj.document.body.clientHeight;
-    const viewportHeight = windowObj.innerHeight;
-
-    const width = windowObj.document.body.clientWidth;
-    const height = (viewportHeight > documentHeight) ? viewportHeight : documentHeight;
-
-    return {
-      width,
-      height
+    const pairings: any = {
+      above: 'below',
+      below: 'above',
+      right: 'left',
+      left: 'right'
     };
+
+    return pairings[placement];
   }
 }

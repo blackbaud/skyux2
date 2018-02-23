@@ -5,7 +5,7 @@ $popover-border-size: 10px;
 $popover-max-width: 276px;
 
 .sky-popover-container {
-  position: absolute;
+  position: fixed;
   z-index: $sky-dropdown-z-index;
   min-width: $popover-max-width;
   max-width: $popover-max-width;
@@ -19,6 +19,11 @@ $popover-max-width: 276px;
 
   &:focus {
     outline: none;
+  }
+
+  @media (max-width: $popover-max-width) {
+    max-width: 100%;
+    min-width: auto;
   }
 }
 
@@ -53,20 +58,25 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-placement-fullscreen {
-  padding: $sky-padding;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: $sky-padding !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0;
+  bottom: 0;
+  width: 100% !important;
+  max-width: none;
+  max-height: 100%;
+  height: auto !important;
 
   > .sky-popover {
-    position: fixed;
-    top: $sky-padding;
-    left: $sky-padding;
-    right: $sky-padding;
-    bottom: $sky-padding;
+    @include sky-border(dark, top, bottom, left, right);
+    @include sky-shadow();
     overflow: hidden;
+    max-height: 100%;
     border-radius: $sky-border-radius;
     display: flex;
     flex-direction: column;
-    @include sky-border(dark, top, bottom, left, right);
-    @include sky-shadow();
 
     .sky-popover-header {
       padding: $sky-padding;

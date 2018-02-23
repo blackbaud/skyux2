@@ -1,12 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyModule } from './core';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+
+import {
+  SkyModule
+} from './core';
 
 import {
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -21,6 +33,7 @@ import {
   SkyFilterDemoComponent,
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
+  SkyFlyoutDemoComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
   SkyKeyInfoDemoComponent,
@@ -56,6 +69,7 @@ import {
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
   SkyTimepickerDemoComponent,
+  SkyTokensDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
   SkyVerticalTabsDemoComponent,
@@ -70,7 +84,8 @@ import {
   SkySectionedModalFormDemoComponent,
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
-  SkyWizardDemoFormComponent
+  SkyWizardDemoFormComponent,
+  SkyFlyoutDemoInternalComponent
 } from './demos';
 
 import {
@@ -80,6 +95,7 @@ import {
 const components = [
   SkyActionButtonDemoComponent,
   SkyAlertDemoComponent,
+  SkyAutocompleteDemoComponent,
   SkyAvatarDemoComponent,
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
@@ -94,6 +110,8 @@ const components = [
   SkyFilterDemoComponent,
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
+  SkyFlyoutDemoComponent,
+  SkyFlyoutDemoInternalComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
   SkyKeyInfoDemoComponent,
@@ -130,6 +148,7 @@ const components = [
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
   SkyTimepickerDemoComponent,
+  SkyTokensDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
   SkyVerticalTabsDemoComponent,
@@ -151,6 +170,7 @@ const components = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SkyModule
   ],
   exports: components,

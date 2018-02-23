@@ -8,13 +8,14 @@ if (!Element.prototype.matches) {
     Element.prototype.webkitMatchesSelector;
 }
 
+import { SKY_FLYOUT_PROVIDERS } from './modules/flyout';
 import { SKY_MODAL_PROVIDERS } from './modules/modal';
 import { SKY_WAIT_PROVIDERS } from './modules/wait';
 
-import { SkyAlertModule } from './modules/alert';
-import { SkyNumericModule } from './modules/numeric';
-import { SkyAvatarModule } from './modules/avatar';
 import { SkyActionButtonModule } from './modules/action-button';
+import { SkyAlertModule } from './modules/alert';
+import { SkyAvatarModule } from './modules/avatar';
+import { SkyAutocompleteModule } from './modules/autocomplete';
 import { SkyCardModule } from './modules/card';
 import { SkyCheckboxModule } from './modules/checkbox';
 import { SkyChevronModule } from './modules/chevron';
@@ -30,6 +31,7 @@ import { SkyErrorModule } from './modules/error';
 import { SkyFileAttachmentsModule } from './modules/fileattachments';
 import { SkyFilterModule } from './modules/filter';
 import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
+import { SkyFlyoutModule } from './modules/flyout/flyout.module';
 import { SkyGridModule } from './modules/grid';
 import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyKeyInfoModule } from './modules/key-info';
@@ -46,6 +48,7 @@ import { SkyListViewGridModule } from './modules/list-view-grid';
 import { SkyMediaQueryModule } from './modules/media-queries';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
+import { SkyNumericModule } from './modules/numeric';
 import { SkyPageSummaryModule } from './modules/page-summary';
 import { SkyPagingModule } from './modules/paging';
 import { SkyPopoverModule } from './modules/popover';
@@ -59,6 +62,7 @@ import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
 import { SkyTextHighlightModule } from './modules/text-highlight';
+import { SkyTokensModule } from './modules/tokens';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
 import { SkyTimepickerModule } from './modules/timepicker';
@@ -68,10 +72,10 @@ import { SkyWaitModule } from './modules/wait';
 
 @NgModule({
   exports: [
-    SkyAlertModule,
-    SkyNumericModule,
-    SkyAvatarModule,
     SkyActionButtonModule,
+    SkyAlertModule,
+    SkyAutocompleteModule,
+    SkyAvatarModule,
     SkyCardModule,
     SkyCheckboxModule,
     SkyChevronModule,
@@ -86,6 +90,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyFileAttachmentsModule,
     SkyFilterModule,
     SkyFluidGridModule,
+    SkyFlyoutModule,
     SkyGridModule,
     SkyHelpInlineModule,
     SkyKeyInfoModule,
@@ -102,6 +107,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
+    SkyNumericModule,
     SkyPageSummaryModule,
     SkyPagingModule,
     SkyPopoverModule,
@@ -117,6 +123,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTextHighlightModule,
     SkyTilesModule,
     SkyTimepickerModule,
+    SkyTokensModule,
     SkyToolbarModule,
     SkyUrlValidationModule,
     SkyVerticalTabsetModule,
@@ -127,7 +134,7 @@ import { SkyWaitModule } from './modules/wait';
 export class SkyModule { }
 
 export * from './modules/alert';
-export * from './modules/numeric';
+export * from './modules/autocomplete';
 export * from './modules/avatar';
 export * from './modules/action-button';
 export * from './modules/card';
@@ -145,6 +152,7 @@ export * from './modules/fileattachments';
 export * from './modules/filter';
 export * from './modules/fluid-grid';
 export * from './modules/format';
+export * from './modules/flyout';
 export * from './modules/grid';
 export * from './modules/help-inline';
 export * from './modules/key-info';
@@ -162,6 +170,7 @@ export * from './modules/list-view-grid';
 export * from './modules/modal';
 export * from './modules/media-queries';
 export * from './modules/navbar';
+export * from './modules/numeric';
 export * from './modules/page-summary';
 export * from './modules/paging';
 export * from './modules/popover';
@@ -176,6 +185,7 @@ export * from './modules/text-expand-repeater';
 export * from './modules/text-highlight';
 export * from './modules/tiles';
 export * from './modules/timepicker';
+export * from './modules/tokens';
 export * from './modules/toolbar';
 export * from './modules/url-validation';
 export * from './modules/vertical-tabset';
@@ -183,5 +193,6 @@ export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
   ...SKY_MODAL_PROVIDERS,
-  SKY_WAIT_PROVIDERS
+  SKY_WAIT_PROVIDERS,
+  SKY_FLYOUT_PROVIDERS
 ];

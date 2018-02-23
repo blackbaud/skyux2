@@ -180,31 +180,6 @@ describe('SkyPopoverDirective', () => {
     expect(closeSpy).not.toHaveBeenCalled();
   });
 
-  it('should adjust placement on window resize', () => {
-    const caller = directiveElements[3];
-    const callerInstance = caller.injector.get(SkyPopoverDirective);
-    const spy = spyOn(callerInstance.skyPopover, 'positionNextTo');
-
-    callerInstance.skyPopover.isOpen = false;
-    caller.nativeElement.click();
-
-    expect(spy).toHaveBeenCalledWith(callerInstance['elementRef'], 'above', 'left');
-    callerInstance.skyPopover.isOpen = true;
-
-    spy.calls.reset();
-
-    TestUtility.fireDomEvent(window, 'resize');
-    expect(spy).toHaveBeenCalledWith(callerInstance['elementRef'], 'above', 'left');
-
-    // Positioning should only occur if the popover is open.
-    caller.nativeElement.click();
-    callerInstance.skyPopover.isOpen = false;
-    spy.calls.reset();
-
-    TestUtility.fireDomEvent(window, 'resize');
-    expect(spy).not.toHaveBeenCalled();
-  });
-
   it('should close the popover when the escape key is pressed', () => {
     const caller = directiveElements[3];
     const callerInstance = caller.injector.get(SkyPopoverDirective);
@@ -231,5 +206,60 @@ describe('SkyPopoverDirective', () => {
 
     TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
     expect(spy).toHaveBeenCalledWith();
+  });
+
+  it('should handle asynchronous popover references', () => {
+    const caller = directiveElements[4];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+    const eventListenerSpy = spyOn(callerInstance as any, 'addEventListeners').and.callThrough();
+
+    caller.nativeElement.click();
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeUndefined();
+    expect(eventListenerSpy).not.toHaveBeenCalled();
+
+    eventListenerSpy.calls.reset();
+
+    fixture.componentInstance.attachAsyncPopover();
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeDefined();
+    expect(eventListenerSpy).toHaveBeenCalled();
+  });
+
+  it('should remove event listeners before adding them again', () => {
+    const caller = directiveElements[4];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+    const addEventSpy = spyOn(callerInstance as any, 'addEventListeners').and.callThrough();
+    const removeEventSpy = spyOn(callerInstance as any, 'removeEventListeners').and.callThrough();
+
+    fixture.componentInstance.attachAsyncPopover();
+    fixture.detectChanges();
+
+    fixture.componentInstance.attachAnotherAsyncPopover();
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeDefined();
+    expect(addEventSpy.calls.count()).toEqual(2);
+    expect(removeEventSpy.calls.count()).toEqual(2);
+  });
+
+  it('should not add listeners to undefined popovers', () => {
+    const caller = directiveElements[4];
+    const callerInstance = caller.injector.get(SkyPopoverDirective);
+
+    fixture.componentInstance.attachAsyncPopover();
+    fixture.detectChanges();
+
+    const addEventSpy = spyOn(callerInstance as any, 'addEventListeners').and.callThrough();
+    const removeEventSpy = spyOn(callerInstance as any, 'removeEventListeners').and.callThrough();
+
+    fixture.componentInstance.asyncPopoverRef = undefined;
+    fixture.detectChanges();
+
+    expect(callerInstance.skyPopover).toBeUndefined();
+    expect(addEventSpy).not.toHaveBeenCalled();
+    expect(removeEventSpy).toHaveBeenCalled();
   });
 });

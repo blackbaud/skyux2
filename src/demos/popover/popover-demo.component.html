@@ -305,7 +305,8 @@
 
 <button
   class="sky-btn"
-  [skyPopover]="popoverFullscreen">
+  [skyPopover]="popoverFullscreen"
+  skyPopoverPlacement="fullscreen">
   Show fullscreen popover
 </button>
 
@@ -374,4 +375,19 @@
       </sky-dropdown-item>
     </sky-dropdown-menu>
   </sky-dropdown>
+</sky-popover>
+
+<h3>
+  Popovers may also be asynchronous
+</h3>
+
+<button
+  type="button"
+  class="sky-btn sky-btn-default"
+  [skyPopover]="asyncPopoverRef">
+  This trigger has an asynchronous popover
+</button>
+
+<sky-popover #asyncPopover>
+  My asynchronous popover.
 </sky-popover>
