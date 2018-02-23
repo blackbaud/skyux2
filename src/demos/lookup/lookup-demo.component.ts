@@ -25,6 +25,7 @@ export class SkyLookupDemoComponent implements OnInit {
     { name: 'Beth' },
     { name: 'David' },
     { name: 'Frank' },
+    { name: 'Grace' },
     { name: 'Isaac' },
     { name: 'John' },
     { name: 'Joyce' },
@@ -32,9 +33,11 @@ export class SkyLookupDemoComponent implements OnInit {
     { name: 'Mitch' },
     { name: 'Patty' },
     { name: 'Paul' },
+    { name: 'Quincy' },
     { name: 'Sally' },
     { name: 'Susan' },
     { name: 'Vanessa' },
+    { name: 'Winston' },
     { name: 'Xavier' },
     { name: 'Yolanda' },
     { name: 'Zack' }
@@ -43,8 +46,6 @@ export class SkyLookupDemoComponent implements OnInit {
   public friends: any[] = [
     { name: 'Susan' }
   ];
-
-  public enemies: any[];
 
   constructor(
     private formBuilder: FormBuilder
@@ -85,8 +86,7 @@ export class SkyLookupDemoComponent implements OnInit {
 
   private createForm(): void {
     this.reactiveForm = this.formBuilder.group({
-      friends: new FormControl(this.friends),
-      enemies: new FormControl(this.enemies)
+      friends: new FormControl(this.friends)
     });
   }
 }
