@@ -15,7 +15,6 @@ import { SkySelectFieldFormComponent } from './select-field-form.component';
 import { SkySelectFieldListItems } from './select-field.interface';
 import { SkyResources } from '../resources/resources';
 import { SkyModalService, SkyModalCloseArgs } from '../modal';
-import { SkyResourcesPipe } from '../resources';
 
 @Component({
   selector: 'sky-select-field',
@@ -84,8 +83,8 @@ export class SkySelectFieldComponent implements AfterContentInit {
     return this._tokenValues.map(item => ({ value: item }));
   }
 
-  public set tokenValues(arg: any) {
-    this.selectFieldChange.emit(arg.map((item: any) => item.value));
+  public set tokenValues(items: any) {
+    this.selectFieldChange.emit(items.map((item: any) => item.value));
   }
 
   public get tokenOverflow() {
@@ -94,8 +93,8 @@ export class SkySelectFieldComponent implements AfterContentInit {
     return [{ value: { name: summary } }];
   }
 
-  public set tokenOverflow(arg) {
-    if (arg.length === 0) {
+  public set tokenOverflow(items) {
+    if (items.length === 0) {
       this.clearSelect();
     }
   }
