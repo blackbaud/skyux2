@@ -64,27 +64,27 @@ module.exports = {
           'raw-loader',
           'sass-loader'
         ]
-      },
-      {
-        enforce: 'post',
-        test: /\.(js|ts)$/,
-        use: [
-          {
-            loader: 'istanbul-instrumenter-loader'
-          },
-          {
-            loader: 'source-map-inline-loader'
-          }
-        ],
-        include: helpers.root('src'),
-        exclude: [
-          /\.(e2e|spec)\.ts$/,
-          /node_modules/,
-          /index\.ts/,
-          /fixtures/,
-          /testing/
-        ]
       }
+      // {
+      //   enforce: 'post',
+      //   test: /\.(js|ts)$/,
+      //   use: [
+      //     {
+      //       loader: 'istanbul-instrumenter-loader'
+      //     },
+      //     {
+      //       loader: 'source-map-inline-loader'
+      //     }
+      //   ],
+      //   include: helpers.root('src'),
+      //   exclude: [
+      //     /\.(e2e|spec)\.ts$/,
+      //     /node_modules/,
+      //     /index\.ts/,
+      //     /fixtures/,
+      //     /testing/
+      //   ]
+      // }
     ]
   },
 

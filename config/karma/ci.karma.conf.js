@@ -9,8 +9,7 @@ module.exports = function (config) {
       browser: 'ie',
       browser_version: '11.0',
       os: 'Windows',
-      os_version: '10',
-      flags: ['-extoff']
+      os_version: '10'
     },
     bs_windows_edge: {
       base: 'BrowserStack',
