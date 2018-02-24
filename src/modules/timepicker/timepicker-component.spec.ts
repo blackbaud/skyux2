@@ -19,7 +19,7 @@ import { expect } from '../testing';
 
 let moment = require('moment');
 
-xdescribe('Timepicker', () => {
+describe('Timepicker', () => {
   function openTimepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
