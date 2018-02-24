@@ -178,3 +178,4 @@ const components = [
 export class SkyDemoModule { }
 
 export * from './demos';
+export * from './demos/demo.service';
