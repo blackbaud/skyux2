@@ -13,7 +13,7 @@ import { SkyTileComponent } from './tile.component';
 import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
 
-describe('Tile component', () => {
+fdescribe('Tile component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
