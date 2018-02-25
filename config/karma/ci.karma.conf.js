@@ -52,13 +52,13 @@ module.exports = function (config) {
   config.set({
     browsers: Object.keys(customLaunchers),
     customLaunchers,
-    browserDisconnectTimeout: 3e5,
+    browserDisconnectTimeout: 6e5,
     browserDisconnectTolerance: 3,
-    browserNoActivityTimeout: 3e5,
-    captureTimeout: 3e5,
+    browserNoActivityTimeout: 6e5,
+    captureTimeout: 6e5,
     browserStack: {
       port: 9876,
-      pollingTimeout: 10000
+      pollingTimeout: 600000
     }
   });
 };
