@@ -21,7 +21,7 @@ import { SkyTilesModule } from '../tiles.module';
 import { SkyTileDashboardFixturesModule } from './fixtures/tile-dashboard-fixtures.module';
 import { MockSkyMediaQueryService } from '../../testing/mocks';
 
-fdescribe('Tile dashboard service', () => {
+describe('Tile dashboard service', () => {
   let dashboardConfig: SkyTileDashboardConfig;
   let mockDragulaService: DragulaService;
   let mockMediaQueryService: MockSkyMediaQueryService;

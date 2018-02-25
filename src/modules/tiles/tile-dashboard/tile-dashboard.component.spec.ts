@@ -21,7 +21,7 @@ import {
   TileDashboardOnPushTestComponent
 } from './fixtures';
 
-fdescribe('Tile dashboard component', () => {
+describe('Tile dashboard component', () => {
   let mockTileDashboardService: MockTileDashboardService;
 
   beforeEach(() => {

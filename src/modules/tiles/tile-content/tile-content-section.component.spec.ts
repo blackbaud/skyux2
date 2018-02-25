@@ -5,7 +5,7 @@ import { SkyTilesModule } from '../tiles.module';
 
 import { TileContentSectionTestComponent } from './fixtures';
 
-fdescribe('Tile content section component', () => {
+describe('Tile content section component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
