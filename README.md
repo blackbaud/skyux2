@@ -18,3 +18,7 @@ For documentation on the SKY UX 2 components, see [the Components section of the
 We highly encourage contributions from all SKY UX users. We just ask you to follow the coding conventions in the existing code and to write the appropriate documentation and unit tests for your feature.
 
 For information about how to contribute, see the [SKY UX 2 contribution guidelines](https://github.com/blackbaud/skyux2/blob/master/CONTRIBUTING.md).
+
+## Testing
+
+Please ignore this PR.
