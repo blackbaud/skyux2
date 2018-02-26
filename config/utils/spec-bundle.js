@@ -29,11 +29,6 @@ require('zone.js/dist/jasmine-patch');
 require('intl');
 require('intl/locale-data/jsonp/en');
 
-// microedge-rxstate requires this operator but doesn't include it in its source.
-// Once this pull request is merged and released, we can remove the following line.
-// https://github.com/blackbaud/microedge-rxstate/pull/6
-require('rxjs/add/operator/map');
-
 var testing = require('@angular/core/testing');
 var browser = require('@angular/platform-browser-dynamic/testing');
 
