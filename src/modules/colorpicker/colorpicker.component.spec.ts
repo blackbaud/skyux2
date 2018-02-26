@@ -297,7 +297,7 @@ describe('Colorpicker Component', () => {
     verifyColorpicker(nativeElement, 'rgba(40,137,229,0.77)', '40, 137, 229, 0.77');
   }));
 
-  it('Should accept mouse down events on saturation and lightness.', fakeAsync(() => {
+  xit('Should accept mouse down events on saturation and lightness.', fakeAsync(() => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
 

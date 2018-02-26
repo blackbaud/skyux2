@@ -425,7 +425,7 @@ describe('Vertical tabset component - no groups', () => {
     });
   });
 
-  it('should load tabs without groups', () => {
+  xit('should load tabs without groups', () => {
     let fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
     let el = fixture.nativeElement as HTMLElement;
 
@@ -439,7 +439,7 @@ describe('Vertical tabset component - no groups', () => {
     expect(visibleTabs[0].textContent.trim()).toBe('Tab 2 content');
   });
 
-  it('should switch tabs on clicking without groups', () => {
+  xit('should switch tabs on clicking without groups', () => {
     let fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
     let el = fixture.nativeElement;
 
