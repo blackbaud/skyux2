@@ -863,7 +863,7 @@ export class SkyDemoService {
       ]
     },
     {
-      name: 'Select Field',
+      name: 'Select field',
       component: SkySelectFieldDemoComponent,
       files: [
         {

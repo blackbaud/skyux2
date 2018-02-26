@@ -6,20 +6,6 @@ import { Component } from '@angular/core';
 })
 
 export class SkySelectFieldDemoComponent {
-
-  public singleModeStyle = 'single';
-  public singleModeText = 'Choose one value';
-  public singleItemSelected = [{ id: '4', category: 'Berry', label: 'Grape', description: 'George eats grapes' }];
-
-  public multipleModeText = 'Select some values';
-  public multipleItemsSelected = [
-    { id: '3', category: 'Pome', label: 'Pear', description: 'Patty eats pears' },
-    { id: '6', category: 'Citrus', label: 'Lemon', description: 'Larry eats lemons' },
-    { id: '5', category: 'Berry', label: 'Banana', description: 'Becky eats bananas' }
-  ];
-
-  public noItemSelected: string = undefined;
-
   public pickerItems = [
     { id: '1', category: 'Pome', label: 'Apple', description: 'Anne eats apples' },
     { id: '2', category: 'Berry', label: 'Banana', description: 'Ben eats bananas' },
@@ -30,5 +16,13 @@ export class SkySelectFieldDemoComponent {
     { id: '7', category: 'Aggregate fruit', label: 'Strawberry', description: 'Sally eats strawberries' }
   ];
 
-  constructor() { }
+  public singleModeStyle = 'single';
+  public singleModeText = 'Choose one value';
+  public singleItemSelected = [this.pickerItems[3]];
+
+  public multipleModeText = 'Select some values';
+  public multipleItemsSelected = [this.pickerItems[3], this.pickerItems[6], this.pickerItems[5]];
+
+  public noItemSelected: string = undefined;
+
 }
