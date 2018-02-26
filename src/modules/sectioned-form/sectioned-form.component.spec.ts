@@ -313,7 +313,7 @@ describe('Sectioned form component - no active sections', () => {
     return TestBed.createComponent(SkySectionedFormNoActiveFixtureComponent);
   }
 
-  xit('should not fail to load when no active sections exist', () => {
+  it('should not fail to load when no active sections exist', () => {
     let fixture = createTestComponent();
     let el = fixture.nativeElement;
 
