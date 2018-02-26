@@ -48,5 +48,3 @@ export * from './url-validation';
 export * from './vertical-tabs';
 export * from './wait';
 export * from './wizard';
-
-export * from './demo.service';

@@ -42,7 +42,7 @@
     "@angular/animations": "4.3.6",
     "dragula": "3.7.2",
     "intl": "1.2.5",
-    "microedge-rxstate": "2.0.0",
+    "microedge-rxstate": "2.0.2",
     "moment": "2.18.1",
     "ng2-dragula": "1.5.0",
     "ng2-toastr": "4.1.2",
