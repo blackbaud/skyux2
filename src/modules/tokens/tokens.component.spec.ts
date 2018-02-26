@@ -17,7 +17,7 @@ import {
 import { SkyTokensFixturesModule } from './fixtures/tokens-fixtures.module';
 import { SkyTokensTestComponent } from './fixtures/tokens.component.fixture';
 
-fdescribe('Tokens component', () => {
+describe('Tokens component', () => {
   let fixture: ComponentFixture<SkyTokensTestComponent>;
   let component: SkyTokensTestComponent;
   let tokensComponent: SkyTokensComponent;
@@ -55,6 +55,10 @@ fdescribe('Tokens component', () => {
     fixture = TestBed.createComponent(SkyTokensTestComponent);
     component = fixture.componentInstance;
     tokensComponent = component.tokensComponent;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   describe('basic setup', () => {
