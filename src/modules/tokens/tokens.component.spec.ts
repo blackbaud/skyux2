@@ -17,7 +17,7 @@ import {
 import { SkyTokensFixturesModule } from './fixtures/tokens-fixtures.module';
 import { SkyTokensTestComponent } from './fixtures/tokens.component.fixture';
 
-describe('Tokens component', () => {
+fdescribe('Tokens component', () => {
   let fixture: ComponentFixture<SkyTokensTestComponent>;
   let component: SkyTokensTestComponent;
   let tokensComponent: SkyTokensComponent;
