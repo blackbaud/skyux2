@@ -23,6 +23,4 @@ export class SkySelectFieldDemoComponent {
   public multipleModeText = 'Select some values';
   public multipleItemsSelected = [this.pickerItems[3], this.pickerItems[6], this.pickerItems[5]];
 
-  public noItemSelected: string = undefined;
-
 }

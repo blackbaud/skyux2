@@ -63,15 +63,11 @@ export class SkySelectFieldComponent implements AfterContentInit {
   @Output()
   public selectFieldChange = new EventEmitter<SkySelectField>();
   public get selectField(): SkySelectField {
-    return this._selectField || [];
+    return this._selectField;
   }
 
   public get selectFieldText() {
     return this._selectFieldText;
-  }
-
-  public get selectFieldClear() {
-    return this._selectFieldClear;
   }
 
   public get selectFieldIcon() {
@@ -98,21 +94,21 @@ export class SkySelectFieldComponent implements AfterContentInit {
     }
   }
 
-
   public singleSelectForm: FormGroup;
 
-  private _selectField: SkySelectField;
-  private _selectFieldClear: boolean;
+  private _selectField: SkySelectField = [];
+  private _selectFieldClear: boolean = false;
   private _selectFieldIcon: string = 'fa-sort';
   private _selectFieldPickerHeader: string;
   private _selectFieldPickerList: SkySelectField = [];
   private _selectFieldStyle: string = 'multiple';
-  private _selectFieldText: string;
+  private _selectFieldText: string = '';
   private _tokenValues: SkySelectField = [];
 
   constructor(private modal: SkyModalService) {
     this.selectFieldChange.subscribe((item: SkySelectField) => {
       this.singleSelectLabel(item[0]);
+      this._selectField = item;
       this._tokenValues = this._selectField;
     });
     this.singleSelectForm = new FormGroup({
@@ -124,7 +120,7 @@ export class SkySelectFieldComponent implements AfterContentInit {
     this.singleSelectLabel(this._selectField[0]);
   }
 
-  public openFormModel() {
+  public openFormModal() {
     const context = new SkySelectFieldContext();
     context.pickerHeader = this._selectFieldPickerHeader;
     context.pickerList = this._selectFieldPickerList;
@@ -149,14 +145,14 @@ export class SkySelectFieldComponent implements AfterContentInit {
     return this._selectFieldStyle === 'multiple' ? true : false;
   }
   public isClearable() {
-    return this.singleSelectForm.controls.singleSelectInput.value && this.selectFieldClear;
+    return this._selectFieldClear && this.singleSelectForm.controls.singleSelectInput.value ? true : false;
   }
   public clearSelect() {
     this.selectFieldChange.emit([]);
   }
   private singleSelectLabel(selectedItem: SkySelectFieldListItemsType) {
     if (!this.isSelectMultiple()) {
-      this.singleSelectForm.controls.singleSelectInput.setValue(selectedItem ? selectedItem.label : '');
+      this.singleSelectForm.controls.singleSelectInput.setValue(selectedItem !== undefined ? selectedItem.label : '');
     }
   }
 }

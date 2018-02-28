@@ -1,5 +1,5 @@
-<div *ngIf="isSelectMultiple() else singleSelectMode">
-  <button class="sky-btn sky-btn-link" (click)="openFormModel()">
+<div *ngIf="isSelectMultiple() else singleSelectMode" class="sky-select-field">
+  <button class="sky-btn sky-btn-link sky-select-field-picker-btn-open" (click)="openFormModal()">
     <i class="fa fa-plus-circle"></i>
     <span *ngIf="selectFieldText">{{selectFieldText}}</span>
     <span *ngIf="!selectFieldText">{{'selectfieldpicker_select_values' | skyResources}}</span>
@@ -12,17 +12,17 @@
 
 
 <ng-template #singleSelectMode>
-  <div [formGroup]="singleSelectForm" class="sky-input-group">
-    <input formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input" type="text"
+  <div [formGroup]="singleSelectForm" class="sky-input-group sky-select-field">
+    <input formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input sky-select-field-picker-btn-open" type="text"
       placeholder="{{selectFieldText}}"
       readonly="readonly"
       tabindex="0"
-      (click)="openFormModel()">
+      (click)="openFormModal()">
     <div class="sky-input-group-btn sky-select-field-input-group">
-      <button class="sky-btn" *ngIf="isClearable" (click)="clearSelect()">
+      <button class="sky-btn sky-select-field-btn-clear" *ngIf="isClearable" (click)="clearSelect()">
         <i class="fa fa-times"></i>
       </button>
-      <button class="sky-btn" (click)="openFormModel()" *ngIf="selectFieldIcon">
+      <button class="sky-btn sky-select-field-picker-btn-open" (click)="openFormModal()" *ngIf="selectFieldIcon">
         <i class="fa {{selectFieldIcon}}"></i>
       </button>
     </div>
