@@ -15,6 +15,7 @@ module.exports = function (config) {
 
   config.set({
     browsers: Object.keys(customLaunchers),
-    customLaunchers
+    customLaunchers,
+    browserDisconnectTolerance: 0
   });
 };
