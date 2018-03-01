@@ -4,10 +4,6 @@ import {
 } from '@angular/core/testing';
 
 import {
-  By
-} from '@angular/platform-browser';
-
-import {
   FilterSummaryTestComponent
 } from './fixtures/filter-summary.component.fixture';
 
@@ -51,12 +47,12 @@ describe('Filter summary', () => {
       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item').length).toBe(2);
   });
 
-  it('should callow filter summary items to be dismissible', () => {
+  it('should allow filter summary items to be dismissible', () => {
     let items = nativeElement
       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
 
-    expect(items.item(0).querySelector('.sky-filter-summary-item-close')).toBeNull();
-    expect(items.item(1).querySelector('.sky-filter-summary-item-close')).not.toBeNull();
+    expect(items.item(0).querySelector('.sky-token-btn-close')).toBeNull();
+    expect(items.item(1).querySelector('.sky-token-btn-close')).not.toBeNull();
   });
 
   it('should emit an event on item click', () => {
@@ -71,16 +67,16 @@ describe('Filter summary', () => {
   });
 
   it('should emit an event on item keypress', () => {
-    let items = fixture.debugElement
-      .queryAll(By.css('.sky-filter-summary-items .sky-filter-summary-item'));
+    let items = nativeElement
+      .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
 
-    items[0].triggerEventHandler('keypress', { which: 23 });
+    TestUtility.fireDomEvent(items[0], 'keypress.space', { key: 'Space' });
 
     fixture.detectChanges();
 
     expect(component.summaryClicked).toBe(false);
 
-    items[0].triggerEventHandler('keypress', { which: 13 });
+    TestUtility.fireDomEvent(items[0], 'keypress.enter', { key: 'Enter' });
 
     fixture.detectChanges();
 
@@ -89,26 +85,9 @@ describe('Filter summary', () => {
 
   it('should emit an event on dismiss click', () => {
     let items = nativeElement
-      .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item .fa-times');
+      .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item .sky-token-btn-close');
 
     TestUtility.fireDomEvent(items.item(0), 'click');
-
-    fixture.detectChanges();
-
-    expect(component.dismissed).toBe(true);
-  });
-
-  it('should emit an event on dismiss keypress', () => {
-    let items = fixture.debugElement
-      .queryAll(By.css('.sky-filter-summary-items .sky-filter-summary-item .fa-times'));
-
-    items[0].triggerEventHandler('keypress', { which: 23, stopPropagation: function () {} });
-
-    fixture.detectChanges();
-
-    expect(component.dismissed).toBe(false);
-
-    items[0].triggerEventHandler('keypress', { which: 13, stopPropagation: function () {} });
 
     fixture.detectChanges();
 

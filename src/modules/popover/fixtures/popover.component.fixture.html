@@ -30,4 +30,19 @@
   <sky-popover #mypopover4>
     Some text.
   </sky-popover>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    [skyPopover]="asyncPopoverRef">
+    This trigger has an asynchronous popover
+  </button>
+
+  <sky-popover #asyncPopover>
+    My asynchronous popover.
+  </sky-popover>
+
+  <sky-popover #anotherAsyncPopover>
+    My asynchronous popover.
+  </sky-popover>
 </div>
