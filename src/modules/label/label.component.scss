@@ -15,14 +15,34 @@
   background-color: $sky-background-color-success;
 }
 
+.sky-label-success::before {
+  content: "\f00c";
+	font-family: FontAwesome;
+}
+
 .sky-label-info {
   background-color: $sky-background-color-info;
+}
+
+.sky-label-info::before {
+  content: "\f06a";
+	font-family: FontAwesome;
 }
 
 .sky-label-warning {
   background-color: $sky-background-color-warning;
 }
 
+.sky-label-warning::before {
+  content: "\f071";
+	font-family: FontAwesome;
+}
+
 .sky-label-danger {
   background-color: $sky-background-color-danger;
+}
+
+.sky-label-danger::before {
+  content: "\f071";
+	font-family: FontAwesome;
 }
