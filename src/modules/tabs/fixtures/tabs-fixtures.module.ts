@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyModalModule } from '../../modal';
 
@@ -19,7 +20,8 @@ import { TabsetActiveTestComponent } from './tabset-active.component.fixture';
     CommonModule,
     FormsModule,
     SkyModalModule,
-    SkyTabsModule
+    SkyTabsModule,
+    NoopAnimationsModule
   ],
   exports: [
     TabsetTestComponent,

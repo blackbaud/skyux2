@@ -1,22 +1,54 @@
 <div class="popover-demo-container">
   <div class="popover-demo-item">
-    <sky-popover placement="above">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="right">
+      Right
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="below">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="left">
+      Left
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="right">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="above">
+      Above (default)
     </sky-popover>
   </div>
   <div class="popover-demo-item">
-    <sky-popover placement="left">
-      The content of a popover can be text, HTML, or Angular components.
+    <sky-popover
+      placement="above"
+      alignment="left">
+      Above, align left
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="above"
+      alignment="right">
+      Above, align right
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="below">
+      Below
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="below"
+      alignment="left">
+      Below, align left
+    </sky-popover>
+  </div>
+  <div class="popover-demo-item">
+    <sky-popover
+      placement="below"
+      alignment="right">
+      Below, align right
     </sky-popover>
   </div>
 </div>
@@ -52,44 +84,137 @@
   Popovers can be opened via buttons:
 </h3>
 
-<button class="sky-btn" [skyPopover]="myPopover5">
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover0">
   Default
 </button>
 
-<sky-popover #myPopover5>
-  The content of a popover can be text, HTML, or Angular components.
+<sky-popover #myPopover0>
+  The content of a popover can be text, HTML, or Angular components.<br>
+  <sky-dropdown buttonType="context-menu">
+    <sky-dropdown-menu>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 1
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 2
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 3
+        </button>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover1" skyPopoverPlacement="right">
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover1"
+  skyPopoverPlacement="right">
   Right
 </button>
 
 <sky-popover #myPopover1>
   The content of a popover can be text, HTML, or Angular components.
+  <a href="">Some link</a>
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover2" skyPopoverPlacement="above">
-  Top
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover2"
+  skyPopoverPlacement="above">
+  Above
 </button>
 
 <sky-popover #myPopover2>
   The content of a popover can be text, HTML, or Angular components.
+  <a href="">Some link</a>
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover3" skyPopoverPlacement="below">
-  Bottom
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover2a"
+  skyPopoverPlacement="above"
+  skyPopoverAlignment="left">
+  Above left
+</button>
+
+<sky-popover #myPopover2a>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover2b"
+  skyPopoverPlacement="above"
+  skyPopoverAlignment="right">
+  Above right
+</button>
+
+<sky-popover #myPopover2b>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover3"
+  skyPopoverPlacement="below">
+  Below
 </button>
 
 <sky-popover #myPopover3>
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopover4" skyPopoverPlacement="left">
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover3a"
+  skyPopoverPlacement="below"
+  skyPopoverAlignment="left">
+  Below left
+</button>
+
+<sky-popover #myPopover3a>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover3b"
+  skyPopoverPlacement="below"
+  skyPopoverAlignment="right">
+  Below right
+</button>
+
+<sky-popover #myPopover3b>
+  The content of a popover can be text, HTML, or Angular components.
+</sky-popover>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="myPopover4"
+  skyPopoverPlacement="left">
   Left
 </button>
 
 <sky-popover #myPopover4>
   The content of a popover can be text, HTML, or Angular components.
+  <a href="">Some link</a>
 </sky-popover>
 
 <h3>
@@ -100,13 +225,13 @@
   <a
     href="javascript:void"
     style="cursor:help;"
-    [skyPopover]="myPopover6"
+    [skyPopover]="myPopover5"
     skyPopoverPlacement="right">
     Did you know?
   </a>
 </p>
 
-<sky-popover #myPopover6>
+<sky-popover #myPopover5>
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
@@ -118,15 +243,13 @@
   class="sky-btn"
   [skyPopover]="popoverMouseEnter"
   skyPopoverPlacement="right"
-  skyPopoverTrigger="mouseenter"
->
+  skyPopoverTrigger="mouseenter">
   Hover
 </button>
 
 <sky-popover
   popoverTitle="Did you know?"
-  #popoverMouseEnter
->
+  #popoverMouseEnter>
   You can move your mouse off the button to close this popover.
 </sky-popover>
 
@@ -174,4 +297,97 @@
       </sky-dropdown-item>
     </sky-dropdown-menu>
   </sky-dropdown>
+</sky-popover>
+
+<h3>
+  Popovers with large amounts of content are displayed fullscreen
+</h3>
+
+<button
+  class="sky-btn"
+  [skyPopover]="popoverFullscreen"
+  skyPopoverPlacement="fullscreen">
+  Show fullscreen popover
+</button>
+
+<sky-popover
+  popoverTitle="This is a fullscreen popover"
+  #popoverFullscreen>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere placerat mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent accumsan lacus sed volutpat pharetra. Etiam convallis elit ac odio rhoncus molestie. Pellentesque consequat porttitor magna sit amet consectetur. Donec sed accumsan urna, in dapibus erat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam auctor justo a mattis euismod. Etiam porttitor turpis quis tellus laoreet, quis eleifend diam mollis. In eget risus nulla. Nulla a elit eu lectus laoreet lobortis. Proin rhoncus libero dictum augue consequat lobortis. Vestibulum suscipit dapibus dolor sit amet facilisis. Pellentesque ullamcorper, libero id fringilla tempus, mi orci vestibulum eros, ac pulvinar nibh turpis ac nulla.
+  </p>
+  <p>
+    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam cursus arcu magna, at aliquet arcu pellentesque ac. Donec quis elit quis sapien tristique tincidunt. Mauris vel suscipit felis. Curabitur vestibulum vitae ipsum non tincidunt. Integer mollis congue ante. Nulla non vulputate nunc. Aenean eget est et libero venenatis faucibus. In hac habitasse platea dictumst. Suspendisse potenti. Donec interdum, tellus eu finibus auctor, felis turpis pulvinar nibh, quis gravida quam diam at risus. Integer porttitor ipsum eget vehicula vulputate.
+  </p>
+  <p>
+    Etiam eget scelerisque tellus. Suspendisse vehicula sapien et felis dapibus varius. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin tincidunt suscipit nulla. Fusce ullamcorper malesuada lacus vel venenatis. Morbi venenatis mi id diam lacinia facilisis. In nec ipsum nec tortor fringilla sodales at in sapien. Nam accumsan turpis augue, in finibus ligula congue a. Nunc lobortis sem eget libero eleifend consectetur. In euismod maximus aliquam. Maecenas placerat scelerisque cursus. Fusce elementum malesuada sem in elementum. Phasellus congue mi et leo gravida tincidunt.
+  </p>
+  <p>
+    Proin suscipit nulla tellus, ut lobortis ipsum porttitor eu. Sed pulvinar quam porttitor ligula ornare viverra. Nulla vitae metus lobortis, sagittis mauris ac, gravida diam. Fusce tincidunt massa a odio euismod maximus. Mauris eget dignissim justo. Proin quis nunc est. Duis non blandit ligula.
+  </p>
+  <sky-dropdown buttonType="context-menu">
+    <sky-dropdown-menu>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 1
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 2
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 3
+        </button>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere placerat mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent accumsan lacus sed volutpat pharetra. Etiam convallis elit ac odio rhoncus molestie. Pellentesque consequat porttitor magna sit amet consectetur. Donec sed accumsan urna, in dapibus erat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam auctor justo a mattis euismod. Etiam porttitor turpis quis tellus laoreet, quis eleifend diam mollis. In eget risus nulla. Nulla a elit eu lectus laoreet lobortis. Proin rhoncus libero dictum augue consequat lobortis. Vestibulum suscipit dapibus dolor sit amet facilisis. Pellentesque ullamcorper, libero id fringilla tempus, mi orci vestibulum eros, ac pulvinar nibh turpis ac nulla.
+  </p>
+  <p>
+    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam cursus arcu magna, at aliquet arcu pellentesque ac. Donec quis elit quis sapien tristique tincidunt. Mauris vel suscipit felis. Curabitur vestibulum vitae ipsum non tincidunt. Integer mollis congue ante. Nulla non vulputate nunc. Aenean eget est et libero venenatis faucibus. In hac habitasse platea dictumst. Suspendisse potenti. Donec interdum, tellus eu finibus auctor, felis turpis pulvinar nibh, quis gravida quam diam at risus. Integer porttitor ipsum eget vehicula vulputate.
+  </p>
+  <p>
+    Etiam eget scelerisque tellus. Suspendisse vehicula sapien et felis dapibus varius. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin tincidunt suscipit nulla. Fusce ullamcorper malesuada lacus vel venenatis. Morbi venenatis mi id diam lacinia facilisis. In nec ipsum nec tortor fringilla sodales at in sapien. Nam accumsan turpis augue, in finibus ligula congue a. Nunc lobortis sem eget libero eleifend consectetur. In euismod maximus aliquam. Maecenas placerat scelerisque cursus. Fusce elementum malesuada sem in elementum. Phasellus congue mi et leo gravida tincidunt.
+  </p>
+  <p>
+    Proin suscipit nulla tellus, ut lobortis ipsum porttitor eu. Sed pulvinar quam porttitor ligula ornare viverra. Nulla vitae metus lobortis, sagittis mauris ac, gravida diam. Fusce tincidunt massa a odio euismod maximus. Mauris eget dignissim justo. Proin quis nunc est. Duis non blandit ligula.
+  </p>
+  <sky-dropdown buttonType="context-menu">
+    <sky-dropdown-menu>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 1
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 2
+        </button>
+      </sky-dropdown-item>
+      <sky-dropdown-item>
+        <button type="button">
+          Option 3
+        </button>
+      </sky-dropdown-item>
+    </sky-dropdown-menu>
+  </sky-dropdown>
+</sky-popover>
+
+<h3>
+  Popovers may also be asynchronous
+</h3>
+
+<button
+  type="button"
+  class="sky-btn sky-btn-default"
+  [skyPopover]="asyncPopoverRef">
+  This trigger has an asynchronous popover
+</button>
+
+<sky-popover #asyncPopover>
+  My asynchronous popover.
 </sky-popover>

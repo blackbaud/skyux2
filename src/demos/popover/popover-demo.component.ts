@@ -1,41 +1,38 @@
 import {
   Component,
-  OnInit
+  ElementRef,
+  ViewChild
 } from '@angular/core';
 
 import {
-  DomSanitizer,
-  SafeResourceUrl
-} from '@angular/platform-browser';
-
-function getWindow() {
-  return window;
-}
+  SkyPopoverComponent
+} from '../../modules/popover';
 
 @Component({
   selector: 'sky-popover-demo',
   templateUrl: './popover-demo.component.html',
   styleUrls: ['./popover-demo.component.scss']
 })
-export class SkyPopoverDemoComponent implements OnInit {
-  public outOfBoundsDemoUrl: SafeResourceUrl;
+export class SkyPopoverDemoComponent {
+  public asyncPopoverRef: SkyPopoverComponent;
 
-  constructor(
-    private sanitizer: DomSanitizer
-  ) { }
+  @ViewChild('remote')
+  public remote: ElementRef;
 
-  public ngOnInit() {
-    this.outOfBoundsDemoUrl = this.sanitizer
-      .bypassSecurityTrustResourceUrl(
-        `${getWindow().location.href}/out-of-bounds-demo`
-      );
+  @ViewChild('asyncPopover')
+  public asyncPopover: SkyPopoverComponent;
+
+  constructor() {
+    setTimeout(() => {
+      this.asyncPopoverRef = this.asyncPopover;
+    }, 1000);
   }
 
-  public onPopoverOpened(popoverComponent: any): void {
+  public onPopoverOpened(popoverComponent: any) {
     alert('The popover was opened: ' + popoverComponent.popoverTitle);
   }
 
-  public onPopoverClosed(popoverComponent: any): void {
+  public onPopoverClosed(popoverComponent: any) {
     alert('The popover was closed: ' + popoverComponent.popoverTitle);
   }
 }
