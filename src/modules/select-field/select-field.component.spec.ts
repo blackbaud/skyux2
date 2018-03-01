@@ -16,6 +16,22 @@ describe('selectField component', () => {
   let component: SkySelectFieldTestComponent;
   let selectFieldComponent: SkySelectFieldComponent;
 
+  const testPickerItems = [
+    { id: '1', category: 'Pome', label: 'Apple', description: 'Anne eats apples' },
+    { id: '2', category: 'Berry', label: 'Banana', description: 'Ben eats bananas' },
+    { id: '3', category: 'Pome', label: 'Pear', description: 'Patty eats pears' },
+    { id: '4', category: 'Berry', label: 'Grape', description: 'George eats grapes' },
+    { id: '5', category: 'Berry', label: 'Banana', description: 'Becky eats bananas' },
+    { id: '6', category: 'Citrus', label: 'Lemon', description: 'Larry eats lemons' },
+    { id: '7', category: 'Aggregate fruit', label: 'Strawberry', description: 'Sally eats strawberries' }
+  ];
+  const testSelectFieldIcon = 'fa-search';
+  const testSelectFieldPickerHeader = 'Test Select Field Picker Header';
+  const testSelectFieldText = 'Test Select Field Text';
+  const testSingleSelectFieldStyle = 'single';
+  const testMultiSelectFieldStyle = 'multiple';
+  const testPickerItemsSelected = [testPickerItems[2], testPickerItems[4], testPickerItems[6]];
+
   function getSelectFieldElements(): NodeListOf<HTMLElement> {
     fixture.detectChanges();
     const selectFieldElement = component.selectFieldElementRef.nativeElement;
@@ -33,21 +49,6 @@ describe('selectField component', () => {
     selectFieldComponent.selectFieldPickerHeader = testSelectFieldPickerHeader;
   }
 
-  const testPickerItems = [
-    { id: '1', category: 'Pome', label: 'Apple', description: 'Anne eats apples' },
-    { id: '2', category: 'Berry', label: 'Banana', description: 'Ben eats bananas' },
-    { id: '3', category: 'Pome', label: 'Pear', description: 'Patty eats pears' },
-    { id: '4', category: 'Berry', label: 'Grape', description: 'George eats grapes' },
-    { id: '5', category: 'Berry', label: 'Banana', description: 'Becky eats bananas' },
-    { id: '6', category: 'Citrus', label: 'Lemon', description: 'Larry eats lemons' },
-    { id: '7', category: 'Aggregate fruit', label: 'Strawberry', description: 'Sally eats strawberries' }
-  ];
-  const testSelectFieldIcon = 'fa-search';
-  const testSelectFieldPickerHeader = 'Test Select Field Picker Header';
-  const testSelectFieldText = 'Test Select Field Text';
-  const testSingleSelectFieldStyle = 'single';
-  const testMultiSelectFieldStyle = 'multiple';
-  const testPickerItemsSelected = [testPickerItems[2], testPickerItems[4], testPickerItems[6]];
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
