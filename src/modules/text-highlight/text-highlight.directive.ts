@@ -35,13 +35,6 @@ export class SkyTextHighlightDirective
   }
 
   private static addBackSlash(searchText: string) : string{
-    /*
-      Function: adds additional backslash (\) to existing backslash @ searchText.
-      Ex: searchText = "val\" -> addBackSlash(searchText) = "val\\"
-      Purpose: A single "\" will look like an escape character and 
-        causes error @ RegExp() in getRegexMatch() fn. 
-        Make it "\\" so you close the escape character.
-    */
     let charArr = searchText.split('');
     let newSearchText = charArr.map(c => c === '\\' ? '\\\\' : c);
     
