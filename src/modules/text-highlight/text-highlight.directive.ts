@@ -26,10 +26,26 @@ export class SkyTextHighlightDirective
   private observer: MutationObserver;
 
   private static getRegexMatch(node: HTMLElement, searchText: string): RegExpExecArray {
+    
     const text = node.nodeValue;
-    const searchRegex = new RegExp(searchText, 'gi');
-
+    const newSearchText = this.addBackSlash(searchText)
+    const searchRegex = new RegExp(newSearchText, 'gi');
+    
     return searchRegex.exec(text);
+  }
+
+  private static addBackSlash(searchText: string) : string{
+    /*
+      Function: adds additional backslash (\) to existing backslash @ searchText.
+      Ex: searchText = "val\" -> addBackSlash(searchText) = "val\\"
+      Purpose: A single "\" will look like an escape character and 
+        causes error @ RegExp() in getRegexMatch() fn. 
+        Make it "\\" so you close the escape character.
+    */
+    let charArr = searchText.split('');
+    let newSearchText = charArr.map(c => c === '\\' ? '\\\\' : c);
+    
+    return newSearchText.join('');
   }
 
   private static markNode(node: any, searchText: string) {
