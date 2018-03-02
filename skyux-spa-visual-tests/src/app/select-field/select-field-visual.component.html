@@ -1,22 +1,15 @@
+
+<div id="screenshot-select-field-single-mode">
+  <sky-select-field
+    selectFieldStyle="single"
+    selectFieldText="Single Mode Text"
+    [selectFieldPickerList]="pickerItems">
+  </sky-select-field>
+</div>
 <div id="screenshot-select-field-multiple-mode">
   <sky-select-field
-    [selectFieldText]="multipleModeText"
+    selectFieldText="Multi Mode Text"
     [selectFieldPickerList]="pickerItems"
-    [(selectField)]="multipleItemsSelected">
+    [selectField]="multipleItemsSelected">
   </sky-select-field>
 </div>
-<!--
-<div>
-  <label class="sky-control-label sky-control-label-required">
-    Single-select Mode
-  </label>
-  <sky-select-field
-    selectFieldClear=""
-    selectFieldIcon="fa-search"
-    [selectFieldStyle]="singleModeStyle"
-    [selectFieldText]="singleModeText"
-    [selectFieldPickerList]="pickerItems"
-    [(selectField)]="singleItemSelected">
-  </sky-select-field>
-</div>
--->

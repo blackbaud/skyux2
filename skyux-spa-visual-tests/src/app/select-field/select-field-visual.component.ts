@@ -29,4 +29,6 @@ export class SelectFieldVisualComponent {
   public singleItemsSelected: SkySelectField = [
     this.pickerItems[3]
   ];
+
+  constructor() { }
 }

@@ -4,7 +4,7 @@
     <span *ngIf="selectFieldText">{{selectFieldText}}</span>
     <span *ngIf="!selectFieldText">{{'selectfieldpicker_select_values' | skyResources}}</span>
   </button>
-  <div class="sky-select-field-tokens-container" >
+  <div class="sky-select-field-tokens-container">
     <sky-tokens *ngIf="tokenValues.length <= 5" displayWith="label" [(tokens)]="tokenValues"></sky-tokens>
     <sky-tokens *ngIf="tokenValues.length > 5" [(tokens)]="tokenOverflow"></sky-tokens>
   </div>
@@ -13,16 +13,13 @@
 
 <ng-template #singleSelectMode>
   <div [formGroup]="singleSelectForm" class="sky-input-group sky-select-field">
-    <input formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input sky-select-field-picker-btn-open" type="text"
-      placeholder="{{selectFieldText}}"
-      readonly="readonly"
-      tabindex="0"
-      (click)="openFormModal()">
+      <input [attr.aria-label]="selectFieldText" formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input sky-select-field-picker-btn-open"
+        type="text" placeholder="{{selectFieldText}}" readonly="readonly" tabindex="-1" role="presentation" (click)="openFormModal()">
     <div class="sky-input-group-btn sky-select-field-input-group">
-      <button class="sky-btn sky-select-field-btn-clear" *ngIf="isClearable" (click)="clearSelect()">
+      <button aria-hidden="true" class="sky-btn sky-select-field-btn-clear" *ngIf="isClearable" (click)="clearSelect()">
         <i class="fa fa-times"></i>
       </button>
-      <button class="sky-btn sky-select-field-picker-btn-open" (click)="openFormModal()" *ngIf="selectFieldIcon">
+      <button aria-hidden="true" class="sky-btn sky-select-field-picker-btn-open sky-select-field-icon" (click)="openFormModal()" *ngIf="selectFieldIcon">
         <i class="fa {{selectFieldIcon}}"></i>
       </button>
     </div>
