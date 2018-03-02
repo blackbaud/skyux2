@@ -26,18 +26,15 @@ export class SkyTextHighlightDirective
   private observer: MutationObserver;
 
   private static getRegexMatch(node: HTMLElement, searchText: string): RegExpExecArray {
-    
     const text = node.nodeValue;
-    const newSearchText = this.addBackSlash(searchText)
+    const newSearchText = this.addBackSlash(searchText);
     const searchRegex = new RegExp(newSearchText, 'gi');
-    
     return searchRegex.exec(text);
   }
 
-  private static addBackSlash(searchText: string) : string{
+  private static addBackSlash(searchText: string): string {
     let charArr = searchText.split('');
     let newSearchText = charArr.map(c => c === '\\' ? '\\\\' : c);
-    
     return newSearchText.join('');
   }
 
