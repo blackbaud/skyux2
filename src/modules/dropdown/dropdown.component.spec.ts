@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -23,17 +22,19 @@ describe('Dropdown component', () => {
   let fixture: ComponentFixture<DropdownTestComponent>;
   let component: DropdownTestComponent;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyDropdownFixturesModule
       ]
-    }).compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(DropdownTestComponent);
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   function openPopoverWithButtonClick() {

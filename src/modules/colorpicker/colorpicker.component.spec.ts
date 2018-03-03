@@ -1,5 +1,4 @@
 import {
-  async,
   fakeAsync,
   TestBed,
   tick,
@@ -138,7 +137,7 @@ describe('Colorpicker Component', () => {
     return input[name];
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         ColorpickerTestComponent
@@ -147,13 +146,15 @@ describe('Colorpicker Component', () => {
         SkyColorpickerModule,
         FormsModule
       ]
-    }).compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ColorpickerTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should output RGBA', fakeAsync(() => {

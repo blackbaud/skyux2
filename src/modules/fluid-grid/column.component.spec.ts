@@ -14,12 +14,15 @@ describe('SkyColumnComponent', () => {
       declarations: [
         SkyColumnComponent
       ]
-    })
-    .compileComponents();
+    });
 
     fixture = TestBed.createComponent(SkyColumnComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should add a class to the host element', () => {
