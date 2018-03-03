@@ -60,15 +60,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   @Input()
-  public set focusable(value: boolean) {
-    this._focusable = value;
-  }
-
-  public get focusable(): boolean {
-    return (this._focusable !== false);
-  }
-
-  @Input()
   public messageStream = new Subject<SkyTokensMessage>();
 
   @Input()
@@ -118,7 +109,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   private _activeIndex: number;
   private _disabled: boolean;
   private _dismissible: boolean;
-  private _focusable: boolean;
   private _tokens: SkyToken[];
   private _displayWith: string;
 

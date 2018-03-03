@@ -1,8 +1,8 @@
 <div
   class="sky-token sky-btn sky-btn-default"
+  role="button"
+  tabindex="0"
   [ngClass]="{ 'sky-btn-disabled': disabled }"
-  [attr.role]="ariaRole"
-  [attr.tabindex]="tabIndex"
   [attr.aria-disabled]="disabled"
   (focus)="tokenFocus.emit()">
 

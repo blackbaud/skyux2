@@ -77,7 +77,6 @@ describe('Tokens component', () => {
       expect(tokensComponent.disabled).toEqual(false);
       expect(tokensComponent.dismissible).toEqual(true);
       expect(tokensComponent.displayWith).toEqual('name');
-      expect(tokensComponent.focusable).toEqual(true);
       expect(tokensComponent.messageStream).toBeUndefined();
       expect(tokensComponent.activeIndex).toEqual(0);
     });

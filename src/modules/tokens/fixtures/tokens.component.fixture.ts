@@ -27,7 +27,6 @@ export class SkyTokensTestComponent {
   public disabled: boolean;
   public dismissible: boolean;
   public displayWith: string;
-  public focusable: boolean;
   public messageStream: Subject<SkyTokensMessage>;
   public tokens: SkyToken[];
 
