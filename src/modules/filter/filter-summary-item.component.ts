@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -14,23 +14,33 @@ import {
 })
 export class SkyFilterSummaryItemComponent {
   @Input()
-  public dismissible = true;
+  public dismissible: boolean = true;
 
   @Output()
-  public dismiss = new EventEmitter<void>();
+  public dismiss: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  public itemClick = new EventEmitter<void>();
+  public itemClick: EventEmitter<any> = new EventEmitter();
 
-  public onItemDismiss() {
-    this.dismiss.emit();
+  public onItemDismiss(event: any) {
+    event.stopPropagation();
+    this.dismiss.emit(undefined);
+
+  }
+
+  public onItemDismissKeypress(event: KeyboardEvent) {
+    if (event.which === 13) {
+      this.onItemDismiss(event);
+    }
   }
 
   public onItemClick() {
-    this.itemClick.emit();
+    this.itemClick.emit(undefined);
   }
 
-  public onItemKeypress() {
-    this.itemClick.emit();
+  public onItemKeypress(event: KeyboardEvent) {
+    if (event.which === 13) {
+      this.itemClick.emit(undefined);
+    }
   }
 }

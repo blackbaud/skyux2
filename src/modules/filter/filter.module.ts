@@ -6,14 +6,7 @@ import { SkyFilterSummaryComponent } from './filter-summary.component';
 import { SkyFilterSummaryItemComponent } from './filter-summary-item.component';
 import { SkyFilterInlineComponent } from './filter-inline.component';
 import { SkyFilterInlineItemComponent } from './filter-inline-item.component';
-
-import {
-  SkyResourcesModule
-} from '../resources';
-
-import {
-  SkyTokensModule
-} from '../tokens';
+import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
@@ -25,8 +18,7 @@ import {
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule,
-    SkyTokensModule
+    SkyResourcesModule
   ],
   exports: [
     SkyFilterButtonComponent,
