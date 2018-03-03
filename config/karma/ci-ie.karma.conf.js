@@ -16,7 +16,6 @@ module.exports = function (config) {
   config.set({
     browsers: Object.keys(customLaunchers),
     customLaunchers,
-    browserDisconnectTolerance: 5,
     logLevel: config.LOG_ERROR,
     coverageReporter: {},
     browserConsoleLogOptions: {
