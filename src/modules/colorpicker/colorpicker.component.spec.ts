@@ -1,5 +1,4 @@
 import {
-  async,
   fakeAsync,
   TestBed,
   tick,
