@@ -160,14 +160,19 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public onKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
-    if (key === 'arrowdown') {
+    /* tslint:disable-next-line:switch-default */
+    switch (key) {
+      case 'down':
+      case 'arrowdown':
       this.focusNextItem();
       event.preventDefault();
-    }
+      break;
 
-    if (key === 'arrowup') {
+      case 'up':
+      case 'arrowup':
       this.focusPreviousItem();
       event.preventDefault();
+      break;
     }
   }
 

@@ -226,11 +226,13 @@ export class SkyAutocompleteComponent
 
     /* tslint:disable-next-line:switch-default */
     switch (key) {
+      case 'up':
       case 'arrowup':
       this.sendDropdownMessage(SkyDropdownMessageType.FocusPreviousItem);
       event.preventDefault();
       break;
 
+      case 'down':
       case 'arrowdown':
       // Trigger a search if there is search text and the dropdown is not open.
       if (this.searchText && !this.hasSearchResults()) {

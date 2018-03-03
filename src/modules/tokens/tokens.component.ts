@@ -164,11 +164,13 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
     /* tslint:disable-next-line:switch-default */
     switch (key) {
+      case 'left':
       case 'arrowleft':
       this.focusPreviousToken();
       event.preventDefault();
       break;
 
+      case 'right':
       case 'arrowright':
       this.focusNextToken();
       event.preventDefault();
