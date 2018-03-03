@@ -2,7 +2,7 @@ import {
   Component
 } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 
 import {
   SkyToken,
@@ -18,7 +18,7 @@ import {
 export class SkyTokensDemoComponent {
   public colors: SkyToken[];
   public filters: SkyToken[];
-  public tokensController: ReplaySubject<SkyTokensMessage>;
+  public tokensController: Subject<SkyTokensMessage>;
 
   private defaultColors = [
     { name: 'Red' },
@@ -80,7 +80,7 @@ export class SkyTokensDemoComponent {
 
   public focusLastToken() {
     if (!this.tokensController) {
-      this.tokensController = new ReplaySubject<SkyTokensMessage>();
+      this.tokensController = new Subject<SkyTokensMessage>();
     }
 
     this.tokensController.next({
