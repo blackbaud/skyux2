@@ -11,6 +11,7 @@
     [focusable]="focusable"
     (dismiss)="removeToken(token)"
     (click)="onTokenClick(token)"
+    (keydown)="onTokenKeyDown($event)"
     (keyup)="onTokenKeyUp($event, token)"
     (tokenFocus)="activeIndex = i">
     {{ token.value[displayWith] }}
