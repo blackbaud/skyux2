@@ -39,15 +39,13 @@ describe('Autocomplete component', () => {
     return document.getElementById('my-autocomplete-input') as HTMLInputElement;
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyAutocompleteFixturesModule
       ]
-    }).compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SkyAutocompleteTestComponent);
     component = fixture.componentInstance;
     autocomplete = component.autocomplete;
