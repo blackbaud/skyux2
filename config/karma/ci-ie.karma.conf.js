@@ -16,6 +16,13 @@ module.exports = function (config) {
   config.set({
     browsers: Object.keys(customLaunchers),
     customLaunchers,
-    browserDisconnectTolerance: 5
+    browserDisconnectTolerance: 5,
+    logLevel: config.LOG_ERROR,
+    coverageReporter: {},
+    browserConsoleLogOptions: {
+      level: 'error',
+      terminal: true
+    },
+    reporters: ['mocha']
   });
 };
