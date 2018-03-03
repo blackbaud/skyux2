@@ -1,96 +1,117 @@
-// import {
-//   TestBed,
-//   ComponentFixture
-// } from '@angular/core/testing';
+import {
+  TestBed,
+  ComponentFixture
+} from '@angular/core/testing';
 
-// import {
-//   FilterSummaryTestComponent
-// } from './fixtures/filter-summary.component.fixture';
+import {
+  By
+} from '@angular/platform-browser';
 
-// import {
-//   SkyFilterModule
-// } from '.';
+import {
+  FilterSummaryTestComponent
+} from './fixtures/filter-summary.component.fixture';
 
-// import {
-//   expect
-// } from '../testing';
+import {
+  SkyFilterModule
+} from '.';
 
-// import {
-//   TestUtility
-// } from '../testing/testutility';
+import {
+  expect
+} from '../testing';
 
-// describe('Filter summary', () => {
+import {
+  TestUtility
+} from '../testing/testutility';
 
-//   let fixture: ComponentFixture<FilterSummaryTestComponent>;
-//   let nativeElement: HTMLElement;
-//   let component: FilterSummaryTestComponent;
+describe('Filter summary', () => {
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [
-//         FilterSummaryTestComponent
-//       ],
-//       imports: [
-//         SkyFilterModule
-//       ]
-//     });
+  let fixture: ComponentFixture<FilterSummaryTestComponent>;
+  let nativeElement: HTMLElement;
+  let component: FilterSummaryTestComponent;
 
-//     fixture = TestBed.createComponent(FilterSummaryTestComponent);
-//     nativeElement = fixture.nativeElement as HTMLElement;
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        FilterSummaryTestComponent
+      ],
+      imports: [
+        SkyFilterModule
+      ]
+    });
 
-//   it('should create a filter summary with label and child items', () => {
-//     expect(nativeElement.querySelector('.sky-filter-summary-header')).toHaveText('Filter:');
-//     expect(nativeElement
-//       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item').length).toBe(2);
-//   });
+    fixture = TestBed.createComponent(FilterSummaryTestComponent);
+    nativeElement = fixture.nativeElement as HTMLElement;
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//   it('should allow filter summary items to be dismissible', () => {
-//     let items = nativeElement
-//       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
+  it('should create a filter summary with label and child items', () => {
+    expect(nativeElement.querySelector('.sky-filter-summary-header')).toHaveText('Filter:');
+    expect(nativeElement
+      .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item').length).toBe(2);
+  });
 
-//     expect(items.item(0).querySelector('.sky-token-btn-close')).toBeNull();
-//     expect(items.item(1).querySelector('.sky-token-btn-close')).not.toBeNull();
-//   });
+  it('should callow filter summary items to be dismissible', () => {
+    let items = nativeElement
+      .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
 
-//   it('should emit an event on item click', () => {
-//     let items = nativeElement
-//       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
+    expect(items.item(0).querySelector('.sky-filter-summary-item-close')).toBeNull();
+    expect(items.item(1).querySelector('.sky-filter-summary-item-close')).not.toBeNull();
+  });
 
-//     TestUtility.fireDomEvent(items.item(0), 'click');
+  it('should emit an event on item click', () => {
+    let items = nativeElement
+      .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
 
-//     fixture.detectChanges();
+    TestUtility.fireDomEvent(items.item(0), 'click');
 
-//     expect(component.summaryClicked).toBe(true);
-//   });
+    fixture.detectChanges();
 
-//   it('should emit an event on item keypress', () => {
-//     let items = nativeElement
-//       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
+    expect(component.summaryClicked).toBe(true);
+  });
 
-//     TestUtility.fireDomEvent(items[0], 'keypress.space', { key: 'Space' });
+  it('should emit an event on item keypress', () => {
+    let items = fixture.debugElement
+      .queryAll(By.css('.sky-filter-summary-items .sky-filter-summary-item'));
 
-//     fixture.detectChanges();
+    items[0].triggerEventHandler('keypress', { which: 23 });
 
-//     expect(component.summaryClicked).toBe(false);
+    fixture.detectChanges();
 
-//     TestUtility.fireDomEvent(items[0], 'keypress.enter', { key: 'Enter' });
+    expect(component.summaryClicked).toBe(false);
 
-//     fixture.detectChanges();
+    items[0].triggerEventHandler('keypress', { which: 13 });
 
-//     expect(component.summaryClicked).toBe(true);
-//   });
+    fixture.detectChanges();
 
-//   it('should emit an event on dismiss click', () => {
-//     let items = nativeElement
-//       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item .sky-token-btn-close');
+    expect(component.summaryClicked).toBe(true);
+  });
 
-//     TestUtility.fireDomEvent(items.item(0), 'click');
+  it('should emit an event on dismiss click', () => {
+    let items = nativeElement
+      .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item .fa-times');
 
-//     fixture.detectChanges();
+    TestUtility.fireDomEvent(items.item(0), 'click');
 
-//     expect(component.dismissed).toBe(true);
-//   });
-// });
+    fixture.detectChanges();
+
+    expect(component.dismissed).toBe(true);
+  });
+
+  it('should emit an event on dismiss keypress', () => {
+    let items = fixture.debugElement
+      .queryAll(By.css('.sky-filter-summary-items .sky-filter-summary-item .fa-times'));
+
+    items[0].triggerEventHandler('keypress', { which: 23, stopPropagation: function () {} });
+
+    fixture.detectChanges();
+
+    expect(component.dismissed).toBe(false);
+
+    items[0].triggerEventHandler('keypress', { which: 13, stopPropagation: function () {} });
+
+    fixture.detectChanges();
+
+    expect(component.dismissed).toBe(true);
+  });
+});
