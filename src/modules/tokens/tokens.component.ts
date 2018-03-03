@@ -13,7 +13,7 @@ import {
   ViewChildren
 } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
@@ -69,7 +69,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   @Input()
-  public messageStream = new ReplaySubject<SkyTokensMessage>();
+  public messageStream = new Subject<SkyTokensMessage>();
 
   @Input()
   public set tokens(value: SkyToken[]) {
@@ -113,7 +113,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChildren(SkyTokenComponent)
   private tokenComponents: QueryList<SkyTokenComponent>;
-  private destroyed = new ReplaySubject<boolean>();
+  private destroyed = new Subject<boolean>();
 
   private _activeIndex: number;
   private _disabled: boolean;
@@ -155,18 +155,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this.notifyTokenSelected(token);
   }
 
-  public onTokenKeyDown(event: KeyboardEvent) {
-    const key = event.key.toLowerCase();
-
-    if (this.disabled || !this.dismissible) {
-      return;
-    }
-
-    if (key === 'backspace') {
-      event.preventDefault();
-    }
-  }
-
   public onTokenKeyUp(event: KeyboardEvent, token: SkyToken) {
     const key = event.key.toLowerCase();
 
@@ -191,20 +179,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
       case 'enter':
       this.notifyTokenSelected(token);
       event.preventDefault();
-      break;
-
-      case 'backspace':
-      if (this.dismissible) {
-        this.focusPreviousToken();
-        event.preventDefault();
-      }
-      break;
-
-      case 'delete':
-      if (this.dismissible) {
-        this.focusActiveToken();
-        event.preventDefault();
-      }
       break;
     }
   }

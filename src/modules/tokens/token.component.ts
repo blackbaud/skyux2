@@ -68,19 +68,8 @@ export class SkyTokenComponent {
     private elementRef: ElementRef
   ) { }
 
-  @HostListener('keyup', ['$event'])
-  public onKeyUp(event: KeyboardEvent) {
-    const key = event.key.toLowerCase();
-    if (key === 'backspace' || key === 'delete') {
-      this.dismissToken();
-      event.preventDefault();
-    }
-  }
-
   public dismissToken() {
-    if (this.dismissible) {
-      this.dismiss.emit();
-    }
+    this.dismiss.emit();
   }
 
   public focusElement() {

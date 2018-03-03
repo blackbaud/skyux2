@@ -19,13 +19,12 @@ function createEvent(eventName: string, args?: SkyTestUtilityEventArgs): Event {
 }
 
 export class TestUtility {
-  public static fireDomEvent(element: EventTarget, name: string, args: any = {}): Event {
+  public static fireDomEvent(element: EventTarget, name: string, args: any = {}) {
     const event = createEvent(name, args);
     element.dispatchEvent(event);
-    return event;
   }
 
-  public static fireKeyboardEvent(element: EventTarget, name: string, args: KeyboardEventInit = {}): Event {
+  public static fireKeyboardEvent(element: EventTarget, name: string, args: KeyboardEventInit = {}) {
     let event = createEvent(name, {
       cancelable: true,
       bubbles: true
@@ -34,7 +33,5 @@ export class TestUtility {
     event = Object.assign(event, args);
 
     element.dispatchEvent(event as KeyboardEvent);
-
-    return event;
   }
 }
