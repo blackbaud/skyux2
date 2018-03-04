@@ -80,8 +80,7 @@ describe('List filter summary', () => {
 
   function getSummaryItems() {
     /* tslint:disable */
-    return nativeElement
-      .querySelectorAll('.sky-list-toolbar-container .sky-toolbar-section .sky-filter-summary .sky-filter-summary-item');
+    return nativeElement.querySelectorAll('.sky-list-toolbar-container .sky-toolbar-section .sky-filter-summary .sky-filter-summary-item');
     /* tslint:enable */
   }
 
