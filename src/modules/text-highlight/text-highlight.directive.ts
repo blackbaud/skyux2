@@ -33,7 +33,7 @@ export class SkyTextHighlightDirective
   }
 
   private static addBackSlash(searchText: string): string {
-    let newSearchText = searchText.replace(/\\/g,"\\\\");
+    let newSearchText = searchText.replace(/\\/g, '\\\\');
     return newSearchText;
   }
 
