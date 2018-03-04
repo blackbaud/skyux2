@@ -115,7 +115,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.destroy.complete();
   }
 
   @HostListener('keydown', ['$event'])

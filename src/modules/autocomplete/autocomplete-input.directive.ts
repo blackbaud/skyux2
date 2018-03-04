@@ -95,7 +95,7 @@ export class SkyAutocompleteInputDirective
 
   public ngOnDestroy(): void {
     this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.destroy.complete();
   }
 
   public writeValue(value: any): void {

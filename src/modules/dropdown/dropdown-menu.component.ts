@@ -129,7 +129,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
   public ngOnDestroy() {
     this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.destroy.complete();
   }
 
   @HostListener('click', ['$event'])

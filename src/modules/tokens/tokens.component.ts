@@ -134,7 +134,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   public ngOnDestroy() {
     this.destroyed.next(true);
-    this.destroyed.unsubscribe();
+    this.destroyed.complete();
   }
 
   public onTokenClick(token: SkyToken) {

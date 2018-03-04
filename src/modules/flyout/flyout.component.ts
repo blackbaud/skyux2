@@ -95,7 +95,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
   public ngOnDestroy() {
     this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.destroy.complete();
   }
 
   public onCloseButtonClick() {

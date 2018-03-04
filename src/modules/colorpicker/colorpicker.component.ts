@@ -3,6 +3,7 @@ import {
   HostListener,
   ElementRef,
   EventEmitter,
+  OnDestroy,
   OnInit,
   ViewChild,
   Output,
@@ -38,7 +39,7 @@ let componentIdIndex = 0;
   styleUrls: ['./colorpicker.component.scss']
 })
 
-export class SkyColorpickerComponent implements OnInit {
+export class SkyColorpickerComponent implements OnInit, OnDestroy {
   @Output()
   public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
     new EventEmitter<SkyColorpickerOutput>();
@@ -121,7 +122,10 @@ export class SkyColorpickerComponent implements OnInit {
   public ngOnInit() {
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
+  }
 
+  public ngOnDestroy() {
+    this.dropdownController.complete();
   }
 
   public closePicker() {

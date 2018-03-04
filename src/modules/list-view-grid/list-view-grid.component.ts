@@ -201,7 +201,7 @@ export class SkyListViewGridComponent
 
   public ngOnDestroy() {
     this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.destroy.complete();
   }
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
