@@ -390,7 +390,7 @@ describe('Autocomplete component', () => {
 
       inputElement.value = 'r';
       // TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-      // tick();
+      tick();
 
       // const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
       //   .and.callThrough();

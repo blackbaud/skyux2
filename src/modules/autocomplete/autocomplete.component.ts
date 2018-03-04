@@ -204,7 +204,8 @@ export class SkyAutocompleteComponent
 
   public ngOnDestroy(): void {
     this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.destroy.complete();
+    this.dropdownController.complete();
   }
 
   public onMenuChanges(change: SkyDropdownMenuChange): void {
