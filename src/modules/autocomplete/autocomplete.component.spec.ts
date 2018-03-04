@@ -587,69 +587,69 @@ describe('Autocomplete component', () => {
   //   );
   // });
 
-  // describe('mouse interactions', () => {
-  //   it('should notify selection change on item click', fakeAsync(() => {
-  //     fixture.detectChanges();
+  describe('mouse interactions', () => {
+    it('should notify selection change on item click', fakeAsync(() => {
+      fixture.detectChanges();
 
-  //     const inputElement = getInputElement();
+      const inputElement = getInputElement();
 
-  //     inputElement.value = 'r';
-  //     TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-  //     tick();
-  //     fixture.detectChanges();
+      inputElement.value = 'r';
+      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      tick();
+      fixture.detectChanges();
 
-  //     const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
-  //       .and.callThrough();
-  //     const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
-  //       .and.callThrough();
-  //     const firstItem = getAutocompleteElement()
-  //       .querySelector('.sky-dropdown-item') as HTMLElement;
+      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+        .and.callThrough();
+      const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
+        .and.callThrough();
+      const firstItem = getAutocompleteElement()
+        .querySelector('.sky-dropdown-item') as HTMLElement;
 
-  //     firstItem.querySelector('button').click();
-  //     tick();
+      firstItem.querySelector('button').click();
+      tick();
 
-  //     expect(input.value.name).toEqual('Red');
-  //     expect(messageSpy).toHaveBeenCalledWith(SkyDropdownMessageType.Close);
-  //     expect(notifySpy).toHaveBeenCalledWith({
-  //       selectedItem: input.value
-  //     });
-  //   }));
+      expect(input.value.name).toEqual('Red');
+      expect(messageSpy).toHaveBeenCalledWith(SkyDropdownMessageType.Close);
+      expect(notifySpy).toHaveBeenCalledWith({
+        selectedItem: input.value
+      });
+    }));
 
-  //   it('should not close the dropdown during input blur if mouseenter',
-  //     fakeAsync(() => {
-  //       fixture.detectChanges();
+    it('should not close the dropdown during input blur if mouseenter',
+      fakeAsync(() => {
+        fixture.detectChanges();
 
-  //       const inputElement = getInputElement();
+        const inputElement = getInputElement();
 
-  //       inputElement.value = 'r';
-  //       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-  //       tick();
-  //       fixture.detectChanges();
-  //       tick();
+        inputElement.value = 'r';
+        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        tick();
+        fixture.detectChanges();
+        tick();
 
-  //       const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
+        const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
 
-  //       TestUtility.fireKeyboardEvent(inputElement, 'mouseenter');
-  //       tick();
-  //       fixture.detectChanges();
-  //       tick();
+        TestUtility.fireKeyboardEvent(inputElement, 'mouseenter');
+        tick();
+        fixture.detectChanges();
+        tick();
 
-  //       input.blur.emit();
-  //       tick();
+        input.blur.emit();
+        tick();
 
-  //       expect(spy).not.toHaveBeenCalled();
-  //       spy.calls.reset();
+        expect(spy).not.toHaveBeenCalled();
+        spy.calls.reset();
 
-  //       TestUtility.fireKeyboardEvent(inputElement, 'mouseleave');
-  //       tick();
-  //       fixture.detectChanges();
-  //       tick();
+        TestUtility.fireKeyboardEvent(inputElement, 'mouseleave');
+        tick();
+        fixture.detectChanges();
+        tick();
 
-  //       input.blur.emit();
-  //       tick();
+        input.blur.emit();
+        tick();
 
-  //       expect(spy).toHaveBeenCalled();
-  //     })
-  //   );
-  // });
+        expect(spy).toHaveBeenCalled();
+      })
+    );
+  });
 });
