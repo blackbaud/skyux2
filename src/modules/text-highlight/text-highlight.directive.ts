@@ -33,9 +33,8 @@ export class SkyTextHighlightDirective
   }
 
   private static addBackSlash(searchText: string): string {
-    let charArr = searchText.split('');
-    let newSearchText = charArr.map(c => c === '\\' ? '\\\\' : c);
-    return newSearchText.join('');
+    let newSearchText = searchText.replace(/\\/g,"\\\\");
+    return newSearchText;
   }
 
   private static markNode(node: any, searchText: string) {
