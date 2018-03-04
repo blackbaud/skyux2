@@ -1,11 +1,17 @@
 <div
+  role="button"
+  tabindex="0"
   class="sky-filter-summary-item"
   (click)="onItemClick()"
-  (keypress.enter)="onItemKeypress()">
-  <sky-token
-    [dismissible]="dismissible"
-    (dismiss)="onItemDismiss()">
-    <ng-content>
-    </ng-content>
-  </sky-token>
+  (keypress)="onItemKeypress($event)">
+  <ng-content></ng-content>
+  <span
+      [attr.aria-label]="'filter_summary_close' | skyResources"
+      *ngIf="dismissible !== false"
+      role="button"
+      tabindex="0"
+      class="fa fa-times sky-filter-summary-item-close"
+      (click)="onItemDismiss($event)"
+      (keypress)="onItemDismissKeypress($event)">
+  </span>
 </div>

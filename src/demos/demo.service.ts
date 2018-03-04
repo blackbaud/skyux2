@@ -50,7 +50,6 @@ import {
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
   SkyTimepickerDemoComponent,
-  SkyTokensDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
   SkyVerticalTabsDemoComponent,
@@ -972,22 +971,6 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./timepicker/timepicker-demo.component.ts'),
           componentName: 'SkyTimepickerDemoComponent',
           bootstrapSelector: 'sky-timepicker-demo'
-        }
-      ]
-    },
-    {
-      name: 'Tokens',
-      component: SkyTokensDemoComponent,
-      files: [
-        {
-          name: 'tokens-demo.component.html',
-          fileContents: require('!!raw-loader!./tokens/tokens-demo.component.html')
-        },
-        {
-          name: 'tokens-demo.component.ts',
-          fileContents: require('!!raw-loader!./tokens/tokens-demo.component.ts'),
-          componentName: 'SkyTokensDemoComponent',
-          bootstrapSelector: 'sky-tokens-demo'
         }
       ]
     },

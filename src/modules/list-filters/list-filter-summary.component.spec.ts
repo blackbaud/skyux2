@@ -122,7 +122,8 @@ describe('List filter summary', () => {
       fixture.detectChanges();
 
       let summaryItems = getSummaryItems();
-      let closeButton = summaryItems.item(1).querySelector('.sky-token-btn-close') as HTMLElement;
+      let closeButton =
+        summaryItems.item(1).querySelector('.sky-filter-summary-item-close') as HTMLElement;
       closeButton.click();
       fixture.detectChanges();
       fixture.whenStable().then(() => {
