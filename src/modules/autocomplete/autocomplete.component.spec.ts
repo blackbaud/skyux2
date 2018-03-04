@@ -389,8 +389,8 @@ describe('Autocomplete component', () => {
       const inputElement = getInputElement();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
-      tick();
+      // TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      // tick();
 
       // const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
       //   .and.callThrough();
