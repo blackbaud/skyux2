@@ -12,7 +12,7 @@ import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-import { SkyListToolbarModule } from './';
+import { SkyListToolbarModule } from './list-toolbar.module';
 import {
   ListToolbarTestComponent
 } from './fixtures/list-toolbar.component.fixture';

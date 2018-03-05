@@ -9,7 +9,7 @@ import {
   SkyTokenSelectedEventArgs,
   SkyTokensMessageType,
   SkyTokensMessage
-} from '../../modules/tokens';
+} from '../../core';
 
 @Component({
   selector: 'sky-tokens-demo',

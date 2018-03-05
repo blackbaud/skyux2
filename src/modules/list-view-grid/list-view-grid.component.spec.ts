@@ -30,7 +30,7 @@ import {
 import {
   ListViewGridEmptyTestComponent
 } from './fixtures/list-view-grid-empty.component.fixture';
-import { SkyListViewGridModule } from './';
+import { SkyListViewGridModule } from './list-view-grid.module';
 
 import { SkyGridColumnModel } from '../grid';
 import {
