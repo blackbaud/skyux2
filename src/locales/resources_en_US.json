@@ -439,6 +439,10 @@
     "_description": "Text for flyout close button",
     "message": "Close flyout"
   },
+  "flyout_view_record": {
+    "_description": "Flyout button label for viewing record",
+    "message": "View record"
+  },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
     "message": "Cancel"

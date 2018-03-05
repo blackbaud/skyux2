@@ -39,7 +39,8 @@ export class SkyFlyoutDemoComponent {
       }],
       ariaDescribedBy: 'my-describedby-id',
       ariaLabelledBy: 'my-labelledby-id',
-      ariaRole: 'modal'
+      ariaRole: 'modal',
+      recordUrl: '/skyux2/user/12345'
     });
 
     this.flyout.closed.subscribe(() => {

@@ -12,7 +12,6 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-
 import {
   animate,
   AnimationEvent,
@@ -27,6 +26,7 @@ import 'rxjs/add/operator/takeUntil';
 
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyWindowRefService } from './../window/window-ref.service';
 
 import {
   SkyFlyoutConfig,
@@ -79,7 +79,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     private adapter: SkyFlyoutAdapterService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private windowRef: SkyWindowRefService
   ) {
     // All commands flow through the message stream.
     this.messageStream
@@ -142,6 +143,12 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       this.isOpen = false;
       this.notifyClosed();
       this.cleanTemplate();
+    }
+  }
+
+  public navigateToRecord() {
+    if (this.config.recordUrl) {
+      this.windowRef.getWindow().location.href = this.config.recordUrl;
     }
   }
 

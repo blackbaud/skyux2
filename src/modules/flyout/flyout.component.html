@@ -11,6 +11,13 @@
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
       <button
+        *ngIf="config?.recordUrl"
+        type="button"
+        class="sky-btn sky-btn-default"
+        (click)="navigateToRecord()">
+        {{ config?.recordButtonLabel ? config.recordButtonLabel : 'flyout_view_record' | skyResources }}
+      </button>
+      <button
         type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
         (click)="onCloseButtonClick()"

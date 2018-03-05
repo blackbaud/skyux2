@@ -3,4 +3,6 @@ export interface SkyFlyoutConfig {
   ariaDescribedBy?: string;
   ariaLabelledBy?: string;
   ariaRole?: string;
+  recordUrl?: string;
+  recordButtonLabel?: string;
 }
