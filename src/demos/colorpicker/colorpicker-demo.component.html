@@ -1,3 +1,6 @@
+<h3>
+  Colorpicker types and formats
+</h3>
 <div style="margin-bottom: 10px">
   <sky-colorpicker
     (selectedColorChanged)="onSelectedColorChanged($event)"
@@ -93,3 +96,60 @@
     </sky-definition-list-value>
   </sky-definition-list-content>
 </sky-definition-list>
+
+<h3>
+  Interacting with a colorpicker programmatically
+</h3>
+<sky-colorpicker
+  [messageStream]="colorpickerController"
+  (selectedColorChanged)="onSelectedColorChanged($event)"
+  #colorPickerExample3>
+  <input
+    type="hidden"
+    [skyColorpickerInput]="colorPickerExample3"
+    [(ngModel)]="color3"
+    [outputFormat]="selectedOutputFormat3"
+  />
+</sky-colorpicker>
+
+<sky-definition-list>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      HEX
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color3?.hex">
+      {{color3?.hex}}
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+  <sky-definition-list-content>
+    <sky-definition-list-label>
+      RGBA CSS
+    </sky-definition-list-label>
+    <sky-definition-list-value *ngIf="color3?.rgbaText">
+      <div style="margin-bottom: 5px;">
+        {{color3?.rgbaText}}
+      </div>
+      <div style="border-color: #999;width: 28px;height: 28px;border-radius: 50%;border-width: 2px;border-style: solid;">
+        <div [style.background-color]="color3?.rgbaText" style="width:24px;height:24px;    border-radius: 50%;">&nbsp;</div>
+      </div>
+    </sky-definition-list-value>
+  </sky-definition-list-content>
+</sky-definition-list>
+
+<p>
+
+  <button
+  type="button"
+  class="sky-btn sky-btn-default"
+  (click)="openColorpicker()">
+  Open colorpicker
+</button>
+
+<button
+  type="button"
+  class="sky-btn sky-btn-default"
+  (click)="resetColorpicker()">
+  Reset colorpicker
+</button>
+
+</p>

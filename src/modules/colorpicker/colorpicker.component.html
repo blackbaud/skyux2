@@ -1,4 +1,4 @@
-<div class="sky-input-group">
+<div class="sky-input-group" [class.sky-colorpicker-hidden]="isHidden()">
   <ng-content>
   </ng-content>
   <sky-dropdown
@@ -175,6 +175,6 @@
     class="sky-colorpicker-reset-button"
     type="button"
     [attr.aria-label]="'colorpicker_reset' | skyResources"
-    (click)="setColorFromString('#fff')">
+    (click)="resetPickerColor()">
   </button>
 </div>

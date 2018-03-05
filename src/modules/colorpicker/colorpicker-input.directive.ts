@@ -119,6 +119,12 @@ export class SkyColorpickerInputDirective
         this._onChange(newColor);
       });
     this.skyColorpickerInput.setColorFromString(this.initialColor);
+
+    if (this.element.nativeElement.getAttribute('type')) {
+      if (this.element.nativeElement.getAttribute('type') === 'hidden') {
+        this.skyColorpickerInput.visibility = 'hidden';
+      }
+    }
   }
 
   public ngOnDestroy() {
@@ -126,15 +132,15 @@ export class SkyColorpickerInputDirective
   }
 
   public setColorPickerDefaults() {
-      this.created = true;
-      this.skyColorpickerInput.setDialog(
-        this,
-        this.element,
-        this.initialColor,
-        this.outputFormat,
-        this.presetColors,
-        this.alphaChannel
-      );
+    this.created = true;
+    this.skyColorpickerInput.setDialog(
+      this,
+      this.element,
+      this.initialColor,
+      this.outputFormat,
+      this.presetColors,
+      this.alphaChannel
+    );
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
