@@ -127,7 +127,7 @@ describe('Flyout component', () => {
       const flyout = openFlyout();
 
       let closedCalled = false;
-      flyout.closed.subscribe(() => {
+      flyout.closed.take(1).subscribe(() => {
         closedCalled = true;
       });
 

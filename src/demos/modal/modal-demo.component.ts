@@ -59,4 +59,8 @@ export class SkyModalDemoComponent {
       `;
     });
   }
+
+  public killHost() {
+    this.modal.dispose();
+  }
 }

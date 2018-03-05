@@ -371,7 +371,7 @@ describe('List View Checklist Component', () => {
       checklistDispatcher.next(new ListViewChecklistItemsLoadAction());
       checklistDispatcher.next(new ListViewChecklistItemsLoadAction(items));
       checklistDispatcher.next(new ListViewChecklistItemsLoadAction(items, false, false));
-      checklistState.subscribe(s => {
+      checklistState.take(1).subscribe(s => {
         expect(s.items.count).toBe(2);
       });
     }));

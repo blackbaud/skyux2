@@ -107,7 +107,7 @@ describe('Tile dashboard service', () => {
         let dashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
         let configChanged = false;
 
-        dashboardService.configChange.subscribe(
+        dashboardService.configChange.take(1).subscribe(
           (config: SkyTileDashboardConfig) => {
             configChanged = true;
 
@@ -217,7 +217,7 @@ describe('Tile dashboard service', () => {
       (dashboardService: SkyTileDashboardService) => {
         let configChanged = false;
 
-        dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
+        dashboardService.configChange.take(1).subscribe((config: SkyTileDashboardConfig) => {
           configChanged = true;
 
           expect(config.layout.multiColumn[0].tiles[0].isCollapsed).toBe(true);

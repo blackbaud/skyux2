@@ -149,7 +149,7 @@ describe('Modal service', () => {
   it('should pass a "close" reason to the closed subscription when modal close button clicked',
   fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent);
-    modalInstance.closed.subscribe((result: any) => {
+    modalInstance.closed.take(1).subscribe((result: any) => {
       expect(result.reason).toEqual('close');
       expect(result.data).toBeUndefined();
     });

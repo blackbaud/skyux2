@@ -5,6 +5,7 @@ import {
   AfterContentInit,
   ChangeDetectionStrategy,
   Input,
+  OnDestroy,
   Output,
   EventEmitter,
   OnChanges,
@@ -56,9 +57,11 @@ import { SkyListInMemoryDataProvider } from '../list-data-provider-in-memory';
 import { ListState, ListStateDispatcher } from './state';
 
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/skip';
 
@@ -85,7 +88,7 @@ let moment = require('moment');
   providers: [ListState, ListStateDispatcher],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyListComponent implements AfterContentInit, OnChanges {
+export class SkyListComponent implements AfterContentInit, OnChanges, OnDestroy {
   public id: string = moment().toDate().getTime().toString();
   @Input()
   public data?: Array<any> | Observable<Array<any>> = [];
@@ -127,10 +130,12 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
   @ContentChildren(ListViewComponent)
   private listViews: QueryList<ListViewComponent>;
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
     private state: ListState,
     private dispatcher: ListStateDispatcher
-  ) {}
+  ) { }
 
   public ngAfterContentInit() {
     if (this.data && this.dataProvider && this.initialTotal) {
@@ -163,10 +168,12 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
       this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortArray || []));
     });
 
-    this.displayedItems.subscribe(result => {
-      this.dispatcher.next(new ListItemsSetLoadingAction());
-      this.dispatcher.next(new ListItemsLoadAction(result.items, true, true, result.count));
-    });
+    this.displayedItems
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(result => {
+        this.dispatcher.next(new ListItemsSetLoadingAction());
+        this.dispatcher.next(new ListItemsLoadAction(result.items, true, true, result.count));
+      });
 
     // Emit new selected items when they change if there is an observer.
     if (this.selectedIdsChange.observers.length > 0) {
@@ -193,6 +200,11 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
       changes['appliedFilters'].currentValue !== changes['appliedFilters'].previousValue) {
       this.dispatcher.filtersUpdate(this.appliedFilters);
     }
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public refreshDisplayedItems(): void {

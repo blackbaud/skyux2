@@ -52,7 +52,7 @@ describe('Modal host service', () => {
     let service = new SkyModalHostService(false);
     let closeEmitted = false;
 
-    service.close.subscribe(() => {
+    service.close.take(1).subscribe(() => {
       closeEmitted = true;
     });
 

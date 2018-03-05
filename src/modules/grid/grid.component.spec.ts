@@ -476,7 +476,7 @@ describe('Grid Component', () => {
         fixture.detectChanges();
         fixture.detectChanges();
 
-        component.grid.selectedColumnIdsChange.subscribe(() => {
+        component.grid.selectedColumnIdsChange.take(1).subscribe(() => {
           newSelectedColumnIds = [
             'column2',
             'column1',

@@ -169,8 +169,9 @@ describe('Avatar component', () => {
          }
       };
     instance.canChange = true;
-    instance.avatarChanged.subscribe(
-      (newFile: SkyFileItem) => expectedFile = newFile );
+    instance.avatarChanged.take(1).subscribe(
+      (newFile: SkyFileItem) => expectedFile = newFile
+    );
 
     instance.photoDrop(<SkyFileDropChange>{
       files: [
@@ -196,8 +197,9 @@ describe('Avatar component', () => {
     };
 
     instance.canChange = true;
-    instance.avatarChanged.subscribe(
-      (newFile: SkyFileItem) => expectedFile = newFile );
+    instance.avatarChanged.take(1).subscribe(
+      (newFile: SkyFileItem) => expectedFile = newFile
+    );
 
     instance.photoDrop(<SkyFileDropChange>{
       files: [

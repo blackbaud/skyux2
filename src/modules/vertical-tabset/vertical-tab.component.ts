@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyVerticalTabsetService } from './vertical-tabset.service';
 
@@ -20,7 +21,6 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyVerticalTabComponent implements OnInit, OnDestroy {
-
   @Input()
   public active: boolean = false;
 
@@ -47,8 +47,8 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
   @ViewChild('tabContentWrapper')
   public tabContent: ElementRef;
 
+  private ngUnsubscribe = new Subject();
   private _showTabRightArrow: boolean = false;
-  private _mobileSubscription = new Subject();
 
   constructor(
     private tabsetService: SkyVerticalTabsetService,
@@ -57,13 +57,15 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.tabsetService.switchingMobile
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((mobile: boolean) => this.changeRef.detectChanges());
 
     this.tabsetService.addTab(this);
   }
 
   public ngOnDestroy() {
-    this._mobileSubscription.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public tabIndex() {

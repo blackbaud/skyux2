@@ -1,9 +1,13 @@
 import {
+  AfterContentInit,
   Component,
   ContentChildren,
-  QueryList,
-  AfterContentInit
+  OnDestroy,
+  QueryList
 } from '@angular/core';
+
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyListFilterInlineItemComponent } from './list-filter-inline-item.component';
 
@@ -23,15 +27,17 @@ import {
   selector: 'sky-list-filter-inline',
   templateUrl: './list-filter-inline.component.html'
 })
-export class SkyListFilterInlineComponent implements AfterContentInit {
+export class SkyListFilterInlineComponent implements AfterContentInit, OnDestroy {
   public inlineFilters: Array<SkyListFilterInlineModel> = [];
 
   @ContentChildren(SkyListFilterInlineItemComponent)
   private filters: QueryList<SkyListFilterInlineItemComponent>;
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
     private dispatcher: ListStateDispatcher
-  ) {}
+  ) { }
 
   public ngAfterContentInit() {
     this.inlineFilters = this.filters.map(filter => {
@@ -45,12 +51,19 @@ export class SkyListFilterInlineComponent implements AfterContentInit {
     });
 
     this.inlineFilters.forEach(filter => {
-      filter.onChange.subscribe((value: any) => {
-        this.applyFilters();
-      });
+      filter.onChange
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe((value: any) => {
+          this.applyFilters();
+        });
     });
 
     this.dispatcher.filtersUpdate(this.getFilterModelFromInline(this.inlineFilters));
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public applyFilters() {

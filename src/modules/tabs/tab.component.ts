@@ -10,6 +10,9 @@ import {
   SimpleChanges
 } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+
 import { SkyTabsetService } from './tabset.service';
 
 @Component({
@@ -39,16 +42,23 @@ export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
   @Output()
   public close = new EventEmitter<any>();
 
-  constructor(private tabsetService: SkyTabsetService, private ref: ChangeDetectorRef) {}
+  private ngUnsubscribe = new Subject();
+
+  constructor(
+    private tabsetService: SkyTabsetService,
+    private ref: ChangeDetectorRef
+  ) { }
 
   public ngAfterViewInit() {
     setTimeout(() => {
       this.tabsetService.addTab(this);
 
-      this.tabsetService.activeIndex.subscribe((activeIndex: any) => {
-        this.active = this.tabIndex === activeIndex;
-        this.ref.markForCheck();
-      });
+      this.tabsetService.activeIndex
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe((activeIndex: any) => {
+          this.active = this.tabIndex === activeIndex;
+          this.ref.markForCheck();
+        });
 
       if (this.active) {
         this.tabsetService.activateTab(this);
@@ -73,5 +83,7 @@ export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
 
   public ngOnDestroy() {
     this.tabsetService.destroyTab(this);
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

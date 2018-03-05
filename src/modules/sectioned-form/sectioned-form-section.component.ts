@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyVerticalTabComponent } from './../vertical-tabset/vertical-tab.component';
 import { SkySectionedFormService } from './sectioned-form.service';
@@ -42,12 +43,12 @@ export class SkySectionedFormSectionComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.sectionedFormService.requiredChange
-    .takeUntil(this.ngUnsubscribe)
-    .subscribe((required: boolean) => this.fieldRequired = required);
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((required: boolean) => this.fieldRequired = required);
 
-  this.sectionedFormService.invalidChange
-    .takeUntil(this.ngUnsubscribe)
-    .subscribe((invalid: boolean) => this.fieldInvalid = invalid);
+    this.sectionedFormService.invalidChange
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((invalid: boolean) => this.fieldInvalid = invalid);
   }
 
   public ngOnDestroy() {

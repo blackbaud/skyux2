@@ -157,6 +157,7 @@ export class SkyListViewGridComponent
     }).distinctUntilChanged();
 
     this.gridState.map(s => s.columns.items)
+      .takeUntil(this.ngUnsubscribe)
       .distinctUntilChanged()
       .subscribe(columns => {
         if (this.hiddenColumns) {
@@ -239,12 +240,14 @@ export class SkyListViewGridComponent
 
   private handleColumnChange() {
      // watch for changes in column components
-    this.columnComponents.changes.subscribe((columnComponents) => {
-      let columnModels = this.columnComponents.map(column => {
-        return new SkyGridColumnModel(column.template, column);
+    this.columnComponents.changes
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((columnComponents) => {
+        let columnModels = this.columnComponents.map(column => {
+          return new SkyGridColumnModel(column.template, column);
+        });
+        this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
       });
-      this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
-    });
 
     // Watch for column heading changes:
     this.columnComponents.forEach((comp: SkyGridColumnComponent) => {

@@ -60,6 +60,10 @@ describe('File drop component', () => {
     componentInstance = fixture.componentInstance;
   });
 
+  afterEach(() => {
+    componentInstance.filesChanged.complete();
+  });
+
   function getInputDebugEl() {
     return fixture.debugElement.query(By.css('input.sky-file-input-hidden'));
   }

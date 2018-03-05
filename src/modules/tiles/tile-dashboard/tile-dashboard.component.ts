@@ -10,6 +10,9 @@ import {
   ViewChildren
 } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+
 import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import { SkyTileDashboardConfig } from '../tile-dashboard-config';
 import { SkyTileDashboardService } from './tile-dashboard.service';
@@ -49,14 +52,18 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
 
   private viewReady = false;
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
     // HACK: This is public so it can be accessed via a unit test due to breaking changes
     // in RC5. https://github.com/angular/angular/issues/10854
     public dashboardService: SkyTileDashboardService
   ) {
-    dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
-      this.configChange.emit(config);
-    });
+    dashboardService.configChange
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((config: SkyTileDashboardConfig) => {
+        this.configChange.emit(config);
+      });
   }
 
   public ngAfterViewInit() {
@@ -65,6 +72,8 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
     this.dashboardService.destroy();
   }
 

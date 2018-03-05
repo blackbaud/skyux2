@@ -1,7 +1,8 @@
 import {
   ApplicationRef,
   ComponentFactoryResolver,
-  Injectable
+  Injectable,
+  ComponentRef
 } from '@angular/core';
 
 import { SkyModalInstance } from './modal-instance';
@@ -11,7 +12,9 @@ import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 
 @Injectable()
 export class SkyModalService {
+  private static componentRef: ComponentRef<SkyModalHostComponent>;
   private static hostComponent: SkyModalHostComponent;
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -52,8 +55,11 @@ export class SkyModalService {
     /* istanbul ignore else */
     /* sanity check */
     if (SkyModalService.hostComponent) {
-      SkyModalService.hostComponent = undefined;
+      this.appRef.detachView(SkyModalService.componentRef.hostView);
+      SkyModalService.componentRef.destroy();
       this.adapter.removeHostEl();
+      SkyModalService.componentRef = undefined;
+      SkyModalService.hostComponent = undefined;
     }
   }
 
@@ -90,6 +96,7 @@ export class SkyModalService {
 
       let cmpRef = this.appRef.bootstrap(factory);
 
+      SkyModalService.componentRef = cmpRef;
       SkyModalService.hostComponent = cmpRef.instance;
     }
   }
