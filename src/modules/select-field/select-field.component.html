@@ -13,8 +13,16 @@
 
 <ng-template #singleSelectMode>
   <div [formGroup]="singleSelectForm" class="sky-input-group sky-select-field">
-      <input [attr.aria-label]="selectFieldText" formControlName="singleSelectInput" class="sky-form-control sky-select-field-single-input sky-select-field-picker-btn-open"
-        type="text" placeholder="{{selectFieldText}}" readonly="readonly" tabindex="-1" role="presentation" (click)="openFormModal()">
+      <input 
+        (click)="openFormModal()"
+        [attr.aria-label]="selectFieldText" 
+        class="sky-form-control sky-select-field-single-input sky-select-field-picker-btn-open"
+        formControlName="singleSelectInput" 
+        placeholder="{{selectFieldText}}" 
+        readonly="readonly" 
+        role="presentation" 
+        tabindex="-1" 
+        type="text">
     <div class="sky-input-group-btn sky-select-field-input-group">
       <button aria-hidden="true" class="sky-btn sky-select-field-btn-clear" *ngIf="isClearable" (click)="clearSelect()">
         <i class="fa fa-times"></i>
