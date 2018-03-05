@@ -1,5 +1,6 @@
 import {
   Component,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 
@@ -9,8 +10,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   selector: 'sky-test-cmp',
   templateUrl: './grid-async.component.fixture.html'
 })
-export class GridAsyncTestComponent implements OnInit {
-  public items: Array<any> = [
+export class GridAsyncTestComponent implements OnInit, OnDestroy {
+  public items: any[] = [
     { 'id': 1, 'name': 'Windstorm', 'email': 'windstorm@gmail.com' },
     { 'id': 2, 'name': 'Bombasto', 'email': 'bombasto@gmail.com' },
     { 'id': 3, 'name': 'Magneta', 'email': 'magenta@gmail.com' },
@@ -23,5 +24,9 @@ export class GridAsyncTestComponent implements OnInit {
     setTimeout(() => {
       this.asyncHeading.next('Column1');
     }, 100);
+  }
+
+  public ngOnDestroy() {
+    this.asyncHeading.complete();
   }
 }

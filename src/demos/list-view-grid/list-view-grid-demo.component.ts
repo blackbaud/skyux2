@@ -1,18 +1,19 @@
 import {
   Component,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'sky-list-view-grid-demo',
   templateUrl: './list-view-grid-demo.component.html'
 })
-export class SkyListViewGridDemoComponent implements OnInit {
+export class SkyListViewGridDemoComponent implements OnInit, OnDestroy {
   public items = Observable.of([
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
@@ -30,5 +31,9 @@ export class SkyListViewGridDemoComponent implements OnInit {
     setTimeout(() => {
       this.asyncHeading.next('Column1');
     }, 1000);
+  }
+
+  public ngOnDestroy() {
+    this.asyncHeading.complete();
   }
 }

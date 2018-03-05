@@ -76,6 +76,10 @@ describe('List View Grid Component', () => {
       component = fixture.componentInstance;
     }));
 
+    afterEach(() => {
+      fixture.destroy();
+    });
+
     function setupTest() {
       fixture.detectChanges();
 
@@ -352,6 +356,10 @@ describe('List View Grid Component', () => {
       fixture.detectChanges();
     }));
 
+    afterEach(() => {
+      fixture.destroy();
+    });
+
     it('should show 2 columns', () => {
       expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
       expect(element.query(
@@ -385,6 +393,10 @@ describe('List View Grid Component', () => {
 
       fixture = TestBed.createComponent(ListViewGridEmptyTestComponent);
     }));
+
+    afterEach(() => {
+      fixture.destroy();
+    });
 
     it('should throw columns require error', () => {
       expect(() => { fixture.detectChanges(); })
@@ -428,6 +440,10 @@ describe('List View Grid Component', () => {
       state.skip(1).take(1).subscribe(() => fixture.detectChanges());
       fixture.detectChanges();
     }));
+
+    afterEach(() => {
+      fixture.destroy();
+    });
 
     it('should handle grid columns changing', () => {
       expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);

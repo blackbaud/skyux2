@@ -70,6 +70,10 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
     });
 
+    afterEach(() => {
+      fixture.destroy();
+    });
+
     function verifyHeaders(useAllHeaders = false, hiddenCol = false) {
       let headerCount = useAllHeaders ? 7 : 5;
       if (hiddenCol) {
@@ -408,6 +412,10 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
     });
 
+    afterEach(() => {
+      fixture.destroy();
+    });
+
     it('should the dragging class to the header on dragula drag', fakeAsync(() => {
       fixture.detectChanges();
       fixture.detectChanges();
@@ -594,6 +602,10 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
     });
 
+    afterEach(() => {
+      fixture.destroy();
+    });
+
     function verifyHeaders(hideColumn = false) {
       const headerCount = hideColumn ? 1 : 2;
 
@@ -694,6 +706,8 @@ describe('Grid Component', () => {
         .toBe('Name');
       expect(getColumnHeader('email', element).nativeElement.textContent.trim())
         .toBe('Email');
+
+      fixture.destroy();
     });
   });
 

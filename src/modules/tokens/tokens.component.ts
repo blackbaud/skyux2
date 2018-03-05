@@ -104,7 +104,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChildren(SkyTokenComponent)
   private tokenComponents: QueryList<SkyTokenComponent>;
-  private destroyed = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   private _activeIndex: number;
   private _disabled: boolean;
@@ -133,8 +133,12 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.destroyed.next(true);
-    this.destroyed.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+
+    if (this.messageStream) {
+      this.messageStream.complete();
+    }
   }
 
   public onTokenClick(token: SkyToken) {
@@ -206,7 +210,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   private initMessageStream() {
     this.messageStream
-      .takeUntil(this.destroyed)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyTokensMessage) => {
         /* tslint:disable-next-line:switch-default */
         switch (message.type) {

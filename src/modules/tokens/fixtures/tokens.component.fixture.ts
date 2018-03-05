@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
 
@@ -17,7 +18,7 @@ import {
   selector: 'sky-tokens-test',
   templateUrl: './tokens.component.fixture.html'
 })
-export class SkyTokensTestComponent {
+export class SkyTokensTestComponent implements OnDestroy {
   @ViewChild(SkyTokensComponent, { read: ElementRef })
   public tokensElementRef: ElementRef;
 
@@ -35,6 +36,12 @@ export class SkyTokensTestComponent {
     { name: 'White' },
     { name: 'Blue' }
   ];
+
+  public ngOnDestroy() {
+    if (this.messageStream) {
+      this.messageStream.complete();
+    }
+  }
 
   public onFocusIndexOverRange() { }
 

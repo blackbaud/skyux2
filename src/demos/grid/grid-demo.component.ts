@@ -1,5 +1,6 @@
 import {
   Component,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 
@@ -13,7 +14,7 @@ import {
   selector: 'sky-grid-demo',
   templateUrl: './grid-demo.component.html'
 })
-export class SkyGridDemoComponent implements OnInit {
+export class SkyGridDemoComponent implements OnInit, OnDestroy {
   public items: any[] = [
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples', composite: 'Comp A' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas', composite: 'Comp B' },
@@ -33,6 +34,10 @@ export class SkyGridDemoComponent implements OnInit {
     setTimeout(() => {
       this.asyncHeading.next('Column1');
     }, 1000);
+  }
+
+  public ngOnDestroy() {
+    this.asyncHeading.complete();
   }
 
   public sortChanged(activeSort: ListSortFieldSelectorModel) {

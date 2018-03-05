@@ -34,22 +34,24 @@ export class SkySectionedFormSectionComponent implements OnInit, OnDestroy {
   @ViewChild(SkyVerticalTabComponent)
   public tab: SkyVerticalTabComponent;
 
-  private _ngUnsubscribe = new Subject();
+  private ngUnsubscribe = new Subject();
 
-  constructor(private sectionedFormService: SkySectionedFormService) {}
+  constructor(
+    private sectionedFormService: SkySectionedFormService
+  ) { }
 
   public ngOnInit() {
     this.sectionedFormService.requiredChange
-    .takeUntil(this._ngUnsubscribe)
+    .takeUntil(this.ngUnsubscribe)
     .subscribe((required: boolean) => this.fieldRequired = required);
 
   this.sectionedFormService.invalidChange
-    .takeUntil(this._ngUnsubscribe)
+    .takeUntil(this.ngUnsubscribe)
     .subscribe((invalid: boolean) => this.fieldInvalid = invalid);
   }
 
   public ngOnDestroy() {
-    this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

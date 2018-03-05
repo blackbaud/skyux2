@@ -2,7 +2,8 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  ViewChild
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -19,7 +20,7 @@ import { SkyDropdownMenuComponent } from '../dropdown-menu.component';
   selector: 'sky-test-cmp',
   templateUrl: './dropdown.component.fixture.html'
 })
-export class DropdownTestComponent {
+export class DropdownTestComponent implements OnDestroy {
   public alignment: string;
   public buttonStyle: string;
   public buttonType: String;
@@ -47,6 +48,10 @@ export class DropdownTestComponent {
   constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
+
+  public ngOnDestroy() {
+    this.dropdownController.complete();
+  }
 
   public sendMessage(type: SkyDropdownMessageType) {
     this.dropdownController.next({ type });

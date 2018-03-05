@@ -5,9 +5,8 @@ import {
 import { ListState } from './state';
 import { SkyListComponent } from '../list/list.component';
 
-import {
-  Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 const moment = require('moment');
 
@@ -17,7 +16,7 @@ export abstract class ListViewComponent implements OnDestroy {
   protected viewName: string;
   protected state: ListState;
   protected list: SkyListComponent;
-  protected subscriptions: Array<any> = [];
+  protected ngUnsubscribe = new Subject();
   protected hasToolbar: Observable<boolean>;
 
   private viewId: string = moment().toDate().getTime().toString();
@@ -51,6 +50,7 @@ export abstract class ListViewComponent implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

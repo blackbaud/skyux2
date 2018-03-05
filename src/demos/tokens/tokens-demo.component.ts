@@ -1,5 +1,6 @@
 import {
-  Component
+  Component,
+  OnDestroy
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -9,13 +10,13 @@ import {
   SkyTokenSelectedEventArgs,
   SkyTokensMessageType,
   SkyTokensMessage
-} from '../../modules/tokens';
+} from '../../core';
 
 @Component({
   selector: 'sky-tokens-demo',
   templateUrl: './tokens-demo.component.html'
 })
-export class SkyTokensDemoComponent {
+export class SkyTokensDemoComponent implements OnDestroy {
   public colors: SkyToken[];
   public filters: SkyToken[];
   public tokensController: Subject<SkyTokensMessage>;
@@ -44,6 +45,10 @@ export class SkyTokensDemoComponent {
   constructor() {
     this.createColors();
     this.filters = this.parseTokens(this.selectedFilters);
+  }
+
+  public ngOnDestroy() {
+    this.tokensController.complete();
   }
 
   public resetColors() {

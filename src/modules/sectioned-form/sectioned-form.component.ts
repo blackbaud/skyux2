@@ -61,7 +61,7 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   @ViewChild('skySectionSideContent')
   public content: ElementRef;
 
-  private _ngUnsubscribe = new Subject();
+  private ngUnsubscribe = new Subject();
 
   constructor(
     public tabService: SkyVerticalTabsetService,
@@ -69,14 +69,14 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
 
   public ngOnInit() {
     this.tabService.indexChanged
-      .takeUntil(this._ngUnsubscribe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(index => {
         this.indexChanged.emit(index);
         this.changeRef.markForCheck();
       });
 
     this.tabService.switchingMobile
-      .takeUntil(this._ngUnsubscribe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((mobile: boolean) => this.changeRef.detectChanges());
 
     if (this.tabService.isMobile()) {
@@ -90,8 +90,8 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   }
 
   public ngOnDestroy() {
-    this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public tabsVisible() {

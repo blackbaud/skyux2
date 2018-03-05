@@ -1,3 +1,7 @@
+import {
+  OnDestroy
+} from '@angular/core';
+
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -15,7 +19,7 @@ import {
 
 let moment = require('moment');
 
-export class SkyListInMemoryDataProvider extends ListDataProvider {
+export class SkyListInMemoryDataProvider extends ListDataProvider implements OnDestroy {
   public items: BehaviorSubject<Array<ListItemModel>> =
     new BehaviorSubject<Array<ListItemModel>>([]);
 
@@ -42,6 +46,10 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         ));
       });
     }
+  }
+
+  public ngOnDestroy() {
+    this.items.complete();
   }
 
   public count(): Observable<number> {

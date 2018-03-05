@@ -31,19 +31,20 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
   public active: boolean;
 
   @Output()
-  public itemSelect: EventEmitter<any> = new EventEmitter();
-
-  public isSelected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public itemSelect = new EventEmitter<any>();
+  public isSelected = new BehaviorSubject<boolean>(false);
 
   private subscription: Subscription;
-
   private sortItemId: string;
 
-  constructor(private sortService: SkySortService, private detector: ChangeDetectorRef) {}
+  constructor(
+    private sortService: SkySortService,
+    private detector: ChangeDetectorRef
+  ) { }
 
   public ngOnInit() {
-
     sortItemIdNumber++;
+
     this.sortItemId = SORT_ITEM_ID_PREFIX + sortItemIdNumber.toString();
     this.subscription = this.sortService.selectedItem.subscribe((itemId: string) => {
       this.isSelected.next(itemId === this.sortItemId);
@@ -63,16 +64,17 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  public itemClicked() {
-    this.sortService.selectItem(this.sortItemId);
-    this.itemSelect.emit();
-  }
-
   public ngOnDestroy() {
     /* istanbul ignore else */
-    /* sanity check */
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+
+    this.isSelected.complete();
+  }
+
+  public itemClicked() {
+    this.sortService.selectItem(this.sortItemId);
+    this.itemSelect.emit();
   }
 }

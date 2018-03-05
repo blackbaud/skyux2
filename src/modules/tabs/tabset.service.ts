@@ -5,12 +5,13 @@ import { SkyTabComponent } from './tab.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class SkyTabsetService {
+export class SkyTabsetService implements OnDestroy {
+  public tabs = new BehaviorSubject<SkyTabComponent[]>([]);
+  public activeIndex = new BehaviorSubject<any>(0);
 
-  public tabs: BehaviorSubject<Array<SkyTabComponent>>
-    = new BehaviorSubject<Array<SkyTabComponent>>([]);
-
-  public activeIndex: BehaviorSubject<any> = new BehaviorSubject(0);
+  public ngOnDestroy() {
+    this.destroy();
+  }
 
   public activateTab(tab: SkyTabComponent) {
     this.tabs.take(1).subscribe((currentTabs) => {
@@ -19,7 +20,6 @@ export class SkyTabsetService {
   }
 
   public activateTabIndex(tabIndex: string | number) {
-
     this.tabs.take(1).subscribe((currentTabs) => {
       let newSelectedTab = this.getTabFromIndex(tabIndex, currentTabs);
 
@@ -32,7 +32,6 @@ export class SkyTabsetService {
   }
 
   public addTab(tab: SkyTabComponent) {
-
     this.tabs.take(1).subscribe((currentTabs) => {
       if (!tab.tabIndex) {
         tab.tabIndex = 0;
@@ -47,10 +46,9 @@ export class SkyTabsetService {
   }
 
   public destroyTab(tab: SkyTabComponent) {
-
     this.tabs.take(1).subscribe((currentTabs) => {
-
       let tabIndex = currentTabs.indexOf(tab);
+
       if (tab.active) {
         // Try selecting the next tab first, and if there's no next tab then
         // try selecting the previous one.
@@ -65,9 +63,9 @@ export class SkyTabsetService {
       if (tabIndex > -1) {
         currentTabs.splice(tabIndex, 1);
       }
+
       this.tabs.next(currentTabs);
     });
-
   }
 
   public destroy() {

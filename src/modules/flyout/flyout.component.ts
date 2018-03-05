@@ -71,7 +71,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   private flyoutHeader: ElementRef;
 
   private flyoutInstance: SkyFlyoutInstance<any>;
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   private _messageStream = new Subject<SkyFlyoutMessage>();
 
@@ -83,7 +83,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   ) {
     // All commands flow through the message stream.
     this.messageStream
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyFlyoutMessage) => {
         this.handleIncomingMessages(message);
       });
@@ -94,8 +94,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+    this.messageStream.complete();
+    this.notifyClosed();
   }
 
   public onCloseButtonClick() {
@@ -165,7 +167,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
     instance.componentInstance = component;
     instance.hostController
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyFlyoutMessage) => {
         this.messageStream.next(message);
       });
@@ -189,6 +191,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   private notifyClosed() {
     this.flyoutInstance.closed.emit();
     this.flyoutInstance.closed.complete();
+    this.flyoutInstance.hostController.complete();
   }
 
   private cleanTemplate() {

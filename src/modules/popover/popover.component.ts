@@ -99,7 +99,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public arrowLeft: number;
 
   private caller: ElementRef;
-  private idled = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
   private isMarkedForCloseOnMouseLeave = false;
   private preferredPlacement: SkyPopoverPlacement;
 
@@ -120,7 +120,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.removeListeners();
-    this.idled.complete();
   }
 
   public positionNextTo(
@@ -232,21 +231,21 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
     Observable
       .fromEvent(windowObj, 'scroll')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.positionPopover();
       });
 
     Observable
       .fromEvent(windowObj, 'resize')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.reposition();
       });
 
     Observable
       .fromEvent(windowObj.document, 'focusin')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: KeyboardEvent) => {
         const targetIsChild = (hostElement.contains(event.target));
         const targetIsCaller = (this.caller && this.caller.nativeElement === event.target);
@@ -261,7 +260,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
     Observable
       .fromEvent(windowObj.document, 'click')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: MouseEvent) => {
         if (!this.isMouseEnter && this.dismissOnBlur) {
           this.close();
@@ -270,14 +269,14 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
     Observable
       .fromEvent(hostElement, 'mouseenter')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.isMouseEnter = true;
       });
 
     Observable
       .fromEvent(hostElement, 'mouseleave')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.isMouseEnter = false;
         if (this.isMarkedForCloseOnMouseLeave) {
@@ -288,7 +287,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
     Observable
       .fromEvent(hostElement, 'keyup')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
 
@@ -306,6 +305,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   }
 
   private removeListeners(): void {
-    this.idled.next(true);
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

@@ -1,7 +1,9 @@
 import {
   Injectable,
-  NgZone
+  NgZone,
+  OnDestroy
 } from '@angular/core';
+
 import {
   SkyMediaQueryListener,
   SkyMediaBreakpoints,
@@ -12,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class MockSkyMediaQueryService extends SkyMediaQueryService {
+export class MockSkyMediaQueryService extends SkyMediaQueryService implements OnDestroy {
   public static xs = '(max-width: 767px)';
   public static sm = '(min-width: 768px) and (max-width: 991px)';
   public static md = '(min-width: 992px) and (max-width: 1199px)';
@@ -26,13 +28,16 @@ export class MockSkyMediaQueryService extends SkyMediaQueryService {
     this._currentBreakpoints = breakpoints;
   }
 
-  public currentMockSubject: BehaviorSubject<SkyMediaBreakpoints>
-    = new BehaviorSubject<SkyMediaBreakpoints>(this.current);
+  public currentMockSubject = new BehaviorSubject<SkyMediaBreakpoints>(this.current);
 
   private _currentBreakpoints: SkyMediaBreakpoints = SkyMediaBreakpoints.md;
 
   constructor() {
     super(new NgZone({enableLongStackTrace: true}));
+  }
+
+  public ngOnDestroy() {
+    this.currentMockSubject.complete();
   }
 
   public subscribe(listener: SkyMediaQueryListener): Subscription {
@@ -49,6 +54,4 @@ export class MockSkyMediaQueryService extends SkyMediaQueryService {
     this._currentBreakpoints = args;
     this.currentMockSubject.next(this._currentBreakpoints);
   }
-
-  public destroy() {}
 }
