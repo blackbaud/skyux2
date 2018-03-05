@@ -22,7 +22,10 @@ import { ListDualTestComponent } from './fixtures/list-dual.component.fixture';
 import { ListEmptyTestComponent } from './fixtures/list-empty.component.fixture';
 import { ListSelectedTestComponent } from './fixtures/list-selected.component.fixture';
 import { ListFilteredTestComponent } from './fixtures/list-filtered.component.fixture';
-import { SkyListComponent, SkyListModule, ListDataRequestModel, ListDataResponseModel } from './';
+import { SkyListComponent } from './list.component';
+import { SkyListModule } from './list.module';
+import { ListDataRequestModel } from './list-data-request.model';
+import { ListDataResponseModel } from './list-data-response.model';
 import { SkyListViewGridModule, SkyListViewGridComponent } from '../list-view-grid';
 import { SkyListToolbarModule } from '../list-toolbar';
 import {

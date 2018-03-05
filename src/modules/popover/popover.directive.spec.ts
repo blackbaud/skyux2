@@ -23,11 +23,9 @@ import {
   SkyWindowRefService
 } from '../window';
 
-import {
-  SkyPopoverComponent,
-  SkyPopoverDirective,
-  SkyPopoverAdapterService
-} from './index';
+import { SkyPopoverComponent } from './popover.component';
+import { SkyPopoverDirective } from './popover.directive';
+import { SkyPopoverAdapterService } from './popover-adapter.service';
 
 import { SkyPopoverTestComponent } from './fixtures/popover.component.fixture';
 

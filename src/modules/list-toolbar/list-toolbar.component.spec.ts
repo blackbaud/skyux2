@@ -19,11 +19,12 @@ import {
   ListStateDispatcher
 } from '../list/state';
 
+import { SkyListToolbarModule } from './list-toolbar.module';
+
 import {
   expect
 } from '../testing';
 
-import { SkyListToolbarModule } from './list-toolbar.module';
 import { ListToolbarTestComponent } from './fixtures/list-toolbar.component.fixture';
 
 import {
