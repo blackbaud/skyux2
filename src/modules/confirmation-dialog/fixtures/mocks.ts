@@ -1,7 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { SkyModalService } from '../../modal/modal.service';
 import { SkyModalInstance } from '../../modal/modal-instance';
-import { SkyModalConfigurationInterface as IConfig } from '../../modal/modal.interface';
 
 export class SkyModalInstanceMock extends SkyModalInstance {
   public closed = new EventEmitter<any>();

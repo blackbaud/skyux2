@@ -39,7 +39,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
   @Input()
   public skyPopoverTrigger: SkyPopoverTrigger = 'click';
 
-  private ngUnsubscribe: Subject<void>;
+  private ngUnsubscribe: Subject<any>;
 
   constructor(
     private elementRef: ElementRef,

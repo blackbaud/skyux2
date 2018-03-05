@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  OnDestroy
+} from '@angular/core';
 
 import { SkyTabComponent } from './tab.component';
 
