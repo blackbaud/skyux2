@@ -16,11 +16,9 @@ import {
 import { TestUtility } from '../testing/testutility';
 import { expect } from '../testing';
 
-import {
-  SkyPopoverModule,
-  SkyPopoverComponent,
-  SkyPopoverAdapterService
-} from './index';
+import { SkyPopoverModule } from './popover.module';
+import { SkyPopoverComponent } from './popover.component';
+import { SkyPopoverAdapterService } from './popover-adapter.service';
 
 class MockPopoverAdapterService {
   public isPopoverLargerThanParent(): boolean {
