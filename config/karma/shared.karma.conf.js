@@ -42,10 +42,10 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: false,
     singleRun: true,
-    browserDisconnectTimeout: 3e5,
+    browserDisconnectTimeout: 3e4,
     browserDisconnectTolerance: 3,
-    browserNoActivityTimeout: 3e5,
-    captureTimeout: 3e5,
+    browserNoActivityTimeout: 3e4,
+    captureTimeout: 3e4,
     browserConsoleLogOptions: {
       level: 'log',
       terminal: true
