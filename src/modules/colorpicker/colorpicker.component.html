@@ -171,10 +171,12 @@
       </div>
     </sky-dropdown-menu>
   </sky-dropdown>
+<div *ngIf="resetButtonVisibility === 'show'">
   <button
     class="sky-colorpicker-reset-button"
     type="button"
     [attr.aria-label]="'colorpicker_reset' | skyResources"
     (click)="resetPickerColor()">
   </button>
+</div>
 </div>

@@ -45,8 +45,13 @@ export class SkyColorpickerDemoComponent {
     this.sendMessage(SkyColorpickerMessageType.Reset);
   }
 
+  public toggleResetButton() {
+    this.sendMessage(SkyColorpickerMessageType.ToggleResetButton);
+  }
+
   private sendMessage(type: SkyColorpickerMessageType) {
     const message: SkyColorpickerMessage = { type };
     this.colorpickerController.next(message);
   }
+
 }

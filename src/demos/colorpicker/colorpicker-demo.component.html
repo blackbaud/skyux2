@@ -105,8 +105,8 @@
   (selectedColorChanged)="onSelectedColorChanged($event)"
   #colorPickerExample3>
   <input
-    type="hidden"
     [skyColorpickerInput]="colorPickerExample3"
+    resetButtonVisibility="hidden"
     [(ngModel)]="color3"
     [outputFormat]="selectedOutputFormat3"
   />
@@ -152,4 +152,10 @@
   Reset colorpicker
 </button>
 
+<button
+  type="button"
+  class="sky-btn sky-btn-default"
+  (click)="toggleResetButton()">
+  Toggle Reset Button
+</button>
 </p>
