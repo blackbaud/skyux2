@@ -1,4 +1,4 @@
-import { SkyListInMemoryDataProvider } from '.';
+import { SkyListInMemoryDataProvider } from './list-data-in-memory.provider';
 import { ListDataRequestModel } from '../list';
 import { Observable } from 'rxjs/Observable';
 import {

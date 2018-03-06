@@ -17,9 +17,8 @@ import {
   SkyListToolbarModule
 } from '../list-toolbar';
 
-import {
-  SkyListFiltersModule
-} from '.';
+import { SkyListFiltersModule } from './list-filters.module';
+
 describe('List filter button', () => {
   let state: ListState,
     dispatcher: ListStateDispatcher,
