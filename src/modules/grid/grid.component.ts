@@ -151,6 +151,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     this.subscriptions.forEach((subscription: Subscription) => {
       subscription.unsubscribe();
     });
+    this.currentSortField.complete();
   }
 
   public sortByColumn(column: SkyGridColumnModel) {

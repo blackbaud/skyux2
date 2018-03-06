@@ -43,7 +43,7 @@ describe('Confirm service', () => {
 
     const instance = confirmService.open(config);
 
-    instance.closed.subscribe((result: any) => {
+    instance.closed.take(1).subscribe((result: any) => {
       expect(result.action).toEqual('ok');
     });
 
@@ -59,7 +59,7 @@ describe('Confirm service', () => {
 
     const instance = confirmService.open(config);
 
-    instance.closed.subscribe((result: any) => {
+    instance.closed.take(1).subscribe((result: any) => {
       expect(result.action).toEqual('cancel');
     });
 

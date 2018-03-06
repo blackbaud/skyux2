@@ -49,7 +49,7 @@ export class ColumnSelectorTestComponent {
           selectedColumnIds: this.selectedColumnIds
         }
       }
-    ]).closed.subscribe((result: SkyModalCloseArgs) => {
+    ]).closed.take(1).subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'save' && result.data) {
         this.selectedColumnIds = result.data;
       }

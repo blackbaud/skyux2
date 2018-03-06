@@ -3,13 +3,8 @@ import {
   ComponentFixture
 } from '@angular/core/testing';
 
-import {
-  FilterSummaryTestComponent
-} from './fixtures/filter-summary.component.fixture';
-
-import {
-  SkyFilterModule
-} from '.';
+import { FilterSummaryTestComponent } from './fixtures/filter-summary.component.fixture';
+import { SkyFilterModule } from './filter.module';
 
 import {
   expect

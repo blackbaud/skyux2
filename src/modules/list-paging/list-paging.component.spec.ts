@@ -10,7 +10,7 @@ import {
   ListStateDispatcher,
   ListStateModel
 } from '../list/state';
-import { SkyListPagingModule } from './';
+import { SkyListPagingModule } from './list-paging.module';
 import {
   ListPagingTestComponent
 } from './fixtures/list-paging.component.fixture';

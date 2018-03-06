@@ -19,13 +19,6 @@ module.exports = {
 
   module: {
     rules: [
-
-      {
-        enforce: 'pre',
-        test: /\.ts$/,
-        loader: 'tslint-loader',
-        exclude: [helpers.root('node_modules')]
-      },
       {
         enforce: 'pre',
         test: /\.js$/,
@@ -36,12 +29,23 @@ module.exports = {
           helpers.root('node_modules/@angular/compiler')
         ]
       },
-
       {
         test: /\.ts$/,
         use: [
-          'awesome-typescript-loader',
-          'angular2-template-loader'
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              // Ignore the "Cannot find module" error that occurs when referencing
+              // an aliased file.  Webpack will still throw an error when a module
+              // cannot be resolved via a file path or alias.
+              ignoreDiagnostics: [2307],
+              // Linting is handled by `skyux lint` command.
+              transpileOnly: true
+            }
+          },
+          {
+            loader: 'angular2-template-loader'
+          }
         ],
         exclude: [/\.e2e\.ts$/]
       },
@@ -91,14 +95,7 @@ module.exports = {
     }),
 
     new LoaderOptionsPlugin({
-      debug: true,
-      options: {
-      tslint: {
-          emitErrors: false,
-          failOnHint: false,
-          resourcePath: 'src'
-        }
-      }
+      debug: true
     }),
 
     new ContextReplacementPlugin(

@@ -25,7 +25,7 @@ import {
 import {
   ListViewChecklistToolbarTestComponent
 } from './fixtures/list-view-checklist-toolbar.component.fixture';
-import { SkyListViewChecklistModule } from './';
+import { SkyListViewChecklistModule } from './list-view-checklist.module';
 import { ListViewChecklistItemsLoadAction } from './state/items/actions';
 import { ListViewChecklistItemModel } from './state/items/item.model';
 import { ChecklistState, ChecklistStateDispatcher, ChecklistStateModel } from './state';
@@ -43,7 +43,6 @@ describe('List View Checklist Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewChecklistTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         element: DebugElement,
         items: Array<any>;
 
@@ -65,7 +64,6 @@ describe('List View Checklist Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewChecklistTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -134,7 +132,6 @@ describe('List View Checklist Component', () => {
         dispatcher: ListStateDispatcher,
         component: ListViewChecklistEmptyTestComponent,
         fixture: any,
-        nativeElement: HTMLElement,
         items: Array<any>,
         element: DebugElement;
 
@@ -156,7 +153,6 @@ describe('List View Checklist Component', () => {
       });
 
       fixture = TestBed.createComponent(ListViewChecklistEmptyTestComponent);
-      nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -203,7 +199,6 @@ describe('List View Checklist Component', () => {
       items: Observable<Array<any>>,
       fixture: ComponentFixture<ListViewChecklistToolbarTestComponent>,
       nativeElement: HTMLElement,
-      element: DebugElement,
       component: ListViewChecklistToolbarTestComponent,
       itemsArray: Array<ListItemModel>;
 
@@ -256,7 +251,6 @@ describe('List View Checklist Component', () => {
 
         fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
         nativeElement = fixture.nativeElement as HTMLElement;
-        element = fixture.debugElement as DebugElement;
         component = fixture.componentInstance;
         fixture.detectChanges();
 
@@ -265,6 +259,10 @@ describe('List View Checklist Component', () => {
         state.skip(1).take(1).subscribe(() => fixture.detectChanges());
         fixture.detectChanges();
     }));
+
+    afterEach(() => {
+      bs.complete();
+    });
 
     it('should set selections on click properly', fakeAsync(() => {
       let labelEl = <HTMLLabelElement>nativeElement
@@ -373,7 +371,7 @@ describe('List View Checklist Component', () => {
       checklistDispatcher.next(new ListViewChecklistItemsLoadAction());
       checklistDispatcher.next(new ListViewChecklistItemsLoadAction(items));
       checklistDispatcher.next(new ListViewChecklistItemsLoadAction(items, false, false));
-      checklistState.subscribe(s => {
+      checklistState.take(1).subscribe(s => {
         expect(s.items.count).toBe(2);
       });
     }));
@@ -386,7 +384,6 @@ describe('List View Checklist Component', () => {
       items: Observable<Array<any>>,
       fixture: ComponentFixture<ListViewChecklistToolbarTestComponent>,
       nativeElement: HTMLElement,
-      element: DebugElement,
       component: ListViewChecklistToolbarTestComponent,
       itemsArray: Array<ListItemModel>;
 
@@ -435,11 +432,10 @@ describe('List View Checklist Component', () => {
               { provide: ListStateDispatcher, useValue: dispatcher }
             ]
           }
-        });;
+        });
 
         fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
         nativeElement = fixture.nativeElement as HTMLElement;
-        element = fixture.debugElement as DebugElement;
         component = fixture.componentInstance;
         fixture.detectChanges();
 
@@ -448,6 +444,10 @@ describe('List View Checklist Component', () => {
         state.skip(1).take(1).subscribe(() => fixture.detectChanges());
         fixture.detectChanges();
     }));
+
+    afterEach(() => {
+      bs.complete();
+    });
 
     it('should hide the select all and clear all buttons when switched to single select mode',
       fakeAsync(() => {

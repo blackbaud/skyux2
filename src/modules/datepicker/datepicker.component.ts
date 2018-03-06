@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
 
@@ -19,7 +20,7 @@ import {
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss']
 })
-export class SkyDatepickerComponent {
+export class SkyDatepickerComponent implements OnDestroy {
   @ViewChild(SkyDatepickerCalendarComponent)
   public calendar: SkyDatepickerCalendarComponent;
 
@@ -30,6 +31,10 @@ export class SkyDatepickerComponent {
   public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
   public maxDate: Date;
   public minDate: Date;
+
+  public ngOnDestroy() {
+    this.dropdownController.complete();
+  }
 
   public dateSelected(newDate: Date) {
     this.dateChanged.emit(newDate);

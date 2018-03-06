@@ -1,6 +1,7 @@
 import {
   Component,
   ContentChildren,
+  OnDestroy,
   OnInit,
   TemplateRef,
   QueryList,
@@ -16,7 +17,7 @@ import { SkyListViewGridComponent } from '../list-view-grid.component';
   selector: 'sky-test-cmp',
   template: require('./list-view-grid.component.fixture.html')
 })
-export class ListViewGridTestComponent implements OnInit {
+export class ListViewGridTestComponent implements OnInit, OnDestroy {
   public hiddenColumns: string[] = ['hiddenCol1', 'hiddenCol2'];
   public asyncHeading = new BehaviorSubject<string>('');
 
@@ -35,5 +36,9 @@ export class ListViewGridTestComponent implements OnInit {
     setTimeout(() => {
       this.asyncHeading.next('Column1');
     }, 100);
+  }
+
+  public ngOnDestroy() {
+    this.asyncHeading.complete();
   }
 }

@@ -1,10 +1,11 @@
 import {
   Component,
   ElementRef,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 
 import {
   SkyToken,
@@ -17,7 +18,7 @@ import {
   selector: 'sky-tokens-test',
   templateUrl: './tokens.component.fixture.html'
 })
-export class SkyTokensTestComponent {
+export class SkyTokensTestComponent implements OnDestroy {
   @ViewChild(SkyTokensComponent, { read: ElementRef })
   public tokensElementRef: ElementRef;
 
@@ -28,7 +29,7 @@ export class SkyTokensTestComponent {
   public dismissible: boolean;
   public displayWith: string;
   public focusable: boolean;
-  public messageStream: ReplaySubject<SkyTokensMessage>;
+  public messageStream: Subject<SkyTokensMessage>;
   public tokens: SkyToken[];
 
   public data: any[] = [
@@ -36,6 +37,12 @@ export class SkyTokensTestComponent {
     { name: 'White' },
     { name: 'Blue' }
   ];
+
+  public ngOnDestroy() {
+    if (this.messageStream) {
+      this.messageStream.complete();
+    }
+  }
 
   public onFocusIndexOverRange() { }
 
@@ -52,6 +59,6 @@ export class SkyTokensTestComponent {
       this.messageStream.unsubscribe();
     }
 
-    this.messageStream = new ReplaySubject<SkyTokensMessage>();
+    this.messageStream = new Subject<SkyTokensMessage>();
   }
 }

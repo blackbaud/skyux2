@@ -60,9 +60,10 @@ export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
   @Input()
   public disabled: boolean;
 
+  private ngUnsubscribe = new Subject();
+
   private _open: boolean = false;
   private _openBeforeTabsHidden: boolean = false;
-  private _ngUnsubscribe = new Subject();
 
   public get open(): boolean {
     return !this.disabled && this._open;
@@ -78,25 +79,26 @@ export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
 
   constructor(
     private tabService: SkyVerticalTabsetService,
-    private changeRef: ChangeDetectorRef) {}
+    private changeRef: ChangeDetectorRef
+  ) { }
 
   public ngOnInit() {
     this.tabService.hidingTabs
-      .takeUntil(this._ngUnsubscribe)
-      .subscribe(this.tabsHidden);
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(() => this.tabsHidden());
 
     this.tabService.showingTabs
-      .takeUntil(this._ngUnsubscribe)
-      .subscribe(this.tabsShown);
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(() => this.tabsShown());
 
     this.tabService.tabClicked
-      .takeUntil(this._ngUnsubscribe)
-      .subscribe(this.tabClicked);
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(() => this.tabClicked());
   }
 
   public ngOnDestroy() {
-    this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public toggleMenuOpen() {
@@ -111,18 +113,18 @@ export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
     return this.tabs && (this.tabs.find(t => t.active) !== undefined);
   }
 
-  public tabClicked = () => {
+  public tabClicked() {
     this.changeRef.markForCheck();
   }
 
-  public tabsHidden = () => {
+  public tabsHidden() {
     // this fixes an animation bug with ngIf when the parent component goes from visible to hidden
     this._openBeforeTabsHidden = this.open;
     this.open = false;
     this.changeRef.detectChanges();
   }
 
-  public tabsShown = () => {
+  public tabsShown() {
     this.open = this._openBeforeTabsHidden;
     this.changeRef.detectChanges();
   }

@@ -11,6 +11,8 @@ import {
   forwardRef
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
@@ -69,14 +71,15 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     public nodeMatch: QueryList<SkyLinkRecordsMatchContentComponent>;
   @ContentChildren(forwardRef(() => SkyLinkRecordsNoMatchContentComponent))
     public nodeNoMatch: QueryList<SkyLinkRecordsNoMatchContentComponent>;
-  private subscriptions: Array<any> = [];
+
+  private ngUnsubscribe = new Subject();
   /* tslint:enable */
 
   /* istanbul ignore next */
   constructor(
     private state: SkyLinkRecordsState,
     private dispatcher: SkyLinkRecordsStateDispatcher
-  ) {}
+  ) { }
 
   public ngOnInit() {
     if (this.items && !(this.items instanceof Observable)) {
@@ -91,48 +94,56 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
       this.matchFields = Observable.of(this.matchFields);
     }
 
-    this.matches.distinctUntilChanged().subscribe(matches => {
-      this.dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches, true));
-    });
+    this.matches
+      .takeUntil(this.ngUnsubscribe)
+      .distinctUntilChanged()
+      .subscribe(matches => {
+        this.dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches, true));
+      });
 
-    this.matchFields.distinctUntilChanged().subscribe(fields => {
-      if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
-        throw new Error("'keyIdSelector' cannot be a match field.");
-      }
-    });
+    this.matchFields
+      .takeUntil(this.ngUnsubscribe)
+      .distinctUntilChanged()
+      .subscribe(fields => {
+        if (fields.findIndex(f => f.key === this.keyIdSelector) > -1) {
+          throw new Error("'keyIdSelector' cannot be a match field.");
+        }
+      });
 
-    let sub = Observable.combineLatest(
-      this.state.map((s: any) => s.matches.items).distinctUntilChanged(),
-      this.state.map((s: any) => s.fields.item).distinctUntilChanged(),
-      this.state.map((s: any) => s.selected.item).distinctUntilChanged(),
-      (matches: Array<SkyLinkRecordsMatchModel>,
-      fields: {[key: string]: Array<SkyLinkRecordsFieldModel>},
-      selected: {[key: string]: {[key: string]: boolean}}) => {
-        let newResultItems = matches.map(match => {
-          let newItem = new SkyLinkRecordsResultModel(match);
+    Observable
+      .combineLatest(
+        this.state.map((s: any) => s.matches.items).distinctUntilChanged(),
+        this.state.map((s: any) => s.fields.item).distinctUntilChanged(),
+        this.state.map((s: any) => s.selected.item).distinctUntilChanged(),
+        (matches: Array<SkyLinkRecordsMatchModel>,
+        fields: {[key: string]: Array<SkyLinkRecordsFieldModel>},
+        selected: {[key: string]: {[key: string]: boolean}}) => {
+          let newResultItems = matches.map(match => {
+            let newItem = new SkyLinkRecordsResultModel(match);
 
-          if (newItem.status === SKY_LINK_RECORDS_STATUSES.Linked) {
-            newItem.item = {id: match.item.id};
-            let selection = selected[match.key] || {};
-            let newFields = (fields[newItem.key]) ?
-              fields[newItem.key].filter(f => selection[f.key]) : [];
-            newFields.forEach(f => {
-              /* istanbul ignore else */
-              if (selection[f.key]) {
-                newItem.item[f.key] = f.newValue;
-              }
-            });
-          } else {
-            newItem.item = undefined;
-          }
+            if (newItem.status === SKY_LINK_RECORDS_STATUSES.Linked) {
+              newItem.item = {id: match.item.id};
+              let selection = selected[match.key] || {};
+              let newFields = (fields[newItem.key]) ?
+                fields[newItem.key].filter(f => selection[f.key]) : [];
+              newFields.forEach(f => {
+                /* istanbul ignore else */
+                if (selection[f.key]) {
+                  newItem.item[f.key] = f.newValue;
+                }
+              });
+            } else {
+              newItem.item = undefined;
+            }
 
-          return newItem;
-        }).filter(f => f !== undefined);
+            return newItem;
+          }).filter(f => f !== undefined);
 
-        this.dispatcher.next(new SkyLinkRecordsResultsLoadAction(newResultItems, true));
-      }).subscribe();
-
-    this.subscriptions.push(sub);
+          this.dispatcher.next(new SkyLinkRecordsResultsLoadAction(newResultItems, true));
+        }
+      )
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe();
   }
 
   public ngAfterContentInit() {
@@ -154,7 +165,8 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
   }
 
   public ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public trackByRecordKey(index: number, item: SkyLinkRecordsItemModel): string {

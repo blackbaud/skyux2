@@ -22,7 +22,7 @@ describe('Vertical tabset service', () => {
     let tab2 = new SkyVerticalTabComponent(undefined, mockDetectChanges);
     tab2.tabHeading = 'tab 2';
 
-    service.tabClicked.subscribe(clicked => {
+    service.tabClicked.take(1).subscribe(clicked => {
       if (service.activeIndex >= 0) {
         fail(`tab should not have been clicked with index =${service.activeIndex}`);
       }
@@ -44,7 +44,7 @@ describe('Vertical tabset service', () => {
     let tab2 = new SkyVerticalTabComponent(undefined, mockDetectChanges);
     tab2.active = true;
 
-    service.tabClicked.subscribe(clicked => {
+    service.tabClicked.take(1).subscribe(clicked => {
       if (service.activeIndex >= 0) {
         expect(service.activeIndex).toBe(1);
       }

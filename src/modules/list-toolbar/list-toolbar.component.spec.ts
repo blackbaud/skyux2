@@ -1,23 +1,31 @@
 import {
+  DebugElement
+} from '@angular/core';
+
+import {
   TestBed,
   async,
   fakeAsync,
-  flush,
   tick,
   ComponentFixture
 } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
+
+import {
+  By
+} from '@angular/platform-browser';
+
 import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-import { SkyListToolbarModule } from './';
-import {
-  ListToolbarTestComponent
-} from './fixtures/list-toolbar.component.fixture';
 
-import { expect } from '../testing';
+import { SkyListToolbarModule } from './list-toolbar.module';
+
+import {
+  expect
+} from '../testing';
+
+import { ListToolbarTestComponent } from './fixtures/list-toolbar.component.fixture';
 
 import {
   ListViewsLoadAction,
@@ -32,14 +40,21 @@ import {
 
 describe('List Toolbar Component', () => {
   describe('List Toolbar Fixture', () => {
-    let state: ListState,
-        dispatcher: ListStateDispatcher,
-        fixture: ComponentFixture<ListToolbarTestComponent>,
-        nativeElement: HTMLElement,
-        component: ListToolbarTestComponent,
-        element: DebugElement;
+    let state: ListState;
+    let dispatcher: ListStateDispatcher;
+    let fixture: ComponentFixture<ListToolbarTestComponent>;
+    let nativeElement: HTMLElement;
+    let component: ListToolbarTestComponent;
+    let element: DebugElement;
 
-    beforeEach(async(() => {
+    function initializeToolbar() {
+      fixture.detectChanges();
+      // always skip the first update to ListState, when state is ready
+      // run detectChanges once more then begin tests
+      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+    }
+
+    beforeEach(() => {
       dispatcher = new ListStateDispatcher();
       state = new ListState(dispatcher);
 
@@ -55,21 +70,12 @@ describe('List Toolbar Component', () => {
           { provide: ListStateDispatcher, useValue: dispatcher }
         ]
       });
-    }));
 
-    beforeEach(() => {
       fixture = TestBed.createComponent(ListToolbarTestComponent);
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
     });
-
-    function initializeToolbar() {
-      fixture.detectChanges();
-      // always skip the first update to ListState, when state is ready
-      // run detectChanges once more then begin tests
-      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
-    }
 
     describe('search', () => {
       it('should be visible by default', async(() => {
@@ -253,7 +259,6 @@ describe('List Toolbar Component', () => {
       it('should create ascending and descending items for each sort label', fakeAsync(() => {
         initializeToolbar();
 
-        flush();
         tick();
         fixture.detectChanges();
 

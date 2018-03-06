@@ -70,23 +70,24 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
   @ViewChild('skySideContent')
   public content: ElementRef;
 
-  private _ngUnsubscribe = new Subject();
+  private ngUnsubscribe = new Subject();
 
   constructor(
     public tabService: SkyVerticalTabsetService,
     private resources: SkyResourcesService,
-    private changeRef: ChangeDetectorRef) {}
+    private changeRef: ChangeDetectorRef
+  ) { }
 
   public ngOnInit() {
     this.tabService.indexChanged
-      .takeUntil(this._ngUnsubscribe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((index: any) => {
         this.activeChange.emit(index);
         this.changeRef.markForCheck();
       });
 
     this.tabService.switchingMobile
-      .takeUntil(this._ngUnsubscribe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((mobile: boolean) => this.changeRef.detectChanges());
 
     if (this.tabService.isMobile()) {
@@ -100,7 +101,7 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
   }
 
   public ngOnDestroy() {
-    this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

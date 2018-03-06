@@ -120,26 +120,29 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     super(state, 'Checklist View');
 
     let lastUpdate: any;
-    Observable.combineLatest(
-      this.state.map(s => s.items).distinctUntilChanged(),
-      (items: AsyncList<ListItemModel>) => {
-        let dataChanged = lastUpdate === undefined || items.lastUpdate !== lastUpdate;
-        lastUpdate = items.lastUpdate;
-        let newItems = items.items.map(item => {
-          return new ListViewChecklistItemModel(item.id, {
-            label:
-              this.labelFieldSelector ? getData(item.data, this.labelFieldSelector) : undefined,
-            description:
-              this.description ? getData(item.data, this.description) : undefined
-          });
-        });
 
-        this.checklistDispatcher.next(
-          new ListViewChecklistItemsLoadAction(newItems, true, dataChanged, items.count)
-        );
-      }
-    )
-    .subscribe();
+    Observable
+      .combineLatest(
+        this.state.map(s => s.items).distinctUntilChanged(),
+        (items: AsyncList<ListItemModel>) => {
+          let dataChanged = lastUpdate === undefined || items.lastUpdate !== lastUpdate;
+          lastUpdate = items.lastUpdate;
+          let newItems = items.items.map(item => {
+            return new ListViewChecklistItemModel(item.id, {
+              label:
+                this.labelFieldSelector ? getData(item.data, this.labelFieldSelector) : undefined,
+              description:
+                this.description ? getData(item.data, this.description) : undefined
+            });
+          });
+
+          this.checklistDispatcher.next(
+            new ListViewChecklistItemsLoadAction(newItems, true, dataChanged, items.count)
+          );
+        }
+      )
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe();
   }
 
   public onViewActive() {

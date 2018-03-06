@@ -9,11 +9,9 @@ import {
 
 import { BrowserModule, By } from '@angular/platform-browser';
 
-import {
-  SkyActionButtonComponent,
-  SkyActionButtonModule
+import { SkyActionButtonComponent } from './action-button.component';
+import { SkyActionButtonModule } from './action-button.module';
 
-} from '.';
 import {
   SkyMediaQueryService,
   SkyMediaBreakpoints

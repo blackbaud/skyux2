@@ -1,11 +1,19 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  OnDestroy
+} from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class SkySectionedFormService {
+export class SkySectionedFormService implements OnDestroy {
+  public requiredChange = new BehaviorSubject(undefined);
+  public invalidChange = new BehaviorSubject(undefined);
 
-  public requiredChange: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
-  public invalidChange: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
+  public ngOnDestroy() {
+    this.requiredChange.complete();
+    this.invalidChange.complete();
+  }
 
   public requiredFieldChanged(required: boolean) {
     this.requiredChange.next(required);

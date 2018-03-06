@@ -1,5 +1,11 @@
+import {
+  OnDestroy
+} from '@angular/core';
+
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { ListDataProvider } from '../list/list-data.provider';
 import { ListDataRequestModel } from '../list/list-data-request.model';
@@ -15,7 +21,7 @@ import {
 
 let moment = require('moment');
 
-export class SkyListInMemoryDataProvider extends ListDataProvider {
+export class SkyListInMemoryDataProvider extends ListDataProvider implements OnDestroy {
   public items: BehaviorSubject<Array<ListItemModel>> =
     new BehaviorSubject<Array<ListItemModel>>([]);
 
@@ -27,6 +33,8 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
   private lastFilters: ListFilterModel[];
   private lastFilterResults: ListItemModel[];
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
     data?: Observable<Array<any>>,
     searchFunction?: (data: any, searchText: string) => boolean
@@ -36,12 +44,20 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
     this.searchFunction = searchFunction;
 
     if (data) {
-      data.subscribe(items => {
-        this.items.next(items.map(d =>
-          new ListItemModel(d.id || moment().toDate().getTime().toString() , d)
-        ));
-      });
+      data
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe(items => {
+          this.items.next(items.map(d =>
+            new ListItemModel(d.id || moment().toDate().getTime().toString() , d)
+          ));
+        });
     }
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+    this.items.complete();
   }
 
   public count(): Observable<number> {

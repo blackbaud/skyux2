@@ -37,7 +37,7 @@ describe('Chevron component', () => {
 
     validateDirection(fixture, cmp, 'up');
 
-    cmp.directionChange.subscribe((direction: string) => {
+    cmp.directionChange.take(1).subscribe((direction: string) => {
       validateDirection(fixture, cmp, 'down');
     });
 

@@ -3,7 +3,7 @@ import {
   TestBed,
   async
 } from '@angular/core/testing';
-import { SkyLinkRecordsModule } from './';
+import { SkyLinkRecordsModule } from './link-records.module';
 import {
   SkyLinkRecordsMatchContentInputTemplateTestComponent
 } from './fixtures/link-records-match-content.component.input-template.fixture';

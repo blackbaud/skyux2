@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnDestroy
+} from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 import {
@@ -12,9 +15,9 @@ import {
   ListItemModel
 } from '../../core';
 
-export class DemoListProvider extends ListDataProvider {
+export class DemoListProvider extends ListDataProvider implements OnDestroy {
   public items: Observable<ListItemModel[]>;
-  public remoteCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public remoteCount = new BehaviorSubject<number>(0);
 
   constructor() {
     super();
@@ -63,6 +66,10 @@ export class DemoListProvider extends ListDataProvider {
         }
       }
     ]);
+  }
+
+  public ngOnDestroy() {
+    this.remoteCount.complete();
   }
 
   public get(request: ListDataRequestModel): Observable<ListDataResponseModel> {

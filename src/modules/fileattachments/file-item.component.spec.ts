@@ -48,6 +48,10 @@ describe('File item component', () => {
     return fixture.debugElement.query(By.css('.sky-file-item-title .sky-file-item-size'));
   }
 
+  afterEach(() => {
+    componentInstance.deleteFile.complete();
+  });
+
   it('shows the name and size if the item is a file', () => {
 
     componentInstance.fileItem = <SkyFileItem>{
