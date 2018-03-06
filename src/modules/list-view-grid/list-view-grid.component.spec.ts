@@ -78,6 +78,7 @@ describe('List View Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     function setupTest() {
@@ -358,6 +359,7 @@ describe('List View Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     it('should show 2 columns', () => {
@@ -396,6 +398,7 @@ describe('List View Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     it('should throw columns require error', () => {
@@ -443,6 +446,7 @@ describe('List View Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     it('should handle grid columns changing', () => {

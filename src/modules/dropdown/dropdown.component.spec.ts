@@ -35,6 +35,7 @@ describe('Dropdown component', () => {
 
   afterEach(() => {
     fixture.destroy();
+    document.body.removeChild(fixture.debugElement.nativeElement);
   });
 
   function openPopoverWithButtonClick() {

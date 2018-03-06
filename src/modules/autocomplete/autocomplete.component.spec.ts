@@ -53,6 +53,7 @@ describe('Autocomplete component', () => {
 
   afterEach(() => {
     fixture.destroy();
+    document.body.removeChild(fixture.debugElement.nativeElement);
   });
 
   describe('basic setup', () => {

@@ -115,6 +115,7 @@ describe('SkyPopoverDirective', () => {
 
   afterEach(() => {
     fixture.destroy();
+    document.body.removeChild(fixture.debugElement.nativeElement);
   });
 
   it('should ask the popover to position itself accordingly', () => {

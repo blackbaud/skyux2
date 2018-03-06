@@ -155,6 +155,7 @@ describe('Colorpicker Component', () => {
 
   afterEach(() => {
     fixture.destroy();
+    document.body.removeChild(fixture.debugElement.nativeElement);
   });
 
   it('should output RGBA', fakeAsync(() => {

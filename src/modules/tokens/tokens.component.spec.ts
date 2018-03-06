@@ -57,6 +57,11 @@ describe('Tokens component', () => {
     tokensComponent = component.tokensComponent;
   });
 
+  afterEach(() => {
+    fixture.destroy();
+    document.body.removeChild(fixture.debugElement.nativeElement);
+  });
+
   describe('basic setup', () => {
     it('should set defaults', () => {
       expect(tokensComponent.tokens).toEqual([]);

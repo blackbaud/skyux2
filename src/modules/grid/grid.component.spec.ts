@@ -70,6 +70,7 @@ describe('Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     function verifyHeaders(useAllHeaders = false, hiddenCol = false) {
@@ -412,6 +413,7 @@ describe('Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     it('should the dragging class to the header on dragula drag', fakeAsync(() => {
@@ -602,6 +604,7 @@ describe('Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     function verifyHeaders(hideColumn = false) {
@@ -727,6 +730,7 @@ describe('Grid Component', () => {
 
     afterEach(() => {
       fixture.destroy();
+      document.body.removeChild(fixture.debugElement.nativeElement);
     });
 
     it('should handle async column headings', fakeAsync(() => {
