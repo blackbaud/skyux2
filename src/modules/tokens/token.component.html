@@ -1,9 +1,11 @@
 <div
   class="sky-token sky-btn sky-btn-default"
-  role="button"
-  tabindex="0"
-  [ngClass]="{ 'sky-btn-disabled': disabled }"
-  [attr.aria-disabled]="disabled"
+  [ngClass]="{
+    'sky-btn-disabled': disabled,
+    'sky-token-focusable': focusable
+  }"
+  [attr.role]="ariaRole"
+  [attr.tabindex]="tabIndex"
   (focus)="tokenFocus.emit()">
 
   <ng-content>
@@ -12,6 +14,7 @@
   <button
     *ngIf="dismissible"
     type="button"
+    tabindex="-1"
     class="sky-btn sky-token-btn-close"
     [attr.title]="'token_dismiss_button_title' | skyResources"
     [attr.aria-hidden]="true"

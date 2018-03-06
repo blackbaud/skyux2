@@ -11,4 +11,5 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     logLevel: config.LOG_DEBUG
   });
+
 };

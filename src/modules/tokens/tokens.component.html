@@ -8,6 +8,7 @@
     role="listitem"
     [disabled]="disabled"
     [dismissible]="dismissible"
+    [focusable]="focusable"
     (dismiss)="removeToken(token)"
     (click)="onTokenClick(token)"
     (keyup)="onTokenKeyUp($event, token)"

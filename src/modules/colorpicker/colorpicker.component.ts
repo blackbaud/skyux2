@@ -74,9 +74,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
 
-  constructor(
-    private service: SkyColorpickerService
-  ) {
+  constructor(private service: SkyColorpickerService) {
     componentIdIndex++;
 
     this.idIndex = componentIdIndex;

@@ -95,8 +95,8 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     }
 
     this.matches
-      .distinctUntilChanged()
       .takeUntil(this.ngUnsubscribe)
+      .distinctUntilChanged()
       .subscribe(matches => {
         this.dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches, true));
       });

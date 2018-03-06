@@ -15,13 +15,6 @@ module.exports = function (config) {
 
   config.set({
     browsers: Object.keys(customLaunchers),
-    customLaunchers,
-    logLevel: config.LOG_ERROR,
-    coverageReporter: {},
-    browserConsoleLogOptions: {
-      level: 'error',
-      terminal: true
-    },
-    reporters: ['mocha']
+    customLaunchers
   });
 };
