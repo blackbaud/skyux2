@@ -4,13 +4,16 @@ module.exports = function (config) {
   require('./shared.karma.conf')(config);
 
   let customLaunchers = {
-      bs_windows_ie_11: {
-        base: 'BrowserStack',
-        browser: 'ie',
-        browser_version: '11.0',
-        os: 'Windows',
-        os_version: '10'
-      },
+      // Disabling IE 11 until we can separate
+      // the libraries and reduce memory usage
+      // in the browser.
+      // bs_windows_ie_11: {
+      //   base: 'BrowserStack',
+      //   browser: 'ie',
+      //   browser_version: '11.0',
+      //   os: 'Windows',
+      //   os_version: '10'
+      // },
       bs_windows_edge: {
         base: 'BrowserStack',
         browser: 'edge',
