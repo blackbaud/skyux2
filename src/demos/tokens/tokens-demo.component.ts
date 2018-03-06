@@ -48,7 +48,9 @@ export class SkyTokensDemoComponent implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.tokensController.complete();
+    if (this.tokensController) {
+      this.tokensController.complete();
+    }
   }
 
   public resetColors() {
