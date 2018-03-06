@@ -68,7 +68,6 @@ describe('SkyPopoverComponent', () => {
 
   afterEach(() => {
     fixture.destroy();
-    document.body.removeChild(fixture.debugElement.nativeElement);
   });
 
   it('should call the adapter service to position the popover', fakeAsync(() => {

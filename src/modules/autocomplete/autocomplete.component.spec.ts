@@ -1,5 +1,4 @@
 import {
-  ComponentFixture,
   fakeAsync,
   TestBed,
   tick
@@ -14,9 +13,6 @@ import {
   SkyDropdownMessageType
 } from '../dropdown';
 
-import { SkyAutocompleteComponent } from './autocomplete.component';
-import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
-
 import { SkyAutocompleteFixturesModule } from './fixtures/autocomplete-fixtures.module';
 import { SkyAutocompleteTestComponent } from './fixtures/autocomplete.component.fixture';
 
@@ -24,12 +20,7 @@ import {
   SkyAutocompleteSearchFunction
 } from './types';
 
-describe('Autocomplete component', () => {
-  let fixture: ComponentFixture<SkyAutocompleteTestComponent>;
-  let component: SkyAutocompleteTestComponent;
-  let autocomplete: SkyAutocompleteComponent;
-  let input: SkyAutocompleteInputDirective;
-
+describe('Autocomplete component', function () {
   function getAutocompleteElement(): HTMLElement {
     return document.querySelector('sky-autocomplete') as HTMLElement;
   }
@@ -38,53 +29,52 @@ describe('Autocomplete component', () => {
     return document.getElementById('my-autocomplete-input') as HTMLInputElement;
   }
 
-  beforeEach(() => {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       imports: [
         SkyAutocompleteFixturesModule
       ]
     });
 
-    fixture = TestBed.createComponent(SkyAutocompleteTestComponent);
-    component = fixture.componentInstance;
-    autocomplete = component.autocomplete;
-    input = component.autocompleteInput;
+    this.fixture = TestBed.createComponent(SkyAutocompleteTestComponent);
+    this.component = this.fixture.componentInstance;
+    this.autocomplete = this.component.autocomplete;
+    this.input = this.component.autocompleteInput;
   });
 
-  afterEach(() => {
-    fixture.destroy();
-    document.body.removeChild(fixture.debugElement.nativeElement);
+  afterEach(function () {
+    this.fixture.destroy();
   });
 
-  describe('basic setup', () => {
-    it('should set defaults', () => {
-      fixture.detectChanges();
-      expect(autocomplete.descriptorProperty).toEqual('name');
-      expect(autocomplete.propertiesToSearch).toEqual(['name']);
-      expect(autocomplete.search).toBeDefined();
-      expect(autocomplete.searchFilters).toBeUndefined();
-      expect(autocomplete.searchResultsLimit).toBeUndefined();
-      expect(autocomplete.searchResultTemplate).toBeDefined();
-      expect(autocomplete.searchTextMinimumCharacters).toEqual(1);
+  describe('basic setup', function () {
+    it('should set defaults', function () {
+      this.fixture.detectChanges();
+      expect(this.autocomplete.descriptorProperty).toEqual('name');
+      expect(this.autocomplete.propertiesToSearch).toEqual(['name']);
+      expect(this.autocomplete.search).toBeDefined();
+      expect(this.autocomplete.searchFilters).toBeUndefined();
+      expect(this.autocomplete.searchResultsLimit).toBeUndefined();
+      expect(this.autocomplete.searchResultTemplate).toBeDefined();
+      expect(this.autocomplete.searchTextMinimumCharacters).toEqual(1);
     });
 
-    it('should handle preselected values', fakeAsync(() => {
+    it('should handle preselected values', fakeAsync(function () {
       const selectedValue = { name: 'Red' };
-      component.model.favoriteColor = selectedValue;
+      this.component.model.favoriteColor = selectedValue;
 
-      fixture.detectChanges();
+      this.fixture.detectChanges();
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
-      expect(component.myForm.value.favoriteColor).toEqual(selectedValue);
-      expect(input.value).toEqual(selectedValue);
+      expect(this.component.myForm.value.favoriteColor).toEqual(selectedValue);
+      expect(this.input.value).toEqual(selectedValue);
     }));
 
-    it('should search', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should search', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
-      const spy = spyOn(autocomplete, 'search').and.callThrough();
+      const spy = spyOn(this.autocomplete, 'search').and.callThrough();
 
       inputElement.value = 'r';
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
@@ -93,9 +83,9 @@ describe('Autocomplete component', () => {
       expect(spy.calls.argsFor(0)[0]).toEqual('r');
     }));
 
-    it('should search against multiple properties', fakeAsync(() => {
-      component.propertiesToSearch = ['name', 'objectid'];
-      fixture.detectChanges();
+    it('should search against multiple properties', fakeAsync(function () {
+      this.component.propertiesToSearch = ['name', 'objectid'];
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
 
@@ -103,76 +93,76 @@ describe('Autocomplete component', () => {
 
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
       tick();
 
-      expect(autocomplete.searchResults.length).toEqual(2);
-      expect(autocomplete.searchResults[0].name).toEqual('Yellow');
+      expect(this.autocomplete.searchResults.length).toEqual(2);
+      expect(this.autocomplete.searchResults[0].name).toEqual('Yellow');
       // The letter 'y' is in the objectid of 'Turquoise':
-      expect(autocomplete.searchResults[1].name).toEqual('Turquoise');
+      expect(this.autocomplete.searchResults[1].name).toEqual('Turquoise');
     }));
 
-    it('should search with filters', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should search with filters', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       let inputElement = getInputElement();
       inputElement.value = 'r';
 
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
       // First, test that 'Red' is included in the results:
-      let found = autocomplete.searchResults.find((result: any) => {
+      let found = this.autocomplete.searchResults.find((result: any) => {
         return (result.name === 'Red');
       });
 
       // The number of search results that contain the letter 'r':
-      expect(autocomplete.searchResults.length).toEqual(6);
+      expect(this.autocomplete.searchResults.length).toEqual(6);
       expect(found).toBeDefined();
 
-      fixture.destroy();
+      this.fixture.destroy();
 
       // Now, setup a filter, removing 'Red' from the results.
-      fixture = TestBed.createComponent(SkyAutocompleteTestComponent);
-      component = fixture.componentInstance;
-      autocomplete = fixture.componentInstance.autocomplete;
-      input = component.autocompleteInput;
+      this.fixture = TestBed.createComponent(SkyAutocompleteTestComponent);
+      this.component = this.fixture.componentInstance;
+      this.autocomplete = this.fixture.componentInstance.autocomplete;
+      this.input = this.component.autocompleteInput;
       inputElement = getInputElement();
 
-      fixture.componentInstance.searchFilters = [
+      this.fixture.componentInstance.searchFilters = [
         (searchText: string, item: any): boolean => {
           return (item.name !== 'Red');
         }
       ];
 
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
       inputElement.value = 'r';
 
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
       tick();
 
-      found = autocomplete.searchResults.find((result: any) => {
+      found = this.autocomplete.searchResults.find((result: any) => {
         return (result.name === 'Red');
       });
 
       expect(found).toBeUndefined();
-      expect(autocomplete.searchResults.length).toEqual(5);
+      expect(this.autocomplete.searchResults.length).toEqual(5);
     }));
 
-    it('should allow custom search result template', fakeAsync(() => {
-      component.searchResultTemplate = component.customSearchResultTemplate;
-      fixture.detectChanges();
+    it('should allow custom search result template', fakeAsync(function () {
+      this.component.searchResultTemplate = this.component.customSearchResultTemplate;
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
       inputElement.value = 'r';
 
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
       tick();
 
       const customElement = getAutocompleteElement()
@@ -182,17 +172,17 @@ describe('Autocomplete component', () => {
     }));
 
     it('should focus the first search result after being opened',
-      fakeAsync(() => {
-        fixture.detectChanges();
+      fakeAsync(function () {
+        this.fixture.detectChanges();
 
         const inputElement = getInputElement();
-        const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+        const messageSpy = spyOn(this.autocomplete as any, 'sendDropdownMessage')
           .and.callThrough();
 
         inputElement.value = 'r';
         TestUtility.fireKeyboardEvent(inputElement, 'keyup');
         tick();
-        fixture.detectChanges();
+        this.fixture.detectChanges();
         tick();
 
         expect(messageSpy)
@@ -203,11 +193,11 @@ describe('Autocomplete component', () => {
     );
 
     it('should only open the dropdown one time on keypress',
-      fakeAsync(() => {
-        fixture.detectChanges();
+      fakeAsync(function () {
+        this.fixture.detectChanges();
 
         const inputElement = getInputElement();
-        const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+        const messageSpy = spyOn(this.autocomplete as any, 'sendDropdownMessage')
           .and.callThrough();
 
         inputElement.value = 'r';
@@ -224,9 +214,9 @@ describe('Autocomplete component', () => {
       })
     );
 
-    it('should limit search results', fakeAsync(() => {
-      component.searchResultsLimit = 1;
-      fixture.detectChanges();
+    it('should limit search results', fakeAsync(function () {
+      this.component.searchResultsLimit = 1;
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
 
@@ -235,17 +225,17 @@ describe('Autocomplete component', () => {
 
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
       tick();
 
-      expect(autocomplete.searchResults.length).toEqual(1);
+      expect(this.autocomplete.searchResults.length).toEqual(1);
     }));
 
-    it('should not search if search text empty', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should not search if search text empty', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
-      const spy = spyOn(autocomplete, 'search').and.callThrough();
+      const spy = spyOn(this.autocomplete, 'search').and.callThrough();
 
       inputElement.value = '';
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
@@ -254,12 +244,12 @@ describe('Autocomplete component', () => {
       expect(spy).not.toHaveBeenCalled();
     }));
 
-    it('should not search if search text is not long enough', fakeAsync(() => {
-      component.searchTextMinimumCharacters = 3;
-      fixture.detectChanges();
+    it('should not search if search text is not long enough', fakeAsync(function () {
+      this.component.searchTextMinimumCharacters = 3;
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
-      const spy = spyOn(autocomplete, 'search').and.callThrough();
+      const spy = spyOn(this.autocomplete, 'search').and.callThrough();
 
       // First, verify that the search will run with 3 characters.
       inputElement.value = '123';
@@ -277,7 +267,7 @@ describe('Autocomplete component', () => {
       expect(spy).not.toHaveBeenCalled();
     }));
 
-    it('should allow for custom search function', fakeAsync(() => {
+    it('should allow for custom search function', fakeAsync(function () {
       let customSearchCalled = false;
       const customFunction: SkyAutocompleteSearchFunction =
         (searchText: string): Promise<any> => {
@@ -289,12 +279,12 @@ describe('Autocomplete component', () => {
           });
         };
 
-      component.search = customFunction;
+      this.component.search = customFunction;
 
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
-      const spy = spyOn(autocomplete, 'search').and.callThrough();
+      const spy = spyOn(this.autocomplete, 'search').and.callThrough();
 
       inputElement.value = 'r';
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
@@ -305,38 +295,38 @@ describe('Autocomplete component', () => {
     }));
 
     it('should handle items that do not have the descriptor property',
-      fakeAsync(() => {
-        component.data = [{
+      fakeAsync(function () {
+        this.component.data = [{
           foo: 'bar'
         }];
 
-        fixture.detectChanges();
+        this.fixture.detectChanges();
 
-        const inputElement = input['elementRef'].nativeElement;
-        const spy = spyOn(autocomplete, 'search').and.callThrough();
+        const inputElement = this.input['elementRef'].nativeElement;
+        const spy = spyOn(this.autocomplete, 'search').and.callThrough();
 
         inputElement.value = 'r';
 
         TestUtility.fireKeyboardEvent(inputElement, 'keyup');
         tick();
-        fixture.detectChanges();
+        this.fixture.detectChanges();
         tick();
 
-        expect(autocomplete.searchResults.length).toEqual(0);
+        expect(this.autocomplete.searchResults.length).toEqual(0);
         expect(spy.calls.argsFor(0)[0]).toEqual('r');
       })
     );
 
-    it('should handle disabled input', fakeAsync(() => {
+    it('should handle disabled input', fakeAsync(function () {
       const inputElement = getInputElement();
 
       inputElement.disabled = true;
 
-      fixture.detectChanges();
+      this.fixture.detectChanges();
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
-      const spy = spyOn(autocomplete, 'search').and.callThrough();
+      const spy = spyOn(this.autocomplete, 'search').and.callThrough();
 
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
@@ -344,23 +334,23 @@ describe('Autocomplete component', () => {
       expect(spy).not.toHaveBeenCalled();
     }));
 
-    it('should handle missing skyAutocomplete directive', fakeAsync(() => {
-      fixture.detectChanges();
-      component.autocomplete['inputDirective'] = undefined;
+    it('should handle missing skyAutocomplete directive', fakeAsync(function () {
+      this.fixture.detectChanges();
+      this.component.autocomplete['inputDirective'] = undefined;
       tick();
 
       try {
-        autocomplete.ngAfterContentInit();
+        this.autocomplete.ngAfterContentInit();
       } catch (e) {
         expect(e.message.indexOf('The SkyAutocompleteComponent requires a ContentChild input') > -1).toEqual(true);
       }
     }));
 
-    it('should set the width of the dropdown on window resize', fakeAsync(() => {
-      const adapterSpy = spyOn(autocomplete['adapter'], 'watchDropdownWidth').and.callThrough();
-      const rendererSpy = spyOn(autocomplete['adapter']['renderer'], 'setStyle').and.callThrough();
+    it('should set the width of the dropdown on window resize', fakeAsync(function () {
+      const adapterSpy = spyOn(this.autocomplete['adapter'], 'watchDropdownWidth').and.callThrough();
+      const rendererSpy = spyOn(this.autocomplete['adapter']['renderer'], 'setStyle').and.callThrough();
 
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
 
@@ -373,7 +363,7 @@ describe('Autocomplete component', () => {
       window.dispatchEvent(event);
       tick();
 
-      expect(adapterSpy).toHaveBeenCalledWith(autocomplete['elementRef']);
+      expect(adapterSpy).toHaveBeenCalledWith(this.autocomplete['elementRef']);
 
       const dropdownElement = document.querySelector('.sky-popover-container');
       const autocompleteElement = getAutocompleteElement();
@@ -383,9 +373,9 @@ describe('Autocomplete component', () => {
     }));
   });
 
-  describe('keyboard interactions', () => {
-    it('should notify selection when enter key pressed', fakeAsync(() => {
-      fixture.detectChanges();
+  describe('keyboard interactions', function () {
+    it('should notify selection when enter key pressed', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
 
@@ -393,9 +383,9 @@ describe('Autocomplete component', () => {
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+      const messageSpy = spyOn(this.autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
-      const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
+      const notifySpy = spyOn(this.autocomplete.selectionChange, 'emit')
         .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
@@ -404,15 +394,15 @@ describe('Autocomplete component', () => {
       });
       tick();
 
-      expect(input.value.name).toEqual('Red');
+      expect(this.input.value.name).toEqual('Red');
       expect(messageSpy).toHaveBeenCalledWith(SkyDropdownMessageType.Close);
       expect(notifySpy).toHaveBeenCalledWith({
-        selectedItem: input.value
+        selectedItem: this.input.value
       });
     }));
 
-    it('should notify selection when tab key pressed', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should notify selection when tab key pressed', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
 
@@ -420,9 +410,9 @@ describe('Autocomplete component', () => {
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+      const messageSpy = spyOn(this.autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
-      const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
+      const notifySpy = spyOn(this.autocomplete.selectionChange, 'emit')
         .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
@@ -431,22 +421,22 @@ describe('Autocomplete component', () => {
       });
       tick();
 
-      expect(input.value.name).toEqual('Red');
+      expect(this.input.value.name).toEqual('Red');
       expect(messageSpy).toHaveBeenCalledWith(SkyDropdownMessageType.Close);
       expect(notifySpy).toHaveBeenCalledWith({
-        selectedItem: input.value
+        selectedItem: this.input.value
       });
     }));
 
-    it('should navigate items with arrow keys', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should navigate items with arrow keys', fakeAsync(function () {
+      this.fixture.detectChanges();
 
-      input.textValue = 'r';
-      input.textChanges.emit({ value: 'r' });
+      this.input.textValue = 'r';
+      this.input.textChanges.emit({ value: 'r' });
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
-      const spy = spyOn(autocomplete as any, 'sendDropdownMessage')
+      const spy = spyOn(this.autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
       const dropdownElement = autocompleteElement
@@ -469,11 +459,11 @@ describe('Autocomplete component', () => {
     }));
 
     it('should trigger a new search when the down arrow key is pressed',
-      fakeAsync(() => {
-        fixture.detectChanges();
+      fakeAsync(function () {
+        this.fixture.detectChanges();
 
         const inputElement = getInputElement();
-        const spy = spyOn(autocomplete, 'search').and.callThrough();
+        const spy = spyOn(this.autocomplete, 'search').and.callThrough();
 
         inputElement.value = 'r';
         TestUtility.fireKeyboardEvent(inputElement, 'keyup');
@@ -482,8 +472,8 @@ describe('Autocomplete component', () => {
         expect(spy.calls.argsFor(0)[0]).toEqual('r');
 
         spy.calls.reset();
-        autocomplete['_searchResults'] = [];
-        fixture.detectChanges();
+        this.autocomplete['_searchResults'] = [];
+        this.fixture.detectChanges();
 
         const autocompleteElement = getAutocompleteElement();
         TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', {
@@ -495,8 +485,8 @@ describe('Autocomplete component', () => {
       })
     );
 
-    it('should close the menu when escape key pressed', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should close the menu when escape key pressed', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
 
@@ -504,55 +494,55 @@ describe('Autocomplete component', () => {
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
 
-      const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
+      const spy = spyOn(this.autocomplete as any, 'sendDropdownMessage').and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
       TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', { key: 'Escape' });
       tick();
 
       expect(spy).toHaveBeenCalledWith(SkyDropdownMessageType.Close);
-      expect(autocomplete.searchResults.length).toEqual(0);
+      expect(this.autocomplete.searchResults.length).toEqual(0);
     }));
 
     it('should reset input text value to descriptor value on blur',
-      fakeAsync(() => {
-        fixture.detectChanges();
+      fakeAsync(function () {
+        this.fixture.detectChanges();
 
         const selectedValue = { name: 'Red' };
-        component.model.favoriteColor = selectedValue;
+        this.component.model.favoriteColor = selectedValue;
 
-        fixture.detectChanges();
+        this.fixture.detectChanges();
         tick();
-        fixture.detectChanges();
+        this.fixture.detectChanges();
 
         const inputElement = getInputElement();
-        input.textValue = 're';
+        this.input.textValue = 're';
 
         expect(inputElement.value).toEqual('re');
 
         TestUtility.fireKeyboardEvent(inputElement, 'blur');
         tick();
 
-        expect(component.myForm.value.favoriteColor).toEqual(selectedValue);
-        expect(input.value).toEqual(selectedValue);
+        expect(this.component.myForm.value.favoriteColor).toEqual(selectedValue);
+        expect(this.input.value).toEqual(selectedValue);
         expect(inputElement.value).toEqual(selectedValue.name);
       })
     );
 
-    it('should not reset input text value if unchanged', fakeAsync(() => {
-      fixture.detectChanges();
+    it('should not reset input text value if unchanged', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       const selectedValue = { name: 'Red' };
-      component.model.favoriteColor = selectedValue;
+      this.component.model.favoriteColor = selectedValue;
 
-      fixture.detectChanges();
+      this.fixture.detectChanges();
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
-      input.textValue = 'Red';
+      this.input.textValue = 'Red';
 
-      const spy = spyOnProperty(input, 'textValue', 'set').and.callThrough();
+      const spy = spyOnProperty(this.input, 'textValue', 'set').and.callThrough();
 
       expect(inputElement.value).toEqual('Red');
 
@@ -563,45 +553,45 @@ describe('Autocomplete component', () => {
     }));
 
     it('should clear the input selected value if text value empty on blur',
-      fakeAsync(() => {
-        fixture.detectChanges();
+      fakeAsync(function () {
+        this.fixture.detectChanges();
 
         const selectedValue = { name: 'Red' };
-        component.model.favoriteColor = selectedValue;
+        this.component.model.favoriteColor = selectedValue;
 
-        fixture.detectChanges();
+        this.fixture.detectChanges();
         tick();
-        fixture.detectChanges();
+        this.fixture.detectChanges();
 
         const inputElement = getInputElement();
-        input.textValue = '';
+        this.input.textValue = '';
 
         expect(inputElement.value).toEqual('');
 
         TestUtility.fireKeyboardEvent(inputElement, 'blur');
         tick();
 
-        expect(component.myForm.value.favoriteColor).toEqual({ });
-        expect(input.value).toEqual({ });
+        expect(this.component.myForm.value.favoriteColor).toEqual({ });
+        expect(this.input.value).toEqual({ });
         expect(inputElement.value).toEqual('');
       })
     );
   });
 
-  describe('mouse interactions', () => {
-    it('should notify selection change on item click', fakeAsync(() => {
-      fixture.detectChanges();
+  describe('mouse interactions', function () {
+    it('should notify selection change on item click', fakeAsync(function () {
+      this.fixture.detectChanges();
 
       const inputElement = getInputElement();
 
       inputElement.value = 'r';
       TestUtility.fireKeyboardEvent(inputElement, 'keyup');
       tick();
-      fixture.detectChanges();
+      this.fixture.detectChanges();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
+      const messageSpy = spyOn(this.autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
-      const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
+      const notifySpy = spyOn(this.autocomplete.selectionChange, 'emit')
         .and.callThrough();
       const firstItem = getAutocompleteElement()
         .querySelector('.sky-dropdown-item') as HTMLElement;
@@ -609,33 +599,33 @@ describe('Autocomplete component', () => {
       firstItem.querySelector('button').click();
       tick();
 
-      expect(input.value.name).toEqual('Red');
+      expect(this.input.value.name).toEqual('Red');
       expect(messageSpy).toHaveBeenCalledWith(SkyDropdownMessageType.Close);
       expect(notifySpy).toHaveBeenCalledWith({
-        selectedItem: input.value
+        selectedItem: this.input.value
       });
     }));
 
     it('should not close the dropdown during input blur if mouseenter',
-      fakeAsync(() => {
-        fixture.detectChanges();
+      fakeAsync(function () {
+        this.fixture.detectChanges();
 
         const inputElement = getInputElement();
 
         inputElement.value = 'r';
         TestUtility.fireKeyboardEvent(inputElement, 'keyup');
         tick();
-        fixture.detectChanges();
+        this.fixture.detectChanges();
         tick();
 
-        const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
+        const spy = spyOn(this.autocomplete as any, 'sendDropdownMessage').and.callThrough();
 
         TestUtility.fireKeyboardEvent(inputElement, 'mouseenter');
         tick();
-        fixture.detectChanges();
+        this.fixture.detectChanges();
         tick();
 
-        input.blur.emit();
+        this.input.blur.emit();
         tick();
 
         expect(spy).not.toHaveBeenCalled();
@@ -643,10 +633,10 @@ describe('Autocomplete component', () => {
 
         TestUtility.fireKeyboardEvent(inputElement, 'mouseleave');
         tick();
-        fixture.detectChanges();
+        this.fixture.detectChanges();
         tick();
 
-        input.blur.emit();
+        this.input.blur.emit();
         tick();
 
         expect(spy).toHaveBeenCalled();
