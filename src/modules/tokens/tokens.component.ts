@@ -148,7 +148,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public onTokenClick(token: SkyToken) {
-    if (this.disabled) {
+    if (!this.isSelectable()) {
       return;
     }
 
@@ -158,7 +158,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   public onTokenKeyUp(event: KeyboardEvent, token: SkyToken) {
     const key = event.key.toLowerCase();
 
-    if (this.disabled) {
+    if (!this.isSelectable()) {
       return;
     }
 
@@ -243,5 +243,9 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this.tokenSelected.emit({
       token
     });
+  }
+
+  private isSelectable(): boolean {
+    return (!this.disabled && this.focusable);
   }
 }

@@ -57,7 +57,7 @@ export class SkyTokenComponent {
   }
 
   public get tabIndex(): number | boolean {
-    return (this.focusable) ? 0 : -1;
+    return (this.focusable) ? 0 : false;
   }
 
   private _disabled: boolean;
