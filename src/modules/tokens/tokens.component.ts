@@ -13,7 +13,7 @@ import {
   ViewChildren
 } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
@@ -69,7 +69,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   @Input()
-  public messageStream = new ReplaySubject<SkyTokensMessage>();
+  public messageStream = new Subject<SkyTokensMessage>();
 
   @Input()
   public set tokens(value: SkyToken[]) {
@@ -113,7 +113,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChildren(SkyTokenComponent)
   private tokenComponents: QueryList<SkyTokenComponent>;
-  private destroyed = new ReplaySubject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   private _activeIndex: number;
   private _disabled: boolean;
@@ -143,8 +143,8 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.destroyed.next(true);
-    this.destroyed.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public onTokenClick(token: SkyToken) {
@@ -228,7 +228,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   private initMessageStream() {
     this.messageStream
-      .takeUntil(this.destroyed)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyTokensMessage) => {
         /* tslint:disable-next-line:switch-default */
         switch (message.type) {
