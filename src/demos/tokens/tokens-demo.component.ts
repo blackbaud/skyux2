@@ -1,24 +1,25 @@
 import {
-  Component
+  Component,
+  OnDestroy
 } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 
 import {
   SkyToken,
   SkyTokenSelectedEventArgs,
   SkyTokensMessageType,
   SkyTokensMessage
-} from '../../modules/tokens';
+} from '../../core';
 
 @Component({
   selector: 'sky-tokens-demo',
   templateUrl: './tokens-demo.component.html'
 })
-export class SkyTokensDemoComponent {
+export class SkyTokensDemoComponent implements OnDestroy {
   public colors: SkyToken[];
   public filters: SkyToken[];
-  public tokensController: ReplaySubject<SkyTokensMessage>;
+  public tokensController: Subject<SkyTokensMessage>;
 
   private defaultColors = [
     { name: 'Red' },
@@ -44,6 +45,12 @@ export class SkyTokensDemoComponent {
   constructor() {
     this.createColors();
     this.filters = this.parseTokens(this.selectedFilters);
+  }
+
+  public ngOnDestroy() {
+    if (this.tokensController) {
+      this.tokensController.complete();
+    }
   }
 
   public resetColors() {
@@ -80,7 +87,7 @@ export class SkyTokensDemoComponent {
 
   public focusLastToken() {
     if (!this.tokensController) {
-      this.tokensController = new ReplaySubject<SkyTokensMessage>();
+      this.tokensController = new Subject<SkyTokensMessage>();
     }
 
     this.tokensController.next({
