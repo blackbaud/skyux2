@@ -2,5 +2,6 @@
   "name": "skyux2",
   "mode": "easy",
   "compileMode": "aot",
+  "importPath": "src",
   "cssPath": "src/scss/sky.scss"
 }
