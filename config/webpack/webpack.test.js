@@ -97,14 +97,7 @@ module.exports = {
     }),
 
     new LoaderOptionsPlugin({
-      debug: true,
-      options: {
-      tslint: {
-          emitErrors: false,
-          failOnHint: false,
-          resourcePath: 'src'
-        }
-      }
+      debug: true
     }),
 
     new ContextReplacementPlugin(
