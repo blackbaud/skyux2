@@ -90,7 +90,6 @@ function compileSass(file) {
     console.log(e.message);
   }
 
-
   return contents;
 }
 
@@ -160,17 +159,33 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
   return fileContents;
 }
 
+function parseDemoServiceFile() {
+  const file = `${TEMP_PATH}/demos/demo.service.ts`;
+  const regex = /require\('(.+?\.(html|scss|ts))'\)/gi;
+
+  let contents = fs.readFileSync(file, { encoding: 'utf8' });
+  let matches = false;
+
+  while (matches = regex.exec(contents)) {
+    contents = inlineContents(file, contents, matches[0], matches[1]);
+    regex.lastIndex = 0;
+  }
+
+  writeToFile(file, contents);
+}
+
 function injectRequiredFileContents() {
-  var files = glob.sync(TEMP_PATH + '/**/*.ts');
+  const files = glob.sync(TEMP_PATH + '/**/*.ts');
+  const regex = /require\('(.+?\.(html|json|scss))'\)/gi;
 
   files.forEach(function (file) {
-    var fileContents = '',
-      matches,
-      regex = /require\('(.+?\.(html|json|scss|ts))'\)/gi;
+    // Ignore the demo.service.ts file!
+    if (/demo\.service\.ts$/.test(file)) {
+      return;
+    }
 
-    try {
-      fileContents = fs.readFileSync(file, { encoding: 'utf8' });
-    } catch (e) { }
+    let fileContents = fileContents = fs.readFileSync(file, { encoding: 'utf8' });
+    let matches;
 
     while (matches = regex.exec(fileContents)) {
       fileContents = inlineContents(file, fileContents, matches[0], matches[1]);
@@ -181,47 +196,43 @@ function injectRequiredFileContents() {
       regex.lastIndex = 0;
     }
 
-    // Don't replace raw typescript file contents from demos.
-    if (!/demo\.service\.ts$/.test(file)) {
-      while (matches = /templateUrl\:\s*'(.+?\.html)'/gi.exec(fileContents)) {
-        fileContents = inlineContents(
-          file,
-          fileContents,
-          matches[0],
-          matches[1],
-          (requireContents) => {
-            return `template: ${requireContents}`
-          }
-        );
-        regex.lastIndex = 0;
-      }
-
-      while (matches = /styleUrls\:\s*\[\s*'(.+?\.scss)']/gi.exec(fileContents)) {
-        fileContents = inlineContents(
-          file,
-          fileContents,
-          matches[0],
-          matches[1],
-          (requireContents) => {
-            return `styles: [${requireContents}]`
-          }
-        );
-        regex.lastIndex = 0;
-      }
+    while (matches = /templateUrl\:\s*'(.+?\.html)'/gi.exec(fileContents)) {
+      fileContents = inlineContents(
+        file,
+        fileContents,
+        matches[0],
+        matches[1],
+        (requireContents) => {
+          return `template: ${requireContents}`
+        }
+      );
+      regex.lastIndex = 0;
     }
 
-    // Replace the placeholder with `+$` character combo.
-    fileContents = fileContents.replace(/\-\-\-PLUSSIGNDOLLAR\-\-\-/g, '+\\\$');
+    while (matches = /styleUrls\:\s*\[\s*'(.+?\.scss)']/gi.exec(fileContents)) {
+      fileContents = inlineContents(
+        file,
+        fileContents,
+        matches[0],
+        matches[1],
+        (requireContents) => {
+          return `styles: [${requireContents}]`
+        }
+      );
+      regex.lastIndex = 0;
+    }
 
-    fs.writeFileSync(
-      file,
-      fileContents,
-      {
-        encoding: 'utf8'
-      }
-    );
+    writeToFile(file, fileContents);
   });
 }
 
+function writeToFile(file, contents) {
+  // Replace the placeholder with `+$` character combo.
+  contents = contents.replace(/\-\-\-PLUSSIGNDOLLAR\-\-\-/g, '+\\\$');
+
+  fs.writeFileSync(file, contents, { encoding: 'utf8' });
+}
+
 copySrc();
+parseDemoServiceFile();
 injectRequiredFileContents();

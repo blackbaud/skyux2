@@ -70,9 +70,20 @@ import {
  * the component is an entry component.
  */
 
+export interface SkyDemoComponent {
+  name: string;
+  component: any;
+  files: {
+    name: string;
+    fileContents: string;
+    componentName?: string;
+    bootstrapSelector?: string;
+  }[];
+}
+
 @Injectable()
 export class SkyDemoService {
-  public components: any[] = [
+  public components: SkyDemoComponent[] = [
     {
       name: 'Action button',
       component: SkyActionButtonDemoComponent,
