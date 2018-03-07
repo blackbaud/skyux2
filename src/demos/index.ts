@@ -43,6 +43,7 @@ export * from './text-expand';
 export * from './text-highlight';
 export * from './tile';
 export * from './timepicker';
+export * from './tokens';
 export * from './toolbar';
 export * from './url-validation';
 export * from './vertical-tabs';
