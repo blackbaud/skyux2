@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   Output
 } from '@angular/core';
@@ -39,10 +38,6 @@ export class SkyTokenComponent {
   }
 
   public get focusable(): boolean {
-    if (this.disabled) {
-      return false;
-    }
-
     return (this._focusable !== false);
   }
 
@@ -52,9 +47,9 @@ export class SkyTokenComponent {
   @Output()
   public tokenFocus = new EventEmitter<void>();
 
-  public get ariaRole(): string {
-    return (this.focusable) ? 'button' : undefined;
-  }
+  // public get ariaRole(): string {
+  //   return (this.focusable) ? 'button' : undefined;
+  // }
 
   public get tabIndex(): number | boolean {
     return (this.focusable) ? 0 : -1;
@@ -68,19 +63,8 @@ export class SkyTokenComponent {
     private elementRef: ElementRef
   ) { }
 
-  @HostListener('keyup', ['$event'])
-  public onKeyUp(event: KeyboardEvent) {
-    const key = event.key.toLowerCase();
-    if (key === 'backspace' || key === 'delete') {
-      this.dismissToken();
-      event.preventDefault();
-    }
-  }
-
   public dismissToken() {
-    if (this.dismissible) {
-      this.dismiss.emit();
-    }
+    this.dismiss.emit();
   }
 
   public focusElement() {
