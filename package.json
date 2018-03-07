@@ -25,7 +25,6 @@
     "test:ci": "npm run test:unit:ci && npm run test:visual:ci",
     "test:unit": "npm run test:unit:base -- config/karma/local.karma.conf.js",
     "test:unit:ci": "npm run test:unit:base -- config/karma/ci.karma.conf.js",
-    "test:unit:ci:ie": "npm run test:unit:base -- config/karma/ci-ie.karma.conf.js",
     "test:unit:base": "node --max-old-space-size=4096 node_modules/karma/bin/karma start",
     "test:visual": "cd skyux-spa-visual-tests && npm run build-visual && npm run test-visual:local",
     "test:visual:ci": "cd skyux-spa-visual-tests && npm run build-visual && npm run test-visual:ci",
@@ -44,7 +43,7 @@
     "dragula": "3.7.2",
     "intl": "1.2.5",
     "microedge-rxstate": "2.0.2",
-    "moment": "2.19.3",
+    "moment": "2.21.0",
     "ng2-dragula": "1.5.0",
     "ng2-toastr": "4.1.2",
     "web-animations-js": "2.3.1"

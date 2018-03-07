@@ -4,6 +4,13 @@ module.exports = function (config) {
   require('./shared.karma.conf')(config);
 
   const customLaunchers = {
+    bs_windows_ie_11: {
+      base: 'BrowserStack',
+      browser: 'ie',
+      browser_version: '11.0',
+      os: 'Windows',
+      os_version: '10'
+    },
     bs_windows_edge: {
       base: 'BrowserStack',
       browser: 'edge',
