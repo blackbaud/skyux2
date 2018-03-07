@@ -16,7 +16,7 @@ import {
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
-const moment = require('moment');
+let moment = require('moment');
 
 import {
   expect

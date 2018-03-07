@@ -136,7 +136,7 @@ export class SkyTimepickerComponent implements OnInit {
     });
   }
 
-  private set selectedHour(setHour: number) {
+  public set selectedHour(setHour: number) {
     let hour: number;
     let hourOffset: number = 0;
     if (this.selectedMeridies === 'AM' && setHour === 12) { hourOffset = -12; }
@@ -151,7 +151,7 @@ export class SkyTimepickerComponent implements OnInit {
     this.selectedTimeChanged.emit(this.selectedTime);
   }
 
-  private set selectedMinute(minute: number) {
+  public set selectedMinute(minute: number) {
     this.activeTime = moment({
       'hour': moment(this.activeTime).get('hour') + 0,
       'minute': minute
@@ -159,7 +159,7 @@ export class SkyTimepickerComponent implements OnInit {
     this.selectedTimeChanged.emit(this.selectedTime);
   }
 
-  private set selectedMeridies(meridies: string) {
+  public set selectedMeridies(meridies: string) {
     /* istanbul ignore else */
     if (!this.is8601) {
       if (meridies !== this.selectedMeridies) {
@@ -169,7 +169,7 @@ export class SkyTimepickerComponent implements OnInit {
     }
   }
 
-  private get selectedHour() {
+  public get selectedHour() {
     if (!this.is8601) {
       /* istanbul ignore next */
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
@@ -178,13 +178,13 @@ export class SkyTimepickerComponent implements OnInit {
     if (this.is8601) {
       return moment(this.activeTime).hour() + 0;
     }
-
   }
-  private get selectedMinute() {
+
+  public get selectedMinute() {
     return moment(this.activeTime).minute() + 0;
   }
 
-  private get selectedMeridies() {
+  public get selectedMeridies() {
     if (this.activeTime) {
       return moment(this.activeTime).format('A');
     }
