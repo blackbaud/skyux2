@@ -28,20 +28,29 @@ describe('Tokens component', () => {
     return tokenElements as NodeListOf<HTMLElement>;
   }
 
-  function verifyKeyupRemovesToken(key: string) {
+  function verifyArrowKeyNavigation(keyRight: string, keyLeft: string) {
     fixture.detectChanges();
     component.publishTokens();
     fixture.detectChanges();
 
-    expect(tokensComponent.tokens.length).toEqual(3);
+    expect(tokensComponent.activeIndex).toEqual(0);
 
-    let tokenElements = getTokenElements();
-    TestUtility.fireKeyboardEvent(tokenElements.item(1).querySelector('.sky-token'), 'keyup', { key });
+    const tokenElements = getTokenElements();
+
+    TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
+      key: keyRight
+    });
     fixture.detectChanges();
 
-    tokenElements = getTokenElements();
+    expect(tokensComponent.activeIndex).toEqual(1);
+    expect(document.activeElement).toEqual(tokenElements.item(1).querySelector('.sky-token'));
+
+    TestUtility.fireKeyboardEvent(tokenElements.item(1), 'keyup', {
+      key: keyLeft
+    });
+    fixture.detectChanges();
+
     expect(tokensComponent.activeIndex).toEqual(0);
-    expect(tokensComponent.tokens.length).toEqual(2);
     expect(document.activeElement).toEqual(tokenElements.item(0).querySelector('.sky-token'));
   }
 
@@ -57,6 +66,10 @@ describe('Tokens component', () => {
     tokensComponent = component.tokensComponent;
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   describe('basic setup', () => {
     it('should set defaults', () => {
       expect(tokensComponent.tokens).toEqual([]);
@@ -64,7 +77,6 @@ describe('Tokens component', () => {
       expect(tokensComponent.disabled).toEqual(false);
       expect(tokensComponent.dismissible).toEqual(true);
       expect(tokensComponent.displayWith).toEqual('name');
-      expect(tokensComponent.focusable).toEqual(true);
       expect(tokensComponent.messageStream).toBeUndefined();
       expect(tokensComponent.activeIndex).toEqual(0);
     });
@@ -203,29 +215,11 @@ describe('Tokens component', () => {
 
   describe('keyboard interactions', () => {
     it('should navigate token focus with arrow keys', () => {
-      fixture.detectChanges();
-      component.publishTokens();
-      fixture.detectChanges();
+      verifyArrowKeyNavigation('ArrowRight', 'ArrowLeft');
+    });
 
-      expect(tokensComponent.activeIndex).toEqual(0);
-
-      const tokenElements = getTokenElements();
-
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
-        key: 'ArrowRight'
-      });
-      fixture.detectChanges();
-
-      expect(tokensComponent.activeIndex).toEqual(1);
-      expect(document.activeElement).toEqual(tokenElements.item(1).querySelector('.sky-token'));
-
-      TestUtility.fireKeyboardEvent(tokenElements.item(1), 'keyup', {
-        key: 'ArrowLeft'
-      });
-      fixture.detectChanges();
-
-      expect(tokensComponent.activeIndex).toEqual(0);
-      expect(document.activeElement).toEqual(tokenElements.item(0).querySelector('.sky-token'));
+    it('should navigate token focus with arrow keys (Edge/IE)', () => {
+      verifyArrowKeyNavigation('Right', 'Left');
     });
 
     it('should select token with enter keyup', () => {
@@ -247,8 +241,8 @@ describe('Tokens component', () => {
       });
     });
 
-    it('should ignore keyboard events if tokens not selectable', () => {
-      component.focusable = false;
+    it('should ignore keyboard events if tokens are disabled', () => {
+      component.disabled = true;
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
       fixture.detectChanges();
@@ -265,41 +259,8 @@ describe('Tokens component', () => {
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should remove a token with backspace keyup and focus previous item', () => {
-      verifyKeyupRemovesToken('Backspace');
-    });
-
-    it('should remove a token with delete keyup', () => {
-      verifyKeyupRemovesToken('Delete');
-    });
-
-    it('should not dismiss a token if not dismissible', () => {
-      component.dismissible = false;
-      fixture.detectChanges();
-      component.publishTokens();
-      fixture.detectChanges();
-
-      expect(tokensComponent.tokens.length).toEqual(3);
-
-      const spy = spyOn(tokensComponent, 'removeToken').and.callThrough();
-
-      let tokenElements = getTokenElements();
-      TestUtility.fireKeyboardEvent(tokenElements.item(1).querySelector('.sky-token'), 'keyup', {
-        key: 'Backspace'
-      });
-      fixture.detectChanges();
-      TestUtility.fireKeyboardEvent(tokenElements.item(1).querySelector('.sky-token'), 'keyup', {
-        key: 'Delete'
-      });
-      fixture.detectChanges();
-
-      tokenElements = getTokenElements();
-      expect(tokensComponent.tokens.length).toEqual(3);
-      expect(spy).not.toHaveBeenCalled();
-    });
-
     it('should ignore keyboard events if tokens not selectable', () => {
-      component.focusable = false;
+      component.disabled = true;
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
       fixture.detectChanges();
