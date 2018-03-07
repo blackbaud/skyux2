@@ -1,0 +1,37 @@
+<div id="screenshot-tokens">
+  <p>
+    <sky-tokens
+      [tokens]="colors">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      [tokens]="colors"
+      [dismissible]="false">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      [tokens]="colors"
+      [dismissible]="false"
+      [focusable]="false">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      [disabled]="true"
+      [tokens]="colors">
+    </sky-tokens>
+  </p>
+
+  <p>
+    <sky-tokens
+      displayWith="label"
+      [tokens]="filters">
+      (You may also include content inside the tokens component.)
+    </sky-tokens>
+  </p>
+</div>

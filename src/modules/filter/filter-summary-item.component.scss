@@ -1,22 +1,5 @@
-@import "../../scss/mixins";
+@import '../../scss/mixins';
 
 .sky-filter-summary-item {
   display: inline-block;
-  background-color: $sky-background-color-info-light;
-  border: 1px solid $sky-highlight-color-info;
-  border-radius: 4px;
-  padding: 3px;
-  color: $sky-text-color-default;
-  margin-right: $sky-margin-half;
-
-  .sky-filter-summary-item-close {
-    color: $sky-text-color-default;
-    padding-left: $sky-padding-half;
-    opacity: .8;
-  }
-
-  .sky-filter-summary-item-close:hover {
-    text-decoration: none;
-    opacity: 1;
-  }
 }
