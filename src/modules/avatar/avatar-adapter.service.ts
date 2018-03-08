@@ -1,4 +1,7 @@
-import { ElementRef, Injectable } from '@angular/core';
+import {
+  ElementRef,
+  Injectable
+} from '@angular/core';
 
 import { SkyAvatarSrc } from './avatar-src';
 

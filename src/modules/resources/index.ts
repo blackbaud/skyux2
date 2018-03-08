@@ -1,4 +1,4 @@
-export { SkyResources } from './resources';
-export { SkyResourcesPipe } from './resources.pipe';
-export { SkyResourcesService } from './resources.service';
-export { SkyResourcesModule } from './resources.module';
+export * from './resources';
+export * from './resources.pipe';
+export * from './resources.service';
+export * from './resources.module';

@@ -1,3 +1,3 @@
-export { SkyTileDashboardComponent } from './tile-dashboard.component';
-export { SkyTileDashboardService } from './tile-dashboard.service';
-export { SkyTileDashboardModule } from './tile-dashboard.module';
+export * from './tile-dashboard.component';
+export * from './tile-dashboard.service';
+export * from './tile-dashboard.module';

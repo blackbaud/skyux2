@@ -1,2 +1,2 @@
-export { SkyTileDashboardColumnComponent } from './tile-dashboard-column.component';
-export { SkyTileDashboardColumnModule } from './tile-dashboard-column.module';
+export * from './tile-dashboard-column.component';
+export * from './tile-dashboard-column.module';

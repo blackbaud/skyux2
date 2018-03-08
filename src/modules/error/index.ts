@@ -1,7 +1,7 @@
-export { SkyErrorComponent } from './error.component';
-export { SkyErrorDescriptionComponent } from './error-description.component';
-export { SkyErrorImageComponent } from './error-image.component';
-export { SkyErrorTitleComponent } from './error-title.component';
-export { SkyErrorModule } from './error.module';
-export { ErrorModalConfig } from './error-modal-config';
-export { SkyErrorModalService } from './error-modal.service';
+export * from './error.component';
+export * from './error-description.component';
+export * from './error-image.component';
+export * from './error-title.component';
+export * from './error.module';
+export * from './error-modal-config';
+export * from './error-modal.service';

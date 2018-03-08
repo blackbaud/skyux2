@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { SkyAvatarSrc } from '../';
+import { SkyAvatarSrc } from '../avatar-src';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -8,6 +10,5 @@ import { SkyAvatarSrc } from '../';
 })
 export class AvatarTestComponent {
   public src: SkyAvatarSrc;
-
   public name: string;
 }

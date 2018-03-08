@@ -1,4 +1,4 @@
-export { SkyToolbarComponent } from './toolbar.component';
-export { SkyToolbarItemComponent } from './toolbar-item.component';
-export { SkyToolbarSectionComponent } from './toolbar-section.component';
-export { SkyToolbarModule } from './toolbar.module';
+export * from './toolbar.component';
+export * from './toolbar-item.component';
+export * from './toolbar-section.component';
+export * from './toolbar.module';

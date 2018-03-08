@@ -1,6 +1,6 @@
-export { SkyDefinitionListComponent } from './definition-list.component';
-export { SkyDefinitionListContentComponent } from './definition-list-content.component';
-export { SkyDefinitionListHeadingComponent } from './definition-list-heading.component';
-export { SkyDefinitionListLabelComponent } from './definition-list-label.component';
-export { SkyDefinitionListValueComponent } from './definition-list-value.component';
-export { SkyDefinitionListModule } from './definition-list.module';
+export * from './definition-list.component';
+export * from './definition-list-content.component';
+export * from './definition-list-heading.component';
+export * from './definition-list-label.component';
+export * from './definition-list-value.component';
+export * from './definition-list.module';

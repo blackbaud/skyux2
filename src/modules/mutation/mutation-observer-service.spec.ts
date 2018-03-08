@@ -1,7 +1,6 @@
 import { MutationObserverService } from './mutation-observer-service';
 
 describe('Mutation observer service', () => {
-
   it('should return a new instance of a mutation observer', () => {
     let service = new MutationObserverService();
     let observer = service.create((mutations: MutationRecord[]) => 0);

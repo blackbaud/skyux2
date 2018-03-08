@@ -1,2 +1,2 @@
-export { SkyTileContentSectionComponent } from './tile-content-section.component';
-export { SkyTileContentModule } from './tile-content.module';
+export * from './tile-content-section.component';
+export * from './tile-content.module';

@@ -1,2 +1,2 @@
-export { SkyRadioComponent } from './radio.component';
-export { SkyRadioModule } from './radio.module';
+export * from './radio.component';
+export * from './radio.module';
