@@ -91,8 +91,8 @@ export class SkyLookupComponent
   @ViewChild('lookupInput')
   private lookupInput: ElementRef;
 
-  private destroyed = new Subject<boolean>();
-  private idled = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
+  private idle = new Subject();
   private markForTokenFocusOnKeyUp = false;
 
   private _tokens: SkyToken[];
@@ -113,8 +113,9 @@ export class SkyLookupComponent
 
   public ngOnDestroy() {
     this.removeEventListeners();
-    this.destroyed.next(true);
-    this.destroyed.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+    this.tokensController.complete();
   }
 
   public onAutocompleteSelectionChange(change: SkyAutocompleteSelectionChange) {
@@ -140,6 +141,23 @@ export class SkyLookupComponent
     this.windowRef.getWindow().setTimeout(() => {
       this.focusInput();
     });
+  }
+
+  public onTokensKeyUp(event: KeyboardEvent) {
+    const key = event.key.toLowerCase();
+    if (key === 'backspace') {
+      this.sendTokensMessage(SkyTokensMessageType.RemoveActiveToken);
+      this.sendTokensMessage(SkyTokensMessageType.FocusPreviousToken);
+      event.preventDefault();
+    }
+
+    if (key === 'delete') {
+      this.sendTokensMessage(SkyTokensMessageType.RemoveActiveToken);
+      this.windowRef.getWindow().setTimeout(() => {
+        this.sendTokensMessage(SkyTokensMessageType.FocusActiveToken);
+      });
+      event.preventDefault();
+    }
   }
 
   public writeValue(value: any[]) {
@@ -194,14 +212,14 @@ export class SkyLookupComponent
   }
 
   private addEventListeners() {
+    this.idle = new Subject();
     this.focusTokensOnInputKeyUp();
     this.focusInputOnHostClick();
   }
 
   private removeEventListeners() {
-    this.idled.next(true);
-    this.idled.unsubscribe();
-    this.idled = new Subject<boolean>();
+    this.idle.next();
+    this.idle.complete();
   }
 
   private focusTokensOnInputKeyUp() {
@@ -214,9 +232,10 @@ export class SkyLookupComponent
 
     Observable
       .fromEvent(inputElement, 'keydown')
-      .takeUntil(this.idled)
+      .takeUntil(this.idle)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
+
         if (key === 'arrowleft' || key === 'backspace') {
           const isSearchEmpty = (!this.lookupInput.nativeElement.value);
           if (isSearchEmpty) {
@@ -229,18 +248,19 @@ export class SkyLookupComponent
 
     Observable
       .fromEvent(inputElement, 'keyup')
-      .takeUntil(this.idled)
+      .takeUntil(this.idle)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
+
         if (key === 'arrowleft' || key === 'backspace') {
           /* istanbul ignore else */
           if (this.markForTokenFocusOnKeyUp) {
+            this.sendTokensMessage(SkyTokensMessageType.FocusLastToken);
             event.preventDefault();
-            this.tokensController.next({
-              type: SkyTokensMessageType.FocusLastToken
-            });
           }
         }
+
+        event.stopPropagation();
       });
   }
 
@@ -257,7 +277,7 @@ export class SkyLookupComponent
 
     Observable
       .fromEvent(documentObj, 'mousedown')
-      .takeUntil(this.idled)
+      .takeUntil(this.idle)
       .subscribe((event: MouseEvent) => {
         focusRegistered = false;
         clickRegistered = hostElement.contains(event.target);
@@ -266,7 +286,7 @@ export class SkyLookupComponent
 
     Observable
       .fromEvent(documentObj, 'focusin')
-      .takeUntil(this.idled)
+      .takeUntil(this.idle)
       .subscribe((event: KeyboardEvent) => {
         clickRegistered = false;
         focusRegistered = hostElement.contains(event.target);
@@ -275,7 +295,7 @@ export class SkyLookupComponent
 
     Observable
       .fromEvent(documentObj, 'mouseup')
-      .takeUntil(this.idled)
+      .takeUntil(this.idle)
       .subscribe(() => {
         if (!focusRegistered && clickRegistered) {
           this.focusInput();
@@ -299,5 +319,9 @@ export class SkyLookupComponent
         value: item
       };
     });
+  }
+
+  private sendTokensMessage(type: SkyTokensMessageType) {
+    this.tokensController.next({ type });
   }
 }

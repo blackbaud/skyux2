@@ -22,6 +22,7 @@
         [focusable]="false"
         [messageStream]="tokensController"
         [tokens]="tokens"
+        (keyup)="onTokensKeyUp($event)"
         (tokensChange)="onTokensChange($event)"
         (focusIndexOverRange)="onTokensFocusIndexOverRange()">
 
@@ -34,6 +35,7 @@
           [attr.placeholder]="placeholderText"
           (keydown.enter)="$event.preventDefault();"
           (keyup.escape)="clearSearchText();$event.preventDefault();"
+          (keyup.delete)="$event.stopPropagation();"
           #lookupInput>
         </textarea>
       </sky-tokens>

@@ -30,6 +30,8 @@
       .sky-tokens-content {
         padding-top: 5px;
         padding-bottom: 5px;
+        padding-left: 11px;
+        flex-basis: 100px;
       }
     }
   }
@@ -38,6 +40,7 @@
 .sky-lookup-search {
   cursor: text;
   background-color: $sky-color-white;
+  padding-left: 3px;
 }
 
 .sky-lookup-disabled {
