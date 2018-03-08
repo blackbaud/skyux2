@@ -17,7 +17,7 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 
 import {
   SkyAutocompleteSelectionChange,
@@ -83,7 +83,7 @@ export class SkyLookupComponent
   }
 
   public isInputFocused = false;
-  public tokensController = new ReplaySubject<SkyTokensMessage>();
+  public tokensController = new Subject<SkyTokensMessage>();
 
   @ViewChild(SkyAutocompleteInputDirective)
   private autocompleteInputDirective: SkyAutocompleteInputDirective;
@@ -91,8 +91,8 @@ export class SkyLookupComponent
   @ViewChild('lookupInput')
   private lookupInput: ElementRef;
 
-  private destroyed = new ReplaySubject<boolean>();
-  private idled = new ReplaySubject<boolean>();
+  private destroyed = new Subject<boolean>();
+  private idled = new Subject<boolean>();
   private markForTokenFocusOnKeyUp = false;
 
   private _tokens: SkyToken[];
@@ -201,7 +201,7 @@ export class SkyLookupComponent
   private removeEventListeners() {
     this.idled.next(true);
     this.idled.unsubscribe();
-    this.idled = new ReplaySubject<boolean>();
+    this.idled = new Subject<boolean>();
   }
 
   private focusTokensOnInputKeyUp() {
