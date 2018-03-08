@@ -183,12 +183,10 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public selectToken(token: SkyToken) {
-    console.log('selectToken()');
     if (this.disabled) {
       return;
     }
 
-    console.log('selectToken and notify');
     this.notifyTokenSelected(token);
   }
 
@@ -260,7 +258,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private notifyTokenSelected(token: SkyToken) {
-    console.log('notifyTokenSelected()');
     this.tokenSelected.emit({
       token
     });
