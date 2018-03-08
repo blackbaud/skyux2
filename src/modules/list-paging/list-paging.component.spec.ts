@@ -24,7 +24,7 @@ import { ListItemModel } from '../list/state/items/item.model';
 
 import { AsyncList } from 'microedge-rxstate/dist';
 
-let moment = require('moment');
+const moment = require('moment');
 
 describe('List Paging Component', () => {
   let state: ListState,

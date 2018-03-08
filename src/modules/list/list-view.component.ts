@@ -9,7 +9,7 @@ import {
   Observable
 } from 'rxjs/Observable';
 
-let moment = require('moment');
+const moment = require('moment');
 
 export abstract class ListViewComponent implements OnDestroy {
   public active: Observable<boolean>;

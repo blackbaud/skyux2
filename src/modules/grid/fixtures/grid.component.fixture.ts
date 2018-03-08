@@ -14,7 +14,7 @@ import {
   ListSortFieldSelectorModel
 } from '../../list/state';
 
-let moment = require('moment');
+const moment = require('moment');
 
 @Component({
   selector: 'sky-test-cmp',
