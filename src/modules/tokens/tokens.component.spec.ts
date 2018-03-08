@@ -4,6 +4,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  By
+} from '@angular/platform-browser';
+
+import {
   expect,
   TestUtility
 } from '../testing';
@@ -37,7 +41,7 @@ describe('Tokens component', () => {
 
     const tokenElements = getTokenElements();
 
-    TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
+    TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keydown', {
       key: keyRight
     });
     fixture.detectChanges();
@@ -45,13 +49,15 @@ describe('Tokens component', () => {
     expect(tokensComponent.activeIndex).toEqual(1);
     expect(document.activeElement).toEqual(tokenElements.item(1).querySelector('.sky-token'));
 
-    TestUtility.fireKeyboardEvent(tokenElements.item(1), 'keyup', {
+    TestUtility.fireKeyboardEvent(tokenElements.item(1), 'keydown', {
       key: keyLeft
     });
     fixture.detectChanges();
 
     expect(tokensComponent.activeIndex).toEqual(0);
-    expect(document.activeElement).toEqual(tokenElements.item(0).querySelector('.sky-token'));
+    expect(document.activeElement).toEqual(
+      tokenElements.item(0).querySelector('.sky-token')
+    );
   }
 
   beforeEach(() => {
@@ -89,6 +95,7 @@ describe('Tokens component', () => {
 
   describe('events', () => {
     it('should emit when the focus index is greater than the number of tokens', () => {
+      component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
       fixture.detectChanges();
@@ -98,7 +105,7 @@ describe('Tokens component', () => {
       const tokenElements = getTokenElements();
       const spy = spyOn(component, 'onFocusIndexOverRange').and.callThrough();
 
-      TestUtility.fireKeyboardEvent(tokenElements.item(2), 'keyup', {
+      TestUtility.fireKeyboardEvent(tokenElements.item(2), 'keydown', {
         key: 'ArrowRight'
       });
       fixture.detectChanges();
@@ -108,6 +115,7 @@ describe('Tokens component', () => {
     });
 
     it('should emit when the focus index is less than zero', () => {
+      component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
       fixture.detectChanges();
@@ -117,7 +125,7 @@ describe('Tokens component', () => {
       const tokenElements = getTokenElements();
       const spy = spyOn(component, 'onFocusIndexUnderRange').and.callThrough();
 
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
+      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keydown', {
         key: 'ArrowLeft'
       });
       fixture.detectChanges();
@@ -129,6 +137,7 @@ describe('Tokens component', () => {
     it('should emit when token is selected on click', () => {
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
+      component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
       fixture.detectChanges();
@@ -215,25 +224,27 @@ describe('Tokens component', () => {
 
   describe('keyboard interactions', () => {
     it('should navigate token focus with arrow keys', () => {
+      component.publishMessageStream();
       verifyArrowKeyNavigation('ArrowRight', 'ArrowLeft');
     });
 
     it('should navigate token focus with arrow keys (Edge/IE)', () => {
+      component.publishMessageStream();
       verifyArrowKeyNavigation('Right', 'Left');
     });
 
     it('should select token with enter keyup', () => {
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
+      component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
       fixture.detectChanges();
 
-      const tokenElements = getTokenElements();
+      const tokenElements = fixture.debugElement
+        .queryAll(By.css('sky-token'));
 
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
-        key: 'Enter'
-      });
+      tokenElements[0].triggerEventHandler('keyup.enter', { });
       fixture.detectChanges();
 
       expect(spy).toHaveBeenCalledWith({
@@ -251,8 +262,9 @@ describe('Tokens component', () => {
 
       const tokenElements = getTokenElements();
 
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
-        key: 'Enter'
+      TestUtility.fireDomEvent(tokenElements.item(0), 'keyup.enter', {
+        cancelable: true,
+        bubbles: true
       });
       fixture.detectChanges();
 

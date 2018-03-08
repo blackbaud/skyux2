@@ -47,10 +47,6 @@ export class SkyTokenComponent {
   @Output()
   public tokenFocus = new EventEmitter<void>();
 
-  // public get ariaRole(): string {
-  //   return (this.focusable) ? 'button' : undefined;
-  // }
-
   public get tabIndex(): number | boolean {
     return (this.focusable) ? 0 : -1;
   }

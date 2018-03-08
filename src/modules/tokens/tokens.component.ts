@@ -159,7 +159,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this.notifyTokenSelected(token);
   }
 
-  public onTokenKeyDown(event: KeyboardEvent, token: SkyToken) {
+  public onTokenKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
     if (this.disabled) {
@@ -182,20 +182,14 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  public onTokenKeyUp(event: KeyboardEvent, token: SkyToken) {
-    const key = event.key.toLowerCase();
-
+  public selectToken(token: SkyToken) {
+    console.log('selectToken()');
     if (this.disabled) {
       return;
     }
 
-    /* tslint:disable-next-line:switch-default */
-    switch (key) {
-      case 'enter':
-      this.notifyTokenSelected(token);
-      event.preventDefault();
-      break;
-    }
+    console.log('selectToken and notify');
+    this.notifyTokenSelected(token);
   }
 
   public removeToken(token: SkyToken) {
@@ -266,6 +260,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private notifyTokenSelected(token: SkyToken) {
+    console.log('notifyTokenSelected()');
     this.tokenSelected.emit({
       token
     });

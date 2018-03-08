@@ -10,10 +10,7 @@ import {
   TestUtility
 } from '../testing';
 
-import {
-  SkyLookupComponent
-} from './index';
-
+import { SkyLookupComponent } from './lookup.component';
 import { SkyLookupFixturesModule } from './fixtures/lookup-fixtures.module';
 import { SkyLookupTestComponent } from './fixtures/lookup.component.fixture';
 
@@ -226,7 +223,7 @@ describe('Lookup component', () => {
       fixture.detectChanges();
 
       const tokenHostElements = document.querySelectorAll('sky-token');
-      TestUtility.fireKeyboardEvent(tokenHostElements.item(0), 'keyup', {
+      TestUtility.fireKeyboardEvent(tokenHostElements.item(0), 'keydown', {
         key: 'ArrowRight'
       });
       tick();
