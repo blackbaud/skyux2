@@ -3,13 +3,12 @@ import {
   ViewChild
 } from '@angular/core';
 
-import {
-  SkyTimepickerInputDirective
-} from '../timepicker.directive';
+import { SkyTimepickerInputDirective } from '../timepicker.directive';
 import { SkyTimepickerTimeOutput } from '../timepicker.interface';
+
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./timepicker-component.fixture.html')
+  templateUrl: './timepicker-component.fixture.html'
 })
 export class TimepickerTestComponent {
   public timeFormat: string = 'hh';

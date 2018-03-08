@@ -7,7 +7,7 @@ import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel
-} from './state/';
+} from './state';
 import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
 import { SkyLinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
 import { SkyLinkRecordsMatchModel } from './state/matches/match.model';

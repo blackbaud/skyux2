@@ -3,16 +3,13 @@ import {
   ViewChild
 } from '@angular/core';
 
-import {
-  SkyListSecondaryActionsComponent
-} from '../';
+import { SkyListSecondaryActionsComponent } from '../list-secondary-actions.component';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./list-secondary-actions.component.fixture.html')
+  templateUrl: './list-secondary-actions.component.fixture.html'
 })
 export class ListSecondaryActionsTestComponent {
-
   public showOption: boolean = true;
 
   @ViewChild(SkyListSecondaryActionsComponent)

@@ -1,19 +1,17 @@
+import {
+  fakeAsync,
+  tick
+} from '@angular/core/testing';
+
+import { ListState } from '../list-state.state-node';
+import { ListStateDispatcher } from '../list-state.rxstate';
+
 import { ListItemModel } from './item.model';
 
 import {
   ListItemsLoadAction,
   ListItemsSetLoadingAction
 } from './actions';
-
-import {
-  ListState,
-  ListStateDispatcher
-} from '../';
-
-import {
-  fakeAsync,
-  tick
-} from '@angular/core/testing';
 
 describe('list items', () => {
   describe('list item model', () => {

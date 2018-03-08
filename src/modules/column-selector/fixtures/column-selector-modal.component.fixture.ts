@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
+
 import {
   SkyModalService,
   SkyModalCloseArgs
 } from '../../modal';
-import {
-  SkyColumnSelectorComponent,
-  SkyColumnSelectorContext
-} from '../';
+
+import { SkyColumnSelectorComponent } from '../column-selector-modal.component';
+import { SkyColumnSelectorContext } from '../column-selector-context';
+
 @Component({
   selector: 'sky-test-cmp',
   templateUrl: './column-selector-modal.component.fixture.html'

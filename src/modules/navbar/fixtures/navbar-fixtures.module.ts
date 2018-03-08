@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyNavbarModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import { SkyNavbarModule } from '../navbar.module';
 
 import { SkyNavbarTestComponent } from './navbar.component.fixture';
 

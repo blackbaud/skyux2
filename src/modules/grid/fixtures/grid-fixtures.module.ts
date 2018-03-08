@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyGridModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import { SkyGridModule } from '../grid.module';
 
 import { GridTestComponent } from './grid.component.fixture';
 import { GridEmptyTestComponent } from './grid-empty.component.fixture';

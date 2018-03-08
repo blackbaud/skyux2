@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { SkyEmailValidationModule } from '../';
+import { SkyEmailValidationModule } from '../email-validation.module';
 import { EmailValidationTestComponent } from './email-validation.component.fixture';
 
 @NgModule({

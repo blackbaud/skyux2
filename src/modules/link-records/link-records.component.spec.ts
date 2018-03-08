@@ -19,7 +19,7 @@ import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel
-} from './state/';
+} from './state';
 import { Observable } from 'rxjs/Observable';
 import { SkyCheckboxModule } from '../checkbox';
 import { SkyResourcesModule } from '../resources';

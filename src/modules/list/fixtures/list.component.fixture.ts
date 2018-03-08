@@ -1,11 +1,18 @@
-import { Component, ViewChild, Inject } from '@angular/core';
-import { SkyListComponent } from '../list.component';
+import {
+  Component,
+  ViewChild,
+  Inject
+} from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { SkyListToolbarComponent } from '../../list-toolbar';
+
+import { SkyListComponent } from '../list.component';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./list.component.fixture.html')
+  templateUrl: './list.component.fixture.html'
 })
 export class ListTestComponent {
   @ViewChild(SkyListComponent)
@@ -16,12 +23,12 @@ export class ListTestComponent {
 
   public sortFields: any;
 
-  constructor(@Inject('items') public items: any) {
-  }
+  constructor(
+    @Inject('items') public items: any
+  ) { }
 
   public get options() {
     let bs = new BehaviorSubject<Array<any>>(['banana', 'apple']);
     return bs.asObservable();
   }
-
 }

@@ -19,7 +19,7 @@ import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel }
-from './state/';
+from './state';
 import { SkyCheckboxModule } from '../checkbox';
 import { SkyLinkRecordsApi } from './link-records-api';
 import { SkyLinkRecordsItemComponent } from './link-records-item.component';

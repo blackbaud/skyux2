@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyPageSummaryModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import { SkyPageSummaryModule } from '../page-summary.module';
 
 import { SkyPageSummaryTestComponent } from './page-summary.component.fixture';
 

@@ -1,11 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyListViewGridModule } from '../';
-import { SkyListModule } from '../../list';
+import {
+  CommonModule
+} from '@angular/common';
+
 import {
   SkyGridModule
 } from '../../grid';
+
+import {
+  SkyListModule
+} from '../../list';
+
+import { SkyListViewGridModule } from '../list-view-grid.module';
 
 import { ListViewGridTestComponent } from './list-view-grid.component.fixture';
 import { ListViewGridDisplayTestComponent } from './list-view-grid-display.component.fixture';

@@ -1,9 +1,13 @@
-import { async } from '@angular/core/testing/';
+import {
+  async
+} from '@angular/core/testing';
+
 import {
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel,
   SkyLinkRecordsState
 } from './state';
+
 import { SkyLinkRecordsApi } from './link-records-api';
 import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
 import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
