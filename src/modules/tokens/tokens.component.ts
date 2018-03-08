@@ -170,13 +170,13 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     switch (key) {
       case 'left':
       case 'arrowleft':
-      this.focusPreviousToken();
+      this.messageStream.next({ type: SkyTokensMessageType.FocusPreviousToken });
       event.preventDefault();
       break;
 
       case 'right':
       case 'arrowright':
-      this.focusNextToken();
+      this.messageStream.next({ type: SkyTokensMessageType.FocusNextToken });
       event.preventDefault();
       break;
 
@@ -218,6 +218,13 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  private removeActiveToken() {
+    const token = this.tokens[this.activeIndex];
+    if (token) {
+      this.removeToken(token);
+    }
+  }
+
   private initMessageStream() {
     this.messageStream
       .takeUntil(this.ngUnsubscribe)
@@ -226,6 +233,22 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
         switch (message.type) {
           case SkyTokensMessageType.FocusLastToken:
           this.focusLastToken();
+          break;
+
+          case SkyTokensMessageType.FocusActiveToken:
+          this.focusActiveToken();
+          break;
+
+          case SkyTokensMessageType.FocusPreviousToken:
+          this.focusPreviousToken();
+          break;
+
+          case SkyTokensMessageType.FocusNextToken:
+          this.focusNextToken();
+          break;
+
+          case SkyTokensMessageType.RemoveActiveToken:
+          this.removeActiveToken();
           break;
         }
       });
