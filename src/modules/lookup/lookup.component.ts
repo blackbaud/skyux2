@@ -297,11 +297,8 @@ export class SkyLookupComponent
       .takeUntil(this.idle)
       .subscribe(() => {
         const classList = documentObj.activeElement.classList;
-        if (classList) {
-          const tokenClicked = classList.contains('sky-token');
-          if (!tokenClicked) {
-            this.focusInput();
-          }
+        if (!classList || !classList.contains('sky-token')) {
+          this.focusInput();
         }
       });
   }
