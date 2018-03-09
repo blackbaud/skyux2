@@ -3,14 +3,12 @@ import commonjs from 'rollup-plugin-commonjs';
 import shared from './shared';
 
 export default {
-  input: '../../dist/core.js',
-  output: {
-    file: '../../dist/bundles/core.umd.js',
-    format: 'umd',
-    globals: shared.globals,
-    name: 'skyux.core'
-  },
+  entry: '../../dist/core.js',
+  dest: '../../dist/bundles/core.umd.js',
+  format: 'umd',
+  moduleName: 'skyux.core',
   context: 'this',
+  globals: shared.globals,
   external: shared.external,
   plugins: [
     nodeResolve(),

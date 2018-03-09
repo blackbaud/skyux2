@@ -1,9 +1,9 @@
 import rollupConfig from './rollup.config.js';
 import uglify from 'rollup-plugin-uglify';
 
-const minConfig = rollupConfig;
+var minConfig = rollupConfig;
 
-minConfig.output.file = '../../dist/bundles/demo.umd.min.js';
+minConfig.dest = '../../dist/bundles/demo.umd.min.js';
 minConfig.plugins.push(uglify());
 
 export default minConfig;
