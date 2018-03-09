@@ -235,8 +235,11 @@ export class SkyLookupComponent
       .takeUntil(this.idle)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
-
-        if (key === 'arrowleft' || key === 'backspace') {
+        if (
+          key === 'left' ||
+          key === 'arrowleft' ||
+          key === 'backspace'
+        ) {
           const isSearchEmpty = (!this.lookupInput.nativeElement.value);
           if (isSearchEmpty) {
             this.markForTokenFocusOnKeyUp = true;
@@ -251,8 +254,11 @@ export class SkyLookupComponent
       .takeUntil(this.idle)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
-
-        if (key === 'arrowleft' || key === 'backspace') {
+        if (
+          key === 'left' ||
+          key === 'arrowleft' ||
+          key === 'backspace'
+        ) {
           /* istanbul ignore else */
           if (this.markForTokenFocusOnKeyUp) {
             this.sendTokensMessage(SkyTokensMessageType.FocusLastToken);
@@ -268,9 +274,6 @@ export class SkyLookupComponent
     const hostElement = this.elementRef.nativeElement;
     const documentObj = this.windowRef.getWindow().document;
 
-    let clickRegistered = false;
-    let focusRegistered = false;
-
     // Handles focusing the input when the host is clicked.
     // The input should NOT be focused if other elements (tokens, etc.)
     // are currently focused or being tabbed through.
@@ -279,25 +282,22 @@ export class SkyLookupComponent
       .fromEvent(documentObj, 'mousedown')
       .takeUntil(this.idle)
       .subscribe((event: MouseEvent) => {
-        focusRegistered = false;
-        clickRegistered = hostElement.contains(event.target);
-        this.isInputFocused = clickRegistered;
+        this.isInputFocused = hostElement.contains(event.target);
       });
 
     Observable
       .fromEvent(documentObj, 'focusin')
       .takeUntil(this.idle)
       .subscribe((event: KeyboardEvent) => {
-        clickRegistered = false;
-        focusRegistered = hostElement.contains(event.target);
-        this.isInputFocused = focusRegistered;
+        this.isInputFocused = hostElement.contains(event.target);
       });
 
     Observable
-      .fromEvent(documentObj, 'mouseup')
+      .fromEvent(hostElement, 'mouseup')
       .takeUntil(this.idle)
       .subscribe(() => {
-        if (!focusRegistered && clickRegistered) {
+        const tokenClicked = documentObj.activeElement.classList.contains('sky-token');
+        if (!tokenClicked) {
           this.focusInput();
         }
       });

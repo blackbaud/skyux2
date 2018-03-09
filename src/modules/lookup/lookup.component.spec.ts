@@ -14,7 +14,7 @@ import { SkyLookupComponent } from './lookup.component';
 import { SkyLookupFixturesModule } from './fixtures/lookup-fixtures.module';
 import { SkyLookupTestComponent } from './fixtures/lookup.component.fixture';
 
-describe('Lookup component', () => {
+describe('Lookup component', function () {
   let fixture: ComponentFixture<SkyLookupTestComponent>;
   let component: SkyLookupTestComponent;
   let lookupComponent: SkyLookupComponent;
@@ -92,7 +92,7 @@ describe('Lookup component', () => {
     tick();
   }
 
-  beforeEach(() => {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       imports: [
         SkyLookupFixturesModule
@@ -104,12 +104,12 @@ describe('Lookup component', () => {
     lookupComponent = component.lookupComponent;
   });
 
-  afterEach(() => {
+  afterEach(function () {
     fixture.destroy();
   });
 
-  describe('basic setup', () => {
-    it('should set defaults', () => {
+  describe('basic setup', function () {
+    it('should set defaults', function () {
       expect(lookupComponent.ariaLabel).toEqual(undefined);
       expect(lookupComponent.ariaLabelledBy).toEqual(undefined);
       expect(lookupComponent.disabled).toEqual(false);
@@ -118,7 +118,7 @@ describe('Lookup component', () => {
       expect(lookupComponent.value).toEqual([]);
     });
 
-    it('should share the same inputs as autocomplete', () => {
+    it('should share the same inputs as autocomplete', function () {
       fixture.detectChanges();
       expect(typeof lookupComponent.data).not.toBeUndefined();
       expect(typeof lookupComponent.descriptorProperty).not.toBeUndefined();
@@ -130,7 +130,7 @@ describe('Lookup component', () => {
       expect(typeof lookupComponent.searchResultsLimit).not.toBeUndefined();
     });
 
-    it('should allow preselected tokens', () => {
+    it('should allow preselected tokens', function () {
       const friends = [{ name: 'Rachel' }];
       component.friends = friends;
       expect(lookupComponent.value).toEqual([]);
@@ -138,7 +138,7 @@ describe('Lookup component', () => {
       expect(lookupComponent.value).toEqual(friends);
     });
 
-    it('should add new tokens', fakeAsync(() => {
+    it('should add new tokens', fakeAsync(function () {
       fixture.detectChanges();
       expect(lookupComponent.value).toEqual([]);
 
@@ -150,7 +150,7 @@ describe('Lookup component', () => {
       expect(selectedItems[0].name).toEqual('Isaac');
     }));
 
-    it('should change the value of the lookup if tokens change', fakeAsync(() => {
+    it('should change the value of the lookup if tokens change', fakeAsync(function () {
       fixture.detectChanges();
       expect(lookupComponent.value).toEqual([]);
 
@@ -167,7 +167,7 @@ describe('Lookup component', () => {
       expect(lookupComponent.value.length).toEqual(1);
     }));
 
-    it('should focus the input if all tokens are dismissed', fakeAsync(() => {
+    it('should focus the input if all tokens are dismissed', fakeAsync(function () {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -179,15 +179,15 @@ describe('Lookup component', () => {
     }));
   });
 
-  describe('events', () => {
-    it('should not add event listeners if disabled', () => {
+  describe('events', function () {
+    it('should not add event listeners if disabled', function () {
       lookupComponent.disabled = true;
       const spy = spyOn(lookupComponent as any, 'addEventListeners').and.callThrough();
       fixture.detectChanges();
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should allow setting `disabled` after initialization', () => {
+    it('should allow setting `disabled` after initialization', function () {
       const addSpy = spyOn(lookupComponent as any, 'addEventListeners').and.callThrough();
       const removeSpy = spyOn(lookupComponent as any, 'removeEventListeners').and.callThrough();
 
@@ -217,8 +217,8 @@ describe('Lookup component', () => {
     });
   });
 
-  describe('keyboard interactions', () => {
-    it('should focus the input if arrowright key is pressed on the last token', fakeAsync(() => {
+  describe('keyboard interactions', function () {
+    it('should focus the input if arrowright key is pressed on the last token', fakeAsync(function () {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -234,7 +234,7 @@ describe('Lookup component', () => {
       expect(document.activeElement).toEqual(inputElement);
     }));
 
-    it('should focus the last token if arrowleft or backspace pressed', fakeAsync(() => {
+    it('should focus the last token if arrowleft or backspace pressed', fakeAsync(function () {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -259,7 +259,7 @@ describe('Lookup component', () => {
       expect(document.activeElement).toEqual(inputElement);
     }));
 
-    it('should not focus the last token if search text is present', fakeAsync(() => {
+    it('should not focus the last token if search text is present', fakeAsync(function () {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -273,7 +273,7 @@ describe('Lookup component', () => {
       expect(document.activeElement).toEqual(inputElement);
     }));
 
-    it('should clear the search text if escape key is pressed', fakeAsync(() => {
+    it('should clear the search text if escape key is pressed', fakeAsync(function () {
       const inputElement = getInputElement();
 
       fixture.detectChanges();
@@ -288,10 +288,66 @@ describe('Lookup component', () => {
 
       expect(inputElement.value).toEqual('');
     }));
+
+    it('should remove tokens when backpsace or delete is pressed', fakeAsync(function () {
+      component.friends = [
+        { name: 'John' },
+        { name: 'Jane' },
+        { name: 'Doe' }
+      ];
+      fixture.detectChanges();
+
+      let tokenHostElements = document.querySelectorAll('sky-token');
+      expect(tokenHostElements.length).toEqual(3);
+
+      const tokensHostElement = document.querySelector('sky-tokens');
+      TestUtility.fireKeyboardEvent(tokensHostElement, 'keyup', {
+        key: 'Backspace'
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      tokenHostElements = document.querySelectorAll('sky-token');
+      expect(tokenHostElements.length).toEqual(2);
+      expect(tokenHostElements.item(0).contains(document.activeElement))
+        .toEqual(true);
+
+      TestUtility.fireKeyboardEvent(tokensHostElement, 'keyup', {
+        key: 'Delete'
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      tokenHostElements = document.querySelectorAll('sky-token');
+      expect(tokenHostElements.length).toEqual(1);
+      expect(tokenHostElements.item(0).contains(document.activeElement))
+        .toEqual(true);
+    }));
+
+    it('should unfocus the component if it loses focus', fakeAsync(function () {
+      fixture.detectChanges();
+
+      const inputElement = getInputElement();
+      TestUtility.fireKeyboardEvent(inputElement, 'focusin');
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      expect(lookupComponent.isInputFocused).toEqual(true);
+
+      TestUtility.fireKeyboardEvent(document, 'focusin');
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      expect(lookupComponent.isInputFocused).toEqual(false);
+    }));
   });
 
-  describe('mouse interactions', () => {
-    it('should focus the input if the host is clicked', fakeAsync(() => {
+  describe('mouse interactions', function () {
+    it('should focus the input if the host is clicked', fakeAsync(function () {
       fixture.detectChanges();
 
       const hostElement = document.querySelector('.sky-lookup');
@@ -302,7 +358,7 @@ describe('Lookup component', () => {
       expect(document.activeElement).toEqual(input);
     }));
 
-    it('should not focus the input if a token is clicked', fakeAsync(() => {
+    it('should not focus the input if a token is clicked', fakeAsync(function () {
       fixture.detectChanges();
 
       performSearch('s');
