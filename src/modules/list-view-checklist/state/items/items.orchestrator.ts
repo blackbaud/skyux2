@@ -14,7 +14,7 @@ import {
   ListViewChecklistItemsLoadAction
 } from './actions';
 
-let moment = require('moment');
+const moment = require('moment');
 
 export class ListViewChecklistItemsOrchestrator
   extends ChecklistStateOrchestrator<AsyncList<ListViewChecklistItemModel>> {

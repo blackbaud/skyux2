@@ -9,7 +9,7 @@ import {
   ListSelectedSetItemsSelectedAction
 } from './actions';
 
-let moment = require('moment');
+const moment = require('moment');
 
 export class ListSelectedOrchestrator extends ListStateOrchestrator<AsyncItem<ListSelectedModel>> {
   /* istanbul ignore next */
