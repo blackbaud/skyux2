@@ -25,32 +25,33 @@ export class SkyLookupTestComponent implements OnInit {
   public friends: any[];
   public form: FormGroup;
   public placeholderText: string;
-
-  public people: any[] = [
-    { name: 'Andy' },
-    { name: 'Beth' },
-    { name: 'David' },
-    { name: 'Frank' },
-    { name: 'Isaac' },
-    { name: 'John' },
-    { name: 'Joyce' },
-    { name: 'Lindsey' },
-    { name: 'Mitch' },
-    { name: 'Patty' },
-    { name: 'Paul' },
-    { name: 'Sally' },
-    { name: 'Susan' },
-    { name: 'Vanessa' },
-    { name: 'Xavier' },
-    { name: 'Yolanda' },
-    { name: 'Zack' }
-  ];
+  public data: any[];
 
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
+    this.data = [
+      { name: 'Andy' },
+      { name: 'Beth' },
+      { name: 'David' },
+      { name: 'Frank' },
+      { name: 'Isaac' },
+      { name: 'John' },
+      { name: 'Joyce' },
+      { name: 'Lindsey' },
+      { name: 'Mitch' },
+      { name: 'Patty' },
+      { name: 'Paul' },
+      { name: 'Sally' },
+      { name: 'Susan' },
+      { name: 'Vanessa' },
+      { name: 'Xavier' },
+      { name: 'Yolanda' },
+      { name: 'Zack' }
+    ];
+
     this.createForm();
   }
 
