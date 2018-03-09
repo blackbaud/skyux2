@@ -350,7 +350,7 @@ describe('Lookup component', function () {
     it('should focus the input if the host is clicked', fakeAsync(function () {
       fixture.detectChanges();
 
-      const hostElement = document.querySelector('.sky-lookup');
+      const hostElement = document.querySelector('sky-lookup');
       const input = getInputElement();
 
       triggerClick(hostElement);
