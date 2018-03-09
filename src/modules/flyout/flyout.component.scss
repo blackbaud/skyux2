@@ -10,21 +10,22 @@
   background-color: #fff;
   border-left: 6px solid $sky-highlight-color-info;
   z-index: $sky-flyout-z-index;
-  overflow: auto;
-  width: 100%;
 
   &:focus {
     outline: none;
   }
 
-  @media (min-width: $sky-screen-sm-min) {
-    width: 50%;
-    min-width: 320px;
-  }
-
   &.sky-flyout-hidden {
     visibility: hidden;
   }
+}
+
+.sky-flyout-handle {
+  height: 100%;
+  width: 14px;
+  position: absolute;
+  left: -10px;
+  cursor: ew-resize;
 }
 
 .sky-flyout-header {
@@ -47,4 +48,9 @@
   @media (min-width: $sky-screen-sm-min) {
     padding-right: 50px;
   }
+}
+
+.sky-flyout-content {
+  overflow-y: auto;
+  height: calc(100% - 50px);
 }

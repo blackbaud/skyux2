@@ -54,9 +54,18 @@ describe('Flyout component', () => {
     tick();
   }
 
-  function getFlyoutElement(): HTMLElement {
-    return document.querySelector('.sky-flyout') as HTMLElement;
+  function makeEvent(eventType: string, evtObj: any) {
+    let evt = new MouseEvent(eventType, evtObj);
+    document.dispatchEvent(evt);
   }
+
+  function getFlyoutElement(): HTMLElement {
+   return document.querySelector('.sky-flyout') as HTMLElement;
+  }
+
+  function getFlyoutHandleElement(): HTMLElement {
+    return document.querySelector('.sky-flyout-handle') as HTMLElement;
+   }
 
   function getFlyoutHeaderElement(): HTMLElement {
     return document.querySelector('.sky-flyout-header') as HTMLElement;
@@ -159,11 +168,13 @@ describe('Flyout component', () => {
       const expectedLabel = 'customlabelledby';
       const expectedDescribed = 'customdescribedby';
       const expectedRole = 'customrole';
+      const expectedDefault = 500;
 
       openFlyout({
         ariaLabelledBy: expectedLabel,
         ariaDescribedBy: expectedDescribed,
-        ariaRole: expectedRole
+        ariaRole: expectedRole,
+        defaultWidth: expectedDefault
       });
 
       const flyoutElement = getFlyoutElement();
@@ -174,6 +185,8 @@ describe('Flyout component', () => {
         .toBe(expectedDescribed);
       expect(flyoutElement.getAttribute('role'))
         .toBe(expectedRole);
+      expect(getComputedStyle(flyoutElement).width)
+        .toBe(expectedDefault + 'px');
     })
   );
 
@@ -191,6 +204,77 @@ describe('Flyout component', () => {
       openFlyout();
       const headerElement = getFlyoutHeaderElement();
       expect(headerElement.classList.contains('sky-flyout-help-shim')).toBeTruthy();
+    })
+  );
+
+  it('should resize when handle is dragged',
+    fakeAsync(() => {
+
+      openFlyout({});
+      const flyoutElement = getFlyoutElement();
+      const handleElement = getFlyoutHandleElement();
+      
+      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      handleElement.dispatchEvent(new MouseEvent('mousedown', { clientX: 1000 }));
+      makeEvent('mousemove', { clientX: 1100 });
+      tick();
+      fixture.detectChanges();
+      tick();
+      expect(getComputedStyle(flyoutElement).width).toBe('400px');
+      makeEvent('mousemove', { clientX: 1000 });
+      tick();
+      fixture.detectChanges();
+      tick();
+      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      makeEvent('mouseup', null);
+    })
+  );
+
+  it('should respect minimum and maximum when resizing',
+    fakeAsync(() => {
+
+      openFlyout({ maxWidth: 1000, minWidth: 200});
+      const flyoutElement = getFlyoutElement();
+      const handleElement = getFlyoutHandleElement();
+      
+      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      handleElement.dispatchEvent(new MouseEvent('mousedown', { clientX: 1000 }));
+      makeEvent('mousemove', { clientX: 500 });
+      tick();
+      fixture.detectChanges();
+      tick();
+      expect(getComputedStyle(flyoutElement).width).toBe('1000px');
+      makeEvent('mousemove', { clientX: 200 });
+      tick();
+      fixture.detectChanges();
+      tick();
+      expect(getComputedStyle(flyoutElement).width).toBe('1000px');
+      makeEvent('mousemove', { clientX: 1300 });
+      tick();
+      fixture.detectChanges();
+      tick();
+      expect(getComputedStyle(flyoutElement).width).toBe('200px');
+      makeEvent('mousemove', { clientX: 1400 });
+      tick();
+      fixture.detectChanges();
+      tick();
+      expect(getComputedStyle(flyoutElement).width).toBe('200px');
+      makeEvent('mouseup', null);
+    })
+  );
+
+  it('should not resize when handle not clicked',
+    fakeAsync(() => {
+
+      openFlyout({});
+      const flyoutElement = getFlyoutElement();
+      
+      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      makeEvent('mousemove', { clientX: 1100 });
+      tick();
+      fixture.detectChanges();
+      tick();
+      expect(getComputedStyle(flyoutElement).width).toBe('500px');
     })
   );
 });
