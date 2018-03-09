@@ -13,7 +13,7 @@ import {
   getData
 } from '../list/helpers';
 
-let moment = require('moment');
+const moment = require('moment');
 
 export class SkyListInMemoryDataProvider extends ListDataProvider {
   public items: BehaviorSubject<Array<ListItemModel>> =
