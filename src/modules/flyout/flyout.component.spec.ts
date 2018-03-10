@@ -163,7 +163,7 @@ describe('Flyout component', () => {
     expect(flyoutContentElement).toHaveText('Sally');
   }));
 
-  it('should accept configuration options for aria-labelledBy, aria-describedby and role',
+  it('should accept configuration options for aria-labelledBy, aria-describedby, role, and width',
     fakeAsync(() => {
       const expectedLabel = 'customlabelledby';
       const expectedDescribed = 'customdescribedby';
@@ -213,20 +213,16 @@ describe('Flyout component', () => {
       openFlyout({});
       const flyoutElement = getFlyoutElement();
       const handleElement = getFlyoutHandleElement();
-      
+
       expect(getComputedStyle(flyoutElement).width).toBe('500px');
       handleElement.dispatchEvent(new MouseEvent('mousedown', { clientX: 1000 }));
       makeEvent('mousemove', { clientX: 1100 });
-      tick();
       fixture.detectChanges();
-      tick();
       expect(getComputedStyle(flyoutElement).width).toBe('400px');
       makeEvent('mousemove', { clientX: 1000 });
-      tick();
       fixture.detectChanges();
-      tick();
       expect(getComputedStyle(flyoutElement).width).toBe('500px');
-      makeEvent('mouseup', null);
+      makeEvent('mouseup', undefined);
     })
   );
 
@@ -236,44 +232,34 @@ describe('Flyout component', () => {
       openFlyout({ maxWidth: 1000, minWidth: 200});
       const flyoutElement = getFlyoutElement();
       const handleElement = getFlyoutHandleElement();
-      
+
       expect(getComputedStyle(flyoutElement).width).toBe('500px');
       handleElement.dispatchEvent(new MouseEvent('mousedown', { clientX: 1000 }));
       makeEvent('mousemove', { clientX: 500 });
-      tick();
       fixture.detectChanges();
-      tick();
       expect(getComputedStyle(flyoutElement).width).toBe('1000px');
       makeEvent('mousemove', { clientX: 200 });
-      tick();
       fixture.detectChanges();
-      tick();
       expect(getComputedStyle(flyoutElement).width).toBe('1000px');
       makeEvent('mousemove', { clientX: 1300 });
-      tick();
       fixture.detectChanges();
-      tick();
       expect(getComputedStyle(flyoutElement).width).toBe('200px');
       makeEvent('mousemove', { clientX: 1400 });
-      tick();
       fixture.detectChanges();
-      tick();
       expect(getComputedStyle(flyoutElement).width).toBe('200px');
-      makeEvent('mouseup', null);
+      makeEvent('mouseup', undefined);
     })
   );
 
-  it('should not resize when handle not clicked',
+  it('should not resize when handle is not clicked',
     fakeAsync(() => {
 
       openFlyout({});
       const flyoutElement = getFlyoutElement();
-      
+
       expect(getComputedStyle(flyoutElement).width).toBe('500px');
       makeEvent('mousemove', { clientX: 1100 });
-      tick();
       fixture.detectChanges();
-      tick();
       expect(getComputedStyle(flyoutElement).width).toBe('500px');
     })
   );
