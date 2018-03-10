@@ -17,7 +17,7 @@ import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture
 
 import { expect } from '../testing';
 
-let moment = require('moment');
+const moment = require('moment');
 
 describe('Timepicker', () => {
   function openTimepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {

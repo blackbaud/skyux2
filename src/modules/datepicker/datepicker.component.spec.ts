@@ -42,7 +42,7 @@ import {By} from '@angular/platform-browser';
 
 import { SkyWindowRefService } from '../window';
 
-let moment = require('moment');
+const moment = require('moment');
 
 describe('datepicker', () => {
 
