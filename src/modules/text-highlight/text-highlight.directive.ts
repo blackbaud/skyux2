@@ -27,14 +27,9 @@ export class SkyTextHighlightDirective
 
   private static getRegexMatch(node: HTMLElement, searchText: string): RegExpExecArray {
     const text = node.nodeValue;
-    const newSearchText = this.addBackSlash(searchText);
+    const newSearchText = searchText.replace(/\\/g, '\\\\');
     const searchRegex = new RegExp(newSearchText, 'gi');
     return searchRegex.exec(text);
-  }
-
-  private static addBackSlash(searchText: string): string {
-    let newSearchText = searchText.replace(/\\/g, '\\\\');
-    return newSearchText;
   }
 
   private static markNode(node: any, searchText: string) {
