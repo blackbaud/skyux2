@@ -9,8 +9,10 @@ import {
   SkyWindowRefService
 } from '../window';
 
-import { SkyPopoverComponent } from './popover.component';
-import { SkyPopoverDirective } from './popover.directive';
+import {
+  SkyPopoverComponent,
+  SkyPopoverDirective
+} from './index';
 
 @NgModule({
   declarations: [

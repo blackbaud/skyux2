@@ -1,14 +1,17 @@
 import { SkyModalConfiguration } from './modal-configuration';
 
 describe('Modal configuration', () => {
-  let testService: SkyModalConfiguration;
+  it('shout work initilize the configuration class', () => {
 
-  beforeEach(() => {
-    testService = new SkyModalConfiguration();
-    testService.fullPage = true;
+    beforeEach(function () {
+      this.testService = new SkyModalConfiguration();
+      this.testService.fullPage = true;
+    });
+
+    it('should have name property fullPage', function () {
+      expect(this.testService.fullPage).toBe(true);
+    });
+
   });
 
-  it('should have name property fullPage', () => {
-    expect(testService.fullPage).toBe(true);
-  });
 });

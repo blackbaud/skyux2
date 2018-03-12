@@ -1,3 +1,4 @@
+import { SkyFlyoutDemoComponent } from './flyout/flyout-demo.component';
 import { Injectable } from '@angular/core';
 
 import {
@@ -18,7 +19,6 @@ import {
   SkyFilterDemoComponent,
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
-  SkyFlyoutDemoComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
   SkyKeyInfoDemoComponent,

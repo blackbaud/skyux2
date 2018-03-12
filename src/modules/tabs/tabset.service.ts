@@ -10,8 +10,10 @@ import 'rxjs/add/operator/take';
 @Injectable()
 export class SkyTabsetService {
 
-  public tabs = new BehaviorSubject<SkyTabComponent[]>([]);
-  public activeIndex = new BehaviorSubject<any>(0);
+  public tabs: BehaviorSubject<Array<SkyTabComponent>>
+    = new BehaviorSubject<Array<SkyTabComponent>>([]);
+
+  public activeIndex: BehaviorSubject<any> = new BehaviorSubject(0);
 
   public activateTab(tab: SkyTabComponent) {
     this.tabs.take(1).subscribe((currentTabs) => {

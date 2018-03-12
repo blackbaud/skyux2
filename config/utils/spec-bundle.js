@@ -29,8 +29,6 @@ require('zone.js/dist/jasmine-patch');
 require('intl');
 require('intl/locale-data/jsonp/en');
 
-// require('rxjs/add/operator/map');
-
 var testing = require('@angular/core/testing');
 var browser = require('@angular/platform-browser-dynamic/testing');
 
