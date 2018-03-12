@@ -55,7 +55,9 @@ describe('Flyout component', () => {
   }
 
   function makeEvent(eventType: string, evtObj: any) {
-    let evt = new MouseEvent(eventType, evtObj);
+    let evt = document.createEvent('MouseEvents');
+      evt.initMouseEvent(eventType, false, false, window, 0, 0, 0, evtObj.clientX,
+        0, false, false, false, false, 0, undefined);
     document.dispatchEvent(evt);
   }
 
@@ -223,7 +225,7 @@ describe('Flyout component', () => {
       makeEvent('mousemove', { clientX: 1000 });
       fixture.detectChanges();
       expect(flyoutElement.style.width).toBe('500px');
-      makeEvent('mouseup', undefined);
+      makeEvent('mouseup', {});
     })
   );
 
@@ -249,7 +251,7 @@ describe('Flyout component', () => {
       makeEvent('mousemove', { clientX: 1400 });
       fixture.detectChanges();
       expect(flyoutElement.style.width).toBe('200px');
-      makeEvent('mouseup', undefined);
+      makeEvent('mouseup', {});
     })
   );
 
