@@ -17,7 +17,7 @@ export class SkySelectFieldDemoComponent {
   ];
 
   public singleModeStyle = 'single';
-  public singleModeText = 'Choose one value';
+  public singleModeText = 'Select a value';
   public singleItemSelected = [this.pickerItems[3]];
 
   public multipleModeText = 'Select some values';

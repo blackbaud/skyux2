@@ -5,11 +5,11 @@
     <div *ngIf="!pickerHeader && !isSelectMultiple()">{{'selectfieldpicker_select_value' | skyResources}}</div>
   </sky-modal-header>
   <sky-modal-content>
-    <div *ngIf="true else developerProvidedTemplate">
+    <div>
       <sky-list [data]="filteredItems" [selectedIds]='selectedIds' (selectedIdsChange)="selectedItemsChange($event)">
         <sky-list-toolbar>
         </sky-list-toolbar>
-        <div *ngIf="isSelectMultiple() else singleSelectToolbar">
+        <div *ngIf="selectFieldStyle === 'multiple' else singleSelectToolbar">
           <!-- remove once list-toolbar supports categories /skyux2/issues/377 -->
         </div>
         <sky-list-view-checklist label="label" description="description" [selectMode]="selectFieldStyle">
@@ -52,9 +52,4 @@
         </sky-dropdown-menu>
     </sky-dropdown>
   </div>
-</ng-template>
-
-
-<ng-template #developerProvidedTemplate>
-  developer provided template?
 </ng-template>

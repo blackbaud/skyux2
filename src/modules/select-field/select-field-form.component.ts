@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, Renderer2 } from '@angular/core';
 import { SkyModalInstance } from '../modal';
 import { SkySelectFieldContext } from './select-field-context';
 import { SkySelectField } from './types';
@@ -12,7 +12,7 @@ import { Subject } from 'rxjs/Subject';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SkySelectFieldFormComponent {
+export class SkySelectFieldFormComponent implements AfterViewInit {
   public allItems: BehaviorSubject<SkySelectField> = new BehaviorSubject(this.context.pickerList);
   public filteredItems: Subject<SkySelectField> = this.allItems;
   public selectedCategory: string;
@@ -20,9 +20,15 @@ export class SkySelectFieldFormComponent {
 
   constructor(
     public context: SkySelectFieldContext,
-    public instance: SkyModalInstance
+    public instance: SkyModalInstance,
+    private renderer: Renderer2
   ) { this.setSelectedIds(); }
 
+  public ngAfterViewInit() {
+    setTimeout(() => {
+      this.renderer.selectRootElement('input.sky-search-input').focus();
+    });
+  }
   public save() {
     this.instance.save(this.selectedItems);
   }
