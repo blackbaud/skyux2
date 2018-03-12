@@ -9,7 +9,7 @@
       <sky-list [data]="filteredItems" [selectedIds]='selectedIds' (selectedIdsChange)="selectedItemsChange($event)">
         <sky-list-toolbar>
         </sky-list-toolbar>
-        <div *ngIf="selectFieldStyle === 'multiple' else singleSelectToolbar">
+        <div *ngIf="isSelectMultiple() else singleSelectToolbar">
           <!-- remove once list-toolbar supports categories /skyux2/issues/377 -->
         </div>
         <sky-list-view-checklist label="label" description="description" [selectMode]="selectFieldStyle">
