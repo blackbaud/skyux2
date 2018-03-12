@@ -72,7 +72,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   public slider: SliderPosition;
   public initialColor: string;
   public visibility: string;
-  public resetButtonVisibility: string;
+  public showResetButton: boolean;
 
   public dropdownController = new Subject<SkyDropdownMessage>();
 
@@ -114,13 +114,13 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     outputFormat: string,
     presetColors: Array<string>,
     alphaChannel: string,
-    resetButtonVisibility: string
+    showResetButton: boolean
   ) {
     this.initialColor = color;
     this.outputFormat = outputFormat;
     this.presetColors = presetColors;
     this.alphaChannel = alphaChannel;
-    this.resetButtonVisibility = resetButtonVisibility;
+    this.showResetButton = showResetButton;
 
     if (this.outputFormat === 'rgba') {
       this.format = 1;
@@ -287,7 +287,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
         break;
 
       case SkyColorpickerMessageType.ToggleResetButton:
-        this.resetButtonVisibility = this.resetButtonVisibility === 'show' ? 'hidden' : 'show';
+        this.showResetButton = !this.showResetButton;
         break;
 
     }

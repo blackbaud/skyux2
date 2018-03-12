@@ -77,7 +77,7 @@ export class SkyColorpickerInputDirective
   @Input()
   public alphaChannel: string = 'hex6';
   @Input()
-  public resetButtonVisibility: string = 'show';
+  public showResetButton: boolean = true;
 
   private _initialColor = SKY_COLORPICKER_DEFAULT_COLOR;
   private created: boolean;
@@ -142,7 +142,7 @@ export class SkyColorpickerInputDirective
       this.outputFormat,
       this.presetColors,
       this.alphaChannel,
-      this.resetButtonVisibility
+      Boolean(this.showResetButton)
     );
   }
 

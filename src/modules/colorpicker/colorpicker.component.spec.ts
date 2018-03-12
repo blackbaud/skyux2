@@ -12,7 +12,7 @@ import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 import { expect } from '../testing';
 import { SkyColorpickerComponent } from '.';
-import { SkyColorpickerMessageType } from '../../../dist/core';
+import { SkyColorpickerMessageType } from './types';
 import { SkyColorpickerInputDirective } from './colorpicker-input.directive';
 
 describe('Colorpicker Component', () => {
@@ -459,13 +459,13 @@ describe('Colorpicker Component', () => {
     const directiveEl = fixture.debugElement.query(By.directive(SkyColorpickerInputDirective));
     const directiveInstance = directiveEl.injector.get(SkyColorpickerInputDirective);
     fixture.detectChanges();
-    directiveInstance.resetButtonVisibility = 'hidden';
+    directiveInstance.showResetButton = false;
     directiveInstance.setColorPickerDefaults();
     tick();
     fixture.detectChanges();
     tick();
     expect(nativeElement.querySelectorAll('.sky-colorpicker-reset-button').length).toEqual(0);
-    directiveInstance.resetButtonVisibility = 'show';
+    directiveInstance.showResetButton = true;
     directiveInstance.setColorPickerDefaults();
     tick();
     fixture.detectChanges();

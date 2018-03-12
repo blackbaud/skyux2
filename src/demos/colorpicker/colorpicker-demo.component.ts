@@ -33,7 +33,7 @@ export class SkyColorpickerDemoComponent {
     '#68AFEF'
   ];
   public colorpickerController = new Subject<SkyColorpickerMessage>();
-
+  public showResetButton = false;
   public onSelectedColorChanged(args: SkyColorpickerOutput) {
     console.log('You selected this color:', args);
   }
