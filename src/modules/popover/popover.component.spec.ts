@@ -53,8 +53,7 @@ describe('SkyPopoverComponent', () => {
         NoopAnimationsModule,
         SkyPopoverModule
       ]
-    })
-    .compileComponents();
+    });
 
     TestBed.overrideComponent(SkyPopoverComponent, {
       set: {
@@ -67,6 +66,10 @@ describe('SkyPopoverComponent', () => {
     fixture = TestBed.createComponent(SkyPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should call the adapter service to position the popover', fakeAsync(() => {

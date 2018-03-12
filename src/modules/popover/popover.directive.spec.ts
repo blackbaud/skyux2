@@ -108,12 +108,15 @@ describe('SkyPopoverDirective', () => {
         { provide: SkyPopoverAdapterService, useValue: mockAdapterService },
         { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
-    })
-    .compileComponents();
+    });
 
     fixture = TestBed.createComponent(SkyPopoverTestComponent);
     directiveElements = fixture.debugElement.queryAll(By.directive(SkyPopoverDirective));
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should ask the popover to position itself accordingly', () => {

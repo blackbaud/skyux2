@@ -701,18 +701,20 @@ describe('Grid Component', () => {
     let fixture: ComponentFixture<GridAsyncTestComponent>;
     let element: DebugElement;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           GridFixturesModule,
           SkyGridModule
         ]
-      }).compileComponents();
-    }));
+      });
 
-    beforeEach(() => {
       fixture = TestBed.createComponent(GridAsyncTestComponent);
       element = fixture.debugElement as DebugElement;
+    });
+
+    afterEach(() => {
+      fixture.destroy();
     });
 
     it('should handle async column headings', fakeAsync(() => {
