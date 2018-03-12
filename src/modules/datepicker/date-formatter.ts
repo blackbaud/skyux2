@@ -1,4 +1,4 @@
-let moment = require('moment');
+const moment = require('moment');
 
 export class SkyDateFormatter {
   public format(date: Date, format: string): string {
