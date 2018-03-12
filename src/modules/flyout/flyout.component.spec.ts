@@ -207,9 +207,7 @@ describe('Flyout component', () => {
     })
   );
 
-  it('should resize when handle is dragged',
-    fakeAsync(() => {
-
+  it('should resize when handle is dragged', fakeAsync(() => {
       openFlyout({});
       const flyoutElement = getFlyoutElement();
       const handleElement = getFlyoutHandleElement();
@@ -229,9 +227,7 @@ describe('Flyout component', () => {
     })
   );
 
-  it('should respect minimum and maximum when resizing',
-    fakeAsync(() => {
-
+  it('should respect minimum and maximum when resizing', fakeAsync(() => {
       openFlyout({ maxWidth: 1000, minWidth: 200});
       const flyoutElement = getFlyoutElement();
       const handleElement = getFlyoutHandleElement();
