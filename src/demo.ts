@@ -87,7 +87,9 @@ import {
   SkyFlyoutDemoInternalComponent
 } from './demos';
 
-import { SkyDemoService } from './demos/demo.service';
+import {
+  SkyDemoService
+} from './demos';
 
 const components = [
   SkyActionButtonDemoComponent,
@@ -176,4 +178,3 @@ const components = [
 export class SkyDemoModule { }
 
 export * from './demos';
-export * from './demos/demo.service';

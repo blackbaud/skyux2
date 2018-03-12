@@ -13,7 +13,7 @@ import {
   ViewChildren
 } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
@@ -60,16 +60,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   @Input()
-  public set focusable(value: boolean) {
-    this._focusable = value;
-  }
-
-  public get focusable(): boolean {
-    return (this._focusable !== false);
-  }
-
-  @Input()
-  public messageStream = new ReplaySubject<SkyTokensMessage>();
+  public messageStream = new Subject<SkyTokensMessage>();
 
   @Input()
   public set tokens(value: SkyToken[]) {
@@ -113,12 +104,11 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChildren(SkyTokenComponent)
   private tokenComponents: QueryList<SkyTokenComponent>;
-  private destroyed = new ReplaySubject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   private _activeIndex: number;
   private _disabled: boolean;
   private _dismissible: boolean;
-  private _focusable: boolean;
   private _tokens: SkyToken[];
   private _displayWith: string;
 
@@ -143,8 +133,12 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.destroyed.next(true);
-    this.destroyed.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+
+    if (this.messageStream) {
+      this.messageStream.complete();
+    }
   }
 
   public onTokenClick(token: SkyToken) {
@@ -164,11 +158,13 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
     /* tslint:disable-next-line:switch-default */
     switch (key) {
+      case 'left':
       case 'arrowleft':
       this.focusPreviousToken();
       event.preventDefault();
       break;
 
+      case 'right':
       case 'arrowright':
       this.focusNextToken();
       event.preventDefault();
@@ -177,20 +173,6 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
       case 'enter':
       this.notifyTokenSelected(token);
       event.preventDefault();
-      break;
-
-      case 'backspace':
-      if (this.dismissible) {
-        this.focusPreviousToken();
-        event.preventDefault();
-      }
-      break;
-
-      case 'delete':
-      if (this.dismissible) {
-        this.focusActiveToken();
-        event.preventDefault();
-      }
       break;
     }
   }
@@ -228,7 +210,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   private initMessageStream() {
     this.messageStream
-      .takeUntil(this.destroyed)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyTokensMessage) => {
         /* tslint:disable-next-line:switch-default */
         switch (message.type) {

@@ -32,11 +32,8 @@
   margin-left: 2px;
   opacity: .9;
 
-  &:hover {
-    opacity: 1;
-  }
-
+  &:hover,
   &:focus {
-    outline: none;
+    opacity: 1;
   }
 }

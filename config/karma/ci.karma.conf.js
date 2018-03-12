@@ -4,15 +4,13 @@ module.exports = function (config) {
   require('./shared.karma.conf')(config);
 
   let customLaunchers = {
-      // TODO: Re-enable IE 11 once we figure out what's causing
-      // the unit tests to crash the browser.
-      // bs_windows_ie_11: {
-      //   base: 'BrowserStack',
-      //   browser: 'ie',
-      //   browser_version: '11.0',
-      //   os: 'Windows',
-      //   os_version: '10'
-      // },
+      bs_windows_ie_11: {
+        base: 'BrowserStack',
+        browser: 'ie',
+        browser_version: '11.0',
+        os: 'Windows',
+        os_version: '10'
+      },
       bs_windows_edge: {
         base: 'BrowserStack',
         browser: 'edge',

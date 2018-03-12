@@ -68,13 +68,10 @@ function copySrc() {
 }
 
 function escapeContents(contents) {
-  return String.raw`${contents}`
-    // The `+$` character combo causes some strange behavior during
-    // the compile process. The placeholder phrase will then be
-    // replaced at the end of the process.
-    .replace(/\+\$/g, '---PLUSSIGNDOLLAR---')
-    .replace(/\$/g, `\\\$`)
-    .replace(/\\\'/g, String.raw`\\\'`);
+  return contents.toString()
+    .replace(/`/g, '\`')
+    .replace(/\+/g, '&#43;')
+    .replace(/\$/g, '&#36;');
 }
 
 function compileSass(file) {
@@ -146,7 +143,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
 
   if (quote) {
     requireContents = requireContents.toString().replace(/\\f/g, '\\\\f');
-    requireContents = '`' + requireContents.toString().replace(/`/g, '\\\`') + '`';
+    requireContents = '`' + requireContents.toString().replace(/`/g, '\\`') + '`';
   }
 
   if (processFn) {
@@ -209,9 +206,6 @@ function injectRequiredFileContents() {
         regex.lastIndex = 0;
       }
     }
-
-    // Replace the placeholder with `+$` character combo.
-    fileContents = fileContents.replace(/\-\-\-PLUSSIGNDOLLAR\-\-\-/g, '+\\\$');
 
     fs.writeFileSync(
       file,
