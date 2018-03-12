@@ -185,8 +185,8 @@ describe('Flyout component', () => {
         .toBe(expectedDescribed);
       expect(flyoutElement.getAttribute('role'))
         .toBe(expectedRole);
-      expect(getComputedStyle(flyoutElement).width)
-        .toBe(expectedDefault + 'px');
+      expect(flyoutElement.offsetWidth)
+        .toBe(expectedDefault);
     })
   );
 
@@ -214,14 +214,14 @@ describe('Flyout component', () => {
       const flyoutElement = getFlyoutElement();
       const handleElement = getFlyoutHandleElement();
 
-      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      expect(flyoutElement.offsetWidth).toBe(500);
       handleElement.dispatchEvent(new MouseEvent('mousedown', { clientX: 1000 }));
       makeEvent('mousemove', { clientX: 1100 });
       fixture.detectChanges();
-      expect(getComputedStyle(flyoutElement).width).toBe('400px');
+      expect(flyoutElement.offsetWidth).toBe(400);
       makeEvent('mousemove', { clientX: 1000 });
       fixture.detectChanges();
-      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      expect(flyoutElement.offsetWidth).toBe(500);
       makeEvent('mouseup', undefined);
     })
   );
@@ -233,20 +233,20 @@ describe('Flyout component', () => {
       const flyoutElement = getFlyoutElement();
       const handleElement = getFlyoutHandleElement();
 
-      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      expect(flyoutElement.offsetWidth).toBe(500);
       handleElement.dispatchEvent(new MouseEvent('mousedown', { clientX: 1000 }));
       makeEvent('mousemove', { clientX: 500 });
       fixture.detectChanges();
-      expect(getComputedStyle(flyoutElement).width).toBe('1000px');
+      expect(flyoutElement.offsetWidth).toBe(1000);
       makeEvent('mousemove', { clientX: 200 });
       fixture.detectChanges();
-      expect(getComputedStyle(flyoutElement).width).toBe('1000px');
+      expect(flyoutElement.offsetWidth).toBe(1000);
       makeEvent('mousemove', { clientX: 1300 });
       fixture.detectChanges();
-      expect(getComputedStyle(flyoutElement).width).toBe('200px');
+      expect(flyoutElement.offsetWidth).toBe(200);
       makeEvent('mousemove', { clientX: 1400 });
       fixture.detectChanges();
-      expect(getComputedStyle(flyoutElement).width).toBe('200px');
+      expect(flyoutElement.offsetWidth).toBe(200);
       makeEvent('mouseup', undefined);
     })
   );
@@ -257,10 +257,10 @@ describe('Flyout component', () => {
       openFlyout({});
       const flyoutElement = getFlyoutElement();
 
-      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      expect(flyoutElement.offsetWidth).toBe(500);
       makeEvent('mousemove', { clientX: 1100 });
       fixture.detectChanges();
-      expect(getComputedStyle(flyoutElement).width).toBe('500px');
+      expect(flyoutElement.offsetWidth).toBe(500);
     })
   );
 });
