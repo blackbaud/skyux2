@@ -73,6 +73,7 @@ function escapeContents(contents) {
     // the compile process. The placeholder phrase will then be
     // replaced at the end of the process.
     .replace(/\+\$/g, '---PLUSSIGNDOLLAR---')
+    .replace(/\\n/g, String.raw`\\n`)
     .replace(/\$/g, `\\\$`)
     .replace(/\\\'/g, String.raw`\\\'`);
 }
