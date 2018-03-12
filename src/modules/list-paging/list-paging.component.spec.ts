@@ -24,14 +24,12 @@ import { ListItemModel } from '../list/state/items/item.model';
 
 import { AsyncList } from 'microedge-rxstate/dist';
 
-let moment = require('moment');
+const moment = require('moment');
 
 describe('List Paging Component', () => {
   let state: ListState,
       dispatcher: ListStateDispatcher,
-      component: ListPagingTestComponent,
       fixture: any,
-      nativeElement: HTMLElement,
       element: DebugElement;
 
   beforeEach(async(() => {
@@ -52,9 +50,7 @@ describe('List Paging Component', () => {
     });
 
     fixture = TestBed.createComponent(ListPagingTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
     element = fixture.debugElement as DebugElement;
-    component = fixture.componentInstance;
     fixture.detectChanges();
 
     // always skip the first update to ListState, when state is ready

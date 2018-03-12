@@ -12,7 +12,7 @@ import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-let moment = require('moment');
+const moment = require('moment');
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
