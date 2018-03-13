@@ -215,9 +215,11 @@ describe('Flyout component', () => {
       const handleElement = getFlyoutHandleElement();
 
       expect(flyoutElement.style.width).toBe('500px');
+
       let evt = document.createEvent('MouseEvents');
       evt.initMouseEvent('mousedown', false, false, window, 0, 0, 0, 1000,
         0, false, false, false, false, 0, undefined);
+
       handleElement.dispatchEvent(evt);
       makeEvent('mousemove', { clientX: 1100 });
       fixture.detectChanges();
