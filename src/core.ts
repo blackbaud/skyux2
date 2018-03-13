@@ -45,6 +45,7 @@ import { SkyListSecondaryActionsModule } from './modules/list-secondary-actions'
 import { SkyListToolbarModule } from './modules/list-toolbar';
 import { SkyListViewChecklistModule } from './modules/list-view-checklist';
 import { SkyListViewGridModule } from './modules/list-view-grid';
+import { SkyLookupModule } from './modules/lookup';
 import { SkyMediaQueryModule } from './modules/media-queries';
 import { SkyModalModule } from './modules/modal';
 import { SkyNavbarModule } from './modules/navbar';
@@ -103,6 +104,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyListToolbarModule,
     SkyListViewChecklistModule,
     SkyListViewGridModule,
+    SkyLookupModule,
     SkyMediaQueryModule,
     SkyModalModule,
     SkyNavbarModule,
@@ -149,8 +151,8 @@ export * from './modules/error';
 export * from './modules/fileattachments';
 export * from './modules/filter';
 export * from './modules/fluid-grid';
-export * from './modules/format';
 export * from './modules/flyout';
+export * from './modules/format';
 export * from './modules/grid';
 export * from './modules/help-inline';
 export * from './modules/key-info';
@@ -165,6 +167,7 @@ export * from './modules/list-secondary-actions';
 export * from './modules/list-toolbar';
 export * from './modules/list-view-checklist';
 export * from './modules/list-view-grid';
+export * from './modules/lookup';
 export * from './modules/modal';
 export * from './modules/media-queries';
 export * from './modules/navbar';

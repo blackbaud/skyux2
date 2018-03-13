@@ -60,6 +60,15 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   @Input()
+  public set focusable(value: boolean) {
+    this._focusable = value;
+  }
+
+  public get focusable(): boolean {
+    return (this._focusable !== false);
+  }
+
+  @Input()
   public messageStream = new Subject<SkyTokensMessage>();
 
   @Input()
@@ -109,6 +118,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   private _activeIndex: number;
   private _disabled: boolean;
   private _dismissible: boolean;
+  private _focusable: boolean;
   private _tokens: SkyToken[];
   private _displayWith: string;
 
@@ -149,7 +159,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this.notifyTokenSelected(token);
   }
 
-  public onTokenKeyUp(event: KeyboardEvent, token: SkyToken) {
+  public onTokenKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
     if (this.disabled) {
@@ -160,21 +170,24 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     switch (key) {
       case 'left':
       case 'arrowleft':
-      this.focusPreviousToken();
+      this.messageStream.next({ type: SkyTokensMessageType.FocusPreviousToken });
       event.preventDefault();
       break;
 
       case 'right':
       case 'arrowright':
-      this.focusNextToken();
-      event.preventDefault();
-      break;
-
-      case 'enter':
-      this.notifyTokenSelected(token);
+      this.messageStream.next({ type: SkyTokensMessageType.FocusNextToken });
       event.preventDefault();
       break;
     }
+  }
+
+  public selectToken(token: SkyToken) {
+    if (this.disabled) {
+      return;
+    }
+
+    this.notifyTokenSelected(token);
   }
 
   public removeToken(token: SkyToken) {
@@ -208,6 +221,13 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  private removeActiveToken() {
+    const token = this.tokens[this.activeIndex];
+    if (token) {
+      this.removeToken(token);
+    }
+  }
+
   private initMessageStream() {
     this.messageStream
       .takeUntil(this.ngUnsubscribe)
@@ -216,6 +236,22 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
         switch (message.type) {
           case SkyTokensMessageType.FocusLastToken:
           this.focusLastToken();
+          break;
+
+          case SkyTokensMessageType.FocusActiveToken:
+          this.focusActiveToken();
+          break;
+
+          case SkyTokensMessageType.FocusPreviousToken:
+          this.focusPreviousToken();
+          break;
+
+          case SkyTokensMessageType.FocusNextToken:
+          this.focusNextToken();
+          break;
+
+          case SkyTokensMessageType.RemoveActiveToken:
+          this.removeActiveToken();
           break;
         }
       });
