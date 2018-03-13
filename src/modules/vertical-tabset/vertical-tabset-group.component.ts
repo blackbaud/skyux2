@@ -96,7 +96,7 @@ export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this._ngUnsubscribe.unsubscribe();
   }
 
   public toggleMenuOpen() {

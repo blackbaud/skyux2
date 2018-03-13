@@ -32,6 +32,6 @@ export class SkyFlyoutInstance<T> {
       type: SkyFlyoutMessageType.Close
     });
 
-    this.hostController.complete();
+    this.hostController.unsubscribe();
   }
 }

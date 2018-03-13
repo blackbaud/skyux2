@@ -91,7 +91,7 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
 
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this._ngUnsubscribe.unsubscribe();
   }
 
   public tabsVisible() {

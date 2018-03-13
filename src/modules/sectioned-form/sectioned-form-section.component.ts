@@ -50,6 +50,6 @@ export class SkySectionedFormSectionComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this._ngUnsubscribe.unsubscribe();
   }
 }

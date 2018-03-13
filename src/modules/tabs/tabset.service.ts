@@ -71,8 +71,8 @@ export class SkyTabsetService {
   }
 
   public destroy() {
-    this.tabs.complete();
-    this.activeIndex.complete();
+    this.tabs.unsubscribe();
+    this.activeIndex.unsubscribe();
   }
 
   private getLastTabIndex(tabs: Array<SkyTabComponent>) {

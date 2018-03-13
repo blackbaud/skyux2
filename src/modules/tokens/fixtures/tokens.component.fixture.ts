@@ -40,7 +40,7 @@ export class SkyTokensTestComponent implements OnDestroy {
 
   public ngOnDestroy() {
     if (this.messageStream) {
-      this.messageStream.complete();
+      this.messageStream.unsubscribe();
     }
   }
 

@@ -114,8 +114,8 @@ export class SkyLookupComponent
   public ngOnDestroy() {
     this.removeEventListeners();
     this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-    this.tokensController.complete();
+    this.ngUnsubscribe.unsubscribe();
+    this.tokensController.unsubscribe();
   }
 
   public onAutocompleteSelectionChange(change: SkyAutocompleteSelectionChange) {
@@ -219,7 +219,7 @@ export class SkyLookupComponent
 
   private removeEventListeners() {
     this.idle.next();
-    this.idle.complete();
+    this.idle.unsubscribe();
   }
 
   private focusTokensOnInputKeyUp() {
