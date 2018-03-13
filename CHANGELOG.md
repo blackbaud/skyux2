@@ -1,4 +1,4 @@
-# 2.10.0 (2018-03-13)
+# 2.10.0 (2018-03-14)
 
 - Added lookup component. [#1495](https://github.com/blackbaud/skyux2/pull/1495) (Thanks @Blackbaud-TomRamsey)
 - Added tokens component. [#1485](https://github.com/blackbaud/skyux2/pull/1485)
