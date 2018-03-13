@@ -5,8 +5,8 @@
 - Added support for Moment 2.21.0. [#1531](https://github.com/blackbaud/skyux2/pull/1531)
 - Added support for microedge-rxstate 2.0.2, Builder 1.10.1, and source-map-inline-loader 1.0.0 [#1532](https://github.com/blackbaud/skyux2/pull/1532)
 - Updated label, alert, and status text styles. [#1509](https://github.com/blackbaud/skyux2/pull/1509)
-- Update list provider demo component. [#1468](https://github.com/blackbaud/skyux2/pull/1468) (Thanks @Blackbaud-BrandonHare)
-- Fixed card action bar still visible when hidden with `*ngIf`. [#1533](https://github.com/blackbaud/skyux2/pull/1533) (Thanks @blackbaud-conorwright)
+- Updated list provider demo component. [#1468](https://github.com/blackbaud/skyux2/pull/1468) (Thanks @Blackbaud-BrandonHare)
+- Fixed card issue where action bar was still visible when hidden with `*ngIf`. [#1533](https://github.com/blackbaud/skyux2/pull/1533) (Thanks @blackbaud-conorwright)
 - Fixed HTML entities in demo service source files. Fixed component templates being injected into demo service files. [#1529](https://github.com/blackbaud/skyux2/pull/1529)
 
 # 2.9.0 (2018-02-15)
