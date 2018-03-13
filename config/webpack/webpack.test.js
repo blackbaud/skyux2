@@ -9,23 +9,13 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
 module.exports = {
-
   devtool: 'inline-source-map',
-
   resolve: {
     extensions: ['.ts', '.js'],
     modules: [helpers.root('src'), 'node_modules']
   },
-
   module: {
     rules: [
-
-      {
-        enforce: 'pre',
-        test: /\.ts$/,
-        loader: 'tslint-loader',
-        exclude: [helpers.root('node_modules')]
-      },
       {
         enforce: 'pre',
         test: /\.js$/,
@@ -36,12 +26,23 @@ module.exports = {
           helpers.root('node_modules/@angular/compiler')
         ]
       },
-
       {
         test: /\.ts$/,
         use: [
-          'awesome-typescript-loader',
-          'angular2-template-loader'
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              // Ignore the "Cannot find module" error that occurs when referencing
+              // an aliased file.  Webpack will still throw an error when a module
+              // cannot be resolved via a file path or alias.
+              ignoreDiagnostics: [2307],
+              // Linting is handled by the sky-tslint loader.
+              transpileOnly: true
+            }
+          },
+          {
+            loader: 'angular2-template-loader'
+          }
         ],
         exclude: [/\.e2e\.ts$/]
       },
@@ -62,7 +63,6 @@ module.exports = {
           'sass-loader'
         ]
       },
-
       {
         enforce: 'post',
         test: /\.(js|ts)$/,
@@ -78,7 +78,6 @@ module.exports = {
       }
     ]
   },
-
   plugins: [
     new DefinePlugin({
       'ENV': JSON.stringify(ENV),
@@ -91,14 +90,7 @@ module.exports = {
     }),
 
     new LoaderOptionsPlugin({
-      debug: true,
-      options: {
-      tslint: {
-          emitErrors: false,
-          failOnHint: false,
-          resourcePath: 'src'
-        }
-      }
+      debug: true
     }),
 
     new ContextReplacementPlugin(
@@ -109,7 +101,6 @@ module.exports = {
 
     new IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
-
   node: {
     global: true,
     process: false,
@@ -121,5 +112,4 @@ module.exports = {
   performance: {
     hints: false
   }
-
 };
