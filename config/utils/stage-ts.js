@@ -83,9 +83,9 @@ function compileSass(file) {
 
   try {
     contents = sass.renderSync({
-      file: file,
+      file,
       importer: tildeImporter,
-      outputStyle: 'compressed'
+      outputStyle: 'expanded'
     }).css;
   } catch (e) {
     console.log(e.message);
