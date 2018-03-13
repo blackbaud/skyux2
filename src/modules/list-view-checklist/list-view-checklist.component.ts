@@ -47,9 +47,9 @@ import {
   ListToolbarSetTypeAction
 } from '../list/state/toolbar/actions';
 
-import {
-  Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
 
 import {
   getData

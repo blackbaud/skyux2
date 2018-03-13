@@ -19,6 +19,7 @@ import {
 } from '@angular/animations';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyMediaQueryService } from './../media-queries/media-query.service';
 

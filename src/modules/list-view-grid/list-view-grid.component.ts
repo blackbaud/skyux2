@@ -10,8 +10,11 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   getValue

@@ -17,6 +17,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyDropdownMenuChange,

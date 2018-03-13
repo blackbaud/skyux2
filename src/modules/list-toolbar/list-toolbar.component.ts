@@ -9,11 +9,16 @@ import {
   AfterContentInit,
   ChangeDetectionStrategy
 } from '@angular/core';
+
 import {
   ListToolbarConfigSetSearchEnabledAction,
   ListToolbarConfigSetSortSelectorEnabledAction
 } from './state/config/actions';
+
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
+
 import {
   ListToolbarState,
   ListToolbarStateDispatcher,

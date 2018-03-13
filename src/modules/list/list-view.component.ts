@@ -5,9 +5,8 @@ import {
 import { ListState } from './state';
 import { SkyListComponent } from '../list/list.component';
 
-import {
-  Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 const moment = require('moment');
 

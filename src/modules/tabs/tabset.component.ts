@@ -15,6 +15,8 @@ import {
   OnChanges
 } from '@angular/core';
 
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import { SkyTabComponent } from './tab.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetService } from './tabset.service';

@@ -20,6 +20,7 @@ import {
 } from '@angular/animations';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyResourcesService } from './../resources/resources.service';
 
