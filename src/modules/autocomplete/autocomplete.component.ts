@@ -47,6 +47,15 @@ export class SkyAutocompleteComponent
   implements OnInit, OnDestroy, AfterContentInit {
 
   @Input()
+  public set data(value: any[]) {
+    this._data = value;
+  }
+
+  public get data(): any[] {
+    return this._data || [];
+  }
+
+  @Input()
   public set descriptorProperty(value: string) {
     this._descriptorProperty = value;
   }
@@ -97,9 +106,6 @@ export class SkyAutocompleteComponent
   }
 
   @Input()
-  public data: any[];
-
-  @Input()
   public searchFilters: SkyAutocompleteSearchFunctionFilter[];
 
   @Input()
@@ -133,6 +139,7 @@ export class SkyAutocompleteComponent
   private searchResultsIndex = 0;
   private searchText: string;
 
+  private _data: any[];
   private _descriptorProperty: string;
   private _dropdownController = new Subject<SkyDropdownMessage>();
   private _highlightText: string;
