@@ -1,4 +1,3 @@
-// spell-checker:ignore Colorpicker
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,10 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './colorpicker-component.fixture.html'
 })
 export class ColorpickerTestComponent {
-  public selectedHexType: string = 'hex6';
-  public selectedColor: string = '#2889e5';
-  public selectedOutputFormat: string = 'rgba';
-  public presetColors = [
+  public selectedHexType = 'hex6';
+  public selectedColor = '#2889e5';
+  public selectedOutputFormat = 'rgba';
+  public presetColors: string[] = [
     '#333333',
     '#888888',
     '#EFEFEF',
@@ -23,6 +22,4 @@ export class ColorpickerTestComponent {
     '#A1B1A7',
     '#68AFEF'
   ];
-
-  public constructor() { }
 }

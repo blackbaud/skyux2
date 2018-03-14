@@ -1,18 +1,21 @@
-<div class="sky-input-group">
-  <ng-content></ng-content>
+<div class="sky-datepicker">
+  <div class="sky-input-group">
+    <ng-content></ng-content>
 
-  <div class="sky-input-group-btn sky-input-group-datepicker-btn">
-    <sky-dropdown
-      buttonType="calendar"
-      alignment="right">
-      <sky-dropdown-menu>
-        <sky-datepicker-calendar
-          (selectedDateChange)="dateSelected($event)"
-          (calendarModeChange)="onCalendarModeChange()"
-          [maxDate]="maxDate"
-          [minDate]="minDate">
-        </sky-datepicker-calendar>
-      </sky-dropdown-menu>
-    </sky-dropdown>
+    <div class="sky-input-group-btn sky-input-group-datepicker-btn">
+      <sky-dropdown
+        buttonType="calendar"
+        alignment="right"
+        [messageStream]="dropdownController">
+        <sky-dropdown-menu>
+          <sky-datepicker-calendar
+            (selectedDateChange)="dateSelected($event)"
+            (calendarModeChange)="onCalendarModeChange()"
+            [maxDate]="maxDate"
+            [minDate]="minDate">
+          </sky-datepicker-calendar>
+        </sky-dropdown-menu>
+      </sky-dropdown>
+    </div>
   </div>
 </div>

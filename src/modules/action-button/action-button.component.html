@@ -2,7 +2,7 @@
   class="sky-action-button sky-btn-default"
   role="button"
   (click)="buttonClicked()"
-  (keyup)="enterPress($event)"
+  (keydown.enter)="enterPress()"
   tabindex="0"
   >
   <div class="sky-action-button-icon-header-container">

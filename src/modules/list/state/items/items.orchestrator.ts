@@ -1,7 +1,7 @@
 import { ListStateOrchestrator } from '../list-state.rxstate';
 import { AsyncList } from 'microedge-rxstate/dist';
 
-let moment = require('moment');
+const moment = require('moment');
 
 import { ListItemModel } from './item.model';
 import {

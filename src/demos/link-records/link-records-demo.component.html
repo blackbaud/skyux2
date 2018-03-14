@@ -1,0 +1,95 @@
+<h3>
+  Link records child templates
+</h3>
+
+<sky-link-records
+  [items]="items"
+  [matches]="matches"
+  [matchFields]="matchFields"
+  [showNewFieldValues]="false">
+
+  <sky-link-records-item-title>
+    <ng-template
+      let-item="item">
+      Applicant
+    </ng-template>
+  </sky-link-records-item-title>
+
+  <sky-link-records-item-content>
+    <ng-template
+      let-item="item">
+      <div>Original Item</div>
+      <div>{{ item?.id }}</div>
+      <div>{{ item?.name }}</div>
+      <div>{{ item?.description }}</div>
+    </ng-template>
+  </sky-link-records-item-content>
+
+  <sky-link-records-match-content>
+    <ng-template let-match="match">
+      <div>Match Item</div>
+      <div>{{ match?.item?.id }}</div>
+      <div>{{ match?.item?.name }}</div>
+      <div>{{ match?.item?.description }}</div>
+    </ng-template>
+  </sky-link-records-match-content>
+
+  <sky-link-records-nomatch-content>
+    <ng-template
+      let-item="item"
+      let-match="match"
+      let-api="api">
+      <div *ngIf="match?.item">
+        <div>Match Item</div>
+        <div>{{ match?.item?.id }}</div>
+        <div>{{ match?.item?.name }}</div>
+        <div>{{ match?.item?.description }}</div>
+      </div>
+      <div *ngIf="!match?.item">
+        <div>Match Search</div>
+        <button
+          class="sky-btn sky-btn-default"
+          (click)="api.addSelectedItem(item?.id, newItem)">
+          Test Select
+        </button>
+      </div>
+    </ng-template>
+  </sky-link-records-nomatch-content>
+</sky-link-records>
+
+<button
+  class="sky-btn sky-btn-primary"
+  (click)="showResults()">
+  Show Results
+</button>
+
+<h3>
+  Default link with templates
+</h3>
+
+<sky-link-records
+  [items]="items"
+  [matches]="matches"
+  [itemTemplate]="item"
+  [matchTemplate]="match"
+  [matchFields]="matchFields">
+</sky-link-records>
+
+<ng-template #itemTitle let-item="item">Custom Title</ng-template>
+
+<ng-template #item let-item="item">
+  <div>{{ item?.name }}</div>
+  <div>{{ item?.description }}</div>
+</ng-template>
+
+<ng-template #match let-match="match">
+  <div>Custom Label:</div>
+  <div>{{ match?.item?.name }}</div>
+  <div>{{ match?.item?.description }}</div>
+</ng-template>
+
+<button
+  class="sky-btn sky-btn-primary"
+  (click)="showResults()">
+  Show Results
+</button>

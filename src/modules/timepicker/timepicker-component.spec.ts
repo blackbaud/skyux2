@@ -6,29 +6,32 @@ import {
 } from '@angular/core/testing';
 
 import {
-  FormsModule,
-  NgModel
+  FormsModule
 } from '@angular/forms';
+
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyTimepickerModule } from './timepicker.module';
 import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture';
 
 import { expect } from '../testing';
-import { By } from '@angular/platform-browser';
-let moment = require('moment');
+
+const moment = require('moment');
 
 describe('Timepicker', () => {
-
   function openTimepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
+    tick();
     compFixture.detectChanges();
+    tick();
   }
 
   function setInput(
     element: HTMLElement,
     text: string,
-    compFixture: ComponentFixture<any>) {
+    compFixture: ComponentFixture<any>
+  ) {
     compFixture.detectChanges();
     let inputEvent = document.createEvent('Event');
     let params = {
@@ -41,10 +44,12 @@ describe('Timepicker', () => {
     let inputEl = element.querySelector('input');
     inputEl.value = text;
     inputEl.dispatchEvent(inputEvent);
-    compFixture.detectChanges();
-    inputEl.dispatchEvent(changeEvent);
-    compFixture.detectChanges();
     tick();
+    compFixture.detectChanges();
+
+    inputEl.dispatchEvent(changeEvent);
+    tick();
+    compFixture.detectChanges();
   }
 
   let fixture: ComponentFixture<TimepickerTestComponent>;
@@ -58,6 +63,7 @@ describe('Timepicker', () => {
       ],
       imports: [
         SkyTimepickerModule,
+        NoopAnimationsModule,
         FormsModule
       ]
     });
@@ -67,11 +73,13 @@ describe('Timepicker', () => {
     component = fixture.componentInstance;
   });
 
-  function verifyTimepicker(
-    element: HTMLElement
-  ) {
+  afterEach(() => {
+    fixture.destroy();
+  });
+
+  function verifyTimepicker(element: HTMLElement) {
+    tick();
     fixture.detectChanges();
-    fixture.whenStable();
     let sections = element.querySelectorAll('.sky-timepicker-container');
     let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
     let hours = units.item(0).querySelectorAll('button');
@@ -98,17 +106,31 @@ describe('Timepicker', () => {
     }
   }
 
-  it('should have the twelve hour timepicker', () => {
+  it('should have the twelve hour timepicker', fakeAsync(() => {
+    fixture.detectChanges();
     component.timeFormat = 'hh';
     openTimepicker(nativeElement, fixture);
     verifyTimepicker(nativeElement);
-  });
+  }));
 
-  it('should have the twenty four hour timepicker', () => {
+  it('should have the twenty four hour timepicker', fakeAsync(() => {
+    fixture.detectChanges();
     component.timeFormat = 'HH';
     openTimepicker(nativeElement, fixture);
     verifyTimepicker(nativeElement);
-  });
+  }));
+
+  it('should allow closing the timepicker', fakeAsync(() => {
+    fixture.detectChanges();
+    component.timeFormat = 'hh';
+    openTimepicker(nativeElement, fixture);
+    const closeButton = fixture.nativeElement.querySelector('.sky-timepicker-footer button');
+    closeButton.click();
+    tick();
+    tick();
+    const dropdown = fixture.nativeElement.querySelector('.sky-popover-container') as HTMLElement;
+    expect(dropdown.classList.contains('sky-popover-hidden')).toEqual(false);
+  }));
 
   it('should handle input change with a string with the expected timeFormat', fakeAsync(() => {
     component.timeFormat = 'hh';
@@ -116,15 +138,11 @@ describe('Timepicker', () => {
     expect(nativeElement.querySelector('input').value).toBe('2:55 AM');
     expect(component.selectedTime.local).toEqual('2:55 AM');
   }));
-  describe('validation', () => {
-    let ngModel: NgModel;
-    beforeEach(() => {
-      let inputElement = fixture.debugElement.query(By.css('input'));
-      ngModel = <NgModel>inputElement.injector.get(NgModel);
-    });
 
+  describe('validation', () => {
     it('should have active css when in twelve hour timeFormat',
       fakeAsync(() => {
+        fixture.detectChanges();
         component.timeFormat = 'hh';
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
@@ -150,10 +168,12 @@ describe('Timepicker', () => {
         expect(hours.item(3)).toHaveCssClass('sky-btn-active');
         expect(minutes.item(11)).toHaveCssClass('sky-btn-active');
         expect(meridies.item(1)).toHaveCssClass('sky-btn-active');
-      }));
+      })
+    );
 
     it('should have active css when in twenty four hour timeFormat',
       fakeAsync(() => {
+        fixture.detectChanges();
         component.timeFormat = 'HH';
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
@@ -176,10 +196,12 @@ describe('Timepicker', () => {
         expect(nativeElement.querySelector('input').value).toBe('16:45');
         expect(hours.item(16)).toHaveCssClass('sky-btn-active');
         expect(minutes.item(3)).toHaveCssClass('sky-btn-active');
-      }));
+      })
+    );
 
     it('should update time on mouse click for twelve four hour timeFormat',
       fakeAsync(() => {
+        fixture.detectChanges();
         component.timeFormat = 'hh';
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
@@ -203,10 +225,12 @@ describe('Timepicker', () => {
         minutes.item(11).click();
         meridies.item(1).click();
         expect(nativeElement.querySelector('input').value).toBe('4:55 PM');
-      }));
+      })
+    );
 
     it('should update time on mouse click for twenty four hour timeFormat',
       fakeAsync(() => {
+        fixture.detectChanges();
         component.timeFormat = 'HH';
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
@@ -227,10 +251,12 @@ describe('Timepicker', () => {
         hours.item(16).click();
         minutes.item(3).click();
         expect(nativeElement.querySelector('input').value).toBe('16:45');
-      }));
+      })
+    );
 
     it('should return a custom time timeFormat',
       fakeAsync(() => {
+        fixture.detectChanges();
         component.timeFormat = 'HH';
         component.returnFormat = 'HH:mm:ssZ';
         openTimepicker(nativeElement, fixture);
@@ -246,10 +272,12 @@ describe('Timepicker', () => {
         hours.item(16).click();
         minutes.item(3).click();
         expect(nativeElement.querySelector('input').value).toBe('16:45:00' + tz);
-      }));
+      })
+    );
 
     it('should toggle AM and set active css',
       fakeAsync(() => {
+        fixture.detectChanges();
         component.timeFormat = 'hh';
         setInput(nativeElement, '1:00 PM', fixture);
         openTimepicker(nativeElement, fixture);
@@ -267,10 +295,12 @@ describe('Timepicker', () => {
         expect(nativeElement.querySelector('input').value).toBe('12:30 AM');
         expect(component.selectedTime.local).toEqual('12:30 AM');
         expect(meridies.item(0)).toHaveCssClass('sky-btn-active');
-      }));
+      })
+    );
 
     it('should toggle PM and set active css',
       fakeAsync(() => {
+        fixture.detectChanges();
         component.timeFormat = 'hh';
         setInput(nativeElement, '1:00 AM', fixture);
         openTimepicker(nativeElement, fixture);
@@ -297,7 +327,7 @@ describe('Timepicker', () => {
         expect(nativeElement.querySelector('input').value).toBe('1:30 PM');
         expect(component.selectedTime.local).toEqual('1:30 PM');
         expect(meridies.item(1)).toHaveCssClass('sky-btn-active');
-      }));
-
+      })
+    );
   });
 });

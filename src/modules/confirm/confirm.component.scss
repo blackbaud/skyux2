@@ -1,0 +1,17 @@
+@import '../../scss/mixins';
+
+.sky-confirm-message {
+  @include sky-emphasized();
+  margin-top: $sky-margin-half;
+  margin-bottom: $sky-margin-double;
+}
+
+.sky-confirm-buttons {
+  .sky-btn {
+    margin-right: $sky-margin-half;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

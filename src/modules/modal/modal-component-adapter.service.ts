@@ -96,7 +96,7 @@ export class SkyModalComponentAdapterService {
       if (inputWithAutofocus) {
         inputWithAutofocus.focus();
       } else {
-        let focusEl: HTMLElement = modalEl.nativeElement.querySelector('.sky-modal-dialog');
+        let focusEl: HTMLElement = modalEl.nativeElement.querySelector('.sky-modal');
         focusEl.focus();
 
       }

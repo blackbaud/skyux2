@@ -9,6 +9,13 @@ import {
   Component
 } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+
+import {
+  SkyDropdownMessage,
+  SkyDropdownMessageType
+} from '../dropdown';
+
 import { SkyColorpickerChangeColor } from './types/colorpicker-color';
 import { SkyColorpickerChangeAxis } from './types/colorpicker-axis';
 import { SkyColorpickerHsla } from './types/colorpicker-hsla';
@@ -57,6 +64,8 @@ export class SkyColorpickerComponent implements OnInit {
   public slider: SliderPosition;
   public initialColor: string;
 
+  public dropdownController = new Subject<SkyDropdownMessage>();
+
   @ViewChild('closeColorPicker')
   private closeColorPicker: ElementRef;
 
@@ -74,18 +83,6 @@ export class SkyColorpickerComponent implements OnInit {
     this.skyColorpickerGreenId = 'sky-colorpicker-green-' + this.idIndex;
     this.skyColorpickerBlueId = 'sky-colorpicker-blue-' + this.idIndex;
     this.skyColorpickerAlphaId = 'sky-colorpicker-alpha-' + this.idIndex;
-  }
-
-  public onContainerClick(event: MouseEvent) {
-    const element: HTMLButtonElement = <HTMLButtonElement>event.target;
-    // Allow the click event to propagate to the dropdown handler for certain buttons.
-    // (This will allow the dropdown menu to close.)
-    if (
-      !element.classList.contains('sky-btn-colorpicker-close') &&
-      !element.classList.contains('sky-btn-colorpicker-apply')
-    ) {
-      event.stopPropagation();
-    }
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -129,11 +126,13 @@ export class SkyColorpickerComponent implements OnInit {
 
   public closePicker() {
     this.setColorFromString(this.initialColor);
+    this.closeDropdown();
   }
 
   public applyColor() {
     this.selectedColorChanged.emit(this.selectedColor);
     this.initialColor = this.selectedColor.rgbaText;
+    this.closeDropdown();
   }
 
   public setColorFromString(value: string) {
@@ -241,5 +240,11 @@ export class SkyColorpickerComponent implements OnInit {
     if (lastOutput !== this.outputColor) {
       this.selectedColorChanged.emit(this.selectedColor);
     }
+  }
+
+  private closeDropdown() {
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Close
+    });
   }
 }

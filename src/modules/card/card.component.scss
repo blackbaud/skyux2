@@ -88,10 +88,8 @@
 }
 
 .sky-card-actions {
-    @include sky-border(light, top);
     bottom: 0;
     flex-shrink: 0;
-    padding: $sky-padding-3_4 0;
     text-align: center;
 
     .sky-context-menu-btn {

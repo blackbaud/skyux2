@@ -1,0 +1,25 @@
+.popover-demo-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 40px;
+}
+
+.popover-demo-item {
+  padding: 10px;
+}
+
+.popover-demo-item {
+  ::ng-deep .sky-popover-container.sky-popover-hidden {
+    position: relative !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 1;
+    left: auto !important;
+    top: auto !important;
+
+    .sky-popover {
+      margin: 0;
+    }
+  }
+}

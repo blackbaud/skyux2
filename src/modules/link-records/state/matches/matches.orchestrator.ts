@@ -1,6 +1,6 @@
 import { SkyLinkRecordsStateOrchestrator } from '../link-records-state.rxstate';
 import { AsyncList } from 'microedge-rxstate/dist';
-let moment = require('moment');
+const moment = require('moment');
 
 import { SKY_LINK_RECORDS_STATUSES } from '../../link-records-statuses';
 import { SkyLinkRecordsMatchModel } from './match.model';

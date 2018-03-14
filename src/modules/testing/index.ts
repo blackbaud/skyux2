@@ -1,1 +1,2 @@
-export { expect } from './matchers';
+export * from './matchers';
+export * from './testutility';

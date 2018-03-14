@@ -1,18 +1,19 @@
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map';
+
 import { ListDataProvider } from '../list/list-data.provider';
 import { ListDataRequestModel } from '../list/list-data-request.model';
 import { ListDataResponseModel } from '../list/list-data-response.model';
 import { ListItemModel } from '../list/state/items/item.model';
 import { ListSearchModel } from '../list/state/search/search.model';
 import { ListFilterModel } from '../list/state/filters/filter.model';
+
 import {
   compare,
   getData
 } from '../list/helpers';
 
-let moment = require('moment');
+const moment = require('moment');
 
 export class SkyListInMemoryDataProvider extends ListDataProvider {
   public items: BehaviorSubject<Array<ListItemModel>> =

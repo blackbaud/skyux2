@@ -46,7 +46,8 @@ function writeTSConfig() {
       "baseUrl": "."
     },
     "files": [
-      "core.ts"
+      "core.ts",
+      "demo.ts"
     ],
     "exclude": [
       "../node_modules"
@@ -67,34 +68,44 @@ function copySrc() {
 }
 
 function escapeContents(contents) {
-  return contents.toString().replace(/`/g, '\\`');
+  return String.raw`${contents}`
+    // The `+$` character combo causes some strange behavior during
+    // the compile process. The placeholder phrase will then be
+    // replaced at the end of the process.
+    .replace(/\+\$/g, '---PLUSSIGNDOLLAR---')
+    .replace(/\\n/g, String.raw`\\n`)
+    .replace(/\$/g, `\\\$`)
+    .replace(/\\\'/g, String.raw`\\\'`);
 }
 
 function compileSass(file) {
-  var contents = sass.renderSync({
-    file: file,
-    importer: tildeImporter,
+  let contents = '';
 
-    outputStyle: 'compressed'
-  }).css;
+  try {
+    contents = sass.renderSync({
+      file,
+      importer: tildeImporter,
+      outputStyle: 'expanded'
+    }).css;
+  } catch (e) {
+    console.log(e.message);
+  }
 
   return contents;
 }
 
-function getHtmlContents(requireFile) {
-  var encodedHtml,
-    encodedTs,
-    fileContents,
-    fileSuffix = '.demo.html',
-    tsFileContents;
+function getRawContents(requireFile) {
+  let fileContents = '';
 
-  fileContents = fs.readFileSync(requireFile).toString();
+  try {
+    fileContents = fs.readFileSync(requireFile).toString();
+  } catch (e) {}
 
   return fileContents;
 }
 
 function getJsonContents(requireFile) {
-  var fileContents,
+  var fileContents = '',
     newFileFirst,
     newFileLast,
     loaderIndex = requireFile.indexOf('json-loader!'),
@@ -106,9 +117,7 @@ function getJsonContents(requireFile) {
     newFileName = newFileFirst + newFileLast;
   }
 
-  fileContents = fs.readFileSync(newFileName);
-
-  return fileContents;
+  return getRawContents(newFileName);
 }
 
 function inlineContents(file, fileContents, requireMatch, requireFile, processFn) {
@@ -117,13 +126,17 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
     requireContents;
 
   requireFile = path.join(dirname, requireFile);
+  requireFile = requireFile.replace('!!raw-loader!', '');
 
   switch (path.extname(requireFile)) {
     case '.scss':
       requireContents = compileSass(requireFile);
       break;
+    case '.ts':
+      requireContents = escapeContents(getRawContents(requireFile));
+      break;
     case '.html':
-      requireContents = getHtmlContents(requireFile);
+      requireContents = getRawContents(requireFile);
       break;
     case '.json':
       requireContents = getJsonContents(requireFile);
@@ -133,32 +146,47 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
 
   if (quote) {
     requireContents = requireContents.toString().replace(/\\f/g, '\\\\f');
-    requireContents = '`' + requireContents.toString().replace(/`/g, '\\`') + '`';
+    requireContents = '`' + requireContents.toString().replace(/`/g, '\\\`') + '`';
   }
 
   if (processFn) {
     requireContents = processFn(requireContents);
   }
 
-  fileContents = fileContents.replace(requireMatch, requireContents);
+  if (requireContents) {
+    fileContents = fileContents.replace(requireMatch, requireContents);
+  }
 
   return fileContents;
 }
 
-function inlineHtmlCss() {
-  var files = glob.sync(TEMP_PATH + '/**/*.ts');
+function parseDemoServiceFile() {
+  const file = `${TEMP_PATH}/demos/demo.service.ts`;
+  const regex = /require\('(.+?\.(html|scss|ts))'\)/gi;
+
+  let contents = fs.readFileSync(file, { encoding: 'utf8' });
+  let matches = false;
+
+  while (matches = regex.exec(contents)) {
+    contents = inlineContents(file, contents, matches[0], matches[1]);
+    regex.lastIndex = 0;
+  }
+
+  writeToFile(file, contents);
+}
+
+function injectRequiredFileContents() {
+  const files = glob.sync(TEMP_PATH + '/**/*.ts');
+  const regex = /require\('(.+?\.(html|json|scss))'\)/gi;
 
   files.forEach(function (file) {
-    var fileContents,
-      matches,
-      regex = /require\('(.+?\.(html|json|scss))'\)/gi;
+    // Ignore the demo.service.ts file!
+    if (/demo\.service\.ts$/.test(file)) {
+      return;
+    }
 
-    fileContents = fs.readFileSync(
-      file,
-      {
-        encoding: 'utf8'
-      }
-    );
+    let fileContents = fs.readFileSync(file, { encoding: 'utf8' });
+    let matches;
 
     while (matches = regex.exec(fileContents)) {
       fileContents = inlineContents(file, fileContents, matches[0], matches[1]);
@@ -195,16 +223,17 @@ function inlineHtmlCss() {
       regex.lastIndex = 0;
     }
 
-    fs.writeFileSync(
-      file,
-      fileContents,
-      {
-        encoding: 'utf8'
-      }
-    );
+    writeToFile(file, fileContents);
   });
 }
 
-copySrc();
-inlineHtmlCss();
+function writeToFile(file, contents) {
+  // Replace the placeholder with `+$` character combo.
+  contents = contents.replace(/\-\-\-PLUSSIGNDOLLAR\-\-\-/g, '+\\\$');
 
+  fs.writeFileSync(file, contents, { encoding: 'utf8' });
+}
+
+copySrc();
+parseDemoServiceFile();
+injectRequiredFileContents();

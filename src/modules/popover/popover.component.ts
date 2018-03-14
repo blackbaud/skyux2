@@ -4,8 +4,9 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
+  OnDestroy,
+  OnInit,
   Output,
   ViewChild
 } from '@angular/core';
@@ -19,8 +20,21 @@ import {
   transition
 } from '@angular/animations';
 
-import { SkyWindowRefService } from '../window';
-import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/takeUntil';
+
+import {
+  SkyWindowRefService
+} from '../window';
+
+import {
+  SkyPopoverAlignment,
+  SkyPopoverPlacement
+} from './types';
+
+import { SkyPopoverAdapterService } from './popover-adapter.service';
 
 @Component({
   selector: 'sky-popover',
@@ -37,104 +51,124 @@ import { SkyPopoverPlacement, SkyPopoverAdapterService } from './index';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyPopoverComponent {
+export class SkyPopoverComponent implements OnInit, OnDestroy {
+  @Input()
+  public dismissOnBlur = true;
+
   @Input()
   public popoverTitle: string;
 
   @Input()
-  public placement: SkyPopoverPlacement;
+  public set alignment(value: SkyPopoverAlignment) {
+    this._alignment = value;
+  }
+
+  public get alignment(): SkyPopoverAlignment {
+    return this._alignment || 'center';
+  }
+
+  @Input()
+  public set placement(value: SkyPopoverPlacement) {
+    this._placement = value;
+  }
+
+  public get placement(): SkyPopoverPlacement {
+    return this._placement || 'above';
+  }
 
   @Output()
-  public popoverOpened: EventEmitter<SkyPopoverComponent>;
+  public popoverOpened = new EventEmitter<SkyPopoverComponent>();
 
   @Output()
-  public popoverClosed: EventEmitter<SkyPopoverComponent>;
+  public popoverClosed = new EventEmitter<SkyPopoverComponent>();
 
   @ViewChild('popoverContainer')
   public popoverContainer: ElementRef;
 
   @ViewChild('popoverArrow')
   public popoverArrow: ElementRef;
-  public isOpen = false;
-  public placementClassName: string;
-  public isMouseEnter = false;
 
+  public isOpen = false;
+  public isMouseEnter = false;
+  public classNames: string[] = [];
+  public animationState: 'hidden' | 'visible' = 'hidden';
+
+  public popoverTop: number;
+  public popoverLeft: number;
+  public arrowTop: number;
+  public arrowLeft: number;
+
+  private caller: ElementRef;
+  private idled = new Subject<boolean>();
   private isMarkedForCloseOnMouseLeave = false;
-  private lastCaller: ElementRef;
-  private readonly placementDefault: SkyPopoverPlacement = 'above';
+  private preferredPlacement: SkyPopoverPlacement;
+
+  private _alignment: SkyPopoverAlignment;
+  private _placement: SkyPopoverPlacement;
 
   constructor(
-    private windowRef: SkyWindowRefService,
+    private adapterService: SkyPopoverAdapterService,
     private changeDetector: ChangeDetectorRef,
-    private adapterService: SkyPopoverAdapterService
+    private elementRef: ElementRef,
+    private windowRef: SkyWindowRefService
+  ) { }
+
+  public ngOnInit() {
+    this.preferredPlacement = this.placement;
+    this.adapterService.hidePopover(this.popoverContainer);
+  }
+
+  public ngOnDestroy() {
+    this.removeListeners();
+    this.idled.complete();
+  }
+
+  public positionNextTo(
+    caller: ElementRef,
+    placement?: SkyPopoverPlacement,
+    alignment?: SkyPopoverAlignment
   ) {
-    this.placement = this.placementDefault;
-    this.popoverOpened = new EventEmitter<SkyPopoverComponent>();
-    this.popoverClosed = new EventEmitter<SkyPopoverComponent>();
-  }
-
-  @HostListener('window:resize')
-  public adjustOnResize() {
-    this.positionNextTo(this.lastCaller, this.placement);
-  }
-
-  @HostListener('document:keyup', ['$event'])
-  public closeOnEscapeKeyPressed(event: KeyboardEvent): void {
-    if (this.isOpen && event.which === 27) {
-      this.close();
-    }
-  }
-
-  @HostListener('document:click', ['$event'])
-  public closeOnDocumentClick(event: MouseEvent): void {
-    if (this.isOpen && !this.isMouseEnter) {
-      this.close();
-    }
-  }
-
-  @HostListener('mouseenter')
-  public onMouseEnter() {
-    this.isMouseEnter = true;
-  }
-
-  @HostListener('mouseleave')
-  public onMouseLeave() {
-    this.isMouseEnter = false;
-
-    if (this.isMarkedForCloseOnMouseLeave) {
-      this.close();
-      this.isMarkedForCloseOnMouseLeave = false;
-    }
-  }
-
-  public positionNextTo(caller: ElementRef, placement: SkyPopoverPlacement) {
     if (!caller) {
       return;
     }
 
-    this.lastCaller = caller;
+    this.close();
 
-    const elements = {
-      popover: this.popoverContainer,
-      popoverArrow: this.popoverArrow,
-      caller: this.lastCaller
-    };
-
-    this.placement = placement || this.placementDefault;
+    this.caller = caller;
+    this.placement = placement;
+    this.alignment = alignment;
+    this.preferredPlacement = this.placement;
     this.changeDetector.markForCheck();
 
-    // Wait for a tick to allow placement styles to render.
-    // (The styles affect the element dimensions.)
+    // Let the styles render before gauging the dimensions.
     this.windowRef.getWindow().setTimeout(() => {
-      this.adapterService.setPopoverPosition(elements, this.placement);
-      this.isOpen = true;
+      if (this.adapterService.isPopoverLargerThanParent(this.popoverContainer)) {
+        this.placement = 'fullscreen';
+      }
+
+      this.positionPopover();
+      this.addListeners();
+      this.animationState = 'visible';
       this.changeDetector.markForCheck();
     });
   }
 
+  public reposition() {
+    this.placement = this.preferredPlacement;
+    this.changeDetector.markForCheck();
+
+    this.windowRef.getWindow().setTimeout(() => {
+      if (this.adapterService.isPopoverLargerThanParent(this.popoverContainer)) {
+        this.placement = 'fullscreen';
+      }
+
+      this.positionPopover();
+    });
+  }
+
   public close() {
-    this.lastCaller = undefined;
-    this.isOpen = false;
+    this.animationState = 'hidden';
+    this.removeListeners();
     this.changeDetector.markForCheck();
   }
 
@@ -154,18 +188,124 @@ export class SkyPopoverComponent {
     }
 
     if (event.toState === 'hidden') {
+      this.isOpen = false;
       this.adapterService.hidePopover(this.popoverContainer);
       this.popoverClosed.emit(this);
     } else {
+      this.isOpen = true;
       this.popoverOpened.emit(this);
     }
   }
 
-  public getAnimationState(): string {
-    return (this.isOpen) ? 'visible' : 'hidden';
-  }
-
   public markForCloseOnMouseLeave() {
     this.isMarkedForCloseOnMouseLeave = true;
+  }
+
+  private positionPopover() {
+    if (this.placement !== 'fullscreen') {
+      const elements = {
+        popover: this.popoverContainer,
+        popoverArrow: this.popoverArrow,
+        caller: this.caller
+      };
+
+      const position = this.adapterService.getPopoverPosition(
+        elements,
+        this.preferredPlacement,
+        this.alignment
+      );
+
+      this.placement = position.placement;
+      this.alignment = position.alignment;
+      this.popoverTop = position.top;
+      this.popoverLeft = position.left;
+      this.arrowTop = position.arrowTop;
+      this.arrowLeft = position.arrowLeft;
+    }
+
+    this.changeDetector.markForCheck();
+  }
+
+  private addListeners(): void {
+    const windowObj = this.windowRef.getWindow();
+    const hostElement = this.elementRef.nativeElement;
+
+    Observable
+      .fromEvent(windowObj, 'scroll')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.positionPopover();
+      });
+
+    Observable
+      .fromEvent(windowObj, 'resize')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.reposition();
+      });
+
+    Observable
+      .fromEvent(windowObj.document, 'focusin')
+      .takeUntil(this.idled)
+      .subscribe((event: KeyboardEvent) => {
+        const targetIsChild = (hostElement.contains(event.target));
+        const targetIsCaller = (this.caller && this.caller.nativeElement === event.target);
+
+        /* istanbul ignore else */
+        if (!targetIsChild && !targetIsCaller && this.dismissOnBlur) {
+          // The popover is currently being operated by the user, and
+          // has just lost keyboard focus. We should close it.
+          this.close();
+        }
+      });
+
+    Observable
+      .fromEvent(windowObj.document, 'click')
+      .takeUntil(this.idled)
+      .subscribe((event: MouseEvent) => {
+        if (!this.isMouseEnter && this.dismissOnBlur) {
+          this.close();
+        }
+      });
+
+    Observable
+      .fromEvent(hostElement, 'mouseenter')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.isMouseEnter = true;
+      });
+
+    Observable
+      .fromEvent(hostElement, 'mouseleave')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        this.isMouseEnter = false;
+        if (this.isMarkedForCloseOnMouseLeave) {
+          this.close();
+          this.isMarkedForCloseOnMouseLeave = false;
+        }
+      });
+
+    Observable
+      .fromEvent(hostElement, 'keyup')
+      .takeUntil(this.idled)
+      .subscribe((event: KeyboardEvent) => {
+        const key = event.key.toLowerCase();
+
+        if (key === 'escape') {
+          event.stopPropagation();
+          event.preventDefault();
+          this.close();
+
+          /* istanbul ignore else */
+          if (this.caller) {
+            this.caller.nativeElement.focus();
+          }
+        }
+      });
+  }
+
+  private removeListeners(): void {
+    this.idled.next(true);
   }
 }

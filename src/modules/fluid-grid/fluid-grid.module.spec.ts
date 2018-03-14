@@ -1,4 +1,4 @@
-import { expect } from '@blackbaud/skyux-builder/runtime/testing/browser';
+import { expect } from '../testing';
 
 import { SkyFluidGridModule } from './fluid-grid.module';
 

@@ -1,0 +1,30 @@
+<div style="max-width: 50%">
+  <sky-datepicker #picker>
+    <input
+      [(ngModel)]="selectedDate"
+      [skyDatepickerInput]="picker"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      #date="ngModel"/>
+  </sky-datepicker>
+  <div
+    class="sky-error-label"
+    *ngIf="date.errors && date.errors.skyDate && (date.dirty || date.touched)">
+
+    <span [hidden]="!date.errors.skyDate.invalid">
+      Please enter a valid date.
+    </span>
+
+    <span [hidden]="!date.errors.skyDate.minDate">
+      Date is prior to minimum date range.
+    </span>
+
+    <span [hidden]="!date.errors.skyDate.maxDate">
+      Date is after maximum date range.
+    </span>
+  </div>
+</div>
+
+<div>
+  Selected date is {{selectedDate}}
+</div>

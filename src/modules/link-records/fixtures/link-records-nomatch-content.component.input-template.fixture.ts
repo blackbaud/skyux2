@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { SKY_LINK_RECORDS_STATUSES } from '../link-records-statuses';
 import { SkyLinkRecordsMatchModel } from '../state/matches/match.model';
 

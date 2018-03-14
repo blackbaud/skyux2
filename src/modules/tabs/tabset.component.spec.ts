@@ -378,19 +378,17 @@ describe('Tabset component', () => {
       mockAdapterService = new MockTabsetAdapterService();
       mockAdapterService.disableDetectOverflow = true;
 
-      fixture = TestBed
-          .overrideComponent(SkyTabsetComponent, {
-            set: {
-              providers: [
-                SkyTabsetService,
-                {
-                  provide: SkyTabsetAdapterService,
-                  useValue: mockAdapterService
-                }
-              ]
+      fixture = TestBed.overrideComponent(SkyTabsetComponent, {
+        set: {
+          providers: [
+            SkyTabsetService,
+            {
+              provide: SkyTabsetAdapterService,
+              useValue: mockAdapterService
             }
-          })
-          .createComponent(TabsetTestComponent);
+          ]
+        }
+      }).createComponent(TabsetTestComponent);
     });
 
     it(
@@ -416,9 +414,7 @@ describe('Tabset component', () => {
       }
     );
 
-    it(
-      'should allow another tab to be selected from the dropdown',
-      fakeAsync(() => {
+    it('should allow another tab to be selected from the dropdown', fakeAsync(() => {
         let el = fixture.nativeElement;
 
         fixture.detectChanges();
@@ -432,10 +428,15 @@ describe('Tabset component', () => {
         let tabEl = el.querySelector('.sky-dropdown-button-type-tab');
 
         tabEl.click();
+        tick();
+        fixture.detectChanges();
+        tick();
+
         let dropdownTabButtons = el.querySelectorAll('.sky-tab-dropdown-item-btn');
         expect(dropdownTabButtons[1]).toHaveText('Tab 2');
-        dropdownTabButtons[1].click();
 
+        dropdownTabButtons[1].click();
+        tick();
         fixture.detectChanges();
         tick();
 
@@ -461,27 +462,31 @@ describe('Tabset component', () => {
         let tabEl = el.querySelector('.sky-dropdown-button-type-tab');
 
         tabEl.click();
+        tick();
+        fixture.detectChanges();
+        tick();
+
         let dropdownTabButtons = el.querySelectorAll('.sky-tab-dropdown-item-btn');
 
         dropdownTabButtons[0].click();
-
+        tick();
         fixture.detectChanges();
         tick();
 
         tabEl.click();
-
+        tick();
         fixture.detectChanges();
         tick();
 
         expect(dropdownTabButtons[1]).toHaveText('Tab 2');
         expect(dropdownTabButtons[1]).toHaveCssClass('sky-btn-disabled');
-        dropdownTabButtons[1].click();
 
+        dropdownTabButtons[1].click();
+        tick();
         fixture.detectChanges();
         tick();
 
         validateTabSelected(el, 0);
-
       }
     ));
 

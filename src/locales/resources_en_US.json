@@ -435,6 +435,10 @@
     "_description": "Text for the filter summary component",
     "message": "Filter"
   },
+  "flyout_close": {
+    "_description": "Text for flyout close button",
+    "message": "Close flyout"
+  },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
     "message": "Cancel"
@@ -620,11 +624,11 @@
     "message": "Open Help"
   },
   "modal_footer_cancel_button": {
-    "_description": "Default lable text for modal cancel button",
+    "_description": "Default label text for modal cancel button",
     "message": "Cancel"
   },
   "modal_footer_primary_button": {
-    "_description": "Default lable text for modal primary button",
+    "_description": "Default label text for modal primary button",
     "message": "Save"
   },
   "month_short_april": {
@@ -814,6 +818,10 @@
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"
+  },
+  "token_dismiss_button_title": {
+    "_description": "The default text for the token dismiss button title.",
+    "message": "Remove item"
   },
   "vertical_tabs_show_tabs_text": {
     "_description": "The default text for the show tabs button in mobile",

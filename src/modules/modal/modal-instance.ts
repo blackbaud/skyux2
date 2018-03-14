@@ -39,6 +39,7 @@ export class SkyModalInstance {
     args.data = result;
 
     this.closed.emit(args);
+    this.closed.complete();
   }
 
 }

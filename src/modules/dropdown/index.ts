@@ -1,4 +1,5 @@
-export { SkyDropdownComponent } from './dropdown.component';
-export { SkyDropdownItemComponent } from './dropdown-item.component';
-export { SkyDropdownMenuComponent } from './dropdown-menu.component';
-export { SkyDropdownModule } from './dropdown.module';
+export * from './dropdown.component';
+export * from './dropdown-item.component';
+export * from './dropdown-menu.component';
+export * from './dropdown.module';
+export * from './types';

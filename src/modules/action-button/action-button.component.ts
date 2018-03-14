@@ -17,9 +17,7 @@ export class SkyActionButtonComponent {
     this.actionClick.emit();
   }
 
-  public enterPress(event: KeyboardEvent) {
-    if (event.which === 13) {
-      this.actionClick.emit();
-    }
+  public enterPress() {
+    this.actionClick.emit();
   }
 }

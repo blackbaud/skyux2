@@ -1,7 +1,10 @@
 <div class="sky-input-group">
   <ng-content></ng-content>
   <div class="sky-input-group-btn sky-input-group-timepicker-btn">
-    <sky-dropdown buttonType="clock-o" alignment="right">
+    <sky-dropdown
+      buttonType="clock-o"
+      alignment="right"
+      [messageStream]="dropdownController">
       <sky-dropdown-menu>
         <sky-dropdown-item>
           <div class="sky-timepicker-container">
@@ -32,7 +35,11 @@
           </div>
           <div class="sky-timepicker-container sky-timepicker-footer">
             <section class="sky-timepicker-column">
-              <button type="button">{{'timepicker_close' | skyResources}}</button>
+              <button
+                type="button"
+                (click)="onButtonClick()">
+                {{'timepicker_close' | skyResources}}
+              </button>
             </section>
           </div>
         </sky-dropdown-item>

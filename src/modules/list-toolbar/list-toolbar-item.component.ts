@@ -1,5 +1,5 @@
 import { Component, Input, ContentChildren, TemplateRef, QueryList } from '@angular/core';
-let moment = require('moment');
+const moment = require('moment');
 
 @Component({
   selector: 'sky-list-toolbar-item',
