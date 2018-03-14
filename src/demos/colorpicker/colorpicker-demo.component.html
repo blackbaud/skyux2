@@ -102,11 +102,11 @@
 </h3>
 <sky-colorpicker
   [messageStream]="colorpickerController"
+  [showResetButton]="showResetButton"
   (selectedColorChanged)="onSelectedColorChanged($event)"
   #colorPickerExample3>
   <input
     [skyColorpickerInput]="colorPickerExample3"
-    [showResetButton]="showResetButton"
     [(ngModel)]="color3"
     [outputFormat]="selectedOutputFormat3"
   />

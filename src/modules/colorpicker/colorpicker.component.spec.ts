@@ -413,17 +413,7 @@ describe('Colorpicker Component', () => {
     expect(nativeElement.querySelectorAll('button:not([type="button"])').length).toBe(0);
   }));
 
-  it('Should hide when visibility is set to hidden.', fakeAsync(() => {
-    let spyIsVisible = spyOn(colorpickerComponent, 'isHidden').and.callThrough();
-    colorpickerComponent.visibility = 'hidden';
-    openColorpicker(nativeElement, fixture);
-    fixture.detectChanges();
-    expect(spyIsVisible).toHaveBeenCalled();
-    expect(nativeElement.querySelectorAll('.sky-colorpicker-hidden').length).toEqual(1);
-  }));
-
   it('Should hide when input type is set to hidden.', fakeAsync(() => {
-    let spyIsVisible = spyOn(colorpickerComponent, 'isHidden').and.callThrough();
     component.inputType = 'hidden';
     const directiveEl = fixture.debugElement.query(By.directive(SkyColorpickerInputDirective));
     const directiveInstance = directiveEl.injector.get(SkyColorpickerInputDirective);
@@ -435,12 +425,10 @@ describe('Colorpicker Component', () => {
     tick();
     openColorpicker(nativeElement, fixture);
     fixture.detectChanges();
-    expect(spyIsVisible).toHaveBeenCalled();
     expect(nativeElement.querySelectorAll('.sky-colorpicker-hidden').length).toEqual(1);
   }));
 
   it('Should show when input type is set to anything other than hidden.', fakeAsync(() => {
-    let spyIsVisible = spyOn(colorpickerComponent, 'isHidden').and.callThrough();
     const directiveEl = fixture.debugElement.query(By.directive(SkyColorpickerInputDirective));
     const directiveInstance = directiveEl.injector.get(SkyColorpickerInputDirective);
     tick();
@@ -451,22 +439,16 @@ describe('Colorpicker Component', () => {
     tick();
     openColorpicker(nativeElement, fixture);
     fixture.detectChanges();
-    expect(spyIsVisible).toHaveBeenCalled();
     expect(nativeElement.querySelectorAll('.sky-colorpicker-hidden').length).toEqual(0);
   }));
 
   it('Should load with hidden reset button.', fakeAsync(() => {
-    const directiveEl = fixture.debugElement.query(By.directive(SkyColorpickerInputDirective));
-    const directiveInstance = directiveEl.injector.get(SkyColorpickerInputDirective);
-    fixture.detectChanges();
-    directiveInstance.showResetButton = false;
-    directiveInstance.setColorPickerDefaults();
+    colorpickerComponent.showResetButton = false;
     tick();
     fixture.detectChanges();
     tick();
     expect(nativeElement.querySelectorAll('.sky-colorpicker-reset-button').length).toEqual(0);
-    directiveInstance.showResetButton = true;
-    directiveInstance.setColorPickerDefaults();
+    colorpickerComponent.showResetButton = true;
     tick();
     fixture.detectChanges();
     tick();

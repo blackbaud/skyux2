@@ -76,8 +76,6 @@ export class SkyColorpickerInputDirective
   public presetColors: Array<string> = ['#333', '#888', '#EFEFEF', '#FFF'];
   @Input()
   public alphaChannel: string = 'hex6';
-  @Input()
-  public showResetButton: boolean = true;
 
   private _initialColor = SKY_COLORPICKER_DEFAULT_COLOR;
   private created: boolean;
@@ -121,10 +119,10 @@ export class SkyColorpickerInputDirective
         this._onChange(newColor);
       });
     this.skyColorpickerInput.setColorFromString(this.initialColor);
-
+    this.skyColorpickerInput.isVisible = true;
     if (this.element.nativeElement.getAttribute('type')) {
       if (this.element.nativeElement.getAttribute('type') === 'hidden') {
-        this.skyColorpickerInput.visibility = 'hidden';
+        this.skyColorpickerInput.isVisible = false;
       }
     }
   }
@@ -141,8 +139,7 @@ export class SkyColorpickerInputDirective
       this.initialColor,
       this.outputFormat,
       this.presetColors,
-      this.alphaChannel,
-      Boolean(this.showResetButton)
+      this.alphaChannel
     );
   }
 

@@ -50,6 +50,8 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     new EventEmitter<SkyColorpickerOutput>();
   @Input()
   public messageStream = new Subject<SkyColorpickerMessage>();
+  @Input()
+  public showResetButton: boolean = true;
 
   public idIndex: number;
   public skyColorpickerHexId: string;
@@ -71,9 +73,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
-  public visibility: string;
-  public showResetButton: boolean;
-
+  public isVisible: boolean;
   public dropdownController = new Subject<SkyDropdownMessage>();
 
   @ViewChild('closeColorPicker')
@@ -113,14 +113,12 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     color: any,
     outputFormat: string,
     presetColors: Array<string>,
-    alphaChannel: string,
-    showResetButton: boolean
+    alphaChannel: string
   ) {
     this.initialColor = color;
     this.outputFormat = outputFormat;
     this.presetColors = presetColors;
     this.alphaChannel = alphaChannel;
-    this.showResetButton = showResetButton;
 
     if (this.outputFormat === 'rgba') {
       this.format = 1;
@@ -158,9 +156,6 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     this.closeDropdown();
   }
 
-  public isHidden() {
-    if (this.visibility === 'hidden') { return true; } else { return false; }
-  }
   public setColorFromString(value: string) {
     let hsva: SkyColorpickerHsva;
     if (this.alphaChannel === 'hex8') {
