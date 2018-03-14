@@ -49,7 +49,7 @@ export class SkyTokensDemoComponent implements OnDestroy {
 
   public ngOnDestroy() {
     if (this.tokensController) {
-      this.tokensController.complete();
+      this.tokensController.unsubscribe();
     }
   }
 

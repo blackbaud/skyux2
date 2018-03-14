@@ -120,7 +120,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.removeListeners();
-    this.idled.complete();
+    this.idled.unsubscribe();
   }
 
   public positionNextTo(

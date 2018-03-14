@@ -144,10 +144,10 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   public ngOnDestroy() {
     this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe.unsubscribe();
 
     if (this.messageStream) {
-      this.messageStream.complete();
+      this.messageStream.unsubscribe();
     }
   }
 

@@ -101,6 +101,6 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
 
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this._ngUnsubscribe.unsubscribe();
   }
 }

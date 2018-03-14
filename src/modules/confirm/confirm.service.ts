@@ -45,7 +45,7 @@ export class SkyConfirmService {
       }
 
       confirmInstance.closed.emit(result);
-      confirmInstance.closed.complete();
+      confirmInstance.closed.unsubscribe();
     });
 
     return confirmInstance;

@@ -188,7 +188,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
   private notifyClosed() {
     this.flyoutInstance.closed.emit();
-    this.flyoutInstance.closed.complete();
+    this.flyoutInstance.closed.unsubscribe();
   }
 
   private cleanTemplate() {

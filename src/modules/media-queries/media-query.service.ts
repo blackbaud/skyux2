@@ -95,7 +95,7 @@ export class SkyMediaQueryService {
     this.lgMql = undefined;
     this.lgListener = undefined;
 
-    this.currentSubject.complete();
+    this.currentSubject.unsubscribe();
   }
 
   private setupListener(mql: MediaQueryList, breakpoints: SkyMediaBreakpoints) {
