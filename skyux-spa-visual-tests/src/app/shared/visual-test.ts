@@ -10,5 +10,8 @@ export function visualTest(config: SkyCompareScreenshotConfig) {
   Promise.all([
     SkyA11y.run(),
     SkyVisualTest.compareScreenshot(config)
-  ]).then(res => expect(res[0]).toEqual(0));
+  ]).then(res => {
+    const numA11yViolations = res[0];
+    expect(numA11yViolations).toEqual(0);
+  });
 }
