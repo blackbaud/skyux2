@@ -33,6 +33,7 @@ import {
   SkyListToolbarCustomDemoComponent,
   SkyListViewChecklistDemoComponent,
   SkyListViewGridDemoComponent,
+  SkyLookupDemoComponent,
   SkyMediaQueryDemoComponent,
   SkyModalDemoComponent,
   SkyNavbarDemoComponent,
@@ -621,6 +622,22 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./list-view-grid/list-view-grid-demo.component.ts'),
           componentName: 'SkyListViewGridDemoComponent',
           bootstrapSelector: 'sky-list-view-grid-demo'
+        }
+      ]
+    },
+    {
+      name: 'Lookup',
+      component: SkyLookupDemoComponent,
+      files: [
+        {
+          name: 'lookup-demo.component.html',
+          fileContents: require('!!raw-loader!./lookup/lookup-demo.component.html')
+        },
+        {
+          name: 'lookup-demo.component.ts',
+          fileContents: require('!!raw-loader!./lookup/lookup-demo.component.ts'),
+          componentName: 'SkyLookupDemoComponent',
+          bootstrapSelector: 'sky-lookup-demo'
         }
       ]
     },

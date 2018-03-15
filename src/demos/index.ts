@@ -26,6 +26,7 @@ export * from './list-paging';
 export * from './list-toolbar';
 export * from './list-view-checklist';
 export * from './list-view-grid';
+export * from './lookup';
 export * from './media-queries';
 export * from './modal';
 export * from './navbar';
