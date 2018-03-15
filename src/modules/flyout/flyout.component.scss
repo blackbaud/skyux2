@@ -31,6 +31,10 @@
   position: absolute;
   left: -10px;
   cursor: ew-resize;
+
+  @media (max-width: $sky-screen-sm-min) {
+    cursor: initial;
+  }
 }
 
 .sky-flyout-header {
