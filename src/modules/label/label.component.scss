@@ -13,16 +13,36 @@
 
 .sky-label-success {
   background-color: $sky-background-color-success;
+
+  &:before {
+    content: "\f00c";
+    font-family: FontAwesome;
+  }
 }
 
 .sky-label-info {
   background-color: $sky-background-color-info;
+
+  &:before {
+    content: "\f06a";
+    font-family: FontAwesome;
+  }
 }
 
 .sky-label-warning {
   background-color: $sky-background-color-warning;
+
+  &:before {
+    content: "\f071";
+    font-family: FontAwesome;
+  }
 }
 
 .sky-label-danger {
   background-color: $sky-background-color-danger;
+
+  &:before {
+    content: "\f071";
+    font-family: FontAwesome;
+  }
 }
