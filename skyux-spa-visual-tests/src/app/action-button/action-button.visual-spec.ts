@@ -1,64 +1,33 @@
-import {
-  // SkyA11y,
-  SkyHostBrowser,
-  SkyVisualTest
-} from '@blackbaud/skyux-builder/runtime/testing/e2e';
+import { visualTest } from '../shared/visual-test';
 
-fdescribe('Action button', () => {
+describe('Action button', () => {
   it('should match previous action button screenshot', () => {
-    SkyHostBrowser.get('action-button');
-
-    SkyVisualTest.moveCursorOffScreen();
-
-    SkyVisualTest.compareScreenshot({
+    visualTest({
       screenshotName: 'action-button',
-      selector: '#screenshot-action-button',
-      breakpoint: 'sm'
+      selector: '#screenshot-action-button'
     });
-
-    // SkyA11y
-    //   .run()
-    //   .then((violations: number) => {
-    //     expect(violations).toEqual(0);
-    //   });
   });
 
-  // it('should match previous action button screenshot on small screens', () => {
-  //   return SkyVisualTest
-  //     .setupTest('action-button', 480)
-  //     .then(() => {
-  //       SkyVisualTest.moveCursorOffScreen();
-  //       return SkyVisualTest.compareScreenshot({
-  //         screenshotName: 'action-button-small',
-  //         selector: '#screenshot-action-button'
-  //       });
-  //     });
+  it('should match previous action button screenshot on small screens', () => {
+    visualTest({
+      screenshotName: 'action-button-xs',
+      selector: '#screenshot-action-button',
+      breakpoint: 'xs'
+    });
+  });
 
-  // });
+  it('should match previous action button containerscreenshot', () => {
+    visualTest({
+      screenshotName: 'action-button-container',
+      selector: '#screenshot-action-button-container'
+    });
+  });
 
-  // it('should match previous action button containerscreenshot', () => {
-  //   return SkyVisualTest
-  //     .setupTest('action-button')
-  //     .then(() => {
-  //       SkyVisualTest.moveCursorOffScreen();
-  //       return SkyVisualTest.compareScreenshot({
-  //           screenshotName: 'action-button-container',
-  //           selector: '#screenshot-action-button-container'
-  //         });
-  //     });
-
-  // });
-
-  // it('should match previous action button container screenshot on small screens', () => {
-  //   return SkyVisualTest
-  //     .setupTest('action-button', 480)
-  //     .then(() => {
-  //       SkyVisualTest.moveCursorOffScreen();
-  //       return SkyVisualTest.compareScreenshot({
-  //         screenshotName: 'action-button-container-small',
-  //         selector: '#screenshot-action-button-container'
-  //       });
-  //     });
-
-  // });
+  it('should match previous action button container screenshot on small screens', () => {
+    visualTest({
+      screenshotName: 'action-button-container-xs',
+      selector: '#screenshot-action-button-container',
+      breakpoint: 'xs'
+    });
+  });
 });
