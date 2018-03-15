@@ -7,6 +7,7 @@ import {
 
 export function visualTest(config: SkyCompareScreenshotConfig) {
   SkyHostBrowser.get('action-button');
+
   Promise.all([
     SkyA11y.run(),
     SkyVisualTest.compareScreenshot(config)
