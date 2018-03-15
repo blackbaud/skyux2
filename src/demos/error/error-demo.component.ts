@@ -8,6 +8,7 @@ import {
 @Component({
   selector: 'sky-error-demo',
   templateUrl: './error-demo.component.html',
+  styleUrls: ['./error-demo.component.scss'],
   providers: [SkyErrorModalService]
 })
 export class SkyErrorDemoComponent {
