@@ -11,7 +11,7 @@ import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-let moment = require('moment');
+const moment = require('moment');
 import { ListViewsLoadAction } from '../list/state/views/actions';
 import { ListViewModel } from '../list/state/views/view.model';
 import { ListItemModel } from '../list/state/items/item.model';
