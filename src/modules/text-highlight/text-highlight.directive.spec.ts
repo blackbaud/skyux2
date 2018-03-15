@@ -62,19 +62,19 @@ describe('Text Highlight', () => {
         SkyTextHighlightModule,
         FormsModule
       ],
-        providers: [{
-          provide: MutationObserverService,
-          useValue: {
-            create: function(callback: Function) {
-              callbacks.push(callback);
+      providers: [{
+        provide: MutationObserverService,
+        useValue: {
+          create: function(callback: Function) {
+            callbacks.push(callback);
 
-              return {
-                observe: () => {},
-                disconnect: () => {}
-              };
-            }
+            return {
+              observe: () => {},
+              disconnect: () => {}
+            };
           }
-        }]
+        }
+      }]
     });
 
     callbacks = [];
@@ -120,7 +120,21 @@ describe('Text Highlight', () => {
     const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
     const text = '<mark class="sky-highlight-mark">Here</mark> is some test text.';
     // tslint:disable-next-line:max-line-length
-    const additional = '<mark class="sky-highlight-mark">Here</mark> is additional text that was previously hidden.';
+    const additional = '<mark class="sky-highlight-mark">Here</mark> is additional text that was previously hidden in src\\app.';
+    const expectedHtml = getHtmlOutputAdditionalText(text, additional);
+
+    expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
+  });
+
+  it('should support backslashes in the search term', () => {
+    component.showAdditionalContent = true;
+    fixture.detectChanges();
+
+    updateInputText(fixture, 'src\\app');
+
+    const containerEl = nativeElement.querySelector('.sky-test-div-container') as HTMLElement;
+    const text = 'Here is some test text.';
+    const additional = 'Here is additional text that was previously hidden in <mark class="sky-highlight-mark">src\\app</mark>.';
     const expectedHtml = getHtmlOutputAdditionalText(text, additional);
 
     expect(containerEl.innerHTML.trim()).toBe(expectedHtml);
@@ -174,7 +188,7 @@ describe('Text Highlight', () => {
 
     const text = 'Here <mark class="sky-highlight-mark">is</mark> some test text.';
     // tslint:disable-next-line:max-line-length
-    const additional = 'Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden.';
+    const additional = 'Here <mark class="sky-highlight-mark">is</mark> additional text that was previously hidden in src\\app.';
     const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
 
     expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
@@ -209,7 +223,7 @@ describe('Text Highlight', () => {
 
     const text = 'Here is some test text.';
     // tslint:disable-next-line:max-line-length
-    const additional = 'Here is <mark class="sky-highlight-mark">additional</mark> text that was previously hidden.';
+    const additional = 'Here is <mark class="sky-highlight-mark">additional</mark> text that was previously hidden in src\\app.';
     const expectedHtmlChanged = getHtmlOutputAdditionalText(text, additional);
 
     expect(containerElUpdated.innerHTML.trim()).toBe(expectedHtmlChanged);
