@@ -11,11 +11,15 @@ import { FormsModule } from '@angular/forms';
 import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 import { expect } from '../testing';
+import { SkyColorpickerComponent } from '.';
+import { SkyColorpickerMessageType } from './types';
+import { SkyColorpickerInputDirective } from './colorpicker-input.directive';
 
 describe('Colorpicker Component', () => {
   let fixture: ComponentFixture<ColorpickerTestComponent>;
   let component: ColorpickerTestComponent;
   let nativeElement: HTMLElement;
+  let colorpickerComponent: SkyColorpickerComponent;
 
   function openColorpicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     tick();
@@ -154,6 +158,7 @@ describe('Colorpicker Component', () => {
     fixture = TestBed.createComponent(ColorpickerTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
+    colorpickerComponent = component.colorpickerComponent;
   });
 
   it('should output RGBA', fakeAsync(() => {
@@ -407,4 +412,96 @@ describe('Colorpicker Component', () => {
     openColorpicker(nativeElement, fixture);
     expect(nativeElement.querySelectorAll('button:not([type="button"])').length).toBe(0);
   }));
+
+  it('Should hide when input type is set to hidden.', fakeAsync(() => {
+    component.inputType = 'hidden';
+    const directiveEl = fixture.debugElement.query(By.directive(SkyColorpickerInputDirective));
+    const directiveInstance = directiveEl.injector.get(SkyColorpickerInputDirective);
+    tick();
+    fixture.detectChanges();
+    directiveInstance.ngOnInit();
+    tick();
+    fixture.detectChanges();
+    tick();
+    openColorpicker(nativeElement, fixture);
+    fixture.detectChanges();
+    expect(nativeElement.querySelectorAll('.sky-colorpicker-hidden').length).toEqual(1);
+  }));
+
+  it('Should show when input type is set to anything other than hidden.', fakeAsync(() => {
+    const directiveEl = fixture.debugElement.query(By.directive(SkyColorpickerInputDirective));
+    const directiveInstance = directiveEl.injector.get(SkyColorpickerInputDirective);
+    tick();
+    fixture.detectChanges();
+    directiveInstance.ngOnInit();
+    tick();
+    fixture.detectChanges();
+    tick();
+    openColorpicker(nativeElement, fixture);
+    fixture.detectChanges();
+    expect(nativeElement.querySelectorAll('.sky-colorpicker-hidden').length).toEqual(0);
+  }));
+
+  it('Should load with hidden reset button.', fakeAsync(() => {
+    colorpickerComponent.showResetButton = false;
+    tick();
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelectorAll('.sky-colorpicker-reset-button').length).toEqual(0);
+    colorpickerComponent.showResetButton = true;
+    tick();
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelectorAll('.sky-colorpicker-reset-button').length).toEqual(1);
+  }));
+
+  it('Should reset colorpicker via reset button.', fakeAsync(() => {
+    let spyOnResetColorPicker = spyOn(colorpickerComponent, 'resetPickerColor').and.callThrough();
+    fixture.detectChanges();
+    tick();
+    const buttonElem = nativeElement.querySelector('.sky-colorpicker-reset-button') as HTMLElement;
+    buttonElem.click();
+    tick();
+    fixture.detectChanges();
+    expect(spyOnResetColorPicker).toHaveBeenCalled();
+    verifyColorpicker(nativeElement, 'rgba(255,255,255,1)', '255, 255, 255');
+  }));
+
+  it('Should accept open colorpicker via messageStream.', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    component.sendMessage(SkyColorpickerMessageType.Open);
+    tick();
+    fixture.detectChanges();
+    tick();
+    verifyMenuVisibility();
+  }));
+
+  it('Should accept reset colorpicker via messageStream.', fakeAsync(() => {
+    fixture.detectChanges();
+    verifyColorpicker(nativeElement, 'rgba(40,137,229,1)', '40, 137, 229');
+    tick();
+    component.sendMessage(SkyColorpickerMessageType.Reset);
+    tick();
+    fixture.detectChanges();
+    tick();
+    verifyColorpicker(nativeElement, 'rgba(255,255,255,1)', '255, 255, 255');
+  }));
+
+  it('Should toggle reset button via messageStream.', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelectorAll('.sky-colorpicker-reset-button').length).toEqual(1);
+    component.sendMessage(SkyColorpickerMessageType.ToggleResetButton);
+    tick();
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelectorAll('.sky-colorpicker-reset-button').length).toEqual(0);
+    component.sendMessage(SkyColorpickerMessageType.ToggleResetButton);
+    tick();
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelectorAll('.sky-colorpicker-reset-button').length).toEqual(1);
+  }));
+
 });
