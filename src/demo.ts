@@ -48,6 +48,7 @@ import {
   SkyListToolbarCustomDemoComponent,
   SkyListViewChecklistDemoComponent,
   SkyListViewGridDemoComponent,
+  SkyLookupDemoComponent,
   SkyMediaQueryDemoComponent,
   SkyModalDemoComponent,
   SkyNavbarDemoComponent,
@@ -88,9 +89,7 @@ import {
   SkyFlyoutDemoInternalComponent
 } from './demos';
 
-import {
-  SkyDemoService
-} from './demos';
+import { SkyDemoService } from './demos/demo.service';
 
 const components = [
   SkyActionButtonDemoComponent,
@@ -126,6 +125,7 @@ const components = [
   SkyListToolbarCustomDemoComponent,
   SkyListViewChecklistDemoComponent,
   SkyListViewGridDemoComponent,
+  SkyLookupDemoComponent,
   SkyMediaQueryDemoComponent,
   SkyModalDemoComponent,
   SkyNavbarDemoComponent,
@@ -179,3 +179,4 @@ const components = [
 export class SkyDemoModule { }
 
 export * from './demos';
+export * from './demos/demo.service';
