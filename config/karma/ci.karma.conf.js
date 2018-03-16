@@ -9,7 +9,8 @@ module.exports = function (config) {
         browser: 'ie',
         browser_version: '11.0',
         os: 'Windows',
-        os_version: '10'
+        os_version: '10',
+        'browserstack.ie.noFlash': 'true'
       },
       bs_windows_edge: {
         base: 'BrowserStack',
