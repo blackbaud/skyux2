@@ -9,8 +9,7 @@ module.exports = function (config) {
         browser: 'ie',
         browser_version: '11.0',
         os: 'Windows',
-        os_version: '10',
-        'browserstack.ie.noFlash': 'true'
+        os_version: '10'
       },
       bs_windows_edge: {
         base: 'BrowserStack',
@@ -59,7 +58,10 @@ module.exports = function (config) {
     captureTimeout: 3e5,
     browserStack: {
       port: 9876,
-      pollingTimeout: 10000
+      pollingTimeout: 10000,
+      ie: {
+        noFlash: 'true'
+      }
     }
   });
 
