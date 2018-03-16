@@ -1,10 +1,11 @@
 import {
-  EventEmitter,
-  Component,
+  AfterContentInit,
   ChangeDetectionStrategy,
-  Output,
+  Component,
+  EventEmitter,
   Input,
-  AfterContentInit
+  OnInit,
+  Output
 } from '@angular/core';
 import { FormGroup, FormControl, Validators }
   from '@angular/forms';
@@ -14,6 +15,7 @@ import { SkySelectFieldFormComponent } from './select-field-form.component';
 import { SkySelectField, SkySelectFieldListItemsType } from './types';
 import { SkyResources } from '../resources/resources';
 import { SkyModalService, SkyModalCloseArgs } from '../modal';
+import { SkyToken } from '../tokens';
 
 @Component({
   selector: 'sky-select-field',
@@ -22,12 +24,11 @@ import { SkyModalService, SkyModalCloseArgs } from '../modal';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SkySelectFieldComponent implements AfterContentInit {
+export class SkySelectFieldComponent implements AfterContentInit, OnInit {
 
   @Input()
   public set selectField(value: SkySelectField) {
     this._selectField = value;
-    this.selectFieldChange.emit(this._selectField);
   }
 
   @Input()
@@ -75,16 +76,16 @@ export class SkySelectFieldComponent implements AfterContentInit {
   }
 
   public get tokenValues() {
-    return this._tokenValues.map(item => ({ value: item }));
+    return this._tokens;
   }
 
   public set tokenValues(items: any) {
-    this.selectFieldChange.emit(items.map((item: any) => item.value));
+    this._selectField = items.map((item: any) => item.value);
   }
 
   public get tokenOverflow() {
-    let text = SkyResources.getString('selectfield_summary_text');
-    let summary = text.replace('{0}', this._tokenValues.length.toString());
+    const text = SkyResources.getString('selectfield_summary_text');
+    const summary = text.replace('{0}', this._selectField.length.toString());
     return [{ value: { name: summary } }];
   }
 
@@ -96,6 +97,7 @@ export class SkySelectFieldComponent implements AfterContentInit {
 
   public singleSelectForm: FormGroup;
 
+  private _tokens:  SkyToken[];
   private _selectField: SkySelectField = [];
   private _selectFieldClear: boolean = false;
   private _selectFieldIcon: string = 'fa-sort';
@@ -103,19 +105,20 @@ export class SkySelectFieldComponent implements AfterContentInit {
   private _selectFieldPickerList: SkySelectField = [];
   private _selectFieldStyle: string = 'multiple';
   private _selectFieldText: string = '';
-  private _tokenValues: SkySelectField = [];
 
-  constructor(private modal: SkyModalService) {
+  constructor(private modal: SkyModalService) { }
+
+  public ngOnInit() {
     this.selectFieldChange.subscribe((item: SkySelectField) => {
       this.singleSelectLabel(item[0]);
+      this.parseTokens(item);
       this._selectField = item;
-      this._tokenValues = this._selectField;
-    });
+      });
     this.singleSelectForm = new FormGroup({
       singleSelectInput: new FormControl('', Validators.required)
     });
+    this.parseTokens(this._selectField);
   }
-
   public ngAfterContentInit() {
     this.singleSelectLabel(this._selectField[0]);
   }
@@ -149,6 +152,9 @@ export class SkySelectFieldComponent implements AfterContentInit {
   }
   public clearSelect() {
     this.selectFieldChange.emit([]);
+  }
+  public parseTokens(tokens: SkySelectField) {
+    this._tokens = tokens.map(token => ({ value: token }));
   }
   private singleSelectLabel(selectedItem: SkySelectFieldListItemsType) {
     if (!this.isSelectMultiple()) {
