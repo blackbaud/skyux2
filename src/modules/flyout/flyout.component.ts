@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   ComponentFactoryResolver,
   ElementRef,
+  HostListener,
   Injector,
   OnDestroy,
   OnInit,
@@ -59,6 +60,9 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public flyoutState = FLYOUT_CLOSED_STATE;
   public isOpen = false;
   public isOpening = false;
+  public width = 0;
+  public dragging: boolean;
+  private px: number = 0;
 
   public get messageStream(): Subject<SkyFlyoutMessage> {
     return this._messageStream;
@@ -114,6 +118,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
     this.config = Object.assign({ providers: [] }, config);
 
+    this.config.defaultWidth = this.config.defaultWidth || 500;
+    this.config.minWidth = this.config.minWidth || 320;
+    this.config.maxWidth = this.config.maxWidth || this.config.defaultWidth;
+
     const factory = this.resolver.resolveComponentFactory(component);
     const providers = ReflectiveInjector.resolve(this.config.providers);
     const injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
@@ -125,6 +133,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.messageStream.next({
       type: SkyFlyoutMessageType.Open
     });
+
+    this.width = this.config.defaultWidth;
 
     return this.flyoutInstance;
   }
@@ -143,6 +153,34 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       this.notifyClosed();
       this.cleanTemplate();
     }
+  }
+
+  public onHandleClick(event: MouseEvent) {
+    this.dragging = true;
+    this.px = event.clientX;
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  public onHandleMove(event: MouseEvent) {
+    if (!this.dragging) {
+        return;
+    }
+    let offsetX = event.clientX - this.px;
+    let pWidth = this.width;
+
+    this.width -= offsetX;
+    if (this.width < this.config.minWidth || this.width > this.config.maxWidth) {
+        this.width = pWidth;
+    } else {
+        this.px = event.clientX;
+    }
+  }
+
+  @HostListener('document:mouseup', ['$event'])
+  public onHandleRelease(event: MouseEvent) {
+    this.dragging = false;
   }
 
   private open() {
