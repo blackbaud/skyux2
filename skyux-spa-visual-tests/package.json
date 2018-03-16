@@ -13,7 +13,7 @@
     "build-visual": "npm install && cd .. && npm run build && node skyux-spa-visual-tests/config/utils/setup-skyux-dist.js && cd skyux-spa-visual-tests",
     "test-visual:local": "node config/utils/start-visual.js local",
     "test-visual:local-browserstack": "node config/utils/start-visual.js local-browserstack",
-    "test-visual:ci": "node config/utils/start-visual.js ci"
+    "test-visual:ci": "npm install blackbaud/skyux-builder-config#travis-configs && skyux visual --platform travis"
   },
   "keywords": [],
   "author": "Blackbaud",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@blackbaud/skyux": "2.10.0",
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#visual-test-library",
+    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#visual-cli-command",
     "pix-diff": "2.0.0",
     "browserstack-local": "1.3.0"
   },
