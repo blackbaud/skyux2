@@ -58,7 +58,8 @@ module.exports = function (config) {
     captureTimeout: 3e5,
     browserStack: {
       port: 9876,
-      pollingTimeout: 10000
+      pollingTimeout: 10000,
+      video: false
     }
   });
 
