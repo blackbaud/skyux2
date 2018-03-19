@@ -11,11 +11,11 @@
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
       <button
-        *ngIf="config?.recordUrl"
+        *ngIf="config?.permalink"
         type="button"
         class="sky-btn sky-btn-default"
         (click)="navigateToRecord()">
-        {{ config?.recordButtonLabel ? config.recordButtonLabel : 'flyout_view_record' | skyResources }}
+        {{ config?.permalinkLabel ? config.permalinkLabel : 'flyout_permalink_default_label' | skyResources }}
       </button>
       <button
         type="button"

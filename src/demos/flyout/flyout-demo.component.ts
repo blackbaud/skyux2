@@ -40,7 +40,7 @@ export class SkyFlyoutDemoComponent {
       ariaDescribedBy: 'my-describedby-id',
       ariaLabelledBy: 'my-labelledby-id',
       ariaRole: 'modal',
-      recordUrl: '/skyux2/user/12345'
+      permalink: '/skyux2/user/12345'
     });
 
     this.flyout.closed.subscribe(() => {

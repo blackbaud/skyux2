@@ -147,8 +147,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public navigateToRecord() {
-    if (this.config.recordUrl) {
-      this.windowRef.getWindow().location.href = this.config.recordUrl;
+    if (this.config.permalink) {
+      this.windowRef.getWindow().location.href = this.config.permalink;
     }
   }
 

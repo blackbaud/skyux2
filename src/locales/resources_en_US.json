@@ -439,8 +439,8 @@
     "_description": "Text for flyout close button",
     "message": "Close flyout"
   },
-  "flyout_view_record": {
-    "_description": "Flyout button label for viewing record",
+  "flyout_permalink_default_label": {
+    "_description": "Default label for the flyout's permalink button",
     "message": "View record"
   },
   "grid_action_bar_cancel_mobile_actions": {
