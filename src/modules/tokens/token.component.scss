@@ -4,12 +4,10 @@
 .sky-token {
   background-color: $sky-background-color-info-light;
   border: 1px solid $sky-highlight-color-info;
-  padding: 2px 6px;
+  padding: 2px 8px;
   display: inline-block;
   user-select: none;
-}
 
-.sky-token-focusable {
   &:hover,
   &:focus {
     background-color: darken($sky-background-color-info-light, 10%);
@@ -34,11 +32,8 @@
   margin-left: 2px;
   opacity: .9;
 
-  &:hover {
-    opacity: 1;
-  }
-
+  &:hover,
   &:focus {
-    outline: none;
+    opacity: 1;
   }
 }

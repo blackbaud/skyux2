@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SkyWindowRefService } from '../window';
-let moment = require('moment');
+const moment = require('moment');
 import 'moment/min/locales.min';
 
 @Injectable()

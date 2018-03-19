@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Injectable
+} from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 import {
@@ -12,6 +15,7 @@ import {
   ListItemModel
 } from '../../core';
 
+@Injectable()
 export class DemoListProvider extends ListDataProvider {
   public items: Observable<ListItemModel[]>;
   public remoteCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -85,8 +89,10 @@ export class DemoListProvider extends ListDataProvider {
         let searchText = request.search.searchText.toLowerCase();
 
         searchedList = items.filter((item) => {
-          return item.data.column2.toLowerCase().indexOf(searchText) > -1 ||
-            item.data.column3.toLowerCase().indexOf(searchText) > -1;
+          return (
+            item.data.column2.toLowerCase().indexOf(searchText) > -1 ||
+            item.data.column3.toLowerCase().indexOf(searchText) > -1
+          );
         });
       }
 
@@ -105,8 +111,11 @@ export class DemoListProvider extends ListDataProvider {
 
 @Component({
   selector: 'sky-list-provider-demo',
-  templateUrl: './list-provider-demo.component.html'
+  templateUrl: './list-provider-demo.component.html',
+  providers: [DemoListProvider]
 })
 export class SkyListProviderDemoComponent {
-  public listDataProvider: DemoListProvider = new DemoListProvider();
+  constructor(
+    public listDataProvider: DemoListProvider
+  ) { }
 }

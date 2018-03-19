@@ -13,7 +13,7 @@ import {
   ViewChildren
 } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
@@ -69,7 +69,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   @Input()
-  public messageStream = new ReplaySubject<SkyTokensMessage>();
+  public messageStream = new Subject<SkyTokensMessage>();
 
   @Input()
   public set tokens(value: SkyToken[]) {
@@ -113,7 +113,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChildren(SkyTokenComponent)
   private tokenComponents: QueryList<SkyTokenComponent>;
-  private destroyed = new ReplaySubject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   private _activeIndex: number;
   private _disabled: boolean;
@@ -143,56 +143,51 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.destroyed.next(true);
-    this.destroyed.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+
+    if (this.messageStream) {
+      this.messageStream.complete();
+    }
   }
 
   public onTokenClick(token: SkyToken) {
-    if (!this.isSelectable()) {
+    if (this.disabled) {
       return;
     }
 
     this.notifyTokenSelected(token);
   }
 
-  public onTokenKeyUp(event: KeyboardEvent, token: SkyToken) {
+  public onTokenKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
-    if (!this.isSelectable()) {
+    if (this.disabled) {
       return;
     }
 
     /* tslint:disable-next-line:switch-default */
     switch (key) {
+      case 'left':
       case 'arrowleft':
-      this.focusPreviousToken();
+      this.messageStream.next({ type: SkyTokensMessageType.FocusPreviousToken });
       event.preventDefault();
       break;
 
+      case 'right':
       case 'arrowright':
-      this.focusNextToken();
+      this.messageStream.next({ type: SkyTokensMessageType.FocusNextToken });
       event.preventDefault();
-      break;
-
-      case 'enter':
-      this.notifyTokenSelected(token);
-      event.preventDefault();
-      break;
-
-      case 'backspace':
-      if (this.dismissible) {
-        this.focusPreviousToken();
-        event.preventDefault();
-      }
-      break;
-
-      case 'delete':
-      if (this.dismissible) {
-        this.focusActiveToken();
-        event.preventDefault();
-      }
       break;
     }
+  }
+
+  public selectToken(token: SkyToken) {
+    if (this.disabled) {
+      return;
+    }
+
+    this.notifyTokenSelected(token);
   }
 
   public removeToken(token: SkyToken) {
@@ -226,14 +221,37 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  private removeActiveToken() {
+    const token = this.tokens[this.activeIndex];
+    if (token) {
+      this.removeToken(token);
+    }
+  }
+
   private initMessageStream() {
     this.messageStream
-      .takeUntil(this.destroyed)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyTokensMessage) => {
         /* tslint:disable-next-line:switch-default */
         switch (message.type) {
           case SkyTokensMessageType.FocusLastToken:
           this.focusLastToken();
+          break;
+
+          case SkyTokensMessageType.FocusActiveToken:
+          this.focusActiveToken();
+          break;
+
+          case SkyTokensMessageType.FocusPreviousToken:
+          this.focusPreviousToken();
+          break;
+
+          case SkyTokensMessageType.FocusNextToken:
+          this.focusNextToken();
+          break;
+
+          case SkyTokensMessageType.RemoveActiveToken:
+          this.removeActiveToken();
           break;
         }
       });
@@ -243,9 +261,5 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this.tokenSelected.emit({
       token
     });
-  }
-
-  private isSelectable(): boolean {
-    return (!this.disabled && this.focusable);
   }
 }
