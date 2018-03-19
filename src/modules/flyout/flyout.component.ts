@@ -27,6 +27,7 @@ import 'rxjs/add/operator/takeUntil';
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutInstance } from './flyout-instance';
 import { SkyWindowRefService } from './../window/window-ref.service';
+import { SkyResources } from './../resources/resources';
 
 import {
   SkyFlyoutConfig,
@@ -150,6 +151,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     if (this.config.permalink) {
       this.windowRef.getWindow().location.href = this.config.permalink;
     }
+  }
+
+  public getPermalinkLabel() {
+    return this.config.permalinkLabel ? this.config.permalinkLabel : SkyResources.getString('flyout_permalink_default_label');
   }
 
   private open() {

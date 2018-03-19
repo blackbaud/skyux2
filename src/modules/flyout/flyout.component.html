@@ -15,7 +15,7 @@
         type="button"
         class="sky-btn sky-btn-default"
         (click)="navigateToRecord()">
-        {{ config?.permalinkLabel ? config.permalinkLabel : 'flyout_permalink_default_label' | skyResources }}
+        {{ getPermalinkLabel() }}
       </button>
       <button
         type="button"
