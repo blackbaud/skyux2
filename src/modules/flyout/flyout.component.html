@@ -14,7 +14,8 @@
         *ngIf="config?.permalink"
         type="button"
         class="sky-btn sky-btn-default"
-        (click)="navigateToRecord()">
+        (click)="navigateToRecord()"
+        sky-cmp-id="permalink-btn">
         {{ getPermalinkLabel() }}
       </button>
       <button

@@ -19,6 +19,8 @@ import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { SkyFlyoutTestSampleContext } from './fixtures/flyout-sample-context.fixture';
 import { SkyFlyoutInstance } from './flyout-instance';
 import { SkyFlyoutService } from './flyout.service';
+import { SkyResources } from './../resources/resources';
+import { SkyWindowRefService } from './../window/window-ref.service';
 
 import {
   SkyFlyoutConfig
@@ -28,6 +30,7 @@ describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
   let fixture: ComponentFixture<SkyFlyoutTestComponent>;
   let flyoutService: SkyFlyoutService;
+  let windowService: SkyWindowRefService;
 
   function openFlyout(config: SkyFlyoutConfig = {}): SkyFlyoutInstance<any> {
     config = Object.assign({
@@ -66,6 +69,10 @@ describe('Flyout component', () => {
     return document.querySelector('.sky-flyout-btn-close') as HTMLElement;
   }
 
+  function getPermalinkButtonElement(): HTMLElement {
+    return document.querySelector('.sky-flyout-header [sky-cmp-id="permalink-btn"]') as HTMLElement;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -77,14 +84,16 @@ describe('Flyout component', () => {
     fixture.detectChanges();
   });
 
-  beforeEach(inject([ApplicationRef, SkyFlyoutService],
+  beforeEach(inject([ApplicationRef, SkyFlyoutService, SkyWindowRefService],
     (
       _applicationRef: ApplicationRef,
-      _flyoutService: SkyFlyoutService
+      _flyoutService: SkyFlyoutService,
+      _windowService: SkyWindowRefService
     ) => {
       applicationRef = _applicationRef;
       flyoutService = _flyoutService;
       flyoutService.close();
+      windowService = _windowService;
     }
   ));
 
@@ -174,6 +183,69 @@ describe('Flyout component', () => {
         .toBe(expectedDescribed);
       expect(flyoutElement.getAttribute('role'))
         .toBe(expectedRole);
+    })
+  );
+
+  it('should not show the permalink button if no permalink config peroperties are defined',
+    fakeAsync(() => {
+      openFlyout();
+
+      const permaLinkButton = getPermalinkButtonElement();
+
+      expect(permaLinkButton).toBeFalsy();
+    })
+  );
+
+  it('should use the default permalink label if none is defined',
+    fakeAsync(() => {
+      const expectedPermalink = 'http://bb.com';
+      const expectedLabel = SkyResources.getString('flyout_permalink_default_label');
+
+      openFlyout({
+        permalink: expectedPermalink
+      });
+
+      const permaLinkButton = getPermalinkButtonElement();
+
+      expect(permaLinkButton).toBeTruthy();
+      expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
+    })
+  );
+
+  it('should use the custom defined label for permalink',
+    fakeAsync(() => {
+      const expectedPermalink = 'http://bb.com';
+      const expectedLabel = 'Foo Bar';
+
+      openFlyout({
+        permalink: expectedPermalink,
+        permalinkLabel: expectedLabel
+      });
+
+      const permaLinkButton = getPermalinkButtonElement();
+
+      expect(permaLinkButton).toBeTruthy();
+      expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
+    })
+  );
+
+  it('should open the defined permalink URL when clicking on the permalink button',
+    fakeAsync(() => {
+      const windowRef = new SkyWindowRefService();
+      const expectedPermalink = 'http://bb.com';
+      const mockWindow = {
+        document: windowRef.getWindow().document,
+        location: {}
+      };
+      spyOn(windowService, 'getWindow').and.returnValue(mockWindow);
+
+      openFlyout({
+        permalink: expectedPermalink
+      });
+      const permaLinkButton = getPermalinkButtonElement();
+      permaLinkButton.click();
+
+      expect(mockWindow.location).toEqual({ href: expectedPermalink });
     })
   );
 
