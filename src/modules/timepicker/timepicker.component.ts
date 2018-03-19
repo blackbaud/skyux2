@@ -105,7 +105,7 @@ export class SkyTimepickerComponent implements OnInit, OnDestroy {
       hour: moment(this.activeTime).hour(),
       minute: moment(this.activeTime).minute(),
       meridie: moment(this.activeTime).format('A'),
-      timezone: moment(this.activeTime).format('Z'),
+      timezone: parseInt(moment(this.activeTime).format('Z'), 10),
       iso8601: this.activeTime,
       local: moment(this.activeTime).format(this.localeFormat),
       customFormat: (typeof this.returnFormat !== 'undefined')
@@ -162,7 +162,7 @@ export class SkyTimepickerComponent implements OnInit, OnDestroy {
     this.activeTime = moment({
       'hour': hour,
       'minute': moment(this.activeTime).get('minute') + 0
-    }).format();
+    }).toDate();
     this.selectedTimeChanged.emit(this.selectedTime);
   }
 
@@ -174,7 +174,7 @@ export class SkyTimepickerComponent implements OnInit, OnDestroy {
     this.activeTime = moment({
       'hour': moment(this.activeTime).get('hour') + 0,
       'minute': minute
-    }).format();
+    }).toDate();
     this.selectedTimeChanged.emit(this.selectedTime);
   }
 
@@ -182,7 +182,7 @@ export class SkyTimepickerComponent implements OnInit, OnDestroy {
     /* istanbul ignore else */
     if (!this.is8601) {
       if (meridies !== this.selectedMeridies) {
-        this.activeTime = moment(this.activeTime).add(12, 'hours').format();
+        this.activeTime = moment(this.activeTime).add(12, 'hours').toDate();
         this.selectedTimeChanged.emit(this.selectedTime);
       }
     }

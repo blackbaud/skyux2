@@ -80,7 +80,8 @@ import { ListItemModel } from './state/items/item.model';
 import {
   isObservable
 } from './helpers';
-let moment = require('moment');
+
+const moment = require('moment');
 
 @Component({
   selector: 'sky-list',

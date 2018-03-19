@@ -57,6 +57,7 @@ describe('Autocomplete component', () => {
 
   describe('basic setup', () => {
     it('should set defaults', () => {
+      expect(autocomplete.data).toEqual([]);
       fixture.detectChanges();
       expect(autocomplete.descriptorProperty).toEqual('name');
       expect(autocomplete.propertiesToSearch).toEqual(['name']);

@@ -10,7 +10,7 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-let moment = require('moment');
+const moment = require('moment');
 import {
   SkyTimepickerComponent
 } from './timepicker.component';
@@ -152,8 +152,8 @@ export class SkyTimepickerInputDirective implements
         'hour': moment(time, currentFormat).hour(),
         'minute': moment(time, currentFormat).minute(),
         'meridie': moment(time, currentFormat).format('A'),
-        'timezone': moment(time, currentFormat).format('Z'),
-        'iso8601': moment(time, currentFormat).format(),
+        'timezone': parseInt(moment(time, currentFormat).format('Z'), 10),
+        'iso8601': moment(time, currentFormat).toDate(),
         'local': moment(time, currentFormat).format(currentFormat),
         'customFormat': this.returnFormat
       };

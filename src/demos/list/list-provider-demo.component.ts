@@ -1,5 +1,6 @@
 import {
   Component,
+  Injectable,
   OnDestroy
 } from '@angular/core';
 
@@ -15,6 +16,7 @@ import {
   ListItemModel
 } from '../../core';
 
+@Injectable()
 export class DemoListProvider extends ListDataProvider implements OnDestroy {
   public items: Observable<ListItemModel[]>;
   public remoteCount = new BehaviorSubject<number>(0);
@@ -92,8 +94,10 @@ export class DemoListProvider extends ListDataProvider implements OnDestroy {
         let searchText = request.search.searchText.toLowerCase();
 
         searchedList = items.filter((item) => {
-          return item.data.column2.toLowerCase().indexOf(searchText) > -1 ||
-            item.data.column3.toLowerCase().indexOf(searchText) > -1;
+          return (
+            item.data.column2.toLowerCase().indexOf(searchText) > -1 ||
+            item.data.column3.toLowerCase().indexOf(searchText) > -1
+          );
         });
       }
 
@@ -112,8 +116,11 @@ export class DemoListProvider extends ListDataProvider implements OnDestroy {
 
 @Component({
   selector: 'sky-list-provider-demo',
-  templateUrl: './list-provider-demo.component.html'
+  templateUrl: './list-provider-demo.component.html',
+  providers: [DemoListProvider]
 })
 export class SkyListProviderDemoComponent {
-  public listDataProvider: DemoListProvider = new DemoListProvider();
+  constructor(
+    public listDataProvider: DemoListProvider
+  ) { }
 }

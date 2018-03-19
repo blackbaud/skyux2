@@ -1,0 +1,7 @@
+@import "../../scss/mixins";
+
+:host {
+  display: block;
+  @include sky-border(light, top);
+  padding: $sky-padding-3_4 0;
+}

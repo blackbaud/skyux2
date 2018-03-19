@@ -19,7 +19,7 @@ import {
   getData
 } from '../list/helpers';
 
-let moment = require('moment');
+const moment = require('moment');
 
 export class SkyListInMemoryDataProvider extends ListDataProvider implements OnDestroy {
   public items: BehaviorSubject<Array<ListItemModel>> =
