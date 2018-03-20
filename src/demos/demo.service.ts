@@ -21,6 +21,7 @@ import {
   SkyFlyoutDemoComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
+  SkyInfiniteScrollDemoComponent,
   SkyKeyInfoDemoComponent,
   SkyLabelDemoComponent,
   SkyLinkRecordsDemoComponent,
@@ -417,6 +418,22 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./help-inline/help-inline-demo.component.ts'),
           componentName: 'SkyHelpInlineDemoComponent',
           bootstrapSelector: 'sky-help-inline-demo'
+        }
+      ]
+    },
+    {
+      name: 'Infinite scroll',
+      component: SkyInfiniteScrollDemoComponent,
+      files: [
+        {
+          name: 'infinite-scroll-demo.component.html',
+          fileContents: require('!!raw-loader!./infinite-scroll/infinite-scroll-demo.component.html')
+        },
+        {
+          name: 'infinite-scroll-demo.component.ts',
+          fileContents: require('!!raw-loader!./infinite-scroll/infinite-scroll-demo.component.ts'),
+          componentName: 'SkyInfiniteScrollDemoComponent',
+          bootstrapSelector: 'sky-infinite-scroll-demo'
         }
       ]
     },

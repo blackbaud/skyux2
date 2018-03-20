@@ -1,0 +1,5 @@
+<div class="sky-infinite-scroll" ng-if="skyInfiniteScrollHasMore">
+    <button type="button" class="sky-btn sky-btn-secondary" ng-if="!isLoading && skyInfiniteScrollHasMore" ng-click="startInfiniteScrollLoad()">{{loadMoreText}}</button>
+    <div sky-wait="isLoading">
+    </div>
+</div>
