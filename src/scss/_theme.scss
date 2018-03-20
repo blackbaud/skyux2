@@ -155,3 +155,14 @@ input:-moz-placeholder { /* Firefox 18- */
     opacity: 1;
 }
 /* End Placeholder Text */
+
+// Margins and padding
+@include create_margin_padding_classes(top);
+@include create_margin_padding_classes(right);
+@include create_margin_padding_classes(bottom);
+@include create_margin_padding_classes(left);
+
+// Drop shadows
+.sky-shadow {
+  @include sky-shadow;
+}

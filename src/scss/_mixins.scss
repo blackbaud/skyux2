@@ -269,6 +269,44 @@
   }
 }
 
+@mixin create_margin_padding_classes($placement) {
+  $padding-types: (
+    3_4: $sky-padding-3_4,
+    half: $sky-padding-half,
+    plus-half: $sky-padding-plus-half,
+    double: $sky-padding-double,
+    triple: $sky-padding-triple
+  );
+
+  $margin-types: (
+    3_4: $sky-margin-3_4,
+    half: $sky-margin-half,
+    plus-half: $sky-margin-plus-half,
+    double: $sky-margin-double,
+    triple: $sky-margin-triple
+  );
+
+  .sky-padding-#{$placement} {
+    padding-#{$placement}: $sky-padding;
+  }
+
+  @each $type, $value in $padding-types {
+    .sky-padding-#{$type}-#{$placement} {
+      padding-#{$placement}: $value;
+    }
+  }
+
+  .sky-margin-#{$placement} {
+    margin-#{$placement}: $sky-margin;
+  }
+
+  @each $type, $value in $margin-types {
+    .sky-margin-#{$type}-#{$placement} {
+      margin-#{$placement}: $value;
+    }
+  }
+}
+
 @mixin sky-required-field {
   content: "*";
   color: $sky-highlight-color-danger;
