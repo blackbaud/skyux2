@@ -18,6 +18,6 @@ module.exports = function (config) {
     customLaunchers
   });
 
-  // Remove coverage rule because it causes problems in IE 11:
+  // Remove instrument loader because it causes problems in IE 11:
   config.webpack.module.rules.pop();
 };
