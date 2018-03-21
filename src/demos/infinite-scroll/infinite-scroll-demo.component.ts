@@ -36,12 +36,11 @@ export class SkyInfiniteScrollDemoComponent {
   }
 
   public loadFn() {
-    console.log('Event emitted.');
     return setTimeout(() => {
       this.addData();
       if (this.idCount > 90) {
         this.hasMore = false;
       }
-    }, 4000);
+    }, 2000);
   }
 }

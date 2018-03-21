@@ -1,4 +1,4 @@
-<div>
+<div style='overflow-y: scroll; height: 400px; position: relative;'>
   <sky-repeater>
     <sky-repeater-item *ngFor="let item of data">
       <sky-repeater-item-title>
@@ -19,7 +19,7 @@
     </sky-repeater-item>
   </sky-repeater>
   <sky-infinite-scroll
-    sky-infinite-scroll-has-more="hasMore"
+    [sky-infinite-scroll-has-more]="hasMore"
     (sky-infinite-scroll-load)="loadFn()">
   </sky-infinite-scroll>
 </div>

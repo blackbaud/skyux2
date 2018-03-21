@@ -1,7 +1,8 @@
 import {
-  Component, OnInit, OnDestroy, ElementRef, Renderer2, Input, Output, EventEmitter, HostListener
+  Component, OnInit, OnDestroy, ElementRef, Renderer2, Input, Output, EventEmitter
 } from '@angular/core';
 import { SkyResourcesService } from '../resources';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'sky-infinite-scroll',
@@ -17,30 +18,35 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
   @Output('sky-infinite-scroll-load')
   public skyInfiniteScrollLoad: EventEmitter<any> = new EventEmitter();
 
-  public isLoading: boolean = true;
-  public turnOffScrollListener: () => void; 
+  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public loadMoreText: string = this.resources.getString('infinite_scroll_load_more');
-  @HostListener('window:scroll', [])
-  onScroll(){
-    this.startInfiniteScrollLoad();
-  }
 
-  public scrollableParentEl: any;
-  public scrollableParentIsWindow: boolean = false;
+  private scrollableParentEl: any;
+  private scrollableParentIsWindow: boolean = false;
+  private elementPosition: number;
+  private turnOffScrollListener: () => void; 
+  private turnOffResizeListener: () => void;
 
   public constructor(private element: ElementRef, private renderer: Renderer2, private resources: SkyResourcesService) {
   }
 
   public ngOnInit(): void {
-    this.isLoading = false;
     this.scrollableParentEl = this.getScrollableParent(this.element.nativeElement);
-    this.turnOffScrollListener = this.renderer.listen(this.element.nativeElement, 'scroll', (event) => {
+    this.elementPosition = this.element.nativeElement.offsetTop;
+    this.turnOffScrollListener = this.renderer.listen(this.scrollableParentEl, 'scroll', () => {
       this.startInfiniteScrollLoad();
     });
+    this.turnOffResizeListener = this.renderer.listen(this.scrollableParentEl, 'DOMNodeInserted', () => {
+      if (this.isLoading.value && this.element.nativeElement.offsetTop != this.elementPosition) {
+        this.elementPosition = this.element.nativeElement.offsetTop;
+        this.isLoading.next(false);
+      }
+    })
   }
 
   public ngOnDestroy(): void {
     this.turnOffScrollListener();
+    this.turnOffResizeListener();
   }
 
   public infiniteScrollInView() {
@@ -48,26 +54,19 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
       return this.scrollableParentEl.scrollY + this.scrollableParentEl.innerHeight > this.element.nativeElement.offsetTop;
     }
     else {
-      return this.scrollableParentEl.scrollTop + this.scrollableParentEl.height > this.element.nativeElement.position.top;
+      return this.scrollableParentEl.scrollTop + this.scrollableParentEl.clientHeight > this.element.nativeElement.offsetTop;
     }
   }
   
-  public callLoadCallback() {
-    this.skyInfiniteScrollLoad.emit([] as any[]);
-    this.loadComplete();
-  }
-
   public startInfiniteScrollLoad() {
-    if (this.skyInfiniteScrollHasMore && !this.isLoading && this.infiniteScrollInView()) {
-        console.log('Loading');
-        this.isLoading = true;
-        
-        this.callLoadCallback();
+    if (this.skyInfiniteScrollHasMore && !this.isLoading.value && this.infiniteScrollInView()) {
+        this.isLoading.next(true);
+        this.skyInfiniteScrollLoad.emit([] as any[]);
     }
-  }
-
-  private loadComplete(): void {
-    this.isLoading = false;
+    else if (this.isLoading.value && this.element.nativeElement.offsetTop != this.elementPosition) {
+      this.elementPosition = this.element.nativeElement.offsetTop;
+      this.isLoading.next(false);
+    }
   }
 
   private getScrollableParent(element: any): any {

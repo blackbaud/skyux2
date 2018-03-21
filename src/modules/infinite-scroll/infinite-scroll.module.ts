@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SkyInfiniteScrollComponent } from './infinite-scroll.component';
 import { SkyResourcesModule } from '../resources';
+import { SkyWaitModule } from '../wait';
 
 @NgModule({
     declarations: [
@@ -10,7 +11,8 @@ import { SkyResourcesModule } from '../resources';
     ],
     imports: [
         CommonModule,
-        SkyResourcesModule
+        SkyResourcesModule,
+        SkyWaitModule
     ],
     exports: [
         SkyInfiniteScrollComponent
