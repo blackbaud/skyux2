@@ -43,9 +43,10 @@ function getSpecsRegex() {
   console.log(modules.join(',\n'));
 
   return [
-    '\\(',
+    String.raw`\\/`,
+    '\(',
     ...modules.join('|'),
-    ')'
+    ')\\/'
   ].join('').replace(/\-/g, '\\-');
 }
 
