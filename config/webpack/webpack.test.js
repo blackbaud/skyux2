@@ -68,6 +68,10 @@ module.exports = {
           'sass-loader'
         ]
       },
+      {
+        test: /\.png$/,
+        loader: 'base64-image-loader'
+      },
 
       {
         enforce: 'post',

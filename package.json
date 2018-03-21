@@ -88,6 +88,7 @@
     "karma-mocha-reporter": "2.2.3",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "2.0.3",
+    "karma-webpack-grep": "1.0.1",
     "less": "2.7.2",
     "node-resemble-js": "0.2.0",
     "node-sass": "4.5.3",
