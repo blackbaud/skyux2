@@ -22,12 +22,6 @@ module.exports = {
 
       {
         enforce: 'pre',
-        test: /\.ts$/,
-        loader: 'tslint-loader',
-        exclude: [helpers.root('node_modules')]
-      },
-      {
-        enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
         exclude: [
@@ -40,8 +34,20 @@ module.exports = {
       {
         test: /\.ts$/,
         use: [
-          'awesome-typescript-loader',
-          'angular2-template-loader'
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              // Ignore the "Cannot find module" error that occurs when referencing
+              // an aliased file.  Webpack will still throw an error when a module
+              // cannot be resolved via a file path or alias.
+              ignoreDiagnostics: [2307],
+              // Linting is handled by the sky-tslint loader.
+              transpileOnly: true
+            }
+          },
+          {
+            loader: 'angular2-template-loader'
+          }
         ],
         exclude: [/\.e2e\.ts$/]
       },
@@ -61,6 +67,10 @@ module.exports = {
           'raw-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.png$/,
+        loader: 'base64-image-loader'
       },
 
       {

@@ -11,11 +11,18 @@ env:
   global:
     - CXX=g++-4.8
     - BROWSER_STACK_BINARY_BASE_PATH=$HOME/browserstack-binary
+
+    # Make sure this is the total of IE_CURRENT_RUNs below
+    - IE_TOTAL_RUNS=3
+
   # Run three tasks in parallel:
   # https://docs.travis-ci.com/user/customizing-the-build/#Build-Matrix
   matrix:
     - TEST_COMMAND=build
     - TEST_COMMAND=coverage
+    - TEST_COMMAND=coverage-ie-batch IE_CURRENT_RUN=0
+    - TEST_COMMAND=coverage-ie-batch IE_CURRENT_RUN=1
+    - TEST_COMMAND=coverage-ie-batch IE_CURRENT_RUN=2
     - TEST_COMMAND=visual
 
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
@@ -36,6 +43,7 @@ before_install:
   - export SAVAGE_BRANCH="^savage-"
   - chmod +x ./scripts/travis-script-build.sh
   - chmod +x ./scripts/travis-script-coverage.sh
+  - chmod +x ./scripts/travis-script-coverage-ie-batch.sh
   - chmod +x ./scripts/travis-script-deploy.sh
   - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
