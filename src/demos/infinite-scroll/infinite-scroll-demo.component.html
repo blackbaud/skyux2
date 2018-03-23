@@ -19,7 +19,7 @@
     </sky-repeater-item>
   </sky-repeater>
   <sky-infinite-scroll
-    [sky-infinite-scroll-has-more]="hasMore"
-    (sky-infinite-scroll-load)="loadFn()">
+    [hasMore]="hasMore"
+    (onLoad)="loadFn()">
   </sky-infinite-scroll>
 </div>
