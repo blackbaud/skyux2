@@ -39,9 +39,7 @@ before_install:
   - export SAVAGE_BRANCH="^savage-"
   - chmod +x ./scripts/travis-script-build.sh
   - chmod +x ./scripts/travis-script-coverage.sh
-  - chmod +x ./scripts/travis-script-coverage-ie-batch-1.sh
-  - chmod +x ./scripts/travis-script-coverage-ie-batch-2.sh
-  - chmod +x ./scripts/travis-script-coverage-ie-batch-3.sh
+  - chmod +x ./scripts/travis-script-coverage-ie-batch.sh
   - chmod +x ./scripts/travis-script-deploy.sh
   - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
