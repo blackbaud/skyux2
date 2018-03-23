@@ -45,9 +45,12 @@ fdescribe('Infinite scroll component', () => {
     });
 
     it('should emit an onLoad event on scroll', () => {
-        debugElement.triggerEventHandler('scroll', undefined);
+        //debugElement.triggerEventHandler('scroll', undefined);
+        debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
         fixture.detectChanges();
-        expect(cmp.items.length).toBe(10);
+        window.scroll(0, 100);
+        fixture.detectChanges();
+        expect(cmp.items.length).toBe(15);
     });
 
     it('should not emit an onLoad event on scroll when hasMore is false', () => {
