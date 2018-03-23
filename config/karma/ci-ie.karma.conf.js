@@ -6,9 +6,7 @@ const webpackConfig = require('../webpack/webpack.test');
 
 function getDirectories(source) {
   return readdirSync(source)
-    .filter(name => {
-      return lstatSync(path.join(source, name)).isDirectory();
-    });
+    .filter(name => lstatSync(path.join(source, name)).isDirectory());
 }
 
 // Run only a few modules' specs
