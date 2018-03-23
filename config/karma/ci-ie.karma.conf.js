@@ -4,42 +4,44 @@ const minimist = require('minimist');
 const grep = require('karma-webpack-grep');
 const webpackConfig = require('../webpack/webpack.test');
 
-function isDirectory(source) {
-  return lstatSync(source).isDirectory();
-}
-
 function getDirectories(source) {
   return readdirSync(source)
-    .filter((name) => {
-      return isDirectory(path.join(source, name));
+    .filter(name => {
+      return lstatSync(path.join(source, name)).isDirectory();
     });
 }
 
 // Run only a few modules' specs
 function getSpecsRegex() {
-  // `batchCount` = number of modules to test in the batch
-  // `batchStartAtIndex` = at which module the batch should begin
-  // For example, `npm run test:unit -- --batchCount 200 --batchStartAtIndex 0`
   const argv = minimist(process.argv.slice(2));
 
-  const batchCount = argv.batchCount || 0;
-  const batchStartAtIndex = argv.batchStartAtIndex || 0;
+  /**
+   * The command line argument `--ieBatch` is a string representing
+   * the current batch to run, of total batches.
+   * For example, `npm run test:unit:ci:ie -- --ieBatch 1of3`
+   */
+  const [
+    currentRun,
+    totalRuns
+  ] = argv.ieBatch.split('of');
 
-  if (!batchCount) {
-    return '';
+  if (!currentRun || !totalRuns) {
+    throw 'Invalid IE 11 batch request! Please provide a command line argument in the format of `--ieBatch 1of3`.';
   }
 
   const moduleDirectories = getDirectories(path.resolve('src/modules'));
-  const numTotalModules = moduleDirectories.length;
-  const modules = moduleDirectories.splice(batchStartAtIndex, batchCount);
-
-  console.log(`Running specs for ${modules.length} modules...`);
-  console.log(`(Starting at ${batchStartAtIndex} of ${numTotalModules} total)`);
+  const totalModules = moduleDirectories.length;
+  const modulesPerRun = Math.ceil(moduleDirectories.length / totalRuns);
+  const startAtIndex = modulesPerRun * (currentRun - 1);
+  const modules = moduleDirectories.splice(startAtIndex, modulesPerRun);
 
   if (modules.length === 0) {
-    return '';
+    return;
   }
 
+  console.log(`[Batch ${currentRun} of ${totalRuns}]`);
+  console.log(`--> Running specs for ${modules.length} modules...`);
+  console.log(`--> Starting at module ${startAtIndex}, ending at module ${startAtIndex + modules.length}, of ${totalModules} total modules\n`);
   console.log(modules.join(',\n'));
 
   return [
@@ -54,7 +56,7 @@ module.exports = function(config) {
   const specsRegex = getSpecsRegex();
 
   if (!specsRegex) {
-    console.log('Aborting Karma because no specs were found.');
+    console.log('Aborting Karma for IE 11 because no specs were found.');
     process.exit(0);
   }
 
@@ -67,6 +69,9 @@ module.exports = function(config) {
     testContext: '../../src/modules'
   }));
 
+  // Remove coverage rule because it causes slowness in IE 11.
+  webpackConfig.module.rules.pop();
+
   const customLaunchers = {
     bs_windows_ie_11: {
       base: 'BrowserStack',
@@ -77,41 +82,19 @@ module.exports = function(config) {
     }
   };
 
+  // Apply normal ci config.
+  require('./ci.karma.conf')(config);
+
+  // Set IE launcher overrides.
   config.set({
-    basePath: '.',
-    frameworks: ['jasmine'],
     reporters: ['mocha'],
-    files: [{
-      pattern: '../utils/spec-bundle.js',
-      watched: false
-    }, {
-      pattern: '../utils/spec-styles.js',
-      watched: false
-    }],
+    // Only run webpack preprocessors.
     preprocessors: {
       '../utils/spec-styles.js': ['webpack'],
       '../utils/spec-bundle.js': ['webpack']
     },
     webpack: webpackConfig,
-    port: 9876,
     browsers: Object.keys(customLaunchers),
-    customLaunchers,
-    colors: true,
-    autoWatch: false,
-    singleRun: true,
-    failOnEmptyTestSuite: false,
-    browserDisconnectTimeout: 3e5,
-    browserDisconnectTolerance: 3,
-    browserNoActivityTimeout: 3e5,
-    captureTimeout: 3e5,
-    logLevel: config.LOG_INFO,
-    browserConsoleLogOptions: {
-      level: 'log',
-      terminal: true
-    },
-    browserStack: {
-      port: 9876,
-      pollingTimeout: 10000
-    }
+    customLaunchers
   });
 };
