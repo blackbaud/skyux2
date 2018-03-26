@@ -19,6 +19,9 @@ import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.servic
 export class SkyTileComponent {
   public isInDashboardColumn = false;
 
+  @Input()
+  public showSettings: boolean = true;
+
   @Output()
   public settingsClick = new EventEmitter();
 
@@ -58,7 +61,7 @@ export class SkyTileComponent {
   }
 
   public get hasSettings(): boolean {
-    return this.settingsClick.observers.length > 0;
+    return this.settingsClick.observers.length > 0 && this.showSettings;
   }
 
   public titleClick() {
