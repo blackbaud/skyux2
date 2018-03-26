@@ -47,10 +47,7 @@ module.exports = function (config) {
     customLaunchers,
     browserStack: {
       port: 9876,
-      pollingTimeout: 10000,
-      ie: {
-        noFlash: 'true'
-      }
+      pollingTimeout: 10000
     }
   });
 };
