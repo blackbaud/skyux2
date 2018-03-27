@@ -15,8 +15,12 @@ env:
   # https://docs.travis-ci.com/user/customizing-the-build/#Build-Matrix
   matrix:
     - TEST_COMMAND=build
-    - TEST_COMMAND=coverage
     - TEST_COMMAND=visual
+    - TEST_COMMAND=coverage
+    - TEST_COMMAND=coverage-ie-batch IE_BATCH=1of4
+    - TEST_COMMAND=coverage-ie-batch IE_BATCH=2of4
+    - TEST_COMMAND=coverage-ie-batch IE_BATCH=3of4
+    - TEST_COMMAND=coverage-ie-batch IE_BATCH=4of4
 
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
 addons:
@@ -36,6 +40,7 @@ before_install:
   - export SAVAGE_BRANCH="^savage-"
   - chmod +x ./scripts/travis-script-build.sh
   - chmod +x ./scripts/travis-script-coverage.sh
+  - chmod +x ./scripts/travis-script-coverage-ie-batch.sh
   - chmod +x ./scripts/travis-script-deploy.sh
   - chmod +x ./scripts/travis-script-visual.sh
   - chmod +x ./scripts/travis-after-failure.sh
