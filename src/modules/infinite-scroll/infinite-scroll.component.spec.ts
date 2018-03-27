@@ -146,7 +146,7 @@ fdescribe('Infinite scroll component', () => {
     expect(el.querySelector('.sky-btn')).toBeNull();
     expect(el.querySelector('.sky-wait')).toBeNull();
   });
-  
+
   it('should not emit an onLoad event on scroll when hasMore is false and an element is the scrollable parent', (done: Function) => {
     let html = `
     <div style='overflow-y: scroll; max-height: 200px; position: relative;'>
