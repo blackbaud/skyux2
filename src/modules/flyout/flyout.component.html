@@ -7,8 +7,15 @@
   [ngClass]="{ 'sky-flyout-hidden': !isOpen && !isOpening }"
   (@flyoutState.done)="animationDone($event)"
   [@flyoutState]="getAnimationState()"
-  [style.width.px]="width">
-  <div class="sky-flyout-handle" (mousedown)="onHandleClick($event)"></div>
+  [style.width.px]="flyoutWidth">
+
+  <button
+    type="button"
+    class="sky-flyout-resize-handle"
+    aria-hidden="true"
+    (mousedown)="onMouseDown($event)">
+  </button>
+
   <div class="sky-flyout-header" #flyoutHeader>
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">

@@ -66,7 +66,7 @@ describe('Flyout component', () => {
   }
 
   function getFlyoutHandleElement(): HTMLElement {
-    return document.querySelector('.sky-flyout-handle') as HTMLElement;
+    return document.querySelector('.sky-flyout-resize-handle') as HTMLElement;
    }
 
   function getFlyoutHeaderElement(): HTMLElement {

@@ -25,12 +25,18 @@
   }
 }
 
-.sky-flyout-handle {
+.sky-flyout-resize-handle {
   height: 100%;
   width: 14px;
   position: absolute;
   left: -10px;
   cursor: ew-resize;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: block;
+  top: 0;
+  bottom: 0;
 
   @media (max-width: $sky-screen-sm-min) {
     cursor: initial;

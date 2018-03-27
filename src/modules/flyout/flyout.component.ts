@@ -23,6 +23,8 @@ import {
   trigger
 } from '@angular/animations';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
@@ -60,9 +62,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public flyoutState = FLYOUT_CLOSED_STATE;
   public isOpen = false;
   public isOpening = false;
-  public width = 0;
-  public dragging: boolean;
-  private px: number = 0;
+
+  public flyoutWidth = 0;
+  public isDragging = false;
+  private xCoord = 0;
 
   public get messageStream(): Subject<SkyFlyoutMessage> {
     return this._messageStream;
@@ -117,7 +120,6 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
 
     this.config = Object.assign({ providers: [] }, config);
-
     this.config.defaultWidth = this.config.defaultWidth || 500;
     this.config.minWidth = this.config.minWidth || 320;
     this.config.maxWidth = this.config.maxWidth || this.config.defaultWidth;
@@ -134,7 +136,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       type: SkyFlyoutMessageType.Open
     });
 
-    this.width = this.config.defaultWidth;
+    this.flyoutWidth = this.config.defaultWidth;
 
     return this.flyoutInstance;
   }
@@ -155,32 +157,36 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
   }
 
-  public onHandleClick(event: MouseEvent) {
-    this.dragging = true;
-    this.px = event.clientX;
+  public onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    this.xCoord = event.clientX;
     event.preventDefault();
     event.stopPropagation();
   }
 
   @HostListener('document:mousemove', ['$event'])
-  public onHandleMove(event: MouseEvent) {
-    if (!this.dragging) {
-        return;
+  public onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) {
+      return;
     }
-    let offsetX = event.clientX - this.px;
-    let pWidth = this.width;
 
-    this.width -= offsetX;
-    if (this.width < this.config.minWidth || this.width > this.config.maxWidth) {
-        this.width = pWidth;
-    } else {
-        this.px = event.clientX;
+    console.log('xcoord?', event.clientX, this.xCoord);
+    const offsetX = event.clientX - this.xCoord;
+    let width = this.flyoutWidth;
+
+    width -= offsetX;
+
+    if (width < this.config.minWidth || width > this.config.maxWidth) {
+      return;
     }
+
+    this.flyoutWidth = width;
+    this.xCoord = event.clientX;
   }
 
   @HostListener('document:mouseup', ['$event'])
   public onHandleRelease(event: MouseEvent) {
-    this.dragging = false;
+    this.isDragging = false;
   }
 
   private open() {
