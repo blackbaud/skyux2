@@ -224,6 +224,32 @@ describe('Tile component', () => {
       expect(el.querySelector('.sky-tile-settings')).not.toBeNull();
     });
 
+    it('should not be present if a callback is provided, but the showSettings flag is false', () => {
+      let html = `
+        <sky-tile [isCollapsed]="tileIsCollapsed" (settingsClick)="alert('settings clicked.')" [showSettings]="false">
+          <sky-tile-title>Title</sky-tile-title>
+          <sky-tile-content>Content</sky-tile-content>
+        </sky-tile>
+      `;
+
+      let fixture = TestBed
+        .overrideComponent(
+          TileTestComponent,
+          {
+            set: {
+              template: html
+            }
+          }
+        )
+        .createComponent(TileTestComponent);
+
+      let el = fixture.nativeElement;
+
+      fixture.detectChanges();
+
+      expect(el.querySelector('.sky-tile-settings')).toBeNull();
+    });
+
     it('should call the specified callback when clicked', () => {
       let fixture = TestBed.createComponent(TileTestComponent);
       let el = fixture.nativeElement;
