@@ -1,4 +1,3 @@
-import { SkyFlyoutDemoComponent } from './flyout/flyout-demo.component';
 import { Injectable } from '@angular/core';
 
 import {
@@ -19,6 +18,7 @@ import {
   SkyFilterDemoComponent,
   SkyFilterInlineDemoComponent,
   SkyFluidGridDemoComponent,
+  SkyFlyoutDemoComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
   SkyKeyInfoDemoComponent,
@@ -33,6 +33,7 @@ import {
   SkyListToolbarCustomDemoComponent,
   SkyListViewChecklistDemoComponent,
   SkyListViewGridDemoComponent,
+  SkyLookupDemoComponent,
   SkyMediaQueryDemoComponent,
   SkyModalDemoComponent,
   SkyNavbarDemoComponent,
@@ -276,6 +277,10 @@ export class SkyDemoService {
         {
           name: 'error-demo.component.html',
           fileContents: require('!!raw-loader!./error/error-demo.component.html')
+        },
+        {
+          name: 'error-demo.component.scss',
+          fileContents: require('!!raw-loader!./error/error-demo.component.scss')
         },
         {
           name: 'error-demo.component.ts',
@@ -621,6 +626,22 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./list-view-grid/list-view-grid-demo.component.ts'),
           componentName: 'SkyListViewGridDemoComponent',
           bootstrapSelector: 'sky-list-view-grid-demo'
+        }
+      ]
+    },
+    {
+      name: 'Lookup',
+      component: SkyLookupDemoComponent,
+      files: [
+        {
+          name: 'lookup-demo.component.html',
+          fileContents: require('!!raw-loader!./lookup/lookup-demo.component.html')
+        },
+        {
+          name: 'lookup-demo.component.ts',
+          fileContents: require('!!raw-loader!./lookup/lookup-demo.component.ts'),
+          componentName: 'SkyLookupDemoComponent',
+          bootstrapSelector: 'sky-lookup-demo'
         }
       ]
     },

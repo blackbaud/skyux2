@@ -27,8 +27,8 @@ export class SkyTextHighlightDirective
 
   private static getRegexMatch(node: HTMLElement, searchText: string): RegExpExecArray {
     const text = node.nodeValue;
-    const searchRegex = new RegExp(searchText, 'gi');
-
+    const newSearchText = searchText.replace(/\\/g, '\\\\');
+    const searchRegex = new RegExp(newSearchText, 'gi');
     return searchRegex.exec(text);
   }
 
@@ -110,7 +110,9 @@ export class SkyTextHighlightDirective
   }
 
   public ngOnDestroy(): void {
-    this.observer.disconnect();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
 
   private readyForHighlight(searchText: string): boolean {

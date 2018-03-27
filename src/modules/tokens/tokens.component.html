@@ -8,9 +8,11 @@
     role="listitem"
     [disabled]="disabled"
     [dismissible]="dismissible"
+    [focusable]="focusable"
     (dismiss)="removeToken(token)"
     (click)="onTokenClick(token)"
-    (keyup)="onTokenKeyUp($event, token)"
+    (keydown)="onTokenKeyDown($event)"
+    (keyup.enter)="selectToken(token);$event.preventDefault();"
     (tokenFocus)="activeIndex = i">
     {{ token.value[displayWith] }}
   </sky-token>
