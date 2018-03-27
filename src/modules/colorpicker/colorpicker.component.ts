@@ -82,7 +82,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   private outputColor: string;
   private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   constructor(private service: SkyColorpickerService) {
     componentIdIndex++;
@@ -133,15 +133,15 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
     this.messageStream
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyColorpickerMessage) => {
         this.handleIncomingMessages(message);
       });
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public closePicker() {
