@@ -11,7 +11,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SkyInfiniteScrollModule } from './infinite-scroll.module';
 
-fdescribe('Infinite scroll component', () => {
+describe('Infinite scroll component', () => {
     let fixture: ComponentFixture<InfiniteScrollTestComponent>;
     let cmp: InfiniteScrollTestComponent;
     let debugElement: DebugElement;
