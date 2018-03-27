@@ -88,7 +88,7 @@ function compileSass(file) {
       outputStyle: 'expanded'
     }).css;
   } catch (e) {
-    console.log(e.message);
+    console.log('[compileSass]', e.message);
   }
 
   return contents;
@@ -99,7 +99,9 @@ function getRawContents(requireFile) {
 
   try {
     fileContents = fs.readFileSync(requireFile).toString();
-  } catch (e) {}
+  } catch (e) {
+    console.log('[getRawContents]', e.message);
+  }
 
   return fileContents;
 }
