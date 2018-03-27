@@ -7,16 +7,17 @@ import { Component } from '@angular/core';
 export class InfiniteScrollTestComponent {
     public hasMore: boolean = true;
     public items: object[] = [];
-    
-    public constructor(){
+
+    public constructor() {
         this.loadMore();
     }
 
     public loadMore() {
-        for(let i: number = 0; i<5; i++){
-            this.items.push({name: 'test object: #' + i})
+        let num: number = this.items.length;
+        for (let i: number = num; i < num + 20; i++) {
+            this.items.push({name: 'test object: #' + i});
         }
-        if (this.items.length > 20) {
+        if (this.items.length > 100) {
             this.hasMore = false;
         }
     }

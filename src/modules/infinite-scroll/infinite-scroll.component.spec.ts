@@ -3,11 +3,9 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect,
-  SkyAppTestModule
+  expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { SkyInfiniteScrollComponent } from './infinite-scroll.component';
 import { InfiniteScrollTestComponent } from './fixtures/infinite-scroll.component.fixture';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -16,8 +14,14 @@ import { SkyInfiniteScrollModule } from './infinite-scroll.module';
 fdescribe('Infinite scroll component', () => {
     let fixture: ComponentFixture<InfiniteScrollTestComponent>;
     let cmp: InfiniteScrollTestComponent;
-    let el: HTMLElement;
     let debugElement: DebugElement;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [InfiniteScrollTestComponent],
+        imports: [SkyInfiniteScrollModule]
+      });
+    });
 
     describe('Infinite scroll component (BeforeEachGroup)', () => {
     /**
@@ -34,49 +38,99 @@ fdescribe('Infinite scroll component', () => {
 
       fixture = TestBed.createComponent(InfiniteScrollTestComponent);
       cmp = fixture.componentInstance as InfiniteScrollTestComponent;
-      el = fixture.nativeElement as HTMLElement;
       debugElement = fixture.debugElement;
+      fixture.detectChanges();
     });
 
     it('should emit an onLoad event on button click', () => {
         debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
         fixture.detectChanges();
-        expect(cmp.items.length).toBe(10);
+        expect(cmp.items.length).toBe(40);
     });
 
-    it('should emit an onLoad event on scroll', () => {
-        //debugElement.triggerEventHandler('scroll', undefined);
+    it('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {
         debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
         fixture.detectChanges();
-        window.scroll(0, 100);
+
+        window.scroll(0, 2000);
         fixture.detectChanges();
-        expect(cmp.items.length).toBe(15);
+        setTimeout(() => {
+          expect(cmp.items.length).toBe(60);
+          done();
+        }, 100);
     });
 
     it('should not emit an onLoad event on scroll when hasMore is false', () => {
       debugElement.triggerEventHandler('scroll', undefined);
       fixture.detectChanges();
-      expect(cmp.items.length).toBe(5);
+      expect(cmp.items.length).toBe(20);
     });
-    
+
     it('should not emit an onLoad event on scroll when isLoading is true', () => {
       debugElement.query(By.css('.sky-infinite-scroll')).componentInstance.isLoading.next(true);
       debugElement.triggerEventHandler('scroll', undefined);
       fixture.detectChanges();
-      expect(cmp.items.length).toBe(5);
+      expect(cmp.items.length).toBe(20);
     });
+  });
+
+  it('should emit an onLoad event on scroll when an element is the scrollable parent', (done: Function) => {
+    let html = `
+    <div style='overflow-y: scroll; max-height: 200px; position: relative;'>
+    <ul id='test-list' style='overflow-y: none;'>
+        <li *ngFor='let item of items'>{{item.name}}</li>
+    </ul>
+    <sky-infinite-scroll class='sky-infinite-scroll'
+        [hasMore]='hasMore'
+        (onLoad)='loadMore()'>
+    </sky-infinite-scroll>
+    </div>
+    `;
+
+    fixture = TestBed
+      .overrideComponent(
+        InfiniteScrollTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(InfiniteScrollTestComponent);
+
+    debugElement = fixture.debugElement;
+    cmp = fixture.componentInstance as InfiniteScrollTestComponent;
+    fixture.detectChanges();
+
+    debugElement.query(By.css('div')).nativeElement.scroll(0, 2000);
+    fixture.detectChanges();
+    debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
+    fixture.detectChanges();
+
+    debugElement.query(By.css('div')).nativeElement.scroll(0, 4000);
+
+    fixture.detectChanges();
+    setTimeout(() => {
+      fixture.detectChanges();
+      expect(cmp.items.length).toBe(60);
+      done();
+    }, 100);
   });
 
   it('should not show wait component or load button when hasMore is false.', () => {
     let html = `
-      <ul id='test-list'>
-          <li *ngRepeat='let item of items'>{{item.name}}</li>
-      </ul>
-      <sky-infinite-scroll (onLoad)="loadMore()" [hasMore]="false">
-      </sky-infinite-scroll>
+<div style='overflow-y: none;'>
+    <ul id='test-list' style='overflow-y: none;'>
+        <li *ngFor='let item of items'>{{item.name}}</li>
+    </ul>
+    <sky-infinite-scroll class='sky-infinite-scroll'
+        [hasMore]='false'
+        (onLoad)='loadMore()'>
+    </sky-infinite-scroll>
+</div>
     `;
 
-    let fixture = TestBed
+    fixture = TestBed
       .overrideComponent(
         InfiniteScrollTestComponent,
         {
@@ -91,5 +145,79 @@ fdescribe('Infinite scroll component', () => {
     fixture.detectChanges();
     expect(el.querySelector('.sky-btn')).toBeNull();
     expect(el.querySelector('.sky-wait')).toBeNull();
+  });
+  
+  it('should not emit an onLoad event on scroll when hasMore is false and an element is the scrollable parent', (done: Function) => {
+    let html = `
+    <div style='overflow-y: scroll; max-height: 200px; position: relative;'>
+    <ul id='test-list' style='overflow-y: none;'>
+        <li *ngFor='let item of items'>{{item.name}}</li>
+    </ul>
+    <sky-infinite-scroll class='sky-infinite-scroll'
+        [hasMore]='false'
+        (onLoad)='loadMore()'>
+    </sky-infinite-scroll>
+    </div>
+    `;
+
+    fixture = TestBed
+      .overrideComponent(
+        InfiniteScrollTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(InfiniteScrollTestComponent);
+
+    debugElement = fixture.debugElement;
+    cmp = fixture.componentInstance as InfiniteScrollTestComponent;
+    fixture.detectChanges();
+
+    debugElement.query(By.css('div')).nativeElement.scroll(0, 4000);
+    fixture.detectChanges();
+
+    setTimeout(() => {
+      expect(cmp.items.length).toBe(20);
+      done();
+    }, 100);
+  });
+
+  it('should not emit an onLoad event on scroll when hasMore is false and the window is the scrollable parent', (done: Function) => {
+    let html = `
+    <div>
+    <ul id='test-list' style='overflow-y: none;'>
+        <li *ngFor='let item of items'>{{item.name}}</li>
+    </ul>
+    <sky-infinite-scroll class='sky-infinite-scroll'
+        [hasMore]='false'
+        (onLoad)='loadMore()'>
+    </sky-infinite-scroll>
+    </div>
+    `;
+
+    fixture = TestBed
+      .overrideComponent(
+        InfiniteScrollTestComponent,
+        {
+          set: {
+            template: html
+          }
+        }
+      )
+      .createComponent(InfiniteScrollTestComponent);
+
+    debugElement = fixture.debugElement;
+    cmp = fixture.componentInstance as InfiniteScrollTestComponent;
+    fixture.detectChanges();
+
+    window.scroll(0, 2000);
+    fixture.detectChanges();
+
+    setTimeout(() => {
+      expect(cmp.items.length).toBe(20);
+      done();
+    }, 100);
   });
 });

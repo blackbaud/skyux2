@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, OnDestroy, ElementRef, Renderer2, Input, Output, EventEmitter
+  Component, OnInit, OnDestroy, ElementRef, Renderer2, Input, Output, EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   selector: 'sky-infinite-scroll',
   templateUrl: './infinite-scroll.component.html',
   styleUrls: ['./infinite-scroll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: []
 })
 export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
@@ -22,7 +23,7 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
 
   private scrollableParentEl: any;
   private scrollableParentIsWindow: boolean = false;
-  private turnOffScrollListener: () => void; 
+  private turnOffScrollListener: () => void;
   private turnOffResizeListener: () => void;
 
   public constructor(private element: ElementRef, private renderer: Renderer2) {
@@ -35,7 +36,7 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
       this.startInfiniteScrollLoad();
     });
     this.turnOffResizeListener = this.renderer.listen(this.scrollableParentEl, 'DOMNodeInserted', () => {
-      if (this.isLoading.value && this.element.nativeElement.offsetTop != this.elementPosition) {
+      if (this.isLoading.value && this.element.nativeElement.offsetTop !== this.elementPosition) {
         this.elementPosition = this.element.nativeElement.offsetTop;
         this.isLoading.next(false);
       }
@@ -50,18 +51,16 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
   public infiniteScrollInView() {
     if (this.scrollableParentIsWindow) {
       return this.scrollableParentEl.scrollY + this.scrollableParentEl.innerHeight > this.element.nativeElement.offsetTop;
-    }
-    else {
+    } else {
       return this.scrollableParentEl.scrollTop + this.scrollableParentEl.clientHeight > this.element.nativeElement.offsetTop;
     }
   }
-  
+
   public startInfiniteScrollLoad() {
     if (this.hasMore && !this.isLoading.value && this.infiniteScrollInView()) {
         this.isLoading.next(true);
         this.onLoad.emit([] as any[]);
-    }
-    else if (this.isLoading.value && this.element.nativeElement.offsetTop != this.elementPosition) {
+    } else if (this.isLoading.value && this.element.nativeElement.offsetTop !== this.elementPosition) {
       this.elementPosition = this.element.nativeElement.offsetTop;
       this.isLoading.next(false);
     }
