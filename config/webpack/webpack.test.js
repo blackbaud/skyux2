@@ -66,6 +66,11 @@ module.exports = {
         ]
       },
       {
+        test: /\.png$/,
+        loader: 'base64-image-loader'
+      },
+
+      {
         enforce: 'post',
         test: /\.(js|ts)$/,
         use: [
