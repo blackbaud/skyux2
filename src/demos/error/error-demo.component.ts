@@ -8,14 +8,10 @@ import {
 @Component({
   selector: 'sky-error-demo',
   templateUrl: './error-demo.component.html',
+  styleUrls: ['./error-demo.component.scss'],
   providers: [SkyErrorModalService]
 })
 export class SkyErrorDemoComponent {
-  public errorType: string = 'broken';
-  public customTitle: string = 'Custom error title';
-  public customDescription: string = 'Custom error description';
-  public customActionText: string = 'Custom action';
-
   constructor(
     private errorService: SkyErrorModalService
   ) { }
@@ -26,7 +22,7 @@ export class SkyErrorDemoComponent {
 
   public openErrorModal() {
     const config: ErrorModalConfig = {
-      errorTitle: 'A title thing.',
+      errorTitle: 'Something bad happened!',
       errorDescription: 'Try to refresh this page, or come back later.',
       errorCloseText: 'OK'
     };

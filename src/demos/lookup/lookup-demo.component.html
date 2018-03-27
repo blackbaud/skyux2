@@ -1,0 +1,47 @@
+<form
+  [formGroup]="reactiveForm"
+  (ngSubmit)="submitReactiveForm()"
+  novalidate>
+
+  <div class="sky-form-group">
+    <label
+      id="my-friends-label"
+      class="sky-control-label">
+      Who are your friends?
+    </label>
+    <sky-lookup
+      ariaLabelledBy="my-friends-label"
+      formControlName="friends"
+      placeholderText="Type a person's name..."
+      [data]="people"
+      [searchFilters]="getSearchFilters()">
+    </sky-lookup>
+  </div>
+
+  <p>
+    <button
+      type="button"
+      class="sky-btn sky-btn-default"
+      (click)="disableLookup()">
+      Disable lookup
+    </button>
+
+    <button
+      type="button"
+      class="sky-btn sky-btn-default"
+      (click)="enableLookup()">
+      Enable lookup
+    </button>
+  </p>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="submit">
+    Submit
+  </button>
+</form>
+
+<div class="lookup-demo-alert">
+  <strong>Form model:</strong>
+  <pre>{{ reactiveForm.value | json }}</pre>
+</div>
