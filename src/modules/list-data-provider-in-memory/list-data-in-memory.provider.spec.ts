@@ -1,4 +1,4 @@
-import { SkyListInMemoryDataProvider } from '.';
+import { SkyListInMemoryDataProvider } from './list-data-in-memory.provider';
 import { ListDataRequestModel } from '../list';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -12,6 +12,7 @@ import {
 
 describe('in memory data provider', () => {
   let items: Observable<Array<any>>;
+  let provider: SkyListInMemoryDataProvider;
 
   beforeEach(() => {
     items = Observable.of([
@@ -25,6 +26,10 @@ describe('in memory data provider', () => {
     ]);
   });
 
+  afterEach(() => {
+    provider.ngOnDestroy();
+  });
+
   it('should handle searching with no results, clearing search, and then having a paging change',
     fakeAsync(() => {
 
@@ -32,7 +37,7 @@ describe('in memory data provider', () => {
       return data.column2.indexOf(searchText) > -1;
     }
 
-    let provider = new SkyListInMemoryDataProvider(items);
+    provider = new SkyListInMemoryDataProvider(items);
 
     let searchObject = {
         searchText: 'z',
@@ -91,7 +96,7 @@ describe('in memory data provider', () => {
 
   it('should handle more than 10 data entries when paging is undefined', fakeAsync(() => {
 
-    let provider = new SkyListInMemoryDataProvider(Observable.of([
+    provider = new SkyListInMemoryDataProvider(Observable.of([
       { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
       { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
       { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears' },
@@ -118,7 +123,7 @@ describe('in memory data provider', () => {
 
   describe('sorting', () => {
     it('should handle an ascending sort', fakeAsync(() => {
-      let provider = new SkyListInMemoryDataProvider(items);
+      provider = new SkyListInMemoryDataProvider(items);
 
       let request = new ListDataRequestModel({
         sort: {
@@ -146,7 +151,7 @@ describe('in memory data provider', () => {
     }));
 
     it('should handle a descending sort', fakeAsync(() => {
-      let provider = new SkyListInMemoryDataProvider(items);
+      provider = new SkyListInMemoryDataProvider(items);
 
       let request = new ListDataRequestModel({
         sort: {
@@ -185,7 +190,7 @@ describe('in memory data provider', () => {
       ]);
       /* tslint:enable */
 
-      let provider = new SkyListInMemoryDataProvider(items);
+      provider = new SkyListInMemoryDataProvider(items);
 
       let request = new ListDataRequestModel({
         sort: {
@@ -222,7 +227,7 @@ describe('in memory data provider', () => {
         { id: '7', column1: 707, column2: new Date('2/1/2016'), column3: 'Sally eats strawberries' }
       ]);
 
-      let provider = new SkyListInMemoryDataProvider(items);
+      provider = new SkyListInMemoryDataProvider(items);
 
       let request = new ListDataRequestModel({
         sort: {
@@ -258,7 +263,7 @@ describe('in memory data provider', () => {
       (filterValue === 'yellow' && item.data.column2 === 'Lemon');
     }
     it('should handle a simple filter', fakeAsync(() => {
-      let provider = new SkyListInMemoryDataProvider(items);
+      provider = new SkyListInMemoryDataProvider(items);
 
       let request = new ListDataRequestModel({
         filters: [

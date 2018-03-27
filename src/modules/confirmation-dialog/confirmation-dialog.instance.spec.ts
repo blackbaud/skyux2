@@ -16,7 +16,7 @@ describe('Confirmation dialog instance', () => {
 
     confirmInstance.open(modalService, config);
 
-    confirmInstance.closed.subscribe((result: string) => {
+    confirmInstance.closed.take(1).subscribe((result: string) => {
       expectedResult = result;
     });
 

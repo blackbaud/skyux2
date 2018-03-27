@@ -2,12 +2,16 @@ import {
   ComponentRef,
   EventEmitter,
   Injectable,
+  OnDestroy,
   QueryList,
   ReflectiveInjector
 } from '@angular/core';
+
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyMediaBreakpoints,
@@ -47,7 +51,7 @@ function getTileId(tile: SkyTileComponent): string {
 }
 
 @Injectable()
-export class SkyTileDashboardService {
+export class SkyTileDashboardService implements OnDestroy {
   public bagId: string;
 
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
@@ -62,6 +66,8 @@ export class SkyTileDashboardService {
 
   private mediaSubscription: Subscription;
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
     private dragulaService: DragulaService,
     private mediaQuery: SkyMediaQueryService
@@ -70,6 +76,11 @@ export class SkyTileDashboardService {
 
     this.initMediaQueries();
     this.initDragula();
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public init(
@@ -340,14 +351,16 @@ export class SkyTileDashboardService {
       }
     });
 
-    this.dragulaService.drop.subscribe((value: any[]) => {
-      let config = this.getConfigForUIState();
+    this.dragulaService.drop
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((value: any[]) => {
+        let config = this.getConfigForUIState();
 
-      /*istanbul ignore else */
-      if (config) {
-        this.configChange.emit(config);
-      }
-    });
+        /*istanbul ignore else */
+        if (config) {
+          this.configChange.emit(config);
+        }
+      });
   }
 
   private getColumnEl(column: SkyTileDashboardColumnComponent): Element {

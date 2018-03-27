@@ -1,7 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input
+  Input,
+  OnDestroy
 } from '@angular/core';
 
 import { SkyDefinitionListService } from './definition-list.service';
@@ -13,7 +14,7 @@ import { SkyDefinitionListService } from './definition-list.service';
   providers: [SkyDefinitionListService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDefinitionListComponent {
+export class SkyDefinitionListComponent implements OnDestroy {
 
   // TODO: figure out how to manage state here.
   @Input()
@@ -27,5 +28,11 @@ export class SkyDefinitionListComponent {
   }
 
   constructor(
-    public service: SkyDefinitionListService) { }
+    public service: SkyDefinitionListService
+  ) { }
+
+  public ngOnDestroy() {
+    this.service.defaultValue.complete();
+    this.service.labelWidth.complete();
+  }
 }

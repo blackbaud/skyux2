@@ -3,6 +3,7 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 
@@ -23,10 +24,9 @@ const moment = require('moment');
   styleUrls: ['./timepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyTimepickerComponent implements OnInit {
+export class SkyTimepickerComponent implements OnInit, OnDestroy {
   @Output()
-  public selectedTimeChanged: EventEmitter<SkyTimepickerTimeOutput> =
-    new EventEmitter<SkyTimepickerTimeOutput>();
+  public selectedTimeChanged = new EventEmitter<SkyTimepickerTimeOutput>();
 
   public dropdownController = new Subject<SkyDropdownMessage>();
   public activeTime: Date;
@@ -40,6 +40,10 @@ export class SkyTimepickerComponent implements OnInit {
 
   public ngOnInit() {
     this.setFormat(this.timeFormat);
+  }
+
+  public ngOnDestroy() {
+    this.dropdownController.complete();
   }
 
   public setFormat(format: string) {
@@ -136,6 +140,17 @@ export class SkyTimepickerComponent implements OnInit {
     });
   }
 
+  public get selectedHour() {
+    if (!this.is8601) {
+      /* istanbul ignore next */
+      return parseInt(moment(this.activeTime).format('h'), 0) || 1;
+    }
+    /* istanbul ignore else */
+    if (this.is8601) {
+      return moment(this.activeTime).hour() + 0;
+    }
+  }
+
   public set selectedHour(setHour: number) {
     let hour: number;
     let hourOffset: number = 0;
@@ -149,6 +164,10 @@ export class SkyTimepickerComponent implements OnInit {
       'minute': moment(this.activeTime).get('minute') + 0
     }).toDate();
     this.selectedTimeChanged.emit(this.selectedTime);
+  }
+
+  public get selectedMinute() {
+    return moment(this.activeTime).minute() + 0;
   }
 
   public set selectedMinute(minute: number) {
@@ -169,25 +188,11 @@ export class SkyTimepickerComponent implements OnInit {
     }
   }
 
-  public get selectedHour() {
-    if (!this.is8601) {
-      /* istanbul ignore next */
-      return parseInt(moment(this.activeTime).format('h'), 0) || 1;
-    }
-    /* istanbul ignore else */
-    if (this.is8601) {
-      return moment(this.activeTime).hour() + 0;
-    }
-  }
-
-  public get selectedMinute() {
-    return moment(this.activeTime).minute() + 0;
-  }
-
   public get selectedMeridies() {
     if (this.activeTime) {
       return moment(this.activeTime).format('A');
     }
+
     return '';
   }
 }

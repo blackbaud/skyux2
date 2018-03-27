@@ -1,11 +1,15 @@
-import { EventEmitter, QueryList } from '@angular/core';
+import {
+  EventEmitter,
+  OnDestroy,
+  QueryList
+} from '@angular/core';
 
 import { SkyTileDashboardConfig, SkyTileDashboardConfigTile } from '../../tile-dashboard-config';
 import { Tile1TestComponent } from './tile1.component.fixture';
 import { Tile2TestComponent } from './tile2.component.fixture';
 import { SkyTileDashboardColumnComponent } from '../../tile-dashboard-column';
 
-export class MockTileDashboardService {
+export class MockTileDashboardService implements OnDestroy {
   public bagId = 'id-1';
 
   public ready = new EventEmitter<SkyTileDashboardConfig>();
@@ -40,4 +44,6 @@ export class MockTileDashboardService {
   public setColumns() { }
 
   public destroy() { }
+
+  public ngOnDestroy() {}
 }

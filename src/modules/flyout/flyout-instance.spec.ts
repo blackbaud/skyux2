@@ -1,10 +1,8 @@
-import {
-  SkyFlyoutInstance
-} from './index';
+import { SkyFlyoutInstance } from './flyout-instance';
 
 import {
   SkyFlyoutMessageType
- } from './types';
+} from './types';
 
 describe('Flyout instance', () => {
   it('should expose observables for closed event', () => {

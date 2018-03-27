@@ -14,12 +14,15 @@ describe('SkyRowComponent', () => {
       declarations: [
         SkyRowComponent
       ]
-    })
-    .compileComponents();
+    });
 
     fixture = TestBed.createComponent(SkyRowComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should create an element with a specific classname', () => {

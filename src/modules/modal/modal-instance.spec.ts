@@ -41,7 +41,7 @@ describe('Modal instance', () => {
     function subscribeToClosed() {
       const modalInstance = new SkyModalInstance();
 
-      modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
+      modalInstance.closed.take(1).subscribe((result: SkyModalCloseArgs) => {
         expectedResult = result;
       });
 
@@ -54,7 +54,7 @@ describe('Modal instance', () => {
     let wasClosedEmitted = false;
     let wasClosedCompleted = false;
 
-    instance.closed.subscribe({
+    instance.closed.take(1).subscribe({
       next: () => wasClosedEmitted = true,
       complete: () => wasClosedCompleted = true
     });

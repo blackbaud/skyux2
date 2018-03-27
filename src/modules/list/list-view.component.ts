@@ -5,9 +5,9 @@ import {
 import { ListState } from './state';
 import { SkyListComponent } from '../list/list.component';
 
-import {
-  Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 const moment = require('moment');
 
@@ -17,12 +17,15 @@ export abstract class ListViewComponent implements OnDestroy {
   protected viewName: string;
   protected state: ListState;
   protected list: SkyListComponent;
-  protected subscriptions: Array<any> = [];
+  protected ngUnsubscribe = new Subject();
   protected hasToolbar: Observable<boolean>;
 
   private viewId: string = moment().toDate().getTime().toString();
 
-  constructor(state: ListState, defaultName: string) {
+  constructor(
+    state: ListState,
+    defaultName: string
+  ) {
     this.state = state;
     this.viewName = defaultName;
 
@@ -30,9 +33,12 @@ export abstract class ListViewComponent implements OnDestroy {
 
     this.active = this.state.map(s => s.views.active === this.viewId);
 
-    this.active.distinctUntilChanged().subscribe(
-      isActive => isActive ? this.onViewActive() : this.onViewInactive()
-    );
+    this.active
+      .takeUntil(this.ngUnsubscribe)
+      .distinctUntilChanged()
+      .subscribe(
+        isActive => isActive ? this.onViewActive() : this.onViewInactive()
+      );
   }
 
   get id() {
@@ -51,6 +57,7 @@ export abstract class ListViewComponent implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

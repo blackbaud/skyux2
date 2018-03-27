@@ -15,6 +15,9 @@ import {
   OnChanges
 } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+
 import { SkyTabComponent } from './tab.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetService } from './tabset.service';
@@ -47,13 +50,14 @@ export class SkyTabsetComponent
   @ContentChildren(SkyTabComponent)
   public tabs: QueryList<SkyTabComponent>;
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
     private tabsetService: SkyTabsetService,
     private adapterService: SkyTabsetAdapterService,
     private elRef: ElementRef,
     private changeRef: ChangeDetectorRef
-  ) {
-  }
+  ) { }
 
   public tabCloseClick(tab: SkyTabComponent) {
     tab.close.emit(undefined);
@@ -79,16 +83,18 @@ export class SkyTabsetComponent
     if (changes['active'] && changes['active'].currentValue !== changes['active'].previousValue) {
       this.tabsetService.activateTabIndex(this.active);
     }
-
   }
 
   public ngAfterContentInit() {
     if (this.active || this.active === 0) {
       this.tabsetService.activateTabIndex(this.active);
     }
-    this.tabsetService.activeIndex.distinctUntilChanged().subscribe((newActiveIndex) => {
 
-         // HACK: Not selecting the active tab in a timeout causes an error.
+    this.tabsetService.activeIndex
+      .takeUntil(this.ngUnsubscribe)
+      .distinctUntilChanged()
+      .subscribe((newActiveIndex) => {
+        // HACK: Not selecting the active tab in a timeout causes an error.
         // https://github.com/angular/angular/issues/6005
         setTimeout(() => {
           if (newActiveIndex !== this.active) {
@@ -102,9 +108,11 @@ export class SkyTabsetComponent
   public ngAfterViewInit() {
     this.adapterService.init(this.elRef);
 
-    this.adapterService.overflowChange.subscribe((currentOverflow: boolean) => {
-      this.updateDisplayMode(currentOverflow);
-    });
+    this.adapterService.overflowChange
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((currentOverflow: boolean) => {
+        this.updateDisplayMode(currentOverflow);
+      });
 
     setTimeout(() => {
       this.adapterService.detectOverflow();
@@ -119,6 +127,8 @@ export class SkyTabsetComponent
 
   public ngOnDestroy() {
     this.tabsetService.destroy();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   private updateDisplayMode(currentOverflow: boolean) {

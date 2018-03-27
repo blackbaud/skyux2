@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnDestroy
+} from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'sky-list-demo',
   templateUrl: './list-demo.component.html'
 })
-export class SkyListDemoComponent {
-  public items: BehaviorSubject<any> = new BehaviorSubject([
+export class SkyListDemoComponent implements OnDestroy {
+  public items = new BehaviorSubject<any[]>([
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas' },
     { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears' },
@@ -15,6 +19,10 @@ export class SkyListDemoComponent {
     { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
+
+  public ngOnDestroy() {
+    this.items.complete();
+  }
 
   public changeData() {
     this.items.next([

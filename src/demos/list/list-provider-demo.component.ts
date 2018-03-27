@@ -1,6 +1,7 @@
 import {
   Component,
-  Injectable
+  Injectable,
+  OnDestroy
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -16,9 +17,9 @@ import {
 } from '../../core';
 
 @Injectable()
-export class DemoListProvider extends ListDataProvider {
+export class DemoListProvider extends ListDataProvider implements OnDestroy {
   public items: Observable<ListItemModel[]>;
-  public remoteCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public remoteCount = new BehaviorSubject<number>(0);
 
   constructor() {
     super();
@@ -67,6 +68,10 @@ export class DemoListProvider extends ListDataProvider {
         }
       }
     ]);
+  }
+
+  public ngOnDestroy() {
+    this.remoteCount.complete();
   }
 
   public get(request: ListDataRequestModel): Observable<ListDataResponseModel> {

@@ -1,6 +1,7 @@
 import {
   Component,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnDestroy
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -23,8 +24,12 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkySortComponent {
+export class SkySortComponent implements OnDestroy {
   public dropdownController = new Subject<SkyDropdownMessage>();
+
+  public ngOnDestroy() {
+    this.dropdownController.complete();
+  }
 
   public dropdownClicked() {
     this.dropdownController.next({

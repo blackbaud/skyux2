@@ -9,9 +9,7 @@ import {
   SortTestComponent
 } from './fixtures/sort.component.fixture';
 
-import {
-  SkySortModule
-} from '.';
+import { SkySortModule } from './sort.module';
 
 import {
   expect

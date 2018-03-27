@@ -23,11 +23,9 @@ import {
   SkyWindowRefService
 } from '../window';
 
-import {
-  SkyPopoverComponent,
-  SkyPopoverDirective,
-  SkyPopoverAdapterService
-} from './index';
+import { SkyPopoverComponent } from './popover.component';
+import { SkyPopoverDirective } from './popover.directive';
+import { SkyPopoverAdapterService } from './popover-adapter.service';
 
 import { SkyPopoverTestComponent } from './fixtures/popover.component.fixture';
 
@@ -108,12 +106,15 @@ describe('SkyPopoverDirective', () => {
         { provide: SkyPopoverAdapterService, useValue: mockAdapterService },
         { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
-    })
-    .compileComponents();
+    });
 
     fixture = TestBed.createComponent(SkyPopoverTestComponent);
     directiveElements = fixture.debugElement.queryAll(By.directive(SkyPopoverDirective));
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should ask the popover to position itself accordingly', () => {

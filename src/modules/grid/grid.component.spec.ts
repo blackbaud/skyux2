@@ -29,11 +29,9 @@ import { GridFixturesModule } from './fixtures/grid-fixtures.module';
 import { GridTestComponent } from './fixtures/grid.component.fixture';
 import { MockDragulaService } from './fixtures/mock-dragula.service';
 
-import {
-  SkyGridModule,
-  SkyGridComponent,
-  SkyGridColumnModel
-} from './';
+import { SkyGridModule } from './grid.module';
+import { SkyGridComponent } from './grid.component';
+import { SkyGridColumnModel } from './grid-column.model';
 
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(
@@ -68,6 +66,10 @@ describe('Grid Component', () => {
       nativeElement = fixture.nativeElement as HTMLElement;
       element = fixture.debugElement as DebugElement;
       component = fixture.componentInstance;
+    });
+
+    afterEach(() => {
+      fixture.destroy();
     });
 
     function verifyHeaders(useAllHeaders = false, hiddenCol = false) {
@@ -408,6 +410,10 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
     });
 
+    afterEach(() => {
+      fixture.destroy();
+    });
+
     it('should the dragging class to the header on dragula drag', fakeAsync(() => {
       fixture.detectChanges();
       fixture.detectChanges();
@@ -468,7 +474,7 @@ describe('Grid Component', () => {
         fixture.detectChanges();
         fixture.detectChanges();
 
-        component.grid.selectedColumnIdsChange.subscribe(() => {
+        component.grid.selectedColumnIdsChange.take(1).subscribe(() => {
           newSelectedColumnIds = [
             'column2',
             'column1',
@@ -594,6 +600,10 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
     });
 
+    afterEach(() => {
+      fixture.destroy();
+    });
+
     function verifyHeaders(hideColumn = false) {
       const headerCount = hideColumn ? 1 : 2;
 
@@ -694,6 +704,8 @@ describe('Grid Component', () => {
         .toBe('Name');
       expect(getColumnHeader('email', element).nativeElement.textContent.trim())
         .toBe('Email');
+
+      fixture.destroy();
     });
   });
 
@@ -701,18 +713,20 @@ describe('Grid Component', () => {
     let fixture: ComponentFixture<GridAsyncTestComponent>;
     let element: DebugElement;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           GridFixturesModule,
           SkyGridModule
         ]
-      }).compileComponents();
-    }));
+      });
 
-    beforeEach(() => {
       fixture = TestBed.createComponent(GridAsyncTestComponent);
       element = fixture.debugElement as DebugElement;
+    });
+
+    afterEach(() => {
+      fixture.destroy();
     });
 
     it('should handle async column headings', fakeAsync(() => {

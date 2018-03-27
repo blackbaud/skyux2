@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
-  Component
+  Component,
+  OnDestroy
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -15,7 +16,7 @@ import {
   selector: 'sky-dropdown-demo',
   templateUrl: './dropdown-demo.component.html'
 })
-export class SkyDropdownDemoComponent {
+export class SkyDropdownDemoComponent implements OnDestroy {
   public dropdownController = new Subject<SkyDropdownMessage>();
   public items: any[] = [
     { name: 'Option 1', disabled: false },
@@ -28,6 +29,10 @@ export class SkyDropdownDemoComponent {
   constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
+
+  public ngOnDestroy() {
+    this.dropdownController.complete();
+  }
 
   public optionClicked(option: number) {
     alert('You selected option ' + option);

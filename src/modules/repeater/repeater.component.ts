@@ -3,8 +3,12 @@ import {
   Component,
   ContentChildren,
   Input,
+  OnDestroy,
   QueryList
 } from '@angular/core';
+
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyRepeaterItemComponent } from './repeater-item.component';
 import { SkyRepeaterService } from './repeater.service';
@@ -14,7 +18,7 @@ import { SkyRepeaterService } from './repeater.service';
   styleUrls: ['./repeater.component.scss'],
   templateUrl: './repeater.component.html'
 })
-export class SkyRepeaterComponent implements AfterContentInit {
+export class SkyRepeaterComponent implements AfterContentInit, OnDestroy {
   @Input()
   public set expandMode(value: string) {
     this._expandMode = value;
@@ -28,18 +32,24 @@ export class SkyRepeaterComponent implements AfterContentInit {
   @ContentChildren(SkyRepeaterItemComponent)
   public items: QueryList<SkyRepeaterItemComponent>;
 
+  private ngUnsubscribe = new Subject();
+
   private _expandMode = 'none';
 
-  constructor(private repeaterService: SkyRepeaterService) {
-    this.repeaterService.itemCollapseStateChange.subscribe((item: SkyRepeaterItemComponent) => {
-      if (this.expandMode === 'single' && item.isExpanded) {
-        this.items.forEach((otherItem) => {
-          if (otherItem !== item && otherItem.isExpanded) {
-            otherItem.isExpanded = false;
-          }
-        });
-      }
-    });
+  constructor(
+    private repeaterService: SkyRepeaterService
+  ) {
+    this.repeaterService.itemCollapseStateChange
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((item: SkyRepeaterItemComponent) => {
+        if (this.expandMode === 'single' && item.isExpanded) {
+          this.items.forEach((otherItem) => {
+            if (otherItem !== item && otherItem.isExpanded) {
+              otherItem.isExpanded = false;
+            }
+          });
+        }
+      });
 
     this.updateForExpandMode();
   }
@@ -47,15 +57,22 @@ export class SkyRepeaterComponent implements AfterContentInit {
   public ngAfterContentInit() {
     // HACK: Not updating for expand mode in a timeout causes an error.
     // https://github.com/angular/angular/issues/6005
-    this.items.changes.subscribe(() => {
-      setTimeout(() => {
-        this.updateForExpandMode(this.items.last);
-      }, 0);
-    });
+    this.items.changes
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(() => {
+        setTimeout(() => {
+          this.updateForExpandMode(this.items.last);
+        }, 0);
+      });
 
     setTimeout(() => {
       this.updateForExpandMode();
     }, 0);
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   private updateForExpandMode(itemAdded?: SkyRepeaterItemComponent) {

@@ -9,7 +9,6 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
 module.exports = {
-
   devtool: 'inline-source-map',
 
   resolve: {
@@ -19,7 +18,6 @@ module.exports = {
 
   module: {
     rules: [
-
       {
         enforce: 'pre',
         test: /\.js$/,
@@ -30,7 +28,6 @@ module.exports = {
           helpers.root('node_modules/@angular/compiler')
         ]
       },
-
       {
         test: /\.ts$/,
         use: [
@@ -76,7 +73,14 @@ module.exports = {
       {
         enforce: 'post',
         test: /\.(js|ts)$/,
-        loader: 'istanbul-instrumenter-loader!source-map-inline-loader',
+        use: [
+          {
+            loader: 'istanbul-instrumenter-loader'
+          },
+          {
+            loader: 'source-map-inline-loader'
+          }
+        ],
         include: helpers.root('src'),
         exclude: [
           /\.(e2e|spec)\.ts$/,
@@ -101,14 +105,7 @@ module.exports = {
     }),
 
     new LoaderOptionsPlugin({
-      debug: true,
-      options: {
-      tslint: {
-          emitErrors: false,
-          failOnHint: false,
-          resourcePath: 'src'
-        }
-      }
+      debug: true
     }),
 
     new ContextReplacementPlugin(
@@ -118,18 +115,5 @@ module.exports = {
     ),
 
     new IgnorePlugin(/^\.\/locale$/, /moment$/)
-  ],
-
-  node: {
-    global: true,
-    process: false,
-    crypto: 'empty',
-    module: false,
-    clearImmediate: false,
-    setImmediate: false
-  },
-  performance: {
-    hints: false
-  }
-
+  ]
 };

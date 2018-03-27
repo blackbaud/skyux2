@@ -1,4 +1,9 @@
-import { Injectable, ElementRef } from '@angular/core';
+import {
+  ElementRef,
+  Injectable,
+  OnDestroy
+} from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 
@@ -9,17 +14,17 @@ import { SkyMediaBreakpoints } from '../media-queries/media-breakpoints';
 export const VISIBLE_STATE = 'shown';
 
 @Injectable()
-export class SkyVerticalTabsetService {
+export class SkyVerticalTabsetService implements OnDestroy {
 
   public tabs: Array<SkyVerticalTabComponent> = [];
-  public tabClicked: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
+  public tabClicked = new BehaviorSubject(undefined);
   public activeIndex: number = undefined;
 
   public hidingTabs = new BehaviorSubject(false);
   public showingTabs = new BehaviorSubject(false);
-  public tabAdded: Subject<SkyVerticalTabComponent> = new Subject();
-  public indexChanged: BehaviorSubject<number> = new BehaviorSubject(undefined);
-  public switchingMobile: Subject<boolean> = new Subject();
+  public tabAdded = new Subject<SkyVerticalTabComponent>();
+  public indexChanged = new BehaviorSubject<number>(undefined);
+  public switchingMobile = new Subject<boolean>();
 
   public animationVisibleState: string;
 
@@ -33,7 +38,18 @@ export class SkyVerticalTabsetService {
   private _contentAdded: boolean = false;
   private _isWidescreen: boolean = false;
 
-  public constructor(private mediaQueryService: SkyMediaQueryService) {}
+  public constructor(
+    private mediaQueryService: SkyMediaQueryService
+  ) { }
+
+  public ngOnDestroy() {
+    this.tabClicked.complete();
+    this.hidingTabs.complete();
+    this.showingTabs.complete();
+    this.tabAdded.complete();
+    this.indexChanged.complete();
+    this.switchingMobile.complete();
+  }
 
   public addTab(tab: SkyVerticalTabComponent) {
     const index = this.tabs.length;

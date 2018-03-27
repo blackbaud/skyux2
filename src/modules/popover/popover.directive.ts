@@ -39,7 +39,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
   @Input()
   public skyPopoverTrigger: SkyPopoverTrigger = 'click';
 
-  private idled = new Subject<boolean>();
+  private ngUnsubscribe: Subject<any>;
 
   constructor(
     private elementRef: ElementRef,
@@ -88,9 +88,11 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
   private addEventListeners() {
     const element = this.elementRef.nativeElement;
 
+    this.ngUnsubscribe = new Subject();
+
     Observable
       .fromEvent(element, 'keyup')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
         if (key === 'escape' && this.isPopoverOpen()) {
@@ -103,7 +105,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
     Observable
       .fromEvent(element, 'click')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: MouseEvent) => {
         event.preventDefault();
         event.stopPropagation();
@@ -112,7 +114,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
     Observable
       .fromEvent(element, 'mouseenter')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: MouseEvent) => {
         this.skyPopover.isMouseEnter = true;
         if (this.skyPopoverTrigger === 'mouseenter') {
@@ -123,7 +125,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
     Observable
       .fromEvent(element, 'mouseleave')
-      .takeUntil(this.idled)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: MouseEvent) => {
         this.skyPopover.isMouseEnter = false;
 
@@ -146,8 +148,9 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
   }
 
   private removeEventListeners() {
-    this.idled.next(true);
-    this.idled.unsubscribe();
-    this.idled = new Subject<boolean>();
+    if (this.ngUnsubscribe) {
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
+    }
   }
 }
