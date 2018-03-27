@@ -1,15 +1,17 @@
 <h3>
   Colorpicker types and formats
 </h3>
+
 <div style="margin-bottom: 10px">
   <sky-colorpicker
     (selectedColorChanged)="onSelectedColorChanged($event)"
     #colorPickerExample1>
     <input
       [skyColorpickerInput]="colorPickerExample1"
-      [(ngModel)]="color1" [presetColors]="presetColors1"
+      [(ngModel)]="color1"
+      [presetColors]="presetColors1"
       [initialColor]="selectedColor1"
-      [outputFormat]="selectedOutputFormat1" />
+      [outputFormat]="selectedOutputFormat1">
   </sky-colorpicker>
 </div>
 
@@ -69,7 +71,7 @@
     <input
       type="text"
       [skyColorpickerInput]="colorPickerExample2"
-      [(ngModel)]="color2" />
+      [(ngModel)]="color2">
   </sky-colorpicker>
 </div>
 
@@ -100,6 +102,7 @@
 <h3>
   Interacting with a colorpicker programmatically
 </h3>
+
 <sky-colorpicker
   [messageStream]="colorpickerController"
   [showResetButton]="showResetButton"
@@ -108,8 +111,7 @@
   <input
     [skyColorpickerInput]="colorPickerExample3"
     [(ngModel)]="color3"
-    [outputFormat]="selectedOutputFormat3"
-  />
+    [outputFormat]="selectedOutputFormat3">
 </sky-colorpicker>
 
 <sky-definition-list>
@@ -129,33 +131,35 @@
       <div style="margin-bottom: 5px;">
         {{color3?.rgbaText}}
       </div>
-      <div style="border-color: #999;width: 28px;height: 28px;border-radius: 50%;border-width: 2px;border-style: solid;">
-        <div [style.background-color]="color3?.rgbaText" style="width:24px;height:24px;    border-radius: 50%;">&nbsp;</div>
+      <div style="border-color:#999; width:28px; height:28px; border-radius:50%; border-width:2px; border-style:solid;">
+        <div
+          [style.background-color]="color3?.rgbaText"
+          style="width:24px; height:24px; border-radius:50%;">
+        </div>
       </div>
     </sky-definition-list-value>
   </sky-definition-list-content>
 </sky-definition-list>
 
 <p>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="openColorpicker()">
+    Open colorpicker
+  </button>
 
   <button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="openColorpicker()">
-  Open colorpicker
-</button>
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="resetColorpicker()">
+    Reset colorpicker
+  </button>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="resetColorpicker()">
-  Reset colorpicker
-</button>
-
-<button
-  type="button"
-  class="sky-btn sky-btn-default"
-  (click)="toggleResetButton()">
-  Toggle Reset Button
-</button>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="toggleResetButton()">
+    Toggle Reset Button
+  </button>
 </p>

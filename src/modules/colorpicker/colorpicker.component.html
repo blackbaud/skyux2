@@ -1,4 +1,6 @@
-<div class="sky-input-group" [class.sky-colorpicker-hidden]="!isVisible">
+<div
+  class="sky-input-group"
+  [ngClass]="{ 'sky-colorpicker-hidden': !isVisible }">
   <ng-content>
   </ng-content>
   <sky-dropdown

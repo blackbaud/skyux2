@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
 import { expect } from '../testing';
-import { SkyColorpickerComponent } from '.';
+import { SkyColorpickerComponent } from './colorpicker.component';
 import { SkyColorpickerMessageType } from './types';
 import { SkyColorpickerInputDirective } from './colorpicker-input.directive';
 

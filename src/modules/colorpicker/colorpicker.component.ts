@@ -1,4 +1,3 @@
-// spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva,Cmyk
 import {
   Component,
   ElementRef,
@@ -46,12 +45,13 @@ let componentIdIndex = 0;
 
 export class SkyColorpickerComponent implements OnInit, OnDestroy {
   @Output()
-  public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
-    new EventEmitter<SkyColorpickerOutput>();
+  public selectedColorChanged = new EventEmitter<SkyColorpickerOutput>();
+
   @Input()
   public messageStream = new Subject<SkyColorpickerMessage>();
+
   @Input()
-  public showResetButton: boolean = true;
+  public showResetButton = true;
 
   public idIndex: number;
   public skyColorpickerHexId: string;
@@ -138,10 +138,12 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
         this.handleIncomingMessages(message);
       });
   }
+
   public ngOnDestroy() {
     this.destroy.next(true);
     this.destroy.unsubscribe();
   }
+
   public closePicker() {
     this.setColorFromString(this.initialColor);
     this.closeDropdown();
@@ -150,6 +152,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   public resetPickerColor() {
     this.sendMessage(SkyColorpickerMessageType.Reset);
   }
+
   public applyColor() {
     this.selectedColorChanged.emit(this.selectedColor);
     this.initialColor = this.selectedColor.rgbaText;
@@ -158,14 +161,17 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
 
   public setColorFromString(value: string) {
     let hsva: SkyColorpickerHsva;
+
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);
       if (!hsva && !this.hsva) {
         hsva = this.service.stringToHsva(value, false);
       }
+
     } else {
       hsva = this.service.stringToHsva(value, false);
     }
+
     if (hsva) {
       this.hsva = hsva;
       this.update();
@@ -190,6 +196,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     this.hsva = this.service.rgbaToHsva(rgba);
     this.update();
   }
+
   public set blue(change: SkyColorpickerChangeColor) {
     let rgba = this.service.hsvaToRgba(this.hsva);
     rgba.blue = change.colorValue / change.maxRange;
@@ -271,20 +278,18 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyColorpickerMessageType.Open:
-
-        this.dropdownController.next({
-          type: SkyDropdownMessageType.Open
-        });
-        break;
+      this.dropdownController.next({
+        type: SkyDropdownMessageType.Open
+      });
+      break;
 
       case SkyColorpickerMessageType.Reset:
-        this.setColorFromString('#fff');
-        break;
+      this.setColorFromString('#fff');
+      break;
 
       case SkyColorpickerMessageType.ToggleResetButton:
-        this.showResetButton = !this.showResetButton;
-        break;
-
+      this.showResetButton = !this.showResetButton;
+      break;
     }
   }
 
