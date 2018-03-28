@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import {
   SkyFlyoutInstance,
   SkyFlyoutService
-} from '../../modules/flyout';
+} from '../../core';
 
 import { FlyoutDemoContext } from './flyout-demo-context';
 import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
