@@ -1,4 +1,5 @@
 @import "variables";
+
 * {
   box-sizing: border-box;
 }
@@ -156,13 +157,10 @@ input:-moz-placeholder { /* Firefox 18- */
 }
 /* End Placeholder Text */
 
-// Margins and padding
-@include create_margin_padding_classes(top);
-@include create_margin_padding_classes(right);
-@include create_margin_padding_classes(bottom);
-@include create_margin_padding_classes(left);
+.sky-border-radius {
+  border-radius: $sky-border-radius;
+}
 
-// Drop shadows
 .sky-shadow {
   @include sky-shadow;
 }

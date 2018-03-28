@@ -50,7 +50,7 @@
   font-size: 16px;
 }
 
-@mixin sky-deemphasized{
+@mixin sky-deemphasized {
   font-family: $sky-font-family;
   color: $sky-text-color-deemphasized;
   font-weight: 400;
@@ -248,14 +248,17 @@
   border-top-right-radius: $radius;
   border-top-left-radius: $radius;
 }
+
 @mixin sky-border-right-radius($radius) {
   border-bottom-right-radius: $radius;
   border-top-right-radius: $radius;
 }
+
 @mixin sky-border-bottom-radius($radius) {
   border-bottom-right-radius: $radius;
   border-bottom-left-radius: $radius;
 }
+
 @mixin sky-border-left-radius($radius) {
   border-bottom-left-radius: $radius;
   border-top-left-radius: $radius;
@@ -265,44 +268,6 @@
   @for $i from 1 through $sky-fluid-grid-columns {
     :host.sky-column-#{$screen-size}-#{$i} {
       width: ($i / $sky-fluid-grid-columns) * 100%;
-    }
-  }
-}
-
-@mixin create_margin_padding_classes($placement) {
-  $padding-types: (
-    3_4: $sky-padding-3_4,
-    half: $sky-padding-half,
-    plus-half: $sky-padding-plus-half,
-    double: $sky-padding-double,
-    triple: $sky-padding-triple
-  );
-
-  $margin-types: (
-    3_4: $sky-margin-3_4,
-    half: $sky-margin-half,
-    plus-half: $sky-margin-plus-half,
-    double: $sky-margin-double,
-    triple: $sky-margin-triple
-  );
-
-  .sky-padding-#{$placement} {
-    padding-#{$placement}: $sky-padding;
-  }
-
-  @each $type, $value in $padding-types {
-    .sky-padding-#{$type}-#{$placement} {
-      padding-#{$placement}: $value;
-    }
-  }
-
-  .sky-margin-#{$placement} {
-    margin-#{$placement}: $sky-margin;
-  }
-
-  @each $type, $value in $margin-types {
-    .sky-margin-#{$type}-#{$placement} {
-      margin-#{$placement}: $value;
     }
   }
 }
