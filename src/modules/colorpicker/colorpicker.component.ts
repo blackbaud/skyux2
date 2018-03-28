@@ -84,7 +84,9 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   private sliderDimMax: SliderDimension;
   private ngUnsubscribe = new Subject();
 
-  constructor(private service: SkyColorpickerService) {
+  constructor(
+    private service: SkyColorpickerService
+  ) {
     componentIdIndex++;
 
     this.idIndex = componentIdIndex;

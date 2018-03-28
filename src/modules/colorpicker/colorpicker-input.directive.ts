@@ -85,7 +85,7 @@ export class SkyColorpickerInputDirective
   private modelValue: SkyColorpickerOutput;
 
   constructor(
-    private element: ElementRef,
+    private elementRef: ElementRef,
     private renderer: Renderer,
     private service: SkyColorpickerService
   ) { }
@@ -111,20 +111,25 @@ export class SkyColorpickerInputDirective
   }
 
   public ngOnInit() {
-    this.renderer.setElementClass(this.element.nativeElement, 'sky-form-control', true);
+    const element = this.elementRef.nativeElement;
+
+    this.renderer.setElementClass(element, 'sky-form-control', true);
     this.skyColorpickerInput.initialColor = this.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
+
     this.pickerChangedSubscription =
       this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: SkyColorpickerOutput) => {
         this.writeValue(newColor);
         this._onChange(newColor);
       });
-    this.skyColorpickerInput.setColorFromString(this.initialColor);
-    this.skyColorpickerInput.isVisible = true;
-    if (this.element.nativeElement.getAttribute('type')) {
-      if (this.element.nativeElement.getAttribute('type') === 'hidden') {
-        this.skyColorpickerInput.isVisible = false;
-      }
+
+      this.skyColorpickerInput.setColorFromString(this.initialColor);
+
+    const typeAttr = element.getAttribute('type');
+    if (typeAttr && typeAttr === 'hidden') {
+      this.skyColorpickerInput.isVisible = false;
+    } else {
+      this.skyColorpickerInput.isVisible = true;
     }
   }
 
@@ -135,7 +140,7 @@ export class SkyColorpickerInputDirective
   public setColorPickerDefaults() {
     this.skyColorpickerInput.setDialog(
       this,
-      this.element,
+      this.elementRef,
       this.initialColor,
       this.outputFormat,
       this.presetColors,
@@ -170,6 +175,7 @@ export class SkyColorpickerInputDirective
 
   private writeModelValue(model: SkyColorpickerOutput) {
     const setElementValue = model.rgbaText;
+    const element = this.elementRef.nativeElement;
 
     let output: string;
     // tslint:disable-next-line:switch-default
@@ -193,10 +199,10 @@ export class SkyColorpickerInputDirective
 
     this.skyColorpickerInput.setColorFromString(output);
 
-    this.renderer.setElementStyle(this.element.nativeElement, 'background-color', setElementValue);
-    this.renderer.setElementStyle(this.element.nativeElement, 'color', setElementValue);
-    this.renderer.setElementProperty(this.element.nativeElement, 'value', output);
-    this.renderer.setElementClass(this.element.nativeElement, 'sky-colorpicker-input', true);
+    this.renderer.setElementStyle(element, 'background-color', setElementValue);
+    this.renderer.setElementStyle(element, 'color', setElementValue);
+    this.renderer.setElementProperty(element, 'value', output);
+    this.renderer.setElementClass(element, 'sky-colorpicker-input', true);
   }
 
   private formatter(color: any) {
