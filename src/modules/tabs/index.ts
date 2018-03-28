@@ -1,4 +1,4 @@
-export { SkyTabComponent } from './tab.component';
-export { SkyTabsetComponent } from './tabset.component';
-export { SkyTabsetNavButtonComponent } from './tabset-nav-button.component';
-export { SkyTabsModule } from './tabs.module';
+export * from './tab.component';
+export * from './tabset.component';
+export * from './tabset-nav-button.component';
+export * from './tabs.module';

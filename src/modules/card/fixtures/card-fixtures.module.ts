@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SkyCardModule } from '../';
+import { SkyCardModule } from '../card.module';
 import { CardTestComponent } from './card.component.fixture';
 
 @NgModule({

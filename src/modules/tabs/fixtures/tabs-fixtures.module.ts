@@ -1,11 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyModalModule } from '../../modal';
+import {
+  CommonModule
+} from '@angular/common';
 
-import { SkyTabsModule } from '../';
+import {
+  FormsModule
+} from '@angular/forms';
+
+import {
+  NoopAnimationsModule
+} from '@angular/platform-browser/animations';
+
+import {
+  SkyModalModule
+} from '../../modal';
+
+import { SkyTabsModule } from '../tabs.module';
 import { TabsetTestComponent } from './tabset.component.fixture';
 import { SkyWizardTestFormComponent } from './tabset-wizard.component.fixture';
 import { TabsetActiveTestComponent } from './tabset-active.component.fixture';

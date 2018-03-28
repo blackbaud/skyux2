@@ -4,23 +4,14 @@ import {
 } from '@angular/core/testing';
 
 import {
-  FilterSummaryTestComponent
-} from './fixtures/filter-summary.component.fixture';
-
-import {
-  SkyFilterModule
-} from '.';
-
-import {
-  expect
+  expect,
+  TestUtility
 } from '../testing';
 
-import {
-  TestUtility
-} from '../testing/testutility';
+import { SkyFilterModule } from './filter.module';
+import { FilterSummaryTestComponent } from './fixtures/filter-summary.component.fixture';
 
 describe('Filter summary', () => {
-
   let fixture: ComponentFixture<FilterSummaryTestComponent>;
   let nativeElement: HTMLElement;
   let component: FilterSummaryTestComponent;

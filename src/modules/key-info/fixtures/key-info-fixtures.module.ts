@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyKeyInfoModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import { SkyKeyInfoModule } from '../key-info.module';
 import { KeyInfoTestComponent } from './key-info.component.fixture';
 
 @NgModule({

@@ -1,4 +1,4 @@
-export { SkyKeyInfoComponent } from './key-info.component';
-export { SkyKeyInfoLabelComponent } from './key-info-label.component';
-export { SkyKeyInfoValueComponent } from './key-info-value.component';
-export { SkyKeyInfoModule } from './key-info.module';
+export * from './key-info.component';
+export * from './key-info-label.component';
+export * from './key-info-value.component';
+export * from './key-info.module';

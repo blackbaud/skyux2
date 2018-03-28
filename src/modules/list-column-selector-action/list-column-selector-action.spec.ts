@@ -34,13 +34,8 @@ import {
   SkyListViewGridModule
 } from '../list-view-grid';
 
-import {
-  ListColumnSelectorActionTestComponent
-} from './fixtures/list-column-selector-action.component.fixture';
-
-import {
-  SkyListColumnSelectorActionModule
-} from '.';
+import { SkyListColumnSelectorActionModule } from './list-column-selector-action.module';
+import { ListColumnSelectorActionTestComponent } from './fixtures/list-column-selector-action.component.fixture';
 
 import {
   SkyGridModule

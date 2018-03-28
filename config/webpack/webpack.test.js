@@ -19,7 +19,6 @@ module.exports = {
 
   module: {
     rules: [
-
       {
         enforce: 'pre',
         test: /\.js$/,
@@ -30,7 +29,6 @@ module.exports = {
           helpers.root('node_modules/@angular/compiler')
         ]
       },
-
       {
         test: /\.ts$/,
         use: [
@@ -101,14 +99,7 @@ module.exports = {
     }),
 
     new LoaderOptionsPlugin({
-      debug: true,
-      options: {
-      tslint: {
-          emitErrors: false,
-          failOnHint: false,
-          resourcePath: 'src'
-        }
-      }
+      debug: true
     }),
 
     new ContextReplacementPlugin(

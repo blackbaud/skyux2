@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyRepeaterModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import { SkyRepeaterModule } from '../repeater.module';
 import { RepeaterTestComponent } from './repeater.component.fixture';
 
 @NgModule({

@@ -1,14 +1,25 @@
-import { TestBed } from '@angular/core/testing';
+import {
+  TestBed
+} from '@angular/core/testing';
 
-import { expect } from '../testing';
+import {
+  SkyErrorModalService,
+  ErrorModalConfig
+} from '../error';
+
+import {
+  SkyFileItem,
+  SkyFileDropChange
+} from '../fileattachments';
+
+import {
+  expect
+} from '../testing';
 
 import { AvatarTestComponent } from './fixtures/avatar.component.fixture';
 import { SkyAvatarComponent } from './avatar.component';
 import { SkyAvatarFixturesModule } from './fixtures/avatar-fixtures.module';
-import { SkyFileItem, SkyFileDropChange } from '../fileattachments';
 import { MockErrorModalService } from './fixtures/mock-error-modal.service';
-import { SkyErrorModalService } from '../error/error-modal.service';
-import { ErrorModalConfig } from '../error/error-modal-config';
 
 describe('Avatar component', () => {
   /* tslint:disable-next-line max-line-length */

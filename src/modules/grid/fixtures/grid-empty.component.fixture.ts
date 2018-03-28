@@ -3,11 +3,13 @@ import {
   ViewChild,
   TemplateRef
 } from '@angular/core';
-import { SkyGridComponent, SkyGridColumnModel } from '../';
+
+import { SkyGridComponent } from '../grid.component';
+import { SkyGridColumnModel } from '../grid-column.model';
 
 @Component({
   selector: 'sky-test-cmp',
-  template: require('./grid-empty.component.fixture.html')
+  templateUrl: './grid-empty.component.fixture.html'
 })
 export class GridEmptyTestComponent {
   @ViewChild(SkyGridComponent)

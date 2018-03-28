@@ -1,6 +1,2 @@
-export {
-  SkyListPagingComponent
-} from './list-paging.component';
-export {
-  SkyListPagingModule
-} from './list-paging.module';
+export * from './list-paging.component';
+export * from './list-paging.module';

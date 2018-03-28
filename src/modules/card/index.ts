@@ -1,2 +1,2 @@
-export { SkyCardComponent } from './card.component';
-export { SkyCardModule } from './card.module';
+export * from './card.component';
+export * from './card.module';

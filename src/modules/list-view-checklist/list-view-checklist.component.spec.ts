@@ -25,7 +25,7 @@ import {
 import {
   ListViewChecklistToolbarTestComponent
 } from './fixtures/list-view-checklist-toolbar.component.fixture';
-import { SkyListViewChecklistModule } from './';
+import { SkyListViewChecklistModule } from './list-view-checklist.module';
 import { ListViewChecklistItemsLoadAction } from './state/items/actions';
 import { ListViewChecklistItemModel } from './state/items/item.model';
 import { ChecklistState, ChecklistStateDispatcher, ChecklistStateModel } from './state';

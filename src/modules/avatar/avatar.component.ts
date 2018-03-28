@@ -6,14 +6,20 @@ import {
 } from '@angular/core';
 
 import {
+  SkyErrorModalService,
+  ErrorModalConfig
+} from '../error';
+
+import {
   SkyFileDropChange,
   SkyFileItem
 } from '../fileattachments';
 
+import {
+  SkyResources
+} from '../resources';
+
 import { SkyAvatarSrc } from './avatar-src';
-import { SkyErrorModalService } from '../error/error-modal.service';
-import { ErrorModalConfig } from '../error/error-modal-config';
-import { SkyResources } from '../resources/resources';
 
 @Component({
   selector: 'sky-avatar',

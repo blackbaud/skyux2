@@ -17,9 +17,7 @@ import {
 } from './fixtures/list-secondary-actions.component.fixture';
 import { expect } from '../testing';
 
-import {
-  SkyListSecondaryActionsModule
-} from '.';
+import { SkyListSecondaryActionsModule } from './list-secondary-actions.module';
 
 describe('List Secondary Actions Component', () => {
 

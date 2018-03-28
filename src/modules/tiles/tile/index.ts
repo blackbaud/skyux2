@@ -1,2 +1,2 @@
-export { SkyTileComponent } from './tile.component';
-export { SkyTileModule } from './tile.module';
+export * from './tile.component';
+export * from './tile.module';

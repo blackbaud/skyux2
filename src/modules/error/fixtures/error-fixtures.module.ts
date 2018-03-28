@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SkyErrorModule } from '../';
+import { SkyErrorModule } from '../error.module';
 import { ErrorTestComponent } from './error.component.fixture';
 
 @NgModule({

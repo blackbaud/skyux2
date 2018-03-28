@@ -1,2 +1,2 @@
-export { SkyTextExpandRepeaterComponent } from './text-expand-repeater.component';
-export { SkyTextExpandRepeaterModule } from './text-expand-repeater.module';
+export * from './text-expand-repeater.component';
+export * from './text-expand-repeater.module';

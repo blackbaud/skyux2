@@ -1,2 +1,2 @@
-export { SkySearchComponent } from './search.component';
-export { SkySearchModule } from './search.module';
+export * from './search.component';
+export * from './search.module';

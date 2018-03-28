@@ -1,8 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyVerticalTabsetModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormsModule
+} from '@angular/forms';
+
+import { SkyVerticalTabsetModule } from '../vertical-tabset.module';
 import { VerticalTabsetTestComponent } from './vertical-tabset.component.fixture';
 import { VerticalTabsetEmptyGroupTestComponent } from './vertical-tabset-empty-group.component';
 import { VerticalTabsetNoGroupTestComponent } from './vertical-tabset-no-group.component.fixture';

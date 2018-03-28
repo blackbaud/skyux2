@@ -1,8 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkySectionedFormModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormsModule
+} from '@angular/forms';
+
+import { SkySectionedFormModule } from '../sectioned-form.module';
 import { SkySectionedFormFixtureComponent } from './sectioned-form.component.fixture';
 
 import {

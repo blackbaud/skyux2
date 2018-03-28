@@ -1,2 +1,2 @@
-export { SkyTextHighlightModule } from './text-highlight.module';
-export { SkyTextHighlightDirective } from './text-highlight.directive';
+export * from './text-highlight.module';
+export * from './text-highlight.directive';

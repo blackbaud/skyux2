@@ -1,21 +1,8 @@
-// spell-checker:ignore Colorpicker
-export { SkyColorpickerComponent } from './colorpicker.component';
-export { SkyColorpickerModule } from './colorpicker.module';
-export { SkyColorpickerOutput } from './types/colorpicker-output';
-export { SkyColorpickerInputDirective } from './colorpicker-input.directive';
-export {
-  SliderPosition,
-  SliderDimension
-} from './colorpicker-classes';
-
-export {
-  SkyColorpickerSliderDirective
-} from './colorpicker-slider.directive';
-
-export {
-  SkyColorpickerTextDirective
-} from './colorpicker-text.directive';
-
-export {
-  SkyColorpickerService
-} from './colorpicker.service';
+export * from './colorpicker.component';
+export * from './colorpicker.module';
+export * from './types/colorpicker-output';
+export * from './colorpicker-input.directive';
+export * from './colorpicker-classes';
+export * from './colorpicker-slider.directive';
+export * from './colorpicker-text.directive';
+export * from './colorpicker.service';

@@ -10,16 +10,13 @@ import {
 import { BrowserModule, By } from '@angular/platform-browser';
 
 import {
-  SkyActionButtonComponent,
-  SkyActionButtonModule
-
-} from '.';
-import {
   SkyMediaQueryService,
   SkyMediaBreakpoints
 } from '../media-queries';
 
 import { ActionButtonTestComponent } from './fixtures/action-button.component.fixture';
+import { SkyActionButtonComponent } from './action-button.component';
+import { SkyActionButtonModule } from './action-button.module';
 
 import {
   MockSkyMediaQueryService

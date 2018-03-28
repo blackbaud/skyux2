@@ -3,13 +3,10 @@ import {
   async
 } from '@angular/core/testing';
 
-import {
-  SkyLinkRecordsComponent,
-  SkyLinkRecordsItemComponent,
-  SkyLinkRecordsRendererComponent,
-  SkyLinkRecordsItemDiffComponent
-} from './';
-
+import { SkyLinkRecordsComponent } from './link-records.component';
+import { SkyLinkRecordsItemComponent } from './link-records-item.component';
+import { SkyLinkRecordsRendererComponent } from './link-records-renderer.component';
+import { SkyLinkRecordsItemDiffComponent } from './link-records-item-diff.component';
 import { SkyLinkRecordsItemModel } from './link-records-item.model';
 import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
 import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
@@ -22,7 +19,7 @@ import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel
-} from './state/';
+} from './state';
 import { Observable } from 'rxjs/Observable';
 import { SkyCheckboxModule } from '../checkbox';
 import { SkyResourcesModule } from '../resources';

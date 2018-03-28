@@ -19,14 +19,12 @@ import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel }
-from './state/';
+from './state';
 import { SkyCheckboxModule } from '../checkbox';
 import { SkyLinkRecordsApi } from './link-records-api';
-import {
-  SkyLinkRecordsItemComponent,
-  SkyLinkRecordsRendererComponent,
-  SkyLinkRecordsItemDiffComponent
-} from './';
+import { SkyLinkRecordsItemComponent } from './link-records-item.component';
+import { SkyLinkRecordsRendererComponent } from './link-records-renderer.component';
+import { SkyLinkRecordsItemDiffComponent } from './link-records-item-diff.component';
 import { SkyResourcesModule } from '../resources';
 import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 

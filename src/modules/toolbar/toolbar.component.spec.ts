@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ToolbarTestComponent } from './fixtures/toolbar.component.fixture';
 import { ToolbarSectionedTestComponent } from './fixtures/toolbar-sectioned.component.fixture';
 
-import { SkyToolbarModule } from '.';
+import { SkyToolbarModule } from './toolbar.module';
 
 import { expect } from '../testing';
 

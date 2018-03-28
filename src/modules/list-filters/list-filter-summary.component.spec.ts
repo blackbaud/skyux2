@@ -18,9 +18,7 @@ import {
   SkyListToolbarModule
 } from '../list-toolbar';
 
-import {
-  SkyListFiltersModule
-} from '.';
+import { SkyListFiltersModule } from './list-filters.module';
 
 import {
   expect

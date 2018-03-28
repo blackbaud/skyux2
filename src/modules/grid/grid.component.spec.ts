@@ -29,11 +29,9 @@ import { GridFixturesModule } from './fixtures/grid-fixtures.module';
 import { GridTestComponent } from './fixtures/grid.component.fixture';
 import { MockDragulaService } from './fixtures/mock-dragula.service';
 
-import {
-  SkyGridModule,
-  SkyGridComponent,
-  SkyGridColumnModel
-} from './';
+import { SkyGridModule } from './grid.module';
+import { SkyGridComponent } from './grid.component';
+import { SkyGridColumnModel } from './grid-column.model';
 
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(

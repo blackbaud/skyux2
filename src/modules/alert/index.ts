@@ -1,2 +1,2 @@
-export { SkyAlertComponent } from './alert.component';
-export { SkyAlertModule } from './alert.module';
+export * from './alert.component';
+export * from './alert.module';

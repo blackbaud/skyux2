@@ -6,7 +6,7 @@ import {
 
 import {
   SkyPopoverComponent
-} from '../../modules/popover';
+} from '../../core';
 
 @Component({
   selector: 'sky-popover-demo',
