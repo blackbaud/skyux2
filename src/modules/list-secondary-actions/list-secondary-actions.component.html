@@ -1,20 +1,14 @@
 <ng-template #secondaryActions>
   <div
     class="sky-list-secondary-actions"
-    [hidden]="dropdownHidden">
+    [hidden]="dropdownHidden"
+    >
     <sky-dropdown
-      buttonType="context-menu"
-      [title]="'list_show_secondary_actions' | skyResources">
+    buttonType="context-menu"
+    [title]="'list_show_secondary_actions' | skyResources">
       <sky-dropdown-menu>
-        <sky-dropdown-item
-          *ngFor="let action of actions | async">
-          <ng-container
-            *ngTemplateOutlet="action.template">
-          </ng-container>
-        </sky-dropdown-item>
+        <ng-content></ng-content>
       </sky-dropdown-menu>
     </sky-dropdown>
   </div>
-  <ng-content>
-  </ng-content>
 </ng-template>

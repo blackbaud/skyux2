@@ -2,28 +2,22 @@ import {
   Injectable
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-import { SkyListSecondaryAction } from './list-secondary-action';
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SkyListSecondaryActionsService {
   public secondaryActionsCount = 0;
-  public secondaryActionsSubject = new BehaviorSubject<number>(0);
-  public actionsStream = new BehaviorSubject<SkyListSecondaryAction[]>([]);
-  private actions: SkyListSecondaryAction[] = [];
+  public secondaryActionsSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  public addSecondaryAction(action: SkyListSecondaryAction) {
+  public addSecondaryAction() {
     this.secondaryActionsCount++;
     this.secondaryActionsSubject.next(this.secondaryActionsCount);
-    this.actions.push(action);
-    this.actionsStream.next(this.actions);
   }
 
-  public removeSecondaryAction(action: any) {
+  public removeSecondaryAction() {
     this.secondaryActionsCount--;
     this.secondaryActionsSubject.next(this.secondaryActionsCount);
-    this.actions = this.actions.filter(existingItem => existingItem !== action);
-    this.actionsStream.next(this.actions);
   }
 }

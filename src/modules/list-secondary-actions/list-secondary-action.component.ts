@@ -1,34 +1,23 @@
 import {
-  AfterContentInit,
   Component,
-  OnDestroy,
-  ViewChild,
-  TemplateRef
+  OnDestroy
 } from '@angular/core';
 
-import { SkyListSecondaryActionsService } from './list-secondary-actions.service';
+import {
+  SkyListSecondaryActionsService
+} from './list-secondary-actions.service';
 
 @Component({
   selector: 'sky-list-secondary-action',
-  templateUrl: './list-secondary-action.component.html'
+  templateUrl: './list-secondary-action.component.html',
+  styleUrls: ['./list-secondary-action.component.scss']
 })
-export class SkyListSecondaryActionComponent implements AfterContentInit, OnDestroy {
-  @ViewChild('listSecondaryAction')
-  private templateRef: TemplateRef<any>;
-
-  constructor(
-    private actionService: SkyListSecondaryActionsService
-  ) { }
-
-  public ngAfterContentInit() {
-    this.actionService.addSecondaryAction({
-      template: this.templateRef
-    });
+export class SkyListSecondaryActionComponent implements OnDestroy {
+  constructor(private actionService: SkyListSecondaryActionsService) {
+    this.actionService.addSecondaryAction();
   }
 
   public ngOnDestroy() {
-    this.actionService.removeSecondaryAction({
-      template: this.templateRef
-    });
+    this.actionService.removeSecondaryAction();
   }
 }
