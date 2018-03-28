@@ -279,6 +279,10 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./error/error-demo.component.html')
         },
         {
+          name: 'error-demo.component.scss',
+          fileContents: require('!!raw-loader!./error/error-demo.component.scss')
+        },
+        {
           name: 'error-demo.component.ts',
           fileContents: require('!!raw-loader!./error/error-demo.component.ts'),
           componentName: 'SkyErrorDemoComponent',
