@@ -1,5 +1,4 @@
 @import "variables";
-
 * {
   box-sizing: border-box;
 }
@@ -156,11 +155,3 @@ input:-moz-placeholder { /* Firefox 18- */
     opacity: 1;
 }
 /* End Placeholder Text */
-
-.sky-border-radius {
-  border-radius: $sky-border-radius;
-}
-
-.sky-shadow {
-  @include sky-shadow;
-}
