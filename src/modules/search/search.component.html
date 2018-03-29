@@ -17,14 +17,14 @@
     class="sky-search-dismiss-container">
     <div class="sky-search-item-input">
       <div
-        [ngClass]="{'sky-search-input-focused sky-border-radius': searchInputFocused}"
+        [ngClass]="{'sky-search-input-focused sky-rounded-corners': searchInputFocused}"
         [@inputState]="inputAnimate"
         (@inputState.start)="inputAnimationStart($event)"
         (@inputState.done)="inputAnimationEnd($event)"
         class="sky-search-input-container sky-input-group">
         <input
           type="text"
-          class="sky-form-control sky-search-input sky-border-radius"
+          class="sky-form-control sky-search-input sky-rounded-corners"
           [ngModel]="searchText"
           (ngModelChange)="searchTextChanged($event)"
           (keyup)="enterPress($event, searchText)"
