@@ -39,7 +39,10 @@ export class SkyFlyoutDemoComponent {
       }],
       ariaDescribedBy: 'my-describedby-id',
       ariaLabelledBy: 'my-labelledby-id',
-      ariaRole: 'modal'
+      ariaRole: 'modal',
+      defaultWidth: 500,
+      maxWidth: 1000,
+      minWidth: 200
     });
 
     this.flyout.closed.subscribe(() => {
