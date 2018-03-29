@@ -3,6 +3,9 @@ export interface SkyFlyoutConfig {
   ariaDescribedBy?: string;
   ariaLabelledBy?: string;
   ariaRole?: string;
+  defaultWidth?: number;
+  minWidth?: number;
+  maxWidth?: number;
   permalink?: string;
   permalinkLabel?: string;
 }
