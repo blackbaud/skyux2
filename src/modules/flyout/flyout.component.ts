@@ -168,7 +168,6 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       return;
     }
 
-    console.log('xcoord?', event.clientX, this.xCoord);
     const offsetX = event.clientX - this.xCoord;
     let width = this.flyoutWidth;
 
