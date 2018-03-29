@@ -92,7 +92,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   @ViewChild(SkyPopoverComponent)
   private popover: SkyPopoverComponent;
 
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
   private isKeyboardActive = false;
   private isOpen = false;
 
@@ -107,15 +107,15 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.messageStream
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyDropdownMessage) => {
         this.handleIncomingMessages(message);
       });
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   @HostListener('keydown', ['$event'])

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import {
   SkyFlyoutInstance,
   SkyFlyoutService
-} from '../../modules/flyout';
+} from '../../core';
 
 import { FlyoutDemoContext } from './flyout-demo-context';
 import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
@@ -39,7 +39,10 @@ export class SkyFlyoutDemoComponent {
       }],
       ariaDescribedBy: 'my-describedby-id',
       ariaLabelledBy: 'my-labelledby-id',
-      ariaRole: 'modal'
+      ariaRole: 'modal',
+      defaultWidth: 500,
+      maxWidth: 1000,
+      minWidth: 200
     });
 
     this.flyout.closed.subscribe(() => {
