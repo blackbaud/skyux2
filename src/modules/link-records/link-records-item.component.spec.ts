@@ -218,7 +218,7 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
       });
   }));
 
-  it('edit sets match status of edit if match field is defined', async(() => {
+  it('edit sets match status of linked if match field is defined but no fields need an edit', async(() => {
     let linkRecordItem = new SkyLinkRecordsItemModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
@@ -244,38 +244,159 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
         let match = m[0];
-        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Edit);
+        expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
 
-  it('edit sets match status of linked if match field is undefined', async(() => {
-     let linkRecordItem = new SkyLinkRecordsItemModel({
+  it('edit sets match state to linked and field state empty if matchField length zero', async(() => {
+    let linkRecordItem = new SkyLinkRecordsItemModel({
       key: '1',
-      status: SKY_LINK_RECORDS_STATUSES.Created,
-      item: { id: 1, name: 'Kevin'},
-      match: {}
+      item: { id: 1, name: 'Kevin', address: '123'},
+      matchFields: [{ key: 'none' }]
     });
+
+    component.record = linkRecordItem;
 
     let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
-      item: {}
+      item: linkRecordItem.item
     });
 
-    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
+    component.record.match = linkRecordMatch;
 
-    component.record = linkRecordItem;
+    dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
 
     fixture.detectChanges();
 
     component.edit();
 
-    state.map(s => s.matches.items).take(1)
-      .subscribe(m => {
+    state.map((s: any) => s.fields.item).take(1)
+      .subscribe((f: any) => {
+        let field = f['1'];
+        expect(field).toEqual([]);
+      });
+
+    state.map((s: any) => s.matches.items).take(1)
+      .subscribe((m: any) => {
         let match = m[0];
         expect(match.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
+
+  it('edit sets status to edit and populates field state if there are match fields', async(() => {
+      let linkRecordItem = new SkyLinkRecordsItemModel({
+        key: '1',
+        item: {
+          id: '1',
+          address: 101,
+          name: 'Apple',
+          description: 'Anne eats apples'
+        },
+        matchFields: [{
+          key: 'description',
+          label: 'label '
+        }]
+      });
+
+      component.record = linkRecordItem;
+      component.selectedByDefault = true;
+
+      let linkRecordMatch = new SkyLinkRecordsMatchModel({
+        key: '1',
+        status: SKY_LINK_RECORDS_STATUSES.Edit,
+        item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
+      });
+
+      component.record.match = linkRecordMatch;
+
+      dispatcher.next(new SkyLinkRecordsSelectedSetSelectedAction(
+        '1',
+        'description',
+        true
+      ));
+      dispatcher.next(new SkyLinkRecordsMatchesLoadAction([linkRecordMatch]));
+
+      fixture.detectChanges();
+
+      component.edit();
+
+      state.map((s: any) => s.fields.item).take(1)
+        .subscribe((f: any) => {
+          let field = f['1'][0];
+          expect(field.currentValue).toEqual(linkRecordMatch.item.description);
+          expect(field.newValue).toEqual(linkRecordItem.item.description);
+        });
+  }));
+
+  it('edit sets status to linked if match has no value and showNewFieldValues is false',
+    async(() => {
+      let linkRecordItem = new SkyLinkRecordsItemModel({
+        key: '1',
+        item: {
+          id: '1',
+          address: 101,
+          name: 'Apple',
+          description: 'Anne eats apples'
+        },
+        matchFields: [{ key: 'name' }, { key: 'description' }],
+        showNewFieldValues: false
+      });
+
+      component.record = linkRecordItem;
+
+      let linkRecordMatch = new SkyLinkRecordsMatchModel({
+        key: '1',
+        status: SKY_LINK_RECORDS_STATUSES.Edit,
+        item: { id: '11', address: 111, name: '', description: '' }
+      });
+
+      component.record.match = linkRecordMatch;
+
+      fixture.detectChanges();
+
+      component.edit();
+
+      state.map((s: any) => s.fields.item).take(1)
+        .subscribe((f: any) => {
+          let field = f['1'][0];
+          expect(field.currentValue).toEqual(linkRecordMatch.item[field.key]);
+          expect(field.newValue).toEqual(linkRecordItem.item[field.key]);
+        });
+    }));
+
+  it('edit will set selectedByDefault string "true" converts to boolean true', () => {
+    let linkRecordItem = new SkyLinkRecordsItemModel({
+      key: '1',
+      item: {
+        id: '1',
+        address: 101,
+        name: 'Apple',
+        description: 'Anne eats apples'
+      },
+      matchFields: [{ key: 'name' }, { key: 'description' }]
+    });
+
+    component.record = linkRecordItem;
+
+    // cast to any to  not get TS type assignment error
+    let selectedByDefault: any = 'true';
+    component.selectedByDefault = selectedByDefault;
+
+    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+      key: '1',
+      status: SKY_LINK_RECORDS_STATUSES.Edit,
+      item: { id: '11', address: 111, name: '', description: '' }
+    });
+
+    component.record.match = linkRecordMatch;
+
+    fixture.detectChanges();
+
+    component.edit();
+
+    expect(component.selectedByDefault).toBe(true);
+  });
 
   it('cancelEdit sets match status to suggested and selected and fields are cleared', async(() => {
      let linkRecordItem = new SkyLinkRecordsItemModel({
