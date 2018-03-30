@@ -8,6 +8,7 @@
 - Renamed unsubscribe streams for consistency. [#1527](https://github.com/blackbaud/skyux2/pull/1527)
 - Fixed hightlight not working with backslash. [#1513](https://github.com/blackbaud/skyux2/pull/1513) (Thanks @joelamora)
 - Fixed race condition in link records component. [#1589](https://github.com/blackbaud/skyux2/pull/1589) (Thanks @Blackbaud-KristinaDurivage)
+- Fixed alert hyperlink styles. [#1595](https://github.com/blackbaud/skyux2/pull/1595)
 
 # 2.10.0 (2018-03-14)
 
