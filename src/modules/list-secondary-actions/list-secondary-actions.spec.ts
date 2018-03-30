@@ -5,7 +5,13 @@ import {
   fakeAsync,
   tick
 } from '@angular/core/testing';
+
 import { DebugElement } from '@angular/core';
+
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import {
   ListState,
   ListStateDispatcher
@@ -15,7 +21,6 @@ import { SkyListToolbarModule } from '../list-toolbar';
 import {
   ListSecondaryActionsTestComponent
 } from './fixtures/list-secondary-actions.component.fixture';
-import { expect } from '../testing';
 
 import {
   SkyListSecondaryActionsModule

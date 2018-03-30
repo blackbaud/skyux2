@@ -8,6 +8,11 @@ import {
 } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import {
   ListState,
   ListStateDispatcher
@@ -16,8 +21,6 @@ import { SkyListToolbarModule } from './';
 import {
   ListToolbarTestComponent
 } from './fixtures/list-toolbar.component.fixture';
-
-import { expect } from '../testing';
 
 import {
   ListViewsLoadAction,

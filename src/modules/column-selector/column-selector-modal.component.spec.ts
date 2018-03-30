@@ -8,7 +8,7 @@ import {
 
 import {
   expect
-} from '../testing';
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyModalService,

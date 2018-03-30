@@ -2,9 +2,12 @@ import {
   TestBed
 } from '@angular/core/testing';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyLabelFixturesModule } from './fixtures/label-fixtures.module';
 import { LabelTestComponent } from './fixtures/label.component.fixture';
-import { expect } from '../testing';
 
 describe('Label component', () => {
   beforeEach(() => {
