@@ -1,4 +1,24 @@
 <h2 class="sky-section-heading">
+  Stand-alone setup
+</h2>
+
+<label
+  for="my-autocomplete"
+  class="sky-control-label">
+  What is your favorite color?
+</label>
+
+<sky-autocomplete
+  [data]="colors">
+  <input
+    skyAutocomplete
+    id="my-autocomplete"
+    type="text"
+    [ngModel]="favoriteColor"
+    (ngModelChange)="onFavoriteColorChange($event)">
+</sky-autocomplete>
+
+<h2 class="sky-section-heading">
   Reactive form setup
 </h2>
 

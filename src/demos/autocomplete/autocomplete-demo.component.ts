@@ -75,6 +75,10 @@ export class SkyAutocompleteDemoComponent implements OnInit {
     this.createForm();
   }
 
+  public onFavoriteColorChange(event: any) {
+    console.log('event?', event);
+  }
+
   public submitTemplateForm(formData: any): void {
     alert('Form submitted with: \n' + JSON.stringify(formData));
   }
