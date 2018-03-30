@@ -11,10 +11,6 @@ import { SkyFilterInlineComponent } from './filter-inline.component';
 import { SkyFilterInlineItemComponent } from './filter-inline-item.component';
 
 import {
-  SkyResourcesModule
-} from '../resources';
-
-import {
   SkyTokensModule
 } from '../tokens';
 
