@@ -112,7 +112,7 @@ export class SkyListViewGridComponent
   @ContentChildren(SkyGridColumnComponent, {descendants: true})
   private columnComponents: QueryList<SkyGridColumnComponent>;
 
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   constructor(
     state: ListState,
@@ -203,8 +203,8 @@ export class SkyListViewGridComponent
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
@@ -259,7 +259,7 @@ export class SkyListViewGridComponent
     // Watch for column heading changes:
     this.columnComponents.forEach((comp: SkyGridColumnComponent) => {
       comp.headingModelChanges
-        .takeUntil(this.destroy)
+        .takeUntil(this.ngUnsubscribe)
         .subscribe((change: SkyGridColumnHeadingModelChange) => {
           this.gridComponent.updateColumnHeading(change);
         });

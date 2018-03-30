@@ -54,9 +54,20 @@ describe('Flyout component', () => {
     tick();
   }
 
-  function getFlyoutElement(): HTMLElement {
-    return document.querySelector('.sky-flyout') as HTMLElement;
+  function makeEvent(eventType: string, evtObj: any) {
+    let evt = document.createEvent('MouseEvents');
+      evt.initMouseEvent(eventType, false, false, window, 0, 0, 0, evtObj.clientX,
+        0, false, false, false, false, 0, undefined);
+    document.dispatchEvent(evt);
   }
+
+  function getFlyoutElement(): HTMLElement {
+   return document.querySelector('.sky-flyout') as HTMLElement;
+  }
+
+  function getFlyoutHandleElement(): HTMLElement {
+    return document.querySelector('.sky-flyout-resize-handle') as HTMLElement;
+   }
 
   function getFlyoutHeaderElement(): HTMLElement {
     return document.querySelector('.sky-flyout-header') as HTMLElement;
@@ -154,16 +165,18 @@ describe('Flyout component', () => {
     expect(flyoutContentElement).toHaveText('Sally');
   }));
 
-  it('should accept configuration options for aria-labelledBy, aria-describedby and role',
+  it('should accept configuration options for aria-labelledBy, aria-describedby, role, and width',
     fakeAsync(() => {
       const expectedLabel = 'customlabelledby';
       const expectedDescribed = 'customdescribedby';
       const expectedRole = 'customrole';
+      const expectedDefault = 500;
 
       openFlyout({
         ariaLabelledBy: expectedLabel,
         ariaDescribedBy: expectedDescribed,
-        ariaRole: expectedRole
+        ariaRole: expectedRole,
+        defaultWidth: expectedDefault
       });
 
       const flyoutElement = getFlyoutElement();
@@ -174,6 +187,8 @@ describe('Flyout component', () => {
         .toBe(expectedDescribed);
       expect(flyoutElement.getAttribute('role'))
         .toBe(expectedRole);
+      expect(flyoutElement.style.width)
+        .toBe(expectedDefault + 'px');
     })
   );
 
@@ -191,6 +206,67 @@ describe('Flyout component', () => {
       openFlyout();
       const headerElement = getFlyoutHeaderElement();
       expect(headerElement.classList.contains('sky-flyout-help-shim')).toBeTruthy();
+    })
+  );
+
+  it('should resize when handle is dragged', fakeAsync(() => {
+      openFlyout({});
+      const flyoutElement = getFlyoutElement();
+      const handleElement = getFlyoutHandleElement();
+
+      expect(flyoutElement.style.width).toBe('500px');
+
+      let evt = document.createEvent('MouseEvents');
+      evt.initMouseEvent('mousedown', false, false, window, 0, 0, 0, 1000,
+        0, false, false, false, false, 0, undefined);
+
+      handleElement.dispatchEvent(evt);
+      makeEvent('mousemove', { clientX: 1100 });
+      fixture.detectChanges();
+      expect(flyoutElement.style.width).toBe('400px');
+      makeEvent('mousemove', { clientX: 1000 });
+      fixture.detectChanges();
+      expect(flyoutElement.style.width).toBe('500px');
+      makeEvent('mouseup', {});
+    })
+  );
+
+  it('should respect minimum and maximum when resizing', fakeAsync(() => {
+      openFlyout({ maxWidth: 1000, minWidth: 200});
+      const flyoutElement = getFlyoutElement();
+      const handleElement = getFlyoutHandleElement();
+
+      expect(flyoutElement.style.width).toBe('500px');
+      let evt = document.createEvent('MouseEvents');
+      evt.initMouseEvent('mousedown', false, false, window, 0, 0, 0, 1000,
+        0, false, false, false, false, 0, undefined);
+      handleElement.dispatchEvent(evt);
+      makeEvent('mousemove', { clientX: 500 });
+      fixture.detectChanges();
+      expect(flyoutElement.style.width).toBe('1000px');
+      makeEvent('mousemove', { clientX: 200 });
+      fixture.detectChanges();
+      expect(flyoutElement.style.width).toBe('1000px');
+      makeEvent('mousemove', { clientX: 1300 });
+      fixture.detectChanges();
+      expect(flyoutElement.style.width).toBe('200px');
+      makeEvent('mousemove', { clientX: 1400 });
+      fixture.detectChanges();
+      expect(flyoutElement.style.width).toBe('200px');
+      makeEvent('mouseup', {});
+    })
+  );
+
+  it('should not resize when handle is not clicked',
+    fakeAsync(() => {
+
+      openFlyout({});
+      const flyoutElement = getFlyoutElement();
+
+      expect(flyoutElement.style.width).toBe('500px');
+      makeEvent('mousemove', { clientX: 1100 });
+      fixture.detectChanges();
+      expect(flyoutElement.style.width).toBe('500px');
     })
   );
 });

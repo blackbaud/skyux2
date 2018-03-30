@@ -134,7 +134,7 @@ export class SkyAutocompleteComponent
   @ContentChild(SkyAutocompleteInputDirective)
   private inputDirective: SkyAutocompleteInputDirective;
 
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
   private isMouseEnter = false;
   private searchResultsIndex = 0;
   private searchText: string;
@@ -161,21 +161,21 @@ export class SkyAutocompleteComponent
 
     Observable
       .fromEvent(element, 'keydown')
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((event: KeyboardEvent) => {
         this.handleKeyDown(event);
       });
 
     Observable
       .fromEvent(element, 'mouseenter')
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.isMouseEnter = true;
       });
 
     Observable
       .fromEvent(element, 'mouseleave')
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.isMouseEnter = false;
       });
@@ -193,13 +193,13 @@ export class SkyAutocompleteComponent
     this.inputDirective.displayWith = this.descriptorProperty;
 
     this.inputDirective.textChanges
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((change: SkyAutocompleteInputTextChange) => {
         this.searchTextChanged(change.value);
       });
 
     this.inputDirective.blur
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         if (!this.isMouseEnter) {
           this.searchText = '';
@@ -211,8 +211,8 @@ export class SkyAutocompleteComponent
   }
 
   public ngOnDestroy(): void {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public onMenuChanges(change: SkyDropdownMenuChange): void {

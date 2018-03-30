@@ -63,7 +63,7 @@ export class SkyAutocompleteInputDirective
   public textChanges = new EventEmitter<SkyAutocompleteInputTextChange>();
   public blur = new EventEmitter<void>();
 
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
   private _displayWith: string;
   private _value: any;
 
@@ -79,7 +79,7 @@ export class SkyAutocompleteInputDirective
 
     Observable
       .fromEvent(element, 'keyup')
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.textChanges.emit({
           value: this.elementRef.nativeElement.value
@@ -88,15 +88,15 @@ export class SkyAutocompleteInputDirective
 
     Observable
       .fromEvent(element, 'blur')
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.checkValues();
       });
   }
 
   public ngOnDestroy(): void {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public writeValue(value: any): void {

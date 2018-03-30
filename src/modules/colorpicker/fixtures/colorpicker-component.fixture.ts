@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { SkyColorpickerComponent } from '../';
+import { SkyColorpickerMessage, SkyColorpickerMessageType } from '../types';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-colorpicker-fixture',
@@ -22,4 +25,13 @@ export class ColorpickerTestComponent {
     '#A1B1A7',
     '#68AFEF'
   ];
+  public inputType = 'text';
+
+  @ViewChild(SkyColorpickerComponent)
+  public colorpickerComponent: SkyColorpickerComponent;
+  public colorpickerController = new Subject<SkyColorpickerMessage>();
+
+  public sendMessage(type: SkyColorpickerMessageType) {
+    this.colorpickerController.next({ type });
+  }
 }

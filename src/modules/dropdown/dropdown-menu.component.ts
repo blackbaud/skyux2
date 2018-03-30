@@ -57,7 +57,8 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   @ContentChildren(SkyDropdownItemComponent)
   public menuItems: QueryList<SkyDropdownItemComponent>;
 
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
+
   private get hasFocusableItems(): boolean {
     const found = this.menuItems.find(item => item.isFocusable());
     return (found !== undefined);
@@ -74,7 +75,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     /* istanbul ignore else */
     if (this.dropdownComponent) {
       this.dropdownComponent.messageStream
-        .takeUntil(this.destroy)
+        .takeUntil(this.ngUnsubscribe)
         .subscribe((message: SkyDropdownMessage) => {
           /* tslint:disable-next-line:switch-default */
           switch (message.type) {
@@ -98,7 +99,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
         });
 
       this.menuChanges
-        .takeUntil(this.destroy)
+        .takeUntil(this.ngUnsubscribe)
         .subscribe((change: SkyDropdownMenuChange) => {
           // Close the dropdown when a menu item is selected.
           if (change.selectedItem) {
@@ -119,7 +120,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
 
     // Reset dropdown whenever the menu items change.
     this.menuItems.changes
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((items: QueryList<SkyDropdownItemComponent>) => {
         this.reset();
         this.menuChanges.emit({
@@ -129,8 +130,8 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   @HostListener('click', ['$event'])
