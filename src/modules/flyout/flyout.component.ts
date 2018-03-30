@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   ComponentFactoryResolver,
   ElementRef,
+  HostListener,
   Injector,
   OnDestroy,
   OnInit,
@@ -60,6 +61,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public isOpen = false;
   public isOpening = false;
 
+  public flyoutWidth = 0;
+  public isDragging = false;
+  private xCoord = 0;
+
   public get messageStream(): Subject<SkyFlyoutMessage> {
     return this._messageStream;
   }
@@ -71,7 +76,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   private flyoutHeader: ElementRef;
 
   private flyoutInstance: SkyFlyoutInstance<any>;
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   private _messageStream = new Subject<SkyFlyoutMessage>();
 
@@ -83,7 +88,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   ) {
     // All commands flow through the message stream.
     this.messageStream
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyFlyoutMessage) => {
         this.handleIncomingMessages(message);
       });
@@ -94,8 +99,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public onCloseButtonClick() {
@@ -113,6 +118,9 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
 
     this.config = Object.assign({ providers: [] }, config);
+    this.config.defaultWidth = this.config.defaultWidth || 500;
+    this.config.minWidth = this.config.minWidth || 320;
+    this.config.maxWidth = this.config.maxWidth || this.config.defaultWidth;
 
     const factory = this.resolver.resolveComponentFactory(component);
     const providers = ReflectiveInjector.resolve(this.config.providers);
@@ -125,6 +133,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.messageStream.next({
       type: SkyFlyoutMessageType.Open
     });
+
+    this.flyoutWidth = this.config.defaultWidth;
 
     return this.flyoutInstance;
   }
@@ -143,6 +153,37 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       this.notifyClosed();
       this.cleanTemplate();
     }
+  }
+
+  public onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    this.xCoord = event.clientX;
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  public onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) {
+      return;
+    }
+
+    const offsetX = event.clientX - this.xCoord;
+    let width = this.flyoutWidth;
+
+    width -= offsetX;
+
+    if (width < this.config.minWidth || width > this.config.maxWidth) {
+      return;
+    }
+
+    this.flyoutWidth = width;
+    this.xCoord = event.clientX;
+  }
+
+  @HostListener('document:mouseup', ['$event'])
+  public onHandleRelease(event: MouseEvent) {
+    this.isDragging = false;
   }
 
   private open() {
@@ -165,7 +206,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
     instance.componentInstance = component;
     instance.hostController
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyFlyoutMessage) => {
         this.messageStream.next(message);
       });
