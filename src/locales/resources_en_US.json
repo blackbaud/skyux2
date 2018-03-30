@@ -751,35 +751,35 @@
     "_description": "text for ui-select search control while performing a remote search",
     "message": "Searching..."
   },
-  "selectfield_remove": {
+  "select_field_remove": {
     "_description": "Text for screen readers to convey the meaning of the remove icon button on select field values",
     "message": "Remove"
   },
-  "selectfield_summary_text": {
+  "select_field_summary_text": {
     "_description": "Text displayed when the user has more than 5 items selected",
     "message": "{0} items selected"
   },
-  "selectfield_selection_required_warning": {
+  "select_field_selection_required_warning": {
     "_description": "Text for when there is no selection in a single select mode.",
     "message": "A selection is required in this field."
   },
-  "selectfieldpicker_clear": {
+  "select_fieldpicker_clear": {
     "_description": "Text displayed on the button in single select mode to clear selection and close form",
     "message": "Clear selection"
   },
-  "selectfieldpicker_close": {
+  "select_fieldpicker_close": {
     "_description": "Text displayed on the button in multi select mode to close form",
     "message": "Close"
   },
-  "selectfieldpicker_select": {
+  "select_fieldpicker_select": {
     "_description": "Text displayed on the primary dialog button to confirm selection of multiple items",
     "message": "Select"
   },
-  "selectfieldpicker_select_value": {
+  "select_field_single_select_placeholder": {
     "_description": "The default header text for the select field picker directive when the user is allowed to select one value (singular)",
     "message": "Select value"
   },
-  "selectfieldpicker_select_values": {
+  "select_field_multiselect_button_text": {
     "_description": "The default header text for the select field picker directive when the user is allowed to select more than one value (plural)",
     "message": "Select values"
   },

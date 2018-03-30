@@ -1,4 +1,20 @@
-<div *ngIf="isSelectMultiple() else singleSelectMode" class="sky-select-field">
+<div class="sky-select-field">
+  <button
+    class="sky-btn sky-btn-link"
+    type="button"
+    (click)="openModal()">
+    <i
+      class="fa fa-plus-circle"
+      aria-hidden="true"></i>
+      {{ multiselectButtonText }}
+  </button>
+  <sky-tokens
+    [displayWith]="tokenDisplayWith"
+    [(tokens)]="tokens">
+  </sky-tokens>
+</div>
+
+<!-- <div *ngIf="isSelectMultiple() else singleSelectMode" class="sky-select-field">
   <button class="sky-btn sky-btn-link sky-select-field-picker-btn-open" (click)="openFormModal()">
     <i class="fa fa-plus-circle"></i>
     <span *ngIf="selectFieldText">{{selectFieldText}}</span>
@@ -9,7 +25,6 @@
     <sky-tokens *ngIf="tokenValues.length > 5" [(tokens)]="tokenOverflow"></sky-tokens>
   </div>
 </div>
-
 
 <ng-template #singleSelectMode>
   <div [formGroup]="singleSelectForm" class="sky-input-group sky-select-field">
@@ -36,4 +51,4 @@
   <div *ngIf="singleSelectForm.invalid && (singleSelectForm.dirty || singleSelectForm.touched)" class="sky-text-danger">
     {{'selectfield_selection_required_warning' | skyResources}}
   </div>
-</ng-template>
+</ng-template> -->

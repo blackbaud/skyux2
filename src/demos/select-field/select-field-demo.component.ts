@@ -5,6 +5,7 @@ import {
 
 import {
   FormBuilder,
+  FormControl,
   FormGroup
 } from '@angular/forms';
 
@@ -12,7 +13,6 @@ import {
   selector: 'sky-select-field-demo',
   templateUrl: 'select-field-demo.component.html'
 })
-
 export class SkySelectFieldDemoComponent implements OnInit {
   public reactiveForm: FormGroup;
 
@@ -24,6 +24,12 @@ export class SkySelectFieldDemoComponent implements OnInit {
     { id: '5', category: 'Berry', label: 'Banana', description: 'Becky eats bananas' },
     { id: '6', category: 'Citrus', label: 'Lemon', description: 'Larry eats lemons' },
     { id: '7', category: 'Aggregate fruit', label: 'Strawberry', description: 'Sally eats strawberries' }
+  ];
+
+  public fruits = [
+    { name: 'Apple' },
+    { name: 'Banana' },
+    { name: 'Orange' }
   ];
 
   public singleModeStyle = 'single';
@@ -51,7 +57,9 @@ export class SkySelectFieldDemoComponent implements OnInit {
 
   private createForm(): void {
     this.reactiveForm = this.formBuilder.group({
-      favoriteFruits: this.multipleItemsSelected
+      favoriteFruits: new FormControl([
+        this.fruits[0]
+      ])
     });
   }
 }

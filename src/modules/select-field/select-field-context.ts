@@ -1,4 +1,7 @@
-import { SkySelectField } from './types';
+import {
+  SkySelectField
+} from './types';
+
 export class SkySelectFieldContext {
   public pickerHeader: string;
   public pickerList: SkySelectField;
