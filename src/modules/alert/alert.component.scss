@@ -14,16 +14,18 @@
     padding-top: $sky-padding;
     padding-bottom: $sky-padding;
     width: 100%;
+		
+		::ng-deep a {
+			color: change-color($sky-text-color-default, $alpha: 0.8);
+			text-decoration: underline;
+
+			&:hover {
+				color: $sky-text-color-default;
+			}
+		}
   }
 
-  ::ng-deep .sky-alert-content a {
-    color: change-color($sky-text-color-default, $alpha: 0.8);
-    text-decoration: underline;
-
-    &:hover {
-      color: $sky-text-color-default;
-    }
-  }
+  
 
   button {
     margin-left: auto;
