@@ -16,7 +16,7 @@
     width: 100%;
   }
 
-  :ng-deep .sky-alert-content a {
+  ::ng-deep .sky-alert-content a {
     color: change-color($sky-text-color-default, $alpha: 0.8);
     text-decoration: underline;
 
