@@ -1,12 +1,13 @@
-// spell-checker:ignore Colorpicker, denormalize, Hsla, Hsva,Cmyk
 import {
-  HostListener,
+  Component,
   ElementRef,
   EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
   OnInit,
-  ViewChild,
   Output,
-  Component
+  ViewChild
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -16,12 +17,16 @@ import {
   SkyDropdownMessageType
 } from '../dropdown';
 
-import { SkyColorpickerChangeColor } from './types/colorpicker-color';
-import { SkyColorpickerChangeAxis } from './types/colorpicker-axis';
-import { SkyColorpickerHsla } from './types/colorpicker-hsla';
-import { SkyColorpickerHsva } from './types/colorpicker-hsva';
-import { SkyColorpickerRgba } from './types/colorpicker-rgba';
-import { SkyColorpickerOutput } from './types/colorpicker-output';
+import {
+  SkyColorpickerChangeAxis,
+  SkyColorpickerChangeColor,
+  SkyColorpickerHsla,
+  SkyColorpickerHsva,
+  SkyColorpickerMessage,
+  SkyColorpickerMessageType,
+  SkyColorpickerOutput,
+  SkyColorpickerRgba
+} from './types';
 
 import { SkyColorpickerService } from './colorpicker.service';
 
@@ -38,10 +43,15 @@ let componentIdIndex = 0;
   styleUrls: ['./colorpicker.component.scss']
 })
 
-export class SkyColorpickerComponent implements OnInit {
+export class SkyColorpickerComponent implements OnInit, OnDestroy {
   @Output()
-  public selectedColorChanged: EventEmitter<SkyColorpickerOutput> =
-    new EventEmitter<SkyColorpickerOutput>();
+  public selectedColorChanged = new EventEmitter<SkyColorpickerOutput>();
+
+  @Input()
+  public messageStream = new Subject<SkyColorpickerMessage>();
+
+  @Input()
+  public showResetButton = true;
 
   public idIndex: number;
   public skyColorpickerHexId: string;
@@ -63,7 +73,7 @@ export class SkyColorpickerComponent implements OnInit {
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
-
+  public isVisible: boolean;
   public dropdownController = new Subject<SkyDropdownMessage>();
 
   @ViewChild('closeColorPicker')
@@ -72,8 +82,11 @@ export class SkyColorpickerComponent implements OnInit {
   private outputColor: string;
   private hsva: SkyColorpickerHsva;
   private sliderDimMax: SliderDimension;
+  private ngUnsubscribe = new Subject();
 
-  constructor(private service: SkyColorpickerService) {
+  constructor(
+    private service: SkyColorpickerService
+  ) {
     componentIdIndex++;
 
     this.idIndex = componentIdIndex;
@@ -121,12 +134,25 @@ export class SkyColorpickerComponent implements OnInit {
   public ngOnInit() {
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
+    this.messageStream
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((message: SkyColorpickerMessage) => {
+        this.handleIncomingMessages(message);
+      });
+  }
 
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public closePicker() {
     this.setColorFromString(this.initialColor);
     this.closeDropdown();
+  }
+
+  public resetPickerColor() {
+    this.sendMessage(SkyColorpickerMessageType.Reset);
   }
 
   public applyColor() {
@@ -137,14 +163,17 @@ export class SkyColorpickerComponent implements OnInit {
 
   public setColorFromString(value: string) {
     let hsva: SkyColorpickerHsva;
+
     if (this.alphaChannel === 'hex8') {
       hsva = this.service.stringToHsva(value, true);
       if (!hsva && !this.hsva) {
         hsva = this.service.stringToHsva(value, false);
       }
+
     } else {
       hsva = this.service.stringToHsva(value, false);
     }
+
     if (hsva) {
       this.hsva = hsva;
       this.update();
@@ -169,6 +198,7 @@ export class SkyColorpickerComponent implements OnInit {
     this.hsva = this.service.rgbaToHsva(rgba);
     this.update();
   }
+
   public set blue(change: SkyColorpickerChangeColor) {
     let rgba = this.service.hsvaToRgba(this.hsva);
     rgba.blue = change.colorValue / change.maxRange;
@@ -239,6 +269,29 @@ export class SkyColorpickerComponent implements OnInit {
 
     if (lastOutput !== this.outputColor) {
       this.selectedColorChanged.emit(this.selectedColor);
+    }
+  }
+
+  private sendMessage(type: SkyColorpickerMessageType) {
+    this.messageStream.next({ type });
+  }
+
+  private handleIncomingMessages(message: SkyColorpickerMessage) {
+    /* tslint:disable-next-line:switch-default */
+    switch (message.type) {
+      case SkyColorpickerMessageType.Open:
+      this.dropdownController.next({
+        type: SkyDropdownMessageType.Open
+      });
+      break;
+
+      case SkyColorpickerMessageType.Reset:
+      this.setColorFromString('#fff');
+      break;
+
+      case SkyColorpickerMessageType.ToggleResetButton:
+      this.showResetButton = !this.showResetButton;
+      break;
     }
   }
 
