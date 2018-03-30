@@ -1,3 +1,76 @@
+<h2 class="sky-section-heading">
+  Reactive form setup
+</h2>
+
+<form
+  [formGroup]="reactiveForm"
+  (ngSubmit)="submitReactiveForm()"
+  novalidate>
+
+  <div class="sky-form-group">
+    <sky-select-field
+      [selectFieldText]="multipleModeText"
+      [selectFieldPickerList]="pickerItems"
+      formControlName="favoriteFruits">
+    </sky-select-field>
+  </div>
+
+  <div>
+    <strong>Form model:</strong>
+    <pre>{{ reactiveForm.value | json }}</pre>
+  </div>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="submit">
+    Submit
+  </button>
+</form>
+<!--
+<h2 class="sky-section-heading">
+  Template-driven form setup
+</h2>
+
+<form
+  class="autocomplete-demo-form"
+  #myForm="ngForm"
+  (ngSubmit)="submitTemplateForm(myForm.value)"
+  novalidate>
+
+  <div class="sky-form-group">
+    <label
+      for="my-autocomplete-template-driven"
+      class="sky-control-label">
+      What is your favorite color?
+    </label>
+
+    <sky-autocomplete
+      [data]="colors">
+      <input
+        skyAutocomplete
+        id="my-autocomplete-template-driven"
+        type="text"
+        name="favoriteColor"
+        [(ngModel)]="templateDrivenModel.favoriteColor">
+    </sky-autocomplete>
+  </div>
+
+  <div class="autocomplete-demo-alert">
+    <strong>Form model:</strong>
+    <pre>{{ myForm.value | json }}</pre>
+  </div>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="submit">
+    Submit
+  </button>
+</form> -->
+
+
+
+
+
 <div>
   <label class="sky-control-label">
     Multi-select Mode

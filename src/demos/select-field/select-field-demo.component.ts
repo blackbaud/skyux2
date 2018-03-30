@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  FormBuilder,
+  FormGroup
+} from '@angular/forms';
 
 @Component({
   selector: 'sky-select-field-demo',
   templateUrl: 'select-field-demo.component.html'
 })
 
-export class SkySelectFieldDemoComponent {
+export class SkySelectFieldDemoComponent implements OnInit {
+  public reactiveForm: FormGroup;
+
   public pickerItems = [
     { id: '1', category: 'Pome', label: 'Apple', description: 'Anne eats apples' },
     { id: '2', category: 'Berry', label: 'Banana', description: 'Ben eats bananas' },
@@ -21,6 +31,27 @@ export class SkySelectFieldDemoComponent {
   public singleItemSelected = [this.pickerItems[3]];
 
   public multipleModeText = 'Select some values';
-  public multipleItemsSelected = [this.pickerItems[3], this.pickerItems[6], this.pickerItems[5]];
+  public multipleItemsSelected = [
+    this.pickerItems[3],
+    this.pickerItems[6],
+    this.pickerItems[5]
+  ];
 
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
+
+  public ngOnInit(): void {
+    this.createForm();
+  }
+
+  public submitReactiveForm(): void {
+    alert('Form submitted with: \n' + JSON.stringify(this.reactiveForm.value));
+  }
+
+  private createForm(): void {
+    this.reactiveForm = this.formBuilder.group({
+      favoriteFruits: this.multipleItemsSelected
+    });
+  }
 }
