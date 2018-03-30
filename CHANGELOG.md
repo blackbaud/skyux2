@@ -1,10 +1,21 @@
+# 2.11.0 (2018-03-30)
+
+- Added ability to resize flyout width. [#1539](https://github.com/blackbaud/skyux2/pull/1539) (Thanks @Blackbaud-StacyCarlos)
+- Added ability to interact with colorpickers programmatically. [#1522](https://github.com/blackbaud/skyux2/pull/1522) (Thanks @Blackbaud-JaminQuimby)
+- Added option to hide the colorpicker reset button. [#1522](https://github.com/blackbaud/skyux2/pull/1522) (Thanks @Blackbaud-JaminQuimby)
+- Added option to hide tile settings button. [#1540](https://github.com/blackbaud/skyux2/pull/1540) (Thanks @blackbaud-conorwright)
+- Updated demos for error, lookup, and autocomplete. [#1557](https://github.com/blackbaud/skyux2/pull/1557), [#1576](https://github.com/blackbaud/skyux2/pull/1576), [#1525](https://github.com/blackbaud/skyux2/pull/1525)
+- Renamed unsubscribe streams for consistency. [#1527](https://github.com/blackbaud/skyux2/pull/1527)
+- Fixed hightlight not working with backslash. [#1513](https://github.com/blackbaud/skyux2/pull/1513) (Thanks @joelamora)
+- Fixed race condition in link records component. [#1589](https://github.com/blackbaud/skyux2/pull/1589) (Thanks @Blackbaud-KristinaDurivage)
+
 # 2.10.0 (2018-03-14)
 
 - Added lookup component. [#1495](https://github.com/blackbaud/skyux2/pull/1495) (Thanks @Blackbaud-TomRamsey)
 - Added tokens component. [#1485](https://github.com/blackbaud/skyux2/pull/1485)
 - Added support for Moment 2.21.0. [#1531](https://github.com/blackbaud/skyux2/pull/1531)
 - Added support for microedge-rxstate 2.0.2, Builder 1.10.1, and source-map-inline-loader 1.0.0. [#1532](https://github.com/blackbaud/skyux2/pull/1532)
-- Updated label, alert, and status text styles. [#1509](https://github.com/blackbaud/skyux2/pull/1509)
+- Updated styles for labels, alerts, and status text. [#1509](https://github.com/blackbaud/skyux2/pull/1509)
 - Updated list provider demo component. [#1468](https://github.com/blackbaud/skyux2/pull/1468) (Thanks @Blackbaud-BrandonHare)
 - Fixed card issue where action bar was still visible when hidden with `*ngIf`. [#1533](https://github.com/blackbaud/skyux2/pull/1533) (Thanks @blackbaud-conorwright)
 - Fixed HTML entities in demo service source files. Fixed component templates being injected into demo service files. [#1529](https://github.com/blackbaud/skyux2/pull/1529)
