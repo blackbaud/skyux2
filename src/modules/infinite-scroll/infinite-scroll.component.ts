@@ -2,6 +2,7 @@ import {
   Component, OnInit, OnDestroy, ElementRef, Renderer2, Input, Output, EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-infinite-scroll',
@@ -18,15 +19,18 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
   @Output('onLoad')
   public onLoad: EventEmitter<any> = new EventEmitter();
 
-  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private elementPosition: number;
+  public _isLoading: BehaviorSubject<boolean>;
+  public isLoading: Observable<boolean>;
 
+  private elementPosition: number;
   private scrollableParentEl: any;
   private scrollableParentIsWindow: boolean = false;
   private turnOffScrollListener: () => void;
   private turnOffResizeListener: () => void;
 
   public constructor(private element: ElementRef, private renderer: Renderer2) {
+    this._isLoading = new BehaviorSubject(false);
+    this.isLoading = this._isLoading.asObservable();
   }
 
   public ngOnInit(): void {
@@ -36,9 +40,9 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
       this.startInfiniteScrollLoad();
     });
     this.turnOffResizeListener = this.renderer.listen(this.scrollableParentEl, 'DOMNodeInserted', () => {
-      if (this.isLoading.value && this.element.nativeElement.offsetTop !== this.elementPosition) {
+      if (this._isLoading && this.element.nativeElement.offsetTop !== this.elementPosition) {
         this.elementPosition = this.element.nativeElement.offsetTop;
-        this.isLoading.next(false);
+        this._isLoading.next(false);
       }
     });
   }
@@ -57,12 +61,12 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
   }
 
   public startInfiniteScrollLoad() {
-    if (this.hasMore && !this.isLoading.value && this.infiniteScrollInView()) {
-        this.isLoading.next(true);
+    if (this.hasMore && !this._isLoading.value && this.infiniteScrollInView()) {
+        this._isLoading.next(true);
         this.onLoad.emit([] as any[]);
-    } else if (this.isLoading.value && this.element.nativeElement.offsetTop !== this.elementPosition) {
+    } else if (this._isLoading.value && this.element.nativeElement.offsetTop !== this.elementPosition) {
       this.elementPosition = this.element.nativeElement.offsetTop;
-      this.isLoading.next(false);
+      this._isLoading.next(false);
     }
   }
 
