@@ -48,7 +48,7 @@ describe('Infinite scroll component', () => {
         expect(cmp.items.length).toBe(40);
     });
 
-    it('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {
+    fit('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {
         debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
         fixture.detectChanges();
 
@@ -67,7 +67,7 @@ describe('Infinite scroll component', () => {
     });
 
     it('should not emit an onLoad event on scroll when isLoading is true', () => {
-      debugElement.query(By.css('.sky-infinite-scroll')).componentInstance.isLoading.next(true);
+      debugElement.query(By.css('.sky-infinite-scroll')).componentInstance._isLoading.next(true);
       debugElement.triggerEventHandler('scroll', undefined);
       fixture.detectChanges();
       expect(cmp.items.length).toBe(20);
