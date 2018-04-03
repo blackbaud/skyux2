@@ -1,11 +1,16 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   Component,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  OnInit,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   ListStateDispatcher,
@@ -21,21 +26,42 @@ import { SkyListSecondaryAction } from './list-secondary-action';
   styleUrls: ['./list-secondary-actions.component.scss'],
   providers: [
     SkyListSecondaryActionsService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyListSecondaryActionsComponent implements AfterContentInit {
+export class SkyListSecondaryActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   public dropdownHidden = false;
-  public actions = new BehaviorSubject<any[]>([]);
+  public actions: any[] = [];
 
   @ViewChild('secondaryActions')
   private secondaryActionsTemplate: TemplateRef<any>;
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
+    private changeDetector: ChangeDetectorRef,
     private dispatcher: ListStateDispatcher,
     private actionService: SkyListSecondaryActionsService
   ) { }
 
-  public ngAfterContentInit() {
+  public ngOnInit() {
+    this.actionService.secondaryActionsSubject
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((count: number) => {
+        const hasSecondaryActions = (count > 0);
+        this.dropdownHidden = !hasSecondaryActions;
+        this.changeDetector.markForCheck();
+      });
+
+    this.actionService.actionsStream
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((actions: SkyListSecondaryAction[]) => {
+        this.actions = actions;
+        this.changeDetector.markForCheck();
+      });
+  }
+
+  public ngAfterViewInit() {
     const secondaryActionItem = new ListToolbarItemModel({
       id: 'secondary-actions',
       template: this.secondaryActionsTemplate,
@@ -43,13 +69,10 @@ export class SkyListSecondaryActionsComponent implements AfterContentInit {
     });
 
     this.dispatcher.toolbarAddItems([secondaryActionItem], -1);
+  }
 
-    this.actionService.secondaryActionsSubject.subscribe((count: number) => {
-      this.dropdownHidden = (count < 1);
-    });
-
-    this.actionService.actionsStream.subscribe((actions: SkyListSecondaryAction[]) => {
-      this.actions.next(actions);
-    });
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
