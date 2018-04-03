@@ -15,7 +15,8 @@ import {
 
 @Component({
   selector: 'sky-lookup-demo',
-  templateUrl: './lookup-demo.component.html'
+  templateUrl: './lookup-demo.component.html',
+  styleUrls: ['./lookup-demo.component.scss']
 })
 export class SkyLookupDemoComponent implements OnInit {
   public reactiveForm: FormGroup;
