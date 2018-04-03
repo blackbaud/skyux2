@@ -115,6 +115,7 @@ describe('Infinite scroll component', () => {
     cmp = fixture.componentInstance as InfiniteScrollTestComponent;
     fixture.detectChanges();
 
+    debugElement.query(By.css('div')).nativeElement.scrollTop = 2000;
     debugElement.query(By.css('div')).nativeElement.dispatchEvent(new Event('scroll'));
     fixture.detectChanges();
 
@@ -183,7 +184,7 @@ describe('Infinite scroll component', () => {
     cmp = fixture.componentInstance as InfiniteScrollTestComponent;
     fixture.detectChanges();
 
-    debugElement.query(By.css('div')).nativeElement.scrollTop = 200;
+    debugElement.query(By.css('div')).nativeElement.scrollTop = 2000;
     debugElement.query(By.css('div')).nativeElement.dispatchEvent(new Event('scroll'));
     fixture.detectChanges();
 
