@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'sky-test-cmp',
     templateUrl: './infinite-scroll.component.fixture.html'
 })
 export class InfiniteScrollTestComponent {
-    public hasMore: boolean = true;
+    public _hasMore: BehaviorSubject<boolean>;
+    public hasMore: Observable<boolean>;
     public items: object[] = [];
 
     public constructor() {
+        this._hasMore = new BehaviorSubject(true);
+        this.hasMore = this._hasMore.asObservable();
         this.loadMore();
     }
 
@@ -18,7 +23,7 @@ export class InfiniteScrollTestComponent {
             this.items.push({name: 'test object: #' + i});
         }
         if (this.items.length > 100) {
-            this.hasMore = false;
+            this._hasMore.next(false);
         }
     }
 }

@@ -3,7 +3,7 @@
         <li *ngFor='let item of items'>{{item.name}}</li>
     </ul>
     <sky-infinite-scroll class='sky-infinite-scroll'
-        [hasMore]='hasMore'
+        [hasMore]='hasMore | async'
         (onLoad)='loadMore()'>
     </sky-infinite-scroll>
 </div>

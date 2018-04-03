@@ -48,29 +48,37 @@ describe('Infinite scroll component', () => {
         expect(cmp.items.length).toBe(40);
     });
 
-    fit('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {
-        debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
-        fixture.detectChanges();
-
-        window.scroll(0, 2000);
-        fixture.detectChanges();
-        setTimeout(() => {
-          expect(cmp.items.length).toBe(60);
-          done();
-        }, 100);
-    });
-
-    it('should not emit an onLoad event on scroll when hasMore is false', () => {
-      debugElement.triggerEventHandler('scroll', undefined);
+    it('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {
+      window.dispatchEvent(new Event('scroll'));
       fixture.detectChanges();
-      expect(cmp.items.length).toBe(20);
+      setTimeout(() => {
+        fixture.detectChanges();
+        expect(cmp.items.length).toBe(40);
+        done();
+      }, 100);
     });
 
-    it('should not emit an onLoad event on scroll when isLoading is true', () => {
+    it('should not emit an onLoad event on scroll when hasMore is false', (done: Function) => {
+      debugElement.componentInstance._hasMore.next(false);
+      fixture.detectChanges();
+      window.dispatchEvent(new Event('scroll'));
+      fixture.detectChanges();
+      setTimeout(() => {
+        fixture.detectChanges();
+        expect(cmp.items.length).toBe(20);
+        done();
+      }, 100);
+    });
+
+    it('should not emit an onLoad event on scroll when isLoading is true', (done: Function) => {
       debugElement.query(By.css('.sky-infinite-scroll')).componentInstance._isLoading.next(true);
-      debugElement.triggerEventHandler('scroll', undefined);
+      window.dispatchEvent(new Event('scroll'));
       fixture.detectChanges();
-      expect(cmp.items.length).toBe(20);
+      setTimeout(() => {
+        fixture.detectChanges();
+        expect(cmp.items.length).toBe(20);
+        done();
+      }, 100);
     });
   });
 
@@ -81,7 +89,7 @@ describe('Infinite scroll component', () => {
         <li *ngFor='let item of items'>{{item.name}}</li>
     </ul>
     <sky-infinite-scroll class='sky-infinite-scroll'
-        [hasMore]='hasMore'
+        [hasMore]='hasMore | async'
         (onLoad)='loadMore()'>
     </sky-infinite-scroll>
     </div>
