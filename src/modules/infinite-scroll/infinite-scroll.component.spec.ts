@@ -11,7 +11,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SkyInfiniteScrollModule } from './infinite-scroll.module';
 
-describe('Infinite scroll component', () => {
+fdescribe('Infinite scroll component', () => {
     let fixture: ComponentFixture<InfiniteScrollTestComponent>;
     let cmp: InfiniteScrollTestComponent;
     let debugElement: DebugElement;
@@ -21,6 +21,11 @@ describe('Infinite scroll component', () => {
         declarations: [InfiniteScrollTestComponent],
         imports: [SkyInfiniteScrollModule]
       });
+    });
+    afterEach(() => {
+      if (fixture) {
+        fixture.destroy();
+      }
     });
 
     describe('Infinite scroll component (BeforeEachGroup)', () => {
