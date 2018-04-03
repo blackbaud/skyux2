@@ -11,6 +11,7 @@ import {
 
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import {
   ListStateDispatcher,
@@ -45,19 +46,14 @@ export class SkyListSecondaryActionsComponent implements OnInit, AfterViewInit, 
   ) { }
 
   public ngOnInit() {
-    this.actionService.secondaryActionsSubject
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe((count: number) => {
-        const hasSecondaryActions = (count > 0);
-        this.dropdownHidden = !hasSecondaryActions;
-        this.changeDetector.markForCheck();
-      });
-
     this.actionService.actionsStream
       .takeUntil(this.ngUnsubscribe)
+      .distinctUntilChanged()
       .subscribe((actions: SkyListSecondaryAction[]) => {
+        const hasSecondaryActions = (actions.length > 0);
+        this.dropdownHidden = !hasSecondaryActions;
         this.actions = actions;
-        this.changeDetector.markForCheck();
+        this.changeDetector.detectChanges();
       });
   }
 
