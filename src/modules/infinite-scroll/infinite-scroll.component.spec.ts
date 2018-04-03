@@ -115,17 +115,12 @@ describe('Infinite scroll component', () => {
     cmp = fixture.componentInstance as InfiniteScrollTestComponent;
     fixture.detectChanges();
 
-    debugElement.query(By.css('div')).nativeElement.scrollTo(0, 2000);
-    fixture.detectChanges();
-    debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
+    debugElement.query(By.css('div')).nativeElement.dispatchEvent(new Event('scroll'));
     fixture.detectChanges();
 
-    debugElement.query(By.css('div')).nativeElement.scrollTo(0, 4000);
-
-    fixture.detectChanges();
     setTimeout(() => {
       fixture.detectChanges();
-      expect(cmp.items.length).toBe(60);
+      expect(cmp.items.length).toBe(40);
       done();
     }, 100);
   });
@@ -188,7 +183,8 @@ describe('Infinite scroll component', () => {
     cmp = fixture.componentInstance as InfiniteScrollTestComponent;
     fixture.detectChanges();
 
-    debugElement.query(By.css('div')).nativeElement.scrollTo(0, 4000);
+    debugElement.query(By.css('div')).nativeElement.scrollTop = 200;
+    debugElement.query(By.css('div')).nativeElement.dispatchEvent(new Event('scroll'));
     fixture.detectChanges();
 
     setTimeout(() => {
@@ -225,7 +221,7 @@ describe('Infinite scroll component', () => {
     cmp = fixture.componentInstance as InfiniteScrollTestComponent;
     fixture.detectChanges();
 
-    window.scrollTo(0, 2000);
+    window.dispatchEvent(new Event('scroll'));
     fixture.detectChanges();
 
     setTimeout(() => {
