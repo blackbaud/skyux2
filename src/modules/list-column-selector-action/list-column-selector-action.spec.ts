@@ -4,8 +4,8 @@ import {
   ComponentFixture,
   inject,
   async,
-  fakeAsync,
-  tick
+  tick,
+  fakeAsync
 } from '@angular/core/testing';
 
 import {
@@ -58,11 +58,184 @@ import {
   SkyColumnSelectorModule
 } from '../column-selector';
 
+import {
+  MockSkyMediaQueryService
+} from '../testing/mocks';
+
+import {
+  SkyMediaBreakpoints,
+  SkyMediaQueryService
+} from '../media-queries';
+import { SkyListSecondaryActionsService } from '../list-secondary-actions/list-secondary-actions.service';
+import { ListColumnSelectorActionDeprecatedTestComponent } from './fixtures/list-column-selector-action-deprecated.component.fixture';
+
 describe('List column selector action', () => {
   let state: ListState,
     dispatcher: ListStateDispatcher,
     component: ListColumnSelectorActionTestComponent,
     fixture: ComponentFixture<ListColumnSelectorActionTestComponent>,
+    nativeElement: HTMLElement,
+    mockMediaQueryService: MockSkyMediaQueryService,
+    secondaryActionsService: SkyListSecondaryActionsService;
+
+  beforeEach(() => {
+    mockMediaQueryService = new MockSkyMediaQueryService();
+    dispatcher = new ListStateDispatcher();
+    state = new ListState(dispatcher);
+    secondaryActionsService = jasmine.createSpyObj('SkyListSecondaryActionsService', ['addSecondaryAction', 'removeSecondaryAction']);
+
+    TestBed.configureTestingModule({
+      declarations: [
+        ListColumnSelectorActionTestComponent
+      ],
+      imports: [
+        SkyListColumnSelectorActionModule,
+        SkyListModule,
+        SkyListToolbarModule,
+        SkyListSecondaryActionsModule,
+        SkyGridModule,
+        SkyListViewGridModule,
+        SkyColumnSelectorModule,
+        NoopAnimationsModule
+      ],
+      providers: [
+        { provide: SkyMediaQueryService, useValue: mockMediaQueryService },
+        { provide: SkyListSecondaryActionsService, useValue: secondaryActionsService }
+      ]
+    })
+      .overrideComponent(SkyListComponent, {
+        set: {
+          providers: [
+            { provide: ListState, useValue: state },
+            { provide: ListStateDispatcher, useValue: dispatcher }
+          ]
+        }
+      });
+  });
+
+  function getButtonEl() {
+    return nativeElement.querySelector('[sky-cmp-id="column-chooser"] .sky-btn') as HTMLButtonElement;
+  }
+
+  function triggerXsBreakpoint() {
+    mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
+    fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
+  function triggerSmBreakpoint() {
+    mockMediaQueryService.fire(SkyMediaBreakpoints.sm);
+    fixture.detectChanges();
+    return fixture.whenStable();
+  }
+
+  function verifyTextPresent() {
+    expect(getButtonEl().innerText.trim()).toBe('Columns');
+  }
+
+  function verifyTextNotPresent() {
+    expect(getButtonEl().innerText.trim()).not.toBe('Columns');
+  }
+
+  beforeEach(
+    inject(
+      [
+        SkyModalService
+      ],
+      (
+        _modalService: SkyModalService
+      ) => {
+        _modalService.dispose();
+      }
+    )
+  );
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ListColumnSelectorActionTestComponent);
+    component = fixture.componentInstance;
+    nativeElement = fixture.nativeElement as HTMLElement;
+    fixture.detectChanges();
+
+    // always skip the first update to ListState, when state is ready
+    // run detectChanges once more then begin tests
+    state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+    fixture.detectChanges();
+  });
+
+  afterAll(() => {
+    fixture.destroy();
+  });
+
+  it('text should be present when not an extra small screen', async(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      verifyTextPresent();
+      triggerSmBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifyTextPresent();
+      });
+    });
+  }));
+
+  it('text should not be present when an extra small screen', async(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      verifyTextPresent();
+      triggerXsBreakpoint().then(() => {
+        fixture.detectChanges();
+        verifyTextNotPresent();
+      });
+    });
+  }));
+
+  it('should not appear if not in grid view', async(() => {
+    dispatcher.viewsSetActive('other');
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(getButtonEl()).toBeNull();
+      });
+    });
+  }));
+
+  it('should not clear the search text when new columns are set', async(() => {
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      component.searchText = 'something';
+
+      const chooseColumnsButton = getButtonEl();
+      chooseColumnsButton.click();
+      fixture.detectChanges();
+
+      const checkboxLabelEl = document.querySelectorAll(
+        '.sky-modal .sky-list-view-checklist-item input'
+      ) as NodeListOf<HTMLElement>;
+
+      expect(checkboxLabelEl.length).toBe(2);
+
+      checkboxLabelEl.item(0).click();
+      fixture.detectChanges();
+
+      const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
+
+      submitButtonEl.click();
+      fixture.detectChanges();
+
+      component.grid.gridState.take(1).subscribe((gridState) => {
+        expect(gridState.displayedColumns.items.length).toBe(2);
+        expect(component.searchText).toEqual('something');
+      });
+    });
+  }));
+});
+
+describe('List column selector action - deprecated', () => {
+  let state: ListState,
+    dispatcher: ListStateDispatcher,
+    component: ListColumnSelectorActionDeprecatedTestComponent,
+    fixture: ComponentFixture<ListColumnSelectorActionDeprecatedTestComponent>,
     nativeElement: HTMLElement;
 
   beforeEach(async(() => {
@@ -71,7 +244,7 @@ describe('List column selector action', () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        ListColumnSelectorActionTestComponent
+        ListColumnSelectorActionDeprecatedTestComponent
       ],
       imports: [
         SkyListColumnSelectorActionModule,
@@ -95,7 +268,7 @@ describe('List column selector action', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListColumnSelectorActionTestComponent);
+    fixture = TestBed.createComponent(ListColumnSelectorActionDeprecatedTestComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
   });
@@ -157,37 +330,6 @@ describe('List column selector action', () => {
 
     component.grid.gridState.take(1).subscribe((gridState) => {
       expect(gridState.displayedColumns.items.length).toBe(2);
-    });
-
-    flush();
-    tick();
-  }));
-
-  it('should not clear the search text when new columns are set', fakeAsync(() => {
-    component.searchText = 'something';
-    toggleSecondaryActionsDropdown();
-
-    const chooseColumnsButton = getChooseColumnsButton();
-    chooseColumnsButton.click();
-    tick();
-
-    const checkboxLabelEl = document.querySelectorAll(
-      '.sky-modal .sky-list-view-checklist-item input'
-    ) as NodeListOf<HTMLElement>;
-
-    expect(checkboxLabelEl.length).toBe(2);
-
-    checkboxLabelEl.item(0).click();
-    tick();
-
-    const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
-
-    submitButtonEl.click();
-    tick();
-
-    component.grid.gridState.take(1).subscribe((gridState) => {
-      expect(gridState.displayedColumns.items.length).toBe(2);
-      expect(component.searchText).toEqual('something');
     });
 
     flush();

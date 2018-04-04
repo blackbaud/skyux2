@@ -171,9 +171,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
           new ListToolbarItemModel({
             id: 'sort-selector',
             template: this.sortSelectorTemplate,
-            location: 'right'
+            location: 'left'
           })
-        ], 0);
+        ], 1);
       } else if (currentSort.length < 1 && this.hasSortSelectors) {
         this.hasSortSelectors = false;
         this.dispatcher.toolbarRemoveItems([
@@ -202,9 +202,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
           new ListToolbarItemModel({
             id: 'search',
             template: this.searchTemplate,
-            location: 'center'
+            location: 'right'
           })
-        ]);
+        ], 0);
       }
     });
 
@@ -259,7 +259,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     this.hasInlineFilters = this.inlineFilter.length > 0;
     if (this.hasInlineFilters) {
        this.dispatcher.toolbarAddItems([
-        new ListToolbarItemModel({ template: this.inlineFilterButtonTemplate, location: 'right'})
+        new ListToolbarItemModel({ template: this.inlineFilterButtonTemplate, location: 'left'})
       ],
       0);
     }

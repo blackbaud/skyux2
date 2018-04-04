@@ -1,7 +1,16 @@
 <div id="screenshot-filter-button">
   <sky-filter-button
     [active]="filtersActive"
-    (filterButtonClick)="filtersActive = !filtersActive">
+    (filterButtonClick)="filtersActive = !filtersActive"
+    [showButtonText]="false">
+  </sky-filter-button>
+</div>
+
+<div id="screenshot-filter-button-text">
+  <sky-filter-button
+    [active]="filtersActive"
+    (filterButtonClick)="filtersActive = !filtersActive"
+    [showButtonText]="true">
   </sky-filter-button>
 </div>
 
