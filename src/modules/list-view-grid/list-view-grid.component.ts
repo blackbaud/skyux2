@@ -224,7 +224,7 @@ export class SkyListViewGridComponent
   }
 
   public onViewActive() {
-    let sub = this.gridState.map(s => s.displayedColumns.items)
+    this.gridState.map(s => s.displayedColumns.items)
       .takeUntil(this.ngUnsubscribe)
       .distinctUntilChanged()
       .subscribe(displayedColumns => {
@@ -244,7 +244,6 @@ export class SkyListViewGridComponent
           }));
         });
       });
-    this.subscriptions.push(sub);
   }
 
   private handleColumnChange() {
