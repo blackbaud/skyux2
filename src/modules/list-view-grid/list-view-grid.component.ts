@@ -10,8 +10,9 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   getValue
@@ -160,6 +161,7 @@ export class SkyListViewGridComponent
     }).distinctUntilChanged();
 
     this.gridState.map(s => s.columns.items)
+      .takeUntil(this.ngUnsubscribe)
       .distinctUntilChanged()
       .subscribe(columns => {
         if (this.hiddenColumns) {
@@ -222,7 +224,8 @@ export class SkyListViewGridComponent
   }
 
   public onViewActive() {
-    let sub = this.gridState.map(s => s.displayedColumns.items)
+    this.gridState.map(s => s.displayedColumns.items)
+      .takeUntil(this.ngUnsubscribe)
       .distinctUntilChanged()
       .subscribe(displayedColumns => {
         let setFunctions =
@@ -241,17 +244,18 @@ export class SkyListViewGridComponent
           }));
         });
       });
-    this.subscriptions.push(sub);
   }
 
   private handleColumnChange() {
      // watch for changes in column components
-    this.columnComponents.changes.subscribe((columnComponents) => {
-      let columnModels = this.columnComponents.map(column => {
-        return new SkyGridColumnModel(column.template, column);
+    this.columnComponents.changes
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((columnComponents) => {
+        let columnModels = this.columnComponents.map(column => {
+          return new SkyGridColumnModel(column.template, column);
+        });
+        this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
       });
-      this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
-    });
 
     // Watch for column heading changes:
     this.columnComponents.forEach((comp: SkyGridColumnComponent) => {
