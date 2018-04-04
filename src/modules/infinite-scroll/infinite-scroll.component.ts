@@ -54,7 +54,7 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
 
   public infiniteScrollInView() {
     if (this.scrollableParentIsWindow) {
-      return this.scrollableParentEl.scrollY + this.scrollableParentEl.innerHeight > this.element.nativeElement.offsetTop;
+      return window.pageYOffset + this.scrollableParentEl.innerHeight > this.element.nativeElement.offsetTop;
     } else {
       return this.scrollableParentEl.scrollTop + this.scrollableParentEl.clientHeight > this.element.nativeElement.offsetTop;
     }
