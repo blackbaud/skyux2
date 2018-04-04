@@ -1,8 +1,0 @@
-@import "../../scss/mixins";
-/*
-  When using the dropdown item component instead of wrapping the styles here,
-  strange things happen like tabset visual tests breaking.
-*/
-.sky-list-secondary-action {
-  @include sky-dropdown-item();
-}
