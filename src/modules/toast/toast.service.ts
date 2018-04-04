@@ -9,11 +9,24 @@ export enum ToastType {
   Danger
 }
 
-export interface Message {
-  id: string,
-  message: string,
-  toastType: string,
-  timeout?: NodeJS.Timer
+export class Message {
+  public timeout?: NodeJS.Timer;
+  private _isClosed: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public get isClosed(): Observable<boolean> { return this._isClosed.asObservable() }
+
+  constructor(public message: string, public toastType: string, private removeFromQueue: Function, timeout?: number) {
+    if (timeout) {
+      this.timeout = setTimeout(this.close, timeout);
+    }
+  }
+
+  public close = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.removeFromQueue(this);
+    this._isClosed.next(true);
+  }
 }
 export interface ToastConfig {
   message?: string,
@@ -27,11 +40,11 @@ export class SkyToastService {
 
   private _messages: Message[] = [];
   private _messageList: BehaviorSubject<Message[]> = new BehaviorSubject([]);
-  public get messageList(): Observable<Message[]> { return this._messageList.asObservable() }
+  public get getMessages(): Observable<Message[]> { return this._messageList.asObservable() }
 
   constructor() {}
 
-  public openMessage(message: string, config?: ToastConfig) {
+  public openMessage(message: string, config: ToastConfig = {}) {
     config.message = message;
     return this.open(config);
   }
@@ -43,47 +56,42 @@ export class SkyToastService {
     this._messageList.next(this._messages);
   }
 
-  public close(messageId: string) {
-    let message: Message = this._messages.reduce((prev, cur) => prev.id === messageId ? prev : cur);
-    if (!message) {
-      throw 'SkyToast message not found.';
+  private removeFromQueue: Function = (message: Message) => {
+    if (this._messages.length == 0) {
+      throw 'The supplied message is not active.';
+    }
+    let foundMessage: Message = this._messages.reduce((prev, cur) => prev === message ? prev : cur);
+    if (!foundMessage) {
+      throw 'The supplied message is not active.';
     }
 
-    if (message.timeout) {
-      clearTimeout(message.timeout);
-    }
-    this._messages.map(message => message.id !== messageId);
+    this._messages = this._messages.filter(message => message !== message);
     this._messageList.next(this._messages);
-  }
+  };
 
   private createMessage(config: ToastConfig): Message {
     if (!config.message) {
       throw 'A message must be provided.';
     }
-    let message: Message = {
-      message: config.message,
-      toastType: 'info',
-      id: '_' + Math.random().toString(36).substr(2, 9)
-    };
 
+    let timeout: number;
     if (!config.disableTimeout) {
-      message.timeout = setTimeout(() => {
-        this.close(message.id);
-      }, config.timeout || 10000);
+      timeout = config.timeout || 10000;
     }
 
+    let toastType: string = 'info';
     switch(config.toastType) {
       case ToastType.Success:
-        message.toastType = 'success';
+        toastType = 'success';
         break;
       case ToastType.Warning:
-        message.toastType = 'warning';
+        toastType = 'warning';
         break;
       case ToastType.Danger:
-        message.toastType = 'danger';
+        toastType = 'danger';
         break;
     }
 
-    return message;
+    return new Message(config.message, toastType, this.removeFromQueue, timeout);
   }
 }

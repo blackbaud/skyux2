@@ -62,6 +62,7 @@ import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
 import { SkyTextHighlightModule } from './modules/text-highlight';
+import { SkyToastModule } from './modules/toast';
 import { SkyTokensModule } from './modules/tokens';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
@@ -123,6 +124,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTextHighlightModule,
     SkyTilesModule,
     SkyTimepickerModule,
+    SkyToastModule,
     SkyTokensModule,
     SkyToolbarModule,
     SkyUrlValidationModule,
@@ -186,6 +188,7 @@ export * from './modules/text-expand-repeater';
 export * from './modules/text-highlight';
 export * from './modules/tiles';
 export * from './modules/timepicker';
+export * from './modules/toast';
 export * from './modules/tokens';
 export * from './modules/toolbar';
 export * from './modules/url-validation';

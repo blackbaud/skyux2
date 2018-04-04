@@ -1,19 +1,19 @@
 <div class="sky-toaster">
-  <aside  *ngFor="let message of messages | async | reverse">
+  <aside *ngFor="let message of messages | async">
     <div class="sky-toast"
          [ngClass]="{'sky-toast-info':     message.toastType=='info',
                      'sky-toast-warning':   message.toastType=='warning',
                      'sky-toast-danger':   message.toastType=='danger',
                      'sky-toast-success':  message.toastType=='success'}">
-      <div class='sky-toast-content'>{{message.content}}</div>
+      <div class='sky-toast-content'>{{message.message}}</div>
       <button
           type="button"
           class="sky-toast-close"
-          (click)="close(message.$key)"
+          (click)="message.close()"
           [attr.aria-label]="'toast_close' | skyResources"
-          [hidden]="!closeable"
-      >
-      <span aria-hidden="true"><i class="fa fa-close"></i></span>
+          [hidden]="!true">
+        <span aria-hidden="true"><i class="fa fa-close"></i></span>
+      </button>
     </div>
   </aside>
 </div>

@@ -96,15 +96,9 @@
   opacity: 0.8;
   border: none;
   background-color: transparent;
-  display: none;
+  display: block;
 
   &:hover {
     opacity: 1.0;
-  }
-}
-
-.sky-toast-closeable {
-  .sky-toast-close {
-    display: block;
   }
 }
