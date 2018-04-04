@@ -7,5 +7,7 @@
   <i
     class="fa fa-lg fa-filter"
     aria-hidden="true"></i>
-  <ng-container *ngIf="isButtonTextVisible()"> {{'filter_button_title' | skyResources}}</ng-container>
+  <ng-container *ngIf="isButtonTextVisible()">
+    {{ 'filter_button_title' | skyResources }}
+  </ng-container>
 </button>
