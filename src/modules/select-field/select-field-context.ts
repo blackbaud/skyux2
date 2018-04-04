@@ -1,10 +1,13 @@
+// import {
+//   SkySelectField
+// } from './types';
+
 import {
-  SkySelectField
-} from './types';
+  TemplateRef
+} from '@angular/core';
 
 export class SkySelectFieldContext {
-  public pickerHeader: string;
-  public pickerList: SkySelectField;
-  public selectField: SkySelectField;
-  public selectFieldStyle: string;
+  public headingText: string;
+  public data: any[];
+  public templateRef: TemplateRef<any>;
 }

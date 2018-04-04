@@ -1,4 +1,31 @@
-<sky-modal>
+<div class="sky-select-field-picker">
+  <sky-modal>
+    <sky-modal-header>
+      {{ headingText }}
+    </sky-modal-header>
+    <sky-modal-content>
+      <ng-container
+        *ngTemplateOutlet="templateRef; context: templateContext">
+      </ng-container>
+    </sky-modal-content>
+    <sky-modal-footer>
+      <button
+        type="button"
+        class="sky-btn sky-btn-primary sky-select-field-picker-btn-save"
+        (click)="save()">
+        {{ 'select_field_picker_save_button' | skyResources }}
+      </button>
+      <button
+        type="button"
+        class="sky-btn sky-btn-link sky-select-field-picker-btn-close"
+        (click)="close()">
+        {{ 'select_field_picker_close_button' | skyResources }}
+      </button>
+    </sky-modal-footer>
+  </sky-modal>
+</div>
+
+<!-- <sky-modal>
   <sky-modal-header>
     <div *ngIf="pickerHeader">{{pickerHeader}}</div>
     <div *ngIf="!pickerHeader && isSelectMultiple()">{{'selectfieldpicker_select_values' | skyResources}}</div>
@@ -10,7 +37,6 @@
         <sky-list-toolbar>
         </sky-list-toolbar>
         <div *ngIf="isSelectMultiple() else singleSelectToolbar">
-          <!-- remove once list-toolbar supports categories /skyux2/issues/377 -->
         </div>
         <sky-list-view-checklist label="label" description="description" [selectMode]="selectFieldStyle">
         </sky-list-view-checklist>
@@ -52,4 +78,4 @@
         </sky-dropdown-menu>
     </sky-dropdown>
   </div>
-</ng-template>
+</ng-template> -->

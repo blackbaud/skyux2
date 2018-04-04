@@ -2,7 +2,9 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  Renderer2
+  OnInit,
+  Renderer2,
+  TemplateRef
 } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -13,7 +15,7 @@ import {
 } from '../modal';
 
 import { SkySelectFieldContext } from './select-field-context';
-import { SkySelectField } from './types';
+// import { SkySelectField } from './types';
 
 @Component({
   selector: 'sky-select-field-form',
@@ -22,86 +24,118 @@ import { SkySelectField } from './types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SkySelectFieldFormComponent implements AfterViewInit {
-  public allItems = new BehaviorSubject<SkySelectField>(this.context.pickerList);
-  public filteredItems: Subject<SkySelectField> = this.allItems;
-  public selectedCategory: string;
-  public selectedIds: string[] = [];
+export class SkySelectFieldFormComponent implements OnInit, AfterViewInit {
+  public data = new BehaviorSubject<any[]>([]);
+
+  public get headingText(): string {
+    return this.context.headingText;
+  }
+
+  public get templateRef(): TemplateRef<any> {
+    return this.context.templateRef;
+  }
+
+  public get templateContext(): any {
+    return {
+      data: this.data
+    };
+  }
 
   constructor(
     public context: SkySelectFieldContext,
-    public instance: SkyModalInstance,
-    private renderer: Renderer2
+    public instance: SkyModalInstance
   ) {
-    this.setSelectedIds();
+    console.log('modal context:', this.context);
+    this.data.next(this.context.data);
   }
 
-  public ngAfterViewInit() {
-    setTimeout(() => {
-      this.renderer.selectRootElement('input.sky-search-input').focus();
-    });
+  public ngOnInit() {
+    // console.log('NEXT!');
+    // // this.data = new Subject<any[]>();
+    // this.data.next(this.context.data);
   }
 
-  public save() {
-    this.instance.save(this.selectedItems);
-  }
+  public ngAfterViewInit() { }
 
-  public close() {
-    this.instance.close(this.selectedItems);
-  }
+  // public allItems = new BehaviorSubject<SkySelectField>(this.context.pickerList);
+  // public filteredItems: Subject<SkySelectField> = this.allItems;
+  // public selectedCategory: string;
+  // public selectedIds: string[] = [];
 
-  public clearSelection() {
-    this.selectedItemsCategory('');
-    this.selectedItemsChange(undefined);
-  }
+  // constructor(
+  //   public context: SkySelectFieldContext,
+  //   public instance: SkyModalInstance,
+  //   private renderer: Renderer2
+  // ) {
+  //   this.setSelectedIds();
+  // }
 
-  public get pickerHeader() {
-    return this.context.pickerHeader;
-  }
+  // public ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     this.renderer.selectRootElement('input.sky-search-input').focus();
+  //   });
+  // }
 
-  public get pickerContentItems() {
-    return this.context.pickerList;
-  }
+  // public save() {
+  //   this.instance.save(this.selectedItems);
+  // }
 
-  public get selectFieldStyle() {
-    return this.context.selectFieldStyle;
-  }
+  // public close() {
+  //   this.instance.close(this.selectedItems);
+  // }
 
-  public get selectedItems() {
-    return this.context.selectField;
-  }
+  // public clearSelection() {
+  //   this.selectedItemsCategory('');
+  //   this.selectedItemsChange(undefined);
+  // }
 
-  public set selectedItems(items) {
-    this.context.selectField = items;
-  }
+  // public get pickerHeader() {
+  //   return this.context.pickerHeader;
+  // }
 
-  public setSelectedIds() {
-    this.selectedIds = this.selectedItems.map(item => item.id);
-  }
+  // public get pickerContentItems() {
+  //   return this.context.pickerList;
+  // }
 
-  // -- Category polyfill until /skyux2/issues/377 -- //
-  public get pickerItemsCategories() {
-    // return unique categories.
-    return this.pickerContentItems
-      .map(item => item.category)
-      .filter((search, index, category) => search && category.indexOf(search) === index);
-  }
-  // -- Category polyfill until /skyux2/issues/377 -- //
+  // public get selectFieldStyle() {
+  //   return this.context.selectFieldStyle;
+  // }
 
-  public selectedItemsCategory(category: string) {
-    this.selectedCategory = category;
-    let filteredItems = this.pickerContentItems.filter(item => item.category === category);
-    this.filteredItems.next(category === '' ? this.pickerContentItems : filteredItems);
-  }
+  // public get selectedItems() {
+  //   return this.context.selectField;
+  // }
 
-  public isSelectMultiple() {
-    return this.selectFieldStyle === 'multiple' ? true : false;
-  }
+  // public set selectedItems(items) {
+  //   this.context.selectField = items;
+  // }
 
-  public selectedItemsChange(selectedMap: Map<string, boolean>) {
-    this.allItems.subscribe(items => {
-      this.selectedItems = selectedMap === undefined ? [] : items.filter(item => selectedMap.get(item.id));
-      if (!this.isSelectMultiple()) { this.save(); }
-    });
-  }
+  // public setSelectedIds() {
+  //   this.selectedIds = this.selectedItems.map(item => item.id);
+  // }
+
+  // // -- Category polyfill until /skyux2/issues/377 -- //
+  // public get pickerItemsCategories() {
+  //   // return unique categories.
+  //   return this.pickerContentItems
+  //     .map(item => item.category)
+  //     .filter((search, index, category) => search && category.indexOf(search) === index);
+  // }
+  // // -- Category polyfill until /skyux2/issues/377 -- //
+
+  // public selectedItemsCategory(category: string) {
+  //   this.selectedCategory = category;
+  //   let filteredItems = this.pickerContentItems.filter(item => item.category === category);
+  //   this.filteredItems.next(category === '' ? this.pickerContentItems : filteredItems);
+  // }
+
+  // public isSelectMultiple() {
+  //   return this.selectFieldStyle === 'multiple' ? true : false;
+  // }
+
+  // public selectedItemsChange(selectedMap: Map<string, boolean>) {
+  //   this.allItems.subscribe(items => {
+  //     this.selectedItems = selectedMap === undefined ? [] : items.filter(item => selectedMap.get(item.id));
+  //     if (!this.isSelectMultiple()) { this.save(); }
+  //   });
+  // }
 }

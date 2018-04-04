@@ -8,7 +8,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  TemplateRef
 } from '@angular/core';
 
 import {
@@ -31,7 +32,7 @@ import {
 
 import { SkySelectFieldContext } from './select-field-context';
 import { SkySelectFieldFormComponent } from './select-field-form.component';
-import { SkySelectField, SkySelectFieldListItemsType } from './types';
+// import { SkySelectField, SkySelectFieldListItemsType } from './types';
 
 const SKY_SELECT_FIELD_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -73,6 +74,9 @@ export class SkySelectFieldComponent
   public tokenDisplayWith = 'name';
 
   @Input()
+  public pickerTemplateRef: TemplateRef<any>;
+
+  @Input()
   public set multiselectButtonText(value: string) {
     this._multiselectButtonText = value;
   }
@@ -104,31 +108,8 @@ export class SkySelectFieldComponent
 
   public ngOnDestroy() {}
 
-  public openModal() {
-    console.log('open modal');
-    const context = new SkySelectFieldContext();
-    // context.pickerHeader = this._selectFieldPickerHeader;
-    // context.pickerList = this.data;
-    // context.selectField = this._selectField;
-    // context.selectFieldStyle = this._selectFieldStyle;
-
-    const options = {
-      providers: [{ provide: SkySelectFieldContext, useValue: context }],
-      ariaDescribedBy: 'docs-modal-content'
-    };
-
-    const modalInstance = this.modalService.open(SkySelectFieldFormComponent, options);
-
-    modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-      if (result.reason === 'save') {
-        console.log('emit save:', result.data);
-      }
-    });
-  }
-
   public writeValue(value: any[]) {
     if (value && !this.disabled) {
-      console.log('writeValue()', value);
       this.value = value;
     }
   }
@@ -151,6 +132,31 @@ export class SkySelectFieldComponent
   public setDisabledState(disabled: boolean) {
     this.disabled = disabled;
     this.changeDetector.markForCheck();
+  }
+
+  public openModal() {
+    console.log('open modal');
+    const context = new SkySelectFieldContext();
+    context.headingText = this.multiselectButtonText;
+    context.data = this.data;
+    context.templateRef = this.pickerTemplateRef;
+    // context.pickerHeader = this._selectFieldPickerHeader;
+    // context.pickerList = this.data;
+    // context.selectField = this._selectField;
+    // context.selectFieldStyle = this._selectFieldStyle;
+
+    const options = {
+      providers: [{ provide: SkySelectFieldContext, useValue: context }],
+      ariaDescribedBy: 'docs-modal-content'
+    };
+
+    const modalInstance = this.modalService.open(SkySelectFieldFormComponent, options);
+
+    modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
+      if (result.reason === 'save') {
+        console.log('emit save:', result.data);
+      }
+    });
   }
 
   // @Input()
