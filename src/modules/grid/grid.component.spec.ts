@@ -20,7 +20,7 @@ const moment = require('moment');
 
 import {
   expect
-} from '../testing';
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { GridEmptyTestComponent } from './fixtures/grid-empty.component.fixture';
 import { GridDynamicTestComponent } from './fixtures/grid-dynamic.component.fixture';

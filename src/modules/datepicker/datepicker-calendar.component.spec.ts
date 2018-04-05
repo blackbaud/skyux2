@@ -4,16 +4,16 @@ import {
 } from '@angular/core/testing';
 
 import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   SkyDatepickerModule
 } from './datepicker.module';
 
 import {
   DatepickerCalendarTestComponent
 } from './fixtures/datepicker-calendar.component.fixture';
-
-import {
-  expect
-} from '../testing';
 
 import { By } from '@angular/platform-browser';
 
