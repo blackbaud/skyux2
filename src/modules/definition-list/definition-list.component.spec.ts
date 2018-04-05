@@ -2,10 +2,12 @@ import {
   TestBed
 } from '@angular/core/testing';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyDefinitionListTestComponent } from './fixtures/definition-list.component.fixture';
 import { SkyDefinitionListFixturesModule } from './fixtures/definition-list-fixtures.module';
-
-import { expect } from '../testing';
 
 describe('Definition list component', () => {
   beforeEach(() => {

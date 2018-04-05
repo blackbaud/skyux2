@@ -16,8 +16,9 @@ import {
 } from '@angular/platform-browser/animations';
 
 import {
-  TestUtility
-} from '../testing';
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyWindowRefService
@@ -187,13 +188,17 @@ describe('SkyPopoverDirective', () => {
 
     callerInstance.skyPopover.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Escape' }
+    });
     expect(spy).toHaveBeenCalledWith();
 
     spy.calls.reset();
 
     // Should ignore other key events.
-    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Backspace' });
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Backspace' }
+    });
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -204,7 +209,9 @@ describe('SkyPopoverDirective', () => {
 
     callerInstance.skyPopover.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Escape' }
+    });
     expect(spy).toHaveBeenCalledWith();
   });
 

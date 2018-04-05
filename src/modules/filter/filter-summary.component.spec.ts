@@ -4,20 +4,17 @@ import {
 } from '@angular/core/testing';
 
 import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   FilterSummaryTestComponent
 } from './fixtures/filter-summary.component.fixture';
 
 import {
   SkyFilterModule
 } from '.';
-
-import {
-  expect
-} from '../testing';
-
-import {
-  TestUtility
-} from '../testing/testutility';
 
 describe('Filter summary', () => {
 
@@ -59,7 +56,7 @@ describe('Filter summary', () => {
     let items = nativeElement
       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
 
-    TestUtility.fireDomEvent(items.item(0), 'click');
+    SkyAppTestUtility.fireDomEvent(items.item(0), 'click');
 
     fixture.detectChanges();
 
@@ -70,13 +67,13 @@ describe('Filter summary', () => {
     let items = nativeElement
       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item');
 
-    TestUtility.fireDomEvent(items[0], 'keypress.space', { key: 'Space' });
+    SkyAppTestUtility.fireDomEvent(items[0], 'keypress.space');
 
     fixture.detectChanges();
 
     expect(component.summaryClicked).toBe(false);
 
-    TestUtility.fireDomEvent(items[0], 'keypress.enter', { key: 'Enter' });
+    SkyAppTestUtility.fireDomEvent(items[0], 'keypress.enter');
 
     fixture.detectChanges();
 
@@ -87,7 +84,7 @@ describe('Filter summary', () => {
     let items = nativeElement
       .querySelectorAll('.sky-filter-summary-items .sky-filter-summary-item .sky-token-btn-close');
 
-    TestUtility.fireDomEvent(items.item(0), 'click');
+    SkyAppTestUtility.fireDomEvent(items.item(0), 'click');
 
     fixture.detectChanges();
 

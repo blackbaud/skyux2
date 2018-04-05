@@ -1,20 +1,23 @@
 <div class="sky-list-toolbar-container">
-  <sky-toolbar *ngIf="(type | async) !== 'search'">
+  <sky-toolbar
+    *ngIf="(type | async) !== 'search'">
     <sky-toolbar-section>
-      <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
-        <sky-list-toolbar-item-renderer
-          [template]="item.template"
-          [attr.sky-cmp-id]="item.id">
-        </sky-list-toolbar-item-renderer>
-      </sky-toolbar-item>
-      <sky-toolbar-item *ngFor="let item of centerTemplates | async">
+      <sky-toolbar-item
+        *ngFor="let item of leftTemplates">
         <sky-list-toolbar-item-renderer
           [template]="item.template"
           [attr.sky-cmp-id]="item.id">
         </sky-list-toolbar-item-renderer>
       </sky-toolbar-item>
       <sky-toolbar-item
-        *ngFor="let item of rightTemplates | async"
+        *ngFor="let item of centerTemplates">
+        <sky-list-toolbar-item-renderer
+          [template]="item.template"
+          [attr.sky-cmp-id]="item.id">
+        </sky-list-toolbar-item-renderer>
+      </sky-toolbar-item>
+      <sky-toolbar-item
+        *ngFor="let item of rightTemplates"
         [attr.sky-toolbar-id]="item.id">
         <sky-list-toolbar-item-renderer
           [template]="item.template"
@@ -24,35 +27,45 @@
       <ng-content></ng-content>
     </sky-toolbar-section>
     <sky-toolbar-section
-    *ngIf="showFilterSummary && (hasAppliedFilters | async)">
-      <ng-content select="sky-list-filter-summary"></ng-content>
+      *ngIf="showFilterSummary && (hasAppliedFilters | async)">
+      <ng-content
+        select="sky-list-filter-summary">
+      </ng-content>
     </sky-toolbar-section>
   </sky-toolbar>
-  <div class="sky-list-toolbar-search" *ngIf="(type | async) === 'search'">
+
+  <div
+    class="sky-list-toolbar-search"
+    *ngIf="(type | async) === 'search'">
     <sky-toolbar>
       <sky-toolbar-section>
         <sky-toolbar-item>
           <sky-list-toolbar-item-renderer
-            [template]="search" sky-cmp-id="search">
+            [template]="search"
+            sky-cmp-id="search">
           </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
       </sky-toolbar-section>
-      <sky-toolbar-section [hidden]="!(hasAdditionalToolbarSection | async)">
-        <sky-toolbar-item  *ngFor="let item of leftTemplates | async">
+      <sky-toolbar-section
+        [hidden]="!hasAdditionalToolbarSection">
+        <sky-toolbar-item
+          *ngFor="let item of leftTemplates">
           <sky-list-toolbar-item-renderer
             [template]="item.template"
-            [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+            [attr.sky-cmp-id]="item.id">
+          </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
-        <sky-toolbar-item *ngFor="let item of centerTemplates | async">
+        <sky-toolbar-item
+          *ngFor="let item of centerTemplates">
           <sky-list-toolbar-item-renderer
             *ngIf="item.id !== 'search'"
             [template]="item.template"
-            [attr.sky-cmp-id]="item.id"></sky-list-toolbar-item-renderer>
+            [attr.sky-cmp-id]="item.id">
+          </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
         <sky-toolbar-item
-          *ngFor="let item of rightTemplates | async"
-          [attr.sky-toolbar-id]="item.id"
-        >
+          *ngFor="let item of rightTemplates"
+          [attr.sky-toolbar-id]="item.id">
           <sky-list-toolbar-item-renderer
             [template]="item.template"
             [attr.sky-cmp-id]="item.id">
@@ -62,13 +75,17 @@
       </sky-toolbar-section>
     </sky-toolbar>
   </div>
-  <div *ngIf="hasInlineFilters && inlineFilterBarExpanded">
-    <ng-content select="sky-list-filter-inline"></ng-content>
+  <div
+    *ngIf="hasInlineFilters && inlineFilterBarExpanded">
+    <ng-content
+      select="sky-list-filter-inline">
+    </ng-content>
   </div>
 </div>
 
 <ng-template #search>
-  <div *ngIf="isSearchEnabled | async">
+  <div
+    *ngIf="isSearchEnabled | async">
     <sky-search
       #searchComponent
       [expandMode]="(type | async) === 'search' ? 'fit' : 'responsive'"

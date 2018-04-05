@@ -7,8 +7,8 @@ import {
 
 import {
   expect,
-  TestUtility
-} from '../testing';
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyLookupComponent } from './lookup.component';
 import { SkyLookupFixturesModule } from './fixtures/lookup-fixtures.module';
@@ -31,8 +31,8 @@ describe('Lookup component', function () {
     const inputElement = getInputElement();
     inputElement.value = searchText;
     inputElement.focus();
-    TestUtility.fireKeyboardEvent(inputElement, 'keyup', {
-      key: ''
+    SkyAppTestUtility.fireDomEvent(inputElement, 'keyup', {
+      keyboardEventInit: { key: '' }
     });
     tick();
     fixture.detectChanges();
@@ -56,10 +56,7 @@ describe('Lookup component', function () {
   }
 
   function triggerClick(element: Element, focusable = false) {
-    TestUtility.fireDomEvent(element, 'mousedown', {
-      bubbles: true,
-      cancelable: true
-    });
+    SkyAppTestUtility.fireDomEvent(element, 'mousedown');
     tick();
     fixture.detectChanges();
     tick();
@@ -71,22 +68,23 @@ describe('Lookup component', function () {
       tick();
     }
 
-    TestUtility.fireDomEvent(element, 'mouseup', {
-      bubbles: true,
-      cancelable: true
-    });
+    SkyAppTestUtility.fireDomEvent(element, 'mouseup');
     tick();
     fixture.detectChanges();
     tick();
   }
 
   function triggerKeyPress(element: Element, key: string) {
-    TestUtility.fireKeyboardEvent(element, 'keydown', { key });
+    SkyAppTestUtility.fireDomEvent(element, 'keydown', {
+      keyboardEventInit: { key }
+    });
     tick();
     fixture.detectChanges();
     tick();
 
-    TestUtility.fireKeyboardEvent(element, 'keyup', { key });
+    SkyAppTestUtility.fireDomEvent(element, 'keyup', {
+      keyboardEventInit: { key }
+    });
     tick();
     fixture.detectChanges();
     tick();
@@ -223,8 +221,8 @@ describe('Lookup component', function () {
       fixture.detectChanges();
 
       const tokenHostElements = document.querySelectorAll('sky-token');
-      TestUtility.fireKeyboardEvent(tokenHostElements.item(0), 'keydown', {
-        key: 'ArrowRight'
+      SkyAppTestUtility.fireDomEvent(tokenHostElements.item(0), 'keydown', {
+        keyboardEventInit: { key: 'ArrowRight' }
       });
       tick();
       fixture.detectChanges();
@@ -281,7 +279,9 @@ describe('Lookup component', function () {
 
       expect(inputElement.value).toEqual('s');
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup', { key: 'Escape' });
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup', {
+        keyboardEventInit: { key: 'Escape' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -301,8 +301,8 @@ describe('Lookup component', function () {
       expect(tokenHostElements.length).toEqual(3);
 
       const tokensHostElement = document.querySelector('sky-tokens');
-      TestUtility.fireKeyboardEvent(tokensHostElement, 'keyup', {
-        key: 'Backspace'
+      SkyAppTestUtility.fireDomEvent(tokensHostElement, 'keyup', {
+        keyboardEventInit: { key: 'Backspace' }
       });
       tick();
       fixture.detectChanges();
@@ -313,8 +313,8 @@ describe('Lookup component', function () {
       expect(tokenHostElements.item(0).contains(document.activeElement))
         .toEqual(true);
 
-      TestUtility.fireKeyboardEvent(tokensHostElement, 'keyup', {
-        key: 'Delete'
+      SkyAppTestUtility.fireDomEvent(tokensHostElement, 'keyup', {
+        keyboardEventInit: { key: 'Delete' }
       });
       tick();
       fixture.detectChanges();
@@ -330,14 +330,14 @@ describe('Lookup component', function () {
       fixture.detectChanges();
 
       const inputElement = getInputElement();
-      TestUtility.fireKeyboardEvent(inputElement, 'focusin');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'focusin');
       tick();
       fixture.detectChanges();
       tick();
 
       expect(lookupComponent.isInputFocused).toEqual(true);
 
-      TestUtility.fireKeyboardEvent(document, 'focusin');
+      SkyAppTestUtility.fireDomEvent(document, 'focusin');
       tick();
       fixture.detectChanges();
       tick();
