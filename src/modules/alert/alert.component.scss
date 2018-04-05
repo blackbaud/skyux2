@@ -4,7 +4,6 @@
   padding: 0 $sky-padding;
   margin-bottom: $sky-margin-double;
   border-left: solid 30px;
-  border-radius: $sky-border-radius;
   color: $sky-text-color-default;
   display: flex;
   flex-direction: row;
@@ -14,16 +13,18 @@
     padding-top: $sky-padding;
     padding-bottom: $sky-padding;
     width: 100%;
+		
+		::ng-deep a {
+			color: change-color($sky-text-color-default, $alpha: 0.8);
+			text-decoration: underline;
+
+			&:hover {
+				color: $sky-text-color-default;
+			}
+		}
   }
 
-  :ng-deep .sky-alert-content a {
-    color: change-color($sky-text-color-default, $alpha: 0.8);
-    text-decoration: underline;
-
-    &:hover {
-      color: $sky-text-color-default;
-    }
-  }
+  
 
   button {
     margin-left: auto;

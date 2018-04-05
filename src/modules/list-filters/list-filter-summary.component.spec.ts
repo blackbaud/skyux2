@@ -11,6 +11,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   ListFilterSummaryTestComponent
 } from './fixtures/list-filter-summary.component.fixture';
 
@@ -21,10 +25,6 @@ import {
 import {
   SkyListFiltersModule
 } from '.';
-
-import {
-  expect
-} from '../testing';
 
 describe('List filter summary', () => {
   let state: ListState,
