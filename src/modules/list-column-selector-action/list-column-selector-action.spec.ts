@@ -13,6 +13,10 @@ import {
 } from '@angular/platform-browser/animations';
 
 import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
@@ -45,10 +49,6 @@ import {
 import {
   SkyGridModule
 } from '../grid';
-
-import {
-  expect
-} from '../testing';
 
 import {
   SkyModalService

@@ -1,4 +1,6 @@
-import { expect } from '../testing';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyModalHostService } from './modal-host.service';
 

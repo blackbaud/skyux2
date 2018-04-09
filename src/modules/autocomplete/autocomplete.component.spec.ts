@@ -7,8 +7,8 @@ import {
 
 import {
   expect,
-  TestUtility
-} from '../testing';
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyDropdownMessageType
@@ -87,7 +87,7 @@ describe('Autocomplete component', () => {
       const spy = spyOn(autocomplete, 'search').and.callThrough();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       expect(spy.calls.argsFor(0)[0]).toEqual('r');
@@ -101,7 +101,7 @@ describe('Autocomplete component', () => {
 
       inputElement.value = 'y';
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
       fixture.detectChanges();
       tick();
@@ -118,7 +118,7 @@ describe('Autocomplete component', () => {
       let inputElement = getInputElement();
       inputElement.value = 'r';
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
       fixture.detectChanges();
 
@@ -150,7 +150,7 @@ describe('Autocomplete component', () => {
 
       inputElement.value = 'r';
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
       fixture.detectChanges();
       tick();
@@ -170,7 +170,7 @@ describe('Autocomplete component', () => {
       const inputElement = getInputElement();
       inputElement.value = 'r';
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
       fixture.detectChanges();
       tick();
@@ -190,7 +190,7 @@ describe('Autocomplete component', () => {
           .and.callThrough();
 
         inputElement.value = 'r';
-        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
         tick();
         fixture.detectChanges();
         tick();
@@ -211,11 +211,11 @@ describe('Autocomplete component', () => {
           .and.callThrough();
 
         inputElement.value = 'r';
-        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
         tick();
 
         inputElement.value = 're';
-        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
         tick();
 
         expect(messageSpy)
@@ -233,7 +233,7 @@ describe('Autocomplete component', () => {
       // The letter 'r' should return multiple results:
       inputElement.value = 'r';
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
       fixture.detectChanges();
       tick();
@@ -248,7 +248,7 @@ describe('Autocomplete component', () => {
       const spy = spyOn(autocomplete, 'search').and.callThrough();
 
       inputElement.value = '';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       expect(spy).not.toHaveBeenCalled();
@@ -263,7 +263,7 @@ describe('Autocomplete component', () => {
 
       // First, verify that the search will run with 3 characters.
       inputElement.value = '123';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       expect(spy).toHaveBeenCalled();
@@ -271,7 +271,7 @@ describe('Autocomplete component', () => {
 
       // Finally, verify that it will not search with fewer characters.
       inputElement.value = '1';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       expect(spy).not.toHaveBeenCalled();
@@ -297,7 +297,7 @@ describe('Autocomplete component', () => {
       const spy = spyOn(autocomplete, 'search').and.callThrough();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       expect(spy.calls.argsFor(0)[0]).toEqual('r');
@@ -317,7 +317,7 @@ describe('Autocomplete component', () => {
 
         inputElement.value = 'r';
 
-        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
         tick();
         fixture.detectChanges();
         tick();
@@ -338,7 +338,7 @@ describe('Autocomplete component', () => {
 
       const spy = spyOn(autocomplete, 'search').and.callThrough();
 
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       expect(spy).not.toHaveBeenCalled();
@@ -365,7 +365,7 @@ describe('Autocomplete component', () => {
       const inputElement = getInputElement();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       const event = document.createEvent('CustomEvent');
@@ -390,7 +390,9 @@ describe('Autocomplete component', () => {
       const inputElement = getInputElement();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup', {
+        keyboardEventInit: { key: 'R' }
+      });
       tick();
 
       const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
@@ -399,8 +401,8 @@ describe('Autocomplete component', () => {
         .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
-      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', {
-        key: 'Enter'
+      SkyAppTestUtility.fireDomEvent(autocompleteElement, 'keydown', {
+        keyboardEventInit: { key: 'Enter' }
       });
       tick();
 
@@ -417,7 +419,7 @@ describe('Autocomplete component', () => {
       const inputElement = getInputElement();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
@@ -426,8 +428,8 @@ describe('Autocomplete component', () => {
         .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
-      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', {
-        key: 'Tab'
+      SkyAppTestUtility.fireDomEvent(autocompleteElement, 'keydown', {
+        keyboardEventInit: { key: 'Tab' }
       });
       tick();
 
@@ -452,13 +454,13 @@ describe('Autocomplete component', () => {
       const dropdownElement = autocompleteElement
         .querySelector('sky-dropdown-menu') as HTMLElement;
 
-      TestUtility.fireKeyboardEvent(dropdownElement, 'keydown', {
-        key: 'arrowdown'
+      SkyAppTestUtility.fireDomEvent(dropdownElement, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
       });
       tick();
 
-      TestUtility.fireKeyboardEvent(dropdownElement, 'keydown', {
-        key: 'arrowup'
+      SkyAppTestUtility.fireDomEvent(dropdownElement, 'keydown', {
+        keyboardEventInit: { key: 'ArrowUp' }
       });
       tick();
 
@@ -476,7 +478,7 @@ describe('Autocomplete component', () => {
         const spy = spyOn(autocomplete, 'search').and.callThrough();
 
         inputElement.value = 'r';
-        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
         tick();
 
         expect(spy.calls.argsFor(0)[0]).toEqual('r');
@@ -486,8 +488,8 @@ describe('Autocomplete component', () => {
         fixture.detectChanges();
 
         const autocompleteElement = getAutocompleteElement();
-        TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', {
-          key: 'arrowdown'
+        SkyAppTestUtility.fireDomEvent(autocompleteElement, 'keydown', {
+          keyboardEventInit: { key: 'ArrowDown' }
         });
         tick();
 
@@ -501,13 +503,15 @@ describe('Autocomplete component', () => {
       const inputElement = getInputElement();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
       const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
-      TestUtility.fireKeyboardEvent(autocompleteElement, 'keydown', { key: 'Escape' });
+      SkyAppTestUtility.fireDomEvent(autocompleteElement, 'keydown', {
+        keyboardEventInit: { key: 'Escape' }
+      });
       tick();
 
       expect(spy).toHaveBeenCalledWith(SkyDropdownMessageType.Close);
@@ -530,7 +534,7 @@ describe('Autocomplete component', () => {
 
         expect(inputElement.value).toEqual('re');
 
-        TestUtility.fireKeyboardEvent(inputElement, 'blur');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'blur');
         tick();
 
         expect(component.myForm.value.favoriteColor).toEqual(selectedValue);
@@ -556,7 +560,7 @@ describe('Autocomplete component', () => {
 
       expect(inputElement.value).toEqual('Red');
 
-      TestUtility.fireKeyboardEvent(inputElement, 'blur');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'blur');
       tick();
 
       expect(spy).not.toHaveBeenCalled();
@@ -578,7 +582,7 @@ describe('Autocomplete component', () => {
 
         expect(inputElement.value).toEqual('');
 
-        TestUtility.fireKeyboardEvent(inputElement, 'blur');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'blur');
         tick();
 
         expect(component.myForm.value.favoriteColor).toEqual({ });
@@ -595,7 +599,7 @@ describe('Autocomplete component', () => {
       const inputElement = getInputElement();
 
       inputElement.value = 'r';
-      TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+      SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
       fixture.detectChanges();
 
@@ -623,14 +627,14 @@ describe('Autocomplete component', () => {
         const inputElement = getInputElement();
 
         inputElement.value = 'r';
-        TestUtility.fireKeyboardEvent(inputElement, 'keyup');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
         tick();
         fixture.detectChanges();
         tick();
 
         const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
 
-        TestUtility.fireKeyboardEvent(inputElement, 'mouseenter');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'mouseenter');
         tick();
         fixture.detectChanges();
         tick();
@@ -641,7 +645,7 @@ describe('Autocomplete component', () => {
         expect(spy).not.toHaveBeenCalled();
         spy.calls.reset();
 
-        TestUtility.fireKeyboardEvent(inputElement, 'mouseleave');
+        SkyAppTestUtility.fireDomEvent(inputElement, 'mouseleave');
         tick();
         fixture.detectChanges();
         tick();

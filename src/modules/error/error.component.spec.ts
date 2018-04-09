@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyResourcesService } from '../resources/resources.service';
 import { SkyErrorFixturesModule } from './fixtures/error-fixtures.module';
 import { ErrorTestComponent } from './fixtures/error.component.fixture';
-import { expect } from '../testing';
 
 describe('Error component', () => {
   beforeEach(() => {
