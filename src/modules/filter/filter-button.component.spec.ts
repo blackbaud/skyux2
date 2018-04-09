@@ -5,6 +5,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   FilterButtonTestComponent
 } from './fixtures/filter-button.component.fixture';
 
@@ -12,9 +16,6 @@ import {
   SkyFilterModule
 } from '.';
 
-import {
-  expect
-} from '../testing';
 import { MockSkyMediaQueryService } from '../testing/mocks';
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 

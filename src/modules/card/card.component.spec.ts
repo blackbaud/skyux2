@@ -2,9 +2,12 @@ import {
   TestBed
 } from '@angular/core/testing';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyCardFixturesModule } from './fixtures/card-fixtures.module';
 import { CardTestComponent } from './fixtures/card.component.fixture';
-import { expect } from '../testing';
 
 function validateCardSelected(cmp: CardTestComponent, cardEl: any, selected: boolean) {
   let selectedEl = cardEl.querySelector('.sky-card.sky-card-selected');

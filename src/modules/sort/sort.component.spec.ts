@@ -7,21 +7,17 @@ import {
 } from '@angular/core/testing';
 
 import {
-  SortTestComponent
-} from './fixtures/sort.component.fixture';
-
-import {
-  SkySortModule
-} from '.';
-
-import {
   expect
-} from '../testing';
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
 import { MockSkyMediaQueryService } from '../testing/mocks';
 
-describe('Sort component', () => {
+import { SkySortModule } from './sort.module';
 
+import { SortTestComponent } from './fixtures/sort.component.fixture';
+
+describe('Sort component', () => {
   let fixture: ComponentFixture<SortTestComponent>;
   let nativeElement: HTMLElement;
   let component: SortTestComponent;

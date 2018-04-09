@@ -1,18 +1,23 @@
 <ng-template #secondaryActions>
   <div
     class="sky-list-secondary-actions"
-    [hidden]="dropdownHidden"
-    >
+    [ngClass]="{ 'sky-list-secondary-actions-hidden': dropdownHidden }">
     <sky-dropdown
-      [attr.title]="'list_show_secondary_actions' | skyResources"
-      [buttonType]="isSmallScreen() ? 'ellipsis-h' : 'select'"
-    >
-      <sky-dropdown-button *ngIf="!isSmallScreen()">
-        <i class="fa fa-ellipsis-h"></i> More
+      [attr.title]="'list_show_secondary_actions' | skyResources">
+      <sky-dropdown-button>
+        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        More
       </sky-dropdown-button>
       <sky-dropdown-menu>
-        <ng-content></ng-content>
+        <sky-dropdown-item
+          *ngFor="let action of actions">
+          <ng-container
+            *ngTemplateOutlet="action.template">
+          </ng-container>
+        </sky-dropdown-item>
       </sky-dropdown-menu>
     </sky-dropdown>
   </div>
+  <ng-content>
+  </ng-content>
 </ng-template>

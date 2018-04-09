@@ -1,24 +1,29 @@
 import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
-  QueryList,
-  ViewChild,
-  TemplateRef,
   Input,
+  OnDestroy,
   OnInit,
-  AfterContentInit,
-  ChangeDetectionStrategy
+  QueryList,
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
-import {
-  ListToolbarConfigSetSearchEnabledAction,
-  ListToolbarConfigSetSortSelectorEnabledAction
-} from './state/config/actions';
+
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+
 import {
-  ListToolbarState,
-  ListToolbarStateDispatcher,
-  ListToolbarStateModel
-} from './state';
+  getValue
+} from 'microedge-rxstate/dist/helpers';
+
+import {
+  SkyListFilterSummaryComponent,
+  SkyListFilterInlineComponent
+} from '../list-filters';
 
 import {
   ListToolbarModel,
@@ -32,18 +37,23 @@ import {
   ListPagingSetPageNumberAction
 } from '../list/state';
 
-import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
-
-import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
+import {
+  SkySearchComponent
+} from '../search';
 
 import {
-  SkyListFilterSummaryComponent,
-  SkyListFilterInlineComponent
-} from '../list-filters';
+  ListToolbarConfigSetSearchEnabledAction,
+  ListToolbarConfigSetSortSelectorEnabledAction
+} from './state/config/actions';
 
-import { getValue } from 'microedge-rxstate/dist/helpers';
+import {
+  ListToolbarState,
+  ListToolbarStateDispatcher,
+  ListToolbarStateModel
+} from './state';
 
-import { SkySearchComponent } from '../search';
+import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
+import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
 
 @Component({
   selector: 'sky-list-toolbar',
@@ -56,9 +66,10 @@ import { SkySearchComponent } from '../search';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyListToolbarComponent implements OnInit, AfterContentInit {
+export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input()
   public placeholder: string;
+
   @Input()
   public searchEnabled: boolean | Observable<boolean>;
 
@@ -75,34 +86,20 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   public searchText: string | Observable<string>;
 
   public sortSelectors: Observable<Array<any>>;
-
   public searchTextInput: Observable<string>;
-
   public view: Observable<string>;
-
-  public leftTemplates: Observable<any>;
-
-  public centerTemplates: Observable<any>;
-
-  public rightTemplates: Observable<any>;
-
+  public leftTemplates: ListToolbarItemModel[];
+  public centerTemplates: ListToolbarItemModel[];
+  public rightTemplates: ListToolbarItemModel[];
   public type: Observable<string>;
-
   public isSearchEnabled: Observable<boolean>;
-
   public isSortSelectorEnabled: Observable<boolean>;
-
   public appliedFilters: Observable<Array<ListFilterModel>>;
-
   public hasAppliedFilters: Observable<boolean>;
-
   public showFilterSummary: boolean;
-
   public hasInlineFilters: boolean;
-
   public inlineFilterBarExpanded: boolean = false;
-
-  public hasAdditionalToolbarSection: Observable<boolean>;
+  public hasAdditionalToolbarSection = false;
 
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
@@ -126,87 +123,90 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
   private inlineFilterButtonTemplate: TemplateRef<any>;
 
   private hasSortSelectors: boolean = false;
+  private ngUnsubscribe = new Subject();
 
   constructor(
+    private changeDetector: ChangeDetectorRef,
     private state: ListState,
     private dispatcher: ListStateDispatcher,
     private toolbarState: ListToolbarState,
     public toolbarDispatcher: ListToolbarStateDispatcher
-  ) {
-  }
+  ) { }
 
   public ngOnInit() {
     this.dispatcher.toolbarExists(true);
-    getValue(this.searchText, (searchText: string) => this.updateSearchText(searchText));
 
-    getValue(this.searchEnabled, (searchEnabled: boolean) =>
+    getValue(this.searchText, (searchText: string) => {
+      this.updateSearchText(searchText);
+    });
+
+    getValue(this.searchEnabled, (searchEnabled: boolean) => {
       this.toolbarDispatcher.next(
         new ListToolbarConfigSetSearchEnabledAction(
           searchEnabled === undefined ? true : searchEnabled
         )
-      )
-    );
+      );
+    });
 
     getValue(this.toolbarType, (type: string) => {
       this.dispatcher.next(new ListToolbarSetTypeAction(this.toolbarType));
-
     });
 
-    getValue(this.sortSelectorEnabled, (sortSelectorEnabled: any) =>
+    getValue(this.sortSelectorEnabled, (sortSelectorEnabled: any) => {
       this.toolbarDispatcher.next(
         new ListToolbarConfigSetSortSelectorEnabledAction(
           sortSelectorEnabled === undefined ? true : sortSelectorEnabled
         )
-      )
-     );
+      );
+    });
 
     this.sortSelectors = this.getSortSelectors();
 
     // Initialize the sort toolbar item if necessary
-    this.sortSelectors.distinctUntilChanged().subscribe((currentSort) => {
-
-      if (currentSort.length > 0 && !this.hasSortSelectors) {
-        this.hasSortSelectors = true;
-        this.dispatcher.toolbarAddItems([
-          new ListToolbarItemModel({
-            id: 'sort-selector',
-            template: this.sortSelectorTemplate,
-            location: 'left'
-          })
-        ], 1);
-      } else if (currentSort.length < 1 && this.hasSortSelectors) {
-        this.hasSortSelectors = false;
-        this.dispatcher.toolbarRemoveItems([
-          'sort-selector'
-        ]);
-      }
-    });
+    this.sortSelectors
+      .takeUntil(this.ngUnsubscribe)
+      .distinctUntilChanged()
+      .subscribe((currentSort) => {
+        if (currentSort.length > 0 && !this.hasSortSelectors) {
+          this.hasSortSelectors = true;
+          this.dispatcher.toolbarAddItems([
+            new ListToolbarItemModel({
+              id: 'sort-selector',
+              template: this.sortSelectorTemplate,
+              location: 'left'
+            })
+          ], 0);
+        } else if (currentSort.length < 1 && this.hasSortSelectors) {
+          this.hasSortSelectors = false;
+          this.dispatcher.toolbarRemoveItems([
+            'sort-selector'
+          ]);
+        }
+      });
 
     this.searchTextInput = this.state.map(s => s.search.searchText).distinctUntilChanged();
 
     this.view = this.state.map(s => s.views.active).distinctUntilChanged();
 
-    this.leftTemplates = this.getLeftTemplates();
-
-    this.centerTemplates = this.getCenterTemplates();
-
-    this.rightTemplates = this.getRightTemplates();
+    this.watchTemplates();
 
     this.type = this.state.map((state) => state.toolbar.type).distinctUntilChanged();
 
-    this.type.subscribe((toolbarType) => {
-      if (toolbarType === 'search') {
-        this.dispatcher.toolbarRemoveItems(['search']);
-      } else {
-        this.dispatcher.toolbarAddItems([
-          new ListToolbarItemModel({
-            id: 'search',
-            template: this.searchTemplate,
-            location: 'right'
-          })
-        ], 0);
-      }
-    });
+    this.type
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((toolbarType) => {
+        if (toolbarType === 'search') {
+          this.dispatcher.toolbarRemoveItems(['search']);
+        } else {
+          this.dispatcher.toolbarAddItems([
+            new ListToolbarItemModel({
+              id: 'search',
+              template: this.searchTemplate,
+              location: 'right'
+            })
+          ]);
+        }
+      });
 
     this.isSearchEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.searchEnabled);
@@ -214,23 +214,25 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
     this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.sortSelectorEnabled);
 
-    this.hasAppliedFilters = this.state.map(s => {
-      return s.filters;
-    })
-    .distinctUntilChanged()
-    .map((filters) => {
-      let activeFilters = filters.filter((f) => {
-          return f.value !== '' &&
-            f.value !== undefined &&
-            f.value !== false &&
-            f.value !== f.defaultValue;
-        });
-      return activeFilters.length > 0;
-    });
+    this.hasAppliedFilters = this.state
+      .map(s => s.filters)
+      .distinctUntilChanged()
+      .map((filters) => {
+        let activeFilters = filters.filter((f) => {
+            return f.value !== '' &&
+              f.value !== undefined &&
+              f.value !== false &&
+              f.value !== f.defaultValue;
+          });
+        return activeFilters.length > 0;
+      });
 
-    this.hasAdditionalToolbarSection = this.state.map((current) => {
-      return current.toolbar.items.length > 0;
-    });
+    this.state
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((current: any) => {
+        this.hasAdditionalToolbarSection = (current.toolbar.items.length > 0);
+        this.changeDetector.detectChanges();
+      });
   }
 
   public ngAfterContentInit() {
@@ -255,14 +257,22 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
 
     this.dispatcher.sortSetGlobal(sortModels);
 
-    this.showFilterSummary = this.filterSummary.length > 0;
-    this.hasInlineFilters = this.inlineFilter.length > 0;
+    this.showFilterSummary = (this.filterSummary.length > 0);
+    this.hasInlineFilters = (this.inlineFilter.length > 0);
+
     if (this.hasInlineFilters) {
-       this.dispatcher.toolbarAddItems([
-        new ListToolbarItemModel({ template: this.inlineFilterButtonTemplate, location: 'left'})
-      ],
-      0);
+      this.dispatcher.toolbarAddItems([
+        new ListToolbarItemModel({
+          template: this.inlineFilterButtonTemplate,
+          location: 'left'
+        })
+      ], 0);
     }
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public setSort(sort: ListSortLabelModel): void {
@@ -284,7 +294,6 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
         );
       }
     });
-
   }
 
   private itemIsInView(itemView: string, activeView: string) {
@@ -327,39 +336,33 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit {
       });
   }
 
-  private getLeftTemplates() {
-    return Observable.combineLatest(
-      this.state.map(s => s.toolbar).distinctUntilChanged(),
-      this.view,
-      (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
-        (i: ListToolbarItemModel) =>
-          i.location === 'left' && this.itemIsInView(i.view, view)
-      )
-    );
-  }
-
-  private getCenterTemplates() {
-    return Observable.combineLatest(
-      this.state.map(s => s.toolbar).distinctUntilChanged(),
-      this.view,
-      (toolbar: ListToolbarModel, view: string) => toolbar.items.filter(
-        (i: ListToolbarItemModel) => {
-          return i.location === 'center' && this.itemIsInView(i.view, view);
-        }
-      )
-    );
-  }
-
-  private getRightTemplates() {
-    return Observable.combineLatest(
+  private watchTemplates() {
+    const templateStream = Observable.combineLatest(
       this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view.distinctUntilChanged(),
       (toolbar: ListToolbarModel, view: string) => {
-        return toolbar.items.filter(
-        (i: ListToolbarItemModel) =>
-          i.location === 'right' && this.itemIsInView(i.view, view)
-        );
+        const items = toolbar.items.filter((i: ListToolbarItemModel) => {
+          return this.itemIsInView(i.view, view);
+        });
+
+        const templates: any = {};
+
+        items.forEach((item: ListToolbarItemModel) => {
+          templates[item.location] = templates[item.location] || [];
+          templates[item.location].push(item);
+        });
+
+        return templates;
+      }
+    );
+
+    templateStream
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((value) => {
+        this.leftTemplates = value.left;
+        this.centerTemplates = value.center;
+        this.rightTemplates = value.right;
+        this.changeDetector.markForCheck();
       });
   }
-
 }
