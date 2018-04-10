@@ -54,6 +54,8 @@ export class SkyToastService {
 
     this._messages.push(message);
     this._messageList.next(this._messages);
+
+    return message;
   }
 
   private removeFromQueue: Function = (message: Message) => {
@@ -65,7 +67,7 @@ export class SkyToastService {
       throw 'The supplied message is not active.';
     }
 
-    this._messages = this._messages.filter(message => message !== message);
+    this._messages = this._messages.filter(msg => msg !== message);
     this._messageList.next(this._messages);
   };
 
