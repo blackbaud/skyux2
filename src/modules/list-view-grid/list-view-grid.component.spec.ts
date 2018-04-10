@@ -8,6 +8,9 @@ import {
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
@@ -43,9 +46,6 @@ import {
 import { GridState, GridStateDispatcher, GridStateModel } from './state';
 
 import { SkyListComponent } from '../list';
-import {
-  expect
-} from '../testing';
 
 describe('List View Grid Component', () => {
   describe('Basic Fixture', () => {

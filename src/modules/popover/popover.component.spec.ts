@@ -13,8 +13,10 @@ import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
 
-import { TestUtility } from '../testing/testutility';
-import { expect } from '../testing';
+import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyPopoverModule,
@@ -193,9 +195,9 @@ describe('SkyPopoverComponent', () => {
     expect(component['isMouseEnter']).toEqual(false);
     component.positionNextTo(caller, 'above');
     tick();
-    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseenter');
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'mouseenter');
     expect(component['isMouseEnter']).toEqual(true);
-    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(component['isMouseEnter']).toEqual(false);
   }));
 
@@ -207,13 +209,17 @@ describe('SkyPopoverComponent', () => {
 
     fixture.componentInstance.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Escape' });
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Escape' }
+    });
     expect(spy).toHaveBeenCalledWith();
 
     spy.calls.reset();
 
     // Should ignore other key events.
-    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Backspace' });
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Backspace' }
+    });
     expect(spy).not.toHaveBeenCalled();
   }));
 
@@ -257,8 +263,8 @@ describe('SkyPopoverComponent', () => {
     tick();
 
     component.isOpen = true;
-    TestUtility.fireDomEvent(document, 'click');
-    TestUtility.fireDomEvent(document, 'focusin');
+    SkyAppTestUtility.fireDomEvent(document, 'click');
+    SkyAppTestUtility.fireDomEvent(document, 'focusin');
     tick();
     fixture.detectChanges();
 
@@ -275,7 +281,7 @@ describe('SkyPopoverComponent', () => {
     component.isOpen = true;
     component.isMouseEnter = false;
     component.dismissOnBlur = false;
-    TestUtility.fireDomEvent(document, 'click');
+    SkyAppTestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
@@ -286,7 +292,7 @@ describe('SkyPopoverComponent', () => {
 
     component.isOpen = true;
     component['isMouseEnter'] = true;
-    TestUtility.fireDomEvent(document, 'click');
+    SkyAppTestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
@@ -298,7 +304,7 @@ describe('SkyPopoverComponent', () => {
     component.positionNextTo(caller, 'above');
     tick();
     component.markForCloseOnMouseLeave();
-    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(spy).toHaveBeenCalledWith();
     expect(component['isMarkedForCloseOnMouseLeave']).toEqual(false);
   }));

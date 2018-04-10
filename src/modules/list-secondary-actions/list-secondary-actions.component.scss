@@ -1,13 +1,15 @@
-@import "../../scss/variables";
-
 .sky-list-secondary-actions {
-  /deep/ .sky-dropdown-button-type-context-menu {
-    border-radius: $sky-border-radius;
+  ::ng-deep .sky-dropdown-button-type-context-menu {
     padding: 6px 12px;
+
     .fa-ellipsis-h { /* add styles for fa-lg */
       font-size: 1.33333em;
       line-height: .75em;
       vertical-align: -15%;
     }
   }
+}
+
+.sky-list-secondary-actions-hidden {
+  display: none;
 }

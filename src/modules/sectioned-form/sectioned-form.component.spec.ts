@@ -1,6 +1,8 @@
 import { SkySectionedFormComponent } from './sectioned-form.component';
-import { expect } from '../testing';
 import { TestBed } from '@angular/core/testing';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 import { SkySectionedFormFixturesModule } from './fixtures/sectioned-form-fixtures.module';
 import { SkySectionedFormFixtureComponent } from './fixtures/sectioned-form.component.fixture';
 
