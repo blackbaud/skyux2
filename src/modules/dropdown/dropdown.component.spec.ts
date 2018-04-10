@@ -8,8 +8,8 @@ import {
 
 import {
   expect,
-  TestUtility
-} from '../testing';
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyDropdownMessageType
@@ -54,7 +54,9 @@ describe('Dropdown component', () => {
 
   // Simulates a click event on a button (which also registers the Enter key).
   function dispatchKeyboardButtonClickEvent(elem: HTMLElement) {
-    TestUtility.fireKeyboardEvent(elem, 'keydown', { key: 'Enter' });
+    SkyAppTestUtility.fireDomEvent(elem, 'keydown', {
+      keyboardEventInit: { key: 'Enter' }
+    });
     elem.click();
   }
 
@@ -204,8 +206,12 @@ describe('Dropdown component', () => {
 
       const popoverElem = getPopoverContainerElement();
 
-      TestUtility.fireKeyboardEvent(popoverElem, 'keydown', { key: 'Escape' });
-      TestUtility.fireKeyboardEvent(popoverElem, 'keyup', { key: 'Escape' });
+      SkyAppTestUtility.fireDomEvent(popoverElem, 'keydown', {
+        keyboardEventInit: { key: 'Escape' }
+      });
+      SkyAppTestUtility.fireDomEvent(popoverElem, 'keyup', {
+        keyboardEventInit: { key: 'Escape' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -222,14 +228,14 @@ describe('Dropdown component', () => {
       const firstItem = dropdownItems.item(0);
 
       // Should not close the dropdown if focus remains in dropdown.
-      TestUtility.fireKeyboardEvent(firstItem.querySelector('button'), 'focusin');
+      SkyAppTestUtility.fireDomEvent(firstItem.querySelector('button'), 'focusin');
       tick();
       fixture.detectChanges();
       tick();
 
       verifyMenuVisibility(true);
 
-      TestUtility.fireKeyboardEvent(component.outsideButton.nativeElement, 'focusin');
+      SkyAppTestUtility.fireDomEvent(component.outsideButton.nativeElement, 'focusin');
       tick();
       fixture.detectChanges();
       tick();
@@ -246,7 +252,9 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -259,7 +267,9 @@ describe('Dropdown component', () => {
 
       const hostElem = getDropdownMenuHostElement();
 
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -267,7 +277,9 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -276,7 +288,9 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(2);
       verifyFocusedMenuItemByIndex(2);
 
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowUp' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -286,9 +300,15 @@ describe('Dropdown component', () => {
       verifyFocusedMenuItemByIndex(0);
 
       // Navigation should loop from the last item to the first:
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -296,7 +316,9 @@ describe('Dropdown component', () => {
       verifyActiveMenuItemByIndex(0);
       verifyFocusedMenuItemByIndex(0);
 
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowUp' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -422,7 +444,9 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      TestUtility.fireKeyboardEvent(buttonElem, 'keydown', { key: 'a' });
+      SkyAppTestUtility.fireDomEvent(buttonElem, 'keydown', {
+        keyboardEventInit: { key: 'A' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -450,7 +474,9 @@ describe('Dropdown component', () => {
       const itemComponent = component.dropdownMenu.menuItems.first;
       const focusSpy = spyOn(itemComponent['buttonElement'], 'focus');
 
-      TestUtility.fireKeyboardEvent(buttonElem, 'keydown', { key: 'arrowdown' });
+      SkyAppTestUtility.fireDomEvent(buttonElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
       tick();
       fixture.detectChanges();
       tick();
