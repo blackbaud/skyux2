@@ -25,7 +25,6 @@
   .link-records-item-original,
   .link-records-item-match {
     @include sky-border(light, top, bottom, right, left);
-    @include sky-shadow();
     background-color: $sky-color-white;
     display: flex;
     flex-direction: column;

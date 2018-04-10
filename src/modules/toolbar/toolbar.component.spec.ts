@@ -4,12 +4,14 @@ import {
 
 import { BrowserModule } from '@angular/platform-browser';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { ToolbarTestComponent } from './fixtures/toolbar.component.fixture';
 import { ToolbarSectionedTestComponent } from './fixtures/toolbar-sectioned.component.fixture';
 
 import { SkyToolbarModule } from '.';
-
-import { expect } from '../testing';
 
 describe('toolbar component', () => {
   describe('standard', () => {
