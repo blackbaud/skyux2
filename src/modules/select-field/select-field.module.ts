@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SkySelectFieldComponent } from './select-field.component';
 import { SkySelectFieldFormComponent } from './select-field-form.component';
 import { SkyTokensModule } from '../tokens';
+import { SkyCheckboxModule } from '../checkbox';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SkyTokensModule } from '../tokens';
     SkyListModule,
     SkyModalModule,
     SkyResourcesModule,
-    SkyTokensModule
+    SkyTokensModule,
+    SkyCheckboxModule
   ],
   exports: [
     SkySelectFieldComponent,

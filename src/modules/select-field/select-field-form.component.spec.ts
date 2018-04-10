@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { expect } from '../testing';
+import { expect } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkySelectFieldFixturesModule } from './fixtures/select-field-fixtures.module';
 import { SkySelectFieldFormTestComponent } from './fixtures/select-field-form.component.fixture';
-import { SkySelectFieldContext } from './select-field-context';
+import { SkySelectFieldPickerContext } from './select-field-picker-context';
 import { SkySelectFieldFormComponent } from './select-field-form.component';
 import { SkyModalInstance, SkyModalService, SkyModalHostService, SkyModalConfiguration } from '../modal';
 describe('selectField component', () => {
@@ -54,7 +54,7 @@ describe('selectField component', () => {
           SkySelectFieldFixturesModule
         ]
       });
-      const context = new SkySelectFieldContext();
+      const context = new SkySelectFieldPickerContext();
       context.pickerList = testPickerItems;
       context.pickerHeader = 'Test select field form';
       context.selectField = [testPickerItems[1]];
@@ -64,7 +64,7 @@ describe('selectField component', () => {
           set: {
             providers:
               [
-                { provide: SkySelectFieldContext, useValue: context },
+                { provide: SkySelectFieldPickerContext, useValue: context },
                 { provide: SkyModalService, useValue: new MockModalService() },
                 { provide: SkyModalInstance, useValue: new MockModalService() },
                 { provide: SkyModalHostService, useValue: new MockModalHostService() },
@@ -109,7 +109,7 @@ describe('selectField component', () => {
           SkySelectFieldFixturesModule
         ]
       });
-      const context = new SkySelectFieldContext();
+      const context = new SkySelectFieldPickerContext();
       context.pickerList = testPickerItems;
       context.pickerHeader = 'Test select field form';
       context.selectField = [];
@@ -119,7 +119,7 @@ describe('selectField component', () => {
           set: {
             providers:
               [
-                { provide: SkySelectFieldContext, useValue: context },
+                { provide: SkySelectFieldPickerContext, useValue: context },
                 { provide: SkyModalService, useValue: new MockModalService() },
                 { provide: SkyModalInstance, useValue: new MockModalService() },
                 { provide: SkyModalHostService, useValue: new MockModalHostService() },

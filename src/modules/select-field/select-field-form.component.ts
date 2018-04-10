@@ -2,20 +2,16 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  OnInit,
-  Renderer2,
-  TemplateRef
+  OnInit
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 import {
   SkyModalInstance
 } from '../modal';
 
-import { SkySelectFieldContext } from './select-field-context';
-// import { SkySelectField } from './types';
+import { SkySelectFieldPickerContext } from './select-field-picker-context';
 
 @Component({
   selector: 'sky-select-field-form',
@@ -25,37 +21,44 @@ import { SkySelectFieldContext } from './select-field-context';
 })
 
 export class SkySelectFieldFormComponent implements OnInit, AfterViewInit {
-  public data = new BehaviorSubject<any[]>([]);
-
-  public get headingText(): string {
-    return this.context.headingText;
-  }
-
-  public get templateRef(): TemplateRef<any> {
-    return this.context.templateRef;
-  }
-
-  public get templateContext(): any {
-    return {
-      data: this.data
-    };
-  }
+  public data: Observable<any[]>;
+  public selectedIds: any[] = [];
 
   constructor(
-    public context: SkySelectFieldContext,
+    public context: SkySelectFieldPickerContext,
     public instance: SkyModalInstance
   ) {
-    console.log('modal context:', this.context);
-    this.data.next(this.context.data);
+    this.data = context.data;
+    this.selectedIds = context.selectedItems.map((item: any) => item.id);
   }
 
-  public ngOnInit() {
-    // console.log('NEXT!');
-    // // this.data = new Subject<any[]>();
-    // this.data.next(this.context.data);
-  }
+  public ngOnInit() { }
 
   public ngAfterViewInit() { }
+
+  public onSelectedIdsChange(selectedMap: Map<string, boolean>) {
+    this.data.take(1).subscribe((items: any[]) => {
+      this.selectedIds = items
+        .filter((item: any) => selectedMap.get(item.id))
+        .map((item: any) => item.id);
+    });
+  }
+
+  public save() {
+    console.log(this.selectedIds);
+    let results: any[];
+    this.data.take(1).subscribe((items: any) => {
+      results = items.filter((item: any) => {
+        return (this.selectedIds.indexOf(item.id) > -1);
+      });
+    });
+    // const results = this.data.filter((item: any) => {
+    //   return item
+    // });
+    this.instance.save(results);
+  }
+
+  public close() {}
 
   // public allItems = new BehaviorSubject<SkySelectField>(this.context.pickerList);
   // public filteredItems: Subject<SkySelectField> = this.allItems;

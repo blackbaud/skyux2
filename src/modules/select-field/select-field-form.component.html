@@ -1,12 +1,18 @@
 <div class="sky-select-field-picker">
   <sky-modal>
     <sky-modal-header>
-      {{ headingText }}
+      {{ context.headingText }}
     </sky-modal-header>
     <sky-modal-content>
-      <ng-container
-        *ngTemplateOutlet="templateRef; context: templateContext">
-      </ng-container>
+      <sky-list
+        [data]="data"
+        [selectedIds]="selectedIds"
+        (selectedIdsChange)="onSelectedIdsChange($event)">
+        <sky-list-view-checklist
+          label="label"
+          description="description">
+        </sky-list-view-checklist>
+      </sky-list>
     </sky-modal-content>
     <sky-modal-footer>
       <button

@@ -9,17 +9,9 @@
 
   <div class="sky-form-group">
     <sky-select-field
-      [data]="fruits"
-      [pickerTemplateRef]="pickerTemplate"
+      [data]="fruitStream"
       formControlName="favoriteFruits">
     </sky-select-field>
-
-    <ng-template #pickerTemplate let-data="data">
-      <sky-list [data]="data">
-        <sky-list-view-checklist label="name">
-        </sky-list-view-checklist>
-      </sky-list>
-    </ng-template>
   </div>
 
   <div>

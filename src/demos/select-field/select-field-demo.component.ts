@@ -9,6 +9,11 @@ import {
   FormGroup
 } from '@angular/forms';
 
+// import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/take';
+
 @Component({
   selector: 'sky-select-field-demo',
   templateUrl: 'select-field-demo.component.html'
@@ -27,10 +32,12 @@ export class SkySelectFieldDemoComponent implements OnInit {
   ];
 
   public fruits = [
-    { name: 'Apple' },
-    { name: 'Banana' },
-    { name: 'Orange' }
+    { id: '1', label: 'Apple', description: 'Red and delicious' },
+    { id: '2', label: 'Banana', description: 'Yellow and healthy' },
+    { id: '3', label: 'Orange', description: 'Same color as its name' }
   ];
+
+  public fruitStream = new BehaviorSubject<any>(this.fruits);
 
   public singleModeStyle = 'single';
   public singleModeText = 'Select a value';
@@ -43,17 +50,35 @@ export class SkySelectFieldDemoComponent implements OnInit {
     this.pickerItems[5]
   ];
 
+  // public get selectedIds(): string[] {
+  //   return this.reactiveForm.controls.favoriteFruits.value.map((fruit: any) => fruit.id);
+  // }
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
     this.createForm();
+    this.reactiveForm.controls.favoriteFruits.valueChanges.subscribe((change: any) => {
+      console.log('change?', change);
+    });
   }
 
   public submitReactiveForm(): void {
     alert('Form submitted with: \n' + JSON.stringify(this.reactiveForm.value));
   }
+
+  // public selectedItemsChange(selectedMap: Map<string, boolean>) {
+  //   this.fruitStream.take(1).subscribe((fruits: any[]) => {
+  //     const selected = fruits.filter((fruit: any) => selectedMap.get(fruit.id));
+  //     this.reactiveForm.controls.favoriteFruits.setValue(selected);
+  //   });
+  // }
+
+  // public parseSelectedIds(selectedItems: any[]): string[] {
+  //   return selectedItems.map(item => item.id);
+  // }
 
   private createForm(): void {
     this.reactiveForm = this.formBuilder.group({
