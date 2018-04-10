@@ -1,5 +1,14 @@
 @import "../../scss/variables";
 
+.sky-toaster {
+  bottom: 0;
+  right: 0;
+  display: block;
+  position: fixed;
+  padding-bottom: $sky-margin-double;
+  padding-right: $sky-margin-double;
+}
+
 .sky-toast {
   padding: 0 $sky-padding;
   margin-bottom: $sky-margin-double;
