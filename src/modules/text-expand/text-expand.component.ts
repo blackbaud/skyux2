@@ -44,6 +44,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
   @Input()
   public set maxLength(value: number) {
     this._maxLength = value;
+    this.setup(this.expandedText);
   }
   public get maxLength(): number { return this._maxLength; }
   @Input()
