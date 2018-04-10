@@ -1,48 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-
-export enum ToastType {
-  Info,
-  Success,
-  Warning,
-  Danger
-}
-
-export class Message {
-  public timeout?: NodeJS.Timer;
-  private _isClosed: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public get isClosed(): Observable<boolean> { return this._isClosed.asObservable() }
-
-  constructor(public message: string, public toastType: string, private removeFromQueue: Function, timeout?: number) {
-    if (timeout) {
-      this.timeout = setTimeout(this.close, timeout);
-    }
-  }
-
-  public close = () => {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    this.removeFromQueue(this);
-    this._isClosed.next(true);
-  }
-}
-export interface ToastConfig {
-  message?: string,
-  disableTimeout?: boolean,
-  timeout?: number,
-  toastType?: ToastType
-}
+import { SkyToastComponent } from './toast.component';
+import { SkyToastAdapterService } from './toast-adapter.service';
+import { SkyToastMessage, ToastConfig, SkyToastType } from './types';
 
 @Injectable()
 export class SkyToastService {
+  private host: ComponentRef<SkyToastComponent>;
 
-  private _messages: Message[] = [];
-  private _messageList: BehaviorSubject<Message[]> = new BehaviorSubject([]);
-  public get getMessages(): Observable<Message[]> { return this._messageList.asObservable() }
+  private _messages: SkyToastMessage[] = [];
+  private _messageList: BehaviorSubject<SkyToastMessage[]> = new BehaviorSubject([]);
+  public get getMessages(): Observable<SkyToastMessage[]> { return this._messageList.asObservable() }
 
-  constructor() {}
+  constructor(
+    private appRef: ApplicationRef,
+    private injector: Injector,
+    private resolver: ComponentFactoryResolver,
+    private adapter: SkyToastAdapterService) {}
 
   public openMessage(message: string, config: ToastConfig = {}) {
     config.message = message;
@@ -50,19 +25,22 @@ export class SkyToastService {
   }
 
   public open(config: ToastConfig) {
-    let message: Message = this.createMessage(config);
+    if (!this.host) {
+      this.host = this.createHostComponent();
+    }
 
+    let message: SkyToastMessage = this.createMessage(config);
     this._messages.push(message);
     this._messageList.next(this._messages);
 
     return message;
   }
 
-  private removeFromQueue: Function = (message: Message) => {
+  private removeFromQueue: Function = (message: SkyToastMessage) => {
     if (this._messages.length == 0) {
       throw 'The supplied message is not active.';
     }
-    let foundMessage: Message = this._messages.reduce((prev, cur) => prev === message ? prev : cur);
+    let foundMessage: SkyToastMessage = this._messages.reduce((prev, cur) => prev === message ? prev : cur);
     if (!foundMessage) {
       throw 'The supplied message is not active.';
     }
@@ -71,7 +49,7 @@ export class SkyToastService {
     this._messageList.next(this._messages);
   };
 
-  private createMessage(config: ToastConfig): Message {
+  private createMessage(config: ToastConfig): SkyToastMessage {
     if (!config.message) {
       throw 'A message must be provided.';
     }
@@ -83,17 +61,30 @@ export class SkyToastService {
 
     let toastType: string = 'info';
     switch(config.toastType) {
-      case ToastType.Success:
+      case SkyToastType.Success:
         toastType = 'success';
         break;
-      case ToastType.Warning:
+      case SkyToastType.Warning:
         toastType = 'warning';
         break;
-      case ToastType.Danger:
+      case SkyToastType.Danger:
         toastType = 'danger';
         break;
     }
 
-    return new Message(config.message, toastType, this.removeFromQueue, timeout);
+    return new SkyToastMessage(config.message, toastType, this.removeFromQueue, timeout);
+  }
+
+  private createHostComponent(): ComponentRef<SkyToastComponent> {
+    const componentRef = this.resolver
+      .resolveComponentFactory(SkyToastComponent)
+      .create(this.injector);
+
+    const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0];
+
+    this.appRef.attachView(componentRef.hostView);
+    this.adapter.appendToBody(domElem);
+
+    return componentRef;
   }
 }

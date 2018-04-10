@@ -7,6 +7,12 @@
   position: fixed;
   padding-bottom: $sky-margin-double;
   padding-right: $sky-margin-double;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Chrom and Opera */
 }
 
 .sky-toast {
@@ -18,6 +24,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  opacity: 1;
+  cursor: pointer;
 
   .sky-toast-content {
     padding-top: $sky-padding;
@@ -34,13 +42,28 @@
 		}
   }
 
-  
-
   button {
     margin-left: auto;
     width: 32px;
     height: 32px;
   }
+}
+
+.sky-toast:hover {
+    -webkit-box-shadow:0 0 8px rgba(0,0,0,.40);
+    -moz-box-shadow:0 0 8px rgba(0,0,0,.40);
+    -o-box-shadow:0 0 8px rgba(0,0,0,.40);
+    box-shadow:0 0 8px rgba(0,0,0,.40);
+}
+
+
+.sky-toast-closing {
+  opacity: 0;
+  -webkit-transition: opacity linear 0.5s;
+  -moz-transition: opacity linear 0.5s;
+  -ms-transition: opacity linear 0.5s;
+  -o-transition: opacity linear 0.5s;
+  transition: opacity linear 0.5s;
 }
 
 .sky-toast-info {

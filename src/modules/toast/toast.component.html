@@ -4,8 +4,13 @@
          [ngClass]="{'sky-toast-info':     message.toastType=='info',
                      'sky-toast-warning':   message.toastType=='warning',
                      'sky-toast-danger':   message.toastType=='danger',
-                     'sky-toast-success':  message.toastType=='success'}">
-      <div class='sky-toast-content'>{{message.message}}</div>
+                     'sky-toast-success':  message.toastType=='success',
+                     'sky-toast-closing': message.isClosing | async}">
+      <div
+        (click)="message.close()"
+        class='sky-toast-content'>
+       {{message.message}}
+      </div>
       <button
           type="button"
           class="sky-toast-close"
