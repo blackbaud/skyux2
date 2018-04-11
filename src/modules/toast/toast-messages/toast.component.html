@@ -1,6 +1,5 @@
 <aside>
-    <ng-template sky-toast-custom *ngIf="message.componentRef"></ng-template>
-    <div class="sky-toast" *ngIf="!message.componentRef"
+    <div class="sky-toast"
             [ngClass]="{'sky-toast-info':     message.toastType=='info',
                         'sky-toast-warning':   message.toastType=='warning',
                         'sky-toast-danger':   message.toastType=='danger',
@@ -9,7 +8,8 @@
         <div
         (click)="message.close()"
         class='sky-toast-content'>
-        {{message.message}}
+            <p *ngIf="!message.componentRef">{{message.message}}</p>
+            <ng-template sky-toast-custom *ngIf="message.componentRef"></ng-template>
         </div>
         <button
             type="button"

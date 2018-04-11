@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 
 import {
   SkyToastService
 } from '../../core';
+import { SkyToastCustomDemoComponent } from './toast-custom/toast-custom-demo.component';
 
 @Component({
   selector: 'sky-toast-demo',
@@ -20,6 +21,6 @@ export class SkyToastDemoComponent {
   }
 
   public openTemplatedMessage() {
-    this.toastSvc.openMessage('This toast has no timeout.', {disableTimeout: true});
+    this.toastSvc.openTemplatedMessage(SkyToastCustomDemoComponent, {disableTimeout: true});
   }
 }

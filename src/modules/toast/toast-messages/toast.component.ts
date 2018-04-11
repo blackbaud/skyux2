@@ -19,6 +19,7 @@ export class SkyToastComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
+        console.log(this.customToastHost);
         if (this.message.customComponentType) {
             this.loadComponent();
         }

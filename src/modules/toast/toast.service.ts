@@ -1,9 +1,9 @@
-import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef, OnDestroy } from '@angular/core';
+import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef, OnDestroy, Type } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { SkyToastContainerComponent } from './toast-container.component';
 import { SkyToastAdapterService } from './toast-adapter.service';
-import { SkyToastMessage, ToastConfig, SkyToastType } from './types';
+import { SkyToastMessage, ToastConfig, SkyToastType, SkyToastCustomComponent } from './types';
 
 @Injectable()
 export class SkyToastService implements OnDestroy {
@@ -21,6 +21,11 @@ export class SkyToastService implements OnDestroy {
 
   public openMessage(message: string, config: ToastConfig = {}) {
     config.message = message;
+    return this.open(config);
+  }
+
+  public openTemplatedMessage(customComponentType: Type<SkyToastCustomComponent>, config: ToastConfig = {}) {
+    config.customComponentType = customComponentType;
     return this.open(config);
   }
 

@@ -4,21 +4,23 @@ import { SkyToastService } from './toast.service';
 import { SkyToastContainerComponent } from './toast-container.component';
 import { SkyResourcesModule } from '../resources';
 import { SkyToastAdapterService } from './toast-adapter.service';
-import { SkyToastComponent } from './toast-messages/toast.component';
+import { SkyToastComponent, SkyCustomToastDirective } from './toast-messages';
+export { SkyToastMessage, SkyToastCustomComponent } from './types';
 
-export { SkyToastService }
+export { SkyToastService };
 
 @NgModule({
   declarations: [
-      SkyToastContainerComponent,
-      SkyToastComponent
+    SkyToastContainerComponent,
+    SkyToastComponent,
+    SkyCustomToastDirective
   ],
   imports: [
     CommonModule, SkyResourcesModule
   ],
   exports: [
-      SkyToastContainerComponent,
-      SkyToastComponent
+    SkyToastContainerComponent,
+    SkyToastComponent
   ],
   providers: [
     SkyToastService,
