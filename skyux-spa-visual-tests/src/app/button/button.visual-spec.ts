@@ -4,37 +4,49 @@ import { browser, element, by } from 'protractor';
 
 describe('Button', () => {
 
-  it('should match previous button link screenshot on hover', () => {
+  function testButton (selector: string) {
+    return SkyVisualTest
+      .compareScreenshot({
+        screenshotName: selector,
+        selector: `#${selector}`
+      });
+  }
+
+  function testButtonClick (selector: string) {
     return SkyVisualTest
       .setupTest('button')
       .then(() => {
         browser.actions()
-          .mouseMove(element(by.css('#screenshot-button-link .sky-btn')))
+          .mouseMove(element(by.css(`#screenshot-button-${selector} .sky-btn`)))
           .perform();
-
-        return SkyVisualTest
-          .compareScreenshot({
-            screenshotName: 'button-link-hover',
-            selector: '#screenshot-button-link'
-          });
+        return testButton(selector);
       });
+  }
 
+  it('should match the baseline button screenshots', () => {
+    testButton('screenshot-buttons')
   });
 
-  it('should match previous button link inline screenshot on hover', () => {
-    return SkyVisualTest
-      .setupTest('button')
-      .then(() => {
-         browser.actions()
-          .mouseMove(element(by.css('#screenshot-button-link-inline .sky-btn')))
-          .perform();
-
-        return SkyVisualTest
-          .compareScreenshot({
-            screenshotName: 'button-link-inline-hover',
-            selector: '#screenshot-button-link-inline'
-          });
-
-      });
+  it('should match the baseline disabled button screenshots', () => {
+    testButton('screenshot-buttons-disabled')
   });
+
+  // These tests are separated since the mouse needs to move
+
+  it('should match the baseline screenshot while hovering a primary button', function () {
+    return testButtonClick('primary');
+  });
+
+  it('should match the baseline screenshot while hovering a secondary button', function () {
+    return testButtonClick('secondary');
+  });
+
+  it('should match the baseline screenshot while hovering a link button', function () {
+      return testButtonClick('link');
+  });
+
+  it('should match the baseline screenshot while hovering a link inline button', function () {
+    return testButtonClick('link-inline');
+  });
+
 });
