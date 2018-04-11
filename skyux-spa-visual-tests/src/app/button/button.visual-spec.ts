@@ -17,7 +17,7 @@ describe('Button', () => {
       .setupTest('button')
       .then(() => {
         browser.actions()
-          .mouseMove(element(by.css(`#screenshot-button-${selector} .sky-btn`)))
+          .mouseMove(element(by.css(`${selector} .sky-btn`)))
           .perform();
         return testButton(selector);
       });
@@ -34,19 +34,19 @@ describe('Button', () => {
   // These tests are separated since the mouse needs to move
 
   it('should match the baseline screenshot while hovering a primary button', function () {
-    return testButtonClick('primary');
+    return testButtonClick('screenshot-button-primary');
   });
 
   it('should match the baseline screenshot while hovering a secondary button', function () {
-    return testButtonClick('secondary');
+    return testButtonClick('screenshot-button-secondary');
   });
 
   it('should match the baseline screenshot while hovering a link button', function () {
-      return testButtonClick('link');
+      return testButtonClick('screenshot-button-link');
   });
 
   it('should match the baseline screenshot while hovering a link inline button', function () {
-    return testButtonClick('link-inline');
+    return testButtonClick('screenshot-button-link-inline');
   });
 
 });
