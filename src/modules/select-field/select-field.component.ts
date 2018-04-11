@@ -1,15 +1,9 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   forwardRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  TemplateRef
+  Input
 } from '@angular/core';
 
 import {
@@ -32,13 +26,16 @@ import {
   SkyToken
 } from '../tokens';
 
+import {
+  SkySelectFieldSelectMode
+} from './types';
+
 import { SkySelectFieldPickerContext } from './select-field-picker-context';
-import { SkySelectFieldFormComponent } from './select-field-form.component';
-// import { SkySelectField, SkySelectFieldListItemsType } from './types';
+import { SkySelectFieldPickerComponent } from './select-field-picker.component';
 
 const SKY_SELECT_FIELD_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
-  /* tslint:disable-next-line:no-forward-ref */
+  // tslint:disable-next-line:no-forward-ref
   useExisting: forwardRef(() => SkySelectFieldComponent),
   multi: true
 };
@@ -53,9 +50,7 @@ const SKY_SELECT_FIELD_VALUE_ACCESSOR = {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkySelectFieldComponent
-  implements AfterContentInit, OnInit, OnDestroy, ControlValueAccessor {
-
+export class SkySelectFieldComponent implements ControlValueAccessor {
   @Input()
   public data: Observable<any[]>;
 
@@ -66,13 +61,7 @@ export class SkySelectFieldComponent
   public descriptorKey = 'label';
 
   @Input()
-  public set multiselectButtonText(value: string) {
-    this._multiselectButtonText = value;
-  }
-
-  public get multiselectButtonText(): string {
-    return this._multiselectButtonText || this.resourcesService.getString('select_field_multiselect_button_text');
-  }
+  public selectMode: SkySelectFieldSelectMode = 'multiple';
 
   public get value(): any[] {
     return this._value;
@@ -80,14 +69,22 @@ export class SkySelectFieldComponent
 
   public set value(value: any[]) {
     this._value = value;
-    this.tokens = this.value.map(v => ({ value: v }));
     this.onChange(this.value);
     this.onTouched();
   }
 
+  public get singleSelectModeValue(): string {
+    const value = this.value;
+
+    if (value) {
+      return (value as any)[this.descriptorKey];
+    }
+
+    return '';
+  }
+
   public tokens: SkyToken[];
 
-  private _multiselectButtonText: string;
   private _value: any[];
 
   constructor(
@@ -96,11 +93,45 @@ export class SkySelectFieldComponent
     private resourcesService: SkyResourcesService
   ) { }
 
-  public ngOnInit() { }
+  public onTokensChange(change: SkyToken[]) {
+    if (!change || change === this.tokens) {
+      return;
+    }
 
-  public ngAfterContentInit() {}
+    const newIds = change.map(token => token.value.id);
 
-  public ngOnDestroy() {}
+    this.data.take(1).subscribe((items: any[]) => {
+      const newValues = items.filter(item => newIds.indexOf(item.id) > -1);
+      this.value = newValues;
+      this.setTokensFromValue();
+      this.changeDetector.markForCheck();
+    });
+  }
+
+  public openPicker() {
+    const pickerContext = new SkySelectFieldPickerContext();
+    pickerContext.headingText = this.resourcesService.getString(`select_field_${this.selectMode}_select_picker_heading`);
+    pickerContext.data = this.data;
+    pickerContext.selectedValue = this.value;
+    pickerContext.selectMode = this.selectMode;
+
+    const modalInstance = this.modalService.open(SkySelectFieldPickerComponent, {
+      providers: [{
+        provide: SkySelectFieldPickerContext,
+        useValue: pickerContext
+      }]
+    });
+
+    modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
+      if (result.reason === 'save') {
+        if (this.selectMode === 'single') {
+          this.writeValue(result.data[0]);
+        } else {
+          this.writeValue(result.data);
+        }
+      }
+    });
+  }
 
   public writeValue(value: any[]) {
     if (this.disabled) {
@@ -109,6 +140,7 @@ export class SkySelectFieldComponent
 
     if (value) {
       this.value = value;
+      this.setTokensFromValue();
       this.changeDetector.markForCheck();
     }
   }
@@ -127,174 +159,42 @@ export class SkySelectFieldComponent
     this.onTouched = fn;
   }
 
-  // Allows Angular to disable the input.
   public setDisabledState(disabled: boolean) {
     this.disabled = disabled;
     this.changeDetector.markForCheck();
   }
 
-  public openModal() {
-    const context = new SkySelectFieldPickerContext();
-    context.headingText = this.multiselectButtonText;
-    context.data = this.data;
-    context.selectedItems = this.value;
-
-    const options = {
-      providers: [{ provide: SkySelectFieldPickerContext, useValue: context }]
-    };
-
-    const modalInstance = this.modalService.open(SkySelectFieldFormComponent, options);
-
-    modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-      if (result.reason === 'save') {
-        this.writeValue(result.data);
-      }
-    });
+  public clearSelection() {
+    this.value = undefined;
   }
 
-  // @Input()
-  // public set selectField(value: SkySelectField) {
-  //   this._selectField = value;
-  // }
+  private setTokensFromValue() {
+    let tokens: SkyToken[] = [];
 
-  // @Input()
-  // public set selectFieldClear(value: boolean) {
-  //   this._selectFieldClear = true;
-  // }
+    // Tokens only appear for multiple select mode.
+    if (this.selectMode === 'single') {
+      return;
+    }
 
-  // @Input()
-  // public set selectFieldIcon(value: string) {
-  //   this._selectFieldIcon = value;
-  // }
+    // Reset tokens if the value is empty.
+    if (!this.value) {
+      this.tokens = undefined;
+      return;
+    }
 
-  // @Input()
-  // public set selectFieldPickerHeader(value: string) {
-  //   this._selectFieldPickerHeader = value;
-  // }
+    // Collapse the tokens into a single token if the user has selected many options.
+    if (this.value.length > 5) {
+      tokens = [{
+        value: {
+          [this.descriptorKey]: this.resourcesService
+            .getString('select_field_multiple_select_summary')
+            .replace('{0}', this.value.length.toString())
+        }
+      }];
+    } else {
+      tokens = this.value.map(value => ({ value }));
+    }
 
-  // @Input()
-  // public set selectFieldPickerList(value: SkySelectField) {
-  //   this._selectFieldPickerList = value;
-  // }
-
-  // @Input()
-  // public set selectFieldText(value: string) {
-  //   this._selectFieldText = value;
-  // }
-
-  // @Input()
-  // public set selectFieldStyle(value: string) {
-  //   this._selectFieldStyle = value;
-  // }
-
-  // @Output()
-  // public selectFieldChange = new EventEmitter<SkySelectField>();
-  // public get selectField(): SkySelectField {
-  //   return this._selectField;
-  // }
-
-  // public get selectFieldText() {
-  //   return this._selectFieldText;
-  // }
-
-  // public get selectFieldIcon() {
-  //   return this._selectFieldIcon;
-  // }
-
-  // public get tokenValues() {
-  //   return this._tokens;
-  // }
-
-  // public set tokenValues(items: any) {
-  //   this._selectField = items.map((item: any) => item.value);
-  // }
-
-  // public get tokenOverflow() {
-  //   const text = SkyResources.getString('selectfield_summary_text');
-  //   const summary = text.replace('{0}', this._selectField.length.toString());
-  //   return [{ value: { name: summary } }];
-  // }
-
-  // public set tokenOverflow(items) {
-  //   if (items.length === 0) {
-  //     this.clearSelect();
-  //   }
-  // }
-
-  // public singleSelectForm: FormGroup;
-
-  // private _tokens: SkyToken[];
-  // private _selectField: SkySelectField = [];
-  // private _selectFieldClear = false;
-  // private _selectFieldIcon = 'fa-sort';
-  // private _selectFieldPickerHeader: string;
-  // private _selectFieldPickerList: SkySelectField = [];
-  // private _selectFieldStyle = 'multiple';
-  // private _selectFieldText = '';
-
-  // constructor(
-  //   private modalService: SkyModalService
-  // ) { }
-
-  // public ngOnInit() {
-  //   // this.selectFieldChange.subscribe((item: SkySelectField) => {
-  //   //   this.singleSelectLabel(item[0]);
-  //   //   this.parseTokens(item);
-  //   //   this._selectField = item;
-  //   // });
-
-  //   // this.singleSelectForm = new FormGroup({
-  //   //   singleSelectInput: new FormControl('', Validators.required)
-  //   // });
-
-  //   // this.parseTokens(this._selectField);
-  // }
-
-  // public ngAfterContentInit() {
-  //   // this.singleSelectLabel(this._selectField[0]);
-  // }
-
-  // public openFormModal() {
-  //   console.log('open modal!');
-  //   // const context = new SkySelectFieldContext();
-  //   // context.pickerHeader = this._selectFieldPickerHeader;
-  //   // context.pickerList = this._selectFieldPickerList;
-  //   // context.selectField = this._selectField;
-  //   // context.selectFieldStyle = this._selectFieldStyle;
-
-  //   // const options: any = {
-  //   //   providers: [{ provide: SkySelectFieldContext, useValue: context }],
-  //   //   ariaDescribedBy: 'docs-modal-content'
-  //   // };
-
-  //   // const modalInstance = this.modal.open(SkySelectFieldFormComponent, options);
-  //   // modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-  //   //   let data: SkySelectField = result.data;
-  //   //   if (result.reason === 'save') {
-  //   //     this.selectFieldChange.emit(data);
-  //   //   }
-  //   // });
-  // }
-
-  // public isSelectMultiple() {
-  //   return this._selectFieldStyle === 'multiple' ? true : false;
-  // }
-
-  // public isClearable() {
-  //   return this._selectFieldClear && this.singleSelectForm.controls.singleSelectInput.value ? true : false;
-  // }
-
-  // public clearSelect() {
-  //   this.selectFieldChange.emit([]);
-  // }
-
-  // public parseTokens(tokens: SkySelectField) {
-  //   this._tokens = tokens.map(token => ({ value: token }));
-  // }
-
-  // private singleSelectLabel(selectedItem: SkySelectFieldListItemsType) {
-  //   if (!this.isSelectMultiple()) {
-  //     this.singleSelectForm.controls.singleSelectInput.setValue(selectedItem !== undefined ? selectedItem.label : '');
-  //   }
-  // }
+    this.tokens = tokens;
+  }
 }

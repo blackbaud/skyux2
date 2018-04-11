@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { expect } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkySelectFieldFixturesModule } from './fixtures/select-field-fixtures.module';
-import { SkySelectFieldFormTestComponent } from './fixtures/select-field-form.component.fixture';
+import { SkySelectFieldFormTestComponent } from './fixtures/select-field-picker.component.fixture';
 import { SkySelectFieldPickerContext } from './select-field-picker-context';
-import { SkySelectFieldFormComponent } from './select-field-form.component';
+import { SkySelectFieldFormComponent } from './select-field-picker.component';
 import { SkyModalInstance, SkyModalService, SkyModalHostService, SkyModalConfiguration } from '../modal';
 describe('selectField component', () => {
   let fixture: ComponentFixture<SkySelectFieldFormTestComponent>;

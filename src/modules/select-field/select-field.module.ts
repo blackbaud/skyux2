@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyResourcesModule } from '../resources';
-import { SkyModalModule } from '../modal';
-import { SkyListModule } from '../list';
-import { SkyDropdownModule } from '../dropdown';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SkySelectFieldComponent } from './select-field.component';
-import { SkySelectFieldFormComponent } from './select-field-form.component';
-import { SkyTokensModule } from '../tokens';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { SkyCheckboxModule } from '../checkbox';
+import { SkyDropdownModule } from '../dropdown';
+import { SkyListModule } from '../list';
+import { SkyModalModule } from '../modal';
+import { SkyResourcesModule } from '../resources';
+import { SkyTokensModule } from '../tokens';
+
+import { SkySelectFieldComponent } from './select-field.component';
+import { SkySelectFieldPickerComponent } from './select-field-picker.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     SkyDropdownModule,
     SkyListModule,
@@ -23,13 +26,15 @@ import { SkyCheckboxModule } from '../checkbox';
   ],
   exports: [
     SkySelectFieldComponent,
-    SkySelectFieldFormComponent
+    SkySelectFieldPickerComponent
   ],
   declarations: [
     SkySelectFieldComponent,
-    SkySelectFieldFormComponent
+    SkySelectFieldPickerComponent
   ],
   providers: [],
-  entryComponents: [SkySelectFieldFormComponent]
+  entryComponents: [
+    SkySelectFieldPickerComponent
+  ]
 })
 export class SkySelectFieldModule { }

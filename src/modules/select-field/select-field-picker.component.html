@@ -8,9 +8,30 @@
         [data]="data"
         [selectedIds]="selectedIds"
         (selectedIdsChange)="onSelectedIdsChange($event)">
+        <sky-list-toolbar>
+          <sky-list-filter-inline *ngIf="categories && categories.length">
+            <sky-list-filter-inline-item
+              name="category"
+              value="any"
+              defaultValue="any"
+              [filter]="filterByCategory">
+              <ng-template let-filter="filter">
+                <select
+                  [ngModel]="filter.value"
+                  (ngModelChange)="filter.changed($event)">
+                  <option value="any">Any</option>
+                  <option *ngFor="let category of categories">
+                    {{ category }}
+                  </option>
+                </select>
+              </ng-template>
+            </sky-list-filter-inline-item>
+          </sky-list-filter-inline>
+        </sky-list-toolbar>
         <sky-list-view-checklist
           label="label"
-          description="description">
+          description="description"
+          [selectMode]="context.selectMode">
         </sky-list-view-checklist>
       </sky-list>
     </sky-modal-content>
@@ -32,11 +53,6 @@
 </div>
 
 <!-- <sky-modal>
-  <sky-modal-header>
-    <div *ngIf="pickerHeader">{{pickerHeader}}</div>
-    <div *ngIf="!pickerHeader && isSelectMultiple()">{{'selectfieldpicker_select_values' | skyResources}}</div>
-    <div *ngIf="!pickerHeader && !isSelectMultiple()">{{'selectfieldpicker_select_value' | skyResources}}</div>
-  </sky-modal-header>
   <sky-modal-content>
     <div>
       <sky-list [data]="filteredItems" [selectedIds]='selectedIds' (selectedIdsChange)="selectedItemsChange($event)">
@@ -48,25 +64,8 @@
         </sky-list-view-checklist>
       </sky-list>
     </div>
-
   </sky-modal-content>
-  <sky-modal-footer>
-    <div *ngIf="isSelectMultiple() else singleSelectModeFooter">
-      <button type="button" class="sky-btn sky-btn-primary sky-select-field-picker-btn-save" (click)="save()">
-        {{'selectfieldpicker_select' | skyResources}}
-      </button>
-      <button type="button" class="sky-btn sky-btn-link sky-select-field-picker-btn-close" (click)="close()">
-        {{'selectfieldpicker_close' | skyResources}}
-      </button>
-    </div>
-  </sky-modal-footer>
 </sky-modal>
-
-<ng-template #singleSelectModeFooter>
-  <button type="button" class="sky-btn sky-btn-secondary sky-select-field-picker-btn-clear" (click)="clearSelection()">
-    {{'selectfieldpicker_clear' | skyResources}}
-  </button>
-</ng-template>
 
 <ng-template #singleSelectToolbar>
   <div class="sky-select-field-picker-toolbar" *ngIf="pickerItemsCategories.length >= 1">

@@ -1,23 +1,32 @@
-// @import '~@blackbaud/skyux-design-tokens/scss/mixins';
-// @import '../../scss/mixins';
+.sky-select-field-multiple-select-mode {
+  > .sky-btn {
+    margin-bottom: 10px;
+  }
+}
 
-// .sky-select-field-input-group {
-//   z-index: 3;
-//   width: 0%;
-//   overflow: visible;
-//   justify-content: flex-end;
-// }
+.sky-select-field-single-select-mode {
+  .sky-input-group {
+    padding: 0;
 
-// .sky-select-field-input-group button {
-//   padding-right: $sky-padding-half;
-//   padding-left: $sky-padding-half;
-//   border-color: transparent;
-// }
+    .sky-form-control,
+    .sky-btn {
+      border: 0;
+    }
 
-// .sky-select-field-input-group button:last-child {
-//   padding-right: $sky-padding;
-// }
+    &:hover {
+      cursor: pointer;
+    }
 
-// .sky-select-field-tokens-container {
-//   margin-left: $sky-padding * 3;
-// }
+    .sky-form-control + .sky-input-group-btn {
+      .sky-btn {
+        padding-right: 5px;
+      }
+    }
+
+    .sky-input-group-btn + .sky-input-group-btn {
+      .sky-btn {
+        padding-left: 5px;
+      }
+    }
+  }
+}

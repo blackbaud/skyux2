@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   OnInit
@@ -14,27 +13,29 @@ import {
 import { SkySelectFieldPickerContext } from './select-field-picker-context';
 
 @Component({
-  selector: 'sky-select-field-form',
-  styleUrls: ['./select-field-form.component.scss'],
-  templateUrl: 'select-field-form.component.html',
+  selector: 'sky-select-field-picker',
+  styleUrls: ['./select-field-picker.component.scss'],
+  templateUrl: 'select-field-picker.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
-export class SkySelectFieldFormComponent implements OnInit, AfterViewInit {
+export class SkySelectFieldPickerComponent implements OnInit {
   public data: Observable<any[]>;
   public selectedIds: any[] = [];
+  public selectedCategory = 'any';
+  public categories: string[];
 
   constructor(
-    public context: SkySelectFieldPickerContext,
-    public instance: SkyModalInstance
-  ) {
-    this.data = context.data;
-    this.selectedIds = context.selectedItems.map((item: any) => item.id);
+    private context: SkySelectFieldPickerContext,
+    private instance: SkyModalInstance
+  ) { }
+
+  public ngOnInit() {
+    this.data = this.context.data;
+    if (this.context.selectMode === 'multiple') {
+      this.selectedIds = this.context.selectedValue.map((item: any) => item.id);
+    }
+    this.getCategories();
   }
-
-  public ngOnInit() { }
-
-  public ngAfterViewInit() { }
 
   public onSelectedIdsChange(selectedMap: Map<string, boolean>) {
     this.data.take(1).subscribe((items: any[]) => {
@@ -45,20 +46,45 @@ export class SkySelectFieldFormComponent implements OnInit, AfterViewInit {
   }
 
   public save() {
-    console.log(this.selectedIds);
-    let results: any[];
     this.data.take(1).subscribe((items: any) => {
-      results = items.filter((item: any) => {
+      const results = items.filter((item: any) => {
         return (this.selectedIds.indexOf(item.id) > -1);
       });
+      this.instance.save(results);
     });
-    // const results = this.data.filter((item: any) => {
-    //   return item
-    // });
-    this.instance.save(results);
   }
 
-  public close() {}
+  public close() {
+    this.instance.close();
+  }
+
+  public filterByCategory(item: any, category: string) {
+    // TODO: find out a way to reset the selected values when the category selected changes.
+    return (category === 'any' || item.data.category === category);
+  }
+
+  public getCategories() {
+    this.data.take(1).subscribe((items: any[]) => {
+      this.categories = items
+        .map((item: any) => item.category)
+        .filter((search, index, category) => {
+          return (search && category.indexOf(search) === index);
+        });
+    });
+  }
+
+  // public get pickerItemsCategories() {
+  //   return ['a', 'b', 'c'];
+  // }
+
+  // public selectedItemsCategory(category: string) {
+  //   this.selectedCategory = category;
+  //   this.data.take(1).subscribe((items: any) => {
+  //     let filteredItems = items.filter((item: any) => item.category === category);
+  //     this.data = Observable.of(filteredItems);
+  //     this.changeDetector.markForCheck();
+  //   });
+  // }
 
   // public allItems = new BehaviorSubject<SkySelectField>(this.context.pickerList);
   // public filteredItems: Subject<SkySelectField> = this.allItems;
@@ -79,41 +105,9 @@ export class SkySelectFieldFormComponent implements OnInit, AfterViewInit {
   //   });
   // }
 
-  // public save() {
-  //   this.instance.save(this.selectedItems);
-  // }
-
-  // public close() {
-  //   this.instance.close(this.selectedItems);
-  // }
-
   // public clearSelection() {
   //   this.selectedItemsCategory('');
   //   this.selectedItemsChange(undefined);
-  // }
-
-  // public get pickerHeader() {
-  //   return this.context.pickerHeader;
-  // }
-
-  // public get pickerContentItems() {
-  //   return this.context.pickerList;
-  // }
-
-  // public get selectFieldStyle() {
-  //   return this.context.selectFieldStyle;
-  // }
-
-  // public get selectedItems() {
-  //   return this.context.selectField;
-  // }
-
-  // public set selectedItems(items) {
-  //   this.context.selectField = items;
-  // }
-
-  // public setSelectedIds() {
-  //   this.selectedIds = this.selectedItems.map(item => item.id);
   // }
 
   // // -- Category polyfill until /skyux2/issues/377 -- //
@@ -129,16 +123,5 @@ export class SkySelectFieldFormComponent implements OnInit, AfterViewInit {
   //   this.selectedCategory = category;
   //   let filteredItems = this.pickerContentItems.filter(item => item.category === category);
   //   this.filteredItems.next(category === '' ? this.pickerContentItems : filteredItems);
-  // }
-
-  // public isSelectMultiple() {
-  //   return this.selectFieldStyle === 'multiple' ? true : false;
-  // }
-
-  // public selectedItemsChange(selectedMap: Map<string, boolean>) {
-  //   this.allItems.subscribe(items => {
-  //     this.selectedItems = selectedMap === undefined ? [] : items.filter(item => selectedMap.get(item.id));
-  //     if (!this.isSelectMultiple()) { this.save(); }
-  //   });
   // }
 }

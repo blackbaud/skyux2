@@ -21,7 +21,7 @@ import 'rxjs/add/operator/take';
 export class SkySelectFieldDemoComponent implements OnInit {
   public reactiveForm: FormGroup;
 
-  public pickerItems = [
+  public fruits = [
     { id: '1', category: 'Pome', label: 'Apple', description: 'Anne eats apples' },
     { id: '2', category: 'Berry', label: 'Banana', description: 'Ben eats bananas' },
     { id: '3', category: 'Pome', label: 'Pear', description: 'Patty eats pears' },
@@ -31,24 +31,18 @@ export class SkySelectFieldDemoComponent implements OnInit {
     { id: '7', category: 'Aggregate fruit', label: 'Strawberry', description: 'Sally eats strawberries' }
   ];
 
-  public fruits = [
-    { id: '1', label: 'Apple', description: 'Red and delicious' },
-    { id: '2', label: 'Banana', description: 'Yellow and healthy' },
-    { id: '3', label: 'Orange', description: 'Same color as its name' }
+  public colors = [
+    { id: '1', label: 'Red' },
+    { id: '2', label: 'Green' },
+    { id: '3', label: 'Violet' }
   ];
 
   public fruitStream = new BehaviorSubject<any>(this.fruits);
+  public colorStream = new BehaviorSubject<any>(this.colors);
 
   public singleModeStyle = 'single';
   public singleModeText = 'Select a value';
-  public singleItemSelected = [this.pickerItems[3]];
-
   public multipleModeText = 'Select some values';
-  public multipleItemsSelected = [
-    this.pickerItems[3],
-    this.pickerItems[6],
-    this.pickerItems[5]
-  ];
 
   // public get selectedIds(): string[] {
   //   return this.reactiveForm.controls.favoriteFruits.value.map((fruit: any) => fruit.id);
@@ -60,9 +54,9 @@ export class SkySelectFieldDemoComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createForm();
-    this.reactiveForm.controls.favoriteFruits.valueChanges.subscribe((change: any) => {
-      console.log('change?', change);
-    });
+    // this.reactiveForm.controls.favoriteFruits.valueChanges.subscribe((change: any) => {
+    //   console.log('change?', change);
+    // });
   }
 
   public submitReactiveForm(): void {
@@ -82,9 +76,18 @@ export class SkySelectFieldDemoComponent implements OnInit {
 
   private createForm(): void {
     this.reactiveForm = this.formBuilder.group({
+      favoriteColor: new FormControl(),
       favoriteFruits: new FormControl([
         this.fruits[0]
-      ])
+      ]),
+      disabledColor: {
+        value: this.colors[0],
+        disabled: true
+      },
+      disabledFruits: {
+        value: [this.fruits[0]],
+        disabled: true
+      }
     });
   }
 }

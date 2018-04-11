@@ -8,15 +8,45 @@
   novalidate>
 
   <div class="sky-form-group">
+    <label class="sky-control-label">
+      Make a single selection
+    </label>
+    <sky-select-field
+      [data]="colorStream"
+      selectMode="single"
+      formControlName="favoriteColor">
+    </sky-select-field>
+  </div>
+
+  <div class="sky-form-group">
+    <label class="sky-control-label">
+      Make multiple selections
+    </label>
     <sky-select-field
       [data]="fruitStream"
       formControlName="favoriteFruits">
     </sky-select-field>
   </div>
 
-  <div>
-    <strong>Form model:</strong>
-    <pre>{{ reactiveForm.value | json }}</pre>
+  <div class="sky-form-group">
+    <label class="sky-control-label">
+      Make a single selection (disabled)
+    </label>
+    <sky-select-field
+      [data]="colorStream"
+      selectMode="single"
+      formControlName="disabledColor">
+    </sky-select-field>
+  </div>
+
+  <div class="sky-form-group">
+    <label class="sky-control-label">
+      Make multiple selections (disabled)
+    </label>
+    <sky-select-field
+      [data]="fruitStream"
+      formControlName="disabledFruits">
+    </sky-select-field>
   </div>
 
   <button
@@ -25,6 +55,13 @@
     Submit
   </button>
 </form>
+<br><br>
+<div class="sky-form-group">
+  <label class="sky-control-label">
+    Form model:
+  </label>
+  <pre>{{ reactiveForm.value | json }}</pre>
+</div>
 <!--
 <h2 class="sky-section-heading">
   Template-driven form setup
