@@ -12,6 +12,14 @@ export class SkyToastDemoComponent {
   constructor(private toastSvc: SkyToastService) { }
 
   public openMessage() {
-      this.toastSvc.openMessage("Bananas aren't shoes");
+      this.toastSvc.openMessage("This is a toast that lasts 10 seconds.");
+  }
+
+  public openPersistentMessage() {
+    this.toastSvc.open({message: 'This toast has no timeout.', disableTimeout: true});
+  }
+
+  public openTemplatedMessage() {
+    this.toastSvc.openMessage('This toast has no timeout.', {disableTimeout: true});
   }
 }

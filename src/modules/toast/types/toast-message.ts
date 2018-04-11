@@ -1,15 +1,16 @@
-import { SkyToastMessageType } from './toast-message-type';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Type } from '@angular/core';
 
 export class SkyToastMessage {
   public timeout?: NodeJS.Timer;
-  private _isClosed: BehaviorSubject<boolean>;
-  private _isClosing: BehaviorSubject<boolean>;
   public isClosed: Observable<boolean>;
   public isClosing: Observable<boolean>;
 
-  constructor(public message: string, public toastType: string, private removeFromQueue: Function, timeout?: number) {
+  private _isClosed: BehaviorSubject<boolean>;
+  private _isClosing: BehaviorSubject<boolean>;
+
+  constructor(public message: string, public customComponentType: Type<any>, public toastType: string, private removeFromQueue: Function, timeout?: number) {
     this._isClosed = new BehaviorSubject(false);
     this._isClosing = new BehaviorSubject(false);
     this.isClosed = this._isClosed.asObservable();

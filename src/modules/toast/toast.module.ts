@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkyToastService } from './toast.service';
-import { SkyToastComponent } from './toast.component';
+import { SkyToastContainerComponent } from './toast-container.component';
 import { SkyResourcesModule } from '../resources';
 import { SkyToastAdapterService } from './toast-adapter.service';
+import { SkyToastComponent } from './toast-messages/toast.component';
 
 export { SkyToastService }
 
 @NgModule({
   declarations: [
+      SkyToastContainerComponent,
       SkyToastComponent
   ],
   imports: [
     CommonModule, SkyResourcesModule
   ],
   exports: [
+      SkyToastContainerComponent,
       SkyToastComponent
   ],
   providers: [
@@ -22,6 +25,7 @@ export { SkyToastService }
     SkyToastAdapterService
   ],
   entryComponents: [
+    SkyToastContainerComponent,
     SkyToastComponent
   ]
 })

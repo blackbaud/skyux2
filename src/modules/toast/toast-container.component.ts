@@ -3,11 +3,11 @@ import { SkyToastService } from './toast.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'sky-toast',
-  templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.scss'],
+  selector: 'sky-toast-container',
+  templateUrl: './toast-container.component.html',
+  styleUrls: ['./toast-container.component.scss'],
 })
-export class SkyToastComponent implements OnInit {
+export class SkyToastContainerComponent implements OnInit {
 
   messages: Observable<any>;
 

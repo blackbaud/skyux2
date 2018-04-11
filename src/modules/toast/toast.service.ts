@@ -1,13 +1,13 @@
-import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef } from '@angular/core';
+import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { SkyToastComponent } from './toast.component';
+import { SkyToastContainerComponent } from './toast-container.component';
 import { SkyToastAdapterService } from './toast-adapter.service';
 import { SkyToastMessage, ToastConfig, SkyToastType } from './types';
 
 @Injectable()
-export class SkyToastService {
-  private host: ComponentRef<SkyToastComponent>;
+export class SkyToastService implements OnDestroy {
+  private host: ComponentRef<SkyToastContainerComponent>;
 
   private _messages: SkyToastMessage[] = [];
   private _messageList: BehaviorSubject<SkyToastMessage[]> = new BehaviorSubject([]);
@@ -36,6 +36,15 @@ export class SkyToastService {
     return message;
   }
 
+  public ngOnDestroy() {
+    this.host = undefined;
+    this._messages.forEach(message => {
+      message.close();
+    });
+    this._messageList.next([]);
+    this.adapter.removeHostElement();
+  }
+
   private removeFromQueue: Function = (message: SkyToastMessage) => {
     if (this._messages.length == 0) {
       throw 'The supplied message is not active.';
@@ -50,8 +59,11 @@ export class SkyToastService {
   };
 
   private createMessage(config: ToastConfig): SkyToastMessage {
-    if (!config.message) {
-      throw 'A message must be provided.';
+    if (!config.message && !config.customComponentType) {
+      throw 'Either a message or custom toast type must be provided.';
+    }
+    if (config.message && config.customComponentType) {
+      throw 'Both a message and custom toast type may not be provided.';
     }
 
     let timeout: number;
@@ -72,12 +84,12 @@ export class SkyToastService {
         break;
     }
 
-    return new SkyToastMessage(config.message, toastType, this.removeFromQueue, timeout);
+    return new SkyToastMessage(config.message, config.customComponentType, toastType, this.removeFromQueue, timeout);
   }
 
-  private createHostComponent(): ComponentRef<SkyToastComponent> {
+  private createHostComponent(): ComponentRef<SkyToastContainerComponent> {
     const componentRef = this.resolver
-      .resolveComponentFactory(SkyToastComponent)
+      .resolveComponentFactory(SkyToastContainerComponent)
       .create(this.injector);
 
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0];

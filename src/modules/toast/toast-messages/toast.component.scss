@@ -1,19 +1,4 @@
-@import "../../scss/variables";
-
-.sky-toaster {
-  bottom: 0;
-  right: 0;
-  display: block;
-  position: fixed;
-  padding-bottom: $sky-margin-double;
-  padding-right: $sky-margin-double;
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Chrom and Opera */
-}
+@import "../../../scss/variables";
 
 .sky-toast {
   padding: 0 $sky-padding;
@@ -26,6 +11,13 @@
   align-items: center;
   opacity: 1;
   cursor: pointer;
+
+  &:hover {
+    -webkit-box-shadow:0 0 8px rgba(0,0,0,.40);
+    -moz-box-shadow:0 0 8px rgba(0,0,0,.40);
+    -o-box-shadow:0 0 8px rgba(0,0,0,.40);
+    box-shadow:0 0 8px rgba(0,0,0,.40);
+  }
 
   .sky-toast-content {
     padding-top: $sky-padding;
@@ -48,14 +40,6 @@
     height: 32px;
   }
 }
-
-.sky-toast:hover {
-    -webkit-box-shadow:0 0 8px rgba(0,0,0,.40);
-    -moz-box-shadow:0 0 8px rgba(0,0,0,.40);
-    -o-box-shadow:0 0 8px rgba(0,0,0,.40);
-    box-shadow:0 0 8px rgba(0,0,0,.40);
-}
-
 
 .sky-toast-closing {
   opacity: 0;
