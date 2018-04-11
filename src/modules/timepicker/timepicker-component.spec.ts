@@ -9,12 +9,14 @@ import {
   FormsModule
 } from '@angular/forms';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyTimepickerModule } from './timepicker.module';
 import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture';
-
-import { expect } from '../testing';
 
 const moment = require('moment');
 

@@ -32,6 +32,9 @@ import {
   ]
 })
 export class SkyTextExpandComponent implements AfterContentInit {
+
+  private _maxLength: number = 200;
+
   @Input()
   public set text(value: string) {
     this.setup(value);
@@ -39,7 +42,11 @@ export class SkyTextExpandComponent implements AfterContentInit {
   @Input()
   public truncateNewlines = true;
   @Input()
-  public maxLength: number = 200;
+  public set maxLength(value: number) {
+    this._maxLength = value;
+    this.setup(this.expandedText);
+  }
+  public get maxLength(): number { return this._maxLength; }
   @Input()
   public maxExpandedLength: number = 600;
   @Input()

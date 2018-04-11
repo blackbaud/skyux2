@@ -5,6 +5,11 @@ import {
   tick
 } from '@angular/core/testing';
 
+import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyTabsetComponent } from './tabset.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetService } from './tabset.service';
@@ -12,9 +17,6 @@ import { SkyTabsFixturesModule } from './fixtures/tabs-fixtures.module';
 import { TabsetTestComponent } from './fixtures/tabset.component.fixture';
 import { TabsetActiveTestComponent } from './fixtures/tabset-active.component.fixture';
 import { MockTabsetAdapterService } from './fixtures/tabset-adapter.service.mock';
-import { TestUtility } from '../testing/testutility';
-
-import { expect } from '../testing';
 
 import {
   DebugElement
@@ -325,7 +327,7 @@ describe('Tabset component', () => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
 
       function fireResizeEvent() {
-        TestUtility.fireDomEvent(window, 'resize');
+        SkyAppTestUtility.fireDomEvent(window, 'resize');
         fixture.detectChanges();
       }
 
@@ -670,7 +672,6 @@ describe('Tabset component', () => {
 
    describe('keyboard accessibility', () => {
     let debugElement: DebugElement;
-    let cmp: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
 
     beforeEach(() => {
@@ -681,7 +682,6 @@ describe('Tabset component', () => {
       });
       fixture = TestBed.createComponent(TabsetTestComponent);
       debugElement = fixture.debugElement;
-      cmp = fixture.componentInstance as TabsetTestComponent;
     });
 
     it('should have tabindex of 0', () => {

@@ -5,7 +5,9 @@ import {
   tick
 } from '@angular/core/testing';
 
-import { expect } from '../../testing';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import { SkyTileDashboardComponent } from './tile-dashboard.component';
