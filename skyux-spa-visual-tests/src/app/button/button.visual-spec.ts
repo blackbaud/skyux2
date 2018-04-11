@@ -24,11 +24,11 @@ describe('Button', () => {
   }
 
   it('should match the baseline button screenshots', () => {
-    testButton('screenshot-buttons')
+    testButton('screenshot-buttons');
   });
 
   it('should match the baseline disabled button screenshots', () => {
-    testButton('screenshot-buttons-disabled')
+    testButton('screenshot-buttons-disabled');
   });
 
   // These tests are separated since the mouse needs to move
