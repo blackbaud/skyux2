@@ -13,6 +13,8 @@ export class SkyToastCustomDemoComponent implements OnInit, SkyToastCustomCompon
     constructor() {}
 
     public ngOnInit() {
+        console.log('bananshoes');
+        console.log(this.message);
         this.message.isClosing.subscribe((value: boolean) => {
             if (value) {
                 this.text = 'Bye bye :D';
