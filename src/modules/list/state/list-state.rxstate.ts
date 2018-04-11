@@ -50,11 +50,11 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
   }
 
   public toolbarAddItems(items: ListToolbarItemModel[], index: number = -1): void {
-    setTimeout(() => this.next(new ListToolbarItemsLoadAction(items, index)));
+    this.next(new ListToolbarItemsLoadAction(items, index));
   }
 
   public toolbarRemoveItems(ids: string[]): void {
-    setTimeout(() => this.next(new ListToolbarItemsRemoveAction(ids)));
+    this.next(new ListToolbarItemsRemoveAction(ids));
   }
 
   public searchSetFunctions(sortFunctions: ((data: any, searchText: string) => boolean)[]): void {

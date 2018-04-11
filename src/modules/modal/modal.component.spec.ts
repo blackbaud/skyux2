@@ -7,8 +7,9 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect
-} from '../testing';
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalService } from './modal.service';
@@ -20,8 +21,6 @@ import { ModalFooterTestComponent } from './fixtures/modal-footer.component.fixt
 
 import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component.fixture';
 import { ModalTiledBodyTestComponent  } from './fixtures/modal-tiled-body.component.fixture';
-
-import { TestUtility } from '../testing/testutility';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
@@ -296,7 +295,7 @@ describe('Modal component', () => {
     expect(maxHeight).toEqual(windowHeight - 40);
     expect(contentHeight).toEqual(windowHeight - 40 - 114);
 
-    TestUtility.fireDomEvent(window, 'resize');
+    SkyAppTestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
     maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
     expect(maxHeight).toEqual(window.innerHeight - 40);
@@ -311,7 +310,7 @@ describe('Modal component', () => {
     let height = parseInt(getComputedStyle(modalEl).height, 10);
     // innerHeight -2 is for IE Box Model Fix
     expect([window.innerHeight - 2, window.innerHeight]).toContain(height);
-    TestUtility.fireDomEvent(window, 'resize');
+    SkyAppTestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
     modalEl = document.querySelector('.sky-modal-full-page');
     height = parseInt(getComputedStyle(modalEl).height, 10);

@@ -15,7 +15,7 @@ import {
 
 import {
   expect
-} from '../testing';
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 describe('Sort component', () => {
 
