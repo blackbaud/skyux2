@@ -4,8 +4,8 @@ import {
 
 import {
   expect,
-  TestUtility
-} from '../testing';
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { InfiniteScrollTestComponent } from './fixtures/infinite-scroll.component.fixture';
 import { DebugElement } from '@angular/core';
@@ -55,7 +55,7 @@ describe('Infinite scroll component', () => {
     });
 
     it('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {
-      TestUtility.fireDomEvent(window, 'scroll');
+      SkyAppTestUtility.fireDomEvent(window, 'scroll');
       fixture.detectChanges();
       setTimeout(() => {
         fixture.detectChanges();
@@ -67,7 +67,7 @@ describe('Infinite scroll component', () => {
     it('should not emit an onLoad event on scroll when hasMore is false', (done: Function) => {
       debugElement.componentInstance._hasMore.next(false);
       fixture.detectChanges();
-      TestUtility.fireDomEvent(window, 'scroll');
+      SkyAppTestUtility.fireDomEvent(window, 'scroll');
       fixture.detectChanges();
       setTimeout(() => {
         fixture.detectChanges();
@@ -78,7 +78,7 @@ describe('Infinite scroll component', () => {
 
     it('should not emit an onLoad event on scroll when isLoading is true', (done: Function) => {
       debugElement.query(By.css('.sky-infinite-scroll')).componentInstance._isLoading.next(true);
-      TestUtility.fireDomEvent(window, 'scroll');
+      SkyAppTestUtility.fireDomEvent(window, 'scroll');
       fixture.detectChanges();
       setTimeout(() => {
         fixture.detectChanges();
@@ -117,7 +117,7 @@ describe('Infinite scroll component', () => {
     fixture.detectChanges();
 
     debugElement.query(By.css('div')).nativeElement.scrollTop = 2000;
-    TestUtility.fireDomEvent(debugElement.query(By.css('div')).nativeElement, 'scroll');
+    SkyAppTestUtility.fireDomEvent(debugElement.query(By.css('div')).nativeElement, 'scroll');
     fixture.detectChanges();
 
     setTimeout(() => {
@@ -186,7 +186,7 @@ describe('Infinite scroll component', () => {
     fixture.detectChanges();
 
     debugElement.query(By.css('div')).nativeElement.scrollTop = 2000;
-    TestUtility.fireDomEvent(debugElement.query(By.css('div')).nativeElement, 'scroll');
+    SkyAppTestUtility.fireDomEvent(debugElement.query(By.css('div')).nativeElement, 'scroll');
     fixture.detectChanges();
 
     setTimeout(() => {
@@ -223,7 +223,7 @@ describe('Infinite scroll component', () => {
     cmp = fixture.componentInstance as InfiniteScrollTestComponent;
     fixture.detectChanges();
 
-    TestUtility.fireDomEvent(window, 'scroll');
+    SkyAppTestUtility.fireDomEvent(window, 'scroll');
     fixture.detectChanges();
 
     setTimeout(() => {
