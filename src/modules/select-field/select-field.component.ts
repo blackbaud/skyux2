@@ -52,13 +52,19 @@ const SKY_SELECT_FIELD_VALUE_ACCESSOR = {
 })
 export class SkySelectFieldComponent implements ControlValueAccessor {
   @Input()
+  public ariaLabel: string;
+
+  @Input()
+  public ariaLabelledBy: string;
+
+  @Input()
   public data: Observable<any[]>;
 
   @Input()
-  public disabled = false;
+  public descriptorKey = 'label';
 
   @Input()
-  public descriptorKey = 'label';
+  public disabled = false;
 
   @Input()
   public selectMode: SkySelectFieldSelectMode = 'multiple';

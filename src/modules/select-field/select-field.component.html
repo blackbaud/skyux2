@@ -9,6 +9,8 @@
     <button
       class="sky-btn sky-btn-default"
       type="button"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledBy"
       [disabled]="disabled"
       (click)="openPicker()">
       <i
@@ -19,8 +21,8 @@
     </button>
     <sky-tokens
       *ngIf="tokens && tokens.length"
-      [displayWith]="descriptorKey"
       [disabled]="disabled"
+      [displayWith]="descriptorKey"
       [tokens]="tokens"
       (tokensChange)="onTokensChange($event)"
       (tokenSelected)="openPicker()">
@@ -34,8 +36,10 @@
       class="sky-input-group sky-btn sky-btn-default"
       tabindex="0"
       role="button"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledBy"
+      [attr.title]="'select_field_single_select_open_button_title' | skyResources"
       [ngClass]="{ 'sky-btn-disabled': disabled }"
-      [attr.title]="'select_field_single_select_title' | skyResources"
       (click)="openPicker()"
       (keydown.enter)="openPicker();$event.preventDefault();$event.stopPropagation();">
       <div class="sky-form-control">
@@ -51,8 +55,8 @@
           *ngIf="singleSelectModeValue"
           class="sky-btn"
           type="button"
+          [attr.title]="'select_field_single_select_clear_button_title' | skyResources"
           [disabled]="disabled"
-          [attr.title]="'select_field_single_select_clear_button' | skyResources"
           (click)="clearSelection();$event.stopPropagation();">
           <i
             class="fa fa-times"
@@ -64,8 +68,8 @@
         <button
           class="sky-btn"
           type="button"
+          [attr.title]="'select_field_single_select_open_button_title' | skyResources"
           [disabled]="disabled"
-          [attr.title]="'select_field_single_select_open_button' | skyResources"
           (click)="openPicker();$event.stopPropagation();">
           <i
             class="fa fa-sort"

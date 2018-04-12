@@ -8,44 +8,56 @@
   novalidate>
 
   <div class="sky-form-group">
-    <label class="sky-control-label">
+    <label
+      class="sky-control-label"
+      id="my-select-field-1">
       Make a single selection
     </label>
     <sky-select-field
       [data]="colorStream"
       selectMode="single"
-      formControlName="favoriteColor">
+      formControlName="favoriteColor"
+      ariaLabelledBy="my-select-field-1">
     </sky-select-field>
   </div>
 
   <div class="sky-form-group">
-    <label class="sky-control-label">
+    <label
+      class="sky-control-label"
+      id="my-select-field-2">
       Make multiple selections
     </label>
     <sky-select-field
       [data]="fruitStream"
-      formControlName="favoriteFruits">
+      formControlName="favoriteFruits"
+      ariaLabelledBy="my-select-field-2">
     </sky-select-field>
   </div>
 
   <div class="sky-form-group">
-    <label class="sky-control-label">
+    <label
+      class="sky-control-label"
+      id="my-select-field-3">
       Make a single selection (disabled)
     </label>
     <sky-select-field
       [data]="colorStream"
       selectMode="single"
-      formControlName="disabledColor">
+      formControlName="disabledColor"
+      ariaLabelledBy="my-select-field-3">
     </sky-select-field>
   </div>
 
   <div class="sky-form-group">
-    <label class="sky-control-label">
+    <label
+      class="sky-control-label"
+      id="my-select-field-4">
       Make multiple selections (disabled)
     </label>
     <sky-select-field
       [data]="fruitStream"
-      formControlName="disabledFruits">
+      formControlName="disabledFruits"
+      ariaLabelledBy="my-select-field-4">
     </sky-select-field>
   </div>
 
@@ -55,6 +67,7 @@
     Submit
   </button>
 </form>
+
 <br><br>
 <div class="sky-form-group">
   <label class="sky-control-label">
