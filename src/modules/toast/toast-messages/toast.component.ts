@@ -41,7 +41,6 @@ export class SkyToastComponent implements OnInit, OnDestroy {
         let injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
 
         this.customComponent = this.customToastHost.createComponent(componentFactory, undefined, injector);
-        console.log(this.customComponent);
         this.customComponent.instance.message = this.message;
     }
 }

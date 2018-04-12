@@ -3,20 +3,16 @@ import { SkyToastCustomComponent, SkyToastMessage } from '../../../modules/toast
 
 @Component({
   selector: 'sky-toast-custom-demo',
-  templateUrl: './toast-custom-demo.component.html',
-  styleUrls: ['./toast-custom-demo.component.scss'],
+  template: "<p>{{text}}<a *ngIf='!(message.isClosing | async)' href='http://example.com'>example.com</a></p>"
 })
 export class SkyToastCustomDemoComponent implements OnInit, SkyToastCustomComponent {
     public message: SkyToastMessage;
-    public text: string = 'This is a templated message. Look how pink it is!'
+    public text: string = 'This is a templated message. It can even link you to '
     
     constructor() {
-        console.log('custom component constructed.');
     }
 
     public ngOnInit() {
-        console.log('custom component drawn.');
-        console.log(this.message);
         this.message.isClosing.subscribe((value: boolean) => {
             if (value) {
                 this.text = 'Bye bye :D';
