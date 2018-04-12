@@ -16,8 +16,7 @@ import { SkyListViewChecklistComponent } from '../list-view-checklist';
 
 @Component({
   selector: 'sky-select-field-picker',
-  styleUrls: ['./select-field-picker.component.scss'],
-  templateUrl: 'select-field-picker.component.html',
+  templateUrl: './select-field-picker.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkySelectFieldPickerComponent implements OnInit {

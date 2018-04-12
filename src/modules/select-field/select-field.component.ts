@@ -42,13 +42,13 @@ const SKY_SELECT_FIELD_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sky-select-field',
+  templateUrl: './select-field.component.html',
   styleUrls: ['./select-field.component.scss'],
-  templateUrl: 'select-field.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     SkyResourcesService,
     SKY_SELECT_FIELD_VALUE_ACCESSOR
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
 export class SkySelectFieldComponent implements ControlValueAccessor {
   @Input()
