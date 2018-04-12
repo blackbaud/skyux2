@@ -8,11 +8,14 @@ import {
 import { Observable } from 'rxjs/Observable';
 
 import {
+  SkyListViewChecklistComponent
+} from '../list-view-checklist';
+
+import {
   SkyModalInstance
 } from '../modal';
 
 import { SkySelectFieldPickerContext } from './select-field-picker-context';
-import { SkyListViewChecklistComponent } from '../list-view-checklist';
 
 @Component({
   selector: 'sky-select-field-picker',
@@ -20,10 +23,12 @@ import { SkyListViewChecklistComponent } from '../list-view-checklist';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkySelectFieldPickerComponent implements OnInit {
-  public data: Observable<any[]>;
-  public selectedIds: any[] = [];
-  public selectedCategory = 'any';
   public categories: string[];
+  public data: Observable<any>;
+
+  public readonly defaultCategory = 'any';
+  public selectedCategory = this.defaultCategory;
+  public selectedIds: any[] = [];
 
   @ViewChild(SkyListViewChecklistComponent)
   private listViewChecklist: SkyListViewChecklistComponent;
@@ -40,19 +45,11 @@ export class SkySelectFieldPickerComponent implements OnInit {
       this.selectedIds = this.context.selectedValue.map((item: any) => item.id);
     }
 
-    this.getCategories();
-  }
-
-  public onSelectedIdsChange(selectedMap: Map<string, boolean>) {
-    this.data.take(1).subscribe((items: any[]) => {
-      this.selectedIds = items
-        .filter((item: any) => selectedMap.get(item.id))
-        .map((item: any) => item.id);
-    });
+    this.assignCategories();
   }
 
   public save() {
-    this.data.take(1).subscribe((items: any) => {
+    this.latestData.subscribe((items: any) => {
       const results = items.filter((item: any) => {
         return (this.selectedIds.indexOf(item.id) > -1);
       });
@@ -65,22 +62,33 @@ export class SkySelectFieldPickerComponent implements OnInit {
   }
 
   public filterByCategory(item: any, category: string) {
-    return (category === 'any' || item.data.category === category);
-  }
-
-  public getCategories() {
-    this.data.take(1).subscribe((items: any[]) => {
-      this.categories = items
-        .map((item: any) => item.category)
-        .filter((search, index, category) => {
-          return (search && category.indexOf(search) === index);
-        });
-    });
+    return (category === this.defaultCategory || item.data.category === category);
   }
 
   public onCategoryChange(change: any, filter: any) {
     // Reset the selected values when the category changes.
     this.listViewChecklist.clearSelections();
     filter.changed(change);
+  }
+
+  public onSelectedIdsChange(selectedMap: Map<string, boolean>) {
+    this.latestData.subscribe((items: any[]) => {
+      this.selectedIds = items.filter((item: any) => selectedMap.get(item.id))
+        .map((item: any) => item.id);
+    });
+  }
+
+  private assignCategories() {
+    this.latestData.subscribe((items: any[]) => {
+      const allCategories = items.map((item: any) => item.category);
+      // Remove duplicate category names:
+      this.categories = allCategories.filter((category: string, i: number, categories: string[]) => {
+        return (categories.indexOf(category) === i);
+      });
+    });
+  }
+
+  private get latestData(): Observable<any> {
+    return this.data.take(1);
   }
 }

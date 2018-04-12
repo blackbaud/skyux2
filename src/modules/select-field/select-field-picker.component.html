@@ -14,15 +14,15 @@
               *ngIf="categories && categories.length">
               <sky-list-filter-inline-item
                 name="category"
-                value="any"
-                defaultValue="any"
-                [filter]="filterByCategory">
+                [defaultValue]="defaultCategory"
+                [filter]="filterByCategory"
+                [value]="defaultCategory">
                 <ng-template
                   let-filter="filter">
                   <select
                     [ngModel]="filter.value"
                     (ngModelChange)="onCategoryChange($event, filter)">
-                    <option value="any">Any</option>
+                    <option value="{{ defaultCategory }}">{{ 'select_field_picker_show_all_category' | skyResources }}</option>
                     <option *ngFor="let category of categories">
                       {{ category }}
                     </option>
@@ -37,7 +37,7 @@
             [selectMode]="context.selectMode">
           </sky-list-view-checklist>
           <sky-list-paging
-            pageSize="5">
+            pageSize="6">
           </sky-list-paging>
         </sky-list>
       </div>

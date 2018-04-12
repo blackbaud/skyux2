@@ -787,6 +787,10 @@
     "_description": "Text displayed on the primary dialog button to confirm selection of multiple items",
     "message": "Select"
   },
+  "select_field_picker_show_all_category": {
+    "_description": "The default category name for the select field picker that will display all possible results.",
+    "message": "Show all"
+  },
   "sort_button_label": {
     "_description": "Text for the sort button",
     "message": "Sort"
