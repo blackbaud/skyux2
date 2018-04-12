@@ -1,21 +1,10 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup
-} from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-checkbox-demo',
   templateUrl: './checkbox-demo.component.html'
 })
-export class SkyCheckboxDemoComponent implements OnInit {
-  public reactiveForm: FormGroup;
-
+export class SkyCheckboxDemoComponent {
   public checkboxItems = [
     {
       description: 'Checkbox 1'
@@ -34,22 +23,4 @@ export class SkyCheckboxDemoComponent implements OnInit {
       disabled: true
     }
   ];
-
-  constructor(
-    private formBuilder: FormBuilder
-  ) { }
-
-  public ngOnInit(): void {
-    this.createForm();
-  }
-
-  public submitReactiveForm() {
-    alert('Form submitted with: ' + JSON.stringify(this.reactiveForm.value));
-  }
-
-  private createForm(): void {
-    this.reactiveForm = this.formBuilder.group({
-      userAccepts: new FormControl(false)
-    });
-  }
 }

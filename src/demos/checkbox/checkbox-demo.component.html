@@ -1,44 +1,18 @@
-<form
-  class="checkbox-demo-form"
-  [formGroup]="reactiveForm"
-  (ngSubmit)="submitReactiveForm()"
-  novalidate>
-  <div class="sky-form-group">
-    <sky-checkbox
-      formControlName="userAccepts">
-      <sky-checkbox-label>
-        Check me
-      </sky-checkbox-label>
-    </sky-checkbox>
-  </div>
-
-  <div>
-    <strong>Form model:</strong>
-    <pre>{{ reactiveForm.value | json }}</pre>
-  </div>
-
-  <button
-    class="sky-btn sky-btn-primary"
-    type="submit">
-    Submit
-  </button>
-</form>
-
 <fieldset>
-  <legend>Checkbox options</legend>
+    <legend>Checkbox options</legend>
+    <ul class="sky-list-unstyled">
+      <li *ngFor="let checkboxItem of checkboxItems">
+        <sky-checkbox [(ngModel)]="checkboxItem.checked" [disabled]="checkboxItem.disabled">
+          <sky-checkbox-label>
+            {{ checkboxItem.description }}
+          </sky-checkbox-label>
+        </sky-checkbox>
+      </li>
+    </ul>
+  </fieldset>
+  <b>Checked state:</b>
   <ul class="sky-list-unstyled">
     <li *ngFor="let checkboxItem of checkboxItems">
-      <sky-checkbox [(ngModel)]="checkboxItem.checked" [disabled]="checkboxItem.disabled">
-        <sky-checkbox-label>
-          {{ checkboxItem.description }}
-        </sky-checkbox-label>
-      </sky-checkbox>
+      {{ checkboxItem.description }}: <b>{{ checkboxItem.checked ? 'true': 'false' }}</b>
     </li>
   </ul>
-</fieldset>
-<b>Checked state:</b>
-<ul class="sky-list-unstyled">
-  <li *ngFor="let checkboxItem of checkboxItems">
-    {{ checkboxItem.description }}: <b>{{ checkboxItem.checked ? 'true': 'false' }}</b>
-  </li>
-</ul>
