@@ -14,10 +14,6 @@
     align-items: center;
     z-index: 2;
   }
-
-  > :first-child {
-    @include sky-border-left-radius(3px);
-  }
 }
 
 .sky-input-group-btn {
