@@ -17,7 +17,7 @@
         class="fa fa-plus-circle"
         aria-hidden="true">
       </i>
-      {{ 'select_field_multiple_select_open_button' | skyResources }}
+      {{ multipleSelectOpenButtonText }}
     </button>
     <sky-tokens
       *ngIf="tokens && tokens.length"
@@ -38,7 +38,7 @@
       role="button"
       [attr.aria-label]="ariaLabel"
       [attr.aria-labelledby]="ariaLabelledBy"
-      [attr.title]="'select_field_single_select_open_button_title' | skyResources"
+      [attr.title]="singleSelectOpenButtonTitle"
       [ngClass]="{ 'sky-btn-disabled': disabled }"
       (click)="openPicker()"
       (keydown.enter)="openPicker();$event.preventDefault();$event.stopPropagation();">
@@ -47,7 +47,7 @@
         <div
           *ngIf="!singleSelectModeValue"
           class="sky-deemphasized">
-          {{ 'select_field_single_select_placeholder' | skyResources }}
+          {{ singleSelectPlaceholderText }}
         </div>
       </div>
       <div class="sky-input-group-btn">
@@ -55,7 +55,7 @@
           *ngIf="singleSelectModeValue"
           class="sky-btn"
           type="button"
-          [attr.title]="'select_field_single_select_clear_button_title' | skyResources"
+          [attr.title]="singleSelectClearButtonTitle"
           [disabled]="disabled"
           (click)="clearSelection();$event.stopPropagation();">
           <i

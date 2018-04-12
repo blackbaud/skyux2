@@ -69,6 +69,59 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
   @Input()
   public selectMode: SkySelectFieldSelectMode = 'multiple';
 
+  @Input()
+  public set multipleSelectOpenButtonText(value: string) {
+    this._multipleSelectOpenButtonText = value;
+  }
+
+  public get multipleSelectOpenButtonText(): string {
+    return this._multipleSelectOpenButtonText ||
+      this.resourcesService.getString('select_field_multiple_select_open_button');
+  }
+
+  @Input()
+  public set singleSelectClearButtonTitle(value: string) {
+    this._singleSelectClearButtonTitle = value;
+  }
+
+  public get singleSelectClearButtonTitle(): string {
+    return this._singleSelectClearButtonTitle ||
+      this.resourcesService.getString('select_field_single_select_clear_button_title');
+  }
+
+  @Input()
+  public set singleSelectOpenButtonTitle(value: string) {
+    this._singleSelectOpenButtonTitle = value;
+  }
+
+  public get singleSelectOpenButtonTitle(): string {
+    return this._singleSelectOpenButtonTitle ||
+      this.resourcesService.getString('select_field_single_select_open_button_title');
+  }
+
+  @Input()
+  public set singleSelectPlaceholderText(value: string) {
+    this._singleSelectPlaceholderText = value;
+  }
+
+  public get singleSelectPlaceholderText(): string {
+    return this._singleSelectPlaceholderText ||
+      this.resourcesService.getString('select_field_single_select_placeholder');
+  }
+
+  @Input()
+  public set pickerHeading(value: string) {
+    this._pickerHeading = value;
+  }
+
+  public get pickerHeading(): string {
+    if (this._pickerHeading) {
+      return this._pickerHeading;
+    }
+
+    return this.resourcesService.getString(`select_field_${this.selectMode}_select_picker_heading`);
+  }
+
   public get value(): any[] {
     return this._value;
   }
@@ -91,6 +144,11 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
 
   public tokens: SkyToken[];
 
+  private _multipleSelectOpenButtonText: string;
+  private _pickerHeading: string;
+  private _singleSelectClearButtonTitle: string;
+  private _singleSelectOpenButtonTitle: string;
+  private _singleSelectPlaceholderText: string;
   private _value: any[];
 
   constructor(
@@ -116,7 +174,7 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
 
   public openPicker() {
     const pickerContext = new SkySelectFieldPickerContext();
-    pickerContext.headingText = this.resourcesService.getString(`select_field_${this.selectMode}_select_picker_heading`);
+    pickerContext.headingText = this.pickerHeading;
     pickerContext.data = this.data;
     pickerContext.selectedValue = this.value;
     pickerContext.selectMode = this.selectMode;

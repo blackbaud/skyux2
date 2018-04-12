@@ -83,7 +83,7 @@ export class SkySelectFieldPickerComponent implements OnInit {
       const allCategories = items.map((item: any) => item.category);
       // Remove duplicate category names:
       this.categories = allCategories.filter((category: string, i: number, categories: string[]) => {
-        return (categories.indexOf(category) === i);
+        return (category && categories.indexOf(category) === i);
       });
     });
   }

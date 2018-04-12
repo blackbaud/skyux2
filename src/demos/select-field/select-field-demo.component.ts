@@ -17,6 +17,7 @@ import 'rxjs/add/operator/take';
 @Component({
   selector: 'sky-select-field-demo',
   templateUrl: 'select-field-demo.component.html',
+  styleUrls: ['./select-field-demo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkySelectFieldDemoComponent implements OnInit {
@@ -41,6 +42,11 @@ export class SkySelectFieldDemoComponent implements OnInit {
   public fruitStream = new BehaviorSubject<any>([]);
   public colorStream = new BehaviorSubject<any>([]);
 
+  public templateDrivenModel: any = {
+    favoriteColor: this.colors[0],
+    favoriteFruits: [this.fruits[0]]
+  };
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
@@ -54,16 +60,15 @@ export class SkySelectFieldDemoComponent implements OnInit {
     alert('Form submitted with: \n' + JSON.stringify(this.reactiveForm.value));
   }
 
+  public submitTemplateForm(formData: any): void {
+    alert('Form submitted with: \n' + JSON.stringify(formData));
+  }
+
   private createForm(): void {
     this.reactiveForm = this.formBuilder.group({
-      favoriteColor: new FormControl(),
-      favoriteFruits: new FormControl([this.fruits[0]]),
-      disabledColor: new FormControl(this.colors[0]),
-      disabledFruits: new FormControl([this.fruits[0]])
+      favoriteColor: new FormControl(this.colors[0]),
+      favoriteFruits: new FormControl([this.fruits[0]])
     });
-
-    this.reactiveForm.controls.disabledColor.disable();
-    this.reactiveForm.controls.disabledFruits.disable();
   }
 
   private populateData() {
