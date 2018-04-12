@@ -1,3 +1,29 @@
+<form
+  class="checkbox-demo-form"
+  [formGroup]="reactiveForm"
+  (ngSubmit)="submitReactiveForm()"
+  novalidate>
+  <div class="sky-form-group">
+    <sky-checkbox
+      formControlName="userAccepts">
+      <sky-checkbox-label>
+        Check me
+      </sky-checkbox-label>
+    </sky-checkbox>
+  </div>
+
+  <div>
+    <strong>Form model:</strong>
+    <pre>{{ reactiveForm.value | json }}</pre>
+  </div>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="submit">
+    Submit
+  </button>
+</form>
+
 <fieldset>
   <legend>Checkbox options</legend>
   <ul class="sky-list-unstyled">
