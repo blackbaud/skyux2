@@ -1,9 +1,9 @@
-import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef, OnDestroy, Type } from '@angular/core';
+import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef, OnDestroy, Type, Provider } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { SkyToastContainerComponent } from './toast-container.component';
+import { SkyToastContainerComponent } from '../toast-container.component';
 import { SkyToastAdapterService } from './toast-adapter.service';
-import { SkyToastMessage, ToastConfig, SkyToastType, SkyToastCustomComponent } from './types';
+import { SkyToastMessage, SkyToastConfig, SkyToastType, SkyToastCustomComponent } from '../types';
 
 @Injectable()
 export class SkyToastService implements OnDestroy {
@@ -19,17 +19,20 @@ export class SkyToastService implements OnDestroy {
     private resolver: ComponentFactoryResolver,
     private adapter: SkyToastAdapterService) {}
 
-  public openMessage(message: string, config: ToastConfig = {}) {
+  public openMessage(message: string, config: SkyToastConfig = {}) {
     config.message = message;
+    config.customComponentType = undefined;
     return this.open(config);
   }
 
-  public openTemplatedMessage(customComponentType: Type<SkyToastCustomComponent>, config: ToastConfig = {}) {
+  public openTemplatedMessage(customComponentType: Type<SkyToastCustomComponent>, config: SkyToastConfig = {}, providers?: Provider[]) {
     config.customComponentType = customComponentType;
+    config.providers = providers || config.providers;
+    config.message = undefined;
     return this.open(config);
   }
 
-  public open(config: ToastConfig) {
+  public open(config: SkyToastConfig) {
     if (!this.host) {
       this.host = this.createHostComponent();
     }
@@ -63,17 +66,12 @@ export class SkyToastService implements OnDestroy {
     this._messageList.next(this._messages);
   };
 
-  private createMessage(config: ToastConfig): SkyToastMessage {
+  private createMessage(config: SkyToastConfig): SkyToastMessage {
     if (!config.message && !config.customComponentType) {
       throw 'Either a message or custom toast type must be provided.';
     }
     if (config.message && config.customComponentType) {
       throw 'Both a message and custom toast type may not be provided.';
-    }
-
-    let timeout: number;
-    if (!config.disableTimeout) {
-      timeout = config.timeout || 10000;
     }
 
     let toastType: string = 'info';
@@ -84,12 +82,13 @@ export class SkyToastService implements OnDestroy {
       case SkyToastType.Warning:
         toastType = 'warning';
         break;
+      case SkyToastType.Error:
       case SkyToastType.Danger:
         toastType = 'danger';
         break;
     }
 
-    return new SkyToastMessage(config.message, config.customComponentType, toastType, this.removeFromQueue, timeout);
+    return new SkyToastMessage(config.message, config.customComponentType, toastType, this.removeFromQueue, config.providers);
   }
 
   private createHostComponent(): ComponentRef<SkyToastContainerComponent> {

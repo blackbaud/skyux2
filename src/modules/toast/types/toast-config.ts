@@ -1,10 +1,9 @@
 import { SkyToastType } from './toast-message-type';
-import { Type } from '@angular/core';
+import { Type, Provider } from '@angular/core';
 
-export interface ToastConfig {
+export interface SkyToastConfig {
   message?: string,
   customComponentType?: Type<any>,
-  disableTimeout?: boolean,
-  timeout?: number,
+  providers?: Provider[],
   toastType?: SkyToastType
 }

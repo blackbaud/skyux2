@@ -8,8 +8,8 @@
         <div
         (click)="message.close()"
         class='sky-toast-content'>
-            <p *ngIf="!message.customComponentType">{{message.message}}</p>
-            <ng-template sky-toast-custom [ngIf]="message.customComponentType"></ng-template>
+            <p class='sky-toast-content-message' *ngIf="!message.customComponentType">{{message.message}}</p>
+            <ng-template #skytoastcustomtemplate [ngIf]="!!message.customComponentType"></ng-template>
         </div>
         <button
             type="button"

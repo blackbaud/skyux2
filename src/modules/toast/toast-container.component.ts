@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SkyToastService } from './toast.service';
+import { SkyToastService } from './services/toast.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

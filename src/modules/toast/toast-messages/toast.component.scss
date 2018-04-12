@@ -31,7 +31,11 @@
 			&:hover {
 				color: $sky-text-color-default;
 			}
-		}
+    }
+    
+    .sky-toast-content-message {
+      margin: 0;
+    }
   }
 
   button {

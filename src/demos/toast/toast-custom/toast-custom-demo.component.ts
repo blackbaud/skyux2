@@ -10,10 +10,12 @@ export class SkyToastCustomDemoComponent implements OnInit, SkyToastCustomCompon
     public message: SkyToastMessage;
     public text: string = 'This is a templated message. Look how pink it is!'
     
-    constructor() {}
+    constructor() {
+        console.log('custom component constructed.');
+    }
 
     public ngOnInit() {
-        console.log('bananshoes');
+        console.log('custom component drawn.');
         console.log(this.message);
         this.message.isClosing.subscribe((value: boolean) => {
             if (value) {

@@ -1,6 +1,5 @@
-import { Component, Input, ComponentFactoryResolver, OnInit, ViewChild, RendererFactory2, Renderer2, EmbeddedViewRef, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Component, Input, ComponentFactoryResolver, OnInit, ViewChild, OnDestroy, ViewContainerRef, ReflectiveInjector, ComponentRef, Injector } from '@angular/core';
 import { SkyToastMessage, SkyToastCustomComponent } from '../types';
-import { SkyCustomToastDirective } from '.';
 
 @Component({
   selector: 'sky-toast',
@@ -11,40 +10,38 @@ export class SkyToastComponent implements OnInit, OnDestroy {
     @Input('message')
     public message: SkyToastMessage;
     
-    @ViewChild(SkyCustomToastDirective)
-    private customToastHost: SkyCustomToastDirective;
+    @ViewChild('skytoastcustomtemplate', { read: ViewContainerRef })
+    private customToastHost: ViewContainerRef;
 
-    private customElem: any;
-    private renderer: Renderer2;
+    private customComponent: ComponentRef<SkyToastCustomComponent>;
   
     constructor(
         private resolver: ComponentFactoryResolver,
-        private rendererFactory: RendererFactory2
+        private injector: Injector
     ) {}
 
     public ngOnInit() {
-        this.renderer = this.rendererFactory.createRenderer(this.customToastHost.viewContainerRef.element, undefined);
         if (this.message.customComponentType) {
             this.loadComponent();
         }
     }
 
     public ngOnDestroy() {
-        if (this.customElem) {
-            this.renderer.removeChild(this.customToastHost.viewContainerRef.element, this.customElem);
+        if (this.customComponent) {
+            this.customComponent.destroy();
         }
     }
 
     private loadComponent() {
+        this.customToastHost.clear();
+
         let componentFactory = this.resolver.resolveComponentFactory(this.message.customComponentType);
+        let providers = ReflectiveInjector.resolve(this.message.providers || []);
 
-        let viewContainerRef = this.customToastHost.viewContainerRef;
-        viewContainerRef.clear();
-    
-        let componentRef = viewContainerRef.createComponent(componentFactory);
-        (<SkyToastCustomComponent>componentRef.instance).message = this.message;
+        let injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
 
-        this.customElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0];
-        this.renderer.appendChild(viewContainerRef.element, this.customElem);
+        this.customComponent = this.customToastHost.createComponent(componentFactory, undefined, injector);
+        console.log(this.customComponent);
+        this.customComponent.instance.message = this.message;
     }
 }
