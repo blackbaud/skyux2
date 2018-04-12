@@ -1,7 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -11,6 +12,7 @@ import {
 } from '../modal';
 
 import { SkySelectFieldPickerContext } from './select-field-picker-context';
+import { SkyListViewChecklistComponent } from '../list-view-checklist';
 
 @Component({
   selector: 'sky-select-field-picker',
@@ -24,6 +26,9 @@ export class SkySelectFieldPickerComponent implements OnInit {
   public selectedCategory = 'any';
   public categories: string[];
 
+  @ViewChild(SkyListViewChecklistComponent)
+  private listViewChecklist: SkyListViewChecklistComponent;
+
   constructor(
     private context: SkySelectFieldPickerContext,
     private instance: SkyModalInstance
@@ -31,9 +36,11 @@ export class SkySelectFieldPickerComponent implements OnInit {
 
   public ngOnInit() {
     this.data = this.context.data;
-    if (this.context.selectMode === 'multiple') {
+
+    if (this.context.selectMode === 'multiple' && this.context.selectedValue) {
       this.selectedIds = this.context.selectedValue.map((item: any) => item.id);
     }
+
     this.getCategories();
   }
 
@@ -74,7 +81,7 @@ export class SkySelectFieldPickerComponent implements OnInit {
 
   public onCategoryChange(change: any, filter: any) {
     // Reset the selected values when the category changes.
-    this.selectedIds = [];
+    this.listViewChecklist.clearSelections();
     filter.changed(change);
   }
 }

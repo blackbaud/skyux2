@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SkyCheckboxModule } from '../checkbox';
 import { SkyDropdownModule } from '../dropdown';
 import { SkyListModule } from '../list';
+import { SkyListPagingModule } from '../list-paging';
 import { SkyModalModule } from '../modal';
 import { SkyResourcesModule } from '../resources';
 import { SkyTokensModule } from '../tokens';
@@ -19,6 +20,7 @@ import { SkySelectFieldPickerComponent } from './select-field-picker.component';
     ReactiveFormsModule,
     SkyDropdownModule,
     SkyListModule,
+    SkyListPagingModule,
     SkyModalModule,
     SkyResourcesModule,
     SkyTokensModule,

@@ -4,36 +4,43 @@
       {{ context.headingText }}
     </sky-modal-header>
     <sky-modal-content>
-      <sky-list
-        [data]="data"
-        [selectedIds]="selectedIds"
-        (selectedIdsChange)="onSelectedIdsChange($event)">
-        <sky-list-toolbar>
-          <sky-list-filter-inline *ngIf="categories && categories.length">
-            <sky-list-filter-inline-item
-              name="category"
-              value="any"
-              defaultValue="any"
-              [filter]="filterByCategory">
-              <ng-template let-filter="filter">
-                <select
-                  [ngModel]="filter.value"
-                  (ngModelChange)="onCategoryChange($event, filter)">
-                  <option value="any">Any</option>
-                  <option *ngFor="let category of categories">
-                    {{ category }}
-                  </option>
-                </select>
-              </ng-template>
-            </sky-list-filter-inline-item>
-          </sky-list-filter-inline>
-        </sky-list-toolbar>
-        <sky-list-view-checklist
-          label="label"
-          description="description"
-          [selectMode]="context.selectMode">
-        </sky-list-view-checklist>
-      </sky-list>
+      <div class="sky-select-field-picker-content">
+        <sky-list
+          [data]="data"
+          [selectedIds]="selectedIds"
+          (selectedIdsChange)="onSelectedIdsChange($event)">
+          <sky-list-toolbar>
+            <sky-list-filter-inline
+              *ngIf="categories && categories.length">
+              <sky-list-filter-inline-item
+                name="category"
+                value="any"
+                defaultValue="any"
+                [filter]="filterByCategory">
+                <ng-template
+                  let-filter="filter">
+                  <select
+                    [ngModel]="filter.value"
+                    (ngModelChange)="onCategoryChange($event, filter)">
+                    <option value="any">Any</option>
+                    <option *ngFor="let category of categories">
+                      {{ category }}
+                    </option>
+                  </select>
+                </ng-template>
+              </sky-list-filter-inline-item>
+            </sky-list-filter-inline>
+          </sky-list-toolbar>
+          <sky-list-view-checklist
+            label="label"
+            description="description"
+            [selectMode]="context.selectMode">
+          </sky-list-view-checklist>
+          <sky-list-paging
+            pageSize="5">
+          </sky-list-paging>
+        </sky-list>
+      </div>
     </sky-modal-content>
     <sky-modal-footer>
       <button
@@ -51,36 +58,3 @@
     </sky-modal-footer>
   </sky-modal>
 </div>
-
-<!-- <sky-modal>
-  <sky-modal-content>
-    <div>
-      <sky-list [data]="filteredItems" [selectedIds]='selectedIds' (selectedIdsChange)="selectedItemsChange($event)">
-        <sky-list-toolbar>
-        </sky-list-toolbar>
-        <div *ngIf="isSelectMultiple() else singleSelectToolbar">
-        </div>
-        <sky-list-view-checklist label="label" description="description" [selectMode]="selectFieldStyle">
-        </sky-list-view-checklist>
-      </sky-list>
-    </div>
-  </sky-modal-content>
-</sky-modal>
-
-<ng-template #singleSelectToolbar>
-  <div class="sky-select-field-picker-toolbar" *ngIf="pickerItemsCategories.length >= 1">
-    <sky-dropdown>
-      <sky-dropdown-button (click)="clearSelection()" class="sky-select-field-picker-btn-clear">
-        <span *ngIf="!selectedCategory">All categories</span>
-        <span *ngIf="selectedCategory">{{selectedCategory}}</span>
-      </sky-dropdown-button>
-        <sky-dropdown-menu>
-          <sky-dropdown-item *ngFor="let category of pickerItemsCategories">
-            <button (click)="selectedItemsCategory(category)" class="sky-select-field-picker-btn-category">
-              {{ category }}
-            </button>
-          </sky-dropdown-item>
-        </sky-dropdown-menu>
-    </sky-dropdown>
-  </div>
-</ng-template> -->
