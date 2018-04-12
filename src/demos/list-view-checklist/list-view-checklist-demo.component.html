@@ -28,23 +28,6 @@
   [data]="items"
   (selectedIdsChange)="selectedItemsChange($event)">
   <sky-list-toolbar>
-    <sky-list-filter-inline>
-      <sky-list-filter-inline-item
-        name="category"
-        value="any"
-        defaultValue="any"
-        [filter]="filterByCategory">
-        <ng-template let-filter="filter">
-          <select
-            [ngModel]="filter.value"
-            (ngModelChange)="filter.changed($event)">
-            <option *ngFor="let category of categories">
-              {{ category }}
-            </option>
-          </select>
-        </ng-template>
-      </sky-list-filter-inline-item>
-    </sky-list-filter-inline>
   </sky-list-toolbar>
   <sky-list-view-checklist
     label="column2"
