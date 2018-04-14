@@ -34,13 +34,6 @@ import {
 import { SkySelectFieldPickerContext } from './select-field-picker-context';
 import { SkySelectFieldPickerComponent } from './select-field-picker.component';
 
-const SKY_SELECT_FIELD_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-forward-ref
-  useExisting: forwardRef(() => SkySelectFieldComponent),
-  multi: true
-};
-
 @Component({
   selector: 'sky-select-field',
   templateUrl: './select-field.component.html',
@@ -48,7 +41,12 @@ const SKY_SELECT_FIELD_VALUE_ACCESSOR = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     SkyResourcesService,
-    SKY_SELECT_FIELD_VALUE_ACCESSOR
+    {
+      provide: NG_VALUE_ACCESSOR,
+      /* tslint:disable-next-line:no-forward-ref */
+      useExisting: forwardRef(() => SkySelectFieldComponent),
+      multi: true
+    }
   ]
 })
 export class SkySelectFieldComponent implements ControlValueAccessor {
