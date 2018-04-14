@@ -12,7 +12,7 @@ import {
 
 import {
   expect
-} from '../testing';
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyFlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';

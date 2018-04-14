@@ -1,12 +1,19 @@
 import {
-  Component,
-  Input,
-  TemplateRef,
-  ViewChild,
-  forwardRef,
+  AfterViewInit,
   ChangeDetectionStrategy,
-  AfterViewInit
+  Component,
+  forwardRef,
+  Input,
+  OnDestroy,
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
 
 import {
   ListViewComponent
@@ -47,10 +54,6 @@ import {
   ListToolbarSetTypeAction
 } from '../list/state/toolbar/actions';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/take';
-
 import {
   getData
 } from '../list/helpers';
@@ -74,7 +77,7 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyListViewChecklistComponent extends ListViewComponent implements AfterViewInit {
+export class SkyListViewChecklistComponent extends ListViewComponent implements AfterViewInit, OnDestroy {
   @Input()
   set name(value: string) {
     this.viewName = value;
@@ -108,6 +111,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   private clearSelectionsTemplate: TemplateRef<any>;
 
   private hasSelectToolbarItems = false;
+  private ngUnsubscribe = new Subject();
 
   private _selectMode = 'multiple';
 
@@ -139,6 +143,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         );
       }
     )
+    .takeUntil(this.ngUnsubscribe)
     .subscribe();
   }
 
@@ -165,7 +170,12 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     this.updateActions();
   }
 
-  get items() {
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  get items(): Observable<ListViewChecklistItemModel[]> {
     return this.checklistState.map(state => state.items.items);
   }
 

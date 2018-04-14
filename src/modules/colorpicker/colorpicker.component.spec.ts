@@ -6,11 +6,14 @@ import {
   ComponentFixture
 } from '@angular/core/testing';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { SkyColorpickerModule } from './colorpicker.module';
 import { ColorpickerTestComponent } from './fixtures/colorpicker-component.fixture';
-import { expect } from '../testing';
 import { SkyColorpickerComponent } from './colorpicker.component';
 import { SkyColorpickerMessageType } from './types';
 import { SkyColorpickerInputDirective } from './colorpicker-input.directive';

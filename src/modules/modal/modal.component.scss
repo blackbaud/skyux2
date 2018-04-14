@@ -2,7 +2,6 @@
 
 .sky-modal {
   @include sky-border(dark, top, bottom, left, right);
-  @include sky-shadow();
   position: fixed;
   width: auto;
   left: 0;

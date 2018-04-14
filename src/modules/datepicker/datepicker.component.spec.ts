@@ -15,6 +15,10 @@ import {
 } from '@angular/forms';
 
 import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   SkyDatepickerModule
 } from './datepicker.module';
 
@@ -25,10 +29,6 @@ import {
 import {
   DatepickerNoFormatTestComponent
 } from './fixtures/datepicker-noformat.component.fixture';
-
-import {
-  expect
-} from '../testing';
 
 import {
   SkyDatepickerConfigService

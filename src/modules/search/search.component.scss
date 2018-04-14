@@ -2,8 +2,8 @@
 @import '../../scss/_variables';
 
 .sky-search-input {
-  border-top-left-radius: $sky-border-radius;
-  border-bottom-left-radius: $sky-border-radius;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   border-right: 0 none;
 
   &:focus {
@@ -43,7 +43,6 @@
 
 .sky-search-input-focused {
   @include sky-field-status(active);
-  border-radius: $sky-border-radius;
 
   .sky-search-btn {
     border-color: transparent;
