@@ -12,11 +12,8 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-<<<<<<< HEAD
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/take';
-=======
->>>>>>> master
 import 'rxjs/add/operator/takeUntil';
 
 import {
