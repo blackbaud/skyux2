@@ -182,6 +182,7 @@ export * from './modules/repeater';
 export * from './modules/search';
 export * from './modules/sectioned-form';
 export * from './modules/select-field';
+export * from './modules/select-field/types';
 export * from './modules/sort';
 export * from './modules/tabs';
 export * from './modules/text-expand';

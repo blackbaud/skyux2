@@ -1,52 +1,83 @@
 import {
   ComponentFixture,
+  fakeAsync,
+  inject,
   TestBed,
-  inject
+  tick
 } from '@angular/core/testing';
 
+import {
+  expect, SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyModalService } from '../modal/modal.service';
-import { expect } from '../testing';
 
 import { SkySelectFieldComponent } from './select-field.component';
 import { SkySelectFieldFixturesModule } from './fixtures/select-field-fixtures.module';
 import { SkySelectFieldTestComponent } from './fixtures/select-field.component.fixture';
 
-describe('selectField component', () => {
+describe('Select field component', () => {
   let fixture: ComponentFixture<SkySelectFieldTestComponent>;
   let component: SkySelectFieldTestComponent;
-  let selectFieldComponent: SkySelectFieldComponent;
+  let selectField: SkySelectFieldComponent;
 
-  const testPickerItems = [
-    { id: '1', category: 'Pome', label: 'Apple', description: 'Anne eats apples' },
-    { id: '2', category: 'Berry', label: 'Banana', description: 'Ben eats bananas' },
-    { id: '3', category: 'Pome', label: 'Pear', description: 'Patty eats pears' },
-    { id: '4', category: 'Berry', label: 'Grape', description: 'George eats grapes' },
-    { id: '5', category: 'Berry', label: 'Banana', description: 'Becky eats bananas' },
-    { id: '6', category: 'Citrus', label: 'Lemon', description: 'Larry eats lemons' },
-    { id: '7', category: 'Aggregate fruit', label: 'Strawberry', description: 'Sally eats strawberries' }
-  ];
-  const testSelectFieldIcon = 'fa-search';
-  const testSelectFieldPickerHeader = 'Test Select Field Picker Header';
-  const testSelectFieldText = 'Test Select Field Text';
-  const testSingleSelectFieldStyle = 'single';
-  const testMultiSelectFieldStyle = 'multiple';
-  const testPickerItemsSelected = [testPickerItems[2], testPickerItems[4], testPickerItems[6]];
-
-  function getSelectFieldElements(): NodeListOf<HTMLElement> {
+  function setValue(value: any) {
+    component.setValue(value);
     fixture.detectChanges();
-    const selectFieldElement = component.selectFieldElementRef.nativeElement;
-    const selectFieldElements = selectFieldElement.querySelectorAll('.sky-select-field');
-    return selectFieldElements as NodeListOf<HTMLElement>;
+    tick();
+    fixture.detectChanges();
+    expect(selectField.value).toEqual(value);
   }
 
-  function testDefaults() {
-    selectFieldComponent.selectField = testPickerItemsSelected;
-    selectFieldComponent.selectFieldClear = true;
-    selectFieldComponent.selectFieldIcon = testSelectFieldIcon;
-    selectFieldComponent.selectFieldPickerList = testPickerItems;
-    selectFieldComponent.selectFieldStyle = testSingleSelectFieldStyle;
-    selectFieldComponent.selectFieldText = testSelectFieldText;
-    selectFieldComponent.selectFieldPickerHeader = testSelectFieldPickerHeader;
+  function openPicker() {
+    const openSpy = spyOn(selectField, 'openPicker').and.callThrough();
+    const openButton = fixture.nativeElement.querySelector('.sky-btn');
+    openButton.click();
+    tick();
+    fixture.detectChanges();
+    expect(openSpy).toHaveBeenCalled();
+  }
+
+  function savePicker() {
+    const modalCloseButton = document.querySelector('.sky-select-field-picker-btn-save');
+    (modalCloseButton as HTMLElement).click();
+    tick();
+    fixture.detectChanges();
+  }
+
+  function closePicker() {
+    const modalCloseButton = document.querySelector('.sky-select-field-picker-btn-close');
+    (modalCloseButton as HTMLElement).click();
+    tick();
+    fixture.detectChanges();
+  }
+
+  function getTokens(): NodeListOf<any> {
+    return document.querySelectorAll('.sky-token');
+  }
+
+  function closeToken(index: number) {
+    const tokens = getTokens();
+    tokens.item(index).querySelector('button').click();
+    tick();
+    fixture.detectChanges();
+  }
+
+  function selectOptions(numToSelect: number) {
+    const checkboxes = document.querySelectorAll('sky-checkbox input');
+
+    for (let i = 0; i < numToSelect; i++) {
+      (checkboxes.item(i) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+    }
+  }
+
+  function selectOption(index: number) {
+    const buttons = document.querySelectorAll('.sky-list-view-checklist-single-button');
+    (buttons.item(index) as HTMLElement).click();
+    tick();
+    fixture.detectChanges();
   }
 
   beforeEach(() => {
@@ -58,113 +89,174 @@ describe('selectField component', () => {
 
     fixture = TestBed.createComponent(SkySelectFieldTestComponent);
     component = fixture.componentInstance;
-    selectFieldComponent = component.selectFieldComponent;
+    selectField = component.selectField;
   });
 
-  beforeEach(inject([SkyModalService], (_modalService: SkyModalService) => { _modalService.dispose(); }));
-  afterEach(() => { fixture.destroy(); });
+  beforeEach(inject([SkyModalService], (_modalService: SkyModalService) => {
+    _modalService.dispose();
+  }));
+
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   describe('basic setup', () => {
-    it('should have defaults', () => {
-      expect(selectFieldComponent.isSelectMultiple()).toEqual(true);
-      expect(selectFieldComponent.isClearable()).toEqual(false);
-      expect(selectFieldComponent.selectFieldIcon).toEqual('fa-sort');
-      expect(selectFieldComponent.selectField).toEqual([]);
-    });
-
-    it('should set multiple select mode defaults', () => {
-      selectFieldComponent.selectFieldStyle = testMultiSelectFieldStyle;
-      fixture.detectChanges();
-      expect(selectFieldComponent.isSelectMultiple()).toEqual(true);
-      expect(selectFieldComponent.isClearable()).toEqual(false);
-    });
-
-    it('should set single select mode defaults', () => {
-      testDefaults();
-      selectFieldComponent.selectField = [testPickerItems[3]];
-      fixture.detectChanges();
-      expect(selectFieldComponent.isSelectMultiple()).toEqual(false);
-      expect(selectFieldComponent.isClearable()).toEqual(true);
-    });
-
     it('should set defaults', () => {
-      testDefaults();
+      expect(selectField.ariaLabel).toEqual(undefined);
+      expect(selectField.ariaLabelledBy).toEqual(undefined);
+      expect(selectField.data).toEqual(undefined);
+      expect(selectField.descriptorKey).toEqual('label');
+      expect(selectField.disabled).toEqual(false);
+      expect(selectField.selectMode).toEqual('multiple');
+      expect(selectField.multipleSelectOpenButtonText).toEqual('Select values');
+      expect(selectField.singleSelectClearButtonTitle).toEqual('Clear selection');
+      expect(selectField.singleSelectOpenButtonTitle).toEqual('Click to select a value');
+      expect(selectField.singleSelectPlaceholderText).toEqual('Select a value');
+      expect(selectField.pickerHeading).toEqual('Select values');
+    });
+
+    it('should provide inputs', () => {
+      component.ariaLabel = 'my-aria-label';
+      component.ariaLabelledBy = 'my-aria-labelledby';
+      component.descriptorKey = 'name';
+      component.disabled = true;
+      component.selectMode = 'single';
+      component.multipleSelectOpenButtonText = 'open';
+      component.singleSelectClearButtonTitle = 'clear title';
+      component.singleSelectOpenButtonTitle = 'open title';
+      component.singleSelectPlaceholderText = 'placeholder';
+      component.pickerHeading = 'heading';
+
       fixture.detectChanges();
-      expect(selectFieldComponent.selectFieldIcon).toEqual(testSelectFieldIcon);
-      expect(selectFieldComponent.selectFieldText).toEqual(testSelectFieldText);
-      expect(selectFieldComponent.selectField.length).toEqual(3);
+
+      expect(selectField.ariaLabel).toEqual('my-aria-label');
+      expect(selectField.ariaLabelledBy).toEqual('my-aria-labelledby');
+      expect(selectField.descriptorKey).toEqual('name');
+      expect(selectField.disabled).toEqual(true);
+      expect(selectField.selectMode).toEqual('single');
+      expect(selectField.multipleSelectOpenButtonText).toEqual('open');
+      expect(selectField.singleSelectClearButtonTitle).toEqual('clear title');
+      expect(selectField.singleSelectOpenButtonTitle).toEqual('open title');
+      expect(selectField.singleSelectPlaceholderText).toEqual('placeholder');
+      expect(selectField.pickerHeading).toEqual('heading');
     });
   });
 
-  describe('Select field component', () => {
-    it('should open and close select field picker', () => {
-      let selectFieldElements: NodeListOf<HTMLElement>;
-      const spyOnModalOpen = spyOn(selectFieldComponent, 'openFormModal').and.callThrough();
-      selectFieldComponent.selectFieldPickerList = testPickerItems;
-      selectFieldElements = getSelectFieldElements();
-      (selectFieldElements.item(0).querySelector('.sky-select-field-picker-btn-open') as HTMLElement).click();
-      expect(spyOnModalOpen).toHaveBeenCalled();
+  describe('multiple select', () => {
+    it('should set the value from ngModel', fakeAsync(() => {
       fixture.detectChanges();
-      const spyOnChangeEvent = spyOn(selectFieldComponent.selectFieldChange, 'emit');
-      expect(document.querySelector('sky-checkbox input')).toExist();
-      expect(document.querySelector('.sky-select-field-picker-btn-close')).toExist();
-      (document.querySelector('sky-checkbox input') as HTMLElement).click();
-      (document.querySelector('.sky-select-field-picker-btn-close') as HTMLElement).click();
-      expect(spyOnChangeEvent).not.toHaveBeenCalled();
-    });
+      setValue([component.staticData[0]]);
+      expect(selectField.value[0].id).toEqual(component.staticData[0].id);
+    }));
 
-    it('should open and save select field picker', () => {
-      let selectFieldElements: NodeListOf<HTMLElement>;
-      const expectedResults = [Object(testPickerItems[0])];
-      const spyOnModalOpen = spyOn(selectFieldComponent, 'openFormModal').and.callThrough();
-      selectFieldComponent.selectFieldPickerList = testPickerItems;
-      selectFieldElements = getSelectFieldElements();
-      (selectFieldElements.item(0).querySelector('.sky-select-field-picker-btn-open') as HTMLElement).click();
-      expect(spyOnModalOpen).toHaveBeenCalled();
+    it('should collapse all tokens into one if many options are chosen', fakeAsync(() => {
       fixture.detectChanges();
-      const spyOnChangeEvent = spyOn(selectFieldComponent.selectFieldChange, 'emit');
-      expect(document.querySelector('sky-checkbox input')).toExist();
-      expect(document.querySelector('.sky-select-field-picker-btn-save')).toExist();
-      (document.querySelector('sky-checkbox input') as HTMLElement).click();
-      (document.querySelector('.sky-select-field-picker-btn-save') as HTMLElement).click();
-      expect(spyOnChangeEvent).toHaveBeenCalledWith(expectedResults);
-    });
+      setValue([]);
+      openPicker();
+      selectOptions(6);
+      savePicker();
+      expect(selectField.value.length).toEqual(6);
+      expect(getTokens().length).toEqual(1);
+    }));
 
-  });
-  describe('events', () => {
-    it('should clear single select item', () => {
-      testDefaults();
-      selectFieldComponent.selectField = [testPickerItems[3]];
+    it('should refresh value if tokens are closed', fakeAsync(() => {
       fixture.detectChanges();
-      expect(selectFieldComponent.isSelectMultiple()).toEqual(false);
-      expect(selectFieldComponent.isClearable()).toEqual(true);
-      selectFieldComponent.clearSelect();
-      expect(selectFieldComponent.selectField).toEqual([]);
-      expect(selectFieldComponent.isClearable()).toEqual(false);
-    });
+      setValue([component.staticData[0]]);
+      openPicker();
+      selectOptions(2); // Click the selected option to unselect it!
+      savePicker();
+      expect(selectField.value.length).toEqual(1);
 
-    it('should let tokens overflow', () => {
-      const spyOnGet = spyOnProperty(selectFieldComponent, 'tokenOverflow', 'get').and.callThrough();
-      const spyOnSet = spyOnProperty(selectFieldComponent, 'tokenOverflow', 'set').and.callThrough();
-      const spy = spyOn(selectFieldComponent, 'clearSelect').and.callThrough();
-      selectFieldComponent.selectFieldPickerList = testPickerItems;
-      selectFieldComponent.selectField = testPickerItems;
-      fixture.detectChanges();
-      expect(spyOnSet).toHaveBeenCalledWith([Object({ value: Object({ name: '7 items selected' }) })]);
-      expect(spyOnGet).toHaveBeenCalled();
-      selectFieldComponent.tokenOverflow = [];
-      expect(spy).toHaveBeenCalled();
-    });
+      let tokens = getTokens();
+      expect(tokens.length).toEqual(1);
 
-    it('should allow tokens in multiple mode', () => {
-      const spyOnGet = spyOnProperty(selectFieldComponent, 'tokenValues', 'get').and.callThrough();
-      const spyOnSet = spyOnProperty(selectFieldComponent, 'tokenValues', 'set').and.callThrough();
-      selectFieldComponent.selectFieldPickerList = testPickerItems;
-      selectFieldComponent.selectField = [testPickerItems[2]];
-      fixture.detectChanges();
-      expect(spyOnSet).toHaveBeenCalledWith([Object({ value: Object(testPickerItems[2]) })]);
-      expect(spyOnGet).toHaveBeenCalled();
-    });
+      closeToken(0);
+      tokens = getTokens();
+      expect(selectField.value.length).toEqual(0);
+      expect(tokens.length).toEqual(0);
+    }));
   });
 
+  describe('single select', () => {
+    it('should set the value from ngModel', fakeAsync(() => {
+      component.selectMode = 'single';
+      fixture.detectChanges();
+      setValue(component.staticData[0]);
+      expect(selectField.value.id).toEqual(component.staticData[0].id);
+    }));
+
+    it('should select a value from the picker', fakeAsync(() => {
+      component.selectMode = 'single';
+      fixture.detectChanges();
+      setValue({});
+      openPicker();
+      selectOption(0);
+      savePicker();
+      expect(selectField.value.id).toEqual('1');
+    }));
+
+    it('should allow clearing the value', fakeAsync(() => {
+      component.selectMode = 'single';
+      fixture.detectChanges();
+      setValue(component.staticData[0]);
+      expect(selectField.value.id).toEqual('1');
+      const selector = '.sky-input-group-btn .sky-btn';
+      (fixture.nativeElement.querySelectorAll(selector).item(0) as HTMLElement)
+        .click();
+      tick();
+      fixture.detectChanges();
+      expect(selectField.value).toEqual(undefined);
+    }));
+  });
+
+  describe('picker', () => {
+    it('should open and close the picker', fakeAsync(() => {
+      fixture.detectChanges();
+      setValue(undefined);
+      openPicker();
+      selectOptions(1);
+      closePicker();
+
+      // Value should be unaffected since we cancelled our selection:
+      expect(selectField.value).toBeUndefined();
+    }));
+
+    it('should open and save the picker', fakeAsync(() => {
+      fixture.detectChanges();
+      setValue([]);
+      openPicker();
+      selectOptions(2);
+      savePicker();
+
+      expect(selectField.value.length).toEqual(2);
+      expect(selectField.value[0].id).toEqual('1');
+      expect(getTokens().length).toEqual(2);
+    }));
+
+    it('should allow filtering by category', fakeAsync(() => {
+      fixture.detectChanges();
+      setValue([]);
+      openPicker();
+
+      const filterButton: HTMLElement = document.querySelector('.sky-filter-btn');
+      filterButton.click();
+      tick();
+      fixture.detectChanges();
+
+      let values = document.querySelectorAll('sky-checkbox input');
+      expect(values.length).toEqual(6);
+
+      const select = document.querySelector('select') as HTMLSelectElement;
+      const categories = select.querySelectorAll('option');
+      expect(categories.length).toEqual(5);
+
+      categories.item(1).selected = true;
+      SkyAppTestUtility.fireDomEvent(select, 'change');
+      tick();
+      fixture.detectChanges();
+
+      values = document.querySelectorAll('sky-checkbox input');
+      expect(values.length).toEqual(2);
+    }));
+  });
 });

@@ -1,21 +1,30 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormsModule
+} from '@angular/forms';
 
 import { SkySelectFieldModule } from '../select-field.module';
+
 import { SkySelectFieldTestComponent } from './select-field.component.fixture';
-import { SkySelectFieldFormTestComponent } from './select-field-form.component.fixture';
+
 @NgModule({
   declarations: [
-    SkySelectFieldTestComponent,
-    SkySelectFieldFormTestComponent
+    SkySelectFieldTestComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SkySelectFieldModule
   ],
   exports: [
-    SkySelectFieldTestComponent,
-    SkySelectFieldFormTestComponent
+    SkySelectFieldTestComponent
   ]
 })
 export class SkySelectFieldFixturesModule { }

@@ -1,7 +1,7 @@
 <div class="sky-select-field-picker">
   <sky-modal>
     <sky-modal-header>
-      {{ context.headingText }}
+      {{ headingText }}
     </sky-modal-header>
     <sky-modal-content>
       <div class="sky-select-field-picker-content">
@@ -34,7 +34,7 @@
           <sky-list-view-checklist
             label="label"
             description="description"
-            [selectMode]="context.selectMode">
+            [selectMode]="selectMode">
           </sky-list-view-checklist>
           <sky-list-paging
             pageSize="6">

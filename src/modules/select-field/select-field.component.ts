@@ -27,6 +27,7 @@ import {
 } from '../tokens';
 
 import {
+  SkySelectField,
   SkySelectFieldSelectMode
 } from './types';
 
@@ -58,16 +59,34 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
   public ariaLabelledBy: string;
 
   @Input()
-  public data: Observable<any[]>;
+  public data: Observable<SkySelectField[]>;
 
   @Input()
-  public descriptorKey = 'label';
+  public set descriptorKey(value: string) {
+    this._descriptorKey = value;
+  }
+
+  public get descriptorKey(): string {
+    return this._descriptorKey || 'label';
+  }
 
   @Input()
-  public disabled = false;
+  public set disabled(value: boolean) {
+    this._disabled = value;
+  }
+
+  public get disabled(): boolean {
+    return this._disabled || false;
+  }
 
   @Input()
-  public selectMode: SkySelectFieldSelectMode = 'multiple';
+  public set selectMode(value: SkySelectFieldSelectMode) {
+    this._selectMode = value;
+  }
+
+  public get selectMode(): SkySelectFieldSelectMode {
+    return this._selectMode || 'multiple';
+  }
 
   @Input()
   public set multipleSelectOpenButtonText(value: string) {
@@ -122,11 +141,11 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
     return this.resourcesService.getString(`select_field_${this.selectMode}_select_picker_heading`);
   }
 
-  public get value(): any[] {
+  public get value(): any {
     return this._value;
   }
 
-  public set value(value: any[]) {
+  public set value(value: any) {
     this._value = value;
     this.onChange(this.value);
     this.onTouched();
@@ -144,12 +163,15 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
 
   public tokens: SkyToken[];
 
+  private _descriptorKey: string;
+  private _disabled: boolean;
   private _multipleSelectOpenButtonText: string;
   private _pickerHeading: string;
+  private _selectMode: SkySelectFieldSelectMode;
   private _singleSelectClearButtonTitle: string;
   private _singleSelectOpenButtonTitle: string;
   private _singleSelectPlaceholderText: string;
-  private _value: any[];
+  private _value: any;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -164,7 +186,7 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
 
     const newIds = change.map(token => token.value.id);
 
-    this.data.take(1).subscribe((items: any[]) => {
+    this.data.take(1).subscribe((items: SkySelectField[]) => {
       const newValues = items.filter(item => newIds.indexOf(item.id) > -1);
       this.value = newValues;
       this.setTokensFromValue();
@@ -197,7 +219,7 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
     });
   }
 
-  public writeValue(value: any[]) {
+  public writeValue(value: any) {
     if (this.disabled) {
       return;
     }
@@ -211,7 +233,7 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
 
   // Angular automatically constructs these methods.
   /* istanbul ignore next */
-  public onChange = (value: any[]) => {};
+  public onChange = (value: any) => {};
   /* istanbul ignore next */
   public onTouched = () => {};
 
@@ -240,12 +262,6 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
       return;
     }
 
-    // Reset tokens if the value is empty.
-    if (!this.value) {
-      this.tokens = undefined;
-      return;
-    }
-
     // Collapse the tokens into a single token if the user has selected many options.
     if (this.value.length > 5) {
       tokens = [{
@@ -256,7 +272,7 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
         }
       }];
     } else {
-      tokens = this.value.map(value => ({ value }));
+      tokens = this.value.map((value: any) => ({ value }));
     }
 
     this.tokens = tokens;

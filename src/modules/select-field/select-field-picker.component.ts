@@ -1,11 +1,20 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   OnInit,
   ViewChild
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
+
+import {
+  ListItemModel
+} from '../list/state';
+
+import { SkyListFilterInlineModel } from '../list-filters/list-filter-inline.model';
 
 import {
   SkyListViewChecklistComponent
@@ -15,6 +24,15 @@ import {
   SkyModalInstance
 } from '../modal';
 
+import {
+  SkyWindowRefService
+} from '../window';
+
+import {
+  SkySelectField,
+  SkySelectFieldSelectMode
+} from './types';
+
 import { SkySelectFieldPickerContext } from './select-field-picker-context';
 
 @Component({
@@ -22,9 +40,11 @@ import { SkySelectFieldPickerContext } from './select-field-picker-context';
   templateUrl: './select-field-picker.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkySelectFieldPickerComponent implements OnInit {
+export class SkySelectFieldPickerComponent implements OnInit, AfterContentInit {
   public categories: string[];
   public data: Observable<any>;
+  public selectMode: SkySelectFieldSelectMode;
+  public headingText: string;
 
   public readonly defaultCategory = 'any';
   public selectedCategory = this.defaultCategory;
@@ -35,22 +55,28 @@ export class SkySelectFieldPickerComponent implements OnInit {
 
   constructor(
     private context: SkySelectFieldPickerContext,
-    private instance: SkyModalInstance
+    private instance: SkyModalInstance,
+    private elementRef: ElementRef,
+    private windowRef: SkyWindowRefService
   ) { }
 
   public ngOnInit() {
     this.data = this.context.data;
-
-    if (this.context.selectMode === 'multiple' && this.context.selectedValue) {
-      this.selectedIds = this.context.selectedValue.map((item: any) => item.id);
-    }
-
+    this.headingText = this.context.headingText;
+    this.selectMode = this.context.selectMode;
+    this.selectedIds = this.getSelectedIds();
     this.assignCategories();
   }
 
+  public ngAfterContentInit() {
+    this.windowRef.getWindow().setTimeout(() => {
+      this.elementRef.nativeElement.querySelector('.sky-search-input').focus();
+    });
+  }
+
   public save() {
-    this.latestData.subscribe((items: any) => {
-      const results = items.filter((item: any) => {
+    this.latestData.subscribe((items: SkySelectField[]) => {
+      const results = items.filter((item: SkySelectField) => {
         return (this.selectedIds.indexOf(item.id) > -1);
       });
       this.instance.save(results);
@@ -61,26 +87,26 @@ export class SkySelectFieldPickerComponent implements OnInit {
     this.instance.close();
   }
 
-  public filterByCategory(item: any, category: string) {
-    return (category === this.defaultCategory || item.data.category === category);
+  public filterByCategory(model: ListItemModel, category: string) {
+    return (category === this.defaultCategory || model.data.category === category);
   }
 
-  public onCategoryChange(change: any, filter: any) {
+  public onCategoryChange(change: SkyListFilterInlineModel, filter: any) {
     // Reset the selected values when the category changes.
     this.listViewChecklist.clearSelections();
     filter.changed(change);
   }
 
   public onSelectedIdsChange(selectedMap: Map<string, boolean>) {
-    this.latestData.subscribe((items: any[]) => {
-      this.selectedIds = items.filter((item: any) => selectedMap.get(item.id))
-        .map((item: any) => item.id);
+    this.latestData.subscribe((items: SkySelectField[]) => {
+      this.selectedIds = items.filter(item => selectedMap.get(item.id))
+        .map(item => item.id);
     });
   }
 
   private assignCategories() {
-    this.latestData.subscribe((items: any[]) => {
-      const allCategories = items.map((item: any) => item.category);
+    this.latestData.subscribe((items: SkySelectField[]) => {
+      const allCategories = items.map(item => item.category);
       // Remove duplicate category names:
       this.categories = allCategories.filter((category: string, i: number, categories: string[]) => {
         return (category && categories.indexOf(category) === i);
@@ -88,7 +114,22 @@ export class SkySelectFieldPickerComponent implements OnInit {
     });
   }
 
-  private get latestData(): Observable<any> {
+  private get latestData(): Observable<SkySelectField[]> {
     return this.data.take(1);
+  }
+
+  private getSelectedIds(): string[] {
+    const context = this.context;
+    const selectedValue = context.selectedValue;
+
+    if (selectedValue) {
+      if (context.selectMode === 'single') {
+        return [context.selectedValue.id];
+      }
+
+      return context.selectedValue.map((item: SkySelectField) => item.id);
+    }
+
+    return [];
   }
 }
