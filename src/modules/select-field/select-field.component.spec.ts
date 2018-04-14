@@ -238,8 +238,8 @@ describe('Select field component', () => {
       setValue([]);
       openPicker();
 
-      const filterButton: HTMLElement = document.querySelector('.sky-filter-btn');
-      filterButton.click();
+      const filterButton = document.querySelector('.sky-filter-btn');
+      (filterButton as HTMLElement).click();
       tick();
       fixture.detectChanges();
 
