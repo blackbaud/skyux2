@@ -892,6 +892,10 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./select-field/select-field-demo.component.html')
         },
         {
+          name: 'select-field-demo.component.scss',
+          fileContents: require('!!raw-loader!./select-field/select-field-demo.component.scss')
+        },
+        {
           name: 'select-field-demo.component.ts',
           fileContents: require('!!raw-loader!./select-field/select-field-demo.component.ts'),
           componentName: 'SkySelectFieldDemoComponent',
