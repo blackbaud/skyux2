@@ -314,7 +314,8 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
 
     if (this.scrollListeners.length > 0) {
       for (let i = 0; i < this.scrollListeners.length; i++) {
-        // Remove listeners
+        // Remove renderer-generated listeners by calling the listener itself.
+        // https://github.com/angular/angular/issues/9368#issuecomment-227199778
         this.scrollListeners[i]();
       }
 
