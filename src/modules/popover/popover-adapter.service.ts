@@ -83,32 +83,21 @@ export class SkyPopoverAdapterService {
   }
 
   public getParentScrollListeners(popover: ElementRef, callback: Function): Function[] {
+    const bodyElement = this.windowRef.getWindow().document.body;
     const parentElements = this.getScrollableParentElements(popover);
 
-    let listeners: Function[] = [];
-    parentElements.forEach((parentElement: HTMLElement) => {
-      const target: any = (parentElement === document.body) ? 'window' : parentElement;
-      const listener = this.renderer.listen(target, 'scroll', () => {
-        callback.call({}, this.checkInView(parentElement, popover.nativeElement));
-      });
+    const listeners = parentElements.map((parentElement: HTMLElement) => {
+      const target: any = (parentElement === bodyElement) ? 'window' : parentElement;
 
-      listeners.push(listener);
+      return this.renderer.listen(target, 'scroll', () => {
+        const isVisible = (target === 'window')
+          ? true
+          : this.isVisibleWithinScrollable(target, popover.nativeElement);
+        callback.call({}, isVisible);
+      });
     });
 
     return listeners;
-  }
-
-  // https://stackoverflow.com/questions/16308037/detect-when-elements-within-a-scrollable-div-are-out-of-view
-  public checkInView(container: any, element: any): boolean {
-    // Get container properties
-    let cTop = container.scrollTop;
-    let cBottom = cTop + container.clientHeight;
-
-    // Get element properties
-    let eTop = element.offsetTop;
-    let eBottom = eTop + element.clientHeight;
-
-    return (eTop >= cTop && eBottom <= cBottom);
   }
 
   private getPopoverCoordinates(
@@ -332,27 +321,33 @@ export class SkyPopoverAdapterService {
 
     while (
       parentElement !== undefined &&
-      parentElement instanceof HTMLElement &&
-      parentElement !== bodyElement
+      parentElement !== bodyElement &&
+      parentElement instanceof HTMLElement
     ) {
-      const overflowY = windowObj.getComputedStyle(parentElement, undefined).overflowY;
-
-      /*istanbul ignore else */
-      if (overflowY) {
-        switch (overflowY.toUpperCase()) {
-          case 'AUTO':
-          case 'HIDDEN':
-          case 'SCROLL':
-            result.push(parentElement);
-            break;
-          default:
-            break;
-        }
+      const overflowY = windowObj.getComputedStyle(parentElement, undefined).overflowY.toLowerCase();
+      if (overflowY === 'auto' || overflowY === 'hidden' || overflowY === 'scroll') {
+        result.push(parentElement);
       }
 
       parentElement = parentElement.parentNode;
     }
 
     return result;
+  }
+
+  // Returns true if the popover is visible in the scrollable parent.
+  private isVisibleWithinScrollable(container: any, popover: any): boolean {
+    const containerRect = container.getBoundingClientRect();
+    const containerTop = containerRect.top;
+    const containerBottom = containerRect.bottom;
+
+    const popoverRect = popover.getBoundingClientRect();
+    const popoverTop = popoverRect.top;
+    const popoverBottom = popoverRect.bottom;
+
+    const percentageTopVisible = popoverTop / containerTop * 100;
+    const percentageBottomVisible = containerBottom / popoverBottom * 100;
+
+    return (percentageTopVisible > 95 && percentageBottomVisible > 95);
   }
 }

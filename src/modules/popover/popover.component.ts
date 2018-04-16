@@ -89,6 +89,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public popoverArrow: ElementRef;
 
   public isOpen = false;
+  public isVisible = false;
   public isMouseEnter = false;
   public classNames: string[] = [];
   public animationState: 'hidden' | 'visible' = 'hidden';
@@ -147,6 +148,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
         this.placement = 'fullscreen';
       }
 
+      this.isVisible = true;
       this.positionPopover();
       this.addListeners();
       this.animationState = 'visible';
@@ -299,10 +301,10 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       });
 
     this.scrollListeners = this.adapterService.getParentScrollListeners(this.popoverContainer, (isInView: boolean) => {
-      if (isInView) {
-        this.positionPopover();
-      } else {
-        this.close();
+      this.positionPopover();
+      if (this.isVisible !== isInView) {
+        this.isVisible = isInView;
+        this.changeDetector.markForCheck();
       }
     });
   }
