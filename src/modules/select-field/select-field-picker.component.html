@@ -22,8 +22,13 @@
                   <select
                     [ngModel]="filter.value"
                     (ngModelChange)="onCategoryChange($event, filter)">
-                    <option value="{{ defaultCategory }}">{{ 'select_field_picker_show_all_category' | skyResources }}</option>
-                    <option *ngFor="let category of categories">
+                    <option
+                      [value]="defaultCategory">
+                      {{ 'select_field_picker_show_all_category' | skyResources }}
+                    </option>
+                    <option
+                      *ngFor="let category of categories"
+                      [value]="category">
                       {{ category }}
                     </option>
                   </select>
