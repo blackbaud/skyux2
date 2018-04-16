@@ -1,44 +1,103 @@
-import { DebugElement } from '@angular/core';
-import { inject, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { TestBed } from '@angular/core/testing';
 import { SkyToastService } from './toast.service';
-import { SkyToastConfig, SkyToastType, SkyToastMessage } from '../types';
-import { SkyToastTestComponent } from '../fixtures/toast.component.fixture';
-import { SkyToastModule } from '..';
+import { SkyToastConfig, SkyToastType, SkyToastMessage, SkyToastCustomComponent } from '../types';
+import { SkyWindowRefService } from '../../window';
+import { SkyToastAdapterService } from './toast-adapter.service';
+import { ApplicationRef, ComponentFactoryResolver, Injector } from '@angular/core';
 
-describe('SkyToast class', () => {
-  class TestComponent {}
+describe('Toast service', () => {
+  class TestComponent implements SkyToastCustomComponent {public message: SkyToastMessage;}
   let toastService: SkyToastService;
 
   beforeEach(() => {
-    inject([SkyToastService], (_toastService: SkyToastService) => {
-      toastService = _toastService;
+    TestBed.configureTestingModule({
+      providers: [
+        SkyToastService,
+        {
+          provide: SkyToastAdapterService,
+          useValue: {
+            appendToBody() { },
+            removeHostElement() { }
+          }
+        },
+        {
+          provide: ApplicationRef,
+          useValue: {
+            attachView() {},
+            detachView() {}
+          }
+        },
+        Injector,
+        {
+          provide: ComponentFactoryResolver,
+          useValue: {
+            resolveComponentFactory() {
+              return {
+                create() {
+                  return {
+                    destroy() {},
+                    hostView: {
+                      rootNodes: [
+                        {}
+                      ]
+                    },
+                    instance: {
+                      messageStream: {
+                        take() {
+                          return {
+                            subscribe() { }
+                          };
+                        },
+                        next() {}
+                      },
+                      attach() {
+                        return {
+                          close() { },
+                          closed: {
+                            take() {
+                              return {
+                                subscribe() { }
+                              };
+                            }
+                          }
+                        };
+                      }
+                    }
+                  };
+                }
+              };
+            }
+          }
+        },
+        SkyWindowRefService
+      ]
     });
+    toastService = TestBed.get(SkyToastService);
   });
 
-describe('Infinite scroll component', () => {
-    let fixture: ComponentFixture<SkyToastTestComponent>;
-    let cmp: SkyToastTestComponent;
-    let debugElement: DebugElement;
+  it('should only create a single host component', () => {
+      const spy = spyOn(toastService as any, 'createHostComponent').and.callThrough();
+      toastService.open({message: 'message'});
+      toastService.open({message: 'message'});
+      expect(spy.calls.count()).toEqual(1);
+  });
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        declarations: [SkyToastTestComponent],
-        imports: [SkyToastModule]
-      });
-    });
-    afterEach(() => {
-      if (fixture) {
-        fixture.destroy();
-      }
-    });
+  it('should return an instance with a close method', () => {
+      const toast = toastService.open({message: 'message'});
+      expect(typeof toast.close).toEqual('function');
+  });
+
+  it('should expose a method to remove the toast from the DOM', () => {
+      let message: SkyToastMessage = toastService.open({message: 'message'});
+      const spy = spyOn(message, 'close').and.callThrough();
+      toastService.ngOnDestroy();
+      expect(spy).toHaveBeenCalledWith();
+  });
 
   describe('openMessage() method', () => {
     it('should open a toast with the given message and configuration', function() {
       let configuration: SkyToastConfig = {
         toastType: SkyToastType.Danger,
-        timeout: 23,
-        disableTimeout: false,
         message: 'fake message'
       };
       let internalMessage: SkyToastMessage = toastService.openMessage('Real message', configuration);
@@ -47,96 +106,72 @@ describe('Infinite scroll component', () => {
       expect(internalMessage.message).toBe('Real message');
       expect(internalMessage.toastType).toBe('danger');
 
-      expect(internalMessage.timeout).toBeTruthy();
       expect(internalMessage.close).toBeTruthy();
-      expect(internalMessage.isClosing).toBeFalsy();
-      expect(internalMessage.isClosed).toBeFalsy();
+      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
+      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
     });
   });
 
   describe('openCustom() method', () => {
     it('should open a custom toast with the given component type and configuration', function() {
-      let internalConfig: IndividualConfig;
-      let configuration: ToastConfig = {
-        toastType: 'error',
-        timeOut: 23,
-        extendedTimeOut: 48,
-        disableTimeout: false
+      let configuration: SkyToastConfig = {
+        message: 'fake message',
+        toastType: SkyToastType.Danger
       };
       
-      fakeToastrService.error = (message: string, title?: string, override?: IndividualConfig) => {
-        internalConfig = override;
-        expect(title).toBe(undefined);
-        expect(message).toBe(undefined);
-        return {} as ActiveToast;
-      };
-      toast.openCustom(TestComponent, configuration);
+      let internalMessage: SkyToastMessage = toastService.openTemplatedMessage(TestComponent, configuration);
 
-      expect(internalConfig).toBeTruthy();
-      expect(internalConfig.timeOut).toBe(23);
-      expect(internalConfig.extendedTimeOut).toBe(48);
-      expect(internalConfig.toastClass).toBe('sky-toast-error');
-      expect(internalConfig.toastComponent).toBe(TestComponent);
+      expect(internalMessage).toBeTruthy();
+      expect(internalMessage.message).toBeFalsy();
+      expect(internalMessage.customComponentType).toBeTruthy();
+      expect(internalMessage.toastType).toBe('danger');
+
+      expect(internalMessage.close).toBeTruthy();
+      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
+      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
     });
   });
 
   describe('open() method', () => {
     it('should open a toast with the given message and configuration', function() {
-      let internalConfig: IndividualConfig;
-      let internalMessage: string;
-      let configuration: ToastConfig = {
-        toastType: 'error',
-        timeOut: 23,
-        extendedTimeOut: 48,
-        disableTimeout: false,
+      let configuration: SkyToastConfig = {
+        toastType: SkyToastType.Danger,
         message: 'My message'
       };
       
-      fakeToastrService.error = (message: string, title?: string, override?: IndividualConfig) => {
-        internalConfig = override;
-        expect(title).toBe(undefined);
-        internalMessage = message;
-        return {} as ActiveToast;
-      };
-      toast.open(configuration);
+      let internalMessage: SkyToastMessage = toastService.open(configuration);
 
       expect(internalMessage).toBeTruthy();
-      expect(internalMessage).toBe('My message');
+      expect(internalMessage.message).toBe('My message');
+      expect(internalMessage.customComponentType).toBeFalsy();
+      expect(internalMessage.toastType).toBe('danger');
 
-      expect(internalConfig).toBeTruthy();
-      expect(internalConfig.timeOut).toBe(23);
-      expect(internalConfig.extendedTimeOut).toBe(48);
-      expect(internalConfig.toastClass).toBe('sky-toast-error');
+      expect(internalMessage.close).toBeTruthy();
+      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
+      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
     });
 
     it('should open a custom toast with the given component type and configuration', function() {
-      let internalConfig: IndividualConfig;
-      let configuration: ToastConfig = {
-        toastType: 'error',
-        timeOut: 23,
-        extendedTimeOut: 48,
-        disableTimeout: false,
+      let configuration: SkyToastConfig = {
+        toastType: SkyToastType.Danger,
         customComponentType: TestComponent
       };
       
-      fakeToastrService.error = (message: string, title?: string, override?: IndividualConfig) => {
-        internalConfig = override;
-        expect(title).toBe(undefined);
-        expect(message).toBe(undefined);
-        return {} as ActiveToast;
-      };
-      toast.open(configuration);
+      let internalMessage: SkyToastMessage = toastService.open(configuration);
 
-      expect(internalConfig).toBeTruthy();
-      expect(internalConfig.timeOut).toBe(23);
-      expect(internalConfig.extendedTimeOut).toBe(48);
-      expect(internalConfig.toastClass).toBe('sky-toast-error');
-      expect(internalConfig.toastComponent).toBe(TestComponent);
+      expect(internalMessage).toBeTruthy();
+      expect(internalMessage.message).toBeFalsy();
+      expect(internalMessage.customComponentType).toBeTruthy();
+      expect(internalMessage.toastType).toBe('danger');
+
+      expect(internalMessage.close).toBeTruthy();
+      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
+      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
     });
 
     it('should require a message or customComponentType parameter', function() {
       try {
-        toast.open({});
+        toastService.open({});
       }
       catch(error) {
         expect(error).toBe('You must provide either a message or a customComponentType.');
@@ -145,63 +180,31 @@ describe('Infinite scroll component', () => {
 
     it('should reject both a message and customComponentType being supplied', function() {
       try {
-        toast.open({message: 'My message', customComponentType: TestComponent});
+        toastService.open({message: 'My message', customComponentType: TestComponent});
       }
       catch(error) {
         expect(error).toBe('You must not provide both a message and a customComponentType.');
       }
     });
 
-    it('should set timeouts to 0 when disableTimeout is true', function () {
-      let internalConfig: Partial<IndividualConfig>;
-      fakeToastrService.info = (message: string, title?: string, override?: Partial<IndividualConfig>)=> {internalConfig = override; return {} as ActiveToast;}
-
-      toast.open({
-        message: 'info message',
-        toastType: 'info',
-        disableTimeout: true,
-        timeOut: 22,
-        extendedTimeOut: 44});
-
-      expect(internalConfig).toBeTruthy();
-      expect(internalConfig.timeOut).toBe(0);
-      expect(internalConfig.extendedTimeOut).toBe(0);
-    });
-
     it('should open specific toast types', function () {
-      let infoCalled: boolean = false;
-      let warningCalled: boolean = false;
-      let errorCalled: boolean = false;
+      let infoMessage = toastService.open({message: 'info message', toastType: SkyToastType.Info});
+      let warningMessage = toastService.open({message: 'warning message', toastType: SkyToastType.Warning});
+      let dangerMessage = toastService.open({message: 'danger message', toastType: SkyToastType.Danger});
+      let successMessage = toastService.open({message: 'success message', toastType: SkyToastType.Success});
 
-      fakeToastrService.info = () => {infoCalled = true; return {} as ActiveToast;}
-      fakeToastrService.warning = () => {warningCalled = true; return {} as ActiveToast;}
-      fakeToastrService.error = () => {errorCalled = true; return {} as ActiveToast;}
-
-      toast.open({message: 'info message', toastType: 'info'});
-      toast.open({message: 'warning message', toastType: 'warning'});
-      toast.open({message: 'error message', toastType: 'error'});
-
-      expect(infoCalled).toBeTruthy();
-      expect(warningCalled).toBeTruthy();
-      expect(errorCalled).toBeTruthy();
+      expect(infoMessage.toastType).toBe('info');
+      expect(warningMessage.toastType).toBe('warning');
+      expect(dangerMessage.toastType).toBe('danger');
+      expect(successMessage.toastType).toBe('success');
     });
 
     it('should open info toast type when no or an unknown type is supplied', function () {
-      let infoCalledCount: number = 0;
-      fakeToastrService.info = () => {infoCalledCount++; return {} as ActiveToast;}
+      let emptyType: SkyToastMessage = toastService.open({message: 'info message'});
+      let unknownType: SkyToastMessage = toastService.open({message: 'info message', toastType: 5});
 
-      toast.open({message: 'info message', toastType: undefined});
-      toast.open({message: 'info message', toastType: 'NotAToastType'});
-
-      expect(infoCalledCount).toBe(2);
-    });
-
-    it('should open error toast type when danger type is supplied', function () {
-      let errorCalled: boolean = false;
-      fakeToastrService.error = () => {errorCalled = true; return {} as ActiveToast;}
-
-      toast.open({message: 'error message', toastType: 'danger'});
-      expect(errorCalled).toBeTruthy();
+      expect(emptyType.toastType).toBe('info');
+      expect(unknownType.toastType).toBe('info');
     });
   });
 });

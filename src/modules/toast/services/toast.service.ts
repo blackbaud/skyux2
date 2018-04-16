@@ -68,10 +68,10 @@ export class SkyToastService implements OnDestroy {
 
   private createMessage(config: SkyToastConfig): SkyToastMessage {
     if (!config.message && !config.customComponentType) {
-      throw 'Either a message or custom toast type must be provided.';
+      throw 'You must provide either a message or a customComponentType.';
     }
     if (config.message && config.customComponentType) {
-      throw 'Both a message and custom toast type may not be provided.';
+      throw 'You must not provide both a message and a customComponentType.';
     }
 
     let toastType: string = 'info';
