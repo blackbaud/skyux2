@@ -102,6 +102,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   private idled = new Subject<boolean>();
   private isMarkedForCloseOnMouseLeave = false;
   private preferredPlacement: SkyPopoverPlacement;
+  private scrollListeners: Function[] = [];
 
   private _alignment: SkyPopoverAlignment;
   private _placement: SkyPopoverPlacement;
@@ -231,13 +232,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     const hostElement = this.elementRef.nativeElement;
 
     Observable
-      .fromEvent(windowObj, 'scroll')
-      .takeUntil(this.idled)
-      .subscribe(() => {
-        this.positionPopover();
-      });
-
-    Observable
       .fromEvent(windowObj, 'resize')
       .takeUntil(this.idled)
       .subscribe(() => {
@@ -303,9 +297,26 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
           }
         }
       });
+
+    this.scrollListeners = this.adapterService.getParentScrollListeners(this.popoverContainer, (isInView: boolean) => {
+      if (isInView) {
+        this.positionPopover();
+      } else {
+        this.close();
+      }
+    });
   }
 
   private removeListeners(): void {
     this.idled.next(true);
+
+    if (this.scrollListeners.length > 0) {
+      for (let i = 0; i < this.scrollListeners.length; i++) {
+        // Remove listeners
+        this.scrollListeners[i]();
+      }
+
+      this.scrollListeners = [];
+    }
   }
 }

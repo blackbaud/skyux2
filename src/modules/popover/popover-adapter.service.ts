@@ -82,6 +82,35 @@ export class SkyPopoverAdapterService {
     );
   }
 
+  public getParentScrollListeners(popover: ElementRef, callback: Function): Function[] {
+    const parentElements = this.getScrollableParentElements(popover);
+
+    let listeners: Function[] = [];
+    parentElements.forEach((parentElement: HTMLElement) => {
+      const target: any = (parentElement === document.body) ? 'window' : parentElement;
+      const listener = this.renderer.listen(target, 'scroll', () => {
+        callback.call({}, this.checkInView(parentElement, popover.nativeElement));
+      });
+
+      listeners.push(listener);
+    });
+
+    return listeners;
+  }
+
+  // https://stackoverflow.com/questions/16308037/detect-when-elements-within-a-scrollable-div-are-out-of-view
+  public checkInView(container: any, element: any): boolean {
+    // Get container properties
+    let cTop = container.scrollTop;
+    let cBottom = cTop + container.clientHeight;
+
+    // Get element properties
+    let eTop = element.offsetTop;
+    let eBottom = eTop + element.clientHeight;
+
+    return (eTop >= cTop && eBottom <= cBottom);
+  }
+
   private getPopoverCoordinates(
     elements: SkyPopoverAdapterElements,
     placement: SkyPopoverPlacement,
@@ -292,5 +321,38 @@ export class SkyPopoverAdapterService {
     };
 
     return pairings[placement];
+  }
+
+  private getScrollableParentElements(element: ElementRef): Array<HTMLElement> {
+    const windowObj = this.windowRef.getWindow();
+    const bodyElement = windowObj.document.body;
+    const result = [bodyElement];
+
+    let parentElement = element.nativeElement.parentNode;
+
+    while (
+      parentElement !== undefined &&
+      parentElement instanceof HTMLElement &&
+      parentElement !== bodyElement
+    ) {
+      const overflowY = windowObj.getComputedStyle(parentElement, undefined).overflowY;
+
+      /*istanbul ignore else */
+      if (overflowY) {
+        switch (overflowY.toUpperCase()) {
+          case 'AUTO':
+          case 'HIDDEN':
+          case 'SCROLL':
+            result.push(parentElement);
+            break;
+          default:
+            break;
+        }
+      }
+
+      parentElement = parentElement.parentNode;
+    }
+
+    return result;
   }
 }

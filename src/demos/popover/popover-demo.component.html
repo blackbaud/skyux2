@@ -204,18 +204,21 @@
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button
-  class="sky-btn"
-  type="button"
-  [skyPopover]="myPopover4"
-  skyPopoverPlacement="left">
-  Left
-</button>
+<div style="height:100px;overflow:scroll;">
+    <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="myPopover4"
+    skyPopoverPlacement="left">
+    Left
+  </button>
 
-<sky-popover #myPopover4>
-  The content of a popover can be text, HTML, or Angular components.
-  <a href="">Some link</a>
-</sky-popover>
+  <sky-popover #myPopover4>
+    The content of a popover can be text, HTML, or Angular components.
+    <a href="">Some link</a>
+  </sky-popover>
+  <p>Vestibulum efficitur leo eleifend, ullamcorper metus eu, pellentesque dolor. Phasellus vel malesuada lectus, a sodales turpis. Vestibulum commodo ligula quis tellus commodo, non pharetra lectus porttitor. Donec accumsan, nunc a feugiat sollicitudin, eros neque efficitur velit, a pharetra nunc ante quis justo. In interdum sapien id feugiat condimentum. Quisque convallis et nisl a mollis. Phasellus turpis est, dictum eget pellentesque id, cursus sed risus. Aliquam pharetra feugiat semper. Etiam lacinia ut est ac fringilla. Vivamus eget fermentum ligula, quis interdum lacus. Etiam et orci finibus tellus hendrerit finibus. Morbi mauris metus, cursus at fringilla at, cursus vitae dui.</p>
+</div>
 
 <h3>
   Or, via links:
@@ -268,9 +271,9 @@
   The content of a popover can be text, HTML, or Angular components.
 </sky-popover>
 
-<button class="sky-btn" [skyPopover]="myPopoverOnClosed">
-  Say something when closed
-</button>
+    <button class="sky-btn" [skyPopover]="myPopoverOnClosed">
+        Say something when closed
+      </button>
 
 <sky-popover
   popoverTitle="Did you know?"
