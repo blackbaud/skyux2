@@ -1,8 +1,7 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 import { element, by } from 'protractor';
 
-fdescribe('Select field', () => {
-
+describe('Select field', () => {
   it('should match previous multiple mode screenshot', () => {
     return SkyVisualTest
       .setupTest('select-field')

@@ -247,16 +247,22 @@ describe('Select field component', () => {
       expect(values.length).toEqual(6);
 
       const select = document.querySelector('select') as HTMLSelectElement;
-      const categories = select.querySelectorAll('option');
-      expect(categories.length).toEqual(5);
 
-      categories.item(1).selected = true;
+      // Select a category.
+      for (let i = 0, len = select.options.length; i < len; i++) {
+        if (select.options[i].value === 'Berry') {
+          select.options[i].selected = true;
+          select.selectedIndex = i;
+        }
+      }
+
       SkyAppTestUtility.fireDomEvent(select, 'change');
       tick();
       fixture.detectChanges();
 
       values = document.querySelectorAll('sky-checkbox input');
-      expect(values.length).toEqual(2);
+      expect(select.options.length).toEqual(5);
+      expect(values.length).toEqual(3);
     }));
   });
 });
