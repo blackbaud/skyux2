@@ -1,7 +1,9 @@
 import {
   Component,
-  Input
- } from '@angular/core';
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import {
   ListState
 } from '../list/state';
@@ -36,15 +38,20 @@ import { Observable } from 'rxjs/Observable';
 export class SkyListColumnSelectorActionComponent {
   @Input()
   public gridView: SkyListViewGridComponent;
+  @Input()
+  public helpKey: string;
+
+  @Output()
+  public helpOpened: EventEmitter<string> = new EventEmitter();
 
   constructor(
     public listState: ListState,
     private modalService: SkyModalService
-  ) {}
+  ) { }
 
   get isInGridView(): Observable<boolean> {
     return this.listState.map(s => s.views.active).map((activeView) => {
-      return this.gridView && (activeView === this.gridView.id) ;
+      return this.gridView && (activeView === this.gridView.id);
     }).distinctUntilChanged();
   }
 
@@ -77,16 +84,21 @@ export class SkyListColumnSelectorActionComponent {
 
       let modalInstance = this.modalService.open(
         SkyColumnSelectorComponent,
-        [
-          {
-            provide: SkyColumnSelectorContext,
-            useValue: {
-              columns: columns,
-              selectedColumnIds: selectedColumnIds
+        {
+          providers: [
+            {
+              provide: SkyColumnSelectorContext,
+              useValue: {
+                columns: columns,
+                selectedColumnIds: selectedColumnIds
+              }
             }
-          }
-        ]
+          ],
+          helpKey: this.helpKey
+        }
       );
+
+      modalInstance.helpOpened.subscribe((helpKey: string) => this.helpOpened.emit(helpKey));
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
         if (result.reason === 'save' && result.data) {
@@ -100,8 +112,8 @@ export class SkyListColumnSelectorActionComponent {
             });
           this.gridView.gridDispatcher.next(
             new ListViewDisplayedGridColumnsLoadAction(
-             newDisplayedColumns,
-            true)
+              newDisplayedColumns,
+              true)
           );
         }
       });
