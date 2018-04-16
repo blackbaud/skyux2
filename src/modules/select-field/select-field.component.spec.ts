@@ -7,7 +7,8 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect, SkyAppTestUtility
+  expect,
+  SkyAppTestUtility
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyModalService } from '../modal/modal.service';
@@ -247,14 +248,9 @@ describe('Select field component', () => {
       expect(values.length).toEqual(6);
 
       const select = document.querySelector('select') as HTMLSelectElement;
-
-      // Select a category.
-      for (let i = 0, len = select.options.length; i < len; i++) {
-        if (select.options[i].value === 'Berry') {
-          select.options[i].selected = true;
-          select.selectedIndex = i;
-        }
-      }
+      const option = select.options[1];
+      option.setAttribute('selected', 'selected');
+      expect(option.value).toEqual('Pome');
 
       SkyAppTestUtility.fireDomEvent(select, 'change');
       tick();
@@ -262,7 +258,7 @@ describe('Select field component', () => {
 
       values = document.querySelectorAll('sky-checkbox input');
       expect(select.options.length).toEqual(5);
-      expect(values.length).toEqual(3);
+      expect(values.length).toEqual(2);
     }));
   });
 });
