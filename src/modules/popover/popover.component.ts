@@ -300,13 +300,15 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.scrollListeners = this.adapterService.getParentScrollListeners(this.popoverContainer, (isInView: boolean) => {
-      this.positionPopover();
-      if (this.isVisible !== isInView) {
-        this.isVisible = isInView;
-        this.changeDetector.markForCheck();
-      }
-    });
+    this.scrollListeners = this.adapterService
+      .getParentScrollListeners(this.popoverContainer, (isInView: boolean) => {
+        this.positionPopover();
+
+        if (this.isVisible !== isInView) {
+          this.isVisible = isInView;
+          this.changeDetector.markForCheck();
+        }
+      });
   }
 
   private removeListeners(): void {

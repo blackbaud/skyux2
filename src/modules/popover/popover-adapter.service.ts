@@ -338,15 +338,10 @@ export class SkyPopoverAdapterService {
   // Returns true if the popover is visible in the scrollable parent.
   private isVisibleWithinScrollable(container: any, popover: any): boolean {
     const containerRect = container.getBoundingClientRect();
-    const containerTop = containerRect.top;
-    const containerBottom = containerRect.bottom;
-
     const popoverRect = popover.getBoundingClientRect();
-    const popoverTop = popoverRect.top;
-    const popoverBottom = popoverRect.bottom;
 
-    const percentageTopVisible = popoverTop / containerTop * 100;
-    const percentageBottomVisible = containerBottom / popoverBottom * 100;
+    const percentageTopVisible = popoverRect.top / containerRect.top * 100;
+    const percentageBottomVisible = containerRect.bottom / popoverRect.bottom * 100;
 
     return (percentageTopVisible > 95 && percentageBottomVisible > 95);
   }
