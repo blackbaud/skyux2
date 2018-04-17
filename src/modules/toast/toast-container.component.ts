@@ -5,15 +5,15 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'sky-toast-container',
   templateUrl: './toast-container.component.html',
-  styleUrls: ['./toast-container.component.scss'],
+  styleUrls: ['./toast-container.component.scss']
 })
 export class SkyToastContainerComponent implements OnInit {
 
-  messages: Observable<any>;
+  public messages: Observable<any>;
 
   constructor(private toast: SkyToastService) { }
 
-  ngOnInit() {
-    this.messages = this.toast.getMessages
+  public ngOnInit() {
+    this.messages = this.toast.getMessages;
   }
 }

@@ -1,5 +1,5 @@
-import { SkyToastMessage } from "./toast-message";
+import { SkyToastMessage } from './toast-message';
 
 export interface SkyToastCustomComponent {
-    message: SkyToastMessage
+    message: SkyToastMessage;
 }

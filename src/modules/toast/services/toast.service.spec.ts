@@ -6,7 +6,7 @@ import { SkyToastAdapterService } from './toast-adapter.service';
 import { ApplicationRef, ComponentFactoryResolver, Injector } from '@angular/core';
 
 describe('Toast service', () => {
-  class TestComponent implements SkyToastCustomComponent {public message: SkyToastMessage;}
+  class TestComponent implements SkyToastCustomComponent { public message: SkyToastMessage; }
   let toastService: SkyToastService;
 
   beforeEach(() => {
@@ -118,7 +118,7 @@ describe('Toast service', () => {
         message: 'fake message',
         toastType: SkyToastType.Danger
       };
-      
+
       let internalMessage: SkyToastMessage = toastService.openTemplatedMessage(TestComponent, configuration);
 
       expect(internalMessage).toBeTruthy();
@@ -138,7 +138,7 @@ describe('Toast service', () => {
         toastType: SkyToastType.Danger,
         message: 'My message'
       };
-      
+
       let internalMessage: SkyToastMessage = toastService.open(configuration);
 
       expect(internalMessage).toBeTruthy();
@@ -156,7 +156,7 @@ describe('Toast service', () => {
         toastType: SkyToastType.Danger,
         customComponentType: TestComponent
       };
-      
+
       let internalMessage: SkyToastMessage = toastService.open(configuration);
 
       expect(internalMessage).toBeTruthy();
@@ -172,17 +172,15 @@ describe('Toast service', () => {
     it('should require a message or customComponentType parameter', function() {
       try {
         toastService.open({});
-      }
-      catch(error) {
+      } catch (error) {
         expect(error).toBe('You must provide either a message or a customComponentType.');
       }
     });
 
     it('should reject both a message and customComponentType being supplied', function() {
       try {
-        toastService.open({message: 'My message', customComponentType: TestComponent});
-      }
-      catch(error) {
+        toastService.open({ message: 'My message', customComponentType: TestComponent });
+      } catch (error) {
         expect(error).toBe('You must not provide both a message and a customComponentType.');
       }
     });

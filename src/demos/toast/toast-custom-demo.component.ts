@@ -7,8 +7,8 @@ import { SkyToastCustomComponent, SkyToastMessage } from '../../core';
 })
 export class SkyToastCustomDemoComponent implements OnInit, SkyToastCustomComponent {
     public message: SkyToastMessage;
-    public text: string = 'This is a templated message. It can even link you to '
-    
+    public text: string = 'This is a templated message. It can even link you to ';
+
     constructor() {
     }
 

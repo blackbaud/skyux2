@@ -9,7 +9,13 @@ export class SkyToastMessage {
   private _isClosed: BehaviorSubject<boolean>;
   private _isClosing: BehaviorSubject<boolean>;
 
-  constructor(public message: string, public customComponentType: Type<any>, public toastType: string, private removeFromQueue: Function, public providers: Provider[] = []) {
+  constructor(
+    public message: string,
+    public customComponentType: Type<any>,
+    public toastType: string,
+    private removeFromQueue: Function,
+    public providers: Provider[] = []
+  ) {
     this._isClosed = new BehaviorSubject(false);
     this._isClosing = new BehaviorSubject(false);
     this.isClosed = this._isClosed.asObservable();

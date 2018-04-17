@@ -1,20 +1,31 @@
-import { Component, Input, ComponentFactoryResolver, OnInit, ViewChild, OnDestroy, ViewContainerRef, ReflectiveInjector, ComponentRef, Injector } from '@angular/core';
+import {
+    Component,
+    Input,
+    ComponentFactoryResolver,
+    OnInit,
+    ViewChild,
+    OnDestroy,
+    ViewContainerRef,
+    ReflectiveInjector,
+    ComponentRef,
+    Injector
+} from '@angular/core';
 import { SkyToastMessage, SkyToastCustomComponent } from '../types';
 
 @Component({
   selector: 'sky-toast',
   templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.scss'],
+  styleUrls: ['./toast.component.scss']
 })
 export class SkyToastComponent implements OnInit, OnDestroy {
     @Input('message')
     public message: SkyToastMessage;
-    
+
     @ViewChild('skytoastcustomtemplate', { read: ViewContainerRef })
     private customToastHost: ViewContainerRef;
 
     private customComponent: ComponentRef<SkyToastCustomComponent>;
-  
+
     constructor(
         private resolver: ComponentFactoryResolver,
         private injector: Injector

@@ -1,4 +1,14 @@
-import { Injectable, ComponentRef, ComponentFactoryResolver, Injector, ApplicationRef, EmbeddedViewRef, OnDestroy, Type, Provider } from '@angular/core';
+import {
+  Injectable,
+  ComponentRef,
+  ComponentFactoryResolver,
+  Injector,
+  ApplicationRef,
+  EmbeddedViewRef,
+  OnDestroy,
+  Type,
+  Provider
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { SkyToastContainerComponent } from '../toast-container.component';
@@ -11,7 +21,7 @@ export class SkyToastService implements OnDestroy {
 
   private _messages: SkyToastMessage[] = [];
   private _messageList: BehaviorSubject<SkyToastMessage[]> = new BehaviorSubject([]);
-  public get getMessages(): Observable<SkyToastMessage[]> { return this._messageList.asObservable() }
+  public get getMessages(): Observable<SkyToastMessage[]> { return this._messageList.asObservable(); }
 
   constructor(
     private appRef: ApplicationRef,
@@ -54,7 +64,7 @@ export class SkyToastService implements OnDestroy {
   }
 
   private removeFromQueue: Function = (message: SkyToastMessage) => {
-    if (this._messages.length == 0) {
+    if (this._messages.length === 0) {
       throw 'The supplied message is not active.';
     }
     let foundMessage: SkyToastMessage = this._messages.reduce((prev, cur) => prev === message ? prev : cur);
@@ -64,7 +74,7 @@ export class SkyToastService implements OnDestroy {
 
     this._messages = this._messages.filter(msg => msg !== message);
     this._messageList.next(this._messages);
-  };
+  }
 
   private createMessage(config: SkyToastConfig): SkyToastMessage {
     if (!config.message && !config.customComponentType) {
@@ -75,7 +85,7 @@ export class SkyToastService implements OnDestroy {
     }
 
     let toastType: string = 'info';
-    switch(config.toastType) {
+    switch (config.toastType) {
       case SkyToastType.Success:
         toastType = 'success';
         break;
@@ -85,6 +95,9 @@ export class SkyToastService implements OnDestroy {
       case SkyToastType.Error:
       case SkyToastType.Danger:
         toastType = 'danger';
+        break;
+      default:
+        toastType = 'info';
         break;
     }
 
