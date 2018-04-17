@@ -301,25 +301,22 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
       });
 
     this.scrollListeners = this.adapterService
-      .getParentScrollListeners(this.popoverContainer, (isInView: boolean) => {
-        this.positionPopover();
-
-        if (this.isVisible !== isInView) {
-          this.isVisible = isInView;
-          this.changeDetector.markForCheck();
-        }
+      .getParentScrollListeners(this.popoverContainer, (isElementVisibleWithinScrollable: boolean) => {
+        this.reposition();
+        this.isVisible = isElementVisibleWithinScrollable;
+        this.changeDetector.markForCheck();
       });
   }
 
   private removeListeners(): void {
     this.idled.next(true);
 
-    if (this.scrollListeners.length > 0) {
-      for (let i = 0; i < this.scrollListeners.length; i++) {
+    if (this.scrollListeners) {
+      this.scrollListeners.forEach((listener: any) => {
         // Remove renderer-generated listeners by calling the listener itself.
         // https://github.com/angular/angular/issues/9368#issuecomment-227199778
-        this.scrollListeners[i]();
-      }
+        listener();
+      });
 
       this.scrollListeners = [];
     }

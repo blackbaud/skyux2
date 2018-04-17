@@ -82,7 +82,10 @@ export class SkyPopoverAdapterService {
     );
   }
 
-  public getParentScrollListeners(popover: ElementRef, callback: Function): Function[] {
+  public getParentScrollListeners(
+    popover: ElementRef,
+    callback: (isVisibleWithinScrollable: boolean) => void
+  ): Function[] {
     const bodyElement = this.windowRef.getWindow().document.body;
     const parentElements = this.getScrollableParentElements(popover);
 
@@ -339,9 +342,8 @@ export class SkyPopoverAdapterService {
   private isVisibleWithinScrollable(container: any, popover: any): boolean {
     const containerRect = container.getBoundingClientRect();
     const popoverRect = popover.getBoundingClientRect();
-
-    const percentageTopVisible = popoverRect.top / containerRect.top * 100;
-    const percentageBottomVisible = containerRect.bottom / popoverRect.bottom * 100;
+    const percentageTopVisible = (popoverRect.top === 0) ? 100 : popoverRect.top / containerRect.top * 100;
+    const percentageBottomVisible = (containerRect.bottom === 0) ? 100 : containerRect.bottom / popoverRect.bottom * 100;
 
     return (percentageTopVisible > 95 && percentageBottomVisible > 95);
   }
