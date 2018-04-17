@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SkyToastCustomComponent, SkyToastMessage } from '../../../modules/toast/toast.module';
+import { SkyToastCustomComponent, SkyToastMessage } from '../../core';
 
 @Component({
   selector: 'sky-toast-custom-demo',
