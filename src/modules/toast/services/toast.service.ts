@@ -64,14 +64,6 @@ export class SkyToastService implements OnDestroy {
   }
 
   private removeFromQueue: Function = (message: SkyToastMessage) => {
-    if (this._messages.length === 0) {
-      throw 'The supplied message is not active.';
-    }
-    let foundMessage: SkyToastMessage = this._messages.reduce((prev, cur) => prev === message ? prev : cur);
-    if (!foundMessage) {
-      throw 'The supplied message is not active.';
-    }
-
     this._messages = this._messages.filter(msg => msg !== message);
     this._messageList.next(this._messages);
   }
@@ -92,7 +84,6 @@ export class SkyToastService implements OnDestroy {
       case SkyToastType.Warning:
         toastType = 'warning';
         break;
-      case SkyToastType.Error:
       case SkyToastType.Danger:
         toastType = 'danger';
         break;

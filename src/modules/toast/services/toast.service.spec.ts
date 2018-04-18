@@ -169,6 +169,39 @@ describe('Toast service', () => {
       internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
     });
 
+    it('should remove message from queue when the message is closed', function(done: Function) {
+      let configuration: SkyToastConfig = {
+        toastType: SkyToastType.Danger,
+        message: 'My message'
+      };
+
+      let internalMessage: SkyToastMessage = toastService.open(configuration);
+      internalMessage.close();
+      setTimeout(() => {
+          internalMessage.isClosed.subscribe((value) => { expect(value).toBeTruthy(); });
+          toastService.getMessages.subscribe((value) => { expect(value.length).toBe(0); });
+          done();
+      }, 600);
+    });
+
+    it('should not error when closing an already closed message', function(done: Function) {
+      let configuration: SkyToastConfig = {
+        toastType: SkyToastType.Danger,
+        message: 'My message'
+      };
+
+      let internalMessage: SkyToastMessage = toastService.open(configuration);
+      internalMessage.close();
+      setTimeout(() => {
+          try {
+            internalMessage.close();
+          } catch (error) {
+            fail();
+          }
+          done();
+      }, 600);
+    });
+
     it('should require a message or customComponentType parameter', function() {
       try {
         toastService.open({});
