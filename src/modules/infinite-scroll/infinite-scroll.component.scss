@@ -1,22 +1,22 @@
 @import '../../scss/mixins';
 
 .sky-infinite-scroll {
-    position: relative;
-    bottom: 0;
-    height: 75px;
-    width: 75px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: $sky-margin-double;
-    text-align: center;
+  position: relative;
+  bottom: 0;
+  height: 75px;
+  width: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $sky-margin-double;
+  text-align: center;
 
-    .blockUI.blockOverlay {
-        background-color: transparent;
-    }
+  .blockUI.blockOverlay {
+    background-color: transparent;
+  }
 
-    .blockUI.blockMsg {
-        box-shadow: none;
-        -webkit-box-shadow: none;
-        background-color: transparent;
-    }
+  .blockUI.blockMsg {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    background-color: transparent;
+  }
 }

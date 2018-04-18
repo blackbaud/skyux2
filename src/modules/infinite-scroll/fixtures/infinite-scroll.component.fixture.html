@@ -1,9 +1,9 @@
-<div style='overflow-y: none;'>
-    <ul id='test-list' style='overflow-y: none;'>
-        <li *ngFor='let item of items'>{{item.name}}</li>
-    </ul>
-    <sky-infinite-scroll class='sky-infinite-scroll'
-        [hasMore]='hasMore | async'
-        (onLoad)='loadMore()'>
-    </sky-infinite-scroll>
+<div style="overflow-y: none;">
+  <ul id="test-list" style="overflow-y: none;">
+    <li *ngFor="let item of items">{{item.name}}</li>
+  </ul>
+  <sky-infinite-scroll class="sky-infinite-scroll"
+    [hasMore]="hasMore | async"
+    (onLoad)="loadMore()">
+  </sky-infinite-scroll>
 </div>

@@ -13,23 +13,23 @@ import { By } from '@angular/platform-browser';
 import { SkyInfiniteScrollModule } from './infinite-scroll.module';
 
 describe('Infinite scroll component', () => {
-    let fixture: ComponentFixture<InfiniteScrollTestComponent>;
-    let cmp: InfiniteScrollTestComponent;
-    let debugElement: DebugElement;
+  let fixture: ComponentFixture<InfiniteScrollTestComponent>;
+  let cmp: InfiniteScrollTestComponent;
+  let debugElement: DebugElement;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        declarations: [InfiniteScrollTestComponent],
-        imports: [SkyInfiniteScrollModule]
-      });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [InfiniteScrollTestComponent],
+      imports: [SkyInfiniteScrollModule]
     });
-    afterEach(() => {
-      if (fixture) {
-        fixture.destroy();
-      }
-    });
+  });
+  afterEach(() => {
+    if (fixture) {
+      fixture.destroy();
+    }
+  });
 
-    describe('Infinite scroll component (BeforeEachGroup)', () => {
+  describe('Infinite scroll component (BeforeEachGroup)', () => {
     /**
      * This configureTestingModule function imports SkyAppTestModule, which brings in all of
      * the SKY UX modules and components in your application for testing convenience. If this has
@@ -49,9 +49,9 @@ describe('Infinite scroll component', () => {
     });
 
     it('should emit an onLoad event on button click', () => {
-        debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
-        fixture.detectChanges();
-        expect(cmp.items.length).toBe(40);
+      debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
+      fixture.detectChanges();
+      expect(cmp.items.length).toBe(40);
     });
 
     it('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {

@@ -6,16 +6,16 @@ import { SkyResourcesModule } from '../resources';
 import { SkyWaitModule } from '../wait';
 
 @NgModule({
-    declarations: [
-        SkyInfiniteScrollComponent
-    ],
-    imports: [
-        CommonModule,
-        SkyResourcesModule,
-        SkyWaitModule
-    ],
-    exports: [
-        SkyInfiniteScrollComponent
-    ]
+  declarations: [
+    SkyInfiniteScrollComponent
+  ],
+  imports: [
+    CommonModule,
+    SkyResourcesModule,
+    SkyWaitModule
+  ],
+  exports: [
+    SkyInfiniteScrollComponent
+  ]
 })
 export class SkyInfiniteScrollModule { }

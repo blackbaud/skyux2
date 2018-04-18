@@ -62,8 +62,8 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
 
   public startInfiniteScrollLoad() {
     if (this.hasMore && !this._isLoading.value && this.infiniteScrollInView()) {
-        this._isLoading.next(true);
-        this.onLoad.emit([] as any[]);
+      this._isLoading.next(true);
+      this.onLoad.emit([] as any[]);
     }
   }
 

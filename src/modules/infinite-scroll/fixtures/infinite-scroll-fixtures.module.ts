@@ -5,15 +5,15 @@ import { SkyInfiniteScrollModule } from '../';
 import { InfiniteScrollTestComponent } from './infinite-scroll.component.fixture';
 
 @NgModule({
-    declarations: [
-        InfiniteScrollTestComponent
-    ],
-    imports: [
-        CommonModule,
-        SkyInfiniteScrollModule
-    ],
-    exports: [
-        InfiniteScrollTestComponent
-    ]
+  declarations: [
+    InfiniteScrollTestComponent
+  ],
+  imports: [
+    CommonModule,
+    SkyInfiniteScrollModule
+  ],
+  exports: [
+    InfiniteScrollTestComponent
+  ]
 })
 export class SkyInfiniteScrollFixturesModule { }
