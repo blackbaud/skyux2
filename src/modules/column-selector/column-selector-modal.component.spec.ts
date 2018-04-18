@@ -118,7 +118,7 @@ describe('Column selector component', () => {
     fixture.detectChanges();
 
     let cancelButtonEl =
-      document.querySelector('.sky-modal') as HTMLButtonElement;
+      document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
 
     cancelButtonEl.click();
     fixture.detectChanges();
