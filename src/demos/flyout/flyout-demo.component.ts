@@ -42,7 +42,8 @@ export class SkyFlyoutDemoComponent {
       ariaRole: 'modal',
       defaultWidth: 500,
       maxWidth: 1000,
-      minWidth: 200
+      minWidth: 200,
+      permalink: '/skyux2/user/12345'
     });
 
     this.flyout.closed.subscribe(() => {

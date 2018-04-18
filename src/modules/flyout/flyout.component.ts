@@ -28,6 +28,8 @@ import 'rxjs/add/operator/takeUntil';
 
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyWindowRefService } from './../window/window-ref.service';
+import { SkyResources } from './../resources/resources';
 
 import {
   SkyFlyoutConfig,
@@ -84,7 +86,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     private adapter: SkyFlyoutAdapterService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private windowRef: SkyWindowRefService
   ) {
     // All commands flow through the message stream.
     this.messageStream
@@ -153,6 +156,16 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       this.notifyClosed();
       this.cleanTemplate();
     }
+  }
+
+  public navigateToRecord() {
+    if (this.config.permalink) {
+      this.windowRef.getWindow().location.href = this.config.permalink;
+    }
+  }
+
+  public getPermalinkLabel() {
+    return this.config.permalinkLabel ? this.config.permalinkLabel : SkyResources.getString('flyout_permalink_default_label');
   }
 
   public onMouseDown(event: MouseEvent) {

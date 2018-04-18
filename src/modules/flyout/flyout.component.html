@@ -22,6 +22,14 @@
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
       <button
+        *ngIf="config?.permalink"
+        type="button"
+        class="sky-btn sky-btn-default"
+        (click)="navigateToRecord()"
+        sky-cmp-id="permalink-btn">
+        {{ getPermalinkLabel() }}
+      </button>
+      <button
         type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
         (click)="onCloseButtonClick()"

@@ -6,4 +6,6 @@ export interface SkyFlyoutConfig {
   defaultWidth?: number;
   minWidth?: number;
   maxWidth?: number;
+  permalink?: string;
+  permalinkLabel?: string;
 }
