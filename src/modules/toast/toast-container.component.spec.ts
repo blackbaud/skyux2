@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { SkyToastService, SkyToastContainerComponent } from '.';
-import { SkyToastMessage } from '../../../dist/core';
+import { SkyToastMessage } from './types';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 
 describe('Toast service', () => {
     let toastService: SkyToastService;
