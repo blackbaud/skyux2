@@ -26,16 +26,18 @@ import {
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
-import { SkyFlyoutAdapterService } from './flyout-adapter.service';
-import { SkyFlyoutInstance } from './flyout-instance';
-import { SkyWindowRefService } from './../window/window-ref.service';
-import { SkyResources } from './../resources/resources';
+import {
+  SkyResources
+} from './../resources';
 
 import {
   SkyFlyoutConfig,
   SkyFlyoutMessage,
   SkyFlyoutMessageType
 } from './types';
+
+import { SkyFlyoutAdapterService } from './flyout-adapter.service';
+import { SkyFlyoutInstance } from './flyout-instance';
 
 const FLYOUT_OPEN_STATE = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE = 'flyoutClosed';
@@ -60,15 +62,17 @@ const FLYOUT_CLOSED_STATE = 'flyoutClosed';
 export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public config: SkyFlyoutConfig;
   public flyoutState = FLYOUT_CLOSED_STATE;
+  public flyoutWidth = 0;
+  public isDragging = false;
   public isOpen = false;
   public isOpening = false;
 
-  public flyoutWidth = 0;
-  public isDragging = false;
-  private xCoord = 0;
-
   public get messageStream(): Subject<SkyFlyoutMessage> {
     return this._messageStream;
+  }
+
+  public get permalinkLabel(): string {
+    return this.config.permalinkLabel || SkyResources.getString('flyout_permalink_button');
   }
 
   @ViewChild('target', { read: ViewContainerRef })
@@ -77,17 +81,17 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   @ViewChild('flyoutHeader')
   private flyoutHeader: ElementRef;
 
+  private _messageStream = new Subject<SkyFlyoutMessage>();
+
   private flyoutInstance: SkyFlyoutInstance<any>;
   private ngUnsubscribe = new Subject();
-
-  private _messageStream = new Subject<SkyFlyoutMessage>();
+  private xCoord = 0;
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver,
-    private windowRef: SkyWindowRefService
+    private resolver: ComponentFactoryResolver
   ) {
     // All commands flow through the message stream.
     this.messageStream
@@ -110,6 +114,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.messageStream.next({
       type: SkyFlyoutMessageType.Close
     });
+  }
+
+  public onPermalinkButtonClick() {
+    this.adapter.navigateToUrl(this.config.permalink);
   }
 
   public attach<T>(component: Type<T>, config: SkyFlyoutConfig): SkyFlyoutInstance<T> {
@@ -156,16 +164,6 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       this.notifyClosed();
       this.cleanTemplate();
     }
-  }
-
-  public navigateToRecord() {
-    if (this.config.permalink) {
-      this.windowRef.getWindow().location.href = this.config.permalink;
-    }
-  }
-
-  public getPermalinkLabel() {
-    return this.config.permalinkLabel ? this.config.permalinkLabel : SkyResources.getString('flyout_permalink_default_label');
   }
 
   public onMouseDown(event: MouseEvent) {

@@ -37,4 +37,8 @@ export class SkyFlyoutAdapterService {
       this.renderer.addClass(header.nativeElement, 'sky-flyout-help-shim');
     }
   }
+
+  public navigateToUrl(url: string) {
+    this.windowRef.getWindow().location.href = url;
+  }
 }

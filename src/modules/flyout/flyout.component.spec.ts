@@ -14,17 +14,24 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { SkyFlyoutTestComponent } from './fixtures/flyout.component.fixture';
-import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
-import { SkyFlyoutTestSampleContext } from './fixtures/flyout-sample-context.fixture';
-import { SkyFlyoutInstance } from './flyout-instance';
-import { SkyFlyoutService } from './flyout.service';
-import { SkyResources } from './../resources/resources';
-import { SkyWindowRefService } from './../window/window-ref.service';
+import {
+  SkyResources
+} from './../resources';
+
+import {
+  SkyWindowRefService
+} from './../window';
 
 import {
   SkyFlyoutConfig
 } from './types';
+
+import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutService } from './flyout.service';
+
+import { SkyFlyoutTestComponent } from './fixtures/flyout.component.fixture';
+import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
+import { SkyFlyoutTestSampleContext } from './fixtures/flyout-sample-context.fixture';
 
 describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
@@ -70,7 +77,7 @@ describe('Flyout component', () => {
 
   function getFlyoutHandleElement(): HTMLElement {
     return document.querySelector('.sky-flyout-resize-handle') as HTMLElement;
-   }
+  }
 
   function getFlyoutHeaderElement(): HTMLElement {
     return document.querySelector('.sky-flyout-header') as HTMLElement;
@@ -81,7 +88,7 @@ describe('Flyout component', () => {
   }
 
   function getPermalinkButtonElement(): HTMLElement {
-    return document.querySelector('.sky-flyout-header [sky-cmp-id="permalink-btn"]') as HTMLElement;
+    return document.querySelector('.sky-flyout-btn-permalink') as HTMLElement;
   }
 
   beforeEach(() => {
@@ -113,7 +120,12 @@ describe('Flyout component', () => {
     applicationRef.tick();
     tick();
     fixture.detectChanges();
+    fixture.destroy();
   }));
+
+  afterAll(() => {
+
+  });
 
   it('should close when the close button is clicked', fakeAsync(() => {
     const flyout = openFlyout();
@@ -201,69 +213,6 @@ describe('Flyout component', () => {
     })
   );
 
-  it('should not show the permalink button if no permalink config peroperties are defined',
-    fakeAsync(() => {
-      openFlyout();
-
-      const permaLinkButton = getPermalinkButtonElement();
-
-      expect(permaLinkButton).toBeFalsy();
-    })
-  );
-
-  it('should use the default permalink label if none is defined',
-    fakeAsync(() => {
-      const expectedPermalink = 'http://bb.com';
-      const expectedLabel = SkyResources.getString('flyout_permalink_default_label');
-
-      openFlyout({
-        permalink: expectedPermalink
-      });
-
-      const permaLinkButton = getPermalinkButtonElement();
-
-      expect(permaLinkButton).toBeTruthy();
-      expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
-    })
-  );
-
-  it('should use the custom defined label for permalink',
-    fakeAsync(() => {
-      const expectedPermalink = 'http://bb.com';
-      const expectedLabel = 'Foo Bar';
-
-      openFlyout({
-        permalink: expectedPermalink,
-        permalinkLabel: expectedLabel
-      });
-
-      const permaLinkButton = getPermalinkButtonElement();
-
-      expect(permaLinkButton).toBeTruthy();
-      expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
-    })
-  );
-
-  it('should open the defined permalink URL when clicking on the permalink button',
-    fakeAsync(() => {
-      const windowRef = new SkyWindowRefService();
-      const expectedPermalink = 'http://bb.com';
-      const mockWindow = {
-        document: windowRef.getWindow().document,
-        location: {}
-      };
-      spyOn(windowService, 'getWindow').and.returnValue(mockWindow);
-
-      openFlyout({
-        permalink: expectedPermalink
-      });
-      const permaLinkButton = getPermalinkButtonElement();
-      permaLinkButton.click();
-
-      expect(mockWindow.location).toEqual({ href: expectedPermalink });
-    })
-  );
-
   it('should not have the sky-flyout-help-shim class if the help widget is not present',
     fakeAsync(() => {
       openFlyout();
@@ -341,4 +290,69 @@ describe('Flyout component', () => {
       expect(flyoutElement.style.width).toBe('500px');
     })
   );
+
+  describe('permalink', () => {
+    it('should not show the permalink button if no permalink config peroperties are defined',
+      fakeAsync(() => {
+        openFlyout();
+
+        const permaLinkButton = getPermalinkButtonElement();
+
+        expect(permaLinkButton).toBeFalsy();
+      })
+    );
+
+    it('should use the default permalink label if none is defined',
+      fakeAsync(() => {
+        const expectedPermalink = 'http://bb.com';
+        const expectedLabel = SkyResources.getString('flyout_permalink_button');
+
+        openFlyout({
+          permalink: expectedPermalink
+        });
+
+        const permaLinkButton = getPermalinkButtonElement();
+
+        expect(permaLinkButton).toBeTruthy();
+        expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
+      })
+    );
+
+    it('should use the custom defined label for permalink',
+      fakeAsync(() => {
+        const expectedPermalink = 'http://bb.com';
+        const expectedLabel = 'Foo Bar';
+
+        openFlyout({
+          permalink: expectedPermalink,
+          permalinkLabel: expectedLabel
+        });
+
+        const permaLinkButton = getPermalinkButtonElement();
+
+        expect(permaLinkButton).toBeTruthy();
+        expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
+      })
+    );
+
+    it('should open the defined permalink URL when clicking on the permalink button',
+      fakeAsync(() => {
+        const windowRef = new SkyWindowRefService();
+        const expectedPermalink = 'http://bb.com';
+        const mockWindow = {
+          document: windowRef.getWindow().document,
+          location: {}
+        };
+        spyOn(windowService, 'getWindow').and.returnValue(mockWindow);
+
+        openFlyout({
+          permalink: expectedPermalink
+        });
+        const permaLinkButton = getPermalinkButtonElement();
+        permaLinkButton.click();
+
+        expect(mockWindow.location).toEqual({ href: expectedPermalink });
+      })
+    );
+  });
 });
