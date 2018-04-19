@@ -6,17 +6,16 @@ import { SkyToastCustomComponent, SkyToastMessage } from '../../core';
   template: "<p>{{text}}<a *ngIf='!(message.isClosing | async)' href='http://example.com'>example.com</a></p>"
 })
 export class SkyToastCustomDemoComponent implements OnInit, SkyToastCustomComponent {
-    public message: SkyToastMessage;
-    public text: string = 'This is a templated message. It can even link you to ';
+  public message: SkyToastMessage;
+  public text: string = 'This is a templated message. It can even link you to ';
 
-    constructor() {
-    }
+  constructor() {}
 
-    public ngOnInit() {
-        this.message.isClosing.subscribe((value: boolean) => {
-            if (value) {
-                this.text = 'Bye bye :D';
-            }
-        });
-    }
+  public ngOnInit() {
+    this.message.isClosing.subscribe((value: boolean) => {
+      if (value) {
+        this.text = 'Bye bye :D';
+      }
+    });
+  }
 }

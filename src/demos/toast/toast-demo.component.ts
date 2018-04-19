@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
 import {
-  SkyToastService, SkyToastType
+  SkyToastService,
+  SkyToastType
 } from '../../core';
 import { SkyToastCustomDemoComponent } from './toast-custom-demo.component';
 
@@ -17,7 +17,7 @@ export class SkyToastDemoComponent {
   constructor(private toastSvc: SkyToastService) { }
 
   public openMessage() {
-      this.toastSvc.openMessage('This is a ' + SkyToastType[this.selectedType] + ' toast.', {toastType: this.selectedType});
+    this.toastSvc.openMessage('This is a ' + SkyToastType[this.selectedType] + ' toast.', {toastType: this.selectedType});
   }
 
   public openTemplatedMessage() {

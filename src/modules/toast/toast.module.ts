@@ -5,8 +5,8 @@ import { SkyToastContainerComponent } from './toast-container.component';
 import { SkyResourcesModule } from '../resources';
 import { SkyToastAdapterService } from './services/toast-adapter.service';
 import { SkyToastComponent } from './toast-messages';
-export { SkyToastMessage, SkyToastCustomComponent } from './types';
 
+export { SkyToastMessage, SkyToastCustomComponent } from './types';
 export { SkyToastService };
 
 @NgModule({

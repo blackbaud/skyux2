@@ -1,18 +1,18 @@
 <div>
-    <table>
-        <thead>
-            <td>Toast type</td>
-            <td></td>
-        </thead>
-        <tbody>
-            <tr *ngFor='let type of types'>
-                <td>{{ typeTranslator[type] }}</td>
-                <td>
-                    <input type='radio' name='radiogroup' [checked]="type === selectedType" (change)="selectedType = type" />
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <button class='sky-btn sky-btn-primary' (click)='openMessage()'>Open toast</button>
-    <button class='sky-btn sky-btn-primary' (click)='openTemplatedMessage()'>Open templated toast</button>
+  <table>
+    <thead>
+      <td>Toast type</td>
+      <td></td>
+    </thead>
+    <tbody>
+      <tr *ngFor="let type of types">
+        <td>{{ typeTranslator[type] }}</td>
+        <td>
+          <input type="radio" name="radiogroup" [checked]="type === selectedType" (change)="selectedType = type" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="sky-btn sky-btn-primary" (click)="openMessage()">Open toast</button>
+  <button class="sky-btn sky-btn-primary" (click)="openTemplatedMessage()">Open templated toast</button>
 </div>

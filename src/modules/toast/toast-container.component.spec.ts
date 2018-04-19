@@ -4,33 +4,34 @@ import { SkyToastMessage } from './types';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 describe('Toast service', () => {
-    let toastService: SkyToastService;
-    let messages: BehaviorSubject<SkyToastMessage[]> = new BehaviorSubject([]);
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                {
-                    provide: SkyToastService,
-                    useValue: {
-                        getMessages: messages.asObservable()
-                    }
-                }
-        ]});
-        toastService = TestBed.get(SkyToastService);
-    });
+  let toastService: SkyToastService;
+  let messages: BehaviorSubject<SkyToastMessage[]> = new BehaviorSubject([]);
 
-    it('should instantiate a toast container with its own subscription to the message list',
-        (done: Function) => {
-            let message: SkyToastMessage = new SkyToastMessage('My message', undefined, 'danger', () => {
-                messages.next([]);
-            }, []);
-            messages.next([message]);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: SkyToastService,
+          useValue: {
+            getMessages: messages.asObservable()
+          }
+        }
+    ]});
+    toastService = TestBed.get(SkyToastService);
+  });
 
-            let container: SkyToastContainerComponent = new SkyToastContainerComponent(toastService);
-            container.ngOnInit();
-            container.messages.subscribe((value) => {
-                expect(value[0]).toBe(message);
-                done();
-            });
-    });
+  it('should instantiate a toast container with its own subscription to the message list',
+    (done: Function) => {
+      let message: SkyToastMessage = new SkyToastMessage('My message', undefined, 'danger', () => {
+        messages.next([]);
+      }, []);
+      messages.next([message]);
+
+      let container: SkyToastContainerComponent = new SkyToastContainerComponent(toastService);
+      container.ngOnInit();
+      container.messages.subscribe((value) => {
+        expect(value[0]).toBe(message);
+        done();
+      });
+  });
 });
