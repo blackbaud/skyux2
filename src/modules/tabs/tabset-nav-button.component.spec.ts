@@ -4,7 +4,9 @@ import {
   tick
 } from '@angular/core/testing';
 
-import { expect } from '../testing';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyTabsetNavButtonComponent } from './tabset-nav-button.component';
 import { SkyTabsFixturesModule } from './fixtures/tabs-fixtures.module';

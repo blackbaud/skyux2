@@ -27,10 +27,11 @@
     "selenium-standalone": "~6.4.0",
     "webpack": "~2.5.0"
   },
+  "dependencies": {},
   "devDependencies": {
-    "@blackbaud/skyux": "2.10.0",
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#visual-cli-command",
-    "pix-diff": "2.0.0",
+    "@blackbaud/skyux": "latest",
+    "@blackbaud/skyux-builder": "1.13.0",
+    "@blackbaud/skyux-visual": "blackbaud/skyux-visual#webpack",
     "browserstack-local": "1.3.0"
   },
   "repository": {

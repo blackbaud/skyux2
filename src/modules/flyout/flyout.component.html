@@ -1,12 +1,23 @@
 <div
-  class="sky-flyout"
+  class="sky-flyout sky-shadow"
   tabindex="-1"
   [attr.role]="config?.ariaRole"
   [attr.aria-describedby]="config?.ariaDescribedBy"
   [attr.aria-labelledby]="config?.ariaLabelledBy"
   [ngClass]="{ 'sky-flyout-hidden': !isOpen && !isOpening }"
   (@flyoutState.done)="animationDone($event)"
-  [@flyoutState]="getAnimationState()">
+  [@flyoutState]="getAnimationState()"
+  [style.width.px]="flyoutWidth">
+
+  <button
+    type="button"
+    class="sky-flyout-resize-handle"
+    aria-hidden="true"
+    role="separator"
+    tabindex="-1"
+    (mousedown)="onMouseDown($event)">
+  </button>
+
   <div class="sky-flyout-header" #flyoutHeader>
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">

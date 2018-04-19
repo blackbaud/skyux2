@@ -1,16 +1,19 @@
 import {
   SkyA11y,
-  SkyHostBrowser,
-  SkyVisualTest,
-  SkyCompareScreenshotConfig
+  SkyHostBrowser
 } from '@blackbaud/skyux-builder/runtime/testing/e2e';
 
-export function visualTest(config: SkyCompareScreenshotConfig) {
+import {
+  SkyVisual,
+  SkyVisualCompareScreenshotConfig
+} from '@blackbaud/skyux-visual';
+
+export function visualTest(config: SkyVisualCompareScreenshotConfig) {
   SkyHostBrowser.get('action-button');
 
   Promise.all([
     SkyA11y.run(),
-    SkyVisualTest.compareScreenshot(config)
+    SkyVisual.compareScreenshot(config)
   ]).then(res => {
     const numA11yViolations = res[0];
     expect(numA11yViolations).toEqual(0);

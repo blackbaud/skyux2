@@ -1,6 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { expect } from '../testing';
+
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
 import { SkyConfirmationDialogType } from './confirmation-dialog-type';
 import { SkyModalInstance } from '../modal/modal-instance';
