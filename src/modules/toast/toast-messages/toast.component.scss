@@ -1,4 +1,5 @@
 @import '../../../scss/variables';
+@import "../../../scss/mixins";
 
 .sky-toast {
   padding: 0 $sky-padding;
@@ -13,10 +14,7 @@
   cursor: pointer;
 
   &:hover {
-    -webkit-box-shadow:0 0 8px rgba(0,0,0,.40);
-    -moz-box-shadow:0 0 8px rgba(0,0,0,.40);
-    -o-box-shadow:0 0 8px rgba(0,0,0,.40);
-    box-shadow:0 0 8px rgba(0,0,0,.40);
+    @include sky-shadow;
   }
 
   .sky-toast-content {
