@@ -1,7 +1,6 @@
 import {
   TestBed,
-  ComponentFixture,
-  async
+  ComponentFixture
 } from '@angular/core/testing';
 
 import {
