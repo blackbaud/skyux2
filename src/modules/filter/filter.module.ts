@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SkyMediaQueryModule } from '../media-queries';
 import { SkyResourcesModule } from '../resources';
 
 import { SkyFilterButtonComponent} from './filter-button.component';
@@ -24,7 +23,6 @@ import {
   ],
   imports: [
     CommonModule,
-    SkyMediaQueryModule,
     SkyResourcesModule,
     SkyTokensModule
   ],

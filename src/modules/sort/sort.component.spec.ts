@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -10,9 +9,6 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
-import { MockSkyMediaQueryService } from '../testing/mocks';
-
 import { SkySortModule } from './sort.module';
 
 import { SortTestComponent } from './fixtures/sort.component.fixture';
@@ -21,19 +17,15 @@ describe('Sort component', () => {
   let fixture: ComponentFixture<SortTestComponent>;
   let nativeElement: HTMLElement;
   let component: SortTestComponent;
-  let mockMediaQueryService: MockSkyMediaQueryService;
 
   beforeEach(() => {
-    mockMediaQueryService = new MockSkyMediaQueryService();
-
     TestBed.configureTestingModule({
       declarations: [
         SortTestComponent
       ],
       imports: [
         SkySortModule
-      ],
-      providers: [{provide: SkyMediaQueryService, useValue: mockMediaQueryService}]
+      ]
     });
 
     fixture = TestBed.createComponent(SortTestComponent);
@@ -49,18 +41,6 @@ describe('Sort component', () => {
   function getSortItems() {
     let itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
     return nativeElement.querySelectorAll(itemQuery);
-  }
-
-  function triggerXsBreakpoint() {
-    mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
-    fixture.detectChanges();
-    return fixture.whenStable();
-  }
-
-  function triggerSmBreakpoint() {
-    mockMediaQueryService.fire(SkyMediaBreakpoints.sm);
-    fixture.detectChanges();
-    return fixture.whenStable();
   }
 
   function verifyTextPresent() {
@@ -126,32 +106,11 @@ describe('Sort component', () => {
     expect(itemsEl.item(3)).toHaveCssClass('sky-sort-item-selected');
   });
 
-  describe('text and media queries', () => {
-
-    it('text should not be present if not activated', () => {
-      fixture.detectChanges();
-      verifyTextNotPresent();
-    });
-
-    it('text should be present if activated when not an extra small screen', async(() => {
-      component.showButtonText = true;
-      fixture.detectChanges();
-      verifyTextPresent();
-      triggerSmBreakpoint().then(() => {
-        fixture.detectChanges();
-        verifyTextPresent();
-      });
-    }));
-
-    it('text should not be present if activated when an extra small screen', async(() => {
-      component.showButtonText = true;
-      fixture.detectChanges();
-      verifyTextPresent();
-      triggerXsBreakpoint().then(() => {
-        fixture.detectChanges();
-        verifyTextNotPresent();
-      });
-    }));
-
+  it('should allow button text to be hidden', () => {
+    fixture.detectChanges();
+    verifyTextNotPresent();
+    component.showButtonText = true;
+    fixture.detectChanges();
+    verifyTextPresent();
   });
 });

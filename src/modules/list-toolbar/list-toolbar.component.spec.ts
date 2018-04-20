@@ -78,8 +78,7 @@ describe('List Toolbar Component', () => {
     expect(component.toolbar.searchComponent.expandMode).toBe('fit');
 
     const items = sections.item(1).querySelectorAll('.sky-toolbar-item sky-list-toolbar-item-renderer');
-    expect(items.item(0)).toHaveText('');
-    expect(items.item(1).querySelector('.sky-sort')).not.toBeNull();
+    expect(items.item(0).querySelector('.sky-sort')).not.toBeNull();
     expect(items.item(2)).toHaveText('Custom Item');
     expect(items.item(3)).toHaveText('Custom Item 2');
   }
@@ -312,7 +311,7 @@ describe('List Toolbar Component', () => {
       fixture.whenStable().then(() => {
         fixture.detectChanges();
         const items = fixture.nativeElement.querySelectorAll('.sky-toolbar-item');
-        expect(items.item(2).querySelector('.sky-sort')).not.toBeNull();
+        expect(items.item(0).querySelector('.sky-sort')).not.toBeNull();
         expect(items.item(3)).toHaveText('Custom Item');
         expect(items.item(4)).toHaveText('Custom Item 2');
       });
@@ -337,7 +336,6 @@ describe('List Toolbar Component', () => {
   });
 
   it('should not display items not in the current view', async(() => {
-
     initializeToolbar();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -362,10 +360,9 @@ describe('List Toolbar Component', () => {
       fixture.detectChanges();
 
       let items = element.queryAll(By.css('.sky-toolbar-item'));
-      expect(items[0].nativeElement).toHaveText('');
-      expect(items[1].query(By.css('input'))).not.toBeNull();
+      expect(items[0].query(By.css('.sky-sort'))).not.toBeNull();
       expect(items[2].query(By.css('span')).nativeElement).toHaveCssClass('sky-test-toolbar');
-      expect(items[3].query(By.css('.sky-sort'))).not.toBeNull();
+      expect(items[3].query(By.css('.sky-search-input'))).not.toBeNull();
       expect(items[4].nativeElement).toHaveText('Custom Item');
       expect(items[5].nativeElement).toHaveText('Custom Item 2');
 
@@ -380,13 +377,11 @@ describe('List Toolbar Component', () => {
       fixture.detectChanges();
 
       items = element.queryAll(By.css('.sky-toolbar-item'));
-      expect(items[0].nativeElement).toHaveText('');
-      expect(items[1].query(By.css('input'))).not.toBeNull();
+      expect(items[0].query(By.css('.sky-sort'))).not.toBeNull();
       expect(items[2].query(By.css('span')).nativeElement).toHaveCssClass('sky-test-toolbar');
-      expect(items[3].query(By.css('.sky-sort'))).not.toBeNull();
+      expect(items[3].query(By.css('.sky-search-input'))).not.toBeNull();
       expect(items[4].nativeElement).toHaveText('Custom Item');
       expect(items[5].nativeElement).toHaveText('Custom Item 2');
-
     });
   }));
 });

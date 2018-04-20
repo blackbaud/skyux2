@@ -5,7 +5,6 @@ import { SkyResourcesModule } from '../resources';
 import { SkyModalModule } from '../modal';
 import { SkyListSecondaryActionsModule } from '../list-secondary-actions';
 import { SkyListToolbarModule } from '../list-toolbar';
-import { SkyMediaQueryModule } from '../media-queries';
 
 @NgModule({
   declarations: [
@@ -16,8 +15,7 @@ import { SkyMediaQueryModule } from '../media-queries';
     SkyResourcesModule,
     SkyModalModule,
     SkyListSecondaryActionsModule,
-    SkyListToolbarModule,
-    SkyMediaQueryModule
+    SkyListToolbarModule
   ],
   exports: [
     SkyListColumnSelectorActionComponent

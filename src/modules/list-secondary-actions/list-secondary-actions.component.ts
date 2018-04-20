@@ -64,7 +64,7 @@ export class SkyListSecondaryActionsComponent implements OnInit, AfterViewInit, 
       location: 'right'
     });
 
-    this.dispatcher.toolbarAddItems([secondaryActionItem], -1);
+    this.dispatcher.toolbarAddItems([secondaryActionItem], -2);
   }
 
   public ngOnDestroy() {

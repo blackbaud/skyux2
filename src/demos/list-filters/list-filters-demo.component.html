@@ -4,32 +4,10 @@
   [appliedFilters]="listFilters"
   (appliedFiltersChange)="modalFilters = $event">
   <sky-list-toolbar>
-    <sky-list-secondary-actions>
-      <sky-list-secondary-action>
-        <button type="button">
-          Option
-        </button>
-      </sky-list-secondary-action>
-    </sky-list-secondary-actions>
-    <sky-list-toolbar-sort
-      label="Fruit name (A - Z)"
-      field="name"
-      [descending]="false"
-      type="string"
-    >
-    </sky-list-toolbar-sort>
-    <sky-list-toolbar-sort
-      label="Fruit name (Z - A)"
-      field="name"
-      [descending]="true"
-      type="string"
-    >
-    </sky-list-toolbar-sort>
     <sky-list-filter-button>
       <sky-filter-button
         (filterButtonClick)="openFilterModal()"
-        [showButtonText]="true"
-      >
+        [showButtonText]="true">
       </sky-filter-button>
     </sky-list-filter-button>
     <sky-list-filter-summary
@@ -47,4 +25,4 @@
       heading="Description">
     </sky-grid-column>
   </sky-list-view-grid>
- </sky-list>
+</sky-list>

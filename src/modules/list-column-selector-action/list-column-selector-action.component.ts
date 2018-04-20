@@ -4,10 +4,7 @@ import {
   Optional,
   AfterContentInit,
   ViewChild,
-  TemplateRef,
-  ChangeDetectorRef,
-  OnInit,
-  OnDestroy
+  TemplateRef
 } from '@angular/core';
 import {
   ListState, ListStateDispatcher, ListToolbarItemModel
@@ -36,38 +33,25 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 import { SkyListSecondaryActionsComponent } from '../list-secondary-actions/';
-import { SkyMediaBreakpoints, SkyMediaQueryService } from '../media-queries';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'sky-list-column-selector-action',
-  templateUrl: './list-column-selector-action.component.html'
+  templateUrl: './list-column-selector-action.component.html',
+  styleUrls: ['./list-column-selector-action.component.scss']
 })
-export class SkyListColumnSelectorActionComponent implements AfterContentInit, OnInit, OnDestroy {
+export class SkyListColumnSelectorActionComponent implements AfterContentInit {
   @Input()
   public gridView: SkyListViewGridComponent;
-  public currentBreakpoint: SkyMediaBreakpoints;
 
   @ViewChild('columnChooser')
   private columnChooserTemplate: TemplateRef<any>;
-
-  private mediaQuerySubscription: Subscription;
 
   constructor(
     public listState: ListState,
     @Optional() public secondaryActions: SkyListSecondaryActionsComponent,
     private dispatcher: ListStateDispatcher,
-    private modalService: SkyModalService,
-    private mediaQueries: SkyMediaQueryService,
-    private changeRef: ChangeDetectorRef
+    private modalService: SkyModalService
   ) { }
-
-  public ngOnInit() {
-    this.mediaQuerySubscription = this.mediaQueries.subscribe((newBreakpoint: SkyMediaBreakpoints) => {
-      this.currentBreakpoint = newBreakpoint;
-      this.changeRef.detectChanges();
-    });
-  }
 
   public ngAfterContentInit() {
     if (!this.secondaryActions) {
@@ -82,12 +66,6 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit, O
     }
   }
 
-  public ngOnDestroy() {
-    if (this.mediaQuerySubscription) {
-      this.mediaQuerySubscription.unsubscribe();
-    }
-  }
-
   get isInGridView(): Observable<boolean> {
     return this.listState.map(s => s.views.active).map((activeView) => {
       return this.gridView && (activeView === this.gridView.id);
@@ -98,10 +76,6 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit, O
     return this.listState.map(s => s.views.active).map((activeView) => {
       return this.secondaryActions && this.gridView && (activeView === this.gridView.id);
     }).distinctUntilChanged();
-  }
-
-  public isSmallScreen() {
-    return this.currentBreakpoint === SkyMediaBreakpoints.xs;
   }
 
   public openColumnSelector() {

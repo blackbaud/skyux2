@@ -488,12 +488,12 @@
     "message": "Apply changes"
   },
   "grid_columns_button": {
-    "_description": "Label for button to select columns to display in a grid.",
-    "message": "Columns"
-  },
-  "grid_columns_button_deprecated": {
-    "_description": "Label for button to select columns to display in a grid. (Deprecated manner)",
+    "_description": "Label for secondary actions button to select columns to display in a grid.",
     "message": "Choose columns"
+  },
+  "grid_columns_toolbar_button": {
+    "_description": "Label for toolbar button to select columns to display in a grid.",
+    "message": "Columns"
   },
   "grid_filters_apply": {
     "_description": "Text for button on filters flyout to apply the selected filters to the grid",
@@ -616,8 +616,12 @@
     "message": "No value"
   },
   "list_show_secondary_actions": {
-    "_description": "Label for the button that opens the secondary actions menu in the list toolbar",
+    "_description": "Title for the button that opens the secondary actions menu in the list toolbar",
     "message": "Show secondary actions"
+  },
+  "list_show_secondary_actions_button": {
+    "_description": "Button text for the button that opens the secondary actions menu in the list toolbar",
+    "message": "More"
   },
   "modal_close": {
     "_description": "Text for modal close button",
