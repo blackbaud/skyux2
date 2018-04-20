@@ -39,16 +39,8 @@
     "webpack": "webpack",
     "wdio": "wdio"
   },
-  "peerDependencies": {
-    "@angular/animations": "^4.3.6",
-    "@angular/core": "^4.3.6",
-    "@angular/forms": "^4.3.6",
-    "@angular/platform-browser": "^4.3.6",
-    "@angular/platform-browser-dynamic": "^4.3.6",
-    "@angular/router": "^4.3.6",
-    "rxjs": "^5.4.3"
-  },
   "dependencies": {
+    "@angular/animations": "4.3.6",
     "dragula": "3.7.2",
     "intl": "1.2.5",
     "microedge-rxstate": "2.0.2",
@@ -58,13 +50,12 @@
     "web-animations-js": "2.3.1"
   },
   "devDependencies": {
-    "@angular/animations": "^4.3.6",
-    "@angular/core": "^4.3.6",
-    "@angular/forms": "^4.3.6",
-    "@angular/platform-browser": "^4.3.6",
-    "@angular/platform-browser-dynamic": "^4.3.6",
-    "@angular/router": "^4.3.6",
-    "@blackbaud/skyux": "2.9.0",
+    "@angular/core": "4.3.6",
+    "@angular/forms": "4.3.6",
+    "@angular/platform-browser": "4.3.6",
+    "@angular/platform-browser-dynamic": "4.3.6",
+    "@angular/router": "4.3.6",
+    "@blackbaud/skyux": "latest",
     "@blackbaud/skyux-builder": "1.13.0",
     "@blackbaud/skyux-design-tokens": "0.0.8",
     "@types/core-js": "0.9.41",
@@ -110,7 +101,7 @@
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "1.0.2",
-    "rxjs": "^5.4.3",
+    "rxjs": "5.4.3",
     "sass-loader": "6.0.5",
     "selenium-standalone": "6.4.1",
     "source-map-inline-loader": "1.0.0",
