@@ -105,6 +105,12 @@ class CheckboxWithChangeEventComponent {
   public lastEvent: SkyCheckboxChange;
 }
 
+/** Simple test component with icon specified */
+@Component({
+  template: `<sky-checkbox icon="fa-star" iconColor="warning"></sky-checkbox>`
+})
+class CheckboxWithIconComponent {}
+
 describe('Checkbox component', () => {
   let fixture: ComponentFixture<any>;
 
@@ -121,6 +127,7 @@ describe('Checkbox component', () => {
         CheckboxWithAriaLabelledbyComponent,
         CheckboxWithChangeEventComponent,
         CheckboxWithFormDirectivesComponent,
+        CheckboxWithIconComponent,
         CheckboxWithNameAttributeComponent,
         CheckboxWithTabIndexComponent,
         MultipleCheckboxesComponent,
@@ -487,6 +494,23 @@ describe('Checkbox component', () => {
       let inputElement = <HTMLInputElement> checkboxElement.nativeElement.querySelector('input');
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
+    });
+  });
+
+  describe('with icon specified', () => {
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(CheckboxWithIconComponent);
+
+      fixture.detectChanges();
+    }));
+
+    it('should apply icon class', () => {
+      let checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+      let labelElement = <HTMLLabelElement> checkboxElement.nativeElement.querySelector('label');
+      let iconElement = <HTMLSpanElement> checkboxElement.nativeElement.querySelector('span');
+
+      expect(labelElement.classList.contains('sky-checkbox-icon')).toBe(true);
+      expect(iconElement.classList.contains('fa-star')).toBe(true);
     });
   });
 });

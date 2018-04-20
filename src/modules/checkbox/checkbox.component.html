@@ -1,4 +1,12 @@
-<label class="sky-checkbox-wrapper" [ngClass]="{'sky-checkbox-wrapper-disabled': disabled}">
+<label class="sky-checkbox-wrapper"
+  [ngClass]="{
+    'sky-checkbox-wrapper-disabled': disabled,
+    'sky-checkbox-icon': !!icon,
+    'sky-checkbox-icon-info': iconColor === 'info',
+    'sky-checkbox-icon-success': iconColor === 'success',
+    'sky-checkbox-icon-warning': iconColor === 'warning',
+    'sky-checkbox-icon-danger': iconColor === 'danger'
+  }">
   <input type="checkbox"
         [id]="inputId"
         [checked]="checked"
@@ -7,8 +15,9 @@
         [tabIndex]="tabindex"
         [attr.aria-label]="label"
         [attr.aria-labelledby]="labelledBy"
+        [attr.aria-pressed]="icon ? checked : undefined"
         (blur)="onInputBlur()"
         (change)="onInteractionEvent($event)"/>
-  <span class="sky-checkbox"></span>
+  <span class="sky-checkbox" [ngClass]="icon ? 'fa ' + icon : ''"></span>
   <ng-content select="sky-checkbox-label"></ng-content>
 </label>
