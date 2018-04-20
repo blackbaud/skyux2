@@ -34,8 +34,8 @@
   <div class="sky-select-field-single-select-mode">
     <div
       class="sky-input-group sky-btn sky-btn-default"
-      tabindex="0"
       role="button"
+      [attr.tabindex]="(disabled) ? false : 0"
       [attr.aria-label]="ariaLabel"
       [attr.aria-labelledby]="ariaLabelledBy"
       [attr.title]="singleSelectOpenButtonTitle"
@@ -57,7 +57,8 @@
           type="button"
           [attr.title]="singleSelectClearButtonTitle"
           [disabled]="disabled"
-          (click)="clearSelection();$event.stopPropagation();">
+          (click)="clearSelection();$event.stopPropagation();"
+          (keydown.enter)="clearSelection();$event.preventDefault();$event.stopPropagation();">
           <i
             class="fa fa-times"
             aria-hidden="true">
