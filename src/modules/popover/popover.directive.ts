@@ -104,7 +104,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     Observable
       .fromEvent(element, 'click')
       .takeUntil(this.idled)
-      .subscribe(() => {
+      .subscribe((event: any) => {
         this.togglePopover();
       });
 
