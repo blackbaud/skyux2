@@ -12,6 +12,7 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { SkyInfiniteScrollDomAdapterService } from './infinite-scroll-dom-adapter.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-infinite-scroll',
@@ -29,29 +30,34 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
   public onLoad = new EventEmitter();
 
   public _isLoading: BehaviorSubject<boolean>;
-  public isLoading: Observable<boolean>;
+  public get isLoading(): Observable<boolean> {
+    return this._isLoading.asObservable();
+  }
 
+  private idle = new Subject();
   private elementPosition: number;
   private scrollableParentEl: any;
-  private turnOffScrollListener: () => void;
-  private turnOffResizeListener: () => void;
 
   public constructor(
     private element: ElementRef,
-    private renderer: Renderer2,
     private domAdapter: SkyInfiniteScrollDomAdapterService
   ) {
     this._isLoading = new BehaviorSubject(false);
-    this.isLoading = this._isLoading.asObservable();
   }
 
   public ngOnInit(): void {
     this.scrollableParentEl = this.getScrollableParent(this.element.nativeElement);
     this.elementPosition = this.element.nativeElement.offsetTop;
-    this.turnOffScrollListener = this.renderer.listen(this.scrollableParentEl, 'scroll', () => {
+
+    Observable.fromEvent(this.scrollableParentEl, 'scroll')
+    .takeUntil(this.idle)
+    .subscribe(() => {
       this.startInfiniteScrollLoad();
     });
-    this.turnOffResizeListener = this.renderer.listen(this.scrollableParentEl, 'DOMNodeInserted', () => {
+
+    Observable.fromEvent(this.scrollableParentEl, 'DOMNodeInserted')
+    .takeUntil(this.idle)
+    .subscribe(() => {
       if (this._isLoading && this.element.nativeElement.offsetTop !== this.elementPosition) {
         this.elementPosition = this.element.nativeElement.offsetTop;
         this._isLoading.next(false);
@@ -60,8 +66,8 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.turnOffScrollListener();
-    this.turnOffResizeListener();
+    this.idle.next();
+    this.idle.complete();
   }
 
   public startInfiniteScrollLoad() {
