@@ -273,6 +273,24 @@ describe('Dropdown component', () => {
       verifyMenuVisibility();
     }));
 
+    fit('should open menu if down is pressed', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
+      const hostElem = getDropdownHostElement();
+
+      verifyMenuVisibility(false);
+
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Down' }
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyMenuVisibility();
+    }));
+
     it('should navigate menu items with arrow keys', fakeAsync(() => {
       openPopoverWithButtonClick();
 
@@ -329,6 +347,71 @@ describe('Dropdown component', () => {
 
       SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
         keyboardEventInit: { key: 'ArrowUp' }
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyActiveMenuItemByIndex(3);
+      verifyFocusedMenuItemByIndex(3);
+    }));
+
+    fit('should navigate menu items with internet explorer arrow keys', fakeAsync(() => {
+      openPopoverWithButtonClick();
+
+      const hostElem = getDropdownMenuHostElement();
+
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Down' }
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyActiveMenuItemByIndex(0);
+      verifyFocusedMenuItemByIndex(0);
+
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Down' }
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      // The second item is disabled, so it should be skipped!
+      verifyActiveMenuItemByIndex(2);
+      verifyFocusedMenuItemByIndex(2);
+
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Up' }
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      // The second item is disabled, so it should be skipped!
+      verifyActiveMenuItemByIndex(0);
+      verifyFocusedMenuItemByIndex(0);
+
+      // Navigation should loop from the last item to the first:
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Down' }
+      });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Down' }
+      });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Down' }
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyActiveMenuItemByIndex(0);
+      verifyFocusedMenuItemByIndex(0);
+
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Up' }
       });
       tick();
       fixture.detectChanges();

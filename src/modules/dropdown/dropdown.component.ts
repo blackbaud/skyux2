@@ -135,6 +135,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
         // Allow the menu to be opened with the arrowdown key
         // if it is first opened with the mouse.
+        case 'down':
         case 'arrowdown':
         if (!this.isKeyboardActive) {
           this.isKeyboardActive = true;
@@ -153,6 +154,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       this.isKeyboardActive = true;
       break;
 
+      case 'down':
       case 'arrowdown':
       this.isKeyboardActive = true;
       this.sendMessage(SkyDropdownMessageType.Open);
