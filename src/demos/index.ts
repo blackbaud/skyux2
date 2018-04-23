@@ -38,6 +38,7 @@ export * from './radio';
 export * from './repeater';
 export * from './search';
 export * from './sectioned-form';
+export * from './select-field';
 export * from './sort';
 export * from './tabs';
 export * from './text-expand';
