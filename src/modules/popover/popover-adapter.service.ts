@@ -96,7 +96,8 @@ export class SkyPopoverAdapterService {
         const isVisible = (target === 'window')
           ? true
           : this.isVisibleWithinScrollable(target, popover.nativeElement);
-        callback.call({}, isVisible);
+
+        callback(isVisible);
       });
     });
 
