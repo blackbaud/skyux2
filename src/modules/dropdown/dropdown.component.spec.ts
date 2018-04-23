@@ -198,6 +198,17 @@ describe('Dropdown component', () => {
     it('should open the menu when clicking the trigger button', fakeAsync(() => {
       openPopoverWithButtonClick();
     }));
+
+    it('should allow clicking of the dropdown tag', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      const dropdownButtonHost = fixture.nativeElement.querySelector('sky-dropdown-button');
+      const clickSpy = spyOn(component, 'onDropdownClick').and.callThrough();
+      SkyAppTestUtility.fireDomEvent(dropdownButtonHost, 'click');
+      tick();
+      fixture.detectChanges();
+      expect(clickSpy).toHaveBeenCalled();
+    }));
   });
 
   describe('keyboard interactions', () => {
