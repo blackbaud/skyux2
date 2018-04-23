@@ -1,0 +1,83 @@
+<div class="sky-select-field">
+  <ng-container
+    *ngTemplateOutlet="(selectMode === 'multiple') ? multipleSelectMode : singleSelectMode ">
+  </ng-container>
+</div>
+
+<ng-template #multipleSelectMode>
+  <div class="sky-select-field-multiple-select-mode">
+    <button
+      class="sky-btn sky-btn-default"
+      type="button"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledBy"
+      [disabled]="disabled"
+      (click)="openPicker()">
+      <i
+        class="fa fa-plus-circle"
+        aria-hidden="true">
+      </i>
+      {{ multipleSelectOpenButtonText }}
+    </button>
+    <sky-tokens
+      *ngIf="tokens && tokens.length"
+      [disabled]="disabled"
+      [displayWith]="descriptorKey"
+      [tokens]="tokens"
+      (tokensChange)="onTokensChange($event)"
+      (tokenSelected)="openPicker()">
+    </sky-tokens>
+  </div>
+</ng-template>
+
+<ng-template #singleSelectMode>
+  <div class="sky-select-field-single-select-mode">
+    <div
+      class="sky-input-group sky-btn sky-btn-default"
+      role="button"
+      [attr.tabindex]="(disabled) ? false : 0"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledBy"
+      [attr.title]="singleSelectOpenButtonTitle"
+      [ngClass]="{ 'sky-btn-disabled': disabled }"
+      (click)="openPicker()"
+      (keydown.enter)="openPicker();$event.preventDefault();$event.stopPropagation();">
+      <div class="sky-form-control">
+        {{ singleSelectModeValue }}
+        <div
+          *ngIf="!singleSelectModeValue"
+          class="sky-deemphasized">
+          {{ singleSelectPlaceholderText }}
+        </div>
+      </div>
+      <div class="sky-input-group-btn">
+        <button
+          *ngIf="singleSelectModeValue"
+          class="sky-btn"
+          type="button"
+          [attr.title]="singleSelectClearButtonTitle"
+          [disabled]="disabled"
+          (click)="clearSelection();$event.stopPropagation();"
+          (keydown.enter)="clearSelection();$event.preventDefault();$event.stopPropagation();">
+          <i
+            class="fa fa-times"
+            aria-hidden="true">
+          </i>
+        </button>
+      </div>
+      <div class="sky-input-group-btn">
+        <button
+          class="sky-btn"
+          type="button"
+          [attr.title]="'select_field_single_select_open_button_title' | skyResources"
+          [disabled]="disabled"
+          (click)="openPicker();$event.stopPropagation();">
+          <i
+            class="fa fa-sort"
+            aria-hidden="true">
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
