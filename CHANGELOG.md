@@ -6,7 +6,7 @@
 - Adjusted button styles. [#1605](https://github.com/blackbaud/skyux2/pull/1605), [#1641](https://github.com/blackbaud/skyux2/pull/1641)
 - Updated text expand component to automatically expand when the `maxLength` property is set. [#1615](https://github.com/blackbaud/skyux2/pull/1615) (Thanks @Blackbaud-MikitaYankouski)
 - Refactored list secondary actions to use dropdown directly. [#1600](https://github.com/blackbaud/skyux2/pull/1600)
-- Removed the component's internal `TestUtility` helper in favor of Builder's `SkyAppTestUtility`. [#1598](https://github.com/blackbaud/skyux2/pull/1598)
+- Removed the internal `TestUtility` helper from components in favor of Builder's `SkyAppTestUtility`. [#1598](https://github.com/blackbaud/skyux2/pull/1598)
 - Fixed dropdown not scrolling in IE11. [#1642](https://github.com/blackbaud/skyux2/pull/1642) (Thanks @blackbaud-conorwright)
 
 # 2.11.0 (2018-03-30)
