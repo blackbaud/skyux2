@@ -61,4 +61,6 @@ export class DropdownTestComponent {
     this.items = items;
     this.changeDetector.detectChanges();
   }
+
+  public onDropdownClick() {}
 }
