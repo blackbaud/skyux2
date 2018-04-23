@@ -82,6 +82,28 @@ export class SkyPopoverAdapterService {
     );
   }
 
+  public getParentScrollListeners(
+    popover: ElementRef,
+    callback: (isVisibleWithinScrollable: boolean) => void
+  ): Function[] {
+    const bodyElement = this.windowRef.getWindow().document.body;
+    const parentElements = this.getScrollableParentElements(popover);
+
+    const listeners = parentElements.map((parentElement: HTMLElement) => {
+      const target: any = (parentElement === bodyElement) ? 'window' : parentElement;
+
+      return this.renderer.listen(target, 'scroll', () => {
+        const isVisible = (target === 'window')
+          ? true
+          : this.isVisibleWithinScrollable(target, popover.nativeElement);
+
+        callback(isVisible);
+      });
+    });
+
+    return listeners;
+  }
+
   private getPopoverCoordinates(
     elements: SkyPopoverAdapterElements,
     placement: SkyPopoverPlacement,
@@ -292,5 +314,38 @@ export class SkyPopoverAdapterService {
     };
 
     return pairings[placement];
+  }
+
+  private getScrollableParentElements(element: ElementRef): Array<HTMLElement> {
+    const windowObj = this.windowRef.getWindow();
+    const bodyElement = windowObj.document.body;
+    const result = [bodyElement];
+
+    let parentElement = element.nativeElement.parentNode;
+
+    while (
+      parentElement !== undefined &&
+      parentElement !== bodyElement &&
+      parentElement instanceof HTMLElement
+    ) {
+      const overflowY = windowObj.getComputedStyle(parentElement, undefined).overflowY.toLowerCase();
+      if (overflowY === 'auto' || overflowY === 'hidden' || overflowY === 'scroll') {
+        result.push(parentElement);
+      }
+
+      parentElement = parentElement.parentNode;
+    }
+
+    return result;
+  }
+
+  // Returns true if the popover is visible in the scrollable parent.
+  private isVisibleWithinScrollable(container: any, popover: any): boolean {
+    const containerRect = container.getBoundingClientRect();
+    const popoverRect = popover.getBoundingClientRect();
+    const percentageTopVisible = (popoverRect.top === 0) ? 100 : popoverRect.top / containerRect.top * 100;
+    const percentageBottomVisible = (containerRect.bottom === 0) ? 100 : containerRect.bottom / popoverRect.bottom * 100;
+
+    return (percentageTopVisible > 95 && percentageBottomVisible > 95);
   }
 }
