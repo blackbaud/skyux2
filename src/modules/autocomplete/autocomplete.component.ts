@@ -355,10 +355,6 @@ export class SkyAutocompleteComponent
       case SkyDropdownMessageType.Close:
       this.popover.close();
       break;
-
-      case SkyDropdownMessageType.FocusTriggerButton:
-      this.inputDirective.elementRef.nativeElement.focus();
-      break;
     }
   }
 
