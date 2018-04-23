@@ -2,18 +2,18 @@
   <ng-content>
   </ng-content>
   <div class="sky-autocomplete-results">
-
-    <sky-dropdown
+    <sky-popover
+      placement="below"
+      [alignment]="alignment"
+      (popoverOpened)="onPopoverOpened()"
       [dismissOnBlur]="false"
-      [messageStream]="dropdownController">
-
-      <sky-dropdown-button>
-      </sky-dropdown-button>
-
+      [@.disabled]="true"
+      #popover>
       <sky-dropdown-menu
         [useNativeFocus]="false"
         [skyHighlight]="highlightText"
-        (menuChanges)="onMenuChanges($event)">
+        (menuChanges)="onMenuChanges($event)"
+        #dropdownMenu>
 
         <sky-dropdown-item
           *ngFor="let result of searchResults; let i = index">
@@ -27,7 +27,7 @@
 
         </sky-dropdown-item>
       </sky-dropdown-menu>
-    </sky-dropdown>
+    </sky-popover>
   </div>
   <ng-template
     let-item="item"

@@ -21,7 +21,8 @@ import 'rxjs/add/observable/fromEvent';
 import {
   SkyDropdownMenuChange,
   SkyDropdownMessageType,
-  SkyDropdownMessage
+  SkyDropdownMessage,
+  SkyDropdownMenuComponent
 } from '../dropdown';
 
 import {
@@ -34,6 +35,7 @@ import {
 import { SkyAutocompleteAdapterService } from './autocomplete-adapter.service';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
 import { skyAutocompleteDefaultSearchFunction } from './autocomplete-default-search-function';
+import { SkyPopoverComponent, SkyPopoverAlignment } from '../popover';
 
 @Component({
   selector: 'sky-autocomplete',
@@ -115,8 +117,8 @@ export class SkyAutocompleteComponent
     return this._selectionChange;
   }
 
-  public get dropdownController(): Subject<SkyDropdownMessage> {
-    return this._dropdownController;
+  public get messageStream(): Subject<SkyDropdownMessage> {
+    return this._messageStream;
   }
 
   public get searchResults(): any[] {
@@ -127,8 +129,16 @@ export class SkyAutocompleteComponent
     return this._highlightText || '';
   }
 
+  public alignment: SkyPopoverAlignment = 'left';
+
   @ViewChild('defaultSearchResultTemplate')
   private defaultSearchResultTemplate: TemplateRef<any>;
+
+  @ViewChild(SkyPopoverComponent)
+  private popover: SkyPopoverComponent;
+
+  @ViewChild('dropdownMenu')
+  private dropdownMenu: SkyDropdownMenuComponent;
 
   @ContentChild(SkyAutocompleteInputDirective)
   private inputDirective: SkyAutocompleteInputDirective;
@@ -140,7 +150,7 @@ export class SkyAutocompleteComponent
 
   private _data: any[];
   private _descriptorProperty: string;
-  private _dropdownController = new Subject<SkyDropdownMessage>();
+  private _messageStream = new Subject<SkyDropdownMessage>();
   private _highlightText: string;
   private _propertiesToSearch: string[];
   private _search: SkyAutocompleteSearchFunction;
@@ -177,6 +187,12 @@ export class SkyAutocompleteComponent
       .takeUntil(this.ngUnsubscribe)
       .subscribe(() => {
         this.isMouseEnter = false;
+      });
+
+      this.messageStream
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((message: SkyDropdownMessage) => {
+        this.handleIncomingMessages(message);
       });
   }
 
@@ -224,8 +240,12 @@ export class SkyAutocompleteComponent
     }
 
     if (change.items) {
-      this.sendDropdownMessage(SkyDropdownMessageType.FocusFirstItem);
+      this.sendMessage(SkyDropdownMessageType.FocusFirstItem);
     }
+  }
+
+  public onPopoverOpened() {
+    this.sendMessage(SkyDropdownMessageType.Open);
   }
 
   private handleKeyDown(event: KeyboardEvent): void {
@@ -234,7 +254,7 @@ export class SkyAutocompleteComponent
     /* tslint:disable-next-line:switch-default */
     switch (key) {
       case 'arrowup':
-      this.sendDropdownMessage(SkyDropdownMessageType.FocusPreviousItem);
+      this.sendMessage(SkyDropdownMessageType.FocusPreviousItem);
       event.preventDefault();
       break;
 
@@ -246,7 +266,7 @@ export class SkyAutocompleteComponent
         this.searchTextChanged(text);
         event.preventDefault();
       } else {
-        this.sendDropdownMessage(SkyDropdownMessageType.FocusNextItem);
+        this.sendMessage(SkyDropdownMessageType.FocusNextItem);
         event.preventDefault();
       }
       break;
@@ -285,7 +305,7 @@ export class SkyAutocompleteComponent
     if (isLongEnough && isDifferent) {
       this.performSearch().then((results: any[]) => {
         if (!this.hasSearchResults()) {
-          this.sendDropdownMessage(SkyDropdownMessageType.Open);
+          this.positionPopover();
         }
 
         this._searchResults = results;
@@ -317,15 +337,48 @@ export class SkyAutocompleteComponent
     this.closeDropdown();
   }
 
+  private handleIncomingMessages(message: SkyDropdownMessage) {
+    /* tslint:disable-next-line:switch-default */
+    switch (message.type) {
+      case SkyDropdownMessageType.Open:
+      this.dropdownMenu.focusFirstItem();
+      break;
+
+      case SkyDropdownMessageType.FocusNextItem:
+      this.dropdownMenu.focusNextItem();
+      break;
+
+      case SkyDropdownMessageType.FocusPreviousItem:
+      this.dropdownMenu.focusPreviousItem();
+      break;
+
+      case SkyDropdownMessageType.Close:
+      this.popover.close();
+      break;
+
+      case SkyDropdownMessageType.FocusTriggerButton:
+      this.inputDirective.elementRef.nativeElement.focus();
+      break;
+    }
+  }
+
+  private positionPopover() {
+    this.popover.positionNextTo(
+      this.elementRef,
+      'below',
+      this.alignment
+    );
+  }
+
   private closeDropdown(): void {
     this._searchResults = [];
     this._highlightText = '';
     this.changeDetector.markForCheck();
-    this.sendDropdownMessage(SkyDropdownMessageType.Close);
+    this.sendMessage(SkyDropdownMessageType.Close);
   }
 
-  private sendDropdownMessage(type: SkyDropdownMessageType): void {
-    this.dropdownController.next({ type });
+  private sendMessage(type: SkyDropdownMessageType): void {
+    this.messageStream.next({ type });
   }
 
   private hasSearchResults(): boolean {

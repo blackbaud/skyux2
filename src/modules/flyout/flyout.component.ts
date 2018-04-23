@@ -44,7 +44,7 @@ const FLYOUT_CLOSED_STATE = 'flyoutClosed';
   styleUrls: ['./flyout.component.scss'],
   animations: [
     trigger('flyoutState', [
-      state(FLYOUT_OPEN_STATE, style({ transform: 'translateX(0)' })),
+      state(FLYOUT_OPEN_STATE, style({ transform: 'inherit' })),
       state(FLYOUT_CLOSED_STATE, style({ transform: 'translateX(100%)' })),
       transition('void => *', [
         style({ transform: 'translateX(100%)' }),

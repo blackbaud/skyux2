@@ -90,14 +90,6 @@ export class SkyPopoverAdapterService {
     const windowObj = this.windowRef.getWindow();
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
     const callerRect = elements.caller.nativeElement.getBoundingClientRect();
-    const offsetPar = elements.caller.nativeElement.offsetParent;
-    let parentTop = 0;
-    let parentLeft = 0;
-
-    if (offsetPar) {
-      parentTop = offsetPar.getBoundingClientRect().top + offsetPar.clientTop;
-      parentLeft = offsetPar.getBoundingClientRect().left + offsetPar.clientLeft;
-    }
 
     const callerXCenter = callerRect.width / 2;
     const scrollRight = windowObj.innerWidth;
@@ -114,28 +106,28 @@ export class SkyPopoverAdapterService {
     /* tslint:disable-next-line:switch-default */
     switch (placement) {
       case 'above':
-      top = callerRect.top - Math.max(parentTop, 0) - popoverRect.height;
+      top = callerRect.top - popoverRect.height;
       bleedTop = top;
       break;
 
       case 'below':
-      top = callerRect.bottom - Math.max(parentTop, 0);
+      top = callerRect.bottom;
       bleedBottom = scrollBottom - (top + popoverRect.height);
       break;
 
       case 'right':
-      left = callerRect.right - Math.max(parentLeft, 0);
+      left = callerRect.right;
       bleedRight = scrollRight - (left + popoverRect.width);
       break;
 
       case 'left':
-      left = callerRect.left - Math.max(parentLeft, 0) - popoverRect.width;
+      left = callerRect.left - popoverRect.width;
       bleedLeft = left;
       break;
     }
 
     if (placement === 'right' || placement === 'left') {
-      top = callerRect.top - Math.max(parentTop, 0) - (popoverRect.height / 2) + (callerRect.height / 2);
+      top = callerRect.top - (popoverRect.height / 2) + (callerRect.height / 2);
       bleedTop = top;
       bleedBottom = scrollBottom - (top + popoverRect.height);
     }
@@ -146,15 +138,15 @@ export class SkyPopoverAdapterService {
       switch (alignment) {
         default:
         case 'center':
-        left = callerRect.left - Math.max(parentLeft, 0) - (popoverRect.width / 2) + callerXCenter;
+        left = callerRect.left - (popoverRect.width / 2) + callerXCenter;
         break;
 
         case 'left':
-        left = callerRect.left - Math.max(parentLeft, 0);
+        left = callerRect.left;
         break;
 
         case 'right':
-        left = callerRect.left - Math.max(parentLeft, 0) - popoverRect.width + callerRect.width;
+        left = callerRect.left - popoverRect.width + callerRect.width;
         break;
       }
 
@@ -254,34 +246,26 @@ export class SkyPopoverAdapterService {
   ): SkyPopoverPosition {
     const windowObj = this.windowRef.getWindow();
     const callerRect = elements.caller.nativeElement.getBoundingClientRect();
-    const offsetPar = elements.caller.nativeElement.offsetParent;
     const popoverRect = elements.popover.nativeElement.getBoundingClientRect();
     const pixelTolerance = 40;
-    let parentTop = 0;
-    let parentLeft = 0;
-
-    if (offsetPar) {
-      parentTop = offsetPar.getBoundingClientRect().top + offsetPar.clientTop;
-      parentLeft = offsetPar.getBoundingClientRect().left + offsetPar.clientLeft;
-    }
 
     if (position.placement === 'left' || position.placement === 'right') {
-      if (callerRect.top - Math.max(parentTop, 0) < 0) {
-        position.top = callerRect.top - Math.max(parentTop, 0);
+      if (callerRect.top < 0) {
+        position.top = callerRect.top;
       }
 
-      if (callerRect.bottom  - Math.max(parentTop, 0) > windowObj.innerHeight) {
-        position.top = callerRect.bottom - Math.max(parentTop, 0) - popoverRect.height;
+      if (callerRect.bottom > windowObj.innerHeight) {
+        position.top = callerRect.bottom - popoverRect.height;
       }
     }
 
     if (position.placement === 'above' || position.placement === 'below') {
-      if (position.left + pixelTolerance > callerRect.right - Math.max(parentLeft, 0)) {
-        position.left = callerRect.right - Math.max(parentLeft, 0) - pixelTolerance;
+      if (position.left + pixelTolerance > callerRect.right) {
+        position.left = callerRect.right - pixelTolerance;
       }
 
-      if (position.left + popoverRect.width - pixelTolerance < callerRect.left - Math.max(parentLeft, 0)) {
-        position.left = callerRect.left - Math.max(parentLeft, 0) - popoverRect.width + pixelTolerance;
+      if (position.left + popoverRect.width - pixelTolerance < callerRect.left ) {
+        position.left = callerRect.left - popoverRect.width + pixelTolerance;
       }
     }
 
