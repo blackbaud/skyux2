@@ -11,9 +11,9 @@ export interface SomeItem {
   templateUrl: './infinite-scroll-demo.component.html'
 })
 export class SkyInfiniteScrollDemoComponent {
-  public idCount: number = 1;
+  public idCount = 1;
   public data: SomeItem[] = [];
-  public hasMore: boolean = true;
+  public hasMore = true;
 
   constructor() {
     this.addData();

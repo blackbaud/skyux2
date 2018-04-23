@@ -523,7 +523,7 @@
     "_description": "Placeholder text in grid search box",
     "message": "Find in this list"
   },
-  "infinite_scroll_load_more": {
+  "infinite_scroll_load_more_button": {
     "_description": "Text for loading more in the infinite scroll button",
     "message": "Load more"
   },
