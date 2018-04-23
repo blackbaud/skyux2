@@ -103,19 +103,19 @@
     "_description": "Label for the reset button to change the color back to the initial color",
     "message": "Reset"
   },
-  "confirm_dialog_default_ok_text" : {
+  "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
     "message": "OK"
   },
-  "confirm_dialog_default_yes_text" : {
+  "confirm_dialog_default_yes_text": {
     "_description": "Default text for confirm dialog's Yes button",
     "message": "Yes"
   },
-  "confirm_dialog_default_no_text" : {
+  "confirm_dialog_default_no_text": {
     "_description": "Default text for confirm dialog's No button",
     "message": "No"
   },
-  "confirm_dialog_default_cancel_text" : {
+  "confirm_dialog_default_cancel_text": {
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
   },
@@ -751,29 +751,45 @@
     "_description": "text for ui-select search control while performing a remote search",
     "message": "Searching..."
   },
-  "selectfield_remove": {
-    "_description": "Text for screen readers to convey the meaning of the remove icon button on select field values",
-    "message": "Remove"
+  "select_field_multiple_select_open_button": {
+    "_description": "The default button text for the select field when the user is allowed to select multiple values (plural)",
+    "message": "Select values"
   },
-  "selectfield_summary_text": {
-    "_description": "Text displayed when the user has more than 5 items selected",
+  "select_field_multiple_select_picker_heading": {
+    "_description": "The default heading text for the select field picker when the user is allowed to select multiple values (plural)",
+    "message": "Select values"
+  },
+  "select_field_multiple_select_summary": {
+    "_description": "Text displayed when the user has more than the maximum items selected",
     "message": "{0} items selected"
   },
-  "selectfieldpicker_clear": {
-    "_description": "Text displayed on the button in single select mode to clear selection and close form",
+  "select_field_single_select_placeholder": {
+    "_description": "The default placeholder text for the select field when the user is allowed to select one value (singular)",
+    "message": "Select a value"
+  },
+  "select_field_single_select_picker_heading": {
+    "_description": "The default heading text for the select field picker when the user is allowed to select one value (singular)",
+    "message": "Select a value"
+  },
+  "select_field_single_select_open_button_title": {
+    "_description": "The default title text for the select field picker when the user is allowed to select one value (singular)",
+    "message": "Click to select a value"
+  },
+  "select_field_single_select_clear_button_title": {
+    "_description": "The default button text for the single-select clear button",
     "message": "Clear selection"
   },
-  "selectfieldpicker_select": {
+  "select_field_picker_close_button": {
+    "_description": "Text displayed on the button in multi select mode to close form",
+    "message": "Close"
+  },
+  "select_field_picker_save_button": {
     "_description": "Text displayed on the primary dialog button to confirm selection of multiple items",
     "message": "Select"
   },
-  "selectfieldpicker_select_value": {
-    "_description": "The default header text for the select field picker directive when the user is allowed to select one value (singular)",
-    "message": "Select value"
-  },
-  "selectfieldpicker_select_values": {
-    "_description": "The default header text for the select field picker directive when the user is allowed to select more than one value (plural)",
-    "message": "Select values"
+  "select_field_picker_show_all_category": {
+    "_description": "The default category name for the select field picker that will display all possible results.",
+    "message": "Show all"
   },
   "sort_button_label": {
     "_description": "Text for the sort button",
