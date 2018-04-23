@@ -8,6 +8,8 @@
 - Refactored list secondary actions to use dropdown directly. [#1600](https://github.com/blackbaud/skyux2/pull/1600)
 - Removed the internal `TestUtility` helper from components in favor of Builder's `SkyAppTestUtility`. [#1598](https://github.com/blackbaud/skyux2/pull/1598)
 - Fixed dropdown not scrolling in IE11. [#1642](https://github.com/blackbaud/skyux2/pull/1642) (Thanks @blackbaud-conorwright)
+- Fixed dropdown scroll behavior in a scrollable container. [#1634](https://github.com/blackbaud/skyux2/pull/1634)
+- Fixed custom click events to fire on the dropdown tag. [#1640](https://github.com/blackbaud/skyux2/pull/1640)
 
 # 2.11.0 (2018-03-30)
 
