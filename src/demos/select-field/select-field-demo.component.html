@@ -1,0 +1,144 @@
+<sky-row>
+  <sky-column screenSmall="6">
+    <h2 class="sky-section-heading">
+      Reactive form setup
+    </h2>
+
+    <form
+      [formGroup]="reactiveForm"
+      (ngSubmit)="submitReactiveForm()"
+      novalidate>
+
+      <div class="sky-form-group">
+        <label
+          class="sky-control-label"
+          id="my-select-field-1">
+          What is your favorite color?
+        </label>
+        <sky-select-field
+          [data]="colorStream"
+          ariaLabelledBy="my-select-field-1"
+          formControlName="favoriteColor"
+          pickerHeading="Colors"
+          selectMode="single"
+          singleSelectClearButtonTitle="Clear selected color"
+          singleSelectOpenButtonTitle="Select a color"
+          singleSelectPlaceholderText="Select a color...">
+        </sky-select-field>
+      </div>
+
+      <div class="sky-form-group">
+        <label
+          class="sky-control-label"
+          id="my-select-field-2">
+          What are your favorite fruits?
+        </label>
+        <sky-select-field
+          [data]="fruitStream"
+          ariaLabelledBy="my-select-field-2"
+          formControlName="favoriteFruits"
+          multipleSelectOpenButtonText="Select some fruits"
+          pickerHeading="Fruits">
+        </sky-select-field>
+      </div>
+
+      <div class="select-field-demo-alert">
+        <strong>Form model:</strong>
+        <pre>{{ reactiveForm.value | json }}</pre>
+      </div>
+
+      <button
+        class="sky-btn sky-btn-primary"
+        type="submit">
+        Submit
+      </button>
+    </form>
+  </sky-column>
+  <sky-column screenSmall="6">
+    <h2 class="sky-section-heading">
+      Template-driven form setup
+    </h2>
+
+    <form
+      #myForm="ngForm"
+      (ngSubmit)="submitTemplateForm(myForm.value)"
+      novalidate>
+
+      <div class="sky-form-group">
+        <label
+          class="sky-control-label"
+          id="my-select-field-template-driven-1">
+          What is your favorite color?
+        </label>
+        <sky-select-field
+          [data]="colorStream"
+          ariaLabelledBy="my-select-field-template-driven-1"
+          pickerHeading="Colors"
+          selectMode="single"
+          singleSelectClearButtonTitle="Clear selected color"
+          singleSelectOpenButtonTitle="Select a color"
+          singleSelectPlaceholderText="Select a color..."
+          name="favoriteColor"
+          [(ngModel)]="templateDrivenModel.favoriteColor">
+        </sky-select-field>
+      </div>
+
+      <div class="sky-form-group">
+        <label
+          class="sky-control-label"
+          id="my-select-field-template-driven-2">
+          What are your favorite fruits?
+        </label>
+        <sky-select-field
+          [data]="fruitStream"
+          ariaLabelledBy="my-select-field-template-driven-2"
+          multipleSelectOpenButtonText="Select some fruits"
+          pickerHeading="Fruits"
+          name="favoriteFruits"
+          [(ngModel)]="templateDrivenModel.favoriteFruits">
+        </sky-select-field>
+      </div>
+
+      <div class="select-field-demo-alert">
+        <strong>Form model:</strong>
+        <pre>{{ myForm.value | json }}</pre>
+      </div>
+
+      <button
+        class="sky-btn sky-btn-primary"
+        type="submit">
+        Submit
+      </button>
+    </form>
+  </sky-column>
+</sky-row>
+<sky-row>
+  <sky-column screenSmall="12">
+    <h2 class="sky-section-heading">
+      Disabled select fields
+    </h2>
+
+    <div class="sky-form-group">
+      <label
+        class="sky-control-label">
+        Make a single selection (disabled)
+      </label>
+      <sky-select-field
+        [data]="colorStream"
+        [disabled]="true"
+        selectMode="single">
+      </sky-select-field>
+    </div>
+
+    <div class="sky-form-group">
+      <label
+        class="sky-control-label">
+        Make multiple selections (disabled)
+      </label>
+      <sky-select-field
+        [data]="fruitStream"
+        [disabled]="true">
+      </sky-select-field>
+    </div>
+  </sky-column>
+</sky-row>

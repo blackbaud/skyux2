@@ -64,6 +64,7 @@ import {
   SkyDemoAddressFormComponent,
   SkyDemoInformationFormComponent,
   SkyDemoPhoneFormComponent,
+  SkySelectFieldDemoComponent,
   SkySortDemoComponent,
   SkyTabsDemoComponent,
   SkyTextExpandDemoComponent,
@@ -142,7 +143,7 @@ const components = [
   SkyDemoAddressFormComponent,
   SkyDemoInformationFormComponent,
   SkyDemoPhoneFormComponent,
-
+  SkySelectFieldDemoComponent,
   SkySortDemoComponent,
   SkyTabsDemoComponent,
   SkyTextExpandDemoComponent,
