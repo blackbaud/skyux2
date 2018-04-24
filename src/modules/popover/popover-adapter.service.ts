@@ -286,7 +286,7 @@ export class SkyPopoverAdapterService {
         position.left = callerRect.right - pixelTolerance;
       }
 
-      if (position.left + popoverRect.width - pixelTolerance < callerRect.left ) {
+      if (position.left + popoverRect.width - pixelTolerance < callerRect.left) {
         position.left = callerRect.left - popoverRect.width + pixelTolerance;
       }
     }
