@@ -273,7 +273,7 @@ describe('Dropdown component', () => {
       verifyMenuVisibility();
     }));
 
-    fit('should open menu if down is pressed', fakeAsync(() => {
+    it('should open menu if down is pressed', fakeAsync(() => {
       tick();
       fixture.detectChanges();
 
@@ -356,7 +356,7 @@ describe('Dropdown component', () => {
       verifyFocusedMenuItemByIndex(3);
     }));
 
-    fit('should navigate menu items with internet explorer arrow keys', fakeAsync(() => {
+    it('should navigate menu items with internet explorer arrow keys', fakeAsync(() => {
       openPopoverWithButtonClick();
 
       const hostElem = getDropdownMenuHostElement();
