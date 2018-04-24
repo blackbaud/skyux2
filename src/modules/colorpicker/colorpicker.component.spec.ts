@@ -138,8 +138,11 @@ describe('Colorpicker Component', () => {
     inputEvent.initEvent('input', params.bubbles, params.cancelable);
     let changeEvent = document.createEvent('Event');
     changeEvent.initEvent('change', params.bubbles, params.cancelable);
+    let blurEvent = document.createEvent('Event');
+    blurEvent.initEvent('blur', params.bubbles, params.cancelable);
     input[name].dispatchEvent(inputEvent);
     input[name].dispatchEvent(changeEvent);
+    input[name].dispatchEvent(blurEvent);
     fixture.detectChanges();
     fixture.whenStable();
     return input[name];
@@ -394,8 +397,11 @@ describe('Colorpicker Component', () => {
     inputEvent.initEvent('input', true, false);
     let changeEvent = document.createEvent('Event');
     changeEvent.initEvent('change', true, false);
+    let blurEvent = document.createEvent('Event');
+    blurEvent.initEvent('blur', true, false);
     nativeElement.querySelector('input').dispatchEvent(inputEvent);
     nativeElement.querySelector('input').dispatchEvent(changeEvent);
+    nativeElement.querySelector('input').dispatchEvent(blurEvent);
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(69,35,252,1)', '69, 35, 252');
   }));

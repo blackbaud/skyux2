@@ -171,6 +171,7 @@
       </div>
     </sky-dropdown-menu>
   </sky-dropdown> -->
+  <ng-content></ng-content>
   <button
     type="button"
     class="sky-btn sky-dropdown-button"
@@ -179,8 +180,6 @@
     [skyPopoverAlignment]="alignment"
     skyPopoverPlacement="below"
     #triggerButton>
-      <ng-content>
-      </ng-content>
   </button>
   <sky-popover
     placement="below"
