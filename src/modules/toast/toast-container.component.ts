@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 import { SkyToastService } from './services/toast.service';
 import { Observable } from 'rxjs/Observable';
 

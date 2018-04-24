@@ -1,7 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { SkyToastMessage, SkyToastCustomComponent } from '../types';
+import {
+  SkyToastMessage,
+  SkyToastCustomComponent
+} from '../types';
 import { SkyToastComponent } from '.';
-import { ComponentFactoryResolver, Injector } from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  Injector
+} from '@angular/core';
 
 describe('Toast service', () => {
   class TestComponent implements SkyToastCustomComponent { public message: SkyToastMessage; }

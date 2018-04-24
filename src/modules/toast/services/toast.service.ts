@@ -13,13 +13,18 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { SkyToastContainerComponent } from '../toast-container.component';
 import { SkyToastAdapterService } from './toast-adapter.service';
-import { SkyToastMessage, SkyToastConfig, SkyToastType, SkyToastCustomComponent } from '../types';
+import {
+  SkyToastMessage,
+  SkyToastConfig,
+  SkyToastType,
+  SkyToastCustomComponent
+} from '../types';
 
 @Injectable()
 export class SkyToastService implements OnDestroy {
   private host: ComponentRef<SkyToastContainerComponent>;
 
-  private _messages: SkyToastMessage[] = [];
+  private messages: SkyToastMessage[] = [];
   private _messageList: BehaviorSubject<SkyToastMessage[]> = new BehaviorSubject([]);
   public get getMessages(): Observable<SkyToastMessage[]> { return this._messageList.asObservable(); }
 
@@ -27,7 +32,8 @@ export class SkyToastService implements OnDestroy {
     private appRef: ApplicationRef,
     private injector: Injector,
     private resolver: ComponentFactoryResolver,
-    private adapter: SkyToastAdapterService) {}
+    private adapter: SkyToastAdapterService
+  ) {}
 
   public openMessage(message: string, config: SkyToastConfig = {}) {
     config.message = message;
@@ -48,15 +54,15 @@ export class SkyToastService implements OnDestroy {
     }
 
     let message: SkyToastMessage = this.createMessage(config);
-    this._messages.push(message);
-    this._messageList.next(this._messages);
+    this.messages.push(message);
+    this._messageList.next(this.messages);
 
     return message;
   }
 
   public ngOnDestroy() {
     this.host = undefined;
-    this._messages.forEach(message => {
+    this.messages.forEach(message => {
       message.close();
     });
     this._messageList.next([]);
@@ -64,8 +70,8 @@ export class SkyToastService implements OnDestroy {
   }
 
   private removeFromQueue: Function = (message: SkyToastMessage) => {
-    this._messages = this._messages.filter(msg => msg !== message);
-    this._messageList.next(this._messages);
+    this.messages = this.messages.filter(msg => msg !== message);
+    this._messageList.next(this.messages);
   }
 
   private createMessage(config: SkyToastConfig): SkyToastMessage {

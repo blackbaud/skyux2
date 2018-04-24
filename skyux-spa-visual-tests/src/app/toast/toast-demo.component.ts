@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { SkyToastService, SkyToastCustomComponent, SkyToastMessage } from '@blackbaud/skyux/dist/core';
+import {
+  SkyToastService,
+  SkyToastCustomComponent,
+  SkyToastMessage
+} from '@blackbaud/skyux/dist/core';
 
 @Component({
   selector: 'sky-test-cmp-toast',

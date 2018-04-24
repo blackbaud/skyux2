@@ -10,9 +10,9 @@ import { SkyToastCustomDemoComponent } from './toast-custom-demo.component';
   templateUrl: './toast-demo.component.html'
 })
 export class SkyToastDemoComponent {
+  public selectedType = SkyToastType.Info;
   public typeTranslator = SkyToastType;
-  public types: SkyToastType[] = [SkyToastType.Info, SkyToastType.Success, SkyToastType.Warning, SkyToastType.Danger];
-  public selectedType: SkyToastType = SkyToastType.Info;
+  public types = [SkyToastType.Info, SkyToastType.Success, SkyToastType.Warning, SkyToastType.Danger];
 
   constructor(private toastSvc: SkyToastService) { }
 

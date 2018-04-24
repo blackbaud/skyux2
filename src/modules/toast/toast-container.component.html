@@ -1,3 +1,6 @@
 <div class="sky-toaster">
-  <sky-toast *ngFor="let message of messages | async" [message]="message"></sky-toast>
+  <sky-toast
+    *ngFor="let message of messages | async"
+    [message]="message">
+  </sky-toast>
 </div>

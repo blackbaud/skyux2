@@ -1,9 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { SkyToastService } from './toast.service';
-import { SkyToastConfig, SkyToastType, SkyToastMessage, SkyToastCustomComponent } from '../types';
+import {
+  SkyToastConfig,
+  SkyToastType,
+  SkyToastMessage,
+  SkyToastCustomComponent
+} from '../types';
 import { SkyWindowRefService } from '../../window';
 import { SkyToastAdapterService } from './toast-adapter.service';
-import { ApplicationRef, ComponentFactoryResolver, Injector } from '@angular/core';
+import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  Injector
+} from '@angular/core';
 
 describe('Toast service', () => {
   class TestComponent implements SkyToastCustomComponent { public message: SkyToastMessage; }

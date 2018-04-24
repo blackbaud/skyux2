@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { SkyToastService, SkyToastContainerComponent } from '.';
+import {
+  SkyToastService,
+  SkyToastContainerComponent
+} from '.';
 import { SkyToastMessage } from './types';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 

@@ -1,5 +1,8 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
-import { element, by } from 'protractor';
+import {
+  element,
+  by
+} from 'protractor';
 
 describe('Toast', () => {
   it('should match previous toast screenshot', () => {

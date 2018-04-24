@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { SkyToastCustomComponent, SkyToastMessage } from '../../core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  SkyToastCustomComponent,
+  SkyToastMessage
+} from '../../core';
 
 @Component({
   selector: 'sky-toast-custom-demo',
@@ -7,7 +13,7 @@ import { SkyToastCustomComponent, SkyToastMessage } from '../../core';
 })
 export class SkyToastCustomDemoComponent implements OnInit, SkyToastCustomComponent {
   public message: SkyToastMessage;
-  public text: string = 'This is a templated message. It can even link you to ';
+  public text = 'This is a templated message. It can even link you to ';
 
   constructor() {}
 

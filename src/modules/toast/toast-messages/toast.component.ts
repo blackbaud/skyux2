@@ -10,7 +10,10 @@ import {
   ComponentRef,
   Injector
 } from '@angular/core';
-import { SkyToastMessage, SkyToastCustomComponent } from '../types';
+import {
+  SkyToastMessage,
+  SkyToastCustomComponent
+} from '../types';
 
 @Component({
   selector: 'sky-toast',
