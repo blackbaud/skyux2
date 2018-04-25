@@ -193,7 +193,9 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       case SkyDropdownMessageType.Reposition:
       // Only reposition the dropdown if it is already open.
       if (this.isOpen) {
-        this.popover.reposition();
+        this.windowRef.getWindow().setTimeout(() => {
+          this.popover.reposition();
+        });
       }
       break;
 
