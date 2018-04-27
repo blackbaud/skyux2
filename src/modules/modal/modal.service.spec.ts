@@ -23,6 +23,7 @@ import { SkyModalFixturesModule } from './fixtures/modal-fixtures.module';
 import { ModalTestValues } from './fixtures/modal-values.fixture';
 import { ModalTestComponent } from './fixtures/modal.component.fixture';
 import { ModalWithValuesTestComponent } from './fixtures/modal-with-values.component.fixture';
+import { PlatformLocation } from '@angular/common';
 
 describe('Modal service', () => {
   let modalService: SkyModalService;
@@ -56,7 +57,8 @@ describe('Modal service', () => {
     inject(
       [
         SkyModalService,
-        ApplicationRef
+        ApplicationRef,
+        PlatformLocation
       ],
       (
         _modalService: SkyModalService,
