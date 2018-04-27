@@ -123,6 +123,71 @@ describe('Dropdown component', () => {
     return (getComputedStyle(elem).visibility !== 'hidden');
   }
 
+  function verifyArrowKeyNavigation(downKey: string, upKey: string) {
+    openPopoverWithButtonClick();
+
+    const hostElem = getDropdownMenuHostElement();
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    verifyActiveMenuItemByIndex(0);
+    verifyFocusedMenuItemByIndex(0);
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    // The second item is disabled, so it should be skipped!
+    verifyActiveMenuItemByIndex(2);
+    verifyFocusedMenuItemByIndex(2);
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: upKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    // The second item is disabled, so it should be skipped!
+    verifyActiveMenuItemByIndex(0);
+    verifyFocusedMenuItemByIndex(0);
+
+    // Navigation should loop from the last item to the first:
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    verifyActiveMenuItemByIndex(0);
+    verifyFocusedMenuItemByIndex(0);
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: upKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    verifyActiveMenuItemByIndex(3);
+    verifyFocusedMenuItemByIndex(3);
+  }
+
   describe('basic setup', () => {
     it('should have a default button type of "select"', () => {
       fixture.detectChanges();
@@ -292,133 +357,11 @@ describe('Dropdown component', () => {
     }));
 
     it('should navigate menu items with arrow keys', fakeAsync(() => {
-      openPopoverWithButtonClick();
-
-      const hostElem = getDropdownMenuHostElement();
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'ArrowDown' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'ArrowDown' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      // The second item is disabled, so it should be skipped!
-      verifyActiveMenuItemByIndex(2);
-      verifyFocusedMenuItemByIndex(2);
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'ArrowUp' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      // The second item is disabled, so it should be skipped!
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      // Navigation should loop from the last item to the first:
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'ArrowDown' }
-      });
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'ArrowDown' }
-      });
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'ArrowDown' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'ArrowUp' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(3);
-      verifyFocusedMenuItemByIndex(3);
+      verifyArrowKeyNavigation('ArrowDown', 'ArrowUp');
     }));
 
     it('should navigate menu items with internet explorer arrow keys', fakeAsync(() => {
-      openPopoverWithButtonClick();
-
-      const hostElem = getDropdownMenuHostElement();
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'Down' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'Down' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      // The second item is disabled, so it should be skipped!
-      verifyActiveMenuItemByIndex(2);
-      verifyFocusedMenuItemByIndex(2);
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'Up' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      // The second item is disabled, so it should be skipped!
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      // Navigation should loop from the last item to the first:
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'Down' }
-      });
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'Down' }
-      });
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'Down' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
-        keyboardEventInit: { key: 'Up' }
-      });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(3);
-      verifyFocusedMenuItemByIndex(3);
+      verifyArrowKeyNavigation('Down', 'Up');
     }));
 
     it('should focus the first item if opened with enter key', fakeAsync(() => {
