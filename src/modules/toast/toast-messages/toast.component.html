@@ -1,11 +1,12 @@
 <aside>
   <div
     class="sky-toast"
-    [ngClass]="{'sky-toast-info':     message.toastType=='info',
-                'sky-toast-warning':   message.toastType=='warning',
-                'sky-toast-danger':   message.toastType=='danger',
-                'sky-toast-success':  message.toastType=='success',
-                'sky-toast-closing': message.isClosing | async}">
+    [ngClass]="{'sky-toast-info':     message.toastType==='info',
+                'sky-toast-warning':   message.toastType==='warning',
+                'sky-toast-danger':   message.toastType==='danger',
+                'sky-toast-success':  message.toastType==='success',
+                'sky-toast-closing': message.isClosing | async}"
+    [attr.aria-live]="message.toastType==='danger' ? 'assertive' : 'polite'">
     <div
       class="sky-toast-content"
       (click)="message.close()">
