@@ -160,13 +160,11 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.placement = this.preferredPlacement;
     this.changeDetector.markForCheck();
 
-    this.windowRef.getWindow().setTimeout(() => {
-      if (this.adapterService.isPopoverLargerThanParent(this.popoverContainer)) {
-        this.placement = 'fullscreen';
-      }
+    if (this.adapterService.isPopoverLargerThanParent(this.popoverContainer)) {
+      this.placement = 'fullscreen';
+    }
 
-      this.positionPopover();
-    });
+    this.positionPopover();
   }
 
   public close() {
