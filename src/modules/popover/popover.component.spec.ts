@@ -325,7 +325,7 @@ describe('SkyPopoverComponent', () => {
   }));
 
   it('should expose a method to return the placement to the preferred placement', fakeAsync(() => {
-    spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
+    const spy = spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
       top: 0,
       left: 0,
       arrowLeft: 0,
@@ -342,8 +342,7 @@ describe('SkyPopoverComponent', () => {
     expect(component.placement).toEqual('right');
 
     component.reposition();
-    expect(component.placement).toEqual('above');
-    tick();
+    expect(spy.calls.argsFor(1)[1]).toEqual('above');
   }));
 
   it('should hide the popover if its top or bottom boundaries leave its scrollable parent', fakeAsync(() => {
