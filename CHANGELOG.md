@@ -1,3 +1,7 @@
+# 2.12.1 (2018-04-26)
+
+- Fixed dropdown repositioning slowness. [#1655](https://github.com/blackbaud/skyux2/pull/1655)
+
 # 2.12.0 (2018-04-23)
 
 - Added select field component. [#1629](https://github.com/blackbaud/skyux2/pull/1629) (Thanks @Blackbaud-JaminQuimby)
