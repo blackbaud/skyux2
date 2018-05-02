@@ -17,6 +17,7 @@ export * from './fluid-grid';
 export * from './flyout';
 export * from './grid';
 export * from './help-inline';
+export * from './infinite-scroll';
 export * from './key-info';
 export * from './label';
 export * from './link-records';
