@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder
+} from '@angular/forms';
 
 @Component({
   selector: 'sky-radio-demo',
@@ -7,4 +11,17 @@ import { Component } from '@angular/core';
 export class SkyRadioDemoComponent {
   public selectedValue = '3';
   public valueGuy = '2';
+  public radioForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder
+  ) {
+    this.radioForm = this.fb.group({
+      option: ''
+    });
+  }
+
+  public logChange(num: Number) {
+    console.log(num + ' ' + this.radioForm.value.option);
+  }
 }

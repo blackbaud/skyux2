@@ -34,3 +34,34 @@
     Pristine: {{cb.pristine}}
   </div>
 </form>
+<br />
+<br />
+<form [formGroup]="radioForm" (ngSubmit)="onSubmit()">
+  <div class="form-group radio">
+    <legend>Reactive Radio button options:</legend>
+    <ul class="sky-list-unstyled">
+      <li>
+        <sky-radio formControlName="option" value="1" (ngModelChange)="logChange(1)">
+          <sky-radio-label>Option 1</sky-radio-label>
+        </sky-radio>
+      </li>
+      <li>
+        <sky-radio formControlName="option" value="2" (ngModelChange)="logChange(2)">
+          <sky-radio-label>Option 2</sky-radio-label>
+        </sky-radio>
+      </li>
+      <li>
+        <sky-radio formControlName="option" value="3" (ngModelChange)="logChange(3)">
+          <sky-radio-label>Option 3</sky-radio-label>
+        </sky-radio>
+      </li>
+    </ul>
+  </div>
+  <div style="margin-top: 1em">
+    <p>
+      Selected option: {{radioForm.value.option}}
+      Touched: {{radioForm.touched}}
+      Pristine: {{radioForm.pristine}}
+    </p>
+  </div>
+</form>
