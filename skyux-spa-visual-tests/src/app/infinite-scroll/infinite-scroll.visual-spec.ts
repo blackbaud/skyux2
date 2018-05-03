@@ -1,5 +1,10 @@
-import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
-import { element, by } from 'protractor';
+import {
+  SkyVisualTest
+} from '../../../config/utils/visual-test-commands';
+import {
+  element,
+  by
+} from 'protractor';
 
 describe('Infinite Scroll', () => {
 

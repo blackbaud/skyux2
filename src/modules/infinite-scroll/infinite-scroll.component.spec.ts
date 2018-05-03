@@ -77,7 +77,7 @@ describe('Infinite scroll component', () => {
     });
 
     it('should not emit an onLoad event on scroll when isLoading is true', (done: Function) => {
-      debugElement.query(By.css('.sky-infinite-scroll')).componentInstance._isLoading.next(true);
+      debugElement.query(By.css('.sky-infinite-scroll')).componentInstance.isLoading.next(true);
       SkyAppTestUtility.fireDomEvent(window, 'scroll');
       fixture.detectChanges();
       setTimeout(() => {

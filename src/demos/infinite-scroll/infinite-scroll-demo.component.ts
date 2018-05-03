@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 export interface SomeItem {
   id: number;
@@ -8,7 +11,8 @@ export interface SomeItem {
 
 @Component({
   selector: 'sky-infinite-scroll-demo',
-  templateUrl: './infinite-scroll-demo.component.html'
+  templateUrl: './infinite-scroll-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyInfiniteScrollDemoComponent {
   public idCount = 1;
@@ -20,14 +24,11 @@ export class SkyInfiniteScrollDemoComponent {
   }
 
   public addData() {
-    if (!this.hasMore) {
-      return;
-    }
     let newList: SomeItem[] = [];
     for (let i = 0; i < 5; i++) {
       newList.push({
         id: this.idCount,
-        name: 'Title ' + this.idCount,
+        name: 'Item #' + this.idCount,
         description: 'A description for ' + this.idCount
       });
       this.idCount++;
@@ -36,10 +37,13 @@ export class SkyInfiniteScrollDemoComponent {
   }
 
   public loadFn() {
-    return setTimeout(() => {
-      this.addData();
-      if (this.idCount > 90) {
-        this.hasMore = false;
+    // Using setTimeout to simulate the delay of an async retrieval
+    setTimeout(() => {
+      if (this.hasMore) {
+        this.addData();
+        if (this.idCount > 90) {
+          this.hasMore = false;
+        }
       }
     }, 2000);
   }
