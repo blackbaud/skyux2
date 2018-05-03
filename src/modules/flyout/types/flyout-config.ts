@@ -1,11 +1,12 @@
+import { SkyFlyoutPermalink } from './flyout-permalink';
+
 export interface SkyFlyoutConfig {
-  providers?: any[];
   ariaDescribedBy?: string;
   ariaLabelledBy?: string;
   ariaRole?: string;
   defaultWidth?: number;
   minWidth?: number;
   maxWidth?: number;
-  permalink?: string;
-  permalinkLabel?: string;
+  permalink?: SkyFlyoutPermalink;
+  providers?: any[];
 }

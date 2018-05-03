@@ -23,6 +23,10 @@ import {
   trigger
 } from '@angular/animations';
 
+import {
+  Router
+} from '@angular/router';
+
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
@@ -72,7 +76,12 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public get permalinkLabel(): string {
-    return this.config.permalinkLabel || SkyResources.getString('flyout_permalink_button');
+    const permalink = this.config.permalink;
+    if (permalink && permalink.label) {
+      return permalink.label;
+    }
+
+    return SkyResources.getString('flyout_permalink_button');
   }
 
   @ViewChild('target', { read: ViewContainerRef })
@@ -91,7 +100,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     private adapter: SkyFlyoutAdapterService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private router: Router
   ) {
     // All commands flow through the message stream.
     this.messageStream
@@ -116,8 +126,11 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     });
   }
 
-  public onPermalinkButtonClick() {
-    this.adapter.navigateToUrl(this.config.permalink);
+  public navigate(route: any) {
+    this.router.navigate(route.commands, route.extras);
+    this.messageStream.next({
+      type: SkyFlyoutMessageType.Close
+    });
   }
 
   public attach<T>(component: Type<T>, config: SkyFlyoutConfig): SkyFlyoutInstance<T> {

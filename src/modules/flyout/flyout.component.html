@@ -21,13 +21,9 @@
   <div class="sky-flyout-header" #flyoutHeader>
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
-      <button
-        *ngIf="config?.permalink"
-        type="button"
-        class="sky-btn sky-btn-default sky-flyout-btn-permalink"
-        (click)="onPermalinkButtonClick()">
-        {{ permalinkLabel }}
-      </button>
+      <ng-container
+        *ngTemplateOutlet="permalinkTemplate">
+      </ng-container>
       <button
         type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
@@ -41,3 +37,26 @@
     <div #target></div>
   </div>
 </div>
+
+<ng-template
+  [ngIf]="config?.permalink"
+  #permalinkTemplate>
+
+  <ng-template
+    [ngIf]="config.permalink?.url">
+    <a
+      class="sky-btn sky-btn-default sky-flyout-btn-permalink"
+      [href]="config.permalink.url">
+      {{ permalinkLabel }}
+    </a>
+  </ng-template>
+
+  <ng-template
+    [ngIf]="config.permalink?.route">
+    <a
+      class="sky-btn sky-btn-default sky-flyout-btn-permalink"
+      (click)="navigate(config.permalink.route)">
+      {{ permalinkLabel }}
+    </a>
+  </ng-template>
+</ng-template>

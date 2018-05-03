@@ -123,10 +123,6 @@ describe('Flyout component', () => {
     fixture.destroy();
   }));
 
-  afterAll(() => {
-
-  });
-
   it('should close when the close button is clicked', fakeAsync(() => {
     const flyout = openFlyout();
     expect(flyout.isOpen).toBe(true);
@@ -308,7 +304,9 @@ describe('Flyout component', () => {
         const expectedLabel = SkyResources.getString('flyout_permalink_button');
 
         openFlyout({
-          permalink: expectedPermalink
+          permalink: {
+            url: expectedPermalink
+          }
         });
 
         const permaLinkButton = getPermalinkButtonElement();
@@ -324,8 +322,10 @@ describe('Flyout component', () => {
         const expectedLabel = 'Foo Bar';
 
         openFlyout({
-          permalink: expectedPermalink,
-          permalinkLabel: expectedLabel
+          permalink: {
+            label: expectedLabel,
+            url: expectedPermalink
+          }
         });
 
         const permaLinkButton = getPermalinkButtonElement();
@@ -346,12 +346,31 @@ describe('Flyout component', () => {
         spyOn(windowService, 'getWindow').and.returnValue(mockWindow);
 
         openFlyout({
-          permalink: expectedPermalink
+          permalink: {
+            url: expectedPermalink
+          }
         });
         const permaLinkButton = getPermalinkButtonElement();
-        permaLinkButton.click();
+        expect(permaLinkButton.getAttribute('href')).toEqual(expectedPermalink);
+      })
+    );
 
-        expect(mockWindow.location).toEqual({ href: expectedPermalink });
+    it('should navigate to a route when clicking on the permalink button',
+      fakeAsync(() => {
+        openFlyout({
+          permalink: {
+            route: {
+              commands: ['/'],
+              extras: {
+                fragment: 'foo'
+              }
+            }
+          }
+        });
+        const navigateSpy = spyOn(flyoutService['host'].instance['router'] as any, 'navigate').and.callFake(() => {});
+        const permaLinkButton = getPermalinkButtonElement();
+        permaLinkButton.click();
+        expect(navigateSpy).toHaveBeenCalledWith(['/'], { fragment: 'foo' });
       })
     );
   });
