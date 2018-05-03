@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /**
  * Auto-incrementing integer used to generate unique ids for checkbox components.
@@ -57,6 +58,9 @@ export class SkyRadioComponent implements ControlValueAccessor {
   @Input()
   public value: any;
 
+  private _obsValue = new BehaviorSubject<any>(undefined);
+  public get obsValue() { return this._obsValue.asObservable(); }
+
   public get inputId(): string {
     return `input-${this.id}`;
   }
@@ -79,6 +83,7 @@ export class SkyRadioComponent implements ControlValueAccessor {
 
     this.selectedValue = newValue;
     this.onChangeCallback(newValue);
+    this._obsValue.next(newValue);
   }
 
   // Satisfying ControlValueAccessor interface.
