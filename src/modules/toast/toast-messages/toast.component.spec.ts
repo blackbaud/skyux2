@@ -1,17 +1,20 @@
-import { TestBed } from '@angular/core/testing';
 import {
-  SkyToastMessage,
-  SkyToastCustomComponent
+  TestBed
+} from '@angular/core/testing';
+import {
+  SkyToastInstance
 } from '../types';
-import { SkyToastComponent } from '.';
+import {
+  SkyToastComponent
+} from '.';
 import {
   ComponentFactoryResolver,
   Injector
 } from '@angular/core';
 
 describe('Toast service', () => {
-  class TestComponent implements SkyToastCustomComponent { public message: SkyToastMessage; }
-  let message: SkyToastMessage;
+  class TestComponent { constructor(public message: SkyToastInstance) {} }
+  let message: SkyToastInstance;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -64,7 +67,7 @@ describe('Toast service', () => {
 
   it('should instantiate a toast without a custom component',
     () => {
-      message = new SkyToastMessage('My message', undefined, 'danger', () => {}, []);
+      message = new SkyToastInstance('My message', undefined, 'danger', [], () => {});
       let toast: SkyToastComponent;
       try {
         toast = new SkyToastComponent(undefined, undefined);
@@ -81,13 +84,27 @@ describe('Toast service', () => {
       expect(toast).toBeTruthy();
   });
 
+  it('should show proper closed or open states', () => {
+    message = new SkyToastInstance('My message', undefined, 'danger', [], () => {});
+    let toast: SkyToastComponent = new SkyToastComponent(undefined, undefined);
+    toast.message = message;
+
+    toast.ngOnInit();
+
+    expect(toast.getAnimationState()).toBe('toastOpen');
+    message.close();
+    toast.animationDone(undefined);
+    expect(toast.getAnimationState()).toBe('toastClosed');
+    expect(toast).toBeTruthy();
+  });
+
   it('should instantiate a toast with a custom component and tear it down',
     () => {
       let clearCalled: boolean = false;
       let createComponentCalled: boolean = false;
       let destroyCalled: boolean = false;
 
-      message = new SkyToastMessage(undefined, TestComponent, 'danger', () => {}, []);
+      message = new SkyToastInstance(undefined, TestComponent, 'danger', [], () => {});
 
       let toast: SkyToastComponent;
       toast = new SkyToastComponent(TestBed.get(ComponentFactoryResolver), TestBed.get(Injector));

@@ -1,4 +1,6 @@
-import { SkyToastType } from './toast-message-type';
+import {
+  SkyToastType
+} from './toast-type';
 import {
   Type,
   Provider

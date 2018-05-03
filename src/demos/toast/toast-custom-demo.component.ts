@@ -3,25 +3,21 @@ import {
   OnInit
 } from '@angular/core';
 import {
-  SkyToastCustomComponent,
-  SkyToastMessage
+  SkyToastInstance
 } from '../../core';
 
 @Component({
   selector: 'sky-toast-custom-demo',
   template: "<p>{{text}}<a *ngIf='!(message.isClosing | async)' href='http://example.com'>example.com</a></p>"
 })
-export class SkyToastCustomDemoComponent implements OnInit, SkyToastCustomComponent {
-  public message: SkyToastMessage;
+export class SkyToastCustomDemoComponent implements OnInit {
   public text = 'This is a templated message. It can even link you to ';
 
-  constructor() {}
+  constructor(public message: SkyToastInstance) {}
 
   public ngOnInit() {
-    this.message.isClosing.subscribe((value: boolean) => {
-      if (value) {
-        this.text = 'Bye bye :D';
-      }
+    this.message.isClosing.subscribe(() => {
+      this.text = 'Bye bye :D';
     });
   }
 }

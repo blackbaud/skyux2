@@ -1,7 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-import { SkyWindowRefService } from '../../window';
-import { RendererFactory2 } from '@angular/core';
-import { SkyToastAdapterService } from './toast-adapter.service';
+import {
+  TestBed
+} from '@angular/core/testing';
+import {
+  SkyWindowRefService
+} from '../../window';
+import {
+  RendererFactory2
+} from '@angular/core';
+import {
+  SkyToastAdapterService
+} from './toast-adapter.service';
 
 describe('Toast adapter service', () => {
 

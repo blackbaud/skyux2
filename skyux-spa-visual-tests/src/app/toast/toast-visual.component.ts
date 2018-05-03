@@ -1,7 +1,12 @@
-import { Component } from '@angular/core';
-import { SkyToastService } from '@blackbaud/skyux/dist/core';
-
-import { ToastDemoComponent } from './toast-demo.component';
+import {
+  Component
+} from '@angular/core';
+import {
+  SkyToastService
+} from '@blackbaud/skyux/dist/core';
+import {
+  ToastDemoComponent
+} from './toast-demo.component';
 
 @Component({
   selector: 'toast-visual',

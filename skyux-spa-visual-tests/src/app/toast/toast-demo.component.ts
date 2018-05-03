@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 import {
   SkyToastService,
-  SkyToastCustomComponent,
-  SkyToastMessage
+  SkyToastInstance
 } from '@blackbaud/skyux/dist/core';
 
 @Component({
@@ -10,6 +11,6 @@ import {
   templateUrl: './toast-demo.component.html',
   providers: [SkyToastService]
 })
-export class ToastDemoComponent implements SkyToastCustomComponent {
-  public message: SkyToastMessage;
+export class ToastDemoComponent {
+  constructor(public message: SkyToastInstance) {}
 }

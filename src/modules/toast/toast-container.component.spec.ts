@@ -1,14 +1,20 @@
-import { TestBed } from '@angular/core/testing';
+import {
+  TestBed
+} from '@angular/core/testing';
 import {
   SkyToastService,
   SkyToastContainerComponent
 } from '.';
-import { SkyToastMessage } from './types';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {
+  SkyToastInstance
+} from './types';
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
 
 describe('Toast service', () => {
   let toastService: SkyToastService;
-  let messages: BehaviorSubject<SkyToastMessage[]> = new BehaviorSubject([]);
+  let messages: BehaviorSubject<SkyToastInstance[]> = new BehaviorSubject([]);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,7 +22,7 @@ describe('Toast service', () => {
         {
           provide: SkyToastService,
           useValue: {
-            getMessages: messages.asObservable()
+            messages: messages
           }
         }
     ]});
@@ -25,9 +31,9 @@ describe('Toast service', () => {
 
   it('should instantiate a toast container with its own subscription to the message list',
     (done: Function) => {
-      let message: SkyToastMessage = new SkyToastMessage('My message', undefined, 'danger', () => {
+      let message: SkyToastInstance = new SkyToastInstance('My message', undefined, 'danger', [], () => {
         messages.next([]);
-      }, []);
+      });
       messages.next([message]);
 
       let container: SkyToastContainerComponent = new SkyToastContainerComponent(toastService);

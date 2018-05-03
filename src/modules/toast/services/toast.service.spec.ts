@@ -1,13 +1,20 @@
-import { TestBed } from '@angular/core/testing';
-import { SkyToastService } from './toast.service';
+import {
+  TestBed
+} from '@angular/core/testing';
+import {
+  SkyToastService
+} from './toast.service';
 import {
   SkyToastConfig,
   SkyToastType,
-  SkyToastMessage,
-  SkyToastCustomComponent
+  SkyToastInstance
 } from '../types';
-import { SkyWindowRefService } from '../../window';
-import { SkyToastAdapterService } from './toast-adapter.service';
+import {
+  SkyWindowRefService
+} from '../../window';
+import {
+  SkyToastAdapterService
+} from './toast-adapter.service';
 import {
   ApplicationRef,
   ComponentFactoryResolver,
@@ -15,7 +22,7 @@ import {
 } from '@angular/core';
 
 describe('Toast service', () => {
-  class TestComponent implements SkyToastCustomComponent { public message: SkyToastMessage; }
+  class TestComponent { constructor(public message: SkyToastInstance) { } }
   let toastService: SkyToastService;
 
   beforeEach(() => {
@@ -97,7 +104,7 @@ describe('Toast service', () => {
   });
 
   it('should expose a method to remove the toast from the DOM', () => {
-      let message: SkyToastMessage = toastService.open({message: 'message'});
+      let message: SkyToastInstance = toastService.open({message: 'message'});
       const spy = spyOn(message, 'close').and.callThrough();
       toastService.ngOnDestroy();
       expect(spy).toHaveBeenCalledWith();
@@ -109,15 +116,21 @@ describe('Toast service', () => {
         toastType: SkyToastType.Danger,
         message: 'fake message'
       };
-      let internalMessage: SkyToastMessage = toastService.openMessage('Real message', configuration);
+      let internalMessage: SkyToastInstance = toastService.openMessage('Real message', configuration);
 
       expect(internalMessage).toBeTruthy();
       expect(internalMessage.message).toBe('Real message');
       expect(internalMessage.toastType).toBe('danger');
 
       expect(internalMessage.close).toBeTruthy();
-      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
-      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
+
+      let isClosingCalled = false;
+      let isClosedCalled = false;
+      internalMessage.isClosing.subscribe(() => isClosingCalled = true);
+      internalMessage.isClosed.subscribe(() => isClosedCalled = true);
+
+      expect(isClosingCalled).toBeFalsy();
+      expect(isClosedCalled).toBeFalsy();
     });
   });
 
@@ -128,7 +141,7 @@ describe('Toast service', () => {
         toastType: SkyToastType.Danger
       };
 
-      let internalMessage: SkyToastMessage = toastService.openTemplatedMessage(TestComponent, configuration);
+      let internalMessage: SkyToastInstance = toastService.openTemplatedMessage(TestComponent, configuration);
 
       expect(internalMessage).toBeTruthy();
       expect(internalMessage.message).toBeFalsy();
@@ -136,8 +149,14 @@ describe('Toast service', () => {
       expect(internalMessage.toastType).toBe('danger');
 
       expect(internalMessage.close).toBeTruthy();
-      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
-      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
+
+      let isClosingCalled = false;
+      let isClosedCalled = false;
+      internalMessage.isClosing.subscribe(() => isClosingCalled = true);
+      internalMessage.isClosed.subscribe(() => isClosedCalled = true);
+
+      expect(isClosingCalled).toBeFalsy();
+      expect(isClosedCalled).toBeFalsy();
     });
   });
 
@@ -148,7 +167,7 @@ describe('Toast service', () => {
         message: 'My message'
       };
 
-      let internalMessage: SkyToastMessage = toastService.open(configuration);
+      let internalMessage: SkyToastInstance = toastService.open(configuration);
 
       expect(internalMessage).toBeTruthy();
       expect(internalMessage.message).toBe('My message');
@@ -156,8 +175,14 @@ describe('Toast service', () => {
       expect(internalMessage.toastType).toBe('danger');
 
       expect(internalMessage.close).toBeTruthy();
-      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
-      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
+
+      let isClosingCalled = false;
+      let isClosedCalled = false;
+      internalMessage.isClosing.subscribe(() => isClosingCalled = true);
+      internalMessage.isClosed.subscribe(() => isClosedCalled = true);
+
+      expect(isClosingCalled).toBeFalsy();
+      expect(isClosedCalled).toBeFalsy();
     });
 
     it('should open a custom toast with the given component type and configuration', function() {
@@ -166,7 +191,7 @@ describe('Toast service', () => {
         customComponentType: TestComponent
       };
 
-      let internalMessage: SkyToastMessage = toastService.open(configuration);
+      let internalMessage: SkyToastInstance = toastService.open(configuration);
 
       expect(internalMessage).toBeTruthy();
       expect(internalMessage.message).toBeFalsy();
@@ -174,8 +199,14 @@ describe('Toast service', () => {
       expect(internalMessage.toastType).toBe('danger');
 
       expect(internalMessage.close).toBeTruthy();
-      internalMessage.isClosing.subscribe(val => expect(val).toBeFalsy());
-      internalMessage.isClosed.subscribe(val => expect(val).toBeFalsy());
+
+      let isClosingCalled = false;
+      let isClosedCalled = false;
+      internalMessage.isClosing.subscribe(() => isClosingCalled = true);
+      internalMessage.isClosed.subscribe(() => isClosedCalled = true);
+
+      expect(isClosingCalled).toBeFalsy();
+      expect(isClosedCalled).toBeFalsy();
     });
 
     it('should remove message from queue when the message is closed', function(done: Function) {
@@ -184,11 +215,23 @@ describe('Toast service', () => {
         message: 'My message'
       };
 
-      let internalMessage: SkyToastMessage = toastService.open(configuration);
+      let internalMessage: SkyToastInstance = toastService.open(configuration);
+
+      let isClosingCalled = false;
+      let isClosedCalled = false;
+      internalMessage.isClosing.subscribe(() => isClosingCalled = true);
+      internalMessage.isClosed.subscribe(() => isClosedCalled = true);
+
       internalMessage.close();
+      internalMessage.isClosed.next();
       setTimeout(() => {
-          internalMessage.isClosed.subscribe((value) => { expect(value).toBeTruthy(); });
-          toastService.getMessages.subscribe((value) => { expect(value.length).toBe(0); });
+          toastService.messages.subscribe((value) => {
+            if (isClosingCalled) {
+              expect(value.length).toBe(0);
+            }
+          });
+          expect(isClosingCalled).toBeTruthy();
+          expect(isClosedCalled).toBeTruthy();
           done();
       }, 600);
     });
@@ -199,7 +242,7 @@ describe('Toast service', () => {
         message: 'My message'
       };
 
-      let internalMessage: SkyToastMessage = toastService.open(configuration);
+      let internalMessage: SkyToastInstance = toastService.open(configuration);
       internalMessage.close();
       setTimeout(() => {
           try {
@@ -240,8 +283,8 @@ describe('Toast service', () => {
     });
 
     it('should open info toast type when no or an unknown type is supplied', function () {
-      let emptyType: SkyToastMessage = toastService.open({message: 'info message'});
-      let unknownType: SkyToastMessage = toastService.open({message: 'info message', toastType: 5});
+      let emptyType: SkyToastInstance = toastService.open({message: 'info message'});
+      let unknownType: SkyToastInstance = toastService.open({message: 'info message', toastType: 5});
 
       expect(emptyType.toastType).toBe('info');
       expect(unknownType.toastType).toBe('info');

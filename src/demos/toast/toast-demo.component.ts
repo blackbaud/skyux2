@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 import {
   SkyToastService,
   SkyToastType
 } from '../../core';
-import { SkyToastCustomDemoComponent } from './toast-custom-demo.component';
+import {
+  SkyToastCustomDemoComponent
+} from './toast-custom-demo.component';
 
 @Component({
   selector: 'sky-toast-demo',

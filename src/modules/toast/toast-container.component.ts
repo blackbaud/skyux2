@@ -2,11 +2,15 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import { SkyToastService } from './services/toast.service';
-import { Observable } from 'rxjs/Observable';
+import {
+  SkyToastService
+} from './services/toast.service';
+import {
+  Observable
+} from 'rxjs/Observable';
 
 @Component({
-  selector: 'sky-toast-container',
+  selector: 'sky-toaster',
   templateUrl: './toast-container.component.html',
   styleUrls: ['./toast-container.component.scss']
 })
@@ -17,6 +21,6 @@ export class SkyToastContainerComponent implements OnInit {
   constructor(private toast: SkyToastService) { }
 
   public ngOnInit() {
-    this.messages = this.toast.getMessages;
+    this.messages = this.toast.messages;
   }
 }

@@ -1,16 +1,31 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SkyToastService } from './services/toast.service';
-import { SkyToastContainerComponent } from './toast-container.component';
-import { SkyResourcesModule } from '../resources';
-import { SkyToastAdapterService } from './services/toast-adapter.service';
-import { SkyToastComponent } from './toast-messages';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
+import {
+  SkyToastService
+} from './services/toast.service';
+import {
+  SkyToastContainerComponent
+} from './toast-container.component';
+import {
+  SkyResourcesModule
+} from '../resources';
+import {
+  SkyToastAdapterService
+} from './services/toast-adapter.service';
+import {
+  SkyToastComponent
+} from './toast-messages';
 
 export {
-  SkyToastMessage,
-  SkyToastCustomComponent
+  SkyToastInstance
 } from './types';
-export { SkyToastService };
+export {
+  SkyToastService
+};
 
 @NgModule({
   declarations: [
@@ -33,5 +48,4 @@ export { SkyToastService };
     SkyToastComponent
   ]
 })
-export class SkyToastModule {
-}
+export class SkyToastModule {}
