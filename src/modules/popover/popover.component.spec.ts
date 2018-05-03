@@ -227,6 +227,25 @@ describe('SkyPopoverComponent', () => {
     expect(spy).not.toHaveBeenCalled();
   }));
 
+  it('should close the popover automatically if autodismiss is set', fakeAsync(() => {
+    const spy = spyOn(fixture.componentInstance, 'close');
+
+    fixture.componentInstance.autoDismiss = true;
+
+    component.onAnimationDone({
+      fromState: 'hidden',
+      toState: 'open',
+      totalTime: 0,
+      phaseName: '',
+      element: {},
+      triggerName: ''
+    });
+
+    expect(component.isOpen).toBeTruthy();
+    tick(3000);
+    expect(spy).toHaveBeenCalled();
+  }));
+
   it('should reposition the popover on window scroll', fakeAsync(() => {
     const spy = spyOn(fixture.componentInstance as any, 'positionPopover');
 

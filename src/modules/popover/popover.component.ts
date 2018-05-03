@@ -56,6 +56,9 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public dismissOnBlur = true;
 
   @Input()
+  public autoDismiss = false;
+
+  @Input()
   public popoverTitle: string;
 
   @Input()
@@ -195,6 +198,10 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     } else {
       this.isOpen = true;
       this.popoverOpened.emit(this);
+
+      if (this.autoDismiss) {
+        setTimeout(() => this.close(), 3000);
+      }
     }
   }
 

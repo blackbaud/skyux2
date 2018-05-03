@@ -32,6 +32,17 @@
   </sky-popover>
 
   <button
+    class="sky-btn"
+    type="button"
+    [skyPopover]="autoPopover">
+    Auto Dismiss
+  </button>
+
+  <sky-popover #autoPopover>
+    This popover will close after 3 seconds.
+  </sky-popover>
+
+  <button
     type="button"
     class="sky-btn sky-btn-default"
     [skyPopover]="asyncPopoverRef">
