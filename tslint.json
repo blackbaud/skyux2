@@ -1,3 +1,10 @@
 {
-  "extends": "@blackbaud/skyux-builder/tslint"
+  "extends": "@blackbaud/skyux-builder/tslint",
+  "rules": {
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration"
+    ]
+  }
 }
