@@ -1,6 +1,8 @@
 import {
-  Component
+  Component,
+  ChangeDetectionStrategy
 } from '@angular/core';
+
 import {
   SkyToastService,
   SkyToastInstance
@@ -9,7 +11,8 @@ import {
 @Component({
   selector: 'sky-test-cmp-toast',
   templateUrl: './toast-demo.component.html',
-  providers: [SkyToastService]
+  providers: [SkyToastService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastDemoComponent {
   constructor(public message: SkyToastInstance) {}

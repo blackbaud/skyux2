@@ -1,16 +1,17 @@
 import {
+  ComponentFactoryResolver,
+  Injector
+} from '@angular/core';
+import {
   TestBed
 } from '@angular/core/testing';
+
 import {
   SkyToastInstance
 } from '../types';
 import {
   SkyToastComponent
 } from '.';
-import {
-  ComponentFactoryResolver,
-  Injector
-} from '@angular/core';
 
 describe('Toast service', () => {
   class TestComponent { constructor(public message: SkyToastInstance) {} }

@@ -1,6 +1,11 @@
 import {
   TestBed
 } from '@angular/core/testing';
+
+import {
+  BehaviorSubject
+} from 'rxjs';
+
 import {
   SkyToastService,
   SkyToastContainerComponent
@@ -8,9 +13,6 @@ import {
 import {
   SkyToastInstance
 } from './types';
-import {
-  BehaviorSubject
-} from 'rxjs/BehaviorSubject';
 
 describe('Toast service', () => {
   let toastService: SkyToastService;

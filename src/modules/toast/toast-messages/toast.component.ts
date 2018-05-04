@@ -16,6 +16,7 @@ import {
   transition,
   ChangeDetectionStrategy
 } from '@angular/core';
+
 import {
   SkyToastInstance
 } from '../types';

@@ -9,9 +9,11 @@ import {
   Type,
   Provider
 } from '@angular/core';
+
 import {
   BehaviorSubject
 } from 'rxjs';
+
 import {
   SkyToastContainerComponent
 } from '../toast-container.component';

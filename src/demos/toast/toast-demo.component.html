@@ -1,22 +1,17 @@
 <div>
-  <table>
-    <thead>
-      <td>Toast type</td>
-      <td></td>
-    </thead>
-    <tbody>
-      <tr *ngFor="let type of types">
-        <td>{{ typeTranslator[type] }}</td>
-        <td>
-          <input
-            name="radiogroup"
-            type="radio"
-            [checked]="type === selectedType"
-            (change)="selectedType = type" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <fieldset>
+    <legend>Toast type</legend>
+    <ul class="sky-list-unstyled">
+      <li *ngFor="let type of types">
+        <sky-radio
+          name="radiogroup"
+          [value]="type"
+          [(ngModel)]="selectedType">
+          <sky-radio-label>{{ typeTranslator[type] }}</sky-radio-label>
+        </sky-radio>
+      </li>
+    </ul>
+  </fieldset>
   <button
     class="sky-btn sky-btn-primary"
     (click)="openMessage()">

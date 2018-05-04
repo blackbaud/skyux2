@@ -1,16 +1,20 @@
 import {
-  Component
+  Component,
+  ChangeDetectionStrategy
 } from '@angular/core';
+
 import {
   SkyToastService
 } from '@blackbaud/skyux/dist/core';
+
 import {
   ToastDemoComponent
 } from './toast-demo.component';
 
 @Component({
   selector: 'toast-visual',
-  templateUrl: './toast-visual.component.html'
+  templateUrl: './toast-visual.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastVisualComponent {
   constructor(

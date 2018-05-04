@@ -1,25 +1,27 @@
 import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  Injector
+} from '@angular/core';
+import {
   TestBed
 } from '@angular/core/testing';
+
+import {
+  SkyWindowRefService
+} from '../../window';
+
 import {
   SkyToastService
 } from './toast.service';
+import {
+  SkyToastAdapterService
+} from './toast-adapter.service';
 import {
   SkyToastConfig,
   SkyToastType,
   SkyToastInstance
 } from '../types';
-import {
-  SkyWindowRefService
-} from '../../window';
-import {
-  SkyToastAdapterService
-} from './toast-adapter.service';
-import {
-  ApplicationRef,
-  ComponentFactoryResolver,
-  Injector
-} from '@angular/core';
 
 describe('Toast service', () => {
   class TestComponent { constructor(public message: SkyToastInstance) { } }

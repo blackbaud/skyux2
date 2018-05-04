@@ -1,10 +1,11 @@
 import {
-  SkyToastType
-} from './toast-type';
-import {
   Type,
   Provider
 } from '@angular/core';
+
+import {
+  SkyToastType
+} from './toast-type';
 
 export interface SkyToastConfig {
   message?: string;

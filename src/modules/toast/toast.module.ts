@@ -4,15 +4,17 @@ import {
 import {
   CommonModule
 } from '@angular/common';
+
+import {
+  SkyResourcesModule
+} from '../resources';
+
 import {
   SkyToastService
 } from './services/toast.service';
 import {
   SkyToastContainerComponent
 } from './toast-container.component';
-import {
-  SkyResourcesModule
-} from '../resources';
 import {
   SkyToastAdapterService
 } from './services/toast-adapter.service';

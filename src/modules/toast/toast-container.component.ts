@@ -1,18 +1,22 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
+
+import {
+  Observable
+} from 'rxjs';
+
 import {
   SkyToastService
 } from './services/toast.service';
-import {
-  Observable
-} from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-toaster',
   templateUrl: './toast-container.component.html',
-  styleUrls: ['./toast-container.component.scss']
+  styleUrls: ['./toast-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyToastContainerComponent implements OnInit {
 

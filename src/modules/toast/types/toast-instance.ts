@@ -1,11 +1,12 @@
 import {
-  Subject
-} from 'rxjs';
-import {
   Type,
   Provider,
   EventEmitter
 } from '@angular/core';
+
+import {
+  Subject
+} from 'rxjs';
 
 export class SkyToastInstance {
   public isClosed = new EventEmitter();

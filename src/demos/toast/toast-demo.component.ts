@@ -1,17 +1,21 @@
 import {
-  Component
+  Component,
+  ChangeDetectionStrategy
 } from '@angular/core';
+
 import {
   SkyToastService,
   SkyToastType
 } from '../../core';
+
 import {
   SkyToastCustomDemoComponent
 } from './toast-custom-demo.component';
 
 @Component({
   selector: 'sky-toast-demo',
-  templateUrl: './toast-demo.component.html'
+  templateUrl: './toast-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyToastDemoComponent {
   public selectedType = SkyToastType.Info;

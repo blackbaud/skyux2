@@ -3,6 +3,7 @@ import {
   Renderer2,
   RendererFactory2
 } from '@angular/core';
+
 import {
   SkyWindowRefService
 } from '../../window';
