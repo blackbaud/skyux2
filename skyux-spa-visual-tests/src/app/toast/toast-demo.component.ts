@@ -15,5 +15,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastDemoComponent {
-  constructor(public message: SkyToastInstance) {}
+  constructor(
+    public message: SkyToastInstance
+  ) {}
 }

@@ -835,7 +835,7 @@
     "_description": "The close button for the timepicker modal",
     "message": "Done"
   },
-  "toast_close": {
+  "toast_close_button": {
     "_description": "Screen reader text for the close button on toasts",
     "message": "Close the toast"
   },

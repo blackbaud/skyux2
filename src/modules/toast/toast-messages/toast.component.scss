@@ -21,13 +21,13 @@
     padding-bottom: $sky-padding;
     width: 100%;
 
-		::ng-deep a {
-			color: change-color($sky-text-color-default, $alpha: 0.8);
-			text-decoration: underline;
+    ::ng-deep a {
+      color: change-color($sky-text-color-default, $alpha: 0.8);
+      text-decoration: underline;
 
-			&:hover {
-				color: $sky-text-color-default;
-			}
+      &:hover {
+        color: $sky-text-color-default;
+      }
     }
 
     .sky-toast-content-message {

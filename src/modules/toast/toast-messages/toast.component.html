@@ -4,7 +4,8 @@
   <div
     class="sky-toast"
     [ngClass]="'sky-toast-' + message.toastType"
-    [attr.aria-live]="message.toastType==='danger' ? 'assertive' : 'polite'">
+    [attr.aria-live]="message.toastType==='danger' ? 'assertive' : 'polite'"
+    [attr.role]="message.toastType==='danger' ? 'alert' : undefined">
     <div
       class="sky-toast-content">
       <p

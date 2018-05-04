@@ -1031,6 +1031,16 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./toast/toast-demo.component.ts'),
           componentName: 'SkyToastDemoComponent',
           bootstrapSelector: 'sky-toast-demo'
+        },
+        {
+          name: 'toast-custom-demo.component.html',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.html')
+        },
+        {
+          name: 'toast-custom-demo.component.ts',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.ts'),
+          componentName: 'SkyToastCustomDemoComponent',
+          bootstrapSelector: 'sky-toast-custom-demo'
         }
       ]
     },

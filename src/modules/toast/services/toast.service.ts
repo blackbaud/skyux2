@@ -40,20 +40,20 @@ export class SkyToastService implements OnDestroy {
     private adapter: SkyToastAdapterService
   ) {}
 
-  public openMessage(message: string, config: SkyToastConfig = {}) {
+  public openMessage(message: string, config: SkyToastConfig = {}): SkyToastInstance {
     config.message = message;
     config.customComponentType = undefined;
     return this.open(config);
   }
 
-  public openTemplatedMessage(customComponentType: Type<any>, config: SkyToastConfig = {}, providers?: Provider[]) {
+  public openTemplatedMessage(customComponentType: Type<any>, config: SkyToastConfig = {}, providers?: Provider[]): SkyToastInstance {
     config.customComponentType = customComponentType;
     config.providers = providers || config.providers;
     config.message = undefined;
     return this.open(config);
   }
 
-  public open(config: SkyToastConfig) {
+  public open(config: SkyToastConfig): SkyToastInstance {
     if (!this.host) {
       this.host = this.createHostComponent();
     }

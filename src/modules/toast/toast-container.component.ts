@@ -22,7 +22,9 @@ export class SkyToastContainerComponent implements OnInit {
 
   public messages: Observable<any>;
 
-  constructor(private toast: SkyToastService) { }
+  constructor(
+    private toast: SkyToastService
+  ) {}
 
   public ngOnInit() {
     this.messages = this.toast.messages;

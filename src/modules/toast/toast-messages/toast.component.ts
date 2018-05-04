@@ -78,10 +78,10 @@ export class SkyToastComponent implements OnInit, OnDestroy {
       useValue: this.message
     });
 
-    let componentFactory = this.resolver.resolveComponentFactory(this.message.customComponentType);
-    let providers = ReflectiveInjector.resolve(this.message.providers || []);
+    const componentFactory = this.resolver.resolveComponentFactory(this.message.customComponentType);
+    const providers = ReflectiveInjector.resolve(this.message.providers || []);
 
-    let injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
+    const injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
 
     this.customComponent = this.customToastHost.createComponent(componentFactory, undefined, injector);
     this.customComponent.instance.message = this.message;

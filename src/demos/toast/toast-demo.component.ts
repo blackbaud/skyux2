@@ -1,6 +1,5 @@
 import {
-  Component,
-  ChangeDetectionStrategy
+  Component
 } from '@angular/core';
 
 import {
@@ -14,15 +13,16 @@ import {
 
 @Component({
   selector: 'sky-toast-demo',
-  templateUrl: './toast-demo.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './toast-demo.component.html'
 })
 export class SkyToastDemoComponent {
   public selectedType = SkyToastType.Info;
   public typeTranslator = SkyToastType;
   public types = [SkyToastType.Info, SkyToastType.Success, SkyToastType.Warning, SkyToastType.Danger];
 
-  constructor(private toastSvc: SkyToastService) { }
+  constructor(
+    private toastSvc: SkyToastService
+  ) {}
 
   public openMessage() {
     this.toastSvc.openMessage('This is a ' + SkyToastType[this.selectedType] + ' toast.', {toastType: this.selectedType});
