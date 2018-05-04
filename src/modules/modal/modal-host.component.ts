@@ -12,7 +12,7 @@ import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 import { SkyModalConfiguration } from './modal-configuration';
-import { PlatformLocation } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'sky-modal-host',
@@ -37,7 +37,7 @@ export class SkyModalHostComponent {
     private resolver: ComponentFactoryResolver,
     private adapter: SkyModalAdapterService,
     private injector: Injector,
-    private location: PlatformLocation
+    private location: Location
   ) { }
 
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
@@ -86,7 +86,7 @@ export class SkyModalHostComponent {
       modalInstance.close();
     });
 
-    this.location.onPopState(() => {
+    this.location.subscribe(() => {
       modalInstance.close();
     });
 
