@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import {
+  Component,
+  ChangeDetectionStrategy
+} from '@angular/core';
+
+import {
+  BehaviorSubject,
+  Observable
+} from 'rxjs';
 
 @Component({
   selector: 'sky-test-cmp',
-  templateUrl: './infinite-scroll.component.fixture.html'
+  templateUrl: './infinite-scroll.component.fixture.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfiniteScrollTestComponent {
   public _hasMore: BehaviorSubject<boolean>;
@@ -18,7 +25,7 @@ export class InfiniteScrollTestComponent {
   }
 
   public loadMore() {
-    let num: number = this.items.length;
+    const num: number = this.items.length;
     for (let i: number = num; i < num + 20; i++) {
       this.items.push({name: 'test object: #' + i});
     }

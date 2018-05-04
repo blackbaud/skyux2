@@ -4,18 +4,20 @@ import {
 import {
   CommonModule
 } from '@angular/common';
+
 import {
   SkyInfiniteScrollComponent
 } from './infinite-scroll.component';
+import {
+  SkyInfiniteScrollDomAdapterService
+} from './infinite-scroll-dom-adapter.service';
+
 import {
   SkyResourcesModule
 } from '../resources';
 import {
   SkyWaitModule
 } from '../wait';
-import {
-  SkyInfiniteScrollDomAdapterService
-} from './infinite-scroll-dom-adapter.service';
 
 @NgModule({
   declarations: [

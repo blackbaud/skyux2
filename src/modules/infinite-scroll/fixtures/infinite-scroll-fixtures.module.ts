@@ -1,8 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
 
-import { SkyInfiniteScrollModule } from '../';
-import { InfiniteScrollTestComponent } from './infinite-scroll.component.fixture';
+import {
+  SkyInfiniteScrollModule
+} from '../';
+import {
+  InfiniteScrollTestComponent
+} from './infinite-scroll.component.fixture';
 
 @NgModule({
   declarations: [

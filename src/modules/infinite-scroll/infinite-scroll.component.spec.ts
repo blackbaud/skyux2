@@ -1,16 +1,24 @@
 import {
+  DebugElement
+} from '@angular/core';
+import {
   TestBed, ComponentFixture
 } from '@angular/core/testing';
+import {
+  By
+} from '@angular/platform-browser';
 
 import {
   expect,
   SkyAppTestUtility
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { InfiniteScrollTestComponent } from './fixtures/infinite-scroll.component.fixture';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { SkyInfiniteScrollModule } from './infinite-scroll.module';
+import {
+  InfiniteScrollTestComponent
+} from './fixtures/infinite-scroll.component.fixture';
+import {
+  SkyInfiniteScrollModule
+} from './infinite-scroll.module';
 
 describe('Infinite scroll component', () => {
   let fixture: ComponentFixture<InfiniteScrollTestComponent>;

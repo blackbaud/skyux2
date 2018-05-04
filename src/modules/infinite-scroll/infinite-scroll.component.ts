@@ -8,18 +8,16 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
+
 import {
-  BehaviorSubject
-} from 'rxjs/BehaviorSubject';
-import {
-  Observable
-} from 'rxjs/Observable';
+  BehaviorSubject,
+  Observable,
+  Subject
+} from 'rxjs';
+
 import {
   SkyInfiniteScrollDomAdapterService
 } from './infinite-scroll-dom-adapter.service';
-import {
-  Subject
-} from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-infinite-scroll',

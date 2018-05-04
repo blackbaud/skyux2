@@ -1,6 +1,7 @@
 import {
   SkyVisualTest
 } from '../../../config/utils/visual-test-commands';
+
 import {
   element,
   by
