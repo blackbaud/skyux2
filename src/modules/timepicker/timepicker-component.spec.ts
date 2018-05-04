@@ -129,9 +129,10 @@ describe('Timepicker', () => {
     const closeButton = fixture.nativeElement.querySelector('.sky-timepicker-footer button');
     closeButton.click();
     tick();
+    fixture.detectChanges();
     tick();
-    const dropdown = fixture.nativeElement.querySelector('.sky-popover-container') as HTMLElement;
-    expect(dropdown.classList.contains('sky-popover-hidden')).toEqual(false);
+    const hiddenPopover = fixture.nativeElement.querySelector('.sky-popover-hidden') as HTMLElement;
+    expect(hiddenPopover).not.toBeNull();
   }));
 
   it('should handle input change with a string with the expected timeFormat', fakeAsync(() => {
