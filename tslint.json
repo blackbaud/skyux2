@@ -23,14 +23,10 @@
         ]
       }
     ],
-    "no-bitwise": true,
-    "no-empty-interface": true,
     "no-inferrable-types": [
       true,
       "ignore-params"
     ],
-    "no-misused-new": true,
-    "no-unnecessary-initializer": true,
     "prefer-const": true
   }
 }
