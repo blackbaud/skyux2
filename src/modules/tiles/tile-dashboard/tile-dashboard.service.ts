@@ -96,7 +96,7 @@ export class SkyTileDashboardService {
   }
 
   public tileIsCollapsed(tile: SkyTileComponent): boolean {
-    let tileConfig = this.findTile(getTileId(tile));
+    const tileConfig = this.findTile(getTileId(tile));
 
     if (tileConfig) {
       return tileConfig.isCollapsed;
@@ -106,7 +106,7 @@ export class SkyTileDashboardService {
   }
 
   public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {
-    let tileConfig = this.findTile(getTileId(tile));
+    const tileConfig = this.findTile(getTileId(tile));
 
     if (tileConfig) {
       tileConfig.isCollapsed = isCollapsed;
@@ -116,7 +116,7 @@ export class SkyTileDashboardService {
 
   public getTileComponentType(layoutTile: SkyTileDashboardConfigLayoutTile): any {
     if (layoutTile) {
-      for (let tile of this.config.tiles) {
+      for (const tile of this.config.tiles) {
         if (tile.id === layoutTile.id) {
           return tile.componentType;
         }
@@ -138,7 +138,7 @@ export class SkyTileDashboardService {
   }
 
   public getTileComponent(tileId: string): ComponentRef<any> {
-    for (let tileComponent of this.tileComponents) {
+    for (const tileComponent of this.tileComponents) {
       if (tileComponent.location.nativeElement.getAttribute(ATTR_TILE_ID) === tileId) {
         return tileComponent;
       }
@@ -158,7 +158,7 @@ export class SkyTileDashboardService {
   private getTile(layoutTile: SkyTileDashboardConfigLayoutTile): SkyTileDashboardConfigTile {
     /*istanbul ignore else */
     if (layoutTile) {
-      for (let tile of this.config.tiles) {
+      for (const tile of this.config.tiles) {
         if (tile.id === layoutTile.id) {
           return tile;
         }
@@ -181,21 +181,21 @@ export class SkyTileDashboardService {
   }
 
   private loadTiles() {
-    let layout = this.config.layout;
+    const layout = this.config.layout;
 
     if (
         this.mediaQuery.current === SkyMediaBreakpoints.xs
         || this.mediaQuery.current === SkyMediaBreakpoints.sm) {
-      for (let tile of layout.singleColumn.tiles) {
+      for (const tile of layout.singleColumn.tiles) {
         this.loadTileIntoColumn(this.singleColumn, tile);
       }
     } else {
-      let columns = this.columns.toArray();
+      const columns = this.columns.toArray();
 
       for (let i = 0, n = layout.multiColumn.length; i < n; i++) {
-        let column = columns[i];
+        const column = columns[i];
 
-        for (let tile of layout.multiColumn[i].tiles) {
+        for (const tile of layout.multiColumn[i].tiles) {
           this.loadTileIntoColumn(column, tile);
         }
       }
@@ -206,17 +206,17 @@ export class SkyTileDashboardService {
     column: SkyTileDashboardColumnComponent,
     layoutTile: SkyTileDashboardConfigLayoutTile
   ) {
-    let tile = this.getTile(layoutTile);
+    const tile = this.getTile(layoutTile);
 
-    let componentType = tile.componentType;
-    let providers = tile.providers /* istanbul ignore next */ || [];
+    const componentType = tile.componentType;
+    const providers = tile.providers /* istanbul ignore next */ || [];
 
-    let resolvedProviders = ReflectiveInjector.resolve(providers);
+    const resolvedProviders = ReflectiveInjector.resolve(providers);
 
-    let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, column.injector);
+    const injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, column.injector);
 
-    let factory = column.resolver.resolveComponentFactory(componentType);
-    let componentRef = column.content.createComponent(factory, undefined, injector);
+    const factory = column.resolver.resolveComponentFactory(componentType);
+    const componentRef = column.content.createComponent(factory, undefined, injector);
 
     this.addTileComponent(layoutTile, componentRef);
 
@@ -230,8 +230,8 @@ export class SkyTileDashboardService {
   }
 
   private moveTilesToMultiColumn() {
-    let layoutColumns = this.config.layout.multiColumn;
-    let columns = this.columns.toArray();
+    const layoutColumns = this.config.layout.multiColumn;
+    const columns = this.columns.toArray();
 
     for (let i = 0, n = layoutColumns.length; i < n; i++) {
       this.moveTilesToColumn(columns[i], layoutColumns[i].tiles);
@@ -242,10 +242,10 @@ export class SkyTileDashboardService {
     column: SkyTileDashboardColumnComponent,
     layoutTiles: SkyTileDashboardConfigLayoutTile[]
   ) {
-    let columnEl = this.getColumnEl(column);
+    const columnEl = this.getColumnEl(column);
 
-    for (let layoutTile of layoutTiles) {
-      let tileComponentInstance = this.getTileComponent(layoutTile.id);
+    for (const layoutTile of layoutTiles) {
+      const tileComponentInstance = this.getTileComponent(layoutTile.id);
 
       /*istanbul ignore else */
       if (tileComponentInstance) {
@@ -285,12 +285,12 @@ export class SkyTileDashboardService {
   private getMultiColumnLayoutForUIState(): SkyTileDashboardConfigLayoutColumn[] {
     if (!(this.mediaQuery.current === SkyMediaBreakpoints.xs
     || this.mediaQuery.current === SkyMediaBreakpoints.sm)) {
-      let layoutColumns: SkyTileDashboardConfigLayoutColumn[] = [];
-      let columns = this.columns.toArray();
+      const layoutColumns: SkyTileDashboardConfigLayoutColumn[] = [];
+      const columns = this.columns.toArray();
 
-      for (let column of columns) {
+      for (const column of columns) {
         if (column !== this.singleColumn) {
-          let layoutColumn: SkyTileDashboardConfigLayoutColumn = {
+          const layoutColumn: SkyTileDashboardConfigLayoutColumn = {
             tiles: this.getTilesInEl(this.getColumnEl(column))
           };
 
@@ -305,15 +305,15 @@ export class SkyTileDashboardService {
   }
 
   private getTilesInEl(el: Element): SkyTileDashboardConfigLayoutTile[] {
-    let tileEls: any = el.querySelectorAll('[' + ATTR_TILE_ID + ']');
-    let layoutTiles: SkyTileDashboardConfigLayoutTile[] = [];
+    const tileEls: any = el.querySelectorAll('[' + ATTR_TILE_ID + ']');
+    const layoutTiles: SkyTileDashboardConfigLayoutTile[] = [];
 
         /*istanbul ignore else */
     if (tileEls) {
       for (let i = 0, n = tileEls.length; i < n; i++) {
-        let tileEl = tileEls[i];
-        let tileId = tileEl.getAttribute(ATTR_TILE_ID);
-        let tile = this.findTile(tileId);
+        const tileEl = tileEls[i];
+        const tileId = tileEl.getAttribute(ATTR_TILE_ID);
+        const tile = this.findTile(tileId);
 
         /*istanbul ignore else */
         if (tile) {
@@ -341,7 +341,7 @@ export class SkyTileDashboardService {
     });
 
     this.dragulaService.drop.subscribe((value: any[]) => {
-      let config = this.getConfigForUIState();
+      const config = this.getConfigForUIState();
 
       /*istanbul ignore else */
       if (config) {
@@ -357,10 +357,10 @@ export class SkyTileDashboardService {
   private findTile(tileId: string): SkyTileDashboardConfigLayoutTile {
     /*istanbul ignore else */
     if (this.config && this.config.layout.multiColumn) {
-      for (let column of this.config.layout.multiColumn) {
+      for (const column of this.config.layout.multiColumn) {
         /*istanbul ignore else */
         if (column.tiles) {
-          for (let tile of column.tiles) {
+          for (const tile of column.tiles) {
             if (tile.id === tileId) {
               return tile;
             }

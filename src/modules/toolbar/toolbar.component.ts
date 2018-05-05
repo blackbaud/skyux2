@@ -16,7 +16,7 @@ import {
 })
 export class SkyToolbarComponent implements AfterContentInit {
 
-  public hasSections: boolean = false;
+  public hasSections = false;
 
   @ContentChildren(SkyToolbarSectionComponent, {descendants: true})
   private sectionComponents: QueryList<SkyToolbarSectionComponent>;

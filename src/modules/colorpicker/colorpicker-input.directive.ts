@@ -166,7 +166,7 @@ export class SkyColorpickerInputDirective
   }
 
   public validate(control: AbstractControl): {[key: string]: any} {
-    let value = control.value;
+    const value = control.value;
     if (!value) {
       return;
     }
@@ -211,7 +211,7 @@ export class SkyColorpickerInputDirective
     }
 
     let formatColor: SkyColorpickerOutput;
-    let hsva: SkyColorpickerHsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
+    const hsva: SkyColorpickerHsva = this.service.stringToHsva(color, this.alphaChannel === 'hex8');
 
     formatColor = this.service.skyColorpickerOut(hsva);
 

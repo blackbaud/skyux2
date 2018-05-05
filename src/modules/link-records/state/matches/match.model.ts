@@ -3,7 +3,7 @@ export class SkyLinkRecordsMatchModel {
   public status: string;
   public item: any;
 
-  constructor(data: any = undefined) {
+  constructor(data?: any) {
     if (data) {
       this.key = data.key;
       this.status = data.status;

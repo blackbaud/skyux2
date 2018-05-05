@@ -49,7 +49,7 @@ describe('Error modal form component', () => {
   it('Title, description, and button text are displayed', () => {
     const fixture = TestBed.createComponent(SkyErrorModalFormComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -68,9 +68,9 @@ describe('Error modal form component', () => {
   });
 
   it('clicking close button invokes close method', () => {
-    let fixture = TestBed.createComponent(SkyErrorModalFormComponent);
+    const fixture = TestBed.createComponent(SkyErrorModalFormComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 

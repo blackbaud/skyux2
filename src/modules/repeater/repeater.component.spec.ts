@@ -29,8 +29,8 @@ describe('Repeater item component', () => {
   it(
     'should default expand mode to "none" when no expand mode is specified',
     fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
       cmp.expandMode = undefined;
 
       fixture.detectChanges();
@@ -43,8 +43,8 @@ describe('Repeater item component', () => {
 
   describe('with expand mode of "single"', () => {
     it('should collapse other items when an item is expanded', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
 
       cmp.expandMode = 'single';
       fixture.detectChanges();
@@ -71,8 +71,8 @@ describe('Repeater item component', () => {
     }));
 
     it('should collapse other items when a new expanded item is added', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
 
       cmp.expandMode = 'single';
       cmp.removeLastItem = true;
@@ -101,9 +101,9 @@ describe('Repeater item component', () => {
     }));
 
     it('should toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
+      const el = fixture.nativeElement;
 
       cmp.expandMode = 'single';
 
@@ -127,9 +127,9 @@ describe('Repeater item component', () => {
     }));
 
     it('should toggle its collapsed state when an item\'s chevron is clicked', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
+      const el = fixture.nativeElement;
 
       cmp.expandMode = 'single';
 
@@ -155,8 +155,8 @@ describe('Repeater item component', () => {
 
   describe('with expand mode of "multiple"', () => {
     it('should not collapse other items when an item is expanded', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
 
       cmp.expandMode = 'multiple';
 
@@ -183,9 +183,9 @@ describe('Repeater item component', () => {
     }));
 
     it('should toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
+      const el = fixture.nativeElement;
 
       cmp.expandMode = 'multiple';
 
@@ -209,9 +209,9 @@ describe('Repeater item component', () => {
     }));
 
     it('should toggle its collapsed state when an item\'s chevron is clicked', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
+      const el = fixture.nativeElement;
 
       cmp.expandMode = 'multiple';
 
@@ -240,8 +240,8 @@ describe('Repeater item component', () => {
       'should not allow items to be collapsed',
       fakeAsync(
         inject([SkyLogService], (mockLogService: MockLogService) => {
-          let fixture = TestBed.createComponent(RepeaterTestComponent);
-          let cmp: RepeaterTestComponent = fixture.componentInstance;
+          const fixture = TestBed.createComponent(RepeaterTestComponent);
+          const cmp: RepeaterTestComponent = fixture.componentInstance;
 
           cmp.expandMode = 'none';
 
@@ -252,7 +252,7 @@ describe('Repeater item component', () => {
 
           expect(item.isExpanded).toBe(true);
 
-          let warnSpy = spyOn(mockLogService, 'warn');
+          const warnSpy = spyOn(mockLogService, 'warn');
 
           item.isExpanded = false;
 
@@ -268,9 +268,9 @@ describe('Repeater item component', () => {
     ));
 
     it('should hide each item\'s chevron button', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement as Element;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
+      const el = fixture.nativeElement as Element;
 
       fixture.detectChanges();
 
@@ -279,12 +279,12 @@ describe('Repeater item component', () => {
 
       tick();
 
-      let chevronEls = el.querySelectorAll('.sky-repeater-item-chevron');
+      const chevronEls = el.querySelectorAll('.sky-repeater-item-chevron');
 
       expect(chevronEls.length).toBe(3);
 
       for (let i = 0, n = chevronEls.length; i < n; i++) {
-        let chevronEl = chevronEls.item(i);
+        const chevronEl = chevronEls.item(i);
         expect(getComputedStyle(chevronEl).getPropertyValue('display')).toBe('none');
       }
     }));
@@ -292,8 +292,8 @@ describe('Repeater item component', () => {
     it(
       'should expand all items when mode was previously set to "single" or "multiple"',
       fakeAsync(() => {
-        let fixture = TestBed.createComponent(RepeaterTestComponent);
-        let cmp: RepeaterTestComponent = fixture.componentInstance;
+        const fixture = TestBed.createComponent(RepeaterTestComponent);
+        const cmp: RepeaterTestComponent = fixture.componentInstance;
 
         cmp.expandMode = 'multiple';
 
@@ -302,7 +302,7 @@ describe('Repeater item component', () => {
 
         let repeaterItems = cmp.repeater.items.toArray();
 
-        for (let repeaterItem of repeaterItems) {
+        for (const repeaterItem of repeaterItems) {
           repeaterItem.isExpanded = false;
         }
 
@@ -316,16 +316,16 @@ describe('Repeater item component', () => {
 
         repeaterItems = cmp.repeater.items.toArray();
 
-        for (let repeaterItem of repeaterItems) {
+        for (const repeaterItem of repeaterItems) {
           expect(repeaterItem.isExpanded).toBe(true);
         }
       })
     );
 
     it('should not toggle its collapsed state when an item\'s header is clicked', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
+      const el = fixture.nativeElement;
 
       cmp.expandMode = 'none';
 
@@ -351,9 +351,9 @@ describe('Repeater item component', () => {
 
   describe('with selectability "true"', () => {
     it('should add selected css class when selected', fakeAsync(() => {
-      let fixture = TestBed.createComponent(RepeaterTestComponent);
-      let cmp: RepeaterTestComponent = fixture.componentInstance;
-      let el = fixture.nativeElement;
+      const fixture = TestBed.createComponent(RepeaterTestComponent);
+      const cmp: RepeaterTestComponent = fixture.componentInstance;
+      const el = fixture.nativeElement;
 
       fixture.detectChanges();
 

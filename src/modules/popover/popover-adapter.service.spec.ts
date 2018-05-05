@@ -91,7 +91,7 @@ describe('SkyPopoverAdapterService', () => {
   }
 
   function getListenersForOverflowParents(overflow: string) {
-    let listeners: any[] = [];
+    const listeners: any[] = [];
 
     inject([SkyPopoverAdapterService, SkyWindowRefService], (
       adapterService: SkyPopoverAdapterService,
@@ -401,7 +401,7 @@ describe('SkyPopoverAdapterService', () => {
       ) => {
         spyOnWindowGetComputedStyle(windowService, 'auto');
 
-        let scrollableParents: any[] = [];
+        const scrollableParents: any[] = [];
         let eventName: string;
         spyOn(adapterService['renderer'], 'listen').and.callFake((target: any, event: string, callback: any) => {
           scrollableParents.push(target);

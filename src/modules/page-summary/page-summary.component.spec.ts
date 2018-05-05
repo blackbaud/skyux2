@@ -26,9 +26,9 @@ describe('Page summary component', () => {
       return `.sky-page-summary-key-info-${size} .sky-page-summary-key-info-container`;
     }
 
-    let mockQueryService = new MockSkyMediaQueryService();
+    const mockQueryService = new MockSkyMediaQueryService();
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         SkyPageSummaryComponent,
         {
@@ -46,10 +46,10 @@ describe('Page summary component', () => {
 
       fixture.detectChanges();
 
-      let el = fixture.nativeElement;
+      const el = fixture.nativeElement;
 
-      let xsSelector = getSelector('xs');
-      let smSelector = getSelector('sm');
+      const xsSelector = getSelector('xs');
+      const smSelector = getSelector('sm');
 
       expect(el.querySelector(xsSelector)).not.toExist();
       expect(el.querySelector(smSelector)).toExist();

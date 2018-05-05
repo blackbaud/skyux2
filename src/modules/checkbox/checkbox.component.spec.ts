@@ -29,8 +29,8 @@ import { SkyCheckboxModule } from './checkbox.module';
   </div>`
 })
 class SingleCheckboxComponent {
-  public isChecked: boolean = false;
-  public isDisabled: boolean = false;
+  public isChecked = false;
+  public isDisabled = false;
 
   public checkboxChange($event: any) {
     this.isChecked = $event.checked;
@@ -52,7 +52,7 @@ class SingleCheckboxComponent {
   `
 })
 class CheckboxWithFormDirectivesComponent {
-  public isGood: boolean = false;
+  public isGood = false;
 }
 
 /** Simple test component with multiple checkboxes. */
@@ -75,8 +75,8 @@ class MultipleCheckboxesComponent { }
     </sky-checkbox>`
 })
 class CheckboxWithTabIndexComponent {
-  public customTabIndex: number = 7;
-  public isDisabled: boolean = false;
+  public customTabIndex = 7;
+  public isDisabled = false;
 }
 
 /** Simple test component with an aria-label set. */
@@ -109,7 +109,7 @@ describe('Checkbox component', () => {
   let fixture: ComponentFixture<any>;
 
   function createEvent(eventName: string) {
-    let evt = document.createEvent('CustomEvent');
+    const evt = document.createEvent('CustomEvent');
     evt.initEvent(eventName, false, false);
     return evt;
   }
@@ -231,7 +231,7 @@ describe('Checkbox component', () => {
     });
 
     it('should project the checkbox content into the label element', () => {
-      let label =
+      const label =
         <HTMLLabelElement>checkboxNativeElement
           .querySelector('.sky-checkbox-wrapper sky-checkbox-label');
       expect(label.textContent.trim()).toBe('Simple checkbox');
@@ -400,7 +400,7 @@ describe('Checkbox component', () => {
     }));
 
     it('should assign a unique id to each checkbox', () => {
-      let [firstId, secondId] =
+      const [firstId, secondId] =
           fixture.debugElement.queryAll(By.directive(SkyCheckboxComponent))
           .map(debugElement => debugElement.nativeElement.querySelector('input').id);
 
@@ -483,8 +483,8 @@ describe('Checkbox component', () => {
     }));
 
     it('should forward name value to input element', () => {
-      let checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-      let inputElement = <HTMLInputElement> checkboxElement.nativeElement.querySelector('input');
+      const checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+      const inputElement = <HTMLInputElement> checkboxElement.nativeElement.querySelector('input');
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
     });

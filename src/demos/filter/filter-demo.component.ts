@@ -55,7 +55,7 @@ export class SkyFilterDemoComponent {
   }
 
   public filterButtonClicked() {
-    let modalInstance = this.modal.open(
+    const modalInstance = this.modal.open(
       SkyFilterDemoModalComponent,
       [{
         provide: SkyFilterDemoModalContext,
@@ -102,11 +102,10 @@ export class SkyFilterDemoComponent {
   }
 
   private filterItems(items: any[], filters: any[]) {
-    let i: number,
-      passesFilter: boolean,
-      result: any[] = [];
+    let passesFilter: boolean;
+    const result: any[] = [];
 
-    for (i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       passesFilter = this.itemIsShown(filters, items[i]);
       if (passesFilter) {
         result.push(items[i]);

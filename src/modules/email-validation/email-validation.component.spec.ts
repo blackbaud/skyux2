@@ -10,17 +10,17 @@ describe('Email validation', () => {
       element: HTMLElement,
       text: string,
       compFixture: ComponentFixture<any>) {
-    let inputEvent = document.createEvent('Event');
-    let params = {
+    const inputEvent = document.createEvent('Event');
+    const params = {
       bubbles: false,
       cancelable: false
     };
 
     inputEvent.initEvent('input', params.bubbles, params.cancelable);
 
-    let changeEvent = document.createEvent('Event');
+    const changeEvent = document.createEvent('Event');
     changeEvent.initEvent('change', params.bubbles, params.cancelable);
-    let inputEl = element.querySelector('input');
+    const inputEl = element.querySelector('input');
     inputEl.value = text;
 
     inputEl.dispatchEvent(inputEvent);
@@ -46,7 +46,7 @@ describe('Email validation', () => {
         });
         fixture = TestBed.createComponent(EmailValidationTestComponent);
         nativeElement = fixture.nativeElement as HTMLElement;
-        let input = fixture.debugElement.query(By.css('input'));
+        const input = fixture.debugElement.query(By.css('input'));
         ngModel = <NgModel> input.injector.get(NgModel);
         component = fixture.componentInstance;
     });

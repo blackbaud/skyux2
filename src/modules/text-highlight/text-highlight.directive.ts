@@ -62,7 +62,7 @@ export class SkyTextHighlightDirective
 
     } else if (node.nodeType === 1 && node.childNodes) {
       for (let i = 0; i < node.childNodes.length; i++) {
-        let childNode = node.childNodes[i] as HTMLElement;
+        const childNode = node.childNodes[i] as HTMLElement;
         i += SkyTextHighlightDirective.markTextNodes(childNode, searchText);
       }
     }
@@ -96,7 +96,7 @@ export class SkyTextHighlightDirective
   }
 
   public ngAfterViewInit(): void {
-    let me = this;
+    const me = this;
 
     this.observer = this.observerService.create((mutations: MutationRecord[]) => {
       me.highlight();

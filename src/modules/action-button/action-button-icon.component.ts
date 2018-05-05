@@ -24,7 +24,7 @@ const FONTSIZECLASS_LARGE = 'fa-3x';
 export class SkyActionButtonIconComponent implements OnDestroy {
 
   @Input()
-  public iconType: string = '';
+  public iconType = '';
 
   public fontSizeClass: string = FONTSIZECLASS_LARGE;
 

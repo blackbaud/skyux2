@@ -35,14 +35,14 @@ describe('Definition list component', () => {
   }
 
   it('should render the heading in the expected location', () => {
-    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-    let el: Element = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    const el: Element = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let list1El = getListEl(el, 1);
+    const list1El = getListEl(el, 1);
 
-    let headingEl =
+    const headingEl =
       list1El.querySelector('sky-definition-list-heading .sky-definition-list-heading');
 
     expect(headingEl).toHaveText('Personal information');
@@ -50,15 +50,15 @@ describe('Definition list component', () => {
   });
 
   it('should render labels and values in the expected locations', () => {
-    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-    let el: Element = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    const el: Element = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let list1El = getListEl(el, 1);
+    const list1El = getListEl(el, 1);
 
-    let labelEls = getLabelEls(list1El);
-    let valueEls = getValueEls(list1El);
+    const labelEls = getLabelEls(list1El);
+    const valueEls = getValueEls(list1El);
 
     expect(labelEls[0]).toHaveCssClass('sky-field-label');
     expect(labelEls[0]).toHaveText('Job title');
@@ -67,29 +67,29 @@ describe('Definition list component', () => {
   });
 
   it('should display a default value when no value is specified', () => {
-    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-    let el: Element = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    const el: Element = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let list1El = getListEl(el, 1);
+    const list1El = getListEl(el, 1);
 
-    let valueEls = getValueEls(list1El);
+    const valueEls = getValueEls(list1El);
 
-    let defaultValueEl = valueEls[2].querySelector('.sky-deemphasized');
+    const defaultValueEl = valueEls[2].querySelector('.sky-deemphasized');
 
     expect(defaultValueEl).toHaveText('None found');
   });
 
   it('should display a subsequent value when no value is initially specified', () => {
-    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-    let el: Element = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    const el: Element = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let list1El = getListEl(el, 1);
+    const list1El = getListEl(el, 1);
 
-    let valueEls = getValueEls(list1El);
+    const valueEls = getValueEls(list1El);
 
     let defaultValueEl = getDefaultValueEl(valueEls[2]);
 
@@ -107,27 +107,27 @@ describe('Definition list component', () => {
   });
 
   it('should allow the default value to be specified', () => {
-    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-    let el: Element = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    const el: Element = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let list1El = getListEl(el, 2);
+    const list1El = getListEl(el, 2);
 
-    let valueEls = getValueEls(list1El);
+    const valueEls = getValueEls(list1El);
 
     expect(valueEls[2]).toHaveText('No information found');
   });
 
   it('should allow the label width to be specified', () => {
-    let fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
-    let el: Element = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyDefinitionListTestComponent);
+    const el: Element = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let list1El = getListEl(el, 2);
+    const list1El = getListEl(el, 2);
 
-    let labelEls = getLabelEls(list1El);
+    const labelEls = getLabelEls(list1El);
 
     expect(getComputedStyle(labelEls[0]).width).toBe('150px');
   });

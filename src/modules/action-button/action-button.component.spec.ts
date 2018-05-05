@@ -66,10 +66,10 @@ describe('Action button component', () => {
   });
 
   it('should transclude icon, header, and detail sections', () => {
-    let iconContainer
+    const iconContainer
       = '.sky-action-button-icon-header-container .sky-action-button-icon-container';
-    let headerContainer = '.sky-action-button-icon-header-container .sky-action-button-header';
-    let detailsContainer = '.sky-action-button sky-action-button-details';
+    const headerContainer = '.sky-action-button-icon-header-container .sky-action-button-header';
+    const detailsContainer = '.sky-action-button sky-action-button-details';
 
     expect(el.querySelector(iconContainer)).not.toBeNull();
 
@@ -102,15 +102,15 @@ describe('Action button component', () => {
   });
 
   it('should display an icon based on iconType', () => {
-    let iconSelector =
+    const iconSelector =
       '.sky-action-button-icon-header-container .sky-action-button-icon-container i.fa-filter';
     expect(debugElement.query(By.css(iconSelector))).not.toBeNull();
   });
 
   it('should change icon size based on media breakpoints query', () => {
-    let smallIconSelector =
+    const smallIconSelector =
       '.sky-action-button-icon-header-container .sky-action-button-icon-container i.fa-2x';
-    let largeIconSelector =
+    const largeIconSelector =
       '.sky-action-button-icon-header-container .sky-action-button-icon-container i.fa-3x';
     mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
     fixture.detectChanges();

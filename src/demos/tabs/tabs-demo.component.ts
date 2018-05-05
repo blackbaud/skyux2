@@ -50,7 +50,7 @@ export class SkyTabsDemoComponent {
   }
 
   public newTabClick() {
-    let nextTab = this.tabs && this.tabs.length + 1;
+    const nextTab = this.tabs && this.tabs.length + 1;
 
     this.tabs.push({
       heading: 'Tab ' + nextTab,

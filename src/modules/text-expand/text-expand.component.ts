@@ -32,9 +32,6 @@ import {
   ]
 })
 export class SkyTextExpandComponent implements AfterContentInit {
-
-  private _maxLength: number = 200;
-
   @Input()
   public set text(value: string) {
     this.setup(value);
@@ -48,9 +45,9 @@ export class SkyTextExpandComponent implements AfterContentInit {
   }
   public get maxLength(): number { return this._maxLength; }
   @Input()
-  public maxExpandedLength: number = 600;
+  public maxExpandedLength = 600;
   @Input()
-  public maxExpandedNewlines: number = 2;
+  public maxExpandedNewlines = 2;
   @Input()
   public expandModalTitle: string = this.resources.getString('text_expand_modal_title');
   @ViewChild('container')
@@ -58,9 +55,11 @@ export class SkyTextExpandComponent implements AfterContentInit {
   @ViewChild('text')
   public textEl: ElementRef;
 
-  public isExpanded: boolean = false;
+  public isExpanded = false;
   public expandable: boolean;
   public buttonText: string;
+
+  private _maxLength = 200;
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
   private textToShow: string;
@@ -130,7 +129,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
     this.animationEnd();
     /* Before animation is kicked off, ensure that a maxHeight exists */
     /* Once we have support for angular v4 animations with parameters we can use that instead */
-    let currentHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
+    const currentHeight = this.textExpandAdapter.getContainerHeight(this.containerEl);
     this.textExpandAdapter.setContainerHeight(this.containerEl, `${currentHeight}px`);
   }
 
@@ -155,7 +154,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
   }
 
   private getNewlineCount(value: string) {
-    let matches = value.match(/\n/gi);
+    const matches = value.match(/\n/gi);
 
     if (matches) {
       return matches.length;
@@ -185,17 +184,17 @@ export class SkyTextExpandComponent implements AfterContentInit {
   private animateText(previousText: string, newText: string,
     expanding: boolean) {
 
-    let adapter = this.textExpandAdapter;
-    let container = this.containerEl;
+    const adapter = this.textExpandAdapter;
+    const container = this.containerEl;
     // Reset max height
     adapter.setContainerHeight(container, undefined);
     // Measure the current height so we can animate from it.
-    let currentHeight = adapter.getContainerHeight(container);
+    const currentHeight = adapter.getContainerHeight(container);
     this.textToShow = newText;
     adapter.setText(this.textEl, this.textToShow);
     this.buttonText = expanding ? this.seeLessText : this.seeMoreText;
     // Measure the new height so we can animate to it.
-    let newHeight = adapter.getContainerHeight(container);
+    const newHeight = adapter.getContainerHeight(container);
     if (newHeight < currentHeight) {
       // The new text is smaller than the old text, so put the old text back before doing
       // the collapse animation to avoid showing a big chunk of whitespace.

@@ -23,7 +23,7 @@ describe('Confirmation dialog form component', () => {
   let nativeElement: any;
   let element: any;
 
-  let configDialog = function(type: SkyConfirmationDialogType, buttons:
+  const configDialog = function(type: SkyConfirmationDialogType, buttons:
     Array<SkyConfirmationDialogButton>) {
 
     let config = new SkyConfirmationDialogConfig();
@@ -68,7 +68,7 @@ describe('Confirmation dialog form component', () => {
   });
 
   it('should display custom text for OK dialog', () => {
-    let button = new SkyConfirmationDialogButton();
+    const button = new SkyConfirmationDialogButton();
     button.text = 'Custom Text 1';
     configDialog(SkyConfirmationDialogType.OKDialog, [ button ]);
 

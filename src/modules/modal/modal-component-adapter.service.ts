@@ -14,12 +14,12 @@ export class SkyModalComponentAdapterService {
   ) { }
 
   public handleWindowChange(modalEl: ElementRef): void {
-    let boundedHeightEl = modalEl.nativeElement.querySelector('.sky-modal');
-    let fullPageModalEl = modalEl.nativeElement.querySelector('.sky-modal-full-page');
+    const boundedHeightEl = modalEl.nativeElement.querySelector('.sky-modal');
+    const fullPageModalEl = modalEl.nativeElement.querySelector('.sky-modal-full-page');
     /*
       Set modal height equal to max height of window (accounting for padding above and below modal)
     */
-    let newHeight = window.innerHeight - 40;
+    const newHeight = window.innerHeight - 40;
 
     boundedHeightEl.style.maxHeight = newHeight.toString() + 'px';
     if (fullPageModalEl) {
@@ -30,15 +30,15 @@ export class SkyModalComponentAdapterService {
         IE11 doesn't handle flex and max-height correctly so we have to explicitly add
         max-height to the content that accounts for standard header and footer height.
       */
-      let modalContentEl = modalEl.nativeElement.querySelector('.sky-modal-content');
-      let contentHeight = newHeight - 114;
+      const modalContentEl = modalEl.nativeElement.querySelector('.sky-modal-content');
+      const contentHeight = newHeight - 114;
       modalContentEl.style.maxHeight = contentHeight.toString() + 'px';
 
     }
   }
 
   public loadFocusElementList(modalEl: ElementRef): Array<HTMLElement> {
-    let elements: Array<HTMLElement>
+    const elements: Array<HTMLElement>
       = Array.prototype.slice.call(modalEl.nativeElement.querySelectorAll(tabbableSelector));
 
     return elements.filter((element) => {
@@ -49,21 +49,21 @@ export class SkyModalComponentAdapterService {
   public isFocusInFirstItem(event: KeyboardEvent, list: Array<HTMLElement>): boolean {
     /* istanbul ignore next */
     /* sanity check */
-    let eventTarget = event.target || event.srcElement;
+    const eventTarget = event.target || event.srcElement;
     return list.length > 0 && eventTarget === list[0];
   }
 
   public isFocusInLastItem(event: KeyboardEvent, list: Array<HTMLElement>): boolean {
     /* istanbul ignore next */
     /* sanity check */
-    let eventTarget = event.target || event.srcElement;
+    const eventTarget = event.target || event.srcElement;
     return list.length > 0 && eventTarget === list[list.length - 1];
   }
 
   public isModalFocused(event: KeyboardEvent, modalEl: ElementRef): boolean {
     /* istanbul ignore next */
     /* sanity check */
-    let eventTarget = event.target || event.srcElement;
+    const eventTarget = event.target || event.srcElement;
     return modalEl &&
     eventTarget === modalEl.nativeElement.querySelector('.sky-modal-dialog');
   }
@@ -88,15 +88,15 @@ export class SkyModalComponentAdapterService {
     /* istanbul ignore else */
     /* handle the case where somehow there is a focused element already in the modal */
     if (!(document.activeElement && modalEl.nativeElement.contains(document.activeElement))) {
-      let currentScrollX = window.pageXOffset;
-      let currentScrollY = window.pageYOffset;
+      const currentScrollX = window.pageXOffset;
+      const currentScrollY = window.pageYOffset;
 
-      let inputWithAutofocus = modalEl.nativeElement.querySelector('[autofocus]');
+      const inputWithAutofocus = modalEl.nativeElement.querySelector('[autofocus]');
 
       if (inputWithAutofocus) {
         inputWithAutofocus.focus();
       } else {
-        let focusEl: HTMLElement = modalEl.nativeElement.querySelector('.sky-modal');
+        const focusEl: HTMLElement = modalEl.nativeElement.querySelector('.sky-modal');
         focusEl.focus();
 
       }

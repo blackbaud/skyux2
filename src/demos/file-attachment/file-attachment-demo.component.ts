@@ -15,8 +15,8 @@ export class SkyFileAttachmentDemoComponent {
   public allItems: (SkyFileItem | SkyFileLink)[];
   public linksToUpload: SkyFileLink[];
   public rejectedFiles: SkyFileItem[];
-  public maxFileSize: number = 4000000;
-  public acceptedTypes: string = 'image/png,image/jpeg';
+  public maxFileSize = 4000000;
+  public acceptedTypes = 'image/png,image/jpeg';
 
   constructor() {
     this.filesToUpload = [];

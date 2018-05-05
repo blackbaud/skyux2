@@ -55,7 +55,7 @@ describe('Flyout component', () => {
   }
 
   function makeEvent(eventType: string, evtObj: any) {
-    let evt = document.createEvent('MouseEvents');
+    const evt = document.createEvent('MouseEvents');
       evt.initMouseEvent(eventType, false, false, window, 0, 0, 0, evtObj.clientX,
         0, false, false, false, false, 0, undefined);
     document.dispatchEvent(evt);
@@ -216,7 +216,7 @@ describe('Flyout component', () => {
 
       expect(flyoutElement.style.width).toBe('500px');
 
-      let evt = document.createEvent('MouseEvents');
+      const evt = document.createEvent('MouseEvents');
       evt.initMouseEvent('mousedown', false, false, window, 0, 0, 0, 1000,
         0, false, false, false, false, 0, undefined);
 
@@ -237,7 +237,7 @@ describe('Flyout component', () => {
       const handleElement = getFlyoutHandleElement();
 
       expect(flyoutElement.style.width).toBe('500px');
-      let evt = document.createEvent('MouseEvents');
+      const evt = document.createEvent('MouseEvents');
       evt.initMouseEvent('mousedown', false, false, window, 0, 0, 0, 1000,
         0, false, false, false, false, 0, undefined);
       handleElement.dispatchEvent(evt);

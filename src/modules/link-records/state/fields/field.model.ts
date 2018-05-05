@@ -4,7 +4,7 @@ export class SkyLinkRecordsFieldModel {
   public currentValue: any;
   public newValue: any;
 
-  constructor(data: any = undefined) {
+  constructor(data: any) {
     if (data) {
       this.key = data.key;
       this.label = data.label;

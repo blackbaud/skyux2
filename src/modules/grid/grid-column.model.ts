@@ -10,7 +10,7 @@ export class SkyGridColumnModel {
   public hidden: boolean;
   public locked: boolean;
   public description: string;
-  public isSortable: boolean = true;
+  public isSortable = true;
   public searchFunction: (data: any, searchText: string) => boolean;
 
   constructor(template: TemplateRef<any>, data?: any) {

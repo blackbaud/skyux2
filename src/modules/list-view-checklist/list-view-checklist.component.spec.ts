@@ -187,7 +187,7 @@ describe('List View Checklist Component', () => {
     });
 
     it('should search based on input text', async(() => {
-      let searchItems = items.filter((item) => {
+      const searchItems = items.filter((item) => {
         return component.checklist.searchFunction()(item.data, 'banana');
       });
       dispatcher.next(new ListItemsLoadAction(searchItems, true));

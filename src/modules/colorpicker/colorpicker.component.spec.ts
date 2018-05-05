@@ -43,8 +43,8 @@ describe('Colorpicker Component', () => {
   }
 
   function setPresetColor(element: HTMLElement, compFixture: ComponentFixture<any>, key: number) {
-    let presetColors = element.querySelectorAll('.sky-preset-color') as NodeListOf<HTMLElement>;
-    let applyColor = element.querySelector('.sky-btn-colorpicker-apply') as HTMLButtonElement;
+    const presetColors = element.querySelectorAll('.sky-preset-color') as NodeListOf<HTMLElement>;
+    const applyColor = element.querySelector('.sky-btn-colorpicker-apply') as HTMLButtonElement;
     presetColors[key].click();
     applyColor.click();
     applyColor.click();
@@ -52,7 +52,7 @@ describe('Colorpicker Component', () => {
   }
 
   function keyHelper(keyName: string, key: number, deprecatedKeyName: string) {
-    let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
+    const document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
     let keyPress: KeyboardEvent;
     try { // Chrome, Safari, Firefox
       keyPress = new KeyboardEvent('keydown', {
@@ -65,7 +65,7 @@ describe('Colorpicker Component', () => {
       document.dispatchEvent(keyPress);
     } catch (error) {
       // Deprecated browser API... IE
-      let keyPressDeprecated = document.createEvent('KeyboardEvent');
+      const keyPressDeprecated = document.createEvent('KeyboardEvent');
       keyPressDeprecated.initKeyboardEvent('keydown', true, true, window,
         deprecatedKeyName, 27, 'window', false, '');
       document.dispatchEvent(keyPressDeprecated);
@@ -73,18 +73,18 @@ describe('Colorpicker Component', () => {
   }
 
   function mouseHelper(x: number, y: number, event: string) {
-    let document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
+    const document = <HTMLDocument>nativeElement.parentNode.parentNode.parentNode;
 
     try {
       // Deprecated browser API... IE
-      let mouseEventDeprecated = document.createEvent('MouseEvents');
+      const mouseEventDeprecated = document.createEvent('MouseEvents');
       mouseEventDeprecated.initMouseEvent(
         event, true, true, window, 0, 0, 0, x, y, false, false, false, false, 0, undefined
       );
       document.dispatchEvent(mouseEventDeprecated);
     } catch (error) {
       // Chrome, Safari, Firefox
-      let mouseEvent = new MouseEvent(event, {
+      const mouseEvent = new MouseEvent(event, {
         'clientX': x,
         'clientY': y
       });
@@ -96,12 +96,12 @@ describe('Colorpicker Component', () => {
   function verifyColorpicker(element: HTMLElement, spaColor: string, test: string) {
     fixture.detectChanges();
     fixture.whenStable();
-    let inputElement: HTMLInputElement = element.querySelector('input');
+    const inputElement: HTMLInputElement = element.querySelector('input');
     expect(inputElement.value).toBe(spaColor);
-    let selectedColor: HTMLDivElement = <HTMLDivElement>element.querySelector('.selected-color');
-    let browserCSS = selectedColor.style.backgroundColor.replace(/[rgba\(\)]/g, '').split(',');
+    const selectedColor: HTMLDivElement = <HTMLDivElement>element.querySelector('.selected-color');
+    const browserCSS = selectedColor.style.backgroundColor.replace(/[rgba\(\)]/g, '').split(',');
     // Some browsers convert RGBA to multiple points pass the decimal.
-    let outcome = browserCSS.map((eachNumber) => {
+    const outcome = browserCSS.map((eachNumber) => {
       return Math.round(Number(eachNumber) * 100) / 100;
     });
     expect(outcome.toString()).toContain(test.replace(/[\s]/g, '').split(',').toString());
@@ -120,9 +120,9 @@ describe('Colorpicker Component', () => {
   function setInputElementValue(element: HTMLElement, name: string, value: string) {
     fixture.detectChanges();
     fixture.whenStable();
-    let inputElement: NodeListOf<Element> =
+    const inputElement: NodeListOf<Element> =
       element.querySelectorAll('.rgba-text > div:last-child > input');
-    let input: any = {
+    const input: any = {
       'hex': inputElement[0],
       'red': inputElement[1],
       'green': inputElement[2],
@@ -130,13 +130,13 @@ describe('Colorpicker Component', () => {
       'alpha': inputElement[4]
     };
     input[name].value = value;
-    let params: any = {
+    const params: any = {
       'bubbles': false,
       'cancelable': false
     };
-    let inputEvent = document.createEvent('Event');
+    const inputEvent = document.createEvent('Event');
     inputEvent.initEvent('input', params.bubbles, params.cancelable);
-    let changeEvent = document.createEvent('Event');
+    const changeEvent = document.createEvent('Event');
     changeEvent.initEvent('change', params.bubbles, params.cancelable);
     input[name].dispatchEvent(inputEvent);
     input[name].dispatchEvent(changeEvent);
@@ -242,8 +242,8 @@ describe('Colorpicker Component', () => {
   }));
 
   it('should allow user to click cancel the color change.', fakeAsync(() => {
-    let button = nativeElement.querySelector('.sky-btn-colorpicker-close');
-    let buttonEvent = document.createEvent('Event');
+    const button = nativeElement.querySelector('.sky-btn-colorpicker-close');
+    const buttonEvent = document.createEvent('Event');
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
     setInputElementValue(nativeElement, 'hex', '#BFF666');
@@ -254,8 +254,8 @@ describe('Colorpicker Component', () => {
   }));
 
   it('should allow user to click apply the color change.', fakeAsync(() => {
-    let button = nativeElement.querySelector('.sky-btn-colorpicker-apply');
-    let buttonEvent = document.createEvent('Event');
+    const button = nativeElement.querySelector('.sky-btn-colorpicker-apply');
+    const buttonEvent = document.createEvent('Event');
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
     setInputElementValue(nativeElement, 'hex', '#2B7230');
@@ -340,8 +340,8 @@ describe('Colorpicker Component', () => {
   it('should accept mouse dragging on saturation and lightness.', fakeAsync(() => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
-    let slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
-    let axis = getElementCords(slBar);
+    const slBar = fixture.debugElement.query(By.css('.saturation-lightness'));
+    const axis = getElementCords(slBar);
     slBar.triggerEventHandler('mousedown', { 'pageX': axis.x, 'pageY': axis.y });
     fixture.detectChanges();
     mouseHelper(axis.x - 50, axis.y - 50, 'mousemove');
@@ -390,9 +390,9 @@ describe('Colorpicker Component', () => {
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
     nativeElement.querySelector('input').value = '#4523FC';
-    let inputEvent = document.createEvent('Event');
+    const inputEvent = document.createEvent('Event');
     inputEvent.initEvent('input', true, false);
-    let changeEvent = document.createEvent('Event');
+    const changeEvent = document.createEvent('Event');
     changeEvent.initEvent('change', true, false);
     nativeElement.querySelector('input').dispatchEvent(inputEvent);
     nativeElement.querySelector('input').dispatchEvent(changeEvent);
@@ -459,7 +459,7 @@ describe('Colorpicker Component', () => {
   }));
 
   it('should reset colorpicker via reset button.', fakeAsync(() => {
-    let spyOnResetColorPicker = spyOn(colorpickerComponent, 'resetPickerColor').and.callThrough();
+    const spyOnResetColorPicker = spyOn(colorpickerComponent, 'resetPickerColor').and.callThrough();
     fixture.detectChanges();
     tick();
     const buttonElem = nativeElement.querySelector('.sky-colorpicker-reset-button') as HTMLElement;

@@ -60,8 +60,8 @@ export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
   @Input()
   public disabled: boolean;
 
-  private _open: boolean = false;
-  private _openBeforeTabsHidden: boolean = false;
+  private _open = false;
+  private _openBeforeTabsHidden = false;
   private _ngUnsubscribe = new Subject();
 
   public get open(): boolean {

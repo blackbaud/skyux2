@@ -72,10 +72,10 @@ export class SkyTabsetNavButtonComponent {
   }
 
   private get nextTab(): SkyTabComponent {
-    let selectedTab = this.selectedTab;
+    const selectedTab = this.selectedTab;
 
     if (selectedTab) {
-      let tabs = this.tabset.tabs.toArray();
+      const tabs = this.tabset.tabs.toArray();
       return tabs[tabs.indexOf(selectedTab) + 1];
     }
 
@@ -83,10 +83,10 @@ export class SkyTabsetNavButtonComponent {
   }
 
   private get previousTab(): SkyTabComponent {
-    let selectedTab = this.selectedTab;
+    const selectedTab = this.selectedTab;
 
     if (selectedTab) {
-      let tabs = this.tabset.tabs.toArray();
+      const tabs = this.tabset.tabs.toArray();
       return tabs[tabs.indexOf(selectedTab) - 1];
     }
 

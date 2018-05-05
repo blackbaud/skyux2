@@ -20,7 +20,7 @@ export class SkyTileComponent {
   public isInDashboardColumn = false;
 
   @Input()
-  public showSettings: boolean = true;
+  public showSettings = true;
 
   @Output()
   public settingsClick = new EventEmitter();

@@ -33,7 +33,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
 
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
-  private isExpanded: boolean = false;
+  private isExpanded = false;
   @ViewChild('container')
   private containerEl: ElementRef;
   private items: Array<HTMLElement>;
@@ -84,16 +84,16 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     this.animationEnd();
     /* Before animation is kicked off, ensure that a maxHeight exists */
     /* Once we have support for angular v4 animations with parameters we can use that instead */
-    let currentHeight = this.textExpandRepeaterAdapter.getContainerHeight(this.containerEl);
+    const currentHeight = this.textExpandRepeaterAdapter.getContainerHeight(this.containerEl);
     this.textExpandRepeaterAdapter.setContainerHeight(this.containerEl, `${currentHeight}px`);
   }
 
   private animateRepeater(expanding: boolean) {
-    let adapter = this.textExpandRepeaterAdapter;
-    let container = this.containerEl;
+    const adapter = this.textExpandRepeaterAdapter;
+    const container = this.containerEl;
 
     adapter.setContainerHeight(container, undefined);
-    let currentHeight = adapter.getContainerHeight(container);
+    const currentHeight = adapter.getContainerHeight(container);
     for (let i = this.maxItems; i < this.contentItems.length; i++) {
       if (!expanding) {
         adapter.hideItem(this.items[i]);
@@ -101,7 +101,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
         adapter.showItem(this.items[i]);
       }
     }
-    let newHeight = adapter.getContainerHeight(container);
+    const newHeight = adapter.getContainerHeight(container);
     if (!expanding) {
       this.buttonText = this.seeMoreText;
     } else {
@@ -129,7 +129,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
 
   private setup(value: Array<any>) {
     if (value) {
-      let length = value.length;
+      const length = value.length;
       if (length > this.maxItems) {
         this.expandable = true;
         this.buttonText = this.seeMoreText;

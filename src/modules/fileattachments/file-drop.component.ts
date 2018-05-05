@@ -32,13 +32,13 @@ export class SkyFileDropComponent {
   public linkChanged = new EventEmitter<SkyFileLink>();
 
   @Input()
-  public minFileSize: number = 0;
+  public minFileSize = 0;
 
   @Input()
-  public maxFileSize: number = 500000;
+  public maxFileSize = 500000;
 
   @Input()
-  public multiple: boolean = true;
+  public multiple = true;
 
   @Input()
   public validateFn: Function;
@@ -47,16 +47,16 @@ export class SkyFileDropComponent {
   public acceptedTypes: string;
 
   @Input()
-  public noClick: boolean = false;
+  public noClick = false;
 
   @Input()
-  public allowLinks: boolean = false;
+  public allowLinks = false;
 
   @ViewChild('fileInput')
   public inputEl: ElementRef;
 
-  public rejectedOver: boolean = false;
-  public acceptedOver: boolean = false;
+  public rejectedOver = false;
+  public acceptedOver = false;
   public linkUrl: string;
 
   private enterEventTarget: any;
@@ -234,20 +234,20 @@ export class SkyFileDropComponent {
       return true;
     }
 
-    let acceptedTypesUpper = this.acceptedTypes.toUpperCase();
-    let typeArray = acceptedTypesUpper.split(',');
+    const acceptedTypesUpper = this.acceptedTypes.toUpperCase();
+    const typeArray = acceptedTypesUpper.split(',');
 
     return !this.fileTypeInArray(typeArray, fileType.toUpperCase());
   }
 
   private handleFiles(files: FileList) {
-    let validFileArray: Array<SkyFileItem> = [];
-    let rejectedFileArray: Array<SkyFileItem> = [];
-    let totalFiles = files.length;
-    let fileDrop = this;
+    const validFileArray: Array<SkyFileItem> = [];
+    const rejectedFileArray: Array<SkyFileItem> = [];
+    const totalFiles = files.length;
+    const fileDrop = this;
 
     for (let index = 0; index < files.length; index++) {
-      let fileItem = {
+      const fileItem = {
         file: files.item(index)
       } as SkyFileItem;
 
@@ -267,7 +267,7 @@ export class SkyFileDropComponent {
         this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
 
       } else if (this.validateFn) {
-        let errorParam = this.validateFn(fileItem);
+        const errorParam = this.validateFn(fileItem);
 
         if (!!errorParam) {
           fileItem.errorType = 'validate';

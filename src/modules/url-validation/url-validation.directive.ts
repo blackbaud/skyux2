@@ -31,7 +31,7 @@ export class SkyUrlValidationDirective implements Validator {
   }
 
   public urlIsValid(url: string): boolean {
-    let regex = /^((http|https):\/\/)?([\w\-]+\.)+[\w\-]+/i;
+    const regex = /^((http|https):\/\/)?([\w\-]+\.)+[\w\-]+/i;
     return regex.test(url);
   }
 }

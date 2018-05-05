@@ -35,11 +35,11 @@ import {
   animate
 } from '@angular/animations';
 
-const INPUT_SHOWN_STATE: string = 'inputShown';
-const INPUT_HIDDEN_STATE: string = 'inputHidden';
-const EXPAND_MODE_RESPONSIVE: string = 'responsive';
-const EXPAND_MODE_FIT: string = 'fit';
-const EXPAND_MODE_NONE: string = 'none';
+const INPUT_SHOWN_STATE = 'inputShown';
+const INPUT_HIDDEN_STATE = 'inputHidden';
+const EXPAND_MODE_RESPONSIVE = 'responsive';
+const EXPAND_MODE_FIT = 'fit';
+const EXPAND_MODE_NONE = 'none';
 
 @Component({
   selector: 'sky-search',
@@ -82,9 +82,9 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   @Input()
   public expandMode: string = EXPAND_MODE_RESPONSIVE;
 
-  public isFullWidth: boolean = false;
+  public isFullWidth = false;
 
-  public isCollapsible: boolean = true;
+  public isCollapsible = true;
 
   @Input()
   public get placeholderText(): string {
@@ -101,11 +101,11 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   public inputAnimate: string = INPUT_SHOWN_STATE;
   public breakpointSubscription: Subscription;
-  public searchButtonShown: boolean = false;
-  public mobileSearchShown: boolean = false;
-  public dismissButtonShown: boolean = false;
-  public clearButtonShown: boolean = false;
-  public searchInputFocused: boolean = false;
+  public searchButtonShown = false;
+  public mobileSearchShown = false;
+  public dismissButtonShown = false;
+  public clearButtonShown = false;
+  public searchInputFocused = false;
 
   private _placeholderText: string;
 

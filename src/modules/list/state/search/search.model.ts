@@ -1,5 +1,5 @@
 export class ListSearchModel {
-  public searchText: string = '';
+  public searchText = '';
   public functions: Array<(data: any, searchText: string) => boolean> = [];
   public fieldSelectors: Array<string> = [];
 

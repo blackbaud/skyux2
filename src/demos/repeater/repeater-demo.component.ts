@@ -27,7 +27,7 @@ export class SkyRepeaterDemoComponent {
   }
 
   public addItem() {
-    let next = this.items.length + 1;
+    const next = this.items.length + 1;
     this.items.push({
       title: 'New reminder ' + next,
       note: 'This is a new reminder',

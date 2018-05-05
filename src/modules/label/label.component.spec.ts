@@ -19,8 +19,8 @@ describe('Label component', () => {
   });
 
   it('should add the appropriate CSS class based on the label type', () => {
-    let fixture = TestBed.createComponent(LabelTestComponent);
-    let el = fixture.nativeElement as HTMLElement;
+    const fixture = TestBed.createComponent(LabelTestComponent);
+    const el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
 
@@ -28,8 +28,8 @@ describe('Label component', () => {
   });
 
   it('should render the label\'s contents in the expected location', () => {
-    let fixture = TestBed.createComponent(LabelTestComponent);
-    let el = fixture.nativeElement as HTMLElement;
+    const fixture = TestBed.createComponent(LabelTestComponent);
+    const el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
 

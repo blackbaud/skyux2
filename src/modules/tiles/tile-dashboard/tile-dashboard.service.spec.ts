@@ -103,15 +103,15 @@ describe('Tile dashboard service', () => {
   it('should emit the config change event when a tile is moved',
     fakeAsync(
       () => {
-        let fixture = createDashboardTestComponent();
-        let dashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
+        const fixture = createDashboardTestComponent();
+        const dashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
         let configChanged = false;
 
         dashboardService.configChange.subscribe(
           (config: SkyTileDashboardConfig) => {
             configChanged = true;
 
-            let expectedConfig: SkyTileDashboardConfig = {
+            const expectedConfig: SkyTileDashboardConfig = {
               tiles: [
                 {
                   id: 'sky-test-tile-1',
@@ -170,9 +170,9 @@ describe('Tile dashboard service', () => {
         fixture.detectChanges();
         tick();
 
-        let el = fixture.nativeElement;
+        const el = fixture.nativeElement;
 
-        let columnEls = el.querySelectorAll('.sky-tile-dashboard-column');
+        const columnEls = el.querySelectorAll('.sky-tile-dashboard-column');
 
         columnEls[1].appendChild(columnEls[0].querySelector('div.sky-test-tile-1'));
 
@@ -184,9 +184,9 @@ describe('Tile dashboard service', () => {
   );
 
   it('should set the tile\'s grab handle as the drag handle', () => {
-    let setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and.callFake(
+    const setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and.callFake(
       (bagId: any, options: any) => {
-        let result = options.moves(
+        const result = options.moves(
           undefined,
           undefined,
           {
@@ -225,9 +225,9 @@ describe('Tile dashboard service', () => {
 
         dashboardService.init(dashboardConfig);
 
-        let fixture = TestBed.createComponent(Tile1TestComponent);
+        const fixture = TestBed.createComponent(Tile1TestComponent);
 
-        let cmp: Tile1TestComponent = fixture.componentInstance;
+        const cmp: Tile1TestComponent = fixture.componentInstance;
 
         fixture.detectChanges();
 
@@ -256,9 +256,9 @@ describe('Tile dashboard service', () => {
       (dashboardService: SkyTileDashboardService) => {
         dashboardService.init(dashboardConfig);
 
-        let fixture = TestBed.createComponent(Tile1TestComponent);
+        const fixture = TestBed.createComponent(Tile1TestComponent);
 
-        let cmp: Tile1TestComponent = fixture.componentInstance;
+        const cmp: Tile1TestComponent = fixture.componentInstance;
 
         fixture.detectChanges();
 
@@ -287,9 +287,9 @@ describe('Tile dashboard service', () => {
     inject([SkyTileDashboardService], (dashboardService: SkyTileDashboardService) => {
       dashboardService.init(dashboardConfig);
 
-      let multiColumn = dashboardConfig.layout.multiColumn;
-      let column1 = multiColumn[0];
-      let column2 = multiColumn[1];
+      const multiColumn = dashboardConfig.layout.multiColumn;
+      const column1 = multiColumn[0];
+      const column2 = multiColumn[1];
 
       expect(dashboardService.getTileComponentType(column1.tiles[0])).toBe(Tile1TestComponent);
       expect(dashboardService.getTileComponentType(column2.tiles[0])).toBe(Tile2TestComponent);
@@ -305,17 +305,17 @@ describe('Tile dashboard service', () => {
         return columnEl.querySelectorAll('sky-tile').length;
       }
 
-      let fixture = createDashboardTestComponent();
+      const fixture = createDashboardTestComponent();
 
       mockMediaQueryService.current = SkyMediaBreakpoints.sm;
 
-      let el = fixture.nativeElement;
+      const el = fixture.nativeElement;
 
       fixture.detectChanges();
       tick();
 
-      let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
-      let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
+      const multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
+      const singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
 
       expect(getTileCount(multiColumnEls[0])).toBe(0);
       expect(getTileCount(multiColumnEls[1])).toBe(0);
@@ -330,15 +330,15 @@ describe('Tile dashboard service', () => {
         return columnEl.querySelectorAll('sky-tile').length;
       }
 
-      let fixture = createDashboardTestComponent();
+      const fixture = createDashboardTestComponent();
 
-      let el = fixture.nativeElement;
+      const el = fixture.nativeElement;
 
       fixture.detectChanges();
       tick();
 
-      let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
-      let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
+      const multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
+      const singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
 
       expect(getTileCount(multiColumnEls[0])).toBe(1);
       expect(getTileCount(multiColumnEls[1])).toBe(1);
@@ -365,11 +365,11 @@ describe('Tile dashboard service', () => {
   it(
     'should return the expected config regardless of which column mode is active',
     fakeAsync(() => {
-      let fixture = createDashboardTestComponent();
+      const fixture = createDashboardTestComponent();
 
-      let cmp = fixture.componentInstance;
+      const cmp = fixture.componentInstance;
 
-      let expectedDashboardConfig = cmp.dashboardConfig;
+      const expectedDashboardConfig = cmp.dashboardConfig;
 
       fixture.detectChanges();
       tick();

@@ -10,7 +10,7 @@ export class SkySectionedFormFixtureComponent implements AfterContentChecked {
   @ViewChild(SkySectionedFormComponent)
   public sectionedForm: SkySectionedFormComponent;
 
-  public activeTab: boolean = true;
+  public activeTab = true;
   public activeIndexDisplay: number;
 
   private _activeIndex: number;

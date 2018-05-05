@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './filter-button.component.fixture.html'
 })
 export class FilterButtonTestComponent {
-  public filtersActive: boolean = false;
+  public filtersActive = false;
 
-  public buttonClicked: boolean = false;
+  public buttonClicked = false;
   public filterButtonClicked() {
     this.buttonClicked = true;
   }

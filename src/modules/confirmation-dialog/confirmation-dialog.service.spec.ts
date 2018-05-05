@@ -6,7 +6,7 @@ import { SkyConfirmationDialogComponent } from './confirmation-dialog.component'
 
 describe('Confirmation dialog service', () => {
   it('should open confirmation dialog with correct parameters', () => {
-    let modalService = new MockModalService(undefined, undefined, undefined);
+    const modalService = new MockModalService(undefined, undefined, undefined);
 
     const config: SkyConfirmationDialogConfig = {
       message: 'dialog description',
@@ -18,7 +18,7 @@ describe('Confirmation dialog service', () => {
       providers: [{ provide: SkyConfirmationDialogConfig, useValue: config }]
     };
 
-    let service = new SkyConfirmationDialogService(modalService);
+    const service = new SkyConfirmationDialogService(modalService);
     service.open(config);
 
     expect(modalService.openCalls.length).toBe(1);

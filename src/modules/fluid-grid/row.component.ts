@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SkyRowComponent {
   @Input()
-  public reverseColumnOrder: boolean = false;
+  public reverseColumnOrder = false;
 }

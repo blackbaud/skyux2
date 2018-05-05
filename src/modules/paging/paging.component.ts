@@ -16,16 +16,16 @@ import {
 })
 export class SkyPagingComponent implements OnChanges {
   @Input()
-  public pageSize: number = 10;
+  public pageSize = 10;
 
   @Input()
-  public maxPages: number = 5;
+  public maxPages = 5;
 
   @Input()
-  public currentPage: number = 1;
+  public currentPage = 1;
 
   @Input()
-  public itemCount: number = 0;
+  public itemCount = 0;
 
   @Input()
   public pagingLabel: string;
@@ -34,14 +34,14 @@ export class SkyPagingComponent implements OnChanges {
   public currentPageChange: EventEmitter<number> = new EventEmitter<number>();
 
   public displayedPages: Array<number> = [];
-  public pageCount: number = 0;
+  public pageCount = 0;
 
   public ngOnChanges(changes: SimpleChanges) {
     this.setPage(this.currentPage);
   }
 
   public setPage(pageNumber: number): void {
-    let previousPage = this.currentPage;
+    const previousPage = this.currentPage;
 
     this.setPageCount();
 
@@ -74,7 +74,7 @@ export class SkyPagingComponent implements OnChanges {
     maxDisplayedPages: number,
     pageNumber: number
   ): Array<number> {
-    let pageBounds = Math.floor((maxDisplayedPages - 1) / 2);
+    const pageBounds = Math.floor((maxDisplayedPages - 1) / 2);
     let lowerBound = pageNumber - pageBounds - 1;
     let upperBound = pageNumber + pageBounds - 1;
 
@@ -95,7 +95,7 @@ export class SkyPagingComponent implements OnChanges {
       }
     }
 
-    let displayedPageNumbers: Array<number> = [];
+    const displayedPageNumbers: Array<number> = [];
     for (let i = lowerBound; i <= upperBound; i++) {
       displayedPageNumbers.push(i + 1);
     }

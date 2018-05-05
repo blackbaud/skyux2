@@ -80,7 +80,7 @@ describe('List View Grid Component', () => {
     function setupTest() {
       fixture.detectChanges();
 
-      let items = [
+      const items = [
         new ListItemModel('1', { column1: '1', column2: 'Apple',
           column3: 1, column4: moment().add(1, 'minute') }),
         new ListItemModel('2', { column1: '01', column2: 'Banana',
@@ -157,7 +157,7 @@ describe('List View Grid Component', () => {
       it('should listen for the sortFieldChange event', fakeAsync(() => {
         setupTest();
         tick(110); // wait for async heading
-        let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+        const headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
         headerEl.click();
         fixture.detectChanges();
 
@@ -177,7 +177,7 @@ describe('List View Grid Component', () => {
         fixture.detectChanges();
         tick();
 
-        let headerIconEl = nativeElement.querySelectorAll('th i').item(0) as HTMLElement;
+        const headerIconEl = nativeElement.querySelectorAll('th i').item(0) as HTMLElement;
         expect(headerIconEl).toHaveCssClass('fa-caret-up');
       }));
 
@@ -193,10 +193,10 @@ describe('List View Grid Component', () => {
       describe('Models and State', () => {
         it('should run ListViewGridColumnsLoadAction action', async(() => {
           setupTest();
-          let gridDispatcher = new GridStateDispatcher();
-          let gridState = new GridState(new GridStateModel(), gridDispatcher);
+          const gridDispatcher = new GridStateDispatcher();
+          const gridState = new GridState(new GridStateModel(), gridDispatcher);
 
-          let columns = [
+          const columns = [
             new SkyGridColumnModel(component.viewtemplates.first),
             new SkyGridColumnModel(component.viewtemplates.first)
           ];
@@ -209,10 +209,10 @@ describe('List View Grid Component', () => {
         it('should run ListViewDisplayedGridColumnsLoadAction action with no refresh',
           async(() => {
             setupTest();
-            let gridDispatcher = new GridStateDispatcher();
-            let gridState = new GridState(new GridStateModel(), gridDispatcher);
+            const gridDispatcher = new GridStateDispatcher();
+            const gridState = new GridState(new GridStateModel(), gridDispatcher);
 
-            let columns = [
+            const columns = [
               new SkyGridColumnModel(component.viewtemplates.first),
               new SkyGridColumnModel(component.viewtemplates.first)
             ];
@@ -323,7 +323,7 @@ describe('List View Grid Component', () => {
       component = fixture.componentInstance;
       fixture.detectChanges();
 
-      let items = [
+      const items = [
         new ListItemModel('1', { column1: '1', column2: 'Apple',
           column3: 1, column4: moment().add(1, 'minute') }),
         new ListItemModel('2', { column1: '01', column2: 'Banana',

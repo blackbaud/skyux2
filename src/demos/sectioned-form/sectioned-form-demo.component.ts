@@ -23,7 +23,7 @@ export class SkySectionedFormDemoComponent implements AfterContentChecked {
   constructor(private modal: SkyModalService) { }
 
   public openModal() {
-    let modalInstance = this.modal.open(SkySectionedModalFormDemoComponent);
+    const modalInstance = this.modal.open(SkySectionedModalFormDemoComponent);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'cancel') {

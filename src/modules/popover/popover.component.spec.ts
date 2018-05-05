@@ -357,7 +357,7 @@ describe('SkyPopoverComponent', () => {
     component.positionNextTo(caller, 'above');
     tick();
 
-    let popover = fixture.nativeElement.querySelector('.sky-popover-container');
+    const popover = fixture.nativeElement.querySelector('.sky-popover-container');
     expect(repositionSpy).toHaveBeenCalled();
     expect(component.isVisible).toEqual(false);
     expect(popover.style.visibility).toEqual('hidden');

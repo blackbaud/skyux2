@@ -39,11 +39,11 @@ export class SkyModalHostComponent {
   ) { }
 
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
-    let params: IConfig = Object.assign({}, config);
-    let factory = this.resolver.resolveComponentFactory(component);
-    let hostService = new SkyModalHostService(params.fullPage);
-    let adapter = this.adapter;
-    let modalOpener: HTMLElement = adapter.getModalOpener();
+    const params: IConfig = Object.assign({}, config);
+    const factory = this.resolver.resolveComponentFactory(component);
+    const hostService = new SkyModalHostService(params.fullPage);
+    const adapter = this.adapter;
+    const modalOpener: HTMLElement = adapter.getModalOpener();
 
     params.providers.push({
       provide: SkyModalHostService,
@@ -57,10 +57,10 @@ export class SkyModalHostComponent {
     adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
     adapter.toggleFullPageModalClass(SkyModalHostService.fullPageModalCount > 0);
 
-    let providers = params.providers /* istanbul ignore next */ || [];
-    let resolvedProviders = ReflectiveInjector.resolve(providers);
-    let injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
-    let modalComponentRef = this.target.createComponent(factory, undefined, injector);
+    const providers = params.providers /* istanbul ignore next */ || [];
+    const resolvedProviders = ReflectiveInjector.resolve(providers);
+    const injector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
+    const modalComponentRef = this.target.createComponent(factory, undefined, injector);
 
     modalInstance.componentInstance = modalComponentRef.instance;
 

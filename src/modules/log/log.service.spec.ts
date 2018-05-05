@@ -17,7 +17,7 @@ describe('Log service', () => {
   it(
     'should log warnings to the console',
     inject([SkyLogService], (logService: SkyLogService) => {
-      let warnSpy = spyOn(window.console, 'warn');
+      const warnSpy = spyOn(window.console, 'warn');
 
       logService.warn('This is the message', 'an optional parameter');
 

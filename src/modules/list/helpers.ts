@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import {$$observable as symbolObservable} from 'rxjs/symbol/observable';
 
 export function getData(item: any, selector: string): any {
-  let resultFieldParts = selector.split('.');
+  const resultFieldParts = selector.split('.');
   if (resultFieldParts.length > 0 && resultFieldParts[0] === '') {
     resultFieldParts.shift();
   }
@@ -10,7 +10,7 @@ export function getData(item: any, selector: string): any {
   let result = item;
   if (resultFieldParts.length > 0) {
     for (let index = 0; index < resultFieldParts.length; index++) {
-    let part = resultFieldParts[index];
+    const part = resultFieldParts[index];
       /* tslint:disable:no-null-keyword */
       /* istanbul ignore else */
       if (result[part] === null || result[part] === undefined) {

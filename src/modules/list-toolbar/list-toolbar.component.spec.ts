@@ -284,7 +284,7 @@ describe('List Toolbar Component', () => {
       initializeToolbar();
         fixture.whenStable().then(() => {
           fixture.detectChanges();
-        let sortSelectorDropdownButtonEl = nativeElement
+        const sortSelectorDropdownButtonEl = nativeElement
           .querySelector('.sky-sort .sky-dropdown-button') as HTMLButtonElement;
         sortSelectorDropdownButtonEl.click();
 

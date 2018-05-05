@@ -7,7 +7,7 @@ export class SkyLinkRecordsItemModel {
   public match: SkyLinkRecordsMatchModel = new SkyLinkRecordsMatchModel();
   public matchFields: Array<any> = [];
 
-  constructor(data: any = undefined) {
+  constructor(data: any) {
     /* istanbul ignore else */
     if (data !== undefined) {
       this.key = data.key;

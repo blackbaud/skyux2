@@ -8,8 +8,8 @@ import { SkySectionedFormService } from '../../core';
 })
 export class SkyDemoInformationFormComponent {
   private _nameRequired: boolean;
-  private _name: string = '';
-  private _id: string = '5324901';
+  private _name = '';
+  private _id = '5324901';
 
   public get nameRequired() {
     return this._nameRequired;
@@ -49,7 +49,7 @@ export class SkyDemoInformationFormComponent {
 
   private idValid(value: string) {
     if (value) {
-      let regExp = new RegExp('^[0-9]+$');
+      const regExp = new RegExp('^[0-9]+$');
       return regExp.test(value);
     } else {
       return true;

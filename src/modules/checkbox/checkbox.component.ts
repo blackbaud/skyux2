@@ -44,7 +44,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
    * Hidden label for screen readers.
    */
   @Input()
-  public label: string = '';
+  public label = '';
 
   /**
    * Id of label for the checkbox.
@@ -53,21 +53,21 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   public labelledBy: string;
 
   @Input()
-  public id: string = `sky-checkbox-${++nextId}`;
+  public id = `sky-checkbox-${++nextId}`;
 
   @Input()
-  public disabled: boolean = false;
+  public disabled = false;
 
   @Input()
-  public tabindex: number = 0;
+  public tabindex = 0;
 
   @Input()
-  public name: string = `sky-checkbox-${++nextId}`;
+  public name = `sky-checkbox-${++nextId}`;
 
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
-  private _checked: boolean = false;
+  private _checked = false;
 
   public get inputId(): string {
     return `input-${this.id}`;
@@ -132,7 +132,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
 
   private _emitChangeEvent() {
-    let event = new SkyCheckboxChange();
+    const event = new SkyCheckboxChange();
     event.source = this;
     event.checked = this._checked;
 

@@ -22,8 +22,8 @@ export class SkyLinkRecordsSelectedOrchestrator
     state: AsyncItem<{[key: string]: {[keyField: string]: boolean}}>,
     action: SkyLinkRecordsSelectedSetSelectedAction):
       AsyncItem<{[key: string]: {[keyField: string]: boolean}}> {
-      let newStateItem = Object.assign({}, state.item);
-      let fields = (newStateItem[action.key]) ? Object.assign({}, newStateItem[action.key]) : {};
+      const newStateItem = Object.assign({}, state.item);
+      const fields = (newStateItem[action.key]) ? Object.assign({}, newStateItem[action.key]) : {};
       fields[action.fieldKey] = action.selected;
       newStateItem[action.key] = fields;
 
@@ -35,7 +35,7 @@ export class SkyLinkRecordsSelectedOrchestrator
     state: AsyncItem<{[key: string]: {[keyField: string]: boolean}}>,
     action: SkyLinkRecordsSelectedSetSelectedAction):
       AsyncItem<{[key: string]: {[keyField: string]: boolean}}> {
-      let newStateItem = Object.assign({}, state.item);
+      const newStateItem = Object.assign({}, state.item);
       newStateItem[action.key] = undefined;
 
       return new AsyncItem<{[key: string]: {[keyField: string]: boolean}}>(

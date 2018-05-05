@@ -68,7 +68,7 @@ export class SkyDatepickerInputDirective implements
   public dateFormat: string;
 
   @Input()
-  public skyDatepickerNoValidate: boolean = false;
+  public skyDatepickerNoValidate = false;
 
   @Input()
   public minDate: Date;
@@ -122,7 +122,7 @@ export class SkyDatepickerInputDirective implements
 
   @HostListener('change', ['$event'])
   public onChange(event: any) {
-    let newValue = event.target.value;
+    const newValue = event.target.value;
     // need to parse date here:
     this.modelValue = this.dateFormatter.getDateFromString(newValue, this.dateFormat);
     if (this.dateFormatter.dateIsValid(this.modelValue)) {
@@ -166,13 +166,13 @@ export class SkyDatepickerInputDirective implements
   }
 
   public validate(control: AbstractControl): {[key: string]: any} {
-    let value = control.value;
+    const value = control.value;
 
     if (!value) {
       return undefined;
     }
 
-    let dateValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
+    const dateValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
 
     if (!this.dateFormatter.dateIsValid(dateValue) && !this.skyDatepickerNoValidate) {
       return {

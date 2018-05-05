@@ -1,6 +1,6 @@
 export class ListToolbarConfigModel {
-  public searchEnabled: boolean = true;
-  public sortSelectorEnabled: boolean = true;
+  public searchEnabled = true;
+  public sortSelectorEnabled = true;
 
   constructor(data?: any) {
     if (data) {

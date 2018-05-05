@@ -28,12 +28,12 @@ describe('toolbar component', () => {
     });
 
     it('should create a toolbar with transcluded items', () => {
-      let fixture = TestBed.createComponent(ToolbarTestComponent);
-      let el = fixture.nativeElement as HTMLElement;
+      const fixture = TestBed.createComponent(ToolbarTestComponent);
+      const el = fixture.nativeElement as HTMLElement;
 
       fixture.detectChanges();
 
-      let buttonEls = el.querySelectorAll('.sky-toolbar-container .sky-toolbar-item .sky-btn');
+      const buttonEls = el.querySelectorAll('.sky-toolbar-container .sky-toolbar-item .sky-btn');
 
       expect(buttonEls.item(0)).toHaveText('Button 1');
       expect(buttonEls.item(1)).toHaveText('Button 2');
@@ -55,12 +55,12 @@ describe('toolbar component', () => {
     });
 
     it('should create a toolbar with sections with transcluded items', () => {
-      let fixture = TestBed.createComponent(ToolbarSectionedTestComponent);
-      let el = fixture.nativeElement as HTMLElement;
+      const fixture = TestBed.createComponent(ToolbarSectionedTestComponent);
+      const el = fixture.nativeElement as HTMLElement;
 
       fixture.detectChanges();
 
-      let buttonEls =
+      const buttonEls =
       el.querySelectorAll('.sky-toolbar-container .sky-toolbar-section .sky-toolbar-item .sky-btn');
 
       expect(buttonEls.item(0)).toHaveText('Button 1');

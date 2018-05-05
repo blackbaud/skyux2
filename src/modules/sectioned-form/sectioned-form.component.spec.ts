@@ -55,60 +55,60 @@ describe('Sectioned form component', () => {
   }
 
   it('active tab should be open', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement as HTMLElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
 
     // check correct section tab is active
-    let activeSection = getActiveSection(el);
+    const activeSection = getActiveSection(el);
     expect(activeSection.length).toBe(1);
 
-    let heading = activeSection[0].querySelector('.sky-vertical-tab-heading-value');
+    const heading = activeSection[0].querySelector('.sky-vertical-tab-heading-value');
     expect(heading.textContent.trim()).toBe('Information 1a');
 
-    let count = activeSection[0].querySelector('.sky-vertical-tab-count');
+    const count = activeSection[0].querySelector('.sky-vertical-tab-count');
     expect(count.textContent.trim()).toBe('(2)');
 
     // check correct section content is displayed
-    let content = getVisibleContent(el);
+    const content = getVisibleContent(el);
     expect(content.length).toBe(1);
     expect(content[0].textContent.trim()).toBe('information 2');
   });
 
   it('clicking tab should show content', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
     // click first tab
-    let firstTab = el.querySelectorAll('.sky-vertical-tab');
+    const firstTab = el.querySelectorAll('.sky-vertical-tab');
     firstTab[0].click();
 
     fixture.detectChanges();
 
     // check correct section tab is active
-    let activeSection = getActiveSection(el);
+    const activeSection = getActiveSection(el);
     expect(activeSection.length).toBe(1);
 
-    let heading = activeSection[0].querySelector('.sky-vertical-tab-heading');
+    const heading = activeSection[0].querySelector('.sky-vertical-tab-heading');
     expect(heading.textContent.trim()).toBe('Information 1');
 
-    let count = activeSection[0].querySelector('.sky-vertical-tab-count');
+    const count = activeSection[0].querySelector('.sky-vertical-tab-count');
     // tslint:disable-next-line:no-null-keyword
     expect(count).toBe(null);
 
     // check correct section content is displayed
-    let content = getVisibleContent(el);
+    const content = getVisibleContent(el);
     expect(content.length).toBe(1);
-    let informationContent = content[0].querySelector('.demo-content');
+    const informationContent = content[0].querySelector('.demo-content');
     expect(informationContent.textContent.trim()).toBe('information 1');
   });
 
   it('section should respect required field change', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -116,28 +116,28 @@ describe('Sectioned form component', () => {
     let tabs = el.querySelectorAll('sky-vertical-tab');
     expect(tabs.length).toBe(2);
 
-    let activeTab = tabs[1];
+    const activeTab = tabs[1];
     expect(activeTab.classList.contains('sky-tab-field-required')).toBe(false);
 
     // mark required
-    let checkbox = el.querySelector('#requiredTestCheckbox input');
+    const checkbox = el.querySelector('#requiredTestCheckbox input');
     checkbox.click();
     fixture.detectChanges();
 
     // check section is required
     tabs = el.querySelectorAll('sky-vertical-tab');
-    let requiredTab = tabs[0];
+    const requiredTab = tabs[0];
     expect(requiredTab.classList.contains('sky-tab-field-required')).toBe(true);
   });
 
   it('section should respect required field change after switching tabs', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
     // click first tab
-    let firstTab = el.querySelectorAll('.sky-vertical-tab');
+    const firstTab = el.querySelectorAll('.sky-vertical-tab');
     firstTab[0].click();
 
     fixture.detectChanges();
@@ -146,38 +146,38 @@ describe('Sectioned form component', () => {
     let tabs = el.querySelectorAll('sky-vertical-tab');
     expect(tabs.length).toBe(2);
 
-    let activeTab = tabs[0];
+    const activeTab = tabs[0];
     expect(activeTab.classList.contains('sky-tab-field-required')).toBe(false);
 
     // mark required
-    let checkbox = el.querySelector('#requiredTestCheckbox input');
+    const checkbox = el.querySelector('#requiredTestCheckbox input');
     checkbox.click();
     fixture.detectChanges();
 
     // check section is required
     tabs = el.querySelectorAll('sky-vertical-tab');
-    let requiredTab = tabs[0];
+    const requiredTab = tabs[0];
     expect(requiredTab.classList.contains('sky-tab-field-required')).toBe(true);
   });
 
   it('active index should be raised when tab changed', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    const tabs = el.querySelectorAll('.sky-vertical-tab');
     tabs[0].click();
 
     fixture.detectChanges();
 
-    let activeIndexEl = el.querySelector('#activeIndexDiv');
+    const activeIndexEl = el.querySelector('#activeIndexDiv');
     expect(activeIndexEl.textContent.trim()).toBe('active index = 0');
   });
 
   it('should have a visible animation state on load in mobile', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
-    let fixture = createTestComponent();
+    const fixture = createTestComponent();
 
     fixture.detectChanges();
 
@@ -186,8 +186,8 @@ describe('Sectioned form component', () => {
 
   it('should hide content and show tabs on mobile after calling showtabs function', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -212,8 +212,8 @@ describe('Sectioned form component', () => {
   });
 
   it('section should respect invalid field change', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -221,24 +221,24 @@ describe('Sectioned form component', () => {
     let tabs = el.querySelectorAll('sky-vertical-tab');
     expect(tabs.length).toBe(2);
 
-    let activeTab = tabs[1];
+    const activeTab = tabs[1];
     expect(activeTab.classList.contains('sky-tab-field-invalid')).toBe(false);
 
     // mark invalid
-    let checkbox = el.querySelector('#invalidTestCheckbox input');
+    const checkbox = el.querySelector('#invalidTestCheckbox input');
     checkbox.click();
     fixture.detectChanges();
 
     // check section is required
     tabs = el.querySelectorAll('sky-vertical-tab');
-    let invalidTab = tabs[0];
+    const invalidTab = tabs[0];
     expect(invalidTab.classList.contains('sky-tab-field-invalid')).toBe(true);
   });
 
   it('should show content after resizing screen', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -291,12 +291,12 @@ describe('Sectioned form component - no sections', () => {
   }
 
   it('should not fail to load when no sections exist', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let allTabs = el.querySelectorAll('.sky-sectioned-form-tabs');
+    const allTabs = el.querySelectorAll('.sky-sectioned-form-tabs');
     expect(allTabs.length).toBe(1);
     expect(allTabs[0].textContent.trim()).toBe('');
   });
@@ -316,15 +316,15 @@ describe('Sectioned form component - no active sections', () => {
   }
 
   it('should not fail to load when no active sections exist', () => {
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let activeSection = getActiveSection(el);
+    const activeSection = getActiveSection(el);
     expect(activeSection.length).toBe(0);
 
-    let tabs = el.querySelectorAll('sky-vertical-tab');
+    const tabs = el.querySelectorAll('sky-vertical-tab');
     expect(tabs.length).toBe(2);
   });
 });

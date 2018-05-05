@@ -1,6 +1,6 @@
 export class ListSortFieldSelectorModel {
   public fieldSelector: string;
-  public descending: boolean = false;
+  public descending = false;
 
   constructor(data?: any) {
     if (data) {

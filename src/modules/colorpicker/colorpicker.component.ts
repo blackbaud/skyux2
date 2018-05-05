@@ -186,21 +186,21 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   }
 
   public set red(change: SkyColorpickerChangeColor) {
-    let rgba = this.service.hsvaToRgba(this.hsva);
+    const rgba = this.service.hsvaToRgba(this.hsva);
     rgba.red = change.colorValue / change.maxRange;
     this.hsva = this.service.rgbaToHsva(rgba);
     this.update();
   }
 
   public set green(change: SkyColorpickerChangeColor) {
-    let rgba = this.service.hsvaToRgba(this.hsva);
+    const rgba = this.service.hsvaToRgba(this.hsva);
     rgba.green = change.colorValue / change.maxRange;
     this.hsva = this.service.rgbaToHsva(rgba);
     this.update();
   }
 
   public set blue(change: SkyColorpickerChangeColor) {
-    let rgba = this.service.hsvaToRgba(this.hsva);
+    const rgba = this.service.hsvaToRgba(this.hsva);
     rgba.blue = change.colorValue / change.maxRange;
     this.hsva = this.service.rgbaToHsva(rgba);
     this.update();
@@ -227,19 +227,19 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   }
 
   public update() {
-    let hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
-    let dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
-    let rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
-    let dRgba: SkyColorpickerRgba = this.service.denormalizeRGBA(rgba);
+    const hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
+    const dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
+    const rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
+    const dRgba: SkyColorpickerRgba = this.service.denormalizeRGBA(rgba);
 
-    let hsva: SkyColorpickerHsva = {
+    const hsva: SkyColorpickerHsva = {
       'hue': this.hsva.hue,
       'saturation': 1,
       'value': 1,
       'alpha': 1
     };
 
-    let hueRgba = this.service.denormalizeRGBA(
+    const hueRgba = this.service.denormalizeRGBA(
       this.service.hsvaToRgba(hsva)
     );
 
@@ -254,7 +254,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
       this.format++;
     }
 
-    let lastOutput = this.outputColor;
+    const lastOutput = this.outputColor;
     this.outputColor = this.service.outputFormat(
       this.hsva,
       this.outputFormat,

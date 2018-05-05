@@ -15,7 +15,7 @@ export class SkyNumericService {
 
   public formatNumber(value: number, options: NumericOptions): string {
 
-    let si = [
+    const si = [
       { value: 1E12, symbol: SkyResources.getString('number_trillion_abrev') },
       { value: 1E9, symbol: SkyResources.getString('number_billion_abrev') },
       { value: 1E6, symbol: SkyResources.getString('number_million_abrev') },
@@ -78,7 +78,7 @@ export class SkyNumericService {
 
   // Stores the symbol added from shortening (K/M/B/T) to reapply later
   private storeShortenSymbol(sValue: string) {
-    let rx = /K|M|B|T/ig;
+    const rx = /K|M|B|T/ig;
     if (sValue.match(rx)) {
       this.shortSymbol = sValue.match(rx).toString();
     }
@@ -89,8 +89,8 @@ export class SkyNumericService {
   // gets the index of the position after that character and re-inserts the symbol.
   // works regardless of currency symbol position
   private replaceShortenSymbol(sValue: string) {
-    let r = /(\d)(?!.*\d)/g.exec(sValue);
-    let pos = r.index + r.length;
+    const r = /(\d)(?!.*\d)/g.exec(sValue);
+    const pos = r.index + r.length;
     sValue = sValue.substring(0, pos)
       + this.shortSymbol + sValue.substring(pos);
     return sValue;

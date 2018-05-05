@@ -88,7 +88,7 @@ describe('SkyPopoverDirective', () => {
 
   beforeEach(() => {
     mockWindowService = new MockWindowService();
-    let mockAdapterService = {};
+    const mockAdapterService = {};
 
     TestBed.configureTestingModule({
       imports: [

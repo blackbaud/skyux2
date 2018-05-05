@@ -75,7 +75,7 @@ export class SkyListColumnSelectorActionComponent {
           });
       });
 
-      let modalInstance = this.modalService.open(
+      const modalInstance = this.modalService.open(
         SkyColumnSelectorComponent,
         [
           {
@@ -90,7 +90,7 @@ export class SkyListColumnSelectorActionComponent {
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
         if (result.reason === 'save' && result.data) {
-          let newSelectedIds = result.data;
+          const newSelectedIds = result.data;
           let newDisplayedColumns: Array<SkyGridColumnModel> = [];
           this.gridView.gridState.take(1)
             .subscribe((state: GridStateModel) => {

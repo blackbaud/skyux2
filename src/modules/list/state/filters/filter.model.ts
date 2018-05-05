@@ -3,7 +3,7 @@ import { ListItemModel } from '../../../list/state/items/item.model';
 export class ListFilterModel {
   public name: string;
   public label: string;
-  public dismissible: boolean = true;
+  public dismissible = true;
   public value: any;
   public defaultValue: any;
 

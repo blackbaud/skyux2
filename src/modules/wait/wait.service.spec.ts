@@ -21,9 +21,9 @@ describe('Wait service', () => {
   let waitService: SkyWaitService;
   let applicationRef: ApplicationRef;
 
-  let pageBlockingSelector =
+  const pageBlockingSelector =
     '.sky-wait-page .sky-wait-mask-loading-fixed.sky-wait-mask-loading-blocking';
-  let pageNonBlockingSelector =
+  const pageNonBlockingSelector =
     '.sky-wait-page .sky-wait-mask-loading-fixed.sky-wait-mask-loading-non-blocking';
 
   beforeEach(() => {

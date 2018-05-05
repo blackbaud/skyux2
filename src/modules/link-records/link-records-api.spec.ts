@@ -19,20 +19,20 @@ describe('Injectable: Link Records API ', () => {
   });
 
   it('addSelectedItem set match status to selected and match item to the state', async(() => {
-    let expectedKey: string = '1';
-    let oldItem: any = {
+    const expectedKey = '1';
+    const oldItem: any = {
       id: 123,
       name: 'Org Name',
       addressLine1: ''
     };
 
-    let newItem: any = {
+    const newItem: any = {
       id: 456,
       name: 'New Name',
       addressLine1: ''
     };
 
-    let matches = [{
+    const matches = [{
       key: expectedKey,
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: oldItem
@@ -49,15 +49,14 @@ describe('Injectable: Link Records API ', () => {
   }));
 
   it('addSelectedItem should set match item to undefined if new item is undefined', async(() => {
-    let expectedKey: string = '1';
-    let oldItem: any = {
+    const expectedKey = '1';
+    const oldItem: any = {
       id: 123,
       name: 'Org Name',
       addressLine1: ''
     };
-    let newItem: any = undefined;
 
-    let matches = [
+    const matches = [
       {
         key: expectedKey,
         status: SKY_LINK_RECORDS_STATUSES.Created,
@@ -67,7 +66,7 @@ describe('Injectable: Link Records API ', () => {
 
     dispatcher.next(new SkyLinkRecordsMatchesLoadAction(matches));
 
-    linkRecordApi.addSelectedItem(expectedKey, newItem);
+    linkRecordApi.addSelectedItem(expectedKey, undefined);
 
     state.take(1).subscribe(s => {
       expect(s.matches.items[0].item).toEqual(undefined);
@@ -75,14 +74,14 @@ describe('Injectable: Link Records API ', () => {
   }));
 
   it('removeSelectedItem set match status to NoMatch and match item to undefined', async(() => {
-    let expectedKey: string = '1';
-    let oldItem: any = {
+    const expectedKey = '1';
+    const oldItem: any = {
       id: 123,
       name: 'Org Name',
       addressLine1: ''
     };
 
-    let matches = [
+    const matches = [
       {
         key: expectedKey,
         status: SKY_LINK_RECORDS_STATUSES.Created,

@@ -22,8 +22,8 @@ export class SkyTabsetAdapterService {
 
   public detectOverflow() {
     if (this.el && this.tabsEl) {
-      let elWidth = this.el.offsetWidth;
-      let tabsElWidth = this.tabsEl.offsetWidth + this.bntsEl.offsetWidth;
+      const elWidth = this.el.offsetWidth;
+      const tabsElWidth = this.tabsEl.offsetWidth + this.bntsEl.offsetWidth;
       if (tabsElWidth < elWidth) {
         if (this.currentOverflow) {
           this.currentOverflow = false;

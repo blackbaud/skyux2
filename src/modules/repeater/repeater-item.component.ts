@@ -30,7 +30,7 @@ export class SkyRepeaterItemComponent {
   }
 
   @Input()
-  public selectable: boolean = false;
+  public selectable = false;
 
   public slideDirection: string;
 

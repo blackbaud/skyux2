@@ -24,7 +24,7 @@ export class SkyTabDropdownComponent {
   public closeClick = new EventEmitter<SkyTabComponent>();
 
   public get activeTabHeading(): string {
-    let activeTab = this.tabs.filter((item) => {
+    const activeTab = this.tabs.filter((item) => {
       return item.active;
     });
 

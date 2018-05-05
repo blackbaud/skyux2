@@ -8,7 +8,7 @@ export class SkyConfirmationDialogService {
   constructor(private modal: SkyModalService) {}
 
   public open(config: SkyConfirmationDialogConfig): SkyConfirmationDialogInstance {
-    let instance = new SkyConfirmationDialogInstance();
+    const instance = new SkyConfirmationDialogInstance();
 
     return instance.open(this.modal, config);
   }

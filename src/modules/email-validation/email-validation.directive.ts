@@ -17,7 +17,7 @@ const SKY_EMAIL_VALIDATION_VALIDATOR = {
 export class SkyEmailValidationDirective implements Validator {
 
   public validate(control: AbstractControl): {[key: string]: any} {
-    let value = control.value;
+    const value = control.value;
 
     if (!value) {
       return;
@@ -34,7 +34,7 @@ export class SkyEmailValidationDirective implements Validator {
   }
 
   public emailIsValid(email: string): boolean {
-    let regex = /[\w\-]+@([\w\-]+\.)+[\w\-]+/;
+    const regex = /[\w\-]+@([\w\-]+\.)+[\w\-]+/;
     return regex.test(email);
   }
 }

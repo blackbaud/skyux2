@@ -83,7 +83,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
   });
 
   it('unlinked matches loaded into state and result item is undefined on ngOnInit', async(() => {
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: '11' }
@@ -94,7 +94,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     state.map(s => s.matches.items).take(1)
       .subscribe(m => {
-        let match = m[0];
+        const match = m[0];
         expect(match.key).toEqual(linkRecordMatch.key);
         expect(match.status).toEqual(linkRecordMatch.status);
         expect(match.item).toEqual(linkRecordMatch.item);
@@ -102,7 +102,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     state.map(s => s.results.items).take(1)
       .subscribe(r => {
-        let result = r[0];
+        const result = r[0];
         expect(result.key).toEqual(linkRecordMatch.key);
         expect(result.status).toEqual(linkRecordMatch.status);
         expect(result.item).toBeUndefined();
@@ -110,7 +110,7 @@ describe('Component: SkyLinkRecordsComponent', () => {
   }));
 
   it('error is thrown if fields key does equal keyIdSelector on ngOnInit', async(() => {
-    let fields = [{
+    const fields = [{
       key: 'testKey'
     }];
     component.keyIdSelector = 'testKey';
@@ -124,13 +124,13 @@ describe('Component: SkyLinkRecordsComponent', () => {
   }));
 
   it('Linked items are loaded in results state on ngOnInit', async(() => {
-    let item = {
+    const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: item
@@ -142,26 +142,26 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     state.map(s => s.results.items).take(1)
       .subscribe(r => {
-        let result = r[0];
+        const result = r[0];
         expect(result.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
       });
   }));
 
   it('linked items w\ new fields are loaded in results state on ngOnInit', async(() => {
-    let item = {
+    const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
     };
 
-    let field = new SkyLinkRecordsFieldModel({
+    const field = new SkyLinkRecordsFieldModel({
       key: 'name',
       label: 'name',
       currentValue: 'Kevin',
       newValue: 'Brian'
     });
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: item
@@ -176,27 +176,27 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     state.map(s => s.results.items).take(1)
       .subscribe(r => {
-        let result = r[0];
+        const result = r[0];
         expect(result.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
         expect(result.item.name).toEqual(field.newValue);
       });
   }));
 
   it('linked item w\ new fields not in results if not in selection on ngOnInit', async(() => {
-    let item = {
+    const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
     };
 
-    let field = new SkyLinkRecordsFieldModel({
+    const field = new SkyLinkRecordsFieldModel({
       key: 'name',
       label: 'name',
       currentValue: 'Kevin',
       newValue: 'Brian'
     });
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Linked,
       item: item
@@ -209,20 +209,20 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     state.map(s => s.results.items).take(1)
       .subscribe(r => {
-        let result = r[0];
+        const result = r[0];
         expect(result.status).toEqual(SKY_LINK_RECORDS_STATUSES.Linked);
         expect(result.item.name).not.toEqual(field.newValue);
       });
   }));
 
   it('records returns item match if match key equals keyIdSelector', async(() => {
-    let item = {
+    const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: '22' }
@@ -235,14 +235,14 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     component.records.take(1)
       .subscribe((r: SkyLinkRecordsItemModel[]) => {
-        let record = r[0];
+        const record = r[0];
         expect(record.key).toEqual(linkRecordMatch.key);
         expect(record.status).toEqual(linkRecordMatch.status);
       });
   }));
 
   it('records returns undefined match if status is no match', async(() => {
-     let item = {
+     const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
@@ -253,19 +253,19 @@ describe('Component: SkyLinkRecordsComponent', () => {
     fixture.detectChanges();
 
     component.records.take(1).subscribe((r: SkyLinkRecordsItemModel[]) => {
-      let record = r[0];
+      const record = r[0];
       expect(record.status).toEqual(SKY_LINK_RECORDS_STATUSES.NoMatch);
     });
   }));
 
   it('records returns no match instance if matches is empty', async(() => {
-     let item = {
+     const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: { id: '22' }
@@ -278,13 +278,13 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     component.records.take(1)
       .subscribe((r: SkyLinkRecordsItemModel[]) => {
-        let record = r[0];
+        const record = r[0];
         expect(record.match).toBeUndefined();
       });
   }));
 
   it('results are returned from state', async(() => {
-    let linkRecordResult = new SkyLinkRecordsResultModel({
+    const linkRecordResult = new SkyLinkRecordsResultModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: {}
@@ -294,13 +294,13 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     component.results.take(1)
       .subscribe((r: SkyLinkRecordsResultModel[]) => {
-        let result = r;
+        const result = r;
         expect(result.length > 0).toBe(true);
       });
   }));
 
   it('recordMatches are returned from state', async(() => {
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Created,
       item: { id: '11' }
@@ -310,13 +310,13 @@ describe('Component: SkyLinkRecordsComponent', () => {
 
     component.recordMatches.take(1)
       .subscribe((m: SkyLinkRecordsMatchModel[]) => {
-        let matches = m;
+        const matches = m;
         expect(matches.length > 0).toBe(true);
       });
   }));
 
   it('SkyLinkRecordsItemModel undefined constructor data init defaults fields', () => {
-    let linkRecordItem = new SkyLinkRecordsItemModel();
+    const linkRecordItem = new SkyLinkRecordsItemModel(undefined);
 
     expect(linkRecordItem.key).toBeUndefined();
     expect(linkRecordItem.status).toBeUndefined();

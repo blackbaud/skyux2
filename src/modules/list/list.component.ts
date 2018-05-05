@@ -123,7 +123,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
   private searchFunction: (data: any, searchText: string) => boolean;
   /* tslint:enable */
 
-  private dataFirstLoad: boolean = false;
+  private dataFirstLoad = false;
 
   @ContentChildren(ListViewComponent)
   private listViews: QueryList<ListViewComponent>;
@@ -139,7 +139,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
     }
 
     if (this.listViews.length > 0) {
-      let defaultView: ListViewComponent =
+      const defaultView: ListViewComponent =
         (this.defaultView === undefined) ? this.listViews.first : this.defaultView;
 
       this.dispatcher.next(
@@ -222,7 +222,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
       selectedIds = Observable.of(selectedIds);
     }
 
-    let selectedChanged: boolean = false;
+    let selectedChanged = false;
 
     return Observable.combineLatest(
       this.state.map(s => s.filters).distinctUntilChanged(),
@@ -255,7 +255,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
         let response: Observable<ListDataResponseModel>;
         if (this.dataFirstLoad) {
           this.dataFirstLoad = false;
-          let initialItems = itemsData.map(d =>
+          const initialItems = itemsData.map(d =>
             new ListItemModel(d.id || moment().toDate().getTime().toString(), d));
           response = Observable.of(new ListDataResponseModel({
             count: this.initialTotal,

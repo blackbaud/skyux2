@@ -33,9 +33,9 @@ describe('Component: SkyLinkRecordsItemContentComponent', () => {
     it('template setter defines inputTemplate for content', () => {
       fixture.detectChanges();
 
-      let elementItems = element.children[0].children.filter(
+      const elementItems = element.children[0].children.filter(
         (item) => { return item.name === 'sky-link-records-item-content'; });
-      let component = elementItems[0].componentInstance;
+      const component = elementItems[0].componentInstance;
 
       expect(component.template).toBeDefined();
     });
@@ -59,9 +59,9 @@ describe('Component: SkyLinkRecordsItemContentComponent', () => {
     it('content children defines template for content', () => {
       fixture.detectChanges();
 
-      let elementItems = element.children[0].children.filter(
+      const elementItems = element.children[0].children.filter(
         (item) => { return item.name === 'sky-link-records-item-content'; });
-      let component = elementItems[0].componentInstance;
+      const component = elementItems[0].componentInstance;
 
       expect(component.template).toBeDefined();
     });

@@ -98,7 +98,7 @@ describe('Grid Component', () => {
 
     function verifyData(flatData = false, useAllHeaders = false, hiddenCol = false) {
       for (let i = 0; i < component.data.length; i ++) {
-        let row = component.data[i];
+        const row = component.data[i];
         let rowData: any;
 
         if (flatData) {
@@ -242,13 +242,13 @@ describe('Grid Component', () => {
       });
 
       it('should allow the access of search function on displayed columns', () => {
-        let searchFunctions = component.grid.displayedColumns.map(column => {
+        const searchFunctions = component.grid.displayedColumns.map(column => {
           return column.searchFunction;
         });
 
         expect(searchFunctions.length).toBe(5);
         for (let i = 0; i < searchFunctions.length; i++) {
-          let result = searchFunctions[i]('Something', 'something');
+          const result = searchFunctions[i]('Something', 'something');
           expect(result).toBe(true);
         }
 
@@ -259,7 +259,7 @@ describe('Grid Component', () => {
         component.searchedData = '';
 
         for (let i = 0; i < searchFunctions.length; i++) {
-          let result = searchFunctions[i]('blaah', 'something');
+          const result = searchFunctions[i]('blaah', 'something');
           if (component.searchText !== '') {
             expect(result).toBe(true);
           } else {
@@ -271,7 +271,7 @@ describe('Grid Component', () => {
         }
 
          for (let i = 0; i < searchFunctions.length; i++) {
-          let result = searchFunctions[i](undefined, 'something');
+          const result = searchFunctions[i](undefined, 'something');
           if (component.searchText !== '') {
             expect(result).toBe(true);
           } else {
@@ -320,7 +320,7 @@ describe('Grid Component', () => {
           };
           fixture.detectChanges();
 
-          let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          const headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
 
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
         });
@@ -329,7 +329,7 @@ describe('Grid Component', () => {
       describe('Models and State', () => {
 
         it('should construct ListViewGridColumnModel without data', () => {
-          let model = new SkyGridColumnModel(component.viewtemplates.first);
+          const model = new SkyGridColumnModel(component.viewtemplates.first);
           expect(model.template).not.toBeUndefined();
           expect(model.field).toBeUndefined();
           expect(model.heading).toBeUndefined();
@@ -457,7 +457,7 @@ describe('Grid Component', () => {
     it('should set selectedColumnIds to the new column order on drop and update headers and data',
       fakeAsync(() => {
         let newSelectedColumnIds: string[];
-        let expectedColumnIds = [
+        const expectedColumnIds = [
           'column2',
           'column1',
           'column3',

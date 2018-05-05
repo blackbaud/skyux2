@@ -27,29 +27,29 @@ import {
 } from '.';
 
 describe('List filter summary', () => {
-  let state: ListState,
-    dispatcher: ListStateDispatcher,
-    fixture: ComponentFixture<ListFilterSummaryTestComponent>,
-    nativeElement: HTMLElement,
-    component: ListFilterSummaryTestComponent,
-    filters: Array<ListFilterModel> = [
-      new ListFilterModel({
-        name: 'color',
-        value: 'blue',
-        filterFunction: function () {
-          return false;
-        },
-        dismissible: false
-      }),
-      new ListFilterModel({
-        name: 'type',
-        label: 'Berry fruit type',
-        value: 'berry',
-        filterFunction: function () {
-          return true;
-        }
-      })
-    ];
+  let state: ListState;
+  let dispatcher: ListStateDispatcher;
+  let fixture: ComponentFixture<ListFilterSummaryTestComponent>;
+  let nativeElement: HTMLElement;
+  let component: ListFilterSummaryTestComponent;
+  const filters: Array<ListFilterModel> = [
+    new ListFilterModel({
+      name: 'color',
+      value: 'blue',
+      filterFunction: function () {
+        return false;
+      },
+      dismissible: false
+    }),
+    new ListFilterModel({
+      name: 'type',
+      label: 'Berry fruit type',
+      value: 'berry',
+      filterFunction: function () {
+        return true;
+      }
+    })
+  ];
 
   beforeEach(async(() => {
     dispatcher = new ListStateDispatcher();
@@ -89,7 +89,7 @@ describe('List filter summary', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
 
-      let summaryItems = getSummaryItems();
+      const summaryItems = getSummaryItems();
 
       // verify first item with no dismiss
       expect(summaryItems.item(0)).toHaveText('blue');
@@ -106,7 +106,7 @@ describe('List filter summary', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
 
-      let summaryItem = getSummaryItems().item(0) as HTMLElement;
+      const summaryItem = getSummaryItems().item(0) as HTMLElement;
       summaryItem.click();
       fixture.detectChanges();
       fixture.whenStable().then(() => {
@@ -121,8 +121,8 @@ describe('List filter summary', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
 
-      let summaryItems = getSummaryItems();
-      let closeButton = summaryItems.item(1).querySelector('.sky-token-btn-close') as HTMLElement;
+      const summaryItems = getSummaryItems();
+      const closeButton = summaryItems.item(1).querySelector('.sky-token-btn-close') as HTMLElement;
       closeButton.click();
       fixture.detectChanges();
       fixture.whenStable().then(() => {

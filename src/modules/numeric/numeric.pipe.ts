@@ -32,7 +32,7 @@ export class SkyNumericPipe implements PipeTransform {
   ) { }
 
   public transform(value: number, optionsObject: any): string {
-    let options = new NumericOptions();
+    const options = new NumericOptions();
     if (optionsObject) {
       if (optionsObject.digits !== undefined) {
         options.digits = optionsObject.digits;

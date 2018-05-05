@@ -54,19 +54,19 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
   });
 
   it('setFieldSelected sets selected state when checked is true', async(() => {
-    let item = {
+    const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
     });
 
-    let fields = [{ key: 'none' }];
+    const fields = [{ key: 'none' }];
 
     component.key = '1';
     component.item = item;
@@ -75,31 +75,31 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     fixture.detectChanges();
 
-    let fieldKey = 'testKey';
+    const fieldKey = 'testKey';
     component.setFieldSelected(fieldKey, {checked: true});
 
     state.map((s: any) => s.selected.item).take(1)
       .subscribe((s: any) => {
-        let selected = s['1']['testKey'];
+        const selected = s['1']['testKey'];
         expect(selected).toBe(true);
       });
 
   }));
 
   it('setFieldSelected sets selected state when checked is false', async(() => {
-    let item = {
+    const item = {
       id: '1',
       address: '123',
       name: 'Kevin'
     };
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.NoMatch,
       item: item
     });
 
-    let fields = [{ key: 'none' }];
+    const fields = [{ key: 'none' }];
 
     component.key = '1';
     component.item = item;
@@ -108,31 +108,31 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     fixture.detectChanges();
 
-    let fieldKey = 'testKey';
+    const fieldKey = 'testKey';
     component.setFieldSelected(fieldKey, {checked: false});
 
     state.map((s: any) => s.selected.item).take(1)
       .subscribe((s: any) => {
-        let selected = s['1']['testKey'];
+        const selected = s['1']['testKey'];
         expect(selected).toBe(false);
       });
   }));
 
   it('field value returns empty array if component key does not exist in field state', async(() => {
-    let item = {
+    const item = {
       id: '1',
       address: 101,
       name: 'Apple',
       description: 'Anne eats apples'
     };
 
-    let linkRecordMatch = new SkyLinkRecordsMatchModel({
+    const linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
       status: SKY_LINK_RECORDS_STATUSES.Edit,
       item: { id: '11', address: 111, name: 'Big Apple', description: 'George and his apples' }
     });
 
-    let fields = [{ key: 'none' }];
+    const fields = [{ key: 'none' }];
 
     component.item = item;
     component.key = 'testKey';
@@ -147,7 +147,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     component.fieldValues.take(1)
       .subscribe(f => {
-        let field = f;
+        const field = f;
         expect(field).toEqual([]);
       });
   }));
@@ -157,7 +157,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
     component.key = '1';
     component.showNewFieldValues = true;
 
-    let filteredMatchFields = [
+    const filteredMatchFields = [
       new SkyLinkRecordsFieldModel({
         key: '1',
         label: 'name',
@@ -178,7 +178,7 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
 
     component.fieldValues.take(1)
       .subscribe(f => {
-        let field = f;
+        const field = f;
         expect(field.length).toEqual(2);
       });
   }));

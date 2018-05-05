@@ -17,7 +17,7 @@ import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
 })
 export class SkyLinkRecordsItemDiffComponent implements OnInit {
   public STATUSES = SKY_LINK_RECORDS_STATUSES;
-  @Input() public readOnly: boolean = false;
+  @Input() public readOnly = false;
   @Input() public key: string;
   @Input() public item: any;
   @Input() public match: SkyLinkRecordsMatchModel;
@@ -52,7 +52,7 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
       this.state.map((s: any) => s.selected.item[this.key] || {}).distinctUntilChanged(),
       (fields: SkyLinkRecordsFieldModel[], selected: { [key: string]: boolean }) => {
         return fields.map(f => {
-          let checkCurrentValue: boolean = this.showNewFieldValues ? true : f.currentValue;
+          const checkCurrentValue: boolean = this.showNewFieldValues ? true : f.currentValue;
 
           return {
             field: checkCurrentValue && f.newValue &&

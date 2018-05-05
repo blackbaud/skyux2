@@ -100,7 +100,7 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
           && this.record.matchFields.findIndex(f => f.key === id) > -1
           && (this.record.item[id] && this.record.item[id].toString().trim().length > 0)
           && this.record.item[id] !== this.record.match.item[id]).map(id => {
-          let field = this.record.matchFields.find(f => f.key === id);
+          const field = this.record.matchFields.find(f => f.key === id);
           return new SkyLinkRecordsFieldModel({
             key: id,
             label: field && field.label && field.label.trim().length > 0 ? field.label : id,

@@ -25,11 +25,11 @@ describe('Wait component', () => {
   });
 
   it('should show the wait element when isWaiting is set to true', () => {
-    let fixture = TestBed.createComponent(SkyWaitComponent);
+    const fixture = TestBed.createComponent(SkyWaitComponent);
 
     fixture.detectChanges();
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
     expect(el.querySelector('.sky-wait')).toBeNull();
 
     fixture.componentInstance.isWaiting = true;
@@ -40,11 +40,11 @@ describe('Wait component', () => {
   });
 
   it('should set relative position on the wait component parent element', () => {
-     let fixture = TestBed.createComponent(SkyWaitTestComponent);
+     const fixture = TestBed.createComponent(SkyWaitTestComponent);
 
     fixture.detectChanges();
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.componentInstance.isWaiting = true;
     fixture.detectChanges();
@@ -58,11 +58,11 @@ describe('Wait component', () => {
   });
 
   it('should set the appropriate class when wait component fullPage is set to true', () => {
-    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+    const fixture = TestBed.createComponent(SkyWaitTestComponent);
 
     fixture.detectChanges();
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.componentInstance.isFullPage = true;
     fixture.componentInstance.isWaiting = true;
@@ -83,11 +83,11 @@ describe('Wait component', () => {
   });
 
   it('should set the appropriate class when nonBlocking is set to true', () => {
-    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+    const fixture = TestBed.createComponent(SkyWaitTestComponent);
 
     fixture.detectChanges();
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.componentInstance.isNonBlocking = true;
     fixture.componentInstance.isWaiting = true;
@@ -100,7 +100,7 @@ describe('Wait component', () => {
   });
 
   it('should set aria-busy on document body when fullPage is true', () => {
-    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+    const fixture = TestBed.createComponent(SkyWaitTestComponent);
 
     fixture.detectChanges();
 
@@ -115,11 +115,11 @@ describe('Wait component', () => {
   });
 
   it('should set aria-busy on containing div when fullPage is set to false', () => {
-    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+    const fixture = TestBed.createComponent(SkyWaitTestComponent);
 
     fixture.detectChanges();
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
     fixture.componentInstance.isWaiting = true;
     fixture.detectChanges();
     expect(el.querySelector('.sky-wait-test-component').getAttribute('aria-busy')).toBe('true');

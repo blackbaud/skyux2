@@ -18,7 +18,7 @@ import {
 import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
-let mockQueryService = new MockSkyMediaQueryService();
+const mockQueryService = new MockSkyMediaQueryService();
 
 function getVisibleVerticalTabs(el: any) {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
@@ -49,8 +49,8 @@ describe('Vertical tabset component', () => {
 
   it('first tab in open group should be selected', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement as HTMLElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
 
@@ -66,9 +66,9 @@ describe('Vertical tabset component', () => {
 
   it('open second tab in second group', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
+    const fixture = createTestComponent();
     fixture.detectChanges();
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     // open second group
     const group = el.querySelectorAll('.sky-vertical-tabset-group-header');
@@ -99,8 +99,8 @@ describe('Vertical tabset component', () => {
 
   it('check closing of group', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -117,8 +117,8 @@ describe('Vertical tabset component', () => {
 
   it('disabled group should not open when clicked', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -135,8 +135,8 @@ describe('Vertical tabset component', () => {
 
   it('mobile button should not be visible on wide screen', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -147,8 +147,8 @@ describe('Vertical tabset component', () => {
 
   it('mobile button should be visible on small screen', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -169,8 +169,8 @@ describe('Vertical tabset component', () => {
 
   it('show tabs button should show tabs on mobile', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -200,8 +200,8 @@ describe('Vertical tabset component', () => {
 
   it('clicking a tab in mobile should show content and hides tabs', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -229,8 +229,8 @@ describe('Vertical tabset component', () => {
 
   it('should hide tabs when switching from widescreen to mobile', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -255,8 +255,8 @@ describe('Vertical tabset component', () => {
 
   it('should show tabs and hide tab list button when switching from mobile to widescreen', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -281,9 +281,9 @@ describe('Vertical tabset component', () => {
 
   it('should deactivate active tab when another tab is clicked', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
+    const fixture = createTestComponent();
     fixture.detectChanges();
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     // click first tab in first group
     let tabs = el.querySelectorAll('.sky-vertical-tab');
@@ -320,8 +320,8 @@ describe('Vertical tabset component', () => {
 
   it('should display tab header count when defined', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement as HTMLElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
 
@@ -334,8 +334,8 @@ describe('Vertical tabset component', () => {
 
   it('should not display tab header count when not defined', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -361,8 +361,8 @@ describe('Vertical tabset component', () => {
 
   it('should not activate tab when disabled', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
-    let fixture = createTestComponent();
-    let el = fixture.nativeElement;
+    const fixture = createTestComponent();
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -406,8 +406,8 @@ describe('Vertical tabset component - no subtabs', () => {
   });
 
   it('group without tab should load without failing', () => {
-    let fixture = TestBed.createComponent(VerticalTabsetEmptyGroupTestComponent);
-    let el = fixture.nativeElement as HTMLElement;
+    const fixture = TestBed.createComponent(VerticalTabsetEmptyGroupTestComponent);
+    const el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
 
@@ -426,12 +426,12 @@ describe('Vertical tabset component - no groups', () => {
   });
 
   it('should load tabs without groups', () => {
-    let fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
-    let el = fixture.nativeElement as HTMLElement;
+    const fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
+    const el = fixture.nativeElement as HTMLElement;
 
     fixture.detectChanges();
 
-    let allTabs = el.querySelectorAll('sky-vertical-tab');
+    const allTabs = el.querySelectorAll('sky-vertical-tab');
     expect(allTabs.length).toBe(3);
 
     const visibleTabs = getVisibleVerticalTabs(el);
@@ -440,16 +440,16 @@ describe('Vertical tabset component - no groups', () => {
   });
 
   it('should switch tabs on clicking without groups', () => {
-    let fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
-    let el = fixture.nativeElement;
+    const fixture = TestBed.createComponent(VerticalTabsetNoGroupTestComponent);
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let indexChangeEl = el.querySelector('.vertical-tabset-test-indexchange');
+    const indexChangeEl = el.querySelector('.vertical-tabset-test-indexchange');
     expect(indexChangeEl.textContent.trim()).toBe('current index = 1');
 
     // open first tab
-    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    const tabs = el.querySelectorAll('.sky-vertical-tab');
     tabs[0].click();
 
     fixture.detectChanges();
@@ -457,7 +457,7 @@ describe('Vertical tabset component - no groups', () => {
     //  check activeChange fires
     expect(indexChangeEl.textContent.trim()).toBe('current index = 0');
 
-    let visibleTabs = getVisibleVerticalTabs(el);
+    const visibleTabs = getVisibleVerticalTabs(el);
     expect(visibleTabs.length).toBe(1);
     expect(visibleTabs[0].textContent.trim()).toBe('Tab 1 content');
   });
@@ -473,7 +473,7 @@ describe('Vertical tabset no active tabs', () => {
   });
 
   it('should not fail when trying to move active content when no tabs are active', () => {
-    let fixture = TestBed.createComponent(VerticalTabsetNoActiveTestComponent);
+    const fixture = TestBed.createComponent(VerticalTabsetNoActiveTestComponent);
 
     fixture.detectChanges();
 

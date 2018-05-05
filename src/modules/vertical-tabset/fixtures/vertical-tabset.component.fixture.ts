@@ -7,17 +7,17 @@ import { SkyVerticalTabsetComponent } from './../vertical-tabset.component';
   templateUrl: './vertical-tabset.component.fixture.html'
 })
 export class VerticalTabsetTestComponent {
-  public group1Open: boolean = true;
-  public group1Disabled: boolean = false;
+  public group1Open = true;
+  public group1Disabled = false;
 
-  public group2Open: boolean = false;
-  public group2Disabled: boolean = false;
+  public group2Open = false;
+  public group2Disabled = false;
 
-  public group3Open: boolean = false;
-  public group3Disabled: boolean = true;
+  public group3Open = false;
+  public group3Disabled = true;
 
-  public active: boolean = true;
-  public tabDisabled: boolean = true;
+  public active = true;
+  public tabDisabled = true;
 
   @ViewChild(SkyVerticalTabsetComponent)
   public tabset: SkyVerticalTabsetComponent;

@@ -43,7 +43,7 @@ export class SkyLinkRecordsMatchesOrchestrator
       const newMatches = state.items
         .filter(m => m)
         .map(m => {
-          let match = new SkyLinkRecordsMatchModel(m);
+          const match = new SkyLinkRecordsMatchModel(m);
           if (match.key === action.key) {
             match.status = action.status;
           }
@@ -62,7 +62,7 @@ export class SkyLinkRecordsMatchesOrchestrator
       const newMatches = state.items
         .filter(m => m)
         .map(m => {
-          let match = new SkyLinkRecordsMatchModel(m);
+          const match = new SkyLinkRecordsMatchModel(m);
           if (match.key === action.key) {
             match.item = (action.item) ? Object.assign({}, action.item) : undefined;
           }

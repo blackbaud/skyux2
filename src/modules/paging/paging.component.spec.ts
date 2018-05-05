@@ -240,7 +240,7 @@ describe('Paging component', () => {
         component.label = 'My label';
         fixture.detectChanges();
 
-        let navElement = element.query(
+        const navElement = element.query(
           By.css('ul')
         ).nativeElement;
 
@@ -251,7 +251,7 @@ describe('Paging component', () => {
 
       it('should have a nav role on the parent element with a default aria-label', () => {
 
-        let navElement = element.query(
+        const navElement = element.query(
           By.css('ul')
         ).nativeElement;
 
@@ -260,13 +260,13 @@ describe('Paging component', () => {
 
       it('should have aria-label on each of the next and previous buttons',
       () => {
-        let prevElement = element.query(
+        const prevElement = element.query(
           By.css(getPagingSelector('previous'))
         ).nativeElement;
 
         expect(prevElement.getAttribute('aria-label')).toBe('Previous');
 
-        let nextElement = element.query(
+        const nextElement = element.query(
           By.css(getPagingSelector('next'))
         ).nativeElement;
 

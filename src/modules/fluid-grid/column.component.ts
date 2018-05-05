@@ -27,7 +27,7 @@ export class SkyColumnComponent implements OnInit {
   private classnames: string;
 
   public getClassNames(): string {
-    let classnames = [
+    const classnames = [
       'sky-column'
     ];
 

@@ -80,7 +80,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   public sortSelectorEnabled: boolean | Observable<boolean>;
 
   @Input()
-  public toolbarType: string = 'standard';
+  public toolbarType = 'standard';
 
   @Input()
   public searchText: string | Observable<string>;
@@ -98,7 +98,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   public hasAppliedFilters: Observable<boolean>;
   public showFilterSummary: boolean;
   public hasInlineFilters: boolean;
-  public inlineFilterBarExpanded: boolean = false;
+  public inlineFilterBarExpanded = false;
   public hasAdditionalToolbarSection = false;
 
   @ContentChildren(SkyListToolbarItemComponent)
@@ -122,7 +122,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   @ViewChild('inlineFilterButton')
   private inlineFilterButtonTemplate: TemplateRef<any>;
 
-  private hasSortSelectors: boolean = false;
+  private hasSortSelectors = false;
   private ngUnsubscribe = new Subject();
 
   constructor(
@@ -218,7 +218,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
       .map(s => s.filters)
       .distinctUntilChanged()
       .map((filters) => {
-        let activeFilters = filters.filter((f) => {
+        const activeFilters = filters.filter((f) => {
             return f.value !== '' &&
               f.value !== undefined &&
               f.value !== false &&
@@ -243,7 +243,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
       );
     });
 
-    let sortModels = this.toolbarSorts.map(sort =>
+    const sortModels = this.toolbarSorts.map(sort =>
       new ListSortLabelModel(
         {
           text: sort.label,
@@ -312,12 +312,12 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
       ) => {
 
         // Get sorts that are in the global that are not in the available
-        let sorts = global.filter(
+        const sorts = global.filter(
           g => available.filter(a => a.fieldSelector === g.fieldSelector).length === 0
         );
 
-        let resultSortSelectors = [...sorts, ...available].map(sortLabels => {
-          let fs = fieldSelectors.filter(f => {
+        const resultSortSelectors = [...sorts, ...available].map(sortLabels => {
+          const fs = fieldSelectors.filter(f => {
             return f.fieldSelector === sortLabels.fieldSelector
               && f.descending === sortLabels.descending;
           });

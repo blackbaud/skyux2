@@ -156,7 +156,7 @@ describe('Media query service', () => {
   it(
     'should stop listening for media query breakpoints on destroy',
     inject([SkyMediaQueryService], (mediaQueryService: SkyMediaQueryService) => {
-      let removeListenerSpy = spyOn(mediaQueryListPrototype, 'removeListener');
+      const removeListenerSpy = spyOn(mediaQueryListPrototype, 'removeListener');
       let subscription: Subscription;
 
       subscription = mediaQueryService.subscribe(

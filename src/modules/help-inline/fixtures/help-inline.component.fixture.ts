@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     templateUrl: './help-inline.component.fixture.html'
 })
 export class HelpInlineTestComponent {
-    public buttonIsClicked: boolean = false;
+    public buttonIsClicked = false;
 
     public buttonClicked() {
         this.buttonIsClicked = true;

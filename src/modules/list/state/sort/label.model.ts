@@ -2,8 +2,8 @@ export class ListSortLabelModel {
   public text: string;
   public fieldType: string;
   public fieldSelector: string;
-  public global: boolean = false;
-  public descending: boolean = false;
+  public global = false;
+  public descending = false;
 
   constructor(data?: any) {
     if (data) {

@@ -10,7 +10,7 @@ import { SkyCardFixturesModule } from './fixtures/card-fixtures.module';
 import { CardTestComponent } from './fixtures/card.component.fixture';
 
 function validateCardSelected(cmp: CardTestComponent, cardEl: any, selected: boolean) {
-  let selectedEl = cardEl.querySelector('.sky-card.sky-card-selected');
+  const selectedEl = cardEl.querySelector('.sky-card.sky-card-selected');
 
   if (selected) {
     expect(cmp.cardSelected).toBe(true);
@@ -31,7 +31,7 @@ describe('Card component', () => {
   });
 
   it('should place the individual components in their respective placeholders', () => {
-    let html = `
+    const html = `
       <sky-card>
         <sky-card-title>Title</sky-card-title>
         <sky-card-content>Content</sky-card-content>
@@ -41,7 +41,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         CardTestComponent,
         {
@@ -52,7 +52,7 @@ describe('Card component', () => {
       )
       .createComponent(CardTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -62,12 +62,12 @@ describe('Card component', () => {
   });
 
   it('should add the appropriate CSS class for small cards', () => {
-    let html = `
+    const html = `
       <sky-card [size]="'small'">
       </sky-card>
     `;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         CardTestComponent,
         {
@@ -78,7 +78,7 @@ describe('Card component', () => {
       )
       .createComponent(CardTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -86,12 +86,12 @@ describe('Card component', () => {
   });
 
   it('should display a checkbox when the selectable attribute is set to true', () => {
-    let html = `
+    const html = `
       <sky-card [selectable]="'true'">
       </sky-card>
     `;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         CardTestComponent,
         {
@@ -102,11 +102,11 @@ describe('Card component', () => {
       )
       .createComponent(CardTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let wrapperEl = el.querySelector(
+    const wrapperEl = el.querySelector(
       '.sky-card.sky-card-selectable .sky-card-header .sky-card-check .sky-checkbox-wrapper'
     );
 
@@ -114,7 +114,7 @@ describe('Card component', () => {
   });
 
   it('should allow the user to click the entire card to select the card', () => {
-    let html = `
+    const html = `
       <sky-card
           [selectable]="showCheckbox"
           [(selected)]="cardSelected"
@@ -124,7 +124,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         CardTestComponent,
         {
@@ -135,7 +135,7 @@ describe('Card component', () => {
       )
       .createComponent(CardTestComponent);
 
-    let cmp = fixture.componentInstance as CardTestComponent,
+    const cmp = fixture.componentInstance as CardTestComponent,
       el = fixture.nativeElement;
 
     fixture.detectChanges();
@@ -154,7 +154,7 @@ describe('Card component', () => {
 
     validateCardSelected(cmp, el, false);
 
-    let labelEl = <HTMLLabelElement>el
+    const labelEl = <HTMLLabelElement>el
         .querySelector('label.sky-checkbox-wrapper');
 
     labelEl.click();
@@ -166,7 +166,7 @@ describe('Card component', () => {
   });
 
   it('should not allow clicking the card to select it when it is not selectable', () => {
-    let html = `
+    const html = `
       <sky-card
           [selectable]="showCheckbox"
           [(selected)]="cardSelected"
@@ -176,7 +176,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         CardTestComponent,
         {
@@ -187,7 +187,7 @@ describe('Card component', () => {
       )
       .createComponent(CardTestComponent);
 
-    let cmp = fixture.componentInstance as CardTestComponent,
+    const cmp = fixture.componentInstance as CardTestComponent,
       el = fixture.nativeElement;
 
     cmp.showCheckbox = false;
@@ -203,7 +203,7 @@ describe('Card component', () => {
   });
 
   it('should hide the header properly when title is removed', () => {
-    let html = `
+    const html = `
       <sky-card
           [selectable]="showCheckbox"
           [(selected)]="cardSelected"
@@ -213,7 +213,7 @@ describe('Card component', () => {
       </sky-card>
     `;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         CardTestComponent,
         {
@@ -224,7 +224,7 @@ describe('Card component', () => {
       )
       .createComponent(CardTestComponent);
 
-    let cmp = fixture.componentInstance as CardTestComponent,
+    const cmp = fixture.componentInstance as CardTestComponent,
       el = fixture.nativeElement;
 
     fixture.detectChanges();

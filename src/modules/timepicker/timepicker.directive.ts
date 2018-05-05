@@ -85,7 +85,7 @@ export class SkyTimepickerInputDirective implements
 
   @HostListener('change', ['$event'])
   public onChange(event: any) {
-    let newValue = event.target.value;
+    const newValue = event.target.value;
     this.modelValue = this.formatter(newValue);
     this._validatorChange();
     this._onChange(this.modelValue);
@@ -106,7 +106,7 @@ export class SkyTimepickerInputDirective implements
     this.writeModelValue(this.modelValue);
   }
   public validate(control: AbstractControl): { [key: string]: any } {
-    let value = control.value;
+    const value = control.value;
     if (!value) {
       return undefined;
     }

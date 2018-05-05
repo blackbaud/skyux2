@@ -23,9 +23,9 @@ export class SkyLinkRecordsFieldsOrchestrator
     state: AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>,
     action: SkyLinkRecordsFieldsSetFieldsAction):
       AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}> {
-      let newStateItem = Object.assign({}, state.item);
-      let fields = (newStateItem[action.key]) ? newStateItem[action.key] : [];
-      let newFields = Object.assign(fields, action.fields).filter(f => f);
+      const newStateItem = Object.assign({}, state.item);
+      const fields = (newStateItem[action.key]) ? newStateItem[action.key] : [];
+      const newFields = Object.assign(fields, action.fields).filter(f => f);
       newStateItem[action.key] = newFields;
 
       return new AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>(
@@ -36,7 +36,7 @@ export class SkyLinkRecordsFieldsOrchestrator
     state: AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>,
     action: SkyLinkRecordsFieldsSetFieldsAction):
       AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}> {
-      let newStateItem = Object.assign({}, state.item);
+      const newStateItem = Object.assign({}, state.item);
       newStateItem[action.key] = undefined;
 
       return new AsyncItem<{[key: string]: Array<SkyLinkRecordsFieldModel>}>(

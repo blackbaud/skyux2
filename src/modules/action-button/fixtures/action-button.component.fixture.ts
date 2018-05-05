@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class ActionButtonTestComponent {
 
-  public buttonIsClicked: boolean = false;
+  public buttonIsClicked = false;
 
   public buttonClicked() {
     this.buttonIsClicked = true;

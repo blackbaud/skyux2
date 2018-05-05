@@ -47,7 +47,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   public selectedColumnIds: Array<string>;
 
   @Input()
-  public fit: string = 'width';
+  public fit = 'width';
 
   @Input()
   public width: number;
@@ -62,7 +62,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   public columns: Array<SkyGridColumnModel>;
 
   @Input()
-  public hasToolbar: boolean = false;
+  public hasToolbar = false;
 
   @Input()
   public sortField: ListSortFieldSelectorModel;

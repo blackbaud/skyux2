@@ -22,7 +22,7 @@ const moment = require('moment');
 
 describe('Timepicker', () => {
   function openTimepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
-    let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
+    const dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
     tick();
     compFixture.detectChanges();
@@ -35,15 +35,15 @@ describe('Timepicker', () => {
     compFixture: ComponentFixture<any>
   ) {
     compFixture.detectChanges();
-    let inputEvent = document.createEvent('Event');
-    let params = {
+    const inputEvent = document.createEvent('Event');
+    const params = {
       bubbles: false,
       cancelable: false
     };
     inputEvent.initEvent('input', params.bubbles, params.cancelable);
-    let changeEvent = document.createEvent('Event');
+    const changeEvent = document.createEvent('Event');
     changeEvent.initEvent('change', params.bubbles, params.cancelable);
-    let inputEl = element.querySelector('input');
+    const inputEl = element.querySelector('input');
     inputEl.value = text;
     inputEl.dispatchEvent(inputEvent);
     tick();
@@ -82,12 +82,12 @@ describe('Timepicker', () => {
   function verifyTimepicker(element: HTMLElement) {
     tick();
     fixture.detectChanges();
-    let sections = element.querySelectorAll('.sky-timepicker-container');
-    let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-    let hours = units.item(0).querySelectorAll('button');
-    let minutes = units.item(1).querySelectorAll('button');
+    const sections = element.querySelectorAll('.sky-timepicker-container');
+    const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+    const hours = units.item(0).querySelectorAll('button');
+    const minutes = units.item(1).querySelectorAll('button');
     if (component.timeFormat === 'hh') {
-      let meridies = units.item(2).querySelectorAll('button');
+      const meridies = units.item(2).querySelectorAll('button');
       expect(hours.item(0)).toHaveText('1');
       expect(hours.item(11)).toHaveText('12');
       expect(hours.length).toBe(12);
@@ -150,11 +150,11 @@ describe('Timepicker', () => {
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
         tick();
-        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
-        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-        let hours = units.item(0).querySelectorAll('button');
-        let minutes = units.item(1).querySelectorAll('button');
-        let meridies = units.item(2).querySelectorAll('button');
+        const sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        const hours = units.item(0).querySelectorAll('button');
+        const minutes = units.item(1).querySelectorAll('button');
+        const meridies = units.item(2).querySelectorAll('button');
         // Test 2:30 AM
         setInput(nativeElement, '2:30 AM', fixture);
         fixture.detectChanges();
@@ -181,10 +181,10 @@ describe('Timepicker', () => {
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
         tick();
-        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
-        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-        let hours = units.item(0).querySelectorAll('button');
-        let minutes = units.item(1).querySelectorAll('button');
+        const sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        const hours = units.item(0).querySelectorAll('button');
+        const minutes = units.item(1).querySelectorAll('button');
         // Test 2:30 AM
         setInput(nativeElement, '2:30', fixture);
         fixture.detectChanges();
@@ -209,11 +209,11 @@ describe('Timepicker', () => {
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
         tick();
-        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
-        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-        let hours = units.item(0).querySelectorAll('button');
-        let minutes = units.item(1).querySelectorAll('button');
-        let meridies = units.item(2).querySelectorAll('button');
+        const sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        const hours = units.item(0).querySelectorAll('button');
+        const minutes = units.item(1).querySelectorAll('button');
+        const meridies = units.item(2).querySelectorAll('button');
         // Test 2:30 AM
         fixture.detectChanges();
         openTimepicker(nativeElement, fixture);
@@ -238,10 +238,10 @@ describe('Timepicker', () => {
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges();
         tick();
-        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
-        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-        let hours = units.item(0).querySelectorAll('button');
-        let minutes = units.item(1).querySelectorAll('button');
+        const sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        const hours = units.item(0).querySelectorAll('button');
+        const minutes = units.item(1).querySelectorAll('button');
         // Test 2:30 AM
         fixture.detectChanges();
         openTimepicker(nativeElement, fixture);
@@ -264,11 +264,11 @@ describe('Timepicker', () => {
         component.returnFormat = 'HH:mm:ssZ';
         openTimepicker(nativeElement, fixture);
         fixture.detectChanges(); tick();
-        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
-        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-        let hours = units.item(0).querySelectorAll('button');
-        let minutes = units.item(1).querySelectorAll('button');
-        let tz = moment(new Date()).format('Z');
+        const sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        const hours = units.item(0).querySelectorAll('button');
+        const minutes = units.item(1).querySelectorAll('button');
+        const tz = moment(new Date()).format('Z');
         // Test 4:45 PM
         fixture.detectChanges();
         openTimepicker(nativeElement, fixture);
@@ -284,11 +284,11 @@ describe('Timepicker', () => {
         component.timeFormat = 'hh';
         setInput(nativeElement, '1:00 PM', fixture);
         openTimepicker(nativeElement, fixture);
-        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
-        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-        let hours = units.item(0).querySelectorAll('button');
-        let minutes = units.item(1).querySelectorAll('button');
-        let meridies = units.item(2).querySelectorAll('button');
+        const sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        const hours = units.item(0).querySelectorAll('button');
+        const minutes = units.item(1).querySelectorAll('button');
+        const meridies = units.item(2).querySelectorAll('button');
         fixture.detectChanges();
         // Test 12:30 AM
         hours.item(11).click();
@@ -307,11 +307,11 @@ describe('Timepicker', () => {
         component.timeFormat = 'hh';
         setInput(nativeElement, '1:00 AM', fixture);
         openTimepicker(nativeElement, fixture);
-        let sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
-        let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
-        let hours = units.item(0).querySelectorAll('button');
-        let minutes = units.item(1).querySelectorAll('button');
-        let meridies = units.item(2).querySelectorAll('button');
+        const sections = fixture.nativeElement.querySelectorAll('.sky-timepicker-container');
+        const units = sections.item(0).querySelectorAll('.sky-timepicker-column');
+        const hours = units.item(0).querySelectorAll('button');
+        const minutes = units.item(1).querySelectorAll('button');
+        const meridies = units.item(2).querySelectorAll('button');
         fixture.detectChanges();
         // Test 12:30 PM
         hours.item(11).click();

@@ -19,7 +19,7 @@ describe('Error component', () => {
   });
 
   it('error type broken displays correct image, title, description, and action text', () => {
-    let html = `
+    const html = `
     <sky-error errorType="broken">
       <sky-error-action>
         <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
@@ -28,7 +28,7 @@ describe('Error component', () => {
       </sky-error-action>
     </sky-error>`;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         ErrorTestComponent,
         {
@@ -39,12 +39,12 @@ describe('Error component', () => {
       )
       .createComponent(ErrorTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let title = 'Sorry, something went wrong.';
-    let description = 'Try to refresh this page or come back later.';
+    const title = 'Sorry, something went wrong.';
+    const description = 'Try to refresh this page or come back later.';
 
     // check image
     expect(el.querySelector('.sky-error-broken-image')).toExist();
@@ -58,7 +58,7 @@ describe('Error component', () => {
   });
 
   it('error type notfound displays correct image, title, and action text', () => {
-    let html = `
+    const html = `
     <sky-error errorType="notfound">
       <sky-error-action>
         <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
@@ -67,7 +67,7 @@ describe('Error component', () => {
       </sky-error-action>
     </sky-error>`;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         ErrorTestComponent,
         {
@@ -78,11 +78,11 @@ describe('Error component', () => {
       )
       .createComponent(ErrorTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let title = 'Sorry, we can\'t reach that page.';
+    const title = 'Sorry, we can\'t reach that page.';
 
     // check image
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
@@ -95,7 +95,7 @@ describe('Error component', () => {
   });
 
   it('error type construction displays correct image, title, and action text', () => {
-    let html = `
+    const html = `
     <sky-error errorType="construction">
       <sky-error-action>
         <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
@@ -104,7 +104,7 @@ describe('Error component', () => {
       </sky-error-action>
     </sky-error>`;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         ErrorTestComponent,
         {
@@ -115,15 +115,15 @@ describe('Error component', () => {
       )
       .createComponent(ErrorTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let title = 'This page will return soon.';
-    let description =
+    const title = 'This page will return soon.';
+    const description =
     `Thanks for your patience while improvements are made!  Please check back in a little while.`;
 
-    let actualDescription: string = el.querySelector('.sky-error-description').innerText.trim();
+    const actualDescription: string = el.querySelector('.sky-error-description').innerText.trim();
     let trimmedDescription = '';
 
     if (actualDescription.indexOf('\r\n') >= 0) {
@@ -144,7 +144,7 @@ describe('Error component', () => {
   });
 
   it('error type security displays correct image, title, description, and action text', () => {
-    let html = `
+    const html = `
     <sky-error errorType="security">
       <sky-error-action>
         <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
@@ -153,7 +153,7 @@ describe('Error component', () => {
       </sky-error-action>
     </sky-error>`;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         ErrorTestComponent,
         {
@@ -164,11 +164,11 @@ describe('Error component', () => {
       )
       .createComponent(ErrorTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let title = 'You don\'t have permission to access that page.';
+    const title = 'You don\'t have permission to access that page.';
 
     // check image
     expect(el.querySelector('.sky-error-broken-image')).not.toExist();
@@ -181,7 +181,7 @@ describe('Error component', () => {
   });
 
   it('error type custom displays correct image, title, description, and action text', () => {
-    let html = `
+    const html = `
     <sky-error>
       <sky-error-image>test image</sky-error-image>
       <sky-error-title>test title</sky-error-title>
@@ -193,7 +193,7 @@ describe('Error component', () => {
       </sky-error-action>
     </sky-error>`;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         ErrorTestComponent,
         {
@@ -204,7 +204,7 @@ describe('Error component', () => {
       )
       .createComponent(ErrorTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -221,7 +221,7 @@ describe('Error component', () => {
   });
 
   it('custom action method is called with action button is clicked', () => {
-    let html = `
+    const html = `
     <sky-error errorType="broken">
       <sky-error-action>
         <button type="submit" class="sky-btn sky-btn-primary" (click)="customAction()">
@@ -230,7 +230,7 @@ describe('Error component', () => {
       </sky-error-action>
     </sky-error>`;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         ErrorTestComponent,
         {
@@ -241,15 +241,15 @@ describe('Error component', () => {
       )
       .createComponent(ErrorTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    let component = fixture.componentInstance;
+    const component = fixture.componentInstance;
 
     spyOn(component, 'customAction');
 
-    let actionButton = el.querySelector('.sky-error-action button');
+    const actionButton = el.querySelector('.sky-error-action button');
     actionButton.click();
     fixture.detectChanges();
 
@@ -257,7 +257,7 @@ describe('Error component', () => {
   });
 
   it('Invalid error type text is ignored', () => {
-    let html = `
+    const html = `
     <sky-error errorType="invalid-xx">
       <sky-error-image>test image</sky-error-image>
       <sky-error-title>test title</sky-error-title>
@@ -269,7 +269,7 @@ describe('Error component', () => {
       </sky-error-action>
     </sky-error>`;
 
-    let fixture = TestBed
+    const fixture = TestBed
       .overrideComponent(
         ErrorTestComponent,
         {
@@ -280,7 +280,7 @@ describe('Error component', () => {
       )
       .createComponent(ErrorTestComponent);
 
-    let el = fixture.nativeElement;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 

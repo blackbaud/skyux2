@@ -19,7 +19,7 @@ export class DatepickerCalendarTestComponent {
 
   public selectedDate: any;
 
-  public startingDay: number = 0;
+  public startingDay = 0;
 
    @ViewChild(SkyDatepickerCalendarComponent)
    public datepicker: SkyDatepickerCalendarComponent;

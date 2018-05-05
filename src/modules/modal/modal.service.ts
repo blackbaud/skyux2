@@ -32,11 +32,11 @@ export class SkyModalService {
 
   // Open Method
   public open(): SkyModalInstance {
-    let modalInstance = new SkyModalInstance();
+    const modalInstance = new SkyModalInstance();
     this.createHostComponent();
-    let providersOrConfig: IConfig = arguments[1];
-    let params = this.getConfigFromParameter(providersOrConfig);
-    let component = arguments[0];
+    const providersOrConfig: IConfig = arguments[1];
+    const params = this.getConfigFromParameter(providersOrConfig);
+    const component = arguments[0];
 
     params.providers.push({
       provide: SkyModalInstance,
@@ -58,14 +58,14 @@ export class SkyModalService {
   }
 
   private getConfigFromParameter(providersOrConfig: any) {
-    let defaultParams: IConfig = {
+    const defaultParams: IConfig = {
       'providers': [],
       'fullPage': false,
       'size': 'medium',
       'tiledBody': false
     };
-    let params: any = undefined;
-    let method: any = undefined;
+    let params: any;
+    let method: any;
 
     // Object Literal Lookup for backwards compatability.
     method = {
@@ -84,11 +84,11 @@ export class SkyModalService {
 
   private createHostComponent() {
     if (!SkyModalService.hostComponent) {
-      let factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
+      const factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
 
       this.adapter.addHostEl();
 
-      let cmpRef = this.appRef.bootstrap(factory);
+      const cmpRef = this.appRef.bootstrap(factory);
 
       SkyModalService.hostComponent = cmpRef.instance;
     }

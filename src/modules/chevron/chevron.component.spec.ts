@@ -15,8 +15,8 @@ describe('Chevron component', () => {
     });
 
   function validateDirection(fixture: any, cmp: SkyChevronComponent, expectedDirection: string) {
-    let el = fixture.nativeElement;
-    let chevronEl = el.querySelector('.sky-chevron');
+    const el = fixture.nativeElement;
+    const chevronEl = el.querySelector('.sky-chevron');
 
     fixture.detectChanges();
 
@@ -29,9 +29,9 @@ describe('Chevron component', () => {
   }
 
   it('should change direction when the user clicks the chevron', () => {
-    let fixture = TestBed.createComponent(SkyChevronComponent);
-    let cmp = fixture.componentInstance as SkyChevronComponent;
-    let el = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyChevronComponent);
+    const cmp = fixture.componentInstance as SkyChevronComponent;
+    const el = fixture.nativeElement;
 
     fixture.detectChanges();
 
@@ -45,9 +45,9 @@ describe('Chevron component', () => {
   });
 
   it('should not be able to click disabled chevron', () => {
-    let fixture = TestBed.createComponent(SkyChevronComponent);
-    let cmp = fixture.componentInstance as SkyChevronComponent;
-    let el = fixture.nativeElement;
+    const fixture = TestBed.createComponent(SkyChevronComponent);
+    const cmp = fixture.componentInstance as SkyChevronComponent;
+    const el = fixture.nativeElement;
 
     // make disabled
     fixture.componentInstance.disabled = true;

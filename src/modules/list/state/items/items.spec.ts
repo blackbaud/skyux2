@@ -24,7 +24,7 @@ describe('list items', () => {
     });
 
     it('should not set data when data is undefined', () => {
-      let item = new ListItemModel('id');
+      const item = new ListItemModel('id');
       expect(item.data).toBeUndefined();
     });
   });

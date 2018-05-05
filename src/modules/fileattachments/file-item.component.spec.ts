@@ -58,11 +58,11 @@ describe('File item component', () => {
     };
     fixture.detectChanges();
 
-    let nameEl = getNameEl();
+    const nameEl = getNameEl();
 
     expect(nameEl.nativeElement.textContent).toBe('myFile.txt');
 
-    let sizeEl = getSizeEl();
+    const sizeEl = getSizeEl();
     expect(sizeEl.nativeElement.textContent).toContain('(1 KB)');
   });
 
@@ -74,16 +74,16 @@ describe('File item component', () => {
 
     fixture.detectChanges();
 
-    let nameEl = getNameEl();
+    const nameEl = getNameEl();
 
     expect(nameEl.nativeElement.textContent).toBe('myFile.txt');
 
-    let sizeEl = getSizeEl();
+    const sizeEl = getSizeEl();
     expect(sizeEl).toBeFalsy();
   });
 
   function triggerDelete() {
-    let deleteEl = fixture.debugElement.query(By.css('.sky-file-item-btn-delete'));
+    const deleteEl = fixture.debugElement.query(By.css('.sky-file-item-btn-delete'));
     deleteEl.nativeElement.click();
     fixture.detectChanges();
   }
@@ -142,10 +142,10 @@ describe('File item component', () => {
 
     fixture.detectChanges();
 
-    let imageEl = getImage();
+    const imageEl = getImage();
     expect(imageEl.nativeElement.getAttribute('src')).toBe('myFile.' + extension);
 
-    let otherEl = getOtherPreview();
+    const otherEl = getOtherPreview();
     expect(otherEl).toBeFalsy();
   }
 
@@ -166,7 +166,7 @@ describe('File item component', () => {
       url: 'myFile.' + extension
     };
     fixture.detectChanges();
-    let otherEl = getOtherPreview();
+    const otherEl = getOtherPreview();
     let expectedClassExtension = type;
 
     if (extension === 'gz' || extension === 'rar' || extension === 'tgz' || extension === 'zip') {
@@ -184,7 +184,7 @@ describe('File item component', () => {
     }
     expect(otherEl.nativeElement.classList).toContain('fa-file-' + expectedClassExtension + '-o');
 
-    let imageEl = getImage();
+    const imageEl = getImage();
     expect(imageEl).toBeFalsy();
   }
 

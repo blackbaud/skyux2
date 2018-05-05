@@ -8,7 +8,7 @@ export class SkyModalHostService {
   }
 
   public static get fullPageModalCount(): number {
-    let fullPageModals = SkyModalHostService.modalHosts.filter(modal => modal.fullPage);
+    const fullPageModals = SkyModalHostService.modalHosts.filter(modal => modal.fullPage);
     return fullPageModals.length;
   }
 
@@ -24,10 +24,10 @@ export class SkyModalHostService {
     return SkyModalHostService.modalHosts[SkyModalHostService.modalHosts.length - 1];
   }
 
-  private static modalHosts: SkyModalHostService[] = [];
-
   public close = new EventEmitter<void>();
   public openHelp = new EventEmitter<any>();
+
+  private static modalHosts: SkyModalHostService[] = [];
 
   constructor(private fullPage: boolean) {
     SkyModalHostService.modalHosts.push(this);

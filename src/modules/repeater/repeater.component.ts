@@ -61,8 +61,8 @@ export class SkyRepeaterComponent implements AfterContentInit {
   private updateForExpandMode(itemAdded?: SkyRepeaterItemComponent) {
     if (this.items) {
       let foundExpanded = false;
-      let isCollapsible = this.expandMode !== 'none';
-      let isSingle = this.expandMode === 'single';
+      const isCollapsible = this.expandMode !== 'none';
+      const isSingle = this.expandMode === 'single';
 
       // Keep any newly-added expanded item expanded and collapse the rest.
       if (itemAdded && itemAdded.isExpanded) {

@@ -63,7 +63,7 @@ describe('Radio component', function () {
     public value1 = '1';
     public value2 = '2';
     public value3 = '3';
-    public disabled2: boolean = false;
+    public disabled2 = false;
     public label1: string;
     public labelledBy3: string;
     public tabindex2: string;
@@ -94,15 +94,15 @@ describe('Radio component', function () {
   }));
 
   function createEvent(eventName: string) {
-    let evt = document.createEvent('CustomEvent');
+    const evt = document.createEvent('CustomEvent');
     evt.initEvent(eventName, false, false);
     return evt;
   }
 
   it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
-    let radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
-    let ngModel = <NgModel>radioElement.injector.get(NgModel);
-    let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
+    const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
+    const ngModel = <NgModel>radioElement.injector.get(NgModel);
+    const radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
 
     expect(ngModel.valid).toBe(true);
     expect(ngModel.pristine).toBe(true);
@@ -131,7 +131,7 @@ describe('Radio component', function () {
     fixture.detectChanges();
     tick();
 
-    let radio2El = fixture.debugElement.query(By.css('#hey input'));
+    const radio2El = fixture.debugElement.query(By.css('#hey input'));
     expect(radio2El.nativeElement.checked).toBe(true);
   }));
 
@@ -140,7 +140,7 @@ describe('Radio component', function () {
     fixture.detectChanges();
     tick();
 
-    let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
+    const radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
 
     radio2El.nativeElement.click();
 
@@ -168,7 +168,7 @@ describe('Radio component', function () {
     fixture.detectChanges();
     tick();
 
-    let radio1El = fixture.debugElement.query(By.css('#hey-2 input'));
+    const radio1El = fixture.debugElement.query(By.css('#hey-2 input'));
     expect(radio1El.nativeElement.getAttribute('aria-label')).toBe('My label');
   }));
 
@@ -178,7 +178,7 @@ describe('Radio component', function () {
     fixture.detectChanges();
     tick();
 
-    let radio1El = fixture.debugElement.query(By.css('#hey-3 input'));
+    const radio1El = fixture.debugElement.query(By.css('#hey-3 input'));
     expect(radio1El.nativeElement.getAttribute('aria-labelledby')).toBe('label-id');
   }));
 
@@ -188,7 +188,7 @@ describe('Radio component', function () {
     fixture.detectChanges();
     tick();
 
-    let radio1El = fixture.debugElement.query(By.css('#hey input'));
+    const radio1El = fixture.debugElement.query(By.css('#hey input'));
     expect(radio1El.nativeElement.getAttribute('tabindex')).toBe('3');
   }));
 
@@ -225,7 +225,7 @@ describe('Radio component', function () {
   }));
 
   it('should prevent click events on the label from bubbling to parents', async(() => {
-    let radioLabelElement = fixture.debugElement
+    const radioLabelElement = fixture.debugElement
       .query(By.css('#radio-clickable'))
       .query(By.directive(SkyRadioLabelComponent));
 

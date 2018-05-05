@@ -45,7 +45,7 @@ describe('Filter button', () => {
   });
 
   it('should emit event on click', () => {
-    let buttonEl = nativeElement.querySelector('.sky-btn') as HTMLButtonElement;
+    const buttonEl = nativeElement.querySelector('.sky-btn') as HTMLButtonElement;
 
     buttonEl.click();
 

@@ -82,8 +82,8 @@ export class SkySortDemoComponent implements OnInit {
   ];
 
   public sortItems(item: any) {
-    let result = this.sortedItems.sort(function (a: any, b: any) {
-      let descending = item.descending ? -1 : 1,
+    const result = this.sortedItems.sort(function (a: any, b: any) {
+      const descending = item.descending ? -1 : 1,
         sortProperty = item.name;
 
       if (a[sortProperty] > b[sortProperty]) {

@@ -17,7 +17,7 @@ import { SkyModalConfiguration } from './modal-configuration';
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 import { SkyWindowRefService } from '../window';
 
-let skyModalUniqueIdentifier: number = 0;
+let skyModalUniqueIdentifier = 0;
 
 @Component({
   selector: 'sky-modal',
@@ -99,7 +99,7 @@ export class SkyModalComponent implements AfterViewInit {
     /* istanbul ignore else */
     /* sanity check */
     if (SkyModalHostService.openModalCount > 0) {
-      let topModal = SkyModalHostService.topModal;
+      const topModal = SkyModalHostService.topModal;
       if (topModal && topModal === this.hostService) {
         switch (event.which) {
           case 27: { // Esc key pressed
@@ -111,7 +111,7 @@ export class SkyModalComponent implements AfterViewInit {
           case 9: {  // Tab pressed
             let focusChanged = false;
 
-            let focusElementList = this.componentAdapter.loadFocusElementList(this.elRef);
+            const focusElementList = this.componentAdapter.loadFocusElementList(this.elRef);
 
             if (
               event.shiftKey &&

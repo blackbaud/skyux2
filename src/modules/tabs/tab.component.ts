@@ -61,7 +61,7 @@ export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
     /* istanbul ignore else */
     /* sanity check */
     if (changes) {
-      let activeChange = changes['active'];
+      const activeChange = changes['active'];
       if (activeChange
         && this.tabIndex !== undefined
         && activeChange.previousValue !== activeChange.currentValue

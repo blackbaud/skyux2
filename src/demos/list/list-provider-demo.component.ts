@@ -86,7 +86,7 @@ export class DemoListProvider extends ListDataProvider {
       let searchedList = items;
 
       if (request.search.searchText) {
-        let searchText = request.search.searchText.toLowerCase();
+        const searchText = request.search.searchText.toLowerCase();
 
         searchedList = items.filter((item) => {
           return (
@@ -96,8 +96,8 @@ export class DemoListProvider extends ListDataProvider {
         });
       }
 
-      let itemStart = (request.pageNumber - 1) * request.pageSize;
-      let pagedResult = searchedList.slice(itemStart, itemStart + request.pageSize);
+      const itemStart = (request.pageNumber - 1) * request.pageSize;
+      const pagedResult = searchedList.slice(itemStart, itemStart + request.pageSize);
 
       this.remoteCount.next(searchedList.length);
 

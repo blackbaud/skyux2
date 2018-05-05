@@ -81,7 +81,7 @@ export class SkyListViewGridComponent
   public hiddenColumns: Array<string> | Observable<Array<string>>;
 
   @Input()
-  public fit: string = 'width';
+  public fit = 'width';
 
   @Input()
   public width: number | Observable<number>;
@@ -126,7 +126,7 @@ export class SkyListViewGridComponent
       throw new Error('Grid view requires at least one sky-grid-column to render.');
     }
 
-    let columnModels = this.columnComponents.map(columnComponent => {
+    const columnModels = this.columnComponents.map(columnComponent => {
       return new SkyGridColumnModel(columnComponent.template, columnComponent);
     });
 
@@ -171,7 +171,7 @@ export class SkyListViewGridComponent
                 columns.filter(x => {
                   /* istanbul ignore next */
                   /* sanity check */
-                  let id = x.id || x.field;
+                  const id = x.id || x.field;
                   return hiddenColumns.indexOf(id) === -1;
                 }),
                 true
@@ -210,7 +210,7 @@ export class SkyListViewGridComponent
     this.gridState.map(s => s.columns.items)
         .take(1)
         .subscribe(columns => {
-          let displayedColumns = selectedColumnIds.map(
+          const displayedColumns = selectedColumnIds.map(
             columnId => columns.filter(c => c.id === columnId)[0]
           );
           this.gridDispatcher.next(
@@ -228,7 +228,7 @@ export class SkyListViewGridComponent
       .takeUntil(this.ngUnsubscribe)
       .distinctUntilChanged()
       .subscribe(displayedColumns => {
-        let setFunctions =
+        const setFunctions =
           this.searchFunction !== undefined ? [this.searchFunction] :
             displayedColumns
               .map(column => (data: any, searchText: string) =>
@@ -251,7 +251,7 @@ export class SkyListViewGridComponent
     this.columnComponents.changes
       .takeUntil(this.ngUnsubscribe)
       .subscribe((columnComponents) => {
-        let columnModels = this.columnComponents.map(column => {
+        const columnModels = this.columnComponents.map(column => {
           return new SkyGridColumnModel(column.template, column);
         });
         this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));

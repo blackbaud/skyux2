@@ -57,9 +57,9 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
   @Input() public matchTemplate: TemplateRef<any>;
   @Input() public noMatchTemplate: TemplateRef<any>;
   @Input() public itemTitleTemplate: TemplateRef<any>;
-  @Input() public keyIdSelector: string = 'id';
-  @Input() public selectedByDefault: boolean = true;
-  @Input() public showNewFieldValues: boolean = true;
+  @Input() public keyIdSelector = 'id';
+  @Input() public selectedByDefault = true;
+  @Input() public showNewFieldValues = true;
   /* tslint:disable */
   @ContentChildren(forwardRef(() => SkyLinkRecordsItemTitleComponent))
     public nodeItemTitle: QueryList<SkyLinkRecordsItemTitleComponent>;
@@ -101,20 +101,20 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
       }
     });
 
-    let sub = Observable.combineLatest(
+    const sub = Observable.combineLatest(
       this.state.map((s: any) => s.matches.items).distinctUntilChanged(),
       this.state.map((s: any) => s.fields.item).distinctUntilChanged(),
       this.state.map((s: any) => s.selected.item).distinctUntilChanged(),
       (matches: Array<SkyLinkRecordsMatchModel>,
       fields: {[key: string]: Array<SkyLinkRecordsFieldModel>},
       selected: {[key: string]: {[key: string]: boolean}}) => {
-        let newResultItems = matches.map(match => {
-          let newItem = new SkyLinkRecordsResultModel(match);
+        const newResultItems = matches.map(match => {
+          const newItem = new SkyLinkRecordsResultModel(match);
 
           if (newItem.status === SKY_LINK_RECORDS_STATUSES.Linked) {
             newItem.item = {id: match.item.id};
-            let selection = selected[match.key] || {};
-            let newFields = (fields[newItem.key]) ?
+            const selection = selected[match.key] || {};
+            const newFields = (fields[newItem.key]) ?
               fields[newItem.key].filter(f => selection[f.key]) : [];
             newFields.forEach(f => {
               /* istanbul ignore else */
@@ -168,8 +168,8 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
       this.matchFields.distinctUntilChanged(),
       (items: Array<any>, matches: Array<SkyLinkRecordsMatchModel>, fields: Array<string>) => {
         return items.map(item => {
-          let itemMatches = matches.filter(match => match.key === item[this.keyIdSelector]);
-          let match = (itemMatches.length > 0) ? itemMatches[0] : new SkyLinkRecordsMatchModel();
+          const itemMatches = matches.filter(match => match.key === item[this.keyIdSelector]);
+          const match = (itemMatches.length > 0) ? itemMatches[0] : new SkyLinkRecordsMatchModel();
 
           return new SkyLinkRecordsItemModel({
             key: item[this.keyIdSelector],

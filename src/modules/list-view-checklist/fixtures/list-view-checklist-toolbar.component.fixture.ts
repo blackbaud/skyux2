@@ -9,7 +9,7 @@ import {
 })
 export class ListViewChecklistToolbarTestComponent {
   public selectedItems: Map<string, boolean>;
-  public selectMode: string = 'multiple';
+  public selectMode = 'multiple';
 
   constructor(@Inject('items') public items: any) {
   }

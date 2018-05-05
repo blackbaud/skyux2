@@ -8,7 +8,7 @@ describe('File size pipe', () => {
     decimalPipe: DecimalPipe;
 
   function validateFormatted(value: number, expected: string, newFileSizePipe: SkyFileSizePipe) {
-    let result = newFileSizePipe.transform(value);
+    const result = newFileSizePipe.transform(value);
 
     expect(result).toBe(expected);
   }

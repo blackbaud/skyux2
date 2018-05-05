@@ -28,7 +28,7 @@ export class SkyFilterDemoModalComponent {
   }
 
   public applyFilters() {
-    let result = this.getAppliedFiltersArray();
+    const result = this.getAppliedFiltersArray();
     this.instance.save(result);
   }
 
@@ -42,7 +42,7 @@ export class SkyFilterDemoModalComponent {
   }
 
   private getAppliedFiltersArray() {
-    let appliedFilters: any[] = [];
+    const appliedFilters: any[] = [];
     if (this.fruitType !== 'any') {
       appliedFilters.push({
         name: 'fruitType',

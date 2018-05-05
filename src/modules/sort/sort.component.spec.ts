@@ -39,19 +39,19 @@ describe('Sort component', () => {
   });
 
   function getDropdownButtonEl() {
-    let dropdownButtonQuery = '.sky-sort .sky-dropdown .sky-dropdown-button .fa-sort';
+    const dropdownButtonQuery = '.sky-sort .sky-dropdown .sky-dropdown-button .fa-sort';
     return nativeElement.querySelector(dropdownButtonQuery) as HTMLElement;
   }
 
   function getSortItems() {
-    let itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
+    const itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
     return nativeElement.querySelectorAll(itemQuery);
   }
 
   it('creates a sort dropdown that respects active input', fakeAsync(() => {
     fixture.detectChanges();
     tick();
-    let dropdownButtonEl = getDropdownButtonEl();
+    const dropdownButtonEl = getDropdownButtonEl();
     expect(dropdownButtonEl).not.toBeNull();
 
     dropdownButtonEl.click();
@@ -59,10 +59,10 @@ describe('Sort component', () => {
     fixture.detectChanges();
     tick();
 
-    let menuHeaderQuery = '.sky-sort-menu-heading';
+    const menuHeaderQuery = '.sky-sort-menu-heading';
     expect(nativeElement.querySelector(menuHeaderQuery)).toHaveText('Sort by');
 
-    let itemsEl = getSortItems();
+    const itemsEl = getSortItems();
     expect(itemsEl.length).toBe(6);
     expect(itemsEl.item(2)).toHaveCssClass('sky-sort-item-selected');
     expect(itemsEl.item(2)).toHaveText('Date created (newest first)');
@@ -70,14 +70,14 @@ describe('Sort component', () => {
 
   it('changes active item on click and emits proper event', fakeAsync(() => {
     fixture.detectChanges();
-    let dropdownButtonEl = getDropdownButtonEl();
+    const dropdownButtonEl = getDropdownButtonEl();
     dropdownButtonEl.click();
     tick();
     fixture.detectChanges();
     tick();
 
     let itemsEl = getSortItems();
-    let clickItem = itemsEl.item(1).querySelector('button') as HTMLElement;
+    const clickItem = itemsEl.item(1).querySelector('button') as HTMLElement;
 
     clickItem.click();
     tick();
@@ -99,7 +99,7 @@ describe('Sort component', () => {
     fixture.detectChanges();
     component.initialState = 4;
     fixture.detectChanges();
-    let itemsEl = getSortItems();
+    const itemsEl = getSortItems();
     expect(itemsEl.item(3)).toHaveCssClass('sky-sort-item-selected');
   });
 });

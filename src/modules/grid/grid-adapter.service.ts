@@ -22,11 +22,11 @@ export class SkyGridAdapterService {
     );
 
     dragulaService.drop.subscribe(([, , container]: Array<HTMLElement>) => {
-      let columnIds: string[] = [];
-      let nodes = container.getElementsByTagName('th');
+      const columnIds: string[] = [];
+      const nodes = container.getElementsByTagName('th');
       for (let i = 0; i < nodes.length; i++) {
-        let el = nodes[i];
-        let id = el.getAttribute('sky-cmp-id');
+        const el = nodes[i];
+        const id = el.getAttribute('sky-cmp-id');
         columnIds.push(id);
       }
       dropCallback(columnIds);

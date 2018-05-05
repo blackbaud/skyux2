@@ -30,7 +30,7 @@ export class ListItemsOrchestrator extends ListStateOrchestrator<AsyncList<ListI
     const newListItems = action.items.map(g => new ListItemModel(g.id, g.data));
     const resultItems = (action.refresh) ? [...newListItems] : [...state.items, ...newListItems];
 
-    let count = action.count === undefined ? resultItems.length : action.count;
+    const count = action.count === undefined ? resultItems.length : action.count;
     return new AsyncList<ListItemModel>(
       resultItems,
       action.dataChanged ? moment() : state.lastUpdate,

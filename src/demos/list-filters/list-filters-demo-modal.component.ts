@@ -16,11 +16,11 @@ import {
 })
 export class SkyListFiltersModalDemoComponent {
 
-  public fruitType: string = 'any';
+  public fruitType = 'any';
 
   public hideOrange: boolean;
 
-  public headerText: string = 'Filters';
+  public headerText = 'Filters';
 
   constructor(public context: SkyListFiltersModalDemoContext, public instance: SkyModalInstance) {
     if (this.context && this.context.appliedFilters && this.context.appliedFilters.length > 0) {
@@ -31,7 +31,7 @@ export class SkyListFiltersModalDemoComponent {
   }
 
   public applyFilters() {
-    let result = this.getAppliedFiltersArray();
+    const result = this.getAppliedFiltersArray();
     this.instance.save(result);
   }
 
@@ -53,7 +53,7 @@ export class SkyListFiltersModalDemoComponent {
   }
 
   private getAppliedFiltersArray() {
-    let appliedFilters: ListFilterModel[] = [];
+    const appliedFilters: ListFilterModel[] = [];
     if (this.fruitType !== 'any') {
 
       appliedFilters.push(new ListFilterModel({

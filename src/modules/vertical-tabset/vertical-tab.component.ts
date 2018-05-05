@@ -22,7 +22,7 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
 export class SkyVerticalTabComponent implements OnInit, OnDestroy {
 
   @Input()
-  public active: boolean = false;
+  public active = false;
 
   @Input()
   public tabHeading: string;
@@ -31,7 +31,7 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
   public tabHeaderCount: number;
 
   @Input()
-  public disabled: boolean = false;
+  public disabled = false;
 
   @Input()
   public get showTabRightArrow() {
@@ -47,7 +47,7 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
   @ViewChild('tabContentWrapper')
   public tabContent: ElementRef;
 
-  private _showTabRightArrow: boolean = false;
+  private _showTabRightArrow = false;
   private _mobileSubscription = new Subject();
 
   constructor(

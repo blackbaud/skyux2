@@ -5,14 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './filter-inline-demo.component.html'
 })
 export class SkyFilterInlineDemoComponent {
-
-  public filtersActive: boolean = false;
-
-  public showInlineFilters: boolean = false;
-
-  public fruitType: string = 'any';
-
-  public hideOrange: boolean = false;
+  public filtersActive = false;
+  public showInlineFilters = false;
+  public fruitType = 'any';
+  public hideOrange = false;
 
   public items: any[] = [
       {
@@ -113,18 +109,17 @@ export class SkyFilterInlineDemoComponent {
   }
 
   private filterItems(items: any[], filters: any[]) {
-      let i: number,
-          passesFilter: boolean,
-          result: any[] = [];
+    let i: number;
+    let passesFilter: boolean;
+    const result: any[] = [];
 
-      for (i = 0; i < items.length; i++) {
-        passesFilter = this.itemIsShown(filters, items[i]);
-        if (passesFilter) {
-          result.push(items[i]);
-        }
+    for (i = 0; i < items.length; i++) {
+      passesFilter = this.itemIsShown(filters, items[i]);
+      if (passesFilter) {
+        result.push(items[i]);
       }
+    }
 
-      return result;
+    return result;
   }
-
 }

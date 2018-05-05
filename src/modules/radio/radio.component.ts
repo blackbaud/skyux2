@@ -34,7 +34,7 @@ export class SkyRadioComponent implements ControlValueAccessor {
    * Hidden label for screen readers.
    */
   @Input()
-  public label: string = '';
+  public label = '';
 
   /**
    * Id of label for the checkbox.
@@ -43,13 +43,13 @@ export class SkyRadioComponent implements ControlValueAccessor {
   public labelledBy: string;
 
   @Input()
-  public id: string = `sky-radio-${++nextId}`;
+  public id = `sky-radio-${++nextId}`;
 
   @Input()
-  public disabled: boolean = false;
+  public disabled = false;
 
   @Input()
-  public tabindex: number = 0;
+  public tabindex = 0;
 
   @Input()
   public name: string;

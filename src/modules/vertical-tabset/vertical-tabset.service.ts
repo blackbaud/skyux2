@@ -29,9 +29,9 @@ export class SkyVerticalTabsetService {
     this._content = value;
   }
 
-  private _tabsVisible: boolean = false;
-  private _contentAdded: boolean = false;
-  private _isWidescreen: boolean = false;
+  private _tabsVisible = false;
+  private _contentAdded = false;
+  private _isWidescreen = false;
 
   public constructor(private mediaQueryService: SkyMediaQueryService) {}
 
@@ -51,7 +51,7 @@ export class SkyVerticalTabsetService {
   public activateTab(tab: SkyVerticalTabComponent) {
 
     // unactivate active tab
-    let activeTab = this.tabs.find(t => t.index === this.activeIndex);
+    const activeTab = this.tabs.find(t => t.index === this.activeIndex);
     if (activeTab && activeTab.index !== tab.index) {
       activeTab.active = false;
       activeTab.tabDeactivated();
@@ -63,7 +63,7 @@ export class SkyVerticalTabsetService {
   }
 
   public activeTabContent(): ElementRef {
-    let activeTab = this.tabs.find(t => t.index === this.activeIndex);
+    const activeTab = this.tabs.find(t => t.index === this.activeIndex);
 
     if (activeTab) {
       return activeTab.tabContent;
@@ -125,7 +125,7 @@ export class SkyVerticalTabsetService {
 
   private moveContent() {
     if (this._content && !this._contentAdded) {
-      let activeContent = this.activeTabContent();
+      const activeContent = this.activeTabContent();
 
       if (activeContent && activeContent.nativeElement) {
         this._content.nativeElement.appendChild(activeContent.nativeElement);

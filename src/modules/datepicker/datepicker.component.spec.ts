@@ -47,7 +47,7 @@ const moment = require('moment');
 describe('datepicker', () => {
 
   function openDatepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
-    let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
+    const dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
     compFixture.detectChanges();
   }
@@ -56,16 +56,16 @@ describe('datepicker', () => {
       element: HTMLElement,
       text: string,
       compFixture: ComponentFixture<any>) {
-    let inputEvent = document.createEvent('Event');
-    let params = {
+    const inputEvent = document.createEvent('Event');
+    const params = {
       bubbles: false,
       cancelable: false
     };
     inputEvent.initEvent('input', params.bubbles, params.cancelable);
 
-    let changeEvent = document.createEvent('Event');
+    const changeEvent = document.createEvent('Event');
     changeEvent.initEvent('change', params.bubbles, params.cancelable);
-    let inputEl = element.querySelector('input');
+    const inputEl = element.querySelector('input');
     inputEl.value = text;
 
     inputEl.dispatchEvent(inputEvent);
@@ -81,13 +81,13 @@ describe('datepicker', () => {
     element: HTMLElement,
     compFixture: ComponentFixture<any>) {
 
-    let inputEvent = document.createEvent('Event');
-    let params = {
+    const inputEvent = document.createEvent('Event');
+    const params = {
       bubbles: false,
       cancelable: false
     };
     inputEvent.initEvent('blur', params.bubbles, params.cancelable);
-    let inputEl = element.querySelector('input');
+    const inputEl = element.querySelector('input');
 
     inputEl.dispatchEvent(inputEvent);
     compFixture.detectChanges();
@@ -177,7 +177,7 @@ describe('datepicker', () => {
       let dropdownMenuEl = nativeElement.querySelector('.sky-popover-container');
       expect(dropdownMenuEl).not.toHaveCssClass('sky-popover-hidden');
 
-      let titleEl = nativeElement.querySelector('.sky-datepicker-calendar-title') as HTMLButtonElement;
+      const titleEl = nativeElement.querySelector('.sky-datepicker-calendar-title') as HTMLButtonElement;
 
       titleEl.click();
       tick();
@@ -203,7 +203,7 @@ describe('datepicker', () => {
         .toHaveText('May 2017');
 
       // Click May 2nd
-      let dateButtonEl
+      const dateButtonEl
         = nativeElement
           .querySelectorAll('tbody tr td .sky-btn-default').item(2) as HTMLButtonElement;
 
@@ -413,7 +413,7 @@ describe('datepicker', () => {
     describe('validation', () => {
       let ngModel: NgModel;
       beforeEach(() => {
-        let inputElement = fixture.debugElement.query(By.css('input'));
+        const inputElement = fixture.debugElement.query(By.css('input'));
         ngModel = <NgModel> inputElement.injector.get(NgModel);
       });
 
@@ -544,7 +544,7 @@ describe('datepicker', () => {
 
       let ngModel: NgModel;
       beforeEach(() => {
-        let inputElement = fixture.debugElement.query(By.css('input'));
+        const inputElement = fixture.debugElement.query(By.css('input'));
         ngModel = <NgModel> inputElement.injector.get(NgModel);
       });
       it('should handle change above max date', fakeAsync(() => {
@@ -582,7 +582,7 @@ describe('datepicker', () => {
         openDatepicker(fixture.nativeElement, fixture);
         tick();
 
-        let dateButtonEl
+        const dateButtonEl
           = fixture.nativeElement
             .querySelectorAll('tbody tr td .sky-btn-default').item(30) as HTMLButtonElement;
 
@@ -599,7 +599,7 @@ describe('datepicker', () => {
         openDatepicker(fixture.nativeElement, fixture);
         tick();
 
-        let dateButtonEl
+        const dateButtonEl
           = fixture.nativeElement
             .querySelectorAll('tbody tr td .sky-btn-default').item(1) as HTMLButtonElement;
 
@@ -623,7 +623,7 @@ describe('datepicker', () => {
       }
     }
 
-    let mockWindowService = new MockWindowService();
+    const mockWindowService = new MockWindowService();
 
     beforeEach(() => {
       TestBed.configureTestingModule({

@@ -20,7 +20,6 @@ import {
   selector: 'sky-file-item',
   templateUrl: './file-item.component.html',
   styleUrls: ['./file-item.component.scss']
-
 })
 export class SkyFileItemComponent implements DoCheck {
   @Input()
@@ -29,7 +28,7 @@ export class SkyFileItemComponent implements DoCheck {
   @Output()
   public deleteFile = new EventEmitter<SkyFileLink | SkyFileItem>();
 
-  private otherCls: string;
+  public  otherCls: string;
   private differ: KeyValueDiffer<any, any>;
 
   public constructor(private differs: KeyValueDiffers) {
@@ -37,12 +36,13 @@ export class SkyFileItemComponent implements DoCheck {
   }
 
   public ngDoCheck() {
-    let changes = this.differ.diff(this.fileItem);
+    const changes = this.differ.diff(this.fileItem);
 
     if (changes) {
-      let cls: string,
-          extensionUpper = this.getFileExtensionUpper(),
-          fileTypeUpper: string;
+      const extensionUpper = this.getFileExtensionUpper();
+
+      let cls: string;
+      let fileTypeUpper: string;
 
       switch (extensionUpper) {
         case '.PDF':
@@ -109,7 +109,7 @@ export class SkyFileItemComponent implements DoCheck {
   }
 
   public isFile() {
-    let file = (<SkyFileItem>this.fileItem).file;
+    const file = (<SkyFileItem>this.fileItem).file;
 
     /* tslint:disable */
     return file && file !== undefined && file !== null && file.size !== undefined
@@ -118,8 +118,8 @@ export class SkyFileItemComponent implements DoCheck {
   }
 
   public isImg() {
-    let fileTypeUpper = this.getFileTypeUpper(),
-                        slashIndex: number;
+    const fileTypeUpper = this.getFileTypeUpper();
+    let slashIndex: number;
 
     slashIndex = fileTypeUpper.indexOf('/');
 
@@ -145,7 +145,7 @@ export class SkyFileItemComponent implements DoCheck {
     /* istanbul ignore else */
     /* sanity check */
     if (this.fileItem) {
-      let file = (<SkyFileItem>this.fileItem).file;
+      const file = (<SkyFileItem>this.fileItem).file;
       if (file) {
         /* istanbul ignore next */
         name = file.name || '';
@@ -165,7 +165,7 @@ export class SkyFileItemComponent implements DoCheck {
     /* istanbul ignore else */
     /* sanity check */
     if (this.fileItem) {
-      let file = (<SkyFileItem>this.fileItem).file;
+      const file = (<SkyFileItem>this.fileItem).file;
       if (file) {
         fileType = file.type || '';
       } else {

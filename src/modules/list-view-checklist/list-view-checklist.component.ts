@@ -90,7 +90,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   /* tslint:enable */
 
   @Input()
-  public description: string = 'description';
+  public description = 'description';
 
   @Input()
   public set selectMode(value: string) {
@@ -125,9 +125,9 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     Observable.combineLatest(
       this.state.map(s => s.items).distinctUntilChanged(),
       (items: AsyncList<ListItemModel>) => {
-        let dataChanged = lastUpdate === undefined || items.lastUpdate !== lastUpdate;
+        const dataChanged = lastUpdate === undefined || items.lastUpdate !== lastUpdate;
         lastUpdate = items.lastUpdate;
-        let newItems = items.items.map(item => {
+        const newItems = items.items.map(item => {
           return new ListViewChecklistItemModel(item.id, {
             label:
               this.labelFieldSelector ? getData(item.data, this.labelFieldSelector) : undefined,
@@ -150,7 +150,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       this.dispatcher.searchSetFunctions([this.search]);
     }
 
-    let fieldSelectors: Array<string> = [];
+    const fieldSelectors: Array<string> = [];
     if (this.labelFieldSelector) {
       fieldSelectors.push(this.labelFieldSelector);
     }
@@ -180,7 +180,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   public searchFunction() {
     return (data: any, searchText: string) => {
       if (this.labelFieldSelector !== undefined) {
-        let label = getData(data, this.labelFieldSelector);
+        const label = getData(data, this.labelFieldSelector);
         /* tslint:disable:no-null-keyword */
         if (
           label !== undefined &&
@@ -193,7 +193,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       }
 
       if (this.description !== undefined) {
-        let description = getData(data, this.description);
+        const description = getData(data, this.description);
         /* tslint:disable:no-null-keyword */
         if (
           description !== undefined &&

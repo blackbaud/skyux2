@@ -31,22 +31,22 @@ export class SkyTimepickerComponent implements OnInit {
   public dropdownController = new Subject<SkyDropdownMessage>();
   public activeTime: Date;
   public returnFormat: string;
-  public timeFormat: string = 'hh';
+  public timeFormat = 'hh';
   public hours: Array<number>;
   public minutes: Array<number>;
   public localeFormat: string;
   public minuteMultiplier: number;
-  public is8601: boolean = false;
+  public is8601 = false;
 
   public ngOnInit() {
     this.setFormat(this.timeFormat);
   }
 
   public setFormat(format: string) {
-    let h: number = 12;
-    let m: number = 12;
-    let minuteMultiplier: number = 5;
-    let localeFormat: string = 'h:mm A';
+    let h = 12;
+    let m = 12;
+    let minuteMultiplier = 5;
+    let localeFormat = 'h:mm A';
     if (format === 'hh') { h = 12; m = 12; minuteMultiplier = 5; localeFormat = 'h:mm A'; }
     if (format === 'HH') {
       h = 24;
@@ -138,7 +138,7 @@ export class SkyTimepickerComponent implements OnInit {
 
   public set selectedHour(setHour: number) {
     let hour: number;
-    let hourOffset: number = 0;
+    let hourOffset = 0;
     if (this.selectedMeridies === 'AM' && setHour === 12) { hourOffset = -12; }
     if (this.selectedMeridies === 'PM' && setHour !== 12) { hourOffset = 12; }
     if (this.is8601) { hourOffset = 0; }

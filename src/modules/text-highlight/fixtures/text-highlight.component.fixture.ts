@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 
 export class SkyTextHighlightTestComponent {
   public searchTerm: string;
-  public showAdditionalContent: boolean = false;
+  public showAdditionalContent = false;
 }
