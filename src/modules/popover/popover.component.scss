@@ -69,7 +69,7 @@ $popover-max-width: 276px;
 
   > .sky-popover {
     @include sky-border(dark, top, bottom, left, right);
-    overflow: hidden;
+    overflow: auto;
     max-height: 100%;
     display: flex;
     flex-direction: column;
@@ -80,7 +80,6 @@ $popover-max-width: 276px;
     }
 
     .sky-popover-body {
-      overflow: auto;
       position: relative;
     }
   }
