@@ -43,7 +43,7 @@
   height: 34px;
   width: 34px;
   line-height: 34px;
-  border-radius: 2px;
+  border-radius: $sky-border-radius;
 }
 
 .sky-checkbox-wrapper input:hover + .sky-checkbox {
@@ -56,19 +56,19 @@
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-info input:hover + .sky-checkbox {
-  border-color: $sky-background-color-info;
+  border-color: $sky-highlight-color-info;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-success input:hover + .sky-checkbox {
-  border-color: $sky-background-color-success;
+  border-color: $sky-highlight-color-success;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-warning input:hover + .sky-checkbox {
-  border-color: $sky-background-color-warning;
+  border-color: $sky-highlight-color-warning;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-danger input:hover + .sky-checkbox {
-  border-color: $sky-background-color-danger;
+  border-color: $sky-highlight-color-danger;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon input:active + .sky-checkbox {
@@ -79,22 +79,22 @@
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-info input:active + .sky-checkbox {
   background-color: $sky-background-color-info;
-  border-color: $sky-background-color-info;
+  border-color: $sky-highlight-color-info;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-success input:active + .sky-checkbox {
   background-color: $sky-background-color-success;
-  border-color: $sky-background-color-success;
+  border-color: $sky-highlight-color-success;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-warning input:active + .sky-checkbox {
   background-color: $sky-background-color-warning;
-  border-color: $sky-background-color-warning;
+  border-color: $sky-highlight-color-warning;
 }
 
 .sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-danger input:active + .sky-checkbox {
   background-color: $sky-background-color-danger;
-  border-color: $sky-background-color-danger;
+  border-color: $sky-highlight-color-danger;
 }
 
 .sky-checkbox-wrapper:not(.sky-checkbox-icon) input:checked + .sky-checkbox {
