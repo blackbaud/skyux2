@@ -643,6 +643,10 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./lookup/lookup-demo.component.html')
         },
         {
+          name: 'lookup-demo.component.scss',
+          fileContents: require('!!raw-loader!./lookup/lookup-demo.component.scss')
+        },
+        {
           name: 'lookup-demo.component.ts',
           fileContents: require('!!raw-loader!./lookup/lookup-demo.component.ts'),
           componentName: 'SkyLookupDemoComponent',
