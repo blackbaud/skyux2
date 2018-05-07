@@ -67,7 +67,7 @@ export class SkyAutocompleteInputDirective
   private _value: any;
 
   constructor(
-    public elementRef: ElementRef,
+    private elementRef: ElementRef,
     private renderer: Renderer2
   ) { }
 

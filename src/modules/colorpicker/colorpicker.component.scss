@@ -3,32 +3,14 @@
 :host-context(sky-colorpicker) {
   ::ng-deep .sky-dropdown-button {
     padding: 0;
+    position: relative;
     z-index: 1;
     border-color: transparent;
+    left: -30px;
     height: 30px;
     width: 30px;
     color: transparent;
     background-color: transparent;
-    position: absolute;
-  }
-
-  ::ng-deep .sky-popover-container {
-    padding: 0;
-    min-width: auto;
-    max-width: none;
-
-    .sky-popover {
-      border-radius: 0 !important;
-      border: 0 !important;
-    }
-
-    .sky-popover-body {
-      padding: 0;
-    }
-
-    .sky-popover-arrow {
-      display: none;
-    }
   }
 }
 
@@ -41,12 +23,6 @@
   pointer-events: none;
   z-index: 1;
   flex: none;
-}
-
-.sky-colorpicker-input-group {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
 }
 
 .sky-colorpicker-reset-button::before {
@@ -62,7 +38,8 @@
   box-shadow: inset 0 0 0 2px $sky-color-white, inset 0 0 0 3px $sky-border-color-neutral-medium;
   width: 30px;
   height: 30px;
-  margin-left: 5px;
+  position: relative;
+  left: -25px;
   cursor: pointer;
   color: $sky-text-color-deemphasized;
   &:hover {

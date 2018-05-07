@@ -186,7 +186,7 @@ describe('Autocomplete component', () => {
         fixture.detectChanges();
 
         const inputElement = getInputElement();
-        const messageSpy = spyOn(autocomplete as any, 'sendMessage')
+        const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
           .and.callThrough();
 
         inputElement.value = 'r';
@@ -207,14 +207,12 @@ describe('Autocomplete component', () => {
         fixture.detectChanges();
 
         const inputElement = getInputElement();
-        const messageSpy = spyOn(autocomplete as any, 'sendMessage')
+        const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
           .and.callThrough();
 
         inputElement.value = 'r';
         SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
         tick();
-
-        fixture.detectChanges();
 
         inputElement.value = 're';
         SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
@@ -222,7 +220,7 @@ describe('Autocomplete component', () => {
 
         expect(messageSpy)
           .toHaveBeenCalledWith(SkyDropdownMessageType.Open);
-        expect(messageSpy.calls.count()).toEqual(2);
+        expect(messageSpy.calls.count()).toEqual(1);
       })
     );
 
@@ -397,7 +395,7 @@ describe('Autocomplete component', () => {
       });
       tick();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendMessage')
+      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
       const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
         .and.callThrough();
@@ -424,7 +422,7 @@ describe('Autocomplete component', () => {
       SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendMessage')
+      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
       const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
         .and.callThrough();
@@ -450,7 +448,7 @@ describe('Autocomplete component', () => {
       tick();
       fixture.detectChanges();
 
-      const spy = spyOn(autocomplete as any, 'sendMessage')
+      const spy = spyOn(autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
       const autocompleteElement = getAutocompleteElement();
       const dropdownElement = autocompleteElement
@@ -508,7 +506,7 @@ describe('Autocomplete component', () => {
       SkyAppTestUtility.fireDomEvent(inputElement, 'keyup');
       tick();
 
-      const spy = spyOn(autocomplete as any, 'sendMessage').and.callThrough();
+      const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
       const autocompleteElement = getAutocompleteElement();
 
       SkyAppTestUtility.fireDomEvent(autocompleteElement, 'keydown', {
@@ -605,7 +603,7 @@ describe('Autocomplete component', () => {
       tick();
       fixture.detectChanges();
 
-      const messageSpy = spyOn(autocomplete as any, 'sendMessage')
+      const messageSpy = spyOn(autocomplete as any, 'sendDropdownMessage')
         .and.callThrough();
       const notifySpy = spyOn(autocomplete.selectionChange, 'emit')
         .and.callThrough();
@@ -634,7 +632,7 @@ describe('Autocomplete component', () => {
         fixture.detectChanges();
         tick();
 
-        const spy = spyOn(autocomplete as any, 'sendMessage').and.callThrough();
+        const spy = spyOn(autocomplete as any, 'sendDropdownMessage').and.callThrough();
 
         SkyAppTestUtility.fireDomEvent(inputElement, 'mouseenter');
         tick();

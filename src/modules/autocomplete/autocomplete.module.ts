@@ -7,7 +7,6 @@ import { SkyTextHighlightModule } from '../text-highlight';
 
 import { SkyAutocompleteComponent } from './autocomplete.component';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
-import { SkyPopoverModule } from '../popover';
 
 @NgModule({
   declarations: [
@@ -18,8 +17,7 @@ import { SkyPopoverModule } from '../popover';
     CommonModule,
     FormsModule,
     SkyTextHighlightModule,
-    SkyDropdownModule,
-    SkyPopoverModule
+    SkyDropdownModule
   ],
   exports: [
     SkyAutocompleteComponent,

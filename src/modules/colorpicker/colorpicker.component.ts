@@ -13,6 +13,11 @@ import {
 import { Subject } from 'rxjs/Subject';
 
 import {
+  SkyDropdownMessage,
+  SkyDropdownMessageType
+} from '../dropdown';
+
+import {
   SkyColorpickerChangeAxis,
   SkyColorpickerChangeColor,
   SkyColorpickerHsla,
@@ -29,7 +34,6 @@ import {
   SliderPosition,
   SliderDimension
 } from './colorpicker-classes';
-import { SkyPopoverComponent, SkyPopoverAlignment } from '../popover';
 
 let componentIdIndex = 0;
 
@@ -70,17 +74,10 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   public slider: SliderPosition;
   public initialColor: string;
   public isVisible: boolean;
-
-  public alignment: SkyPopoverAlignment = 'left';
+  public dropdownController = new Subject<SkyDropdownMessage>();
 
   @ViewChild('closeColorPicker')
   private closeColorPicker: ElementRef;
-
-  @ViewChild('triggerButton')
-  private triggerButton: ElementRef;
-
-  @ViewChild(SkyPopoverComponent)
-  private popover: SkyPopoverComponent;
 
   private outputColor: string;
   private hsva: SkyColorpickerHsva;
@@ -151,7 +148,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
 
   public closePicker() {
     this.setColorFromString(this.initialColor);
-    this.closePopover();
+    this.closeDropdown();
   }
 
   public resetPickerColor() {
@@ -161,7 +158,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   public applyColor() {
     this.selectedColorChanged.emit(this.selectedColor);
     this.initialColor = this.selectedColor.rgbaText;
-    this.closePopover();
+    this.closeDropdown();
   }
 
   public setColorFromString(value: string) {
@@ -283,7 +280,9 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyColorpickerMessageType.Open:
-      this.positionPopover();
+      this.dropdownController.next({
+        type: SkyDropdownMessageType.Open
+      });
       break;
 
       case SkyColorpickerMessageType.Reset:
@@ -296,15 +295,9 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private positionPopover() {
-    this.popover.positionNextTo(
-      this.triggerButton,
-      'below',
-      this.alignment
-    );
-  }
-
-  private closePopover() {
-    this.popover.close();
+  private closeDropdown() {
+    this.dropdownController.next({
+      type: SkyDropdownMessageType.Close
+    });
   }
 }

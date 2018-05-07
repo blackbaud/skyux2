@@ -20,7 +20,7 @@ describe('Colorpicker', () => {
     return SkyVisualTest
       .setupTest('colorpicker')
       .then(() => {
-        element(by.css('button.sky-btn')).click();
+        element(by.css('sky-dropdown button')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'colorpicker-opened',
