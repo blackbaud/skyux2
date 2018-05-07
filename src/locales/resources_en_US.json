@@ -523,6 +523,10 @@
     "_description": "Placeholder text in grid search box",
     "message": "Find in this list"
   },
+  "help_inline_button_title": {
+    "_description": "The title for the help button.",
+    "message": "Show help content"
+  },
   "link_records_item_info_match": {
     "_description": "",
     "message": "A possible match has been identified for this record. Would you like to link it?"
