@@ -1,0 +1,25 @@
+<div>
+  <fieldset>
+    <legend>Toast type</legend>
+    <ul class="sky-list-unstyled">
+      <li *ngFor="let type of types">
+        <sky-radio
+          name="radiogroup"
+          [value]="type"
+          [(ngModel)]="selectedType">
+          <sky-radio-label>{{ type }}</sky-radio-label>
+        </sky-radio>
+      </li>
+    </ul>
+  </fieldset>
+  <button
+    class="sky-btn sky-btn-primary"
+    (click)="openMessage()">
+    Open toast
+  </button>
+  <button
+    class="sky-btn sky-btn-primary"
+    (click)="openTemplatedMessage()">
+    Open templated toast
+  </button>
+</div>

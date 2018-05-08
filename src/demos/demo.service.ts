@@ -52,6 +52,7 @@ import {
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
   SkyTimepickerDemoComponent,
+  SkyToastDemoComponent,
   SkyTokensDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
@@ -1014,6 +1015,32 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./timepicker/timepicker-demo.component.ts'),
           componentName: 'SkyTimepickerDemoComponent',
           bootstrapSelector: 'sky-timepicker-demo'
+        }
+      ]
+    },
+    {
+      name: 'Toast',
+      component: SkyToastDemoComponent,
+      files: [
+        {
+          name: 'toast-demo.component.html',
+          fileContents: require('!!raw-loader!./toast/toast-demo.component.html')
+        },
+        {
+          name: 'toast-demo.component.ts',
+          fileContents: require('!!raw-loader!./toast/toast-demo.component.ts'),
+          componentName: 'SkyToastDemoComponent',
+          bootstrapSelector: 'sky-toast-demo'
+        },
+        {
+          name: 'toast-custom-demo.component.html',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.html')
+        },
+        {
+          name: 'toast-custom-demo.component.ts',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.ts'),
+          componentName: 'SkyToastCustomDemoComponent',
+          bootstrapSelector: 'sky-toast-custom-demo'
         }
       ]
     },

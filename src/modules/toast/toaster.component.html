@@ -1,0 +1,7 @@
+<div
+  class="sky-toaster">
+  <sky-toast
+    *ngFor="let toastInstance of toastInstances | async"
+    [instance]="toastInstance">
+  </sky-toast>
+</div>
