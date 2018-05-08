@@ -14,19 +14,19 @@ import {
 
 @Component({
   selector: 'sky-toaster',
-  templateUrl: './toast-container.component.html',
-  styleUrls: ['./toast-container.component.scss'],
+  templateUrl: './toaster.component.html',
+  styleUrls: ['./toaster.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyToastContainerComponent implements OnInit {
+export class SkyToasterComponent implements OnInit {
 
-  public messages: Observable<any>;
+  public toastInstances: Observable<any>;
 
   constructor(
     private toast: SkyToastService
   ) {}
 
   public ngOnInit() {
-    this.messages = this.toast.messages;
+    this.toastInstances = this.toast.toastInstances;
   }
 }

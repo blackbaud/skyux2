@@ -1,15 +1,9 @@
 import {
-  Type,
-  Provider
+  Type
 } from '@angular/core';
-
-import {
-  SkyToastType
-} from './toast-type';
 
 export interface SkyToastConfig {
   message?: string;
   customComponentType?: Type<any>;
-  providers?: Provider[];
-  toastType?: SkyToastType;
+  toastType?: 'info' | 'success' | 'warning' | 'danger';
 }

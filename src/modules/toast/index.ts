@@ -1,6 +1,6 @@
 export {
-  SkyToastContainerComponent
-} from './toast-container.component';
+  SkyToasterComponent
+} from './toaster.component';
 export {
   SkyToastService
 } from './services/toast.service';

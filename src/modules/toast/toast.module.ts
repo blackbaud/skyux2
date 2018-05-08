@@ -13,8 +13,8 @@ import {
   SkyToastService
 } from './services/toast.service';
 import {
-  SkyToastContainerComponent
-} from './toast-container.component';
+  SkyToasterComponent
+} from './toaster.component';
 import {
   SkyToastAdapterService
 } from './services/toast-adapter.service';
@@ -31,14 +31,14 @@ export {
 
 @NgModule({
   declarations: [
-    SkyToastContainerComponent,
+    SkyToasterComponent,
     SkyToastComponent
   ],
   imports: [
     CommonModule, SkyResourcesModule
   ],
   exports: [
-    SkyToastContainerComponent,
+    SkyToasterComponent,
     SkyToastComponent
   ],
   providers: [
@@ -46,7 +46,7 @@ export {
     SkyToastAdapterService
   ],
   entryComponents: [
-    SkyToastContainerComponent,
+    SkyToasterComponent,
     SkyToastComponent
   ]
 })

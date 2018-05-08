@@ -3,8 +3,7 @@ import {
 } from '@angular/core';
 
 import {
-  SkyToastService,
-  SkyToastType
+  SkyToastService
 } from '../../core';
 
 import {
@@ -16,16 +15,15 @@ import {
   templateUrl: './toast-demo.component.html'
 })
 export class SkyToastDemoComponent {
-  public selectedType = SkyToastType.Info;
-  public typeTranslator = SkyToastType;
-  public types = [SkyToastType.Info, SkyToastType.Success, SkyToastType.Warning, SkyToastType.Danger];
+  public selectedType: 'info' | 'success' | 'warning' | 'danger' = 'info';
+  public types = ['info', 'success', 'warning', 'danger'];
 
   constructor(
     private toastSvc: SkyToastService
   ) {}
 
   public openMessage() {
-    this.toastSvc.openMessage('This is a ' + SkyToastType[this.selectedType] + ' toast.', {toastType: this.selectedType});
+    this.toastSvc.openMessage('This is a ' + this.selectedType + ' toast.', {toastType: this.selectedType});
   }
 
   public openTemplatedMessage() {

@@ -4,31 +4,18 @@ import {
   EventEmitter
 } from '@angular/core';
 
-import {
-  Subject
-} from 'rxjs';
-
 export class SkyToastInstance {
   public isClosed = new EventEmitter();
-  public isClosing = new Subject();
+  public isOpen = true;
 
   constructor(
     public message: string,
     public customComponentType: Type<any>,
-    public toastType: string,
-    public providers: Provider[] = [],
-    private removeFromQueue: Function
+    public toastType: 'info' | 'success' | 'warning' | 'danger',
+    public providers: Provider[] = []
   ) {}
 
   public close = () => {
-    if (!this.isClosing.isStopped) {
-      this.isClosing.next();
-      this.isClosing.complete();
-
-      this.isClosed.subscribe(() => {
-        this.removeFromQueue(this);
-        this.isClosed.complete();
-      });
-    }
+    this.isOpen = false;
   }
 }

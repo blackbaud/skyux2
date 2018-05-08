@@ -3,15 +3,15 @@
   [@toastState]="getAnimationState()">
   <div
     class="sky-toast"
-    [ngClass]="'sky-toast-' + message.toastType"
-    [attr.aria-live]="message.toastType==='danger' ? 'assertive' : 'polite'"
-    [attr.role]="message.toastType==='danger' ? 'alert' : undefined">
+    [ngClass]="'sky-toast-' + instance.toastType"
+    [attr.aria-live]="instance.toastType==='danger' ? 'assertive' : 'polite'"
+    [attr.role]="instance.toastType==='danger' ? 'alert' : undefined">
     <div
       class="sky-toast-content">
       <p
-        *ngIf="!message.customComponentType"
+        *ngIf="!instance.customComponentType"
         class="sky-toast-content-message">
-        {{message.message}}
+        {{instance.message}}
       </p>
       <ng-template #skytoastcustomtemplate></ng-template>
     </div>
@@ -19,7 +19,7 @@
       class="sky-toast-close"
       type="button"
       [attr.aria-label]="'toast_close' | skyResources"
-      (click)="message.close()">
+      (click)="instance.close()">
       <span aria-hidden="true">
         <i class="fa fa-close"></i>
       </span>

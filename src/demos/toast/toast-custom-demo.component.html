@@ -1,7 +1,7 @@
 <p>
   {{text}}
   <a
-    *ngIf='!(message.isClosing | async)'
+    *ngIf='!instance.isOpen'
     href='http://example.com'>
     example.com
   </a>

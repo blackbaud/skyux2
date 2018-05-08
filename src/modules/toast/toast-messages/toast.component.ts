@@ -32,17 +32,17 @@ const TOAST_CLOSED_STATE = 'toastClosed';
     trigger('toastState', [
       state(TOAST_OPEN_STATE, style({ opacity: 1 })),
       state(TOAST_CLOSED_STATE, style({ opacity: 0 })),
-      transition(`* <=> *`, animate('500ms linear'))
+      transition(`toastOpen => toastClosed`, animate('500ms linear'))
     ])
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyToastComponent implements OnInit, OnDestroy {
-  @Input('message')
-  public message: SkyToastInstance;
+  @Input('instance')
+  public instance: SkyToastInstance;
 
   @ViewChild('skytoastcustomtemplate', { read: ViewContainerRef })
-  private customToastHost: ViewContainerRef;
+  private toastHost: ViewContainerRef;
 
   private customComponent: ComponentRef<any>;
 
@@ -52,11 +52,11 @@ export class SkyToastComponent implements OnInit, OnDestroy {
   ) {}
 
   public getAnimationState(): string {
-    return !this.message.isClosing.isStopped ? TOAST_OPEN_STATE : TOAST_CLOSED_STATE;
+    return this.instance.isOpen ? TOAST_OPEN_STATE : TOAST_CLOSED_STATE;
   }
 
   public ngOnInit() {
-    if (this.message.customComponentType) {
+    if (this.instance.customComponentType) {
       this.loadComponent();
     }
   }
@@ -68,22 +68,24 @@ export class SkyToastComponent implements OnInit, OnDestroy {
   }
 
   public animationDone(event: AnimationEvent) {
-    this.message.isClosed.emit();
+    if (!this.instance.isOpen) {
+      this.instance.isClosed.emit();
+      this.instance.isClosed.complete();
+    }
   }
 
   private loadComponent() {
-    this.customToastHost.clear();
-    this.message.providers.push({
+    this.toastHost.clear();
+    this.instance.providers.push({
       provide: SkyToastInstance,
-      useValue: this.message
+      useValue: this.instance
     });
 
-    const componentFactory = this.resolver.resolveComponentFactory(this.message.customComponentType);
-    const providers = ReflectiveInjector.resolve(this.message.providers || []);
+    const componentFactory = this.resolver.resolveComponentFactory(this.instance.customComponentType);
+    const providers = ReflectiveInjector.resolve(this.instance.providers || []);
 
     const injector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
 
-    this.customComponent = this.customToastHost.createComponent(componentFactory, undefined, injector);
-    this.customComponent.instance.message = this.message;
+    this.customComponent = this.toastHost.createComponent(componentFactory, undefined, injector);
   }
 }

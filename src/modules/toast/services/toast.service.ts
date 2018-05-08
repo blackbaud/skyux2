@@ -15,23 +15,22 @@ import {
 } from 'rxjs';
 
 import {
-  SkyToastContainerComponent
-} from '../toast-container.component';
+  SkyToasterComponent
+} from '../toaster.component';
 import {
   SkyToastAdapterService
 } from './toast-adapter.service';
 import {
   SkyToastInstance,
-  SkyToastConfig,
-  SkyToastType
+  SkyToastConfig
 } from '../types';
 
 @Injectable()
 export class SkyToastService implements OnDestroy {
-  private host: ComponentRef<SkyToastContainerComponent>;
+  private host: ComponentRef<SkyToasterComponent>;
 
-  private _messages: SkyToastInstance[] = [];
-  public messages: BehaviorSubject<SkyToastInstance[]> = new BehaviorSubject([]);
+  private _toastInstances: SkyToastInstance[] = [];
+  public toastInstances: BehaviorSubject<SkyToastInstance[]> = new BehaviorSubject([]);
 
   constructor(
     private appRef: ApplicationRef,
@@ -41,74 +40,57 @@ export class SkyToastService implements OnDestroy {
   ) {}
 
   public openMessage(message: string, config: SkyToastConfig = {}): SkyToastInstance {
-    config.message = message;
-    config.customComponentType = undefined;
-    return this.open(config);
+    return this.open(config, message);
   }
 
   public openTemplatedMessage(customComponentType: Type<any>, config: SkyToastConfig = {}, providers?: Provider[]): SkyToastInstance {
-    config.customComponentType = customComponentType;
-    config.providers = providers || config.providers;
-    config.message = undefined;
-    return this.open(config);
-  }
-
-  public open(config: SkyToastConfig): SkyToastInstance {
-    if (!this.host) {
-      this.host = this.createHostComponent();
-    }
-
-    let message: SkyToastInstance = this.createMessage(config);
-    this._messages.push(message);
-    this.messages.next(this._messages);
-
-    return message;
+    return this.open(config, undefined, customComponentType, providers);
   }
 
   public ngOnDestroy() {
     this.host = undefined;
-    this._messages.forEach(message => {
-      message.close();
+    this._toastInstances.forEach(instance => {
+      instance.close();
     });
-    this.messages.next([]);
+    this.toastInstances.next([]);
     this.adapter.removeHostElement();
   }
 
-  private removeFromQueue: Function = (message: SkyToastInstance) => {
-    this._messages = this._messages.filter(msg => msg !== message);
-    this.messages.next(this._messages);
+  private open(config: SkyToastConfig, message?: string, customComponentType?: Type<any>, providers?: Provider[]): SkyToastInstance {
+    if (!this.host) {
+      this.host = this.createHostComponent();
+    }
+
+    let instance: SkyToastInstance = this.createToastInstance(config, message, customComponentType, providers);
+    this._toastInstances.push(instance);
+    this.toastInstances.next(this._toastInstances);
+
+    return instance;
   }
 
-  private createMessage(config: SkyToastConfig): SkyToastInstance {
-    if (!config.message && !config.customComponentType) {
-      throw 'You must provide either a message or a customComponentType.';
-    }
-    if (config.message && config.customComponentType) {
-      throw 'You must not provide both a message and a customComponentType.';
-    }
-
-    let toastType: string = 'info';
-    switch (config.toastType) {
-      case SkyToastType.Success:
-        toastType = 'success';
-        break;
-      case SkyToastType.Warning:
-        toastType = 'warning';
-        break;
-      case SkyToastType.Danger:
-        toastType = 'danger';
-        break;
-      default:
-        toastType = 'info';
-        break;
-    }
-
-    return new SkyToastInstance(config.message, config.customComponentType, toastType, config.providers, this.removeFromQueue);
+  private removeFromQueue: Function = (instance: SkyToastInstance) => {
+    this._toastInstances = this._toastInstances.filter(inst => inst !== instance);
+    this.toastInstances.next(this._toastInstances);
   }
 
-  private createHostComponent(): ComponentRef<SkyToastContainerComponent> {
+  private createToastInstance(
+    config: SkyToastConfig,
+    message?: string,
+    customComponentType?: Type<any>,
+    providers?: Provider[]
+  ): SkyToastInstance {
+    let newToast = new SkyToastInstance(
+      message,
+      customComponentType,
+      config.toastType ? config.toastType : 'info',
+      providers);
+      newToast.isClosed.subscribe(() => { this.removeFromQueue(newToast); });
+      return newToast;
+  }
+
+  private createHostComponent(): ComponentRef<SkyToasterComponent> {
     const componentRef = this.resolver
-      .resolveComponentFactory(SkyToastContainerComponent)
+      .resolveComponentFactory(SkyToasterComponent)
       .create(this.injector);
 
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0];
