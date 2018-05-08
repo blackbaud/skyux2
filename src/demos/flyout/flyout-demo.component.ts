@@ -45,7 +45,13 @@ export class SkyFlyoutDemoComponent {
       minWidth: 200,
       permalink: {
         route: {
-          commands: ['/users', record.id]
+          commands: ['/users', record.id],
+          extras: {
+            fragment: 'foobar',
+            queryParams: {
+              envid: 'fooenvid'
+            }
+          }
         }
       }
     });

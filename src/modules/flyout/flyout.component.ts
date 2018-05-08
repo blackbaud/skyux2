@@ -120,19 +120,6 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.ngUnsubscribe.complete();
   }
 
-  public onCloseButtonClick() {
-    this.messageStream.next({
-      type: SkyFlyoutMessageType.Close
-    });
-  }
-
-  public navigate(route: any) {
-    this.router.navigate(route.commands, route.extras);
-    this.messageStream.next({
-      type: SkyFlyoutMessageType.Close
-    });
-  }
-
   public attach<T>(component: Type<T>, config: SkyFlyoutConfig): SkyFlyoutInstance<T> {
     this.cleanTemplate();
 
@@ -161,6 +148,12 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.flyoutWidth = this.config.defaultWidth;
 
     return this.flyoutInstance;
+  }
+
+  public close() {
+    this.messageStream.next({
+      type: SkyFlyoutMessageType.Close
+    });
   }
 
   public getAnimationState(): string {
@@ -210,21 +203,6 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.isDragging = false;
   }
 
-  private open() {
-    if (!this.isOpen) {
-      this.isOpen = false;
-      this.isOpening = true;
-    }
-
-    this.changeDetector.markForCheck();
-  }
-
-  private close() {
-    this.isOpen = true;
-    this.isOpening = false;
-    this.changeDetector.markForCheck();
-  }
-
   private createFlyoutInstance<T>(component: T): SkyFlyoutInstance<T> {
     const instance = new SkyFlyoutInstance<T>();
 
@@ -242,13 +220,19 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyFlyoutMessageType.Open:
-      this.open();
+      if (!this.isOpen) {
+        this.isOpen = false;
+        this.isOpening = true;
+      }
       break;
 
       case SkyFlyoutMessageType.Close:
-      this.close();
+      this.isOpen = true;
+      this.isOpening = false;
       break;
     }
+
+    this.changeDetector.markForCheck();
   }
 
   private notifyClosed() {

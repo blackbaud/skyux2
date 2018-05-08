@@ -137,8 +137,6 @@ describe('Flyout component', () => {
 
   it('should close when the Close message type is received', fakeAsync(() => {
     const flyout = openFlyout();
-    const closeSpy = spyOn(flyoutService['host'].instance as any, 'close').and.callThrough();
-
     expect(flyout.isOpen).toBe(true);
 
     flyout.close();
@@ -146,7 +144,6 @@ describe('Flyout component', () => {
     fixture.detectChanges();
     tick();
 
-    expect(closeSpy).toHaveBeenCalled();
     expect(flyout.isOpen).toBe(false);
   }));
 
@@ -362,15 +359,28 @@ describe('Flyout component', () => {
             route: {
               commands: ['/'],
               extras: {
-                fragment: 'foo'
+                fragment: 'fooFragment',
+                queryParams: {
+                  envid: 'fooId'
+                }
               }
             }
           }
         });
-        const navigateSpy = spyOn(flyoutService['host'].instance['router'] as any, 'navigate').and.callFake(() => {});
-        const permaLinkButton = getPermalinkButtonElement();
-        permaLinkButton.click();
-        expect(navigateSpy).toHaveBeenCalledWith(['/'], { fragment: 'foo' });
+        const permalinkButton = getPermalinkButtonElement();
+        expect(permalinkButton.getAttribute('href')).toEqual('/?envid=fooId#fooFragment');
+      })
+    );
+
+    it('should navigate to a URL when clicking on the permalink button',
+      fakeAsync(() => {
+        openFlyout({
+          permalink: {
+            url: 'http://foo.com'
+          }
+        });
+        const permalinkButton = getPermalinkButtonElement();
+        expect(permalinkButton.getAttribute('href')).toEqual('http://foo.com');
       })
     );
   });
