@@ -141,6 +141,6 @@
   @include sky-border(light, top, bottom, left, right);
 }
 
-.sky-checkbox-wrapper:not(.sky-checkbox-icon) input:focus + .sky-checkbox {
+.sky-checkbox-wrapper input:focus + .sky-checkbox {
   @include sky-focus-outline;
 }
