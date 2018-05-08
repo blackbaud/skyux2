@@ -23,10 +23,6 @@ import {
   trigger
 } from '@angular/animations';
 
-import {
-  Router
-} from '@angular/router';
-
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
@@ -100,8 +96,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     private adapter: SkyFlyoutAdapterService,
     private changeDetector: ChangeDetectorRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver,
-    private router: Router
+    private resolver: ComponentFactoryResolver
   ) {
     // All commands flow through the message stream.
     this.messageStream
