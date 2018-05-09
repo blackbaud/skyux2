@@ -1,3 +1,4 @@
+// #region imports
 import {
   Injectable,
   Renderer2,
@@ -6,7 +7,8 @@ import {
 
 import {
   SkyWindowRefService
-} from '../../window';
+} from '../window';
+// #endregion
 
 @Injectable()
 export class SkyToastAdapterService {
@@ -26,7 +28,7 @@ export class SkyToastAdapterService {
 
   public removeHostElement(): void {
     const document = this.windowRef.getWindow().document;
-    const hostElement = document.querySelector('sky-toast');
+    const hostElement = document.querySelector('sky-toaster');
     this.renderer.removeChild(document.body, hostElement);
   }
 }

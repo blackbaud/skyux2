@@ -1,5 +1,4 @@
-@import '../../../scss/variables';
-@import "../../../scss/mixins";
+@import '../../scss/mixins';
 
 .sky-toast {
   padding: 0 $sky-padding;
@@ -107,6 +106,6 @@
   display: block;
 
   &:hover {
-    opacity: 1.0;
+    opacity: 1;
   }
 }

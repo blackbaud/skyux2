@@ -1,10 +1,4 @@
-export {
-  SkyToasterComponent
-} from './toaster.component';
-export {
-  SkyToastService
-} from './services/toast.service';
-export {
-  SkyToastModule
-} from './toast.module';
 export * from './types';
+export * from './toast-instance';
+export * from './toast.module';
+export * from './toast.service';

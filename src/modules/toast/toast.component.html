@@ -1,0 +1,24 @@
+<aside
+  [@toastState]="getAnimationState()"
+  (@toastState.done)="onAnimationDone($event)"
+>
+  <div
+    class="sky-toast"
+    [ngClass]="'sky-toast-' + toastType"
+    [attr.aria-live]="toastType === 'danger' ? 'assertive' : 'polite'"
+    [attr.role]="toastType === 'danger' ? 'alert' : undefined"
+  >
+    <div class="sky-toast-content">
+      <ng-template #bodyContentTarget></ng-template>
+      <ng-content></ng-content>
+    </div>
+    <button
+      class="sky-toast-close"
+      type="button"
+      [attr.title]="'toast_close_button' | skyResources"
+      (click)="close()"
+    >
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </button>
+  </div>
+</aside>

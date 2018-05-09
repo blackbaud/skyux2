@@ -1,8 +1,11 @@
 <p>
-  {{text}}
-  <a
-    *ngIf='!instance.isOpen'
-    href='http://example.com'>
-    example.com
-  </a>
+  This toast has embedded a custom component for its content. It can even link you to
+  <a href="http://example.com">example.com</a>
 </p>
+<button
+  class="sky-btn sky-btn-default"
+  type="button"
+  (click)="close()"
+>
+  Close
+</button>

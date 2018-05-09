@@ -13,9 +13,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyToastCustomDemoComponent {
-  public text = 'This is a templated message. It can even link you to ';
-
   constructor(
-    public instance: SkyToastInstance
-  ) {}
+    private instance: SkyToastInstance
+  ) { }
+
+  public close(): void {
+    this.instance.close();
+  }
 }

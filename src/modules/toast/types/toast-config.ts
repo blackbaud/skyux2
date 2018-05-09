@@ -1,9 +1,9 @@
+// #region imports
 import {
-  Type
-} from '@angular/core';
+  SkyToastType
+} from './toast-type';
+// #endregion
 
 export interface SkyToastConfig {
-  message?: string;
-  customComponentType?: Type<any>;
-  toastType?: 'info' | 'success' | 'warning' | 'danger';
+  type?: SkyToastType;
 }

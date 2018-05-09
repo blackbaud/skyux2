@@ -1,7 +1,14 @@
 <div
-  class="sky-toaster">
+  class="sky-toaster"
+>
   <sky-toast
-    *ngFor="let toastInstance of toastInstances | async"
-    [instance]="toastInstance">
+    *ngFor="let toast of toastStream | async"
+    [toastType]="toast.config.type"
+    (closed)="onToastClosed(toast)"
+  >
+    <ng-template
+      #toastContent
+    >
+    </ng-template>
   </sky-toast>
 </div>

@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 
 import {
-  SkyToastService
+  SkyToastService,
+  SkyToastType
 } from '../../core';
 
 import {
@@ -15,18 +16,41 @@ import {
   templateUrl: './toast-demo.component.html'
 })
 export class SkyToastDemoComponent {
-  public selectedType: 'info' | 'success' | 'warning' | 'danger' = 'info';
-  public types = ['info', 'success', 'warning', 'danger'];
+  public selectedType: SkyToastType = 'info';
+  public types: SkyToastType[] = [
+    'info',
+    'success',
+    'warning',
+    'danger'
+  ];
 
   constructor(
-    private toastSvc: SkyToastService
-  ) {}
+    private toastService: SkyToastService
+  ) { }
 
-  public openMessage() {
-    this.toastSvc.openMessage('This is a ' + this.selectedType + ' toast.', {toastType: this.selectedType});
+  public openMessage(): void {
+    const instance = this.toastService.openMessage(
+      `This is a ${this.selectedType} toast.`,
+      {
+        type: this.selectedType
+      }
+    );
+
+    instance.closed.subscribe(() => {
+      console.log('Message toast closed!');
+    });
   }
 
-  public openTemplatedMessage() {
-    this.toastSvc.openTemplatedMessage(SkyToastCustomDemoComponent, {toastType: this.selectedType});
+  public openComponent(): void {
+    const instance = this.toastService.openComponent(
+      SkyToastCustomDemoComponent,
+      {
+        type: this.selectedType
+      }
+    );
+
+    instance.closed.subscribe(() => {
+      console.log('Custom component toast closed!');
+    });
   }
 }

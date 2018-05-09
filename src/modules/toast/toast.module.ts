@@ -1,6 +1,8 @@
+// #region imports
 import {
   NgModule
 } from '@angular/core';
+
 import {
   CommonModule
 } from '@angular/common';
@@ -10,35 +12,37 @@ import {
 } from '../resources';
 
 import {
-  SkyToastService
-} from './services/toast.service';
+  SkyToastAdapterService
+} from './toast-adapter.service';
+
+import {
+  SkyToastBodyComponent
+} from './toast-body.component';
+
+import {
+  SkyToastComponent
+} from './toast.component';
+
 import {
   SkyToasterComponent
 } from './toaster.component';
-import {
-  SkyToastAdapterService
-} from './services/toast-adapter.service';
-import {
-  SkyToastComponent
-} from './toast-messages';
 
-export {
-  SkyToastInstance
-} from './types';
-export {
+import {
   SkyToastService
-};
+} from './toast.service';
+// #endregion
 
 @NgModule({
   declarations: [
-    SkyToasterComponent,
-    SkyToastComponent
+    SkyToastBodyComponent,
+    SkyToastComponent,
+    SkyToasterComponent
   ],
   imports: [
-    CommonModule, SkyResourcesModule
+    CommonModule,
+    SkyResourcesModule
   ],
   exports: [
-    SkyToasterComponent,
     SkyToastComponent
   ],
   providers: [
@@ -46,8 +50,9 @@ export {
     SkyToastAdapterService
   ],
   entryComponents: [
-    SkyToasterComponent,
-    SkyToastComponent
+    SkyToastBodyComponent,
+    SkyToastComponent,
+    SkyToasterComponent
   ]
 })
-export class SkyToastModule {}
+export class SkyToastModule { }

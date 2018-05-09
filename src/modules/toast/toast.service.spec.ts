@@ -9,7 +9,7 @@ import {
 
 import {
   SkyWindowRefService
-} from '../../window';
+} from '../window';
 
 import {
   SkyToastService
@@ -19,7 +19,7 @@ import {
 } from './toast-adapter.service';
 import {
   SkyToastInstance
-} from '../types';
+} from './toast-instance';
 
 describe('Toast service', () => {
   class TestComponent { constructor(public message: SkyToastInstance) { } }
