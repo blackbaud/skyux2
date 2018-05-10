@@ -23,7 +23,7 @@ import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component
 import { ModalTiledBodyTestComponent  } from './fixtures/modal-tiled-body.component.fixture';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
@@ -57,7 +57,7 @@ describe('Modal component', () => {
       [
         ApplicationRef,
         SkyModalService,
-        Location
+        Router
       ],
       (
         _applicationRef: ApplicationRef,
