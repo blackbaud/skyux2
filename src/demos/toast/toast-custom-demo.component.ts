@@ -6,7 +6,10 @@ import {
 import {
   SkyToastInstance
 } from '../../core';
-import { SkyToastCustomDemoContext } from './toast-custom-demo-context';
+
+import {
+  SkyToastCustomDemoContext
+} from './toast-custom-demo-context';
 
 @Component({
   selector: 'sky-toast-custom-demo',

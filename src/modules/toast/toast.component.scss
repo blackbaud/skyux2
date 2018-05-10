@@ -15,29 +15,25 @@
     @include sky-shadow;
   }
 
-  .sky-toast-content {
-    padding-top: $sky-padding;
-    padding-bottom: $sky-padding;
-    width: 100%;
-
-    ::ng-deep a {
-      color: change-color($sky-text-color-default, $alpha: 0.8);
-      text-decoration: underline;
-
-      &:hover {
-        color: $sky-text-color-default;
-      }
-    }
-
-    .sky-toast-content-message {
-      margin: 0;
-    }
-  }
-
   button {
     margin-left: auto;
     width: 32px;
     height: 32px;
+  }
+}
+
+.sky-toast-content {
+  padding-top: $sky-padding;
+  padding-bottom: $sky-padding;
+  width: 100%;
+
+  ::ng-deep a {
+    color: change-color($sky-text-color-default, $alpha: 0.8);
+    text-decoration: underline;
+
+    &:hover {
+      color: $sky-text-color-default;
+    }
   }
 }
 
