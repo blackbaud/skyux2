@@ -15,7 +15,7 @@ describe('Toast', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'toast',
-          selector: 'body'
+          selector: '.sky-toaster'
         });
       });
   });
@@ -27,7 +27,7 @@ describe('Toast', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'toast-component',
-          selector: 'body'
+          selector: '.sky-toaster'
         });
       });
   });
@@ -39,7 +39,7 @@ describe('Toast', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'toast-xs',
-          selector: 'body'
+          selector: '.sky-toaster'
         });
       });
   });
@@ -51,7 +51,7 @@ describe('Toast', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'toast-component-xs',
-          selector: 'body'
+          selector: '.sky-toaster'
         });
       });
   });
