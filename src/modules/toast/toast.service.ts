@@ -71,7 +71,11 @@ export class SkyToastService implements OnDestroy {
     this._toastStream.complete();
   }
 
-  // TODO: Jsdoc here!
+  /**
+   * Opens a new toast with a text message.
+   * @param message Text to display inside the toast
+   * @param config Optional configuration
+   */
   public openMessage(
     message: string,
     config?: SkyToastConfig
@@ -87,7 +91,12 @@ export class SkyToastService implements OnDestroy {
     return this.openComponent(SkyToastBodyComponent, config, providers);
   }
 
-  // TODO: Jsdoc here!
+  /**
+   * Opens a new toast using a custom component.
+   * @param component Angular component to inject into the toast body
+   * @param config Optional configuration
+   * @param providers Optional providers for the custom component
+   */
   public openComponent(
     component: any,
     config?: SkyToastConfig,
@@ -107,7 +116,9 @@ export class SkyToastService implements OnDestroy {
     return instance;
   }
 
-  // TODO: Jsdoc here!
+  /**
+   * Closes all active toast components.
+   */
   public closeAll(): void {
     this.toasts.forEach(toast => toast.instance.close());
     this.toasts = [];
