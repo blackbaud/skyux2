@@ -30,6 +30,7 @@ import {
 import {
   SkyToastService
 } from './toast.service';
+import { SkyWindowRefService } from '../window';
 // #endregion
 
 @NgModule({
@@ -47,7 +48,8 @@ import {
   ],
   providers: [
     SkyToastService,
-    SkyToastAdapterService
+    SkyToastAdapterService,
+    SkyWindowRefService
   ],
   entryComponents: [
     SkyToastBodyComponent,

@@ -12,6 +12,7 @@ import {
 
 @Injectable()
 export class SkyToastAdapterService {
+  private hostElement: any;
   private renderer: Renderer2;
 
   constructor(
@@ -23,12 +24,12 @@ export class SkyToastAdapterService {
 
   public appendToBody(element: any): void {
     const body = this.windowRef.getWindow().document.body;
+    this.hostElement = element;
     this.renderer.appendChild(body, element);
   }
 
   public removeHostElement(): void {
     const document = this.windowRef.getWindow().document;
-    const hostElement = document.querySelector('sky-toaster');
-    this.renderer.removeChild(document.body, hostElement);
+    this.renderer.removeChild(document.body, this.hostElement);
   }
 }

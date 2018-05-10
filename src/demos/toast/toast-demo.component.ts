@@ -53,4 +53,8 @@ export class SkyToastDemoComponent {
       console.log('Custom component toast closed!');
     });
   }
+
+  public closeAll(): void {
+    this.toastService.closeAll();
+  }
 }

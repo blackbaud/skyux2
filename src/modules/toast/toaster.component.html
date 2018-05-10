@@ -3,7 +3,7 @@
 >
   <sky-toast
     *ngFor="let toast of toastStream | async"
-    [toastType]="toast.config.type"
+    [toastType]="toast.config?.type"
     (closed)="onToastClosed(toast)"
   >
     <ng-template

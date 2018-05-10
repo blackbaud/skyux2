@@ -66,12 +66,9 @@ export class SkyToastService implements OnDestroy {
   ) { }
 
   public ngOnDestroy() {
-    this.host = undefined;
-    this.toasts.forEach(toast => toast.instance.close());
-    this.toasts = [];
-    this._toastStream.next(this.toasts);
+    this.closeAll();
+    this.removeHostComponent();
     this._toastStream.complete();
-    this.adapter.removeHostElement();
   }
 
   public openMessage(
@@ -94,10 +91,6 @@ export class SkyToastService implements OnDestroy {
     config?: SkyToastConfig,
     providers: Provider[] = []
   ): SkyToastInstance {
-    if (!this.host) {
-      this.host = this.createHostComponent();
-    }
-
     const instance = new SkyToastInstance();
 
     providers.push({
@@ -112,7 +105,17 @@ export class SkyToastService implements OnDestroy {
     return instance;
   }
 
+  public closeAll(): void {
+    this.toasts.forEach(toast => toast.instance.close());
+    this.toasts = [];
+    this._toastStream.next(this.toasts);
+  }
+
   private addToast(toast: SkyToast): void {
+    if (!this.host) {
+      this.host = this.createHostComponent();
+    }
+
     this.toasts.push(toast);
     this._toastStream.next(this.toasts);
     toast.instance.closed.subscribe(() => {
@@ -136,5 +139,15 @@ export class SkyToastService implements OnDestroy {
     this.adapter.appendToBody(domElem);
 
     return componentRef;
+  }
+
+  private removeHostComponent() {
+    if (this.host) {
+      this.appRef.detachView(this.host.hostView);
+      this.host.destroy();
+      this.host = undefined;
+    }
+
+    this.adapter.removeHostElement();
   }
 }

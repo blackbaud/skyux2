@@ -7,7 +7,7 @@ import {
 
 import {
   SkyWindowRefService
-} from '../../window';
+} from '../window';
 
 import {
   SkyToastAdapterService
