@@ -3,9 +3,21 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import {Provider } from '@angular/core';
-import { SkyToast } from './toast';
-import { SkyToastConfig, SkyToastInstance } from '.';
+import {
+  Provider
+} from '@angular/core';
+
+import {
+  SkyToastConfig
+} from './types';
+
+import {
+  SkyToast
+} from './toast';
+
+import {
+  SkyToastInstance
+} from './toast-instance';
 // #endregion
 
 describe('Toast class', () => {

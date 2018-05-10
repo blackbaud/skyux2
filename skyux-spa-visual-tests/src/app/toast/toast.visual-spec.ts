@@ -3,8 +3,8 @@ import {
 } from '../../../config/utils/visual-test-commands';
 
 import {
-  element,
-  by
+  by,
+  element
 } from 'protractor';
 
 describe('Toast', () => {
@@ -16,9 +16,6 @@ describe('Toast', () => {
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'toast',
           selector: 'body'
-        }).then(() => {
-          expect(by.css('.sky-toast')).toBeTruthy();
-          element(by.css('.sky-toast')).click();
         });
       });
   });
@@ -29,11 +26,8 @@ describe('Toast', () => {
         element(by.css('.sky-btn-secondary')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
-          screenshotName: 'toast',
+          screenshotName: 'toast-component',
           selector: 'body'
-        }).then(() => {
-          expect(by.css('.sky-custom-toast')).toBeTruthy();
-          element(by.css('.sky-toast')).click();
         });
       });
   });
@@ -44,11 +38,8 @@ describe('Toast', () => {
         element(by.css('.sky-btn-primary')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
-          screenshotName: 'toast',
+          screenshotName: 'toast-xs',
           selector: 'body'
-        }).then(() => {
-          expect(by.css('.sky-toast')).toBeTruthy();
-          element(by.css('.sky-toast')).click();
         });
       });
   });
@@ -59,11 +50,8 @@ describe('Toast', () => {
         element(by.css('.sky-btn-secondary')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
-          screenshotName: 'toast',
+          screenshotName: 'toast-component-xs',
           selector: 'body'
-        }).then(() => {
-          expect(by.css('.sky-custom-toast')).toBeTruthy();
-          element(by.css('.sky-toast')).click();
         });
       });
   });

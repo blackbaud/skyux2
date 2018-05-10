@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+// #region imports
+import {
+  Injectable
+} from '@angular/core';
 
 import {
   SkyActionButtonDemoComponent,
@@ -60,6 +63,7 @@ import {
   SkyWaitDemoComponent,
   SkyWizardDemoComponent
 } from './index';
+// #endregion
 
 /**
  * This service provides consumers with the raw file contents for each component demo.
@@ -1041,6 +1045,10 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.ts'),
           componentName: 'SkyToastCustomDemoComponent',
           bootstrapSelector: 'sky-toast-custom-demo'
+        },
+        {
+          name: 'toast-custom-demo-context.ts',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo-context.ts')
         }
       ]
     },

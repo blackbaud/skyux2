@@ -23,5 +23,5 @@ export class SkyToastTestComponent {
   @ViewChild(SkyToastComponent)
   public toastComponent: SkyToastComponent;
 
-  public onClosed(): void {}
+  public onClosed(): void { }
 }

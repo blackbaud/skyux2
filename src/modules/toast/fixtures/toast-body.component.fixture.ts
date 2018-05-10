@@ -1,6 +1,16 @@
-import { Component } from '@angular/core';
-import { SkyToastInstance } from '../toast-instance';
-import { SkyToastBodyTestContext } from './toast-body-context';
+// #region imports
+import {
+  Component
+} from '@angular/core';
+
+import {
+  SkyToastInstance
+} from '../toast-instance';
+
+import {
+  SkyToastBodyTestContext
+} from './toast-body-context';
+// #endregion
 
 @Component({
   selector: 'sky-toast-body-test',

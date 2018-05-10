@@ -1,11 +1,12 @@
 import {
-  Component,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Component
 } from '@angular/core';
 
 import {
   SkyToastInstance
 } from '../../core';
+import { SkyToastCustomDemoContext } from './toast-custom-demo-context';
 
 @Component({
   selector: 'sky-toast-custom-demo',
@@ -14,6 +15,7 @@ import {
 })
 export class SkyToastCustomDemoComponent {
   constructor(
+    public context: SkyToastCustomDemoContext,
     private instance: SkyToastInstance
   ) { }
 

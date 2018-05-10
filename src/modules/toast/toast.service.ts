@@ -19,12 +19,12 @@ import {
 } from 'rxjs/Observable';
 
 import {
-  SkyToast
-} from './toast';
-
-import {
   SkyToastConfig
 } from './types';
+
+import {
+  SkyToast
+} from './toast';
 
 import {
   SkyToastAdapterService
@@ -71,6 +71,7 @@ export class SkyToastService implements OnDestroy {
     this._toastStream.complete();
   }
 
+  // TODO: Jsdoc here!
   public openMessage(
     message: string,
     config?: SkyToastConfig
@@ -86,6 +87,7 @@ export class SkyToastService implements OnDestroy {
     return this.openComponent(SkyToastBodyComponent, config, providers);
   }
 
+  // TODO: Jsdoc here!
   public openComponent(
     component: any,
     config?: SkyToastConfig,
@@ -105,6 +107,7 @@ export class SkyToastService implements OnDestroy {
     return instance;
   }
 
+  // TODO: Jsdoc here!
   public closeAll(): void {
     this.toasts.forEach(toast => toast.instance.close());
     this.toasts = [];

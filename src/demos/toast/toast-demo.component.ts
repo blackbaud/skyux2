@@ -8,6 +8,10 @@ import {
 } from '../../core';
 
 import {
+  SkyToastCustomDemoContext
+} from './toast-custom-demo-context';
+
+import {
   SkyToastCustomDemoComponent
 } from './toast-custom-demo.component';
 
@@ -42,11 +46,19 @@ export class SkyToastDemoComponent {
   }
 
   public openComponent(): void {
+    const context = new SkyToastCustomDemoContext(
+      'This toast has embedded a custom component for its content.'
+    );
+
     const instance = this.toastService.openComponent(
       SkyToastCustomDemoComponent,
       {
         type: this.selectedType
-      }
+      },
+      [{
+        provide: SkyToastCustomDemoContext,
+        useValue: context
+      }]
     );
 
     instance.closed.subscribe(() => {

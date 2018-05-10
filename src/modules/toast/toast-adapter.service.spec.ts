@@ -1,6 +1,8 @@
+// #region imports
 import {
   RendererFactory2
 } from '@angular/core';
+
 import {
   TestBed
 } from '@angular/core/testing';
@@ -12,6 +14,7 @@ import {
 import {
   SkyToastAdapterService
 } from './toast-adapter.service';
+// #endregion
 
 describe('Toast adapter service', () => {
 

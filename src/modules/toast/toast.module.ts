@@ -12,6 +12,10 @@ import {
 } from '../resources';
 
 import {
+  SkyWindowRefService
+} from '../window';
+
+import {
   SkyToastAdapterService
 } from './toast-adapter.service';
 
@@ -30,7 +34,6 @@ import {
 import {
   SkyToastService
 } from './toast.service';
-import { SkyWindowRefService } from '../window';
 // #endregion
 
 @NgModule({

@@ -25,7 +25,7 @@ export class ToastVisualComponent {
     this.toastService.openMessage('Toast message');
   }
 
-  public openTemplatedToast() {
-    this.toastService.openTemplatedMessage(ToastDemoComponent, {});
+  public openComponent() {
+    this.toastService.openComponent(ToastDemoComponent, {});
   }
 }

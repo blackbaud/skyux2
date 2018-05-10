@@ -14,9 +14,12 @@ import {
 } from './fixtures';
 
 import {
+  SkyToastType
+} from './types';
+
+import {
   SkyToastComponent
 } from './toast.component';
-import { SkyToastType } from '.';
 // #endregion
 
 describe('Toast component', () => {

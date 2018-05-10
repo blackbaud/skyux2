@@ -15,6 +15,7 @@ export class SkyToastInstance {
 
   private _closed = new EventEmitter<void>();
 
+  // TODO: Jsdoc here!
   public close() {
     this._closed.emit();
     this._closed.complete();

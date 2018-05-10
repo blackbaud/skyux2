@@ -1,5 +1,9 @@
 // #region imports
 import {
+  ApplicationRef
+} from '@angular/core';
+
+import {
   TestBed
 } from '@angular/core/testing';
 
@@ -9,13 +13,25 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { SkyToastFixturesModule } from './fixtures';
+import {
+  SkyToastFixturesModule
+} from './fixtures';
 
-import { SkyToastService } from './toast.service';
-import { ApplicationRef } from '@angular/core';
-import { SkyToastAdapterService } from './toast-adapter.service';
-import { SkyToastInstance } from '.';
-import { SkyToast } from './toast';
+import {
+  SkyToast
+} from './toast';
+
+import {
+  SkyToastAdapterService
+} from './toast-adapter.service';
+
+import {
+  SkyToastInstance
+} from './toast-instance';
+
+import {
+  SkyToastService
+} from './toast.service';
 // #endregion
 
 describe('Toast service', () => {

@@ -16,13 +16,16 @@ import {
 } from '../toast.module';
 
 import {
+  SkyToastBodyTestComponent
+} from './toast-body.component.fixture';
+
+import {
   SkyToastTestComponent
 } from './toast.component.fixture';
 
 import {
   SkyToasterTestComponent
 } from './toaster.component.fixture';
-import { SkyToastBodyTestComponent } from '.';
 // #endregion
 
 @NgModule({
