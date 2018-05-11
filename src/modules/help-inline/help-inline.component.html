@@ -1,6 +1,7 @@
 <button
-    class="sky-help-inline fa fa-info-circle"
-    (click)="buttonClicked()"
-    [attr.aria-label]="'show_help_content' | skyResources"
-    >
+  class="sky-help-inline"
+  type="button"
+  (click)="onClick()"
+  [attr.title]="'help_inline_button_title' | skyResources">
+  <i class="fa fa-info-circle" aria-hidden="true"></i>
 </button>
