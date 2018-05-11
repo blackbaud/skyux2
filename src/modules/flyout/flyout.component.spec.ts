@@ -14,6 +14,10 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
+import {
+  SkyResources
+} from '../resources';
+
 import { SkyFlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { SkyFlyoutTestSampleContext } from './fixtures/flyout-sample-context.fixture';
@@ -67,7 +71,7 @@ describe('Flyout component', () => {
 
   function getFlyoutHandleElement(): HTMLElement {
     return document.querySelector('.sky-flyout-resize-handle') as HTMLElement;
-   }
+  }
 
   function getFlyoutHeaderElement(): HTMLElement {
     return document.querySelector('.sky-flyout-header') as HTMLElement;
@@ -75,6 +79,10 @@ describe('Flyout component', () => {
 
   function getCloseButtonElement(): HTMLElement {
     return document.querySelector('.sky-flyout-btn-close') as HTMLElement;
+  }
+
+  function getPermalinkButtonElement(): HTMLElement {
+    return document.querySelector('.sky-flyout-btn-permalink') as HTMLElement;
   }
 
   beforeEach(() => {
@@ -104,6 +112,7 @@ describe('Flyout component', () => {
     applicationRef.tick();
     tick();
     fixture.detectChanges();
+    fixture.destroy();
   }));
 
   it('should close when the close button is clicked', fakeAsync(() => {
@@ -120,8 +129,6 @@ describe('Flyout component', () => {
 
   it('should close when the Close message type is received', fakeAsync(() => {
     const flyout = openFlyout();
-    const closeSpy = spyOn(flyoutService['host'].instance as any, 'close').and.callThrough();
-
     expect(flyout.isOpen).toBe(true);
 
     flyout.close();
@@ -129,7 +136,6 @@ describe('Flyout component', () => {
     fixture.detectChanges();
     tick();
 
-    expect(closeSpy).toHaveBeenCalled();
     expect(flyout.isOpen).toBe(false);
   }));
 
@@ -269,4 +275,94 @@ describe('Flyout component', () => {
       expect(flyoutElement.style.width).toBe('500px');
     })
   );
+
+  describe('permalink', () => {
+    it('should not show the permalink button if no permalink config peroperties are defined',
+      fakeAsync(() => {
+        openFlyout();
+        const permaLinkButton = getPermalinkButtonElement();
+        expect(permaLinkButton).toBeFalsy();
+      })
+    );
+
+    it('should use the default permalink label if none is defined',
+      fakeAsync(() => {
+        const expectedPermalink = 'http://bb.com';
+        const expectedLabel = SkyResources.getString('flyout_permalink_button');
+
+        openFlyout({
+          permalink: {
+            url: expectedPermalink
+          }
+        });
+
+        const permaLinkButton = getPermalinkButtonElement();
+        expect(permaLinkButton).toBeTruthy();
+        expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
+      })
+    );
+
+    it('should use the custom defined label for permalink',
+      fakeAsync(() => {
+        const expectedPermalink = 'http://bb.com';
+        const expectedLabel = 'Foo Bar';
+
+        openFlyout({
+          permalink: {
+            label: expectedLabel,
+            url: expectedPermalink
+          }
+        });
+
+        const permaLinkButton = getPermalinkButtonElement();
+        expect(permaLinkButton).toBeTruthy();
+        expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
+      })
+    );
+
+    it('should open the defined permalink URL when clicking on the permalink button',
+      fakeAsync(() => {
+        const expectedPermalink = 'http://bb.com';
+        openFlyout({
+          permalink: {
+            url: expectedPermalink
+          }
+        });
+        const permaLinkButton = getPermalinkButtonElement();
+        expect(permaLinkButton.getAttribute('href')).toEqual(expectedPermalink);
+      })
+    );
+
+    it('should navigate to a route when clicking on the permalink button',
+      fakeAsync(() => {
+        openFlyout({
+          permalink: {
+            route: {
+              commands: ['/'],
+              extras: {
+                fragment: 'fooFragment',
+                queryParams: {
+                  envid: 'fooId'
+                }
+              }
+            }
+          }
+        });
+        const permalinkButton = getPermalinkButtonElement();
+        expect(permalinkButton.getAttribute('href')).toEqual('/?envid=fooId#fooFragment');
+      })
+    );
+
+    it('should navigate to a URL when clicking on the permalink button',
+      fakeAsync(() => {
+        openFlyout({
+          permalink: {
+            url: 'http://foo.com'
+          }
+        });
+        const permalinkButton = getPermalinkButtonElement();
+        expect(permalinkButton.getAttribute('href')).toEqual('http://foo.com');
+      })
+    );
+  });
 });
