@@ -1,4 +1,6 @@
-import { SkyFlyoutPermalink } from './flyout-permalink';
+import {
+  SkyFlyoutPermalink
+} from './flyout-permalink';
 
 export interface SkyFlyoutConfig {
   ariaDescribedBy?: string;

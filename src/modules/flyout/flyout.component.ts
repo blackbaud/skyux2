@@ -28,7 +28,7 @@ import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyResources
-} from './../resources';
+} from '../resources';
 
 import {
   SkyFlyoutConfig,
@@ -38,6 +38,7 @@ import {
 
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutPermalink } from './types/flyout-permalink';
 
 const FLYOUT_OPEN_STATE = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE = 'flyoutClosed';
@@ -62,19 +63,29 @@ const FLYOUT_CLOSED_STATE = 'flyoutClosed';
 export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public config: SkyFlyoutConfig;
   public flyoutState = FLYOUT_CLOSED_STATE;
-  public flyoutWidth = 0;
-  public isDragging = false;
   public isOpen = false;
   public isOpening = false;
+
+  public flyoutWidth = 0;
+  public isDragging = false;
+  private xCoord = 0;
 
   public get messageStream(): Subject<SkyFlyoutMessage> {
     return this._messageStream;
   }
 
-  public get permalinkLabel(): string {
+  public get permalink(): SkyFlyoutPermalink {
     const permalink = this.config.permalink;
-    if (permalink && permalink.label) {
-      return permalink.label;
+    if (permalink) {
+      return permalink;
+    }
+
+    return {};
+  }
+
+  public get permalinkLabel(): string {
+    if (this.permalink.label) {
+      return this.permalink.label;
     }
 
     return SkyResources.getString('flyout_permalink_button');
@@ -86,11 +97,10 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   @ViewChild('flyoutHeader')
   private flyoutHeader: ElementRef;
 
-  private _messageStream = new Subject<SkyFlyoutMessage>();
-
   private flyoutInstance: SkyFlyoutInstance<any>;
   private ngUnsubscribe = new Subject();
-  private xCoord = 0;
+
+  private _messageStream = new Subject<SkyFlyoutMessage>();
 
   constructor(
     private adapter: SkyFlyoutAdapterService,

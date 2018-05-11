@@ -7,59 +7,54 @@
   [ngClass]="{ 'sky-flyout-hidden': !isOpen && !isOpening }"
   (@flyoutState.done)="animationDone($event)"
   [@flyoutState]="getAnimationState()"
-  [style.width.px]="flyoutWidth"
->
+  [style.width.px]="flyoutWidth">
+
   <button
     type="button"
     class="sky-flyout-resize-handle"
     aria-hidden="true"
     role="separator"
     tabindex="-1"
-    (mousedown)="onMouseDown($event)"
-  >
+    (mousedown)="onMouseDown($event)">
   </button>
 
   <div class="sky-flyout-header" #flyoutHeader>
-    <div class="sky-flyout-header-content">
-    </div>
+    <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
-      <ng-container
-        *ngTemplateOutlet="permalinkTemplate">
+      <ng-container *ngTemplateOutlet="permalinkTemplate">
       </ng-container>
       <button
         type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
-        (click)="close()"
-        [attr.aria-label]="'flyout_close' | skyResources"
-      >
+        (click)="onCloseButtonClick()"
+        [attr.aria-label]="'flyout_close' | skyResources">
         <i class="fa fa-close" aria-hidden="true"></i>
       </button>
     </div>
   </div>
   <div class="sky-flyout-content">
-    <div #target>
-    </div>
+    <div #target></div>
   </div>
 </div>
 
 <ng-template #permalinkTemplate>
-  <ng-template [ngIf]="config?.permalink">
-    <ng-template [ngIf]="config.permalink?.url">
+  <ng-template [ngIf]="permalink">
+    <ng-template [ngIf]="permalink.url">
       <a
         class="sky-btn sky-btn-default sky-flyout-btn-permalink"
-        [href]="config.permalink.url"
+        [href]="permalink.url"
         (click)="close()"
       >
         {{ permalinkLabel }}
       </a>
     </ng-template>
-    <ng-template [ngIf]="config.permalink?.route">
+    <ng-template [ngIf]="permalink.route">
       <a
         class="sky-btn sky-btn-default sky-flyout-btn-permalink"
-        [routerLink]="config.permalink.route.commands"
-        [fragment]="config.permalink.route.extras?.fragment"
-        [queryParams]="config.permalink.route.extras?.queryParams"
-        [queryParamsHandling]="config.permalink.route.extras?.queryParamsHandling"
+        [routerLink]="permalink.route.commands"
+        [fragment]="permalink.route.extras?.fragment"
+        [queryParams]="permalink.route.extras?.queryParams"
+        [queryParamsHandling]="permalink.route.extras?.queryParamsHandling"
         (click)="close()"
       >
         {{ permalinkLabel }}

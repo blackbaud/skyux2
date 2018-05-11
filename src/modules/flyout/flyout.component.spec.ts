@@ -16,22 +16,21 @@ import {
 
 import {
   SkyResources
-} from './../resources';
+} from '../resources';
 
 import {
   SkyWindowRefService
-} from './../window';
-
-import {
-  SkyFlyoutConfig
-} from './types';
-
-import { SkyFlyoutInstance } from './flyout-instance';
-import { SkyFlyoutService } from './flyout.service';
+} from '../window';
 
 import { SkyFlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { SkyFlyoutTestSampleContext } from './fixtures/flyout-sample-context.fixture';
+import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutService } from './flyout.service';
+
+import {
+  SkyFlyoutConfig
+} from './types';
 
 describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
