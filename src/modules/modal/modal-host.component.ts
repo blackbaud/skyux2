@@ -31,6 +31,7 @@ import { SkyModalConfiguration } from './modal-configuration';
   styleUrls: ['./modal-host.component.scss'],
   viewProviders: [SkyModalAdapterService]
 })
+
 export class SkyModalHostComponent implements OnDestroy {
   public get modalOpen() {
     return SkyModalHostService.openModalCount > 0;

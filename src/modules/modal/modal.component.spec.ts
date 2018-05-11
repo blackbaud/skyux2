@@ -1,15 +1,14 @@
 import { ApplicationRef } from '@angular/core';
-
-import {
-  Router
-} from '@angular/router';
-
 import {
   fakeAsync,
   inject,
   tick,
   TestBed
 } from '@angular/core/testing';
+
+import {
+  Router
+} from '@angular/router';
 
 import {
   expect,
