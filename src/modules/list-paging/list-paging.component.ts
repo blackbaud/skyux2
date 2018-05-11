@@ -5,7 +5,10 @@ import {
   forwardRef,
   OnInit
 } from '@angular/core';
+
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import { getValue } from 'microedge-rxstate/dist/helpers';
 import { ListPagingComponent } from '../list/list-paging.component';
 import { ListState, ListStateDispatcher, ListItemModel } from '../list/state';

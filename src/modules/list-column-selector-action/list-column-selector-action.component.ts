@@ -28,6 +28,8 @@ import {
 } from '../column-selector';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'sky-list-column-selector-action',
