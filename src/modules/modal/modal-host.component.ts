@@ -2,20 +2,28 @@ import {
   Component,
   ComponentFactoryResolver,
   Injector,
+  OnDestroy,
   ReflectiveInjector,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
+
+import {
+  NavigationStart,
+  Router
+} from '@angular/router';
+
+import {
+  Subject
+} from 'rxjs/Subject';
+
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 import { SkyModalConfiguration } from './modal-configuration';
-import {
-  Router,
-  NavigationStart
-} from '@angular/router';
 
 @Component({
   selector: 'sky-modal-host',
@@ -23,8 +31,7 @@ import {
   styleUrls: ['./modal-host.component.scss'],
   viewProviders: [SkyModalAdapterService]
 })
-
-export class SkyModalHostComponent {
+export class SkyModalHostComponent implements OnDestroy {
   public get modalOpen() {
     return SkyModalHostService.openModalCount > 0;
   }
@@ -36,12 +43,19 @@ export class SkyModalHostComponent {
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
+  private ngUnsubscribe = new Subject();
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private adapter: SkyModalAdapterService,
     private injector: Injector,
     private router: Router
   ) { }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
     let params: IConfig = Object.assign({}, config);
@@ -89,11 +103,13 @@ export class SkyModalHostComponent {
       modalInstance.close();
     });
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        modalInstance.close();
-      }
-    });
+    this.router.events
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          modalInstance.close();
+        }
+      });
 
     modalInstance.closed.subscribe(() => {
       closeModal();

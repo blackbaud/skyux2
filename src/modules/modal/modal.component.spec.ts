@@ -1,4 +1,9 @@
 import { ApplicationRef } from '@angular/core';
+
+import {
+  Router
+} from '@angular/router';
+
 import {
   fakeAsync,
   inject,
@@ -23,7 +28,6 @@ import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component
 import { ModalTiledBodyTestComponent  } from './fixtures/modal-tiled-body.component.fixture';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
-import { Router } from '@angular/router';
 
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
