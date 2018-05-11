@@ -1,8 +1,31 @@
-import { Component, OnDestroy, ViewChildren, OnInit, AfterContentInit, ChangeDetectorRef, Input, ContentChildren, forwardRef, QueryList, EventEmitter, Output, Directive } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { SkyRadioComponent } from "../radio.component";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Subject } from "rxjs/Subject";
+import {
+  Component,
+  OnDestroy,
+  ViewChildren,
+  OnInit,
+  AfterContentInit,
+  ChangeDetectorRef,
+  Input,
+  ContentChildren,
+  forwardRef,
+  QueryList,
+  EventEmitter,
+  Output,
+  Directive
+} from "@angular/core";
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
+} from "@angular/forms";
+import {
+  SkyRadioComponent
+} from "../radio.component";
+import {
+  BehaviorSubject
+} from "rxjs/BehaviorSubject";
+import {
+  Subject
+} from "rxjs/Subject";
 
 /**
  * Auto-incrementing integer used to generate unique ids for checkbox components.
@@ -14,18 +37,20 @@ let nextId = 0;
  * allows it to support [(ngModel)] and ngControl.
  * @docs-private
  */
+// tslint:disable:no-forward-ref no-use-before-declare
 export const SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyRadioGroupComponent),
   multi: true
 };
+// tslint:enable
 
 /** Change event object emitted by SkyRadio and SkyRadioGroup. */
 export class SkyRadioChange {
   constructor(
-    /** The SkyRadioButton that emits the change event. */
+    /** The SkyRadioComponent that emits the change event. */
     public source: SkyRadioComponent,
-    /** The value of the SkyRadioButton. */
+    /** The value of the SkyRadioComponent. */
     public value: any) {}
 }
 
@@ -41,14 +66,14 @@ export class SkyRadioChange {
     'class': 'sky-radio-group'
   }
 })
-export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAccessor {
+export class SkyRadioGroupDirective implements AfterContentInit, ControlValueAccessor {
   /**
    * Selected value for group. Should equal the value of the selected radio button if there *is*
    * a corresponding radio button with a matching value. If there is *not* such a corresponding
    * radio button, this value persists to be applied in case a new radio button is added with a
    * matching value.
    */
-  private _value: any = null;
+  private _value: any = undefined;
 
   /** The HTML name attribute applied to radio buttons in this group. */
   private _name: string = `sky-radio-group-${nextId++}`;
@@ -109,7 +134,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   get selected() { return this._selected; }
   set selected(selected: SkyRadioComponent | null) {
     this._selected = selected;
-    this.value = selected ? selected.value : null;
+    this.value = selected ? selected.value : undefined;
     this._checkSelectedRadioButton();
   }
 
