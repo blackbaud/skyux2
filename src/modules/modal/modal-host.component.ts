@@ -12,6 +12,10 @@ import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
 import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 import { SkyModalConfiguration } from './modal-configuration';
+import {
+  Router,
+  NavigationStart
+} from '@angular/router';
 
 @Component({
   selector: 'sky-modal-host',
@@ -35,7 +39,8 @@ export class SkyModalHostComponent {
   constructor(
     private resolver: ComponentFactoryResolver,
     private adapter: SkyModalAdapterService,
-    private injector: Injector
+    private injector: Injector,
+    private router: Router
   ) { }
 
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
@@ -82,6 +87,12 @@ export class SkyModalHostComponent {
 
     hostService.close.subscribe(() => {
       modalInstance.close();
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        modalInstance.close();
+      }
     });
 
     modalInstance.closed.subscribe(() => {

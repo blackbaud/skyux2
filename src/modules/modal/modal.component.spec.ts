@@ -23,6 +23,7 @@ import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component
 import { ModalTiledBodyTestComponent  } from './fixtures/modal-tiled-body.component.fixture';
 
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
+import { Router } from '@angular/router';
 
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
@@ -55,7 +56,8 @@ describe('Modal component', () => {
     inject(
       [
         ApplicationRef,
-        SkyModalService
+        SkyModalService,
+        Router
       ],
       (
         _applicationRef: ApplicationRef,
@@ -262,6 +264,18 @@ describe('Modal component', () => {
     expect(document.querySelector('.sky-modal')).toExist();
 
     (<any>document.querySelector('.sky-modal-btn-close')).click();
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
+
+    applicationRef.tick();
+  }));
+
+  it('should close when the user navigates through history', fakeAsync(() => {
+    openModal(ModalTestComponent);
+
+    expect(document.querySelector('.sky-modal')).toExist();
+
+    SkyAppTestUtility.fireDomEvent(window, 'popstate');
 
     expect(document.querySelector('.sky-modal')).not.toExist();
 
