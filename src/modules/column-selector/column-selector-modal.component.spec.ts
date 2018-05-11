@@ -55,7 +55,7 @@ describe('Column selector component', () => {
     )
   );
 
-  fit('should render a checklist with column headers and descriptions', fakeAsync(() => {
+  it('should render a checklist with column headers and descriptions', fakeAsync(() => {
 
     nativeElement.querySelector('button').click();
     fixture.detectChanges();
