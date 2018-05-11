@@ -2,8 +2,8 @@
 
 - Fixed missing RxJS imports for all components. Prevented third-party modules from being bundled with SKY UX. [#1491](https://github.com/blackbaud/skyux2/pull/1491)
 - Fixed popover position inside flyouts. [#1637](https://github.com/blackbaud/skyux2/pull/1637) (Thanks @Blackbaud-StacyCarlos)
-- Fixed help inline button triggering form submissions. [#1661](https://github.com/blackbaud/skyux2/pull/1661)
-- Fixed IE 11 arrow key navigation for dropdown menus. [#1652](https://github.com/blackbaud/skyux2/pull/1652) (Thanks @blackbaud-conorwright)
+- Fixed help inline button to prevent it from triggering form submissions. [#1661](https://github.com/blackbaud/skyux2/pull/1661)
+- Fixed IE11 arrow key navigation for dropdown menus. [#1652](https://github.com/blackbaud/skyux2/pull/1652) (Thanks @blackbaud-conorwright)
 
 # 2.12.1 (2018-04-26)
 
