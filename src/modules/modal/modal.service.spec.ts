@@ -1,8 +1,4 @@
 import {
-  Router
-} from '@angular/router';
-
-import {
   fakeAsync,
   inject,
   TestBed,
@@ -60,8 +56,7 @@ describe('Modal service', () => {
     inject(
       [
         SkyModalService,
-        ApplicationRef,
-        Router
+        ApplicationRef
       ],
       (
         _modalService: SkyModalService,

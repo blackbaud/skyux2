@@ -32,6 +32,7 @@ import { SkyModalComponentAdapterService } from './modal-component-adapter.servi
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
+  let router: Router;
 
   function openModal(modalType: any, config?: Object) {
     let modalInstance = modalService.open(modalType, config);
@@ -65,11 +66,13 @@ describe('Modal component', () => {
       ],
       (
         _applicationRef: ApplicationRef,
-        _modalService: SkyModalService
+        _modalService: SkyModalService,
+        _router: Router
       ) => {
         applicationRef = _applicationRef;
         modalService = _modalService;
         modalService.dispose();
+        router = _router;
       }
     )
   );
@@ -279,7 +282,7 @@ describe('Modal component', () => {
 
     expect(document.querySelector('.sky-modal')).toExist();
 
-    SkyAppTestUtility.fireDomEvent(window, 'popstate');
+    router.navigate(['/']);
 
     expect(document.querySelector('.sky-modal')).not.toExist();
 

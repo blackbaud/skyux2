@@ -10,6 +10,10 @@ import {
   FormsModule
 } from '@angular/forms';
 
+import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
 import { SkySelectFieldModule } from '../select-field.module';
 
 import { SkySelectFieldTestComponent } from './select-field.component.fixture';
@@ -21,6 +25,7 @@ import { SkySelectFieldTestComponent } from './select-field.component.fixture';
   imports: [
     CommonModule,
     FormsModule,
+    RouterTestingModule,
     SkySelectFieldModule
   ],
   exports: [
