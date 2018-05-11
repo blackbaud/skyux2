@@ -30,15 +30,15 @@ import {
   SkyResources
 } from '../resources';
 
+import { SkyFlyoutAdapterService } from './flyout-adapter.service';
+import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutPermalink } from './types/flyout-permalink';
+
 import {
   SkyFlyoutConfig,
   SkyFlyoutMessage,
   SkyFlyoutMessageType
 } from './types';
-
-import { SkyFlyoutAdapterService } from './flyout-adapter.service';
-import { SkyFlyoutInstance } from './flyout-instance';
-import { SkyFlyoutPermalink } from './types/flyout-permalink';
 
 const FLYOUT_OPEN_STATE = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE = 'flyoutClosed';

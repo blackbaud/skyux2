@@ -18,10 +18,6 @@ import {
   SkyResources
 } from '../resources';
 
-import {
-  SkyWindowRefService
-} from '../window';
-
 import { SkyFlyoutTestComponent } from './fixtures/flyout.component.fixture';
 import { SkyFlyoutFixturesModule } from './fixtures/flyout-fixtures.module';
 import { SkyFlyoutTestSampleContext } from './fixtures/flyout-sample-context.fixture';
@@ -36,7 +32,6 @@ describe('Flyout component', () => {
   let applicationRef: ApplicationRef;
   let fixture: ComponentFixture<SkyFlyoutTestComponent>;
   let flyoutService: SkyFlyoutService;
-  let windowService: SkyWindowRefService;
 
   function openFlyout(config: SkyFlyoutConfig = {}): SkyFlyoutInstance<any> {
     config = Object.assign({
@@ -101,16 +96,14 @@ describe('Flyout component', () => {
     fixture.detectChanges();
   });
 
-  beforeEach(inject([ApplicationRef, SkyFlyoutService, SkyWindowRefService],
+  beforeEach(inject([ApplicationRef, SkyFlyoutService],
     (
       _applicationRef: ApplicationRef,
-      _flyoutService: SkyFlyoutService,
-      _windowService: SkyWindowRefService
+      _flyoutService: SkyFlyoutService
     ) => {
       applicationRef = _applicationRef;
       flyoutService = _flyoutService;
       flyoutService.close();
-      windowService = _windowService;
     }
   ));
 
@@ -287,9 +280,7 @@ describe('Flyout component', () => {
     it('should not show the permalink button if no permalink config peroperties are defined',
       fakeAsync(() => {
         openFlyout();
-
         const permaLinkButton = getPermalinkButtonElement();
-
         expect(permaLinkButton).toBeFalsy();
       })
     );
@@ -306,7 +297,6 @@ describe('Flyout component', () => {
         });
 
         const permaLinkButton = getPermalinkButtonElement();
-
         expect(permaLinkButton).toBeTruthy();
         expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
       })
@@ -325,7 +315,6 @@ describe('Flyout component', () => {
         });
 
         const permaLinkButton = getPermalinkButtonElement();
-
         expect(permaLinkButton).toBeTruthy();
         expect(permaLinkButton.innerHTML.trim()).toEqual(expectedLabel);
       })
@@ -333,14 +322,7 @@ describe('Flyout component', () => {
 
     it('should open the defined permalink URL when clicking on the permalink button',
       fakeAsync(() => {
-        const windowRef = new SkyWindowRefService();
         const expectedPermalink = 'http://bb.com';
-        const mockWindow = {
-          document: windowRef.getWindow().document,
-          location: {}
-        };
-        spyOn(windowService, 'getWindow').and.returnValue(mockWindow);
-
         openFlyout({
           permalink: {
             url: expectedPermalink
