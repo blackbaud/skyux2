@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import {
   SkyFlyoutInstance,
@@ -42,7 +43,18 @@ export class SkyFlyoutDemoComponent {
       ariaRole: 'modal',
       defaultWidth: 500,
       maxWidth: 1000,
-      minWidth: 200
+      minWidth: 200,
+      permalink: {
+        route: {
+          commands: ['/users', record.id],
+          extras: {
+            fragment: 'foobar',
+            queryParams: {
+              envid: 'fooenvid'
+            }
+          }
+        }
+      }
     });
 
     this.flyout.closed.subscribe(() => {
@@ -64,5 +76,20 @@ export class SkyFlyoutDemoComponent {
       this.flyout &&
       this.flyout.componentInstance.context.id === record.id
     );
+  }
+
+  public openFlyoutWithUrlPermalink() {
+    this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
+      providers: [{
+        provide: FlyoutDemoContext,
+        useValue: {
+          id: '1',
+          name: 'Jenkins'
+        }
+      }],
+      permalink: {
+        url: 'https://blackbaud.com'
+      }
+    });
   }
 }
