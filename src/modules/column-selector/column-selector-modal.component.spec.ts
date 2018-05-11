@@ -18,6 +18,7 @@ import {
 import { ColumnSelectorTestComponent } from './fixtures/column-selector-modal.component.fixture';
 
 import { SkyColumnSelectorModule } from './column-selector-modal.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Column selector component', () => {
   let fixture: ComponentFixture<ColumnSelectorTestComponent>;
@@ -31,7 +32,8 @@ describe('Column selector component', () => {
       ],
       imports: [
         SkyColumnSelectorModule,
-        SkyModalModule
+        SkyModalModule,
+        RouterTestingModule
       ]
     });
 
