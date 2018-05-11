@@ -1,3 +1,10 @@
+# 2.12.2 (2018-05-11)
+
+- Fixed missing RxJS imports for all components. Removed third-party modules from being bundled with SKY UX. [#1491](https://github.com/blackbaud/skyux2/pull/1491)
+- Fixed popover position when inside a flyout. [#1637](https://github.com/blackbaud/skyux2/pull/1637) (Thanks @Blackbaud-StacyCarlos)
+- Fixed help inline button triggering form submissions. [#1661](https://github.com/blackbaud/skyux2/pull/1661)
+- Fixed IE 11 arrow key navigation for dropdown menus. [#1652](https://github.com/blackbaud/skyux2/pull/1652) (Thanks @blackbaud-conorwright)
+
 # 2.12.1 (2018-04-26)
 
 - Fixed dropdown repositioning slowness. [#1655](https://github.com/blackbaud/skyux2/pull/1655)
