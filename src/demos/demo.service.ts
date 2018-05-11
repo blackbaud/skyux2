@@ -390,6 +390,10 @@ export class SkyDemoService {
           name: 'flyout-demo-internal.component.ts',
           fileContents: require('!!raw-loader!./flyout/flyout-demo-internal.component.ts'),
           componentName: 'SkyFlyoutDemoInternalComponent'
+        },
+        {
+          name: 'flyout-demo-context.ts',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo-context.ts')
         }
       ]
     },
@@ -637,6 +641,10 @@ export class SkyDemoService {
         {
           name: 'lookup-demo.component.html',
           fileContents: require('!!raw-loader!./lookup/lookup-demo.component.html')
+        },
+        {
+          name: 'lookup-demo.component.scss',
+          fileContents: require('!!raw-loader!./lookup/lookup-demo.component.scss')
         },
         {
           name: 'lookup-demo.component.ts',

@@ -439,6 +439,10 @@
     "_description": "Text for flyout close button",
     "message": "Close flyout"
   },
+  "flyout_permalink_button": {
+    "_description": "Default text for the flyout permalink button",
+    "message": "View record"
+  },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
     "message": "Cancel"
@@ -522,6 +526,10 @@
   "grid_search_placeholder": {
     "_description": "Placeholder text in grid search box",
     "message": "Find in this list"
+  },
+  "help_inline_button_title": {
+    "_description": "The title for the help button.",
+    "message": "Show help content"
   },
   "link_records_item_info_match": {
     "_description": "",

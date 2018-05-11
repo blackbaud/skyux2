@@ -13,9 +13,12 @@ import {
   OnChanges
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 

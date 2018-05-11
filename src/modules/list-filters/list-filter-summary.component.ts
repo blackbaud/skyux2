@@ -14,9 +14,8 @@ import {
   ListFilterModel
 } from '../list/state';
 
-import {
-  Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'sky-list-filter-summary',
