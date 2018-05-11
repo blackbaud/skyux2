@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SkyTabComponent } from './tab.component';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/take';
 
 @Injectable()
 export class SkyTabsetService {
