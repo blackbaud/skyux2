@@ -44,12 +44,16 @@ To declare localization strings, specify a string name and provide the string an
 ### Write the code
 
 1. Launch a command prompt, `cd` to the folder where you cloned your branch, and run `npm run watch`.
-2. Launch a second command prompt, `cd` to the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX component demos where you can write demo components to test your code.
+2. Launch a second command prompt, `cd` to the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX component demos page where you write the demo components to test your code.
     - SKY UX 2 demos are authored with [SKY UX Builder](https://github.com/blackbaud/skyux-cli). If this is your first time using SKY UX Builder, you must install the CLI as a global NPM package before you run `skyux serve`:
     ```sh
     $ npm install @blackbaud/skyux-cli -g
     ```
-3. When you save code changes, the code compiles, static code analysis is performed, unit tests run, and the page refreshes with the latest changes.  
+3. When you save code changes, the code compiles, static code analysis is performed, unit tests run, and the page refreshes with the latest changes.
+
+Keep in mind that when you create components, you must add public exports through `core.ts` and `demo.ts` to allow users to import your component modules. The public exports provide entry points for the bundles that are deployed by SKY UX.
+
+Also, the recommended change detection strategy for SKY UX components is to use [the `OnPush` property instead of `Default`](https://angular.io/api/core/ChangeDetectionStrategy).
 
 ### Write documentation
 
@@ -71,7 +75,7 @@ To create visual tests for a new component, first create a folder for the tests 
   - `{componentName}.visual-spec.ts`: The Protractor code to run the screenshot tests.
   - `index.html`: The route file that contains the component to render and take a screenshot of.
 
-Finally, add the name of the test folder you just created to the `tests` array in `skyux-spa-visual-tests/src/app/home.component.ts`.
+To run visual regression tests locally, you must first run them locally against the `master` branch and then run the tests against your feature branch. Keep in mind that you need to use the same monitor and resolution on both set of tests. If your visual regression tests fail, you can check the failed tests at `skyux2\skyux-spa-visual-tests\screenshots-diff-local\diff` to find the cause of the failures.
 
 ### Submit the code
 
