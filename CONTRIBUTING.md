@@ -45,7 +45,7 @@ To declare localization strings, specify a string name and provide the string an
 
 1. Launch a command prompt, `cd` to the folder where you cloned your branch, and run `npm run watch`.
 2. Launch a second command prompt, `cd` to the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX component demos page where you write the demo components to test your code.
-    - SKY UX 2 demos are authored with [SKY UX Builder](https://github.com/blackbaud/skyux-cli). If this is your first time using SKY UX Builder, you must install the CLI as a global NPM package before you run `skyux serve`:
+    - SKY UX demos are authored with [SKY UX Builder](https://github.com/blackbaud/skyux-cli). If this is your first time using SKY UX Builder, you must install the CLI as a global NPM package before you run `skyux serve`:
     ```sh
     $ npm install @blackbaud/skyux-cli -g
     ```
