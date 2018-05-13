@@ -102,7 +102,7 @@ Script      | Description
 
 ### Visual Studio Code setup
 
-Like Angular 2, SKY UX is written in [TypeScript](https://www.typescriptlang.org/), and the free [Visual Studio Code editor](https://code.visualstudio.com/) is one of the best tools to work with TypeScript. It supports code navigation, refactoring tools, and a host of other features that are usually only found in richer IDEs. The SKY UX team uses Visual Studio Code and has some recommendations for configuring it to work best with Angular 2 and SKY UX 2. Even if you do not want to use Visual Studio Code as your editor, the following information will still be useful because extensions are available for other popular editors such as [Atom](https://atom.io/), [Brackets](http://brackets.io/), and [Sublime Text](https://www.sublimetext.com/).
+Like Angular 2, SKY UX is written in [TypeScript](https://www.typescriptlang.org/), and the free [Visual Studio Code editor](https://code.visualstudio.com/) is one of the best tools to work with TypeScript. It supports code navigation, refactoring tools, and a host of other features that are usually only found in richer IDEs. The SKY UX team uses Visual Studio Code and has some recommendations for configuring it to work best with Angular and SKY UX. Even if you do not want to use Visual Studio Code as your editor, the following information will still be useful because extensions are available for other popular editors such as [Atom](https://atom.io/), [Brackets](http://brackets.io/), and [Sublime Text](https://www.sublimetext.com/).
 
 #### Visual Studio Code extensions
 
