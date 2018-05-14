@@ -1,8 +1,4 @@
 import {
-  Component,
-  OnDestroy,
-  ViewChildren,
-  OnInit,
   AfterContentInit,
   ChangeDetectorRef,
   Input,
@@ -11,21 +7,15 @@ import {
   QueryList,
   EventEmitter,
   Output,
-  Directive
-} from "@angular/core";
+  Component
+} from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR
-} from "@angular/forms";
+} from '@angular/forms';
 import {
   SkyRadioComponent
-} from "../radio.component";
-import {
-  BehaviorSubject
-} from "rxjs/BehaviorSubject";
-import {
-  Subject
-} from "rxjs/Subject";
+} from '../radio.component';
 
 /**
  * Auto-incrementing integer used to generate unique ids for checkbox components.
@@ -57,16 +47,12 @@ export class SkyRadioChange {
 /**
  * A group of radio buttons. May contain one or more `<sky-radio>` elements.
  */
-@Directive({
+@Component({
   selector: 'sky-radio-group',
   exportAs: 'skyRadioGroup',
-  providers: [SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-  host: {
-    'role': 'radiogroup',
-    'class': 'sky-radio-group'
-  }
+  providers: [SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR]
 })
-export class SkyRadioGroupDirective implements AfterContentInit, ControlValueAccessor {
+export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAccessor {
   /**
    * Selected value for group. Should equal the value of the selected radio button if there *is*
    * a corresponding radio button with a matching value. If there is *not* such a corresponding

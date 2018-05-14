@@ -1,15 +1,10 @@
 import {
-  SkyRadioGroupDirective,
-  SkyRadioChange
-} from './radio-group/radio-group.component';
-import {
   ViewChild,
   ElementRef,
   EventEmitter,
   Output,
   Input,
   OnDestroy,
-  AfterViewInit,
   OnInit,
   Component,
   ViewEncapsulation,
@@ -17,6 +12,14 @@ import {
   Optional,
   ChangeDetectorRef
 } from '@angular/core';
+
+import {
+  SkyRadioGroupComponent,
+  SkyRadioChange
+} from './radio-group/radio-group.component';
+import {
+  UniqueSelectionService
+} from './unique-selection';
 
 /**
  * Auto-incrementing integer used to generate unique ids for checkbox components.
@@ -30,22 +33,12 @@ let nextId = 0;
   moduleId: module.id,
   selector: 'sky-radio-button',
   templateUrl: 'radio.component.html',
-  styleUrls: ['radio.component.css'],
+  styleUrls: ['radio.component.scss'],
   encapsulation: ViewEncapsulation.None,
   exportAs: 'skyRadioButton',
-  host: {
-    'class': 'sky-radio-button',
-    '[class.sky-radio-checked]': 'checked',
-    '[class.sky-radio-disabled]': 'disabled',
-    '[attr.id]': 'id',
-    // Note: under normal conditions focus shouldn't land on this element, however it may be
-    // programmatically set, for example inside of a focus trap, in this case we want to forward
-    // the focus to the native element.
-    '(focus)': 'input.nativeElement.focus()',
-  },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyRadioComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SkyRadioComponent implements OnInit, OnDestroy {
 
   private _uniqueId: string = `sky-radio-${++nextId}`;
 
@@ -124,7 +117,7 @@ export class SkyRadioComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() public readonly change: EventEmitter<SkyRadioChange> = new EventEmitter<SkyRadioChange>();
 
   /** The parent radio group. May or may not be present. */
-  private radioGroup: SkyRadioGroupDirective;
+  private radioGroup: SkyRadioGroupComponent;
 
   /** ID of the native input element inside `<sky-radio-button>` */
   get inputId(): string { return `${this.id || this._uniqueId}-input`; }
@@ -139,14 +132,11 @@ export class SkyRadioComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('input') private input: ElementRef;
 
   constructor(
-    @Optional() radioGroup: SkyRadioGroupDirective,
+    @Optional() radioGroup: SkyRadioGroupComponent,
     elementRef: ElementRef,
     private _changeDetector: ChangeDetectorRef,
-    private _focusMonitor: FocusMonitor,
-    private _radioDispatcher: UniqueSelectionDispatcher
+    private _radioDispatcher: UniqueSelectionService
   ) {
-    // Assertions. Ideally these should be stripped out by the compiler.
-    // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
     this.radioGroup = radioGroup;
 
     this._removeUniqueSelectionListener =
@@ -159,7 +149,7 @@ export class SkyRadioComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /** Focuses the radio button. */
   public focus(): void {
-    this._focusMonitor.focusVia(this.input.nativeElement, 'keyboard');
+    this.input.nativeElement.focus();
   }
 
   /**
@@ -182,14 +172,7 @@ export class SkyRadioComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  public ngAfterViewInit() {
-    this._focusMonitor
-      .monitor(this.input.nativeElement)
-      .subscribe((focusOrigin: any) => this._onInputFocusChange(focusOrigin));
-  }
-
   public ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this.input.nativeElement);
     this._removeUniqueSelectionListener();
   }
 
@@ -228,11 +211,9 @@ export class SkyRadioComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /** Function is called whenever the focus changes for the input element. */
-  private _onInputFocusChange(focusOrigin: FocusOrigin) {
-    if (!focusOrigin) {
-      if (this.radioGroup) {
-        this.radioGroup._touch();
-      }
+  public onInputFocusChange(event: Event) {
+    if (this.radioGroup) {
+      this.radioGroup._touch();
     }
   }
 
