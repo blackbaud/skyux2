@@ -69,7 +69,7 @@ When your tests run, code coverage results are generated and can be located in `
 
 ### Write visual regression tests
 
-During continuous integration builds, SKY UX runs visual regression tests through BrowserStack using [Protractor](http://www.protractortest.org/) and [pix-diff](https://github.com/koola/pix-diff). Install these prerequisites to run the visual regression tests with the `npm run test:visual` command that creates and compares screenshots in the `skyux-spa-visual-tests/screenshots-baseline-local/` folder.
+During continuous integration builds, SKY UX runs visual regression tests through BrowserStack using [Protractor](http://www.protractortest.org/) and [pix-diff](https://github.com/koola/pix-diff). These prerequisites are automatically installed when you run `npm run test:visual` to create and compare screenshots in the `skyux-spa-visual-tests/screenshots-baseline-local/` folder.
 
 To create visual tests for a new component, first create a folder for the tests in `skyux-spa-visual-tests/src/app`. Then add four files for the visual regression test:
   - `{componentName}-visual.component.html`: The template for the component to render and take a screenshot of.
