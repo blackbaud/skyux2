@@ -51,7 +51,7 @@ To declare localization strings, specify a string name and provide the string an
     ```
 3. When you save code changes, the code compiles, static code analysis is performed, unit tests run, and the page refreshes with the latest changes.
 
-Keep in mind that when you create components, you must add public exports through `core.ts` and `demo.ts` to allow users to import your component modules. The public exports provide entry points for the bundles that are deployed by SKY UX.
+Keep in mind that when you create components, you must add public exports through `./src/core.ts` and `./src/demo.ts` to allow users to import your component modules. The public exports provide entry points for the bundles that are deployed by SKY UX.
 
 Also, the recommended change detection strategy for SKY UX components is to use [the `OnPush` property instead of `Default`](https://angular.io/api/core/ChangeDetectionStrategy).
 
