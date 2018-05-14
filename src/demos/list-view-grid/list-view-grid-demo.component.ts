@@ -31,4 +31,10 @@ export class SkyListViewGridDemoComponent implements OnInit {
       this.asyncHeading.next('Column1');
     }, 1000);
   }
+
+  public onHelpOpened(helpKey: string): void {
+    console.log(
+      `Modal header help was invoked with the following help key: ${helpKey}`
+    );
+  }
 }

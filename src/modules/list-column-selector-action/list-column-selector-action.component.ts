@@ -1,9 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
-  Output,
-  EventEmitter
+  Output
 } from '@angular/core';
+
 import {
   ListState
 } from '../list/state';
@@ -38,11 +39,12 @@ import { Observable } from 'rxjs/Observable';
 export class SkyListColumnSelectorActionComponent {
   @Input()
   public gridView: SkyListViewGridComponent;
+
   @Input()
   public helpKey: string;
 
   @Output()
-  public helpOpened: EventEmitter<string> = new EventEmitter();
+  public helpOpened = new EventEmitter<string>();
 
   constructor(
     public listState: ListState,
@@ -82,15 +84,15 @@ export class SkyListColumnSelectorActionComponent {
           });
       });
 
-      let modalInstance = this.modalService.open(
+      const modalInstance = this.modalService.open(
         SkyColumnSelectorComponent,
         {
           providers: [
             {
               provide: SkyColumnSelectorContext,
               useValue: {
-                columns: columns,
-                selectedColumnIds: selectedColumnIds
+                columns,
+                selectedColumnIds
               }
             }
           ],
@@ -98,7 +100,11 @@ export class SkyListColumnSelectorActionComponent {
         }
       );
 
-      modalInstance.helpOpened.subscribe((helpKey: string) => this.helpOpened.emit(helpKey));
+      modalInstance.helpOpened
+        .subscribe((helpKey: string) => {
+          this.helpOpened.emit(helpKey);
+          this.helpOpened.complete();
+        });
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
         if (result.reason === 'save' && result.data) {
@@ -113,7 +119,8 @@ export class SkyListColumnSelectorActionComponent {
           this.gridView.gridDispatcher.next(
             new ListViewDisplayedGridColumnsLoadAction(
               newDisplayedColumns,
-              true)
+              true
+            )
           );
         }
       });
