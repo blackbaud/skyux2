@@ -63,7 +63,9 @@ In addition to the demos that we require for new components, we recommend that y
 
 Your unit test files should end in `.spec.ts` and reside in the same folders as the components that they test. For example, the test file for `foo/foo.component.ts` should be `foo/foo.component.spec.ts`. All test fixtures (sample components, mock services, etc.) should be in a `fixtures` folder within the component's folder. The existing codebase contains many examples of this pattern, so just follow the patterns in the existing code when you write tests for new components.
 
-As your tests run, code coverage results are generated and can be located in `coverage/<browser version>/index.html`. You can launch this straight from disk and view the SKY UX unit test code coverage results in your default web browser. 
+For new components, we recommend that you reach out to the SKY UX team for a "soft" review of the initial implementation before you write unit tests. This allows you to make requested changes to your code before writing the tests.
+
+When your tests run, code coverage results are generated and can be located in `coverage/<browser version>/index.html`. You can launch this straight from disk and view the SKY UX unit test code coverage results in your default web browser.
 
 ### Write visual regression tests
 
