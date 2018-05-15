@@ -29,10 +29,10 @@ import {
 export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
 
   @Input()
-  public hasMore = true;
+  public enabled = true;
 
   @Output()
-  public onLoad = new EventEmitter();
+  public scrollEnd = new EventEmitter();
 
   public isLoading: BehaviorSubject<boolean>;
 
@@ -74,12 +74,12 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
 
   public startInfiniteScrollLoad() {
     if (
-      this.hasMore &&
+      this.enabled &&
       !this.isLoading.value &&
       this.domAdapter.IsElementScrolledInView(this.element.nativeElement, this.scrollableParentEl)
     ) {
       this.isLoading.next(true);
-      this.onLoad.emit([] as any[]);
+      this.scrollEnd.emit([] as any[]);
     }
   }
 }

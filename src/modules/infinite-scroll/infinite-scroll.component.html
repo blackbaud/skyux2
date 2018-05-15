@@ -1,8 +1,8 @@
 <div
-  *ngIf="hasMore"
+  *ngIf="enabled"
   class="sky-infinite-scroll">
   <button
-    *ngIf="!(isLoading | async) && hasMore"
+    *ngIf="!(isLoading | async) && enabled"
     class="sky-btn sky-btn-secondary"
     type="button"
     (click)="startInfiniteScrollLoad()">

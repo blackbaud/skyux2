@@ -56,13 +56,13 @@ describe('Infinite scroll component', () => {
       fixture.detectChanges();
     });
 
-    it('should emit an onLoad event on button click', () => {
+    it('should emit an scrollEnd event on button click', () => {
       debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
       fixture.detectChanges();
       expect(cmp.items.length).toBe(40);
     });
 
-    it('should emit an onLoad event on scroll when window is the scrollable parent', (done: Function) => {
+    it('should emit an scrollEnd event on scroll when window is the scrollable parent', (done: Function) => {
       SkyAppTestUtility.fireDomEvent(window, 'scroll');
       fixture.detectChanges();
       setTimeout(() => {
@@ -72,8 +72,8 @@ describe('Infinite scroll component', () => {
       }, 100);
     });
 
-    it('should not emit an onLoad event on scroll when hasMore is false', (done: Function) => {
-      debugElement.componentInstance._hasMore.next(false);
+    it('should not emit an scrollEnd event on scroll when enabled is false', (done: Function) => {
+      debugElement.componentInstance._enabled.next(false);
       fixture.detectChanges();
       SkyAppTestUtility.fireDomEvent(window, 'scroll');
       fixture.detectChanges();
@@ -84,7 +84,7 @@ describe('Infinite scroll component', () => {
       }, 100);
     });
 
-    it('should not emit an onLoad event on scroll when isLoading is true', (done: Function) => {
+    it('should not emit an scrollEnd event on scroll when isLoading is true', (done: Function) => {
       debugElement.query(By.css('.sky-infinite-scroll')).componentInstance.isLoading.next(true);
       SkyAppTestUtility.fireDomEvent(window, 'scroll');
       fixture.detectChanges();
@@ -96,15 +96,15 @@ describe('Infinite scroll component', () => {
     });
   });
 
-  it('should emit an onLoad event on scroll when an element is the scrollable parent', (done: Function) => {
+  it('should emit an scrollEnd event on scroll when an element is the scrollable parent', (done: Function) => {
     let html = `
     <div style='overflow-y: scroll; max-height: 200px; position: relative;'>
     <ul id='test-list' style='overflow-y: none;'>
         <li *ngFor='let item of items'>{{item.name}}</li>
     </ul>
     <sky-infinite-scroll class='sky-infinite-scroll'
-        [hasMore]='hasMore | async'
-        (onLoad)='loadMore()'>
+        [enabled]='enabled | async'
+        (scrollEnd)='loadMore()'>
     </sky-infinite-scroll>
     </div>
     `;
@@ -135,15 +135,15 @@ describe('Infinite scroll component', () => {
     }, 100);
   });
 
-  it('should not show wait component or load button when hasMore is false.', () => {
+  it('should not show wait component or load button when enabled is false.', () => {
     let html = `
 <div style='overflow-y: none;'>
     <ul id='test-list' style='overflow-y: none;'>
         <li *ngFor='let item of items'>{{item.name}}</li>
     </ul>
     <sky-infinite-scroll class='sky-infinite-scroll'
-        [hasMore]='false'
-        (onLoad)='loadMore()'>
+        [enabled]='false'
+        (scrollEnd)='loadMore()'>
     </sky-infinite-scroll>
 </div>
     `;
@@ -165,15 +165,15 @@ describe('Infinite scroll component', () => {
     expect(el.querySelector('.sky-wait')).toBeNull();
   });
 
-  it('should not emit an onLoad event on scroll when hasMore is false and an element is the scrollable parent', (done: Function) => {
+  it('should not emit an scrollEnd event on scroll when enabled is false and an element is the scrollable parent', (done: Function) => {
     let html = `
     <div style='overflow-y: scroll; max-height: 200px; position: relative;'>
     <ul id='test-list' style='overflow-y: none;'>
         <li *ngFor='let item of items'>{{item.name}}</li>
     </ul>
     <sky-infinite-scroll class='sky-infinite-scroll'
-        [hasMore]='false'
-        (onLoad)='loadMore()'>
+        [enabled]='false'
+        (scrollEnd)='loadMore()'>
     </sky-infinite-scroll>
     </div>
     `;
@@ -203,15 +203,15 @@ describe('Infinite scroll component', () => {
     }, 100);
   });
 
-  it('should not emit an onLoad event on scroll when hasMore is false and the window is the scrollable parent', (done: Function) => {
+  it('should not emit an scrollEnd event on scroll when enabled is false and the window is the scrollable parent', (done: Function) => {
     let html = `
     <div>
     <ul id='test-list' style='overflow-y: none;'>
         <li *ngFor='let item of items'>{{item.name}}</li>
     </ul>
     <sky-infinite-scroll class='sky-infinite-scroll'
-        [hasMore]='false'
-        (onLoad)='loadMore()'>
+        [enabled]='false'
+        (scrollEnd)='loadMore()'>
     </sky-infinite-scroll>
     </div>
     `;

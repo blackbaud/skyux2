@@ -10,7 +10,7 @@
   </ul>
   <sky-infinite-scroll
     class="sky-infinite-scroll"
-    [hasMore]="hasMore | async"
-    (onLoad)="loadMore()">
+    [enabled]="hasMore | async"
+    (scrollEnd)="loadMore()">
   </sky-infinite-scroll>
 </div>
