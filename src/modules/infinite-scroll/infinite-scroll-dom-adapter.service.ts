@@ -1,19 +1,25 @@
 import {
   Injectable
 } from '@angular/core';
+import {
+  SkyWindowRefService
+} from '../window';
 
 @Injectable()
 export class SkyInfiniteScrollDomAdapterService {
-  public IsElementScrolledInView(element: any, scrollableParentElement: any = window): boolean {
-    if (scrollableParentElement === window) {
-      return window.pageYOffset + window.innerHeight > element.offsetTop;
+
+  constructor(private windowService: SkyWindowRefService) {}
+
+  public IsElementScrolledInView(element: any, scrollableParentElement: any = this.windowService.getWindow()): boolean {
+    if (scrollableParentElement === this.windowService.getWindow()) {
+      return scrollableParentElement.pageYOffset + scrollableParentElement.innerHeight > element.offsetTop;
     }
     return scrollableParentElement.scrollTop + scrollableParentElement.clientHeight > element.offsetTop;
   }
 
   public getScrollableParent(element: any): any {
     if (element.length <= 0 || element === document.body) {
-      return window;
+      return this.windowService.getWindow();
     }
 
     let parentEl = element.parentElement;
