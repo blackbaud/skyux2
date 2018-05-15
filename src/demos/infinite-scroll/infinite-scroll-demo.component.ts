@@ -2,6 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface SomeItem {
   id: number;
@@ -16,24 +17,27 @@ export interface SomeItem {
 })
 export class SkyInfiniteScrollDemoComponent {
   public idCount = 1;
-  public data: SomeItem[] = [];
   public hasMore = true;
 
+  private _data: SomeItem[];
+  public data: BehaviorSubject<SomeItem[]>;
+
   constructor() {
+    this._data = [];
+    this.data = new BehaviorSubject(this._data);
     this.addData();
   }
 
   public addData() {
-    let newList: SomeItem[] = [];
     for (let i = 0; i < 5; i++) {
-      newList.push({
+      this._data.push({
         id: this.idCount,
         name: 'Item #' + this.idCount,
         description: 'A description for ' + this.idCount
       });
       this.idCount++;
     }
-    this.data = this.data.concat(newList);
+    this.data.next(this._data);
   }
 
   public loadFn() {

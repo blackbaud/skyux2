@@ -1,7 +1,7 @@
 <div>
   <sky-repeater>
     <sky-repeater-item
-      *ngFor="let item of data">
+      *ngFor="let item of (data | async)">
       <sky-repeater-item-title>
         <div
           class="pull-left">
