@@ -10,8 +10,12 @@ export class SkyInfiniteScrollDomAdapterService {
 
   constructor(private windowService: SkyWindowRefService) {}
 
+  public isWindow(element: any) {
+    return this.windowService.getWindow() === element;
+  }
+
   public IsElementScrolledInView(element: any, scrollableParentElement: any = this.windowService.getWindow()): boolean {
-    if (scrollableParentElement === this.windowService.getWindow()) {
+    if (this.isWindow(scrollableParentElement)) {
       return scrollableParentElement.pageYOffset + scrollableParentElement.innerHeight > element.offsetTop;
     }
     return scrollableParentElement.scrollTop + scrollableParentElement.clientHeight > element.offsetTop;

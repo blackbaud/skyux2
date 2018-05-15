@@ -18,6 +18,7 @@ import {
 import {
   SkyInfiniteScrollDomAdapterService
 } from './infinite-scroll-dom-adapter.service';
+import { MutationObserverService } from '../mutation/mutation-observer-service';
 
 @Component({
   selector: 'sky-infinite-scroll',
@@ -39,10 +40,12 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
   private idle = new Subject();
   private elementPosition: number;
   private scrollableParentEl: any;
+  private childInsertedObserver: MutationObserver;
 
   public constructor(
     private element: ElementRef,
-    private domAdapter: SkyInfiniteScrollDomAdapterService
+    private domAdapter: SkyInfiniteScrollDomAdapterService,
+    private mutationService: MutationObserverService
   ) {
     this.isLoading = new BehaviorSubject<boolean>(false);
   }
@@ -57,17 +60,23 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
         this.startInfiniteScrollLoad();
       });
 
-    Observable.fromEvent(this.scrollableParentEl, 'DOMNodeInserted')
-      .takeUntil(this.idle)
-      .subscribe(() => {
-        if (this.isLoading && this.element.nativeElement.offsetTop !== this.elementPosition) {
-          this.elementPosition = this.element.nativeElement.offsetTop;
-          this.isLoading.next(false);
-        }
-      });
+    this.childInsertedObserver = this.mutationService.create((mutationRecords: MutationRecord[]) => {
+      if (
+        this.isLoading &&
+        this.element.nativeElement.offsetTop !== this.elementPosition &&
+        mutationRecords.filter(record => record.addedNodes.length > 0)
+      ) {
+        this.elementPosition = this.element.nativeElement.offsetTop;
+        this.isLoading.next(false);
+      }
+    });
+
+    let observedParent = this.domAdapter.isWindow(this.scrollableParentEl) ? document.body : this.scrollableParentEl;
+    this.childInsertedObserver.observe(observedParent, {childList: true, subtree: true});
   }
 
   public ngOnDestroy(): void {
+    this.childInsertedObserver.disconnect();
     this.idle.next();
     this.idle.complete();
   }
