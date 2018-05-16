@@ -81,15 +81,6 @@ export class SkyRadioComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Input()
-  get labelPosition(): 'before' | 'after' {
-    return this._labelPosition || (this.radioGroup && this.radioGroup.labelPosition) || 'after';
-  }
-  set labelPosition(value) {
-    this._labelPosition = value;
-  }
-  private _labelPosition: 'before' | 'after';
-
   @Output() public readonly change: EventEmitter<SkyRadioChange> = new EventEmitter<SkyRadioChange>();
 
   private radioGroup: SkyRadioGroupComponent;
