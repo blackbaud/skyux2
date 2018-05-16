@@ -73,6 +73,7 @@ export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
 
     let observedParent = this.domAdapter.isWindow(this.scrollableParentEl) ? document.body : this.scrollableParentEl;
     this.childInsertedObserver.observe(observedParent, {childList: true, subtree: true});
+    console.log(this.scrollableParentEl);
   }
 
   public ngOnDestroy(): void {
