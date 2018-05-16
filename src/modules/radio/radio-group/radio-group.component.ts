@@ -49,6 +49,8 @@ export class SkyRadioChange {
  */
 @Component({
   selector: 'sky-radio-group',
+  templateUrl: 'radio-group.component.html',
+  styleUrls: ['radio-group.component.scss'],
   exportAs: 'skyRadioGroup',
   providers: [SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR]
 })
@@ -175,31 +177,16 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
     this._changeDetector.markForCheck();
   }
 
-  /**
-   * Registers a callback to be triggered when the model value changes.
-   * Implemented as part of ControlValueAccessor.
-   * @param fn Callback to be registered.
-   */
   public registerOnChange(fn: (value: any) => void) {
     this._controlValueAccessorChangeFn = fn;
   }
 
-  /**
-   * Registers a callback to be triggered when the control is touched.
-   * Implemented as part of ControlValueAccessor.
-   * @param fn Callback to be registered.
-   */
   public registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
 
-  /** The method to be called in order to update ngModel */
   public _controlValueAccessorChangeFn: (value: any) => void = () => {};
 
-  /**
-   * onTouch function registered via registerOnTouch (ControlValueAccessor).
-   * @docs-private
-   */
   public onTouched: () => any = () => {};
 
   private _updateRadioButtonNames(): void {
@@ -210,9 +197,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
     }
   }
 
-  /** Updates the `selected` radio button from the internal _value state. */
   private _updateSelectedRadioFromValue(): void {
-    // If the value already matches the selected radio, do nothing.
     const isAlreadySelected = this._selected && this._selected.value === this._value;
 
     if (this._radios && !isAlreadySelected) {

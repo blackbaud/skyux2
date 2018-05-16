@@ -31,7 +31,7 @@ let nextId = 0;
  */
 @Component({
   moduleId: module.id,
-  selector: 'sky-radio-button',
+  selector: 'sky-radio',
   templateUrl: 'radio.component.html',
   styleUrls: ['radio.component.scss'],
   encapsulation: ViewEncapsulation.None,
