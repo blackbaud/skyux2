@@ -1,36 +1,91 @@
-<form #checkForm="ngForm">
-  <div>
-    <fieldset>
-      <legend>Radio button options</legend>
-      <ul class="sky-list-unstyled">
-        <li>
-          <sky-radio name="radiotest" [(ngModel)]="selectedValue" #cb="ngModel" value="1">
-            <sky-radio-label>Option 1</sky-radio-label>
-          </sky-radio>
-        </li>
+<h3>
+  Radio states
+</h3>
 
-        <li>
-          <sky-radio
-            name="radiotest"
-            [ngModel]="selectedValue"
-            (ngModelChange)="selectedValue = $event"
-            disabled="true"
-            [value]="valueGuy">
-            <sky-radio-label>Option 2</sky-radio-label>
-          </sky-radio>
-        </li>
+<ul class="sky-list-unstyled">
+  <li>
+    <sky-radio
+      name="radiotest"
+      value="1"
+      [(ngModel)]="selectedValue"
+      #cb="ngModel"
+    >
+      <sky-radio-label>
+        Option 1
+      </sky-radio-label>
+    </sky-radio>
+  </li>
+  <li>
+    <sky-radio
+      disabled="true"
+      name="radiotest"
+      [ngModel]="selectedValue"
+      [value]="valueGuy"
+      (ngModelChange)="selectedValue = $event"
+    >
+      <sky-radio-label>
+        Option 2
+      </sky-radio-label>
+    </sky-radio>
+  </li>
+  <li>
+    <sky-radio
+      name="radiotest"
+      value="3"
+      [ngModel]="selectedValue"
+      (ngModelChange)="selectedValue = $event"
+    >
+      <sky-radio-label>
+        Option 3
+      </sky-radio-label>
+    </sky-radio>
+  </li>
+</ul>
 
-        <li>
-          <sky-radio name="radiotest" [ngModel]="selectedValue" (ngModelChange)="selectedValue = $event" value="3">
-            <sky-radio-label>Option 3</sky-radio-label>
-          </sky-radio>
-        </li>
-      </ul>
-    </fieldset>
+<p>
+  Selected option: <strong>{{ selectedValue }}</strong>
+</p>
 
-    <br />
-    Selected option: {{selectedValue}}
-    Touched: {{cb.touched}}
-    Pristine: {{cb.pristine}}
-  </div>
-</form>
+<h3>
+  Radio styles
+</h3>
+
+<sky-radio
+  name="styleradios"
+  radioType="success"
+  value="success"
+  [ngModel]="selectedStyle"
+  (ngModelChange)="selectedStyle = $event"
+>
+  <sky-radio-label>
+    Success
+  </sky-radio-label>
+</sky-radio>
+
+<sky-radio
+  name="styleradios"
+  radioType="warning"
+  value="warning"
+  [ngModel]="selectedStyle"
+  (ngModelChange)="selectedStyle = $event"
+>
+  <sky-radio-label>
+    Warning
+  </sky-radio-label>
+</sky-radio>
+
+<sky-radio
+  name="styleradios"
+  radioType="danger"
+  value="danger"
+  [ngModel]="selectedStyle"
+  (ngModelChange)="selectedStyle = $event"
+>
+  <sky-radio-label>
+    Danger
+  </sky-radio-label>
+</sky-radio>
+
+<p>
+  Selected style: <strong>{{ selectedStyle }}</strong>
+</p>

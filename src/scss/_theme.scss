@@ -161,6 +161,10 @@ input:-moz-placeholder { /* Firefox 18- */
   border-radius: $sky-border-radius;
 }
 
+.sky-rounded-circle {
+  border-radius: 500em;
+}
+
 .sky-shadow {
   @include sky-shadow;
 }

@@ -281,3 +281,30 @@
   margin-right: 5px;
   color: $sky-highlight-color-danger;
 }
+
+@mixin sky-switch-variant($bg-color-checked, $border-color-checked) {
+  .sky-switch-input {
+    position: absolute;
+    opacity: 0;
+
+    &:checked + .sky-switch-control {
+      background-color: $bg-color-checked;
+      border-color: $border-color-checked;
+      border-width: 2px;
+    }
+
+    &:disabled + .sky-switch-control {
+      background-color: $sky-background-color-disabled;
+      border-color: transparent;
+    }
+
+    &:focus + .sky-switch-control {
+      @include sky-focus-outline;
+    }
+  }
+
+  &:hover .sky-switch-control {
+    border-color: $border-color-checked;
+    border-width: 2px;
+  }
+}

@@ -10,6 +10,14 @@ import { FormsModule, NgModel } from '@angular/forms';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
+  SkyCheckboxType
+} from './types';
+
 import {SkyCheckboxComponent, SkyCheckboxChange} from './checkbox.component';
 import { SkyCheckboxModule } from './checkbox.module';
 
@@ -18,10 +26,11 @@ import { SkyCheckboxModule } from './checkbox.module';
   template: `
   <div>
     <sky-checkbox
-        id="simple-check"
-        [checked]="isChecked"
-        [disabled]="isDisabled"
-        (change)="checkboxChange($event)">
+      id="simple-check"
+      [checked]="isChecked"
+      [disabled]="isDisabled"
+      [checkboxType]="type"
+      (change)="checkboxChange($event)">
       <sky-checkbox-label>
         Simple checkbox
       </sky-checkbox-label>
@@ -31,6 +40,7 @@ import { SkyCheckboxModule } from './checkbox.module';
 class SingleCheckboxComponent {
   public isChecked: boolean = false;
   public isDisabled: boolean = false;
+  public type: SkyCheckboxType;
 
   public checkboxChange($event: any) {
     this.isChecked = $event.checked;
@@ -105,12 +115,6 @@ class CheckboxWithChangeEventComponent {
   public lastEvent: SkyCheckboxChange;
 }
 
-/** Simple test component with icon specified */
-@Component({
-  template: `<sky-checkbox icon="fa-star" iconColor="warning"></sky-checkbox>`
-})
-class CheckboxWithIconComponent {}
-
 describe('Checkbox component', () => {
   let fixture: ComponentFixture<any>;
 
@@ -127,7 +131,6 @@ describe('Checkbox component', () => {
         CheckboxWithAriaLabelledbyComponent,
         CheckboxWithChangeEventComponent,
         CheckboxWithFormDirectivesComponent,
-        CheckboxWithIconComponent,
         CheckboxWithNameAttributeComponent,
         CheckboxWithTabIndexComponent,
         MultipleCheckboxesComponent,
@@ -248,6 +251,11 @@ describe('Checkbox component', () => {
       expect(inputElement.tabIndex).toBe(0);
     });
 
+    it('should allow changing the checkbox style', () => {
+      fixture.componentInstance.type = 'success';
+      fixture.detectChanges();
+      expect(labelElement).toHaveCssClass('sky-switch-success');
+    });
   });
 
   describe('with change event and no initial value', () => {
@@ -494,23 +502,6 @@ describe('Checkbox component', () => {
       let inputElement = <HTMLInputElement> checkboxElement.nativeElement.querySelector('input');
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
-    });
-  });
-
-  describe('with icon specified', () => {
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(CheckboxWithIconComponent);
-
-      fixture.detectChanges();
-    }));
-
-    it('should apply icon class', () => {
-      let checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-      let labelElement = <HTMLLabelElement> checkboxElement.nativeElement.querySelector('label');
-      let iconElement = <HTMLSpanElement> checkboxElement.nativeElement.querySelector('span');
-
-      expect(labelElement.classList.contains('sky-checkbox-icon')).toBe(true);
-      expect(iconElement.classList.contains('fa-star')).toBe(true);
     });
   });
 });

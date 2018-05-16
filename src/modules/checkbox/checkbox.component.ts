@@ -9,12 +9,14 @@ import {
 
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
+import {
+  SkyCheckboxType
+} from './types';
+
 /**
  * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
  */
 let nextId = 0;
-
-const ICON_COLOR_DEFAULT = 'info';
 
 /**
  * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
@@ -41,6 +43,14 @@ export class SkyCheckboxChange {
   providers: [SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyCheckboxComponent implements ControlValueAccessor {
+  @Input()
+  public set checkboxType(value: SkyCheckboxType) {
+    this._checkboxType = value;
+  }
+
+  public get checkboxType(): SkyCheckboxType {
+    return this._checkboxType || 'info';
+  }
 
   /**
    * Hidden label for screen readers.
@@ -66,23 +76,23 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   @Input()
   public name: string = `sky-checkbox-${++nextId}`;
 
-  @Input()
-  public icon: string;
-
-  @Input()
-  public set iconColor(value: string) {
-    this._iconColor = value;
-  }
-
-  public get iconColor() {
-    return this._iconColor || ICON_COLOR_DEFAULT;
-  }
-
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
+  public get classNames(): string {
+    const classNames = [
+      'sky-switch-' + this.checkboxType
+    ];
+
+    if (this.disabled) {
+      classNames.push('sky-switch-disabled');
+    }
+
+    return classNames.join(' ');
+  }
+
+  private _checkboxType: SkyCheckboxType;
   private _checked: boolean = false;
-  private _iconColor: string;
 
   public get inputId(): string {
     return `input-${this.id}`;
