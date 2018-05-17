@@ -10,14 +10,6 @@ import { FormsModule, NgModel } from '@angular/forms';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 
-import {
-  expect
-} from '@blackbaud/skyux-builder/runtime/testing/browser';
-
-import {
-  SkyCheckboxType
-} from './types';
-
 import {SkyCheckboxComponent, SkyCheckboxChange} from './checkbox.component';
 import { SkyCheckboxModule } from './checkbox.module';
 
@@ -29,7 +21,6 @@ import { SkyCheckboxModule } from './checkbox.module';
       id="simple-check"
       [checked]="isChecked"
       [disabled]="isDisabled"
-      [checkboxType]="type"
       (change)="checkboxChange($event)">
       <sky-checkbox-label>
         Simple checkbox
@@ -40,7 +31,6 @@ import { SkyCheckboxModule } from './checkbox.module';
 class SingleCheckboxComponent {
   public isChecked: boolean = false;
   public isDisabled: boolean = false;
-  public type: SkyCheckboxType;
 
   public checkboxChange($event: any) {
     this.isChecked = $event.checked;
@@ -251,11 +241,6 @@ describe('Checkbox component', () => {
       expect(inputElement.tabIndex).toBe(0);
     });
 
-    it('should allow changing the checkbox style', () => {
-      fixture.componentInstance.type = 'success';
-      fixture.detectChanges();
-      expect(labelElement).toHaveCssClass('sky-switch-success');
-    });
   });
 
   describe('with change event and no initial value', () => {

@@ -54,10 +54,13 @@ fieldset {
 
 .sky-switch {
   cursor: pointer;
-  align-items: baseline;
-  vertical-align: middle;
   display: inline-flex;
   white-space: nowrap;
+
+  &:hover .sky-switch-control {
+    border-color: $sky-highlight-color-info;
+    border-width: 2px;
+  }
 }
 
 .sky-switch-disabled {
@@ -68,37 +71,30 @@ fieldset {
   }
 }
 
-.sky-switch-info {
-  @include sky-switch-variant(
-    $sky-background-color-info-light,
-    $sky-highlight-color-info
-  );
-}
+.sky-switch-input {
+  position: absolute;
+  opacity: 0;
 
-.sky-switch-success {
-  @include sky-switch-variant(
-    $sky-background-color-success,
-    $sky-highlight-color-success
-  );
-}
+  &:checked + .sky-switch-control {
+    background-color: $sky-background-color-info-light;
+    border-color: $sky-highlight-color-info;
+    border-width: 2px;
+  }
 
-.sky-switch-warning {
-  @include sky-switch-variant(
-    $sky-background-color-warning,
-    $sky-highlight-color-warning
-  );
-}
+  &:disabled + .sky-switch-control {
+    background-color: $sky-background-color-disabled;
+    border-color: transparent;
+  }
 
-.sky-switch-danger {
-  @include sky-switch-variant(
-    $sky-background-color-danger,
-    $sky-highlight-color-danger
-  );
+  &:focus + .sky-switch-control {
+    @include sky-focus-outline;
+  }
 }
 
 .sky-switch-control {
   width: $sky-switch-size;
   height: $sky-switch-size;
+  flex: 1 0 $sky-switch-size;
   margin: auto;
   margin-right: 5px;
   display: inline-flex;
@@ -114,4 +110,6 @@ fieldset {
 
 .sky-switch-label {
   line-height: $sky-switch-size;
+  flex: 1 1 auto;
+  width: 100%;
 }

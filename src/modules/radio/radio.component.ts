@@ -6,10 +6,6 @@ import {
 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
-import {
-  SkyRadioType
-} from './types';
-
 /**
  * Auto-incrementing integer used to generate unique ids for checkbox components.
  */
@@ -34,15 +30,6 @@ export const SKY_RADIO_CONTROL_VALUE_ACCESSOR: any = {
   providers: [SKY_RADIO_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyRadioComponent implements ControlValueAccessor {
-  @Input()
-  public set radioType(value: SkyRadioType) {
-    this._radioType = value;
-  }
-
-  public get radioType(): SkyRadioType {
-    return this._radioType || 'info';
-  }
-
   /**
    * Hidden label for screen readers.
    */
@@ -70,26 +57,12 @@ export class SkyRadioComponent implements ControlValueAccessor {
   @Input()
   public value: any;
 
-  public get classNames(): string {
-    const classNames = [
-      'sky-switch-' + this.radioType
-    ];
-
-    if (this.disabled) {
-      classNames.push('sky-switch-disabled');
-    }
-
-    return classNames.join(' ');
-  }
-
   public get inputId(): string {
     return `input-${this.id}`;
   }
 
   public selectedValue: any;
   private onChangeCallback: (value: any) => void;
-
-  private _radioType: SkyRadioType;
 
   public onInputBlur() {
     this.onTouchedCallback();
