@@ -19,14 +19,6 @@ import {
   By
 } from '@angular/platform-browser';
 
-import {
-  expect
-} from '@blackbaud/skyux-builder/runtime/testing/browser';
-
-import {
-  SkyRadioType
-} from './types';
-
 import { SkyRadioModule } from './radio.module';
 import { SkyRadioComponent } from './radio.component';
 import { SkyRadioLabelComponent } from './radio-label.component';
@@ -50,7 +42,6 @@ describe('Radio component', function () {
         [value]="value2"
         [(ngModel)]="selectedValue"
         [tabindex]="tabindex2"
-        [radioType]="type"
         [disabled]="disabled2">
         <sky-radio-label>My label</sky-radio-label>
       </sky-radio>
@@ -77,7 +68,6 @@ describe('Radio component', function () {
     public labelledBy3: string;
     public tabindex2: string;
     public selectedValue = '1';
-    public type: SkyRadioType;
     public onClick() {}
   }
 
@@ -246,13 +236,5 @@ describe('Radio component', function () {
 
     expect((componentInstance.onClick as any).calls.count()).toEqual(1);
     expect(radioLabelElement.componentInstance.onClick).toHaveBeenCalled();
-  }));
-
-  it('should allow changing the radio style', fakeAsync(function () {
-    fixture.componentInstance.type = 'success';
-    fixture.detectChanges();
-    tick();
-    const radio2El = document.getElementById('hey').querySelector('.sky-radio-wrapper');
-    expect(radio2El).toHaveCssClass('sky-switch-success');
   }));
 });
