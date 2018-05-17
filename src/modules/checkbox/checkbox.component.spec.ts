@@ -18,10 +18,10 @@ import { SkyCheckboxModule } from './checkbox.module';
   template: `
   <div>
     <sky-checkbox
-      id="simple-check"
-      [checked]="isChecked"
-      [disabled]="isDisabled"
-      (change)="checkboxChange($event)">
+        id="simple-check"
+        [checked]="isChecked"
+        [disabled]="isDisabled"
+        (change)="checkboxChange($event)">
       <sky-checkbox-label>
         Simple checkbox
       </sky-checkbox-label>
