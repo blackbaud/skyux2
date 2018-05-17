@@ -1,14 +1,15 @@
+// #region imports
 import {
   SkyVisualTest
 } from '../../../config/utils/visual-test-commands';
 
 import {
-  element,
-  by
+  by,
+  element
 } from 'protractor';
+// #endregion
 
 describe('Infinite Scroll', () => {
-
   it('should match previous infinite scroll screenshot', () => {
     return SkyVisualTest
       .setupTest('infinite-scroll')

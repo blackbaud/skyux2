@@ -1,11 +1,9 @@
 import {
-  Component,
-  ChangeDetectionStrategy
+  Component
 } from '@angular/core';
 
 @Component({
   selector: 'infinite-scroll-visual',
-  templateUrl: './infinite-scroll-visual.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './infinite-scroll-visual.component.html'
 })
 export class InfiniteScrollVisualComponent { }

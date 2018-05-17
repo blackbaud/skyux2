@@ -1,95 +1,77 @@
+// #region imports
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  OnInit,
-  OnDestroy,
   ElementRef,
-  Input,
-  Output,
   EventEmitter,
-  ChangeDetectionStrategy
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
 } from '@angular/core';
 
-import {
-  BehaviorSubject,
-  Observable,
-  Subject
-} from 'rxjs';
+import 'rxjs/add/operator/takeWhile';
 
 import {
   SkyInfiniteScrollDomAdapterService
 } from './infinite-scroll-dom-adapter.service';
-import { MutationObserverService } from '../mutation/mutation-observer-service';
+// #endregion
 
 @Component({
   selector: 'sky-infinite-scroll',
   templateUrl: './infinite-scroll.component.html',
   styleUrls: ['./infinite-scroll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: []
+  providers: [
+    SkyInfiniteScrollDomAdapterService
+  ]
 })
 export class SkyInfiniteScrollComponent implements OnInit, OnDestroy {
-
   @Input()
-  public enabled = true;
+  public enabled = false;
 
   @Output()
-  public scrollEnd = new EventEmitter();
+  public scrollEnd = new EventEmitter<void>();
 
-  public isLoading: BehaviorSubject<boolean>;
+  public isWaiting = false;
 
-  private idle = new Subject();
-  private elementPosition: number;
-  private scrollableParentEl: any;
-  private childInsertedObserver: MutationObserver;
-
-  public constructor(
-    private element: ElementRef,
-    private domAdapter: SkyInfiniteScrollDomAdapterService,
-    private mutationService: MutationObserverService
-  ) {
-    this.isLoading = new BehaviorSubject<boolean>(false);
-  }
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private elementRef: ElementRef,
+    private domAdapter: SkyInfiniteScrollDomAdapterService
+  ) { }
 
   public ngOnInit(): void {
-    this.scrollableParentEl = this.domAdapter.getScrollableParent(this.element.nativeElement);
-    this.elementPosition = this.element.nativeElement.offsetTop;
-
-    Observable.fromEvent(this.scrollableParentEl, 'scroll')
-      .takeUntil(this.idle)
+    // The user has scrolled to the infinite scroll element.
+    this.domAdapter.scrollTo(this.elementRef)
+      .takeWhile(() => this.enabled)
       .subscribe(() => {
-        this.startInfiniteScrollLoad();
+        if (!this.isWaiting) {
+          this.notifyScrollEnd();
+        }
       });
 
-    this.childInsertedObserver = this.mutationService.create((mutationRecords: MutationRecord[]) => {
-      if (
-        this.isLoading &&
-        this.element.nativeElement.offsetTop !== this.elementPosition &&
-        mutationRecords.filter(record => record.addedNodes.length > 0)
-      ) {
-        this.elementPosition = this.element.nativeElement.offsetTop;
-        this.isLoading.next(false);
-      }
-    });
-
-    let observedParent = this.domAdapter.isWindow(this.scrollableParentEl) ? document.body : this.scrollableParentEl;
-    this.childInsertedObserver.observe(observedParent, {childList: true, subtree: true});
-    console.log(this.scrollableParentEl);
+    // New items have been loaded into the parent element.
+    this.domAdapter.parentChanges(this.elementRef)
+      .takeWhile(() => this.enabled)
+      .subscribe(() => {
+        this.isWaiting = false;
+        this.changeDetector.markForCheck();
+      });
   }
 
   public ngOnDestroy(): void {
-    this.childInsertedObserver.disconnect();
-    this.idle.next();
-    this.idle.complete();
+    this.enabled = false;
   }
 
-  public startInfiniteScrollLoad() {
-    if (
-      this.enabled &&
-      !this.isLoading.value &&
-      this.domAdapter.IsElementScrolledInView(this.element.nativeElement, this.scrollableParentEl)
-    ) {
-      this.isLoading.next(true);
-      this.scrollEnd.emit([] as any[]);
-    }
+  public startInfiniteScrollLoad(): void {
+    this.notifyScrollEnd();
+  }
+
+  private notifyScrollEnd(): void {
+    this.isWaiting = true;
+    this.scrollEnd.emit();
+    this.changeDetector.markForCheck();
   }
 }

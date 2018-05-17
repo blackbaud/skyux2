@@ -1,27 +1,38 @@
+// #region imports
 import {
   NgModule
 } from '@angular/core';
+
 import {
   CommonModule
 } from '@angular/common';
 
 import {
-  SkyInfiniteScrollModule
-} from '../';
+  SkyWindowRefService
+} from '../../window';
+
 import {
-  InfiniteScrollTestComponent
+  SkyInfiniteScrollModule
+} from '../infinite-scroll.module';
+
+import {
+  SkyInfiniteScrollTestComponent
 } from './infinite-scroll.component.fixture';
+// #endregion
 
 @NgModule({
   declarations: [
-    InfiniteScrollTestComponent
+    SkyInfiniteScrollTestComponent
   ],
   imports: [
     CommonModule,
     SkyInfiniteScrollModule
   ],
   exports: [
-    InfiniteScrollTestComponent
+    SkyInfiniteScrollTestComponent
+  ],
+  providers: [
+    SkyWindowRefService
   ]
 })
 export class SkyInfiniteScrollFixturesModule { }

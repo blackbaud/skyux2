@@ -1,12 +1,9 @@
+// #region imports
 import {
-  DebugElement
-} from '@angular/core';
-import {
-  TestBed, ComponentFixture
+  async,
+  ComponentFixture,
+  TestBed
 } from '@angular/core/testing';
-import {
-  By
-} from '@angular/platform-browser';
 
 import {
   expect,
@@ -14,236 +11,151 @@ import {
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
-  InfiniteScrollTestComponent
-} from './fixtures/infinite-scroll.component.fixture';
-import {
-  SkyInfiniteScrollModule
-} from './infinite-scroll.module';
-import {
-  SkyWindowRefService
-} from '../window';
-import {
-  MutationObserverService
-} from '../mutation/mutation-observer-service';
+  SkyInfiniteScrollFixturesModule,
+  SkyInfiniteScrollTestComponent
+} from './fixtures';
+// #endregion
 
-describe('Infinite scroll component', () => {
-  let fixture: ComponentFixture<InfiniteScrollTestComponent>;
-  let cmp: InfiniteScrollTestComponent;
-  let debugElement: DebugElement;
+describe('Infinite scroll', () => {
+  let fixture: ComponentFixture<SkyInfiniteScrollTestComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [InfiniteScrollTestComponent],
-      imports: [SkyInfiniteScrollModule],
-      providers: [SkyWindowRefService, MutationObserverService]
+      imports: [
+        SkyInfiniteScrollFixturesModule
+      ]
     });
+
+    fixture = TestBed.createComponent(SkyInfiniteScrollTestComponent);
   });
+
   afterEach(() => {
-    if (fixture) {
-      fixture.destroy();
-    }
+    fixture.destroy();
   });
 
-  describe('Infinite scroll component (BeforeEachGroup)', () => {
-    /**
-     * This configureTestingModule function imports SkyAppTestModule, which brings in all of
-     * the SKY UX modules and components in your application for testing convenience. If this has
-     * an adverse effect on your test performance, you can individually bring in each of your app
-     * components and the SKY UX modules that those components rely upon.
-     */
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        declarations: [InfiniteScrollTestComponent],
-        imports: [SkyInfiniteScrollModule]
-      });
-
-      fixture = TestBed.createComponent(InfiniteScrollTestComponent);
-      cmp = fixture.componentInstance as InfiniteScrollTestComponent;
-      debugElement = fixture.debugElement;
-      fixture.detectChanges();
-    });
-
-    it('should emit a scrollEnd event on button click', () => {
-      debugElement.query(By.css('.sky-infinite-scroll .sky-btn')).triggerEventHandler('click', undefined);
-      fixture.detectChanges();
-      expect(cmp.items.length).toBe(40);
-    });
-
-    it('should emit a scrollEnd event on scroll when window is the scrollable parent', (done: Function) => {
-      SkyAppTestUtility.fireDomEvent(window, 'scroll');
-      fixture.detectChanges();
-      setTimeout(() => {
-        fixture.detectChanges();
-        expect(cmp.items.length).toBe(40);
-        done();
-      }, 100);
-    });
-
-    it('should not emit a scrollEnd event on scroll when enabled is false', (done: Function) => {
-      debugElement.componentInstance._enabled.next(false);
-      fixture.detectChanges();
-      SkyAppTestUtility.fireDomEvent(window, 'scroll');
-      fixture.detectChanges();
-      setTimeout(() => {
-        fixture.detectChanges();
-        expect(cmp.items.length).toBe(20);
-        done();
-      }, 100);
-    });
-
-    it('should not emit a scrollEnd event on scroll when isLoading is true', (done: Function) => {
-      debugElement.query(By.css('.sky-infinite-scroll')).componentInstance.isLoading.next(true);
-      SkyAppTestUtility.fireDomEvent(window, 'scroll');
-      fixture.detectChanges();
-      setTimeout(() => {
-        fixture.detectChanges();
-        expect(cmp.items.length).toBe(20);
-        done();
-      }, 100);
-    });
-  });
-
-  it('should emit a scrollEnd event on scroll when an element is the scrollable parent', (done: Function) => {
-    let html = `
-    <div style='overflow-y: scroll; max-height: 200px; position: relative;'>
-    <ul id='test-list' style='overflow-y: none;'>
-        <li *ngFor='let item of items'>{{item.name}}</li>
-    </ul>
-    <sky-infinite-scroll class='sky-infinite-scroll'
-        [enabled]='enabled | async'
-        (scrollEnd)='loadMore()'>
-    </sky-infinite-scroll>
-    </div>
-    `;
-
-    fixture = TestBed
-      .overrideComponent(
-        InfiniteScrollTestComponent,
-        {
-          set: {
-            template: html
-          }
-        }
-      )
-      .createComponent(InfiniteScrollTestComponent);
-
-    debugElement = fixture.debugElement;
-    cmp = fixture.componentInstance as InfiniteScrollTestComponent;
+  function clickLoadButton(): void {
+    fixture.nativeElement.querySelector('.sky-btn').click();
     fixture.detectChanges();
+  }
 
-    debugElement.query(By.css('div')).nativeElement.scrollTop = 2000;
-    SkyAppTestUtility.fireDomEvent(debugElement.query(By.css('div')).nativeElement, 'scroll');
-    fixture.detectChanges();
-
-    setTimeout(() => {
-      fixture.detectChanges();
-      expect(cmp.items.length).toBe(40);
-      done();
-    }, 100);
-  });
-
-  it('should not show wait component or load button when enabled is false.', () => {
-    let html = `
-<div style='overflow-y: none;'>
-    <ul id='test-list' style='overflow-y: none;'>
-        <li *ngFor='let item of items'>{{item.name}}</li>
-    </ul>
-    <sky-infinite-scroll class='sky-infinite-scroll'
-        [enabled]='false'
-        (scrollEnd)='loadMore()'>
-    </sky-infinite-scroll>
-</div>
-    `;
-
-    fixture = TestBed
-      .overrideComponent(
-        InfiniteScrollTestComponent,
-        {
-          set: {
-            template: html
-          }
-        }
-      )
-      .createComponent(InfiniteScrollTestComponent);
-
-    let el = fixture.nativeElement;
-    fixture.detectChanges();
-    expect(el.querySelector('.sky-btn')).toBeNull();
-    expect(el.querySelector('.sky-wait')).toBeNull();
-  });
-
-  it('should not emit a scrollEnd event on scroll when enabled is false and an element is the scrollable parent', (done: Function) => {
-    let html = `
-    <div style='overflow-y: scroll; max-height: 200px; position: relative;'>
-    <ul id='test-list' style='overflow-y: none;'>
-        <li *ngFor='let item of items'>{{item.name}}</li>
-    </ul>
-    <sky-infinite-scroll class='sky-infinite-scroll'
-        [enabled]='false'
-        (scrollEnd)='loadMore()'>
-    </sky-infinite-scroll>
-    </div>
-    `;
-
-    fixture = TestBed
-      .overrideComponent(
-        InfiniteScrollTestComponent,
-        {
-          set: {
-            template: html
-          }
-        }
-      )
-      .createComponent(InfiniteScrollTestComponent);
-
-    debugElement = fixture.debugElement;
-    cmp = fixture.componentInstance as InfiniteScrollTestComponent;
-    fixture.detectChanges();
-
-    debugElement.query(By.css('div')).nativeElement.scrollTop = 2000;
-    SkyAppTestUtility.fireDomEvent(debugElement.query(By.css('div')).nativeElement, 'scroll');
-    fixture.detectChanges();
-
-    setTimeout(() => {
-      expect(cmp.items.length).toBe(20);
-      done();
-    }, 100);
-  });
-
-  it('should not emit a scrollEnd event on scroll when enabled is false and the window is the scrollable parent', (done: Function) => {
-    let html = `
-    <div>
-    <ul id='test-list' style='overflow-y: none;'>
-        <li *ngFor='let item of items'>{{item.name}}</li>
-    </ul>
-    <sky-infinite-scroll class='sky-infinite-scroll'
-        [enabled]='false'
-        (scrollEnd)='loadMore()'>
-    </sky-infinite-scroll>
-    </div>
-    `;
-
-    fixture = TestBed
-      .overrideComponent(
-        InfiniteScrollTestComponent,
-        {
-          set: {
-            template: html
-          }
-        }
-      )
-      .createComponent(InfiniteScrollTestComponent);
-
-    debugElement = fixture.debugElement;
-    cmp = fixture.componentInstance as InfiniteScrollTestComponent;
-    fixture.detectChanges();
-
+  function scrollWindowBottom(): void {
+    window.scrollTo(0, document.body.scrollHeight);
     SkyAppTestUtility.fireDomEvent(window, 'scroll');
     fixture.detectChanges();
+  }
 
-    setTimeout(() => {
-      expect(cmp.items.length).toBe(20);
-      done();
-    }, 100);
+  it('should set defaults', () => {
+    expect(fixture.componentInstance.infiniteScrollComponent.enabled).toEqual(false);
+    expect(fixture.componentInstance.infiniteScrollComponent.isWaiting).toEqual(false);
+    expect(fixture.componentInstance.infiniteScrollComponent.scrollEnd).toBeDefined();
+    fixture.detectChanges();
   });
+
+  it('should not fire parentChanges event for infinite scroll elements', async(() => {
+    fixture.componentInstance.enabled = true;
+    // Set this to true manually so we can check if the parentChanges event sets it to false.
+    fixture.componentInstance.infiniteScrollComponent.isWaiting = true;
+    fixture.detectChanges();
+    expect(fixture.componentInstance.infiniteScrollComponent.isWaiting).toEqual(true);
+  }));
+
+  it('should not show wait component or load button when enabled is false.', () => {
+    fixture.componentInstance.enabled = false;
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.sky-btn')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.sky-wait')).toBeNull();
+  });
+
+  it('should emit a scrollEnd event on button click', async(() => {
+    const spy = spyOn(fixture.componentInstance, 'onScrollEnd').and.callThrough();
+    fixture.componentInstance.enabled = true;
+    fixture.detectChanges();
+
+    clickLoadButton();
+    expect(fixture.componentInstance.items.length).toBe(10);
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should emit a scrollEnd event on scroll when window is the scrollable parent', async(() => {
+    fixture.componentInstance.enabled = true;
+    fixture.componentInstance.loadItems(1000);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.items.length).toBe(1000);
+
+    const spy = spyOn(fixture.componentInstance, 'onScrollEnd').and.callThrough();
+
+    // Should not trigger scrollEnd if not at the bottom of the scrollable container.
+    SkyAppTestUtility.fireDomEvent(window, 'scroll');
+    fixture.detectChanges();
+    expect(spy).not.toHaveBeenCalled();
+
+    scrollWindowBottom();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should not emit scrollEnd if waiting', async(() => {
+    fixture.componentInstance.enabled = true;
+    fixture.componentInstance.loadItems(1000);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.items.length).toBe(1000);
+
+    const spy = spyOn(fixture.componentInstance, 'onScrollEnd').and.callThrough();
+
+    scrollWindowBottom();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+    spy.calls.reset();
+
+    scrollWindowBottom();
+    fixture.detectChanges();
+    expect(spy).not.toHaveBeenCalled();
+  }));
+
+  it('should not emit a scrollEnd event on scroll when enabled is false', async(() => {
+    const spy = spyOn(fixture.componentInstance, 'onScrollEnd').and.callThrough();
+    fixture.componentInstance.enabled = false;
+    fixture.componentInstance.loadItems(1000);
+    fixture.detectChanges();
+    scrollWindowBottom();
+    expect(spy).not.toHaveBeenCalled();
+  }));
+
+  it('should emit a scrollEnd event on scroll when an element is the scrollable parent', async(() => {
+    const wrapper = fixture.componentInstance.wrapper.nativeElement;
+    wrapper.setAttribute('style', 'height:200px;overflow:auto;');
+
+    fixture.componentInstance.enabled = true;
+    fixture.componentInstance.loadItems(1000);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.items.length).toBe(1000);
+
+    const spy = spyOn(fixture.componentInstance, 'onScrollEnd').and.callThrough();
+
+    // Should not trigger scrollEnd if not at the bottom of the scrollable container.
+    SkyAppTestUtility.fireDomEvent(wrapper, 'scroll');
+    fixture.detectChanges();
+    expect(spy).not.toHaveBeenCalled();
+
+    wrapper.scrollTop = wrapper.scrollHeight;
+    SkyAppTestUtility.fireDomEvent(wrapper, 'scroll');
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should support overflow-y', async(() => {
+    const wrapper = fixture.componentInstance.wrapper.nativeElement;
+    wrapper.setAttribute('style', 'height:200px;overflow-y:scroll;');
+
+    fixture.componentInstance.enabled = true;
+    fixture.componentInstance.loadItems(1000);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.items.length).toBe(1000);
+
+    const spy = spyOn(fixture.componentInstance, 'onScrollEnd').and.callThrough();
+    wrapper.scrollTop = wrapper.scrollHeight;
+    SkyAppTestUtility.fireDomEvent(wrapper, 'scroll');
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  }));
 });

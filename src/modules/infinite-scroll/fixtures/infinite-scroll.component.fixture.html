@@ -1,16 +1,14 @@
-<div
-  style="overflow-y: none;">
-  <ul
-    id="test-list"
-    style="overflow-y: none;">
-    <li
-      *ngFor="let item of items">
-      {{item.name}}
+<div #wrapper>
+  <ul>
+    <li *ngFor="let item of items">
+      {{ item.name }}
     </li>
   </ul>
+
   <sky-infinite-scroll
-    class="sky-infinite-scroll"
-    [enabled]="hasMore | async"
-    (scrollEnd)="loadMore()">
+    [enabled]="enabled"
+    (scrollEnd)="onScrollEnd()"
+    #infiniteScrollComponent
+  >
   </sky-infinite-scroll>
 </div>

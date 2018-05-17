@@ -1,54 +1,53 @@
 import {
   Component,
-  ChangeDetectionStrategy
+  OnInit
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
-export interface SomeItem {
-  id: number;
-  name: string;
-  description: string;
-}
+let nextId = 0;
 
 @Component({
   selector: 'sky-infinite-scroll-demo',
   templateUrl: './infinite-scroll-demo.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./infinite-scroll-demo.component.scss']
 })
-export class SkyInfiniteScrollDemoComponent {
-  public idCount = 1;
+export class SkyInfiniteScrollDemoComponent implements OnInit {
+  public data: any[] = [];
   public hasMore = true;
 
-  private _data: SomeItem[];
-  public data: BehaviorSubject<SomeItem[]>;
-
-  constructor() {
-    this._data = [];
-    this.data = new BehaviorSubject(this._data);
+  public ngOnInit(): void {
     this.addData();
   }
 
-  public addData() {
-    for (let i = 0; i < 5; i++) {
-      this._data.push({
-        id: this.idCount,
-        name: 'Item #' + this.idCount,
-        description: 'A description for ' + this.idCount
-      });
-      this.idCount++;
+  public onScrollEnd(): void {
+    if (this.hasMore) {
+      this.addData();
     }
-    this.data.next(this._data);
   }
 
-  public loadFn() {
-    // Using setTimeout to simulate the delay of an async retrieval
-    setTimeout(() => {
-      if (this.hasMore) {
-        this.addData();
-        if (this.idCount > 90) {
-          this.hasMore = false;
-        }
-      }
-    }, 2000);
+  private addData(): void {
+    this.mockRemote().then((result: any) => {
+      this.data = this.data.concat(result.data);
+      this.hasMore = result.hasMore;
+    });
+  }
+
+  private mockRemote(): Promise<any> {
+    const data: any[] = [];
+
+    for (let i = 0; i < 8; i++) {
+      data.push({
+        name: `Item #${++nextId}`
+      });
+    }
+
+    // Simulate async request.
+    return new Promise((resolve: any) => {
+      setTimeout(() => {
+        resolve({
+          data,
+          hasMore: (nextId < 50)
+        });
+      }, 1000);
+    });
   }
 }

@@ -1,29 +1,16 @@
-<div>
+<div class="sky-infinite-scroll-demo">
   <sky-repeater>
-    <sky-repeater-item
-      *ngFor="let item of (data | async)">
+    <sky-repeater-item *ngFor="let item of data">
       <sky-repeater-item-title>
-        <div
-          class="pull-left">
-          {{item.id}}
-        </div>
-        <div
-          class="pull-right">
-          <span
-            class="label">
-            {{item.name}}
-          </span>
+        <div class="pull-left">
+          {{ item.name }}
         </div>
       </sky-repeater-item-title>
-      <sky-repeater-item-content>
-        <div>
-          {{item.description}}
-        </div>
-      </sky-repeater-item-content>
     </sky-repeater-item>
   </sky-repeater>
   <sky-infinite-scroll
     [enabled]="hasMore"
-    (scrollEnd)="loadFn()">
+    (scrollEnd)="onScrollEnd()"
+  >
   </sky-infinite-scroll>
 </div>

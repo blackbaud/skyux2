@@ -1,36 +1,44 @@
+// #region imports
 import {
   Component,
-  ChangeDetectionStrategy
+  ElementRef,
+  ViewChild
 } from '@angular/core';
 
 import {
-  BehaviorSubject,
-  Observable
-} from 'rxjs';
+  SkyInfiniteScrollComponent
+} from '../infinite-scroll.component';
+// #endregion
 
 @Component({
   selector: 'sky-test-cmp',
-  templateUrl: './infinite-scroll.component.fixture.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './infinite-scroll.component.fixture.html'
 })
-export class InfiniteScrollTestComponent {
-  public _hasMore: BehaviorSubject<boolean>;
-  public hasMore: Observable<boolean>;
+export class SkyInfiniteScrollTestComponent {
+  @ViewChild('infiniteScrollComponent')
+  public infiniteScrollComponent: SkyInfiniteScrollComponent;
+
+  @ViewChild('wrapper')
+  public wrapper: ElementRef;
+
+  public enabled: boolean;
   public items: object[] = [];
 
-  public constructor() {
-    this._hasMore = new BehaviorSubject(true);
-    this.hasMore = this._hasMore.asObservable();
-    this.loadMore();
+  public onScrollEnd(): void {
+    const num: number = this.items.length;
+    for (let i: number = num; i < num + 10; i++) {
+      this.items.push({
+        name: `test object: #${i}`
+      });
+    }
   }
 
-  public loadMore() {
-    const num: number = this.items.length;
-    for (let i: number = num; i < num + 20; i++) {
-      this.items.push({name: 'test object: #' + i});
-    }
-    if (this.items.length > 100) {
-      this._hasMore.next(false);
+  public loadItems(numItems: number): void {
+    this.items = [];
+    for (let i = 0; i < numItems; i++) {
+      this.items.push({
+        name: 'test object: #' + i
+      });
     }
   }
 }

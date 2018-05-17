@@ -439,6 +439,10 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./infinite-scroll/infinite-scroll-demo.component.html')
         },
         {
+          name: 'infinite-scroll-demo.component.scss',
+          fileContents: require('!!raw-loader!./infinite-scroll/infinite-scroll-demo.component.scss')
+        },
+        {
           name: 'infinite-scroll-demo.component.ts',
           fileContents: require('!!raw-loader!./infinite-scroll/infinite-scroll-demo.component.ts'),
           componentName: 'SkyInfiniteScrollDemoComponent',
