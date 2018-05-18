@@ -59,16 +59,16 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.viewReady = true;
     this.checkReady();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.dashboardService.destroy();
   }
 
-  private checkReady() {
+  private checkReady(): void {
     if (this.viewReady && this.config) {
       setTimeout(() => {
         this.dashboardService.init(this.config, this.columns, this.singleColumn);

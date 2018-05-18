@@ -47,7 +47,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     private windowRef: SkyWindowRefService
   ) { }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     /* istanbul ignore else */
     if (changes.skyPopover) {
       this.removeEventListeners();
@@ -61,7 +61,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     this.removeEventListeners();
   }
 
-  public togglePopover() {
+  public togglePopover(): void {
     if (this.isPopoverOpen()) {
       this.closePopover();
       return;
@@ -70,7 +70,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     this.positionPopover();
   }
 
-  private positionPopover() {
+  private positionPopover(): void {
     this.skyPopover.positionNextTo(
       this.elementRef,
       this.skyPopoverPlacement,
@@ -78,7 +78,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     );
   }
 
-  private closePopover() {
+  private closePopover(): void {
     this.skyPopover.close();
   }
 
@@ -86,7 +86,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     return (this.skyPopover && this.skyPopover.isOpen);
   }
 
-  private addEventListeners() {
+  private addEventListeners(): void {
     const element = this.elementRef.nativeElement;
 
     Observable
@@ -144,7 +144,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
       });
   }
 
-  private removeEventListeners() {
+  private removeEventListeners(): void {
     this.idled.next(true);
     this.idled.unsubscribe();
     this.idled = new Subject<boolean>();

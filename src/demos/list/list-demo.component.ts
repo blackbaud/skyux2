@@ -16,7 +16,7 @@ export class SkyListDemoComponent {
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
 
-  public changeData() {
+  public changeData(): void {
     this.items.next([
       { id: '1', column1: 101, column2: 'blah', column3: 'Anne eats apples' },
       { id: '2', column1: 202, column2: 'me', column3: 'Ben eats bananas' },

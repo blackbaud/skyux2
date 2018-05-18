@@ -105,13 +105,13 @@ export class SkyLookupComponent
     super();
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     if (!this.disabled) {
       this.addEventListeners();
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.removeEventListeners();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
@@ -137,7 +137,7 @@ export class SkyLookupComponent
     }
   }
 
-  public onTokensFocusIndexOverRange() {
+  public onTokensFocusIndexOverRange(): void {
     this.windowRef.getWindow().setTimeout(() => {
       this.focusInput();
     });
@@ -193,7 +193,7 @@ export class SkyLookupComponent
     this.changeDetector.markForCheck();
   }
 
-  public clearSearchText() {
+  public clearSearchText(): void {
     this.autocompleteInputDirective.value = undefined;
   }
 
@@ -211,18 +211,18 @@ export class SkyLookupComponent
     this.clearSearchText();
   }
 
-  private addEventListeners() {
+  private addEventListeners(): void {
     this.idle = new Subject();
     this.focusTokensOnInputKeyUp();
     this.focusInputOnHostClick();
   }
 
-  private removeEventListeners() {
+  private removeEventListeners(): void {
     this.idle.next();
     this.idle.complete();
   }
 
-  private focusTokensOnInputKeyUp() {
+  private focusTokensOnInputKeyUp(): void {
     const inputElement = this.lookupInput.nativeElement;
 
     // Handles when to focus on the tokens.
@@ -270,7 +270,7 @@ export class SkyLookupComponent
       });
   }
 
-  private focusInputOnHostClick() {
+  private focusInputOnHostClick(): void {
     const hostElement = this.elementRef.nativeElement;
     const documentObj = this.windowRef.getWindow().document;
 
@@ -303,7 +303,7 @@ export class SkyLookupComponent
       });
   }
 
-  private focusInput() {
+  private focusInput(): void {
     this.lookupInput.nativeElement.focus();
   }
 

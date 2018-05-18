@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
   templateUrl: './help-inline-demo.component.html'
 })
 export class SkyHelpInlineDemoComponent {
-  public givingActionClick() {
+  public givingActionClick(): void {
     alert('Giving help inline clicked');
   }
 
-  public emailActionClick() {
+  public emailActionClick(): void {
     alert('enter email in format joe@abc.com');
   }
 }

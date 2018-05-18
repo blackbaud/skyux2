@@ -98,7 +98,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     });
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     if (this.columnComponents.length !== 0 || this.columns !== undefined) {
       /* istanbul ignore else */
       /* sanity check */
@@ -134,7 +134,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes['columns'] && this.columns) {
       this.setDisplayedColumns(true);
     } else if (changes['selectedColumnIds'] && this.columns) {
@@ -150,7 +150,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {
       subscription.unsubscribe();
     });
@@ -232,7 +232,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     }
   }
 
-  private transformData() {
+  private transformData(): void {
     // Transform data into object with id and data properties
     if (this.data.length > 0 && this.data[0].id && !this.data[0].data) {
       this.items = this.data.map(item => new ListItemModel(item.id, item));
@@ -241,17 +241,17 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     }
   }
 
-  private setSortHeaders() {
+  private setSortHeaders(): void {
     this.currentSortField.next(this.sortField || { fieldSelector: '', descending: false });
   }
 
-  private getColumnsFromComponent() {
+  private getColumnsFromComponent(): void {
     this.columns = this.columnComponents.map(columnComponent => {
       return new SkyGridColumnModel(columnComponent.template, columnComponent);
     });
   }
 
-  private updateColumns() {
+  private updateColumns(): void {
     this.getColumnsFromComponent();
     this.setDisplayedColumns(true);
     this.ref.markForCheck();

@@ -27,7 +27,7 @@ export class SkyWizardDemoFormComponent {
     public instance: SkyModalInstance
   ) { }
 
-  public validateStep1() {
+  public validateStep1(): boolean {
     return true;
   }
 }

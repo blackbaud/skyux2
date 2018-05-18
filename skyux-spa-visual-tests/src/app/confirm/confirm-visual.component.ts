@@ -14,28 +14,28 @@ export class ConfirmVisualComponent {
     private confirmService: SkyConfirmService
   ) { }
 
-  public openOKConfirm() {
+  public openOKConfirm(): void {
     this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.OK
     });
   }
 
-  public openYesCancelConfirm() {
+  public openYesCancelConfirm(): void {
     this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.YesCancel
     });
   }
 
-  public openYesNoCancelConfirm() {
+  public openYesNoCancelConfirm(): void {
     this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.YesNoCancel
     });
   }
 
-  public openCustomConfirm() {
+  public openCustomConfirm(): void {
     this.confirmService.open({
       message: [
         'This is really long text so that it goes to the next line. This is really long',

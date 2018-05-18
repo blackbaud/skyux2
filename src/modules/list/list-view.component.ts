@@ -29,18 +29,18 @@ export abstract class ListViewComponent {
     );
   }
 
-  get id() {
+  get id(): string {
     return this.viewId;
   }
 
-  get label() {
+  get label(): string {
     return this.viewName;
   }
 
   /* istanbul ignore next */
-  public onViewActive() {
+  public onViewActive(): void {
   }
 
-  public onViewInactive() {
+  public onViewInactive(): void {
   }
 }

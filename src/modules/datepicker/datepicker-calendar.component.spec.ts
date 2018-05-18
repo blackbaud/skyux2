@@ -426,10 +426,10 @@ describe('datepicker calendar', () => {
       eventObj: any
     ) {
       Object.assign(eventObj, {
-        stopPropagation: function () {
+        stopPropagation: function (): void {
 
         },
-        preventDefault: function () {
+        preventDefault: function (): void {
 
         }
       });

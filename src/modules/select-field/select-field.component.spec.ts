@@ -22,7 +22,7 @@ describe('Select field component', () => {
   let component: SkySelectFieldTestComponent;
   let selectField: SkySelectFieldComponent;
 
-  function setValue(value: any) {
+  function setValue(value: any): void {
     component.setValue(value);
     fixture.detectChanges();
     tick();
@@ -30,7 +30,7 @@ describe('Select field component', () => {
     expect(selectField.value).toEqual(value);
   }
 
-  function openPicker() {
+  function openPicker(): void {
     const openSpy = spyOn(selectField, 'openPicker').and.callThrough();
     const openButton = fixture.nativeElement.querySelector('.sky-btn');
     openButton.click();
@@ -39,14 +39,14 @@ describe('Select field component', () => {
     expect(openSpy).toHaveBeenCalled();
   }
 
-  function savePicker() {
+  function savePicker(): void {
     const modalCloseButton = document.querySelector('.sky-select-field-picker-btn-save');
     (modalCloseButton as HTMLElement).click();
     tick();
     fixture.detectChanges();
   }
 
-  function closePicker() {
+  function closePicker(): void {
     const modalCloseButton = document.querySelector('.sky-select-field-picker-btn-close');
     (modalCloseButton as HTMLElement).click();
     tick();
@@ -57,14 +57,14 @@ describe('Select field component', () => {
     return document.querySelectorAll('.sky-token');
   }
 
-  function closeToken(index: number) {
+  function closeToken(index: number): void {
     const tokens = getTokens();
     tokens.item(index).querySelector('button').click();
     tick();
     fixture.detectChanges();
   }
 
-  function selectOptions(numToSelect: number) {
+  function selectOptions(numToSelect: number): void {
     const checkboxes = document.querySelectorAll('sky-checkbox input');
 
     for (let i = 0; i < numToSelect; i++) {
@@ -74,7 +74,7 @@ describe('Select field component', () => {
     }
   }
 
-  function selectOption(index: number) {
+  function selectOption(index: number): void {
     const buttons = document.querySelectorAll('.sky-list-view-checklist-single-button');
     (buttons.item(index) as HTMLElement).click();
     tick();

@@ -31,9 +31,9 @@ export class TabsetActiveTestComponent {
   public tab4Heading = 'Tab 4';
   public tab4Content: string;
 
-  public newTab() { }
+  public newTab(): void { }
 
-  public openTab() { }
+  public openTab(): void { }
 
   public tabChanged(newTab: any) {
     this.activeIndex = newTab;

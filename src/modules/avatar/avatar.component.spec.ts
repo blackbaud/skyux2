@@ -27,7 +27,7 @@ describe('Avatar component', () => {
     return el.querySelector('.sky-avatar-initials');
   }
 
-  function getImgBlob() {
+  function getImgBlob(): Blob {
     let n = imgBase64.length;
     let u8arr = new Uint8Array(n);
 
@@ -62,7 +62,7 @@ describe('Avatar component', () => {
     return url;
   }
 
-  function validateImageUrl(el: Element, url: string, startsWith: boolean = false) {
+  function validateImageUrl(el: Element, url: string, startsWith: boolean = false): void {
       let backgroundImageUrl = getBackgroundImageUrl(el);
 
       if (startsWith) {
@@ -127,7 +127,7 @@ describe('Avatar component', () => {
     expect(getPlaceholderEl(el)).not.toBeVisible();
   });
 
-  it('should show the avatar when the specified source is a Blob object', function () {
+  it('should show the avatar when the specified source is a Blob object', function (): void {
       let fixture = TestBed.createComponent(AvatarTestComponent);
 
       fixture.componentInstance.src = getImgBlob();
@@ -159,7 +159,7 @@ describe('Avatar component', () => {
     }
   );
 
-  it('should notify the consumer when the user chooses a new image', function () {
+  it('should notify the consumer when the user chooses a new image', function (): void {
     let fixture = TestBed.createComponent(SkyAvatarComponent);
     let instance = fixture.componentInstance;
     let expectedFile: SkyFileItem;
@@ -185,7 +185,7 @@ describe('Avatar component', () => {
     expect(expectedFile).toEqual(actualFile);
   });
 
-  it('should not notify the consumer when the new image is rejected', function () {
+  it('should not notify the consumer when the new image is rejected', function (): void {
     let fixture = TestBed.createComponent(SkyAvatarComponent);
     let instance = fixture.componentInstance;
     let expectedFile: SkyFileItem;
@@ -214,7 +214,7 @@ describe('Avatar component', () => {
     expect(expectedFile).not.toEqual(actualFile);
   });
 
-  it('should show error modal when invalid file type is uploaded', function () {
+  it('should show error modal when invalid file type is uploaded', function (): void {
     let fixture = TestBed.createComponent(SkyAvatarComponent);
     let instance = fixture.componentInstance;
 
@@ -243,7 +243,7 @@ describe('Avatar component', () => {
     expect(mockErrorModalService.open).toHaveBeenCalledWith(config);
   });
 
-  it('should show error modal when file larger than 500KB is uploaded', function () {
+  it('should show error modal when file larger than 500KB is uploaded', function (): void {
     let fixture = TestBed.createComponent(SkyAvatarComponent);
     let instance = fixture.componentInstance;
 

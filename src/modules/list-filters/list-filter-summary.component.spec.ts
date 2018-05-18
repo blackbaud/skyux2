@@ -36,7 +36,7 @@ describe('List filter summary', () => {
       new ListFilterModel({
         name: 'color',
         value: 'blue',
-        filterFunction: function () {
+        filterFunction: function (): boolean {
           return false;
         },
         dismissible: false
@@ -45,7 +45,7 @@ describe('List filter summary', () => {
         name: 'type',
         label: 'Berry fruit type',
         value: 'berry',
-        filterFunction: function () {
+        filterFunction: function (): boolean {
           return true;
         }
       })
@@ -78,7 +78,7 @@ describe('List filter summary', () => {
     dispatcher.filtersUpdate(filters);
   }));
 
-  function getSummaryItems() {
+  function getSummaryItems(): NodeListOf<Element> {
     /* tslint:disable */
     return nativeElement.querySelectorAll('.sky-list-toolbar-container .sky-toolbar-section .sky-filter-summary .sky-filter-summary-item');
     /* tslint:enable */

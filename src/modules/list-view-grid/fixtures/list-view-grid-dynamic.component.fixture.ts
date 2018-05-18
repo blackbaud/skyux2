@@ -17,12 +17,12 @@ export class ListViewGridDynamicTestComponent {
     { 'id': 2, 'field': 'email', 'heading': 'Email Initial' }];
   }
 
-  public changeColumns() {
+  public changeColumns(): void {
     this.gridColumns = [{ 'id': 1, 'field': 'name', 'heading': 'Name' },
     { 'id': 2, 'field': 'email', 'heading': 'Email' }];
   }
 
-  public changeColumnsDifferent() {
+  public changeColumnsDifferent(): void {
       this.gridColumns = [{ 'id': 3, 'field': 'other', 'heading': 'Other' }];
   }
 }

@@ -19,5 +19,5 @@ export class Tile2TestComponent {
 
   constructor(@Optional() public context: TileTestContext) { }
 
-  public tileSettingsClick() { }
+  public tileSettingsClick(): void { }
 }

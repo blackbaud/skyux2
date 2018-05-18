@@ -43,15 +43,15 @@ export class SkyColorpickerDemoComponent {
     console.log('You selected this color:', args);
   }
 
-  public openColorpicker() {
+  public openColorpicker(): void {
     this.sendMessage(SkyColorpickerMessageType.Open);
   }
 
-  public resetColorpicker() {
+  public resetColorpicker(): void {
     this.sendMessage(SkyColorpickerMessageType.Reset);
   }
 
-  public toggleResetButton() {
+  public toggleResetButton(): void {
     this.sendMessage(SkyColorpickerMessageType.ToggleResetButton);
   }
 

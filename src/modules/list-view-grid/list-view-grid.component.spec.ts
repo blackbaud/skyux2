@@ -77,7 +77,7 @@ describe('List View Grid Component', () => {
       component = fixture.componentInstance;
     }));
 
-    function setupTest() {
+    function setupTest(): void {
       fixture.detectChanges();
 
       let items = [

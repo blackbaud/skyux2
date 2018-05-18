@@ -52,11 +52,11 @@ export class LookupVisualComponent implements OnInit {
     this.createForm();
   }
 
-  public enableLookup() {
+  public enableLookup(): void {
     this.form.controls.friends.enable();
   }
 
-  public disableLookup() {
+  public disableLookup(): void {
     this.form.controls.friends.disable();
   }
 

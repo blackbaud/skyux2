@@ -22,7 +22,7 @@ export class SkySectionedFormDemoComponent implements AfterContentChecked {
 
   constructor(private modal: SkyModalService) { }
 
-  public openModal() {
+  public openModal(): void {
     let modalInstance = this.modal.open(SkySectionedModalFormDemoComponent);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
@@ -34,7 +34,7 @@ export class SkySectionedFormDemoComponent implements AfterContentChecked {
     });
   }
 
-  public ngAfterContentChecked() {
+  public ngAfterContentChecked(): void {
     this.activeIndexDisplay = this._activeIndex;
   }
 

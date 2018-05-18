@@ -45,15 +45,15 @@ export class SkySelectFieldTestComponent implements OnInit, OnDestroy {
   @ViewChild(SkySelectFieldComponent)
   public selectField: SkySelectFieldComponent;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.data.next(this.staticData);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.data.complete();
   }
 
-  public onModelChange() {}
+  public onModelChange(): void {}
 
   public setValue(value: any) {
     this.formData.modelValue = value;

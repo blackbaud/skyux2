@@ -24,7 +24,7 @@ export class SkyLinkRecordsRendererComponent implements OnInit {
 
   constructor(public api: SkyLinkRecordsApi) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     /* istanbul ignore else */
     if (this.template !== undefined) {
       this.container.createEmbeddedView(this.template, this);

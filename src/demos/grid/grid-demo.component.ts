@@ -28,7 +28,7 @@ export class SkyGridDemoComponent implements OnInit {
 
   public asyncHeading = new BehaviorSubject<string>('');
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     // Simulate async request:
     setTimeout(() => {
       this.asyncHeading.next('Column1');

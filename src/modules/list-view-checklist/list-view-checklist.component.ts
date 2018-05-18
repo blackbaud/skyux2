@@ -147,7 +147,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     .subscribe();
   }
 
-  public onViewActive() {
+  public onViewActive(): void {
     if (this.search !== undefined) {
       this.dispatcher.searchSetFunctions([this.search]);
     }
@@ -166,11 +166,11 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     this.dispatcher.next(new ListToolbarSetTypeAction('search'));
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.updateActions();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -179,7 +179,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     return this.checklistState.map(state => state.items.items);
   }
 
-  public searchFunction() {
+  public searchFunction(): (data: any, searchText: string) => boolean {
     return (data: any, searchText: string) => {
       if (this.labelFieldSelector !== undefined) {
         let label = getData(data, this.labelFieldSelector);
@@ -215,15 +215,15 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     return this.state.map(state => state.selected.item.selectedIdMap.get(id));
   }
 
-  public setItemSelection(item: ListItemModel, event: any) {
+  public setItemSelection(item: ListItemModel, event: any): void {
     this.dispatcher.next(new ListSelectedSetItemSelectedAction(item.id, event.checked));
   }
 
-  public singleSelectRowClick(item: ListItemModel) {
+  public singleSelectRowClick(item: ListItemModel): void {
     this.dispatcher.next(new ListSelectedSetItemsSelectedAction([item.id], true, true));
   }
 
-  public clearSelections() {
+  public clearSelections(): void {
     this.state.map(state => state.items.items)
       .take(1)
       .subscribe(items => {
@@ -232,7 +232,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       });
   }
 
-  public selectAll() {
+  public selectAll(): void {
     this.state.map(state => state.items.items)
       .take(1)
       .subscribe(items => {
@@ -241,7 +241,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       });
   }
 
-  private updateActions() {
+  private updateActions(): void {
     const selectAllId = 'select-all';
     const clearAllId = 'clear-all';
 

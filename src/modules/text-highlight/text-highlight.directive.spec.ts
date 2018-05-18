@@ -10,7 +10,10 @@ import { SkyCheckboxModule } from '../checkbox/checkbox.module';
 import { SkyTextHighlightModule } from './text-highlight.module';
 import { MutationObserverService } from '../mutation/mutation-observer-service';
 
-function updateInputText(fixture: ComponentFixture<SkyTextHighlightTestComponent>, text: string) {
+function updateInputText(
+  fixture: ComponentFixture<SkyTextHighlightTestComponent>,
+  text: string
+): void {
   let params = {
     bubbles: false,
     cancelable: false
@@ -35,11 +38,11 @@ const additionalTextVisible = `
   "ng-reflect-ng-if": "true"
 }-->`;
 
-function getHtmlOutput(text: string) {
+function getHtmlOutput(text: string): string {
   return `${text}${additionalTextHidden}`;
 }
 
-function getHtmlOutputAdditionalText(text: string, additionalText: string) {
+function getHtmlOutputAdditionalText(text: string, additionalText: string): string {
   return `${text}${additionalTextVisible}<div>
         ${additionalText}
     </div>`;
@@ -65,7 +68,7 @@ describe('Text Highlight', () => {
       providers: [{
         provide: MutationObserverService,
         useValue: {
-          create: function(callback: Function) {
+          create: function(callback: Function): any {
             callbacks.push(callback);
 
             return {

@@ -40,7 +40,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Search component', () => {
   let fixture: ComponentFixture<SearchTestComponent>;
-  let nativeElement: HTMLElement;
   let component: SearchTestComponent;
   let element: DebugElement;
   let mockMediaQueryService: MockSkyMediaQueryService;
@@ -73,7 +72,6 @@ describe('Search component', () => {
       }
     })
     .createComponent(SearchTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
     element = fixture.debugElement as DebugElement;
   });
@@ -82,7 +80,7 @@ describe('Search component', () => {
     fixture.destroy();
   });
 
-  function setInput(text: string) {
+  function setInput(text: string): void {
     let inputEvent = document.createEvent('Event');
     let params = {
       bubbles: false,
@@ -102,7 +100,7 @@ describe('Search component', () => {
     fixture.detectChanges();
   }
 
-  function setNgModel(text: string) {
+  function setNgModel(text: string): void {
     let inputEvent = document.createEvent('Event');
     let params = {
       bubbles: false,
@@ -117,63 +115,63 @@ describe('Search component', () => {
     fixture.detectChanges();
   }
 
-  function triggerInputEnter() {
+  function triggerInputEnter(): void {
     let inputEl = element.query(By.css('input'));
     inputEl.triggerEventHandler('keyup', { which: 13});
     fixture.detectChanges();
   }
 
-  function triggerApplyButton() {
+  function triggerApplyButton(): void {
     let applyEl = element.query(By.css('.sky-search-btn-apply'));
     applyEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
   }
 
-  function triggerClearButton() {
+  function triggerClearButton(): void {
     let clearEl = element.query(By.css('.sky-search-btn-clear'));
     clearEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
   }
 
-  function triggerFocus() {
+  function triggerFocus(): void {
     let inputEl = element.query(By.css('input'));
     inputEl.triggerEventHandler('focus', undefined);
     fixture.detectChanges();
   }
 
-  function triggerBlur() {
+  function triggerBlur(): void {
     let inputEl = element.query(By.css('input'));
     inputEl.triggerEventHandler('blur', undefined);
     fixture.detectChanges();
   }
 
-  function triggerOpenButton() {
+  function triggerOpenButton(): Promise<any> {
     let openEl = element.query(By.css('.sky-search-btn-open'));
     openEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
     return fixture.whenStable();
   }
 
-  function triggerDismissButton() {
+  function triggerDismissButton(): Promise<any> {
     let dismissEl = element.query(By.css('.sky-search-btn-dismiss'));
     dismissEl.triggerEventHandler('click', undefined);
     fixture.detectChanges();
     return fixture.whenStable();
   }
 
-  function triggerXsBreakpoint() {
+  function triggerXsBreakpoint(): Promise<any> {
     mockMediaQueryService.fire(SkyMediaBreakpoints.xs);
     fixture.detectChanges();
     return fixture.whenStable();
   }
 
-  function triggerLgBreakpoint() {
+  function triggerLgBreakpoint(): Promise<any> {
     mockMediaQueryService.fire(SkyMediaBreakpoints.lg);
     fixture.detectChanges();
     return fixture.whenStable();
   }
 
-  function verifySearchOpenMobile() {
+  function verifySearchOpenMobile(): void {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
     expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
@@ -183,7 +181,7 @@ describe('Search component', () => {
     expect(element.query(By.css('.sky-search-btn-dismiss'))).not.toBeNull();
   }
 
-  function verifySearchOpenFullScreen() {
+  function verifySearchOpenFullScreen(): void {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
     expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
@@ -193,7 +191,7 @@ describe('Search component', () => {
     expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
   }
 
-  function verifySearchOpenFullScreenFullWidth() {
+  function verifySearchOpenFullScreenFullWidth(): void {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
     expect(element.query(By.css('.sky-search-btn-open')).nativeElement).not.toBeVisible();
@@ -203,7 +201,7 @@ describe('Search component', () => {
     expect(element.query(By.css('.sky-search-btn-dismiss'))).toBeNull();
   }
 
-  function verifySearchClosed() {
+  function verifySearchClosed(): void {
     fixture.detectChanges();
     let searchDismissContainer = element.query(By.css('.sky-search-dismiss-container'));
 

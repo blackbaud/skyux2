@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class DropdownVisualComponent {
   public dropdownOpen = false;
 
-  public click() {
+  public click(): void {
     this.dropdownOpen = true;
   }
 }

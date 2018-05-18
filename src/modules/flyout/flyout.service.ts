@@ -66,7 +66,7 @@ export class SkyFlyoutService {
     return componentRef;
   }
 
-  private removeHostComponent() {
+  private removeHostComponent(): void {
     if (this.host) {
       this.appRef.detachView(this.host.hostView);
       this.host.destroy();

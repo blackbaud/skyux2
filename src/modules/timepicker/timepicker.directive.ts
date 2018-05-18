@@ -65,7 +65,7 @@ export class SkyTimepickerInputDirective implements
   public constructor(private renderer: Renderer, private elRef: ElementRef) {
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.renderer.setElementClass(this.elRef.nativeElement, 'sky-form-control', true);
     this.pickerChangedSubscription =
       this.skyTimepickerInput.selectedTimeChanged.subscribe((newTime: String) => {
@@ -73,11 +73,11 @@ export class SkyTimepickerInputDirective implements
         this._onChange(newTime);
       });
   }
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.pickerChangedSubscription.unsubscribe();
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     this._validatorChange();
     this.skyTimepickerInput.setFormat(this.timeFormat);
     this.skyTimepickerInput.returnFormat = this.returnFormat;
@@ -93,7 +93,7 @@ export class SkyTimepickerInputDirective implements
   }
 
   @HostListener('blur')
-  public onBlur /* istanbul ignore next */ () {
+  public onBlur /* istanbul ignore next */ (): void {
     this._onTouched();
   }
 

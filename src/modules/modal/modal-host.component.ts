@@ -21,11 +21,11 @@ import { SkyModalConfiguration } from './modal-configuration';
 })
 
 export class SkyModalHostComponent {
-  public get modalOpen() {
+  public get modalOpen(): boolean {
     return SkyModalHostService.openModalCount > 0;
   }
 
-  public get backdropZIndex() {
+  public get backdropZIndex(): number {
     return SkyModalHostService.backdropZIndex;
   }
 
@@ -38,7 +38,7 @@ export class SkyModalHostComponent {
     private injector: Injector
   ) { }
 
-  public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
+  public open(modalInstance: SkyModalInstance, component: any, config?: IConfig): void {
     let params: IConfig = Object.assign({}, config);
     let factory = this.resolver.resolveComponentFactory(component);
     let hostService = new SkyModalHostService(params.fullPage);
@@ -64,7 +64,7 @@ export class SkyModalHostComponent {
 
     modalInstance.componentInstance = modalComponentRef.instance;
 
-    function closeModal() {
+    function closeModal(): void {
       hostService.destroy();
       adapter.setPageScroll(SkyModalHostService.openModalCount > 0);
       adapter.toggleFullPageModalClass(SkyModalHostService.fullPageModalCount > 0);

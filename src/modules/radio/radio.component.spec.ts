@@ -23,7 +23,7 @@ import { SkyRadioModule } from './radio.module';
 import { SkyRadioComponent } from './radio.component';
 import { SkyRadioLabelComponent } from './radio-label.component';
 
-describe('Radio component', function () {
+describe('Radio component', function (): void {
 
   @Component({
     template: `
@@ -68,12 +68,12 @@ describe('Radio component', function () {
     public labelledBy3: string;
     public tabindex2: string;
     public selectedValue = '1';
-    public onClick() {}
+    public onClick(): void {}
   }
 
   let fixture: ComponentFixture<RadioTestComponent>;
   let componentInstance: RadioTestComponent;
-  beforeEach(function () {
+  beforeEach(function (): void {
     TestBed.configureTestingModule({
       imports: [
         SkyRadioModule,
@@ -85,7 +85,7 @@ describe('Radio component', function () {
     });
   });
 
-  beforeEach(fakeAsync(function () {
+  beforeEach(fakeAsync(function (): void {
     fixture = TestBed.createComponent(RadioTestComponent);
 
     fixture.detectChanges();
@@ -99,7 +99,7 @@ describe('Radio component', function () {
     return evt;
   }
 
-  it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
+  it('should update the ngModel properly when radio button is changed', fakeAsync(function (): void {
     let radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
     let ngModel = <NgModel>radioElement.injector.get(NgModel);
     let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
@@ -123,7 +123,7 @@ describe('Radio component', function () {
     expect(ngModel.touched).toBe(true);
   }));
 
-  it('should update the radio buttons properly when ngModel is changed', fakeAsync(function () {
+  it('should update the radio buttons properly when ngModel is changed', fakeAsync(function (): void {
     componentInstance.selectedValue = '2';
 
     fixture.detectChanges();
@@ -135,7 +135,7 @@ describe('Radio component', function () {
     expect(radio2El.nativeElement.checked).toBe(true);
   }));
 
-  it('should handle disabled state properly', fakeAsync(function () {
+  it('should handle disabled state properly', fakeAsync(function (): void {
     componentInstance.disabled2 = true;
     fixture.detectChanges();
     tick();
@@ -162,7 +162,7 @@ describe('Radio component', function () {
 
   }));
 
-  it('should pass a label when specified', fakeAsync(function () {
+  it('should pass a label when specified', fakeAsync(function (): void {
     componentInstance.label1 = 'My label';
 
     fixture.detectChanges();
@@ -172,7 +172,7 @@ describe('Radio component', function () {
     expect(radio1El.nativeElement.getAttribute('aria-label')).toBe('My label');
   }));
 
-  it('should pass a labelled by id properly when specified', fakeAsync(function () {
+  it('should pass a labelled by id properly when specified', fakeAsync(function (): void {
     componentInstance.labelledBy3 = 'label-id';
 
     fixture.detectChanges();
@@ -182,7 +182,7 @@ describe('Radio component', function () {
     expect(radio1El.nativeElement.getAttribute('aria-labelledby')).toBe('label-id');
   }));
 
-  it('should pass a tabindex when specified', fakeAsync(function () {
+  it('should pass a tabindex when specified', fakeAsync(function (): void {
     componentInstance.tabindex2 = '3';
 
     fixture.detectChanges();

@@ -192,7 +192,7 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
     });
   }
 
-  public openPicker() {
+  public openPicker(): void {
     const pickerContext = new SkySelectFieldPickerContext();
     pickerContext.headingText = this.pickerHeading;
     pickerContext.data = this.data;
@@ -248,11 +248,11 @@ export class SkySelectFieldComponent implements ControlValueAccessor {
     this.changeDetector.markForCheck();
   }
 
-  public clearSelection() {
+  public clearSelection(): void {
     this.value = undefined;
   }
 
-  private setTokensFromValue() {
+  private setTokensFromValue(): void {
     let tokens: SkyToken[] = [];
 
     // Tokens only appear for multiple select mode.

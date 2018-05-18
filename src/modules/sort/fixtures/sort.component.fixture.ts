@@ -47,7 +47,7 @@ export class SortTestComponent  implements OnInit {
 
   public sortedItem: any;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.initialState = 3;
   }
 

@@ -18,7 +18,7 @@ export class MockTileDashboardService {
     config: SkyTileDashboardConfig,
     columns?: QueryList<SkyTileDashboardColumnComponent>,
     singleColumn?: SkyTileDashboardColumnComponent
-  ) {
+  ): void {
     this.config = config;
   }
 
@@ -33,11 +33,11 @@ export class MockTileDashboardService {
     }
   }
 
-  public addTileComponent() { }
+  public addTileComponent(): void { }
 
-  public tileIsCollapsed() { }
+  public tileIsCollapsed(): void { }
 
-  public setColumns() { }
+  public setColumns(): void { }
 
-  public destroy() { }
+  public destroy(): void { }
 }

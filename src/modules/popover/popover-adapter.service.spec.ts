@@ -32,7 +32,7 @@ describe('SkyPopoverAdapterService', () => {
         document: {
           body: mockBody
         },
-        getComputedStyle() {}
+        getComputedStyle(): any {}
       };
     }
   }
@@ -42,9 +42,9 @@ describe('SkyPopoverAdapterService', () => {
     left = 0,
     width = 0,
     height = 0
-  ) {
+  ): HTMLDivElement {
     const elem = document.createElement('div');
-    elem.getBoundingClientRect = function () {
+    elem.getBoundingClientRect = () => {
       const right = left + width;
       const bottom = top + height;
       return {
@@ -71,18 +71,18 @@ describe('SkyPopoverAdapterService', () => {
     left: number,
     arrowTop: number,
     arrowLeft: number
-  ) {
+  ): void {
     expect(position.top).toEqual(top);
     expect(position.left).toEqual(left);
     expect(position.arrowTop).toEqual(arrowTop);
     expect(position.arrowLeft).toEqual(arrowLeft);
   }
 
-  function getArrowRef() {
+  function getArrowRef(): ElementRef {
     return new ElementRef(createElementRefDefinition(0, 0, 20, 10));
   }
 
-  function spyOnWindowGetComputedStyle(windowService: SkyWindowRefService, result: any) {
+  function spyOnWindowGetComputedStyle(windowService: SkyWindowRefService, result: any): void {
     spyOn(windowService, 'getWindow').and.callFake(() => {
       const obj = new MockWindowService().getWindow();
       obj.getComputedStyle = () => ({ overflowY: 'auto' });
@@ -90,7 +90,7 @@ describe('SkyPopoverAdapterService', () => {
     });
   }
 
-  function getListenersForOverflowParents(overflow: string) {
+  function getListenersForOverflowParents(overflow: string): any[] {
     let listeners: any[] = [];
 
     inject([SkyPopoverAdapterService, SkyWindowRefService], (
@@ -114,11 +114,11 @@ describe('SkyPopoverAdapterService', () => {
 
   beforeEach(() => {
     mockRenderer = {
-      removeStyle() {},
-      setStyle() {},
-      addClass() {},
-      removeClass() {},
-      listen() {}
+      removeStyle(): void {},
+      setStyle(): void {},
+      addClass(): void {},
+      removeClass(): void {},
+      listen(): void {}
     };
 
     mockBody = {};
@@ -253,7 +253,7 @@ describe('SkyPopoverAdapterService', () => {
       windowService: SkyWindowRefService
     ) => {
       spyOn(windowService, 'getWindow').and.returnValue({
-        setTimeout(callback: Function) {
+        setTimeout(callback: Function): void {
           callback();
         },
         innerWidth: 300,
@@ -278,7 +278,7 @@ describe('SkyPopoverAdapterService', () => {
       const spy = spyOn(adapterService as any, 'getPopoverCoordinates').and.callThrough();
 
       spyOn(windowService, 'getWindow').and.returnValue({
-        setTimeout(callback: Function) {
+        setTimeout(callback: Function): void {
           callback();
         },
         innerWidth: 300,

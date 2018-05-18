@@ -14,7 +14,7 @@ import { SkyLookupComponent } from './lookup.component';
 import { SkyLookupFixturesModule } from './fixtures/lookup-fixtures.module';
 import { SkyLookupTestComponent } from './fixtures/lookup.component.fixture';
 
-describe('Lookup component', function () {
+describe('Lookup component', function (): void {
   let fixture: ComponentFixture<SkyLookupTestComponent>;
   let component: SkyLookupTestComponent;
   let lookupComponent: SkyLookupComponent;
@@ -90,7 +90,7 @@ describe('Lookup component', function () {
     tick();
   }
 
-  beforeEach(function () {
+  beforeEach(function (): void {
     TestBed.configureTestingModule({
       imports: [
         SkyLookupFixturesModule
@@ -102,12 +102,12 @@ describe('Lookup component', function () {
     lookupComponent = component.lookupComponent;
   });
 
-  afterEach(function () {
+  afterEach(function (): void {
     fixture.destroy();
   });
 
-  describe('basic setup', function () {
-    it('should set defaults', function () {
+  describe('basic setup', function (): void {
+    it('should set defaults', function (): void {
       expect(lookupComponent.ariaLabel).toEqual(undefined);
       expect(lookupComponent.ariaLabelledBy).toEqual(undefined);
       expect(lookupComponent.disabled).toEqual(false);
@@ -116,7 +116,7 @@ describe('Lookup component', function () {
       expect(lookupComponent.value).toEqual([]);
     });
 
-    it('should share the same inputs as autocomplete', function () {
+    it('should share the same inputs as autocomplete', function (): void {
       fixture.detectChanges();
       expect(typeof lookupComponent.data).not.toBeUndefined();
       expect(typeof lookupComponent.descriptorProperty).not.toBeUndefined();
@@ -128,7 +128,7 @@ describe('Lookup component', function () {
       expect(typeof lookupComponent.searchResultsLimit).not.toBeUndefined();
     });
 
-    it('should allow preselected tokens', function () {
+    it('should allow preselected tokens', function (): void {
       const friends = [{ name: 'Rachel' }];
       component.friends = friends;
       expect(lookupComponent.value).toEqual([]);
@@ -136,7 +136,7 @@ describe('Lookup component', function () {
       expect(lookupComponent.value).toEqual(friends);
     });
 
-    it('should add new tokens', fakeAsync(function () {
+    it('should add new tokens', fakeAsync(function (): void {
       fixture.detectChanges();
       expect(lookupComponent.value).toEqual([]);
 
@@ -148,7 +148,7 @@ describe('Lookup component', function () {
       expect(selectedItems[0].name).toEqual('Isaac');
     }));
 
-    it('should change the value of the lookup if tokens change', fakeAsync(function () {
+    it('should change the value of the lookup if tokens change', fakeAsync(function (): void {
       fixture.detectChanges();
       expect(lookupComponent.value).toEqual([]);
 
@@ -165,7 +165,7 @@ describe('Lookup component', function () {
       expect(lookupComponent.value.length).toEqual(1);
     }));
 
-    it('should focus the input if all tokens are dismissed', fakeAsync(function () {
+    it('should focus the input if all tokens are dismissed', fakeAsync(function (): void {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -177,15 +177,15 @@ describe('Lookup component', function () {
     }));
   });
 
-  describe('events', function () {
-    it('should not add event listeners if disabled', function () {
+  describe('events', function (): void {
+    it('should not add event listeners if disabled', function (): void {
       lookupComponent.disabled = true;
       const spy = spyOn(lookupComponent as any, 'addEventListeners').and.callThrough();
       fixture.detectChanges();
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should allow setting `disabled` after initialization', function () {
+    it('should allow setting `disabled` after initialization', function (): void {
       const addSpy = spyOn(lookupComponent as any, 'addEventListeners').and.callThrough();
       const removeSpy = spyOn(lookupComponent as any, 'removeEventListeners').and.callThrough();
 
@@ -215,8 +215,8 @@ describe('Lookup component', function () {
     });
   });
 
-  describe('keyboard interactions', function () {
-    it('should focus the input if arrowright key is pressed on the last token', fakeAsync(function () {
+  describe('keyboard interactions', function (): void {
+    it('should focus the input if arrowright key is pressed on the last token', fakeAsync(function (): void {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -232,7 +232,7 @@ describe('Lookup component', function () {
       expect(document.activeElement).toEqual(inputElement);
     }));
 
-    it('should focus the last token if arrowleft or backspace pressed', fakeAsync(function () {
+    it('should focus the last token if arrowleft or backspace pressed', fakeAsync(function (): void {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -257,7 +257,7 @@ describe('Lookup component', function () {
       expect(document.activeElement).toEqual(inputElement);
     }));
 
-    it('should not focus the last token if search text is present', fakeAsync(function () {
+    it('should not focus the last token if search text is present', fakeAsync(function (): void {
       component.friends = [{ name: 'Rachel' }];
       fixture.detectChanges();
 
@@ -271,7 +271,7 @@ describe('Lookup component', function () {
       expect(document.activeElement).toEqual(inputElement);
     }));
 
-    it('should clear the search text if escape key is pressed', fakeAsync(function () {
+    it('should clear the search text if escape key is pressed', fakeAsync(function (): void {
       const inputElement = getInputElement();
 
       fixture.detectChanges();
@@ -289,7 +289,7 @@ describe('Lookup component', function () {
       expect(inputElement.value).toEqual('');
     }));
 
-    it('should remove tokens when backpsace or delete is pressed', fakeAsync(function () {
+    it('should remove tokens when backpsace or delete is pressed', fakeAsync(function (): void {
       component.friends = [
         { name: 'John' },
         { name: 'Jane' },
@@ -326,7 +326,7 @@ describe('Lookup component', function () {
         .toEqual(true);
     }));
 
-    it('should unfocus the component if it loses focus', fakeAsync(function () {
+    it('should unfocus the component if it loses focus', fakeAsync(function (): void {
       fixture.detectChanges();
 
       const inputElement = getInputElement();
@@ -346,8 +346,8 @@ describe('Lookup component', function () {
     }));
   });
 
-  describe('mouse interactions', function () {
-    it('should focus the input if the host is clicked', fakeAsync(function () {
+  describe('mouse interactions', function (): void {
+    it('should focus the input if the host is clicked', fakeAsync(function (): void {
       fixture.detectChanges();
 
       const hostElement = document.querySelector('sky-lookup');
@@ -358,7 +358,7 @@ describe('Lookup component', function () {
       expect(document.activeElement).toEqual(input);
     }));
 
-    it('should not focus the input if a token is clicked', fakeAsync(function () {
+    it('should not focus the input if a token is clicked', fakeAsync(function (): void {
       fixture.detectChanges();
 
       performSearch('s');

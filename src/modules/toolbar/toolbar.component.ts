@@ -21,7 +21,7 @@ export class SkyToolbarComponent implements AfterContentInit {
   @ContentChildren(SkyToolbarSectionComponent, {descendants: true})
   private sectionComponents: QueryList<SkyToolbarSectionComponent>;
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     this.hasSections = this.sectionComponents.length > 0;
   }
 }

@@ -123,7 +123,7 @@ export class SkyListViewGridComponent
     super(state, 'Grid View');
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     if (this.columnComponents.length === 0) {
       throw new Error('Grid view requires at least one sky-grid-column to render.');
     }
@@ -203,7 +203,7 @@ export class SkyListViewGridComponent
     this.handleColumnChange();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -225,7 +225,7 @@ export class SkyListViewGridComponent
     this.dispatcher.sortSetFieldSelectors([sortField]);
   }
 
-  public onViewActive() {
+  public onViewActive(): void {
     this.gridState.map(s => s.displayedColumns.items)
       .takeUntil(this.ngUnsubscribe)
       .distinctUntilChanged()
@@ -248,7 +248,7 @@ export class SkyListViewGridComponent
       });
   }
 
-  private handleColumnChange() {
+  private handleColumnChange(): void {
      // watch for changes in column components
     this.columnComponents.changes
       .takeUntil(this.ngUnsubscribe)

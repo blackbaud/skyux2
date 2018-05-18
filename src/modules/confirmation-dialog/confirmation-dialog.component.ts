@@ -17,7 +17,7 @@ export class SkyConfirmationDialogComponent implements OnInit {
     public context: SkyConfirmationDialogConfig,
     public instance: SkyModalInstance) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (!this.context.type) {
       this.context.type = SkyConfirmationDialogType.YesCancelDialog;
     }
@@ -29,7 +29,7 @@ export class SkyConfirmationDialogComponent implements OnInit {
     this.createButtons();
   }
 
-  private createButtons() {
+  private createButtons(): void {
     this.buttons = this.getDefaultButtons();
 
     // If button config is supplied through the config object, use those values
@@ -74,7 +74,7 @@ export class SkyConfirmationDialogComponent implements OnInit {
     }
   }
 
-  private overrideButtonConfig() {
+  private overrideButtonConfig(): void {
     const configButtons = this.context.buttons;
 
     this.buttons.forEach((button: any, i: number) => {

@@ -48,7 +48,7 @@ export class SkyModalService {
     return modalInstance;
   }
 
-  public dispose() {
+  public dispose(): void {
     /* istanbul ignore else */
     /* sanity check */
     if (SkyModalService.hostComponent) {
@@ -82,7 +82,7 @@ export class SkyModalService {
     return params;
   }
 
-  private createHostComponent() {
+  private createHostComponent(): void {
     if (!SkyModalService.hostComponent) {
       let factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
 

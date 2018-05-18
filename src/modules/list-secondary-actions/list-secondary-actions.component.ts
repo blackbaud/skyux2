@@ -45,7 +45,7 @@ export class SkyListSecondaryActionsComponent implements OnInit, AfterViewInit, 
     private actionService: SkyListSecondaryActionsService
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.actionService.actionsStream
       .takeUntil(this.ngUnsubscribe)
       .distinctUntilChanged()
@@ -57,7 +57,7 @@ export class SkyListSecondaryActionsComponent implements OnInit, AfterViewInit, 
       });
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     const secondaryActionItem = new ListToolbarItemModel({
       id: 'secondary-actions',
       template: this.secondaryActionsTemplate,
@@ -67,7 +67,7 @@ export class SkyListSecondaryActionsComponent implements OnInit, AfterViewInit, 
     this.dispatcher.toolbarAddItems([secondaryActionItem], -1);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

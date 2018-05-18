@@ -50,7 +50,7 @@ export class SkyDatepickerComponent {
     this.maxDate = _maxDate;
   }
 
-  public onCalendarModeChange() {
+  public onCalendarModeChange(): void {
     this.dropdownController.next({
       type: SkyDropdownMessageType.Reposition
     });

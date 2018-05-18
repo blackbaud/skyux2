@@ -12,7 +12,7 @@ export class FlyoutVisualComponent {
     private flyoutService: SkyFlyoutService
   ) { }
 
-  public openFlyout() {
+  public openFlyout(): void {
     this.flyoutService.open(FlyoutDemoComponent, {
       providers: []
     });

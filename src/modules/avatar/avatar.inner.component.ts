@@ -77,16 +77,16 @@ export class SkyAvatarInnerComponent implements AfterViewInit, OnDestroy {
     return colorIndex;
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.viewInitialized = true;
     this.updateImage();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.adapter.destroy();
   }
 
-  private updateImage() {
+  private updateImage(): void {
     if (this.viewInitialized) {
       this.adapter.updateImage(this.elementRef, this.src);
     }

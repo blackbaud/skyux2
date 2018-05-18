@@ -35,15 +35,15 @@ export class SkyGridCellComponent implements OnInit {
   @ViewChild('cell', { read: ViewContainerRef })
   private container: ViewContainerRef;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.container.createEmbeddedView(this.template, this);
   }
 
-  get row() {
+  get row(): void {
     return this.item.data;
   }
 
-  get value() {
+  get value(): void {
     if (this.item.data && (this.fieldSelector || this.columnId)) {
       return getData(this.item.data, this.fieldSelector || this.columnId);
     }

@@ -131,7 +131,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.sliderDimMax = new SliderDimension(182, 270, 170, 182);
     this.slider = new SliderPosition(0, 0, 0, 0);
     this.messageStream
@@ -141,21 +141,21 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
       });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
 
-  public closePicker() {
+  public closePicker(): void {
     this.setColorFromString(this.initialColor);
     this.closeDropdown();
   }
 
-  public resetPickerColor() {
+  public resetPickerColor(): void {
     this.sendMessage(SkyColorpickerMessageType.Reset);
   }
 
-  public applyColor() {
+  public applyColor(): void {
     this.selectedColorChanged.emit(this.selectedColor);
     this.initialColor = this.selectedColor.rgbaText;
     this.closeDropdown();
@@ -226,7 +226,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     this.update();
   }
 
-  public update() {
+  public update(): void {
     let hsla: SkyColorpickerHsla = this.service.hsva2hsla(this.hsva);
     let dHsla: SkyColorpickerHsla = this.service.denormalizeHSLA(hsla);
     let rgba: SkyColorpickerRgba = this.service.hsvaToRgba(this.hsva);
@@ -295,7 +295,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private closeDropdown() {
+  private closeDropdown(): void {
     this.dropdownController.next({
       type: SkyDropdownMessageType.Close
     });

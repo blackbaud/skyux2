@@ -14,42 +14,42 @@ import { ModalTiledDemoComponent } from './modal-tiled-demo.component';
 export class ModalVisualComponent {
   constructor(private modal: SkyModalService) { }
 
-  public openModal() {
+  public openModal(): void {
     this.modal.open(ModalDemoComponent, { 'providers': [] });
   }
 
-  public openModalWithHelp() {
+  public openModalWithHelp(): void {
     this.modal.open(ModalDemoComponent, { 'providers': [], 'helpKey': 'demo-key.html' });
   }
 
-  public openLargeModal() {
+  public openLargeModal(): void {
     this.modal.open(ModalLargeDemoComponent, { 'providers': [] });
   }
 
-  public openFullScreenModal() {
+  public openFullScreenModal(): void {
     this.modal.open(ModalFullPageDemoComponent, { 'providers': [], 'fullPage': true });
   }
 
-  public openContentModal() {
+  public openContentModal(): void {
     this.modal.open(ModalContentDemoComponent);
   }
 
-  public openSmallSizeModal() {
+  public openSmallSizeModal(): void {
     this.modal.open(
       ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'small'});
   }
 
-  public openMediumSizeModal() {
+  public openMediumSizeModal(): void {
     this.modal.open(
       ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'medium'});
   }
 
-  public openLargeSizeModal() {
+  public openLargeSizeModal(): void {
     this.modal.open(
       ModalDemoComponent, { 'providers': [], 'fullPage': false , 'size': 'large'});
   }
 
-  public openTiledModal() {
+  public openTiledModal(): void {
     this.modal.open(ModalTiledDemoComponent, { 'providers': [] });
   }
 }

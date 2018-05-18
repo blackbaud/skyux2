@@ -67,7 +67,7 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
     public tabService: SkyVerticalTabsetService,
     private changeRef: ChangeDetectorRef) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.tabService.indexChanged
       .takeUntil(this._ngUnsubscribe)
       .subscribe(index => {
@@ -84,21 +84,21 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
     }
   }
 
-  public ngAfterViewChecked() {
+  public ngAfterViewChecked(): void {
     this.tabService.content = this.content;
     this.tabService.updateContent();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
   }
 
-  public tabsVisible() {
+  public tabsVisible(): boolean {
     return this.tabService.tabsVisible();
   }
 
-  public showTabs() {
+  public showTabs(): void {
     this.tabService.showTabs();
     this.changeRef.markForCheck();
   }

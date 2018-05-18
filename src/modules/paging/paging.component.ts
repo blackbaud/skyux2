@@ -36,7 +36,7 @@ export class SkyPagingComponent implements OnChanges {
   public displayedPages: Array<number> = [];
   public pageCount: number = 0;
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     this.setPage(this.currentPage);
   }
 
@@ -102,7 +102,7 @@ export class SkyPagingComponent implements OnChanges {
     return displayedPageNumbers;
   }
 
-  private setPageCount() {
+  private setPageCount(): void {
     if (this.itemCount === 0 || this.pageSize === 0) {
       this.pageCount = 0;
       return;
@@ -112,7 +112,7 @@ export class SkyPagingComponent implements OnChanges {
 
   }
 
-  private setDisplayedPages() {
+  private setDisplayedPages(): void {
 
     this.displayedPages =
       this.getDisplayedPageNumbers(this.pageCount, this.maxPages, this.currentPage);

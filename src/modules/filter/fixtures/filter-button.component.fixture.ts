@@ -8,7 +8,7 @@ export class FilterButtonTestComponent {
   public filtersActive: boolean = false;
 
   public buttonClicked: boolean = false;
-  public filterButtonClicked() {
+  public filterButtonClicked(): void {
     this.buttonClicked = true;
   }
 }

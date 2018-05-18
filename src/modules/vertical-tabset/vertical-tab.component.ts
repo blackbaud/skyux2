@@ -34,7 +34,7 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
   public disabled: boolean = false;
 
   @Input()
-  public get showTabRightArrow() {
+  public get showTabRightArrow(): boolean {
     return this._showTabRightArrow && this.tabsetService.isMobile();
   }
 
@@ -54,18 +54,18 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
     private tabsetService: SkyVerticalTabsetService,
     private changeRef: ChangeDetectorRef) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.tabsetService.switchingMobile
       .subscribe((mobile: boolean) => this.changeRef.detectChanges());
 
     this.tabsetService.addTab(this);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this._mobileSubscription.unsubscribe();
   }
 
-  public tabIndex() {
+  public tabIndex(): number {
     if (!this.disabled) {
       return 0;
     } else {
@@ -73,7 +73,7 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  public activateTab() {
+  public activateTab(): void {
     if (!this.disabled) {
       this.active = true;
       this.tabsetService.activateTab(this);
@@ -82,7 +82,7 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  public tabDeactivated() {
+  public tabDeactivated(): void {
     this.changeRef.detectChanges();
   }
 }

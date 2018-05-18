@@ -57,7 +57,7 @@ export class SkyListPagingComponent extends ListPagingComponent implements OnIni
     super(state, dispatcher);
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
 
     this.currentPageNumber = this.state.map(s => s.paging.pageNumber);
 

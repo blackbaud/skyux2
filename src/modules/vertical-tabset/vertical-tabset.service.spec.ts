@@ -3,7 +3,7 @@ import { SkyVerticalTabComponent } from './vertical-tab.component';
 import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
 
 class MockChangeDetector {
-  public detectChanges() {}
+  public detectChanges(): void {}
 }
 
 describe('Vertical tabset service', () => {

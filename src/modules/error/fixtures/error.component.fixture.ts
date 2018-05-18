@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class ErrorTestComponent {
 
-  public customAction() {
+  public customAction(): void {
     console.log('custom action happened');
   }
 

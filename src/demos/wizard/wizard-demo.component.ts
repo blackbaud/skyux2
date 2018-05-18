@@ -11,7 +11,7 @@ import { SkyWizardDemoFormComponent } from './wizard-demo-form.component';
 export class SkyWizardDemoComponent {
   constructor(private modal: SkyModalService) { }
 
-  public openWizard() {
+  public openWizard(): void {
     this.modal.open(SkyWizardDemoFormComponent);
   }
 }

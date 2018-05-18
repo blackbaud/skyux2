@@ -18,11 +18,11 @@ export class SkyPopoverTestComponent {
   @ViewChild('anotherAsyncPopover')
   public anotherAsyncPopover: SkyPopoverComponent;
 
-  public attachAsyncPopover() {
+  public attachAsyncPopover(): void {
     this.asyncPopoverRef = this.asyncPopover;
   }
 
-  public attachAnotherAsyncPopover() {
+  public attachAnotherAsyncPopover(): void {
     this.asyncPopoverRef = this.anotherAsyncPopover;
   }
 }

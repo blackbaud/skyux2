@@ -6,7 +6,7 @@ import { SkyModalConfigurationInterface as IConfig } from '../../modal/modal.int
 export class SkyModalInstanceMock extends SkyModalInstance {
   public closed = new EventEmitter<any>();
   public close(result?: any) { this.closed.emit({ data: result }); }
-  public save() {}
+  public save(): void {}
 }
 
 export class MockHostService {

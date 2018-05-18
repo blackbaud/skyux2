@@ -30,17 +30,17 @@ export class SkyListFiltersModalDemoComponent {
     }
   }
 
-  public applyFilters() {
+  public applyFilters(): void {
     let result = this.getAppliedFiltersArray();
     this.instance.save(result);
   }
 
-  public clearAllFilters() {
+  public clearAllFilters(): void {
     this.hideOrange = false;
     this.fruitType = 'any';
   }
 
-  public cancel() {
+  public cancel(): void {
     this.instance.cancel();
   }
 
@@ -52,7 +52,7 @@ export class SkyListFiltersModalDemoComponent {
     return !filterValue || (filterValue && item.data.color !== 'orange');
   }
 
-  private getAppliedFiltersArray() {
+  private getAppliedFiltersArray(): any[] {
     let appliedFilters: ListFilterModel[] = [];
     if (this.fruitType !== 'any') {
 
@@ -76,7 +76,7 @@ export class SkyListFiltersModalDemoComponent {
     return appliedFilters;
   }
 
-  private setFormFilters(appliedFilters: any[]) {
+  private setFormFilters(appliedFilters: any[]): void {
     for (let i = 0; i < appliedFilters.length; i++) {
       if (appliedFilters[i].name === 'fruitType') {
         this.fruitType = appliedFilters[i].value;

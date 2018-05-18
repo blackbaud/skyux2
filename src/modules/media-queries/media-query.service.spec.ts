@@ -17,7 +17,7 @@ describe('Media query service', () => {
   let lgListener: Function;
   let matchMediaSpy: jasmine.Spy;
 
-  function setUpListeners() {
+  function setUpListeners(): void {
 
     spyOn(mediaQueryListPrototype, 'addListener')
       .and.callFake((serviceListener: Function) => {

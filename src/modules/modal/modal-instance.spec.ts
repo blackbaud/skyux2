@@ -13,7 +13,7 @@ describe('Modal instance', () => {
     instance.close();
   });
 
-  it('should allow users to subscribe to the instanceClose event', function () {
+  it('should allow users to subscribe to the instanceClose event', function (): void {
     let instance: SkyModalInstance;
     let expectedResult: SkyModalCloseArgs;
 
@@ -38,7 +38,7 @@ describe('Modal instance', () => {
     expect(expectedResult.data).toBe('close data');
     expect(expectedResult.reason).toBe('close');
 
-    function subscribeToClosed() {
+    function subscribeToClosed(): SkyModalInstance {
       const modalInstance = new SkyModalInstance();
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {

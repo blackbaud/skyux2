@@ -13,11 +13,11 @@ export class SkyActionButtonComponent {
   @Output()
   public actionClick = new EventEmitter<any>();
 
-  public buttonClicked() {
+  public buttonClicked(): void {
     this.actionClick.emit();
   }
 
-  public enterPress() {
+  public enterPress(): void {
     this.actionClick.emit();
   }
 }

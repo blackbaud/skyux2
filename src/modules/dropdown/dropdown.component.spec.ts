@@ -36,7 +36,7 @@ describe('Dropdown component', () => {
     fixture.destroy();
   });
 
-  function openPopoverWithButtonClick() {
+  function openPopoverWithButtonClick(): void {
     tick();
     fixture.detectChanges();
 

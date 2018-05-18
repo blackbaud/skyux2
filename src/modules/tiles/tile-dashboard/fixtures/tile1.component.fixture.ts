@@ -13,5 +13,5 @@ export class Tile1TestComponent {
 
   public title = 'Tile 1';
 
-  public tileSettingsClick() { }
+  public tileSettingsClick(): void { }
 }

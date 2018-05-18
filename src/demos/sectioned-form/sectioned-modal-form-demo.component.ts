@@ -25,19 +25,19 @@ export class SkySectionedModalFormDemoComponent implements AfterContentChecked {
 
   constructor(public instance: SkyModalInstance) {}
 
-  public ngAfterContentChecked() {
+  public ngAfterContentChecked(): void {
     this.activeIndexDisplay = this._activeIndex;
   }
 
-  public updateIndex(newIndex: number) {
+  public updateIndex(newIndex: number): void {
     this._activeIndex = newIndex;
   }
 
-  public tabsHidden() {
+  public tabsHidden(): boolean {
     return !this.sectionedFormComponent.tabsVisible();
   }
 
-  public showTabs() {
+  public showTabs(): void {
     this.sectionedFormComponent.showTabs();
   }
 }

@@ -81,7 +81,7 @@ export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
     private tabService: SkyVerticalTabsetService,
     private changeRef: ChangeDetectorRef) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.tabService.hidingTabs
       .takeUntil(this._ngUnsubscribe)
       .subscribe(this.tabsHidden);
@@ -95,12 +95,12 @@ export class SkyVerticalTabsetGroupComponent implements OnInit, OnDestroy {
       .subscribe(this.tabClicked);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
   }
 
-  public toggleMenuOpen() {
+  public toggleMenuOpen(): void {
     if (!this.disabled) {
       this.open = !this.open;
     }

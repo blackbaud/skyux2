@@ -41,7 +41,7 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private sortService: SkySortService, private detector: ChangeDetectorRef) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
 
     sortItemIdNumber++;
     this.sortItemId = SORT_ITEM_ID_PREFIX + sortItemIdNumber.toString();
@@ -55,7 +55,7 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes['active']
       && changes['active'].currentValue
       && changes['active'].currentValue !== changes['active'].previousValue) {
@@ -63,12 +63,12 @@ export class SkySortItemComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  public itemClicked() {
+  public itemClicked(): void {
     this.sortService.selectItem(this.sortItemId);
     this.itemSelect.emit();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     /* istanbul ignore else */
     /* sanity check */
     if (this.subscription) {

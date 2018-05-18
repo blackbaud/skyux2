@@ -73,15 +73,15 @@ export class SkyLookupDemoComponent implements OnInit {
     ];
   }
 
-  public enableLookup() {
+  public enableLookup(): void {
     this.reactiveForm.controls.friends.enable();
   }
 
-  public disableLookup() {
+  public disableLookup(): void {
     this.reactiveForm.controls.friends.disable();
   }
 
-  public submitReactiveForm() {
+  public submitReactiveForm(): void {
     alert('Form submitted with: ' + JSON.stringify(this.reactiveForm.value));
   }
 

@@ -61,15 +61,15 @@ export class SkyTabsetComponent
     tab.close.emit(undefined);
   }
 
-  public newTabClick() {
+  public newTabClick(): void {
     this.newTab.emit(undefined);
   }
 
-  public openTabClick() {
+  public openTabClick(): void {
     this.openTab.emit(undefined);
   }
 
-  public windowResize() {
+  public windowResize(): void {
     this.adapterService.detectOverflow();
   }
 
@@ -77,14 +77,14 @@ export class SkyTabsetComponent
     this.tabsetService.activateTab(newTab);
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes['active'] && changes['active'].currentValue !== changes['active'].previousValue) {
       this.tabsetService.activateTabIndex(this.active);
     }
 
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     if (this.active || this.active === 0) {
       this.tabsetService.activateTabIndex(this.active);
     }
@@ -101,7 +101,7 @@ export class SkyTabsetComponent
     });
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.adapterService.init(this.elRef);
 
     this.adapterService.overflowChange.subscribe((currentOverflow: boolean) => {
@@ -115,11 +115,11 @@ export class SkyTabsetComponent
     }, 0);
   }
 
-  public ngDoCheck() {
+  public ngDoCheck(): void {
     this.adapterService.detectOverflow();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.tabsetService.destroy();
   }
 

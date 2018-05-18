@@ -22,7 +22,7 @@ export class SelectFieldVisualComponent {
   public data = new BehaviorSubject<any[]>(this.staticData);
   public model: any = {};
 
-  public populateSelected() {
+  public populateSelected(): void {
     this.model.multiple = [
       this.staticData[1],
       this.staticData[2],

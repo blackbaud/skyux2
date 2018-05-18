@@ -9,7 +9,7 @@ export class SkySectionedFormFixtureInformation1Component {
 
   private _required: boolean;
 
-  public get required() {
+  public get required(): boolean {
     return this._required;
   }
 
@@ -20,7 +20,7 @@ export class SkySectionedFormFixtureInformation1Component {
 
   private _invalid: boolean;
 
-  public get invalid() {
+  public get invalid(): boolean {
     return this._invalid;
   }
 

@@ -27,7 +27,7 @@ export class SkyFlyoutInstance<T> {
     });
   }
 
-  public close() {
+  public close(): void {
     this.hostController.next({
       type: SkyFlyoutMessageType.Close
     });

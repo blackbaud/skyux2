@@ -2,7 +2,7 @@ import { SkyFormat } from './format';
 
 describe('Format class', () => {
   describe('formatText() method', () => {
-    it('should return the expected strings', function () {
+    it('should return the expected strings', function (): void {
       let format = 'My name is {0}, {1}',
         name = 'Jimithy',
         greeting = 'hello',
@@ -13,7 +13,7 @@ describe('Format class', () => {
 
     });
 
-    it('should return empty string when format is undefined', function () {
+    it('should return empty string when format is undefined', function (): void {
       let format: string,
         name = 'Jimithy',
         greeting = 'hello',

@@ -23,7 +23,7 @@ export class SkyListPagingDemoComponent implements OnInit {
     private dispatcher: ListStateDispatcher
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.dispatcher.next(new ListItemsLoadAction([
       new ListItemModel('1'),
       new ListItemModel('2'),

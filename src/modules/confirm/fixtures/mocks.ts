@@ -12,7 +12,7 @@ export class MockSkyModalInstance extends SkyModalInstance {
       data: result
     });
   }
-  public save() {}
+  public save(): void {}
 }
 
 export class MockSkyModalHostService {

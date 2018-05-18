@@ -62,14 +62,14 @@ describe('List Toolbar Component', () => {
     component = fixture.componentInstance;
   });
 
-  function initializeToolbar() {
+  function initializeToolbar(): void {
     fixture.detectChanges();
     // always skip the first update to ListState, when state is ready
     // run detectChanges once more then begin tests
     state.skip(1).take(1).subscribe(() => fixture.detectChanges());
   }
 
-  function verifySearchTypeToolbar() {
+  function verifySearchTypeToolbar(): void {
     fixture.detectChanges();
 
     const sections = fixture.nativeElement.querySelectorAll('.sky-list-toolbar-search .sky-toolbar-section');

@@ -45,7 +45,7 @@ export class SkyAutocompleteInputDirective
     this.textValue = this.value[this.displayWith];
   }
 
-  public get value() {
+  public get value(): any {
     return this._value || { };
   }
 
@@ -72,7 +72,7 @@ export class SkyAutocompleteInputDirective
     private renderer: Renderer2
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     const element = this.elementRef.nativeElement;
 
     this.setAttributes(element);

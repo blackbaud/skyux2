@@ -16,7 +16,7 @@ export class GridDynamicTestComponent {
     { 'id': 2, 'field': 'email', 'heading': 'Email Initial' }];
   }
 
-  public changeColumns() {
+  public changeColumns(): void {
     this.gridColumns = [{ 'id': 1, 'field': 'name', 'heading': 'Name' },
     { 'id': 2, 'field': 'email', 'heading': 'Email' }];
   }

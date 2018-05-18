@@ -35,13 +35,13 @@ export class SkyTabButtonComponent {
   @Output()
   public closeClick = new EventEmitter<any>();
 
-  public doTabClick() {
+  public doTabClick(): void {
     if (!this.disabled) {
       this.tabClick.emit(undefined);
     }
   }
 
-  public doCloseClick() {
+  public doCloseClick(): void {
     this.closeClick.emit(undefined);
   }
 

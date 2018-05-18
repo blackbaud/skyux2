@@ -25,7 +25,7 @@ export class SkyListFilterButtonComponent implements AfterViewInit {
     private dispatcher: ListStateDispatcher
   ) { }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.dispatcher.toolbarAddItems([
       new ListToolbarItemModel({
         template: this.filterButtonTemplate,

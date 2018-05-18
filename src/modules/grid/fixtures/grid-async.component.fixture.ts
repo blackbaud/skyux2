@@ -19,7 +19,7 @@ export class GridAsyncTestComponent implements OnInit {
 
   public asyncHeading = new BehaviorSubject<string>('');
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     setTimeout(() => {
       this.asyncHeading.next('Column1');
     }, 100);

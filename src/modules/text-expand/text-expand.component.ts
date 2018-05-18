@@ -73,7 +73,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
     private modalService: SkyModalService,
     private textExpandAdapter: SkyTextExpandAdapterService) { }
 
-  public textExpand() {
+  public textExpand(): void {
     if (this.newlineCount > this.maxExpandedNewlines
       || this.expandedText.length > this.maxExpandedLength) {
       // Modal View
@@ -114,18 +114,18 @@ export class SkyTextExpandComponent implements AfterContentInit {
     }
   }
 
-  public animationEnd() {
+  public animationEnd(): void {
     // Ensure the correct text is displayed
     this.textExpandAdapter.setText(this.textEl, this.textToShow);
     // Set height back to auto so the browser can change the height as needed with window changes
     this.textExpandAdapter.setContainerHeight(this.containerEl, undefined);
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     this.setup(this.expandedText);
   }
 
-  private setContainerMaxHeight() {
+  private setContainerMaxHeight(): void {
     // ensure everything is reset
     this.animationEnd();
     /* Before animation is kicked off, ensure that a maxHeight exists */

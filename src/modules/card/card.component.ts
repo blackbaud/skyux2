@@ -38,7 +38,7 @@ export class SkyCardComponent implements AfterContentInit, OnDestroy {
 
   private subscription: Subscription;
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     this.showTitle = this.titleComponent.length > 0;
 
     this.subscription = this.titleComponent.changes.subscribe(() => {
@@ -46,14 +46,14 @@ export class SkyCardComponent implements AfterContentInit, OnDestroy {
     });
   }
 
-  public contentClick() {
+  public contentClick(): void {
     if (this.selectable) {
       this.selected = !this.selected;
       this.selectedChange.emit(this.selected);
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     /* istanbul ignore else */
     /* sanity check */
     if (this.subscription) {

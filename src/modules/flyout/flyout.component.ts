@@ -116,11 +116,11 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       });
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.adapter.adjustHeaderForHelp(this.flyoutHeader);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -155,7 +155,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     return this.flyoutInstance;
   }
 
-  public close() {
+  public close(): void {
     this.messageStream.next({
       type: SkyFlyoutMessageType.Close
     });
@@ -165,7 +165,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     return (this.isOpening) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
   }
 
-  public animationDone(event: AnimationEvent) {
+  public animationDone(event: AnimationEvent): void {
     if (event.toState === FLYOUT_OPEN_STATE) {
       this.isOpen = true;
     }
@@ -177,7 +177,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
   }
 
-  public onMouseDown(event: MouseEvent) {
+  public onMouseDown(event: MouseEvent): void {
     this.isDragging = true;
     this.xCoord = event.clientX;
     event.preventDefault();
@@ -185,7 +185,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   @HostListener('document:mousemove', ['$event'])
-  public onMouseMove(event: MouseEvent) {
+  public onMouseMove(event: MouseEvent): void {
     if (!this.isDragging) {
       return;
     }
@@ -204,7 +204,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   @HostListener('document:mouseup', ['$event'])
-  public onHandleRelease(event: MouseEvent) {
+  public onHandleRelease(event: MouseEvent): void {
     this.isDragging = false;
   }
 
@@ -221,7 +221,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     return instance;
   }
 
-  private handleIncomingMessages(message: SkyFlyoutMessage) {
+  private handleIncomingMessages(message: SkyFlyoutMessage): void {
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyFlyoutMessageType.Open:
@@ -240,12 +240,12 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.changeDetector.markForCheck();
   }
 
-  private notifyClosed() {
+  private notifyClosed(): void {
     this.flyoutInstance.closed.emit();
     this.flyoutInstance.closed.complete();
   }
 
-  private cleanTemplate() {
+  private cleanTemplate(): void {
     this.target.clear();
   }
 }

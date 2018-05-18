@@ -40,7 +40,7 @@ export class ColumnSelectorTestComponent {
 
   }
 
-  public openColumnSelector() {
+  public openColumnSelector(): void {
     this.modalService.open(SkyColumnSelectorComponent, [
       {
         provide: SkyColumnSelectorContext,

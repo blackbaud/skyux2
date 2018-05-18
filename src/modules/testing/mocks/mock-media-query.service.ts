@@ -50,5 +50,5 @@ export class MockSkyMediaQueryService extends SkyMediaQueryService {
     this.currentMockSubject.next(this._currentBreakpoints);
   }
 
-  public destroy() {}
+  public destroy(): void {}
 }

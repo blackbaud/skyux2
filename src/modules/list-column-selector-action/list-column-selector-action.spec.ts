@@ -108,11 +108,11 @@ describe('List column selector action', () => {
     fixture.destroy();
   });
 
-  function getChooseColumnsButton() {
+  function getChooseColumnsButton(): any {
     return nativeElement.querySelector('.sky-dropdown-menu button') as HTMLElement;
   }
 
-  function toggleSecondaryActionsDropdown() {
+  function toggleSecondaryActionsDropdown(): void {
     fixture.detectChanges();
     flush();
     tick();

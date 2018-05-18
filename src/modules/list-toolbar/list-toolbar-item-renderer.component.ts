@@ -8,7 +8,7 @@ export class SkyListToolbarItemRendererComponent implements OnInit {
   @Input() public template: TemplateRef<any>;
   @ViewChild('container', { read: ViewContainerRef }) private container: ViewContainerRef;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (this.template !== undefined) {
       this.container.createEmbeddedView(this.template, this);
     }

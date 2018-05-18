@@ -38,12 +38,12 @@ describe('Sort component', () => {
     component = fixture.componentInstance;
   });
 
-  function getDropdownButtonEl() {
+  function getDropdownButtonEl(): any {
     let dropdownButtonQuery = '.sky-sort .sky-dropdown .sky-dropdown-button .fa-sort';
     return nativeElement.querySelector(dropdownButtonQuery) as HTMLElement;
   }
 
-  function getSortItems() {
+  function getSortItems(): NodeListOf<Element> {
     let itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
     return nativeElement.querySelectorAll(itemQuery);
   }

@@ -78,7 +78,7 @@ export class SkyMediaQueryService {
     );
   }
 
-  public destroy() {
+  public destroy(): void {
     this.xsMql.removeListener(this.xsListener);
     this.xsMql = undefined;
     this.xsListener = undefined;

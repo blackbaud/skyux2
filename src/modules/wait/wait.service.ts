@@ -25,28 +25,28 @@ export class SkyWaitService {
     private waitAdapter: SkyWaitPageAdapterService
     ) {}
 
-  public beginBlockingPageWait() {
+  public beginBlockingPageWait(): void {
     this.beginPageWait(true);
   }
 
-  public beginNonBlockingPageWait() {
+  public beginNonBlockingPageWait(): void {
     this.beginPageWait(false);
   }
 
-  public endBlockingPageWait() {
+  public endBlockingPageWait(): void {
     this.endPageWait(true);
   }
 
-  public endNonBlockingPageWait() {
+  public endNonBlockingPageWait(): void {
     this.endPageWait(false);
   }
 
-  public clearAllPageWaits() {
+  public clearAllPageWaits(): void {
     this.clearPageWait(true);
     this.clearPageWait(false);
   }
 
-  public dispose() {
+  public dispose(): void {
     if (SkyWaitService.waitComponent) {
       SkyWaitService.waitComponent = undefined;
       SkyWaitService.pageWaitBlockingCount = 0;

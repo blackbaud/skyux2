@@ -18,7 +18,7 @@ import {
 describe('list items', () => {
   describe('list item model', () => {
     it('should throw an error when initializing without an id', () => {
-      expect(function () {
+      expect(function (): ListItemModel {
         return new ListItemModel(undefined, 'something');
       }).toThrow(new Error('All list item models require an ID'));
     });

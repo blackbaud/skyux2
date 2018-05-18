@@ -20,7 +20,7 @@ export class ListViewChecklistVisualComponent {
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
 
-  public toggleSelectMode() {
+  public toggleSelectMode(): void {
     if (this.selectMode === 'multiple') {
       this.selectMode = 'single';
     } else {

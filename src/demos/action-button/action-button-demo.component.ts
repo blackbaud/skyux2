@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
   templateUrl: './action-button-demo.component.html'
 })
 export class SkyActionButtonDemoComponent {
-  public filterActionClick() {
+  public filterActionClick(): void {
     alert('Filter action clicked');
   }
 
-  public openActionClick() {
+  public openActionClick(): void {
     alert('Open action clicked');
   }
 }

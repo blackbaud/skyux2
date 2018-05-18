@@ -29,7 +29,7 @@ export class Tile1Component {
     console.log('Created tile 1 component');
   }
 
-  public tileSettingsClick() {
+  public tileSettingsClick(): void {
     alert('tile settings clicked');
   }
 }

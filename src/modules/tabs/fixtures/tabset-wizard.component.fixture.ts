@@ -19,7 +19,7 @@ export class SkyWizardTestFormComponent {
 
   constructor() { }
 
-  public validateStep1() {
+  public validateStep1(): boolean {
     return true;
   }
 }

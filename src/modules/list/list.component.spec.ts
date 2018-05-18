@@ -108,7 +108,7 @@ describe('List Component', () => {
 
       }));
 
-      function initializeList() {
+      function initializeList(): void {
         fixture.detectChanges();
 
         // always skip the first update to ListState, when state is ready

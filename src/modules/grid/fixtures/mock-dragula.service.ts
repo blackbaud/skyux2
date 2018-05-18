@@ -1,11 +1,11 @@
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 export class MockDragulaService extends DragulaService {
-  public add() { }
+  public add(): void { }
 
-  public setOptions() { }
+  public setOptions(): void { }
 
-  public find() {
+  public find(): any {
     return {
       drake: {
         containers: [

@@ -134,7 +134,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
     private dispatcher: ListStateDispatcher
   ) {}
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     if (this.data && this.dataProvider && this.initialTotal) {
       this.dataFirstLoad = true;
     }
@@ -190,7 +190,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
 
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes['appliedFilters'] &&
       changes['appliedFilters'].currentValue !== changes['appliedFilters'].previousValue) {
       this.dispatcher.filtersUpdate(this.appliedFilters);
@@ -288,17 +288,17 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
     );
   }
 
-  public get lastUpdate() {
+  public get lastUpdate(): Observable<any> {
     return this.state.map(s =>
       s.items.lastUpdate ? moment(s.items.lastUpdate).toDate() : undefined
     );
   }
 
-  public get views() {
+  public get views(): ListViewComponent[] {
     return this.listViews.toArray();
   }
 
-  public get itemCount() {
+  public get itemCount(): Observable<number> {
     return this.dataProvider.count();
   }
 }

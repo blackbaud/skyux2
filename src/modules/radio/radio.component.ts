@@ -64,7 +64,7 @@ export class SkyRadioComponent implements ControlValueAccessor {
   public selectedValue: any;
   private onChangeCallback: (value: any) => void;
 
-  public onInputBlur() {
+  public onInputBlur(): void {
     this.onTouchedCallback();
   }
 

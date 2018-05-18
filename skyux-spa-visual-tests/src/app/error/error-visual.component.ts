@@ -12,7 +12,7 @@ import {
 export class ErrorVisualComponent {
   constructor(private modal: SkyErrorModalService) { }
 
-  public openModal() {
+  public openModal(): void {
     const config: any = {
       errorTitle: 'Some error title',
       errorDescription: 'Description of error',
@@ -22,7 +22,7 @@ export class ErrorVisualComponent {
     this.modal.open(config);
   }
 
-  public openModalWithLongDescription() {
+  public openModalWithLongDescription(): void {
     const config: any = {
       errorTitle: 'Title',
       // tslint:disable-next-line:max-line-length

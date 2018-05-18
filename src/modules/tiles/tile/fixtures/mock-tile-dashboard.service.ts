@@ -1,7 +1,7 @@
 import { SkyTileComponent } from '../';
 
 export class MockSkyTileDashboardService {
-  public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) { }
+  public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean): void { }
 
-  public tileIsCollapsed() { }
+  public tileIsCollapsed(): void { }
 }

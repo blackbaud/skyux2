@@ -326,7 +326,7 @@ describe('Tabset component', () => {
     () => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
 
-      function fireResizeEvent() {
+      function fireResizeEvent(): void {
         SkyAppTestUtility.fireDomEvent(window, 'resize');
         fixture.detectChanges();
       }

@@ -13,7 +13,7 @@ export class SkyTextExpandModalComponent {
     public instance: SkyModalInstance
   ) {}
 
-  public close() {
+  public close(): void {
     this.instance.close();
   }
 }

@@ -56,7 +56,7 @@ export class SkyFilterInlineDemoComponent {
     this.filteredItems = this.items.slice();
   }
 
-  public filterButtonClicked() {
+  public filterButtonClicked(): void {
     this.showInlineFilters = !this.showInlineFilters;
   }
 
@@ -70,7 +70,7 @@ export class SkyFilterInlineDemoComponent {
     this.setFilterActiveState();
   }
 
-  private setFilterActiveState() {
+  private setFilterActiveState(): void {
     this.appliedFilters = [];
     if (this.fruitType !== 'any') {
       this.appliedFilters.push({

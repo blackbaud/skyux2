@@ -106,7 +106,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     private windowRef: SkyWindowRefService
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.messageStream
       .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyDropdownMessage) => {
@@ -114,7 +114,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -164,7 +164,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     }
   }
 
-  public onPopoverOpened() {
+  public onPopoverOpened(): void {
     this.isOpen = true;
     // Focus the first item if the menu was opened with the keyboard.
     if (this.isKeyboardActive) {
@@ -172,7 +172,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     }
   }
 
-  public onPopoverClosed() {
+  public onPopoverClosed(): void {
     this.isOpen = false;
     this.isKeyboardActive = false;
   }
@@ -212,7 +212,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     this.messageStream.next({ type });
   }
 
-  private positionPopover() {
+  private positionPopover(): void {
     this.popover.positionNextTo(
       this.triggerButton,
       'below',

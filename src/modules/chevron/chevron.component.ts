@@ -15,7 +15,7 @@ export class SkyChevronComponent {
   @Input()
   public disabled: boolean = false;
 
-  public chevronClick() {
+  public chevronClick(): void {
     this.direction = this.direction === 'up' ? 'down' : 'up';
     this.directionChange.emit(this.direction);
   }

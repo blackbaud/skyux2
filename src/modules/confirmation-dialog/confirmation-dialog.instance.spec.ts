@@ -3,7 +3,7 @@ import { SkyConfirmationDialogInstance } from './confirmation-dialog.instance';
 import { SkyConfirmationDialogType } from './confirmation-dialog-type';
 
 describe('Confirmation dialog instance', () => {
-  it('should allow users to subscribe to the close event', function () {
+  it('should allow users to subscribe to the close event', function (): void {
     let confirmInstance = new SkyConfirmationDialogInstance();
     let modalService = new MockModalService(undefined, undefined, undefined);
     let expectedResult: string;

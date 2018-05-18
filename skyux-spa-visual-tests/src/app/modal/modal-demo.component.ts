@@ -10,7 +10,7 @@ import { SkyModalService } from '@blackbaud/skyux/dist/core';
 export class ModalDemoComponent implements OnInit {
   public title = 'Hello world';
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     console.log('init happened');
   }
 }

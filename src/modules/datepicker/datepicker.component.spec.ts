@@ -46,16 +46,17 @@ const moment = require('moment');
 
 describe('datepicker', () => {
 
-  function openDatepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
+  function openDatepicker(element: HTMLElement, compFixture: ComponentFixture<any>): void {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
     compFixture.detectChanges();
   }
 
   function setInput(
-      element: HTMLElement,
-      text: string,
-      compFixture: ComponentFixture<any>) {
+    element: HTMLElement,
+    text: string,
+    compFixture: ComponentFixture<any>
+  ): void {
     let inputEvent = document.createEvent('Event');
     let params = {
       bubbles: false,
@@ -79,7 +80,8 @@ describe('datepicker', () => {
 
   function blurInput(
     element: HTMLElement,
-    compFixture: ComponentFixture<any>) {
+    compFixture: ComponentFixture<any>
+  ): void {
 
     let inputEvent = document.createEvent('Event');
     let params = {
@@ -614,7 +616,7 @@ describe('datepicker', () => {
     let nativeElement: HTMLElement;
 
     class MockWindowService {
-      public getWindow() {
+      public getWindow(): any {
         return {
           navigator: {
             languages: ['es']

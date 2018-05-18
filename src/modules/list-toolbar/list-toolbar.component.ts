@@ -135,7 +135,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
     public toolbarDispatcher: ListToolbarStateDispatcher
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.dispatcher.toolbarExists(true);
 
     getValue(this.searchText, (searchText: string) => {
@@ -237,7 +237,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
       });
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     this.toolbarItems.forEach((toolbarItem) => {
       this.dispatcher.toolbarAddItems(
         [new ListToolbarItemModel(toolbarItem)],
@@ -272,7 +272,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -283,11 +283,11 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
     );
   }
 
-  public inlineFilterButtonClick() {
+  public inlineFilterButtonClick(): void {
     this.inlineFilterBarExpanded = !this.inlineFilterBarExpanded;
   }
 
-  public updateSearchText(searchText: string) {
+  public updateSearchText(searchText: string): void {
     this.state.take(1).subscribe((currentState) => {
       this.dispatcher.searchSetText(searchText);
       if (currentState.paging.pageNumber && currentState.paging.pageNumber !== 1) {
@@ -298,11 +298,14 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
     });
   }
 
-  private itemIsInView(itemView: string, activeView: string) {
+  private itemIsInView(itemView: string, activeView: string): boolean {
     return (itemView === undefined || itemView === activeView);
   }
 
-  private getSortSelectors() {
+  private getSortSelectors(): Observable<{
+    sort: ListSortLabelModel;
+    selected: boolean;
+  }[]> {
     return Observable.combineLatest(
       this.state.map(s => s.sort.available).distinctUntilChanged(),
       this.state.map(s => s.sort.global).distinctUntilChanged(),
@@ -338,7 +341,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
       });
   }
 
-  private watchTemplates() {
+  private watchTemplates(): void {
     const templateStream = Observable.combineLatest(
       this.state.map(s => s.toolbar).distinctUntilChanged(),
       this.view.distinctUntilChanged(),

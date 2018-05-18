@@ -59,11 +59,11 @@ export class SkyTokenComponent {
     private elementRef: ElementRef
   ) { }
 
-  public dismissToken() {
+  public dismissToken(): void {
     this.dismiss.emit();
   }
 
-  public focusElement() {
+  public focusElement(): void {
     this.elementRef.nativeElement.querySelector('.sky-token').focus();
   }
 }

@@ -16,11 +16,11 @@ export class SkyErrorDemoComponent {
     private errorService: SkyErrorModalService
   ) { }
 
-  public customAction() {
+  public customAction(): void {
     alert('action clicked!');
   }
 
-  public openErrorModal() {
+  public openErrorModal(): void {
     const config: ErrorModalConfig = {
       errorTitle: 'Something bad happened!',
       errorDescription: 'Try to refresh this page, or come back later.',

@@ -33,7 +33,7 @@ export class SkyListFilterSummaryComponent implements AfterContentInit {
     private dispatcher: ListStateDispatcher
   ) {}
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     this.appliedFilters = this.state.map((state) => {
       return state.filters;
     });

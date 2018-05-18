@@ -38,23 +38,23 @@ export class SkyTokensTestComponent implements OnDestroy {
     { name: 'Blue' }
   ];
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     if (this.messageStream) {
       this.messageStream.complete();
     }
   }
 
-  public onFocusIndexOverRange() { }
+  public onFocusIndexOverRange(): void { }
 
-  public onFocusIndexUnderRange() { }
+  public onFocusIndexUnderRange(): void { }
 
-  public onTokenSelected(args: SkyTokenSelectedEventArgs) { }
+  public onTokenSelected(args: SkyTokenSelectedEventArgs): void { }
 
-  public publishTokens() {
+  public publishTokens(): void {
     this.tokens = this.data.map(value => ({ value }));
   }
 
-  public publishMessageStream() {
+  public publishMessageStream(): void {
     if (this.messageStream) {
       this.messageStream.unsubscribe();
     }

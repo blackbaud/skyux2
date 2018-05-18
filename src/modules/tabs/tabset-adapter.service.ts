@@ -12,7 +12,7 @@ export class SkyTabsetAdapterService {
 
   private bntsEl: HTMLElement;
 
-  public init(elRef: ElementRef) {
+  public init(elRef: ElementRef): void {
     this.el = elRef.nativeElement.querySelector('.sky-tabset');
     this.tabsEl = elRef.nativeElement.querySelector('.sky-tabset-tabs');
     this.bntsEl = elRef.nativeElement.querySelector('.sky-tabset-btns');
@@ -20,7 +20,7 @@ export class SkyTabsetAdapterService {
     this.detectOverflow();
   }
 
-  public detectOverflow() {
+  public detectOverflow(): void {
     if (this.el && this.tabsEl) {
       let elWidth = this.el.offsetWidth;
       let tabsElWidth = this.tabsEl.offsetWidth + this.bntsEl.offsetWidth;

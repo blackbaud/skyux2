@@ -49,7 +49,7 @@ export class SkyTabsDemoComponent {
     this.tabs.splice(tabIndex, 1);
   }
 
-  public newTabClick() {
+  public newTabClick(): void {
     let nextTab = this.tabs && this.tabs.length + 1;
 
     this.tabs.push({
@@ -59,7 +59,7 @@ export class SkyTabsDemoComponent {
     });
   }
 
-  public openTabClick() {
+  public openTabClick(): void {
     alert('You clicked the open tab button');
   }
 

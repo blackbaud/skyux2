@@ -33,22 +33,25 @@ export class SkyLinkRecordsItemDiffComponent implements OnInit {
     private dispatcher: SkyLinkRecordsStateDispatcher
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (this.key === undefined) {
       throw new Error("'key' is required.");
     }
   }
 
-  public setFieldSelected(fieldKey: string, ev: any) {
+  public setFieldSelected(fieldKey: string, ev: any): void {
     this.dispatcher.next(
       new SkyLinkRecordsSelectedSetSelectedAction(this.key, fieldKey, ev.checked));
   }
 
-  public trackByFieldKey(index: number, field: SkyLinkRecordsFieldModel) {
+  public trackByFieldKey(index: number, field: SkyLinkRecordsFieldModel): string {
     return field.key;
   }
 
-  get fieldValues() {
+  get fieldValues(): Observable<{
+    field: SkyLinkRecordsFieldModel;
+    selected: boolean;
+  }[]> {
     return Observable.combineLatest(
       this.state.map((s: any) => s.fields.item[this.key] || []).distinctUntilChanged(),
       this.state.map((s: any) => s.selected.item[this.key] || {}).distinctUntilChanged(),

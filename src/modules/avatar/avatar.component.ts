@@ -61,7 +61,7 @@ export class SkyAvatarComponent {
 
   constructor(private errorService: SkyErrorModalService) {}
 
-  public photoDrop(result: SkyFileDropChange) {
+  public photoDrop(result: SkyFileDropChange): void {
     /* sanity check */
     /* istanbul ignore else */
     if (result.files && result.files.length > 0) {
@@ -71,7 +71,7 @@ export class SkyAvatarComponent {
     }
   }
 
-  private handleError(rejectedFiles: Array<SkyFileItem>) {
+  private handleError(rejectedFiles: Array<SkyFileItem>): void {
     const rejectedFile = rejectedFiles[0];
 
     if (rejectedFile.errorType === 'maxFileSize') {
@@ -89,11 +89,11 @@ export class SkyAvatarComponent {
     }
   }
 
-  private maxFileSizeText() {
+  private maxFileSizeText(): string {
     return `${(this.maxFileSize / 1000)} KB`;
   }
 
-  private openErrorModal(title: string, description: string) {
+  private openErrorModal(title: string, description: string): void {
     const config: ErrorModalConfig = {
       errorTitle: title,
       errorDescription: description,

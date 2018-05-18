@@ -77,7 +77,7 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
     private resources: SkyResourcesService,
     private changeRef: ChangeDetectorRef) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.tabService.indexChanged
       .takeUntil(this._ngUnsubscribe)
       .subscribe((index: any) => {
@@ -94,12 +94,12 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
     }
   }
 
-  public ngAfterViewChecked() {
+  public ngAfterViewChecked(): void {
     this.tabService.content = this.content;
     this.tabService.updateContent();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
   }

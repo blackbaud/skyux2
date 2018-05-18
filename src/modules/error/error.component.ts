@@ -14,7 +14,7 @@ export class SkyErrorComponent implements OnInit {
     this.setErrorTypeFields();
   }
 
-  public get errorType() {
+  public get errorType(): string {
     return this._errorType;
   }
 
@@ -25,13 +25,13 @@ export class SkyErrorComponent implements OnInit {
 
   constructor(private resources: SkyResourcesService) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (this.errorType && this.errorType !== '') {
       this.setErrorTypeFields();
     }
   }
 
-  public setErrorTypeFields() {
+  public setErrorTypeFields(): void {
     if (this.errorType.toLowerCase() === 'broken') {
       this.title = this.resources.getString('error_component_broken_title');
       this.description = this.resources.getString('error_component_broken_description');
@@ -50,19 +50,19 @@ export class SkyErrorComponent implements OnInit {
     }
   }
 
-  public showBrokenImage() {
+  public showBrokenImage(): boolean {
     return this.errorType && this.errorType.toLowerCase() === 'broken';
   }
 
-  public showNotFoundImage() {
+  public showNotFoundImage(): boolean {
     return this.errorType && this.errorType.toLowerCase() === 'notfound';
   }
 
-  public showConstructionImage() {
+  public showConstructionImage(): boolean {
     return this.errorType && this.errorType.toLowerCase() === 'construction';
   }
 
-  public showSecurityImage() {
+  public showSecurityImage(): boolean {
     return this.errorType && this.errorType.toLowerCase() === 'security';
   }
 

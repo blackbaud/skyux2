@@ -8,11 +8,9 @@ export class TileTestComponent {
   public tileIsCollapsed = false;
   public collapsedOutputCalled = false;
 
-  public tileSettingsClick() {
+  public tileSettingsClick(): void { }
 
-  }
-
-  public collapsedStateCallback(isCollapsed: boolean) {
+  public collapsedStateCallback(isCollapsed: boolean): void {
     this.collapsedOutputCalled = isCollapsed;
   }
 }

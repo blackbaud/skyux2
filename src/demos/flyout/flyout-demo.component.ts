@@ -62,11 +62,11 @@ export class SkyFlyoutDemoComponent {
     });
   }
 
-  public closeFlyout() {
+  public closeFlyout(): void {
     this.flyout.close();
   }
 
-  public removeFlyout() {
+  public removeFlyout(): void {
     this.flyoutService.close();
     this.flyout = undefined;
   }
@@ -78,7 +78,7 @@ export class SkyFlyoutDemoComponent {
     );
   }
 
-  public openFlyoutWithUrlPermalink() {
+  public openFlyoutWithUrlPermalink(): void {
     this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
       providers: [{
         provide: FlyoutDemoContext,

@@ -33,7 +33,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit {
     private dispatcher: ListStateDispatcher
   ) {}
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     this.inlineFilters = this.filters.map(filter => {
       return new SkyListFilterInlineModel({
         name: filter.name,
@@ -53,7 +53,7 @@ export class SkyListFilterInlineComponent implements AfterContentInit {
     this.dispatcher.filtersUpdate(this.getFilterModelFromInline(this.inlineFilters));
   }
 
-  public applyFilters() {
+  public applyFilters(): void {
     this.dispatcher.filtersUpdate(this.getFilterModelFromInline(this.inlineFilters));
   }
 

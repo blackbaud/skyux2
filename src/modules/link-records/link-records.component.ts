@@ -81,7 +81,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     private dispatcher: SkyLinkRecordsStateDispatcher
   ) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (this.items && !(this.items instanceof Observable)) {
       this.items = Observable.of(this.items);
     }
@@ -138,7 +138,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     this.subscriptions.push(sub);
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     if (this.nodeItemTitle.length > 0) {
       this.itemTitleTemplate = this.nodeItemTitle.first.template;
     }
@@ -156,7 +156,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
@@ -164,7 +164,7 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     return item.key;
   }
 
-  get records() {
+  get records(): Observable<SkyLinkRecordsItemModel[]> {
     return Observable.combineLatest(
       this.items.distinctUntilChanged(),
       this.state.map((s: any) => s.matches.items).distinctUntilChanged(),
@@ -185,11 +185,11 @@ export class SkyLinkRecordsComponent implements OnInit, AfterContentInit, OnDest
     });
   }
 
-  get results() {
+  get results(): Observable<any> {
     return this.state.map((s: any) => s.results.items).distinctUntilChanged();
   }
 
-  get recordMatches() {
+  get recordMatches(): Observable<any> {
     return this.state.map((s: any) => s.matches.items).distinctUntilChanged();
   }
 }

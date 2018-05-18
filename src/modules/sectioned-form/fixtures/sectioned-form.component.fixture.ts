@@ -15,7 +15,7 @@ export class SkySectionedFormFixtureComponent implements AfterContentChecked {
 
   private _activeIndex: number;
 
-  public ngAfterContentChecked() {
+  public ngAfterContentChecked(): void {
     this.activeIndexDisplay = this._activeIndex;
   }
 

@@ -98,7 +98,7 @@ export class SkySortDemoComponent implements OnInit {
     this.sortedItems = result;
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.initialState = 3;
     this.sortItems(this.sortOptions[2]);
   }

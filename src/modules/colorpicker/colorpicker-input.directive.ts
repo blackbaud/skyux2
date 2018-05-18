@@ -110,7 +110,7 @@ export class SkyColorpickerInputDirective
     this._onTouched();
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     const element = this.elementRef.nativeElement;
 
     this.renderer.setElementClass(element, 'sky-form-control', true);
@@ -133,11 +133,11 @@ export class SkyColorpickerInputDirective
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.pickerChangedSubscription.unsubscribe();
   }
 
-  public setColorPickerDefaults() {
+  public setColorPickerDefaults(): void {
     this.skyColorpickerInput.setDialog(
       this,
       this.elementRef,

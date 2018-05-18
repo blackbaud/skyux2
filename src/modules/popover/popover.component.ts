@@ -115,12 +115,12 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     private windowRef: SkyWindowRefService
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.preferredPlacement = this.placement;
     this.adapterService.hidePopover(this.popoverContainer);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.removeListeners();
     this.idled.complete();
   }
@@ -156,7 +156,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     });
   }
 
-  public reposition() {
+  public reposition(): void {
     this.placement = this.preferredPlacement;
     this.changeDetector.markForCheck();
 
@@ -167,7 +167,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     this.positionPopover();
   }
 
-  public close() {
+  public close(): void {
     this.animationState = 'hidden';
     this.removeListeners();
     this.changeDetector.markForCheck();
@@ -198,11 +198,11 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     }
   }
 
-  public markForCloseOnMouseLeave() {
+  public markForCloseOnMouseLeave(): void {
     this.isMarkedForCloseOnMouseLeave = true;
   }
 
-  private positionPopover() {
+  private positionPopover(): void {
     if (this.placement !== 'fullscreen') {
       const elements = {
         popover: this.popoverContainer,

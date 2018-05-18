@@ -39,7 +39,7 @@ export class SkySectionedFormSectionComponent implements OnInit, OnDestroy {
 
   constructor(private sectionedFormService: SkySectionedFormService) {}
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.sectionedFormService.requiredChange
     .takeUntil(this._ngUnsubscribe)
     .subscribe((required: boolean) => this.fieldRequired = required);
@@ -49,7 +49,7 @@ export class SkySectionedFormSectionComponent implements OnInit, OnDestroy {
     .subscribe((invalid: boolean) => this.fieldInvalid = invalid);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
   }

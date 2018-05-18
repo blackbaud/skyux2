@@ -27,7 +27,7 @@ export class SkyWaitComponent {
     this._isWaiting = value;
   }
 
-  public get isWaiting() {
+  public get isWaiting(): boolean {
     return this._isWaiting;
   }
 
@@ -42,7 +42,7 @@ export class SkyWaitComponent {
     this._isFullPage = value;
   }
 
-  public get isFullPage() {
+  public get isFullPage(): boolean {
     return this._isFullPage;
   }
 

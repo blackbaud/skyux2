@@ -58,7 +58,7 @@ export class SkyListFiltersDemoComponent {
 
   constructor(private modalService: SkyModalService) {}
 
-  public openFilterModal() {
+  public openFilterModal(): void {
     let instance = this.modalService.open(SkyListFiltersModalDemoComponent, [
       {
         provide: SkyListFiltersModalDemoContext,

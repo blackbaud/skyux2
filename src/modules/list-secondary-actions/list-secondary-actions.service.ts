@@ -28,7 +28,7 @@ export class SkyListSecondaryActionsService implements OnDestroy {
     this.actionsStream.next(this.actions);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.secondaryActionsSubject.complete();
     this.actionsStream.complete();
   }

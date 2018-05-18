@@ -38,9 +38,9 @@ class MockPopoverAdapterService {
       alignment: undefined
     };
   }
-  public hidePopover() {}
-  public showPopover() {}
-  public getParentScrollListeners() {}
+  public hidePopover(): void {}
+  public showPopover(): void {}
+  public getParentScrollListeners(): void {}
 }
 
 describe('SkyPopoverComponent', () => {
@@ -207,7 +207,7 @@ describe('SkyPopoverComponent', () => {
 
   it('should close the popover when the escape key is pressed', fakeAsync(() => {
     const spy = spyOn(fixture.componentInstance, 'close');
-    const caller = new ElementRef({ focus() {} });
+    const caller = new ElementRef({ focus(): void {} });
     component.positionNextTo(caller, 'above');
     tick();
 

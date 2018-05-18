@@ -29,11 +29,11 @@ export class TabsetTestComponent {
 
   public tabMaxWidth = 2000;
 
-  public newTab() { }
+  public newTab(): void { }
 
-  public openTab() { }
+  public openTab(): void { }
 
-  public closeTab2() {
+  public closeTab2(): void {
     this.tab2Available = false;
   }
 }

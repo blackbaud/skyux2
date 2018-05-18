@@ -61,7 +61,7 @@ export class SkyGridColumnComponent implements OnChanges {
   @ContentChildren(TemplateRef)
   private templates: QueryList<TemplateRef<any>>;
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes.heading && changes.heading.firstChange === false) {
       this.headingChanges.emit(this.heading);
       this.headingModelChanges.emit({

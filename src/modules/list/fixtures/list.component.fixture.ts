@@ -1,6 +1,11 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { SkyListComponent } from '../list.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import {
+  Observable
+} from 'rxjs/Observable';
+
 import { SkyListToolbarComponent } from '../../list-toolbar';
 
 @Component({
@@ -19,7 +24,7 @@ export class ListTestComponent {
   constructor(@Inject('items') public items: any) {
   }
 
-  public get options() {
+  public get options(): Observable<any[]> {
     let bs = new BehaviorSubject<Array<any>>(['banana', 'apple']);
     return bs.asObservable();
   }

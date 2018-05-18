@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class HelpInlineVisualComponent {
     public buttonIsClicked: boolean;
 
-    public buttonClicked() {
+    public buttonClicked(): void {
         this.buttonIsClicked = true;
     }
 }

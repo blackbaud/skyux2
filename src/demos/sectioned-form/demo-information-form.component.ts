@@ -11,7 +11,7 @@ export class SkyDemoInformationFormComponent {
   private _name: string = '';
   private _id: string = '5324901';
 
-  public get nameRequired() {
+  public get nameRequired(): boolean {
     return this._nameRequired;
   }
 
@@ -20,7 +20,7 @@ export class SkyDemoInformationFormComponent {
     this.sectionedFormService.requiredFieldChanged(value);
   }
 
-  public get name() {
+  public get name(): string {
     return this._name;
   }
 
@@ -32,7 +32,7 @@ export class SkyDemoInformationFormComponent {
     }
   }
 
-  public get id() {
+  public get id(): string {
     return this._id;
   }
 
@@ -47,7 +47,7 @@ export class SkyDemoInformationFormComponent {
     private sectionedFormService: SkySectionedFormService
   ) { }
 
-  private idValid(value: string) {
+  private idValid(value: string): boolean {
     if (value) {
       let regExp = new RegExp('^[0-9]+$');
       return regExp.test(value);

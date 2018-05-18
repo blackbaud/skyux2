@@ -42,7 +42,7 @@ export class SkyMediaQueryDemoComponent implements OnDestroy {
     });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     /* istanbul ignore else */
     /* sanity check */
     if (this.querySubscription) {

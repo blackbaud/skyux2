@@ -56,7 +56,7 @@ export class SkyTileComponent {
     this.isInDashboardColumn = !!dashboardService;
   }
 
-  public settingsButtonClicked() {
+  public settingsButtonClicked(): void {
     this.settingsClick.emit(undefined);
   }
 
@@ -64,7 +64,7 @@ export class SkyTileComponent {
     return this.settingsClick.observers.length > 0 && this.showSettings;
   }
 
-  public titleClick() {
+  public titleClick(): void {
     this.isCollapsed = !this.isCollapsed;
   }
 

@@ -76,7 +76,7 @@ export class SkyTileDashboardService {
     config: SkyTileDashboardConfig,
     columns?: QueryList<SkyTileDashboardColumnComponent>,
     singleColumn?: SkyTileDashboardColumnComponent
-  ) {
+  ): void {
     this.config = config;
     this.columns = columns;
     this.singleColumn = singleColumn;
@@ -87,7 +87,7 @@ export class SkyTileDashboardService {
   public addTileComponent(
     tile: SkyTileDashboardConfigLayoutTile,
     component: ComponentRef<any>
-  ) {
+  ): void {
     this.tileComponents = this.tileComponents || [];
 
     this.tileComponents.push(component);
@@ -105,7 +105,7 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
-  public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {
+  public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean): void {
     let tileConfig = this.findTile(getTileId(tile));
 
     if (tileConfig) {
@@ -126,7 +126,7 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
-  public changeColumnMode(isSingleColumn: boolean) {
+  public changeColumnMode(isSingleColumn: boolean): void {
     /*istanbul ignore else */
     if (this.config) {
       if (isSingleColumn) {
@@ -148,7 +148,7 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
-  public destroy() {
+  public destroy(): void {
     /*istanbul ignore else */
     if (this.mediaSubscription) {
       this.mediaSubscription.unsubscribe();
@@ -169,7 +169,7 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
-  private checkReady() {
+  private checkReady(): void {
     // The columns list is determined by the config options, so make sure that the columns
     // and config are synced up before loading the tiles by waiting until change detection
     // completes.
@@ -180,7 +180,7 @@ export class SkyTileDashboardService {
     // }, 0);
   }
 
-  private loadTiles() {
+  private loadTiles(): void {
     let layout = this.config.layout;
 
     if (
@@ -205,7 +205,7 @@ export class SkyTileDashboardService {
   private loadTileIntoColumn(
     column: SkyTileDashboardColumnComponent,
     layoutTile: SkyTileDashboardConfigLayoutTile
-  ) {
+  ): void {
     let tile = this.getTile(layoutTile);
 
     let componentType = tile.componentType;
@@ -225,11 +225,11 @@ export class SkyTileDashboardService {
     componentRef.changeDetectorRef.markForCheck();
   }
 
-  private moveTilesToSingleColumn() {
+  private moveTilesToSingleColumn(): void {
     this.moveTilesToColumn(this.singleColumn, this.config.layout.singleColumn.tiles);
   }
 
-  private moveTilesToMultiColumn() {
+  private moveTilesToMultiColumn(): void {
     let layoutColumns = this.config.layout.multiColumn;
     let columns = this.columns.toArray();
 
@@ -241,7 +241,7 @@ export class SkyTileDashboardService {
   private moveTilesToColumn(
     column: SkyTileDashboardColumnComponent,
     layoutTiles: SkyTileDashboardConfigLayoutTile[]
-  ) {
+  ): void {
     let columnEl = this.getColumnEl(column);
 
     for (let layoutTile of layoutTiles) {
@@ -325,7 +325,7 @@ export class SkyTileDashboardService {
     return layoutTiles;
   }
 
-  private initMediaQueries() {
+  private initMediaQueries(): void {
     this.mediaSubscription = this.mediaQuery.subscribe(
       (args: SkyMediaBreakpoints) => {
         this.changeColumnMode(args === SkyMediaBreakpoints.xs || args === SkyMediaBreakpoints.sm);
@@ -333,7 +333,7 @@ export class SkyTileDashboardService {
     );
   }
 
-  private initDragula() {
+  private initDragula(): void {
     this.dragulaService.setOptions(this.bagId, {
       moves: (el: HTMLElement, container: HTMLElement, handle: HTMLElement) => {
         return handle.matches('.sky-tile-grab-handle');

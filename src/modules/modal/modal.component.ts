@@ -50,39 +50,39 @@ export class SkyModalComponent implements AfterViewInit {
     this.config.tiledBody = value;
   }
 
-  public get modalZIndex() {
+  public get modalZIndex(): number {
     return this.hostService.getModalZIndex();
   }
 
-  public get modalFullPage() {
+  public get modalFullPage(): boolean {
     return this.config.fullPage;
   }
 
-  public get isSmallSize() {
+  public get isSmallSize(): boolean {
     return !this.modalFullPage && this.isSizeEqual(this.config.size, 'small');
   }
 
-  public get isMediumSize() {
+  public get isMediumSize(): boolean {
     return !this.modalFullPage && !(this.isSmallSize || this.isLargeSize);
   }
 
-  public get isLargeSize() {
+  public get isLargeSize(): boolean {
     return !this.modalFullPage && this.isSizeEqual(this.config.size, 'large');
   }
 
-  public get isTiledBody() {
+  public get isTiledBody(): boolean {
     return this.config.tiledBody;
   }
 
-  public get ariaDescribedBy() {
+  public get ariaDescribedBy(): string {
     return this.config.ariaDescribedBy || this.modalContentId;
   }
 
-  public get ariaLabelledBy() {
+  public get ariaLabelledBy(): string {
     return this.config.ariaLabelledBy || this.modalHeaderId;
   }
 
-  public get helpKey() {
+  public get helpKey(): string {
     return this.config.helpKey;
   }
 
@@ -95,7 +95,7 @@ export class SkyModalComponent implements AfterViewInit {
   ) { }
 
   @HostListener('document:keydown', ['$event'])
-  public onDocumentKeyDown(event: KeyboardEvent) {
+  public onDocumentKeyDown(event: KeyboardEvent): void {
     /* istanbul ignore else */
     /* sanity check */
     if (SkyModalHostService.openModalCount > 0) {
@@ -138,7 +138,7 @@ export class SkyModalComponent implements AfterViewInit {
     }
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     skyModalUniqueIdentifier++;
     this.componentAdapter.handleWindowChange(this.elRef);
 
@@ -149,19 +149,19 @@ export class SkyModalComponent implements AfterViewInit {
     });
   }
 
-  public helpButtonClick() {
+  public helpButtonClick(): void {
     this.hostService.onOpenHelp(this.helpKey);
   }
 
-  public closeButtonClick() {
+  public closeButtonClick(): void {
     this.hostService.onClose();
   }
 
-  public windowResize() {
+  public windowResize(): void {
     this.componentAdapter.handleWindowChange(this.elRef);
   }
 
-  private isSizeEqual(actualSize: string, size: string) {
+  private isSizeEqual(actualSize: string, size: string): boolean {
     return actualSize && actualSize.toLowerCase() === size;
   }
 }

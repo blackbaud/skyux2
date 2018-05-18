@@ -40,19 +40,19 @@ describe('Button', () => {
 
   // These tests are separated since the mouse needs to move
 
-  it('should match the baseline screenshot while hovering a primary button', function () {
+  it('should match the baseline screenshot while hovering a primary button', function (): void {
     return testButtonClick('button-primary');
   });
 
-  it('should match the baseline screenshot while hovering a secondary button', function () {
+  it('should match the baseline screenshot while hovering a secondary button', function (): void {
     return testButtonClick('button-secondary');
   });
 
-  it('should match the baseline screenshot while hovering a link button', function () {
+  it('should match the baseline screenshot while hovering a link button', function (): void {
       return testButtonClick('button-link');
   });
 
-  it('should match the baseline screenshot while hovering a link inline button', function () {
+  it('should match the baseline screenshot while hovering a link inline button', function (): void {
     return testButtonClick('button-link-inline');
   });
 

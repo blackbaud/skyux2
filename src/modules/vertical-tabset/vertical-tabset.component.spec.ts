@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { SkyVerticalTabsFixturesModule } from './fixtures/vertical-tabs-fixtures.module';
 import { SkyVerticalTabsetComponent } from '../vertical-tabset/vertical-tabset.component';
 import { VerticalTabsetTestComponent } from './fixtures/vertical-tabset.component.fixture';
@@ -20,7 +20,7 @@ import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
 let mockQueryService = new MockSkyMediaQueryService();
 
-function getVisibleVerticalTabs(el: any) {
+function getVisibleVerticalTabs(el: any): any {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
 }
 
@@ -36,7 +36,7 @@ describe('Vertical tabset component', () => {
     });
   });
 
-  function createTestComponent() {
+  function createTestComponent(): ComponentFixture<VerticalTabsetTestComponent> {
     return TestBed.overrideComponent(SkyVerticalTabsetComponent, {
       add: {
         providers: [

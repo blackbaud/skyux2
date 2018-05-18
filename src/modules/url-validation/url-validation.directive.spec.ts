@@ -9,7 +9,8 @@ describe('Url validation', () => {
   function setInput(
     element: HTMLElement,
     text: string,
-    compFixture: ComponentFixture<any>) {
+    compFixture: ComponentFixture<any>
+  ): void {
     let inputEvent = document.createEvent('Event');
     let params = {
       bubbles: false,

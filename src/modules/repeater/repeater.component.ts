@@ -44,7 +44,7 @@ export class SkyRepeaterComponent implements AfterContentInit {
     this.updateForExpandMode();
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     // HACK: Not updating for expand mode in a timeout causes an error.
     // https://github.com/angular/angular/issues/6005
     this.items.changes.subscribe(() => {

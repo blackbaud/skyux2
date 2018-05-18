@@ -91,7 +91,7 @@ export class SkyDatepickerInputDirective implements
     Object.assign(this, this.config);
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.renderer.setElementClass(this.elRef.nativeElement, 'sky-form-control', true);
     this.pickerChangedSubscription =
       this.skyDatepickerInput.dateChanged.subscribe((newDate: Date) => {
@@ -100,7 +100,7 @@ export class SkyDatepickerInputDirective implements
       });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     /* istanbul ignore else */
     /* sanity check */
     if (this.pickerChangedSubscription) {
@@ -108,7 +108,7 @@ export class SkyDatepickerInputDirective implements
     }
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes['minDate']) {
       this._validatorChange();
       this.skyDatepickerInput.setMinDate(this.minDate);
@@ -134,7 +134,7 @@ export class SkyDatepickerInputDirective implements
   }
 
   @HostListener('blur')
-  public onBlur() {
+  public onBlur(): void {
     this._onTouched();
   }
 

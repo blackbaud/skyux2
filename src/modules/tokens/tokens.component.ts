@@ -126,13 +126,13 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (this.messageStream) {
       this.initMessageStream();
     }
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (
       changes.messageStream &&
       changes.messageStream.currentValue &&
@@ -142,7 +142,7 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
 
@@ -195,22 +195,22 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     this.changeDetector.detectChanges();
   }
 
-  private focusPreviousToken() {
+  private focusPreviousToken(): void {
     this.activeIndex--;
     this.focusActiveToken();
   }
 
-  private focusNextToken() {
+  private focusNextToken(): void {
     this.activeIndex++;
     this.focusActiveToken();
   }
 
-  private focusLastToken() {
+  private focusLastToken(): void {
     this.activeIndex = this.tokenComponents.length - 1;
     this.focusActiveToken();
   }
 
-  private focusActiveToken() {
+  private focusActiveToken(): void {
     const tokenComponent = this.tokenComponents
       .find((comp: SkyTokenComponent, i: number) => {
         return (this.activeIndex === i);
@@ -221,14 +221,14 @@ export class SkyTokensComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private removeActiveToken() {
+  private removeActiveToken(): void {
     const token = this.tokens[this.activeIndex];
     if (token) {
       this.removeToken(token);
     }
   }
 
-  private initMessageStream() {
+  private initMessageStream(): void {
     this.messageStream
       .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyTokensMessage) => {

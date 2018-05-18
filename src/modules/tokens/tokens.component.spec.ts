@@ -17,7 +17,7 @@ import {
 import { SkyTokensFixturesModule } from './fixtures/tokens-fixtures.module';
 import { SkyTokensTestComponent } from './fixtures/tokens.component.fixture';
 
-describe('Tokens component', function () {
+describe('Tokens component', () => {
   let fixture: ComponentFixture<SkyTokensTestComponent>;
   let component: SkyTokensTestComponent;
   let tokensComponent: SkyTokensComponent;
@@ -28,7 +28,7 @@ describe('Tokens component', function () {
     return tokenElements as NodeListOf<HTMLElement>;
   }
 
-  function verifyArrowKeyNavigation(keyRight: string, keyLeft: string) {
+  function verifyArrowKeyNavigation(keyRight: string, keyLeft: string): void {
     fixture.detectChanges();
     component.publishTokens();
     fixture.detectChanges();
@@ -56,7 +56,7 @@ describe('Tokens component', function () {
     );
   }
 
-  function verifyItemFocusedWithMessage(type: SkyTokensMessageType, index: number) {
+  function verifyItemFocusedWithMessage(type: SkyTokensMessageType, index: number): void {
     component.messageStream.next({ type });
     fixture.detectChanges();
 
@@ -67,7 +67,7 @@ describe('Tokens component', function () {
     expect(document.activeElement).toEqual(focusedToken);
   }
 
-  function removeActiveItemAndVerifyLength(length: number) {
+  function removeActiveItemAndVerifyLength(length: number): void {
     component.messageStream.next({
       type: SkyTokensMessageType.RemoveActiveToken
     });
@@ -78,7 +78,7 @@ describe('Tokens component', function () {
     expect(component.tokens.length).toEqual(length);
   }
 
-  beforeEach(function () {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyTokensFixturesModule
@@ -90,12 +90,12 @@ describe('Tokens component', function () {
     tokensComponent = component.tokensComponent;
   });
 
-  afterEach(function () {
+  afterEach(() => {
     fixture.destroy();
   });
 
-  describe('basic setup', function () {
-    it('should set defaults', function () {
+  describe('basic setup', () => {
+    it('should set defaults', () => {
       expect(tokensComponent.tokens).toEqual([]);
       fixture.detectChanges();
       expect(tokensComponent.disabled).toEqual(false);
@@ -105,14 +105,14 @@ describe('Tokens component', function () {
       expect(tokensComponent.activeIndex).toEqual(0);
     });
 
-    it('should wrap internal content', function () {
+    it('should wrap internal content', () => {
       fixture.detectChanges();
       expect(component.tokensElementRef.nativeElement).toHaveText('INNER CONTENT');
     });
   });
 
-  describe('events', function () {
-    it('should emit when the focus index is greater than the number of tokens', function () {
+  describe('events', () => {
+    it('should emit when the focus index is greater than the number of tokens', () => {
       component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
@@ -132,7 +132,7 @@ describe('Tokens component', function () {
       expect(tokensComponent.activeIndex).toEqual(2);
     });
 
-    it('should emit when the focus index is less than zero', function () {
+    it('should emit when the focus index is less than zero', () => {
       component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
@@ -152,7 +152,7 @@ describe('Tokens component', function () {
       expect(tokensComponent.activeIndex).toEqual(0);
     });
 
-    it('should emit when token is selected on click', function () {
+    it('should emit when token is selected on click', () => {
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
       component.publishMessageStream();
@@ -169,7 +169,7 @@ describe('Tokens component', function () {
       });
     });
 
-    it('should not emit when token is clicked if disabled', function () {
+    it('should not emit when token is clicked if disabled', () => {
       component.disabled = true;
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
@@ -185,8 +185,8 @@ describe('Tokens component', function () {
     });
   });
 
-  describe('message stream', function () {
-    it('should focus previous and next items', function () {
+  describe('message stream', () => {
+    it('should focus previous and next items', () => {
       component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
@@ -196,7 +196,7 @@ describe('Tokens component', function () {
       verifyItemFocusedWithMessage(SkyTokensMessageType.FocusPreviousToken, 0);
     });
 
-    it('should focus active item', function () {
+    it('should focus active item', () => {
       component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
@@ -205,7 +205,7 @@ describe('Tokens component', function () {
       verifyItemFocusedWithMessage(SkyTokensMessageType.FocusActiveToken, 0);
     });
 
-    it('should focus last item', function () {
+    it('should focus last item', () => {
       component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
@@ -218,7 +218,7 @@ describe('Tokens component', function () {
       );
     });
 
-    it('should remove items', function () {
+    it('should remove items', () => {
       component.publishMessageStream();
       fixture.detectChanges();
       component.publishTokens();
@@ -238,7 +238,7 @@ describe('Tokens component', function () {
       removeActiveItemAndVerifyLength(0);
     });
 
-    it('should handle async message stream init', function () {
+    it('should handle async message stream init', () => {
       fixture.detectChanges();
       component.publishTokens();
       fixture.detectChanges();
@@ -269,7 +269,7 @@ describe('Tokens component', function () {
       expect(document.activeElement).toEqual(lastToken);
     });
 
-    it('should handle empty tokens', function () {
+    it('should handle empty tokens', () => {
       component.publishMessageStream();
       fixture.detectChanges();
       component.disabled = true;
@@ -286,18 +286,18 @@ describe('Tokens component', function () {
     });
   });
 
-  describe('keyboard interactions', function () {
-    it('should navigate token focus with arrow keys', function () {
+  describe('keyboard interactions', () => {
+    it('should navigate token focus with arrow keys', () => {
       component.publishMessageStream();
       verifyArrowKeyNavigation('ArrowRight', 'ArrowLeft');
     });
 
-    it('should navigate token focus with arrow keys (Edge/IE)', function () {
+    it('should navigate token focus with arrow keys (Edge/IE)', () => {
       component.publishMessageStream();
       verifyArrowKeyNavigation('Right', 'Left');
     });
 
-    it('should ignore keydown if disabled', function () {
+    it('should ignore keydown if disabled', () => {
       component.disabled = true;
       component.publishMessageStream();
       fixture.detectChanges();
@@ -315,7 +315,7 @@ describe('Tokens component', function () {
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should select token with enter keyup', function () {
+    it('should select token with enter keyup', () => {
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
       fixture.detectChanges();
@@ -333,7 +333,7 @@ describe('Tokens component', function () {
       });
     });
 
-    it('should ignore keyup events if tokens are disabled', function () {
+    it('should ignore keyup events if tokens are disabled', () => {
       component.disabled = true;
       const spy = spyOn(component, 'onTokenSelected').and.callThrough();
 
@@ -351,8 +351,8 @@ describe('Tokens component', function () {
     });
   });
 
-  describe('token component', function () {
-    it('should dismiss a token when close button clicked', function () {
+  describe('token component', () => {
+    it('should dismiss a token when close button clicked', () => {
       fixture.detectChanges();
       component.publishTokens();
       fixture.detectChanges();
@@ -372,7 +372,7 @@ describe('Tokens component', function () {
       expect(spy).toHaveBeenCalledWith(removedToken);
     });
 
-    it('should add a sky-btn-disabled class if disabled', function () {
+    it('should add a sky-btn-disabled class if disabled', () => {
       component.disabled = true;
       fixture.detectChanges();
       component.publishTokens();
@@ -392,7 +392,7 @@ describe('Tokens component', function () {
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should adjust the tabindex if set to not-focusable', function () {
+    it('should adjust the tabindex if set to not-focusable', () => {
       fixture.detectChanges();
       component.publishTokens();
       fixture.detectChanges();

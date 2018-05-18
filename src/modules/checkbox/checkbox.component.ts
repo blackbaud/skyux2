@@ -78,7 +78,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   public onTouched: () => any = () => {};
 
   @Input()
-  public get checked() {
+  public get checked(): boolean {
     return this._checked;
   }
 
@@ -91,21 +91,21 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   /**
    * Implemented as part of ControlValueAccessor.
    */
-  public writeValue(value: any) {
+  public writeValue(value: any): void {
     this.checked = !!value;
   }
 
   /**
    * Implemented as part of ControlValueAccessor.
    */
-  public registerOnChange(fn: (value: any) => void) {
+  public registerOnChange(fn: (value: any) => void): void {
     this._controlValueAccessorChangeFn = fn;
   }
 
   /**
    * Implemented as part of ControlValueAccessor.
    */
-  public registerOnTouched(fn: any) {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
@@ -113,7 +113,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
    * Event handler for checkbox input element.
    * Toggles checked state if element is not disabled.
    */
-  public onInteractionEvent(event: Event) {
+  public onInteractionEvent(event: Event): void {
     // We always have to stop propagation on the change event.
     // Otherwise the change event, from the input element, will bubble up and
     // emit its event object to the `change` output.
@@ -125,13 +125,13 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
     }
   }
 
-  public onInputBlur() {
+  public onInputBlur(): void {
     this.onTouched();
   }
 
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
 
-  private _emitChangeEvent() {
+  private _emitChangeEvent(): void {
     let event = new SkyCheckboxChange();
     event.source = this;
     event.checked = this._checked;
@@ -143,7 +143,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   /**
    * Toggles the `checked` value between true and false
    */
-  private _toggle() {
+  private _toggle(): void {
     this.checked = !this.checked;
   }
 }

@@ -39,26 +39,26 @@ describe('Flyout service', () => {
         {
           provide: SkyFlyoutAdapterService,
           useValue: {
-            appendToBody() { },
-            removeHostElement() { }
+            appendToBody(): void { },
+            removeHostElement(): void { }
           }
         },
         {
           provide: ApplicationRef,
           useValue: {
-            attachView() {},
-            detachView() {}
+            attachView(): void {},
+            detachView(): void {}
           }
         },
         Injector,
         {
           provide: ComponentFactoryResolver,
           useValue: {
-            resolveComponentFactory() {
+            resolveComponentFactory(): any {
               return {
-                create() {
+                create(): any {
                   return {
-                    destroy() {},
+                    destroy(): any {},
                     hostView: {
                       rootNodes: [
                         {}
@@ -66,20 +66,20 @@ describe('Flyout service', () => {
                     },
                     instance: {
                       messageStream: {
-                        take() {
+                        take(): any {
                           return {
-                            subscribe() { }
+                            subscribe(): void { }
                           };
                         },
-                        next() {}
+                        next(): void {}
                       },
-                      attach() {
+                      attach(): any {
                         return {
-                          close() { },
+                          close(): void { },
                           closed: {
-                            take() {
+                            take(): any {
                               return {
-                                subscribe() { }
+                                subscribe(): void { }
                               };
                             }
                           }

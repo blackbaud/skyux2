@@ -22,6 +22,7 @@ import {
 import {
   By
 } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 describe('File item component', () => {
   let fixture: ComponentFixture<SkyFileItemComponent>;
@@ -40,11 +41,11 @@ describe('File item component', () => {
     componentInstance = fixture.componentInstance;
   });
 
-  function getNameEl() {
+  function getNameEl(): DebugElement {
     return fixture.debugElement.query(By.css('.sky-file-item-title .sky-file-item-name strong'));
   }
 
-  function getSizeEl() {
+  function getSizeEl(): DebugElement {
     return fixture.debugElement.query(By.css('.sky-file-item-title .sky-file-item-size'));
   }
 
@@ -82,7 +83,7 @@ describe('File item component', () => {
     expect(sizeEl).toBeFalsy();
   });
 
-  function triggerDelete() {
+  function triggerDelete(): void {
     let deleteEl = fixture.debugElement.query(By.css('.sky-file-item-btn-delete'));
     deleteEl.nativeElement.click();
     fixture.detectChanges();
@@ -122,15 +123,15 @@ describe('File item component', () => {
     expect(deletedFile.file.size).toBe(1000);
   });
 
-  function getImage() {
+  function getImage(): DebugElement {
     return fixture.debugElement.query(By.css('.sky-file-item-preview-img-container img'));
   }
 
-  function getOtherPreview() {
+  function getOtherPreview(): DebugElement {
     return fixture.debugElement.query(By.css('.sky-file-item-preview-other i'));
   }
 
-  function testImage(extension: string) {
+  function testImage(extension: string): void {
     componentInstance.fileItem = <SkyFileItem> {
       file: {
         name: 'myFile.' + extension,
@@ -156,7 +157,7 @@ describe('File item component', () => {
     testImage('gif');
   });
 
-  function testOtherPreview(extension: string, type: string) {
+  function testOtherPreview(extension: string, type: string): void {
     componentInstance.fileItem = <SkyFileItem> {
       file: {
         name: 'myFile.' + extension,

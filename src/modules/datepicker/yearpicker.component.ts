@@ -49,7 +49,7 @@ export class SkyYearPickerComponent implements OnInit {
     return date1.getFullYear() - date2.getFullYear();
   }
 
-  private refreshYearView() {
+  private refreshYearView(): void {
     let years: Array<SkyDatepickerDate> = new Array(this.datepicker.yearRange);
     let date: Date;
     let start = this.getStartingYear(this.datepicker.activeDate.getFullYear());

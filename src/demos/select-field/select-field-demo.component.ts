@@ -71,7 +71,7 @@ export class SkySelectFieldDemoComponent implements OnInit {
     });
   }
 
-  private populateData() {
+  private populateData(): void {
     this.fruitStream.next(this.fruits);
     this.colorStream.next(this.colors);
   }

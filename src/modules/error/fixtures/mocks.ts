@@ -2,7 +2,7 @@ import { SkyModalService } from '../../modal/modal.service';
 import { SkyModalInstance } from '../../modal/modal-instance';
 
 export class SkyModalInstanceMock {
-  public close() {}
+  public close(): void {}
 }
 
 export class MockHostService {

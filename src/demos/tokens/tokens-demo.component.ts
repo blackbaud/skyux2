@@ -47,17 +47,17 @@ export class SkyTokensDemoComponent implements OnDestroy {
     this.filters = this.parseTokens(this.selectedFilters);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     if (this.tokensController) {
       this.tokensController.complete();
     }
   }
 
-  public resetColors() {
+  public resetColors(): void {
     this.createColors();
   }
 
-  public changeColors() {
+  public changeColors(): void {
     this.colors = this.parseTokens([
       { name: 'Red' },
       { name: 'White' },
@@ -65,11 +65,11 @@ export class SkyTokensDemoComponent implements OnDestroy {
     ]);
   }
 
-  public destroyColors() {
+  public destroyColors(): void {
     this.colors = undefined;
   }
 
-  public createColors() {
+  public createColors(): void {
     this.colors = this.parseTokens(this.defaultColors);
   }
 
@@ -77,15 +77,15 @@ export class SkyTokensDemoComponent implements OnDestroy {
     console.log('Token selected:', args);
   }
 
-  public onFocusIndexUnderRange() {
+  public onFocusIndexUnderRange(): void {
     console.log('Focus index was less than zero.');
   }
 
-  public onFocusIndexOverRange() {
+  public onFocusIndexOverRange(): void {
     console.log('Focus index was greater than the number of tokens.');
   }
 
-  public focusLastToken() {
+  public focusLastToken(): void {
     if (!this.tokensController) {
       this.tokensController = new Subject<SkyTokensMessage>();
     }

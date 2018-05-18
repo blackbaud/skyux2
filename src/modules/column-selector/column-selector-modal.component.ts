@@ -25,11 +25,11 @@ export class SkyColumnSelectorComponent {
     });
   }
 
-  public cancelChanges() {
+  public cancelChanges(): void {
     this.instance.cancel();
   }
 
-  public applyChanges() {
+  public applyChanges(): void {
     this.instance.save(this.newSelectedColumnIds);
   }
 }

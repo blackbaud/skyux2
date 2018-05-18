@@ -71,7 +71,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     @Optional() private dropdownComponent: SkyDropdownComponent
   ) { }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     /* istanbul ignore else */
     if (this.dropdownComponent) {
       this.dropdownComponent.messageStream
@@ -129,7 +129,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
       });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -173,7 +173,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  public focusFirstItem() {
+  public focusFirstItem(): void {
     if (!this.hasFocusableItems) {
       return;
     }
@@ -188,7 +188,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  public focusPreviousItem() {
+  public focusPreviousItem(): void {
     if (!this.hasFocusableItems) {
       return;
     }
@@ -203,7 +203,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  public focusNextItem() {
+  public focusNextItem(): void {
     if (!this.hasFocusableItems) {
       return;
     }
@@ -218,13 +218,13 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  public reset() {
+  public reset(): void {
     this._menuIndex = -1;
     this.resetItemsActiveState();
     this.changeDetector.markForCheck();
   }
 
-  private resetItemsActiveState() {
+  private resetItemsActiveState(): void {
     this.menuItems.forEach((item: SkyDropdownItemComponent) => {
       item.resetState();
     });

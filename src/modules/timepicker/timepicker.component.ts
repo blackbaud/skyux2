@@ -38,11 +38,11 @@ export class SkyTimepickerComponent implements OnInit {
   public minuteMultiplier: number;
   public is8601: boolean = false;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.setFormat(this.timeFormat);
   }
 
-  public setFormat(format: string) {
+  public setFormat(format: string): void {
     let h: number = 12;
     let m: number = 12;
     let minuteMultiplier: number = 5;
@@ -64,7 +64,7 @@ export class SkyTimepickerComponent implements OnInit {
 
     data = {
       'hours': Array.apply(undefined, Array(h))
-        .map(function (x: number, i: number) {
+        .map(function (x: number, i: number): number {
           if (format === 'hh') { return ++i; }
           /* istanbul ignore else */
           if (format === 'HH') { return i; }
@@ -73,7 +73,7 @@ export class SkyTimepickerComponent implements OnInit {
           return 0;
         }),
       'minutes': Array.apply(undefined, Array(m))
-        .map(function (x: number, i: number) {
+        .map(function (x: number, i: number): number {
           return i * minuteMultiplier;
         }),
       'localeFormat': localeFormat,
@@ -96,7 +96,7 @@ export class SkyTimepickerComponent implements OnInit {
     }
   }
 
-  public get selectedTime() {
+  public get selectedTime(): SkyTimepickerTimeOutput {
     const time: SkyTimepickerTimeOutput = {
       hour: moment(this.activeTime).hour(),
       minute: moment(this.activeTime).minute(),
@@ -111,7 +111,7 @@ export class SkyTimepickerComponent implements OnInit {
     return time;
   }
 
-  public setTime(event: any) {
+  public setTime(event: any): void {
     /* istanbul ignore else */
     if (typeof event !== 'undefined') {
       /* istanbul ignore else */
@@ -130,7 +130,7 @@ export class SkyTimepickerComponent implements OnInit {
     }
   }
 
-  public onButtonClick() {
+  public onButtonClick(): void {
     this.dropdownController.next({
       type: SkyDropdownMessageType.Close
     });
@@ -169,7 +169,7 @@ export class SkyTimepickerComponent implements OnInit {
     }
   }
 
-  public get selectedHour() {
+  public get selectedHour(): number {
     if (!this.is8601) {
       /* istanbul ignore next */
       return parseInt(moment(this.activeTime).format('h'), 0) || 1;
@@ -180,11 +180,11 @@ export class SkyTimepickerComponent implements OnInit {
     }
   }
 
-  public get selectedMinute() {
+  public get selectedMinute(): number {
     return moment(this.activeTime).minute() + 0;
   }
 
-  public get selectedMeridies() {
+  public get selectedMeridies(): string {
     if (this.activeTime) {
       return moment(this.activeTime).format('A');
     }

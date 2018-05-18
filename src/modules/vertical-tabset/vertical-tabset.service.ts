@@ -35,7 +35,7 @@ export class SkyVerticalTabsetService {
 
   public constructor(private mediaQueryService: SkyMediaQueryService) {}
 
-  public addTab(tab: SkyVerticalTabComponent) {
+  public addTab(tab: SkyVerticalTabComponent): void {
     const index = this.tabs.length;
     tab.index = index;
 
@@ -48,7 +48,7 @@ export class SkyVerticalTabsetService {
     this.tabAdded.next(tab);
   }
 
-  public activateTab(tab: SkyVerticalTabComponent) {
+  public activateTab(tab: SkyVerticalTabComponent): void {
 
     // unactivate active tab
     let activeTab = this.tabs.find(t => t.index === this.activeIndex);
@@ -72,11 +72,11 @@ export class SkyVerticalTabsetService {
     }
   }
 
-  public isMobile() {
+  public isMobile(): boolean {
     return this.mediaQueryService.current === SkyMediaBreakpoints.xs;
   }
 
-  public updateContent() {
+  public updateContent(): void {
     if (!this._contentAdded && this.contentVisible()) {
       // content needs to be moved
       this.moveContent();
@@ -108,22 +108,22 @@ export class SkyVerticalTabsetService {
     this._isWidescreen = !mobile;
   }
 
-  public tabsVisible() {
+  public tabsVisible(): boolean {
     return !this.isMobile() || this._tabsVisible;
   }
 
-  public contentVisible() {
+  public contentVisible(): boolean {
     return !this.isMobile() || !this._tabsVisible;
   }
 
-  public showTabs() {
+  public showTabs(): void {
     this._tabsVisible = true;
     this._contentAdded = false;
     this.animationVisibleState = VISIBLE_STATE;
     this.showingTabs.next(true);
   }
 
-  private moveContent() {
+  private moveContent(): void {
     if (this._content && !this._contentAdded) {
       let activeContent = this.activeTabContent();
 
@@ -134,7 +134,7 @@ export class SkyVerticalTabsetService {
     }
   }
 
-  private updateTabClicked() {
+  private updateTabClicked(): void {
     this._contentAdded = false;
 
     if (this.isMobile()) {

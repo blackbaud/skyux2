@@ -31,7 +31,7 @@ export class SkyConfirmComponent implements OnInit {
     private modal: SkyModalInstance
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     let buttons;
 
     if (this.config.type === SkyConfirmType.Custom && this.config.buttons.length > 0) {

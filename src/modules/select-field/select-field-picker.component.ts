@@ -60,7 +60,7 @@ export class SkySelectFieldPickerComponent implements OnInit, AfterContentInit {
     private windowRef: SkyWindowRefService
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.data = this.context.data;
     this.headingText = this.context.headingText;
     this.selectMode = this.context.selectMode;
@@ -68,13 +68,13 @@ export class SkySelectFieldPickerComponent implements OnInit, AfterContentInit {
     this.assignCategories();
   }
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     this.windowRef.getWindow().setTimeout(() => {
       this.elementRef.nativeElement.querySelector('.sky-search-input').focus();
     });
   }
 
-  public save() {
+  public save(): void {
     this.latestData.subscribe((items: SkySelectField[]) => {
       const results = items.filter((item: SkySelectField) => {
         return (this.selectedIds.indexOf(item.id) > -1);
@@ -83,7 +83,7 @@ export class SkySelectFieldPickerComponent implements OnInit, AfterContentInit {
     });
   }
 
-  public close() {
+  public close(): void {
     this.instance.close();
   }
 
@@ -104,7 +104,7 @@ export class SkySelectFieldPickerComponent implements OnInit, AfterContentInit {
     });
   }
 
-  private assignCategories() {
+  private assignCategories(): void {
     this.latestData.subscribe((items: SkySelectField[]) => {
       const allCategories = items.map(item => item.category);
       // Remove duplicate category names:

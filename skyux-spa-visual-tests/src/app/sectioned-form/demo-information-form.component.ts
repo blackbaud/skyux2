@@ -13,7 +13,7 @@ export class SkyDemoInformationFormComponent {
 
   private _nameRequired: boolean = false;
 
-  public get nameRequired() {
+  public get nameRequired(): void {
     return this._nameRequired;
   }
 
@@ -27,7 +27,7 @@ export class SkyDemoInformationFormComponent {
     this.emitRequiredChange();
   }
 
-  private emitRequiredChange() {
+  private emitRequiredChange(): void {
     if (this.nameRequired && !this.name) {
       this.requiredChange.emit(true);
     } else {

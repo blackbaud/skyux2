@@ -31,7 +31,7 @@ export class ListViewGridTestComponent implements OnInit {
 
   public searchFn: (data: any, searchText: string) => boolean;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     setTimeout(() => {
       this.asyncHeading.next('Column1');
     }, 100);

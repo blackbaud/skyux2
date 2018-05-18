@@ -10,7 +10,7 @@ import { SkyConfirmationDialogService,
 export class ConfirmationDialogVisualComponent {
   constructor(private confirm: SkyConfirmationDialogService) { }
 
-  public openOneBtnDialog() {
+  public openOneBtnDialog(): void {
     const config: any = {
       message: 'Description of text',
       type: SkyConfirmationDialogType.OKDialog,
@@ -20,7 +20,7 @@ export class ConfirmationDialogVisualComponent {
     this.confirm.open(config);
   }
 
-  public openTwoBtnDialog() {
+  public openTwoBtnDialog(): void {
     const config: any = {
       message: 'Description of text',
       type: SkyConfirmationDialogType.YesCancelDialog,
@@ -30,7 +30,7 @@ export class ConfirmationDialogVisualComponent {
     this.confirm.open(config);
   }
 
-  public openThreeBtnDialog() {
+  public openThreeBtnDialog(): void {
     const config: any = {
       message: 'Description of text',
       type: SkyConfirmationDialogType.YesNoCancelDialog,
@@ -40,7 +40,7 @@ export class ConfirmationDialogVisualComponent {
     this.confirm.open(config);
   }
 
-  public openLongDescriptionDialog() {
+  public openLongDescriptionDialog(): void {
     const config: any = {
       message: 'This is really long text so that it goes to the next line. This is really long '
        + 'text so that it goes to the next line. This is really long text so that it goes to the '

@@ -83,7 +83,7 @@ export class SkyLinkRecordsDemoComponent {
     this.window = getWindow();
   }
 
-  public showResults() {
+  public showResults(): void {
     this.item.results.take(1).subscribe((r: any) => this.window.alert(JSON.stringify(r)));
   }
 }

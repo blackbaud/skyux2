@@ -9,7 +9,7 @@ export class SkyAlertDemoComponent {
   public closed = false;
   public alertType = 'warning';
 
-  public openAlert() {
+  public openAlert(): void {
     this.closed = false;
   }
 }

@@ -41,7 +41,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
   constructor(private resources: SkyResourcesService, private elRef: ElementRef,
     private textExpandRepeaterAdapter: SkyTextExpandRepeaterAdapterService) { }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     if (this.contentItems) {
       this.items = this.textExpandRepeaterAdapter.getItems(this.elRef);
       for (let i = this.maxItems; i < this.contentItems.length; i++) {
@@ -50,7 +50,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     }
   }
 
-  public animationEnd() {
+  public animationEnd(): void {
     // Ensure the correct items are displayed
     if (!this.isExpanded) {
       for (let i = this.maxItems; i < this.contentItems.length; i++) {
@@ -61,7 +61,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     this.textExpandRepeaterAdapter.setContainerHeight(this.containerEl, undefined);
   }
 
-  public repeaterExpand() {
+  public repeaterExpand(): void {
     if (!this.isExpanded) {
       this.setContainerMaxHeight();
       setTimeout(() => {
@@ -79,7 +79,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
     }
   }
 
-  private setContainerMaxHeight() {
+  private setContainerMaxHeight(): void {
     // ensure everything is reset
     this.animationEnd();
     /* Before animation is kicked off, ensure that a maxHeight exists */

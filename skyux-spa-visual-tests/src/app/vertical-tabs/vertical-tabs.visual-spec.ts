@@ -18,7 +18,7 @@ describe('Vertical tabSet', () => {
     .then(() => {
 
       const groupElement = element(by.css('.group2'));
-      browser.wait(function() { return browser.isElementPresent(groupElement); }, 8000);
+      browser.wait(function(): void { return browser.isElementPresent(groupElement); }, 8000);
 
       // open group
       groupElement.click();
@@ -49,7 +49,7 @@ describe('Vertical tabSet', () => {
 
       const showTabsButton =
         element(by.css('#screenshot-vertical-tabset .sky-vertical-tabset-show-tabs-btn'));
-      browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
+      browser.wait(function(): void { return browser.isElementPresent(showTabsButton); }, 8000);
 
       // show tabs
       showTabsButton.click();
@@ -67,7 +67,7 @@ describe('Vertical tabSet', () => {
 
       const showTabsButton =
         element(by.css('#screenshot-vertical-tabset .sky-vertical-tabset-show-tabs-btn'));
-      browser.wait(function() { return browser.isElementPresent(showTabsButton); }, 8000);
+      browser.wait(function(): void { return browser.isElementPresent(showTabsButton); }, 8000);
 
       // show tabs
       showTabsButton.click();

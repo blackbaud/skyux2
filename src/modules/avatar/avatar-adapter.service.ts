@@ -32,7 +32,7 @@ export class SkyAvatarAdapterService {
     }
   }
 
-  public destroy() {
+  public destroy(): void {
     this.revokeBlobUrl();
   }
 
@@ -45,7 +45,7 @@ export class SkyAvatarAdapterService {
       return url;
   }
 
-  private revokeBlobUrl() {
+  private revokeBlobUrl(): void {
     if (this.blobUrl) {
       URL.revokeObjectURL(this.blobUrl);
       this.blobUrl = undefined;

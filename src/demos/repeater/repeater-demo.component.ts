@@ -26,7 +26,7 @@ export class SkyRepeaterDemoComponent {
     ];
   }
 
-  public addItem() {
+  public addItem(): void {
     let next = this.items.length + 1;
     this.items.push({
       title: 'New reminder ' + next,
@@ -37,7 +37,7 @@ export class SkyRepeaterDemoComponent {
     });
   }
 
-  public removeItem() {
+  public removeItem(): void {
     this.items.pop();
   }
 }

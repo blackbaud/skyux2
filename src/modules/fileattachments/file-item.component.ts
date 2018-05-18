@@ -36,7 +36,7 @@ export class SkyFileItemComponent implements DoCheck {
     this.differ = this.differs.find({}).create(undefined);
   }
 
-  public ngDoCheck() {
+  public ngDoCheck(): void {
     let changes = this.differ.diff(this.fileItem);
 
     if (changes) {
@@ -104,11 +104,11 @@ export class SkyFileItemComponent implements DoCheck {
     }
   }
 
-  public itemDelete() {
+  public itemDelete(): void {
     this.deleteFile.emit(this.fileItem);
   }
 
-  public isFile() {
+  public isFile(): boolean {
     let file = (<SkyFileItem>this.fileItem).file;
 
     /* tslint:disable */
@@ -117,7 +117,7 @@ export class SkyFileItemComponent implements DoCheck {
     /* tslint:enable */
   }
 
-  public isImg() {
+  public isImg(): boolean {
     let fileTypeUpper = this.getFileTypeUpper(),
                         slashIndex: number;
 
@@ -138,7 +138,7 @@ export class SkyFileItemComponent implements DoCheck {
     return false;
   }
 
-  private getFileExtensionUpper() {
+  private getFileExtensionUpper(): string {
     let extension = '',
         name: string;
 
@@ -160,7 +160,7 @@ export class SkyFileItemComponent implements DoCheck {
     return extension.toUpperCase();
   }
 
-  private getFileTypeUpper() {
+  private getFileTypeUpper(): string {
     let fileType = '';
     /* istanbul ignore else */
     /* sanity check */

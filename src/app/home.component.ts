@@ -29,7 +29,7 @@ export class SkyDemoHomeComponent implements OnInit {
     this.components = this.demoService.components;
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.selectedComponent = this.demoService.getComponent(params['component']);
     });

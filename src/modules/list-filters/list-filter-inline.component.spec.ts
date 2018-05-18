@@ -72,11 +72,11 @@ describe('List inline filters', () => {
 
   }));
 
-  function getFilterButton() {
+  function getFilterButton(): Element {
     return nativeElement.querySelector('.sky-list-toolbar-container .sky-filter-btn');
   }
 
-  function getInlineFilters() {
+  function getInlineFilters(): NodeListOf<Element> {
     return nativeElement.querySelectorAll('.sky-list-toolbar-container .sky-filter-inline-item');
   }
 

@@ -50,7 +50,7 @@ export class SkyListColumnSelectorActionComponent {
     }).distinctUntilChanged();
   }
 
-  public openColumnSelector() {
+  public openColumnSelector(): void {
     /* istanbul ignore else */
     /* sanity check */
     if (this.gridView) {

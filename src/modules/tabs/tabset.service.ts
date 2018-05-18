@@ -71,7 +71,7 @@ export class SkyTabsetService {
 
   }
 
-  public destroy() {
+  public destroy(): void {
     this.tabs.complete();
     this.activeIndex.complete();
   }

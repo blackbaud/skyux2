@@ -52,7 +52,7 @@ export class DropdownTestComponent {
     this.dropdownController.next({ type });
   }
 
-  public changeItems() {
+  public changeItems(): void {
     this.items.pop();
     this.changeDetector.detectChanges();
   }
@@ -62,5 +62,5 @@ export class DropdownTestComponent {
     this.changeDetector.detectChanges();
   }
 
-  public onDropdownClick() {}
+  public onDropdownClick(): void {}
 }

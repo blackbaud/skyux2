@@ -1,5 +1,5 @@
 import { SkySectionedFormComponent } from './sectioned-form.component';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
@@ -17,11 +17,11 @@ import {
 import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
 import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
 
-function getVisibleContent(el: any) {
+function getVisibleContent(el: any): NodeListOf<Element> {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
 }
 
-function getActiveSection(el: any) {
+function getActiveSection(el: any): NodeListOf<Element> {
   return el.querySelectorAll('sky-sectioned-form-section .sky-vertical-tab-active');
 }
 
@@ -43,7 +43,7 @@ describe('Sectioned form component', () => {
     });
   });
 
-  function createTestComponent() {
+  function createTestComponent(): ComponentFixture<SkySectionedFormFixtureComponent> {
     return TestBed.overrideComponent(SkySectionedFormComponent, {
       add: {
         providers: [
@@ -286,7 +286,7 @@ describe('Sectioned form component - no sections', () => {
     });
   });
 
-  function createTestComponent() {
+  function createTestComponent(): ComponentFixture<SkySectionedFormNoSectionsFixtureComponent> {
     return TestBed.createComponent(SkySectionedFormNoSectionsFixtureComponent);
   }
 
@@ -311,7 +311,7 @@ describe('Sectioned form component - no active sections', () => {
     });
   });
 
-  function createTestComponent() {
+  function createTestComponent(): ComponentFixture<SkySectionedFormNoActiveFixtureComponent> {
     return TestBed.createComponent(SkySectionedFormNoActiveFixtureComponent);
   }
 

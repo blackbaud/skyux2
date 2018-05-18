@@ -18,7 +18,7 @@ export class SkyConfirmDemoComponent {
     private confirmService: SkyConfirmService
   ) { }
 
-  public openOKConfirm() {
+  public openOKConfirm(): void {
     const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.OK
@@ -29,7 +29,7 @@ export class SkyConfirmDemoComponent {
     });
   }
 
-  public openYesCancelConfirm() {
+  public openYesCancelConfirm(): void {
     const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.YesCancel
@@ -40,7 +40,7 @@ export class SkyConfirmDemoComponent {
     });
   }
 
-  public openYesNoCancelConfirm() {
+  public openYesNoCancelConfirm(): void {
     const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'Do you wish to continue?',
       type: SkyConfirmType.YesNoCancel
@@ -51,7 +51,7 @@ export class SkyConfirmDemoComponent {
     });
   }
 
-  public openCustomConfirm() {
+  public openCustomConfirm(): void {
     const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'What option are you going to select?',
       type: SkyConfirmType.Custom,

@@ -62,7 +62,7 @@ export class SkyRepeaterItemComponent {
     this.slideForExpanded(false);
   }
 
-  public headerClick() {
+  public headerClick(): void {
     if (this.isCollapsible) {
       this.updateForExpanded(!this.isExpanded, true);
     }

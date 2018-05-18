@@ -13,7 +13,7 @@ export class SkyAlertComponent {
     this._alertType = value;
   }
 
-  public get alertType() {
+  public get alertType(): string {
     return this._alertType || ALERT_TYPE_DEFAULT;
   }
 
@@ -28,7 +28,7 @@ export class SkyAlertComponent {
 
   private _alertType: string;
 
-  public close() {
+  public close(): void {
     this.closed = true;
     this.closedChange.emit(true);
   }

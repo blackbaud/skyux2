@@ -50,7 +50,7 @@ describe('Flyout component', () => {
     return flyoutInstance;
   }
 
-  function closeFlyout() {
+  function closeFlyout(): void {
     const closeButton = getCloseButtonElement();
     closeButton.click();
     tick();

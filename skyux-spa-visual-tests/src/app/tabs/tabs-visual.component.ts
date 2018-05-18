@@ -13,11 +13,11 @@ export class TabsVisualComponent {
 
   public requiredValue2: boolean;
 
-  public newTabClick() { }
+  public newTabClick(): void { }
 
-  public openTabClick() { }
+  public openTabClick(): void { }
 
-  public closeTab() { }
+  public closeTab(): void { }
 
   public get step2Disabled(): boolean {
     return !this.requiredValue1;
@@ -27,7 +27,7 @@ export class TabsVisualComponent {
     return this.step2Disabled || !this.requiredValue2;
   }
 
-  public validateStep1() {
+  public validateStep1(): void {
     return true;
   }
 }

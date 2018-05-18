@@ -72,7 +72,7 @@ export class SkyColorpickerSliderDirective {
     document.addEventListener('touchend', this.listenerStop);
   }
 
-  public stop() {
+  public stop(): void {
     document.removeEventListener('mousemove', this.listenerMove);
     document.removeEventListener('touchmove', this.listenerMove);
     document.removeEventListener('mouseup', this.listenerStop);

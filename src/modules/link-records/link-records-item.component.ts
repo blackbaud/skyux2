@@ -56,7 +56,7 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
     private dispatcher: SkyLinkRecordsStateDispatcher
   ) {}
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     if (this.record.status === this.STATUSES.Edit &&
       (!this.record.matchFields || this.record.matchFields.length === 0)) {
       this.link();
@@ -70,13 +70,13 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
       .distinctUntilChanged();
   }
 
-  public link() {
+  public link(): void {
     this.dispatcher.next(
       new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Linked)
     );
   }
 
-  public unlink() {
+  public unlink(): void {
     this.dispatcher.next(
       new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.NoMatch)
     );
@@ -85,14 +85,14 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
     this.dispatcher.next(new SkyLinkRecordsFieldsClearFieldsAction(this.record.key));
   }
 
-  public create() {
+  public create(): void {
     this.dispatcher.next(
       new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Created)
     );
     this.dispatcher.next(new SkyLinkRecordsMatchesSetItemAction(this.record.key, this.record.item));
   }
 
-  public edit() {
+  public edit(): void {
     let filteredMatchFields: Array<any> = [];
 
     if (this.record.match.item) {
@@ -153,7 +153,7 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
     }
   }
 
-  public cancelEdit() {
+  public cancelEdit(): void {
     this.dispatcher.next(
       new SkyLinkRecordsMatchesSetStatusAction(this.record.key, this.STATUSES.Suggested));
     this.dispatcher.next(new SkyLinkRecordsSelectedClearSelectedAction(this.record.key));

@@ -19,7 +19,7 @@ export class SkyPageSummaryComponent implements OnDestroy, AfterViewInit {
     private mediaQueryService: SkyMediaQueryService
   ) { }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.breakpointSubscription = this.mediaQueryService.subscribe(
       (args: SkyMediaBreakpoints) => {
         this.adapter.updateKeyInfoLocation(this.elRef, args === SkyMediaBreakpoints.xs);
@@ -27,7 +27,7 @@ export class SkyPageSummaryComponent implements OnDestroy, AfterViewInit {
     );
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     /* istanbul ignore else */
     /* sanity check */
     if (this.breakpointSubscription) {

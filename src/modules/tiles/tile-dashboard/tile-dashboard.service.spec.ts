@@ -2,7 +2,8 @@ import {
   fakeAsync,
   inject,
   TestBed,
-  tick
+  tick,
+  ComponentFixture
 } from '@angular/core/testing';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
@@ -26,7 +27,7 @@ describe('Tile dashboard service', () => {
   let mockDragulaService: DragulaService;
   let mockMediaQueryService: MockSkyMediaQueryService;
 
-  function createDashboardTestComponent() {
+  function createDashboardTestComponent(): ComponentFixture<TileDashboardTestComponent> {
     return TestBed
       .overrideComponent(SkyTileDashboardComponent, {
         add: {
@@ -200,7 +201,7 @@ describe('Tile dashboard service', () => {
       }
     );
 
-    (function () {
+    (function (): SkyTileDashboardService {
       return new SkyTileDashboardService(
         mockDragulaService,
         mockMediaQueryService

@@ -22,7 +22,7 @@ export class SkyDropdownItemComponent implements AfterViewInit {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.buttonElement = this.elementRef.nativeElement.querySelector('button');
     this.isDisabled = !this.isFocusable();
     this.changeDetector.detectChanges();
@@ -48,7 +48,7 @@ export class SkyDropdownItemComponent implements AfterViewInit {
     return isFocusable;
   }
 
-  public resetState() {
+  public resetState(): void {
     this.isActive = false;
     this.changeDetector.markForCheck();
   }

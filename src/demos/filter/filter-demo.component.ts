@@ -54,7 +54,7 @@ export class SkyFilterDemoComponent {
     this.filteredItems = this.items.slice();
   }
 
-  public filterButtonClicked() {
+  public filterButtonClicked(): void {
     let modalInstance = this.modal.open(
       SkyFilterDemoModalComponent,
       [{

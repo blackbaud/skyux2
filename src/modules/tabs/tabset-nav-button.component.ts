@@ -97,7 +97,7 @@ export class SkyTabsetNavButtonComponent {
 
   constructor(private resources: SkyResourcesService) { }
 
-  public buttonClick() {
+  public buttonClick(): void {
     let tabToSelect: SkyTabComponent;
 
     switch (this.buttonType) {

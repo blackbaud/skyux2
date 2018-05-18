@@ -8,7 +8,7 @@ export class ActionButtonVisualComponent {
 
   public buttonIsClicked: boolean = false;
 
-  public buttonClicked() {
+  public buttonClicked(): void {
     this.buttonIsClicked = true;
   }
 }

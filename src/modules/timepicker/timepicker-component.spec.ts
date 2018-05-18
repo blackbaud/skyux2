@@ -21,7 +21,7 @@ import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture
 const moment = require('moment');
 
 describe('Timepicker', () => {
-  function openTimepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
+  function openTimepicker(element: HTMLElement, compFixture: ComponentFixture<any>): void {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
     tick();
@@ -33,7 +33,7 @@ describe('Timepicker', () => {
     element: HTMLElement,
     text: string,
     compFixture: ComponentFixture<any>
-  ) {
+  ): void {
     compFixture.detectChanges();
     let inputEvent = document.createEvent('Event');
     let params = {
@@ -79,7 +79,7 @@ describe('Timepicker', () => {
     fixture.destroy();
   });
 
-  function verifyTimepicker(element: HTMLElement) {
+  function verifyTimepicker(element: HTMLElement): void {
     tick();
     fixture.detectChanges();
     let sections = element.querySelectorAll('.sky-timepicker-container');

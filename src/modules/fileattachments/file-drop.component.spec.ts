@@ -60,32 +60,32 @@ describe('File drop component', () => {
     componentInstance = fixture.componentInstance;
   });
 
-  function getInputDebugEl() {
+  function getInputDebugEl(): DebugElement {
     return fixture.debugElement.query(By.css('input.sky-file-input-hidden'));
   }
 
-  function getDropEl() {
+  function getDropEl(): any {
     return el.querySelector('.sky-file-drop');
   }
 
-  function getDropDebugEl() {
+  function getDropDebugEl(): DebugElement {
     return fixture.debugElement.query(By.css('.sky-file-drop'));
   }
 
-  function getDropElWrapper() {
+  function getDropElWrapper(): any {
     return el.querySelector('.sky-file-drop-col');
   }
 
-  function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any) {
+  function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any): void {
     expect(dropEl.classList.contains('sky-file-drop-accept')).toBe(hasAccept);
     expect(dropEl.classList.contains('sky-file-drop-reject')).toBe(hasReject);
   }
 
-  function getLinkInput() {
+  function getLinkInput(): DebugElement {
     return fixture.debugElement.query(By.css('.sky-file-drop-link input'));
   }
 
-  function getLinkButton() {
+  function getLinkButton(): DebugElement {
     return fixture.debugElement.query(By.css('.sky-file-drop-link button'));
   }
 
@@ -102,14 +102,14 @@ describe('File drop component', () => {
     expect((<any>inputEl.references).fileInput).toBeTruthy();
   });
 
-  function testClick(expectedResult: boolean) {
+  function testClick(expectedResult: boolean): void {
     let inputClicked = false;
 
     fixture.detectChanges();
 
     let inputEl = getInputDebugEl();
 
-    spyOn((<any>inputEl.references).fileInput, 'click').and.callFake(function () {
+    spyOn((<any>inputEl.references).fileInput, 'click').and.callFake(function (): void {
       inputClicked = true;
     });
 
@@ -132,14 +132,14 @@ describe('File drop component', () => {
     testClick(false);
   });
 
-  function triggerChangeEvent(expectedChangeFiles: any[]) {
+  function triggerChangeEvent(expectedChangeFiles: any[]): void {
     let inputEl = getInputDebugEl();
 
     let fileChangeEvent = {
       target: {
         files: {
           length: expectedChangeFiles.length,
-          item: function (index: number) {
+          item: function (index: number): any {
             return expectedChangeFiles[index];
           }
         }
@@ -149,16 +149,14 @@ describe('File drop component', () => {
     inputEl.triggerEventHandler('change', fileChangeEvent);
   }
 
-  function setupFileReaderSpy() {
+  function setupFileReaderSpy(): any {
     let loadCallbacks: Function[] = [];
     let errorCallbacks: Function[] = [];
     let abortCallbacks: Function[] = [];
 
     spyOn((window as any), 'FileReader').and.returnValue({
-      readAsDataURL: function(file: any) {
-
-      },
-      addEventListener: function(type: string, callback: Function) {
+      readAsDataURL: function(file: any): void { },
+      addEventListener: function(type: string, callback: Function): void {
         if (type === 'load') {
           loadCallbacks.push(callback);
         } else if (type === 'error') {
@@ -176,7 +174,7 @@ describe('File drop component', () => {
     };
   }
 
-  function setupStandardFileChangeEvent(files?: Array<any>) {
+  function setupStandardFileChangeEvent(files?: Array<any>): void {
     let fileReaderSpy = setupFileReaderSpy();
 
     if (!files) {
@@ -361,7 +359,7 @@ describe('File drop component', () => {
 
     let errorMessage = 'You may not upload a file that begins with the letter "w."';
 
-    componentInstance.validateFn = function(file: any) {
+    componentInstance.validateFn = function(file: any): string {
       if (file.file.name.indexOf('w') === 0) {
         return errorMessage;
       }
@@ -467,16 +465,16 @@ describe('File drop component', () => {
     expect(filesChangedActual.files[1].file.size).toBe(2000);
   });
 
-  function triggerDragEnter(enterTarget: any, dropDebugEl: DebugElement) {
+  function triggerDragEnter(enterTarget: any, dropDebugEl: DebugElement): void {
     let dragEnterPropStopped = false;
     let dragEnterPreventDefault = false;
 
     let dragEnterEvent = {
       target: enterTarget,
-      stopPropagation: function () {
+      stopPropagation: function (): void {
         dragEnterPropStopped = true;
       },
-      preventDefault: function () {
+      preventDefault: function (): void {
         dragEnterPreventDefault = true;
       }
     };
@@ -487,7 +485,7 @@ describe('File drop component', () => {
     expect(dragEnterPropStopped).toBe(true);
   }
 
-  function triggerDragOver(files: any, dropDebugEl: DebugElement) {
+  function triggerDragOver(files: any, dropDebugEl: DebugElement): void {
     let dragOverPropStopped = false;
     let dragOverPreventDefault = false;
 
@@ -496,10 +494,10 @@ describe('File drop component', () => {
         files: {} as any,
         items: files
       },
-      stopPropagation: function () {
+      stopPropagation: function (): void {
         dragOverPropStopped = true;
       },
-      preventDefault: function () {
+      preventDefault: function (): void {
         dragOverPreventDefault = true;
       }
     };
@@ -510,7 +508,7 @@ describe('File drop component', () => {
     expect(dragOverPropStopped).toBe(true);
   }
 
-  function triggerDrop(files: any, dropDebugEl: DebugElement) {
+  function triggerDrop(files: any, dropDebugEl: DebugElement): void {
     let dropPropStopped = false;
     let dropPreventDefault = false;
     let fileLength = files ? files.length : 0;
@@ -519,16 +517,16 @@ describe('File drop component', () => {
       dataTransfer: {
         files: {
           length: fileLength,
-          item: function (index: number) {
+          item: function (index: number): any {
             return files[index];
           }
         },
         items: files
       },
-      stopPropagation: function () {
+      stopPropagation: function (): void {
         dropPropStopped = true;
       },
-      preventDefault: function () {
+      preventDefault: function (): void {
         dropPreventDefault = true;
       }
     };
@@ -539,7 +537,7 @@ describe('File drop component', () => {
     expect(dropPropStopped).toBe(true);
   }
 
-  function triggerDragLeave(leaveTarget: any, dropDebugEl: DebugElement) {
+  function triggerDragLeave(leaveTarget: any, dropDebugEl: DebugElement): void {
 
     let dragLeaveEvent = {
       target: leaveTarget
@@ -618,8 +616,8 @@ describe('File drop component', () => {
     validateDropClasses(false, false, dropElWrapper);
 
     let emptyEvent = {
-      stopPropagation: function () {},
-      preventDefault: function () {}
+      stopPropagation: function (): void {},
+      preventDefault: function (): void {}
     };
 
     // Verify no dataTransfer drag
@@ -706,7 +704,7 @@ describe('File drop component', () => {
         name: 'foo.txt',
         size: 1000,
         type: 'image/png',
-        webkitGetAsEntry: function () {
+        webkitGetAsEntry: function (): any {
           return {
             isDirectory: true
           };
@@ -739,7 +737,7 @@ describe('File drop component', () => {
     expect(linkInput).toBeTruthy();
   });
 
-  function triggerInputChange(value: string, linkInput: DebugElement) {
+  function triggerInputChange(value: string, linkInput: DebugElement): any {
     linkInput.triggerEventHandler('input', {target: {value: value}});
     fixture.detectChanges();
   }
@@ -777,12 +775,12 @@ describe('File drop component', () => {
 
     triggerInputChange('link.com', linkInput);
 
-    linkInput.triggerEventHandler('keyup', { which: 23, preventDefault: function () {} });
+    linkInput.triggerEventHandler('keyup', { which: 23, preventDefault: function (): void {} });
     fixture.detectChanges();
 
     expect(fileLinkActual).toBeFalsy();
 
-    linkInput.triggerEventHandler('keyup', { which: 13, preventDefault: function () {} });
+    linkInput.triggerEventHandler('keyup', { which: 13, preventDefault: function (): void {} });
     fixture.detectChanges();
 
     expect(fileLinkActual.url).toBe('link.com');

@@ -16,7 +16,7 @@ export class SkyLinkRecordsMatchContentComponent {
   private inputTemplate: TemplateRef<any>;
   @ContentChildren(TemplateRef) private templates: QueryList<TemplateRef<any>>;
   @Input() public set template(value) { this.inputTemplate = value; }
-  public get template() {
+  public get template(): TemplateRef<any> {
     return this.templates.length > 0 ? this.templates.first : this.inputTemplate;
   }
 }

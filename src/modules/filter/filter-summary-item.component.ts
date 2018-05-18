@@ -22,15 +22,15 @@ export class SkyFilterSummaryItemComponent {
   @Output()
   public itemClick = new EventEmitter<void>();
 
-  public onItemDismiss() {
+  public onItemDismiss(): void {
     this.dismiss.emit();
   }
 
-  public onItemClick() {
+  public onItemClick(): void {
     this.itemClick.emit();
   }
 
-  public onItemKeypress() {
+  public onItemKeypress(): void {
     this.itemClick.emit();
   }
 }

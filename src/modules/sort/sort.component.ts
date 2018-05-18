@@ -26,7 +26,7 @@ import {
 export class SkySortComponent {
   public dropdownController = new Subject<SkyDropdownMessage>();
 
-  public dropdownClicked() {
+  public dropdownClicked(): void {
     this.dropdownController.next({
       type: SkyDropdownMessageType.Close
     });

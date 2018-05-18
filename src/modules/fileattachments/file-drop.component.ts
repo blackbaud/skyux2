@@ -61,7 +61,7 @@ export class SkyFileDropComponent {
 
   private enterEventTarget: any;
 
-  public dropClicked() {
+  public dropClicked(): void {
     if (!this.noClick) {
       this.inputEl.nativeElement.click();
     }

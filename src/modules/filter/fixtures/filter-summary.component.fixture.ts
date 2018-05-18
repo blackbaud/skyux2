@@ -21,11 +21,11 @@ export class FilterSummaryTestComponent {
 
   public summaryClicked: boolean = false;
 
-  public onDismiss() {
+  public onDismiss(): void {
     this.dismissed = true;
   }
 
-  public filterButtonClicked() {
+  public filterButtonClicked(): void {
     this.summaryClicked = true;
   }
 

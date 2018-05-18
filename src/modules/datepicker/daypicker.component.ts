@@ -66,7 +66,7 @@ export class SkyDayPickerComponent implements OnInit {
     return d1.getTime() - d2.getTime();
   }
 
-  private refreshDayView() {
+  private refreshDayView(): void {
     let year = this.datepicker.activeDate.getFullYear();
     let month = this.datepicker.activeDate.getMonth();
     let firstDayOfMonth = new Date(year, month, 1);
