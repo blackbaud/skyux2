@@ -8,6 +8,8 @@ import {
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
   SkyColorpickerDemoComponent,
+  SkyColorpickerReactiveDemoComponent,
+  SkyColorpickerTemplateDrivenDemoComponent,
   SkyConfirmDemoComponent,
   SkyDatepickerDemoComponent,
   SkyDefinitionListDemoComponent,
@@ -179,6 +181,22 @@ export class SkyDemoService {
       name: 'Colorpicker',
       component: SkyColorpickerDemoComponent,
       files: [
+        {
+          name: 'colorpicker-reactive-demo.component.html',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-reactive-demo.component.html')
+        },
+        {
+          name: 'colorpicker-reactive-demo.component.ts',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-reactive-demo.component.ts')
+        },
+        {
+          name: 'colorpicker-template-driven-demo.component.html',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-template-driven-demo.component.html')
+        },
+        {
+          name: 'colorpicker-template-driven-demo.component.ts',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-template-driven-demo.component.ts')
+        },
         {
           name: 'colorpicker-demo.component.html',
           fileContents: require('!!raw-loader!./colorpicker/colorpicker-demo.component.html')
