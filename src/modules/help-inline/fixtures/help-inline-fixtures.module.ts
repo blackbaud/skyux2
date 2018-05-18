@@ -1,19 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyHelpInlineModule } from '../';
+import {
+  CommonModule
+} from '@angular/common';
+
+import { SkyHelpInlineModule } from '../help-inline.module';
 import { HelpInlineTestComponent } from './help-inline.component.fixture';
 
 @NgModule({
-    declarations: [
-        HelpInlineTestComponent
-    ],
-    imports: [
-        CommonModule,
-        SkyHelpInlineModule
-    ],
-    exports: [
-        HelpInlineTestComponent
-    ]
+  declarations: [
+    HelpInlineTestComponent
+  ],
+  imports: [
+    CommonModule,
+    SkyHelpInlineModule
+  ],
+  exports: [
+    HelpInlineTestComponent
+  ]
 })
 export class SkyInlineHlpeFixturesModule { }

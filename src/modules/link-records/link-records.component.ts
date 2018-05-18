@@ -10,7 +10,10 @@ import {
   TemplateRef,
   forwardRef
 } from '@angular/core';
+
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,

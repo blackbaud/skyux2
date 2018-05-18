@@ -7,6 +7,10 @@ import {
 } from '@angular/common';
 
 import {
+  RouterModule
+} from '@angular/router';
+
+import {
   SkyResourcesModule
 } from '../resources';
 
@@ -29,6 +33,7 @@ import { SkyFlyoutService } from './flyout.service';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     SkyResourcesModule
   ],
   exports: [
