@@ -20,12 +20,12 @@ import {
 import 'rxjs/add/operator/take';
 
 import {
-  SkyWindowRefService
-} from '../../../dist/modules/window';
-
-import {
   SkyToast
 } from './toast';
+
+import {
+  SkyToastAdapterService
+} from './toast-adapter.service';
 
 import {
   SkyToastService
@@ -36,10 +36,7 @@ import {
   selector: 'sky-toaster',
   templateUrl: './toaster.component.html',
   styleUrls: ['./toaster.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    SkyWindowRefService
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyToasterComponent implements AfterViewInit {
   public get toastStream(): Observable<SkyToast[]> {
@@ -53,10 +50,10 @@ export class SkyToasterComponent implements AfterViewInit {
   private toastContent: QueryList<ViewContainerRef>;
 
   constructor(
+    private domAdapter: SkyToastAdapterService,
     private toastService: SkyToastService,
     private resolver: ComponentFactoryResolver,
-    private injector: Injector,
-    private windowRef: SkyWindowRefService
+    private injector: Injector
   ) { }
 
   public ngAfterViewInit(): void {
@@ -67,9 +64,7 @@ export class SkyToasterComponent implements AfterViewInit {
 
     // Scroll to the bottom of the toaster element when a new toast is added.
     this.toastStream.subscribe((toasts: SkyToast[]) => {
-      this.windowRef.getWindow().setTimeout(() => {
-        this.toaster.nativeElement.scrollTop = this.toaster.nativeElement.scrollHeight;
-      });
+      this.domAdapter.scrollBottom(this.toaster);
     });
   }
 

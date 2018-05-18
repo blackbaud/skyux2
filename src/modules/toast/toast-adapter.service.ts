@@ -1,5 +1,6 @@
 // #region imports
 import {
+  ElementRef,
   Injectable,
   Renderer2,
   RendererFactory2
@@ -31,5 +32,12 @@ export class SkyToastAdapterService {
   public removeHostElement(): void {
     const document = this.windowRef.getWindow().document;
     this.renderer.removeChild(document.body, this.hostElement);
+  }
+
+  public scrollBottom(elementRef: ElementRef): void {
+    const element = elementRef.nativeElement;
+    this.windowRef.getWindow().setTimeout(() => {
+      element.scrollTop = element.scrollHeight;
+    });
   }
 }
