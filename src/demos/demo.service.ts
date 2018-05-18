@@ -8,8 +8,6 @@ import {
   SkyCardDemoComponent,
   SkyCheckboxDemoComponent,
   SkyColorpickerDemoComponent,
-  SkyColorpickerReactiveDemoComponent,
-  SkyColorpickerTemplateDrivenDemoComponent,
   SkyConfirmDemoComponent,
   SkyDatepickerDemoComponent,
   SkyDefinitionListDemoComponent,
