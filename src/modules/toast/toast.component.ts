@@ -10,35 +10,24 @@ import {
 } from '@angular/core';
 
 import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
   AnimationEvent
 } from '@angular/animations';
+
+import {
+  skyAnimationEmerge
+} from '../animation';
 
 import {
   SkyToastType
 } from './types';
 // #endregion
 
-const TOAST_OPEN_STATE = 'toastOpen';
-const TOAST_CLOSED_STATE = 'toastClosed';
-
 @Component({
   selector: 'sky-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss'],
   animations: [
-    trigger('toastState', [
-      state(TOAST_OPEN_STATE, style({ opacity: 1 })),
-      state(TOAST_CLOSED_STATE, style({ opacity: 0 })),
-      transition(
-        `${TOAST_OPEN_STATE} => ${TOAST_CLOSED_STATE}`,
-        animate('150ms linear')
-      )
-    ])
+    skyAnimationEmerge
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -49,11 +38,15 @@ export class SkyToastComponent implements OnInit {
   }
 
   public get toastType(): SkyToastType {
-    return this._toastType || SkyToastType.Info;
+    return this._toastType || 'info';
   }
 
   @Output()
   public closed = new EventEmitter<void>();
+
+  public get animationState(): string {
+    return (this.isOpen) ? 'open' : 'closed';
+  }
 
   private isOpen = false;
 
@@ -67,12 +60,8 @@ export class SkyToastComponent implements OnInit {
     this.isOpen = true;
   }
 
-  public getAnimationState(): string {
-    return (this.isOpen) ? TOAST_OPEN_STATE : TOAST_CLOSED_STATE;
-  }
-
   public onAnimationDone(event: AnimationEvent) {
-    if (event.toState === TOAST_CLOSED_STATE) {
+    if (event.toState === 'closed') {
       this.closed.emit();
       this.closed.complete();
     }

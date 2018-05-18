@@ -32,10 +32,6 @@ import {
 import {
   SkyToastService
 } from './toast.service';
-
-import {
-  SkyToastType
-} from './types';
 // #endregion
 
 describe('Toast service', () => {
@@ -97,7 +93,7 @@ describe('Toast service', () => {
   describe('openMessage() method', () => {
     it('should open a toast with the given message and configuration', function() {
       const instance = toastService.openMessage('Real message', {
-        type: SkyToastType.Danger
+        type: 'danger'
       });
 
       expect(instance).toBeTruthy();
@@ -157,7 +153,7 @@ describe('Toast service', () => {
       const instance = toastService.openComponent(
         TestComponent,
         {
-          type: SkyToastType.Danger
+          type: 'danger'
         },
         [providers]
       );
@@ -179,7 +175,7 @@ describe('Toast service', () => {
 
     it('should handle empty providers', () => {
       toastService.openComponent(TestComponent, {
-        type: SkyToastType.Danger
+        type: 'danger'
       });
 
       toastService.toastStream.take(1).subscribe((toasts: SkyToast[]) => {

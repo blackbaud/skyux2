@@ -1,6 +1,7 @@
 @import '../../scss/mixins';
 
 .sky-toast {
+  @include sky-shadow();
   padding: 0 $sky-padding;
   margin-bottom: $sky-margin-double;
   border-left: solid 30px;
@@ -9,7 +10,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  opacity: 1;
 
   button {
     margin-left: auto;
@@ -33,9 +33,13 @@
   }
 }
 
-.sky-toast-info {
-  background-color: $sky-background-color-info;
-  border-color: $sky-highlight-color-info;
+@mixin sky-toast-variant(
+  $background-color,
+  $border-color,
+  $icon
+) {
+  background-color: $background-color;
+  border-color: $border-color;
 
   &:before {
     content: "\f06a";
@@ -46,43 +50,36 @@
   }
 }
 
-.sky-toast-success {
-  background-color: $sky-background-color-success;
-  border-color: $sky-highlight-color-success;
+.sky-toast-info {
+  @include sky-toast-variant(
+    $sky-background-color-info,
+    $sky-highlight-color-info,
+    "\f06a"
+  );
+}
 
-  &:before {
-    content: "\f00c";
-    font-family: FontAwesome;
-    margin-left: -32px;
-    margin-right: 19px;
-    color: $sky-color-white;
-  }
+.sky-toast-success {
+  @include sky-toast-variant(
+    $sky-background-color-success,
+    $sky-highlight-color-success,
+    "\f00c"
+  );
 }
 
 .sky-toast-warning {
-  background-color: $sky-background-color-warning;
-  border-color: $sky-highlight-color-warning;
-
-  &:before {
-    content: "\f071";
-    font-family: FontAwesome;
-    margin-left: -32px;
-    margin-right: 19px;
-    color: $sky-color-white;
-  }
+  @include sky-toast-variant(
+    $sky-background-color-warning,
+    $sky-highlight-color-warning,
+    "\f071"
+  );
 }
 
 .sky-toast-danger {
-  background-color: $sky-background-color-danger;
-  border-color: $sky-highlight-color-danger;
-
-  &:before {
-    content: "\f071";
-    font-family: FontAwesome;
-    margin-left: -32px;
-    margin-right: 19px;
-    color: $sky-color-white;
-  }
+  @include sky-toast-variant(
+    $sky-background-color-danger,
+    $sky-highlight-color-danger,
+    "\f071"
+  );
 }
 
 .sky-toast-btn-close {

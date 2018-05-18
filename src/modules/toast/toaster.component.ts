@@ -4,9 +4,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ComponentFactoryResolver,
+  ElementRef,
   Injector,
   ReflectiveInjector,
   QueryList,
+  ViewChild,
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
@@ -16,6 +18,10 @@ import {
 } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/take';
+
+import {
+  SkyWindowRefService
+} from '../../../dist/modules/window';
 
 import {
   SkyToast
@@ -30,12 +36,18 @@ import {
   selector: 'sky-toaster',
   templateUrl: './toaster.component.html',
   styleUrls: ['./toaster.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    SkyWindowRefService
+  ]
 })
 export class SkyToasterComponent implements AfterViewInit {
   public get toastStream(): Observable<SkyToast[]> {
     return this.toastService.toastStream;
   }
+
+  @ViewChild('toaster')
+  private toaster: ElementRef;
 
   @ViewChildren('toastContent', { read: ViewContainerRef })
   private toastContent: QueryList<ViewContainerRef>;
@@ -43,13 +55,21 @@ export class SkyToasterComponent implements AfterViewInit {
   constructor(
     private toastService: SkyToastService,
     private resolver: ComponentFactoryResolver,
-    private injector: Injector
+    private injector: Injector,
+    private windowRef: SkyWindowRefService
   ) { }
 
   public ngAfterViewInit(): void {
     this.injectToastContent();
     this.toastContent.changes.subscribe(() => {
       this.injectToastContent();
+    });
+
+    // Scroll to the bottom of the toaster element when a new toast is added.
+    this.toastStream.subscribe((toasts: SkyToast[]) => {
+      this.windowRef.getWindow().setTimeout(() => {
+        this.toaster.nativeElement.scrollTop = this.toaster.nativeElement.scrollHeight;
+      });
     });
   }
 

@@ -1,6 +1,6 @@
 <aside
-  [@toastState]="getAnimationState()"
-  (@toastState.done)="onAnimationDone($event)"
+  [@skyAnimationEmerge]="animationState"
+  (@skyAnimationEmerge.done)="onAnimationDone($event)"
 >
   <div
     class="sky-toast"

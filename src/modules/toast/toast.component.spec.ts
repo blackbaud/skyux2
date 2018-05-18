@@ -52,24 +52,24 @@ describe('Toast component', () => {
   }
 
   it('should set defaults', () => {
-    expect(toastComponent.toastType).toEqual(SkyToastType.Info);
+    expect(toastComponent.toastType).toEqual('info');
   });
 
   it('should allow setting the toast type', () => {
     verifyType(); // default
-    verifyType(SkyToastType.Info);
-    verifyType(SkyToastType.Success);
-    verifyType(SkyToastType.Warning);
-    verifyType(SkyToastType.Danger);
+    verifyType('info');
+    verifyType('success');
+    verifyType('warning');
+    verifyType('danger');
   });
 
   it('should close the toast when clicking close button', () => {
     fixture.detectChanges();
     expect(toastComponent['isOpen']).toEqual(true);
-    expect(toastComponent.getAnimationState()).toEqual('toastOpen');
+    expect(toastComponent.animationState).toEqual('open');
     fixture.nativeElement.querySelector('.sky-toast-btn-close').click();
     fixture.detectChanges();
     expect(toastComponent['isOpen']).toEqual(false);
-    expect(toastComponent.getAnimationState()).toEqual('toastClosed');
+    expect(toastComponent.animationState).toEqual('closed');
   });
 });
