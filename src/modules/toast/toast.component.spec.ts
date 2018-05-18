@@ -52,15 +52,15 @@ describe('Toast component', () => {
   }
 
   it('should set defaults', () => {
-    expect(toastComponent.toastType).toEqual('info');
+    expect(toastComponent.toastType).toEqual(SkyToastType.Info);
   });
 
   it('should allow setting the toast type', () => {
     verifyType(); // default
-    verifyType('info');
-    verifyType('success');
-    verifyType('warning');
-    verifyType('danger');
+    verifyType(SkyToastType.Info);
+    verifyType(SkyToastType.Success);
+    verifyType(SkyToastType.Warning);
+    verifyType(SkyToastType.Danger);
   });
 
   it('should close the toast when clicking close button', () => {

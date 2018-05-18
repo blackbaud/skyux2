@@ -1,1 +1,6 @@
-export type SkyToastType = 'info' | 'success' | 'warning' | 'danger';
+export enum SkyToastType {
+  Info = 'info',
+  Success = 'success',
+  Warning = 'warning',
+  Danger = 'danger'
+}

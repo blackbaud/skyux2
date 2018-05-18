@@ -20,12 +20,12 @@ import {
   templateUrl: './toast-demo.component.html'
 })
 export class SkyToastDemoComponent {
-  public selectedType: SkyToastType = 'info';
+  public selectedType: SkyToastType = SkyToastType.Info;
   public types: SkyToastType[] = [
-    'info',
-    'success',
-    'warning',
-    'danger'
+    SkyToastType.Info,
+    SkyToastType.Success,
+    SkyToastType.Warning,
+    SkyToastType.Danger
   ];
 
   constructor(

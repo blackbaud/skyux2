@@ -49,7 +49,7 @@ export class SkyToastComponent implements OnInit {
   }
 
   public get toastType(): SkyToastType {
-    return this._toastType || 'info';
+    return this._toastType || SkyToastType.Info;
   }
 
   @Output()

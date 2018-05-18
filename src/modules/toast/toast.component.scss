@@ -11,10 +11,6 @@
   align-items: center;
   opacity: 1;
 
-  &:hover {
-    @include sky-shadow;
-  }
-
   button {
     margin-left: auto;
     width: 32px;
