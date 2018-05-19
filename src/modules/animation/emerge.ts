@@ -1,12 +1,15 @@
 // #region imports
 import {
+  AnimationEntryMetadata
+} from '@angular/core';
+
+import {
   animate,
-  AnimationEntryMetadata,
   state,
   style,
   transition,
   trigger
-} from '@angular/core';
+} from '@angular/animations';
 // #endregion
 
 export const skyAnimationEmerge = trigger('skyAnimationEmerge', [
