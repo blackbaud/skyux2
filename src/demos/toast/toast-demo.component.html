@@ -7,11 +7,11 @@
       <li *ngFor="let type of types">
         <sky-radio
           name="radiogroup"
-          [value]="type"
+          [value]="type.value"
           [(ngModel)]="selectedType"
         >
           <sky-radio-label>
-            {{ type }}
+            {{ type.label }}
           </sky-radio-label>
         </sky-radio>
       </li>

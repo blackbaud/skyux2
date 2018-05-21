@@ -20,12 +20,24 @@ import {
   templateUrl: './toast-demo.component.html'
 })
 export class SkyToastDemoComponent {
-  public selectedType: SkyToastType = 'info';
-  public types: SkyToastType[] = [
-    'info',
-    'success',
-    'warning',
-    'danger'
+  public selectedType: SkyToastType = SkyToastType.Info;
+  public types: any[] = [
+    {
+      value: SkyToastType.Info,
+      label: 'Info'
+    },
+    {
+      value: SkyToastType.Success,
+      label: 'Success'
+    },
+    {
+      value: SkyToastType.Warning,
+      label: 'Warning'
+    },
+    {
+      value: SkyToastType.Danger,
+      label: 'Danger'
+    }
   ];
 
   constructor(
@@ -34,7 +46,7 @@ export class SkyToastDemoComponent {
 
   public openMessage(): void {
     const instance = this.toastService.openMessage(
-      `This is a ${this.selectedType} toast.`,
+      `This is a sample toast message.`,
       {
         type: this.selectedType
       }

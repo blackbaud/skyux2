@@ -4,9 +4,9 @@
 >
   <div
     class="sky-toast"
-    [ngClass]="'sky-toast-' + toastType"
-    [attr.aria-live]="toastType === 'danger' ? 'assertive' : 'polite'"
-    [attr.role]="toastType === 'danger' ? 'alert' : undefined"
+    [ngClass]="classNames"
+    [attr.aria-live]="ariaLive"
+    [attr.role]="ariaRole"
   >
     <div class="sky-toast-content">
       <ng-template #bodyContentTarget></ng-template>

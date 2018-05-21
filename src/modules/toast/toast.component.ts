@@ -38,7 +38,7 @@ export class SkyToastComponent implements OnInit {
   }
 
   public get toastType(): SkyToastType {
-    return this._toastType || 'info';
+    return (this._toastType === undefined) ? SkyToastType.Info : this._toastType;
   }
 
   @Output()
@@ -46,6 +46,44 @@ export class SkyToastComponent implements OnInit {
 
   public get animationState(): string {
     return (this.isOpen) ? 'open' : 'closed';
+  }
+
+  public get ariaLive(): string {
+    return (this.toastType === SkyToastType.Danger) ? 'assertive' : 'polite';
+  }
+
+  public get ariaRole(): string {
+    return (this.toastType === SkyToastType.Danger) ? 'alert' : undefined;
+  }
+
+  public get classNames(): string {
+    const classNames: string[] = [];
+
+    let typeLabel: string;
+    switch (this.toastType) {
+      case SkyToastType.Danger:
+      typeLabel = 'danger';
+      break;
+
+      case SkyToastType.Info:
+      default:
+      typeLabel = 'info';
+      break;
+
+      case SkyToastType.Success:
+      typeLabel = 'success';
+      break;
+
+      case SkyToastType.Warning:
+      typeLabel = 'warning';
+      break;
+    }
+
+    classNames.push(
+      `sky-toast-${typeLabel}`
+    );
+
+    return classNames.join(' ');
   }
 
   private isOpen = false;

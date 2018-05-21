@@ -46,21 +46,27 @@ describe('Toast component', () => {
   function verifyType(type?: SkyToastType) {
     component.toastType = type;
     fixture.detectChanges();
-    const toastElement = fixture.nativeElement
-      .querySelector(`.sky-toast-${toastComponent.toastType}`);
-    expect(toastElement).not.toBeNull();
+
+    let className: string;
+    if (SkyToastType[type]) {
+      className = `sky-toast-${SkyToastType[type].toLowerCase()}`;
+    } else {
+      className = `sky-toast-info`;
+    }
+
+    expect(className).toEqual(toastComponent.classNames);
   }
 
   it('should set defaults', () => {
-    expect(toastComponent.toastType).toEqual('info');
+    expect(toastComponent.toastType).toEqual(SkyToastType.Info);
   });
 
   it('should allow setting the toast type', () => {
     verifyType(); // default
-    verifyType('info');
-    verifyType('success');
-    verifyType('warning');
-    verifyType('danger');
+    verifyType(SkyToastType.Info);
+    verifyType(SkyToastType.Success);
+    verifyType(SkyToastType.Warning);
+    verifyType(SkyToastType.Danger);
   });
 
   it('should close the toast when clicking close button', () => {
@@ -71,5 +77,14 @@ describe('Toast component', () => {
     fixture.detectChanges();
     expect(toastComponent['isOpen']).toEqual(false);
     expect(toastComponent.animationState).toEqual('closed');
+  });
+
+  it('should set aria attributes', () => {
+    expect(toastComponent.ariaLive).toEqual('polite');
+    expect(toastComponent.ariaRole).toEqual(undefined);
+    fixture.componentInstance.toastType = SkyToastType.Danger;
+    fixture.detectChanges();
+    expect(toastComponent.ariaLive).toEqual('assertive');
+    expect(toastComponent.ariaRole).toEqual('alert');
   });
 });

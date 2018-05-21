@@ -1,10 +1,12 @@
 import {
   Component,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnDestroy
 } from '@angular/core';
 
 import {
-  SkyToastService
+  SkyToastService,
+  SkyToastType
 } from '@blackbaud/skyux/dist/core';
 
 import {
@@ -16,16 +18,26 @@ import {
   templateUrl: './toast-visual.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToastVisualComponent {
+export class ToastVisualComponent implements OnDestroy {
   constructor(
     private toastService: SkyToastService
   ) { }
 
-  public openToast() {
-    this.toastService.openMessage('Toast message');
+  public ngOnDestroy(): void {
+    this.toastService.closeAll();
   }
 
-  public openComponent() {
-    this.toastService.openComponent(ToastDemoComponent, {});
+  public openToasts(): void {
+    this.toastService.openMessage('Toast message', { type: SkyToastType.Info });
+    this.toastService.openMessage('Toast message', { type: SkyToastType.Success });
+    this.toastService.openMessage('Toast message', { type: SkyToastType.Warning });
+    this.toastService.openMessage('Toast message', { type: SkyToastType.Danger });
+  }
+
+  public openComponents(): void {
+    this.toastService.openComponent(ToastDemoComponent, { type: SkyToastType.Info });
+    this.toastService.openComponent(ToastDemoComponent, { type: SkyToastType.Success });
+    this.toastService.openComponent(ToastDemoComponent, { type: SkyToastType.Warning });
+    this.toastService.openComponent(ToastDemoComponent, { type: SkyToastType.Danger });
   }
 }
