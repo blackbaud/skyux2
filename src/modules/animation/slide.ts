@@ -14,7 +14,7 @@ import {
 
 export const skyAnimationSlide = trigger('skyAnimationSlide', [
   state('down', style({
-    overflow: 'hidden',
+    overflow: 'visible',
     height: '*'
   })),
   state('up', style({
