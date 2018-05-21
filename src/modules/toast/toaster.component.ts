@@ -24,6 +24,10 @@ import {
 } from './toast';
 
 import {
+  SkyToastComponent
+} from './toast.component';
+
+import {
   SkyToastAdapterService
 } from './toast-adapter.service';
 
@@ -49,6 +53,9 @@ export class SkyToasterComponent implements AfterViewInit {
   @ViewChildren('toastContent', { read: ViewContainerRef })
   private toastContent: QueryList<ViewContainerRef>;
 
+  @ViewChildren(SkyToastComponent)
+  private toastComponents: QueryList<SkyToastComponent>;
+
   constructor(
     private domAdapter: SkyToastAdapterService,
     private toastService: SkyToastService,
@@ -70,6 +77,12 @@ export class SkyToasterComponent implements AfterViewInit {
 
   public onToastClosed(toast: SkyToast): void {
     toast.instance.close();
+  }
+
+  public closeAll(): void {
+    this.toastComponents.forEach((toastComponent) => {
+      toastComponent.close();
+    });
   }
 
   private injectToastContent(): void {

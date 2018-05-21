@@ -30,10 +30,6 @@ import {
 } from './toast-adapter.service';
 
 import {
-  SkyToastInstance
-} from './toast-instance';
-
-import {
   SkyToastService
 } from './toast.service';
 // #endregion
@@ -88,9 +84,9 @@ describe('Toast service', () => {
   });
 
   it('should expose a method to remove the toast from the DOM', () => {
-    const instance: SkyToastInstance = toastService.openMessage('message');
-    const spy = spyOn(instance, 'close').and.callThrough();
-    toastService.ngOnDestroy();
+    toastService.openMessage('message');
+    const spy = spyOn(toastService['host'].instance, 'closeAll').and.callFake(() => {});
+    toastService.closeAll();
     expect(spy).toHaveBeenCalledWith();
   });
 

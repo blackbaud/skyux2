@@ -146,4 +146,20 @@ describe('Toast component', () => {
     toasts = getToastElements();
     expect(toasts.length).toEqual(0);
   }));
+
+  it('should close all toasts', fakeAsync(() => {
+    openMessage();
+    openMessage();
+    openMessage();
+
+    let toasts = getToastElements();
+    expect(toasts.length).toEqual(3);
+
+    toastService.closeAll();
+    fixture.detectChanges();
+    tick();
+
+    toasts = getToastElements();
+    expect(toasts.length).toEqual(0);
+  }));
 });

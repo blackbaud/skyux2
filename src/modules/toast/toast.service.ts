@@ -120,9 +120,7 @@ export class SkyToastService implements OnDestroy {
    * Closes all active toast components.
    */
   public closeAll(): void {
-    this.toasts.forEach(toast => toast.instance.close());
-    this.toasts = [];
-    this._toastStream.next(this.toasts);
+    this.host.instance.closeAll();
   }
 
   private addToast(toast: SkyToast): void {
