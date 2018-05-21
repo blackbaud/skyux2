@@ -86,7 +86,7 @@ describe('Toast service', () => {
   it('should expose a method to remove the toast from the DOM', () => {
     toastService.openMessage('message');
     const spy = spyOn(toastService['host'].instance, 'closeAll').and.callFake(() => {});
-    toastService.closeAll();
+    toastService.ngOnDestroy();
     expect(spy).toHaveBeenCalledWith();
   });
 
