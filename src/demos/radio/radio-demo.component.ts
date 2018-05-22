@@ -17,7 +17,7 @@ export class SkyRadioDemoComponent {
     private fb: FormBuilder
   ) {
     this.radioForm = this.fb.group({
-      option: ''
+      option: '1'
     });
   }
 }

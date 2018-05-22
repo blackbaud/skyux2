@@ -12,6 +12,10 @@ import {
   ChangeDetectorRef,
   forwardRef
 } from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
 
 import {
   SkyRadioGroupComponent,
@@ -20,9 +24,6 @@ import {
 import {
   UniqueSelectionService
 } from './unique-selection';
-import {
-  ControlValueAccessor, NG_VALUE_ACCESSOR
-} from '@angular/forms';
 
 let nextId = 0;
 
@@ -45,7 +46,9 @@ export const SKY_RADIO_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  public selectedValue: any;
+  // take in ngModel to show the initial default value
+  // tslint:disable-next-line:no-input-rename
+  @Input('ngModel') public selectedValue: any;
 
   private onChangeCallback: (value: any) => void;
   private onTouchedCallback: () => void;
@@ -61,7 +64,12 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
   @Input() public tabindex: number = 0;
 
   @Input()
-  public get checked(): boolean { return this.radioGroup ? this._checked : this.selectedValue === this.value; }
+  public get checked(): boolean {
+    if (this.radioGroup) {
+      return this._checked;
+    }
+    return this.selectedValue === this.value;
+  }
   public set checked(value: boolean) {
     const newCheckedState = !!value;
 
@@ -132,7 +140,6 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
     private radioDispatcher: UniqueSelectionService,
     @Optional() private radioGroup: SkyRadioGroupComponent
   ) {
-    console.log(this.radioGroup);
     this.removeUniqueSelectionListener =
       radioDispatcher.listen((id: string, name: string) => {
         if (id !== this.id && name === this.name) {
@@ -170,10 +177,6 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
     } else {
       this.onTouchedCallback = fn;
     }
-  }
-
-  public setDisabledState?(isDisabled: boolean): void {
-    ///this.disabled = isDisabled;
   }
 
   public focus(): void {

@@ -1,6 +1,7 @@
 import {
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
+  NgControl
 } from '@angular/forms';
 import {
   ContentChildren,
@@ -12,7 +13,8 @@ import {
   ChangeDetectorRef,
   Input,
   Directive,
-  Component
+  Component,
+  Injector
 } from '@angular/core';
 
 import {
@@ -81,7 +83,10 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
     this.checkSelectedRadioButton();
   }
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private injector: Injector
+  ) { }
 
   public checkSelectedRadioButton() {
     if (this._selected && !this._selected.checked) {
@@ -91,8 +96,12 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   public ngAfterContentInit() {
     this.isInitialized = true;
-    console.log('init:');
-    console.log(this);
+
+    // Set initial value to be checked
+    let ngControl: NgControl = this.injector.get(NgControl);
+    this._value = ngControl.value;
+    this.updateSelectedRadioFromValue();
+    this.checkSelectedRadioButton();
   }
 
   public touch() {
