@@ -1,32 +1,32 @@
 # Contributing
 
-We highly encourage contributions from all SKY UX 2 users. We just ask you to follow the coding conventions in the existing code and to write the appropriate unit tests for your feature.
+We highly encourage contributions from all SKY UX users. We just ask you to follow the coding conventions in the existing code and to write the appropriate unit tests for your features.
 
-For more information about working with SKY UX 2, see the [SKY UX 2 README](https://github.com/blackbaud/skyux2/blob/master/README.md).
+For more information about working with SKY UX 2, see the [SKY UX README](https://github.com/blackbaud/skyux2/blob/master/README.md).
 
 ### Prerequisites
-Before you can contribute to SKY UX 2, you must install the following prerequisites:
+Before you contribute, you must install [the SKY UX prerequisites](https://developer.blackbaud.com/skyux/learn/get-started/prereqs/initial-setup):
 - [Git](https://git-scm.com/)
-- [Node.js (version 6+)](https://nodejs.org/en/)
+- [Node.js (the latest release of version 6)](https://nodejs.org/en/download/releases/)
 
 ## Before you start
 
-Before you begin to contribute to SKY UX 2, please consider these general guidelines so that your contributions can be reviewed and accepted in a timely fashion. Failure to follow these guidelines will result in your contribution not being accepted until they are addressed.
+Before you contribute to SKY UX, please consider these general guidelines so that we can review and accept your contributions in a timely fashion. If you do not follow these guidelines, we cannot accept your contributions.
 
-- **Please file an issue before starting any work.  The sooner we can start talking about potential code changes, the better. We can also use an issue to track and assign any work needed.**
-- **Use the `Sky` prefix when naming all classes, directives, services, components, etc.** This makes it clear at first-glance to other contributors that the items are owned by SKY UX and not a third-party library. It also prevents potential class-name clashes with other libraries. Keep in mind that while we generally use the uppercase `Sky` prefix, we also use the `sky-` prefix in some cases, such as the selector property in components.
+- **Please [file an issue](https://github.com/blackbaud/skyux2/issues/new) before you start any work. The sooner we can discuss potential code changes, the better. We can also use the issue to track and assign any work needed.**
+- **Use the `Sky` prefix when naming all classes, directives, services, components, etc.** This prefix indicates to other contributors that items are owned by SKY UX and not a third-party library and also prevents potential class-name clashes with other libraries. Keep in mind that while we generally use the uppercase `Sky` prefix, we also use the `sky-` prefix in some cases, such as the selector property in components.
 - **All new code must have 100 percent unit test code coverage.** This doesn't guarantee that every use case is accounted for, but anything less than 100 percent code coverage does guarantee that at least one use case is not accounted for. This can be verified by running tests with `npm run watch` and viewing the code coverage results in `coverage/Chrome xx.x.xxxx/index.html`.
-- **New components or visual changes to existing components must be accompanied by visual regression tests.** This ensures that future changes to CSS or markup will not cause components to render in an unexpected manner. Visual tests consist of three parts: an HTML template for the component to test, a TypeScript file for the component to test, and the actual file that runs the test using webdriver.io and our custom screenshot functions. You can see examples of each part of the visual test process at:
+- **All new components and visual changes to existing components must be accompanied by visual regression tests.** This ensures that future changes to CSS or markup will not cause components to render in an unexpected manner. Visual tests consist of three parts: an HTML template for the component to test, a TypeScript file for the component to test, and the actual file that runs the test using webdriver.io and our custom screenshot functions. You can see examples of each part of the visual test process at:
     - https://github.com/blackbaud/skyux2/blob/master/skyux-spa-visual-tests/src/app/alert/alert-visual.component.html
     - https://github.com/blackbaud/skyux2/blob/master/skyux-spa-visual-tests/src/app/alert/alert-visual.component.ts
     - https://github.com/blackbaud/skyux2/blob/master/skyux-spa-visual-tests/src/app/alert/alert.visual-spec.ts.
-- **New components or changes to existing components must have passing [accessibility tests](https://developer.blackbaud.com/skyux2/learn/accessibility/test).** This includes automated tests that are run during visual regression tests as well as code review and manual keyboard testing.
-- **All new components must include demos.** The demos must include all or most of the features available to the components and provide examples of all inputs and outputs. We also recommend that you to create reference documentation to accompany the demos in [the Components section of the SKY UX website](https://developer.blackbaud.com/skyux/components). This documentation should be extensive enough to explain the features of your components, including all properties and events. You can contribute documentation in a separate pull request in [the SKY UX 2 docs repo](https://github.com/blackbaud/skyux2-docs). The SKY UX team will document your components if you do not, but we strongly encourage you to create your own documentation because it can be useful to uncover issues with your components. 
-- **If you make a large change that consists of multiple components, please submit changes in several small pull requests rather than one large pull request.** (Large being more than 50 files). We ask that you do so for the following reasons:
-    - It allows the SKY UX team to review your code in manageable pieces. It's much easier to review 50 files in 3 pull requests than 150 files in 1 pull request.
-    - It allows you to get feedback sooner. In the case where you need to make pervasive coding style changes, for example, catching that in a small code review lets you update the rest of your code that may need the same changes before you submit it.
-    - It demonstrates that your code is modular and does not contain excessive interdependencies. For instance, if you have Component B that is a child component of Component A, you should be able to author, test, document, review, and release Component B in the absence of Component A. If your changes must include both Component A and Component B to be tested and reviewed, then it raises a red flag that these components may be too tightly coupled and should be refactored.
-- **If you make an API change that affects inputs and outputs for a component, we recommend that you provide your potential (not working) documentation and demo to the SKY UX team for review.** This lets us head off any API issues before implementation. Contributors should keep in mind that the API can change in the course of development.
+- **All new components and changes to existing components must have passing [accessibility tests](https://developer.blackbaud.com/skyux/learn/accessibility/test).** This includes automated tests to run during visual regression tests as well as code review and manual keyboard testing.
+- **All new components must include demos to accompany the reference documentation in [the Components section of the SKY UX website](https://developer.blackbaud.com/skyux/components).** Demos must include all or most features available to the components and examples of all inputs and outputs. In [the SKY UX repo](https://github.com/blackbaud/skyux2), you create subfolders for your components in the `src/demos` folder and add TypeScript and HTML files for the demos. You create `{componentName}-demo.component.html` files to provide HTML templates for demos, `{componentName}-demo.component.ts` files to handle the logic, and `index.ts` files to export demos. For examples of existing demos, serve the [the SKY UX repo](https://github.com/blackbaud/skyux2) or view [the components documentation on the SKY UX website](https://developer.blackbaud.com/skyux/components). We recommend that you also [create the reference documentation](#write-documentation) for your components in a separate pull request in [the SKY UX docs repo](https://github.com/blackbaud/skyux2-docs). If you do not, we request that you [file an issue](https://github.com/blackbaud/skyux2/issues/new) for the SKY UX team to document your components. However, we strongly encourage you to create your own documentation because it can be useful to uncover issues with your components. 
+- **For large changes that include multiple components, please submit changes in several small pull requests instead of one large pull request.** (Large being more than 50 files). We ask that you do this for the following reasons:
+    - It allows the SKY UX team to review your code in manageable pieces. It's much easier to review 3 pull requests with 50 files than 1 pull request with 150 files.
+    - It allows you to get feedback sooner. Catching pervasive coding style changes in a small code review allows you update the rest of your code before you submit it.
+    - It demonstrates that your code is modular and does not contain excessive interdependencies. For instance, if Component B is a child component of Component A, you should be able to author, test, document, review, and release Component B in the absence of Component A. If your changes must include both Component A and Component B to be tested and reviewed, then it raises a red flag that the components may be too tightly coupled and should be refactored.
+- **If you make an API change that affects inputs and outputs for a component, we recommend that you provide your potential (not working) documentation and demo to the SKY UX team for review.** This lets us head off API issues before implementation. Contributors should keep in mind that the API can change in the course of development.
 
 ## Localization
 
@@ -37,44 +37,47 @@ To declare localization strings, specify a string name and provide the string an
 ### Get the code
 
 1. [Fork the master branch](https://help.github.com/articles/fork-a-repo/) into your own GitHub repo.
-2. Create a branch named after the feature you will contribute. The name of your branch should be kebab-case (e.g. my-new-feature).
-3. Clone your repo locally, then run `npm install` from your local repo's directory to install all required dependencies.
+2. Create a branch named after the feature you will contribute. The branch name should be kebab-case (e.g. my-new-feature).
+3. Clone your repo locally and run `npm install` from your local repo's directory to install all required dependencies.
 4. Run your first round of visual regression tests by following the instructions in the [Write visual regression tests](#write-visual-regression-tests) section below. This establishes baseline screenshots of the components in the master repo so that as you make changes and run your visual regression tests, your changes are validated against the state of the repo before the changes.
 
 ### Write the code
 
 1. Launch a command prompt, `cd` to the folder where you cloned your branch, and run `npm run watch`.
-2. Launch a second command prompt, ensure the current working directory is the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX 2 documentation where you can write demo components to test your code.  
-    - SKY UX 2 documentation is authored using [SKY UX Builder](https://github.com/blackbaud/skyux-cli). If this is your first time using SKY UX Builder, you must install the CLI as a global NPM package before you run the `skyux serve` command:
-```sh
-$ npm install @blackbaud/skyux-cli -g
-```
-  
-3. When you save changes to your code, the code compiles, static code analysis is performed, unit tests run, and the documentation page refreshes with your latest changes.  
+2. Launch a second command prompt, `cd` to the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX component demos page where you write the demo components to test your code.
+    - SKY UX demos are authored with [SKY UX Builder](https://github.com/blackbaud/skyux-cli). If this is your first time using SKY UX Builder, you must install the CLI as a global NPM package before you run `skyux serve`:
+    ```sh
+    $ npm install @blackbaud/skyux-cli -g
+    ```
+3. When you save code changes, the code compiles, static code analysis is performed, unit tests run, and the page refreshes with the latest changes.
+
+Keep in mind that when you create components, you must add public exports through `./src/core.ts` and `./src/demo.ts` to allow users to import your component modules. The public exports provide entry points for the bundles that are deployed by SKY UX.
+
+Also, the recommended change detection strategy for SKY UX components is to use [the `OnPush` property instead of `Default`](https://angular.io/api/core/ChangeDetectionStrategy).
 
 ### Write documentation
 
-The SKY UX 2 component documentation is located in the `src/app/components` folder. Each subfolder represents one component, and each subfolder contains an `index.html` file with the documentation text and one or more demo components. When documentation builds, the documentation text, demo, and the source code for the demo are displayed on the component's documentation page. To write documentation for a new component, follow the same pattern as the existing components.  
+In addition to the demos that we require for new components, we recommend that you create reference documentation for [the Components section of the SKY UX website](https://developer.blackbaud.com/skyux/components). Component documentation should be extensive enough to explain the features of your components, including all properties and events. In [the SKY UX docs repo](https://github.com/blackbaud/skyux2-docs), you create subfolders for your components in the `src/app/components` folder and document them in `index.html` files. To create action buttons for your components on the Components section landing page, you add entries for the components in the `demo-components.service.ts` file. If you do not document your components, the SKY UX team will create the documentation for you. We just request that you [file an issue](https://github.com/blackbaud/skyux2/issues/new) for the documentation. However, we strongly encourage you to create your own documentation because it can be useful to uncover issues with your components.
 
 ### Write unit tests
 
-Your unit test files should end in `.spec.ts` and reside in the same folder as the component that they test. For example, if you have a `foo/foo.component.ts` file then your test file would be `foo/foo.component.spec.ts`. All test fixtures (sample components, mock services, etc.) should be located in a folder called `fixtures` within your component's folder. The existing codebase contains many examples of this pattern, so just follow the patterns in the existing code when you write tests for new components.
+Your unit test files should end in `.spec.ts` and reside in the same folders as the components that they test. For example, the test file for `foo/foo.component.ts` should be `foo/foo.component.spec.ts`. All test fixtures (sample components, mock services, etc.) should be in a `fixtures` folder within the component's folder. The existing codebase contains many examples of this pattern, so just follow the patterns in the existing code when you write tests for new components.
 
-As your tests run, code coverage results are generated and can be located under `coverage/<browser version>/index.html`. You can launch this straight from disk and view the SKY UX 2 unit test code coverage results in your default web browser. 
+For new components, we recommend that you reach out to the SKY UX team for a "soft" review of the initial implementation before you write unit tests. This allows you to make requested changes to your code before writing the tests.
+
+When your tests run, code coverage results are generated and can be located in `coverage/<browser version>/index.html`. You can launch this straight from disk and view the SKY UX unit test code coverage results in your default web browser.
 
 ### Write visual regression tests
 
-During our continuous integration builds, we run visual regression tests through BrowserStack using [protractor](http://www.protractortest.org/) and [pix-diff](https://github.com/koola/pix-diff). 
+During continuous integration builds, SKY UX runs visual regression tests through BrowserStack using [Protractor](http://www.protractortest.org/) and [pix-diff](https://github.com/koola/pix-diff). These prerequisites are automatically installed when you run `npm run test:visual` to create and compare screenshots in the `skyux-spa-visual-tests/screenshots-baseline-local/` folder.
 
-After you install these prerequisites, you can run the visual regression tests using `npm run test:visual`, which creates and compares screenshots in the `skyux-spa-visual-tests/screenshots-baseline-local/` folder.
+To create visual tests for a new component, first create a folder for the tests in `skyux-spa-visual-tests/src/app`. Then add four files for the visual regression test:
+  - `{componentName}-visual.component.html`: The template for the component to render and take a screenshot of.
+  - `{componentName}-visual.component.ts`: The TypeScript code for the component to render and take a screenshot of.
+  - `{componentName}.visual-spec.ts`: The Protractor code to run the screenshot tests.
+  - `index.html`: The route file that contains the component to render and take a screenshot of.
 
-To create visual tests for a new component, first create a folder for the tests in `skyux-spa-visual-tests/src/app`. This folder will contain four files for the visual test: 
-  - {componentName}-visual.component.html : The template for the component to render and screenshot.
-  - {componentName}-visual.component.ts : The typescript code for the component to render and screenshot.
-  - {componentName}.visual-spec.ts : The protractor code to run the screenshot tests.
-  - index.html : The route file that contains the component to render and screenshot.
-
-Then, in `skyux-spa-visual-tests/src/app/home.component.ts`, add the name of the test folder you just created to the `tests` array.
+To run visual regression tests locally, you must first run them locally against the `master` branch and then run the tests against your feature branch. Keep in mind that you need to use the same monitor and resolution on both set of tests. If your visual regression tests fail, you can check the failed tests at `skyux2\skyux-spa-visual-tests\screenshots-diff-local\diff` to find the cause of the failures.
 
 ### Submit the code
 
@@ -89,24 +92,24 @@ Script      | Description
 ----------- | -----------
 `build`       | Cleans the previous build, compiles the Sass, and transpiles the JavaScript.
 `clean`       | Cleans the previous build.
-`clean:full`  | Cleans the previous build, node_modules, and coverage reports.
+`clean:full`  | Cleans the previous build, `node_modules`, and coverage reports.
 `lint`        | Runs TypeScript linter.
 `test`        | Runs unit tests and visual regression tests.
 `test:unit`   | Runs Karma unit tests.
-`test:visual` | Runs Webdriver visual regression tests and accessibility tests.
-`watch`       | Runs Karma unit tests and watch for file changes.
+`test:visual` | Runs WebDriver visual regression tests and accessibility tests.
+`watch`       | Runs Karma unit tests and watches for file changes.
 
 
 ## Recommended tools
 
 ### Visual Studio Code setup
 
-Like Angular 2, SKY UX 2 is written in [TypeScript](https://www.typescriptlang.org/), and the free [Visual Studio Code editor](https://code.visualstudio.com/) is one of the best options for working with TypeScript.  It supports code navigation, refactoring tools, and a host of other features that are usually only found in richer IDEs.  The SKY UX team uses Visual Studio Code and has some recommendations for configuring it to work best with Angular 2 and SKY UX 2. Even if you do not want to use Visual Studio Code as your editor, some of the following information will still be useful as many of the extensions and other tips are available for other popular editors such as [Atom](https://atom.io/), [Brackets](http://brackets.io/), and [Sublime Text](https://www.sublimetext.com/).
+Like Angular 2, SKY UX is written in [TypeScript](https://www.typescriptlang.org/), and the free [Visual Studio Code editor](https://code.visualstudio.com/) is one of the best tools to work with TypeScript. It supports code navigation, refactoring tools, and a host of other features that are usually only found in richer IDEs. The SKY UX team uses Visual Studio Code and has some recommendations for configuring it to work best with Angular and SKY UX. Even if you do not want to use Visual Studio Code as your editor, the following information will still be useful because extensions are available for other popular editors such as [Atom](https://atom.io/), [Brackets](http://brackets.io/), and [Sublime Text](https://www.sublimetext.com/).
 
 #### Visual Studio Code extensions
 
-The following VS Code extensions are highly recommended:
+We highly recommend the following VS Code extensions:
 
-- [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint): This extension validates your TypeScript code against the rules specified in the `tslint.json` file in the SKY UX 2 repo. TSLint runs during the CI build, so if your code does not validate in VS Code with the use of this extension, the CI build will fail.
+- [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint): This extension validates your TypeScript code against the rules specified by the `tslint.json` file in the SKY UX repo. TSLint runs during the CI build, so if this extension does not validate your code in VS Code, the CI build will fail.
 
-- [EditorConfig](https://github.com/editorconfig/editorconfig-vscode): This extension allows VS Code to recognize this project's [`.editorconfig`](http://editorconfig.org/) file so that many of the coding conventions used by the SKY UX team can be enforced automatically, such as indent size, trailing whitespace rules, etc. If you do not use this extension, then you will find yourself fixing a lot of TSLint errors manually instead of letting VS Code do it for you.
+- [EditorConfig](https://github.com/editorconfig/editorconfig-vscode): This extension allows VS Code to recognize the [`.editorconfig`](http://editorconfig.org/) file to automatically enforce many of the coding conventions that the SKY UX team uses, such as indent size, trailing whitespace rules, etc. If you do not use this extension, then you will find yourself fixing a lot of TSLint errors manually instead of letting VS Code do it for you.

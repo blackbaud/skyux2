@@ -8,6 +8,8 @@ import {
   Type
 } from '@angular/core';
 
+import 'rxjs/add/operator/take';
+
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutComponent } from './flyout.component';
 import { SkyFlyoutInstance } from './flyout-instance';

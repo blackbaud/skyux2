@@ -1,10 +1,13 @@
 import { SkyListInMemoryDataProvider } from '.';
 import { ListDataRequestModel } from '../list';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 import {
   fakeAsync,
   tick
 } from '@angular/core/testing';
+
 import {
   ListFilterModel,
   ListItemModel

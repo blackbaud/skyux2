@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
 
 import {
   SKY_LINK_RECORDS_STATUSES,
