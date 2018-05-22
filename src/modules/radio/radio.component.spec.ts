@@ -115,7 +115,7 @@ describe('Radio component', function () {
 
     expect(ngModel.valid).toBe(true);
     expect(ngModel.pristine).toBe(false);
-    expect(ngModel.touched).toBe(false);
+    expect(ngModel.touched).toBe(true);
     expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(true);
     expect(componentInstance.selectedValue).toBe('2');
 

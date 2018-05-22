@@ -12,7 +12,6 @@ import {
   AfterContentInit,
   ChangeDetectorRef,
   Input,
-  Directive,
   Component,
   Injector
 } from '@angular/core';

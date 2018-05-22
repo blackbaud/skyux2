@@ -57,8 +57,8 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
   @Input() public name: string;
 
   @Input() public label: string;
-  @Input() public labelledby: string;
-  @Input() public describedby: string;
+  @Input() public labelledBy: string;
+  @Input() public describedBy: string;
 
   @Input() public disabled: boolean = false;
   @Input() public tabindex: number = 0;
