@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { FlyoutDemoComponent } from './flyout/flyout-demo.component';
+import { ToastDemoComponent } from './toast/toast-demo.component';
 
 import { ModalDemoComponent } from './modal/modal-demo.component';
 import { ModalLargeDemoComponent } from './modal/modal-large-demo.component';
@@ -16,6 +17,7 @@ import { Tile2Component } from './tiles/tile2.component';
   providers: [],
   entryComponents: [
     FlyoutDemoComponent,
+    ToastDemoComponent,
     ModalDemoComponent,
     ModalLargeDemoComponent,
     ModalFullPageDemoComponent,
