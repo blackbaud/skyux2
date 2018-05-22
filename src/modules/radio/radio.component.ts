@@ -22,7 +22,7 @@ import {
   SkyRadioChange
 } from './radio-group/radio-group.component';
 import {
-  UniqueSelectionService
+  UniqueRadioSelectionService
 } from './unique-selection';
 
 let nextId = 0;
@@ -137,7 +137,7 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private radioDispatcher: UniqueSelectionService,
+    private radioDispatcher: UniqueRadioSelectionService,
     @Optional() private radioGroup: SkyRadioGroupComponent
   ) {
     this.removeUniqueSelectionListener =

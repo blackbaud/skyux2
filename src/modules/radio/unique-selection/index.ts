@@ -1,3 +1,3 @@
 export {
-  UniqueSelectionService
-} from './unique-selection.service';
+  UniqueRadioSelectionService
+} from './unique-radio-selection.service';
