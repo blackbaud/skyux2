@@ -37,26 +37,16 @@
 <br />
 <br />
 <form [formGroup]="radioForm" (ngSubmit)="onSubmit()">
-  <div class="form-group radio">
+  <sky-radio-group formControlName="option" class="form-group radio">
     <legend>Reactive Radio button options:</legend>
     <ul class="sky-list-unstyled">
-      <li>
-        <sky-radio formControlName="option" value="1" (ngModelChange)="logChange(1)">
-          <sky-radio-label>Option 1</sky-radio-label>
-        </sky-radio>
-      </li>
-      <li>
-        <sky-radio formControlName="option" value="2" (ngModelChange)="logChange(2)">
-          <sky-radio-label>Option 2</sky-radio-label>
-        </sky-radio>
-      </li>
-      <li>
-        <sky-radio formControlName="option" value="3" (ngModelChange)="logChange(3)">
-          <sky-radio-label>Option 3</sky-radio-label>
+      <li *ngFor="let value of ['1', '2', '3']">
+        <sky-radio [value]="value">
+          <sky-radio-label>Option {{ value }}</sky-radio-label>
         </sky-radio>
       </li>
     </ul>
-  </div>
+  </sky-radio-group>
   <div style="margin-top: 1em">
     <p>
       Selected option: {{radioForm.value.option}}

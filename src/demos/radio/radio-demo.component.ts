@@ -20,8 +20,4 @@ export class SkyRadioDemoComponent {
       option: ''
     });
   }
-
-  public logChange(num: Number) {
-    console.log(num + ' ' + this.radioForm.value.option);
-  }
 }

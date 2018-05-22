@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { SkyRadioComponent } from './radio.component';
 import { SkyRadioLabelComponent } from './radio-label.component';
 import { SkyRadioGroupComponent } from './radio-group/radio-group.component';
+import { UniqueSelectionService } from './unique-selection';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SkyRadioGroupComponent } from './radio-group/radio-group.component';
     SkyRadioComponent,
     SkyRadioGroupComponent,
     SkyRadioLabelComponent
-  ]
+  ],
+  providers: [UniqueSelectionService]
 })
 export class SkyRadioModule { }
