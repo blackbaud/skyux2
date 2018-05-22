@@ -24,6 +24,7 @@ import {
   SkyLinkRecordsStateModel
 } from './state/';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { SkyCheckboxModule } from '../checkbox';
 import { SkyResourcesModule } from '../resources';
 import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';

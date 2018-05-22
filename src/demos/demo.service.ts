@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+// #region imports
+import {
+  Injectable
+} from '@angular/core';
 
 import {
   SkyActionButtonDemoComponent,
@@ -45,12 +48,14 @@ import {
   SkyRepeaterDemoComponent,
   SkySearchDemoComponent,
   SkySectionedFormDemoComponent,
+  SkySelectFieldDemoComponent,
   SkySortDemoComponent,
   SkyTabsDemoComponent,
   SkyTextExpandDemoComponent,
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
   SkyTimepickerDemoComponent,
+  SkyToastDemoComponent,
   SkyTokensDemoComponent,
   SkyToolbarDemoComponent,
   SkyUrlValidationDemoComponent,
@@ -58,6 +63,7 @@ import {
   SkyWaitDemoComponent,
   SkyWizardDemoComponent
 } from './index';
+// #endregion
 
 /**
  * This service provides consumers with the raw file contents for each component demo.
@@ -178,6 +184,22 @@ export class SkyDemoService {
       name: 'Colorpicker',
       component: SkyColorpickerDemoComponent,
       files: [
+        {
+          name: 'colorpicker-reactive-demo.component.html',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-reactive-demo.component.html')
+        },
+        {
+          name: 'colorpicker-reactive-demo.component.ts',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-reactive-demo.component.ts')
+        },
+        {
+          name: 'colorpicker-template-driven-demo.component.html',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-template-driven-demo.component.html')
+        },
+        {
+          name: 'colorpicker-template-driven-demo.component.ts',
+          fileContents: require('!!raw-loader!./colorpicker/colorpicker-template-driven-demo.component.ts')
+        },
         {
           name: 'colorpicker-demo.component.html',
           fileContents: require('!!raw-loader!./colorpicker/colorpicker-demo.component.html')
@@ -389,6 +411,10 @@ export class SkyDemoService {
           name: 'flyout-demo-internal.component.ts',
           fileContents: require('!!raw-loader!./flyout/flyout-demo-internal.component.ts'),
           componentName: 'SkyFlyoutDemoInternalComponent'
+        },
+        {
+          name: 'flyout-demo-context.ts',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo-context.ts')
         }
       ]
     },
@@ -638,6 +664,10 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./lookup/lookup-demo.component.html')
         },
         {
+          name: 'lookup-demo.component.scss',
+          fileContents: require('!!raw-loader!./lookup/lookup-demo.component.scss')
+        },
+        {
           name: 'lookup-demo.component.ts',
           fileContents: require('!!raw-loader!./lookup/lookup-demo.component.ts'),
           componentName: 'SkyLookupDemoComponent',
@@ -883,6 +913,26 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Select field',
+      component: SkySelectFieldDemoComponent,
+      files: [
+        {
+          name: 'select-field-demo.component.html',
+          fileContents: require('!!raw-loader!./select-field/select-field-demo.component.html')
+        },
+        {
+          name: 'select-field-demo.component.scss',
+          fileContents: require('!!raw-loader!./select-field/select-field-demo.component.scss')
+        },
+        {
+          name: 'select-field-demo.component.ts',
+          fileContents: require('!!raw-loader!./select-field/select-field-demo.component.ts'),
+          componentName: 'SkySelectFieldDemoComponent',
+          bootstrapSelector: 'sky-select-field-demo'
+        }
+      ]
+    },
+    {
       name: 'Sort',
       component: SkySortDemoComponent,
       files: [
@@ -993,6 +1043,36 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./timepicker/timepicker-demo.component.ts'),
           componentName: 'SkyTimepickerDemoComponent',
           bootstrapSelector: 'sky-timepicker-demo'
+        }
+      ]
+    },
+    {
+      name: 'Toast',
+      component: SkyToastDemoComponent,
+      files: [
+        {
+          name: 'toast-demo.component.html',
+          fileContents: require('!!raw-loader!./toast/toast-demo.component.html')
+        },
+        {
+          name: 'toast-demo.component.ts',
+          fileContents: require('!!raw-loader!./toast/toast-demo.component.ts'),
+          componentName: 'SkyToastDemoComponent',
+          bootstrapSelector: 'sky-toast-demo'
+        },
+        {
+          name: 'toast-custom-demo.component.html',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.html')
+        },
+        {
+          name: 'toast-custom-demo.component.ts',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.ts'),
+          componentName: 'SkyToastCustomDemoComponent',
+          bootstrapSelector: 'sky-toast-custom-demo'
+        },
+        {
+          name: 'toast-custom-demo-context.ts',
+          fileContents: require('!!raw-loader!./toast/toast-custom-demo-context.ts')
         }
       ]
     },

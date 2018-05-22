@@ -1,3 +1,34 @@
+# 2.13.0 (2018-05-21)
+
+- Added toast component. [#1676](https://github.com/blackbaud/skyux2/pull/1676) (Thanks @blackbaud-conorwright)
+- Added permalink button to flyout header. [#1638](https://github.com/blackbaud/skyux2/pull/1638) (Thanks @Blackbaud-AlexKingman)
+- Added template-driven and reactive form examples to colorpicker demo. [#1699](https://github.com/blackbaud/skyux2/pull/1699)
+- Fixed slide animation clipping overflow content. [#1698](https://github.com/blackbaud/skyux2/pull/1698)
+
+# 2.12.2 (2018-05-11)
+
+- Fixed missing RxJS imports for all components. Prevented third-party modules from being bundled with SKY UX. [#1491](https://github.com/blackbaud/skyux2/pull/1491)
+- Fixed popover position inside flyouts. [#1637](https://github.com/blackbaud/skyux2/pull/1637) (Thanks @Blackbaud-StacyCarlos)
+- Fixed help inline button to prevent it from triggering form submissions. [#1661](https://github.com/blackbaud/skyux2/pull/1661)
+- Fixed IE11 arrow key navigation for dropdown menus. [#1652](https://github.com/blackbaud/skyux2/pull/1652) (Thanks @blackbaud-conorwright)
+
+# 2.12.1 (2018-04-26)
+
+- Fixed dropdown repositioning slowness. [#1655](https://github.com/blackbaud/skyux2/pull/1655)
+
+# 2.12.0 (2018-04-23)
+
+- Added select field component. [#1629](https://github.com/blackbaud/skyux2/pull/1629) (Thanks @Blackbaud-JaminQuimby)
+- Added shadow and border-radius CSS classes. [#1571](https://github.com/blackbaud/skyux2/pull/1571)
+- Added support for Builder `1.13.0`. [#1627](https://github.com/blackbaud/skyux2/pull/1627)
+- Adjusted button styles. [#1605](https://github.com/blackbaud/skyux2/pull/1605), [#1641](https://github.com/blackbaud/skyux2/pull/1641)
+- Updated text expand component to automatically expand when the `maxLength` property is set. [#1615](https://github.com/blackbaud/skyux2/pull/1615) (Thanks @Blackbaud-MikitaYankouski)
+- Refactored list secondary actions to use dropdown directly. [#1600](https://github.com/blackbaud/skyux2/pull/1600)
+- Removed the internal `TestUtility` helper from components in favor of Builder's `SkyAppTestUtility`. [#1598](https://github.com/blackbaud/skyux2/pull/1598)
+- Fixed dropdown not scrolling in IE11. [#1642](https://github.com/blackbaud/skyux2/pull/1642) (Thanks @blackbaud-conorwright)
+- Fixed dropdown scroll behavior in a scrollable container. [#1634](https://github.com/blackbaud/skyux2/pull/1634)
+- Fixed custom click events to fire on the dropdown tag. [#1640](https://github.com/blackbaud/skyux2/pull/1640)
+
 # 2.11.0 (2018-03-30)
 
 - Added ability to resize width of flyouts. [#1539](https://github.com/blackbaud/skyux2/pull/1539) (Thanks @Blackbaud-StacyCarlos)

@@ -22,12 +22,17 @@ import {
 
 describe('SkyPopoverAdapterService', () => {
   let mockRenderer: any;
+  let mockBody: any;
 
   class MockWindowService {
     public getWindow(): any {
       return {
         innerWidth: 1000,
-        innerHeight: 1000
+        innerHeight: 1000,
+        document: {
+          body: mockBody
+        },
+        getComputedStyle() {}
       };
     }
   }
@@ -38,24 +43,26 @@ describe('SkyPopoverAdapterService', () => {
     width = 0,
     height = 0
   ) {
-    const def: any = {
-      getBoundingClientRect: function () {
-        const right = left + width;
-        const bottom = top + height;
-        return {
-          top: top,
-          left: left,
-          width: width,
-          height: height,
-          right,
-          bottom
-        };
-      },
-      className: '',
-      style: { }
+    const elem = document.createElement('div');
+    elem.getBoundingClientRect = function () {
+      const right = left + width;
+      const bottom = top + height;
+      return {
+        top: top,
+        left: left,
+        width: width,
+        height: height,
+        right,
+        bottom
+      };
     };
 
-    return def;
+    Object.defineProperty(elem, 'parentNode', {
+      value: mockBody,
+      writable: true
+    });
+
+    return elem;
   }
 
   function verifyPosition(
@@ -75,13 +82,46 @@ describe('SkyPopoverAdapterService', () => {
     return new ElementRef(createElementRefDefinition(0, 0, 20, 10));
   }
 
+  function spyOnWindowGetComputedStyle(windowService: SkyWindowRefService, result: any) {
+    spyOn(windowService, 'getWindow').and.callFake(() => {
+      const obj = new MockWindowService().getWindow();
+      obj.getComputedStyle = () => ({ overflowY: 'auto' });
+      return obj;
+    });
+  }
+
+  function getListenersForOverflowParents(overflow: string) {
+    let listeners: any[] = [];
+
+    inject([SkyPopoverAdapterService, SkyWindowRefService], (
+      adapterService: SkyPopoverAdapterService,
+      windowService: SkyWindowRefService
+    ) => {
+      spyOn(windowService, 'getWindow').and.callFake(() => {
+        const obj = new MockWindowService().getWindow();
+        obj.getComputedStyle = () => ({ overflowY: overflow });
+        return obj;
+      });
+      const popover = new ElementRef(createElementRefDefinition(0, 0, 100, 100));
+      const parentElement = createElementRefDefinition(0, 0, 1200, 800);
+      popover.nativeElement.parentNode = parentElement;
+
+      listeners.push(adapterService.getParentScrollListeners(popover, () => {}));
+    })();
+
+    return listeners;
+  }
+
   beforeEach(() => {
     mockRenderer = {
       removeStyle() {},
       setStyle() {},
       addClass() {},
-      removeClass() {}
+      removeClass() {},
+      listen() {}
     };
+
+    mockBody = {};
 
     TestBed.configureTestingModule({
       providers: [
@@ -326,6 +366,135 @@ describe('SkyPopoverAdapterService', () => {
       expect(position.arrowLeft).toEqual(80);
     })
   );
+
+  describe('scrollable parent listeners', () => {
+    it('should default to listening for window scroll events',
+      inject([SkyPopoverAdapterService], (
+        adapterService: SkyPopoverAdapterService
+      ) => {
+        let scrollableParent: any;
+        let eventName: string;
+        spyOn(adapterService['renderer'], 'listen').and.callFake((target: any, event: string, callback: any) => {
+          scrollableParent = target;
+          eventName = event;
+          callback();
+        });
+
+        let isVisible = false;
+        const callback = (isVisibleWithinScrollable: boolean) => {
+          isVisible = isVisibleWithinScrollable;
+        };
+
+        const popover = new ElementRef(createElementRefDefinition(0, 0, 100, 100));
+        const listeners = adapterService.getParentScrollListeners(popover, callback);
+        expect(listeners.length).toEqual(1);
+        expect(isVisible).toEqual(true);
+        expect(scrollableParent).toEqual('window');
+        expect(eventName).toEqual('scroll');
+      })
+    );
+
+    it('should listen for `overflow: auto` parent element scroll events',
+      inject([SkyPopoverAdapterService, SkyWindowRefService], (
+        adapterService: SkyPopoverAdapterService,
+        windowService: SkyWindowRefService
+      ) => {
+        spyOnWindowGetComputedStyle(windowService, 'auto');
+
+        let scrollableParents: any[] = [];
+        let eventName: string;
+        spyOn(adapterService['renderer'], 'listen').and.callFake((target: any, event: string, callback: any) => {
+          scrollableParents.push(target);
+          eventName = event;
+          callback();
+        });
+
+        let isVisible = false;
+        const callback = (isVisibleWithinScrollable: boolean) => {
+          isVisible = isVisibleWithinScrollable;
+        };
+
+        const popover = new ElementRef(createElementRefDefinition(0, 0, 100, 100));
+        const parentElement = createElementRefDefinition(0, 0, 1200, 0);
+
+        popover.nativeElement.parentNode = parentElement;
+
+        const listeners = adapterService.getParentScrollListeners(popover, callback);
+        expect(listeners.length).toEqual(2);
+        expect(isVisible).toEqual(true);
+        expect(scrollableParents[0]).toEqual('window');
+        expect(scrollableParents[1]).toEqual(parentElement);
+        expect(eventName).toEqual('scroll');
+      })
+    );
+
+    it('should hide the popover if 95% of top is clipped',
+      inject([SkyPopoverAdapterService, SkyWindowRefService], (
+        adapterService: SkyPopoverAdapterService,
+        windowService: SkyWindowRefService
+      ) => {
+        spyOnWindowGetComputedStyle(windowService, 'auto');
+
+        spyOn(adapterService['renderer'], 'listen').and.callFake((target: any, event: string, callback: any) => {
+          callback();
+        });
+
+        let isVisible = true;
+        const callback = (isVisibleWithinScrollable: boolean) => {
+          isVisible = isVisibleWithinScrollable;
+        };
+
+        const popover = new ElementRef(createElementRefDefinition(-20, 0, 100, 100));
+        const parentElement = createElementRefDefinition(0, 0, 1200, 800);
+
+        popover.nativeElement.parentNode = parentElement;
+
+        adapterService.getParentScrollListeners(popover, callback);
+        expect(isVisible).toEqual(false);
+      })
+    );
+
+    it('should hide the popover if 95% of bottom is clipped',
+      inject([SkyPopoverAdapterService, SkyWindowRefService], (
+        adapterService: SkyPopoverAdapterService,
+        windowService: SkyWindowRefService
+      ) => {
+        spyOnWindowGetComputedStyle(windowService, 'auto');
+
+        spyOn(adapterService['renderer'], 'listen').and.callFake((target: any, event: string, callback: any) => {
+          callback();
+        });
+
+        let isVisible = true;
+        const callback = (isVisibleWithinScrollable: boolean) => {
+          isVisible = isVisibleWithinScrollable;
+        };
+
+        const popover = new ElementRef(createElementRefDefinition(0, 0, 100, 1000));
+        const parentElement = createElementRefDefinition(0, 0, 1200, 800);
+
+        popover.nativeElement.parentNode = parentElement;
+
+        adapterService.getParentScrollListeners(popover, callback);
+        expect(isVisible).toEqual(false);
+      })
+    );
+
+    it('should listen for `overflow: hidden` parent element scroll events', () => {
+      const listeners = getListenersForOverflowParents('hidden');
+      expect(listeners.length).toEqual(1);
+    });
+
+    it('should listen for `overflow: scroll` parent element scroll events', () => {
+      const listeners = getListenersForOverflowParents('scroll');
+      expect(listeners.length).toEqual(1);
+    });
+
+    it('should ignore parent elements without scrollbars', () => {
+      const listeners = getListenersForOverflowParents('foo');
+      expect(listeners.length).toEqual(1);
+    });
+  });
 
   describe('popover sticks to caller', () => {
     it('should stick to the caller right',

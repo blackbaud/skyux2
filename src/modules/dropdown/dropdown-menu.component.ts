@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { SkyDropdownComponent } from './dropdown.component';
 import { SkyDropdownItemComponent } from './dropdown-item.component';
@@ -161,12 +162,12 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public onKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
-    if (key === 'arrowdown') {
+    if (key === 'arrowdown' || key === 'down') {
       this.focusNextItem();
       event.preventDefault();
     }
 
-    if (key === 'arrowup') {
+    if (key === 'arrowup' || key === 'up') {
       this.focusPreviousItem();
       event.preventDefault();
     }

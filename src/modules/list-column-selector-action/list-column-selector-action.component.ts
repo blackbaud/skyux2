@@ -9,6 +9,11 @@ import {
 import {
   ListState, ListStateDispatcher, ListToolbarItemModel
 } from '../list/state';
+
+import {
+  SkyListSecondaryActionsComponent
+} from '../list-secondary-actions';
+
 import {
   SkyListViewGridComponent
 } from '../list-view-grid';
@@ -32,7 +37,8 @@ import {
 } from '../column-selector';
 
 import { Observable } from 'rxjs/Observable';
-import { SkyListSecondaryActionsComponent } from '../list-secondary-actions/';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'sky-list-column-selector-action',

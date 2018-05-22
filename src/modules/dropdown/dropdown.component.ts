@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyPopoverAlignment,
@@ -135,6 +136,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
         // Allow the menu to be opened with the arrowdown key
         // if it is first opened with the mouse.
+        case 'down':
         case 'arrowdown':
         if (!this.isKeyboardActive) {
           this.isKeyboardActive = true;
@@ -153,6 +155,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       this.isKeyboardActive = true;
       break;
 
+      case 'down':
       case 'arrowdown':
       this.isKeyboardActive = true;
       this.sendMessage(SkyDropdownMessageType.Open);
@@ -193,7 +196,9 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       case SkyDropdownMessageType.Reposition:
       // Only reposition the dropdown if it is already open.
       if (this.isOpen) {
-        this.popover.reposition();
+        this.windowRef.getWindow().setTimeout(() => {
+          this.popover.reposition();
+        });
       }
       break;
 
