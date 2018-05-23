@@ -126,14 +126,14 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
     }
   }
 
+  @ViewChild('input') public input: ElementRef;
+
   @Output() public readonly change: EventEmitter<SkyRadioChange> = new EventEmitter<SkyRadioChange>();
 
   public get inputId(): string { return `${this.id}-input`; }
 
   private _checked: boolean = false;
   private _value: any = undefined;
-
-  @ViewChild('input') private input: ElementRef;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
