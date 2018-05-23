@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
   UniqueRadioSelectionListener
-} from './unique-selection-listener';
+} from './unique-radio-selection-listener';
 
 @Injectable()
 export class UniqueRadioSelectionService implements OnDestroy {
