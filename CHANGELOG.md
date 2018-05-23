@@ -1,3 +1,10 @@
+# 2.13.0 (2018-05-21)
+
+- Added toast component. [#1676](https://github.com/blackbaud/skyux2/pull/1676) (Thanks @blackbaud-conorwright)
+- Added permalink button to flyout header. [#1638](https://github.com/blackbaud/skyux2/pull/1638) (Thanks @Blackbaud-AlexKingman)
+- Added template-driven and reactive form examples to colorpicker demo. [#1699](https://github.com/blackbaud/skyux2/pull/1699)
+- Fixed slide animation clipping overflow content. [#1698](https://github.com/blackbaud/skyux2/pull/1698)
+
 # 2.12.2 (2018-05-11)
 
 - Fixed missing RxJS imports for all components. Prevented third-party modules from being bundled with SKY UX. [#1491](https://github.com/blackbaud/skyux2/pull/1491)
