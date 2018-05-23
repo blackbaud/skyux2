@@ -217,13 +217,6 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
     }
   }
 
-  public onRadioChanged(newValue: any) {
-    if (!this.disabled && !this.radioGroup && newValue !== this.selectedValue) {
-      this.selectedValue = newValue;
-      this.onChangeCallback(newValue);
-    }
-  }
-
   public onInputFocusChange(event: Event) {
     if (this.radioGroup) {
       this.radioGroup.touch();

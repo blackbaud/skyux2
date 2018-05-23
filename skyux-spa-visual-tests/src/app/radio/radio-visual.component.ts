@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder
+} from '@angular/forms';
 
 @Component({
   selector: 'radio-visual',
@@ -7,4 +13,13 @@ import { Component } from '@angular/core';
 export class RadioVisualComponent {
   public selectedValue = '3';
   public valueGuy = '2';
+  public radioForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder
+  ) {
+    this.radioForm = this.fb.group({
+      option: '1'
+    });
+  }
 }

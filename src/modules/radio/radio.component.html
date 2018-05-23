@@ -9,7 +9,6 @@
     [id]="inputId"
     [checked]="checked"
     [name]="name"
-    [ngModel]="selectedValue"
     [disabled]="disabled"
     [value]="value"
     [tabIndex]="tabindex"
@@ -17,8 +16,7 @@
     [attr.aria-labelledby]="labelledBy"
     [attr.aria-describedby]="describedBy"
     (blur)="onInputFocusChange($event)"
-    (change)="onInputChange($event)"
-    (ngModelChange)="onRadioChanged($event)">
+    (change)="onInputChange($event)">
   <span class="sky-radio"></span>
   <ng-content select="sky-radio-label"></ng-content>
 </label>

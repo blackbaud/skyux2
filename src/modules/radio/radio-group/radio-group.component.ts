@@ -83,8 +83,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   }
 
   constructor(
-    private changeDetector: ChangeDetectorRef,
-    private injector: Injector
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   public checkSelectedRadioButton() {
@@ -95,12 +94,6 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   public ngAfterContentInit() {
     this.isInitialized = true;
-
-    // Set initial value to be checked
-    let ngControl: NgControl = this.injector.get(NgControl);
-    this._value = ngControl.value;
-    this.updateSelectedRadioFromValue();
-    this.checkSelectedRadioButton();
   }
 
   public touch() {

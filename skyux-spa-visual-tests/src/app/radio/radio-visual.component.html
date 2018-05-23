@@ -24,3 +24,24 @@
     </div>
   </div>
 </form>
+<br />
+<br />
+<form [formGroup]="radioForm" (ngSubmit)="onSubmit()">
+  <sky-radio-group formControlName="option" class="form-group radio">
+    <legend>Reactive Radio button options:</legend>
+    <ul class="sky-list-unstyled">
+      <li *ngFor="let value of ['1', '2', '3']">
+        <sky-radio [value]="value">
+          <sky-radio-label>Option {{ value }}</sky-radio-label>
+        </sky-radio>
+      </li>
+    </ul>
+  </sky-radio-group>
+  <div style="margin-top: 1em">
+    <p>
+      Selected option: {{radioForm.value.option}}
+      Touched: {{radioForm.touched}}
+      Pristine: {{radioForm.pristine}}
+    </p>
+  </div>
+</form>
