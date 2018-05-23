@@ -1,0 +1,44 @@
+<div class="sky-toast-demo">
+  <fieldset>
+    <label class="sky-control-label">
+      Select toast type:
+    </label>
+    <ul class="sky-list-unstyled">
+      <li *ngFor="let type of types">
+        <sky-radio
+          name="radiogroup"
+          [value]="type.value"
+          [(ngModel)]="selectedType"
+        >
+          <sky-radio-label>
+            {{ type.label }}
+          </sky-radio-label>
+        </sky-radio>
+      </li>
+    </ul>
+  </fieldset>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="button"
+    (click)="openMessage()"
+  >
+    Open toast
+  </button>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="button"
+    (click)="openComponent()"
+  >
+    Open toast with custom component
+  </button>
+
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="closeAll()"
+  >
+    Close all
+  </button>
+</div>
