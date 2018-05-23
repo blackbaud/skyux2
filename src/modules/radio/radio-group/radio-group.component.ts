@@ -1,7 +1,6 @@
 import {
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  NgControl
+  NG_VALUE_ACCESSOR
 } from '@angular/forms';
 import {
   ContentChildren,
@@ -12,8 +11,7 @@ import {
   AfterContentInit,
   ChangeDetectorRef,
   Input,
-  Component,
-  Injector
+  Component
 } from '@angular/core';
 
 import {
