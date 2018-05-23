@@ -192,28 +192,6 @@ describe('Radio component', function () {
     expect(radio1El.nativeElement.getAttribute('tabindex')).toBe('3');
   }));
 
-  it('should not change the selected value if input is disabled', fakeAsync(() => {
-    const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
-    const radioComponent = radioElement.componentInstance;
-
-    radioComponent.selectedValue = 'foo';
-    radioComponent.disabled = true;
-    radioComponent.onRadioChanged('bar');
-
-    expect(radioComponent.selectedValue).toEqual('foo');
-  }));
-
-  it('should not change the selected value if the new value is the same', fakeAsync(() => {
-    const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
-    const radioComponent = radioElement.componentInstance;
-
-    radioComponent.selectedValue = 'foo';
-    radioComponent.disabled = false;
-    radioComponent.onRadioChanged('foo');
-
-    expect(radioComponent.selectedValue).toEqual('foo');
-  }));
-
   it('should not change the selected value if the new value is undefined', fakeAsync(() => {
     const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
     const radioComponent = radioElement.componentInstance;

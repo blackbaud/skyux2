@@ -40,7 +40,6 @@ export class SkyRadioChange {
 @Component({
   selector: 'sky-radio-group',
   template: '<ng-content></ng-content>',
-  exportAs: 'skyRadioGroup',
   providers: [SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAccessor {
@@ -94,6 +93,8 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   public ngAfterContentInit() {
     this.isInitialized = true;
+    this.updateSelectedRadioFromValue();
+    this.changeDetector.markForCheck();
   }
 
   public touch() {
@@ -116,6 +117,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   public writeValue(value: any) {
     this.value = value;
+    this.updateSelectedRadioFromValue();
     this.changeDetector.markForCheck();
   }
 

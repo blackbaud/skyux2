@@ -3,12 +3,12 @@ import {
   OnDestroy
 } from '@angular/core';
 import {
-  UniqueRadioSelectionListener
+  SkyUniqueRadioSelectionListener
 } from './unique-radio-selection-listener';
 
 @Injectable()
-export class UniqueRadioSelectionService implements OnDestroy {
-  private _listeners: UniqueRadioSelectionListener[] = [];
+export class SkyUniqueRadioSelectionService implements OnDestroy {
+  private _listeners: SkyUniqueRadioSelectionListener[] = [];
 
   public notify(id: string, name: string) {
     for (let listener of this._listeners) {
@@ -16,10 +16,10 @@ export class UniqueRadioSelectionService implements OnDestroy {
     }
   }
 
-  public listen(listener: UniqueRadioSelectionListener): () => void {
+  public listen(listener: SkyUniqueRadioSelectionListener): () => void {
     this._listeners.push(listener);
     return () => {
-      this._listeners = this._listeners.filter((registered: UniqueRadioSelectionListener) => {
+      this._listeners = this._listeners.filter((registered: SkyUniqueRadioSelectionListener) => {
         return listener !== registered;
       });
     };

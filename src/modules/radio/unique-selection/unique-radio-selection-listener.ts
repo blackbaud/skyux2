@@ -1,1 +1,1 @@
-export type UniqueRadioSelectionListener = (id: string, name: string) => void;
+export type SkyUniqueRadioSelectionListener = (id: string, name: string) => void;

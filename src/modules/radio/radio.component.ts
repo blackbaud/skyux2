@@ -22,7 +22,7 @@ import {
   SkyRadioChange
 } from './radio-group/radio-group.component';
 import {
-  UniqueRadioSelectionService
+  SkyUniqueRadioSelectionService
 } from './unique-selection';
 
 let nextId = 0;
@@ -46,9 +46,7 @@ export const SKY_RADIO_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  // take in ngModel to show the initial default value
-  // tslint:disable-next-line:no-input-rename
-  @Input('ngModel') public selectedValue: any;
+  public selectedValue: any;
 
   private onChangeCallback: (value: any) => void;
   private onTouchedCallback: () => void;
@@ -137,7 +135,7 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private radioDispatcher: UniqueRadioSelectionService,
+    private radioDispatcher: SkyUniqueRadioSelectionService,
     @Optional() private radioGroup: SkyRadioGroupComponent
   ) {
     this.removeUniqueSelectionListener =
@@ -161,6 +159,7 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
     } else {
       this.selectedValue = value;
     }
+    this.changeDetector.markForCheck();
   }
 
   public registerOnChange(fn: any): void {

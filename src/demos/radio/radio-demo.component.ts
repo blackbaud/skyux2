@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {
   FormGroup,
-  FormBuilder
+  FormBuilder,
+  FormControl
 } from '@angular/forms';
 
 @Component({
@@ -12,12 +13,17 @@ export class SkyRadioDemoComponent {
   public selectedValue = '3';
   public valueGuy = '2';
   public radioForm: FormGroup;
+  public options = [
+    { name: 'Charlie Bucket' },
+    { name: 'Sam Bugle' },
+    { name: 'Chester Nutboy' }
+  ];
 
   constructor(
     private fb: FormBuilder
   ) {
     this.radioForm = this.fb.group({
-      option: '1'
+      option: new FormControl(this.options[0])
     });
   }
 }

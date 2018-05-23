@@ -40,7 +40,7 @@
   <sky-radio-group formControlName="option" class="form-group radio">
     <legend>Reactive Radio button options:</legend>
     <ul class="sky-list-unstyled">
-      <li *ngFor="let value of ['1', '2', '3']">
+      <li *ngFor="let value of options">
         <sky-radio [value]="value">
           <sky-radio-label>Option {{ value }}</sky-radio-label>
         </sky-radio>
@@ -49,7 +49,7 @@
   </sky-radio-group>
   <div style="margin-top: 1em">
     <p>
-      Selected option: {{radioForm.value.option}}
+      Selected option: {{radioForm.value.option.name}}
       Touched: {{radioForm.touched}}
       Pristine: {{radioForm.pristine}}
     </p>
