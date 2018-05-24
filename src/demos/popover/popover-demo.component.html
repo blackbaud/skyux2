@@ -391,3 +391,21 @@
 <sky-popover #asyncPopover>
   My asynchronous popover.
 </sky-popover>
+
+<h3>
+  Popovers can be closed automatically
+</h3>
+
+<button
+  class="sky-btn"
+  type="button"
+  [skyPopover]="autoPopover">
+  Auto Dismiss
+</button>
+
+<sky-popover
+  popoverTitle="Did you know?"
+  [autoDismiss]="true"
+  #autoPopover>
+  This popover will close after 3 seconds.
+</sky-popover>
