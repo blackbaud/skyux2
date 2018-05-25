@@ -8,17 +8,14 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'sky-radio-demo',
-  templateUrl: './radio-demo.component.html'
+  templateUrl: './radio-group.component.fixture.html'
 })
-export class SkyRadioDemoComponent {
-  public selectedValue = '3';
-  public valueGuy = '2';
+export class RadioGroupTestComponent {
   public radioForm: FormGroup;
   public options = [
     { name: 'Lillith Corharvest', disabled: false },
     { name: 'Harima Kenji', disabled: false },
-    { name: 'Harry Mckenzie', disabled: true }
+    { name: 'Harry Mckenzie', disabled: false }
   ];
 
   constructor(
