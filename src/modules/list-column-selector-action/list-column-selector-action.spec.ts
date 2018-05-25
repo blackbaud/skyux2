@@ -12,6 +12,10 @@ import {
 } from '@angular/platform-browser/animations';
 
 import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
+import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
@@ -73,6 +77,7 @@ describe('List column selector action', () => {
         ListColumnSelectorActionTestComponent
       ],
       imports: [
+        RouterTestingModule,
         SkyListColumnSelectorActionModule,
         SkyListModule,
         SkyListToolbarModule,

@@ -7,6 +7,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  Router
+} from '@angular/router';
+
+import {
   expect,
   SkyAppTestUtility
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
@@ -27,6 +31,7 @@ import { SkyModalComponentAdapterService } from './modal-component-adapter.servi
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
+  let router: Router;
 
   function openModal(modalType: any, config?: Object) {
     let modalInstance = modalService.open(modalType, config);
@@ -55,15 +60,18 @@ describe('Modal component', () => {
     inject(
       [
         ApplicationRef,
-        SkyModalService
+        SkyModalService,
+        Router
       ],
       (
         _applicationRef: ApplicationRef,
-        _modalService: SkyModalService
+        _modalService: SkyModalService,
+        _router: Router
       ) => {
         applicationRef = _applicationRef;
         modalService = _modalService;
         modalService.dispose();
+        router = _router;
       }
     )
   );
@@ -262,6 +270,18 @@ describe('Modal component', () => {
     expect(document.querySelector('.sky-modal')).toExist();
 
     (<any>document.querySelector('.sky-modal-btn-close')).click();
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
+
+    applicationRef.tick();
+  }));
+
+  it('should close when the user navigates through history', fakeAsync(() => {
+    openModal(ModalTestComponent);
+
+    expect(document.querySelector('.sky-modal')).toExist();
+
+    router.navigate(['/']);
 
     expect(document.querySelector('.sky-modal')).not.toExist();
 

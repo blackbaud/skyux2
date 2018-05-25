@@ -7,6 +7,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
+import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
@@ -30,6 +34,7 @@ describe('Column selector component', () => {
         ColumnSelectorTestComponent
       ],
       imports: [
+        RouterTestingModule,
         SkyColumnSelectorModule,
         SkyModalModule
       ]
