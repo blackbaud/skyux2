@@ -17,6 +17,9 @@ import {
 import {
   SkyRadioComponent
 } from '../radio.component';
+import {
+  SkyRadioChange
+} from '../radio-change';
 
 // Keeps the radio group ids unique
 let nextId = 0;
@@ -29,12 +32,6 @@ export const SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
 };
 // tslint:enable
 
-export class SkyRadioChange {
-  constructor(
-    public source: SkyRadioComponent,
-    public value: any) {}
-}
-
 @Component({
   selector: 'sky-radio-group',
   template: '<ng-content></ng-content>',
@@ -46,7 +43,8 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   private _selected: SkyRadioComponent = undefined;
   private isInitialized: boolean = false;
 
-  @Output() public readonly change: EventEmitter<SkyRadioChange> = new EventEmitter<SkyRadioChange>();
+  @Output()
+  public readonly change: EventEmitter<SkyRadioChange> = new EventEmitter<SkyRadioChange>();
 
   // tslint:disable-next-line:no-forward-ref
   @ContentChildren(forwardRef(() => SkyRadioComponent), { descendants: true })

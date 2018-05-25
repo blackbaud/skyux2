@@ -18,12 +18,14 @@ import {
 } from '@angular/forms';
 
 import {
-  SkyRadioGroupComponent,
-  SkyRadioChange
+  SkyRadioGroupComponent
 } from './radio-group/radio-group.component';
 import {
   SkyUniqueRadioSelectionService
 } from './unique-selection';
+import {
+  SkyRadioChange
+} from './radio-change';
 
 let nextId = 0;
 

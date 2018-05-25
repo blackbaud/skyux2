@@ -79,7 +79,7 @@ describe('Radio component', function () {
     expect(ngModel.touched).toBe(true);
     expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(true);
     expect(componentInstance.selectedValue).toBe('2');
-    expect(radio2El.componentInstance.checked).toBeTruthy()
+    expect(radio2El.componentInstance.checked).toBeTruthy();
 
     radio2El.query(By.css('input')).nativeElement.dispatchEvent(createEvent('blur'));
     expect(ngModel.touched).toBe(true);
