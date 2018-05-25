@@ -38,7 +38,9 @@ export const SKY_RADIO_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'sky-radio',
   templateUrl: 'radio.component.html',
-  styleUrls: ['radio.component.scss'],
+  styleUrls: [
+    'radio.component.scss'
+  ],
   providers: [
     SKY_RADIO_CONTROL_VALUE_ACCESSOR
   ],
@@ -48,18 +50,26 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
 
   public selectedValue: any;
 
-  private onChangeCallback: (value: any) => void;
-  private onTouchedCallback: () => void;
+  @Input()
+  public id: string = `sky-radio-${++nextId}`;
 
-  @Input() public id: string = `sky-radio-${++nextId}`;
-  @Input() public name: string;
+  @Input()
+  public name: string;
 
-  @Input() public label: string;
-  @Input() public labelledBy: string;
-  @Input() public describedBy: string;
+  @Input()
+  public label: string;
 
-  @Input() public disabled: boolean = false;
-  @Input() public tabindex: number = 0;
+  @Input()
+  public labelledBy: string;
+
+  @Input()
+  public describedBy: string;
+
+  @Input()
+  public disabled: boolean = false;
+
+  @Input()
+  public tabindex: number = 0;
 
   @Input()
   public get checked(): boolean {
@@ -78,15 +88,11 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
       if (this.radioGroup) {
         if (newCheckedState && this.radioGroup.value !== this.value) {
           this.radioGroup.selected = this;
-        } else if (!newCheckedState && this.radioGroup.value === this.value) {
-          this.radioGroup.selected = undefined;
         }
       // without a radio group
       } else {
         if (newCheckedState) {
           this.selectedValue = this.value;
-        } else if (this.selectedValue === this.value) {
-          this.selectedValue = undefined;
         }
       }
 
@@ -100,33 +106,36 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
   @Input()
   public get value(): any { return this._value; }
   public set value(value: any) {
+    // maintain checked state from before value change
+    let wasChecked = this.checked;
+
     if (this._value !== value) {
       this._value = value;
 
       // With a radio group
       if (this.radioGroup) {
-        if (!this.checked) {
-          this.checked = this.radioGroup.value === value;
-        }
-        if (this.checked) {
+        if (wasChecked) {
           this.radioGroup.selected = this;
+        } else {
+          this.checked = this.radioGroup.value === value;
         }
 
       // Without a radio group
       } else {
-        if (!this.checked) {
-          this.checked = this.selectedValue === value;
-        }
-        if (this.checked) {
+        if (wasChecked) {
           this.selectedValue = value;
+        } else {
+          this.checked = this.selectedValue === value;
         }
       }
     }
   }
 
-  @ViewChild('input') public input: ElementRef;
+  @ViewChild('input')
+  public input: ElementRef;
 
-  @Output() public readonly change: EventEmitter<SkyRadioChange> = new EventEmitter<SkyRadioChange>();
+  @Output()
+  public readonly change: EventEmitter<SkyRadioChange> = new EventEmitter<SkyRadioChange>();
 
   public get inputId(): string { return `${this.id}-input`; }
 
@@ -144,9 +153,6 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
           this.checked = false;
         }
     });
-
-    this.onChangeCallback = () => {};
-    this.onTouchedCallback = () => {};
   }
 
   public writeValue(value: any): void {
@@ -154,36 +160,22 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
       return;
     }
 
-    if (this.radioGroup) {
-      this.radioGroup.writeValue(value);
-    } else {
+    if (!this.radioGroup) {
       this.selectedValue = value;
     }
     this.changeDetector.markForCheck();
   }
 
   public registerOnChange(fn: any): void {
-    if (this.radioGroup) {
-      this.radioGroup.registerOnChange(fn);
-    } else {
+    if (!this.radioGroup) {
       this.onChangeCallback = fn;
     }
   }
 
   public registerOnTouched(fn: any): void {
-    if (this.radioGroup) {
-      this.radioGroup.registerOnTouched(fn);
-    } else {
+    if (!this.radioGroup) {
       this.onTouchedCallback = fn;
     }
-  }
-
-  public focus(): void {
-    this.input.nativeElement.focus();
-  }
-
-  public markForCheck() {
-    this.changeDetector.markForCheck();
   }
 
   public ngOnInit() {
@@ -224,9 +216,17 @@ export class SkyRadioComponent implements OnInit, OnDestroy, ControlValueAccesso
     }
   }
 
-  private removeUniqueSelectionListener: () => void = () => {};
-
   private emitChangeEvent(): void {
     this.change.emit(new SkyRadioChange(this, this._value));
   }
+
+  /* istanbul ignore next */
+  /* sanity check */
+  private removeUniqueSelectionListener = () => {};
+  /* istanbul ignore next */
+  /* sanity check */
+  private onChangeCallback = (value: any) => {};
+  /* istanbul ignore next */
+  /* sanity check */
+  private onTouchedCallback = () => {};
 }

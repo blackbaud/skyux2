@@ -41,8 +41,8 @@
     <legend>Reactive Radio button options:</legend>
     <ul class="sky-list-unstyled">
       <li *ngFor="let value of options">
-        <sky-radio [value]="value">
-          <sky-radio-label>Option {{ value }}</sky-radio-label>
+        <sky-radio [value]="value" [disabled]="value.disabled">
+          <sky-radio-label>Option {{ value.name }}</sky-radio-label>
         </sky-radio>
       </li>
     </ul>

@@ -25,6 +25,8 @@ export class SkyUniqueRadioSelectionService implements OnDestroy {
     };
   }
 
+  /* istanbul ignore next */
+  /* sanity check */
   public ngOnDestroy() {
     this._listeners = [];
   }

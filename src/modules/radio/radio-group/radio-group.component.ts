@@ -107,12 +107,6 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
     }
   }
 
-  public markRadiosForCheck() {
-    if (this.radios) {
-      this.radios.forEach(radio => radio.markForCheck());
-    }
-  }
-
   public writeValue(value: any) {
     this.value = value;
     this.updateSelectedRadioFromValue();
@@ -127,8 +121,12 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
     this.onTouched = fn;
   }
 
+  /* istanbul ignore next */
+  /* sanity check */
   public controlValueAccessorChangeFn: (value: any) => void = () => {};
 
+  /* istanbul ignore next */
+  /* sanity check */
   public onTouched: () => any = () => {};
 
   private updateRadioButtonNames(): void {

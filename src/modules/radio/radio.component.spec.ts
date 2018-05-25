@@ -5,74 +5,31 @@ import {
   tick,
   async
 } from '@angular/core/testing';
-
 import {
   FormsModule,
   NgModel
 } from '@angular/forms';
-
-import {
-  Component
-} from '@angular/core';
-
 import {
   By
 } from '@angular/platform-browser';
 
-import { SkyRadioModule } from './radio.module';
-import { SkyRadioComponent } from './radio.component';
-import { SkyRadioLabelComponent } from './radio-label.component';
+import {
+  SkyRadioModule
+} from './radio.module';
+import {
+  SkyRadioComponent
+} from './radio.component';
+import {
+  SkyRadioLabelComponent
+} from './radio-label.component';
+import {
+  RadioTestComponent
+} from './fixtures/radio.component.fixture';
 
 describe('Radio component', function () {
-
-  @Component({
-    template: `
-    <form>
-      <sky-radio
-        id="hey-2"
-        name="testName"
-        [value]="value1"
-        [(ngModel)]="selectedValue"
-        [label]="label1">
-        <sky-radio-label>My label</sky-radio-label>
-      </sky-radio>
-      <sky-radio
-        id="hey"
-        name="testName"
-        [value]="value2"
-        [(ngModel)]="selectedValue"
-        [tabindex]="tabindex2"
-        [disabled]="disabled2">
-        <sky-radio-label>My label</sky-radio-label>
-      </sky-radio>
-      <sky-radio
-        id="hey-3"
-        name="testName"
-        [value]="value3"
-        [(ngModel)]="selectedValue"
-        [labelledBy]="labelledBy3">
-        <sky-radio-label>My label</sky-radio-label>
-      </sky-radio>
-      <sky-radio id="radio-clickable" (click)="onClick()">
-        <sky-radio-label>Label</sky-radio-label>
-      </sky-radio>
-    </form>
-    `
-  })
-  class RadioTestComponent {
-    public value1 = '1';
-    public value2 = '2';
-    public value3 = '3';
-    public disabled2: boolean = false;
-    public label1: string;
-    public labelledBy3: string;
-    public tabindex2: string;
-    public selectedValue = '1';
-    public onClick() {}
-  }
-
   let fixture: ComponentFixture<RadioTestComponent>;
   let componentInstance: RadioTestComponent;
+
   beforeEach(function () {
     TestBed.configureTestingModule({
       imports: [
@@ -91,6 +48,10 @@ describe('Radio component', function () {
     fixture.detectChanges();
     tick();
     componentInstance = fixture.componentInstance;
+  }));
+
+  afterEach(fakeAsync(function() {
+    fixture.destroy();
   }));
 
   function createEvent(eventName: string) {
@@ -118,6 +79,7 @@ describe('Radio component', function () {
     expect(ngModel.touched).toBe(true);
     expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(true);
     expect(componentInstance.selectedValue).toBe('2');
+    expect(radio2El.componentInstance.checked).toBeTruthy()
 
     radio2El.query(By.css('input')).nativeElement.dispatchEvent(createEvent('blur'));
     expect(ngModel.touched).toBe(true);
@@ -133,6 +95,24 @@ describe('Radio component', function () {
 
     let radio2El = fixture.debugElement.query(By.css('#hey input'));
     expect(radio2El.nativeElement.checked).toBe(true);
+  }));
+
+  it('should maintain checked state when value is changed', fakeAsync(function() {
+    let radio1El = fixture.debugElement.query(By.css('sky-radio'));
+    radio1El.componentInstance.value = '55';
+
+    fixture.detectChanges();
+    tick();
+
+    expect(radio1El.componentInstance.checked).toBeTruthy();
+
+    let radio2El = fixture.debugElement.queryAll(By.css('sky-radio'))[2];
+    radio2El.componentInstance.value = '44';
+
+    fixture.detectChanges();
+    tick();
+
+    expect(radio2El.componentInstance.checked).toBeFalsy();
   }));
 
   it('should handle disabled state properly', fakeAsync(function () {
