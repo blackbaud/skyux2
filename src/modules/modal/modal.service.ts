@@ -1,6 +1,7 @@
 import {
   ApplicationRef,
   ComponentFactoryResolver,
+  ComponentRef,
   Injectable
 } from '@angular/core';
 
@@ -11,7 +12,8 @@ import { SkyModalConfigurationInterface as IConfig } from './modal.interface';
 
 @Injectable()
 export class SkyModalService {
-  private static hostComponent: SkyModalHostComponent;
+  private static host: ComponentRef<SkyModalHostComponent>;
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -43,18 +45,20 @@ export class SkyModalService {
       useValue: modalInstance
     });
 
-    SkyModalService.hostComponent.open(modalInstance, component, params);
+    SkyModalService.host.instance.open(modalInstance, component, params);
 
     return modalInstance;
   }
 
   public dispose() {
-    /* istanbul ignore else */
-    /* sanity check */
-    if (SkyModalService.hostComponent) {
-      SkyModalService.hostComponent = undefined;
-      this.adapter.removeHostEl();
+    if (SkyModalService.host) {
+      // Trigger the host component's OnDestroy method:
+      this.appRef.detachView(SkyModalService.host.hostView);
+      SkyModalService.host.destroy();
+      SkyModalService.host = undefined;
     }
+
+    this.adapter.removeHostEl();
   }
 
   private getConfigFromParameter(providersOrConfig: any) {
@@ -83,14 +87,14 @@ export class SkyModalService {
   }
 
   private createHostComponent() {
-    if (!SkyModalService.hostComponent) {
+    if (!SkyModalService.host) {
       let factory = this.resolver.resolveComponentFactory(SkyModalHostComponent);
 
       this.adapter.addHostEl();
 
       let cmpRef = this.appRef.bootstrap(factory);
 
-      SkyModalService.hostComponent = cmpRef.instance;
+      SkyModalService.host = cmpRef;
     }
   }
 }

@@ -23,7 +23,10 @@ export class SkyModalAdapterService {
   }
 
   public removeHostEl(): void {
-    this.bodyEl.removeChild(this.docRef.querySelector('sky-modal-host'));
+    const element = this.docRef.querySelector('sky-modal-host');
+    if (element) {
+      this.bodyEl.removeChild(element);
+    }
   }
 
   public toggleFullPageModalClass(isAddFull: boolean): void {
