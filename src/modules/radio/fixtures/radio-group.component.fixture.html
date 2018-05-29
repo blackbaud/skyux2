@@ -1,10 +1,21 @@
 <form [formGroup]="radioForm">
-  <sky-radio-group formControlName="option" name="option" class="form-group radio">
-    <legend>Reactive Radio button options:</legend>
+  <sky-radio-group
+    class="form-group radio"
+    formControlName="option"
+    name="option"
+  >
+    <legend>
+      Reactive Radio button options:
+    </legend>
     <ul class="sky-list-unstyled">
       <li *ngFor="let value of options">
-        <sky-radio [value]="value" [disabled]="value.disabled">
-          <sky-radio-label>Option {{ value.name }}</sky-radio-label>
+        <sky-radio
+          [disabled]="value.disabled"
+          [value]="value"
+        >
+          <sky-radio-label>
+            Option {{ value.name }}
+          </sky-radio-label>
         </sky-radio>
       </li>
     </ul>

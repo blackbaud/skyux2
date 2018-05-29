@@ -1,20 +1,21 @@
 <label
   class="sky-radio-wrapper"
-  (focus)="input.nativeElement.focus()">
+  (focus)="input.nativeElement.focus()"
+>
   <input
     class="sky-radio-input"
     type="radio"
-    [id]="inputId"
-    [checked]="checked"
-    [name]="name"
-    [disabled]="disabled"
-    [value]="value"
-    [tabIndex]="tabindex"
     [attr.aria-label]="label"
     [attr.aria-labelledby]="labelledBy"
-    [attr.aria-describedby]="describedBy"
+    [checked]="checked"
+    [disabled]="disabled"
+    [id]="inputId"
+    [name]="name"
+    [tabIndex]="tabindex"
+    [value]="value"
     (blur)="onInputFocusChange($event)"
-    (change)="onInputChange($event)">
+    (change)="onInputChange($event)"
+  />
   <span class="sky-radio"></span>
   <ng-content select="sky-radio-label"></ng-content>
 </label>

@@ -1,31 +1,38 @@
 import {
-  Component
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
 } from '@angular/core';
+
 import {
-  FormGroup,
   FormBuilder,
-  FormControl
+  FormGroup
 } from '@angular/forms';
 
 @Component({
   selector: 'sky-radio-demo',
-  templateUrl: './radio-demo.component.html'
+  templateUrl: './radio-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyRadioDemoComponent {
-  public selectedValue = '3';
-  public valueGuy = '2';
+export class SkyRadioDemoComponent implements OnInit {
   public radioForm: FormGroup;
-  public options = [
-    { name: 'Lillith Corharvest', disabled: false },
-    { name: 'Harima Kenji', disabled: false },
-    { name: 'Harry Mckenzie', disabled: true }
+
+  public seasons = [
+    { name: 'Spring', disabled: false },
+    { name: 'Summer', disabled: false },
+    { name: 'Fall', disabled: true },
+    { name: 'Winter', disabled: false }
   ];
 
+  public favoriteSeason = this.seasons[1];
+
   constructor(
-    private fb: FormBuilder
-  ) {
-    this.radioForm = this.fb.group({
-      option: new FormControl(this.options[0])
+    private formBuilder: FormBuilder
+  ) { }
+
+  public ngOnInit(): void {
+    this.radioForm = this.formBuilder.group({
+      favoriteSeason: this.seasons[0]
     });
   }
 }

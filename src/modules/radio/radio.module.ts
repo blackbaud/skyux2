@@ -1,11 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+// #region imports
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyRadioComponent } from './radio.component';
-import { SkyRadioLabelComponent } from './radio-label.component';
-import { SkyRadioGroupComponent } from './radio-group/radio-group.component';
-import { SkyUniqueRadioSelectionService } from './unique-selection';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormsModule
+} from '@angular/forms';
+
+import {
+  SkyRadioComponent
+} from './radio.component';
+
+import {
+  SkyRadioLabelComponent
+} from './radio-label.component';
+
+import {
+  SkyRadioGroupComponent
+} from './radio-group.component';
+// #endregion
 
 @NgModule({
   declarations: [
@@ -21,7 +38,6 @@ import { SkyUniqueRadioSelectionService } from './unique-selection';
     SkyRadioComponent,
     SkyRadioGroupComponent,
     SkyRadioLabelComponent
-  ],
-  providers: [SkyUniqueRadioSelectionService]
+  ]
 })
 export class SkyRadioModule { }

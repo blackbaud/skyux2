@@ -1,17 +1,29 @@
+// #region imports
 import {
-  Component
+  Component,
+  ViewChild
 } from '@angular/core';
+
 import {
   FormGroup,
   FormBuilder,
   FormControl
 } from '@angular/forms';
 
+import {
+  SkyRadioGroupComponent
+} from '../radio-group.component';
+// #endregion
+
 @Component({
   templateUrl: './radio-group.component.fixture.html'
 })
-export class RadioGroupTestComponent {
+export class SkyRadioGroupTestComponent {
+  @ViewChild(SkyRadioGroupComponent)
+  public radioGroupComponent: SkyRadioGroupComponent;
+
   public radioForm: FormGroup;
+
   public options = [
     { name: 'Lillith Corharvest', disabled: false },
     { name: 'Harima Kenji', disabled: false },

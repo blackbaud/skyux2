@@ -5,9 +5,9 @@ import {
 @Component({
   templateUrl: './radio.component.fixture.html'
 })
-export class RadioTestComponent {
+export class SkyRadioTestComponent {
   public selectedValue = '1';
-  public disabled2: boolean = false;
+  public disabled2 = false;
 
   public value1 = '1';
   public value2 = '2';
