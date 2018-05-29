@@ -70,7 +70,7 @@ export class SkyRepeaterComponent implements AfterContentInit {
       }
 
       this.items.forEach((item) => {
-        item.isCollapsible = isCollapsible;
+        item.setIsCollapsible(isCollapsible);
 
         if (item !== itemAdded && isSingle && item.isExpanded) {
           if (foundExpanded) {

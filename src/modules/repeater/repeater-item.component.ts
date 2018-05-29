@@ -8,6 +8,8 @@ import { skyAnimationSlide } from '../animation/slide';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
 import { SkyCheckboxChange } from '../checkbox/checkbox.component';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'sky-repeater-item',
@@ -16,6 +18,7 @@ import { SkyCheckboxChange } from '../checkbox/checkbox.component';
   animations: [skyAnimationSlide]
 })
 export class SkyRepeaterItemComponent {
+
   public get isExpanded(): boolean {
     return this._isExpanded;
   }
@@ -34,22 +37,11 @@ export class SkyRepeaterItemComponent {
 
   public slideDirection: string;
 
-  public get isCollapsible(): boolean {
+  public get isCollapsible(): BehaviorSubject<boolean> {
     return this._isCollapsible;
   }
 
-  public set isCollapsible(value: boolean) {
-    if (this._isCollapsible !== value) {
-      this._isCollapsible = value;
-
-      /*istanbul ignore else */
-      if (!this._isCollapsible) {
-        this.updateForExpanded(true, false);
-      }
-    }
-  }
-
-  private _isCollapsible = true;
+  private _isCollapsible: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   private _isExpanded = true;
 
@@ -60,6 +52,17 @@ export class SkyRepeaterItemComponent {
     private logService: SkyLogService
   ) {
     this.slideForExpanded(false);
+  }
+
+  public setIsCollapsible(value: boolean) {
+    if (this._isCollapsible.getValue() !== value) {
+      this._isCollapsible.next(value);
+
+      /*istanbul ignore else */
+      if (!value) {
+        this.updateForExpanded(true, false);
+      }
+    }
   }
 
   public headerClick() {
@@ -73,7 +76,7 @@ export class SkyRepeaterItemComponent {
   }
 
   public updateForExpanded(value: boolean, animate: boolean) {
-    if (this.isCollapsible === false && value === false) {
+    if (this._isCollapsible.getValue() === false && value === false) {
       this.logService.warn(
         `Setting isExpanded to false when the repeater item is not collapsible
         will have no effect.`
