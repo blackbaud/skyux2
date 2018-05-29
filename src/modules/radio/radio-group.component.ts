@@ -91,12 +91,8 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   }
 
   public writeValue(value: any): void {
-    // tslint:disable-next-line:no-null-keyword
-    if (value !== undefined && value !== null) {
-      console.log('writeValue!', value);
-      this.value = value;
-      this.updateCheckedRadioFromValue();
-    }
+    this.value = value;
+    this.updateCheckedRadioFromValue();
   }
 
   public registerOnChange(fn: (value: any) => void): void {

@@ -1,9 +1,10 @@
 import {
   Component
 } from '@angular/core';
+
 import {
-  FormGroup,
-  FormBuilder
+  FormBuilder,
+  FormGroup
 } from '@angular/forms';
 
 @Component({
@@ -16,9 +17,9 @@ export class RadioVisualComponent {
   public radioForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private formBuilder: FormBuilder
   ) {
-    this.radioForm = this.fb.group({
+    this.radioForm = this.formBuilder.group({
       option: '1'
     });
   }
