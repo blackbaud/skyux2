@@ -8,7 +8,6 @@ import { skyAnimationSlide } from '../animation/slide';
 import { SkyRepeaterService } from './repeater.service';
 import { SkyLogService } from '../log/log.service';
 import { SkyCheckboxChange } from '../checkbox/checkbox.component';
-import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
