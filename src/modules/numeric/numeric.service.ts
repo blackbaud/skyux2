@@ -1,86 +1,110 @@
-import { Injectable } from '@angular/core';
-import { CurrencyPipe, DecimalPipe } from '@angular/common';
-import { SkyResources } from '../resources/resources';
-import { NumericOptions } from './numeric.options';
+import {
+  Injectable
+} from '@angular/core';
+
+import {
+  CurrencyPipe,
+  DecimalPipe
+} from '@angular/common';
+
+import {
+  SkyResources
+} from '../resources';
+
+import {
+  NumericOptions
+} from './numeric.options';
 
 @Injectable()
 export class SkyNumericService {
-  public rx: RegExp;
   public shortSymbol: string;
 
+  private symbolIndex = [
+    { value: 1E12, symbol: SkyResources.getString('number_trillion_abrev') },
+    { value: 1E9, symbol: SkyResources.getString('number_billion_abrev') },
+    { value: 1E6, symbol: SkyResources.getString('number_million_abrev') },
+    { value: 1E3, symbol: SkyResources.getString('number_thousands_abrev') }
+  ];
+
   constructor(
-    private readonly currencyPipe: CurrencyPipe,
-    private readonly decimalPipe: DecimalPipe) {
-  }
+    private currencyPipe: CurrencyPipe,
+    private decimalPipe: DecimalPipe
+  ) { }
 
-  public formatNumber(value: number, options: NumericOptions): string {
-
-    let si = [
-      { value: 1E12, symbol: SkyResources.getString('number_trillion_abrev') },
-      { value: 1E9, symbol: SkyResources.getString('number_billion_abrev') },
-      { value: 1E6, symbol: SkyResources.getString('number_million_abrev') },
-      { value: 1E3, symbol: SkyResources.getString('number_thousands_abrev') }
-    ];
-    this.rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-    let i: number;
-    let sValue: string;
+  /**
+   * Shortens with or without symbol depending on value of number.
+   * @param value The number to format.
+   * @param options Format options.
+   */
+  public formatNumber(
+    value: number,
+    options: NumericOptions
+  ): string {
     this.shortSymbol = '';
+    const regexp = /\.0+$|(\.[0-9]*[1-9])0+$/;
 
-    // Shortens with or without symbol (K/M/B/T) depending on value of number
-    for (i = 0; i < si.length; i++) {
-      // Checks both positive and negative of value to ensure negative numbers are shortened
-      if (value >= si[i].value || -value >= si[i].value) {
-        // Using Math.round to ensure accurate rounding compared to toFixed
-        sValue = Number(Math.round(parseFloat((value / si[i].value) + 'e' + options.digits))
-          + 'e-' + options.digits).toString().replace(this.rx, '$1') + si[i].symbol;
-        break;
-      } else {
-        sValue = Number(Math.round(parseFloat(value + 'e' + options.digits))
-          + 'e-' + options.digits).toString().replace(this.rx, '$1');
-      }
-    }
+    // Checks both positive and negative of value to ensure negative numbers are shortened.
+    const found = this.symbolIndex.find(si => value >= si.value || -value >= si.value);
 
-    // Checks the string entered for format. toLowerCase to ignore case.
-    // else statement is a catch all to ensure that if anything but currency (or a future option)
-    // are entered, it will be treated like a number.
-    if (options.format.toLowerCase() === 'currency') {
-      // Stores the symbol added from shortening (K/M/B/T) to reapply later
-      this.storeShortenSymbol(sValue);
-
-      // Currency formatting via Currency Pipe. In a case where, value was not shortened
-      // AND there are "cents" in the value AND the digit input is 2 or higher, it forces 2 digits.
-      // This prevents a value like $15.50 from displaying as $15.5
-      // Note: This will need to be reviewed if we support currencies with three decimal digits
-      if (value < si[si.length - 1].value && value % 1 !== 0 && options.digits >= 2) {
-        sValue = this.currencyPipe.transform(parseFloat(sValue), options.iso,
-         true, '1.2-' + options.digits);
-      } else {
-        sValue = this.currencyPipe.transform(parseFloat(sValue), options.iso,
-         true, '1.0-' + options.digits);
-      }
-
-      // Replaces shorten symbol after currency formatting
-      sValue = this.replaceShortenSymbol(sValue);
+    let output: string;
+    if (found) {
+      output = Number(
+        Math.round(parseFloat((value / found.value) + `e${options.digits}`))
+        + `e-${options.digits}`
+      ).toString().replace(regexp, '$1') + found.symbol;
     } else {
-      // Stores the symbol added from shortening (K/M/B/T) to reapply later
-      this.storeShortenSymbol(sValue);
-
-      // Ensures localization of the number to ensure comma and decimal separators are correct
-      sValue = this.decimalPipe.transform(parseFloat(sValue), '1.0-' + options.digits);
-
-      // Replaces the previously stored shortening symbol
-      sValue = this.replaceShortenSymbol(sValue);
+      output = Number(
+        Math.round(parseFloat(`${value}e${options.digits}`))
+        + `e-${options.digits}`
+      ).toString().replace(regexp, '$1');
     }
 
-    // Returns the formatted value
-    return sValue;
+    this.storeShortenSymbol(output);
+
+    switch (options.format.toLowerCase()) {
+      case 'currency':
+      // In a case where a decimal value was not shortened and the digit input is 2 or higher,
+      // it forces 2 digits.
+      // For example, this prevents a value like $15.50 from displaying as $15.5.
+      // Note: This will need to be reviewed if we support currencies with three decimal digits
+      const isShortened = (value > this.symbolIndex[this.symbolIndex.length - 1].value);
+      const isDecimal = (value % 1 !== 0);
+
+      let digits: string;
+      if (!isShortened && isDecimal && options.digits >= 2) {
+        digits = `1.2-${options.digits}`;
+      } else {
+        digits = `1.0-${options.digits}`;
+      }
+
+      output = this.currencyPipe.transform(
+        parseFloat(output),
+        options.iso,
+        true,
+        digits
+      );
+      break;
+
+      default:
+      output = this.decimalPipe.transform(
+        parseFloat(output),
+        `1.0-${options.digits}`
+      );
+      break;
+    }
+
+    output = this.replaceShortenSymbol(output);
+
+    return output;
   }
 
-  // Stores the symbol added from shortening (K/M/B/T) to reapply later
-  private storeShortenSymbol(sValue: string) {
-    let rx = /K|M|B|T/ig;
-    if (sValue.match(rx)) {
-      this.shortSymbol = sValue.match(rx).toString();
+  // Stores the symbol added from shortening to reapply later
+  private storeShortenSymbol(sValue: string): void {
+    const symbols = this.symbolIndex.map(s => s.symbol);
+    const regexp = new RegExp(symbols.join('|'), 'ig');
+    const match = sValue.match(regexp);
+    if (match) {
+      this.shortSymbol = match.toString();
     }
   }
 
@@ -88,11 +112,10 @@ export class SkyNumericService {
   // Finds the last number in the formatted number,
   // gets the index of the position after that character and re-inserts the symbol.
   // works regardless of currency symbol position
-  private replaceShortenSymbol(sValue: string) {
-    let r = /(\d)(?!.*\d)/g.exec(sValue);
-    let pos = r.index + r.length;
-    sValue = sValue.substring(0, pos)
-      + this.shortSymbol + sValue.substring(pos);
-    return sValue;
+  private replaceShortenSymbol(value: string): string {
+    const result = /(\d)(?!.*\d)/g.exec(value);
+    const pos = result.index + result.length;
+    const output = value.substring(0, pos) + this.shortSymbol + value.substring(pos);
+    return output;
   }
 }
