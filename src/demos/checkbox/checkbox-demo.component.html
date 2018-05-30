@@ -2,7 +2,7 @@
   <legend>Checkbox options</legend>
   <ul class="sky-list-unstyled">
     <li *ngFor="let checkboxItem of checkboxItems">
-      <sky-checkbox [(ngModel)]="checkboxItem.checked" [disabled]="checkboxItem.disabled">
+      <sky-checkbox [(ngModel)]="checkboxItem.checked" [disabled]="checkboxItem.disabled" [icon]="checkboxItem.icon" [iconColor]="checkboxItem.iconColor">
         <sky-checkbox-label>
           {{ checkboxItem.description }}
         </sky-checkbox-label>

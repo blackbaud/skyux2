@@ -20,6 +20,11 @@
   cursor: pointer;
 }
 
+.sky-checkbox-wrapper.sky-checkbox-icon input {
+  height: 34px;
+  width: 34px;
+}
+
 .sky-checkbox {
   background-color: $sky-color-white;
   @include sky-border(dark, top, bottom, left, right);
@@ -34,11 +39,65 @@
   line-height: 19px;
 }
 
+.sky-checkbox-icon .sky-checkbox {
+  height: 34px;
+  width: 34px;
+  line-height: 34px;
+  border-radius: $sky-border-radius;
+}
+
 .sky-checkbox-wrapper input:hover + .sky-checkbox {
   border: 2px solid $sky-background-color-primary-dark;
 }
 
-.sky-checkbox-wrapper input:checked + .sky-checkbox {
+.sky-checkbox-wrapper.sky-checkbox-icon input:hover + .sky-checkbox {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-info input:hover + .sky-checkbox {
+  border-color: $sky-highlight-color-info;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-success input:hover + .sky-checkbox {
+  border-color: $sky-highlight-color-success;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-warning input:hover + .sky-checkbox {
+  border-color: $sky-highlight-color-warning;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-danger input:hover + .sky-checkbox {
+  border-color: $sky-highlight-color-danger;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon input:active + .sky-checkbox {
+  background-color: $sky-background-color-info;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-info input:active + .sky-checkbox {
+  background-color: $sky-background-color-info;
+  border-color: $sky-highlight-color-info;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-success input:active + .sky-checkbox {
+  background-color: $sky-background-color-success;
+  border-color: $sky-highlight-color-success;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-warning input:active + .sky-checkbox {
+  background-color: $sky-background-color-warning;
+  border-color: $sky-highlight-color-warning;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-danger input:active + .sky-checkbox {
+  background-color: $sky-background-color-danger;
+  border-color: $sky-highlight-color-danger;
+}
+
+.sky-checkbox-wrapper:not(.sky-checkbox-icon) input:checked + .sky-checkbox {
   background-color: $sky-background-color-primary-dark;
   border-color: $sky-background-color-primary-dark;
   border-width: 1px;
@@ -51,6 +110,31 @@
   }
 }
 
+.sky-checkbox-wrapper.sky-checkbox-icon input:checked + .sky-checkbox {
+  border-width: 2px;
+  border-style: solid;
+  line-height: 32px;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-info input:checked + .sky-checkbox {
+  background-color: $sky-background-color-info;
+  border-color: $sky-highlight-color-info;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-success input:checked + .sky-checkbox {
+  background-color: $sky-background-color-success;
+  border-color: $sky-highlight-color-success;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-warning input:checked + .sky-checkbox {
+  background-color: $sky-background-color-warning;
+  border-color: $sky-highlight-color-warning;
+}
+
+.sky-checkbox-wrapper.sky-checkbox-icon.sky-checkbox-icon-danger input:checked + .sky-checkbox {
+  background-color: $sky-background-color-danger;
+  border-color: $sky-highlight-color-danger;
+}
 
 .sky-checkbox-wrapper input:disabled + .sky-checkbox {
   background-color: $sky-background-color-neutral-light;

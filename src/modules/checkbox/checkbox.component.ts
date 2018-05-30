@@ -14,6 +14,8 @@ import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
  */
 let nextId = 0;
 
+const ICON_COLOR_DEFAULT = 'info';
+
 /**
  * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -64,10 +66,23 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   @Input()
   public name: string = `sky-checkbox-${++nextId}`;
 
+  @Input()
+  public icon: string;
+
+  @Input()
+  public set iconColor(value: string) {
+    this._iconColor = value;
+  }
+
+  public get iconColor() {
+    return this._iconColor || ICON_COLOR_DEFAULT;
+  }
+
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
   private _checked: boolean = false;
+  private _iconColor: string;
 
   public get inputId(): string {
     return `input-${this.id}`;
