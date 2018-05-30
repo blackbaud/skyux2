@@ -5,8 +5,7 @@ import {
   ContentChildren,
   forwardRef,
   Input,
-  QueryList,
-  ChangeDetectorRef
+  QueryList
 } from '@angular/core';
 
 import {
@@ -73,10 +72,6 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   private _name = `sky-radio-group-${nextUniqueId++}`;
   private _value: any;
-
-  constructor(
-    private changeDetector: ChangeDetectorRef
-  ) { }
 
   public ngAfterContentInit(): void {
     this.updateCheckedRadioFromValue();
