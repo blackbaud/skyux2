@@ -1,10 +1,12 @@
 import {
+  AfterContentInit,
   Component,
+  EventEmitter,
   Input,
   Optional,
-  AfterContentInit,
-  ViewChild,
-  TemplateRef
+  Output,
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
 import {
   ListState, ListStateDispatcher, ListToolbarItemModel
@@ -48,6 +50,12 @@ import 'rxjs/add/operator/take';
 export class SkyListColumnSelectorActionComponent implements AfterContentInit {
   @Input()
   public gridView: SkyListViewGridComponent;
+
+  @Input()
+  public helpKey: string;
+
+  @Output()
+  public helpOpened = new EventEmitter<string>();
 
   @ViewChild('columnChooser')
   private columnChooserTemplate: TemplateRef<any>;
@@ -111,18 +119,27 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit {
           });
       });
 
-      let modalInstance = this.modalService.open(
+      const modalInstance = this.modalService.open(
         SkyColumnSelectorComponent,
-        [
-          {
-            provide: SkyColumnSelectorContext,
-            useValue: {
-              columns: columns,
-              selectedColumnIds: selectedColumnIds
+        {
+          providers: [
+            {
+              provide: SkyColumnSelectorContext,
+              useValue: {
+                columns,
+                selectedColumnIds
+              }
             }
-          }
-        ]
+          ],
+          helpKey: this.helpKey
+        }
       );
+
+      modalInstance.helpOpened
+        .subscribe((helpKey: string) => {
+          this.helpOpened.emit(helpKey);
+          this.helpOpened.complete();
+        });
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
         if (result.reason === 'save' && result.data) {
@@ -137,7 +154,8 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit {
           this.gridView.gridDispatcher.next(
             new ListViewDisplayedGridColumnsLoadAction(
               newDisplayedColumns,
-              true)
+              true
+            )
           );
         }
       });

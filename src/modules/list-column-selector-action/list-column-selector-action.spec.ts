@@ -1,11 +1,11 @@
 import {
-  flush,
-  TestBed,
-  ComponentFixture,
-  inject,
   async,
-  tick,
-  fakeAsync
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick
 } from '@angular/core/testing';
 
 import {
@@ -62,12 +62,36 @@ import { SkyListSecondaryActionsService } from '../list-secondary-actions/list-s
 import { ListColumnSelectorActionDeprecatedTestComponent } from './fixtures/list-column-selector-action-deprecated.component.fixture';
 
 describe('List column selector action', () => {
+  let fixture: ComponentFixture<any>;
+  let nativeElement: HTMLElement;
+
+  function getChooseColumnsButton() {
+    return nativeElement.querySelector('.sky-dropdown-menu button') as HTMLElement;
+  }
+
+  function toggleSecondaryActionsDropdown() {
+    fixture.detectChanges();
+    flush();
+    tick();
+    fixture.detectChanges();
+
+    const button = nativeElement.querySelector('.sky-dropdown-button') as HTMLButtonElement;
+    expect(button).toBeDefined();
+
+    button.click();
+    flush();
+    tick();
+    fixture.detectChanges();
+  }
+
+  function getButtonEl() {
+    return nativeElement.querySelector('[sky-cmp-id="column-chooser"] .sky-btn') as HTMLButtonElement;
+  }
+
   describe('toolbar button', () => {
     let state: ListState,
       dispatcher: ListStateDispatcher,
       component: ListColumnSelectorActionTestComponent,
-      fixture: ComponentFixture<ListColumnSelectorActionTestComponent>,
-      nativeElement: HTMLElement,
       secondaryActionsService: SkyListSecondaryActionsService;
 
     beforeEach(() => {
@@ -135,10 +159,6 @@ describe('List column selector action', () => {
       fixture.destroy();
     });
 
-    function getButtonEl() {
-      return nativeElement.querySelector('[sky-cmp-id="column-chooser"] .sky-btn') as HTMLButtonElement;
-    }
-
     it('should not appear if not in grid view', async(() => {
       dispatcher.viewsSetActive('other');
       fixture.detectChanges();
@@ -180,14 +200,39 @@ describe('List column selector action', () => {
         });
       });
     }));
+
+    it('should show help button in modal header', fakeAsync(() => {
+      fixture.componentInstance.helpKey = 'foo.html';
+      toggleSecondaryActionsDropdown();
+
+      const chooseColumnsButton = getChooseColumnsButton();
+      chooseColumnsButton.click();
+      tick();
+
+      const helpButton = document.querySelector('button[name="help-button"]');
+      expect(helpButton).toExist();
+    }));
+
+    it('should emit help key when help button clicked', fakeAsync(() => {
+      fixture.componentInstance.helpKey = 'foo.html';
+      const spy = spyOn(fixture.componentInstance, 'onHelpOpened').and.callThrough();
+      toggleSecondaryActionsDropdown();
+
+      const chooseColumnsButton = getChooseColumnsButton();
+      chooseColumnsButton.click();
+      tick();
+
+      const helpButton = document.querySelector('button[name="help-button"]');
+      (helpButton as any).click();
+      tick();
+      expect(spy).toHaveBeenCalledWith('foo.html');
+    }));
   });
 
   describe('dropdown', () => {
     let state: ListState,
       dispatcher: ListStateDispatcher,
-      component: ListColumnSelectorActionDeprecatedTestComponent,
-      fixture: ComponentFixture<ListColumnSelectorActionDeprecatedTestComponent>,
-      nativeElement: HTMLElement;
+      component: ListColumnSelectorActionDeprecatedTestComponent;
 
     beforeEach(() => {
       dispatcher = new ListStateDispatcher();
@@ -231,25 +276,6 @@ describe('List column selector action', () => {
     afterEach(() => {
       fixture.destroy();
     });
-
-    function getChooseColumnsButton() {
-      return nativeElement.querySelector('.sky-dropdown-menu button') as HTMLElement;
-    }
-
-    function toggleSecondaryActionsDropdown() {
-      fixture.detectChanges();
-      flush();
-      tick();
-      fixture.detectChanges();
-
-      const button = nativeElement.querySelector('.sky-dropdown-button') as HTMLButtonElement;
-      expect(button).toBeDefined();
-
-      button.click();
-      flush();
-      tick();
-      fixture.detectChanges();
-    }
 
     it('should show an action in the secondary actions dropdown', fakeAsync(() => {
       toggleSecondaryActionsDropdown();

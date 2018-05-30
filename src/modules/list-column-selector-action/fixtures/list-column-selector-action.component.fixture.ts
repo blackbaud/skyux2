@@ -21,8 +21,12 @@ export class ListColumnSelectorActionTestComponent {
 
   @ViewChild(SkyListViewGridComponent)
   public grid: SkyListViewGridComponent;
+
   @ViewChild(SkyListToolbarComponent)
   public toolbar: SkyListToolbarComponent;
 
+  public helpKey: string;
   public searchText: string;
+
+  public onHelpOpened(): void { }
 }

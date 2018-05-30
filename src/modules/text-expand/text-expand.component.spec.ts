@@ -5,6 +5,11 @@ import {
 } from '@angular/core/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
+
+import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
 import { SkyWindowRefService } from '../window';
 import { TextExpandTestComponent } from './fixtures/text-expand.component.fixture';
 import { SkyTextExpandModule } from './text-expand.module';
@@ -34,6 +39,7 @@ describe('Text expand component', () => {
       ],
       imports: [
         BrowserModule,
+        RouterTestingModule,
         SkyTextExpandModule,
         SkyModalModule
       ],
