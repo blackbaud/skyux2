@@ -139,18 +139,9 @@ describe('List column selector action', () => {
         });
     });
 
-    beforeEach(
-      inject(
-        [
-          SkyModalService
-        ],
-        (
-          _modalService: SkyModalService
-        ) => {
-          _modalService.dispose();
-        }
-      )
-    );
+    beforeEach(inject([SkyModalService], (_modalService: SkyModalService) => {
+      _modalService.dispose();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ListColumnSelectorActionTestComponent);
@@ -223,6 +214,10 @@ describe('List column selector action', () => {
 
         const helpButton = document.querySelector('button[name="help-button"]');
         expect(helpButton).toExist();
+
+        const cancelButtonEl = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
+        cancelButtonEl.click();
+        fixture.detectChanges();
       });
     }));
 
@@ -242,6 +237,10 @@ describe('List column selector action', () => {
         (helpButton as any).click();
         fixture.detectChanges();
         expect(spy).toHaveBeenCalledWith('foo.html');
+
+        const cancelButtonEl = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
+        cancelButtonEl.click();
+        fixture.detectChanges();
       });
     }));
   });
@@ -346,7 +345,6 @@ describe('List column selector action', () => {
       tick();
 
       const cancelButtonEl = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
-
       cancelButtonEl.click();
       tick();
 
