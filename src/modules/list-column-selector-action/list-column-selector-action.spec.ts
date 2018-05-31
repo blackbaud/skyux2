@@ -13,6 +13,10 @@ import {
 } from '@angular/platform-browser/animations';
 
 import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
+import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
@@ -66,7 +70,11 @@ describe('List column selector action', () => {
   let nativeElement: HTMLElement;
 
   function getChooseColumnsButton() {
-    return nativeElement.querySelector('.sky-dropdown-menu button') as HTMLElement;
+    let button = nativeElement.querySelector('.sky-dropdown-menu button') as HTMLElement;
+    if (!button) {
+      button = nativeElement.querySelector('[sky-cmp-id="column-chooser"] button') as HTMLElement;
+    }
+    return button;
   }
 
   function toggleSecondaryActionsDropdown() {
@@ -107,6 +115,7 @@ describe('List column selector action', () => {
           ListColumnSelectorActionTestComponent
         ],
         imports: [
+          RouterTestingModule,
           SkyListColumnSelectorActionModule,
           SkyListModule,
           SkyListToolbarModule,
@@ -201,31 +210,39 @@ describe('List column selector action', () => {
       });
     }));
 
-    it('should show help button in modal header', fakeAsync(() => {
+    it('should show help button in modal header', async(() => {
       fixture.componentInstance.helpKey = 'foo.html';
-      toggleSecondaryActionsDropdown();
+      fixture.detectChanges();
 
       const chooseColumnsButton = getChooseColumnsButton();
       chooseColumnsButton.click();
-      tick();
+      fixture.detectChanges();
 
-      const helpButton = document.querySelector('button[name="help-button"]');
-      expect(helpButton).toExist();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        const helpButton = document.querySelector('button[name="help-button"]');
+        expect(helpButton).toExist();
+      });
     }));
 
-    it('should emit help key when help button clicked', fakeAsync(() => {
-      fixture.componentInstance.helpKey = 'foo.html';
+    it('should emit help key when help button clicked', async(() => {
       const spy = spyOn(fixture.componentInstance, 'onHelpOpened').and.callThrough();
-      toggleSecondaryActionsDropdown();
+      fixture.componentInstance.helpKey = 'foo.html';
+      fixture.detectChanges();
 
       const chooseColumnsButton = getChooseColumnsButton();
       chooseColumnsButton.click();
-      tick();
+      fixture.detectChanges();
 
-      const helpButton = document.querySelector('button[name="help-button"]');
-      (helpButton as any).click();
-      tick();
-      expect(spy).toHaveBeenCalledWith('foo.html');
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        const helpButton = document.querySelector('button[name="help-button"]');
+        (helpButton as any).click();
+        fixture.detectChanges();
+        expect(spy).toHaveBeenCalledWith('foo.html');
+      });
     }));
   });
 
@@ -243,6 +260,7 @@ describe('List column selector action', () => {
           ListColumnSelectorActionDeprecatedTestComponent
         ],
         imports: [
+          RouterTestingModule,
           SkyListColumnSelectorActionModule,
           SkyListModule,
           SkyListToolbarModule,
