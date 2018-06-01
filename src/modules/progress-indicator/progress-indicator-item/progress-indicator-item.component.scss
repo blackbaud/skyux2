@@ -1,0 +1,99 @@
+@import "../../../scss/variables";
+
+.vertical {
+  .sky-progress-indicator-item-active {
+    background: #71bf43;
+    border-color: #71bf43 !important;
+  }
+
+  .sky-progress-indicator-item-incomplete {
+    background: white;
+  }
+
+  .active-btn {
+    margin-bottom: $sky-margin-double;
+  }
+
+  .sky-progress-indicator-item-content-padding {
+    border-left: $sky-border-color-neutral-medium solid 2px;
+    margin-left: 9px;
+    padding-top: $sky-padding-plus-half;
+    padding-bottom: $sky-padding-double;
+  }
+
+  .sky-progress-indicator-item-content-padding.complete {
+    border-left: #71bf43 solid 2px;
+  }
+
+  .sky-progress-indicator-item-content-padding.last {
+    border-left: none;
+  }
+
+  .circle {
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 50%;
+    float: left;
+    margin-right: $sky-margin-plus-half;
+    border: $sky-border-color-neutral-medium solid 1px;
+  }
+
+  .sky-text-success {
+    padding-left: 2px;
+    font-size: 20px;
+    > div {
+      display: inline;
+      font-size: 15px;
+    }
+  }
+}
+
+.horizontal {
+  display: inline-block;
+
+  .line, .step {
+    display: inline-block;
+    margin: 0;
+  }
+  .inactive-line {
+    margin-bottom: 7.5px;
+    height: 1px;
+    width: 30px;
+    background-color: $sky-border-color-neutral-medium;
+  }
+  .complete-line {
+    margin-bottom: 7.5px;
+    height: 1px;
+    width: 20px;
+    margin-left: $sky-margin-half;
+    margin-right: $sky-margin-half;
+    background-color: $sky-highlight-color-success;
+  }
+  .complete-line:last-of-type {
+    width: 25px;
+    margin-left: $sky-margin-half;
+    margin-right: 0px;
+  }
+
+  .complete-step {
+    font-size: 15px;
+    width: 15px;
+    color: $sky-highlight-color-success;
+  }
+  .active-step {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    border: 2px solid $sky-highlight-color-success;
+    background-color: $sky-highlight-color-success;
+  }
+  .inactive-step {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    border: 2px solid $sky-border-color-neutral-medium;
+    background-color: $sky-border-color-neutral-medium;
+  }
+}

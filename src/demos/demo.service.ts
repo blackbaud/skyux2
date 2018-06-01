@@ -44,6 +44,7 @@ import {
   SkyPageSummaryDemoComponent,
   SkyPagingDemoComponent,
   SkyPopoverDemoComponent,
+  SkyProgressIndicatorComponent,
   SkyRadioDemoComponent,
   SkyRepeaterDemoComponent,
   SkySearchDemoComponent,
@@ -63,6 +64,7 @@ import {
   SkyWaitDemoComponent,
   SkyWizardDemoComponent
 } from './index';
+import { SkyProgressIndicatorDemoComponent } from './progress-indicator';
 // #endregion
 
 /**
@@ -810,6 +812,26 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./popover/popover-demo.component.ts'),
           componentName: 'SkyPopoverDemoComponent',
           bootstrapSelector: 'sky-popover-demo'
+        }
+      ]
+    },
+    {
+      name: 'Progress Indicator',
+      component: SkyProgressIndicatorDemoComponent,
+      files: [
+        {
+          name: 'progress-indicator-demo.component.html',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo.component.html')
+        },
+        {
+          name: 'progress-indicator-demo.component.scss',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo.component.scss')
+        },
+        {
+          name: 'progress-indicator-demo.component.ts',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo.component.ts'),
+          componentName: 'SkyProgressIndicatorDemoComponent',
+          bootstrapSelector: 'sky-progress-indicator-demo'
         }
       ]
     },

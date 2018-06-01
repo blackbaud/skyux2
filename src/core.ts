@@ -53,6 +53,7 @@ import { SkyNumericModule } from './modules/numeric';
 import { SkyPageSummaryModule } from './modules/page-summary';
 import { SkyPagingModule } from './modules/paging';
 import { SkyPopoverModule } from './modules/popover';
+import { SkyProgressIndicatorModule } from './modules/progress-indicator';
 import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkySearchModule } from './modules/search';
@@ -114,6 +115,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyPageSummaryModule,
     SkyPagingModule,
     SkyPopoverModule,
+    SkyProgressIndicatorModule,
     SkyRadioModule,
     SkyRepeaterModule,
     SkySearchModule,
@@ -179,6 +181,7 @@ export * from './modules/numeric';
 export * from './modules/page-summary';
 export * from './modules/paging';
 export * from './modules/popover';
+export * from './modules/progress-indicator';
 export * from './modules/radio';
 export * from './modules/repeater';
 export * from './modules/search';

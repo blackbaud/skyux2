@@ -1,0 +1,39 @@
+<h2>Progress Indicator</h2>
+
+<p>
+  <button type="button" class="sky-btn sky-btn-primary" (click)="resetClicked()">Reset</button>
+</p>
+
+<sky-progress-indicator class="sky-progress-indicator-horizontal" #progressIndicator>
+
+  <sky-progress-indicator-item class="sky-progress-indicator-item-horizontal" [itemNumber]='1' titleHtml='Do the first thing'>
+    <div class="stepContent">
+      <button type="button" class="sky-btn sky-btn-primary" (click)="buttonClicked(1, true)" *ngIf="!isDone(1)">Do</button>
+      <button type="button" class="sky-btn sky-btn-default" (click)="buttonClicked(1, false)" *ngIf="isDone(1) && !isDone(2)">Undo</button>
+    </div>
+  </sky-progress-indicator-item>
+
+  <sky-progress-indicator-item class="sky-progress-indicator-item-horizontal" [itemNumber]='2' titleHtml='Do the second thing'>
+    <div class="stepContent" *ngIf="progressIndicator.activeIndex >= 1">
+        <button type="button" class="sky-btn sky-btn-primary" (click)="buttonClicked(2, true)" *ngIf="!isDone(2)">Do</button>
+        <button type="button" class="sky-btn sky-btn-default" (click)="buttonClicked(2, false)" *ngIf="isDone(2) && !isDone(3)">Undo</button>
+    </div>
+  </sky-progress-indicator-item>
+
+  <sky-progress-indicator-item class="sky-progress-indicator-item-horizontal" [itemNumber]='3' titleHtml='Do the third thing'>
+    <div class="stepContent" *ngIf="progressIndicator.activeIndex >= 2">
+        <button type="button" class="sky-btn sky-btn-primary" (click)="buttonClicked(3, true)" *ngIf="!isDone(3)">Do</button>
+        <button type="button" class="sky-btn sky-btn-default" (click)="buttonClicked(3, false)" *ngIf="isDone(3)">Undo</button>
+    </div>
+  </sky-progress-indicator-item>
+
+</sky-progress-indicator>
+
+<button type="button" class="sky-btn sky-btn-primary" (click)="buttonClicked(1, true)" *ngIf="!isDone(1)">Do</button>
+<button type="button" class="sky-btn sky-btn-default" (click)="buttonClicked(1, false)" *ngIf="isDone(1) && !isDone(2)">Undo</button>
+
+<button type="button" class="sky-btn sky-btn-primary" (click)="buttonClicked(2, true)" *ngIf="!isDone(2) && isDone(1)">Do</button>
+<button type="button" class="sky-btn sky-btn-default" (click)="buttonClicked(2, false)" *ngIf="isDone(2) && !isDone(3)">Undo</button>
+
+<button type="button" class="sky-btn sky-btn-primary" (click)="buttonClicked(3, true)" *ngIf="!isDone(3) && isDone(2)">Do</button>
+<button type="button" class="sky-btn sky-btn-default" (click)="buttonClicked(3, false)" *ngIf="isDone(3)">Undo</button>
