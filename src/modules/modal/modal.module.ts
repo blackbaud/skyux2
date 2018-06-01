@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {
+  RouterModule
+} from '@angular/router';
+
 import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalContentComponent } from './modal-content.component';
 import { SkyModalFooterComponent } from './modal-footer.component';
@@ -29,6 +33,7 @@ import { SkyErrorModalFormComponent } from '../error/error-modal-form.component'
   ],
   imports: [
     CommonModule,
+    RouterModule,
     SkyResourcesModule
   ],
   exports: [

@@ -3,7 +3,6 @@ import {
   TestBed,
   ComponentFixture,
   inject,
-  async,
   fakeAsync,
   tick
 } from '@angular/core/testing';
@@ -11,6 +10,10 @@ import {
 import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
+
+import {
+  RouterTestingModule
+} from '@angular/router/testing';
 
 import {
   expect
@@ -65,7 +68,7 @@ describe('List column selector action', () => {
     fixture: ComponentFixture<ListColumnSelectorActionTestComponent>,
     nativeElement: HTMLElement;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     dispatcher = new ListStateDispatcher();
     state = new ListState(dispatcher);
 
@@ -74,6 +77,7 @@ describe('List column selector action', () => {
         ListColumnSelectorActionTestComponent
       ],
       imports: [
+        RouterTestingModule,
         SkyListColumnSelectorActionModule,
         SkyListModule,
         SkyListToolbarModule,
@@ -92,7 +96,7 @@ describe('List column selector action', () => {
           ]
         }
       });
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ListColumnSelectorActionTestComponent);
@@ -125,6 +129,15 @@ describe('List column selector action', () => {
     flush();
     tick();
     fixture.detectChanges();
+  }
+
+  function closeModal(): void {
+    const cancelButton = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
+    cancelButton.click();
+    tick();
+    fixture.detectChanges();
+    flush();
+    tick();
   }
 
   it('should show an action in the secondary actions dropdown', fakeAsync(() => {
@@ -208,17 +221,11 @@ describe('List column selector action', () => {
     checkboxLabelEl.item(0).click();
     tick();
 
-    const cancelButtonEl = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
-
-    cancelButtonEl.click();
-    tick();
+    closeModal();
 
     component.grid.gridState.take(1).subscribe((gridState) => {
       expect(gridState.displayedColumns.items.length).toBe(3);
     });
-
-    flush();
-    tick();
   }));
 
   it('should not appear if not in grid view', fakeAsync(() => {
@@ -240,5 +247,36 @@ describe('List column selector action', () => {
 
     flush();
     tick();
+  }));
+
+  it('should show help button in modal header', fakeAsync(() => {
+    fixture.componentInstance.helpKey = 'foo.html';
+    toggleSecondaryActionsDropdown();
+
+    const chooseColumnsButton = getChooseColumnsButton();
+    chooseColumnsButton.click();
+    tick();
+
+    const helpButton = document.querySelector('button[name="help-button"]');
+    expect(helpButton).toExist();
+
+    closeModal();
+  }));
+
+  it('should emit help key when help button clicked', fakeAsync(() => {
+    fixture.componentInstance.helpKey = 'foo.html';
+    const spy = spyOn(fixture.componentInstance, 'onHelpOpened').and.callThrough();
+    toggleSecondaryActionsDropdown();
+
+    const chooseColumnsButton = getChooseColumnsButton();
+    chooseColumnsButton.click();
+    tick();
+
+    const helpButton = document.querySelector('button[name="help-button"]');
+    (helpButton as any).click();
+    tick();
+    expect(spy).toHaveBeenCalledWith('foo.html');
+
+    closeModal();
   }));
 });

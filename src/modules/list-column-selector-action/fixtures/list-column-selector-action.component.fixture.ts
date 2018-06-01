@@ -24,5 +24,8 @@ export class ListColumnSelectorActionTestComponent {
   @ViewChild(SkyListToolbarComponent)
   public toolbar: SkyListToolbarComponent;
 
+  public helpKey: string;
   public searchText: string;
+
+  public onHelpOpened(): void { }
 }
