@@ -106,6 +106,10 @@ fieldset {
   line-height: 1;
   align-items: center;
   justify-content: center;
+
+  &::before {
+    content: '';
+  }
 }
 
 .sky-switch-label {
