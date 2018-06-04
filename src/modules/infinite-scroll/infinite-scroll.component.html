@@ -1,0 +1,15 @@
+<div *ngIf="enabled"
+  class="sky-infinite-scroll"
+>
+  <button *ngIf="!isWaiting && enabled"
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="startInfiniteScrollLoad()"
+  >
+    {{ 'infinite_scroll_load_more_button' | skyResources }}
+  </button>
+  <sky-wait
+    [isWaiting]="isWaiting"
+  >
+  </sky-wait>
+</div>
