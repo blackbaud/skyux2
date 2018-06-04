@@ -1,15 +1,28 @@
-<label class="sky-radio-wrapper">
-  <input type="radio"
-        [id]="inputId"
-        [ngModel]="selectedValue"
-        [disabled]="disabled"
-        [name]="name"
-        [value]="value"
-        [tabIndex]="tabindex"
-        [attr.aria-label]="label"
-        [attr.aria-labelledby]="labelledBy"
-        (blur)="onInputBlur()"
-        (ngModelChange)="onRadioChanged($event)"/>
-  <span class="sky-radio"></span>
-  <ng-content select="sky-radio-label"></ng-content>
+<label
+  class="sky-radio-wrapper sky-switch"
+  [ngClass]="{ 'sky-switch-disabled': disabled }"
+>
+  <input
+    class="sky-switch-input"
+    type="radio"
+    [id]="inputId"
+    [ngModel]="selectedValue"
+    [disabled]="disabled"
+    [name]="name"
+    [value]="value"
+    [tabIndex]="tabindex"
+    [attr.aria-label]="label"
+    [attr.aria-labelledby]="labelledBy"
+    (blur)="onInputBlur()"
+    (ngModelChange)="onRadioChanged($event)"
+  />
+  <span class="sky-switch-control sky-rounded-circle">
+    <i *ngIf="selectedValue === value"
+      aria-hidden="true"
+      class="fa fa-fw fa-circle"
+    ></i>
+  </span>
+  <span class="sky-switch-label">
+    <ng-content select="sky-radio-label"></ng-content>
+  </span>
 </label>
