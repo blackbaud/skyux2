@@ -42,7 +42,7 @@
   border-color: $border-color;
 
   &:before {
-    content: "\f06a";
+    content: $icon;
     font-family: FontAwesome;
     margin-left: -31px;
     margin-right: 20px;
