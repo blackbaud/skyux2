@@ -46,7 +46,7 @@ export class SkyVisualTest {
         .catch((error: any) => {
           // Ignore 'baseline image not found' errors from PixDiff.
           if (error.message.indexOf('saving current image') > -1) {
-            console.log(`[${options.screenshotName}]`, error.message);
+            // console.log(`[${options.screenshotName}]`, error.message);
             return Promise.resolve();
           }
 

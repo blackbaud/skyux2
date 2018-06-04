@@ -1,55 +1,33 @@
-import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
+import { visualTest } from '../shared/visual-test';
 
 describe('Action button', () => {
   it('should match previous action button screenshot', () => {
-    return SkyVisualTest
-      .setupTest('action-button')
-      .then(() => {
-        SkyVisualTest.moveCursorOffScreen();
-        return SkyVisualTest.compareScreenshot({
-            screenshotName: 'action-button',
-            selector: '#screenshot-action-button'
-          });
-      });
-
+    visualTest({
+      screenshotName: 'action-button',
+      selector: '#screenshot-action-button'
+    });
   });
 
   it('should match previous action button screenshot on small screens', () => {
-    return SkyVisualTest
-      .setupTest('action-button', 480)
-      .then(() => {
-        SkyVisualTest.moveCursorOffScreen();
-        return SkyVisualTest.compareScreenshot({
-          screenshotName: 'action-button-small',
-          selector: '#screenshot-action-button'
-        });
-      });
-
+    visualTest({
+      screenshotName: 'action-button-xs',
+      selector: '#screenshot-action-button',
+      breakpoint: 'xs'
+    });
   });
 
   it('should match previous action button containerscreenshot', () => {
-    return SkyVisualTest
-      .setupTest('action-button')
-      .then(() => {
-        SkyVisualTest.moveCursorOffScreen();
-        return SkyVisualTest.compareScreenshot({
-            screenshotName: 'action-button-container',
-            selector: '#screenshot-action-button-container'
-          });
-      });
-
+    visualTest({
+      screenshotName: 'action-button-container',
+      selector: '#screenshot-action-button-container'
+    });
   });
 
   it('should match previous action button container screenshot on small screens', () => {
-    return SkyVisualTest
-      .setupTest('action-button', 480)
-      .then(() => {
-        SkyVisualTest.moveCursorOffScreen();
-        return SkyVisualTest.compareScreenshot({
-          screenshotName: 'action-button-container-small',
-          selector: '#screenshot-action-button-container'
-        });
-      });
-
+    visualTest({
+      screenshotName: 'action-button-container-xs',
+      selector: '#screenshot-action-button-container',
+      breakpoint: 'xs'
+    });
   });
 });

@@ -22,7 +22,7 @@ export class SkyRepeaterItemComponent {
 
   @Input()
   public set isExpanded(value: boolean) {
-    this.updateForExpanded(value, true);
+    this.updateForExpanded(value);
   }
 
   public get isSelected(): boolean {
@@ -44,7 +44,7 @@ export class SkyRepeaterItemComponent {
 
       /*istanbul ignore else */
       if (!this._isCollapsible) {
-        this.updateForExpanded(true, false);
+        this.updateForExpanded(true);
       }
     }
   }
@@ -59,20 +59,20 @@ export class SkyRepeaterItemComponent {
     private repeaterService: SkyRepeaterService,
     private logService: SkyLogService
   ) {
-    this.slideForExpanded(false);
+    this.slideForExpanded();
   }
 
   public headerClick() {
     if (this.isCollapsible) {
-      this.updateForExpanded(!this.isExpanded, true);
+      this.updateForExpanded(!this.isExpanded);
     }
   }
 
   public chevronDirectionChange(direction: string) {
-    this.updateForExpanded(direction === 'up', true);
+    this.updateForExpanded(direction === 'up');
   }
 
-  public updateForExpanded(value: boolean, animate: boolean) {
+  public updateForExpanded(value: boolean) {
     if (this.isCollapsible === false && value === false) {
       this.logService.warn(
         `Setting isExpanded to false when the repeater item is not collapsible
@@ -82,7 +82,7 @@ export class SkyRepeaterItemComponent {
       this._isExpanded = value;
 
       this.repeaterService.onItemCollapseStateChange(this);
-      this.slideForExpanded(animate);
+      this.slideForExpanded();
     }
   }
 
@@ -90,7 +90,7 @@ export class SkyRepeaterItemComponent {
     this._isSelected = value.checked;
   }
 
-  private slideForExpanded(animate: boolean) {
+  private slideForExpanded() {
     this.slideDirection = this.isExpanded ? 'down' : 'up';
   }
 }

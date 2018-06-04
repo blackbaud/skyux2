@@ -74,7 +74,7 @@ export class SkyRepeaterComponent implements AfterContentInit {
 
         if (item !== itemAdded && isSingle && item.isExpanded) {
           if (foundExpanded) {
-            item.updateForExpanded(false, false);
+            item.updateForExpanded(false);
           }
 
           foundExpanded = true;
