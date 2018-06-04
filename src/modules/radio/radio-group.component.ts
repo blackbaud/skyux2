@@ -33,7 +33,7 @@ const SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'sky-radio-group',
-  templateUrl: '../shared/simple-content.html',
+  templateUrl: './radio-group.component.html',
   providers: [
     SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR
   ]
