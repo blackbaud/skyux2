@@ -1,16 +1,19 @@
 import {
+  element,
+  by
+} from 'protractor';
+
+import {
   SkyVisualTest
 } from '../../../config/utils/visual-test-commands';
-import { element, by } from 'protractor';
 
 describe('Progress indicator component', () => {
-
   it('should show 1st step active and rest incomplete', () => {
     return SkyVisualTest.setupTest('progress-indicator')
     .then(() => {
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-1',
-        selector: '#screenshot-progress-indicator'
+        selector: 'body'
       });
     });
   });
@@ -23,7 +26,7 @@ describe('Progress indicator component', () => {
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-2',
-        selector: '#screenshot-progress-indicator'
+        selector: 'body'
       });
     });
   });
@@ -39,7 +42,7 @@ describe('Progress indicator component', () => {
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-3',
-        selector: '#screenshot-progress-indicator'
+        selector: 'body'
       });
     });
   });
