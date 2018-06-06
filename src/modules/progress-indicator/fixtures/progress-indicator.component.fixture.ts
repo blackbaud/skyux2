@@ -6,21 +6,20 @@ import {
 import {
   SkyProgressIndicatorComponent,
   SkyProgressIndicatorMessageType
-} from '../../core';
+} from '..';
 
 @Component({
-  selector: 'app-progress-indicator-demo',
-  templateUrl: './progress-indicator-demo.component.html',
-  styleUrls: ['./progress-indicator-demo.component.scss']
+  selector: 'test-progress-indicator',
+  templateUrl: './progress-indicator.component.fixture.html'
 })
-export class SkyProgressIndicatorDemoComponent {
+export class ProgressIndicatorTestComponent {
 
-  private firstDone = false;
-  private secondDone = false;
-  private thirdDone = false;
+  public firstDone = false;
+  public secondDone = false;
+  public thirdDone = false;
 
   @ViewChild(SkyProgressIndicatorComponent)
-  private progressIndicator: SkyProgressIndicatorComponent;
+  public progressIndicator: SkyProgressIndicatorComponent;
 
   public isDone(index: number) {
     switch (index) {
@@ -55,7 +54,7 @@ export class SkyProgressIndicatorDemoComponent {
     this.progress(SkyProgressIndicatorMessageType.ProgressReset);
   }
 
-  private progress(type: SkyProgressIndicatorMessageType) {
+  public progress(type: SkyProgressIndicatorMessageType) {
     this.progressIndicator.messageStream.next(type);
   }
 

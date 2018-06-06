@@ -1,48 +1,24 @@
-<div *ngIf="!isHorizontal" class="vertical">
-  <div
-    *ngIf="!isComplete"
-    class="circle"
-    [ngClass]="{
-          'sky-progress-indicator-item-active': isActive,
-          'sky-progress-indicator-item-incomplete': !isActive && !isComplete
-      }">
-  </div>
-  <div
-    [ngClass]="{ 'sky-text-success': isComplete }" class="sky-progress-indicator-item-number-row"
-    [attr.data-bbauto-field]="'sky-progress-indicator-item-' + itemNumber + '-title'">
-    <div>
-      {{ itemNumber }} - {{ title }}
-      <!-- TODO localize title -->
-      <div style="display: inline" innerHtml="{{titleHtml}}"></div>
-    </div>
-    <sky-help-inline *ngIf="helpText !== ''" [skyPopover]="helpPopover" skyPopoverPlacement="right">
-    </sky-help-inline>
-    <sky-popover #helpPopover>
-      <div innerHTML="{{helpText}}"></div>
-    </sky-popover>
-  </div>
-  <div class="sky-progress-indicator-item-content-padding"
-    [ngClass]="{ 'complete': isComplete, 'last': isLastItem }">
-    <ng-content >
-    </ng-content>
+<div
+  *ngIf="!isComplete || isActive"
+  class="sky-progress-indicator-item-circle"
+  [ngClass]="{
+        'sky-progress-indicator-item-active': isActive,
+        'sky-progress-indicator-item-incomplete': !isActive && !isComplete
+    }">
+</div>
+<div
+  [ngClass]="{ 'sky-text-success': isComplete && !isActive }" class="sky-progress-indicator-item-number-row"
+  [attr.data-bbauto-field]="'sky-progress-indicator-item-' + itemNumber + '-title'">
+  <div>
+    {{ itemNumber }} - {{ title }}
+    <div style="display: inline" innerHtml="{{titleHtml}}"></div>
   </div>
 </div>
-<div *ngIf="isHorizontal" class="horizontal">
-  <div
-    *ngIf="!isComplete"
-    class="step"
-    [ngClass]="{
-      'inactive-step': !isActive && !isComplete,
-      'active-step': isActive,
-      'complete-step': isComplete
-    }">
-  </div>
-  <div
-    class="line"
-    *ngIf="!isLastItem"
-    [ngClass]="{
-      'complete-line': isComplete,
-      'inactive-line': !isComplete
+<div class="sky-progress-indicator-item-content-padding"
+  [ngClass]="{
+    'sky-progress-indicator-item-complete': !isActive && isComplete,
+    'sky-progress-indicator-item-last': isLastItem
   }">
-  </div>
+  <ng-content >
+  </ng-content>
 </div>

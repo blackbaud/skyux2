@@ -28,7 +28,7 @@ import {
 export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestroy {
 
   private idle = new Subject();
-  private _activeIndex = 0;
+  private activeIndex = 0;
 
   @Input()
   public messageStream = new Subject<SkyProgressIndicatorMessageType>();
@@ -36,18 +36,8 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   @Output()
   public progressChanges = new EventEmitter<SkyProgressIndicatorChange>();
 
-  public get activeIndex(): number {
-    return this._activeIndex;
-  }
-  public set activeIndex(value: number) {
-    if (value < 0) {
-      value = this.progressItems.length - 1;
-    }
-    this._activeIndex = value;
-  }
-
   @ContentChildren(SkyProgressIndicatorItemComponent)
-  public progressItems: QueryList<SkyProgressIndicatorItemComponent>;
+  private progressItems: QueryList<SkyProgressIndicatorItemComponent>;
 
   public ngAfterContentInit() {
     this.messageStream
@@ -91,7 +81,9 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   }
 
   public completeItem() {
-
+    if (this.activeIndex === this.progressItems.length) {
+      return;
+    }
     const completedItem = this.getItemByIndex(this.activeIndex);
 
     this.activeIndex += 1;
@@ -103,7 +95,6 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     }
     if (activeItem) {
       activeItem.isActive = true;
-      activeItem.isComplete = false;
     }
     this.progressChanges.emit({
       activeIndex: this.activeIndex
@@ -112,6 +103,9 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   }
 
   public incompleteItem() {
+    if (this.activeIndex === 0) {
+      return;
+    }
     const inactiveItem = this.getItemByIndex(this.activeIndex);
 
     this.activeIndex -= 1;
@@ -119,11 +113,9 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
 
     if (inactiveItem) {
       inactiveItem.isActive = false;
-      inactiveItem.isComplete = false;
     }
     if (activeItem) {
       activeItem.isActive = true;
-      activeItem.isComplete = false;
     }
     this.progressChanges.emit({
       activeIndex: this.activeIndex

@@ -44,7 +44,7 @@ import {
   SkyPageSummaryDemoComponent,
   SkyPagingDemoComponent,
   SkyPopoverDemoComponent,
-  SkyProgressIndicatorComponent,
+  SkyProgressIndicatorDemoComponent,
   SkyRadioDemoComponent,
   SkyRepeaterDemoComponent,
   SkySearchDemoComponent,
@@ -64,7 +64,6 @@ import {
   SkyWaitDemoComponent,
   SkyWizardDemoComponent
 } from './index';
-import { SkyProgressIndicatorDemoComponent } from './progress-indicator';
 // #endregion
 
 /**

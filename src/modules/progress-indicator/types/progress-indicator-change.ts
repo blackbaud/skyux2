@@ -1,4 +1,4 @@
-import { SkyProgressIndicatorItemComponent } from '../progress-indicator-item.component';
+import { SkyProgressIndicatorItemComponent } from '../progress-indicator-item';
 
 export interface SkyProgressIndicatorChange {
   activeIndex?: number;

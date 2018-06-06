@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SkyPopoverModule } from '../popover';
-import { SkyHelpInlineModule } from '../help-inline';
-
 import { SkyProgressIndicatorItemComponent } from './progress-indicator-item';
 import { SkyProgressIndicatorComponent } from './progress-indicator.component';
 
@@ -13,9 +10,7 @@ import { SkyProgressIndicatorComponent } from './progress-indicator.component';
     SkyProgressIndicatorComponent
   ],
   imports: [
-    CommonModule,
-    SkyHelpInlineModule,
-    SkyPopoverModule
+    CommonModule
   ],
   exports: [
     SkyProgressIndicatorItemComponent,

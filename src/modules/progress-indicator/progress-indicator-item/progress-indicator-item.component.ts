@@ -9,9 +9,8 @@ export class SkyProgressIndicatorItemComponent {
   public isActive = false;
   public isComplete = false;
   public isLastItem = false;
-  public isHorizontal = false;
+
   @Input() public itemNumber: number;
   @Input() public title: string;
   @Input() public titleHtml: string;
-  @Input() public helpText = '';
 }
