@@ -248,8 +248,11 @@ fdescribe('Search component', () => {
 
   it('should emit search change event on ngModel change', () => {
     setNgModel('change text');
-    expect(component.lastSearchTextChanged).toBe('change text');
-    expect(component.lastSearchTextApplied).not.toBe('change text');
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.lastSearchTextChanged).toBe('change text');
+      expect(component.lastSearchTextApplied).not.toBe('change text');
+    });
   });
 
   it('should set default placeholder text when none is specified', () => {

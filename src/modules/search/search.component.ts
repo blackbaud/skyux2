@@ -80,9 +80,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   @Output()
   public searchClear = new EventEmitter<void>();
 
-  @Output()
-  public searchDebounce = new EventEmitter<string>();
-
   @Input()
   public searchText: string;
 
@@ -90,7 +87,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public expandMode: string = EXPAND_MODE_RESPONSIVE;
 
   @Input()
-  public debounceTime: number = 250;
+  public debounceTime: number = 0;
 
   public isFullWidth: boolean = false;
 
@@ -141,7 +138,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     this.searchUpdated.asObservable()
       .debounceTime(this.debounceTime)
       .distinctUntilChanged().subscribe(value => {
-        this.searchDebounce.emit(value);
+        this.searchChange.emit(value);
       });
   }
 
@@ -184,9 +181,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     this.searchAdapter.focusInput(this.elRef);
     this.searchChange.emit(this.searchText);
 
-    // Ignore debounce, clear instantly
-    this.searchDebounce.emit(this.searchText);
-
     this.searchApply.emit(this.searchText);
 
     this.searchClear.emit();
@@ -212,7 +206,6 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   public searchTextChanged(searchText: string) {
     this.searchText = searchText;
-    this.searchChange.emit(searchText);
     this.searchUpdated.next(searchText);
   }
 
