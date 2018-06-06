@@ -27,6 +27,10 @@ import {
 
 import { Subscription } from 'rxjs/Subscription';
 
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import {
   style,
   state,
@@ -76,11 +80,17 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   @Output()
   public searchClear = new EventEmitter<void>();
 
+  @Output()
+  public searchDebounce = new EventEmitter<string>();
+
   @Input()
   public searchText: string;
 
   @Input()
   public expandMode: string = EXPAND_MODE_RESPONSIVE;
+
+  @Input()
+  public debounceTime: number = 250;
 
   public isFullWidth: boolean = false;
 
@@ -106,6 +116,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public dismissButtonShown: boolean = false;
   public clearButtonShown: boolean = false;
   public searchInputFocused: boolean = false;
+  public searchUpdated: Subject<string> = new Subject<string>();
 
   private _placeholderText: string;
 
@@ -126,6 +137,12 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
         }
       );
     }
+
+    this.searchUpdated.asObservable()
+      .debounceTime(this.debounceTime)
+      .distinctUntilChanged().subscribe(value => {
+        this.searchDebounce.emit(value);
+      });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -167,6 +184,9 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     this.searchAdapter.focusInput(this.elRef);
     this.searchChange.emit(this.searchText);
 
+    // Ignore debounce, clear instantly
+    this.searchDebounce.emit(this.searchText);
+
     this.searchApply.emit(this.searchText);
 
     this.searchClear.emit();
@@ -193,6 +213,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public searchTextChanged(searchText: string) {
     this.searchText = searchText;
     this.searchChange.emit(searchText);
+    this.searchUpdated.next(searchText);
   }
 
   public toggleSearchInput(showInput: boolean) {
