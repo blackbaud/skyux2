@@ -535,6 +535,10 @@
     "_description": "The title for the help button.",
     "message": "Show help content"
   },
+  "infinite_scroll_load_more_button": {
+    "_description": "Text for loading more in the infinite scroll button",
+    "message": "Load more"
+  },
   "link_records_item_info_match": {
     "_description": "",
     "message": "A possible match has been identified for this record. Would you like to link it?"
