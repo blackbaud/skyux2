@@ -6,7 +6,13 @@
   novalidate
   [formGroup]="radioForm"
 >
-  <sky-radio-group formControlName="favoriteSeason">
+  <sky-radio-group
+    ariaLabelledBy="favorite-season-label-reactive"
+    formControlName="favoriteSeason"
+  >
+    <p id="favorite-season-label-reactive">
+      What is your favorite season?
+    </p>
     <ul class="sky-list-unstyled">
       <li *ngFor="let value of seasons">
         <sky-radio
@@ -42,9 +48,13 @@
   #checkboxForm="ngForm"
 >
   <sky-radio-group
+    ariaLabelledBy="favorite-season-label-template"
     name="favoriteSeason"
     [(ngModel)]="favoriteSeason"
   >
+    <p id="favorite-season-label-template">
+      What is your favorite season?
+    </p>
     <ul class="sky-list-unstyled">
       <li *ngFor="let value of seasons">
         <sky-radio

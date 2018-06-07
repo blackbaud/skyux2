@@ -40,6 +40,9 @@ const SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAccessor {
   @Input()
+  public ariaLabelledBy: string;
+
+  @Input()
   public set name(value: string) {
     this._name = value;
     this.updateRadioButtonNames();

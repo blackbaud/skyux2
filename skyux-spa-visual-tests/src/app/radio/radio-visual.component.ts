@@ -1,5 +1,6 @@
 import {
-  Component
+  Component,
+  OnInit
 } from '@angular/core';
 
 import {
@@ -11,16 +12,23 @@ import {
   selector: 'radio-visual',
   templateUrl: './radio-visual.component.html'
 })
-export class RadioVisualComponent {
-  public selectedValue = '3';
-  public valueGuy = '2';
+export class RadioVisualComponent implements OnInit {
   public radioForm: FormGroup;
+
+  public seasons = [
+    { name: 'Spring', disabled: false },
+    { name: 'Summer', disabled: false },
+    { name: 'Fall', disabled: true },
+    { name: 'Winter', disabled: false }
+  ];
 
   constructor(
     private formBuilder: FormBuilder
-  ) {
+  ) { }
+
+  public ngOnInit(): void {
     this.radioForm = this.formBuilder.group({
-      option: '1'
+      favoriteSeason: this.seasons[0]
     });
   }
 }
