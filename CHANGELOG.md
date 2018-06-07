@@ -1,3 +1,11 @@
+# 2.14.0 (2018-06-05)
+
+- Added infinite scroll component. [#1696](https://github.com/blackbaud/skyux2/pull/1696) (Thanks @blackbaud-conorwright)
+- Added help button to list column chooser modal. [#1686](https://github.com/blackbaud/skyux2/pull/1686) (Thanks @Blackbaud-TrevorBurch)
+- Updated styles for checkbox and radio components. [#1694](https://github.com/blackbaud/skyux2/pull/1694) (Thanks @Blackbaud-AnandBhat)
+- Fixed incorrect icons for toast component. [#1711](https://github.com/blackbaud/skyux2/pull/1711)
+- Fixed modals to automatically close when users navigate away from a page. [#1683](https://github.com/blackbaud/skyux2/pull/1683) (Thanks @blackbaud-conorwright)
+
 # 2.13.0 (2018-05-21)
 
 - Added toast component. [#1676](https://github.com/blackbaud/skyux2/pull/1676) (Thanks @blackbaud-conorwright)

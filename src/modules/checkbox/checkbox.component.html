@@ -1,14 +1,28 @@
-<label class="sky-checkbox-wrapper" [ngClass]="{'sky-checkbox-wrapper-disabled': disabled}">
-  <input type="checkbox"
-        [id]="inputId"
-        [checked]="checked"
-        [disabled]="disabled"
-        [name]="name"
-        [tabIndex]="tabindex"
-        [attr.aria-label]="label"
-        [attr.aria-labelledby]="labelledBy"
-        (blur)="onInputBlur()"
-        (change)="onInteractionEvent($event)"/>
-  <span class="sky-checkbox"></span>
-  <ng-content select="sky-checkbox-label"></ng-content>
+<label
+  class="sky-checkbox-wrapper sky-switch"
+  [ngClass]="{ 'sky-switch-disabled': disabled }"
+>
+  <input
+    class="sky-switch-input"
+    type="checkbox"
+    [id]="inputId"
+    [checked]="checked"
+    [disabled]="disabled"
+    [name]="name"
+    [tabIndex]="tabindex"
+    [attr.aria-label]="label"
+    [attr.aria-labelledby]="labelledBy"
+    (blur)="onInputBlur()"
+    (change)="onInteractionEvent($event)"
+  />
+  <span class="sky-switch-control sky-rounded-corners">
+    <i *ngIf="checked"
+      aria-hidden="true"
+      class="fa fa-fw fa-check"
+    ></i>
+  </span>
+  <span class="sky-switch-label">
+    <ng-content select="sky-checkbox-label">
+    </ng-content>
+  </span>
 </label>

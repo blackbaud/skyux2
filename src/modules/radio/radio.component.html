@@ -1,9 +1,9 @@
 <label
-  class="sky-radio-wrapper"
-  (focus)="input.nativeElement.focus()"
+  class="sky-radio-wrapper sky-switch"
+  [ngClass]="{ 'sky-switch-disabled': disabled }"
 >
   <input
-    class="sky-radio-input"
+    class="sky-radio-input sky-switch-input"
     type="radio"
     [attr.aria-label]="label"
     [attr.aria-labelledby]="labelledBy"
@@ -16,6 +16,13 @@
     (blur)="onInputFocusChange($event)"
     (change)="onInputChange($event)"
   />
-  <span class="sky-radio"></span>
-  <ng-content select="sky-radio-label"></ng-content>
+  <span class="sky-radio sky-switch-control sky-rounded-circle">
+    <i *ngIf="checked"
+      aria-hidden="true"
+      class="fa fa-fw fa-circle"
+    ></i>
+  </span>
+  <span class="sky-switch-label">
+    <ng-content select="sky-radio-label"></ng-content>
+  </span>
 </label>
