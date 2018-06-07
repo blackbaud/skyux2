@@ -156,7 +156,7 @@ describe('Numeric service', () => {
     const value = 1450;
     let options = new NumericOptions();
 
-    skyNumeric['symbolIndex'][3].symbol = 'c';
+    skyNumeric['symbolIndex'][3].label = 'c';
 
     expect(skyNumeric.formatNumber(value, options)).toBe('1.5c');
 
