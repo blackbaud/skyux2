@@ -113,8 +113,8 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public dismissButtonShown: boolean = false;
   public clearButtonShown: boolean = false;
   public searchInputFocused: boolean = false;
-  public searchUpdated: Subject<string> = new Subject<string>();
 
+  private _searchUpdated: Subject<string> = new Subject<string>();
   private _placeholderText: string;
 
   constructor(
@@ -135,7 +135,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
       );
     }
 
-    this.searchUpdated.asObservable()
+    this._searchUpdated.asObservable()
       .debounceTime(this.debounceTime)
       .distinctUntilChanged().subscribe(value => {
         this.searchChange.emit(value);
@@ -206,7 +206,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   public searchTextChanged(searchText: string) {
     this.searchText = searchText;
-    this.searchUpdated.next(searchText);
+    this._searchUpdated.next(searchText);
   }
 
   public toggleSearchInput(showInput: boolean) {

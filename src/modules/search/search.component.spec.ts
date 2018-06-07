@@ -213,14 +213,6 @@ fdescribe('Search component', () => {
       .toHaveCssClass('sky-search-dismiss-absolute');
   }
 
-  async function sleep(ms: number) {
-    await _sleep(ms);
-  }
-
-  function _sleep(ms: number) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
   describe('standard search', () => {
     beforeEach(() => {
       fixture.detectChanges();
@@ -322,16 +314,14 @@ fdescribe('Search component', () => {
     expect(element.query(By.css('.sky-input-group-clear')).nativeElement).toBeVisible();
   });
 
-  it('should delay the search if debounce is used', async () => {
-    component.searchComponent.searchUpdated.next('debounce this please');
+  it('should delay the search if debounce is used', async(() => {
+    component.searchComponent.searchTextChanged('debounce this please');
     fixture.detectChanges();
-    expect(component.lastSearchTextApplied).toBe('');
-
-    await sleep(250);
-
-    fixture.detectChanges();
-    expect(component.lastSearchTextApplied).toBe('debounce this please');
-  });
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(component.searchComponent.searchText).toBe('debounce this please');
+    });
+  }));
 
   describe('animations', () => {
 
