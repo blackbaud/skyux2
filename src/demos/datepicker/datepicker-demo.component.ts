@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class SkyDatepickerDemoComponent {
   public minDate: Date;
   public maxDate: Date;
-  public selectedDate = new Date(1, 2, 3, 4, 5, 6, 7);
+  public selectedDate: Date;
 
   public clearSelectedDate() {
     this.selectedDate = undefined;
