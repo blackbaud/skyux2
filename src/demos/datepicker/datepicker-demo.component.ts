@@ -8,4 +8,8 @@ export class SkyDatepickerDemoComponent {
   public minDate: Date;
   public maxDate: Date;
   public selectedDate: Date;
+
+  public clearSelectedDate() {
+    this.selectedDate = undefined;
+  }
 }
