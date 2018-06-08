@@ -3,12 +3,23 @@ import {
   Input
 } from '@angular/core';
 
-import { skyAnimationSlide } from '../animation/slide';
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
 
-import { SkyRepeaterService } from './repeater.service';
-import { SkyLogService } from '../log/log.service';
-import { SkyCheckboxChange } from '../checkbox/checkbox.component';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {
+  skyAnimationSlide
+} from '../animation/slide';
+import {
+  SkyRepeaterService
+} from './repeater.service';
+import {
+  SkyLogService
+} from '../log/log.service';
+import {
+  SkyCheckboxChange
+} from '../checkbox/checkbox.component';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-repeater-item',
@@ -36,8 +47,22 @@ export class SkyRepeaterItemComponent {
 
   public slideDirection: string;
 
-  public get isCollapsible(): BehaviorSubject<boolean> {
-    return this._isCollapsible;
+  public get isCollapsibleObservable(): Observable<boolean> {
+    return this._isCollapsible.asObservable();
+  }
+
+  public get isCollapsible(): boolean {
+    return this._isCollapsible.getValue();
+  }
+  public set isCollapsible(value: boolean) {
+    if (this.isCollapsible !== value) {
+      this._isCollapsible.next(value);
+
+      /*istanbul ignore else */
+      if (!value) {
+        this.updateForExpanded(true, false);
+      }
+    }
   }
 
   private _isCollapsible: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -53,17 +78,6 @@ export class SkyRepeaterItemComponent {
     this.slideForExpanded(false);
   }
 
-  public setIsCollapsible(value: boolean) {
-    if (this._isCollapsible.getValue() !== value) {
-      this._isCollapsible.next(value);
-
-      /*istanbul ignore else */
-      if (!value) {
-        this.updateForExpanded(true, false);
-      }
-    }
-  }
-
   public headerClick() {
     if (this.isCollapsible) {
       this.updateForExpanded(!this.isExpanded, true);
@@ -75,7 +89,7 @@ export class SkyRepeaterItemComponent {
   }
 
   public updateForExpanded(value: boolean, animate: boolean) {
-    if (this._isCollapsible.getValue() === false && value === false) {
+    if (this.isCollapsible === false && value === false) {
       this.logService.warn(
         `Setting isExpanded to false when the repeater item is not collapsible
         will have no effect.`

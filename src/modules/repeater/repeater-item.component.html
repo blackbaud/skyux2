@@ -1,6 +1,6 @@
 <section
     class="sky-repeater-item"
-    [ngClass]="{'sky-repeater-item-collapsible': (isCollapsible | async), 'sky-repeater-item-selected': isSelected}"
+    [ngClass]="{'sky-repeater-item-collapsible': (isCollapsibleObservable | async), 'sky-repeater-item-selected': isSelected}"
 >
 
   <div class="sky-repeater-item-left">
@@ -29,7 +29,7 @@
       <h1 class="sky-repeater-item-title" #titleEl>
         <ng-content select="sky-repeater-item-title"></ng-content>
       </h1>
-      <div class="sky-repeater-item-chevron" [hidden]="!(isCollapsible | async)">
+      <div class="sky-repeater-item-chevron" [hidden]="!(isCollapsibleObservable | async)">
         <sky-chevron
             [direction]="isExpanded ? 'up' : 'down'"
             (directionChange)="chevronDirectionChange($event)"
