@@ -145,17 +145,19 @@ export class SkyDatepickerInputDirective implements
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
-
-    if (value && this.dateFormatter.dateIsValid(value)) {
+    if (this.dateFormatter.dateIsValid(value)) {
       this.modelValue = value;
     } else if (value) {
       this.modelValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
       if (value !== this.modelValue && this.dateFormatter.dateIsValid(this.modelValue)) {
         this._onChange(this.modelValue);
       }
+    } else {
+      this.modelValue = value;
+      this._onChange(this.modelValue);
     }
 
-    if (this.dateFormatter.dateIsValid(this.modelValue)) {
+    if (this.dateFormatter.dateIsValid(this.modelValue) || !this.modelValue) {
       this.writeModelValue(this.modelValue);
     } else if (value) {
       this.renderer.setElementProperty(
@@ -213,7 +215,7 @@ export class SkyDatepickerInputDirective implements
     this.renderer.setElementProperty(
       this.elRef.nativeElement,
       'value',
-      this.dateFormatter.format(model, this.dateFormat));
+      model ? this.dateFormatter.format(model, this.dateFormat) : '');
 
     this.skyDatepickerInput.setSelectedDate(model);
   }
