@@ -1,7 +1,8 @@
 import {
   Component,
   EventEmitter,
-  ViewChild
+  ViewChild,
+  Input
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -25,6 +26,9 @@ export class SkyDatepickerComponent {
 
   @ViewChild(SkyDropdownComponent)
   public dropdown: SkyDropdownComponent;
+
+  @Input()
+  public startingDay: number;
 
   public dropdownController = new Subject<SkyDropdownMessage>();
   public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
