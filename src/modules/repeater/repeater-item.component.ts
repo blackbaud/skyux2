@@ -1,6 +1,7 @@
 import {
   Component,
-  Input
+  Input,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -19,7 +20,6 @@ import {
 import {
   SkyCheckboxChange
 } from '../checkbox/checkbox.component';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-repeater-item',
@@ -47,16 +47,12 @@ export class SkyRepeaterItemComponent {
 
   public slideDirection: string;
 
-  public get isCollapsibleObservable(): Observable<boolean> {
-    return this._isCollapsible.asObservable();
-  }
-
   public get isCollapsible(): boolean {
-    return this._isCollapsible.getValue();
+    return this._isCollapsible;
   }
   public set isCollapsible(value: boolean) {
     if (this.isCollapsible !== value) {
-      this._isCollapsible.next(value);
+      this._isCollapsible = value;
 
       /*istanbul ignore else */
       if (!value) {
@@ -65,7 +61,7 @@ export class SkyRepeaterItemComponent {
     }
   }
 
-  private _isCollapsible: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  private _isCollapsible = true;
 
   private _isExpanded = true;
 
@@ -73,6 +69,7 @@ export class SkyRepeaterItemComponent {
 
   constructor(
     private repeaterService: SkyRepeaterService,
+    private changeDetector: ChangeDetectorRef,
     private logService: SkyLogService
   ) {
     this.slideForExpanded(false);
@@ -99,6 +96,7 @@ export class SkyRepeaterItemComponent {
 
       this.repeaterService.onItemCollapseStateChange(this);
       this.slideForExpanded(animate);
+      this.changeDetector.markForCheck();
     }
   }
 

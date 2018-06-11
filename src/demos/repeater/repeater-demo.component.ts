@@ -10,7 +10,7 @@ import {
 })
 export class SkyRepeaterDemoComponent {
   public items: any[];
-  public expandMode = 'single';
+  public expandMode = 'none';
   public selectable = false;
 
   constructor() {
