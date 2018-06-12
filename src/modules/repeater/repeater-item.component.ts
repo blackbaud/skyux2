@@ -1,25 +1,24 @@
 import {
+  ChangeDetectorRef,
   Component,
-  Input,
-  ChangeDetectorRef
+  Input
 } from '@angular/core';
-
-import {
-  BehaviorSubject
-} from 'rxjs/BehaviorSubject';
 
 import {
   skyAnimationSlide
 } from '../animation/slide';
-import {
-  SkyRepeaterService
-} from './repeater.service';
-import {
-  SkyLogService
-} from '../log/log.service';
+
 import {
   SkyCheckboxChange
 } from '../checkbox/checkbox.component';
+
+import {
+  SkyLogService
+} from '../log/log.service';
+
+import {
+  SkyRepeaterService
+} from './repeater.service';
 
 @Component({
   selector: 'sky-repeater-item',
