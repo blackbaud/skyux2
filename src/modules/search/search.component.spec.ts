@@ -38,7 +38,7 @@ import {
 } from '../media-queries';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('Search component', () => {
+describe('Search component', () => {
   let fixture: ComponentFixture<SearchTestComponent>;
   let nativeElement: HTMLElement;
   let component: SearchTestComponent;
