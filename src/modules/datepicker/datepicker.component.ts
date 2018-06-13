@@ -27,11 +27,9 @@ export class SkyDatepickerComponent {
   @ViewChild(SkyDropdownComponent)
   public dropdown: SkyDropdownComponent;
 
-  @Input()
-  public startingDay: number;
-
   public dropdownController = new Subject<SkyDropdownMessage>();
   public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
+  public startingDay: number;
   public maxDate: Date;
   public minDate: Date;
 
@@ -52,6 +50,10 @@ export class SkyDatepickerComponent {
 
   public setMaxDate(_maxDate: Date) {
     this.maxDate = _maxDate;
+  }
+
+  public setStartingDay(_startingDay: number) {
+    this.startingDay = _startingDay;
   }
 
   public onCalendarModeChange() {
