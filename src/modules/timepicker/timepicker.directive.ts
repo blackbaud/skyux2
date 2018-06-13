@@ -57,7 +57,7 @@ export class SkyTimepickerInputDirective implements
   public skyTimepickerInput: SkyTimepickerComponent;
 
   @Input()
-  public timeFormat: string;
+  public timeFormat: string = 'hh';
 
   @Input()
   public returnFormat: string;
@@ -79,6 +79,7 @@ export class SkyTimepickerInputDirective implements
 
   public ngOnChanges(changes: SimpleChanges) {
     this._validatorChange();
+    this.timeFormat = this.timeFormat || 'hh';
     this.skyTimepickerInput.setFormat(this.timeFormat);
     this.skyTimepickerInput.returnFormat = this.returnFormat;
   }
