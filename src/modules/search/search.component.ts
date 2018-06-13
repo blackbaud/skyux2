@@ -27,6 +27,10 @@ import {
 
 import { Subscription } from 'rxjs/Subscription';
 
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import {
   style,
   state,
@@ -82,6 +86,9 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   @Input()
   public expandMode: string = EXPAND_MODE_RESPONSIVE;
 
+  @Input()
+  public debounceTime: number = 0;
+
   public isFullWidth: boolean = false;
 
   public isCollapsible: boolean = true;
@@ -107,6 +114,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public clearButtonShown: boolean = false;
   public searchInputFocused: boolean = false;
 
+  private searchUpdated: Subject<string> = new Subject<string>();
   private _placeholderText: string;
 
   constructor(
@@ -126,6 +134,12 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
         }
       );
     }
+
+    this.searchUpdated.asObservable()
+      .debounceTime(this.debounceTime)
+      .distinctUntilChanged().subscribe(value => {
+        this.searchChange.emit(value);
+      });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -192,7 +206,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
 
   public searchTextChanged(searchText: string) {
     this.searchText = searchText;
-    this.searchChange.emit(searchText);
+    this.searchUpdated.next(searchText);
   }
 
   public toggleSearchInput(showInput: boolean) {
@@ -238,6 +252,8 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
     if (this.breakpointSubscription) {
       this.breakpointSubscription.unsubscribe();
     }
+
+    this.searchUpdated.complete();
   }
   private searchBindingChanged(changes: SimpleChanges) {
     return changes['searchText'] &&
