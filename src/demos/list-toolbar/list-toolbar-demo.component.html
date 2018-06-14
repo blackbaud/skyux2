@@ -1,9 +1,11 @@
 <sky-list
   [data]="items"
-  [defaultView]="grid">
+  [defaultView]="grid"
+>
   <sky-list-toolbar>
     <sky-list-column-selector-action
-      [gridView]="grid">
+      [gridView]="grid"
+    >
     </sky-list-column-selector-action>
     <sky-list-secondary-actions>
       <sky-list-secondary-action>
@@ -11,36 +13,27 @@
           Option
         </button>
       </sky-list-secondary-action>
-      <sky-list-column-selector-action
-        [gridView]="grid">
-      </sky-list-column-selector-action>
     </sky-list-secondary-actions>
     <sky-list-toolbar-sort
       label="Fruit name (A - Z)"
       field="column2"
       [descending]="false"
-      type="string">
+      type="string"
+    >
     </sky-list-toolbar-sort>
     <sky-list-toolbar-sort
       label="Fruit name (Z - A)"
       field="column2"
       [descending]="true"
-      type="string">
+      type="string"
+    >
     </sky-list-toolbar-sort>
     <sky-list-toolbar-view-actions>
       <button
         class="sky-btn sky-btn-default"
-        title="Sort descending"
         type="button"
       >
-        <i class="fa fa-angle-double-down" aria-hidden="true"></i>
-      </button>
-      <button
-        class="sky-btn sky-btn-default"
-        title="Sort ascending"
-        type="button"
-      >
-        <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        Button
       </button>
     </sky-list-toolbar-view-actions>
   </sky-list-toolbar>
@@ -48,11 +41,13 @@
     <sky-grid-column
       field="column1"
       heading="Column1"
-      [isSortable]="false">
+      [isSortable]="false"
+    >
     </sky-grid-column>
     <sky-grid-column
       field="column2"
-      heading="Column2">
+      heading="Column2"
+    >
     </sky-grid-column>
   </sky-list-view-grid>
 </sky-list>
