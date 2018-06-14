@@ -85,6 +85,9 @@ export class SkyTabsetComponent
   }
 
   public ngAfterContentInit() {
+    // initialize each tab's index. (in case tabs are initialized out of order)
+    this.tabs.forEach(item => item.skyAfterViewInit());
+
     if (this.active || this.active === 0) {
       this.tabsetService.activateTabIndex(this.active);
     }
@@ -93,7 +96,7 @@ export class SkyTabsetComponent
          // HACK: Not selecting the active tab in a timeout causes an error.
         // https://github.com/angular/angular/issues/6005
         setTimeout(() => {
-          if (newActiveIndex !== this.active) {
+          if (newActiveIndex && newActiveIndex !== this.active) {
             this.active = newActiveIndex;
             this.activeChange.emit(newActiveIndex);
           }
