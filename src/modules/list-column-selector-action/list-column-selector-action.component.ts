@@ -76,7 +76,13 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit {
           location: 'left'
         }
       );
-      this.dispatcher.toolbarAddItems([columnChooserItem], 2);
+
+      this.dispatcher.toolbarAddItems(
+        [
+          columnChooserItem
+        ],
+        3
+      );
     }
   }
 

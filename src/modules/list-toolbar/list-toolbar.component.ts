@@ -171,13 +171,16 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
       .subscribe((currentSort) => {
         if (currentSort.length > 0 && !this.hasSortSelectors) {
           this.hasSortSelectors = true;
-          this.dispatcher.toolbarAddItems([
-            new ListToolbarItemModel({
-              id: 'sort-selector',
-              template: this.sortSelectorTemplate,
-              location: 'left'
-            })
-          ], 0);
+          this.dispatcher.toolbarAddItems(
+            [
+              new ListToolbarItemModel({
+                id: 'sort-selector',
+                template: this.sortSelectorTemplate,
+                location: 'left'
+              })
+            ],
+            2
+          );
         } else if (currentSort.length < 1 && this.hasSortSelectors) {
           this.hasSortSelectors = false;
           this.dispatcher.toolbarRemoveItems([
@@ -200,13 +203,15 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
         if (toolbarType === 'search') {
           this.dispatcher.toolbarRemoveItems(['search']);
         } else {
-          this.dispatcher.toolbarAddItems([
-            new ListToolbarItemModel({
-              id: 'search',
-              template: this.searchTemplate,
-              location: 'right'
-            })
-          ]);
+          this.dispatcher.toolbarAddItems(
+            [
+              new ListToolbarItemModel({
+                id: 'search',
+                template: this.searchTemplate,
+                location: 'right'
+              })
+            ]
+          );
         }
       });
 
@@ -238,14 +243,17 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   }
 
   public ngAfterContentInit() {
+    // Inject custom toolbar items.
     this.toolbarItems.forEach((toolbarItem) => {
       this.dispatcher.toolbarAddItems(
-        [new ListToolbarItemModel(toolbarItem)],
+        [
+          new ListToolbarItemModel(toolbarItem)
+        ],
         toolbarItem.index
       );
     });
 
-    let sortModels = this.toolbarSorts.map(sort =>
+    const sortModels = this.toolbarSorts.map(sort =>
       new ListSortLabelModel(
         {
           text: sort.label,
@@ -259,16 +267,19 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
 
     this.dispatcher.sortSetGlobal(sortModels);
 
+    // Add inline filters.
     this.showFilterSummary = (this.filterSummary.length > 0);
     this.hasInlineFilters = (this.inlineFilter.length > 0);
 
     if (this.hasInlineFilters) {
-      this.dispatcher.toolbarAddItems([
-        new ListToolbarItemModel({
-          template: this.inlineFilterButtonTemplate,
-          location: 'left'
-        })
-      ], 0);
+      this.dispatcher.toolbarAddItems(
+        [
+          new ListToolbarItemModel({
+            template: this.inlineFilterButtonTemplate,
+            location: 'left'
+          })
+        ]
+      );
     }
   }
 

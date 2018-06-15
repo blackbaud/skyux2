@@ -16,4 +16,8 @@ export class SkyListToolbarDemoComponent {
     { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
+
+  public onFilterButtonClicked(): void {
+    alert('Filter button clicked');
+  }
 }

@@ -3,17 +3,36 @@
   [defaultView]="grid"
 >
   <sky-list-toolbar>
-    <sky-list-column-selector-action
-      [gridView]="grid"
+    <sky-list-toolbar-item
+      id="custom-item"
+      location="left"
+      index="0"
     >
-    </sky-list-column-selector-action>
-    <sky-list-secondary-actions>
-      <sky-list-secondary-action>
-        <button type="button">
-          Option
-        </button>
-      </sky-list-secondary-action>
-    </sky-list-secondary-actions>
+      <ng-template>
+        <sky-dropdown
+          buttonStyle="primary"
+        >
+          <sky-dropdown-button>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add
+          </sky-dropdown-button>
+        </sky-dropdown>
+      </ng-template>
+    </sky-list-toolbar-item>
+
+    <sky-list-filter-button>
+      <sky-filter-button
+        [showButtonText]="true"
+        (filterButtonClick)="onFilterButtonClicked()"
+      >
+      </sky-filter-button>
+    </sky-list-filter-button>
+
+    <sky-list-filter-summary
+      (summaryItemClick)="openFilterModal()"
+    >
+    </sky-list-filter-summary>
+
     <sky-list-toolbar-sort
       label="Fruit name (A - Z)"
       field="column2"
@@ -21,6 +40,7 @@
       type="string"
     >
     </sky-list-toolbar-sort>
+
     <sky-list-toolbar-sort
       label="Fruit name (Z - A)"
       field="column2"
@@ -28,6 +48,20 @@
       type="string"
     >
     </sky-list-toolbar-sort>
+
+    <sky-list-column-selector-action
+      [gridView]="grid"
+    >
+    </sky-list-column-selector-action>
+
+    <sky-list-secondary-actions>
+      <sky-list-secondary-action>
+        <button type="button">
+          Option
+        </button>
+      </sky-list-secondary-action>
+    </sky-list-secondary-actions>
+
     <sky-list-toolbar-view-actions>
       <button
         class="sky-btn sky-btn-default"
@@ -36,7 +70,9 @@
         Button
       </button>
     </sky-list-toolbar-view-actions>
+
   </sky-list-toolbar>
+
   <sky-list-view-grid fit="scroll" #grid>
     <sky-grid-column
       field="column1"
