@@ -1,8 +1,7 @@
 import {
   Component,
   EventEmitter,
-  ViewChild,
-  Input
+  ViewChild
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
