@@ -90,25 +90,31 @@ export class SkyWaitService {
   }
 
   private endPageWait(isBlocking: boolean) {
-    if (SkyWaitService.waitComponent) {
-      if (isBlocking) {
-        if (SkyWaitService.pageWaitBlockingCount > 0) {
-          SkyWaitService.pageWaitBlockingCount--;
-        }
+    /*
+        Needs to yield so that wait creation can finish
+        before it is dismissed in the event of a race.
+    */
+    setTimeout(() => {
+      if (SkyWaitService.waitComponent) {
+        if (isBlocking) {
+          if (SkyWaitService.pageWaitBlockingCount > 0) {
+            SkyWaitService.pageWaitBlockingCount--;
+          }
 
-        if (SkyWaitService.pageWaitBlockingCount < 1) {
-          SkyWaitService.waitComponent.hasBlockingWait = false;
-        }
-      } else {
-        if (SkyWaitService.pageWaitNonBlockingCount > 0) {
-          SkyWaitService.pageWaitNonBlockingCount--;
-        }
+          if (SkyWaitService.pageWaitBlockingCount < 1) {
+            SkyWaitService.waitComponent.hasBlockingWait = false;
+          }
+        } else {
+          if (SkyWaitService.pageWaitNonBlockingCount > 0) {
+            SkyWaitService.pageWaitNonBlockingCount--;
+          }
 
-        if (SkyWaitService.pageWaitNonBlockingCount < 1) {
-          SkyWaitService.waitComponent.hasNonBlockingWait = false;
+          if (SkyWaitService.pageWaitNonBlockingCount < 1) {
+            SkyWaitService.waitComponent.hasNonBlockingWait = false;
+          }
         }
       }
-    }
+    });
   }
 
   private clearPageWait(isBlocking: boolean) {
