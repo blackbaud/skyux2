@@ -288,6 +288,25 @@ describe('Modal component', () => {
     applicationRef.tick();
   }));
 
+  it('should not close on route change if it is already closed', fakeAsync(() => {
+    const instance = openModal(ModalTestComponent);
+    const closeSpy = spyOn(instance, 'close').and.callThrough();
+
+    expect(document.querySelector('.sky-modal')).toExist();
+
+    instance.close();
+    expect(closeSpy).toHaveBeenCalled();
+    closeSpy.calls.reset();
+
+    router.navigate(['/']);
+    tick();
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
+    expect(closeSpy).not.toHaveBeenCalled();
+
+    applicationRef.tick();
+  }));
+
   it('should trigger the help modal when the help button is clicked', fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent, { helpKey: 'default.html' });
     spyOn(modalInstance, 'openHelp').and.callThrough();
