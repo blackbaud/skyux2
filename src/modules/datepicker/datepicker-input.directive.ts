@@ -77,7 +77,7 @@ export class SkyDatepickerInputDirective implements
   public maxDate: Date;
 
   @Input()
-  public startingDay: number;
+  public startingDay: number = 0;
 
   private dateFormatter = new SkyDateFormatter();
 
