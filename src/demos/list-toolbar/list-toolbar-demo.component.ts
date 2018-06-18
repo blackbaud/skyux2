@@ -20,4 +20,8 @@ export class SkyListToolbarDemoComponent {
   public onFilterButtonClicked(): void {
     alert('Filter button clicked');
   }
+
+  public onSummaryItemClick(): void {
+    alert('Filter summary item clicked');
+  }
 }
