@@ -29,28 +29,14 @@ export class SkyDatepickerComponent {
   public dropdownController = new Subject<SkyDropdownMessage>();
   public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
   private _startingDay: number;
-  private _maxDate: Date;
-  private _minDate: Date;
+  public maxDate: Date;
+  public minDate: Date;
 
   public get startingDay(): number {
     return this._startingDay;
   }
   public set startingDay(value: number) {
     this._startingDay = value;
-  }
-
-  public get minDate(): Date {
-    return this._minDate;
-  }
-  public set minDate(value: Date) {
-    this._minDate = value;
-  }
-
-  public get maxDate(): Date {
-    return this._maxDate;
-  }
-  public set maxDate(value: Date) {
-    this._maxDate = value;
   }
 
   public dateSelected(newDate: Date) {
@@ -62,6 +48,14 @@ export class SkyDatepickerComponent {
 
   public setSelectedDate(newDate: Date) {
     this.calendar.writeValue(newDate);
+  }
+
+  public setMinDate(_minDate: Date) {
+    this.minDate = _minDate;
+  }
+
+  public setMaxDate(_maxDate: Date) {
+    this.maxDate = _maxDate;
   }
 
   public onCalendarModeChange() {

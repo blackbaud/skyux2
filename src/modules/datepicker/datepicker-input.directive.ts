@@ -114,12 +114,12 @@ export class SkyDatepickerInputDirective implements
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['minDate']) {
       this._validatorChange();
-      this.skyDatepickerInput.minDate = this.minDate;
+      this.skyDatepickerInput.setMinDate(this.minDate);
     }
 
     if (changes['maxDate']) {
       this._validatorChange();
-      this.skyDatepickerInput.maxDate = this.maxDate;
+      this.skyDatepickerInput.setMaxDate(this.maxDate);
     }
 
     if (changes['startingDay']) {
