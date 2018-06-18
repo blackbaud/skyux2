@@ -1,11 +1,22 @@
-import { SkyNumericService } from './numeric.service';
-import { CurrencyPipe, DecimalPipe } from '@angular/common';
-import { NumericOptions} from './numeric.options';
+import {
+  CurrencyPipe,
+  DecimalPipe
+} from '@angular/common';
 
-let skyNumeric = new SkyNumericService(new CurrencyPipe('en-US'), new DecimalPipe('en-US'));
+import {
+  NumericOptions
+} from './numeric.options';
 
-describe('formatNumber', () => {
+import {
+  SkyNumericService
+} from './numeric.service';
 
+const skyNumeric = new SkyNumericService(
+  new CurrencyPipe('en-US'),
+  new DecimalPipe('en-US')
+);
+
+describe('Numeric service', () => {
   it('formats 0 with 0 digits as 0', () => {
     const value = 0;
     let options = new NumericOptions();
@@ -140,4 +151,15 @@ describe('formatNumber', () => {
     expect(skyNumeric.formatNumber(value, options)).toBe('1.235');
   });
 
+  it('should handle localized shorten symbols', () => {
+    const originalValue = skyNumeric['symbolIndex'][3];
+    const value = 1450;
+    let options = new NumericOptions();
+
+    skyNumeric['symbolIndex'][3].label = 'c';
+
+    expect(skyNumeric.formatNumber(value, options)).toBe('1.5c');
+
+    skyNumeric['symbolIndex'][3] = originalValue;
+  });
 });
