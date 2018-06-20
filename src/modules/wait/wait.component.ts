@@ -8,6 +8,8 @@ import {
   SkyWaitAdapterService
 } from './wait-adapter.service';
 
+let nextId = 0;
+
 @Component({
   selector: 'sky-wait',
   templateUrl: './wait.component.html',
@@ -16,6 +18,8 @@ import {
 })
 export class SkyWaitComponent {
 
+  private id: string = `sky-checkbox-${++nextId}`;
+
   @Input()
   public set isWaiting(value: boolean) {
     if (value && !this._isFullPage) {
@@ -23,7 +27,7 @@ export class SkyWaitComponent {
     } else if (!value && !this._isFullPage) {
       this.adapterService.removeWaitBounds(this.elRef);
     }
-    this.adapterService.setBusyState(this.elRef, this._isFullPage, value);
+    this.adapterService.setBusyState(this.elRef, this._isFullPage, value, this.id);
     this._isWaiting = value;
   }
 
