@@ -1,5 +1,6 @@
 import {
-  TestBed
+  TestBed,
+  tick
 } from '@angular/core/testing';
 
 import {
@@ -127,5 +128,74 @@ describe('Wait component', () => {
     fixture.componentInstance.isWaiting = false;
     fixture.detectChanges();
     expect(el.querySelector('.sky-wait-test-component').getAttribute('aria-busy')).toBeNull();
+  });
+
+  it('should set aria-label on document body when fullPage is true and is blocking', async() => {
+    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+
+    fixture.componentInstance.isFullPage = true;
+    fixture.componentInstance.isWaiting = true;
+    fixture.componentInstance.isNonBlocking = false;
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(document.body.querySelector('sky-wait').getAttribute('aria-label')).toBe('Page loading. Please wait.');
+  });
+
+  it('should set aria-label on document body when fullPage is true and is not blocking', async() => {
+    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+
+    fixture.componentInstance.isFullPage = true;
+    fixture.componentInstance.isWaiting = true;
+    fixture.componentInstance.isNonBlocking = true;
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(document.body.querySelector('sky-wait').getAttribute('aria-label')).toBe('Page loading.');
+  });
+
+  it('should set aria-label on containing div when fullPage is set to false and is blocking', async() => {
+    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+
+    let el = fixture.nativeElement;
+    fixture.componentInstance.isFullPage = false;
+    fixture.componentInstance.isWaiting = true;
+    fixture.componentInstance.isNonBlocking = false;
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(el.querySelector('sky-wait').getAttribute('aria-label')).toBe('Loading. Please wait.');
+  });
+
+  it('should set aria-label on containing div when fullPage is set to false and is not blocking', async() => {
+    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+
+    let el = fixture.nativeElement;
+    fixture.componentInstance.isFullPage = false;
+    fixture.componentInstance.isWaiting = true;
+    fixture.componentInstance.isNonBlocking = false;
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(el.querySelector('sky-wait').getAttribute('aria-label')).toBe('Loading.');
+  });
+
+  it('should not use default aria-label when one is provided', async() => {
+    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+
+    let el = fixture.nativeElement;
+    fixture.componentInstance.isFullPage = false;
+    fixture.componentInstance.isWaiting = true;
+    fixture.componentInstance.isNonBlocking = false;
+    fixture.componentInstance.ariaLabel = 'Waiting on the page to load.';
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(el.querySelector('sky-wait').getAttribute('aria-label')).toBe('Waiting on the page to load.');
   });
 });

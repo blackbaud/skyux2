@@ -1,7 +1,8 @@
 import {
   Component,
   Input,
-  ElementRef
+  ElementRef,
+  AfterViewInit
 } from '@angular/core';
 
 import {
@@ -14,7 +15,7 @@ import {
   styleUrls: ['./wait.component.scss'],
   providers: [SkyWaitAdapterService]
 })
-export class SkyWaitComponent {
+export class SkyWaitComponent implements AfterViewInit {
 
   @Input()
   public set isWaiting(value: boolean) {
@@ -49,9 +50,24 @@ export class SkyWaitComponent {
   @Input()
   public isNonBlocking: boolean;
 
+  @Input()
+  public ariaLabel: string;
+
   private _isWaiting: boolean;
 
   private _isFullPage: boolean;
 
-  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService) { }
+  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService) {}
+
+  public ngAfterViewInit() {
+    let defaultMessage = 'Loading.';
+    if (this.isFullPage) {
+      defaultMessage = 'Page loading.';
+    }
+    if (!this.isNonBlocking) {
+      defaultMessage += ' Please wait.';
+    }
+
+    this.ariaLabel = this.ariaLabel || defaultMessage;
+  }
 }
