@@ -229,6 +229,21 @@ describe('Dropdown component', () => {
       expect(buttonElem).toHaveCssClass('sky-btn-primary');
     });
 
+    it('should have necessary aria properties', async() => {
+      fixture.detectChanges();
+      const buttonElem = getDropdownButtonElement();
+
+      expect(buttonElem.getAttribute('aria-haspopup')).toBe('true');
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('false');
+      expect(buttonElem.getAttribute('aria-controls')).toBe(getPopoverContainerElement().id);
+
+      buttonElem.click();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('true');
+    });
+
     it('should set the correct title when specified', () => {
       const buttonElem = getDropdownButtonElement();
       component.title = 'Dropdown title';
