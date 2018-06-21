@@ -1,5 +1,8 @@
-<div class="sky-popover-container"
+<div
+  class="sky-popover-container"
   tabindex="-1"
+  [id]="id"
+  [attr.role]="role"
   [ngClass]="[
     'sky-popover-alignment-' + alignment,
     'sky-popover-placement-' + placement

@@ -1,5 +1,8 @@
 <div class="sky-dropdown">
   <button
+    aria-haspopup="true"
+    [attr.aria-expanded]="isOpen"
+    [attr.aria-controls]="popover.id"
     type="button"
     class="sky-btn sky-dropdown-button"
     [ngClass]="[
@@ -43,6 +46,7 @@
   </button>
   <sky-popover
     placement="below"
+    role="menu"
     [alignment]="alignment"
     [dismissOnBlur]="dismissOnBlur"
     (popoverOpened)="onPopoverOpened()"
