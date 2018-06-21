@@ -2,7 +2,6 @@ import {
   Component,
   ComponentFactoryResolver,
   Injector,
-  OnDestroy,
   ReflectiveInjector,
   ViewChild,
   ViewContainerRef
@@ -13,11 +12,7 @@ import {
   Router
 } from '@angular/router';
 
-import {
-  Subject
-} from 'rxjs/Subject';
-
-import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/takeWhile';
 
 import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalInstance } from './modal-instance';
@@ -32,7 +27,7 @@ import { SkyModalConfiguration } from './modal-configuration';
   viewProviders: [SkyModalAdapterService]
 })
 
-export class SkyModalHostComponent implements OnDestroy {
+export class SkyModalHostComponent {
   public get modalOpen() {
     return SkyModalHostService.openModalCount > 0;
   }
@@ -44,8 +39,6 @@ export class SkyModalHostComponent implements OnDestroy {
   @ViewChild('target', { read: ViewContainerRef })
   public target: ViewContainerRef;
 
-  private ngUnsubscribe = new Subject();
-
   constructor(
     private resolver: ComponentFactoryResolver,
     private adapter: SkyModalAdapterService,
@@ -53,17 +46,13 @@ export class SkyModalHostComponent implements OnDestroy {
     private router: Router
   ) { }
 
-  public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
     let params: IConfig = Object.assign({}, config);
     let factory = this.resolver.resolveComponentFactory(component);
     let hostService = new SkyModalHostService(params.fullPage);
     let adapter = this.adapter;
     let modalOpener: HTMLElement = adapter.getModalOpener();
+    let isOpen = true;
 
     params.providers.push({
       provide: SkyModalHostService,
@@ -105,7 +94,7 @@ export class SkyModalHostComponent implements OnDestroy {
     });
 
     this.router.events
-      .takeUntil(this.ngUnsubscribe)
+      .takeWhile(() => isOpen)
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
           modalInstance.close();
@@ -113,6 +102,7 @@ export class SkyModalHostComponent implements OnDestroy {
       });
 
     modalInstance.closed.subscribe(() => {
+      isOpen = false;
       closeModal();
     });
   }
