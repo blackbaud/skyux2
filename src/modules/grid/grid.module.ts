@@ -4,6 +4,7 @@ import { SkyGridComponent } from './grid.component';
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridCellComponent } from './grid-cell.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { SkyUIConfigService } from '../shared/ui-config.service';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,9 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula';
   imports: [
     CommonModule,
     DragulaModule
+  ],
+  providers: [
+    SkyUIConfigService
   ],
   exports: [
     SkyGridComponent,

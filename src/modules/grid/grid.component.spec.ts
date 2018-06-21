@@ -29,11 +29,16 @@ import { GridFixturesModule } from './fixtures/grid-fixtures.module';
 import { GridTestComponent } from './fixtures/grid.component.fixture';
 import { MockDragulaService } from './fixtures/mock-dragula.service';
 
+import { MockSkyUIConfigService } from '../testing/mocks';
+import { SkyUIConfigService } from '../shared/ui-config.service';
+
 import {
   SkyGridModule,
   SkyGridComponent,
   SkyGridColumnModel
 } from './';
+import { GridSettingsTestComponent } from './fixtures/grid-settings.component.fixture';
+import { ListSortFieldSelectorModel } from '../../core';
 
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(
@@ -726,5 +731,99 @@ describe('Grid Component', () => {
 
       expect(getColumnHeader('column1', element).nativeElement.textContent.trim()).toBe('Column1');
     }));
+  });
+
+  describe('user settings', () => {
+    let component: GridSettingsTestComponent;
+    let fixture: ComponentFixture<GridSettingsTestComponent>;
+    let mockUIConfigService: MockSkyUIConfigService;
+
+    beforeEach(async(() => {
+      mockUIConfigService = new MockSkyUIConfigService();
+      TestBed.configureTestingModule({
+        imports: [
+          GridFixturesModule,
+          SkyGridModule
+        ],
+        providers: [
+          {provide: SkyUIConfigService, useValue: mockUIConfigService}
+        ]
+      });
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(GridSettingsTestComponent);
+      component = fixture.componentInstance;
+    });
+
+    it(
+      'should order the columns and emit sortFieldChange when user has settings', () => {
+        let expectedColumnIds = [
+          'column2',
+          'composite',
+          'column3',
+          'column1'
+        ];
+        let expectedSortSelector = {
+          fieldSelector: 'column3',
+          descending: false
+        };
+        component.setKey('columnOrder');
+        component.grid.selectedColumnIdsChange.subscribe((newIds: string[]) => {
+          expect(newIds).toEqual(expectedColumnIds);
+        });
+        component.grid.sortFieldChange.subscribe((sortField: ListSortFieldSelectorModel) => {
+          expect(sortField).toEqual(expectedSortSelector);
+        });
+        fixture.detectChanges();
+      }
+    );
+
+    it(
+      'should handle new columns in default', () => {
+        let expectedColumnIds = [
+          'column2',
+          'composite',
+          'column1',
+          'column3'
+        ];
+        let expectedSortSelector = {
+          fieldSelector: 'column3',
+          descending: false
+        };
+        component.setKey('newColumnOrder');
+        component.grid.selectedColumnIdsChange.subscribe((newIds: string[]) => {
+          expect(newIds).toEqual(expectedColumnIds);
+        });
+        component.grid.sortFieldChange.subscribe((sortField: ListSortFieldSelectorModel) => {
+          expect(sortField).toEqual(expectedSortSelector);
+        });
+        fixture.detectChanges();
+      }
+    );
+
+    it(
+      'should handle old columns in default', () => {
+        let expectedColumnIds = [
+          'column2',
+          'composite',
+          'column3',
+          'column1'
+        ];
+        let expectedSortSelector = {
+          fieldSelector: 'column3',
+          descending: false
+        };
+        component.setKey('oldColumnOrder');
+        component.grid.selectedColumnIdsChange.subscribe((newIds: string[]) => {
+          expect(newIds).toEqual(expectedColumnIds);
+        });
+        component.grid.sortFieldChange.subscribe((sortField: ListSortFieldSelectorModel) => {
+          expect(sortField).toEqual(expectedSortSelector);
+        });
+        fixture.detectChanges();
+      }
+    );
+
   });
 });

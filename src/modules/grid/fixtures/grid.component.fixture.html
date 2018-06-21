@@ -7,7 +7,8 @@
   [width]="600"
   [height]="400"
   [sortField]="sortField"
-  (sortFieldChange)="onSort($event)">
+  (sortFieldChange)="onSort($event)"
+  [settingsKey]="'defaultSettings'">
   <sky-grid-column
     field="column1"
     heading="Column1"

@@ -7,13 +7,15 @@ import { GridTestComponent } from './grid.component.fixture';
 import { GridEmptyTestComponent } from './grid-empty.component.fixture';
 import { GridDynamicTestComponent } from './grid-dynamic.component.fixture';
 import { GridAsyncTestComponent } from './grid-async.component.fixture';
+import { GridSettingsTestComponent } from './grid-settings.component.fixture';
 
 @NgModule({
   declarations: [
     GridTestComponent,
     GridEmptyTestComponent,
     GridDynamicTestComponent,
-    GridAsyncTestComponent
+    GridAsyncTestComponent,
+    GridSettingsTestComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { GridAsyncTestComponent } from './grid-async.component.fixture';
     GridTestComponent,
     GridEmptyTestComponent,
     GridDynamicTestComponent,
-    GridAsyncTestComponent
+    GridAsyncTestComponent,
+    GridSettingsTestComponent
   ]
 })
 export class GridFixturesModule { }

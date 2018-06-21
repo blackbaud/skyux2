@@ -35,6 +35,8 @@ import {
   SkyGridColumnHeadingModelChange
 } from './types';
 
+import { SkyUIConfigService } from '../shared/ui-config.service';
+
 @Component({
   selector: 'sky-grid',
   templateUrl: './grid.component.html',
@@ -70,6 +72,9 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   @Input()
   public sortField: ListSortFieldSelectorModel;
 
+  @Input()
+  public settingsKey: string;
+
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 
@@ -80,6 +85,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   public displayedColumns: Array<SkyGridColumnModel>;
   public currentSortField: BehaviorSubject<ListSortFieldSelectorModel>;
 
+  private sortedField: ListSortFieldSelectorModel;
+
   @ContentChildren(SkyGridColumnComponent, { descendants: true })
   private columnComponents: QueryList<SkyGridColumnComponent>;
 
@@ -88,7 +95,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   constructor(
     private dragulaService: DragulaService,
     private ref: ChangeDetectorRef,
-    private gridAdapter: SkyGridAdapterService
+    private gridAdapter: SkyGridAdapterService,
+    private uiConfigService: SkyUIConfigService
   ) {
     this.displayedColumns = new Array<SkyGridColumnModel>();
     this.items = new Array<any>();
@@ -106,8 +114,42 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
         this.getColumnsFromComponent();
       }
 
-      this.transformData();
-      this.setDisplayedColumns(true);
+      if (this.settingsKey) {
+        this.subscriptions.push(this.uiConfigService.getConfig(this.settingsKey).subscribe((value: any)  => {
+          if (value) {
+            let result = value.settings.userSettings;
+            /* istanbul ignore else */
+            if (result.gridColumnOrder) {
+              let newColumns: SkyGridColumnModel[] = [];
+              this.selectedColumnIds = [];
+
+              result.gridColumnOrder.forEach((elem: string, index: number) => {
+                this.columns.forEach(item => {
+                  if (elem === item.id) {
+                    newColumns.push(item);
+                    this.selectedColumnIds.push(item.id);
+                  }
+                });
+              });
+
+              this.columns = this.checkForNewColumns(newColumns);
+              this.selectedColumnIdsChange.emit(this.selectedColumnIds);
+            }
+            /* istanbul ignore else */
+            if (result.sortByColumn) {
+              this.sortField = result.sortByColumn;
+              this.sortedField = result.sortByColumn;
+              this.setSortHeaders();
+              this.sortFieldChange.emit(this.sortField);
+            }
+          }
+          this.transformData();
+          this.setDisplayedColumns(true);
+        }));
+      } else {
+        this.transformData();
+        this.setDisplayedColumns(true);
+      }
     }
 
     // Watch for added/removed columns:
@@ -172,6 +214,18 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
             descending: false
           };
         }
+
+        this.sortedField = selector;
+        /* istanbul ignore else */
+        if (this.settingsKey) {
+          let data = {
+            userSettings: {
+              gridColumnOrder: this.selectedColumnIds,
+              sortByColumn: this.sortedField
+            }
+          };
+          this.uiConfigService.setConfig(this.settingsKey, data);
+        }
         this.sortFieldChange.emit(selector);
         this.currentSortField.next(selector);
       })
@@ -204,6 +258,17 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   }
 
   private onHeaderDrop(newColumnIds: Array<string>) {
+    /* istanbul ignore else */
+    if (this.settingsKey) {
+      let data = {
+        userSettings: {
+          gridColumnOrder: newColumnIds,
+          sortByColumn: this.sortedField
+        }
+      };
+      this.uiConfigService.setConfig(this.settingsKey, data);
+    }
+
     // update selected columnIds
     this.selectedColumnIds = newColumnIds;
     this.selectedColumnIdsChange.emit(newColumnIds);
@@ -255,5 +320,18 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     this.getColumnsFromComponent();
     this.setDisplayedColumns(true);
     this.ref.markForCheck();
+  }
+
+  private checkForNewColumns(columns: SkyGridColumnModel[]) {
+    let newColumns = columns;
+
+    this.columns.forEach(elem => {
+      if (newColumns.indexOf(elem) === -1) {
+        newColumns.push(elem);
+        this.selectedColumnIds.push(elem.id);
+      }
+    });
+
+    return newColumns;
   }
 }
