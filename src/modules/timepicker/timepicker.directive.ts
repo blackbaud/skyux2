@@ -52,12 +52,18 @@ export class SkyTimepickerInputDirective implements
   OnInit, OnDestroy, ControlValueAccessor, Validator, OnChanges {
 
   public pickerChangedSubscription: Subscription;
+  private _timeFormat: string = 'hh';
 
   @Input()
   public skyTimepickerInput: SkyTimepickerComponent;
 
   @Input()
-  public timeFormat: string = 'hh';
+  public set timeFormat(value: string) {
+    this._timeFormat = value || 'hh';
+  }
+  public get timeFormat(): string {
+    return this._timeFormat;
+  }
 
   @Input()
   public returnFormat: string;
@@ -79,7 +85,7 @@ export class SkyTimepickerInputDirective implements
 
   public ngOnChanges(changes: SimpleChanges) {
     this._validatorChange();
-    this.timeFormat = this.timeFormat || 'hh';
+    this.timeFormat = this.timeFormat;
     this.skyTimepickerInput.setFormat(this.timeFormat);
     this.skyTimepickerInput.returnFormat = this.returnFormat;
   }
