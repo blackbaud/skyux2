@@ -1,6 +1,7 @@
 <div style="max-width: 50%">
   <sky-datepicker #picker>
     <input
+      aria-label="This is a date field."
       [(ngModel)]="selectedDate"
       [skyDatepickerInput]="picker"
       [minDate]="minDate"

@@ -127,6 +127,10 @@
     "_description": "error message shown when an invalid date is entered.",
     "message": "Please enter a valid date"
   },
+  "date_field_default_label": {
+    "_description": "The label for the datepicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Date input field."
+  },
   "date_range_picker_at_any_time": {
     "_description": "text for date range picker",
     "message": "At any time"

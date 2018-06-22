@@ -8,8 +8,7 @@ import {
   Renderer,
   ElementRef,
   SimpleChanges,
-  OnChanges,
-  HostBinding
+  OnChanges
 } from '@angular/core';
 
 import {
@@ -35,6 +34,9 @@ import {
 import {
   SkyDatepickerConfigService
 } from './datepicker-config.service';
+import {
+  SkyResourcesService
+} from '../resources';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_DATEPICKER_VALUE_ACCESSOR = {
@@ -62,10 +64,6 @@ export class SkyDatepickerInputDirective implements
 
   public pickerChangedSubscription: Subscription;
 
-  @HostBinding('attr.aria-label')
-  @Input()
-  public ariaLabel: string;
-
   @Input()
   public skyDatepickerInput: SkyDatepickerComponent;
 
@@ -82,13 +80,13 @@ export class SkyDatepickerInputDirective implements
   public maxDate: Date;
 
   private dateFormatter = new SkyDateFormatter();
-
   private modelValue: Date;
 
   public constructor(
     private renderer: Renderer,
     private elRef: ElementRef,
-    private config: SkyDatepickerConfigService) {
+    private config: SkyDatepickerConfigService,
+    private skyResourceSvc: SkyResourcesService) {
     this.configureOptions();
   }
 
@@ -103,7 +101,12 @@ export class SkyDatepickerInputDirective implements
         this.writeValue(newDate);
         this._onChange(newDate);
       });
-    this.ariaLabel = this.ariaLabel || 'Date input field. Uses format: ' + this.dateFormat;
+    if (!this.elRef.nativeElement.getAttribute('aria-label')) {
+      this.renderer.setElementAttribute(
+        this.elRef.nativeElement,
+        'aria-label',
+        this.skyResourceSvc.getString('date_field_default_label'));
+    }
   }
 
   public ngOnDestroy() {
