@@ -11,6 +11,7 @@ import {
 import {
   SkyWaitPageAdapterService
 } from './wait-page-adapter.service';
+import { SkyWindowRefService } from '../window';
 
 @Injectable()
 export class SkyWaitService {
@@ -22,7 +23,8 @@ export class SkyWaitService {
   constructor(
     private resolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
-    private waitAdapter: SkyWaitPageAdapterService
+    private waitAdapter: SkyWaitPageAdapterService,
+    private windowSvc: SkyWindowRefService
     ) {}
 
   public beginBlockingPageWait() {
@@ -71,7 +73,7 @@ export class SkyWaitService {
           Dynamic component creation needs to be done in a timeout to prevent ApplicationRef from
           crashing when wait service is called in Angular lifecycle functions.
       */
-      setTimeout(() => {
+      this.windowSvc.getWindow().setTimeout(() => {
         let factory = this.resolver.resolveComponentFactory(SkyWaitPageComponent);
 
         this.waitAdapter.addPageWaitEl();
@@ -94,7 +96,7 @@ export class SkyWaitService {
         Needs to yield so that wait creation can finish
         before it is dismissed in the event of a race.
     */
-    setTimeout(() => {
+    this.windowSvc.getWindow().setTimeout(() => {
       if (SkyWaitService.waitComponent) {
         if (isBlocking) {
           if (SkyWaitService.pageWaitBlockingCount > 0) {
