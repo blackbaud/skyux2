@@ -86,7 +86,7 @@ export class SkyTabsetComponent
 
   public ngAfterContentInit() {
     // initialize each tab's index. (in case tabs are instantiated out of order)
-    this.tabs.forEach(item => item.skyAfterContentInit());
+    this.tabs.forEach(item => item.initializeTabIndex());
 
     if (this.active || this.active === 0) {
       this.tabsetService.activateTabIndex(this.active);

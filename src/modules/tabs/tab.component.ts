@@ -40,7 +40,7 @@ export class SkyTabComponent implements OnDestroy, OnChanges {
 
   constructor(private tabsetService: SkyTabsetService, private ref: ChangeDetectorRef) {}
 
-  public skyAfterContentInit() {
+  public initializeTabIndex() {
     setTimeout(() => {
       this.tabsetService.addTab(this);
 
@@ -71,8 +71,6 @@ export class SkyTabComponent implements OnDestroy, OnChanges {
 
   }
 
-
-
   public ngOnDestroy() {
 
     this.tabsetService.destroyTab(this);
@@ -80,4 +78,3 @@ export class SkyTabComponent implements OnDestroy, OnChanges {
   }
 
 }
-
