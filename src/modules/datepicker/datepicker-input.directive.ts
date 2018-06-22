@@ -8,7 +8,8 @@ import {
   Renderer,
   ElementRef,
   SimpleChanges,
-  OnChanges
+  OnChanges,
+  HostBinding
 } from '@angular/core';
 
 import {
@@ -61,6 +62,10 @@ export class SkyDatepickerInputDirective implements
 
   public pickerChangedSubscription: Subscription;
 
+  @HostBinding('attr.aria-label')
+  @Input()
+  public ariaLabel: string;
+
   @Input()
   public skyDatepickerInput: SkyDatepickerComponent;
 
@@ -98,6 +103,7 @@ export class SkyDatepickerInputDirective implements
         this.writeValue(newDate);
         this._onChange(newDate);
       });
+    this.ariaLabel = this.ariaLabel || 'Date input field. Uses format: ' + this.dateFormat;
   }
 
   public ngOnDestroy() {
