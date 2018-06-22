@@ -634,6 +634,22 @@ describe('datepicker', () => {
 
         expect(dateButtonEl).toHaveCssClass('sky-btn-disabled');
       }));
+
+      it('should pass starting day to calendar', fakeAsync(() => {
+        component.selectedDate = new Date('5/21/2017');
+        component.startingDay = 5;
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        openDatepicker(fixture.nativeElement, fixture);
+        tick();
+
+        let firstDayCol = fixture.nativeElement
+          .querySelectorAll('.sky-datepicker-center.sky-datepicker-weekdays').item(0) as HTMLElement;
+
+        expect(firstDayCol.textContent).toContain('Fr');
+      }));
     });
   });
 
