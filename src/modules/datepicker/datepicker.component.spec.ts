@@ -169,6 +169,17 @@ describe('datepicker', () => {
         .not.toBeNull();
     });
 
+    it('should apply aria-label to the datepicker input when none is provided', () => {
+      fixture.detectChanges();
+      expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('Date input field.');
+    });
+
+    it('should not overwrite aria-label on the datepicker input when one is provided', () => {
+      nativeElement.querySelector('input').setAttribute('aria-label', 'This is a date field.');
+      fixture.detectChanges();
+      expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('This is a date field.');
+    });
+
     it('should keep the calendar open on mode change', fakeAsync(() => {
       fixture.detectChanges();
       openDatepicker(nativeElement, fixture);
