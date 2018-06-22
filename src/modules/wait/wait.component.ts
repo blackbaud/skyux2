@@ -1,13 +1,15 @@
 import {
   Component,
   Input,
-  ElementRef,
-  AfterViewInit
+  ElementRef
 } from '@angular/core';
 
 import {
   SkyWaitAdapterService
 } from './wait-adapter.service';
+import {
+  SkyResourcesService
+} from '../resources';
 
 @Component({
   selector: 'sky-wait',
@@ -15,7 +17,7 @@ import {
   styleUrls: ['./wait.component.scss'],
   providers: [SkyWaitAdapterService]
 })
-export class SkyWaitComponent implements AfterViewInit {
+export class SkyWaitComponent {
 
   @Input()
   public set isWaiting(value: boolean) {
@@ -51,23 +53,20 @@ export class SkyWaitComponent implements AfterViewInit {
   public isNonBlocking: boolean;
 
   @Input()
-  public ariaLabel: string;
+  public set ariaLabel(value: string) {
+    let type = this.isFullPage ? '_page' : '';
+    let blocking = this.isNonBlocking ? '' : '_blocking';
+    let defaultMessage = this.resourceService.getString('wait' + type + blocking + '_aria_alt_text');
+
+    this._ariaLabel = value || defaultMessage;
+  }
+  public get ariaLabel(): string {
+    return this._ariaLabel;
+  }
 
   private _isWaiting: boolean;
-
+  private _ariaLabel: string;
   private _isFullPage: boolean;
 
-  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService) {}
-
-  public ngAfterViewInit() {
-    let defaultMessage = 'Loading.';
-    if (this.isFullPage) {
-      defaultMessage = 'Page loading.';
-    }
-    if (!this.isNonBlocking) {
-      defaultMessage += ' Please wait.';
-    }
-
-    this.ariaLabel = this.ariaLabel || defaultMessage;
-  }
+  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService, private resourceService: SkyResourcesService) {}
 }
