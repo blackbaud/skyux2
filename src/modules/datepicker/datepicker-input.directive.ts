@@ -79,6 +79,9 @@ export class SkyDatepickerInputDirective implements
   @Input()
   public maxDate: Date;
 
+  @Input()
+  public startingDay: number = 0;
+
   private dateFormatter = new SkyDateFormatter();
   private modelValue: Date;
 
@@ -126,6 +129,11 @@ export class SkyDatepickerInputDirective implements
     if (changes['maxDate']) {
       this._validatorChange();
       this.skyDatepickerInput.setMaxDate(this.maxDate);
+    }
+
+    if (changes['startingDay']) {
+      this._validatorChange();
+      this.skyDatepickerInput.startingDay = this.startingDay;
     }
   }
 
