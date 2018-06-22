@@ -61,9 +61,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   public popoverTitle: string;
 
   @Input()
-  public role: string;
-
-  @Input()
   public set alignment(value: SkyPopoverAlignment) {
     this._alignment = value;
   }
