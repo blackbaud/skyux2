@@ -20,6 +20,8 @@ import {
   SkyRepeaterService
 } from './repeater.service';
 
+let nextId: number = 0;
+
 @Component({
   selector: 'sky-repeater-item',
   styleUrls: ['./repeater-item.component.scss'],
@@ -27,6 +29,7 @@ import {
   animations: [skyAnimationSlide]
 })
 export class SkyRepeaterItemComponent {
+  public contentId: string = `sky-radio-content-${++nextId}`;
 
   public get isExpanded(): boolean {
     return this._isExpanded;
