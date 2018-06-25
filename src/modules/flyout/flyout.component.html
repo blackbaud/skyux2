@@ -19,7 +19,15 @@
   </button>
 
   <div class="sky-flyout-header" #flyoutHeader>
-    <div class="sky-flyout-header-content"></div>
+    <div class="sky-flyout-header-content">
+      <input
+        aria-label="Width of flyout"
+        class="sky-flyout-input-aria-only"
+        type="range"
+        [min]="config.minWidth"
+        [max]="config.maxWidth"
+        [(ngModel)]="flyoutWidth" />
+    </div>
     <div class="sky-flyout-header-buttons">
       <ng-container *ngTemplateOutlet="permalinkTemplate">
       </ng-container>

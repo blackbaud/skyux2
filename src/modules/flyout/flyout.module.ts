@@ -21,6 +21,7 @@ import {
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutComponent } from './flyout.component';
 import { SkyFlyoutService } from './flyout.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SkyFlyoutService } from './flyout.service';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule,
     SkyResourcesModule
   ],
