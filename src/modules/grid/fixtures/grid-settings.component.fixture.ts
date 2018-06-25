@@ -4,8 +4,6 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { SkyGridComponent } from '../grid.component';
 
 @Component({
