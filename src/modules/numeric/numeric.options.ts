@@ -1,5 +1,5 @@
 export class NumericOptions {
-  public digits: number = 1;
-  public format: string = 'number';
-  public iso: string = 'USD';
+  public digits = 1;
+  public format = 'number';
+  public iso = 'USD';
 }
