@@ -74,29 +74,34 @@ export class SkyPagingComponent implements OnChanges {
     maxDisplayedPages: number,
     pageNumber: number
   ): Array<number> {
-    let pageBounds = Math.floor((maxDisplayedPages - 1) / 2);
-    let lowerBound = pageNumber - pageBounds - 1;
-    let upperBound = pageNumber + pageBounds - 1;
+    let pageIndex = pageNumber - 1;
+    let pageBounds = Math.floor(maxDisplayedPages / 2);
 
+    let upperBound = pageIndex + pageBounds;
+    let lowerBound = pageIndex - pageBounds;
+    if (maxDisplayedPages % 2 !== 0) {
+      upperBound += 1;
+    }
+
+    // Wrap negative values to increase the upperbound
+    if (lowerBound < 0) {
+      upperBound -= lowerBound;
+      lowerBound = 0;
+    }
+    // Wrap overflow to decrease the lowerbound
+    if (upperBound > pageCount) {
+      lowerBound -= upperBound - pageCount;
+      upperBound = pageCount;
+    }
+
+    // If both are the same ignore everything else and just display it all
     if (pageCount < maxDisplayedPages) {
       lowerBound = 0;
-      upperBound = pageCount - 1;
-    } else {
-      if (upperBound > pageCount - 1) {
-        upperBound = pageCount - 1;
-        /* istanbul ignore else */
-        /* sanity check */
-        if (upperBound - lowerBound < maxDisplayedPages) {
-          lowerBound = upperBound - maxDisplayedPages + 1;
-        }
-      } else if (lowerBound < 0) {
-        lowerBound = 0;
-        upperBound = maxDisplayedPages - 1;
-      }
+      upperBound = pageCount;
     }
 
     let displayedPageNumbers: Array<number> = [];
-    for (let i = lowerBound; i <= upperBound; i++) {
+    for (let i = lowerBound; i < upperBound; i++) {
       displayedPageNumbers.push(i + 1);
     }
     return displayedPageNumbers;
