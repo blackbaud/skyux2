@@ -11,7 +11,9 @@ import {
 import {
   SkyWaitPageAdapterService
 } from './wait-page-adapter.service';
-import { SkyWindowRefService } from '../window';
+import {
+  SkyWindowRefService
+} from '../window';
 
 @Injectable()
 export class SkyWaitService {
