@@ -13,9 +13,6 @@ import {
 import {
   SkyWaitComponent
 } from './wait.component';
-import {
-  SkyWaitAdapterService
-} from './wait-adapter.service';
 
 describe('Wait component', () => {
 
