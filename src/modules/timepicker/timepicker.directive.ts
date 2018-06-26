@@ -85,7 +85,6 @@ export class SkyTimepickerInputDirective implements
 
   public ngOnChanges(changes: SimpleChanges) {
     this._validatorChange();
-    this.timeFormat = this.timeFormat;
     this.skyTimepickerInput.setFormat(this.timeFormat);
     this.skyTimepickerInput.returnFormat = this.returnFormat;
   }
