@@ -243,7 +243,7 @@ describe('Flyout component', () => {
       openFlyout({});
       const flyoutElement = getFlyoutElement();
       expect(flyoutElement.style.width).toBe('500px');
-      let resizeInput: HTMLInputElement = flyoutElement.querySelector('.sky-flyout-input-aria-only');
+      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-input-aria-only');
 
       resizeInput.value = '400';
       SkyAppTestUtility.fireDomEvent(resizeInput, 'input');
