@@ -54,9 +54,9 @@ export class SkyWaitComponent {
 
   @Input()
   public set ariaLabel(value: string) {
-    let type = this.isFullPage ? '_page' : '';
-    let blocking = this.isNonBlocking ? '' : '_blocking';
-    let defaultMessage = this.resourceService.getString('wait' + type + blocking + '_aria_alt_text');
+    const type = this.isFullPage ? '_page' : '';
+    const blocking = this.isNonBlocking ? '' : '_blocking';
+    const defaultMessage = this.resourceService.getString('wait' + type + blocking + '_aria_alt_text');
 
     this._ariaLabel = value || defaultMessage;
   }
@@ -68,5 +68,9 @@ export class SkyWaitComponent {
   private _ariaLabel: string;
   private _isFullPage: boolean;
 
-  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService, private resourceService: SkyResourcesService) {}
+  constructor(
+    private elRef: ElementRef,
+    private adapterService: SkyWaitAdapterService,
+    private resourceService: SkyResourcesService
+  ) {}
 }
