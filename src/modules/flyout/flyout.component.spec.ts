@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect
+  expect, SkyAppTestUtility
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
@@ -229,11 +229,33 @@ describe('Flyout component', () => {
       handleElement.dispatchEvent(evt);
       makeEvent('mousemove', { clientX: 1100 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('400px');
       makeEvent('mousemove', { clientX: 1000 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('500px');
       makeEvent('mouseup', {});
+    })
+  );
+
+  it('should resize flyout when range input is changed', fakeAsync(() => {
+      openFlyout({});
+      const flyoutElement = getFlyoutElement();
+      expect(flyoutElement.style.width).toBe('500px');
+      let resizeInput: HTMLInputElement = flyoutElement.querySelector('.sky-flyout-input-aria-only');
+
+      resizeInput.value = '400';
+      SkyAppTestUtility.fireDomEvent(resizeInput, 'input');
+      fixture.detectChanges();
+      tick();
+      expect(flyoutElement.style.width).toBe('400px');
+
+      resizeInput.value = '500';
+      SkyAppTestUtility.fireDomEvent(resizeInput, 'input');
+      fixture.detectChanges();
+      tick();
+      expect(flyoutElement.style.width).toBe('500px');
     })
   );
 
@@ -249,15 +271,19 @@ describe('Flyout component', () => {
       handleElement.dispatchEvent(evt);
       makeEvent('mousemove', { clientX: 500 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('1000px');
       makeEvent('mousemove', { clientX: 200 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('1000px');
       makeEvent('mousemove', { clientX: 1300 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('200px');
       makeEvent('mousemove', { clientX: 1400 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('200px');
       makeEvent('mouseup', {});
     })
