@@ -237,6 +237,9 @@ describe('Dropdown component', () => {
       expect(buttonElem.getAttribute('aria-expanded')).toBe('false');
       expect(buttonElem.getAttribute('aria-controls')).toBe(getPopoverContainerElement().id);
 
+      const menuElem = getDropdownMenuHostElement().querySelector('.sky-dropdown-menu');
+      expect(menuElem.getAttribute('role')).toBe('menu');
+
       buttonElem.click();
       fixture.detectChanges();
       tick();

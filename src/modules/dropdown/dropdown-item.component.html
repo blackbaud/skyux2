@@ -1,6 +1,6 @@
 <div
   class="sky-dropdown-item"
-  role="menuitem"
+  [attr.role]="ariaRole"
   [ngClass]="{
     'sky-dropdown-item-active': isActive,
     'sky-dropdown-item-disabled': isDisabled

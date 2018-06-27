@@ -37,6 +37,9 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public id: string = `sky-dropdown-menu-${++nextId}`;
 
   @Input()
+  public ariaRole = 'menu';
+
+  @Input()
   public useNativeFocus = true;
 
   @Output()
