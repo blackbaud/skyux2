@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 @Component({
   selector: 'sky-checkbox-demo',
@@ -7,18 +9,18 @@ import { Component } from '@angular/core';
 export class SkyCheckboxDemoComponent {
   public checkboxItems = [
     {
-      description: 'Checkbox 1'
+      label: 'Checkbox 1'
     },
     {
-      description: 'Checkbox 2',
+      label: 'Checkbox 2',
       checked: true
     },
     {
-      description: 'Disabled',
+      label: 'Disabled',
       disabled: true
     },
     {
-      description: 'Disabled and selected',
+      label: 'Disabled and checked',
       checked: true,
       disabled: true
     }

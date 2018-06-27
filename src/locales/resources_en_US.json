@@ -439,6 +439,10 @@
     "_description": "Text for flyout close button",
     "message": "Close flyout"
   },
+  "flyout_permalink_button": {
+    "_description": "Default text for the flyout permalink button",
+    "message": "View record"
+  },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
     "message": "Cancel"
@@ -526,6 +530,10 @@
   "help_inline_button_title": {
     "_description": "The title for the help button.",
     "message": "Show help content"
+  },
+  "infinite_scroll_load_more_button": {
+    "_description": "Text for loading more in the infinite scroll button",
+    "message": "Load more"
   },
   "link_records_item_info_match": {
     "_description": "",
@@ -838,6 +846,10 @@
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"
+  },
+  "toast_close_button": {
+    "_description": "Screen reader text for the close button on toasts",
+    "message": "Close the toast"
   },
   "token_dismiss_button_title": {
     "_description": "The default text for the token dismiss button title.",

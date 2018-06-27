@@ -28,8 +28,16 @@ export class SkyDatepickerComponent {
 
   public dropdownController = new Subject<SkyDropdownMessage>();
   public dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
+  private _startingDay: number = 0;
   public maxDate: Date;
   public minDate: Date;
+
+  public get startingDay(): number {
+    return this._startingDay;
+  }
+  public set startingDay(value: number) {
+    this._startingDay = value;
+  }
 
   public dateSelected(newDate: Date) {
     this.dateChanged.emit(newDate);
