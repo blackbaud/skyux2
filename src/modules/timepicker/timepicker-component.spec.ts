@@ -46,12 +46,11 @@ describe('Timepicker', () => {
     let inputEl = element.querySelector('input');
     inputEl.value = text;
     inputEl.dispatchEvent(inputEvent);
-    tick();
     compFixture.detectChanges();
 
     inputEl.dispatchEvent(changeEvent);
-    tick();
     compFixture.detectChanges();
+    tick();
   }
 
   let fixture: ComponentFixture<TimepickerTestComponent>;
