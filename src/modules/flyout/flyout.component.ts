@@ -103,7 +103,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
   public get primaryActionLabel(): string {
     if (this.config.primaryAction) {
-      return this.primaryActionLabel;
+      return this.config.primaryAction.label;
     }
   }
 
@@ -182,7 +182,11 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       this.primaryAction.callback();
     }
 
-    this.close();
+    if (this.config.primaryAction.closeAfterInvoking) {
+      this.close();
+    }
+
+    return false;
   }
 
   public getAnimationState(): string {
