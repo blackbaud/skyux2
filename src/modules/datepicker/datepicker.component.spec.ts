@@ -128,6 +128,8 @@ describe('datepicker', () => {
       component = fixture.componentInstance;
 
       fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
       setInput(nativeElement, '5/12/2017', fixture);
 
@@ -284,16 +286,19 @@ describe('datepicker', () => {
     });
 
     describe('input change', () => {
-
       it('should handle input change with a string with the expected format', fakeAsync(() => {
         fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
         setInput(nativeElement, '5/12/2017', fixture);
         expect(nativeElement.querySelector('input').value).toBe('05/12/2017');
         expect(component.selectedDate).toEqual(new Date('5/12/2017'));
-
       }));
 
       it('should handle input change with a ISO string', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
         fixture.detectChanges();
         setInput(nativeElement, '2009-06-15T00:00:01', fixture);
         expect(nativeElement.querySelector('input').value).toBe('06/15/2009');
@@ -302,6 +307,8 @@ describe('datepicker', () => {
       }));
 
       it('should handle input change with an ISO string with offset', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
         fixture.detectChanges();
         setInput(nativeElement, '1994-11-05T08:15:30-05:00', fixture);
 
@@ -313,6 +320,8 @@ describe('datepicker', () => {
 
       it('should handle two digit years', fakeAsync(() => {
         fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
         setInput(nativeElement, '5/12/98', fixture);
 
         expect(nativeElement.querySelector('input').value).toBe('05/12/1998');
@@ -320,7 +329,25 @@ describe('datepicker', () => {
         expect(component.selectedDate).toEqual(new Date('05/12/1998'));
       }));
 
+      it('should handle undefined date', fakeAsync(() => {
+        component.selectedDate = '5/12/17';
+
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        component.selectedDate = undefined;
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('input').value).toBe('');
+        expect(nativeElement.querySelector('input')).not.toHaveCssClass('ng-invalid');
+      }));
+
       it('should pass date to calendar', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
         fixture.detectChanges();
         setInput(nativeElement, '5/12/2017', fixture);
 
@@ -340,6 +367,8 @@ describe('datepicker', () => {
     describe('formats', () => {
       it('should handle a dateFormat on the input different than the default', fakeAsync(() => {
         component.format = 'DD/MM/YYYY';
+        fixture.detectChanges();
+        tick();
         fixture.detectChanges();
 
         setInput(nativeElement, '5/12/2017', fixture);
@@ -604,6 +633,22 @@ describe('datepicker', () => {
             .querySelectorAll('tbody tr td .sky-btn-default').item(1) as HTMLButtonElement;
 
         expect(dateButtonEl).toHaveCssClass('sky-btn-disabled');
+      }));
+
+      it('should pass starting day to calendar', fakeAsync(() => {
+        component.selectedDate = new Date('5/21/2017');
+        component.startingDay = 5;
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        openDatepicker(fixture.nativeElement, fixture);
+        tick();
+
+        let firstDayCol = fixture.nativeElement
+          .querySelectorAll('.sky-datepicker-center.sky-datepicker-weekdays').item(0) as HTMLElement;
+
+        expect(firstDayCol.textContent).toContain('Fr');
       }));
     });
   });

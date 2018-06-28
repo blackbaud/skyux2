@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component
+} from '@angular/core';
 
 @Component({
   selector: 'sky-repeater-demo',
-  templateUrl: './repeater-demo.component.html'
+  templateUrl: './repeater-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyRepeaterDemoComponent {
   public items: any[];
