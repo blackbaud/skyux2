@@ -62,6 +62,12 @@
   }
 }
 
+.sky-flyout-btn-primary-action {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .sky-flyout-help-shim {
   padding-right: 8px;
 

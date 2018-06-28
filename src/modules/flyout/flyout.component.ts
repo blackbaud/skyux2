@@ -102,9 +102,11 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public get primaryActionLabel(): string {
-    if (this.config.primaryAction) {
+    if (this.config.primaryAction && this.config.primaryAction.label) {
       return this.config.primaryAction.label;
     }
+
+    return SkyResources.getString('flyout_primary_action_button');
   }
 
   @ViewChild('target', { read: ViewContainerRef })
@@ -178,11 +180,9 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public invokePrimaryAction() {
-    if (this.primaryAction.callback) {
-      this.primaryAction.callback();
-    }
+    this.primaryAction.callback();
 
-    if (this.config.primaryAction.closeAfterInvoking) {
+    if (this.primaryAction.closeAfterInvoking) {
       this.close();
     }
 

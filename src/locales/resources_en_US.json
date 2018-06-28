@@ -443,6 +443,10 @@
     "_description": "Default text for the flyout permalink button",
     "message": "View record"
   },
+  "flyout_primary_action_button": {
+    "_description": "Default text for the flyout primary action button",
+    "message": "Create list"
+  },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
     "message": "Cancel"
