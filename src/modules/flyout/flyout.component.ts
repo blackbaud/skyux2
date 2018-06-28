@@ -39,6 +39,7 @@ import {
   SkyFlyoutMessage,
   SkyFlyoutMessageType
 } from './types';
+import { SkyFlyoutAction } from './types/flyout-action';
 
 const FLYOUT_OPEN_STATE = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE = 'flyoutClosed';
@@ -89,6 +90,21 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
 
     return SkyResources.getString('flyout_permalink_button');
+  }
+
+  public get primaryAction(): SkyFlyoutAction {
+    let primaryAction = this.config.primaryAction;
+    if (primaryAction) {
+      return primaryAction;
+    }
+
+    return {};
+  }
+
+  public get primaryActionLabel(): string {
+    if (this.config.primaryAction) {
+      return this.primaryActionLabel;
+    }
   }
 
   @ViewChild('target', { read: ViewContainerRef })
@@ -159,6 +175,14 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.messageStream.next({
       type: SkyFlyoutMessageType.Close
     });
+  }
+
+  public invokePrimaryAction() {
+    if (this.primaryAction.callback) {
+      this.primaryAction.callback();
+    }
+
+    this.close();
   }
 
   public getAnimationState(): string {
