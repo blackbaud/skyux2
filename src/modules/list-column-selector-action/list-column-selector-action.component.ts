@@ -62,9 +62,9 @@ export class SkyListColumnSelectorActionComponent implements AfterContentInit {
 
   constructor(
     public listState: ListState,
-    @Optional() public secondaryActions: SkyListSecondaryActionsComponent,
+    private modalService: SkyModalService,
     private dispatcher: ListStateDispatcher,
-    private modalService: SkyModalService
+    @Optional() public secondaryActions: SkyListSecondaryActionsComponent
   ) { }
 
   public ngAfterContentInit() {
