@@ -20,7 +20,7 @@ import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture
 
 const moment = require('moment');
 
-describe('Timepicker', () => {
+fdescribe('Timepicker', () => {
   function openTimepicker(element: HTMLElement, compFixture: ComponentFixture<any>) {
     let dropdownButtonEl = element.querySelector('.sky-dropdown-button') as HTMLElement;
     dropdownButtonEl.click();
@@ -137,9 +137,26 @@ describe('Timepicker', () => {
 
   it('should handle input change with a string with the expected timeFormat', fakeAsync(() => {
     component.timeFormat = 'hh';
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
     setInput(nativeElement, '2:55 AM', fixture);
     expect(nativeElement.querySelector('input').value).toBe('2:55 AM');
     expect(component.selectedTime.local).toEqual('2:55 AM');
+  }));
+
+  it('should handle undefined date', fakeAsync(() => {
+    component.timeFormat = 'hh';
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    setInput(nativeElement, '2:55 AM', fixture);
+    component.selectedTime = undefined;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(nativeElement.querySelector('input').value).toBe('');
+    expect(nativeElement.querySelector('input')).not.toHaveCssClass('ng-invalid');
   }));
 
   describe('validation', () => {
