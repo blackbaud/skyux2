@@ -61,10 +61,14 @@ export class SkyListSecondaryActionsComponent implements OnInit, AfterViewInit, 
     const secondaryActionItem = new ListToolbarItemModel({
       id: 'secondary-actions',
       template: this.secondaryActionsTemplate,
-      location: 'right'
+      location: 'left'
     });
 
-    this.dispatcher.toolbarAddItems([secondaryActionItem], -1);
+    this.dispatcher.toolbarAddItems(
+      [
+        secondaryActionItem
+      ]
+    );
   }
 
   public ngOnDestroy() {

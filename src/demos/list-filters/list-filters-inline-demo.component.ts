@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import {
   ListItemModel
@@ -56,5 +57,4 @@ export class SkyListFiltersInlineDemoComponent {
   public hideOrangeFilterFunction(item: ListItemModel, filterValue: any): boolean {
     return !filterValue || (filterValue && item.data.color !== 'orange');
   }
-
 }

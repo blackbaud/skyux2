@@ -7,6 +7,13 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
+import {
+  NavigationStart,
+  Router
+} from '@angular/router';
+
+import 'rxjs/add/operator/takeWhile';
+
 import { SkyModalAdapterService } from './modal-adapter.service';
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalHostService } from './modal-host.service';
@@ -35,7 +42,8 @@ export class SkyModalHostComponent {
   constructor(
     private resolver: ComponentFactoryResolver,
     private adapter: SkyModalAdapterService,
-    private injector: Injector
+    private injector: Injector,
+    private router: Router
   ) { }
 
   public open(modalInstance: SkyModalInstance, component: any, config?: IConfig) {
@@ -44,6 +52,7 @@ export class SkyModalHostComponent {
     let hostService = new SkyModalHostService(params.fullPage);
     let adapter = this.adapter;
     let modalOpener: HTMLElement = adapter.getModalOpener();
+    let isOpen = true;
 
     params.providers.push({
       provide: SkyModalHostService,
@@ -84,7 +93,16 @@ export class SkyModalHostComponent {
       modalInstance.close();
     });
 
+    this.router.events
+      .takeWhile(() => isOpen)
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          modalInstance.close();
+        }
+      });
+
     modalInstance.closed.subscribe(() => {
+      isOpen = false;
       closeModal();
     });
   }

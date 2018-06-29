@@ -34,6 +34,7 @@ import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
 import { SkyFlyoutModule } from './modules/flyout/flyout.module';
 import { SkyGridModule } from './modules/grid';
 import { SkyHelpInlineModule } from './modules/help-inline';
+import { SkyInfiniteScrollModule } from './modules/infinite-scroll';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyLinkRecordsModule } from './modules/link-records';
@@ -63,6 +64,7 @@ import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
 import { SkyTextHighlightModule } from './modules/text-highlight';
+import { SkyToastModule } from './modules/toast';
 import { SkyTokensModule } from './modules/tokens';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
@@ -94,6 +96,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyFlyoutModule,
     SkyGridModule,
     SkyHelpInlineModule,
+    SkyInfiniteScrollModule,
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyLinkRecordsModule,
@@ -125,6 +128,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTextHighlightModule,
     SkyTilesModule,
     SkyTimepickerModule,
+    SkyToastModule,
     SkyTokensModule,
     SkyToolbarModule,
     SkyUrlValidationModule,
@@ -157,6 +161,7 @@ export * from './modules/flyout';
 export * from './modules/format';
 export * from './modules/grid';
 export * from './modules/help-inline';
+export * from './modules/infinite-scroll';
 export * from './modules/key-info';
 export * from './modules/label';
 export * from './modules/link-records';
@@ -190,6 +195,7 @@ export * from './modules/text-expand-repeater';
 export * from './modules/text-highlight';
 export * from './modules/tiles';
 export * from './modules/timepicker';
+export * from './modules/toast';
 export * from './modules/tokens';
 export * from './modules/toolbar';
 export * from './modules/url-validation';

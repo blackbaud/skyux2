@@ -1,3 +1,34 @@
+# 2.15.0 (2018-06-18)
+
+- Added debounce time to search component. [#1726](https://github.com/blackbaud/skyux2/pull/1726) (Thanks @Blackbaud-LoganJahnke)
+- Added `startingDay` input to datepicker directive. [#1732](https://github.com/blackbaud/skyux2/pull/1732)
+- Fixed datepicker not clearing value from underlying input element. [#1730](https://github.com/blackbaud/skyux2/pull/1730)
+- Fixed repeater not initializing correctly when consumed by a component with a change detection strategy of `OnPush`. [#1724](https://github.com/blackbaud/skyux2/pull/1724)
+- Fixed numeric service not using accurate localization symbols. [#1716](https://github.com/blackbaud/skyux2/pull/1716)
+- Fixed issue with modal trying to close itself on route change if it is already closed. [#1741](https://github.com/blackbaud/skyux2/pull/1741)
+
+# 2.14.0 (2018-06-05)
+
+- Added infinite scroll component. [#1696](https://github.com/blackbaud/skyux2/pull/1696) (Thanks @blackbaud-conorwright)
+- Added help button to list column chooser modal. [#1686](https://github.com/blackbaud/skyux2/pull/1686) (Thanks @Blackbaud-TrevorBurch)
+- Updated styles for checkbox and radio components. [#1694](https://github.com/blackbaud/skyux2/pull/1694) (Thanks @Blackbaud-AnandBhat)
+- Fixed incorrect icons for toast component. [#1711](https://github.com/blackbaud/skyux2/pull/1711)
+- Fixed modals to automatically close when users navigate away from a page. [#1683](https://github.com/blackbaud/skyux2/pull/1683) (Thanks @blackbaud-conorwright)
+
+# 2.13.0 (2018-05-21)
+
+- Added toast component. [#1676](https://github.com/blackbaud/skyux2/pull/1676) (Thanks @blackbaud-conorwright)
+- Added permalink button to flyout header. [#1638](https://github.com/blackbaud/skyux2/pull/1638) (Thanks @Blackbaud-AlexKingman)
+- Added template-driven and reactive form examples to colorpicker demo. [#1699](https://github.com/blackbaud/skyux2/pull/1699)
+- Fixed slide animation clipping overflow content. [#1698](https://github.com/blackbaud/skyux2/pull/1698)
+
+# 2.12.2 (2018-05-11)
+
+- Fixed missing RxJS imports for all components. Prevented third-party modules from being bundled with SKY UX. [#1491](https://github.com/blackbaud/skyux2/pull/1491)
+- Fixed popover position inside flyouts. [#1637](https://github.com/blackbaud/skyux2/pull/1637) (Thanks @Blackbaud-StacyCarlos)
+- Fixed help inline button to prevent it from triggering form submissions. [#1661](https://github.com/blackbaud/skyux2/pull/1661)
+- Fixed IE11 arrow key navigation for dropdown menus. [#1652](https://github.com/blackbaud/skyux2/pull/1652) (Thanks @blackbaud-conorwright)
+
 # 2.12.1 (2018-04-26)
 
 - Fixed dropdown repositioning slowness. [#1655](https://github.com/blackbaud/skyux2/pull/1655)
