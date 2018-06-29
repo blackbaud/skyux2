@@ -57,5 +57,4 @@ export class SkyListFiltersInlineDemoComponent {
   public hideOrangeFilterFunction(item: ListItemModel, filterValue: any): boolean {
     return !filterValue || (filterValue && item.data.color !== 'orange');
   }
-
 }
