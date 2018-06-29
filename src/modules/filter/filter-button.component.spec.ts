@@ -16,7 +16,6 @@ import {
 } from '.';
 
 describe('Filter button', () => {
-
   let fixture: ComponentFixture<FilterButtonTestComponent>;
   let nativeElement: HTMLElement;
   let component: FilterButtonTestComponent;
@@ -37,21 +36,36 @@ describe('Filter button', () => {
     fixture.detectChanges();
   });
 
+  function getButtonEl() {
+    return nativeElement.querySelector('.sky-btn') as HTMLButtonElement;
+  }
+
+  function verifyTextPresent() {
+    expect(getButtonEl().innerText.trim()).toBe('Filter');
+  }
+
+  function verifyTextNotPresent() {
+    expect(getButtonEl().innerText.trim()).not.toBe('Filter');
+  }
+
   it('should allow setting active state', () => {
     component.filtersActive = true;
     fixture.detectChanges();
-
     expect(nativeElement.querySelector('.sky-btn')).toHaveCssClass('sky-filter-btn-active');
   });
 
   it('should emit event on click', () => {
-    let buttonEl = nativeElement.querySelector('.sky-btn') as HTMLButtonElement;
-
+    let buttonEl = getButtonEl();
     buttonEl.click();
-
     fixture.detectChanges();
-
     expect(component.buttonClicked).toBe(true);
   });
 
+  it('should show button text', () => {
+    fixture.detectChanges();
+    verifyTextNotPresent();
+    component.showButtonText = true;
+    fixture.detectChanges();
+    verifyTextPresent();
+  });
 });
