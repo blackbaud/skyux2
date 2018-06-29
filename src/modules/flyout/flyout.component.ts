@@ -208,6 +208,14 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public onMouseDown(event: MouseEvent) {
     this.isDragging = true;
     this.xCoord = event.clientX;
+
+    // when iframes are present on the page, they may interfere with dragging
+    // temporarily disable pointer events in iframes when dragging starts
+    const iframes = document.querySelectorAll('iframe');
+    for (let i = 0; i < iframes.length; i++) {
+      iframes[i].style.pointerEvents = 'none';
+    }
+
     event.preventDefault();
     event.stopPropagation();
   }
@@ -234,6 +242,11 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   @HostListener('document:mouseup', ['$event'])
   public onHandleRelease(event: MouseEvent) {
     this.isDragging = false;
+
+    const iframes = document.querySelectorAll('iframe');
+    for (let i = 0; i < iframes.length; i++) {
+      iframes[i].style.pointerEvents = 'auto';
+    }
   }
 
   private createFlyoutInstance<T>(component: T): SkyFlyoutInstance<T> {
