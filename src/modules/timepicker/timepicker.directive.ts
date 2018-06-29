@@ -59,10 +59,10 @@ export class SkyTimepickerInputDirective implements
 
   @Input()
   public set timeFormat(value: string) {
-    this._timeFormat = value || 'hh';
+    this._timeFormat = value;
   }
   public get timeFormat(): string {
-    return this._timeFormat;
+    return this._timeFormat || 'hh';
   }
 
   @Input()
