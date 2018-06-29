@@ -1,3 +1,12 @@
+# 2.15.0 (2018-06-18)
+
+- Added debounce time to search component. [#1726](https://github.com/blackbaud/skyux2/pull/1726) (Thanks @Blackbaud-LoganJahnke)
+- Added `startingDay` input to datepicker directive. [#1732](https://github.com/blackbaud/skyux2/pull/1732)
+- Fixed datepicker not clearing value from underlying input element. [#1730](https://github.com/blackbaud/skyux2/pull/1730)
+- Fixed repeater not initializing correctly when consumed by a component with a change detection strategy of `OnPush`. [#1724](https://github.com/blackbaud/skyux2/pull/1724)
+- Fixed numeric service not using accurate localization symbols. [#1716](https://github.com/blackbaud/skyux2/pull/1716)
+- Fixed issue with modal trying to close itself on route change if it is already closed. [#1741](https://github.com/blackbaud/skyux2/pull/1741)
+
 # 2.14.0 (2018-06-05)
 
 - Added infinite scroll component. [#1696](https://github.com/blackbaud/skyux2/pull/1696) (Thanks @blackbaud-conorwright)
