@@ -6,4 +6,9 @@
   align-items: center;
   position: relative;
   min-height: $sky-toolbar-min-height;
+
+  @media (max-width: $sky-screen-sm-max) {
+    flex-wrap: wrap;
+    padding-bottom: 0;
+  }
 }
