@@ -97,7 +97,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   private triggerButton: ElementRef;
 
   @ViewChild(SkyPopoverComponent)
-  public popover: SkyPopoverComponent;
+  private popover: SkyPopoverComponent;
 
   private ngUnsubscribe = new Subject();
   private isKeyboardActive = false;

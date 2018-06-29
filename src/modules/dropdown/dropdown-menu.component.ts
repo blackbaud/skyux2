@@ -34,7 +34,7 @@ let nextId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
-  public id: string = `sky-dropdown-menu-${++nextId}`;
+  public dropdownMenuId: string = `sky-dropdown-menu-${++nextId}`;
 
   @Input()
   public ariaRole = 'menu';
@@ -81,7 +81,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public ngAfterContentInit() {
     /* istanbul ignore else */
     if (this.dropdownComponent) {
-      this.dropdownComponent.menuId = this.id;
+      this.dropdownComponent.menuId = this.dropdownMenuId;
       this.dropdownComponent.messageStream
         .takeUntil(this.ngUnsubscribe)
         .subscribe((message: SkyDropdownMessage) => {

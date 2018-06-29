@@ -36,8 +36,6 @@ import {
 
 import { SkyPopoverAdapterService } from './popover-adapter.service';
 
-let nextId = 0;
-
 @Component({
   selector: 'sky-popover',
   templateUrl: './popover.component.html',
@@ -90,7 +88,6 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
   @ViewChild('popoverArrow')
   public popoverArrow: ElementRef;
 
-  public id: string = `sky-popover-${++nextId}`;
   public isOpen = false;
   public isVisible = false;
   public isMouseEnter = false;
