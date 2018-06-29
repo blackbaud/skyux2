@@ -1,14 +1,9 @@
 <sky-list [data]="items" [defaultView]="grid">
-  <sky-list-toolbar
-    [searchEnabled]="true"
-    [searchText]="searchText"
-  >
-  <sky-list-column-selector-action
-    [gridView]="grid"
-    [helpKey]="helpKey"
-    (helpOpened)="onHelpOpened($event)"
-  >
-  </sky-list-column-selector-action>
+  <sky-list-toolbar>
+    <sky-list-secondary-actions>
+      <sky-list-column-selector-action [gridView]="grid">
+      </sky-list-column-selector-action>
+    </sky-list-secondary-actions>
   </sky-list-toolbar>
 
   <sky-list-view-grid fit="scroll" #grid>
