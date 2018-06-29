@@ -4,5 +4,12 @@
   type="button"
   class="sky-btn sky-btn-default sky-filter-btn"
   (click)="filterButtonOnClick()">
-  <i class="fa fa-lg fa-filter"></i>
+  <i
+    class="fa fa-lg fa-filter"
+    aria-hidden="true"></i>
+  <span
+    *ngIf="showButtonText"
+    class="sky-filter-btn-text">
+    {{ 'filter_button_title' | skyResources }}
+  </span>
 </button>
