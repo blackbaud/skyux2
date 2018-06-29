@@ -71,6 +71,17 @@ describe('Tabset component', () => {
     }
   }
 
+  it('should initialize tabs in proper order', fakeAsync(() => {
+    let fixture = TestBed.createComponent(TabsetTestComponent);
+    fixture.detectChanges();
+    tick();
+    let tabsetService: SkyTabsetService = (fixture.componentInstance.tabsetComponent as any).tabsetService;
+
+    fixture.componentInstance.tabsetComponent.tabs.forEach((item, index) => {
+      expect(item).toBe(tabsetService.tabs.getValue()[index]);
+    });
+  }));
+
   describe('tabs with active attribute', () => {
     it('should change the active tab when tab active is set to true', fakeAsync(() => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
