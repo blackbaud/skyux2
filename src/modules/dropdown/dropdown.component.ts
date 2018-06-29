@@ -61,7 +61,10 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  public get label(): string{
+  public get label(): string {
+    if (this.buttonType === 'select') {
+      return this._label;
+    }
     return this._label || SkyResources.getString('context_menu_default_label');
   }
 
