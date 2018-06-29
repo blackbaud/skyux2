@@ -7,15 +7,16 @@
 </ng-container>
 
 <ng-template #columnChooser>
-  <button
-    type="button"
+  <button *ngIf="isInGridView | async"
     class="sky-btn sky-btn-default"
+    type="button"
     [title]="'grid_columns_button' | skyResources"
     (click)="openColumnSelector()"
-    *ngIf="isInGridView | async">
+  >
     <i
+      aria-hidden="true"
       class="fa fa-columns"
-      aria-hidden="true"></i>
+    ></i>
     <span class="sky-column-selector-action-btn-text">
       {{ 'grid_columns_toolbar_button' | skyResources }}
     </span>
