@@ -1,4 +1,7 @@
 import {
+  ApplicationRef
+} from '@angular/core';
+import {
   TestBed,
   inject,
   fakeAsync,
@@ -12,10 +15,9 @@ import {
 import {
   SkyWaitService
 } from './wait.service';
-
 import {
-  ApplicationRef
-} from '@angular/core';
+  SkyWindowRefService
+} from '../window';
 
 describe('Wait service', () => {
   let waitService: SkyWaitService;
@@ -30,6 +32,9 @@ describe('Wait service', () => {
     TestBed.configureTestingModule({
       imports: [
         SkyWaitFixturesModule
+      ],
+      providers: [
+        SkyWindowRefService
       ]
     });
   });
@@ -38,7 +43,8 @@ describe('Wait service', () => {
     inject(
       [
         ApplicationRef,
-        SkyWaitService
+        SkyWaitService,
+        SkyWindowRefService
       ],
       (
         _applicationRef: ApplicationRef,
@@ -171,6 +177,15 @@ describe('Wait service', () => {
     waitService.clearAllPageWaits();
     tick();
     applicationRef.tick();
+
+    verifyNonBlockingPageWaitExists(false);
+    verifyBlockingPageWaitExists(false);
+  }));
+
+  it('should clear wait even if closed too fast', fakeAsync(() => {
+    waitService.beginNonBlockingPageWait();
+    waitService.clearAllPageWaits();
+    tick();
 
     verifyNonBlockingPageWaitExists(false);
     verifyBlockingPageWaitExists(false);
