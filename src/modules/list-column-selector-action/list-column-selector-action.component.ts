@@ -1,13 +1,21 @@
 import {
+  AfterContentInit,
   Component,
   EventEmitter,
   Input,
-  Output
+  Optional,
+  Output,
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
+import {
+  ListState, ListStateDispatcher, ListToolbarItemModel
+} from '../list/state';
 
 import {
-  ListState
-} from '../list/state';
+  SkyListSecondaryActionsComponent
+} from '../list-secondary-actions';
+
 import {
   SkyListViewGridComponent
 } from '../list-view-grid';
@@ -36,9 +44,10 @@ import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'sky-list-column-selector-action',
-  templateUrl: './list-column-selector-action.component.html'
+  templateUrl: './list-column-selector-action.component.html',
+  styleUrls: ['./list-column-selector-action.component.scss']
 })
-export class SkyListColumnSelectorActionComponent {
+export class SkyListColumnSelectorActionComponent implements AfterContentInit {
   @Input()
   public gridView: SkyListViewGridComponent;
 
@@ -48,14 +57,44 @@ export class SkyListColumnSelectorActionComponent {
   @Output()
   public helpOpened = new EventEmitter<string>();
 
+  @ViewChild('columnChooser')
+  private columnChooserTemplate: TemplateRef<any>;
+
   constructor(
     public listState: ListState,
-    private modalService: SkyModalService
+    private modalService: SkyModalService,
+    private dispatcher: ListStateDispatcher,
+    @Optional() public secondaryActions: SkyListSecondaryActionsComponent
   ) { }
+
+  public ngAfterContentInit() {
+    if (!this.secondaryActions) {
+      let columnChooserItem = new ListToolbarItemModel(
+        {
+          id: 'column-chooser',
+          template: this.columnChooserTemplate,
+          location: 'left'
+        }
+      );
+
+      this.dispatcher.toolbarAddItems(
+        [
+          columnChooserItem
+        ],
+        3
+      );
+    }
+  }
 
   get isInGridView(): Observable<boolean> {
     return this.listState.map(s => s.views.active).map((activeView) => {
       return this.gridView && (activeView === this.gridView.id);
+    }).distinctUntilChanged();
+  }
+
+  get isInGridViewAndSecondary(): Observable<boolean> {
+    return this.listState.map(s => s.views.active).map((activeView) => {
+      return this.secondaryActions && this.gridView && (activeView === this.gridView.id);
     }).distinctUntilChanged();
   }
 
