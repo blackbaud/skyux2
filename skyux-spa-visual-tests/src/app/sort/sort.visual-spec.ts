@@ -27,4 +27,26 @@ describe('Sort component', () => {
 
   });
 
+  it('should match the baseline sort screenshot when text is shown', () => {
+    return SkyVisualTest.setupTest('sort')
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'sort-text',
+        selector: '#screenshot-sort-text'
+      });
+    });
+
+  });
+
+  it('should match the baseline sort screenshot when text is on but the screen is small', () => {
+    return SkyVisualTest.setupTest('sort', 400)
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'sort-text-small',
+        selector: '#screenshot-sort-text'
+      });
+    });
+
+  });
+
 });
