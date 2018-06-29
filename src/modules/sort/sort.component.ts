@@ -1,6 +1,7 @@
 import {
   Component,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Input
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
@@ -24,6 +25,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkySortComponent {
+  @Input()
+  public showButtonText = false;
+
   public dropdownController = new Subject<SkyDropdownMessage>();
 
   public dropdownClicked() {
