@@ -6,19 +6,14 @@ import {
 } from '@angular/core/testing';
 
 import {
-  SortTestComponent
-} from './fixtures/sort.component.fixture';
-
-import {
-  SkySortModule
-} from '.';
-
-import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-describe('Sort component', () => {
+import { SkySortModule } from './sort.module';
 
+import { SortTestComponent } from './fixtures/sort.component.fixture';
+
+describe('Sort component', () => {
   let fixture: ComponentFixture<SortTestComponent>;
   let nativeElement: HTMLElement;
   let component: SortTestComponent;
@@ -39,13 +34,21 @@ describe('Sort component', () => {
   });
 
   function getDropdownButtonEl() {
-    let dropdownButtonQuery = '.sky-sort .sky-dropdown .sky-dropdown-button .fa-sort';
+    let dropdownButtonQuery = '.sky-sort .sky-dropdown .sky-dropdown-button';
     return nativeElement.querySelector(dropdownButtonQuery) as HTMLElement;
   }
 
   function getSortItems() {
     let itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
     return nativeElement.querySelectorAll(itemQuery);
+  }
+
+  function verifyTextPresent() {
+    expect(getDropdownButtonEl().innerText.trim()).toBe('Sort');
+  }
+
+  function verifyTextNotPresent() {
+    expect(getDropdownButtonEl().innerText.trim()).not.toBe('Sort');
   }
 
   it('creates a sort dropdown that respects active input', fakeAsync(() => {
@@ -101,5 +104,13 @@ describe('Sort component', () => {
     fixture.detectChanges();
     let itemsEl = getSortItems();
     expect(itemsEl.item(3)).toHaveCssClass('sky-sort-item-selected');
+  });
+
+  it('should allow button text to be hidden', () => {
+    fixture.detectChanges();
+    verifyTextNotPresent();
+    component.showButtonText = true;
+    fixture.detectChanges();
+    verifyTextPresent();
   });
 });
