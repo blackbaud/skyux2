@@ -25,6 +25,8 @@ import {
   SkyDropdownMessageType
 } from './types';
 
+let nextId = 0;
+
 @Component({
   selector: 'sky-dropdown-menu',
   templateUrl: './dropdown-menu.component.html',
@@ -32,6 +34,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
+  public dropdownMenuId: string = `sky-dropdown-menu-${++nextId}`;
+
+  @Input()
+  public ariaRole = 'menu';
+
   @Input()
   public useNativeFocus = true;
 
@@ -74,6 +81,7 @@ export class SkyDropdownMenuComponent implements AfterContentInit, OnDestroy {
   public ngAfterContentInit() {
     /* istanbul ignore else */
     if (this.dropdownComponent) {
+      this.dropdownComponent.menuId = this.dropdownMenuId;
       this.dropdownComponent.messageStream
         .takeUntil(this.ngUnsubscribe)
         .subscribe((message: SkyDropdownMessage) => {
