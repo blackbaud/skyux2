@@ -700,6 +700,18 @@ describe('Tabset component', () => {
       expect(debugElement.query(By.css('.sky-btn-tab')).attributes['tabindex']).toBe('0');
     });
 
+    it('should have aria-controls and aria-labelledby references between tabs and panels', () => {
+      fixture.detectChanges();
+      let tabs = debugElement.queryAll(By.css('.sky-tab'));
+      tabs.forEach((value) => {
+        let tab = value.nativeElement;
+        let tabBtn = debugElement.query(By.css('#' + tab.getAttribute('id') + '-nav-btn')).nativeElement;
+
+        expect(tab.getAttribute('aria-labelledby')).toBe(tabBtn.getAttribute('id'));
+        expect(tabBtn.getAttribute('aria-controls')).toBe(tab.getAttribute('id'));
+      });
+    });
+
     it('should emit a click event on enter press', () => {
       fixture.detectChanges();
       fixture.detectChanges();

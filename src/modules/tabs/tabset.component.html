@@ -15,14 +15,16 @@
   <span class="sky-tabset-tabs">
     <sky-tab-button
         *ngFor="let tab of tabs; let i = index"
+        [active]="tab.active"
+        [allowClose]="tab.allowClose"
+        [attr.aria-controls]="tab.tabId"
+        [disabled]="tab.disabled"
+        [id]="tab.tabId + '-nav-btn'"
         [tabHeading]="tab.tabHeading"
         [tabHeaderCount]="tab.tabHeaderCount"
         [tabStyle]="tabStyle"
-        [active]="tab.active"
-        [allowClose]="tab.allowClose"
-        [disabled]="tab.disabled"
-        (tabClick)="selectTab(tab)"
         (closeClick)="tabCloseClick(tab)"
+        (tabClick)="selectTab(tab)"
     ></sky-tab-button>
   </span>
   <span class="sky-tabset-btns">
