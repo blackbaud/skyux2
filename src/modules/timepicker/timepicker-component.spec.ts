@@ -86,7 +86,7 @@ describe('Timepicker', () => {
     let units = sections.item(0).querySelectorAll('.sky-timepicker-column');
     let hours = units.item(0).querySelectorAll('button');
     let minutes = units.item(1).querySelectorAll('button');
-    if (component.timeFormat === 'hh') {
+    if (component.timeFormat === 'hh' || !component.timeFormat) {
       let meridies = units.item(2).querySelectorAll('button');
       expect(hours.item(0)).toHaveText('1');
       expect(hours.item(11)).toHaveText('12');
@@ -107,6 +107,16 @@ describe('Timepicker', () => {
       expect(minutes.length).toBe(4);
     }
   }
+
+  it('should default to the twelve hour timepicker without timeFormat', fakeAsync(() => {
+    fixture.detectChanges();
+    component.timeFormat = undefined;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    openTimepicker(nativeElement, fixture);
+    verifyTimepicker(nativeElement);
+  }));
 
   it('should have the twelve hour timepicker', fakeAsync(() => {
     fixture.detectChanges();

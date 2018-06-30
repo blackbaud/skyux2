@@ -52,12 +52,18 @@ export class SkyTimepickerInputDirective implements
   OnInit, OnDestroy, ControlValueAccessor, Validator, OnChanges {
 
   public pickerChangedSubscription: Subscription;
+  private _timeFormat: string = 'hh';
 
   @Input()
   public skyTimepickerInput: SkyTimepickerComponent;
 
   @Input()
-  public timeFormat: string;
+  public set timeFormat(value: string) {
+    this._timeFormat = value;
+  }
+  public get timeFormat(): string {
+    return this._timeFormat || 'hh';
+  }
 
   @Input()
   public returnFormat: string;
