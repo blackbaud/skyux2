@@ -1,3 +1,14 @@
+# 2.16.0 (2018-07-02)
+
+- Restructured list toolbar to better meet design guidelines. [#1645](https://github.com/blackbaud/skyux2/pull/1645) (Thanks @Blackbaud-TrevorBurch)
+- Added ARIA labels to datepicker component. [#1753](https://github.com/blackbaud/skyux2/pull/1753)
+- Added appropriate ARIA roles to dropdown component. [#1749](https://github.com/blackbaud/skyux2/pull/1749)
+- Added default value for timepicker `timeFormat` input. [#1736](https://github.com/blackbaud/skyux2/pull/1736)
+- Fixed paging component where even numbered `maxPage` counts would display one (1) less than the max. [#1735](https://github.com/blackbaud/skyux2/pull/1735)
+- Added hyperlink anchor tags to toast and alert demos. [#1723](https://github.com/blackbaud/skyux2/pull/1723)
+- Fixed race condition during the teardown of the wait component. [#1739](https://github.com/blackbaud/skyux2/pull/1739)
+- Fixed incorrect tab indexes being set for conditionally rendered tabs. [#1738](https://github.com/blackbaud/skyux2/pull/1738)
+
 # 2.15.0 (2018-06-18)
 
 - Added debounce time to search component. [#1726](https://github.com/blackbaud/skyux2/pull/1726) (Thanks @Blackbaud-LoganJahnke)
