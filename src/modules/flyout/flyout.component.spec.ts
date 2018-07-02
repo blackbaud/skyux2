@@ -427,6 +427,11 @@ describe('Flyout component', () => {
         const primaryActionButton = getPrimaryActionButtonElement();
         expect(primaryActionButton).toBeTruthy();
         primaryActionButton.click();
+
+        // let the close message propagate
+        applicationRef.tick();
+        tick();
+
         expect(primaryActionInvoked).toBe(true);
       })
     );
