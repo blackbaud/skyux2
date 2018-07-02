@@ -83,6 +83,10 @@
     "_description": "Label for the close button",
     "message": "Close"
   },
+ "colorpicker_dropdown_button": {
+    "_description": "Label for the dropdown button",
+    "message": "Select color value"
+  },
   "colorpicker_green": {
     "_description": "Label for the green input",
     "message": "G:"
@@ -101,7 +105,7 @@
   },
   "colorpicker_reset": {
     "_description": "Label for the reset button to change the color back to the initial color",
-    "message": "Reset"
+    "message": "Reset color value to white"
   },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
