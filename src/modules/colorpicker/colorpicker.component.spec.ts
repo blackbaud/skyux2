@@ -164,6 +164,19 @@ describe('Colorpicker Component', () => {
     colorpickerComponent = component.colorpickerComponent;
   });
 
+  it('should add aria-label to input if not specified', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('Color value');
+  }));
+
+  it('should not add aria-label to input when one was specified', fakeAsync(() => {
+    nativeElement.querySelector('input').setAttribute('aria-label', 'Best picker');
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('Best picker');
+  }));
+
   it('should output RGBA', fakeAsync(() => {
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);

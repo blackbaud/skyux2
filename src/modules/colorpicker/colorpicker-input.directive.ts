@@ -28,6 +28,7 @@ import {
 } from './types';
 
 import { Subscription } from 'rxjs/Subscription';
+import { SkyResourcesService } from '../resources';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_COLORPICKER_VALUE_ACCESSOR = {
@@ -87,7 +88,8 @@ export class SkyColorpickerInputDirective
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer,
-    private service: SkyColorpickerService
+    private service: SkyColorpickerService,
+    private skyResourceSvc: SkyResourcesService
   ) { }
 
   @HostListener('input', ['$event'])
@@ -123,7 +125,15 @@ export class SkyColorpickerInputDirective
         this._onChange(newColor);
       });
 
-      this.skyColorpickerInput.setColorFromString(this.initialColor);
+    this.skyColorpickerInput.setColorFromString(this.initialColor);
+
+    /// Set aria-label as default, if not set
+    if (!this.elementRef.nativeElement.getAttribute('aria-label')) {
+      this.renderer.setElementAttribute(
+        this.elementRef.nativeElement,
+        'aria-label',
+        this.skyResourceSvc.getString('colorpicker_input_default_label'));
+    }
 
     const typeAttr = element.getAttribute('type');
     if (typeAttr && typeAttr === 'hidden') {
