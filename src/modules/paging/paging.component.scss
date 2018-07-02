@@ -14,7 +14,7 @@
   li {
     display: inline;
 
-    a {
+    button {
       background-color: $sky-color-white;
       color: inherit;
       @include sky-border(light, top, right, bottom, left);
@@ -27,8 +27,6 @@
       cursor: pointer;
 
       &.sky-paging-caret {
-        padding-left: 8.5px;
-        padding-right: 8.5px;
         transform: none;
       }
 
@@ -44,6 +42,11 @@
         color: $sky-text-color-deemphasized;
         cursor: not-allowed;
         pointer-events: none;
+      }
+
+      &.sky-paging-btn {
+        padding-left: 8.5px;
+        padding-right: 8.5px;
       }
     }
   }

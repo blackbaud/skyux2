@@ -42,22 +42,20 @@ describe('Paging component', () => {
 
   function getPagingSelector(type: string) {
     if (type === 'next' || type === 'previous') {
-      return '.sky-paging-caret[sky-cmp-id="' + type + '"]';
+      return '.sky-paging-btn[sky-cmp-id="' + type + '"]';
     } else {
-      return '.sky-list-paging-link a[sky-cmp-id="' + type + '"]';
+      return '.sky-list-paging-link button[sky-cmp-id="' + type + '"]';
     }
   }
 
   function verifyDisabled(elem: DebugElement) {
     expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
-    expect(elem.nativeElement.getAttribute('aria-disabled')).toBeTruthy();
-    expect(elem.nativeElement.getAttribute('href')).toBeNull();
+    expect(elem.nativeElement.getAttribute('aria-disabled')).toBe('true');
   }
 
   function verifyEnabled(elem: DebugElement) {
     expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
     expect(elem.nativeElement.getAttribute('aria-disabled')).toBe('false');
-    expect(elem.nativeElement.getAttribute('href')).toBe('');
   }
 
   describe('with 8 items', () => {
