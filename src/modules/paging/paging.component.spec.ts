@@ -48,6 +48,18 @@ describe('Paging component', () => {
     }
   }
 
+  function verifyDisabled(elem: DebugElement) {
+    expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+    expect(elem.nativeElement.getAttribute('aria-disabled')).toBeTruthy();
+    expect(elem.nativeElement.getAttribute('href')).toBeNull();
+  }
+
+  function verifyEnabled(elem: DebugElement) {
+    expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+    expect(elem.nativeElement.getAttribute('aria-disabled')).toBe('false');
+    expect(elem.nativeElement.getAttribute('href')).toBe('');
+  }
+
   describe('with 8 items', () => {
 
     it('should show 3 pages', () => {
@@ -55,15 +67,13 @@ describe('Paging component', () => {
     });
 
     it('should have a disabled previous button', () => {
-      expect(element.query(
-        By.css(getPagingSelector('previous'))
-      ).nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+      let elem = element.query(By.css(getPagingSelector('previous')));
+      verifyDisabled(elem);
     });
 
     it('should have an enabled next button', () => {
-      expect(element.query(
-        By.css(getPagingSelector('next'))
-      ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+      let elem = element.query(By.css(getPagingSelector('next')));
+      verifyEnabled(elem);
     });
 
     it('should show selected page 1 with special style', () => {
@@ -99,15 +109,13 @@ describe('Paging component', () => {
       });
 
       it('should have an enabled previous button', () => {
-        expect(element.query(
-          By.css(getPagingSelector('previous'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        let elem = element.query(By.css(getPagingSelector('previous')));
+        verifyEnabled(elem);
       });
 
       it('should have an enabled next button', () => {
-        expect(element.query(
-          By.css(getPagingSelector('next'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        let elem = element.query(By.css(getPagingSelector('next')));
+        verifyEnabled(elem);
       });
 
       it('should show selected page 3 with special style', () => {
@@ -136,15 +144,13 @@ describe('Paging component', () => {
         });
 
         it('should have enabled previous button', () => {
-          expect(element.query(
-            By.css(getPagingSelector('previous'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+          let elem = element.query(By.css(getPagingSelector('previous')));
+          verifyEnabled(elem);
         });
 
         it('should have disabled next button', () => {
-          expect(element.query(
-            By.css(getPagingSelector('next'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+          let elem = element.query(By.css(getPagingSelector('next')));
+          verifyDisabled(elem);
         });
       });
 
@@ -160,15 +166,13 @@ describe('Paging component', () => {
         });
 
         it('should have disabled previous button', () => {
-           expect(element.query(
-            By.css(getPagingSelector('previous'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+          let elem = element.query(By.css(getPagingSelector('previous')));
+          verifyDisabled(elem);
         });
 
         it('should have enabled next button', () => {
-          expect(element.query(
-            By.css(getPagingSelector('next'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+          let elem = element.query(By.css(getPagingSelector('next')));
+          verifyEnabled(elem);
         });
 
         it('should show selected page 1 with special style', () => {
