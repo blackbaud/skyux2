@@ -354,6 +354,12 @@ describe('Colorpicker Component', () => {
     fixture.detectChanges();
   }));
 
+  it('should have input element hidden from tab navigation', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    expect(nativeElement.querySelector('input').getAttribute('tabindex')).toBe('-1');
+  }));
+
   it('should output HSLA in css format.', fakeAsync(() => {
     component.selectedOutputFormat = 'hsla';
     openColorpicker(nativeElement, fixture);

@@ -123,7 +123,10 @@ export class SkyColorpickerInputDirective
         this._onChange(newColor);
       });
 
-      this.skyColorpickerInput.setColorFromString(this.initialColor);
+    this.skyColorpickerInput.setColorFromString(this.initialColor);
+
+    /// hide input element from navigation
+    element.setAttribute('tabindex', '-1');
 
     const typeAttr = element.getAttribute('type');
     if (typeAttr && typeAttr === 'hidden') {
