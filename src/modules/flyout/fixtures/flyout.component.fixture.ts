@@ -11,7 +11,7 @@ import { SkyFlyoutTestSampleComponent } from './flyout-sample.component.fixture'
 
 @Component({
   selector: 'sky-test-component',
-  template: 'noop<iframe style="visibility: hidden" src="https://www.google.com">'
+  template: 'noop'
 })
 export class SkyFlyoutTestComponent {
   constructor(
