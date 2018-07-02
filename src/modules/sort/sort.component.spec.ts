@@ -71,6 +71,14 @@ describe('Sort component', () => {
     expect(itemsEl.item(2)).toHaveText('Date created (newest first)');
   }));
 
+  it('creates a sort dropdown with the proper label and title', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    let dropdownButtonEl = getDropdownButtonEl();
+    expect(dropdownButtonEl.getAttribute('aria-label')).toBe('Sort');
+    expect(dropdownButtonEl.getAttribute('title')).toBe('Sort');
+  }));
+
   it('changes active item on click and emits proper event', fakeAsync(() => {
     fixture.detectChanges();
     let dropdownButtonEl = getDropdownButtonEl();
