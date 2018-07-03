@@ -345,6 +345,23 @@ describe('Grid Component', () => {
           let unSortedHeaderEl = nativeElement.querySelectorAll('th').item(2) as HTMLElement;
           expect(unSortedHeaderEl.getAttribute('aria-sort')).toBe('none');
         });
+
+        it('should sort on enter or space press', () => {
+          let headerEl = element.query(By.css('th[sky-cmp-id="column1"]'));
+          headerEl.triggerEventHandler('keydown', { which: 13});
+          fixture.detectChanges();
+
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: true});
+          expect(headerEl.nativeElement.querySelector('i')).toHaveCssClass('fa-caret-down');
+
+          headerEl.triggerEventHandler('keydown', { which: 32});
+          fixture.detectChanges();
+
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: false});
+          expect(headerEl.nativeElement.querySelector('i')).toHaveCssClass('fa-caret-up');
+        });
       });
 
       describe('Models and State', () => {

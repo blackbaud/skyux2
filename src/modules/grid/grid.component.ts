@@ -156,6 +156,12 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     });
   }
 
+  public onKeydown(event: KeyboardEvent, column: SkyGridColumnModel) {
+    if (event.which === 13 || event.which === 32) {
+      this.sortByColumn(column);
+    }
+  }
+
   public sortByColumn(column: SkyGridColumnModel) {
     if (column.isSortable) {
       this.currentSortField
