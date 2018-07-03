@@ -262,12 +262,16 @@ describe('Dropdown component', () => {
       expect(label).toBe('Context menu');
     });
 
-    it('should not display default label when label not set and buttonType is select', () => {
+    it('should not display default label when label not set and buttonType is select or tab', () => {
       fixture.componentInstance.buttonType = 'select';
       fixture.detectChanges();
-      const buttonElem = getDropdownButtonElement();
-      const label = buttonElem.getAttribute('aria-label');
-      expect(label).toBeFalsy();
+      let buttonElem = getDropdownButtonElement();
+      expect(buttonElem.getAttribute('aria-label')).toBeFalsy();
+
+      fixture.componentInstance.buttonType = 'tab';
+      fixture.detectChanges();
+      buttonElem = getDropdownButtonElement();
+      expect(buttonElem.getAttribute('aria-label')).toBeFalsy();
     });
 
     it('should display label when label is set', () => {
