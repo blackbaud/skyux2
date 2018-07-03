@@ -324,6 +324,27 @@ describe('Grid Component', () => {
 
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
         });
+
+        it('should have proper aria-sort labels', () => {
+          let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          headerEl.click();
+          fixture.detectChanges();
+
+          headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          expect(headerEl.getAttribute('aria-sort')).toBe('descending');
+
+          headerEl.click();
+          fixture.detectChanges();
+
+          headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          expect(headerEl.getAttribute('aria-sort')).toBe('ascending');
+
+          let noSortHeaderEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
+          expect(noSortHeaderEl.getAttribute('aria-sort')).toBeNull();
+
+          let unSortedHeaderEl = nativeElement.querySelectorAll('th').item(2) as HTMLElement;
+          expect(unSortedHeaderEl.getAttribute('aria-sort')).toBe('none');
+        });
       });
 
       describe('Models and State', () => {

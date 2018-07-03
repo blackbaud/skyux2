@@ -11,6 +11,7 @@
             *ngFor="let column of displayedColumns; let last = last"
             [style.width.px]="last ? null : column.width"
             [attr.sky-cmp-id]="column.id || column.field"
+            [attr.aria-sort]="getAriaSortDirection(column) | async"
             [ngClass]="{ 'sky-grid-header-locked': column.locked }"
             (click)="sortByColumn(column)">
             {{column.heading}}
