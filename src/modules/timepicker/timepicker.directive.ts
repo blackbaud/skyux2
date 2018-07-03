@@ -1,33 +1,37 @@
 import {
   Directive,
-  Input,
-  OnInit,
-  OnDestroy,
+  ElementRef,
   forwardRef,
   HostListener,
-  Renderer,
-  ElementRef,
+  Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
+  Renderer,
   SimpleChanges
 } from '@angular/core';
-const moment = require('moment');
 import {
-  SkyTimepickerComponent
-} from './timepicker.component';
-
-import {
+  AbstractControl,
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  Validator,
   NG_VALIDATORS,
-  AbstractControl
+  NG_VALUE_ACCESSOR,
+  Validator
 } from '@angular/forms';
 
+const moment = require('moment');
 import {
   Subscription
 } from 'rxjs/Subscription';
-import { SkyTimepickerTimeOutput } from './timepicker.interface';
-import { SkyResourcesService } from '../resources';
+
+import {
+  SkyTimepickerComponent
+} from './timepicker.component';
+import {
+  SkyTimepickerTimeOutput
+} from './timepicker.interface';
+import {
+  SkyResourcesService
+} from '../resources';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_TIMEPICKER_VALUE_ACCESSOR = {
@@ -74,7 +78,7 @@ export class SkyTimepickerInputDirective implements
   public constructor(
     private renderer: Renderer,
     private elRef: ElementRef,
-    private skyResourceSvc: SkyResourcesService
+    private skyResourceService: SkyResourcesService
   ) { }
 
   public ngOnInit() {
@@ -88,7 +92,7 @@ export class SkyTimepickerInputDirective implements
       this.renderer.setElementAttribute(
         this.elRef.nativeElement,
         'aria-label',
-        this.skyResourceSvc.getString('timepicker_input_default_label'));
+        this.skyResourceService.getString('timepicker_input_default_label'));
     }
   }
 
