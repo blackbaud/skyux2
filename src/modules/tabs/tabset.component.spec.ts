@@ -700,6 +700,40 @@ describe('Tabset component', () => {
       expect(debugElement.query(By.css('.sky-btn-tab')).attributes['tabindex']).toBe('0');
     });
 
+    it('should have aria-controls and aria-labelledby references between tabs and panels', () => {
+      fixture.detectChanges();
+      let tabs = debugElement.queryAll(By.css('.sky-tab'));
+      tabs.forEach((value) => {
+        let tab = value.nativeElement;
+        let tabBtn = debugElement.query(By.css('#' + tab.getAttribute('id') + '-nav-btn')).nativeElement;
+
+        expect(tab.getAttribute('aria-labelledby')).toBe(tabBtn.getAttribute('id'));
+        expect(tabBtn.getAttribute('aria-controls')).toBe(tab.getAttribute('id'));
+      });
+    });
+
+    it('should switch aria-controls and aria-labelledby references between tabs and dropdown buttons', fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      /// Switch to mobile display
+      fixture.componentInstance.tabsetComponent.tabDisplayMode = 'dropdown';
+      fixture.detectChanges();
+
+      let tabs = debugElement.queryAll(By.css('.sky-tab'));
+      tabs.forEach((value) => {
+        let tab = value.nativeElement;
+        let dropBtn = debugElement.query(By.css('#' + tab.getAttribute('id') + '-nav-btn')).nativeElement;
+        let tabBtn = debugElement.query(By.css('#' + tab.getAttribute('id') + '-hidden-nav-btn')).nativeElement;
+
+        expect(tab.getAttribute('aria-labelledby')).toBe(dropBtn.getAttribute('id'));
+        expect(dropBtn.getAttribute('aria-controls')).toBe(tab.getAttribute('id'));
+        expect(dropBtn).toHaveCssClass('sky-tab-dropdown-item-btn');
+        expect(tabBtn.tagName.toLowerCase()).toBe('sky-tab-button');
+      });
+    }));
+
     it('should emit a click event on enter press', () => {
       fixture.detectChanges();
       fixture.detectChanges();
