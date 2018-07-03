@@ -260,7 +260,7 @@ describe('Dropdown component', () => {
       expect(buttonElem.getAttribute('title')).toBe('Dropdown title');
     });
 
-    it('should display default label when label not set and buttonType is not select', () => {
+    it('should display default label when label not set and buttonType is not select or tab', () => {
       fixture.componentInstance.buttonType = 'context-menu';
       fixture.detectChanges();
       const buttonElem = getDropdownButtonElement();
