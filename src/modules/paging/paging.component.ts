@@ -69,11 +69,11 @@ export class SkyPagingComponent implements OnChanges {
     this.setPage(this.currentPage - 1);
   }
 
-  public get previousDisabled(): boolean {
+  public get isPreviousButtonDisabled(): boolean {
     return (this.currentPage === 1);
   }
 
-  public get nextDisabled(): boolean {
+  public get isNextButtonDisabled(): boolean {
     return (this.currentPage === this.pageCount);
   }
 

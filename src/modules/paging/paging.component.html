@@ -1,43 +1,46 @@
-<ul
+<ul *ngIf="pageCount > 1"
   role="navigation"
-  *ngIf="pageCount > 1"
   [attr.aria-label]="pagingLabel || 'paging_label' | skyResources"
-  >
+>
   <li>
-      <button
-        class="sky-btn sky-btn-default sky-paging-btn"
-        sky-cmp-id="previous"
-        [attr.aria-disabled]="previousDisabled"
-        [attr.aria-label]="'paging_previous' | skyResources"
-        [disabled]="previousDisabled"
-        [ngClass]="{ 'sky-paging-disabled': previousDisabled }"
-        (click)="previousPage(); $event.preventDefault();"
-      >
-        <i
-          aria-hidden="true"
-          class="fa fa-caret-left sky-paging-caret"
-        ></i>
-      </button>
-  </li>
-  <li
-    *ngFor="let pageNumber of displayedPages"
-    class="sky-list-paging-link">
     <button
+      class="sky-btn sky-btn-default sky-paging-btn sky-paging-btn-previous"
+      sky-cmp-id="previous"
+      type="button"
+      [attr.aria-disabled]="isPreviousButtonDisabled"
+      [attr.aria-label]="'paging_previous' | skyResources"
+      [ngClass]="{ 'sky-paging-disabled': isPreviousButtonDisabled }"
+      (click)="previousPage()"
+    >
+      <i
+        aria-hidden="true"
+        class="fa fa-caret-left sky-paging-caret"
+      ></i>
+    </button>
+  </li>
+  <li *ngFor="let pageNumber of displayedPages"
+    class="sky-list-paging-link"
+  >
+    <button
+      class="sky-btn sky-btn-default sky-paging-btn"
+      type="button"
+      [attr.aria-current]="currentPage === pageNumber"
       [attr.sky-cmp-id]="pageNumber"
-      (click)="setPage(pageNumber); false"
       [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }"
-      >{{pageNumber}}
+      (click)="setPage(pageNumber)"
+    >
+      {{ pageNumber }}
     </button>
   </li>
   <li>
-      <button
-      class="sky-btn sky-btn-default sky-paging-btn"
+    <button
+      class="sky-btn sky-btn-default sky-paging-btn sky-paging-btn-next"
       sky-cmp-id="next"
-      [attr.aria-disabled]="nextDisabled"
+      type="button"
+      [attr.aria-disabled]="isNextButtonDisabled"
       [attr.aria-label]="'paging_next' | skyResources"
-      [disabled]="nextDisabled"
-      [ngClass]="{ 'sky-paging-disabled': nextDisabled }"
-      (click)="nextPage(); $event.preventDefault();"
+      [ngClass]="{ 'sky-paging-disabled': isNextButtonDisabled }"
+      (click)="nextPage()"
     >
       <i
         aria-hidden="true"
