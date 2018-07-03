@@ -4,6 +4,7 @@
   [attr.role]="config?.ariaRole"
   [attr.aria-describedby]="config?.ariaDescribedBy"
   [attr.aria-labelledby]="config?.ariaLabelledBy"
+  [id]="flyoutId"
   [ngClass]="{ 'sky-flyout-hidden': !isOpen && !isOpening }"
   (@flyoutState.done)="animationDone($event)"
   [@flyoutState]="getAnimationState()"
@@ -18,15 +19,21 @@
     (mousedown)="onMouseDown($event)">
   </button>
 
+  <input
+    aria-label="Width of flyout"
+    class="sky-flyout-input-aria-only"
+    type="range"
+    role="separator"
+    [attr.aria-controls]="flyoutId"
+    [attr.aria-valuemax]="config.maxWidth"
+    [attr.aria-valuemin]="config.minWidth"
+    [attr.aria-valuenow]="flyoutWidth"
+    [max]="config.maxWidth"
+    [min]="config.minWidth"
+    [(ngModel)]="flyoutWidth" />
+
   <div class="sky-flyout-header" #flyoutHeader>
     <div class="sky-flyout-header-content">
-      <input
-        aria-label="Width of flyout"
-        class="sky-flyout-input-aria-only"
-        type="range"
-        [min]="config.minWidth"
-        [max]="config.maxWidth"
-        [(ngModel)]="flyoutWidth" />
     </div>
     <div class="sky-flyout-header-buttons">
       <ng-container *ngTemplateOutlet="permalinkTemplate">

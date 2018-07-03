@@ -259,6 +259,23 @@ describe('Flyout component', () => {
     })
   );
 
+  it('should have correct aria-labels on resizing range input', fakeAsync(() => {
+      openFlyout({maxWidth: 1000, minWidth: 200});
+      const flyoutElement = getFlyoutElement();
+      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-input-aria-only');
+
+      expect(flyoutElement.style.width).toBe('500px');
+      expect(resizeInput.getAttribute('aria-controls')).toBe(flyoutElement.id);
+
+      expect(resizeInput.getAttribute('aria-valuenow')).toBe('500');
+      expect(resizeInput.getAttribute('aria-valuemax')).toBe('1000');
+      expect(resizeInput.getAttribute('aria-valuemin')).toBe('200');
+
+      expect(resizeInput.getAttribute('max')).toBe('1000');
+      expect(resizeInput.getAttribute('min')).toBe('200');
+    })
+  );
+
   it('should respect minimum and maximum when resizing', fakeAsync(() => {
       openFlyout({ maxWidth: 1000, minWidth: 200});
       const flyoutElement = getFlyoutElement();

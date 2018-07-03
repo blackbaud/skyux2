@@ -42,6 +42,7 @@ import {
 
 const FLYOUT_OPEN_STATE = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE = 'flyoutClosed';
+let nextId = 0;
 
 @Component({
   selector: 'sky-flyout',
@@ -62,6 +63,7 @@ const FLYOUT_CLOSED_STATE = 'flyoutClosed';
 })
 export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public config: SkyFlyoutConfig;
+  public flyoutId: string = `sky-flyout-${++nextId}`;
   public flyoutState = FLYOUT_CLOSED_STATE;
   public isOpen = false;
   public isOpening = false;
