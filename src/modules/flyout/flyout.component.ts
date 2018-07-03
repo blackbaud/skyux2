@@ -39,6 +39,7 @@ import {
   SkyFlyoutMessage,
   SkyFlyoutMessageType
 } from './types';
+import { SkyFlyoutAction } from './types/flyout-action';
 
 const FLYOUT_OPEN_STATE = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE = 'flyoutClosed';
@@ -89,6 +90,23 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
 
     return SkyResources.getString('flyout_permalink_button');
+  }
+
+  public get primaryAction(): SkyFlyoutAction {
+    let primaryAction = this.config.primaryAction;
+    if (primaryAction) {
+      return primaryAction;
+    }
+
+    return {};
+  }
+
+  public get primaryActionLabel(): string {
+    if (this.config.primaryAction && this.config.primaryAction.label) {
+      return this.config.primaryAction.label;
+    }
+
+    return SkyResources.getString('flyout_primary_action_button');
   }
 
   @ViewChild('target', { read: ViewContainerRef })
@@ -161,6 +179,16 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     });
   }
 
+  public invokePrimaryAction() {
+    this.primaryAction.callback();
+
+    if (this.primaryAction.closeAfterInvoking) {
+      this.close();
+    }
+
+    return false;
+  }
+
   public getAnimationState(): string {
     return (this.isOpening) ? FLYOUT_OPEN_STATE : FLYOUT_CLOSED_STATE;
   }
@@ -180,6 +208,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public onMouseDown(event: MouseEvent) {
     this.isDragging = true;
     this.xCoord = event.clientX;
+
     event.preventDefault();
     event.stopPropagation();
   }
