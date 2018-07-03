@@ -9,5 +9,6 @@ export { SKY_FLYOUT_PROVIDERS } from './flyout-providers';
 export {
   SkyFlyoutConfig,
   SkyFlyoutMessage,
-  SkyFlyoutMessageType
+  SkyFlyoutMessageType,
+  SkyFlyoutAction
 } from './types';

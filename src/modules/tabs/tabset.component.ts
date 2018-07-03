@@ -57,6 +57,13 @@ export class SkyTabsetComponent
   ) {
   }
 
+  public getTabButtonId(tab: SkyTabComponent): string {
+    if (this.tabDisplayMode === 'tabs') {
+      return tab.tabId + '-nav-btn';
+    }
+    return tab.tabId + '-hidden-nav-btn';
+  }
+
   public tabCloseClick(tab: SkyTabComponent) {
     tab.close.emit(undefined);
   }
@@ -85,6 +92,9 @@ export class SkyTabsetComponent
   }
 
   public ngAfterContentInit() {
+    // initialize each tab's index. (in case tabs are instantiated out of order)
+    this.tabs.forEach(item => item.initializeTabIndex());
+
     if (this.active || this.active === 0) {
       this.tabsetService.activateTabIndex(this.active);
     }

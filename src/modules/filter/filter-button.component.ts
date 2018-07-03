@@ -14,7 +14,10 @@ import {
 })
 export class SkyFilterButtonComponent {
   @Input()
-  public active: boolean = false;
+  public active = false;
+
+  @Input()
+  public showButtonText = false;
 
   @Output()
   public filterButtonClick: EventEmitter<any> = new EventEmitter();
