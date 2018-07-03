@@ -42,10 +42,20 @@ describe('Paging component', () => {
 
   function getPagingSelector(type: string) {
     if (type === 'next' || type === 'previous') {
-      return '.sky-paging-caret[sky-cmp-id="' + type + '"]';
+      return '.sky-paging-btn[sky-cmp-id="' + type + '"]';
     } else {
-      return '.sky-list-paging-link a[sky-cmp-id="' + type + '"]';
+      return '.sky-list-paging-link button[sky-cmp-id="' + type + '"]';
     }
+  }
+
+  function verifyDisabled(elem: DebugElement) {
+    expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+    expect(elem.nativeElement.getAttribute('aria-disabled')).toBe('true');
+  }
+
+  function verifyEnabled(elem: DebugElement) {
+    expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+    expect(elem.nativeElement.getAttribute('aria-disabled')).toBe('false');
   }
 
   describe('with 8 items', () => {
@@ -55,15 +65,13 @@ describe('Paging component', () => {
     });
 
     it('should have a disabled previous button', () => {
-      expect(element.query(
-        By.css(getPagingSelector('previous'))
-      ).nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+      let elem = element.query(By.css(getPagingSelector('previous')));
+      verifyDisabled(elem);
     });
 
     it('should have an enabled next button', () => {
-      expect(element.query(
-        By.css(getPagingSelector('next'))
-      ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+      let elem = element.query(By.css(getPagingSelector('next')));
+      verifyEnabled(elem);
     });
 
     it('should show selected page 1 with special style', () => {
@@ -99,15 +107,13 @@ describe('Paging component', () => {
       });
 
       it('should have an enabled previous button', () => {
-        expect(element.query(
-          By.css(getPagingSelector('previous'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        let elem = element.query(By.css(getPagingSelector('previous')));
+        verifyEnabled(elem);
       });
 
       it('should have an enabled next button', () => {
-        expect(element.query(
-          By.css(getPagingSelector('next'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        let elem = element.query(By.css(getPagingSelector('next')));
+        verifyEnabled(elem);
       });
 
       it('should show selected page 3 with special style', () => {
@@ -136,15 +142,13 @@ describe('Paging component', () => {
         });
 
         it('should have enabled previous button', () => {
-          expect(element.query(
-            By.css(getPagingSelector('previous'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+          let elem = element.query(By.css(getPagingSelector('previous')));
+          verifyEnabled(elem);
         });
 
         it('should have disabled next button', () => {
-          expect(element.query(
-            By.css(getPagingSelector('next'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+          let elem = element.query(By.css(getPagingSelector('next')));
+          verifyDisabled(elem);
         });
       });
 
@@ -160,15 +164,13 @@ describe('Paging component', () => {
         });
 
         it('should have disabled previous button', () => {
-           expect(element.query(
-            By.css(getPagingSelector('previous'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
+          let elem = element.query(By.css(getPagingSelector('previous')));
+          verifyDisabled(elem);
         });
 
         it('should have enabled next button', () => {
-          expect(element.query(
-            By.css(getPagingSelector('next'))
-          ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+          let elem = element.query(By.css(getPagingSelector('next')));
+          verifyEnabled(elem);
         });
 
         it('should show selected page 1 with special style', () => {

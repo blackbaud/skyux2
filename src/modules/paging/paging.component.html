@@ -4,34 +4,45 @@
   [attr.aria-label]="pagingLabel || 'paging_label' | skyResources"
   >
   <li>
-    <a
-      href
-      (click)="previousPage(); false"
-      class="fa fa-caret-left sky-paging-caret"
-      sky-cmp-id="previous"
-      [ngClass]="{ 'sky-paging-disabled': currentPage === 1 }"
-      [attr.aria-label]="'paging_previous' | skyResources"></a>
+      <button
+        class="sky-btn sky-btn-default sky-paging-btn"
+        sky-cmp-id="previous"
+        [attr.aria-disabled]="previousDisabled"
+        [attr.aria-label]="'paging_previous' | skyResources"
+        [disabled]="previousDisabled"
+        [ngClass]="{ 'sky-paging-disabled': previousDisabled }"
+        (click)="previousPage(); $event.preventDefault();"
+      >
+        <i
+          aria-hidden="true"
+          class="fa fa-caret-left sky-paging-caret"
+        ></i>
+      </button>
   </li>
   <li
     *ngFor="let pageNumber of displayedPages"
     class="sky-list-paging-link">
-    <a
-      href
+    <button
       [attr.sky-cmp-id]="pageNumber"
       (click)="setPage(pageNumber); false"
       [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }"
       >{{pageNumber}}
-    </a>
+    </button>
   </li>
   <li>
-    <a
-      href
-      (click)="nextPage(); false"
-      class="fa fa-caret-right sky-paging-caret"
+      <button
+      class="sky-btn sky-btn-default sky-paging-btn"
       sky-cmp-id="next"
-      [ngClass]="{ 'sky-paging-disabled': pageCount === currentPage }"
+      [attr.aria-disabled]="nextDisabled"
       [attr.aria-label]="'paging_next' | skyResources"
-      >
-    </a>
+      [disabled]="nextDisabled"
+      [ngClass]="{ 'sky-paging-disabled': nextDisabled }"
+      (click)="nextPage(); $event.preventDefault();"
+    >
+      <i
+        aria-hidden="true"
+        class="fa fa-caret-right sky-paging-caret"
+      ></i>
+    </button>
   </li>
 </ul>

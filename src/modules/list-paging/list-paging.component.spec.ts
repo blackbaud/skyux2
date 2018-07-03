@@ -60,9 +60,9 @@ describe('List Paging Component', () => {
 
   function getPagingSelector(type: string) {
     if (type === 'next' || type === 'previous') {
-      return '.sky-paging-caret[sky-cmp-id="' + type + '"]';
+      return '.sky-paging-btn[sky-cmp-id="' + type + '"]';
     } else {
-      return '.sky-list-paging-link a[sky-cmp-id="' + type + '"]';
+      return '.sky-list-paging-link button[sky-cmp-id="' + type + '"]';
     }
   }
 
