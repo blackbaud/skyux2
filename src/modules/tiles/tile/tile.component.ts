@@ -1,14 +1,21 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Input,
   Optional,
-  Output
+  Output,
+  ViewChild
 } from '@angular/core';
 
-import { skyAnimationSlide } from '../../animation/slide';
-import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
+import {
+  skyAnimationSlide
+} from '../../animation/slide';
+import {
+  SkyTileDashboardService
+} from '../tile-dashboard/tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile',
@@ -16,14 +23,18 @@ import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.servic
   templateUrl: './tile.component.html',
   animations: [skyAnimationSlide]
 })
-export class SkyTileComponent {
+export class SkyTileComponent implements AfterViewInit {
   public isInDashboardColumn = false;
+  public showHeading = true;
 
   @Input()
   public showSettings: boolean = true;
 
   @Output()
   public settingsClick = new EventEmitter();
+
+  @ViewChild('tileTitleHeading')
+  public titleHeading: any;
 
   @Output()
   public isCollapsedChange = new EventEmitter<boolean>();
@@ -51,9 +62,16 @@ export class SkyTileComponent {
 
   constructor(
     public elementRef: ElementRef,
+    private changeDetector: ChangeDetectorRef,
     @Optional() private dashboardService: SkyTileDashboardService
   ) {
     this.isInDashboardColumn = !!dashboardService;
+  }
+
+  public ngAfterViewInit() {
+    this.showHeading = this.titleHeading.nativeElement
+      && this.titleHeading.nativeElement.children.length > 0;
+    this.changeDetector.detectChanges();
   }
 
   public settingsButtonClicked() {
