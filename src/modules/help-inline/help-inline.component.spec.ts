@@ -15,7 +15,7 @@ import {
 import { SkyHelpInlineModule } from '../help-inline/help-inline.module';
 import { HelpInlineTestComponent } from './fixtures/help-inline.component.fixture';
 
-describe('Help inline component', () => {
+fdescribe('Help inline component', () => {
   let fixture: ComponentFixture<HelpInlineTestComponent>;
   let cmp: HelpInlineTestComponent;
   let debugElement: DebugElement;
@@ -43,4 +43,11 @@ describe('Help inline component', () => {
     fixture.detectChanges();
     expect(cmp.buttonIsClicked).toBe(true);
   });
+
+  it('should have correct labels on the button', () => {
+    let element = debugElement.query(By.css('.sky-help-inline')).nativeElement;
+    expect(element.getAttribute('title')).toBe('Show help content');
+    expect(element.getAttribute('aria-label')).toBe('Show help content');
+  });
+
 });

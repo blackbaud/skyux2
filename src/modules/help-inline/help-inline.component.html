@@ -2,6 +2,7 @@
   class="sky-help-inline"
   type="button"
   (click)="onClick()"
+  [attr.aria-label]="'help_inline_button_title' | skyResources"
   [attr.title]="'help_inline_button_title' | skyResources">
   <i class="fa fa-info-circle" aria-hidden="true"></i>
 </button>
