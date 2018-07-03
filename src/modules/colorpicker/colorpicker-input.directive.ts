@@ -1,16 +1,15 @@
 import {
-  ElementRef,
   Directive,
+  ElementRef,
   forwardRef,
   HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Renderer,
-  SimpleChanges,
-  OnDestroy
+  SimpleChanges
 } from '@angular/core';
-
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -19,16 +18,23 @@ import {
   Validator
 } from '@angular/forms';
 
-import { SkyColorpickerService } from './colorpicker.service';
-import { SkyColorpickerComponent } from './colorpicker.component';
-
+import {
+  SkyColorpickerService
+} from './colorpicker.service';
+import {
+  SkyColorpickerComponent
+} from './colorpicker.component';
 import {
   SkyColorpickerHsva,
   SkyColorpickerOutput
 } from './types';
+import {
+  SkyResourcesService
+} from '../resources';
 
-import { Subscription } from 'rxjs/Subscription';
-import { SkyResourcesService } from '../resources';
+import {
+  Subscription
+} from 'rxjs/Subscription';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_COLORPICKER_VALUE_ACCESSOR = {
@@ -89,7 +95,7 @@ export class SkyColorpickerInputDirective
     private elementRef: ElementRef,
     private renderer: Renderer,
     private service: SkyColorpickerService,
-    private skyResourceSvc: SkyResourcesService
+    private skyResourceService: SkyResourcesService
   ) { }
 
   @HostListener('input', ['$event'])
@@ -132,7 +138,7 @@ export class SkyColorpickerInputDirective
       this.renderer.setElementAttribute(
         this.elementRef.nativeElement,
         'aria-label',
-        this.skyResourceSvc.getString('colorpicker_input_default_label'));
+        this.skyResourceService.getString('colorpicker_input_default_label'));
     }
 
     const typeAttr = element.getAttribute('type');
