@@ -1,14 +1,22 @@
-<sky-vertical-tab 
+<sky-vertical-tab
+  role="tab"
+  [active]="active"
+  [attr.aria-selected]="active"
+  [attr.aria-controls]="sectionContentId"
+  [id]="sectionTabId"
   [ngClass]="{
     'sky-tab-field-required': fieldRequired,
     'sky-tab-field-invalid': fieldInvalid
   }"
-  [tabHeading]="heading" 
-  [tabHeaderCount]="itemCount" 
-  [active]="active"
   [showTabRightArrow]="true"
+  [tabHeading]="heading"
+  [tabHeaderCount]="itemCount"
 >
-  <div #tabContent>
+  <div
+    role="tabpanel"
+    [attr.aria-labelledby]="sectionTabId"
+    [id]="sectionContentId"
+    #tabContent>
     <ng-content></ng-content>
   </div>
 </sky-vertical-tab>

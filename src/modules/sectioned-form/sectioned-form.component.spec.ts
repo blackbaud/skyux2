@@ -235,6 +235,29 @@ describe('Sectioned form component', () => {
     expect(invalidTab.classList.contains('sky-tab-field-invalid')).toBe(true);
   });
 
+  it('section should have appropriate aria labels', () => {
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // check section is not invalid
+    let tabs = el.querySelectorAll('sky-vertical-tab');
+    expect(tabs.length).toBe(2);
+
+    let inactiveTab = tabs[0];
+    let inactiveTabContent = el.querySelector('#' + inactiveTab.getAttribute('aria-controls'));
+    expect(inactiveTab.getAttribute('aria-selected')).toBeFalsy();
+    expect(inactiveTab.getAttribute('aria-controls')).toBe(inactiveTabContent.id);
+    expect(inactiveTabContent.getAttribute('aria-labelledby')).toBe(inactiveTab.id);
+
+    let activeTab = tabs[1];
+    let activeTabContent = el.querySelector('#' + activeTab.getAttribute('aria-controls'));
+    expect(activeTab.getAttribute('aria-selected')).toBe('true');
+    expect(activeTab.getAttribute('aria-controls')).toBe(activeTabContent.id);
+    expect(activeTabContent.getAttribute('aria-labelledby')).toBe(activeTab.id);
+  });
+
   it('should show content after resizing screen', () => {
     mockQueryService.current = SkyMediaBreakpoints.xs;
     let fixture = createTestComponent();

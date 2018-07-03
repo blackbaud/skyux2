@@ -12,6 +12,8 @@ import 'rxjs/add/operator/takeUntil';
 import { SkyVerticalTabComponent } from './../vertical-tabset/vertical-tab.component';
 import { SkySectionedFormService } from './sectioned-form.service';
 
+let nextId = 0;
+
 @Component({
   selector: 'sky-sectioned-form-section',
   templateUrl: './sectioned-form-section.component.html',
@@ -19,6 +21,8 @@ import { SkySectionedFormService } from './sectioned-form.service';
   styleUrls: ['./sectioned-form-section.component.scss']
 })
 export class SkySectionedFormSectionComponent implements OnInit, OnDestroy {
+  public sectionTabId = `sky-sectioned-form-tab-${++nextId}`;
+  public sectionContentId = `sky-sectioned-form-section-${++nextId}`;
 
   @Input()
   public heading: string;
