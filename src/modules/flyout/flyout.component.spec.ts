@@ -85,6 +85,10 @@ describe('Flyout component', () => {
     return document.querySelector('.sky-flyout-btn-permalink') as HTMLElement;
   }
 
+  function getPrimaryActionButtonElement(): HTMLElement {
+    return document.querySelector('.sky-flyout-btn-primary-action') as HTMLElement;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -405,6 +409,135 @@ describe('Flyout component', () => {
         });
         const permalinkButton = getPermalinkButtonElement();
         expect(permalinkButton.getAttribute('href')).toEqual('http://foo.com');
+      })
+    );
+  });
+
+  describe('primary action', () => {
+    it('should not show the primary action button if no action is configured',
+      fakeAsync(() => {
+        openFlyout();
+        const primaryActionButton = getPrimaryActionButtonElement();
+        expect(primaryActionButton).toBeFalsy();
+      })
+    );
+
+    it('should use the default primary action label if none is defined',
+      fakeAsync(() => {
+        const expectedLabel = SkyResources.getString('flyout_primary_action_button');
+
+        openFlyout({
+          primaryAction: {
+            callback: () => { }
+          }
+        });
+
+        const primaryActionButton = getPrimaryActionButtonElement();
+        expect(primaryActionButton).toBeTruthy();
+        expect(primaryActionButton.innerHTML.trim()).toEqual(expectedLabel);
+      })
+    );
+
+    it('should use the custom defined label for primary action',
+      fakeAsync(() => {
+        const expectedLabel = SkyResources.getString('flyout_primary_action_button');
+
+        openFlyout({
+          primaryAction: {
+            callback: () => { },
+            label: expectedLabel
+          }
+        });
+
+        const primaryActionButton = getPrimaryActionButtonElement();
+        expect(primaryActionButton).toBeTruthy();
+        expect(primaryActionButton.innerHTML.trim()).toEqual(expectedLabel);
+      })
+    );
+
+    it('should invoke the primary action callback when clicking on the primary action button',
+      fakeAsync(() => {
+        let primaryActionInvoked = false;
+
+        openFlyout({
+          primaryAction: {
+            callback: () => {
+              primaryActionInvoked = true;
+            }
+          }
+        });
+
+        const primaryActionButton = getPrimaryActionButtonElement();
+        expect(primaryActionButton).toBeTruthy();
+        primaryActionButton.click();
+
+        // let the close message propagate
+        applicationRef.tick();
+        tick();
+
+        expect(primaryActionInvoked).toBe(true);
+      })
+    );
+
+    it('should close the flyout after invoking the primary action if configured to do so',
+      fakeAsync(() => {
+        const flyoutInstance = openFlyout({
+          primaryAction: {
+            callback: () => { },
+            closeAfterInvoking: true
+          }
+        });
+
+        const primaryActionButton = getPrimaryActionButtonElement();
+        expect(primaryActionButton).toBeTruthy();
+        primaryActionButton.click();
+
+        // let the close message propagate
+        applicationRef.tick();
+        tick();
+
+        expect(flyoutInstance.isOpen).toBeFalsy();
+      })
+    );
+
+    it('should not close the flyout after invoking the primary action if not configured to do so',
+      fakeAsync(() => {
+        const flyoutInstance = openFlyout({
+          primaryAction: {
+            callback: () => { },
+            closeAfterInvoking: false
+          }
+        });
+
+        const primaryActionButton = getPrimaryActionButtonElement();
+        expect(primaryActionButton).toBeTruthy();
+        primaryActionButton.click();
+
+        // let the close message propagate
+        applicationRef.tick();
+        tick();
+
+        expect(flyoutInstance.isOpen).toBeTruthy();
+      })
+    );
+
+    it('should not close the flyout after invoking the primary action if configuration is not set',
+      fakeAsync(() => {
+        const flyoutInstance = openFlyout({
+          primaryAction: {
+            callback: () => { }
+          }
+        });
+
+        const primaryActionButton = getPrimaryActionButtonElement();
+        expect(primaryActionButton).toBeTruthy();
+        primaryActionButton.click();
+
+        // let the close message propagate
+        applicationRef.tick();
+        tick();
+
+        expect(flyoutInstance.isOpen).toBeTruthy();
       })
     );
   });
