@@ -1,16 +1,17 @@
 <a
     class="sky-btn-tab"
+    role="tab"
+    [attr.aria-disabled]="disabled"
+    [attr.aria-selected]="active"
     [ngClass]="{
       'sky-btn-tab-wizard': tabStyle === 'wizard',
       'sky-btn-tab-selected': active,
       'sky-btn-tab-disabled': disabled,
       'sky-tab-btn-closeable': allowClose
     }"
-    tabindex="0"
-    (keydown)="keyDownFunction($event)"
+    [tabindex]="disabled ? '-1' : '0'"
     (click)="doTabClick()"
-    role="tab"
-    [attr.aria-selected]="active"
+    (keydown)="keyDownFunction($event)"
 >
   {{tabHeading}}
   <span
