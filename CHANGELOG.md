@@ -1,3 +1,12 @@
+# 2.17.0 (2018-07-05)
+
+- Added primary action button to flyout component toolbar. [#1766](https://github.com/blackbaud/skyux2/pull/1766) (Thanks @Blackbaud-StewartStephens)
+- Updated accessibility for colorpicker component. [#1789](https://github.com/blackbaud/skyux2/pull/1789)
+- Updated accessibility for dropdown button component. [#1781](https://github.com/blackbaud/skyux2/pull/1781)
+- Updated accessibility for tabset component. [#1786](https://github.com/blackbaud/skyux2/pull/1786)
+- Updated accessibility for action button component. [#1778](https://github.com/blackbaud/skyux2/pull/1778)
+- Updated accessibility for link records component. [#1782](https://github.com/blackbaud/skyux2/pull/1782)
+
 # 2.16.0 (2018-07-02)
 
 - Restructured list toolbar component to meet design guidelines. [#1645](https://github.com/blackbaud/skyux2/pull/1645) (Thanks @Blackbaud-TrevorBurch)
