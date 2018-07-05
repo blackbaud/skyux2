@@ -859,6 +859,10 @@
     "_description": "Label for settings button in the tile",
     "message": "Settings"
   },
+  "timepicker_button_label": {
+    "_description": "Screen reader text for the timepicker component dropdown button",
+    "message": "Choose time"
+  },
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"
