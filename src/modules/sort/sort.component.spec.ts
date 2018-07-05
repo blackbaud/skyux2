@@ -38,6 +38,11 @@ describe('Sort component', () => {
     return nativeElement.querySelector(dropdownButtonQuery) as HTMLElement;
   }
 
+  function getDropdownMenuEl() {
+    let dropdownMenuQuery = '.sky-sort .sky-dropdown-menu';
+    return nativeElement.querySelector(dropdownMenuQuery) as HTMLElement;
+  }
+
   function getSortItems() {
     let itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
     return nativeElement.querySelectorAll(itemQuery);
@@ -77,6 +82,15 @@ describe('Sort component', () => {
     let dropdownButtonEl = getDropdownButtonEl();
     expect(dropdownButtonEl.getAttribute('aria-label')).toBe('Sort');
     expect(dropdownButtonEl.getAttribute('title')).toBe('Sort');
+
+    dropdownButtonEl.click();
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    expect(getDropdownMenuEl().getAttribute('aria-labelledby')).toBe(
+      nativeElement.querySelector('.sky-sort-menu-heading').getAttribute('id')
+    );
   }));
 
   it('changes active item on click and emits proper event', fakeAsync(() => {
