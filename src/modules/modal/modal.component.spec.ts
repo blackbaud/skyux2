@@ -119,6 +119,26 @@ describe('Modal component', () => {
 
   }));
 
+  let arrowKeyModalFocusTest = (key: number) => {
+    let modalInstance1 = openModal(ModalFooterTestComponent);
+    let upEvent: any = document.createEvent('CustomEvent');
+    upEvent.which = key;
+    upEvent.keyCode = key;
+    upEvent.initEvent('keydown', true, true);
+
+    document.dispatchEvent(upEvent);
+
+    tick();
+    applicationRef.tick();
+
+    expect(document.querySelector('.sky-modal-content')).toBe(document.activeElement);
+    closeModal(modalInstance1);
+  };
+
+  it('should handle up key press when modal is the top modal', fakeAsync(() => arrowKeyModalFocusTest(38)));
+
+  it('should handle down key press when modal is the top modal', fakeAsync(() => arrowKeyModalFocusTest(40)));
+
   it('should handle tab with shift when focus is on modal and in top modal', fakeAsync(() => {
     let modalInstance1 = openModal(ModalFooterTestComponent);
     let tabEvent: any = document.createEvent('CustomEvent');
