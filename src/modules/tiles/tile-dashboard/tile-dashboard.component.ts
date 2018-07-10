@@ -7,7 +7,8 @@ import {
   Output,
   QueryList,
   ViewChild,
-  ViewChildren
+  ViewChildren,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';

@@ -27,25 +27,6 @@ const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 
 let bagIdIndex = 0;
 
-function getTileId(tile: SkyTileComponent): string {
-  if (tile) {
-    let el = tile.elementRef.nativeElement;
-    let tileId: string;
-
-    while (el) {
-      tileId = el.getAttribute(ATTR_TILE_ID);
-
-      if (tileId) {
-        return tileId;
-      }
-
-      el = el.parentElement;
-    }
-  }
-
-  return undefined;
-}
-
 @Injectable()
 export class SkyTileDashboardService {
   public bagId: string;
@@ -96,7 +77,7 @@ export class SkyTileDashboardService {
   }
 
   public tileIsCollapsed(tile: SkyTileComponent): boolean {
-    let tileConfig = this.findTile(getTileId(tile));
+    let tileConfig = this.findTile(this.getTileId(tile));
 
     if (tileConfig) {
       return tileConfig.isCollapsed;
@@ -106,7 +87,7 @@ export class SkyTileDashboardService {
   }
 
   public setTileCollapsed(tile: SkyTileComponent, isCollapsed: boolean) {
-    let tileConfig = this.findTile(getTileId(tile));
+    let tileConfig = this.findTile(this.getTileId(tile));
 
     if (tileConfig) {
       tileConfig.isCollapsed = isCollapsed;
@@ -153,6 +134,66 @@ export class SkyTileDashboardService {
     if (this.mediaSubscription) {
       this.mediaSubscription.unsubscribe();
     }
+  }
+
+  public moveTile(tileCmp: SkyTileComponent, direction: 'up' | 'left' | 'right' | 'down') {
+    let tileId = this.getTileId(tileCmp);
+    let tile = this.findTile(tileId);
+    let column = this.findTileColumn(tileId);
+    let colIndex = this.config.layout.multiColumn.findIndex((value) => value === column);
+
+    if (direction === 'left' || direction === 'right') {
+      let operator = direction === 'left' ? -1 : 1;
+
+      let newColumn = this.config.layout.multiColumn[colIndex + operator];
+      if (newColumn) {
+        newColumn.tiles.push(tile);
+        column.tiles = column.tiles.filter(item => item !== tile);
+        this.moveTilesToColumn(this.columns.toArray()[colIndex + operator], [tile]);
+        this.configChange.emit(this.config);
+      }
+    } else {
+      let operator = direction === 'up' ? -1 : 1;
+      let curIndex = column.tiles.findIndex((value) => value === tile);
+
+      if (column.tiles[curIndex + operator]) {
+        let temp = column.tiles[curIndex + operator];
+        column.tiles[curIndex + operator] = tile;
+        column.tiles[curIndex] = temp;
+
+        let columnEl = this.getColumnEl(this.columns.toArray()[colIndex]);
+        let tileComponentInstance = this.getTileComponent(tileId);
+
+        if (curIndex + operator === column.tiles.length - 1) {
+          columnEl.appendChild(tileComponentInstance.location.nativeElement);
+        } else {
+          columnEl.insertBefore(
+            tileComponentInstance.location.nativeElement,
+            this.getTileComponent(column.tiles[curIndex + operator + 1].id).location.nativeElement
+          );
+        }
+        this.configChange.emit(this.config);
+      }
+    }
+  }
+
+  public getTileId(tile: SkyTileComponent): string {
+    if (tile) {
+      let el = tile.elementRef.nativeElement;
+      let tileId: string;
+
+      while (el) {
+        tileId = el.getAttribute(ATTR_TILE_ID);
+
+        if (tileId) {
+          return tileId;
+        }
+
+        el = el.parentElement;
+      }
+    }
+
+    return undefined;
   }
 
   private getTile(layoutTile: SkyTileDashboardConfigLayoutTile): SkyTileDashboardConfigTile {
@@ -363,6 +404,24 @@ export class SkyTileDashboardService {
           for (let tile of column.tiles) {
             if (tile.id === tileId) {
               return tile;
+            }
+          }
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  private findTileColumn(tileId: string): SkyTileDashboardConfigLayoutColumn {
+    /*istanbul ignore else */
+    if (this.config && this.config.layout.multiColumn) {
+      for (let column of this.config.layout.multiColumn) {
+        /*istanbul ignore else */
+        if (column.tiles) {
+          for (let tile of column.tiles) {
+            if (tile.id === tileId) {
+              return column;
             }
           }
         }

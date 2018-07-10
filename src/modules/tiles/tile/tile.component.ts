@@ -9,6 +9,7 @@ import {
 
 import { skyAnimationSlide } from '../../animation/slide';
 import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
+import { SkyTileDashboardComponent } from '../tile-dashboard';
 
 @Component({
   selector: 'sky-tile',
@@ -51,6 +52,7 @@ export class SkyTileComponent {
 
   constructor(
     public elementRef: ElementRef,
+    public tileDashboard: SkyTileDashboardComponent,
     @Optional() private dashboardService: SkyTileDashboardService
   ) {
     this.isInDashboardColumn = !!dashboardService;
@@ -70,5 +72,43 @@ export class SkyTileComponent {
 
   public chevronDirectionChange(direction: string) {
     this.isCollapsed = direction === 'down';
+  }
+
+  public moveTile(event: KeyboardEvent) {
+    if (this.isInDashboardColumn) {
+      let direction: 'up' | 'down' | 'left' | 'right';
+      switch (event.which) {
+        case 38:
+          // up arrow
+          direction = 'up';
+          break;
+
+        case 40:
+          // down arrow
+          direction = 'down';
+          break;
+
+        case 37:
+          // left arrow
+          direction = 'left';
+          break;
+
+        case 39:
+          // right arrow
+          direction = 'right';
+          break;
+
+        default:
+          break;
+      }
+      if (direction) {
+        this.dashboardService.moveTile(this, direction);
+        this.focusHandle();
+      }
+    }
+  }
+
+  private focusHandle(): void {
+    this.elementRef.nativeElement.querySelector('.sky-tile-grab-handle').focus();
   }
 }

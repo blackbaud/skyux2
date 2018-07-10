@@ -863,6 +863,10 @@
     "_description": "Label for settings button in the tile",
     "message": "Settings"
   },
+  "tile_grab_handle": {
+    "_description": "Label for grab handle in the tile",
+    "message": "Move"
+  },
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"

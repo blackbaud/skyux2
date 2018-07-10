@@ -29,9 +29,11 @@
         >
         </button>
         <i
-            class="sky-tile-grab-handle fa fa-th"
             *ngIf="isInDashboardColumn"
-        >
+            class="sky-tile-grab-handle fa fa-th"
+            tabindex="0"
+            [attr.aria-label]="'tile_grab_handle' | skyResources"
+            (keydown)="moveTile($event)">
         </i>
       </div>
     </div>
