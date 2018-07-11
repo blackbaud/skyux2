@@ -95,6 +95,25 @@ describe('Confirm component', () => {
     expect(buttons[0]).toHaveText('OK');
   });
 
+  it('should display an OK confirm with body', () => {
+    const fixture = createConfirm({
+      message: 'confirm message',
+      body: 'additional text',
+      type: SkyConfirmType.OK
+    });
+
+    fixture.detectChanges();
+
+    const messageElem = fixture.nativeElement.querySelector('.sky-confirm-message');
+    const bodyElem = fixture.nativeElement.querySelector('.sky-confirm-body');
+    const buttons = fixture.nativeElement.querySelectorAll('.sky-confirm-buttons .sky-btn');
+
+    expect(messageElem).toHaveText('confirm message');
+    expect(bodyElem).toHaveText('additional text');
+    expect(buttons.length).toEqual(1);
+    expect(buttons[0]).toHaveText('OK');
+  });
+
   it('should display a YesCancel confirm', () => {
     const fixture = createConfirm({
       message: 'confirm message',
