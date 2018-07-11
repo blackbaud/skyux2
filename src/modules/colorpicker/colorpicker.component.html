@@ -4,6 +4,7 @@
   <ng-content>
   </ng-content>
   <sky-dropdown
+    [label]="'colorpicker_dropdown_button' | skyResources"
     [messageStream]="dropdownController">
     <sky-dropdown-menu>
       <div class="sky-colorpicker-container">
@@ -63,27 +64,27 @@
             <div class="box">
               <label
                 [for]="skyColorpickerHexId"
-                [attr.aria-label]="'colorpicker_hex_aria' | skyResources">
+                [attr.aria-label]="'colorpicker_aria_hex' | skyResources">
                 {{ 'colorpicker_hex' | skyResources }}
               </label>
               <label
                 [for]="skyColorpickerRedId"
-                [attr.aria-label]="'colorpicker_red_aria' | skyResources">
+                [attr.aria-label]="'colorpicker_aria_red' | skyResources">
                 {{ 'colorpicker_red' | skyResources }}
               </label>
               <label
                 [for]="skyColorpickerGreenId"
-                [attr.aria-label]="'colorpicker_green_aria' | skyResources">
+                [attr.aria-label]="'colorpicker_aria_green' | skyResources">
                 {{ 'colorpicker_green' | skyResources }}
               </label>
               <label
                 [for]="skyColorpickerBlueId"
-                [attr.aria-label]="'colorpicker_blue_aria' | skyResources">
+                [attr.aria-label]="'colorpicker_aria_blue' | skyResources">
                 {{ 'colorpicker_blue' | skyResources }}
               </label>
               <label
                 [for]="skyColorpickerAlphaId"
-                [attr.aria-label]="'colorpicker_alpha_aria' | skyResources">
+                [attr.aria-label]="'colorpicker_aria_alpha' | skyResources">
                 {{ 'colorpicker_alpha' | skyResources }}
               </label>
             </div>
