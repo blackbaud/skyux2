@@ -2,24 +2,40 @@ import {
   fakeAsync,
   inject,
   TestBed,
-  tick
+  tick,
+  ComponentFixture
 } from '@angular/core/testing';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
+import {
+  DragulaService
+} from 'ng2-dragula/ng2-dragula';
 
 import {
   MockDragulaService,
   Tile1TestComponent,
   Tile2TestComponent,
   TileDashboardTestComponent,
-  TileTestContext
+  TileTestContext,
+  SkyTileDashboardFixturesModule
 } from './fixtures';
-import { SkyMediaQueryService, SkyMediaBreakpoints } from '../../media-queries';
-import { SkyTileDashboardConfig } from '../tile-dashboard-config';
-import { SkyTileDashboardComponent } from './tile-dashboard.component';
-import { SkyTileDashboardService } from './tile-dashboard.service';
-import { SkyTilesModule } from '../tiles.module';
-import { SkyTileDashboardFixturesModule } from './fixtures/tile-dashboard-fixtures.module';
-import { MockSkyMediaQueryService } from '../../testing/mocks';
+import {
+  SkyTileDashboardComponent,
+  SkyTileDashboardService,
+  SkyTileDashboardConfig,
+  SkyTilesModule
+} from '..';
+
+import {
+  MockSkyMediaQueryService
+} from '../../testing/mocks';
+import {
+  SkyMediaQueryService,
+  SkyMediaBreakpoints
+} from '../../media-queries';
+import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 describe('Tile dashboard service', () => {
   let dashboardConfig: SkyTileDashboardConfig;
@@ -128,6 +144,30 @@ describe('Tile dashboard service', () => {
                       }
                     }
                   ]
+                },
+                {
+                  id: 'sky-test-tile-3',
+                  componentType: Tile2TestComponent,
+                  providers: [
+                    {
+                      provide: TileTestContext,
+                      useValue: {
+                        id: 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  id: 'sky-test-tile-4',
+                  componentType: Tile2TestComponent,
+                  providers: [
+                    {
+                      provide: TileTestContext,
+                      useValue: {
+                        id: 3
+                      }
+                    }
+                  ]
                 }
               ],
               layout: {
@@ -140,12 +180,29 @@ describe('Tile dashboard service', () => {
                     {
                       id: 'sky-test-tile-1',
                       isCollapsed: true
+                    },
+                    {
+                      id: 'sky-test-tile-3',
+                      isCollapsed: false
+                    },
+                    {
+                      id: 'sky-test-tile-4',
+                      isCollapsed: false
                     }
                   ]
                 },
                 multiColumn: [
                   {
-                    tiles: []
+                    tiles: [
+                      {
+                        id: 'sky-test-tile-3',
+                        isCollapsed: false
+                      },
+                      {
+                        id: 'sky-test-tile-4',
+                        isCollapsed: false
+                      }
+                    ]
                   },
                   {
                     tiles: [
@@ -209,6 +266,134 @@ describe('Tile dashboard service', () => {
 
     expect(setOptionsSpy).toHaveBeenCalled();
   });
+
+  function testIntercolumnNavigation(fixture: ComponentFixture<TileDashboardTestComponent>, keyName: string) {
+    let handle = fixture.nativeElement.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle');
+    SkyAppTestUtility.fireDomEvent(handle, 'keydown', {
+      keyboardEventInit: { key: keyName }
+    });
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    let columnEls = fixture.nativeElement.querySelectorAll('.sky-tile-dashboard-column');
+    if (keyName === 'Right' || keyName === 'ArrowRight') {
+      expect(columnEls[0].querySelector('div.sky-test-tile-1')).toBeFalsy();
+      expect(columnEls[1].querySelector('div.sky-test-tile-1')).toBeTruthy();
+      expect(columnEls[1].querySelectorAll('sky-tile')[1].parentElement).toHaveCssClass('sky-test-tile-1');
+    } else {
+      expect(columnEls[1].querySelector('div.sky-test-tile-1')).toBeFalsy();
+      expect(columnEls[0].querySelector('div.sky-test-tile-1')).toBeTruthy();
+      expect(columnEls[0].querySelectorAll('sky-tile')[2].parentElement).toHaveCssClass('sky-test-tile-1');
+    }
+  }
+
+  it('should allow tiles to be moved between columns with the keyboard', fakeAsync(() => {
+    let fixture = createDashboardTestComponent();
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    // Check navigating to the right column
+    testIntercolumnNavigation(fixture, 'Right');
+
+    // Boundary check navigating right, should not move
+    testIntercolumnNavigation(fixture, 'Right');
+
+    // Check navigating to the left column
+    testIntercolumnNavigation(fixture, 'Left');
+
+    // Boundary check navigating left, should not move
+    testIntercolumnNavigation(fixture, 'Left');
+  }));
+
+  it('should allow tiles to be moved between columns with the arrowkey keys', fakeAsync(() => {
+    let fixture = createDashboardTestComponent();
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    // Check navigating to the right column
+    testIntercolumnNavigation(fixture, 'ArrowRight');
+
+    // Boundary check navigating right, should not move
+    testIntercolumnNavigation(fixture, 'ArrowRight');
+
+    // Check navigating to the left column
+    testIntercolumnNavigation(fixture, 'ArrowLeft');
+
+    // Boundary check navigating left, should not move
+    testIntercolumnNavigation(fixture, 'ArrowLeft');
+  }));
+
+  function testColumnNavigation(
+    fixture: ComponentFixture<TileDashboardTestComponent>,
+    keyName: string,
+    expectedPosition: number
+  ) {
+    let handle = fixture.nativeElement.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle');
+    SkyAppTestUtility.fireDomEvent(handle, 'keydown', {
+      keyboardEventInit: { key: keyName }
+    });
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    let columnEls = fixture.nativeElement.querySelectorAll('.sky-tile-dashboard-column');
+    expect(columnEls[0].querySelectorAll('sky-tile')[expectedPosition].parentElement).toHaveCssClass('sky-test-tile-1');
+  }
+
+  it('should allow tiles to be moved within a column', fakeAsync(() => {
+    let fixture = createDashboardTestComponent();
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    // Standard check moving down
+    testColumnNavigation(fixture, 'Down', 1);
+
+    // Edge check moving down
+    testColumnNavigation(fixture, 'Down', 2);
+
+    // Boundary check moving down, should not move
+    testColumnNavigation(fixture, 'Down', 2);
+
+    // Standard check moving up
+    testColumnNavigation(fixture, 'Up', 1);
+
+    // Edge check moving up
+    testColumnNavigation(fixture, 'Up', 0);
+
+    // Boundary check moving up, should not move
+    testColumnNavigation(fixture, 'Up', 0);
+  }));
+
+  it('should allow tiles to be moved within a column using arrowkey keys', fakeAsync(() => {
+    let fixture = createDashboardTestComponent();
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    // Standard check moving down
+    testColumnNavigation(fixture, 'ArrowDown', 1);
+
+    // Edge check moving down
+    testColumnNavigation(fixture, 'ArrowDown', 2);
+
+    // Boundary check moving down, should not move
+    testColumnNavigation(fixture, 'ArrowDown', 2);
+
+    // Standard check moving up
+    testColumnNavigation(fixture, 'ArrowUp', 1);
+
+    // Edge check moving up
+    testColumnNavigation(fixture, 'ArrowUp', 0);
+
+    // Boundary check moving up, should not move
+    testColumnNavigation(fixture, 'ArrowUp', 0);
+  }));
 
   it(
     'should raise a config change event when a tile is collapsed',
@@ -319,7 +504,7 @@ describe('Tile dashboard service', () => {
 
       expect(getTileCount(multiColumnEls[0])).toBe(0);
       expect(getTileCount(multiColumnEls[1])).toBe(0);
-      expect(getTileCount(singleColumnEl)).toBe(2);
+      expect(getTileCount(singleColumnEl)).toBe(4);
     })
   );
 
@@ -340,7 +525,7 @@ describe('Tile dashboard service', () => {
       let multiColumnEls = el.querySelectorAll('.sky-tile-dashboard-layout-multi');
       let singleColumnEl = el.querySelector('.sky-tile-dashboard-layout-single');
 
-      expect(getTileCount(multiColumnEls[0])).toBe(1);
+      expect(getTileCount(multiColumnEls[0])).toBe(3);
       expect(getTileCount(multiColumnEls[1])).toBe(1);
       expect(getTileCount(singleColumnEl)).toBe(0);
 
@@ -350,13 +535,13 @@ describe('Tile dashboard service', () => {
 
       expect(getTileCount(multiColumnEls[0])).toBe(0);
       expect(getTileCount(multiColumnEls[1])).toBe(0);
-      expect(getTileCount(singleColumnEl)).toBe(2);
+      expect(getTileCount(singleColumnEl)).toBe(4);
 
       mockMediaQueryService.fire(SkyMediaBreakpoints.md);
 
       fixture.detectChanges();
 
-      expect(getTileCount(multiColumnEls[0])).toBe(1);
+      expect(getTileCount(multiColumnEls[0])).toBe(3);
       expect(getTileCount(multiColumnEls[1])).toBe(1);
       expect(getTileCount(singleColumnEl)).toBe(0);
     })

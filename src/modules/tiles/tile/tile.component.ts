@@ -7,9 +7,13 @@ import {
   Output
 } from '@angular/core';
 
-import { skyAnimationSlide } from '../../animation/slide';
-import { SkyTileDashboardService } from '../tile-dashboard/tile-dashboard.service';
-import { SkyTileDashboardComponent } from '../tile-dashboard';
+import {
+  skyAnimationSlide
+} from '../../animation/slide';
+
+import {
+  SkyTileDashboardService
+} from '..';
 
 @Component({
   selector: 'sky-tile',
@@ -52,7 +56,6 @@ export class SkyTileComponent {
 
   constructor(
     public elementRef: ElementRef,
-    public tileDashboard: SkyTileDashboardComponent,
     @Optional() private dashboardService: SkyTileDashboardService
   ) {
     this.isInDashboardColumn = !!dashboardService;
@@ -77,23 +80,27 @@ export class SkyTileComponent {
   public moveTile(event: KeyboardEvent) {
     if (this.isInDashboardColumn) {
       let direction: 'up' | 'down' | 'left' | 'right';
-      switch (event.which) {
-        case 38:
+      switch (event.key.toLowerCase()) {
+        case 'arrowup':
+        case 'up':
           // up arrow
           direction = 'up';
           break;
 
-        case 40:
+        case 'arrowdown':
+        case 'down':
           // down arrow
           direction = 'down';
           break;
 
-        case 37:
+        case 'arrowleft':
+        case 'left':
           // left arrow
           direction = 'left';
           break;
 
-        case 39:
+        case 'arrowright':
+        case 'right':
           // right arrow
           direction = 'right';
           break;

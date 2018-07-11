@@ -5,23 +5,28 @@ import {
   QueryList,
   ReflectiveInjector
 } from '@angular/core';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
-import { Subscription } from 'rxjs/Subscription';
+import {
+  DragulaService
+} from 'ng2-dragula/ng2-dragula';
+
+import {
+  Subscription
+} from 'rxjs/Subscription';
 
 import {
   SkyMediaBreakpoints,
   SkyMediaQueryService
 } from '../../media-queries';
 
-import { SkyTileComponent } from '../tile/tile.component';
-import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
 import {
+  SkyTileComponent,
+  SkyTileDashboardColumnComponent,
   SkyTileDashboardConfig,
   SkyTileDashboardConfigLayoutColumn,
   SkyTileDashboardConfigLayoutTile,
   SkyTileDashboardConfigTile
-} from '../tile-dashboard-config';
+} from '..';
 
 const ATTR_TILE_ID = '_sky-tile-dashboard-tile-id';
 
@@ -177,7 +182,7 @@ export class SkyTileDashboardService {
     }
   }
 
-  public getTileId(tile: SkyTileComponent): string {
+  private getTileId(tile: SkyTileComponent): string {
     if (tile) {
       let el = tile.elementRef.nativeElement;
       let tileId: string;

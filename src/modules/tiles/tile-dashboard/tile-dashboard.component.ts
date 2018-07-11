@@ -7,13 +7,14 @@ import {
   Output,
   QueryList,
   ViewChild,
-  ViewChildren,
-  ChangeDetectorRef
+  ViewChildren
 } from '@angular/core';
 
-import { SkyTileDashboardColumnComponent } from '../tile-dashboard-column';
-import { SkyTileDashboardConfig } from '../tile-dashboard-config';
-import { SkyTileDashboardService } from './tile-dashboard.service';
+import {
+  SkyTileDashboardColumnComponent,
+  SkyTileDashboardConfig,
+  SkyTileDashboardService
+} from '..';
 
 @Component({
   selector: 'sky-tile-dashboard',
