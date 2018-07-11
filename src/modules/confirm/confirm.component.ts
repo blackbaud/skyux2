@@ -25,6 +25,7 @@ import {
 export class SkyConfirmComponent implements OnInit {
   public buttons: SkyConfirmButton[];
   public message: string;
+  public body: string;
 
   constructor(
     private config: SkyConfirmModalContext,
@@ -42,6 +43,7 @@ export class SkyConfirmComponent implements OnInit {
 
     this.buttons = buttons;
     this.message = this.config.message;
+    this.body = this.config.body;
   }
 
   public close(button: SkyConfirmButton) {
