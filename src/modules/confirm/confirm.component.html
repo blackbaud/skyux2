@@ -5,6 +5,9 @@
       <div class="sky-confirm-message">
         {{ message }}
       </div>
+      <div class="sky-confirm-body" *ngIf="body">
+        {{ body }}
+      </div>
       <div class="sky-confirm-buttons">
         <button
           *ngFor="let button of buttons"
