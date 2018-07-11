@@ -92,4 +92,23 @@ export class SkyFlyoutDemoComponent {
       }
     });
   }
+
+  public openFlyoutWithPrimaryAction() {
+    this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
+      providers: [{
+        provide: FlyoutDemoContext,
+        useValue: {
+          id: '2',
+          name: 'Partridge'
+        }
+      }],
+      primaryAction: {
+        label: 'Invoke primary action',
+        callback: () => {
+          alert('Primary action invoked');
+        },
+        closeAfterInvoking: true
+      }
+    });
+  }
 }
