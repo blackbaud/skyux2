@@ -57,23 +57,23 @@
   },
   "colorpicker_aria_alpha": {
     "_description": "aria label for the alpha input",
-    "message": "Alpha"
+    "message": "Alpha channel value between 0 and 1"
   },
   "colorpicker_aria_blue": {
     "_description": "aria label for the blue input",
-    "message": "Blue"
+    "message": "Blue value between 0 and 255"
   },
   "colorpicker_aria_green": {
     "_description": "aria label for the green input",
-    "message": "Green"
+    "message": "Green value between 0 and 255"
   },
   "colorpicker_aria_hex": {
     "_description": "aria label for the hex input",
-    "message": "Hex"
+    "message": "Hexadecimal color code"
   },
   "colorpicker_aria_red": {
     "_description": "aria label for the red input",
-    "message": "Red"
+    "message": "Red value between 0 and 255"
   },
   "colorpicker_blue": {
     "_description": "Label for the blue input",
@@ -82,6 +82,10 @@
   "colorpicker_close": {
     "_description": "Label for the close button",
     "message": "Close"
+  },
+ "colorpicker_dropdown_button": {
+    "_description": "Label for the dropdown button",
+    "message": "Select color value"
   },
   "colorpicker_green": {
     "_description": "Label for the green input",
@@ -101,7 +105,7 @@
   },
   "colorpicker_reset": {
     "_description": "Label for the reset button to change the color back to the initial color",
-    "message": "Reset"
+    "message": "Reset color value to white"
   },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
