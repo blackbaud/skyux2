@@ -57,23 +57,23 @@
   },
   "colorpicker_aria_alpha": {
     "_description": "aria label for the alpha input",
-    "message": "Alpha"
+    "message": "Alpha channel value between 0 and 1"
   },
   "colorpicker_aria_blue": {
     "_description": "aria label for the blue input",
-    "message": "Blue"
+    "message": "Blue value between 0 and 255"
   },
   "colorpicker_aria_green": {
     "_description": "aria label for the green input",
-    "message": "Green"
+    "message": "Green value between 0 and 255"
   },
   "colorpicker_aria_hex": {
     "_description": "aria label for the hex input",
-    "message": "Hex"
+    "message": "Hexadecimal color code"
   },
   "colorpicker_aria_red": {
     "_description": "aria label for the red input",
-    "message": "Red"
+    "message": "Red value between 0 and 255"
   },
   "colorpicker_blue": {
     "_description": "Label for the blue input",
@@ -82,6 +82,10 @@
   "colorpicker_close": {
     "_description": "Label for the close button",
     "message": "Close"
+  },
+ "colorpicker_dropdown_button": {
+    "_description": "Label for the dropdown button",
+    "message": "Select color value"
   },
   "colorpicker_green": {
     "_description": "Label for the green input",
@@ -101,7 +105,7 @@
   },
   "colorpicker_reset": {
     "_description": "Label for the reset button to change the color back to the initial color",
-    "message": "Reset"
+    "message": "Reset color value to white"
   },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
@@ -126,6 +130,10 @@
   "date_field_invalid_date_message": {
     "_description": "error message shown when an invalid date is entered.",
     "message": "Please enter a valid date"
+  },
+  "date_field_default_label": {
+    "_description": "The label for the datepicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Date input field."
   },
   "date_range_picker_at_any_time": {
     "_description": "text for date range picker",
@@ -442,6 +450,10 @@
   "flyout_permalink_button": {
     "_description": "Default text for the flyout permalink button",
     "message": "View record"
+  },
+  "flyout_primary_action_button": {
+    "_description": "Default text for the flyout primary action button",
+    "message": "Create list"
   },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
