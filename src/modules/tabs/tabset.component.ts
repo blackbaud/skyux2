@@ -57,6 +57,13 @@ export class SkyTabsetComponent
   ) {
   }
 
+  public getTabButtonId(tab: SkyTabComponent): string {
+    if (this.tabDisplayMode === 'tabs') {
+      return tab.tabId + '-nav-btn';
+    }
+    return tab.tabId + '-hidden-nav-btn';
+  }
+
   public tabCloseClick(tab: SkyTabComponent) {
     tab.close.emit(undefined);
   }

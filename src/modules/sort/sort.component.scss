@@ -1,4 +1,5 @@
 @import "../../scss/mixins";
+@import "../../scss/screen-reader";
 
 .sky-sort-menu-heading {
   background-color: transparent;
@@ -22,6 +23,6 @@
 
 @media (max-width: $sky-screen-xs-max) {
   .sky-sort-btn-text {
-    display: none;
+    @include sky-screen-reader-only();
   }
 }
