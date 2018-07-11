@@ -1,3 +1,6 @@
+@import "../../scss/mixins";
+@import "../../scss/screen-reader";
+
 .sky-list-secondary-actions {
   ::ng-deep .sky-dropdown-button-type-context-menu {
     padding: 6px 12px;
@@ -12,4 +15,10 @@
 
 .sky-list-secondary-actions-hidden {
   display: none;
+}
+
+@media (max-width: $sky-screen-xs-max) {
+  .sky-list-secondary-actions-btn-text {
+    @include sky-screen-reader-only();
+  }
 }
