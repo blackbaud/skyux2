@@ -28,6 +28,14 @@ export class ConfirmVisualComponent {
     });
   }
 
+  public openConfirmWithBody() {
+   this.confirmService.open({
+      message: 'Do you wish to continue?',
+      body: 'This could be dangerous!',
+      type: SkyConfirmType.YesCancel
+    });
+  }
+
   public openYesNoCancelConfirm() {
     this.confirmService.open({
       message: 'Do you wish to continue?',
