@@ -13,7 +13,7 @@ import {
 
 import {
   SkyTileDashboardService
-} from '..';
+} from '../tile-dashboard';
 
 @Component({
   selector: 'sky-tile',

@@ -11,19 +11,34 @@ import {
 } from 'ng2-dragula/ng2-dragula';
 
 import {
-  MockDragulaService,
-  Tile1TestComponent,
-  Tile2TestComponent,
-  TileDashboardTestComponent,
-  TileTestContext,
+  MockDragulaService
+} from './fixtures/mock-dragula.service';
+import {
+  Tile1TestComponent
+} from './fixtures/tile1.component.fixture';
+import {
+  Tile2TestComponent
+} from './fixtures/tile2.component.fixture';
+import {
+  TileDashboardTestComponent
+} from './fixtures/tile-dashboard.component.fixture';
+import {
+  TileTestContext
+} from './fixtures/tile-context.fixture';
+import {
   SkyTileDashboardFixturesModule
-} from './fixtures';
+} from './fixtures/tile-dashboard-fixtures.module';
+
 import {
   SkyTileDashboardComponent,
-  SkyTileDashboardService,
-  SkyTileDashboardConfig,
+  SkyTileDashboardService
+} from '../tile-dashboard';
+import {
+  SkyTileDashboardConfig
+} from '../tile-dashboard-config';
+import {
   SkyTilesModule
-} from '..';
+} from '../tiles.module';
 
 import {
   MockSkyMediaQueryService

@@ -11,10 +11,14 @@ import {
 } from '@angular/core';
 
 import {
-  SkyTileDashboardColumnComponent,
-  SkyTileDashboardConfig,
+  SkyTileDashboardColumnComponent
+} from '../tile-dashboard-column';
+import {
+  SkyTileDashboardConfig
+} from '../tile-dashboard-config';
+import {
   SkyTileDashboardService
-} from '..';
+} from './tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile-dashboard',

@@ -4,14 +4,21 @@ import {
 } from '@angular/core';
 
 import {
-  SkyTileDashboardComponent,
   SkyTileDashboardConfig
-} from '../..';
+} from '../../tile-dashboard-config';
 import {
-  Tile1TestComponent,
-  Tile2TestComponent,
+  SkyTileDashboardComponent
+} from '../../tile-dashboard';
+
+import {
+  Tile1TestComponent
+} from './tile1.component.fixture';
+import {
+  Tile2TestComponent
+} from './tile2.component.fixture';
+import {
   TileTestContext
-} from '.';
+} from './tile-context.fixture';
 
 @Component({
   selector: 'sky-demo-app',
