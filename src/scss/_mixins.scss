@@ -281,3 +281,19 @@
   margin-right: 5px;
   color: $sky-highlight-color-danger;
 }
+
+// Only display content to screen readers
+
+@mixin sky-screen-reader-only {
+  width: 0;
+  height: 0;
+  padding: 0;
+  opacity: 0;
+  position: absolute;
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  outline: none;
+  white-space: nowrap;
+}
