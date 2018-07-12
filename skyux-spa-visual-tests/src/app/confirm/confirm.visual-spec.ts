@@ -39,6 +39,24 @@ describe('Confirm', () => {
       });
   });
 
+  it('should match previous body screenshot', () => {
+    return SkyVisualTest
+      .setupTest('confirm')
+      .then(() => {
+        element(by.css('.sky-confirm-btn-body')).click();
+
+        SkyVisualTest.moveCursorOffScreen();
+
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'confirm-body',
+          selector: '.sky-modal'
+        });
+      })
+      .then(() => {
+        element(by.css('.sky-confirm-buttons .sky-btn-primary')).click();
+      });
+  });
+
   it('should match previous YesNoCancel screenshot', () => {
     return SkyVisualTest
       .setupTest('confirm')
@@ -103,6 +121,24 @@ describe('Confirm', () => {
 
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'confirm-yescancel',
+          selector: '.sky-modal'
+        });
+      })
+      .then(() => {
+        element(by.css('.sky-confirm-buttons .sky-btn-primary')).click();
+      });
+  });
+
+  it('should match previous body screenshot on small screens', () => {
+    return SkyVisualTest
+      .setupTest('confirm', 480)
+      .then(() => {
+        element(by.css('.sky-confirm-btn-body')).click();
+
+        SkyVisualTest.moveCursorOffScreen();
+
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'confirm-body',
           selector: '.sky-modal'
         });
       })
