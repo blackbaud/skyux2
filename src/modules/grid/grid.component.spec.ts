@@ -348,14 +348,14 @@ describe('Grid Component', () => {
 
         it('should sort on enter or space press', () => {
           let headerEl = element.query(By.css('th[sky-cmp-id="column1"]'));
-          headerEl.triggerEventHandler('keydown', { which: 13});
+          headerEl.triggerEventHandler('keydown', { key: 'Enter'});
           fixture.detectChanges();
 
           expect(component.activeSortSelector)
             .toEqual({ fieldSelector: 'column1', descending: true});
           expect(headerEl.nativeElement.querySelector('i')).toHaveCssClass('fa-caret-down');
 
-          headerEl.triggerEventHandler('keydown', { which: 32});
+          headerEl.triggerEventHandler('keydown', { key: ' '});
           fixture.detectChanges();
 
           expect(component.activeSortSelector)

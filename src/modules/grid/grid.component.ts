@@ -157,7 +157,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   }
 
   public onKeydown(event: KeyboardEvent, column: SkyGridColumnModel) {
-    if (event.which === 13 || event.which === 32) {
+    const key = event.key.toLowerCase();
+    if (key === 'enter' || key === ' ') {
       this.sortByColumn(column);
     }
   }
