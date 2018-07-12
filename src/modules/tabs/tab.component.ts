@@ -11,11 +11,15 @@ import {
 
 import { SkyTabsetService } from './tabset.service';
 
+let nextId = 0;
+
 @Component({
   selector: 'sky-tab',
   templateUrl: './tab.component.html'
 })
 export class SkyTabComponent implements OnDestroy, OnChanges {
+  public tabId: string = `sky-tab-${++nextId}`;
+
   @Input()
   public tabHeading: string;
 
