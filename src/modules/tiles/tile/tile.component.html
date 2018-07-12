@@ -6,13 +6,8 @@
 >
   <header class="sky-tile-header">
     <div class="sky-tile-header-content" (click)="titleClick()">
-      <h1
-        *ngIf="showHeading"
-        class="sky-tile-title"
-        #tileTitleHeading>
-        <ng-content select="sky-tile-title">
-        </ng-content>
-      </h1>
+      <ng-content select="sky-tile-title">
+      </ng-content>
       <div class="sky-tile-summary">
         <ng-content select="sky-tile-summary"></ng-content>
       </div>

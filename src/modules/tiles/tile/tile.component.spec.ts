@@ -35,31 +35,7 @@ describe('Tile component', () => {
     tick();
     fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(el.querySelector('.sky-tile-title sky-tile-title')).toHaveText('Title');
-    });
-  }));
-
-  it('should not render the header in the expected element when title is not set', fakeAsync(() => {
-    let fixture = TestBed.overrideComponent(TileTestComponent, {
-      set: {
-        template: `<sky-tile
-                    [isCollapsed]="tileIsCollapsed"
-                    (settingsClick)="tileSettingsClick()"
-                    (isCollapsedChange)="collapsedStateCallback($event)">
-                    <sky-tile-content>Content</sky-tile-content>
-                  </sky-tile>`
-
-      }
-    }).createComponent(TileTestComponent);
-    let el = fixture.nativeElement;
-    fixture.detectChanges();
-    tick();
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      expect(el.querySelector('.sky-tile-title sky-tile-title')).toBeFalsy();
-    });
+    expect(el.querySelector('.sky-tile-title')).toHaveText('Title');
   }));
 
   it('should collapse/expand when the header is clicked', fakeAsync(() => {

@@ -23,18 +23,14 @@ import {
   templateUrl: './tile.component.html',
   animations: [skyAnimationSlide]
 })
-export class SkyTileComponent implements AfterViewInit {
+export class SkyTileComponent {
   public isInDashboardColumn = false;
-  public showHeading = true;
 
   @Input()
   public showSettings: boolean = true;
 
   @Output()
   public settingsClick = new EventEmitter();
-
-  @ViewChild('tileTitleHeading')
-  public titleHeading: any;
 
   @Output()
   public isCollapsedChange = new EventEmitter<boolean>();
@@ -62,16 +58,9 @@ export class SkyTileComponent implements AfterViewInit {
 
   constructor(
     public elementRef: ElementRef,
-    private changeDetector: ChangeDetectorRef,
     @Optional() private dashboardService: SkyTileDashboardService
   ) {
     this.isInDashboardColumn = !!dashboardService;
-  }
-
-  public ngAfterViewInit() {
-    this.showHeading = this.titleHeading.nativeElement
-      && this.titleHeading.nativeElement.children.length > 0;
-    this.changeDetector.detectChanges();
   }
 
   public settingsButtonClicked() {
