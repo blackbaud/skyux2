@@ -1,5 +1,9 @@
 @import '../../scss/mixins';
 
 .sky-toolbar-item {
-    margin-right: $sky-margin-half;
+  margin-right: $sky-margin-half;
+
+  @media (max-width: $sky-screen-sm-max) {
+    margin-bottom: $sky-padding-half;
+  }
 }

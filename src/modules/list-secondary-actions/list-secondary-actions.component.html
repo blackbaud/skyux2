@@ -3,8 +3,13 @@
     class="sky-list-secondary-actions"
     [ngClass]="{ 'sky-list-secondary-actions-hidden': dropdownHidden }">
     <sky-dropdown
-      buttonType="context-menu"
-      [title]="'list_show_secondary_actions' | skyResources">
+      [attr.title]="'list_show_secondary_actions' | skyResources">
+      <sky-dropdown-button>
+        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        <span class="sky-list-secondary-actions-btn-text">
+          {{ 'list_show_secondary_actions_button' | skyResources }}
+        </span>
+      </sky-dropdown-button>
       <sky-dropdown-menu>
         <sky-dropdown-item
           *ngFor="let action of actions">

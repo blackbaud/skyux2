@@ -21,6 +21,7 @@ export class ListColumnSelectorActionTestComponent {
 
   @ViewChild(SkyListViewGridComponent)
   public grid: SkyListViewGridComponent;
+
   @ViewChild(SkyListToolbarComponent)
   public toolbar: SkyListToolbarComponent;
 
