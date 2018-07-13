@@ -1,13 +1,10 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Input,
   Optional,
-  Output,
-  ViewChild
+  Output
 } from '@angular/core';
 
 import {
