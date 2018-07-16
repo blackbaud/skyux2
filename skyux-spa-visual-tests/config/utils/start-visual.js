@@ -192,12 +192,11 @@ function spawnBuild(skyPagesConfig, webpack) {
   return new Promise(resolve => {
     logger.info('Running build');
     build(
-      { logFormat: 'compact' },
+      { logFormat: 'simple' },
       skyPagesConfig,
       webpack
-    ).then(stats => {
+    ).then(() => {
       logger.info('Completed build');
-      resolve(stats.toJson().chunks);
     });
   });
 }
