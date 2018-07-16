@@ -201,4 +201,3 @@ function spawnBuild(skyPagesConfig, webpack) {
     });
   });
 }
-
