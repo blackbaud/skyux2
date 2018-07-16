@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'sky-icon-demo',
   templateUrl: './icon-demo.component.html'
 })
-export class SkyActionButtonDemoComponent {
+export class SkyIconDemoComponent {
   public icon: string = 'circle';
 }
