@@ -25,12 +25,15 @@ export class SkyTokensTestComponent implements OnDestroy {
   @ViewChild(SkyTokensComponent)
   public tokensComponent: SkyTokensComponent;
 
+  public ariaLabel: string;
   public disabled: boolean;
   public dismissible: boolean;
   public displayWith: string;
   public focusable: boolean;
   public messageStream: Subject<SkyTokensMessage>;
   public tokens: SkyToken[];
+
+  public includeSingleToken = false;
 
   public data: any[] = [
     { name: 'Red' },
