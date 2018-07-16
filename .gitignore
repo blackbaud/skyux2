@@ -65,6 +65,7 @@ package-lock.json
 
 .srctemp
 .skypagestmp
+.skypageslocales
 webdriver-screenshotslocal*
 browserstack.err
 
