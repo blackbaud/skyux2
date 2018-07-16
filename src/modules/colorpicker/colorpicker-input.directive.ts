@@ -131,6 +131,8 @@ export class SkyColorpickerInputDirective
     } else {
       this.skyColorpickerInput.isVisible = true;
     }
+
+    element.setAttribute('readonly', 'true');
   }
 
   public ngOnDestroy() {
