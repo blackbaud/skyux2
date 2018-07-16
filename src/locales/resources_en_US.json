@@ -447,6 +447,10 @@
     "_description": "Text for the filter summary component",
     "message": "Filter"
   },
+  "filter_summary_close": {
+    "_description": "Text for the filter summary component's close button",
+    "message": "Remove filter"
+  },
   "flyout_close": {
     "_description": "Text for flyout close button",
     "message": "Close flyout"
