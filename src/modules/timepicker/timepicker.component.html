@@ -2,8 +2,9 @@
   <ng-content></ng-content>
   <div class="sky-input-group-btn sky-input-group-timepicker-btn">
     <sky-dropdown
-      buttonType="clock-o"
       alignment="right"
+      buttonType="clock-o"
+      [label]="'timepicker_button_label' | skyResources"
       [messageStream]="dropdownController">
       <sky-dropdown-menu ariaRole="none">
         <sky-dropdown-item ariaRole="none">

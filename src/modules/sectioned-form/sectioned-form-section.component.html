@@ -1,10 +1,12 @@
-<sky-vertical-tab 
+<sky-vertical-tab
+  [attr.aria-required]="fieldRequired"
+  [attr.aria-invalid]="fieldInvalid"
   [ngClass]="{
     'sky-tab-field-required': fieldRequired,
     'sky-tab-field-invalid': fieldInvalid
   }"
-  [tabHeading]="heading" 
-  [tabHeaderCount]="itemCount" 
+  [tabHeading]="heading"
+  [tabHeaderCount]="itemCount"
   [active]="active"
   [showTabRightArrow]="true"
 >
