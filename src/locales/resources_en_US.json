@@ -867,6 +867,10 @@
     "_description": "Label for grab handle in the tile",
     "message": "Move"
   },
+  "timepicker_button_label": {
+    "_description": "Screen reader text for the timepicker component dropdown button",
+    "message": "Choose time"
+  },
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"
