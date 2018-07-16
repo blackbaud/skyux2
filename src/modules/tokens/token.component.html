@@ -11,8 +11,9 @@
 
   <button
     *ngIf="dismissible"
-    type="button"
     class="sky-btn sky-token-btn-close"
+    type="button"
+    [attr.aria-label]="'token_dismiss_button_title' | skyResources"
     [attr.tabindex]="tabIndex"
     [attr.title]="'token_dismiss_button_title' | skyResources"
     [disabled]="disabled"
