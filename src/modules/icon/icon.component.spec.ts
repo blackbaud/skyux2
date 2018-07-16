@@ -15,7 +15,7 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-describe('Icon component', () => {
+fdescribe('Icon component', () => {
   let fixture: ComponentFixture<IconTestComponent>;
   let cmp: IconTestComponent;
   let element: HTMLElement;
@@ -39,7 +39,7 @@ describe('Icon component', () => {
     fixture.detectChanges();
     expect(cmp.icon).toBe('circle');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-circle');
-    expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe(true);
+    expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe('true');
   });
 
   it ('should display something other than circle', () => {
@@ -47,6 +47,6 @@ describe('Icon component', () => {
     fixture.detectChanges();
     expect(cmp.icon).toBe('broom');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-broom');
-    expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe(true);
+    expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe('true');
   });
 });

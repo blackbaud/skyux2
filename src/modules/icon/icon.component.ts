@@ -6,7 +6,6 @@ import {
 
 @Component({
   selector: 'sky-icon',
-  styleUrls: ['./icon.component.scss'],
   templateUrl: './icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
