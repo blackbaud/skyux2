@@ -76,7 +76,18 @@ describe('Email validation', () => {
         expect(ngModel.control.pristine).toBe(false);
         expect(ngModel.control.touched).toBe(false);
     }));
+    it('should validate incorrect input — multiple @ symbols in email', fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
+      setInput(nativeElement, 'joe@abc.com@abc.com', fixture);
+      fixture.detectChanges();
 
+      expect(nativeElement.querySelector('input').value).toBe('joe@abc.com@abc.com');
+
+      expect(ngModel.control.valid).toBe(false);
+      expect(ngModel.control.pristine).toBe(false);
+      expect(ngModel.control.touched).toBe(false);
+  }));
     it('should handle invalid and then valid input', fakeAsync(() => {
         fixture.detectChanges();
         tick();
