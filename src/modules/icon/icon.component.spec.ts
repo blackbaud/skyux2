@@ -1,6 +1,6 @@
 import {
-  TestBed,
-  ComponentFixture
+  ComponentFixture,
+  TestBed
 } from '@angular/core/testing';
 
 import {
@@ -10,6 +10,7 @@ import {
 import {
   IconTestComponent
 } from './fixtures/icon.component.fixture';
+
 import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
