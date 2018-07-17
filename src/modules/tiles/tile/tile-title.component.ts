@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sky-tile-title',
-  templateUrl: '../../shared/simple-content.html'
+  templateUrl: './tile-title.component.html'
 })
 export class SkyTileTitleComponent { }

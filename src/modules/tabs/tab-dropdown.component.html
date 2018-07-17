@@ -10,8 +10,10 @@
           class="sky-tab-dropdown-item"
           [ngClass]="{ 'sky-tab-dropdown-item-selected': tab.active }">
           <button
-            type="button"
             class="sky-btn sky-tab-dropdown-item-btn"
+            type="button"
+            [attr.aria-controls]="tab.tabId"
+            [id]="tab.tabId + '-nav-btn'"
             [ngClass]="{ 'sky-btn-disabled': tab.disabled }"
             (click)="selectTab(tab)">
             {{ tab.tabHeading }}
