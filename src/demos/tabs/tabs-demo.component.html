@@ -4,7 +4,7 @@
   [active]="activeTabIndex"
   (activeChange)="tabChanged($event)">
   <sky-tab
-    *ngFor="let tab of tabs; let i = index"
+    *ngFor="let tab of tabs | async; let i = index"
     [tabHeading]="tab.heading"
     (close)="closeClick(i)">
     {{tab.content}}

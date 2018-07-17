@@ -1,30 +1,34 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'sky-tabs-demo',
   templateUrl: './tabs-demo.component.html'
 })
 export class SkyTabsDemoComponent {
-  public tabs: any[];
+  public tabs: any;
   public tabsWithCounts: any[];
   public activeTabIndex: any = 0;
 
   constructor() {
-    this.tabs = [
-      {
-        heading: 'Tab 1',
-        content: 'Content 1',
-        active: true
-      },
-      {
-        heading: 'Tab 2',
-        content: 'Content 2'
-      },
-      {
-        heading: 'Tab 3',
-        content: 'Content 3'
-      }
-    ];
+    setTimeout(() => {
+      this.tabs = Observable.of([
+        {
+          heading: 'Tab 1',
+          content: 'Content 1',
+          active: true
+        },
+        {
+          heading: 'Tab 2',
+          content: 'Content 2'
+        },
+        {
+          heading: 'Tab 3',
+          content: 'Content 3'
+        }
+      ]);
+    }, 1000);
+
     this.tabsWithCounts = [
       {
         heading: 'Records',
