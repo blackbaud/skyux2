@@ -95,9 +95,8 @@ export class SkyTabsetComponent
     // initialize each tab's index. (in case tabs are instantiated out of order)
     this.tabs.forEach(item => item.initializeTabIndex());
     this.tabs.changes.subscribe((change: QueryList<SkyTabComponent>) => {
-      change.filter(tab => !tab.tabIndex).forEach(item => {
-        item.initializeTabIndex();
-      });
+      change.filter(tab => tab.tabIndex === undefined)
+            .forEach(item => item.initializeTabIndex());
     });
 
     if (this.active || this.active === 0) {
@@ -105,7 +104,7 @@ export class SkyTabsetComponent
     }
     this.tabsetService.activeIndex.distinctUntilChanged().subscribe((newActiveIndex) => {
 
-         // HACK: Not selecting the active tab in a timeout causes an error.
+        // HACK: Not selecting the active tab in a timeout causes an error.
         // https://github.com/angular/angular/issues/6005
         setTimeout(() => {
           if (newActiveIndex !== this.active) {
