@@ -77,12 +77,6 @@ function killServers(exitCode) {
     httpServer = null;
   }
 
-  // Catch protractor's "Kitchen Sink" error.
-  if (exitCode === 199) {
-    logger.warn('Supressing protractor\'s "kitchen sink" error 199');
-    exitCode = 0;
-  }
-
   logger.info(`Execution Time: ${(new Date().getTime() - start) / 1000} seconds`);
   logger.info(`Exiting process with ${exitCode}`);
   process.exit(exitCode || 0);
