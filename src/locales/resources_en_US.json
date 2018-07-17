@@ -443,6 +443,10 @@
     "_description": "Text for the filter summary component",
     "message": "Filter"
   },
+  "filter_summary_close": {
+    "_description": "Text for the filter summary component's close button",
+    "message": "Remove filter"
+  },
   "flyout_close": {
     "_description": "Text for flyout close button",
     "message": "Close flyout"
@@ -863,9 +867,17 @@
     "_description": "Label for settings button in the tile",
     "message": "Settings"
   },
+  "timepicker_button_label": {
+    "_description": "Screen reader text for the timepicker component dropdown button",
+    "message": "Choose time"
+  },
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"
+  },
+  "timepicker_input_default_label": {
+    "_description": "The label for the timepicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Time input field."
   },
   "toast_close_button": {
     "_description": "Screen reader text for the close button on toasts",
