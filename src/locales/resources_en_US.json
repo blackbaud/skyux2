@@ -879,6 +879,10 @@
     "_description": "The close button for the timepicker modal",
     "message": "Done"
   },
+  "timepicker_input_default_label": {
+    "_description": "The label for the timepicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Time input field."
+  },
   "toast_close_button": {
     "_description": "Screen reader text for the close button on toasts",
     "message": "Close the toast"
