@@ -49,12 +49,16 @@ export class SkyNumericService {
     if (isNaN(value)) {
       return '';
     }
+
     const decimalPlaceRegExp = /\.0+$|(\.[0-9]*[1-9])0+$/;
     const symbol: SkyNumericSymbol = this.symbolIndex.find((si) => {
       // Checks both positive and negative of value to ensure
       // negative numbers are shortened.
       return options.truncate &&
-        ((value >= options.truncateAfter && value >= si.value) || (-value >= options.truncateAfter && -value >= si.value));
+        (
+          (value >= options.truncateAfter && value >= si.value) ||
+          (-value >= options.truncateAfter && -value >= si.value)
+        );
     });
 
     let output: string;
@@ -83,10 +87,10 @@ export class SkyNumericService {
       // For example, this prevents a value like $15.50 from displaying as $15.5.
       // Note: This will need to be reviewed if we support currencies with three decimal digits.
       case 'currency':
-      const isShortened = options.truncate && (value > this.symbolIndex[this.symbolIndex.length - 1].value);
+      const isShortened = (value > this.symbolIndex[this.symbolIndex.length - 1].value);
       const isDecimal = (value % 1 !== 0);
 
-      if ((!isShortened && isDecimal && options.digits >= 2) || !options.truncate) {
+      if (!isShortened && isDecimal && options.digits >= 2) {
         digits = `1.2-${options.digits}`;
       } else {
         digits = `1.0-${options.digits}`;
@@ -106,10 +110,10 @@ export class SkyNumericService {
       default:
       // Ensures localization of the number to ensure comma and
       // decimal separator
-      if (!options.truncate) {
-        digits = `1.${options.digits}-${options.digits}`;
-      } else {
+      if (options.truncate) {
         digits = `1.0-${options.digits}`;
+      } else {
+        digits = `1.${options.digits}-${options.digits}`;
       }
       output = this.decimalPipe.transform(
         parseFloat(output),
@@ -121,6 +125,7 @@ export class SkyNumericService {
     if (options.truncate) {
       output = this.replaceShortenSymbol(output);
     }
+
     return output;
   }
 

@@ -42,25 +42,17 @@ export class SkyNumericPipe implements PipeTransform {
     private readonly skyNumeric: SkyNumericService
   ) { }
 
-  public transform(value: number, optionsObject: any): string {
-    let options = new NumericOptions();
-    if (optionsObject) {
-      if (optionsObject.digits !== undefined) {
-        options.digits = optionsObject.digits;
-      }
-      if (optionsObject.format !== undefined) {
-        options.format = optionsObject.format;
-      }
-      if (optionsObject.iso !== undefined) {
-        options.iso = optionsObject.iso;
-      }
-      if (optionsObject.truncate !== undefined) {
-        options.truncate = optionsObject.truncate;
-      }
-      if (optionsObject.truncateAfter !== undefined) {
-        options.truncateAfter = optionsObject.truncateAfter;
-      }
+  public transform(value: number, config: any): string {
+    const options = new NumericOptions();
+
+    // The default number of digits is `1`. When truncate is disabled, set digits
+    // to `0` to avoid the unnecessary addition of `.0` at the end of the formatted number.
+    if (config && config.truncate === false && config.digits === undefined) {
+      config.digits = 0;
     }
+
+    Object.assign(options, config);
+
     return this.skyNumeric.formatNumber(value, options);
   }
 }
