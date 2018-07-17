@@ -1,6 +1,6 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 
-describe('icon', () => {
+fdescribe('icon', () => {
   it('should show the icon', () => {
     return SkyVisualTest
       .setupTest('icon')
