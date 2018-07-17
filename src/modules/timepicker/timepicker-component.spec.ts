@@ -152,6 +152,17 @@ describe('Timepicker', () => {
     expect(component.selectedTime.local).toEqual('2:55 AM');
   }));
 
+  it('should apply aria-label to the timepicker input when none is provided', () => {
+    fixture.detectChanges();
+    expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('Time input field.');
+  });
+
+  it('should not overwrite aria-label on the timepicker input when one is provided', () => {
+    nativeElement.querySelector('input').setAttribute('aria-label', 'This is a time field.');
+    fixture.detectChanges();
+    expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('This is a time field.');
+  });
+
   describe('validation', () => {
     it('should have active css when in twelve hour timeFormat',
       fakeAsync(() => {
