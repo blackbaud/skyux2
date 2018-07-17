@@ -200,6 +200,21 @@ describe('Colorpicker Component', () => {
     verifyColorpicker(nativeElement, '#fff', '255, 255, 255');
   }));
 
+  it('should handle RGB initial color', fakeAsync(() => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    fixture = TestBed.createComponent(ColorpickerTestComponent);
+    nativeElement = fixture.nativeElement as HTMLElement;
+    component = fixture.componentInstance;
+
+    component.selectedOutputFormat = 'rgba';
+    component.selectedColor = 'rgb(0,0,255)';
+
+    openColorpicker(nativeElement, fixture);
+    verifyColorpicker(nativeElement, 'rgba(0,0,255,1)', '0, 0, 255');
+  }));
+
   it('should output HEX', fakeAsync(() => {
     component.selectedOutputFormat = 'hex';
     openColorpicker(nativeElement, fixture);
