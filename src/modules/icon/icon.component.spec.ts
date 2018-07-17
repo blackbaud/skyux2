@@ -15,7 +15,7 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-fdescribe('Icon component', () => {
+describe('Icon component', () => {
   let fixture: ComponentFixture<IconTestComponent>;
   let cmp: IconTestComponent;
   let element: HTMLElement;
