@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild
+} from '@angular/core';
+import {
+  SkyTabsetComponent
+} from '..';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -28,6 +34,9 @@ export class TabsetTestComponent {
   public activeTab = 0;
 
   public tabMaxWidth = 2000;
+
+  @ViewChild(SkyTabsetComponent)
+  public tabsetComponent: SkyTabsetComponent;
 
   public newTab() { }
 

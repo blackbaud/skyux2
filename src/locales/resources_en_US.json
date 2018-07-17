@@ -57,23 +57,23 @@
   },
   "colorpicker_aria_alpha": {
     "_description": "aria label for the alpha input",
-    "message": "Alpha"
+    "message": "Alpha channel value between 0 and 1"
   },
   "colorpicker_aria_blue": {
     "_description": "aria label for the blue input",
-    "message": "Blue"
+    "message": "Blue value between 0 and 255"
   },
   "colorpicker_aria_green": {
     "_description": "aria label for the green input",
-    "message": "Green"
+    "message": "Green value between 0 and 255"
   },
   "colorpicker_aria_hex": {
     "_description": "aria label for the hex input",
-    "message": "Hex"
+    "message": "Hexadecimal color code"
   },
   "colorpicker_aria_red": {
     "_description": "aria label for the red input",
-    "message": "Red"
+    "message": "Red value between 0 and 255"
   },
   "colorpicker_blue": {
     "_description": "Label for the blue input",
@@ -82,6 +82,10 @@
   "colorpicker_close": {
     "_description": "Label for the close button",
     "message": "Close"
+  },
+ "colorpicker_dropdown_button": {
+    "_description": "Label for the dropdown button",
+    "message": "Select color value"
   },
   "colorpicker_green": {
     "_description": "Label for the green input",
@@ -101,7 +105,7 @@
   },
   "colorpicker_reset": {
     "_description": "Label for the reset button to change the color back to the initial color",
-    "message": "Reset"
+    "message": "Reset color value to white"
   },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
@@ -126,6 +130,10 @@
   "date_field_invalid_date_message": {
     "_description": "error message shown when an invalid date is entered.",
     "message": "Please enter a valid date"
+  },
+  "date_field_default_label": {
+    "_description": "The label for the datepicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Date input field."
   },
   "date_range_picker_at_any_time": {
     "_description": "text for date range picker",
@@ -429,11 +437,15 @@
   },
   "filter_button_title": {
     "_description": "Text for the filter button title",
-    "message": "Filters"
+    "message": "Filter"
   },
   "filter_summary_header": {
     "_description": "Text for the filter summary component",
     "message": "Filter"
+  },
+  "filter_summary_close": {
+    "_description": "Text for the filter summary component's close button",
+    "message": "Remove filter"
   },
   "flyout_close": {
     "_description": "Text for flyout close button",
@@ -442,6 +454,10 @@
   "flyout_permalink_button": {
     "_description": "Default text for the flyout permalink button",
     "message": "View record"
+  },
+  "flyout_primary_action_button": {
+    "_description": "Default text for the flyout primary action button",
+    "message": "Create list"
   },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
@@ -492,8 +508,12 @@
     "message": "Apply changes"
   },
   "grid_columns_button": {
-    "_description": "Label for button to select columns to display in a grid.",
-    "message": " Choose columns"
+    "_description": "Label for secondary actions button to select columns to display in a grid.",
+    "message": "Choose columns"
+  },
+  "grid_columns_toolbar_button": {
+    "_description": "Label for toolbar button to select columns to display in a grid.",
+    "message": "Columns"
   },
   "grid_filters_apply": {
     "_description": "Text for button on filters flyout to apply the selected filters to the grid",
@@ -624,8 +644,12 @@
     "message": "No value"
   },
   "list_show_secondary_actions": {
-    "_description": "Label for the button that opens the secondary actions menu in the list toolbar",
+    "_description": "Title for the button that opens the secondary actions menu in the list toolbar",
     "message": "Show secondary actions"
+  },
+  "list_show_secondary_actions_button": {
+    "_description": "Button text for the button that opens the secondary actions menu in the list toolbar",
+    "message": "More"
   },
   "modal_close": {
     "_description": "Text for modal close button",
@@ -843,9 +867,17 @@
     "_description": "Label for settings button in the tile",
     "message": "Settings"
   },
+  "timepicker_button_label": {
+    "_description": "Screen reader text for the timepicker component dropdown button",
+    "message": "Choose time"
+  },
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"
+  },
+  "timepicker_input_default_label": {
+    "_description": "The label for the timepicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Time input field."
   },
   "toast_close_button": {
     "_description": "Screen reader text for the close button on toasts",
