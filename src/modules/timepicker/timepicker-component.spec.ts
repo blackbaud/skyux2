@@ -46,12 +46,11 @@ describe('Timepicker', () => {
     let inputEl = element.querySelector('input');
     inputEl.value = text;
     inputEl.dispatchEvent(inputEvent);
-    tick();
     compFixture.detectChanges();
 
     inputEl.dispatchEvent(changeEvent);
-    tick();
     compFixture.detectChanges();
+    tick();
   }
 
   let fixture: ComponentFixture<TimepickerTestComponent>;
@@ -147,9 +146,26 @@ describe('Timepicker', () => {
 
   it('should handle input change with a string with the expected timeFormat', fakeAsync(() => {
     component.timeFormat = 'hh';
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
     setInput(nativeElement, '2:55 AM', fixture);
     expect(nativeElement.querySelector('input').value).toBe('2:55 AM');
     expect(component.selectedTime.local).toEqual('2:55 AM');
+  }));
+
+  it('should handle undefined date', fakeAsync(() => {
+    component.timeFormat = 'hh';
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    setInput(nativeElement, '2:55 AM', fixture);
+    component.selectedTime = undefined;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(nativeElement.querySelector('input').value).toBe('');
+    expect(nativeElement.querySelector('input')).not.toHaveCssClass('ng-invalid');
   }));
 
   it('should apply aria-label to the timepicker input when none is provided', () => {
