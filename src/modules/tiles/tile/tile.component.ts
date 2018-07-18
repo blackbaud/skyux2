@@ -78,36 +78,12 @@ export class SkyTileComponent {
 
   public moveTile(event: KeyboardEvent) {
     if (this.isInDashboardColumn) {
-      let direction: 'up' | 'down' | 'left' | 'right';
-      switch (event.key.toLowerCase()) {
-        case 'arrowup':
-        case 'up':
-          // up arrow
-          direction = 'up';
-          break;
-
-        case 'arrowdown':
-        case 'down':
-          // down arrow
-          direction = 'down';
-          break;
-
-        case 'arrowleft':
-        case 'left':
-          // left arrow
-          direction = 'left';
-          break;
-
-        case 'arrowright':
-        case 'right':
-          // right arrow
-          direction = 'right';
-          break;
-
-        default:
-          break;
-      }
-      if (direction) {
+      let direction = event.key.toLowerCase().replace('arrow', '');
+      if (direction === 'up'
+        || direction === 'down'
+        || direction === 'left'
+        || direction === 'right'
+      ) {
         this.dashboardService.moveTile(this, direction);
         this.focusHandle();
       }

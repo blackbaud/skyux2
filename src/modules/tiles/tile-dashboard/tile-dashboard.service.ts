@@ -141,7 +141,7 @@ export class SkyTileDashboardService {
     }
   }
 
-  public moveTile(tileCmp: SkyTileComponent, direction: 'up' | 'left' | 'right' | 'down') {
+  public moveTile(tileCmp: SkyTileComponent, direction: string) {
     let tileId = this.getTileId(tileCmp);
     let tile = this.findTile(tileId);
     let column = this.findTileColumn(tileId);
