@@ -12,7 +12,7 @@ import {
 })
 export class SkyColorpickerTemplateDrivenDemoComponent {
   public model: any = {
-    favoriteColor: '#00f'
+    favoriteColor: 'rgb(0, 0, 225)'
   };
 
   public swatches = [
