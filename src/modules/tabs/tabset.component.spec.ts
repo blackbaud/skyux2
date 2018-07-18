@@ -82,6 +82,27 @@ describe('Tabset component', () => {
     });
   }));
 
+  it('should initialize tabs that are added to the tabset after init', fakeAsync(() => {
+    let fixture = TestBed.createComponent(TabsetTestComponent);
+    fixture.componentInstance.tab3Available = false;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    let tabsetService: SkyTabsetService = (fixture.componentInstance.tabsetComponent as any).tabsetService;
+    expect(tabsetService.tabs.getValue().length).toBe(2);
+
+    fixture.componentInstance.tab3Available = true;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    expect(tabsetService.tabs.getValue().length).toBe(3);
+    fixture.componentInstance.tabsetComponent.tabs.forEach((item, index) => {
+      expect(item).toBe(tabsetService.tabs.getValue()[index]);
+    });
+  }));
+
   describe('tabs with active attribute', () => {
     it('should change the active tab when tab active is set to true', fakeAsync(() => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
