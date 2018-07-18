@@ -97,6 +97,22 @@ describe('Vertical tabset component', () => {
     expect(openGroup[0].textContent.trim()).toBe('Group 2');
   });
 
+  it('should pass through aria inputs, id, and set role', () => {
+    mockQueryService.current = SkyMediaBreakpoints.lg;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement as HTMLElement;
+
+    fixture.detectChanges();
+
+    // check open tab content
+    const tab = el.querySelector('sky-vertical-tab a');
+    expect(tab.id).toBe('some-tab');
+    expect(tab.getAttribute('aria-controls')).toBe('some-div');
+    expect(tab.getAttribute('aria-invalid')).toBe('true');
+    expect(tab.getAttribute('aria-required')).toBe('true');
+    expect(tab.getAttribute('role')).toBe('tab');
+  });
+
   it('check closing of group', () => {
     mockQueryService.current = SkyMediaBreakpoints.lg;
     let fixture = createTestComponent();
