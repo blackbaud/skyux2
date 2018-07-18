@@ -147,21 +147,22 @@ export class SkyTimepickerInputDirective implements
   }
   private writeModelValue(model: SkyTimepickerTimeOutput) {
     let setElementValue: string;
-    if (model) {
-      /* istanbul ignore next */
-      if (moment(model).format(model.customFormat) === 'Invalid date') {
-        setElementValue = '';
-      } else {
-        setElementValue = moment(model).format(model.customFormat);
-      }
-      this.renderer.setElementProperty(this.elRef.nativeElement, 'value', setElementValue);
+    /* istanbul ignore next */
+    if (model && moment(model).format(model.customFormat) === 'Invalid date') {
+      setElementValue = '';
+    } else if (model) {
+      setElementValue = moment(model).format(model.customFormat);
+    } else {
+      setElementValue = '';
     }
+    this.renderer.setElementProperty(this.elRef.nativeElement, 'value', setElementValue);
     this.skyTimepickerInput.selectedTime = model;
   }
 
   private formatter(time: any) {
     if (time && typeof time !== 'string' && 'local' in time) { return time; }
     if (typeof time === 'string') {
+      if (time.length === 0) { return ''; }
       let currentFormat: string;
       let formatTime: SkyTimepickerTimeOutput;
       if (this.timeFormat === 'hh') {
