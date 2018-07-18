@@ -25,6 +25,7 @@ export class SkyTabsDemoComponent {
         content: 'Content 3'
       }
     ];
+
     this.tabsWithCounts = [
       {
         heading: 'Records',
