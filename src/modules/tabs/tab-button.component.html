@@ -23,6 +23,10 @@
   <button
       type="button"
       class="sky-btn-tab-close"
+      [ngClass]="{
+        'sky-btn-tab-close-disabled': disabled
+      }"
+      [disabled]="disabled"
       [attr.aria-label]="'tab_close' | skyResources"
       *ngIf="allowClose"
       (click)="doCloseClick();$event.stopPropagation()"
