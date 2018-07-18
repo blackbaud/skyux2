@@ -11,5 +11,5 @@ import {
 })
 export class SkyIconComponent {
   @Input()
-  public icon: string = '';
+  public icon: string;
 }

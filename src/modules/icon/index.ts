@@ -1,2 +1,2 @@
-export { SkyIconComponent } from './icon.component';
-export { SkyIconModule } from './icon.module';
+export * from './icon.component';
+export * from './icon.module';

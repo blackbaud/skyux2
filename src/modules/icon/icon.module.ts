@@ -1,7 +1,14 @@
-import { NgModule } from '@angular/core';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyIconComponent } from './icon.component';
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  SkyIconComponent
+} from './icon.component';
 
 @NgModule({
   declarations: [

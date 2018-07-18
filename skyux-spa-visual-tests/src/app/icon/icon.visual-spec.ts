@@ -1,4 +1,6 @@
-import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
+import {
+  SkyVisualTest
+} from '../../../config/utils/visual-test-commands';
 
 describe('icon', () => {
   it('should show the icon', () => {

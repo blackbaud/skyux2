@@ -5,7 +5,7 @@ import {
 
 import {
   SkyIconModule
-} from '.';
+} from './icon.module';
 
 import {
   IconTestComponent
@@ -35,14 +35,14 @@ describe('Icon component', () => {
     element = fixture.nativeElement as HTMLElement;
   });
 
-  it ('should display an icon based on the given icon', () => {
+  it('should display an icon based on the given icon', () => {
     fixture.detectChanges();
     expect(cmp.icon).toBe('circle');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-circle');
     expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe('true');
   });
 
-  it ('should display something other than circle', () => {
+  it('should display something other than circle', () => {
     cmp.icon = 'broom';
     fixture.detectChanges();
     expect(cmp.icon).toBe('broom');
