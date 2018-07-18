@@ -164,19 +164,6 @@ describe('Colorpicker Component', () => {
     colorpickerComponent = component.colorpickerComponent;
   });
 
-  it('should add aria-label to input if not specified', fakeAsync(() => {
-    fixture.detectChanges();
-    tick();
-    expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('Color value');
-  }));
-
-  it('should not add aria-label to input when one was specified', fakeAsync(() => {
-    nativeElement.querySelector('input').setAttribute('aria-label', 'Best picker');
-    fixture.detectChanges();
-    tick();
-    expect(nativeElement.querySelector('input').getAttribute('aria-label')).toBe('Best picker');
-  }));
-
   it('should output RGBA', fakeAsync(() => {
     component.selectedOutputFormat = 'rgba';
     openColorpicker(nativeElement, fixture);
@@ -198,21 +185,6 @@ describe('Colorpicker Component', () => {
 
     openColorpicker(nativeElement, fixture);
     verifyColorpicker(nativeElement, '#fff', '255, 255, 255');
-  }));
-
-  it('should handle RGB initial color', fakeAsync(() => {
-    fixture.detectChanges();
-    fixture.destroy();
-
-    fixture = TestBed.createComponent(ColorpickerTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
-    component = fixture.componentInstance;
-
-    component.selectedOutputFormat = 'rgba';
-    component.selectedColor = 'rgb(0,0,255)';
-
-    openColorpicker(nativeElement, fixture);
-    verifyColorpicker(nativeElement, 'rgba(0,0,255,1)', '0, 0, 255');
   }));
 
   it('should output HEX', fakeAsync(() => {

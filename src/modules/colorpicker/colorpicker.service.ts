@@ -106,7 +106,7 @@ export class SkyColorpickerService {
     const hue = hsva.hue;
     const saturation = hsva.saturation;
     const value = hsva.value;
-    const alpha = hsva.alpha || hsva.alpha === 0 ? hsva.alpha : 1;
+    const alpha = hsva.alpha;
     const i = Math.floor(hue * 6);
     const f = hue * 6 - i;
     const p = value * (1 - saturation);

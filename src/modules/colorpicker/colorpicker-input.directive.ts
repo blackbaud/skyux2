@@ -1,15 +1,16 @@
 import {
-  Directive,
   ElementRef,
+  Directive,
   forwardRef,
   HostListener,
   Input,
   OnChanges,
-  OnDestroy,
   OnInit,
   Renderer,
-  SimpleChanges
+  SimpleChanges,
+  OnDestroy
 } from '@angular/core';
+
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -18,23 +19,15 @@ import {
   Validator
 } from '@angular/forms';
 
-import {
-  SkyColorpickerService
-} from './colorpicker.service';
-import {
-  SkyColorpickerComponent
-} from './colorpicker.component';
+import { SkyColorpickerService } from './colorpicker.service';
+import { SkyColorpickerComponent } from './colorpicker.component';
+
 import {
   SkyColorpickerHsva,
   SkyColorpickerOutput
 } from './types';
-import {
-  SkyResourcesService
-} from '../resources';
 
-import {
-  Subscription
-} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_COLORPICKER_VALUE_ACCESSOR = {
@@ -94,8 +87,7 @@ export class SkyColorpickerInputDirective
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer,
-    private service: SkyColorpickerService,
-    private skyResourceService: SkyResourcesService
+    private service: SkyColorpickerService
   ) { }
 
   @HostListener('input', ['$event'])
@@ -131,15 +123,7 @@ export class SkyColorpickerInputDirective
         this._onChange(newColor);
       });
 
-    this.skyColorpickerInput.setColorFromString(this.initialColor);
-
-    /// Set aria-label as default, if not set
-    if (!this.elementRef.nativeElement.getAttribute('aria-label')) {
-      this.renderer.setElementAttribute(
-        this.elementRef.nativeElement,
-        'aria-label',
-        this.skyResourceService.getString('colorpicker_input_default_label'));
-    }
+      this.skyColorpickerInput.setColorFromString(this.initialColor);
 
     const typeAttr = element.getAttribute('type');
     if (typeAttr && typeAttr === 'hidden') {

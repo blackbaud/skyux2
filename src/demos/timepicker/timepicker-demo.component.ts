@@ -11,8 +11,4 @@ export class SkyTimepickerDemoComponent {
   public selectedTime1: any = '8:30 PM';
   public selectedTime2: any = '20:30';
   public selectedTime3: any = '02:00:00-0400';
-
-  public clearSelectedTime() {
-    this.selectedTime1 = undefined;
-  }
 }

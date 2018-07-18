@@ -103,10 +103,6 @@ $sky-fluid-grid-columns: 12 !default;
 $sky-flyout-z-index: 1001 !default; // omnibar is 1000, help is 9999:
 // end flyout
 
-// begin toast
-$sky-toaster-z-index: 1051 !default; // modal is 1050:
-// end toast
-
 // begin grid
 $sky-grid-odd-background-color: $sky-color-gray-01 !default;
 $sky-grid-even-background-color: $sky-color-white !default;
