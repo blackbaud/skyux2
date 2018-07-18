@@ -6,6 +6,7 @@ import {
   Input,
   Output
 } from '@angular/core';
+import { SkyResourcesService } from '../resources';
 
 @Component({
   selector: 'sky-token',
@@ -21,6 +22,14 @@ export class SkyTokenComponent {
 
   public get disabled(): boolean {
     return (this._disabled === true);
+  }
+
+  @Input()
+  public set ariaLabel(value: string) {
+    this._ariaLabel = value;
+  }
+  public get ariaLabel() {
+    return this._ariaLabel || this.skyResourcesService.getString('token_dismiss_button_title');
   }
 
   @Input()
@@ -51,12 +60,14 @@ export class SkyTokenComponent {
     return (this.focusable) ? 0 : -1;
   }
 
+  private _ariaLabel: string;
   private _disabled: boolean;
   private _dismissible: boolean;
   private _focusable: boolean;
 
   constructor(
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private skyResourcesService: SkyResourcesService
   ) { }
 
   public dismissToken() {
