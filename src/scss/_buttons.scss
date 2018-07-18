@@ -105,7 +105,7 @@
     margin-left: $sky-margin-half;
 }
 
-.sky-btn-tab-selected {
+.sky-btn-tab-selected:not(.sky-btn-tab-disabled) {
   @include sky-btn-tab-selected;
 
   .sky-btn-tab-close, .sky-tab-header-count {
