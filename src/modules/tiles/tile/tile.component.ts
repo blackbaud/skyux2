@@ -6,14 +6,13 @@ import {
   Optional,
   Output
 } from '@angular/core';
-
 import {
   skyAnimationSlide
 } from '../../animation/slide';
 
 import {
   SkyTileDashboardService
-} from '../tile-dashboard';
+} from '../tile-dashboard/tile-dashboard.service';
 
 @Component({
   selector: 'sky-tile',
