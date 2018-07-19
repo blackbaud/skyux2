@@ -19,10 +19,12 @@ export class SkyIconComponent {
   @Input()
   public fixedWidth: boolean = true;
 
-  public get classList() {
+  public classList(): string[] {
     let list: string[] = [];
     list.push('fa-' + this.icon);
-    list.push('fa-' + this.size);
+    if (this.size !== '') {
+      list.push('fa-' + this.size);
+    }
     if (this.fixedWidth === true) {
       list.push('fa-fw');
     }

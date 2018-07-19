@@ -8,4 +8,6 @@ import {
 })
 export class IconTestComponent {
   public icon = 'circle';
+  public size = '3x';
+  public fixedWidth = false;
 }
