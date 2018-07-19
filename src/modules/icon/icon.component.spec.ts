@@ -41,17 +41,18 @@ fdescribe('Icon component', () => {
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-3x');
     expect(element.querySelector('.sky-icon')).not.toHaveCssClass('fa-fw');
     expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe('true');
+    expect(element.querySelector('.sky-icon').classList.length).toBe(4);
   });
 
   it('should display something other than circle', () => {
     cmp.icon = 'broom';
-    cmp.size = 'xs';
+    cmp.size = '';
     cmp.fixedWidth = true;
     fixture.detectChanges();
     expect(cmp.icon).toBe('broom');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-broom');
-    expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-xs');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-fw');
+    expect(element.querySelector('.sky-icon').classList.length).toBe(4);
     expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe('true');
   });
 });
