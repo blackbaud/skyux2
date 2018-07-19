@@ -15,7 +15,7 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-describe('Icon component', () => {
+fdescribe('Icon component', () => {
   let fixture: ComponentFixture<IconTestComponent>;
   let cmp: IconTestComponent;
   let element: HTMLElement;
@@ -39,7 +39,7 @@ describe('Icon component', () => {
     fixture.detectChanges();
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-circle');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-3x');
-    expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-fw');
+    expect(element.querySelector('.sky-icon')).not.toHaveCssClass('fa-fw');
     expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe('true');
   });
 
@@ -51,6 +51,7 @@ describe('Icon component', () => {
     expect(cmp.icon).toBe('broom');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-broom');
     expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-xs');
+    expect(element.querySelector('.sky-icon')).toHaveCssClass('fa-fw');
     expect(element.querySelector('.sky-icon').getAttribute('aria-hidden')).toBe('true');
   });
 });
