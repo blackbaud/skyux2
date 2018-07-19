@@ -17,15 +17,15 @@ export class SkyIconComponent {
   public size: string;
 
   @Input()
-  public fixedWidth: boolean = true;
+  public fixedWidth: boolean;
 
   public classList(): string[] {
     let list: string[] = [];
     list.push('fa-' + this.icon);
-    if (this.size !== '') {
+    if (this.size) {
       list.push('fa-' + this.size);
     }
-    if (this.fixedWidth === true) {
+    if (this.fixedWidth) {
       list.push('fa-fw');
     }
     return list;
