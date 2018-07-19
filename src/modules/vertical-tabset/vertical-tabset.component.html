@@ -1,19 +1,20 @@
  <div class="sky-vertical-tabset" (window:resize)="tabService.updateContent()">
-  <div 
-    #contentWrapper 
-    class="sky-vertical-tabset-group-container"
-    [@tabGroupEnter]="tabService.animationVisibleState"
+  <div
     *ngIf="tabService.tabsVisible()"
+    #contentWrapper
+    class="sky-vertical-tabset-group-container"
+    role="tablist"
+    [@tabGroupEnter]="tabService.animationVisibleState"
   >
     <ng-content></ng-content>
-  </div> 
-  <div 
+  </div>
+  <div
     class="sky-vertical-tabset-content"
     [@contentEnter]="tabService.animationVisibleState"
     *ngIf="tabService.contentVisible()"
   >
     <div #skySideContent></div>
-    <button 
+    <button
       *ngIf="!tabService.tabsVisible()"
       (click)="tabService.showTabs()"
       class="sky-btn sky-btn-primary sky-vertical-tabset-show-tabs-btn"
@@ -22,4 +23,4 @@
       {{ showTabsText }}
     </button>
   </div>
-</div> 
+</div>
