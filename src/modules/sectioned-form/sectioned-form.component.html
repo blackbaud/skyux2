@@ -4,17 +4,17 @@
   role="tablist"
   (window:resize)="tabService.updateContent()">
   <div
-    *ngIf="tabsVisible()"
     class="sky-sectioned-form-tabs"
     [@tabEnter]="tabService.animationVisibleState"
+    [ngClass]="{'sky-sectioned-form-container-hidden': !tabsVisible()}"
   >
     <ng-content></ng-content>
   </div>
   <div
     #skySectionSideContent
-    *ngIf="tabService.contentVisible()"
     class="sky-sectioned-form-content"
     [@contentEnter]="tabService.animationVisibleState"
+    [ngClass]="{'sky-sectioned-form-container-hidden': !tabService.contentVisible()}"
   >
   </div>
 </div>

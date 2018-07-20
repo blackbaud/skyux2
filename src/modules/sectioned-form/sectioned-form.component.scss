@@ -19,3 +19,6 @@
   }
 }
 
+.sky-sectioned-form-container-hidden {
+  @include sky-screen-reader-only();
+}
