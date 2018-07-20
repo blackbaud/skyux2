@@ -115,6 +115,7 @@ export class SkyColorpickerInputDirective
 
   @HostListener('blur')
   public onBlur(event: any) {
+    /*istanbul ignore next */
     this._onTouched();
   }
 
