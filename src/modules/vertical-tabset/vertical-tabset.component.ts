@@ -63,7 +63,7 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
 
   @Input()
   public get ariaRole(): string {
-    if (!this.isMobile) {
+    if (this.isMobile) {
       return undefined;
     }
     return this._ariaRole || 'tablist';
