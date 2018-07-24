@@ -1,21 +1,35 @@
-import { SkySectionedFormComponent } from './sectioned-form.component';
-import { TestBed } from '@angular/core/testing';
+import {
+  TestBed
+} from '@angular/core/testing';
+
 import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
-import { SkySectionedFormFixturesModule } from './fixtures/sectioned-form-fixtures.module';
-import { SkySectionedFormFixtureComponent } from './fixtures/sectioned-form.component.fixture';
 
+import {
+  SkyMediaQueryService,
+  SkyMediaBreakpoints
+} from '../media-queries';
+import {
+  SkySectionedFormComponent
+} from './sectioned-form.component';
+
+import {
+  SkySectionedFormFixturesModule
+} from './fixtures/sectioned-form-fixtures.module';
+import {
+  SkySectionedFormFixtureComponent
+} from './fixtures/sectioned-form.component.fixture';
 import {
   SkySectionedFormNoSectionsFixtureComponent
 } from './fixtures/sectioned-form-no-sections.component.fixture';
-
 import {
   SkySectionedFormNoActiveFixtureComponent
 } from './fixtures/sectioned-form-no-active.component.fixture';
 
-import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
-import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
+import {
+  MockSkyMediaQueryService
+} from './../testing/mocks/mock-media-query.service';
 
 function getVisibleContent(el: any) {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
@@ -213,6 +227,28 @@ describe('Sectioned form component', () => {
     expect(tabs.length).toBe(2);
   });
 
+  it('should not use tab aria-associations and roles in mobile view', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+    fixture.detectChanges();
+
+    let content = getVisibleContent(el);
+    content.forEach((pane: any) => {
+      expect(pane.getAttribute('aria-labelledby')).toBeFalsy();
+      expect(pane.getAttribute('role')).toBeFalsy();
+    });
+
+    fixture.componentInstance.sectionedForm.showTabs();
+    fixture.detectChanges();
+
+    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    tabs.forEach((tab: any) => {
+      expect(tab.getAttribute('aria-controls')).toBeFalsy();
+      expect(tab.getAttribute('role')).toBeFalsy();
+    });
+  });
+
   it('section should respect invalid field change', () => {
     let fixture = createTestComponent();
     let el = fixture.nativeElement;
@@ -275,6 +311,7 @@ describe('Sectioned form component', () => {
 
     // resize screen out of mobile
     mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.detectChanges();
     fixture.componentInstance.sectionedForm.tabService.updateContent();
     fixture.detectChanges();
 
@@ -285,6 +322,7 @@ describe('Sectioned form component', () => {
 
     // resize back to mobile
     mockQueryService.current = SkyMediaBreakpoints.xs;
+    fixture.detectChanges();
     fixture.componentInstance.sectionedForm.tabService.updateContent();
     fixture.detectChanges();
 
@@ -294,6 +332,7 @@ describe('Sectioned form component', () => {
 
     // resize to widescreen
     mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.detectChanges();
     fixture.componentInstance.sectionedForm.tabService.updateContent();
     fixture.detectChanges();
 

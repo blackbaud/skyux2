@@ -3,14 +3,24 @@ import {
   Input,
   ViewChild,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
+import {
+  Subject
+} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
-import { SkyVerticalTabComponent } from './../vertical-tabset/vertical-tab.component';
-import { SkySectionedFormService } from './sectioned-form.service';
+import {
+  SkyVerticalTabComponent
+} from './../vertical-tabset/vertical-tab.component';
+import {
+  SkySectionedFormService
+} from './sectioned-form.service';
+import {
+  SkyVerticalTabsetService
+} from '../vertical-tabset/vertical-tabset.service';
 
 let nextId = 0;
 
@@ -33,24 +43,60 @@ export class SkySectionedFormSectionComponent implements OnInit, OnDestroy {
   @Input()
   public active: boolean;
 
+  public get ariaRole(): string {
+    if (this._ariaRole) {
+      return this._ariaRole;
+    }
+    return this.isMobile ? undefined : 'tabpanel';
+  }
+  public set ariaRole(value: string) {
+    this._ariaRole = value;
+  }
+
+  public get ariaLabelledby() {
+    if (this._ariaLabelledby) {
+      return this._ariaLabelledby;
+    }
+    return this.isMobile ? undefined : this.sectionTabId;
+  }
+  public set ariaLabelledby(value: string) {
+    this._ariaLabelledby = value;
+  }
+
   public fieldRequired: boolean;
   public fieldInvalid: boolean;
 
   @ViewChild(SkyVerticalTabComponent)
   public tab: SkyVerticalTabComponent;
 
+  private isMobile = false;
+  private _ariaRole: string;
+  private _ariaLabelledby: string;
   private _ngUnsubscribe = new Subject();
 
-  constructor(private sectionedFormService: SkySectionedFormService) {}
+  constructor(
+    private sectionedFormService: SkySectionedFormService,
+    private tabsetService: SkyVerticalTabsetService,
+    private changeRef: ChangeDetectorRef
+  ) {}
 
   public ngOnInit() {
-    this.sectionedFormService.requiredChange
-    .takeUntil(this._ngUnsubscribe)
-    .subscribe((required: boolean) => this.fieldRequired = required);
+    this.isMobile = this.tabsetService.isMobile();
+    this.changeRef.detectChanges();
 
-  this.sectionedFormService.invalidChange
-    .takeUntil(this._ngUnsubscribe)
-    .subscribe((invalid: boolean) => this.fieldInvalid = invalid);
+    this.tabsetService.switchingMobile
+      .subscribe((mobile: boolean) => {
+        this.isMobile = mobile;
+        this.changeRef.detectChanges();
+      });
+
+    this.sectionedFormService.requiredChange
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe((required: boolean) => this.fieldRequired = required);
+
+    this.sectionedFormService.invalidChange
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe((invalid: boolean) => this.fieldInvalid = invalid);
   }
 
   public ngOnDestroy() {

@@ -61,6 +61,17 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
   @Input()
   public showTabsText: string = this.resources.getString('vertical_tabs_show_tabs_text');
 
+  @Input()
+  public get ariaRole(): string {
+    if (!this.isMobile) {
+      return undefined;
+    }
+    return this._ariaRole || 'tablist';
+  }
+  public set ariaRole(value: string) {
+    this._ariaRole = value;
+  }
+
   @Output()
   public activeChange = new EventEmitter<number>();
 
@@ -70,7 +81,9 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
   @ViewChild('skySideContent')
   public content: ElementRef;
 
+  private isMobile = false;
   private _ngUnsubscribe = new Subject();
+  private _ariaRole: string;
 
   constructor(
     public tabService: SkyVerticalTabsetService,
@@ -87,10 +100,15 @@ export class SkyVerticalTabsetComponent implements OnInit, AfterViewChecked, OnD
 
     this.tabService.switchingMobile
       .takeUntil(this._ngUnsubscribe)
-      .subscribe((mobile: boolean) => this.changeRef.detectChanges());
+      .subscribe((mobile: boolean) => {
+        this.isMobile = mobile;
+        this.changeRef.detectChanges();
+      });
 
     if (this.tabService.isMobile()) {
+      this.isMobile = true;
       this.tabService.animationVisibleState = VISIBLE_STATE;
+      this.changeRef.detectChanges();
     }
   }
 

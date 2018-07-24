@@ -3,7 +3,7 @@
     *ngIf="tabService.tabsVisible()"
     #contentWrapper
     class="sky-vertical-tabset-group-container"
-    role="tablist"
+    [attr.role]="ariaRole"
     [@tabGroupEnter]="tabService.animationVisibleState"
   >
     <ng-content></ng-content>

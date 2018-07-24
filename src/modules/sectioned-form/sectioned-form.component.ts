@@ -58,9 +58,21 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   @Output()
   public indexChanged: EventEmitter<number> = new EventEmitter();
 
+  public get ariaRole(): string {
+    if (this._ariaRole) {
+      return this._ariaRole;
+    }
+    return this.isMobile ? undefined : 'tablist';
+  }
+  public set ariaRole(value: string) {
+    this._ariaRole = value;
+  }
+
   @ViewChild('skySectionSideContent')
   public content: ElementRef;
 
+  private isMobile = false;
+  private _ariaRole: string;
   private _ngUnsubscribe = new Subject();
 
   constructor(
@@ -77,10 +89,15 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
 
     this.tabService.switchingMobile
       .takeUntil(this._ngUnsubscribe)
-      .subscribe((mobile: boolean) => this.changeRef.detectChanges());
+      .subscribe((mobile: boolean) => {
+        this.isMobile = mobile;
+        this.changeRef.detectChanges();
+      });
 
     if (this.tabService.isMobile()) {
+      this.isMobile = true;
       this.tabService.animationVisibleState = VISIBLE_STATE;
+      this.changeRef.detectChanges();
     }
   }
 

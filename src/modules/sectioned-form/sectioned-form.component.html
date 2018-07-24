@@ -1,21 +1,19 @@
 <div
   aria-orientation="vertical"
   class="sky-sectioned-form"
-  role="tablist"
+  [attr.role]="ariaRole"
   (window:resize)="tabService.updateContent()">
   <div
+    *ngIf="tabsVisible()"
     class="sky-sectioned-form-tabs"
-    [@tabEnter]="tabService.animationVisibleState"
-    [ngClass]="{'sky-sectioned-form-container-hidden': !tabsVisible()}"
-  >
+    [@tabEnter]="tabService.animationVisibleState">
     <ng-content></ng-content>
   </div>
   <div
+    *ngIf="tabService.contentVisible()"
     #skySectionSideContent
     class="sky-sectioned-form-content"
-    [@contentEnter]="tabService.animationVisibleState"
-    [ngClass]="{'sky-sectioned-form-container-hidden': !tabService.contentVisible()}"
-  >
+    [@contentEnter]="tabService.animationVisibleState">
   </div>
 </div>
 

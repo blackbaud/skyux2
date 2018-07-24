@@ -1,11 +1,11 @@
 <a
   class="sky-vertical-tab"
-  role="tab"
   [attr.aria-controls]="ariaControls"
   [attr.aria-invalid]="ariaInvalid"
   [attr.aria-required]="ariaRequired"
   [attr.aria-selected]="active"
   [attr.id]="tabId"
+  [attr.role]="ariaRole"
   [ngClass]="{
     'sky-vertical-tab-active': active,
     'sky-vertical-tab-disabled': disabled
@@ -36,6 +36,10 @@
     class="sky-vertical-tab-content-pane"
     [ngClass]="{'sky-vertical-tab-hidden': !active}"
   >
+
     <ng-content></ng-content>
+
   <div>
+
 </div>
+

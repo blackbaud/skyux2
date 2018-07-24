@@ -12,8 +12,8 @@
   [tabHeading]="heading"
   [tabId]="sectionTabId">
   <div
-    role="tabpanel"
-    [attr.aria-labelledby]="sectionTabId"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [attr.role]="ariaRole"
     [id]="sectionContentId"
     #tabContent>
     <ng-content></ng-content>

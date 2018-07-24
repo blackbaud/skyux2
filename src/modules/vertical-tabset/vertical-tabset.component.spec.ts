@@ -1,22 +1,34 @@
-import { TestBed } from '@angular/core/testing';
-import { SkyVerticalTabsFixturesModule } from './fixtures/vertical-tabs-fixtures.module';
-import { SkyVerticalTabsetComponent } from '../vertical-tabset/vertical-tabset.component';
-import { VerticalTabsetTestComponent } from './fixtures/vertical-tabset.component.fixture';
+import {
+  TestBed
+} from '@angular/core/testing';
 
+import {
+  SkyVerticalTabsetComponent
+} from '../vertical-tabset/vertical-tabset.component';
+import {
+  SkyMediaQueryService,
+  SkyMediaBreakpoints
+} from '../media-queries';
+
+import {
+  SkyVerticalTabsFixturesModule
+} from './fixtures/vertical-tabs-fixtures.module';
+import {
+  VerticalTabsetTestComponent
+} from './fixtures/vertical-tabset.component.fixture';
 import {
   VerticalTabsetNoActiveTestComponent
 } from './fixtures/vertical-tabset-no-active.component.fixture';
-
 import {
   VerticalTabsetEmptyGroupTestComponent
 } from './fixtures/vertical-tabset-empty-group.component';
-
 import {
   VerticalTabsetNoGroupTestComponent
 } from './fixtures/vertical-tabset-no-group.component.fixture';
 
-import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
-import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
+import {
+  MockSkyMediaQueryService
+} from '../testing/mocks/mock-media-query.service';
 
 let mockQueryService = new MockSkyMediaQueryService();
 
@@ -241,6 +253,24 @@ describe('Vertical tabset component', () => {
     const visibleTabs = getVisibleVerticalTabs(el);
     expect(visibleTabs.length).toBe(1);
     expect(visibleTabs[0].textContent.trim()).toBe('Group 1 Tab 2 content');
+  });
+
+  it('tabs should not have tab aria associations and roles in mobile view', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // click show tabs
+    const showTabsButton = el.querySelector('.sky-vertical-tabset-show-tabs-btn');
+    showTabsButton.click();
+
+    fixture.detectChanges();
+
+    const visibleTab = el.querySelector('.sky-vertical-tab');
+    expect(visibleTab.getAttribute('aria-controls')).toBeFalsy();
+    expect(visibleTab.getAttribute('role')).toBeFalsy();
   });
 
   it('should hide tabs when switching from widescreen to mobile', () => {
