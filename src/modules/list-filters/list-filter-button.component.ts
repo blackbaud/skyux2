@@ -26,11 +26,14 @@ export class SkyListFilterButtonComponent implements AfterViewInit {
   ) { }
 
   public ngAfterViewInit() {
-    this.dispatcher.toolbarAddItems([
-      new ListToolbarItemModel({
-        template: this.filterButtonTemplate,
-        location: 'right'
-      })
-    ], 0);
+    this.dispatcher.toolbarAddItems(
+      [
+        new ListToolbarItemModel({
+          template: this.filterButtonTemplate,
+          location: 'left'
+        })
+      ],
+      1
+    );
   }
 }
