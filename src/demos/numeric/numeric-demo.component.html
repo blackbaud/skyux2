@@ -117,6 +117,22 @@
     </p>
     <p>
       <sky-definition-list-label>
+        1234567 without truncation
+      </sky-definition-list-label>
+      <sky-definition-list-value>
+        {{1234567 | skyNumeric:{truncate: false} }}
+      </sky-definition-list-value>
+    </p>
+    <p>
+        <sky-definition-list-label>
+          15501 with truncation after 10000 and 1 digit
+        </sky-definition-list-label>
+        <sky-definition-list-value>
+          {{15501 | skyNumeric:{digits: 1, truncateAfter: 10000} }}
+        </sky-definition-list-value>
+      </p>
+    <p>
+      <sky-definition-list-label>
         15.50 as US dollar currency with 2 digits:
       </sky-definition-list-label>
       <sky-definition-list-value>
