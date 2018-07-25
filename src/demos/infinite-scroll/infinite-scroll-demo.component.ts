@@ -2,7 +2,9 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import { BehaviorSubject } from '../../../node_modules/rxjs';
+import {
+  BehaviorSubject
+} from 'rxjs';
 
 let nextId = 0;
 let nextListId = 0;
