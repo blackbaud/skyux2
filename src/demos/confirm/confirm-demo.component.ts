@@ -40,6 +40,18 @@ export class SkyConfirmDemoComponent {
     });
   }
 
+  public openYesCancelConfirmWithBody() {
+    const dialog: SkyConfirmInstance = this.confirmService.open({
+      message: 'Do you wish to continue?',
+      body: 'This could be dangerous!',
+      type: SkyConfirmType.YesCancel
+    });
+
+    dialog.closed.subscribe((result: any) => {
+      this.selectedAction = result.action;
+    });
+  }
+
   public openYesNoCancelConfirm() {
     const dialog: SkyConfirmInstance = this.confirmService.open({
       message: 'Do you wish to continue?',

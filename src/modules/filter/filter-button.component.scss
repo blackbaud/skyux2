@@ -9,3 +9,15 @@
 .sky-filter-btn-active:hover, .sky-filter-btn-active:focus   {
    color: $sky-text-color-default;
 }
+
+@media (max-width: $sky-screen-xs-max) {
+  .sky-filter-btn-text {
+    display: none;
+  }
+
+  ::ng-deep {
+    .sky-dropdown-caret {
+      display: none;
+    }
+  }
+}

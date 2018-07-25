@@ -1,0 +1,7 @@
+@import "../../../scss/mixins";
+
+.sky-tile-title {
+  @include sky-section-heading();
+  margin: 0;
+  padding: $sky-padding $sky-tile-header-tool-padding;
+}
