@@ -4,7 +4,6 @@ import {
   Input,
   OnDestroy,
   Output,
-  AfterViewInit,
   ChangeDetectorRef,
   OnChanges,
   SimpleChanges
@@ -12,11 +11,15 @@ import {
 
 import { SkyTabsetService } from './tabset.service';
 
+let nextId = 0;
+
 @Component({
   selector: 'sky-tab',
   templateUrl: './tab.component.html'
 })
-export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
+export class SkyTabComponent implements OnDestroy, OnChanges {
+  public tabId: string = `sky-tab-${++nextId}`;
+
   @Input()
   public tabHeading: string;
 
@@ -41,7 +44,7 @@ export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
 
   constructor(private tabsetService: SkyTabsetService, private ref: ChangeDetectorRef) {}
 
-  public ngAfterViewInit() {
+  public initializeTabIndex() {
     setTimeout(() => {
       this.tabsetService.addTab(this);
 
@@ -69,9 +72,13 @@ export class SkyTabComponent implements OnDestroy, AfterViewInit, OnChanges {
         this.tabsetService.activateTab(this);
       }
     }
+
   }
 
   public ngOnDestroy() {
+
     this.tabsetService.destroyTab(this);
+
   }
+
 }
