@@ -11,8 +11,9 @@
   }
 }
 
-.sky-btn-tab-selected {
-  .sky-tab-button-close {color: #fff;
+.sky-btn-tab-selected:not(.sky-btn-tab-disabled) {
+  .sky-tab-button-close {
+    color: #fff;
   }
 }
 

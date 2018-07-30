@@ -104,10 +104,23 @@
   line-height: 1.8;
   padding: $sky-tab-btn-padding-top-bottom $sky-tab-btn-padding-left-right;
 
-  &:hover {
+  &:hover:not(.sky-btn-tab-disabled) {
     background-color: $sky-background-color-neutral-light;
     color: $sky-text-color-default;
     text-decoration: none;
+  }
+
+  &.sky-btn-tab-disabled {
+    background-color: $sky-background-color-disabled;
+    cursor: default;
+    outline: none;
+    text-decoration: none;
+
+    &:hover {
+      color: $sky-text-color-deemphasized;
+      cursor: default;
+      text-decoration: none;
+    }
   }
 }
 
@@ -280,4 +293,20 @@
   font-family: FontAwesome;
   margin-right: 5px;
   color: $sky-highlight-color-danger;
+}
+
+// Only display content to screen readers
+
+@mixin sky-screen-reader-only {
+  width: 0;
+  height: 0;
+  padding: 0;
+  opacity: 0;
+  position: absolute;
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  outline: none;
+  white-space: nowrap;
 }
