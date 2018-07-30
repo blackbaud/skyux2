@@ -1,4 +1,6 @@
-<sky-vertical-tabset showTabsText='Tab list'>
+<sky-vertical-tabset
+  ariaRole="tablist"
+  showTabsText='Tab list'>
   <sky-vertical-tabset-group
     groupHeading="Group 1"
     [open]="group1Open"
@@ -8,6 +10,7 @@
       ariaControls="some-div"
       ariaInvalid="true"
       ariaRequired="true"
+      ariaRole="tab"
       tabHeading="Group 1 Tab 1"
       tabHeaderCount="5" [active]="active"
       tabId="some-tab">

@@ -59,20 +59,13 @@ export class SkySectionedFormComponent implements OnInit, OnDestroy, AfterViewCh
   public indexChanged: EventEmitter<number> = new EventEmitter();
 
   public get ariaRole(): string {
-    if (this._ariaRole) {
-      return this._ariaRole;
-    }
     return this.isMobile ? undefined : 'tablist';
-  }
-  public set ariaRole(value: string) {
-    this._ariaRole = value;
   }
 
   @ViewChild('skySectionSideContent')
   public content: ElementRef;
 
   private isMobile = false;
-  private _ariaRole: string;
   private _ngUnsubscribe = new Subject();
 
   constructor(
