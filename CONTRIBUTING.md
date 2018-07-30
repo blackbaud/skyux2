@@ -44,7 +44,13 @@ To declare localization strings, specify a string name and provide the string an
 ### File an issue
 Before you start any work, please [file an issue](https://github.com/blackbaud/skyux2/issues/new). The sooner we can discuss potential code changes, the better. We also use the issue to track and assign any work needed. To file a issue with SKY UX, follow these instructions:
 1. [Create a GitHub issue in the SKY UX 2 repo](https://github.com/blackbaud/skyux2/issues/new).
-2. Fill in the template fields. Describe the expected behavior, actual behavior, steps to reproduce, severity, and impact, and provide a link to a Plunkr example.
+2. Fill in the template fields to provide:
+    - The expected behavior
+    - The actual behavior
+    - Steps to reproduce
+    - A Plunkr example
+    - The severity
+    - The impact
 3. Subscribe to the issue to receive notifications.
 
 ### Get the code
