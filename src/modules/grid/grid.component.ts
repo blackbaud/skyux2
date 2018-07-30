@@ -198,6 +198,13 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     });
   }
 
+  public onKeydown(event: KeyboardEvent, column: SkyGridColumnModel) {
+    const key = event.key.toLowerCase();
+    if (key === 'enter' || key === ' ') {
+      this.sortByColumn(column);
+    }
+  }
+
   public sortByColumn(column: SkyGridColumnModel) {
     if (column.isSortable) {
       this.currentSortField
@@ -240,6 +247,15 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
         return field.fieldSelector === columnField ?
           (field.descending ? 'desc' : 'asc') : undefined;
       });
+  }
+
+  public getAriaSortDirection(column: SkyGridColumnModel): Observable<string> {
+    return this.currentSortField
+      .distinctUntilChanged()
+      .map(field => {
+      return field.fieldSelector === column.field ?
+        (field.descending ? 'descending' : 'ascending') : (column.isSortable ? 'none' : undefined);
+    });
   }
 
   public updateColumnHeading(change: SkyGridColumnHeadingModelChange) {

@@ -18,7 +18,7 @@ export class SkyListFiltersDemoComponent {
   public listFilters: ListFilterModel[] = [];
   public modalFilters: ListFilterModel[] = [];
 
-  public items: Observable<any> = Observable.of([
+  public items = Observable.of([
     {
       id: 0,
       name: 'Orange',
@@ -56,17 +56,17 @@ export class SkyListFiltersDemoComponent {
     }
   ]);
 
-  constructor(private modalService: SkyModalService) {}
+  constructor(
+    private modalService: SkyModalService
+  ) { }
 
   public openFilterModal() {
-    let instance = this.modalService.open(SkyListFiltersModalDemoComponent, [
-      {
-        provide: SkyListFiltersModalDemoContext,
-          useValue: {
-            appliedFilters: this.modalFilters
-          }
+    const instance = this.modalService.open(SkyListFiltersModalDemoComponent, [{
+      provide: SkyListFiltersModalDemoContext,
+      useValue: {
+        appliedFilters: this.modalFilters
       }
-    ]);
+    }]);
 
     instance.closed.subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'save') {

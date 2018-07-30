@@ -21,7 +21,6 @@ import {
 describe('Paging component', () => {
   let component: PagingTestComponent,
       fixture: any,
-      nativeElement: HTMLElement,
       element: DebugElement;
   beforeEach(() => {
 
@@ -35,7 +34,6 @@ describe('Paging component', () => {
     });
 
     fixture = TestBed.createComponent(PagingTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
     element = fixture.debugElement as DebugElement;
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -271,6 +269,60 @@ describe('Paging component', () => {
         ).nativeElement;
 
         expect(nextElement.getAttribute('aria-label')).toBe('Next');
+      });
+
+      it('should show the correct pages for an even number of maximum pages', () => {
+        let pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 6, 1);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 6, 2);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 6, 4);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 6, 7);
+        expect(pageNumbers).toEqual([3, 4, 5, 6, 7, 8]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 6, 8);
+        expect(pageNumbers).toEqual([3, 4, 5, 6, 7, 8]);
+      });
+
+      it('should show the correct pages for an odd number of maximum pages', () => {
+        let pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 5, 1);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 5, 2);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 5, 4);
+        expect(pageNumbers).toEqual([2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 5, 7);
+        expect(pageNumbers).toEqual([4, 5, 6, 7, 8]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(8, 5, 8);
+        expect(pageNumbers).toEqual([4, 5, 6, 7, 8]);
+      });
+
+      it('should show the correct pages when maximum pages are >= the page count', () => {
+        let pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(6, 6, 1);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(6, 6, 3);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(6, 6, 6);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(6, 8, 1);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(6, 8, 3);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
+
+        pageNumbers = (component.pagingComponent as any).getDisplayedPageNumbers(6, 8, 6);
+        expect(pageNumbers).toEqual([1, 2, 3, 4, 5, 6]);
       });
     });
   });

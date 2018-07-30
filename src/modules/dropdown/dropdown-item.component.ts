@@ -3,7 +3,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef
+  ElementRef,
+  Input
 } from '@angular/core';
 
 @Component({
@@ -13,6 +14,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyDropdownItemComponent implements AfterViewInit {
+  @Input()
+  public ariaRole = 'menuitem';
+
   public isActive = false;
   public isDisabled = false;
   public buttonElement: HTMLButtonElement;

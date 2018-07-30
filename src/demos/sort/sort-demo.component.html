@@ -1,6 +1,6 @@
 <sky-toolbar>
   <sky-toolbar-item>
-    <sky-sort>
+    <sky-sort [showButtonText]="true">
       <sky-sort-item
         *ngFor="let item of sortOptions"
         [active]="initialState === item.id"

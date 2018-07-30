@@ -12,6 +12,8 @@ import { ModalTiledDemoComponent } from './modal/modal-tiled-demo.component';
 import { Tile1Component } from './tiles/tile1.component';
 import { Tile2Component } from './tiles/tile2.component';
 
+require('style-loader!./visual.scss');
+
 // Specify entry components, module-level providers, etc. here.
 @NgModule({
   providers: [],
