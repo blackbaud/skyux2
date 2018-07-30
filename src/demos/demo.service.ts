@@ -24,6 +24,7 @@ import {
   SkyFlyoutDemoComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
+  SkyIconDemoComponent,
   SkyInfiniteScrollDemoComponent,
   SkyKeyInfoDemoComponent,
   SkyLabelDemoComponent,
@@ -452,6 +453,22 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./help-inline/help-inline-demo.component.ts'),
           componentName: 'SkyHelpInlineDemoComponent',
           bootstrapSelector: 'sky-help-inline-demo'
+        }
+      ]
+    },
+    {
+      name: 'Icon',
+      component: SkyIconDemoComponent,
+      files: [
+        {
+          name: 'icon-demo.component.html',
+          fileContents: require('!!raw-loader!./icon/icon-demo.component.html')
+        },
+        {
+          name: 'icon-demo.component.ts',
+          fileContents: require('!!raw-loader!./icon/icon-demo.component.ts'),
+          componentName: 'SkyIconDemoComponent',
+          bootstrapSelector: 'sky-icon-demo'
         }
       ]
     },
