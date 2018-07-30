@@ -2,6 +2,13 @@
 
 We highly encourage contributions from all SKY UX users. We just ask you to follow the coding conventions in the existing code and to write the appropriate unit tests for your features.
 
+### Table of contents
+
+- [Before you start](#before-you-start)
+- [Localization](#localization)
+- [Make your changes](#make-your-changes)
+- [Recommended tools](#recommended-tools)
+
 For more information about working with SKY UX 2, see the [SKY UX README](https://github.com/blackbaud/skyux2/blob/master/README.md).
 
 ### Prerequisites
@@ -13,7 +20,7 @@ Before you contribute, you must install [the SKY UX prerequisites](https://devel
 
 Before you contribute to SKY UX, please consider these general guidelines so that we can review and accept your contributions in a timely fashion. If you do not follow these guidelines, we cannot accept your contributions.
 
-- **Please [file an issue](https://github.com/blackbaud/skyux2/issues/new) before you start any work. The sooner we can discuss potential code changes, the better. We can also use the issue to track and assign any work needed.**
+- **Please [file an issue](https://github.com/blackbaud/skyux2/issues/new) before you start any work.** The sooner we can discuss potential code changes, the better. We can also use the issue to track and assign any work needed. For guidance, see [file an issue](#file-an-issue). 
 - **Use the `Sky` prefix when naming all classes, directives, services, components, etc.** This prefix indicates to other contributors that items are owned by SKY UX and not a third-party library and also prevents potential class-name clashes with other libraries. Keep in mind that while we generally use the uppercase `Sky` prefix, we also use the `sky-` prefix in some cases, such as the selector property in components.
 - **All new code must have 100 percent unit test code coverage.** This doesn't guarantee that every use case is accounted for, but anything less than 100 percent code coverage does guarantee that at least one use case is not accounted for. This can be verified by running tests with `npm run watch` and viewing the code coverage results in `coverage/Chrome xx.x.xxxx/index.html`.
 - **All new components and visual changes to existing components must be accompanied by visual regression tests.** This ensures that future changes to CSS or markup will not cause components to render in an unexpected manner. Visual tests consist of three parts: an HTML template for the component to test, a TypeScript file for the component to test, and the actual file that runs the test using webdriver.io and our custom screenshot functions. You can see examples of each part of the visual test process at:
@@ -33,6 +40,12 @@ Before you contribute to SKY UX, please consider these general guidelines so tha
 To declare localization strings, specify a string name and provide the string and a description in the `resources_en_US.json` file in `src/assets/locales`. You can reference the localization strings with the `skyAppResources` pipe or the `SkyAppResourcesService` service in `@blackbaud/skyux-builder/runtime/i18n`.
 
 ## Make your changes
+
+### File an issue
+Before you start any work, please [file an issue](https://github.com/blackbaud/skyux2/issues/new). The sooner we can discuss potential code changes, the better. We also use the issue to track and assign any work needed. To file a issue with SKY UX, follow these instructions:
+1. [Create a GitHub issue in the SKY UX 2 repo](https://github.com/blackbaud/skyux2/issues/new).
+2. Fill in the template fields. Describe the expected behavior, actual behavior, steps to reproduce, severity, and impact, and provide a link to a Plunkr example.
+3. Subscribe to the issue to receive notifications.
 
 ### Get the code
 
