@@ -26,7 +26,7 @@ export class SkyWaitAdapterService {
     // Manage tab navigation in the parent element
     if (isWaiting) {
       let endListenerFunc = this.renderer.listen(busyEl, 'keydown', (event: KeyboardEvent) => {
-        if (event.which === 9) {
+        if (event.key.toLowerCase() === 'tab') {
           event.preventDefault();
         }
       });
