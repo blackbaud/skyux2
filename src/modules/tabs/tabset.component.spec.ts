@@ -150,13 +150,15 @@ describe('Tabset component', () => {
       let el = fixture.nativeElement;
 
       fixture.componentInstance.tab2Disabled = true;
-
       fixture.detectChanges();
 
-      el.querySelectorAll('.sky-btn-tab')[1].click();
+      let tab = el.querySelectorAll('.sky-btn-tab')[1];
+      let closeBtn = tab.querySelector('.sky-btn-tab-close');
+      expect(closeBtn.getAttribute('disabled')).toBe('');
+      expect(closeBtn).toHaveCssClass('sky-btn-tab-close-disabled');
 
+      tab.click();
       fixture.detectChanges();
-
       validateTabSelected(el, 0);
     });
 
@@ -716,10 +718,28 @@ describe('Tabset component', () => {
       debugElement = fixture.debugElement;
     });
 
-    it('should have tabindex of 0', () => {
+    it('should have tabindex of 0', fakeAsync(() => {
       fixture.detectChanges();
-      expect(debugElement.query(By.css('.sky-btn-tab')).attributes['tabindex']).toBe('0');
-    });
+      tick();
+      fixture.detectChanges();
+
+      let butEl = debugElement.queryAll(By.css('.sky-btn-tab'))[1].nativeElement;
+      expect(butEl.getAttribute('tabindex')).toBe('0');
+      expect(butEl.getAttribute('aria-disabled')).toBe('false');
+    }));
+
+    it('should have tabindex of -1 and aria-disabled when disabled', fakeAsync(() => {
+      fixture.componentInstance.tab2Available = true;
+      fixture.componentInstance.tab2Disabled = true;
+
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      let butEl = debugElement.queryAll(By.css('.sky-btn-tab'))[1].nativeElement;
+      expect(butEl.getAttribute('tabindex')).toBe('-1');
+      expect(butEl.getAttribute('aria-disabled')).toBe('true');
+    }));
 
     it('should have aria-controls and aria-labelledby references between tabs and panels', () => {
       fixture.detectChanges();
