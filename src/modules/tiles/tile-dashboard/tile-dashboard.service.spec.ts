@@ -51,6 +51,7 @@ import {
   expect,
   SkyAppTestUtility
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
+import { SkyTileComponent } from '../tile/tile.component';
 
 describe('Tile dashboard service', () => {
   let dashboardConfig: SkyTileDashboardConfig;
@@ -340,6 +341,21 @@ describe('Tile dashboard service', () => {
 
     // Boundary check navigating left, should not move
     testIntercolumnNavigation(fixture, 'ArrowLeft');
+  }));
+
+  it('should do nothing if move tile is called with a tile that does not exist in a column', fakeAsync(() => {
+    let fixture = createDashboardTestComponent();
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    let dashboardService: SkyTileDashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
+    dashboardService.moveTile(new SkyTileComponent(fixture.elementRef, {} as SkyTileDashboardService), 'left');
+
+    // Make sure eveything is still in the same spot
+    let columnEls = fixture.nativeElement.querySelectorAll('.sky-tile-dashboard-column');
+    expect(columnEls[1].querySelector('div.sky-test-tile-2')).toBeTruthy();
+    expect(columnEls[0].querySelector('div.sky-test-tile-1')).toBeTruthy();
   }));
 
   function testColumnNavigation(
