@@ -52,4 +52,11 @@ describe('Numeric pipe', () => {
     };
     expect(skyNumericPipe.transform(42.87, options)).toBe('42.9');
   });
+
+  it(`default digits to zero if truncate set to false`, () => {
+    let options: any = {
+      truncate: false
+    };
+    expect(skyNumericPipe.transform(42.87, options)).toBe('43');
+  });
 });
