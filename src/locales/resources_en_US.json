@@ -57,23 +57,23 @@
   },
   "colorpicker_aria_alpha": {
     "_description": "aria label for the alpha input",
-    "message": "Alpha"
+    "message": "Alpha channel value between 0 and 1"
   },
   "colorpicker_aria_blue": {
     "_description": "aria label for the blue input",
-    "message": "Blue"
+    "message": "Blue value between 0 and 255"
   },
   "colorpicker_aria_green": {
     "_description": "aria label for the green input",
-    "message": "Green"
+    "message": "Green value between 0 and 255"
   },
   "colorpicker_aria_hex": {
     "_description": "aria label for the hex input",
-    "message": "Hex"
+    "message": "Hexadecimal color code"
   },
   "colorpicker_aria_red": {
     "_description": "aria label for the red input",
-    "message": "Red"
+    "message": "Red value between 0 and 255"
   },
   "colorpicker_blue": {
     "_description": "Label for the blue input",
@@ -83,6 +83,10 @@
     "_description": "Label for the close button",
     "message": "Close"
   },
+ "colorpicker_dropdown_button": {
+    "_description": "Label for the dropdown button",
+    "message": "Select color value"
+  },
   "colorpicker_green": {
     "_description": "Label for the green input",
     "message": "G:"
@@ -90,6 +94,10 @@
   "colorpicker_hex": {
     "_description": "aria label for the hex input",
     "message": "Hex:"
+  },
+  "colorpicker_input_default_label": {
+    "_description": "The label for the colorpicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Color value"
   },
   "colorpicker_preset_color": {
     "_description": "Label for the preset colors",
@@ -101,7 +109,7 @@
   },
   "colorpicker_reset": {
     "_description": "Label for the reset button to change the color back to the initial color",
-    "message": "Reset"
+    "message": "Reset color value to white"
   },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
@@ -439,6 +447,10 @@
     "_description": "Text for the filter summary component",
     "message": "Filter"
   },
+  "filter_summary_close": {
+    "_description": "Text for the filter summary component's close button",
+    "message": "Remove filter"
+  },
   "flyout_close": {
     "_description": "Text for flyout close button",
     "message": "Close flyout"
@@ -446,6 +458,10 @@
   "flyout_permalink_button": {
     "_description": "Default text for the flyout permalink button",
     "message": "View record"
+  },
+  "flyout_primary_action_button": {
+    "_description": "Default text for the flyout primary action button",
+    "message": "Create list"
   },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
@@ -855,9 +871,17 @@
     "_description": "Label for settings button in the tile",
     "message": "Settings"
   },
+  "timepicker_button_label": {
+    "_description": "Screen reader text for the timepicker component dropdown button",
+    "message": "Choose time"
+  },
   "timepicker_close": {
     "_description": "The close button for the timepicker modal",
     "message": "Done"
+  },
+  "timepicker_input_default_label": {
+    "_description": "The label for the timepicker component's input field for screen readers when the consumer has not specified a label.",
+    "message": "Time input field."
   },
   "toast_close_button": {
     "_description": "Screen reader text for the close button on toasts",

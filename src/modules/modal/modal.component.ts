@@ -74,6 +74,14 @@ export class SkyModalComponent implements AfterViewInit {
     return this.config.tiledBody;
   }
 
+  @Input()
+  public get ariaRole() {
+    return this.config.ariaRole || 'dialog';
+  }
+  public set ariaRole(value: string) {
+    this.config.ariaRole = value;
+  }
+
   public get ariaDescribedBy() {
     return this.config.ariaDescribedBy || this.modalContentId;
   }
