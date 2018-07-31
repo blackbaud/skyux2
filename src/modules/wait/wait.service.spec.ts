@@ -9,6 +9,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   SkyWaitFixturesModule
 } from './fixtures/wait-fixtures.module';
 
@@ -18,7 +22,6 @@ import {
 import {
   SkyWindowRefService
 } from '../window';
-import { SkyAppTestUtility } from '../../../node_modules/@blackbaud/skyux-builder/runtime/testing/browser';
 
 describe('Wait service', () => {
   let waitService: SkyWaitService;

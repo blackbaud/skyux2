@@ -18,7 +18,7 @@ let nextId = 0;
 })
 export class SkyWaitComponent {
 
-  private id: string = `sky-checkbox-${++nextId}`;
+  private id: string = `sky-wait-${++nextId}`;
 
   @Input()
   public set isWaiting(value: boolean) {
