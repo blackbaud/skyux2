@@ -6,7 +6,7 @@ We highly encourage contributions from all SKY UX users. We just ask you to foll
 
 - [Before you start](#before-you-start)
 - [Localization](#localization)
-- [Make your changes](#make-your-changes)
+- [Contribute to SKY UX](#contribute-to-sky-ux)
 - [Recommended tools](#recommended-tools)
 
 For more information about working with SKY UX 2, see the [SKY UX README](https://github.com/blackbaud/skyux2/blob/master/README.md).
@@ -39,12 +39,12 @@ Before you contribute to SKY UX, please consider these general guidelines so tha
 
 To declare localization strings, specify a string name and provide the string and a description in the `resources_en_US.json` file in `src/assets/locales`. You can reference the localization strings with the `skyAppResources` pipe or the `SkyAppResourcesService` service in `@blackbaud/skyux-builder/runtime/i18n`.
 
-## Make your changes
+## Contribute to SKY UX
 
 ### File an issue
 Before you start any work, please [file an issue](https://github.com/blackbaud/skyux2/issues/new). The sooner we can discuss potential code changes, the better. We also use the issue to track and assign any work needed. To file a issue with SKY UX, follow these instructions:
 1. [Create a GitHub issue in the SKY UX 2 repo](https://github.com/blackbaud/skyux2/issues/new).
-2. Fill in the template fields to provide:
+2. Fill out the template fields to provide:
     - The expected behavior
     - The actual behavior
     - Steps to reproduce
@@ -60,7 +60,7 @@ Before you start any work, please [file an issue](https://github.com/blackbaud/s
 3. Clone your repo locally and run `npm install` from your local repo's directory to install all required dependencies.
 4. Run your first round of visual regression tests by following the instructions in the [Write visual regression tests](#write-visual-regression-tests) section below. This establishes baseline screenshots of the components in the master repo so that as you make changes and run your visual regression tests, your changes are validated against the state of the repo before the changes.
 
-### Write the code
+### Write code
 
 1. Launch a command prompt, `cd` to the folder where you cloned your branch, and run `npm run watch`.
 2. Launch a second command prompt, `cd` to the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX component demos page where you write the demo components to test your code.
@@ -98,7 +98,7 @@ To create visual tests for a new component, first create a folder for the tests 
 
 To run visual regression tests locally, you must first run them locally against the `master` branch and then run the tests against your feature branch. Keep in mind that you need to use the same monitor and resolution on both set of tests. If your visual regression tests fail, you can check the failed tests at `skyux2\skyux-spa-visual-tests\screenshots-diff-local\diff` to find the cause of the failures.
 
-### Submit the code
+### Submit code
 
 1. Commit and push your changes to your repo.
 2. Submit a pull request.
