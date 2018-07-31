@@ -36,6 +36,10 @@ $sky-transition-time-medium: 250ms !default;
 $sky-transition-time-long: 500ms !default;
 // end transitions
 
+// begin switch
+$sky-switch-size: 22px !default;
+// end switch
+
 //begin tile
 $sky-tile-header-tool-padding: $sky-padding-plus-half !default;
 $sky-tile-form-background: #F2F2F2 !default;
@@ -98,6 +102,10 @@ $sky-fluid-grid-columns: 12 !default;
 // begin flyout
 $sky-flyout-z-index: 1001 !default; // omnibar is 1000, help is 9999:
 // end flyout
+
+// begin toast
+$sky-toaster-z-index: 1051 !default; // modal is 1050:
+// end toast
 
 // begin grid
 $sky-grid-odd-background-color: $sky-color-gray-01 !default;

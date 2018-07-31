@@ -5,6 +5,11 @@ import {
 } from '@angular/core/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
+
+import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
 import { SkyWindowRefService } from '../window';
 import { TextExpandTestComponent } from './fixtures/text-expand.component.fixture';
 import { SkyTextExpandModule } from './text-expand.module';
@@ -34,6 +39,7 @@ describe('Text expand component', () => {
       ],
       imports: [
         BrowserModule,
+        RouterTestingModule,
         SkyTextExpandModule,
         SkyModalModule
       ],
@@ -294,6 +300,27 @@ describe('Text expand component', () => {
       let seeMoreButton: any = el.querySelector('.sky-text-expand-see-more');
       expect(ellipsis).toBeNull();
       expect(seeMoreButton).toBeNull();
+    });
+
+    it('should expand text when the maxLength property is set', () => {
+      let fixture = TestBed.createComponent(TextExpandTestComponent);
+      let cmp = fixture.componentInstance as TextExpandTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\nAenean commodo ligula eget dolor. Aenean massa.\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu';
+      cmp.maxLength = 10;
+
+      fixture.detectChanges();
+
+      expect(el.textContent.trim()).toContain('See more');
+      expect(el.textContent.trim()).not.toContain(cmp.text.trim());
+
+      cmp.maxLength = cmp.text.length + 100;
+
+      fixture.detectChanges();
+
+      expect(el.textContent.trim()).toContain(cmp.text.replace(/(?:\r\n|\r|\n)/g, ' '));
     });
   });
 

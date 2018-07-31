@@ -16,8 +16,9 @@ import {
 } from '@angular/platform-browser/animations';
 
 import {
-  TestUtility
-} from '../testing';
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyWindowRefService
@@ -46,12 +47,6 @@ describe('SkyPopoverDirective', () => {
   let directiveElements: DebugElement[];
   let mockWindowService: MockWindowService;
 
-  function triggerMouseEvent(el: Element, eventName: string) {
-    const event: any = document.createEvent('CustomEvent');
-    event.initEvent(eventName, true, true);
-    el.dispatchEvent(event);
-  }
-
   function validateTriggerOpensPopover(
     elIndex: number,
     openTrigger: string,
@@ -65,29 +60,29 @@ describe('SkyPopoverDirective', () => {
 
     // The popover should only execute hover events if it is set to 'mouseenter'.
     if (openTrigger !== 'mouseenter') {
-      triggerMouseEvent(caller.nativeElement, 'mouseenter');
+      SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'mouseenter');
       expect(positionNextToSpy).not.toHaveBeenCalled();
     }
 
-    triggerMouseEvent(caller.nativeElement, openTrigger);
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, openTrigger);
     expect(positionNextToSpy).toHaveBeenCalled();
 
     callerInstance.skyPopover.isOpen = true;
 
     // The popover should only execute hover events if it is set to 'mouseenter'.
     if (closeTrigger !== 'mouseleave') {
-      triggerMouseEvent(caller.nativeElement, 'mouseleave');
+      SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'mouseleave');
       expect(closeSpy).not.toHaveBeenCalled();
     }
 
-    triggerMouseEvent(caller.nativeElement, closeTrigger);
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, closeTrigger);
     expect(closeSpy).toHaveBeenCalled();
 
     // Make sure close isn't called again when the popover is already closed.
     closeSpy.calls.reset();
     callerInstance.skyPopover.isOpen = false;
 
-    triggerMouseEvent(caller.nativeElement, closeTrigger);
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, closeTrigger);
     expect(closeSpy).not.toHaveBeenCalled();
   }
 
@@ -158,7 +153,7 @@ describe('SkyPopoverDirective', () => {
     callerInstance.skyPopover.isOpen = true;
     callerInstance.skyPopover.isMouseEnter = true;
 
-    triggerMouseEvent(caller.nativeElement, 'mouseleave');
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'mouseleave');
     expect(popoverSpy).not.toHaveBeenCalled();
     expect(closeSpy).toHaveBeenCalled();
 
@@ -175,7 +170,7 @@ describe('SkyPopoverDirective', () => {
       }
     });
 
-    triggerMouseEvent(caller.nativeElement, 'mouseleave');
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'mouseleave');
     expect(popoverSpy).toHaveBeenCalledWith();
     expect(closeSpy).not.toHaveBeenCalled();
   });
@@ -187,13 +182,17 @@ describe('SkyPopoverDirective', () => {
 
     callerInstance.skyPopover.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Escape' }
+    });
     expect(spy).toHaveBeenCalledWith();
 
     spy.calls.reset();
 
     // Should ignore other key events.
-    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Backspace' });
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Backspace' }
+    });
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -204,7 +203,9 @@ describe('SkyPopoverDirective', () => {
 
     callerInstance.skyPopover.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(caller.nativeElement, 'keyup', { key: 'Escape' });
+    SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Escape' }
+    });
     expect(spy).toHaveBeenCalledWith();
   });
 

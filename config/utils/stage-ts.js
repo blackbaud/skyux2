@@ -61,9 +61,7 @@ function writeTSConfig() {
 
 function copySrc() {
   fs.copySync('./src', TEMP_PATH);
-
   deleteNonDistFiles();
-
   writeTSConfig();
 }
 
@@ -79,45 +77,17 @@ function escapeContents(contents) {
 }
 
 function compileSass(file) {
-  let contents = '';
-
-  try {
-    contents = sass.renderSync({
-      file,
-      importer: tildeImporter,
-      outputStyle: 'expanded'
-    }).css;
-  } catch (e) {
-    console.log(e.message);
-  }
-
-  return contents;
+  return sass.renderSync({
+    file,
+    importer: tildeImporter,
+    outputStyle: 'expanded'
+  }).css;
 }
 
 function getRawContents(requireFile) {
-  let fileContents = '';
-
-  try {
-    fileContents = fs.readFileSync(requireFile).toString();
-  } catch (e) {}
-
-  return fileContents;
-}
-
-function getJsonContents(requireFile) {
-  var fileContents = '',
-    newFileFirst,
-    newFileLast,
-    loaderIndex = requireFile.indexOf('json-loader!'),
-    newFileName = requireFile;
-
-  if (loaderIndex > -1) {
-    newFileFirst = requireFile.substring(0, loaderIndex);
-    newFileLast = requireFile.substring(loaderIndex + 12, requireFile.length);
-    newFileName = newFileFirst + newFileLast;
-  }
-
-  return getRawContents(newFileName);
+  return fs.readFileSync(requireFile, {
+    encoding: 'utf8'
+  });
 }
 
 function inlineContents(file, fileContents, requireMatch, requireFile, processFn) {
@@ -139,7 +109,7 @@ function inlineContents(file, fileContents, requireMatch, requireFile, processFn
       requireContents = getRawContents(requireFile);
       break;
     case '.json':
-      requireContents = getJsonContents(requireFile);
+      requireContents = getRawContents(requireFile);
       quote = false;
       break;
   }

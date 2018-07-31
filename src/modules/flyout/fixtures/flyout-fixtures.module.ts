@@ -10,6 +10,10 @@ import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
 
+import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
 import { SkyFlyoutModule } from '../flyout.module';
 import { SkyFlyoutTestComponent } from './flyout.component.fixture';
 import { SkyFlyoutTestSampleComponent } from './flyout-sample.component.fixture';
@@ -22,6 +26,7 @@ import { SkyFlyoutTestSampleComponent } from './flyout-sample.component.fixture'
   imports: [
     CommonModule,
     NoopAnimationsModule,
+    RouterTestingModule,
     SkyFlyoutModule
   ],
   exports: [

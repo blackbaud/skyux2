@@ -1,8 +1,8 @@
 import {
+  AfterViewInit,
   Component,
-  ViewChild,
   TemplateRef,
-  AfterViewInit
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -18,21 +18,22 @@ import {
   templateUrl: './list-filter-button.component.html'
 })
 export class SkyListFilterButtonComponent implements AfterViewInit {
-
   @ViewChild('filterButton')
   private filterButtonTemplate: TemplateRef<any>;
 
   constructor(
     private dispatcher: ListStateDispatcher
-  ) {}
+  ) { }
 
   public ngAfterViewInit() {
-    this.dispatcher.toolbarAddItems([
-      new ListToolbarItemModel({
-        template: this.filterButtonTemplate,
-        location: 'right'
-      })
-    ],
-    0);
+    this.dispatcher.toolbarAddItems(
+      [
+        new ListToolbarItemModel({
+          template: this.filterButtonTemplate,
+          location: 'left'
+        })
+      ],
+      1
+    );
   }
 }

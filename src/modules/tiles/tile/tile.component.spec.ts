@@ -1,9 +1,12 @@
 import {
-  async,
-  TestBed
+  fakeAsync,
+  TestBed,
+  tick
 } from '@angular/core/testing';
 
-import { expect } from '../../testing';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   MockSkyTileDashboardService,
@@ -25,18 +28,22 @@ describe('Tile component', () => {
     });
   });
 
-  it('should render the header text in the expected element', async(() => {
+  it('should render the header text in the expected element', fakeAsync(() => {
     let fixture = TestBed.createComponent(TileTestComponent);
     let el = fixture.nativeElement;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(el.querySelector('.sky-tile-title sky-tile-title')).toHaveText('Title');
-    });
+    expect(el.querySelector('.sky-tile-title')).toHaveText('Title');
   }));
 
-  it('should collapse/expand when the header is clicked', async(() => {
+  it('should collapse/expand when the header is clicked', fakeAsync(() => {
     let fixture = TestBed.createComponent(TileTestComponent);
     let el = fixture.nativeElement;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
 
     fixture.whenStable().then(() => {
       let titleEl = el.querySelector('.sky-tile-title');
@@ -56,34 +63,25 @@ describe('Tile component', () => {
     });
   }));
 
-  it('should output state when collapsed/expanded', async(() => {
+  it('should output state when collapsed/expanded', fakeAsync(() => {
     let fixture = TestBed.createComponent(TileTestComponent);
     let el = fixture.nativeElement;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      let titleEl = el.querySelector('.sky-tile-title');
+    let titleEl = el.querySelector('.sky-tile-title');
+    let contentAttrs = el.querySelector('.sky-tile-content').attributes;
+    expect(fixture.componentInstance.collapsedOutputCalled).toBe(false);
+    expect(contentAttrs['hidden']).not.toBeNull();
 
-      titleEl.click();
-      fixture.detectChanges();
+    titleEl.click();
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(fixture.componentInstance.collapsedOutputCalled).toBe(false);
-
-        let contentAttrs = el.querySelector('.sky-tile-content').attributes;
-
-        expect(contentAttrs['hidden']).not.toBeNull();
-
-        titleEl.click();
-        fixture.detectChanges();
-
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          expect(contentAttrs['hidden']).toBe(undefined);
-          expect(fixture.componentInstance.collapsedOutputCalled).toBe(true);
-        });
-      });
-    });
+    expect(contentAttrs['hidden']).toBe(undefined);
+    expect(fixture.componentInstance.collapsedOutputCalled).toBe(true);
   }));
 
   it('should collapse/expand when the chevron is clicked', () => {

@@ -12,6 +12,11 @@ import {
 } from '@angular/core/testing';
 
 import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   ListFilterInlineTestComponent
 } from './fixtures/list-filter-inline.component.fixture';
 
@@ -23,19 +28,11 @@ import {
   SkyListFiltersModule
 } from '.';
 
-import {
-  expect
-} from '../testing';
-
 import { FormsModule } from '@angular/forms';
 
 import {
   SkyCheckboxModule
 } from '../checkbox';
-
-import {
-  TestUtility
-} from '../testing/testutility';
 
 import {
   SkyListFilterInlineModel
@@ -123,7 +120,7 @@ describe('List inline filters', () => {
       fixture.detectChanges();
       let selectEl = nativeElement.querySelector('#sky-demo-select-type') as HTMLSelectElement;
       selectEl.value = 'berry';
-      TestUtility.fireDomEvent(selectEl, 'change');
+      SkyAppTestUtility.fireDomEvent(selectEl, 'change');
       tick();
       fixture.detectChanges();
       tick();

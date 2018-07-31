@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'sky-list-toolbar-demo',
@@ -17,4 +16,12 @@ export class SkyListToolbarDemoComponent {
     { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons' },
     { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries' }
   ]);
+
+  public onFilterButtonClicked(): void {
+    alert('Filter button clicked');
+  }
+
+  public onSummaryItemClick(): void {
+    alert('Filter summary item clicked');
+  }
 }

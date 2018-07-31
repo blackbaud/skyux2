@@ -7,8 +7,13 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect
-} from '../testing';
+  Router
+} from '@angular/router';
+
+import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyModalInstance } from './modal-instance';
 import { SkyModalService } from './modal.service';
@@ -21,13 +26,12 @@ import { ModalFooterTestComponent } from './fixtures/modal-footer.component.fixt
 import { ModalNoHeaderTestComponent } from './fixtures/modal-no-header.component.fixture';
 import { ModalTiledBodyTestComponent  } from './fixtures/modal-tiled-body.component.fixture';
 
-import { TestUtility } from '../testing/testutility';
-
 import { SkyModalComponentAdapterService } from './modal-component-adapter.service';
 
 describe('Modal component', () => {
   let applicationRef: ApplicationRef;
   let modalService: SkyModalService;
+  let router: Router;
 
   function openModal(modalType: any, config?: Object) {
     let modalInstance = modalService.open(modalType, config);
@@ -56,15 +60,18 @@ describe('Modal component', () => {
     inject(
       [
         ApplicationRef,
-        SkyModalService
+        SkyModalService,
+        Router
       ],
       (
         _applicationRef: ApplicationRef,
-        _modalService: SkyModalService
+        _modalService: SkyModalService,
+        _router: Router
       ) => {
         applicationRef = _applicationRef;
         modalService = _modalService;
         modalService.dispose();
+        router = _router;
       }
     )
   );
@@ -269,6 +276,37 @@ describe('Modal component', () => {
     applicationRef.tick();
   }));
 
+  it('should close when the user navigates through history', fakeAsync(() => {
+    openModal(ModalTestComponent);
+
+    expect(document.querySelector('.sky-modal')).toExist();
+
+    router.navigate(['/']);
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
+
+    applicationRef.tick();
+  }));
+
+  it('should not close on route change if it is already closed', fakeAsync(() => {
+    const instance = openModal(ModalTestComponent);
+    const closeSpy = spyOn(instance, 'close').and.callThrough();
+
+    expect(document.querySelector('.sky-modal')).toExist();
+
+    instance.close();
+    expect(closeSpy).toHaveBeenCalled();
+    closeSpy.calls.reset();
+
+    router.navigate(['/']);
+    tick();
+
+    expect(document.querySelector('.sky-modal')).not.toExist();
+    expect(closeSpy).not.toHaveBeenCalled();
+
+    applicationRef.tick();
+  }));
+
   it('should trigger the help modal when the help button is clicked', fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent, { helpKey: 'default.html' });
     spyOn(modalInstance, 'openHelp').and.callThrough();
@@ -296,7 +334,7 @@ describe('Modal component', () => {
     expect(maxHeight).toEqual(windowHeight - 40);
     expect(contentHeight).toEqual(windowHeight - 40 - 114);
 
-    TestUtility.fireDomEvent(window, 'resize');
+    SkyAppTestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
     maxHeight = parseInt(getComputedStyle(modalEl).maxHeight, 10);
     expect(maxHeight).toEqual(window.innerHeight - 40);
@@ -311,7 +349,7 @@ describe('Modal component', () => {
     let height = parseInt(getComputedStyle(modalEl).height, 10);
     // innerHeight -2 is for IE Box Model Fix
     expect([window.innerHeight - 2, window.innerHeight]).toContain(height);
-    TestUtility.fireDomEvent(window, 'resize');
+    SkyAppTestUtility.fireDomEvent(window, 'resize');
     applicationRef.tick();
     modalEl = document.querySelector('.sky-modal-full-page');
     height = parseInt(getComputedStyle(modalEl).height, 10);
@@ -371,9 +409,10 @@ describe('Modal component', () => {
     closeModal(modalInstance);
   }));
 
-  it('should default the aria-labelledby and aria-describedby', fakeAsync(() => {
+  it('should default the role, aria-labelledby, and aria-describedby', fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent);
 
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('role')).toBe('dialog');
     expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby')
       .indexOf('sky-modal-header-id-'))
       .not.toBe(-1);
@@ -383,13 +422,15 @@ describe('Modal component', () => {
     closeModal(modalInstance);
   }));
 
-  it('should accept configuration options for aria-labelledBy and aria-describedby',
+  it('should accept configuration options for role, aria-labelledBy, and aria-describedby',
   fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent, {
       'ariaLabelledBy': 'customlabelledby',
-      'ariaDescribedBy': 'customdescribedby'
+      'ariaDescribedBy': 'customdescribedby',
+      'ariaRole': 'alertdialog'
     });
 
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('role')).toBe('alertdialog');
     expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby'))
       .toBe('customlabelledby');
     expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-describedby'))

@@ -4,11 +4,12 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import {
   SkyFlyoutInstance,
   SkyFlyoutService
-} from '../../modules/flyout';
+} from '../../core';
 
 import { FlyoutDemoContext } from './flyout-demo-context';
 import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
@@ -39,7 +40,21 @@ export class SkyFlyoutDemoComponent {
       }],
       ariaDescribedBy: 'my-describedby-id',
       ariaLabelledBy: 'my-labelledby-id',
-      ariaRole: 'modal'
+      ariaRole: 'modal',
+      defaultWidth: 500,
+      maxWidth: 1000,
+      minWidth: 200,
+      permalink: {
+        route: {
+          commands: ['/users', record.id],
+          extras: {
+            fragment: 'foobar',
+            queryParams: {
+              envid: 'fooenvid'
+            }
+          }
+        }
+      }
     });
 
     this.flyout.closed.subscribe(() => {
@@ -61,5 +76,39 @@ export class SkyFlyoutDemoComponent {
       this.flyout &&
       this.flyout.componentInstance.context.id === record.id
     );
+  }
+
+  public openFlyoutWithUrlPermalink() {
+    this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
+      providers: [{
+        provide: FlyoutDemoContext,
+        useValue: {
+          id: '1',
+          name: 'Jenkins'
+        }
+      }],
+      permalink: {
+        url: 'https://blackbaud.com'
+      }
+    });
+  }
+
+  public openFlyoutWithPrimaryAction() {
+    this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
+      providers: [{
+        provide: FlyoutDemoContext,
+        useValue: {
+          id: '2',
+          name: 'Partridge'
+        }
+      }],
+      primaryAction: {
+        label: 'Invoke primary action',
+        callback: () => {
+          alert('Primary action invoked');
+        },
+        closeAfterInvoking: true
+      }
+    });
   }
 }

@@ -6,7 +6,6 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'sky-list-view-grid-demo',
@@ -30,5 +29,11 @@ export class SkyListViewGridDemoComponent implements OnInit {
     setTimeout(() => {
       this.asyncHeading.next('Column1');
     }, 1000);
+  }
+
+  public onHelpOpened(helpKey: string): void {
+    console.log(
+      `Modal header help was invoked with the following help key: ${helpKey}`
+    );
   }
 }

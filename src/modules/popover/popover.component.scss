@@ -28,9 +28,7 @@ $popover-max-width: 276px;
 }
 
 .sky-popover {
-  @include sky-shadow;
   background-color: $sky-color-white;
-  border-radius: $sky-border-radius;
 }
 
 .sky-popover-header {
@@ -71,10 +69,8 @@ $popover-max-width: 276px;
 
   > .sky-popover {
     @include sky-border(dark, top, bottom, left, right);
-    @include sky-shadow();
-    overflow: hidden;
+    overflow: auto;
     max-height: 100%;
-    border-radius: $sky-border-radius;
     display: flex;
     flex-direction: column;
 
@@ -84,7 +80,6 @@ $popover-max-width: 276px;
     }
 
     .sky-popover-body {
-      overflow: auto;
       position: relative;
     }
   }

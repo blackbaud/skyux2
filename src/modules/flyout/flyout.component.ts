@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   ComponentFactoryResolver,
   ElementRef,
+  HostListener,
   Injector,
   OnDestroy,
   OnInit,
@@ -25,14 +26,20 @@ import {
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
+import {
+  SkyResources
+} from '../resources';
+
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutInstance } from './flyout-instance';
+import { SkyFlyoutPermalink } from './types/flyout-permalink';
 
 import {
   SkyFlyoutConfig,
   SkyFlyoutMessage,
   SkyFlyoutMessageType
 } from './types';
+import { SkyFlyoutAction } from './types/flyout-action';
 
 const FLYOUT_OPEN_STATE = 'flyoutOpen';
 const FLYOUT_CLOSED_STATE = 'flyoutClosed';
@@ -43,7 +50,7 @@ const FLYOUT_CLOSED_STATE = 'flyoutClosed';
   styleUrls: ['./flyout.component.scss'],
   animations: [
     trigger('flyoutState', [
-      state(FLYOUT_OPEN_STATE, style({ transform: 'translateX(0)' })),
+      state(FLYOUT_OPEN_STATE, style({ transform: 'initial' })),
       state(FLYOUT_CLOSED_STATE, style({ transform: 'translateX(100%)' })),
       transition('void => *', [
         style({ transform: 'translateX(100%)' }),
@@ -60,8 +67,46 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   public isOpen = false;
   public isOpening = false;
 
+  public flyoutWidth = 0;
+  public isDragging = false;
+  private xCoord = 0;
+
   public get messageStream(): Subject<SkyFlyoutMessage> {
     return this._messageStream;
+  }
+
+  public get permalink(): SkyFlyoutPermalink {
+    const permalink = this.config.permalink;
+    if (permalink) {
+      return permalink;
+    }
+
+    return {};
+  }
+
+  public get permalinkLabel(): string {
+    if (this.permalink.label) {
+      return this.permalink.label;
+    }
+
+    return SkyResources.getString('flyout_permalink_button');
+  }
+
+  public get primaryAction(): SkyFlyoutAction {
+    let primaryAction = this.config.primaryAction;
+    if (primaryAction) {
+      return primaryAction;
+    }
+
+    return {};
+  }
+
+  public get primaryActionLabel(): string {
+    if (this.config.primaryAction && this.config.primaryAction.label) {
+      return this.config.primaryAction.label;
+    }
+
+    return SkyResources.getString('flyout_primary_action_button');
   }
 
   @ViewChild('target', { read: ViewContainerRef })
@@ -71,7 +116,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   private flyoutHeader: ElementRef;
 
   private flyoutInstance: SkyFlyoutInstance<any>;
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
 
   private _messageStream = new Subject<SkyFlyoutMessage>();
 
@@ -83,7 +128,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   ) {
     // All commands flow through the message stream.
     this.messageStream
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyFlyoutMessage) => {
         this.handleIncomingMessages(message);
       });
@@ -94,14 +139,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
-  }
-
-  public onCloseButtonClick() {
-    this.messageStream.next({
-      type: SkyFlyoutMessageType.Close
-    });
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public attach<T>(component: Type<T>, config: SkyFlyoutConfig): SkyFlyoutInstance<T> {
@@ -113,6 +152,9 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
 
     this.config = Object.assign({ providers: [] }, config);
+    this.config.defaultWidth = this.config.defaultWidth || 500;
+    this.config.minWidth = this.config.minWidth || 320;
+    this.config.maxWidth = this.config.maxWidth || this.config.defaultWidth;
 
     const factory = this.resolver.resolveComponentFactory(component);
     const providers = ReflectiveInjector.resolve(this.config.providers);
@@ -126,7 +168,25 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
       type: SkyFlyoutMessageType.Open
     });
 
+    this.flyoutWidth = this.config.defaultWidth;
+
     return this.flyoutInstance;
+  }
+
+  public close() {
+    this.messageStream.next({
+      type: SkyFlyoutMessageType.Close
+    });
+  }
+
+  public invokePrimaryAction() {
+    this.primaryAction.callback();
+
+    if (this.primaryAction.closeAfterInvoking) {
+      this.close();
+    }
+
+    return false;
   }
 
   public getAnimationState(): string {
@@ -145,19 +205,36 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     }
   }
 
-  private open() {
-    if (!this.isOpen) {
-      this.isOpen = false;
-      this.isOpening = true;
-    }
+  public onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    this.xCoord = event.clientX;
 
-    this.changeDetector.markForCheck();
+    event.preventDefault();
+    event.stopPropagation();
   }
 
-  private close() {
-    this.isOpen = true;
-    this.isOpening = false;
-    this.changeDetector.markForCheck();
+  @HostListener('document:mousemove', ['$event'])
+  public onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) {
+      return;
+    }
+
+    const offsetX = event.clientX - this.xCoord;
+    let width = this.flyoutWidth;
+
+    width -= offsetX;
+
+    if (width < this.config.minWidth || width > this.config.maxWidth) {
+      return;
+    }
+
+    this.flyoutWidth = width;
+    this.xCoord = event.clientX;
+  }
+
+  @HostListener('document:mouseup', ['$event'])
+  public onHandleRelease(event: MouseEvent) {
+    this.isDragging = false;
   }
 
   private createFlyoutInstance<T>(component: T): SkyFlyoutInstance<T> {
@@ -165,7 +242,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
 
     instance.componentInstance = component;
     instance.hostController
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyFlyoutMessage) => {
         this.messageStream.next(message);
       });
@@ -177,13 +254,19 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyFlyoutMessageType.Open:
-      this.open();
+      if (!this.isOpen) {
+        this.isOpen = false;
+        this.isOpening = true;
+      }
       break;
 
       case SkyFlyoutMessageType.Close:
-      this.close();
+      this.isOpen = true;
+      this.isOpening = false;
       break;
     }
+
+    this.changeDetector.markForCheck();
   }
 
   private notifyClosed() {

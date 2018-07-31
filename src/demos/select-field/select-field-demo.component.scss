@@ -1,0 +1,12 @@
+@import '~@blackbaud/skyux-design-tokens/scss/mixins';
+
+.select-field-demo-alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid $sky-background-color-disabled;
+  border-radius: 3px;
+
+  pre {
+    margin: 0;
+  }
+}

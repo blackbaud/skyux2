@@ -5,6 +5,11 @@ import {
   tick
 } from '@angular/core/testing';
 
+import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 import { SkyTabsetComponent } from './tabset.component';
 import { SkyTabsetAdapterService } from './tabset-adapter.service';
 import { SkyTabsetService } from './tabset.service';
@@ -12,9 +17,6 @@ import { SkyTabsFixturesModule } from './fixtures/tabs-fixtures.module';
 import { TabsetTestComponent } from './fixtures/tabset.component.fixture';
 import { TabsetActiveTestComponent } from './fixtures/tabset-active.component.fixture';
 import { MockTabsetAdapterService } from './fixtures/tabset-adapter.service.mock';
-import { TestUtility } from '../testing/testutility';
-
-import { expect } from '../testing';
 
 import {
   DebugElement
@@ -69,6 +71,38 @@ describe('Tabset component', () => {
     }
   }
 
+  it('should initialize tabs in proper order', fakeAsync(() => {
+    let fixture = TestBed.createComponent(TabsetTestComponent);
+    fixture.detectChanges();
+    tick();
+    let tabsetService: SkyTabsetService = (fixture.componentInstance.tabsetComponent as any).tabsetService;
+
+    fixture.componentInstance.tabsetComponent.tabs.forEach((item, index) => {
+      expect(item).toBe(tabsetService.tabs.getValue()[index]);
+    });
+  }));
+
+  it('should initialize tabs that are added to the tabset after init', fakeAsync(() => {
+    let fixture = TestBed.createComponent(TabsetTestComponent);
+    fixture.componentInstance.tab3Available = false;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    let tabsetService: SkyTabsetService = (fixture.componentInstance.tabsetComponent as any).tabsetService;
+    expect(tabsetService.tabs.getValue().length).toBe(2);
+
+    fixture.componentInstance.tab3Available = true;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    expect(tabsetService.tabs.getValue().length).toBe(3);
+    fixture.componentInstance.tabsetComponent.tabs.forEach((item, index) => {
+      expect(item).toBe(tabsetService.tabs.getValue()[index]);
+    });
+  }));
+
   describe('tabs with active attribute', () => {
     it('should change the active tab when tab active is set to true', fakeAsync(() => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
@@ -116,13 +150,15 @@ describe('Tabset component', () => {
       let el = fixture.nativeElement;
 
       fixture.componentInstance.tab2Disabled = true;
-
       fixture.detectChanges();
 
-      el.querySelectorAll('.sky-btn-tab')[1].click();
+      let tab = el.querySelectorAll('.sky-btn-tab')[1];
+      let closeBtn = tab.querySelector('.sky-btn-tab-close');
+      expect(closeBtn.getAttribute('disabled')).toBe('');
+      expect(closeBtn).toHaveCssClass('sky-btn-tab-close-disabled');
 
+      tab.click();
       fixture.detectChanges();
-
       validateTabSelected(el, 0);
     });
 
@@ -325,7 +361,7 @@ describe('Tabset component', () => {
       let fixture = TestBed.createComponent(TabsetTestComponent);
 
       function fireResizeEvent() {
-        TestUtility.fireDomEvent(window, 'resize');
+        SkyAppTestUtility.fireDomEvent(window, 'resize');
         fixture.detectChanges();
       }
 
@@ -670,7 +706,6 @@ describe('Tabset component', () => {
 
    describe('keyboard accessibility', () => {
     let debugElement: DebugElement;
-    let cmp: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
 
     beforeEach(() => {
@@ -681,13 +716,64 @@ describe('Tabset component', () => {
       });
       fixture = TestBed.createComponent(TabsetTestComponent);
       debugElement = fixture.debugElement;
-      cmp = fixture.componentInstance as TabsetTestComponent;
     });
 
-    it('should have tabindex of 0', () => {
+    it('should have tabindex of 0', fakeAsync(() => {
       fixture.detectChanges();
-      expect(debugElement.query(By.css('.sky-btn-tab')).attributes['tabindex']).toBe('0');
+      tick();
+      fixture.detectChanges();
+
+      let butEl = debugElement.queryAll(By.css('.sky-btn-tab'))[1].nativeElement;
+      expect(butEl.getAttribute('tabindex')).toBe('0');
+      expect(butEl.getAttribute('aria-disabled')).toBe('false');
+    }));
+
+    it('should have tabindex of -1 and aria-disabled when disabled', fakeAsync(() => {
+      fixture.componentInstance.tab2Available = true;
+      fixture.componentInstance.tab2Disabled = true;
+
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      let butEl = debugElement.queryAll(By.css('.sky-btn-tab'))[1].nativeElement;
+      expect(butEl.getAttribute('tabindex')).toBe('-1');
+      expect(butEl.getAttribute('aria-disabled')).toBe('true');
+    }));
+
+    it('should have aria-controls and aria-labelledby references between tabs and panels', () => {
+      fixture.detectChanges();
+      let tabs = debugElement.queryAll(By.css('.sky-tab'));
+      tabs.forEach((value) => {
+        let tab = value.nativeElement;
+        let tabBtn = debugElement.query(By.css('#' + tab.getAttribute('id') + '-nav-btn')).nativeElement;
+
+        expect(tab.getAttribute('aria-labelledby')).toBe(tabBtn.getAttribute('id'));
+        expect(tabBtn.getAttribute('aria-controls')).toBe(tab.getAttribute('id'));
+      });
     });
+
+    it('should switch aria-controls and aria-labelledby references between tabs and dropdown buttons', fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      /// Switch to mobile display
+      fixture.componentInstance.tabsetComponent.tabDisplayMode = 'dropdown';
+      fixture.detectChanges();
+
+      let tabs = debugElement.queryAll(By.css('.sky-tab'));
+      tabs.forEach((value) => {
+        let tab = value.nativeElement;
+        let dropBtn = debugElement.query(By.css('#' + tab.getAttribute('id') + '-nav-btn')).nativeElement;
+        let tabBtn = debugElement.query(By.css('#' + tab.getAttribute('id') + '-hidden-nav-btn')).nativeElement;
+
+        expect(tab.getAttribute('aria-labelledby')).toBe(dropBtn.getAttribute('id'));
+        expect(dropBtn.getAttribute('aria-controls')).toBe(tab.getAttribute('id'));
+        expect(dropBtn).toHaveCssClass('sky-tab-dropdown-item-btn');
+        expect(tabBtn.tagName.toLowerCase()).toBe('sky-tab-button');
+      });
+    }));
 
     it('should emit a click event on enter press', () => {
       fixture.detectChanges();

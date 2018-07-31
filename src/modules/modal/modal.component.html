@@ -6,12 +6,13 @@
 
 <div
   class="sky-modal-dialog"
-  role="dialog"
+  aria-modal="true"
   [attr.aria-describedby]="ariaDescribedBy"
   [attr.aria-labelledby]="ariaLabelledBy"
+  [attr.role]="ariaRole"
   (window:resize)="windowResize()"
 >
-  <div class="sky-modal"
+  <div class="sky-modal sky-shadow"
     tabindex="-1"
     [ngClass]="{
       'sky-modal-full-page': modalFullPage,

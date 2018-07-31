@@ -13,8 +13,10 @@ import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
 
-import { TestUtility } from '../testing/testutility';
-import { expect } from '../testing';
+import {
+  expect,
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyPopoverModule,
@@ -38,6 +40,7 @@ class MockPopoverAdapterService {
   }
   public hidePopover() {}
   public showPopover() {}
+  public getParentScrollListeners() {}
 }
 
 describe('SkyPopoverComponent', () => {
@@ -53,8 +56,7 @@ describe('SkyPopoverComponent', () => {
         NoopAnimationsModule,
         SkyPopoverModule
       ]
-    })
-    .compileComponents();
+    });
 
     TestBed.overrideComponent(SkyPopoverComponent, {
       set: {
@@ -67,6 +69,10 @@ describe('SkyPopoverComponent', () => {
     fixture = TestBed.createComponent(SkyPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should call the adapter service to position the popover', fakeAsync(() => {
@@ -193,9 +199,9 @@ describe('SkyPopoverComponent', () => {
     expect(component['isMouseEnter']).toEqual(false);
     component.positionNextTo(caller, 'above');
     tick();
-    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseenter');
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'mouseenter');
     expect(component['isMouseEnter']).toEqual(true);
-    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(component['isMouseEnter']).toEqual(false);
   }));
 
@@ -207,42 +213,41 @@ describe('SkyPopoverComponent', () => {
 
     fixture.componentInstance.isOpen = true;
 
-    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Escape' });
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Escape' }
+    });
     expect(spy).toHaveBeenCalledWith();
 
     spy.calls.reset();
 
     // Should ignore other key events.
-    TestUtility.fireKeyboardEvent(fixture.nativeElement, 'keyup', { key: 'Backspace' });
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'keyup', {
+      keyboardEventInit: { key: 'Backspace' }
+    });
     expect(spy).not.toHaveBeenCalled();
   }));
 
   it('should reposition the popover on window scroll', fakeAsync(() => {
     const spy = spyOn(fixture.componentInstance as any, 'positionPopover');
-    const event = document.createEvent('CustomEvent');
-    event.initEvent('scroll', false, false);
 
     const caller = new ElementRef({});
     component.positionNextTo(caller, 'above');
     tick();
 
     component.isOpen = true;
-    window.dispatchEvent(event);
+    SkyAppTestUtility.fireDomEvent(window, 'scroll');
     fixture.detectChanges();
     expect(spy).toHaveBeenCalled();
   }));
 
   it('should reposition the popover on window resize', fakeAsync(() => {
     const spy = spyOn(fixture.componentInstance, 'reposition');
-    const event = document.createEvent('CustomEvent');
-    event.initEvent('resize', false, false);
-
     const caller = new ElementRef({});
     component.positionNextTo(caller, 'above');
     tick();
 
     component.isOpen = true;
-    window.dispatchEvent(event);
+    SkyAppTestUtility.fireDomEvent(window, 'resize');
     tick();
     fixture.detectChanges();
 
@@ -257,8 +262,8 @@ describe('SkyPopoverComponent', () => {
     tick();
 
     component.isOpen = true;
-    TestUtility.fireDomEvent(document, 'click');
-    TestUtility.fireDomEvent(document, 'focusin');
+    SkyAppTestUtility.fireDomEvent(document, 'click');
+    SkyAppTestUtility.fireDomEvent(document, 'focusin');
     tick();
     fixture.detectChanges();
 
@@ -275,7 +280,7 @@ describe('SkyPopoverComponent', () => {
     component.isOpen = true;
     component.isMouseEnter = false;
     component.dismissOnBlur = false;
-    TestUtility.fireDomEvent(document, 'click');
+    SkyAppTestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
@@ -286,7 +291,7 @@ describe('SkyPopoverComponent', () => {
 
     component.isOpen = true;
     component['isMouseEnter'] = true;
-    TestUtility.fireDomEvent(document, 'click');
+    SkyAppTestUtility.fireDomEvent(document, 'click');
 
     fixture.detectChanges();
     expect(component.close).not.toHaveBeenCalled();
@@ -298,7 +303,7 @@ describe('SkyPopoverComponent', () => {
     component.positionNextTo(caller, 'above');
     tick();
     component.markForCloseOnMouseLeave();
-    TestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
+    SkyAppTestUtility.fireDomEvent(fixture.nativeElement, 'mouseleave');
     expect(spy).toHaveBeenCalledWith();
     expect(component['isMarkedForCloseOnMouseLeave']).toEqual(false);
   }));
@@ -320,7 +325,7 @@ describe('SkyPopoverComponent', () => {
   }));
 
   it('should expose a method to return the placement to the preferred placement', fakeAsync(() => {
-    spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
+    const spy = spyOn(mockAdapterService, 'getPopoverPosition').and.returnValue({
       top: 0,
       left: 0,
       arrowLeft: 0,
@@ -337,7 +342,50 @@ describe('SkyPopoverComponent', () => {
     expect(component.placement).toEqual('right');
 
     component.reposition();
-    expect(component.placement).toEqual('above');
+    expect(spy.calls.argsFor(1)[1]).toEqual('above');
+  }));
+
+  it('should hide the popover if its top or bottom boundaries leave its scrollable parent', fakeAsync(() => {
+    const caller = new ElementRef({});
+    const repositionSpy = spyOn(component as any, 'reposition').and.callThrough();
+
+    let result = false;
+    spyOn(mockAdapterService, 'getParentScrollListeners').and.callFake((elem: any, callback: any) => {
+      callback(result);
+    });
+
+    component.positionNextTo(caller, 'above');
     tick();
+
+    let popover = fixture.nativeElement.querySelector('.sky-popover-container');
+    expect(repositionSpy).toHaveBeenCalled();
+    expect(component.isVisible).toEqual(false);
+    expect(popover.style.visibility).toEqual('hidden');
+    repositionSpy.calls.reset();
+
+    result = true;
+    component.positionNextTo(caller, 'above');
+    tick();
+
+    expect(component.isVisible).toEqual(true);
+    expect(repositionSpy).toHaveBeenCalled();
+  }));
+
+  it('should listeners to scrollable parents', fakeAsync(() => {
+    const caller = new ElementRef({});
+    let called = false;
+
+    spyOn(mockAdapterService, 'getParentScrollListeners').and.returnValue([
+      () => {
+        called = true;
+      }
+    ]);
+
+    component.positionNextTo(caller, 'above');
+    tick();
+    component.close();
+    tick();
+
+    expect(called).toEqual(true);
   }));
 });

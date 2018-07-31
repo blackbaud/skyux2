@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyPopoverAlignment,
@@ -60,7 +61,10 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  public get label(): string{
+  public get label(): string {
+    if (this.buttonType === 'select' || this.buttonType === 'tab') {
+      return this._label;
+    }
     return this._label || SkyResources.getString('context_menu_default_label');
   }
 
@@ -86,16 +90,22 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     return this._trigger || 'click';
   }
 
+  public get isOpen(): boolean {
+    return this._isOpen;
+  }
+
+  public menuId: string;
+
   @ViewChild('triggerButton')
   private triggerButton: ElementRef;
 
   @ViewChild(SkyPopoverComponent)
   private popover: SkyPopoverComponent;
 
-  private destroy = new Subject<boolean>();
+  private ngUnsubscribe = new Subject();
   private isKeyboardActive = false;
-  private isOpen = false;
 
+  private _isOpen = false;
   private _buttonType: string;
   private _buttonStyle: string;
   private _label: string;
@@ -107,22 +117,22 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.messageStream
-      .takeUntil(this.destroy)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((message: SkyDropdownMessage) => {
         this.handleIncomingMessages(message);
       });
   }
 
   public ngOnDestroy() {
-    this.destroy.next(true);
-    this.destroy.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   @HostListener('keydown', ['$event'])
   public onKeyDown(event: KeyboardEvent) {
     const key = event.key.toLowerCase();
 
-    if (this.isOpen) {
+    if (this._isOpen) {
       /* tslint:disable-next-line:switch-default */
       switch (key) {
         // After an item is selected with the enter key,
@@ -135,6 +145,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
         // Allow the menu to be opened with the arrowdown key
         // if it is first opened with the mouse.
+        case 'down':
         case 'arrowdown':
         if (!this.isKeyboardActive) {
           this.isKeyboardActive = true;
@@ -153,6 +164,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
       this.isKeyboardActive = true;
       break;
 
+      case 'down':
       case 'arrowdown':
       this.isKeyboardActive = true;
       this.sendMessage(SkyDropdownMessageType.Open);
@@ -162,7 +174,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   public onPopoverOpened() {
-    this.isOpen = true;
+    this._isOpen = true;
     // Focus the first item if the menu was opened with the keyboard.
     if (this.isKeyboardActive) {
       this.sendMessage(SkyDropdownMessageType.FocusFirstItem);
@@ -170,7 +182,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   public onPopoverClosed() {
-    this.isOpen = false;
+    this._isOpen = false;
     this.isKeyboardActive = false;
   }
 
@@ -192,8 +204,10 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
 
       case SkyDropdownMessageType.Reposition:
       // Only reposition the dropdown if it is already open.
-      if (this.isOpen) {
-        this.popover.reposition();
+      if (this._isOpen) {
+        this.windowRef.getWindow().setTimeout(() => {
+          this.popover.reposition();
+        });
       }
       break;
 

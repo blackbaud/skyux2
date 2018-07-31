@@ -10,6 +10,9 @@ export class SkyErrorModalService {
   public open(config: ErrorModalConfig) {
     const providers = [{ provide: ErrorModalConfig, useValue: config }];
 
-    this.modal.open(SkyErrorModalFormComponent, providers);
+    this.modal.open(SkyErrorModalFormComponent, {
+      ariaRole: 'alertdialog',
+      providers: providers
+    });
   }
 }

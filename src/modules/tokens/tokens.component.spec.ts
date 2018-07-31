@@ -1,12 +1,14 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import {
   expect,
-  TestUtility
-} from '../testing';
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { SkyTokensComponent } from './tokens.component';
 
@@ -37,16 +39,16 @@ describe('Tokens component', function () {
 
     const tokenElements = getTokenElements();
 
-    TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keydown', {
-      key: keyRight
+    SkyAppTestUtility.fireDomEvent(tokenElements.item(0), 'keydown', {
+      keyboardEventInit: { key: keyRight }
     });
     fixture.detectChanges();
 
     expect(tokensComponent.activeIndex).toEqual(1);
     expect(document.activeElement).toEqual(tokenElements.item(1).querySelector('.sky-token'));
 
-    TestUtility.fireKeyboardEvent(tokenElements.item(1), 'keydown', {
-      key: keyLeft
+    SkyAppTestUtility.fireDomEvent(tokenElements.item(1), 'keydown', {
+      keyboardEventInit: { key: keyLeft }
     });
     fixture.detectChanges();
 
@@ -123,8 +125,8 @@ describe('Tokens component', function () {
       const tokenElements = getTokenElements();
       const spy = spyOn(component, 'onFocusIndexOverRange').and.callThrough();
 
-      TestUtility.fireKeyboardEvent(tokenElements.item(2), 'keydown', {
-        key: 'ArrowRight'
+      SkyAppTestUtility.fireDomEvent(tokenElements.item(2), 'keydown', {
+        keyboardEventInit: { key: 'ArrowRight' }
       });
       fixture.detectChanges();
 
@@ -143,8 +145,8 @@ describe('Tokens component', function () {
       const tokenElements = getTokenElements();
       const spy = spyOn(component, 'onFocusIndexUnderRange').and.callThrough();
 
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keydown', {
-        key: 'ArrowLeft'
+      SkyAppTestUtility.fireDomEvent(tokenElements.item(0), 'keydown', {
+        keyboardEventInit: { key: 'ArrowLeft' }
       });
       fixture.detectChanges();
 
@@ -168,6 +170,19 @@ describe('Tokens component', function () {
         token: tokensComponent.tokens[0]
       });
     });
+
+    it('should use inputted values for ariaLabel', fakeAsync(() => {
+      component.ariaLabel = 'this is a custom label';
+      component.includeSingleToken = true;
+
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      let token = fixture.nativeElement.querySelector('.sky-token-btn-close');
+      expect(token.getAttribute('aria-label')).toBe('this is a custom label');
+      expect(token.getAttribute('title')).toBe('this is a custom label');
+    }));
 
     it('should not emit when token is clicked if disabled', function () {
       component.disabled = true;
@@ -307,8 +322,8 @@ describe('Tokens component', function () {
       const tokenElements = getTokenElements();
       const spy = spyOn(component.messageStream, 'next').and.callThrough();
 
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keydown', {
-        key: 'ArrowLeft'
+      SkyAppTestUtility.fireDomEvent(tokenElements.item(0), 'keydown', {
+        keyboardEventInit: { key: 'ArrowLeft' }
       });
       fixture.detectChanges();
 
@@ -323,8 +338,8 @@ describe('Tokens component', function () {
       fixture.detectChanges();
 
       const tokenElements = getTokenElements();
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
-        key: 'Enter'
+      SkyAppTestUtility.fireDomEvent(tokenElements.item(0), 'keyup', {
+        keyboardEventInit: { key: 'Enter' }
       });
       fixture.detectChanges();
 
@@ -342,8 +357,8 @@ describe('Tokens component', function () {
       fixture.detectChanges();
 
       const tokenElements = getTokenElements();
-      TestUtility.fireKeyboardEvent(tokenElements.item(0), 'keyup', {
-        key: 'Enter'
+      SkyAppTestUtility.fireDomEvent(tokenElements.item(0), 'keyup', {
+        keyboardEventInit: { key: 'Enter' }
       });
       fixture.detectChanges();
 

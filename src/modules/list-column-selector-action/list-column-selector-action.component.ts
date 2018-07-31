@@ -1,10 +1,21 @@
 import {
+  AfterContentInit,
   Component,
-  Input
- } from '@angular/core';
+  EventEmitter,
+  Input,
+  Optional,
+  Output,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {
-  ListState
+  ListState, ListStateDispatcher, ListToolbarItemModel
 } from '../list/state';
+
+import {
+  SkyListSecondaryActionsComponent
+} from '../list-secondary-actions';
+
 import {
   SkyListViewGridComponent
 } from '../list-view-grid';
@@ -28,23 +39,62 @@ import {
 } from '../column-selector';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'sky-list-column-selector-action',
-  templateUrl: './list-column-selector-action.component.html'
+  templateUrl: './list-column-selector-action.component.html',
+  styleUrls: ['./list-column-selector-action.component.scss']
 })
-export class SkyListColumnSelectorActionComponent {
+export class SkyListColumnSelectorActionComponent implements AfterContentInit {
   @Input()
   public gridView: SkyListViewGridComponent;
 
+  @Input()
+  public helpKey: string;
+
+  @Output()
+  public helpOpened = new EventEmitter<string>();
+
+  @ViewChild('columnChooser')
+  private columnChooserTemplate: TemplateRef<any>;
+
   constructor(
     public listState: ListState,
-    private modalService: SkyModalService
-  ) {}
+    private modalService: SkyModalService,
+    private dispatcher: ListStateDispatcher,
+    @Optional() public secondaryActions: SkyListSecondaryActionsComponent
+  ) { }
+
+  public ngAfterContentInit() {
+    if (!this.secondaryActions) {
+      let columnChooserItem = new ListToolbarItemModel(
+        {
+          id: 'column-chooser',
+          template: this.columnChooserTemplate,
+          location: 'left'
+        }
+      );
+
+      this.dispatcher.toolbarAddItems(
+        [
+          columnChooserItem
+        ],
+        3
+      );
+    }
+  }
 
   get isInGridView(): Observable<boolean> {
     return this.listState.map(s => s.views.active).map((activeView) => {
-      return this.gridView && (activeView === this.gridView.id) ;
+      return this.gridView && (activeView === this.gridView.id);
+    }).distinctUntilChanged();
+  }
+
+  get isInGridViewAndSecondary(): Observable<boolean> {
+    return this.listState.map(s => s.views.active).map((activeView) => {
+      return this.secondaryActions && this.gridView && (activeView === this.gridView.id);
     }).distinctUntilChanged();
   }
 
@@ -75,18 +125,27 @@ export class SkyListColumnSelectorActionComponent {
           });
       });
 
-      let modalInstance = this.modalService.open(
+      const modalInstance = this.modalService.open(
         SkyColumnSelectorComponent,
-        [
-          {
-            provide: SkyColumnSelectorContext,
-            useValue: {
-              columns: columns,
-              selectedColumnIds: selectedColumnIds
+        {
+          providers: [
+            {
+              provide: SkyColumnSelectorContext,
+              useValue: {
+                columns,
+                selectedColumnIds
+              }
             }
-          }
-        ]
+          ],
+          helpKey: this.helpKey
+        }
       );
+
+      modalInstance.helpOpened
+        .subscribe((helpKey: string) => {
+          this.helpOpened.emit(helpKey);
+          this.helpOpened.complete();
+        });
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
         if (result.reason === 'save' && result.data) {
@@ -100,8 +159,9 @@ export class SkyListColumnSelectorActionComponent {
             });
           this.gridView.gridDispatcher.next(
             new ListViewDisplayedGridColumnsLoadAction(
-             newDisplayedColumns,
-            true)
+              newDisplayedColumns,
+              true
+            )
           );
         }
       });

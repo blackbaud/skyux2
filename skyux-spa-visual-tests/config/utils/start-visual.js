@@ -77,12 +77,6 @@ function killServers(exitCode) {
     httpServer = null;
   }
 
-  // Catch protractor's "Kitchen Sink" error.
-  if (exitCode === 199) {
-    logger.warn('Supressing protractor\'s "kitchen sink" error 199');
-    exitCode = 0;
-  }
-
   logger.info(`Execution Time: ${(new Date().getTime() - start) / 1000} seconds`);
   logger.info(`Exiting process with ${exitCode}`);
   process.exit(exitCode || 0);
@@ -191,10 +185,13 @@ function spawnServer() {
 function spawnBuild(skyPagesConfig, webpack) {
   return new Promise(resolve => {
     logger.info('Running build');
-    build([], skyPagesConfig, webpack).then(stats => {
+    build(
+      { logFormat: 'compact' },
+      skyPagesConfig,
+      webpack
+    ).then(stats => {
       logger.info('Completed build');
       resolve(stats.toJson().chunks);
     });
   });
 }
-

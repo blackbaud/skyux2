@@ -1,0 +1,7 @@
+@import '../../scss/mixins';
+
+.sky-infinite-scroll {
+  margin-top: $sky-margin-double;
+  text-align: center;
+  min-height: 75px; // sky-wait height
+}

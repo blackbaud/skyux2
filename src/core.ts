@@ -33,7 +33,9 @@ import { SkyFilterModule } from './modules/filter';
 import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
 import { SkyFlyoutModule } from './modules/flyout/flyout.module';
 import { SkyGridModule } from './modules/grid';
+import { SkyIconModule } from './modules/icon';
 import { SkyHelpInlineModule } from './modules/help-inline';
+import { SkyInfiniteScrollModule } from './modules/infinite-scroll';
 import { SkyKeyInfoModule } from './modules/key-info';
 import { SkyLabelModule } from './modules/label';
 import { SkyLinkRecordsModule } from './modules/link-records';
@@ -57,11 +59,13 @@ import { SkyRadioModule } from './modules/radio';
 import { SkyRepeaterModule } from './modules/repeater';
 import { SkySearchModule } from './modules/search';
 import { SkySectionedFormModule } from './modules/sectioned-form';
+import { SkySelectFieldModule } from './modules/select-field';
 import { SkySortModule } from './modules/sort';
 import { SkyTabsModule } from './modules/tabs';
 import { SkyTextExpandModule } from './modules/text-expand';
 import { SkyTextExpandRepeaterModule } from './modules/text-expand-repeater';
 import { SkyTextHighlightModule } from './modules/text-highlight';
+import { SkyToastModule } from './modules/toast';
 import { SkyTokensModule } from './modules/tokens';
 import { SkyToolbarModule } from './modules/toolbar';
 import { SkyTilesModule } from './modules/tiles';
@@ -92,7 +96,9 @@ import { SkyWaitModule } from './modules/wait';
     SkyFluidGridModule,
     SkyFlyoutModule,
     SkyGridModule,
+    SkyIconModule,
     SkyHelpInlineModule,
+    SkyInfiniteScrollModule,
     SkyKeyInfoModule,
     SkyLabelModule,
     SkyLinkRecordsModule,
@@ -116,6 +122,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyRepeaterModule,
     SkySearchModule,
     SkySectionedFormModule,
+    SkySelectFieldModule,
     SkySortModule,
     SkyTabsModule,
     SkyTextExpandModule,
@@ -123,6 +130,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyTextHighlightModule,
     SkyTilesModule,
     SkyTimepickerModule,
+    SkyToastModule,
     SkyTokensModule,
     SkyToolbarModule,
     SkyUrlValidationModule,
@@ -154,7 +162,9 @@ export * from './modules/fluid-grid';
 export * from './modules/flyout';
 export * from './modules/format';
 export * from './modules/grid';
+export * from './modules/icon';
 export * from './modules/help-inline';
+export * from './modules/infinite-scroll';
 export * from './modules/key-info';
 export * from './modules/label';
 export * from './modules/link-records';
@@ -179,6 +189,8 @@ export * from './modules/radio';
 export * from './modules/repeater';
 export * from './modules/search';
 export * from './modules/sectioned-form';
+export * from './modules/select-field';
+export * from './modules/select-field/types';
 export * from './modules/sort';
 export * from './modules/tabs';
 export * from './modules/text-expand';
@@ -186,6 +198,7 @@ export * from './modules/text-expand-repeater';
 export * from './modules/text-highlight';
 export * from './modules/tiles';
 export * from './modules/timepicker';
+export * from './modules/toast';
 export * from './modules/tokens';
 export * from './modules/toolbar';
 export * from './modules/url-validation';

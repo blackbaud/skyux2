@@ -13,9 +13,12 @@ import {
   OnChanges
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
@@ -153,6 +156,13 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     });
   }
 
+  public onKeydown(event: KeyboardEvent, column: SkyGridColumnModel) {
+    const key = event.key.toLowerCase();
+    if (key === 'enter' || key === ' ') {
+      this.sortByColumn(column);
+    }
+  }
+
   public sortByColumn(column: SkyGridColumnModel) {
     if (column.isSortable) {
       this.currentSortField
@@ -183,6 +193,15 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
         return field.fieldSelector === columnField ?
           (field.descending ? 'desc' : 'asc') : undefined;
       });
+  }
+
+  public getAriaSortDirection(column: SkyGridColumnModel): Observable<string> {
+    return this.currentSortField
+      .distinctUntilChanged()
+      .map(field => {
+      return field.fieldSelector === column.field ?
+        (field.descending ? 'descending' : 'ascending') : (column.isSortable ? 'none' : undefined);
+    });
   }
 
   public updateColumnHeading(change: SkyGridColumnHeadingModelChange) {

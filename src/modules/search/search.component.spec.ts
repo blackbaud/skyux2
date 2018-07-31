@@ -14,7 +14,7 @@ import {
 
 import {
   expect
-} from '../testing';
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkySearchModule
@@ -240,8 +240,11 @@ describe('Search component', () => {
 
   it('should emit search change event on ngModel change', () => {
     setNgModel('change text');
-    expect(component.lastSearchTextChanged).toBe('change text');
-    expect(component.lastSearchTextApplied).not.toBe('change text');
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.lastSearchTextChanged).toBe('change text');
+      expect(component.lastSearchTextApplied).not.toBe('change text');
+    });
   });
 
   it('should set default placeholder text when none is specified', () => {
@@ -310,6 +313,15 @@ describe('Search component', () => {
     fixture.detectChanges();
     expect(element.query(By.css('.sky-input-group-clear')).nativeElement).toBeVisible();
   });
+
+  it('should delay the search if debounce is used', async(() => {
+    component.searchComponent.searchTextChanged('debounce this please');
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(component.searchComponent.searchText).toBe('debounce this please');
+    });
+  }));
 
   describe('animations', () => {
 

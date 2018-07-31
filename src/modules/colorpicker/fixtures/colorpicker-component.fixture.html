@@ -1,6 +1,7 @@
 <div>
-  <sky-colorpicker #colorPickerTest>
+  <sky-colorpicker #colorPickerTest [messageStream]="colorpickerController">
     <input
+      [type]="inputType"
       [skyColorpickerInput]="colorPickerTest"
       [(ngModel)]="colorModel"
       [presetColors]="presetColors"

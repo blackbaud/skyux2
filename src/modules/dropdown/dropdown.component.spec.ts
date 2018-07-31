@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -8,8 +7,8 @@ import {
 
 import {
   expect,
-  TestUtility
-} from '../testing';
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyDropdownMessageType
@@ -23,17 +22,18 @@ describe('Dropdown component', () => {
   let fixture: ComponentFixture<DropdownTestComponent>;
   let component: DropdownTestComponent;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyDropdownFixturesModule
       ]
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(DropdownTestComponent);
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   function openPopoverWithButtonClick() {
@@ -54,7 +54,9 @@ describe('Dropdown component', () => {
 
   // Simulates a click event on a button (which also registers the Enter key).
   function dispatchKeyboardButtonClickEvent(elem: HTMLElement) {
-    TestUtility.fireKeyboardEvent(elem, 'keydown', { key: 'Enter' });
+    SkyAppTestUtility.fireDomEvent(elem, 'keydown', {
+      keyboardEventInit: { key: 'Enter' }
+    });
     elem.click();
   }
 
@@ -121,6 +123,71 @@ describe('Dropdown component', () => {
     return (getComputedStyle(elem).visibility !== 'hidden');
   }
 
+  function verifyArrowKeyNavigation(downKey: string, upKey: string) {
+    openPopoverWithButtonClick();
+
+    const hostElem = getDropdownMenuHostElement();
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    verifyActiveMenuItemByIndex(0);
+    verifyFocusedMenuItemByIndex(0);
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    // The second item is disabled, so it should be skipped!
+    verifyActiveMenuItemByIndex(2);
+    verifyFocusedMenuItemByIndex(2);
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: upKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    // The second item is disabled, so it should be skipped!
+    verifyActiveMenuItemByIndex(0);
+    verifyFocusedMenuItemByIndex(0);
+
+    // Navigation should loop from the last item to the first:
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: downKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    verifyActiveMenuItemByIndex(0);
+    verifyFocusedMenuItemByIndex(0);
+
+    SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+      keyboardEventInit: { key: upKey }
+    });
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    verifyActiveMenuItemByIndex(3);
+    verifyFocusedMenuItemByIndex(3);
+  }
+
   describe('basic setup', () => {
     it('should have a default button type of "select"', () => {
       fixture.detectChanges();
@@ -162,6 +229,30 @@ describe('Dropdown component', () => {
       expect(buttonElem).toHaveCssClass('sky-btn-primary');
     });
 
+    it('should have necessary aria properties', fakeAsync(() => {
+      fixture.detectChanges();
+      const buttonElem = getDropdownButtonElement();
+      const menuElem = getDropdownMenuHostElement().querySelector('.sky-dropdown-menu');
+
+      expect(buttonElem.getAttribute('aria-haspopup')).toBe('true');
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('false');
+      expect(buttonElem.getAttribute('aria-controls')).toBe(menuElem.id);
+
+      expect(menuElem.getAttribute('role')).toBe('menu');
+
+      buttonElem.click();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('true');
+    }));
+
     it('should set the correct title when specified', () => {
       const buttonElem = getDropdownButtonElement();
       component.title = 'Dropdown title';
@@ -169,11 +260,24 @@ describe('Dropdown component', () => {
       expect(buttonElem.getAttribute('title')).toBe('Dropdown title');
     });
 
-    it('should display default label when label not set', () => {
+    it('should display default label when label not set and buttonType is not select or tab', () => {
+      fixture.componentInstance.buttonType = 'context-menu';
       fixture.detectChanges();
       const buttonElem = getDropdownButtonElement();
       const label = buttonElem.getAttribute('aria-label');
       expect(label).toBe('Context menu');
+    });
+
+    it('should not display default label when label not set and buttonType is select or tab', () => {
+      fixture.componentInstance.buttonType = 'select';
+      fixture.detectChanges();
+      let buttonElem = getDropdownButtonElement();
+      expect(buttonElem.getAttribute('aria-label')).toBeFalsy();
+
+      fixture.componentInstance.buttonType = 'tab';
+      fixture.detectChanges();
+      buttonElem = getDropdownButtonElement();
+      expect(buttonElem.getAttribute('aria-label')).toBeFalsy();
     });
 
     it('should display label when label is set', () => {
@@ -196,6 +300,17 @@ describe('Dropdown component', () => {
     it('should open the menu when clicking the trigger button', fakeAsync(() => {
       openPopoverWithButtonClick();
     }));
+
+    it('should allow clicking of the dropdown tag', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      const dropdownButtonHost = fixture.nativeElement.querySelector('sky-dropdown-button');
+      const clickSpy = spyOn(component, 'onDropdownClick').and.callThrough();
+      SkyAppTestUtility.fireDomEvent(dropdownButtonHost, 'click');
+      tick();
+      fixture.detectChanges();
+      expect(clickSpy).toHaveBeenCalled();
+    }));
   });
 
   describe('keyboard interactions', () => {
@@ -204,8 +319,12 @@ describe('Dropdown component', () => {
 
       const popoverElem = getPopoverContainerElement();
 
-      TestUtility.fireKeyboardEvent(popoverElem, 'keydown', { key: 'Escape' });
-      TestUtility.fireKeyboardEvent(popoverElem, 'keyup', { key: 'Escape' });
+      SkyAppTestUtility.fireDomEvent(popoverElem, 'keydown', {
+        keyboardEventInit: { key: 'Escape' }
+      });
+      SkyAppTestUtility.fireDomEvent(popoverElem, 'keyup', {
+        keyboardEventInit: { key: 'Escape' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -222,14 +341,14 @@ describe('Dropdown component', () => {
       const firstItem = dropdownItems.item(0);
 
       // Should not close the dropdown if focus remains in dropdown.
-      TestUtility.fireKeyboardEvent(firstItem.querySelector('button'), 'focusin');
+      SkyAppTestUtility.fireDomEvent(firstItem.querySelector('button'), 'focusin');
       tick();
       fixture.detectChanges();
       tick();
 
       verifyMenuVisibility(true);
 
-      TestUtility.fireKeyboardEvent(component.outsideButton.nativeElement, 'focusin');
+      SkyAppTestUtility.fireDomEvent(component.outsideButton.nativeElement, 'focusin');
       tick();
       fixture.detectChanges();
       tick();
@@ -246,7 +365,27 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
+      tick();
+      fixture.detectChanges();
+      tick();
+
+      verifyMenuVisibility();
+    }));
+
+    it('should open menu if down is pressed', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
+      const hostElem = getDropdownHostElement();
+
+      verifyMenuVisibility(false);
+
+      SkyAppTestUtility.fireDomEvent(hostElem, 'keydown', {
+        keyboardEventInit: { key: 'Down' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -255,54 +394,11 @@ describe('Dropdown component', () => {
     }));
 
     it('should navigate menu items with arrow keys', fakeAsync(() => {
-      openPopoverWithButtonClick();
+      verifyArrowKeyNavigation('ArrowDown', 'ArrowUp');
+    }));
 
-      const hostElem = getDropdownMenuHostElement();
-
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      // The second item is disabled, so it should be skipped!
-      verifyActiveMenuItemByIndex(2);
-      verifyFocusedMenuItemByIndex(2);
-
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      // The second item is disabled, so it should be skipped!
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      // Navigation should loop from the last item to the first:
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowdown' });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(0);
-      verifyFocusedMenuItemByIndex(0);
-
-      TestUtility.fireKeyboardEvent(hostElem, 'keydown', { key: 'arrowup' });
-      tick();
-      fixture.detectChanges();
-      tick();
-
-      verifyActiveMenuItemByIndex(3);
-      verifyFocusedMenuItemByIndex(3);
+    it('should navigate menu items with internet explorer arrow keys', fakeAsync(() => {
+      verifyArrowKeyNavigation('Down', 'Up');
     }));
 
     it('should focus the first item if opened with enter key', fakeAsync(() => {
@@ -422,7 +518,9 @@ describe('Dropdown component', () => {
 
       verifyMenuVisibility(false);
 
-      TestUtility.fireKeyboardEvent(buttonElem, 'keydown', { key: 'a' });
+      SkyAppTestUtility.fireDomEvent(buttonElem, 'keydown', {
+        keyboardEventInit: { key: 'A' }
+      });
       tick();
       fixture.detectChanges();
       tick();
@@ -450,7 +548,9 @@ describe('Dropdown component', () => {
       const itemComponent = component.dropdownMenu.menuItems.first;
       const focusSpy = spyOn(itemComponent['buttonElement'], 'focus');
 
-      TestUtility.fireKeyboardEvent(buttonElem, 'keydown', { key: 'arrowdown' });
+      SkyAppTestUtility.fireDomEvent(buttonElem, 'keydown', {
+        keyboardEventInit: { key: 'ArrowDown' }
+      });
       tick();
       fixture.detectChanges();
       tick();

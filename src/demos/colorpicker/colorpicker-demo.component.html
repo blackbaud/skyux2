@@ -1,95 +1,54 @@
-<div style="margin-bottom: 10px">
-  <sky-colorpicker
-    (selectedColorChanged)="onSelectedColorChanged($event)"
-    #colorPickerExample1>
-    <input
-      [skyColorpickerInput]="colorPickerExample1"
-      [(ngModel)]="color1" [presetColors]="presetColors1"
-      [initialColor]="selectedColor1"
-      [outputFormat]="selectedOutputFormat1" />
-  </sky-colorpicker>
-</div>
+<h2 class="sky-section-heading">
+  Reactive form setup
+</h2>
 
-<sky-definition-list>
-  <sky-definition-list-content>
-    <sky-definition-list-label>
-      RGBA
-    </sky-definition-list-label>
-    <sky-definition-list-value
-      *ngIf="color1?.rgba">
-      {{color1?.rgba?.red}},
-      {{color1?.rgba?.green}},
-      {{color1?.rgba?.blue}},
-      {{color1?.rgba?.alpha}}
-    </sky-definition-list-value>
-  </sky-definition-list-content>
-  <sky-definition-list-content>
-    <sky-definition-list-label>
-      HSLA
-    </sky-definition-list-label>
-    <sky-definition-list-value
-      *ngIf="color1?.hsla">
-      {{color1?.hsla?.hue}},
-      {{color1?.hsla?.saturation}},
-      {{color1?.hsla?.lightness}},
-      {{color1?.hsla?.alpha}}
-    </sky-definition-list-value>
-  </sky-definition-list-content>
-  <sky-definition-list-content>
-    <sky-definition-list-label>
-      HSVA
-    </sky-definition-list-label>
-    <sky-definition-list-value
-      *ngIf="color1?.hsva">
-      {{color1?.hsva?.hue}},
-      {{color1?.hsva?.saturation}},
-      {{color1?.hsva?.value}},
-      {{color1?.hsva?.alpha}}
-    </sky-definition-list-value>
-  </sky-definition-list-content>
-  <sky-definition-list-content>
-    <sky-definition-list-label>
-      CMYK
-    </sky-definition-list-label>
-    <sky-definition-list-value
-      *ngIf="color1?.cmyk">
-      {{color1?.cmyk?.cyan}},
-      {{color1?.cmyk?.magenta}},
-      {{color1?.cmyk?.yellow}},
-      {{color1?.cmyk?.key}}
-    </sky-definition-list-value>
-  </sky-definition-list-content>
-</sky-definition-list>
+<sky-colorpicker-reactive-demo>
+</sky-colorpicker-reactive-demo>
 
-<div style="margin-bottom: 10px">
-  <sky-colorpicker #colorPickerExample2>
-    <input
-      type="text"
-      [skyColorpickerInput]="colorPickerExample2"
-      [(ngModel)]="color2" />
-  </sky-colorpicker>
-</div>
+<h2 class="sky-section-heading">
+  Template-driven form setup
+</h2>
 
-<sky-definition-list>
-  <sky-definition-list-content>
-    <sky-definition-list-label>
-      HEX
-    </sky-definition-list-label>
-    <sky-definition-list-value *ngIf="color2?.hex">
-      {{color2?.hex}}
-    </sky-definition-list-value>
-  </sky-definition-list-content>
-  <sky-definition-list-content>
-    <sky-definition-list-label>
-      RGBA CSS
-    </sky-definition-list-label>
-    <sky-definition-list-value *ngIf="color2?.rgbaText">
-      <div style="margin-bottom: 5px;">
-        {{color2?.rgbaText}}
-      </div>
-      <div style="border-color: #999;width: 28px;height: 28px;border-radius: 50%;border-width: 2px;border-style: solid;">
-        <div [style.background-color]="color2?.rgbaText" style="width:24px;height:24px;    border-radius: 50%;">&nbsp;</div>
-      </div>
-    </sky-definition-list-value>
-  </sky-definition-list-content>
-</sky-definition-list>
+<sky-colorpicker-template-driven-demo>
+</sky-colorpicker-template-driven-demo>
+
+<h2 class="sky-section-heading">
+  Interacting with a colorpicker programmatically
+</h2>
+
+<sky-colorpicker
+  [messageStream]="colorpickerController"
+  [showResetButton]="showResetButton"
+  #colorPicker
+>
+  <input
+    [skyColorpickerInput]="colorPicker"
+    [(ngModel)]="model"
+  />
+</sky-colorpicker>
+
+<p>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="openColorpicker()"
+  >
+    Open colorpicker
+  </button>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="resetColorpicker()"
+  >
+    Reset colorpicker
+  </button>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="toggleResetButton()"
+  >
+    Toggle reset button
+  </button>
+</p>

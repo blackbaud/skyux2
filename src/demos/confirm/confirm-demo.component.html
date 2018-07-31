@@ -1,33 +1,41 @@
 <div style="margin-bottom: 20px;">
   <button
+    aria-haspopup="dialog"
+    class="sky-btn sky-btn-default"
     type="button"
-    class="sky-btn sky-btn-primary"
     (click)="openOKConfirm()">
-    <i class="fa fa-question-circle"></i>
     OK confirm
   </button>
 
   <button
+    aria-haspopup="dialog"
+    class="sky-btn sky-btn-default"
     type="button"
-    class="sky-btn sky-btn-primary"
     (click)="openYesCancelConfirm()">
-    <i class="fa fa-question-circle"></i>
     Yes/cancel confirm
   </button>
 
   <button
+    aria-haspopup="dialog"
+    class="sky-btn sky-btn-default"
     type="button"
-    class="sky-btn sky-btn-primary"
+    (click)="openYesCancelConfirmWithBody()">
+    Confirm with body
+  </button>
+
+  <button
+    aria-haspopup="dialog"
+    class="sky-btn sky-btn-default"
+    type="button"
     (click)="openYesNoCancelConfirm()">
-    <i class="fa fa-question-circle"></i>
     Yes/no/cancel confirm
   </button>
 
   <button
-    type="button"
+    aria-haspopup="dialog"
     class="sky-btn sky-btn-default"
+    type="button"
     (click)="openCustomConfirm()">
-    <i class="fa fa-cog"></i>
     Custom confirm
   </button>
 </div>

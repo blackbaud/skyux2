@@ -1,4 +1,5 @@
-@import "variables";
+@import "mixins";
+
 * {
   box-sizing: border-box;
 }
@@ -155,3 +156,15 @@ input:-moz-placeholder { /* Firefox 18- */
     opacity: 1;
 }
 /* End Placeholder Text */
+
+.sky-rounded-corners {
+  border-radius: $sky-border-radius;
+}
+
+.sky-rounded-circle {
+  border-radius: 50%;
+}
+
+.sky-shadow {
+  @include sky-shadow;
+}

@@ -1,6 +1,8 @@
 import { SkySectionedFormComponent } from './sectioned-form.component';
-import { expect } from '../testing';
 import { TestBed } from '@angular/core/testing';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 import { SkySectionedFormFixturesModule } from './fixtures/sectioned-form-fixtures.module';
 import { SkySectionedFormFixtureComponent } from './fixtures/sectioned-form.component.fixture';
 
@@ -116,6 +118,7 @@ describe('Sectioned form component', () => {
 
     let activeTab = tabs[1];
     expect(activeTab.classList.contains('sky-tab-field-required')).toBe(false);
+    expect(activeTab.getAttribute('aria-required')).toBeFalsy();
 
     // mark required
     let checkbox = el.querySelector('#requiredTestCheckbox input');
@@ -126,6 +129,7 @@ describe('Sectioned form component', () => {
     tabs = el.querySelectorAll('sky-vertical-tab');
     let requiredTab = tabs[0];
     expect(requiredTab.classList.contains('sky-tab-field-required')).toBe(true);
+    expect(requiredTab.getAttribute('aria-required')).toBe('true');
   });
 
   it('section should respect required field change after switching tabs', () => {
@@ -221,6 +225,7 @@ describe('Sectioned form component', () => {
 
     let activeTab = tabs[1];
     expect(activeTab.classList.contains('sky-tab-field-invalid')).toBe(false);
+    expect(activeTab.getAttribute('aria-invalid')).toBeFalsy();
 
     // mark invalid
     let checkbox = el.querySelector('#invalidTestCheckbox input');
@@ -231,6 +236,7 @@ describe('Sectioned form component', () => {
     tabs = el.querySelectorAll('sky-vertical-tab');
     let invalidTab = tabs[0];
     expect(invalidTab.classList.contains('sky-tab-field-invalid')).toBe(true);
+    expect(invalidTab.getAttribute('aria-invalid')).toBe('true');
   });
 
   it('should show content after resizing screen', () => {

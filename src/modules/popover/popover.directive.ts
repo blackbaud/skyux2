@@ -10,6 +10,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import {
   SkyWindowRefService
@@ -104,9 +105,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     Observable
       .fromEvent(element, 'click')
       .takeUntil(this.idled)
-      .subscribe((event: MouseEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
+      .subscribe((event: any) => {
         this.togglePopover();
       });
 

@@ -1,0 +1,35 @@
+<h3>Repeater demo:</h3>
+<div class="sky-infinite-scroll-demo">
+  <sky-repeater>
+    <sky-repeater-item *ngFor="let item of data">
+      <sky-repeater-item-title>
+        <div class="pull-left">
+          {{ item.name }}
+        </div>
+      </sky-repeater-item-title>
+    </sky-repeater-item>
+  </sky-repeater>
+  <sky-infinite-scroll
+    [enabled]="hasMore"
+    (scrollEnd)="onScrollEnd()"
+  >
+  </sky-infinite-scroll>
+</div>
+<br>
+<br>
+<br>
+<h3>List demo:</h3>
+<div class="sky-infinite-scroll-demo">
+  <sky-list [data]="listItems">
+    <sky-list-view-grid fit="scroll">
+      <sky-grid-column field="name" heading="Name"></sky-grid-column>
+    </sky-list-view-grid>
+  </sky-list>
+  <sky-infinite-scroll
+    [enabled]="listHasMore"
+    (scrollEnd)="onListScrollEnd()"
+  >
+  </sky-infinite-scroll>
+</div>
+<br>
+<br>

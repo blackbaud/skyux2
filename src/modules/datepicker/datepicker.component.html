@@ -4,15 +4,17 @@
 
     <div class="sky-input-group-btn sky-input-group-datepicker-btn">
       <sky-dropdown
-        buttonType="calendar"
         alignment="right"
+        aria-hidden="true"
+        buttonType="calendar"
         [messageStream]="dropdownController">
-        <sky-dropdown-menu>
+        <sky-dropdown-menu ariaRole="none">
           <sky-datepicker-calendar
             (selectedDateChange)="dateSelected($event)"
             (calendarModeChange)="onCalendarModeChange()"
             [maxDate]="maxDate"
-            [minDate]="minDate">
+            [minDate]="minDate"
+            [startingDay]="startingDay">
           </sky-datepicker-calendar>
         </sky-dropdown-menu>
       </sky-dropdown>
