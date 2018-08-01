@@ -409,9 +409,10 @@ describe('Modal component', () => {
     closeModal(modalInstance);
   }));
 
-  it('should default the aria-labelledby and aria-describedby', fakeAsync(() => {
+  it('should default the role, aria-labelledby, and aria-describedby', fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent);
 
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('role')).toBe('dialog');
     expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby')
       .indexOf('sky-modal-header-id-'))
       .not.toBe(-1);
@@ -421,13 +422,15 @@ describe('Modal component', () => {
     closeModal(modalInstance);
   }));
 
-  it('should accept configuration options for aria-labelledBy and aria-describedby',
+  it('should accept configuration options for role, aria-labelledBy, and aria-describedby',
   fakeAsync(() => {
     let modalInstance = openModal(ModalTestComponent, {
       'ariaLabelledBy': 'customlabelledby',
-      'ariaDescribedBy': 'customdescribedby'
+      'ariaDescribedBy': 'customdescribedby',
+      'ariaRole': 'alertdialog'
     });
 
+    expect(document.querySelector('.sky-modal-dialog').getAttribute('role')).toBe('alertdialog');
     expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-labelledby'))
       .toBe('customlabelledby');
     expect(document.querySelector('.sky-modal-dialog').getAttribute('aria-describedby'))
