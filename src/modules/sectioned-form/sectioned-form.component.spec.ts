@@ -234,10 +234,10 @@ describe('Sectioned form component', () => {
     fixture.detectChanges();
 
     let content = getVisibleContent(el);
-    content.forEach((pane: any) => {
+    for (let pane of content) {
       expect(pane.getAttribute('aria-labelledby')).toBeFalsy();
       expect(pane.getAttribute('role')).toBeFalsy();
-    });
+    }
 
     fixture.componentInstance.sectionedForm.showTabs();
     fixture.detectChanges();
