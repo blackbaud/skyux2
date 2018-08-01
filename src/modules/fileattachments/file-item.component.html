@@ -21,7 +21,7 @@
               <img class="sky-file-item-preview-img" [src]="fileItem.url" />
             </div>
             <div *ngIf="!isImg()" class="sky-file-item-preview-other">
-                <i class="fa" [ngClass]="otherCls"></i>
+                <sky-icon [icon]="iconName"></sky-icon>
             </div>
         </div>
         <div class="sky-file-item-content-custom">

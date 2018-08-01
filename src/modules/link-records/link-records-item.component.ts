@@ -47,6 +47,7 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
   @Input() public itemTitleTemplate: TemplateRef<any>;
   @Input() public selectedByDefault: boolean;
   @Input() public showNewFieldValues: boolean;
+  public iconName: string;
   @ViewChildren(SkyLinkRecordsItemDiffComponent)
     public viewItems: QueryList<SkyLinkRecordsItemDiffComponent>;
 
@@ -60,6 +61,22 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
     if (this.record.status === this.STATUSES.Edit &&
       (!this.record.matchFields || this.record.matchFields.length === 0)) {
       this.link();
+    }
+    switch(this.record.status) {
+      case this.STATUSES.Linked:
+        this.iconName = 'check';
+        break;
+      case this.STATUSES.Edit:
+        this.iconName = 'pencil';
+        break;
+      case this.STATUSES.Created:
+        this.iconName = 'plus-circle';
+        break;
+      case this.STATUSES.Suggested || this.STATUSES.NoMatch || this.STATUSES.Selected:
+        this.iconName = 'question_circle';
+        break;
+      default:
+        break;
     }
   }
 
