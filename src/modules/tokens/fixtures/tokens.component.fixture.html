@@ -10,3 +10,7 @@
   (tokenSelected)="onTokenSelected($event)">
   INNER CONTENT
 </sky-tokens>
+
+<sky-token
+  *ngIf="includeSingleToken"
+  [ariaLabel]="ariaLabel"></sky-token>
