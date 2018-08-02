@@ -243,10 +243,10 @@ describe('Sectioned form component', () => {
     fixture.detectChanges();
 
     let tabs = el.querySelectorAll('.sky-vertical-tab');
-    tabs.forEach((tab: any) => {
+    for (let tab of tabs) {
       expect(tab.getAttribute('aria-controls')).toBeFalsy();
       expect(tab.getAttribute('role')).toBeFalsy();
-    });
+    }
   });
 
   it('section should respect invalid field change', () => {
