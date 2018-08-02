@@ -1,5 +1,12 @@
 @import "mixins";
 
+input[type=text].sky-form-control {
+  /* Remove device-specific styles */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 .sky-form-control {
   width: 100%;
   padding: 6px 12px;
