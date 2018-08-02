@@ -69,7 +69,7 @@ export class SkyColorpickerInputDirective
 
   @Input()
   public set initialColor(value: string) {
-    this._initialColor = value || SKY_COLORPICKER_DEFAULT_COLOR;
+    this._initialColor = value;
   }
 
   public get initialColor(): string {
@@ -88,7 +88,7 @@ export class SkyColorpickerInputDirective
   @Input()
   public alphaChannel = 'hex6';
 
-  private _initialColor = SKY_COLORPICKER_DEFAULT_COLOR;
+  private _initialColor: string;
   private modelValue: SkyColorpickerOutput;
 
   constructor(
@@ -123,16 +123,20 @@ export class SkyColorpickerInputDirective
     const element = this.elementRef.nativeElement;
 
     this.renderer.setElementClass(element, 'sky-form-control', true);
-    this.skyColorpickerInput.initialColor = this.initialColor;
+    this.skyColorpickerInput.initialColor = this.initialColor ? this.initialColor : SKY_COLORPICKER_DEFAULT_COLOR;
+    this.skyColorpickerInput.lastAppliedColor = this.skyColorpickerInput.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
 
     this.pickerChangedSubscription =
       this.skyColorpickerInput.selectedColorChanged.subscribe((newColor: SkyColorpickerOutput) => {
-        this.writeValue(newColor);
+        if (newColor) {
+          this.modelValue = this.formatter(newColor);
+          this.writeModelValue(this.modelValue);
+        }
         this._onChange(newColor);
       });
 
-    this.skyColorpickerInput.setColorFromString(this.initialColor);
+    this.skyColorpickerInput.setColorFromString(this.skyColorpickerInput.lastAppliedColor);
 
     /// Set aria-label as default, if not set
     if (!this.elementRef.nativeElement.getAttribute('aria-label')) {
@@ -181,10 +185,16 @@ export class SkyColorpickerInputDirective
     if (value) {
       this.modelValue = this.formatter(value);
       this.writeModelValue(this.modelValue);
+
+      if (!this.initialColor) {
+        this.initialColor = value;
+        this.skyColorpickerInput.initialColor = value;
+        this.skyColorpickerInput.lastAppliedColor = value;
+      }
     }
   }
 
-  public validate(control: AbstractControl): {[key: string]: any} {
+  public validate(control: AbstractControl): { [key: string]: any } {
     let value = control.value;
     if (!value) {
       return;
@@ -200,20 +210,20 @@ export class SkyColorpickerInputDirective
     // tslint:disable-next-line:switch-default
     switch (this.outputFormat) {
       case 'rgba':
-      output = model.rgbaText;
-      break;
+        output = model.rgbaText;
+        break;
 
       case 'hsla':
-      output = model.hslaText;
-      break;
+        output = model.hslaText;
+        break;
 
       case 'cmyk':
-      output = model.cmykText;
-      break;
+        output = model.cmykText;
+        break;
 
       case 'hex':
-      output = model.hex;
-      break;
+        output = model.hex;
+        break;
     }
 
     this.skyColorpickerInput.setColorFromString(output);
