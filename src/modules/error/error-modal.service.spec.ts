@@ -1,7 +1,20 @@
-import { SkyErrorModalService } from './error-modal.service';
-import { MockModalService } from './fixtures/mocks';
-import { ErrorModalConfig } from './error-modal-config';
-import { SkyErrorModalFormComponent } from './error-modal-form.component';
+import {
+  MockModalService
+} from './fixtures/mocks';
+import {
+  SkyErrorModalService
+} from './error-modal.service';
+import {
+  ErrorModalConfig
+} from './error-modal-config';
+import {
+  SkyErrorModalFormComponent
+} from './error-modal-form.component';
+
+import {
+  SkyModalConfigurationInterface,
+  SkyModalService
+} from '../modal';
 
 describe('Error modal service', () => {
   it('Test open is called with correct parameters', () => {
@@ -13,13 +26,18 @@ describe('Error modal service', () => {
       errorCloseText: 'Close button text'
     };
 
-    const expectedProvider = { provide: ErrorModalConfig, useValue: config };
+    const expectedProviders = [{ provide: ErrorModalConfig, useValue: config }];
 
-    let service = new SkyErrorModalService(modalService);
+    let service = new SkyErrorModalService(modalService as SkyModalService);
     service.open(config);
 
     expect(modalService.openCalls.length).toBe(1);
     expect(modalService.openCalls[0].component).toBe(SkyErrorModalFormComponent);
-    expect(modalService.openCalls[0].providers).toEqual([expectedProvider]);
+
+    // Uses the modalService Open overload that takes config
+    // instead of providers (despite the property name)
+    let modalConfig = modalService.openCalls[0].providers as SkyModalConfigurationInterface;
+    expect(modalConfig.ariaRole).toBe('alertdialog');
+    expect(modalConfig.providers).toEqual(expectedProviders);
   });
 });
