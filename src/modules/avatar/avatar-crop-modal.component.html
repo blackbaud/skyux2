@@ -1,0 +1,52 @@
+<div class="sky-avatar-crop-modal">
+  <sky-modal>
+    <sky-modal-header>
+      {{title}}
+    </sky-modal-header>
+    <sky-modal-content>
+      <sky-file-drop
+        *ngIf="!cropping"
+        [multiple]="false"
+        [acceptedTypes]="'image/*'"
+        [maxFileSize]="maxFileSize"
+        (filesChanged)="photoDrop($event)">
+      </sky-file-drop>
+      <div class="boundary" id="bound" *ngIf="cropping">
+        <div class="viewport circle" id="circleDiv">
+          <div id="centerDiv"></div>
+        </div>
+        <img *ngIf="cropping" [src]="file.url" id="imgItem"/>
+        <div id="markerDivLeft"></div>
+        <div id="markerDivTop"></div>
+
+      </div>
+      <div class="crop-controls" *ngIf="cropping">
+        <i class="fa fas fa-search-minus"></i>
+        <input
+        type="range"
+        class="zoom-slider"
+        #ref
+        (input)="changeZoom($event.target.value)"
+        [min]="minRange"
+        max="1.5000"
+        step="0.0001"
+        value="1" />
+        <i class="fa fas fa-search-plus"></i>
+        <div class="sky-pull-right" *ngIf="cropping">
+          <button type="button" class="sky-btn sky-btn-default" [attr.aria-label]="'file_item_delete' | skyResources" (click)="removeImage()">
+              <i class="fa fa-lg fa-trash-o"></i>
+          </button>
+        </div>
+      </div>
+      <canvas hidden id="myCanvas"></canvas>
+    </sky-modal-content>
+    <sky-modal-footer>
+      <button
+        type="button"
+        class="sky-btn sky-btn-primary beGreen"
+        (click)="instance.save(getCropResult())">
+        Save
+      </button>
+    </sky-modal-footer>
+  </sky-modal>
+</div>

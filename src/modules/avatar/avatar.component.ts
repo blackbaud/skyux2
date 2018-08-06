@@ -14,6 +14,9 @@ import { SkyAvatarSrc } from './avatar-src';
 import { SkyErrorModalService } from '../error/error-modal.service';
 import { ErrorModalConfig } from '../error/error-modal-config';
 import { SkyResources } from '../resources/resources';
+import { SkyModalService, SkyModalCloseArgs } from '../modal';
+import { SkyAvatarCropModalComponent } from './avatar-crop-modal.component';
+import { SkyAvatarCropModalContext } from './avatar-crop-modal-context';
 
 @Component({
   selector: 'sky-avatar',
@@ -51,6 +54,8 @@ export class SkyAvatarComponent {
   @Output()
   public avatarChanged = new EventEmitter<SkyFileItem>();
 
+  public tempSrc = '';
+
   public maxFileSize = 500000;
 
   private _canChange: boolean;
@@ -59,7 +64,26 @@ export class SkyAvatarComponent {
 
   private _name: string;
 
-  constructor(private errorService: SkyErrorModalService) {}
+  constructor(private errorService: SkyErrorModalService, private modal: SkyModalService) {}
+
+  public openModal() {
+    let modalInstanceType = SkyAvatarCropModalComponent;
+      const context = new SkyAvatarCropModalContext();
+      // context.valueA = result.files[0];
+
+      const options: any = {
+        providers: [{ provide: SkyAvatarCropModalContext, useValue: context }],
+        ariaDescribedBy: 'docs-modal-content'
+      };
+      const modalInstance = this.modal.open(modalInstanceType, options);
+
+      modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
+        console.log(result.data);
+        this.tempSrc = result.data;
+        let newFile: SkyFileItem = result.data;
+        this.avatarChanged.emit(newFile);
+      });
+  }
 
   public photoDrop(result: SkyFileDropChange) {
     /* sanity check */
