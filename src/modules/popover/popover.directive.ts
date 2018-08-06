@@ -139,7 +139,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
                 this.closePopover();
               }
             }
-          });
+          }, 200);
         }
       });
   }
