@@ -2,6 +2,7 @@
   <sky-dropdown
     buttonType="select"
     [title]="'sort_button_label' | skyResources"
+    [attr.aria-label]="'sort_button_label' | skyResources"
     [label]="showButtonText ? undefined : ('sort_button_label' | skyResources)"
     [messageStream]="dropdownController">
     <sky-dropdown-button>
