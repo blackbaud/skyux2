@@ -115,6 +115,7 @@ export class SkyColorpickerInputDirective
 
   @HostListener('blur')
   public onBlur(event: any) {
+    /*istanbul ignore next */
     this._onTouched();
   }
 
@@ -147,6 +148,8 @@ export class SkyColorpickerInputDirective
     } else {
       this.skyColorpickerInput.isVisible = true;
     }
+
+    element.setAttribute('readonly', 'true');
   }
 
   public ngOnDestroy() {
