@@ -164,6 +164,23 @@ describe('Colorpicker Component', () => {
     colorpickerComponent = component.colorpickerComponent;
   });
 
+  it('should populate correct information if model is given', fakeAsync(() => {
+    component.selectedColor = undefined;
+    component.colorModel = '#00f';
+    fixture.detectChanges();
+    tick();
+    expect(component.colorpickerComponent.initialColor).toBe('#00f');
+    expect(component.colorpickerComponent.lastAppliedColor).toBe('#00f');
+  }));
+
+  it('should populate correct information if model is given but an initial color is also given', fakeAsync(() => {
+    component.colorModel = '#00f';
+    fixture.detectChanges();
+    tick();
+    expect(component.colorpickerComponent.initialColor).toBe('#2889e5');
+    expect(component.colorpickerComponent.lastAppliedColor).toBe('#00f');
+  }));
+
   it('should add aria-label to input if not specified', fakeAsync(() => {
     fixture.detectChanges();
     tick();

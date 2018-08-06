@@ -188,8 +188,8 @@ export class SkyColorpickerInputDirective
       if (!this.initialColor) {
         this.initialColor = value;
         this.skyColorpickerInput.initialColor = value;
-        this.skyColorpickerInput.lastAppliedColor = value;
       }
+      this.skyColorpickerInput.lastAppliedColor = value;
     }
   }
 
