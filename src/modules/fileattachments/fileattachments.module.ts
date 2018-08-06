@@ -6,6 +6,7 @@ import { SkyFileDropComponent } from './file-drop.component';
 import { SkyFileItemComponent } from './file-item.component';
 import { SkyResourcesModule } from '../resources';
 import { SkyFileSizePipe } from './file-size.pipe';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SkyFileSizePipe } from './file-size.pipe';
   imports: [
     CommonModule,
     SkyResourcesModule,
-    FormsModule
+    FormsModule,
+    SkyIconModule
   ],
   exports: [
     SkyFileDropComponent,

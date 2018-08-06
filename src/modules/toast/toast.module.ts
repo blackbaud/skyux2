@@ -34,6 +34,7 @@ import {
 import {
   SkyToastService
 } from './toast.service';
+import { SkyIconModule } from '../icon';
 // #endregion
 
 @NgModule({
@@ -44,7 +45,8 @@ import {
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyToastComponent

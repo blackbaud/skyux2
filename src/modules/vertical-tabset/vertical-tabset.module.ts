@@ -6,6 +6,7 @@ import { SkyVerticalTabsetComponent } from './vertical-tabset.component';
 import { SkyVerticalTabComponent } from './vertical-tab.component';
 import { SkyVerticalTabsetGroupComponent } from './vertical-tabset-group.component';
 import { SkyChevronModule } from './../chevron/chevron.module';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SkyChevronModule } from './../chevron/chevron.module';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    SkyChevronModule
+    SkyChevronModule,
+    SkyIconModule
   ],
   exports: [
     SkyVerticalTabsetComponent,
