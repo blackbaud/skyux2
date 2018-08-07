@@ -37,9 +37,8 @@
         </div>
         <div
           *ngIf="buttonType !== 'select' && buttonType !== 'tab' && buttonType">
-          <i
-            class="fa fa-lg"
-            [ngClass]="['fa-' + buttonType]"></i>
+          <sky-icon [icon]="buttonType" size="lg">
+          </sky-icon>
         </div>
       </ng-template>
     </div>
