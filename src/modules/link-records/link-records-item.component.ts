@@ -62,7 +62,7 @@ export class SkyLinkRecordsItemComponent implements AfterContentInit {
       (!this.record.matchFields || this.record.matchFields.length === 0)) {
       this.link();
     }
-    switch(this.record.status) {
+    switch (this.record.status) {
       case this.STATUSES.Linked:
         this.iconName = 'check';
         break;
