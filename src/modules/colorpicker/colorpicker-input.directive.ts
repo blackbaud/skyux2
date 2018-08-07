@@ -72,7 +72,7 @@ export class SkyColorpickerInputDirective
   }
 
   public get initialColor(): string {
-    return this._initialColor;
+    return this._initialColor || SKY_COLORPICKER_DEFAULT_COLOR;
   }
 
   @Input()
@@ -122,8 +122,8 @@ export class SkyColorpickerInputDirective
     const element = this.elementRef.nativeElement;
 
     this.renderer.setElementClass(element, 'sky-form-control', true);
-    this.skyColorpickerInput.initialColor = this.initialColor ? this.initialColor : SKY_COLORPICKER_DEFAULT_COLOR;
-    this.skyColorpickerInput.lastAppliedColor = this.skyColorpickerInput.initialColor;
+    this.skyColorpickerInput.initialColor = this.initialColor;
+    this.skyColorpickerInput.lastAppliedColor = this.initialColor;
     this.skyColorpickerInput.returnFormat = this.returnFormat;
 
     this.pickerChangedSubscription =
@@ -135,7 +135,7 @@ export class SkyColorpickerInputDirective
         this._onChange(newColor);
       });
 
-    this.skyColorpickerInput.setColorFromString(this.skyColorpickerInput.lastAppliedColor);
+    this.skyColorpickerInput.setColorFromString(this.initialColor);
 
     /// Set aria-label as default, if not set
     if (!this.elementRef.nativeElement.getAttribute('aria-label')) {
@@ -185,8 +185,8 @@ export class SkyColorpickerInputDirective
       this.modelValue = this.formatter(value);
       this.writeModelValue(this.modelValue);
 
-      if (!this.initialColor) {
-        this.initialColor = value;
+      if (!this._initialColor) {
+        this._initialColor = value;
         this.skyColorpickerInput.initialColor = value;
       }
       this.skyColorpickerInput.lastAppliedColor = value;
