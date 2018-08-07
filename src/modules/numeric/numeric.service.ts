@@ -46,11 +46,19 @@ export class SkyNumericService {
     value: number,
     options: NumericOptions
   ): string {
+    if (isNaN(value)) {
+      return '';
+    }
+
     const decimalPlaceRegExp = /\.0+$|(\.[0-9]*[1-9])0+$/;
     const symbol: SkyNumericSymbol = this.symbolIndex.find((si) => {
       // Checks both positive and negative of value to ensure
       // negative numbers are shortened.
-      return (value >= si.value || -value >= si.value);
+      return options.truncate &&
+        (
+          (value >= options.truncateAfter && value >= si.value) ||
+          (-value >= options.truncateAfter && -value >= si.value)
+        );
     });
 
     let output: string;
@@ -70,6 +78,7 @@ export class SkyNumericService {
 
     this.storeShortenSymbol(output);
 
+    let digits: string;
     // Checks the string entered for format. Using toLowerCase to ignore case.
     switch (options.format.toLowerCase()) {
 
@@ -81,7 +90,6 @@ export class SkyNumericService {
       const isShortened = (value > this.symbolIndex[this.symbolIndex.length - 1].value);
       const isDecimal = (value % 1 !== 0);
 
-      let digits: string;
       if (!isShortened && isDecimal && options.digits >= 2) {
         digits = `1.2-${options.digits}`;
       } else {
@@ -101,15 +109,22 @@ export class SkyNumericService {
       // it will be treated like a number.
       default:
       // Ensures localization of the number to ensure comma and
-      // decimal separators are correct.
+      // decimal separator
+      if (options.truncate) {
+        digits = `1.0-${options.digits}`;
+      } else {
+        digits = `1.${options.digits}-${options.digits}`;
+      }
       output = this.decimalPipe.transform(
         parseFloat(output),
-        `1.0-${options.digits}`
+        digits
       );
       break;
     }
 
-    output = this.replaceShortenSymbol(output);
+    if (options.truncate) {
+      output = this.replaceShortenSymbol(output);
+    }
 
     return output;
   }
