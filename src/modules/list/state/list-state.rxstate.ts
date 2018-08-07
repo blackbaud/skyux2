@@ -10,7 +10,8 @@ import { ListViewsSetActiveAction } from './views/actions';
 import {
   ListToolbarItemsLoadAction,
   ListToolbarItemsRemoveAction,
-  ListToolbarSetExistsAction
+  ListToolbarSetExistsAction,
+  ListToolbarItemsDisableAction
 } from './toolbar/actions';
 
 import { ListToolbarItemModel } from './toolbar/toolbar-item.model';
@@ -47,6 +48,10 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
 
   public toolbarExists(exists: boolean): void {
     this.next(new ListToolbarSetExistsAction(exists));
+  }
+
+  public toolbarDisabled(disabled: boolean): void {
+    this.next(new ListToolbarItemsDisableAction(disabled));
   }
 
   public toolbarAddItems(items: ListToolbarItemModel[], index: number = -1): void {

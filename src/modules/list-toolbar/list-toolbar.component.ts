@@ -95,6 +95,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   public rightTemplates: ListToolbarItemModel[];
   public type: Observable<string>;
   public isSearchEnabled: Observable<boolean>;
+  public isToolbarDisabled: Observable<boolean>;
   public isSortSelectorEnabled: Observable<boolean>;
   public appliedFilters: Observable<Array<ListFilterModel>>;
   public hasAppliedFilters: Observable<boolean>;
@@ -218,6 +219,11 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
     this.isSearchEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.searchEnabled);
 
+    this.isToolbarDisabled = this.state.map(s => s.toolbar)
+      .distinctUntilChanged().map(c => {
+        return c.disable;
+      });
+
     this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.sortSelectorEnabled);
 
@@ -226,11 +232,11 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
       .distinctUntilChanged()
       .map((filters) => {
         let activeFilters = filters.filter((f) => {
-            return f.value !== '' &&
-              f.value !== undefined &&
-              f.value !== false &&
-              f.value !== f.defaultValue;
-          });
+          return f.value !== '' &&
+            f.value !== undefined &&
+            f.value !== false &&
+            f.value !== f.defaultValue;
+        });
         return activeFilters.length > 0;
       });
 
@@ -290,7 +296,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
 
   public setSort(sort: ListSortLabelModel): void {
     this.dispatcher.sortSetFieldSelectors(
-      [{fieldSelector: sort.fieldSelector, descending: sort.descending}]
+      [{ fieldSelector: sort.fieldSelector, descending: sort.descending }]
     );
   }
 

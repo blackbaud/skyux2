@@ -30,6 +30,7 @@
           (keyup)="enterPress($event, searchText)"
           (focus)="inputFocused(true)"
           (blur)="inputFocused(false)"
+          [disabled]="isDisabled"
           [attr.aria-label]="'search_label' | skyResources"
           [attr.placeholder]="placeholderText" />
         <span
@@ -40,7 +41,8 @@
             aria-hidden="true"
             type="button"
             class="sky-btn sky-btn-default sky-search-btn sky-search-btn-clear"
-            (click)="clearSearchText()">
+            (click)="clearSearchText()"
+            [disabled]="isDisabled">
             <i class="fa fa-times"></i>
           </button>
         </span>
@@ -50,6 +52,7 @@
             type="button"
             class="sky-btn sky-btn-default sky-search-btn sky-search-btn-apply"
             (click)="applySearchText(searchText)"
+            [disabled]="isDisabled"
             [attr.aria-label]="'search_label' | skyResources" >
             <i class="fa fa-search fa-lg"></i>
           </button>
