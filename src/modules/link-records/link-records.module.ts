@@ -12,6 +12,7 @@ import {
 } from './link-records-nomatch-content.component';
 import { SkyLinkRecordsRendererComponent } from './link-records-renderer.component';
 import { SkyResourcesModule } from '../resources';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -28,7 +29,8 @@ import { SkyResourcesModule } from '../resources';
   imports: [
     CommonModule,
     SkyCheckboxModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyLinkRecordsComponent,

@@ -191,7 +191,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
       .distinctUntilChanged()
       .map(field => {
         return field.fieldSelector === columnField ?
-          (field.descending ? 'desc' : 'asc') : undefined;
+          (field.descending ? 'caret-down' : 'caret-up') : undefined;
       });
   }
 
