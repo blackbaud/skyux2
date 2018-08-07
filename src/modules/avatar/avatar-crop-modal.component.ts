@@ -36,6 +36,7 @@ export class SkyAvatarCropModalComponent {
     if (result.files && result.files.length > 0) {
       this.cropping = true;
       this.file = result.files[0];
+      console.log(this.file);
       setTimeout(() => {
         // Compute scale range
         let image = document.getElementById('imgItem');
@@ -46,6 +47,12 @@ export class SkyAvatarCropModalComponent {
           this.minRange = view.offsetHeight / image.offsetHeight;
         } else {
           this.minRange = view.offsetWidth / image.offsetWidth;
+        }
+        if (image.offsetWidth < view.offsetLeft + view.offsetWidth) {
+          image.style.left = (view.offsetLeft + view.offsetWidth) - image.offsetWidth + 'px';
+        }
+        if (image.offsetHeight < view.offsetTop + view.offsetHeight) {
+          image.style.top = (view.offsetTop + view.offsetHeight) - image.offsetHeight + 'px';
         }
         this.dragElement(image);
         // for (let i = 0; i < 51; i++) {
@@ -211,8 +218,6 @@ export class SkyAvatarCropModalComponent {
         image.style.top = viewport.offsetTop - this.totalYZoomOffset + 'px';
       } else if (bottomTouching) {
         image.style.top = viewport.offsetTop - this.totalYZoomOffset - (currentHeight - viewport.offsetHeight) + 'px';
-        // image.style.top = viewport.offsetTop - this.totalYZoomOffset - (image.offsetHeight - viewport.offsetHeight) +
-        //   this.totalYTranslate + 'px';
       }
 
       this.totalXZoomOffset += offsetXChange;
