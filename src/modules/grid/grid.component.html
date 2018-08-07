@@ -18,7 +18,7 @@
             (keydown)="onKeydown($event, column)">
             {{column.heading}}
             <sky-icon
-            class="fa sky-grid-heading-sort"
+            class="sky-grid-heading-sort"
             [icon]="(getSortDirection(column.field) | async)">
           </sky-icon>
           </th>
