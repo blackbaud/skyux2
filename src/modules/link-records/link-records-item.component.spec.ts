@@ -64,6 +64,50 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
 
   }));
 
+  it('icon is updated to check is status is linked', async(() => {
+    let linkRecordItem = new SkyLinkRecordsItemModel({
+      key: '1',
+      status: SKY_LINK_RECORDS_STATUSES.Linked,
+      item: { id: '11', name: 'Harsh' }
+    });
+
+    component.record = linkRecordItem;
+
+    fixture.detectChanges();
+    expect(component.iconName).toBe('check');
+  }));
+
+  it('icon is updated to check is status is linked', async(() => {
+    let linkRecordItem = new SkyLinkRecordsItemModel({
+      key: '1',
+      status: SKY_LINK_RECORDS_STATUSES.Suggested,
+      item: { id: '11', name: 'Conor' }
+    });
+
+    let linkRecordItem2 = new SkyLinkRecordsItemModel({
+      key: '1',
+      status: SKY_LINK_RECORDS_STATUSES.NoMatch,
+      item: { id: '111', name: 'Luffy' }
+    });
+
+    let linkRecordItem3 = new SkyLinkRecordsItemModel({
+      key: '1',
+      status: SKY_LINK_RECORDS_STATUSES.Selected,
+      item: { id: '1111', name: 'Garp' }
+    });
+
+    component.record = linkRecordItem;
+
+    fixture.detectChanges();
+    expect(component.iconName).toBe('question_circle');
+    component.record = linkRecordItem2;
+    fixture.detectChanges();
+    expect(component.iconName).toBe('question_circle');
+    component.record = linkRecordItem3;
+    fixture.detectChanges();
+    expect(component.iconName).toBe('question_circle');
+  }));
+
   it('match state is updated to linked if status is edit and matchFields is falsey', async(() => {
      let linkRecordMatch = new SkyLinkRecordsMatchModel({
       key: '1',
