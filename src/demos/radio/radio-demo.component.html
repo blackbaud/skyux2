@@ -45,3 +45,42 @@
 <p>
   Selected option: <strong>{{ selectedValue }}</strong>
 </p>
+
+<h3>
+  Icon radio buttons
+</h3>
+
+<ul class="sky-list-unstyled">
+  <li>
+    <sky-radio-icon
+      icon="thumbs-o-up"
+      name="iconradiotest"
+      value="1"
+      [(ngModel)]="iconSelectedValue"
+      #cb="ngModel">
+    </sky-radio-icon>
+  </li>
+  <li>
+    <sky-radio-icon
+      disabled="true"
+      icon="balance-scale"
+      name="iconradiotest"
+      [ngModel]="iconSelectedValue"
+      [value]="valueGuy"
+      (ngModelChange)="iconSelectedValue = $event">
+    </sky-radio-icon>
+  </li>
+  <li>
+    <sky-radio-icon
+      icon="thumbs-o-down"
+      name="iconradiotest"
+      value="3"
+      [ngModel]="iconSelectedValue"
+      (ngModelChange)="iconSelectedValue = $event">
+    </sky-radio-icon>
+  </li>
+</ul>
+
+<p>
+  Selected option: <strong>{{ iconSelectedValue }}</strong>
+</p>

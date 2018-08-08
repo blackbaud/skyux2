@@ -7,7 +7,9 @@
     <sky-checkbox
       [(ngModel)]="item.checked"
       [disabled]="item.disabled"
-    >
+      [icon]="item.icon"
+      [fixedIcon]="item.fixedIcon"
+      [checkboxType]="item.checkboxType">
       <sky-checkbox-label>
         {{ item.label }}
       </sky-checkbox-label>

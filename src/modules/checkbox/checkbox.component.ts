@@ -46,6 +46,27 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   @Input()
   public label: string = '';
 
+  @Input()
+  public get icon(): string {
+    return this._icon || 'check';
+  }
+  public set icon(value: string) {
+    this._icon = value;
+  }
+
+  @Input()
+  public get checkboxType(): string {
+    return this._checkboxType || 'info';
+  }
+  public set checkboxType(value: string) {
+    if (value) {
+      this._checkboxType = value.toLowerCase();
+    }
+  }
+
+  @Input()
+  public fixedIcon = false;
+
   /**
    * Id of label for the checkbox.
    */
@@ -68,6 +89,8 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
   private _checked: boolean = false;
+  private _checkboxType: string;
+  private _icon: string;
 
   public get inputId(): string {
     return `input-${this.id}`;

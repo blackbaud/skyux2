@@ -16,6 +16,31 @@ export class SkyCheckboxDemoComponent {
       checked: true
     },
     {
+      label: 'Fixed icon checkbox',
+      checked: false,
+      icon: 'bold',
+      fixedIcon: true
+    },
+    {
+      label: 'Not fixed icon checkbox',
+      checked: true,
+      icon: 'umbrella'
+    },
+    {
+      label: 'Fixed success icon checkbox',
+      checked: false,
+      icon: 'star',
+      fixedIcon: true,
+      checkboxType: 'success'
+    },
+    {
+      label: 'Fixed danger icon checkbox',
+      checked: true,
+      icon: 'ban',
+      fixedIcon: true,
+      checkboxType: 'danger'
+    },
+    {
       label: 'Disabled',
       disabled: true
     },

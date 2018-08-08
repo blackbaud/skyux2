@@ -60,6 +60,14 @@ fieldset {
   &:hover .sky-switch-control {
     border-color: $sky-highlight-color-info;
     border-width: 2px;
+
+    &.sky-switch-control-success {
+      border-color: $sky-highlight-color-success
+    }
+
+    &.sky-switch-control-danger {
+      border-color: $sky-highlight-color-danger;
+    }
   }
 }
 
@@ -79,6 +87,16 @@ fieldset {
     background-color: $sky-background-color-info-light;
     border-color: $sky-highlight-color-info;
     border-width: 2px;
+
+    &.sky-switch-control-success {
+      background-color: lighten($sky-background-color-success, 10%);
+      border-color: $sky-highlight-color-success
+    }
+
+    &.sky-switch-control-danger {
+      background-color: lighten($sky-background-color-danger, 10%);
+      border-color: $sky-highlight-color-danger;
+    }
   }
 
   &:disabled + .sky-switch-control {
