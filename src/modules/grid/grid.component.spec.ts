@@ -310,7 +310,6 @@ describe('Grid Component', () => {
           headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
           expect(component.activeSortSelector)
             .toEqual(undefined);
-            console.log(headerEl);
           expect(headerEl.querySelector('i')).toBeFalsy();
         });
 
