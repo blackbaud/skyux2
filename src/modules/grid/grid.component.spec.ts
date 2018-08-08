@@ -302,7 +302,7 @@ describe('Grid Component', () => {
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
         });
 
-        fit('should not respond to click when the appropriate column option is set', () => {
+        it('should not respond to click when the appropriate column option is set', () => {
           let headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
           headerEl.click();
           fixture.detectChanges();
