@@ -72,10 +72,10 @@
 </h3>
 
 <sky-tabset
-  (newTab)="addTabClick()"
-  (openTab)="openTabClick()"
   [active]="activeTabIndex2"
-  (activeChange)="tabChanged($event)">
+  (activeChange)="tabChanged($event)"
+  (newTab)="addTabClick()"
+  (openTab)="openTabClick()">
   <ng-container
     *ngFor="let tab of tabsArrayExample2; let i = index">
     <!-- Closeable tabs -->
