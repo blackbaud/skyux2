@@ -92,19 +92,28 @@ export class SkyTabsetComponent
   }
 
   public ngAfterContentInit() {
+    // initialize each tab's index. (in case tabs are instantiated out of order)
+    this.tabs.forEach(item => item.initializeTabIndex());
+    this.tabs.changes.subscribe((change: QueryList<SkyTabComponent>) => {
+      this.tabsetService.tabs.subscribe(currentTabs => {
+        change.filter(tab => currentTabs.indexOf(tab) < 0)
+              .forEach(item => item.initializeTabIndex());
+      });
+    });
+
     if (this.active || this.active === 0) {
       this.tabsetService.activateTabIndex(this.active);
     }
     this.tabsetService.activeIndex.distinctUntilChanged().subscribe((newActiveIndex) => {
 
-      // HACK: Not selecting the active tab in a timeout causes an error.
-      // https://github.com/angular/angular/issues/6005
-      setTimeout(() => {
-        if (newActiveIndex !== this.active) {
-          this.active = newActiveIndex;
-          this.activeChange.emit(newActiveIndex);
-        }
-      });
+        // HACK: Not selecting the active tab in a timeout causes an error.
+        // https://github.com/angular/angular/issues/6005
+        setTimeout(() => {
+          if (newActiveIndex !== this.active) {
+            this.active = newActiveIndex;
+            this.activeChange.emit(newActiveIndex);
+          }
+        });
     });
   }
 
