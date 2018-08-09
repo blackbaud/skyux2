@@ -6,13 +6,25 @@
   <li *ngFor="let item of checkboxItems">
     <sky-checkbox
       [(ngModel)]="item.checked"
-      [disabled]="item.disabled"
-      [icon]="item.icon"
-      [fixedIcon]="item.fixedIcon"
-      [checkboxType]="item.checkboxType">
+      [disabled]="item.disabled">
       <sky-checkbox-label>
         {{ item.label }}
       </sky-checkbox-label>
     </sky-checkbox>
+  </li>
+</ul>
+
+<h3>
+  Icon checkboxes
+</h3>
+
+<ul class="sky-list-unstyled">
+  <li *ngFor="let item of iconCheckboxItems">
+    <sky-checkbox-icon
+      [(ngModel)]="item.checked"
+      [disabled]="item.disabled"
+      [icon]="item.icon"
+      [checkboxType]="item.checkboxType">
+    </sky-checkbox-icon>
   </li>
 </ul>

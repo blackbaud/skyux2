@@ -6,10 +6,12 @@ import { SkyCheckboxLabelComponent } from './checkbox-label.component';
 import { SkyCheckboxComponent } from './checkbox.component';
 import { SkyResourcesModule } from '../resources';
 import { SkyIconModule } from '../icon';
+import { SkyCheckboxIconComponent } from './checkbox-icon.component';
 
 @NgModule({
   declarations: [
     SkyCheckboxComponent,
+    SkyCheckboxIconComponent,
     SkyCheckboxLabelComponent
   ],
   imports: [
@@ -20,6 +22,7 @@ import { SkyIconModule } from '../icon';
   ],
   exports: [
     SkyCheckboxComponent,
+    SkyCheckboxIconComponent,
     SkyCheckboxLabelComponent
   ]
 })

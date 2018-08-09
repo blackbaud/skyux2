@@ -18,7 +18,7 @@ export const SKY_RADIO_ICON_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'sky-radio-icon',
   templateUrl: './radio-icon.component.html',
-  styleUrls: ['./radio.component.scss'],
+  styleUrls: ['./radio-icon.component.scss'],
   providers: [SKY_RADIO_ICON_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyRadioIconComponent extends SkyRadioComponent {

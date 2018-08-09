@@ -65,6 +65,10 @@ fieldset {
       border-color: $sky-highlight-color-success
     }
 
+    &.sky-switch-control-warning {
+      border-color: $sky-highlight-color-warning
+    }
+
     &.sky-switch-control-danger {
       border-color: $sky-highlight-color-danger;
     }
@@ -91,6 +95,11 @@ fieldset {
     &.sky-switch-control-success {
       background-color: lighten($sky-background-color-success, 10%);
       border-color: $sky-highlight-color-success
+    }
+
+    &.sky-switch-control-warning {
+      background-color: lighten($sky-background-color-warning, 10%);
+      border-color: $sky-highlight-color-warning
     }
 
     &.sky-switch-control-danger {
