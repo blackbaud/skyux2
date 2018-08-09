@@ -62,7 +62,9 @@
 </ng-template>
 
 <ng-template #showSelectedTemplate>
-  <sky-checkbox [checked]="showOnlySelected" (change)="changeVisibleItems($event)">
+  <sky-checkbox
+    [checked]="showOnlySelected"
+    (change)="changeVisibleItems($event)">
     <sky-checkbox-label>
       <div>
         {{'checklist_show_selected' | skyResources}}
