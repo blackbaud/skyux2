@@ -5,58 +5,66 @@ import { Component } from '@angular/core';
   templateUrl: './tabs-demo.component.html'
 })
 export class SkyTabsDemoComponent {
-  public tabs: any[];
-  public tabsWithCounts: any[];
-  public activeTabIndex: any = 0;
-  public showTab: boolean = true;
+  public tabsArrayExample1: any[];
+  public tabsArrayExample2: any[];
+  public activeTabIndex1: any = 'tab-1';
+  public activeTabIndex2: any = 0;
+  private tabCounter: number;
 
   constructor() {
-    this.tabs = [
+    this.tabsArrayExample1 = [
       {
-        heading: 'Tab 1',
-        content: 'Content 1',
-        active: true
+        tabHeading: 'Tab 1',
+        tabContent: 'Content 1',
+        tabIndex: 'tab-1'
       },
       {
-        heading: 'Tab 2',
-        content: 'Content 2'
+        tabHeading: 'Tab 2',
+        tabContent: 'Content 2',
+        tabIndex: 'tab-2'
       },
       {
-        heading: 'Tab 3',
-        content: 'Content 3'
+        tabHeading: 'Tab 3',
+        tabContent: 'Content 3',
+        tabIndex: 'tab-3'
       }
     ];
-    this.tabsWithCounts = [
+    this.tabsArrayExample2 = [
       {
-        heading: 'Records',
-        content: 'Placeholder content for records',
-        headerCount: 10,
-        active: true
+        tabHeading: 'Tab 1',
+        tabContent: 'Content 1',
+        tabIsCloseable: true
       },
       {
-        heading: 'Gifts',
-        content: 'Placeholder content for gifts',
-        headerCount: 14
+        tabHeading: 'Tab 2',
+        tabContent: 'Content 2',
+        tabIsCloseable: true
       },
       {
-        heading: 'Users',
-        content: 'Placeholder content for users',
-        headerCount: 144
+        tabHeading: 'Tab 3',
+        tabContent: 'Content 3',
+        tabIsCloseable: true
+      },
+      {
+        tabHeading: 'Tab 4',
+        tabContent: 'This tab cannot be closed',
+        tabIsCloseable: false
       }
     ];
+    this.tabCounter = this.tabsArrayExample2.length;
   }
 
-  public closeClick(tabIndex: number) {
-    this.tabs.splice(tabIndex, 1);
+  public closeClick(arrayIndex: number) {
+    this.tabsArrayExample2.splice(arrayIndex, 1);
   }
 
-  public newTabClick() {
-    let nextTab = this.tabs && this.tabs.length + 1;
+  public addTabClick() {
+    this.tabCounter++;
 
-    this.tabs.push({
-      heading: 'Tab ' + nextTab,
-      content: 'Content ' + nextTab,
-      active: true
+    this.tabsArrayExample2.push({
+      tabHeading: 'Tab ' + this.tabCounter,
+      tabContent: 'Content ' + this.tabCounter,
+      tabIsCloseable: true
     });
   }
 
@@ -65,10 +73,6 @@ export class SkyTabsDemoComponent {
   }
 
   public tabChanged(newIndex: any) {
-    console.log('new active', newIndex);
-  }
-
-  public toggleTab() {
-    this.showTab = !this.showTab;
+    console.log('New active tab index: ', newIndex);
   }
 }

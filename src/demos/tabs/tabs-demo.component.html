@@ -1,19 +1,95 @@
+<h3>
+  Tabs with a default tab selected
+</h3>
+
 <sky-tabset
-  [active]="0"
-  (activeChange)="tabChanged($event)"
->
+  active="tab-2"
+  (activeChange)="tabChanged($event)">
+
   <sky-tab
-    tabHeading="Users"
-    [tabIndex]="0"
-  >
-    Tab 0
+    tabHeading="Tab one"
+    tabIndex="tab-1">
+    Content 1
   </sky-tab>
-  <sky-tab *ngIf="showTab"
-    tabHeading="Roles"
-    [tabIndex]="1"
-  >
-    Tab 1
+  <sky-tab
+    tabHeading="Tab two"
+    tabIndex="tab-2">
+    Content 2: I should be active by default!
+  </sky-tab>
+  <sky-tab
+    tabHeading="Tab three"
+    tabIndex="tab-3">
+    Content 3
   </sky-tab>
 </sky-tabset>
 
-<button class="sky-btn sky-btn-primary" (click)="toggleTab()">Toggle tab</button>
+<br />
+
+<h3>
+  Tabs with header counts
+</h3>
+
+<sky-tabset
+  (activeChange)="tabChanged($event)">
+  <sky-tab
+    tabHeading="Records"
+    tabHeaderCount="10">
+    Placeholder content for records
+  </sky-tab>
+  <sky-tab
+    tabHeading="Gifts"
+    tabHeaderCount="14">
+    Placeholder content for gifts
+  </sky-tab>
+  <sky-tab
+    tabHeading="Users"
+    tabHeaderCount="144">
+    Placeholder content for users
+  </sky-tab>
+</sky-tabset>
+
+<br />
+
+<h3>
+  Dynamic tabs bound to an array
+</h3>
+
+<sky-tabset
+  [active]="activeTabIndex1"
+  (activeChange)="tabChanged($event)">
+  <sky-tab
+    *ngFor="let tab of tabsArrayExample1"
+    [tabHeading]="tab.tabHeading"
+    [tabIndex]="tab.tabIndex">
+    {{tab.tabContent}}
+  </sky-tab>
+</sky-tabset>
+
+<br />
+
+<h3>
+  Tabs with add/close functionality
+</h3>
+
+<sky-tabset
+  [active]="activeTabIndex2"
+  (activeChange)="tabChanged($event)"
+  (newTab)="addTabClick()"
+  (openTab)="openTabClick()">
+  <ng-container
+    *ngFor="let tab of tabsArrayExample2; let i = index">
+    <!-- Closeable tabs -->
+    <sky-tab
+      *ngIf="tab.tabIsCloseable"
+      [tabHeading]="tab.tabHeading"
+      (close)="closeClick(i)">
+      {{tab.tabContent}}
+    </sky-tab>
+    <!-- Non-closeable tabs -->
+    <sky-tab
+      *ngIf="!tab.tabIsCloseable"
+      [tabHeading]="tab.tabHeading">
+      {{tab.tabContent}}
+    </sky-tab>
+  </ng-container>
+</sky-tabset>
