@@ -12,6 +12,7 @@
         (filesChanged)="photoDrop($event)">
       </sky-file-drop>
       <div class="boundary" id="bound" *ngIf="cropping">
+        <canvas hidden id="myCanvas"></canvas>
         <div class="viewport circle" id="circleDiv">
           <div id="centerDiv"></div>
         </div>
@@ -28,7 +29,7 @@
         #ref
         (input)="changeZoom($event.target.value)"
         [min]="minRange"
-        max="1.5000"
+        [max]="maxRange"
         step="0.0001"
         value="1" />
         <i class="fa fas fa-search-plus"></i>
@@ -38,13 +39,12 @@
           </button>
         </div>
       </div>
-      <canvas hidden id="myCanvas"></canvas>
     </sky-modal-content>
     <sky-modal-footer>
       <button
         type="button"
         class="sky-btn sky-btn-primary beGreen"
-        (click)="instance.save(getCropResult())">
+        (click)="getCropResult()">
         Save
       </button>
     </sky-modal-footer>

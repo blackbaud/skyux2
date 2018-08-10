@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 
 import {
   expect
@@ -21,6 +21,10 @@ import {
 } from '../modal';
 
 import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
+import {
   MockSkyModalHostService,
   MockSkyModalInstance
 } from './fixtures/mocks';
@@ -28,8 +32,12 @@ import { DebugElement } from '@angular/core';
 
 fdescribe('Avatar crop modal', () => {
   /* tslint:disable-next-line max-line-length */
-  let imgBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAQAAAAi5ZK2AAABcUlEQVR42u3RAQ0AAAgDoL9/aK3hJlSgmfBMpUtHOtKRjnSkIx3pSEc60pGOdKQjHelIl450pCMd6UhHOtKRjnSkIx3pSEc60pEuHelIRzrSkY50pCMd6UhHOtKRjnSkI1060pGOdKQjHelIRzrSkY50pCMd6UhHunSkIx3pSEc60pGOdKQjHelIRzrSkY506dKlIx3pSEc60pGOdKQjHelIRzrSkY50pEtHOtKRjnSkIx3pSEc60pGOdKQjHelIl450pCMd6UhHOtKRjnSkIx3pSEc60pEuHelIRzrSkY50pCMd6UhHOtKRjnSkI1060pGOdKQjHelIRzrSkY50pCMd6UhHunTp0pGOdKQjHelIRzrSkY50pCMd6UhHOtKlIx3pSEc60pGOdKQjHelIRzrSkY50pEtHOtKRjnSkIx3pSEc60pGOdKQjHelIl450pCMd6UhHOtKRjnSkIx3pSEc60pEuHelIRzrSkY50pHPDAuC/+gF4h03iAAAAAElFTkSuQmCC';
+  let imgBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAZAAAAD6CAQAAAAlrtnPAAAB2UlEQVR42u3TMQEAAAgDoK1/aL09bAAdaCbAo4KAICAICAKCgCAgCAgCgoAggCAgCAgCgoAgIAgIAoKAICAIIAgIAoKAICAICAKCgCAgCCAICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAIIAoKAICAICAKCgCAgCAgCggCCgCAgCAgCgoAgIAgIAoIAgoAgIAgIAoKAICAICAKCgCCAICAICAKCgCAgCAgCgoAgIIggIAgIAoKAICAICAKCgCAgCCAICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAIIAoKAICAICAKCgCAgCAgCggCCgCAgCAgCgoAgIAgIAoIAgoAgIAgIAoKAICAICAKCgCCAICAICAKCgCAgCAgCgoAggCAgCAgCgoAgIAgIAoKAICAIIAgIAoKAICAICAKCgCAgCAgiCAgCgoAgIAgIAoKAICAICAIIAoKAICAICAKCgCAgCAgCggCCgCAgCAgCgoAgIAgIAoIAgoAgIAgIAoKAICAICAKCgCCAICAICAKCgCAgCAgCgoAggCAgCAgCgoAgIAgIAoKAICAIIAgIAoKAICAICAKCgCAgCCAICAKCgCAgCAgCgoAgIAgIAlwLBK36AT/fEzwAAAAASUVORK5CYII=';
   let imgUrl = 'data:image/png;base64,' + imgBase64;
+  let testFile = <SkyFileItem> {
+    file: new File([imgUrl], 'avatar.png'),
+    url: imgUrl
+  };
 
   let avatarFixture: ComponentFixture<AvatarTestComponent>;
   let modalFixture: ComponentFixture<SkyAvatarCropModalComponent>;
@@ -41,7 +49,7 @@ fdescribe('Avatar crop modal', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SkyAvatarFixturesModule, SkyModalModule],
+      imports: [SkyAvatarFixturesModule, SkyModalModule, RouterTestingModule],
       providers: [
         {
           provide: SkyErrorModalService, useValue: MockErrorModalService
@@ -74,72 +82,167 @@ fdescribe('Avatar crop modal', () => {
     return debugEl.query(By.css('#imgItem'));
   }
 
-  function placeImage() {
+  function getViewEl(el: Element) {
+    return el.querySelector('#circleDiv') as HTMLElement;
+  }
 
-    let actualFile = <SkyFileItem> {
-      file: new File([imgUrl], 'avatar.png'),
-      url: imgUrl
-    };
+  function getViewDebugEl(debugEl: DebugElement) {
+    return debugEl.query(By.css('#circleDiv'));
+  }
+
+  function placeImage() {
 
     modalFixture.componentInstance.photoDrop(<SkyFileDropChange>{
       files: [
-        actualFile
+        testFile
       ],
       rejectedFiles: []
     });
 
     modalFixture.detectChanges();
-    console.log(modalFixture.componentInstance.file);
+    console.log('image placed');
   }
 
-  function dragImage(el: DebugElement, direction: string) {
-    const image = getImageDebugEl(el);
-    image.triggerEventHandler('mousedown', {});
+  function dragImage(el: Element, direction: number) {
+    const image = getImageEl(el);
+    const viewport = getViewEl(el);
+
+    const centerX = viewport.offsetLeft + (viewport.offsetWidth / 2);
+    const centerY = viewport.offsetTop + (viewport.offsetHeight / 2);
+
+    let mouseEvent = new MouseEvent('mousedown', {
+      'clientX': centerX,
+      'clientY': centerY
+    });
+    viewport.dispatchEvent(mouseEvent);
+    console.log(image.offsetHeight);
+    console.log(image.offsetWidth);
     /* tslint:disable-next-line:switch-default */
     switch (direction) {
-      case 'left':
+      // right
+      case 0:
+        console.log('dispatching move');
+        document.dispatchEvent(new MouseEvent('mousemove', {
+          clientX: centerX + image.offsetWidth,
+          clientY: centerY
+        }));
         break;
-      case 'right':
+      // left
+      case 1:
+        console.log('dispatching move');
+        document.dispatchEvent(new MouseEvent('mousemove', {
+          clientX: centerX - image.offsetWidth,
+          clientY: centerY
+        }));
         break;
-      case 'up':
+      // up
+      case 2:
+        console.log('dispatching move');
+        document.dispatchEvent(new MouseEvent('mousemove', {
+          clientX: centerX,
+          clientY: centerY - image.offsetHeight
+        }));
         break;
-      case 'down':
+      // down
+      case 3:
+        console.log('dispatching move');
+        document.dispatchEvent(new MouseEvent('mousemove', {
+          clientX: centerX,
+          clientY: centerY + image.offsetHeight
+        }));
         break;
     }
+    viewport.dispatchEvent(new MouseEvent('mouseup', {}));
+    modalFixture.detectChanges();
+    // modalFixture.detectChanges();
+    // modalFixture.detectChanges();
   }
 
-  function checkBoundaries(el: Element) {
-    dragImage(el, 'left');
-    dragImage(el, 'right');
-    dragImage(el, 'up');
-    dragImage(el, 'down');
+  function checkBoundaries(el: Element, scale: number) {
+    const image = getImageEl(el);
+    const viewport = getViewEl(el);
+    // console.log(image.offsetLeft);
+    // console.log(image.style.left);
+    console.log(componentInstance.totalXZoomOffset);
+    console.log(componentInstance.totalYZoomOffset);
+    console.log(componentInstance.imageScale);
+
+    dragImage(el, 0);
+    let newLeft = parseInt(getComputedStyle(image).getPropertyValue('left'), 10);
+    console.log(newLeft + componentInstance.totalXZoomOffset, viewport.offsetLeft);
+    /* tslint:disable-next-line max-line-length */
+    expect(newLeft + componentInstance.totalXZoomOffset).toBe(viewport.offsetLeft);
+
+    dragImage(el, 1);
+    newLeft = parseInt(getComputedStyle(image).getPropertyValue('left'), 10);
+    console.log(newLeft + componentInstance.totalXZoomOffset, viewport.offsetLeft - ((image.offsetWidth * scale) - viewport.offsetWidth));
+    /* tslint:disable-next-line max-line-length */
+    expect(newLeft + componentInstance.totalXZoomOffset).toBe(Math.trunc(viewport.offsetLeft - ((image.offsetWidth * scale) - viewport.offsetWidth)));
+
+    dragImage(el, 2);
+    let newTop = parseInt(getComputedStyle(image).getPropertyValue('top'), 10);
+    console.log(newTop + componentInstance.totalYZoomOffset, viewport.offsetTop - ((image.offsetHeight * scale) - viewport.offsetHeight));
+    /* tslint:disable-next-line max-line-length */
+    expect(newTop + componentInstance.totalYZoomOffset).toBe(Math.trunc(viewport.offsetTop - ((image.offsetHeight * scale) - viewport.offsetHeight)));
+
+    dragImage(el, 3);
+    newTop = parseInt(getComputedStyle(image).getPropertyValue('top'), 10);
+    console.log(newTop + componentInstance.totalYZoomOffset, viewport.offsetTop);
+    /* tslint:disable-next-line max-line-length */
+    expect(newTop + componentInstance.totalYZoomOffset).toBe(viewport.offsetTop);
   }
 
   fit('should show the image after it is selected', () => {
     placeImage();
+    modalFixture.whenStable().then(() => {
+      let expectedFile = <SkyFileItem> {
+        file: new File([imgUrl], 'avatar.png'),
+        url: imgUrl
+      };
 
-    let expectedFile = <SkyFileItem> {
-      file: new File([imgUrl], 'avatar.png'),
-      url: imgUrl
-    };
-
-    expect(componentInstance.file).toEqual(expectedFile);
-    expect(componentInstance.cropping).toBe(true);
-    expect(getImageEl(nativeElement).src).toContain(expectedFile.url);
+      expect(componentInstance.file).toEqual(expectedFile);
+      expect(componentInstance.cropping).toBe(true);
+      expect(getImageEl(nativeElement).src).toContain(expectedFile.url);
+    });
   });
 
-  it('should respect boundaries with default scale', () => {
+  fit('should calculate the proper minimun for the zoom slider', () => {
     placeImage();
+    modalFixture.whenStable().then(() => {
 
-    checkBoundaries(nativeElement);
+    });
   });
 
-  it('should scale the image properly', () => {
-
+  fit('should respect boundaries with default scale', (done) => {
+    placeImage();
+    modalFixture.whenStable().then(() => {
+      checkBoundaries(nativeElement, 1);
+      setTimeout(() => {
+        done();
+      }, 0);
+    });
   });
 
-  it('should respect boundaries while scaled', () => {
+  it('should respect boundaries when moving while scaled down', (done) => {
+    placeImage();
+    modalFixture.whenStable().then(() => {
+      componentInstance.changeZoom(.75);
+      checkBoundaries(nativeElement, .75);
+      setTimeout(() => {
+        done();
+      }, 0);
+    });
+  });
 
+  fit('should respect boundaries when moving while scaled up', (done) => {
+    placeImage();
+    modalFixture.whenStable().then(() => {
+      componentInstance.changeZoom(componentInstance.maxRange);
+      checkBoundaries(nativeElement, componentInstance.maxRange);
+      setTimeout(() => {
+        done();
+      }, 0);
+    });
   });
 
   describe('crop action', () => {

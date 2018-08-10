@@ -54,8 +54,6 @@ export class SkyAvatarComponent {
   @Output()
   public avatarChanged = new EventEmitter<SkyFileItem>();
 
-  public tempSrc = '';
-
   public maxFileSize = 500000;
 
   private _canChange: boolean;
@@ -78,10 +76,11 @@ export class SkyAvatarComponent {
       const modalInstance = this.modal.open(modalInstanceType, options);
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-        console.log(result.data);
-        this.tempSrc = result.data;
+        console.log(result);
+        console.log('this is closed right?');
+        // this.src = result.data;
         let newFile: SkyFileItem = result.data;
-        this.avatarChanged.emit(newFile);
+        this.avatarChanged.emit(result.data);
       });
   }
 
