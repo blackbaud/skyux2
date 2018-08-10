@@ -10,6 +10,7 @@ import { SkyTabsetComponent } from './tabset.component';
 import { SkyTabsetNavButtonComponent } from './tabset-nav-button.component';
 
 import { SkyResourcesModule } from '../resources';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SkyResourcesModule } from '../resources';
   imports: [
     CommonModule,
     SkyDropdownModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyTabComponent,

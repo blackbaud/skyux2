@@ -65,6 +65,16 @@ describe('Action button component', () => {
     fixture.detectChanges();
   });
 
+  it('should see if there is a url included as an input to the element', () => {
+    let actionButton = '.sky-action-button';
+    expect(el.querySelectorAll(actionButton).item(1).tagName === 'a');
+  });
+
+  it('should use a div element when url is not provided', () => {
+    let actionButton = '.sky-action-button';
+    expect(el.querySelectorAll(actionButton).item(0).tagName === 'div');
+  });
+
   it('should transclude icon, header, and detail sections', () => {
     let iconContainer
       = '.sky-action-button-icon-header-container .sky-action-button-icon-container';

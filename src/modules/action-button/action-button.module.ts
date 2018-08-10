@@ -8,6 +8,7 @@ import { SkyActionButtonIconComponent } from './action-button-icon.component';
 import { SkyActionButtonHeaderComponent } from './action-button-header.component';
 import { SkyActionButtonDetailsComponent } from './action-button-details.component';
 import { SkyActionButtonContainerComponent } from './action-button-container.component';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SkyActionButtonContainerComponent } from './action-button-container.com
   ],
   imports: [
     CommonModule,
-    SkyMediaQueryModule
+    SkyMediaQueryModule,
+    SkyIconModule
   ],
   exports: [
     SkyActionButtonComponent,

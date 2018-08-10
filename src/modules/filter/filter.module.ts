@@ -12,6 +12,7 @@ import { SkyFilterInlineItemComponent } from './filter-inline-item.component';
 import {
   SkyTokensModule
 } from '../tokens';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {
   imports: [
     CommonModule,
     SkyResourcesModule,
-    SkyTokensModule
+    SkyTokensModule,
+    SkyIconModule
   ],
   exports: [
     SkyFilterButtonComponent,

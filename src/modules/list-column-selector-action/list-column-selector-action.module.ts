@@ -5,6 +5,7 @@ import { SkyResourcesModule } from '../resources';
 import { SkyModalModule } from '../modal';
 import { SkyListSecondaryActionsModule } from '../list-secondary-actions';
 import { SkyListToolbarModule } from '../list-toolbar';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SkyListToolbarModule } from '../list-toolbar';
     SkyResourcesModule,
     SkyModalModule,
     SkyListSecondaryActionsModule,
-    SkyListToolbarModule
+    SkyListToolbarModule,
+    SkyIconModule
   ],
   exports: [
     SkyListColumnSelectorActionComponent

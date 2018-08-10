@@ -27,11 +27,10 @@
             (click)="settingsButtonClicked();"
         >
         </button>
-        <i
-            class="sky-tile-grab-handle fa fa-th"
-            *ngIf="isInDashboardColumn"
-        >
-        </i>
+        <sky-icon *ngIf="isInDashboardColumn"
+          icon="th"
+          class="sky-tile-grab-handle">
+        </sky-icon>
       </div>
     </div>
   </header>
