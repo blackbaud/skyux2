@@ -50,7 +50,7 @@ export class ListStateDispatcher extends StateDispatcher<ListStateAction> {
     this.next(new ListToolbarSetExistsAction(exists));
   }
 
-  public toolbarDisabled(disabled: boolean): void {
+  public toolbarSetDisabled(disabled: boolean): void {
     this.next(new ListToolbarItemsDisableAction(disabled));
   }
 

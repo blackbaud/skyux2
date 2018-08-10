@@ -231,7 +231,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
       this.state.map(s => s.sort.fieldSelectors).distinctUntilChanged(),
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
-      this.state.map(s => s.toolbar.disable).distinctUntilChanged(),
+      this.state.map(s => s.toolbar.disabled).distinctUntilChanged(),
       selectedIds.distinctUntilChanged().map((selectedId: any) => {
         selectedChanged = true;
         return selectedId;

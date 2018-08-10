@@ -17,7 +17,7 @@ export class ListToolbarOrchestrator
 
     this
       .register(ListToolbarSetExistsAction, this.setExists)
-      .register(ListToolbarItemsDisableAction, this.setDisable)
+      .register(ListToolbarItemsDisableAction, this.setDisabled)
       .register(ListToolbarItemsLoadAction, this.load)
       .register(ListToolbarSetTypeAction, this.setType)
       .register(ListToolbarItemsRemoveAction, this.remove);
@@ -32,12 +32,12 @@ export class ListToolbarOrchestrator
     return newModel;
   }
 
-  private setDisable(
+  private setDisabled(
     state: ListToolbarModel,
     action: ListToolbarItemsDisableAction
   ): ListToolbarModel {
     const newModel = new ListToolbarModel(state);
-    newModel.disable = action.disable;
+    newModel.disabled = action.disable;
     return newModel;
   }
 

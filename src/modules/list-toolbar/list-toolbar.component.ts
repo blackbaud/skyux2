@@ -221,7 +221,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
 
     this.isToolbarDisabled = this.state.map(s => s.toolbar)
       .distinctUntilChanged().map(c => {
-        return c.disable;
+        return c.disabled;
       });
 
     this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)

@@ -330,7 +330,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
   }
 
   private disableToolbar(isDisabled: boolean): void {
-    this.dispatcher.toolbarDisabled(isDisabled);
+    this.dispatcher.toolbarSetDisabled(isDisabled);
   }
 
   private getShowSelectedFilter(isSelected: boolean) {
