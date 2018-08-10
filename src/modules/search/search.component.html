@@ -8,7 +8,7 @@
       class="sky-btn sky-btn-default sky-search-btn-open"
       [attr.title]="'search_open' | skyResources"
       (click)="toggleSearchInput(true)">
-      <i class="fa fa-search fa-lg"></i>
+      <sky-icon icon="search" size="lg"></sky-icon>
     </button>
   </div>
   <div
@@ -41,7 +41,7 @@
             type="button"
             class="sky-btn sky-btn-default sky-search-btn sky-search-btn-clear"
             (click)="clearSearchText()">
-            <i class="fa fa-times"></i>
+            <sky-icon icon="times"></sky-icon>
           </button>
         </span>
         <span
@@ -51,7 +51,7 @@
             class="sky-btn sky-btn-default sky-search-btn sky-search-btn-apply"
             (click)="applySearchText(searchText)"
             [attr.aria-label]="'search_label' | skyResources" >
-            <i class="fa fa-search fa-lg"></i>
+            <sky-icon icon="search" size="lg"></sky-icon>
           </button>
         </span>
       </div>
@@ -63,8 +63,7 @@
         [attr.title]="'search_dismiss' | skyResources"
         class="sky-btn sky-btn-secondary sky-search-btn-dismiss"
         (click)="toggleSearchInput(false)">
-        <i class="fa fa-chevron-circle-left fa-lg">
-        </i>
+        <sky-icon icon="chevron-circle-left" size="lg"></sky-icon>
       </button>
     </div>
   </div>

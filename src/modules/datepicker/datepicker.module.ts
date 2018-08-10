@@ -16,6 +16,7 @@ import { SkyResourcesModule } from '../resources';
 import { SkyDropdownModule } from '../dropdown';
 
 import { SkyDatepickerInputDirective } from './datepicker-input.directive';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SkyDatepickerInputDirective } from './datepicker-input.directive';
     CommonModule,
     SkyResourcesModule,
     SkyDropdownModule,
-    FormsModule
+    FormsModule,
+    SkyIconModule
   ],
   exports: [
     SkyDatepickerCalendarComponent,

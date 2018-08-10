@@ -29,7 +29,7 @@ export class SkyFileItemComponent implements DoCheck {
   @Output()
   public deleteFile = new EventEmitter<SkyFileLink | SkyFileItem>();
 
-  private otherCls: string;
+  private iconName: string;
   private differ: KeyValueDiffer<any, any>;
 
   public constructor(private differs: KeyValueDiffers) {
@@ -100,7 +100,7 @@ export class SkyFileItemComponent implements DoCheck {
             break;
         }
       }
-      this.otherCls = 'fa-file-' + (cls ? cls + '-' : '') + 'o';
+      this.iconName = 'file-' + (cls ? cls + '-' : '') + 'o';
     }
   }
 

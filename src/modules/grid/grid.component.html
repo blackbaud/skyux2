@@ -17,12 +17,10 @@
             [tabIndex]="column.isSortable ? 0 : -1"
             (keydown)="onKeydown($event, column)">
             {{column.heading}}
-            <i
-              class="fa sky-grid-heading-sort"
-              [ngStyle]="{'visibility: hidden': (getSortDirection(column.field) | async)}"
-              [ngClass]="{ 'fa-caret-up': (getSortDirection(column.field) | async) === 'asc', 'fa-caret-down': (getSortDirection(column.field) | async) === 'desc' }"
-            >
-            </i>
+            <sky-icon
+            class="fa sky-grid-heading-sort"
+            [icon]="(getSortDirection(column.field) | async)">
+          </sky-icon>
           </th>
         </tr>
       </thead>

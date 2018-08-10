@@ -13,10 +13,9 @@
       [attr.aria-labelledby]="ariaLabelledBy"
       [disabled]="disabled"
       (click)="openPicker()">
-      <i
-        class="fa fa-plus-circle"
-        aria-hidden="true">
-      </i>
+      <sky-icon
+        icon="plus-circle">
+      </sky-icon>
       {{ multipleSelectOpenButtonText }}
     </button>
     <sky-tokens
@@ -59,10 +58,9 @@
           [disabled]="disabled"
           (click)="clearSelection();$event.stopPropagation();"
           (keydown.enter)="clearSelection();$event.preventDefault();$event.stopPropagation();">
-          <i
-            class="fa fa-times"
-            aria-hidden="true">
-          </i>
+          <sky-icon
+            icon="times">
+          </sky-icon>
         </button>
       </div>
       <div class="sky-input-group-btn">
@@ -72,10 +70,9 @@
           [attr.title]="'select_field_single_select_open_button_title' | skyResources"
           [disabled]="disabled"
           (click)="openPicker();$event.stopPropagation();">
-          <i
-            class="fa fa-sort"
-            aria-hidden="true">
-          </i>
+          <sky-icon
+            icon="sort">
+          </sky-icon>
         </button>
       </div>
     </div>

@@ -310,7 +310,8 @@ describe('Grid Component', () => {
           headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
           expect(component.activeSortSelector)
             .toEqual(undefined);
-          expect(headerEl.querySelector('i')).not.toHaveCssClass('fa-caret-down');
+            console.log(headerEl);
+          expect(headerEl.querySelector('i')).toBeFalsy();
         });
 
         it('responds to sort selector input change', () => {

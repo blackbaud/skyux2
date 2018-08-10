@@ -29,6 +29,7 @@ import {
 } from './';
 import { SkyResourcesModule } from '../resources';
 import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+import { SkyIconModule } from '../icon';
 
 describe('Component: SkyLinkRecordsItemComponent ', () => {
   let fixture: ComponentFixture<SkyLinkRecordsItemComponent>,
@@ -48,7 +49,8 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
       ],
       imports: [
         SkyCheckboxModule,
-        SkyResourcesModule
+        SkyResourcesModule,
+        SkyIconModule
       ],
       providers: [
         { provide: SkyLinkRecordsState, useValue: state },

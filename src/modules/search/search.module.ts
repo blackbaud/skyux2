@@ -8,6 +8,7 @@ import { SkySearchComponent } from './search.component';
 import { SkyMediaQueryModule } from '../media-queries';
 
 import { SkyResourcesModule } from '../resources';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SkyResourcesModule } from '../resources';
     CommonModule,
     SkyResourcesModule,
     SkyMediaQueryModule,
-    FormsModule
+    FormsModule,
+    SkyIconModule
   ],
   exports: [
     SkySearchComponent

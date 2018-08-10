@@ -9,6 +9,7 @@ import {
 } from './list-secondary-action.component';
 import { SkyResourcesModule } from '../resources';
 import { SkyMediaQueryModule } from '../media-queries';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SkyMediaQueryModule } from '../media-queries';
     CommonModule,
     SkyDropdownModule,
     SkyResourcesModule,
-    SkyMediaQueryModule
+    SkyMediaQueryModule,
+    SkyIconModule
   ],
   exports: [
     SkyListSecondaryActionsComponent,
