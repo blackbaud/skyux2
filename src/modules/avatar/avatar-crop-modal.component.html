@@ -14,7 +14,6 @@
       <div class="boundary" id="bound" *ngIf="cropping">
         <canvas hidden id="myCanvas"></canvas>
         <div class="viewport circle" id="circleDiv">
-          <div id="centerDiv"></div>
         </div>
         <img *ngIf="cropping" [src]="file.url" id="imgItem"/>
         <div id="markerDivLeft"></div>

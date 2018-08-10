@@ -67,7 +67,6 @@ export class SkyAvatarComponent {
   public openModal() {
     let modalInstanceType = SkyAvatarCropModalComponent;
       const context = new SkyAvatarCropModalContext();
-      // context.valueA = result.files[0];
 
       const options: any = {
         providers: [{ provide: SkyAvatarCropModalContext, useValue: context }],
@@ -76,10 +75,6 @@ export class SkyAvatarComponent {
       const modalInstance = this.modal.open(modalInstanceType, options);
 
       modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-        console.log(result);
-        console.log('this is closed right?');
-        // this.src = result.data;
-        let newFile: SkyFileItem = result.data;
         this.avatarChanged.emit(result.data);
       });
   }
