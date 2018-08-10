@@ -18,12 +18,10 @@
         ({{ tabHeaderCount }})
       </span>
     </div>
-
-    <i 
-      *ngIf="showTabRightArrow"
-      class="fa fa-chevron-right sky-vertical-tab-right-arrow"
-    >
-    </i>
+    <sky-icon *ngIf="showTabRightArrow"
+      icon="chevron-right"
+      class="sky-vertical-tab-right-arrow">
+    </sky-icon>
   </div>
 </a>
 

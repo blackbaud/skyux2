@@ -7,6 +7,7 @@ import {
 
 import { SkyTokenComponent } from './token.component';
 import { SkyTokensComponent } from './tokens.component';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SkyTokensComponent } from './tokens.component';
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyTokenComponent,
