@@ -4,9 +4,12 @@ import {
   forwardRef
 } from '@angular/core';
 import {
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
+
+import {
   SkyRadioComponent
 } from './radio.component';
-import { NG_VALUE_ACCESSOR } from '../../../node_modules/@angular/forms';
 
 /**
  * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
