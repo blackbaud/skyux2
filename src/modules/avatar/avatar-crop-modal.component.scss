@@ -72,22 +72,6 @@
   position: absolute;
 }
 
-#markerDivLeft {
-  width: 6px;
-  height: 300px;
-  background-color: red;
-  position: absolute;
-  z-index: 1049;
-}
-
-#markerDivTop {
-  width: 1000px;
-  height: 6px;
-  background-color: green;
-  position: absolute;
-  z-index: 1049;
-}
-
 #myCanvas {
   border-color: $sky-background-color-info;
   border-width: 3px;
