@@ -8,17 +8,21 @@ import {
 } from './radio.component';
 import { NG_VALUE_ACCESSOR } from '../../../node_modules/@angular/forms';
 
+/**
+ * Provider Expression that allows sky-checkbox to register as a ControlValueAccessor.
+ * This allows it to support [(ngModel)].
+ */
+// tslint:disable:no-forward-ref no-use-before-declare
 export const SKY_RADIO_ICON_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-forward-ref
   useExisting: forwardRef(() => SkyRadioIconComponent),
   multi: true
 };
+// tslint:enable
 
 @Component({
   selector: 'sky-radio-icon',
   templateUrl: './radio-icon.component.html',
-  styleUrls: ['./radio-icon.component.scss'],
   providers: [SKY_RADIO_ICON_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyRadioIconComponent extends SkyRadioComponent {

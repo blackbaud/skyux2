@@ -10,6 +10,15 @@ describe('Checkbox', () => {
         selector: '#screenshot-checkbox'
       });
     });
+  });
 
+  it('should match previous icon checkbox screenshot', () => {
+    return SkyVisualTest.setupTest('checkbox')
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'icon-checkbox',
+        selector: '#screenshot-icon-checkbox'
+      });
+    });
   });
 });

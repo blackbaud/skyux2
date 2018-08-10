@@ -10,6 +10,15 @@ describe('Radio component', () => {
         selector: '#screenshot-radio'
       });
     });
+  });
 
+  it('should match the icon radio input', () => {
+    return SkyVisualTest.setupTest('radio')
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'icon-radio',
+        selector: '#screenshot-icon-radio'
+      });
+    });
   });
 });

@@ -54,5 +54,5 @@ export class SkyCheckboxDemoComponent {
       icon: 'ban',
       checkboxType: 'danger'
     }
-  ]
+  ];
 }

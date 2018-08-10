@@ -15,10 +15,11 @@
     (blur)="onInputBlur()"
     (ngModelChange)="onRadioChanged($event)"/>
   <span
-    class="sky-switch-control sky-rounded-corners"
+    class="sky-switch-control sky-switch-control-icon sky-rounded-corners"
     [ngClass]="{
       'sky-switch-control-info': radioType === 'info',
       'sky-switch-control-success': radioType === 'success',
+      'sky-switch-control-warning': radioType === 'warning',
       'sky-switch-control-danger': radioType === 'danger'
     }">
     <sky-icon
