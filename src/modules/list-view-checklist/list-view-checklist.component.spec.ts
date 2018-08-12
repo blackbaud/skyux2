@@ -316,6 +316,128 @@ describe('List View Checklist Component', () => {
 
     }));
 
+    it('should show all items if showOnlySelected checkbox is clicked twice', fakeAsync(() => {
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = false;
+      tick();
+      fixture.detectChanges();
+
+      let visibleCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(visibleCheckboxesLength).toEqual(7);
+    }));
+
+    it('should show selected items if \'showOnlySelected\' property is set', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      let visibleCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(visibleCheckboxesLength).toEqual(fixture.componentInstance.selectedItems.size);
+    }));
+
+    it('should hide the item if \'showOnlySelected\' property is set & user uncheck the checkbox', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      let visibleCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(checkboxes.length).toBeGreaterThan(visibleCheckboxesLength);
+    }));
+
+    it('should handle items properly if \'showOnlySelected\' property is set & user click clear all & select all link', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      // check number of checkboxes visible when showOnlySection is selected.
+      let checkboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+
+      let selectAllEl = <HTMLButtonElement>nativeElement
+        .querySelector('.sky-list-view-checklist-select-all');
+
+      selectAllEl.click();
+      tick();
+      fixture.detectChanges();
+
+      let updatedLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(checkboxesLength).toEqual(updatedLength);
+
+      let clearAllEl = <HTMLButtonElement>nativeElement
+        .querySelector('.sky-list-view-checklist-clear-all');
+
+      clearAllEl.click();
+      tick();
+      fixture.detectChanges();
+
+      updatedLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(updatedLength).toEqual(0);
+    }));
+
+    it('should show all items if \'showOnlySelected\' property is set & user change the mode to single', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      component.selectMode = 'single';
+      tick();
+      fixture.detectChanges();
+
+      // visible checkboxes when 'only show selected items' is hidden.
+      let updatedCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(updatedCheckboxesLength).toEqual(0);
+
+      updatedCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-list-view-checklist-item').length;
+      expect(updatedCheckboxesLength).toBeGreaterThan(0);
+    }));
+
+    it('should hide all items if user clicks \'Show only selected\' option', fakeAsync(() => {
+      component.showOnlySelected = false;
+      tick();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        let checkboxes = document.querySelectorAll('sky-checkbox input');
+        (checkboxes.item(0) as HTMLElement).click();
+        tick();
+        fixture.detectChanges();
+
+        let updatedCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+        expect(updatedCheckboxesLength).toEqual(0);
+      });
+    }));
+
     it('should select all and clear all properly', fakeAsync(() => {
       tick();
       fixture.detectChanges();
@@ -495,7 +617,7 @@ describe('List View Checklist Component', () => {
       fixture.detectChanges();
     }));
 
-    it('should hide the select all and clear all buttons when switched to single select mode',
+    it('should hide the select all, clear all and show only selected buttons when switched to single select mode',
       fakeAsync(() => {
 
         tick();
@@ -506,8 +628,12 @@ describe('List View Checklist Component', () => {
         let clearAllEl = nativeElement
           .querySelector('.sky-list-view-checklist-clear-all');
 
+        let showOnlySelected = nativeElement
+          .querySelector('.sky-toolbar-item sky-checkbox');
+
         expect(selectAllEl).not.toBeNull();
         expect(clearAllEl).not.toBeNull();
+        expect(showOnlySelected).not.toBeNull();
 
         component.selectMode = 'single';
         tick();
@@ -520,8 +646,12 @@ describe('List View Checklist Component', () => {
         clearAllEl = nativeElement
           .querySelector('.sky-list-view-checklist-clear-all');
 
+        showOnlySelected = nativeElement
+          .querySelector('.sky-toolbar-item sky-checkbox');
+
         expect(selectAllEl).toBeNull();
         expect(clearAllEl).toBeNull();
+        expect(showOnlySelected).toBeNull();
 
         let toolbarSectionsEl = nativeElement.querySelectorAll('sky-toolbar-section');
         expect((toolbarSectionsEl.item(1) as any).attributes['hidden']).not.toBeUndefined();
@@ -580,6 +710,10 @@ describe('List View Checklist Component', () => {
       expect(component.selectedItems.get('5')).toBe(undefined);
       expect(component.selectedItems.get('6')).toBe(undefined);
       expect(component.selectedItems.get('7')).toBe(undefined);
+
+      singleSelectButtonsEl
+        = nativeElement
+          .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
 
       (singleSelectButtonsEl.item(0) as HTMLElement).click();
       tick();

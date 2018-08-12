@@ -250,12 +250,13 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
 
   public setItemSelection(item: ListItemModel, event: any) {
     this.dispatcher.next(new ListSelectedSetItemSelectedAction(item.id, event.checked));
-    this.reapplyFilter(this.showOnlySelected);
+    if (this.showOnlySelected) {
+      this.reapplyFilter(this.showOnlySelected);
+    }
   }
 
   public singleSelectRowClick(item: ListItemModel) {
     this.dispatcher.next(new ListSelectedSetItemsSelectedAction([item.id], true, true));
-    this.reapplyFilter(this.showOnlySelected);
   }
 
   public clearSelections() {
@@ -265,7 +266,9 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
         this.dispatcher
           .next(new ListSelectedSetItemsSelectedAction(items.map(item => item.id), false, false));
 
-        this.reapplyFilter(this.showOnlySelected);
+        if (this.showOnlySelected) {
+          this.reapplyFilter(this.showOnlySelected);
+        }
       });
   }
 
@@ -275,7 +278,9 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       .subscribe(items => {
         this.dispatcher
           .next(new ListSelectedSetItemsSelectedAction(items.map(item => item.id), true, false));
-        this.reapplyFilter(this.showOnlySelected);
+        if (this.showOnlySelected) {
+          this.reapplyFilter(this.showOnlySelected);
+        }
       });
   }
 
@@ -287,6 +292,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
     switch (this.selectMode) {
       case 'single':
         this.dispatcher.toolbarRemoveItems([selectAllId, clearAllId, showSelectedId]);
+        this.showOnlySelected = false;
         this.reapplyFilter(false);
         this.hasSelectToolbarItems = false;
         break;
@@ -338,9 +344,7 @@ export class SkyListViewChecklistComponent extends ListViewComponent implements 
       name: 'show-selected',
       value: isSelected.toString(),
       filterFunction: (model: ListItemModel, showOnlySelected: boolean) => {
-        if (showOnlySelected.toString() === false.toString()) {
-          return true;
-        } else {
+        if (showOnlySelected.toString() !== false.toString()) {
           return this._selectedIdMap.get(model.id);
         }
       },
