@@ -136,22 +136,28 @@ describe('List View Grid Component', () => {
       }));
 
       it('should listen for the selectedColumnIdsChanged event and update the columns accordingly',
-        fakeAsync(() => {
+        (done) => {
           setupTest();
-          flush();
-          tick(110); // wait for async heading
           fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
 
-          component.grid.gridComponent.selectedColumnIdsChange.emit(['column1', 'column2']);
-          fixture.detectChanges();
-          expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
-          expect(element.query(
-            By.css('th[sky-cmp-id="column1"]')
-          ).nativeElement.textContent.trim()).toBe('Column1');
-          expect(element.query(
-            By.css('th[sky-cmp-id="column2"]')
-          ).nativeElement.textContent.trim()).toBe('Column2');
-        })
+            component.grid.selectedColumnIdsChange.subscribe((newColumnIds: string[]) => {
+              expect(newColumnIds).toEqual(['column1', 'column2']);
+              done();
+            });
+
+            component.grid.gridComponent.selectedColumnIdsChange.emit(['column1', 'column2']);
+            fixture.detectChanges();
+            expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
+            expect(element.query(
+              By.css('th[sky-cmp-id="column1"]')
+            ).nativeElement.textContent.trim()).toBe('Column1');
+            expect(element.query(
+              By.css('th[sky-cmp-id="column2"]')
+            ).nativeElement.textContent.trim()).toBe('Column2');
+          });
+        }
       );
 
       it('should listen for the sortFieldChange event', fakeAsync(() => {
@@ -430,7 +436,7 @@ describe('List View Grid Component', () => {
       fixture.detectChanges();
     }));
 
-    it('should handle grid columns changing', () => {
+    it('should handle grid columns changing', (done) => {
       expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
       expect(element.query(
         By.css('th[sky-cmp-id="name"]')).nativeElement.textContent.trim()
@@ -438,6 +444,11 @@ describe('List View Grid Component', () => {
       expect(element.query(
         By.css('th[sky-cmp-id="email"]')
       ).nativeElement.textContent.trim()).toBe('Email Initial');
+
+      component.grid.selectedColumnIdsChange.subscribe((newColumnIds: string[]) => {
+        expect(newColumnIds).toEqual(['name', 'email']);
+        done();
+      });
 
       component.changeColumns();
       fixture.detectChanges();
@@ -448,10 +459,9 @@ describe('List View Grid Component', () => {
       expect(element.query(
         By.css('th[sky-cmp-id="email"]')
       ).nativeElement.textContent.trim()).toBe('Email');
-
     });
 
-    it('should handle grid columns changing to completely different ids', () => {
+    it('should handle grid columns changing to completely different ids', (done) => {
       expect(element.queryAll(By.css('th.sky-grid-heading')).length).toBe(2);
       expect(element.query(
         By.css('th[sky-cmp-id="name"]')).nativeElement.textContent.trim()
@@ -459,6 +469,11 @@ describe('List View Grid Component', () => {
       expect(element.query(
         By.css('th[sky-cmp-id="email"]')
       ).nativeElement.textContent.trim()).toBe('Email Initial');
+
+      component.grid.selectedColumnIdsChange.subscribe((newColumnIds: string[]) => {
+        expect(newColumnIds).toEqual(['other']);
+        done();
+      });
 
       component.changeColumnsDifferent();
       fixture.detectChanges();
