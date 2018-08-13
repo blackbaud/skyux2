@@ -25,7 +25,8 @@ import {
   SkyColorpickerMessage,
   SkyColorpickerMessageType,
   SkyColorpickerOutput,
-  SkyColorpickerRgba
+  SkyColorpickerRgba,
+  SkyColorpickerResult
 } from './types';
 
 import { SkyColorpickerService } from './colorpicker.service';
@@ -46,6 +47,9 @@ let componentIdIndex = 0;
 export class SkyColorpickerComponent implements OnInit, OnDestroy {
   @Output()
   public selectedColorChanged = new EventEmitter<SkyColorpickerOutput>();
+
+  @Output()
+  public selectedColorApplied = new EventEmitter<SkyColorpickerResult>();
 
   @Input()
   public messageStream = new Subject<SkyColorpickerMessage>();
@@ -73,6 +77,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   public selectedColor: SkyColorpickerOutput;
   public slider: SliderPosition;
   public initialColor: string;
+  public lastAppliedColor: string;
   public isVisible: boolean;
   public dropdownController = new Subject<SkyDropdownMessage>();
 
@@ -118,6 +123,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     alphaChannel: string
   ) {
     this.initialColor = color;
+    this.lastAppliedColor = color;
     this.outputFormat = outputFormat;
     this.presetColors = presetColors;
     this.alphaChannel = alphaChannel;
@@ -147,7 +153,7 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
   }
 
   public closePicker() {
-    this.setColorFromString(this.initialColor);
+    this.setColorFromString(this.lastAppliedColor);
     this.closeDropdown();
   }
 
@@ -157,7 +163,8 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
 
   public applyColor() {
     this.selectedColorChanged.emit(this.selectedColor);
-    this.initialColor = this.selectedColor.rgbaText;
+    this.selectedColorApplied.emit({ color: this.selectedColor });
+    this.lastAppliedColor = this.selectedColor.rgbaText;
     this.closeDropdown();
   }
 
@@ -280,18 +287,20 @@ export class SkyColorpickerComponent implements OnInit, OnDestroy {
     /* tslint:disable-next-line:switch-default */
     switch (message.type) {
       case SkyColorpickerMessageType.Open:
-      this.dropdownController.next({
-        type: SkyDropdownMessageType.Open
-      });
-      break;
+        this.dropdownController.next({
+          type: SkyDropdownMessageType.Open
+        });
+        break;
 
       case SkyColorpickerMessageType.Reset:
-      this.setColorFromString('#fff');
-      break;
+        this.setColorFromString(this.initialColor);
+        this.selectedColorChanged.emit(this.selectedColor);
+        this.selectedColorApplied.emit({ color: this.selectedColor });
+        break;
 
       case SkyColorpickerMessageType.ToggleResetButton:
-      this.showResetButton = !this.showResetButton;
-      break;
+        this.showResetButton = !this.showResetButton;
+        break;
     }
   }
 
