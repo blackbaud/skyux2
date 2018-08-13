@@ -27,6 +27,8 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
   private lastFilters: ListFilterModel[];
   private lastFilterResults: ListItemModel[];
 
+  private readonly applicableFilterOnDisabledToolbar = ['show-selected'];
+
   constructor(
     data?: Observable<Array<any>>,
     searchFunction?: (data: any, searchText: string) => boolean
@@ -38,7 +40,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
     if (data) {
       data.subscribe(items => {
         this.items.next(items.map(d =>
-          new ListItemModel(d.id || moment().toDate().getTime().toString() , d)
+          new ListItemModel(d.id || moment().toDate().getTime().toString(), d)
         ));
       });
     }
@@ -50,19 +52,19 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
 
   public get(request: ListDataRequestModel): Observable<ListDataResponseModel> {
     return this.filteredItems(request).map((result: Array<ListItemModel>) => {
-        if (request.pageNumber && request.pageSize) {
-          let itemStart = (request.pageNumber - 1) * request.pageSize;
-          let pagedResult = result.slice(itemStart, itemStart + request.pageSize);
-          return new ListDataResponseModel({
-            count: result.length,
-            items: pagedResult
-          });
-        } else {
-          return new ListDataResponseModel({
-            count: result.length,
-            items: result
-          });
-        }
+      if (request.pageNumber && request.pageSize) {
+        let itemStart = (request.pageNumber - 1) * request.pageSize;
+        let pagedResult = result.slice(itemStart, itemStart + request.pageSize);
+        return new ListDataResponseModel({
+          count: result.length,
+          items: pagedResult
+        });
+      } else {
+        return new ListDataResponseModel({
+          count: result.length,
+          items: result
+        });
+      }
 
     });
   }
@@ -72,25 +74,37 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
       let dataChanged = false;
       let search = request.search;
       let sort = request.sort;
-      let filters = request.filters;
+      let filters: ListFilterModel[] = request.filters;
 
       if (this.lastItems === undefined || this.lastItems !== items) {
         dataChanged = true;
         this.lastItems = items;
       }
 
-      let searchChanged = false;
-      if (this.lastSearch === undefined || this.lastSearch !== search) {
+      let searchChanged = false,
+        filtersChanged = false;
+
+      if (request.isToolbarDisabled) {
         searchChanged = true;
-        this.lastSearch = search;
-      }
+        search = new ListSearchModel();
 
-      let filtersChanged = false;
-
-      if (this.lastFilters === undefined || this.lastFilters !== filters) {
+        filters = filters.filter(f => this.applicableFilterOnDisabledToolbar.indexOf(f.name) >= 0);
+        // this.lastFilters = filters;
         filtersChanged = true;
-        this.lastFilters = filters;
+      } else {
+        if (this.lastSearch === undefined || this.lastSearch !== search) {
+          searchChanged = true;
+          // this.lastSearch = search;
+        }
+
+        if (this.lastFilters === undefined || this.lastFilters !== filters) {
+          filtersChanged = true;
+          // this.lastFilters = filters;
+        }
       }
+
+      this.lastSearch = search;
+      this.lastFilters = filters;
 
       let result = items;
 
