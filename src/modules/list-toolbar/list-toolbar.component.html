@@ -79,7 +79,10 @@
       </sky-toolbar-section>
     </sky-toolbar>
   </div>
-  <div *ngIf="hasInlineFilters && inlineFilterBarExpanded">
+  <div
+    *ngIf="hasInlineFilters && inlineFilterBarExpanded"
+    [id]="listFilterInlineId"
+    [attr.aria-labelledby]="filterButtonId">
     <ng-content select="sky-list-filter-inline">
     </ng-content>
   </div>
@@ -116,6 +119,9 @@
 <ng-template #inlineFilterButton>
   <sky-filter-button
     [active]="hasAppliedFilters | async"
+    [ariaControls]="listFilterInlineId"
+    [ariaExpanded]="inlineFilterBarExpanded"
+    [filterButtonId]="filterButtonId"
     [showButtonText]="true"
     (filterButtonClick)="inlineFilterButtonClick()"
   >
