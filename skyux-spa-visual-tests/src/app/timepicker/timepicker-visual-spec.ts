@@ -1,7 +1,11 @@
 import {
+  by,
+  element
+} from 'protractor';
+
+import {
   SkyVisualTest
 } from '../../../config/utils/visual-test-commands';
-import { element, by } from 'protractor';
 
 describe('timepicker', () => {
   it('should show the timepicker correctly for 12hr', () => {
@@ -54,3 +58,4 @@ describe('timepicker', () => {
       });
   });
 });
+

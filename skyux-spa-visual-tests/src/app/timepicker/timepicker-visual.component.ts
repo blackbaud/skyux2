@@ -7,3 +7,4 @@ import {
   templateUrl: './timepicker-visual.component.html'
 })
 export class TimepickerVisualComponent { }
+

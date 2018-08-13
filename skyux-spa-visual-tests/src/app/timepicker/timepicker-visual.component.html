@@ -3,7 +3,9 @@
   <h3>
       12-hour timepicker
   </h3>   
-  <div style="max-width: 400px" id="timepicker12hr">
+  <div
+    id="timepicker12hr"
+    style="max-width: 400px">
     <sky-timepicker #timePickerExample1>
       <input
         type="text"
@@ -14,9 +16,10 @@
     </sky-timepicker>
   
     <div
-      class="sky-error-label"
-      *ngIf="time.errors && time.errors.skyTime && (time.dirty || time.touched)">
-      <span [hidden]="!time.errors.skyTime.invalid" >
+      *ngIf="time.errors && time.errors.skyTime && (time.dirty || time.touched)"
+      class="sky-error-label">
+      <span
+        [hidden]="!time.errors.skyTime.invalid">
         Please enter a valid time.
       </span>
     </div>
@@ -32,7 +35,9 @@
     24-hour timepicker.
   </h3>
   
-  <div style="max-width: 400px" id="timepicker24hr">
+  <div
+    id="timepicker24hr"
+    style="max-width: 400px">
     <sky-timepicker #timePickerExample2>
       <input
       type="text"
@@ -42,9 +47,10 @@
       #time2="ngModel">
     </sky-timepicker>
     <div
-      class="sky-error-label"
-      *ngIf="time2.errors && time2.errors.skyTime && (time2.dirty || time2.touched)">
-      <span [hidden]="!time2.errors.skyTime.invalid">
+      *ngIf="time2.errors && time2.errors.skyTime && (time2.dirty || time2.touched)"
+      class="sky-error-label">
+      <span
+        [hidden]="!time2.errors.skyTime.invalid">
         Please enter a valid time.
       </span>
     </div>
@@ -60,7 +66,8 @@
     Custom timepicker
   </h3>
   
-  <div style="max-width: 400px">
+  <div
+    style="max-width: 400px">
     <sky-timepicker #timePickerExample3>
       <input
         type="hidden"
@@ -70,12 +77,14 @@
         #time3="ngModel">
     </sky-timepicker>
     <div
-      class="sky-error-label"
-      *ngIf="time3.errors && time3.errors.skyTime && (time3.dirty || time3.touched)">
-      <span [hidden]="!time.errors.skyTime.invalid">
+      *ngIf="time3.errors && time3.errors.skyTime && (time3.dirty || time3.touched)"
+      class="sky-error-label">
+      <span
+        [hidden]="!time.errors.skyTime.invalid">
         Please enter a valid time.
       </span>
     </div>
     Selected time is {{selectedTime3?.local}}
   </div>
 </div>
+
