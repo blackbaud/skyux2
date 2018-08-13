@@ -13,10 +13,6 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
-  SkyWindowRefService
-} from '../window';
-
-import {
   SkyPopoverAlignment,
   SkyPopoverPlacement,
   SkyPopoverTrigger
@@ -43,8 +39,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
   private idled = new Subject<boolean>();
 
   constructor(
-    private elementRef: ElementRef,
-    private windowRef: SkyWindowRefService
+    private elementRef: ElementRef
   ) { }
 
   public ngOnChanges(changes: SimpleChanges) {
