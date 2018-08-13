@@ -4,7 +4,9 @@
   [attr.title]="'filter_button_title' | skyResources"
   [ngClass]="{'sky-filter-btn-active sky-rounded-corners': active}"
   (click)="filterButtonOnClick()">
-  <sky-icon icon="filter" size="lg">
+  <sky-icon
+    icon="filter"
+    size="lg">
   </sky-icon>
   <span
     *ngIf="showButtonText"

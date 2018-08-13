@@ -1,7 +1,6 @@
 <label
   class="sky-radio-wrapper sky-switch"
-  [ngClass]="{ 'sky-switch-disabled': disabled }"
->
+  [ngClass]="{ 'sky-switch-disabled': disabled }">
   <input
     class="sky-switch-input"
     type="radio"
@@ -14,10 +13,10 @@
     [attr.aria-label]="label"
     [attr.aria-labelledby]="labelledBy"
     (blur)="onInputBlur()"
-    (ngModelChange)="onRadioChanged($event)"
-  />
+    (ngModelChange)="onRadioChanged($event)"/>
   <span class="sky-switch-control sky-rounded-circle">
-    <sky-icon *ngIf="selectedValue === value"
+    <sky-icon
+      *ngIf="selectedValue === value"
       icon="circle"
       fixedWidth="true">
     </sky-icon>

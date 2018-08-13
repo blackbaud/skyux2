@@ -1,30 +1,61 @@
-<div class="sky-file-item">
-    <div class="sky-file-item-title">
-        <div class="sky-file-item-name-container">
-            <div class="sky-file-item-name">
-                <strong *ngIf="isFile()">{{fileItem.file.name || fileItem.url}}</strong>
-                <strong *ngIf="!isFile()">{{fileItem.url}}</strong>
+<div
+  class="sky-file-item">
+    <div
+      class="sky-file-item-title">
+        <div
+          class="sky-file-item-name-container">
+            <div
+              class="sky-file-item-name">
+                <strong
+                  *ngIf="isFile()">
+                  {{fileItem.file.name || fileItem.url}}
+                </strong>
+                <strong
+                  *ngIf="!isFile()">
+                  {{fileItem.url}}
+                </strong>
             </div>
-            <div class="sky-file-item-size" *ngIf="isFile()">
+            <div
+              *ngIf="isFile()"
+              class="sky-file-item-size">
                 ({{fileItem.file.size | skyFileSize}})
             </div>
         </div>
-        <div class="sky-pull-right">
-          <button type="button" class="sky-btn sky-btn-default sky-file-item-btn-delete" [attr.aria-label]="'file_item_delete' | skyResources" (click)="itemDelete()">
-            <sky-icon icon="trash-o" size="lg"></sky-icon>
+        <div
+          class="sky-pull-right">
+          <button
+            class="sky-btn sky-btn-default sky-file-item-btn-delete"
+            type="button"
+            [attr.aria-label]="'file_item_delete' | skyResources"
+            (click)="itemDelete()">
+            <sky-icon 
+              icon="trash-o"
+              size="lg">
+            </sky-icon>
           </button>
         </div>
     </div>
-    <div class="sky-file-item-content">
-        <div class="sky-file-item-preview">
-            <div *ngIf="isImg()" class="sky-file-item-preview-img-container">
-              <img class="sky-file-item-preview-img" [src]="fileItem.url" />
+    <div
+      class="sky-file-item-content">
+        <div
+          class="sky-file-item-preview">
+            <div
+              *ngIf="isImg()"
+              class="sky-file-item-preview-img-container">
+              <img
+                class="sky-file-item-preview-img"
+                [src]="fileItem.url" />
             </div>
-            <div *ngIf="!isImg()" class="sky-file-item-preview-other">
-                <sky-icon [icon]="iconName"></sky-icon>
+            <div
+              *ngIf="!isImg()"
+              class="sky-file-item-preview-other">
+                <sky-icon
+                  [icon]="iconName">
+                </sky-icon>
             </div>
         </div>
-        <div class="sky-file-item-content-custom">
+        <div
+          class="sky-file-item-content-custom">
           <ng-content></ng-content>
         </div>
     </div>
