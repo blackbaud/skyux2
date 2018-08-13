@@ -2,18 +2,23 @@
   <div [ngSwitch]="selectMode">
     <ng-template ngSwitchCase="single">
       <div role="radiogroup">
-        <sky-list-view-checklist-item
-          *ngFor="let item of items | async"
+        <sky-list-view-checklist-item *ngFor="let item of items | async"
+          [attr.sky-cmp-id]="item.id"
           [item]="item"
-          [attr.sky-cmp-id]="item.id">
-            <button
-              role="radio"
-              [attr.aria-checked]="(itemSelected(item.id) | async) || false"
-              type="button"
-              class="sky-list-view-checklist-single-button"
-              [ngClass]="{ 'sky-list-view-checklist-row-selected' : (itemSelected(item.id) | async) }"
-              (click)="singleSelectRowClick(item)">
-            <div class="sky-emphasized" *ngIf="item.label">{{item.label}}</div>
+        >
+          <button
+            role="radio"
+            type="button"
+            class="sky-list-view-checklist-single-button"
+            [attr.aria-checked]="(itemSelected(item.id) | async) || false"
+            [ngClass]="{ 'sky-list-view-checklist-row-selected' : (itemSelected(item.id) | async) }"
+            (click)="singleSelectRowClick(item)"
+          >
+            <div *ngIf="item.label"
+              class="sky-emphasized"
+            >
+              {{item.label}}
+            </div>
             <div *ngIf="item.description">{{item.description}}</div>
           </button>
         </sky-list-view-checklist-item>
@@ -21,18 +26,22 @@
     </ng-template>
 
     <ng-template ngSwitchDefault>
-      <sky-list-view-checklist-item
-        *ngFor="let item of items | async"
-        [item]="item"
-        [attr.sky-cmp-id]="item.id">
+      <sky-list-view-checklist-item *ngFor="let item of items | async"
+        [attr.sky-cmp-id]="item.id"
+        [item]="item">
           <sky-checkbox
             [checked]="itemSelected(item.id) | async"
             (change)="setItemSelection(item, $event)">
           <sky-checkbox-label>
-            <div class="sky-emphasized" *ngIf="item.label" [attr.title]="item.label">
+            <div *ngIf="item.label"
+              class="sky-emphasized"
+              [attr.title]="item.label"
+            >
               {{item.label}}
             </div>
-            <div *ngIf="item.description" [attr.title]="item.description">
+            <div *ngIf="item.description"
+              [attr.title]="item.description"
+            >
               {{item.description}}
             </div>
           </sky-checkbox-label>
@@ -45,9 +54,9 @@
 
 <ng-template #selectAllTemplate>
   <button
-  class="sky-btn sky-btn-link sky-list-view-checklist-select-all"
-  (click)="selectAll(); false"
->
+    class="sky-btn sky-btn-link sky-list-view-checklist-select-all"
+    (click)="selectAll(); false"
+  >
     {{'checklist_select_all' | skyResources}}
   </button>
 </ng-template>
@@ -64,7 +73,8 @@
 <ng-template #showSelectedTemplate>
   <sky-checkbox
     [checked]="showOnlySelected"
-    (change)="changeVisibleItems($event)">
+    (change)="changeVisibleItems($event)"
+  >
     <sky-checkbox-label>
       <div>
         {{'checklist_show_selected' | skyResources}}
