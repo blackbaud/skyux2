@@ -31,6 +31,14 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   private activeIndex = 0;
 
   @Input()
+  public get isHorizontal(): boolean {
+    return this._isHorizontal || false;
+  }
+  public set isHorizontal(value: boolean) {
+    this._isHorizontal = value;
+  }
+
+  @Input()
   public messageStream = new Subject<SkyProgressIndicatorMessageType>();
 
   @Output()
@@ -38,6 +46,8 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
 
   @ContentChildren(SkyProgressIndicatorItemComponent)
   private progressItems: QueryList<SkyProgressIndicatorItemComponent>;
+
+  private _isHorizontal: boolean;
 
   public ngAfterContentInit() {
     this.messageStream
@@ -73,6 +83,10 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     if (lastItem) {
       lastItem.isLastItem = true;
     }
+
+    this.progressItems.forEach(element => {
+      element.isHorizontal = this.isHorizontal;
+    });
   }
 
   public ngOnDestroy() {

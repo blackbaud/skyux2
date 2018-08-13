@@ -2,23 +2,32 @@
   *ngIf="!isComplete || isActive"
   class="sky-progress-indicator-item-circle"
   [ngClass]="{
-        'sky-progress-indicator-item-active': isActive,
-        'sky-progress-indicator-item-incomplete': !isActive && !isComplete
-    }">
+    'sky-progress-indicator-horizontal': isHorizontal,
+    'sky-progress-indicator-item-active': isActive,
+    'sky-progress-indicator-item-incomplete': !isActive && !isComplete
+  }">
 </div>
 <div
-  [ngClass]="{ 'sky-text-success': isComplete && !isActive }" class="sky-progress-indicator-item-number-row"
-  [attr.data-bbauto-field]="'sky-progress-indicator-item-' + itemNumber + '-title'">
-  <div>
+  *ngIf="!isHorizontal || (isComplete && !isActive)"
+  class="sky-progress-indicator-item-number-row"
+  [ngClass]="{
+    'sky-progress-indicator-horizontal': isHorizontal,
+    'sky-text-success': isComplete && !isActive
+  }">
+  <div
+    *ngIf="!isHorizontal">
     {{ itemNumber }} - {{ title }}
     <div style="display: inline" innerHtml="{{titleHtml}}"></div>
   </div>
 </div>
-<div class="sky-progress-indicator-item-content-padding"
+<div
+  class="sky-progress-indicator-item-content-padding"
   [ngClass]="{
+    'sky-progress-indicator-horizontal': isHorizontal,
     'sky-progress-indicator-item-complete': !isActive && isComplete,
     'sky-progress-indicator-item-last': isLastItem
   }">
-  <ng-content >
+  <ng-content
+    *ngIf="!isHorizontal">
   </ng-content>
 </div>

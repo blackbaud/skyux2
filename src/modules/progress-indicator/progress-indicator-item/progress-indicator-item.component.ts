@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input
+} from '@angular/core';
 
 @Component({
   selector: 'sky-progress-indicator-item',
@@ -9,8 +12,14 @@ export class SkyProgressIndicatorItemComponent {
   public isActive = false;
   public isComplete = false;
   public isLastItem = false;
+  public isHorizontal = false;
 
-  @Input() public itemNumber: number;
-  @Input() public title: string;
-  @Input() public titleHtml: string;
+  @Input()
+  public itemNumber: number;
+
+  @Input()
+  public title: string;
+
+  @Input()
+  public titleHtml: string;
 }
