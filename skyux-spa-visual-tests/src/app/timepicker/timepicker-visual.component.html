@@ -2,19 +2,19 @@
   id="screenshot-timepicker">
   <h3>
       12-hour timepicker
-  </h3>   
+  </h3>
   <div
     id="timepicker12hr"
     style="max-width: 400px">
     <sky-timepicker #timePickerExample1>
       <input
+        timeFormat="hh"
         type="text"
+        [ngModel]="'8:30 PM'"
         [skyTimepickerInput]="timePickerExample1"
-        [timeFormat]="format12"
-        [(ngModel)]="selectedTime1"
         #time="ngModel">
     </sky-timepicker>
-  
+
     <div
       *ngIf="time.errors && time.errors.skyTime && (time.dirty || time.touched)"
       class="sky-error-label">
@@ -24,26 +24,22 @@
       </span>
     </div>
   </div>
-  
-  <div>
-    Selected time is {{selectedTime1?.local}}
-  </div>
-  
+
   <br/>
-  
+
   <h3>
     24-hour timepicker.
   </h3>
-  
+
   <div
     id="timepicker24hr"
     style="max-width: 400px">
     <sky-timepicker #timePickerExample2>
       <input
+      timeFormat="HH"
       type="text"
+      [ngModel]="'20:30'"
       [skyTimepickerInput]="timePickerExample2"
-      [timeFormat]="format24"
-      [(ngModel)]="selectedTime2"
       #time2="ngModel">
     </sky-timepicker>
     <div
@@ -54,37 +50,6 @@
         Please enter a valid time.
       </span>
     </div>
-  </div>
-  
-  <div>
-    Selected time is {{selectedTime2?.hour}}:{{selectedTime2?.minute}}
-  </div>
-  
-  <br/>
-  
-  <h3>
-    Custom timepicker
-  </h3>
-  
-  <div
-    style="max-width: 400px">
-    <sky-timepicker #timePickerExample3>
-      <input
-        type="hidden"
-        [skyTimepickerInput]="timePickerExample3"
-        [returnFormat]="returnFormat"
-        [(ngModel)]="selectedTime3"
-        #time3="ngModel">
-    </sky-timepicker>
-    <div
-      *ngIf="time3.errors && time3.errors.skyTime && (time3.dirty || time3.touched)"
-      class="sky-error-label">
-      <span
-        [hidden]="!time.errors.skyTime.invalid">
-        Please enter a valid time.
-      </span>
-    </div>
-    Selected time is {{selectedTime3?.local}}
   </div>
 </div>
 

@@ -36,7 +36,7 @@ describe('timepicker', () => {
     return SkyVisualTest
       .setupTest('timepicker')
       .then(() => {
-        element(by.css('.sky-dropdown-button')).click();
+        element(by.css('#timepicker12hr .sky-dropdown-button')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker12hr-open',
@@ -49,7 +49,7 @@ describe('timepicker', () => {
     return SkyVisualTest
       .setupTest('timepicker')
       .then(() => {
-        element(by.css('.sky-dropdown-button')).click();
+        element(by.css('#timepicker24hr .sky-dropdown-button')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker24hr-open',
@@ -58,4 +58,3 @@ describe('timepicker', () => {
       });
   });
 });
-
