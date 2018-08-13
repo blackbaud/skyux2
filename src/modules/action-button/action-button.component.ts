@@ -1,7 +1,8 @@
 import {
   Component,
   EventEmitter,
-  Output
+  Output,
+  Input
 } from '@angular/core';
 
 @Component({
@@ -10,6 +11,8 @@ import {
   templateUrl: './action-button.component.html'
 })
 export class SkyActionButtonComponent {
+  @Input()
+  public url: string;
   @Output()
   public actionClick = new EventEmitter<any>();
 
