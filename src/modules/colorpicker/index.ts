@@ -3,6 +3,7 @@ export { SkyColorpickerComponent } from './colorpicker.component';
 export { SkyColorpickerModule } from './colorpicker.module';
 export {
   SkyColorpickerOutput,
+  SkyColorpickerResult,
   SkyColorpickerMessage,
   SkyColorpickerMessageType
 } from './types';
