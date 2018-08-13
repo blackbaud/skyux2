@@ -1,19 +1,20 @@
-<a *ngIf="url"
-  [href]="url"
+<a
+  *ngIf="url"
   class="sky-action-button sky-btn-default sky-rounded-corners"
-  tabindex="0">
+  tabindex="0"
+  [href]="url">
   <ng-container
     *ngTemplateOutlet="actionButtonContent">
   </ng-container>
 </a>
 
-<div *ngIf="!url"
+<div
+  *ngIf="!url"
   class="sky-action-button sky-btn-default sky-rounded-corners"
   role="button"
-  (click)="buttonClicked()"
-  (keydown.enter)="enterPress()"
   tabindex="0"
-  >
+  (click)="buttonClicked()"
+  (keydown.enter)="enterPress()">
   <ng-container
     *ngTemplateOutlet="actionButtonContent">
   </ng-container>
@@ -21,7 +22,8 @@
 
 <ng-template
   #actionButtonContent>
-  <div class="sky-action-button-icon-header-container">
+  <div
+    class="sky-action-button-icon-header-container">
     <ng-content select="sky-action-button-icon"></ng-content>
     <ng-content select="sky-action-button-header"></ng-content>
   </div>
