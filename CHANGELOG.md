@@ -1,3 +1,20 @@
+# 2.19.0 (2018-08-13)
+
+- Added icon component. [#1846](https://github.com/blackbaud/skyux2/pull/1846) (Thanks @Remulus2006)
+- Added `truncate` and `truncateAfter` options to numeric pipe. [#1856](https://github.com/blackbaud/skyux2/pull/1856)
+- Added CSS styles and ARIA attributes for disabled tabs. [#1803](https://github.com/blackbaud/skyux2/pull/1803)
+- Added `readonly` attribute to colorpicker component's input field. [#1791](https://github.com/blackbaud/skyux2/pull/1791)
+- Added ARIA roles to modal and confirm components. [#1784](https://github.com/blackbaud/skyux2/pull/1784)
+- Added ARIA attributes for inline list filters. [#1808](https://github.com/blackbaud/skyux2/pull/1808)
+- Changed color of flyout resize handle. [#1881](https://github.com/blackbaud/skyux2/pull/1881)
+- Fixed checkbox component to appear square in IE11. [#1879](https://github.com/blackbaud/skyux2/pull/1879)
+- Fixed tabset component assigning the correct tab index after a tab was deleted. [#1878](https://github.com/blackbaud/skyux2/pull/1878)
+- Various colorpicker adjustments [#1876](https://github.com/blackbaud/skyux2/pull/1876):
+  - Added `selectedColorApplied` event that provides the selected color when the apply button is pressed.
+  - Fixed colorpicker remaining open after clicking outside of the dropdown.
+  - Fixed colorpicker reverting back to the initial color when the close button is pressed.
+  - Fixed colorpicker reverting back to the initial color when the reset button is pressed.
+
 # 2.18.0 (2018-07-20)
 
 - Added ability to include `body` content within confirm component. [#1776](https://github.com/blackbaud/skyux2/pull/1776) (Thanks @Blackbaud-JackMcElhinney)
