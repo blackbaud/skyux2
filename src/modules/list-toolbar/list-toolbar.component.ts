@@ -12,8 +12,12 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import {
+  Observable
+} from 'rxjs/Observable';
+import {
+  Subject
+} from 'rxjs/Subject';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/takeUntil';
@@ -26,7 +30,6 @@ import {
   SkyListFilterSummaryComponent,
   SkyListFilterInlineComponent
 } from '../list-filters';
-
 import {
   ListToolbarModel,
   ListToolbarItemModel,
@@ -38,6 +41,12 @@ import {
   ListFilterModel,
   ListPagingSetPageNumberAction
 } from '../list/state';
+import {
+  SkyListToolbarItemComponent
+} from './list-toolbar-item.component';
+import {
+  SkyListToolbarSortComponent
+} from './list-toolbar-sort.component';
 
 import {
   SkySearchComponent
@@ -47,15 +56,13 @@ import {
   ListToolbarConfigSetSearchEnabledAction,
   ListToolbarConfigSetSortSelectorEnabledAction
 } from './state/config/actions';
-
 import {
   ListToolbarState,
   ListToolbarStateDispatcher,
   ListToolbarStateModel
 } from './state';
 
-import { SkyListToolbarItemComponent } from './list-toolbar-item.component';
-import { SkyListToolbarSortComponent } from './list-toolbar-sort.component';
+let nextId = 0;
 
 @Component({
   selector: 'sky-list-toolbar',
@@ -103,6 +110,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   public hasInlineFilters: boolean;
   public inlineFilterBarExpanded: boolean = false;
   public hasAdditionalToolbarSection = false;
+
+  public filterButtonId: string = `sky-list-toolbar-filter-button-${++nextId}`;
+  public listFilterInlineId: string = `sky-list-toolbar-filter-inline-${++nextId}`;
 
   @ContentChildren(SkyListToolbarItemComponent)
   private toolbarItems: QueryList<SkyListToolbarItemComponent>;
