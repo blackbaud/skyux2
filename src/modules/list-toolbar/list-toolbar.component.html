@@ -79,22 +79,20 @@
       </sky-toolbar-section>
     </sky-toolbar>
   </div>
-  <div *ngIf="!(isToolbarDisabled | async)">
-    <div *ngIf="hasInlineFilters && inlineFilterBarExpanded">
-      <ng-content select="sky-list-filter-inline">
-      </ng-content>
-    </div>
+  <div *ngIf="!(isToolbarDisabled | async) && hasInlineFilters && inlineFilterBarExpanded">
+    <ng-content select="sky-list-filter-inline">
+    </ng-content>
   </div>
 </div>
 
 <ng-template #search>
   <div *ngIf="isSearchEnabled | async">
     <sky-search
-      [expandMode]="(type | async) === 'search' ? 'fit' : 'responsive'"
       [isDisabled]="isToolbarDisabled | async"
+      [expandMode]="(type | async) === 'search' ? 'fit' : 'responsive'"
       [placeholderText]="placeholder"
-      (searchApply)="updateSearchText($event)"
       [searchText]="searchTextInput | async"
+      (searchApply)="updateSearchText($event)"
       #searchComponent
     >
     </sky-search>
