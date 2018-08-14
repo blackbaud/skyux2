@@ -320,15 +320,16 @@ export class SkyListViewGridComponent
         });
       }).distinctUntilChanged((previousValue: string[], newValue: string[]) => {
         if (previousValue.length !== newValue.length) {
+          this.selectedColumnIdsChange.emit(newValue);
           return false;
         }
 
         for (let i = 0; i < previousValue.length; i++) {
           if (previousValue[i] !== newValue[i]) {
+            this.selectedColumnIdsChange.emit(newValue);
             return false;
           }
         }
-        this.selectedColumnIdsChange.emit(newValue);
         return true;
       });
   }

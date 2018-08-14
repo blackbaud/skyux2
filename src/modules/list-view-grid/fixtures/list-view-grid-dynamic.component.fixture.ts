@@ -26,7 +26,16 @@ export class ListViewGridDynamicTestComponent {
     { 'id': 2, 'field': 'email', 'heading': 'Email' }];
   }
 
-  public changeColumnsDifferent() {
-      this.gridColumns = [{ 'id': 3, 'field': 'other', 'heading': 'Other' }];
+  public changeColumnsNameAndOther() {
+      this.gridColumns = [{ 'id': 1, 'field': 'name', 'heading': 'Name' }, { 'id': 3, 'field': 'other', 'heading': 'Other' }];
+  }
+
+  public changeColumnsOther() {
+    this.gridColumns = [{ 'id': 3, 'field': 'other', 'heading': 'Other' }];
+}
+
+  public changeColumnsSame() {
+    this.gridColumns = [{ 'id': 1, 'field': 'name', 'heading': 'Name Initial' },
+    { 'id': 2, 'field': 'email', 'heading': 'Email Initial' }];
   }
 }
