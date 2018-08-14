@@ -90,7 +90,7 @@ export class SkySearchComponent implements OnDestroy, OnInit, OnChanges {
   public debounceTime: number = 0;
 
   @Input()
-  public isDisabled: boolean = false;
+  public disabled: boolean = false;
 
   public isFullWidth: boolean = false;
 

@@ -80,7 +80,7 @@
     </sky-toolbar>
   </div>
   <div
-    *ngIf="*ngIf="!(isToolbarDisabled | async) && hasInlineFilters && inlineFilterBarExpanded"
+    *ngIf="!(isToolbarDisabled | async) && hasInlineFilters && inlineFilterBarExpanded"
     [attr.aria-labelledby]="filterButtonId"
     [id]="listFilterInlineId"
   >
@@ -92,7 +92,7 @@
 <ng-template #search>
   <div *ngIf="isSearchEnabled | async">
     <sky-search
-      [isDisabled]="isToolbarDisabled | async"
+      [disabled]="isToolbarDisabled | async"
       [expandMode]="(type | async) === 'search' ? 'fit' : 'responsive'"
       [placeholderText]="placeholder"
       [searchText]="searchTextInput | async"

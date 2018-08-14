@@ -28,7 +28,7 @@
           type="text"
           [attr.aria-label]="'search_label' | skyResources"
           [attr.placeholder]="placeholderText"
-          [disabled]="isDisabled"
+          [disabled]="disabled"
           [ngModel]="searchText"
           (blur)="inputFocused(false)"
           (focus)="inputFocused(true)"
@@ -42,7 +42,7 @@
             class="sky-btn sky-btn-default sky-search-btn sky-search-btn-clear"
             tabindex="-1"
             type="button"
-            [disabled]="isDisabled"
+            [disabled]="disabled"
             (click)="clearSearchText()"
           >
             <i class="fa fa-times"></i>
@@ -54,7 +54,7 @@
             class="sky-btn sky-btn-default sky-search-btn sky-search-btn-apply"
             type="button"
             [attr.aria-label]="'search_label' | skyResources"
-            [disabled]="isDisabled"
+            [disabled]="disabled"
             (click)="applySearchText(searchText)"
           >
             <i class="fa fa-search fa-lg"></i>

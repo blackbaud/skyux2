@@ -27,8 +27,6 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
   private lastFilters: ListFilterModel[];
   private lastFilterResults: ListItemModel[];
 
-  private readonly applicableFilterOnDisabledToolbar = ['show-selected'];
-
   constructor(
     data?: Observable<Array<any>>,
     searchFunction?: (data: any, searchText: string) => boolean
@@ -70,6 +68,8 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
   }
 
   private filteredItems(request: ListDataRequestModel): Observable<Array<ListItemModel>> {
+    const showSelectedId = ['show-selected'];
+
     return this.items.map(items => {
       let dataChanged = false;
       let search = request.search;
@@ -81,25 +81,22 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         this.lastItems = items;
       }
 
-      let searchChanged = false,
-        filtersChanged = false;
+      let searchChanged = false;
+      let filtersChanged = false;
 
       if (request.isToolbarDisabled) {
         searchChanged = true;
         search = new ListSearchModel();
 
-        filters = filters.filter(f => this.applicableFilterOnDisabledToolbar.indexOf(f.name) >= 0);
-        // this.lastFilters = filters;
+        filters = filters.filter(f => showSelectedId.indexOf(f.name) >= 0);
         filtersChanged = true;
       } else {
         if (this.lastSearch === undefined || this.lastSearch !== search) {
           searchChanged = true;
-          // this.lastSearch = search;
         }
 
         if (this.lastFilters === undefined || this.lastFilters !== filters) {
           filtersChanged = true;
-          // this.lastFilters = filters;
         }
       }
 
