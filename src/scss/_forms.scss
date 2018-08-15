@@ -153,3 +153,23 @@ fieldset {
   flex: 1 1 auto;
   width: 100%;
 }
+
+.sky-switch-icon-group{
+	display: flex;
+	
+	.sky-switch-control-icon {
+	margin-left: 0;
+	margin-right: 0;
+	border-radius: 0;
+	}
+	
+	sky-radio-icon:first-of-type .sky-switch-control, sky-checkbox-icon:first-of-type .sky-switch-control {
+		border-top-left-radius: $sky-border-radius;
+		border-bottom-left-radius: $sky-border-radius;
+	}
+	
+	sky-radio-icon:last-of-type .sky-switch-control, sky-checkbox-icon:last-of-type .sky-switch-control {
+		border-top-right-radius: $sky-border-radius;
+		border-bottom-right-radius: $sky-border-radius;
+	}
+}
