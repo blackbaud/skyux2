@@ -1,0 +1,60 @@
+<sky-modal>
+  <sky-modal-header>
+    {{title}}
+  </sky-modal-header>
+  <sky-modal-content>
+    <sky-progress-indicator
+      [isHorizontal]="true"
+      #wizardDemo>
+
+      <sky-progress-indicator-item [itemNumber]='1' titleHtml='Do the first thing' >
+        <div class="stepContent">
+          <label>
+            Enter text to continue:
+            <input class="sky-form-control" type="text" [(ngModel)]="requiredValue1" />
+          </label>
+        </div>
+      </sky-progress-indicator-item>
+
+      <sky-progress-indicator-item [itemNumber]='2' titleHtml='Do the second thing'>
+        <div class="stepContent" *ngIf="progressIndicator.activeIndex >= 1">
+          <sky-checkbox [(ngModel)]="requiredValue2">
+            <sky-checkbox-label>
+              Select this checkbox to enable step 3.
+            </sky-checkbox-label>
+          </sky-checkbox>
+        </div>
+      </sky-progress-indicator-item>
+
+      <sky-progress-indicator-item [itemNumber]='3' titleHtml='Do the third thing'>
+        <div class="stepContent" *ngIf="progressIndicator.activeIndex >= 2">
+          Some other content.
+        </div>
+      </sky-progress-indicator-item>
+
+    </sky-progress-indicator>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <sky-progress-indicator-nav-button
+      buttonType="previous"
+      [progressIndicator]="wizardDemo">
+    </sky-progress-indicator-nav-button>
+    <sky-progress-indicator-nav-button
+      buttonType="next"
+      [disabled]="!requirementsMet"
+      [progressIndicator]="wizardDemo">
+    </sky-progress-indicator-nav-button>
+    <button
+      class="sky-btn sky-btn-default"
+      type="button"
+      (click)="instance.close()">
+      Save and close
+    </button>
+    <button
+      class="sky-btn sky-btn-link"
+      type="button"
+      (click)="instance.cancel()">
+      Cancel
+    </button>
+  </sky-modal-footer>
+</sky-modal>

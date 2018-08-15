@@ -23,12 +23,12 @@ import {
 
 @Component({
   selector: 'sky-progress-indicator',
-  templateUrl: './progress-indicator.component.html'
+  templateUrl: './progress-indicator.component.html',
+  styleUrls: ['./progress-indicator.component.scss']
 })
 export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestroy {
 
-  private idle = new Subject();
-  private activeIndex = 0;
+  public activeIndex = 0;
 
   @Input()
   public get isHorizontal(): boolean {
@@ -45,9 +45,10 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   public progressChanges = new EventEmitter<SkyProgressIndicatorChange>();
 
   @ContentChildren(SkyProgressIndicatorItemComponent)
-  private progressItems: QueryList<SkyProgressIndicatorItemComponent>;
+  public progressItems: QueryList<SkyProgressIndicatorItemComponent>;
 
   private _isHorizontal: boolean;
+  private idle = new Subject();
 
   public ngAfterContentInit() {
     this.messageStream

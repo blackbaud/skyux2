@@ -5,8 +5,13 @@ import {
 
 import {
   SkyProgressIndicatorComponent,
-  SkyProgressIndicatorMessageType
+  SkyProgressIndicatorMessageType,
+  SkyModalService
 } from '../../core';
+
+import {
+  SkyProgressIndicatorDemoFormComponent
+} from './progress-indicator-demo-form.component';
 
 @Component({
   selector: 'app-progress-indicator-demo',
@@ -22,6 +27,12 @@ export class SkyProgressIndicatorDemoComponent {
   @ViewChild(SkyProgressIndicatorComponent)
   private progressIndicator: SkyProgressIndicatorComponent;
 
+  constructor(private modal: SkyModalService) { }
+
+  public openWizard() {
+    this.modal.open(SkyProgressIndicatorDemoFormComponent);
+  }
+
   public isDone(index: number) {
     switch (index) {
       case 1: return this.firstDone;
@@ -29,14 +40,6 @@ export class SkyProgressIndicatorDemoComponent {
       case 3: return this.thirdDone;
       default: return false;
     }
-  }
-
-  public next() {
-    this.changeProgress(this.getCurrentIndex(), true);
-  }
-
-  public previous() {
-    this.changeProgress(this.getCurrentIndex(), false);
   }
 
   public changeProgress(index: number, value: boolean) {
@@ -66,14 +69,4 @@ export class SkyProgressIndicatorDemoComponent {
   private progress(type: SkyProgressIndicatorMessageType) {
     this.progressIndicator.messageStream.next(type);
   }
-
-  private getCurrentIndex() {
-    for (let i = 1; i++; i < 4) {
-      if (!this.isDone(i)) {
-        return i;
-      }
-    }
-    return 3;
-  }
-
 }

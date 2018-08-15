@@ -1,0 +1,57 @@
+@import "../../scss/variables";
+
+.sky-progress-indicator-display {
+  margin-bottom: $sky-margin-plus-half;
+}
+
+.sky-progress-indicator-display-item {
+  display: inline-block;
+}
+
+.sky-progress-indicator-display-item-active {
+  background: #71bf43;
+  border-color: #71bf43 !important;
+}
+
+.sky-progress-indicator-display-item-incomplete {
+  background: white;
+}
+
+.sky-progress-indicator-display-item-content-padding {
+  display: inline-block;
+  border-top: $sky-border-color-neutral-medium solid 2px;
+  margin-bottom: 9px;
+  margin-left: -4px;
+  margin-right: -4px;
+  padding-left: $sky-padding-plus-half;
+  padding-right: $sky-padding-double;
+
+  &.sky-progress-indicator-display-item-last {
+    border-top: none;
+  }
+}
+
+.sky-progress-indicator-display-item-complete:not(.sky-progress-indicator-display-item-last) {
+  display: inline-block;
+  border-top: #71bf43 solid 2px;
+}
+
+.sky-progress-indicator-display-item-circle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 50%;
+  border: $sky-border-color-neutral-medium solid 1px;
+}
+
+.sky-text-success {
+  display: inline-block;
+  padding-left: 6px;
+  font-size: 20px;
+  > div {
+    display: inline;
+    font-size: 15px;
+  }
+}

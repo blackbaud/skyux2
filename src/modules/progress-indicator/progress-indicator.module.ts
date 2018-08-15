@@ -3,18 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { SkyProgressIndicatorItemComponent } from './progress-indicator-item';
 import { SkyProgressIndicatorComponent } from './progress-indicator.component';
+import { SkyProgressIndicatorNavButtonComponent } from './progress-indicator-nav-button';
 
 @NgModule({
   declarations: [
     SkyProgressIndicatorItemComponent,
-    SkyProgressIndicatorComponent
+    SkyProgressIndicatorComponent,
+    SkyProgressIndicatorNavButtonComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
     SkyProgressIndicatorItemComponent,
-    SkyProgressIndicatorComponent
+    SkyProgressIndicatorComponent,
+    SkyProgressIndicatorNavButtonComponent
   ]
 })
 export class SkyProgressIndicatorModule { }

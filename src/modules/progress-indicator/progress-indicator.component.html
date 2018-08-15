@@ -1,3 +1,30 @@
+<div
+  *ngIf="isHorizontal"
+  class="sky-progress-indicator-display">
+  <div
+    class="sky-progress-indicator-display-item"
+    *ngFor="let item of progressItems">
+    <div
+      *ngIf="!item.isComplete || item.isActive"
+      class="sky-progress-indicator-display-item-circle"
+      [ngClass]="{
+        'sky-progress-indicator-display-item-active': item.isActive,
+        'sky-progress-indicator-display-item-incomplete': !item.isActive && !item.isComplete
+      }">
+    </div>
+    <div
+      *ngIf="item.isComplete && !item.isActive"
+      class="sky-progress-indicator-display-item-number-row sky-text-success">
+    </div>
+    <div
+      class="sky-progress-indicator-display-item-content-padding"
+      [ngClass]="{
+        'sky-progress-indicator-display-item-complete': !item.isActive && item.isComplete,
+        'sky-progress-indicator-display-item-last': item.isLastItem
+      }">
+    </div>
+  </div>
+</div>
 <div>
   <ng-content></ng-content>
 </div>
