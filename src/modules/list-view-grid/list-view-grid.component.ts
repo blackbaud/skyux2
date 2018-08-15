@@ -319,18 +319,22 @@ export class SkyListViewGridComponent
           return column.id || column.field;
         });
       }).distinctUntilChanged((previousValue: string[], newValue: string[]) => {
-        if (previousValue.length !== newValue.length) {
-          this.selectedColumnIdsChange.emit(newValue);
-          return false;
-        }
-
-        for (let i = 0; i < previousValue.length; i++) {
-          if (previousValue[i] !== newValue[i]) {
-            this.selectedColumnIdsChange.emit(newValue);
-            return false;
-          }
-        }
-        return true;
+        return this.haveColumnIdsChanged(previousValue, newValue);
       });
+  }
+
+  private haveColumnIdsChanged(previousValue: string[], newValue: string[]) {
+    if (previousValue.length !== newValue.length) {
+      this.selectedColumnIdsChange.emit(newValue);
+      return false;
+    }
+
+    for (let i = 0; i < previousValue.length; i++) {
+      if (previousValue[i] !== newValue[i]) {
+        this.selectedColumnIdsChange.emit(newValue);
+        return false;
+      }
+    }
+    return true;
   }
 }
