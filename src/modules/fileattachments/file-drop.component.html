@@ -33,7 +33,10 @@
         <div class="sky-file-drop-text">
           {{ 'file_upload_or_click_to_browse' | skyResources }}
         </div>
-        <i class="fa fa-cloud-upload sky-file-upload-icon"></i>
+        <sky-icon
+          class="sky-file-upload-icon"
+          icon="cloud-upload">
+        </sky-icon>
       </div>
 
       <!-- This will appear when file is dragged over and is valid -->
@@ -41,7 +44,10 @@
         <div class="sky-file-drop-text-header">
           {{ 'file_upload_drop_files_here' | skyResources }}
         </div>
-        <i class="fa fa-bullseye sky-file-upload-icon"></i>
+        <sky-icon
+          class="sky-file-upload-icon"
+          icon="bullseye">
+        </sky-icon>
       </div>
 
       <!-- This will appear when file is dragged over and is invalid -->
@@ -49,7 +55,10 @@
         <div class="sky-file-drop-text-header">
           {{ 'file_upload_invalid_file' | skyResources }}
         </div>
-        <i class="fa fa-times-circle sky-file-upload-icon"></i>
+        <sky-icon
+          class="sky-file-upload-icon"
+          icon="times-circle">
+        </sky-icon>
       </div>
     </div>
 

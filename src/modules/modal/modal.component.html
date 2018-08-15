@@ -31,12 +31,11 @@
       </div>
       <div class="sky-modal-header-buttons">
         <button *ngIf="helpKey" type="button" class="sky-btn" name="help-button" [attr.aria-label]="'open_help' | skyResources" (click)="helpButtonClick()">
-          <i class="fa fa-question-circle"></i>
+          <sky-icon icon="question-circle"></sky-icon>
         </button>
 
         <button type="button" class="sky-btn sky-modal-btn-close" [attr.aria-label]="'modal_close' | skyResources" (click)="closeButtonClick()">
-
-          <i class="fa fa-close"></i>
+          <sky-icon icon="close"></sky-icon>
         </button>
       </div>
 

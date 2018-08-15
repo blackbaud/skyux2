@@ -21,6 +21,7 @@ import {
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
 import { SkyFlyoutComponent } from './flyout.component';
 import { SkyFlyoutService } from './flyout.service';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SkyFlyoutService } from './flyout.service';
   imports: [
     CommonModule,
     RouterModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyFlyoutComponent

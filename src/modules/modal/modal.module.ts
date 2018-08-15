@@ -16,6 +16,7 @@ import { SkyWindowRefService } from '../window';
 
 import { SkyResourcesModule } from '../resources';
 import { SkyErrorModalFormComponent } from '../error/error-modal-form.component';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SkyErrorModalFormComponent } from '../error/error-modal-form.component'
   imports: [
     CommonModule,
     RouterModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyModalComponent,

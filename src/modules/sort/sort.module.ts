@@ -6,6 +6,7 @@ import { SkySortItemComponent } from './sort-item.component';
 import { SkyDropdownModule } from '../dropdown';
 import { SkyResourcesModule } from '../resources';
 import { SkyMediaQueryModule } from '../media-queries';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SkyMediaQueryModule } from '../media-queries';
     CommonModule,
     SkyDropdownModule,
     SkyMediaQueryModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkySortComponent,
