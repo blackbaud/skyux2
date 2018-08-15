@@ -38,7 +38,7 @@ class SingleRadioComponent {
   public radioType: string;
 }
 
-describe('Icon radio component', () => {
+describe('Radio icon component', () => {
   let fixture: ComponentFixture<any>;
   let debugElement: DebugElement;
 

@@ -38,7 +38,7 @@ class SingleCheckboxComponent {
   public checkboxType: string;
 }
 
-describe('Icon checkbox component', () => {
+describe('Checkbox icon component', () => {
   let fixture: ComponentFixture<any>;
   let debugElement: DebugElement;
 

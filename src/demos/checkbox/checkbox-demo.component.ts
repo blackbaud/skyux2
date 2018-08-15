@@ -25,32 +25,50 @@ export class SkyCheckboxDemoComponent {
       disabled: true
     }
   ];
-  public iconCheckboxItems = [
+  public iconCheckboxGroup = [
     {
-      label: 'Icon checkbox 1',
-      checked: false,
+      label: 'Bold',
+      checked: true,
       icon: 'bold'
     },
     {
-      label: 'Icon checkbox 2',
+      label: 'Italic',
+      checked: false,
+      icon: 'italic'
+    },
+    {
+      label: 'Underline',
       checked: true,
-      icon: 'umbrella'
+      icon: 'underline'
+    },
+    {
+      label: 'Strikethrough',
+      checked: false,
+      disabled: true,
+      icon: 'strikethrough'
+    }
+  ];
+  public iconCheckboxItems = [
+    {
+      label: 'Info icon checkbox 1',
+      checked: true,
+      icon: 'info'
     },
     {
       label: 'Success icon checkbox',
-      checked: false,
+      checked: true,
       icon: 'star',
       checkboxType: 'success'
     },
     {
       label: 'Warning icon checkbox',
-      checked: false,
+      checked: true,
       icon: 'exclamation-triangle',
       checkboxType: 'warning'
     },
     {
       label: 'Danger icon checkbox',
-      checked: false,
+      checked: true,
       icon: 'ban',
       checkboxType: 'danger'
     }

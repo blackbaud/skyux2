@@ -21,6 +21,7 @@ export const SKY_CHECKBOX_ICON_CONTROL_VALUE_ACCESSOR: any = {
   useExisting: forwardRef(() => SkyCheckboxIconComponent),
   multi: true
 };
+// tslint:enable
 
 @Component({
   selector: 'sky-checkbox-icon',
@@ -36,7 +37,9 @@ export class SkyCheckboxIconComponent extends SkyCheckboxComponent {
     return this._checkboxType || 'info';
   }
   public set checkboxType(value: string) {
-    this._checkboxType = value;
+    if (value) {
+      this._checkboxType = value.toLowerCase();
+    }
   }
 
   private _checkboxType: string;

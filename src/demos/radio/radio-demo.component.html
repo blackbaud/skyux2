@@ -47,36 +47,88 @@
 </p>
 
 <h3>
-  Icon radio buttons
+  Icon radio button group
 </h3>
 
-<ul class="sky-list-unstyled">
+<ul class="sky-list-unstyled sky-switch-icon-group">
   <li>
     <sky-radio-icon
-      icon="thumbs-o-up"
-      name="iconradiotest"
-      value="1"
-      [(ngModel)]="iconSelectedValue"
-      #cb="ngModel">
+      icon="table"
+      name="iconradiogrouptest"
+      value="table"
+      [(ngModel)]="iconGroupSelectedValue">
+    </sky-radio-icon>
+  </li>
+  <li>
+    <sky-radio-icon
+      icon="list"
+      name="iconradiogrouptest"
+      value="list"
+      [(ngModel)]="iconGroupSelectedValue">
+    </sky-radio-icon>
+  </li>
+  <li>
+    <sky-radio-icon
+      icon="th-large"
+      name="iconradiogrouptest"
+      value="cards"
+      [(ngModel)]="iconGroupSelectedValue">
     </sky-radio-icon>
   </li>
   <li>
     <sky-radio-icon
       disabled="true"
-      icon="balance-scale"
+      icon="map-marker"
+      name="iconradiogrouptest"
+      value="map"
+      [(ngModel)]="iconGroupSelectedValue">
+    </sky-radio-icon>
+  </li>
+</ul>
+
+<p>
+  Selected option: <strong>{{ iconGroupSelectedValue }}</strong>
+</p>
+
+<h3>
+  Icon radio button types
+</h3>
+
+<ul class="sky-list-unstyled">
+  <li>
+    <sky-radio-icon
+      icon="info"
       name="iconradiotest"
-      [ngModel]="iconSelectedValue"
-      [value]="valueGuy"
-      (ngModelChange)="iconSelectedValue = $event">
+      radioType="info"
+      value="info"
+      [(ngModel)]="iconSelectedValue">
     </sky-radio-icon>
   </li>
   <li>
     <sky-radio-icon
-      icon="thumbs-o-down"
+      icon="star"
       name="iconradiotest"
-      value="3"
-      [ngModel]="iconSelectedValue"
-      (ngModelChange)="iconSelectedValue = $event">
+      radioType="success"
+      value="success"
+      [(ngModel)]="iconSelectedValue">
+    </sky-radio-icon>
+  </li>
+  <li>
+    <sky-radio-icon
+      icon="exclamation-triangle"
+      name="iconradiotest"
+      radioType="warning"
+      value="warning"
+      [(ngModel)]="iconSelectedValue">
+    </sky-radio-icon>
+  </li>
+  <li>
+    <sky-radio-icon
+      icon="ban"
+      name="iconradiotest"
+      radioType="danger"
+      value="danger"
+      [(ngModel)]="iconSelectedValue">
     </sky-radio-icon>
   </li>
 </ul>
