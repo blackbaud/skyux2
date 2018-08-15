@@ -95,7 +95,7 @@ export class SkyTabsetComponent
     // initialize each tab's index. (in case tabs are instantiated out of order)
     this.tabs.forEach(item => item.initializeTabIndex());
     this.tabs.changes.subscribe((change: QueryList<SkyTabComponent>) => {
-      this.tabsetService.tabs.subscribe(currentTabs => {
+      this.tabsetService.tabs.take(1).subscribe(currentTabs => {
         change.filter(tab => currentTabs.indexOf(tab) < 0)
               .forEach(item => item.initializeTabIndex());
       });
