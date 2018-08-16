@@ -54,6 +54,22 @@ describe('Filter button', () => {
     expect(nativeElement.querySelector('.sky-btn')).toHaveCssClass('sky-filter-btn-active');
   });
 
+  it('should allow setting id', () => {
+    component.buttonId = 'i-am-an-id-look-at-me';
+    fixture.detectChanges();
+    expect(nativeElement.querySelector('.sky-btn').id).toBe('i-am-an-id-look-at-me');
+  });
+
+  it('should allow setting aria labels', () => {
+    component.ariaControls = 'filter-zone-2';
+    component.ariaExpanded = true;
+    fixture.detectChanges();
+
+    let button = nativeElement.querySelector('.sky-btn');
+    expect(button.getAttribute('aria-controls')).toBe('filter-zone-2');
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+  });
+
   it('should emit event on click', () => {
     let buttonEl = getButtonEl();
     buttonEl.click();
