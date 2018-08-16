@@ -1,10 +1,9 @@
 <div class="sky-sort">
   <sky-dropdown
     buttonType="select"
-    [title]="'sort_button_label' | skyResources"
-    [attr.aria-label]="'sort_button_label' | skyResources"
-    [label]="showButtonText ? undefined : ('sort_button_label' | skyResources)"
-    [messageStream]="dropdownController">
+    [label]="'sort_button_label' | skyResources"
+    [messageStream]="dropdownController"
+    [title]="'sort_button_label' | skyResources">
     <sky-dropdown-button>
       <i class="fa fa-sort" aria-hidden="true"></i>
       <span
