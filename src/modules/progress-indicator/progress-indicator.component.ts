@@ -28,7 +28,15 @@ import {
 })
 export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestroy {
 
-  public activeIndex = 0;
+  @Input()
+  public get activeIndex(): number {
+    return this._activeIndex;
+  }
+  public set activeIndex(value: number) {
+    if (value !== this._activeIndex) {
+      this._startingIndex = value;
+    }
+  }
 
   @Input()
   public get isHorizontal(): boolean {
@@ -47,6 +55,8 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   @ContentChildren(SkyProgressIndicatorItemComponent)
   public progressItems: QueryList<SkyProgressIndicatorItemComponent>;
 
+  private _activeIndex = 0;
+  private _startingIndex: number;
   private _isHorizontal: boolean;
   private idle = new Subject();
 
@@ -72,12 +82,12 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
         }
       });
 
-    const firstItem = this.getItemByIndex(this.activeIndex);
+    const firstItem = this.getItemByIndex(this._activeIndex);
     if (firstItem) {
       firstItem.isActive = true;
     }
     this.progressChanges.emit({
-      activeIndex: this.activeIndex
+      activeIndex: this._activeIndex
     });
 
     const lastItem = this.getItemByIndex(this.progressItems.length - 1);
@@ -88,6 +98,10 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     this.progressItems.forEach(element => {
       element.isHorizontal = this.isHorizontal;
     });
+
+    if (this._startingIndex) {
+      this.setItem(this._startingIndex);
+    }
   }
 
   public ngOnDestroy() {
@@ -96,13 +110,13 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   }
 
   public completeItem() {
-    if (this.activeIndex === this.progressItems.length) {
+    if (this._activeIndex === this.progressItems.length) {
       return;
     }
-    const completedItem = this.getItemByIndex(this.activeIndex);
+    const completedItem = this.getItemByIndex(this._activeIndex);
 
-    this.activeIndex += 1;
-    const activeItem = this.getItemByIndex(this.activeIndex);
+    this._activeIndex += 1;
+    const activeItem = this.getItemByIndex(this._activeIndex);
 
     if (completedItem) {
       completedItem.isActive = false;
@@ -112,19 +126,18 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
       activeItem.isActive = true;
     }
     this.progressChanges.emit({
-      activeIndex: this.activeIndex
+      activeIndex: this._activeIndex
     });
-
   }
 
   public incompleteItem() {
-    if (this.activeIndex === 0) {
+    if (this._activeIndex === 0) {
       return;
     }
-    const inactiveItem = this.getItemByIndex(this.activeIndex);
+    const inactiveItem = this.getItemByIndex(this._activeIndex);
 
-    this.activeIndex -= 1;
-    const activeItem = this.getItemByIndex(this.activeIndex);
+    this._activeIndex -= 1;
+    const activeItem = this.getItemByIndex(this._activeIndex);
 
     if (inactiveItem) {
       inactiveItem.isActive = false;
@@ -133,24 +146,36 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
       activeItem.isActive = true;
     }
     this.progressChanges.emit({
-      activeIndex: this.activeIndex
+      activeIndex: this._activeIndex
     });
-
   }
 
   public resetProgress() {
-    this.activeIndex = 0;
+    this._activeIndex = 0;
     this.progressItems.forEach((item: SkyProgressIndicatorItemComponent) => {
       item.isActive = false;
       item.isComplete = false;
     });
-    const firstItem = this.getItemByIndex(this.activeIndex);
+    const firstItem = this.getItemByIndex(this._activeIndex);
     if (firstItem) {
       firstItem.isActive = true;
     }
     this.progressChanges.emit({
-      activeIndex: this.activeIndex
+      activeIndex: this._activeIndex
     });
+  }
+
+  private setItem(index: number) {
+    if (index >= this.progressItems.length || index < 0) {
+      throw 'Progress indicator index is out of range.';
+    }
+
+    while (this._activeIndex < index) {
+      this.completeItem();
+    }
+    while (this._activeIndex > index) {
+      this.incompleteItem();
+    }
   }
 
   private getItemByIndex(index: number) {

@@ -2,8 +2,8 @@
   *ngIf="isHorizontal"
   class="sky-progress-indicator-display">
   <div
-    class="sky-progress-indicator-display-item"
-    *ngFor="let item of progressItems">
+    *ngFor="let item of progressItems"
+    class="sky-progress-indicator-display-item">
     <div
       *ngIf="!item.isComplete || item.isActive"
       class="sky-progress-indicator-display-item-circle"

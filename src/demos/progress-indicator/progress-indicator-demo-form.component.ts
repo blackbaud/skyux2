@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
-  Component,
-  ViewChild
+  Component
 } from '@angular/core';
 
-import { SkyModalInstance, SkyProgressIndicatorComponent } from '../../core';
+import {
+  SkyModalInstance,
+  SkyProgressIndicatorChange
+} from '../../core';
 
 @Component({
   selector: 'sky-demo-progress-indicator-form',
@@ -12,15 +14,13 @@ import { SkyModalInstance, SkyProgressIndicatorComponent } from '../../core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyProgressIndicatorDemoFormComponent {
-  @ViewChild(SkyProgressIndicatorComponent)
-  private progressIndicator: SkyProgressIndicatorComponent;
-
+  public activeIndex = 0;
   public title = 'Progress indicator wizard example';
   public requiredValue1: string;
   public requiredValue2: boolean;
 
   public get requirementsMet(): boolean {
-    switch (this.progressIndicator.activeIndex) {
+    switch (this.activeIndex) {
       case 0:
         return !!this.requiredValue1;
       case 1:
@@ -35,4 +35,8 @@ export class SkyProgressIndicatorDemoFormComponent {
   constructor(
     public instance: SkyModalInstance
   ) { }
+
+  public updateIndex(changes: SkyProgressIndicatorChange) {
+    this.activeIndex = changes.activeIndex;
+  }
 }

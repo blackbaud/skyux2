@@ -1,12 +1,15 @@
 import {
-  Component,
-  ViewChild
+  Component
 } from '@angular/core';
 
 import {
-  SkyProgressIndicatorComponent,
+  Subject
+} from 'rxjs';
+
+import {
   SkyProgressIndicatorMessageType,
-  SkyModalService
+  SkyModalService,
+  SkyProgressIndicatorChange
 } from '../../core';
 
 import {
@@ -20,12 +23,12 @@ import {
 })
 export class SkyProgressIndicatorDemoComponent {
 
-  private firstDone = false;
+  public activeIndex = 1;
+  public progress = new Subject<SkyProgressIndicatorMessageType>();
+
+  private firstDone = true;
   private secondDone = false;
   private thirdDone = false;
-
-  @ViewChild(SkyProgressIndicatorComponent)
-  private progressIndicator: SkyProgressIndicatorComponent;
 
   constructor(private modal: SkyModalService) { }
 
@@ -56,17 +59,17 @@ export class SkyProgressIndicatorDemoComponent {
       default:
         break;
     }
-    this.progress(value ? SkyProgressIndicatorMessageType.ItemComplete : SkyProgressIndicatorMessageType.ItemIncomplete);
+    this.progress.next(value ? SkyProgressIndicatorMessageType.ItemComplete : SkyProgressIndicatorMessageType.ItemIncomplete);
   }
 
   public resetClicked() {
     this.firstDone = false;
     this.secondDone = false;
     this.thirdDone = false;
-    this.progress(SkyProgressIndicatorMessageType.ProgressReset);
+    this.progress.next(SkyProgressIndicatorMessageType.ProgressReset);
   }
 
-  private progress(type: SkyProgressIndicatorMessageType) {
-    this.progressIndicator.messageStream.next(type);
+  public updateIndex(changes: SkyProgressIndicatorChange) {
+    this.activeIndex = changes.activeIndex;
   }
 }
