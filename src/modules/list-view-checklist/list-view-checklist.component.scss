@@ -1,3 +1,5 @@
+@import '../../scss/mixins';
+
 .sky-list-view-checklist {
   /deep/ .sky-checkbox-wrapper {
     display: flex;
@@ -8,4 +10,8 @@
       max-width: 22px;
     }
   }
+}
+
+#sky-list-view-checklist-show-selected {
+  margin-left: $sky-margin;
 }

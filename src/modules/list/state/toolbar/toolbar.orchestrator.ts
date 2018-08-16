@@ -5,7 +5,8 @@ import {
   ListToolbarItemsLoadAction,
   ListToolbarItemsRemoveAction,
   ListToolbarSetExistsAction,
-  ListToolbarSetTypeAction
+  ListToolbarSetTypeAction,
+  ListToolbarItemsDisableAction
 } from './actions';
 
 export class ListToolbarOrchestrator
@@ -16,6 +17,7 @@ export class ListToolbarOrchestrator
 
     this
       .register(ListToolbarSetExistsAction, this.setExists)
+      .register(ListToolbarItemsDisableAction, this.setDisabled)
       .register(ListToolbarItemsLoadAction, this.load)
       .register(ListToolbarSetTypeAction, this.setType)
       .register(ListToolbarItemsRemoveAction, this.remove);
@@ -27,6 +29,15 @@ export class ListToolbarOrchestrator
   ): ListToolbarModel {
     const newModel = new ListToolbarModel(state);
     newModel.exists = action.exists;
+    return newModel;
+  }
+
+  private setDisabled(
+    state: ListToolbarModel,
+    action: ListToolbarItemsDisableAction
+  ): ListToolbarModel {
+    const newModel = new ListToolbarModel(state);
+    newModel.disabled = action.disable;
     return newModel;
   }
 
