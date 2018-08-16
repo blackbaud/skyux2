@@ -16,7 +16,9 @@
       ariaRole="menu"
       [ariaLabelledBy]="sortByHeadingId"
       (click)="dropdownClicked()">
-      <div class="sky-sort-menu-heading sky-subsection-heading" [id]="sortByHeadingId">
+      <div
+        class="sky-sort-menu-heading sky-subsection-heading"
+        [id]="sortByHeadingId">
         {{ 'sort_menu_heading' | skyResources }}
       </div>
       <div class="sky-sort-heading-divider">
