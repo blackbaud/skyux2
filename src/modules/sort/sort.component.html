@@ -1,7 +1,8 @@
 <div class="sky-sort">
   <sky-dropdown
     buttonType="select"
-    [attr.title]="'sort_button_label' | skyResources"
+    [title]="'sort_button_label' | skyResources"
+    [attr.aria-label]="'sort_button_label' | skyResources"
     [label]="showButtonText ? undefined : ('sort_button_label' | skyResources)"
     [messageStream]="dropdownController">
     <sky-dropdown-button>
@@ -14,8 +15,9 @@
     </sky-dropdown-button>
     <sky-dropdown-menu
       ariaRole="menu"
+      [ariaLabelledBy]="sortByHeadingId"
       (click)="dropdownClicked()">
-      <div class="sky-sort-menu-heading sky-subsection-heading">
+      <div class="sky-sort-menu-heading sky-subsection-heading" [id]="sortByHeadingId">
         {{ 'sort_menu_heading' | skyResources }}
       </div>
       <div class="sky-sort-heading-divider">
