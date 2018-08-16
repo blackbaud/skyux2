@@ -37,6 +37,9 @@ export class SkyFilterButtonComponent {
   @Input()
   public showButtonText = false;
 
+  @Input()
+  public disabled: boolean = false;
+
   @Output()
   public filterButtonClick: EventEmitter<any> = new EventEmitter();
 
