@@ -18,27 +18,25 @@
   Icon checkbox group
 </h3>
 
-<ul
-  class="sky-list-unstyled sky-switch-icon-group">
-  <li *ngFor="let item of iconCheckboxGroup">
-    <sky-checkbox-icon
-      [(ngModel)]="item.checked"
-      [disabled]="item.disabled"
-      [icon]="item.icon">
-    </sky-checkbox-icon>
-  </li>
-</ul>
+<div
+  class="sky-switch-icon-group">
+  <sky-checkbox-icon
+    *ngFor="let item of iconCheckboxGroup"
+    [disabled]="item.disabled"
+    [icon]="item.icon"
+    [(ngModel)]="item.checked">
+  </sky-checkbox-icon>
+</div>
 
 <h3>
   Icon checkbox types
 </h3>
 
-<ul class="sky-list-unstyled">
-  <li *ngFor="let item of iconCheckboxItems">
-    <sky-checkbox-icon
-      [(ngModel)]="item.checked"
-      [icon]="item.icon"
-      [checkboxType]="item.checkboxType">
-    </sky-checkbox-icon>
-  </li>
-</ul>
+<div>
+  <sky-checkbox-icon
+    *ngFor="let item of iconCheckboxItems"
+    [icon]="item.icon"
+    [checkboxType]="item.checkboxType"
+    [(ngModel)]="item.checked">
+  </sky-checkbox-icon>
+</div>
