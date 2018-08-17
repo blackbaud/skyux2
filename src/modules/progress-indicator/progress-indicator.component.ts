@@ -56,16 +56,10 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
         switch (messageType) {
           case SkyProgressIndicatorMessageType.ItemComplete:
             this.completeItem();
-            this.progressChanges.emit({
-              activeIndex: this.activeIndex
-            });
             break;
 
           case SkyProgressIndicatorMessageType.ItemIncomplete:
             this.incompleteItem();
-            this.progressChanges.emit({
-              activeIndex: this.activeIndex
-            });
             break;
 
           case SkyProgressIndicatorMessageType.ProgressReset:
@@ -116,6 +110,10 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     if (activeItem) {
       activeItem.isActive = true;
     }
+
+    this.progressChanges.emit({
+      activeIndex: this.activeIndex
+    });
   }
 
   private incompleteItem() {
@@ -133,6 +131,10 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     if (activeItem) {
       activeItem.isActive = true;
     }
+
+    this.progressChanges.emit({
+      activeIndex: this.activeIndex
+    });
   }
 
   private resetProgress() {
@@ -144,22 +146,6 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     const firstItem = this.getItemByIndex(this.activeIndex);
     if (firstItem) {
       firstItem.isActive = true;
-    }
-    this.progressChanges.emit({
-      activeIndex: this.activeIndex
-    });
-  }
-
-  private setItem(index: number) {
-    if (index >= this.progressItems.length || index < 0) {
-      throw 'Progress indicator index is out of range.';
-    }
-
-    while (this.activeIndex < index) {
-      this.completeItem();
-    }
-    while (this.activeIndex > index) {
-      this.incompleteItem();
     }
     this.progressChanges.emit({
       activeIndex: this.activeIndex

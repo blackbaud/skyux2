@@ -28,8 +28,6 @@ export class SkyProgressIndicatorDemoFormComponent {
       default:
         return false;
     }
-
-    return undefined;
   }
 
   constructor(
