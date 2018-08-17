@@ -198,6 +198,7 @@ export class SkyPopoverComponent implements OnInit, OnDestroy {
     }
   }
 
+  // TODO: This method is no longer used. Remove it when we decide to make breaking changes.
   public markForCloseOnMouseLeave() {
     this.isMarkedForCloseOnMouseLeave = true;
   }
