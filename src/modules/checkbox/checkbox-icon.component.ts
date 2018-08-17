@@ -25,7 +25,7 @@ export const SKY_CHECKBOX_ICON_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'sky-checkbox-icon',
-  templateUrl: './checkbox-icon.component.html',
+  templateUrl: './checkbox.component.html',
   providers: [SKY_CHECKBOX_ICON_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyCheckboxIconComponent extends SkyCheckboxComponent {
