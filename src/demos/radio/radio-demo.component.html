@@ -47,42 +47,6 @@
 </p>
 
 <h3>
-  Icon radio button group
-</h3>
-
-<div class="sky-switch-icon-group">
-  <sky-radio-icon
-    icon="table"
-    name="iconradiogrouptest"
-    value="table"
-    [(ngModel)]="iconGroupSelectedValue">
-  </sky-radio-icon>
-  <sky-radio-icon
-    icon="list"
-    name="iconradiogrouptest"
-    value="list"
-    [(ngModel)]="iconGroupSelectedValue">
-  </sky-radio-icon>
-  <sky-radio-icon
-    icon="th-large"
-    name="iconradiogrouptest"
-    value="cards"
-    [(ngModel)]="iconGroupSelectedValue">
-  </sky-radio-icon>
-  <sky-radio-icon
-    disabled="true"
-    icon="map-marker"
-    name="iconradiogrouptest"
-    value="map"
-    [(ngModel)]="iconGroupSelectedValue">
-  </sky-radio-icon>
-</div>
-
-<p>
-  Selected option: <strong>{{ iconGroupSelectedValue }}</strong>
-</p>
-
-<h3>
   Icon radio button types
 </h3>
 
@@ -92,6 +56,14 @@
       name="iconradiotest"
       radioType="info"
       value="info"
+      [(ngModel)]="iconSelectedValue">
+    </sky-radio-icon>
+    <sky-radio-icon
+      icon="strikethrough"
+      name="iconradiotest"
+      radioType="info"
+      value="strikethrough"
+      [disabled]="true"
       [(ngModel)]="iconSelectedValue">
     </sky-radio-icon>
     <sky-radio-icon
@@ -119,4 +91,39 @@
 
 <p>
   Selected option: <strong>{{ iconSelectedValue }}</strong>
+</p>
+
+<h3>
+  Icon radio button group
+</h3>
+
+<div class="sky-switch-icon-group">
+  <sky-radio-icon
+    icon="table"
+    name="iconradiogrouptest"
+    value="table"
+    [(ngModel)]="iconGroupSelectedValue">
+  </sky-radio-icon>
+  <sky-radio-icon
+    icon="list"
+    name="iconradiogrouptest"
+    value="list"
+    [(ngModel)]="iconGroupSelectedValue">
+  </sky-radio-icon>
+  <sky-radio-icon
+    icon="th-large"
+    name="iconradiogrouptest"
+    value="cards"
+    [(ngModel)]="iconGroupSelectedValue">
+  </sky-radio-icon>
+  <sky-radio-icon
+    icon="map-marker"
+    name="iconradiogrouptest"
+    value="map"
+    [(ngModel)]="iconGroupSelectedValue">
+  </sky-radio-icon>
+</div>
+
+<p>
+  Selected option: <strong>{{ iconGroupSelectedValue }}</strong>
 </p>

@@ -40,12 +40,6 @@ export class SkyCheckboxDemoComponent {
       label: 'Underline',
       checked: true,
       icon: 'underline'
-    },
-    {
-      label: 'Strikethrough',
-      checked: false,
-      disabled: true,
-      icon: 'strikethrough'
     }
   ];
   public iconCheckboxItems = [
@@ -53,6 +47,12 @@ export class SkyCheckboxDemoComponent {
       label: 'Info icon checkbox 1',
       checked: true,
       icon: 'info'
+    },
+    {
+      label: 'Disabled info icon checkbox 1',
+      checked: true,
+      disabled: true,
+      icon: 'strikethrough'
     },
     {
       label: 'Success icon checkbox',
