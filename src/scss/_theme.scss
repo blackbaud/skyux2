@@ -92,14 +92,28 @@ select {
   border-radius: $sky-border-radius;
   font-size: $sky-font-size-base;
   height: 34px;
-  padding: $sky-padding-half $sky-padding + 11 $sky-padding-half $sky-padding; // adjust for background image
+  padding: $sky-padding-half $sky-padding + 11 $sky-padding-half $sky-padding;
 }
-select::-ms-expand {
-  display: none;
-}
+// Firefox-specific padding
 @-moz-document url-prefix() {
   select {
     padding: $sky-padding-half $sky-padding + 7 $sky-padding-half $sky-padding - 3;
+  }
+}
+// Disable MS-specific arrows
+select::-ms-expand {
+  display: none;
+}
+// IE11-specific padding
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  select {
+    padding: $sky-padding-half $sky-padding + 9 $sky-padding-half $sky-padding - 2;
+  }
+}
+// Edge-specific padding
+@supports (-ms-ime-align: auto) {
+  select {
+    padding: $sky-padding-half $sky-padding + 8 $sky-padding-half $sky-padding - 3;
   }
 }
 
