@@ -14,8 +14,7 @@ import {
   NgModel
 } from '@angular/forms';
 import {
-  By,
-  BrowserModule
+  By
 } from '@angular/platform-browser';
 
 import {
