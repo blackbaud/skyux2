@@ -3,10 +3,16 @@ import {
   Input
 } from '@angular/core';
 
-import { SkyResourcesService } from '../../resources/resources.service';
+import {
+  SkyResourcesService
+} from '../../resources/resources.service';
 
-import { SkyProgressIndicatorComponent } from '../progress-indicator.component';
-import { SkyProgressIndicatorMessageType } from '../types';
+import {
+  SkyProgressIndicatorComponent
+} from '../progress-indicator.component';
+import {
+  SkyProgressIndicatorMessageType
+} from '../types';
 
 const buttonTypeNext = 'next';
 const buttonTypePrevious = 'previous';
@@ -18,9 +24,6 @@ const buttonTypePrevious = 'previous';
 export class SkyProgressIndicatorNavButtonComponent {
   @Input()
   public progressIndicator: SkyProgressIndicatorComponent;
-
-  @Input()
-  public buttonType: string;
 
   @Input()
   public get buttonText(): string {
@@ -39,6 +42,16 @@ export class SkyProgressIndicatorNavButtonComponent {
   }
   public set buttonText(value: string) {
     this._buttonText = value;
+  }
+
+  @Input()
+  public get buttonType(): string {
+    return this._buttonType || 'next';
+  }
+  public set buttonType(value: string) {
+    if (value && (value.toLowerCase() === 'next' || value.toLowerCase() === 'previous')) {
+      this._buttonType = value;
+    }
   }
 
   @Input()
@@ -63,8 +76,9 @@ export class SkyProgressIndicatorNavButtonComponent {
     this._disabled = value;
   }
 
-  private _disabled: boolean;
   private _buttonText: string;
+  private _buttonType: string;
+  private _disabled: boolean;
 
   constructor(private resources: SkyResourcesService) { }
 

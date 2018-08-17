@@ -23,7 +23,7 @@ import {
 })
 export class SkyProgressIndicatorDemoComponent {
 
-  public activeIndex = 1;
+  public activeIndex = 0;
   public progress = new Subject<SkyProgressIndicatorMessageType>();
 
   private firstDone = true;

@@ -1,25 +1,40 @@
 import {
   Component,
-  ViewChild
+  ViewChild,
+  QueryList,
+  ViewChildren
 } from '@angular/core';
 
 import {
   SkyProgressIndicatorComponent,
   SkyProgressIndicatorMessageType
 } from '..';
+import { SkyProgressIndicatorNavButtonComponent } from '../progress-indicator-nav-button';
 
 @Component({
   selector: 'test-progress-indicator',
   templateUrl: './progress-indicator.component.fixture.html'
 })
 export class ProgressIndicatorTestComponent {
+  public isHorizontal: boolean;
 
   public firstDone = false;
   public secondDone = false;
   public thirdDone = false;
 
+  public previousButtonText: string;
+  public previousButtonType = 'previous';
+  public previousButtonDisabled: boolean;
+
+  public nextButtonText: string;
+  public nextButtonType = 'next';
+  public nextButtonDisabled: boolean;
+
   @ViewChild(SkyProgressIndicatorComponent)
   public progressIndicator: SkyProgressIndicatorComponent;
+
+  @ViewChildren(SkyProgressIndicatorNavButtonComponent)
+  public navButtons: QueryList<SkyProgressIndicatorNavButtonComponent>;
 
   public isDone(index: number) {
     switch (index) {

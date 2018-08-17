@@ -2,7 +2,9 @@
   <button type="button" class="sky-btn sky-btn-primary" (click)="resetClicked()">Reset</button>
 </p>
 
-<sky-progress-indicator #progressIndicator>
+<sky-progress-indicator
+  [isHorizontal]="isHorizontal"
+  #progressIndicator>
 
   <sky-progress-indicator-item [itemNumber]='1' titleHtml='Do the first thing'>
     <div class="stepContent">
@@ -26,3 +28,16 @@
   </sky-progress-indicator-item>
 
 </sky-progress-indicator>
+
+  <sky-progress-indicator-nav-button
+    [buttonText]="previousButtonText"
+    [buttonType]="previousButtonType"
+    [disabled]="previousButtonDisabled"
+    [progressIndicator]="progressIndicator">
+  </sky-progress-indicator-nav-button>
+  <sky-progress-indicator-nav-button
+    [buttonText]="nextButtonText"
+    [buttonType]="nextButtonType"
+    [disabled]="nextButtonDisabled"
+    [progressIndicator]="progressIndicator">
+  </sky-progress-indicator-nav-button>
