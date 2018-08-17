@@ -8,6 +8,7 @@ export class ListDataRequestModel {
   public pageNumber: number;
   public search: ListSearchModel;
   public sort: ListSortModel;
+  public isToolbarDisabled: boolean = false;
 
   constructor(data?: any) {
     if (data !== undefined) {
@@ -16,6 +17,7 @@ export class ListDataRequestModel {
       this.pageNumber = data.pageNumber;
       this.search = data.search;
       this.sort = data.sort;
+      this.isToolbarDisabled = data.isToolbarDisabled;
     }
   }
 }
