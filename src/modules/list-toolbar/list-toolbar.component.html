@@ -4,15 +4,15 @@
     <sky-toolbar-section>
       <sky-toolbar-item *ngFor="let item of leftTemplates">
         <sky-list-toolbar-item-renderer
-          [template]="item.template"
           [attr.sky-cmp-id]="item.id"
+          [template]="item.template"
         >
         </sky-list-toolbar-item-renderer>
       </sky-toolbar-item>
       <sky-toolbar-item *ngFor="let item of centerTemplates">
         <sky-list-toolbar-item-renderer
-          [template]="item.template"
           [attr.sky-cmp-id]="item.id"
+          [template]="item.template"
         >
         </sky-list-toolbar-item-renderer>
       </sky-toolbar-item>
@@ -20,8 +20,8 @@
         [attr.sky-toolbar-id]="item.id"
       >
         <sky-list-toolbar-item-renderer
-          [template]="item.template"
           [attr.sky-cmp-id]="item.id"
+          [template]="item.template"
         >
         </sky-list-toolbar-item-renderer>
       </sky-toolbar-item>
@@ -45,8 +45,8 @@
       <sky-toolbar-section>
         <sky-toolbar-item>
           <sky-list-toolbar-item-renderer
-            [template]="search"
             sky-cmp-id="search"
+            [template]="search"
           >
           </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
@@ -54,15 +54,15 @@
       <sky-toolbar-section [hidden]="!hasAdditionalToolbarSection">
         <sky-toolbar-item *ngFor="let item of leftTemplates">
           <sky-list-toolbar-item-renderer
-            [template]="item.template"
             [attr.sky-cmp-id]="item.id"
+            [template]="item.template"
           >
           </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
         <sky-toolbar-item *ngFor="let item of centerTemplates">
           <sky-list-toolbar-item-renderer
-            [template]="item.template"
             [attr.sky-cmp-id]="item.id"
+            [template]="item.template"
           >
           </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
@@ -70,8 +70,8 @@
           [attr.sky-toolbar-id]="item.id"
         >
           <sky-list-toolbar-item-renderer *ngIf="item.id !== 'search'"
-            [template]="item.template"
             [attr.sky-cmp-id]="item.id"
+            [template]="item.template"
           >
           </sky-list-toolbar-item-renderer>
         </sky-toolbar-item>
@@ -80,9 +80,10 @@
     </sky-toolbar>
   </div>
   <div
-    *ngIf="hasInlineFilters && inlineFilterBarExpanded"
+    *ngIf="!(isToolbarDisabled | async) && hasInlineFilters && inlineFilterBarExpanded"
+    [attr.aria-labelledby]="filterButtonId"
     [id]="listFilterInlineId"
-    [attr.aria-labelledby]="filterButtonId">
+  >
     <ng-content select="sky-list-filter-inline">
     </ng-content>
   </div>
@@ -91,6 +92,7 @@
 <ng-template #search>
   <div *ngIf="isSearchEnabled | async">
     <sky-search
+      [disabled]="isToolbarDisabled | async"
       [expandMode]="(type | async) === 'search' ? 'fit' : 'responsive'"
       [placeholderText]="placeholder"
       [searchText]="searchTextInput | async"
@@ -121,6 +123,7 @@
     [active]="hasAppliedFilters | async"
     [ariaControls]="listFilterInlineId"
     [ariaExpanded]="inlineFilterBarExpanded"
+    [disabled]="isToolbarDisabled | async"
     [filterButtonId]="filterButtonId"
     [showButtonText]="true"
     (filterButtonClick)="inlineFilterButtonClick()"
