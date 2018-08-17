@@ -13,6 +13,10 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import {
+  SkyWindowRefService
+} from '../window';
+
+import {
   SkyPopoverAlignment,
   SkyPopoverPlacement,
   SkyPopoverTrigger
@@ -39,7 +43,8 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
   private idled = new Subject<boolean>();
 
   constructor(
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private windowRef: SkyWindowRefService
   ) { }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -75,6 +80,14 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
   private closePopover() {
     this.skyPopover.close();
+  }
+
+  private closePopoeverOrMarkForClose() {
+    if (this.skyPopover.isMouseEnter) {
+      this.skyPopover.markForCloseOnMouseLeave();
+    } else {
+      this.closePopover();
+    }
   }
 
   private isPopoverOpen(): boolean {
@@ -115,7 +128,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
         }
       });
 
-      Observable
+    Observable
       .fromEvent(element, 'mouseleave')
       .takeUntil(this.idled)
       .subscribe((event: MouseEvent) => {
@@ -124,13 +137,17 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
         if (this.skyPopoverTrigger === 'mouseenter') {
           event.preventDefault();
 
-          if (this.skyPopover.isOpen) {
-            this.closePopover();
+          if (this.isPopoverOpen()) {
+            // Give the popover a chance to set its isMouseEnter flag before checking to see
+            // if it should be closed.
+            this.windowRef.getWindow().setTimeout(() => {
+              this.closePopoeverOrMarkForClose();
+            });
           } else {
             // If the mouse leaves before the popover is open,
             // wait for the transition to complete before closing it.
             this.skyPopover.popoverOpened.take(1).subscribe(() => {
-              this.closePopover();
+              this.closePopoeverOrMarkForClose();
             });
           }
         }
