@@ -40,12 +40,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 describe('List View Checklist Component', () => {
   describe('Basic Fixture', () => {
     let state: ListState,
-        dispatcher: ListStateDispatcher,
-        component: ListViewChecklistTestComponent,
-        fixture: any,
-        nativeElement: HTMLElement,
-        element: DebugElement,
-        items: Array<any>;
+      dispatcher: ListStateDispatcher,
+      component: ListViewChecklistTestComponent,
+      fixture: any,
+      nativeElement: HTMLElement,
+      element: DebugElement,
+      items: Array<any>;
 
     beforeEach(async(() => {
       dispatcher = new ListStateDispatcher();
@@ -71,20 +71,34 @@ describe('List View Checklist Component', () => {
       fixture.detectChanges();
 
       items = [
-        new ListItemModel('1', { column1: '1', column2: 'Apple',
-        column4: moment().add(1, 'minute') }),
-        new ListItemModel('2', { column1: '01', column2: 'Banana',
-         column4: moment().add(6, 'minute'), column5: 'test' }),
-        new ListItemModel('3', { column1: '11', column2: 'Banana',
-         column4: moment().add(4, 'minute') }),
-        new ListItemModel('4', { column1: '12', column2: 'Daikon',
-          column4: moment().add(2, 'minute') }),
-        new ListItemModel('5', { column1: '13', column2: 'Edamame',
-          column4: moment().add(5, 'minute') }),
-        new ListItemModel('6', { column1: '20', column2: 'Fig',
-          column4: moment().add(3, 'minute') }),
-        new ListItemModel('7', { column1: '21', column2: 'Grape',
-          column4: moment().add(7, 'minute') }),
+        new ListItemModel('1', {
+          column1: '1', column2: 'Apple',
+          column4: moment().add(1, 'minute')
+        }),
+        new ListItemModel('2', {
+          column1: '01', column2: 'Banana',
+          column4: moment().add(6, 'minute'), column5: 'test'
+        }),
+        new ListItemModel('3', {
+          column1: '11', column2: 'Banana',
+          column4: moment().add(4, 'minute')
+        }),
+        new ListItemModel('4', {
+          column1: '12', column2: 'Daikon',
+          column4: moment().add(2, 'minute')
+        }),
+        new ListItemModel('5', {
+          column1: '13', column2: 'Edamame',
+          column4: moment().add(5, 'minute')
+        }),
+        new ListItemModel('6', {
+          column1: '20', column2: 'Fig',
+          column4: moment().add(3, 'minute')
+        }),
+        new ListItemModel('7', {
+          column1: '21', column2: 'Grape',
+          column4: moment().add(7, 'minute')
+        }),
         new ListItemModel('8', { column1: '22' })
       ];
 
@@ -131,12 +145,12 @@ describe('List View Checklist Component', () => {
 
   describe('Empty Fixture', () => {
     let state: ListState,
-        dispatcher: ListStateDispatcher,
-        component: ListViewChecklistEmptyTestComponent,
-        fixture: any,
-        nativeElement: HTMLElement,
-        items: Array<any>,
-        element: DebugElement;
+      dispatcher: ListStateDispatcher,
+      component: ListViewChecklistEmptyTestComponent,
+      fixture: any,
+      nativeElement: HTMLElement,
+      items: Array<any>,
+      element: DebugElement;
 
     beforeEach(async(() => {
       dispatcher = new ListStateDispatcher();
@@ -162,8 +176,10 @@ describe('List View Checklist Component', () => {
       fixture.detectChanges();
 
       items = [
-        new ListItemModel('1', { column1: '1', column2: 'Apple',
-          column3: 1, column4: moment().add(1, 'minute') })
+        new ListItemModel('1', {
+          column1: '1', column2: 'Apple',
+          column3: 1, column4: moment().add(1, 'minute')
+        })
       ];
 
       dispatcher.next(new ListItemsLoadAction(items, true));
@@ -211,40 +227,54 @@ describe('List View Checklist Component', () => {
       dispatcher = new ListStateDispatcher();
       state = new ListState(dispatcher);
 
-        /* tslint:disable */
-        itemsArray  = [
-          new ListItemModel('1', { column1: '1', column2: 'Apple',
-          column4: moment().add(1, 'minute') }),
-          new ListItemModel('2', { column1: '01', column2: 'Banana',
-          column4: moment().add(6, 'minute'), column5: 'test' }),
-          new ListItemModel('3', { column1: '11', column2: 'Banana',
-          column4: moment().add(4, 'minute') }),
-          new ListItemModel('4', { column1: '12', column2: 'Daikon',
-            column4: moment().add(2, 'minute') }),
-          new ListItemModel('5', { column1: '13', column2: 'Edamame',
-            column4: moment().add(5, 'minute') }),
-          new ListItemModel('6', { column1: '20', column2: 'Fig',
-            column4: moment().add(3, 'minute') }),
-          new ListItemModel('7', { column1: '21', column2: 'Grape',
-            column4: moment().add(7, 'minute') })
-        ];
-
-        bs = new BehaviorSubject<Array<any>>(itemsArray);
-        items = bs.asObservable();
-
-        TestBed.configureTestingModule({
-          declarations: [
-            ListViewChecklistToolbarTestComponent
-          ],
-          imports: [
-            SkyListModule,
-            SkyListToolbarModule,
-            SkyListViewChecklistModule
-          ],
-          providers: [
-            { provide: 'items', useValue: items }
-          ]
+      /* tslint:disable */
+      itemsArray = [
+        new ListItemModel('1', {
+          column1: '1', column2: 'Apple',
+          column4: moment().add(1, 'minute')
+        }),
+        new ListItemModel('2', {
+          column1: '01', column2: 'Banana',
+          column4: moment().add(6, 'minute'), column5: 'test'
+        }),
+        new ListItemModel('3', {
+          column1: '11', column2: 'Banana',
+          column4: moment().add(4, 'minute')
+        }),
+        new ListItemModel('4', {
+          column1: '12', column2: 'Daikon',
+          column4: moment().add(2, 'minute')
+        }),
+        new ListItemModel('5', {
+          column1: '13', column2: 'Edamame',
+          column4: moment().add(5, 'minute')
+        }),
+        new ListItemModel('6', {
+          column1: '20', column2: 'Fig',
+          column4: moment().add(3, 'minute')
+        }),
+        new ListItemModel('7', {
+          column1: '21', column2: 'Grape',
+          column4: moment().add(7, 'minute')
         })
+      ];
+
+      bs = new BehaviorSubject<Array<any>>(itemsArray);
+      items = bs.asObservable();
+
+      TestBed.configureTestingModule({
+        declarations: [
+          ListViewChecklistToolbarTestComponent
+        ],
+        imports: [
+          SkyListModule,
+          SkyListToolbarModule,
+          SkyListViewChecklistModule
+        ],
+        providers: [
+          { provide: 'items', useValue: items }
+        ]
+      })
         .overrideComponent(SkyListComponent, {
           set: {
             providers: [
@@ -254,21 +284,21 @@ describe('List View Checklist Component', () => {
           }
         });;
 
-        fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
-        nativeElement = fixture.nativeElement as HTMLElement;
-        element = fixture.debugElement as DebugElement;
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+      fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
+      fixture.detectChanges();
 
-        // always skip the first update to ListState, when state is ready
-        // run detectChanges once more then begin tests
-        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
-        fixture.detectChanges();
+      // always skip the first update to ListState, when state is ready
+      // run detectChanges once more then begin tests
+      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+      fixture.detectChanges();
     }));
 
     it('should set selections on click properly', fakeAsync(() => {
       let labelEl = <HTMLLabelElement>nativeElement
-        .querySelectorAll('label.sky-checkbox-wrapper')[0];
+        .querySelectorAll('.sky-list-view-checklist label.sky-checkbox-wrapper')[0];
 
       labelEl.click();
       tick();
@@ -276,12 +306,136 @@ describe('List View Checklist Component', () => {
 
       expect(component.selectedItems.get('1')).toBe(true);
 
+      labelEl = <HTMLLabelElement>nativeElement
+        .querySelectorAll('.sky-list-view-checklist label.sky-checkbox-wrapper')[0];
       labelEl.click();
       tick();
       fixture.detectChanges();
 
       expect(component.selectedItems.get('1')).toBe(false);
 
+    }));
+
+    it('should show all items if showOnlySelected checkbox is clicked twice', fakeAsync(() => {
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = false;
+      tick();
+      fixture.detectChanges();
+
+      let visibleCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(visibleCheckboxesLength).toEqual(7);
+    }));
+
+    it('should show selected items if \'showOnlySelected\' property is set', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      let visibleCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(visibleCheckboxesLength).toEqual(fixture.componentInstance.selectedItems.size);
+    }));
+
+    it('should hide the item if \'showOnlySelected\' property is set & user uncheck the checkbox', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      let visibleCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(checkboxes.length).toBeGreaterThan(visibleCheckboxesLength);
+    }));
+
+    it('should handle items properly if \'showOnlySelected\' property is set & user click clear all & select all link', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      let checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
+      (checkboxes.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      // check number of checkboxes visible when showOnlySection is selected.
+      let checkboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+
+      let selectAllEl = <HTMLButtonElement>nativeElement
+        .querySelector('.sky-list-view-checklist-select-all');
+
+      selectAllEl.click();
+      tick();
+      fixture.detectChanges();
+
+      let updatedLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(checkboxesLength).toEqual(updatedLength);
+
+      let clearAllEl = <HTMLButtonElement>nativeElement
+        .querySelector('.sky-list-view-checklist-clear-all');
+
+      clearAllEl.click();
+      tick();
+      fixture.detectChanges();
+
+      updatedLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(updatedLength).toEqual(0);
+    }));
+
+    it('should show all items if \'showOnlySelected\' property is set & user change the mode to single', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      component.showOnlySelected = true;
+      tick();
+      fixture.detectChanges();
+
+      component.selectMode = 'single';
+      tick();
+      fixture.detectChanges();
+
+      // visible checkboxes when 'only show selected items' is hidden.
+      let updatedCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+      expect(updatedCheckboxesLength).toEqual(0);
+
+      updatedCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-list-view-checklist-item').length;
+      expect(updatedCheckboxesLength).toBeGreaterThan(0);
+    }));
+
+    it('should hide all items if user clicks \'Show only selected\' option', fakeAsync(() => {
+      component.showOnlySelected = false;
+      tick();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        let checkboxes = document.querySelectorAll('sky-checkbox input');
+        (checkboxes.item(0) as HTMLElement).click();
+        tick();
+        fixture.detectChanges();
+
+        let updatedCheckboxesLength = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input').length;
+        expect(updatedCheckboxesLength).toEqual(0);
+      });
     }));
 
     it('should select all and clear all properly', fakeAsync(() => {
@@ -394,40 +548,54 @@ describe('List View Checklist Component', () => {
       dispatcher = new ListStateDispatcher();
       state = new ListState(dispatcher);
 
-        /* tslint:disable */
-        itemsArray  = [
-          new ListItemModel('1', { column1: '1', column2: 'Apple',
-          column4: moment().add(1, 'minute') }),
-          new ListItemModel('2', { column1: '01', column2: 'Banana',
-          column4: moment().add(6, 'minute'), column5: 'test' }),
-          new ListItemModel('3', { column1: '11', column2: 'Banana',
-          column4: moment().add(4, 'minute') }),
-          new ListItemModel('4', { column1: '12', column2: 'Daikon',
-            column4: moment().add(2, 'minute') }),
-          new ListItemModel('5', { column1: '13', column2: 'Edamame',
-            column4: moment().add(5, 'minute') }),
-          new ListItemModel('6', { column1: '20', column2: 'Fig',
-            column4: moment().add(3, 'minute') }),
-          new ListItemModel('7', { column1: '21', column2: 'Grape',
-            column4: moment().add(7, 'minute') })
-        ];
-
-        bs = new BehaviorSubject<Array<any>>(itemsArray);
-        items = bs.asObservable();
-
-        TestBed.configureTestingModule({
-          declarations: [
-            ListViewChecklistToolbarTestComponent
-          ],
-          imports: [
-            SkyListModule,
-            SkyListToolbarModule,
-            SkyListViewChecklistModule
-          ],
-          providers: [
-            { provide: 'items', useValue: items }
-          ]
+      /* tslint:disable */
+      itemsArray = [
+        new ListItemModel('1', {
+          column1: '1', column2: 'Apple',
+          column4: moment().add(1, 'minute')
+        }),
+        new ListItemModel('2', {
+          column1: '01', column2: 'Banana',
+          column4: moment().add(6, 'minute'), column5: 'test'
+        }),
+        new ListItemModel('3', {
+          column1: '11', column2: 'Banana',
+          column4: moment().add(4, 'minute')
+        }),
+        new ListItemModel('4', {
+          column1: '12', column2: 'Daikon',
+          column4: moment().add(2, 'minute')
+        }),
+        new ListItemModel('5', {
+          column1: '13', column2: 'Edamame',
+          column4: moment().add(5, 'minute')
+        }),
+        new ListItemModel('6', {
+          column1: '20', column2: 'Fig',
+          column4: moment().add(3, 'minute')
+        }),
+        new ListItemModel('7', {
+          column1: '21', column2: 'Grape',
+          column4: moment().add(7, 'minute')
         })
+      ];
+
+      bs = new BehaviorSubject<Array<any>>(itemsArray);
+      items = bs.asObservable();
+
+      TestBed.configureTestingModule({
+        declarations: [
+          ListViewChecklistToolbarTestComponent
+        ],
+        imports: [
+          SkyListModule,
+          SkyListToolbarModule,
+          SkyListViewChecklistModule
+        ],
+        providers: [
+          { provide: 'items', useValue: items }
+        ]
+      })
         .overrideComponent(SkyListComponent, {
           set: {
             providers: [
@@ -437,57 +605,65 @@ describe('List View Checklist Component', () => {
           }
         });;
 
-        fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
-        nativeElement = fixture.nativeElement as HTMLElement;
-        element = fixture.debugElement as DebugElement;
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+      fixture = TestBed.createComponent(ListViewChecklistToolbarTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      element = fixture.debugElement as DebugElement;
+      component = fixture.componentInstance;
+      fixture.detectChanges();
 
-        // always skip the first update to ListState, when state is ready
-        // run detectChanges once more then begin tests
-        state.skip(1).take(1).subscribe(() => fixture.detectChanges());
-        fixture.detectChanges();
+      // always skip the first update to ListState, when state is ready
+      // run detectChanges once more then begin tests
+      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+      fixture.detectChanges();
     }));
 
-    it('should hide the select all and clear all buttons when switched to single select mode',
+    it('should hide the select all, clear all and show only selected buttons when switched to single select mode',
       fakeAsync(() => {
 
-      tick();
-      fixture.detectChanges();
-      let selectAllEl = nativeElement
-        .querySelector('.sky-list-view-checklist-select-all');
+        tick();
+        fixture.detectChanges();
+        let selectAllEl = nativeElement
+          .querySelector('.sky-list-view-checklist-select-all');
 
-      let clearAllEl = nativeElement
-        .querySelector('.sky-list-view-checklist-clear-all');
+        let clearAllEl = nativeElement
+          .querySelector('.sky-list-view-checklist-clear-all');
 
-      expect(selectAllEl).not.toBeNull();
-      expect(clearAllEl).not.toBeNull();
+        let showOnlySelected = nativeElement
+          .querySelector('.sky-toolbar-item sky-checkbox');
 
-      component.selectMode = 'single';
-      tick();
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-      selectAllEl = nativeElement
-        .querySelector('.sky-list-view-checklist-select-all');
+        expect(selectAllEl).not.toBeNull();
+        expect(clearAllEl).not.toBeNull();
+        expect(showOnlySelected).not.toBeNull();
 
-      clearAllEl = nativeElement
-        .querySelector('.sky-list-view-checklist-clear-all');
+        component.selectMode = 'single';
+        tick();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        selectAllEl = nativeElement
+          .querySelector('.sky-list-view-checklist-select-all');
 
-      expect(selectAllEl).toBeNull();
-      expect(clearAllEl).toBeNull();
+        clearAllEl = nativeElement
+          .querySelector('.sky-list-view-checklist-clear-all');
 
-      let toolbarSectionsEl = nativeElement.querySelectorAll('sky-toolbar-section');
-      expect((toolbarSectionsEl.item(1) as any).attributes['hidden']).not.toBeUndefined();
+        showOnlySelected = nativeElement
+          .querySelector('.sky-toolbar-item sky-checkbox');
 
-    }));
+        expect(selectAllEl).toBeNull();
+        expect(clearAllEl).toBeNull();
+        expect(showOnlySelected).toBeNull();
+
+        let toolbarSectionsEl = nativeElement.querySelectorAll('sky-toolbar-section');
+        expect((toolbarSectionsEl.item(1) as any).attributes['hidden']).not.toBeUndefined();
+
+      }));
 
     it('should show the correct styles for single select mode selection', fakeAsync(() => {
       tick();
       fixture.detectChanges();
       let singleSelectButtonsEl
-      = nativeElement
-        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+        = nativeElement
+          .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
 
       expect(singleSelectButtonsEl.length).toBe(0);
 
@@ -497,8 +673,8 @@ describe('List View Checklist Component', () => {
       tick();
       fixture.detectChanges();
       singleSelectButtonsEl
-      = nativeElement
-        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+        = nativeElement
+          .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
 
       expect(singleSelectButtonsEl.length).toBe(7);
     }));
@@ -507,8 +683,8 @@ describe('List View Checklist Component', () => {
       tick();
       fixture.detectChanges();
       let singleSelectButtonsEl
-      = nativeElement
-        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+        = nativeElement
+          .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
 
       expect(singleSelectButtonsEl.length).toBe(0);
 
@@ -518,8 +694,8 @@ describe('List View Checklist Component', () => {
       tick();
       fixture.detectChanges();
       singleSelectButtonsEl
-      = nativeElement
-        .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+        = nativeElement
+          .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
 
       (singleSelectButtonsEl.item(1) as HTMLElement).click();
       tick();
@@ -535,7 +711,15 @@ describe('List View Checklist Component', () => {
       expect(component.selectedItems.get('6')).toBe(undefined);
       expect(component.selectedItems.get('7')).toBe(undefined);
 
+      singleSelectButtonsEl
+        = nativeElement
+          .querySelectorAll('.sky-list-view-checklist-item .sky-list-view-checklist-single-button');
+
       (singleSelectButtonsEl.item(0) as HTMLElement).click();
+      tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
       expect(component.selectedItems.get('1')).toBe(true);
       expect(component.selectedItems.get('2')).toBe(undefined);
