@@ -1,27 +1,36 @@
 import {
+  Component,
+  DebugElement
+} from '@angular/core';
+import {
   TestBed,
   fakeAsync,
   ComponentFixture,
   tick,
   async
 } from '@angular/core/testing';
-
 import {
   FormsModule,
   NgModel
 } from '@angular/forms';
-
 import {
-  Component
-} from '@angular/core';
-
-import {
-  By
+  By,
+  BrowserModule
 } from '@angular/platform-browser';
 
-import { SkyRadioModule } from './radio.module';
-import { SkyRadioComponent } from './radio.component';
-import { SkyRadioLabelComponent } from './radio-label.component';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
+  SkyRadioModule
+} from './radio.module';
+import {
+  SkyRadioComponent
+} from './radio.component';
+import {
+  SkyRadioLabelComponent
+} from './radio-label.component';
 
 describe('Radio component', function () {
 
@@ -71,8 +80,24 @@ describe('Radio component', function () {
     public onClick() {}
   }
 
-  let fixture: ComponentFixture<RadioTestComponent>;
-  let componentInstance: RadioTestComponent;
+  /** Simple component for testing a single radio button. */
+  @Component({
+    template: `
+    <div>
+      <sky-radio
+          id="simple-check"
+          [icon]="icon"
+          [radioType]="radioType">
+      </sky-radio>
+    </div>`
+  })
+  class SingleRadioComponent {
+    public icon: string = 'bold';
+    public radioType: string;
+  }
+
+  let fixture: ComponentFixture<any>;
+  let componentInstance: any;
   beforeEach(function () {
     TestBed.configureTestingModule({
       imports: [
@@ -80,161 +105,217 @@ describe('Radio component', function () {
         FormsModule
       ],
       declarations: [
-        RadioTestComponent
+        RadioTestComponent,
+        SingleRadioComponent
       ]
     });
   });
 
-  beforeEach(fakeAsync(function () {
-    fixture = TestBed.createComponent(RadioTestComponent);
+  describe('Standard radio component', () => {
+    beforeEach(fakeAsync(function () {
+      fixture = TestBed.createComponent(RadioTestComponent);
 
-    fixture.detectChanges();
-    tick();
-    componentInstance = fixture.componentInstance;
-  }));
+      fixture.detectChanges();
+      tick();
+      componentInstance = fixture.componentInstance;
+    }));
 
-  function createEvent(eventName: string) {
-    let evt = document.createEvent('CustomEvent');
-    evt.initEvent(eventName, false, false);
-    return evt;
-  }
+    function createEvent(eventName: string) {
+      let evt = document.createEvent('CustomEvent');
+      evt.initEvent(eventName, false, false);
+      return evt;
+    }
 
-  it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
-    let radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
-    let ngModel = <NgModel>radioElement.injector.get(NgModel);
-    let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
+    it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
+      let radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
+      let ngModel = <NgModel>radioElement.injector.get(NgModel);
+      let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
 
-    expect(ngModel.valid).toBe(true);
-    expect(ngModel.pristine).toBe(true);
-    expect(ngModel.touched).toBe(false);
+      expect(ngModel.valid).toBe(true);
+      expect(ngModel.pristine).toBe(true);
+      expect(ngModel.touched).toBe(false);
 
-    radio2El.nativeElement.click();
+      radio2El.nativeElement.click();
 
-    fixture.detectChanges();
-    tick();
+      fixture.detectChanges();
+      tick();
 
-    expect(ngModel.valid).toBe(true);
-    expect(ngModel.pristine).toBe(false);
-    expect(ngModel.touched).toBe(false);
-    expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(true);
-    expect(componentInstance.selectedValue).toBe('2');
+      expect(ngModel.valid).toBe(true);
+      expect(ngModel.pristine).toBe(false);
+      expect(ngModel.touched).toBe(false);
+      expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(true);
+      expect(componentInstance.selectedValue).toBe('2');
 
-    radio2El.query(By.css('input')).nativeElement.dispatchEvent(createEvent('blur'));
-    expect(ngModel.touched).toBe(true);
-  }));
+      radio2El.query(By.css('input')).nativeElement.dispatchEvent(createEvent('blur'));
+      expect(ngModel.touched).toBe(true);
+    }));
 
-  it('should update the radio buttons properly when ngModel is changed', fakeAsync(function () {
-    componentInstance.selectedValue = '2';
+    it('should update the radio buttons properly when ngModel is changed', fakeAsync(function () {
+      componentInstance.selectedValue = '2';
 
-    fixture.detectChanges();
-    tick();
-    fixture.detectChanges();
-    tick();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      tick();
 
-    let radio2El = fixture.debugElement.query(By.css('#hey input'));
-    expect(radio2El.nativeElement.checked).toBe(true);
-  }));
+      let radio2El = fixture.debugElement.query(By.css('#hey input'));
+      expect(radio2El.nativeElement.checked).toBe(true);
+    }));
 
-  it('should handle disabled state properly', fakeAsync(function () {
-    componentInstance.disabled2 = true;
-    fixture.detectChanges();
-    tick();
+    it('should handle disabled state properly', fakeAsync(function () {
+      componentInstance.disabled2 = true;
+      fixture.detectChanges();
+      tick();
 
-    let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
+      let radio2El = fixture.debugElement.query(By.css('#hey .sky-radio-wrapper'));
 
-    radio2El.nativeElement.click();
+      radio2El.nativeElement.click();
 
-    fixture.detectChanges();
-    tick();
-    expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(false);
-    expect(componentInstance.selectedValue).toBe('1');
+      fixture.detectChanges();
+      tick();
+      expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(false);
+      expect(componentInstance.selectedValue).toBe('1');
 
-    componentInstance.disabled2 = false;
-    fixture.detectChanges();
-    tick();
+      componentInstance.disabled2 = false;
+      fixture.detectChanges();
+      tick();
 
-    radio2El.nativeElement.click();
+      radio2El.nativeElement.click();
 
-    fixture.detectChanges();
-    tick();
-    expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(true);
-    expect(componentInstance.selectedValue).toBe('2');
+      fixture.detectChanges();
+      tick();
+      expect(radio2El.query(By.css('input')).nativeElement.checked).toBe(true);
+      expect(componentInstance.selectedValue).toBe('2');
 
-  }));
+    }));
 
-  it('should pass a label when specified', fakeAsync(function () {
-    componentInstance.label1 = 'My label';
+    it('should pass a label when specified', fakeAsync(function () {
+      componentInstance.label1 = 'My label';
 
-    fixture.detectChanges();
-    tick();
+      fixture.detectChanges();
+      tick();
 
-    let radio1El = fixture.debugElement.query(By.css('#hey-2 input'));
-    expect(radio1El.nativeElement.getAttribute('aria-label')).toBe('My label');
-  }));
+      let radio1El = fixture.debugElement.query(By.css('#hey-2 input'));
+      expect(radio1El.nativeElement.getAttribute('aria-label')).toBe('My label');
+    }));
 
-  it('should pass a labelled by id properly when specified', fakeAsync(function () {
-    componentInstance.labelledBy3 = 'label-id';
+    it('should pass a labelled by id properly when specified', fakeAsync(function () {
+      componentInstance.labelledBy3 = 'label-id';
 
-    fixture.detectChanges();
-    tick();
+      fixture.detectChanges();
+      tick();
 
-    let radio1El = fixture.debugElement.query(By.css('#hey-3 input'));
-    expect(radio1El.nativeElement.getAttribute('aria-labelledby')).toBe('label-id');
-  }));
+      let radio1El = fixture.debugElement.query(By.css('#hey-3 input'));
+      expect(radio1El.nativeElement.getAttribute('aria-labelledby')).toBe('label-id');
+    }));
 
-  it('should pass a tabindex when specified', fakeAsync(function () {
-    componentInstance.tabindex2 = '3';
+    it('should pass a tabindex when specified', fakeAsync(function () {
+      componentInstance.tabindex2 = '3';
 
-    fixture.detectChanges();
-    tick();
+      fixture.detectChanges();
+      tick();
 
-    let radio1El = fixture.debugElement.query(By.css('#hey input'));
-    expect(radio1El.nativeElement.getAttribute('tabindex')).toBe('3');
-  }));
+      let radio1El = fixture.debugElement.query(By.css('#hey input'));
+      expect(radio1El.nativeElement.getAttribute('tabindex')).toBe('3');
+    }));
 
-  it('should not change the selected value if input is disabled', fakeAsync(() => {
-    const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
-    const radioComponent = radioElement.componentInstance;
+    it('should not change the selected value if input is disabled', fakeAsync(() => {
+      const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
+      const radioComponent = radioElement.componentInstance;
 
-    radioComponent.selectedValue = 'foo';
-    radioComponent.disabled = true;
-    radioComponent.onRadioChanged('bar');
+      radioComponent.selectedValue = 'foo';
+      radioComponent.disabled = true;
+      radioComponent.onRadioChanged('bar');
 
-    expect(radioComponent.selectedValue).toEqual('foo');
-  }));
+      expect(radioComponent.selectedValue).toEqual('foo');
+    }));
 
-  it('should not change the selected value if the new value is the same', fakeAsync(() => {
-    const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
-    const radioComponent = radioElement.componentInstance;
+    it('should not change the selected value if the new value is the same', fakeAsync(() => {
+      const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
+      const radioComponent = radioElement.componentInstance;
 
-    radioComponent.selectedValue = 'foo';
-    radioComponent.disabled = false;
-    radioComponent.onRadioChanged('foo');
+      radioComponent.selectedValue = 'foo';
+      radioComponent.disabled = false;
+      radioComponent.onRadioChanged('foo');
 
-    expect(radioComponent.selectedValue).toEqual('foo');
-  }));
+      expect(radioComponent.selectedValue).toEqual('foo');
+    }));
 
-  it('should not change the selected value if the new value is undefined', fakeAsync(() => {
-    const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
-    const radioComponent = radioElement.componentInstance;
+    it('should not change the selected value if the new value is undefined', fakeAsync(() => {
+      const radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[2];
+      const radioComponent = radioElement.componentInstance;
 
-    radioComponent.selectedValue = 'foo';
-    radioComponent.writeValue(undefined);
+      radioComponent.selectedValue = 'foo';
+      radioComponent.writeValue(undefined);
 
-    expect(radioComponent.selectedValue).toEqual('foo');
-  }));
+      expect(radioComponent.selectedValue).toEqual('foo');
+    }));
 
-  it('should prevent click events on the label from bubbling to parents', async(() => {
-    let radioLabelElement = fixture.debugElement
-      .query(By.css('#radio-clickable'))
-      .query(By.directive(SkyRadioLabelComponent));
+    it('should prevent click events on the label from bubbling to parents', async(() => {
+      let radioLabelElement = fixture.debugElement
+        .query(By.css('#radio-clickable'))
+        .query(By.directive(SkyRadioLabelComponent));
 
-    spyOn(componentInstance, 'onClick');
-    spyOn(radioLabelElement.componentInstance, 'onClick').and.callThrough();
+      spyOn(componentInstance, 'onClick');
+      spyOn(radioLabelElement.componentInstance, 'onClick').and.callThrough();
 
-    radioLabelElement.nativeElement.click();
+      radioLabelElement.nativeElement.click();
 
-    expect((componentInstance.onClick as any).calls.count()).toEqual(1);
-    expect(radioLabelElement.componentInstance.onClick).toHaveBeenCalled();
-  }));
+      expect((componentInstance.onClick as any).calls.count()).toEqual(1);
+      expect(radioLabelElement.componentInstance.onClick).toHaveBeenCalled();
+    }));
+  });
+
+  describe('Radio icon component', () => {
+    let debugElement: DebugElement;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SingleRadioComponent);
+      debugElement = fixture.debugElement;
+    });
+
+    it('should set icon based on input', () => {
+      fixture.detectChanges();
+
+      let radioIcon = debugElement.query(By.css('i')).nativeElement;
+      expect(radioIcon).toHaveCssClass('fa-bold');
+
+      fixture.componentInstance.icon = 'umbrella';
+      fixture.detectChanges();
+
+      radioIcon = debugElement.query(By.css('i')).nativeElement;
+      expect(radioIcon).toHaveCssClass('fa-umbrella');
+    });
+
+    it('should set span class based on radio type input', () => {
+      fixture.detectChanges();
+
+      let span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-info');
+
+      fixture.componentInstance.radioType = 'info';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-info');
+
+      fixture.componentInstance.radioType = 'success';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-success');
+
+      fixture.componentInstance.radioType = 'warning';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-warning');
+
+      fixture.componentInstance.radioType = 'danger';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-danger');
+    });
+  });
 });

@@ -19,13 +19,13 @@
 </h3>
 
 <div>
-  <sky-checkbox-icon
+  <sky-checkbox
     *ngFor="let item of iconCheckboxItems"
     [disabled]="item.disabled"
     [icon]="item.icon"
     [checkboxType]="item.checkboxType"
     [(ngModel)]="item.checked">
-  </sky-checkbox-icon>
+  </sky-checkbox>
 </div>
 
 <h3>
@@ -34,9 +34,9 @@
 
 <div
   class="sky-switch-icon-group">
-  <sky-checkbox-icon
+  <sky-checkbox
     *ngFor="let item of iconCheckboxGroup"
     [icon]="item.icon"
     [(ngModel)]="item.checked">
-  </sky-checkbox-icon>
+  </sky-checkbox>
 </div>

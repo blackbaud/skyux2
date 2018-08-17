@@ -4,13 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { SkyRadioComponent } from './radio.component';
 import { SkyRadioLabelComponent } from './radio-label.component';
-import { SkyRadioIconComponent } from './radio-icon.component';
 import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
     SkyRadioComponent,
-    SkyRadioIconComponent,
     SkyRadioLabelComponent
   ],
   imports: [
@@ -20,7 +18,6 @@ import { SkyIconModule } from '../icon';
   ],
   exports: [
     SkyRadioComponent,
-    SkyRadioIconComponent,
     SkyRadioLabelComponent
   ]
 })

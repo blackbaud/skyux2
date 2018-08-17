@@ -1,17 +1,32 @@
 import {
+  Component,
+  DebugElement
+} from '@angular/core';
+import {
   ComponentFixture,
   async,
   TestBed
 } from '@angular/core/testing';
+import {
+  BrowserModule,
+  By
+} from '@angular/platform-browser';
+import {
+  FormsModule,
+  NgModel
+} from '@angular/forms';
 
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { FormsModule, NgModel } from '@angular/forms';
-import {Component, DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
-
-import {SkyCheckboxComponent, SkyCheckboxChange} from './checkbox.component';
-import { SkyCheckboxModule } from './checkbox.module';
+import {
+  SkyCheckboxComponent,
+  SkyCheckboxChange
+} from './checkbox.component';
+import {
+  SkyCheckboxModule
+} from './checkbox.module';
 
 /** Simple component for testing a single checkbox. */
 @Component({
@@ -19,8 +34,10 @@ import { SkyCheckboxModule } from './checkbox.module';
   <div>
     <sky-checkbox
         id="simple-check"
+        [checkboxType]="checkboxType"
         [checked]="isChecked"
         [disabled]="isDisabled"
+        [icon]="icon"
         (change)="checkboxChange($event)">
       <sky-checkbox-label>
         Simple checkbox
@@ -29,6 +46,8 @@ import { SkyCheckboxModule } from './checkbox.module';
   </div>`
 })
 class SingleCheckboxComponent {
+  public checkboxType: string;
+  public icon: string = 'bold';
   public isChecked: boolean = false;
   public isDisabled: boolean = false;
 
@@ -487,6 +506,59 @@ describe('Checkbox component', () => {
       let inputElement = <HTMLInputElement> checkboxElement.nativeElement.querySelector('input');
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
+    });
+  });
+
+  describe('Checkbox icon component', () => {
+    let debugElement: DebugElement;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SingleCheckboxComponent);
+      debugElement = fixture.debugElement;
+    });
+
+    it('should set icon based on input', () => {
+      fixture.detectChanges();
+
+      let checkboxIcon = debugElement.query(By.css('i')).nativeElement;
+      expect(checkboxIcon).toHaveCssClass('fa-bold');
+
+      fixture.componentInstance.icon = 'umbrella';
+      fixture.detectChanges();
+
+      checkboxIcon = debugElement.query(By.css('i')).nativeElement;
+      expect(checkboxIcon).toHaveCssClass('fa-umbrella');
+    });
+
+    it('should set span class based on checkbox type input', () => {
+      fixture.detectChanges();
+
+      let span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-info');
+
+      fixture.componentInstance.checkboxType = 'info';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-info');
+
+      fixture.componentInstance.checkboxType = 'success';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-success');
+
+      fixture.componentInstance.checkboxType = 'warning';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-warning');
+
+      fixture.componentInstance.checkboxType = 'danger';
+      fixture.detectChanges();
+
+      span = debugElement.query(By.css('span')).nativeElement;
+      expect(span).toHaveCssClass('sky-switch-control-danger');
     });
   });
 });
