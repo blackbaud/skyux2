@@ -92,10 +92,15 @@ select {
   border-radius: $sky-border-radius;
   font-size: $sky-font-size-base;
   height: 34px;
-  padding: $sky-padding-half $sky-padding + 5 $sky-padding-half $sky-padding; // adjust for background image
+  padding: $sky-padding-half $sky-padding + 11 $sky-padding-half $sky-padding; // adjust for background image
 }
 select::-ms-expand {
   display: none;
+}
+@-moz-document url-prefix() {
+  select {
+    padding: $sky-padding-half $sky-padding + 7 $sky-padding-half $sky-padding - 3;
+  }
 }
 
 .sky-container {
