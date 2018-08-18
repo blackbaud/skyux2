@@ -15,6 +15,7 @@ import {
   SkySortService
 } from './sort.service';
 
+let nextId = 0;
 @Component({
   selector: 'sky-sort',
   styleUrls: ['./sort.component.scss'],
@@ -25,6 +26,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkySortComponent {
+  public sortByHeadingId: string = `sky-sort-heading-${++nextId}`;
+
   @Input()
   public showButtonText = false;
 
