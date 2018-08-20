@@ -82,6 +82,14 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     this.skyPopover.close();
   }
 
+  private closePopoverOrMarkForClose() {
+    if (this.skyPopover.isMouseEnter) {
+      this.skyPopover.markForCloseOnMouseLeave();
+    } else {
+      this.closePopover();
+    }
+  }
+
   private isPopoverOpen(): boolean {
     return (this.skyPopover && this.skyPopover.isOpen);
   }
@@ -129,17 +137,19 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
         if (this.skyPopoverTrigger === 'mouseenter') {
           event.preventDefault();
 
-          // Give the popover a chance to set its isMouseEnter flag before checking to see
-          // if it should be closed.
-          this.windowRef.getWindow().setTimeout(() => {
-            if (this.isPopoverOpen()) {
-              if (this.skyPopover.isMouseEnter) {
-                this.skyPopover.markForCloseOnMouseLeave();
-              } else {
-                this.closePopover();
-              }
-            }
-          });
+          if (this.isPopoverOpen()) {
+            // Give the popover a chance to set its isMouseEnter flag before checking to see
+            // if it should be closed.
+            this.windowRef.getWindow().setTimeout(() => {
+              this.closePopoverOrMarkForClose();
+            });
+          } else {
+            // If the mouse leaves before the popover is open,
+            // wait for the transition to complete before closing it.
+            this.skyPopover.popoverOpened.take(1).subscribe(() => {
+              this.closePopoverOrMarkForClose();
+            });
+          }
         }
       });
   }

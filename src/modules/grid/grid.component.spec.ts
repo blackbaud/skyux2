@@ -207,7 +207,19 @@ describe('Grid Component', () => {
 
       });
 
-      it('should change displayed headers and data when selected columnids change', () => {
+      it('should change displayed headers and data when selected columnids change and emit the change event', async(() => {
+        component.grid.selectedColumnIdsChange.subscribe((newSelectedColumnIds: string[]) => {
+          expect(newSelectedColumnIds).toEqual([
+            'column1',
+            'column2',
+            'column3',
+            'column4',
+            'column5',
+            'hiddenCol1',
+            'hiddenCol2'
+          ]);
+        });
+
         component.selectedColumnIds = [
           'column1',
           'column2',
@@ -221,7 +233,7 @@ describe('Grid Component', () => {
 
         verifyHeaders(true);
         verifyData(false, true);
-      });
+      }));
 
       it('should show all columns when selectedColumnIds is undefined', () => {
         component.selectedColumnIds = undefined;
