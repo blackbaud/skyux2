@@ -207,7 +207,19 @@ describe('Grid Component', () => {
 
       });
 
-      it('should change displayed headers and data when selected columnids change', () => {
+      it('should change displayed headers and data when selected columnids change and emit the change event', async(() => {
+        component.grid.selectedColumnIdsChange.subscribe((newSelectedColumnIds: string[]) => {
+          expect(newSelectedColumnIds).toEqual([
+            'column1',
+            'column2',
+            'column3',
+            'column4',
+            'column5',
+            'hiddenCol1',
+            'hiddenCol2'
+          ]);
+        });
+
         component.selectedColumnIds = [
           'column1',
           'column2',
@@ -221,7 +233,7 @@ describe('Grid Component', () => {
 
         verifyHeaders(true);
         verifyData(false, true);
-      });
+      }));
 
       it('should show all columns when selectedColumnIds is undefined', () => {
         component.selectedColumnIds = undefined;
@@ -323,6 +335,44 @@ describe('Grid Component', () => {
           let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
 
           expect(headerEl.querySelector('i')).toHaveCssClass('fa-caret-up');
+        });
+
+        it('should have proper aria-sort labels', () => {
+          let headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          headerEl.click();
+          fixture.detectChanges();
+
+          headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          expect(headerEl.getAttribute('aria-sort')).toBe('descending');
+
+          headerEl.click();
+          fixture.detectChanges();
+
+          headerEl = nativeElement.querySelectorAll('th').item(0) as HTMLElement;
+          expect(headerEl.getAttribute('aria-sort')).toBe('ascending');
+
+          let noSortHeaderEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
+          expect(noSortHeaderEl.getAttribute('aria-sort')).toBeNull();
+
+          let unSortedHeaderEl = nativeElement.querySelectorAll('th').item(2) as HTMLElement;
+          expect(unSortedHeaderEl.getAttribute('aria-sort')).toBe('none');
+        });
+
+        it('should sort on enter or space press', () => {
+          let headerEl = element.query(By.css('th[sky-cmp-id="column1"]'));
+          headerEl.triggerEventHandler('keydown', { key: 'Enter'});
+          fixture.detectChanges();
+
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: true});
+          expect(headerEl.nativeElement.querySelector('i')).toHaveCssClass('fa-caret-down');
+
+          headerEl.triggerEventHandler('keydown', { key: ' '});
+          fixture.detectChanges();
+
+          expect(component.activeSortSelector)
+            .toEqual({ fieldSelector: 'column1', descending: false});
+          expect(headerEl.nativeElement.querySelector('i')).toHaveCssClass('fa-caret-up');
         });
       });
 

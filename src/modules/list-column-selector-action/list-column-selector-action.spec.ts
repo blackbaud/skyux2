@@ -1,15 +1,24 @@
 import {
-  flush,
-  TestBed,
+  async,
   ComponentFixture,
-  inject,
   fakeAsync,
+  flush,
+  inject,
+  TestBed,
   tick
 } from '@angular/core/testing';
 
 import {
+  DebugElement
+} from '@angular/core';
+
+import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
+
+import {
+  By
+} from '@angular/platform-browser';
 
 import {
   RouterTestingModule
@@ -61,59 +70,19 @@ import {
   SkyColumnSelectorModule
 } from '../column-selector';
 
+import { SkyListSecondaryActionsService } from '../list-secondary-actions/list-secondary-actions.service';
+import { ListColumnSelectorActionDeprecatedTestComponent } from './fixtures/list-column-selector-action-deprecated.component.fixture';
+
 describe('List column selector action', () => {
-  let state: ListState,
-    dispatcher: ListStateDispatcher,
-    component: ListColumnSelectorActionTestComponent,
-    fixture: ComponentFixture<ListColumnSelectorActionTestComponent>,
-    nativeElement: HTMLElement;
-
-  beforeEach(() => {
-    dispatcher = new ListStateDispatcher();
-    state = new ListState(dispatcher);
-
-    TestBed.configureTestingModule({
-      declarations: [
-        ListColumnSelectorActionTestComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        SkyListColumnSelectorActionModule,
-        SkyListModule,
-        SkyListToolbarModule,
-        SkyListSecondaryActionsModule,
-        SkyGridModule,
-        SkyListViewGridModule,
-        SkyColumnSelectorModule,
-        NoopAnimationsModule
-      ]
-    })
-      .overrideComponent(SkyListComponent, {
-        set: {
-          providers: [
-            { provide: ListState, useValue: state },
-            { provide: ListStateDispatcher, useValue: dispatcher }
-          ]
-        }
-      });
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ListColumnSelectorActionTestComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
-    component = fixture.componentInstance;
-  });
-
-  beforeEach(inject([SkyModalService], (_modalService: SkyModalService) => {
-    _modalService.dispose();
-  }));
-
-  afterAll(() => {
-    fixture.destroy();
-  });
+  let fixture: ComponentFixture<any>;
+  let nativeElement: HTMLElement;
 
   function getChooseColumnsButton() {
-    return nativeElement.querySelector('.sky-dropdown-menu button') as HTMLElement;
+    let button = nativeElement.querySelector('.sky-dropdown-menu button') as HTMLElement;
+    if (!button) {
+      button = nativeElement.querySelector('[sky-cmp-id="column-chooser"] button') as HTMLElement;
+    }
+    return button;
   }
 
   function toggleSecondaryActionsDropdown() {
@@ -131,152 +100,292 @@ describe('List column selector action', () => {
     fixture.detectChanges();
   }
 
-  function closeModal(): void {
-    const cancelButton = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
-    cancelButton.click();
-    tick();
-    fixture.detectChanges();
-    flush();
-    tick();
+  function getButtonEl() {
+    return nativeElement.querySelector('[sky-cmp-id="column-chooser"] .sky-btn') as HTMLButtonElement;
   }
 
-  it('should show an action in the secondary actions dropdown', fakeAsync(() => {
-    toggleSecondaryActionsDropdown();
+  describe('toolbar button', () => {
+    let state: ListState,
+      dispatcher: ListStateDispatcher,
+      component: ListColumnSelectorActionTestComponent,
+      secondaryActionsService: SkyListSecondaryActionsService;
 
-    const chooseColumnsButton = getChooseColumnsButton();
-    expect(chooseColumnsButton.textContent.trim()).toEqual('Choose columns');
-  }));
+    beforeEach(() => {
+      secondaryActionsService = jasmine.createSpyObj(
+        'SkyListSecondaryActionsService',
+        ['addSecondaryAction', 'removeSecondaryAction']
+      );
 
-  it('should open the appropriate modal on click and apply column changes on save', fakeAsync(() => {
-    toggleSecondaryActionsDropdown();
-
-    const chooseColumnsButton = getChooseColumnsButton();
-    chooseColumnsButton.click();
-    tick();
-
-    const checkboxLabelEl = document.querySelectorAll(
-      '.sky-modal .sky-list-view-checklist-item input'
-    ) as NodeListOf<HTMLElement>;
-
-    expect(checkboxLabelEl.length).toBe(2);
-
-    checkboxLabelEl.item(0).click();
-    tick();
-
-    const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
-
-    submitButtonEl.click();
-    tick();
-
-    component.grid.gridState.take(1).subscribe((gridState) => {
-      expect(gridState.displayedColumns.items.length).toBe(2);
+      TestBed.configureTestingModule({
+        declarations: [
+          ListColumnSelectorActionTestComponent
+        ],
+        imports: [
+          RouterTestingModule,
+          SkyListColumnSelectorActionModule,
+          SkyListModule,
+          SkyListToolbarModule,
+          SkyListSecondaryActionsModule,
+          SkyGridModule,
+          SkyListViewGridModule,
+          SkyColumnSelectorModule,
+          NoopAnimationsModule
+        ],
+        providers: [
+          { provide: SkyListSecondaryActionsService, useValue: secondaryActionsService }
+        ]
+      })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              ListState,
+              ListStateDispatcher
+            ]
+          }
+        });
     });
 
-    flush();
-    tick();
-  }));
+    beforeEach(inject([SkyModalService], (_modalService: SkyModalService) => {
+      _modalService.dispose();
+    }));
 
-  it('should not clear the search text when new columns are set', fakeAsync(() => {
-    component.searchText = 'something';
-    toggleSecondaryActionsDropdown();
-
-    const chooseColumnsButton = getChooseColumnsButton();
-    chooseColumnsButton.click();
-    tick();
-
-    const checkboxLabelEl = document.querySelectorAll(
-      '.sky-modal .sky-list-view-checklist-item input'
-    ) as NodeListOf<HTMLElement>;
-
-    expect(checkboxLabelEl.length).toBe(2);
-
-    checkboxLabelEl.item(0).click();
-    tick();
-
-    const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
-
-    submitButtonEl.click();
-    tick();
-
-    component.grid.gridState.take(1).subscribe((gridState) => {
-      expect(gridState.displayedColumns.items.length).toBe(2);
-      expect(component.searchText).toEqual('something');
-    });
-
-    flush();
-    tick();
-  }));
-
-  it('should keep previous columns on cancel', fakeAsync(() => {
-    toggleSecondaryActionsDropdown();
-
-    const chooseColumnsButton = getChooseColumnsButton();
-    chooseColumnsButton.click();
-    tick();
-
-    const checkboxLabelEl = document.querySelectorAll(
-      '.sky-modal .sky-list-view-checklist-item input'
-    ) as NodeListOf<HTMLElement>;
-
-    checkboxLabelEl.item(0).click();
-    tick();
-
-    closeModal();
-
-    component.grid.gridState.take(1).subscribe((gridState) => {
-      expect(gridState.displayedColumns.items.length).toBe(3);
-    });
-  }));
-
-  it('should not appear if not in grid view', fakeAsync(() => {
-    fixture.detectChanges();
-
-    // Skip the first update to ListState, when state is ready.
-    state.skip(1).take(1).subscribe(() => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ListColumnSelectorActionTestComponent);
+      component = fixture.componentInstance;
+      nativeElement = fixture.nativeElement as HTMLElement;
       fixture.detectChanges();
-      tick();
-      dispatcher.viewsSetActive('other');
-      tick();
 
-      /* tslint:disable */
-      let query =
-        '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-secondary-action';
-      /* tslint:enable */
-      expect(nativeElement.querySelector(query)).toBeNull();
+      let skyListDebugEl: DebugElement = fixture.debugElement.query(By.directive(SkyListComponent));
+      state = skyListDebugEl.injector.get(ListState);
+      dispatcher = skyListDebugEl.injector.get(ListStateDispatcher);
+
+      // always skip the first update to ListState, when state is ready
+      // run detectChanges once more then begin tests
+      state.skip(1).take(1).subscribe(() => fixture.detectChanges());
+      fixture.detectChanges();
     });
 
-    flush();
-    tick();
-  }));
+    afterEach(() => {
+      fixture.destroy();
+    });
 
-  it('should show help button in modal header', fakeAsync(() => {
-    fixture.componentInstance.helpKey = 'foo.html';
-    toggleSecondaryActionsDropdown();
+    it('should not appear if not in grid view', async(() => {
+      dispatcher.viewsSetActive('other');
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(getButtonEl()).toBeNull();
+        });
+      });
+    }));
 
-    const chooseColumnsButton = getChooseColumnsButton();
-    chooseColumnsButton.click();
-    tick();
+    it('should not clear the search text when new columns are set', async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        component.searchText = 'something';
 
-    const helpButton = document.querySelector('button[name="help-button"]');
-    expect(helpButton).toExist();
+        const chooseColumnsButton = getButtonEl();
+        chooseColumnsButton.click();
+        fixture.detectChanges();
 
-    closeModal();
-  }));
+        const checkboxLabelEl = document.querySelectorAll(
+          '.sky-modal .sky-list-view-checklist-item input'
+        ) as NodeListOf<HTMLElement>;
 
-  it('should emit help key when help button clicked', fakeAsync(() => {
-    fixture.componentInstance.helpKey = 'foo.html';
-    const spy = spyOn(fixture.componentInstance, 'onHelpOpened').and.callThrough();
-    toggleSecondaryActionsDropdown();
+        expect(checkboxLabelEl.length).toBe(2);
 
-    const chooseColumnsButton = getChooseColumnsButton();
-    chooseColumnsButton.click();
-    tick();
+        checkboxLabelEl.item(0).click();
+        fixture.detectChanges();
 
-    const helpButton = document.querySelector('button[name="help-button"]');
-    (helpButton as any).click();
-    tick();
-    expect(spy).toHaveBeenCalledWith('foo.html');
+        const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
 
-    closeModal();
-  }));
+        submitButtonEl.click();
+        fixture.detectChanges();
+
+        component.grid.gridState.take(1).subscribe((gridState) => {
+          expect(gridState.displayedColumns.items.length).toBe(2);
+          expect(component.searchText).toEqual('something');
+        });
+      });
+    }));
+
+    it('should show help button in modal header', async(() => {
+      fixture.componentInstance.helpKey = 'foo.html';
+      fixture.detectChanges();
+
+      const chooseColumnsButton = getChooseColumnsButton();
+      chooseColumnsButton.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        const helpButton = document.querySelector('button[name="help-button"]');
+        expect(helpButton).toExist();
+
+        const cancelButtonEl = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
+        cancelButtonEl.click();
+        fixture.detectChanges();
+      });
+    }));
+
+    it('should emit help key when help button clicked', async(() => {
+      const spy = spyOn(fixture.componentInstance, 'onHelpOpened').and.callThrough();
+      fixture.componentInstance.helpKey = 'foo.html';
+      fixture.detectChanges();
+
+      const chooseColumnsButton = getChooseColumnsButton();
+      chooseColumnsButton.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        const helpButton = document.querySelector('button[name="help-button"]');
+        (helpButton as any).click();
+        fixture.detectChanges();
+        expect(spy).toHaveBeenCalledWith('foo.html');
+
+        const cancelButtonEl = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
+        cancelButtonEl.click();
+        fixture.detectChanges();
+      });
+    }));
+  });
+
+  describe('dropdown', () => {
+    let state: ListState,
+      dispatcher: ListStateDispatcher,
+      component: ListColumnSelectorActionDeprecatedTestComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          ListColumnSelectorActionDeprecatedTestComponent
+        ],
+        imports: [
+          RouterTestingModule,
+          SkyListColumnSelectorActionModule,
+          SkyListModule,
+          SkyListToolbarModule,
+          SkyListSecondaryActionsModule,
+          SkyGridModule,
+          SkyListViewGridModule,
+          SkyColumnSelectorModule,
+          NoopAnimationsModule
+        ]
+      })
+        .overrideComponent(SkyListComponent, {
+          set: {
+            providers: [
+              ListStateDispatcher,
+              ListState
+            ]
+          }
+        });
+    });
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ListColumnSelectorActionDeprecatedTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      component = fixture.componentInstance;
+
+      let skyListDebugEl: DebugElement = fixture.debugElement.query(By.directive(SkyListComponent));
+      state = skyListDebugEl.injector.get(ListState);
+      dispatcher = skyListDebugEl.injector.get(ListStateDispatcher);
+    });
+
+    beforeEach(inject([SkyModalService], (_modalService: SkyModalService) => {
+      _modalService.dispose();
+    }));
+
+    afterEach(() => {
+      fixture.destroy();
+    });
+
+    it('should show an action in the secondary actions dropdown', fakeAsync(() => {
+      toggleSecondaryActionsDropdown();
+
+      const chooseColumnsButton = getChooseColumnsButton();
+      expect(chooseColumnsButton.textContent.trim()).toEqual('Choose columns');
+    }));
+
+    it('should open the appropriate modal on click and apply column changes on save', fakeAsync(() => {
+      toggleSecondaryActionsDropdown();
+
+      const chooseColumnsButton = getChooseColumnsButton();
+      chooseColumnsButton.click();
+      tick();
+
+      const checkboxLabelEl = document.querySelectorAll(
+        '.sky-modal .sky-list-view-checklist-item input'
+      ) as NodeListOf<HTMLElement>;
+
+      expect(checkboxLabelEl.length).toBe(2);
+
+      checkboxLabelEl.item(0).click();
+      tick();
+
+      const submitButtonEl = document.querySelector('.sky-modal .sky-btn-primary') as HTMLButtonElement;
+
+      submitButtonEl.click();
+      tick();
+
+      component.grid.gridState.take(1).subscribe((gridState) => {
+        expect(gridState.displayedColumns.items.length).toBe(2);
+      });
+
+      flush();
+      tick();
+    }));
+
+    it('should keep previous columns on cancel', fakeAsync(() => {
+      toggleSecondaryActionsDropdown();
+
+      const chooseColumnsButton = getChooseColumnsButton();
+      chooseColumnsButton.click();
+      tick();
+
+      const checkboxLabelEl = document.querySelectorAll(
+        '.sky-modal .sky-list-view-checklist-item input'
+      ) as NodeListOf<HTMLElement>;
+
+      checkboxLabelEl.item(0).click();
+      tick();
+
+      const cancelButtonEl = document.querySelector('.sky-modal [sky-cmp-id="cancel"]') as HTMLButtonElement;
+      cancelButtonEl.click();
+      tick();
+
+      component.grid.gridState.take(1).subscribe((gridState) => {
+        expect(gridState.displayedColumns.items.length).toBe(3);
+      });
+
+      flush();
+      tick();
+    }));
+
+    it('should not appear if not in grid view', fakeAsync(() => {
+      fixture.detectChanges();
+
+      // Skip the first update to ListState, when state is ready.
+      state.skip(1).take(1).subscribe(() => {
+        fixture.detectChanges();
+        tick();
+        dispatcher.viewsSetActive('other');
+        tick();
+
+        /* tslint:disable */
+        let query =
+          '.sky-list-toolbar-container .sky-toolbar-item .sky-list-secondary-actions .sky-dropdown .sky-dropdown-menu sky-list-secondary-action';
+        /* tslint:enable */
+        expect(nativeElement.querySelector(query)).toBeNull();
+      });
+
+      flush();
+      tick();
+    }));
+  });
 });

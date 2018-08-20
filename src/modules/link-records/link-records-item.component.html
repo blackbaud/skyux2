@@ -23,7 +23,9 @@
     </sky-link-records-item-diff>
     <div class="link-records-item-footer"></div>
   </div>
-  <div class="link-records-item-status">
+  <div
+    aria-hidden="true"
+    class="link-records-item-status">
     <div class="link-records-item-status-content"><i class="fa"
       [class.fa-check]="record.status == STATUSES.Linked"
       [class.fa-pencil]="record.status == STATUSES.Edit"

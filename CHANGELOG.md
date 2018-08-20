@@ -1,3 +1,71 @@
+# 2.19.0 (2018-08-13)
+
+- Added icon component. [#1846](https://github.com/blackbaud/skyux2/pull/1846) (Thanks @Remulus2006)
+- Added `truncate` and `truncateAfter` options to numeric pipe. [#1856](https://github.com/blackbaud/skyux2/pull/1856)
+- Added CSS styles and ARIA attributes for disabled tabs. [#1803](https://github.com/blackbaud/skyux2/pull/1803)
+- Added `readonly` attribute to colorpicker component's input field. [#1791](https://github.com/blackbaud/skyux2/pull/1791)
+- Added ARIA roles to modal and confirm components. [#1784](https://github.com/blackbaud/skyux2/pull/1784)
+- Added ARIA attributes for inline list filters. [#1808](https://github.com/blackbaud/skyux2/pull/1808)
+- Changed color of flyout resize handle. [#1881](https://github.com/blackbaud/skyux2/pull/1881)
+- Fixed checkbox component to appear square in IE11. [#1879](https://github.com/blackbaud/skyux2/pull/1879)
+- Fixed tabset component assigning the correct tab index after a tab was deleted. [#1878](https://github.com/blackbaud/skyux2/pull/1878)
+- Various colorpicker adjustments [#1876](https://github.com/blackbaud/skyux2/pull/1876):
+  - Added `selectedColorApplied` event that provides the selected color when the apply button is pressed.
+  - Fixed colorpicker remaining open after clicking outside of the dropdown.
+  - Fixed colorpicker reverting back to the initial color when the close button is pressed.
+  - Fixed colorpicker reverting back to the initial color when the reset button is pressed.
+
+# 2.18.0 (2018-07-20)
+
+- Added ability to include `body` content within confirm component. [#1776](https://github.com/blackbaud/skyux2/pull/1776) (Thanks @Blackbaud-JackMcElhinney)
+- Added default ARIA label to colorpicker input. [#1788](https://github.com/blackbaud/skyux2/pull/1788)
+- Added default ARIA label to timepicker button and input. [#1802](https://github.com/blackbaud/skyux2/pull/1802), [#1795](https://github.com/blackbaud/skyux2/pull/1795)
+- Added ARIA sort attribute to grid component columns. [#1796](https://github.com/blackbaud/skyux2/pull/1796) (Thanks @Blackbaud-JackMcElhinney)
+- Added support for `rgb` format for colorpicker component. [#1775](https://github.com/blackbaud/skyux2/pull/1775) (Thanks @Blackbaud-JackMcElhinney)
+- Added ARIA label input for token component. [#1824](https://github.com/blackbaud/skyux2/pull/1824) [#1807](https://github.com/blackbaud/skyux2/pull/1807)
+- Added ARIA required and accessibility attributes to sectioned form component vertical tabs. [#1797](https://github.com/blackbaud/skyux2/pull/1797)
+- Changed element in page summary subtitle component. [#1800](https://github.com/blackbaud/skyux2/pull/1800) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed toast component to appear above modals. [#1756](https://github.com/blackbaud/skyux2/pull/1756) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed asynchronous tabs to initialize appropriately. [#1827](https://github.com/blackbaud/skyux2/pull/1827)
+- Fixed tile component to only display title element when heading text is supplied. [#1801](https://github.com/blackbaud/skyux2/pull/1801)
+- Fixed timepicker component to clear input value when `ngModel` is set to `undefined`. [#1772](https://github.com/blackbaud/skyux2/pull/1772) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed Plunker for colorpicker component demo. [#1752](https://github.com/blackbaud/skyux2/pull/1752)
+- Fixed regular expression for email validation to be more specific. [#1813](https://github.com/blackbaud/skyux2/pull/1813) (Thanks @Blackbaud-DylanHouston)
+- Fixed accessibility issue in confirm demo. [#1783](https://github.com/blackbaud/skyux2/pull/1783)
+- Fixed accessibility issue in email validation demo. [#1806](https://github.com/blackbaud/skyux2/pull/1806)
+- Moved Angular animations module to `devDependencies`. [#1746](https://github.com/blackbaud/skyux2/pull/1746)
+- Fixed visual tests to fail during Protractor's error code 199. [#1830](https://github.com/blackbaud/skyux2/pull/1830)
+- Removed SKY Host status bar during visual tests. [#1825](https://github.com/blackbaud/skyux2/pull/1825)
+
+# 2.17.0 (2018-07-05)
+
+- Added primary action button to flyout component toolbar. [#1766](https://github.com/blackbaud/skyux2/pull/1766) (Thanks @Blackbaud-StewartStephens)
+- Updated accessibility for colorpicker component. [#1789](https://github.com/blackbaud/skyux2/pull/1789)
+- Updated accessibility for dropdown button component. [#1781](https://github.com/blackbaud/skyux2/pull/1781)
+- Updated accessibility for tabset component. [#1786](https://github.com/blackbaud/skyux2/pull/1786)
+- Updated accessibility for action button component. [#1778](https://github.com/blackbaud/skyux2/pull/1778)
+- Updated accessibility for link records component. [#1782](https://github.com/blackbaud/skyux2/pull/1782)
+
+# 2.16.0 (2018-07-02)
+
+- Restructured list toolbar component to meet design guidelines. [#1645](https://github.com/blackbaud/skyux2/pull/1645) (Thanks @Blackbaud-TrevorBurch)
+- Added ARIA labels to datepicker component. [#1753](https://github.com/blackbaud/skyux2/pull/1753)
+- Added ARIA roles to dropdown component. [#1749](https://github.com/blackbaud/skyux2/pull/1749)
+- Added default value for timepicker component's `timeFormat` input. [#1736](https://github.com/blackbaud/skyux2/pull/1736)
+- Fixed paging component's `maxPages` input to correctly display the maximum number of pages. [#1735](https://github.com/blackbaud/skyux2/pull/1735)
+- Added hyperlink anchor tags to demos for alert and toast components. [#1723](https://github.com/blackbaud/skyux2/pull/1723)
+- Fixed race condition in wait service during teardown of wait component. [#1739](https://github.com/blackbaud/skyux2/pull/1739)
+- Fixed incorrect tab indexes for conditionally rendered tabs. [#1738](https://github.com/blackbaud/skyux2/pull/1738)
+
+# 2.15.0 (2018-06-18)
+
+- Added debounce time to search component. [#1726](https://github.com/blackbaud/skyux2/pull/1726) (Thanks @Blackbaud-LoganJahnke)
+- Added `startingDay` to datepicker input directive. [#1732](https://github.com/blackbaud/skyux2/pull/1732)
+- Fixed datepicker input directive to clear value from underlying input element. [#1730](https://github.com/blackbaud/skyux2/pull/1730)
+- Fixed repeater component to correctly initialize when consumed by component with change detection strategy of `OnPush`. [#1724](https://github.com/blackbaud/skyux2/pull/1724)
+- Fixed numeric service to use accurate localization symbols. [#1716](https://github.com/blackbaud/skyux2/pull/1716)
+- Fixed issue with modal component trying to close itself on route change if it is already closed. [#1741](https://github.com/blackbaud/skyux2/pull/1741)
+
 # 2.14.0 (2018-06-05)
 
 - Added infinite scroll component. [#1696](https://github.com/blackbaud/skyux2/pull/1696) (Thanks @blackbaud-conorwright)

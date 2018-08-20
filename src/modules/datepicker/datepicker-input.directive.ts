@@ -34,6 +34,9 @@ import {
 import {
   SkyDatepickerConfigService
 } from './datepicker-config.service';
+import {
+  SkyResourcesService
+} from '../resources';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_DATEPICKER_VALUE_ACCESSOR = {
@@ -76,14 +79,17 @@ export class SkyDatepickerInputDirective implements
   @Input()
   public maxDate: Date;
 
-  private dateFormatter = new SkyDateFormatter();
+  @Input()
+  public startingDay: number = 0;
 
+  private dateFormatter = new SkyDateFormatter();
   private modelValue: Date;
 
   public constructor(
     private renderer: Renderer,
     private elRef: ElementRef,
-    private config: SkyDatepickerConfigService) {
+    private config: SkyDatepickerConfigService,
+    private skyResourceSvc: SkyResourcesService) {
     this.configureOptions();
   }
 
@@ -98,6 +104,12 @@ export class SkyDatepickerInputDirective implements
         this.writeValue(newDate);
         this._onChange(newDate);
       });
+    if (!this.elRef.nativeElement.getAttribute('aria-label')) {
+      this.renderer.setElementAttribute(
+        this.elRef.nativeElement,
+        'aria-label',
+        this.skyResourceSvc.getString('date_field_default_label'));
+    }
   }
 
   public ngOnDestroy() {
@@ -117,6 +129,11 @@ export class SkyDatepickerInputDirective implements
     if (changes['maxDate']) {
       this._validatorChange();
       this.skyDatepickerInput.setMaxDate(this.maxDate);
+    }
+
+    if (changes['startingDay']) {
+      this._validatorChange();
+      this.skyDatepickerInput.startingDay = this.startingDay;
     }
   }
 
@@ -145,17 +162,19 @@ export class SkyDatepickerInputDirective implements
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
-
-    if (value && this.dateFormatter.dateIsValid(value)) {
+    if (this.dateFormatter.dateIsValid(value)) {
       this.modelValue = value;
     } else if (value) {
       this.modelValue = this.dateFormatter.getDateFromString(value, this.dateFormat);
       if (value !== this.modelValue && this.dateFormatter.dateIsValid(this.modelValue)) {
         this._onChange(this.modelValue);
       }
+    } else {
+      this.modelValue = value;
+      this._onChange(this.modelValue);
     }
 
-    if (this.dateFormatter.dateIsValid(this.modelValue)) {
+    if (this.dateFormatter.dateIsValid(this.modelValue) || !this.modelValue) {
       this.writeModelValue(this.modelValue);
     } else if (value) {
       this.renderer.setElementProperty(
@@ -213,7 +232,7 @@ export class SkyDatepickerInputDirective implements
     this.renderer.setElementProperty(
       this.elRef.nativeElement,
       'value',
-      this.dateFormatter.format(model, this.dateFormat));
+      model ? this.dateFormatter.format(model, this.dateFormat) : '');
 
     this.skyDatepickerInput.setSelectedDate(model);
   }

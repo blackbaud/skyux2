@@ -1,11 +1,25 @@
 <div class="sky-sort">
   <sky-dropdown
-    buttonType="sort"
-    [title]="'sort_button_label' | skyResources"
-    [messageStream]="dropdownController">
-    <sky-dropdown-menu (click)="dropdownClicked()">
-      <div class="sky-sort-menu-heading sky-subsection-heading">
-        {{'sort_menu_heading' | skyResources}}
+    buttonType="select"
+    [label]="'sort_button_label' | skyResources"
+    [messageStream]="dropdownController"
+    [title]="'sort_button_label' | skyResources">
+    <sky-dropdown-button>
+      <i class="fa fa-sort" aria-hidden="true"></i>
+      <span
+        *ngIf="showButtonText"
+        class="sky-sort-btn-text">
+        {{ 'sort_button_label' | skyResources }}
+      </span>
+    </sky-dropdown-button>
+    <sky-dropdown-menu
+      ariaRole="menu"
+      [ariaLabelledBy]="sortByHeadingId"
+      (click)="dropdownClicked()">
+      <div
+        class="sky-sort-menu-heading sky-subsection-heading"
+        [id]="sortByHeadingId">
+        {{ 'sort_menu_heading' | skyResources }}
       </div>
       <div class="sky-sort-heading-divider">
       </div>

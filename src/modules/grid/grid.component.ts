@@ -139,6 +139,9 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
       this.setDisplayedColumns(true);
     } else if (changes['selectedColumnIds'] && this.columns) {
       this.setDisplayedColumns();
+      if (changes['selectedColumnIds'].previousValue !== changes['selectedColumnIds'].currentValue) {
+        this.selectedColumnIdsChange.emit(this.selectedColumnIds);
+      }
     }
 
     if (changes['data'] && this.data) {
@@ -154,6 +157,13 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     this.subscriptions.forEach((subscription: Subscription) => {
       subscription.unsubscribe();
     });
+  }
+
+  public onKeydown(event: KeyboardEvent, column: SkyGridColumnModel) {
+    const key = event.key.toLowerCase();
+    if (key === 'enter' || key === ' ') {
+      this.sortByColumn(column);
+    }
   }
 
   public sortByColumn(column: SkyGridColumnModel) {
@@ -186,6 +196,15 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
         return field.fieldSelector === columnField ?
           (field.descending ? 'desc' : 'asc') : undefined;
       });
+  }
+
+  public getAriaSortDirection(column: SkyGridColumnModel): Observable<string> {
+    return this.currentSortField
+      .distinctUntilChanged()
+      .map(field => {
+      return field.fieldSelector === column.field ?
+        (field.descending ? 'descending' : 'ascending') : (column.isSortable ? 'none' : undefined);
+    });
   }
 
   public updateColumnHeading(change: SkyGridColumnHeadingModelChange) {

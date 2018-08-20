@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.14.0",
+  "version": "2.19.0",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -40,7 +40,6 @@
     "wdio": "wdio"
   },
   "dependencies": {
-    "@angular/animations": "4.3.6",
     "dragula": "3.7.2",
     "intl": "1.2.5",
     "microedge-rxstate": "2.0.2",
@@ -49,6 +48,7 @@
     "web-animations-js": "2.3.1"
   },
   "devDependencies": {
+    "@angular/animations": "4.3.6",
     "@angular/core": "4.3.6",
     "@angular/forms": "4.3.6",
     "@angular/platform-browser": "4.3.6",

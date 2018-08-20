@@ -24,6 +24,14 @@
 <div>
   Selected time is {{selectedTime1?.local}}
 </div>
+<p>
+  <button
+    class="sky-btn sky-btn-secondary"
+    type="button"
+    (click)="clearSelectedTime()">
+    Clear selected time
+  </button>
+</p>
 
 <br/>
 
@@ -64,7 +72,6 @@
     <input
       type="hidden"
       [skyTimepickerInput]="timePickerExample3"
-      [timeFormat]="format24"
       [returnFormat]="returnFormat"
       [(ngModel)]="selectedTime3"
       #time3="ngModel">
