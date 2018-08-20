@@ -6,6 +6,6 @@ export interface SkyActionButtonPermalink {
   route?: {
     commands: any[],
     extras: NavigationExtras
-  },
-  url?: string
+  };
+  url?: string;
 }
