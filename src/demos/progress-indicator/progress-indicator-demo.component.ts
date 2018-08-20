@@ -26,7 +26,7 @@ export class SkyProgressIndicatorDemoComponent {
   public activeIndex = 0;
   public progress = new Subject<SkyProgressIndicatorMessageType>();
 
-  private firstDone = true;
+  private firstDone = false;
   private secondDone = false;
   private thirdDone = false;
 

@@ -1,15 +1,33 @@
 @import "../../../scss/variables";
 
-.sky-progress-indicator-item-active {
-  background: #71bf43;
-  border-color: #71bf43 !important;
+.sky-progress-indicator-item-step {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 50%;
+  border: $sky-border-color-neutral-medium solid 1px;
+  float: left;
+  margin-right: $sky-margin-plus-half;
+  background-color: white;
 }
 
-.sky-progress-indicator-item-incomplete {
-  background: white;
+.sky-progress-indicator-item-step-active {
+  background-color: $sky-highlight-color-success;
+  border-color: $sky-highlight-color-success !important;
 }
 
-.sky-progress-indicator-item-content-padding {
+.sky-progress-indicator-item-step-complete {
+  padding-left: 2px;
+  font-size: 20px;
+
+  div {
+    display: inline;
+    font-size: 15px;
+  }
+}
+
+.sky-progress-indicator-item-line {
   margin-left: 9px;
   padding-top: $sky-padding-plus-half;
   padding-bottom: $sky-padding-double;
@@ -24,26 +42,6 @@
   }
 }
 
-.sky-progress-indicator-item-complete:not(.sky-progress-indicator-item-last) {
-  border-left: #71bf43 solid 2px;
-}
-
-.sky-progress-indicator-item-circle {
-  width: 20px;
-  height: 20px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 50%;
-  border: $sky-border-color-neutral-medium solid 1px;
-  float: left;
-  margin-right: $sky-margin-plus-half;
-}
-
-.sky-text-success {
-  padding-left: 2px;
-  font-size: 20px;
-  > div {
-    display: inline;
-    font-size: 15px;
-  }
+.sky-progress-indicator-item-line-complete:not(.sky-progress-indicator-item-last) {
+  border-left: $sky-highlight-color-success solid 2px;
 }

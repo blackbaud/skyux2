@@ -19,7 +19,4 @@ export class SkyProgressIndicatorItemComponent {
 
   @Input()
   public title: string;
-
-  @Input()
-  public titleHtml: string;
 }
