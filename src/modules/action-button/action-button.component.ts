@@ -16,29 +16,10 @@ import {
 })
 export class SkyActionButtonComponent {
   @Input()
-  public get permalink(): SkyActionButtonPermalink {
-    if (!this._permaLink) {
-      return undefined;
-    }
-
-    if (this._permaLink.url) {
-      return {
-        url: this._permaLink.url
-      };
-    }
-
-    return {
-      route: this._permaLink.route
-    };
-  }
-  public set permalink(value: SkyActionButtonPermalink) {
-    this._permaLink = value;
-  }
+  public permalink: SkyActionButtonPermalink;
 
   @Output()
   public actionClick = new EventEmitter<any>();
-
-  private _permaLink: SkyActionButtonPermalink;
 
   public buttonClicked() {
     this.actionClick.emit();

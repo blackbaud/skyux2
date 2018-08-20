@@ -1,29 +1,33 @@
 import {
+  DebugElement
+} from '@angular/core';
+import {
+  BrowserModule,
+  By
+} from '@angular/platform-browser';
+import {
   TestBed,
   ComponentFixture
 } from '@angular/core/testing';
-
 import {
-  DebugElement
-} from '@angular/core';
+  RouterTestingModule
+} from '@angular/router/testing';
 
-import { BrowserModule, By } from '@angular/platform-browser';
-
-import {
-  SkyActionButtonComponent,
-  SkyActionButtonModule
-
-} from '.';
 import {
   SkyMediaQueryService,
   SkyMediaBreakpoints
 } from '../media-queries';
-
-import { ActionButtonTestComponent } from './fixtures/action-button.component.fixture';
-
 import {
   MockSkyMediaQueryService
 } from '../testing/mocks';
+
+import {
+  SkyActionButtonComponent,
+  SkyActionButtonModule
+} from '.';
+import {
+  ActionButtonTestComponent
+} from './fixtures/action-button.component.fixture';
 
 describe('Action button component', () => {
   let fixture: ComponentFixture<ActionButtonTestComponent>;
@@ -41,6 +45,7 @@ describe('Action button component', () => {
       ],
       imports: [
         BrowserModule,
+        RouterTestingModule,
         SkyActionButtonModule
       ]
     });
@@ -68,21 +73,13 @@ describe('Action button component', () => {
   it('should see if there is a permalink url included as an input to the element', () => {
     let actionButton = el.querySelectorAll('.sky-action-button').item(1);
     expect(actionButton.tagName === 'a');
-    expect(actionButton.getAttribute('href')).toBe('')
-    expect(actionButton.getAttribute('routerLink')).toBeFalsy();
-    expect(actionButton.getAttribute('fragment')).toBeFalsy()
-    expect(actionButton.getAttribute('queryParams')).toBeFalsy()
-    expect(actionButton.getAttribute('queryParamsHandling')).toBeFalsy()
+    expect(actionButton.getAttribute('href')).toBe('https://developer.blackbaud.com/skyux/components');
   });
 
   it('should see if there is a permalink route included as an input to the element', () => {
-    let actionButton = el.querySelectorAll('.sky-action-button').item(1);
+    let actionButton = el.querySelectorAll('.sky-action-button').item(2);
     expect(actionButton.tagName === 'a');
-    expect(actionButton.getAttribute('routerLink')).toBeTruthy()
-    expect(actionButton.getAttribute('fragment')).toBe('fragment')
-    expect(actionButton.getAttribute('queryParams')).toBeTruthy()
-    expect(actionButton.getAttribute('queryParamsHandling')).toBeTruthy()
-    expect(actionButton.getAttribute('href')).toBeFalsy();
+    expect(actionButton.getAttribute('href')).toBe('/?page=1#fragment');
   });
 
   it('should use a div element when permalink is not provided', () => {

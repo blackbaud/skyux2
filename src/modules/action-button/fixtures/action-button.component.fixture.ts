@@ -8,19 +8,21 @@ import { SkyActionButtonPermalink } from '../types';
 export class ActionButtonTestComponent {
 
   public permalink1: SkyActionButtonPermalink = {
-    url: 'https://host.nxt.blackbaud.com/skyux2/?component=SkyIconDemoComponent'
-  }
+    url: 'https://developer.blackbaud.com/skyux/components'
+  };
 
   public permalink2: SkyActionButtonPermalink = {
     route: {
       commands: [],
       extras: {
         fragment: 'fragment',
-        queryParams: {},
-        queryParamsHandling: {}
+        queryParams: {
+          page: 1
+        },
+        queryParamsHandling: 'merge'
       }
     }
-  }
+  };
 
   public buttonIsClicked: boolean = false;
 
