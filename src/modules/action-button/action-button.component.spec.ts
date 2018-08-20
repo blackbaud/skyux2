@@ -65,12 +65,27 @@ describe('Action button component', () => {
     fixture.detectChanges();
   });
 
-  it('should see if there is a url included as an input to the element', () => {
-    let actionButton = '.sky-action-button';
-    expect(el.querySelectorAll(actionButton).item(1).tagName === 'a');
+  it('should see if there is a permalink url included as an input to the element', () => {
+    let actionButton = el.querySelectorAll('.sky-action-button').item(1);
+    expect(actionButton.tagName === 'a');
+    expect(actionButton.getAttribute('href')).toBe('')
+    expect(actionButton.getAttribute('routerLink')).toBeFalsy();
+    expect(actionButton.getAttribute('fragment')).toBeFalsy()
+    expect(actionButton.getAttribute('queryParams')).toBeFalsy()
+    expect(actionButton.getAttribute('queryParamsHandling')).toBeFalsy()
   });
 
-  it('should use a div element when url is not provided', () => {
+  it('should see if there is a permalink route included as an input to the element', () => {
+    let actionButton = el.querySelectorAll('.sky-action-button').item(1);
+    expect(actionButton.tagName === 'a');
+    expect(actionButton.getAttribute('routerLink')).toBeTruthy()
+    expect(actionButton.getAttribute('fragment')).toBe('fragment')
+    expect(actionButton.getAttribute('queryParams')).toBeTruthy()
+    expect(actionButton.getAttribute('queryParamsHandling')).toBeTruthy()
+    expect(actionButton.getAttribute('href')).toBeFalsy();
+  });
+
+  it('should use a div element when permalink is not provided', () => {
     let actionButton = '.sky-action-button';
     expect(el.querySelectorAll(actionButton).item(0).tagName === 'div');
   });

@@ -1,15 +1,19 @@
 <a
-  *ngIf="url"
+  *ngIf="permalink"
   class="sky-action-button sky-btn-default sky-rounded-corners"
   tabindex="0"
-  [href]="url">
+  [fragment]="permalink.route?.extras?.fragment"
+  [href]="permalink.url"
+  [queryParams]="permalink.route?.extras?.queryParams"
+  [queryParamsHandling]="permalink.route?.extras?.queryParamsHandling"
+  [routerLink]="permalink.route?.commands">
   <ng-container
     *ngTemplateOutlet="actionButtonContent">
   </ng-container>
 </a>
 
 <div
-  *ngIf="!url"
+  *ngIf="!permalink"
   class="sky-action-button sky-btn-default sky-rounded-corners"
   role="button"
   tabindex="0"
