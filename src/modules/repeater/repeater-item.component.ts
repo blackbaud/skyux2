@@ -1,7 +1,10 @@
 import {
   ChangeDetectorRef,
   Component,
-  Input
+  Input,
+  ElementRef,
+  ContentChild,
+  AfterContentInit
 } from '@angular/core';
 
 import {
@@ -19,6 +22,7 @@ import {
 import {
   SkyRepeaterService
 } from './repeater.service';
+import { SkyRepeaterItemContentComponent } from './repeater-item-content.component';
 
 @Component({
   selector: 'sky-repeater-item',
@@ -26,7 +30,7 @@ import {
   templateUrl: './repeater-item.component.html',
   animations: [skyAnimationSlide]
 })
-export class SkyRepeaterItemComponent {
+export class SkyRepeaterItemComponent implements AfterContentInit {
 
   public get isExpanded(): boolean {
     return this._isExpanded;
@@ -66,12 +70,17 @@ export class SkyRepeaterItemComponent {
 
   private _isSelected = false;
 
+  @ContentChild(SkyRepeaterItemContentComponent, { read: ElementRef })
+  private contentElement: ElementRef;
+
   constructor(
     private repeaterService: SkyRepeaterService,
     private changeDetector: ChangeDetectorRef,
     private logService: SkyLogService
-  ) {
-    this.slideForExpanded(false);
+  ) { }
+
+  public ngAfterContentInit() {
+    this.slideForExpanded();
   }
 
   public headerClick() {
@@ -94,7 +103,7 @@ export class SkyRepeaterItemComponent {
       this._isExpanded = value;
 
       this.repeaterService.onItemCollapseStateChange(this);
-      this.slideForExpanded(animate);
+      this.slideForExpanded();
       this.changeDetector.markForCheck();
     }
   }
@@ -103,7 +112,8 @@ export class SkyRepeaterItemComponent {
     this._isSelected = value.checked;
   }
 
-  private slideForExpanded(animate: boolean) {
-    this.slideDirection = this.isExpanded ? 'down' : 'up';
+  private slideForExpanded() {
+    this.slideDirection = this.isExpanded && this.contentElement &&
+      this.contentElement.nativeElement.innerHTML.trim() ? 'downWithBottomPadding' : 'up';
   }
 }
