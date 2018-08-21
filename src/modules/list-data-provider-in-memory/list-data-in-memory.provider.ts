@@ -38,7 +38,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
     if (data) {
       data.subscribe(items => {
         this.items.next(items.map(d =>
-          new ListItemModel(d.id || moment().toDate().getTime().toString() , d)
+          new ListItemModel(d.id || moment().toDate().getTime().toString(), d)
         ));
       });
     }
@@ -50,29 +50,31 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
 
   public get(request: ListDataRequestModel): Observable<ListDataResponseModel> {
     return this.filteredItems(request).map((result: Array<ListItemModel>) => {
-        if (request.pageNumber && request.pageSize) {
-          let itemStart = (request.pageNumber - 1) * request.pageSize;
-          let pagedResult = result.slice(itemStart, itemStart + request.pageSize);
-          return new ListDataResponseModel({
-            count: result.length,
-            items: pagedResult
-          });
-        } else {
-          return new ListDataResponseModel({
-            count: result.length,
-            items: result
-          });
-        }
+      if (request.pageNumber && request.pageSize) {
+        let itemStart = (request.pageNumber - 1) * request.pageSize;
+        let pagedResult = result.slice(itemStart, itemStart + request.pageSize);
+        return new ListDataResponseModel({
+          count: result.length,
+          items: pagedResult
+        });
+      } else {
+        return new ListDataResponseModel({
+          count: result.length,
+          items: result
+        });
+      }
 
     });
   }
 
   private filteredItems(request: ListDataRequestModel): Observable<Array<ListItemModel>> {
+    const showSelectedId = ['show-selected'];
+
     return this.items.map(items => {
       let dataChanged = false;
       let search = request.search;
       let sort = request.sort;
-      let filters = request.filters;
+      let filters: ListFilterModel[] = request.filters;
 
       if (this.lastItems === undefined || this.lastItems !== items) {
         dataChanged = true;
@@ -80,17 +82,26 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
       }
 
       let searchChanged = false;
-      if (this.lastSearch === undefined || this.lastSearch !== search) {
-        searchChanged = true;
-        this.lastSearch = search;
-      }
-
       let filtersChanged = false;
 
-      if (this.lastFilters === undefined || this.lastFilters !== filters) {
+      if (request.isToolbarDisabled) {
+        searchChanged = true;
+        search = new ListSearchModel();
+
+        filters = filters.filter(f => showSelectedId.indexOf(f.name) >= 0);
         filtersChanged = true;
-        this.lastFilters = filters;
+      } else {
+        if (this.lastSearch === undefined || this.lastSearch !== search) {
+          searchChanged = true;
+        }
+
+        if (this.lastFilters === undefined || this.lastFilters !== filters) {
+          filtersChanged = true;
+        }
       }
+
+      this.lastSearch = search;
+      this.lastFilters = filters;
 
       let result = items;
 
