@@ -42,11 +42,15 @@ describe('Progress indicator component', function () {
     tick();
     fixture.detectChanges();
     componentInstance = fixture.componentInstance.progressIndicator;
+    let element = fixture.nativeElement;
 
     expect(componentInstance.isHorizontal).toBeTruthy();
     for (let item of componentInstance.progressItems.toArray()) {
       expect(item.isHorizontal).toBeTruthy();
     }
+
+    expect(element.querySelector('.sky-progress-indicator-display')).toBeTruthy();
+    expect(element.querySelector('.sky-progress-indicator-item-step')).toBeFalsy();
   }));
 
   describe('standard setup', () => {
@@ -54,6 +58,18 @@ describe('Progress indicator component', function () {
       fixture.detectChanges();
       tick();
       componentInstance = fixture.componentInstance.progressIndicator;
+    }));
+
+    it('should use vertical mode by default', fakeAsync(() => {
+      let element = fixture.nativeElement;
+
+      expect(componentInstance.isHorizontal).toBeFalsy();
+      for (let item of componentInstance.progressItems.toArray()) {
+        expect(item.isHorizontal).toBeFalsy();
+      }
+
+      expect(element.querySelector('.sky-progress-indicator-display')).toBeFalsy();
+      expect(element.querySelector('.sky-progress-indicator-item-step')).toBeTruthy();
     }));
 
     it('should advance progress and complete current item when a complete message is received.', () => {
