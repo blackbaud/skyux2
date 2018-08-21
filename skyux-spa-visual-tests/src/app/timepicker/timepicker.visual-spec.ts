@@ -40,7 +40,7 @@ fdescribe('timepicker', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker12hr-open',
-          selector: '#screenshot-timepicker12hr'
+          selector: '#screenshot-timepicker12hr .sky-popover-body'
         });
       });
   });
@@ -53,7 +53,7 @@ fdescribe('timepicker', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker24hr-open',
-          selector: '#screenshot-timepicker12hr'
+          selector: '#screenshot-timepicker24hr .sky-popover-body'
         });
       });
   });
