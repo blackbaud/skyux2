@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { SkyMediaQueryModule } from '../media-queries';
@@ -20,6 +21,7 @@ import { SkyIconModule } from '../icon';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     SkyMediaQueryModule,
     SkyIconModule
   ],
