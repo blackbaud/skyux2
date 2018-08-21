@@ -6,6 +6,10 @@ import { Component} from '@angular/core';
 })
 export class ActionButtonVisualComponent {
 
+  public permalink = {
+    url: 'https://developer.blackbaud.com/skyux/components'
+  };
+
   public buttonIsClicked: boolean = false;
 
   public buttonClicked() {
