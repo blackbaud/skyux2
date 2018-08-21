@@ -1,7 +1,1 @@
 @import '../../../scss/mixins';
-
-.sky-page-summary-title {
-    @include sky-page-heading();
-    margin-top: 0;
-    margin-bottom: $sky-margin-half;
-}

@@ -20,7 +20,6 @@
 }
 
 .sky-tile-summary {
-    @include sky-headline();
     color: $sky-text-color-action-primary;
     opacity: 0;
     padding-right: $sky-tile-header-tool-padding;

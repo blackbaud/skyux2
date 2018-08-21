@@ -10,7 +10,6 @@
   width: 710px;
 
   .link-records-item-info {
-    @include sky-emphasized;
     text-align: center;
   }
 
@@ -46,7 +45,6 @@
 
     .link-records-item-header {
       @include sky-border(light, bottom);
-      @include sky-subsection-heading;
       padding: $sky-padding;
     }
 

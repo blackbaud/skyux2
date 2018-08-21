@@ -10,10 +10,6 @@
   text-align: center;
 }
 
-.sky-error-title {
-  @include sky-emphasized();
-}
-
 .sky-error-action {
   margin-top: $sky-margin;
 }

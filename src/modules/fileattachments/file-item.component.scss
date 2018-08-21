@@ -1,4 +1,3 @@
-@import "../../scss/variables";
 @import "../../scss/mixins";
 
 .sky-file-item {
@@ -11,10 +10,6 @@
 .sky-file-item-name-container {
   display: inline-block;
   width: 85%;
-}
-
-.sky-file-item-name {
-  @include sky-ellipsis();
 }
 
 .sky-file-item-title {

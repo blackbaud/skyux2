@@ -40,7 +40,6 @@
 
 .sky-grid-heading {
   @include sky-border(dark, top, bottom, left, right);
-  @include sky-field-label();
   border-right-width: 0px;
 
   cursor: pointer;

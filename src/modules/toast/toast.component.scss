@@ -1,7 +1,6 @@
 @import '../../scss/mixins';
 
 .sky-toast {
-  @include sky-shadow();
   padding: 0 $sky-padding;
   margin-bottom: $sky-margin-double;
   border-left: solid 30px;

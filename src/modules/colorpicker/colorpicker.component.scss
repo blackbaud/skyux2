@@ -66,13 +66,6 @@
   margin: 0;
 }
 
-@mixin boder-radius($radius) {
-  -moz-border-radius: $radius;
-  -webkit-border-radius: $radius;
-  border-radius: $radius;
-  -khtml-border-radius: $radius;
-}
-
 .sky-colorpicker {
   cursor: default;
   width: 270px;
@@ -148,7 +141,6 @@
   div.cursor-sv {
     cursor: default;
     position: relative;
-    @include boder-radius(50%);
     width: 14px;
     height: 14px;
     @include sky-border(dark, top, right, bottom, left);
@@ -156,7 +148,6 @@
   div.cursor {
     cursor: default;
     position: relative;
-    @include boder-radius(50%);
     width: 17px;
     height: 17px;
     border: $sky-text-color-deemphasized solid 2px;
@@ -204,12 +195,10 @@
     top: 16px;
     left: 8px;
     position: absolute;
-    @include boder-radius(50%);
   }
   .selected-color-background {
     width: 40px;
     height: 40px;
-    @include boder-radius(50%);
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAh0lEQVRYR+2W0QlAMQgD60zdfwOdqa8TmI/wQMr5K0I5bZLIzLOa2nt37VVVbd+dDx5obgCC3KBLwJ2ff4PnVidkf+ucIhw80HQaCLo3DMH3CRK3iFsmAWVl6hPNDwt8EvNE5q+YuEXcMgkonVM6SdyCoEvAnZ8v1Hjx817MilmxSUB5rdLJDycZgUAZUch/AAAAAElFTkSuQmCC');
   }
   .hsla-text,

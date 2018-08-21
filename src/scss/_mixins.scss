@@ -1,33 +1,7 @@
 @import "variables";
 @import "~@blackbaud/skyux-design-tokens/scss/mixins.scss";
 
-// Border mixin is now in the design tokens mixin
-
-@mixin sky-shadow (
-  $h-shadow: 0px,
-  $v-shadow: 0px,
-  $blur: 5px,
-  $spread-radius: 0,
-  $color: rgba(0, 0, 0, 0.3)
-) {
-  box-shadow: $h-shadow $v-shadow $blur $spread-radius $color;
-}
-
 // Begin typography
-
-@mixin sky-page-heading {
-  font-family: $sky-font-family-condensed;
-  color: $sky-text-color-default;
-  font-weight: 300;
-  font-size: 34px;
-}
-
-@mixin sky-section-heading {
-  font-family: $sky-font-family-condensed;
-  color: $sky-text-color-default;
-  font-weight: 300;
-  font-size: 26px;
-}
 
 @mixin sky-subsection-heading {
   font-family: $sky-font-family;
@@ -36,20 +10,7 @@
   font-size: 19px;
 }
 
-@mixin sky-headline {
-  font-family: $sky-font-family-condensed;
-  color: $sky-text-color-default;
-  font-weight: 500;
-  font-size: 22px;
-}
-
-@mixin sky-emphasized {
-  font-family: $sky-font-family;
-  color: $sky-text-color-default;
-  font-weight: 600;
-  font-size: 16px;
-}
-
+// TODO: This should not be exposed publicly.
 @mixin sky-deemphasized{
   font-family: $sky-font-family;
   color: $sky-text-color-deemphasized;
@@ -152,6 +113,7 @@
   @if $official                                        {         #{$property} : $value; }
 }
 
+// Don't expose!
 @mixin sky-ellipsis($no-wrap: true) {
   @if $no-wrap { white-space: nowrap; }
   overflow: hidden;
@@ -272,14 +234,6 @@
 @mixin sky-border-left-radius($radius) {
   border-bottom-left-radius: $radius;
   border-top-left-radius: $radius;
-}
-
-@mixin create_columns($screen-size: sm) {
-  @for $i from 1 through $sky-fluid-grid-columns {
-    :host.sky-column-#{$screen-size}-#{$i} {
-      width: ($i / $sky-fluid-grid-columns) * 100%;
-    }
-  }
 }
 
 @mixin sky-required-field {

@@ -164,23 +164,23 @@ mark.sky-highlight-mark {
 
 /* Placeholder Text */
 ::-webkit-input-placeholder {
-    @include sky-deemphasized;
-    opacity: 1;
+  @include sky-deemphasized;
+  opacity: 1;
 }
 
 ::-moz-placeholder { /* Firefox 19+ */
-    @include sky-deemphasized;
-    opacity: 1;
+  @include sky-deemphasized;
+  opacity: 1;
 }
 
 input:-moz-placeholder { /* Firefox 18- */
-    @include sky-deemphasized;
-    opacity: 1;
+  @include sky-deemphasized;
+  opacity: 1;
 }
 
 :-ms-input-placeholder { /* IE */
-    @include sky-deemphasized;
-    opacity: 1;
+  @include sky-deemphasized;
+  opacity: 1;
 }
 /* End Placeholder Text */
 
@@ -193,5 +193,9 @@ input:-moz-placeholder { /* Firefox 18- */
 }
 
 .sky-shadow {
-  @include sky-shadow;
+  box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.sky-ellipsis {
+  @include sky-ellipsis();
 }

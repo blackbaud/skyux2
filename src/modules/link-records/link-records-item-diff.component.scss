@@ -9,10 +9,6 @@
     border-collapse: collapse;
     width: 100%;
 
-    th {
-      @include sky-field-label;
-    }
-
     th,
     td {
       padding: $sky-padding $sky-padding $sky-padding 0;
@@ -27,10 +23,6 @@
       &.link-records-item-diff-value {
         word-break: break-all;
         white-space: pre-line;
-      }
-
-      &.item-deemphasized {
-        @include sky-deemphasized;
       }
 
       &.item-highlighted {

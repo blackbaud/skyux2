@@ -44,7 +44,6 @@
 
 .sky-card-heading-left,
 .sky-card-heading-right {
-    //@include ellipsis();
     font-weight: normal;
     max-width: 34px;
 }
@@ -64,7 +63,6 @@
 }
 
 .sky-card-title {
-    @include sky-section-heading();
     margin: 0;
     line-height: $sky-line-height-base;
 }

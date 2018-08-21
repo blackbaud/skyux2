@@ -78,7 +78,6 @@
 
 .sky-modal-header-content {
   flex-grow: 1;
-  @include sky-emphasized();
 }
 
 .sky-modal-header {
@@ -111,10 +110,6 @@
   width:100%;
   top:0;
   margin:0;
-
-  .sky-modal-header-content {
-    @include sky-section-heading();
-  }
 
   .sky-modal-header-buttons .fa-close {
     font-size: 20px;

@@ -1,5 +1,12 @@
-@import '../../scss/_variables';
 @import '../../scss/_mixins';
+
+@mixin create_columns($screen-size: sm) {
+  @for $i from 1 through $sky-fluid-grid-columns {
+    :host.sky-column-#{$screen-size}-#{$i} {
+      width: ($i / $sky-fluid-grid-columns) * 100%;
+    }
+  }
+}
 
 :host.sky-column {
   padding-right: $sky-fluid-grid-gutter;

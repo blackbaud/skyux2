@@ -27,7 +27,7 @@
 
     <div class="sky-file-drop-contents" *ngIf="customEl.children.length === 0">
       <div class="sky-file-drop-contents-not-over">
-        <div class="sky-file-drop-text-header">
+        <div class="sky-file-drop-text-header sky-headline">
           {{ 'file_upload_drag_file_here' | skyResources }}
         </div>
         <div class="sky-file-drop-text">
@@ -38,7 +38,7 @@
 
       <!-- This will appear when file is dragged over and is valid -->
       <div class="sky-file-drop-contents-accept" >
-        <div class="sky-file-drop-text-header">
+        <div class="sky-file-drop-text-header sky-headline">
           {{ 'file_upload_drop_files_here' | skyResources }}
         </div>
         <i class="fa fa-bullseye sky-file-upload-icon"></i>
@@ -46,7 +46,7 @@
 
       <!-- This will appear when file is dragged over and is invalid -->
       <div class="sky-file-drop-contents-reject" >
-        <div class="sky-file-drop-text-header">
+        <div class="sky-file-drop-text-header sky-headline">
           {{ 'file_upload_invalid_file' | skyResources }}
         </div>
         <i class="fa fa-times-circle sky-file-upload-icon"></i>
@@ -61,7 +61,7 @@
     <div class="sky-file-drop-contents">
       <div class="sky-file-drop-link">
         <div class="sky-file-drop-link-header">
-          <div class="sky-file-drop-text-header">
+          <div class="sky-file-drop-text-header sky-headline">
             {{ 'file_upload_paste_link' | skyResources }}
           </div>
         </div>
