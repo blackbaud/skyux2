@@ -2,8 +2,11 @@
   *ngIf="isHorizontal"
   class="sky-progress-indicator-display">
   <div
-    *ngFor="let item of progressItems"
-    class="sky-progress-indicator-display-item">
+    *ngFor="let item of progressItems; let i = index"
+    class="sky-progress-indicator-display-item"
+    [ngClass]="{
+      'sky-progress-indicator-display-item-complete': !item.isActive && item.isComplete
+    }">
     <div
       *ngIf="!item.isComplete || item.isActive"
       class="sky-progress-indicator-display-item-step"
@@ -16,10 +19,11 @@
       class="sky-progress-indicator-display-item-step-complete sky-text-success">
     </div>
     <div
+      *ngIf="!item.isLastItem"
       class="sky-progress-indicator-display-item-line"
       [ngClass]="{
-        'sky-progress-indicator-display-item-line-complete': !item.isActive && item.isComplete,
-        'sky-progress-indicator-display-item-last': item.isLastItem
+        'sky-progress-indicator-display-item-line-check': !item.isActive && item.isComplete,
+        'sky-progress-indicator-display-item-line-next-check': !isNextToCircle(i)
       }">
     </div>
   </div>

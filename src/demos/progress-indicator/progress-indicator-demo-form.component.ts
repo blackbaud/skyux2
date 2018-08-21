@@ -30,6 +30,10 @@ export class SkyProgressIndicatorDemoFormComponent {
     }
   }
 
+  public get isDone() {
+    return this.activeIndex === 2;
+  }
+
   constructor(
     public instance: SkyModalInstance
   ) { }

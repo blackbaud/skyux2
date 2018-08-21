@@ -94,6 +94,11 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     this.idle.unsubscribe();
   }
 
+  public isNextToCircle(index: number): boolean {
+    let nextItem = this.getItemByIndex(index + 1);
+    return nextItem && (!nextItem.isComplete || nextItem.isActive);
+  }
+
   private completeItem() {
     if (this.activeIndex === this.progressItems.length) {
       return;
