@@ -7,7 +7,7 @@ import {
   SkyVisualTest
 } from '../../../config/utils/visual-test-commands';
 
-fdescribe('timepicker', () => {
+describe('timepicker', () => {
   it('should show the timepicker correctly for 12hr', () => {
     return SkyVisualTest
       .setupTest('timepicker')
