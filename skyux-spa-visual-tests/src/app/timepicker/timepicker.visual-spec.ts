@@ -7,7 +7,7 @@ import {
   SkyVisualTest
 } from '../../../config/utils/visual-test-commands';
 
-describe('timepicker', () => {
+fdescribe('timepicker', () => {
   it('should show the timepicker correctly for 12hr', () => {
     return SkyVisualTest
       .setupTest('timepicker')
@@ -15,7 +15,7 @@ describe('timepicker', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker12hr',
-          selector: '#timepicker12hr'
+          selector: '#screenshot-timepicker12hr'
         });
       });
   });
@@ -27,7 +27,7 @@ describe('timepicker', () => {
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker24hr',
-          selector: '#timepicker24hr'
+          selector: '#screenshot-timepicker24hr'
         });
       });
   });
@@ -36,11 +36,11 @@ describe('timepicker', () => {
     return SkyVisualTest
       .setupTest('timepicker')
       .then(() => {
-        element(by.css('#timepicker12hr .sky-dropdown-button')).click();
+        element(by.css('#screenshot-timepicker12hr .sky-dropdown-button')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker12hr-open',
-          selector: '#timepicker12hr'
+          selector: '#screenshot-timepicker12hr'
         });
       });
   });
@@ -49,11 +49,11 @@ describe('timepicker', () => {
     return SkyVisualTest
       .setupTest('timepicker')
       .then(() => {
-        element(by.css('#timepicker24hr .sky-dropdown-button')).click();
+        element(by.css('#screenshot-timepicker24hr .sky-dropdown-button')).click();
         SkyVisualTest.moveCursorOffScreen();
         return SkyVisualTest.compareScreenshot({
           screenshotName: 'timepicker24hr-open',
-          selector: '#timepicker24hr'
+          selector: '#screenshot-timepicker12hr'
         });
       });
   });
