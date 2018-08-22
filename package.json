@@ -40,8 +40,7 @@
     "wdio": "wdio"
   },
   "dependencies": {
-    "@skyux/core": "3.0.0-alpha.5",
-    "@skyux/theme": "3.0.0-alpha.7",
+    "@skyux/theme": "3.0.0-alpha.8",
     "dragula": "3.7.2",
     "intl": "1.2.5",
     "microedge-rxstate": "2.0.2",
@@ -91,9 +90,6 @@
     "karma-webpack-grep": "1.0.1",
     "less": "2.7.2",
     "node-resemble-js": "0.2.0",
-    "node-sass": "4.5.3",
-    "node-sass-tilde-importer": "1.0.0",
-    "normalize-scss": "5.0.3",
     "raw-loader": "0.5.1",
     "remap-istanbul": "0.9.5",
     "rimraf": "2.6.1",
