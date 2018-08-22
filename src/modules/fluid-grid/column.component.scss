@@ -1,4 +1,6 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
+@import "scss/variables";
 
 @mixin create_columns($screen-size: sm) {
   @for $i from 1 through $sky-fluid-grid-columns {

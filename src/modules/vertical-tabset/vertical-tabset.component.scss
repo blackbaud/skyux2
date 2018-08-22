@@ -1,4 +1,5 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 @media (min-width: $sky-screen-sm-min) {
   .sky-vertical-tabset {

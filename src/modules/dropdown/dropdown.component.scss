@@ -1,4 +1,5 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-dropdown {
   ::ng-deep .sky-popover-container {
@@ -22,8 +23,8 @@
 }
 
 .sky-dropdown-button-type-tab {
-  @include sky-btn-tab;
-  @include sky-btn-tab-selected;
+  @include sky-btn-tab();
+  @include sky-btn-tab-selected();
   max-width: 100%;
 }
 

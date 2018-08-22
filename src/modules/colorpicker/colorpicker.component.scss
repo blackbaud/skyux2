@@ -1,4 +1,5 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 :host-context(sky-colorpicker) {
   ::ng-deep .sky-dropdown-button {
@@ -55,7 +56,6 @@
 
 .sky-colorpicker-footer {
   background-color: $sky-color-white;
-  padding: $sky-padding-plus-half;
   @include sky-border(light, top);
 }
 

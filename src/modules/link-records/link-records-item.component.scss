@@ -1,4 +1,5 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 :host {
   align-items: center;
@@ -43,7 +44,6 @@
 
     .link-records-item-header {
       @include sky-border(light, bottom);
-      padding: $sky-padding;
     }
 
     .link-records-item-footer {

@@ -1,4 +1,5 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-tab-dropdown {
   ::ng-deep .sky-dropdown-item {
@@ -26,14 +27,12 @@
   background-color: transparent;
   cursor: pointer;
   flex-grow: 1;
-  padding: $sky-padding;
   text-align: left;
 }
 
 .sky-tab-dropdown-item-close {
   background-color: transparent;
   border: none;
-  padding: $sky-padding;
 }
 
 .sky-tab-dropdown-item-selected {

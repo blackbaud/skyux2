@@ -25,7 +25,7 @@
       (change)="fileChangeEvent($event)"
       #fileInput>
 
-    <div class="sky-file-drop-contents" *ngIf="customEl.children.length === 0">
+    <div class="sky-file-drop-contents sky-padding-even-default" *ngIf="customEl.children.length === 0">
       <div class="sky-file-drop-contents-not-over">
         <div class="sky-file-drop-text-header sky-headline">
           {{ 'file_upload_drag_file_here' | skyResources }}

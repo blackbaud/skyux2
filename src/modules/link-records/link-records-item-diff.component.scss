@@ -1,4 +1,5 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 :host {
   display: block;
@@ -10,7 +11,7 @@
 
     th,
     td {
-      padding: $sky-padding $sky-padding $sky-padding 0;
+      padding-left: 0;
       text-align: left;
 
       &.link-records-item-diff-update {

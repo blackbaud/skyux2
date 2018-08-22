@@ -1,8 +1,8 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-repeater-item {
   display: flex;
-  padding: $sky-padding;
   @include sky-border(row);
 }
 

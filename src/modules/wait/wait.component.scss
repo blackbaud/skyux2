@@ -1,4 +1,6 @@
 @import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
+@import "scss/variables";
 
 .sky-wait-mask-loading-blocking {
   margin: auto;
@@ -8,7 +10,7 @@
   left: 0;
   bottom: 0;
   background-color: $sky-wait-mask-color;
-  z-index: $sky-component-wait-z-index;
+  z-index: 1000;
 }
 
 .sky-wait-mask-loading-fixed {
