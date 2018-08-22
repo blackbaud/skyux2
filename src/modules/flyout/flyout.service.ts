@@ -96,13 +96,13 @@ export class SkyFlyoutService {
     this.host.instance.messageStream
       .take(1)
       .subscribe((message: SkyFlyoutMessage) => {
-        if (message.type === SkyFlyoutMessageType.Close && !this.isOpening) {
+        if (message.type === SkyFlyoutMessageType.Close) {
           this.removeAfterClosed = true;
         }
       });
 
     flyout.closed.take(1).subscribe(() => {
-      if (this.removeAfterClosed && !this.isOpening) {
+      if (this.removeAfterClosed) {
         this.removeHostComponent();
       }
     });
