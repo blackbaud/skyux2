@@ -19,20 +19,31 @@ import {
   SkyFlyoutMessage,
   SkyFlyoutMessageType
 } from './types';
+import { SkyWindowRefService } from '../window';
 
 @Injectable()
 export class SkyFlyoutService {
   private host: ComponentRef<SkyFlyoutComponent>;
   private removeAfterClosed = false;
+  private isOpening: boolean = false;
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
     private appRef: ApplicationRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver
-  ) { }
+    private resolver: ComponentFactoryResolver,
+    private windowRef: SkyWindowRefService
+  ) {
+    // @HostListner doesn't work with services, so we revert to listening to the window.
+    this.windowRef.getWindow().addEventListener('click', (event) => {
+      if (this.host && !this.host.location.nativeElement.contains(event.target)) {
+        this.close();
+      }
+    });
+  }
 
   public open<T>(component: Type<T>, config?: SkyFlyoutConfig): SkyFlyoutInstance<T> {
+    this.isOpening = true;
     if (!this.host) {
       this.host = this.createHostComponent();
     }
@@ -45,12 +56,15 @@ export class SkyFlyoutService {
   }
 
   public close(): void {
-    if (this.host) {
+    if (this.host && !this.isOpening) {
       this.removeAfterClosed = true;
       this.host.instance.messageStream.next({
         type: SkyFlyoutMessageType.Close
       });
     }
+
+    // Always reset the isOpening flag, as close() will be called on every click.
+    this.isOpening = false;
   }
 
   private createHostComponent(): ComponentRef<SkyFlyoutComponent> {
@@ -82,13 +96,13 @@ export class SkyFlyoutService {
     this.host.instance.messageStream
       .take(1)
       .subscribe((message: SkyFlyoutMessage) => {
-        if (message.type === SkyFlyoutMessageType.Close) {
+        if (message.type === SkyFlyoutMessageType.Close && !this.isOpening) {
           this.removeAfterClosed = true;
         }
       });
 
     flyout.closed.take(1).subscribe(() => {
-      if (this.removeAfterClosed) {
+      if (this.removeAfterClosed && !this.isOpening) {
         this.removeHostComponent();
       }
     });
