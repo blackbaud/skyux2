@@ -1,7 +1,7 @@
 <div class="sky-file-item">
     <div class="sky-file-item-title">
         <div class="sky-file-item-name-container">
-            <div class="sky-file-item-name sky-ellipsis">
+            <div class="sky-file-item-name">
                 <strong *ngIf="isFile()">{{fileItem.file.name || fileItem.url}}</strong>
                 <strong *ngIf="!isFile()">{{fileItem.url}}</strong>
             </div>

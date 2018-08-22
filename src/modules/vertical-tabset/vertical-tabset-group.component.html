@@ -1,9 +1,7 @@
 <div class="sky-vertical-tabset-group">
   <div
-    class="sky-vertical-tabset-group-header"
-    [ngClass]="{
-      'sky-vertical-tabset-group-header-sub-open sky-emphasized': subMenuOpen()
-    }"
+    class="sky-vertical-tabset-group-header sky-emphasized"
+    [ngClass]="{'sky-vertical-tabset-group-header-sub-open': subMenuOpen()}"
     (click)="toggleMenuOpen()"
     (keyup.enter)="toggleMenuOpen()"
     [tabIndex]="-1"

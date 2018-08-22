@@ -1,4 +1,4 @@
-@import "../../scss/variables";
+@import "~@skyux/theme/scss/mixins";
 
 .sky-chevron {
     border: none;
@@ -10,7 +10,7 @@
     padding: 0;
     width: $sky-context-menu-size;
     cursor: pointer;
-  
+
   &:hover .sky-chevron-part {
     border-color: darken($sky-text-color-icon-borderless, 20%);
   }

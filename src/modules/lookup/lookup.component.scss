@@ -1,4 +1,4 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
 
 .sky-lookup {
   textarea {
@@ -50,10 +50,6 @@
 }
 
 .sky-lookup-focused {
-  .sky-lookup-search {
-    @include sky-field-status(active);
-  }
-
   ::ng-deep .sky-tokens-content {
     flex-basis: 100px;
   }

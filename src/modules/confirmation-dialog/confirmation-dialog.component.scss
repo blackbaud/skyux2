@@ -1,4 +1,4 @@
-@import "../../scss/mixins";
+@import "~@skyux/theme/scss/mixins";
 
 .sky-confirmation-dialog-message-container {
   padding-top: $sky-padding-half;
@@ -10,6 +10,6 @@
 }
 
 .sky-confirmation-dialog-btn  {
-  min-width: 15%; 
+  min-width: 15%;
   margin-right: $sky-margin-half;
 }
