@@ -43,7 +43,12 @@ export class SkyFlyoutService {
   }
 
   public open<T>(component: Type<T>, config?: SkyFlyoutConfig): SkyFlyoutInstance<T> {
+    // isOpening flag will prevent close() from firing when open() is also fired.
     this.isOpening = true;
+    this.windowRef.getWindow().setTimeout(() => {
+      this.isOpening = false;
+    });
+
     if (!this.host) {
       this.host = this.createHostComponent();
     }
@@ -62,9 +67,6 @@ export class SkyFlyoutService {
         type: SkyFlyoutMessageType.Close
       });
     }
-
-    // Always reset the isOpening flag, as close() will be called on every click.
-    this.isOpening = false;
   }
 
   private createHostComponent(): ComponentRef<SkyFlyoutComponent> {
@@ -91,20 +93,22 @@ export class SkyFlyoutService {
   }
 
   private addListeners<T>(flyout: SkyFlyoutInstance<T>): void {
-    this.removeAfterClosed = false;
+    if (this.host) {
+      this.removeAfterClosed = false;
+      this.host.instance.messageStream
+        .take(1)
+        .subscribe((message: SkyFlyoutMessage) => {
+          if (message.type === SkyFlyoutMessageType.Close) {
+            this.removeAfterClosed = true;
+            this.isOpening = false;
+          }
+        });
 
-    this.host.instance.messageStream
-      .take(1)
-      .subscribe((message: SkyFlyoutMessage) => {
-        if (message.type === SkyFlyoutMessageType.Close) {
-          this.removeAfterClosed = true;
+      flyout.closed.take(1).subscribe(() => {
+        if (this.removeAfterClosed) {
+          this.removeHostComponent();
         }
       });
-
-    flyout.closed.take(1).subscribe(() => {
-      if (this.removeAfterClosed) {
-        this.removeHostComponent();
-      }
-    });
+    }
   }
 }

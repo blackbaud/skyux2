@@ -125,10 +125,6 @@ describe('Flyout component', () => {
 
     closeFlyout();
     expect(flyout.isOpen).toBe(false);
-
-    // Closing the flyout again should have no effect:
-    closeFlyout();
-    expect(flyout.isOpen).toBe(false);
   }));
 
   it('should close when the Close message type is received', fakeAsync(() => {
