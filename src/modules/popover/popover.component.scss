@@ -7,7 +7,7 @@ $popover-max-width: 276px;
 
 .sky-popover-container {
   position: fixed;
-  z-index: 1001; // omnibar is 1000
+  z-index: $sky-dropdown-z-index;
   min-width: $popover-max-width;
   max-width: $popover-max-width;
 
