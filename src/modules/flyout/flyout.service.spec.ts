@@ -8,7 +8,6 @@ import {
   inject,
   TestBed,
   tick,
-  flushMicrotasks,
   fakeAsync
 } from '@angular/core/testing';
 
