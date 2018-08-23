@@ -1,5 +1,9 @@
 @import "../../scss/variables";
 
+:host() {
+  margin-bottom: 50px;
+}
+
 .sky-progress-indicator-display {
   display: flex;
   margin-bottom: $sky-margin-plus-half;
@@ -28,12 +32,13 @@
   width: 15px;
   height: 15px;
   font-size: 15px;
+  margin-top: -2px;
 }
 
 .sky-progress-indicator-display-item-line {
   height: 1px;
   width: 30px;
-  background-color: $sky-border-color-neutral-medium;
+  background-color: $sky-highlight-color-success;
   margin-top: 7px;
 
   &.sky-progress-indicator-display-item-line-next-check {
@@ -46,7 +51,6 @@
     width: 20px;
     margin-right: $sky-margin-half;
     margin-left: $sky-margin-half;
-    background-color: $sky-highlight-color-success;
 
     &:not(.sky-progress-indicator-display-item-line-next-check) {
       width: 25px;
@@ -54,8 +58,7 @@
     }
   }
 
-
-  &.sky-progress-indicator-display-item-last {
-    display: none;
+  &.sky-progress-indicator-display-item-line-next-inactive {
+    background-color: $sky-border-color-neutral-medium;
   }
 }

@@ -13,6 +13,7 @@ export class SkyProgressIndicatorItemComponent {
   public isComplete = false;
   public isLastItem = false;
   public isHorizontal = false;
+  public isNextToInactive = true;
 
   @Input()
   public itemNumber: number;

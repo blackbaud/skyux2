@@ -1,5 +1,5 @@
 export enum SkyProgressIndicatorMessageType {
-  ItemComplete = 0,
-  ItemIncomplete = 1,
-  ProgressReset = 2
+  Progress = 0,
+  Regress = 1,
+  Reset = 2
 }

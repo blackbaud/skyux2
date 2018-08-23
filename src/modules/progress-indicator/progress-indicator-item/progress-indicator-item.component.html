@@ -6,7 +6,7 @@
   }">
 </div>
 <div
-  *ngIf="(!isHorizontal && isComplete && !isActive) || (isHorizontal && isActive)"
+  *ngIf="!isHorizontal || isActive"
   [ngClass]="{
     'sky-text-success': isComplete && !isActive && !isHorizontal,
     'sky-progress-indicator-item-step-complete': isComplete && !isActive && !isHorizontal
@@ -21,9 +21,11 @@
   class="sky-progress-indicator-item-line"
   [ngClass]="{
     'sky-progress-indicator-item-horizontal': isHorizontal,
-    'sky-progress-indicator-item-line-complete': !isActive && isComplete,
-    'sky-progress-indicator-item-last': isLastItem
+    'sky-progress-indicator-item-last': isLastItem,
+    'sky-progress-indicator-item-line-inactive': !isActive && !isComplete,
+    'sky-progress-indicator-item-line-next-inactive': isNextToInactive
   }">
-  <ng-content>
+  <ng-content
+    *ngIf="isActive || isComplete">
   </ng-content>
 </div>

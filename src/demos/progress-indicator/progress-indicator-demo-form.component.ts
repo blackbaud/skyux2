@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy,
-  Component
+  Component,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -10,8 +10,7 @@ import {
 
 @Component({
   selector: 'sky-demo-progress-indicator-form',
-  templateUrl: './progress-indicator-demo-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './progress-indicator-demo-form.component.html'
 })
 export class SkyProgressIndicatorDemoFormComponent {
   public activeIndex = 0;
@@ -35,10 +34,12 @@ export class SkyProgressIndicatorDemoFormComponent {
   }
 
   constructor(
-    public instance: SkyModalInstance
+    public instance: SkyModalInstance,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   public updateIndex(changes: SkyProgressIndicatorChange) {
     this.activeIndex = changes.activeIndex;
+    this.changeDetector.detectChanges();
   }
 }

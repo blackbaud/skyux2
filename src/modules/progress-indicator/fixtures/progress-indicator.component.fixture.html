@@ -4,40 +4,90 @@
 
 <sky-progress-indicator
   [isHorizontal]="isHorizontal"
+  [startingIndex]="startingIndex"
+  (progressChanges)="updateIndex($event)"
   #progressIndicator>
 
-  <sky-progress-indicator-item [itemNumber]='1' titleHtml='Do the first thing'>
+  <sky-progress-indicator-item
+    titleHtml='Do the first thing'
+    [itemNumber]='1'>
     <div class="stepContent">
-      <button type="button" class="sky-btn sky-btn-primary" (click)="changeProgress(1, true)" *ngIf="!isDone(1)">Do</button>
-      <button type="button" class="sky-btn sky-btn-default" (click)="changeProgress(1, false)" *ngIf="isDone(1) && !isDone(2)">Undo</button>
+      <button
+        *ngIf="activeIndex === 0"
+        class="sky-btn sky-btn-primary"
+        type="button"
+        (click)="progress()">
+        Do
+      </button>
+      <button
+        *ngIf="activeIndex === 1"
+        class="sky-btn sky-btn-default"
+        type="button"
+        (click)="regress()">
+        Undo
+      </button>
     </div>
   </sky-progress-indicator-item>
 
-  <sky-progress-indicator-item [itemNumber]='2' titleHtml='Do the second thing'>
-    <div class="stepContent" *ngIf="progressIndicator.activeIndex >= 1">
-        <button type="button" class="sky-btn sky-btn-primary" (click)="changeProgress(2, true)" *ngIf="!isDone(2)">Do</button>
-        <button type="button" class="sky-btn sky-btn-default" (click)="changeProgress(2, false)" *ngIf="isDone(2) && !isDone(3)">Undo</button>
+  <sky-progress-indicator-item
+    titleHtml='Do the second thing'
+    [itemNumber]='2'>
+    <div
+      *ngIf="activeIndex >= 1"
+      class="stepContent">
+        <button
+          *ngIf="activeIndex === 1"
+          class="sky-btn sky-btn-primary"
+          type="button"
+          (click)="progress()">
+          Do
+        </button>
+        <button
+          *ngIf="activeIndex === 2"
+          class="sky-btn sky-btn-default"
+          type="button"
+          (click)="regress()">
+          Undo
+        </button>
     </div>
   </sky-progress-indicator-item>
 
-  <sky-progress-indicator-item [itemNumber]='3' titleHtml='Do the third thing'>
-    <div class="stepContent" *ngIf="progressIndicator.activeIndex >= 2">
-        <button type="button" class="sky-btn sky-btn-primary" (click)="changeProgress(3, true)" *ngIf="!isDone(3)">Do</button>
-        <button type="button" class="sky-btn sky-btn-default" (click)="changeProgress(3, false)" *ngIf="isDone(3)">Undo</button>
+  <sky-progress-indicator-item
+    titleHtml='Do the third thing'
+    [itemNumber]='3'>
+    <div
+      *ngIf="activeIndex >= 2"
+      class="stepContent">
+        <button
+          *ngIf="activeIndex === 2"
+          class="sky-btn sky-btn-primary"
+          type="button"
+          (click)="progress()">
+          Do
+        </button>
+        <button
+          *ngIf="activeIndex === 3"
+          class="sky-btn sky-btn-default"
+          type="button"
+          (click)="regress()">
+          Undo
+        </button>
     </div>
   </sky-progress-indicator-item>
 
 </sky-progress-indicator>
 
-  <sky-progress-indicator-nav-button
-    [buttonText]="previousButtonText"
-    [buttonType]="previousButtonType"
-    [disabled]="previousButtonDisabled"
-    [progressIndicator]="progressIndicator">
-  </sky-progress-indicator-nav-button>
-  <sky-progress-indicator-nav-button
-    [buttonText]="nextButtonText"
-    [buttonType]="nextButtonType"
-    [disabled]="nextButtonDisabled"
-    [progressIndicator]="progressIndicator">
-  </sky-progress-indicator-nav-button>
+<sky-progress-indicator-nav-button
+  id="previous-btn"
+  [buttonText]="previousButtonText"
+  [buttonType]="previousButtonType"
+  [disabled]="previousButtonDisabled"
+  [progressIndicator]="progressIndicator">
+</sky-progress-indicator-nav-button>
+<sky-progress-indicator-nav-button
+  id="next-btn"
+  [buttonText]="nextButtonText"
+  [buttonType]="nextButtonType"
+  [disabled]="nextButtonDisabled"
+  [progressIndicator]="progressIndicator">
+</sky-progress-indicator-nav-button>

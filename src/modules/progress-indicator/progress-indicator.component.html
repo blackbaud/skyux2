@@ -23,7 +23,8 @@
       class="sky-progress-indicator-display-item-line"
       [ngClass]="{
         'sky-progress-indicator-display-item-line-check': !item.isActive && item.isComplete,
-        'sky-progress-indicator-display-item-line-next-check': isNextToCheck(i)
+        'sky-progress-indicator-display-item-line-next-check': isNextToCheck(i),
+        'sky-progress-indicator-display-item-line-next-inactive': item.isNextToInactive
       }">
     </div>
   </div>

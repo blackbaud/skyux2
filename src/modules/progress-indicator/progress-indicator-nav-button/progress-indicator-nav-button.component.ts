@@ -1,7 +1,15 @@
 import {
   Component,
-  Input
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy
 } from '@angular/core';
+
+import {
+  Subject
+} from 'rxjs';
 
 import {
   SkyResourcesService
@@ -11,7 +19,8 @@ import {
   SkyProgressIndicatorComponent
 } from '../progress-indicator.component';
 import {
-  SkyProgressIndicatorMessageType
+  SkyProgressIndicatorMessageType,
+  SkyProgressIndicatorChange
 } from '../types';
 
 const buttonTypeNext = 'next';
@@ -19,9 +28,10 @@ const buttonTypePrevious = 'previous';
 
 @Component({
   selector: 'sky-progress-indicator-nav-button',
-  templateUrl: './progress-indicator-nav-button.component.html'
+  templateUrl: './progress-indicator-nav-button.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyProgressIndicatorNavButtonComponent {
+export class SkyProgressIndicatorNavButtonComponent implements OnInit, OnDestroy {
   @Input()
   public progressIndicator: SkyProgressIndicatorComponent;
 
@@ -60,37 +70,53 @@ export class SkyProgressIndicatorNavButtonComponent {
       return this._disabled;
     }
 
-    let items = this.progressIndicator.progressItems.toArray();
-    let active = items.filter(item => item.isActive)[0];
-
     switch (this.buttonType) {
       case buttonTypePrevious:
-        return active && items.indexOf(active) === 0;
+        return this.activeIndex === 0;
 
       default:
       case buttonTypeNext:
-        return !active || active.isLastItem;
+        return this.activeIndex >= this.progressIndicator.progressItems.length - 1;
     }
   }
   public set disabled(value: boolean) {
     this._disabled = value;
   }
 
+  private idle = new Subject();
   private _buttonText: string;
   private _buttonType: string;
   private _disabled: boolean;
+  private activeIndex = 0;
 
-  constructor(private resources: SkyResourcesService) { }
+  constructor(
+    private resources: SkyResourcesService,
+    private changeDetector: ChangeDetectorRef
+  ) { }
+
+  public ngOnInit() {
+    this.progressIndicator.progressChanges
+    .takeUntil(this.idle)
+    .subscribe((changes: SkyProgressIndicatorChange) => {
+      this.activeIndex = changes.activeIndex;
+      this.changeDetector.detectChanges();
+    });
+  }
+
+  public ngOnDestroy() {
+    this.idle.next();
+    this.idle.unsubscribe();
+  }
 
   public buttonClick() {
     switch (this.buttonType) {
       case buttonTypePrevious:
-        this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.ItemIncomplete);
+        this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
         break;
 
       default:
       case buttonTypeNext:
-        this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.ItemComplete);
+        this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
         break;
     }
   }

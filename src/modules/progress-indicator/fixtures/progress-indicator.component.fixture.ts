@@ -2,25 +2,28 @@ import {
   Component,
   ViewChild,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
   SkyProgressIndicatorComponent,
-  SkyProgressIndicatorMessageType
+  SkyProgressIndicatorMessageType,
+  SkyProgressIndicatorChange
 } from '..';
-import { SkyProgressIndicatorNavButtonComponent } from '../progress-indicator-nav-button';
+import {
+  SkyProgressIndicatorNavButtonComponent
+} from '../progress-indicator-nav-button';
 
 @Component({
   selector: 'test-progress-indicator',
-  templateUrl: './progress-indicator.component.fixture.html'
+  templateUrl: './progress-indicator.component.fixture.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProgressIndicatorTestComponent {
   public isHorizontal: boolean;
-
-  public firstDone = false;
-  public secondDone = false;
-  public thirdDone = false;
+  public startingIndex: number;
 
   public previousButtonText: string;
   public previousButtonType = 'previous';
@@ -30,47 +33,30 @@ export class ProgressIndicatorTestComponent {
   public nextButtonType = 'next';
   public nextButtonDisabled: boolean;
 
+  public activeIndex = 0;
+
   @ViewChild(SkyProgressIndicatorComponent)
   public progressIndicator: SkyProgressIndicatorComponent;
 
   @ViewChildren(SkyProgressIndicatorNavButtonComponent)
   public navButtons: QueryList<SkyProgressIndicatorNavButtonComponent>;
 
-  public isDone(index: number) {
-    switch (index) {
-      case 1: return this.firstDone;
-      case 2: return this.secondDone;
-      case 3: return this.thirdDone;
-      default: return false;
-    }
+  constructor(private changeDetector: ChangeDetectorRef) { }
+
+  public progress() {
+    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
   }
 
-  public changeProgress(index: number, value: boolean) {
-    switch (index) {
-      case 1:
-        this.firstDone = value;
-        break;
-      case 2:
-        this.secondDone = value;
-        break;
-      case 3:
-        this.thirdDone = value;
-        break;
-      default:
-        break;
-    }
-    this.progress(value ? SkyProgressIndicatorMessageType.ItemComplete : SkyProgressIndicatorMessageType.ItemIncomplete);
+  public regress() {
+    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
   }
 
   public resetClicked() {
-    this.firstDone = false;
-    this.secondDone = false;
-    this.thirdDone = false;
-    this.progress(SkyProgressIndicatorMessageType.ProgressReset);
+    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Reset);
   }
 
-  public progress(type: SkyProgressIndicatorMessageType) {
-    this.progressIndicator.messageStream.next(type);
+  public updateIndex(changes: SkyProgressIndicatorChange) {
+    this.activeIndex = changes.activeIndex;
+    this.changeDetector.detectChanges();
   }
-
 }
