@@ -6,7 +6,10 @@ import {
 
 import {
   inject,
-  TestBed
+  TestBed,
+  tick,
+  flushMicrotasks,
+  fakeAsync
 } from '@angular/core/testing';
 
 import {
@@ -115,7 +118,7 @@ describe('Flyout service', () => {
     }
   ));
 
-  it('should expose a method to remove the flyout from the DOM', inject(
+  it('should expose a method to remove the flyout from the DOM', fakeAsync(inject(
     [SkyFlyoutService, SkyFlyoutAdapterService, ApplicationRef],
     (
       service: SkyFlyoutService,
@@ -123,11 +126,13 @@ describe('Flyout service', () => {
       appRef: ApplicationRef
     ) => {
       service.open({} as any);
+      tick();
       const spy = spyOn(service['host'].instance.messageStream, 'next').and.callThrough();
       service.close();
+      tick();
       expect(spy).toHaveBeenCalledWith({
         type: SkyFlyoutMessageType.Close
       });
     }
-  ));
+  )));
 });
