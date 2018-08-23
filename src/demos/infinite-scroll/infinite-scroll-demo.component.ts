@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
   BehaviorSubject
-} from 'rxjs';
+} from 'rxjs/BehaviorSubject';
 
 let nextId = 0;
 let nextListId = 0;
