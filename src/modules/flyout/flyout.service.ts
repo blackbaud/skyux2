@@ -33,14 +33,7 @@ export class SkyFlyoutService {
     private injector: Injector,
     private resolver: ComponentFactoryResolver,
     private windowRef: SkyWindowRefService
-  ) {
-    // @HostListner doesn't work with services, so we revert to listening to the window.
-    this.windowRef.getWindow().addEventListener('click', (event) => {
-      if (this.host && !this.host.location.nativeElement.contains(event.target)) {
-        this.close();
-      }
-    });
-  }
+  ) { }
 
   public open<T>(component: Type<T>, config?: SkyFlyoutConfig): SkyFlyoutInstance<T> {
     // isOpening flag will prevent close() from firing when open() is also fired.
@@ -94,6 +87,13 @@ export class SkyFlyoutService {
 
   private addListeners<T>(flyout: SkyFlyoutInstance<T>): void {
     if (this.host) {
+      // Flyout should close when user clicks outside of flyout.
+      this.windowRef.getWindow().addEventListener('click', (event) => {
+        if (this.host && !this.host.location.nativeElement.contains(event.target)) {
+          this.close();
+        }
+      });
+
       this.removeAfterClosed = false;
       this.host.instance.messageStream
         .take(1)
