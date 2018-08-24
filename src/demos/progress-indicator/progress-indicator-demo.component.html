@@ -1,22 +1,15 @@
 <h2>Progress Indicator</h2>
 
-<p>
-  <button
-    class="sky-btn sky-btn-primary"
-    type="button"
-    (click)="resetClicked()">
-    Reset
-  </button>
-</p>
-
 <sky-progress-indicator
   [messageStream]="progressMessageStream"
   [startingIndex]="2"
   (progressChanges)="updateIndex($event)"
   #progressIndicator>
 
+  <sky-progress-indicator-title>Setup my connection</sky-progress-indicator-title>
+
   <sky-progress-indicator-item
-    title='Do the first thing'
+    title='Configure connection'
     [itemNumber]='1'>
     <div
       class="stepContent">
@@ -24,21 +17,21 @@
         *ngIf="activeIndex === 0"
         class="sky-btn sky-btn-primary"
         type="button"
-        (click)="progress()">
-        Do
+        (click)="configureConnection(true)">
+        Set connection
       </button>
       <button
-        *ngIf="activeIndex === 1"
-        class="sky-btn sky-btn-default"
+        *ngIf="activeIndex > 0"
+        class="sky-btn sky-btn-link"
         type="button"
-        (click)="regress()">
-        Undo
+        (click)="configureConnection(false)">
+        Edit connection
       </button>
     </div>
   </sky-progress-indicator-item>
 
   <sky-progress-indicator-item
-    title='Do the second thing'
+    title='Select remote server'
     [itemNumber]='2'>
     <div
       *ngIf="activeIndex >= 1"
@@ -47,21 +40,21 @@
           *ngIf="activeIndex === 1"
           class="sky-btn sky-btn-primary"
           type="button"
-          (click)="progress()">
-          Do
+          (click)="setServer(true)">
+          Select server
         </button>
         <button
-          *ngIf="activeIndex === 2"
-          class="sky-btn sky-btn-default"
+          *ngIf="activeIndex > 1"
+          class="sky-btn sky-btn-link"
           type="button"
-          (click)="regress()">
-          Undo
+          (click)="setServer(false)">
+          Change server
         </button>
     </div>
   </sky-progress-indicator-item>
 
   <sky-progress-indicator-item
-    title='Do the third thing'
+    title='Test connection'
     [itemNumber]='3'>
     <div
       *ngIf="activeIndex >= 2"
@@ -70,21 +63,21 @@
           *ngIf="activeIndex === 2"
           class="sky-btn sky-btn-primary"
           type="button"
-          (click)="progress()">
-          Do
+          (click)="testConnection(true)">
+          Test connection
         </button>
         <button
-          *ngIf="activeIndex === 3"
-          class="sky-btn sky-btn-default"
+          *ngIf="activeIndex > 2"
+          class="sky-btn sky-btn-link"
           type="button"
-          (click)="regress()">
-          Undo
+          (click)="testConnection(false)">
+          Retest connection
         </button>
     </div>
   </sky-progress-indicator-item>
 
   <sky-progress-indicator-item
-    title='Do the fourth thing'
+    title='Turn on connection'
     [itemNumber]='4'>
     <div
       *ngIf="activeIndex >= 3"
@@ -93,50 +86,19 @@
           *ngIf="activeIndex === 3"
           class="sky-btn sky-btn-primary"
           type="button"
-          (click)="progress()">
-          Do
-        </button>
-        <button
-          *ngIf="activeIndex === 4"
-          class="sky-btn sky-btn-default"
-          type="button"
-          (click)="regress()">
-          Undo
+          (click)="alertMessage('Form completed')">
+          Turn on
         </button>
     </div>
   </sky-progress-indicator-item>
 
-  <sky-progress-indicator-item
-    title='Do the last thing'
-    [itemNumber]='5'>
-    <div
-      *ngIf="activeIndex >= 4"
-      class="stepContent">
-        <button
-          *ngIf="activeIndex === 4"
-          class="sky-btn sky-btn-primary"
-          type="button"
-          (click)="progress()">
-          Do
-        </button>
-        <button
-          *ngIf="activeIndex === 5"
-          class="sky-btn sky-btn-default"
-          type="button"
-          (click)="regress()">
-          Undo
-        </button>
-    </div>
-  </sky-progress-indicator-item>
+  <button
+    class="sky-btn sky-btn-link reset-progress"
+    type="button"
+    (click)="resetClicked()">
+    Erase all settings
+  </button>
 </sky-progress-indicator>
-<sky-progress-indicator-nav-button
-  buttonType="previous"
-  [progressIndicator]="progressIndicator">
-</sky-progress-indicator-nav-button>
-<sky-progress-indicator-nav-button
-  buttonType="next"
-  [progressIndicator]="progressIndicator">
-</sky-progress-indicator-nav-button>
 <hr>
 <h2>Progress indicator wizard</h2>
 <button

@@ -21,10 +21,10 @@ export class ProgressIndicatorVisualComponent {
   private progressIndicator: SkyProgressIndicatorComponent;
 
   public progress() {
-    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.ItemComplete);
+    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
   }
 
   public regress() {
-    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.ItemIncomplete);
+    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
   }
 }

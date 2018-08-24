@@ -11,12 +11,18 @@ import {
 import {
   SkyProgressIndicatorMessageType,
   SkyModalService,
-  SkyProgressIndicatorChange
+  SkyProgressIndicatorChange,
+  SkyModalCloseArgs
 } from '../../core';
+
+import {
+  SkyProgressIndicatorHorizontalDemoComponent
+} from './progress-indicator-horizontal-demo.component';
 
 import {
   SkyProgressIndicatorDemoFormComponent
 } from './progress-indicator-demo-form.component';
+import { SkyProgressIndicatorDemoContext } from './progress-indicator-demo-context';
 
 @Component({
   selector: 'app-progress-indicator-demo',
@@ -35,23 +41,65 @@ export class SkyProgressIndicatorDemoComponent {
   ) { }
 
   public openWizard() {
-    this.modal.open(SkyProgressIndicatorDemoFormComponent);
+    this.modal.open(SkyProgressIndicatorHorizontalDemoComponent);
   }
 
-  public progress() {
-    this.progressMessageStream.next(SkyProgressIndicatorMessageType.Progress);
+  public configureConnection(isProgress: boolean) {
+    this.openModalForm(
+      {
+        title: 'Configure connection',
+        buttonText: 'Submit connection settings'
+      },
+      isProgress
+    );
   }
 
-  public regress() {
-    this.progressMessageStream.next(SkyProgressIndicatorMessageType.Regress);
+  public setServer(isProgress: boolean) {
+    this.openModalForm(
+      {
+        title: 'Select remote server',
+        buttonText: 'Submit server choice'
+      },
+      isProgress
+    );
+  }
+
+  public testConnection(isProgress: boolean) {
+    this.openModalForm(
+      {
+        title: 'Connection confirmed.',
+        buttonText: 'OK'
+      },
+      isProgress
+    );
+  }
+
+  public alertMessage(message: string) {
+    alert(message);
+  }
+
+  public updateIndex(changes: SkyProgressIndicatorChange) {
+    this.activeIndex = changes.activeIndex;
+    this.changeDetector.detectChanges();
   }
 
   public resetClicked() {
     this.progressMessageStream.next(SkyProgressIndicatorMessageType.Reset);
   }
 
-  public updateIndex(changes: SkyProgressIndicatorChange) {
-    this.activeIndex = changes.activeIndex;
-    this.changeDetector.detectChanges();
+  private progress() {
+    this.progressMessageStream.next(SkyProgressIndicatorMessageType.Progress);
+  }
+
+  private openModalForm(context: SkyProgressIndicatorDemoContext, isProgress: boolean) {
+    let modalForm = this.modal.open(SkyProgressIndicatorDemoFormComponent, [{
+      provide: SkyProgressIndicatorDemoContext,
+      useValue: context
+    }]);
+    modalForm.closed.take(1).subscribe((args: SkyModalCloseArgs) => {
+      if (args.reason === 'save' && isProgress) {
+        this.progress();
+      }
+    });
   }
 }

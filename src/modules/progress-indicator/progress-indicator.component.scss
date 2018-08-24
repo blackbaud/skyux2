@@ -1,7 +1,16 @@
 @import "../../scss/variables";
 
-:host() {
-  margin-bottom: 50px;
+.sky-progress-indicator-title {
+  margin-bottom: $sky-margin-triple;
+}
+
+.sky-progress-indicator-items {
+  &:not(.sky-progress-indicator-items-horizontal) {
+    max-width: 400px;
+    min-width: 250px;
+    margin: 0 auto;
+    vertical-align: middle;
+  }
 }
 
 .sky-progress-indicator-display {

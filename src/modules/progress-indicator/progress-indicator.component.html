@@ -29,6 +29,10 @@
     </div>
   </div>
 </div>
-<div>
+<div
+  class="sky-progress-indicator-items"
+  [ngClass]="{
+    'sky-progress-indicator-items-horizontal': isHorizontal
+  }">
   <ng-content></ng-content>
 </div>

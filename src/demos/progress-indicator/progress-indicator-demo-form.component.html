@@ -1,76 +1,18 @@
 <sky-modal>
   <sky-modal-header>
-    {{title}}
+    {{ context.title }}
   </sky-modal-header>
   <sky-modal-content>
-    <sky-progress-indicator
-      [isHorizontal]="true"
-      (progressChanges)="updateIndex($event)"
-      #wizardDemo>
-
-      <sky-progress-indicator-item
-        title='Do the first thing'
-        [itemNumber]='1'>
-        <div
-          class="stepContent">
-          <label>
-            Enter text to continue:
-            <input
-              class="sky-form-control"
-              type="text"
-              [(ngModel)]="requiredValue1" />
-          </label>
-        </div>
-      </sky-progress-indicator-item>
-
-      <sky-progress-indicator-item
-        title='Do the second thing'
-        [itemNumber]='2'>
-        <div
-          class="stepContent">
-          <sky-checkbox
-            [(ngModel)]="requiredValue2">
-            <sky-checkbox-label>
-              Select this checkbox to enable step 3.
-            </sky-checkbox-label>
-          </sky-checkbox>
-        </div>
-      </sky-progress-indicator-item>
-
-      <sky-progress-indicator-item
-        title='Do the third thing'
-        [itemNumber]='3'>
-        <div
-          class="stepContent">
-          Some other content.
-        </div>
-      </sky-progress-indicator-item>
-
-    </sky-progress-indicator>
+    <br>
+    <br>
   </sky-modal-content>
   <sky-modal-footer>
-    <sky-progress-indicator-nav-button
-      buttonType="previous"
-      [progressIndicator]="wizardDemo">
-    </sky-progress-indicator-nav-button>
-    <sky-progress-indicator-nav-button
-      *ngIf="!isDone"
-      buttonType="next"
-      [disabled]="!requirementsMet"
-      [progressIndicator]="wizardDemo">
-    </sky-progress-indicator-nav-button>
     <button
-      *ngIf="isDone"
-      class="sky-btn sky-btn-default"
+      class="sky-btn sky-btn-primary"
+      style="margin: 0 auto; vertical-align: middle;"
       type="button"
-      (click)="instance.close()">
-      Save and close
-    </button>
-    <button
-      class="sky-btn sky-btn-link"
-      type="button"
-      (click)="instance.cancel()">
-      Cancel
+      (click)="submit()">
+      {{ context.buttonText }}
     </button>
   </sky-modal-footer>
 </sky-modal>

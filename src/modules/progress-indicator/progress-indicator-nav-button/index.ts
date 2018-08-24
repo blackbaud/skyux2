@@ -1,1 +1,1 @@
-export * from './progress-indicator-nav-button.component';
+export { SkyProgressIndicatorNavButtonComponent } from './progress-indicator-nav-button.component';

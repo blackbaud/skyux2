@@ -6,7 +6,7 @@
   float: left;
   width: 20px;
   height: 20px;
-  border: $sky-border-color-neutral-medium solid 1px;
+  border: $sky-border-color-neutral-medium solid 2px;
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
   border-radius: 20px;
@@ -28,7 +28,7 @@
 }
 
 .sky-progress-indicator-item-line {
-  margin-left: 9px;
+  margin-left: $sky-margin;
   min-height: $sky-margin-double;
   padding-top: $sky-margin;
   padding-bottom: $sky-margin-triple;
@@ -38,7 +38,7 @@
   }
 
   &:not(.sky-progress-indicator-item-horizontal) {
-    border-left: $sky-highlight-color-success solid 2px;
+    border-left: $sky-highlight-color-success solid 1px;
 
     &.sky-progress-indicator-item-line-next-inactive {
       border-left-color: $sky-border-color-neutral-medium;

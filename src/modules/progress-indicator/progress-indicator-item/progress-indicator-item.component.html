@@ -12,7 +12,9 @@
     'sky-progress-indicator-item-step-complete': isComplete && !isActive && !isHorizontal
   }">
   <div
-    class="sky-emphasized">
+    [ngClass]="{
+      'sky-emphasized': isHorizontal
+    }">
     {{ itemNumber }} - {{ title }}
   </div>
 </div>

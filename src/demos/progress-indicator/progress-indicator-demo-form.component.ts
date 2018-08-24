@@ -1,45 +1,26 @@
 import {
-  Component,
-  ChangeDetectorRef
+  Component
 } from '@angular/core';
 
 import {
-  SkyModalInstance,
-  SkyProgressIndicatorChange
+  SkyModalInstance
 } from '../../core';
 
+import {
+  SkyProgressIndicatorDemoContext
+} from './progress-indicator-demo-context';
+
 @Component({
-  selector: 'sky-demo-progress-indicator-form',
+  selector: 'sky-demo-progress-indicator-horizontal',
   templateUrl: './progress-indicator-demo-form.component.html'
 })
 export class SkyProgressIndicatorDemoFormComponent {
-  public activeIndex = 0;
-  public title = 'Progress indicator wizard example';
-  public requiredValue1: string;
-  public requiredValue2: boolean;
-
-  public get requirementsMet(): boolean {
-    switch (this.activeIndex) {
-      case 0:
-        return !!this.requiredValue1;
-      case 1:
-        return !!this.requiredValue2;
-      default:
-        return false;
-    }
-  }
-
-  public get isDone() {
-    return this.activeIndex === 2;
-  }
-
   constructor(
     public instance: SkyModalInstance,
-    private changeDetector: ChangeDetectorRef
+    public context: SkyProgressIndicatorDemoContext
   ) { }
 
-  public updateIndex(changes: SkyProgressIndicatorChange) {
-    this.activeIndex = changes.activeIndex;
-    this.changeDetector.detectChanges();
+  public submit() {
+    this.instance.close(undefined, 'save');
   }
 }
