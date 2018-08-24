@@ -1,7 +1,7 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 import { element, by } from 'protractor';
 
-describe('grid component', () => {
+fdescribe('grid component', () => {
 
   it('should display grid', () => {
     return SkyVisualTest.setupTest('grid')
@@ -33,6 +33,18 @@ describe('grid component', () => {
       element(by.css('th')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'grid-sort-asc',
+        selector: '#screenshot-grid'
+      });
+    });
+
+  });
+
+  it('should highlight cells correctly', () => {
+    return SkyVisualTest.setupTest('grid')
+    .then(() => {
+      element(by.css('#highlight-button')).click();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'grid-highlight',
         selector: '#screenshot-grid'
       });
     });
