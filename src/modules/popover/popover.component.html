@@ -13,12 +13,12 @@
   [style.visibility]="(isVisible) ? 'visible': 'hidden'"
   #popoverContainer>
   <div class="sky-popover sky-shadow sky-rounded-corners">
-    <header class="sky-popover-header" *ngIf="popoverTitle">
-      <h1 class="sky-popover-title">
+    <header class="sky-popover-header sky-padding-even-default" *ngIf="popoverTitle">
+      <h1 class="sky-popover-title sky-emphasized">
         {{ popoverTitle }}
       </h1>
     </header>
-    <div class="sky-popover-body">
+    <div class="sky-popover-body sky-padding-even-default">
       <ng-content></ng-content>
     </div>
     <div
