@@ -1,5 +1,4 @@
-@import '../../scss/mixins';
-@import '../../scss/_variables';
+@import "scss/variables";
 
 .sky-search-input {
   border-top-right-radius: 0;
@@ -42,8 +41,6 @@
 }
 
 .sky-search-input-focused {
-  @include sky-field-status(active);
-
   .sky-search-btn {
     border-color: transparent;
     border-top: 0 none;
