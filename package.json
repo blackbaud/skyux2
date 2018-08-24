@@ -40,7 +40,7 @@
     "wdio": "wdio"
   },
   "dependencies": {
-    "@skyux/theme": "3.0.0-alpha.10",
+    "@skyux/theme": "3.0.0",
     "dragula": "3.7.2",
     "intl": "1.2.5",
     "microedge-rxstate": "2.0.2",
