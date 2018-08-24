@@ -1,3 +1,11 @@
+# 2.21.0 (2018-08-24)
+
+- Added support for `@skyux/theme@3.0.0`. [#1930](https://github.com/blackbaud/skyux2/pull/1930)
+- Added fluid grid container component, which provides a first-class method for handling the row component's negative margins. (#1920)[https://github.com/blackbaud/skyux2/pull/1920]
+- Added visual tests for timepicker component. [#1895](https://github.com/blackbaud/skyux2/pull/1895)
+- Fixed popover to appear above omnibar. [#1926](https://github.com/blackbaud/skyux2/pull/1926)
+- Fixed Plunkers for infinite scroll and sectioned form components. [#1931](https://github.com/blackbaud/skyux2/pull/1931)
+
 # 2.20.0 (2018-08-21)
 
 - Added option for a URL or route permalink to the action button component. [#1896](https://github.com/blackbaud/skyux2/pull/1896) [#1924](https://github.com/blackbaud/skyux2/pull/1924) (Thanks @Remulus2006)
