@@ -1,6 +1,5 @@
 {
   "name": "skyux2",
   "mode": "easy",
-  "compileMode": "aot",
-  "cssPath": "./src/scss/sky.scss"
+  "compileMode": "aot"
 }
