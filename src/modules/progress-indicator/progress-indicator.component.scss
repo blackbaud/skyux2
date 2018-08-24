@@ -1,9 +1,5 @@
 @import "../../scss/variables";
 
-.sky-progress-indicator-title {
-  margin-bottom: $sky-margin-triple;
-}
-
 .sky-progress-indicator-items {
   &:not(.sky-progress-indicator-items-horizontal) {
     max-width: 400px;

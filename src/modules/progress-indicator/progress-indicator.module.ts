@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SkyProgressIndicatorItemComponent } from './progress-indicator-item';
 import { SkyProgressIndicatorComponent } from './progress-indicator.component';
 import { SkyProgressIndicatorNavButtonComponent } from './progress-indicator-nav-button';
+import { SkyProgressIndicatorResetButtonComponent } from './progress-indicator-reset-button';
 import { SkyProgressIndicatorTitleComponent } from './progress-indicator-title';
 
 @NgModule({
@@ -11,6 +12,7 @@ import { SkyProgressIndicatorTitleComponent } from './progress-indicator-title';
     SkyProgressIndicatorItemComponent,
     SkyProgressIndicatorComponent,
     SkyProgressIndicatorNavButtonComponent,
+    SkyProgressIndicatorResetButtonComponent,
     SkyProgressIndicatorTitleComponent
   ],
   imports: [
@@ -20,6 +22,7 @@ import { SkyProgressIndicatorTitleComponent } from './progress-indicator-title';
     SkyProgressIndicatorItemComponent,
     SkyProgressIndicatorComponent,
     SkyProgressIndicatorNavButtonComponent,
+    SkyProgressIndicatorResetButtonComponent,
     SkyProgressIndicatorTitleComponent
   ]
 })

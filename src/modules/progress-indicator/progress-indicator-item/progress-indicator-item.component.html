@@ -27,7 +27,10 @@
     'sky-progress-indicator-item-line-inactive': !isActive && !isComplete,
     'sky-progress-indicator-item-line-next-inactive': isNextToInactive
   }">
-  <ng-content
-    *ngIf="isActive || isComplete">
-  </ng-content>
+  <div
+    *ngIf="isActive || isComplete"
+    class="sky-progress-indicator-item-content">
+    <ng-content>
+    </ng-content>
+  </div>
 </div>

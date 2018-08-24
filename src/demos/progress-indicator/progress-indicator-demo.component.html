@@ -92,12 +92,10 @@
     </div>
   </sky-progress-indicator-item>
 
-  <button
-    class="sky-btn sky-btn-link reset-progress"
-    type="button"
-    (click)="resetClicked()">
+  <sky-progress-indicator-reset-button
+    [progressIndicator]="progressIndicator">
     Erase all settings
-  </button>
+  </sky-progress-indicator-reset-button>
 </sky-progress-indicator>
 <hr>
 <h2>Progress indicator wizard</h2>

@@ -47,5 +47,10 @@
     &.sky-progress-indicator-item-last {
       border-left: none;
     }
+
+    .sky-progress-indicator-item-content {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
