@@ -35,6 +35,7 @@
             class="sky-grid-cell"
             *ngFor="let column of displayedColumns; let last = last; let i = index">
             <sky-grid-cell
+              [skyHighlight]="!column.excludeFromHighlighting ? highlightText : undefined"
               [template]="column.template || defaultCellTemplate"
               [fieldSelector]="column.field"
               [item]="item"
