@@ -8,6 +8,7 @@ We highly encourage contributions from all SKY UX users. We just ask you to foll
 - [Localization](#localization)
 - [Contribute to SKY UX](#contribute-to-sky-ux)
 - [Recommended tools](#recommended-tools)
+- [Report bugs](#report-bugs)
 
 For more information about working with SKY UX 2, see the [SKY UX README](https://github.com/blackbaud/skyux2/blob/master/README.md).
 
@@ -44,13 +45,7 @@ To declare localization strings, specify a string name and provide the string an
 ### File an issue
 Before you start any work, please [file an issue](https://github.com/blackbaud/skyux2/issues/new). The sooner we can discuss potential code changes, the better. We also use the issue to track and assign any work needed. To file a issue with SKY UX, follow these instructions:
 1. [Create a GitHub issue in the SKY UX 2 repo](https://github.com/blackbaud/skyux2/issues/new).
-2. Fill out the template fields to provide:
-    - The expected behavior
-    - The actual behavior
-    - Steps to reproduce
-    - A Plunkr example
-    - The severity
-    - The impact
+2. Delete the default fields for [reporting bugs](#report-bugs) and describe the contribution and potential code changes to SKY UX.
 3. Subscribe to the issue to receive notifications.
 
 ### Get the code
@@ -132,3 +127,15 @@ We highly recommend the following VS Code extensions:
 - [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint): This extension validates your TypeScript code against the rules specified by the `tslint.json` file in the SKY UX repo. TSLint runs during the CI build, so if this extension does not validate your code in VS Code, the CI build will fail.
 
 - [EditorConfig](https://github.com/editorconfig/editorconfig-vscode): This extension allows VS Code to recognize the [`.editorconfig`](http://editorconfig.org/) file to automatically enforce many of the coding conventions that the SKY UX team uses, such as indent size, trailing whitespace rules, etc. If you do not use this extension, then you will find yourself fixing a lot of TSLint errors manually instead of letting VS Code do it for you.
+
+## Report bugs
+If you uncover a bug while working with SKY UX, please [file an issue](https://github.com/blackbaud/skyux2/issues/new). We use the issue to track and assign any work needed. To file a issue with SKY UX, follow these instructions:
+1. [Create a GitHub issue in the SKY UX 2 repo](https://github.com/blackbaud/skyux2/issues/new).
+2. Fill out the template fields to provide:
+    - The expected behavior
+    - The actual behavior
+    - Steps to reproduce
+    - A Plunkr example
+    - The severity
+    - The impact
+3. Subscribe to the issue to receive notifications.
