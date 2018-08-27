@@ -1,6 +1,5 @@
-@import '../../scss/variables';
-@import '../../scss/buttons';
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 :host {
   align-items: center;
@@ -10,7 +9,6 @@
   width: 710px;
 
   .link-records-item-info {
-    @include sky-emphasized;
     text-align: center;
   }
 
@@ -46,8 +44,6 @@
 
     .link-records-item-header {
       @include sky-border(light, bottom);
-      @include sky-subsection-heading;
-      padding: $sky-padding;
     }
 
     .link-records-item-footer {
