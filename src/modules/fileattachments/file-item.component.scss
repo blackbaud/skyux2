@@ -1,10 +1,9 @@
-@import "../../scss/variables";
-@import "../../scss/mixins";
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-file-item {
   @include sky-border(light, top, bottom, left, right);
   background-color: $sky-background-color-neutral-light;
-  padding: $sky-padding;
   margin-bottom: $sky-margin;
 }
 
@@ -14,7 +13,11 @@
 }
 
 .sky-file-item-name {
-  @include sky-ellipsis();
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 .sky-file-item-title {

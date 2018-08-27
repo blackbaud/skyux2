@@ -1,4 +1,5 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-flyout {
   position: fixed;
@@ -7,7 +8,7 @@
   bottom: 0;
   height: 100%;
   background-color: #fff;
-  border-left: 6px solid $sky-highlight-color-info;
+  border-left: 6px solid $sky-background-color-primary-dark;
   z-index: $sky-flyout-z-index;
 
   &:focus {
@@ -47,7 +48,6 @@
   width: 100%;
   background: $sky-background-color-neutral-light;
   height: 50px;
-  padding: 8px $sky-padding-plus-half;
   display: flex;
   align-items: baseline;
 }

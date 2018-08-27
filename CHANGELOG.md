@@ -1,3 +1,61 @@
+# 2.21.0 (2018-08-24)
+
+- Added support for `@skyux/theme@3.0.0`. [#1930](https://github.com/blackbaud/skyux2/pull/1930)
+- Added fluid grid container component, which provides a first-class method for handling the row component's negative margins. [#1920](https://github.com/blackbaud/skyux2/pull/1920)
+- Added visual tests for timepicker component. [#1895](https://github.com/blackbaud/skyux2/pull/1895) (Thanks @Remulus2006)
+- Fixed popover to appear above omnibar. [#1926](https://github.com/blackbaud/skyux2/pull/1926)
+- Fixed Plunkers for infinite scroll and sectioned form components. [#1931](https://github.com/blackbaud/skyux2/pull/1931)
+
+# 2.20.0 (2018-08-21)
+
+- Added option for a URL or route permalink to the action button component. [#1896](https://github.com/blackbaud/skyux2/pull/1896) [#1924](https://github.com/blackbaud/skyux2/pull/1924) (Thanks @Remulus2006)
+- Added option to only show selected items in list view checklist component. [#1900](https://github.com/blackbaud/skyux2/pull/1900) (Thanks @Theaggarwal)
+- Added new `selectedColumnIdsChange` event that fires when columns in a list view grid component change. [#1897](https://github.com/blackbaud/skyux2/pull/1897)
+- Fixed definition list to show inner text during change detection. [#1919](https://github.com/blackbaud/skyux2/pull/1919)
+- Fixed popover close event race condition. [#1884](https://github.com/blackbaud/skyux2/pull/1884)
+- Fixed visual style of HTML `select` field to be consistent in all browsers. [#1913](https://github.com/blackbaud/skyux2/pull/1913)
+- Fixed sort button to display the correct `title` and `label` value. [#1915](https://github.com/blackbaud/skyux2/pull/1915) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed tabset component to assign correct indexes to dynamically added tabs. [#1887](https://github.com/blackbaud/skyux2/pull/1887)
+
+# 2.19.0 (2018-08-13)
+
+- Added icon component. [#1846](https://github.com/blackbaud/skyux2/pull/1846) (Thanks @Remulus2006)
+- Added `truncate` and `truncateAfter` options to numeric pipe. [#1856](https://github.com/blackbaud/skyux2/pull/1856)
+- Added CSS styles and ARIA attributes for disabled tabs. [#1803](https://github.com/blackbaud/skyux2/pull/1803)
+- Added `readonly` attribute to colorpicker component's input field. [#1791](https://github.com/blackbaud/skyux2/pull/1791)
+- Added ARIA roles to modal and confirm components. [#1784](https://github.com/blackbaud/skyux2/pull/1784)
+- Added ARIA attributes for inline list filters. [#1808](https://github.com/blackbaud/skyux2/pull/1808)
+- Changed color of flyout resize handle. [#1881](https://github.com/blackbaud/skyux2/pull/1881)
+- Fixed checkbox component to appear square in IE11. [#1879](https://github.com/blackbaud/skyux2/pull/1879)
+- Fixed tabset component assigning the correct tab index after a tab was deleted. [#1878](https://github.com/blackbaud/skyux2/pull/1878)
+- Various colorpicker adjustments [#1876](https://github.com/blackbaud/skyux2/pull/1876):
+  - Added `selectedColorApplied` event that provides the selected color when the apply button is pressed.
+  - Fixed colorpicker remaining open after clicking outside of the dropdown.
+  - Fixed colorpicker reverting back to the initial color when the close button is pressed.
+  - Fixed colorpicker reverting back to the initial color when the reset button is pressed.
+
+# 2.18.0 (2018-07-20)
+
+- Added ability to include `body` content within confirm component. [#1776](https://github.com/blackbaud/skyux2/pull/1776) (Thanks @Blackbaud-JackMcElhinney)
+- Added default ARIA label to colorpicker input. [#1788](https://github.com/blackbaud/skyux2/pull/1788)
+- Added default ARIA label to timepicker button and input. [#1802](https://github.com/blackbaud/skyux2/pull/1802), [#1795](https://github.com/blackbaud/skyux2/pull/1795)
+- Added ARIA sort attribute to grid component columns. [#1796](https://github.com/blackbaud/skyux2/pull/1796) (Thanks @Blackbaud-JackMcElhinney)
+- Added support for `rgb` format for colorpicker component. [#1775](https://github.com/blackbaud/skyux2/pull/1775) (Thanks @Blackbaud-JackMcElhinney)
+- Added ARIA label input for token component. [#1824](https://github.com/blackbaud/skyux2/pull/1824) [#1807](https://github.com/blackbaud/skyux2/pull/1807)
+- Added ARIA required and accessibility attributes to sectioned form component vertical tabs. [#1797](https://github.com/blackbaud/skyux2/pull/1797)
+- Changed element in page summary subtitle component. [#1800](https://github.com/blackbaud/skyux2/pull/1800) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed toast component to appear above modals. [#1756](https://github.com/blackbaud/skyux2/pull/1756) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed asynchronous tabs to initialize appropriately. [#1827](https://github.com/blackbaud/skyux2/pull/1827)
+- Fixed tile component to only display title element when heading text is supplied. [#1801](https://github.com/blackbaud/skyux2/pull/1801)
+- Fixed timepicker component to clear input value when `ngModel` is set to `undefined`. [#1772](https://github.com/blackbaud/skyux2/pull/1772) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed Plunker for colorpicker component demo. [#1752](https://github.com/blackbaud/skyux2/pull/1752)
+- Fixed regular expression for email validation to be more specific. [#1813](https://github.com/blackbaud/skyux2/pull/1813) (Thanks @Blackbaud-DylanHouston)
+- Fixed accessibility issue in confirm demo. [#1783](https://github.com/blackbaud/skyux2/pull/1783)
+- Fixed accessibility issue in email validation demo. [#1806](https://github.com/blackbaud/skyux2/pull/1806)
+- Moved Angular animations module to `devDependencies`. [#1746](https://github.com/blackbaud/skyux2/pull/1746)
+- Fixed visual tests to fail during Protractor's error code 199. [#1830](https://github.com/blackbaud/skyux2/pull/1830)
+- Removed SKY Host status bar during visual tests. [#1825](https://github.com/blackbaud/skyux2/pull/1825)
+
 # 2.17.0 (2018-07-05)
 
 - Added primary action button to flyout component toolbar. [#1766](https://github.com/blackbaud/skyux2/pull/1766) (Thanks @Blackbaud-StewartStephens)

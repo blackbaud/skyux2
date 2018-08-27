@@ -65,7 +65,7 @@ describe('Select field component', () => {
   }
 
   function selectOptions(numToSelect: number) {
-    const checkboxes = document.querySelectorAll('sky-checkbox input');
+    const checkboxes = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
 
     for (let i = 0; i < numToSelect; i++) {
       (checkboxes.item(i) as HTMLElement).click();
@@ -244,7 +244,7 @@ describe('Select field component', () => {
       tick();
       fixture.detectChanges();
 
-      let values = document.querySelectorAll('sky-checkbox input');
+      let values = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
       expect(values.length).toEqual(6);
 
       const select = document.querySelector('select') as HTMLSelectElement;
@@ -256,7 +256,7 @@ describe('Select field component', () => {
       tick();
       fixture.detectChanges();
 
-      values = document.querySelectorAll('sky-checkbox input');
+      values = document.querySelectorAll('.sky-list-view-checklist sky-checkbox input');
       expect(select.options.length).toEqual(5);
       expect(values.length).toEqual(2);
     }));

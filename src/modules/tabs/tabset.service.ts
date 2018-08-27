@@ -35,7 +35,7 @@ export class SkyTabsetService {
   public addTab(tab: SkyTabComponent) {
 
     this.tabs.take(1).subscribe((currentTabs) => {
-      if (!tab.tabIndex) {
+      if (tab.tabIndex === undefined) {
         tab.tabIndex = 0;
         let lastTabIndex = this.getLastTabIndex(currentTabs);
         if (currentTabs && (lastTabIndex || lastTabIndex === 0)) {

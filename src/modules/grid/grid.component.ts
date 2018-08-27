@@ -139,6 +139,9 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
       this.setDisplayedColumns(true);
     } else if (changes['selectedColumnIds'] && this.columns) {
       this.setDisplayedColumns();
+      if (changes['selectedColumnIds'].previousValue !== changes['selectedColumnIds'].currentValue) {
+        this.selectedColumnIdsChange.emit(this.selectedColumnIds);
+      }
     }
 
     if (changes['data'] && this.data) {

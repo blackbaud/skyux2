@@ -24,6 +24,7 @@ import {
   SkyFlyoutDemoComponent,
   SkyGridDemoComponent,
   SkyHelpInlineDemoComponent,
+  SkyIconDemoComponent,
   SkyInfiniteScrollDemoComponent,
   SkyKeyInfoDemoComponent,
   SkyLabelDemoComponent,
@@ -452,6 +453,22 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./help-inline/help-inline-demo.component.ts'),
           componentName: 'SkyHelpInlineDemoComponent',
           bootstrapSelector: 'sky-help-inline-demo'
+        }
+      ]
+    },
+    {
+      name: 'Icon',
+      component: SkyIconDemoComponent,
+      files: [
+        {
+          name: 'icon-demo.component.html',
+          fileContents: require('!!raw-loader!./icon/icon-demo.component.html')
+        },
+        {
+          name: 'icon-demo.component.ts',
+          fileContents: require('!!raw-loader!./icon/icon-demo.component.ts'),
+          componentName: 'SkyIconDemoComponent',
+          bootstrapSelector: 'sky-icon-demo'
         }
       ]
     },
@@ -906,7 +923,8 @@ export class SkyDemoService {
         },
         {
           name: 'sectioned-modal-form-demo.component.ts',
-          fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts')
+          fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts'),
+          componentName: 'SkySectionedModalFormDemoComponent'
         },
         {
           name: 'demo-address-form.component.html',
@@ -1092,8 +1110,7 @@ export class SkyDemoService {
         {
           name: 'toast-custom-demo.component.ts',
           fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.ts'),
-          componentName: 'SkyToastCustomDemoComponent',
-          bootstrapSelector: 'sky-toast-custom-demo'
+          componentName: 'SkyToastCustomDemoComponent'
         },
         {
           name: 'toast-custom-demo-context.ts',
