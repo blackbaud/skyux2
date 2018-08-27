@@ -27,14 +27,22 @@ import {
 } from './types';
 // #endregion
 
+/**
+ * Auto-incrementing integer used to generate unique ids for radio components.
+ */
 let nextUniqueId = 0;
 
+/**
+ * Provider Expression that allows sky-radio to register as a ControlValueAccessor.
+ * This allows it to support [(ngModel)].
+ */
+// tslint:disable:no-forward-ref no-use-before-declare
 const SKY_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-forward-ref no-use-before-declare
   useExisting: forwardRef(() => SkyRadioComponent),
   multi: true
 };
+// tslint:enable
 
 @Component({
   selector: 'sky-radio',
