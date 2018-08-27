@@ -33,6 +33,10 @@
   padding-top: $sky-margin;
   padding-bottom: $sky-margin-triple;
 
+  &.sky-progress-indicator-item-horizontal {
+    padding-top: $sky-margin-double;
+  }
+
   &.sky-progress-indicator-item-line-inactive {
     padding: 0;
   }

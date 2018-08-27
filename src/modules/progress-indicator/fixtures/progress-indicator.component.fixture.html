@@ -8,6 +8,11 @@
   (progressChanges)="updateIndex($event)"
   #progressIndicator>
 
+  <sky-progress-indicator-title
+    *ngIf="isHorizontal">
+    Do all the things
+  </sky-progress-indicator-title>
+
   <sky-progress-indicator-item
     titleHtml='Do the first thing'
     [itemNumber]='1'>
@@ -75,6 +80,10 @@
     </div>
   </sky-progress-indicator-item>
 
+  <sky-progress-indicator-reset-button
+    *ngIf="isHorizontal">
+    Reset all the things
+  </sky-progress-indicator-reset-button>
 </sky-progress-indicator>
 
 <sky-progress-indicator-nav-button
