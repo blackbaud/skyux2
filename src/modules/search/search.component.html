@@ -18,7 +18,9 @@
   >
     <div class="sky-search-item-input">
       <div
-        [ngClass]="{'sky-search-input-focused sky-rounded-corners': searchInputFocused}"
+        [ngClass]="{
+          'sky-search-input-focused sky-field-status-active sky-rounded-corners': searchInputFocused
+        }"
         [@inputState]="inputAnimate"
         (@inputState.start)="inputAnimationStart($event)"
         (@inputState.done)="inputAnimationEnd($event)"

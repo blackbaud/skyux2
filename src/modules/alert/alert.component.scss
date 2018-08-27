@@ -1,4 +1,5 @@
-@import "../../scss/variables";
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-alert {
   padding: 0 $sky-padding;
@@ -13,7 +14,7 @@
     padding-top: $sky-padding;
     padding-bottom: $sky-padding;
     width: 100%;
-		
+
 		::ng-deep a {
 			color: change-color($sky-text-color-default, $alpha: 0.8);
 			text-decoration: underline;
@@ -24,7 +25,7 @@
 		}
   }
 
-  
+
 
   button {
     margin-left: auto;
