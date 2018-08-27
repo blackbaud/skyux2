@@ -923,7 +923,8 @@ export class SkyDemoService {
         },
         {
           name: 'sectioned-modal-form-demo.component.ts',
-          fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts')
+          fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts'),
+          componentName: 'SkySectionedModalFormDemoComponent'
         },
         {
           name: 'demo-address-form.component.html',
@@ -1109,8 +1110,7 @@ export class SkyDemoService {
         {
           name: 'toast-custom-demo.component.ts',
           fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.ts'),
-          componentName: 'SkyToastCustomDemoComponent',
-          bootstrapSelector: 'sky-toast-custom-demo'
+          componentName: 'SkyToastCustomDemoComponent'
         },
         {
           name: 'toast-custom-demo-context.ts',

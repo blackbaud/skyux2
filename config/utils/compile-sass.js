@@ -1,13 +1,7 @@
-var sass = require('node-sass'),
-  fs = require('fs-extra'),
-  path = require('path'),
-  tildeImporter = require('node-sass-tilde-importer');
+const fs = require('fs-extra');
+const path = require('path');
 
-var result = sass.renderSync({
-  file: path.resolve(__dirname, '../../src/scss/sky.scss'),
-  importer: tildeImporter,
-
-});
-
-fs.ensureFileSync(path.resolve(__dirname, '../../dist/css/sky.css'));
-fs.writeFileSync(path.resolve(__dirname, '../../dist/css/sky.css'), result.css);
+fs.copySync(
+  path.resolve(__dirname, '../../node_modules/@skyux/theme/css/sky.css'),
+  path.resolve(__dirname, '../../dist/css/sky.css')
+);

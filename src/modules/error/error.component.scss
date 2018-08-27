@@ -1,4 +1,5 @@
-@import "../../scss/mixins";
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-error {
   display: flex;
@@ -8,10 +9,6 @@
 
 .sky-error-content {
   text-align: center;
-}
-
-.sky-error-title {
-  @include sky-emphasized();
 }
 
 .sky-error-action {

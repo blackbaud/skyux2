@@ -1,5 +1,5 @@
-@import '../../scss/variables';
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 :host {
   display: block;
@@ -9,13 +9,9 @@
     border-collapse: collapse;
     width: 100%;
 
-    th {
-      @include sky-field-label;
-    }
-
     th,
     td {
-      padding: $sky-padding $sky-padding $sky-padding 0;
+      padding-left: 0;
       text-align: left;
 
       &.link-records-item-diff-update {
@@ -27,10 +23,6 @@
       &.link-records-item-diff-value {
         word-break: break-all;
         white-space: pre-line;
-      }
-
-      &.item-deemphasized {
-        @include sky-deemphasized;
       }
 
       &.item-highlighted {

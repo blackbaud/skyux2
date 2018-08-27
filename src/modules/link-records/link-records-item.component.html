@@ -1,21 +1,21 @@
-<div *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" class="link-records-item-info">
+<div *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.Selected" class="link-records-item-info sky-emphasized">
   {{'link_records_item_info_match' | skyResources}}
 </div>
-<div *ngIf="record.status == STATUSES.Linked" class="link-records-item-info">
+<div *ngIf="record.status == STATUSES.Linked" class="link-records-item-info sky-emphasized">
   {{'link_records_item_info_linked' | skyResources}}
 </div>
-<div *ngIf="record.status == STATUSES.NoMatch" class="link-records-item-info">
+<div *ngIf="record.status == STATUSES.NoMatch" class="link-records-item-info sky-emphasized">
   {{'link_records_item_info_no_match' | skyResources}}
 </div>
-<div *ngIf="record.status == STATUSES.Created" class="link-records-item-info">
+<div *ngIf="record.status == STATUSES.Created" class="link-records-item-info sky-emphasized">
   {{'link_records_item_info_created' | skyResources}}
 </div>
-<div *ngIf="record.status == STATUSES.Edit" class="link-records-item-info">
+<div *ngIf="record.status == STATUSES.Edit" class="link-records-item-info sky-emphasized">
   {{'link_records_item_info_edit' | skyResources}}
 </div>
 <div class="link-records-item">
   <div class="link-records-item-original sky-shadow">
-    <div class="link-records-item-header">
+    <div class="link-records-item-header sky-subsection-heading sky-padding-even-default">
       <sky-link-records-renderer [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="itemTitleTemplate || defaultItemTitleTemplate"></sky-link-records-renderer>
     </div>
     <sky-link-records-renderer *ngIf="record.status != STATUSES.Edit" class="link-records-item-content" [item]="record.item" [match]="record.match" [fields]="record.matchFields" [template]="itemTemplate || defaultItemTemplate"></sky-link-records-renderer>
@@ -34,7 +34,7 @@
     ></i></div>
   </div>
   <div class="link-records-item-match sky-shadow">
-    <div class="link-records-item-header">
+    <div class="link-records-item-header sky-subsection-heading sky-padding-even-default">
       <div *ngIf="record.status == STATUSES.Created">
           {{'link_records_item_header_created' | skyResources}}
       </div>
