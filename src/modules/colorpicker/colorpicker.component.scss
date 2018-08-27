@@ -4,10 +4,10 @@
 :host-context(sky-colorpicker) {
   ::ng-deep .sky-dropdown-button {
     padding: 0;
-    position: relative;
+    position: absolute;
     z-index: 1;
     border-color: transparent;
-    left: -30px;
+    left: 0px;
     height: 30px;
     width: 30px;
     color: transparent;
@@ -40,7 +40,6 @@
   width: 30px;
   height: 30px;
   position: relative;
-  left: -25px;
   cursor: pointer;
   color: $sky-text-color-deemphasized;
   &:hover {
