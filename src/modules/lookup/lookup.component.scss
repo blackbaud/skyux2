@@ -55,3 +55,7 @@
     flex-basis: 100px;
   }
 }
+
+:host(.ng-invalid.ng-touched) .sky-lookup-search {
+  @include sky-field-status(invalid);
+}
