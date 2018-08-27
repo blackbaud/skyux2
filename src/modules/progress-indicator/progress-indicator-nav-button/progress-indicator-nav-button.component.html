@@ -1,8 +1,11 @@
 <button
+  class="sky-btn"
   type="button"
-  class="sky-btn sky-btn-default"
-  (click)="buttonClick()"
   [disabled]="disabled"
->
+  [ngClass]="{
+    'sky-btn-default': buttonType !== 'next',
+    'sky-btn-primary': buttonType === 'next'
+  }"
+  (click)="buttonClick()">
   {{ buttonText }}
 </button>
