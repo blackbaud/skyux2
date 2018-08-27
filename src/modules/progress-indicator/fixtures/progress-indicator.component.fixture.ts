@@ -15,6 +15,7 @@ import {
 import {
   SkyProgressIndicatorNavButtonComponent
 } from '../progress-indicator-nav-button';
+import { SkyProgressIndicatorResetButtonComponent } from '../progress-indicator-reset-button';
 
 @Component({
   selector: 'test-progress-indicator',
@@ -33,13 +34,19 @@ export class ProgressIndicatorTestComponent {
   public nextButtonType = 'next';
   public nextButtonDisabled: boolean;
 
+  public resetButtonDisabled: boolean;
+
   public activeIndex = 0;
+  public resetWasClicked = false;
 
   @ViewChild(SkyProgressIndicatorComponent)
   public progressIndicator: SkyProgressIndicatorComponent;
 
   @ViewChildren(SkyProgressIndicatorNavButtonComponent)
   public navButtons: QueryList<SkyProgressIndicatorNavButtonComponent>;
+
+  @ViewChild(SkyProgressIndicatorResetButtonComponent)
+  public resetButton: SkyProgressIndicatorResetButtonComponent;
 
   constructor(private changeDetector: ChangeDetectorRef) { }
 
@@ -52,7 +59,7 @@ export class ProgressIndicatorTestComponent {
   }
 
   public resetClicked() {
-    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Reset);
+    this.resetWasClicked = true;
   }
 
   public updateIndex(changes: SkyProgressIndicatorChange) {

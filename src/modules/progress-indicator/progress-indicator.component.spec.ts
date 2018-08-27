@@ -223,6 +223,7 @@ describe('Progress indicator component', function () {
       let debugElement = fixture.nativeElement;
       let prevButton = debugElement.querySelector('#previous-btn button');
       let nextButton = debugElement.querySelector('#next-btn button');
+      let resetButton = debugElement.querySelector('#reset-btn button');
 
       // next button
       nextButton.click();
@@ -238,14 +239,10 @@ describe('Progress indicator component', function () {
       expect(componentInstance.progressItems.toArray()[1].isComplete).toBeFalsy();
 
       // previous button
-      console.log(prevButton);
-      console.log('\n\ndat stuff \n\n');
-      console.log(componentInstance.activeIndex);
       prevButton.click();
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      console.log(componentInstance.activeIndex);
 
       expect(componentInstance.activeIndex).toBe(0);
       expect(componentInstance.progressItems.first.isActive).toBeTruthy();
@@ -253,6 +250,30 @@ describe('Progress indicator component', function () {
 
       expect(componentInstance.progressItems.toArray()[1].isActive).toBeFalsy();
       expect(componentInstance.progressItems.toArray()[1].isComplete).toBeFalsy();
+
+      nextButton.click();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      nextButton.click();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      resetButton.click();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(componentInstance.activeIndex).toBe(0);
+      expect(componentInstance.progressItems.first.isActive).toBeTruthy();
+      expect(componentInstance.progressItems.first.isComplete).toBeFalsy();
+
+      expect(componentInstance.progressItems.toArray()[1].isActive).toBeFalsy();
+      expect(componentInstance.progressItems.toArray()[1].isComplete).toBeFalsy();
+
+      expect(fixture.componentInstance.resetWasClicked).toBeTruthy();
     }));
 
     it('should use inputted button type', fakeAsync(() => {
@@ -291,12 +312,22 @@ describe('Progress indicator component', function () {
 
     it('should use inputted disabled state', fakeAsync(() => {
       fixture.componentInstance.previousButtonDisabled = true;
+      fixture.componentInstance.nextButtonDisabled = true;
+      fixture.componentInstance.resetButtonDisabled = true;
       fixture.detectChanges();
       tick();
-      let buttonElement = fixture.nativeElement.querySelectorAll('sky-progress-indicator-nav-button button')[0];
+      fixture.detectChanges();
+      let buttonElements = fixture.nativeElement.querySelectorAll('sky-progress-indicator-nav-button button');
+      let resetButton = fixture.nativeElement.querySelector('#reset-btn button');
 
       expect(fixture.componentInstance.navButtons.first.disabled).toBeTruthy();
-      expect(buttonElement.disabled).toBeTruthy();
+      expect(buttonElements[0].disabled).toBeTruthy();
+
+      expect(fixture.componentInstance.navButtons.last.disabled).toBeTruthy();
+      expect(buttonElements[1].disabled).toBeTruthy();
+
+      expect(fixture.componentInstance.resetButton.disabled).toBeTruthy();
+      expect(resetButton.disabled).toBeTruthy();
     }));
   });
 });

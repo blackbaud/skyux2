@@ -39,8 +39,8 @@ export class SkyProgressIndicatorResetButtonComponent implements OnDestroy {
   private _disabled: boolean;
 
   public resetProgress() {
-    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Reset);
     this.resetClick.emit();
+    this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Reset);
   }
 
   public ngOnDestroy() {
