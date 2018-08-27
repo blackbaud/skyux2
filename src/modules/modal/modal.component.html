@@ -26,7 +26,14 @@
       }">
 
     <div class="sky-modal-header" [hidden]="!headerContent || !headerContent.children || headerContent.children.length < 1">
-      <div [attr.id]="modalHeaderId" class="sky-modal-header-content"  #headerContent>
+      <div
+        class="sky-modal-header-content sky-emphasized"
+        [attr.id]="modalHeaderId"
+        [ngClass]="{
+          'sky-section-heading': modalFullPage
+        }"
+        #headerContent
+      >
         <ng-content select="sky-modal-header"></ng-content>
       </div>
       <div class="sky-modal-header-buttons">
@@ -41,7 +48,7 @@
       </div>
 
     </div>
-    <div [attr.id]="modalContentId" class="sky-modal-content">
+    <div [attr.id]="modalContentId" class="sky-modal-content sky-padding-even-large">
       <ng-content select="sky-modal-content"></ng-content>
     </div>
     <div class="sky-modal-footer">

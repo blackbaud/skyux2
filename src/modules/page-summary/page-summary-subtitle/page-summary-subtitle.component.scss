@@ -1,8 +1,8 @@
-@import '../../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-page-summary-subtitle {
-    @include sky-emphasized();
-    margin-top: 0;
-    margin-bottom: $sky-margin;
-    line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: $sky-margin;
+  line-height: 1.1;
 }

@@ -1,8 +1,8 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-action-button-header {
   display: inline-block;
-  @include sky-section-heading();
 }
 
 @media (max-width: $sky-screen-xs-max) {

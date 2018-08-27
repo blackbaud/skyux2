@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SkyDemoModule } from '../demo';
 
-require('style-loader!./styles.scss');
+require('style-loader!@skyux/theme/css/sky.css');
 
 @NgModule({
   entryComponents: [],
