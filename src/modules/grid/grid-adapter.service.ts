@@ -1,5 +1,9 @@
 import {
-  Injectable
+  Injectable,
+  Renderer2,
+  RendererFactory2,
+  ElementRef,
+  QueryList
 } from '@angular/core';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -9,6 +13,13 @@ const GRID_HEADER_LOCKED_SELECTOR = '.sky-grid-header-locked';
 
 @Injectable()
 export class SkyGridAdapterService {
+  private renderer: Renderer2;
+
+  constructor(
+    private rendererFactory: RendererFactory2
+  ) {
+    this.renderer = this.rendererFactory.createRenderer(undefined, undefined);
+  }
 
   public initializeDragAndDrop(
     dragulaService: DragulaService,
@@ -45,5 +56,9 @@ export class SkyGridAdapterService {
           return sibling === undefined || !sibling || !sibling.matches(GRID_HEADER_LOCKED_SELECTOR);
         }
     });
+  }
+
+  public setColumnWidth(column: HTMLElement, width: number) {
+    this.renderer.setStyle(column, 'width', `${width}px`);
   }
 }

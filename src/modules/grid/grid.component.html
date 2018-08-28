@@ -2,7 +2,8 @@
   <div class="sky-grid-table-container" [style.height.px]="height" [style.width.px]="width">
     <table
       class="sky-grid-table"
-      [ngClass]="{ 'sky-grid-fit': fit !== 'scroll', 'sky-grid-has-toolbar': hasToolbar }">
+      [ngClass]="{ 'sky-grid-fit': fit !== 'scroll', 'sky-grid-has-toolbar': hasToolbar }"
+      #gridTable>
       <thead>
         <tr dragula="sky-grid-heading">
           <th
@@ -15,8 +16,17 @@
             [ngClass]="{ 'sky-grid-header-locked': column.locked }"
             (click)="sortByColumn(column)"
             [tabIndex]="column.isSortable ? 0 : -1"
-            (keydown)="onKeydown($event, column)">
+            (keydown)="onKeydown($event, column)"
+            #gridColHeader>
             {{column.heading}}
+            <span
+              *ngIf="!last"
+              class="sky-grid-resize-handle"
+              aria-hidden="true"
+              role="separator"
+              tabindex="-1"
+              (mousedown)="onResizeColStart($event)">
+            </span>
             <i
               class="fa sky-grid-heading-sort"
               [ngStyle]="{'visibility: hidden': (getSortDirection(column.field) | async)}"
@@ -39,8 +49,7 @@
               [fieldSelector]="column.field"
               [item]="item"
               [columnId]="column.id"
-              [attr.sky-cmp-id]="column.id || column.field"
-              [style.width.px]="last ? null : column.width">
+              [attr.sky-cmp-id]="column.id || column.field">
             </sky-grid-cell>
           </td>
         </tr>

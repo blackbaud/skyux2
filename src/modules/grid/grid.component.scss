@@ -35,10 +35,12 @@
 
   .sky-grid-cell {
     padding: 0;
+    min-width: 10px;
   }
 }
 
 .sky-grid-heading {
+  position: relative;
   @include sky-border(dark, top, bottom, left, right);
   @include sky-field-label();
   border-right-width: 0px;
@@ -78,4 +80,15 @@
 */
 .sky-grid-heading-sort {
   min-width: 8px;
+}
+
+.sky-grid-resize-handle {
+  position: absolute;
+  right: -14px;
+  width: 30px;
+  z-index: 50;
+  min-height: 20px;
+  height: 50% !important;
+  vertical-align: middle;
+  cursor: col-resize;
 }

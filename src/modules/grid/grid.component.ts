@@ -10,7 +10,11 @@ import {
   ChangeDetectorRef,
   SimpleChanges,
   EventEmitter,
-  OnChanges
+  OnChanges,
+  HostListener,
+  ElementRef,
+  ViewChildren,
+  ViewChild
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -84,6 +88,19 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   private columnComponents: QueryList<SkyGridColumnComponent>;
 
   private subscriptions: Subscription[] = [];
+
+  @ViewChildren('gridColHeader')
+  private columnHeaders: QueryList<ElementRef>;
+  @ViewChild('gridTable')
+  private table: ElementRef;
+  private tableWidth: number;
+  private isDragging: boolean = false;
+  private activeColumn: HTMLElement;
+  private lastResizableColumn: ElementRef;
+  private startOffset: number;
+  private lastColStartWidth: number;
+  private xPosStart: number;
+  private minColWidth = 50;
 
   constructor(
     private dragulaService: DragulaService,
@@ -167,7 +184,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   }
 
   public sortByColumn(column: SkyGridColumnModel) {
-    if (column.isSortable) {
+    if (!this.isDragging && column.isSortable) {
       this.currentSortField
       .take(1)
       .map(field => {
@@ -219,6 +236,62 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     if (foundColumnModel) {
       foundColumnModel.heading = change.value;
       this.ref.markForCheck();
+    }
+  }
+
+  public onResizeColStart(event: MouseEvent) {
+    this.isDragging = true;
+
+    this.tableWidth = this.table.nativeElement.offsetWidth;
+
+    const clickTarget = event.target as HTMLElement;
+    this.activeColumn = clickTarget.parentElement;
+
+    this.startOffset = this.activeColumn.offsetWidth - event.pageX;
+
+    this.lastResizableColumn = this.columnHeaders.last;
+    this.lastColStartWidth = this.lastResizableColumn.nativeElement.offsetWidth;
+
+    this.xPosStart = event.pageX;
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  public onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) {
+      return;
+    }
+
+    let newColWidth = this.startOffset + event.pageX;
+    let lastColWidth = this.lastColStartWidth + this.xPosStart - event.pageX;
+
+    if (lastColWidth <= this.minColWidth) {
+      lastColWidth = this.lastColStartWidth + this.xPosStart - event.pageX;
+    }
+
+    if (newColWidth <= this.minColWidth) {
+      return;
+    }
+
+    if (this.fit === 'width') {
+      if (lastColWidth >= this.minColWidth) {
+        this.gridAdapter.setColumnWidth(this.lastResizableColumn.nativeElement, lastColWidth);
+        this.gridAdapter.setColumnWidth(this.activeColumn, newColWidth);
+      }
+    } else {
+      this.gridAdapter.setColumnWidth(this.activeColumn, newColWidth);
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  public onResizeHandleRelease(event: MouseEvent) {
+    if (this.isDragging) {
+      this.isDragging = false;
+      this.activeColumn = undefined;
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 
