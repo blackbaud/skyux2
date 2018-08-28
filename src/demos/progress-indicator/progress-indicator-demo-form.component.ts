@@ -20,7 +20,7 @@ export class SkyProgressIndicatorDemoFormComponent {
     public context: SkyProgressIndicatorDemoContext
   ) { }
 
-  public submit() {
+  public submit(): void {
     this.instance.close(undefined, 'save');
   }
 }

@@ -5,7 +5,8 @@ import {
 
 import {
   SkyModalInstance,
-  SkyProgressIndicatorChange
+  SkyProgressIndicatorChange,
+  SkyProgressIndicatorDisplayMode
 } from '../../core';
 
 @Component({
@@ -17,6 +18,7 @@ export class SkyProgressIndicatorHorizontalDemoComponent {
   public title = 'Progress indicator wizard example';
   public requiredValue1: string;
   public requiredValue2: boolean;
+  public displayMode = SkyProgressIndicatorDisplayMode.Horizontal;
 
   public get requirementsMet(): boolean {
     switch (this.activeIndex) {
@@ -29,7 +31,7 @@ export class SkyProgressIndicatorHorizontalDemoComponent {
     }
   }
 
-  public get isDone() {
+  public get isDone(): boolean {
     return this.activeIndex === 2;
   }
 
@@ -38,7 +40,7 @@ export class SkyProgressIndicatorHorizontalDemoComponent {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public updateIndex(changes: SkyProgressIndicatorChange) {
+  public updateIndex(changes: SkyProgressIndicatorChange): void {
     this.activeIndex = changes.activeIndex;
     this.changeDetector.detectChanges();
   }

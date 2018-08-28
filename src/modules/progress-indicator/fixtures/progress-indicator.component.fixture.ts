@@ -15,7 +15,12 @@ import {
 import {
   SkyProgressIndicatorNavButtonComponent
 } from '../progress-indicator-nav-button';
-import { SkyProgressIndicatorResetButtonComponent } from '../progress-indicator-reset-button';
+import {
+  SkyProgressIndicatorResetButtonComponent
+} from '../progress-indicator-reset-button';
+import {
+  SkyProgressIndicatorDisplayMode
+} from '../types/progress-indicator-mode';
 
 @Component({
   selector: 'test-progress-indicator',
@@ -23,7 +28,7 @@ import { SkyProgressIndicatorResetButtonComponent } from '../progress-indicator-
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProgressIndicatorTestComponent {
-  public isHorizontal: boolean;
+  public displayMode: SkyProgressIndicatorDisplayMode;
   public startingIndex: number;
 
   public previousButtonText: string;
@@ -48,21 +53,25 @@ export class ProgressIndicatorTestComponent {
   @ViewChild(SkyProgressIndicatorResetButtonComponent)
   public resetButton: SkyProgressIndicatorResetButtonComponent;
 
+  public get isHorizontal() {
+    return this.displayMode === SkyProgressIndicatorDisplayMode.Horizontal;
+  }
+
   constructor(private changeDetector: ChangeDetectorRef) { }
 
-  public progress() {
+  public progress(): void {
     this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
   }
 
-  public regress() {
+  public regress(): void {
     this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
   }
 
-  public resetClicked() {
+  public resetClicked(): void {
     this.resetWasClicked = true;
   }
 
-  public updateIndex(changes: SkyProgressIndicatorChange) {
+  public updateIndex(changes: SkyProgressIndicatorChange): void {
     this.activeIndex = changes.activeIndex;
     this.changeDetector.detectChanges();
   }

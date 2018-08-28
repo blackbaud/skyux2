@@ -18,11 +18,12 @@ import {
 import {
   SkyProgressIndicatorHorizontalDemoComponent
 } from './progress-indicator-horizontal-demo.component';
-
 import {
   SkyProgressIndicatorDemoFormComponent
 } from './progress-indicator-demo-form.component';
-import { SkyProgressIndicatorDemoContext } from './progress-indicator-demo-context';
+import {
+  SkyProgressIndicatorDemoContext
+} from './progress-indicator-demo-context';
 
 @Component({
   selector: 'app-progress-indicator-demo',
@@ -40,11 +41,11 @@ export class SkyProgressIndicatorDemoComponent {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public openWizard() {
+  public openWizard(): void {
     this.modal.open(SkyProgressIndicatorHorizontalDemoComponent);
   }
 
-  public configureConnection(isProgress: boolean) {
+  public configureConnection(isProgress: boolean): void {
     this.openModalForm(
       {
         title: 'Configure connection',
@@ -54,7 +55,7 @@ export class SkyProgressIndicatorDemoComponent {
     );
   }
 
-  public setServer(isProgress: boolean) {
+  public setServer(isProgress: boolean): void {
     this.openModalForm(
       {
         title: 'Select remote server',
@@ -64,7 +65,7 @@ export class SkyProgressIndicatorDemoComponent {
     );
   }
 
-  public testConnection(isProgress: boolean) {
+  public testConnection(isProgress: boolean): void {
     this.openModalForm(
       {
         title: 'Connection confirmed.',
@@ -74,24 +75,24 @@ export class SkyProgressIndicatorDemoComponent {
     );
   }
 
-  public alertMessage(message: string) {
+  public alertMessage(message: string): void {
     alert(message);
   }
 
-  public updateIndex(changes: SkyProgressIndicatorChange) {
+  public updateIndex(changes: SkyProgressIndicatorChange): void {
     this.activeIndex = changes.activeIndex;
     this.changeDetector.detectChanges();
   }
 
-  public resetClicked() {
+  public resetClicked(): void {
     this.progressMessageStream.next(SkyProgressIndicatorMessageType.Reset);
   }
 
-  private progress() {
+  private progress(): void {
     this.progressMessageStream.next(SkyProgressIndicatorMessageType.Progress);
   }
 
-  private openModalForm(context: SkyProgressIndicatorDemoContext, isProgress: boolean) {
+  private openModalForm(context: SkyProgressIndicatorDemoContext, isProgress: boolean): void {
     let modalForm = this.modal.open(SkyProgressIndicatorDemoFormComponent, [{
       provide: SkyProgressIndicatorDemoContext,
       useValue: context

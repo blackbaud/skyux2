@@ -94,7 +94,7 @@ export class SkyProgressIndicatorNavButtonComponent implements OnInit, OnDestroy
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.progressIndicator.progressChanges
     .takeUntil(this.idle)
     .subscribe((changes: SkyProgressIndicatorChange) => {
@@ -103,12 +103,12 @@ export class SkyProgressIndicatorNavButtonComponent implements OnInit, OnDestroy
     });
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.idle.next();
     this.idle.unsubscribe();
   }
 
-  public buttonClick() {
+  public buttonClick(): void {
     switch (this.buttonType) {
       case buttonTypePrevious:
         this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);

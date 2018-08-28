@@ -20,6 +20,9 @@ import {
 import {
   SkyProgressIndicatorItemComponent
 } from './progress-indicator-item';
+import {
+  SkyProgressIndicatorDisplayMode
+} from './types/progress-indicator-mode';
 
 @Component({
   selector: 'sky-progress-indicator',
@@ -32,11 +35,15 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   public startingIndex: number;
 
   @Input()
-  public get isHorizontal(): boolean {
-    return this._isHorizontal || false;
+  public get displayMode(): SkyProgressIndicatorDisplayMode {
+    return this._displayMode || SkyProgressIndicatorDisplayMode.Vertical;
   }
-  public set isHorizontal(value: boolean) {
-    this._isHorizontal = value;
+  public set displayMode(value: SkyProgressIndicatorDisplayMode) {
+    this._displayMode = value;
+  }
+
+  public get isHorizontal(): boolean {
+    return this.displayMode === SkyProgressIndicatorDisplayMode.Horizontal;
   }
 
   @Input()
@@ -49,13 +56,13 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   public progressItems: QueryList<SkyProgressIndicatorItemComponent>;
 
   private activeIndex = 0;
-  private _isHorizontal: boolean;
-  private idle = new Subject();
+  private _displayMode: SkyProgressIndicatorDisplayMode;
+  private ngUnsubscribe = new Subject();
 
-  public ngAfterContentInit() {
+  public ngAfterContentInit(): void {
     // Set up observation of progress command messages
     this.messageStream
-      .takeUntil(this.idle)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((messageType: SkyProgressIndicatorMessageType) => {
         switch (messageType) {
           case SkyProgressIndicatorMessageType.Progress:
@@ -109,13 +116,13 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
 
     // Set the horizontal state
     this.progressItems.forEach(element => {
-      element.isHorizontal = this.isHorizontal;
+      element.displayMode = this.displayMode;
     });
   }
 
-  public ngOnDestroy() {
-    this.idle.next();
-    this.idle.unsubscribe();
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.unsubscribe();
   }
 
   public isNextToCheck(index: number): boolean {
@@ -123,7 +130,7 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     return nextItem && nextItem.isComplete && !nextItem.isActive;
   }
 
-  private progress() {
+  private progress(): void {
     if (this.activeIndex === this.progressItems.length) {
       return;
     }
@@ -142,7 +149,7 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     }
   }
 
-  private regress() {
+  private regress(): void {
     if (this.activeIndex === 0) {
       return;
     }
@@ -163,7 +170,7 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     }
   }
 
-  private resetProgress() {
+  private resetProgress(): void {
     this.activeIndex = 0;
     this.progressItems.forEach((item: SkyProgressIndicatorItemComponent) => {
       item.isActive = false;
@@ -176,7 +183,7 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     }
   }
 
-  private getItemByIndex(index: number) {
+  private getItemByIndex(index: number): SkyProgressIndicatorItemComponent {
     return this.progressItems.find((item: any, i: number) => {
       return (i === index);
     });

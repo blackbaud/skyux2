@@ -20,11 +20,11 @@ export class ProgressIndicatorVisualComponent {
   @ViewChild(SkyProgressIndicatorComponent)
   private progressIndicator: SkyProgressIndicatorComponent;
 
-  public progress() {
+  public progress(): void {
     this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
   }
 
-  public regress() {
+  public regress(): void {
     this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
   }
 }

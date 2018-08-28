@@ -16,6 +16,9 @@ import {
 import {
   ProgressIndicatorTestComponent
 } from './fixtures/progress-indicator.component.fixture';
+import {
+  SkyProgressIndicatorDisplayMode
+} from './types/progress-indicator-mode';
 
 describe('Progress indicator component', function () {
 
@@ -37,7 +40,7 @@ describe('Progress indicator component', function () {
   });
 
   it('should use horizontal mode if set', fakeAsync(() => {
-    fixture.componentInstance.isHorizontal = true;
+    fixture.componentInstance.displayMode = SkyProgressIndicatorDisplayMode.Horizontal;
     fixture.detectChanges();
     tick();
     fixture.detectChanges();

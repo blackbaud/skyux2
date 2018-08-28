@@ -891,6 +891,10 @@ export class SkyDemoService {
           name: 'progress-indicator-horizontal-demo.component.ts',
           fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-horizontal-demo.component.ts'),
           componentName: 'SkyProgressIndicatorHorizontalDemoComponent'
+        },
+        {
+          name: 'progress-indicator-demo-context.ts',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo-context.ts')
         }
       ]
     },
