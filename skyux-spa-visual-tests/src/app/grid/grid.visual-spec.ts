@@ -1,7 +1,7 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 import { element, by } from 'protractor';
 
-fdescribe('grid component', () => {
+describe('grid component', () => {
 
   it('should display grid', () => {
     return SkyVisualTest.setupTest('grid')
