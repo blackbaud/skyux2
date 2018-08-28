@@ -19,7 +19,7 @@
 
     <div [ngSwitch]="buttonType">
       <ng-template ngSwitchCase="context-menu">
-        <i class="fa fa-ellipsis-h"></i>
+        <sky-icon icon="ellipsis-h"></sky-icon>
       </ng-template>
 
       <ng-template ngSwitchDefault>
@@ -32,7 +32,7 @@
             </ng-content>
           </div>
           <div class="sky-dropdown-button-icon-container">
-            <i class="fa fa-caret-down sky-dropdown-caret"></i>
+            <sky-icon icon="caret-down" class="sky-dropdown-caret"></sky-icon>
           </div>
         </div>
         <div

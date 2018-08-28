@@ -6,16 +6,17 @@
       [attr.title]="'search_open' | skyResources"
       [hidden]="!searchButtonShown"
       [ngClass]="{'sky-search-btn-open-applied': clearButtonShown}"
-      (click)="toggleSearchInput(true)"
-    >
-      <i class="fa fa-search fa-lg"></i>
+      (click)="toggleSearchInput(true)">
+      <sky-icon
+        icon="search"
+        size="lg">
+      </sky-icon>
     </button>
   </div>
   <div
     class="sky-search-dismiss-container"
     [hidden]="searchButtonShown"
-    [ngClass]="{'sky-search-dismiss-absolute': mobileSearchShown || isFullWidth }"
-  >
+    [ngClass]="{'sky-search-dismiss-absolute': mobileSearchShown || isFullWidth }">
     <div class="sky-search-item-input">
       <div
         [ngClass]="{
@@ -45,9 +46,10 @@
             tabindex="-1"
             type="button"
             [disabled]="disabled"
-            (click)="clearSearchText()"
-          >
-            <i class="fa fa-times"></i>
+            (click)="clearSearchText()">
+            <sky-icon
+              icon="times">
+            </sky-icon>
           </button>
         </span>
         <span
@@ -57,21 +59,27 @@
             type="button"
             [attr.aria-label]="'search_label' | skyResources"
             [disabled]="disabled"
-            (click)="applySearchText(searchText)"
-          >
-            <i class="fa fa-search fa-lg"></i>
+            (click)="applySearchText(searchText)">
+            <sky-icon
+              icon="search"
+              size="lg">
+            </sky-icon>
           </button>
         </span>
       </div>
     </div>
-    <div class="sky-search-item-dismiss">
-      <button *ngIf="mobileSearchShown"
+    <div
+      class="sky-search-item-dismiss">
+      <button
+        *ngIf="mobileSearchShown"
         class="sky-btn sky-btn-secondary sky-search-btn-dismiss"
         type="button"
         [attr.title]="'search_dismiss' | skyResources"
-        (click)="toggleSearchInput(false)"
-      >
-        <i class="fa fa-chevron-circle-left fa-lg"></i>
+        (click)="toggleSearchInput(false)">
+        <sky-icon
+          icon="chevron-circle-left"
+          size="lg">
+        </sky-icon>
       </button>
     </div>
   </div>
