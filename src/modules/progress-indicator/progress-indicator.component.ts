@@ -115,8 +115,9 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     }
 
     // Set the horizontal state
-    this.progressItems.forEach(element => {
+    this.progressItems.forEach((element, index) => {
       element.displayMode = this.displayMode;
+      element.itemNumber = index + 1;
     });
   }
 

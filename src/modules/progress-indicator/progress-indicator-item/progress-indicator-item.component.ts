@@ -13,14 +13,12 @@ import {
   styleUrls: ['./progress-indicator-item.component.scss']
 })
 export class SkyProgressIndicatorItemComponent {
+  public itemNumber: number;
   public isActive = false;
   public isComplete = false;
   public isLastItem = false;
   public displayMode = SkyProgressIndicatorDisplayMode.Vertical;
   public isNextToInactive = true;
-
-  @Input()
-  public itemNumber: number;
 
   @Input()
   public title: string;

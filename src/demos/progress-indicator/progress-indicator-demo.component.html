@@ -11,7 +11,6 @@
 
   <sky-progress-indicator-item
     title="Configure connection"
-    [itemNumber]="1"
   >
     <div>
       <button *ngIf="activeIndex === 0"
@@ -33,7 +32,6 @@
 
   <sky-progress-indicator-item
     title="Select remote server"
-    [itemNumber]="2"
   >
     <div *ngIf="activeIndex >= 1">
         <button *ngIf="activeIndex === 1"
@@ -55,7 +53,6 @@
 
   <sky-progress-indicator-item
     title="Test connection"
-    [itemNumber]="3"
   >
     <div *ngIf="activeIndex >= 2">
         <button *ngIf="activeIndex === 2"
@@ -77,7 +74,6 @@
 
   <sky-progress-indicator-item
     title="Turn on connection"
-    [itemNumber]="4"
   >
     <div *ngIf="activeIndex >= 3">
         <button *ngIf="activeIndex === 3"
