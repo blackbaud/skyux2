@@ -585,8 +585,8 @@ describe('Autocomplete component', () => {
         SkyAppTestUtility.fireDomEvent(inputElement, 'blur');
         tick();
 
-        expect(component.myForm.value.favoriteColor).toEqual({ });
-        expect(input.value).toEqual({ });
+        expect(component.myForm.value.favoriteColor).toBeUndefined();
+        expect(input.value).toBeUndefined();
         expect(inputElement.value).toEqual('');
       })
     );

@@ -8,13 +8,13 @@
 
 # 2.20.0 (2018-08-21)
 
-- Added option for a URL or route permalink to the action button component. [#1896](https://github.com/blackbaud/skyux2/pull/1896) [#1924](https://github.com/blackbaud/skyux2/pull/1924) (Thanks @Remulus2006)
+- Added option to specify URL or Angular route for action button component. [#1896](https://github.com/blackbaud/skyux2/pull/1896) [#1924](https://github.com/blackbaud/skyux2/pull/1924) (Thanks @Remulus2006)
 - Added option to only show selected items in list view checklist component. [#1900](https://github.com/blackbaud/skyux2/pull/1900) (Thanks @Theaggarwal)
-- Added new `selectedColumnIdsChange` event that fires when columns in a list view grid component change. [#1897](https://github.com/blackbaud/skyux2/pull/1897)
-- Fixed definition list to show inner text during change detection. [#1919](https://github.com/blackbaud/skyux2/pull/1919)
-- Fixed popover close event race condition. [#1884](https://github.com/blackbaud/skyux2/pull/1884)
+- Added `selectedColumnIdsChange` event that fires when columns change in list view grid component. [#1897](https://github.com/blackbaud/skyux2/pull/1897)
+- Updated definition list to show inner text during change detection. [#1919](https://github.com/blackbaud/skyux2/pull/1919)
+- Fixed race condition in popover component's close event. [#1884](https://github.com/blackbaud/skyux2/pull/1884)
 - Fixed visual style of HTML `select` field to be consistent in all browsers. [#1913](https://github.com/blackbaud/skyux2/pull/1913)
-- Fixed sort button to display the correct `title` and `label` value. [#1915](https://github.com/blackbaud/skyux2/pull/1915) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed sort button to display correct `title` and `label` values. [#1915](https://github.com/blackbaud/skyux2/pull/1915) (Thanks @Blackbaud-JackMcElhinney)
 - Fixed tabset component to assign correct indexes to dynamically added tabs. [#1887](https://github.com/blackbaud/skyux2/pull/1887)
 
 # 2.19.0 (2018-08-13)
