@@ -5,6 +5,7 @@
   display: block;
   width: 100%;
   cursor: pointer;
+  word-wrap: break-word;
 
   &:last-child {
     border-bottom-width: 0;
