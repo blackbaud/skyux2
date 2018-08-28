@@ -1,9 +1,11 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-list-view-checklist-item {
   display: block;
   width: 100%;
   cursor: pointer;
+  word-wrap: break-word;
 
   &:last-child {
     border-bottom-width: 0;

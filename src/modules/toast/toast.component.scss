@@ -1,11 +1,10 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-toast {
-  @include sky-shadow();
   padding: 0 $sky-padding;
   margin-bottom: $sky-margin-double;
   border-left: solid 30px;
-  border-radius: $sky-border-radius;
   color: $sky-text-color-default;
   display: flex;
   flex-direction: row;
@@ -22,6 +21,8 @@
   padding-top: $sky-padding;
   padding-bottom: $sky-padding;
   width: 100%;
+  word-wrap: break-word;
+  overflow: hidden;
 
   ::ng-deep a {
     color: change-color($sky-text-color-default, $alpha: 0.8);

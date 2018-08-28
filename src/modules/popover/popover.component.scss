@@ -1,4 +1,5 @@
-@import '../../scss/_mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 $popover-arrow-size: 20px;
 $popover-border-size: 10px;
@@ -32,7 +33,7 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-header {
-  padding: $sky-padding $sky-padding 0 $sky-padding;
+  padding-bottom: 0;
 
   & + .sky-popover-body {
     padding-top: 2px;
@@ -40,12 +41,7 @@ $popover-max-width: 276px;
 }
 
 .sky-popover-title {
-  @include sky-emphasized;
   margin: 0;
-}
-
-.sky-popover-body {
-  padding: $sky-padding;
 }
 
 .sky-popover-arrow {

@@ -1,7 +1,7 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-confirm-message {
-  @include sky-emphasized();
   margin-top: $sky-margin-half;
 }
 

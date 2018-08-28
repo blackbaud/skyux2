@@ -1,13 +1,13 @@
 <div class="sky-vertical-tabset-group">
   <div
-    class="sky-vertical-tabset-group-header" 
+    class="sky-vertical-tabset-group-header sky-emphasized sky-padding-even-default"
     [ngClass]="{'sky-vertical-tabset-group-header-sub-open': subMenuOpen()}"
     (click)="toggleMenuOpen()"
     (keyup.enter)="toggleMenuOpen()"
     [tabIndex]="-1"
   >
     {{ groupHeading }}
-    <sky-chevron 
+    <sky-chevron
       class="sky-vertical-tabset-group-header-chevron"
       [direction]="open ? 'up' : 'down'"
       [disabled]="disabled"
