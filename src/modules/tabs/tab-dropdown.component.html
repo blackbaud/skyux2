@@ -10,7 +10,7 @@
           class="sky-tab-dropdown-item"
           [ngClass]="{ 'sky-tab-dropdown-item-selected': tab.active }">
           <button
-            class="sky-btn sky-tab-dropdown-item-btn"
+            class="sky-btn sky-tab-dropdown-item-btn sky-padding-even-default"
             type="button"
             [attr.aria-controls]="tab.tabId"
             [id]="tab.tabId + '-nav-btn'"
@@ -20,7 +20,7 @@
           </button>
           <button
             type="button"
-            class="sky-btn sky-tab-dropdown-item-close"
+            class="sky-btn sky-tab-dropdown-item-close sky-padding-even-default"
             *ngIf="tab.allowClose"
             (click)="closeTab(tab)">
             <i class="fa fa-remove"></i>

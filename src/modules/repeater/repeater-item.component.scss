@@ -1,8 +1,9 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-repeater-item {
   display: flex;
-  padding: $sky-padding $sky-padding 0 $sky-padding;
+  padding-bottom: 0;
   @include sky-border(row);
 }
 
@@ -37,8 +38,7 @@
 }
 
 .sky-repeater-item-title {
-  @include sky-emphasized();
-  padding: 0 0 $sky-padding 0;
+  margin-bottom: $sky-padding;
   margin: 0;
   flex-grow: 1;
 }
