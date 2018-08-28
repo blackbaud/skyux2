@@ -94,6 +94,12 @@ describe('Progress indicator component', function () {
       expect(element.querySelector('.sky-progress-indicator-item-step')).toBeTruthy();
     }));
 
+    it('should set item numbers', () => {
+      componentInstance.progressItems.forEach((item: any, index: number) => {
+        expect(item.itemNumber).toBe(index + 1);
+      });
+    });
+
     it('should advance progress and complete current item when a complete message is received.', () => {
       expect(componentInstance.activeIndex).toBe(0);
       expect(componentInstance.progressItems.first.isActive).toBeTruthy();

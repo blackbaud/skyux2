@@ -23,9 +23,6 @@ import {
   SkyProgressIndicatorChange
 } from '../types';
 
-const buttonTypeNext = 'next';
-const buttonTypePrevious = 'previous';
-
 @Component({
   selector: 'sky-progress-indicator-nav-button',
   templateUrl: './progress-indicator-nav-button.component.html',
@@ -41,14 +38,11 @@ export class SkyProgressIndicatorNavButtonComponent implements OnInit, OnDestroy
       return this._buttonText;
     }
 
-    switch (this.buttonType) {
-      case buttonTypePrevious:
-        return this.resources.getString('wizard_navigator_previous');
-
-      default:
-      case buttonTypeNext:
-        return this.resources.getString('wizard_navigator_next');
+    if (this.buttonType === 'previous') {
+      return this.resources.getString('wizard_navigator_previous');
     }
+
+    return this.resources.getString('wizard_navigator_next');
   }
   public set buttonText(value: string) {
     this._buttonText = value;
@@ -70,14 +64,11 @@ export class SkyProgressIndicatorNavButtonComponent implements OnInit, OnDestroy
       return this._disabled;
     }
 
-    switch (this.buttonType) {
-      case buttonTypePrevious:
-        return this.activeIndex === 0;
-
-      default:
-      case buttonTypeNext:
-        return this.activeIndex >= this.progressIndicator.progressItems.length - 1;
+    if (this.buttonType === 'previous') {
+      return this.activeIndex === 0;
     }
+
+    return this.activeIndex >= this.progressIndicator.progressItems.length - 1;
   }
   public set disabled(value: boolean) {
     this._disabled = value;
@@ -109,15 +100,10 @@ export class SkyProgressIndicatorNavButtonComponent implements OnInit, OnDestroy
   }
 
   public buttonClick(): void {
-    switch (this.buttonType) {
-      case buttonTypePrevious:
-        this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
-        break;
-
-      default:
-      case buttonTypeNext:
-        this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
-        break;
+    if (this.buttonType === 'previous') {
+      this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
+    } else {
+      this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
     }
   }
 }

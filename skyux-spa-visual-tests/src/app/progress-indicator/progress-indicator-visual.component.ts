@@ -5,8 +5,13 @@ import {
 
 import {
   SkyProgressIndicatorComponent,
-  SkyProgressIndicatorMessageType
+  SkyProgressIndicatorMessageType,
+  SkyModalService
 } from '@blackbaud/skyux/dist/core';
+
+import {
+  SkyProgressIndicatorHorizontalVisualComponent
+} from './progress-indicator-horizontal-visual.component';
 
 @Component({
   selector: 'progress-indicator-visual',
@@ -20,11 +25,17 @@ export class ProgressIndicatorVisualComponent {
   @ViewChild(SkyProgressIndicatorComponent)
   private progressIndicator: SkyProgressIndicatorComponent;
 
+  constructor(private modal: SkyModalService) { }
+
   public progress(): void {
     this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Progress);
   }
 
   public regress(): void {
     this.progressIndicator.messageStream.next(SkyProgressIndicatorMessageType.Regress);
+  }
+
+  public openWizard(): void {
+    this.modal.open(SkyProgressIndicatorHorizontalVisualComponent);
   }
 }
