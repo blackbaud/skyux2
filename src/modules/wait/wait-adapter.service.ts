@@ -28,12 +28,45 @@ export class SkyWaitAdapterService {
       let endListenerFunc = this.renderer.listen(busyEl, 'keydown', (event: KeyboardEvent) => {
         if (event.key.toLowerCase() === 'tab') {
           event.preventDefault();
+          if (!isFullPage) {
+            this.focusNextElement(busyEl, event.shiftKey);
+          }
         }
       });
       this.parentListeners[id] = endListenerFunc;
     } else if (id in this.parentListeners) {
       this.parentListeners[id]();
       delete this.parentListeners[id];
+    }
+  }
+
+  private focusNextElement(parentElement: any, shiftKey: boolean): void {
+    // Select all possible focussable elements
+    let focussableElements =
+      'a:not([disabled]):not([tabindex="-1"]), ' +
+      'button:not([disabled]):not([tabindex="-1"]), ' +
+      'input:not([disabled]):not([tabindex="-1"]), ' +
+      'textarea:not([disabled]):not([tabindex="-1"]), ' +
+      '[tabindex]:not([disabled]):not([tabindex="-1"])';
+
+    let focussable = Array.prototype.filter.call(document.body.querySelectorAll(focussableElements),
+      (element: any) => {
+        return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement;
+      });
+
+    // If shift tab, go in the other direction
+    let modifier = 1;
+    if (shiftKey) {
+      modifier = -1;
+    }
+
+    // Find the next navigable element that isn't waiting
+    let curIndex = focussable.indexOf(document.activeElement) + modifier;
+    while (!focussable[curIndex] || parentElement.contains(focussable[curIndex]) || parentElement === focussable[curIndex]) {
+      curIndex += modifier;
+    }
+    if (focussable[curIndex]) {
+      focussable[curIndex].focus();
     }
   }
 }
