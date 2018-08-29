@@ -17,21 +17,12 @@ export const skyAnimationSlide = trigger('skyAnimationSlide', [
     overflow: 'visible',
     height: '*'
   })),
-  state('downWithBottomPadding', style({
-    overflow: 'visible',
-    height: '*',
-    padding: '0 0 10px 0'
-  })),
   state('up', style({
     overflow: 'hidden',
     height: 0
   })),
   transition(
     'up <=> down',
-    animate('150ms ease-in')
-  ),
-  transition(
-    'up <=> downWithBottomPadding',
     animate('150ms ease-in')
   )
 ]) as AnimationEntryMetadata;

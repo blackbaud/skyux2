@@ -1,10 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
-  Input,
-  ElementRef,
-  ContentChild,
-  AfterContentInit
+  Input
 } from '@angular/core';
 
 import {
@@ -22,7 +19,6 @@ import {
 import {
   SkyRepeaterService
 } from './repeater.service';
-import { SkyRepeaterItemContentComponent } from './repeater-item-content.component';
 
 @Component({
   selector: 'sky-repeater-item',
@@ -30,7 +26,7 @@ import { SkyRepeaterItemContentComponent } from './repeater-item-content.compone
   templateUrl: './repeater-item.component.html',
   animations: [skyAnimationSlide]
 })
-export class SkyRepeaterItemComponent implements AfterContentInit {
+export class SkyRepeaterItemComponent {
 
   public get isExpanded(): boolean {
     return this._isExpanded;
@@ -70,17 +66,12 @@ export class SkyRepeaterItemComponent implements AfterContentInit {
 
   private _isSelected = false;
 
-  @ContentChild(SkyRepeaterItemContentComponent, { read: ElementRef })
-  private contentElement: ElementRef;
-
   constructor(
     private repeaterService: SkyRepeaterService,
     private changeDetector: ChangeDetectorRef,
     private logService: SkyLogService
-  ) { }
-
-  public ngAfterContentInit() {
-    this.slideForExpanded();
+  ) {
+    this.slideForExpanded(false);
   }
 
   public headerClick() {
@@ -103,7 +94,7 @@ export class SkyRepeaterItemComponent implements AfterContentInit {
       this._isExpanded = value;
 
       this.repeaterService.onItemCollapseStateChange(this);
-      this.slideForExpanded();
+      this.slideForExpanded(animate);
       this.changeDetector.markForCheck();
     }
   }
@@ -112,8 +103,7 @@ export class SkyRepeaterItemComponent implements AfterContentInit {
     this._isSelected = value.checked;
   }
 
-  private slideForExpanded() {
-    this.slideDirection = this.isExpanded && this.contentElement &&
-      this.contentElement.nativeElement.innerHTML.trim() ? 'downWithBottomPadding' : 'up';
+  private slideForExpanded(animate: boolean) {
+    this.slideDirection = this.isExpanded ? 'down' : 'up';
   }
 }
