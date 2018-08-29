@@ -11,6 +11,7 @@ export class SkyGridColumnModel {
   public locked: boolean;
   public description: string;
   public isSortable: boolean = true;
+  public excludeFromHighlighting: boolean;
   public searchFunction: (data: any, searchText: string) => boolean;
 
   constructor(template: TemplateRef<any>, data?: any) {
@@ -27,6 +28,7 @@ export class SkyGridColumnModel {
       this.description = data.description;
       this.searchFunction = data.searchFunction;
       this.isSortable = data.isSortable;
+      this.excludeFromHighlighting = data.excludeFromHighlighting;
     }
   }
 }

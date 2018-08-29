@@ -93,6 +93,9 @@ export class SkyListViewGridComponent
   @Input()
   public height: number | Observable<number>;
 
+  @Input()
+  public highlightSearchText: boolean = true;
+
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 
@@ -108,6 +111,8 @@ export class SkyListViewGridComponent
   public loading: Observable<boolean>;
 
   public sortField: Observable<ListSortFieldSelectorModel>;
+
+  public currentSearchText: Observable<string>;
 
   /* tslint:disable */
   @Input('search')
@@ -202,6 +207,9 @@ export class SkyListViewGridComponent
           );
         }
       });
+
+      this.currentSearchText = this.state.map(s => s.search.searchText)
+        .distinctUntilChanged();
 
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
 
