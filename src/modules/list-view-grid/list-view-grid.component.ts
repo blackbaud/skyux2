@@ -56,7 +56,6 @@ import {
 
 import { ListViewGridColumnsLoadAction } from './state/columns/actions';
 import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-columns/actions';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'sky-list-view-grid',
@@ -113,7 +112,7 @@ export class SkyListViewGridComponent
 
   public sortField: Observable<ListSortFieldSelectorModel>;
 
-  public currentSearchText = new BehaviorSubject<string>('');
+  public currentSearchText: Observable<string>;
 
   /* tslint:disable */
   @Input('search')
@@ -209,11 +208,8 @@ export class SkyListViewGridComponent
         }
       });
 
-    this.state.map(s => s.search.searchText)
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(searchText => {
-        this.currentSearchText.next(searchText);
-      });
+      this.currentSearchText = this.state.map(s => s.search.searchText)
+        .distinctUntilChanged();
 
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
 
