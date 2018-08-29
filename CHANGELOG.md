@@ -4,9 +4,9 @@
 - Added progress indicator component. [#1728](https://github.com/blackbaud/skyux2/pull/1728) (Thanks @Blackbaud-ChristiSchneider and @Blackbaud-MichaelSpires)
 - Added highlighting of search text in list view grid search results. [#1944](https://github.com/blackbaud/skyux2/pull/1944)
 - Added icon style radio buttons and checkboxes. [#1892](https://github.com/blackbaud/skyux2/pull/1892) (Thanks @Blackbaud-AnandBhat)
-- Fixed issues with autocomplete and lookup components error states. [#1928](https://github.com/blackbaud/skyux2/pull/1928)
-- Fixed word wrapping for toast components with long words. [#1947](https://github.com/blackbaud/skyux2/pull/1947)
-- Fixed word wrapping for list view checklists with long words. [#1951](https://github.com/blackbaud/skyux2/pull/1951)
+- Fixed autocomplete and lookup to trigger their error states correctly. [#1928](https://github.com/blackbaud/skyux2/pull/1928)
+- Fixed toast component to wrap long words correctly. [#1947](https://github.com/blackbaud/skyux2/pull/1947)
+- Fixed list view checklist component to wrap items with long words correctly. [#1951](https://github.com/blackbaud/skyux2/pull/1951)
 
 # 2.21.0 (2018-08-24)
 
