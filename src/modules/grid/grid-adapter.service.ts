@@ -58,7 +58,11 @@ export class SkyGridAdapterService {
     });
   }
 
-  public setColumnWidth(column: HTMLElement, width: number) {
-    this.renderer.setStyle(column, 'width', `${width}px`);
+  public setElementWidth(el: HTMLElement, width: number) {
+    this.renderer.setStyle(el, 'width', `${width}px`);
+  }
+
+  public setStyle(el: HTMLElement, style: string, value: string) {
+    this.renderer.setStyle(el, style, value);
   }
 }

@@ -14,7 +14,8 @@ import {
   HostListener,
   ElementRef,
   ViewChildren,
-  ViewChild
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -49,7 +50,7 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy {
+export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChanges, OnDestroy {
   @Input()
   public selectedColumnIds: Array<string>;
 
@@ -89,8 +90,8 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
 
   private subscriptions: Subscription[] = [];
 
-  @ViewChildren('gridColHeader')
-  private columnHeaders: QueryList<ElementRef>;
+  @ViewChildren('gridCol')
+  private columnRefs: QueryList<ElementRef>;
   @ViewChild('gridTable')
   private table: ElementRef;
   private tableWidth: number;
@@ -148,6 +149,10 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
         this.onHeaderDrop(selectedColumnIds);
       }
     );
+  }
+
+  public ngAfterViewInit() {
+    this.setColumnWidths();
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -242,16 +247,17 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   public onResizeColStart(event: MouseEvent) {
     this.isDragging = true;
 
-    this.tableWidth = this.table.nativeElement.offsetWidth;
-
     const clickTarget = event.target as HTMLElement;
-    this.activeColumn = clickTarget.parentElement;
+
+    if (this.fit === 'width') {
+      this.activeColumn = clickTarget.closest('th');
+      this.lastResizableColumn = this.columnRefs.last;
+      this.lastColStartWidth = this.lastResizableColumn.nativeElement.offsetWidth;
+    } else {
+      this.activeColumn = clickTarget.closest('th');
+    }
 
     this.startOffset = this.activeColumn.offsetWidth - event.pageX;
-
-    this.lastResizableColumn = this.columnHeaders.last;
-    this.lastColStartWidth = this.lastResizableColumn.nativeElement.offsetWidth;
-
     this.xPosStart = event.pageX;
 
     event.preventDefault();
@@ -264,6 +270,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
       return;
     }
 
+    let dragDeltaX = event.pageX - this.xPosStart;
     let newColWidth = this.startOffset + event.pageX;
     let lastColWidth = this.lastColStartWidth + this.xPosStart - event.pageX;
 
@@ -277,11 +284,12 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
 
     if (this.fit === 'width') {
       if (lastColWidth >= this.minColWidth) {
-        this.gridAdapter.setColumnWidth(this.lastResizableColumn.nativeElement, lastColWidth);
-        this.gridAdapter.setColumnWidth(this.activeColumn, newColWidth);
+        this.gridAdapter.setElementWidth(this.lastResizableColumn.nativeElement.closest('th'), lastColWidth);
+        this.gridAdapter.setElementWidth(this.activeColumn, newColWidth);
       }
     } else {
-      this.gridAdapter.setColumnWidth(this.activeColumn, newColWidth);
+      this.gridAdapter.setElementWidth(this.activeColumn, newColWidth);
+      this.gridAdapter.setElementWidth(this.table.nativeElement, this.tableWidth + dragDeltaX);
     }
   }
 
@@ -290,6 +298,7 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     if (this.isDragging) {
       this.isDragging = false;
       this.activeColumn = undefined;
+      this.tableWidth = this.table.nativeElement.offsetWidth;
       event.preventDefault();
       event.stopPropagation();
     }
@@ -347,5 +356,17 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     this.getColumnsFromComponent();
     this.setDisplayedColumns(true);
     this.ref.markForCheck();
+  }
+
+  private setColumnWidths() {
+    this.tableWidth = this.table.nativeElement.offsetWidth;
+    this.gridAdapter.setElementWidth(this.table.nativeElement, this.tableWidth);
+
+    this.columnRefs.forEach(col => {
+      let width = col.nativeElement.offsetWidth;
+      this.gridAdapter.setElementWidth(col.nativeElement, width);
+    });
+
+    this.gridAdapter.setStyle(this.table.nativeElement, 'min-width', 'auto');
   }
 }

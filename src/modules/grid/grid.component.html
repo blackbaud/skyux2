@@ -10,17 +10,18 @@
             scope="col"
             class="sky-grid-heading"
             *ngFor="let column of displayedColumns; let last = last"
-            [style.width.px]="last ? null : column.width"
+            [style.width.px]="fit === 'width' ? column.width : null"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
             [ngClass]="{ 'sky-grid-header-locked': column.locked }"
             (click)="sortByColumn(column)"
             [tabIndex]="column.isSortable ? 0 : -1"
             (keydown)="onKeydown($event, column)"
-            #gridColHeader>
+            #gridCol
+          >
             {{column.heading}}
             <span
-              *ngIf="!last"
+              *ngIf="(fit==='width' && !last) || (fit==='scroll')"
               class="sky-grid-resize-handle"
               aria-hidden="true"
               role="separator"
