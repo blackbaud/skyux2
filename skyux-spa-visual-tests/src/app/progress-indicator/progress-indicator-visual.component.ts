@@ -10,7 +10,7 @@ import {
 } from '@blackbaud/skyux/dist/core';
 
 import {
-  SkyProgressIndicatorHorizontalVisualComponent
+  ProgressIndicatorWizardDemoComponent
 } from './progress-indicator-horizontal-visual.component';
 
 @Component({
@@ -36,6 +36,6 @@ export class ProgressIndicatorVisualComponent {
   }
 
   public openWizard(): void {
-    this.modal.open(SkyProgressIndicatorHorizontalVisualComponent);
+    this.modal.open(ProgressIndicatorWizardDemoComponent);
   }
 }

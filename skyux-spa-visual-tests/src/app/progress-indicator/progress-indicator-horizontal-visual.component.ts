@@ -13,7 +13,7 @@ import {
   selector: 'sky-progress-indicator-horizontal-visual',
   templateUrl: './progress-indicator-horizontal-visual.component.html'
 })
-export class SkyProgressIndicatorHorizontalVisualComponent {
+export class ProgressIndicatorWizardDemoComponent {
   public activeIndex = 0;
   public title = 'Progress indicator wizard example';
   public requiredValue1: string;

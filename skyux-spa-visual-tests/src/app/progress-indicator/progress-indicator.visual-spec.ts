@@ -11,6 +11,7 @@ describe('Progress indicator component', () => {
   it('should show 1st step active and rest incomplete', () => {
     return SkyVisualTest.setupTest('progress-indicator')
     .then(() => {
+      SkyVisualTest.moveCursorOffScreen();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-1',
         selector: 'body'
@@ -23,6 +24,7 @@ describe('Progress indicator component', () => {
     .then(() => {
       element(by.id(`btn-progress`)).click();
       element(by.id(`btn-progress`)).click();
+      SkyVisualTest.moveCursorOffScreen();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-2',
@@ -39,6 +41,7 @@ describe('Progress indicator component', () => {
 
       element(by.id(`btn-regress`)).click();
       element(by.id(`btn-regress`)).click();
+      SkyVisualTest.moveCursorOffScreen();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-3',
@@ -53,10 +56,11 @@ describe('Progress indicator component wizard', () => {
     return SkyVisualTest.setupTest('progress-indicator')
     .then(() => {
       element(by.id(`btn-wizard`)).click();
+      SkyVisualTest.moveCursorOffScreen();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-wizard-1',
-        selector: '#wizard-demo-visual'
+        selector: '.sky-modal'
       });
     });
   });
@@ -68,10 +72,11 @@ describe('Progress indicator component wizard', () => {
 
       element(by.id(`btn-wizard-next`)).click();
       element(by.id(`btn-wizard-next`)).click();
+      SkyVisualTest.moveCursorOffScreen();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-wizard-2',
-        selector: '#wizard-demo-visual'
+        selector: '.sky-modal'
       });
     });
   });
@@ -86,10 +91,11 @@ describe('Progress indicator component wizard', () => {
 
       element(by.id(`btn-wizard-previous`)).click();
       element(by.id(`btn-wizard-previous`)).click();
+      SkyVisualTest.moveCursorOffScreen();
 
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'progress-indicator-wizard-3',
-        selector: '#wizard-demo-visual'
+        selector: '.sky-modal'
       });
     });
   });
