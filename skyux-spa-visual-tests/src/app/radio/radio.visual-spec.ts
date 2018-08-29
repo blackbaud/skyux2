@@ -16,7 +16,7 @@ describe('Radio component', () => {
     return SkyVisualTest.setupTest('radio')
     .then(() => {
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'icon-radio',
+        screenshotName: 'radio-icon',
         selector: '#screenshot-icon-radio'
       });
     });

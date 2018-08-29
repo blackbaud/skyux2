@@ -9,10 +9,11 @@
     <div>
       <sky-radio
         name="radiotest"
-        [ngModel]="selectedValue"
-        (ngModelChange)="selectedValue = $event"
         disabled="true"
-        [value]="valueGuy">
+        [ngModel]="selectedValue"
+        [value]="valueGuy"
+        (ngModelChange)="selectedValue = $event"
+      >
         <sky-radio-label>Option 2</sky-radio-label>
       </sky-radio>
     </div>
@@ -27,35 +28,38 @@
   <div id="screenshot-icon-radio">
     <ul class="sky-list-unstyled">
       <li>
-        <sky-radio-icon
+        <sky-radio
           icon="thumbs-o-up"
           label="I like it"
           name="iconradiotest"
           value="1"
           [(ngModel)]="iconSelectedValue"
-          #cb="ngModel">
-        </sky-radio-icon>
+          #cb="ngModel"
+        >
+        </sky-radio>
       </li>
       <li>
-        <sky-radio-icon
+        <sky-radio
           disabled="true"
           icon="balance-scale"
           label="meh"
           name="iconradiotest"
           [ngModel]="iconSelectedValue"
           [value]="valueGuy"
-          (ngModelChange)="iconSelectedValue = $event">
-        </sky-radio-icon>
+          (ngModelChange)="iconSelectedValue = $event"
+        >
+        </sky-radio>
       </li>
       <li>
-        <sky-radio-icon
+        <sky-radio
           icon="thumbs-o-down"
           label="I hate it"
           name="iconradiotest"
           value="3"
           [ngModel]="iconSelectedValue"
-          (ngModelChange)="iconSelectedValue = $event">
-        </sky-radio-icon>
+          (ngModelChange)="iconSelectedValue = $event"
+        >
+        </sky-radio>
       </li>
     </ul>
   </div>

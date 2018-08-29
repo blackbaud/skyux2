@@ -16,7 +16,7 @@ describe('Checkbox', () => {
     return SkyVisualTest.setupTest('checkbox')
     .then(() => {
       return SkyVisualTest.compareScreenshot({
-        screenshotName: 'icon-checkbox',
+        screenshotName: 'checkbox-icon',
         selector: '#screenshot-icon-checkbox'
       });
     });
