@@ -1,6 +1,6 @@
 # 2.22.0 (2018-08-29)
 
-- Added event to watch for tile dashboard intialization. [#1937](https://github.com/blackbaud/skyux2/pull/1937)
+- Added event to watch for tile dashboard initialization. [#1937](https://github.com/blackbaud/skyux2/pull/1937)
 - Added progress indicator component. [#1728](https://github.com/blackbaud/skyux2/pull/1728) (Thanks @Blackbaud-ChristiSchneider and @Blackbaud-MichaelSpires)
 - Added highlighting of search text in list view grid search results. [#1944](https://github.com/blackbaud/skyux2/pull/1944)
 - Added icon style radio buttons and checkboxes. [#1892](https://github.com/blackbaud/skyux2/pull/1892) (Thanks @Blackbaud-AnandBhat)
