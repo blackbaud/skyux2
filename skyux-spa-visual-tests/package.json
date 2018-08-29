@@ -20,7 +20,8 @@
   "license": "ISC",
   "devDependencies": {
     "@blackbaud/skyux": "latest",
-    "@blackbaud/skyux-builder": "1.13.0",
+    "@blackbaud/skyux-builder": "1.19.3",
+    "@skyux/core": "3.0.0-alpha.6",
     "pix-diff": "2.0.0",
     "browserstack-local": "1.3.0"
   },
