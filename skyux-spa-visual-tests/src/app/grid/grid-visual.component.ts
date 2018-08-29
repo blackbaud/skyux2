@@ -10,6 +10,8 @@ import { ListItemModel } from '@blackbaud/skyux/dist/core';
 })
 export class GridVisualComponent {
 
+  public highlightText: string;
+
   public items = [
     new ListItemModel('1', { column1: '1', column2: 'Apple', column3: 'aa' }),
     new ListItemModel('2', { column1: '01', column2: 'Banana', column3: 'bb' }),
@@ -19,4 +21,8 @@ export class GridVisualComponent {
     new ListItemModel('6', { column1: '20', column2: 'Fig', column3: 'ff' }),
     new ListItemModel('7', { column1: '21', column2: 'Grape', column3: 'gg' })
   ];
+
+  public triggerHighlight() {
+    this.highlightText = 'e';
+  }
 }

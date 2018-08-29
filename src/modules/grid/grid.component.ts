@@ -70,6 +70,9 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   @Input()
   public sortField: ListSortFieldSelectorModel;
 
+  @Input()
+  public highlightText: string;
+
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 
