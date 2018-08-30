@@ -1,18 +1,28 @@
 import {
   ElementRef,
   Injectable,
-  Renderer
+  Renderer,
+  OnDestroy
 } from '@angular/core';
 import { SkyWindowRefService } from '../window';
 
 @Injectable()
-export class SkyWaitAdapterService {
+export class SkyWaitAdapterService implements OnDestroy {
   private parentListeners: {[key: string]: Function[]} = {};
 
   constructor(
     private renderer: Renderer,
     private windowRef: SkyWindowRefService
   ) { }
+
+  public ngOnDestroy() {
+    for (let key of Object.keys(this.parentListeners)) {
+      for (let listener of this.parentListeners[key]) {
+        listener();
+      }
+      delete this.parentListeners[key];
+    }
+  }
 
   public setWaitBounds(waitEl: ElementRef) {
     this.renderer.setElementStyle(waitEl.nativeElement.parentElement, 'position', 'relative');
@@ -27,8 +37,8 @@ export class SkyWaitAdapterService {
     let state = isWaiting ? 'true' : undefined;
     this.renderer.setElementAttribute(busyEl, 'aria-busy', state);
 
-    // Manage tab navigation in the parent element
     if (isWaiting) {
+      // Prevent tab navigation within host element
       let endListenerFunc = this.renderer.listen(busyEl, 'keydown', (event: KeyboardEvent) => {
         if (event.key.toLowerCase() === 'tab') {
           event.preventDefault();
@@ -39,6 +49,7 @@ export class SkyWaitAdapterService {
       });
       this.parentListeners[id] = [endListenerFunc];
 
+      // Propagate tab navigation if attempted into waited element
       if (!isFullPage) {
         let focusListenerFunc = this.renderer.listen(this.windowRef.getWindow(), 'keyup', (event: any) => {
           if (event.key.toLowerCase() === 'tab' && busyEl.contains(document.activeElement)) {
@@ -48,6 +59,7 @@ export class SkyWaitAdapterService {
         this.parentListeners[id].push(focusListenerFunc);
       }
     } else if (id in this.parentListeners) {
+      // Clean up existing listeners
       for (let listener of this.parentListeners[id]) {
         listener();
       }
