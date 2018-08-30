@@ -7,7 +7,9 @@ import {
   Input,
   OnDestroy,
   QueryList,
-  ViewChild
+  ViewChild,
+  EventEmitter,
+  Output
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -60,7 +62,7 @@ import { ListViewDisplayedGridColumnsLoadAction } from './state/displayed-column
   templateUrl: './list-view-grid.component.html',
   providers: [
     /* tslint:disable */
-    { provide: ListViewComponent, useExisting: forwardRef(() => SkyListViewGridComponent)},
+    { provide: ListViewComponent, useExisting: forwardRef(() => SkyListViewGridComponent) },
     /* tslint:enable */
     GridState,
     GridStateDispatcher,
@@ -91,6 +93,12 @@ export class SkyListViewGridComponent
   @Input()
   public height: number | Observable<number>;
 
+  @Input()
+  public highlightSearchText: boolean = true;
+
+  @Output()
+  public selectedColumnIdsChange = new EventEmitter<Array<string>>();
+
   @ViewChild(SkyGridComponent)
   public gridComponent: SkyGridComponent;
 
@@ -104,12 +112,14 @@ export class SkyListViewGridComponent
 
   public sortField: Observable<ListSortFieldSelectorModel>;
 
+  public currentSearchText: Observable<string>;
+
   /* tslint:disable */
   @Input('search')
   private searchFunction: (data: any, searchText: string) => boolean;
   /* tslint:enable */
 
-  @ContentChildren(SkyGridColumnComponent, {descendants: true})
+  @ContentChildren(SkyGridColumnComponent, { descendants: true })
   private columnComponents: QueryList<SkyGridColumnComponent>;
 
   private ngUnsubscribe = new Subject();
@@ -198,6 +208,9 @@ export class SkyListViewGridComponent
         }
       });
 
+      this.currentSearchText = this.state.map(s => s.search.searchText)
+        .distinctUntilChanged();
+
     this.gridDispatcher.next(new ListViewGridColumnsLoadAction(columnModels, true));
 
     this.handleColumnChange();
@@ -210,15 +223,15 @@ export class SkyListViewGridComponent
 
   public columnIdsChanged(selectedColumnIds: Array<string>) {
     this.gridState.map(s => s.columns.items)
-        .take(1)
-        .subscribe(columns => {
-          let displayedColumns = selectedColumnIds.map(
-            columnId => columns.filter(c => c.id === columnId)[0]
-          );
-          this.gridDispatcher.next(
-            new ListViewDisplayedGridColumnsLoadAction(displayedColumns, true)
-          );
-        });
+      .take(1)
+      .subscribe(columns => {
+        let displayedColumns = selectedColumnIds.map(
+          columnId => columns.filter(c => c.id === columnId)[0]
+        );
+        this.gridDispatcher.next(
+          new ListViewDisplayedGridColumnsLoadAction(displayedColumns, true)
+        );
+      });
   }
 
   public sortFieldChanged(sortField: ListSortFieldSelectorModel) {
@@ -249,7 +262,7 @@ export class SkyListViewGridComponent
   }
 
   private handleColumnChange() {
-     // watch for changes in column components
+    // watch for changes in column components
     this.columnComponents.changes
       .takeUntil(this.ngUnsubscribe)
       .subscribe((columnComponents) => {
@@ -276,19 +289,19 @@ export class SkyListViewGridComponent
       previous value of items lastUpdate ensures that we only receive the latest items.
     */
     return this.state.map((s) => {
-        return s.items;
+      return s.items;
     })
-    .scan((previousValue: AsyncList<ListItemModel>, newValue: AsyncList<ListItemModel>) => {
-      if (previousValue.lastUpdate > newValue.lastUpdate) {
-        return previousValue;
-      } else {
-        return newValue;
-      }
-    })
-    .map((result: AsyncList<ListItemModel>) => {
-      return result.items;
-    })
-    .distinctUntilChanged();
+      .scan((previousValue: AsyncList<ListItemModel>, newValue: AsyncList<ListItemModel>) => {
+        if (previousValue.lastUpdate > newValue.lastUpdate) {
+          return previousValue;
+        } else {
+          return newValue;
+        }
+      })
+      .map((result: AsyncList<ListItemModel>) => {
+        return result.items;
+      })
+      .distinctUntilChanged();
   }
 
   private getSelectedIds(): Observable<Array<string>> {
@@ -301,18 +314,35 @@ export class SkyListViewGridComponent
       .map(s => s.displayedColumns)
       .scan(
         (previousValue: AsyncList<SkyGridColumnModel>, newValue: AsyncList<SkyGridColumnModel>) => {
-        if (previousValue.lastUpdate > newValue.lastUpdate) {
-          return previousValue;
-        } else {
-          return newValue;
-        }
-      })
+          if (previousValue.lastUpdate > newValue.lastUpdate) {
+            return previousValue;
+          } else {
+            return newValue;
+          }
+        })
       .map((result: AsyncList<SkyGridColumnModel>) => {
         /* istanbul ignore next */
         /* sanity check */
         return result.items.map((column: SkyGridColumnModel) => {
           return column.id || column.field;
         });
-      }).distinctUntilChanged();
+      }).distinctUntilChanged((previousValue: string[], newValue: string[]) => {
+        return this.haveColumnIdsChanged(previousValue, newValue);
+      });
+  }
+
+  private haveColumnIdsChanged(previousValue: string[], newValue: string[]) {
+    if (previousValue.length !== newValue.length) {
+      this.selectedColumnIdsChange.emit(newValue);
+      return false;
+    }
+
+    for (let i = 0; i < previousValue.length; i++) {
+      if (previousValue[i] !== newValue[i]) {
+        this.selectedColumnIdsChange.emit(newValue);
+        return false;
+      }
+    }
+    return true;
   }
 }

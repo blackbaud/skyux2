@@ -1,3 +1,49 @@
+# 2.22.0 (2018-08-29)
+
+- Added event to watch for tile dashboard initialization. [#1937](https://github.com/blackbaud/skyux2/pull/1937)
+- Added progress indicator component. [#1728](https://github.com/blackbaud/skyux2/pull/1728) (Thanks @Blackbaud-ChristiSchneider and @Blackbaud-MichaelSpires)
+- Added highlighting of search text in list view grid search results. [#1944](https://github.com/blackbaud/skyux2/pull/1944)
+- Added icon style radio buttons and checkboxes. [#1892](https://github.com/blackbaud/skyux2/pull/1892) (Thanks @Blackbaud-AnandBhat)
+- Fixed autocomplete and lookup to trigger their error states correctly. [#1928](https://github.com/blackbaud/skyux2/pull/1928)
+- Fixed toast component to wrap long words correctly. [#1947](https://github.com/blackbaud/skyux2/pull/1947)
+- Fixed list view checklist component to wrap items with long words correctly. [#1951](https://github.com/blackbaud/skyux2/pull/1951)
+
+# 2.21.0 (2018-08-24)
+
+- Added support for `@skyux/theme@3.0.0`. [#1930](https://github.com/blackbaud/skyux2/pull/1930)
+- Added fluid grid container component, which provides a first-class method for handling the row component's negative margins. [#1920](https://github.com/blackbaud/skyux2/pull/1920)
+- Added visual tests for timepicker component. [#1895](https://github.com/blackbaud/skyux2/pull/1895) (Thanks @Remulus2006)
+- Fixed popover to appear above omnibar. [#1926](https://github.com/blackbaud/skyux2/pull/1926)
+- Fixed Plunkers for infinite scroll and sectioned form components. [#1931](https://github.com/blackbaud/skyux2/pull/1931)
+
+# 2.20.0 (2018-08-21)
+
+- Added option to specify URL or Angular route for action button component. [#1896](https://github.com/blackbaud/skyux2/pull/1896) [#1924](https://github.com/blackbaud/skyux2/pull/1924) (Thanks @Remulus2006)
+- Added option to only show selected items in list view checklist component. [#1900](https://github.com/blackbaud/skyux2/pull/1900) (Thanks @Theaggarwal)
+- Added `selectedColumnIdsChange` event that fires when columns change in list view grid component. [#1897](https://github.com/blackbaud/skyux2/pull/1897)
+- Updated definition list to show inner text during change detection. [#1919](https://github.com/blackbaud/skyux2/pull/1919)
+- Fixed race condition in popover component's close event. [#1884](https://github.com/blackbaud/skyux2/pull/1884)
+- Fixed visual style of HTML `select` field to be consistent in all browsers. [#1913](https://github.com/blackbaud/skyux2/pull/1913)
+- Fixed sort button to display correct `title` and `label` values. [#1915](https://github.com/blackbaud/skyux2/pull/1915) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed tabset component to assign correct indexes to dynamically added tabs. [#1887](https://github.com/blackbaud/skyux2/pull/1887)
+
+# 2.19.0 (2018-08-13)
+
+- Added icon component. [#1846](https://github.com/blackbaud/skyux2/pull/1846) (Thanks @Remulus2006)
+- Added `truncate` and `truncateAfter` options to numeric pipe. [#1856](https://github.com/blackbaud/skyux2/pull/1856)
+- Added CSS styles and ARIA attributes for disabled tabs. [#1803](https://github.com/blackbaud/skyux2/pull/1803)
+- Added `readonly` attribute to colorpicker component's input field. [#1791](https://github.com/blackbaud/skyux2/pull/1791)
+- Added ARIA roles to modal and confirm components. [#1784](https://github.com/blackbaud/skyux2/pull/1784)
+- Added ARIA attributes for inline list filters. [#1808](https://github.com/blackbaud/skyux2/pull/1808)
+- Changed color of flyout resize handle. [#1881](https://github.com/blackbaud/skyux2/pull/1881)
+- Fixed checkbox component to appear square in IE11. [#1879](https://github.com/blackbaud/skyux2/pull/1879)
+- Fixed tabset component assigning the correct tab index after a tab was deleted. [#1878](https://github.com/blackbaud/skyux2/pull/1878)
+- Various colorpicker adjustments [#1876](https://github.com/blackbaud/skyux2/pull/1876):
+  - Added `selectedColorApplied` event that provides the selected color when the apply button is pressed.
+  - Fixed colorpicker remaining open after clicking outside of the dropdown.
+  - Fixed colorpicker reverting back to the initial color when the close button is pressed.
+  - Fixed colorpicker reverting back to the initial color when the reset button is pressed.
+
 # 2.18.0 (2018-07-20)
 
 - Added ability to include `body` content within confirm component. [#1776](https://github.com/blackbaud/skyux2/pull/1776) (Thanks @Blackbaud-JackMcElhinney)

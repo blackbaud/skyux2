@@ -57,11 +57,26 @@ export class SkyRadioComponent implements ControlValueAccessor {
   @Input()
   public value: any;
 
+  @Input()
+  public icon: string;
+
+  @Input()
+  public get radioType(): string {
+    return this._radioType || 'info';
+  }
+  public set radioType(value: string) {
+    if (value) {
+      this._radioType = value.toLowerCase();
+    }
+  }
+
   public get inputId(): string {
     return `input-${this.id}`;
   }
 
   public selectedValue: any;
+
+  private _radioType: string;
   private onChangeCallback: (value: any) => void;
 
   public onInputBlur() {

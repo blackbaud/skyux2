@@ -5,7 +5,8 @@
   </ng-content>
   <sky-dropdown
     [label]="'colorpicker_dropdown_button' | skyResources"
-    [messageStream]="dropdownController">
+    [messageStream]="dropdownController"
+    [dismissOnBlur]="false">
     <sky-dropdown-menu>
       <div class="sky-colorpicker-container">
         <div
@@ -22,16 +23,16 @@
             <div
               [style.left.px]="slider.saturation"
               [style.top.px]="slider.value"
-              class="cursor">
+              class="cursor sky-rounded-circle">
             </div>
           </div>
           <div class="box">
             <div class="left">
-              <div class="selected-color-background">
+              <div class="selected-color-background sky-rounded-circle">
               </div>
               <div
                 [style.background-color]="selectedColor?.rgbaText"
-                class="selected-color">
+                class="selected-color sky-rounded-circle">
               </div>
             </div>
             <div class="right">
@@ -43,7 +44,7 @@
                 #hueSlider>
                 <div
                   [style.left.px]="slider.hue"
-                  class="cursor">
+                  class="cursor sky-rounded-circle">
                 </div>
               </div>
               <div
@@ -55,7 +56,7 @@
                 #alphaSlider>
                 <div
                   [style.left.px]="slider.alpha"
-                  class="cursor">
+                  class="cursor sky-rounded-circle">
                 </div>
               </div>
             </div>
@@ -152,7 +153,7 @@
           </div>
         </div>
 
-        <div class="sky-colorpicker-container sky-colorpicker-footer">
+        <div class="sky-colorpicker-container sky-colorpicker-footer sky-padding-even-large">
           <section class="sky-colorpicker-column">
             <button
               class="sky-btn sky-btn-primary sky-btn-colorpicker-apply"
