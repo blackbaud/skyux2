@@ -10,7 +10,7 @@
             scope="col"
             class="sky-grid-heading"
             *ngFor="let column of displayedColumns; let last = last"
-            [style.width.px]="fit === 'width' ? column.width : null"
+            [style.width.px]="column.width"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
             [ngClass]="{ 'sky-grid-header-locked': column.locked }"
@@ -19,7 +19,15 @@
             (keydown)="onKeydown($event, column)"
             #gridCol
           >
-            {{column.heading}}
+            <div class="overflow">
+              {{column.heading}}
+              <i
+                class="fa sky-grid-heading-sort"
+                [ngStyle]="{'visibility: hidden': (getSortDirection(column.field) | async)}"
+                [ngClass]="{ 'fa-caret-up': (getSortDirection(column.field) | async) === 'asc', 'fa-caret-down': (getSortDirection(column.field) | async) === 'desc' }"
+              >
+              </i>
+            </div>
             <span
               *ngIf="(fit==='width' && !last) || (fit==='scroll')"
               class="sky-grid-resize-handle"
@@ -28,12 +36,6 @@
               tabindex="-1"
               (mousedown)="onResizeColStart($event)">
             </span>
-            <i
-              class="fa sky-grid-heading-sort"
-              [ngStyle]="{'visibility: hidden': (getSortDirection(column.field) | async)}"
-              [ngClass]="{ 'fa-caret-up': (getSortDirection(column.field) | async) === 'asc', 'fa-caret-down': (getSortDirection(column.field) | async) === 'desc' }"
-            >
-            </i>
           </th>
         </tr>
       </thead>

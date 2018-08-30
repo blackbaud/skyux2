@@ -48,9 +48,7 @@
   cursor: pointer;
   background-color: $sky-grid-header-background-color;
 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
   padding: 8px;
   text-align: left;
 
@@ -68,6 +66,15 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  .overflow {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    width:100%;
+  }
 }
 
 .sky-grid-has-toolbar {
@@ -85,10 +92,11 @@
 .sky-grid-resize-handle {
   position: absolute;
   right: -14px;
+  top: 0;
   width: 30px;
-  z-index: 50;
+  z-index: 2;
   min-height: 20px;
-  height: 50% !important;
+  height: 100% !important;
   vertical-align: middle;
   cursor: col-resize;
 }

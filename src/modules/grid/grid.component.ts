@@ -152,7 +152,9 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   }
 
   public ngAfterViewInit() {
-    this.setColumnWidths();
+    if (this.fit === 'scroll') {
+      this.setColumnWidths();
+    }
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -364,7 +366,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
     this.columnRefs.forEach(col => {
       let width = col.nativeElement.offsetWidth;
-      this.gridAdapter.setElementWidth(col.nativeElement, width);
+      this.gridAdapter.setElementWidth(col.nativeElement, Math.max(width, this.minColWidth));
     });
 
     this.gridAdapter.setStyle(this.table.nativeElement, 'min-width', 'auto');
