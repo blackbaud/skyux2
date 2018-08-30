@@ -3,12 +3,16 @@ import {
   Injectable,
   Renderer
 } from '@angular/core';
+import { SkyWindowRefService } from '../window';
 
 @Injectable()
 export class SkyWaitAdapterService {
-  private parentListeners: {[key: string]: Function} = {};
+  private parentListeners: {[key: string]: Function[]} = {};
 
-  constructor(private renderer: Renderer) { }
+  constructor(
+    private renderer: Renderer,
+    private windowRef: SkyWindowRefService
+  ) { }
 
   public setWaitBounds(waitEl: ElementRef) {
     this.renderer.setElementStyle(waitEl.nativeElement.parentElement, 'position', 'relative');
@@ -33,9 +37,20 @@ export class SkyWaitAdapterService {
           }
         }
       });
-      this.parentListeners[id] = endListenerFunc;
+      this.parentListeners[id] = [endListenerFunc];
+
+      if (!isFullPage) {
+        let focusListenerFunc = this.renderer.listen(this.windowRef.getWindow(), 'keyup', (event: any) => {
+          if (event.key.toLowerCase() === 'tab' && busyEl.contains(document.activeElement)) {
+            this.focusNextElement(busyEl, event.shiftKey);
+          }
+        });
+        this.parentListeners[id].push(focusListenerFunc);
+      }
     } else if (id in this.parentListeners) {
-      this.parentListeners[id]();
+      for (let listener of this.parentListeners[id]) {
+        listener();
+      }
       delete this.parentListeners[id];
     }
   }
