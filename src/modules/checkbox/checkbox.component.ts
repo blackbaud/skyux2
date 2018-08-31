@@ -35,7 +35,6 @@ export class SkyCheckboxChange {
 @Component({
   selector: 'sky-checkbox',
   templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss'],
   providers: [SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR]
 })
 export class SkyCheckboxComponent implements ControlValueAccessor {
@@ -67,6 +66,20 @@ export class SkyCheckboxComponent implements ControlValueAccessor {
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
+  @Input()
+  public icon: String;
+
+  @Input()
+  public get checkboxType(): string {
+    return this._checkboxType || 'info';
+  }
+  public set checkboxType(value: string) {
+    if (value) {
+      this._checkboxType = value.toLowerCase();
+    }
+  }
+
+  private _checkboxType: string;
   private _checked: boolean = false;
 
   public get inputId(): string {

@@ -196,6 +196,24 @@ describe('List View Grid Component', () => {
         expect(firstHeading.textContent.trim()).toEqual('Column1');
       }));
 
+      it('should handle a search being applied', fakeAsync(() => {
+        setupTest();
+
+        flush();
+        tick();
+
+        state.take(1).subscribe((current) => {
+          dispatcher.searchSetText('searchText');
+          tick();
+          flush();
+          component.grid.currentSearchText.subscribe(currentText => {
+            expect(currentText).toBe('searchText');
+          });
+        });
+
+        tick();
+      }));
+
       describe('Models and State', () => {
         it('should run ListViewGridColumnsLoadAction action', async(() => {
           setupTest();
