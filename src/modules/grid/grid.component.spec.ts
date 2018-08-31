@@ -16,6 +16,10 @@ import {
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+import {
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 const moment = require('moment');
 
 import {
@@ -34,6 +38,7 @@ import {
   SkyGridComponent,
   SkyGridColumnModel
 } from './';
+import { SkyGridColumnWidthModelChange } from './types';
 
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(
@@ -45,6 +50,60 @@ function getCell(rowId: string, columnId: string, element: DebugElement) {
   return element.query(
     By.css('tr[sky-cmp-id="' + rowId + '"] sky-grid-cell[sky-cmp-id="' + columnId + '"]')
   );
+}
+
+function makeEvent(eventType: string, evtObj: any) {
+  let evt = document.createEvent('MouseEvents');
+    evt.initMouseEvent(eventType, false, false, window, 0, 0, 0, evtObj.clientX,
+      0, false, false, false, false, 0, undefined);
+  document.dispatchEvent(evt);
+}
+
+function getElementCords(elementRef: any) {
+  const rect = (elementRef.nativeElement as HTMLElement).getBoundingClientRect();
+  const coords = {
+    x: Math.round(rect.left + (rect.width / 2)),
+    y: Math.round(rect.top + (rect.height / 2))
+  };
+
+  return coords;
+}
+
+function getColumnWidths(fixture: ComponentFixture<any>) {
+  let expectedColumnWidths = new Array<SkyGridColumnWidthModelChange>();
+  const tableHeaders = fixture.debugElement.queryAll(By.css('.sky-grid-heading'));
+  tableHeaders.forEach(th => {
+    expectedColumnWidths.push({
+      id: th.nativeElement.getAttribute('sky-cmp-id'),
+      width: th.nativeElement.offsetWidth
+    });
+  });
+
+  return expectedColumnWidths;
+}
+
+function resizeColumn(fixture: ComponentFixture<any>, xDiff: number, columnIndex: number) {
+  const resizeHandle = fixture.debugElement.queryAll(By.css('.sky-grid-resize-handle'));
+  let axis = getElementCords(resizeHandle[columnIndex]);
+  let event = {
+    target: resizeHandle[columnIndex].nativeElement,
+    'pageX': axis.x,
+    'preventDefault': function() {},
+    'stopPropagation': function() {}
+  };
+
+  resizeHandle[columnIndex].triggerEventHandler('mousedown', event);
+  fixture.detectChanges();
+
+  makeEvent('mousemove', { clientX: axis.x + xDiff });
+  fixture.detectChanges();
+  makeEvent('click', { });
+  fixture.detectChanges();
+}
+
+function getTableWidth(fixture: ComponentFixture<any>) {
+  const table = fixture.debugElement.query(By.css('.sky-grid-table'));
+  return table.nativeElement.offsetWidth;
 }
 
 describe('Grid Component', () => {
@@ -390,6 +449,59 @@ describe('Grid Component', () => {
           expect(model.width).toBeUndefined();
         });
       });
+
+      describe('Resiazable columns', () => {
+
+        it('should not resize if user does not use resize handle', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+
+          // Move the mouse.
+          SkyAppTestUtility.fireDomEvent(document, 'mousemove');
+
+          // Assert nothing was changed.
+          let newTableWidth = getTableWidth(fixture);
+          let newolumnWidths = getColumnWidths(fixture);
+          expect(initialTableWidth).toEqual(newTableWidth);
+          expect(initialColumnWidths).toEqual(newolumnWidths);
+          expect(component.columnWidthsChange).toBeUndefined();
+        }));
+
+        it('should prevent users from resizing column smaller than the minimum limit', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+
+          // The last column is already 50px wide. Try to make it smaler...
+          resizeColumn(fixture, -50, 4);
+
+          // Assert nothing was changed.
+          let newTableWidth = getTableWidth(fixture);
+          let newolumnWidths = getColumnWidths(fixture);
+          expect(initialTableWidth).toEqual(newTableWidth);
+          expect(initialColumnWidths).toEqual(newolumnWidths);
+        }));
+
+        it('should properly resize column and emit change event on release of resize handle', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+
+          // Resize first column.
+          let resizeXDistance = 50;
+          resizeColumn(fixture, resizeXDistance, 0);
+
+          // Assert table was resized properly.
+          let newTableWidth = getTableWidth(fixture);
+          let newColumnWidths = getColumnWidths(fixture);
+          let expectedColumnWidths = Object.assign(initialColumnWidths);
+          expectedColumnWidths[0].width = initialColumnWidths[0].width + resizeXDistance;
+          expect(newColumnWidths).toEqual(expectedColumnWidths);
+          expect(newTableWidth).toEqual(initialTableWidth + resizeXDistance);
+          expect(component.columnWidthsChange).toEqual(newColumnWidths);
+        }));
+      });
     });
 
     describe('selectedColumnIds undefined on load', () => {
@@ -427,6 +539,71 @@ describe('Grid Component', () => {
     });
   });
 
+  describe('Basic Fixture with fit=width', () => {
+    let fixture: ComponentFixture<GridTestComponent>,
+        component: GridTestComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          GridFixturesModule,
+          SkyGridModule
+        ]
+      });
+    });
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(GridTestComponent);
+      component = fixture.componentInstance;
+      component.fitType = 'width';
+      fixture.detectChanges();
+      fixture.detectChanges();
+    });
+
+    describe('Resiazable columns', () => {
+
+      it('should not allow resizing when the final column is at the minimum width', fakeAsync(() => {
+        // Get initial baseline for comparison.
+        let initialTableWidth = getTableWidth(fixture);
+        let initialColumnWidths = getColumnWidths(fixture);
+
+        // Resize first column.
+        let resizeXDistance = 50;
+        resizeColumn(fixture, resizeXDistance, 0);
+
+        // Assert table width did not change, and only first and last column were resized.
+        let newTableWidth = getTableWidth(fixture);
+        let newColumnWidths = getColumnWidths(fixture);
+        expect(newTableWidth).toEqual(initialTableWidth);
+        expect(newColumnWidths).toEqual(initialColumnWidths);
+      }));
+
+      it('should resize columns on mousemove', fakeAsync(() => {
+        // Get initial baseline for comparison.
+        let initialTableWidth = getTableWidth(fixture);
+        let initialColumnWidths = getColumnWidths(fixture);
+
+        // Resize last column so its larger than the min-width.
+        // We have to do this, because fit=width doesn't allow the last column to be smaller than min.
+        let resizeXDistance = 50;
+        resizeColumn(fixture, -resizeXDistance, 2);
+
+        // Resize first column.
+        resizeColumn(fixture, resizeXDistance, 0);
+
+        // Assert table width did not change, and only first and last column were resized.
+        let newTableWidth = getTableWidth(fixture);
+        let newColumnWidths = getColumnWidths(fixture);
+        let expectedColumnWidths = Object.assign(initialColumnWidths);
+        expectedColumnWidths[0].width = expectedColumnWidths[0].width + resizeXDistance;
+        expectedColumnWidths[2].width = expectedColumnWidths[2].width - resizeXDistance;
+        expectedColumnWidths[4].width = 50;
+        expect(newTableWidth).toEqual(initialTableWidth);
+        expect(newColumnWidths).toEqual(expectedColumnWidths);
+      }));
+    });
+  });
+
   describe('dragula functionality', () => {
     let mockDragulaService: DragulaService;
     let component: GridTestComponent,
@@ -458,7 +635,7 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
     });
 
-    it('should the dragging class to the header on dragula drag', fakeAsync(() => {
+    it('should add the dragging class to the header on dragula drag', fakeAsync(() => {
       fixture.detectChanges();
       fixture.detectChanges();
 

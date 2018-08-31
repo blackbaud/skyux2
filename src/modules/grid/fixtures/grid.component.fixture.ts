@@ -14,6 +14,8 @@ import {
   ListSortFieldSelectorModel
 } from '../../list/state';
 
+import { SkyGridColumnWidthModelChange } from '../types';
+
 const moment = require('moment');
 
 @Component({
@@ -35,6 +37,8 @@ export class GridTestComponent {
   public searchText: string;
   public activeSortSelector: ListSortFieldSelectorModel;
   public sortField: ListSortFieldSelectorModel;
+  public columnWidthsChange: SkyGridColumnWidthModelChange;
+  public fitType: string = 'scroll';
 
   public selectedColumnIds: string[] = [
     'column1',
@@ -99,5 +103,9 @@ export class GridTestComponent {
 
   public onSort(sortSelector: ListSortFieldSelectorModel) {
     this.activeSortSelector = sortSelector;
+  }
+
+  public onResize(columnWidths: SkyGridColumnWidthModelChange) {
+    this.columnWidthsChange = columnWidths;
   }
 }

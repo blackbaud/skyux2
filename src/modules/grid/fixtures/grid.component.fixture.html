@@ -1,13 +1,14 @@
 
 <sky-grid
-  fit="scroll"
+  [fit]="fitType"
   [selectedColumnIds]="selectedColumnIds"
   [hasToolbar]="hasToolbar"
   [data]="data"
   [width]="600"
   [height]="400"
   [sortField]="sortField"
-  (sortFieldChange)="onSort($event)">
+  (sortFieldChange)="onSort($event)"
+  (columnWidthChange)=onResize($event)>
   <sky-grid-column
     field="column1"
     heading="Column1"
@@ -40,6 +41,7 @@
   <sky-grid-column
     field="column5"
     heading="Column5"
+    [width]=50
    >
   </sky-grid-column>
   <sky-grid-column

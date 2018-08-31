@@ -37,7 +37,8 @@ import { SkyGridColumnModel } from './grid-column.model';
 import { SkyGridAdapterService } from './grid-adapter.service';
 
 import {
-  SkyGridColumnHeadingModelChange
+  SkyGridColumnHeadingModelChange,
+  SkyGridColumnWidthModelChange
 } from './types';
 
 @Component({
@@ -80,6 +81,9 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   @Output()
   public sortFieldChange = new EventEmitter<ListSortFieldSelectorModel>();
+
+  @Output()
+  public columnWidthChange = new EventEmitter<Array<SkyGridColumnWidthModelChange>>();
 
   public items: Array<any>;
   public displayedColumns: Array<SkyGridColumnModel>;
@@ -276,10 +280,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     let newColWidth = this.startOffset + event.pageX;
     let lastColWidth = this.lastColStartWidth + this.xPosStart - event.pageX;
 
-    if (lastColWidth <= this.minColWidth) {
-      lastColWidth = this.lastColStartWidth + this.xPosStart - event.pageX;
-    }
-
     if (newColWidth <= this.minColWidth) {
       return;
     }
@@ -301,6 +301,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       this.isDragging = false;
       this.activeColumn = undefined;
       this.tableWidth = this.table.nativeElement.offsetWidth;
+      this.columnWidthChange.emit(this.getColumnSizes());
       event.preventDefault();
       event.stopPropagation();
     }
@@ -370,5 +371,16 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     });
 
     this.gridAdapter.setStyle(this.table.nativeElement, 'min-width', 'auto');
+  }
+
+  private getColumnSizes() {
+    let columnWidths: any = new Array<SkyGridColumnWidthModelChange>();
+    this.columnRefs.forEach(col => {
+      columnWidths.push({
+        id: col.nativeElement.getAttribute('sky-cmp-id'),
+        width: col.nativeElement.offsetWidth
+      });
+    });
+    return columnWidths;
   }
 }
