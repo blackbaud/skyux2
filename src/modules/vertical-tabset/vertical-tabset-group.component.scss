@@ -31,7 +31,7 @@
     color: $sky-text-color-deemphasized;
   }
 
-  /deep/ button {
+  ::ng-deep button {
     cursor: not-allowed;
   }
 }
@@ -41,7 +41,7 @@
   @include sky-border(light, top);
 }
 
-:host /deep/ .sky-vertical-tabset-group-header-chevron > button {
+:host ::ng-deep .sky-vertical-tabset-group-header-chevron > button {
   font-size: 14px !important;
 }
 
