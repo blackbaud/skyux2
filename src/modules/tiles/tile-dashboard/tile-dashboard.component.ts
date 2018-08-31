@@ -11,6 +11,14 @@ import {
 } from '@angular/core';
 
 import {
+  SkyResources
+} from '../../resources';
+import {
+  SkyMediaQueryService,
+  SkyMediaBreakpoints
+} from '../../media-queries';
+
+import {
   SkyTileDashboardColumnComponent
 } from '../tile-dashboard-column';
 import {
@@ -49,6 +57,8 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   @ViewChild('singleColumn', {read: SkyTileDashboardColumnComponent})
   public singleColumn: SkyTileDashboardColumnComponent;
 
+  public tileMovedReport: string;
+
   private _config: SkyTileDashboardConfig;
 
   private configSet = false;
@@ -58,10 +68,31 @@ export class SkyTileDashboardComponent implements AfterViewInit, OnDestroy {
   constructor(
     // HACK: This is public so it can be accessed via a unit test due to breaking changes
     // in RC5. https://github.com/angular/angular/issues/10854
-    public dashboardService: SkyTileDashboardService
+    public dashboardService: SkyTileDashboardService,
+    private mediaQuery: SkyMediaQueryService
   ) {
     dashboardService.configChange.subscribe((config: SkyTileDashboardConfig) => {
       this.configChange.emit(config);
+
+      // Update aria live region with tile drag info
+      if (config.movedTile) {
+        let message = SkyResources.getString('tile_moved_assistive_text');
+        message = message.replace('{0}', config.movedTile.tileDescription);
+        message = message.replace('{3}', config.movedTile.position.toString());
+        if (
+          this.mediaQuery.current === SkyMediaBreakpoints.xs ||
+          this.mediaQuery.current === SkyMediaBreakpoints.sm
+        ) {
+          message = message.replace('{1}', '1');
+          message = message.replace('{2}', '1');
+          message = message.replace('{4}', config.layout.singleColumn.tiles.length.toString());
+        } else {
+          message = message.replace('{1}', config.movedTile.column.toString());
+          message = message.replace('{2}', config.layout.multiColumn.length.toString());
+          message = message.replace('{4}', config.layout.multiColumn[config.movedTile.column - 1].tiles.length.toString());
+        }
+        this.tileMovedReport = message;
+      }
     });
   }
 

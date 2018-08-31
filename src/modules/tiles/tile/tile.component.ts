@@ -4,7 +4,8 @@ import {
   EventEmitter,
   Input,
   Optional,
-  Output
+  Output,
+  ViewChild
 } from '@angular/core';
 import {
   skyAnimationSlide
@@ -51,6 +52,12 @@ export class SkyTileComponent {
     this.isCollapsedChange.emit(value);
   }
 
+  @ViewChild('grabHandle')
+  private grabHandle: ElementRef;
+
+  @ViewChild('titleContainer')
+  private title: ElementRef;
+
   private _isCollapsed = false;
 
   constructor(
@@ -84,13 +91,17 @@ export class SkyTileComponent {
         || direction === 'left'
         || direction === 'right'
       ) {
-        this.dashboardService.moveTile(this, direction);
+        this.dashboardService.moveTile(
+          this,
+          direction,
+          this.title ? this.title.nativeElement.innerText : undefined
+        );
         this.focusHandle();
       }
     }
   }
 
   private focusHandle(): void {
-    this.elementRef.nativeElement.querySelector('.sky-tile-grab-handle').focus();
+    this.grabHandle.nativeElement.focus();
   }
 }

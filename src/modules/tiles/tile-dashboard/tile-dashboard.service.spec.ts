@@ -350,7 +350,7 @@ describe('Tile dashboard service', () => {
     fixture.detectChanges();
 
     let dashboardService: SkyTileDashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
-    dashboardService.moveTile(new SkyTileComponent(fixture.elementRef, {} as SkyTileDashboardService), 'left');
+    dashboardService.moveTile(new SkyTileComponent(fixture.elementRef, {} as SkyTileDashboardService), 'left', 'Tile 1');
 
     // Make sure eveything is still in the same spot
     let columnEls = fixture.nativeElement.querySelectorAll('.sky-tile-dashboard-column');
@@ -361,7 +361,8 @@ describe('Tile dashboard service', () => {
   function testColumnNavigation(
     fixture: ComponentFixture<TileDashboardTestComponent>,
     keyName: string,
-    expectedPosition: number
+    expectedPosition: number,
+    isSingleColumn = false
   ) {
     let handle = fixture.nativeElement.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle');
     SkyAppTestUtility.fireDomEvent(handle, 'keydown', {
@@ -373,7 +374,11 @@ describe('Tile dashboard service', () => {
     fixture.detectChanges();
 
     let columnEls = fixture.nativeElement.querySelectorAll('.sky-tile-dashboard-column');
-    expect(columnEls[0].querySelectorAll('sky-tile')[expectedPosition].parentElement).toHaveCssClass('sky-test-tile-1');
+    if (isSingleColumn) {
+      expect(columnEls[2].querySelectorAll('sky-tile')[expectedPosition].parentElement).toHaveCssClass('sky-test-tile-1');
+    } else {
+      expect(columnEls[0].querySelectorAll('sky-tile')[expectedPosition].parentElement).toHaveCssClass('sky-test-tile-1');
+    }
   }
 
   it('should allow tiles to be moved within a column', fakeAsync(() => {
@@ -424,6 +429,22 @@ describe('Tile dashboard service', () => {
 
     // Boundary check moving up, should not move
     testColumnNavigation(fixture, 'ArrowUp', 0);
+  }));
+
+  fit('should allow tiles to be moved within a column in single column mode', fakeAsync(() => {
+    let fixture = createDashboardTestComponent();
+    mockMediaQueryService.current = SkyMediaBreakpoints.sm;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    testColumnNavigation(fixture, 'Down', 2, true);
+
+    testColumnNavigation(fixture, 'Up', 1, true);
+
+    testColumnNavigation(fixture, 'ArrowDown', 2, true);
+
+    testColumnNavigation(fixture, 'ArrowUp', 1, true);
   }));
 
   it(
