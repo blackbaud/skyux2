@@ -47,6 +47,9 @@ export class SkyGridColumnComponent implements OnChanges {
   @Input()
   public isSortable: boolean = true;
 
+  @Input()
+  public excludeFromHighlighting: boolean;
+
   /* tslint:disable:no-input-rename */
   @Input('search')
   public searchFunction: (value: any, searchText: string) => boolean = this.search;
