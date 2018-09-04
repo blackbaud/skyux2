@@ -117,8 +117,18 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
     return this._value;
   }
 
-  @ViewChild('input')
-  public input: ElementRef;
+  @Input()
+  public icon: string;
+
+  @Input()
+  public get radioType(): string {
+    return this._radioType || 'info';
+  }
+  public set radioType(value: string) {
+    if (value) {
+      this._radioType = value.toLowerCase();
+    }
+  }
 
   @Output()
   public get change(): Observable<SkyRadioChange> {
@@ -126,7 +136,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
   public get inputId(): string {
-    return `${this.id}-input`;
+    return `sky-radio-${this.id}-input`;
   }
 
   public set selectedValue(value: any) {
@@ -142,6 +152,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   private _change = new EventEmitter<SkyRadioChange>();
   private _checked = false;
   private _name: string;
+  private _radioType: string;
   private _selectedValue: any;
   private _value: any;
 
@@ -178,14 +189,16 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   public onInputChange(event: Event): void {
     event.stopPropagation();
 
-    this.checked = true;
-    this._change.emit({
-      source: this,
-      value: this._value
-    });
+    if (!this.disabled) {
+      this.checked = true;
+      this._change.emit({
+        source: this,
+        value: this._value
+      });
 
-    this.onInputFocusChange(undefined);
-    this.onChangeCallback(this.value);
+      this.onInputFocusChange(undefined);
+      this.onChangeCallback(this.value);
+    }
   }
 
   public onInputFocusChange(event: Event): void {

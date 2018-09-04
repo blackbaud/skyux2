@@ -15,6 +15,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyRadioDemoComponent implements OnInit {
+  public iconSelectedValue = 'info';
+  public iconGroupSelectedValue = 'table';
   public radioForm: FormGroup;
 
   public seasons = [

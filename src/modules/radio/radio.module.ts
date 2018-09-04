@@ -2,23 +2,23 @@
 import {
   NgModule
 } from '@angular/core';
-
 import {
   CommonModule
 } from '@angular/common';
-
 import {
   FormsModule
 } from '@angular/forms';
 
 import {
+  SkyIconModule
+} from '../icon';
+
+import {
   SkyRadioComponent
 } from './radio.component';
-
 import {
   SkyRadioLabelComponent
 } from './radio-label.component';
-
 import {
   SkyRadioGroupComponent
 } from './radio-group.component';
@@ -32,7 +32,8 @@ import {
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    SkyIconModule
   ],
   exports: [
     SkyRadioComponent,

@@ -2,11 +2,9 @@
 import {
   NgModule
 } from '@angular/core';
-
 import {
   CommonModule
 } from '@angular/common';
-
 import {
   FormsModule,
   ReactiveFormsModule
@@ -19,16 +17,19 @@ import {
 import {
   SkyRadioTestComponent
 } from './radio.component.fixture';
-
 import {
   SkyRadioGroupTestComponent
 } from './radio-group.component.fixture';
+import {
+  SkySingleRadioComponent
+} from './radio-single.component.fixture';
 // #endregion
 
 @NgModule({
   declarations: [
     SkyRadioTestComponent,
-    SkyRadioGroupTestComponent
+    SkyRadioGroupTestComponent,
+    SkySingleRadioComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +39,8 @@ import {
   ],
   exports: [
     SkyRadioTestComponent,
-    SkyRadioGroupTestComponent
+    SkyRadioGroupTestComponent,
+    SkySingleRadioComponent
   ]
 })
 export class SkyRadioFixturesModule { }

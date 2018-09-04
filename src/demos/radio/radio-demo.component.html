@@ -1,4 +1,6 @@
-<h2 class="sky-section-heading">
+<h2
+  class="sky-section-heading"
+>
   Reactive form setup
 </h2>
 
@@ -10,10 +12,14 @@
     ariaLabelledBy="favorite-season-label-reactive"
     formControlName="favoriteSeason"
   >
-    <p id="favorite-season-label-reactive">
+    <p
+      id="favorite-season-label-reactive"
+    >
       What is your favorite season?
     </p>
-    <ul class="sky-list-unstyled">
+    <ul
+      class="sky-list-unstyled"
+    >
       <li *ngFor="let value of seasons">
         <sky-radio
           [disabled]="value.disabled"
@@ -26,36 +32,35 @@
       </li>
     </ul>
   </sky-radio-group>
-  <ul>
-    <li>
-      Selected value: {{ radioForm.value.favoriteSeason.name }}
-    </li>
-    <li>
-      Touched? {{ radioForm.touched }}
-    </li>
-    <li>
-      Pristine? {{ radioForm.pristine }}
-    </li>
-  </ul>
+  <p>
+    Selected value: {{ radioForm.value.favoriteSeason.name }}
+  </p>
 </form>
 
-<h2 class="sky-section-heading">
+<br/>
+
+<h2
+  class="sky-section-heading"
+>
   Template-driven form setup
 </h2>
 
 <form
   novalidate
-  #checkboxForm="ngForm"
 >
   <sky-radio-group
     ariaLabelledBy="favorite-season-label-template"
     name="favoriteSeason"
     [(ngModel)]="favoriteSeason"
   >
-    <p id="favorite-season-label-template">
+    <p
+      id="favorite-season-label-template"
+    >
       What is your favorite season?
     </p>
-    <ul class="sky-list-unstyled">
+    <ul
+      class="sky-list-unstyled"
+    >
       <li *ngFor="let value of seasons">
         <sky-radio
           [disabled]="value.disabled"
@@ -68,15 +73,116 @@
       </li>
     </ul>
   </sky-radio-group>
-  <ul>
-    <li>
-      Selected value: {{ favoriteSeason.name }}
-    </li>
-    <li>
-      Touched? {{ checkboxForm.touched }}
-    </li>
-    <li>
-      Pristine? {{ checkboxForm.pristine }}
-    </li>
-  </ul>
+  <p>
+    Selected value: {{ favoriteSeason.name }}
+  </p>
+</form>
+
+<br/>
+
+<h2
+  class="sky-section-heading"
+>
+  Icon radio button types
+</h2>
+
+<form
+  novalidate
+>
+  <div>
+    <sky-radio
+      icon="info"
+      name="iconradiotest"
+      radioType="info"
+      value="info"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="striketbrough"
+      name="iconradiotest"
+      radioType="info"
+      value="striketbrough"
+      [disabled]="true"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="star"
+      name="iconradiotest"
+      radioType="success"
+      value="success"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="exclamation-triangle"
+      name="iconradiotest"
+      radioType="warning"
+      value="warning"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="ban"
+      name="iconradiotest"
+      radioType="danger"
+      value="danger"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+  </div>
+
+  <p>
+    Selected option: <strong>{{ iconSelectedValue }}</strong>
+  </p>
+</form>
+
+<br/>
+
+<h2
+  class="sky-section-heading"
+>
+  Icon radio button group
+</h2>
+
+<form
+  novalidate
+>
+  <div
+    class="sky-switch-icon-group"
+  >
+    <sky-radio
+      icon="table"
+      name="iconradiogrouptest"
+      value="table"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="list"
+      name="iconradiogrouptest"
+      value="list"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="th-large"
+      name="iconradiogrouptest"
+      value="cards"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="map-marker"
+      name="iconradiogrouptest"
+      value="map"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+  </div>
+
+  <p>
+    Selected option: <strong>{{ iconGroupSelectedValue }}</strong>
+  </p>
 </form>

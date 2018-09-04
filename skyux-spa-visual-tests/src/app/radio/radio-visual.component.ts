@@ -13,6 +13,9 @@ import {
   templateUrl: './radio-visual.component.html'
 })
 export class RadioVisualComponent implements OnInit {
+  public selectedValue = '3';
+  public iconSelectedValue = '2';
+  public valueGuy = '2';
   public radioForm: FormGroup;
 
   public seasons = [

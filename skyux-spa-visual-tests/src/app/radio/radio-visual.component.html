@@ -31,4 +31,46 @@
       </li>
     </ul>
   </form>
+  <form
+    novalidate
+  >
+    <div id="screenshot-icon-radio">
+      <ul class="sky-list-unstyled">
+        <li>
+          <sky-radio
+            icon="thumbs-o-up"
+            label="I like it"
+            name="iconradiotest"
+            value="1"
+            [(ngModel)]="iconSelectedValue"
+            #cb="ngModel"
+          >
+          </sky-radio>
+        </li>
+        <li>
+          <sky-radio
+            disabled="true"
+            icon="balance-scale"
+            label="meh"
+            name="iconradiotest"
+            [ngModel]="iconSelectedValue"
+            [value]="valueGuy"
+            (ngModelChange)="iconSelectedValue = $event"
+          >
+          </sky-radio>
+        </li>
+        <li>
+          <sky-radio
+            icon="thumbs-o-down"
+            label="I hate it"
+            name="iconradiotest"
+            value="3"
+            [ngModel]="iconSelectedValue"
+            (ngModelChange)="iconSelectedValue = $event"
+          >
+          </sky-radio>
+        </li>
+      </ul>
+    </div>
+  </form>
 </div>
