@@ -431,7 +431,7 @@ describe('Tile dashboard service', () => {
     testColumnNavigation(fixture, 'ArrowUp', 0);
   }));
 
-  fit('should allow tiles to be moved within a column in single column mode', fakeAsync(() => {
+  it('should allow tiles to be moved within a column in single column mode', fakeAsync(() => {
     let fixture = createDashboardTestComponent();
     mockMediaQueryService.current = SkyMediaBreakpoints.sm;
     fixture.detectChanges();
