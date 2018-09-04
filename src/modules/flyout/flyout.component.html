@@ -10,18 +10,11 @@
   [@flyoutState]="getAnimationState()"
   [style.width.px]="flyoutWidth">
 
-  <button
-    type="button"
-    class="sky-flyout-resize-handle"
-    aria-hidden="true"
-    role="separator"
-    tabindex="-1"
-    (mousedown)="onMouseDown($event)">
-  </button>
-
   <input
     aria-label="Width of flyout"
-    class="sky-flyout-input-aria-only"
+    class="sky-flyout-resize-handle"
+    role="separator"
+    step="10"
     type="range"
     [attr.aria-controls]="flyoutId"
     [attr.aria-valuemax]="config.maxWidth"
@@ -29,7 +22,8 @@
     [attr.aria-valuenow]="flyoutWidth"
     [max]="config.maxWidth"
     [min]="config.minWidth"
-    [(ngModel)]="flyoutWidth" />
+    [(ngModel)]="flyoutWidth"
+    (mousedown)="onMouseDown($event)" />
 
   <div class="sky-flyout-header" #flyoutHeader>
     <div class="sky-flyout-header-content">

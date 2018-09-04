@@ -247,7 +247,7 @@ describe('Flyout component', () => {
       openFlyout({});
       const flyoutElement = getFlyoutElement();
       expect(flyoutElement.style.width).toBe('500px');
-      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-input-aria-only');
+      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-resize-handle');
 
       resizeInput.value = '400';
       SkyAppTestUtility.fireDomEvent(resizeInput, 'input');
@@ -266,7 +266,7 @@ describe('Flyout component', () => {
   it('should have correct aria-labels on resizing range input', fakeAsync(() => {
       openFlyout({maxWidth: 1000, minWidth: 200});
       const flyoutElement = getFlyoutElement();
-      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-input-aria-only');
+      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-resize-handle');
 
       expect(flyoutElement.style.width).toBe('500px');
       expect(resizeInput.getAttribute('aria-controls')).toBe(flyoutElement.id);
