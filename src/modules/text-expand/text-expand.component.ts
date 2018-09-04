@@ -22,6 +22,11 @@ import {
   SkyTextExpandAdapterService
 } from './text-expand-adapter.service';
 
+/**
+ * Auto-incrementing integer used to generate unique ids for checkbox components.
+ */
+let nextId = 0;
+
 @Component({
   selector: 'sky-text-expand',
   templateUrl: './text-expand.component.html',
@@ -61,6 +66,8 @@ export class SkyTextExpandComponent implements AfterContentInit {
   public isExpanded: boolean = false;
   public expandable: boolean;
   public buttonText: string;
+  public contentSectionId: string = `sky-text-expand-content-${++nextId}`;
+
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
   private textToShow: string;

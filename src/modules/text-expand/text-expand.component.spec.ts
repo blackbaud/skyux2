@@ -1,7 +1,8 @@
 import {
   TestBed,
   inject,
-  async
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -63,6 +64,31 @@ describe('Text expand component', () => {
   );
 
   describe('basic behaviors', () => {
+
+    it('should have necessary aria properties', fakeAsync(() => {
+      let fixture = TestBed.createComponent(TextExpandTestComponent);
+      let cmp = fixture.componentInstance as TextExpandTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      // tslint:disable-next-line
+      cmp.text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.';
+
+      fixture.detectChanges();
+      const buttonElem = <HTMLElement>el.querySelector('.sky-text-expand-see-more');
+
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('false');
+      expect(buttonElem.getAttribute('aria-controls')).toBe(cmp.textExpand.contentSectionId);
+
+      buttonElem.click();
+      fixture.detectChanges();
+      tick(20);
+      fixture.detectChanges();
+      tick(500);
+      fixture.detectChanges();
+
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('true');
+    }));
+
     it('should not have see more button or ellipsis if text is short', () => {
       let fixture = TestBed.createComponent(TextExpandTestComponent);
       let cmp = fixture.componentInstance as TextExpandTestComponent;
@@ -231,7 +257,7 @@ describe('Text expand component', () => {
       expect(seeMoreButton.innerText.trim()).toBe(SkyResources.getString('text_expand_see_more'));
     });
 
-    it('should expand on click of the see more button', async(() => {
+    it('should expand on click of the see more button', fakeAsync(() => {
       let fixture = TestBed.createComponent(TextExpandTestComponent);
       let cmp = fixture.componentInstance as TextExpandTestComponent;
       let el = fixture.nativeElement as HTMLElement;
@@ -253,37 +279,34 @@ describe('Text expand component', () => {
 
       seeMoreButton.click();
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          ellipsis = el.querySelector('.sky-text-expand-ellipsis');
-          textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
+      tick(20);
+      fixture.detectChanges();
+      tick(500);
+      fixture.detectChanges();
+      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+      textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
 
-          expect(container.style.maxHeight).toBe('');
-          expect(seeMoreButton.innerText.trim())
-            .toBe(SkyResources.getString('text_expand_see_less'));
-          expect(ellipsis).toBeNull();
-          expect(textArea.innerText.trim()).toBe(expandedText);
-          seeMoreButton.click();
-          fixture.detectChanges();
-          fixture.whenStable().then(() => {
-            fixture.detectChanges();
-            fixture.whenStable().then(() => {
-              fixture.detectChanges();
-              ellipsis = el.querySelector('.sky-text-expand-ellipsis');
-              textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
+      expect(container.style.maxHeight).toBe('');
+      expect(seeMoreButton.innerText.trim())
+        .toBe(SkyResources.getString('text_expand_see_less'));
+      expect(ellipsis).toBeNull();
+      expect(textArea.innerText.trim()).toBe(expandedText);
+      seeMoreButton.click();
+      fixture.detectChanges();
+      tick(20);
+      fixture.detectChanges();
+      tick(500);
+      fixture.detectChanges();
+      ellipsis = el.querySelector('.sky-text-expand-ellipsis');
+      textArea = <HTMLElement>el.querySelector('.sky-text-expand-text');
 
-              expect(container.style.maxHeight).toBe('');
-              expect(seeMoreButton.innerText.trim())
-                .toBe(SkyResources.getString('text_expand_see_more'));
-              expect(ellipsis).not.toBeNull();
-              expect(textArea.innerText.trim()).toBe(collapsedText);
-            });
-          });
-        });
-      });
-    }), 300000);
+      expect(container.style.maxHeight).toBe('');
+      expect(seeMoreButton.innerText.trim())
+        .toBe(SkyResources.getString('text_expand_see_more'));
+      expect(ellipsis).not.toBeNull();
+      expect(textArea.innerText.trim()).toBe(collapsedText);
+
+    }));
 
     it('should render newlines if requested', () => {
       let fixture = TestBed.createComponent(TextExpandTestComponent);
