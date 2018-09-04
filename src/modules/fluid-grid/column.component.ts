@@ -11,40 +11,74 @@ import {
   styleUrls: ['./column.component.scss']
 })
 export class SkyColumnComponent implements OnInit {
-  @Input()
-  public screenXSmall: number;
 
   @Input()
-  public screenSmall: number;
+  set screenXSmall(value: number) {
+    this._screenXSmall = value;
+    this.classnames = this.getClassNames();
+  }
+
+  get screenXSmall() {
+    return this._screenXSmall;
+  }
 
   @Input()
-  public screenMedium: number;
+  set screenSmall(value: number) {
+    this._screenSmall = value;
+    this.classnames = this.getClassNames();
+  }
+
+  get screenSmall() {
+    return this._screenXSmall;
+  }
 
   @Input()
-  public screenLarge: number;
+  set screenMedium(value: number) {
+    this._screenMedium = value;
+    this.classnames = this.getClassNames();
+  }
+
+  get screenMedium() {
+    return this._screenMedium;
+  }
+
+  @Input()
+  set screenLarge(value: number) {
+    this._screenLarge = value;
+    this.classnames = this.getClassNames();
+  }
+
+  get screenLarge() {
+    return this._screenLarge;
+  }
 
   @HostBinding('class')
   private classnames: string;
+
+  private _screenXSmall: number;
+  private _screenSmall: number;
+  private _screenMedium: number;
+  private _screenLarge: number;
 
   public getClassNames(): string {
     let classnames = [
       'sky-column'
     ];
 
-    if (this.screenXSmall) {
-      classnames.push(`sky-column-xs-${this.screenXSmall}`);
+    if (this._screenXSmall) {
+      classnames.push(`sky-column-xs-${this._screenXSmall}`);
     }
 
-    if (this.screenSmall) {
-      classnames.push(`sky-column-sm-${this.screenSmall}`);
+    if (this._screenSmall) {
+      classnames.push(`sky-column-sm-${this._screenSmall}`);
     }
 
-    if (this.screenMedium) {
-      classnames.push(`sky-column-md-${this.screenMedium}`);
+    if (this._screenMedium) {
+      classnames.push(`sky-column-md-${this._screenMedium}`);
     }
 
-    if (this.screenLarge) {
-      classnames.push(`sky-column-lg-${this.screenLarge}`);
+    if (this._screenLarge) {
+      classnames.push(`sky-column-lg-${this._screenLarge}`);
     }
 
     return classnames.join(' ');
