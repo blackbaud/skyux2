@@ -13,7 +13,7 @@ import {
 } from '../resources';
 
 /**
- * Auto-incrementing integer used to generate unique ids for checkbox components.
+ * Auto-incrementing integer used to generate unique ids for text expand repeater components.
  */
 let nextId = 0;
 

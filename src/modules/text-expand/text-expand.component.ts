@@ -23,7 +23,7 @@ import {
 } from './text-expand-adapter.service';
 
 /**
- * Auto-incrementing integer used to generate unique ids for checkbox components.
+ * Auto-incrementing integer used to generate unique ids for text expand components.
  */
 let nextId = 0;
 
