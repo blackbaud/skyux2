@@ -2,7 +2,9 @@ import {
   Component,
   HostBinding,
   Input,
-  OnInit
+  OnInit,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 
 @Component({
@@ -10,75 +12,48 @@ import {
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss']
 })
-export class SkyColumnComponent implements OnInit {
+export class SkyColumnComponent implements OnInit, OnChanges {
 
   @Input()
-  set screenXSmall(value: number) {
-    this._screenXSmall = value;
-    this.classnames = this.getClassNames();
-  }
-
-  get screenXSmall() {
-    return this._screenXSmall;
-  }
+  public screenXSmall: number;
 
   @Input()
-  set screenSmall(value: number) {
-    this._screenSmall = value;
-    this.classnames = this.getClassNames();
-  }
-
-  get screenSmall() {
-    return this._screenXSmall;
-  }
+  public screenSmall: number;
 
   @Input()
-  set screenMedium(value: number) {
-    this._screenMedium = value;
-    this.classnames = this.getClassNames();
-  }
-
-  get screenMedium() {
-    return this._screenMedium;
-  }
+  public screenMedium: number;
 
   @Input()
-  set screenLarge(value: number) {
-    this._screenLarge = value;
-    this.classnames = this.getClassNames();
-  }
-
-  get screenLarge() {
-    return this._screenLarge;
-  }
+  public screenLarge: number;
 
   @HostBinding('class')
   private classnames: string;
 
-  private _screenXSmall: number;
-  private _screenSmall: number;
-  private _screenMedium: number;
-  private _screenLarge: number;
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes.screenXSmall || changes.screenSmall || changes.screenMedium || changes.screenLarge) {
+      this.classnames = this.getClassNames();
+    }
+  }
 
   public getClassNames(): string {
     let classnames = [
       'sky-column'
     ];
 
-    if (this._screenXSmall) {
-      classnames.push(`sky-column-xs-${this._screenXSmall}`);
+    if (this.screenXSmall) {
+      classnames.push(`sky-column-xs-${this.screenXSmall}`);
     }
 
-    if (this._screenSmall) {
-      classnames.push(`sky-column-sm-${this._screenSmall}`);
+    if (this.screenSmall) {
+      classnames.push(`sky-column-sm-${this.screenSmall}`);
     }
 
-    if (this._screenMedium) {
-      classnames.push(`sky-column-md-${this._screenMedium}`);
+    if (this.screenMedium) {
+      classnames.push(`sky-column-md-${this.screenMedium}`);
     }
 
-    if (this._screenLarge) {
-      classnames.push(`sky-column-lg-${this._screenLarge}`);
+    if (this.screenLarge) {
+      classnames.push(`sky-column-lg-${this.screenLarge}`);
     }
 
     return classnames.join(' ');
