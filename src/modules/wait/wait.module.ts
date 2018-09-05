@@ -4,6 +4,7 @@ import { SkyWaitComponent } from './wait.component';
 import { SkyWaitService } from './wait.service';
 import { SkyWaitPageAdapterService } from './wait-page-adapter.service';
 import { SkyWaitPageComponent } from './wait-page.component';
+import { SkyWindowRefService } from '../window';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SkyWaitPageComponent } from './wait-page.component';
   ],
   providers: [
     SkyWaitService,
-    SkyWaitPageAdapterService
+    SkyWaitPageAdapterService,
+    SkyWindowRefService
   ],
   entryComponents: [
     SkyWaitPageComponent
