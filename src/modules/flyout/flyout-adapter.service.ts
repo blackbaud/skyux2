@@ -37,4 +37,15 @@ export class SkyFlyoutAdapterService {
       this.renderer.addClass(header.nativeElement, 'sky-flyout-help-shim');
     }
   }
+
+  public toggleIframePointerEvents(enable: boolean): void {
+    // When iframes are present on the page, they may interfere with dragging
+    // temporarily disable pointer events in iframes when dragging starts.
+    // When re-enabling we set to the empty string as it will remove the element styling
+    // and fall back to any css originally given to iframe
+    const iframes = document.querySelectorAll('iframe');
+    for (let i = 0; i < iframes.length; i++) {
+      iframes[i].style.pointerEvents = enable ? '' : 'none';
+    }
+  }
 }
