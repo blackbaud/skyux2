@@ -7,8 +7,9 @@
   <button *ngIf="expandable"
     type="button"
     class="sky-btn sky-btn-link-inline sky-text-expand-see-more"
-    [attr.aria-expanded]="isExpanded"
-    [attr.aria-controls]="contentSectionId"
+    [attr.aria-expanded]="isModal ? undefined : isExpanded"
+    [attr.aria-controls]="isModal ? undefined : contentSectionId"
+    [attr.aria-haspopup]="isModal ? 'dialog' : undefined"
     (click)="textExpand()"
   >
     {{buttonText}}

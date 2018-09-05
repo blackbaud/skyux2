@@ -1,6 +1,8 @@
 import {
   TestBed,
-  async
+  async,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +26,31 @@ describe('Text expand repeater component', () => {
   });
 
   describe('basic behaviors', () => {
+    it('should have necessary aria properties', fakeAsync(() => {
+      let fixture = TestBed.createComponent(TextExpandRepeaterTestComponent);
+      let cmp = fixture.componentInstance as TextExpandRepeaterTestComponent;
+      let el = fixture.nativeElement as HTMLElement;
+
+      cmp.data = ['john', 'bob', 'hank'];
+      cmp.numItems = 2;
+
+      fixture.detectChanges();
+      const buttonElem = <HTMLElement>el.querySelector('.sky-text-expand-repeater-see-more');
+
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('false');
+      expect(buttonElem.getAttribute('aria-controls')).toBe(cmp.textExpand.contentSectionId);
+
+      buttonElem.click();
+      fixture.detectChanges();
+      tick(20);
+      fixture.detectChanges();
+      tick(500);
+      fixture.detectChanges();
+
+      expect(buttonElem.getAttribute('aria-expanded')).toBe('true');
+      expect(buttonElem.getAttribute('aria-controls')).toBe(cmp.textExpand.contentSectionId);
+    }));
+
     it('should not have see more button if data is less than or equal to max items', () => {
       let fixture = TestBed.createComponent(TextExpandRepeaterTestComponent);
       let cmp = fixture.componentInstance as TextExpandRepeaterTestComponent;

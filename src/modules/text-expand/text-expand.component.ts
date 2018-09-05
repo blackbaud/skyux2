@@ -67,6 +67,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
   public expandable: boolean;
   public buttonText: string;
   public contentSectionId: string = `sky-text-expand-content-${++nextId}`;
+  public isModal: boolean;
 
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
@@ -81,8 +82,7 @@ export class SkyTextExpandComponent implements AfterContentInit {
     private textExpandAdapter: SkyTextExpandAdapterService) { }
 
   public textExpand() {
-    if (this.newlineCount > this.maxExpandedNewlines
-      || this.expandedText.length > this.maxExpandedLength) {
+    if (this.isModal) {
       // Modal View
       /* istanbul ignore else */
       /* sanity check */
@@ -150,6 +150,8 @@ export class SkyTextExpandComponent implements AfterContentInit {
         this.buttonText = this.seeMoreText;
         this.isExpanded = false;
         this.expandable = true;
+        this.isModal = this.newlineCount > this.maxExpandedNewlines
+          || this.expandedText.length > this.maxExpandedLength;
       } else {
         this.expandable = false;
       }
