@@ -91,7 +91,7 @@ export class SkyTileComponent {
         || direction === 'left'
         || direction === 'right'
       ) {
-        this.dashboardService.moveTile(
+        this.dashboardService.moveTileOnKeyDown(
           this,
           direction,
           this.title ? this.title.nativeElement.innerText : undefined

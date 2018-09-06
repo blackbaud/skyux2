@@ -145,7 +145,7 @@ export class SkyTileDashboardService {
     }
   }
 
-  public moveTile(tileCmp: SkyTileComponent, direction: string, tileDescription: string) {
+  public moveTileOnKeyDown(tileCmp: SkyTileComponent, direction: string, tileDescription: string) {
     const isSingleColumnMode = this.mediaQuery.current === SkyMediaBreakpoints.xs
       || this.mediaQuery.current === SkyMediaBreakpoints.sm;
 
@@ -183,8 +183,9 @@ export class SkyTileDashboardService {
     } else {
       let operator = direction === 'up' ? -1 : 1;
       let curIndex = column.tiles.findIndex((value) => value.id === tile.id);
+      let tileComponentInstance = this.getTileComponent(tileId);
 
-      if (column.tiles[curIndex + operator]) {
+      if (tileComponentInstance && column.tiles[curIndex + operator]) {
         let temp = column.tiles[curIndex + operator];
         column.tiles[curIndex + operator] = tile;
         column.tiles[curIndex] = temp;
@@ -198,7 +199,6 @@ export class SkyTileDashboardService {
         }
 
         // Move the tile element in the document
-        let tileComponentInstance = this.getTileComponent(tileId);
         if (curIndex + operator === column.tiles.length - 1) {
           columnEl.appendChild(tileComponentInstance.location.nativeElement);
         } else {
@@ -455,18 +455,12 @@ export class SkyTileDashboardService {
   private findTileColumn(tileId: string): SkyTileDashboardConfigLayoutColumn {
     /*istanbul ignore else */
     if (this.config && this.config.layout.multiColumn) {
-      for (let column of this.config.layout.multiColumn) {
-        /*istanbul ignore else */
-        if (column.tiles) {
-          for (let tile of column.tiles) {
-            if (tile.id === tileId) {
-              return column;
-            }
-          }
-        }
-      }
+      return this.config.layout.multiColumn.find(
+        col => col.tiles && !!col.tiles.find(tile => tile.id === tileId)
+      );
     }
 
+    /*istanbul ignore next */
     return undefined;
   }
 }

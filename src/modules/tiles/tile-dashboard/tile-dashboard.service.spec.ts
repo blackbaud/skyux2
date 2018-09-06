@@ -350,7 +350,7 @@ describe('Tile dashboard service', () => {
     fixture.detectChanges();
 
     let dashboardService: SkyTileDashboardService = fixture.componentInstance.dashboardComponent.dashboardService;
-    dashboardService.moveTile(new SkyTileComponent(fixture.elementRef, {} as SkyTileDashboardService), 'left', 'Tile 1');
+    dashboardService.moveTileOnKeyDown(new SkyTileComponent(fixture.elementRef, {} as SkyTileDashboardService), 'left', 'Tile 1');
 
     // Make sure eveything is still in the same spot
     let columnEls = fixture.nativeElement.querySelectorAll('.sky-tile-dashboard-column');
