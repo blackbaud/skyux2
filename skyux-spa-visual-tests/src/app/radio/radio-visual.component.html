@@ -1,32 +1,49 @@
-<form #checkForm="ngForm">
+<form
+  novalidate
+  [formGroup]="radioForm"
+>
+  <h3
+    id="favorite-id"
+  >
+    What is your favorite season?
+  </h3>
   <div id="screenshot-radio">
-    <div>
-      <sky-radio name="radiotest" [(ngModel)]="selectedValue" #cb="ngModel" value="1">
-        <sky-radio-label>Option 1</sky-radio-label>
-      </sky-radio>
-    </div>
-
-    <div>
-      <sky-radio
-        name="radiotest"
-        disabled="true"
-        [ngModel]="selectedValue"
-        [value]="valueGuy"
-        (ngModelChange)="selectedValue = $event"
+    <sky-radio-group
+      ariaLabelledBy="favorite-id"
+      formControlName="favoriteSeason"
+    >
+      <ul
+        class="sky-list-unstyled"
       >
-        <sky-radio-label>Option 2</sky-radio-label>
-      </sky-radio>
-    </div>
-
-    <div>
-      <sky-radio name="radiotest" [ngModel]="selectedValue" (ngModelChange)="selectedValue = $event" value="3">
-        <sky-radio-label>Option 3</sky-radio-label>
-      </sky-radio>
-    </div>
+        <li *ngFor="let value of seasons">
+          <sky-radio
+            name="radiotest"
+            [disabled]="value.disabled"
+            [value]="value"
+          >
+            <sky-radio-label>
+              {{ value.name }}
+            </sky-radio-label>
+          </sky-radio>
+        </li>
+      </ul>
+    </sky-radio-group>
   </div>
-
+</form>
+<form
+  novalidate
+>
+  <h3
+    id="icon-radio-group-label"
+  >
+    Do you like it?
+  </h3>
   <div id="screenshot-icon-radio">
-    <ul class="sky-list-unstyled">
+    <ul
+      class="sky-list-unstyled"
+      aria-labelledby="icon-radio-group-label"
+      role="radiogroup"
+    >
       <li>
         <sky-radio
           icon="thumbs-o-up"
