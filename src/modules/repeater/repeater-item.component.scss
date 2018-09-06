@@ -37,8 +37,13 @@
 }
 
 .sky-repeater-item-title {
-  margin: $sky-margin 0;
+  margin: 0;
   flex-grow: 1;
+}
+
+::ng-deep sky-repeater-item-content {
+  display: block;
+  margin: $sky-margin 0 0;
 }
 
 .sky-repeater-item-collapsible {
