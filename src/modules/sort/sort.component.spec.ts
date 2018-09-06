@@ -38,6 +38,11 @@ describe('Sort component', () => {
     return nativeElement.querySelector(dropdownButtonQuery) as HTMLElement;
   }
 
+  function getDropdownMenuEl() {
+    let dropdownMenuQuery = '.sky-sort .sky-dropdown-menu';
+    return nativeElement.querySelector(dropdownMenuQuery) as HTMLElement;
+  }
+
   function getSortItems() {
     let itemQuery = '.sky-sort .sky-dropdown-menu .sky-sort-item';
     return nativeElement.querySelectorAll(itemQuery);
@@ -69,6 +74,23 @@ describe('Sort component', () => {
     expect(itemsEl.length).toBe(6);
     expect(itemsEl.item(2)).toHaveCssClass('sky-sort-item-selected');
     expect(itemsEl.item(2)).toHaveText('Date created (newest first)');
+  }));
+
+  it('creates a sort dropdown with the proper label and title', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    let dropdownButtonEl = getDropdownButtonEl();
+    expect(dropdownButtonEl.getAttribute('aria-label')).toBe('Sort');
+    expect(dropdownButtonEl.getAttribute('title')).toBe('Sort');
+
+    dropdownButtonEl.click();
+    tick();
+    fixture.detectChanges();
+    tick();
+
+    expect(getDropdownMenuEl().getAttribute('aria-labelledby')).toBe(
+      nativeElement.querySelector('.sky-sort-menu-heading').getAttribute('id')
+    );
   }));
 
   it('changes active item on click and emits proper event', fakeAsync(() => {

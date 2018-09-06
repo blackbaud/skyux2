@@ -15,7 +15,12 @@
     [searchTextMinimumCharacters]="searchTextMinimumCharacters"
     (selectionChange)="onAutocompleteSelectionChange($event)">
 
-    <div class="sky-lookup-search sky-form-control">
+    <div
+      class="sky-lookup-search sky-form-control"
+      [ngClass]="{
+        'sky-field-status-active': isInputFocused
+      }"
+    >
       <sky-tokens
         [disabled]="disabled"
         [displayWith]="descriptorProperty"

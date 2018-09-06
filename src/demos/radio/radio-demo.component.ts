@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
 })
 export class SkyRadioDemoComponent {
   public selectedValue = '3';
+  public iconSelectedValue = 'info';
+  public iconGroupSelectedValue = 'table';
   public valueGuy = '2';
 }
