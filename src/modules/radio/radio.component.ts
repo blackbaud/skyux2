@@ -3,14 +3,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   EventEmitter,
   forwardRef,
   Input,
   OnDestroy,
   Output,
-  Provider,
-  ViewChild
+  Provider
 } from '@angular/core';
 
 import {
