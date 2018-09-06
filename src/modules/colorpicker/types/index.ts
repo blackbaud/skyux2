@@ -7,3 +7,4 @@ export * from './colorpicker-message-type';
 export * from './colorpicker-message';
 export * from './colorpicker-output';
 export * from './colorpicker-rgba';
+export * from './colorpicker-result';

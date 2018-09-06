@@ -147,32 +147,25 @@ describe('SkyPopoverDirective', () => {
   it('should mark the popover to close on mouseleave', () => {
     const caller = directiveElements[2];
     const callerInstance = caller.injector.get(SkyPopoverDirective);
-    const popoverSpy = spyOn(callerInstance.skyPopover, 'markForCloseOnMouseLeave');
     const closeSpy = spyOn((callerInstance as any), 'closePopover').and.callThrough();
+    const markForCloseSpy = spyOn((callerInstance as any).skyPopover, 'markForCloseOnMouseLeave').and.callThrough();
 
     callerInstance.skyPopover.isOpen = true;
-    callerInstance.skyPopover.isMouseEnter = true;
 
     SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'mouseleave');
-    expect(popoverSpy).not.toHaveBeenCalled();
     expect(closeSpy).toHaveBeenCalled();
+    expect(markForCloseSpy).not.toHaveBeenCalled();
 
-    popoverSpy.calls.reset();
     closeSpy.calls.reset();
+    markForCloseSpy.calls.reset();
 
     // Else path, popover has mouseenter.
-    callerInstance.skyPopover.isOpen = true;
-    spyOn(mockWindowService, 'getWindow').and.returnValue({
-      setTimeout(callback: Function) {
-        // Simulate the popover triggering mouseenter event:
-        callerInstance.skyPopover.isMouseEnter = true;
-        callback();
-      }
-    });
-
+    callerInstance.skyPopover.isOpen = false;
     SkyAppTestUtility.fireDomEvent(caller.nativeElement, 'mouseleave');
-    expect(popoverSpy).toHaveBeenCalledWith();
+    callerInstance.skyPopover.isMouseEnter = true;
+    callerInstance.skyPopover.popoverOpened.emit();
     expect(closeSpy).not.toHaveBeenCalled();
+    expect(markForCloseSpy).toHaveBeenCalled();
   });
 
   it('should close the popover when the escape key is pressed', () => {

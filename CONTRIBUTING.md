@@ -2,6 +2,14 @@
 
 We highly encourage contributions from all SKY UX users. We just ask you to follow the coding conventions in the existing code and to write the appropriate unit tests for your features.
 
+### Table of contents
+
+- [Before you start](#before-you-start)
+- [Localization](#localization)
+- [Contribute to SKY UX](#contribute-to-sky-ux)
+- [Recommended tools](#recommended-tools)
+- [Report bugs](#report-bugs)
+
 For more information about working with SKY UX 2, see the [SKY UX README](https://github.com/blackbaud/skyux2/blob/master/README.md).
 
 ### Prerequisites
@@ -13,7 +21,7 @@ Before you contribute, you must install [the SKY UX prerequisites](https://devel
 
 Before you contribute to SKY UX, please consider these general guidelines so that we can review and accept your contributions in a timely fashion. If you do not follow these guidelines, we cannot accept your contributions.
 
-- **Please [file an issue](https://github.com/blackbaud/skyux2/issues/new) before you start any work. The sooner we can discuss potential code changes, the better. We can also use the issue to track and assign any work needed.**
+- **Please [file an issue](https://github.com/blackbaud/skyux2/issues/new) before you start any work.** The sooner we can discuss potential code changes, the better. We can also use the issue to track and assign any work needed. For guidance, see [file an issue](#file-an-issue). 
 - **Use the `Sky` prefix when naming all classes, directives, services, components, etc.** This prefix indicates to other contributors that items are owned by SKY UX and not a third-party library and also prevents potential class-name clashes with other libraries. Keep in mind that while we generally use the uppercase `Sky` prefix, we also use the `sky-` prefix in some cases, such as the selector property in components.
 - **All new code must have 100 percent unit test code coverage.** This doesn't guarantee that every use case is accounted for, but anything less than 100 percent code coverage does guarantee that at least one use case is not accounted for. This can be verified by running tests with `npm run watch` and viewing the code coverage results in `coverage/Chrome xx.x.xxxx/index.html`.
 - **All new components and visual changes to existing components must be accompanied by visual regression tests.** This ensures that future changes to CSS or markup will not cause components to render in an unexpected manner. Visual tests consist of three parts: an HTML template for the component to test, a TypeScript file for the component to test, and the actual file that runs the test using webdriver.io and our custom screenshot functions. You can see examples of each part of the visual test process at:
@@ -32,7 +40,13 @@ Before you contribute to SKY UX, please consider these general guidelines so tha
 
 To declare localization strings, specify a string name and provide the string and a description in the `resources_en_US.json` file in `src/assets/locales`. You can reference the localization strings with the `skyAppResources` pipe or the `SkyAppResourcesService` service in `@blackbaud/skyux-builder/runtime/i18n`.
 
-## Make your changes
+## Contribute to SKY UX
+
+### File an issue
+Before you start any work, please [file an issue](https://github.com/blackbaud/skyux2/issues/new). The sooner we can discuss potential code changes, the better. We also use the issue to track and assign any work needed. To file a issue with SKY UX, follow these instructions:
+1. [Create a GitHub issue in the SKY UX 2 repo](https://github.com/blackbaud/skyux2/issues/new).
+2. Delete the default fields for [reporting bugs](#report-bugs) and describe the contribution and potential code changes to SKY UX.
+3. Subscribe to the issue to receive notifications.
 
 ### Get the code
 
@@ -41,7 +55,7 @@ To declare localization strings, specify a string name and provide the string an
 3. Clone your repo locally and run `npm install` from your local repo's directory to install all required dependencies.
 4. Run your first round of visual regression tests by following the instructions in the [Write visual regression tests](#write-visual-regression-tests) section below. This establishes baseline screenshots of the components in the master repo so that as you make changes and run your visual regression tests, your changes are validated against the state of the repo before the changes.
 
-### Write the code
+### Write code
 
 1. Launch a command prompt, `cd` to the folder where you cloned your branch, and run `npm run watch`.
 2. Launch a second command prompt, `cd` to the folder where you cloned your branch, and run `skyux serve`. This launches the SKY UX component demos page where you write the demo components to test your code.
@@ -79,7 +93,7 @@ To create visual tests for a new component, first create a folder for the tests 
 
 To run visual regression tests locally, you must first run them locally against the `master` branch and then run the tests against your feature branch. Keep in mind that you need to use the same monitor and resolution on both set of tests. If your visual regression tests fail, you can check the failed tests at `skyux2\skyux-spa-visual-tests\screenshots-diff-local\diff` to find the cause of the failures.
 
-### Submit the code
+### Submit code
 
 1. Commit and push your changes to your repo.
 2. Submit a pull request.
@@ -113,3 +127,15 @@ We highly recommend the following VS Code extensions:
 - [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint): This extension validates your TypeScript code against the rules specified by the `tslint.json` file in the SKY UX repo. TSLint runs during the CI build, so if this extension does not validate your code in VS Code, the CI build will fail.
 
 - [EditorConfig](https://github.com/editorconfig/editorconfig-vscode): This extension allows VS Code to recognize the [`.editorconfig`](http://editorconfig.org/) file to automatically enforce many of the coding conventions that the SKY UX team uses, such as indent size, trailing whitespace rules, etc. If you do not use this extension, then you will find yourself fixing a lot of TSLint errors manually instead of letting VS Code do it for you.
+
+## Report bugs
+If you uncover a bug while working with SKY UX, please [file an issue](https://github.com/blackbaud/skyux2/issues/new). We use the issue to track and assign any work needed. To file a issue with SKY UX, follow these instructions:
+1. [Create a GitHub issue in the SKY UX 2 repo](https://github.com/blackbaud/skyux2/issues/new).
+2. Fill out the template fields to provide:
+    - The expected behavior
+    - The actual behavior
+    - Steps to reproduce
+    - A Plunkr example
+    - The severity
+    - The impact
+3. Subscribe to the issue to receive notifications.
