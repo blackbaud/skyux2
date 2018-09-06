@@ -42,16 +42,16 @@ export class SkyAutocompleteInputDirective
 
   public set displayWith(value: string) {
     this._displayWith = value;
-    this.textValue = this.value[this.displayWith];
+    this.updateTextValue();
   }
 
   public get value() {
-    return this._value || { };
+    return this._value;
   }
 
   public set value(value: any) {
     this._value = value;
-    this.textValue = this.value[this.displayWith];
+    this.updateTextValue();
     this.onChange(this.value);
     this.onTouched();
   }
@@ -100,9 +100,7 @@ export class SkyAutocompleteInputDirective
   }
 
   public writeValue(value: any): void {
-    if (value) {
-      this.value = value;
-    }
+    this.value = value;
   }
 
   public registerOnChange(fn: (value: any) => void): void {
@@ -129,7 +127,7 @@ export class SkyAutocompleteInputDirective
 
   private checkValues(): void {
     const text = this.elementRef.nativeElement.value;
-    const displayValue = this.value[this.displayWith];
+    const displayValue = this.value ? this.value[this.displayWith] : undefined;
 
     // If the search field contains text, make sure that the value
     // matches the selected descriptor key.
@@ -140,9 +138,13 @@ export class SkyAutocompleteInputDirective
     } else {
       // The search field is empty (or doesn't have a selected item),
       // so clear out the selected value.
-      this.value = { };
+      this.value = undefined;
     }
 
     this.blur.emit();
+  }
+
+  private updateTextValue() {
+    this.textValue = this.value ? this.value[this.displayWith] : undefined;
   }
 }

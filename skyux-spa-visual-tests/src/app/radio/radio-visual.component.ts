@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
 })
 export class RadioVisualComponent {
   public selectedValue = '3';
+  public iconSelectedValue = '2';
   public valueGuy = '2';
 }

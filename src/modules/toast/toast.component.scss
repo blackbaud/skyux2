@@ -21,6 +21,8 @@
   padding-top: $sky-padding;
   padding-bottom: $sky-padding;
   width: 100%;
+  word-wrap: break-word;
+  overflow: hidden;
 
   ::ng-deep a {
     color: change-color($sky-text-color-default, $alpha: 0.8);
