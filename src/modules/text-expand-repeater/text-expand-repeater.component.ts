@@ -11,6 +11,12 @@ import {
 import {
   SkyResourcesService
 } from '../resources';
+
+/**
+ * Auto-incrementing integer used to generate unique ids for text expand repeater components.
+ */
+let nextId = 0;
+
 @Component({
   selector: 'sky-text-expand-repeater',
   templateUrl: './text-expand-repeater.component.html',
@@ -30,6 +36,7 @@ export class SkyTextExpandRepeaterComponent implements AfterViewInit {
   public buttonText: string;
   public contentItems: Array<any>;
   public expandable: boolean;
+  public contentSectionId: string = `sky-text-expand-repeater-content-${++nextId}`;
 
   private seeMoreText: string = this.resources.getString('text_expand_see_more');
   private seeLessText: string = this.resources.getString('text_expand_see_less');
