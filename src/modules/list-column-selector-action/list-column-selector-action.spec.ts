@@ -9,8 +9,16 @@ import {
 } from '@angular/core/testing';
 
 import {
+  DebugElement
+} from '@angular/core';
+
+import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
+
+import {
+  By
+} from '@angular/platform-browser';
 
 import {
   RouterTestingModule
@@ -103,8 +111,6 @@ describe('List column selector action', () => {
       secondaryActionsService: SkyListSecondaryActionsService;
 
     beforeEach(() => {
-      dispatcher = new ListStateDispatcher();
-      state = new ListState(dispatcher);
       secondaryActionsService = jasmine.createSpyObj(
         'SkyListSecondaryActionsService',
         ['addSecondaryAction', 'removeSecondaryAction']
@@ -132,8 +138,8 @@ describe('List column selector action', () => {
         .overrideComponent(SkyListComponent, {
           set: {
             providers: [
-              { provide: ListState, useValue: state },
-              { provide: ListStateDispatcher, useValue: dispatcher }
+              ListState,
+              ListStateDispatcher
             ]
           }
         });
@@ -148,6 +154,10 @@ describe('List column selector action', () => {
       component = fixture.componentInstance;
       nativeElement = fixture.nativeElement as HTMLElement;
       fixture.detectChanges();
+
+      let skyListDebugEl: DebugElement = fixture.debugElement.query(By.directive(SkyListComponent));
+      state = skyListDebugEl.injector.get(ListState);
+      dispatcher = skyListDebugEl.injector.get(ListStateDispatcher);
 
       // always skip the first update to ListState, when state is ready
       // run detectChanges once more then begin tests
@@ -251,9 +261,6 @@ describe('List column selector action', () => {
       component: ListColumnSelectorActionDeprecatedTestComponent;
 
     beforeEach(() => {
-      dispatcher = new ListStateDispatcher();
-      state = new ListState(dispatcher);
-
       TestBed.configureTestingModule({
         declarations: [
           ListColumnSelectorActionDeprecatedTestComponent
@@ -273,8 +280,8 @@ describe('List column selector action', () => {
         .overrideComponent(SkyListComponent, {
           set: {
             providers: [
-              { provide: ListState, useValue: state },
-              { provide: ListStateDispatcher, useValue: dispatcher }
+              ListStateDispatcher,
+              ListState
             ]
           }
         });
@@ -284,6 +291,10 @@ describe('List column selector action', () => {
       fixture = TestBed.createComponent(ListColumnSelectorActionDeprecatedTestComponent);
       nativeElement = fixture.nativeElement as HTMLElement;
       component = fixture.componentInstance;
+
+      let skyListDebugEl: DebugElement = fixture.debugElement.query(By.directive(SkyListComponent));
+      state = skyListDebugEl.injector.get(ListState);
+      dispatcher = skyListDebugEl.injector.get(ListStateDispatcher);
     });
 
     beforeEach(inject([SkyModalService], (_modalService: SkyModalService) => {

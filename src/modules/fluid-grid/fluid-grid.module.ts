@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SkyRowComponent } from './row.component';
 import { SkyColumnComponent } from './column.component';
+import { SkyFluidGridComponent } from './fluid-grid.component';
 
 @NgModule({
   imports: [
@@ -10,11 +11,13 @@ import { SkyColumnComponent } from './column.component';
   ],
   declarations: [
     SkyRowComponent,
-    SkyColumnComponent
+    SkyColumnComponent,
+    SkyFluidGridComponent
   ],
   exports: [
     SkyRowComponent,
-    SkyColumnComponent
+    SkyColumnComponent,
+    SkyFluidGridComponent
   ]
 })
 export class SkyFluidGridModule { }

@@ -1,8 +1,13 @@
 import {
   Component,
   EventEmitter,
+  Input,
   Output
 } from '@angular/core';
+
+import {
+  SkyActionButtonPermalink
+} from './types';
 
 @Component({
   selector: 'sky-action-button',
@@ -10,6 +15,9 @@ import {
   templateUrl: './action-button.component.html'
 })
 export class SkyActionButtonComponent {
+  @Input()
+  public permalink: SkyActionButtonPermalink;
+
   @Output()
   public actionClick = new EventEmitter<any>();
 

@@ -1,5 +1,5 @@
-@import '~@blackbaud/skyux-design-tokens/scss/mixins';
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-token {
   background-color: $sky-background-color-info-light;
