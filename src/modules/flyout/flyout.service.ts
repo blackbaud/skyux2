@@ -26,6 +26,7 @@ export class SkyFlyoutService {
   private host: ComponentRef<SkyFlyoutComponent>;
   private removeAfterClosed = false;
   private isOpening: boolean = false;
+  private closeOnClickEvent: EventListener;
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
@@ -33,7 +34,13 @@ export class SkyFlyoutService {
     private injector: Injector,
     private resolver: ComponentFactoryResolver,
     private windowRef: SkyWindowRefService
-  ) { }
+  ) {
+    this.closeOnClickEvent = (event) => {
+      if (this.host && !this.host.location.nativeElement.contains(event.target)) {
+        this.close();
+      }
+    };
+  }
 
   public open<T>(component: Type<T>, config?: SkyFlyoutConfig): SkyFlyoutInstance<T> {
     // isOpening flag will prevent close() from firing when open() is also fired.
@@ -88,11 +95,7 @@ export class SkyFlyoutService {
   private addListeners<T>(flyout: SkyFlyoutInstance<T>): void {
     if (this.host) {
       // Flyout should close when user clicks outside of flyout.
-      this.windowRef.getWindow().addEventListener('click', (event) => {
-        if (this.host && !this.host.location.nativeElement.contains(event.target)) {
-          this.close();
-        }
-      });
+      this.windowRef.getWindow().addEventListener('click', this.closeOnClickEvent);
 
       this.removeAfterClosed = false;
       this.host.instance.messageStream
@@ -105,6 +108,7 @@ export class SkyFlyoutService {
         });
 
       flyout.closed.take(1).subscribe(() => {
+        this.windowRef.getWindow().removeEventListener('click', this.closeOnClickEvent);
         if (this.removeAfterClosed) {
           this.removeHostComponent();
         }
