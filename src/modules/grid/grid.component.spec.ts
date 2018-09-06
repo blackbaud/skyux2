@@ -82,22 +82,60 @@ function getColumnWidths(fixture: ComponentFixture<any>) {
   return expectedColumnWidths;
 }
 
+function getColumnResizeHandles(fixture: ComponentFixture<any>) {
+  return fixture.debugElement.queryAll(By.css('.sky-grid-resize-handle'));
+}
+
+function getColumnResizeInputs(fixture: ComponentFixture<any>) {
+  return fixture.debugElement.queryAll(By.css('.sky-grid-column-input-aria-only'));
+}
+
+function getColumnResizeInputMaxValues(fixture: ComponentFixture<any>) {
+  let resizeInputs = getColumnResizeInputs(fixture);
+  let maxValues = new Array<number>();
+
+  resizeInputs.forEach((input) => {
+    maxValues.push(input.nativeElement.maxValues);
+  });
+  return maxValues;
+}
+
 function resizeColumn(fixture: ComponentFixture<any>, xDiff: number, columnIndex: number) {
-  const resizeHandle = fixture.debugElement.queryAll(By.css('.sky-grid-resize-handle'));
-  let axis = getElementCords(resizeHandle[columnIndex]);
+  const resizeHandles = getColumnResizeHandles(fixture);
+  let axis = getElementCords(resizeHandles[columnIndex]);
   let event = {
-    target: resizeHandle[columnIndex].nativeElement,
+    target: resizeHandles[columnIndex].nativeElement,
     'pageX': axis.x,
     'preventDefault': function() {},
     'stopPropagation': function() {}
   };
 
-  resizeHandle[columnIndex].triggerEventHandler('mousedown', event);
+  resizeHandles[columnIndex].triggerEventHandler('mousedown', event);
   fixture.detectChanges();
 
   makeEvent('mousemove', { clientX: axis.x + xDiff });
   fixture.detectChanges();
   makeEvent('click', { });
+  fixture.detectChanges();
+}
+
+function increaseColumnByRangeInput(fixture: ComponentFixture<any>, columnIndex: number) {
+  const resizeInputs = getColumnResizeInputs(fixture);
+  let event = {
+    'key': 'ArrowRight'
+  };
+
+  resizeInputs[columnIndex].triggerEventHandler('keypress', event);
+  fixture.detectChanges();
+}
+
+function decreaseColumnByRangeInput(fixture: ComponentFixture<any>, columnIndex: number) {
+  const resizeInputs = getColumnResizeInputs(fixture);
+  let event = {
+    'key': 'ArrowLeft'
+  };
+
+  resizeInputs[columnIndex].triggerEventHandler('keypress', event);
   fixture.detectChanges();
 }
 
@@ -107,7 +145,7 @@ function getTableWidth(fixture: ComponentFixture<any>) {
 }
 
 describe('Grid Component', () => {
-  describe('Basic Fixture', () => {
+  describe('Basic Fixture with fit=scroll', () => {
     let component: GridTestComponent,
         fixture: ComponentFixture<GridTestComponent>,
         nativeElement: HTMLElement,
@@ -501,6 +539,72 @@ describe('Grid Component', () => {
           expect(newTableWidth).toEqual(initialTableWidth + resizeXDistance);
           expect(component.columnWidthsChange).toEqual(newColumnWidths);
         }));
+
+        fit('should have correct aria-labels on resizing range input', fakeAsync(() => {
+          const resizeInputs = getColumnResizeInputs(fixture);
+          let colWidths = getColumnWidths(fixture);
+          resizeInputs.forEach((resizeInput, index) => {
+            expect(resizeInput.nativeElement.getAttribute('aria-controls')).not.toBeNull();
+            expect(resizeInput.nativeElement.getAttribute('aria-valuenow')).toBe(colWidths[index].width);
+            expect(resizeInput.nativeElement.getAttribute('aria-valuemax')).toBe(9999);
+            expect(resizeInput.nativeElement.getAttribute('aria-valuemin')).toBe(50);
+            expect(resizeInput.nativeElement.getAttribute('max')).toBe(9999);
+            expect(resizeInput.nativeElement.getAttribute('min')).toBe(50);
+          });
+        }));
+
+        fit('should resize column when range input is changed', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+          let initialColumnInputs = getColumnResizeInputs(fixture);
+          let resizeXDistance = 10; // 'step' value for range input
+
+          // Increase first column.
+          increaseColumnByRangeInput(fixture, 0);
+
+          // Assert table was resized properly, and input range was updated correctly.
+          let newTableWidth = getTableWidth(fixture);
+          let newColumnWidths = getColumnWidths(fixture);
+          let expectedColumnWidths = Object.assign(initialColumnWidths);
+          expectedColumnWidths[0].width = initialColumnWidths[0].width + resizeXDistance;
+          let newColumnInputs = getColumnResizeInputs(fixture);
+          let expectedColumnInputs = Object.assign(initialColumnInputs);
+          expectedColumnInputs[0].nativeElement.value = initialColumnInputs[0].nativeElement.value + resizeXDistance;
+          expect(newColumnWidths).toEqual(expectedColumnWidths);
+          expect(newTableWidth).toEqual(initialTableWidth + resizeXDistance);
+          expect(component.columnWidthsChange).toEqual(newColumnWidths);
+          expect(newColumnInputs).toEqual(expectedColumnInputs);
+
+          // Decrease first column.
+          increaseColumnByRangeInput(fixture, 0);
+          increaseColumnByRangeInput(fixture, 0);
+
+          // Assert table was resized properly, and input range was updated correctly.
+          newTableWidth = getTableWidth(fixture);
+          newColumnWidths = getColumnWidths(fixture);
+          expectedColumnWidths = Object.assign(initialColumnWidths);
+          expectedColumnWidths[0].width = initialColumnWidths[0].width - resizeXDistance;
+          newColumnInputs = getColumnResizeInputs(fixture);
+          expectedColumnInputs = Object.assign(initialColumnInputs);
+          expectedColumnInputs[0].nativeElement.value = initialColumnInputs[0].nativeElement.value - resizeXDistance;
+          expect(newColumnWidths).toEqual(expectedColumnWidths);
+          expect(newTableWidth).toEqual(initialTableWidth - resizeXDistance);
+          expect(component.columnWidthsChange).toEqual(newColumnWidths);
+          expect(newColumnInputs).toEqual(expectedColumnInputs);
+        }));
+
+        fit('should NOT change max value when column width is changed', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialMaxValues = getColumnResizeInputMaxValues(fixture);
+
+          // Resize first column.
+          increaseColumnByRangeInput(fixture, 0);
+
+          // Assert max value on input ranges was not changed.
+          let expectedColumnInputs = getColumnResizeInputMaxValues(fixture);
+          expect(initialMaxValues).toEqual(expectedColumnInputs);
+        }));
       });
     });
 
@@ -600,6 +704,23 @@ describe('Grid Component', () => {
         expectedColumnWidths[4].width = 50;
         expect(newTableWidth).toEqual(initialTableWidth);
         expect(newColumnWidths).toEqual(expectedColumnWidths);
+      }));
+
+      fit('should change max value when column width is changed', fakeAsync(() => {
+        // Get initial baseline for comparison.
+        let initialMaxValues = getColumnResizeInputMaxValues(fixture);
+
+        // Resize last column so its larger than the min-width.
+        // We have to do this, because fit=width doesn't allow the last column to be smaller than min.
+        let resizeXDistance = 50;
+        resizeColumn(fixture, -resizeXDistance, 2);
+
+        // Resize first column.
+        increaseColumnByRangeInput(fixture, 0);
+
+        // Assert max value on input ranges were properly updated.
+        let expectedColumnInputs = getColumnResizeInputMaxValues(fixture);
+        expect(initialMaxValues).not.toEqual(expectedColumnInputs);
       }));
     });
   });

@@ -76,3 +76,4 @@ skyux-spa-visual-tests/screenshots-baseline-local
 skyux-spa-visual-tests/screenshots-diff-local
 skyux-spa-visual-tests/screenshots-created-local
 
+*.skypageslocales/

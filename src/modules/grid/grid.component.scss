@@ -75,6 +75,18 @@
     overflow: hidden;
     width:100%;
   }
+
+  .sky-grid-column-input-aria-only {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    opacity: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    outline: none;
+  }
 }
 
 .sky-grid-has-toolbar {
@@ -99,4 +111,15 @@
   height: 100% !important;
   vertical-align: middle;
   cursor: col-resize;
+}
+
+#sky-grid-resize-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99; // TODO figure out right zindex
+  height: 100%;
+  width: 5px;
+  background: black;
+  opacity: 0.6;
 }

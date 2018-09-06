@@ -95,17 +95,24 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private subscriptions: Subscription[] = [];
 
   @ViewChildren('gridCol')
-  private columnRefs: QueryList<ElementRef>;
+  private columnHeaders: QueryList<ElementRef>;
+  @ViewChildren('colSizeRange')
+  private columnRangeRefs: QueryList<ElementRef>;
   @ViewChild('gridTable')
   private table: ElementRef;
+  @ViewChild('resizeBar')
+  private resizeBar: ElementRef;
   private tableWidth: number;
-  private isDragging: boolean = false;
+  private isDraggingResizeHandle: boolean = false;
   private activeColumn: HTMLElement;
   private lastResizableColumn: ElementRef;
-  private startOffset: number;
+  private startColumnWidth: number;
   private lastColStartWidth: number;
   private xPosStart: number;
-  private minColWidth = 50;
+  public minColWidth = 50;
+  public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work wihtout a value.
+  public columnResizeStep = 10;
+  public showResizeBar: boolean = false;
 
   constructor(
     private dragulaService: DragulaService,
@@ -157,8 +164,21 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   public ngAfterViewInit() {
     if (this.fit === 'scroll') {
-      this.setColumnWidths();
+      this.initializeTableWidth();
+      this.initColumnWidths();
     }
+
+    this.lastResizableColumn = this.columnHeaders.last;
+    this.lastColStartWidth = this.lastResizableColumn.nativeElement.offsetWidth;
+
+    this.columnHeaders.forEach(col => {
+      let width = col.nativeElement.offsetWidth;
+
+      // TODO Find a way to do this without using ID.
+      this.columns.find(modelCol => modelCol.id === col.nativeElement.getAttribute('sky-cmp-id')).width = Math.max(width, this.minColWidth);
+    });
+
+    this.updateMaxRange();
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -195,7 +215,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   }
 
   public sortByColumn(column: SkyGridColumnModel) {
-    if (!this.isDragging && column.isSortable) {
+    if (!this.isDraggingResizeHandle && column.isSortable) {
       this.currentSortField
       .take(1)
       .map(field => {
@@ -250,58 +270,72 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     }
   }
 
-  public onResizeColStart(event: MouseEvent) {
-    this.isDragging = true;
+  public onMouseDownResizeCol(event: MouseEvent) {
+    this.initializeResizeColumn(event);
 
-    const clickTarget = event.target as HTMLElement;
-
-    if (this.fit === 'width') {
-      this.activeColumn = clickTarget.closest('th');
-      this.lastResizableColumn = this.columnRefs.last;
-      this.lastColStartWidth = this.lastResizableColumn.nativeElement.offsetWidth;
-    } else {
-      this.activeColumn = clickTarget.closest('th');
-    }
-
-    this.startOffset = this.activeColumn.offsetWidth - event.pageX;
+    this.isDraggingResizeHandle = true;
     this.xPosStart = event.pageX;
+    this.showResizeBar = true;
+
+    // Show visual indicator of where mouse is dragging (resizeBar).
+    this.ref.detectChanges();
+    let resizeBarX = event.pageX - this.table.nativeElement.getBoundingClientRect().left;
+    this.gridAdapter.setStyle(this.resizeBar.nativeElement, 'left', resizeBarX + 'px');
 
     event.preventDefault();
     event.stopPropagation();
   }
 
+  public onKeydownResizeCol(event: KeyboardEvent) {
+    this.initializeResizeColumn(event);
+  }
+
+  public onInputChangeResizeCol(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let newValue = Number(input.value);
+    let deltaX = newValue - this.startColumnWidth;
+    this.resizeColumn(this.activeColumn, newValue, deltaX);
+  }
+
   @HostListener('document:mousemove', ['$event'])
   public onMouseMove(event: MouseEvent) {
-    if (!this.isDragging) {
+    if (!this.isDraggingResizeHandle) {
       return;
     }
 
-    let dragDeltaX = event.pageX - this.xPosStart;
-    let newColWidth = this.startOffset + event.pageX;
-    let lastColWidth = this.lastColStartWidth + this.xPosStart - event.pageX;
+    let deltaX = event.pageX - this.xPosStart;
+    let newColWidth = this.startColumnWidth + deltaX;
 
     if (newColWidth <= this.minColWidth) {
+      event.preventDefault();
+      event.stopPropagation();
       return;
     }
 
-    if (this.fit === 'width') {
-      if (lastColWidth >= this.minColWidth) {
-        this.gridAdapter.setElementWidth(this.lastResizableColumn.nativeElement.closest('th'), lastColWidth);
-        this.gridAdapter.setElementWidth(this.activeColumn, newColWidth);
-      }
-    } else {
-      this.gridAdapter.setElementWidth(this.activeColumn, newColWidth);
-      this.gridAdapter.setElementWidth(this.table.nativeElement, this.tableWidth + dragDeltaX);
+    let rangeInput = this.activeColumn.querySelector('.sky-grid-column-input-aria-only') as HTMLInputElement;
+    if (this.fit === 'width' && newColWidth > Number(rangeInput.max)) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
     }
+
+    let resizeBarX = event.pageX - this.table.nativeElement.getBoundingClientRect().left;
+    this.gridAdapter.setStyle(this.resizeBar.nativeElement, 'left', resizeBarX + 'px');
   }
 
   @HostListener('document:click', ['$event'])
   public onResizeHandleRelease(event: MouseEvent) {
-    if (this.isDragging) {
-      this.isDragging = false;
+    if (this.isDraggingResizeHandle) {
+      this.showResizeBar = false;
+      let deltaX = event.pageX - this.xPosStart;
+      let newColWidth = this.startColumnWidth + deltaX;
+      this.resizeColumn(this.activeColumn, newColWidth, deltaX);
+
+      this.isDraggingResizeHandle = false;
       this.activeColumn = undefined;
       this.tableWidth = this.table.nativeElement.offsetWidth;
-      this.columnWidthChange.emit(this.getColumnSizes());
+      this.columnWidthChange.emit(this.getColumnWidthModelChange());
+      this.udpateRangeValue();
       event.preventDefault();
       event.stopPropagation();
     }
@@ -361,26 +395,93 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     this.ref.markForCheck();
   }
 
-  private setColumnWidths() {
+  private resizeColumn(activeCol: HTMLElement, newColWidth: number, deltaX: number) {
+    // Prevent accidental shrinkage below minimum width.
+    if (newColWidth <= this.minColWidth) {
+      deltaX = deltaX + this.minColWidth - newColWidth;
+      newColWidth = this.minColWidth;
+    }
+
+    // fit=width adds/removes width from the last column
+    // fit=scroll adds/removes width from the table
+    if (this.fit === 'width') {
+
+      // Prevent accidental growth that would bump last column off screen.
+      let rangeInput = this.activeColumn.querySelector('.sky-grid-column-input-aria-only') as HTMLInputElement;
+      if (newColWidth > Number(rangeInput.max)) {
+        newColWidth = Number(rangeInput.max);
+        deltaX = Number(rangeInput.max) - this.startColumnWidth;
+      }
+
+      this.lastColStartWidth = this.lastResizableColumn.nativeElement.offsetWidth;
+      let newLastColWidth = this.lastColStartWidth - deltaX;
+      this.gridAdapter.setElementWidth(this.lastResizableColumn.nativeElement.closest('th'), newLastColWidth);
+      this.gridAdapter.setElementWidth(activeCol, newColWidth);
+    } else {
+      this.gridAdapter.setElementWidth(this.table.nativeElement, this.tableWidth + deltaX);
+      this.gridAdapter.setElementWidth(activeCol, newColWidth);
+    }
+
+    this.updateMaxRange();
+    console.log(this.columns);
+  }
+
+  // Applies css styling to each column, based on their current width.
+  private initColumnWidths() {
+    this.columnHeaders.forEach(col => {
+      let width = Math.max(col.nativeElement.offsetWidth, this.minColWidth);
+      this.gridAdapter.setElementWidth(col.nativeElement, width);
+    });
+  }
+
+  // Applies css width to the table, and removes min-width=100%.
+  // This should only be used when fit=scroll.
+  private initializeTableWidth() {
     this.tableWidth = this.table.nativeElement.offsetWidth;
     this.gridAdapter.setElementWidth(this.table.nativeElement, this.tableWidth);
-
-    this.columnRefs.forEach(col => {
-      let width = col.nativeElement.offsetWidth;
-      this.gridAdapter.setElementWidth(col.nativeElement, Math.max(width, this.minColWidth));
-    });
-
     this.gridAdapter.setStyle(this.table.nativeElement, 'min-width', 'auto');
   }
 
-  private getColumnSizes() {
-    let columnWidths: any = new Array<SkyGridColumnWidthModelChange>();
-    this.columnRefs.forEach(col => {
-      columnWidths.push({
+  private getColumnWidthModelChange() {
+
+    // TODO Update this to go off of the column model instead of the DOM.
+    let columnWidthModelChange = new Array<SkyGridColumnWidthModelChange>();
+    this.columnHeaders.forEach(col => {
+      columnWidthModelChange.push({
         id: col.nativeElement.getAttribute('sky-cmp-id'),
         width: col.nativeElement.offsetWidth
       });
     });
-    return columnWidths;
+    return columnWidthModelChange;
+  }
+
+  private updateMaxRange() {
+    if (this.lastResizableColumn && this.columnRangeRefs) {
+      let leftoverWidth = this.lastResizableColumn.nativeElement.offsetWidth - this.minColWidth;
+
+      this.columnHeaders.forEach(th => {
+        let rangeInput = th.nativeElement.querySelector('input[type=range]');
+        let newMaxRange = Number(th.nativeElement.offsetWidth) + leftoverWidth;
+        rangeInput.max = newMaxRange;
+        rangeInput.setAttribute('aria-valuemax', newMaxRange);
+      });
+    }
+  }
+
+  private udpateRangeValue() {
+    if (this.lastResizableColumn && this.columnRangeRefs) {
+      this.columnHeaders.forEach(th => {
+        let rangeInput = th.nativeElement.querySelector('input[type=range]');
+        let newValue = th.nativeElement.offsetWidth;
+        rangeInput.value = newValue;
+        rangeInput.setAttribute('aria-valuenow', newValue);
+      });
+    }
+  }
+
+  private initializeResizeColumn(event: any) {
+    const clickTarget = event.target as HTMLElement;
+    this.activeColumn = clickTarget.closest('th');
+    this.startColumnWidth = this.activeColumn.offsetWidth;
   }
 }

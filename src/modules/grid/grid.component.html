@@ -10,12 +10,12 @@
             scope="col"
             class="sky-grid-heading"
             *ngFor="let column of displayedColumns; let last = last"
-            [style.width.px]="column.width"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
             [ngClass]="{ 'sky-grid-header-locked': column.locked }"
-            (click)="sortByColumn(column)"
+            [style.width.px]="column.width"
             [tabIndex]="column.isSortable ? 0 : -1"
+            (click)="sortByColumn(column)"
             (keydown)="onKeydown($event, column)"
             #gridCol
           >
@@ -30,12 +30,27 @@
             </div>
             <span
               *ngIf="(fit==='width' && !last) || (fit==='scroll')"
-              class="sky-grid-resize-handle"
               aria-hidden="true"
+              class="sky-grid-resize-handle"
               role="separator"
               tabindex="-1"
-              (mousedown)="onResizeColStart($event)">
+              (mousedown)="onMouseDownResizeCol($event)">
             </span>
+            <input
+              aria-label="Width of column"
+              class="sky-grid-column-input-aria-only"
+              type="range"
+              [attr.aria-controls]="column.id"
+              [attr.aria-valuemin]="minColWidth"
+              [attr.aria-valuemax]="maxColWidth"
+              [attr.aria-valuenow]="column.width"
+              [min]="minColWidth"
+              [max]="maxColWidth"
+              [step]="columnResizeStep"
+              [(ngModel)]="column.width"
+              (keydown)="onKeydownResizeCol($event)"
+              (change)="onInputChangeResizeCol($event)"
+              #colSizeRange />
           </th>
         </tr>
       </thead>
@@ -57,6 +72,14 @@
           </td>
         </tr>
       </tbody>
+      <div
+        *ngIf="showResizeBar"
+        aria-hidden="true"
+        id="sky-grid-resize-bar"
+        role="separator"
+        tabindex="-1"
+        #resizeBar>
+      </div>
     </table>
   </div>
 </div>
