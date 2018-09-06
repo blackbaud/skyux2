@@ -11,11 +11,11 @@
   [style.width.px]="flyoutWidth">
 
   <input
-    aria-label="Width of flyout"
     class="sky-flyout-resize-handle"
     role="separator"
     step="10"
     type="range"
+    [aria-label]="'flyout-resize-handle' | skyResources"
     [attr.aria-controls]="flyoutId"
     [attr.aria-valuemax]="config.maxWidth"
     [attr.aria-valuemin]="config.minWidth"
