@@ -33,11 +33,11 @@ describe('Flyout component', () => {
   let fixture: ComponentFixture<SkyFlyoutTestComponent>;
   let flyoutService: SkyFlyoutService;
 
-  function openFlyout(config: SkyFlyoutConfig = {}): SkyFlyoutInstance<any> {
+  function openFlyout(config: SkyFlyoutConfig = {}, showIframe?: boolean): SkyFlyoutInstance<any> {
     config = Object.assign({
       providers: [{
         provide: SkyFlyoutTestSampleContext,
-        useValue: { name: 'Sam' }
+        useValue: { name: 'Sam', showIframe: showIframe }
       }]
     }, config);
 
@@ -87,6 +87,10 @@ describe('Flyout component', () => {
 
   function getPrimaryActionButtonElement(): HTMLElement {
     return document.querySelector('.sky-flyout-btn-primary-action') as HTMLElement;
+  }
+
+  function getIframe(): HTMLElement {
+    return document.querySelector('iframe') as HTMLElement;
   }
 
   beforeEach(() => {
@@ -240,8 +244,7 @@ describe('Flyout component', () => {
       tick();
       expect(flyoutElement.style.width).toBe('500px');
       makeEvent('mouseup', {});
-    })
-  );
+  }));
 
   it('should resize flyout when range input is changed', fakeAsync(() => {
       openFlyout({});
@@ -260,8 +263,7 @@ describe('Flyout component', () => {
       fixture.detectChanges();
       tick();
       expect(flyoutElement.style.width).toBe('500px');
-    })
-  );
+  }));
 
   it('should have correct aria-labels on resizing range input', fakeAsync(() => {
       openFlyout({maxWidth: 1000, minWidth: 200});
@@ -277,8 +279,27 @@ describe('Flyout component', () => {
 
       expect(resizeInput.getAttribute('max')).toBe('1000');
       expect(resizeInput.getAttribute('min')).toBe('200');
-    })
-  );
+  }));
+
+  it('should set iframe styles correctly during dragging', fakeAsync(() => {
+    openFlyout({}, true);
+    const handleElement = getFlyoutHandleElement();
+    const iframe = getIframe();
+
+    expect(iframe.style.pointerEvents).toBeFalsy();
+    let evt = document.createEvent('MouseEvents');
+    evt.initMouseEvent('mousedown', false, false, window, 0, 0, 0, 1000,
+      0, false, false, false, false, 0, undefined);
+    handleElement.dispatchEvent(evt);
+    fixture.detectChanges();
+    expect(iframe.style.pointerEvents).toBe('none');
+    makeEvent('mousemove', { clientX: 500 });
+    fixture.detectChanges();
+    expect(iframe.style.pointerEvents).toBe('none');
+    makeEvent('mouseup', {});
+    fixture.detectChanges();
+    expect(iframe.style.pointerEvents).toBeFalsy();
+  }));
 
   it('should respect minimum and maximum when resizing', fakeAsync(() => {
       openFlyout({ maxWidth: 1000, minWidth: 200});

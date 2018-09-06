@@ -211,6 +211,8 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
     this.isDragging = true;
     this.xCoord = event.clientX;
 
+    this.adapter.toggleIframePointerEvents(false);
+
     event.preventDefault();
     event.stopPropagation();
   }
@@ -237,6 +239,7 @@ export class SkyFlyoutComponent implements OnDestroy, OnInit {
   @HostListener('document:mouseup', ['$event'])
   public onHandleRelease(event: MouseEvent) {
     this.isDragging = false;
+    this.adapter.toggleIframePointerEvents(true);
   }
 
   private createFlyoutInstance<T>(component: T): SkyFlyoutInstance<T> {
