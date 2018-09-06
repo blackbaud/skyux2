@@ -4,8 +4,12 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { ColumnTestComponent } from './fixtures/column.component.fixture';
-import { SkyColumnComponent } from './column.component';
+import {
+  ColumnTestComponent
+} from './fixtures/column.component.fixture';
+import {
+  SkyColumnComponent
+} from './column.component';
 
 describe('SkyColumnComponent', () => {
   let component: ColumnTestComponent;
