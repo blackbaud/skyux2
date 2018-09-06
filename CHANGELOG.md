@@ -1,3 +1,13 @@
+# 2.22.0 (2018-08-29)
+
+- Added event to watch for tile dashboard initialization. [#1937](https://github.com/blackbaud/skyux2/pull/1937)
+- Added progress indicator component. [#1728](https://github.com/blackbaud/skyux2/pull/1728) (Thanks @Blackbaud-ChristiSchneider and @Blackbaud-MichaelSpires)
+- Added highlighting of search text in list view grid search results. [#1944](https://github.com/blackbaud/skyux2/pull/1944)
+- Added icon style radio buttons and checkboxes. [#1892](https://github.com/blackbaud/skyux2/pull/1892) (Thanks @Blackbaud-AnandBhat)
+- Fixed autocomplete and lookup to trigger their error states correctly. [#1928](https://github.com/blackbaud/skyux2/pull/1928)
+- Fixed toast component to wrap long words correctly. [#1947](https://github.com/blackbaud/skyux2/pull/1947)
+- Fixed list view checklist component to wrap items with long words correctly. [#1951](https://github.com/blackbaud/skyux2/pull/1951)
+
 # 2.21.0 (2018-08-24)
 
 - Added support for `@skyux/theme@3.0.0`. [#1930](https://github.com/blackbaud/skyux2/pull/1930)
@@ -8,13 +18,13 @@
 
 # 2.20.0 (2018-08-21)
 
-- Added option for a URL or route permalink to the action button component. [#1896](https://github.com/blackbaud/skyux2/pull/1896) [#1924](https://github.com/blackbaud/skyux2/pull/1924) (Thanks @Remulus2006)
+- Added option to specify URL or Angular route for action button component. [#1896](https://github.com/blackbaud/skyux2/pull/1896) [#1924](https://github.com/blackbaud/skyux2/pull/1924) (Thanks @Remulus2006)
 - Added option to only show selected items in list view checklist component. [#1900](https://github.com/blackbaud/skyux2/pull/1900) (Thanks @Theaggarwal)
-- Added new `selectedColumnIdsChange` event that fires when columns in a list view grid component change. [#1897](https://github.com/blackbaud/skyux2/pull/1897)
-- Fixed definition list to show inner text during change detection. [#1919](https://github.com/blackbaud/skyux2/pull/1919)
-- Fixed popover close event race condition. [#1884](https://github.com/blackbaud/skyux2/pull/1884)
+- Added `selectedColumnIdsChange` event that fires when columns change in list view grid component. [#1897](https://github.com/blackbaud/skyux2/pull/1897)
+- Updated definition list to show inner text during change detection. [#1919](https://github.com/blackbaud/skyux2/pull/1919)
+- Fixed race condition in popover component's close event. [#1884](https://github.com/blackbaud/skyux2/pull/1884)
 - Fixed visual style of HTML `select` field to be consistent in all browsers. [#1913](https://github.com/blackbaud/skyux2/pull/1913)
-- Fixed sort button to display the correct `title` and `label` value. [#1915](https://github.com/blackbaud/skyux2/pull/1915) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed sort button to display correct `title` and `label` values. [#1915](https://github.com/blackbaud/skyux2/pull/1915) (Thanks @Blackbaud-JackMcElhinney)
 - Fixed tabset component to assign correct indexes to dynamically added tabs. [#1887](https://github.com/blackbaud/skyux2/pull/1887)
 
 # 2.19.0 (2018-08-13)

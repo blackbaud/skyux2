@@ -3,7 +3,8 @@ import {
   EventEmitter,
   Injectable,
   QueryList,
-  ReflectiveInjector
+  ReflectiveInjector,
+  Output
 } from '@angular/core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
@@ -52,6 +53,9 @@ export class SkyTileDashboardService {
 
   public configChange = new EventEmitter<SkyTileDashboardConfig>();
 
+  @Output()
+  public dashboardInitialized = new EventEmitter<void>();
+
   private tileComponents: ComponentRef<SkyTileComponent>[];
 
   private config: SkyTileDashboardConfig;
@@ -81,7 +85,7 @@ export class SkyTileDashboardService {
     this.columns = columns;
     this.singleColumn = singleColumn;
 
-    this.checkReady();
+    this.checkReadyAndLoadTiles();
   }
 
   public addTileComponent(
@@ -169,23 +173,19 @@ export class SkyTileDashboardService {
     return undefined;
   }
 
-  private checkReady() {
-    // The columns list is determined by the config options, so make sure that the columns
-    // and config are synced up before loading the tiles by waiting until change detection
-    // completes.
-    // setTimeout(() => {
-      if (this.config && this.columns) {
-        this.loadTiles();
-      }
-    // }, 0);
+  private checkReadyAndLoadTiles() {
+    if (this.config && this.columns) {
+      this.loadTiles();
+      this.dashboardInitialized.emit();
+    }
   }
 
   private loadTiles() {
     let layout = this.config.layout;
 
     if (
-        this.mediaQuery.current === SkyMediaBreakpoints.xs
-        || this.mediaQuery.current === SkyMediaBreakpoints.sm) {
+      this.mediaQuery.current === SkyMediaBreakpoints.xs
+      || this.mediaQuery.current === SkyMediaBreakpoints.sm) {
       for (let tile of layout.singleColumn.tiles) {
         this.loadTileIntoColumn(this.singleColumn, tile);
       }
@@ -273,7 +273,7 @@ export class SkyTileDashboardService {
 
   private getSingleColumnLayoutForUIState(): SkyTileDashboardConfigLayoutColumn {
     if (this.mediaQuery.current === SkyMediaBreakpoints.xs
-        || this.mediaQuery.current === SkyMediaBreakpoints.sm) {
+      || this.mediaQuery.current === SkyMediaBreakpoints.sm) {
       return {
         tiles: this.getTilesInEl(this.getColumnEl(this.singleColumn))
       };
@@ -284,7 +284,7 @@ export class SkyTileDashboardService {
 
   private getMultiColumnLayoutForUIState(): SkyTileDashboardConfigLayoutColumn[] {
     if (!(this.mediaQuery.current === SkyMediaBreakpoints.xs
-    || this.mediaQuery.current === SkyMediaBreakpoints.sm)) {
+      || this.mediaQuery.current === SkyMediaBreakpoints.sm)) {
       let layoutColumns: SkyTileDashboardConfigLayoutColumn[] = [];
       let columns = this.columns.toArray();
 
@@ -308,7 +308,7 @@ export class SkyTileDashboardService {
     let tileEls: any = el.querySelectorAll('[' + ATTR_TILE_ID + ']');
     let layoutTiles: SkyTileDashboardConfigLayoutTile[] = [];
 
-        /*istanbul ignore else */
+    /*istanbul ignore else */
     if (tileEls) {
       for (let i = 0, n = tileEls.length; i < n; i++) {
         let tileEl = tileEls[i];
