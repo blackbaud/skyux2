@@ -2,18 +2,19 @@
   class="sky-radio-wrapper sky-switch"
   [ngClass]="{ 'sky-switch-disabled': disabled }">
   <input
-    class="sky-switch-input"
+    class="sky-radio-input sky-switch-input"
     type="radio"
-    [id]="inputId"
-    [ngModel]="selectedValue"
-    [disabled]="disabled"
-    [name]="name"
-    [value]="value"
-    [tabIndex]="tabindex"
     [attr.aria-label]="label"
     [attr.aria-labelledby]="labelledBy"
-    (blur)="onInputBlur()"
-    (ngModelChange)="onRadioChanged($event)"/>
+    [checked]="checked"
+    [disabled]="disabled"
+    [id]="inputId"
+    [name]="name"
+    [tabIndex]="tabindex"
+    [value]="value"
+    (blur)="onInputFocusChange($event)"
+    (change)="onInputChange($event)"
+  />
   <span
     class="sky-switch-control"
     [ngClass]="{
@@ -26,7 +27,7 @@
       'sky-switch-control-danger': icon && radioType === 'danger'
     }">
     <sky-icon
-      *ngIf="icon || selectedValue === value"
+      *ngIf="icon || checked"
       fixedWidth="true"
       [icon]="icon || 'circle'">
     </sky-icon>
