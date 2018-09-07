@@ -9,7 +9,8 @@
           <th
             scope="col"
             class="sky-grid-heading"
-            *ngFor="let column of displayedColumns; let last = last"
+            *ngFor="let column of displayedColumns; let last = last, let i = index"
+            [attr.sky-cmp-index]="i"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
             [ngClass]="{ 'sky-grid-header-locked': column.locked }"
@@ -44,6 +45,7 @@
               [attr.aria-valuemin]="minColWidth"
               [attr.aria-valuemax]="maxColWidth"
               [attr.aria-valuenow]="column.width"
+              [attr.sky-cmp-index]="i"
               [min]="minColWidth"
               [max]="maxColWidth"
               [step]="columnResizeStep"
