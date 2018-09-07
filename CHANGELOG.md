@@ -1,13 +1,12 @@
 # 2.23.0 (2018-09-07)
 
-- Updated components to use sky-icon instead of `<i>` tag. [#1949](https://github.com/blackbaud/skyux2/pull/1949) (Thanks @Remulus2006)
+- Updated all components to use the icon component instead of `<i>` tag. [#1949](https://github.com/blackbaud/skyux2/pull/1949) (Thanks @Remulus2006)
+- Updated various components to have proper accessibility attributes and ids. [#1959](https://github.com/blackbaud/skyux2/pull/1959) [#1798](https://github.com/blackbaud/skyux2/pull/1798)
 - Fixed radio component to work with reactive forms. [#1714](https://github.com/blackbaud/skyux2/pull/1714)
-- Added missing aria labels and ids to section form tablist, tabs, and tabpanels. [#1798](https://github.com/blackbaud/skyux2/pull/1798)
-- Fixed spacing issues with sky-repeater. [#1925](https://github.com/blackbaud/skyux2/pull/1925)
+- Fixed spacing issues with repeater component. [#1925](https://github.com/blackbaud/skyux2/pull/1925)
 - Fixed colorpicker to no longer take up extra space for hidden dropdown. [#1948](https://github.com/blackbaud/skyux2/pull/1948)
 - Fixed flyout to allow proper resizing when appearing on top of iframes. [#1952](https://github.com/blackbaud/skyux2/pull/1952)
-- Added a11y attributes for text expand. [#1959](https://github.com/blackbaud/skyux2/pull/1959)
-- Updated wait module to provide SkyWindowRefService. [#1961](https://github.com/blackbaud/skyux2/pull/1961)
+- Fixed wait module to provide SkyWindowRefService. [#1961](https://github.com/blackbaud/skyux2/pull/1961)
 - Fixed fluid grid so that any change to the `<sky-column>` inputs will now update relevant classnames. [#1962](https://github.com/blackbaud/skyux2/pull/1962)
 
 # 2.22.0 (2018-08-29)
