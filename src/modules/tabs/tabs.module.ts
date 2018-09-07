@@ -1,15 +1,35 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
 
-import { SkyDropdownModule } from '../dropdown';
+import {
+  SkyTabButtonComponent
+} from './tab-button.component';
+import {
+  SkyTabDropdownComponent
+} from './tab-dropdown.component';
+import {
+  SkyTabComponent
+} from './tab.component';
+import {
+  SkyTabsetComponent
+} from './tabset.component';
+import {
+  SkyTabsetNavButtonComponent
+} from './tabset-nav-button.component';
 
-import { SkyTabButtonComponent } from './tab-button.component';
-import { SkyTabDropdownComponent } from './tab-dropdown.component';
-import { SkyTabComponent } from './tab.component';
-import { SkyTabsetComponent } from './tabset.component';
-import { SkyTabsetNavButtonComponent } from './tabset-nav-button.component';
-
-import { SkyResourcesModule } from '../resources';
+import {
+ SkyDropdownModule
+} from '../dropdown';
+import {
+  SkyResourcesModule
+} from '../resources';
+import {
+  SkyIconModule
+} from '../icon';
 
 @NgModule({
   declarations: [
@@ -22,7 +42,8 @@ import { SkyResourcesModule } from '../resources';
   imports: [
     CommonModule,
     SkyDropdownModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyTabComponent,
