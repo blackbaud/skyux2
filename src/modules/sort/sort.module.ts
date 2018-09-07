@@ -1,11 +1,29 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
 
-import { SkySortComponent } from './sort.component';
-import { SkySortItemComponent } from './sort-item.component';
-import { SkyDropdownModule } from '../dropdown';
-import { SkyResourcesModule } from '../resources';
-import { SkyMediaQueryModule } from '../media-queries';
+import {
+  SkyDropdownModule
+} from '../dropdown';
+import {
+  SkyResourcesModule
+} from '../resources';
+import {
+  SkyMediaQueryModule
+} from '../media-queries';
+import {
+  SkyIconModule
+} from '../icon';
+
+import {
+  SkySortComponent
+} from './sort.component';
+import {
+  SkySortItemComponent
+} from './sort-item.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +34,8 @@ import { SkyMediaQueryModule } from '../media-queries';
     CommonModule,
     SkyDropdownModule,
     SkyMediaQueryModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkySortComponent,

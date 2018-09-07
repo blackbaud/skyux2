@@ -2,7 +2,9 @@ import {
   Component,
   HostBinding,
   Input,
-  OnInit
+  OnInit,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 
 @Component({
@@ -10,7 +12,8 @@ import {
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss']
 })
-export class SkyColumnComponent implements OnInit {
+export class SkyColumnComponent implements OnInit, OnChanges {
+
   @Input()
   public screenXSmall: number;
 
@@ -25,6 +28,12 @@ export class SkyColumnComponent implements OnInit {
 
   @HostBinding('class')
   private classnames: string;
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes.screenXSmall || changes.screenSmall || changes.screenMedium || changes.screenLarge) {
+      this.classnames = this.getClassNames();
+    }
+  }
 
   public getClassNames(): string {
     let classnames = [
