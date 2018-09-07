@@ -1,12 +1,29 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
+import {
+  FormsModule
+} from '@angular/forms';
 
-import { SkyDropdownModule } from '../dropdown';
-import { SkyTextHighlightModule } from '../text-highlight';
+import {
+  SkyDropdownModule
+} from '../dropdown';
+import {
+  SkyTextHighlightModule
+} from '../text-highlight';
+import {
+  SkyIconModule
+} from '../icon';
 
-import { SkyAutocompleteComponent } from './autocomplete.component';
-import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
+import {
+  SkyAutocompleteComponent
+} from './autocomplete.component';
+import {
+  SkyAutocompleteInputDirective
+} from './autocomplete-input.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +34,8 @@ import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';
     CommonModule,
     FormsModule,
     SkyTextHighlightModule,
-    SkyDropdownModule
+    SkyDropdownModule,
+    SkyIconModule
   ],
   exports: [
     SkyAutocompleteComponent,
