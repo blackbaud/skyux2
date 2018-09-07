@@ -105,11 +105,12 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private tableWidth: number;
   private isDraggingResizeHandle: boolean = false;
 
+  // Column resizing variables.
   private activeResizeColumnIndex: string;
   private startColumnWidth: number;
   private xPosStart: number;
   public minColWidth = 50;
-  public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work wihtout a value.
+  public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work without a value.
   public columnResizeStep = 10;
   public showResizeBar: boolean = false;
 
@@ -318,7 +319,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       this.isDraggingResizeHandle = false;
       this.activeResizeColumnIndex = undefined;
 
-      // this.udpateRangeValue();
       event.stopPropagation();
     }
   }
@@ -392,7 +392,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       let lastColumn = this.getLastDisplayedColumn();
 
       // Prevent accidental growth that would bump last column off screen.
-      let max = this.getMaxRangeByIndex(this.activeResizeColumnIndex);
+      let max = this.getMaxRangeByIndex(columnIndex);
       if (newColWidth > max) {
         newColWidth = max;
         deltaX = max - this.startColumnWidth;
@@ -456,13 +456,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       rangeInput.nativeElement.setAttribute('aria-valuemax', newMaxRange);
     });
   }
-
-  // private udpateRangeValue() {
-  //   this.columnElementRefs.forEach((th, index) => {
-  //     let newValue = th.nativeElement.offsetWidth;
-  //     this.displayedColumns[index].width = newValue;
-  //   });
-  // }
 
   private initializeResizeColumn(event: any) {
     const clickTarget = event.target as HTMLElement;
