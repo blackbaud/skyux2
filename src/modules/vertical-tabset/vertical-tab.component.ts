@@ -22,6 +22,9 @@ import { SkyVerticalTabsetService } from './vertical-tabset.service';
 export class SkyVerticalTabComponent implements OnInit, OnDestroy {
 
   @Input()
+  public tabId: string;
+
+  @Input()
   public active: boolean = false;
 
   @Input()
@@ -32,6 +35,31 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
 
   @Input()
   public disabled: boolean = false;
+
+  @Input()
+  public get ariaControls(): string {
+    return this.isMobile ? undefined : this._ariaControls;
+  }
+  public set ariaControls(value: string) {
+    this._ariaControls = value;
+  }
+
+  @Input()
+  public get ariaRole(): string {
+    if (this.isMobile) {
+      return undefined;
+    }
+    return this._ariaRole || 'tab';
+  }
+  public set ariaRole(value: string) {
+    this._ariaRole = value;
+  }
+
+  @Input()
+  public ariaInvalid: boolean;
+
+  @Input()
+  public ariaRequired: boolean;
 
   @Input()
   public get showTabRightArrow() {
@@ -47,6 +75,9 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
   @ViewChild('tabContentWrapper')
   public tabContent: ElementRef;
 
+  private isMobile = false;
+  private _ariaControls: string;
+  private _ariaRole: string;
   private _showTabRightArrow: boolean = false;
   private _mobileSubscription = new Subject();
 
@@ -55,8 +86,14 @@ export class SkyVerticalTabComponent implements OnInit, OnDestroy {
     private changeRef: ChangeDetectorRef) {}
 
   public ngOnInit() {
+    this.isMobile = this.tabsetService.isMobile();
+    this.changeRef.detectChanges();
+
     this.tabsetService.switchingMobile
-      .subscribe((mobile: boolean) => this.changeRef.detectChanges());
+      .subscribe((mobile: boolean) => {
+        this.isMobile = mobile;
+        this.changeRef.detectChanges();
+      });
 
     this.tabsetService.addTab(this);
   }
