@@ -1,11 +1,12 @@
 import {
   NgModule
 } from '@angular/core';
-
 import {
   CommonModule
 } from '@angular/common';
-
+import {
+  FormsModule
+} from '@angular/forms';
 import {
   RouterModule
 } from '@angular/router';
@@ -13,15 +14,22 @@ import {
 import {
   SkyResourcesModule
 } from '../resources';
-
 import {
   SkyWindowRefService
 } from '../window';
+import {
+  SkyIconModule
+} from '../icon';
 
-import { SkyFlyoutAdapterService } from './flyout-adapter.service';
-import { SkyFlyoutComponent } from './flyout.component';
-import { SkyFlyoutService } from './flyout.service';
-import { FormsModule } from '@angular/forms';
+import {
+  SkyFlyoutAdapterService
+} from './flyout-adapter.service';
+import {
+  SkyFlyoutComponent
+} from './flyout.component';
+import {
+  SkyFlyoutService
+} from './flyout.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +44,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     RouterModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyFlyoutComponent
