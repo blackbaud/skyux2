@@ -13,7 +13,7 @@
           buttonStyle="primary"
         >
           <sky-dropdown-button>
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <sky-icon icon="plus-circle"></sky-icon>
             Add
           </sky-dropdown-button>
         </sky-dropdown>
@@ -63,12 +63,32 @@
     </sky-list-secondary-actions>
 
     <sky-list-toolbar-view-actions>
-      <button
-        class="sky-btn sky-btn-default"
-        type="button"
-      >
-        Button
-      </button>
+      <div class="sky-switch-icon-group">
+        <sky-radio
+          icon="table"
+          name="iconradiogrouptest"
+          value="table"
+          [(ngModel)]="iconGroupSelectedValue">
+        </sky-radio>
+        <sky-radio
+          icon="list"
+          name="iconradiogrouptest"
+          value="list"
+          [(ngModel)]="iconGroupSelectedValue">
+        </sky-radio>
+        <sky-radio
+          icon="th-large"
+          name="iconradiogrouptest"
+          value="cards"
+          [(ngModel)]="iconGroupSelectedValue">
+        </sky-radio>
+        <sky-radio
+          icon="map-marker"
+          name="iconradiogrouptest"
+          value="map"
+          [(ngModel)]="iconGroupSelectedValue">
+        </sky-radio>
+      </div>
     </sky-list-toolbar-view-actions>
 
   </sky-list-toolbar>
