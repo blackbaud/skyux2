@@ -1,14 +1,29 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SkyDropdownModule } from '../dropdown';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  SkyDropdownModule
+} from '../dropdown';
+import {
+  SkyResourcesModule
+} from '../resources';
+import {
+  SkyMediaQueryModule
+} from '../media-queries';
+import {
+  SkyIconModule
+} from '../icon';
+
 import {
   SkyListSecondaryActionsComponent
 } from './list-secondary-actions.component';
 import {
   SkyListSecondaryActionComponent
 } from './list-secondary-action.component';
-import { SkyResourcesModule } from '../resources';
-import { SkyMediaQueryModule } from '../media-queries';
 
 @NgModule({
   declarations: [
@@ -19,7 +34,8 @@ import { SkyMediaQueryModule } from '../media-queries';
     CommonModule,
     SkyDropdownModule,
     SkyResourcesModule,
-    SkyMediaQueryModule
+    SkyMediaQueryModule,
+    SkyIconModule
   ],
   exports: [
     SkyListSecondaryActionsComponent,
@@ -28,5 +44,4 @@ import { SkyMediaQueryModule } from '../media-queries';
   providers: [
   ]
 })
-export class SkyListSecondaryActionsModule {
-}
+export class SkyListSecondaryActionsModule { }
