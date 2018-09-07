@@ -94,6 +94,14 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   @Input()
   public searchText: string | Observable<string>;
 
+  public get isFilterBarDisplayed(): boolean {
+    return !this.isToolbarDisabled && this.hasInlineFilters && this.inlineFilterBarExpanded;
+  }
+
+  public get filterButtonAriaControls(): string {
+    return this.isFilterBarDisplayed ? this.listFilterInlineId : undefined;
+  }
+
   public sortSelectors: Observable<Array<any>>;
   public searchTextInput: Observable<string>;
   public view: Observable<string>;
@@ -102,7 +110,7 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
   public rightTemplates: ListToolbarItemModel[];
   public type: Observable<string>;
   public isSearchEnabled: Observable<boolean>;
-  public isToolbarDisabled: Observable<boolean>;
+  public isToolbarDisabled: boolean = false;
   public isSortSelectorEnabled: Observable<boolean>;
   public appliedFilters: Observable<Array<ListFilterModel>>;
   public hasAppliedFilters: Observable<boolean>;
@@ -229,10 +237,9 @@ export class SkyListToolbarComponent implements OnInit, AfterContentInit, OnDest
     this.isSearchEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.searchEnabled);
 
-    this.isToolbarDisabled = this.state.map(s => s.toolbar)
-      .distinctUntilChanged().map(c => {
-        return c.disabled;
-      });
+    this.state.map(s => s.toolbar)
+      .distinctUntilChanged().map(c => c.disabled)
+      .subscribe(isDisabled => this.isToolbarDisabled = isDisabled);
 
     this.isSortSelectorEnabled = this.toolbarState.map(s => s.config)
       .distinctUntilChanged().map(c => c.sortSelectorEnabled);
