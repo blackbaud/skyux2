@@ -1,21 +1,35 @@
-import { SkySectionedFormComponent } from './sectioned-form.component';
-import { TestBed } from '@angular/core/testing';
+import {
+  TestBed
+} from '@angular/core/testing';
+
 import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
-import { SkySectionedFormFixturesModule } from './fixtures/sectioned-form-fixtures.module';
-import { SkySectionedFormFixtureComponent } from './fixtures/sectioned-form.component.fixture';
 
+import {
+  SkyMediaQueryService,
+  SkyMediaBreakpoints
+} from '../media-queries';
+import {
+  SkySectionedFormComponent
+} from './sectioned-form.component';
+
+import {
+  SkySectionedFormFixturesModule
+} from './fixtures/sectioned-form-fixtures.module';
+import {
+  SkySectionedFormFixtureComponent
+} from './fixtures/sectioned-form.component.fixture';
 import {
   SkySectionedFormNoSectionsFixtureComponent
 } from './fixtures/sectioned-form-no-sections.component.fixture';
-
 import {
   SkySectionedFormNoActiveFixtureComponent
 } from './fixtures/sectioned-form-no-active.component.fixture';
 
-import { MockSkyMediaQueryService } from './../testing/mocks/mock-media-query.service';
-import { SkyMediaQueryService, SkyMediaBreakpoints } from '../media-queries';
+import {
+  MockSkyMediaQueryService
+} from './../testing/mocks/mock-media-query.service';
 
 function getVisibleContent(el: any) {
   return el.querySelectorAll('.sky-vertical-tab-content-pane:not(.sky-vertical-tab-hidden)');
@@ -118,7 +132,7 @@ describe('Sectioned form component', () => {
 
     let activeTab = tabs[1];
     expect(activeTab.classList.contains('sky-tab-field-required')).toBe(false);
-    expect(activeTab.getAttribute('aria-required')).toBeFalsy();
+    expect(activeTab.querySelector('a').getAttribute('aria-required')).toBeFalsy();
 
     // mark required
     let checkbox = el.querySelector('#requiredTestCheckbox input');
@@ -129,7 +143,7 @@ describe('Sectioned form component', () => {
     tabs = el.querySelectorAll('sky-vertical-tab');
     let requiredTab = tabs[0];
     expect(requiredTab.classList.contains('sky-tab-field-required')).toBe(true);
-    expect(requiredTab.getAttribute('aria-required')).toBe('true');
+    expect(requiredTab.querySelector('a').getAttribute('aria-required')).toBe('true');
   });
 
   it('section should respect required field change after switching tabs', () => {
@@ -213,6 +227,28 @@ describe('Sectioned form component', () => {
     expect(tabs.length).toBe(2);
   });
 
+  it('should not use tab aria-associations and roles in mobile view', () => {
+    mockQueryService.current = SkyMediaBreakpoints.xs;
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+    fixture.detectChanges();
+
+    let content = getVisibleContent(el);
+    for (let pane of content) {
+      expect(pane.getAttribute('aria-labelledby')).toBeFalsy();
+      expect(pane.getAttribute('role')).toBeFalsy();
+    }
+
+    fixture.componentInstance.sectionedForm.showTabs();
+    fixture.detectChanges();
+
+    let tabs = el.querySelectorAll('.sky-vertical-tab');
+    for (let tab of tabs) {
+      expect(tab.getAttribute('aria-controls')).toBeFalsy();
+      expect(tab.getAttribute('role')).toBeFalsy();
+    }
+  });
+
   it('section should respect invalid field change', () => {
     let fixture = createTestComponent();
     let el = fixture.nativeElement;
@@ -225,7 +261,7 @@ describe('Sectioned form component', () => {
 
     let activeTab = tabs[1];
     expect(activeTab.classList.contains('sky-tab-field-invalid')).toBe(false);
-    expect(activeTab.getAttribute('aria-invalid')).toBeFalsy();
+    expect(activeTab.querySelector('a').getAttribute('aria-invalid')).toBeFalsy();
 
     // mark invalid
     let checkbox = el.querySelector('#invalidTestCheckbox input');
@@ -236,7 +272,30 @@ describe('Sectioned form component', () => {
     tabs = el.querySelectorAll('sky-vertical-tab');
     let invalidTab = tabs[0];
     expect(invalidTab.classList.contains('sky-tab-field-invalid')).toBe(true);
-    expect(invalidTab.getAttribute('aria-invalid')).toBe('true');
+    expect(invalidTab.querySelector('a').getAttribute('aria-invalid')).toBe('true');
+  });
+
+  it('section should have appropriate aria labels', () => {
+    let fixture = createTestComponent();
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+
+    // check section is not invalid
+    let tabs = el.querySelectorAll('sky-vertical-tab a');
+    expect(tabs.length).toBe(2);
+
+    let inactiveTab = tabs[0];
+    let inactiveTabContent = el.querySelector('#' + inactiveTab.getAttribute('aria-controls'));
+    expect(inactiveTab.getAttribute('aria-selected')).toBeFalsy();
+    expect(inactiveTab.getAttribute('aria-controls')).toBe(inactiveTabContent.id);
+    expect(inactiveTabContent.getAttribute('aria-labelledby')).toBe(inactiveTab.id);
+
+    let activeTab = tabs[1];
+    let activeTabContent = el.querySelector('#' + activeTab.getAttribute('aria-controls'));
+    expect(activeTab.getAttribute('aria-selected')).toBe('true');
+    expect(activeTab.getAttribute('aria-controls')).toBe(activeTabContent.id);
+    expect(activeTabContent.getAttribute('aria-labelledby')).toBe(activeTab.id);
   });
 
   it('should show content after resizing screen', () => {
@@ -252,6 +311,7 @@ describe('Sectioned form component', () => {
 
     // resize screen out of mobile
     mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.detectChanges();
     fixture.componentInstance.sectionedForm.tabService.updateContent();
     fixture.detectChanges();
 
@@ -262,6 +322,7 @@ describe('Sectioned form component', () => {
 
     // resize back to mobile
     mockQueryService.current = SkyMediaBreakpoints.xs;
+    fixture.detectChanges();
     fixture.componentInstance.sectionedForm.tabService.updateContent();
     fixture.detectChanges();
 
@@ -271,6 +332,7 @@ describe('Sectioned form component', () => {
 
     // resize to widescreen
     mockQueryService.current = SkyMediaBreakpoints.lg;
+    fixture.detectChanges();
     fixture.componentInstance.sectionedForm.tabService.updateContent();
     fixture.detectChanges();
 
