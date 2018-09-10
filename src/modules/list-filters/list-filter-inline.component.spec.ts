@@ -127,6 +127,7 @@ describe('List inline filters', () => {
       fixture.detectChanges();
 
       expect(filterButton.getAttribute('aria-expanded')).toBe('false');
+      expect(filterButton.getAttribute('aria-controls')).toBeFalsy();
     }));
 
     it('should filter appropriately when change function is called', fakeAsync(() => {
