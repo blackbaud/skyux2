@@ -94,18 +94,17 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   private subscriptions: Subscription[] = [];
 
+  // Column resizing variables.
   @ViewChildren('gridCol')
   private columnElementRefs: QueryList<ElementRef>;
   @ViewChildren('colSizeRange')
-  private columnRangeRefs: QueryList<ElementRef>;
+  private columnRangeInputElementRefs: QueryList<ElementRef>;
   @ViewChild('gridTable')
-  private table: ElementRef;
+  private tableElementRef: ElementRef;
   @ViewChild('resizeBar')
   private resizeBar: ElementRef;
   private tableWidth: number;
   private isDraggingResizeHandle: boolean = false;
-
-  // Column resizing variables.
   private activeResizeColumnIndex: string;
   private startColumnWidth: number;
   private xPosStart: number;
@@ -267,7 +266,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
     // Show visual indicator of where mouse is dragging (resizeBar).
     this.ref.detectChanges();
-    let resizeBarX = event.pageX - this.table.nativeElement.getBoundingClientRect().left;
+    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
     this.gridAdapter.setStyle(this.resizeBar.nativeElement, 'left', resizeBarX + 'px');
 
     event.preventDefault();
@@ -305,7 +304,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       return;
     }
 
-    let resizeBarX = event.pageX - this.table.nativeElement.getBoundingClientRect().left;
+    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
     this.gridAdapter.setStyle(this.resizeBar.nativeElement, 'left', resizeBarX + 'px');
   }
 
@@ -401,7 +400,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       lastColumn.width = lastColumn.width - deltaX;
       this.updateMaxRange();
     } else {
-      this.gridAdapter.setElementWidth(this.table.nativeElement, this.tableWidth + deltaX);
+      this.gridAdapter.setElementWidth(this.tableElementRef.nativeElement, this.tableWidth + deltaX);
       column.width = newColWidth;
     }
 
@@ -411,7 +410,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     // If in "scroll" mode, reset the full table width.
     // This prevents pixel "hopping" for the non-resized columns
     if (this.fit === 'scroll') {
-      this.tableWidth = this.table.nativeElement.offsetWidth;
+      this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
     }
   }
 
@@ -425,14 +424,16 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       let width = Math.max(col.nativeElement.offsetWidth, this.minColWidth);
       this.getColumnModelByIndex(index).width = width;
     });
+
+    this.ref.detectChanges();
   }
 
   // Applies css width to the table, and removes min-width=100%.
   // This should only be used when fit=scroll.
   private initializeTableWidth() {
-    this.tableWidth = this.table.nativeElement.offsetWidth;
-    this.gridAdapter.setElementWidth(this.table.nativeElement, this.tableWidth);
-    this.gridAdapter.setStyle(this.table.nativeElement, 'min-width', 'auto');
+    this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
+    this.gridAdapter.setElementWidth(this.tableElementRef.nativeElement, this.tableWidth);
+    this.gridAdapter.setStyle(this.tableElementRef.nativeElement, 'min-width', 'auto');
   }
 
   private getColumnWidthModelChange() {
@@ -465,7 +466,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   }
 
   private getRangeInputByIndex(index: string | number) {
-    return this.columnRangeRefs.find(input =>
+    return this.columnRangeInputElementRefs.find(input =>
       input.nativeElement.getAttribute('sky-cmp-index') === index.toString()
     );
   }
