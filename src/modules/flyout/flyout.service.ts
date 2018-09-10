@@ -36,7 +36,7 @@ export class SkyFlyoutService {
     private windowRef: SkyWindowRefService
   ) {
     this.closeOnClickEvent = (event) => {
-      if (this.host && !this.host.location.nativeElement.contains(event.target)) {
+      if (this.host && this.host.location && !this.host.location.nativeElement.contains(event.target)) {
         this.close();
       }
     };
