@@ -15,8 +15,8 @@
     role="separator"
     step="10"
     type="range"
-    [aria-label]="'flyout-resize-handle' | skyResources"
     [attr.aria-controls]="flyoutId"
+    [attr.aria-label]="'flyout-resize-handle' | skyResources"
     [attr.aria-valuemax]="config.maxWidth"
     [attr.aria-valuemin]="config.minWidth"
     [attr.aria-valuenow]="flyoutWidth"
@@ -33,10 +33,11 @@
       <ng-container *ngTemplateOutlet="primaryActionTemplate">
       </ng-container>
       <button
-        type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
+        type="button"
+        [attr.aria-label]="'flyout_close' | skyResources"
         (click)="close()"
-        [attr.aria-label]="'flyout_close' | skyResources">
+      >
         <sky-icon icon="close"></sky-icon>
       </button>
     </div>
