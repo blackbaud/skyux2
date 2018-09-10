@@ -18,6 +18,21 @@ describe('list-toolbar component', () => {
       });
   });
 
+  it('should display inline filters correctly when openned', () => {
+    return SkyVisualTest
+      .setupTest('list-toolbar')
+      .then(() => {
+        return element(by.css('#screenshot-list-toolbar .sky-filter-btn'))
+          .click() as any;
+      })
+      .then(() => {
+        return SkyVisualTest.compareScreenshot({
+          screenshotName: 'list-toolbar-inline-filters-open',
+          selector: '#screenshot-list-toolbar'
+        });
+      });
+  });
+
   it('should display toolbar correctly when a small screen', () => {
     return SkyVisualTest
       .setupTest('list-toolbar', 400)

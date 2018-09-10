@@ -1,0 +1,43 @@
+<sky-progress-indicator #progressIndicator>
+
+  <sky-progress-indicator-item
+    title="Do the first thing"
+  >
+  </sky-progress-indicator-item>
+
+  <sky-progress-indicator-item
+    title="Do the second thing"
+  >
+  </sky-progress-indicator-item>
+
+  <sky-progress-indicator-item
+    title="Do the third thing"
+  >
+  </sky-progress-indicator-item>
+
+</sky-progress-indicator>
+
+<button
+  class="sky-btn sky-btn-primary"
+  id="btn-regress"
+  type="button"
+  (click)="regress()"
+>
+  Do
+</button>
+<button
+  id="btn-progress"
+  class="sky-btn sky-btn-default"
+  type="button"
+  (click)="progress()"
+>
+  Undo
+</button>
+<button
+  id="btn-wizard"
+  class="sky-btn sky-btn-default"
+  type="button"
+  (click)="openWizard()"
+>
+  Open wizard
+</button>

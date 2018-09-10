@@ -8,7 +8,7 @@
         <tr dragula="sky-grid-heading">
           <th
             scope="col"
-            class="sky-grid-heading"
+            class="sky-grid-heading sky-field-label"
             *ngFor="let column of displayedColumns; let last = last, let i = index"
             [attr.sky-cmp-index]="i"
             [attr.sky-cmp-id]="column.id || column.field"
@@ -65,6 +65,7 @@
             class="sky-grid-cell"
             *ngFor="let column of displayedColumns; let last = last; let i = index">
             <sky-grid-cell
+              [skyHighlight]="!column.excludeFromHighlighting ? highlightText : undefined"
               [template]="column.template || defaultCellTemplate"
               [fieldSelector]="column.field"
               [item]="item"

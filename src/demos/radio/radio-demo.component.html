@@ -1,47 +1,188 @@
-<h3>
-  Radio states
-</h3>
+<h2
+  class="sky-section-heading"
+>
+  Reactive form setup
+</h2>
 
-<ul class="sky-list-unstyled">
-  <li>
-    <sky-radio
-      name="radiotest"
-      value="1"
-      [(ngModel)]="selectedValue"
-      #cb="ngModel"
+<form
+  novalidate
+  [formGroup]="radioForm"
+>
+  <h3
+    id="favorite-season-label-reactive"
+  >
+    What is your favorite season?
+  </h3>
+  <sky-radio-group
+    ariaLabelledBy="favorite-season-label-reactive"
+    formControlName="favoriteSeason"
+  >
+    <ul
+      class="sky-list-unstyled"
     >
-      <sky-radio-label>
-        Option 1
-      </sky-radio-label>
-    </sky-radio>
-  </li>
-  <li>
-    <sky-radio
-      disabled="true"
-      name="radiotest"
-      [ngModel]="selectedValue"
-      [value]="valueGuy"
-      (ngModelChange)="selectedValue = $event"
-    >
-      <sky-radio-label>
-        Option 2
-      </sky-radio-label>
-    </sky-radio>
-  </li>
-  <li>
-    <sky-radio
-      name="radiotest"
-      value="3"
-      [ngModel]="selectedValue"
-      (ngModelChange)="selectedValue = $event"
-    >
-      <sky-radio-label>
-        Option 3
-      </sky-radio-label>
-    </sky-radio>
-  </li>
-</ul>
+      <li *ngFor="let value of seasons">
+        <sky-radio
+          [disabled]="value.disabled"
+          [value]="value"
+        >
+          <sky-radio-label>
+            {{ value.name }}
+          </sky-radio-label>
+        </sky-radio>
+      </li>
+    </ul>
+  </sky-radio-group>
+  <p>
+    Selected value: {{ radioForm.value.favoriteSeason.name }}
+  </p>
+</form>
 
-<p>
-  Selected option: <strong>{{ selectedValue }}</strong>
-</p>
+<br/>
+
+<h2
+  class="sky-section-heading"
+>
+  Template-driven form setup
+</h2>
+
+<form
+  novalidate
+>
+  <sky-radio-group
+    ariaLabelledBy="favorite-season-label-template"
+    name="favoriteSeason"
+    [(ngModel)]="favoriteSeason"
+  >
+    <p
+      id="favorite-season-label-template"
+    >
+      What is your favorite season?
+    </p>
+    <ul
+      class="sky-list-unstyled"
+    >
+      <li *ngFor="let value of seasons">
+        <sky-radio
+          [disabled]="value.disabled"
+          [value]="value"
+        >
+          <sky-radio-label>
+            {{ value.name }}
+          </sky-radio-label>
+        </sky-radio>
+      </li>
+    </ul>
+  </sky-radio-group>
+  <p>
+    Selected value: {{ favoriteSeason.name }}
+  </p>
+</form>
+
+<br/>
+
+<h2
+  class="sky-section-heading"
+>
+  Icon radio button types
+</h2>
+
+<form
+  novalidate
+>
+  <div>
+    <sky-radio
+      icon="info"
+      name="iconradiotest"
+      radioType="info"
+      value="info"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="striketbrough"
+      name="iconradiotest"
+      radioType="info"
+      value="striketbrough"
+      [disabled]="true"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="star"
+      name="iconradiotest"
+      radioType="success"
+      value="success"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="exclamation-triangle"
+      name="iconradiotest"
+      radioType="warning"
+      value="warning"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="ban"
+      name="iconradiotest"
+      radioType="danger"
+      value="danger"
+      [(ngModel)]="iconSelectedValue"
+    >
+    </sky-radio>
+  </div>
+
+  <p>
+    Selected option: <strong>{{ iconSelectedValue }}</strong>
+  </p>
+</form>
+
+<br/>
+
+<h2
+  class="sky-section-heading"
+>
+  Icon radio button group
+</h2>
+
+<form
+  novalidate
+>
+  <div
+    class="sky-switch-icon-group"
+  >
+    <sky-radio
+      icon="table"
+      name="iconradiogrouptest"
+      value="table"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="list"
+      name="iconradiogrouptest"
+      value="list"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="th-large"
+      name="iconradiogrouptest"
+      value="cards"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+    <sky-radio
+      icon="map-marker"
+      name="iconradiogrouptest"
+      value="map"
+      [(ngModel)]="iconGroupSelectedValue"
+    >
+    </sky-radio>
+  </div>
+
+  <p>
+    Selected option: <strong>{{ iconGroupSelectedValue }}</strong>
+  </p>
+</form>

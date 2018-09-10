@@ -1,4 +1,5 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-grid {
   position: relative;
@@ -23,14 +24,14 @@
 }
 
 .sky-grid-tbody {
-  background-color: $sky-grid-even-background-color;
+  background-color: $sky-color-white;
 }
 
 .sky-grid-row {
   @include sky-border(row, bottom);
 
   &:nth-child(odd) {
-    background-color: $sky-grid-odd-background-color;
+    background-color: $sky-color-gray-01;
   }
 
   .sky-grid-cell {
@@ -42,11 +43,10 @@
 .sky-grid-heading {
   position: relative;
   @include sky-border(dark, top, bottom, left, right);
-  @include sky-field-label();
   border-right-width: 0px;
 
   cursor: pointer;
-  background-color: $sky-grid-header-background-color;
+  background-color: $sky-color-white;
 
   overflow: visible;
   padding: 8px;
@@ -58,7 +58,7 @@
 
   &.sky-grid-header-dragging {
     padding: 8px;
-    background-color: $sky-grid-header-dragging-background-color;
+    background-color: $sky-background-color-neutral-light;
   }
 
   -webkit-user-select: none;

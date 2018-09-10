@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { SkyCheckboxLabelComponent } from './checkbox-label.component';
 import { SkyCheckboxComponent } from './checkbox.component';
 import { SkyResourcesModule } from '../resources';
+import { SkyIconModule } from '../icon';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { SkyResourcesModule } from '../resources';
   imports: [
     CommonModule,
     FormsModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyCheckboxComponent,

@@ -76,6 +76,9 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   @Input()
   public sortField: ListSortFieldSelectorModel;
 
+  @Input()
+  public highlightText: string;
+
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 

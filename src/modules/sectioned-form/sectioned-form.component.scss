@@ -1,8 +1,5 @@
-@import "../../scss/mixins";
-
-.sky-sectioned-form-content {
-  padding: $sky-padding-plus-half;
-}
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 @media (min-width: $sky-screen-sm-min) {
   .sky-sectioned-form {
@@ -18,4 +15,3 @@
     flex-basis: 70%;
   }
 }
-
