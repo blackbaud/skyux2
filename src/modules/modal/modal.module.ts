@@ -5,17 +5,40 @@ import {
   RouterModule
 } from '@angular/router';
 
-import { SkyModalAdapterService } from './modal-adapter.service';
-import { SkyModalContentComponent } from './modal-content.component';
-import { SkyModalFooterComponent } from './modal-footer.component';
-import { SkyModalHeaderComponent } from './modal-header.component';
-import { SkyModalHostComponent } from './modal-host.component';
-import { SkyModalComponent } from './modal.component';
-import { SkyModalService } from './modal.service';
-import { SkyWindowRefService } from '../window';
+import {
+  SkyWindowRefService
+} from '../window';
+import {
+  SkyResourcesModule
+} from '../resources';
+import {
+  SkyErrorModalFormComponent
+} from '../error/error-modal-form.component';
+import {
+  SkyIconModule
+} from '../icon';
 
-import { SkyResourcesModule } from '../resources';
-import { SkyErrorModalFormComponent } from '../error/error-modal-form.component';
+import {
+  SkyModalAdapterService
+} from './modal-adapter.service';
+import {
+  SkyModalContentComponent
+} from './modal-content.component';
+import {
+  SkyModalFooterComponent
+} from './modal-footer.component';
+import {
+  SkyModalHeaderComponent
+} from './modal-header.component';
+import {
+  SkyModalHostComponent
+} from './modal-host.component';
+import {
+  SkyModalComponent
+} from './modal.component';
+import {
+  SkyModalService
+} from './modal.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +57,8 @@ import { SkyErrorModalFormComponent } from '../error/error-modal-form.component'
   imports: [
     CommonModule,
     RouterModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyModalComponent,

@@ -1,13 +1,32 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
 
-import { SkyWindowRefService } from '../window';
-import { SkyPopoverModule } from '../popover';
+import {
+  SkyWindowRefService
+} from '../window';
+import {
+  SkyPopoverModule
+} from '../popover';
+import {
+  SkyIconModule
+} from '../icon';
 
-import { SkyDropdownButtonComponent } from './dropdown-button.component';
-import { SkyDropdownItemComponent } from './dropdown-item.component';
-import { SkyDropdownMenuComponent } from './dropdown-menu.component';
-import { SkyDropdownComponent } from './dropdown.component';
+import {
+  SkyDropdownButtonComponent
+} from './dropdown-button.component';
+import {
+  SkyDropdownItemComponent
+} from './dropdown-item.component';
+import {
+  SkyDropdownMenuComponent
+} from './dropdown-menu.component';
+import {
+  SkyDropdownComponent
+} from './dropdown.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +37,8 @@ import { SkyDropdownComponent } from './dropdown.component';
   ],
   imports: [
     CommonModule,
-    SkyPopoverModule
+    SkyPopoverModule,
+    SkyIconModule
   ],
   exports: [
     SkyDropdownButtonComponent,
