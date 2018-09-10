@@ -1,4 +1,4 @@
-# 2.24.0 (2018-09-10)
+# 2.24.0 (2018-09-11)
 
 - Added support for `@skyux/core@3.0.1`. [#1953](https://github.com/blackbaud/skyux2/pull/1953)
 
