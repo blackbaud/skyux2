@@ -384,10 +384,35 @@
 <button
   type="button"
   class="sky-btn sky-btn-default"
-  [skyPopover]="asyncPopoverRef">
+  [skyPopover]="asyncPopover">
   This trigger has an asynchronous popover
 </button>
 
 <sky-popover #asyncPopover>
   My asynchronous popover.
+</sky-popover>
+
+<h3>
+  Popovers may be interacted with programatically
+</h3>
+
+<p>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    [skyPopover]="programaticPopoverRef"
+    [skyPopoverMessageStream]="popoverController"
+    (click)="openPopover()">
+    Open popover
+  </button>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="closePopover()">
+    Close popover
+  </button>
+</p>
+<sky-popover #programaticPopoverRef>
+  My programatic popover.
 </sky-popover>
