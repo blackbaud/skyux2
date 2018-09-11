@@ -38,7 +38,6 @@ import {
   SkyGridComponent,
   SkyGridColumnModel
 } from './';
-import { SkyGridColumnWidthModelChange } from './types';
 
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(
@@ -70,13 +69,10 @@ function getElementCords(elementRef: any) {
 }
 
 function getColumnWidths(fixture: ComponentFixture<any>) {
-  let expectedColumnWidths = new Array<SkyGridColumnWidthModelChange>();
+  let expectedColumnWidths = new Array<number>();
   const tableHeaders = fixture.debugElement.queryAll(By.css('.sky-grid-heading'));
   tableHeaders.forEach(th => {
-    expectedColumnWidths.push({
-      id: th.nativeElement.getAttribute('sky-cmp-id'),
-      width: th.nativeElement.offsetWidth
-    });
+    expectedColumnWidths.push(Number(th.nativeElement.offsetWidth));
   });
 
   return expectedColumnWidths;
@@ -86,21 +82,21 @@ function getColumnResizeHandles(fixture: ComponentFixture<any>) {
   return fixture.debugElement.queryAll(By.css('.sky-grid-resize-handle'));
 }
 
-function getColumnResizeInputs(fixture: ComponentFixture<any>) {
+function getColumnRangeInputs(fixture: ComponentFixture<any>) {
   return fixture.debugElement.queryAll(By.css('.sky-grid-column-input-aria-only'));
 }
 
 function getColumnResizeInputMaxValues(fixture: ComponentFixture<any>) {
-  let resizeInputs = getColumnResizeInputs(fixture);
+  let resizeInputs = getColumnRangeInputs(fixture);
   let maxValues = new Array<number>();
 
   resizeInputs.forEach((input) => {
-    maxValues.push(input.nativeElement.maxValues);
+    maxValues.push(input.nativeElement.max);
   });
   return maxValues;
 }
 
-function resizeColumn(fixture: ComponentFixture<any>, xDiff: number, columnIndex: number) {
+function resizeColumn(fixture: ComponentFixture<any>, deltaX: number, columnIndex: number) {
   const resizeHandles = getColumnResizeHandles(fixture);
   let axis = getElementCords(resizeHandles[columnIndex]);
   let event = {
@@ -113,38 +109,36 @@ function resizeColumn(fixture: ComponentFixture<any>, xDiff: number, columnIndex
   resizeHandles[columnIndex].triggerEventHandler('mousedown', event);
   fixture.detectChanges();
 
-  makeEvent('mousemove', { clientX: axis.x + xDiff });
+  makeEvent('mousemove', { clientX: axis.x + deltaX });
   fixture.detectChanges();
-  makeEvent('click', { });
-  fixture.detectChanges();
-}
-
-function increaseColumnByRangeInput(fixture: ComponentFixture<any>, columnIndex: number) {
-  const resizeInputs = getColumnResizeInputs(fixture);
-  let event = {
-    'key': 'ArrowRight'
-  };
-
-  resizeInputs[columnIndex].triggerEventHandler('keypress', event);
+  makeEvent('click', { clientX: axis.x + deltaX });
   fixture.detectChanges();
 }
 
-function decreaseColumnByRangeInput(fixture: ComponentFixture<any>, columnIndex: number) {
-  const resizeInputs = getColumnResizeInputs(fixture);
-  let event = {
-    'key': 'ArrowLeft'
-  };
+function resizeColumnByRangeInput(fixture: ComponentFixture<any>, columnIndex: number, deltaX: number) {
+  const resizeInputs = getColumnRangeInputs(fixture);
+  SkyAppTestUtility.fireDomEvent(resizeInputs[columnIndex].nativeElement, 'keydown', {
+    keyboardEventInit: { key: 'ArrowRight' }
+  });
+  let newValue = Number(resizeInputs[columnIndex].nativeElement.value) + deltaX;
+  resizeInputs[columnIndex].nativeElement.value = newValue;
+  SkyAppTestUtility.fireDomEvent(resizeInputs[columnIndex].nativeElement, 'change', { });
+}
 
-  resizeInputs[columnIndex].triggerEventHandler('keypress', event);
-  fixture.detectChanges();
+function getTable(fixture: ComponentFixture<any>) {
+  return fixture.debugElement.query(By.css('.sky-grid-table'));
 }
 
 function getTableWidth(fixture: ComponentFixture<any>) {
-  const table = fixture.debugElement.query(By.css('.sky-grid-table'));
+  const table = getTable(fixture);
   return table.nativeElement.offsetWidth;
 }
 
-describe('Grid Component', () => {
+function cloneItems(items: any[]): any[] {
+  return JSON.parse(JSON.stringify(items));
+}
+
+fdescribe('Grid Component', () => {
   describe('Basic Fixture with fit=scroll', () => {
     let component: GridTestComponent,
         fixture: ComponentFixture<GridTestComponent>,
@@ -342,12 +336,12 @@ describe('Grid Component', () => {
       });
 
       it('should change styles based on hasToolbar input', () => {
-        expect(element.query(By.css('.sky-grid-table')).nativeElement)
-          .not.toHaveCssClass('sky-grid-has-toolbar');
+        const table = getTable(fixture).nativeElement;
+        expect(table).not.toHaveCssClass('sky-grid-fit');
+        expect(table).not.toHaveCssClass('sky-grid-has-toolbar');
         component.hasToolbar = true;
         fixture.detectChanges();
-        expect(element.query(By.css('.sky-grid-table')).nativeElement)
-          .toHaveCssClass('sky-grid-has-toolbar');
+        expect(table).toHaveCssClass('sky-grid-has-toolbar');
       });
 
       it('should allow the access of search function on displayed columns', () => {
@@ -490,6 +484,9 @@ describe('Grid Component', () => {
 
       describe('Resiazable columns', () => {
 
+        let minColWidth = '50';
+        let maxColWidth = '9999';
+
         it('should not resize if user does not use resize handle', fakeAsync(() => {
           // Get initial baseline for comparison.
           let initialTableWidth = getTableWidth(fixture);
@@ -534,72 +531,76 @@ describe('Grid Component', () => {
           let newTableWidth = getTableWidth(fixture);
           let newColumnWidths = getColumnWidths(fixture);
           let expectedColumnWidths = Object.assign(initialColumnWidths);
-          expectedColumnWidths[0].width = initialColumnWidths[0].width + resizeXDistance;
+          expectedColumnWidths[0] = initialColumnWidths[0] + resizeXDistance;
           expect(newColumnWidths).toEqual(expectedColumnWidths);
           expect(newTableWidth).toEqual(initialTableWidth + resizeXDistance);
-          expect(component.columnWidthsChange).toEqual(newColumnWidths);
-        }));
-
-        fit('should have correct aria-labels on resizing range input', fakeAsync(() => {
-          const resizeInputs = getColumnResizeInputs(fixture);
-          let colWidths = getColumnWidths(fixture);
-          resizeInputs.forEach((resizeInput, index) => {
-            expect(resizeInput.nativeElement.getAttribute('aria-controls')).not.toBeNull();
-            expect(resizeInput.nativeElement.getAttribute('aria-valuenow')).toBe(colWidths[index].width);
-            expect(resizeInput.nativeElement.getAttribute('aria-valuemax')).toBe(9999);
-            expect(resizeInput.nativeElement.getAttribute('aria-valuemin')).toBe(50);
-            expect(resizeInput.nativeElement.getAttribute('max')).toBe(9999);
-            expect(resizeInput.nativeElement.getAttribute('min')).toBe(50);
+          component.columnWidthsChange.forEach((cwc, index) => {
+            expect(cwc.width === expectedColumnWidths[index]);
           });
         }));
 
-        fit('should resize column when range input is changed', fakeAsync(() => {
-          // Get initial baseline for comparison.
-          let initialTableWidth = getTableWidth(fixture);
-          let initialColumnWidths = getColumnWidths(fixture);
-          let initialColumnInputs = getColumnResizeInputs(fixture);
-          let resizeXDistance = 10; // 'step' value for range input
-
-          // Increase first column.
-          increaseColumnByRangeInput(fixture, 0);
-
-          // Assert table was resized properly, and input range was updated correctly.
-          let newTableWidth = getTableWidth(fixture);
-          let newColumnWidths = getColumnWidths(fixture);
-          let expectedColumnWidths = Object.assign(initialColumnWidths);
-          expectedColumnWidths[0].width = initialColumnWidths[0].width + resizeXDistance;
-          let newColumnInputs = getColumnResizeInputs(fixture);
-          let expectedColumnInputs = Object.assign(initialColumnInputs);
-          expectedColumnInputs[0].nativeElement.value = initialColumnInputs[0].nativeElement.value + resizeXDistance;
-          expect(newColumnWidths).toEqual(expectedColumnWidths);
-          expect(newTableWidth).toEqual(initialTableWidth + resizeXDistance);
-          expect(component.columnWidthsChange).toEqual(newColumnWidths);
-          expect(newColumnInputs).toEqual(expectedColumnInputs);
-
-          // Decrease first column.
-          increaseColumnByRangeInput(fixture, 0);
-          increaseColumnByRangeInput(fixture, 0);
-
-          // Assert table was resized properly, and input range was updated correctly.
-          newTableWidth = getTableWidth(fixture);
-          newColumnWidths = getColumnWidths(fixture);
-          expectedColumnWidths = Object.assign(initialColumnWidths);
-          expectedColumnWidths[0].width = initialColumnWidths[0].width - resizeXDistance;
-          newColumnInputs = getColumnResizeInputs(fixture);
-          expectedColumnInputs = Object.assign(initialColumnInputs);
-          expectedColumnInputs[0].nativeElement.value = initialColumnInputs[0].nativeElement.value - resizeXDistance;
-          expect(newColumnWidths).toEqual(expectedColumnWidths);
-          expect(newTableWidth).toEqual(initialTableWidth - resizeXDistance);
-          expect(component.columnWidthsChange).toEqual(newColumnWidths);
-          expect(newColumnInputs).toEqual(expectedColumnInputs);
+        it('should have correct aria-labels on resizing range input', fakeAsync(() => {
+          const resizeInputs = getColumnRangeInputs(fixture);
+          let colWidths = getColumnWidths(fixture);
+          resizeInputs.forEach((resizeInput, index) => {
+            expect(resizeInput.nativeElement.getAttribute('aria-controls')).not.toBeNull();
+            expect(resizeInput.nativeElement.getAttribute('aria-valuenow')).toBe(colWidths[index].toString());
+            expect(resizeInput.nativeElement.getAttribute('aria-valuemax')).toBe(maxColWidth);
+            expect(resizeInput.nativeElement.getAttribute('aria-valuemin')).toBe(minColWidth);
+            expect(resizeInput.nativeElement.getAttribute('max')).toBe(maxColWidth);
+            expect(resizeInput.nativeElement.getAttribute('min')).toBe(minColWidth);
+          });
         }));
 
-        fit('should NOT change max value when column width is changed', fakeAsync(() => {
+        it('should resize column when range input is changed', async(() => {
+          // Get initial baseline for comparison.
+          // Note: We are assuming column at index[1] starts with a set value (150).
+          let columnIndex = 1;
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+          let inputRange = getColumnRangeInputs(fixture)[1];
+          let deltaX = 10;
+
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            // Increase first column.
+            resizeColumnByRangeInput(fixture, columnIndex, deltaX);
+
+            // Assert table was resized properly, and input range was updated correctly.
+            let expectedColumnWidths: any = cloneItems(initialColumnWidths);
+            expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
+            expect(getTableWidth(fixture)).toEqual(initialTableWidth + deltaX);
+            expect(getColumnWidths(fixture)).toEqual(expectedColumnWidths);
+            expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
+            component.columnWidthsChange.forEach((cwc, index) => {
+              expect(cwc.width === expectedColumnWidths[index]);
+            });
+
+            // Decrease first column.
+            initialTableWidth = getTableWidth(fixture);
+            initialColumnWidths = getColumnWidths(fixture);
+            deltaX = -20;
+            resizeColumnByRangeInput(fixture, columnIndex, deltaX);
+
+            // Assert table was resized properly, and input range was updated correctly.
+            expectedColumnWidths = cloneItems(initialColumnWidths);
+            expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
+            expect(getTableWidth(fixture)).toEqual(initialTableWidth + deltaX);
+            expect(getColumnWidths(fixture)).toEqual(expectedColumnWidths);
+            expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
+            component.columnWidthsChange.forEach((cwc, index) => {
+              expect(cwc.width === expectedColumnWidths[index]);
+            });
+          });
+        }));
+
+        it('should NOT change max value when column width is changed', fakeAsync(() => {
           // Get initial baseline for comparison.
           let initialMaxValues = getColumnResizeInputMaxValues(fixture);
 
           // Resize first column.
-          increaseColumnByRangeInput(fixture, 0);
+          resizeColumnByRangeInput(fixture, 0, 50);
 
           // Assert max value on input ranges was not changed.
           let expectedColumnInputs = getColumnResizeInputMaxValues(fixture);
@@ -664,6 +665,17 @@ describe('Grid Component', () => {
       fixture.detectChanges();
     });
 
+    describe('Standard setup', () => {
+      it('should change styles based on hasToolbar input', () => {
+        const table = getTable(fixture).nativeElement;
+        expect(table).toHaveCssClass('sky-grid-fit');
+        expect(table).not.toHaveCssClass('sky-grid-has-toolbar');
+        component.hasToolbar = true;
+        fixture.detectChanges();
+        expect(table).toHaveCssClass('sky-grid-has-toolbar');
+      });
+    });
+
     describe('Resiazable columns', () => {
 
       it('should not allow resizing when the final column is at the minimum width', fakeAsync(() => {
@@ -699,24 +711,24 @@ describe('Grid Component', () => {
         let newTableWidth = getTableWidth(fixture);
         let newColumnWidths = getColumnWidths(fixture);
         let expectedColumnWidths = Object.assign(initialColumnWidths);
-        expectedColumnWidths[0].width = expectedColumnWidths[0].width + resizeXDistance;
-        expectedColumnWidths[2].width = expectedColumnWidths[2].width - resizeXDistance;
-        expectedColumnWidths[4].width = 50;
+        expectedColumnWidths[0] = expectedColumnWidths[0] + resizeXDistance;
+        expectedColumnWidths[2] = expectedColumnWidths[2] - resizeXDistance;
+        expectedColumnWidths[4] = 50;
         expect(newTableWidth).toEqual(initialTableWidth);
         expect(newColumnWidths).toEqual(expectedColumnWidths);
       }));
 
-      fit('should change max value when column width is changed', fakeAsync(() => {
+      it('should change max value when column width is changed', fakeAsync(() => {
         // Get initial baseline for comparison.
         let initialMaxValues = getColumnResizeInputMaxValues(fixture);
 
-        // Resize last column so its larger than the min-width.
+        // Squeeze a column so it adds more width to the last column.
         // We have to do this, because fit=width doesn't allow the last column to be smaller than min.
-        let resizeXDistance = 50;
-        resizeColumn(fixture, -resizeXDistance, 2);
+        let deltaX = 50;
+        resizeColumnByRangeInput(fixture, 2, -deltaX);
 
         // Resize first column.
-        increaseColumnByRangeInput(fixture, 0);
+        resizeColumnByRangeInput(fixture, 0, deltaX);
 
         // Assert max value on input ranges were properly updated.
         let expectedColumnInputs = getColumnResizeInputMaxValues(fixture);

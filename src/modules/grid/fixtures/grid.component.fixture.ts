@@ -37,7 +37,7 @@ export class GridTestComponent {
   public searchText: string;
   public activeSortSelector: ListSortFieldSelectorModel;
   public sortField: ListSortFieldSelectorModel;
-  public columnWidthsChange: SkyGridColumnWidthModelChange;
+  public columnWidthsChange: Array<SkyGridColumnWidthModelChange>;
   public fitType: string = 'scroll';
 
   public selectedColumnIds: string[] = [
@@ -105,7 +105,7 @@ export class GridTestComponent {
     this.activeSortSelector = sortSelector;
   }
 
-  public onResize(columnWidths: SkyGridColumnWidthModelChange) {
+  public onResize(columnWidths: Array<SkyGridColumnWidthModelChange>) {
     this.columnWidthsChange = columnWidths;
   }
 }

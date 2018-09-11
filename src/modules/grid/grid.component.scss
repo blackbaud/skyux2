@@ -77,15 +77,46 @@
   }
 
   .sky-grid-column-input-aria-only {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 100%;
+    width: 14px;
     position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    opacity: 0;
-    border: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    outline: none;
+    display: block;
+    top: 0;
+    bottom: 0;
+    right: 0;
+
+     &::-moz-range-thumb {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 0;
+      height: 0;
+      border-radius: 0px;
+      border: 0 none;
+      background: none;
+      display: none;
+    }
+     &::-ms-thumb {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 0;
+      height: 0;
+      border-radius: 0px;
+      border: 0 none;
+      background: none;
+      display: none;
+    }
+     &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 0;
+      height: 0;
+      border-radius: 0px;
+      border: 0 none;
+      background: none;
+      display: none;
+     }
   }
 }
 
@@ -117,7 +148,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 99; // TODO figure out right zindex
+  z-index: 99;
   height: 100%;
   width: 5px;
   background: black;
