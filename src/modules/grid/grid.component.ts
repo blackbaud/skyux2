@@ -197,6 +197,45 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     });
   }
 
+  public getTableClassNames() {
+    let classNames: string[] = [];
+
+    if (this.fit !== 'scroll') {
+      classNames.push('sky-grid-fit');
+    }
+
+    if (this.hasToolbar) {
+      classNames.push('sky-grid-has-toolbar');
+    }
+
+    return this.addDelimeter(classNames, ' ');
+  }
+
+  public getTableHeaderClassNames(column: SkyGridColumnModel) {
+    let classNames: string[] = [];
+
+    if (column.locked) {
+      classNames.push('sky-grid-header-locked');
+    }
+
+    return this.addDelimeter(classNames, ' ');
+  }
+
+  public getCaretClassNames(column: SkyGridColumnModel) {
+    let classNames: string[] = [];
+
+    this.getSortDirection(column.field).subscribe((sortDir) => {
+      if (sortDir === 'asc') {
+        classNames.push('fa-caret-up');
+      }
+      if (sortDir === 'desc') {
+        classNames.push('fa-caret-down');
+      }
+    });
+
+    return this.addDelimeter(classNames, ' ');
+  }
+
   public onKeydown(event: KeyboardEvent, column: SkyGridColumnModel) {
     const key = event.key.toLowerCase();
     if (key === 'enter' || key === ' ') {
@@ -270,7 +309,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     // Show visual indicator of where mouse is dragging (resizeBar).
     this.ref.detectChanges();
     let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
-    this.gridAdapter.setStyle(this.resizeBar.nativeElement, 'left', resizeBarX + 'px');
+    this.gridAdapter.setStyle(this.resizeBar, 'left', resizeBarX + 'px');
 
     event.preventDefault();
     event.stopPropagation();
@@ -308,7 +347,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     }
 
     let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
-    this.gridAdapter.setStyle(this.resizeBar.nativeElement, 'left', resizeBarX + 'px');
+    this.gridAdapter.setStyle(this.resizeBar, 'left', resizeBarX + 'px');
   }
 
   @HostListener('document:click', ['$event'])
@@ -403,7 +442,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       lastColumn.width = lastColumn.width - deltaX;
       this.updateMaxRange();
     } else {
-      this.gridAdapter.setElementWidth(this.tableElementRef.nativeElement, this.tableWidth + deltaX);
+      this.gridAdapter.setStyle(this.tableElementRef, 'width', `${this.tableWidth + deltaX}px`);
       column.width = newColWidth;
     }
 
@@ -435,8 +474,8 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   // This should only be used when fit=scroll.
   private initializeTableWidth() {
     this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
-    this.gridAdapter.setElementWidth(this.tableElementRef.nativeElement, this.tableWidth);
-    this.gridAdapter.setStyle(this.tableElementRef.nativeElement, 'min-width', 'auto');
+    this.gridAdapter.setStyle(this.tableElementRef, 'width', `${this.tableWidth}px`);
+    this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
   }
 
   private getColumnWidthModelChange() {
@@ -488,5 +527,9 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   private getLastDisplayedColumn() {
     return this.getColumnModelByIndex(this.displayedColumns.length - 1);
+  }
+
+  private addDelimeter(text: string[], delimiter: string) {
+    return text.filter(val => val).join(delimiter);
   }
 }

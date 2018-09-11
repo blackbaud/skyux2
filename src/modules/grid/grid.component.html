@@ -2,7 +2,7 @@
   <div class="sky-grid-table-container" [style.height.px]="height" [style.width.px]="width">
     <table
       class="sky-grid-table"
-      [ngClass]="{ 'sky-grid-fit': fit !== 'scroll', 'sky-grid-has-toolbar': hasToolbar }"
+      [ngClass]="getTableClassNames()"
       #gridTable>
       <thead>
         <tr dragula="sky-grid-heading">
@@ -13,7 +13,7 @@
             [attr.sky-cmp-index]="i"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
-            [ngClass]="{ 'sky-grid-header-locked': column.locked }"
+            [ngClass]="getTableHeaderClassNames(column)"
             [style.width.px]="column.width"
             [tabIndex]="column.isSortable ? 0 : -1"
             (click)="sortByColumn(column)"
@@ -25,7 +25,7 @@
               <i
                 class="fa sky-grid-heading-sort"
                 [ngStyle]="{'visibility: hidden': (getSortDirection(column.field) | async)}"
-                [ngClass]="{ 'fa-caret-up': (getSortDirection(column.field) | async) === 'asc', 'fa-caret-down': (getSortDirection(column.field) | async) === 'desc' }"
+                [ngClass]="getCaretClassNames(column)"
               >
               </i>
             </div>
