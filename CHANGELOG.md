@@ -1,15 +1,19 @@
+# 2.24.0 (2018-09-11)
+
+- Added support for `@skyux/core@3.0.1`. [#1953](https://github.com/blackbaud/skyux2/pull/1953)
+
 # 2.23.0 (2018-09-07)
 
 - Added support for Builder `1.20.2`. [#1968](https://github.com/blackbaud/skyux2/pull/1968)
-- Updated all components to use the icon component instead of `<i>` tag. [#1949](https://github.com/blackbaud/skyux2/pull/1949) (Thanks @Remulus2006)
-- Updated various components to have proper accessibility attributes and ids. [#1959](https://github.com/blackbaud/skyux2/pull/1959) [#1798](https://github.com/blackbaud/skyux2/pull/1798)
-- Fixed accessibility issue with the toolbar component. [#1968](https://github.com/blackbaud/skyux2/pull/1968)
+- Updated all components to use icon component instead of `<i>` tag. [#1949](https://github.com/blackbaud/skyux2/pull/1949) (Thanks @Remulus2006)
+- Updated various components to have proper accessibility attributes and IDs. [#1959](https://github.com/blackbaud/skyux2/pull/1959) [#1798](https://github.com/blackbaud/skyux2/pull/1798)
+- Fixed accessibility issue with list toolbar component. [#1968](https://github.com/blackbaud/skyux2/pull/1968)
 - Fixed radio component to work with reactive forms. [#1714](https://github.com/blackbaud/skyux2/pull/1714)
 - Fixed spacing issues with repeater component. [#1925](https://github.com/blackbaud/skyux2/pull/1925)
-- Fixed colorpicker to no longer take up extra space for hidden dropdown. [#1948](https://github.com/blackbaud/skyux2/pull/1948)
-- Fixed flyout to allow proper resizing when appearing on top of iframes. [#1952](https://github.com/blackbaud/skyux2/pull/1952)
+- Fixed colorpicker to remove extra space for hidden dropdown. [#1948](https://github.com/blackbaud/skyux2/pull/1948)
+- Fixed flyout to allow resizing on top of iframes. [#1952](https://github.com/blackbaud/skyux2/pull/1952)
 - Fixed wait module to provide SkyWindowRefService. [#1961](https://github.com/blackbaud/skyux2/pull/1961)
-- Fixed fluid grid so that any change to the `<sky-column>` inputs will now update relevant classnames. [#1962](https://github.com/blackbaud/skyux2/pull/1962)
+- Fixed fluid grid so that changes to `<sky-column>` inputs update relevant classnames. [#1962](https://github.com/blackbaud/skyux2/pull/1962)
 
 # 2.22.0 (2018-08-29)
 
