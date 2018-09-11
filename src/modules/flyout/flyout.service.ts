@@ -8,6 +8,10 @@ import {
   Type
 } from '@angular/core';
 
+import {
+  Observable,
+  Subject
+} from 'rxjs';
 import 'rxjs/add/operator/take';
 
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
@@ -26,7 +30,7 @@ export class SkyFlyoutService {
   private host: ComponentRef<SkyFlyoutComponent>;
   private removeAfterClosed = false;
   private isOpening: boolean = false;
-  private closeOnClickEvent: EventListener;
+  private idled = new Subject<boolean>();
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
@@ -34,13 +38,7 @@ export class SkyFlyoutService {
     private injector: Injector,
     private resolver: ComponentFactoryResolver,
     private windowRef: SkyWindowRefService
-  ) {
-    this.closeOnClickEvent = (event) => {
-      if (this.host && this.host.location && !this.host.location.nativeElement.contains(event.target)) {
-        this.close();
-      }
-    };
-  }
+  ) { }
 
   public open<T>(component: Type<T>, config?: SkyFlyoutConfig): SkyFlyoutInstance<T> {
     // isOpening flag will prevent close() from firing when open() is also fired.
@@ -94,8 +92,18 @@ export class SkyFlyoutService {
 
   private addListeners<T>(flyout: SkyFlyoutInstance<T>): void {
     if (this.host) {
+      const windowObj = this.windowRef.getWindow();
+
       // Flyout should close when user clicks outside of flyout.
-      this.windowRef.getWindow().addEventListener('click', this.closeOnClickEvent);
+      Observable
+      .fromEvent(windowObj, 'click')
+      .takeUntil(this.idled)
+      .subscribe(() => {
+        console.log('click');
+        if (this.host && this.host.location && !this.host.location.nativeElement.contains(event.target)) {
+          this.close();
+        }
+      });
 
       this.removeAfterClosed = false;
       this.host.instance.messageStream
@@ -108,11 +116,15 @@ export class SkyFlyoutService {
         });
 
       flyout.closed.take(1).subscribe(() => {
-        this.windowRef.getWindow().removeEventListener('click', this.closeOnClickEvent);
+        this.removeListners();
         if (this.removeAfterClosed) {
           this.removeHostComponent();
         }
       });
     }
+  }
+
+  private removeListners() {
+    this.idled.next(true);
   }
 }
