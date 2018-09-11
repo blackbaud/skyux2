@@ -1,4 +1,4 @@
-export { SkyMediaQueryModule } from './media-query.module';
-export { SkyMediaQueryListener } from './media-query-listener';
-export { SkyMediaQueryService } from './media-query.service';
-export { SkyMediaBreakpoints } from './media-breakpoints';
+export * from './media-query.module';
+export * from './media-query-listener';
+export * from './media-query.service';
+export * from './media-breakpoints';

@@ -1,5 +1,3 @@
-import { SkyMediaBreakpoints } from './media-breakpoints';
-
-export interface SkyMediaQueryListener {
-  (args: SkyMediaBreakpoints): void;
-}
+export {
+  SkyMediaQueryListener
+} from '@skyux/core/modules/media-query/media-query-listener';
