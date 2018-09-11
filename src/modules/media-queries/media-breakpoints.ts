@@ -1,6 +1,3 @@
-export enum SkyMediaBreakpoints {
-  xs =  1,
-  sm,
-  md,
-  lg
-}
+export {
+  SkyMediaBreakpoints
+} from '@skyux/core/modules/media-query/media-breakpoints';
