@@ -5,7 +5,8 @@ import {
   EmbeddedViewRef,
   Injectable,
   Injector,
-  Type
+  Type,
+  OnDestroy
 } from '@angular/core';
 
 import {
@@ -26,7 +27,7 @@ import {
 import { SkyWindowRefService } from '../window';
 
 @Injectable()
-export class SkyFlyoutService {
+export class SkyFlyoutService implements OnDestroy {
   private host: ComponentRef<SkyFlyoutComponent>;
   private removeAfterClosed = false;
   private isOpening: boolean = false;
@@ -39,6 +40,10 @@ export class SkyFlyoutService {
     private resolver: ComponentFactoryResolver,
     private windowRef: SkyWindowRefService
   ) { }
+
+  public ngOnDestroy(): void {
+    this.removeListners();
+  }
 
   public open<T>(component: Type<T>, config?: SkyFlyoutConfig): SkyFlyoutInstance<T> {
     // isOpening flag will prevent close() from firing when open() is also fired.
@@ -126,5 +131,7 @@ export class SkyFlyoutService {
 
   private removeListners() {
     this.idled.next(true);
+    this.idled.unsubscribe();
+    this.idled = new Subject<boolean>();
   }
 }
