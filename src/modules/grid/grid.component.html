@@ -15,12 +15,14 @@
             [attr.aria-sort]="getAriaSortDirection(column) | async"
             [ngClass]="getTableHeaderClassNames(column)"
             [style.width.px]="column.width"
-            [tabIndex]="column.isSortable ? 0 : -1"
             (click)="sortByColumn(column)"
             (keydown)="onKeydown($event, column)"
             #gridCol
           >
-            <div class="overflow">
+            <div
+              class="overflow"
+              [tabIndex]="column.isSortable ? 0 : -1"
+            >
               {{column.heading}}
               <i
                 class="fa sky-grid-heading-sort"
