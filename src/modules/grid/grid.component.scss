@@ -49,7 +49,6 @@
   background-color: $sky-color-white;
 
   overflow: visible;
-  padding: 8px;
   text-align: left;
 
   &:first-child {
@@ -57,7 +56,6 @@
   }
 
   &.sky-grid-header-dragging {
-    padding: 8px;
     background-color: $sky-background-color-neutral-light;
   }
 
@@ -66,6 +64,10 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  div {
+    padding: 8px;
+  }
 
   .overflow {
     text-overflow: ellipsis;
@@ -80,7 +82,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 100%;
-    width: 14px;
+    width: 5px;
     position: absolute;
     display: block;
     top: 0;

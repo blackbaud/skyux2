@@ -138,7 +138,7 @@ function cloneItems(items: any[]): any[] {
   return JSON.parse(JSON.stringify(items));
 }
 
-fdescribe('Grid Component', () => {
+describe('Grid Component', () => {
   describe('Basic Fixture with fit=scroll', () => {
     let component: GridTestComponent,
         fixture: ComponentFixture<GridTestComponent>,
