@@ -38,3 +38,9 @@
     margin-bottom: 0 !important;
   }
 }
+
+.sky-assistive-text {
+  @media screen {
+    @include sky-screen-reader-only();
+  }
+}
