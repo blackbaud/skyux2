@@ -70,11 +70,15 @@ export class SkyWaitAdapterService implements OnDestroy {
   private focusNextElement(parentElement: any, shiftKey: boolean): void {
     // Select all possible focussable elements
     let focussableElements =
-      'a:not([disabled]):not([tabindex="-1"]), ' +
-      'button:not([disabled]):not([tabindex="-1"]), ' +
-      'input:not([disabled]):not([tabindex="-1"]), ' +
-      'textarea:not([disabled]):not([tabindex="-1"]), ' +
-      '[tabindex]:not([disabled]):not([tabindex="-1"])';
+      'a[href], ' +
+      'area[href], ' +
+      'input:not([disabled]):not([tabindex=\'-1\']), ' +
+      'button:not([disabled]):not([tabindex=\'-1\']), ' +
+      'select:not([disabled]):not([tabindex=\'-1\']), ' +
+      'textarea:not([disabled]):not([tabindex=\'-1\']), ' +
+      'iframe, object, embed, ' +
+      '*[tabindex]:not([tabindex=\'-1\']), ' +
+      '*[contenteditable=true]';
 
     let focussable = Array.prototype.filter.call(document.body.querySelectorAll(focussableElements),
       (element: any) => {
