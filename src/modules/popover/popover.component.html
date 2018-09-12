@@ -17,6 +17,14 @@
       <h1 class="sky-popover-title sky-emphasized">
         {{ popoverTitle }}
       </h1>
+      <button *ngIf="placement === 'fullscreen'"
+        type="button"
+        class="sky-btn sky-popover-fullscreen-close"
+        [attr.aria-label]="'modal_close' | skyResources"
+        (click)="close()"
+      >
+        <sky-icon icon="close"></sky-icon>
+      </button>
     </header>
     <div class="sky-popover-body sky-padding-even-default">
       <ng-content></ng-content>
