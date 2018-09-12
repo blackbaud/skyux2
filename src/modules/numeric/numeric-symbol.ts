@@ -1,4 +1,3 @@
-export interface SkyNumericSymbol {
-  value: number;
-  label: string;
-}
+export {
+  SkyNumericSymbol
+} from '@skyux/core/modules/numeric/numeric-symbol';
