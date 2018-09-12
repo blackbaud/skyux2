@@ -1,10 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SkyGridComponent } from './grid.component';
-import { SkyGridColumnComponent } from './grid-column.component';
-import { SkyGridCellComponent } from './grid-cell.component';
-import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-import { SkyTextHighlightModule } from '../text-highlight';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
+import {
+  DragulaModule
+} from 'ng2-dragula/ng2-dragula';
+
+import {
+  SkyGridComponent
+} from './grid.component';
+import {
+  SkyGridColumnComponent
+} from './grid-column.component';
+import {
+  SkyGridCellComponent
+} from './grid-cell.component';
+import {
+  SkyTextHighlightModule
+} from '../text-highlight';
+import {
+  SkyIconModule
+} from '../icon';
 
 @NgModule({
   declarations: [
@@ -15,6 +33,7 @@ import { SkyTextHighlightModule } from '../text-highlight';
   imports: [
     CommonModule,
     SkyTextHighlightModule,
+    SkyIconModule,
     DragulaModule
   ],
   exports: [

@@ -7,10 +7,13 @@
     <a
       href
       (click)="previousPage(); false"
-      class="fa fa-caret-left sky-paging-caret"
+      class="sky-paging-caret"
       sky-cmp-id="previous"
       [ngClass]="{ 'sky-paging-disabled': currentPage === 1 }"
-      [attr.aria-label]="'paging_previous' | skyResources"></a>
+      [attr.aria-label]="'paging_previous' | skyResources"
+    >
+      <sky-icon icon="caret-left "></sky-icon>
+    </a>
   </li>
   <li
     *ngFor="let pageNumber of displayedPages"
@@ -27,11 +30,12 @@
     <a
       href
       (click)="nextPage(); false"
-      class="fa fa-caret-right sky-paging-caret"
+      class="sky-paging-caret"
       sky-cmp-id="next"
       [ngClass]="{ 'sky-paging-disabled': pageCount === currentPage }"
       [attr.aria-label]="'paging_next' | skyResources"
-      >
+    >
+      <sky-icon icon="caret-right "></sky-icon>
     </a>
   </li>
 </ul>

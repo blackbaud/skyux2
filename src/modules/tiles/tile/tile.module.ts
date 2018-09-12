@@ -1,12 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
 
-import { SkyChevronModule } from '../../chevron';
-import { SkyResourcesModule } from '../../resources';
-
-import { SkyTileComponent } from './tile.component';
-import { SkyTileSummaryComponent } from './tile-summary.component';
-import { SkyTileTitleComponent } from './tile-title.component';
+import {
+  SkyChevronModule
+} from '../../chevron';
+import {
+  SkyResourcesModule
+} from '../../resources';
+import {
+  SkyTileComponent
+} from './tile.component';
+import {
+  SkyTileSummaryComponent
+} from './tile-summary.component';
+import {
+  SkyTileTitleComponent
+} from './tile-title.component';
+import {
+  SkyIconModule
+} from '../../icon';
 
 @NgModule({
   declarations: [
@@ -17,7 +33,8 @@ import { SkyTileTitleComponent } from './tile-title.component';
   imports: [
     CommonModule,
     SkyChevronModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyTileComponent,

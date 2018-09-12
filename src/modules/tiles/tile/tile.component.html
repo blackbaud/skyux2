@@ -22,16 +22,18 @@
         <button
             type="button"
             *ngIf="hasSettings"
-            class="sky-tile-settings fa fa-cog"
+            class="sky-tile-settings"
             [attr.aria-label]="'tile_settings' | skyResources"
             (click)="settingsButtonClicked();"
         >
+          <sky-icon icon="cog"></sky-icon>
         </button>
-        <i
-            class="sky-tile-grab-handle fa fa-th"
-            *ngIf="isInDashboardColumn"
+        <sky-icon
+          *ngIf="isInDashboardColumn"
+          class="sky-tile-grab-handle"
+          icon="th"
         >
-        </i>
+        </sky-icon>
       </div>
     </div>
   </header>
