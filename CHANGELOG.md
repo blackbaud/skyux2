@@ -1,3 +1,7 @@
+# 2.24.1 (2018-09-12)
+
+ - Fixed `sky-radio` buttons becoming permanently checked when not in a `sky-radio-group`. [#1982](https://github.com/blackbaud/skyux2/pull/1982)
+
 # 2.24.0 (2018-09-11)
 
 - Added support for `@skyux/core@3.0.1`. [#1953](https://github.com/blackbaud/skyux2/pull/1953)
