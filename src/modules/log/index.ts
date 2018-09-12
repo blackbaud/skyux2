@@ -1,2 +1,2 @@
-export { SkyLogModule } from './log.module';
-export { SkyLogService } from './log.service';
+export * from './log.module';
+export * from './log.service';
