@@ -2,7 +2,6 @@
 import {
   NgModule
 } from '@angular/core';
-
 import {
   CommonModule
 } from '@angular/common';
@@ -10,27 +9,25 @@ import {
 import {
   SkyResourcesModule
 } from '../resources';
-
 import {
   SkyWindowRefService
 } from '../window';
+import {
+  SkyIconModule
+} from '../icon';
 
 import {
   SkyToastAdapterService
 } from './toast-adapter.service';
-
 import {
   SkyToastBodyComponent
 } from './toast-body.component';
-
 import {
   SkyToastComponent
 } from './toast.component';
-
 import {
   SkyToasterComponent
 } from './toaster.component';
-
 import {
   SkyToastService
 } from './toast.service';
@@ -44,7 +41,8 @@ import {
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyToastComponent

@@ -32,9 +32,6 @@ describe('Wait service', () => {
     TestBed.configureTestingModule({
       imports: [
         SkyWaitFixturesModule
-      ],
-      providers: [
-        SkyWindowRefService
       ]
     });
   });
