@@ -9,8 +9,13 @@ import {
 import {
   SkyResourcesModule
 } from '../resources';
+import {
+  SkyIconModule
+} from '../icon';
 
-import { SkyHelpInlineComponent } from './help-inline.component';
+import {
+  SkyHelpInlineComponent
+} from './help-inline.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,8 @@ import { SkyHelpInlineComponent } from './help-inline.component';
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyHelpInlineComponent

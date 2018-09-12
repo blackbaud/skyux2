@@ -8,7 +8,7 @@
           (click)="datepicker.moveCalendar($event, -1)"
           tabindex="-1"
           >
-          <i class="fa fa-chevron-left"></i>
+          <sky-icon icon="chevron-left"></sky-icon>
         </button></th>
       <th [attr.colspan]="((datepicker.monthColLimit - 2) <= 0) ? 1 : datepicker.monthColLimit - 2">
         <button
@@ -30,7 +30,7 @@
           (click)="datepicker.moveCalendar($event, 1)"
           tabindex="-1"
           >
-          <i class="fa fa-chevron-right"></i>
+          <sky-icon icon="chevron-right"></sky-icon>
         </button>
       </th>
     </tr>
