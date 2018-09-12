@@ -1,10 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
+import {
+  Component,
+  ViewChild
+} from '@angular/core';
 
-import { SkyTileDashboardComponent, SkyTileDashboardConfig } from '../../../tiles';
-import { Tile1TestComponent } from './tile1.component.fixture';
-import { Tile2TestComponent } from './tile2.component.fixture';
+import {
+  SkyTileDashboardConfig
+} from '../../tile-dashboard-config';
+import {
+  SkyTileDashboardComponent
+} from '../../tile-dashboard';
 
-import { TileTestContext } from './tile-context.fixture';
+import {
+  Tile1TestComponent
+} from './tile1.component.fixture';
+import {
+  Tile2TestComponent
+} from './tile2.component.fixture';
+import {
+  TileTestContext
+} from './tile-context.fixture';
 
 @Component({
   selector: 'sky-demo-app',
@@ -34,6 +48,30 @@ export class TileDashboardTestComponent {
               }
             }
           ]
+        },
+        {
+          id: 'sky-test-tile-3',
+          componentType: Tile2TestComponent,
+          providers: [
+            {
+              provide: TileTestContext,
+              useValue: {
+                id: 3
+              }
+            }
+          ]
+        },
+        {
+          id: 'sky-test-tile-4',
+          componentType: Tile2TestComponent,
+          providers: [
+            {
+              provide: TileTestContext,
+              useValue: {
+                id: 3
+              }
+            }
+          ]
         }
       ],
       layout: {
@@ -46,6 +84,14 @@ export class TileDashboardTestComponent {
             {
               id: 'sky-test-tile-1',
               isCollapsed: true
+            },
+            {
+              id: 'sky-test-tile-3',
+              isCollapsed: false
+            },
+            {
+              id: 'sky-test-tile-4',
+              isCollapsed: false
             }
           ]
         },
@@ -55,6 +101,14 @@ export class TileDashboardTestComponent {
               {
                 id: 'sky-test-tile-1',
                 isCollapsed: true
+              },
+              {
+                id: 'sky-test-tile-3',
+                isCollapsed: false
+              },
+              {
+                id: 'sky-test-tile-4',
+                isCollapsed: false
               }
             ]
           },
