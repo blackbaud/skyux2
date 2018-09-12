@@ -1,6 +1,5 @@
-<ul
+<ul *ngIf="pageCount > 1"
   role="navigation"
-  *ngIf="pageCount > 1"
   [attr.aria-label]="pagingLabel || 'paging_label' | skyResources"
   >
   <li>
