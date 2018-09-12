@@ -1,10 +1,19 @@
-<sky-vertical-tabset showTabsText='Tab list'>
-  <sky-vertical-tabset-group 
+<sky-vertical-tabset
+  ariaRole="tablist"
+  showTabsText='Tab list'>
+  <sky-vertical-tabset-group
     groupHeading="Group 1"
     [open]="group1Open"
     [disabled]="group1Disabled"
   >
-    <sky-vertical-tab tabHeading="Group 1 Tab 1" tabHeaderCount="5" [active]="active">
+    <sky-vertical-tab
+      ariaControls="some-div"
+      ariaInvalid="true"
+      ariaRequired="true"
+      ariaRole="tab"
+      tabHeading="Group 1 Tab 1"
+      tabHeaderCount="5" [active]="active"
+      tabId="some-tab">
       Group 1 Tab 1 content
     </sky-vertical-tab>
     <sky-vertical-tab tabHeading="Group 1 Tab 2">
@@ -12,7 +21,7 @@
     </sky-vertical-tab>
   </sky-vertical-tabset-group>
 
-  <sky-vertical-tabset-group 
+  <sky-vertical-tabset-group
     groupHeading="Group 2"
     [open]="group2Open"
     [disabled]="group2Disabled"
@@ -28,7 +37,7 @@
     </sky-vertical-tab>
   </sky-vertical-tabset-group>
 
-  <sky-vertical-tabset-group 
+  <sky-vertical-tabset-group
     groupHeading="Group 3"
     [open]="group3Open"
     [disabled]="group3Disabled"
@@ -41,3 +50,4 @@
     </sky-vertical-tab>
   </sky-vertical-tabset-group>
 </sky-vertical-tabset>
+<div id="some-div" aria-labelledby="some-tab"></div>

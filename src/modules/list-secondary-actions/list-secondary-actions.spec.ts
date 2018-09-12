@@ -14,13 +14,16 @@ import {
   ListState,
   ListStateDispatcher
 } from '../list/state';
-
 import {
   SkyListToolbarModule
 } from '../list-toolbar';
 
-import { ListSecondaryActionsTestComponent } from './fixtures/list-secondary-actions.component.fixture';
-import { SkyListSecondaryActionsModule } from './list-secondary-actions.module';
+import {
+  ListSecondaryActionsTestComponent
+} from './fixtures/list-secondary-actions.component.fixture';
+import {
+  SkyListSecondaryActionsModule
+} from './list-secondary-actions.module';
 
 describe('List Secondary Actions Component', () => {
   let state: ListState;
