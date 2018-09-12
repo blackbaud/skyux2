@@ -132,7 +132,6 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   public get change(): Observable<SkyRadioChange> {
     return this._change;
   }
-
   public get inputId(): string {
     return `sky-radio-${this.id}-input`;
   }
@@ -142,7 +141,6 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
       this._selectedValue = value;
     }
   }
-
   public get selectedValue(): any {
     return this._selectedValue;
   }
@@ -168,10 +166,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
     }
 
     this.selectedValue = value;
-
-    if (this.value === this.selectedValue) {
-      this.checked = true;
-    }
+    this.checked = this.value === this.selectedValue;
 
     this.changeDetector.markForCheck();
   }

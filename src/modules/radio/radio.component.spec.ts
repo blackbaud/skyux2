@@ -72,7 +72,9 @@ describe('Radio component', function () {
       expect(ngModel.valid).toBe(true);
       expect(ngModel.pristine).toBe(false);
       expect(ngModel.touched).toBe(true);
-      expect(radios.item(1).checked).toBe(true);
+      expect(radios.item(0).checked).toBeFalsy();
+      expect(radios.item(1).checked).toBeTruthy();
+      expect(radios.item(2).checked).toBeFalsy();
       expect(componentInstance.selectedValue).toBe('2');
 
       SkyAppTestUtility.fireDomEvent(radios.item(1), 'blur');
@@ -106,7 +108,9 @@ describe('Radio component', function () {
       tick();
 
       const radios = fixture.nativeElement.querySelectorAll('input');
-      expect(radios.item(1).checked).toBe(true);
+      expect(radios.item(0).checked).toBeFalsy();
+      expect(radios.item(1).checked).toBeTruthy();
+      expect(radios.item(2).checked).toBeFalsy();
     }));
 
     it('should maintain checked state when value is changed', fakeAsync(function() {
@@ -122,6 +126,8 @@ describe('Radio component', function () {
 
       radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(0).checked).toBeTruthy();
+      expect(radios.item(1).checked).toBeFalsy();
+      expect(radios.item(2).checked).toBeFalsy();
     }));
 
     it('should handle disabled state properly', fakeAsync(function () {
@@ -134,7 +140,9 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      expect(radios.item(1).checked).toBe(false);
+      expect(radios.item(0).checked).toBeTruthy();
+      expect(radios.item(1).checked).toBeFalsy();
+      expect(radios.item(2).checked).toBeFalsy();
       expect(componentInstance.selectedValue).toBe('1');
 
       componentInstance.disabled2 = false;
@@ -145,7 +153,9 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      expect(radios.item(1).checked).toBe(true);
+      expect(radios.item(0).checked).toBeFalsy();
+      expect(radios.item(1).checked).toBeTruthy();
+      expect(radios.item(2).checked).toBeFalsy();
       expect(componentInstance.selectedValue).toBe('2');
     }));
 
