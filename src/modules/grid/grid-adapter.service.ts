@@ -2,8 +2,7 @@ import {
   Injectable,
   Renderer2,
   RendererFactory2,
-  ElementRef,
-  QueryList
+  ElementRef
 } from '@angular/core';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
