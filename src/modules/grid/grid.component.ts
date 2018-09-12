@@ -502,9 +502,9 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   private initializeResizeColumn(event: any) {
     const clickTarget = event.target as HTMLElement;
-    let column = clickTarget.closest('th') as HTMLTableHeaderCellElement;
-    this.activeResizeColumnIndex = column.getAttribute('sky-cmp-index');
-    this.startColumnWidth = column.offsetWidth;
+    this.activeResizeColumnIndex = clickTarget.getAttribute('sky-cmp-index');
+    let column = this.getColumnModelByIndex(this.activeResizeColumnIndex);
+    this.startColumnWidth = column.width;
   }
 
   private getRangeInputByIndex(index: string | number) {

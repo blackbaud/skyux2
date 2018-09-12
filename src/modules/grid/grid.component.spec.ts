@@ -513,9 +513,9 @@ describe('Grid Component', () => {
 
           // Assert nothing was changed.
           let newTableWidth = getTableWidth(fixture);
-          let newolumnWidths = getColumnWidths(fixture);
+          let newColumnWidths = getColumnWidths(fixture);
           expect(initialTableWidth).toEqual(newTableWidth);
-          expect(initialColumnWidths).toEqual(newolumnWidths);
+          expect(initialColumnWidths).toEqual(newColumnWidths);
         }));
 
         it('should properly resize column and emit change event on release of resize handle', fakeAsync(() => {

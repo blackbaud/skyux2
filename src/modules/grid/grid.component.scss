@@ -50,6 +50,7 @@
 
   overflow: visible;
   text-align: left;
+  background-clip: padding-box; // IE/Edge fix.
 
   &:first-child {
     border-left: 1px solid transparent;
