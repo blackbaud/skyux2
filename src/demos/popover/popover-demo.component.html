@@ -384,7 +384,7 @@
 <button
   type="button"
   class="sky-btn sky-btn-default"
-  [skyPopover]="asyncPopover">
+  [skyPopover]="asyncPopoverRef">
   This trigger has an asynchronous popover
 </button>
 
@@ -400,19 +400,19 @@
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    [skyPopover]="programaticPopoverRef"
-    [skyPopoverMessageStream]="popoverController"
-    (click)="openPopover()">
-    Open popover
+    [skyPopover]="programaticPopover"
+    [skyPopoverMessageStream]="popoverController">
+    Open popover via click
   </button>
+
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="closePopover()">
-    Close popover
+    (click)="openPopover()">
+    Open popover programatically
   </button>
 </p>
-<sky-popover #programaticPopoverRef>
-  My programatic popover.
+<sky-popover #programaticPopover>
+  This popover will programatically close after five seconds.
 </sky-popover>
