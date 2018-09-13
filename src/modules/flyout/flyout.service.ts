@@ -103,8 +103,7 @@ export class SkyFlyoutService implements OnDestroy {
       Observable
       .fromEvent(windowObj, 'click')
       .takeUntil(this.idled)
-      .subscribe(() => {
-        console.log('click');
+      .subscribe((event: MouseEvent) => {
         if (this.host && this.host.location && !this.host.location.nativeElement.contains(event.target)) {
           this.close();
         }
