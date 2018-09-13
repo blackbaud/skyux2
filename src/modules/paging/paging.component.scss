@@ -1,19 +1,19 @@
-@import '../../scss/mixins';
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 :host {
   display: block;
-  margin-top: $sky-margin-plus-half;
+}
 
-  ul {
-    margin: 0;
-    display: inline-block;
-    padding-left: 0;
-    border-radius: 4px;
-  }
+ul {
+  margin: $sky-margin-plus-half 0 0 0;
+  display: inline-block;
+  padding-left: 0;
+  border-radius: 4px;
+}
 
-  li {
-    display: inline;
-  }
+li {
+  display: inline;
 }
 
 .sky-paging-btn {
@@ -33,20 +33,20 @@
     transform: none;
   }
 
-  &.sky-paging-current {
+  &.sky-paging-current,
+  &.sky-paging-current:disabled,
+  &.sky-paging-current[disabled] {
     background-color: $sky-background-color-neutral-light;
     cursor: default;
-
-    &:hover {
-      background-color: $sky-background-color-neutral-light;
-    }
+    color: inherit;
+    opacity: 1;
   }
 
   &:hover {
     background-color: darken($sky-background-color-neutral-light, 10%);
   }
 
-   &.sky-paging-disabled {
+   &:disabled {
     color: $sky-text-color-deemphasized;
     cursor: not-allowed;
     pointer-events: none;

@@ -103,6 +103,33 @@ describe('List inline filters', () => {
       expect(getInlineFilters().length).toBe(2);
     }));
 
+    it('should populate aria labels for inline filters', fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
+
+      let filterButton = getFilterButton() as HTMLButtonElement;
+
+      filterButton.click();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(filterButton.getAttribute('aria-controls')).toBeTruthy();
+      let inlineFilter = document.querySelector(`#${filterButton.getAttribute('aria-controls')}`);
+
+      expect(filterButton.getAttribute('aria-controls')).toBe(inlineFilter.id);
+      expect(filterButton.getAttribute('aria-expanded')).toBe('true');
+      expect(inlineFilter.getAttribute('aria-labelledby')).toBe(filterButton.id);
+
+      filterButton.click();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(filterButton.getAttribute('aria-expanded')).toBe('false');
+      expect(filterButton.getAttribute('aria-controls')).toBeFalsy();
+    }));
+
     it('should filter appropriately when change function is called', fakeAsync(() => {
       fixture.detectChanges();
       tick();

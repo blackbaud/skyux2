@@ -49,13 +49,11 @@ describe('Paging component', () => {
   }
 
   function verifyDisabled(elem: DebugElement) {
-    expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(true);
-    expect(elem.nativeElement.getAttribute('aria-disabled')).toBe('true');
+    expect(elem.nativeElement.disabled).toBeTruthy();
   }
 
   function verifyEnabled(elem: DebugElement) {
-    expect(elem.nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
-    expect(elem.nativeElement.getAttribute('aria-disabled')).toBe('false');
+    expect(elem.nativeElement.disabled).toBeFalsy();
   }
 
   describe('with 8 items', () => {
@@ -199,11 +197,11 @@ describe('Paging component', () => {
 
         expect(element.query(
           By.css(getPagingSelector('previous'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        ).nativeElement.disabled).toBeFalsy();
 
         expect(element.query(
           By.css(getPagingSelector('next'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        ).nativeElement.disabled).toBeFalsy();
 
       });
 

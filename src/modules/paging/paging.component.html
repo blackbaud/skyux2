@@ -7,9 +7,8 @@
       class="sky-btn sky-btn-default sky-paging-btn sky-paging-btn-previous"
       sky-cmp-id="previous"
       type="button"
-      [attr.aria-disabled]="isPreviousButtonDisabled"
       [attr.aria-label]="'paging_previous' | skyResources"
-      [ngClass]="{ 'sky-paging-disabled': isPreviousButtonDisabled }"
+      [disabled]="isPreviousButtonDisabled"
       (click)="previousPage()"
     >
       <i
@@ -26,6 +25,7 @@
       type="button"
       [attr.aria-current]="currentPage === pageNumber"
       [attr.sky-cmp-id]="pageNumber"
+      [disabled]="currentPage === pageNumber"
       [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }"
       (click)="setPage(pageNumber)"
     >
@@ -37,9 +37,8 @@
       class="sky-btn sky-btn-default sky-paging-btn sky-paging-btn-next"
       sky-cmp-id="next"
       type="button"
-      [attr.aria-disabled]="isNextButtonDisabled"
       [attr.aria-label]="'paging_next' | skyResources"
-      [ngClass]="{ 'sky-paging-disabled': isNextButtonDisabled }"
+      [disabled]="isNextButtonDisabled"
       (click)="nextPage()"
     >
       <i

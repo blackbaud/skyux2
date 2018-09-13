@@ -13,8 +13,8 @@ import {
   Subscription
 } from 'rxjs/Subscription';
 
-const FONTSIZECLASS_SMALL = 'fa-2x';
-const FONTSIZECLASS_LARGE = 'fa-3x';
+const FONTSIZECLASS_SMALL = '2x';
+const FONTSIZECLASS_LARGE = '3x';
 
 @Component({
   selector: 'sky-action-button-icon',

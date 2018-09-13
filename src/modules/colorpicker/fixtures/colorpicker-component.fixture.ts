@@ -31,6 +31,8 @@ export class ColorpickerTestComponent {
   public colorpickerComponent: SkyColorpickerComponent;
   public colorpickerController = new Subject<SkyColorpickerMessage>();
 
+  public colorModel: string;
+
   public sendMessage(type: SkyColorpickerMessageType) {
     this.colorpickerController.next({ type });
   }

@@ -18,7 +18,7 @@
     (mousedown)="onMouseDown($event)">
   </button>
 
-  <div class="sky-flyout-header" #flyoutHeader>
+  <div class="sky-flyout-header sky-padding-squish-large" #flyoutHeader>
     <div class="sky-flyout-header-content"></div>
     <div class="sky-flyout-header-buttons">
       <ng-container *ngTemplateOutlet="permalinkTemplate">
@@ -30,7 +30,7 @@
         class="sky-btn sky-btn-default sky-flyout-btn-close"
         (click)="close()"
         [attr.aria-label]="'flyout_close' | skyResources">
-        <i class="fa fa-close" aria-hidden="true"></i>
+        <sky-icon icon="close"></sky-icon>
       </button>
     </div>
   </div>

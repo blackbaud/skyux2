@@ -1,5 +1,5 @@
-@import "../../scss/variables";
-@import "../../scss/mixins";
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-file-drop-col {
   margin-bottom: $sky-margin;
@@ -39,7 +39,6 @@ button.sky-file-drop {
 .sky-file-drop-contents {
   @include sky-border(dark, top, bottom, left, right);
   background-color: $sky-background-color-neutral-light;
-  padding: $sky-padding;
   color: $sky-text-color-default;
   cursor: pointer;
   width: 100%;
@@ -97,6 +96,7 @@ button.sky-file-drop {
 .sky-file-upload-icon {
   display: block;
   font-size: 40px;
+  max-height: 40px;
   margin-top: $sky-margin;
 }
 
@@ -105,7 +105,6 @@ button.sky-file-drop {
 }
 
 .sky-file-drop-text-header {
-  @include sky-headline;
   margin: 0;
 }
 

@@ -46,6 +46,7 @@ import {
   SkyPageSummaryDemoComponent,
   SkyPagingDemoComponent,
   SkyPopoverDemoComponent,
+  SkyProgressIndicatorDemoComponent,
   SkyRadioDemoComponent,
   SkyRepeaterDemoComponent,
   SkySearchDemoComponent,
@@ -856,6 +857,48 @@ export class SkyDemoService {
       ]
     },
     {
+      name: 'Progress Indicator',
+      component: SkyProgressIndicatorDemoComponent,
+      files: [
+        {
+          name: 'progress-indicator-demo.component.html',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo.component.html')
+        },
+        {
+          name: 'progress-indicator-demo.component.scss',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo.component.scss')
+        },
+        {
+          name: 'progress-indicator-demo.component.ts',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo.component.ts'),
+          componentName: 'SkyProgressIndicatorDemoComponent',
+          bootstrapSelector: 'sky-progress-indicator-demo'
+        },
+        {
+          name: 'progress-indicator-demo-form.component.html',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo-form.component.html')
+        },
+        {
+          name: 'progress-indicator-demo-form.component.ts',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo-form.component.ts'),
+          componentName: 'SkyProgressIndicatorDemoFormComponent'
+        },
+        {
+          name: 'progress-indicator-horizontal-demo.component.html',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-horizontal-demo.component.html')
+        },
+        {
+          name: 'progress-indicator-horizontal-demo.component.ts',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-horizontal-demo.component.ts'),
+          componentName: 'SkyProgressIndicatorHorizontalDemoComponent'
+        },
+        {
+          name: 'progress-indicator-demo-context.ts',
+          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo-context.ts')
+        }
+      ]
+    },
+    {
       name: 'Radio',
       component: SkyRadioDemoComponent,
       files: [
@@ -923,7 +966,8 @@ export class SkyDemoService {
         },
         {
           name: 'sectioned-modal-form-demo.component.ts',
-          fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts')
+          fileContents: require('!!raw-loader!./sectioned-form/sectioned-modal-form-demo.component.ts'),
+          componentName: 'SkySectionedModalFormDemoComponent'
         },
         {
           name: 'demo-address-form.component.html',
@@ -1109,8 +1153,7 @@ export class SkyDemoService {
         {
           name: 'toast-custom-demo.component.ts',
           fileContents: require('!!raw-loader!./toast/toast-custom-demo.component.ts'),
-          componentName: 'SkyToastCustomDemoComponent',
-          bootstrapSelector: 'sky-toast-custom-demo'
+          componentName: 'SkyToastCustomDemoComponent'
         },
         {
           name: 'toast-custom-demo-context.ts',

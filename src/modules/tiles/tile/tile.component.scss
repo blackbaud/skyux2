@@ -1,4 +1,5 @@
-@import "../../../scss/mixins";
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-tile {
     background-color: #fff;
@@ -20,7 +21,6 @@
 }
 
 .sky-tile-summary {
-    @include sky-headline();
     color: $sky-text-color-action-primary;
     opacity: 0;
     padding-right: $sky-tile-header-tool-padding;
@@ -66,5 +66,5 @@
     cursor: -webkit-grab;
     cursor: -moz-grab;
     font-size: 15px;
-    padding: $sky-tile-header-tool-padding $sky-tile-header-tool-padding $sky-tile-header-tool-padding 0;
+    padding: 4px;
 }

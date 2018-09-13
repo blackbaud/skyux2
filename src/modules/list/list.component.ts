@@ -106,9 +106,9 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
 
   @Input()
   public sortFields?: ListSortFieldSelectorModel |
-  Array<ListSortFieldSelectorModel> |
-  Observable<Array<ListSortFieldSelectorModel>> |
-  Observable<ListSortFieldSelectorModel>;
+    Array<ListSortFieldSelectorModel> |
+    Observable<Array<ListSortFieldSelectorModel>> |
+    Observable<ListSortFieldSelectorModel>;
 
   @Input()
   public appliedFilters: Array<ListFilterModel> = [];
@@ -155,15 +155,15 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
 
     // set sort fields
     getValue(this.sortFields,
-    (sortFields: ListSortFieldSelectorModel[] | ListSortFieldSelectorModel) => {
-      let sortArray: any;
-      if (!Array.isArray(sortFields) && sortFields) {
-        sortArray = [sortFields];
-      } else {
-        sortArray = sortFields;
-      }
-      this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortArray || []));
-    });
+      (sortFields: ListSortFieldSelectorModel[] | ListSortFieldSelectorModel) => {
+        let sortArray: any;
+        if (!Array.isArray(sortFields) && sortFields) {
+          sortArray = [sortFields];
+        } else {
+          sortArray = sortFields;
+        }
+        this.dispatcher.next(new ListSortSetFieldSelectorsAction(sortArray || []));
+      });
 
     this.displayedItems.subscribe(result => {
       this.dispatcher.next(new ListItemsSetLoadingAction());
@@ -231,6 +231,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
       this.state.map(s => s.sort.fieldSelectors).distinctUntilChanged(),
       this.state.map(s => s.paging.itemsPerPage).distinctUntilChanged(),
       this.state.map(s => s.paging.pageNumber).distinctUntilChanged(),
+      this.state.map(s => s.toolbar.disabled).distinctUntilChanged(),
       selectedIds.distinctUntilChanged().map((selectedId: any) => {
         selectedChanged = true;
         return selectedId;
@@ -242,6 +243,7 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
         sortFieldSelectors: Array<ListSortFieldSelectorModel>,
         itemsPerPage: number,
         pageNumber: number,
+        isToolbarDisabled: boolean,
         selected: Array<string>,
         itemsData: Array<any>
       ) => {
@@ -268,7 +270,8 @@ export class SkyListComponent implements AfterContentInit, OnChanges {
             pageSize: itemsPerPage,
             pageNumber: pageNumber,
             search: search,
-            sort: new ListSortModel({ fieldSelectors: sortFieldSelectors })
+            sort: new ListSortModel({ fieldSelectors: sortFieldSelectors }),
+            isToolbarDisabled: isToolbarDisabled
           }));
         }
 

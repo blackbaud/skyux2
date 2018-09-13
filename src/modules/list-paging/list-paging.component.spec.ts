@@ -115,11 +115,11 @@ describe('List Paging Component', () => {
 
         expect(element.query(
           By.css(getPagingSelector('previous'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        ).nativeElement.disabled).toBeFalsy();
 
         expect(element.query(
           By.css(getPagingSelector('next'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        ).nativeElement.disabled).toBeFalsy();
       });
 
       it('does not respond to old item count changes from state', fakeAsync(() => {

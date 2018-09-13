@@ -38,4 +38,16 @@ describe('grid component', () => {
     });
 
   });
+
+  it('should highlight cells correctly', () => {
+    return SkyVisualTest.setupTest('grid')
+    .then(() => {
+      element(by.css('#highlight-button')).click();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'grid-highlight',
+        selector: '#screenshot-grid'
+      });
+    });
+
+  });
 });

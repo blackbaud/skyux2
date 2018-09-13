@@ -1,4 +1,5 @@
-@import "../../../scss/variables";
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
 
 :host {
   display: flex;
@@ -35,5 +36,11 @@
 @media (max-width: $sky-screen-xs-max) {
   :host /deep/ .sky-tile {
     margin-bottom: 0 !important;
+  }
+}
+
+.sky-assistive-text {
+  @media screen {
+    @include sky-screen-reader-only();
   }
 }

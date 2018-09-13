@@ -164,6 +164,23 @@ describe('Colorpicker Component', () => {
     colorpickerComponent = component.colorpickerComponent;
   });
 
+  it('should populate correct information if model is given', fakeAsync(() => {
+    component.selectedColor = undefined;
+    component.colorModel = '#00f';
+    fixture.detectChanges();
+    tick();
+    expect(component.colorpickerComponent.initialColor).toBe('#00f');
+    expect(component.colorpickerComponent.lastAppliedColor).toBe('#00f');
+  }));
+
+  it('should populate correct information if model is given but an initial color is also given', fakeAsync(() => {
+    component.colorModel = '#00f';
+    fixture.detectChanges();
+    tick();
+    expect(component.colorpickerComponent.initialColor).toBe('#2889e5');
+    expect(component.colorpickerComponent.lastAppliedColor).toBe('#00f');
+  }));
+
   it('should add aria-label to input if not specified', fakeAsync(() => {
     fixture.detectChanges();
     tick();
@@ -281,6 +298,26 @@ describe('Colorpicker Component', () => {
     verifyColorpicker(nativeElement, '#2889e5', '40, 137, 229');
   }));
 
+  it('should use the last applied color to revert to on cancel', fakeAsync(() => {
+    spyOn(component.colorpickerComponent.selectedColorChanged, 'emit').and.callThrough();
+    spyOn(component.colorpickerComponent.selectedColorApplied, 'emit').and.callThrough();
+    let cancelButton = nativeElement.querySelector('.sky-btn-colorpicker-close');
+    let applyButton = nativeElement.querySelector('.sky-btn-colorpicker-apply');
+    let buttonEvent = document.createEvent('Event');
+    component.selectedOutputFormat = 'hex';
+    verifyColorpicker(nativeElement, '#2889e5', '40, 137, 229');
+    openColorpicker(nativeElement, fixture);
+    setInputElementValue(nativeElement, 'hex', '#2B7230');
+    buttonEvent.initEvent('click', true, false);
+    applyButton.dispatchEvent(buttonEvent);
+    verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
+    openColorpicker(nativeElement, fixture);
+    setInputElementValue(nativeElement, 'hex', '#BFF666');
+    buttonEvent.initEvent('click', true, false);
+    cancelButton.dispatchEvent(buttonEvent);
+    verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
+  }));
+
   it('should allow user to click apply the color change.', fakeAsync(() => {
     let button = nativeElement.querySelector('.sky-btn-colorpicker-apply');
     let buttonEvent = document.createEvent('Event');
@@ -291,6 +328,22 @@ describe('Colorpicker Component', () => {
     buttonEvent.initEvent('click', true, false);
     button.dispatchEvent(buttonEvent);
     verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
+  }));
+
+  it('should emit a selectedColorChanged and selectedColorApplied event on submit', fakeAsync(() => {
+    spyOn(component.colorpickerComponent.selectedColorChanged, 'emit').and.callThrough();
+    spyOn(component.colorpickerComponent.selectedColorApplied, 'emit').and.callThrough();
+    let button = nativeElement.querySelector('.sky-btn-colorpicker-apply');
+    let buttonEvent = document.createEvent('Event');
+    component.selectedOutputFormat = 'hex';
+    openColorpicker(nativeElement, fixture);
+    setInputElementValue(nativeElement, 'hex', '#2B7230');
+    verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
+    buttonEvent.initEvent('click', true, false);
+    button.dispatchEvent(buttonEvent);
+    verifyColorpicker(nativeElement, '#2b7230', '43, 114, 48');
+    expect(component.colorpickerComponent.selectedColorChanged.emit).toHaveBeenCalled();
+    expect(component.colorpickerComponent.selectedColorApplied.emit).toHaveBeenCalled();
   }));
 
   it('should accept mouse down events on hue bar.', fakeAsync(() => {
@@ -490,12 +543,16 @@ describe('Colorpicker Component', () => {
     let spyOnResetColorPicker = spyOn(colorpickerComponent, 'resetPickerColor').and.callThrough();
     fixture.detectChanges();
     tick();
+    openColorpicker(nativeElement, fixture);
+    setPresetColor(nativeElement, fixture, 4);
+    fixture.detectChanges();
+    tick();
     const buttonElem = nativeElement.querySelector('.sky-colorpicker-reset-button') as HTMLElement;
     buttonElem.click();
     tick();
     fixture.detectChanges();
     expect(spyOnResetColorPicker).toHaveBeenCalled();
-    verifyColorpicker(nativeElement, 'rgba(255,255,255,1)', '255, 255, 255');
+    verifyColorpicker(nativeElement, 'rgba(40,137,229,1)', '40, 137, 229');
   }));
 
   it('should accept open colorpicker via messageStream.', fakeAsync(() => {
@@ -512,11 +569,15 @@ describe('Colorpicker Component', () => {
     fixture.detectChanges();
     verifyColorpicker(nativeElement, 'rgba(40,137,229,1)', '40, 137, 229');
     tick();
+    openColorpicker(nativeElement, fixture);
+    setPresetColor(nativeElement, fixture, 4);
+    fixture.detectChanges();
+    tick();
     component.sendMessage(SkyColorpickerMessageType.Reset);
     tick();
     fixture.detectChanges();
     tick();
-    verifyColorpicker(nativeElement, 'rgba(255,255,255,1)', '255, 255, 255');
+    verifyColorpicker(nativeElement, 'rgba(40,137,229,1)', '40, 137, 229');
   }));
 
   it('should toggle reset button via messageStream.', fakeAsync(() => {
