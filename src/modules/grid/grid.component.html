@@ -22,6 +22,7 @@
             <div
               class="overflow"
               [tabIndex]="column.isSortable ? 0 : -1"
+              [style.width.px]="column.width"
             >
               {{column.heading}}
               <i
@@ -74,7 +75,8 @@
               [fieldSelector]="column.field"
               [item]="item"
               [columnId]="column.id"
-              [attr.sky-cmp-id]="column.id || column.field">
+              [attr.sky-cmp-id]="column.id || column.field"
+              [style.width.px]="column.width">
             </sky-grid-cell>
           </td>
         </tr>
