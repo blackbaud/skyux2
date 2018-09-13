@@ -76,7 +76,7 @@
     position: relative;
     z-index: 1;
     overflow: hidden;
-    width:100%;
+    min-width:100%;
   }
 
   .sky-grid-column-input-aria-only {
