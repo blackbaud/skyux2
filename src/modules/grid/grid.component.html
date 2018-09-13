@@ -13,6 +13,7 @@
             [attr.sky-cmp-index]="i"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
+            [style.max-width.px]="column.width"
             [style.width.px]="column.width"
             (click)="sortByColumn(column)"
             (keydown)="onKeydown($event, column)"
@@ -22,6 +23,7 @@
               class="overflow"
               [ngClass]="getTableHeaderClassNames(column)"
               [tabIndex]="column.isSortable ? 0 : -1"
+              [style.max-width.px]="column.width"
               [style.width.px]="column.width"
             >
               {{column.heading}}
