@@ -13,7 +13,6 @@
             [attr.sky-cmp-index]="i"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
-            [ngClass]="getTableHeaderClassNames(column)"
             [style.width.px]="column.width"
             (click)="sortByColumn(column)"
             (keydown)="onKeydown($event, column)"
@@ -21,6 +20,7 @@
           >
             <div
               class="overflow"
+              [ngClass]="getTableHeaderClassNames(column)"
               [tabIndex]="column.isSortable ? 0 : -1"
               [style.width.px]="column.width"
             >

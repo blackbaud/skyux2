@@ -893,7 +893,7 @@ describe('Grid Component', () => {
       })
     );
 
-    it('should set dragula options for locked columns', () => {
+    it('should set dragula options for locked and resizable columns', () => {
       const setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and
         .callFake((bagId: any, options: any) => {
           const moveOption = options.moves(
@@ -902,6 +902,16 @@ describe('Grid Component', () => {
             {
               matches(selector: string) {
                 return (selector === '.sky-grid-header-locked');
+              }
+            }
+          );
+
+          const moveOptionFromResize = options.moves(
+            undefined,
+            undefined,
+            {
+              matches(selector: string) {
+                return (selector === '.sky-grid-resize-handle');
               }
             }
           );
@@ -924,6 +934,7 @@ describe('Grid Component', () => {
           );
 
           expect(moveOption).toBe(false);
+          expect(moveOptionFromResize).toBe(false);
           expect(moveOptionUndefined).toBe(false);
           expect(acceptsOption).toBe(false);
         });

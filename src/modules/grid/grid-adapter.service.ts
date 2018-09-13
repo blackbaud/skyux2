@@ -55,8 +55,7 @@ export class SkyGridAdapterService {
         sibling: HTMLElement) => {
           return sibling === undefined
             || !sibling
-            || !sibling.matches(GRID_HEADER_LOCKED_SELECTOR)
-            || !sibling.matches(GRID_HEADER_RESIZE_HANDLE);
+            || (!sibling.matches(GRID_HEADER_LOCKED_SELECTOR) && !sibling.matches(GRID_HEADER_RESIZE_HANDLE));
         }
     });
   }
