@@ -1,8 +1,3 @@
-import { Injectable } from '@angular/core';
-
-@Injectable()
-export class SkyWindowRefService {
-  public getWindow() {
-    return window;
-  }
-}
+export {
+  SkyWindowRefService
+} from '@skyux/core/modules/window/window-ref.service';

@@ -4,12 +4,13 @@ import {
   EventEmitter,
   Input,
   Optional,
-  Output
+  Output,
+  ViewChild
 } from '@angular/core';
-
 import {
   skyAnimationSlide
 } from '../../animation/slide';
+
 import {
   SkyTileDashboardService
 } from '../tile-dashboard/tile-dashboard.service';
@@ -51,6 +52,12 @@ export class SkyTileComponent {
     this.isCollapsedChange.emit(value);
   }
 
+  @ViewChild('grabHandle')
+  private grabHandle: ElementRef;
+
+  @ViewChild('titleContainer')
+  private title: ElementRef;
+
   private _isCollapsed = false;
 
   constructor(
@@ -74,5 +81,27 @@ export class SkyTileComponent {
 
   public chevronDirectionChange(direction: string) {
     this.isCollapsed = direction === 'down';
+  }
+
+  public moveTile(event: KeyboardEvent) {
+    if (this.isInDashboardColumn) {
+      let direction = event.key.toLowerCase().replace('arrow', '');
+      if (direction === 'up'
+        || direction === 'down'
+        || direction === 'left'
+        || direction === 'right'
+      ) {
+        this.dashboardService.moveTileOnKeyDown(
+          this,
+          direction,
+          this.title ? this.title.nativeElement.innerText : undefined
+        );
+        this.focusHandle();
+      }
+    }
+  }
+
+  private focusHandle(): void {
+    this.grabHandle.nativeElement.focus();
   }
 }
