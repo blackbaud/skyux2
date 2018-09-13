@@ -27,10 +27,11 @@
     aria-hidden="true"
     class="link-records-item-status">
     <div class="link-records-item-status-content">
-      <sky-icon *ngIf="record.status == STATUSES.Linked" icon="check"></sky-icon>
-      <sky-icon *ngIf="record.status == STATUSES.Edit" icon="pencil"></sky-icon>
-      <sky-icon *ngIf="record.status == STATUSES.Created" icon="plus-circle"></sky-icon>
-      <sky-icon *ngIf="record.status == STATUSES.Suggested || record.status == STATUSES.NoMatch || record.status == STATUSES.Selected" icon="question-circle"></sky-icon>
+      <sky-icon
+        [icon]="icon"
+        [ngClass]="'sky-link-record-item-icon-' + icon"
+      >
+      </sky-icon>
     </div>
   </div>
   <div class="link-records-item-match sky-shadow">
