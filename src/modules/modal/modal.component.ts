@@ -138,14 +138,6 @@ export class SkyModalComponent implements AfterViewInit {
             break;
           }
 
-          case 38:
-            this.componentAdapter.focusFirstElement([this.elRef.nativeElement.querySelector('.sky-modal-content')]);
-            break;
-
-          case 40:
-            this.componentAdapter.focusFirstElement([this.elRef.nativeElement.querySelector('.sky-modal-content')]);
-            break;
-
           default:
             break;
         }

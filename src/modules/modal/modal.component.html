@@ -48,7 +48,13 @@
       </div>
 
     </div>
-    <div [attr.id]="modalContentId" tabindex="-1" class="sky-modal-content sky-padding-even-large">
+    <div
+      class="sky-modal-content sky-padding-even-large"
+      role="region"
+      tabindex="0"
+      [attr.aria-labelledby]="modalHeaderId"
+      [attr.id]="modalContentId"
+    >
       <ng-content select="sky-modal-content"></ng-content>
     </div>
     <div class="sky-modal-footer">
