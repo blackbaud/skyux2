@@ -129,10 +129,29 @@ describe('Flyout component', () => {
 
     closeFlyout();
     expect(flyout.isOpen).toBe(false);
+  }));
 
-    // Closing the flyout again should have no effect:
-    closeFlyout();
+  it('should close when the click event fires outside of the flyout', fakeAsync(() => {
+    const flyout = openFlyout();
+    expect(flyout.isOpen).toBe(true);
+
+    fixture.nativeElement.click();
+    fixture.detectChanges();
+    tick();
+
     expect(flyout.isOpen).toBe(false);
+  }));
+
+  it('should NOT close when the click event fires inside the flyout', fakeAsync(() => {
+    const flyout = openFlyout();
+    expect(flyout.isOpen).toBe(true);
+
+    const flyoutContentElement = getFlyoutElement();
+    flyoutContentElement.click();
+    fixture.detectChanges();
+    tick();
+
+    expect(flyout.isOpen).toBe(true);
   }));
 
   it('should close when the Close message type is received', fakeAsync(() => {
