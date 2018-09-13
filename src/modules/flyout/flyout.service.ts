@@ -5,9 +5,14 @@ import {
   EmbeddedViewRef,
   Injectable,
   Injector,
-  Type
+  Type,
+  OnDestroy
 } from '@angular/core';
 
+import {
+  Observable,
+  Subject
+} from 'rxjs';
 import 'rxjs/add/operator/take';
 
 import { SkyFlyoutAdapterService } from './flyout-adapter.service';
@@ -19,20 +24,34 @@ import {
   SkyFlyoutMessage,
   SkyFlyoutMessageType
 } from './types';
+import { SkyWindowRefService } from '../window';
 
 @Injectable()
-export class SkyFlyoutService {
+export class SkyFlyoutService implements OnDestroy {
   private host: ComponentRef<SkyFlyoutComponent>;
   private removeAfterClosed = false;
+  private isOpening: boolean = false;
+  private idled = new Subject<boolean>();
 
   constructor(
     private adapter: SkyFlyoutAdapterService,
     private appRef: ApplicationRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private windowRef: SkyWindowRefService
   ) { }
 
+  public ngOnDestroy(): void {
+    this.removeListners();
+  }
+
   public open<T>(component: Type<T>, config?: SkyFlyoutConfig): SkyFlyoutInstance<T> {
+    // isOpening flag will prevent close() from firing when open() is also fired.
+    this.isOpening = true;
+    this.windowRef.getWindow().setTimeout(() => {
+      this.isOpening = false;
+    });
+
     if (!this.host) {
       this.host = this.createHostComponent();
     }
@@ -45,7 +64,7 @@ export class SkyFlyoutService {
   }
 
   public close(): void {
-    if (this.host) {
+    if (this.host && !this.isOpening) {
       this.removeAfterClosed = true;
       this.host.instance.messageStream.next({
         type: SkyFlyoutMessageType.Close
@@ -77,20 +96,41 @@ export class SkyFlyoutService {
   }
 
   private addListeners<T>(flyout: SkyFlyoutInstance<T>): void {
-    this.removeAfterClosed = false;
+    if (this.host) {
+      const windowObj = this.windowRef.getWindow();
 
-    this.host.instance.messageStream
-      .take(1)
-      .subscribe((message: SkyFlyoutMessage) => {
-        if (message.type === SkyFlyoutMessageType.Close) {
-          this.removeAfterClosed = true;
+      // Flyout should close when user clicks outside of flyout.
+      Observable
+      .fromEvent(windowObj, 'click')
+      .takeUntil(this.idled)
+      .subscribe((event: MouseEvent) => {
+        if (this.host && this.host.location && !this.host.location.nativeElement.contains(event.target)) {
+          this.close();
         }
       });
 
-    flyout.closed.take(1).subscribe(() => {
-      if (this.removeAfterClosed) {
-        this.removeHostComponent();
-      }
-    });
+      this.removeAfterClosed = false;
+      this.host.instance.messageStream
+        .take(1)
+        .subscribe((message: SkyFlyoutMessage) => {
+          if (message.type === SkyFlyoutMessageType.Close) {
+            this.removeAfterClosed = true;
+            this.isOpening = false;
+          }
+        });
+
+      flyout.closed.take(1).subscribe(() => {
+        this.removeListners();
+        if (this.removeAfterClosed) {
+          this.removeHostComponent();
+        }
+      });
+    }
+  }
+
+  private removeListners() {
+    this.idled.next(true);
+    this.idled.unsubscribe();
+    this.idled = new Subject<boolean>();
   }
 }
