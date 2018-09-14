@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect
+  expect, SkyAppTestUtility
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
@@ -256,13 +256,49 @@ describe('Flyout component', () => {
       handleElement.dispatchEvent(evt);
       makeEvent('mousemove', { clientX: 1100 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('400px');
       makeEvent('mousemove', { clientX: 1000 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('500px');
       makeEvent('mouseup', {});
-    })
-  );
+  }));
+
+  it('should resize flyout when range input is changed', fakeAsync(() => {
+      openFlyout({});
+      const flyoutElement = getFlyoutElement();
+      expect(flyoutElement.style.width).toBe('500px');
+      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-resize-handle');
+
+      resizeInput.value = '400';
+      SkyAppTestUtility.fireDomEvent(resizeInput, 'input');
+      fixture.detectChanges();
+      tick();
+      expect(flyoutElement.style.width).toBe('400px');
+
+      resizeInput.value = '500';
+      SkyAppTestUtility.fireDomEvent(resizeInput, 'input');
+      fixture.detectChanges();
+      tick();
+      expect(flyoutElement.style.width).toBe('500px');
+  }));
+
+  it('should have correct aria-labels on resizing range input', fakeAsync(() => {
+      openFlyout({maxWidth: 1000, minWidth: 200});
+      const flyoutElement = getFlyoutElement();
+      let resizeInput: any = flyoutElement.querySelector('.sky-flyout-resize-handle');
+
+      expect(flyoutElement.style.width).toBe('500px');
+      expect(resizeInput.getAttribute('aria-controls')).toBe(flyoutElement.id);
+
+      expect(resizeInput.getAttribute('aria-valuenow')).toBe('500');
+      expect(resizeInput.getAttribute('aria-valuemax')).toBe('1000');
+      expect(resizeInput.getAttribute('aria-valuemin')).toBe('200');
+
+      expect(resizeInput.getAttribute('max')).toBe('1000');
+      expect(resizeInput.getAttribute('min')).toBe('200');
+  }));
 
   it('should set iframe styles correctly during dragging', fakeAsync(() => {
     openFlyout({}, true);
@@ -282,8 +318,7 @@ describe('Flyout component', () => {
     makeEvent('mouseup', {});
     fixture.detectChanges();
     expect(iframe.style.pointerEvents).toBeFalsy();
-  })
-);
+  }));
 
   it('should respect minimum and maximum when resizing', fakeAsync(() => {
       openFlyout({ maxWidth: 1000, minWidth: 200});
@@ -297,15 +332,19 @@ describe('Flyout component', () => {
       handleElement.dispatchEvent(evt);
       makeEvent('mousemove', { clientX: 500 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('1000px');
       makeEvent('mousemove', { clientX: 200 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('1000px');
       makeEvent('mousemove', { clientX: 1300 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('200px');
       makeEvent('mousemove', { clientX: 1400 });
       fixture.detectChanges();
+      tick();
       expect(flyoutElement.style.width).toBe('200px');
       makeEvent('mouseup', {});
     })
