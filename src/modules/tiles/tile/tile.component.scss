@@ -46,7 +46,7 @@
     border-width: 1px 0;
 }
 
-:host /deep/ .sky-tile-tools .sky-chevron {
+:host ::ng-deep .sky-tile-tools .sky-chevron {
     margin: 12px ($sky-tile-header-tool-padding - 6) 12px 0;
 }
 
