@@ -2,7 +2,7 @@
 @import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-list-view-checklist {
-  /deep/ .sky-checkbox-wrapper {
+  ::ng-deep .sky-checkbox-wrapper {
     display: flex;
     align-items: center;
 
