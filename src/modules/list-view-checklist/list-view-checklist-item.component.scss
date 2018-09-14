@@ -11,7 +11,7 @@
     border-bottom-width: 0;
   }
 
-  /deep/ sky-checkbox {
+  ::ng-deep sky-checkbox {
     display: block;
     position: relative;
     width: 100%;
@@ -20,14 +20,14 @@
     @include sky-border(row, bottom);
   }
 
-  /deep/ sky-checkbox-label {
+  ::ng-deep sky-checkbox-label {
     div {
       overflow: hidden;
       text-overflow: ellipsis;
     }
   }
 
-  /deep/ .sky-list-view-checklist-single-button {
+  ::ng-deep .sky-list-view-checklist-single-button {
     background-color: transparent;
     border: none;
     @include sky-border(row, bottom);
@@ -38,7 +38,7 @@
     width: 100%;
     cursor: pointer;
   }
-  /deep/ .sky-list-view-checklist-single-button.sky-list-view-checklist-row-selected {
+  ::ng-deep .sky-list-view-checklist-single-button.sky-list-view-checklist-row-selected {
     background-color: $sky-background-color-selected;
   }
 }
