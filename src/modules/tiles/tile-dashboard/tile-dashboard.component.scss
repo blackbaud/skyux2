@@ -28,13 +28,13 @@
     display: block;
   }
 
-  :host /deep/ .sky-tile-dashboard-column {
+  :host ::ng-deep .sky-tile-dashboard-column {
     padding: 0;
   }
 }
 
 @media (max-width: $sky-screen-xs-max) {
-  :host /deep/ .sky-tile {
+  :host ::ng-deep .sky-tile {
     margin-bottom: 0 !important;
   }
 }

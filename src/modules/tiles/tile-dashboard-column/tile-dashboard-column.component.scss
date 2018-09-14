@@ -17,7 +17,7 @@
     padding: 0;
   }
 
-  :host /deep/ .sky-tile {
+  :host ::ng-deep .sky-tile {
     margin-bottom: 0 !important;
   }
 }
