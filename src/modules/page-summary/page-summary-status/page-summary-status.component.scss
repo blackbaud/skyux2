@@ -4,7 +4,7 @@
 .sky-page-summary-status {
     margin-top: $sky-margin;
 
-    /deep/ .sky-label {
+    ::ng-deep .sky-label {
         margin-right: $sky-margin-half;
     }
 }
