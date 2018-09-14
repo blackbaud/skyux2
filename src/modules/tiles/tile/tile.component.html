@@ -6,8 +6,9 @@
 >
   <header class="sky-tile-header">
     <div class="sky-tile-header-content" (click)="titleClick()">
-      <ng-content select="sky-tile-title">
-      </ng-content>
+      <div #titleContainer>
+        <ng-content select="sky-tile-title"></ng-content>
+      </div>
       <div class="sky-tile-summary sky-headline">
         <ng-content select="sky-tile-summary"></ng-content>
       </div>
@@ -32,6 +33,10 @@
           *ngIf="isInDashboardColumn"
           class="sky-tile-grab-handle"
           icon="th"
+          tabindex="0"
+          [attr.aria-label]="'tile_grab_handle' | skyResources"
+          (keydown)="moveTile($event)"
+          #grabHandle
         >
         </sky-icon>
       </div>
