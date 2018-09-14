@@ -2,24 +2,24 @@
 @import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-avatar {
-  /deep/ .sky-file-drop-accept {
+  ::ng-deep .sky-file-drop-accept {
     .sky-avatar-wrapper {
       border: dashed $sky-avatar-border-width $sky-highlight-color-success;
     }
   }
 
-  /deep/ .sky-file-drop-reject {
+  ::ng-deep .sky-file-drop-reject {
     .sky-avatar-wrapper {
       border: dashed $sky-avatar-border-width $sky-highlight-color-danger;
     }
   }
 
-  /deep/ .sky-file-drop {
+  ::ng-deep .sky-file-drop {
     .sky-avatar-wrapper {
       cursor: pointer;
     }
   }
-  /deep/ .sky-file-drop-col {
+  ::ng-deep .sky-file-drop-col {
     flex-basis: initial;
   }
 }

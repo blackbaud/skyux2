@@ -45,11 +45,11 @@
 .sky-modal-tiled .sky-modal-content {
   background-color: $sky-background-color-neutral-light;
 
-  /deep/ .sky-tile-title {
+  ::ng-deep .sky-tile-title {
     @include sky-subsection-heading();
   }
 
-  /deep/ .sky-tile-tools .sky-chevron {
+  ::ng-deep .sky-tile-tools .sky-chevron {
     margin: 9px ($sky-tile-header-tool-padding - 6) 8px 0;
   }
 }
@@ -90,18 +90,18 @@
 
 .sky-modal-footer {
   flex-shrink: 0;
-  /deep/ sky-tabset-nav-button + sky-tabset-nav-button {
+  ::ng-deep sky-tabset-nav-button + sky-tabset-nav-button {
     margin-left: $sky-margin;
   }
-   /deep/ sky-tabset-nav-button + .sky-btn {
-    margin-left: $sky-margin;
-  }
-
-  /deep/ .sky-btn + .sky-btn {
+   ::ng-deep sky-tabset-nav-button + .sky-btn {
     margin-left: $sky-margin;
   }
 
-  /deep/ .sky-btn + .sky-btn-link {
+  ::ng-deep .sky-btn + .sky-btn {
+    margin-left: $sky-margin;
+  }
+
+  ::ng-deep .sky-btn + .sky-btn-link {
     margin-left: -2px; /* offset the padding of the btn-link */
   }
 }
@@ -120,7 +120,7 @@
     flex-grow: 1;
 }
 
-:host /deep/ .sky-sectioned-form {
+:host ::ng-deep .sky-sectioned-form {
   height: 460px;
   margin: -$sky-margin-plus-half;
 }

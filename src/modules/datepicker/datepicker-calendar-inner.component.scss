@@ -5,33 +5,33 @@
   background-color: $sky-color-white;
   @include sky-border(light, top, bottom, left, right);
 
-  /deep/ .sky-btn-default {
+  ::ng-deep .sky-btn-default {
     border-color: $sky-color-white;
   }
 
-  /deep/ .sky-btn-default:hover, /deep/ .sky-btn-active {
+  ::ng-deep .sky-btn-default:hover, ::ng-deep .sky-btn-active {
     border-color: darken($sky-border-color-neutral-light, 12%);
   }
 
-  /deep/ .sky-datepicker-center {
+  ::ng-deep .sky-datepicker-center {
     text-align: center;
   }
 
-  /deep/ .sky-datepicker-btn-selected {
+  ::ng-deep .sky-datepicker-btn-selected {
     color: $sky-color-white;
     background-color: $sky-background-color-primary-dark;
     @include sky-border(dark, top, bottom, left, right);
   }
 
-  /deep/ .sky-datepicker-secondary {
+  ::ng-deep .sky-datepicker-secondary {
     color: $sky-text-color-deemphasized;
   }
 
-  /deep/ .sky-datepicker-btn-date {
+  ::ng-deep .sky-datepicker-btn-date {
     min-width: 100%;
   }
 
-  /deep/ .sky-datepicker-calendar-title {
+  ::ng-deep .sky-datepicker-calendar-title {
     width: 100%;
   }
 }
