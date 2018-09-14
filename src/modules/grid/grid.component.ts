@@ -97,7 +97,11 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   private subscriptions: Subscription[] = [];
 
-  // Column resizing variables.
+  // Column resizing.
+  public minColWidth = 50;
+  public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work without a value.
+  public columnResizeStep = 10;
+  public showResizeBar: boolean = false;
   @ViewChildren('gridCol')
   private columnElementRefs: QueryList<ElementRef>;
   @ViewChildren('colSizeRange')
@@ -111,10 +115,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private activeResizeColumnIndex: string;
   private startColumnWidth: number;
   private xPosStart: number;
-  public minColWidth = 50;
-  public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work without a value.
-  public columnResizeStep = 10;
-  public showResizeBar: boolean = false;
 
   constructor(
     private dragulaService: DragulaService,
