@@ -4,19 +4,26 @@
   [attr.role]="config?.ariaRole"
   [attr.aria-describedby]="config?.ariaDescribedBy"
   [attr.aria-labelledby]="config?.ariaLabelledBy"
+  [id]="flyoutId"
   [ngClass]="{ 'sky-flyout-hidden': !isOpen && !isOpening }"
   (@flyoutState.done)="animationDone($event)"
   [@flyoutState]="getAnimationState()"
   [style.width.px]="flyoutWidth">
 
-  <button
-    type="button"
+  <input
     class="sky-flyout-resize-handle"
-    aria-hidden="true"
     role="separator"
-    tabindex="-1"
-    (mousedown)="onMouseDown($event)">
-  </button>
+    step="10"
+    type="range"
+    [attr.aria-controls]="flyoutId"
+    [attr.aria-label]="'flyout-resize-handle' | skyResources"
+    [attr.aria-valuemax]="config.maxWidth"
+    [attr.aria-valuemin]="config.minWidth"
+    [attr.aria-valuenow]="flyoutWidth"
+    [max]="config.maxWidth"
+    [min]="config.minWidth"
+    [(ngModel)]="flyoutWidth"
+    (mousedown)="onMouseDown($event)" />
 
   <div class="sky-flyout-header sky-padding-squish-large" #flyoutHeader>
     <div class="sky-flyout-header-content"></div>
@@ -26,10 +33,11 @@
       <ng-container *ngTemplateOutlet="primaryActionTemplate">
       </ng-container>
       <button
-        type="button"
         class="sky-btn sky-btn-default sky-flyout-btn-close"
+        type="button"
+        [attr.aria-label]="'flyout_close' | skyResources"
         (click)="close()"
-        [attr.aria-label]="'flyout_close' | skyResources">
+      >
         <sky-icon icon="close"></sky-icon>
       </button>
     </div>
