@@ -1,4 +1,4 @@
-<section
+<div
   class="sky-repeater-item sky-padding-even-default"
   [ngClass]="{
     'sky-repeater-item-collapsible': isCollapsible,
@@ -45,9 +45,8 @@
     <div
       class="sky-repeater-item-content"
       [id]="contentId"
-      role="region"
       [@skyAnimationSlide]="slideDirection">
       <ng-content select="sky-repeater-item-content"></ng-content>
     </div>
   </div>
-</section>
+</div>
