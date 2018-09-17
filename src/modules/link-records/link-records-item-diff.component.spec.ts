@@ -8,13 +8,24 @@ import {
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel
 } from './state/';
-import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
-import { SkyLinkRecordsFieldsSetFieldsAction} from './state/fields/actions';
-import { SkyLinkRecordsFieldModel} from './state/fields/field.model';
-import { SkyCheckboxModule } from '../checkbox';
-import { SkyLinkRecordsItemDiffComponent } from './link-records-item-diff.component';
-import { SkyResourcesModule } from '../resources';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+import {
+  SkyLinkRecordsFieldsSetFieldsAction
+} from './state/fields/actions';
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+import {
+  SkyLinkRecordsItemDiffComponent
+} from './link-records-item-diff.component';
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
+import {
+  SkyLinkRecordsModule
+} from './link-records.module';
 
 describe('Component: SkyLinkRecordsItemDiffComponent', () => {
   let fixture: ComponentFixture<SkyLinkRecordsItemDiffComponent>,
@@ -27,12 +38,8 @@ describe('Component: SkyLinkRecordsItemDiffComponent', () => {
     state = new SkyLinkRecordsState(new SkyLinkRecordsStateModel(), dispatcher);
 
     TestBed.configureTestingModule({
-      declarations: [
-        SkyLinkRecordsItemDiffComponent
-      ],
       imports: [
-        SkyCheckboxModule,
-        SkyResourcesModule
+        SkyLinkRecordsModule
       ],
       providers: [
         { provide: SkyLinkRecordsState, useValue: state },
