@@ -2,7 +2,8 @@
 
 - Updated version of skyux-core.
 - Added keyboard controls for resizing flyouts. [1760](https://github.com/blackbaud/skyux2/pull/1760)
-- Updated components using `/deep/` to instead use `::ng-deep`. [1955](https://github.com/blackbaud/skyux2/pull/1955)
+- Updated all shadow piercing combinators to use Angular's proprietary `::ng-deep`. [1955](https://github.com/blackbaud/skyux2/pull/1955)
+- Updated flyouts to close whenever user clicks outside of a flyout. [1929](https://github.com/blackbaud/skyux2/pull/1929)
 - Updated modal content panes to be focusable for accessible scrolling. [#1809](https://github.com/blackbaud/skyux2/pull/1809)
 - Added keyboard controls for reordering tiles. [#1815](https://github.com/blackbaud/skyux2/pull/1815)
 - Fixed paging component reserving space when only one page is available.
