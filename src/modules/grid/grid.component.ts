@@ -41,6 +41,8 @@ import {
   SkyGridColumnWidthModelChange
 } from './types';
 
+let nextId = 0;
+
 @Component({
   selector: 'sky-grid',
   templateUrl: './grid.component.html',
@@ -98,6 +100,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private subscriptions: Subscription[] = [];
 
   // Column resizing.
+  public gridId: number = ++nextId;
   public minColWidth = 50;
   public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work without a value.
   public columnResizeStep = 10;
