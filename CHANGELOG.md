@@ -6,8 +6,7 @@
 - Updated all shadow piercing combinators to use Angular's proprietary `::ng-deep`. [1955](https://github.com/blackbaud/skyux2/pull/1955)
 - Updated flyouts to close whenever user clicks outside of a flyout. [1929](https://github.com/blackbaud/skyux2/pull/1929)
 - Updated modal content panes to be focusable for accessible scrolling. [#1809](https://github.com/blackbaud/skyux2/pull/1809)
-- Fixed paging component reserving space when only one page is available.
-  [#1935](https://github.com/blackbaud/skyux2/pull/1935)
+- Fixed paging component reserving space when only one page is available. [#1935](https://github.com/blackbaud/skyux2/pull/1935)
 
 # 2.24.1 (2018-09-12)
 
