@@ -2,8 +2,8 @@
 
 - Updated version of skyux-core.
 - Added keyboard controls for resizing flyouts. [1760](https://github.com/blackbaud/skyux2/pull/1760)
-- Switched from using /deep/ to using ::ng-deep. [1955](https://github.com/blackbaud/skyux2/pull/1955)
-- Made modal content panes focusable for accessible scrolling. [#1809](https://github.com/blackbaud/skyux2/pull/1809)
+- Updated components using `/deep/` to instead use `::ng-deep`. [1955](https://github.com/blackbaud/skyux2/pull/1955)
+- Updated modal content panes to be focusable for accessible scrolling. [#1809](https://github.com/blackbaud/skyux2/pull/1809)
 - Added keyboard controls for reordering tiles. [#1815](https://github.com/blackbaud/skyux2/pull/1815)
 - Fixed paging component reserving space when only one page is available.
   [#1935](https://github.com/blackbaud/skyux2/pull/1935)
