@@ -29,9 +29,9 @@
         [hidden]="titleEl.children.length === 0"
         (click)="headerClick()"
     >
-      <h1 class="sky-repeater-item-title sky-emphasized" #titleEl>
+      <div class="sky-repeater-item-title sky-emphasized" #titleEl>
         <ng-content select="sky-repeater-item-title"></ng-content>
-      </h1>
+      </div>
       <div class="sky-repeater-item-chevron" [hidden]="!isCollapsible">
         <sky-chevron
             [attr.aria-controls]="contentId"
