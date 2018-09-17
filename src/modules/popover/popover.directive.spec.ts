@@ -25,12 +25,16 @@ import {
 } from '../window';
 
 import {
-  SkyPopoverComponent,
   SkyPopoverDirective,
   SkyPopoverAdapterService
 } from './index';
 
-import { SkyPopoverTestComponent } from './fixtures/popover.component.fixture';
+import {
+  SkyPopoverTestComponent
+} from './fixtures/popover.component.fixture';
+import {
+  SkyPopoverModule
+} from './popover.module';
 
 class MockWindowService {
   public getWindow(): any {
@@ -92,12 +96,11 @@ describe('SkyPopoverDirective', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        SkyPopoverModule
       ],
       declarations: [
-        SkyPopoverComponent,
-        SkyPopoverTestComponent,
-        SkyPopoverDirective
+        SkyPopoverTestComponent
       ],
       providers: [
         { provide: SkyPopoverAdapterService, useValue: mockAdapterService },
