@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    /deep/ sky-toolbar-section:not(:first-child) .sky-toolbar-section {
+    ::ng-deep sky-toolbar-section:not(:first-child) .sky-toolbar-section {
       @include sky-border(dark, top);
     }
 }
