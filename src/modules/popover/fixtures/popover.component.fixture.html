@@ -45,4 +45,17 @@
   <sky-popover #anotherAsyncPopover>
     My asynchronous popover.
   </sky-popover>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-defauilt"
+    [skyPopover]="programaticPopover"
+    [skyPopoverMessageStream]="messageStream"
+  >
+    Open
+  </button>
+
+  <sky-popover #programaticPopover>
+    My programatic popover.
+  </sky-popover>
 </div>

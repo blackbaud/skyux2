@@ -391,3 +391,28 @@
 <sky-popover #asyncPopover>
   My asynchronous popover.
 </sky-popover>
+
+<h3>
+  Popovers may be interacted with programatically
+</h3>
+
+<p>
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    [skyPopover]="programaticPopover"
+    [skyPopoverMessageStream]="popoverController">
+    Open popover via click
+  </button>
+
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="openPopover()">
+    Open popover programatically
+  </button>
+</p>
+<sky-popover #programaticPopover>
+  This popover has a programatic trigger on the second button.
+</sky-popover>
