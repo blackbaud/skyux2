@@ -1,6 +1,9 @@
 <sky-grid
   fit="scroll"
   [data]="items"
+  [multiselect]="true"
+  [multiselectIdProperty]="'id'"
+  (multiselectIdsChange)=multiselectIdsChange($event)
   (sortFieldChange)="sortChanged($event)">
   <sky-grid-column
     id="column1"

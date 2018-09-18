@@ -10,7 +10,9 @@ import {
   ChangeDetectorRef,
   SimpleChanges,
   EventEmitter,
-  OnChanges
+  OnChanges,
+  ViewChildren,
+  ViewChild
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +26,8 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import {
   ListItemModel,
-  ListSortFieldSelectorModel
+  ListSortFieldSelectorModel,
+  ListViewModel
 } from '../list/state';
 
 import { SkyGridColumnComponent } from './grid-column.component';
@@ -34,6 +37,7 @@ import { SkyGridAdapterService } from './grid-adapter.service';
 import {
   SkyGridColumnHeadingModelChange
 } from './types';
+import { SkyCheckboxChange, SkyCheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'sky-grid',
@@ -73,11 +77,20 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   @Input()
   public highlightText: string;
 
+  @Input()
+  public multiselect: boolean = false;
+
+  @Input()
+  public multiselectIdProperty: string;
+
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
 
   @Output()
   public sortFieldChange = new EventEmitter<ListSortFieldSelectorModel>();
+
+  @Output()
+  public multiselectIdsChange = new EventEmitter<Array<string>>();
 
   public items: Array<any>;
   public displayedColumns: Array<SkyGridColumnModel>;
@@ -85,6 +98,9 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
 
   @ContentChildren(SkyGridColumnComponent, { descendants: true })
   private columnComponents: QueryList<SkyGridColumnComponent>;
+
+  @ViewChild('multiselectSelectAll')
+  private multiselectSelectAll: SkyCheckboxComponent;
 
   private subscriptions: Subscription[] = [];
 
@@ -223,6 +239,29 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
       foundColumnModel.heading = change.value;
       this.ref.markForCheck();
     }
+  }
+
+  public triggerMultiselectSelectAll(event: any, checkboxes: Array<SkyCheckboxComponent>) {
+    this.items.forEach(item => {
+      item.isSelected = event.checked;
+    });
+
+    this.ref.detectChanges();
+    this.emitSelectedRows();
+  }
+
+  public onMultiselectChange(event: SkyCheckboxChange, item: any) {
+    this.multiselectSelectAll.checked = false;
+    this.emitSelectedRows();
+  }
+
+  private emitSelectedRows() {
+    let selectedIds = this.items.filter(item => {
+      return item.isSelected;
+    }).map(item => {
+      return item.id;
+    });
+    this.multiselectIdsChange.emit(selectedIds);
   }
 
   private onHeaderDrop(newColumnIds: Array<string>) {

@@ -1,6 +1,7 @@
 export class ListItemModel {
   public id: string;
   public data: any;
+  public isSelected?: boolean;
 
   constructor(id: string, data?: any) {
     if (id === undefined) {

@@ -6,6 +6,15 @@
       <thead>
         <tr dragula="sky-grid-heading">
           <th
+            class="sky-grid-heading sky-grid-multiselect-cell"
+            *ngIf="multiselect"
+          >
+            <sky-checkbox
+              (change)="triggerMultiselectSelectAll($event)"
+              #multiselectSelectAll
+            ></sky-checkbox>
+          </th>
+          <th
             scope="col"
             class="sky-grid-heading sky-field-label"
             *ngFor="let column of displayedColumns; let last = last"
@@ -30,7 +39,19 @@
         <tr
           class="sky-grid-row"
           *ngFor="let item of items"
-          [attr.sky-cmp-id]="item.id">
+          [attr.sky-cmp-id]="item.id"
+          [ngClass]="{ 'sky-grid-selected-row' : item.isSelected }"
+          >
+          <td
+            class="sky-grid-multiselect-cell"
+            *ngIf="multiselect"
+          >
+            <sky-checkbox
+              (change)="onMultiselectChange($event, item)"
+              [(ngModel)]="item.isSelected"
+            >
+            </sky-checkbox>
+          </td>
           <td
             class="sky-grid-cell"
             *ngFor="let column of displayedColumns; let last = last; let i = index">

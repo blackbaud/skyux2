@@ -64,4 +64,8 @@ export class SkyGridDemoComponent implements OnInit {
       return result;
     }).slice();
   }
+
+  public multiselectIdsChange(event: any) {
+    console.log('Selected Ids: ' + event);
+  }
 }
