@@ -2,27 +2,65 @@
   <div class="sky-grid-table-container" [style.height.px]="height" [style.width.px]="width">
     <table
       class="sky-grid-table"
-      [ngClass]="{ 'sky-grid-fit': fit !== 'scroll', 'sky-grid-has-toolbar': hasToolbar }">
+      [ngClass]="getTableClassNames()"
+      #gridTable>
       <thead>
         <tr dragula="sky-grid-heading">
           <th
             scope="col"
             class="sky-grid-heading sky-field-label"
-            *ngFor="let column of displayedColumns; let last = last"
-            [style.width.px]="last ? null : column.width"
+            *ngFor="let column of displayedColumns; let last = last, let i = index"
+            [attr.sky-cmp-index]="i"
             [attr.sky-cmp-id]="column.id || column.field"
             [attr.aria-sort]="getAriaSortDirection(column) | async"
-            [ngClass]="{ 'sky-grid-header-locked': column.locked }"
+            [id]="'sky-grid-' + gridId + '-column-' + i"
+            [style.max-width.px]="column.width"
+            [style.width.px]="column.width"
             (click)="sortByColumn(column)"
-            [tabIndex]="column.isSortable ? 0 : -1"
-            (keydown)="onKeydown($event, column)">
-            {{column.heading}}
-            <sky-icon
-              class="fa sky-grid-heading-sort"
-              *ngIf="(getSortDirection(column.field) | async)"
-              [icon]="(getSortDirection(column.field) | async) === 'asc' ? 'caret-up' : 'caret-down'"
+            (keydown)="onKeydown($event, column)"
+            #gridCol
+          >
+            <div
+              class="overflow"
+              [ngClass]="getTableHeaderClassNames(column)"
+              [tabIndex]="column.isSortable ? 0 : -1"
+              [style.max-width.px]="column.width"
+              [style.width.px]="column.width"
             >
-            </sky-icon>
+              {{column.heading}}
+              <sky-icon
+                class="sky-grid-heading-sort"
+                *ngIf="(getSortDirection(column.field) | async)"
+                [icon]="getCaretIconNames(column)"
+              >
+              </sky-icon>
+            </div>
+            <span
+              *ngIf="(fit==='width' && !last) || (fit==='scroll')"
+              aria-hidden="true"
+              class="sky-grid-resize-handle"
+              role="separator"
+              tabindex="-1"
+              [attr.sky-cmp-index]="i"
+              (mousedown)="onMouseDownResizeCol($event)">
+            </span>
+            <input
+              aria-label="Width of column"
+              class="sky-grid-column-input-aria-only"
+              role="separator"
+              type="range"
+              [attr.aria-controls]="'sky-grid-' + gridId + '-column-' + i"
+              [attr.aria-valuemin]="minColWidth"
+              [attr.aria-valuemax]="maxColWidth"
+              [attr.aria-valuenow]="column.width"
+              [attr.sky-cmp-index]="i"
+              [min]="minColWidth"
+              [max]="maxColWidth"
+              [step]="columnResizeStep"
+              [(ngModel)]="column.width"
+              (keydown)="onKeydownResizeCol($event)"
+              (change)="onInputChangeResizeCol($event)"
+              #colSizeRange />
           </th>
         </tr>
       </thead>
@@ -41,12 +79,20 @@
               [item]="item"
               [columnId]="column.id"
               [attr.sky-cmp-id]="column.id || column.field"
-              [style.width.px]="last ? null : column.width">
+              [style.width.px]="column.width">
             </sky-grid-cell>
           </td>
         </tr>
       </tbody>
     </table>
+    <div
+      *ngIf="showResizeBar"
+      aria-hidden="true"
+      id="sky-grid-resize-bar"
+      role="separator"
+      tabindex="-1"
+      #resizeBar>
+    </div>
   </div>
 </div>
 

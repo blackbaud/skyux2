@@ -7,6 +7,9 @@ import {
 import {
   DragulaModule
 } from 'ng2-dragula/ng2-dragula';
+import {
+  FormsModule
+} from '@angular/forms';
 
 import {
   SkyGridComponent
@@ -34,7 +37,8 @@ import {
     CommonModule,
     SkyTextHighlightModule,
     SkyIconModule,
-    DragulaModule
+    DragulaModule,
+    FormsModule
   ],
   exports: [
     SkyGridComponent,

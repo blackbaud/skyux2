@@ -18,7 +18,7 @@ describe('list-toolbar component', () => {
       });
   });
 
-  it('should display inline filters correctly when openned', () => {
+  it('should display inline filters correctly when opened', () => {
     return SkyVisualTest
       .setupTest('list-toolbar')
       .then(() => {

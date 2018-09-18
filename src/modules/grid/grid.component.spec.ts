@@ -16,6 +16,10 @@ import {
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+import {
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
 const moment = require('moment');
 
 import {
@@ -47,8 +51,95 @@ function getCell(rowId: string, columnId: string, element: DebugElement) {
   );
 }
 
+function makeEvent(eventType: string, evtObj: any) {
+  let evt = document.createEvent('MouseEvents');
+    evt.initMouseEvent(eventType, false, false, window, 0, 0, 0, evtObj.clientX,
+      0, false, false, false, false, 0, undefined);
+  document.dispatchEvent(evt);
+}
+
+function getElementCords(elementRef: any) {
+  const rect = (elementRef.nativeElement as HTMLElement).getBoundingClientRect();
+  const coords = {
+    x: Math.round(rect.left + (rect.width / 2)),
+    y: Math.round(rect.top + (rect.height / 2))
+  };
+
+  return coords;
+}
+
+function getColumnWidths(fixture: ComponentFixture<any>) {
+  let expectedColumnWidths = new Array<number>();
+  const tableHeaders = fixture.debugElement.queryAll(By.css('.sky-grid-heading'));
+  tableHeaders.forEach(th => {
+    expectedColumnWidths.push(Number(th.nativeElement.offsetWidth));
+  });
+
+  return expectedColumnWidths;
+}
+
+function getColumnResizeHandles(fixture: ComponentFixture<any>) {
+  return fixture.debugElement.queryAll(By.css('.sky-grid-resize-handle'));
+}
+
+function getColumnRangeInputs(fixture: ComponentFixture<any>) {
+  return fixture.debugElement.queryAll(By.css('.sky-grid-column-input-aria-only'));
+}
+
+function getColumnResizeInputMaxValues(fixture: ComponentFixture<any>) {
+  let resizeInputs = getColumnRangeInputs(fixture);
+  let maxValues = new Array<number>();
+
+  resizeInputs.forEach((input) => {
+    maxValues.push(input.nativeElement.max);
+  });
+  return maxValues;
+}
+
+function resizeColumn(fixture: ComponentFixture<any>, deltaX: number, columnIndex: number) {
+  const resizeHandles = getColumnResizeHandles(fixture);
+  let axis = getElementCords(resizeHandles[columnIndex]);
+  let event = {
+    target: resizeHandles[columnIndex].nativeElement,
+    'pageX': axis.x,
+    'preventDefault': function() {},
+    'stopPropagation': function() {}
+  };
+
+  resizeHandles[columnIndex].triggerEventHandler('mousedown', event);
+  fixture.detectChanges();
+
+  makeEvent('mousemove', { clientX: axis.x + deltaX });
+  fixture.detectChanges();
+  makeEvent('click', { clientX: axis.x + deltaX });
+  fixture.detectChanges();
+}
+
+function resizeColumnByRangeInput(fixture: ComponentFixture<any>, columnIndex: number, deltaX: number) {
+  const resizeInputs = getColumnRangeInputs(fixture);
+  SkyAppTestUtility.fireDomEvent(resizeInputs[columnIndex].nativeElement, 'keydown', {
+    keyboardEventInit: { key: 'ArrowRight' }
+  });
+  let newValue = Number(resizeInputs[columnIndex].nativeElement.value) + deltaX;
+  resizeInputs[columnIndex].nativeElement.value = newValue;
+  SkyAppTestUtility.fireDomEvent(resizeInputs[columnIndex].nativeElement, 'change', { });
+}
+
+function getTable(fixture: ComponentFixture<any>) {
+  return fixture.debugElement.query(By.css('.sky-grid-table'));
+}
+
+function getTableWidth(fixture: ComponentFixture<any>) {
+  const table = getTable(fixture);
+  return table.nativeElement.offsetWidth;
+}
+
+function cloneItems(items: any[]): any[] {
+  return JSON.parse(JSON.stringify(items));
+}
+
 describe('Grid Component', () => {
-  describe('Basic Fixture', () => {
+  describe('Basic Fixture with fit=scroll', () => {
     let component: GridTestComponent,
         fixture: ComponentFixture<GridTestComponent>,
         nativeElement: HTMLElement,
@@ -245,12 +336,12 @@ describe('Grid Component', () => {
       });
 
       it('should change styles based on hasToolbar input', () => {
-        expect(element.query(By.css('.sky-grid-table')).nativeElement)
-          .not.toHaveCssClass('sky-grid-has-toolbar');
+        const table = getTable(fixture).nativeElement;
+        expect(table).not.toHaveCssClass('sky-grid-fit');
+        expect(table).not.toHaveCssClass('sky-grid-has-toolbar');
         component.hasToolbar = true;
         fixture.detectChanges();
-        expect(element.query(By.css('.sky-grid-table')).nativeElement)
-          .toHaveCssClass('sky-grid-has-toolbar');
+        expect(table).toHaveCssClass('sky-grid-has-toolbar');
       });
 
       it('should allow the access of search function on displayed columns', () => {
@@ -390,6 +481,132 @@ describe('Grid Component', () => {
           expect(model.width).toBeUndefined();
         });
       });
+
+      describe('Resiazable columns', () => {
+
+        let minColWidth = '50';
+        let maxColWidth = '9999';
+
+        it('should not resize if user does not use resize handle', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+
+          // Move the mouse.
+          SkyAppTestUtility.fireDomEvent(document, 'mousemove');
+
+          // Assert nothing was changed.
+          let newTableWidth = getTableWidth(fixture);
+          let newolumnWidths = getColumnWidths(fixture);
+          expect(initialTableWidth).toEqual(newTableWidth);
+          expect(initialColumnWidths).toEqual(newolumnWidths);
+          expect(component.columnWidthsChange).toBeUndefined();
+        }));
+
+        it('should prevent users from resizing column smaller than the minimum limit', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+
+          // The last column is already 50px wide. Try to make it smaler...
+          resizeColumn(fixture, -50, 4);
+
+          // Assert nothing was changed.
+          let newTableWidth = getTableWidth(fixture);
+          let newColumnWidths = getColumnWidths(fixture);
+          expect(initialTableWidth).toEqual(newTableWidth);
+          expect(initialColumnWidths).toEqual(newColumnWidths);
+        }));
+
+        it('should properly resize column and emit change event on release of resize handle', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+
+          // Resize first column.
+          let resizeXDistance = 50;
+          resizeColumn(fixture, resizeXDistance, 0);
+
+          // Assert table was resized properly.
+          let newTableWidth = getTableWidth(fixture);
+          let newColumnWidths = getColumnWidths(fixture);
+          let expectedColumnWidths = Object.assign(initialColumnWidths);
+          expectedColumnWidths[0] = initialColumnWidths[0] + resizeXDistance;
+          expect(newColumnWidths).toEqual(expectedColumnWidths);
+          expect(newTableWidth).toEqual(initialTableWidth + resizeXDistance);
+          component.columnWidthsChange.forEach((cwc, index) => {
+            expect(cwc.width === expectedColumnWidths[index]);
+          });
+        }));
+
+        it('should have correct aria-labels on resizing range input', fakeAsync(() => {
+          const resizeInputs = getColumnRangeInputs(fixture);
+          let colWidths = getColumnWidths(fixture);
+          resizeInputs.forEach((resizeInput, index) => {
+            expect(resizeInput.nativeElement.getAttribute('aria-controls')).not.toBeNull();
+            expect(resizeInput.nativeElement.getAttribute('aria-valuenow')).toBe(colWidths[index].toString());
+            expect(resizeInput.nativeElement.getAttribute('aria-valuemax')).toBe(maxColWidth);
+            expect(resizeInput.nativeElement.getAttribute('aria-valuemin')).toBe(minColWidth);
+            expect(resizeInput.nativeElement.getAttribute('max')).toBe(maxColWidth);
+            expect(resizeInput.nativeElement.getAttribute('min')).toBe(minColWidth);
+          });
+        }));
+
+        it('should resize column when range input is changed', async(() => {
+          // Get initial baseline for comparison.
+          // Note: We are assuming column at index[1] starts with a set value (150).
+          let columnIndex = 1;
+          let initialTableWidth = getTableWidth(fixture);
+          let initialColumnWidths = getColumnWidths(fixture);
+          let inputRange = getColumnRangeInputs(fixture)[1];
+          let deltaX = 10;
+
+          fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            // Increase first column.
+            resizeColumnByRangeInput(fixture, columnIndex, deltaX);
+
+            // Assert table was resized properly, and input range was updated correctly.
+            let expectedColumnWidths: any = cloneItems(initialColumnWidths);
+            expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
+            expect(getTableWidth(fixture)).toEqual(initialTableWidth + deltaX);
+            expect(getColumnWidths(fixture)).toEqual(expectedColumnWidths);
+            expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
+            component.columnWidthsChange.forEach((cwc, index) => {
+              expect(cwc.width === expectedColumnWidths[index]);
+            });
+
+            // Decrease first column.
+            initialTableWidth = getTableWidth(fixture);
+            initialColumnWidths = getColumnWidths(fixture);
+            deltaX = -20;
+            resizeColumnByRangeInput(fixture, columnIndex, deltaX);
+
+            // Assert table was resized properly, and input range was updated correctly.
+            expectedColumnWidths = cloneItems(initialColumnWidths);
+            expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
+            expect(getTableWidth(fixture)).toEqual(initialTableWidth + deltaX);
+            expect(getColumnWidths(fixture)).toEqual(expectedColumnWidths);
+            expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
+            component.columnWidthsChange.forEach((cwc, index) => {
+              expect(cwc.width === expectedColumnWidths[index]);
+            });
+          });
+        }));
+
+        it('should NOT change max value when column width is changed', fakeAsync(() => {
+          // Get initial baseline for comparison.
+          let initialMaxValues = getColumnResizeInputMaxValues(fixture);
+
+          // Resize first column.
+          resizeColumnByRangeInput(fixture, 0, 50);
+
+          // Assert max value on input ranges was not changed.
+          let expectedColumnInputs = getColumnResizeInputMaxValues(fixture);
+          expect(initialMaxValues).toEqual(expectedColumnInputs);
+        }));
+      });
     });
 
     describe('selectedColumnIds undefined on load', () => {
@@ -427,6 +644,99 @@ describe('Grid Component', () => {
     });
   });
 
+  describe('Basic Fixture with fit=width', () => {
+    let fixture: ComponentFixture<GridTestComponent>,
+        component: GridTestComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          GridFixturesModule,
+          SkyGridModule
+        ]
+      });
+    });
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(GridTestComponent);
+      component = fixture.componentInstance;
+      component.fitType = 'width';
+      fixture.detectChanges();
+      fixture.detectChanges();
+    });
+
+    describe('Standard setup', () => {
+      it('should change styles based on hasToolbar input', () => {
+        const table = getTable(fixture).nativeElement;
+        expect(table).toHaveCssClass('sky-grid-fit');
+        expect(table).not.toHaveCssClass('sky-grid-has-toolbar');
+        component.hasToolbar = true;
+        fixture.detectChanges();
+        expect(table).toHaveCssClass('sky-grid-has-toolbar');
+      });
+    });
+
+    describe('Resiazable columns', () => {
+
+      it('should not allow resizing when the final column is at the minimum width', fakeAsync(() => {
+        // Get initial baseline for comparison.
+        let initialTableWidth = getTableWidth(fixture);
+        let initialColumnWidths = getColumnWidths(fixture);
+
+        // Resize first column.
+        let resizeXDistance = 50;
+        resizeColumn(fixture, resizeXDistance, 0);
+
+        // Assert table width did not change, and only first and last column were resized.
+        let newTableWidth = getTableWidth(fixture);
+        let newColumnWidths = getColumnWidths(fixture);
+        expect(newTableWidth).toEqual(initialTableWidth);
+        expect(newColumnWidths).toEqual(initialColumnWidths);
+      }));
+
+      it('should resize columns on mousemove', fakeAsync(() => {
+        // Get initial baseline for comparison.
+        let initialTableWidth = getTableWidth(fixture);
+        let initialColumnWidths = getColumnWidths(fixture);
+
+        // Resize last column so its larger than the min-width.
+        // We have to do this, because fit=width doesn't allow the last column to be smaller than min.
+        let resizeXDistance = 50;
+        resizeColumn(fixture, -resizeXDistance, 2);
+
+        // Resize first column.
+        resizeColumn(fixture, resizeXDistance, 0);
+
+        // Assert table width did not change, and only first and last column were resized.
+        let newTableWidth = getTableWidth(fixture);
+        let newColumnWidths = getColumnWidths(fixture);
+        let expectedColumnWidths = Object.assign(initialColumnWidths);
+        expectedColumnWidths[0] = expectedColumnWidths[0] + resizeXDistance;
+        expectedColumnWidths[2] = expectedColumnWidths[2] - resizeXDistance;
+        expectedColumnWidths[4] = 50;
+        expect(newTableWidth).toEqual(initialTableWidth);
+        expect(newColumnWidths).toEqual(expectedColumnWidths);
+      }));
+
+      it('should change max value when column width is changed', fakeAsync(() => {
+        // Get initial baseline for comparison.
+        let initialMaxValues = getColumnResizeInputMaxValues(fixture);
+
+        // Squeeze a column so it adds more width to the last column.
+        // We have to do this, because fit=width doesn't allow the last column to be smaller than min.
+        let deltaX = 50;
+        resizeColumnByRangeInput(fixture, 2, -deltaX);
+
+        // Resize first column.
+        resizeColumnByRangeInput(fixture, 0, deltaX);
+
+        // Assert max value on input ranges were properly updated.
+        let expectedColumnInputs = getColumnResizeInputMaxValues(fixture);
+        expect(initialMaxValues).not.toEqual(expectedColumnInputs);
+      }));
+    });
+  });
+
   describe('dragula functionality', () => {
     let mockDragulaService: DragulaService;
     let component: GridTestComponent,
@@ -458,7 +768,7 @@ describe('Grid Component', () => {
       component = fixture.componentInstance;
     });
 
-    it('should the dragging class to the header on dragula drag', fakeAsync(() => {
+    it('should add the dragging class to the header on dragula drag', fakeAsync(() => {
       fixture.detectChanges();
       fixture.detectChanges();
 
@@ -583,7 +893,7 @@ describe('Grid Component', () => {
       })
     );
 
-    it('should set dragula options for locked columns', () => {
+    it('should set dragula options for locked and resizable columns', () => {
       const setOptionsSpy = spyOn(mockDragulaService, 'setOptions').and
         .callFake((bagId: any, options: any) => {
           const moveOption = options.moves(
@@ -592,6 +902,16 @@ describe('Grid Component', () => {
             {
               matches(selector: string) {
                 return (selector === '.sky-grid-header-locked');
+              }
+            }
+          );
+
+          const moveOptionFromResize = options.moves(
+            undefined,
+            undefined,
+            {
+              matches(selector: string) {
+                return (selector === '.sky-grid-resize-handle');
               }
             }
           );
@@ -614,6 +934,7 @@ describe('Grid Component', () => {
           );
 
           expect(moveOption).toBe(false);
+          expect(moveOptionFromResize).toBe(false);
           expect(moveOptionUndefined).toBe(false);
           expect(acceptsOption).toBe(false);
         });
