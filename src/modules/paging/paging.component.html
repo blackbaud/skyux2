@@ -1,36 +1,50 @@
 <ul *ngIf="pageCount > 1"
   role="navigation"
   [attr.aria-label]="pagingLabel || 'paging_label' | skyResources"
-  >
+>
   <li>
-    <a
-      href
-      (click)="previousPage(); false"
-      class="fa fa-caret-left sky-paging-caret"
+    <button
+      class="sky-btn sky-btn-default sky-paging-btn sky-paging-btn-previous"
       sky-cmp-id="previous"
-      [ngClass]="{ 'sky-paging-disabled': currentPage === 1 }"
-      [attr.aria-label]="'paging_previous' | skyResources"></a>
+      type="button"
+      [attr.aria-label]="'paging_previous' | skyResources"
+      [disabled]="isPreviousButtonDisabled"
+      (click)="previousPage()"
+    >
+      <i
+        aria-hidden="true"
+        class="fa fa-caret-left sky-paging-caret"
+      ></i>
+    </button>
   </li>
-  <li
-    *ngFor="let pageNumber of displayedPages"
-    class="sky-list-paging-link">
-    <a
-      href
+  <li *ngFor="let pageNumber of displayedPages"
+    class="sky-list-paging-link"
+  >
+    <button
+      class="sky-btn sky-btn-default sky-paging-btn"
+      type="button"
+      [attr.aria-current]="currentPage === pageNumber"
       [attr.sky-cmp-id]="pageNumber"
-      (click)="setPage(pageNumber); false"
+      [disabled]="currentPage === pageNumber"
       [ngClass]="{ 'sky-paging-current': currentPage === pageNumber }"
-      >{{pageNumber}}
-    </a>
+      (click)="setPage(pageNumber)"
+    >
+      {{ pageNumber }}
+    </button>
   </li>
   <li>
-    <a
-      href
-      (click)="nextPage(); false"
-      class="fa fa-caret-right sky-paging-caret"
+    <button
+      class="sky-btn sky-btn-default sky-paging-btn sky-paging-btn-next"
       sky-cmp-id="next"
-      [ngClass]="{ 'sky-paging-disabled': pageCount === currentPage }"
+      type="button"
       [attr.aria-label]="'paging_next' | skyResources"
-      >
-    </a>
+      [disabled]="isNextButtonDisabled"
+      (click)="nextPage()"
+    >
+      <i
+        aria-hidden="true"
+        class="fa fa-caret-right sky-paging-caret"
+      ></i>
+    </button>
   </li>
 </ul>

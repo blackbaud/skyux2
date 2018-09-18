@@ -16,10 +16,10 @@ import { SkyCheckboxModule } from '../checkbox';
   ],
   imports: [
     CommonModule,
+    DragulaModule,
     FormsModule,
     SkyCheckboxModule,
-    SkyTextHighlightModule,
-    DragulaModule
+    SkyTextHighlightModule
   ],
   exports: [
     SkyGridComponent,
