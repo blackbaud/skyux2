@@ -79,10 +79,9 @@ $popover-max-width: 276px;
 
       display: flex;
       flex-shrink: 0;
+      justify-content: flex-end;
       align-items: baseline;
       @include sky-border(light, bottom);
-      padding: $sky-padding;
-      border-bottom: 1px solid $sky-border-color-neutral-light;
     }
 
     .sky-popover-body {

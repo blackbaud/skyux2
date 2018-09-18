@@ -23,6 +23,8 @@ import {
 } from './types';
 
 import { SkyPopoverComponent } from './popover.component';
+import { SkyPopoverMessage } from './types/popover-message';
+import { SkyPopoverMessageType } from './types/popover-message-type';
 
 @Directive({
   selector: '[skyPopover]'
@@ -39,6 +41,9 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
   @Input()
   public skyPopoverTrigger: SkyPopoverTrigger = 'click';
+
+  @Input()
+  public skyPopoverMessageStream = new Subject<SkyPopoverMessage>();
 
   private idled = new Subject<boolean>();
 
@@ -59,6 +64,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
   public ngOnDestroy(): void {
     this.removeEventListeners();
+    this.idled.complete();
   }
 
   public togglePopover() {
@@ -96,6 +102,12 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
   private addEventListeners() {
     const element = this.elementRef.nativeElement;
+
+    this.skyPopoverMessageStream
+      .takeUntil(this.idled)
+      .subscribe(message => {
+        this.handleIncomingMessages(message);
+      });
 
     Observable
       .fromEvent(element, 'keyup')
@@ -158,5 +170,25 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     this.idled.next(true);
     this.idled.unsubscribe();
     this.idled = new Subject<boolean>();
+  }
+
+  private handleIncomingMessages(message: SkyPopoverMessage) {
+    /* tslint:disable-next-line:switch-default */
+    switch (message.type) {
+      case SkyPopoverMessageType.Open:
+        this.positionPopover();
+        break;
+
+      case SkyPopoverMessageType.Close:
+        this.closePopover();
+        break;
+
+      case SkyPopoverMessageType.Reposition:
+        // Only reposition the popover if it is already open.
+        if (this.isPopoverOpen()) {
+          this.positionPopover();
+        }
+        break;
+    }
   }
 }

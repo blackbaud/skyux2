@@ -4,7 +4,9 @@ import {
 
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
+  tick,
+  fakeAsync
 } from '@angular/core/testing';
 
 import {
@@ -35,6 +37,9 @@ import {
 import {
   SkyPopoverModule
 } from './popover.module';
+import {
+  SkyPopoverMessageType
+} from './types/popover-message-type';
 
 class MockWindowService {
   public getWindow(): any {
@@ -107,7 +112,7 @@ describe('SkyPopoverDirective', () => {
         { provide: SkyWindowRefService, useValue: mockWindowService }
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(SkyPopoverTestComponent);
     directiveElements = fixture.debugElement.queryAll(By.directive(SkyPopoverDirective));
@@ -258,5 +263,34 @@ describe('SkyPopoverDirective', () => {
     expect(callerInstance.skyPopover).toBeUndefined();
     expect(addEventSpy).not.toHaveBeenCalled();
     expect(removeEventSpy).toHaveBeenCalled();
+  });
+
+  describe('message stream', () => {
+    it('should allow opening and closing the menu', fakeAsync(() => {
+      const caller = directiveElements[5];
+      const callerInstance = caller.injector.get(SkyPopoverDirective);
+      const openSpy = spyOn(callerInstance.skyPopover, 'positionNextTo').and.stub();
+      const closeSpy = spyOn(callerInstance.skyPopover, 'close').and.stub();
+
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      let component = fixture.componentInstance;
+      component.sendMessage(SkyPopoverMessageType.Open);
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(openSpy).toHaveBeenCalled();
+
+      component.sendMessage(SkyPopoverMessageType.Close);
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      expect(closeSpy).toHaveBeenCalled();
+
+      fixture.destroy();
+    }));
   });
 });
