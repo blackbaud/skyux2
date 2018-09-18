@@ -29,19 +29,20 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import {
   ListItemModel,
-  ListSortFieldSelectorModel,
-  ListViewModel
+  ListSortFieldSelectorModel
 } from '../list/state';
 
 import { SkyGridColumnComponent } from './grid-column.component';
 import { SkyGridColumnModel } from './grid-column.model';
 import { SkyGridAdapterService } from './grid-adapter.service';
-
 import {
   SkyGridColumnHeadingModelChange,
   SkyGridColumnWidthModelChange
 } from './types';
-import { SkyCheckboxChange, SkyCheckboxComponent } from '../checkbox/checkbox.component';
+import {
+  SkyCheckboxChange,
+  SkyCheckboxComponent
+} from '../checkbox/checkbox.component';
 
 let nextId = 0;
 
@@ -97,7 +98,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   @Output()
   public multiselectIdsChange = new EventEmitter<Array<string>>();
-  
+
   public columnWidthChange = new EventEmitter<Array<SkyGridColumnWidthModelChange>>();
 
   public items: Array<any>;
@@ -328,14 +329,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     this.multiselectSelectAll.checked = false;
     this.emitSelectedRows();
   }
-
-  private emitSelectedRows() {
-    let selectedIds = this.items.filter(item => {
-      return item.isSelected;
-    }).map(item => {
-      return item.id;
-    });
-    this.multiselectIdsChange.emit(selectedIds);
 
   public onMouseDownResizeCol(event: MouseEvent) {
     this.initializeResizeColumn(event);
@@ -569,5 +562,14 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   private addDelimeter(text: string[], delimiter: string) {
     return text.filter(val => val).join(delimiter);
+  }
+
+  private emitSelectedRows() {
+    let selectedIds = this.items.filter(item => {
+      return item.isSelected;
+    }).map(item => {
+      return item.id;
+    });
+    this.multiselectIdsChange.emit(selectedIds);
   }
 }

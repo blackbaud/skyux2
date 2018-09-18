@@ -7,6 +7,7 @@ import { SkyGridCellComponent } from './grid-cell.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { SkyTextHighlightModule } from '../text-highlight';
 import { SkyCheckboxModule } from '../checkbox';
+import { SkyResourcesModule } from '../resources';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SkyCheckboxModule } from '../checkbox';
     DragulaModule,
     FormsModule,
     SkyCheckboxModule,
-    SkyTextHighlightModule
+    SkyTextHighlightModule,
+    SkyResourcesModule
   ],
   exports: [
     SkyGridComponent,

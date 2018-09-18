@@ -11,6 +11,7 @@
             *ngIf="multiselect"
           >
             <sky-checkbox
+              [label]="'grid_select_all' | skyResources"
               (change)="triggerMultiselectSelectAll($event)"
               #multiselectSelectAll
             ></sky-checkbox>
@@ -85,6 +86,7 @@
             *ngIf="multiselect"
           >
             <sky-checkbox
+              [label]="'grid_select_row' | skyResources"
               (change)="onMultiselectChange($event, item)"
               [(ngModel)]="item.isSelected"
             >

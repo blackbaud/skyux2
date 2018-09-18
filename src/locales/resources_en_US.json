@@ -559,6 +559,14 @@
     "_description": "Placeholder text in grid search box",
     "message": "Find in this list"
   },
+  "grid_select_all": {
+    "_description": "Label for the checkbox in a grid to select all items.",
+    "message": "Select all"
+  },
+  "grid_select_row": {
+    "_description": "Label for the checkbox in a grid to select a row.",
+    "message": "Select row"
+  },
   "help_inline_button_title": {
     "_description": "The title for the help button.",
     "message": "Show help content"
