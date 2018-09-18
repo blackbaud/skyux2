@@ -1,4 +1,5 @@
 export { SkyGridColumnHeadingModelChange } from './types';
+export { SkyGridColumnWidthModelChange } from './types';
 export { SkyGridModule } from './grid.module';
 export { SkyGridComponent } from './grid.component';
 export { SkyGridColumnComponent } from './grid-column.component';
