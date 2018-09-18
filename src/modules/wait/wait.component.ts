@@ -26,7 +26,7 @@ export class SkyWaitComponent {
     } else if (!value && !this._isFullPage) {
       this.adapterService.removeWaitBounds(this.elRef);
     }
-    this.adapterService.setBusyState(this.elRef, this._isFullPage, value);
+    this.adapterService.setBusyState(this.elRef, this._isFullPage, value, this.isNonBlocking);
     this._isWaiting = value;
   }
 
@@ -54,11 +54,15 @@ export class SkyWaitComponent {
 
   @Input()
   public set ariaLabel(value: string) {
-    const type = this.isFullPage ? '_page' : '';
-    const blocking = this.isNonBlocking ? '' : '_blocking';
-    const defaultMessage = this.resourceService.getString('wait' + type + blocking + '_aria_alt_text');
+    if (value) {
+      this._ariaLabel = value;
+    } else {
+      const type = this.isFullPage ? '_page' : '';
+      const blocking = this.isNonBlocking ? '' : '_blocking';
+      const defaultMessage = this.resourceService.getString('wait' + type + blocking + '_aria_alt_text');
 
-    this._ariaLabel = value || defaultMessage;
+      this._ariaLabel = defaultMessage;
+    }
   }
   public get ariaLabel(): string {
     return this._ariaLabel;
