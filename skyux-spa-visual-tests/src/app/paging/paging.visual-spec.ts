@@ -18,7 +18,7 @@ describe('paging component', () => {
   it('should display middle page selected', () => {
     return SkyVisualTest.setupTest('paging')
     .then(() => {
-      element(by.css('a[sky-cmp-id="next"]')).click();
+      element(by.css('button[sky-cmp-id="next"]')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'paging-middle',
         selector: '#screenshot-paging'
