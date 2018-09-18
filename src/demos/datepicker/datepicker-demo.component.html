@@ -1,34 +1,8 @@
-<div style="max-width: 50%">
-  <sky-datepicker #picker>
-    <input
-      [(ngModel)]="selectedDate"
-      [skyDatepickerInput]="picker"
-      [minDate]="minDate"
-      [maxDate]="maxDate"
-      #date="ngModel"/>
+<form [formGroup]="dateTimeForm">
+  <sky-datepicker #datePicker class="form-input">
+        <input id="dateInput" placeholder="Date" [skyDatepickerInput]="datePicker" [minDate]="now" [disabled]="true"/>
   </sky-datepicker>
-  <div
-    class="sky-error-label"
-    *ngIf="date.errors && date.errors.skyDate && (date.dirty || date.touched)">
-
-    <span [hidden]="!date.errors.skyDate.invalid">
-      Please enter a valid date.
-    </span>
-
-    <span [hidden]="!date.errors.skyDate.minDate">
-      Date is prior to minimum date range.
-    </span>
-
-    <span [hidden]="!date.errors.skyDate.maxDate">
-      Date is after maximum date range.
-    </span>
-  </div>
-</div>
-
-<div>
-  Selected date is {{ selectedDate }}
-</div>
-
-<p>
-  <button class="sky-btn sky-btn-secondary" (click)="clearSelectedDate()">Clear selected date</button>
-</p>
+  <sky-timepicker #timePicker class="second-form-input">
+       <input id="timeInput" placeholder="Time" [skyTimepickerInput]="timePicker" timeFormat="hh" returnFormat="h:mm A" formControlName="time"/>
+  </sky-timepicker>
+  </form>

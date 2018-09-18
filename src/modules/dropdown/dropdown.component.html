@@ -1,16 +1,17 @@
 <div class="sky-dropdown">
   <button
     aria-haspopup="true"
+    class="sky-btn sky-dropdown-button"
+    type="button"
     [attr.aria-expanded]="isOpen"
     [attr.aria-controls]="menuId"
-    type="button"
-    class="sky-btn sky-dropdown-button"
+    [attr.aria-label]="label"
+    [attr.title]="title"
+    [disabled]="disabled"
     [ngClass]="[
       'sky-dropdown-button-type-' + buttonType,
       'sky-btn-' + buttonStyle
     ]"
-    [attr.aria-label]="label"
-    [attr.title]="title"
     [skyPopover]="popover"
     [skyPopoverTrigger]="getPopoverTriggerType()"
     [skyPopoverAlignment]="alignment"

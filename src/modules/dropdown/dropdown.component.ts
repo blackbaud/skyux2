@@ -82,6 +82,9 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   public title: string;
 
   @Input()
+  public disabled = false;
+
+  @Input()
   public set trigger(value: SkyDropdownTriggerType) {
     this._trigger = value;
   }

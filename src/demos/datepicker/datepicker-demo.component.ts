@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'sky-datepicker-demo',
   templateUrl: './datepicker-demo.component.html'
 })
-export class SkyDatepickerDemoComponent {
-  public minDate: Date;
-  public maxDate: Date;
-  public selectedDate: Date;
+export class SkyDatepickerDemoComponent implements OnInit{
+  public dateTimeForm = new FormGroup({
+    'date': new FormControl({ value: '', disabled: true }, [Validators.required]),
+    'time': new FormControl({ value: '', disabled: true }, [Validators.required])
+  });
 
-  public clearSelectedDate(): void {
-    this.selectedDate = undefined;
+  public ngOnInit() {
   }
 }
