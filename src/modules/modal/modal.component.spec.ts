@@ -93,7 +93,7 @@ describe('Modal component', () => {
 
   it('should focus the dialog when no autofocus is inside of content', fakeAsync(() => {
     let modalInstance1 = openModal(ModalTestComponent);
-    expect(document.activeElement).toEqual(document.querySelector('.sky-modal'));
+    expect(document.activeElement).toEqual(document.querySelector('.sky-modal-content'));
     closeModal(modalInstance1);
   }));
 

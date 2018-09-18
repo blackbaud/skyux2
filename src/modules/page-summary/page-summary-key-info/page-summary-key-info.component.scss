@@ -7,6 +7,6 @@
     }
 }
 
-.sky-page-summary-key-info /deep/ .sky-key-info {
+.sky-page-summary-key-info ::ng-deep .sky-key-info {
   display: block;
 }
