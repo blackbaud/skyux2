@@ -71,12 +71,32 @@ $popover-max-width: 276px;
     flex-direction: column;
 
     .sky-popover-header {
-      padding: $sky-padding;
-      border-bottom: 1px solid $sky-border-color-neutral-light;
+      /* Need less padding because of the close button padding */
+      padding-left: $sky-padding-plus-half;
+      padding-top: 9px;
+      padding-bottom: 9px;
+      padding-right: 3px;
+
+      display: flex;
+      flex-shrink: 0;
+      justify-content: flex-end;
+      align-items: baseline;
+      @include sky-border(light, bottom);
     }
 
     .sky-popover-body {
       position: relative;
+    }
+
+    .sky-popover-title {
+      flex-grow: 1;
+    }
+
+    .sky-popover-fullscreen-close {
+      border: none;
+      @include sky-icon-button-borderless;
+      font-size: 20px;
+      flex-grow: 0;
     }
   }
 }

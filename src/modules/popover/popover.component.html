@@ -13,10 +13,18 @@
   [style.visibility]="(isVisible) ? 'visible': 'hidden'"
   #popoverContainer>
   <div class="sky-popover sky-shadow sky-rounded-corners">
-    <header class="sky-popover-header sky-padding-even-default" *ngIf="popoverTitle">
-      <h1 class="sky-popover-title sky-emphasized">
+    <header class="sky-popover-header sky-padding-even-default" *ngIf="popoverTitle || placement === 'fullscreen'">
+      <h1 class="sky-popover-title sky-emphasized" *ngIf="popoverTitle">
         {{ popoverTitle }}
       </h1>
+      <button *ngIf="placement === 'fullscreen'"
+        type="button"
+        class="sky-btn sky-popover-fullscreen-close"
+        [attr.aria-label]="'popover_close' | skyResources"
+        (click)="close()"
+      >
+        <sky-icon icon="close"></sky-icon>
+      </button>
     </header>
     <div class="sky-popover-body sky-padding-even-default">
       <ng-content></ng-content>
