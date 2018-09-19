@@ -37,7 +37,7 @@ export class SkyTabsetComponent
   public set tabStyle(value: string) {
     if (value && value.toLowerCase() === 'wizard') {
       console.warn(
-        'The tabset wizard is deprecated, please implement the new approach using ' +
+        'The tabset wizard is deprecated. Please implement the new approach using ' +
         'progress indicator as documented here: https://developer.blackbaud.com/skyux/components/wizard.'
       );
     }
