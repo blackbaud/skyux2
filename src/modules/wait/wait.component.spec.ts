@@ -1,19 +1,23 @@
 import {
-  TestBed, ComponentFixture, tick
+  TestBed,
+  ComponentFixture,
+  tick,
+  fakeAsync
 } from '@angular/core/testing';
+
+import {
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
   SkyWaitTestComponent
 } from './fixtures/wait.component.fixture';
-
 import {
   SkyWaitFixturesModule
 } from './fixtures/wait-fixtures.module';
-
 import {
   SkyWaitComponent
 } from './wait.component';
-import { SkyAppTestUtility } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 describe('Wait component', () => {
 
