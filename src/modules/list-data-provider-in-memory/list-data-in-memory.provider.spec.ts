@@ -16,6 +16,10 @@ import {
 describe('in memory data provider', () => {
   let items: Observable<Array<any>>;
 
+  function searchFunction(data: any, searchText: string) {
+    return data.column2.indexOf(searchText) > -1;
+  }
+
   beforeEach(() => {
     items = Observable.of([
       { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples' },
@@ -30,10 +34,6 @@ describe('in memory data provider', () => {
 
   it('should handle searching with no results, clearing search, and then having a paging change',
     fakeAsync(() => {
-
-    function searchFunction(data: any, searchText: string) {
-      return data.column2.indexOf(searchText) > -1;
-    }
 
     let provider = new SkyListInMemoryDataProvider(items);
 
@@ -295,6 +295,57 @@ describe('in memory data provider', () => {
       });
 
       tick();
+    }));
+
+    it('should handle both a filter and a search', fakeAsync(() => {
+      let provider = new SkyListInMemoryDataProvider(items);
+
+      let searchObject = {
+          searchText: 'berry',
+          functions: [searchFunction]
+        };
+
+      let request = new ListDataRequestModel({
+        search: searchObject,
+        pageSize: 5,
+        pageNumber: 1
+      });
+
+      tick();
+
+      provider.get(request).take(1).subscribe((result) => {
+        expect(result.items.length).toBe(1);
+        expect(result.count).toBe(1);
+      });
+
+      tick();
+
+      request = new ListDataRequestModel({
+        search: searchObject,
+        filters: [
+          new ListFilterModel({
+            name: 'fruitColor',
+            value: 'yellow',
+            filterFunction: filterByColor
+          }),
+          new ListFilterModel({
+            name: 'blank',
+            filterFunction: function(item: ListItemModel, filterValue: any): boolean {
+              return false;
+            }
+          })
+        ],
+        pageSize: 5,
+        pageNumber: 1
+      });
+
+      tick();
+
+      // Searching for "berry" and filtering by "yellow" should return NO results.
+      provider.get(request).take(1).subscribe((result) => {
+        expect(result.items.length).toBe(0);
+        expect(result.count).toBe(0);
+      });
     }));
   });
 });
