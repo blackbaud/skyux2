@@ -346,6 +346,22 @@ describe('in memory data provider', () => {
         expect(result.items.length).toBe(0);
         expect(result.count).toBe(0);
       });
+
+      tick();
+
+      request = new ListDataRequestModel({
+        search: searchObject,
+        pageSize: 5,
+        pageNumber: 1
+      });
+
+      tick();
+
+      // If filter is removed, original search results should remain.
+      provider.get(request).take(1).subscribe((result) => {
+        expect(result.items.length).toBe(1);
+        expect(result.count).toBe(1);
+      });
     }));
   });
 });

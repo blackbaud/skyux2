@@ -132,7 +132,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
       }
 
       // Apply search.
-      if (!dataChanged && !searchChanged && this.lastSearchResults !== undefined && this.lastFilterResults === undefined) {
+      if (!dataChanged && !searchChanged && this.lastSearchResults !== undefined && !filtersChanged) {
         result = this.lastSearchResults;
       } else if (search && search.searchText !== undefined && search.searchText.length > 0) {
         let searchText = search.searchText.toLowerCase();
