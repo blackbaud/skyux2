@@ -315,26 +315,32 @@
 </sky-popover>
 
 <h3>
-  Popovers may be interacted with programatically
+  Popovers may be interacted with programmatically
 </h3>
 
 <p>
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    [skyPopover]="programaticPopover"
+    [skyPopover]="programmaticPopover"
     [skyPopoverMessageStream]="popoverController">
     Open popover via click
   </button>
-
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
     (click)="openPopover()">
-    Open popover programatically
+    Open popover programmatically
+  </button>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-default"
+    (click)="closePopover();$event.stopPropagation();">
+    Close popover programmatically
   </button>
 </p>
-<sky-popover #programaticPopover>
-  This popover has a programatic trigger on the second button.
+<sky-popover #programmaticPopover>
+  This popover has a programmatic trigger on the second button.
 </sky-popover>
