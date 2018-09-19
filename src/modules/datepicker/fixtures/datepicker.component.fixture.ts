@@ -15,4 +15,5 @@ export class DatepickerTestComponent {
   public format: string = 'MM/DD/YYYY';
   public noValidate: boolean = false;
   public startingDay = 0;
+  public isDisabled: boolean;
 }

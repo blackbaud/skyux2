@@ -17,6 +17,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyTimepickerModule } from './timepicker.module';
 import { TimepickerTestComponent } from './fixtures/timepicker-component.fixture';
+import { By } from '@angular/platform-browser';
 
 const moment = require('moment');
 
@@ -358,7 +359,7 @@ describe('Timepicker', () => {
         expect(nativeElement.querySelector('input').value).toBe('12:30 PM');
         expect(component.selectedTime.local).toEqual('12:30 PM');
         expect(meridies.item(1)).toHaveCssClass('sky-btn-active');
-         fixture.detectChanges();
+        fixture.detectChanges();
         // Test 1:30 PM
         hours.item(0).click();
         minutes.item(6).click();
@@ -369,5 +370,25 @@ describe('Timepicker', () => {
         expect(meridies.item(1)).toHaveCssClass('sky-btn-active');
       })
     );
+
+    describe('disabled state', () => {
+
+      it('should disable the input and dropdown when disable is set to true', () => {
+        component.isDisabled = true;
+        fixture.detectChanges();
+
+        expect(fixture.debugElement.query(By.css('input')).nativeElement.disabled).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeTruthy();
+      });
+
+      it('should not disable the input and dropdown when disable is set to false', () => {
+        component.isDisabled = false;
+        fixture.detectChanges();
+
+        expect(fixture.debugElement.query(By.css('input')).nativeElement.disabled).toBeFalsy();
+        expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeFalsy();
+      });
+
+    });
   });
 });

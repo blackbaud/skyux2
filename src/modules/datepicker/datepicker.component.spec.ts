@@ -662,6 +662,26 @@ describe('datepicker', () => {
         expect(firstDayCol.textContent).toContain('Fr');
       }));
     });
+
+    describe('disabled state', () => {
+
+      it('should disable the input and dropdown when disable is set to true', () => {
+        component.isDisabled = true;
+        fixture.detectChanges();
+
+        expect(fixture.debugElement.query(By.css('input')).nativeElement.disabled).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeTruthy();
+      });
+
+      it('should not disable the input and dropdown when disable is set to false', () => {
+        component.isDisabled = false;
+        fixture.detectChanges();
+
+        expect(fixture.debugElement.query(By.css('input')).nativeElement.disabled).toBeFalsy();
+        expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeFalsy();
+      });
+
+    });
   });
 
   describe('default locale configuration', () => {

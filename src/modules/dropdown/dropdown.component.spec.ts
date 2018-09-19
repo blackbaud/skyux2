@@ -16,6 +16,7 @@ import {
 
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
+import { By } from '@angular/platform-browser';
 
 describe('Dropdown component', () => {
   const activeItemClass = 'sky-dropdown-item-active';
@@ -679,5 +680,23 @@ describe('Dropdown component', () => {
         type: SkyDropdownMessageType.Reposition
       });
     }));
+  });
+
+  describe('disabled state', () => {
+
+    it('should disable the input and dropdown when disable is set to true', () => {
+      component.isDisabled = true;
+      fixture.detectChanges();
+
+      expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeTruthy();
+    });
+
+    it('should not disable the input and dropdown when disable is set to false', () => {
+      component.isDisabled = false;
+      fixture.detectChanges();
+
+      expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeFalsy();
+    });
+
   });
 });
