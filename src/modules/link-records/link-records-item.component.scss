@@ -80,14 +80,15 @@
       width: 45px;
       z-index: 1;
 
-      i {
+      sky-icon {
         color: $sky-highlight-color-success;
         font-size: 29px;
-        margin: 7px 0 0;
+        margin: 3px 0 0;
+        display: inline-block;
+      }
 
-        &.fa-question-circle, &.fa-pencil {
-          color: $sky-highlight-color-warning;
-        }
+      sky-icon.sky-link-record-item-icon-question-circle, sky-icon.sky-link-record-item-icon-pencil {
+        color: $sky-highlight-color-warning;
       }
     }
   }
