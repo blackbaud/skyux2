@@ -11,10 +11,7 @@
       [disabled]="isPreviousButtonDisabled"
       (click)="previousPage()"
     >
-      <i
-        aria-hidden="true"
-        class="fa fa-caret-left sky-paging-caret"
-      ></i>
+      <sky-icon icon="caret-left "></sky-icon>
     </button>
   </li>
   <li *ngFor="let pageNumber of displayedPages"
@@ -41,10 +38,7 @@
       [disabled]="isNextButtonDisabled"
       (click)="nextPage()"
     >
-      <i
-        aria-hidden="true"
-        class="fa fa-caret-right sky-paging-caret"
-      ></i>
+      <sky-icon icon="caret-right "></sky-icon>
     </button>
   </li>
 </ul>

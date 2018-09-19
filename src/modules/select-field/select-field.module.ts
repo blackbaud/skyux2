@@ -31,8 +31,15 @@ import {
   SkyTokensModule
 } from '../tokens';
 
-import { SkySelectFieldComponent } from './select-field.component';
-import { SkySelectFieldPickerComponent } from './select-field-picker.component';
+import {
+  SkySelectFieldComponent
+} from './select-field.component';
+import {
+  SkySelectFieldPickerComponent
+} from './select-field-picker.component';
+import {
+  SkyIconModule
+} from '../icon';
 
 @NgModule({
   imports: [
@@ -43,7 +50,8 @@ import { SkySelectFieldPickerComponent } from './select-field-picker.component';
     SkyListPagingModule,
     SkyModalModule,
     SkyResourcesModule,
-    SkyTokensModule
+    SkyTokensModule,
+    SkyIconModule
   ],
   exports: [
     SkySelectFieldComponent,

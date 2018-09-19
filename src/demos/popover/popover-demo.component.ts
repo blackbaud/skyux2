@@ -43,9 +43,10 @@ export class SkyPopoverDemoComponent {
 
   public openPopover() {
     this.sendMessage(SkyPopoverMessageType.Open);
-    setTimeout(() => {
-      this.sendMessage(SkyPopoverMessageType.Close);
-    }, 5000);
+  }
+
+  public closePopover() {
+    this.sendMessage(SkyPopoverMessageType.Close);
   }
 
   private sendMessage(type: SkyPopoverMessageType) {

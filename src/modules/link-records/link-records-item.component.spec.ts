@@ -3,6 +3,7 @@ import {
   async,
   ComponentFixture
 } from '@angular/core/testing';
+
 import {
   SkyLinkRecordsMatchesLoadAction
 } from './state/matches/actions';
@@ -12,23 +13,32 @@ import {
 import {
   SkyLinkRecordsFieldsSetFieldsAction
 } from './state/fields/actions';
-import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
-import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
-import { SkyLinkRecordsItemModel } from './link-records-item.model';
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+import {
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
 import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel }
 from './state/';
-import { SkyCheckboxModule } from '../checkbox';
-import { SkyLinkRecordsApi } from './link-records-api';
 import {
-  SkyLinkRecordsItemComponent,
-  SkyLinkRecordsRendererComponent,
-  SkyLinkRecordsItemDiffComponent
+  SkyLinkRecordsApi
+} from './link-records-api';
+import {
+  SkyLinkRecordsItemComponent
 } from './';
-import { SkyResourcesModule } from '../resources';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
+import {
+  SkyLinkRecordsModule
+} from './link-records.module';
 
 describe('Component: SkyLinkRecordsItemComponent ', () => {
   let fixture: ComponentFixture<SkyLinkRecordsItemComponent>,
@@ -41,14 +51,8 @@ describe('Component: SkyLinkRecordsItemComponent ', () => {
     state = new SkyLinkRecordsState(new SkyLinkRecordsStateModel(), dispatcher);
 
     TestBed.configureTestingModule({
-      declarations: [
-        SkyLinkRecordsItemComponent,
-        SkyLinkRecordsRendererComponent,
-        SkyLinkRecordsItemDiffComponent
-      ],
       imports: [
-        SkyCheckboxModule,
-        SkyResourcesModule
+        SkyLinkRecordsModule
       ],
       providers: [
         { provide: SkyLinkRecordsState, useValue: state },
