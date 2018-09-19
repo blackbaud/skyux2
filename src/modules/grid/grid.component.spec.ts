@@ -413,7 +413,7 @@ describe('Grid Component', () => {
           headerEl = nativeElement.querySelectorAll('th').item(1) as HTMLElement;
           expect(component.activeSortSelector)
             .toEqual(undefined);
-          expect(headerEl.querySelector('i')).not.toHaveCssClass('fa-caret-down');
+          expect(headerEl.querySelector('i')).toBeNull();
         });
 
         it('responds to sort selector input change', () => {
