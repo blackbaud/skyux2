@@ -7,13 +7,17 @@
   [disabled]="disabled"
   [id]="filterButtonId"
   [ngClass]="{'sky-filter-btn-active sky-rounded-corners': active}"
-  (click)="filterButtonOnClick()">
-  <i
-    aria-hidden="true"
-    class="fa fa-lg fa-filter"></i>
+  (click)="filterButtonOnClick()"
+>
+  <sky-icon
+    icon="filter"
+    size="lg"
+  >
+</sky-icon>
   <span
     *ngIf="showButtonText"
-    class="sky-filter-btn-text">
+    class="sky-filter-btn-text"
+  >
     {{ 'filter_button_title' | skyResources }}
   </span>
 </button>

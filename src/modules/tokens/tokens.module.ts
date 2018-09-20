@@ -1,12 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
 
 import {
   SkyResourcesModule
 } from '../resources';
 
-import { SkyTokenComponent } from './token.component';
-import { SkyTokensComponent } from './tokens.component';
+import {
+  SkyTokenComponent
+} from './token.component';
+import {
+  SkyTokensComponent
+} from './tokens.component';
+import {
+  SkyIconModule
+} from '../icon';
 
 @NgModule({
   declarations: [
@@ -15,7 +26,8 @@ import { SkyTokensComponent } from './tokens.component';
   ],
   imports: [
     CommonModule,
-    SkyResourcesModule
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyTokenComponent,
