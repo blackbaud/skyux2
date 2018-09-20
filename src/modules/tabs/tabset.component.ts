@@ -32,7 +32,7 @@ export class SkyTabsetComponent
 
   @Input()
   public get tabStyle(): string {
-    return 'tabs' || this._tabStyle;
+    return this._tabStyle || 'tabs';
   }
   public set tabStyle(value: string) {
     if (value && value.toLowerCase() === 'wizard') {
