@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  CommonModule
+} from '@angular/common';
 
 import {
   BrowserAnimationsModule
@@ -9,8 +13,18 @@ import {
   SkyWindowRefService
 } from '../window';
 
-import { SkyPopoverComponent } from './popover.component';
-import { SkyPopoverDirective } from './popover.directive';
+import {
+  SkyPopoverComponent
+} from './popover.component';
+import {
+  SkyPopoverDirective
+} from './popover.directive';
+import {
+  SkyResourcesModule
+} from '../resources';
+import {
+  SkyIconModule
+} from '../icon';
 
 @NgModule({
   declarations: [
@@ -19,7 +33,9 @@ import { SkyPopoverDirective } from './popover.directive';
   ],
   imports: [
     BrowserAnimationsModule,
-    CommonModule
+    CommonModule,
+    SkyResourcesModule,
+    SkyIconModule
   ],
   exports: [
     SkyPopoverComponent,

@@ -2,32 +2,49 @@ import {
   TestBed,
   async
 } from '@angular/core/testing';
+import {
+  Observable
+} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import {
-  SkyLinkRecordsComponent,
-  SkyLinkRecordsItemComponent,
-  SkyLinkRecordsRendererComponent,
-  SkyLinkRecordsItemDiffComponent
-} from './';
-
-import { SkyLinkRecordsItemModel } from './link-records-item.model';
-import { SkyLinkRecordsMatchModel } from './state/matches/match.model';
-import { SkyLinkRecordsFieldModel } from './state/fields/field.model';
-import { SkyLinkRecordsResultModel } from './state/results/result.model';
-import { SkyLinkRecordsResultsLoadAction } from './state/results/actions';
-import { SkyLinkRecordsSelectedSetSelectedAction } from './state/selected/actions';
-import { SkyLinkRecordsFieldsSetFieldsAction } from './state/fields/actions';
-import { SkyLinkRecordsMatchesLoadAction } from './state/matches/actions';
+  SkyLinkRecordsModule
+} from './link-records.module';
+import {
+  SkyLinkRecordsComponent
+} from './link-records.component';
+import {
+  SkyLinkRecordsItemModel
+} from './link-records-item.model';
+import {
+  SkyLinkRecordsMatchModel
+} from './state/matches/match.model';
+import {
+  SkyLinkRecordsFieldModel
+} from './state/fields/field.model';
+import {
+  SkyLinkRecordsResultModel
+} from './state/results/result.model';
+import {
+  SkyLinkRecordsResultsLoadAction
+} from './state/results/actions';
+import {
+  SkyLinkRecordsSelectedSetSelectedAction
+} from './state/selected/actions';
+import {
+  SkyLinkRecordsFieldsSetFieldsAction
+} from './state/fields/actions';
+import {
+  SkyLinkRecordsMatchesLoadAction
+} from './state/matches/actions';
 import {
   SkyLinkRecordsState,
   SkyLinkRecordsStateDispatcher,
   SkyLinkRecordsStateModel
 } from './state/';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import { SkyCheckboxModule } from '../checkbox';
-import { SkyResourcesModule } from '../resources';
-import { SKY_LINK_RECORDS_STATUSES } from './link-records-statuses';
+import {
+  SKY_LINK_RECORDS_STATUSES
+} from './link-records-statuses';
 
 describe('Component: SkyLinkRecordsComponent', () => {
   let fixture: any,
@@ -40,15 +57,8 @@ describe('Component: SkyLinkRecordsComponent', () => {
     state = new SkyLinkRecordsState(new SkyLinkRecordsStateModel(), dispatcher);
 
     TestBed.configureTestingModule({
-      declarations: [
-        SkyLinkRecordsComponent,
-        SkyLinkRecordsItemComponent,
-        SkyLinkRecordsRendererComponent,
-        SkyLinkRecordsItemDiffComponent
-      ],
       imports: [
-        SkyCheckboxModule,
-        SkyResourcesModule
+        SkyLinkRecordsModule
       ],
       providers: [
         { provide: SkyLinkRecordsState, useValue: state },
