@@ -3,13 +3,15 @@
 
 .sky-progress-indicator-item-heading {
   display: flex;
+  align-items: center;
+  line-height: 15px;
 }
 
 .sky-progress-indicator-item-step::before {
-  display: inline-block;
+  box-sizing: border-box;
   content: '';
   background-color: white;
-  margin-left: 2px;
+  margin-left: 3px;
   width: 15px;
   height: 15px;
   border: $sky-border-color-neutral-medium solid 2px;

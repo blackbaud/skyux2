@@ -18,7 +18,7 @@
     {{ displayTitle }}
   </div>
 </div>
-<div *ngIf="!isHorizontal || isActive"
+<div *ngIf="!(isHorizontal || isPassive) || isPassive && !isLastItem || isActive"
   class="sky-progress-indicator-item-line"
   [ngClass]="{
     'sky-deemphasized': isPassive,
