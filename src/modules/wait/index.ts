@@ -1,9 +1,7 @@
-import { SkyWaitPageAdapterService } from './wait-page-adapter.service';
+export * from './wait.component';
+export * from './wait.service';
+export * from './wait.module';
 
-export { SkyWaitComponent } from './wait.component';
-export { SkyWaitService } from './wait.service';
-export { SkyWaitModule } from './wait.module';
-
-export const SKY_WAIT_PROVIDERS: any[] = [
-  SkyWaitPageAdapterService
-];
+export {
+  SKY_WAIT_PROVIDERS
+} from '@skyux/indicators/modules/wait';
