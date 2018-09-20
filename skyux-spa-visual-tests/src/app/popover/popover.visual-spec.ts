@@ -134,4 +134,18 @@ describe('Popover', () => {
           });
       });
   });
+
+  it('should open a fullscreen popover', () => {
+    return SkyVisualTest
+      .setupTest('popover')
+      .then(() => {
+        SkyVisualTest.scrollElementIntoView('#screenshot-popover-fullscreen');
+        element(by.id('btn-popover-fullscreen')).click();
+        return SkyVisualTest
+          .compareScreenshot({
+            screenshotName: 'popover-fullscreen',
+            selector: '.sky-popover-container.sky-popover-placement-fullscreen'
+          });
+      });
+  });
 });

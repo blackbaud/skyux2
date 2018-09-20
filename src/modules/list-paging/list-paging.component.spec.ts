@@ -60,9 +60,9 @@ describe('List Paging Component', () => {
 
   function getPagingSelector(type: string) {
     if (type === 'next' || type === 'previous') {
-      return '.sky-paging-caret[sky-cmp-id="' + type + '"]';
+      return '.sky-paging-btn[sky-cmp-id="' + type + '"]';
     } else {
-      return '.sky-list-paging-link a[sky-cmp-id="' + type + '"]';
+      return '.sky-list-paging-link button[sky-cmp-id="' + type + '"]';
     }
   }
 
@@ -115,11 +115,11 @@ describe('List Paging Component', () => {
 
         expect(element.query(
           By.css(getPagingSelector('previous'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        ).nativeElement.disabled).toBeFalsy();
 
         expect(element.query(
           By.css(getPagingSelector('next'))
-        ).nativeElement.classList.contains('sky-paging-disabled')).toBe(false);
+        ).nativeElement.disabled).toBeFalsy();
       });
 
       it('does not respond to old item count changes from state', fakeAsync(() => {

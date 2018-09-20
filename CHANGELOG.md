@@ -1,6 +1,16 @@
+# 2.25.0 (2018-09-17)
+
+- Added keyboard controls for resizing flyouts. [#1760](https://github.com/blackbaud/skyux2/pull/1760)
+- Added keyboard controls for reordering tiles. [#1815](https://github.com/blackbaud/skyux2/pull/1815)
+- Updated version of skyux-core. [#1990](https://github.com/blackbaud/skyux2/pull/1990)
+- Updated all shadow-piercing combinators to use Angular's proprietary `::ng-deep`. [#1955](https://github.com/blackbaud/skyux2/pull/1955)
+- Updated flyouts to close whenever users click outside of flyouts. [#1929](https://github.com/blackbaud/skyux2/pull/1929)
+- Updated modal content panes to be focusable for accessible scrolling. [#1809](https://github.com/blackbaud/skyux2/pull/1809)
+- Fixed paging component to not reserve space when only one page is available. [#1935](https://github.com/blackbaud/skyux2/pull/1935)
+
 # 2.24.1 (2018-09-12)
 
- - Fixed `sky-radio` buttons becoming permanently checked when not in a `sky-radio-group`. [#1982](https://github.com/blackbaud/skyux2/pull/1982)
+- Fixed `sky-radio` buttons becoming permanently checked when not in a `sky-radio-group`. [#1982](https://github.com/blackbaud/skyux2/pull/1982)
 
 # 2.24.0 (2018-09-11)
 

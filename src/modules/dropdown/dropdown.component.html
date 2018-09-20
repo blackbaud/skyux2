@@ -33,14 +33,16 @@
             </ng-content>
           </div>
           <div class="sky-dropdown-button-icon-container">
-            <sky-icon icon="caret-down" class="sky-dropdown-caret"></sky-icon>
+            <sky-icon
+              icon="caret-down"
+              class="sky-dropdown-caret"
+            >
+          </sky-icon>
           </div>
         </div>
         <div
           *ngIf="buttonType !== 'select' && buttonType !== 'tab' && buttonType">
-          <i
-            class="fa fa-lg"
-            [ngClass]="['fa-' + buttonType]"></i>
+          <sky-icon [icon]="buttonType" size="lg"></sky-icon>
         </div>
       </ng-template>
     </div>

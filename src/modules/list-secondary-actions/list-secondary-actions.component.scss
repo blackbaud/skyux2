@@ -2,10 +2,10 @@
 @import "~@skyux/theme/scss/_compat/mixins";
 
 .sky-list-secondary-actions {
-  ::ng-deep .sky-dropdown-button-type-context-menu {
+  ::ng-deep .sky-dropdown-button-type-select {
     padding: 6px 12px;
 
-    .fa-ellipsis-h { /* add styles for fa-lg */
+    sky-icon[icon="ellipsis-h"] { /* add styles for large icon */
       font-size: 1.33333em;
       line-height: .75em;
       vertical-align: -15%;
