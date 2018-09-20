@@ -47,6 +47,9 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   }
 
   @Input()
+  public passive = false;
+
+  @Input()
   public messageStream = new Subject<SkyProgressIndicatorMessageType>();
 
   @Output()
@@ -118,6 +121,7 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     this.progressItems.forEach((element, index) => {
       element.displayMode = this.displayMode;
       element.itemNumber = index + 1;
+      element.isPassive = this.passive;
     });
   }
 

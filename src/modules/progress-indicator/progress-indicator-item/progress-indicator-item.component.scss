@@ -1,26 +1,36 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
 
-.sky-progress-indicator-item-step {
-  background-color: white;
-  margin-right: $sky-margin-plus-half;
-  float: left;
-  width: 20px;
-  height: 20px;
-  border: $sky-border-color-neutral-medium solid 2px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
+.sky-progress-indicator-item-heading {
+  display: flex;
 }
 
-.sky-progress-indicator-item-step-active {
-  background-color: $sky-highlight-color-success;
+.sky-progress-indicator-item-step::before {
+  display: inline-block;
+  content: '';
+  background-color: white;
+  margin-left: 2px;
+  width: 15px;
+  height: 15px;
+  border: $sky-border-color-neutral-medium solid 2px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.sky-progress-indicator-item-step-active::before {
+  &:not(.sky-progress-indicator-item-passive) {
+    background-color: $sky-highlight-color-success;
+  }
   border-color: $sky-highlight-color-success !important;
 }
 
 .sky-progress-indicator-item-step-complete {
-  padding-left: 2px;
-  font-size: 20px;
+  font-size: 15px;
+
+  &::before {
+    margin-left: 3px;
+  }
 
   div {
     display: inline;
@@ -28,11 +38,20 @@
   }
 }
 
+.sky-progress-indicator-item-title:not(.sky-emphasized) {
+  margin-left: $sky-margin-plus-half;
+}
+
 .sky-progress-indicator-item-line {
   margin-left: $sky-margin;
   min-height: $sky-margin-double;
   padding-top: $sky-margin;
   padding-bottom: $sky-margin-triple;
+
+  &.sky-progress-indicator-item-passive {
+    padding-top: $sky-margin-plus-half;
+    padding-bottom: $sky-margin-double;
+  }
 
   &.sky-progress-indicator-item-horizontal {
     padding-top: $sky-margin-double;

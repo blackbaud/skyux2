@@ -18,10 +18,19 @@ export class SkyProgressIndicatorItemComponent {
   public isComplete = false;
   public isLastItem = false;
   public displayMode = SkyProgressIndicatorDisplayMode.Vertical;
+  public isPassive = false;
   public isNextToInactive = true;
 
   @Input()
   public title: string;
+
+  public get displayTitle(): string {
+    if (this.isPassive) {
+      return this.isActive || this.isComplete ? this.title : '';
+    } else {
+      return this.itemNumber + ' - ' + this.title;
+    }
+  }
 
   public get isHorizontal(): boolean {
     return this.displayMode === SkyProgressIndicatorDisplayMode.Horizontal;

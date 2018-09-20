@@ -1,28 +1,29 @@
-<div *ngIf="!isHorizontal && (!isComplete || isActive)"
-  class="sky-progress-indicator-item-step"
-  [ngClass]="{
-    'sky-progress-indicator-item-step-active': isActive
-  }"
->
-</div>
 <div *ngIf="!isHorizontal || isActive"
+  class="sky-progress-indicator-item-heading"
   [ngClass]="{
     'sky-text-success': isComplete && !isActive && !isHorizontal,
+    'sky-progress-indicator-item-passive': isPassive,
+    'sky-progress-indicator-item-step': !isHorizontal && (!isComplete || isActive),
+    'sky-progress-indicator-item-step-active': isActive,
     'sky-progress-indicator-item-step-complete': isComplete && !isActive && !isHorizontal
   }"
 >
   <div
+    class="sky-progress-indicator-item-title"
     [ngClass]="{
-      'sky-emphasized': isHorizontal
+      'sky-emphasized': isHorizontal,
+      'sky-deemphasized': isPassive && isActive
     }"
   >
-    {{ itemNumber }} - {{ title }}
+    {{ displayTitle }}
   </div>
 </div>
 <div *ngIf="!isHorizontal || isActive"
   class="sky-progress-indicator-item-line"
   [ngClass]="{
+    'sky-deemphasized': isPassive,
     'sky-progress-indicator-item-horizontal': isHorizontal,
+    'sky-progress-indicator-item-passive': isPassive,
     'sky-progress-indicator-item-last': isLastItem,
     'sky-progress-indicator-item-line-inactive': !isActive && !isComplete,
     'sky-progress-indicator-item-line-next-inactive': isNextToInactive
