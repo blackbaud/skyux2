@@ -20,11 +20,13 @@
   border-radius: 15px;
 }
 
-.sky-progress-indicator-item-step-active::before {
-  &:not(.sky-progress-indicator-item-passive) {
+.sky-progress-indicator-item-step-active {
+  &::before {
+    border-color: $sky-highlight-color-success;
+  }
+  &:not(.sky-progress-indicator-item-passive)::before {
     background-color: $sky-highlight-color-success;
   }
-  border-color: $sky-highlight-color-success !important;
 }
 
 .sky-progress-indicator-item-step-complete {
