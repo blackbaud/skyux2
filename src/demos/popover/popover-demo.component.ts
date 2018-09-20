@@ -7,6 +7,9 @@ import {
 import {
   SkyPopoverComponent
 } from '../../core';
+import { SkyPopoverMessageType } from '../../modules/popover/types/popover-message-type';
+import { SkyPopoverMessage } from '../../modules/popover/types/popover-message';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'sky-popover-demo',
@@ -22,6 +25,8 @@ export class SkyPopoverDemoComponent {
   @ViewChild('asyncPopover')
   public asyncPopover: SkyPopoverComponent;
 
+  public popoverController = new Subject<SkyPopoverMessage>();
+
   constructor() {
     setTimeout(() => {
       this.asyncPopoverRef = this.asyncPopover;
@@ -34,5 +39,18 @@ export class SkyPopoverDemoComponent {
 
   public onPopoverClosed(popoverComponent: any) {
     alert('The popover was closed: ' + popoverComponent.popoverTitle);
+  }
+
+  public openPopover() {
+    this.sendMessage(SkyPopoverMessageType.Open);
+  }
+
+  public closePopover() {
+    this.sendMessage(SkyPopoverMessageType.Close);
+  }
+
+  private sendMessage(type: SkyPopoverMessageType) {
+    const message: SkyPopoverMessage = { type };
+    this.popoverController.next(message);
   }
 }
