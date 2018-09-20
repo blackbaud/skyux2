@@ -7,8 +7,8 @@
       <thead>
         <tr dragula="sky-grid-heading">
           <th
-            class="sky-grid-heading sky-grid-multiselect-cell"
-            *ngIf="multiselect"
+            class="sky-grid-heading sky-grid-multiselect-cell sky-grid-header-locked"
+            *ngIf="multiselectIdProperty"
           >
             <sky-checkbox
               [label]="'grid_select_all' | skyResources"
@@ -82,12 +82,12 @@
           [ngClass]="{ 'sky-grid-selected-row' : item.isSelected }"
           >
           <td
-            class="sky-grid-multiselect-cell"
-            *ngIf="multiselect"
+            class="sky-grid-multiselect-cell sky-grid-header-locked"
+            *ngIf="multiselectIdProperty"
           >
             <sky-checkbox
               [label]="'grid_select_row' | skyResources"
-              (change)="onMultiselectChange($event, item)"
+              (change)="onMultiselectChange()"
               [(ngModel)]="item.isSelected"
             >
             </sky-checkbox>

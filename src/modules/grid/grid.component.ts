@@ -37,10 +37,10 @@ import { SkyGridColumnModel } from './grid-column.model';
 import { SkyGridAdapterService } from './grid-adapter.service';
 import {
   SkyGridColumnHeadingModelChange,
-  SkyGridColumnWidthModelChange
+  SkyGridColumnWidthModelChange,
+  SkyGridSelectedRowsModelChange
 } from './types';
 import {
-  SkyCheckboxChange,
   SkyCheckboxComponent
 } from '../checkbox/checkbox.component';
 
@@ -85,9 +85,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   public highlightText: string;
 
   @Input()
-  public multiselect: boolean = false;
-
-  @Input()
   public multiselectIdProperty: string;
 
   @Output()
@@ -97,7 +94,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   public sortFieldChange = new EventEmitter<ListSortFieldSelectorModel>();
 
   @Output()
-  public multiselectIdsChange = new EventEmitter<Array<string>>();
+  public multiselectIdsChange = new EventEmitter<SkyGridSelectedRowsModelChange>();
 
   public columnWidthChange = new EventEmitter<Array<SkyGridColumnWidthModelChange>>();
 
@@ -316,7 +313,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     }
   }
 
-  public triggerMultiselectSelectAll(event: any, checkboxes: Array<SkyCheckboxComponent>) {
+  public triggerMultiselectSelectAll(event: any) {
     this.items.forEach(item => {
       item.isSelected = event.checked;
     });
@@ -325,7 +322,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     this.emitSelectedRows();
   }
 
-  public onMultiselectChange(event: SkyCheckboxChange, item: any) {
+  public onMultiselectChange() {
     this.multiselectSelectAll.checked = false;
     this.emitSelectedRows();
   }
@@ -427,7 +424,17 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private transformData() {
     // Transform data into object with id and data properties
     if (this.data.length > 0 && this.data[0].id && !this.data[0].data) {
-      this.items = this.data.map(item => new ListItemModel(item.id, item));
+
+      // If multiselect is turned on, retain selections.
+      if (this.multiselectIdProperty) {
+        this.items = this.data.map(item => {
+          let checked = this.getSelectedRows().indexOf(item.id) > -1;
+          return new ListItemModel(item.id, item, checked);
+        });
+      } else {
+        this.items = this.data.map(item => new ListItemModel(item.id, item));
+      }
+
     } else {
       this.items = this.data;
     }
@@ -565,11 +572,17 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   }
 
   private emitSelectedRows() {
-    let selectedIds = this.items.filter(item => {
+    let selectedRows: SkyGridSelectedRowsModelChange = {
+      selectedRowIds: this.getSelectedRows()
+    };
+    this.multiselectIdsChange.emit(selectedRows);
+  }
+
+  private getSelectedRows() {
+    return this.items.filter(item => {
       return item.isSelected;
     }).map(item => {
       return item.id;
     });
-    this.multiselectIdsChange.emit(selectedIds);
   }
 }

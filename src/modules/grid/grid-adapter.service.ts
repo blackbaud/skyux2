@@ -34,7 +34,7 @@ export class SkyGridAdapterService {
 
     dragulaService.drop.subscribe(([, , container]: Array<HTMLElement>) => {
       let columnIds: string[] = [];
-      let nodes = container.getElementsByTagName('th');
+      let nodes = container.querySelectorAll('th:not(.sky-grid-multiselect-cell)');
       for (let i = 0; i < nodes.length; i++) {
         let el = nodes[i];
         let id = el.getAttribute('sky-cmp-id');

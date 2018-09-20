@@ -1,9 +1,8 @@
+<h3>Grid with custom column template</h3>
+
 <sky-grid
   fit="scroll"
   [data]="items"
-  [multiselect]="true"
-  [multiselectIdProperty]="'id'"
-  (multiselectIdsChange)=multiselectIdsChange($event)
   (sortFieldChange)="sortChanged($event)">
   <sky-grid-column
     id="column1"
@@ -39,3 +38,32 @@
     Column 2: {{row.column2}}
   </div>
 </ng-template>
+
+<h3>Grid with multi-select</h3>
+
+<p>Selected Rows: {{selectedRows}}</p>
+
+<sky-grid
+  fit="width"
+  [data]="multiselectItems"
+  [multiselectIdProperty]="'id'"
+  (multiselectIdsChange)="multiselectIdsChange($event)">
+  <sky-grid-column
+    id="column1"
+    field="column1"
+    heading="Column1"
+    [isSortable]=false>
+  </sky-grid-column>
+  <sky-grid-column
+    id="column2"
+    field="column2"
+    heading="Column2"
+    [isSortable]=false>
+  </sky-grid-column>
+  <sky-grid-column
+    id="column3"
+    field="column3"
+    heading="Column3"
+    [isSortable]=false>
+  </sky-grid-column>
+</sky-grid>
