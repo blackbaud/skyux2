@@ -1,6 +1,7 @@
 import {
   TestBed,
-  tick
+  tick,
+  fakeAsync
 } from '@angular/core/testing';
 
 import {
@@ -128,6 +129,19 @@ describe('Wait component', () => {
     fixture.componentInstance.isWaiting = false;
     fixture.detectChanges();
     expect(el.querySelector('.sky-wait-test-component').getAttribute('aria-busy')).toBeNull();
+  });
+
+  it('should use inputted aria-label', async() => {
+    let fixture = TestBed.createComponent(SkyWaitTestComponent);
+
+    fixture.componentInstance.ariaLabel = 'test label';
+    fixture.componentInstance.isWaiting = true;
+    fixture.componentInstance.isNonBlocking = false;
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    expect(document.body.querySelector('sky-wait').getAttribute('aria-label')).toBe('test label');
   });
 
   it('should set aria-label on document body when fullPage is true and is blocking', async() => {
