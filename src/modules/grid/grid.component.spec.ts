@@ -38,6 +38,7 @@ import {
   SkyGridComponent,
   SkyGridColumnModel
 } from './';
+import { SkyGridSelectedRowsModelChange } from './types';
 
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(
@@ -737,6 +738,155 @@ describe('Grid Component', () => {
     });
   });
 
+  describe('multiselect', () => {
+    let fixture: ComponentFixture<GridTestComponent>,
+        component: GridTestComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          GridFixturesModule,
+          SkyGridModule
+        ]
+      });
+    });
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(GridTestComponent);
+      component = fixture.componentInstance;
+      component.multiselectIdProperty = 'id';
+      fixture.detectChanges();
+      fixture.detectChanges();
+    });
+
+    function getMultiselectCheckboxes() {
+      return fixture.debugElement.queryAll(By.css('tbody .sky-grid-multiselect-cell input'));
+    }
+
+    function getMultiselectSelectAll() {
+      return fixture.debugElement.query(By.css('thead .sky-grid-multiselect-cell input'));
+    }
+
+    function getTableRows() {
+      return fixture.debugElement.queryAll(By.css('tbody tr'));
+    }
+
+    fdescribe('Standard setup', () => {
+      it('should add checkboxes properly to grid, with proper accessibility attributes', () => {
+        const selectAll = getMultiselectSelectAll();
+        const checkboxes = getMultiselectCheckboxes();
+
+        expect(selectAll).not.toBeNull();
+        expect(checkboxes).not.toBeNull();
+        expect(checkboxes.length).toEqual(component.data.length);
+        expect(selectAll.nativeElement.getAttribute('aria-label')).not.toBeNull();
+        checkboxes.forEach(checkbox => {
+          expect(checkbox.nativeElement.getAttribute('aria-label')).not.toBeNull();
+        });
+      });
+
+      it('should toggle selected classes properly when checked', () => {
+        const checkboxes = getMultiselectCheckboxes();
+        const tableRows = getTableRows();
+
+        // Start with no class.
+        expect(tableRows[0].nativeElement).not.toHaveCssClass('sky-grid-selected-row');
+
+        // Check to add class.
+        checkboxes[0].nativeElement.click();
+        fixture.detectChanges();
+        expect(tableRows[0].nativeElement).toHaveCssClass('sky-grid-selected-row');
+
+        // Uncheck to remove class.
+        checkboxes[0].nativeElement.click();
+        fixture.detectChanges();
+        expect(tableRows[0].nativeElement).not.toHaveCssClass('sky-grid-selected-row');
+      });
+
+      xit('should select/deselect all when the top checkbox is checked/unchecked', fakeAsync(() => {
+        const selectAll = getMultiselectSelectAll();
+        const checkboxes = getMultiselectCheckboxes();
+
+        // Start with all checkboxes unchecked.
+        checkboxes.forEach(checkbox => {
+          expect(checkbox.nativeElement.checked).toEqual(false);
+        });
+
+        // Check the "select all" checkbox.
+        selectAll.nativeElement.click();
+        fixture.detectChanges();
+
+        // Expect all checkboxes to be checked.
+        checkboxes.forEach(checkbox => {
+          expect(checkbox.nativeElement.checked).toEqual(true);
+        });
+
+        // Check the "select all" checkbox.
+        selectAll.nativeElement.click();
+        fixture.detectChanges();
+
+        // Expect all checkboxes to be unchecked.
+        checkboxes.forEach(checkbox => {
+          expect(checkbox.nativeElement.checked).toEqual(false);
+        });
+      }));
+      xit('should unselect the select all checkbox when not all checkboxes are checked', () => {
+        // foo
+      });
+      xit('should emit a change when checkboxes are checked', fakeAsync(() => {
+        const selectAll = getMultiselectSelectAll();
+        const checkboxes = getMultiselectCheckboxes();
+
+        // Nothing should have been emitted yet.
+        expect(component.selectedRowsChange).toBeUndefined();
+
+        // Check 1,2,5.
+        checkboxes[0].nativeElement.click();
+        checkboxes[1].nativeElement.click();
+        checkboxes[4].nativeElement.click();
+        fixture.detectChanges();
+
+        // Expect the emitter to send us 1,2,5.
+        let expectedRows: SkyGridSelectedRowsModelChange = {
+          selectedRowIds: [ '1', '2', '5' ]
+        };
+        expect(component.selectedRowsChange).toEqual(expectedRows);
+
+        // Select all.
+        selectAll.nativeElement.click();
+        fixture.detectChanges();
+        fixture.detectChanges();
+        fixture.detectChanges();
+
+        // Expect the emitter to send us EVERYTHING.
+        expectedRows = {
+          selectedRowIds: [ '1', '2', '3', '4', '5', '6', '7' ]
+        };
+        expect(component.selectedRowsChange).toEqual(expectedRows);
+
+        // Uncheck everything but 1 and 7.
+        checkboxes[1].nativeElement.click();
+        checkboxes[2].nativeElement.click();
+        checkboxes[3].nativeElement.click();
+        checkboxes[4].nativeElement.click();
+        checkboxes[5].nativeElement.click();
+        fixture.detectChanges();
+
+        // Expect the emitter to send us 1 and 7.
+        expectedRows = {
+          selectedRowIds: [ '1', '7' ]
+        };
+        expect(component.selectedRowsChange).toEqual(expectedRows);
+      }));
+      xit('should retain checked items when sorting', () => {
+        // foo
+      });
+      xit('should not be draggable', () => {
+        // foo
+      });
+    });
+  });
+
   describe('dragula functionality', () => {
     let mockDragulaService: DragulaService;
     let component: GridTestComponent,
@@ -842,8 +992,8 @@ describe('Grid Component', () => {
           undefined,
           undefined,
           {
-            getElementsByTagName(elementSelector: string) {
-              expect(elementSelector).toBe('th');
+            querySelectorAll(elementSelector: string) {
+              expect(elementSelector).toBe('th:not(.sky-grid-multiselect-cell)');
               return [
                 {
                   getAttribute(idSelector: string) {

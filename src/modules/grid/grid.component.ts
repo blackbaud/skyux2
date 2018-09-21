@@ -96,6 +96,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   @Output()
   public multiselectIdsChange = new EventEmitter<SkyGridSelectedRowsModelChange>();
 
+  @Output()
   public columnWidthChange = new EventEmitter<Array<SkyGridColumnWidthModelChange>>();
 
   public items: Array<any>;

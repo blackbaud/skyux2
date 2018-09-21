@@ -14,7 +14,7 @@ import {
   ListSortFieldSelectorModel
 } from '../../list/state';
 
-import { SkyGridColumnWidthModelChange } from '../types';
+import { SkyGridColumnWidthModelChange, SkyGridSelectedRowsModelChange } from '../types';
 
 const moment = require('moment');
 
@@ -39,6 +39,8 @@ export class GridTestComponent {
   public sortField: ListSortFieldSelectorModel;
   public columnWidthsChange: Array<SkyGridColumnWidthModelChange>;
   public fitType: string = 'scroll';
+  public multiselectIdProperty: string;
+  public selectedRowsChange: SkyGridSelectedRowsModelChange;
 
   public selectedColumnIds: string[] = [
     'column1',
@@ -107,5 +109,9 @@ export class GridTestComponent {
 
   public onResize(columnWidths: Array<SkyGridColumnWidthModelChange>) {
     this.columnWidthsChange = columnWidths;
+  }
+
+  public onMultiselectChange(selectedRows: SkyGridSelectedRowsModelChange) {
+    this.selectedRowsChange = selectedRows;
   }
 }
