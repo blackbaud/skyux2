@@ -2,13 +2,12 @@
 
 - Added support for `@skyux/core@3.1.0`. [#2011](https://github.com/blackbaud/skyux2/pull/2011)
 - Added resize functionality to grid columns. [#1973](https://github.com/blackbaud/skyux2/pull/1973)
-- Added message stream to popover, allowing popover to be programatically opened. [#1978](https://github.com/blackbaud/skyux2/pull/1978)
-- Updated paging component to have proper accessibility attributes. [#1799](https://github.com/blackbaud/skyux2/pull/1799)
+- Added message stream to open popovers programatically. [#1978](https://github.com/blackbaud/skyux2/pull/1978)
+- Updated accessibility for paging component, and disabled previous button on first page and next button on last page. [#1799](https://github.com/blackbaud/skyux2/pull/1799)
 - Updated a few more components to utilize icon component instead of `<i>` tag. [#1987](https://github.com/blackbaud/skyux2/pull/1987)
 - Updated fullscreen popovers to have a close button. [#1985](https://github.com/blackbaud/skyux2/pull/1985)
 - Updated the toolbar custom demo to no longer have an example of a "right" button. Best practice dictates only view actions should be to the right of the search box. [#1992](https://github.com/blackbaud/skyux2/pull/1992)
 - Updated the wizard component to utilize the progress indicator component for the horizontal wizard. Also added deprecation warning when using the old `tabStyle="wizard"` method. [#2002](https://github.com/blackbaud/skyux2/pull/2002)
-- Fixed paging component to properly disable first and last button when on first an last pages. [#1799](https://github.com/blackbaud/skyux2/pull/1799)
 
 # 2.25.0 (2018-09-17)
 
