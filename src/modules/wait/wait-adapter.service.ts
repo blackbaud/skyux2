@@ -8,7 +8,7 @@ import { SkyWindowRefService } from '../window';
 
 @Injectable()
 export class SkyWaitAdapterService implements OnDestroy {
-  private parentListeners: {[key: string]: Function[]} = {};
+  private parentListeners: {[key: string]: Function} = {};
 
   constructor(
     private renderer: Renderer,
@@ -17,9 +17,7 @@ export class SkyWaitAdapterService implements OnDestroy {
 
   public ngOnDestroy() {
     for (let key of Object.keys(this.parentListeners)) {
-      for (let listener of this.parentListeners[key]) {
-        listener();
-      }
+      this.parentListeners[key]();
       delete this.parentListeners[key];
     }
   }
@@ -38,17 +36,6 @@ export class SkyWaitAdapterService implements OnDestroy {
     this.renderer.setElementAttribute(busyEl, 'aria-busy', state);
 
     if (isWaiting) {
-      // Prevent tab navigation within host element
-      let endListenerFunc = this.renderer.listen(busyEl, 'keydown', (event: KeyboardEvent) => {
-        if (event.key.toLowerCase() === 'tab') {
-          event.preventDefault();
-          if (!isFullPage) {
-            this.focusNextElement(busyEl, event.shiftKey);
-          }
-        }
-      });
-      this.parentListeners[id] = [endListenerFunc];
-
       // Propagate tab navigation if attempted into waited element
       if (!isFullPage) {
         let focusListenerFunc = this.renderer.listen(this.windowRef.getWindow(), 'keyup', (event: any) => {
@@ -56,13 +43,19 @@ export class SkyWaitAdapterService implements OnDestroy {
             this.focusNextElement(busyEl, event.shiftKey);
           }
         });
-        this.parentListeners[id].push(focusListenerFunc);
+        this.parentListeners[id] = focusListenerFunc;
+      } else {
+        // Prevent tab navigation within the waited page
+        let endListenerFunc = this.renderer.listen(busyEl, 'keydown', (event: KeyboardEvent) => {
+          if (event.key.toLowerCase() === 'tab') {
+            event.preventDefault();
+          }
+        });
+        this.parentListeners[id] = endListenerFunc;
       }
     } else if (id in this.parentListeners) {
-      // Clean up existing listeners
-      for (let listener of this.parentListeners[id]) {
-        listener();
-      }
+      // Clean up existing listener
+      this.parentListeners[id]();
       delete this.parentListeners[id];
     }
   }
