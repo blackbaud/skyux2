@@ -29,8 +29,20 @@ import { SkyTabsetService } from './tabset.service';
 })
 export class SkyTabsetComponent
   implements AfterContentInit, AfterViewInit, DoCheck, OnDestroy, OnChanges {
+
   @Input()
-  public tabStyle = 'tabs';
+  public get tabStyle(): string {
+    return this._tabStyle || 'tabs';
+  }
+  public set tabStyle(value: string) {
+    if (value && value.toLowerCase() === 'wizard') {
+      console.warn(
+        'The tabset wizard is deprecated. Please implement the new approach using ' +
+        'progress indicator as documented here: https://developer.blackbaud.com/skyux/components/wizard.'
+      );
+    }
+    this._tabStyle = value;
+  }
 
   @Input()
   public active: number | string;
@@ -48,6 +60,8 @@ export class SkyTabsetComponent
 
   @ContentChildren(SkyTabComponent)
   public tabs: QueryList<SkyTabComponent>;
+
+  private _tabStyle: string;
 
   constructor(
     private tabsetService: SkyTabsetService,
