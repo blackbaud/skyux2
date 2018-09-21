@@ -10,12 +10,12 @@ import {
 } from '../../core';
 
 @Component({
-  selector: 'sky-demo-progress-indicator-horizontal',
-  templateUrl: './progress-indicator-horizontal-demo.component.html'
+  selector: 'sky-wizard-demo-modal',
+  templateUrl: './wizard-demo-modal.component.html'
 })
-export class SkyProgressIndicatorHorizontalDemoComponent {
+export class SkyWizardDemoModalComponent {
   public activeIndex = 0;
-  public title = 'Progress indicator wizard example';
+  public title = 'Wizard example';
   public requiredValue1: string;
   public requiredValue2: boolean;
   public displayMode = SkyProgressIndicatorDisplayMode.Horizontal;
