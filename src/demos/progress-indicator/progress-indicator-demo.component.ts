@@ -16,9 +16,6 @@ import {
 } from '../../core';
 
 import {
-  SkyProgressIndicatorHorizontalDemoComponent
-} from './progress-indicator-horizontal-demo.component';
-import {
   SkyProgressIndicatorDemoFormComponent
 } from './progress-indicator-demo-form.component';
 import {
@@ -40,10 +37,6 @@ export class SkyProgressIndicatorDemoComponent {
     private modal: SkyModalService,
     private changeDetector: ChangeDetectorRef
   ) { }
-
-  public openWizard(): void {
-    this.modal.open(SkyProgressIndicatorHorizontalDemoComponent);
-  }
 
   public configureConnection(isProgress: boolean): void {
     this.openModalForm(
