@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { SkyModalService } from '../../core';
+import {
+  SkyModalService
+} from '../../core';
 
-import { SkyWizardDemoFormComponent } from './wizard-demo-form.component';
+import {
+  SkyWizardDemoModalComponent
+} from './wizard-demo-modal.component';
 
 @Component({
   selector: 'sky-wizard-demo',
@@ -11,7 +17,8 @@ import { SkyWizardDemoFormComponent } from './wizard-demo-form.component';
 export class SkyWizardDemoComponent {
   constructor(private modal: SkyModalService) { }
 
-  public openWizard() {
-    this.modal.open(SkyWizardDemoFormComponent);
+  public openWizard(): void {
+    this.modal.open(SkyWizardDemoModalComponent);
   }
+
 }

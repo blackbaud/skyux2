@@ -69,11 +69,11 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
 
   public togglePopover() {
     if (this.isPopoverOpen()) {
-      this.closePopover();
+      this.sendMessage(SkyPopoverMessageType.Close);
       return;
     }
 
-    this.positionPopover();
+    this.sendMessage(SkyPopoverMessageType.Open);
   }
 
   private positionPopover() {
@@ -92,7 +92,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
     if (this.skyPopover.isMouseEnter) {
       this.skyPopover.markForCloseOnMouseLeave();
     } else {
-      this.closePopover();
+      this.sendMessage(SkyPopoverMessageType.Close);
     }
   }
 
@@ -117,7 +117,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
         if (key === 'escape' && this.isPopoverOpen()) {
           event.stopPropagation();
           event.preventDefault();
-          this.closePopover();
+          this.sendMessage(SkyPopoverMessageType.Close);
           this.elementRef.nativeElement.focus();
         }
       });
@@ -136,7 +136,7 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
         this.skyPopover.isMouseEnter = true;
         if (this.skyPopoverTrigger === 'mouseenter') {
           event.preventDefault();
-          this.positionPopover();
+          this.sendMessage(SkyPopoverMessageType.Open);
         }
       });
 
@@ -190,5 +190,9 @@ export class SkyPopoverDirective implements OnChanges, OnDestroy {
         }
         break;
     }
+  }
+
+  private sendMessage(messageType: SkyPopoverMessageType) {
+    this.skyPopoverMessageStream.next({ type: messageType });
   }
 }
