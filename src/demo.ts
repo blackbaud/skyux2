@@ -90,11 +90,10 @@ import {
   SkyModalDemoFormComponent,
   SkyModalDemoTiledFormComponent,
   SkyProgressIndicatorDemoFormComponent,
-  SkyProgressIndicatorHorizontalDemoComponent,
   SkySectionedModalFormDemoComponent,
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
-  SkyWizardDemoFormComponent,
+  SkyWizardDemoModalComponent,
   SkyFlyoutDemoInternalComponent
 } from './demos';
 
@@ -175,11 +174,10 @@ const components = [
   SkyModalDemoFormComponent,
   SkyModalDemoTiledFormComponent,
   SkyProgressIndicatorDemoFormComponent,
-  SkyProgressIndicatorHorizontalDemoComponent,
   SkySectionedModalFormDemoComponent,
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
-  SkyWizardDemoFormComponent
+  SkyWizardDemoModalComponent
 ];
 
 @NgModule({
