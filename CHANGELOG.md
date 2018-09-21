@@ -8,6 +8,7 @@
 - Updated fullscreen popovers to have a close button. [#1985](https://github.com/blackbaud/skyux2/pull/1985)
 - Updated the toolbar custom demo to no longer have an example of a "right" button. Best practice dictates only view actions should be to the right of the search box. [#1992](https://github.com/blackbaud/skyux2/pull/1992)
 - Updated the wizard component to utilize the progress indicator component for the horizontal wizard. Also added deprecation warning when using the old `tabStyle="wizard"` method. [#2002](https://github.com/blackbaud/skyux2/pull/2002)
+- Fixed list component to work when both a search and filter are applied. [#2007](https://github.com/blackbaud/skyux2/pull/2007)
 
 # 2.25.0 (2018-09-17)
 
