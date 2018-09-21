@@ -105,6 +105,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
 
       let result = items;
 
+      // Apply filters.
       if (!dataChanged && !filtersChanged && this.lastFilterResults !== undefined) {
         result = this.lastFilterResults;
       } else if (filters && filters.length > 0) {
@@ -130,7 +131,8 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         this.lastFilterResults = undefined;
       }
 
-      if (!dataChanged && !searchChanged && this.lastSearchResults !== undefined) {
+      // Apply search.
+      if (!dataChanged && !searchChanged && this.lastSearchResults !== undefined && !filtersChanged) {
         result = this.lastSearchResults;
       } else if (search && search.searchText !== undefined && search.searchText.length > 0) {
         let searchText = search.searchText.toLowerCase();
@@ -165,6 +167,7 @@ export class SkyListInMemoryDataProvider extends ListDataProvider {
         this.lastSearchResults = undefined;
       }
 
+      // Apply sort.
       if (sort && sort.fieldSelectors.length > 0) {
         result = result.slice().sort((item1: ListItemModel, item2: ListItemModel) => {
           let compareResult = 0;
