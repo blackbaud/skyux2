@@ -915,6 +915,22 @@
     "_description": "The default text for the show tabs button in mobile",
     "message": "Tab list"
   },
+  "wait_aria_alt_text": {
+    "_description": "The default alt text for a non-blocking section wait component.",
+    "message": "Loading."
+  },
+  "wait_blocking_aria_alt_text": {
+    "_description": "The default alt text for a blocking section wait component.",
+    "message": "Loading. Please wait."
+  },
+  "wait_page_aria_alt_text": {
+    "_description": "The default alt text for a non-blocking page wait component.",
+    "message": "Page loading."
+  },
+  "wait_page_blocking_aria_alt_text": {
+    "_description": "The default alt text for a blocking page wait component.",
+    "message": "Page loading. Please wait."
+  },
   "wizard_navigator_finish": {
     "_description": "Text displayed on the next button when a wizard is ready for completion.",
     "message": "Finish"

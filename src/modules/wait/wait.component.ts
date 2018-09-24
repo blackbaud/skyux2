@@ -7,6 +7,9 @@ import {
 import {
   SkyWaitAdapterService
 } from './wait-adapter.service';
+import {
+  SkyResourcesService
+} from '../resources';
 
 @Component({
   selector: 'sky-wait',
@@ -23,7 +26,7 @@ export class SkyWaitComponent {
     } else if (!value && !this._isFullPage) {
       this.adapterService.removeWaitBounds(this.elRef);
     }
-    this.adapterService.setBusyState(this.elRef, this._isFullPage, value);
+    this.adapterService.setBusyState(this.elRef, this._isFullPage, value, this.isNonBlocking);
     this._isWaiting = value;
   }
 
@@ -49,9 +52,29 @@ export class SkyWaitComponent {
   @Input()
   public isNonBlocking: boolean;
 
-  private _isWaiting: boolean;
+  @Input()
+  public set ariaLabel(value: string) {
+    if (value) {
+      this._ariaLabel = value;
+    } else {
+      const type = this.isFullPage ? '_page' : '';
+      const blocking = this.isNonBlocking ? '' : '_blocking';
+      const defaultMessage = this.resourceService.getString('wait' + type + blocking + '_aria_alt_text');
 
+      this._ariaLabel = defaultMessage;
+    }
+  }
+  public get ariaLabel(): string {
+    return this._ariaLabel;
+  }
+
+  private _isWaiting: boolean;
+  private _ariaLabel: string;
   private _isFullPage: boolean;
 
-  constructor(private elRef: ElementRef, private adapterService: SkyWaitAdapterService) { }
+  constructor(
+    private elRef: ElementRef,
+    private adapterService: SkyWaitAdapterService,
+    private resourceService: SkyResourcesService
+  ) {}
 }
