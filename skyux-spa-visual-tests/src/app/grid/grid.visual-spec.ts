@@ -60,7 +60,7 @@ describe('grid component', () => {
   it('should select all', () => {
     return SkyVisualTest.setupTest('grid')
     .then(() => {
-      element(by.css('th.sky-grid-multiselect-cell input')).click();
+      element(by.css('th.sky-grid-multiselect-cell sky-checkbox')).click();
       return SkyVisualTest.compareScreenshot({
         screenshotName: 'grid-multiselect-select-all',
         selector: '#screenshot-grid-multiselect'
