@@ -11,7 +11,6 @@ describe('grid component', () => {
         selector: '#screenshot-grid'
       });
     });
-
   });
 
   it('should display grid with descending sort indication', () => {
@@ -23,7 +22,6 @@ describe('grid component', () => {
         selector: '#screenshot-grid'
       });
     });
-
   });
 
   it('should display grid with ascending sort indication', () => {
@@ -36,7 +34,6 @@ describe('grid component', () => {
         selector: '#screenshot-grid'
       });
     });
-
   });
 
   it('should highlight cells correctly', () => {
@@ -48,6 +45,26 @@ describe('grid component', () => {
         selector: '#screenshot-grid'
       });
     });
+  });
 
+  it('should display grid with multiselect', () => {
+    return SkyVisualTest.setupTest('grid')
+    .then(() => {
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'grid-multiselect',
+        selector: '#screenshot-grid-multiselect'
+      });
+    });
+  });
+
+  it('should select all', () => {
+    return SkyVisualTest.setupTest('grid')
+    .then(() => {
+      element(by.css('th.sky-grid-multiselect-cell input')).click();
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'grid-multiselect-select-all',
+        selector: '#screenshot-grid-multiselect'
+      });
+    });
   });
 });
