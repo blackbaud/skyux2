@@ -9,6 +9,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  SkyAppTestUtility
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import {
   SkyWaitFixturesModule
 } from './fixtures/wait-fixtures.module';
 
@@ -95,6 +99,23 @@ describe('Wait service', () => {
     applicationRef.tick();
     verifyBlockingPageWaitExists(false);
 
+  }));
+
+  it('should block tab navigation when a blocking page wait is active', fakeAsync(() => {
+    waitService.beginBlockingPageWait();
+    tick();
+    applicationRef.tick();
+
+    verifyBlockingPageWaitExists(true);
+    let button = document.body.querySelector('button');
+    button.focus();
+    expect(document.activeElement).toBe(button);
+
+    SkyAppTestUtility.fireDomEvent(document.body, 'keydown', {
+      keyboardEventInit: { key: 'tab' }
+    });
+    button = document.body.querySelector('button');
+    expect(document.activeElement).toBe(button);
   }));
 
   it('should add a nonblocking page wait when beginPageWait is called with isBlocking false',

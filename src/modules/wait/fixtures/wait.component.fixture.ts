@@ -1,7 +1,12 @@
 import {
   Component,
-  Input
+  Input,
+  ViewChild
 } from '@angular/core';
+
+import {
+  SkyWaitComponent
+} from '..';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -16,4 +21,7 @@ export class SkyWaitTestComponent {
 
   @Input()
   public isNonBlocking: boolean;
+
+  @ViewChild(SkyWaitComponent)
+  public waitComponent: SkyWaitComponent;
 }
