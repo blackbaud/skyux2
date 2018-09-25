@@ -1,2 +1,2 @@
-export { SkyHelpInlineComponent } from './help-inline.component';
-export { SkyHelpInlineModule } from './help-inline.module';
+export * from './help-inline.component';
+export * from './help-inline.module';

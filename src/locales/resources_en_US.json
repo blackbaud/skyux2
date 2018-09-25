@@ -43,14 +43,6 @@
     "_description": "Text for the checkbox in a checklist to show only selected items.",
     "message": "Only show selected items"
   },
-  "chevron_collapse": {
-    "_description": "Screen reader text for when clicking the chevron would collapse the corresponding section",
-    "message": "Collapse"
-  },
-  "chevron_expand": {
-    "_description": "Screen reader text for when clicking the chevron would expand the corresponding section",
-    "message": "Expand"
-  },
   "colorpicker_alpha": {
     "_description": "Label for the alpha input",
     "message": "A:"
@@ -559,10 +551,6 @@
     "_description": "Placeholder text in grid search box",
     "message": "Find in this list"
   },
-  "help_inline_button_title": {
-    "_description": "The title for the help button.",
-    "message": "Show help content"
-  },
   "infinite_scroll_load_more_button": {
     "_description": "Text for loading more in the infinite scroll button",
     "message": "Load more"
@@ -906,10 +894,6 @@
   "toast_close_button": {
     "_description": "Screen reader text for the close button on toasts",
     "message": "Close the toast"
-  },
-  "token_dismiss_button_title": {
-    "_description": "The default text for the token dismiss button title.",
-    "message": "Remove item"
   },
   "vertical_tabs_show_tabs_text": {
     "_description": "The default text for the show tabs button in mobile",

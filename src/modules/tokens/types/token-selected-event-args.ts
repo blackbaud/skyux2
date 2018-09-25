@@ -1,5 +1,3 @@
-import { SkyToken } from './token';
-
-export interface SkyTokenSelectedEventArgs {
-  token?: SkyToken;
-}
+export {
+  SkyTokenSelectedEventArgs
+} from '@skyux/indicators/modules/tokens/types/token-selected-event-args';
