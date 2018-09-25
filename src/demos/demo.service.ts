@@ -884,15 +884,6 @@ export class SkyDemoService {
           componentName: 'SkyProgressIndicatorDemoFormComponent'
         },
         {
-          name: 'progress-indicator-horizontal-demo.component.html',
-          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-horizontal-demo.component.html')
-        },
-        {
-          name: 'progress-indicator-horizontal-demo.component.ts',
-          fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-horizontal-demo.component.ts'),
-          componentName: 'SkyProgressIndicatorHorizontalDemoComponent'
-        },
-        {
           name: 'progress-indicator-demo-context.ts',
           fileContents: require('!!raw-loader!./progress-indicator/progress-indicator-demo-context.ts')
         }
@@ -1256,13 +1247,13 @@ export class SkyDemoService {
           bootstrapSelector: 'sky-wizard-demo'
         },
         {
-          name: 'wizard-demo-form.component.html',
-          fileContents: require('!!raw-loader!./wizard/wizard-demo-form.component.html')
+          name: 'wizard-demo-modal.component.html',
+          fileContents: require('!!raw-loader!./wizard/wizard-demo-modal.component.html')
         },
         {
-          name: 'wizard-demo-form.component.ts',
-          fileContents: require('!!raw-loader!./wizard/wizard-demo-form.component.ts'),
-          componentName: 'SkyWizardDemoFormComponent'
+          name: 'wizard-demo-modal.component.ts',
+          fileContents: require('!!raw-loader!./wizard/wizard-demo-modal.component.ts'),
+          componentName: 'SkyWizardDemoModalComponent'
         }
       ]
     }

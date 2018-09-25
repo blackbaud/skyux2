@@ -38,12 +38,12 @@
               [style.width.px]="column.width"
             >
               {{column.heading}}
-              <i
-                class="fa sky-grid-heading-sort"
-                [ngStyle]="{'visibility: hidden': (getSortDirection(column.field) | async)}"
-                [ngClass]="getCaretClassNames(column)"
+              <sky-icon
+                class="sky-grid-heading-sort"
+                *ngIf="(getSortDirection(column.field) | async)"
+                [icon]="getCaretIconNames(column)"
               >
-              </i>
+              </sky-icon>
             </div>
             <span
               *ngIf="(fit==='width' && !last) || (fit==='scroll')"

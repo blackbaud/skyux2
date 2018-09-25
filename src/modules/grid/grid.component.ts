@@ -236,19 +236,19 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     return this.addDelimeter(classNames, ' ');
   }
 
-  public getCaretClassNames(column: SkyGridColumnModel) {
-    let classNames: string[] = [];
+  public getCaretIconNames(column: SkyGridColumnModel) {
+    let iconNames: string[] = [];
 
     this.getSortDirection(column.field).subscribe((sortDir) => {
       if (sortDir === 'asc') {
-        classNames.push('fa-caret-up');
+        iconNames.push('caret-up');
       }
       if (sortDir === 'desc') {
-        classNames.push('fa-caret-down');
+        iconNames.push('caret-down');
       }
     });
 
-    return this.addDelimeter(classNames, ' ');
+    return this.addDelimeter(iconNames, ' ');
   }
 
   public onKeydown(event: KeyboardEvent, column: SkyGridColumnModel) {

@@ -26,12 +26,13 @@
   <div
     aria-hidden="true"
     class="link-records-item-status">
-    <div class="link-records-item-status-content"><i class="fa"
-      [class.fa-check]="record.status == STATUSES.Linked"
-      [class.fa-pencil]="record.status == STATUSES.Edit"
-      [class.fa-plus-circle]="record.status == STATUSES.Created"
-      [class.fa-question-circle]="record.status == STATUSES.Suggested || record.status == STATUSES.NoMatch || record.status == STATUSES.Selected"
-    ></i></div>
+    <div class="link-records-item-status-content">
+      <sky-icon
+        [icon]="icon"
+        [ngClass]="'sky-link-record-item-icon-' + icon"
+      >
+      </sky-icon>
+    </div>
   </div>
   <div class="link-records-item-match sky-shadow">
     <div class="link-records-item-header sky-subsection-heading sky-padding-even-default">
