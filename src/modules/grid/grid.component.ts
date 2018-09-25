@@ -319,7 +319,11 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       item.isSelected = event.checked;
     });
 
-    this.ref.detectChanges();
+    // In cases where consumer has NOT subscribed to the emitter (rowsSelected),
+    // this timeout will keep the checkboxes from getting out of sync.
+    window.setTimeout(() => {
+      this.ref.detectChanges();
+    });
     this.emitSelectedRows();
   }
 
