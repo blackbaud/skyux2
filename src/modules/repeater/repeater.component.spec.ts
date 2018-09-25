@@ -41,6 +41,17 @@ describe('Repeater item component', () => {
     })
   );
 
+  it('should have aria-control set pointed at content', fakeAsync(() => {
+    let fixture = TestBed.createComponent(RepeaterTestComponent);
+    let el = fixture.nativeElement;
+
+    fixture.detectChanges();
+    tick();
+
+    expect(el.querySelector('sky-chevron').getAttribute('aria-controls'))
+      .toBe(el.querySelector('.sky-repeater-item-content').getAttribute('id'));
+  }));
+
   describe('with expand mode of "single"', () => {
     it('should collapse other items when an item is expanded', fakeAsync(() => {
       let fixture = TestBed.createComponent(RepeaterTestComponent);
@@ -106,24 +117,20 @@ describe('Repeater item component', () => {
       let el = fixture.nativeElement;
 
       cmp.expandMode = 'single';
-
       fixture.detectChanges();
-
       tick();
 
       let repeaterItems = cmp.repeater.items.toArray();
-
       expect(repeaterItems[0].isExpanded).toBe(true);
+      expect(el.querySelector('sky-chevron').getAttribute('aria-expanded')).toBe('true');
 
       el.querySelectorAll('.sky-repeater-item-title').item(0).click();
-
       fixture.detectChanges();
-
       tick();
 
       repeaterItems = cmp.repeater.items.toArray();
-
       expect(repeaterItems[0].isExpanded).toBe(false);
+      expect(el.querySelector('sky-chevron').getAttribute('aria-expanded')).toBe('false');
     }));
 
     it('should toggle its collapsed state when an item\'s chevron is clicked', fakeAsync(() => {
