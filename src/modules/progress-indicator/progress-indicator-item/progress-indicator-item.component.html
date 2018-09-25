@@ -1,12 +1,6 @@
 <div *ngIf="!isHorizontal || isActive"
   class="sky-progress-indicator-item-heading"
-  [ngClass]="{
-    'sky-text-success': isComplete && !isActive && !isHorizontal,
-    'sky-progress-indicator-item-passive': isPassive,
-    'sky-progress-indicator-item-step': !isHorizontal && (!isComplete || isActive),
-    'sky-progress-indicator-item-step-active': isActive,
-    'sky-progress-indicator-item-step-complete': isComplete && !isActive && !isHorizontal
-  }"
+  [ngClass]="headingClassList"
 >
   <div
     class="sky-progress-indicator-item-title"
@@ -18,16 +12,9 @@
     {{ displayTitle }}
   </div>
 </div>
-<div *ngIf="!(isHorizontal || isPassive) || isPassive && !isLastItem || isActive"
+<div *ngIf="isLineDisplayed"
   class="sky-progress-indicator-item-line"
-  [ngClass]="{
-    'sky-deemphasized': isPassive,
-    'sky-progress-indicator-item-horizontal': isHorizontal,
-    'sky-progress-indicator-item-passive': isPassive,
-    'sky-progress-indicator-item-last': isLastItem,
-    'sky-progress-indicator-item-line-inactive': !isActive && !isComplete,
-    'sky-progress-indicator-item-line-next-inactive': isNextToInactive
-  }"
+  [ngClass]="lineClassList"
 >
   <div *ngIf="isActive || isComplete"
     class="sky-progress-indicator-item-content"
