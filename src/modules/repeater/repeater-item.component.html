@@ -1,4 +1,4 @@
-<section
+<div
   class="sky-repeater-item sky-padding-even-default"
   [ngClass]="{
     'sky-repeater-item-collapsible': isCollapsible,
@@ -29,19 +29,24 @@
         [hidden]="titleEl.children.length === 0"
         (click)="headerClick()"
     >
-      <h1 class="sky-repeater-item-title sky-emphasized" #titleEl>
+      <div class="sky-repeater-item-title sky-emphasized" #titleEl>
         <ng-content select="sky-repeater-item-title"></ng-content>
-      </h1>
+      </div>
       <div class="sky-repeater-item-chevron" [hidden]="!isCollapsible">
         <sky-chevron
+            [attr.aria-controls]="contentId"
+            [attr.aria-expanded]="isExpanded"
             [direction]="isExpanded ? 'up' : 'down'"
             (directionChange)="chevronDirectionChange($event)"
         >
         </sky-chevron>
       </div>
     </header>
-    <div class="sky-repeater-item-content" [@skyAnimationSlide]="slideDirection">
+    <div
+      class="sky-repeater-item-content"
+      [id]="contentId"
+      [@skyAnimationSlide]="slideDirection">
       <ng-content select="sky-repeater-item-content"></ng-content>
     </div>
   </div>
-</section>
+</div>

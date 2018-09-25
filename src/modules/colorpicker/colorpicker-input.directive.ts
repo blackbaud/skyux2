@@ -112,6 +112,7 @@ export class SkyColorpickerInputDirective
     this.writeModelValue(this.modelValue);
   }
 
+  /* istanbul ignore next */
   @HostListener('blur')
   public onBlur(event: any) {
     /*istanbul ignore next */
