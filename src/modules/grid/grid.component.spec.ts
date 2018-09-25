@@ -197,36 +197,29 @@ describe('Grid Component', () => {
     function verifyData(flatData = false, useAllHeaders = false, hiddenCol = false) {
       for (let i = 0; i < component.data.length; i ++) {
         let row = component.data[i];
-        let rowData: any;
-
-        if (flatData) {
-          rowData = row;
-        } else {
-          rowData = row.data;
-        }
 
         expect(getCell(row.id, 'column1', element).nativeElement.textContent.trim())
-          .toBe(rowData.column1);
+          .toBe(row.column1);
         expect(getCell(row.id, 'column2', element).nativeElement.textContent.trim())
-          .toBe(rowData.column2);
+          .toBe(row.column2);
         expect(getCell(row.id, 'column3', element).nativeElement.textContent.trim())
-          .toBe(rowData.column3.toString());
+          .toBe(row.column3.toString());
         expect(getCell(row.id, 'column3', element)
           .query(By.css('div.sky-test-custom-template'))).not.toBeNull();
 
         if (!hiddenCol) {
           expect(getCell(row.id, 'column4', element).nativeElement.textContent.trim())
-          .toBe(rowData.column4.toString());
+          .toBe(row.column4.toString());
         }
 
         expect(getCell(row.id, 'column5', element).nativeElement.textContent.trim())
-          .toBe(rowData.column5 || '');
+          .toBe(row.column5 || '');
 
         if (useAllHeaders) {
           expect(getCell(row.id, 'hiddenCol1', element).nativeElement.textContent)
-            .toBe(rowData.column1);
+            .toBe(row.column1);
           expect(getCell(row.id, 'hiddenCol2', element).nativeElement.textContent)
-            .toBe(rowData.column1);
+            .toBe(row.column1);
         }
       }
     }
@@ -812,11 +805,12 @@ describe('Grid Component', () => {
 
         // Start with all checkboxes to have an undefined isSelected state.
         component.grid.items.forEach(item => {
-          expect(item.isSelected).toBeUndefined();
+          expect(item.isSelected).toBe(false);
         });
 
         // Check the "select all" checkbox.
         selectAll.nativeElement.click();
+        tick(110); // wait for setTimeout
         fixture.detectChanges();
 
         // Expect all checkboxes to be selected.
@@ -826,6 +820,7 @@ describe('Grid Component', () => {
 
         // Check the "select all" checkbox.
         selectAll.nativeElement.click();
+        tick(110); // wait for setTimeout
         fixture.detectChanges();
 
         // Expect all checkboxes to NOT be selected.
@@ -871,8 +866,7 @@ describe('Grid Component', () => {
 
         // Select all.
         selectAll.nativeElement.click();
-        fixture.detectChanges();
-        fixture.detectChanges();
+        tick(110); // wait for setTimeout
         fixture.detectChanges();
 
         // Expect the emitter to send us EVERYTHING.

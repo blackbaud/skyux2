@@ -10,11 +10,13 @@ import {
 import { SkyGridComponent } from '../grid.component';
 
 import {
-  ListItemModel,
   ListSortFieldSelectorModel
 } from '../../list/state';
 
-import { SkyGridColumnWidthModelChange, SkyGridSelectedRowsModelChange } from '../types';
+import {
+  SkyGridColumnWidthModelChange,
+  SkyGridSelectedRowsModelChange
+} from '../types';
 
 const moment = require('moment');
 
@@ -51,49 +53,56 @@ export class GridTestComponent {
   ];
 
   public data: any[] = [
-    new ListItemModel('1', {
+    {
+      id: '1',
       column1: '1',
       column2: 'Apple',
       column3: 1,
       column4: moment().add(1, 'minute')
-    }),
-    new ListItemModel('2', {
+    },
+    {
+      id: '2',
       column1: '01',
       column2: 'Banana',
       column3: 1,
       column4: moment().add(6, 'minute'),
       column5: 'test'
-    }),
-    new ListItemModel('3', {
+    },
+    {
+      id: '3',
       column1: '11',
       column2: 'Carrot',
       column3: 11,
       column4: moment().add(4, 'minute')
-    }),
-    new ListItemModel('4', {
+    },
+    {
+      id: '4',
       column1: '12',
       column2: 'Daikon',
       column3: 12,
       column4: moment().add(2, 'minute')
-    }),
-    new ListItemModel('5', {
+    },
+    {
+      id: '5',
       column1: '13',
       column2: 'Edamame',
       column3: 13,
       column4: moment().add(5, 'minute')
-    }),
-    new ListItemModel('6', {
+    },
+    {
+      id: '6',
       column1: '20',
       column2: 'Fig',
       column3: 20,
       column4: moment().add(3, 'minute')
-    }),
-    new ListItemModel('7', {
+    },
+    {
+      id: '7',
       column1: '21',
       column2: 'Grape',
       column3: 21,
       column4: moment().add(7, 'minute')
-    })
+    }
   ];
 
   public searchFunction: (data: any, searchText: string) => boolean =
