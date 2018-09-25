@@ -104,6 +104,34 @@ export class GridTestComponent {
     }
 
   public onSort(sortSelector: ListSortFieldSelectorModel) {
+    const sortField = sortSelector.fieldSelector;
+    const descending = sortSelector.descending;
+
+    this.data = this.data.sort((a: any, b: any) => {
+      let value1 = a[sortField];
+      let value2 = b[sortField];
+
+      if (value1 && typeof value1 === 'string') {
+        value1 = value1.toLowerCase();
+      }
+
+      if (value2 && typeof value2 === 'string') {
+        value2 = value2.toLowerCase();
+      }
+
+      if (value1 === value2) {
+        return 0;
+      }
+
+      let result = value1 > value2 ? 1 : -1;
+
+      if (descending) {
+        result *= -1;
+      }
+
+      return result;
+    }).slice();
+
     this.activeSortSelector = sortSelector;
   }
 

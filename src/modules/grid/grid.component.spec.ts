@@ -40,6 +40,7 @@ import {
 } from './';
 import { SkyGridSelectedRowsModelChange } from './types';
 
+//#region helper functions
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(
     By.css('th[sky-cmp-id="' + id + '"]')
@@ -130,6 +131,10 @@ function getTable(fixture: ComponentFixture<any>) {
   return fixture.debugElement.query(By.css('.sky-grid-table'));
 }
 
+function getTableRows(fixture: ComponentFixture<any>) {
+  return fixture.debugElement.queryAll(By.css('tbody tr'));
+}
+
 function getTableWidth(fixture: ComponentFixture<any>) {
   const table = getTable(fixture);
   return table.nativeElement.offsetWidth;
@@ -138,6 +143,7 @@ function getTableWidth(fixture: ComponentFixture<any>) {
 function cloneItems(items: any[]): any[] {
   return JSON.parse(JSON.stringify(items));
 }
+//#endregion
 
 describe('Grid Component', () => {
   describe('Basic Fixture with fit=scroll', () => {
@@ -740,7 +746,8 @@ describe('Grid Component', () => {
 
   describe('multiselect', () => {
     let fixture: ComponentFixture<GridTestComponent>,
-        component: GridTestComponent;
+        component: GridTestComponent,
+        element: DebugElement;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -755,26 +762,23 @@ describe('Grid Component', () => {
       fixture = TestBed.createComponent(GridTestComponent);
       component = fixture.componentInstance;
       component.multiselectIdProperty = 'id';
+      element = fixture.debugElement as DebugElement;
       fixture.detectChanges();
       fixture.detectChanges();
     });
 
-    function getMultiselectCheckboxes() {
+    function getMultiselectInputs() {
       return fixture.debugElement.queryAll(By.css('tbody .sky-grid-multiselect-cell input'));
     }
 
     function getMultiselectSelectAll() {
-      return fixture.debugElement.query(By.css('thead .sky-grid-multiselect-cell input'));
+      return fixture.debugElement.query(By.css('thead .sky-grid-multiselect-cell sky-checkbox input'));
     }
 
-    function getTableRows() {
-      return fixture.debugElement.queryAll(By.css('tbody tr'));
-    }
-
-    fdescribe('Standard setup', () => {
+    describe('Standard setup', () => {
       it('should add checkboxes properly to grid, with proper accessibility attributes', () => {
         const selectAll = getMultiselectSelectAll();
-        const checkboxes = getMultiselectCheckboxes();
+        const checkboxes = getMultiselectInputs();
 
         expect(selectAll).not.toBeNull();
         expect(checkboxes).not.toBeNull();
@@ -786,8 +790,8 @@ describe('Grid Component', () => {
       });
 
       it('should toggle selected classes properly when checked', () => {
-        const checkboxes = getMultiselectCheckboxes();
-        const tableRows = getTableRows();
+        const checkboxes = getMultiselectInputs();
+        const tableRows = getTableRows(fixture);
 
         // Start with no class.
         expect(tableRows[0].nativeElement).not.toHaveCssClass('sky-grid-selected-row');
@@ -803,47 +807,60 @@ describe('Grid Component', () => {
         expect(tableRows[0].nativeElement).not.toHaveCssClass('sky-grid-selected-row');
       });
 
-      xit('should select/deselect all when the top checkbox is checked/unchecked', fakeAsync(() => {
+      it('should select/deselect all when the top checkbox is checked/unchecked', fakeAsync(() => {
         const selectAll = getMultiselectSelectAll();
-        const checkboxes = getMultiselectCheckboxes();
 
-        // Start with all checkboxes unchecked.
-        checkboxes.forEach(checkbox => {
-          expect(checkbox.nativeElement.checked).toEqual(false);
+        // Start with all checkboxes to have an undefined isSelected state.
+        component.grid.items.forEach(item => {
+          expect(item.isSelected).toBeUndefined();
         });
 
         // Check the "select all" checkbox.
         selectAll.nativeElement.click();
         fixture.detectChanges();
 
-        // Expect all checkboxes to be checked.
-        checkboxes.forEach(checkbox => {
-          expect(checkbox.nativeElement.checked).toEqual(true);
+        // Expect all checkboxes to be selected.
+        component.grid.items.forEach(item => {
+          expect(item.isSelected).toEqual(true);
         });
 
         // Check the "select all" checkbox.
         selectAll.nativeElement.click();
         fixture.detectChanges();
 
-        // Expect all checkboxes to be unchecked.
-        checkboxes.forEach(checkbox => {
-          expect(checkbox.nativeElement.checked).toEqual(false);
+        // Expect all checkboxes to NOT be selected.
+        component.grid.items.forEach(item => {
+          expect(item.isSelected).toEqual(false);
         });
       }));
-      xit('should unselect the select all checkbox when not all checkboxes are checked', () => {
-        // foo
-      });
-      xit('should emit a change when checkboxes are checked', fakeAsync(() => {
+
+      it('should unselect the select all checkbox when not all checkboxes are checked', () => {
         const selectAll = getMultiselectSelectAll();
-        const checkboxes = getMultiselectCheckboxes();
+        const inputs = getMultiselectInputs();
+
+        // Check the "select all" checkbox.
+        selectAll.nativeElement.click();
+        fixture.detectChanges();
+
+        // Unselect a multiselect checkbox.
+        inputs[0].nativeElement.click();
+        fixture.detectChanges();
+
+        // Expect "Select All" checkbox to be unchecked.
+        expect(selectAll.nativeElement.checked).toBe(false);
+      });
+
+      it('should emit a change when checkboxes are checked', fakeAsync(() => {
+        const selectAll = getMultiselectSelectAll();
+        const inputs = getMultiselectInputs();
 
         // Nothing should have been emitted yet.
         expect(component.selectedRowsChange).toBeUndefined();
 
         // Check 1,2,5.
-        checkboxes[0].nativeElement.click();
-        checkboxes[1].nativeElement.click();
-        checkboxes[4].nativeElement.click();
+        inputs[0].nativeElement.click();
+        inputs[1].nativeElement.click();
+        inputs[4].nativeElement.click();
         fixture.detectChanges();
 
         // Expect the emitter to send us 1,2,5.
@@ -863,26 +880,35 @@ describe('Grid Component', () => {
           selectedRowIds: [ '1', '2', '3', '4', '5', '6', '7' ]
         };
         expect(component.selectedRowsChange).toEqual(expectedRows);
+      }));
 
-        // Uncheck everything but 1 and 7.
-        checkboxes[1].nativeElement.click();
-        checkboxes[2].nativeElement.click();
-        checkboxes[3].nativeElement.click();
-        checkboxes[4].nativeElement.click();
-        checkboxes[5].nativeElement.click();
+      it('should retain checked items when sorting', () => {
+        const inputs = getMultiselectInputs();
+        const tableRows = getTableRows(fixture);
+
+        // Nothing should have been emitted yet.
+        expect(component.selectedRowsChange).toBeUndefined();
+
+        // Check 1,2,5.
+        inputs[0].nativeElement.click();
+        inputs[1].nativeElement.click();
+        inputs[4].nativeElement.click();
         fixture.detectChanges();
 
-        // Expect the emitter to send us 1 and 7.
-        expectedRows = {
-          selectedRowIds: [ '1', '7' ]
-        };
-        expect(component.selectedRowsChange).toEqual(expectedRows);
-      }));
-      xit('should retain checked items when sorting', () => {
-        // foo
-      });
-      xit('should not be draggable', () => {
-        // foo
+        // Sort by one of the columns.
+        const tableHeader = getColumnHeader('column1', element);
+        tableHeader.nativeElement.click();
+        fixture.detectChanges();
+
+        // Make sure only the above 3 rows are checked.
+        tableRows.forEach(row => {
+          let id = row.nativeElement.getAttribute('sky-cmp-id');
+          if (id === '1' || id === '2' || id === '5') {
+            expect(row.query(By.css('input')).nativeElement.checked).toBe(true);
+          } else {
+            expect(row.query(By.css('input')).nativeElement.checked).toBe(false);
+          }
+        });
       });
     });
   });
