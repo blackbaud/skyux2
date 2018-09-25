@@ -1,2 +1,2 @@
-export { SkyChevronComponent } from './chevron.component';
-export { SkyChevronModule } from './chevron.module';
+export * from './chevron.component';
+export * from './chevron.module';
