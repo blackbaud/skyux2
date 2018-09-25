@@ -17,8 +17,8 @@
   <sky-grid
     fit="scroll"
     [data]="items"
-    [multiselectIdProperty]="'field'"
-    (multiselectIdsChange)="undefined">
+    [rowSelectId]="'field'"
+    (rowsSelected)="undefined">
     <sky-grid-column field="column1" heading="Column1"></sky-grid-column>
     <sky-grid-column field="column2" heading="Column2"></sky-grid-column>
     <sky-grid-column field="column3" heading="Column3"></sky-grid-column>

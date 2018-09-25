@@ -6,11 +6,11 @@
   [data]="data"
   [width]="600"
   [height]="400"
-  [multiselectIdProperty]="multiselectIdProperty"
+  [rowSelectId]="rowSelectId"
   [sortField]="sortField"
   (sortFieldChange)="onSort($event)"
   (columnWidthChange)="onResize($event)"
-  (multiselectIdsChange)="onMultiselectChange($event)">
+  (rowsSelected)="onMultiselectChange($event)">
   <sky-grid-column
     field="column1"
     heading="Column1"

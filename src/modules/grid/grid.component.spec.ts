@@ -761,7 +761,7 @@ describe('Grid Component', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(GridTestComponent);
       component = fixture.componentInstance;
-      component.multiselectIdProperty = 'id';
+      component.rowSelectId = 'id';
       element = fixture.debugElement as DebugElement;
       fixture.detectChanges();
       fixture.detectChanges();

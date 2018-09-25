@@ -85,7 +85,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   public highlightText: string;
 
   @Input()
-  public multiselectIdProperty: string;
+  public rowSelectId: string;
 
   @Output()
   public selectedColumnIdsChange = new EventEmitter<Array<string>>();
@@ -94,7 +94,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   public sortFieldChange = new EventEmitter<ListSortFieldSelectorModel>();
 
   @Output()
-  public multiselectIdsChange = new EventEmitter<SkyGridSelectedRowsModelChange>();
+  public rowsSelected = new EventEmitter<SkyGridSelectedRowsModelChange>();
 
   @Output()
   public columnWidthChange = new EventEmitter<Array<SkyGridColumnWidthModelChange>>();
@@ -427,7 +427,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     if (this.data.length > 0 && this.data[0].id && !this.data[0].data) {
 
       // If multiselect is turned on, retain selections.
-      if (this.multiselectIdProperty) {
+      if (this.rowSelectId) {
         this.items = this.data.map(item => {
           let checked = this.getSelectedRows().indexOf(item.id) > -1;
           return new ListItemModel(item.id, item, checked);
@@ -576,7 +576,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     let selectedRows: SkyGridSelectedRowsModelChange = {
       selectedRowIds: this.getSelectedRows()
     };
-    this.multiselectIdsChange.emit(selectedRows);
+    this.rowsSelected.emit(selectedRows);
   }
 
   private getSelectedRows() {

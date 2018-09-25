@@ -39,7 +39,7 @@ export class GridTestComponent {
   public sortField: ListSortFieldSelectorModel;
   public columnWidthsChange: Array<SkyGridColumnWidthModelChange>;
   public fitType: string = 'scroll';
-  public multiselectIdProperty: string;
+  public rowSelectId: string;
   public selectedRowsChange: SkyGridSelectedRowsModelChange;
 
   public selectedColumnIds: string[] = [

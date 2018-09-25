@@ -46,8 +46,8 @@
 <sky-grid
   fit="width"
   [data]="multiselectItems"
-  [multiselectIdProperty]="'id'"
-  (multiselectIdsChange)="multiselectIdsChange($event)">
+  [rowSelectId]="'id'"
+  (rowsSelected)="rowsSelected($event)">
   <sky-grid-column
     id="column1"
     field="column1"

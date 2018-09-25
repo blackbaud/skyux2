@@ -76,7 +76,7 @@ export class SkyGridDemoComponent implements OnInit {
     }).slice();
   }
 
-  public multiselectIdsChange(selectedRows: SkyGridSelectedRowsModelChange) {
+  public rowsSelected(selectedRows: SkyGridSelectedRowsModelChange) {
     this.selectedRows = selectedRows.selectedRowIds;
   }
 }
