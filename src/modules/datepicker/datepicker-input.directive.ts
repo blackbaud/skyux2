@@ -83,10 +83,21 @@ export class SkyDatepickerInputDirective implements
   public startingDay: number = 0;
 
   @Input()
-  public disabled: boolean;
+  public get disabled(): boolean {
+    return this._disabled || false;
+  }
+  public set disabled(value: boolean) {
+    this.skyDatepickerInput.disabled = value;
+    this.renderer.setElementProperty(
+      this.elRef.nativeElement,
+      'disabled',
+      value);
+    this._disabled = value;
+  }
 
   private dateFormatter = new SkyDateFormatter();
   private modelValue: Date;
+  private _disabled: boolean;
 
   public constructor(
     private renderer: Renderer,
@@ -113,7 +124,6 @@ export class SkyDatepickerInputDirective implements
         'aria-label',
         this.skyResourceSvc.getString('date_field_default_label'));
     }
-    this.setDisabledState(this.disabled);
   }
 
   public ngOnDestroy() {
@@ -138,10 +148,6 @@ export class SkyDatepickerInputDirective implements
     if (changes['startingDay']) {
       this._validatorChange();
       this.skyDatepickerInput.startingDay = this.startingDay;
-    }
-
-    if (changes['disabled']) {
-      this.setDisabledState(this.disabled);
     }
   }
 
@@ -168,15 +174,6 @@ export class SkyDatepickerInputDirective implements
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
 
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
-
-  public setDisabledState(isDisabled: boolean) {
-    this.skyDatepickerInput.disabled = isDisabled;
-    this.renderer.setElementProperty(
-      this.elRef.nativeElement,
-      'disabled',
-      isDisabled);
-    this.disabled = isDisabled;
-  }
 
   public writeValue(value: any) {
     if (this.dateFormatter.dateIsValid(value)) {

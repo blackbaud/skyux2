@@ -74,9 +74,20 @@ export class SkyTimepickerInputDirective implements
   public returnFormat: string;
 
   @Input()
-  public disabled: boolean;
+  public get disabled(): boolean {
+    return this._disabled || false;
+  }
+  public set disabled(value: boolean) {
+    this.skyTimepickerInput.disabled = value;
+    this.renderer.setElementProperty(
+      this.elRef.nativeElement,
+      'disabled',
+      value);
+    this._disabled = value;
+  }
 
   private modelValue: SkyTimepickerTimeOutput;
+  private _disabled: boolean;
 
   public constructor(
     private renderer: Renderer,
@@ -97,7 +108,6 @@ export class SkyTimepickerInputDirective implements
         'aria-label',
         this.skyResourceService.getString('timepicker_input_default_label'));
     }
-    this.setDisabledState(this.disabled);
   }
 
   public ngOnDestroy() {
@@ -108,10 +118,6 @@ export class SkyTimepickerInputDirective implements
     this._validatorChange();
     this.skyTimepickerInput.setFormat(this.timeFormat);
     this.skyTimepickerInput.returnFormat = this.returnFormat;
-
-    if (changes['disabled']) {
-      this.setDisabledState(this.disabled);
-    }
   }
 
   @HostListener('change', ['$event'])
@@ -152,15 +158,6 @@ export class SkyTimepickerInputDirective implements
     }
 
     return undefined;
-  }
-
-  public setDisabledState(isDisabled: boolean) {
-    this.skyTimepickerInput.disabled = isDisabled;
-    this.renderer.setElementProperty(
-      this.elRef.nativeElement,
-      'disabled',
-      isDisabled);
-    this.disabled = isDisabled;
   }
 
   private writeModelValue(model: SkyTimepickerTimeOutput) {

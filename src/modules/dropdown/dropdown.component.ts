@@ -43,7 +43,7 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   public alignment: SkyPopoverAlignment = 'left';
 
   @Input()
-  public get buttonStyle(): string{
+  public get buttonStyle(): string {
     return this._buttonStyle || 'default';
   }
 
@@ -141,21 +141,21 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
         // After an item is selected with the enter key,
         // wait a moment before returning focus to the dropdown trigger element.
         case 'enter':
-        this.windowRef.getWindow().setTimeout(() => {
-          this.sendMessage(SkyDropdownMessageType.FocusTriggerButton);
-        });
-        break;
+          this.windowRef.getWindow().setTimeout(() => {
+            this.sendMessage(SkyDropdownMessageType.FocusTriggerButton);
+          });
+          break;
 
         // Allow the menu to be opened with the arrowdown key
         // if it is first opened with the mouse.
         case 'down':
         case 'arrowdown':
-        if (!this.isKeyboardActive) {
-          this.isKeyboardActive = true;
-          this.sendMessage(SkyDropdownMessageType.FocusFirstItem);
-          event.preventDefault();
-        }
-        break;
+          if (!this.isKeyboardActive) {
+            this.isKeyboardActive = true;
+            this.sendMessage(SkyDropdownMessageType.FocusFirstItem);
+            event.preventDefault();
+          }
+          break;
       }
 
       return;
@@ -164,15 +164,15 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
     /* tslint:disable-next-line:switch-default */
     switch (key) {
       case 'enter':
-      this.isKeyboardActive = true;
-      break;
+        this.isKeyboardActive = true;
+        break;
 
       case 'down':
       case 'arrowdown':
-      this.isKeyboardActive = true;
-      this.sendMessage(SkyDropdownMessageType.Open);
-      event.preventDefault();
-      break;
+        this.isKeyboardActive = true;
+        this.sendMessage(SkyDropdownMessageType.Open);
+        event.preventDefault();
+        break;
     }
   }
 
@@ -195,28 +195,30 @@ export class SkyDropdownComponent implements OnInit, OnDestroy {
   }
 
   private handleIncomingMessages(message: SkyDropdownMessage) {
-    /* tslint:disable-next-line:switch-default */
-    switch (message.type) {
-      case SkyDropdownMessageType.Open:
-      this.positionPopover();
-      break;
+    if (!this.disabled) {
+      /* tslint:disable-next-line:switch-default */
+      switch (message.type) {
+        case SkyDropdownMessageType.Open:
+          this.positionPopover();
+          break;
 
-      case SkyDropdownMessageType.Close:
-      this.popover.close();
-      break;
+        case SkyDropdownMessageType.Close:
+          this.popover.close();
+          break;
 
-      case SkyDropdownMessageType.Reposition:
-      // Only reposition the dropdown if it is already open.
-      if (this._isOpen) {
-        this.windowRef.getWindow().setTimeout(() => {
-          this.popover.reposition();
-        });
+        case SkyDropdownMessageType.Reposition:
+          // Only reposition the dropdown if it is already open.
+          if (this._isOpen) {
+            this.windowRef.getWindow().setTimeout(() => {
+              this.popover.reposition();
+            });
+          }
+          break;
+
+        case SkyDropdownMessageType.FocusTriggerButton:
+          this.triggerButton.nativeElement.focus();
+          break;
       }
-      break;
-
-      case SkyDropdownMessageType.FocusTriggerButton:
-      this.triggerButton.nativeElement.focus();
-      break;
     }
   }
 
