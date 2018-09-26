@@ -39,7 +39,7 @@ describe('Progress indicator component', function () {
     fixture = TestBed.createComponent(ProgressIndicatorTestComponent);
   });
 
-  it('should use horizontal mode if set', fakeAsync(() => {
+  it('should use horizontal display if set', fakeAsync(() => {
     fixture.componentInstance.displayMode = SkyProgressIndicatorDisplayMode.Horizontal;
     fixture.detectChanges();
     tick();
@@ -54,6 +54,34 @@ describe('Progress indicator component', function () {
 
     expect(element.querySelector('.sky-progress-indicator-display')).toBeTruthy();
     expect(element.querySelector('.sky-progress-indicator-item-step')).toBeFalsy();
+  }));
+
+  it('should use passive mode if set', fakeAsync(() => {
+    fixture.componentInstance.isPassive = true;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    componentInstance = fixture.componentInstance.progressIndicator;
+
+    expect(componentInstance.isPassive).toBeTruthy();
+    for (let item of componentInstance.progressItems.toArray()) {
+      expect(item.isPassive).toBeTruthy();
+    }
+  }));
+
+  // May be removed in the future if support is added
+  it('should not use passive mode if set for horizontal display', fakeAsync(() => {
+    fixture.componentInstance.displayMode = SkyProgressIndicatorDisplayMode.Horizontal;
+    fixture.componentInstance.isPassive = true;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+    componentInstance = fixture.componentInstance.progressIndicator;
+
+    expect(componentInstance.isPassive).toBeFalsy();
+    for (let item of componentInstance.progressItems.toArray()) {
+      expect(item.isPassive).toBeFalsy();
+    }
   }));
 
   it('should use starting index if set', fakeAsync(() => {
@@ -82,7 +110,7 @@ describe('Progress indicator component', function () {
       componentInstance = fixture.componentInstance.progressIndicator;
     }));
 
-    it('should use vertical mode by default', fakeAsync(() => {
+    it('should use vertical display by default', fakeAsync(() => {
       let element = fixture.nativeElement;
 
       expect(componentInstance.isHorizontal).toBeFalsy();
@@ -92,6 +120,13 @@ describe('Progress indicator component', function () {
 
       expect(element.querySelector('.sky-progress-indicator-display')).toBeFalsy();
       expect(element.querySelector('.sky-progress-indicator-item-step')).toBeTruthy();
+    }));
+
+    it('should not use passive mode by default', fakeAsync(() => {
+      expect(componentInstance.isPassive).toBeFalsy();
+      for (let item of componentInstance.progressItems.toArray()) {
+        expect(item.isPassive).toBeFalsy();
+      }
     }));
 
     it('should set item numbers', () => {

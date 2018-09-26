@@ -47,6 +47,15 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
   }
 
   @Input()
+  public get isPassive(): boolean {
+    // Passive mode is not supported for horizontal displays at the moment
+    return false || (this._isPassive && !this.isHorizontal);
+  }
+  public set isPassive(value: boolean) {
+    this._isPassive = value;
+  }
+
+  @Input()
   public messageStream = new Subject<SkyProgressIndicatorMessageType>();
 
   @Output()
@@ -57,6 +66,7 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
 
   private activeIndex = 0;
   private _displayMode: SkyProgressIndicatorDisplayMode;
+  private _isPassive: boolean;
   private ngUnsubscribe = new Subject();
 
   public ngAfterContentInit(): void {
@@ -118,6 +128,7 @@ export class SkyProgressIndicatorComponent implements AfterContentInit, OnDestro
     this.progressItems.forEach((element, index) => {
       element.displayMode = this.displayMode;
       element.itemNumber = index + 1;
+      element.isPassive = this.isPassive;
     });
   }
 

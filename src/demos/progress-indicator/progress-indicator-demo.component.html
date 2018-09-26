@@ -1,6 +1,7 @@
 <h2>Progress Indicator</h2>
 
 <sky-progress-indicator
+  id="waterfall-indicator"
   [messageStream]="progressMessageStream"
   [startingIndex]="2"
   (progressChanges)="updateIndex($event)"
@@ -93,11 +94,33 @@
   </sky-progress-indicator-reset-button>
 </sky-progress-indicator>
 <hr>
-<h2>Progress indicator wizard</h2>
+<h2>Progress indicator passive</h2>
 <button
-  class="sky-btn sky-btn-default"
+  class="sky-btn sky-btn-link"
+  skyPopoverPlacement="right"
+  skyPopoverTrigger="mouseenter"
   type="button"
-  (click)="openWizard()"
+  [skyPopover]="myPopover1"
 >
-  Open wizard
+  In progress
 </button>
+
+<sky-popover #myPopover1>
+  <sky-progress-indicator
+    [isPassive]="true"
+    [startingIndex]="1"
+  >
+    <sky-progress-indicator-item
+      title="Received (02-19-2003)"
+    >
+    </sky-progress-indicator-item>
+    <sky-progress-indicator-item
+      title="Awaiting approval"
+    >
+    </sky-progress-indicator-item>
+    <sky-progress-indicator-item
+      title="HIDDEN TITLE"
+    >
+    </sky-progress-indicator-item>
+  </sky-progress-indicator>
+</sky-popover>
