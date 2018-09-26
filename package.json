@@ -42,7 +42,7 @@
   "dependencies": {
     "@skyux/core": "3.1.0",
     "@skyux/indicators": "3.0.0-rc.0",
-    "@skyux/theme": "3.1.1",
+    "@skyux/theme": "3.2.0",
     "dragula": "3.7.2",
     "intl": "1.2.5",
     "microedge-rxstate": "2.0.2",
