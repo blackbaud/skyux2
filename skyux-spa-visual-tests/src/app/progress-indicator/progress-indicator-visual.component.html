@@ -18,6 +18,36 @@
 </sky-progress-indicator>
 
 <button
+  id="btn-passive"
+  class="sky-btn sky-btn-link"
+  skyPopoverPlacement="right"
+  type="button"
+  [skyPopover]="myPopover1"
+>
+  In progress
+</button>
+
+<sky-popover #myPopover1>
+  <sky-progress-indicator
+    [isPassive]="true"
+    [startingIndex]="1"
+  >
+    <sky-progress-indicator-item
+      title="Received (02-19-2003)"
+    >
+    </sky-progress-indicator-item>
+    <sky-progress-indicator-item
+      title="Awaiting approval"
+    >
+    </sky-progress-indicator-item>
+    <sky-progress-indicator-item
+      title=""
+    >
+    </sky-progress-indicator-item>
+  </sky-progress-indicator>
+</sky-popover>
+
+<button
   class="sky-btn sky-btn-primary"
   id="btn-regress"
   type="button"

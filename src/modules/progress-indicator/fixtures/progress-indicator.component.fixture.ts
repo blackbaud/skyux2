@@ -29,6 +29,7 @@ import {
 })
 export class ProgressIndicatorTestComponent {
   public displayMode: SkyProgressIndicatorDisplayMode;
+  public isPassive: boolean;
   public startingIndex: number;
 
   public previousButtonText: string;
