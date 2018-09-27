@@ -669,6 +669,7 @@ describe('datepicker', () => {
         component.isDisabled = true;
         fixture.detectChanges();
 
+        expect(fixture.componentInstance.inputDirective.disabled).toBeTruthy();
         expect(fixture.debugElement.query(By.css('input')).nativeElement.disabled).toBeTruthy();
         expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeTruthy();
       });
@@ -677,6 +678,7 @@ describe('datepicker', () => {
         component.isDisabled = false;
         fixture.detectChanges();
 
+        expect(fixture.componentInstance.inputDirective.disabled).toBeFalsy();
         expect(fixture.debugElement.query(By.css('input')).nativeElement.disabled).toBeFalsy();
         expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeFalsy();
       });

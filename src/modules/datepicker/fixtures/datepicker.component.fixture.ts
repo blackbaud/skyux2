@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild
+} from '@angular/core';
+
+import {
+  SkyDatepickerInputDirective
+} from '../datepicker-input.directive';
 
 @Component({
   selector: 'sky-test-cmp',
   templateUrl: './datepicker.component.fixture.html'
 })
 export class DatepickerTestComponent {
+
+  @ViewChild(SkyDatepickerInputDirective)
+  public inputDirective: SkyDatepickerInputDirective;
 
   public minDate: Date;
 
