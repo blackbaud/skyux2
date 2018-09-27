@@ -684,10 +684,12 @@ describe('Dropdown component', () => {
 
   describe('disabled state', () => {
 
-    it('should disable the input and dropdown when disable is set to true', () => {
+    beforeEach(() => {
       component.isDisabled = true;
       fixture.detectChanges();
+    });
 
+    it('should disable the input and dropdown when disable is set to true', () => {
       expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeTruthy();
     });
 
@@ -696,6 +698,34 @@ describe('Dropdown component', () => {
       fixture.detectChanges();
 
       expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeFalsy();
+    });
+
+    describe('message stream', () => {
+      it('should not allow opening and closing the menu if disabled', fakeAsync(() => {
+        component.sendMessage(SkyDropdownMessageType.Open);
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        verifyMenuVisibility(false);
+
+        component.sendMessage(SkyDropdownMessageType.Close);
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        verifyMenuVisibility(false);
+      }));
+
+      it('should not allow focusing trigger button if disabled', fakeAsync(() => {
+        component.sendMessage(SkyDropdownMessageType.FocusTriggerButton);
+
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        verifyTriggerButtonHasFocus(false);
+      }));
     });
 
   });
