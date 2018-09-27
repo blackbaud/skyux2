@@ -82,8 +82,22 @@ export class SkyDatepickerInputDirective implements
   @Input()
   public startingDay: number = 0;
 
+  @Input()
+  public get disabled(): boolean {
+    return this._disabled || false;
+  }
+  public set disabled(value: boolean) {
+    this.skyDatepickerInput.disabled = value;
+    this.renderer.setElementProperty(
+      this.elRef.nativeElement,
+      'disabled',
+      value);
+    this._disabled = value;
+  }
+
   private dateFormatter = new SkyDateFormatter();
   private modelValue: Date;
+  private _disabled: boolean;
 
   public constructor(
     private renderer: Renderer,
