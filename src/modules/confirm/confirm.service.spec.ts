@@ -13,7 +13,17 @@ describe('Confirm service', () => {
   let confirmService: SkyConfirmService;
 
   beforeEach(() => {
-    modalService = new MockSkyModalService(undefined, undefined, undefined);
+    modalService = new MockSkyModalService(
+      {
+        resolveComponentFactory() {}
+      } as any,
+      {
+        bootstrap() {}
+      } as any,
+      {
+        addHostEl: function (): any {}
+      } as any
+    );
     confirmService = new SkyConfirmService(modalService);
   });
 
