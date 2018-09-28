@@ -285,7 +285,7 @@ describe('Tile dashboard service', () => {
 
   function testIntercolumnNavigation(fixture: ComponentFixture<TileDashboardTestComponent>, keyName: string) {
     let handle: HTMLElement = fixture.nativeElement.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle');
-    handle.focus();
+    (document.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle') as any).focus();
     SkyAppTestUtility.fireDomEvent(handle, 'keydown', {
       keyboardEventInit: { key: keyName }
     });
