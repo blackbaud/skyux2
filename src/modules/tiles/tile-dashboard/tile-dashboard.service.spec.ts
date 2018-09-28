@@ -284,7 +284,8 @@ describe('Tile dashboard service', () => {
   });
 
   function testIntercolumnNavigation(fixture: ComponentFixture<TileDashboardTestComponent>, keyName: string) {
-    let handle = fixture.nativeElement.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle');
+    let handle: HTMLElement = fixture.nativeElement.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle');
+    (document.querySelector('div.sky-test-tile-1 .sky-tile-grab-handle') as any).focus();
     SkyAppTestUtility.fireDomEvent(handle, 'keydown', {
       keyboardEventInit: { key: keyName }
     });
@@ -303,6 +304,8 @@ describe('Tile dashboard service', () => {
       expect(columnEls[0].querySelector('div.sky-test-tile-1')).toBeTruthy();
       expect(columnEls[0].querySelectorAll('sky-tile')[2].parentElement).toHaveCssClass('sky-test-tile-1');
     }
+    expect(document.activeElement === handle).toBeTruthy();
+    expect(document.hasFocus()).toBeTruthy();
   }
 
   it('should allow tiles to be moved between columns with the keyboard', fakeAsync(() => {
