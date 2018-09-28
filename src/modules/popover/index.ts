@@ -1,6 +1,8 @@
 export {
   SkyPopoverAdapterElements,
   SkyPopoverAlignment,
+  SkyPopoverMessage,
+  SkyPopoverMessageType,
   SkyPopoverPlacement,
   SkyPopoverPosition,
   SkyPopoverTrigger

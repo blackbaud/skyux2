@@ -27,6 +27,7 @@ export class DropdownTestComponent {
   public title: string;
   public trigger: String;
   public dropdownController = new Subject<SkyDropdownMessage>();
+  public isDisabled: boolean;
 
   public items: any[] = [
     { name: 'Option 1', disabled: false },
