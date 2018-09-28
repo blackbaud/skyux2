@@ -1,5 +1,10 @@
 <div class="sky-grid">
-  <div class="sky-grid-table-container" [style.height.px]="height" [style.width.px]="width">
+  <div
+    class="sky-grid-table-container"
+    [style.height.px]="height"
+    [style.width.px]="width"
+    #gridContainer
+  >
     <table
       class="sky-grid-table"
       [ngClass]="getTableClassNames()"

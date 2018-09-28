@@ -17,6 +17,7 @@
   margin: 0;
   font-size: $sky-font-size-base;
   min-width: 100%;
+  overflow: hidden;
 
   &.sky-grid-fit {
     width: 100%;

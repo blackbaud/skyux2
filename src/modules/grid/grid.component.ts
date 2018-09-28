@@ -109,6 +109,8 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private columnElementRefs: QueryList<ElementRef>;
   @ViewChildren('colSizeRange')
   private columnRangeInputElementRefs: QueryList<ElementRef>;
+  @ViewChild('gridContainer')
+  private tableContainerElementRef: ElementRef;
   @ViewChild('gridTable')
   private tableElementRef: ElementRef;
   @ViewChild('resizeBar')
@@ -311,7 +313,8 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
     // Show visual indicator of where mouse is dragging (resizeBar).
     this.ref.detectChanges();
-    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
+    let parentScroll = this.tableContainerElementRef.nativeElement.scrollLeft;
+    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left - parentScroll;
     this.gridAdapter.setStyle(this.resizeBar, 'left', resizeBarX + 'px');
 
     event.preventDefault();
@@ -349,11 +352,12 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       return;
     }
 
-    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
+    let parentScroll = this.tableContainerElementRef.nativeElement.scrollLeft;
+    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left - parentScroll;
     this.gridAdapter.setStyle(this.resizeBar, 'left', resizeBarX + 'px');
   }
 
-  @HostListener('document:click', ['$event'])
+  @HostListener('document:mouseup', ['$event'])
   public onResizeHandleRelease(event: MouseEvent) {
     if (this.isDraggingResizeHandle) {
       this.showResizeBar = false;
@@ -467,6 +471,14 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
     this.columnElementRefs.forEach((col, index) => {
       let width = Math.max(col.nativeElement.offsetWidth, this.minColWidth);
+
+      // Remove one pixel from last column to prevent the addition of sub-pixel widths
+      // that cause the table to overflow, thus causing the scrollbar to show.
+      // This is mostly apparent in Firefox.
+      if (index === this.columnElementRefs.length - 1) {
+        width--;
+      }
+
       this.getColumnModelByIndex(index).width = width;
     });
 
