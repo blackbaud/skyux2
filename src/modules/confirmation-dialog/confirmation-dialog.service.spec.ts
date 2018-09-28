@@ -28,7 +28,7 @@ describe('Confirmation dialog service', () => {
       providers: [{ provide: SkyConfirmationDialogConfig, useValue: config }]
     };
 
-    let service = new SkyConfirmationDialogService(modalService);
+    let service = new SkyConfirmationDialogService(modalService as any);
     service.open(config);
 
     expect(modalService.openCalls.length).toBe(1);
