@@ -1,5 +1,3 @@
-import { SkyTileDashboardConfigLayoutTile } from './tile-dashboard-config-layout-tile';
-
-export interface SkyTileDashboardConfigLayoutColumn {
-  tiles: SkyTileDashboardConfigLayoutTile[];
-}
+export {
+  SkyTileDashboardConfigLayoutColumn
+} from '@skyux/tiles/modules/tiles';
