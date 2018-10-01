@@ -1,3 +1,3 @@
 export {
   SkyRadioModule
-} from '@skyux/forms/modules/radio/radio.module';
+} from '@skyux/forms/src/app/public/modules/radio/radio.module';

@@ -1,3 +1,3 @@
 export {
   SkyFileItem
-} from '@skyux/forms/modules/file-attachment/file-item';
+} from '@skyux/forms/src/app/public/modules/file-attachment/file-item';

@@ -1,3 +1,3 @@
 export {
   SkyFileLink
-} from '@skyux/forms/modules/file-attachment/file-link';
+} from '@skyux/forms/src/app/public/modules/file-attachment/file-link';

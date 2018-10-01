@@ -1,3 +1,3 @@
 export {
   SkyRadioLabelComponent
-} from '@skyux/forms/modules/radio/radio-label.component';
+} from '@skyux/forms/src/app/public/modules/radio/radio-label.component';

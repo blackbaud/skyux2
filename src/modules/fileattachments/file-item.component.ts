@@ -1,3 +1,3 @@
 export {
   SkyFileItemComponent
-} from '@skyux/forms/modules/file-attachment/file-item.component';
+} from '@skyux/forms/src/app/public/modules/file-attachment/file-item.component';

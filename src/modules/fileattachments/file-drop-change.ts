@@ -1,3 +1,3 @@
 export {
   SkyFileDropChange
-} from '@skyux/forms/modules/file-attachment/file-drop-change';
+} from '@skyux/forms/src/app/public/modules/file-attachment/file-drop-change';
