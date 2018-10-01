@@ -18,7 +18,17 @@ import {
 
 describe('Error modal service', () => {
   it('Test open is called with correct parameters', () => {
-    let modalService = new MockModalService(undefined, undefined, undefined);
+    let modalService = new MockModalService(
+      {
+        resolveComponentFactory() {}
+      } as any,
+      {
+        bootstrap() {}
+      } as any,
+      {
+        addHostEl: function (): any {}
+      } as any
+    );
 
     const config: ErrorModalConfig = {
       errorTitle: 'Error title',

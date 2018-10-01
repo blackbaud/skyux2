@@ -73,7 +73,21 @@ export class SkyTimepickerInputDirective implements
   @Input()
   public returnFormat: string;
 
+  @Input()
+  public get disabled(): boolean {
+    return this._disabled || false;
+  }
+  public set disabled(value: boolean) {
+    this.skyTimepickerInput.disabled = value;
+    this.renderer.setElementProperty(
+      this.elRef.nativeElement,
+      'disabled',
+      value);
+    this._disabled = value;
+  }
+
   private modelValue: SkyTimepickerTimeOutput;
+  private _disabled: boolean;
 
   public constructor(
     private renderer: Renderer,
@@ -145,6 +159,7 @@ export class SkyTimepickerInputDirective implements
 
     return undefined;
   }
+
   private writeModelValue(model: SkyTimepickerTimeOutput) {
     let setElementValue: string;
     /* istanbul ignore next */

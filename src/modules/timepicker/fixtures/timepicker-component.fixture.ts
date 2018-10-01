@@ -18,4 +18,5 @@ export class TimepickerTestComponent {
 
   @ViewChild(SkyTimepickerInputDirective)
   public timepicker: SkyTimepickerInputDirective;
+  public isDisabled: boolean;
 }
