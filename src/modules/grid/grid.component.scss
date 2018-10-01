@@ -1,6 +1,8 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
 
+$sky-grid-resize-handle-width: 5px;
+
 .sky-grid {
   position: relative;
   display: block;
@@ -17,7 +19,6 @@
   margin: 0;
   font-size: $sky-font-size-base;
   min-width: 100%;
-  overflow: hidden;
 
   &.sky-grid-fit {
     width: 100%;
@@ -85,14 +86,18 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 100%;
-    width: 1px;
+    width: $sky-grid-resize-handle-width;
     position: absolute;
     display: block;
     top: 0;
     bottom: 0;
     right: 0;
 
-     &::-moz-range-thumb {
+    &::-moz-range-track {
+      background: transparent;
+    }
+
+    &::-moz-range-thumb {
       -webkit-appearance: none;
       -moz-appearance: none;
       width: 0;
@@ -102,7 +107,8 @@
       background: none;
       display: none;
     }
-     &::-ms-thumb {
+
+    &::-ms-thumb {
       -webkit-appearance: none;
       -moz-appearance: none;
       width: 0;
@@ -112,7 +118,8 @@
       background: none;
       display: none;
     }
-     &::-webkit-slider-thumb {
+
+    &::-webkit-slider-thumb {
       -webkit-appearance: none;
       -moz-appearance: none;
       width: 0;
@@ -121,7 +128,11 @@
       border: 0 none;
       background: none;
       display: none;
-     }
+    }
+
+    &:focus {
+      background-color: $sky-highlight-color-info;
+    }
   }
 }
 
@@ -139,23 +150,25 @@
 
 .sky-grid-resize-handle {
   position: absolute;
-  right: -14px;
+  right: 0;
   top: 0;
-  width: 30px;
+  bottom: 0;
+  width: $sky-grid-resize-handle-width;
   z-index: 2;
-  min-height: 20px;
-  height: 100% !important;
-  vertical-align: middle;
   cursor: col-resize;
+
+  &:hover {
+    background-color: $sky-highlight-color-info;
+  }
 }
 
-#sky-grid-resize-bar {
+.sky-grid-resize-bar {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 99;
   height: 100%;
-  width: 5px;
+  width: $sky-grid-resize-handle-width;
   background: black;
   opacity: 0.6;
 }
