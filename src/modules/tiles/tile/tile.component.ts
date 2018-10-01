@@ -52,7 +52,7 @@ export class SkyTileComponent {
     this.isCollapsedChange.emit(value);
   }
 
-  @ViewChild('grabHandle')
+  @ViewChild('grabHandle', { read: ElementRef })
   private grabHandle: ElementRef;
 
   @ViewChild('titleContainer')
