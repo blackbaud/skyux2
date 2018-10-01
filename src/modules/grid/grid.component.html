@@ -29,8 +29,6 @@
               class="overflow"
               [ngClass]="getTableHeaderClassNames(column)"
               [tabIndex]="column.isSortable ? 0 : -1"
-              [style.max-width.px]="column.width"
-              [style.width.px]="column.width"
             >
               {{column.heading}}
               <sky-icon
@@ -39,33 +37,33 @@
                 [icon]="getCaretIconNames(column)"
               >
               </sky-icon>
+              <span
+                *ngIf="(fit==='width' && !last) || (fit==='scroll')"
+                aria-hidden="true"
+                class="sky-grid-resize-handle"
+                role="separator"
+                tabindex="-1"
+                [attr.sky-cmp-index]="i"
+                (mousedown)="onMouseDownResizeCol($event)">
+              </span>
+              <input
+                aria-label="Width of column"
+                class="sky-grid-column-input-aria-only"
+                role="separator"
+                type="range"
+                [attr.aria-controls]="'sky-grid-' + gridId + '-column-' + i"
+                [attr.aria-valuemin]="minColWidth"
+                [attr.aria-valuemax]="maxColWidth"
+                [attr.aria-valuenow]="column.width"
+                [attr.sky-cmp-index]="i"
+                [min]="minColWidth"
+                [max]="maxColWidth"
+                [step]="columnResizeStep"
+                [(ngModel)]="column.width"
+                (keydown)="onKeydownResizeCol($event)"
+                (change)="onInputChangeResizeCol($event)"
+                #colSizeRange />
             </div>
-            <span
-              *ngIf="(fit==='width' && !last) || (fit==='scroll')"
-              aria-hidden="true"
-              class="sky-grid-resize-handle"
-              role="separator"
-              tabindex="-1"
-              [attr.sky-cmp-index]="i"
-              (mousedown)="onMouseDownResizeCol($event)">
-            </span>
-            <input
-              aria-label="Width of column"
-              class="sky-grid-column-input-aria-only"
-              role="separator"
-              type="range"
-              [attr.aria-controls]="'sky-grid-' + gridId + '-column-' + i"
-              [attr.aria-valuemin]="minColWidth"
-              [attr.aria-valuemax]="maxColWidth"
-              [attr.aria-valuenow]="column.width"
-              [attr.sky-cmp-index]="i"
-              [min]="minColWidth"
-              [max]="maxColWidth"
-              [step]="columnResizeStep"
-              [(ngModel)]="column.width"
-              (keydown)="onKeydownResizeCol($event)"
-              (change)="onInputChangeResizeCol($event)"
-              #colSizeRange />
           </th>
         </tr>
       </thead>
@@ -83,8 +81,7 @@
               [fieldSelector]="column.field"
               [item]="item"
               [columnId]="column.id"
-              [attr.sky-cmp-id]="column.id || column.field"
-              [style.width.px]="column.width">
+              [attr.sky-cmp-id]="column.id || column.field">
             </sky-grid-cell>
           </td>
         </tr>
@@ -93,7 +90,7 @@
     <div
       *ngIf="showResizeBar"
       aria-hidden="true"
-      id="sky-grid-resize-bar"
+      class="sky-grid-resize-bar"
       role="separator"
       tabindex="-1"
       #resizeBar>
