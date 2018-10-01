@@ -18,10 +18,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/take';
 
 import {
-  SkyCheckboxChange
-} from '@skyux/forms/src/app/public/modules/checkbox/types/checkbox-change';
-
-import {
   ListViewComponent
 } from '../list/list-view.component';
 
@@ -71,6 +67,7 @@ import {
   ListSelectedSetItemsSelectedAction
 } from '../list/state/selected/actions';
 import { AsyncItem } from 'microedge-rxstate';
+import { SkyCheckboxChange } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'sky-list-view-checklist',

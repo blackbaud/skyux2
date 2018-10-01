@@ -5,12 +5,12 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCheckboxChange
-} from '@skyux/forms/src/app/public/modules/checkbox/types/checkbox-change';
-
-import {
   skyAnimationSlide
 } from '../animation/slide';
+
+import {
+  SkyCheckboxChange
+} from '../checkbox/checkbox.component';
 
 import {
   SkyLogService
