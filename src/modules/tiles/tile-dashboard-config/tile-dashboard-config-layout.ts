@@ -1,3 +1,3 @@
 export {
   SkyTileDashboardConfigLayout
-} from '@skyux/tiles/modules/tiles';
+} from '@skyux/tiles/modules/tiles/tile-dashboard-config/tile-dashboard-config-layout';

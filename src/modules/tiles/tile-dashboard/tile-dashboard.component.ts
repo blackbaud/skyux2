@@ -1,3 +1,3 @@
 export {
   SkyTileDashboardComponent
-} from '@skyux/tiles/modules/tiles';
+} from '@skyux/tiles/modules/tiles/tile-dashboard/tile-dashboard.component';
