@@ -102,7 +102,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   // Column resizing.
   public gridId: number = ++nextId;
   public minColWidth = 50;
-  public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work without a value.
+  public maxColWidth = 9999; // This is an arbitrary number, as the input range picker won't work without a value.
   public columnResizeStep = 10;
   public showResizeBar: boolean = false;
   @ViewChildren('gridCol')
@@ -465,22 +465,22 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
   // Applies width to each column.
   private initColumnWidths() {
-    if (this.fit === 'scroll') {
-      this.initializeTableWidth();
-    }
+    // Establish table width.
+    this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
 
+    // Set column widths based on the width initially given by the browser.
     this.columnElementRefs.forEach((col, index) => {
       let width = Math.max(col.nativeElement.offsetWidth, this.minColWidth);
-
-      // Remove one pixel from last column to prevent the addition of sub-pixel widths
-      // that cause the table to overflow, thus causing the scrollbar to show.
-      // This is mostly apparent in Firefox.
-      // if (index === this.columnElementRefs.length - 1) {
-      //   width--;
-      // }
-
       this.getColumnModelByIndex(index).width = width;
     });
+
+    // Set table to display:block to avoid any sub-pixel redering that may cause unwanted horizontal scrolling.
+    this.gridAdapter.setStyle(this.tableElementRef, 'display', 'block');
+
+    // If table is set to scroll, remove min-width setting.
+    if (this.fit === 'scroll') {
+      this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
+    }
 
     this.ref.detectChanges();
   }
