@@ -470,8 +470,11 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
 
     // Set column widths based on the width initially given by the browser.
+    // computedWidth prevents accidental overflow for browsers with sub-pixel widths.
     this.columnElementRefs.forEach((col, index) => {
-      let width = Math.max(col.nativeElement.offsetWidth, this.minColWidth);
+      let computedWidth = parseFloat(window.getComputedStyle(col.nativeElement).width);
+      let offsetWidth = col.nativeElement.offsetWidth;
+      let width = Math.max(computedWidth || offsetWidth, this.minColWidth);
       this.getColumnModelByIndex(index).width = width;
     });
 
