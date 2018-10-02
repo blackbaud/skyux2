@@ -14,8 +14,7 @@ import {
   HostListener,
   ElementRef,
   ViewChildren,
-  ViewChild,
-  AfterViewInit
+  ViewChild
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -53,7 +52,7 @@ let nextId = 0;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChanges, OnDestroy {
+export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy {
   @Input()
   public selectedColumnIds: Array<string>;
 
@@ -120,6 +119,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private activeResizeColumnIndex: string;
   private startColumnWidth: number;
   private xPosStart: number;
+  private isResized: boolean;
 
   constructor(
     private dragulaService: DragulaService,
@@ -167,13 +167,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
         this.onHeaderDrop(selectedColumnIds);
       }
     );
-  }
-
-  public ngAfterViewInit() {
-    this.initColumnWidths();
-    if (this.fit === 'width') {
-      this.updateMaxRange();
-    }
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -305,6 +298,15 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   }
 
   public onMouseDownResizeCol(event: MouseEvent) {
+    // If this table hasn't been resized, initialize all the resize widths.
+    if (!this.isResized) {
+      this.initColumnWidths();
+      if (this.fit === 'width') {
+        this.updateMaxRange();
+      }
+      this.isResized = true;
+    }
+
     this.initializeResizeColumn(event);
 
     this.isDraggingResizeHandle = true;
@@ -463,7 +465,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     }
   }
 
-  // Applies width to each column.
   private initColumnWidths() {
     // Establish table width.
     this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
@@ -474,23 +475,12 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       this.getColumnModelByIndex(index).width = width;
     });
 
-    // Set table to display:block to avoid any sub-pixel redering that may cause unwanted horizontal scrolling.
-    this.gridAdapter.setStyle(this.tableElementRef, 'display', 'block');
-
-    // If table is set to scroll, remove min-width setting.
+    // 'scroll' tables should be allowed to expand outside of their constraints.
     if (this.fit === 'scroll') {
       this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
     }
 
     this.ref.detectChanges();
-  }
-
-  // Applies css width to the table, and removes min-width=100%.
-  // This should only be used when fit=scroll.
-  private initializeTableWidth() {
-    this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
-    // this.gridAdapter.setStyle(this.tableElementRef, 'width', `${this.tableWidth}px`);
-    // this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
   }
 
   private getColumnWidthModelChange() {
