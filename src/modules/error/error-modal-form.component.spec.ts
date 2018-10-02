@@ -12,8 +12,9 @@ import { SkyErrorModalFormComponent } from './error-modal-form.component';
 import { SkyModalHostService } from '../modal/modal-host.service';
 import { SkyModalConfiguration } from '../modal/modal-configuration';
 import { MockHostService, SkyModalInstanceMock } from './fixtures/mocks';
+import { SkyErrorModule } from './error.module';
 
-fdescribe('Error modal form component', () => {
+describe('Error modal form component', () => {
   const mockWindowService = {
     getWindow(): any {
       return {
@@ -34,7 +35,8 @@ fdescribe('Error modal form component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        SkyModalModule
+        SkyModalModule,
+        SkyErrorModule
       ],
       providers: [
         { provide: ErrorModalConfig, useValue: config },
