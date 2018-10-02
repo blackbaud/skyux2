@@ -1,5 +1,3 @@
-export class SkyModalCloseArgs {
-  public reason: string;
-  public data: any;
-  constructor() {}
-}
+export {
+  SkyModalCloseArgs
+} from '@skyux/modals/modules/modal/modal-close-args';

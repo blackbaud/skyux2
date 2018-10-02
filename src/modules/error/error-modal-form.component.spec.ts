@@ -13,7 +13,7 @@ import { SkyModalHostService } from '../modal/modal-host.service';
 import { SkyModalConfiguration } from '../modal/modal-configuration';
 import { MockHostService, SkyModalInstanceMock } from './fixtures/mocks';
 
-describe('Error modal form component', () => {
+fdescribe('Error modal form component', () => {
   const mockWindowService = {
     getWindow(): any {
       return {
