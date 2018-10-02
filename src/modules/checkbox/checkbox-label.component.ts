@@ -1,3 +1,3 @@
 export {
   SkyCheckboxLabelComponent
-} from '@skyux/forms/src/app/public/modules/checkbox/checkbox-label.component';
+} from '@skyux/forms/modules/checkbox/checkbox-label.component';

@@ -1,3 +1,3 @@
 export {
   SkyFileSizePipe
-} from '@skyux/forms/src/app/public/modules/file-attachment/file-size.pipe';
+} from '@skyux/forms/modules/file-attachment/file-size.pipe';
