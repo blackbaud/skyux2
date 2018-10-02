@@ -301,9 +301,6 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     // If this table hasn't been resized, initialize all the resize widths.
     if (!this.isResized) {
       this.initColumnWidths();
-      if (this.fit === 'width') {
-        this.updateMaxRange();
-      }
       this.isResized = true;
     }
 
@@ -324,6 +321,12 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
   }
 
   public onKeydownResizeCol(event: KeyboardEvent) {
+    // If this table hasn't been resized, initialize all the resize widths.
+    if (!this.isResized) {
+      this.initColumnWidths();
+      this.isResized = true;
+    }
+
     this.initializeResizeColumn(event);
   }
 
@@ -481,6 +484,11 @@ export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy 
     // 'scroll' tables should be allowed to expand outside of their constraints.
     if (this.fit === 'scroll') {
       this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
+    }
+
+    // Update max limits for input ranges.
+    if (this.fit === 'width') {
+      this.updateMaxRange();
     }
 
     this.ref.detectChanges();

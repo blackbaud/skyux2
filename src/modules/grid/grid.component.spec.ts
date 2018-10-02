@@ -111,7 +111,7 @@ function resizeColumn(fixture: ComponentFixture<any>, deltaX: number, columnInde
 
   makeEvent('mousemove', { clientX: axis.x + deltaX });
   fixture.detectChanges();
-  makeEvent('click', { clientX: axis.x + deltaX });
+  makeEvent('mouseup', { clientX: axis.x + deltaX });
   fixture.detectChanges();
 }
 
@@ -544,11 +544,20 @@ describe('Grid Component', () => {
           let colWidths = getColumnWidths(fixture);
           resizeInputs.forEach((resizeInput, index) => {
             expect(resizeInput.nativeElement.getAttribute('aria-controls')).not.toBeNull();
-            expect(resizeInput.nativeElement.getAttribute('aria-valuenow')).toBe(colWidths[index].toString());
             expect(resizeInput.nativeElement.getAttribute('aria-valuemax')).toBe(maxColWidth);
             expect(resizeInput.nativeElement.getAttribute('aria-valuemin')).toBe(minColWidth);
             expect(resizeInput.nativeElement.getAttribute('max')).toBe(maxColWidth);
             expect(resizeInput.nativeElement.getAttribute('min')).toBe(minColWidth);
+          });
+
+          // Increase first column.
+          resizeColumnByRangeInput(fixture, 0, 10);
+          fixture.detectChanges();
+          colWidths = getColumnWidths(fixture);
+
+          // Expect valuenow to be updated with new width values.
+          resizeInputs.forEach((resizeInput, index) => {
+            expect(resizeInput.nativeElement.getAttribute('aria-valuenow')).toBe(colWidths[index].toString());
           });
         }));
 
