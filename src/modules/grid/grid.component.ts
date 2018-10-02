@@ -475,9 +475,9 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       // Remove one pixel from last column to prevent the addition of sub-pixel widths
       // that cause the table to overflow, thus causing the scrollbar to show.
       // This is mostly apparent in Firefox.
-      if (index === this.columnElementRefs.length - 1) {
-        width--;
-      }
+      // if (index === this.columnElementRefs.length - 1) {
+      //   width--;
+      // }
 
       this.getColumnModelByIndex(index).width = width;
     });
@@ -489,8 +489,8 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   // This should only be used when fit=scroll.
   private initializeTableWidth() {
     this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
-    this.gridAdapter.setStyle(this.tableElementRef, 'width', `${this.tableWidth}px`);
-    this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
+    // this.gridAdapter.setStyle(this.tableElementRef, 'width', `${this.tableWidth}px`);
+    // this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
   }
 
   private getColumnWidthModelChange() {
