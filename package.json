@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@skyux/core": "3.1.0",
+    "@skyux/forms": "3.0.0-rc.0",
     "@skyux/indicators": "3.0.0-rc.0",
     "@skyux/modals": "3.0.0-alpha.0",
     "@skyux/theme": "3.2.0",
