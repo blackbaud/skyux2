@@ -144,7 +144,7 @@ function isWithin(actual: number, base: number, distance: number) {
 }
 
 function verifyWidthsMatch(actual: number, expected: number) {
-  expect(isWithin(actual, expected, 1)).toEqual(true);
+  expect(isWithin(actual, expected, 2)).toEqual(true);
 }
 
 function verifyAllWidthsMatch(actualWidths: number[], expectedWidths: number[]) {
@@ -603,9 +603,9 @@ describe('Grid Component', () => {
 
             verifyWidthsMatch(getTableWidth(fixture), initialTableWidth + deltaX);
             verifyAllWidthsMatch(getColumnWidths(fixture), expectedColumnWidths);
-            expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
+			verifyWidthsMatch(Number(inputRange.nativeElement.value), initialColumnWidths[columnIndex] + deltaX);
             component.columnWidthsChange.forEach((cwc, index) => {
-              expect(cwc.width === expectedColumnWidths[index]);
+			  verifyWidthsMatch(cwc.width, expectedColumnWidths[index]);
             });
 
             // Decrease first column.
@@ -619,9 +619,9 @@ describe('Grid Component', () => {
             expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
             verifyWidthsMatch(getTableWidth(fixture), initialTableWidth + deltaX);
             verifyAllWidthsMatch(getColumnWidths(fixture), expectedColumnWidths);
-            expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
+			verifyWidthsMatch(Number(inputRange.nativeElement.value), initialColumnWidths[columnIndex] + deltaX);
             component.columnWidthsChange.forEach((cwc, index) => {
-              expect(cwc.width === expectedColumnWidths[index]);
+			  verifyWidthsMatch(cwc.width, expectedColumnWidths[index]);
             });
           });
         }));
