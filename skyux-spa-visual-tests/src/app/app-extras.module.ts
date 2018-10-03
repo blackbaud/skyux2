@@ -5,9 +5,6 @@ import { ToastDemoComponent } from './toast/toast-demo.component';
 
 import { ProgressIndicatorWizardDemoComponent } from './progress-indicator/progress-indicator-horizontal-visual.component';
 
-import { Tile1Component } from './tiles/tile1.component';
-import { Tile2Component } from './tiles/tile2.component';
-
 require('style-loader!./visual.scss');
 
 // Specify entry components, module-level providers, etc. here.
@@ -16,9 +13,7 @@ require('style-loader!./visual.scss');
   entryComponents: [
     FlyoutDemoComponent,
     ToastDemoComponent,
-    ProgressIndicatorWizardDemoComponent,
-    Tile1Component,
-    Tile2Component
+    ProgressIndicatorWizardDemoComponent
   ]
 })
 export class AppExtrasModule { }

@@ -1,8 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'sky-tile-title',
-  templateUrl: './tile-title.component.html',
-  styleUrls: ['./tile-title.component.scss']
-})
-export class SkyTileTitleComponent { }
+export {
+  SkyTileTitleComponent
+} from '@skyux/tiles/modules/tiles/tile/tile-title.component';
