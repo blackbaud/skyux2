@@ -10,9 +10,6 @@ import { ModalContentDemoComponent } from './modal/modal-content-demo.component'
 import { ModalTiledDemoComponent } from './modal/modal-tiled-demo.component';
 import { ProgressIndicatorWizardDemoComponent } from './progress-indicator/progress-indicator-horizontal-visual.component';
 
-import { Tile1Component } from './tiles/tile1.component';
-import { Tile2Component } from './tiles/tile2.component';
-
 require('style-loader!./visual.scss');
 
 // Specify entry components, module-level providers, etc. here.
@@ -26,9 +23,7 @@ require('style-loader!./visual.scss');
     ModalFullPageDemoComponent,
     ModalContentDemoComponent,
     ModalTiledDemoComponent,
-    ProgressIndicatorWizardDemoComponent,
-    Tile1Component,
-    Tile2Component
+    ProgressIndicatorWizardDemoComponent
   ]
 })
 export class AppExtrasModule { }
