@@ -14,8 +14,7 @@ import {
   HostListener,
   ElementRef,
   ViewChildren,
-  ViewChild,
-  AfterViewInit
+  ViewChild
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -56,7 +55,7 @@ let nextId = 0;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChanges, OnDestroy {
+export class SkyGridComponent implements AfterContentInit, OnChanges, OnDestroy {
   @Input()
   public selectedColumnIds: Array<string>;
 
@@ -114,13 +113,15 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   // Column resizing.
   public gridId: number = ++nextId;
   public minColWidth = 50;
-  public maxColWidth = 9999; // This is an arbritrary number, as the input range picker won't work without a value.
+  public maxColWidth = 9999; // This is an arbitrary number, as the input range picker won't work without a value.
   public columnResizeStep = 10;
   public showResizeBar: boolean = false;
   @ViewChildren('gridCol')
   private columnElementRefs: QueryList<ElementRef>;
   @ViewChildren('colSizeRange')
   private columnRangeInputElementRefs: QueryList<ElementRef>;
+  @ViewChild('gridContainer')
+  private tableContainerElementRef: ElementRef;
   @ViewChild('gridTable')
   private tableElementRef: ElementRef;
   @ViewChild('resizeBar')
@@ -130,6 +131,7 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   private activeResizeColumnIndex: string;
   private startColumnWidth: number;
   private xPosStart: number;
+  private isResized: boolean;
 
   constructor(
     private dragulaService: DragulaService,
@@ -177,13 +179,6 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
         this.onHeaderDrop(selectedColumnIds);
       }
     );
-  }
-
-  public ngAfterViewInit() {
-    this.initColumnWidths();
-    if (this.fit === 'width') {
-      this.updateMaxRange();
-    }
   }
 
   // Do an ngOnChanges where changes to selectedColumnIds and data are watched
@@ -333,6 +328,12 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   }
 
   public onMouseDownResizeCol(event: MouseEvent) {
+    // If this table hasn't been resized, initialize all the resize widths.
+    if (!this.isResized) {
+      this.initColumnWidths();
+      this.isResized = true;
+    }
+
     this.initializeResizeColumn(event);
 
     this.isDraggingResizeHandle = true;
@@ -341,7 +342,8 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
 
     // Show visual indicator of where mouse is dragging (resizeBar).
     this.ref.detectChanges();
-    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
+    let parentScroll = this.tableContainerElementRef.nativeElement.scrollLeft;
+    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left - parentScroll;
     this.gridAdapter.setStyle(this.resizeBar, 'left', resizeBarX + 'px');
 
     event.preventDefault();
@@ -349,6 +351,12 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
   }
 
   public onKeydownResizeCol(event: KeyboardEvent) {
+    // If this table hasn't been resized, initialize all the resize widths.
+    if (!this.isResized) {
+      this.initColumnWidths();
+      this.isResized = true;
+    }
+
     this.initializeResizeColumn(event);
   }
 
@@ -379,11 +387,12 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
       return;
     }
 
-    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left;
+    let parentScroll = this.tableContainerElementRef.nativeElement.scrollLeft;
+    let resizeBarX = event.pageX - this.tableElementRef.nativeElement.getBoundingClientRect().left - parentScroll;
     this.gridAdapter.setStyle(this.resizeBar, 'left', resizeBarX + 'px');
   }
 
-  @HostListener('document:click', ['$event'])
+  @HostListener('document:mouseup', ['$event'])
   public onResizeHandleRelease(event: MouseEvent) {
     if (this.isDraggingResizeHandle) {
       this.showResizeBar = false;
@@ -499,26 +508,30 @@ export class SkyGridComponent implements AfterContentInit, AfterViewInit, OnChan
     }
   }
 
-  // Applies width to each column.
   private initColumnWidths() {
-    if (this.fit === 'scroll') {
-      this.initializeTableWidth();
-    }
+    // Establish table width.
+    this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
 
+    // Set column widths based on the width initially given by the browser.
+    // computedWidth prevents accidental overflow for browsers with sub-pixel widths.
     this.columnElementRefs.forEach((col, index) => {
-      let width = Math.max(col.nativeElement.offsetWidth, this.minColWidth);
+      let computedWidth = parseFloat(window.getComputedStyle(col.nativeElement).width);
+      let offsetWidth = col.nativeElement.offsetWidth;
+      let width = Math.max(computedWidth || offsetWidth, this.minColWidth);
       this.getColumnModelByIndex(index).width = width;
     });
 
-    this.ref.detectChanges();
-  }
+    // 'scroll' tables should be allowed to expand outside of their constraints.
+    if (this.fit === 'scroll') {
+      this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
+    }
 
-  // Applies css width to the table, and removes min-width=100%.
-  // This should only be used when fit=scroll.
-  private initializeTableWidth() {
-    this.tableWidth = this.tableElementRef.nativeElement.offsetWidth;
-    this.gridAdapter.setStyle(this.tableElementRef, 'width', `${this.tableWidth}px`);
-    this.gridAdapter.setStyle(this.tableElementRef, 'min-width', 'auto');
+    // Update max limits for input ranges.
+    if (this.fit === 'width') {
+      this.updateMaxRange();
+    }
+
+    this.ref.detectChanges();
   }
 
   private getColumnWidthModelChange() {

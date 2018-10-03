@@ -1,6 +1,8 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
 
+$sky-grid-resize-handle-width: 5px;
+
 .sky-grid {
   position: relative;
   display: block;
@@ -84,14 +86,18 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 100%;
-    width: 1px;
+    width: $sky-grid-resize-handle-width;
     position: absolute;
     display: block;
     top: 0;
     bottom: 0;
     right: 0;
 
-     &::-moz-range-thumb {
+    &::-moz-range-track {
+      background: transparent;
+    }
+
+    &::-moz-range-thumb {
       -webkit-appearance: none;
       -moz-appearance: none;
       width: 0;
@@ -101,6 +107,7 @@
       background: none;
       display: none;
     }
+
      &::-ms-thumb {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -111,7 +118,8 @@
       background: none;
       display: none;
     }
-     &::-webkit-slider-thumb {
+
+    &::-webkit-slider-thumb {
       -webkit-appearance: none;
       -moz-appearance: none;
       width: 0;
@@ -121,6 +129,10 @@
       background: none;
       display: none;
      }
+
+     &:focus {
+      background-color: $sky-highlight-color-info;
+    }
   }
 }
 
@@ -152,14 +164,29 @@
 
 .sky-grid-resize-handle {
   position: absolute;
-  right: -14px;
+  right: 0;
   top: 0;
+  bottom: 0;
   width: 30px;
   z-index: 2;
   min-height: 20px;
   height: 100% !important;
   vertical-align: middle;
   cursor: col-resize;
+
+  &:hover::after {
+    background-color: $sky-highlight-color-info;
+  }
+
+  &:after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: $sky-grid-resize-handle-width;
+    height: 100%;
+    content: "";
+  }
 }
 
 #sky-grid-resize-bar {
@@ -168,7 +195,7 @@
   left: 0;
   z-index: 99;
   height: 100%;
-  width: 5px;
+  width: $sky-grid-resize-handle-width;
   background: black;
   opacity: 0.6;
 }

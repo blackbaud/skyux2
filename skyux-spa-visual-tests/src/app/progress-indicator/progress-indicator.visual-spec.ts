@@ -49,6 +49,19 @@ describe('Progress indicator component', () => {
       });
     });
   });
+
+  it('should match passive progress indicator screenshot', () => {
+    return SkyVisualTest.setupTest('progress-indicator')
+    .then(() => {
+      element(by.id(`btn-passive`)).click();
+      SkyVisualTest.moveCursorOffScreen();
+
+      return SkyVisualTest.compareScreenshot({
+        screenshotName: 'progress-indicator-passive',
+        selector: '.sky-popover-container'
+      });
+    });
+  });
 });
 
 describe('Progress indicator component wizard', () => {

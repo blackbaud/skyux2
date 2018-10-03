@@ -375,66 +375,6 @@
     "_description": "Text used on the primary button to dismiss the error modal.",
     "message": "OK"
   },
-  "file_item_delete": {
-    "_description": "Label for the button that deletes a file",
-    "message": "Delete file"
-  },
-  "file_size_b_plural": {
-    "_description": "",
-    "message": "{0} bytes"
-  },
-  "file_size_b_singular": {
-    "_description": "",
-    "message": "{0} byte"
-  },
-  "file_size_gb": {
-    "_description": "",
-    "message": "{0} GB"
-  },
-  "file_size_kb": {
-    "_description": "",
-    "message": "{0} KB"
-  },
-  "file_size_mb": {
-    "_description": "",
-    "message": "{0} MB"
-  },
-  "file_upload_drag_file_here": {
-    "_description": "",
-    "message": "Drag a file here"
-  },
-  "file_upload_drag_or_click": {
-    "_description": "Label for file drop",
-    "message": "Drag a file here or click to browse"
-  },
-  "file_upload_drop_files_here": {
-    "_description": "",
-    "message": "Drop files here"
-  },
-  "file_upload_invalid_file": {
-    "_description": "",
-    "message": "This file type is invalid"
-  },
-  "file_upload_link_input": {
-    "_description": "Label for input to upload file",
-    "message": "Add a link to a file"
-  },
-  "file_upload_link_placeholder": {
-    "_description": "",
-    "message": "http://www.something.com/file"
-  },
-  "file_upload_or_click_to_browse": {
-    "_description": "",
-    "message": "or click to browse"
-  },
-  "file_upload_paste_link": {
-    "_description": "",
-    "message": "Paste a link to a file"
-  },
-  "file_upload_paste_link_done": {
-    "_description": "",
-    "message": "Done"
-  },
   "filter_button_title": {
     "_description": "Text for the filter button title",
     "message": "Filter"

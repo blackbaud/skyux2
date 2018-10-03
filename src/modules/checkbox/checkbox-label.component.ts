@@ -1,7 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'sky-checkbox-label',
-  templateUrl: '../shared/simple-content.html'
-})
-export class SkyCheckboxLabelComponent { }
+export {
+  SkyCheckboxLabelComponent
+} from '@skyux/forms/modules/checkbox/checkbox-label.component';

@@ -1,6 +1,3 @@
-export interface SkyFileItem {
-  file: File;
-  url: string;
-  errorType: string;
-  errorParam: string;
-}
+export {
+  SkyFileItem
+} from '@skyux/forms/modules/file-attachment/file-item';

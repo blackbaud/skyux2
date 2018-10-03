@@ -16,6 +16,7 @@ import {
 
 import { SkyDropdownFixturesModule } from './fixtures/dropdown-fixtures.module';
 import { DropdownTestComponent } from './fixtures/dropdown.component.fixture';
+import { By } from '@angular/platform-browser';
 
 describe('Dropdown component', () => {
   const activeItemClass = 'sky-dropdown-item-active';
@@ -679,5 +680,53 @@ describe('Dropdown component', () => {
         type: SkyDropdownMessageType.Reposition
       });
     }));
+  });
+
+  describe('disabled state', () => {
+
+    beforeEach(() => {
+      component.isDisabled = true;
+      fixture.detectChanges();
+    });
+
+    it('should disable the input and dropdown when disable is set to true', () => {
+      expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeTruthy();
+    });
+
+    it('should not disable the input and dropdown when disable is set to false', () => {
+      component.isDisabled = false;
+      fixture.detectChanges();
+
+      expect(fixture.debugElement.query(By.css('sky-dropdown button')).nativeElement.disabled).toBeFalsy();
+    });
+
+    describe('message stream', () => {
+      it('should not allow opening and closing the menu if disabled', fakeAsync(() => {
+        component.sendMessage(SkyDropdownMessageType.Open);
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        verifyMenuVisibility(false);
+
+        component.sendMessage(SkyDropdownMessageType.Close);
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        verifyMenuVisibility(false);
+      }));
+
+      it('should not allow focusing trigger button if disabled', fakeAsync(() => {
+        component.sendMessage(SkyDropdownMessageType.FocusTriggerButton);
+
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        verifyTriggerButtonHasFocus(false);
+      }));
+    });
+
   });
 });
