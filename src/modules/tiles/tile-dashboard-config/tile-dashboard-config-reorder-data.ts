@@ -1,5 +1,3 @@
-export interface SkyTileDashboardConfigReorderData {
-  tileDescription: string;
-  column: number;
-  position: number;
-}
+export {
+  SkyTileDashboardConfigReorderData
+} from '@skyux/tiles/modules/tiles/tile-dashboard-config/tile-dashboard-config-reorder-data';
