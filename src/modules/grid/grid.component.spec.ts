@@ -517,8 +517,6 @@ describe('Grid Component', () => {
           let newColumnWidths = getColumnWidths(fixture);
           verifyWidthsMatch(initialTableWidth, newTableWidth);
           verifyAllWidthsMatch(initialColumnWidths, newColumnWidths);
-          // expect(initialTableWidth).toEqual(newTableWidth);
-          // expect(initialColumnWidths).toEqual(newolumnWidths);
           expect(component.columnWidthsChange).toBeUndefined();
         }));
 
