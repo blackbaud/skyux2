@@ -1,7 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'sky-modal-content',
-  templateUrl: '../shared/simple-content.html'
-})
-export class SkyModalContentComponent { }
+export {
+  SkyModalContentComponent
+} from '@skyux/modals/modules/modal/modal-content.component';
