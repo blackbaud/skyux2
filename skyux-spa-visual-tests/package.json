@@ -22,6 +22,7 @@
     "@blackbaud/skyux": "latest",
     "@blackbaud/skyux-builder": "1.23.1",
     "@skyux/indicators": "3.0.0-rc.0",
+    "@skyux/modals": "3.0.0-alpha.0",
     "browserstack-local": "1.3.0",
     "pix-diff": "2.0.0"
   },
