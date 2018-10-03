@@ -1,8 +1,3 @@
-import {
-  SkyFileItem
-} from './file-item';
-
-export interface SkyFileDropChange {
-  files: Array<SkyFileItem>;
-  rejectedFiles: Array<SkyFileItem>;
-}
+export {
+  SkyFileDropChange
+} from '@skyux/forms/modules/file-attachment/file-drop-change';
