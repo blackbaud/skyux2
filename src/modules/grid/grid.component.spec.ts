@@ -39,6 +39,7 @@ import {
   SkyGridColumnModel
 } from './';
 
+//#region helpers
 function getColumnHeader(id: string, element: DebugElement) {
   return element.query(
     By.css('th[sky-cmp-id="' + id + '"]')
@@ -137,6 +138,22 @@ function getTableWidth(fixture: ComponentFixture<any>) {
 function cloneItems(items: any[]): any[] {
   return JSON.parse(JSON.stringify(items));
 }
+
+function isWithin(actual: number, base: number, distance: number) {
+    return Math.abs(actual - base) <= distance;
+}
+
+function verifyWidthsMatch(actual: number, expected: number) {
+  expect(isWithin(actual, expected, 1)).toEqual(true);
+}
+
+function verifyAllWidthsMatch(actualWidths: number[], expectedWidths: number[]) {
+  expect(actualWidths.length).toEqual(expectedWidths.length);
+  for (let i = 0; i < actualWidths.length; i++) {
+    expect(isWithin(actualWidths[i], expectedWidths[i], 1)).toEqual(true);
+  }
+}
+//#endregion
 
 describe('Grid Component', () => {
   describe('Basic Fixture with fit=scroll', () => {
@@ -497,9 +514,11 @@ describe('Grid Component', () => {
 
           // Assert nothing was changed.
           let newTableWidth = getTableWidth(fixture);
-          let newolumnWidths = getColumnWidths(fixture);
-          expect(initialTableWidth).toEqual(newTableWidth);
-          expect(initialColumnWidths).toEqual(newolumnWidths);
+          let newColumnWidths = getColumnWidths(fixture);
+          verifyWidthsMatch(initialTableWidth, newTableWidth);
+          verifyAllWidthsMatch(initialColumnWidths, newColumnWidths);
+          // expect(initialTableWidth).toEqual(newTableWidth);
+          // expect(initialColumnWidths).toEqual(newolumnWidths);
           expect(component.columnWidthsChange).toBeUndefined();
         }));
 
@@ -514,8 +533,9 @@ describe('Grid Component', () => {
           // Assert nothing was changed.
           let newTableWidth = getTableWidth(fixture);
           let newColumnWidths = getColumnWidths(fixture);
-          expect(initialTableWidth).toEqual(newTableWidth);
-          expect(initialColumnWidths).toEqual(newColumnWidths);
+
+          verifyWidthsMatch(initialTableWidth, newTableWidth);
+          verifyAllWidthsMatch(initialColumnWidths, newColumnWidths);
         }));
 
         it('should properly resize column and emit change event on release of resize handle', fakeAsync(() => {
@@ -532,10 +552,10 @@ describe('Grid Component', () => {
           let newColumnWidths = getColumnWidths(fixture);
           let expectedColumnWidths = Object.assign(initialColumnWidths);
           expectedColumnWidths[0] = initialColumnWidths[0] + resizeXDistance;
-          expect(newColumnWidths).toEqual(expectedColumnWidths);
-          expect(newTableWidth).toEqual(initialTableWidth + resizeXDistance);
+          verifyWidthsMatch(initialTableWidth + resizeXDistance, newTableWidth);
+          verifyAllWidthsMatch(expectedColumnWidths, newColumnWidths);
           component.columnWidthsChange.forEach((cwc, index) => {
-            expect(cwc.width === expectedColumnWidths[index]);
+            verifyWidthsMatch(cwc.width, expectedColumnWidths[index]);
           });
         }));
 
@@ -557,7 +577,8 @@ describe('Grid Component', () => {
 
           // Expect valuenow to be updated with new width values.
           resizeInputs.forEach((resizeInput, index) => {
-            expect(resizeInput.nativeElement.getAttribute('aria-valuenow')).toBe(colWidths[index].toString());
+            let valuenow = resizeInput.nativeElement.getAttribute('aria-valuenow');
+            verifyWidthsMatch(valuenow, colWidths[index]);
           });
         }));
 
@@ -579,8 +600,9 @@ describe('Grid Component', () => {
             // Assert table was resized properly, and input range was updated correctly.
             let expectedColumnWidths: any = cloneItems(initialColumnWidths);
             expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
-            expect(getTableWidth(fixture)).toEqual(initialTableWidth + deltaX);
-            expect(getColumnWidths(fixture)).toEqual(expectedColumnWidths);
+
+            verifyWidthsMatch(getTableWidth(fixture), initialTableWidth + deltaX);
+            verifyAllWidthsMatch(getColumnWidths(fixture), expectedColumnWidths);
             expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
             component.columnWidthsChange.forEach((cwc, index) => {
               expect(cwc.width === expectedColumnWidths[index]);
@@ -595,8 +617,8 @@ describe('Grid Component', () => {
             // Assert table was resized properly, and input range was updated correctly.
             expectedColumnWidths = cloneItems(initialColumnWidths);
             expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
-            expect(getTableWidth(fixture)).toEqual(initialTableWidth + deltaX);
-            expect(getColumnWidths(fixture)).toEqual(expectedColumnWidths);
+            verifyWidthsMatch(getTableWidth(fixture), initialTableWidth + deltaX);
+            verifyAllWidthsMatch(getColumnWidths(fixture), expectedColumnWidths);
             expect(Number(inputRange.nativeElement.value)).toEqual(initialColumnWidths[columnIndex] + deltaX);
             component.columnWidthsChange.forEach((cwc, index) => {
               expect(cwc.width === expectedColumnWidths[index]);
@@ -699,8 +721,9 @@ describe('Grid Component', () => {
         // Assert table width did not change, and only first and last column were resized.
         let newTableWidth = getTableWidth(fixture);
         let newColumnWidths = getColumnWidths(fixture);
-        expect(newTableWidth).toEqual(initialTableWidth);
-        expect(newColumnWidths).toEqual(initialColumnWidths);
+
+        verifyWidthsMatch(newTableWidth, initialTableWidth);
+        verifyAllWidthsMatch(newColumnWidths, initialColumnWidths);
       }));
 
       it('should resize columns on mousemove', fakeAsync(() => {
@@ -723,8 +746,8 @@ describe('Grid Component', () => {
         expectedColumnWidths[0] = expectedColumnWidths[0] + resizeXDistance;
         expectedColumnWidths[2] = expectedColumnWidths[2] - resizeXDistance;
         expectedColumnWidths[4] = 50;
-        expect(newTableWidth).toEqual(initialTableWidth);
-        expect(newColumnWidths).toEqual(expectedColumnWidths);
+        verifyWidthsMatch(newTableWidth, initialTableWidth);
+        verifyAllWidthsMatch(newColumnWidths, expectedColumnWidths);
       }));
 
       it('should change max value when column width is changed', fakeAsync(() => {
