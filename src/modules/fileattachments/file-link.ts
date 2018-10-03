@@ -1,3 +1,3 @@
-export interface SkyFileLink {
-  url: string;
-}
+export {
+  SkyFileLink
+} from '@skyux/forms/modules/file-attachment/file-link';
