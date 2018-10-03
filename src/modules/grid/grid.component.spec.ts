@@ -603,9 +603,9 @@ describe('Grid Component', () => {
 
             verifyWidthsMatch(getTableWidth(fixture), initialTableWidth + deltaX);
             verifyAllWidthsMatch(getColumnWidths(fixture), expectedColumnWidths);
-			verifyWidthsMatch(Number(inputRange.nativeElement.value), initialColumnWidths[columnIndex] + deltaX);
+            verifyWidthsMatch(Number(inputRange.nativeElement.value), initialColumnWidths[columnIndex] + deltaX);
             component.columnWidthsChange.forEach((cwc, index) => {
-			  verifyWidthsMatch(cwc.width, expectedColumnWidths[index]);
+              verifyWidthsMatch(cwc.width, expectedColumnWidths[index]);
             });
 
             // Decrease first column.
@@ -619,9 +619,9 @@ describe('Grid Component', () => {
             expectedColumnWidths[columnIndex] = expectedColumnWidths[columnIndex] + deltaX;
             verifyWidthsMatch(getTableWidth(fixture), initialTableWidth + deltaX);
             verifyAllWidthsMatch(getColumnWidths(fixture), expectedColumnWidths);
-			verifyWidthsMatch(Number(inputRange.nativeElement.value), initialColumnWidths[columnIndex] + deltaX);
+            verifyWidthsMatch(Number(inputRange.nativeElement.value), initialColumnWidths[columnIndex] + deltaX);
             component.columnWidthsChange.forEach((cwc, index) => {
-			  verifyWidthsMatch(cwc.width, expectedColumnWidths[index]);
+              verifyWidthsMatch(cwc.width, expectedColumnWidths[index]);
             });
           });
         }));
