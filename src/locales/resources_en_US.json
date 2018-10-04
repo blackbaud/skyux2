@@ -695,10 +695,6 @@
     "_description": "Text for the label for the previous button on the pagination component",
     "message": "Previous"
   },
-  "popover_close": {
-    "_description": "Text for popover close button",
-    "message": "Close popover"
-  },
   "reorder_top": {
     "_description": "Text displayed to indicate that a row can be pushed to the top of the list",
     "message": "Top"
