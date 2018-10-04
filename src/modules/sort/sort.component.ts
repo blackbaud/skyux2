@@ -9,7 +9,7 @@ import { Subject } from 'rxjs/Subject';
 import {
   SkyDropdownMessage,
   SkyDropdownMessageType
-} from '@skyux/popovers';
+} from '../dropdown';
 
 import {
   SkySortService

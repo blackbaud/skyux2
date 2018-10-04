@@ -1,7 +1,7 @@
 // spell-checker:ignore Colorpicker, Dropdown
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyDropdownModule } from '@skyux/popovers';
+import { SkyDropdownModule } from '../dropdown/dropdown.module';
 import { SkyResourcesModule } from '../resources';
 
 import { SkyColorpickerComponent } from './colorpicker.component';

@@ -10,7 +10,7 @@ import {
 
 import {
   SkyDropdownModule
-} from '@skyux/popovers';
+} from '../dropdown';
 import {
   SkyTextHighlightModule
 } from '../text-highlight';

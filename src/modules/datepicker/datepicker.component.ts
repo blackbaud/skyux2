@@ -12,7 +12,7 @@ import {
   SkyDropdownComponent,
   SkyDropdownMessage,
   SkyDropdownMessageType
-} from '@skyux/popovers';
+} from '../dropdown';
 
 @Component({
   selector: 'sky-datepicker',

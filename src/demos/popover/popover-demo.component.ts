@@ -12,7 +12,7 @@ import {
   SkyPopoverComponent,
   SkyPopoverMessage,
   SkyPopoverMessageType
-} from '@skyux/popovers';
+} from '../../core';
 
 @Component({
   selector: 'sky-popover-demo',

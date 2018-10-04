@@ -7,7 +7,7 @@ import {
 
 import {
   SkyDropdownModule
-} from '@skyux/popovers';
+} from '../dropdown';
 import {
   SkyResourcesModule
 } from '../resources';
