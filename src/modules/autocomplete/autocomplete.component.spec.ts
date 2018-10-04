@@ -12,7 +12,7 @@ import {
 
 import {
   SkyDropdownMessageType
-} from '../dropdown';
+} from '@skyux/popovers';
 
 import { SkyAutocompleteComponent } from './autocomplete.component';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';

@@ -13,7 +13,7 @@ import {
 } from '../resources';
 import {
   SkyDropdownModule
-} from '../dropdown';
+} from '@skyux/popovers';
 import {
   SkyIconModule
 } from '../icon';

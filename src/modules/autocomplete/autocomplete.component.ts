@@ -23,7 +23,7 @@ import {
   SkyDropdownMenuChange,
   SkyDropdownMessageType,
   SkyDropdownMessage
-} from '../dropdown';
+} from '@skyux/popovers';
 
 import {
   SkyAutocompleteInputTextChange,

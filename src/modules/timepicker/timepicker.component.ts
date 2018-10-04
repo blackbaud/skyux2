@@ -11,7 +11,7 @@ import { Subject } from 'rxjs/Subject';
 import {
   SkyDropdownMessage,
   SkyDropdownMessageType
-} from '../dropdown';
+} from '@skyux/popovers';
 
 import { SkyTimepickerTimeOutput } from './timepicker.interface';
 
