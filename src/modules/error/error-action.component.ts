@@ -1,8 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'sky-error-action',
-  templateUrl: '../shared/simple-content.html'
-})
-export class SkyErrorActionComponent {
-}
+export {
+  SkyErrorActionComponent
+} from '@skyux/errors/modules/error/error-action.component';
