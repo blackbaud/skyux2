@@ -22,6 +22,7 @@
     "@blackbaud/skyux": "latest",
     "@blackbaud/skyux-builder": "1.23.1",
     "@skyux/animations": "3.0.0-rc.0",
+    "@skyux/errors": "3.0.0-rc.0",
     "@skyux/forms": "3.0.0-rc.0",
     "@skyux/indicators": "3.0.0-rc.0",
     "@skyux/modals": "3.0.0-rc.0",
