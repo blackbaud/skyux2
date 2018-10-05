@@ -1,3 +1,3 @@
 export {
   SkyDropdownMenuChange
-} from '@skyux/popovers';
+} from '@skyux/popovers/modules/dropdown/types/dropdown-menu-change';

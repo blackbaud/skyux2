@@ -1,3 +1,3 @@
 export {
   SkyPopoverAlignment
-} from '@skyux/popovers';
+} from '@skyux/popovers/modules/popover/types/popover-alignment';

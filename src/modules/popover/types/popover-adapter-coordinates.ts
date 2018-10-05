@@ -1,3 +1,3 @@
 export {
   SkyPopoverAdapterCoordinates
-} from '@skyux/popovers/modules/popover/types';
+} from '@skyux/popovers/modules/popover/types/popover-adapter-coordinates';

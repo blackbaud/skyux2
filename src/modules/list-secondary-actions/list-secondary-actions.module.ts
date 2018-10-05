@@ -8,7 +8,6 @@ import {
 import {
   SkyDropdownModule
 } from '../dropdown';
-
 import {
   SkyResourcesModule
 } from '../resources';

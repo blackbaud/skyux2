@@ -1,3 +1,3 @@
 export {
   SkyPopoverPosition
-} from '@skyux/popovers';
+} from '@skyux/popovers/modules/popover/types/popover-position';

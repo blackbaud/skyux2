@@ -12,7 +12,7 @@ import {
 
 import {
   SkyDropdownMessageType
-} from '../dropdown/types';
+} from '../dropdown';
 
 import { SkyAutocompleteComponent } from './autocomplete.component';
 import { SkyAutocompleteInputDirective } from './autocomplete-input.directive';

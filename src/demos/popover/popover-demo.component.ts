@@ -5,14 +5,11 @@ import {
 } from '@angular/core';
 
 import {
-  Subject
-} from 'rxjs';
-
-import {
-  SkyPopoverComponent,
-  SkyPopoverMessage,
-  SkyPopoverMessageType
+  SkyPopoverComponent
 } from '../../core';
+import { SkyPopoverMessageType } from '../../modules/popover/types/popover-message-type';
+import { SkyPopoverMessage } from '../../modules/popover/types/popover-message';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'sky-popover-demo',

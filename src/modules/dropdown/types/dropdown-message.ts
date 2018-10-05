@@ -1,3 +1,3 @@
 export {
-  SkyDropdownMessageType
-} from '@skyux/popovers';
+  SkyDropdownMessage
+} from '@skyux/popovers/modules/dropdown/types/dropdown-message';
