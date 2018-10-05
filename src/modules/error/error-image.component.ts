@@ -1,8 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'sky-error-image',
-  templateUrl: '../shared/simple-content.html'
-})
-export class SkyErrorImageComponent {
-}
+export {
+  SkyErrorImageComponent
+} from '@skyux/errors/modules/error/error-image.component';
