@@ -1,9 +1,3 @@
-import {
-  ElementRef
-} from '@angular/core';
-
-export interface SkyPopoverAdapterElements {
-  popover: ElementRef;
-  popoverArrow: ElementRef;
-  caller: ElementRef;
-}
+export {
+  SkyPopoverAdapterElements
+} from '@skyux/popovers/modules/popover/types/popover-adapter-elements';

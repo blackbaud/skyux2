@@ -1,5 +1,3 @@
-export interface SkyPopoverAdapterCoordinates {
-  isOutsideViewport: boolean;
-  top?: number;
-  left?: number;
-}
+export {
+  SkyPopoverAdapterCoordinates
+} from '@skyux/popovers/modules/popover/types/popover-adapter-coordinates';

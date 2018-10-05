@@ -1,4 +1,3 @@
-export interface SkyPopoverAdapterArrowCoordinates {
-  top: number;
-  left: number;
-}
+export {
+  SkyPopoverAdapterArrowCoordinates
+} from '@skyux/popovers/modules/popover/types/popover-adapter-arrow-coordinates';
