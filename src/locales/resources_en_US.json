@@ -123,10 +123,6 @@
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
   },
-  "context_menu_default_label": {
-    "_description": "The label on the context menu button used for screen readers when the consumer has not specified a label",
-    "message": "Context menu"
-  },
   "date_field_invalid_date_message": {
     "_description": "error message shown when an invalid date is entered.",
     "message": "Please enter a valid date"
@@ -666,10 +662,6 @@
   "page_noaccess_header": {
     "_description": "",
     "message": "Move along, there's nothing to see here"
-  },
-  "popover_close": {
-    "_description": "Text for popover close button",
-    "message": "Close popover"
   },
   "reorder_top": {
     "_description": "Text displayed to indicate that a row can be pushed to the top of the list",

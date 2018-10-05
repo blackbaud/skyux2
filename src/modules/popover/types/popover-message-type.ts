@@ -1,5 +1,3 @@
-export enum SkyPopoverMessageType {
-  Open = 0,
-  Close = 1,
-  Reposition = 2
-}
+export {
+  SkyPopoverMessageType
+} from '@skyux/popovers/modules/popover/types/popover-message-type';

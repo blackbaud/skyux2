@@ -1,5 +1,3 @@
-import { SkyDropdownMessageType } from './dropdown-message-type';
-
-export interface SkyDropdownMessage {
-  type?: SkyDropdownMessageType;
-}
+export {
+  SkyDropdownMessage
+} from '@skyux/popovers/modules/dropdown/types/dropdown-message';
