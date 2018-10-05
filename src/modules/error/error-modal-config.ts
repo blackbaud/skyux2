@@ -1,6 +1,3 @@
-/* istanbul ignore next */
-export class ErrorModalConfig {
-  public errorTitle: string;
-  public errorDescription: string;
-  public errorCloseText: string;
-}
+export {
+  ErrorModalConfig
+} from '@skyux/errors/modules/error/error-modal-config';
