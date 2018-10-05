@@ -1,1 +1,3 @@
-export type SkyPopoverPlacement = 'above' | 'below' | 'right' | 'left' | 'fullscreen';
+export {
+  SkyPopoverPlacement
+} from '@skyux/popovers/modules/popover/types/popover-placement';
