@@ -1,3 +1,3 @@
 export {
   SkyAvatarComponent
-} from '@skyux/avatar';
+} from '@skyux/avatar/modules/avatar/avatar.component';
