@@ -1,4 +1,1 @@
-export enum SkyFlyoutMessageType {
-  Open = 0,
-  Close = 1
-}
+export { SkyFlyoutMessageType } from '@skyux/flyout';
