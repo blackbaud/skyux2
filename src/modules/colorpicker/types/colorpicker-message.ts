@@ -1,5 +1,3 @@
-import { SkyColorpickerMessageType } from './colorpicker-message-type';
-
-export interface SkyColorpickerMessage {
-  type?: SkyColorpickerMessageType;
-}
+export {
+  SkyColorpickerMessage
+} from '@skyux/colorpicker/modules/colorpicker/types';
