@@ -123,57 +123,9 @@
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
   },
-  "context_menu_default_label": {
-    "_description": "The label on the context menu button used for screen readers when the consumer has not specified a label",
-    "message": "Context menu"
-  },
   "definition_list_none_found": {
     "_description": "The default text to show when a definition list item has no value",
     "message": "None found"
-  },
-  "error_component_broken_description": {
-    "_description": "The error component description message for the broken error type",
-    "message": "Try to refresh this page or come back later."
-  },
-  "error_component_broken_title": {
-    "_description": "The error component title message for the broken error type",
-    "message": "Sorry, something went wrong."
-  },
-  "error_component_construction_description": {
-    "_description": "The error component description message for the construction error type",
-    "message": "Thanks for your patience while improvements are made! \n Please check back in a little while."
-  },
-  "error_component_construction_title": {
-    "_description": "The error component title message for the construction error type",
-    "message": "This page will return soon."
-  },
-  "error_component_not_found_title": {
-    "_description": "The error component title message for the not found error type",
-    "message": "Sorry, we can't reach that page."
-  },
-  "error_component_security_title": {
-    "_description": "The error component title message for the security error type",
-    "message": "You don't have permission to access that page."
-  },
-  "error_description_broken": {
-    "_description": "Text used for the error description to when page is broken.",
-    "message": "Try to refresh this page or come back later."
-  },
-  "error_description_construction": {
-    "_description": "Text used for the error description when page is under construction.",
-    "message": "Thanks for your patience while improvements are made!\nPlease check back in a little while."
-  },
-  "error_title_broken": {
-    "_description": "Text used for the error title when something is broken",
-    "message": "Sorry, something went wrong."
-  },
-  "error_title_construction": {
-    "_description": "Text used for the error title when page is under construction.",
-    "message": "This page will return soon."
-  },
-  "error_title_notfound": {
-    "_description": "Text used for the error title when page is not found.",
-    "message": "Sorry, we can't reach that page."
   },
   "errormodal_ok": {
     "_description": "Text used on the primary button to dismiss the error modal.",
@@ -498,10 +450,6 @@
   "paging_previous": {
     "_description": "Text for the label for the previous button on the pagination component",
     "message": "Previous"
-  },
-  "popover_close": {
-    "_description": "Text for popover close button",
-    "message": "Close popover"
   },
   "reorder_top": {
     "_description": "Text displayed to indicate that a row can be pushed to the top of the list",

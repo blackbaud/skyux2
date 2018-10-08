@@ -1,5 +1,3 @@
-import { SkyPopoverMessageType } from './popover-message-type';
-
-export interface SkyPopoverMessage {
-  type?: SkyPopoverMessageType;
-}
+export {
+  SkyPopoverMessage
+} from '@skyux/popovers/modules/popover/types/popover-message';
