@@ -1,1 +1,3 @@
-export type SkyAvatarSrc = string | Blob | File;
+export {
+  SkyAvatarSrc
+} from '@skyux/avatar';
