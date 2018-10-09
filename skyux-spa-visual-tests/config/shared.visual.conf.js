@@ -9,18 +9,20 @@ module.exports = {
   onPrepare: function () {
     jasmine.getEnv().addReporter(new SpecReporter());
 
-    browser.params.chunks = JSON.parse(browser.params.chunks);
-    browser.params.skyPagesConfig = JSON.parse(browser.params.skyPagesConfig);
+    browser.params.chunks = browser.params.chunks;
+    browser.params.skyPagesConfig = browser.params.skyPagesConfig;
     browser.skyVisualTestConfig = getVisualTestConfig('local');
     browser.pixDiff = new PixDiff(browser.skyVisualTestConfig);
   },
   beforeLaunch: function () {
     require('ts-node').register({ ignore: false });
   },
+  framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 90000
   },
+  useAllAngular2AppRoots: true,
   allScriptsTimeout: 30000,
   specs: ['../src/app/**/*.visual-spec.ts']
 };

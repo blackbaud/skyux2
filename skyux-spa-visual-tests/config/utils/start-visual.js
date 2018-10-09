@@ -1,15 +1,18 @@
 /*jslint node: true */
 'use strict';
 
+/**
+ * This file is heavily inspired by Builder's e2e script:
+ * https://github.com/blackbaud/skyux-builder/blob/master/cli/e2e.js
+ */
+
 const config = require('@blackbaud/skyux-builder/config/sky-pages/sky-pages.config');
 const webpack = require('webpack');
 const path = require('path');
 const spawn = require('cross-spawn');
 const logger = require('winston');
-const portfinder = require('portfinder');
-const HttpServer = require('http-server');
+const minimist = require('minimist');
 const selenium = require('selenium-standalone');
-const build = require('@blackbaud/skyux-builder/cli/build');
 
 // Later this will change to visualtest if we do a separate command
 const skyPagesConfig = config.getSkyPagesConfig('e2e');
@@ -21,7 +24,8 @@ let httpServer;
 let seleniumServer;
 let start;
 
-let buildType = process.argv[2];
+const argv = minimist(process.argv.slice(2));
+const buildType = argv._[0];
 
 visualtest(skyPagesConfig, webpack);
 
@@ -34,17 +38,27 @@ function visualtest(skyPagesConfig, webpack) {
   start = new Date().getTime();
   process.on('SIGINT', killServers);
 
-  Promise.all([
-    spawnBuild(skyPagesConfig, webpack),
-    spawnServer(),
-    spawnSelenium()
-  ]).then(values => {
-    spawnProtractor(
-      values[0],
-      values[1],
-      skyPagesConfig
-    );
-  });
+  spawnServer()
+    .then((port) => {
+      argv.assets = `https://localhost:${port}`;
+      argv.assetsrel = '../';
+      return Promise.all([
+        spawnBuild(argv, skyPagesConfig, webpack),
+        port,
+        spawnSelenium()
+      ]);
+    })
+    .then(([chunks, port]) => {
+      spawnProtractor(
+        chunks,
+        port,
+        skyPagesConfig
+      );
+    })
+    .catch((err) => {
+      logger.error('ERROR:', err);
+      killServers();
+    });
 }
 
 /**
@@ -88,28 +102,20 @@ function killServers(exitCode) {
  * @name spawnProtractor
  */
 function spawnProtractor(chunks, port, skyPagesConfig) {
+  const protractorLauncher = require('protractor/built/launcher');
+  const configPath = path.resolve('config/local.visual.conf.js');
+
   logger.info('Running Protractor');
 
-  const protractorPath = path.resolve(
-    'node_modules',
-    '.bin',
-    'protractor'
-  );
+  protractorLauncher.init(configPath, {
+    params: {
+      localUrl: `https://localhost:${port}`,
+      chunks,
+      skyPagesConfig
+    }
+  });
 
-  const protractor = spawn.spawn(
-    protractorPath,
-    [
-      getProtractorConfigPath(),
-      '--disableChecks',
-      `--baseUrl ${skyPagesConfig.skyux.host.url}`,
-      `--params.localUrl=https://localhost:${port}`,
-      `--params.chunks=${JSON.stringify(chunks)}`,
-      `--params.skyPagesConfig=${JSON.stringify(skyPagesConfig)}`
-    ],
-    spawnOptions
-  );
-
-  protractor.on('exit', killServers);
+  process.on('exit', killServers);
 }
 
 /**
@@ -139,7 +145,22 @@ function spawnSelenium() {
           '.bin',
           'webdriver-manager'
         );
-        spawn.sync(webdriverManagerPath, ['update'], spawnOptions);
+
+        const results = spawn.sync(
+          webdriverManagerPath,
+          [
+            'update',
+            '--standalone', 'false',
+            '--gecko', 'false'
+          ],
+          spawnOptions
+        );
+
+        if (results.error) {
+          reject(results.error);
+          return;
+        }
+
         logger.info('Selenium server is ready.');
         resolve();
       }
@@ -156,42 +177,17 @@ function spawnSelenium() {
  * Spawns the httpServer
  */
 function spawnServer() {
-  return new Promise(resolve => {
-    logger.info('Requesting Open Port');
-    httpServer = HttpServer.createServer({
-      root: 'dist/',
-      cors: true,
-      https: {
-        cert:
-        path.resolve(__dirname, '../../node_modules/@blackbaud/skyux-builder', 'ssl', 'server.crt'),
-        key:
-        path.resolve(__dirname, '../../node_modules/@blackbaud/skyux-builder', 'ssl', 'server.key')
-      }
-    });
-    portfinder.getPortPromise().then(port => {
-      logger.info(`Open Port Found: ${port}`);
-      logger.info('Starting Web Server');
-      httpServer.listen(port, 'localhost', () => {
-        logger.info('Web Server Running');
-        resolve(port);
-      });
-    });
-  });
+  const server = require('@blackbaud/skyux-builder/cli/utils/server');
+
+  return server.start();
 }
 
 /**
  * Spawns the build process.  Captures the config used.
  */
-function spawnBuild(skyPagesConfig, webpack) {
-  return new Promise(resolve => {
-    logger.info('Running build');
-    build(
-      { logFormat: 'compact' },
-      skyPagesConfig,
-      webpack
-    ).then(stats => {
-      logger.info('Completed build');
-      resolve(stats.toJson().chunks);
-    });
-  });
+function spawnBuild(argv, skyPagesConfig, webpack) {
+  const build = require('@blackbaud/skyux-builder/cli/build');
+
+  return build(argv, skyPagesConfig, webpack)
+    .then(stats => stats.toJson().chunks);
 }
