@@ -1,5 +1,3 @@
-import { SkyFlyoutMessageType } from './flyout-message-type';
-
-export interface SkyFlyoutMessage {
-  type: SkyFlyoutMessageType;
-}
+export {
+  SkyFlyoutMessage
+} from '@skyux/flyout/modules/flyout/types/flyout-message';
