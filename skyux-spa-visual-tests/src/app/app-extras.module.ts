@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { FlyoutDemoComponent } from './flyout/flyout-demo.component';
 import { ToastDemoComponent } from './toast/toast-demo.component';
 
 import { ProgressIndicatorWizardDemoComponent } from './progress-indicator/progress-indicator-horizontal-visual.component';
