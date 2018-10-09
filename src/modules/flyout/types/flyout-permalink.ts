@@ -1,1 +1,1 @@
-export { SkyFlyoutPermalink } from '@skyux/flyout';
+export { SkyFlyoutPermalink } from '@skyux/flyout/modules/flyout/types/flyout-permalink';

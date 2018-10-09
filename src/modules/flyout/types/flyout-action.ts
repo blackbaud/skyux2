@@ -1,1 +1,1 @@
-export { SkyFlyoutAction } from '@skyux/flyout';
+export { SkyFlyoutAction } from '@skyux/flyout/modules/flyout/types/flyout-action';

@@ -1,1 +1,1 @@
-export { SkyFlyoutMessageType } from '@skyux/flyout';
+export { SkyFlyoutMessageType } from '@skyux/flyout/modules/flyout/types/flyout-message-type';
