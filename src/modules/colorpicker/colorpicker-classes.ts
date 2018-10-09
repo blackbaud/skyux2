@@ -1,4 +1,4 @@
 export {
   SliderPosition,
   SliderDimension
-} from '@skyux/colorpicker';
+} from '@skyux/colorpicker/modules/colorpicker/colorpicker-classes';

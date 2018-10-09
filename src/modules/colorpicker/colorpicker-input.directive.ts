@@ -1,3 +1,3 @@
 export {
   SkyColorpickerInputDirective
-} from '@skyux/colorpicker';
+} from '@skyux/colorpicker/modules/colorpicker/colorpicker-input.directive';

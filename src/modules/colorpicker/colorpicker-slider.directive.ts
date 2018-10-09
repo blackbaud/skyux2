@@ -1,3 +1,3 @@
 export {
   SkyColorpickerSliderDirective
-} from '@skyux/colorpicker';
+} from '@skyux/colorpicker/modules/colorpicker/colorpicker-slider.directive';

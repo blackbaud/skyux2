@@ -1,3 +1,3 @@
 export {
   SkyColorpickerComponent
-} from '@skyux/colorpicker';
+} from '@skyux/colorpicker/modules/colorpicker/colorpicker.component';
