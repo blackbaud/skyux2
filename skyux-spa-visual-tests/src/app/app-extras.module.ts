@@ -11,7 +11,6 @@ require('style-loader!./visual.scss');
 @NgModule({
   providers: [],
   entryComponents: [
-    FlyoutDemoComponent,
     ToastDemoComponent,
     ProgressIndicatorWizardDemoComponent
   ]
