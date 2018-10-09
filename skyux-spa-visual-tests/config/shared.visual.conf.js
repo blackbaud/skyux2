@@ -9,8 +9,8 @@ module.exports = {
   onPrepare: function () {
     jasmine.getEnv().addReporter(new SpecReporter());
 
-    browser.params.chunks = browser.params.chunks;
-    browser.params.skyPagesConfig = browser.params.skyPagesConfig;
+    browser.params.chunks = JSON.parse(browser.params.chunks);
+    browser.params.skyPagesConfig = JSON.parse(browser.params.skyPagesConfig);
     browser.skyVisualTestConfig = getVisualTestConfig('local');
     browser.pixDiff = new PixDiff(browser.skyVisualTestConfig);
   },

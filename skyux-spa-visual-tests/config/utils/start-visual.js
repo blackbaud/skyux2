@@ -102,20 +102,28 @@ function killServers(exitCode) {
  * @name spawnProtractor
  */
 function spawnProtractor(chunks, port, skyPagesConfig) {
-  const protractorLauncher = require('protractor/built/launcher');
-  const configPath = path.resolve('config/local.visual.conf.js');
-
   logger.info('Running Protractor');
 
-  protractorLauncher.init(configPath, {
-    params: {
-      localUrl: `https://localhost:${port}`,
-      chunks,
-      skyPagesConfig
-    }
-  });
+  const protractorPath = path.resolve(
+    'node_modules',
+    '.bin',
+    'protractor'
+  );
 
-  process.on('exit', killServers);
+  const protractor = spawn.spawn(
+    protractorPath,
+    [
+      getProtractorConfigPath(),
+      '--disableChecks',
+      `--baseUrl ${skyPagesConfig.skyux.host.url}`,
+      `--params.localUrl=https://localhost:${port}`,
+      `--params.chunks=${JSON.stringify(chunks)}`,
+      `--params.skyPagesConfig=${JSON.stringify(skyPagesConfig)}`
+    ],
+    spawnOptions
+  );
+
+  protractor.on('exit', killServers);
 }
 
 /**
@@ -145,7 +153,22 @@ function spawnSelenium() {
           '.bin',
           'webdriver-manager'
         );
-        spawn.sync(webdriverManagerPath, ['update'], spawnOptions);
+
+        const results = spawn.sync(
+          webdriverManagerPath,
+          [
+            'update',
+            '--standalone', 'false',
+            '--gecko', 'false'
+          ],
+          spawnOptions
+        );
+
+        if (results.error) {
+          reject(results.error);
+          return;
+        }
+
         logger.info('Selenium server is ready.');
         resolve();
       }
