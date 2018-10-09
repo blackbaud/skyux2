@@ -1,5 +1,3 @@
-import { SkyFlyoutAdapterService } from './flyout-adapter.service';
-
-export const SKY_FLYOUT_PROVIDERS: any[] = [
-  SkyFlyoutAdapterService
-];
+export {
+  SKY_FLYOUT_PROVIDERS
+} from '@skyux/flyout/modules/flyout/flyout-providers';
