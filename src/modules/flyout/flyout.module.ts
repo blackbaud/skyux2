@@ -1,1 +1,3 @@
-export { SkyFlyoutModule } from '@skyux/flyout/modules/flyout/flyout.module';
+export {
+  SkyFlyoutModule
+} from '@skyux/flyout/modules/flyout/flyout.module';

@@ -1,1 +1,3 @@
-export { SkyFlyoutAdapterService } from '@skyux/flyout/modules/flyout/flyout-adapter.service';
+export {
+  SkyFlyoutAdapterService
+} from '@skyux/flyout/modules/flyout/flyout-adapter.service';

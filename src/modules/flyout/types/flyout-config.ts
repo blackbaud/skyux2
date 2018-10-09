@@ -1,1 +1,3 @@
-export { SkyFlyoutConfig } from '@skyux/flyout/modules/flyout/types/flyout-config';
+export {
+  SkyFlyoutConfig
+} from '@skyux/flyout/modules/flyout/types/flyout-config';
