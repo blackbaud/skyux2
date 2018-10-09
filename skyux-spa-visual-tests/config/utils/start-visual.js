@@ -145,17 +145,7 @@ function spawnSelenium() {
           '.bin',
           'webdriver-manager'
         );
-
-        spawn.sync(
-          webdriverManagerPath,
-          [
-            'update',
-            '--standalone', 'false',
-            '--gecko', 'false'
-          ],
-          spawnOptions
-        );
-
+        spawn.sync(webdriverManagerPath, ['update'], spawnOptions);
         logger.info('Selenium server is ready.');
         resolve();
       }
