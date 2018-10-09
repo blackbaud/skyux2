@@ -1,5 +1,3 @@
-export interface SkyFlyoutAction {
-    label?: string;
-    callback?: () => void;
-    closeAfterInvoking?: boolean;
-}
+export {
+  SkyFlyoutAction
+} from '@skyux/flyout/modules/flyout/types/flyout-action';
