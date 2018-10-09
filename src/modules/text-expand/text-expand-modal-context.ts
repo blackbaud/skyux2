@@ -1,6 +1,3 @@
-/* istanbul ignore next */
-/* Code coverage having problems with no statements in classes */
-export class SkyTextExpandModalContext {
-  public header: string;
-  public text: string;
-}
+export {
+  SkyTextExpandModalContext
+} from '@skyux/layout/modules/text-expand/text-expand-modal-context';

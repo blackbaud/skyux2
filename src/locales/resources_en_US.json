@@ -23,10 +23,6 @@
     "_description": "Message title displayed when the user attempts to upload an avatar image with a file size that is too large",
     "message": "File is too large."
   },
-  "card_checkbox_label": {
-    "_description": "Label for the multiselect checkbox for the card component",
-    "message": "Select card"
-  },
   "checklist_clear_all": {
     "_description": "Text for the link in a checklist to clear selections.",
     "message": "Clear all"
@@ -318,10 +314,6 @@
   "datepicker_today": {
     "_description": "Text displayed in the Today button of the datepicker",
     "message": "Today"
-  },
-  "definition_list_none_found": {
-    "_description": "The default text to show when a definition list item has no value",
-    "message": "None found"
   },
   "errormodal_ok": {
     "_description": "Text used on the primary button to dismiss the error modal.",
@@ -738,22 +730,6 @@
   "tab_open": {
     "_description": "Label for the tab open button",
     "message": "Open tab"
-  },
-  "text_expand_close_text": {
-    "_description": "Text for the close button on the text expand modal",
-    "message": "Close"
-  },
-  "text_expand_modal_title": {
-    "_description": "",
-    "message": "Expanded view"
-  },
-  "text_expand_see_less": {
-    "_description": "Display less text content",
-    "message": "See less"
-  },
-  "text_expand_see_more": {
-    "_description": "",
-    "message": "See more"
   },
   "tile_settings": {
     "_description": "Label for settings button in the tile",

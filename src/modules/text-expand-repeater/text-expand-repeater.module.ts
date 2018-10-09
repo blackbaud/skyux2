@@ -1,18 +1,3 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SkyResourcesModule } from '../resources';
-import { SkyTextExpandRepeaterComponent } from './text-expand-repeater.component';
-
-@NgModule({
-  declarations: [
-    SkyTextExpandRepeaterComponent
-  ],
-  imports: [
-    SkyResourcesModule,
-    CommonModule
-  ],
-  exports: [
-    SkyTextExpandRepeaterComponent
-  ]
-})
-export class SkyTextExpandRepeaterModule { }
+export {
+  SkyTextExpandRepeaterModule
+} from '@skyux/layout/modules/text-expand-repeater/text-expand-repeater.module';
