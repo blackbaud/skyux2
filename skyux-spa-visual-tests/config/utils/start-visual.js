@@ -146,7 +146,7 @@ function spawnSelenium() {
           'webdriver-manager'
         );
 
-        const results = spawn.sync(
+        spawn.sync(
           webdriverManagerPath,
           [
             'update',
@@ -155,11 +155,6 @@ function spawnSelenium() {
           ],
           spawnOptions
         );
-
-        if (results.error) {
-          reject(results.error);
-          return;
-        }
 
         logger.info('Selenium server is ready.');
         resolve();
