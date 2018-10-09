@@ -1,6 +1,3 @@
-import {
-  SkyAutocompleteSearchFunctionResponse
-} from './autocomplete-search-function-response';
-
-export type SkyAutocompleteSearchFunction =
-  (searchText: string, data: any[]) => SkyAutocompleteSearchFunctionResponse;
+export {
+  SkyAutocompleteSearchFunction
+} from '@skyux/lookup/modules/autocomplete/types/autocomplete-search-function';

@@ -1,9 +1,3 @@
-import {
-  SkyAutocompleteSearchFunctionFilter
-} from './autocomplete-search-function-filter';
-
-export interface SkyAutocompleteDefaultSearchFunctionOptions {
-  propertiesToSearch?: string[];
-  searchFilters?: SkyAutocompleteSearchFunctionFilter[];
-  searchResultsLimit?: number;
-}
+export {
+  SkyAutocompleteDefaultSearchFunctionOptions
+} from '@skyux/lookup/modules/autocomplete/types/autocomplete-default-search-function-options';
