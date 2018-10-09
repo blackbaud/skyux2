@@ -1,6 +1,3 @@
-export class SkyLinkRecordsMatchesSetStatusAction {
-  constructor(
-    public key: string,
-    public status: string
-  ) {}
-}
+export {
+  SkyLinkRecordsMatchesSetStatusAction
+} from '@skyux/link-records/modules/link-records/state/matches/set-status.action'
