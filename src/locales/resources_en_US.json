@@ -679,18 +679,6 @@
     "_description": "Text for the heading in the sort dropdown",
     "message": "Sort by"
   },
-  "tab_add": {
-    "_description": "Label for the tab add button",
-    "message": "Add tab"
-  },
-  "tab_close": {
-    "_description": "Label for the tab close button",
-    "message": "Close tab"
-  },
-  "tab_open": {
-    "_description": "Label for the tab open button",
-    "message": "Open tab"
-  },
   "text_expand_close_text": {
     "_description": "Text for the close button on the text expand modal",
     "message": "Close"
