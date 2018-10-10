@@ -17,12 +17,10 @@ module.exports = {
   beforeLaunch: function () {
     require('ts-node').register({ ignore: false });
   },
-  framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 90000
   },
-  useAllAngular2AppRoots: true,
   allScriptsTimeout: 30000,
   specs: ['../src/app/**/*.visual-spec.ts']
 };
