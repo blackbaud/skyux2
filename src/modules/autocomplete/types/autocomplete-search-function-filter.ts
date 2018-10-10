@@ -1,2 +1,3 @@
-export type SkyAutocompleteSearchFunctionFilter =
-  (searchText: string, item: any) => boolean;
+export {
+  SkyAutocompleteSearchFunctionFilter
+} from '@skyux/lookup/modules/autocomplete/types/autocomplete-search-function-filter';
