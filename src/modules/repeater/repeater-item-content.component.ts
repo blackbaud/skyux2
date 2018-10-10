@@ -1,9 +1,3 @@
-import {
-  Component
-} from '@angular/core';
-
-@Component({
-  selector: 'sky-repeater-item-content',
-  templateUrl: '../shared/simple-content.html'
-})
-export class SkyRepeaterItemContentComponent { }
+export {
+  SkyRepeaterItemContentComponent
+} from '@skyux/lists/modules/repeater/repeater-item-content.component';
