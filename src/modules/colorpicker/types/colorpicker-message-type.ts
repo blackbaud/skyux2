@@ -1,5 +1,3 @@
-export enum SkyColorpickerMessageType {
-  Open = 0,
-  Reset = 1,
-  ToggleResetButton = 2
-}
+export {
+  SkyColorpickerMessageType
+} from '@skyux/colorpicker/modules/colorpicker/types/colorpicker-message-type';
