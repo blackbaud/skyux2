@@ -20,9 +20,10 @@
   "license": "ISC",
   "devDependencies": {
     "@blackbaud/skyux": "latest",
-    "@blackbaud/skyux-builder": "1.23.1",
+    "@blackbaud/skyux-builder": "1.24.0",
     "@skyux/animations": "3.0.0-rc.0",
     "@skyux/avatar": "3.0.0-rc.0",
+    "@skyux/colorpicker": "3.0.0-rc.0",
     "@skyux/errors": "3.0.0-rc.0",
     "@skyux/flyout": "3.0.0-rc.0",
     "@skyux/forms": "3.0.0-rc.0",
