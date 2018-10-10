@@ -1,9 +1,3 @@
-import { SkyLinkRecordsFieldModel } from './field.model';
-
-export class SkyLinkRecordsFieldsSetFieldsAction {
-  constructor(
-    public key: string,
-    public fields: Array<SkyLinkRecordsFieldModel>
-  ) {
-  }
-}
+export {
+  SkyLinkRecordsFieldsSetFieldsAction
+} from '@skyux/link-records/modules/link-records/state/fields/set-fields';

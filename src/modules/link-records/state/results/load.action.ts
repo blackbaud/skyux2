@@ -1,9 +1,3 @@
-import { SkyLinkRecordsResultModel } from './result.model';
-
-export class SkyLinkRecordsResultsLoadAction {
-  constructor(
-    public results: Array<SkyLinkRecordsResultModel>,
-    public refresh: boolean = false
-  ) {
-  }
-}
+export {
+  SkyLinkRecordsResultsLoadAction
+} from '@skyux/link-records/modules/link-records/state/results/load.action';
