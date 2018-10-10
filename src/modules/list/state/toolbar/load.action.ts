@@ -1,7 +1,3 @@
-import { ListToolbarItemModel } from './toolbar-item.model';
-
-export class ListToolbarItemsLoadAction {
-  constructor(public items: ListToolbarItemModel[], public index: number = -1) {
-
-  }
-}
+export {
+  ListToolbarItemsLoadAction
+} from '@skyux/list-builder/modules/list/state/toolbar/load.action';

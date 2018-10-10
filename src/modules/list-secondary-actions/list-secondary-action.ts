@@ -1,7 +1,3 @@
-import {
-  TemplateRef
-} from '@angular/core';
-
-export interface SkyListSecondaryAction {
-  template: TemplateRef<any>;
-}
+export {
+  SkyListSecondaryAction
+} from '@skyux/list-builder/modules/list-secondary-actions/list-secondary-action';
