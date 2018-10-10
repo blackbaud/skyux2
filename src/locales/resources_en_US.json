@@ -311,10 +311,6 @@
     "_description": "In the column picker, the header for the column showing the names of the columns to include in the grid.",
     "message": "Column"
   },
-  "grid_column_picker_search_no_columns": {
-    "_description": "Displays when no columns are found for the specified search text.",
-    "message": "No columns found"
-  },
   "grid_column_picker_search_placeholder": {
     "_description": "Search text placeholder for the search box on the grid column picker",
     "message": "Search for columns"
@@ -358,10 +354,6 @@
   "grid_load_more": {
     "_description": "The text for the button to load additional rows into the grid if more rows are available.",
     "message": "Load more"
-  },
-  "grid_search_placeholder": {
-    "_description": "Placeholder text in grid search box",
-    "message": "Find in this list"
   },
   "infinite_scroll_load_more_button": {
     "_description": "Text for loading more in the infinite scroll button",
@@ -574,30 +566,6 @@
   "repeater_item_checkbox_label": {
     "_description": "Label for the repeater item checkbox for the repeater component",
     "message": "Select row"
-  },
-  "search_dismiss": {
-    "_description": "Label for dismissing search input",
-    "message": "Dismiss search"
-  },
-  "search_label": {
-    "_description": "Label for search component functionality",
-    "message": "Search items"
-  },
-  "search_open": {
-    "_description": "Label for opening search input",
-    "message": "Open search"
-  },
-  "search_placeholder": {
-    "_description": "Placeholder text for search input component",
-    "message": "Find in this list"
-  },
-  "searchfield_no_records": {
-    "_description": "text for ui-select search control when no records are found.",
-    "message": "Sorry, no matching records found"
-  },
-  "searchfield_searching": {
-    "_description": "text for ui-select search control while performing a remote search",
-    "message": "Searching..."
   },
   "select_field_multiple_select_open_button": {
     "_description": "The default button text for the select field when the user is allowed to select multiple values (plural)",
