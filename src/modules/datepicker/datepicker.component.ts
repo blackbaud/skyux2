@@ -1,3 +1,3 @@
 export {
   SkyDatepickerComponent
-} from '@skyux/datetime';
+} from '@skyux/datetime/modules/datepicker/datepicker.component';
