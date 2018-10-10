@@ -43,70 +43,6 @@
     "_description": "Text for the checkbox in a checklist to show only selected items.",
     "message": "Only show selected items"
   },
-  "colorpicker_alpha": {
-    "_description": "Label for the alpha input",
-    "message": "A:"
-  },
-  "colorpicker_apply": {
-    "_description": "Label for the apply button",
-    "message": "Apply"
-  },
-  "colorpicker_aria_alpha": {
-    "_description": "aria label for the alpha input",
-    "message": "Alpha channel value between 0 and 1"
-  },
-  "colorpicker_aria_blue": {
-    "_description": "aria label for the blue input",
-    "message": "Blue value between 0 and 255"
-  },
-  "colorpicker_aria_green": {
-    "_description": "aria label for the green input",
-    "message": "Green value between 0 and 255"
-  },
-  "colorpicker_aria_hex": {
-    "_description": "aria label for the hex input",
-    "message": "Hexadecimal color code"
-  },
-  "colorpicker_aria_red": {
-    "_description": "aria label for the red input",
-    "message": "Red value between 0 and 255"
-  },
-  "colorpicker_blue": {
-    "_description": "Label for the blue input",
-    "message": "B:"
-  },
-  "colorpicker_close": {
-    "_description": "Label for the close button",
-    "message": "Close"
-  },
- "colorpicker_dropdown_button": {
-    "_description": "Label for the dropdown button",
-    "message": "Select color value"
-  },
-  "colorpicker_green": {
-    "_description": "Label for the green input",
-    "message": "G:"
-  },
-  "colorpicker_hex": {
-    "_description": "aria label for the hex input",
-    "message": "Hex:"
-  },
-  "colorpicker_input_default_label": {
-    "_description": "The label for the colorpicker component's input field for screen readers when the consumer has not specified a label.",
-    "message": "Color value"
-  },
-  "colorpicker_preset_color": {
-    "_description": "Label for the preset colors",
-    "message": "Preset Color:"
-  },
-  "colorpicker_red": {
-    "_description": "Label for the red input",
-    "message": "R:"
-  },
-  "colorpicker_reset": {
-    "_description": "Label for the reset button to change the color back to the initial color",
-    "message": "Reset color value to white"
-  },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
     "message": "OK"
@@ -363,10 +299,6 @@
     "_description": "In the column picker, the header for the column showing the names of the columns to include in the grid.",
     "message": "Column"
   },
-  "grid_column_picker_search_no_columns": {
-    "_description": "Displays when no columns are found for the specified search text.",
-    "message": "No columns found"
-  },
   "grid_column_picker_search_placeholder": {
     "_description": "Search text placeholder for the search box on the grid column picker",
     "message": "Search for columns"
@@ -411,9 +343,9 @@
     "_description": "The text for the button to load additional rows into the grid if more rows are available.",
     "message": "Load more"
   },
-  "grid_search_placeholder": {
-    "_description": "Placeholder text in grid search box",
-    "message": "Find in this list"
+  "infinite_scroll_load_more_button": {
+    "_description": "Text for loading more in the infinite scroll button",
+    "message": "Load more"
   },
   "link_records_item_info_match": {
     "_description": "",
@@ -607,29 +539,9 @@
     "_description": "Text displayed to indicate that a row can be pushed to the top of the list",
     "message": "Top"
   },
-  "search_dismiss": {
-    "_description": "Label for dismissing search input",
-    "message": "Dismiss search"
-  },
-  "search_label": {
-    "_description": "Label for search component functionality",
-    "message": "Search items"
-  },
-  "search_open": {
-    "_description": "Label for opening search input",
-    "message": "Open search"
-  },
-  "search_placeholder": {
-    "_description": "Placeholder text for search input component",
-    "message": "Find in this list"
-  },
-  "searchfield_no_records": {
-    "_description": "text for ui-select search control when no records are found.",
-    "message": "Sorry, no matching records found"
-  },
-  "searchfield_searching": {
-    "_description": "text for ui-select search control while performing a remote search",
-    "message": "Searching..."
+  "repeater_item_checkbox_label": {
+    "_description": "Label for the repeater item checkbox for the repeater component",
+    "message": "Select row"
   },
   "select_field_multiple_select_open_button": {
     "_description": "The default button text for the select field when the user is allowed to select multiple values (plural)",
