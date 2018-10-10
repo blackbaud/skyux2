@@ -667,10 +667,6 @@
     "_description": "The label for the timepicker component's input field for screen readers when the consumer has not specified a label.",
     "message": "Time input field."
   },
-  "toast_close_button": {
-    "_description": "Screen reader text for the close button on toasts",
-    "message": "Close the toast"
-  },
   "vertical_tabs_show_tabs_text": {
     "_description": "The default text for the show tabs button in mobile",
     "message": "Tab list"

@@ -1,10 +1,3 @@
-// #region imports
-import {
-  Injectable
-} from '@angular/core';
-// #endregion
-
-@Injectable()
-export class SkyToastBodyContext {
-  public message: string;
-}
+export {
+  SkyToastBodyContext
+} from '@skyux/toast/modules/toast/toast-body-context';
