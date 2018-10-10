@@ -43,70 +43,6 @@
     "_description": "Text for the checkbox in a checklist to show only selected items.",
     "message": "Only show selected items"
   },
-  "colorpicker_alpha": {
-    "_description": "Label for the alpha input",
-    "message": "A:"
-  },
-  "colorpicker_apply": {
-    "_description": "Label for the apply button",
-    "message": "Apply"
-  },
-  "colorpicker_aria_alpha": {
-    "_description": "aria label for the alpha input",
-    "message": "Alpha channel value between 0 and 1"
-  },
-  "colorpicker_aria_blue": {
-    "_description": "aria label for the blue input",
-    "message": "Blue value between 0 and 255"
-  },
-  "colorpicker_aria_green": {
-    "_description": "aria label for the green input",
-    "message": "Green value between 0 and 255"
-  },
-  "colorpicker_aria_hex": {
-    "_description": "aria label for the hex input",
-    "message": "Hexadecimal color code"
-  },
-  "colorpicker_aria_red": {
-    "_description": "aria label for the red input",
-    "message": "Red value between 0 and 255"
-  },
-  "colorpicker_blue": {
-    "_description": "Label for the blue input",
-    "message": "B:"
-  },
-  "colorpicker_close": {
-    "_description": "Label for the close button",
-    "message": "Close"
-  },
- "colorpicker_dropdown_button": {
-    "_description": "Label for the dropdown button",
-    "message": "Select color value"
-  },
-  "colorpicker_green": {
-    "_description": "Label for the green input",
-    "message": "G:"
-  },
-  "colorpicker_hex": {
-    "_description": "aria label for the hex input",
-    "message": "Hex:"
-  },
-  "colorpicker_input_default_label": {
-    "_description": "The label for the colorpicker component's input field for screen readers when the consumer has not specified a label.",
-    "message": "Color value"
-  },
-  "colorpicker_preset_color": {
-    "_description": "Label for the preset colors",
-    "message": "Preset Color:"
-  },
-  "colorpicker_red": {
-    "_description": "Label for the red input",
-    "message": "R:"
-  },
-  "colorpicker_reset": {
-    "_description": "Label for the reset button to change the color back to the initial color",
-    "message": "Reset color value to white"
-  },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
     "message": "OK"
@@ -326,18 +262,6 @@
   "errormodal_ok": {
     "_description": "Text used on the primary button to dismiss the error modal.",
     "message": "OK"
-  },
-  "filter_button_title": {
-    "_description": "Text for the filter button title",
-    "message": "Filter"
-  },
-  "filter_summary_header": {
-    "_description": "Text for the filter summary component",
-    "message": "Filter"
-  },
-  "filter_summary_close": {
-    "_description": "Text for the filter summary component's close button",
-    "message": "Remove filter"
   },
   "grid_action_bar_cancel_mobile_actions": {
     "_description": "Close the menu where you choose an action in mobile multiselect.",
@@ -611,18 +535,6 @@
     "_description": "",
     "message": "Move along, there's nothing to see here"
   },
-  "paging_label": {
-    "_description": "Default text for the label for the pagination component",
-    "message": "Pagination"
-  },
-  "paging_next": {
-    "_description": "Text for the label for the next button on the pagination component",
-    "message": "Next"
-  },
-  "paging_previous": {
-    "_description": "Text for the label for the previous button on the pagination component",
-    "message": "Previous"
-  },
   "reorder_top": {
     "_description": "Text displayed to indicate that a row can be pushed to the top of the list",
     "message": "Top"
@@ -670,14 +582,6 @@
   "select_field_picker_show_all_category": {
     "_description": "The default category name for the select field picker that will display all possible results.",
     "message": "Show all"
-  },
-  "sort_button_label": {
-    "_description": "Text for the sort button",
-    "message": "Sort"
-  },
-  "sort_menu_heading": {
-    "_description": "Text for the heading in the sort dropdown",
-    "message": "Sort by"
   },
   "text_expand_close_text": {
     "_description": "Text for the close button on the text expand modal",
