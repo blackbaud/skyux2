@@ -1,3 +1,3 @@
 export {
   SkyLinkRecordsFieldsSetFieldsAction
-} from '@skyux/link-records/modules/link-records/state/fields/set-fields';
+} from '@skyux/link-records/modules/link-records/state/fields/set-fields.action';
