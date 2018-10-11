@@ -22,7 +22,7 @@
     "@blackbaud/skyux": "latest",
     "@blackbaud/skyux-builder": "1.24.0",
     "@skyux/animations": "3.0.0-rc.0",
-    "@skyux/datetime": "3.0.0-alpha.0",
+    "@skyux/datetime": "3.0.0-rc.0",
     "@skyux/colorpicker": "3.0.0-rc.0",
     "@skyux/errors": "3.0.0-rc.0",
     "@skyux/flyout": "3.0.0-rc.0",
