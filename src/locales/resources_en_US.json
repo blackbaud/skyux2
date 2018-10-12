@@ -283,18 +283,6 @@
     "_description": "The default category name for the select field picker that will display all possible results.",
     "message": "Show all"
   },
-  "tab_add": {
-    "_description": "Label for the tab add button",
-    "message": "Add tab"
-  },
-  "tab_close": {
-    "_description": "Label for the tab close button",
-    "message": "Close tab"
-  },
-  "tab_open": {
-    "_description": "Label for the tab open button",
-    "message": "Open tab"
-  },
   "text_expand_close_text": {
     "_description": "Text for the close button on the text expand modal",
     "message": "Close"
