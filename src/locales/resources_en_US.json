@@ -7,22 +7,6 @@
     "_description": "Screen reader text for the close button on alerts",
     "message": "Close the alert"
   },
-  "avatar_error_not_image_description": {
-    "_description": "Message description displayed when the user attempts to upload an avatar file that is not a valid image",
-    "message": "Please choose a file that is a valid image."
-  },
-  "avatar_error_not_image_title": {
-    "_description": "Message title displayed when the user attempts to upload an avatar file that is not a valid image",
-    "message": "File is not an image."
-  },
-  "avatar_error_too_large_description": {
-    "_description": "Message description displayed when the user attempts to upload an avatar image with a file size that is too large",
-    "message": "Please choose an image that is less than {0}."
-  },
-  "avatar_error_too_large_title": {
-    "_description": "Message title displayed when the user attempts to upload an avatar image with a file size that is too large",
-    "message": "File is too large."
-  },
   "card_checkbox_label": {
     "_description": "Label for the multiselect checkbox for the card component",
     "message": "Select card"
