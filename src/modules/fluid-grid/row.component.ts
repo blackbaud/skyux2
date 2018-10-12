@@ -1,3 +1,3 @@
 export {
   SkyRowComponent
-} from '@skyux/layout/modules/fluid-grid/row.module';
+} from '@skyux/layout/modules/fluid-grid/row.component';
