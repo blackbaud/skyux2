@@ -1,3 +1,3 @@
 export {
   SkyVerticalTabComponent
-} '@skyux/tabs/modules/vertical-tabset/vertical-tab.component';
+} from '@skyux/tabs/modules/vertical-tabset/vertical-tab.component';
