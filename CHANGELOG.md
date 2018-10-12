@@ -1,3 +1,16 @@
+# 2.27.0 (2018-10-15)
+
+- Added passive progress indicator mode. [#2013](https://github.com/blackbaud/skyux2/pull/2013)
+- Updated accessibility for repeater component. [#1758](https://github.com/blackbaud/skyux2/pull/1758)
+- Updated datepicker, timepicker, and dropdown components to use a disable property. [#2005](https://github.com/blackbaud/skyux2/pull/2005)
+- Updated keyinfo component to no longer have margins. [#2027](https://github.com/blackbaud/skyux2/pull/2027)
+- Updated popover to export message types. [#2030](https://github.com/blackbaud/skyux2/pull/2030)
+- Fixed sizing of progress indicator steps. [#2013](https://github.com/blackbaud/skyux2/pull/2013)
+- Fixed unit tests to no longer have uncaught errors. [#2037](https://github.com/blackbaud/skyux2/pull/2037)
+- Fixed several grid resize column bugs. [#2039](https://github.com/blackbaud/skyux2/pull/2039)
+- Fixed colorpicker bug preventing colopicker to not open when clicked in IE11 [#2071](https://github.com/blackbaud/skyux2/pull/2071)
+- Fixed visual tests to read i18n resource files. [#2099](https://github.com/blackbaud/skyux2/pull/2099)
+
 # 2.26.0 (2018-09-21)
 
 - Added support for `@skyux/core@3.1.0`. [#2011](https://github.com/blackbaud/skyux2/pull/2011)
