@@ -1,4 +1,3 @@
-import { SkyColorpickerOutput } from './colorpicker-output';
- export interface SkyColorpickerResult {
-  color: SkyColorpickerOutput;
-}
+export {
+  SkyColorpickerResult
+} from '@skyux/colorpicker/modules/colorpicker/types/colorpicker-result';
