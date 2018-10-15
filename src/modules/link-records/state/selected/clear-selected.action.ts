@@ -1,5 +1,3 @@
-export class SkyLinkRecordsSelectedClearSelectedAction {
-  constructor(
-    public key: string
-  ) {}
-}
+export {
+  SkyLinkRecordsSelectedClearSelectedAction
+} from '@skyux/link-records/modules/link-records/state/selected/clear-selected.action';

@@ -1,6 +1,3 @@
-export class SkyLinkRecordsFieldsClearFieldsAction {
-  constructor(
-    public key: string
-  ) {
-  }
-}
+export {
+  SkyLinkRecordsFieldsClearFieldsAction
+} from '@skyux/link-records/modules/link-records/state/fields/clear-fields.action';
