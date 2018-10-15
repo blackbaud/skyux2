@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
+import {
+  NgModule
+} from '@angular/core';
 
-import { ToastDemoComponent } from './toast/toast-demo.component';
-
-import { ProgressIndicatorWizardDemoComponent } from './progress-indicator/progress-indicator-horizontal-visual.component';
+import {
+  ProgressIndicatorWizardDemoComponent
+} from './progress-indicator/progress-indicator-horizontal-visual.component';
 
 require('style-loader!./visual.scss');
 
@@ -10,7 +12,6 @@ require('style-loader!./visual.scss');
 @NgModule({
   providers: [],
   entryComponents: [
-    ToastDemoComponent,
     ProgressIndicatorWizardDemoComponent
   ]
 })
