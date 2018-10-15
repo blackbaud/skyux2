@@ -311,10 +311,6 @@
     "_description": "Report of the new location of a recently moved tile",
     "message": "{0} moved. Current column: {1} of {2}. Current position in column: {3} of {4}"
   },
-  "toast_close_button": {
-    "_description": "Screen reader text for the close button on toasts",
-    "message": "Close the toast"
-  },
   "vertical_tabs_show_tabs_text": {
     "_description": "The default text for the show tabs button in mobile",
     "message": "Tab list"
