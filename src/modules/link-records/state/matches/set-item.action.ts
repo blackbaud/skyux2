@@ -1,6 +1,3 @@
-export class SkyLinkRecordsMatchesSetItemAction {
-  constructor(
-    public key: string,
-    public item: any
-  ) {}
-}
+export {
+  SkyLinkRecordsMatchesSetItemAction
+} from '@skyux/link-records/modules/link-records/state/matches/set-item.action';
