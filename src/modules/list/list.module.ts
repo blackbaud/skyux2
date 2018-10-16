@@ -1,1 +1,3 @@
-export { SkyListModule } from '@skyux/list-builder';
+export {
+SkyListModule
+} from '@skyux/list-builder';
