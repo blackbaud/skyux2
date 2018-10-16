@@ -40,6 +40,9 @@ import {
 import {
   SkyIconModule
 } from '../icon';
+import {
+  SkyListViewChecklistModule
+} from '../list-view-checklist/list-view-checklist.module';
 
 @NgModule({
   imports: [
@@ -48,6 +51,7 @@ import {
     ReactiveFormsModule,
     SkyListModule,
     SkyListPagingModule,
+    SkyListViewChecklistModule,
     SkyModalModule,
     SkyResourcesModule,
     SkyTokensModule,
