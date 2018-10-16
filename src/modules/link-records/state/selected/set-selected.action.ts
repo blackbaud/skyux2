@@ -1,7 +1,3 @@
-export class SkyLinkRecordsSelectedSetSelectedAction {
-  constructor(
-    public key: string,
-    public fieldKey: string,
-    public selected: boolean
-  ) {}
-}
+export {
+  SkyLinkRecordsSelectedSetSelectedAction
+} from '@skyux/link-records/modules/link-records/state/selected/set-selected.action';
