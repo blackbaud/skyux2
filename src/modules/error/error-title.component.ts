@@ -1,8 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'sky-error-title',
-  templateUrl: '../shared/simple-content.html'
-})
-export class SkyErrorTitleComponent {
-}
+export {
+  SkyErrorTitleComponent
+} from '@skyux/errors/modules/error/error-title.component';

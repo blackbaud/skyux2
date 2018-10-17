@@ -1,9 +1,3 @@
-import { SkyLinkRecordsMatchModel } from './match.model';
-
-export class SkyLinkRecordsMatchesLoadAction {
-  constructor(
-    public matches: Array<SkyLinkRecordsMatchModel>,
-    public refresh: boolean = false
-  ) {
-  }
-}
+export {
+  SkyLinkRecordsMatchesLoadAction
+} from '@skyux/link-records/modules/link-records/state/matches/load.action';

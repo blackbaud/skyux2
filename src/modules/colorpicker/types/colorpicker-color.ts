@@ -1,6 +1,3 @@
-// spell-checker:ignore Colorpicker,
-export interface SkyColorpickerChangeColor {
-  color: string;
-  colorValue: number;
-  maxRange: number;
-}
+export {
+  SkyColorpickerChangeColor
+} from '@skyux/colorpicker/modules/colorpicker/types/colorpicker-color';

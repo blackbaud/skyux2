@@ -1,13 +1,3 @@
-import {
-  SkyConfirmConfig,
-  SkyConfirmType,
-  SkyConfirmButtonConfig
-} from './types';
-
-/* istanbul ignore next */
-export class SkyConfirmModalContext implements SkyConfirmConfig {
-  public message: string;
-  public body: string;
-  public buttons: SkyConfirmButtonConfig[];
-  public type: SkyConfirmType;
-}
+export {
+  SkyConfirmModalContext
+} from '@skyux/modals/modules/confirm/confirm-modal-context';

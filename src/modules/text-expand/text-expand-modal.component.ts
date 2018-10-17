@@ -1,19 +1,3 @@
-import { Component } from '@angular/core';
-import { SkyModalInstance } from '../modal';
-import { SkyTextExpandModalContext } from './text-expand-modal-context';
-
-@Component({
-  selector: 'sky-text-expand-modal',
-  templateUrl: './text-expand-modal.component.html',
-  styleUrls: ['./text-expand.component.scss']
-})
-export class SkyTextExpandModalComponent {
-  constructor(
-    public context: SkyTextExpandModalContext,
-    public instance: SkyModalInstance
-  ) {}
-
-  public close() {
-    this.instance.close();
-  }
-}
+export {
+  SkyTextExpandModalComponent
+} from '@skyux/layout/modules/text-expand/text-expand-modal.component';

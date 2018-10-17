@@ -1,7 +1,3 @@
-// spell-checker:ignore colorpicker
-export interface SkyColorpickerRgba {
-  red: number;
-  green: number;
-  blue: number;
-  alpha: number;
-}
+export {
+  SkyColorpickerRgba
+} from '@skyux/colorpicker/modules/colorpicker/types/colorpicker-rgba';
