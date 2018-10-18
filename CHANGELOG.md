@@ -1,4 +1,4 @@
-# 2.27.0 (2018-10-15)
+# 2.27.0 (2018-10-18)
 
 - Added passive progress indicator mode. [#2013](https://github.com/blackbaud/skyux2/pull/2013)
 - Added ARIA labels to wait component. [#8](https://github.com/blackbaud/skyux-indicators/pull/8)
