@@ -1,6 +1,3 @@
-export enum SkyToastType {
-  Danger,
-  Info,
-  Success,
-  Warning
-}
+export {
+  SkyToastType
+} from '@skyux/toast/modules/toast/types/toast-type';

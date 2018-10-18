@@ -43,10 +43,6 @@
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
   },
-  "definition_list_none_found": {
-    "_description": "The default text to show when a definition list item has no value",
-    "message": "None found"
-  },
   "errormodal_ok": {
     "_description": "Text used on the primary button to dismiss the error modal.",
     "message": "OK"
@@ -310,10 +306,6 @@
   "tile_moved_assistive_text": {
     "_description": "Report of the new location of a recently moved tile",
     "message": "{0} moved. Current column: {1} of {2}. Current position in column: {3} of {4}"
-  },
-  "toast_close_button": {
-    "_description": "Screen reader text for the close button on toasts",
-    "message": "Close the toast"
   },
   "vertical_tabs_show_tabs_text": {
     "_description": "The default text for the show tabs button in mobile",
