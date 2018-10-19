@@ -1,5 +1,6 @@
 # 2.27.1 (2018-10-19)
 - Fixed module barrels that were missing exports for type files which are used as imports or outputs on previously exported files. [#2128](https://github.com/blackbaud/skyux2/pull/2128)
+- Fixed missing dependency on "@skyux/i18n". [#2129](https://github.com/blackbaud/skyux2/pull/2129)
 
 # 2.27.0 (2018-10-18)
 
