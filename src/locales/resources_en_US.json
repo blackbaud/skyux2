@@ -11,22 +11,6 @@
     "_description": "Label for the multiselect checkbox for the card component",
     "message": "Select card"
   },
-  "checklist_clear_all": {
-    "_description": "Text for the link in a checklist to clear selections.",
-    "message": "Clear all"
-  },
-  "checklist_no_items": {
-    "_description": "Text in a checklist when no items are shown based on the current filter.",
-    "message": "No items found"
-  },
-  "checklist_select_all": {
-    "_description": "Text for the link in a checklist to select all items.",
-    "message": "Select all"
-  },
-  "checklist_show_selected": {
-    "_description": "Text for the checkbox in a checklist to show only selected items.",
-    "message": "Only show selected items"
-  },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
     "message": "OK"

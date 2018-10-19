@@ -51,6 +51,7 @@
     "@skyux/indicators": "3.0.0-rc.2",
     "@skyux/layout": "3.0.0-rc.1",
     "@skyux/link-records": "3.0.0-rc.1",
+    "@skyux/list-builder-view-checklist": "3.0.0-alpha.1",
     "@skyux/lists": "3.0.0-rc.1",
     "@skyux/lookup": "3.0.0-rc.1",
     "@skyux/modals": "3.0.0-rc.1",
