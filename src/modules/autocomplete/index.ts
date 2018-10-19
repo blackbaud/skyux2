@@ -1,4 +1,5 @@
 export {
+  SkyAutocompleteInputTextChange,
   SkyAutocompleteSelectionChange,
   SkyAutocompleteSearchFunction,
   SkyAutocompleteSearchFunctionFilter,
