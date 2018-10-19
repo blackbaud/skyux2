@@ -1,12 +1,3 @@
-import {
-  Component
-} from '@angular/core';
-
-@Component({
-  selector: 'sky-toolbar-item',
-  styleUrls: ['./toolbar-item.component.scss'],
-  templateUrl: './toolbar-item.component.html'
-})
-export class SkyToolbarItemComponent {
-
-}
+export {
+  SkyToolbarItemComponent
+} from '@skyux/layout/modules/toolbar/toolbar-item.component';

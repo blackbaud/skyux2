@@ -43,10 +43,6 @@
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
   },
-  "definition_list_none_found": {
-    "_description": "The default text to show when a definition list item has no value",
-    "message": "None found"
-  },
   "errormodal_ok": {
     "_description": "Text used on the primary button to dismiss the error modal.",
     "message": "OK"
