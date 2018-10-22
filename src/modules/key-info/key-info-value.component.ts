@@ -1,7 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'sky-key-info-value',
-  templateUrl: '../shared/simple-content.html'
-})
-export class SkyKeyInfoValueComponent { }
+export {
+  SkyKeyInfoValueComponent
+} from '@skyux/indicators/modules/key-info/key-info-value.component';
