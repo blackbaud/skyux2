@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.27.1",
+  "version": "2.27.2",
   "description": "SKY UX built on Angular 2",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "@skyux/animations": "3.0.0-rc.0",
-    "@skyux/assets": "3.0.0",
     "@skyux/avatar": "3.0.0-rc.1",
     "@skyux/colorpicker": "3.0.0-rc.1",
     "@skyux/core": "3.1.0",
@@ -49,7 +48,6 @@
     "@skyux/errors": "3.0.0-rc.1",
     "@skyux/flyout": "3.0.0-rc.1",
     "@skyux/forms": "3.0.0-rc.1",
-    "@skyux/i18n": "3.2.0",
     "@skyux/indicators": "3.0.0-rc.2",
     "@skyux/layout": "3.0.0-rc.1",
     "@skyux/link-records": "3.0.0-rc.1",
