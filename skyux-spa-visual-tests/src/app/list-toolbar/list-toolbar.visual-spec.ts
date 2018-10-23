@@ -1,7 +1,7 @@
 import { SkyVisualTest } from '../../../config/utils/visual-test-commands';
 import { element, by } from 'protractor';
 
-describe('list-toolbar component', () => {
+fdescribe('list-toolbar component', () => {
 
   it('should display toolbar with the column chooser', () => {
     return SkyVisualTest
