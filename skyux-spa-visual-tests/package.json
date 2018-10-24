@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "Single-page-application for skyux-spa-visual-tests",
   "main": "index.js",
-  "engines": {
-    "node": ">= 6.11.1",
-    "npm": ">= 3"
-  },
   "scripts": {
     "skyux": "skyux",
     "test": "echo \"Error: no test specified\" && exit 1",
