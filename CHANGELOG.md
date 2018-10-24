@@ -1,3 +1,28 @@
+# 2.27.2 (2018-10-22)
+
+- Fixed dependencies to not collide with latest version of Builder.
+
+# 2.27.1 (2018-10-19)
+- Fixed module barrels that were missing exports for type files which are used as imports or outputs on previously exported files. [#2128](https://github.com/blackbaud/skyux2/pull/2128)
+- Fixed missing dependency on "@skyux/i18n". [#2129](https://github.com/blackbaud/skyux2/pull/2129)
+
+# 2.27.0 (2018-10-18)
+
+- Added passive progress indicator mode. [#2013](https://github.com/blackbaud/skyux2/pull/2013)
+- Added ARIA labels to wait component. [#8](https://github.com/blackbaud/skyux-indicators/pull/8)
+- Added tab index on radio groups and deprecated tab index on radio buttons. [#2](https://github.com/blackbaud/skyux-forms/pull/2)
+- Updated accessibility for repeater component. [#1758](https://github.com/blackbaud/skyux2/pull/1758)
+- Updated datepicker, timepicker, and dropdown components to use a disable property. [#2005](https://github.com/blackbaud/skyux2/pull/2005)
+- Updated keyinfo component to no longer have margins. [#2027](https://github.com/blackbaud/skyux2/pull/2027)
+- Updated popover to export message types. [#2030](https://github.com/blackbaud/skyux2/pull/2030)
+- Fixed sizing of progress indicator steps. [#2013](https://github.com/blackbaud/skyux2/pull/2013)
+- Fixed unit tests to no longer have uncaught errors. [#2037](https://github.com/blackbaud/skyux2/pull/2037)
+- Fixed several grid resize column bugs. [#2039](https://github.com/blackbaud/skyux2/pull/2039)
+- Fixed colorpicker bug preventing colopicker to not open when clicked in IE11 [#2071](https://github.com/blackbaud/skyux2/pull/2071)
+- Fixed visual tests to read i18n resource files. [#2099](https://github.com/blackbaud/skyux2/pull/2099)
+- Fixed modal to initially focus `autofocus` attribute if available. [#3](https://github.com/blackbaud/skyux-modals/pull/3)
+ - Fixed text highlight regular expression to properly escape special characters. [#6](https://github.com/blackbaud/skyux-indicators/pull/6)
+
 # 2.26.0 (2018-09-21)
 
 - Added support for `@skyux/core@3.1.0`. [#2011](https://github.com/blackbaud/skyux2/pull/2011)

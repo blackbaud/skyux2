@@ -6,6 +6,7 @@ export {
   SkyColorpickerModule
 } from './colorpicker.module';
 export {
+  SkyColorpickerChangeColor,
   SkyColorpickerOutput,
   SkyColorpickerResult,
   SkyColorpickerMessage,
