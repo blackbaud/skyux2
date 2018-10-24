@@ -1,23 +1,7 @@
 {
-  "action_bar_actions": {
-    "_description": "The label for the actions dropdown on the action button bar",
-    "message": "Actions"
-  },
-  "alert_close": {
-    "_description": "Screen reader text for the close button on alerts",
-    "message": "Close the alert"
-  },
-  "card_checkbox_label": {
-    "_description": "Label for the multiselect checkbox for the card component",
-    "message": "Select card"
-  },
   "checklist_clear_all": {
     "_description": "Text for the link in a checklist to clear selections.",
     "message": "Clear all"
-  },
-  "checklist_no_items": {
-    "_description": "Text in a checklist when no items are shown based on the current filter.",
-    "message": "No items found"
   },
   "checklist_select_all": {
     "_description": "Text for the link in a checklist to select all items.",
@@ -43,45 +27,13 @@
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
   },
-  "errormodal_ok": {
-    "_description": "Text used on the primary button to dismiss the error modal.",
-    "message": "OK"
-  },
-  "grid_action_bar_cancel_mobile_actions": {
-    "_description": "Close the menu where you choose an action in mobile multiselect.",
-    "message": "Cancel"
-  },
-  "grid_action_bar_choose_action": {
-    "_description": "Open a menu to choose an action in mobile  multiselect.",
-    "message": "Choose an action"
-  },
-  "grid_action_bar_clear_selection": {
-    "_description": "Clear the selections in the grid.",
-    "message": "Clear selection"
-  },
-  "grid_back_to_top": {
-    "_description": "Text for link in grid to scroll back to the top.",
-    "message": "Back to top"
-  },
-  "grid_column_picker_all_categories": {
-    "_description": "Button text for category filters used to indicate that all columns should be shown in the column picker",
-    "message": "All"
-  },
   "grid_column_picker_cancel": {
     "_description": "Button text for cancelling changes made in the grid column picker",
     "message": "Cancel"
   },
-  "grid_column_picker_description_header": {
-    "_description": "In the column picker, the header for the column showing the description of the columns to include in the grid.",
-    "message": "Description"
-  },
   "grid_column_picker_header": {
     "_description": "Header text for the grid column picker screen",
     "message": "Choose columns to show in the list"
-  },
-  "grid_column_picker_name_header": {
-    "_description": "In the column picker, the header for the column showing the names of the columns to include in the grid.",
-    "message": "Column"
   },
   "grid_column_picker_search_placeholder": {
     "_description": "Search text placeholder for the search box on the grid column picker",
@@ -98,138 +50,6 @@
   "grid_columns_toolbar_button": {
     "_description": "Label for toolbar button to select columns to display in a grid.",
     "message": "Columns"
-  },
-  "grid_filters_apply": {
-    "_description": "Text for button on filters flyout to apply the selected filters to the grid",
-    "message": "Apply filters"
-  },
-  "grid_filters_button": {
-    "_description": "Label for button to select filters to be applied to a grid.",
-    "message": "Filters"
-  },
-  "grid_filters_clear": {
-    "_description": "Text for button on filters flyout to clear the selected filters for the grid",
-    "message": "Clear"
-  },
-  "grid_filters_header": {
-    "_description": "Header text for grid filters flyout",
-    "message": "Filter"
-  },
-  "grid_filters_hide": {
-    "_description": "Hide link text for grid filters flyout",
-    "message": "Hide"
-  },
-  "grid_filters_summary_header": {
-    "_description": "Header text for filter summary on top of grid",
-    "message": "Filter:"
-  },
-  "grid_load_more": {
-    "_description": "The text for the button to load additional rows into the grid if more rows are available.",
-    "message": "Load more"
-  },
-  "infinite_scroll_load_more_button": {
-    "_description": "Text for loading more in the infinite scroll button",
-    "message": "Load more"
-  },
-  "modal_close": {
-    "_description": "Text for modal close button",
-    "message": "Close modal"
-  },
-  "open_help": {
-    "_description": "Text for modal header Open Help button",
-    "message": "Open Help"
-  },
-  "modal_footer_cancel_button": {
-    "_description": "Default label text for modal cancel button",
-    "message": "Cancel"
-  },
-  "modal_footer_primary_button": {
-    "_description": "Default label text for modal primary button",
-    "message": "Save"
-  },
-  "month_short_april": {
-    "_description": "",
-    "message": "Apr"
-  },
-  "month_short_august": {
-    "_description": "",
-    "message": "Aug"
-  },
-  "month_short_december": {
-    "_description": "",
-    "message": "Dec"
-  },
-  "month_short_february": {
-    "_description": "",
-    "message": "Feb"
-  },
-  "month_short_january": {
-    "_description": "",
-    "message": "Jan"
-  },
-  "month_short_july": {
-    "_description": "",
-    "message": "Jul"
-  },
-  "month_short_june": {
-    "_description": "",
-    "message": "Jun"
-  },
-  "month_short_march": {
-    "_description": "",
-    "message": "Mar"
-  },
-  "month_short_may": {
-    "_description": "",
-    "message": "May"
-  },
-  "month_short_november": {
-    "_description": "",
-    "message": "Nov"
-  },
-  "month_short_october": {
-    "_description": "",
-    "message": "Oct"
-  },
-  "month_short_september": {
-    "_description": "",
-    "message": "Sep"
-  },
-  "number_billion_abrev": {
-    "_description": "Abreviation for Billion used by numbers",
-    "message": "B"
-  },
-  "number_million_abrev": {
-    "_description": "Abreviation for million used by numbers",
-    "message": "M"
-  },
-  "number_thousands_abrev": {
-    "_description": "Abreviation for Thousands used by numbers",
-    "message": "K"
-  },
-  "number_trillion_abrev": {
-    "_description": "Abreviation for Trillion used by numbers",
-    "message": "T"
-  },
-  "page_noaccess_button": {
-    "_description": "",
-    "message": "Return to a non-classified page"
-  },
-  "page_noaccess_description": {
-    "_description": "",
-    "message": "Sorry, you don't have rights to this page.\nIf you feel you should, please contact your system administrator."
-  },
-  "page_noaccess_header": {
-    "_description": "",
-    "message": "Move along, there's nothing to see here"
-  },
-  "reorder_top": {
-    "_description": "Text displayed to indicate that a row can be pushed to the top of the list",
-    "message": "Top"
-  },
-  "repeater_item_checkbox_label": {
-    "_description": "Label for the repeater item checkbox for the repeater component",
-    "message": "Select row"
   },
   "select_field_multiple_select_open_button": {
     "_description": "The default button text for the select field when the user is allowed to select multiple values (plural)",
@@ -270,38 +90,6 @@
   "select_field_picker_show_all_category": {
     "_description": "The default category name for the select field picker that will display all possible results.",
     "message": "Show all"
-  },
-  "text_expand_close_text": {
-    "_description": "Text for the close button on the text expand modal",
-    "message": "Close"
-  },
-  "text_expand_modal_title": {
-    "_description": "",
-    "message": "Expanded view"
-  },
-  "text_expand_see_less": {
-    "_description": "Display less text content",
-    "message": "See less"
-  },
-  "text_expand_see_more": {
-    "_description": "",
-    "message": "See more"
-  },
-  "tile_settings": {
-    "_description": "Label for settings button in the tile",
-    "message": "Settings"
-  },
-  "tile_grab_handle": {
-    "_description": "Label for grab handle in the tile",
-    "message": "Use arrow keys to reorder. Press up and down arrow keys to change position in column. Press left and right arrow keys to change position to another column."
-  },
-  "tile_moved_assistive_text": {
-    "_description": "Report of the new location of a recently moved tile",
-    "message": "{0} moved. Current column: {1} of {2}. Current position in column: {3} of {4}"
-  },
-  "vertical_tabs_show_tabs_text": {
-    "_description": "The default text for the show tabs button in mobile",
-    "message": "Tab list"
   },
   "wizard_navigator_finish": {
     "_description": "Text displayed on the next button when a wizard is ready for completion.",
