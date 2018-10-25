@@ -1,5 +1,3 @@
-import { ListFilterModel } from './filter.model';
-
-export class ListFiltersUpdateAction {
-  constructor(public filters: ListFilterModel[]) {}
-}
+export {
+  ListFiltersUpdateAction
+} from '@skyux/list-builder/modules/list/state/filters/update.action';

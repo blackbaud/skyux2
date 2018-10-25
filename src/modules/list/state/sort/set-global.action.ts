@@ -1,5 +1,3 @@
-import { ListSortLabelModel } from './label.model';
-
-export class ListSortSetGlobalAction {
-  constructor(public global: ListSortLabelModel[]) {}
-}
+export {
+  ListSortSetGlobalAction
+} from '@skyux/list-builder/modules/list/state/sort/set-global.action';

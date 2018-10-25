@@ -1,5 +1,7 @@
 {
+  "$schema": "./node_modules/@skyux/config/skyuxconfig-schema.json",
   "name": "skyux2",
   "mode": "easy",
-  "compileMode": "aot"
+  "compileMode": "aot",
+  "importPath": "src"
 }
