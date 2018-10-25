@@ -32,7 +32,7 @@
     "@skyux/indicators": "3.0.0-rc.2",
     "@skyux/layout": "3.0.0-rc.1",
     "@skyux/link-records": "3.0.0-rc.1",
-    "@skyux/list-builder": "3.0.0-alpha.0",
+    "@skyux/list-builder": "3.0.0-rc.0",
     "@skyux/lists": "3.0.0-rc.1",
     "@skyux/lookup": "3.0.0-rc.1",
     "@skyux/modals": "3.0.0-rc.1",
