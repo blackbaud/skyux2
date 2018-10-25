@@ -20,6 +20,7 @@ export {
   SkyTileDashboardConfigLayout,
   SkyTileDashboardConfigLayoutColumn,
   SkyTileDashboardConfigLayoutTile,
-  SkyTileDashboardConfigTile
+  SkyTileDashboardConfigTile,
+  SkyTileDashboardConfigReorderData
 } from './tile-dashboard-config';
 export { SkyTilesModule } from './tiles.module';
