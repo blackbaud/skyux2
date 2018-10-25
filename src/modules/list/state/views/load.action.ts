@@ -1,6 +1,3 @@
-import { ListViewModel } from './view.model';
-
- export class ListViewsLoadAction {
-   constructor(public views: ListViewModel[]) {
-   }
- }
+export {
+  ListViewsLoadAction
+} from '@skyux/list-builder/modules/list/state/views/load.action';

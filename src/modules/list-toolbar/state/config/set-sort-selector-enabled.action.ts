@@ -1,4 +1,3 @@
-export class ListToolbarConfigSetSortSelectorEnabledAction {
-  /* istanbul ignore next */
-  constructor(public enabled: boolean = true) {}
-}
+export {
+  ListToolbarConfigSetSortSelectorEnabledAction
+} from '@skyux/list-builder/modules/list-toolbar/state/config/set-sort-selector-enabled.action';
