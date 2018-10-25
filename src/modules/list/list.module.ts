@@ -13,10 +13,8 @@ import {
   SkyListModule as SkyListModuleLib
 } from '@skyux/list-builder/modules/list/list.module';
 
-  @NgModule({
-  imports: [
-    SkyListModuleLib
-  ],
+@NgModule({
+  imports: [],
   exports: [
     SkyListViewChecklistModule,
     SkyListViewGridModule,
