@@ -1,5 +1,3 @@
-import { ListSortLabelModel } from './label.model';
-
-export class ListSortSetAvailableAction {
-  constructor(public available: ListSortLabelModel[]) {}
-}
+export {
+  ListSortSetAvailableAction
+} from '@skyux/list-builder/modules/list/state/sort/set-available.action';

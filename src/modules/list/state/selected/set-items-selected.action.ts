@@ -1,6 +1,3 @@
-export class ListSelectedSetItemsSelectedAction {
-  constructor(
-    public items: string[],
-    public selected: boolean = false,
-    public refresh: boolean = true) {}
-}
+export {
+  ListSelectedSetItemsSelectedAction
+} from '@skyux/list-builder/modules/list/state/selected/set-items-selected.action';

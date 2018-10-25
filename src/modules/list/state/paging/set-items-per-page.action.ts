@@ -1,3 +1,3 @@
-export class ListPagingSetItemsPerPageAction {
-  constructor(public itemsPerPage: number) {}
-}
+export {
+  ListPagingSetItemsPerPageAction
+} from '@skyux/list-builder/modules/list/state/paging/set-items-per-page.action';

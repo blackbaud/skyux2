@@ -1,3 +1,3 @@
-export class ListSelectedLoadAction {
-  constructor(public items: Array<string>) {}
-}
+export {
+  ListSelectedLoadAction
+} from '@skyux/list-builder/modules/list/state/selected/load.action';
