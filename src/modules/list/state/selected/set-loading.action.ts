@@ -1,3 +1,3 @@
-export class ListSelectedSetLoadingAction {
-  constructor(public loading: boolean = true) {}
-}
+export {
+  ListSelectedSetLoadingAction
+} from '@skyux/list-builder/modules/list/state/selected/set-loading.action';

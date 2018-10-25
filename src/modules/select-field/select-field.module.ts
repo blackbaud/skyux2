@@ -20,13 +20,24 @@ import {
 } from '../list-paging';
 
 import {
-  SkyModalModule
-} from '../modal';
-
-import {
   SkyResourcesModule
 } from '../resources';
 
+import {
+  SkyIconModule
+} from '../icon';
+import {
+  SkyListFiltersModule
+} from '../list-filters';
+import {
+  SkyListToolbarModule
+} from '../list-toolbar';
+import {
+  SkyListViewChecklistModule
+} from '../list-view-checklist';
+import {
+  SkyModalModule
+} from '../modal';
 import {
   SkyTokensModule
 } from '../tokens';
@@ -37,17 +48,17 @@ import {
 import {
   SkySelectFieldPickerComponent
 } from './select-field-picker.component';
-import {
-  SkyIconModule
-} from '../icon';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SkyListFiltersModule,
     SkyListModule,
     SkyListPagingModule,
+    SkyListToolbarModule,
+    SkyListViewChecklistModule,
     SkyModalModule,
     SkyResourcesModule,
     SkyTokensModule,

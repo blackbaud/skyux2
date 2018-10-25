@@ -1,3 +1,3 @@
-export class ListToolbarSetExistsAction {
-  constructor(public exists: boolean) {}
-}
+export {
+  ListToolbarSetExistsAction
+} from '@skyux/list-builder/modules/list/state/toolbar/set-exists.action';

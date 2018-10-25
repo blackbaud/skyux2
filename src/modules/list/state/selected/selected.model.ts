@@ -1,7 +1,3 @@
-export class ListSelectedModel {
-  public selectedIdMap: Map<string, boolean>;
-
-  constructor() {
-    this.selectedIdMap = new Map<string, boolean>();
-  }
-}
+export {
+  ListSelectedModel
+} from '@skyux/list-builder/modules/list/state/selected/selected.model';
