@@ -1,7 +1,3 @@
-import {
-  ListSortFieldSelectorModel
-} from './field-selector.model';
-
-export class ListSortSetFieldSelectorsAction {
-  constructor(public fieldSelectors: ListSortFieldSelectorModel[]) {}
-}
+export {
+  ListSortSetFieldSelectorsAction
+} from '@skyux/list-builder/modules/list/state/sort/set-field-selectors.action';

@@ -1,3 +1,3 @@
-export class ListSearchSetSearchTextAction {
-  constructor(public searchText: string) {}
-}
+export {
+  ListSearchSetSearchTextAction
+} from '@skyux/list-builder/modules/list/state/search/set-search-text.action';

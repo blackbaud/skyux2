@@ -1,21 +1,4 @@
-import {
-  Injectable
-} from '@angular/core';
-
-import {
-  StateDispatcher,
-  StateOrchestrator
-} from 'microedge-rxstate/dist';
-
-import {
-  ChecklistStateAction
-} from './checklist-state-action.type';
-
-@Injectable()
-export class ChecklistStateDispatcher extends StateDispatcher<ChecklistStateAction> {
-
-}
-
-export class ChecklistStateOrchestrator<T> extends StateOrchestrator<T, ChecklistStateAction> {
-
-}
+export {
+  ChecklistStateDispatcher,
+  ChecklistStateOrchestrator
+} from '@skyux/list-builder-view-checklist/modules/list-view-checklist/state/checklist-state.rxstate';

@@ -1,16 +1,4 @@
 {
-  "checklist_clear_all": {
-    "_description": "Text for the link in a checklist to clear selections.",
-    "message": "Clear all"
-  },
-  "checklist_select_all": {
-    "_description": "Text for the link in a checklist to select all items.",
-    "message": "Select all"
-  },
-  "checklist_show_selected": {
-    "_description": "Text for the checkbox in a checklist to show only selected items.",
-    "message": "Only show selected items"
-  },
   "confirm_dialog_default_ok_text": {
     "_description": "Default text for confirm dialog's OK button",
     "message": "OK"
@@ -50,54 +38,6 @@
   "grid_columns_toolbar_button": {
     "_description": "Label for toolbar button to select columns to display in a grid.",
     "message": "Columns"
-  },
-  "list_show_secondary_actions": {
-    "_description": "Title for the button that opens the secondary actions menu in the list toolbar",
-    "message": "Show secondary actions"
-  },
-  "list_show_secondary_actions_button": {
-    "_description": "Button text for the button that opens the secondary actions menu in the list toolbar",
-    "message": "More"
-  },
-  "select_field_multiple_select_open_button": {
-    "_description": "The default button text for the select field when the user is allowed to select multiple values (plural)",
-    "message": "Select values"
-  },
-  "select_field_multiple_select_picker_heading": {
-    "_description": "The default heading text for the select field picker when the user is allowed to select multiple values (plural)",
-    "message": "Select values"
-  },
-  "select_field_multiple_select_summary": {
-    "_description": "Text displayed when the user has more than the maximum items selected",
-    "message": "{0} items selected"
-  },
-  "select_field_single_select_placeholder": {
-    "_description": "The default placeholder text for the select field when the user is allowed to select one value (singular)",
-    "message": "Select a value"
-  },
-  "select_field_single_select_picker_heading": {
-    "_description": "The default heading text for the select field picker when the user is allowed to select one value (singular)",
-    "message": "Select a value"
-  },
-  "select_field_single_select_open_button_title": {
-    "_description": "The default title text for the select field picker when the user is allowed to select one value (singular)",
-    "message": "Click to select a value"
-  },
-  "select_field_single_select_clear_button_title": {
-    "_description": "The default button text for the single-select clear button",
-    "message": "Clear selection"
-  },
-  "select_field_picker_close_button": {
-    "_description": "Text displayed on the button in multi select mode to close form",
-    "message": "Close"
-  },
-  "select_field_picker_save_button": {
-    "_description": "Text displayed on the primary dialog button to confirm selection of multiple items",
-    "message": "Select"
-  },
-  "select_field_picker_show_all_category": {
-    "_description": "The default category name for the select field picker that will display all possible results.",
-    "message": "Show all"
   },
   "wizard_navigator_finish": {
     "_description": "Text displayed on the next button when a wizard is ready for completion.",

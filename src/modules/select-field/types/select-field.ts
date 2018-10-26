@@ -1,6 +1,3 @@
-export interface SkySelectField {
-  id?: string;
-  label?: string;
-  category?: string;
-  [index: string]: any;
-}
+export {
+  SkySelectField
+} from '@skyux/select-field/modules/select-field/types/select-field';

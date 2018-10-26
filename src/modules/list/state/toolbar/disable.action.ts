@@ -1,4 +1,3 @@
-export class ListToolbarItemsDisableAction {
-  constructor(public disable: boolean) {
-  }
-}
+export {
+  ListToolbarItemsDisableAction
+} from '@skyux/list-builder/modules/list/state/toolbar/disable.action';
