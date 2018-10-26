@@ -58,6 +58,7 @@
     "@skyux/lookup": "3.0.0-rc.1",
     "@skyux/modals": "3.0.0-rc.1",
     "@skyux/popovers": "3.0.0-rc.1",
+    "@skyux/select-field": "3.0.0-rc.0",
     "@skyux/tabs": "3.0.0-rc.1",
     "@skyux/theme": "3.2.0",
     "@skyux/tiles": "3.0.0-rc.1",
@@ -78,7 +79,7 @@
     "@angular/platform-browser-dynamic": "4.3.6",
     "@angular/router": "4.3.6",
     "@blackbaud/skyux": "latest",
-    "@blackbaud/skyux-builder": "1.25.0",
+    "@blackbaud/skyux-builder": "1.26.1",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.18",
@@ -141,9 +142,5 @@
   },
   "bugs": {
     "url": "https://github.com/blackbaud/skyux2/issues"
-  },
-  "engines": {
-    "node": ">= 6.11.1",
-    "npm": ">= 3"
   }
 }
