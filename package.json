@@ -78,7 +78,7 @@
     "@angular/platform-browser-dynamic": "4.3.6",
     "@angular/router": "4.3.6",
     "@blackbaud/skyux": "latest",
-    "@blackbaud/skyux-builder": "1.25.0",
+    "@blackbaud/skyux-builder": "1.26.1",
     "@types/core-js": "0.9.41",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.18",
