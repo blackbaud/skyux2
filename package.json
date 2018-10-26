@@ -48,6 +48,7 @@
     "@skyux/errors": "3.0.0-rc.1",
     "@skyux/flyout": "3.0.0-rc.1",
     "@skyux/forms": "3.0.0-rc.1",
+    "@skyux/grids": "3.0.0-rc.0",
     "@skyux/indicators": "3.0.0-rc.2",
     "@skyux/layout": "3.0.0-rc.1",
     "@skyux/link-records": "3.0.0-rc.1",

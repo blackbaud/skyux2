@@ -17,6 +17,8 @@
   "devDependencies": {
     "@blackbaud/skyux": "2.27.2",
     "@blackbaud/skyux-builder": "1.26.1",
+    "@skyux/grids": "3.0.0-rc.0",
+    "@skyux/link-records": "3.0.0-rc.1",
     "@skyux/list-builder": "3.0.0-rc.0",
     "@skyux/list-builder-view-checklist": "3.0.0-rc.0",
     "@skyux/select-field": "3.0.0-alpha.0",
