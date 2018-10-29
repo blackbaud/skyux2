@@ -43,7 +43,7 @@
     "@skyux/animations": "3.0.0-rc.0",
     "@skyux/avatar": "3.0.0-rc.1",
     "@skyux/colorpicker": "3.0.0-rc.1",
-    "@skyux/core": "3.2.0",
+    "@skyux/core": "3.2.1",
     "@skyux/datetime": "3.0.0-rc.1",
     "@skyux/errors": "3.0.0-rc.1",
     "@skyux/flyout": "3.0.0-rc.1",
