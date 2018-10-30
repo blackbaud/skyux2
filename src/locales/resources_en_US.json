@@ -38,17 +38,5 @@
   "grid_columns_toolbar_button": {
     "_description": "Label for toolbar button to select columns to display in a grid.",
     "message": "Columns"
-  },
-  "wizard_navigator_finish": {
-    "_description": "Text displayed on the next button when a wizard is ready for completion.",
-    "message": "Finish"
-  },
-  "wizard_navigator_next": {
-    "_description": "Text displayed on a wizard's next button.",
-    "message": "Next"
-  },
-  "wizard_navigator_previous": {
-    "_description": "Text displayed on a wizard's previous button.",
-    "message": "Previous"
   }
 }

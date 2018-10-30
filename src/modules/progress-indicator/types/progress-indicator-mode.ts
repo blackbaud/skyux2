@@ -1,4 +1,3 @@
-export enum SkyProgressIndicatorDisplayMode {
-  Vertical = 0,
-  Horizontal = 1
-}
+export {
+  SkyProgressIndicatorDisplayMode
+} from '@skyux/progress-indicator/modules/progress-indicator/types/progress-indicator-mode';

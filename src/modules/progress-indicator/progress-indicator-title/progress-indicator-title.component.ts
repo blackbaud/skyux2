@@ -1,10 +1,3 @@
-import {
-  Component
-} from '@angular/core';
-
-@Component({
-  selector: 'sky-progress-indicator-title',
-  templateUrl: './progress-indicator-title.component.html',
-  styleUrls: ['./progress-indicator-title.component.scss']
-})
-export class SkyProgressIndicatorTitleComponent { }
+export {
+  SkyProgressIndicatorTitleComponent
+} from '@skyux/progress-indicator/modules/progress-indicator/progress-indicator-title/progress-indicator-title.component';
