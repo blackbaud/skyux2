@@ -1,1 +1,3 @@
-export { ListViewGridColumnsLoadAction } from './load.action';
+export {
+  ListViewGridColumnsLoadAction
+} from '@skyux/list-builder-view-grids/modules/list-view-grid/state/columns/actions';

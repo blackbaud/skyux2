@@ -1,21 +1,3 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SkyWaitModule } from '../wait';
-import { SkyGridModule } from '../grid';
-import { SkyListViewGridComponent } from './list-view-grid.component';
-
-@NgModule({
-  declarations: [
-    SkyListViewGridComponent
-  ],
-  imports: [
-    CommonModule,
-    SkyWaitModule,
-    SkyGridModule
-  ],
-  exports: [
-    SkyListViewGridComponent
-  ]
-})
-export class SkyListViewGridModule {
-}
+export {
+  SkyListViewGridModule
+} from '@skyux/list-builder-view-grids/modules/list-view-grid/list-view-grid.module';
