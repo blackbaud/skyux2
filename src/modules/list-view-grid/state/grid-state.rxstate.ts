@@ -1,10 +1,7 @@
-import { Injectable } from '@angular/core';
-import { StateDispatcher, StateOrchestrator } from 'microedge-rxstate/dist';
-import { GridStateAction } from './grid-state-action.type';
+export {
+  GridStateDispatcher
+} from '@skyux/list-builder-view-grids/modules/list-view-grid/state/grid-state.rxstate';
 
-@Injectable()
-export class GridStateDispatcher extends StateDispatcher<GridStateAction> {
-}
-
-export class GridStateOrchestrator<T> extends StateOrchestrator<T, GridStateAction> {
-}
+export {
+  GridStateOrchestrator
+} from '@skyux/list-builder-view-grids/modules/list-view-grid/state/grid-state.rxstate';

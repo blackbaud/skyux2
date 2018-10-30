@@ -1,14 +1,3 @@
-/* istanbul ignore next */
-/* Code coverage having problems with no statements in classes */
-export class SkyColumnSelectorContext {
-  public columns: Array<SkyColumnSelectorModel>;
-  public selectedColumnIds: Array<string>;
-}
-
-/* istanbul ignore next */
-/* Code coverage having problems with no statements in classes */
-export class SkyColumnSelectorModel {
-  public id: string;
-  public heading: string;
-  public description: string;
-}
+export {
+  SkyColumnSelectorModel
+} from '@skyux/list-builder-view-grids/modules/column-selector/column-selector-context';

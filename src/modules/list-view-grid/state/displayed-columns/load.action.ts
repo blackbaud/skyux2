@@ -1,9 +1,3 @@
-import { SkyGridColumnModel } from '../../../grid';
-
-export class ListViewDisplayedGridColumnsLoadAction {
-  constructor(
-    public columns: Array<SkyGridColumnModel>,
-    public refresh: boolean = false
-  ) {
-  }
-}
+export {
+  ListViewDisplayedGridColumnsLoadAction
+} from '@skyux/list-builder-view-grids/modules/list-view-grid/state/displayed-columns/load.action';
