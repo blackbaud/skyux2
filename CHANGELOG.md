@@ -1,3 +1,13 @@
+# 2.28.0 (2018-10-30)
+
+- Added SkyUIConfigService. [blackbaud/skyux-core#37](https://github.com/blackbaud/skyux-core/pull/37)
+- Added option for minimum fraction digits to numeric service and pipe. [blackbaud/skyux-core#34](https://github.com/blackbaud/skyux-core/pull/34)
+- Fixed tile dashboard to include missing `SkyTileDashboardConfigReorderData` export. [#2139](https://github.com/blackbaud/skyux2/pull/2139)
+- Fixed column headers to no longer shift in size when sorting. [blackbaud/skyux-grids#4](https://github.com/blackbaud/skyux-grids/pull/4)
+- Fixed modal backdrop opacity to match SKY UX v.1. [blackbaud/skyux-modals#4](https://github.com/blackbaud/skyux-modals/pull/4)
+- Fixed long checkbox labels to not display a horizontal scrollbar. [blackbaud/skyux-theme#32](https://github.com/blackbaud/skyux-theme/pull/32)
+- Fixed drag handle to have a more reliable click target. [blackbaud/skyux-tiles#9](https://github.com/blackbaud/skyux-tiles/pull/9)
+
 # 2.27.2 (2018-10-22)
 
 - Fixed dependencies to not collide with latest version of Builder.
