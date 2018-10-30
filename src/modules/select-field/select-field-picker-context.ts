@@ -1,13 +1,3 @@
-import { Observable } from 'rxjs/Observable';
-
-import {
-  SkySelectField,
-  SkySelectFieldSelectMode
-} from './types';
-
-export class SkySelectFieldPickerContext {
-  public data: Observable<SkySelectField[]>;
-  public headingText?: string;
-  public selectedValue?: any;
-  public selectMode?: SkySelectFieldSelectMode;
-}
+export {
+  SkySelectFieldPickerContext
+} from '@skyux/select-field/modules/select-field/select-field-picker-context';

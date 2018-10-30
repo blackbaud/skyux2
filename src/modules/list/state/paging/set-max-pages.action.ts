@@ -1,4 +1,3 @@
-export class ListPagingSetMaxPagesAction {
-  constructor(public maxPages: number) {
-  }
-}
+export {
+  ListPagingSetMaxPagesAction
+} from '@skyux/list-builder/modules/list/state/paging/set-max-pages.action';

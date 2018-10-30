@@ -1,14 +1,3 @@
-export class ListViewChecklistItemModel {
-  public id: string;
-  public label: string;
-  public description: string;
-
-  constructor(id: string, data?: any) {
-    this.id = id;
-
-    if (data) {
-      this.label = data.label;
-      this.description = data.description;
-    }
-  }
-}
+export {
+  ListViewChecklistItemModel
+} from '@skyux/list-builder-view-checklist/modules/list-view-checklist/state/items/item.model';

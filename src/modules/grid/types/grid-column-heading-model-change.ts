@@ -1,5 +1,1 @@
-export interface SkyGridColumnHeadingModelChange {
-  value?: string;
-  id?: string;
-  field?: string;
-}
+export { SkyGridColumnHeadingModelChange } from '@skyux/grids/modules/grid/types/grid-column-heading-model-change';
