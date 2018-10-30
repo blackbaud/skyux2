@@ -1,6 +1,2 @@
-export {
-  SkyListColumnSelectorActionComponent
-} from './list-column-selector-action.component';
-export {
-  SkyListColumnSelectorActionModule
-} from './list-column-selector-action.module';
+export * from './list-column-selector-action.component';
+export * from './list-column-selector-action.module';
