@@ -144,6 +144,7 @@ import { SkyWaitModule } from './modules/wait';
 export class SkyModule { }
 
 export * from './modules/alert';
+export * from './modules/animation';
 export * from './modules/autocomplete';
 export * from './modules/avatar';
 export * from './modules/action-button';
@@ -206,6 +207,7 @@ export * from './modules/tokens';
 export * from './modules/toolbar';
 export * from './modules/url-validation';
 export * from './modules/vertical-tabset';
+export * from './modules/window';
 export * from './modules/wait';
 
 export const SKY_PROVIDERS: any[] = [
