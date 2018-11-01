@@ -1,3 +1,7 @@
+# 2.28.1 (2018-11-01)
+
+- Added missing exports for animation and window. [#2162](https://github.com/blackbaud/skyux2/pull/2162)
+
 # 2.28.0 (2018-10-30)
 
 - Added SkyUIConfigService. [blackbaud/skyux-core#37](https://github.com/blackbaud/skyux-core/pull/37)
