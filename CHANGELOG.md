@@ -1,3 +1,7 @@
+# 2.28.3 (2018-11-09)
+
+- Fixed some internationalization issues with avatar, datetime, and tabs.
+
 # 2.28.2 (2018-11-09)
 
 - Fixed animation imports for modal to allow for compatibility with Angular 7. [blackbaud/skyux-modals#9](https://github.com/blackbaud/skyux-modals/pull/9)
