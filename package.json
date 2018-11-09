@@ -62,7 +62,7 @@
     "@skyux/select-field": "3.0.0-rc.1",
     "@skyux/tabs": "3.0.0-rc.1",
     "@skyux/theme": "3.2.2",
-    "@skyux/tiles": "3.0.0-rc.2",
+    "@skyux/tiles": "3.0.0-rc.3",
     "@skyux/toast": "3.0.0-rc.3",
     "@skyux/validation": "3.0.0-rc.0",
     "dragula": "3.7.2",
