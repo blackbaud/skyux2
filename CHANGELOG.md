@@ -1,3 +1,17 @@
+# 2.28.3 (2018-11-09)
+
+- Fixed some internationalization issues with avatar, datetime, and tabs.
+
+# 2.28.2 (2018-11-09)
+
+- Fixed animation imports for modal to allow for compatibility with Angular 7. [blackbaud/skyux-modals#9](https://github.com/blackbaud/skyux-modals/pull/9)
+- Fixed initial modal focus state to be more subtle. [blackbaud/skyux-modals#8](https://github.com/blackbaud/skyux-modals/pull/8)
+- Fixed "Only show selected" checkbox to return to first page when initially checked. [blackbaud/skyux-list-builder-view-checklist#5](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/5)
+- Fixed text highlight directive to detect changes less frequently. [blackbaud/skyux-indicators#13](https://github.com/blackbaud/skyux-indicators/pull/13)
+- Fixed key info to not throw a "changed after checked" error during initialization. [blackbaud/skyux-layout#4](https://github.com/blackbaud/skyux-layout/pull/4)
+- Fixed some internationalization issues. [#2163](https://github.com/blackbaud/skyux2/pull/2163)
+- Fixed `.sky-form-control` CSS class name to not overwrite inputs with a type of "range". [blackbaud/skyux-theme#35](https://github.com/blackbaud/skyux-theme/pull/35)
+
 # 2.28.1 (2018-11-01)
 
 - Added missing exports for animation and window. [#2162](https://github.com/blackbaud/skyux2/pull/2162)
