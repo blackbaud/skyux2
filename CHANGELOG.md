@@ -1,3 +1,11 @@
+# 2.28.4 (2018-11-12)
+
+- Added async grid column descriptions. [blackbaud/skyux-grids#6](https://github.com/blackbaud/skyux-grids/pull/6)
+- Fixed autocomplete to properly position dropdown when inside a vertical tab form. [blackbaud/skyux-lookup#2](https://github.com/blackbaud/skyux-lookup/pull/2)
+- Fixed grid column resizing to recalculate table width when columns are hidden or shown. [blackbaud/skyux-grids#8](https://github.com/blackbaud/skyux-grids/pull/8)
+- Fixed console logs when using RxJS 6+. [blackbaud/skyux-list-builder#8](https://github.com/blackbaud/skyux-list-builder/pull/8)
+- Fixed text highlight to stop running on attribute changes [blackbaud/skyux-indicators#15](https://github.com/blackbaud/skyux-indicators/pull/15)
+
 # 2.28.3 (2018-11-09)
 
 - Fixed some internationalization issues with avatar, datetime, and tabs.
