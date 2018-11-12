@@ -14,17 +14,5 @@
   "confirm_dialog_default_cancel_text": {
     "_description": "Default text for confirm dialog's Cancel button",
     "message": "Cancel"
-  },
-  "wizard_navigator_finish": {
-    "_description": "Text displayed on the next button when a wizard is ready for completion.",
-    "message": "Finish"
-  },
-  "wizard_navigator_next": {
-    "_description": "Text displayed on a wizard's next button.",
-    "message": "Next"
-  },
-  "wizard_navigator_previous": {
-    "_description": "Text displayed on a wizard's previous button.",
-    "message": "Previous"
   }
 }

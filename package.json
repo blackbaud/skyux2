@@ -59,6 +59,7 @@
     "@skyux/lookup": "3.0.0-rc.2",
     "@skyux/modals": "3.0.0-rc.4",
     "@skyux/popovers": "3.0.0-rc.2",
+    "@skyux/progress-indicator": "3.0.0-rc.0",
     "@skyux/select-field": "3.0.0-rc.1",
     "@skyux/tabs": "3.0.0-rc.2",
     "@skyux/theme": "3.2.2",
