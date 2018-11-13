@@ -1,3 +1,7 @@
+# 2.29.1 (2018-11-13)
+
+- Fixed checklist component to list all items when pagination is not enabled. [blackbaud/skyux-list-builder-view-checklist#9](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/9)
+
 # 2.29.0 (2018-11-12)
 
 - Added ability for the grid component to accept async column descriptions. [blackbaud/skyux-grids#6](https://github.com/blackbaud/skyux-grids/pull/6)
