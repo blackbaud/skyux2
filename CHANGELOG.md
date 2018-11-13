@@ -1,3 +1,10 @@
+# 2.29.0 (2018-11-12)
+
+- Added ability for the grid component to accept async column descriptions. [blackbaud/skyux-grids#6](https://github.com/blackbaud/skyux-grids/pull/6)
+- Fixed autocomplete component to properly position results when inside a vertical tab form. [blackbaud/skyux-lookup#2](https://github.com/blackbaud/skyux-lookup/pull/2)
+- Fixed grid component to recalculate table width when columns are hidden or shown. [blackbaud/skyux-grids#8](https://github.com/blackbaud/skyux-grids/pull/8)
+- Fixed text highlight component performance. [blackbaud/skyux-indicators#15](https://github.com/blackbaud/skyux-indicators/pull/15)
+
 # 2.28.3 (2018-11-09)
 
 - Fixed some internationalization issues with avatar, datetime, and tabs.
