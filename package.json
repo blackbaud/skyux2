@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.29.0",
+  "version": "2.29.1",
   "description": "SKY UX built on Angular 4",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -52,7 +52,7 @@
     "@skyux/indicators": "3.0.0-rc.4",
     "@skyux/layout": "3.0.0-rc.3",
     "@skyux/link-records": "3.0.0-rc.2",
-    "@skyux/list-builder-view-checklist": "3.0.0-rc.3",
+    "@skyux/list-builder-view-checklist": "3.0.0-rc.4",
     "@skyux/list-builder-view-grids": "3.0.0-rc.2",
     "@skyux/list-builder": "3.0.0-rc.3",
     "@skyux/lists": "3.0.0-rc.2",
