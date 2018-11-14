@@ -1,3 +1,7 @@
+# 2.30.0 (2018-11-14)
+
+- Added `debounceTime` input to autocomplete component. [blackbaud/skyux-lookup#8](https://github.com/blackbaud/skyux-lookup/pull/8)
+
 # 2.29.1 (2018-11-13)
 
 - Fixed checklist component to list all items when pagination is not enabled. [blackbaud/skyux-list-builder-view-checklist#9](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/9)
