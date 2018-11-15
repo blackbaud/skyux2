@@ -52,7 +52,7 @@
     "@skyux/indicators": "3.0.0-rc.4",
     "@skyux/layout": "3.0.0-rc.3",
     "@skyux/link-records": "3.0.0-rc.2",
-    "@skyux/list-builder-common": "3.0.0-alpha.0",
+    "@skyux/list-builder-common": "3.0.0-rc.0",
     "@skyux/list-builder-view-checklist": "3.0.0-rc.4",
     "@skyux/list-builder-view-grids": "3.0.0-rc.2",
     "@skyux/list-builder": "3.0.0-rc.3",
