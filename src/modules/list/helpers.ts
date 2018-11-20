@@ -1,5 +1,5 @@
 export {
-  getData,
   compare,
+  getData,
   isObservable
-} from '@skyux/list-builder/modules/list/helpers';
+} from '@skyux/list-builder-common/helpers';
