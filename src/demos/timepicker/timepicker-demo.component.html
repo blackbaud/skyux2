@@ -85,3 +85,36 @@
   </div>
   Selected time is {{selectedTime3?.local}}
 </div>
+
+<br/>
+
+<h3>
+  Reactive form timepicker
+</h3>
+
+<form
+  novalidate
+  style="max-width: 400px"
+  [formGroup]="reactiveForm"
+>
+  <sky-timepicker
+    #timePickerExample4
+  >
+    <input
+      formControlName="time"
+      type="text"
+      [timeFormat]="format12"
+      [skyTimepickerInput]="timePickerExample4"
+    />
+  </sky-timepicker>
+  <div *ngIf="reactiveForm.errors && reactiveForm.errors.time && (reactiveForm.dirty || reactiveForm.touched)"
+    class="sky-error-label"
+  >
+    <span
+      [hidden]="!reactiveForm.errors.time.invalid"
+    >
+      Please enter a valid time.
+    </span>
+  </div>
+  Selected time is {{reactiveForm.value.time.local}}
+</form>

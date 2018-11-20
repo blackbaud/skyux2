@@ -1,3 +1,9 @@
+<h2
+  class="sky-section-heading"
+>
+  Standard datepicker
+</h2>
+
 <div style="max-width: 50%">
   <sky-datepicker #picker>
     <input
@@ -32,3 +38,28 @@
 <p>
   <button class="sky-btn sky-btn-secondary" (click)="clearSelectedDate()">Clear selected date</button>
 </p>
+
+<h2
+  class="sky-section-heading"
+>
+  Reactive form datepicker
+</h2>
+
+<form
+  novalidate
+  style="max-width: 50%"
+  [formGroup]="reactiveForm"
+>
+  <sky-datepicker #reactpicker>
+    <input
+      formControlName="selectedDate"
+      [skyDatepickerInput]="reactpicker"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+    />
+  </sky-datepicker>
+</form>
+
+<div>
+  Reactive form selected date is {{ reactiveForm.value.selectedDate }}
+</div>
