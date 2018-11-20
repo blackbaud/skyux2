@@ -1,8 +1,9 @@
 # 2.31.0 (2018-11-20)
 
-- Updated flyout component to not close when an overlay above it is clicked. [blackbaud/skyux-flyout#3](https://github.com/blackbaud/skyux-flyout/pull/3)
+- Fixed flyout component to not close when an overlay above it is clicked. [blackbaud/skyux-flyout#3](https://github.com/blackbaud/skyux-flyout/pull/3)
 - Fixed grid component to adhere to given width when body cells have overflow. [blackbaud/skyux-grids#13](https://github.com/blackbaud/skyux-grids/pull/13)
 - Fixed grid component to show descriptions of asynchronous columns. [blackbaud/skyux-grids#6](https://github.com/blackbaud/skyux-grids/pull/6)
+- Fixed grid component to fire the sort event on mouseup rather than click. [blackbaud/skyux-grids#17](https://github.com/blackbaud/skyux-grids/pull/17)
 - Fixed colorpicker component to stop firing the valueChanges event multiple times when a form group is updated. [blackbaud/skyux-colorpicker#5](https://github.com/blackbaud/skyux-colorpicker/pull/5)
 - Fixed checkbox component to be able to set the disabled state in reactive forms. [blackbaud/skyux-forms#7](https://github.com/blackbaud/skyux-forms/pull/7)
 - Fixed datepicker and timepicker components to allow a disabled state when appearing in reactive forms. [blackbaud/skyux-datetime#4](https://github.com/blackbaud/skyux-datetime/pull/4)
