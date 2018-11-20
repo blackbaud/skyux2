@@ -42,7 +42,7 @@
   "dependencies": {
     "@skyux/animations": "3.0.0-rc.0",
     "@skyux/avatar": "3.0.0-rc.2",
-    "@skyux/colorpicker": "3.0.0-rc.2",
+    "@skyux/colorpicker": "3.0.0-rc.3",
     "@skyux/core": "3.2.3",
     "@skyux/datetime": "3.0.0-rc.2",
     "@skyux/errors": "3.0.0-rc.1",
