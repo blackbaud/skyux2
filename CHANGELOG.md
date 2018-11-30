@@ -1,3 +1,18 @@
+# 2.31.0 (2018-11-29)
+
+- Added `SkyDynamicComponentService` which provides the ability to inject entry components onto the page dynamically. #44(https://github.com/blackbaud/skyux-core/pull/44)
+- Fixed sectioned form component to keep tabs stationary when users scroll through content and keep content stationary when users scroll through tabs. [#4](https://github.com/blackbaud/skyux-tabs/pull/4)
+- Fixed native HTML select fields to use the appropriate CSS style when control value is invalid. [#38](https://github.com/blackbaud/skyux-theme/pull/38)
+- Fixed `sky-btn-tab` SCSS mixin to properly style the hover state for a selected, non-disabled tab. [#41](https://github.com/blackbaud/skyux-theme/pull/41)
+
+# 2.30.1 (2018-11-21)
+
+- Fixed flyout component to not close when an overlay above it is clicked. [blackbaud/skyux-flyout#3](https://github.com/blackbaud/skyux-flyout/pull/3)
+- Fixed grid cells to properly handle text overflow when column widths are fixed. [blackbaud/skyux-grids#13](https://github.com/blackbaud/skyux-grids/pull/13)
+- Fixed grid component's column resize drag handle to not inadvertently trigger column sort. [blackbaud/skyux-grids#17](https://github.com/blackbaud/skyux-grids/pull/17)
+- Fixed colorpicker component to emit value changes properly. [blackbaud/skyux-colorpicker#5](https://github.com/blackbaud/skyux-colorpicker/pull/5)
+- Fixed checkbox, datepicker and timepicker components to respect disabled states within reactive forms. [blackbaud/skyux-forms#7](https://github.com/blackbaud/skyux-forms/pull/7) [blackbaud/skyux-datetime#4](https://github.com/blackbaud/skyux-datetime/pull/4)
+
 # 2.30.0 (2018-11-14)
 
 - Added `debounceTime` input to autocomplete component. [blackbaud/skyux-lookup#8](https://github.com/blackbaud/skyux-lookup/pull/8)
