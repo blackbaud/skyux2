@@ -1,3 +1,9 @@
+# 2.32.0 (2018-12-03)
+
+- Added options to overwrite the default title and default description on error components to enable error messages to display standard images with custom text. [blackbaud/skyux-errors#7](https://github.com/blackbaud/skyux-errors/pull/7)
+- Fixed `SkyListViewGridModule` exports to include required submodules and `SkyGridModule`. [blackbaud/skyux-list-builder-view-grids#9](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/9)
+- Fixed modal focus to ignore hidden elements. [blackbaud/skyux-modals#12](https://github.com/blackbaud/skyux-modals/pull/12)
+
 # 2.31.0 (2018-11-29)
 
 - Added `SkyDynamicComponentService` which provides the ability to inject entry components onto the page dynamically. [blackbaud/skyux-core#44](https://github.com/blackbaud/skyux-core/pull/44)
