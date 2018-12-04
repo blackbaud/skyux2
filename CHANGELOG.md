@@ -1,9 +1,18 @@
+# 2.32.0 (2018-12-03)
+
+- Added options to overwrite the default title and default description on error components to enable error messages to display standard images with custom text. [blackbaud/skyux-errors#7](https://github.com/blackbaud/skyux-errors/pull/7)
+- Added an optional help button to the tile component's header. [blackbaud/skyux-tiles#14](https://github.com/blackbaud/skyux-tiles/pull/14)
+- Updated dependency to properly style the hover state for a selected tab that is not disabled. [blackbaud/skyux-theme#41](https://github.com/blackbaud/skyux-theme/pull/41)
+- Fixed `SkyListViewGridModule` exports to include required submodules and `SkyGridModule`. [blackbaud/skyux-list-builder-view-grids#9](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/9)
+- Fixed modal focus to ignore hidden elements. [blackbaud/skyux-modals#12](https://github.com/blackbaud/skyux-modals/pull/12)
+- Fixed the select field component to use the appropriate CSS styles when the control value is invalid. [blackbaud/skyux-select-field#3](https://github.com/blackbaud/skyux-select-field/pull/3)
+
 # 2.31.0 (2018-11-29)
 
-- Added `SkyDynamicComponentService` which provides the ability to inject entry components onto the page dynamically. #44(https://github.com/blackbaud/skyux-core/pull/44)
-- Fixed sectioned form component to keep tabs stationary when users scroll through content and keep content stationary when users scroll through tabs. [#4](https://github.com/blackbaud/skyux-tabs/pull/4)
-- Fixed native HTML select fields to use the appropriate CSS style when control value is invalid. [#38](https://github.com/blackbaud/skyux-theme/pull/38)
-- Fixed `sky-btn-tab` SCSS mixin to properly style the hover state for a selected, non-disabled tab. [#41](https://github.com/blackbaud/skyux-theme/pull/41)
+- Added `SkyDynamicComponentService` which provides the ability to inject entry components onto the page dynamically. [blackbaud/skyux-core#44](https://github.com/blackbaud/skyux-core/pull/44)
+- Fixed sectioned form component to keep tabs stationary when users scroll through content and keep content stationary when users scroll through tabs. [blackbaud/skyux-tabs#4](https://github.com/blackbaud/skyux-tabs/pull/4)
+- Fixed native HTML select fields to use the appropriate CSS style when control value is invalid. [blackbaud/skyux-theme#38](https://github.com/blackbaud/skyux-theme/pull/38)
+- Fixed `sky-btn-tab` SCSS mixin to properly style the hover state for a selected, non-disabled tab. [blackbaud/skyux-theme#41](https://github.com/blackbaud/skyux-theme/pull/41)
 
 # 2.30.1 (2018-11-21)
 
