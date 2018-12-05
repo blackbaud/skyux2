@@ -1,3 +1,8 @@
+# 2.33.0 (2018-12-05)
+
+- Added `isSelected` input to repeater item component. [blackbaud/skyux-lists#8](https://github.com/blackbaud/skyux-lists/pull/8)
+- Added UI config service hooks to tile dashboard service. [blackbaud/skyux-tiles#11](https://github.com/blackbaud/skyux-tiles/pull/11)
+
 # 2.32.0 (2018-12-03)
 
 - Added options to overwrite the default title and default description on error components to enable error messages to display standard images with custom text. [blackbaud/skyux-errors#7](https://github.com/blackbaud/skyux-errors/pull/7)
