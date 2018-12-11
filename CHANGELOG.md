@@ -1,3 +1,7 @@
+# 2.33.1 (2018-12-11)
+
+- Fixed progress indicator component's `progressChanges` emitter to only fire after all Angular lifecycle hooks have completed. [blackbaud/skyux-progress-indicator#3](https://github.com/blackbaud/skyux-progress-indicator/pull/3)
+
 # 2.33.0 (2018-12-05)
 
 - Added `isSelected` input to repeater item component. [blackbaud/skyux-lists#8](https://github.com/blackbaud/skyux-lists/pull/8)
