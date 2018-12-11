@@ -1,7 +1,6 @@
 # 2.33.1 (2018-12-11)
 
 - Fixed progress indicator component's `progressChanges` emitter to only fire after all Angular lifecycle hooks have completed. [blackbaud/skyux-progress-indicator#3](https://github.com/blackbaud/skyux-progress-indicator/pull/3)
-- Updated `SkyDynamicComponentService` to remove components from the page dynamically. [blackbaud/skyux-core#45](https://github.com/blackbaud/skyux-core/pull/45)
 
 # 2.33.0 (2018-12-05)
 
