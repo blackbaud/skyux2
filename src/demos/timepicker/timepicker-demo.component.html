@@ -116,5 +116,21 @@
       Please enter a valid time.
     </span>
   </div>
-  Selected time is {{reactiveForm.value.time.local}}
 </form>
+
+
+<div>
+  Reactive form selected time is {{ reactiveTime.value ? reactiveTime.value.local : '' }}
+</div>
+
+<div *ngIf="reactiveTime.errors && (reactiveTime.dirty || reactiveTime.touched)"
+  class="sky-error-label"
+>
+  <p *ngIf="reactiveTime.errors.required">
+    This time is required. Please supply a value.
+  </p>
+  <p *ngIf="reactiveTime.errors.skyTime">
+    The time you have entered is invalid. Please enter a valid time or use the picker.
+  </p>
+</div>
+<br>

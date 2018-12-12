@@ -61,5 +61,16 @@
 </form>
 
 <div>
-  Reactive form selected date is {{ reactiveForm.value.selectedDate }}
+  Reactive form selected date is {{ reactiveDate.value }}
+</div>
+
+<div *ngIf="reactiveDate.errors && (reactiveDate.dirty || reactiveDate.touched)"
+  class="sky-error-label"
+>
+  <p *ngIf="reactiveDate.errors.required">
+    This date is required. Please supply a value.
+  </p>
+  <p *ngIf="reactiveDate.errors.skyDate">
+    The date you have entered is invalid. Please enter a valid date or use the picker.
+  </p>
 </div>

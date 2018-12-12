@@ -1,5 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: 'sky-datepicker-demo',
@@ -11,13 +20,17 @@ export class SkyDatepickerDemoComponent implements OnInit {
   public selectedDate: Date;
   public reactiveForm: FormGroup;
 
+  public get reactiveDate() {
+    return this.reactiveForm.get('selectedDate');
+  }
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
     this.reactiveForm = this.formBuilder.group({
-      selectedDate: new Date()
+      selectedDate: new FormControl('4/4/2017', Validators.required)
     });
   }
 

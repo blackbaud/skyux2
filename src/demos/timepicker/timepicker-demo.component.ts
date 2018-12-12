@@ -1,11 +1,14 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  AfterViewInit
 } from '@angular/core';
 
 import {
   FormGroup,
-  FormBuilder
+  FormBuilder,
+  FormControl,
+  Validators
 } from '@angular/forms';
 
 @Component({
@@ -21,13 +24,17 @@ export class SkyTimepickerDemoComponent implements OnInit {
   public selectedTime3: any = '02:00:00-0400';
   public reactiveForm: FormGroup;
 
+  public get reactiveTime() {
+    return this.reactiveForm.get('time');
+  }
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
     this.reactiveForm = this.formBuilder.group({
-      time: '2:15 PM'
+      time: new FormControl('2:45', Validators.required)
     });
   }
 
