@@ -1,3 +1,12 @@
+# 2.34.0 (2018-12-14)
+
+- Added option to take action before modals are closed and prevent them from closing. [blackbaud/skyux-modals#7](https://github.com/blackbaud/skyux-modals/pull/7)
+- Fixed section forms in modals to set minimum height of 460px. [blackbaud/skyux-modals#18](https://github.com/blackbaud/skyux-modals/pull/18)
+- Fixed modal service to stop throwing errors during initialization. [blackbaud/skyux-modals#13](https://github.com/blackbaud/skyux-modals/pull/13)
+- Fixed blocking wait components not blocking focus on tab navigation. [blackbaud/skyux-indicators#4](https://github.com/blackbaud/skyux-indicators/pull/4)
+- Fixed tile component's help button to display by default when consumer provides `helpClick` listener. [blackbaud/skyux-tiles#18](https://github.com/blackbaud/skyux-tiles/pull/18)
+- Fixed grid component to properly import polyfills. [blackbaud/skyux-grids#23](https://github.com/blackbaud/skyux-grids/pull/23)
+
 # 2.33.1 (2018-12-11)
 
 - Fixed progress indicator component's `progressChanges` emitter to only fire after all Angular lifecycle hooks have completed. [blackbaud/skyux-progress-indicator#3](https://github.com/blackbaud/skyux-progress-indicator/pull/3)
