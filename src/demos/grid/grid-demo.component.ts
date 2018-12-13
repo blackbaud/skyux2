@@ -27,7 +27,7 @@ import {
 })
 export class SkyGridDemoComponent implements OnInit {
 
-  public dataForSimpleGrid: any[] = [
+  public dataForGrid: any[] = [
     { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples', composite: 'Comp A' },
     { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas', composite: 'Comp B' },
     { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears', composite: 'Comp C' },
@@ -39,7 +39,7 @@ export class SkyGridDemoComponent implements OnInit {
       composite: 'Comp G' }
   ];
 
-  public dataForSimpleGridWithMultiselect = [
+  public dataForGridWithMultiselect = [
     { id: '1', column1: '1', column2: 'Apple', column3: 'aa', myRowId: '101' },
     { id: '2', column1: '01', column2: 'Banana', column3: 'bb', myRowId: '102' },
     { id: '3', column1: '11', column2: 'Banana', column3: 'cc', myRowId: '103' },
@@ -63,11 +63,11 @@ export class SkyGridDemoComponent implements OnInit {
   }
 
   public sortChangedSimpleGrid(activeSort: ListSortFieldSelectorModel) {
-    this.dataForSimpleGrid = this.performSort(activeSort, this.dataForSimpleGrid);
+    this.dataForGrid = this.sortGridData(activeSort, this.dataForGrid);
   }
 
   public sortChangedMultiselectGrid(activeSort: ListSortFieldSelectorModel) {
-    this.dataForSimpleGridWithMultiselect = this.performSort(activeSort, this.dataForSimpleGridWithMultiselect);
+    this.dataForGridWithMultiselect = this.sortGridData(activeSort, this.dataForGridWithMultiselect);
   }
 
   public onMultiselectSelectionChange(value: SkyGridSelectedRowsModelChange) {
@@ -82,7 +82,7 @@ export class SkyGridDemoComponent implements OnInit {
     this.sendMessage(SkyGridMessageType.ClearAll);
   }
 
-  private performSort(activeSort: ListSortFieldSelectorModel, data: any[]) {
+  private sortGridData(activeSort: ListSortFieldSelectorModel, data: any[]) {
     const sortField = activeSort.fieldSelector;
     const descending = activeSort.descending;
 
