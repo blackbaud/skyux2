@@ -3,7 +3,7 @@
 <sky-grid
   fit="scroll"
   [data]="dataForGrid"
-  (sortFieldChange)="sortChangedSimpleGrid($event)">
+  (sortFieldChange)="onSortChangeForGrid($event)">
   <sky-grid-column
     id="column1"
     field="column1"
@@ -71,7 +71,7 @@
     [messageStream]="gridController"
     [multiselectRowId]="'myRowId'"
     (multiselectSelectionChange)="onMultiselectSelectionChange($event)"
-    (sortFieldChange)="sortChangedMultiselectGrid($event)"
+    (sortFieldChange)="onSortChangeForMultiselectGrid($event)"
   >
     <sky-grid-column
       field="myRowId"

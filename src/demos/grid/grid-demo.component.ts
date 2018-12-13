@@ -62,11 +62,11 @@ export class SkyGridDemoComponent implements OnInit {
     }, 1000);
   }
 
-  public sortChangedSimpleGrid(activeSort: ListSortFieldSelectorModel) {
+  public onSortChangeForGrid(activeSort: ListSortFieldSelectorModel) {
     this.dataForGrid = this.sortGridData(activeSort, this.dataForGrid);
   }
 
-  public sortChangedMultiselectGrid(activeSort: ListSortFieldSelectorModel) {
+  public onSortChangeForMultiselectGrid(activeSort: ListSortFieldSelectorModel) {
     this.dataForGridWithMultiselect = this.sortGridData(activeSort, this.dataForGridWithMultiselect);
   }
 
