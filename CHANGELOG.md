@@ -3,7 +3,7 @@
 - Added ability to prevent modals from closing. [blackbaud/skyux-modals#7](https://github.com/blackbaud/skyux-modals/pull/7)
 - Fixed section forms in modals to set minimum height of 460px. [blackbaud/skyux-modals#18](https://github.com/blackbaud/skyux-modals/pull/18)
 - Fixed modal service to prevent errors during initialization. [blackbaud/skyux-modals#13](https://github.com/blackbaud/skyux-modals/pull/13)
-- Fixed blocking wait components to block focus during tab navigation. [blackbaud/skyux-indicators#4](https://github.com/blackbaud/skyux-indicators/pull/4)
+- Fixed wait component to prevent tab navigation during blocking waits. [blackbaud/skyux-indicators#4](https://github.com/blackbaud/skyux-indicators/pull/4)
 - Fixed tile component's help button to display by default when consumer provides `helpClick` listener. [blackbaud/skyux-tiles#18](https://github.com/blackbaud/skyux-tiles/pull/18)
 
 # 2.33.1 (2018-12-11)
