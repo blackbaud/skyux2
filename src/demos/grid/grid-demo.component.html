@@ -1,7 +1,9 @@
+<h3>Grid with async column</h3>
+
 <sky-grid
   fit="scroll"
-  [data]="items"
-  (sortFieldChange)="sortChanged($event)">
+  [data]="dataForSimpleGrid"
+  (sortFieldChange)="sortChangedSimpleGrid($event)">
   <sky-grid-column
     id="column1"
     field="column1"
@@ -36,3 +38,59 @@
     Column 2: {{row.column2}}
   </div>
 </ng-template>
+
+<h3>Grid with multiselect enabled</h3>
+
+<div
+  class="sky-margin-stacked-default"
+>
+  <button
+    class="sky-btn sky-btn-primary"
+    type="button"
+    (click)="selectAll()"
+  >
+    Select all
+  </button>
+
+  <button
+    class="sky-btn sky-btn-primary"
+    type="button"
+    (click)="clearAll()"
+  >
+    Clear all
+  </button>
+</div>
+
+<div
+  id="screenshot-grid-multiselect"
+>
+  <sky-grid
+    fit="scroll"
+    [data]="dataForSimpleGridWithMultiselect"
+    [enableMultiselect]="true"
+    [messageStream]="gridController"
+    [multiselectRowId]="'myRowId'"
+    (multiselectSelectionChange)="onMultiselectSelectionChange($event)"
+    (sortFieldChange)="sortChangedMultiselectGrid($event)"
+  >
+    <sky-grid-column
+      field="myRowId"
+      heading="Custom Row Id"
+    ></sky-grid-column>
+    <sky-grid-column
+      field="column1"
+      heading="Column1"
+    ></sky-grid-column>
+    <sky-grid-column
+      field="column2"
+      heading="Column2"
+    ></sky-grid-column>
+    <sky-grid-column
+      field="column3"
+      heading="Column3"
+    ></sky-grid-column>
+  </sky-grid>
+
+  <p>Selected rows:</p>
+  <p>{{ selectedRows }}</p>
+</div>
