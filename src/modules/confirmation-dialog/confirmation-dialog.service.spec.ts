@@ -1,21 +1,27 @@
-import { SkyConfirmationDialogService } from './confirmation-dialog.service';
-import { SkyConfirmationDialogConfig } from './confirmation-dialog-config';
-import { SkyConfirmationDialogType } from './confirmation-dialog-type';
-import { MockModalService } from './fixtures/mocks';
-import { SkyConfirmationDialogComponent } from './confirmation-dialog.component';
+import {
+  SkyConfirmationDialogService
+} from './confirmation-dialog.service';
+
+import {
+  SkyConfirmationDialogConfig
+} from './confirmation-dialog-config';
+
+import {
+  SkyConfirmationDialogType
+} from './confirmation-dialog-type';
+
+import {
+  MockModalService
+} from './fixtures/mocks';
+
+import {
+  SkyConfirmationDialogComponent
+} from './confirmation-dialog.component';
 
 describe('Confirmation dialog service', () => {
   it('should open confirmation dialog with correct parameters', () => {
     let modalService = new MockModalService(
-      {
-        resolveComponentFactory() {}
-      } as any,
-      {
-        bootstrap() {}
-      } as any,
-      {
-        addHostEl: function (): any {}
-      } as any
+      undefined
     );
 
     const config: SkyConfirmationDialogConfig = {

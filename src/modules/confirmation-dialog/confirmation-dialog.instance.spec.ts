@@ -1,11 +1,19 @@
-import { MockModalService } from './fixtures/mocks';
-import { SkyConfirmationDialogInstance } from './confirmation-dialog.instance';
-import { SkyConfirmationDialogType } from './confirmation-dialog-type';
+import {
+  MockModalService
+} from './fixtures/mocks';
+
+import {
+  SkyConfirmationDialogInstance
+} from './confirmation-dialog.instance';
+
+import {
+  SkyConfirmationDialogType
+} from './confirmation-dialog-type';
 
 describe('Confirmation dialog instance', () => {
   it('should allow users to subscribe to the close event', function () {
     let confirmInstance = new SkyConfirmationDialogInstance();
-    let modalService = new MockModalService(undefined, undefined, undefined);
+    let modalService = new MockModalService(undefined);
     let expectedResult: string;
 
     const config: any = {
