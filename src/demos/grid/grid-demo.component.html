@@ -1,38 +1,73 @@
+<h3>Grid with async column and templated column</h3>
 <sky-grid
   fit="scroll"
-  [data]="items"
-  (sortFieldChange)="sortChanged($event)">
+  [data]="data"
+  (sortFieldChange)="onSortChangeForGrid($event)">
   <sky-grid-column
-    id="column1"
-    field="column1"
+    id="name"
+    field="name"
+    heading="Name">
+  </sky-grid-column>
+  <sky-grid-column
+    id="email"
+    field="email"
+    heading="Email">
+  </sky-grid-column>
+  <sky-grid-column
+    id="amount"
+    field="amount"
     [heading]="asyncHeading | async">
   </sky-grid-column>
   <sky-grid-column
-    id="column2"
-    field="column2"
-    heading="Column2">
-  </sky-grid-column>
-  <sky-grid-column
-    id="column3"
-    field="column3"
-    heading="Column3">
-  </sky-grid-column>
-  <sky-grid-column
-    id="composite"
-    field="composite"
-    heading="Composite column"
+    id="status"
+    field="status"
+    heading="Status"
     [template]="customColumnTemplate">
   </sky-grid-column>
 </sky-grid>
 
 <ng-template
-  let-row="row"
   let-value="value"
-  #customColumnTemplate>
-  <div>
-    Value: {{value}}
-  </div>
-  <div>
-    Column 2: {{row.column2}}
+  #customColumnTemplate
+>
+  <div
+    [ngClass]="{ 'sky-text-danger' : value === 'Past due' }"
+  >
+    {{ value }}
   </div>
 </ng-template>
+
+<h3>Grid with multiselect enabled</h3>
+<div
+  id="screenshot-grid-multiselect"
+>
+  <sky-grid
+    fit="scroll"
+    [data]="dataForMultiselect"
+    [enableMultiselect]="true"
+    [messageStream]="gridController"
+    [multiselectRowId]="'myRowId'"
+    (multiselectSelectionChange)="onMultiselectSelectionChange($event)"
+    (sortFieldChange)="onSortChangeForMultiselectGrid($event)"
+  >
+    <sky-grid-column
+      field="name"
+      heading="Name"
+    ></sky-grid-column>
+    <sky-grid-column
+      field="email"
+      heading="Email"
+    ></sky-grid-column>
+    <sky-grid-column
+      field="amount"
+      heading="Amount"
+    ></sky-grid-column>
+    <sky-grid-column
+      field="status"
+      heading="Status"
+    ></sky-grid-column>
+  </sky-grid>
+
+  <p>Selected rows:</p>
+  <p>{{ selectedRows }}</p>
+</div>
