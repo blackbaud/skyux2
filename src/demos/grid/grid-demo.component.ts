@@ -27,27 +27,39 @@ import {
 })
 export class SkyGridDemoComponent implements OnInit {
 
-  public dataForGrid: any[] = [
-    { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples', composite: 'Comp A' },
-    { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas', composite: 'Comp B' },
-    { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears', composite: 'Comp C' },
-    { id: '4', column1: 404, column2: 'Grape', column3: 'George eats grapes', composite: 'Comp D' },
-    { id: '5', column1: 505, column2: 'Banana', column3: 'Becky eats bananas',
-      composite: 'Comp E' },
-    { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons', composite: 'Comp F' },
-    { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries',
-      composite: 'Comp G' }
+  // public dataForGrid: any[] = [
+  //   { id: '1', count: 101, fruit: 'Apple', fruitEater: 'Anne eats apples', composite: 'Comp A' },
+  //   { id: '2', count: 202, fruit: 'Banana', fruitEater: 'Ben eats bananas', composite: 'Comp B' },
+  //   { id: '3', count: 303, fruit: 'Pear', fruitEater: 'Patty eats pears', composite: 'Comp C' },
+  //   { id: '4', count: 404, fruit: 'Grape', fruitEater: 'George eats grapes', composite: 'Comp D' },
+  //   { id: '5', count: 505, fruit: 'Banana', fruitEater: 'Becky eats bananas',
+  //     composite: 'Comp E' },
+  //   { id: '6', count: 606, fruit: 'Lemon', fruitEater: 'Larry eats lemons', composite: 'Comp F' },
+  //   { id: '7', count: 707, fruit: 'Strawberry', fruitEater: 'Sally eats strawberries',
+  //     composite: 'Comp G' }
+  // ];
+
+  // public dataForGridWithMultiselect = [
+  //   { id: '1', count: '101', fruit: 'Apple', fruitEater: 'Anne eats apples', myRowId: '101' },
+  //   { id: '2', count: '202', fruit: 'Banana', fruitEater: 'Ben eats bananas', myRowId: '102' },
+  //   { id: '3', count: '303', fruit: 'Banana', fruitEater: 'Becky eats bananas', myRowId: '103' },
+  //   { id: '4', count: '404', fruit: 'Cherry', fruitEater: 'Cat eats Cherries', myRowId: '104' },
+  //   { id: '5', count: '505', fruit: 'Dragon Fruit', fruitEater: 'Dave eats dragon fruit', myRowId: '105' },
+  //   { id: '6', count: '606', fruit: 'Fig', fruitEater: 'Frank eats figs', myRowId: '106' },
+  //   { id: '7', count: '707', fruit: 'Grape', fruitEater: 'George eats grapes', myRowId: '107' }
+  // ];
+
+  public dataForGrid = [
+    { id: '1', name: 'Niels Bohr', email: 'niels.bohr@blackbaud.com', amount: 170.75, status: 'Paid' },
+    { id: '2', name: 'Ada Lovelace', email: 'ada.lovelace@blackbaud.com', amount: 114.13, status: 'Paid' },
+    { id: '3', name: 'Marie Curie', email: 'marie.curie@blackbaud.com', amount: 111, status: 'Past due' },
+    { id: '4', name: 'Barbara McClintock', email: 'barbara.mcclintock@blackbaud.com', amount: 84.63, status: 'Paid' },
+    { id: '5', name: 'Michael Faraday', email: 'michael.faraday@blackbaud.com', amount: 83.97, status: 'Paid' },
+    { id: '6', name: 'Enrico Fermi', email: 'enrico.fermi@blackbaud.com', amount: 74.5, status: 'Past due' },
+    { id: '7', name: 'Mae C. Jemison', email: 'mae.jemison@blackbaud.com', amount: 70.86, status: 'Paid' }
   ];
 
-  public dataForGridWithMultiselect = [
-    { id: '1', column1: '1', column2: 'Apple', column3: 'aa', myRowId: '101' },
-    { id: '2', column1: '01', column2: 'Banana', column3: 'bb', myRowId: '102' },
-    { id: '3', column1: '11', column2: 'Banana', column3: 'cc', myRowId: '103' },
-    { id: '4', column1: '12', column2: 'Daikon', column3: 'dd', myRowId: '104' },
-    { id: '5', column1: '13', column2: 'Edamame', column3: 'ee', myRowId: '105' },
-    { id: '6', column1: '20', column2: 'Fig', column3: 'ff', myRowId: '106' },
-    { id: '7', column1: '21', column2: 'Grape', column3: 'gg', myRowId: '107' }
-  ];
+  public dataForGridWithMultiselect = this.dataForGrid.slice(0);
 
   public asyncHeading = new BehaviorSubject<string>('');
 
@@ -58,7 +70,7 @@ export class SkyGridDemoComponent implements OnInit {
   public ngOnInit() {
     // Simulate async request:
     setTimeout(() => {
-      this.asyncHeading.next('Column1');
+      this.asyncHeading.next('Amount');
     }, 1000);
   }
 

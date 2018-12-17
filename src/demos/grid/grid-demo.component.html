@@ -1,66 +1,47 @@
-<h3>Grid with async column</h3>
-
+<h3>Grid with async column and templated column</h3>
 <sky-grid
   fit="scroll"
   [data]="dataForGrid"
   (sortFieldChange)="onSortChangeForGrid($event)">
   <sky-grid-column
-    id="column1"
-    field="column1"
+    id="name"
+    field="name"
+    heading="Name">
+  </sky-grid-column>
+  <sky-grid-column
+    id="email"
+    field="email"
+    heading="Email">
+  </sky-grid-column>
+  <sky-grid-column
+    id="amount"
+    field="amount"
     [heading]="asyncHeading | async">
   </sky-grid-column>
   <sky-grid-column
-    id="column2"
-    field="column2"
-    heading="Column2">
-  </sky-grid-column>
-  <sky-grid-column
-    id="column3"
-    field="column3"
-    heading="Column3">
-  </sky-grid-column>
-  <sky-grid-column
-    id="composite"
-    field="composite"
-    heading="Composite column"
+    id="status"
+    field="status"
+    heading="Status"
     [template]="customColumnTemplate">
   </sky-grid-column>
 </sky-grid>
 
 <ng-template
-  let-row="row"
   let-value="value"
-  #customColumnTemplate>
-  <div>
-    Value: {{value}}
-  </div>
-  <div>
-    Column 2: {{row.column2}}
+  #customColumnTemplate
+>
+  <div
+    [ngClass]="{ 'sky-emphasized' : value === 'Past due' }"
+  >
+    <sky-icon *ngIf="value === 'Past due'"
+      icon="warning"
+    >
+    </sky-icon>
+    {{ value }}
   </div>
 </ng-template>
 
 <h3>Grid with multiselect enabled</h3>
-
-<div
-  class="sky-margin-stacked-default"
->
-  <button
-    class="sky-btn sky-btn-primary"
-    type="button"
-    (click)="selectAll()"
-  >
-    Select all
-  </button>
-
-  <button
-    class="sky-btn sky-btn-primary"
-    type="button"
-    (click)="clearAll()"
-  >
-    Clear all
-  </button>
-</div>
-
 <div
   id="screenshot-grid-multiselect"
 >
@@ -74,20 +55,20 @@
     (sortFieldChange)="onSortChangeForMultiselectGrid($event)"
   >
     <sky-grid-column
-      field="myRowId"
-      heading="Custom Row Id"
+      field="name"
+      heading="Name"
     ></sky-grid-column>
     <sky-grid-column
-      field="column1"
-      heading="Column1"
+      field="email"
+      heading="Email"
     ></sky-grid-column>
     <sky-grid-column
-      field="column2"
-      heading="Column2"
+      field="amount"
+      heading="Amount"
     ></sky-grid-column>
     <sky-grid-column
-      field="column3"
-      heading="Column3"
+      field="status"
+      heading="Status"
     ></sky-grid-column>
   </sky-grid>
 
