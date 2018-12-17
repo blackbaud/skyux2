@@ -1,7 +1,7 @@
 <h3>Grid with async column and templated column</h3>
 <sky-grid
   fit="scroll"
-  [data]="dataForGrid"
+  [data]="data"
   (sortFieldChange)="onSortChangeForGrid($event)">
   <sky-grid-column
     id="name"
@@ -47,7 +47,7 @@
 >
   <sky-grid
     fit="scroll"
-    [data]="dataForGridWithMultiselect"
+    [data]="dataForMultiselect"
     [enableMultiselect]="true"
     [messageStream]="gridController"
     [multiselectRowId]="'myRowId'"
