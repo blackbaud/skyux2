@@ -31,12 +31,8 @@
   #customColumnTemplate
 >
   <div
-    [ngClass]="{ 'sky-emphasized' : value === 'Past due' }"
+    [ngClass]="{ 'sky-text-danger' : value === 'Past due' }"
   >
-    <sky-icon *ngIf="value === 'Past due'"
-      icon="warning"
-    >
-    </sky-icon>
     {{ value }}
   </div>
 </ng-template>
