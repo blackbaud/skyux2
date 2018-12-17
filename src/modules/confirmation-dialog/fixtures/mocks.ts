@@ -23,9 +23,12 @@ export interface OpenParameters {
 export class MockModalService extends SkyModalService {
   public openCalls: OpenParameters[] = [];
 
-  public open(component: any, config?: IConfig): SkyModalInstanceMock {
-    this.openCalls.push({component: component, config: config });
+  public open(component: any, providers?: any[]): SkyModalInstanceMock;
 
+  public open(component: any, config?: IConfig): SkyModalInstanceMock;
+
+  public open(component: any, config?: any) {
+    this.openCalls.push({component: component, config: config });
     return new SkyModalInstanceMock();
   }
 }
