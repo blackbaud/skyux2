@@ -1,3 +1,12 @@
+# 2.35.0 (2018-12-19)
+
+- Added multiselect feature to display column of checkboxes on grid component. [blackbaud/skyux-grids#6](https://github.com/blackbaud/skyux-grids/pull/6)
+- Fixed `SkyDynamicComponentService` to fully destroy components which are dynamically removed. [blackbaud/skyux-core#55](https://github.com/blackbaud/skyux-core/pull/55)
+- Fixed repeater component to properly handle overflow content. [blackbaud/skyux-lists#9](https://github.com/blackbaud/skyux-lists/pull/9)
+- Fixed repeater item component to vertically align context menus and checkboxes correctly. [blackbaud/skyux-lists#10](https://github.com/blackbaud/skyux-lists/pull/10)
+- Fixed vertical tabset group component to not accept clicks and have proper visual styles when disabled [blackbaud/skyux-tabs#7](https://github.com/blackbaud/skyux-tabs/pull/7)
+
+
 # 2.34.0 (2018-12-14)
 
 - Added ability to prevent modals from closing. [blackbaud/skyux-modals#7](https://github.com/blackbaud/skyux-modals/pull/7)
