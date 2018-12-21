@@ -1,3 +1,13 @@
+# 2.36.0 (2018-12-21)
+
+- Added iterator buttons to the flyout component. [blackbaud/skyux-flyout#10](https://github.com/blackbaud/skyux-flyout/pull/10) (Thanks @Theaggarwal)
+- Fixed datepicker and timepicker components to properly transform provided values on initial load in reactive forms. [blackbaud/skyux-datetime#7](https://github.com/blackbaud/skyux-datetime/issues/7)
+- Fixed grid component to only listen to `mousemove` and `mouseup` events while resizing columns. [blackbaud/skyux-grids#25](https://github.com/blackbaud/skyux-grids/pull/25)
+- Fixed toast service to remove toaster component if all toast component instances have been closed. [blackbaud/skyux-toast#9](https://github.com/blackbaud/skyux-toast/pull/9)
+- Updated flyout service to utilize `SkyDynamicComponentService`. [blackbaud/skyux-flyout#9](https://github.com/blackbaud/skyux-flyout/pull/9)
+- Updated modal dependencies to ensure proper modal host component removal [blackbaud/skyux-modals#20](https://github.com/blackbaud/skyux-modals/pull/20)
+- Updated toast service to utilize `SkyDynamicComponentService` [blackbaud/skyux-toast#6](https://github.com/blackbaud/skyux-toast/pull/6)
+
 # 2.35.0 (2018-12-19)
 
 - Added multiselect feature to display column of checkboxes on grid component. [blackbaud/skyux-grids#6](https://github.com/blackbaud/skyux-grids/pull/6)
