@@ -1,13 +1,12 @@
 import {
   Component,
-  OnInit,
-  AfterViewInit
+  OnInit
 } from '@angular/core';
 
 import {
-  FormGroup,
   FormBuilder,
   FormControl,
+  FormGroup,
   Validators
 } from '@angular/forms';
 
@@ -38,7 +37,10 @@ export class SkyTimepickerDemoComponent implements OnInit {
     });
   }
 
-  public clearSelectedTime() {
+  public clearSelectedTimes() {
     this.selectedTime1 = undefined;
+    this.reactiveTime.setValue(undefined);
+
+    console.log('Form value:', this.reactiveForm.value);
   }
 }

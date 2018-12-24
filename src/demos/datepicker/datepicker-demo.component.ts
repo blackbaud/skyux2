@@ -17,7 +17,7 @@ import {
 export class SkyDatepickerDemoComponent implements OnInit {
   public minDate: Date;
   public maxDate: Date;
-  public selectedDate: Date;
+  public selectedDate = '4/4/2017';
   public reactiveForm: FormGroup;
 
   public get reactiveDate() {
@@ -34,7 +34,8 @@ export class SkyDatepickerDemoComponent implements OnInit {
     });
   }
 
-  public clearSelectedDate(): void {
+  public clearSelectedDates(): void {
     this.selectedDate = undefined;
+    this.reactiveDate.setValue(undefined);
   }
 }

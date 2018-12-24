@@ -11,12 +11,13 @@
       [skyDatepickerInput]="picker"
       [minDate]="minDate"
       [maxDate]="maxDate"
-      #date="ngModel"/>
+      #date="ngModel"
+    />
   </sky-datepicker>
-  <div
-    class="sky-error-label"
-    *ngIf="date.errors && date.errors.skyDate && (date.dirty || date.touched)">
 
+  <p *ngIf="date.errors && date.errors.skyDate && (date.dirty || date.touched)"
+    class="sky-error-label"
+  >
     <span [hidden]="!date.errors.skyDate.invalid">
       Please enter a valid date.
     </span>
@@ -28,15 +29,11 @@
     <span [hidden]="!date.errors.skyDate.maxDate">
       Date is after maximum date range.
     </span>
-  </div>
-</div>
-
-<div>
-  Selected date is {{ selectedDate }}
+  </p>
 </div>
 
 <p>
-  <button class="sky-btn sky-btn-secondary" (click)="clearSelectedDate()">Clear selected date</button>
+  Selected date is {{ selectedDate }}
 </p>
 
 <h2
@@ -53,24 +50,34 @@
   <sky-datepicker #reactivePicker>
     <input
       formControlName="selectedDate"
-      [skyDatepickerInput]="reactivePicker"
       [minDate]="minDate"
       [maxDate]="maxDate"
+      [skyDatepickerInput]="reactivePicker"
     />
   </sky-datepicker>
 </form>
 
-<div>
+<p>
   Reactive form selected date is {{ reactiveDate.value }}
-</div>
+</p>
 
-<div *ngIf="reactiveDate.errors && (reactiveDate.dirty || reactiveDate.touched)"
+<p *ngIf="reactiveDate.errors && (reactiveDate.dirty || reactiveDate.touched)"
   class="sky-error-label"
 >
-  <p *ngIf="reactiveDate.errors.required">
+  <span *ngIf="reactiveDate.errors.required">
     This date is required. Please supply a value.
-  </p>
-  <p *ngIf="reactiveDate.errors.skyDate">
+  </span>
+
+  <span *ngIf="reactiveDate.errors.skyDate">
     The date you have entered is invalid. Please enter a valid date or use the picker.
-  </p>
-</div>
+  </span>
+</p>
+
+<p>
+  <button
+    class="sky-btn sky-btn-secondary"
+    (click)="clearSelectedDates()"
+  >
+    Clear selected dates
+  </button>
+</p>
